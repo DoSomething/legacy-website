@@ -1,5 +1,7 @@
 # DoSomething
 
+[![wercker status](https://app.wercker.com/status/4996f854347529d2fc43a44b4ac50a2d "wercker status")](https://app.wercker.com/project/bykey/4996f854347529d2fc43a44b4ac50a2d)
+
 A private Drupal 7 distribution that will power the DoSomething.org website.
 
 ## Contributing
