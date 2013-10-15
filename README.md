@@ -1,4 +1,3 @@
-dosomething.org
-===============
+# DoSomething
 
-The wave of the future.
+A private Drupal 7 distribution that will power the DoSomething.org website.
