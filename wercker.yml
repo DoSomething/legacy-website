@@ -1,0 +1,6 @@
+box: wercker/php
+services:
+    - wercker/mysql
+build:
+    steps:
+        - desmondmorris/drush
