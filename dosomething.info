@@ -1,0 +1,20 @@
+name = DoSomething
+description = An installation profile for the DoSomething build.
+core = 7.x
+
+; CORE
+dependencies[] = block
+dependencies[] = node
+dependencies[] = search
+
+; CONTRIB
+dependencies[] = admin_menu
+dependencies[] = date
+dependencies[] = features
+dependencies[] = mandrill
+dependencies[] = module_filter
+dependencies[] = metatag
+dependencies[] = strongarm
+dependencies[] = views
+
+; DOSOMETHING
