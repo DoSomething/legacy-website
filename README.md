@@ -4,6 +4,20 @@
 
 A private Drupal 7 distribution that will power the DoSomething.org website.
 
+## Building your local environment
+
+DoSomething uses Salty [Vagrant](http://docs-v1.vagrantup.com/v1/docs/getting-started/) for our development box.
+
+To get started, please confirm that you have [Vagrant](http://docs-v1.vagrantup.com/v1/docs/getting-started/) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed.  For more information, go to https://www.virtualbox.org/wiki/Downloads.
+
+To start up your environment:
+
+1. Run `vagrant up` from the application directory.  It will take some time to set everything up.
+2. When `vagrant up` is complete, run `vagrant ssh`.  This will take you into the mounted application.
+
+Your environment will be available at localhost:8888.
+Change to the `/vagrant/html` directory (`cd /vagrant/html` after running `vagrant ssh`) to edit your files.
+
 ## Contributing
 
 1. Fork
