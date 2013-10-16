@@ -65,6 +65,9 @@ projects[token][subdir] = "contrib"
 projects[views] = "7.x-3.7"
 projects[views][subdir] = "contrib"
 
+; WYSIWYG
+projects[wysiwyg] = "7.x-2.2"
+projects[wysiwyg][subdir] = "contrib"
 
 ; DEVELOPMENT
 
