@@ -2,7 +2,7 @@
 
 drush-make:
   cmd.run:
-    - name: cd /vagrant && drush make drupal-org-core.make html
+    - name: cd /vagrant && drush make build-dosomething.make html
     - require:
       - cmd: pear-drush
 
@@ -14,7 +14,7 @@ database-setup:
 
 site-install:
   cmd.run:
-    - name: cd /vagrant/html && drush site-install standard -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+    - name: cd /vagrant/html && drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
     - require:
       - cmd: database-setup
 
