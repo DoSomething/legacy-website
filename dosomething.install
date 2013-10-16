@@ -3,3 +3,24 @@
  * @file
  * Install, update and uninstall functions for the DoSomething installation profile.
  */
+
+/**
+ * Implements hook_install_tasks().
+ */
+function dosomething_install_tasks($install_state) {
+  $tasks = array (
+    'dosomething_configure' => array(),
+  );
+  return $tasks;
+}
+
+/**
+ * Set up base configuration.
+ */
+function dosomething_configure() {
+	// Set admin theme to Seven:
+  variable_set('admin_theme', 'seven');
+  // Use admin theme for editing content:
+  variable_set('node_admin_theme', 1);
+  drupal_set_message(t('DoSomething defaults configured.'));
+}
