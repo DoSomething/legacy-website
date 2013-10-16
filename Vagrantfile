@@ -7,6 +7,9 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--memory", 1024]
   end
 
+  # SSH Agent forwarding
+  config.ssh.forward_agent = true
+
   ## For masterless, mount your salt file root
   config.vm.synced_folder "salt/roots/", "/srv/"
   
