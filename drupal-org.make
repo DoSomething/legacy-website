@@ -77,3 +77,10 @@ projects[environment_indicator] = "7.x-2.0"
 projects[environment_indicator][subdir] = "contrib"
 
 ; THEMES
+
+; LIBRARIES
+
+; DSAPI PHP Library
+libraries[dsapi][download][type] = "git"
+libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
+
