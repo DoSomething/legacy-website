@@ -1,8 +1,8 @@
 api = 2
-core = 7.23
+core = 7.x
 
-; Drupal
-projects[] = drupal
+; Include the definition for how to build Drupal core directly:
+includes[] = drupal-org-core.make
 
 ; Dosomething Profile
 projects[dosomething][type] = profile
