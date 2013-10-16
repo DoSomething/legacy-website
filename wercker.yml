@@ -4,15 +4,16 @@ services:
 build:
     steps:
         - desmondmorris/drush
-        - script: # This will change once we have the build make file ready
+        - script: 
             name: Drush make
             code: |-
-                drush make drupal-org-core.make build
-        - script: # The standard profile will change to dosomething when ready
+                echo $WERCKER_KEY_PRIVATE >> private.txt
+                ssh-agent bash -c 'ssh-add private.txt; drush make build-dosomething.make build'
+        - script: 
             name: Install Drupal
             code: |-
                 cd $WERCKER_SOURCE_DIR/build
-                drush site-install standard --db-url=$WERCKER_MYSQL_URL -y
+                drush site-install dosomething --db-url=$WERCKER_MYSQL_URL -y
         - script:
             name: Enable simpletest
             code: |-
