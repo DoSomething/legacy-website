@@ -135,4 +135,8 @@ git:
   pkg:
     - installed
 
+vim:
+  cmd.run:
+    - name: sudo apt-get install vim --yes
+
 {% endif %}
