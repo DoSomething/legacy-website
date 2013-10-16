@@ -6,8 +6,8 @@ core = "7.x"
 ; MODULES
 
 ; Admin menu
-projects[admin] = "7.x-3.0-rc4"
-projects[admin][subdir] = "contrib"
+projects[admin_menu] = "7.x-3.0-rc4"
+projects[admin_menu][subdir] = "contrib"
 
 ; Ctools
 projects[ctools] = "7.x-1.3"
