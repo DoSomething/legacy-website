@@ -85,7 +85,7 @@ projects[environment_indicator][subdir] = "contrib"
 
 ; CKEditor 
 libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_full.zip"
+libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
 
 ; DSAPI PHP Library
 libraries[dsapi][download][type] = "git"
