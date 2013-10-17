@@ -15,6 +15,8 @@ To start up your environment:
 
 Your environment will be available at localhost:8888.
 
+If you see a "Not Found" error, run the following from `/vagrant`: `sh build.sh`.
+
 Change to the `/vagrant/html` directory (`cd /vagrant/html` after running `vagrant ssh`) to edit your files.
 
 ## Contributing
