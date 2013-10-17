@@ -13,6 +13,7 @@
   * @return bool
   */
 function dosomething_general_valid_cell($number) {
-  return !empty(preg_match('#(?:^1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number));
+  preg_match('#(?:^1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
+  return !empty($valid) && strpos($number, '555') === FALSE;
 }
 

@@ -14,12 +14,20 @@ class DosomethingGeneralTestCase extends DrupalUnitTestCase {
 
   function testValidCell() {
     $good = '718-224-9982';
+    $country = '1-718-224-9982';
+    $stuff = '1 (718) 224.9982';
     $bad = '718-555-2234';
+    $too_short = '718-224';
     $even_worse = 'abcdefg';
+    $bad_punctuation = '718#224_9982';
 
     $this->assertTrue(dosomething_general_valid_cell($good));
+    $this->assertTrue(dosomething_general_valid_cell($country));
+    $this->assertTrue(dosomething_general_valid_cell($stuff));
     $this->assertFalse(dosomething_general_valid_cell($bad));
+    $this->assertFalse(dosomething_general_valid_cell($too_short));
     $this->assertFalse(dosomething_general_valid_cell($even_worse));
+    $this->assertFalse(dosomething_general_valid_cell($bad_punctuation));
   }
 }
 

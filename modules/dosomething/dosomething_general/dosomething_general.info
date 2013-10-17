@@ -1,3 +1,4 @@
 name = DoSomething General
 description = Site-wide functionality for DoSomething app.
 core = 7.x
+files[] = dosomething_general.unit.test
