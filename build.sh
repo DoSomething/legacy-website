@@ -45,6 +45,10 @@ echo 'Linking modules'
 rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
 ln -s "$ABS_CALLPATH/modules/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
 
+echo 'Linking themes'
+rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
+ln -s "$ABS_CALLPATH/themes/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
+
 # Clear caches and Run updates
 cd "$DRUPAL"
 echo 'Clearing caches...'
