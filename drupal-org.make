@@ -68,6 +68,7 @@ projects[views][subdir] = "contrib"
 ; WYSIWYG
 projects[wysiwyg] = "7.x-2.2"
 projects[wysiwyg][subdir] = "contrib"
+projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckeditor-1853550-46.patch"
 
 ; DEVELOPMENT
 
