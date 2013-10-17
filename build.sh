@@ -28,18 +28,18 @@ echo 'Running drush make...'
 drush make $DRUSH_OPTS "$ABS_CALLPATH/$MAKEFILE" "$TARGET"
 set +e
 
-echo 'Symlink profile, module and themes'
-echo 'Linking dosomething.info'
-rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.info"
-ln -s "$ABS_CALLPATH/dosomething.info" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.info"
+# echo 'Symlink profile, module and themes'
+# echo 'Linking dosomething.info'
+# rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.info"
+# ln -s "$ABS_CALLPATH/dosomething.info" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.info"
 
-echo 'Linking dosomething.install'
-rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.install"
-ln -s "$ABS_CALLPATH/dosomething.install" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.install"
+# echo 'Linking dosomething.install'
+# rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.install"
+# ln -s "$ABS_CALLPATH/dosomething.install" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.install"
 
-echo 'Linking dosomething.profile'
-rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.profile"
-ln -s "$ABS_CALLPATH/dosomething.profile" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.profile"
+# echo 'Linking dosomething.profile'
+# rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.profile"
+# ln -s "$ABS_CALLPATH/dosomething.profile" "$ABS_CALLPATH/$TARGET/profiles/dosomething/dosomething.profile"
 
 echo 'Linking modules'
 rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
