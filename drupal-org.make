@@ -1,7 +1,7 @@
 ; Contrib modules, themes and libraries
 
-api = "2"
-core = "7.x"
+api = 2
+core = 7.x
 
 ; MODULES
 
@@ -65,6 +65,9 @@ projects[token][subdir] = "contrib"
 projects[views] = "7.x-3.7"
 projects[views][subdir] = "contrib"
 
+; WYSIWYG
+projects[wysiwyg] = "7.x-2.2"
+projects[wysiwyg][subdir] = "contrib"
 
 ; DEVELOPMENT
 
@@ -77,3 +80,13 @@ projects[environment_indicator] = "7.x-2.0"
 projects[environment_indicator][subdir] = "contrib"
 
 ; THEMES
+
+; LIBRARIES
+
+; CKEditor 
+libraries[ckeditor][download][type] = "get"
+libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
+
+; DSAPI PHP Library
+libraries[dsapi][download][type] = "git"
+libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
