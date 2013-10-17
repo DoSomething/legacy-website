@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Site-wide functionality and "everything else" business for DoSomething app.
+ */
+
+ /**
+  * Confirms that a specific cell phone number is valid.
+  
+  * @param string $number
+  *   The cell phone number that should be validated.
+  * @return bool
+  */
+function dosomething_general_valid_cell($number) {
+  return !empty(preg_match('#(?:^1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number));
+}
+

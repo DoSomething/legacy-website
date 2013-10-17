@@ -1,0 +1,25 @@
+<?php
+
+class DosomethingGeneralTestCase extends DrupalUnitTestCase {
+  public function getInfo() {
+    return array(
+      'name' => 'DoSomething General tests',
+      'description' => 'Runs tests for basic, site-wide functionality on DoSomething app.',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp();
+  }
+
+  function testValidCell() {
+    $good = '718-224-9982';
+    $bad = '718-555-2234';
+    $even_worse = 'abcdefg';
+
+    $this->assertTrue(dosomething_general_valid_cell($good));
+    $this->assertFalse(dosomething_general_valid_cell($bad));
+    $this->assertFalse(dosomething_general_valid_cell($even_worse));
+  }
+}
+
