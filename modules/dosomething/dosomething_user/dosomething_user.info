@@ -1,0 +1,4 @@
+name = DoSomething User
+description = Functionality for users on DoSomething.
+core = 7.x
+files[] = dosomething_user.unit.test
