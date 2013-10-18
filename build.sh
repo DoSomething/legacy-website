@@ -50,8 +50,13 @@ rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
 ln -s "$ABS_CALLPATH/themes/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
 
 # Clear caches and Run updates
-cd "$DRUPAL"
+cd "$TARGET"
+
+echo 'Installing site...'
+drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+
 echo 'Clearing caches...'
+
 #drush cc all; drush cc all;
 #echo 'Running updates...'
 #drush updb -y;
