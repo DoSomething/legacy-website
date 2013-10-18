@@ -13,5 +13,14 @@ db-prepare:
   require:
     - pkg: mysql-server
 
+db-dump-folder:
+  cmd.run:
+    - name: mkdir -p ~/db_dumps
+  require:
+    - cmd: db-prepare
+
+ds-utils:
+  cmd.run:
+    - name: sudo ln -s /vagrant/ds /usr/local/bin/ds
 
 {% endif %}
