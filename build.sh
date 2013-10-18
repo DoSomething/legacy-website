@@ -55,9 +55,13 @@ cd "$TARGET"
 echo 'Installing site...'
 drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
 
-echo 'Clearing caches...'
+echo 'Granting basic permissions...'
+drush rap 'anonymous user' 'access content'
+drush rap 'authenticated user' 'access content'
 
-#drush cc all; drush cc all;
+echo 'Clearing caches...'
+drush cc all
+
 #echo 'Running updates...'
 #drush updb -y;
 # @TODO Figure out why this cc all is needed

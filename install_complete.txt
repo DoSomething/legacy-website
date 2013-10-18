@@ -8,3 +8,7 @@ finish building your environment:
 
 Your environment will be available at localhost:8888.
 
+Please note: The initial administrator account is created by the build.sh
+script.  Look for a line along the lines of this:
+
+"Installation complete.  User name: admin  User password: xxxxx"
