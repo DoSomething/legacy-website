@@ -1,0 +1,17 @@
+That's it!
+
+If this is the first time you ran "vagrant up", follow these steps to
+finish building your environment:
+
+1. Run "vagrant ssh" from this directory.
+2. When complete, run "cd /vagrant && sh build.sh --install"
+
+Your environment will be available at localhost:8888.
+
+Please note: The initial administrator account is created by the build.sh
+script.  Look for a line like this:
+
+"Installation complete.  User name: admin  User password: xxxxx"
+
+To rebuild your environment, run "cd /vagrant && sh build.sh" (no --install)
+at any time.

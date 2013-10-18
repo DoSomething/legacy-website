@@ -23,6 +23,10 @@ echo '                   \__\/    ';
 set -e
 echo 'Wiping build directory...'
 rm -rf "$TARGET"
+
+# Create the db, if for some reason it's not there yet.
+mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
+
 # Do the build
 echo 'Running drush make...'
 drush make $DRUSH_OPTS "$ABS_CALLPATH/$MAKEFILE" "$TARGET"
@@ -50,9 +54,24 @@ rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
 ln -s "$ABS_CALLPATH/themes/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething"
 
 # Clear caches and Run updates
-cd "$DRUPAL"
+cd "$TARGET"
+
+if [[ $1 == "--install" ]]
+  then
+    echo 'Installing site...'
+    drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+
+    echo 'Granting basic permissions...'
+    drush rap 'anonymous user' 'access content'
+    drush rap 'authenticated user' 'access content'
+fi
+
+echo 'Replacing settings.php file...'
+rm -f ./sites/default/settings.php && ln -s /vagrant/settings.php ./sites/default/settings.php
+
 echo 'Clearing caches...'
-#drush cc all; drush cc all;
+drush cc all
+
 #echo 'Running updates...'
 #drush updb -y;
 # @TODO Figure out why this cc all is needed

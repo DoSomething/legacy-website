@@ -7,12 +7,11 @@ github-access:
     - require:
       - pkg: apache2
 
-drush-make:
+db-prepare:
   cmd.run:
-    - name: cd /vagrant && sudo sh build.sh
-    - require:
-      - cmd: pear-drush
-      - pkg: github-access
+    - name: mysqladmin -uroot create dosomething
+  require:
+    - pkg: mysql-server
 
 
 {% endif %}
