@@ -8,12 +8,6 @@ CALLPATH=`dirname "$0"`
 ABS_CALLPATH=`cd "$CALLPATH"; pwd -P`
 BASE_PATH=`cd ..; pwd`
 
-RUN_INSTALL="false"
-if [[ $1 == "--install" ]]
-  then
-    RUN_INSTALL="true"
-fi
-
 echo '     _____          ___     ';
 echo '    /  /::\        /  /\    ';
 echo '   /  /:/\:\      /  /:/_   ';
