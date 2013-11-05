@@ -1,5 +1,4 @@
 GEM
-  remote: http://rubygems.org/
   specs:
     capistrano (2.15.5)
       highline
