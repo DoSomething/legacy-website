@@ -52,4 +52,4 @@ features[user_permission][] = generate features
 features[user_permission][] = manage features
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
-files[] = dosomething_user.test
+files[] = dosomething_user.unit.test
