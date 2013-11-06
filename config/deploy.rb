@@ -37,7 +37,6 @@ namespace :deploy do
   task :start do; end
   task :stop do; end
   task :make do
-    # Run the make command
+    run "cd #{release_path} && drush make --prepare-install --no-gitinfofile --no-cache build-dosomething.make html"
   end
 end
-
