@@ -22,5 +22,7 @@ function dosomething_configure() {
   variable_set('admin_theme', 'seven');
   // Use admin theme for editing content:
   variable_set('node_admin_theme', 1);
+  // Set features default export path to our custom module directory:
+  variable_set('features_default_export_path', 'profiles/dosomething/modules/dosomething');
   drupal_set_message(t('DoSomething defaults configured.'));
 }
