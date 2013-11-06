@@ -5,12 +5,13 @@ vars_file = File.join(File.expand_path('./config'), 'deploy_vars')
 if File.exists? vars_file + '.yml'
   @config = YAML.load_file(vars_file + '.yml')
 else
-  abort "You need the deploy_vars.yml file to deploy."
+  abort "\e[31mYou need the deploy_vars.yml file to deploy.\e[0m"
 end
 
 set :application, "DoSomething.org"
 set :repository,  "git@github.com:DoSomething/dosomething.git"
 set :branch, 'dev'
+set :deploy_via, :remote_cache
 
 if @config['default'] && (@config['default']['scm_user'] && @config['default']['scm_pass'])
   set :scm, :git
@@ -35,5 +36,8 @@ set :use_sudo, false
 namespace :deploy do
   task :start do; end
   task :stop do; end
+  task :make do
+    # Run the make command
+  end
 end
 
