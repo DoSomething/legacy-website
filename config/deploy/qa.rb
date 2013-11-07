@@ -4,14 +4,15 @@ set :user, @config['qa']['user']
 set :password, @config['qa']['password']
 
 set :build_path, "/home/jenkins/dosomething-vagrant"
+set :source_path, "/vagrant/html"
 set :use_sudo, true 
 
 namespace :build do
   task :pull do
-    run "cd #{build_path} && #{try_sudo} chown -R dosomething:dosomething * && git stash && git pull --rebase && git stash pop && #{try_sudo} chown -R jenkins:jenkins *"
+    run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && git stash && git pull --rebase && git stash pop\""
   end
   task :clear_cache do
-    run "#{try_sudo} su - jenkins sh -c \"cd ~/dosomething-vagrant && vagrant ssh --command 'drush cc all'\""
+    run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && vagrant ssh --command 'cd #{source_path} && drush cc all'\""
   end
 end
 
