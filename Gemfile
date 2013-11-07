@@ -1,0 +1,2 @@
+# Magical deployment.
+gem 'capistrano'
