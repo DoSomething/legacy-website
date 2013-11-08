@@ -19,12 +19,20 @@ set :use_sudo, true
 # on our QA server.
 namespace :build do
   task :pull do
+    # Changes to the +jenkins+ user, then stashes any changes, pulls down the latest
+    # code, then pops the stash.
     run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && git stash && git pull --rebase && git stash pop\""
   end
+  task :updb do
+    # Updates the database by running +drush updb -y+.
+    run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && vagrant ssh --command 'cd #{source_path} && drush updb -y'\""
+  end
   task :clear_cache do
+    # Clears the cache by running +drush cc all+.
     run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && vagrant ssh --command 'cd #{source_path} && drush cc all'\""
   end
 end
 
-after 'build:pull', 'build:clear_cache'
+after 'build:pull', 'build:updb'
+after 'build:updb', 'build:clear_cache'
 
