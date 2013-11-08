@@ -1,5 +1,5 @@
 # Basic configuration for the production environment.  Please see
-# https://github.com/DoSomething/dosomething/wiki/Setting-up-deploy-vars
+# https://github.com/DoSomething/dosomething/wiki/Deployments
 # for more details.
 
 role :app, *@config['production']['servers'], primary: true
