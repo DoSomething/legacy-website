@@ -1,5 +1,6 @@
-role :app, "10.179.105.161", "10.179.109.96", "10.179.111.84", "10.179.38.7", primary: true
+role :app, *@config['production']['servers'], primary: true
 #role :db, "db.dosomething.org"
-set :deploy_to, "/var/www/v2"
-set :gateway, 'admin.dosomething.org'
+set :gateway, @config['production']['gateway']
 set :port, '38383'
+set :branch, @config['production']['branch']
+set :deploy_to, @config['production']['deploy_to']
