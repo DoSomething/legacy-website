@@ -29,3 +29,4 @@ dependencies[] = views_ui
 dependencies[] = wysiwyg
 
 ; DOSOMETHING
+dependencies[] = dosomething_user
