@@ -15,8 +15,8 @@ set :branch, @config['qa']['branch']
 set :use_sudo, true 
 
 # Runs a simple build on the QA server, so we don't have to deploy every time.
-# This will run +git pull --rebase+, then +drush cc all+ within the vagrant instance
-# on our QA server.
+# This will run +git pull --rebase+, then +drush updb -y+ and +drush cc all+ within
+# the vagrant instance on our QA server.
 namespace :build do
   task :pull do
     # Changes to the +jenkins+ user, then stashes any changes, pulls down the latest
