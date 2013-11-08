@@ -81,6 +81,9 @@ if [[ $1 == "build" ]]
     echo 'Replacing settings.php file...'
     rm -f $CALLPATH/$TARGET/sites/default/settings.php && ln -s $CALLPATH/settings.php $CALLPATH/$TARGET/sites/default/settings.php
 
+    echo 'Updating database...'
+    drush updb -y
+
     echo 'Clearing caches...'
     drush cc all
 
