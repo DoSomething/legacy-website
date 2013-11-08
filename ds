@@ -14,12 +14,6 @@ ds build [--install]
   --install
     Runs "drush site-install" to actually install the Drupal instance.
 
-ds dbup
-  Gets the latest copy of the database and updates your local copy.
-
-ds dbdump
-  Dumps your copy of the database to an archive.
-
 ds --help
   Displays this help message.
 
@@ -111,20 +105,4 @@ if [[ $1 == "build" ]]
     #drush fra -y;
     #drush cc all;
     echo 'Build complete.'
-fi
-
-if [[ $1 == "dbup" ]]
-  then
-    echo "Coming soon!"
-    exit 1
-fi
-
-if [[ $1 == "dbdump" ]]
-  then
-    echo 'Dumping database...'
-    NOW=$(date +%s)
-    mysqldump -uroot dosomething > ~/db_dumps/$NOW.sql
-    cd ~/db_dumps
-    tar -czf db_dump_$NOW.tgz $NOW.sql
-    echo "Done.  The file can be found at '~/db_dumps/db_dump_$NOW.tgz"
 fi
