@@ -10,7 +10,6 @@ end
 
 set :application, "DoSomething.org"
 set :repository,  "git@github.com:DoSomething/dosomething.git"
-set :branch, 'dev'
 set :deploy_via, :remote_cache
 
 if @config['default'] && (@config['default']['scm_user'] && @config['default']['scm_pass'])
@@ -30,7 +29,6 @@ end
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true
 
-set :deploy_to, '/var/www/v2'
 set :use_sudo, false
 
 namespace :deploy do
@@ -38,5 +36,8 @@ namespace :deploy do
   task :stop do; end
   task :make do
     run "cd #{release_path} && drush make --prepare-install --no-gitinfofile --no-cache build-dosomething.make html"
+  end
+  task :blah do
+    run "ls -l"
   end
 end
