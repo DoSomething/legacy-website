@@ -1,3 +1,7 @@
+# Basic configuration for the QA environment.  Please see
+# https://github.com/DoSomething/dosomething/wiki/Setting-up-deploy-vars
+# for more details.
+
 role :app, *@config['qa']['servers'], primary: true
 set :user, @config['qa']['user']
 set :password, @config['qa']['password']
@@ -10,6 +14,9 @@ set :source_path, "/vagrant/html"
 set :branch, @config['qa']['branch']
 set :use_sudo, true 
 
+# Runs a simple build on the QA server, so we don't have to deploy every time.
+# This will run +git pull --rebase+, then +drush cc all+ within the vagrant instance
+# on our QA server.
 namespace :build do
   task :pull do
     run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && git stash && git pull --rebase && git stash pop\""
