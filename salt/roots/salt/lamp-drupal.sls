@@ -103,11 +103,19 @@ varnish:
     - restart: True
     - watch:
       - file: /etc/varnish/default.vcl
+      - file: /etc/default/varnish
 
 varnish-config:
   file.managed:
     - name: /etc/varnish/default.vcl
     - source: salt://varnishd/lullabot_varnish3.vcl
+    - require:
+      - pkg: varnish
+
+varnish-default:
+  file.managed:
+    - name: /etc/default/varnish
+    - source: salt://varnishd/etc-default-varnish
     - require:
       - pkg: varnish
 
