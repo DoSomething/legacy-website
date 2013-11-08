@@ -2,7 +2,7 @@ require 'yaml'
 require 'capistrano/ext/multistage'
 
 # Confirm that the +config/deploy_vars.yml+ file exists.  Please see 
-# https://github.com/DoSomething/dosomething/wiki/Setting-up-deploy-vars
+# https://github.com/DoSomething/dosomething/wiki/Deployments
 # for more details.
 vars_file = File.join(File.expand_path('./config'), 'deploy_vars')
 if File.exists? vars_file + '.yml'
