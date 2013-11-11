@@ -87,5 +87,12 @@ if [[ $1 == "build" ]]
     echo 'Clearing caches...'
     drush cc all
 
+    if [ ! -e "~/.bash_profile" ]
+    then
+      echo 'Setting up PHP CodeSniffer...'
+      echo 'alias codercs="phpcs --standard=/vagrant/html/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
+      source ~/.bash_profile
+    fi
+
     echo 'Build complete.'
 fi
