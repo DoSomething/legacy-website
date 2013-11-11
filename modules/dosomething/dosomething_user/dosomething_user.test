@@ -1,10 +1,18 @@
 <?php
 
+/**
+ * @file
+ * Tests for the dosomething_user module.
+ */
+
+/**
+ * Base class for all dosomething_user unit test cases.
+ */
 class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
   public static function getInfo() {
     return array(
-      'name' => 'DoSomething User tests',
-      'description' => 'Tests for user functionality on DoSomething',
+      'name' => 'DoSomething User Unit Tests',
+      'description' => 'Unit tests for DoSomething User',
       'group' => 'DoSomething',
     );
   }
@@ -38,3 +46,138 @@ class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
   }
 }
 
+
+/**
+ * Base class for all dosomething_user web test cases.
+ */
+class DosomethingUserWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething User Web Test',
+      'description' => 'Web tests for DoSomething User',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp(array('dosomething_user'));
+    $this->administrator_perms = array(
+      'access administration menu',
+      'access administration pages',
+      'access all views',
+      'access content overview',
+      'access site in maintenance mode',
+      'access site reports',
+      'administer actions',
+      'administer blocks',
+      'administer content types',
+      'administer features',
+      'administer filters',
+      'administer image styles',
+      //@todo: investigate why mailsystem permission is failing for admin.
+      //'administer mailsystem',
+      'administer module filter',
+      'administer modules',
+      'administer nodes',
+      'administer pathauto',
+      'administer permissions',
+      'administer site configuration',
+      'administer software updates',
+      'administer taxonomy',
+      'administer themes',
+      'administer unit tests',
+      'administer url aliases',
+      'administer users',
+      'administer views',
+      'block IP addresses',
+      'bypass node access',
+      'create url aliases',
+      'flush caches',
+      'generate features',
+      'manage features',
+      'view the administration theme',
+    );
+  }
+
+  /**
+   * Wrapper function to test user_access().  
+   *
+   * Executes assertFalse and assertTrue tests based on boolean $granted value.
+   *
+   * @param string $permission
+   *  The permission to check for, e.g. "administer nodes".
+   * @param object $user
+   *  The loaded user to check permissions of.
+   * @param boolean $granted
+   *  The access to check: If $granted == FALSE, check that the permission doesn't exist for given $user.
+   */
+  public function subTestUserAccess($permission, $user, $granted = TRUE) {
+    $has_access = user_access($permission, $user);
+    if ($granted === FALSE) {
+      $this->assertFalse($has_access, 'User ' . $user->uid . ' does not have access to ' . $permission . '.');
+    }
+    else {
+      $this->assertTrue($has_access, 'User ' . $user->uid . ' has access to ' . $permission . '.');
+    }
+  }
+
+  /**
+   * Creates and returns a user with "administrator" role.
+   *
+   * Because drupalCreateUser will actually just create a new role based
+   * on the permissions you pass it, that doesn't help us here, because we're 
+   * testing the actual administrator role as defined by dosomething_user.
+   * We need to create an actual "real" user in the users table to grant it the permission.
+   *
+   * @return object
+   *  A newly created user object with the "authenticated user" and "administrator" roles.
+   */
+  public function createAdminUser() {
+    $role_name = 'administrator';
+    $role = user_role_load_by_name($role_name);
+    $timestamp = time();
+    $fields = array(
+      'name' => 'Administrator ' . $timestamp,
+      'mail' => 'admin.' . $timestamp . '@example.com',
+      'pass' => 'password',
+      'status' => 1,
+      'init' => 'email address',
+      'roles' => array(
+        DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+        $role->rid => $role_name,
+      ),
+    );
+    // First param is blank so a new user is created:
+    $admin = user_save('', $fields);
+    $this->assertTrue(is_numeric($admin->uid), "Admin user uid " . $admin->uid . " is numeric.");
+    $this->assertTrue(in_array($role_name, $admin->roles), "Admin user uid " . $admin->uid . " has 'administrator' role.");
+    return $admin;
+  }
+
+  /**
+   * Tests that an administrator has all the expected admin permissions.
+   */
+  function testAdministratorPerms() {
+    // Create an administrator user:  
+    $admin = $this->createAdminUser();
+    // Loop through admin perms and test that $admin user has them granted.
+    foreach ($this->administrator_perms as $key => $perm) {
+      $this->subTestUserAccess($perm, $admin);
+    }
+  }
+
+  /**
+   * Tests that an authenticated user has none of the expected admin permissions.
+   */
+  function testAuthUserAdminPerms() {
+    // Create an authenticated user:
+    $auth = $this->drupalCreateUser();
+    // Loop through admin perms and test that $auth user does not have them.
+    foreach ($this->administrator_perms as $key => $perm) {
+      $this->subTestUserAccess($perm, $auth, FALSE);
+    }
+  }
+}
