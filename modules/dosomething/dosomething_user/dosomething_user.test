@@ -1,10 +1,11 @@
 <?php
 
-class DosomethingUserTestCase extends DrupalUnitTestCase {
-  public function getInfo() {
+class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
+  public static function getInfo() {
     return array(
       'name' => 'DoSomething User tests',
       'description' => 'Tests for user functionality on DoSomething',
+      'group' => 'DoSomething',
     );
   }
 
