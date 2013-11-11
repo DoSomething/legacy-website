@@ -9,7 +9,8 @@
   * Confirms that a specific cell phone number is valid.  A valid phone number
   * is a number with either 10 or 11 digits (as long as the first digit is a "1").
   * Valid phone numbers do not have 3 consecutive 5's in any part, nor do they
-  * use punctuation where there should be numbers.
+  * use punctuation where there should be numbers.  Phone numbers also do not have
+  * 9 consecutive, equal digits (e.g. 999-999-9999).
   *
   * @code
   *  dosomething_user_valid_cell('123-456-7890');
@@ -22,6 +23,8 @@
   *  # => false
   *  dosomething_user_valid_cell('1 902 #@@ 1234');
   *  # => false
+  *  dosomething_user_valid_cell('999 999 9999');
+  *  # => false
   * @endcode
   *
   * @param string $number
@@ -29,7 +32,8 @@
   * @return bool
   */
 function dosomething_user_valid_cell($number) {
-  preg_match('#(?:^1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
-  return !empty($valid) && strpos($number, '555') === FALSE;
+  preg_match('#^(?:\+?1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
+  preg_match('#([0-9]{1})\1{9,}#', preg_replace('#[^0-9]+#', '', $number), $repeat);
+  return !empty($valid) && empty($repeat) && strpos($number, '555') === FALSE;
 }
 
