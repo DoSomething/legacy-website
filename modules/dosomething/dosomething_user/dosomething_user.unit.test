@@ -16,18 +16,24 @@ class DosomethingUserTestCase extends DrupalUnitTestCase {
     $good = '718-224-9982';
     $country = '1-718-224-9982';
     $stuff = '1 (718) 224.9982';
+    $plus = '+1 (718) 224-9982';
     $bad = '718-555-2234';
     $too_short = '718-224';
     $even_worse = 'abcdefg';
     $bad_punctuation = '718#224_9982';
+    $bad_numbers = '718 #12 99-6';
+    $consecutive_numbers = '999-999-9999';
 
     $this->assertTrue(dosomething_user_valid_cell($good));
     $this->assertTrue(dosomething_user_valid_cell($country));
     $this->assertTrue(dosomething_user_valid_cell($stuff));
+    $this->assertTrue(dosomething_user_valid_cell($plus));
     $this->assertFalse(dosomething_user_valid_cell($bad));
     $this->assertFalse(dosomething_user_valid_cell($too_short));
     $this->assertFalse(dosomething_user_valid_cell($even_worse));
     $this->assertFalse(dosomething_user_valid_cell($bad_punctuation));
+    $this->assertFalse(dosomething_user_valid_cell($bad_numbers));
+    $this->assertFalse(dosomething_user_valid_cell($consecutive_numbers));
   }
 }
 
