@@ -1,6 +1,5 @@
 <?php
 
-
 $abc = TRUE;
 if ($abc == FALSE) {
   echo ":(";
@@ -8,8 +7,6 @@ if ($abc == FALSE) {
 
 /**
  * Tests something or other.
- *
- *   A string of assertions.
  *
  * @return string
  *   "banana" or "cats".
