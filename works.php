@@ -25,3 +25,5 @@ function testest($assertion)
 }
 
 alksdf
+
+?>
