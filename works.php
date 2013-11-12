@@ -9,7 +9,6 @@ if ($abc == FALSE) {
 /**
  * Tests something or other.
  *
- * @param string $assertion
  *   A string of assertions.
  *
  * @return string
