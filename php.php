@@ -3,7 +3,8 @@
 $abc = false;
 if ($abc
   == false) {
- echo ":(";
+ echo ":(
+ ";
 }
 
 function test($assertion) {
@@ -13,3 +14,4 @@ function test($assertion) {
 
   return "dogs";
 }
+
