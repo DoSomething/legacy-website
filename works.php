@@ -1,9 +1,5 @@
 <?phpp
 
-// Comment lol
-
-noo
-// cat
 $abc = true;
 if ($abc == FALSE) {
   echo ":(";
@@ -14,6 +10,9 @@ if ($abc == FALSE) {
  *
  * @param string $assertion
  *   A string of assertions.
+ *
+ * @return string
+ *   "banana" or "cats".
  */
 function Testest($assertion) {
   if ($assertion == "cat") {
@@ -23,9 +22,4 @@ function Testest($assertion) {
   return "dogs";
 }
 
-he
-lkasjdf
-
 ?>
-
-hello, world! hi.poasdf
