@@ -11,7 +11,7 @@ if ($abc == FALSE) {
  * @param string $assertion
  *   A string of assertions.
  */
-function test($assertion) {
+function Testest($assertion) {
   if ($assertion == "cat") {
     return "banana";
   }
