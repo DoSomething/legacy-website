@@ -1,6 +1,11 @@
-<?phpp
+<?php
 
-$abc = true;
+/**
+ * @file
+ * This is a file that works.
+ */
+
+$abc = TRUE;
 if ($abc == FALSE) {
   echo ":(";
 }
@@ -14,7 +19,7 @@ if ($abc == FALSE) {
  * @return string
  *   "banana" or "cats".
  */
-function Testest($assertion) {
+function testest($assertion) {
   if ($assertion == "cat") {
     return "banana";
   }
@@ -22,4 +27,3 @@ function Testest($assertion) {
   return "dogs";
 }
 
-?>
