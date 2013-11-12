@@ -1,6 +1,5 @@
 <?php
 
-
 $abc = FALSE;
 if ($abc == FALSE) {
   echo ":(";
@@ -11,7 +10,6 @@ if ($abc == FALSE) {
  *
  * @param string $assertion
  *   A string of assertions.
- *
  * @return string
  *   dogs or cats
  */
