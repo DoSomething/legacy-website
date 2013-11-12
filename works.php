@@ -23,3 +23,5 @@ function Testest($assertion) {
 
 he
 lkasjdf
+
+?>
