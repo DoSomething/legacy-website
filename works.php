@@ -10,8 +10,6 @@ if ($abc == FALSE) {
  *
  * @param string $assertion
  *   A string of assertions.
- * @return string
- *   dogs or cats
  */
 function test($assertion) {
   if ($assertion == "cat") {
