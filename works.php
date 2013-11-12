@@ -1,6 +1,6 @@
 <?php
 
-$abc = FALSE;
+$abc = true;
 if ($abc == FALSE) {
   echo ":(";
 }
