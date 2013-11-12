@@ -1,5 +1,7 @@
 <?phpp
 
+// Comment lol
+
 noo
 // cat
 $abc = true;
