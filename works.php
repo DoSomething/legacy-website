@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- * This is a file that works.
- */
 
 $abc = TRUE;
 if ($abc == FALSE) {
