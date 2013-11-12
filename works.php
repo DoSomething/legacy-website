@@ -19,7 +19,8 @@ if ($abc == FALSE) {
  * @return string
  *   "banana" or "cats".
  */
-function testest($assertion) {
+function testest($assertion)
+{
   if ($assertion == "cat") {
     return "banana";
   }
