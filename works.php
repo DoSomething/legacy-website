@@ -18,6 +18,7 @@ function testest($assertion)
   }
 
   return "dogs";
+  return ":(";
 }
 
 alksdf
