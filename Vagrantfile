@@ -13,8 +13,9 @@ Vagrant.configure("2") do |config|
   ## For masterless, mount your salt file root
   config.vm.synced_folder "salt/roots/", "/srv/"
   
-  # Without Varnish
+  # Bare Apache httpd (http and https)
   config.vm.network :forwarded_port, guest: 8888, host: 8888
+  config.vm.network :forwarded_port, guest: 443, host: 8889
   
   # With Varnish
   config.vm.network :forwarded_port, guest: 6081, host: 9999
