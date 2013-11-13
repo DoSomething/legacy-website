@@ -25,6 +25,8 @@ function BananaDogGiraffe()
   // woof
 }
 
+/ I don't know what's going on here.
+
 ?>
 
 
