@@ -18,4 +18,11 @@ function testest($assertion)
 alksdf
 
 alksdjf
+
+function BananaDogGiraffe()
+{
+  return false;
+  // woof
+}
+
 ?>
