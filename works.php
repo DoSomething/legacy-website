@@ -1,5 +1,9 @@
 <?php
 
+/ this makes strudel
+require
+  'banana';
+
 $abc = TRUE;
 if ($abc == FALSE) {
   echo ":(";
