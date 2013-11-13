@@ -80,6 +80,10 @@ projects[devel][subdir] = "contrib"
 projects[environment_indicator] = "7.x-2.0"
 projects[environment_indicator][subdir] = "contrib"
 
+; Coder
+projects[coder] = "7.x-2.0"
+projects[coder][subdir] = "contrib"
+
 ; THEMES
 
 ; Paraneue subtheme
