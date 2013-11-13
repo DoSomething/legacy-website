@@ -5,12 +5,6 @@ if ($abc == FALSE) {
   echo ":(";
 }
 
-/**
- * Tests something or other.
- *
- * @return string
- *   "banana" or "cats".
- */
 function testest($assertion)
 {
   if ($assertion == "cat") {
