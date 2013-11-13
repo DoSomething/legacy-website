@@ -21,6 +21,7 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = features
 dependencies[] = libraries
+dependencies[] = mailsystem
 dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = strongarm

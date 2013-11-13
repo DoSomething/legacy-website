@@ -77,8 +77,7 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'administer features',
       'administer filters',
       'administer image styles',
-      //@todo: investigate why mailsystem permission is failing for admin.
-      //'administer mailsystem',
+      'administer mailsystem',
       'administer module filter',
       'administer modules',
       'administer nodes',
