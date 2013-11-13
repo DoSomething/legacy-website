@@ -82,6 +82,12 @@ projects[environment_indicator][subdir] = "contrib"
 
 ; THEMES
 
+; Paraneue subtheme
+projects[paraneue][type] = theme
+projects[paraneue][download][type] = git
+projects[paraneue][download][url] = "git@github.com:DoSomething/paraneue.git"
+projects[paraneue][subdir] = "dosomething/paraneue"
+
 ; LIBRARIES
 
 ; CKEditor 
@@ -91,3 +97,7 @@ libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEd
 ; DSAPI PHP Library
 libraries[dsapi][download][type] = "git"
 libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
+
+; NEUE
+libraries[neue][download][type] = "git"
+libraries[neue][download][url] = "git@github.com:DoSomething/ds-neue.git"
