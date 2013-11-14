@@ -38,12 +38,6 @@ pear-misc:
     - require:
       - pkg: php5-pkgs
 
-pear-codersniffer:
-  cmd.run:
-    - name: pear install PHP_CodeSniffer
-    - require:
-      - cmd: pear-misc
-
 apache2-env:
   file.managed:
     - name: /etc/apache2/envvars
