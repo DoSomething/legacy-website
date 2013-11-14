@@ -86,11 +86,11 @@ projects[coder][subdir] = "contrib"
 
 ; THEMES
 
-; Paraneue subtheme
+; Paraneue
 projects[paraneue][type] = theme
 projects[paraneue][download][type] = git
 projects[paraneue][download][url] = "git@github.com:DoSomething/paraneue.git"
-projects[paraneue][subdir] = "dosomething/paraneue"
+projects[paraneue][subdir] = "dosomething"
 
 ; LIBRARIES
 
