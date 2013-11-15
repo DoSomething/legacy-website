@@ -53,6 +53,10 @@ projects[optimizely][subdir] = "contrib"
 projects[pathauto] = "7.x-1.2"
 projects[pathauto][subdir] = "contrib"
 
+; Secure Pages
+projects[securepages] = "7.x-1.0-beta2"
+projects[securepages][subdir] "contrib"
+
 ; Strongarm
 projects[strongarm] = "7.x-2.0"
 projects[strongarm][subdir] = "contrib"
