@@ -21,7 +21,7 @@ namespace :build do
   task :pull do
     # Changes to the +jenkins+ user, then stashes any changes, pulls down the latest
     # code, then pops the stash.
-    run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && git stash && git pull --rebase && git stash pop\""
+    run "#{try_sudo} su - jenkins sh -c \"cd #{build_path} && git pull --rebase\""
   end
   task :updb do
     # Updates the database by running +drush updb -y+.
