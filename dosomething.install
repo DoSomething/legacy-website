@@ -20,9 +20,29 @@ function dosomething_install_tasks($install_state) {
 function dosomething_configure() {
 	// Set admin theme to Seven:
   variable_set('admin_theme', 'seven');
+  
   // Use admin theme for editing content:
   variable_set('node_admin_theme', 1);
+  
   // Set features default export path to our custom module directory:
   variable_set('features_default_export_path', 'profiles/dosomething/modules/dosomething');
+  
+  // Secure Pages settings:
+  variable_set('securepages_basepath', 'http://localhost:8888');
+  variable_set('securepages_basepath_ssl', 'https://localhost:8889');
+  variable_set('securepages_debug', 0);
+  variable_set('securepages_enable', '1');
+  variable_set('securepages_forms', 'user_login
+user_login_block');
+  variable_set('securepages_pages', 'node/add*
+node/*/edit
+node/*/delete
+user
+user/*
+admin
+admin/*');
+  variable_set('securepages_secure', '1');
+  variable_set('securepages_switch', true);
+  
   drupal_set_message(t('DoSomething defaults configured.'));
 }
