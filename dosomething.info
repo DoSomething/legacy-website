@@ -24,6 +24,7 @@ dependencies[] = libraries
 dependencies[] = mailsystem
 dependencies[] = module_filter
 dependencies[] = pathauto
+dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = views
 dependencies[] = views_ui
