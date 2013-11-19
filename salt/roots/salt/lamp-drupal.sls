@@ -12,6 +12,7 @@ php5-pkgs:
       - php-pear
       - php5-gd
       - php5-memcache
+      - php-apc
   file.managed:
     - name: /etc/php5/apache2/php.ini
     - source: salt://php5/apache2/php.ini
@@ -35,6 +36,20 @@ pear-drush:
 pear-misc:
   cmd.run:
     - name: /bin/sh /srv/salt/php5/pear-install.sh > /dev/null
+    - require:
+      - pkg: php5-pkgs
+
+pecl-install-1:
+  file.managed:
+    - name: /etc/php5/conf.d/apc.ini
+    - source: salt://php5/apc.ini
+    - require:
+      - pkg: php5-pkgs
+
+pecl-install-2:
+  file.managed:
+    - name: /etc/php5/conf.d/uploadprogress.ini
+    - source: salt://php5/uploadprogress.ini
     - require:
       - pkg: php5-pkgs
 
