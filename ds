@@ -93,6 +93,9 @@ if [[ $1 == "build" ]]
       echo 'alias codercs="phpcs --standard=/vagrant/html/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
       source ~/.bash_profile
     fi
+    
+    echo 'Adding APC script at /apc.php...'
+    ln -s /srv/salt/php5/apc.php /vagrant/html/apc.php
 
     echo 'Build complete.'
 fi
