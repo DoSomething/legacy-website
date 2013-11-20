@@ -6,51 +6,51 @@ core = 7.x
 ; MODULES
 
 ; Admin menu
-projects[admin_menu] = "7.x-3.0-rc4"
+projects[admin_menu] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
 
 ; Ctools
-projects[ctools] = "7.x-1.3"
+projects[ctools] = "1.3"
 projects[ctools][subdir] = "contrib"
 
 ; Date
-projects[date] = "7.x-2.6"
+projects[date] = "2.6"
 projects[date][subdir] = "contrib"
 
 ; Features
-projects[features] = "7.x-2.0-rc5"
+projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
 
 ; Google Analytics
-projects[google_analytics] = "7.x-1.3"
+projects[google_analytics] = "1.3"
 projects[google_analytics][subdir] = "contrib"
 
 ; Libraries
-projects[libraries] = "7.x-2.1"
+projects[libraries] = "2.1"
 projects[libraries][subdir] = "contrib"
 
 ; MailSystem
-projects[mailsystem] = "7.x-2.34"
+projects[mailsystem] = "2.34"
 projects[mailsystem][subdir] = "contrib"
 
 ; Mandrill
-projects[mandrill] = "7.x-1.4"
+projects[mandrill] = "1.4"
 projects[mandrill][subdir] = "contrib"
 
 ; Metatag
-projects[metatag] = "7.x-1.0-beta7"
+projects[metatag] = "1.0-beta7"
 projects[metatag][subdir] = "contrib"
 
 ; Module Filter
-projects[module_filter] = "7.x-1.8"
+projects[module_filter] = "1.8"
 projects[module_filter][subdir] = "contrib"
 
 ; Optimizely
-projects[optimizely] = "7.x-2.14"
+projects[optimizely] = "2.14"
 projects[optimizely][subdir] = "contrib"
 
 ; Pathauto
-projects[pathauto] = "7.x-1.2"
+projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
 ; Secure Pages
@@ -58,34 +58,34 @@ projects[securepages] = "1.0-beta2"
 projects[securepages][subdir] "contrib"
 
 ; Strongarm
-projects[strongarm] = "7.x-2.0"
+projects[strongarm] = "2.0"
 projects[strongarm][subdir] = "contrib"
 
 ; Token
-projects[token] = "7.x-1.5"
+projects[token] = "1.5"
 projects[token][subdir] = "contrib"
 
 ; Views
-projects[views] = "7.x-3.7"
+projects[views] = "3.7"
 projects[views][subdir] = "contrib"
 
 ; WYSIWYG
-projects[wysiwyg] = "7.x-2.2"
+projects[wysiwyg] = "2.2"
 projects[wysiwyg][subdir] = "contrib"
 projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckeditor-1853550-46.patch"
 
 ; DEVELOPMENT
 
 ; Devel
-projects[devel] = "7.x-1.3"
+projects[devel] = "1.3"
 projects[devel][subdir] = "contrib"
 
 ; Environment Indicator
-projects[environment_indicator] = "7.x-2.0"
+projects[environment_indicator] = "2.0"
 projects[environment_indicator][subdir] = "contrib"
 
 ; Coder
-projects[coder] = "7.x-2.0"
+projects[coder] = "2.0"
 projects[coder][subdir] = "contrib"
 
 ; THEMES
