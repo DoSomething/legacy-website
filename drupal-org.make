@@ -54,7 +54,7 @@ projects[pathauto] = "7.x-1.2"
 projects[pathauto][subdir] = "contrib"
 
 ; Secure Pages
-projects[securepages] = "7.x-1.0-beta2"
+projects[securepages] = "1.0-beta2"
 projects[securepages][subdir] "contrib"
 
 ; Strongarm
