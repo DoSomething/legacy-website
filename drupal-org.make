@@ -84,14 +84,12 @@ projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckedit
 projects[conductor][type] = "module"
 projects[conductor][download][type] = "git"
 projects[conductor][download][url] = "https://github.com/DoSomething/Conductor.git"
-projects[conductor][download][revision] = "ac9956d"
 projects[conductor][subdir] = "contrib"
 
 ; Conductor SMS
 projects[conductor_sms][type] = "module"
 projects[conductor_sms][download][type] = "git"
 projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
-projects[conductor_sms][download][revision] = "f76470d"
 projects[conductor_sms][subdir] = "contrib"
 
 ; DEVELOPMENT
