@@ -18,11 +18,22 @@ function dosomething_install_tasks($install_state) {
  * Set up base configuration.
  */
 function dosomething_configure() {
-	// Set admin theme to Seven:
+  // Disable bartik
+  db_update('system')
+    ->fields(array('status' => 0))
+    ->condition('type', 'theme')
+    ->condition('name', 'bartik')
+    ->execute();
+
+  // Enable paraneue and the admin theme.
+  db_update('system')
+    ->fields(array('status' => 1))
+    ->condition('type', 'theme')
+    ->condition('name', array('seven', 'paraneue'), 'IN')
+    ->execute();
   variable_set('admin_theme', 'seven');
-  
-  // Use admin theme for editing content:
-  variable_set('node_admin_theme', 1);
+  variable_set('theme_default', 'paraneue');
+  variable_set('node_admin_theme', '1'); 
   
   // Set features default export path to our custom module directory:
   variable_set('features_default_export_path', 'profiles/dosomething/modules/dosomething');
