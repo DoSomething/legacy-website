@@ -5,7 +5,7 @@ core = 7.x
 
 ; Drupal Core
 projects[drupal][type] = core
-projects[drupal][version] = 7.23
+projects[drupal][version] = 7.24
 
 ; Patches for Secure Pages module
 ; See install steps at https://drupal.org/project/securepages
