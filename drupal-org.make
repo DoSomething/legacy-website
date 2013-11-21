@@ -41,6 +41,10 @@ projects[mandrill][subdir] = "contrib"
 projects[metatag] = "1.0-beta7"
 projects[metatag][subdir] = "contrib"
 
+; Mobile Commons
+projects[mobilecommons] = "1.0"
+projects[mobilecommons][subdir] = "contrib"
+
 ; Module Filter
 projects[module_filter] = "1.8"
 projects[module_filter][subdir] = "contrib"
@@ -77,15 +81,15 @@ projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckedit
 ; GIT PROJECTS
 
 ; Conductor
-projects[conductor][type] = module
-projects[conductor][download][type] = git
+projects[conductor][type] = "module"
+projects[conductor][download][type] = "git"
 projects[conductor][download][url] = "https://github.com/DoSomething/Conductor.git"
 projects[conductor][download][revision] = "ac9956d"
 projects[conductor][subdir] = "contrib"
 
 ; Conductor SMS
-projects[conductor_sms][type] = module
-projects[conductor_sms][download][type] = git
+projects[conductor_sms][type] = "module"
+projects[conductor_sms][download][type] = "git"
 projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
 projects[conductor_sms][download][revision] = "f76470d"
 projects[conductor_sms][subdir] = "contrib"
@@ -107,8 +111,8 @@ projects[coder][subdir] = "contrib"
 ; THEMES
 
 ; Paraneue
-projects[paraneue][type] = theme
-projects[paraneue][download][type] = git
+projects[paraneue][type] = "theme"
+projects[paraneue][download][type] = "git"
 projects[paraneue][download][url] = "git@github.com:DoSomething/paraneue.git"
 projects[paraneue][subdir] = "dosomething"
 
@@ -117,6 +121,10 @@ projects[paraneue][subdir] = "dosomething"
 ; CKEditor
 libraries[ckeditor][download][type] = "get"
 libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
+
+; Mobile Commons PHP
+libraries[mobilecommons_php][download][type] = "git"
+libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
 
 ; DSAPI PHP Library
 libraries[dsapi][download][type] = "git"
