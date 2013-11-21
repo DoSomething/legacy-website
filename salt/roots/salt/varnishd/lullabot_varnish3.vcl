@@ -15,8 +15,12 @@ acl internal {
 }
 
 # Define the list of backends (web servers).
+# The "probe" URL is set to INSTALL.txt, which should be in your default Drupal install.
+# Adjust as necessary. For a more advanced health check URL, see the status.php example
+# in the Lullabot article, referenced above.
+#
 # Port 80 Backend Servers
-backend web1 { .host = "127.0.0.1"; .port = "8888"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1s; .window = 5;.threshold = 3; }}
+backend web1 { .host = "127.0.0.1"; .port = "8888"; .probe = { .url = "/INSTALL.txt"; .interval = 5s; .timeout = 1s; .window = 5;.threshold = 3; }}
 
 # Port 443 Backend Servers for SSL
 # backend web1_ssl { .host = "192.10.0.1"; .port = "443"; .probe = { .url = "/status.php"; .interval = 5s; .timeout = 1 s; .window = 5;.threshold = 3; }}
