@@ -74,6 +74,22 @@ projects[wysiwyg] = "2.2"
 projects[wysiwyg][subdir] = "contrib"
 projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckeditor-1853550-46.patch"
 
+; GIT PROJECTS
+
+; Conductor
+projects[conductor][type] = module
+projects[conductor][download][type] = git
+projects[conductor][download][url] = "https://github.com/DoSomething/Conductor.git"
+projects[conductor][download][revision] = "ac9956d"
+projects[conductor][subdir] = "contrib"
+
+; Conductor SMS
+projects[conductor_sms][type] = module
+projects[conductor_sms][download][type] = git
+projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
+projects[conductor_sms][download][revision] = "f76470d"
+projects[conductor_sms][subdir] = "contrib"
+
 ; DEVELOPMENT
 
 ; Devel
@@ -98,7 +114,7 @@ projects[paraneue][subdir] = "dosomething"
 
 ; LIBRARIES
 
-; CKEditor 
+; CKEditor
 libraries[ckeditor][download][type] = "get"
 libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
 
