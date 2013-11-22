@@ -28,6 +28,7 @@ dependencies[] = pathauto
 dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = uuid
+dependencies[] = uuid_features
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = wysiwyg

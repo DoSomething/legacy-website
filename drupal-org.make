@@ -77,6 +77,10 @@ projects[token][subdir] = "contrib"
 projects[uuid] = "1.0-alpha"
 projects[uuid][subdir] = "contrib"
 
+; UUID Features
+projects[uuid] = "1.0-alpha3"
+projects[uuid][subdir] = "contrib"
+
 ; Views
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
