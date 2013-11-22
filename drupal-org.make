@@ -78,8 +78,8 @@ projects[uuid] = "1.0-alpha"
 projects[uuid][subdir] = "contrib"
 
 ; UUID Features
-projects[uuid] = "1.0-alpha3"
-projects[uuid][subdir] = "contrib"
+projects[uuid_features] = "1.0-alpha3"
+projects[uuid_features][subdir] = "contrib"
 
 ; Views
 projects[views] = "3.7"
