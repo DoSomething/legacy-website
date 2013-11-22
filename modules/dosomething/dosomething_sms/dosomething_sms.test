@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Unit testing for the dosomething_sms module.
+ */
+class DosomethingSmsWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  /**
+   * Key/value array where key specifies the URL endpoint and value is its
+   * corresponding ConductorWorkflow.
+   *
+   * @var array
+   */
+  private $keywords;
+
+  /**
+   * ConductorWorkflow objects that define the behavior of our SMS conversations.
+   *
+   * @var array
+   */
+  private $workflows;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething SMS Web Tests',
+      'description' => 'Web tests for DoSomething SMS.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    // Enable the module
+    parent::setUp('dosomething_sms');
+
+    // Get list of all keywords
+    $this->keywords = dosomething_sms_conductor_sms_keywords();
+
+    // Get list of all workflows
+    $this->workflows = dosomething_sms_default_conductor_workflows();
+  }
+
+  /**
+   * Verify that each "keyword" value has a matching workflow
+   */
+  public function testKeywordMatch() {
+    $workflowNames = array();
+    foreach ($this->workflows as $w) {
+      $workflowNames[] = $w->name;
+    }
+
+    foreach ($this->keywords as $key => $val) {
+      $this->assertTrue(in_array($val, $workflowNames), t('Keyword %key has matching workflow %workflow', array('%key' => $key, '%workflow' => $val)));
+    }
+  }
+
+  /**
+   * Verify all workflow names have a matching "keyword"
+   */
+  public function testWorkflowMatch() {
+    $this->workflows = dosomething_sms_default_conductor_workflows();
+
+    $keywordValues = array_values($this->keywords);
+
+    foreach ($this->workflows as $w) {
+      $this->assertTrue(in_array($w->name, $keywordValues), t('Workflow %workflow has matching keyword', array('%workflow' => $w->name)));
+    }
+  }
+}

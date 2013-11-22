@@ -5,6 +5,8 @@
  * ConductorWorkflow definitions for test endpoints.
  */
 
+require_once drupal_get_path('module', 'dosomething_sms') . '/sms_flow_game_constants.inc';
+
 $workflow = new ConductorWorkflow();
 $workflow->wid = 'new';
 $workflow->name = 'dosomething_sms_test';

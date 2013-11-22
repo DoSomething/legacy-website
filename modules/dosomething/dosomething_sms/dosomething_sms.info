@@ -2,5 +2,6 @@ name = DoSomething SMS
 description = Provides SMS integration for DoSomething.org
 core = 7.x
 dependencies[] = conductor_sms
+files[] = dosomething_sms.test
 package = DoSomething
 configure = admin/config/dosomething/dosomething_sms
