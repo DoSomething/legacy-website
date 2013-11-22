@@ -43,7 +43,7 @@ class DosomethingSmsWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Verify that each "keyword" value has a matching workflow
+   * Verify that each "keyword" value has a matching workflow.
    */
   public function testKeywordMatch() {
     $workflowNames = array();
@@ -57,7 +57,7 @@ class DosomethingSmsWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Verify all workflow names have a matching "keyword"
+   * Verify all workflow names have a matching "keyword."
    */
   public function testWorkflowMatch() {
     $this->workflows = dosomething_sms_default_conductor_workflows();
@@ -66,6 +66,78 @@ class DosomethingSmsWebTestCase extends DrupalWebTestCase {
 
     foreach ($this->workflows as $w) {
       $this->assertTrue(in_array($w->name, $keywordValues), t('Workflow %workflow has matching keyword', array('%workflow' => $w->name)));
+    }
+  }
+
+  /**
+   * Verify no workflow activity has missing input or output links.
+   */
+  public function testWorkflowActivityLinks() {
+    foreach ($this->workflows as $w) {
+      $activities = $w->activities;
+      $numActivities = count($activities);
+
+      for($i = 0; $i < $numActivities; $i++) {
+        $a = $activities[$i];
+
+        // First activity should be 'start'
+        if ($i == 0) {
+          $this->assertTrue(strcmp($a->name, 'start') == 0, t('Workflow %name begins with the \'start\' activity.', array('%name' => $w->name)));
+        }
+
+        // Verify input -> output links
+        if (count($a->inputs) > 0) {
+          foreach ($a->inputs as $input) {
+            // Find the activity the input is referring to, and verify that that
+            // activity ($checkActivity) has an output referring to the current activity ($a).
+            for ($j = 0; $j < $numActivities; $j++) {
+              $checkActivity = $activities[$j];
+
+              $isDifferentActivity = $j != $i;
+              $checkedNameMatchesInput = strcmp($checkActivity->name, $input) == 0;
+              $checkedActivityHasMatchingOutput = in_array($a->name, $checkActivity->outputs);
+
+              if ($isDifferentActivity && $checkedNameMatchesInput && $checkedActivityHasMatchingOutput) {
+                $this->assert(TRUE, t('Link verified for %name input: %input', array('%name' => $a->name, '%input' => $input)));
+                break;
+              }
+              // Assert failure if all activities were checked and no matching output was found
+              else if ($j == $numActivities - 1) {
+                $this->assert(FALSE, t('Cannot find matching activity with output to match test activity: %name input: %input', array('%name' => $a->name, '%input' => $input)));
+              }
+            }
+          }
+        }
+
+        // Verify output -> input links
+        if (count($a->outputs) > 0) {
+          foreach ($a->outputs as $output) {
+            // Find the activity the output is referring to, and verify that that
+            // activity ($checkActivity) has an input referring at the current activity ($a).
+            for ($j = 0; $j < $numActivities; $j++) {
+              $checkActivity = $activities[$j];
+
+              $isDifferentActivity = $j != $i;
+              $checkedNameMatchesOutput = strcmp($checkActivity->name, $output) == 0;
+              $checkedActivityHasMatchingInput = in_array($a->name, $checkActivity->inputs);
+
+              if ($isDifferentActivity && $checkedNameMatchesOutput && $checkedActivityHasMatchingInput) {
+                $this->assert(TRUE, t('Link found for %activity output: %output', array('%activity' => $a->name, '%output' => $output)));
+                break;
+              }
+              // Assert failure if all activities were checked and no matching input was found
+              else if ($j == $numActivities - 1) {
+                $this->assert(FALSE, t('Cannot find matching activity with input to match test activity: %activity output: %output', array('%activity' => $a->name, '%output' => $output)));
+              }
+            }
+          }
+        }
+
+        // Last activity should be 'end'
+        if ($i == $numActivities - 1) {
+          $this->assertTrue(strcmp($a->name, 'end') == 0, "Workflow $w->name ends with the 'end' activity.");
+        }
+      }
     }
   }
 }
