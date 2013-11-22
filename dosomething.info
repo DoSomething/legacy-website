@@ -19,6 +19,7 @@ dependencies[] = taxonomy
 dependencies[] = admin_menu
 dependencies[] = ctools
 dependencies[] = date
+dependencies[] = entity
 dependencies[] = features
 dependencies[] = libraries
 dependencies[] = mailsystem
