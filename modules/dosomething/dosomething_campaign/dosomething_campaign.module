@@ -1,0 +1,102 @@
+<?php
+/**
+ * @file
+ * Provides a Campaign custom entity type named 'campaign'.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_campaign_entity_info() {
+  $info = array();
+  $info['campaign'] = array(
+    'label' => t('Campaign'),
+    'base table' => 'dosomething_campaign',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'title',
+    ),
+    'entity class' => 'CampaignEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'CampaignEntityController',
+    'admin ui' => array(
+       'path' => 'admin/campaign',
+       'controller class' => 'CampaignEntityUIController',
+       'menu wildcard' => '%campaign',
+       'file' => 'dosomething_campaign.admin.inc',
+     ),
+     'module' => 'dosomething_campaign',
+     // Controls who can access entity CRUD.
+     'access callback' => 'dosomething_campaign_access',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_campaign_menu() {
+  $items = array();
+  $items['campaign/%campaign'] = array(
+    'title' => 'Campaign',
+    'page callback' => 'dosomething_campaign_view_entity',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Access callback for CampaignEntity CRUD operations.
+ */
+function dosomething_campaign_access($op, $dosomething_campaign = NULL, $account = NULL) {
+  return TRUE;
+}
+
+/**
+ * Menu autoloader for /campaign.
+ */
+function campaign_load($id) {
+  $campaign = entity_load('campaign', array($id));
+  return array_pop($campaign);
+}
+
+/**
+ * Callback for /campaign/ID page.
+ *
+ * Just a place to render a complete campaign entity.
+ */
+function dosomething_campaign_view_entity($campaign) {
+  $campaign_entity = entity_view('campaign', array($campaign->id => $campaign));
+  //@todo: Make me pretty.
+  return print_r($campaign_entity, TRUE);
+}
+
+/**
+ * Our custom entity class.
+ */
+class CampaignEntity extends Entity {
+  /**
+   * Override this in order to implement a custom default URI.
+   */
+  protected function defaultUri() {
+    return array('path' => 'campaign/' . $this->identifier());
+  }
+}
+
+/**
+ * Our custom controller for the dosomething_campaign type.
+ *
+ * We're choosing to extend the controller provided by the entity module so that we'll have
+ * full CRUD support for CampaignEntities.
+ */
+class CampaignEntityController extends EntityAPIController {
+
+}
+
+/**
+ * Our custom controller for the admin ui.
+ */
+class CampaignEntityUIController extends EntityDefaultUIController {
+
+}

@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_campaign.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_campaign_schema() {
+  $schema = array();
+  $schema['dosomething_campaign'] = array(
+    'description' => 'The base table for the Campaign entity',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of the Campaign entity',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'Human readable title of the Campaign.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      /*
+      'created' => array(
+        'description' => 'Date and time the campaign record was created.',
+        'type' => 'int',
+        'length' => 10,
+        'not null' => FALSE,
+      ),
+      'changed' => array(
+        'description' => 'Date and time the campaign record was last modified.',
+        'type' => 'int',
+        'length' => 10,
+        'not null' => FALSE,
+      ),
+      */
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}
