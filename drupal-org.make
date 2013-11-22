@@ -73,6 +73,10 @@ projects[strongarm][subdir] = "contrib"
 projects[token] = "1.5"
 projects[token][subdir] = "contrib"
 
+; UUID
+projects[uuid] = "1.0-alpha"
+projects[uuid][subdir] = "contrib"
+
 ; Views
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
