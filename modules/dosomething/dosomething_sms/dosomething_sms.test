@@ -38,6 +38,7 @@ class DosomethingSmsUnitTestCase extends DrupalUnitTestCase {
    */
   public function testListFilesByExtension() {
     $keywordCheck = array(
+      dirname(__FILE__) . '/workflows/games.keywords.inc',
       dirname(__FILE__) . '/workflows/test.keywords.inc',
     );
 
@@ -47,6 +48,7 @@ class DosomethingSmsUnitTestCase extends DrupalUnitTestCase {
     $this->assertTrue(count($keywordResult) == count($keywordCheck), 'All .keywords.inc files found.');
 
     $workflowCheck = array(
+      dirname(__FILE__) . '/workflows/games.workflows.inc',
       dirname(__FILE__) . '/workflows/test.workflows.inc',
     );
 
