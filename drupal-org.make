@@ -17,6 +17,10 @@ projects[ctools][subdir] = "contrib"
 projects[date] = "2.6"
 projects[date][subdir] = "contrib"
 
+; Entity
+projects[entity] = "1.2"
+projects[entity][subdir] = "contrib"
+
 ; Features
 projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
