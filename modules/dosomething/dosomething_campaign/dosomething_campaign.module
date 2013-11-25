@@ -92,6 +92,20 @@ class CampaignEntity extends Entity {
  */
 class CampaignEntityController extends EntityAPIController {
 
+  /**
+   * Overrides save() method.
+   *
+   * Populates created, updated, and uid automatically.
+   */
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    if (isset($entity->is_new)) {
+      $entity->created = REQUEST_TIME;
+      global $user;
+      $entity->uid = $user->uid;
+    }
+    $entity->changed = REQUEST_TIME;
+    return parent::save($entity, $transaction);
+  }
 }
 
 /**
