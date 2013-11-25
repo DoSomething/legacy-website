@@ -355,9 +355,14 @@ function dosomething_sms_flow_start($alpha_number, $alpha_optin, $beta_optin, $b
 
       drupal_write_record('sms_flow_records', $record);
 
+      // Add beta number to args to send in the update request
+      if (!is_array($beta_variables)) {
+        $beta_variables = array();
+      }
+      $beta_variables['phone_number'] = $beta_number;
+
       // Create and update the beta's Mobile Commons profile
-      // @todo Convert to use mobilecommons module
-      // sms_mobile_commons_profile_update($beta_number, $beta_variables);
+      mobilecommons_request('profiles_update', $beta_variables);
     }
   }
 
@@ -625,6 +630,74 @@ function dosomething_sms_game_set_answers($phone, $game_id, $answers) {
     ->condition('phone', $phone)
     ->condition('game_id', $game_id)
     ->execute();
+}
+
+/**
+ * Subscribe to a Mobile Commons opt-in path.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $opt_in_path
+ *   Mobile Commons opt-in path id.
+ * @param array $args
+ *   Additional arguments.
+ */
+function dosomething_sms_mobile_commons_opt_in($phone, $opt_in_path, $args = array()) {
+  $content = array(
+    'opt_in_path[]' => $opt_in_path,
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  if (!empty($args)) {
+    foreach ($args as $key => $val) {
+      $content[$key] = urlencode($val);
+    }
+  }
+
+  mobilecommons_request('opt_in', $content);
+}
+
+/**
+ * Unsubscribe the user from a Mobile Commons campaign.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param mixed $campaigns
+ *   A single campaign ID to opt out of, or an array of multiple IDs.
+ */
+function dosomething_sms_mobile_commons_opt_out($phone, $campaigns) {
+  $content = array(
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  if (is_array($campaigns)) {
+    if (count($campaigns) > 1) {
+      // Manually concatenating additional campaigns onto the build query.
+      // Additional campaigns must be in the format "&campaign[]="
+      $content_query = http_build_query($content);
+      foreach ($campaigns as $id) {
+        $campaign_key = urlencode('campaign[]');
+        $content_query .= '&' . $campaign_key . '=' . $id;
+      }
+    }
+    else {
+      if (count($campaigns) == 1) {
+        $content['campaign'] = $campaigns[0];
+      }
+    }
+  }
+  elseif (is_numeric($campaigns) && $campaigns > 0) {
+    $content['campaign'] = $campaigns;
+  }
+  else {
+    return;
+  }
+
+  mobilecommons_request('opt_out', $content);
 }
 
 /**
