@@ -48,6 +48,42 @@ function dosomething_campaign_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'cta_text' => array(
+        'description' => 'Describes the action the user is taking by completing the campaign.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'season_high_start' => array(
+        'description' => 'Date string of the start of the campaign high season.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'season_high_end' => array(
+        'description' => 'Date string of the end of the campaign high season.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'is_season_high_end_displayed' => array(
+        'description' => 'Boolean indicating whether campaign high season end should be displayed.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'season_low_start' => array(
+        'description' => 'Date string of the start of the campaign low season.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'season_low_end' => array(
+        'description' => 'Date string of the end of the campaign low season.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('id'),
   );
