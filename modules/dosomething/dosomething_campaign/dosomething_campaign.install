@@ -24,20 +24,30 @@ function dosomething_campaign_schema() {
         'length' => '255',
         'not null' => TRUE,
       ),
-      /*
-      'created' => array(
-        'description' => 'Date and time the campaign record was created.',
+      'uid' => array(
+        'description' => 'The {users}.uid that owns this campaign; initially, this is the user that created it.',
         'type' => 'int',
-        'length' => 10,
-        'not null' => FALSE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether the campaign is published (visible to non-administrators).',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the campaign was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
       ),
       'changed' => array(
-        'description' => 'Date and time the campaign record was last modified.',
+        'description' => 'The Unix timestamp when the campaign was most recently saved.',
         'type' => 'int',
-        'length' => 10,
-        'not null' => FALSE,
+        'not null' => TRUE,
+        'default' => 0,
       ),
-      */
     ),
     'primary key' => array('id'),
   );
