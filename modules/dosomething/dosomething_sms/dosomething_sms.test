@@ -1,0 +1,202 @@
+<?php
+
+/**
+ * @file
+ * Tests for the dosomething_sms module.
+ */
+
+/**
+ * Class for dosomething_sms unit test cases.
+ */
+class DosomethingSmsUnitTestCase extends DrupalUnitTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething SMS Unit Tests',
+      'description' => 'Unit tests for DoSomething SMS.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp();
+  }
+
+  /**
+   * Tests dosomething_sms_incoming_check().
+   * We won't be able to simulate a query from Mobile Commons for these tests, so
+   * just make sure it returns FALSE.
+   */
+  public function testIncomingCheck() {
+    $this->assertFalse(dosomething_sms_incoming_check(), 'Non-Mobile Commons IP denied access.');
+  }
+
+  /**
+   * Tests that all expected .keywords.inc and .workflows.inc files can be found.
+   * @see _dosomething_sms_list_files_by_extension()
+   * @see dosomething_sms_conductor_sms_keywords()
+   * @see dosomething_sms_default_conductor_workflows
+   */
+  public function testListFilesByExtension() {
+    $keywordCheck = array(
+      dirname(__FILE__) . '/workflows/games.keywords.inc',
+      dirname(__FILE__) . '/workflows/test.keywords.inc',
+    );
+
+    $keywordFiles = array();
+    _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.keywords.inc', $keywordFiles);
+    $keywordResult = array_intersect($keywordCheck, $keywordFiles);
+    $this->assertTrue(count($keywordResult) == count($keywordCheck), 'All .keywords.inc files found.');
+
+    $workflowCheck = array(
+      dirname(__FILE__) . '/workflows/games.workflows.inc',
+      dirname(__FILE__) . '/workflows/test.workflows.inc',
+    );
+
+    $workflowFiles = array();
+    _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.workflows.inc', $workflowFiles);
+    $workflowResult = array_intersect($workflowCheck, $workflowFiles);
+    $this->assertTrue(count($workflowResult) == count($workflowCheck), 'All .workflows.inc files found.');
+  }
+
+}
+
+/**
+ * Class for dosomething_sms web test cases.
+ */
+class DosomethingSmsWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  /**
+   * Key/value array where key specifies the URL endpoint and value is its
+   * corresponding ConductorWorkflow.
+   *
+   * @var array
+   */
+  private $keywords;
+
+  /**
+   * ConductorWorkflow objects that define the behavior of our SMS conversations.
+   *
+   * @var array
+   */
+  private $workflows;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething SMS Web Tests',
+      'description' => 'Web tests for DoSomething SMS.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    // Enable the module
+    parent::setUp('dosomething_sms');
+
+    // Get list of all keywords
+    $this->keywords = dosomething_sms_conductor_sms_keywords();
+
+    // Get list of all workflows
+    $this->workflows = dosomething_sms_default_conductor_workflows();
+  }
+
+  /**
+   * Verify that each "keyword" value has a matching workflow.
+   */
+  public function testKeywordMatch() {
+    $workflowNames = array();
+    foreach ($this->workflows as $w) {
+      $workflowNames[] = $w->name;
+    }
+
+    foreach ($this->keywords as $key => $val) {
+      $this->assertTrue(in_array($val, $workflowNames), t('Keyword %key has matching workflow %workflow', array('%key' => $key, '%workflow' => $val)));
+    }
+  }
+
+  /**
+   * Verify all workflow names have a matching "keyword."
+   */
+  public function testWorkflowMatch() {
+    $this->workflows = dosomething_sms_default_conductor_workflows();
+
+    $keywordValues = array_values($this->keywords);
+
+    foreach ($this->workflows as $w) {
+      $this->assertTrue(in_array($w->name, $keywordValues), t('Workflow %workflow has matching keyword', array('%workflow' => $w->name)));
+    }
+  }
+
+  /**
+   * Verify no workflow activity has missing input or output links.
+   */
+  public function testWorkflowActivityLinks() {
+    foreach ($this->workflows as $w) {
+      $activities = $w->activities;
+      $numActivities = count($activities);
+
+      for($i = 0; $i < $numActivities; $i++) {
+        $a = $activities[$i];
+
+        // First activity should be 'start'
+        if ($i == 0) {
+          $this->assertTrue(strcmp($a->name, 'start') == 0, t('Workflow %name begins with the \'start\' activity.', array('%name' => $w->name)));
+        }
+
+        // Verify input -> output links
+        if (count($a->inputs) > 0) {
+          foreach ($a->inputs as $input) {
+            // Find the activity the input is referring to, and verify that that
+            // activity ($checkActivity) has an output referring to the current activity ($a).
+            for ($j = 0; $j < $numActivities; $j++) {
+              $checkActivity = $activities[$j];
+
+              $isDifferentActivity = $j != $i;
+              $checkedNameMatchesInput = strcmp($checkActivity->name, $input) == 0;
+              $checkedActivityHasMatchingOutput = in_array($a->name, $checkActivity->outputs);
+
+              if ($isDifferentActivity && $checkedNameMatchesInput && $checkedActivityHasMatchingOutput) {
+                $this->assert(TRUE, t('Link verified for %name input: %input', array('%name' => $a->name, '%input' => $input)));
+                break;
+              }
+              // Assert failure if all activities were checked and no matching output was found
+              else if ($j == $numActivities - 1) {
+                $this->assert(FALSE, t('Cannot find matching activity with output to match test activity: %name input: %input', array('%name' => $a->name, '%input' => $input)));
+              }
+            }
+          }
+        }
+
+        // Verify output -> input links
+        if (count($a->outputs) > 0) {
+          foreach ($a->outputs as $output) {
+            // Find the activity the output is referring to, and verify that that
+            // activity ($checkActivity) has an input referring at the current activity ($a).
+            for ($j = 0; $j < $numActivities; $j++) {
+              $checkActivity = $activities[$j];
+
+              $isDifferentActivity = $j != $i;
+              $checkedNameMatchesOutput = strcmp($checkActivity->name, $output) == 0;
+              $checkedActivityHasMatchingInput = in_array($a->name, $checkActivity->inputs);
+
+              if ($isDifferentActivity && $checkedNameMatchesOutput && $checkedActivityHasMatchingInput) {
+                $this->assert(TRUE, t('Link found for %activity output: %output', array('%activity' => $a->name, '%output' => $output)));
+                break;
+              }
+              // Assert failure if all activities were checked and no matching input was found
+              else if ($j == $numActivities - 1) {
+                $this->assert(FALSE, t('Cannot find matching activity with input to match test activity: %activity output: %output', array('%activity' => $a->name, '%output' => $output)));
+              }
+            }
+          }
+        }
+
+        // Last activity should be 'end'
+        if ($i == $numActivities - 1) {
+          $this->assertTrue(strcmp($a->name, 'end') == 0, "Workflow $w->name ends with the 'end' activity.");
+        }
+      }
+    }
+  }
+}

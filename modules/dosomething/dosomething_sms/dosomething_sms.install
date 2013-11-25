@@ -1,0 +1,139 @@
+<?php
+/**
+ * @file
+ * Install/Update/Uninstall functions for dosomething_sms module
+ */
+
+/**
+ * Define the table schemas used for this module.
+ */
+function dosomething_sms_schema() {
+  $schema = array();
+
+  $schema['sms_flow_game'] = array(
+    'description' => 'Stores details to SAS games relative to a user / unique phone number.',
+    'fields' => array(
+      'game_id' => array(
+        'description' => 'Unique identifier for the game/quiz.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'phone' => array(
+        'description' => 'Phone number',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => true
+      ),
+      'started_paths' => array(
+        'description' => 'Serialized array of opt-in paths that the user has been sent to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+      'answers' => array(
+        'description' => 'Serialized struct of answers given by the user {optin-path: {array of answers}}',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+    ),
+  );
+
+  $schema['sms_flow_records'] = array(
+    'description' => 'Stores alphas and betas who go through the SMS flow.',
+    'primary key' => array('sid'),
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The id of the record.',
+        'type' => 'serial',
+        'unsigned' => true,
+        'not null' => true,
+      ),
+      'alpha' => array(
+        'description' => 'The alpha\'s phone number.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+      ),
+      'beta' => array(
+        'description' => 'The beta\'s phone number.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+      ),
+      'type' => array(
+        'description' => 'The type of object that the beta has been invited to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+      'nid' => array(
+        'description' => 'The ID of the page / whatever that the person was invited to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'accepted_invite' => array(
+        'description' => 'Whether or not the user accepted the invitation.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'The time that it all began...',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      )
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_field_schema_alter().
+ */
+function dosomething_sms_schema_alter(&$schema) {
+  // Add field to existing schema.
+  $schema['conductor_instance_pointer']['fields']['timestamp'] = array(
+    'type' => 'int',
+    'description' => 'A Unix timestamp indicating when the instance pointer was generated.',
+  );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_sms_uninstall() {
+  db_drop_field('conductor_instance_pointer', 'timestamp');
+  drupal_set_message('dosomething_sms: The "timestamp" field has been removed from the conductor_instance_pointer table.', 'status');
+
+  db_drop_table('sms_flow_game');
+  drupal_set_message('dosomething_sms: The "sms_flow_game" table has been dropped.');
+
+  db_drop_table('sms_flow_records');
+  drupal_set_message('dosomething_sms: The "sms_flow_records" table has been dropped.');
+}
+
+/**
+ * dosomething_sms_update_7001()
+ *
+ * Alter conductor_instance_pointer table to include timestamp field.
+ */
+function dosomething_sms_update_7001(&$sandbox) {
+  // Load exsisting schema from "conductor" module
+  $schema = drupal_get_schema('conductor_instance_pointer');
+
+  $status_ok = db_add_field('conductor_instance_pointer', 'timestamp', $schema['fields']['timestamp']);
+
+  // Make timestamp field set to the current timestamp value when row is created.
+  // MODIFY made using "non" Drupal/ SQL direct method as MySQL TIMESTAMP defaults
+  // are not supported on all database types (non-MySQL dbs). Drupal database
+  // abstraction does not support DEFAULT CURRENT_TIMESTAMP.
+  db_query("ALTER TABLE conductor_instance_pointer MODIFY timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP");
+
+  drupal_set_message('dosomething_sms: conductor_instance_pointer table has been updated to include "timestamp" field.', 'status');
+}

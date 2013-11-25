@@ -1,0 +1,810 @@
+<?php
+/**
+ * @file
+ * Provides Do Something-specific SMS functionality.
+ */
+
+/**
+ * Implements hook_conductor_sms_keywords().
+ *
+ * Specifies conductor workflows that should trigger for a given endpoint
+ *   [endpoint] => [conductor workflow]
+ */
+function dosomething_sms_conductor_sms_keywords() {
+  $keywords = array();
+
+  // Find files in this directory tree with the .keywords.inc extension and
+  // include them to populate the keywords array.
+  $files = array();
+  _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.keywords.inc', $files);
+
+  foreach ($files as $file) {
+    include $file;
+  }
+
+  return $keywords;
+}
+
+/**
+ * Implements hook_default_conductor_workflows().
+ * Searches for local .workflows.inc files for instantiated ConductorWorkflows to add to array.
+ */
+function dosomething_sms_default_conductor_workflows() {
+  $workflows = array();
+
+  // Find files in this directory tree with the .workflows.inc extension and
+  // include them to populate the workflows array.
+  $files = array();
+  _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.workflows.inc', $files);
+
+  foreach ($files as $file) {
+    include $file;
+  }
+
+  return $workflows;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function dosomething_sms_ctools_plugin_api($owner, $api) {
+  if ($owner == 'conductor') {
+    return array('version' => 1.0);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dosomething_sms_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'conductor') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
+ * Impliments hook_cron().
+ */
+function dosomething_sms_cron() {
+  dosomething_sms_cron_test();
+}
+
+/**
+ * hook_cron() functionality that can be called as a cron job or as a test.
+ */
+function dosomething_sms_cron_test($manual_test=FALSE) {
+
+  $enabled = variable_get('dosomething_sms_cron_enable', FALSE);
+
+  // Run job every interval (week by default)
+  $interval = variable_get('dosomething_sms_cron_interval', 60 * 60 * 24 * 7);
+  $next_run = variable_get('dosomething_sms_cron_next_execution', REQUEST_TIME + $interval);
+
+  // Check to see if it's time to run the cleanup task, default to now plus the interval for next run if nothing found for setting
+  if ((($enabled) && (REQUEST_TIME >= $next_run)) || $manual_test) {
+
+    $workflows = _dosomething_sms_flow_info();
+    $markup = theme('dosomething_sms_cron_report', array('workflows' => $workflows));
+
+    // Delete entries that are older than dosomething_sms_interval)
+    if (!$manual_test) {
+      $number_deleted = (string) db_delete('conductor_instance_pointer')
+        ->condition('timestamp', date('Y-m-d g:i:s', REQUEST_TIME - $interval), '<=')
+        ->execute();
+    }
+    else {
+      $query = db_query('SELECT workflow_name FROM {conductor_instance_pointer} WHERE timestamp <= :target_date', array(':target_date' => date('Y-m-d g:i:s', REQUEST_TIME - $interval)));
+      $number_deleted = (string) $query->rowCount();
+    }
+
+    $human_date = date('l - j F Y - g:i:s');
+
+    // Send Report
+    if ($manual_test) {
+      $to = 'dlee@dosomething.org';
+    }
+    else {
+      $to = variable_get('dosomething_sms_cron_recipients', 'dlee@dosomething.org');
+    }
+
+    $language = '';
+    $from = 'dosomething@dosomething.org';
+
+    $params['subject'] = 'dosomething_sms cron Report - '. $human_date;
+
+    $params['body']  = t('<h2>DoSomething.org SMS Cron</h2><br />');
+    $params['body'] .= t('<p>Cron run at %current_date. <strong>%number_deleted</stront> old entries purged.</p><p>', array('%current_date' => $human_date, '%number_deleted' => $number_deleted));
+    $params['body'] .= $markup;
+    $params['body'] .= t('</p><p>See you on the next run at %next_run.', array('%next_run' => date('l - j F Y - g:i:s', REQUEST_TIME + $interval)));
+
+    $result = drupal_mail('dosomething_mandrill', 'dsplain', $to, language_default(), $params,  $from, TRUE);
+
+    $sent = print_r($params, TRUE);
+    $results = print_r($result, TRUE);
+
+    if (isset($result['result']) && $result['result'] == 'true') {
+      watchdog('dosomething_sms', t('Mandrill "dsplain" email sent from %from to %to. Details sent %sent, results: %results.'), array('%from' => $result['from'], '%to' => $result['to'], '%sent' => $sent, '%results' => $results), WATCHDOG_INFO);
+    }
+    else {
+      watchdog('dosomething_sms', t('Failed to send report via Mandrill "dsplain" email message from %from to %to. Details sent %sent, results: %results.'), array('%from' => $result['from'], '%to' => $result['to'], '%sent' => $sent), WATCHDOG_ERROR);
+    }
+    // Log report in Watchdog
+    watchdog('dosomething_sms', t('Cron run at %current_date. %number_deleted entries deleted.'), array('%current_date' => $human_date, '%number_deleted' => $number_deleted), WATCHDOG_INFO);
+
+    // Schedule new cron run
+    if (!$manual_test) {
+      variable_set('dosomething_sms_cron_next_execution', REQUEST_TIME + $interval);
+    }
+  }
+}
+
+/**
+ * Callback for Mobile Commons mData requests. Allows for different endpoints
+ * to trigger different keyword paths.
+ */
+function dosomething_sms_incoming_callback($path) {
+  // Direct correlation between path endpoint and keyword used. If the path doesn't
+  // match any keyword specified in the array of keywords, then error out.
+  $keyword = $path;
+  $keyword_map = module_invoke_all('conductor_sms_keywords');
+  if (!array_key_exists($path, $keyword_map)) {
+    watchdog('dosomething_sms', "Received message at unsupported path: /sms/sms_flow/$path");
+    return NULL;
+  }
+
+  // Build context for the conductor workflow
+  $message = isset($_REQUEST['args']) ? $_REQUEST['args'] : FALSE;
+  $carrier = isset($_REQUEST['carrier']) ? $_REQUEST['carrier'] : FALSE;
+  $sender = isset($_REQUEST['phone']) ? $_REQUEST['phone'] : FALSE;
+
+  $context = array(
+    'message' => $message,
+    'keyword' => $keyword,
+    'carrier' => $carrier,
+    'sender' => $sender,
+  );
+
+  // Pass message on to Conductor to handle and generate a response
+  $output = '';
+  conductor_sms_response($output, $context);
+
+  // If an output is given, reply in the xml format expected from Mobile Commons
+  if (!empty($output)) {
+    $output =
+    '<?xml version="1.0" encoding="UTF-8"?>
+    <response>
+     <reply>
+      <text>
+       <![CDATA[' . $output . ']]>
+      </text>
+     </reply>
+    </response>';
+    print $output;
+  }
+
+  return NULL;
+}
+
+/**
+ * Filter to ensure incoming texts are coming from Mobile Commons' IP.
+ */
+function dosomething_sms_incoming_check() {
+  // Valid IP range as specified by Mobile Commons is: 64.22.127.0/24.
+  // This translates to any IP 64.22.127.0 - 64.22.127.255
+  $valid = FALSE;
+  $ip = ip_address();
+  $valid = FALSE;
+
+  if (strpos($ip, '64.22.127') === 0) {
+    if ((int) substr($ip, 9, 3) >= 0 && (int) substr($ip, 10, 3) <= 255) {
+      $valid = TRUE;
+    }
+  }
+
+  return $valid;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_sms_menu() {
+  $items = array();
+
+  $items['admin/config/dosomething/dosomething_sms'] = array(
+    'title' => 'DoSomething SMS',
+    'description' => 'A collection of SMS tools related to DoSomething.org.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_sms_settings_form'),
+    'access arguments' => array('administer dosomething_sms'),
+    'file' => 'dosomething_sms.admin.inc',
+    'file path' => drupal_get_path('module', 'dosomething_sms'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/config/dosomething/dosomething_sms/cron_test'] = array(
+    'title' => 'DoSomething SMS Cron Test',
+    'description' => 'Submit same functionality as cron job a test run.',
+    'page callback' => 'dosomething_sms_cron_test',
+    'page arguments' => array(TRUE),
+    'access arguments' => array('administer dosomething_sms'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['sms/sms_flow/%'] = array(
+    'title' => 'SMS Receiver for Mobile Commons mData Requests',
+    'page callback' => 'dosomething_sms_incoming_callback',
+    'access callback' => 'dosomething_sms_incoming_check',
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_sms_permission() {
+  return array(
+    'administer dosomething_sms' => array(
+      'title' => t('Administer dosomething_sms module'),
+      'description' => t('Administer access to everything in module'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Impliments hook_theme().
+ */
+function dosomething_sms_theme($existing, $type, $theme, $path) {
+  return array(
+    'dosomething_sms_cron_report' => array(
+      'variables' => array('$workflows' => NULL),
+      'template' => 'dosomething-sms-cron-report',
+    ),
+  );
+}
+
+/**
+ * Begins the most epic SMS flow ever. But seriously, opts an Alpha into a
+ * Mobile Commons campaign. Then opts in Betas into another Mobile Commons
+ * campaign. Sends $variables (an array of custom variables, surprisingly) along
+ * with those opt-ins. Apply this function in a form submit function.
+ *
+ * @param string $alpha_number
+ *   The phone number of the alpha who invited the betas.
+ * @param int $alpha_optin
+ *   A campaign number on mobile commons that the ALPHA will be opted in to.
+ * @param int $beta_optin
+ *   A campaign on mobile commons that the BETA will be opted into.
+ * @param array $beta_numbers
+ *   Field keys that represent the phone numbers that the alpha invited through the form.
+ *   ALTERNATELY: An array of valid phone numbers to opt in through the opt-in path.
+ * @param array $form_values
+ *   Form values from the submitted webform.
+ * @param array $beta_variables
+ *   Custom variables to send with the opt-in. Are only applied to the Beta profiles.
+ *   These translate to {{variables}} on Mobile Commons.
+ * @param int $beta_to_alpha_campaign
+ *   (optional) A campaign that the beta (then Gamma, then whatever is after Gamma)
+ *   should be opted into when they invite their friends.
+ * @param string $type_override
+ *   (optional) Set a custom value to the 'type' column. Particularly useful for
+ *   cases where there is no appropriate NID or Drupal type for this invite. ex: the MLK day SMS game.
+ *
+ * Example (found in dosomething_clubs_preserve_shortform_email() in dosomething_clubs.module):
+ * @code
+ * dosomething_sms_flow_start(
+ *   '555-555-5555', 128441, 128441, array('field_webform_mobile'),
+ *   $form_state['values'],
+ *   array(
+ *     'first_name' => 'Mike',
+ *     'club_name' => "Mike's cool DoSomething.org Club."
+ *   )
+ * );
+ * @endcode
+ */
+function dosomething_sms_flow_start($alpha_number, $alpha_optin, $beta_optin, $beta_numbers, $form_values, $beta_variables, $beta_to_alpha_campaign = FALSE, $type_override = NULL) {
+
+  $nid = 0;
+  if (!empty($form_values['details']['nid'])) {
+    $nid = $form_values['details']['nid'];
+  }
+
+  if (empty($type_override)) {
+    $n = node_load($nid);
+    $type = $n->type;
+  }
+  else {
+    $type = $type_override;
+  }
+
+  $alpha_number = preg_replace('#[^0-9]#', '', $alpha_number);
+
+  $valid_beta_numbers = array();
+  foreach ($beta_numbers AS $key => $field) {
+    $beta_number = '';
+
+    // Generic $form_state['values']['submitted_tree']
+    if (isset($form_values['submitted_tree']) && isset($form_values['submitted_tree'][$field][LANGUAGE_NONE][0])) {
+      $beta_number = current($form_values['submitted_tree'][$field][LANGUAGE_NONE][0]);
+    }
+
+    // Security for the multiple form_state['values'] that we have migrating around the site.
+    else if (isset($form_values[$field][LANGUAGE_NONE][0])) {
+      $beta_number = current($form_values[$field][LANGUAGE_NONE][0]);
+    }
+
+    // Array of phone numbers passed to function
+    if (dosomething_user_valid_cell($field)) {
+      $beta_number = preg_replace('#[^0-9]#', '', $field);
+    }
+
+    // Check if valid cell and opt in to Mobile Commons.
+    if (dosomething_user_valid_cell($beta_number)) {
+      $valid_beta_numbers[] = $beta_number;
+
+      $record = array(
+        'alpha' => $alpha_number,
+        'beta' => $beta_number,
+        'timestamp' => REQUEST_TIME,
+        'type' => $type,
+        'nid' => $nid
+      );
+
+      drupal_write_record('sms_flow_records', $record);
+
+      // Add beta number to args to send in the update request
+      if (!is_array($beta_variables)) {
+        $beta_variables = array();
+      }
+      $beta_variables['phone_number'] = $beta_number;
+
+      // Create and update the beta's Mobile Commons profile
+      mobilecommons_request('profiles_update', $beta_variables);
+    }
+  }
+
+  // Opt-in alpha and beta to their respective paths
+  if (module_exists('dosomething_subscribe_mobilecommons')) {
+    dosomething_subscribe_mobilecommons_referral_signup(
+      $alpha_number,
+      (!$beta_to_alpha_campaign ? $alpha_optin : $beta_to_alpha_campaign),
+      $valid_beta_numbers,
+      $beta_optin
+    );
+  }
+}
+
+/**
+ * Accepts a phone number and returns the alpha who invited that phone number, if applicable.
+ *
+ * @param string $beta
+ *   The beta's phone number. Accepts with punctuation (e.g. xxx-xxx-xxxx) or without.
+ * @param int $nid
+ *   (optional) The node id that is being referenced. This will ensure that we
+ *   pull the correct alpha, when we have multiple flow types running at the same time.
+ * @param string $type
+ *   (optional) Type of invite being referenced. Possible some 'nid' values could
+ *   overlap depending on the type.
+ *
+ * @return string
+ *   The alpha's phone number, if applicable, or false.
+ *
+ * Example:
+ * @code
+ * dosomething_sms_find_alpha('555-555-5555');
+ * @endcode
+ */
+function dosomething_sms_find_alpha($beta, $nid = 0, $type = '') {
+  $beta_parsed = preg_replace('#[^0-9]#i', '', $beta);
+  $select = db_query("
+    SELECT alpha
+    FROM sms_flow_records
+    WHERE
+       (beta = '" . $beta . "'
+       OR beta = '" . $beta_parsed . "')
+       " . ($nid > 0 ? "AND `nid` = " . intval($nid) : '') . "
+       " . (!empty($type) ? "AND `type` = '" . $type . "'" : '') . "
+    ORDER BY sid DESC
+    LIMIT 1
+  ");
+
+  $r = current($select->fetchAll());
+  return ($r->alpha ? $r->alpha : false);
+}
+
+/**
+ * Checks whether an alpha in the sms_flow_records table has received a message
+ * from an invited beta before, given a particular type and node ID.
+ *
+ * @param int $alpha
+ *   The phone number without ANY punctuation of the alpha.
+ * @param int $nid
+ *   The nid of the invitation, as found in the sms_flow_records table.
+ * @param string $type
+ *   The "type" of invitation, as seen in the sms_flow_records table.
+ *
+ * @return boolean
+ *   TRUE if there is at least one message from beta -> alpha sent. FALSE if there
+ *   have not been any messages sent from beta -> alpha.
+ */
+function dosomething_sms_alpha_received_message($alpha, $nid, $type) {
+  // Query the sms_flow_records table.
+  $select = db_query("
+    SELECT
+      COUNT(*) AS sent
+    FROM sms_flow_records
+    WHERE `accepted_invite` = 1
+      AND REPLACE(
+        REPLACE(
+          REPLACE(
+            REPLACE(
+              `alpha`, ')', ''
+            ),
+          '(', ''),
+        ' ', ''),
+      '-', '') = '" . $alpha . "'
+      AND `type` = :type
+      AND `nid` = :nid
+  ", array(':type' => $type, ':nid' => $nid));
+
+  // Get just what we need...
+  $r = reset($select->fetchAll());
+
+  // Return true if there's at least one response sent.
+  return ($r->sent > 0);
+}
+
+/**
+ * Updates the "accepted invite" status for a particular beta number in the
+ * sms_flow_records table.
+ *
+ * @param string $alpha_number
+ *   The number of the alpha user who sent the invite.
+ * @param string $beta_number
+ *   The beta number to look up.
+ * @param int $nid
+ *   The nid that the user is being invited to, as seen in the sms_flow_records table.
+ * @param string $type
+ *   The type of invite to check against.
+ *
+ * @return
+ *   Returns true.
+ */
+function dosomething_sms_update_accepted_status($alpha_number, $beta_number, $nid, $type) {
+  db_update('sms_flow_records')
+    ->fields(array(
+      'accepted_invite' => 1
+    ))
+    ->condition('alpha', $alpha_number)
+    ->condition('beta', $beta_number)
+    ->condition('nid', $nid)
+    ->condition('type', $type)
+    ->execute();
+
+    return TRUE;
+}
+
+/**
+ * Create record in sms_flow_game table.
+ *
+ * @param string $phone
+ *   Phone number to add to the table.
+ * @param int $game_id
+ *   The game ID for this record.
+ *   @see sms_flow_game_constants.inc
+ *
+ * @return
+ *   If the record insert or update failed, returns FALSE. If it succeeded,
+ *   returns SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
+ */
+function dosomething_sms_game_create_record($phone, $game_id) {
+  $phone = substr($phone, -10);
+
+  $record = array(
+    'phone' => $phone,
+    'game_id' => $game_id,
+    'started_paths' => '',
+    'answers' => '',
+  );
+
+  $ret = drupal_write_record('sms_flow_game', $record);
+}
+
+/**
+ * Retrieve the opt-in paths a user has been sent to.
+ *
+ * @param string $phone
+ *   Phone number of the user to lookup.
+ * @param int $game_id
+ *   The game ID to query for.
+ *   @see sms_flow_game_constants.inc
+ *
+ * @return array
+ *   The paths a user has been opted-in to.
+ */
+function dosomething_sms_game_get_paths($phone, $game_id) {
+  $phone = preg_replace('#[^0-9]#i', '', $phone);
+  $phone = substr($phone, -10);
+
+  $select = db_query("
+    SELECT started_paths
+    FROM sms_flow_game
+    WHERE
+       phone = '" . $phone . "'
+       AND game_id = '" . $game_id . "'
+    LIMIT 1
+  ");
+
+  $record = current($select->fetchAll());
+
+  if ($record && !empty($record->started_paths)) {
+    // Deserialize string into array
+    $return = explode(',', $record->started_paths);
+  }
+
+  return !empty($return) ? $return : array();
+}
+
+/**
+ * Save the opt-in paths a user has been sent to to the sms_flow_game table.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   The game ID the paths are associated with.
+ *   @see sms_flow_game_constants.inc
+ * @param array $paths
+ *   The opt-in paths a user has been sent to.
+ */
+function dosomething_sms_game_set_paths($phone, $game_id, $paths) {
+  $phone = substr($phone, -10);
+
+  // Serialize array before writing it to the database
+  $serialized_paths = implode(',', $paths);
+
+  db_update('sms_flow_game')
+    ->fields(array(
+      'started_paths' => $serialized_paths
+    ))
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->execute();
+}
+
+/**
+ * Return answers from sms_flow_game.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   Game ID to get the answers for.
+ *   @see sms_flow_game_constants.inc
+ *
+ * @return
+ *   Associative array of the user's answers to the given game. Otherwise, NULL.
+ */
+function dosomething_sms_game_get_answers($phone, $game_id) {
+  $phone = preg_replace('#[^0-9]#i', '', $phone);
+  $phone = substr($phone, -10);
+
+  $select = db_query("
+    SELECT answers
+    FROM sms_flow_game
+    WHERE
+      phone = '" . $phone . "'
+      AND game_id = '" . $game_id . "'
+    LIMIT 1
+  ");
+
+  $record = current($select ->fetchAll());
+
+  if ($record && !empty($record->answers)) {
+    $return = json_decode($record->answers, TRUE);
+  }
+
+  return !empty($return) ? $return : NULL;
+}
+
+/**
+ * Convert answers from associative array to json string and save to sms_flow_game.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   Game ID the answers are associated with.
+ *   @see sms_flow_game_constants.inc
+ * @param array $answers
+ *   The answers to convert and save.
+ */
+function dosomething_sms_game_set_answers($phone, $game_id, $answers) {
+  $phone = substr($phone, -10);
+  $serialized_answers = json_encode($answers);
+
+  db_update('sms_flow_game')
+    ->fields(array(
+      'answers' => $serialized_answers
+    ))
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->execute();
+}
+
+/**
+ * Subscribe to a Mobile Commons opt-in path.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $opt_in_path
+ *   Mobile Commons opt-in path id.
+ * @param array $args
+ *   Additional arguments.
+ */
+function dosomething_sms_mobile_commons_opt_in($phone, $opt_in_path, $args = array()) {
+  $content = array(
+    'opt_in_path[]' => $opt_in_path,
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  if (!empty($args)) {
+    foreach ($args as $key => $val) {
+      $content[$key] = urlencode($val);
+    }
+  }
+
+  mobilecommons_request('opt_in', $content);
+}
+
+/**
+ * Unsubscribe the user from a Mobile Commons campaign.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param mixed $campaigns
+ *   A single campaign ID to opt out of, or an array of multiple IDs.
+ */
+function dosomething_sms_mobile_commons_opt_out($phone, $campaigns) {
+  $content = array(
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  if (is_array($campaigns)) {
+    if (count($campaigns) > 1) {
+      // Manually concatenating additional campaigns onto the build query.
+      // Additional campaigns must be in the format "&campaign[]="
+      $content_query = http_build_query($content);
+      foreach ($campaigns as $id) {
+        $campaign_key = urlencode('campaign[]');
+        $content_query .= '&' . $campaign_key . '=' . $id;
+      }
+    }
+    else {
+      if (count($campaigns) == 1) {
+        $content['campaign'] = $campaigns[0];
+      }
+    }
+  }
+  elseif (is_numeric($campaigns) && $campaigns > 0) {
+    $content['campaign'] = $campaigns;
+  }
+  else {
+    return;
+  }
+
+  mobilecommons_request('opt_out', $content);
+}
+
+/**
+ * Build array of flow details. Used by dosomething_sms_report_markup() to determine
+ * markup of flow report.
+ */
+function _dosomething_sms_flow_info() {
+
+  // Get list of all report back workflows
+  $workflows = array();
+  include(module_load_include('inc', 'sms_flow', 'plugins/activity/report_backs/report_backs.workflows'));
+
+  // SELECT all of the unique workflow names that have entries - stalled SMS users
+  $results = db_query('
+    SELECT DISTINCT workflow_name
+    FROM {conductor_instance_pointer} cip
+    ORDER BY cip.workflow_name'
+  );
+
+  $active_workflows = array();
+  $x = 0;
+  $y = 0;
+  $output_count = 1;
+
+  // Gather all of the activities for each work flow and initalize the count to zero
+  foreach ($results as $row) {
+    $max_y = 0;
+    $activities = $workflows[$row->workflow_name]->activities;
+
+    foreach ($activities as $activity_counter => $activity_details) {
+      // Count the number of entries for this activity
+      // @todo: Move query outside of loop
+      $activity_count = db_query('
+          SELECT activity_name
+          FROM {conductor_instance_pointer}
+          WHERE workflow_name = :workflow_name AND activity_name = :activity_name',
+          array('workflow_name' => $row->workflow_name, 'activity_name' => $activity_details->name)
+        )->rowCount();
+
+      $activity_detail['workflow_name'] = $row->workflow_name;
+      $activity_detail['activity_name'] = $activity_details->name;
+      $activity_detail['activity_count'] = $activity_count;
+      $activity_detail['activity_inputs'] = $activity_details->inputs;
+      $activity_detail['activity_outputs'] = $activity_details->outputs;
+
+      $x++;
+
+      $activity = $active_workflows[$row->workflow_name][$activity_counter - 1];
+      if ($activity['activity_outputs'] != NULL && ($activity['y'] + count($activity['activity_outputs']) - 1) > $y) {
+        $y++;
+      }
+
+      // Start / End resets
+      if ($activity_detail['activity_name'] == 'start') {
+        $x = 0;
+        $y = 0;
+      }
+      elseif ($activity_detail['activity_name'] == 'end') {
+        $y = 0;
+      }
+
+      $activity_detail['x'] = $x;
+      $activity_detail['y'] = $y;
+
+      // Keep track of maximum width
+      if ($y > $max_y) {
+        $max_y = $y;
+      }
+
+      // Keep tract of the activity details
+      $active_workflows[$row->workflow_name][] = $activity_detail;
+    }
+
+    // Note max width or Clean up
+    if ($active_workflows[$row->workflow_name][0] != NULL) {
+      $active_workflows[$row->workflow_name]['max_y'] = $max_y;
+    }
+    else {
+      unset($active_workflows[$row->workflow_name]);
+    }
+  }
+
+  return $active_workflows;
+}
+
+/**
+ * Helper function to find all files within a directory that end with the given extension.
+ *
+ * @param string $dir
+ *   Directory to search for files.
+ * @param string $file_ext
+ *   File extension of files to search for.
+ * @param array $matching_files
+ *   The files that match the $file_ext being searched for.
+ */
+function _dosomething_sms_list_files_by_extension($dir, $file_ext, &$matching_files) {
+  $files = scandir($dir);
+  foreach ($files as $file) {
+    if ($file != '.' && $file != '..') {
+      $path = $dir . '/' . $file;
+
+      if (is_dir($path)) {
+        _dosomething_sms_list_files_by_extension($path, $file_ext, $matching_files);
+      }
+      elseif (preg_match('/'  . $file_ext . '$/', $path) === 1) {
+        $matching_files[] = $path;
+      }
+    }
+  }
+}
