@@ -1,0 +1,4 @@
+name = DoSomething Campaign
+description = Provides a custom Campaign Entity and its functionality.
+core = 7.x
+dependencies[] = entity
