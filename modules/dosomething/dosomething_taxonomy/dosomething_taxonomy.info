@@ -1,7 +1,7 @@
 name = DoSomething Taxonomy
 description = Exports enterprise taxonomy to a feature
 core = 7.x
-package = Features
+package = DoSomething
 version = 7.x-1.0
 project = dosomething_taxonomy
 dependencies[] = taxonomy
