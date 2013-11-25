@@ -337,12 +337,12 @@ function dosomething_sms_flow_start($alpha_number, $alpha_optin, $beta_optin, $b
     }
 
     // Array of phone numbers passed to function
-    if (dosomething_general_valid_cell($field)) {
+    if (dosomething_user_valid_cell($field)) {
       $beta_number = preg_replace('#[^0-9]#', '', $field);
     }
 
     // Check if valid cell and opt in to Mobile Commons.
-    if (dosomething_general_valid_cell($beta_number)) {
+    if (dosomething_user_valid_cell($beta_number)) {
       $valid_beta_numbers[] = $beta_number;
 
       $record = array(
@@ -356,7 +356,8 @@ function dosomething_sms_flow_start($alpha_number, $alpha_optin, $beta_optin, $b
       drupal_write_record('sms_flow_records', $record);
 
       // Create and update the beta's Mobile Commons profile
-      sms_mobile_commons_profile_update($beta_number, $beta_variables);
+      // @todo Convert to use mobilecommons module
+      // sms_mobile_commons_profile_update($beta_number, $beta_variables);
     }
   }
 
