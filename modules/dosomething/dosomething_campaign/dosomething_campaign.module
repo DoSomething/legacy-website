@@ -112,6 +112,56 @@ class CampaignEntityController extends EntityAPIController {
  * Our custom controller for the admin ui.
  */
 class CampaignEntityUIController extends EntityDefaultUIController {
+
+  /**
+   * Generates the render array for a overview table for arbitrary entities
+   * matching the given conditions.
+   *
+   * @param $conditions
+   *   An array of conditions as needed by entity_load().
+
+   * @return Array
+   *   A renderable array.
+   */
+  public function overviewTable($conditions = array()) {
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $this->entityType);
+    $query->propertyOrderBy('changed', 'DESC');
+
+    // Add all conditions to query.
+    foreach ($conditions as $key => $value) {
+      $query->propertyCondition($key, $value);
+    }
+
+    if ($this->overviewPagerLimit) {
+      $query->pager($this->overviewPagerLimit);
+    }
+
+    $results = $query->execute();
+
+    $ids = isset($results[$this->entityType]) ? array_keys($results[$this->entityType]) : array();
+    $entities = $ids ? entity_load($this->entityType, $ids) : array();
+
+    $rows = array();
+    foreach ($entities as $entity) {
+      // Add additional columns for table rows:
+      $rows[] = $this->overviewTableRow($conditions, entity_id($this->entityType, $entity), $entity, array(
+        format_date($entity->changed, 'short'),
+        )
+      );
+    }
+
+    $render = array(
+      '#theme' => 'table',
+      // Add additional columns for table header:
+      '#header' => $this->overviewTableHeaders($conditions, $rows, array(t('Updated'))),
+      '#rows' => $rows,
+      '#empty' => t('None.'),
+    );
+    return $render;
+  }
+
   /**
    * Generates the table headers for the overview table.
    */
