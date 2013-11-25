@@ -112,5 +112,17 @@ class CampaignEntityController extends EntityAPIController {
  * Our custom controller for the admin ui.
  */
 class CampaignEntityUIController extends EntityDefaultUIController {
-
+  /**
+   * Generates the table headers for the overview table.
+   */
+  protected function overviewTableHeaders($conditions, $rows, $additional_header = array()) {
+    $header = $additional_header;
+    array_unshift($header, t('Title'));
+    if (!empty($this->entityInfo['exportable'])) {
+      $header[] = t('Status');
+    }
+    // Add operations with the right colspan.
+    $header[] = array('data' => t('Operations'), 'colspan' => $this->operationCount());
+    return $header;
+  }
 }
