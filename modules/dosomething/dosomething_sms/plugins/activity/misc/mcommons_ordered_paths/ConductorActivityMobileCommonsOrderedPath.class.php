@@ -70,8 +70,7 @@ class ConductorActivityMobileCommonsOrderedPath extends ConductorActivity {
         // Send user to selected opt-in path or nothing if they've already received the last path
         if ($nextOptInIndex >= 0 && $nextOptInIndex < count($set['opt_in_paths'])) {
 
-          // @todo Convert to use mobilecommons module
-          // sms_mobile_commons_opt_in($mobile, $set['opt_in_paths'][$nextOptInIndex]);
+          dosomething_sms_mobile_commons_opt_in($mobile, $set['opt_in_paths'][$nextOptInIndex]);
 
           // Save path to database
           try {
@@ -89,8 +88,7 @@ class ConductorActivityMobileCommonsOrderedPath extends ConductorActivity {
           }
         }
         elseif (!empty($set['paths_finished_msg'])) {
-          // @todo Convert to use mobilecommons module
-          // sms_mobile_commons_opt_in($mobile, $set['paths_finished_msg']);
+          dosomething_sms_mobile_commons_opt_in($mobile, $set['paths_finished_msg']);
         }
       }
     }

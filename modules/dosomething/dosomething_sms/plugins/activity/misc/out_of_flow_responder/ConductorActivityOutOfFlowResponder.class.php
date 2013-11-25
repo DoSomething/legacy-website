@@ -204,8 +204,7 @@ class ConductorActivityOutOfFlowResponder extends ConductorActivity {
       $set = $this->response_sets[$matchingSet];
 
       if (isset($set['trigger_opt_out']) && $set['trigger_opt_out'] > 0) {
-        // @todo Convert to use mobilecommons module
-        // sms_mobile_commons_campaign_opt_out($mobile, $set['trigger_opt_out']);
+        dosomething_sms_mobile_commons_opt_out($mobile, $set['trigger_opt_out']);
         $response = self::selectResponse($set['response']);
       }
       elseif ($isNegativeForm) {
@@ -221,8 +220,7 @@ class ConductorActivityOutOfFlowResponder extends ConductorActivity {
       $response = self::selectResponse($this->no_match_responses);
       if (is_numeric($this->no_match_responses[0])) {
         // If it's an array of numbers, then push user to the selected opt-in path id
-        // @todo Convert to use mobilecommons module
-        // sms_mobile_commons_opt_in($mobile, $response);
+        dosomething_sms_mobile_commons_opt_in($mobile, $response);
         $state->setContext('ignore_no_response_error', TRUE);
       }
       else {

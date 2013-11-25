@@ -74,8 +74,7 @@ class ConductorActivityMobileCommonsTimedPath extends ConductorActivity {
       }
 
       if ($optInPath > 0) {
-        // @todo Convert to use mobilecommons module
-        // dosomething_general_mobile_commons_subscribe($mobile, $optInPath);
+        dosomething_sms_mobile_commons_opt_in($mobile, $optInPath);
       }
     }
 

@@ -76,8 +76,7 @@ class ConductorActivityMobileCommonsRandomPath extends ConductorActivity {
         }
 
         // Send user to selected opt-in path
-        // @todo Convert to use mobilecommons module
-        // dosomething_general_mobile_commons_subscribe($mobile, $opt_in_path);
+        dosomething_sms_mobile_commons_opt_in($mobile, $opt_in_path);
 
         try {
           // If no existing record, create one
