@@ -11,7 +11,7 @@
  */
 function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
   // Prefix for form description variables:
-  $desc_prefix = 'dosomething_campaign_form_desc_';
+  $desc_prefix = DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX;
 
   // Basic info:
   $form['title'] = array(
@@ -89,4 +89,32 @@ function campaign_form_submit($form, &$form_state) {
   $campaign = entity_ui_form_submit_build_entity($form, $form_state);
   $campaign->save();
   $form_state['redirect'] = 'admin/campaign';
+}
+
+/**
+ * Form constructor for the admin settings for Campaign entity form.
+ *
+ * @ingroup forms
+ */
+function dosomething_campaign_admin_settings_form($form, &$form_state) {
+  // List all the campaign_form form element names for which we are storing help text for:
+  $elements = array(
+    'cta_text',
+    'season_high_low',
+    'season_high_start',
+    'season_low_start',
+    'season_low_end',
+    'timing',
+    'title',
+  );
+  // For each element:
+  foreach ($elements as $field_name) {
+    // Output a textarea to set its coresponding Form Description variable.
+    $form[DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX . $field_name] = array(
+      '#title' => $field_name,
+      '#type' => 'textarea',
+      '#default_value' => variable_get(DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX . $field_name, ''),
+    );
+  }
+  return system_settings_form($form);
 }

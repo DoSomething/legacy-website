@@ -3,7 +3,7 @@
  * @file
  * Provides a Campaign custom entity type named 'campaign'.
  */
-
+define('DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX', 'dosomething_campaign_form_desc_');
 /**
  * Implements hook_entity_info().
  */
@@ -42,6 +42,14 @@ function dosomething_campaign_menu() {
     'page callback' => 'dosomething_campaign_view_entity',
     'page arguments' => array(1),
     'access callback' => TRUE,
+  );
+  $items['admin/config/dosomething/dosomething_campaign'] = array(
+    'title' => 'DoSomething Campaign Settings',
+    'description' => t('Configure DoSomething Campaign settings.'),
+    'access arguments' => array('administer modules'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_campaign_admin_settings_form'),
+    'file' => 'dosomething_campaign.admin.inc',
   );
   return $items;
 }
