@@ -51,7 +51,10 @@ node/*/delete
 user
 user/*
 admin
-admin/*');
+admin/*
+devel
+devel/*
+admin_menu/*');
   variable_set('securepages_secure', '1');
   variable_set('securepages_switch', true);
   
