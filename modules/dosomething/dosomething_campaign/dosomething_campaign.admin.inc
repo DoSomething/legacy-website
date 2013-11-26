@@ -28,6 +28,12 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'cta_text', ''),
     '#required' => TRUE,
   );
+  $form['url_internal_confirm_doc'] = array(
+    '#title' => t('Internal Confirmation Doc URL'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->url_internal_confirm_doc) ? $campaign->url_internal_confirm_doc : '',
+    '#description' => variable_get($desc_prefix . 'url_internal_confirm_doc', ''),
+  );
 
   // Timing:
   $form['timing'] = array(
@@ -110,6 +116,27 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'url_psa', ''),
   );
 
+  // Prep It:
+  $form['prep'] = array(
+    '#type' => 'fieldset', 
+    '#title' => t('Prep It'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'prep', ''),
+  );
+  $form['prep']['prep_intro'] = array(
+    '#title' => t('Campaign Specific Starter Statement'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->prep_intro) ? $campaign->prep_intro : '',
+    '#description' => variable_get($desc_prefix . 'prep_intro', ''),
+  );
+  $form['prep']['time_and_place'] = array(
+    '#title' => t('Time and Place'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->time_and_place) ? $campaign->time_and_place : '',
+    '#description' => variable_get($desc_prefix . 'time_and_place', ''),
+  );
+
   // Form actions:
   $form['actions'] = array(
     '#type' => 'actions',
@@ -142,6 +169,8 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   $elements = array(
     'cta_text',
     'know',
+    'prep',
+    'prep_intro',
     'season_high_low',
     'season_high_start',
     'season_low_start',
@@ -151,7 +180,9 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'stat_solution',
     'stat_solution_source',
     'timing',
+    'time_and_place',
     'title',
+    'url_internal_confirm_doc',
     'url_psa',
   );
   // For each element:
