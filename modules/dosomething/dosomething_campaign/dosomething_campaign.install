@@ -120,6 +120,18 @@ function dosomething_campaign_schema() {
         'length' => '255',
         'not null' => FALSE,
       ),
+      'prep_intro' => array(
+        'description' => 'Intro copy for how to start the campaign.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'time_and_place' => array(
+        'description' => 'Copy about timing and location.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('id'),
   );
