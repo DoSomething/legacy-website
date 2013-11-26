@@ -38,7 +38,8 @@ function dosomething_campaign_entity_info() {
 function dosomething_campaign_menu() {
   $items = array();
   $items['campaign/%campaign'] = array(
-    'title' => 'Campaign',
+    'title callback' => 'dosomething_campaign_page_title',
+    'title arguments' => array(1),
     'page callback' => 'dosomething_campaign_view_entity',
     'page arguments' => array(1),
     'access callback' => TRUE,
@@ -52,6 +53,21 @@ function dosomething_campaign_menu() {
     'file' => 'dosomething_campaign.admin.inc',
   );
   return $items;
+}
+
+/**
+ * Title callback: Returns the title of the campaign.
+ *
+ * @param $node
+ *   The node object.
+ *
+ * @return
+ *   An unsanitized string that is the title of the campaign.
+ *
+ * @see dosomething_campaign_menu()
+ */
+function dosomething_campaign_page_title($campaign) {
+  return $campaign->title;
 }
 
 /**
