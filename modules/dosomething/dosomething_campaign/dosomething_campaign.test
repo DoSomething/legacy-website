@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Tests for the dosomething_campaign module.
+ */
+
+
+/**
+ * Base class for all dosomething_user web test cases.
+ */
+class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething Campaign Web Test',
+      'description' => 'Web tests for DoSomething Campaign',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp(array('dosomething_campaign'));
+    $this->auth_user = $this->drupalCreateUser();
+  }
+
+  /**
+   * Tests values are saved into the dosomething_campaign table.
+   */
+  function testCampaignForm() {
+    $this->drupalLogin($this->auth_user);
+    $uid = $this->auth_user->uid;
+    // Store test values for each column:
+    $values = array(
+    	'title' => 'Title',
+    	'cta_text' => 'CTA Text',
+    );
+    // Create campaign to submit.
+    $edit = array();
+    $edit['title'] = $values['title'];
+    $edit['cta_text'] = $values['cta_text'];
+    $this->drupalPost('admin/campaign/add', $edit, t('Save Campaign'));
+    // Fetch last inserted campaign record:
+    $result = db_select('dosomething_campaign', 'c')
+      ->fields('c')
+	    ->orderBy('id', 'DESC')
+	    ->range(0,1)
+	    ->execute()
+	    ->fetchAssoc();
+	  $this->assertIdentical($this->auth_user->uid, $result['uid'], '"uid" value is equal.');
+	  $this->assertIdentical($values['title'], $result['title'], '"title" value is equal.');
+	  $this->assertIdentical($values['cta_text'], $result['cta_text'], '"cta_text" value is equal.');
+  }
+}
