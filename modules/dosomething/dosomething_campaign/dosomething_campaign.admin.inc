@@ -171,7 +171,6 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'know',
     'prep',
     'prep_intro',
-    'season_high_end',
     'season_high_start',
     'season_high_end',
     'season_low_start',
