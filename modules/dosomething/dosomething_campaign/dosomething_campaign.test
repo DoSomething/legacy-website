@@ -7,7 +7,7 @@
 
 
 /**
- * Base class for all dosomething_user web test cases.
+ * Base class for all dosomething_campaign web test cases.
  */
 class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
   // Required to test inside the DoSomething profile:
@@ -33,15 +33,17 @@ class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
     $this->drupalLogin($this->auth_user);
     $uid = $this->auth_user->uid;
     // Store test values for each column:
-    $values = array(
+    $col_values = array(
     	'title' => 'Title',
     	'cta_text' => 'CTA Text',
+    	'season_high_start' => '01/01',
+    	'season_high_end' => '03/01',
+    	'is_season_high_end_displayed' => TRUE,
+    	'season_low_start' => '01/01',
+    	'season_low_end' => '03/01',
     );
-    // Create campaign to submit.
-    $edit = array();
-    $edit['title'] = $values['title'];
-    $edit['cta_text'] = $values['cta_text'];
-    $this->drupalPost('admin/campaign/add', $edit, t('Save Campaign'));
+    // Submit $col_values as a new campaign:
+    $this->drupalPost('admin/campaign/add', $col_values, t('Save Campaign'));
     // Fetch last inserted campaign record:
     $result = db_select('dosomething_campaign', 'c')
       ->fields('c')
@@ -50,7 +52,10 @@ class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
 	    ->execute()
 	    ->fetchAssoc();
 	  $this->assertIdentical($this->auth_user->uid, $result['uid'], '"uid" value is equal.');
-	  $this->assertIdentical($values['title'], $result['title'], '"title" value is equal.');
-	  $this->assertIdentical($values['cta_text'], $result['cta_text'], '"cta_text" value is equal.');
+	  // Loop through column values:
+	  foreach ($col_values as $col_name => $value) {
+	  	// Test if value is equal to query result:
+		  $this->assertEqual($col_values[$col_name], $result[$col_name], $col_name . ': ' . $col_values[$col_name] . ' == ' . $result[$col_name]);
+	  }
   }
 }
