@@ -84,6 +84,36 @@ function dosomething_campaign_schema() {
         'length' => '255',
         'not null' => FALSE,
       ),
+      'stat_problem' => array(
+        'description' => 'Statistic or statement on the problem.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'stat_problem_source' => array(
+        'description' => 'Source of the stat_problem.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'stat_solution' => array(
+        'description' => 'Statistic or statement on the solution.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'stat_solution_source' => array(
+        'description' => 'Source of the stat_solution.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'url_psa' => array(
+        'description' => 'URL For PSA.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('id'),
   );
