@@ -142,8 +142,8 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   $elements = array(
     'cta_text',
     'know',
-    'season_high_low',
     'season_high_start',
+    'season_high_end',
     'season_low_start',
     'season_low_end',
     'stat_problem',
