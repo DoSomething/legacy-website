@@ -28,6 +28,12 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'cta_text', ''),
     '#required' => TRUE,
   );
+  $form['url_internal_confirm_doc'] = array(
+    '#title' => t('Internal Confirmation Doc URL'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->url_internal_confirm_doc) ? $campaign->url_internal_confirm_doc : '',
+    '#description' => variable_get($desc_prefix . 'url_internal_confirm_doc', ''),
+  );
 
   // Timing:
   $form['timing'] = array(
@@ -152,6 +158,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'stat_solution_source',
     'timing',
     'title',
+    'url_internal_confirm_doc',
     'url_psa',
   );
   // For each element:
