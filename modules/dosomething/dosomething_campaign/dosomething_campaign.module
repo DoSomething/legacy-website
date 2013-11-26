@@ -91,9 +91,7 @@ function campaign_load($id) {
  * Just a place to render a complete campaign entity.
  */
 function dosomething_campaign_view_entity($campaign) {
-  $campaign_entity = entity_view('campaign', array($campaign->id => $campaign));
-  //@todo: Make me pretty.
-  return print_r($campaign_entity, TRUE);
+  return entity_view('campaign', array($campaign->id => $campaign));
 }
 
 /**
@@ -115,6 +113,24 @@ class CampaignEntity extends Entity {
  * full CRUD support for CampaignEntities.
  */
 class CampaignEntityController extends EntityAPIController {
+
+  /**
+   * Overrides buildContent() method.
+   *
+   * Adds campaign column values into campaign entity's render.
+   */
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+    foreach ($entity as $key => $value) {
+      $build[$key] = array(
+        '#type' => 'markup',
+        '#markup' => $value,
+        '#prefix' => '<div>' . $key . ': ',
+        '#suffix' => '</div>',
+      );      
+    }
+    return $build;
+  }
 
   /**
    * Overrides save() method.
