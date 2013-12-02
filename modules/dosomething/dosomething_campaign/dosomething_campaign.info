@@ -1,7 +1,13 @@
-name = DoSomething Campaign
+name = dosomething_campaign
 description = Provides a custom Campaign Entity and its functionality.
 core = 7.x
 package = DoSomething
-dependencies[] = entity
+dependencies[] = dosomething_taxonomy
+dependencies[] = features
+dependencies[] = options
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[field_instance][] = campaign-campaign-field_action_type
+features[field_instance][] = campaign-campaign-field_cause
 files[] = dosomething_campaign.test
 files[] = includes/dosomething_campaign.inc
