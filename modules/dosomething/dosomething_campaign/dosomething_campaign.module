@@ -28,6 +28,16 @@ function dosomething_campaign_entity_info() {
      'module' => 'dosomething_campaign',
      // Controls who can access entity CRUD.
      'access callback' => 'dosomething_campaign_access',
+     'fieldable' => TRUE,
+     'bundles' => array(
+        'campaign' => array(
+          'label' => t('Video'),
+          'admin' => array(
+            'path' => 'admin/campaign',
+            'access arguments' => array(1),
+            ),
+          ),
+      ),
   );
   return $info;
 }

@@ -37,7 +37,7 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
 
   // Timing:
   $form['timing'] = array(
-    '#type' => 'fieldset', 
+    '#type' => 'fieldset',
     '#title' => t('Timing'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
@@ -79,7 +79,7 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
 
   // Know It:
   $form['know'] = array(
-    '#type' => 'fieldset', 
+    '#type' => 'fieldset',
     '#title' => t('Know It'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
@@ -118,7 +118,7 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
 
   // Prep It:
   $form['prep'] = array(
-    '#type' => 'fieldset', 
+    '#type' => 'fieldset',
     '#title' => t('Prep It'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
@@ -136,6 +136,8 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->time_and_place) ? $campaign->time_and_place : '',
     '#description' => variable_get($desc_prefix . 'time_and_place', ''),
   );
+
+  field_attach_form('campaign', $campaign, $form, $form_state);
 
   // Form actions:
   $form['actions'] = array(
