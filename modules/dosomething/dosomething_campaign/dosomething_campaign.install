@@ -127,7 +127,25 @@ function dosomething_campaign_schema() {
         'not null' => FALSE,
       ),
       'time_and_place' => array(
-        'description' => 'Copy about timing and location.',
+        'description' => 'Copy for timing and location.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'people_involved' => array(
+        'description' => 'Copy for people involved.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'items_needed' => array(
+        'description' => 'Copy for items needed.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'promoting_tips' => array(
+        'description' => 'Copy for promoting tips.',
         'type' => 'varchar',
         'length' => '255',
         'not null' => FALSE,

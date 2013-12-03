@@ -136,6 +136,24 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->time_and_place) ? $campaign->time_and_place : '',
     '#description' => variable_get($desc_prefix . 'time_and_place', ''),
   );
+  $form['prep']['people_involved'] = array(
+    '#title' => t('VIPs'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->people_involved) ? $campaign->people_involved : '',
+    '#description' => variable_get($desc_prefix . 'people_involved', ''),
+  );
+  $form['prep']['items_needed'] = array(
+    '#title' => t('Items Needed'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->items_needed) ? $campaign->items_needed : '',
+    '#description' => variable_get($desc_prefix . 'items_needed', ''),
+  );
+  $form['prep']['promoting_tips'] = array(
+    '#title' => t('Promoting Tips'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->promoting_tips) ? $campaign->promoting_tips : '',
+    '#description' => variable_get($desc_prefix . 'promoting_tips', ''),
+  );
 
   field_attach_form('campaign', $campaign, $form, $form_state);
 
