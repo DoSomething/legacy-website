@@ -136,7 +136,96 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->time_and_place) ? $campaign->time_and_place : '',
     '#description' => variable_get($desc_prefix . 'time_and_place', ''),
   );
+  $form['prep']['people_involved'] = array(
+    '#title' => t('VIPs'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->people_involved) ? $campaign->people_involved : '',
+    '#description' => variable_get($desc_prefix . 'people_involved', ''),
+  );
+  $form['prep']['items_needed'] = array(
+    '#title' => t('Items Needed'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->items_needed) ? $campaign->items_needed : '',
+    '#description' => variable_get($desc_prefix . 'items_needed', ''),
+  );
+  $form['prep']['promoting_tips'] = array(
+    '#title' => t('Promoting Tips'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->promoting_tips) ? $campaign->promoting_tips : '',
+    '#description' => variable_get($desc_prefix . 'promoting_tips', ''),
+  );
+  $form['prep']['locationfinder_id'] = array(
+    '#title' => t('I need a location finder'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->locationfinder_id) ? $campaign->locationfinder_id : 0,
+  );
 
+  // Do It:
+  $form['do'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Do It'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'do', ''),
+  );
+  $form['do']['step_photo'] = array(
+    '#title' => t('Take a Photo Step'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->step_photo) ? $campaign->step_photo : '',
+    '#description' => variable_get($desc_prefix . 'step_photo', ''),
+  );
+
+  // Taxonomy:
+  $form['taxonomy'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Taxonomy'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'taxonomy', ''),
+  );
+  $form['taxonomy']['hours'] = array(
+    '#title' => t('Active Hours'),
+    '#type' => 'radios',
+    '#options' => array(
+      '0.5' => '0.5',
+      '1' => '1',
+      '2' => '2',
+      '5' => '5',
+      '10' => '10',
+      '15' => '15',
+    ),
+    '#default_value' => isset($campaign->hours) ? $campaign->hours : NULL,
+    '#description' => variable_get($desc_prefix . 'hours', ''),
+  );
+  $form['taxonomy']['is_staff_pick'] = array(
+    '#title' => t('Is Staff Pick'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->is_staff_pick) ? $campaign->is_staff_pick : 0,
+    '#description' => variable_get($desc_prefix . 'is_staff_pick', ''),
+  );
+
+  // Reportback:
+  $form['reportback'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Report Back'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'reportback', ''),
+  );
+  $form['reportback']['reportback_noun'] = array(
+    '#title' => t('Report Back Noun'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->reportback_noun) ? $campaign->reportback_noun : '',
+    '#description' => variable_get($desc_prefix . 'reportback_noun', ''),
+  );
+  $form['reportback']['reportback_verb'] = array(
+    '#title' => t('Report Back Verb'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->reportback_verb) ? $campaign->reportback_verb : '',
+    '#description' => variable_get($desc_prefix . 'reportback_verb', ''),
+  );
+
+  //@todo: Figure out how to split out these fields.
   field_attach_form('campaign', $campaign, $form, $form_state);
 
   // Form actions:
@@ -170,9 +259,18 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   // List all the campaign_form form element names for which we are storing help text for:
   $elements = array(
     'cta_text',
+    'do',
+    'hours',
+    'is_staff_pick',
+    'items_needed',
     'know',
+    'people_involved',
     'prep',
     'prep_intro',
+    'promoting_tips',
+    'reportback',
+    'reportback_noun',
+    'reportback_verb',
     'season_high_start',
     'season_high_end',
     'season_low_start',
@@ -181,6 +279,8 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'stat_problem_source',
     'stat_solution',
     'stat_solution_source',
+    'step_photo',
+    'taxonomy',
     'timing',
     'time_and_place',
     'title',
