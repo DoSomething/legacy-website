@@ -34,13 +34,30 @@ class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
     $uid = $this->auth_user->uid;
     // Store test values for each column:
     $col_values = array(
-    	'title' => 'Title',
+    	'title' => 'Campaign Title',
+      'locationfinder_id' => 1,
+      'hours' => 0.5,
+      'reportback_noun' => 'jeans',
+      'reportback_verb' => 'collected',
+      'is_staff_pick' => 1,
     	'cta_text' => 'CTA Text',
     	'season_high_start' => '01/01',
     	'season_high_end' => '03/01',
     	'is_season_high_end_displayed' => TRUE,
     	'season_low_start' => '01/01',
     	'season_low_end' => '03/01',
+      'stat_problem' => 'Campaign stat_problem',
+      'stat_problem_source' => 'Campaign stat_problem_source',
+      'stat_solution' => 'Campaign stat_solution',
+      'stat_solution_source' => 'Campaign stat_solution_source',
+      'url_psa' => 'Campaign url_psa',
+      'url_internal_confirm_doc' => 'Campaign url_internal_confirm_doc',
+      'prep_intro' => 'Campaign prep_intro',
+      'time_and_place' => 'Campaign time_and_place',
+      'people_involved' => 'Campaign people_involved',
+      'items_needed' => 'Campaign items_needed',
+      'promoting_tips' => 'Campaign promoting_tips',
+      'step_photo' => 'Campaign step_photo',
     );
     // Submit $col_values as a new campaign:
     $this->drupalPost('admin/campaign/add', $col_values, t('Save Campaign'));
