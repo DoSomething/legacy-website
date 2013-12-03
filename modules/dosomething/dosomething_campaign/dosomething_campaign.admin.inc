@@ -154,6 +154,11 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->promoting_tips) ? $campaign->promoting_tips : '',
     '#description' => variable_get($desc_prefix . 'promoting_tips', ''),
   );
+  $form['prep']['locationfinder_id'] = array(
+    '#title' => t('I need a location finder'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->locationfinder_id) ? $campaign->locationfinder_id : 0,
+  );
 
   field_attach_form('campaign', $campaign, $form, $form_state);
 

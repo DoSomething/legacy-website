@@ -48,6 +48,12 @@ function dosomething_campaign_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'locationfinder_id' => array(
+        'description' => 'The {dosomething_locationfinder}.id to display.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'cta_text' => array(
         'description' => 'Describes the action the user is taking by completing the campaign.',
         'type' => 'varchar',
