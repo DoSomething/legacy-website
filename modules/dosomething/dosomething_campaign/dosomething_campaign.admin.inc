@@ -175,6 +175,29 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'step_photo', ''),
   );
 
+  // Taxonomy:
+  $form['taxonomy'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Taxonomy'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'taxonomy', ''),
+  );
+  $form['taxonomy']['hours'] = array(
+    '#title' => t('Active Hours'),
+    '#type' => 'radios',
+    '#options' => array(
+      '0.5' => '0.5',
+      '1' => '1',
+      '2' => '2',
+      '5' => '5',
+      '10' => '10',
+      '15' => '15',
+    ),
+    '#default_value' => isset($campaign->hours) ? $campaign->hours : NULL,
+    '#description' => variable_get($desc_prefix . 'hours', ''),
+  );
+
   //@todo: Figure out how to split out these fields.
   field_attach_form('campaign', $campaign, $form, $form_state);
 
@@ -210,6 +233,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   $elements = array(
     'cta_text',
     'do',
+    'hours',
     'items_needed',
     'know',
     'people_involved',
@@ -225,6 +249,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'stat_solution',
     'stat_solution_source',
     'step_photo',
+    'taxonomy',
     'timing',
     'time_and_place',
     'title',

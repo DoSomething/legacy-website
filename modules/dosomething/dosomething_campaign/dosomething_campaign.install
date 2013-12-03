@@ -54,6 +54,12 @@ function dosomething_campaign_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'hours' => array(
+        'description' => 'The number of active hours needed to complete the campaign.',
+        'type' => 'float',
+        'size' => 'tiny',
+        'not null' => FALSE,
+      ),
       'cta_text' => array(
         'description' => 'Describes the action the user is taking by completing the campaign.',
         'type' => 'varchar',
