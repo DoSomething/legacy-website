@@ -198,6 +198,27 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'hours', ''),
   );
 
+  // Reportback:
+  $form['reportback'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Report Back'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'reportback', ''),
+  );
+  $form['reportback']['reportback_noun'] = array(
+    '#title' => t('Report Back Noun'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->reportback_noun) ? $campaign->reportback_noun : '',
+    '#description' => variable_get($desc_prefix . 'reportback_noun', ''),
+  );
+  $form['reportback']['reportback_verb'] = array(
+    '#title' => t('Report Back Verb'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->reportback_verb) ? $campaign->reportback_verb : '',
+    '#description' => variable_get($desc_prefix . 'reportback_verb', ''),
+  );
+
   //@todo: Figure out how to split out these fields.
   field_attach_form('campaign', $campaign, $form, $form_state);
 
@@ -240,6 +261,9 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'prep',
     'prep_intro',
     'promoting_tips',
+    'reportback',
+    'reportback_noun',
+    'reportback_verb',
     'season_high_start',
     'season_high_end',
     'season_low_start',

@@ -60,6 +60,18 @@ function dosomething_campaign_schema() {
         'size' => 'tiny',
         'not null' => FALSE,
       ),
+      'reportback_noun' => array(
+        'description' => 'Noun used to describe Reportback, e.g. JEANS collected.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'reportback_verb' => array(
+        'description' => 'Verb used to describe Reportback, e.g. jeans COLLECTED.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
       'cta_text' => array(
         'description' => 'Describes the action the user is taking by completing the campaign.',
         'type' => 'varchar',
