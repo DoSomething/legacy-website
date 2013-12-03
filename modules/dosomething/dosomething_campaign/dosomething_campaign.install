@@ -72,6 +72,12 @@ function dosomething_campaign_schema() {
         'length' => '255',
         'not null' => FALSE,
       ),
+      'is_staff_pick' => array(
+        'description' => 'Boolean indicating whether campaign is a staff pick',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'cta_text' => array(
         'description' => 'Describes the action the user is taking by completing the campaign.',
         'type' => 'varchar',

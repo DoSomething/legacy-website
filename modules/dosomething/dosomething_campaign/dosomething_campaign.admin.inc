@@ -197,6 +197,12 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->hours) ? $campaign->hours : NULL,
     '#description' => variable_get($desc_prefix . 'hours', ''),
   );
+  $form['taxonomy']['is_staff_pick'] = array(
+    '#title' => t('Is Staff Pick'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->is_staff_pick) ? $campaign->is_staff_pick : 0,
+    '#description' => variable_get($desc_prefix . 'is_staff_pick', ''),
+  );
 
   // Reportback:
   $form['reportback'] = array(
@@ -255,6 +261,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'cta_text',
     'do',
     'hours',
+    'is_staff_pick',
     'items_needed',
     'know',
     'people_involved',
