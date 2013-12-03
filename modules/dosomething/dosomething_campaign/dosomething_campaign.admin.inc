@@ -160,6 +160,22 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->locationfinder_id) ? $campaign->locationfinder_id : 0,
   );
 
+  // Do It:
+  $form['do'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Do It'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'do', ''),
+  );
+  $form['do']['step_photo'] = array(
+    '#title' => t('Take a Photo Step'),
+    '#type' => 'textfield',
+    '#default_value' => isset($campaign->step_photo) ? $campaign->step_photo : '',
+    '#description' => variable_get($desc_prefix . 'step_photo', ''),
+  );
+
+  //@todo: Figure out how to split out these fields.
   field_attach_form('campaign', $campaign, $form, $form_state);
 
   // Form actions:
@@ -193,6 +209,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   // List all the campaign_form form element names for which we are storing help text for:
   $elements = array(
     'cta_text',
+    'do',
     'know',
     'prep',
     'prep_intro',
@@ -204,6 +221,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'stat_problem_source',
     'stat_solution',
     'stat_solution_source',
+    'step_photo',
     'timing',
     'time_and_place',
     'title',
