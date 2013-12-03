@@ -210,9 +210,12 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
   $elements = array(
     'cta_text',
     'do',
+    'items_needed',
     'know',
+    'people_involved',
     'prep',
     'prep_intro',
+    'promoting_tips',
     'season_high_start',
     'season_high_end',
     'season_low_start',
