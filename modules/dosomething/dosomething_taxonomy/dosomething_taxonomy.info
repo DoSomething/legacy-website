@@ -12,6 +12,7 @@ features[field_base][] = field_action_type
 features[field_base][] = field_cause
 features[taxonomy][] = action_type
 features[taxonomy][] = cause
+features[taxonomy][] = tags
 features[uuid_term][] = 0514e41f-82ca-4f5c-8ed8-acc3a83d7b39
 features[uuid_term][] = 08f907cd-9cc0-4c00-bb8c-97c304599706
 features[uuid_term][] = 3449ec13-932d-4951-81a7-8ab4eea05588
