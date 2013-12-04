@@ -10,5 +10,6 @@ dependencies[] = taxonomy
 features[features_api][] = api:2
 features[field_instance][] = campaign-campaign-field_action_type
 features[field_instance][] = campaign-campaign-field_cause
+features[field_instance][] = campaign-campaign-field_tags
 files[] = dosomething_campaign.test
 files[] = includes/dosomething_campaign.inc
