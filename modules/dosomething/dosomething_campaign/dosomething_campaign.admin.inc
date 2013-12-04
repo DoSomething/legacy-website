@@ -14,12 +14,6 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
   // Prefix for Entity column description variables:
   $desc_prefix = DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX;
 
-  // Initialize $fields_form and $fields_form_state to store the Entity's Field API form:
-  $fields_form = array();
-  $fields_form_state = array();
-  // Attach the entity's Field API data into $fields_form to use for later in our actual $form:
-  field_attach_form('campaign', $campaign, $fields_form, $fields_form_state);
-
   // Basic info:
   $form['title'] = array(
     '#title' => t('Title'),
@@ -190,8 +184,14 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#collapsed' => TRUE,
     '#description' => variable_get($desc_prefix . 'taxonomy', ''),
   );
-  $form['taxonomy']['field_cause'] = $fields_form['field_cause'];
-  $form['taxonomy']['field_action_type'] = $fields_form['field_action_type'];
+  // Attach field_cause.
+  field_attach_form('campaign', $campaign, $form['taxonomy'], $form_state, NULL, array(
+    'field_name' => 'field_cause',
+  ));
+  // Attach field_action_type.
+  field_attach_form('campaign', $campaign, $form['taxonomy'], $form_state, NULL, array(
+    'field_name' => 'field_action_type',
+  ));
   $form['taxonomy']['hours'] = array(
     '#title' => t('Active Hours'),
     '#type' => 'radios',
