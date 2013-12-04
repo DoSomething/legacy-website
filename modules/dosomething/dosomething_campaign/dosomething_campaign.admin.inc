@@ -10,8 +10,15 @@
  * @ingroup forms
  */
 function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
-  // Prefix for form description variables:
+
+  // Prefix for Entity column description variables:
   $desc_prefix = DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX;
+
+  // Initialize $fields_form and $fields_form_state to store the Entity's Field API form:
+  $fields_form = array();
+  $fields_form_state = array();
+  // Attach the entity's Field API data into $fields_form to use for later in our actual $form:
+  field_attach_form('campaign', $campaign, $fields_form, $fields_form_state);
 
   // Basic info:
   $form['title'] = array(
@@ -183,6 +190,8 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#collapsed' => TRUE,
     '#description' => variable_get($desc_prefix . 'taxonomy', ''),
   );
+  $form['taxonomy']['field_cause'] = $fields_form['field_cause'];
+  $form['taxonomy']['field_action_type'] = $fields_form['field_action_type'];
   $form['taxonomy']['hours'] = array(
     '#title' => t('Active Hours'),
     '#type' => 'radios',
@@ -196,12 +205,14 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     ),
     '#default_value' => isset($campaign->hours) ? $campaign->hours : NULL,
     '#description' => variable_get($desc_prefix . 'hours', ''),
+    '#weight' => 200,
   );
   $form['taxonomy']['is_staff_pick'] = array(
     '#title' => t('Is Staff Pick'),
     '#type' => 'checkbox',
     '#default_value' => isset($campaign->is_staff_pick) ? $campaign->is_staff_pick : 0,
     '#description' => variable_get($desc_prefix . 'is_staff_pick', ''),
+    '#weight' => 300,
   );
 
   // Reportback:
@@ -224,9 +235,6 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->reportback_verb) ? $campaign->reportback_verb : '',
     '#description' => variable_get($desc_prefix . 'reportback_verb', ''),
   );
-
-  //@todo: Figure out how to split out these fields.
-  field_attach_form('campaign', $campaign, $form, $form_state);
 
   // Form actions:
   $form['actions'] = array(
