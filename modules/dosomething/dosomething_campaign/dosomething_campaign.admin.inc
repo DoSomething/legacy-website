@@ -214,6 +214,10 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'is_staff_pick', ''),
     '#weight' => 300,
   );
+  // Attach field_tags.
+  field_attach_form('campaign', $campaign, $form['taxonomy'], $form_state, NULL, array(
+    'field_name' => 'field_tags',
+  ));
 
   // Reportback:
   $form['reportback'] = array(
