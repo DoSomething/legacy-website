@@ -10,6 +10,7 @@ dependencies[] = uuid_features
 features[features_api][] = api:2
 features[field_base][] = field_action_type
 features[field_base][] = field_cause
+features[field_base][] = field_tags
 features[taxonomy][] = action_type
 features[taxonomy][] = cause
 features[taxonomy][] = tags
