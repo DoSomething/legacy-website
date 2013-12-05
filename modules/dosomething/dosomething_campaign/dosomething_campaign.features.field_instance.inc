@@ -91,7 +91,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'campaign',
     'field_name' => 'field_image_campaign_cover',
-    'label' => 'Image Campaign Cover',
+    'label' => 'Cover Image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 1,
@@ -154,7 +154,7 @@ function dosomething_campaign_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action Type');
   t('Cause');
-  t('Image Campaign Cover');
+  t('Cover Image');
   t('Tags');
 
   return $field_instances;
