@@ -3,4 +3,10 @@ services:
     - wercker/mysql
 build:
     steps:
+        - add-ssh-key:
+            keyname: DOSOMETHING
         - desmondmorris/drush@0.0.2
+        - script:
+            name: Run make file
+            code: |-
+                drush make --prepare-install --no-gitinfofile --no-cache build-dosomething.make html
