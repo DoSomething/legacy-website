@@ -137,8 +137,8 @@ libraries[mobilecommons_php][download][type] = "git"
 libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
 
 ; DSAPI PHP Library
-libraries[dsapi][download][type] = "git"
-libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
+;libraries[dsapi][download][type] = "git"
+;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
 
 ; NEUE
 libraries[neue][download][type] = "git"
