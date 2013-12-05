@@ -240,7 +240,7 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'reportback_verb', ''),
   );
 
-  // Reportback:
+  // Images:
   $form['images'] = array(
     '#type' => 'fieldset',
     '#title' => t('Images'),
@@ -248,9 +248,13 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#collapsed' => TRUE,
     '#description' => variable_get($desc_prefix . 'images', ''),
   );
-  // Attach field_image_cover.
+  // Attach field_image_campaign_cover.
   field_attach_form('campaign', $campaign, $form['images'], $form_state, NULL, array(
     'field_name' => 'field_image_campaign_cover',
+  ));
+  // Attach field_image_campaign_gallery.
+  field_attach_form('campaign', $campaign, $form['images'], $form_state, NULL, array(
+    'field_name' => 'field_image_campaign_gallery',
   ));
 
   // Form actions:
