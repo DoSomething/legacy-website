@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_compoundtext.module.
+ */
+
+
+/**
+ * Implements hook_field_schema().
+ */
+function dosomething_compoundtext_field_schema($field) {
+   return array(
+    'columns' => array(
+      'ds_title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'ds_copy' => array(
+        'type' => 'varchar',
+        'length' => 99999,
+        'not null' => FALSE,
+      ),
+    ),
+  );
+}
