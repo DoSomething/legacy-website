@@ -33,14 +33,22 @@ class CampaignEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-    foreach ($entity as $key => $value) {
+
+    // Get the columns defined in the dosomething_campaign table:
+    module_load_install('dosomething_campaign');
+    $schema = dosomething_campaign_schema();
+ 
+    // Add them into the render array:
+    foreach ($schema['dosomething_campaign']['fields'] as $key => $value) {
       $build[$key] = array(
         '#type' => 'markup',
-        '#markup' => $value,
+        '#markup' => $entity->{$key},
         '#prefix' => '<div>' . $key . ': ',
         '#suffix' => '</div>',
       );      
     }
+
+    // @todo: If pitch page, add the signup button:
     return $build;
   }
 
