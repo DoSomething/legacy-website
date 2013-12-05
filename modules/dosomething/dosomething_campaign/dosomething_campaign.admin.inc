@@ -240,6 +240,19 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#description' => variable_get($desc_prefix . 'reportback_verb', ''),
   );
 
+  // Reportback:
+  $form['images'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Images'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'images', ''),
+  );
+  // Attach field_image_cover.
+  field_attach_form('campaign', $campaign, $form['images'], $form_state, NULL, array(
+    'field_name' => 'field_image_campaign_cover',
+  ));
+
   // Form actions:
   $form['actions'] = array(
     '#type' => 'actions',
@@ -273,6 +286,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'cta_text',
     'do',
     'hours',
+    'images',
     'is_staff_pick',
     'items_needed',
     'know',
