@@ -43,7 +43,7 @@ class CampaignEntityController extends EntityAPIController {
       $build[$key] = array(
         '#type' => 'markup',
         '#markup' => $entity->{$key},
-        '#prefix' => '<div>' . $key . ': ',
+        '#prefix' => '<div class="' . drupal_html_class($key) . '">',
         '#suffix' => '</div>',
       );
     }
