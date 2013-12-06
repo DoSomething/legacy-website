@@ -1,0 +1,17 @@
+name = Paraneue DoSomething
+description = A Paraneue subtheme for DoSomething.org
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+php = 5.2
+base theme = paraneue
+
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+features[] = main_menu
+features[] = secondary_menu
+
+stylesheets[all][] = css/style.css
+scripts[] = js/script.js
