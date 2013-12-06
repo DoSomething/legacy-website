@@ -15,3 +15,4 @@ features[] = secondary_menu
 
 stylesheets[all][] = css/style.css
 scripts[] = js/script.js
+settings[paraneue_neue_library_path] = 'profiles/dosomething/libraries/neue'
