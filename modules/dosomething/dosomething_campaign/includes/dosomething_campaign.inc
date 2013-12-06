@@ -31,7 +31,7 @@ class CampaignEntityController extends EntityAPIController {
    *
    * Adds campaign column values into campaign entity's render.
    */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+  public function buildContent($entity, $view_mode = 'action', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
     // Get the columns defined in the dosomething_campaign table:
@@ -45,10 +45,15 @@ class CampaignEntityController extends EntityAPIController {
         '#markup' => $entity->{$key},
         '#prefix' => '<div>' . $key . ': ',
         '#suffix' => '</div>',
-      );      
+      );
     }
 
-    // @todo: If pitch page, add the signup button:
+    // Add signup form if viewing the pitch.
+    if ($view_mode == 'pitch') {
+      $build['signup_form'] = drupal_get_form('dosomething_campaign_signup_form');
+      $build['signup_form']['#weight'] = 200;
+    }
+
     return $build;
   }
 
