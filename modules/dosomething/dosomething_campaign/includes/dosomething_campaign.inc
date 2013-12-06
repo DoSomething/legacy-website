@@ -31,16 +31,29 @@ class CampaignEntityController extends EntityAPIController {
    *
    * Adds campaign column values into campaign entity's render.
    */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+  public function buildContent($entity, $view_mode = 'action', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-    foreach ($entity as $key => $value) {
+
+    // Get the columns defined in the dosomething_campaign table:
+    module_load_install('dosomething_campaign');
+    $schema = dosomething_campaign_schema();
+ 
+    // Add them into the render array:
+    foreach ($schema['dosomething_campaign']['fields'] as $key => $value) {
       $build[$key] = array(
         '#type' => 'markup',
-        '#markup' => $value,
-        '#prefix' => '<div>' . $key . ': ',
+        '#markup' => $entity->{$key},
+        '#prefix' => '<div class="' . drupal_html_class($key) . '">',
         '#suffix' => '</div>',
-      );      
+      );
     }
+
+    // Add signup form if viewing the pitch.
+    if ($view_mode == 'pitch') {
+      $build['signup_form'] = drupal_get_form('dosomething_campaign_signup_form');
+      $build['signup_form']['#weight'] = 200;
+    }
+
     return $build;
   }
 

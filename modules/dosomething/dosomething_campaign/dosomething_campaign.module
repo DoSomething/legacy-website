@@ -20,24 +20,36 @@ function dosomething_campaign_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'CampaignEntityController',
     'admin ui' => array(
-       'path' => 'admin/campaign',
-       'controller class' => 'CampaignEntityUIController',
-       'menu wildcard' => '%campaign',
-       'file' => 'dosomething_campaign.admin.inc',
-     ),
-     'module' => 'dosomething_campaign',
+      'path' => 'admin/campaign',
+      'controller class' => 'CampaignEntityUIController',
+      'menu wildcard' => '%campaign',
+      'file' => 'dosomething_campaign.admin.inc',
+    ),
+    'module' => 'dosomething_campaign',
      // Controls who can access entity CRUD.
-     'access callback' => 'dosomething_campaign_access',
-     'fieldable' => TRUE,
-     'bundles' => array(
-        'campaign' => array(
-          'label' => t('Video'),
-          'admin' => array(
-            'path' => 'admin/campaign',
-            'access arguments' => array(1),
-            ),
-          ),
+    'access callback' => 'dosomething_campaign_access',
+    // Inform Field API that we can add Fields to this entity.
+    'fieldable' => TRUE,
+    'bundles' => array(
+      'campaign' => array(
+        'label' => t('Video'),
+        'admin' => array(
+          'path' => 'admin/campaign',
+          'access arguments' => array(1),
+        ),
       ),
+    ),
+    // Custom view modes.
+    'view modes' => array(
+      'pitch' => array(
+        'label' => t('Pitch'),
+        'custom settings' => FALSE,
+      ),
+      'action' => array(
+        'label' => t('Action'),
+        'custom settings' => FALSE,
+      ),
+    ),
   );
   return $info;
 }
@@ -51,7 +63,7 @@ function dosomething_campaign_menu() {
     'title callback' => 'dosomething_campaign_page_title',
     'title arguments' => array(1),
     'page callback' => 'dosomething_campaign_view_entity',
-    'page arguments' => array(1),
+    'page arguments' => array(1, 2),
     'access callback' => TRUE,
   );
   $items['admin/config/dosomething/dosomething_campaign'] = array(
@@ -64,6 +76,7 @@ function dosomething_campaign_menu() {
   );
   return $items;
 }
+
 
 /**
  * Title callback: Returns the title of the campaign.
@@ -98,8 +111,30 @@ function campaign_load($id) {
 /**
  * Callback for /campaign/ID page.
  *
- * Just a place to render a complete campaign entity.
+ * Passing view_mode as an argument is temporary until signups are functional.
  */
-function dosomething_campaign_view_entity($campaign) {
-  return entity_view('campaign', array($campaign->id => $campaign));
+function dosomething_campaign_view_entity($campaign, $view_mode = 'action') {
+  return entity_view('campaign', array($campaign->id => $campaign), $view_mode);
+}
+
+/**
+ * Form constructor for the Campaign Signup form.
+ */
+function dosomething_campaign_signup_form($form, &$form_state) {
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Do This'),
+  );
+  return $form;
+}
+
+/**
+ * Process variables for entity.tpl.php.
+ *
+ * @see template_preprocess_entity in Entity API module.
+ */
+function dosomething_campaign_preprocess_entity(&$variables) {
+  $entity_type = $variables['elements']['#entity_type'];
+  // Enables ENTITY--VIEW_MODE.tpl.php naming suggestion.
+  $variables['theme_hook_suggestions'][] = $entity_type . '__' . $variables['view_mode'];
 }
