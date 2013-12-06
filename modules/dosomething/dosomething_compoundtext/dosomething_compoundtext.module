@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Provides a custom field that contains a title and body copy.
+ */
+
+
+/**
+ * Implements hook_field_info().
+ */
+function dosomething_compoundtext_field_info() {
+  return array(
+    'ds_compoundtext' => array(
+      'label' => t('Do Something Compound Field'),
+      'description' => t('title'),
+      'settings' => array('max_length' => 255),
+      'instance_settings' => array(
+        'text_processing' => 0,
+      ),
+      'default_widget' => 'options_select',
+      'default_formatter' => 'states_field_options',
+    ),
+  );
+}
+/**
+ * Implements hook_field_validate().
+ */
+function dosomething_compoundtext_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+    // ...
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function dosomething_compoundtext_field_is_empty($item, $field) {
+  $temp = array_keys($field['columns']);
+  $key = array_shift($temp);
+  return empty($item[$key]);
+}
