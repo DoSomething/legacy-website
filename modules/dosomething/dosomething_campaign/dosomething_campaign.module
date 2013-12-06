@@ -127,3 +127,14 @@ function dosomething_campaign_signup_form($form, &$form_state) {
   );
   return $form;
 }
+
+/**
+ * Process variables for entity.tpl.php.
+ *
+ * @see template_preprocess_entity in Entity API module.
+ */
+function dosomething_campaign_preprocess_entity(&$variables) {
+  $entity_type = $variables['elements']['#entity_type'];
+  // Enables ENTITY--VIEW_MODE.tpl.php naming suggestion.
+  $variables['theme_hook_suggestions'][] = $entity_type . '__' . $variables['view_mode'];
+}
