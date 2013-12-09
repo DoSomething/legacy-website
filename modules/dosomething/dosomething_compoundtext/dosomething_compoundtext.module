@@ -11,10 +11,10 @@
 function dosomething_compoundtext_field_info() {
 return array(
     'dosomething_compoundtext' => array(
-      'label' => t('Comound Text'),
+      'label' => t('Compound Text'),
       'description' => t('Description of My Field.'),
-      'default_widget' => 'text',
-      'default_formatter' => 'text',
+      'default_widget' => 'dosomething_compoundtext',
+      'default_formatter' => 'dosomething_compoundtext_default'
     ),
   );
 }
@@ -25,18 +25,33 @@ return array(
 function dosomething_compoundtext_field_widget_info() {
   return array(
     'dosomething_compoundtext' => array(
-      'label' => t('Text field'),
-      'field types' => array('ds_compound_text'),
+      'label' => t('Default'),
+      'field types' => array('dosomething_compoundtext'),
     ),
   );
 }
 
 /**
- * Implements hook_field_instance_settings_form().
+ * Implements hook_field_field_validate().
  */
-// function dosomething_compoundtext_field_instance_settings_form($field, $instance) {
-//   $settings = $instance['settings'];
-//   // Add your instance settings fields here.
-//   $form = array();
-//   return $form;
-// }
+function dosomething_compoundtext_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function dosomething_compoundtext_field_is_empty($item, $field) {
+  return empty($item['body']) || empty($item['title']);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function dosomething_compoundtext_field_formatter_info() {
+  return array(
+    'dosomething_compoundtext_default' => array(
+      'label' => t('Default'),
+      'field types' => array('dosomething_compoundtext'),
+    ),
+  );
+}
