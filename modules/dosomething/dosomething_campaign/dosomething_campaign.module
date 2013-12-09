@@ -32,7 +32,7 @@ function dosomething_campaign_entity_info() {
     'fieldable' => TRUE,
     'bundles' => array(
       'campaign' => array(
-        'label' => t('Video'),
+        'label' => t('Campaign'),
         'admin' => array(
           'path' => 'admin/campaign',
           'access arguments' => array(1),
