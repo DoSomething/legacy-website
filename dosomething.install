@@ -29,10 +29,10 @@ function dosomething_configure() {
   db_update('system')
     ->fields(array('status' => 1))
     ->condition('type', 'theme')
-    ->condition('name', array('seven', 'paraneue'), 'IN')
+    ->condition('name', array('seven', 'paraneue_dosomething'), 'IN')
     ->execute();
   variable_set('admin_theme', 'seven');
-  variable_set('theme_default', 'paraneue');
+  variable_set('theme_default', 'paraneue_dosomething');
   variable_set('node_admin_theme', '1'); 
   
   // Set features default export path to our custom module directory:
