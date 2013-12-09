@@ -62,6 +62,7 @@ if [[ $1 == "build" ]]
     ln -s "$ABS_CALLPATH/modules/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
 
     echo 'Linking themes'
+    rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
     ln -s "$ABS_CALLPATH/themes/dosomething/paraneue_dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
 
     # Clear caches and Run updates
