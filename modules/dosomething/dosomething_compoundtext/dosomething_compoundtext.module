@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Provides a custom field compound text.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function dosomething_compoundtext_field_info() {
+return array(
+    'dosomething_compoundtext' => array(
+      'label' => t('Comound Text'),
+      'description' => t('Description of My Field.'),
+      'default_widget' => 'text',
+      'default_formatter' => 'text',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function dosomething_compoundtext_field_widget_info() {
+  return array(
+    'dosomething_compoundtext' => array(
+      'label' => t('Text field'),
+      'field types' => array('ds_compound_text'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+// function dosomething_compoundtext_field_instance_settings_form($field, $instance) {
+//   $settings = $instance['settings'];
+//   // Add your instance settings fields here.
+//   $form = array();
+//   return $form;
+// }
