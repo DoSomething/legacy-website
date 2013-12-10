@@ -137,4 +137,22 @@ function dosomething_campaign_preprocess_entity(&$variables) {
   $entity_type = $variables['elements']['#entity_type'];
   // Enables ENTITY--VIEW_MODE.tpl.php naming suggestion.
   $variables['theme_hook_suggestions'][] = $entity_type . '__' . $variables['view_mode'];
+  // If this is a campaign entity, create variables to simplify theming.
+  if ($entity_type == 'campaign') {
+    // Store the campaign entity to quickly reference its properties within the tpl:
+    $variables['campaign'] = $variables['elements']['#entity'];
+    $campaign = entity_metadata_wrapper('campaign', $variables['elements']['#entity']);
+    // Cover image vars.
+    $cover_image = $campaign->field_image_campaign_cover->value();
+    $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
+    $variables['cover_image']['alt'] = $cover_image['alt'];
+    // Gallery image vars.
+    $variables['gallery'] = array();
+    foreach ($campaign->field_image_campaign_gallery->value() as $gallery_image) {
+      $variables['gallery'][] = array(
+        'src' => file_create_url($gallery_image['uri']),
+        'alt' => $gallery_image['alt'],
+      );
+    }
+  }
 }
