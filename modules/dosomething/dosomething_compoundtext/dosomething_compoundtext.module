@@ -12,7 +12,7 @@ function dosomething_compoundtext_field_info() {
 return array(
     'dosomething_compoundtext' => array(
       'label' => t('Compound Text'),
-      'description' => t('Description of My Field.'),
+      'description' => t('Title & Body compound field.'),
       'default_widget' => 'dosomething_compoundtext',
       'default_formatter' => 'dosomething_compoundtext_default'
     ),
