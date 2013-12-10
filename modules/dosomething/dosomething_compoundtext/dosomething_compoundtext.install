@@ -9,7 +9,7 @@
  * Implements hook_field_schema().
  */
  function dosomething_compoundtext_field_schema($field) {
- return array(
+   return array(
     'columns' => array(
       'body' => array(
         'type' => 'text',

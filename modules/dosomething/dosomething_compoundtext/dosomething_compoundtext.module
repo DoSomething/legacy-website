@@ -107,7 +107,6 @@ function dosomething_compoundtext_field_formatter_view($entity_type, $entity, $f
   switch ($display['type']) {
     case 'dosomething_compoundtext_default':
       foreach ($items as $delta => $item) {
-        print_r($item);
         $element[$delta] = array(
           '#type' => 'html_tag',
           '#tag' => 'p',
