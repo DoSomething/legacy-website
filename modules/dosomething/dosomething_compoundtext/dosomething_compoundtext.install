@@ -31,5 +31,5 @@
  * Implements hook_uninstall().
  */
  function dosomething_compoundtext_uninstall() {
-  field_delete_field('ds_compound_text');
+
  }

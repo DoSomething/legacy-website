@@ -25,7 +25,7 @@ return array(
 function dosomething_compoundtext_field_widget_info() {
   return array(
     'dosomething_compoundtext' => array(
-      'label' => t('Default'),
+      'label' => t('Text field'),
       'field types' => array('dosomething_compoundtext'),
     ),
   );
@@ -35,13 +35,15 @@ function dosomething_compoundtext_field_widget_info() {
  * Implements hook_field_field_validate().
  */
 function dosomething_compoundtext_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  //@TODO: validate the text saved.
 }
 
 /**
  * Implements hook_field_is_empty().
  */
 function dosomething_compoundtext_field_is_empty($item, $field) {
-  return empty($item['body']) || empty($item['title']);
+  //@TODO: does this need to be filled in?
+  return FALSE;
 }
 
 /**
@@ -54,4 +56,67 @@ function dosomething_compoundtext_field_formatter_info() {
       'field types' => array('dosomething_compoundtext'),
     ),
   );
+}
+
+/**
+ * Implements hook_field_presave().
+ */
+function dosomething_compoundtext_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  foreach ($items as $delta => $item) {
+    $items[$delta]['title'] = isset($item['dosomething_compoundtext']['title']) ? $item['dosomething_compoundtext']['title'] : '';
+    $items[$delta]['body'] = isset($item['dosomething_compoundtext']['body']) ? $item['dosomething_compoundtext']['body'] : '';
+  }
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function dosomething_compoundtext_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+
+  switch ($instance['widget']['type']) {
+    case 'dosomething_compoundtext' :
+      $element['dosomething_compoundtext'] = array(
+        '#type' => 'fieldset',
+        '#title' => $element['#title'],
+        '#tree' => TRUE,
+      );
+      $element['dosomething_compoundtext']['title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Title'),
+        '#default_value' => isset($items[$delta]['title']) ? $items[$delta]['title']  : '',
+        '#required' => FALSE,
+        '#size' => 8,
+        '#attributes' => array('maxlength' => 8),
+      );
+      $element['dosomething_compoundtext']['body'] = array(
+        '#type' => 'textarea',
+        '#title' => t('Body'),
+        '#default_value' =>  isset($items[$delta]['body']) ? $items[$delta]['body'] : '',
+        '#required' => FALSE,
+      );
+      break;
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function dosomething_compoundtext_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  switch ($display['type']) {
+    case 'dosomething_compoundtext_default':
+      foreach ($items as $delta => $item) {
+        print_r($item);
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          //@TODO: return the text in the correct format.
+          '#value' => $item['title'] . ' : ' . $item['body'],
+        );
+      }
+      break;
+  }
+
+  return $element;
 }
