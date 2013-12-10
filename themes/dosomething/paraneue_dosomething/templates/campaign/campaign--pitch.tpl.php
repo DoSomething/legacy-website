@@ -1,8 +1,15 @@
-<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <h1>Pitch page</h1>
-  <div class="content"<?php print $content_attributes; ?>>
-    <?php
-      print render($content);
-    ?>
+<div class="content clearfix <?php print $classes; ?>">
+	<img src="<?php print $cover_image['src']; ?>" alt="<?php print $cover_image['alt']; ?>" />
+	<div>
+		<p><?php print $campaign->stat_problem; ?></p>
+		<p><?php print $campaign->stat_solution; ?></p>
+	</div>
+	<?php print render($content['signup_form']); ?>
+	<?php if (!empty($gallery)): ?>
+  <div id="gallery">
+  <?php foreach ($gallery as $gallery_image): ?>
+    <img src="<?php print $gallery_image['src']; ?>" alt="<?php print $gallery_image['alt']; ?>" />
+  <?php endforeach; ?>
   </div>
+  <?php endif; ?>
 </div>
