@@ -9,7 +9,7 @@
  * Implements hook_field_info().
  */
 function dosomething_compoundtext_field_info() {
-return array(
+  return array(
     'dosomething_compoundtext' => array(
       'label' => t('Compound Text'),
       'description' => t('Title & Body compound field.'),
