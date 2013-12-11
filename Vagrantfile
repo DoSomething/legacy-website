@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8888, host: 8888
   config.vm.network :forwarded_port, guest: 8889, host: 8889
   
+  config.vm.host_name = "dev.dosomething.org"
+
   # With Varnish
   config.vm.network :forwarded_port, guest: 6081, host: 9999
   
