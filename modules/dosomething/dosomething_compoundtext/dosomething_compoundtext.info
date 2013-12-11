@@ -1,0 +1,4 @@
+name = DoSomething Compound Text
+description = Provides a custom field that includes a title and body copy.
+core = 7.x
+package = DoSomething
