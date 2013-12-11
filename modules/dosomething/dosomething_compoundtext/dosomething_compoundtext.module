@@ -35,14 +35,25 @@ function dosomething_compoundtext_field_widget_info() {
  * Implements hook_field_field_validate().
  */
 function dosomething_compoundtext_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-  //@TODO: validate the text saved.
+  foreach ($items as $delta => $item) {
+    if (!empty($item['value'])) {
+      if (!empty($field['settings']['max_length']) && drupal_strlen($item['value']) > $field['settings']['max_length']) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'text_max_length',
+          'message' => t('%name: the value may not be longer than %max characters.', array('%name' => $instance['label'], '%max' => $field['settings']['max_length'])),
+        );
+      }
+    }
+  }
 }
 
 /**
  * Implements hook_field_is_empty().
  */
 function dosomething_compoundtext_field_is_empty($item, $field) {
-  //@TODO: does this need to be filled in?
+  if (empty($item['dosomething_compoundtext']['title']) && empty($item['dosomething_compoundtext']['body'])) {
+    return TRUE;
+  }
   return FALSE;
 }
 
@@ -86,13 +97,14 @@ function dosomething_compoundtext_field_widget_form(&$form, &$form_state, $field
         '#default_value' => isset($items[$delta]['title']) ? $items[$delta]['title']  : '',
         '#required' => FALSE,
         '#size' => 8,
-        '#attributes' => array('maxlength' => 8),
+        '#attributes' => array('maxlength' => 255),
       );
       $element['dosomething_compoundtext']['body'] = array(
         '#type' => 'textarea',
         '#title' => t('Body'),
         '#default_value' =>  isset($items[$delta]['body']) ? $items[$delta]['body'] : '',
         '#required' => FALSE,
+        '#attributes' => array('maxlength' => 2048),
       );
       break;
   }
@@ -110,8 +122,7 @@ function dosomething_compoundtext_field_formatter_view($entity_type, $entity, $f
         $element[$delta] = array(
           '#type' => 'html_tag',
           '#tag' => 'p',
-          //@TODO: return the text in the correct format.
-          '#value' => $item['title'] . ' : ' . $item['body'],
+          '#value' => '<h3>' . $item['title'] . ' </h3> <p> ' . $item['body'] . '<p>',
         );
       }
       break;
