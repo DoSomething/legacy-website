@@ -568,3 +568,23 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 
 // Required for Secure Pages integration.
 $conf['https'] = TRUE;
+
+// Environment settings
+$env = getenv('ENVIRONMENT');
+define('ENVIRONMENT', $env ? $env: 'DEVELOPMENT');
+
+switch(ENVIRONMENT) {
+  default:
+  case 'DEVELOPMENT':
+    $base_url = 'http://dev.dosomething.org:8888';
+
+    // Set securepages paths
+    $conf['securepages_basepath'] = 'http://dev.dosomething.org:8888';
+    $conf['securepages_basepath_ssl'] = 'https://dev.dosomething.org:8889';
+    break;
+  case 'TEST':
+  case 'STAGING':
+  case 'PRODUCTION':
+    break;
+}
+
