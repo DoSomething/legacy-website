@@ -72,6 +72,37 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_faq'
+  $field_instances['campaign-campaign-field_faq'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'dosomething_compoundtext',
+        'settings' => array(),
+        'type' => 'dosomething_compoundtext_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_faq',
+    'label' => 'FAQ',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'dosomething_compoundtext',
+      'settings' => array(),
+      'type' => 'dosomething_compoundtext',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_image_campaign_cover'
   $field_instances['campaign-campaign-field_image_campaign_cover'] = array(
     'bundle' => 'campaign',
@@ -160,6 +191,68 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_step_post'
+  $field_instances['campaign-campaign-field_step_post'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'dosomething_compoundtext',
+        'settings' => array(),
+        'type' => 'dosomething_compoundtext_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_step_post',
+    'label' => 'Step Post',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'dosomething_compoundtext',
+      'settings' => array(),
+      'type' => 'dosomething_compoundtext',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'campaign-campaign-field_step_pre'
+  $field_instances['campaign-campaign-field_step_pre'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'dosomething_compoundtext',
+        'settings' => array(),
+        'type' => 'dosomething_compoundtext_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_step_pre',
+    'label' => 'Step Pre',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'dosomething_compoundtext',
+      'settings' => array(),
+      'type' => 'dosomething_compoundtext',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_tags'
   $field_instances['campaign-campaign-field_tags'] = array(
     'bundle' => 'campaign',
@@ -199,7 +292,10 @@ function dosomething_campaign_field_default_field_instances() {
   t('Action Type');
   t('Cause');
   t('Cover Image');
+  t('FAQ');
   t('Gallery');
+  t('Step Post');
+  t('Step Pre');
   t('Tags');
 
   return $field_instances;
