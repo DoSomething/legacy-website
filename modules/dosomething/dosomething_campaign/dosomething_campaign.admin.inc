@@ -116,6 +116,10 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->url_psa) ? $campaign->url_psa : '',
     '#description' => variable_get($desc_prefix . 'url_psa', ''),
   );
+  // Attach FAQ compound field.
+  field_attach_form('campaign', $campaign, $form['know'], $form_state, NULL, array(
+    'field_name' => 'field_faq',
+  ));
 
   // Prep It:
   $form['prep'] = array(
@@ -175,6 +179,14 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->step_photo) ? $campaign->step_photo : '',
     '#description' => variable_get($desc_prefix . 'step_photo', ''),
   );
+  // Attach Step Pre compound field.
+  field_attach_form('campaign', $campaign, $form['do'], $form_state, NULL, array(
+    'field_name' => 'field_step_pre',
+  ));
+  // Attach Step Post compound field.
+  field_attach_form('campaign', $campaign, $form['do'], $form_state, NULL, array(
+    'field_name' => 'field_step_post',
+  ));
 
   // Taxonomy:
   $form['taxonomy'] = array(
@@ -256,6 +268,8 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
   field_attach_form('campaign', $campaign, $form['images'], $form_state, NULL, array(
     'field_name' => 'field_image_campaign_gallery',
   ));
+
+
 
   // Form actions:
   $form['actions'] = array(
