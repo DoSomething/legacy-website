@@ -57,6 +57,7 @@ class DosomethingCampaignWebTestCase extends DrupalWebTestCase {
       'people_involved' => 'Campaign people_involved',
       'items_needed' => 'Campaign items_needed',
       'promoting_tips' => 'Campaign promoting_tips',
+      'status' => TRUE,
       'step_photo' => 'Campaign step_photo',
     );
     // Submit $col_values as a new campaign:
