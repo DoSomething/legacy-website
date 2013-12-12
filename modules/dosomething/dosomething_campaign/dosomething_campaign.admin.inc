@@ -269,7 +269,12 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     'field_name' => 'field_image_campaign_gallery',
   ));
 
-
+  // Checkbox to publish the campaign.
+  $form['status'] = array(
+    '#title' => t('Publish Campaign'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->status) ? $campaign->status : 0,
+  );
 
   // Form actions:
   $form['actions'] = array(
