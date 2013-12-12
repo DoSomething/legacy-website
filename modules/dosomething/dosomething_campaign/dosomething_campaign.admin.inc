@@ -269,7 +269,12 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     'field_name' => 'field_image_campaign_gallery',
   ));
 
-
+  // Checkbox to publish the campaign.
+  $form['publish'] = array(
+    '#title' => t('Publish Campaign'),
+    '#type' => 'checkbox',
+    '#default_value' => isset($campaign->status) ? $campaign->status : 0,
+  );
 
   // Form actions:
   $form['actions'] = array(
@@ -289,6 +294,9 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
  */
 function campaign_form_submit($form, &$form_state) {
   $campaign = entity_ui_form_submit_build_entity($form, $form_state);
+  if ($form_state['values']['publish']) {
+    $campaign->status = 1;
+  }
   $campaign->save();
   $form_state['redirect'] = 'admin/campaign';
 }
