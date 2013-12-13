@@ -14,6 +14,15 @@
 	  <?php endif; ?>
 	</div>
 
+	<div id="prep">
+		<h2>Prep</h2>
+		<p><?php print $campaign->prep_intro; ?></p>
+		<p><?php print $campaign->time_and_place; ?></p>
+		<p><?php print $campaign->people_involved; ?></p>
+		<p><?php print $campaign->items_needed; ?></p>
+		<p><?php print $campaign->promoting_tips; ?></p>
+	</div>
+
 	<?php if (!empty($campaign->action_type)): ?>
   <h4>Action Type</h4>
   <ul>
