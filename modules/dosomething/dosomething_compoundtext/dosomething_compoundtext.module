@@ -96,7 +96,7 @@ function dosomething_compoundtext_field_widget_form(&$form, &$form_state, $field
         '#title' => t('Title'),
         '#default_value' => isset($items[$delta]['title']) ? $items[$delta]['title']  : '',
         '#required' => FALSE,
-        '#size' => 8,
+        '#size' => 60,
         '#attributes' => array('maxlength' => 255),
       );
       $element['dosomething_compoundtext']['body'] = array(
