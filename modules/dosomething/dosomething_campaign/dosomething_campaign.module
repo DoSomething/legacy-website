@@ -140,18 +140,37 @@ function dosomething_campaign_preprocess_entity(&$variables) {
   // If this is a campaign entity, create variables to simplify theming.
   if ($entity_type == 'campaign') {
     // Store the campaign entity to quickly reference its properties within the tpl:
-    $variables['campaign'] = $variables['elements']['#entity'];
-    $campaign = entity_metadata_wrapper('campaign', $variables['elements']['#entity']);
+    $campaign = $variables['elements']['#entity'];
+    $variables['campaign'] = $campaign;
+    // Store entity wrapper to easily translate fields.
+    $wrapper = entity_metadata_wrapper('campaign', $campaign);
+    $variables['wrapper'] = $wrapper;
     // Cover image vars.
-    $cover_image = $campaign->field_image_campaign_cover->value();
+    $cover_image = $wrapper->field_image_campaign_cover->value();
     $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
     $variables['cover_image']['alt'] = $cover_image['alt'];
     // Gallery image vars.
-    $variables['gallery'] = array();
-    foreach ($campaign->field_image_campaign_gallery->value() as $gallery_image) {
-      $variables['gallery'][] = array(
+    $variables['campaign']->gallery = array();
+    foreach ($wrapper->field_image_campaign_gallery->value() as $gallery_image) {
+      $variables['campaign']->gallery[] = array(
         'src' => file_create_url($gallery_image['uri']),
         'alt' => $gallery_image['alt'],
+      );
+    }
+    // Action type terms:
+    $variables['campaign']->action_type = array();
+    foreach ($wrapper->field_action_type->getIterator() as $delta => $term_wrapper) {
+      $variables['campaign']->action_type[] = array(
+        'tid' => $term_wrapper->tid->value(),
+        'name' => $term_wrapper->name->value(),
+      );
+    }
+    // Cause terms:
+    $variables['campaign']->cause = array();
+    foreach ($wrapper->field_cause->getIterator() as $delta => $term_wrapper) {
+      $variables['campaign']->cause[] = array(
+        'tid' => $term_wrapper->tid->value(),
+        'name' => $term_wrapper->name->value(),
       );
     }
   }
