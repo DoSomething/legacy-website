@@ -20,6 +20,7 @@ features[field_instance][] = campaign-campaign-field_cause
 features[field_instance][] = campaign-campaign-field_faq
 features[field_instance][] = campaign-campaign-field_image_campaign_cover
 features[field_instance][] = campaign-campaign-field_image_campaign_gallery
+features[field_instance][] = campaign-campaign-field_sponsor
 features[field_instance][] = campaign-campaign-field_step_post
 features[field_instance][] = campaign-campaign-field_step_pre
 features[field_instance][] = campaign-campaign-field_tags

@@ -275,6 +275,17 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#type' => 'checkbox',
     '#default_value' => isset($campaign->status) ? $campaign->status : 0,
   );
+  // Sponsors:
+  $form['sponsors'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sponsors'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+    // Attach field_image_campaign_cover.
+  field_attach_form('campaign', $campaign, $form['sponsors'], $form_state, NULL, array(
+    'field_name' => 'field_sponsor',
+  ));
 
   // Form actions:
   $form['actions'] = array(
