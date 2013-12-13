@@ -76,6 +76,28 @@ function dosomething_campaign_menu() {
   );
   return $items;
 }
+/**
+ * Implements hook_permission().
+ */
+function dosomething_campaign_permission() {
+  return array(
+    'administer campaign' => array(
+      'title' => t('Administer Campaign Content'),
+      ),
+    'create campaign' => array(
+      'title' => t('Create Campaigns'),
+      ),
+    'edit campaign' => array(
+      'title' => t('Edit Campaigns'),
+      ),
+    'delete campaign' => array(
+      'title' => t('Delete Campaigns'),
+      ),
+    'view unpublished campaign' => array(
+      'title' => t('View Unpublished Campaigns'),
+      ),
+  );
+}
 
 
 /**
