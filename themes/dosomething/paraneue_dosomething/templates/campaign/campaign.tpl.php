@@ -1,8 +1,17 @@
 <div class="content clearfix <?php print $classes; ?>">
 	<img src="<?php print $cover_image['src']; ?>" alt="<?php print $cover_image['alt']; ?>" />
-	<div>
+
+	<div id="know">
+		<h2>Know</h2>
 		<p><?php print $campaign->stat_problem; ?></p>
 		<p><?php print $campaign->stat_solution; ?></p>
+		<?php if (!empty($campaign->faq)): ?>
+	  <h3>FAQ</h3>
+	  <?php foreach ($campaign->faq as $faq): ?>
+		  <h4><?php print $faq['title']; ?></h4>
+		  <?php print $faq['body']; ?></p>
+	  <?php endforeach; ?>
+	  <?php endif; ?>
 	</div>
 
 	<?php if (!empty($campaign->action_type)): ?>

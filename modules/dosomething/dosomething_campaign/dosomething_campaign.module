@@ -142,6 +142,15 @@ function dosomething_campaign_preprocess_entity(&$variables) {
     // Store the campaign entity to quickly reference its properties within the tpl:
     $campaign = $variables['elements']['#entity'];
     $variables['campaign'] = $campaign;
+    // Loop through $campaign Entity to get to Compound Text values.
+    // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper().
+    $variables['campaign']->faq = array();
+    foreach ($campaign->field_faq[LANGUAGE_NONE] as $faq) {
+      $variables['campaign']->faq[] = array(
+        'title' => $faq['title'],
+        'body' => $faq['body'],
+      );
+    }
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;
