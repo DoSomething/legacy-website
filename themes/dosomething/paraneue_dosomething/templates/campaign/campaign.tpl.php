@@ -23,6 +23,24 @@
 		<p><?php print $campaign->promoting_tips; ?></p>
 	</div>
 
+	<div id="do">
+		<h2>Do</h2>
+		<?php if (!empty($campaign->steps_pre)): ?>
+	  <?php foreach ($campaign->steps_pre as $step): ?>
+		  <h3><?php print $step['title']; ?></h3>
+		  <?php print $step['body']; ?></p>
+	  <?php endforeach; ?>
+	  <?php endif; ?>
+	  <h3>Take a Photo</h3>
+	  <p><?php print $campaign->step_photo; ?></p>
+		<?php if (!empty($campaign->steps_post)): ?>
+	  <?php foreach ($campaign->steps_post as $step): ?>
+		  <h3><?php print $step['title']; ?></h3>
+		  <?php print $step['body']; ?></p>
+	  <?php endforeach; ?>
+	  <?php endif; ?>
+	</div>
+
 	<?php if (!empty($campaign->action_type)): ?>
   <h4>Action Type</h4>
   <ul>

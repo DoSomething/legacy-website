@@ -151,6 +151,20 @@ function dosomething_campaign_preprocess_entity(&$variables) {
         'body' => $faq['body'],
       );
     }
+    $variables['campaign']->steps_pre = array();
+    foreach ($campaign->field_step_pre[LANGUAGE_NONE] as $step) {
+      $variables['campaign']->steps_pre[] = array(
+        'title' => $step['title'],
+        'body' => $step['body'],
+      );
+    }
+    $variables['campaign']->steps_post = array();
+    foreach ($campaign->field_step_post[LANGUAGE_NONE] as $step) {
+      $variables['campaign']->steps_post[] = array(
+        'title' => $step['title'],
+        'body' => $step['body'],
+      );
+    }
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;
