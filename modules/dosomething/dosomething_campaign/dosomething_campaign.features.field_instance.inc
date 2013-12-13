@@ -191,6 +191,40 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_sponsor'
+  $field_instances['campaign-campaign-field_sponsor'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_sponsor',
+    'label' => 'Sponsor',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 9,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_step_post'
   $field_instances['campaign-campaign-field_step_post'] = array(
     'bundle' => 'campaign',
@@ -294,6 +328,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Cover Image');
   t('FAQ');
   t('Gallery');
+  t('Sponsor');
   t('Step Post');
   t('Step Pre');
   t('Tags');
