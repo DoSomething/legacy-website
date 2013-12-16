@@ -142,29 +142,21 @@ function dosomething_campaign_preprocess_entity(&$variables) {
     // Store the campaign entity to quickly reference its properties within the tpl:
     $campaign = $variables['elements']['#entity'];
     $variables['campaign'] = $campaign;
+    $compound_text_fields = array('faq', 'step_pre', 'step_post');
     // Loop through $campaign Entity to get to Compound Text values.
-    // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper().
-    $variables['campaign']->faq = array();
-    foreach ($campaign->field_faq[LANGUAGE_NONE] as $faq) {
-      $variables['campaign']->faq[] = array(
-        'title' => $faq['title'],
-        'body' => $faq['body'],
-      );
+    foreach ($compound_text_fields as $field) {
+      $variables['campaign']->{$field} = array();
+      // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper(),
+      // So we need to use LANGUAGE_NONE constant.
+      $field_name = 'field_' . $field;
+      foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
+        $variables['campaign']->{$field}[] = array(
+          'title' => $value['title'],
+          'body' => $value['body'],
+        );
+      }
     }
-    $variables['campaign']->steps_pre = array();
-    foreach ($campaign->field_step_pre[LANGUAGE_NONE] as $step) {
-      $variables['campaign']->steps_pre[] = array(
-        'title' => $step['title'],
-        'body' => $step['body'],
-      );
-    }
-    $variables['campaign']->steps_post = array();
-    foreach ($campaign->field_step_post[LANGUAGE_NONE] as $step) {
-      $variables['campaign']->steps_post[] = array(
-        'title' => $step['title'],
-        'body' => $step['body'],
-      );
-    }
+
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;

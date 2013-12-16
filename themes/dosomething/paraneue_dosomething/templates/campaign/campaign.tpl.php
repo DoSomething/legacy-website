@@ -25,16 +25,16 @@
 
 	<div id="do">
 		<h2>Do</h2>
-		<?php if (!empty($campaign->steps_pre)): ?>
-	  <?php foreach ($campaign->steps_pre as $step): ?>
+		<?php if (!empty($campaign->step_pre)): ?>
+	  <?php foreach ($campaign->step_pre as $step): ?>
 		  <h3><?php print $step['title']; ?></h3>
 		  <?php print $step['body']; ?></p>
 	  <?php endforeach; ?>
 	  <?php endif; ?>
 	  <h3>Take a Photo</h3>
 	  <p><?php print $campaign->step_photo; ?></p>
-		<?php if (!empty($campaign->steps_post)): ?>
-	  <?php foreach ($campaign->steps_post as $step): ?>
+		<?php if (!empty($campaign->step_post)): ?>
+	  <?php foreach ($campaign->step_post as $step): ?>
 		  <h3><?php print $step['title']; ?></h3>
 		  <?php print $step['body']; ?></p>
 	  <?php endforeach; ?>
