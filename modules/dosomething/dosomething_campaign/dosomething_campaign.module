@@ -162,19 +162,51 @@ function dosomething_campaign_preprocess_entity(&$variables) {
   // If this is a campaign entity, create variables to simplify theming.
   if ($entity_type == 'campaign') {
     // Store the campaign entity to quickly reference its properties within the tpl:
-    $variables['campaign'] = $variables['elements']['#entity'];
-    $campaign = entity_metadata_wrapper('campaign', $variables['elements']['#entity']);
+    $campaign = $variables['elements']['#entity'];
+    $variables['campaign'] = $campaign;
+    $compound_text_fields = array('faq', 'step_pre', 'step_post');
+    // Loop through $campaign Entity to get to Compound Text values.
+    foreach ($compound_text_fields as $field) {
+      $variables['campaign']->{$field} = array();
+      // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper(),
+      // So we need to use LANGUAGE_NONE constant.
+      $field_name = 'field_' . $field;
+      // Loop through field vlaues:
+      foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
+        $variables['campaign']->{$field}[] = array(
+          'title' => $value['title'],
+          'body' => $value['body'],
+        );
+      }
+    }
+    // Store entity wrapper to easily translate fields.
+    $wrapper = entity_metadata_wrapper('campaign', $campaign);
+    $variables['wrapper'] = $wrapper;
     // Cover image vars.
-    $cover_image = $campaign->field_image_campaign_cover->value();
+    $cover_image = $wrapper->field_image_campaign_cover->value();
     $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
     $variables['cover_image']['alt'] = $cover_image['alt'];
     // Gallery image vars.
-    $variables['gallery'] = array();
-    foreach ($campaign->field_image_campaign_gallery->value() as $gallery_image) {
-      $variables['gallery'][] = array(
+    $variables['campaign']->gallery = array();
+    foreach ($wrapper->field_image_campaign_gallery->value() as $gallery_image) {
+      $variables['campaign']->gallery[] = array(
         'src' => file_create_url($gallery_image['uri']),
         'alt' => $gallery_image['alt'],
       );
+    }
+    // Loop through taxonomy fields:
+    $taxonomy_fields = array('action_type', 'cause');
+    foreach ($taxonomy_fields as $field) {
+      $field_name = 'field_' . $field;
+      $variables['campaign']->{$field} = array();
+      // Loop through field values:
+      foreach ($wrapper->{$field_name}->getIterator() as $delta => $term_wrapper) {
+      $variables['campaign']->{$field}[] = array(
+        'tid' => $term_wrapper->tid->value(),
+        'name' => $term_wrapper->name->value(),
+        'link' => l($term_wrapper->name->value(), 'taxonomy/term/' . $term_wrapper->tid->value()),
+      );
+    }
     }
   }
 }
