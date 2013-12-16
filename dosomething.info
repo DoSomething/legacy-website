@@ -30,6 +30,7 @@ dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = uuid
 dependencies[] = uuid_features
+dependencies[] = varnish
 dependencies[] = views
 dependencies[] = views_ui
 dependencies[] = wysiwyg

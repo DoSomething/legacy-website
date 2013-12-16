@@ -81,6 +81,10 @@ projects[uuid][subdir] = "contrib"
 projects[uuid_features] = "1.0-alpha3"
 projects[uuid_features][subdir] = "contrib"
 
+; Varnish
+projects[varnish] = "1.0-beta2"
+projects[varnish][subdir] = "contrib"
+
 ; Views
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"

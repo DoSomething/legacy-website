@@ -578,6 +578,13 @@ switch(ENVIRONMENT) {
   case 'DEVELOPMENT':
     $base_url = 'http://dev.dosomething.org:8888';
 
+    // Add Varnish as the page cache handler.
+    $conf['cache_backends'] = array('profiles/dosomething/modules/contrib/varnish/varnish.cache.inc');
+    $conf['cache_class_cache_page'] = 'VarnishCache';
+    // Drupal 7 does not cache pages when we invoke hooks during bootstrap.
+    // This needs to be disabled.
+    $conf['page_cache_invoke_hooks'] = FALSE;
+
     // Set securepages paths
     $conf['securepages_basepath'] = 'http://dev.dosomething.org:8888';
     $conf['securepages_basepath_ssl'] = 'https://dev.dosomething.org:8889';
