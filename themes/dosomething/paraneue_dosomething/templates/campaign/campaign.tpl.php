@@ -45,7 +45,7 @@
   <h4>Action Type</h4>
   <ul>
   <?php foreach ($campaign->action_type as $term): ?>
-    <li><?php print l($term['name'], 'taxonomy/term/' . $term['tid']); ?></li>
+    <li><?php print $term['link'] ?></li>
   <?php endforeach; ?>
   </ul>
   <?php endif; ?>
@@ -54,7 +54,7 @@
   <h4>Cause</h4>
   <ul>
   <?php foreach ($campaign->cause as $term): ?>
-    <li><?php print l($term['name'], 'taxonomy/term/' . $term['tid']); ?></li>
+    <li><?php print $term['link'] ?></li>
   <?php endforeach; ?>
   </ul>
   <?php endif; ?>

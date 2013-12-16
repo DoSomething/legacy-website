@@ -182,6 +182,7 @@ function dosomething_campaign_preprocess_entity(&$variables) {
       $variables['campaign']->{$field}[] = array(
         'tid' => $term_wrapper->tid->value(),
         'name' => $term_wrapper->name->value(),
+        'link' => l($term_wrapper->name->value(), 'taxonomy/term/' . $term_wrapper->tid->value()),
       );
     }
     }
