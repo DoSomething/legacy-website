@@ -149,6 +149,7 @@ function dosomething_campaign_preprocess_entity(&$variables) {
       // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper(),
       // So we need to use LANGUAGE_NONE constant.
       $field_name = 'field_' . $field;
+      // Loop through field vlaues:
       foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
         $variables['campaign']->{$field}[] = array(
           'title' => $value['title'],
@@ -156,7 +157,6 @@ function dosomething_campaign_preprocess_entity(&$variables) {
         );
       }
     }
-
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;
@@ -172,21 +172,18 @@ function dosomething_campaign_preprocess_entity(&$variables) {
         'alt' => $gallery_image['alt'],
       );
     }
-    // Action type terms:
-    $variables['campaign']->action_type = array();
-    foreach ($wrapper->field_action_type->getIterator() as $delta => $term_wrapper) {
-      $variables['campaign']->action_type[] = array(
+    // Loop through taxonomy fields:
+    $taxonomy_fields = array('action_type', 'cause');
+    foreach ($taxonomy_fields as $field) {
+      $field_name = 'field_' . $field;
+      $variables['campaign']->{$field} = array();
+      // Loop through field values:
+      foreach ($wrapper->{$field_name}->getIterator() as $delta => $term_wrapper) {
+      $variables['campaign']->{$field}[] = array(
         'tid' => $term_wrapper->tid->value(),
         'name' => $term_wrapper->name->value(),
       );
     }
-    // Cause terms:
-    $variables['campaign']->cause = array();
-    foreach ($wrapper->field_cause->getIterator() as $delta => $term_wrapper) {
-      $variables['campaign']->cause[] = array(
-        'tid' => $term_wrapper->tid->value(),
-        'name' => $term_wrapper->name->value(),
-      );
     }
   }
 }
