@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file
+ * Provides a Fact custom entity.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_fact_entity_info() {
+  $info = array();
+  $info['fact'] = array(
+    'label' => t('Fact'),
+    'base table' => 'dosomething_fact',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'fact',
+    ),
+    'entity class' => 'FactEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'FactEntityController',
+    'admin ui' => array(
+      'path' => 'admin/fact',
+      'controller class' => 'FactEntityUIController',
+      'menu wildcard' => '%fact',
+      'file' => 'dosomething_fact.admin.inc',
+    ),
+    'module' => 'dosomething_fact',
+     // Controls who can access entity CRUD.
+    'access callback' => 'dosomething_fact_access',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_fact_menu() {
+  $items = array();
+  $items['fact/%fact'] = array(
+    'title callback' => t('Fact'),
+    'page callback' => 'dosomething_fact_view_entity',
+    'page arguments' => array(1, 2),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Access callback for FactEntity CRUD operations.
+ */
+function dosomething_fact_access($op, $dosomething_fact = NULL, $account = NULL) {
+  return TRUE;
+}
+
+/**
+ * Menu autoloader for /fact.
+ */
+function fact_load($id) {
+  $fact = entity_load('fact', array($id));
+  return array_pop($fact);
+}
+
+/**
+ * Callback for /campaign/ID page.
+ *
+ * Passing view_mode as an argument is temporary until signups are functional.
+ */
+function dosomething_fact_view_entity($fact, $view_mode = 'full') {
+  return entity_view('fact', array($fact->id => $fact), $view_mode);
+}
