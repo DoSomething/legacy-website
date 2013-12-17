@@ -579,6 +579,7 @@ switch(ENVIRONMENT) {
     $base_url = 'http://dev.dosomething.org:8888';
 
     // Add Varnish as the page cache handler.
+    $conf['varnish_version'] = '3';
     $conf['cache_backends'] = array('profiles/dosomething/modules/contrib/varnish/varnish.cache.inc');
     $conf['cache_class_cache_page'] = 'VarnishCache';
     // Drupal 7 does not cache pages when we invoke hooks during bootstrap.
