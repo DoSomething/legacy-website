@@ -21,6 +21,10 @@ projects[date][subdir] = "contrib"
 projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
 
+; Entity Reference
+projects[entityreference] = "1.1"
+projects[entityreference][subdir] = "contrib"
+
 ; Features
 projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
