@@ -21,6 +21,7 @@ dependencies[] = admin_menu_toolbar
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity
+dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = libraries
 dependencies[] = mailsystem
