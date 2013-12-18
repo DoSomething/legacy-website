@@ -10,7 +10,13 @@
  * @ingroup forms
  */
 function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
-
+  // Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
+  // Link for the ctools modal page to render.
+  $add_fact_link = 'admin/dosomething-fact/modal-add/nojs';
   // Prefix for Entity column description variables:
   $desc_prefix = DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX;
 
@@ -35,6 +41,22 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#default_value' => isset($campaign->url_internal_confirm_doc) ? $campaign->url_internal_confirm_doc : '',
     '#description' => variable_get($desc_prefix . 'url_internal_confirm_doc', ''),
   );
+
+  // Facts:
+  $form['facts'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Facts'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => variable_get($desc_prefix . 'facts', ''),
+  );
+  $form['facts']['add'] = array(
+    '#markup' => '<div id="add-fact-status"></div><div>' . l(t('Add new fact'), $add_fact_link, array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>',
+  );
+  // Attach Facts entityreference field.
+  field_attach_form('campaign', $campaign, $form['facts'], $form_state, NULL, array(
+    'field_name' => 'field_facts',
+  ));
 
   // Timing:
   $form['timing'] = array(
