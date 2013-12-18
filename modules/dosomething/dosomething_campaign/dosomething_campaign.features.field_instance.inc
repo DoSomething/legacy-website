@@ -72,6 +72,43 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_facts'
+  $field_instances['campaign-campaign-field_facts'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_facts',
+    'label' => 'Facts',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_faq'
   $field_instances['campaign-campaign-field_faq'] = array(
     'bundle' => 'campaign',
@@ -447,6 +484,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Cause');
   t('Cover Image');
   t('FAQ');
+  t('Facts');
   t('Gallery');
   t('Sponsor');
   t('Step Post');
