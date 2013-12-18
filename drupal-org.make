@@ -17,6 +17,10 @@ projects[ctools][subdir] = "contrib"
 projects[date] = "2.6"
 projects[date][subdir] = "contrib"
 
+; Double Field
+projects[date] = "2.3"
+projects[date][subdir] = "contrib"
+
 ; Entity
 projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
