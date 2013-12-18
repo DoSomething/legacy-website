@@ -18,8 +18,8 @@ projects[date] = "2.6"
 projects[date][subdir] = "contrib"
 
 ; Double Field
-projects[date] = "2.3"
-projects[date][subdir] = "contrib"
+projects[double_field] = "2.3"
+projects[double_field][subdir] = "contrib"
 
 ; Entity
 projects[entity] = "1.2"
