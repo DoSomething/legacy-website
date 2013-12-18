@@ -39,5 +39,4 @@ dependencies[] = wysiwyg
 ; DOSOMETHING
 dependencies[] = dosomething_user
 dependencies[] = dosomething_campaign
-dependencies[] = dosomething_compoundtext
 dependencies[] = dosomething_taxonomy
