@@ -72,6 +72,77 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_faq'
+  $field_instances['campaign-campaign-field_faq'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_faq',
+    'label' => 'FAQ',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'double_field',
+      'settings' => array(
+        'first' => array(
+          'general' => array(
+            'prefix' => 'Title',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textfield' => array(
+            'placeholder' => '',
+            'size' => 10,
+          ),
+        ),
+        'inline' => 0,
+        'second' => array(
+          'general' => array(
+            'prefix' => 'Body',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textarea' => array(
+            'cols' => 10,
+            'placeholder' => '',
+            'resizable' => 1,
+            'rows' => 5,
+          ),
+        ),
+      ),
+      'type' => 'textfield_&_textarea',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_image_campaign_cover'
   $field_instances['campaign-campaign-field_image_campaign_cover'] = array(
     'bundle' => 'campaign',
@@ -194,6 +265,148 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_step_post'
+  $field_instances['campaign-campaign-field_step_post'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_step_post',
+    'label' => 'Step Post',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'double_field',
+      'settings' => array(
+        'first' => array(
+          'general' => array(
+            'prefix' => 'Title',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textfield' => array(
+            'placeholder' => '',
+            'size' => 10,
+          ),
+        ),
+        'inline' => 0,
+        'second' => array(
+          'general' => array(
+            'prefix' => 'Body',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textarea' => array(
+            'cols' => 10,
+            'placeholder' => '',
+            'resizable' => 1,
+            'rows' => 5,
+          ),
+        ),
+      ),
+      'type' => 'textfield_&_textarea',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'campaign-campaign-field_step_pre'
+  $field_instances['campaign-campaign-field_step_pre'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_step_pre',
+    'label' => 'Step Pre',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'double_field',
+      'settings' => array(
+        'first' => array(
+          'general' => array(
+            'prefix' => 'Title',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textfield' => array(
+            'placeholder' => '',
+            'size' => 10,
+          ),
+        ),
+        'inline' => 0,
+        'second' => array(
+          'general' => array(
+            'prefix' => 'Body',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textarea' => array(
+            'cols' => 10,
+            'placeholder' => '',
+            'resizable' => 1,
+            'rows' => 5,
+          ),
+        ),
+      ),
+      'type' => 'textfield_&_textarea',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_tags'
   $field_instances['campaign-campaign-field_tags'] = array(
     'bundle' => 'campaign',
@@ -233,8 +446,11 @@ function dosomething_campaign_field_default_field_instances() {
   t('Action Type');
   t('Cause');
   t('Cover Image');
+  t('FAQ');
   t('Gallery');
   t('Sponsor');
+  t('Step Post');
+  t('Step Pre');
   t('Tags');
 
   return $field_instances;
