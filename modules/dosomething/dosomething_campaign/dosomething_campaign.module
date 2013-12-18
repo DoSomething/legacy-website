@@ -174,8 +174,8 @@ function dosomething_campaign_preprocess_entity(&$variables) {
       // Loop through field vlaues:
       foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
         $variables['campaign']->{$field}[] = array(
-          'title' => $value['title'],
-          'body' => $value['body'],
+          'title' => $value['first'],
+          'body' => $value['second'],
         );
       }
     }
