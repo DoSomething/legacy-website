@@ -108,11 +108,11 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
   ));
   $form['know']['field_fact_solution']['#weight'] = 40;
 
-  $form['know']['stat_solution'] = array(
+  $form['know']['solution_statement'] = array(
     '#title' => t('Statement on the Solution'),
     '#type' => 'textfield',
-    '#default_value' => isset($campaign->stat_solution) ? $campaign->stat_solution : '',
-    '#description' => variable_get($desc_prefix . 'stat_solution', ''),
+    '#default_value' => isset($campaign->solution_statement) ? $campaign->solution_statement : '',
+    '#description' => variable_get($desc_prefix . 'solution_statement', ''),
     '#weight' => 60,
   );
   // Attach Facts entityreference field.
@@ -348,10 +348,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'season_high_end',
     'season_low_start',
     'season_low_end',
-    'stat_problem',
-    'stat_problem_source',
-    'stat_solution',
-    'stat_solution_source',
+    'solution_statement',
     'step_photo',
     'taxonomy',
     'timing',
