@@ -38,6 +38,7 @@ dependencies[] = views_ui
 dependencies[] = wysiwyg
 
 ; DOSOMETHING
-dependencies[] = dosomething_user
 dependencies[] = dosomething_campaign
+dependencies[] = dosomething_fact
 dependencies[] = dosomething_taxonomy
+dependencies[] = dosomething_user

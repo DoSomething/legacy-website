@@ -10,7 +10,13 @@
  * @ingroup forms
  */
 function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
-
+  // Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
+  // Link for the ctools modal page to render.
+  $add_fact_link = 'admin/dosomething-fact/modal-add/nojs';
   // Prefix for Entity column description variables:
   $desc_prefix = DOSOMETHING_CAMPAIGN_FORM_DESC_PREFIX;
 
@@ -86,40 +92,47 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
     '#collapsed' => TRUE,
     '#description' => variable_get($desc_prefix . 'know', ''),
   );
-  $form['know']['stat_problem'] = array(
-    '#title' => t('Statement on the Problem'),
-    '#type' => 'textfield',
-    '#default_value' => isset($campaign->stat_problem) ? $campaign->stat_problem : '',
-    '#description' => variable_get($desc_prefix . 'stat_problem', ''),
+  $form['know']['add'] = array(
+    '#markup' => '<div id="add-fact-status"></div><div>' . l(t('Add new fact'), $add_fact_link, array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>',
+    '#weight' => 0,
   );
-  $form['know']['stat_problem_source'] = array(
-    '#title' => t('Source for Problem Statement'),
-    '#type' => 'textfield',
-    '#default_value' => isset($campaign->stat_problem_source) ? $campaign->stat_problem_source : '',
-    '#description' => variable_get($desc_prefix . 'stat_problem_source', ''),
-  );
-  $form['know']['stat_solution'] = array(
+  // Attach Fact Problem entityreference field.
+  field_attach_form('campaign', $campaign, $form['know'], $form_state, NULL, array(
+    'field_name' => 'field_fact_problem',
+  ));
+  $form['know']['field_fact_problem']['#weight'] = 20;
+
+  // Attach Fact Solution entityreference field.
+  field_attach_form('campaign', $campaign, $form['know'], $form_state, NULL, array(
+    'field_name' => 'field_fact_solution',
+  ));
+  $form['know']['field_fact_solution']['#weight'] = 40;
+
+  $form['know']['solution_statement'] = array(
     '#title' => t('Statement on the Solution'),
     '#type' => 'textfield',
-    '#default_value' => isset($campaign->stat_solution) ? $campaign->stat_solution : '',
-    '#description' => variable_get($desc_prefix . 'stat_solution', ''),
+    '#default_value' => isset($campaign->solution_statement) ? $campaign->solution_statement : '',
+    '#description' => variable_get($desc_prefix . 'solution_statement', ''),
+    '#weight' => 60,
   );
-  $form['know']['stat_solution_source'] = array(
-    '#title' => t('Source for Solution Statement'),
-    '#type' => 'textfield',
-    '#default_value' => isset($campaign->stat_solution_source) ? $campaign->stat_solution_source : '',
-    '#description' => variable_get($desc_prefix . 'stat_solution_source', ''),
-  );
+  // Attach Facts entityreference field.
+  field_attach_form('campaign', $campaign, $form['know'], $form_state, NULL, array(
+    'field_name' => 'field_facts',
+  ));
+  $form['know']['field_facts']['#weight'] = 80;
+
   $form['know']['url_psa'] = array(
     '#title' => t('PSA'),
     '#type' => 'textfield',
     '#default_value' => isset($campaign->url_psa) ? $campaign->url_psa : '',
     '#description' => variable_get($desc_prefix . 'url_psa', ''),
+    '#weight' => 100,
   );
   // Attach FAQ compound field.
   field_attach_form('campaign', $campaign, $form['know'], $form_state, NULL, array(
     'field_name' => 'field_faq',
   ));
+  $form['know']['field_faq']['#weight'] = 120;
 
   // Prep It:
   $form['prep'] = array(
@@ -335,10 +348,7 @@ function dosomething_campaign_admin_settings_form($form, &$form_state) {
     'season_high_end',
     'season_low_start',
     'season_low_end',
-    'stat_problem',
-    'stat_problem_source',
-    'stat_solution',
-    'stat_solution_source',
+    'solution_statement',
     'step_photo',
     'taxonomy',
     'timing',
