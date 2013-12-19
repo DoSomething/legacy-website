@@ -37,7 +37,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -68,7 +68,81 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 1,
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'campaign-campaign-field_fact_problem'
+  $field_instances['campaign-campaign-field_fact_problem'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_fact_problem',
+    'label' => 'Problem Fact',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'campaign-campaign-field_fact_solution'
+  $field_instances['campaign-campaign-field_fact_solution'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_fact_solution',
+    'label' => 'Solution Fact',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 10,
     ),
   );
 
@@ -105,7 +179,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -220,7 +294,7 @@ function dosomething_campaign_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -264,7 +338,7 @@ function dosomething_campaign_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -298,7 +372,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -474,7 +548,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -486,6 +560,8 @@ function dosomething_campaign_field_default_field_instances() {
   t('FAQ');
   t('Facts');
   t('Gallery');
+  t('Problem Fact');
+  t('Solution Fact');
   t('Sponsor');
   t('Step Post');
   t('Step Pre');
