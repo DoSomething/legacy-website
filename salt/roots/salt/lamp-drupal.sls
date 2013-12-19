@@ -134,6 +134,10 @@ varnish-default:
     - require:
       - pkg: varnish
 
+varnish-secret:
+  cmd.run:
+    - name: 'export VARNISH_SECRET=$(cat /etc/varnish/secret)'
+
 mysql-common:
   pkg:
     - installed
