@@ -28,11 +28,6 @@ function fact_form($form, &$form_state, $fact, $op = 'edit') {
     '#type' => 'textfield',
     '#default_value' => isset($fact->url_source) ? $fact->url_source : '',
   );
-  $form['status'] = array(
-    '#title' => t('Active'),
-    '#type' => 'checkbox',
-    '#default_value' => isset($fact->status) ? $fact->status : 0,
-  );
   // Form actions:
   $form['actions'] = array(
     '#type' => 'actions',

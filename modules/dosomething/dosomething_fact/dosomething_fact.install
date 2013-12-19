@@ -30,12 +30,6 @@ function dosomething_fact_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'status' => array(
-        'description' => 'Boolean indicating whether the campaign is published (visible to non-administrators).',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
       'created' => array(
         'description' => 'The Unix timestamp when the campaign was created.',
         'type' => 'int',

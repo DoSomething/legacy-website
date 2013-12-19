@@ -122,7 +122,6 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
     'fact' => $form_state['values']['fact'],
     'source' => $form_state['values']['source'],
     'url_source' => $form_state['values']['url_source'],
-    'status' => 1,
     )
   );
   $fact->save();
