@@ -580,7 +580,8 @@ switch(ENVIRONMENT) {
 
     // Add Varnish as the page cache handler.
     $conf['varnish_version'] = '3';
-    $conf['varnish_control_key'] = 'fc0a087c-abd3-4abf-a6aa-51a7c0bcda92';
+
+    $conf['varnish_control_key'] = getenv('VARNISH_SECRET') ? getenv('VARNISH_SECRET') : '';
     $conf['cache_backends'] = array('profiles/dosomething/modules/contrib/varnish/varnish.cache.inc');
     $conf['cache_class_cache_page'] = 'VarnishCache';
     // Drupal 7 does not cache pages when we invoke hooks during bootstrap.
