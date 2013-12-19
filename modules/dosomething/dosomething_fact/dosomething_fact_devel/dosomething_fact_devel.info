@@ -1,0 +1,6 @@
+name = DoSomething Fact Devel
+description = Generate dummy Facts.
+core = 7.x
+package = DoSomething
+dependencies[] = dosomething_fact
+dependencies[] = devel_generate
