@@ -220,14 +220,7 @@ function campaign_form($form, &$form_state, $campaign, $op = 'edit') {
   $form['taxonomy']['hours'] = array(
     '#title' => t('Active Hours'),
     '#type' => 'radios',
-    '#options' => array(
-      '0.5' => '0.5',
-      '1' => '1',
-      '2' => '2',
-      '5' => '5',
-      '10' => '10',
-      '15' => '15',
-    ),
+    '#options' => dosomething_campaign_get_hours_options(),
     '#default_value' => isset($campaign->hours) ? $campaign->hours : NULL,
     '#description' => variable_get($desc_prefix . 'hours', ''),
     '#weight' => 200,
