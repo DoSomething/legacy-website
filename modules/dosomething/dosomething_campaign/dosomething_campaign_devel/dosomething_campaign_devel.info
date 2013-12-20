@@ -1,0 +1,6 @@
+name = DoSomething Campaign Devel
+description = Generate dummy Campaigns.
+core = 7.x
+package = DoSomething
+dependencies[] = dosomething_campaign
+dependencies[] = devel_generate
