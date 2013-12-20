@@ -87,7 +87,7 @@ function dosomething_campaign_devel_generate_campaign() {
     'cta_text' => devel_create_para(2),
     'status' => 1,
     'locationfinder_id' => mt_rand(0, 1),
-    'hours' => mt_rand(0, 10),
+    'hours' => array_rand(dosomething_campaign_get_hours_options()),
     'reportback_noun' => devel_generate_word(mt_rand(4, 10)),
     'reportback_verb' => devel_generate_word(mt_rand(4, 10)),
     'is_staff_pick' => mt_rand(0, 1),
