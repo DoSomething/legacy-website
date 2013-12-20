@@ -3,8 +3,6 @@
 
 	<div id="know">
 		<h2>Know</h2>
-		<p><?php print $campaign->stat_problem; ?></p>
-		<p><?php print $campaign->stat_solution; ?></p>
 		<?php if (!empty($campaign->faq)): ?>
 	  <h3>FAQ</h3>
 	  <?php foreach ($campaign->faq as $faq): ?>
