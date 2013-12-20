@@ -3,6 +3,18 @@
 
 	<div id="know">
 		<h2>Know</h2>
+		<p><?php print $campaign->fact_problem['fact']; ?></p>
+		<p class="legal"><?php print $campaign->fact_problem['source']; ?></p>
+		<p><?php print $campaign->fact_solution['fact']; ?></p>
+		<p class="legal"><?php print $campaign->fact_solution['source']; ?></p>
+		<p><?php print $campaign->solution_statement; ?></p>
+		<?php if (!empty($campaign->facts)): ?>
+	  <h3>More Facts</h3>
+	  <?php foreach ($campaign->facts as $fact): ?>
+		  <p><?php print $fact['fact']; ?></p>
+		  <p class="legal"><?php print $fact['source']; ?></p>
+	  <?php endforeach; ?>
+	  <?php endif; ?>
 		<?php if (!empty($campaign->faq)): ?>
 	  <h3>FAQ</h3>
 	  <?php foreach ($campaign->faq as $faq): ?>
