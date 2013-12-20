@@ -210,3 +210,19 @@ function dosomething_campaign_preprocess_entity(&$variables) {
     }
   }
 }
+
+/**
+ * Returns array of options of valid dosomething_campaign.hours values.
+ *
+ * @see campaign_form().
+ */
+function dosomething_campaign_get_hours_options() {
+  return array(
+    '0.5' => '0.5',
+    '1' => '1',
+    '2' => '2',
+    '5' => '5',
+    '10' => '10',
+    '15' => '15',
+  );
+}

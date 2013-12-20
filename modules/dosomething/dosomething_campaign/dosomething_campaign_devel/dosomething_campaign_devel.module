@@ -1,0 +1,124 @@
+<?php
+/**
+ * @file
+ * Provides functionality to generate dummy Campaigns.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_campaign_devel_menu() {
+  $items = array();
+  $items['admin/config/development/generate/campaign'] = array(
+    'title' => 'Generate campaigns',
+    'description' => 'Generate a given number of campaigns. Optionally delete current campaigns.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_campaign_devel_generate_campaigns_form'),
+    'access arguments' => array('administer modules'),
+  );
+  return $items;
+}
+
+/**
+ * Form constructor for generating dummy campaigns.
+ */
+function dosomething_campaign_devel_generate_campaigns_form() {
+  $form['num'] = array(
+    '#type' => 'textfield',
+    '#title' => t('How many campaigns would you like to generate?'),
+    '#default_value' => 50,
+    '#size' => 10,
+  );
+  $form['kill_campaigns'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Delete all campaigns before generating new campaigns.'),
+    '#default_value' => FALSE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Generate'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for dosomething_campaign_devel_generate_campaigns_form().
+ */
+function dosomething_campaign_devel_generate_campaigns_form_submit($form_id, &$form_state) {
+  $values = $form_state['values'];
+  dosomething_campaign_devel_create_campaigns($values['num'], $values['kill_campaigns']);
+}
+
+/**
+ * Generate some random campaigns.
+ *
+ * @param $num
+ *  Number of campaigns to generate.
+ * @param $kill
+ *  Boolean that indicates if existing campaigns should be removed first.
+ */
+function dosomething_campaign_devel_create_campaigns($num = 10, $kill = FALSE) {
+  // If kill existing campaigns:
+  if ($kill) {
+    // Select all campaigns.
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition('entity_type', 'campaign')->execute();
+    // Destroy all campaigns.
+    entity_delete_multiple('campaign', array_keys($result['campaign']));
+    drupal_set_message(format_plural(count($result['campaign']), '1 campaign deleted', '@count campaigns deleted.'));
+  }
+  if ($num > 0) {
+    for ($i=0; $i < $num; $i++) {
+      dosomething_campaign_devel_generate_campaign();
+    }
+  }
+}
+
+/**
+ * Generates a dummy campaign.
+ */
+function dosomething_campaign_devel_generate_campaign() {
+  // Load devel_generate.inc for dummy word/paragraph functions.
+  module_load_include('inc', 'devel_generate', 'devel_generate');
+  // @todo: Add logic to make season dates always make sense.
+  // e.g. end can't be before beginning.
+  $campaign = entity_create('campaign', array(
+    'title' => devel_create_greeking(mt_rand(2, 6), TRUE),
+    'cta_text' => devel_create_para(2),
+    'status' => 1,
+    'locationfinder_id' => mt_rand(0, 1),
+    'hours' => array_rand(dosomething_campaign_get_hours_options()),
+    'reportback_noun' => devel_generate_word(mt_rand(4, 10)),
+    'reportback_verb' => devel_generate_word(mt_rand(4, 10)),
+    'is_staff_pick' => mt_rand(0, 1),
+    'season_high_start' => dosomething_campaign_devel_generate_season_string(),
+    'season_high_end' => dosomething_campaign_devel_generate_season_string(),
+    'is_season_high_end_displayed' => mt_rand(0, 1),
+    'season_low_start' => dosomething_campaign_devel_generate_season_string(),
+    'season_low_end' => dosomething_campaign_devel_generate_season_string(),
+    'solution_statement' => devel_create_para(2),
+    'url_psa' => 'http://' . devel_generate_word(mt_rand(8, 13)) . '.com',
+    'url_internal_confirm_doc' => 'http://' . devel_generate_word(mt_rand(8, 13)) . '.com',
+    'prep_intro' => devel_create_para(2),
+    'time_and_place' => devel_create_para(2),
+    'people_involved' => devel_create_para(2),
+    'items_needed' => devel_create_para(2),
+    'promoting_tips' => devel_create_para(2),
+    'step_photo' => devel_create_para(2),
+    )
+  );
+  // Populate all fields:
+  module_load_include('inc', 'devel_generate', 'devel_generate.fields');
+  devel_generate_fields($campaign, 'campaign', 'campaign');
+  // Save the campaign.
+  $campaign->save(); 
+}
+
+/**
+ * Returns a dummy string in expected format for season text fields.
+ */
+function dosomething_campaign_devel_generate_season_string() {
+  $month = mt_rand(1, 12);
+  $day = mt_rand(1, 28);
+  return sprintf("%02s", $month) . '/' . sprintf("%02s", $day);
+}
