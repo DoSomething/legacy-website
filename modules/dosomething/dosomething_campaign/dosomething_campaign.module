@@ -164,23 +164,6 @@ function dosomething_campaign_preprocess_entity(&$variables) {
     // Store the campaign entity to quickly reference its properties within the tpl:
     $campaign = $variables['elements']['#entity'];
     $variables['campaign'] = $campaign;
-    $compound_text_fields = array('faq', 'step_pre', 'step_post');
-    // Loop through $campaign Entity to get to Compound Text values.
-    foreach ($compound_text_fields as $field) {
-      $variables['campaign']->{$field} = array();
-      // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper(),
-      // So we need to use LANGUAGE_NONE constant.
-      $field_name = 'field_' . $field;
-      // Loop through field vlaues:
-      if (isset($campaign->{$field_name}[LANGUAGE_NONE])) {
-        foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
-          $variables['campaign']->{$field}[] = array(
-            'title' => $value['first'],
-            'body' => $value['second'],
-          );
-        }
-      }
-    }
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;
@@ -231,6 +214,23 @@ function dosomething_campaign_preprocess_entity(&$variables) {
           'tid' => $term_wrapper->tid->value(),
           'name' => $term_wrapper->name->value(),
           'link' => l($term_wrapper->name->value(), 'taxonomy/term/' . $term_wrapper->tid->value()),
+          );
+        }
+      }
+    }
+    $double_fields = array('faq', 'step_pre', 'step_post');
+    // Loop through $campaign Entity to get to Compound Text values.
+    foreach ($double_fields as $field) {
+      $variables['campaign']->{$field} = array();
+      $field_name = 'field_' . $field;
+      // Loop through field values:
+      if (!empty($wrapper->{$field_name})) {
+        // Currently, Double Field field types don't support getIterator method: https://drupal.org/node/2162389
+        // So we need to loop through LANGUAGE_NONE constant to get to raw values.
+        foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $delta => $value) {
+          $variables['campaign']->{$field}[] = array(
+            'title' => $value['first'],
+            'body' => $value['second'],
           );
         }
       }
