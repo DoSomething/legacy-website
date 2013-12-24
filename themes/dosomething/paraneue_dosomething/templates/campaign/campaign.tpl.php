@@ -1,13 +1,24 @@
 <div class="content clearfix <?php print $classes; ?>">
+
+	<?php if (!empty($cover_image)): ?>
 	<img src="<?php print $cover_image['src']; ?>" alt="<?php print $cover_image['alt']; ?>" />
+  <?php endif; ?>
 
 	<div id="know">
+
 		<h2>Know</h2>
 		<p><?php print $campaign->fact_problem['fact']; ?></p>
 		<p class="legal"><?php print $campaign->fact_problem['source']; ?></p>
+
+		<?php if (!empty($campaign->fact_solution)): ?>
 		<p><?php print $campaign->fact_solution['fact']; ?></p>
 		<p class="legal"><?php print $campaign->fact_solution['source']; ?></p>
+	  <?php endif; ?>
+		
+		<?php if (!empty($campaign->solution_statement)): ?>
 		<p><?php print $campaign->solution_statement; ?></p>
+	  <?php endif; ?>
+
 		<?php if (!empty($campaign->facts)): ?>
 	  <h3>More Facts</h3>
 	  <?php foreach ($campaign->facts as $fact): ?>
@@ -15,6 +26,7 @@
 		  <p class="legal"><?php print $fact['source']; ?></p>
 	  <?php endforeach; ?>
 	  <?php endif; ?>
+
 		<?php if (!empty($campaign->faq)): ?>
 	  <h3>FAQ</h3>
 	  <?php foreach ($campaign->faq as $faq): ?>
@@ -22,6 +34,7 @@
 		  <?php print $faq['body']; ?></p>
 	  <?php endforeach; ?>
 	  <?php endif; ?>
+
 	</div>
 
 	<div id="prep">
