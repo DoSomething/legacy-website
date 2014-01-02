@@ -254,6 +254,80 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'campaign-campaign-field_image_campaign_cover'
+  $field_instances['campaign-campaign-field_image_campaign_cover'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_image_campaign_cover',
+    'label' => 'Cover Image',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'campaign-campaign-field_image_campaign_gallery'
+  $field_instances['campaign-campaign-field_image_campaign_gallery'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 13,
+      ),
+    ),
+    'entity_type' => 'campaign',
+    'field_name' => 'field_image_campaign_gallery',
+    'label' => 'Campaign Gallery',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'campaign-campaign-field_sponsor'
   $field_instances['campaign-campaign-field_sponsor'] = array(
     'bundle' => 'campaign',
@@ -467,7 +541,9 @@ function dosomething_campaign_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Action Type');
+  t('Campaign Gallery');
   t('Cause');
+  t('Cover Image');
   t('FAQ');
   t('Facts');
   t('Problem Fact');
