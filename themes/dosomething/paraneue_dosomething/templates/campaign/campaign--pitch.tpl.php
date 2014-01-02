@@ -1,9 +1,5 @@
 <div class="content clearfix <?php print $classes; ?>">
 	<img src="<?php print $cover_image['src']; ?>" alt="<?php print $cover_image['alt']; ?>" />
-	<div>
-		<p><?php print $campaign->stat_problem; ?></p>
-		<p><?php print $campaign->stat_solution; ?></p>
-	</div>
 	<?php print render($content['signup_form']); ?>
 	<?php if (!empty($gallery)): ?>
   <div id="gallery">

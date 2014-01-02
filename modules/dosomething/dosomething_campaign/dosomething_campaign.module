@@ -164,35 +164,43 @@ function dosomething_campaign_preprocess_entity(&$variables) {
     // Store the campaign entity to quickly reference its properties within the tpl:
     $campaign = $variables['elements']['#entity'];
     $variables['campaign'] = $campaign;
-    $compound_text_fields = array('faq', 'step_pre', 'step_post');
-    // Loop through $campaign Entity to get to Compound Text values.
-    foreach ($compound_text_fields as $field) {
-      $variables['campaign']->{$field} = array();
-      // Currently, DS Compound Text field types aren't visible to the entity_meta_wrapper(),
-      // So we need to use LANGUAGE_NONE constant.
-      $field_name = 'field_' . $field;
-      // Loop through field vlaues:
-      foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $value) {
-        $variables['campaign']->{$field}[] = array(
-          'title' => $value['first'],
-          'body' => $value['second'],
-        );
-      }
-    }
     // Store entity wrapper to easily translate fields.
     $wrapper = entity_metadata_wrapper('campaign', $campaign);
     $variables['wrapper'] = $wrapper;
+    if ($wrapper->field_fact_problem->getIdentifier()) {
+      $variables['campaign']->fact_problem['fact'] = $wrapper->field_fact_problem->fact->value();
+      $variables['campaign']->fact_problem['source'] = $wrapper->field_fact_problem->source->value();
+    }
+    $variables['campaign']->fact_solution = array();
+    if ($wrapper->field_fact_solution->getIdentifier()) {
+      $variables['campaign']->fact_solution['fact'] = $wrapper->field_fact_solution->fact->value();
+      $variables['campaign']->fact_solution['source'] = $wrapper->field_fact_solution->source->value();
+    }
+    $variables['campaign']->facts = array();
+    if (!empty($wrapper->field_facts)) {
+      foreach ($wrapper->field_facts->getIterator() as $delta => $fact_wrapper) {
+        $variables['campaign']->facts[] = array(
+          'fact' => $fact_wrapper->fact->value(),
+          'source' => $fact_wrapper->source->value(),
+        );
+      }
+    }
     // Cover image vars.
-    $cover_image = $wrapper->field_image_campaign_cover->value();
-    $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
-    $variables['cover_image']['alt'] = $cover_image['alt'];
+    $variables['cover_image'] = array();
+    if (!empty($wrapper->field_image_campaign_cover)) {
+      $cover_image = $wrapper->field_image_campaign_cover->value();
+      $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
+      $variables['cover_image']['alt'] = $cover_image['alt'];
+    }
     // Gallery image vars.
     $variables['campaign']->gallery = array();
-    foreach ($wrapper->field_image_campaign_gallery->value() as $gallery_image) {
-      $variables['campaign']->gallery[] = array(
-        'src' => file_create_url($gallery_image['uri']),
-        'alt' => $gallery_image['alt'],
-      );
+    if (!empty($wrapper->field_image_campaign_gallery)) {
+      foreach ($wrapper->field_image_campaign_gallery->value() as $gallery_image) {
+        $variables['campaign']->gallery[] = array(
+          'src' => file_create_url($gallery_image['uri']),
+          'alt' => $gallery_image['alt'],
+        );
+      }
     }
     // Loop through taxonomy fields:
     $taxonomy_fields = array('action_type', 'cause');
@@ -200,13 +208,32 @@ function dosomething_campaign_preprocess_entity(&$variables) {
       $field_name = 'field_' . $field;
       $variables['campaign']->{$field} = array();
       // Loop through field values:
-      foreach ($wrapper->{$field_name}->getIterator() as $delta => $term_wrapper) {
-      $variables['campaign']->{$field}[] = array(
-        'tid' => $term_wrapper->tid->value(),
-        'name' => $term_wrapper->name->value(),
-        'link' => l($term_wrapper->name->value(), 'taxonomy/term/' . $term_wrapper->tid->value()),
-      );
+      if (!empty($wrapper->{$field_name})) {
+        foreach ($wrapper->{$field_name}->getIterator() as $delta => $term_wrapper) {
+        $variables['campaign']->{$field}[] = array(
+          'tid' => $term_wrapper->tid->value(),
+          'name' => $term_wrapper->name->value(),
+          'link' => l($term_wrapper->name->value(), 'taxonomy/term/' . $term_wrapper->tid->value()),
+          );
+        }
+      }
     }
+    $double_fields = array('faq', 'step_pre', 'step_post');
+    // Loop through $campaign Entity to get to Compound Text values.
+    foreach ($double_fields as $field) {
+      $variables['campaign']->{$field} = array();
+      $field_name = 'field_' . $field;
+      // Loop through field values:
+      if (!empty($wrapper->{$field_name})) {
+        // Currently, Double Field field types don't support getIterator method: https://drupal.org/node/2162389
+        // So we need to loop through LANGUAGE_NONE constant to get to raw values.
+        foreach ($campaign->{$field_name}[LANGUAGE_NONE] as $delta => $value) {
+          $variables['campaign']->{$field}[] = array(
+            'title' => $value['first'],
+            'body' => $value['second'],
+          );
+        }
+      }
     }
   }
 }
