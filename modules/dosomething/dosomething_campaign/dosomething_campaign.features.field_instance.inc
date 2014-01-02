@@ -254,94 +254,6 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'campaign-campaign-field_image_campaign_cover'
-  $field_instances['campaign-campaign-field_image_campaign_cover'] = array(
-    'bundle' => 'campaign',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'campaign',
-    'field_name' => 'field_image_campaign_cover',
-    'label' => 'Cover Image',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'file_directory' => 'campaign/images/cover',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'image',
-      'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'image_image',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'campaign-campaign-field_image_campaign_gallery'
-  $field_instances['campaign-campaign-field_image_campaign_gallery'] = array(
-    'bundle' => 'campaign',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 4,
-      ),
-    ),
-    'entity_type' => 'campaign',
-    'field_name' => 'field_image_campaign_gallery',
-    'label' => 'Gallery',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'file_directory' => 'campaign/images/gallery',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'image',
-      'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'image_image',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'campaign-campaign-field_sponsor'
   $field_instances['campaign-campaign-field_sponsor'] = array(
     'bundle' => 'campaign',
@@ -556,10 +468,8 @@ function dosomething_campaign_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action Type');
   t('Cause');
-  t('Cover Image');
   t('FAQ');
   t('Facts');
-  t('Gallery');
   t('Problem Fact');
   t('Solution Fact');
   t('Sponsor');
