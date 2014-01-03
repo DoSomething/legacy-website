@@ -41,23 +41,43 @@ function dosomething_fact_menu() {
     'title callback' => t('Fact'),
     'page callback' => 'dosomething_fact_view_entity',
     'page arguments' => array(1, 2),
-    'access callback' => TRUE,
+    'access callback' => 'dosomething_fact_access',
+    'access arguments' => array('view'),
   );
   // This menu callback needs to be visible by SecurePages in order for ctools modal to work.
   $items['admin/dosomething-fact/modal-add/%ctools_js'] = array(
     'page callback' => 'dosomething_fact_modal_add_callback',
     'page arguments' => array(3),
-    'access callback' => TRUE,
+    'access callback' => 'dosomething_fact_access',
+    'access arguments' => array('create'),
     'type' => MENU_CALLBACK,
   );
   return $items;
 }
 
 /**
- * Access callback for FactEntity CRUD operations.
+ * Determines whether the given user has access to a fact.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return boolean
+ *   Whether access is allowed or not.
+ *
  */
-function dosomething_fact_access($op, $dosomething_fact = NULL, $account = NULL) {
-  return TRUE;
+function dosomething_fact_access($op, $account = NULL) {
+  if ($op == 'update') {
+    $perm = 'edit fact';
+  }
+  else {
+    $perm = $op . ' fact';
+  }
+  if (user_access($perm, $account)) {
+    return TRUE;
+  }
+  return FALSE;
 }
 
 /**
@@ -69,9 +89,27 @@ function fact_load($id) {
 }
 
 /**
- * Callback for /campaign/ID page.
- *
- * Passing view_mode as an argument is temporary until signups are functional.
+ * Implements hook_permission().
+ */
+function dosomething_fact_permission() {
+  return array(
+    'view fact' => array(
+      'title' => t('View Facts'),
+    ),
+    'create fact' => array(
+      'title' => t('Create Facts'),
+    ),
+    'edit fact' => array(
+      'title' => t('Edit Facts'),
+    ),
+    'delete fact' => array(
+      'title' => t('Delete Facts'),
+    ),
+  );
+}
+
+/**
+ * Callback for /fact/ID page.
  */
 function dosomething_fact_view_entity($fact, $view_mode = 'full') {
   return entity_view('fact', array($fact->id => $fact), $view_mode);
