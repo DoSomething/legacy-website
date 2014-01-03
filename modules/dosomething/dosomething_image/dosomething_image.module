@@ -16,7 +16,7 @@ include_once 'dosomething_image.features.inc';
  * @return array
  *  Array containing all image attributes.
  */
-function dosomething_image_get_image($field, $ratio, $crop = NULL) {
+function dosomething_image_get_image($field, $ratio) {
   $image = array();
   switch ($ratio) {
     case 'vert':
@@ -31,3 +31,5 @@ function dosomething_image_get_image($field, $ratio, $crop = NULL) {
   }
   return;
 }
+
+//@todo: build this out, return themed image, image urls as needed.
