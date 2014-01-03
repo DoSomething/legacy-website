@@ -186,21 +186,17 @@ function dosomething_campaign_preprocess_entity(&$variables) {
       }
     }
     // Cover image vars.
-    $variables['cover_image'] = array();
-    if (!empty($wrapper->field_image_campaign_cover)) {
-      $cover_image = $wrapper->field_image_campaign_cover->value();
-      $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
-      $variables['cover_image']['alt'] = $cover_image['alt'];
-    }
+    $cover_image = dosomething_image_get_image($campaign->field_image_campaign_cover[LANGUAGE_NONE][0], 'horiz');
+    $variables['cover_image']['src'] = file_create_url($cover_image['uri']);
+    $variables['cover_image']['alt'] = $cover_image['alt'];
     // Gallery image vars.
     $variables['campaign']->gallery = array();
-    if (!empty($wrapper->field_image_campaign_gallery)) {
-      foreach ($wrapper->field_image_campaign_gallery->value() as $gallery_image) {
-        $variables['campaign']->gallery[] = array(
-          'src' => file_create_url($gallery_image['uri']),
-          'alt' => $gallery_image['alt'],
-        );
-      }
+    foreach ($campaign->field_image_campaign_gallery[LANGUAGE_NONE] as $gallery_image) {
+      $image = dosomething_image_get_image($gallery_image, 'sq');
+      $variables['campaign']->gallery[] = array(
+        'src' => file_create_url($image['uri']),
+        'alt' => $image['alt'],
+      );
     }
     // Loop through taxonomy fields:
     $taxonomy_fields = array('action_type', 'cause');

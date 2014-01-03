@@ -257,18 +257,18 @@ function dosomething_campaign_field_default_field_instances() {
   // Exported field_instance: 'campaign-campaign-field_image_campaign_cover'
   $field_instances['campaign-campaign-field_image_campaign_cover'] = array(
     'bundle' => 'campaign',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
+        'module' => 'entityreference',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
+          'link' => FALSE,
         ),
-        'type' => 'image',
-        'weight' => 3,
+        'type' => 'entityreference_label',
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'campaign',
@@ -276,69 +276,55 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Cover Image',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'file_directory' => 'campaign/images/cover',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'entityreference',
       'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
       ),
-      'type' => 'image_image',
-      'weight' => 3,
+      'type' => 'entityreference_autocomplete',
+      'weight' => 13,
     ),
   );
 
   // Exported field_instance: 'campaign-campaign-field_image_campaign_gallery'
   $field_instances['campaign-campaign-field_image_campaign_gallery'] = array(
     'bundle' => 'campaign',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
+        'module' => 'entityreference',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
+          'link' => FALSE,
         ),
-        'type' => 'image',
-        'weight' => 4,
+        'type' => 'entityreference_label',
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'campaign',
     'field_name' => 'field_image_campaign_gallery',
-    'label' => 'Gallery',
+    'label' => 'Campaign Gallery',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'file_directory' => 'campaign/images/gallery',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'entityreference',
       'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
       ),
-      'type' => 'image_image',
-      'weight' => 4,
+      'type' => 'entityreference_autocomplete',
+      'weight' => 14,
     ),
   );
 
@@ -555,11 +541,11 @@ function dosomething_campaign_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Action Type');
+  t('Campaign Gallery');
   t('Cause');
   t('Cover Image');
   t('FAQ');
   t('Facts');
-  t('Gallery');
   t('Problem Fact');
   t('Solution Fact');
   t('Sponsor');
