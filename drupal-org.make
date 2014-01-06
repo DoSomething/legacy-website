@@ -33,6 +33,10 @@ projects[entityreference][subdir] = "contrib"
 projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
 
+; Field Group
+projects[field_group] = "1.3"
+projects[field_group][subdir] = "contrib"
+
 ; Google Analytics
 projects[google_analytics] = "1.3"
 projects[google_analytics][subdir] = "contrib"
@@ -40,6 +44,10 @@ projects[google_analytics][subdir] = "contrib"
 ; Libraries
 projects[libraries] = "2.1"
 projects[libraries][subdir] = "contrib"
+
+; Link
+projects[link] = "1.2"
+projects[link][subdir] = "contrib"
 
 ; MailSystem
 projects[mailsystem] = "2.34"
