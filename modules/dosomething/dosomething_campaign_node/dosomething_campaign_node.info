@@ -6,6 +6,7 @@ version = 7.x-1.0
 project = dosomething_campaign_node
 dependencies[] = ctools
 dependencies[] = date
+dependencies[] = dosomething_fact
 dependencies[] = dosomething_taxonomy
 dependencies[] = double_field
 dependencies[] = entityreference
