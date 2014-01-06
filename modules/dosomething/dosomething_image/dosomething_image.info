@@ -1,4 +1,4 @@
-name = dosomething_image
+name = Dosomething Image
 description = Provides an image type with various crops.
 core = 7.x
 package = DoSomething
