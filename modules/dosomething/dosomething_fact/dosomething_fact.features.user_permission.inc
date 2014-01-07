@@ -15,6 +15,7 @@ function dosomething_fact_user_default_permissions() {
     'name' => 'create fact',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'dosomething_fact',
   );
@@ -33,6 +34,7 @@ function dosomething_fact_user_default_permissions() {
     'name' => 'edit fact',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'dosomething_fact',
   );
@@ -42,6 +44,7 @@ function dosomething_fact_user_default_permissions() {
     'name' => 'view fact',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'dosomething_fact',
   );
