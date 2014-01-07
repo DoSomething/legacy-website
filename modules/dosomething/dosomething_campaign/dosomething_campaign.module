@@ -17,5 +17,5 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
 
   $add_link_div = '<div id="add-fact-status"></div><div>' . l(t('Add new fact'), $add_fact_link, array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
 
-  $form['field_fact_problem'] = array('#prefix' => $add_link_div,);
+  $form['field_fact_problem']['#prefix'] = $add_link_div;
 }
