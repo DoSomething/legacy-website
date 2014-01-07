@@ -32,10 +32,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Do It',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-do-it field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_do_it|node|campaign|form'] = $field_group;
@@ -61,10 +61,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Images',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-images field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_images|node|campaign|form'] = $field_group;
@@ -94,10 +94,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Know It',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-know-it field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_know_it|node|campaign|form'] = $field_group;
@@ -127,10 +127,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Prep It',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-prep-it field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_prep_it|node|campaign|form'] = $field_group;
@@ -156,10 +156,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Report Back',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-report-back field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_report_back|node|campaign|form'] = $field_group;
@@ -184,10 +184,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Sponsors',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-sponsors field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_sponsors|node|campaign|form'] = $field_group;
@@ -216,10 +216,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Taxonomy',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-taxonomy field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_taxonomy|node|campaign|form'] = $field_group;
@@ -246,10 +246,10 @@ function dosomething_campaign_node_field_group_info() {
       'label' => 'Timing',
       'instance_settings' => array(
         'required_fields' => 0,
-        'classes' => 'group-timing field-group-fieldset',
+        'classes' => '',
         'description' => '',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_timing|node|campaign|form'] = $field_group;
