@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * dosomething_campaign_node.field_group.inc
+ * dosomething_campaign.field_group.inc
  */
 
 /**
  * Implements hook_field_group_info().
  */
-function dosomething_campaign_node_field_group_info() {
+function dosomething_campaign_field_group_info() {
   $export = array();
 
   $field_group = new stdClass();
