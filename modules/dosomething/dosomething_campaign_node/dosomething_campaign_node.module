@@ -5,3 +5,17 @@
  */
 
 include_once 'dosomething_campaign_node.features.inc';
+
+function dosomething_campaign_node_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
+// Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
+  // Link for the ctools modal page to render.
+  $add_fact_link = 'admin/dosomething-fact/modal-add/nojs';
+
+  $add_link_div = '<div id="add-fact-status"></div><div>' . l(t('Add new fact'), $add_fact_link, array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+
+  $form['field_fact_problem'] = array('#prefix' => $add_link_div,);
+}
