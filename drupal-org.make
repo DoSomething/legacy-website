@@ -17,6 +17,10 @@ projects[ctools][subdir] = "contrib"
 projects[date] = "2.6"
 projects[date][subdir] = "contrib"
 
+; Diff
+projects[diff] = "3.2"
+projects[diff][subdir] = "contrib"
+
 ; Double Field
 projects[double_field] = "2.3"
 projects[double_field][subdir] = "contrib"

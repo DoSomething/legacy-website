@@ -20,6 +20,7 @@ dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
 dependencies[] = ctools
 dependencies[] = date
+dependencies[] = diff
 dependencies[] = double_field
 dependencies[] = entity
 dependencies[] = entityreference
