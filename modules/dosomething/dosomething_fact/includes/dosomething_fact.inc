@@ -21,8 +21,8 @@ class FactEntity extends Entity {
 /**
  * Our custom controller for the dosomething_fact type.
  *
- * We're choosing to extend the controller provided by the entity module so that we'll have
- * full CRUD support for FactEntities.
+ * We're choosing to extend the controller provided by the entity module so that
+ * we'll have full CRUD support for FactEntities.
  */
 class FactEntityController extends EntityAPIController {
 
@@ -47,7 +47,7 @@ class FactEntityController extends EntityAPIController {
     );
     $build['url_source'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->url_source,
+      '#markup' => l($entity->url_source, $entity->url_source, array('attributes' => array('target' => '_blank'))),
     );
     return $build;
   }
@@ -75,13 +75,12 @@ class FactEntityController extends EntityAPIController {
 class FactEntityUIController extends EntityDefaultUIController {
 
   /**
-   * Generates the render array for a overview table for arbitrary entities
-   * matching the given conditions.
+   * Generates render array for overview table for arbitrary entities.
    *
-   * @param $conditions
-   *   An array of conditions as needed by entity_load().
-
-   * @return Array
+   * @param array $conditions
+   *   Conditions as needed by entity_load().
+   *
+   * @return array
    *   A renderable array.
    */
   public function overviewTable($conditions = array()) {
