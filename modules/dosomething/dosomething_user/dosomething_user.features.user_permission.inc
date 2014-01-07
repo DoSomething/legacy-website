@@ -39,6 +39,16 @@ function dosomething_user_user_default_permissions() {
     'module' => 'views',
   );
 
+  // Exported permission: 'access content'.
+  $permissions['access content'] = array(
+    'name' => 'access content',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'access content overview'.
   $permissions['access content overview'] = array(
     'name' => 'access content overview',
@@ -299,6 +309,15 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: 'view own unpublished content'.
+  $permissions['view own unpublished content'] = array(
+    'name' => 'view own unpublished content',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'node',
   );
 
   // Exported permission: 'view the administration theme'.
