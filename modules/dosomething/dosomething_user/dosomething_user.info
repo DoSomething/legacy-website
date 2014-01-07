@@ -52,4 +52,5 @@ features[user_permission][] = generate features
 features[user_permission][] = manage features
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
+features[user_role][] = editor
 files[] = dosomething_user.test
