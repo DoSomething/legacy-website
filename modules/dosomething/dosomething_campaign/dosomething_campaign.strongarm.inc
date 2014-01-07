@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * dosomething_campaign_node.strongarm.inc
+ * dosomething_campaign.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function dosomething_campaign_node_strongarm() {
+function dosomething_campaign_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
