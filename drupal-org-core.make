@@ -5,7 +5,7 @@ core = 7.x
 
 ; Drupal Core
 projects[drupal][type] = core
-projects[drupal][version] = 7.24
+projects[drupal][version] = 7.25
 
 ; Patch for File module
 ; https://drupal.org/comment/7895935#comment-7895935 
