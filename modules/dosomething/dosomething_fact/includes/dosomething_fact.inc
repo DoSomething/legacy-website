@@ -47,7 +47,7 @@ class FactEntityController extends EntityAPIController {
     );
     $build['url_source'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->url_source,
+      '#markup' => l($entity->url_source, $entity->url_source, array('attributes' => array('target'=>'_blank'))),
     );
     return $build;
   }
