@@ -7,6 +7,7 @@ project = dosomething_campaign
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = dosomething_fact
+dependencies[] = dosomething_image
 dependencies[] = dosomething_taxonomy
 dependencies[] = double_field
 dependencies[] = entityreference
