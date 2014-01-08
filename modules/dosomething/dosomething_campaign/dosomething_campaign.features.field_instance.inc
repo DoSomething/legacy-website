@@ -197,7 +197,7 @@ function dosomething_campaign_field_default_field_instances() {
       'display' => array(
         'url_cutoff' => 80,
       ),
-      'enable_tokens' => 1,
+      'enable_tokens' => 0,
       'rel_remove' => 'default',
       'title' => 'none',
       'title_maxlength' => 128,
