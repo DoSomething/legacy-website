@@ -311,6 +311,15 @@ function dosomething_user_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'view any unpublished content'.
+  $permissions['view any unpublished content'] = array(
+    'name' => 'view any unpublished content',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'view_unpublished',
+  );
+
   // Exported permission: 'view own unpublished content'.
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
