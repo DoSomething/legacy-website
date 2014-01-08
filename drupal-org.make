@@ -105,6 +105,10 @@ projects[uuid_features][subdir] = "contrib"
 projects[varnish] = "1.0-beta2"
 projects[varnish][subdir] = "contrib"
 
+; View Unpublished
+projects[view_unpublished] = "1.1"
+projects[view_unpublished][subdir] = "contrib"
+
 ; Views
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
