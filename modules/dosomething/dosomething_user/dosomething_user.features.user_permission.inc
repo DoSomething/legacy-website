@@ -284,6 +284,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'path',
   );
 
+  // Exported permission: 'delete revisions'.
+  $permissions['delete revisions'] = array(
+    'name' => 'delete revisions',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
@@ -311,6 +318,15 @@ function dosomething_user_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'revert revisions'.
+  $permissions['revert revisions'] = array(
+    'name' => 'revert revisions',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'view any unpublished content'.
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',
@@ -323,6 +339,15 @@ function dosomething_user_user_default_permissions() {
   // Exported permission: 'view own unpublished content'.
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'view revisions'.
+  $permissions['view revisions'] = array(
+    'name' => 'view revisions',
     'roles' => array(
       'editor' => 'editor',
     ),
