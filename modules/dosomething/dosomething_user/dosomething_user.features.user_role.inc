@@ -16,5 +16,11 @@ function dosomething_user_user_default_roles() {
     'weight' => 2,
   );
 
+  // Exported role: editor.
+  $roles['editor'] = array(
+    'name' => 'editor',
+    'weight' => 3,
+  );
+
   return $roles;
 }
