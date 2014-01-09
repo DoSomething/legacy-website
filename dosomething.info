@@ -26,6 +26,7 @@ dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = libraries
+dependencies[] = link
 dependencies[] = mailsystem
 dependencies[] = module_filter
 dependencies[] = pathauto
@@ -42,5 +43,6 @@ dependencies[] = wysiwyg
 ; DOSOMETHING
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_fact
+dependencies[] = dosomething_image
 dependencies[] = dosomething_taxonomy
 dependencies[] = dosomething_user

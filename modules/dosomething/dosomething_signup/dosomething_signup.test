@@ -5,6 +5,9 @@
  */
 
 class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
   public static function getInfo() {
     return array(
       'name' => 'DoSomething Signup Web Tests',
