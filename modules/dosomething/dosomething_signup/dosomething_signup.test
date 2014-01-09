@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Tests for dosomething_signup.module.
+ */
+
+class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething Signup Web Tests',
+      'description' => 'Web tests for dosomething_signup module.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp(array('dosomething_signup'));
+  }
+
+  /**
+   * Test for dosomething_signup_insert().
+   */
+  public function testInsert() {
+    $uid = 1;
+    $nid = 711;
+    $sid = dosomething_signup_insert($nid, $uid);
+    $this->assertTrue(is_numeric($sid), "A numeric sid was returned on insert.");
+    $sid = dosomething_signup_insert($nid, $uid);
+    $this->assertIdentical($sid, FALSE, "FALSE was returned on double insert.");
+  }
+
+}
