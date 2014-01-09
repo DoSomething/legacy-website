@@ -1,0 +1,4 @@
+name = DoSomething Signup
+description = Provides Signup table and functionality.
+core = 7.x
+package = DoSomething

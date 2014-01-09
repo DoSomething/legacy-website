@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Provides Signup functionality.
+ */
+
+/**
+ * Insert a user signup.
+ *
+ * @param $nid
+ *  The node nid the user has signed up for.
+ * @param $uid
+ *  Optional - the user uid who has signed up.  If not given, uses global $user.
+ *
+ * @return
+ *  The sid of the newly inserted signup, or FALSE if error.
+ */
+function dosomething_signup_insert_signup($nid, $uid = NULL) {
+	if ($uid == NULL) {
+		global $user;
+		$uid = $user->uid;
+	}
+	try {
+	  $sid = db_insert('dosomething_signup')
+		  ->fields(array(
+			    'uid' => $uid,
+			    'nid' => $nid,
+			    'timestamp' => REQUEST_TIME,
+			    )
+		    )
+		  ->execute();
+		return $sid;
+  }
+  catch (Exception $e) {
+  	// Keep message general in case a user ever sees it. 
+  	drupal_set_message(t("There was an error processing your request."));
+  	// Log the error.
+  	watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  	return FALSE;
+  }
+}
