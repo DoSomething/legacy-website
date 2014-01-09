@@ -10,7 +10,7 @@ include_once 'dosomething_campaign.features.inc';
  * Implements hook_form_alter().
  */
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-// Include the CTools tools that we need.
+  // Include the CTools tools that we need.
   ctools_include('ajax');
   ctools_include('modal');
   // Add CTools' javascript to the page.
@@ -30,7 +30,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
 function dosomething_campaign_menu() {
   $items = array();
 
-  //node/nid/pitch
+  // node/nid/pitch
   $items['node/%node/pitch'] = array(
     'title callback' => '_dosomething_campaign_page_title',
     'title arguments' => array(1),
@@ -38,7 +38,7 @@ function dosomething_campaign_menu() {
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_LOCAL_TASK,
-    );
+  );
 
   return $items;
 }
@@ -50,8 +50,8 @@ function _dosomething_campaign_page_title($node) {
 }
 
 /**
-* Campaign pitch page callback from hook_menu().
-*/
+ * Campaign pitch page callback from hook_menu().
+ */
 function _dosomething_campaign_pitch_view_mode($node) {
   $node_rendered = node_view($node, 'pitch');
   return $node_rendered;
@@ -71,7 +71,7 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
-  if($vars['view_mode'] == 'pitch') {
+  if ($vars['view_mode'] == 'pitch') {
     // Use the pitch page template to theme.
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
 
@@ -80,7 +80,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
   }
 }
 
-
+/**
+ * Preprocess pitch page vars.
+ */
 function dosomething_campaign_preprocess_pitch_page(&$vars) {
   // Prepare vars for pitch page.
 }
