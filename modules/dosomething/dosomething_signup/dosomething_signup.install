@@ -35,7 +35,7 @@ function dosomething_signup_schema() {
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-      ),  
+      ),
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
