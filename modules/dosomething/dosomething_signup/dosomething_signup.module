@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * Provides Signup functionality.
+ */
+
+/**
+ * Insert a user signup.
+ *
+ * @param int $nid
+ *   The node nid the user has signed up for.
+ * @param int $uid
+ *   Optional - the user uid who has signed up.  
+ *   If not provided, uses global $user->uid.
+ *
+ * @return mixed
+ *   The sid of the newly inserted signup, or FALSE if error.
+ */
+function dosomething_signup_insert($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  try {
+    $sid = db_insert('dosomething_signup')
+        ->fields(array(
+          'uid' => $uid,
+          'nid' => $nid,
+          'timestamp' => REQUEST_TIME,
+        )
+      )
+      ->execute();
+    return $sid;
+  }
+  catch (Exception $e) {
+    // Keep message general in case a user ever sees it.
+    drupal_set_message(t("There was an error processing your request."));
+    // Log the error.
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
+
+/**
+ * Delete a user signup.
+ *
+ * @param int $nid
+ *   The node nid of the signup record to be deleted.
+ * @param int $uid
+ *   Optional - the user uid of signup record to be deleted.  
+ *   If not given, uses global $user->uid.
+ */
+function dosomething_signup_delete($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  try {
+    db_delete('dosomething_signup')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->execute();
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Checks if a signup record exists.
+ *
+ * @param int $nid
+ *   The node nid of the signup record to check.
+ * @param int $uid
+ *   Optional - the user uid of signup record to check.  
+ *   If not given, uses global $user->uid.
+ *
+ * @return mixed
+ *   The sid of signup exists, FALSE if it doesn't exist.
+ */
+function dosomething_signup_exists($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $result = db_select('dosomething_signup', 's')
+    ->condition('uid', $uid)
+    ->condition('nid', $nid)
+    ->fields('s', array('sid'))
+    ->execute();
+  $sid = $result->fetchField(0);
+  // If a sid was found, return it.
+  if ($sid) {
+    return $sid;
+  }
+  // Otherwise return FALSE.
+  return FALSE;
+}

@@ -1,0 +1,49 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_signup.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_signup_schema() {
+  $schema = array();
+  $schema['dosomething_signup'] = array(
+    'description' => 'Table of user signups.',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that signed up.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'The {node}.nid that the user has signed up for.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp when the signup was submitted.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('sid'),
+    'unique keys' => array(
+      'uid-nid' => array('uid', 'nid'),
+    ),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+  return $schema;
+}
