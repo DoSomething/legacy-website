@@ -83,13 +83,16 @@ function dosomething_signup_exists($nid, $uid = NULL) {
     global $user;
     $uid = $user->uid;
   }
-  $sid = db_query('SELECT sid 
-    FROM {dosomething_signup} 
-    WHERE uid = :uid 
-    AND nid = :nid', array(':uid' => $uid, ':nid' => $nid))
-    ->fetchField();
+  $result = db_select('dosomething_signup', 's')
+    ->condition('uid', $uid)
+    ->condition('nid', $nid)
+    ->fields('s', array('sid'))
+    ->execute();
+  $sid = $result->fetchField(0);
+  // If a sid was found, return it.
   if ($sid) {
     return $sid;
   }
+  // Otherwise return FALSE.
   return FALSE;
 }
