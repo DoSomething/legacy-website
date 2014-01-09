@@ -21,11 +21,11 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Do It',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_step_pre',
+      0 => 'field_step_photo',
       1 => 'field_step_post',
-      2 => 'field_step_photo',
+      2 => 'field_step_pre',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -51,7 +51,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_image_campaign_cover',
       1 => 'field_image_campaign_gallery',
@@ -80,14 +80,13 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Know It',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_fact_problem',
       1 => 'field_fact_solution',
-      2 => 'field_faq',
-      3 => 'field_facts',
-      4 => 'field_confirmation_doc',
-      5 => 'field_psa',
+      2 => 'field_facts',
+      3 => 'field_faq',
+      4 => 'field_psa',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -113,14 +112,14 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prep It',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_starter_statement',
-      1 => 'field_time_and_place',
-      2 => 'field_vips',
-      3 => 'field_items_needed',
-      4 => 'field_promoting_tips',
-      5 => 'field_location_finder',
+      0 => 'field_items_needed',
+      1 => 'field_location_finder',
+      2 => 'field_promoting_tips',
+      3 => 'field_starter_statement',
+      4 => 'field_time_and_place',
+      5 => 'field_vips',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -146,7 +145,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Report Back',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_report_back_noun',
       1 => 'field_report_back_verb',
@@ -175,7 +174,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors',
-    'weight' => '10',
+    'weight' => '11',
     'children' => array(
       0 => 'field_sponsor',
     ),
@@ -203,13 +202,13 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_action_type',
-      1 => 'field_cause',
-      2 => 'field_tags',
+      1 => 'field_active_hours',
+      2 => 'field_cause',
       3 => 'field_staff_pick',
-      4 => 'field_active_hours',
+      4 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -235,11 +234,11 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_high_season',
-      1 => 'field_low_season',
-      2 => 'field_display_end_date',
+      0 => 'field_display_end_date',
+      1 => 'field_high_season',
+      2 => 'field_low_season',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
