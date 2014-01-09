@@ -28,6 +28,7 @@ dependencies[] = features
 dependencies[] = libraries
 dependencies[] = link
 dependencies[] = mailsystem
+dependencies[] = markdown
 dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = securepages
