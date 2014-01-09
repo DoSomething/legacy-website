@@ -27,6 +27,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = libraries
 dependencies[] = mailsystem
+dependencies[] = markdown
 dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = securepages
