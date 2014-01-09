@@ -61,6 +61,10 @@ projects[mailsystem][subdir] = "contrib"
 projects[mandrill] = "1.4"
 projects[mandrill][subdir] = "contrib"
 
+; Markdown
+projects[markdown] = "1.2"
+projects[markdown][subdir] = "contrib"
+
 ; Metatag
 projects[metatag] = "1.0-beta7"
 projects[metatag][subdir] = "contrib"
