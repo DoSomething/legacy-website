@@ -21,6 +21,6 @@ db-dump-folder:
 
 ds-utils:
   cmd.run:
-    - name: sudo ln -s /vagrant/ds /usr/local/bin/ds
+    - name: sudo ln -s /vagrant/bin/ds /usr/local/bin/ds
 
 {% endif %}
