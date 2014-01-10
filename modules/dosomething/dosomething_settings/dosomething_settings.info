@@ -1,10 +1,11 @@
 name = DoSomething Settings
 description = exports sitewide settings and strongarm variables.
 core = 7.x
-package = Features
+package = DoSomething
 version = 7.x-1.0
 project = dosomething_settings
 dependencies[] = features
+dependencies[] = filter
 dependencies[] = markdown
 features[features_api][] = api:2
 features[filter][] = markdown
