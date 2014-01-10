@@ -124,6 +124,9 @@ function install {
   echo 'Granting basic permissions...'
   drush rap 'anonymous user' 'access content'
   drush rap 'authenticated user' 'access content'
+
+  echo 'Rebuilding node permissions'
+  drush php-eval 'node_access_rebuild();'
 }
 
 #=== FUNCTION ==================================================================
