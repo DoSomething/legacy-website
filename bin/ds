@@ -1,8 +1,15 @@
 #!/bin/sh
 
-if [[ $1 == "--help" ]] || [[ $1 == "" ]]
-  then
-    read -d '' help <<"USAGE"
+# ==============================================================================
+# Functions
+# ==============================================================================
+
+#=== FUNCTION ==================================================================
+# NAME: help
+# DESCRIPTION: Returns help text to console
+#===============================================================================
+function help {
+  read -d '' help <<"USAGE"
 usage: ds [build [--install]|dbup|dbdump] [--help]
 
 Runs helper scripts for DoSomething environment.
@@ -18,84 +25,136 @@ ds --help
   Displays this help message.
 
 USAGE
-   echo "$help"
+  echo "$help"
+}
+
+#=== FUNCTION ==================================================================
+# NAME: art
+# DESCRIPTION: Returns DS ascii art to console
+#===============================================================================
+function art {
+  echo '     _____          ___     ';
+  echo '    /  /::\        /  /\    ';
+  echo '   /  /:/\:\      /  /:/_   ';
+  echo '  /  /:/  \:\    /  /:/ /\  ';
+  echo ' /__/:/ \__\:|  /  /:/ /::\ ';
+  echo ' \  \:\ /  /:/ /__/:/ /:/\:\';
+  echo '  \  \:\  /:/  \  \:\/:/~/:/';
+  echo '   \  \:\/:/    \  \::/ /:/ ';
+  echo '    \  \::/      \__\/ /:/  ';
+  echo '     \__\/         /__/:/   ';
+  echo '                   \__\/    ';
+}
+
+#=== FUNCTION ==================================================================
+# NAME: build
+# DESCRIPTION: Builds project from make files
+#===============================================================================
+function build {
+  DRUSH_OPTS='--prepare-install --no-gitinfofile --no-cache'
+  MAKEFILE='build-dosomething.make'
+  TARGET='html'
+
+  CALLPATH="/vagrant"
+  ABS_CALLPATH=`cd "$CALLPATH"; pwd -P`
+  BASE_PATH=`cd ..; pwd`
+
+  art
+
+  set -e
+    cd $ABS_CALLPATH
+
+  echo 'Wiping build directory...'
+  rm -rf "$CALLPATH/$TARGET"
+
+  # Create the db, if for some reason it's not there yet.
+  mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
+
+  # Do the build
+  echo 'Running drush make...'
+  drush make $DRUSH_OPTS "$ABS_CALLPATH/$MAKEFILE" "$TARGET"
+  set +e
+
+  echo 'Linking modules'
+  rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
+  ln -s "$ABS_CALLPATH/modules/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
+
+  echo 'Linking themes'
+  rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  ln -s "$ABS_CALLPATH/themes/dosomething/paraneue_dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+
+  # Clear caches and Run updates
+  cd "$TARGET"
+
+  echo $1
+  echo $2
+  echo $3
+
+  if [[ $2 == "--install" ]]
+  then
+    install
+  fi
+
+  echo 'Replacing settings.php file...'
+  rm -f $CALLPATH/$TARGET/sites/default/settings.php && ln -s $CALLPATH/settings.php $CALLPATH/$TARGET/sites/default/settings.php
+
+  echo 'Updating database...'
+  drush updb -y
+
+  echo 'Clearing caches...'
+  drush cc all
+
+  if [ ! -e "~/.bash_profile" ]
+  then
+    echo 'Setting up PHP CodeSniffer...'
+    echo 'alias codercs="phpcs --standard=/vagrant/html/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
+    source ~/.bash_profile
+  fi
+
+  echo 'Adding APC script at /apc.php...'
+  ln -s /srv/salt/php5/apc.php /vagrant/html/apc.php
+
+  echo 'Build complete.'
+}
+
+#=== FUNCTION ==================================================================
+# NAME: install
+# DESCRIPTION: Installs project using dosomething profile
+#===============================================================================
+function install {
+  echo 'Installing site...'
+  drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+
+  echo 'Granting basic permissions...'
+  drush rap 'anonymous user' 'access content'
+  drush rap 'authenticated user' 'access content'
+}
+
+# ==============================================================================
+# Commands
+# ==============================================================================
+
+
+#----------------------------------------------------------------------
+# help
+#----------------------------------------------------------------------
+if [[ $1 == "--help" ]] || [[ $1 == "-h" ]] || [[ $1 == "" ]]
+  then
+    help
 fi
 
+#----------------------------------------------------------------------
+# build
+#----------------------------------------------------------------------
 if [[ $1 == "build" ]]
   then
-    DRUSH_OPTS='--prepare-install --no-gitinfofile --no-cache'
-    MAKEFILE='build-dosomething.make'
-    TARGET='html'
+    build
+fi
 
-    CALLPATH="/vagrant"
-    ABS_CALLPATH=`cd "$CALLPATH"; pwd -P`
-    BASE_PATH=`cd ..; pwd`
-
-    echo '     _____          ___     ';
-    echo '    /  /::\        /  /\    ';
-    echo '   /  /:/\:\      /  /:/_   ';
-    echo '  /  /:/  \:\    /  /:/ /\  ';
-    echo ' /__/:/ \__\:|  /  /:/ /::\ ';
-    echo ' \  \:\ /  /:/ /__/:/ /:/\:\';
-    echo '  \  \:\  /:/  \  \:\/:/~/:/';
-    echo '   \  \:\/:/    \  \::/ /:/ ';
-    echo '    \  \::/      \__\/ /:/  ';
-    echo '     \__\/         /__/:/   ';
-    echo '                   \__\/    ';
-
-    set -e
-        cd $ABS_CALLPATH
-
-    echo 'Wiping build directory...'
-    rm -rf "$CALLPATH/$TARGET"
-
-    # Create the db, if for some reason it's not there yet.
-    mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
-
-    # Do the build
-    echo 'Running drush make...'
-    drush make $DRUSH_OPTS "$ABS_CALLPATH/$MAKEFILE" "$TARGET"
-    set +e
-
-    echo 'Linking modules'
-    rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
-    ln -s "$ABS_CALLPATH/modules/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
-
-    echo 'Linking themes'
-    rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
-    ln -s "$ABS_CALLPATH/themes/dosomething/paraneue_dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
-
-    # Clear caches and Run updates
-    cd "$TARGET"
-
-    if [[ $2 == "--install" ]]
-      then
-        echo 'Installing site...'
-        drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
-
-        echo 'Granting basic permissions...'
-        drush rap 'anonymous user' 'access content'
-        drush rap 'authenticated user' 'access content'
-    fi
-
-    echo 'Replacing settings.php file...'
-    rm -f $CALLPATH/$TARGET/sites/default/settings.php && ln -s $CALLPATH/settings.php $CALLPATH/$TARGET/sites/default/settings.php
-
-    echo 'Updating database...'
-    drush updb -y
-
-    echo 'Clearing caches...'
-    drush cc all
-
-    if [ ! -e "~/.bash_profile" ]
-    then
-      echo 'Setting up PHP CodeSniffer...'
-      echo 'alias codercs="phpcs --standard=/vagrant/html/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
-      source ~/.bash_profile
-    fi
-    
-    echo 'Adding APC script at /apc.php...'
-    ln -s /srv/salt/php5/apc.php /vagrant/html/apc.php
-
-    echo 'Build complete.'
+#----------------------------------------------------------------------
+# deploy
+#----------------------------------------------------------------------
+if [[ $1 == "deploy" ]]
+  then
+    echo "Lets deploy"
 fi
