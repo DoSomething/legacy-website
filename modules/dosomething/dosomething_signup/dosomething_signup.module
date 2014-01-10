@@ -90,7 +90,7 @@ function dosomething_signup_exists($nid, $uid = NULL) {
     ->execute();
   $sid = $result->fetchField(0);
   // If a sid was found, return it.
-  if ($sid) {
+  if (is_numeric($sid)) {
     return $sid;
   }
   // Otherwise return FALSE.

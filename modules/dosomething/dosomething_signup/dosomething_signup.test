@@ -105,8 +105,8 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
    * Test for dosomething_signup_delete().
    */
   public function testDelete() {
-    // Truncate table to test clean.
-    db_truncate($this->tbl_name);
+    // Delete all signups to test clean.
+    db_delete($this->tbl_name);
     // Insert signup to be deleted.
     $sid1 = $this->insertSignup($this->nid, $this->uid);
     $this->assertTrue(is_numeric($sid1), "Signup record 1 inserted.");
@@ -134,5 +134,26 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
     $this->assertIdentical($sid, FALSE, "Signup record for global user deleted.");
     // Test that the record for $test_id still exists.
     $this->assertIdentical($sid2, $test_sid, "Signup record 2 still exists.");
+  }
+
+  /**
+   * Test for dosomething_signup_exists().
+   */
+  public function testExists() {
+    // Delete all signups to test clean.
+    db_delete($this->tbl_name)->execute();
+    // Test for given uid.
+    $query_sid = $this->insertSignup($this->nid, $this->uid);
+    $sid = dosomething_signup_exists($this->nid, $this->uid);
+    $this->assertIdentical($query_sid, $sid, "Signup $sid returned for given uid.");
+    // Test for global user uid.
+    global $user;
+    $query_sid = $this->insertSignup($this->nid, $user->uid);
+    $sid = dosomething_signup_exists($this->nid);
+    $this->assertIdentical($query_sid, $sid, "Signup $sid returned for global user uid.");
+    // Delete all signups again, to test when signup doesn't exist.
+    db_delete($this->tbl_name)->execute();
+    $sid = dosomething_signup_exists($this->nid, $this->uid);
+    $this->assertIdentical($sid, FALSE, "FALSE is returned when signup doesn't exist.");
   }
 }
