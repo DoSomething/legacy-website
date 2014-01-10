@@ -86,10 +86,6 @@ function build {
   # Clear caches and Run updates
   cd "$TARGET"
 
-  echo $1
-  echo $2
-  echo $3
-
   if [[ $2 == "--install" ]]
   then
     install
@@ -130,6 +126,15 @@ function install {
   drush rap 'authenticated user' 'access content'
 }
 
+#=== FUNCTION ==================================================================
+# NAME: deploy
+# DESCRIPTION: Deploys project to Pantheon
+#===============================================================================
+function deploy {
+  echo 'deploying'
+}
+
+
 # ==============================================================================
 # Commands
 # ==============================================================================
@@ -156,5 +161,5 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "deploy" ]]
   then
-    echo "Lets deploy"
+    deploy
 fi
