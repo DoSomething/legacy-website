@@ -39,6 +39,20 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
   }
 
   /**
+   * Test for dosomething_signup_schema().
+   */
+  public function testSchema() {
+    $tbl = 'dosomething_signup';
+    $this->assertTrue(db_table_exists($tbl), $tbl . ' table exists.');
+    $this->assertTrue(db_field_exists($tbl, 'sid'), 'sid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'uid'), 'uid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'nid'), 'nid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'timestamp'), 'timestamp field exists.');
+    $this->assertTrue(db_index_exists($tbl, 'uid'), 'uid index exists.');
+    $this->assertTrue(db_index_exists($tbl, 'uid-nid'), 'uid-nid index exists.');
+  }
+
+  /**
    * Test for dosomething_signup_insert().
    */
   public function testInsert() {
