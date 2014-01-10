@@ -715,7 +715,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Items Needed',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -869,7 +869,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Promoting Tips',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1163,7 +1163,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Campaign Specific Starter Statement',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1467,7 +1467,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Time and Place',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1513,7 +1513,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'VIPs',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
