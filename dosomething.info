@@ -45,5 +45,7 @@ dependencies[] = wysiwyg
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_fact
 dependencies[] = dosomething_image
+dependencies[] = dosomething_settings
+dependencies[] = dosomething_signup
 dependencies[] = dosomething_taxonomy
 dependencies[] = dosomething_user
