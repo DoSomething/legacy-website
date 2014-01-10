@@ -21,15 +21,43 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
   }
 
   /**
+   * Query the dosomething_signup table for given $nid and $uid.
+   */
+  public function querySignup($nid, $uid) {
+    $result = db_select('dosomething_signup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->fields('s', array('sid'))
+      ->execute();
+    $sid = $result->fetchField(0);
+    // If a sid was found, return it.
+    if ($sid) {
+      return $sid;
+    }
+    // Otherwise return FALSE.
+    return FALSE;
+  }
+
+  /**
    * Test for dosomething_signup_insert().
    */
   public function testInsert() {
-    $uid = 1;
+    $uid = 11;
     $nid = 711;
     $sid = dosomething_signup_insert($nid, $uid);
+    // Test that numeric sid has been returned.
     $this->assertTrue(is_numeric($sid), "A numeric sid was returned on insert.");
+    // Test that the record actually exists in the database.
+    $query_sid = $this->querySignup($nid, $uid);
+    $this->assertIdentical($query_sid, $sid, "Record exists in db.");
+    // Test that can't insert a duplicate uid/nid record.
     $sid = dosomething_signup_insert($nid, $uid);
-    $this->assertIdentical($sid, FALSE, "FALSE was returned on double insert.");
+    $this->assertIdentical($sid, FALSE, "FALSE was returned on duplicate nid/uid insert.");
+    // Test that global $user uid is inserted when no 2nd param.
+    $sid = dosomething_signup_insert($nid);
+    global $user;
+    $query_sid = $this->querySignup($nid, $user->uid);
+    $this->assertIdentical($query_sid, $sid, "Record inserted for global user uid.");
   }
 
 }
