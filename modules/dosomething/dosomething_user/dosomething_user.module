@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file
+ * Code for the DoSomething User feature.
+ */
+
+include_once 'dosomething_user.features.inc';
 
 /**
  * @file
