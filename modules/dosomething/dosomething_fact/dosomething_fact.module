@@ -1,6 +1,12 @@
 <?php
 /**
  * @file
+ * Code for the DoSomething Fact feature.
+ */
+
+include_once 'dosomething_fact.features.inc';
+/**
+ * @file
  * Provides a Fact custom entity.
  */
 
@@ -28,6 +34,7 @@ function dosomething_fact_entity_info() {
     'module' => 'dosomething_fact',
      // Controls who can access entity CRUD.
     'access callback' => 'dosomething_fact_access',
+    'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
 }
@@ -168,3 +175,4 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
   // Update fact status with confirmation message:
   $form_state['ajax_commands'][] = ajax_command_replace('#add-fact-status', '<div id="add-fact-status"><strong>' . t('New fact added:') . '</strong> ' . $form_state['values']['fact'] . '</div>');
 }
+
