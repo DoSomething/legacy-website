@@ -114,7 +114,7 @@ projects[varnish][subdir] = "contrib"
 ; View Unpublished
 projects[view_unpublished] = "1.1"
 projects[view_unpublished][subdir] = "contrib"
-projects[view_unpublished][patch] = "https://drupal.org/files/view_unpublished_content_admin-1192074-60.patch"
+projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished_content_admin-1192074-60.patch"
 
 ; Views
 projects[views] = "3.7"
