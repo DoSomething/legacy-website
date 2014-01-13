@@ -5,3 +5,5 @@ base:
     - ssl
     - selenium
     - install
+    - composer
+    - terminus
