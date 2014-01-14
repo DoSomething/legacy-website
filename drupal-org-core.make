@@ -5,10 +5,11 @@ core = 7.x
 
 ; Drupal Core
 projects[drupal][type] = core
-projects[drupal][version] = 7.25
+projects[drupal][download][type] = "git"
+projects[drupal][download][url] = "git@github.com:pantheon-systems/drops-7.git"
 
 ; Patch for File module
-; https://drupal.org/comment/7895935#comment-7895935 
+; https://drupal.org/comment/7895935#comment-7895935
 projects[drupal][patch][] = "https://drupal.org/files/1468686.patch"
 
 ; Patches for Secure Pages module
