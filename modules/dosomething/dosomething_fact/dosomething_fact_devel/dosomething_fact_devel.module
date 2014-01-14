@@ -76,9 +76,14 @@ function dosomething_fact_devel_create_facts($num = 10, $kill = FALSE, $words = 
     // Select all facts.
     $query = new EntityFieldQuery();
     $result = $query->entityCondition('entity_type', 'fact')->execute();
-    // Destroy all facts.
-    entity_delete_multiple('fact', array_keys($result['fact']));
-    drupal_set_message(format_plural(count($result['fact']), '1 fact deleted', '@count facts deleted.'));
+    // Destroy all facts if found.
+    if (isset($result['fact']) && count($result['fact']) > 0) {
+      entity_delete_multiple('fact', array_keys($result['fact']));
+      drupal_set_message(format_plural(count($result['fact']), '1 fact deleted', '@count facts deleted.'));
+    }
+    else {
+      drupal_set_message('No facts found to delete.');
+    }
   }
   // Load devel_generate.inc for dummy word/paragraph functions.
   module_load_include('inc', 'devel_generate', 'devel_generate');
