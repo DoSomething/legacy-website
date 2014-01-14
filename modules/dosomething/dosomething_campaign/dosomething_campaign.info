@@ -10,6 +10,7 @@ dependencies[] = dosomething_fact
 dependencies[] = dosomething_image
 dependencies[] = dosomething_taxonomy
 dependencies[] = double_field
+dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
