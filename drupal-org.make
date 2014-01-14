@@ -21,12 +21,6 @@ projects[date][subdir] = "contrib"
 projects[diff] = "3.2"
 projects[diff][subdir] = "contrib"
 
-; Double Field
-projects[double_field] = "2.3"
-projects[double_field][subdir] = "contrib"
-; Patch for https://drupal.org/node/2160795
-projects[double_field][patch][] = "http://drupalcode.org/project/double_field.git/patch/8455db7"
-
 ; Entity
 projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
