@@ -21,12 +21,6 @@ projects[date][subdir] = "contrib"
 projects[diff] = "3.2"
 projects[diff][subdir] = "contrib"
 
-; Double Field
-projects[double_field] = "2.3"
-projects[double_field][subdir] = "contrib"
-; Patch for https://drupal.org/node/2160795
-projects[double_field][patch][] = "http://drupalcode.org/project/double_field.git/patch/8455db7"
-
 ; Entity
 projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
@@ -38,6 +32,10 @@ projects[entityreference][subdir] = "contrib"
 ; Features
 projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
+
+; Field Collection
+projects[field_collection] = "1.0-beta5"
+projects[field_collection][subdir] = "contrib"
 
 ; Field Group
 projects[field_group] = "1.3"

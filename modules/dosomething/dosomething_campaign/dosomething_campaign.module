@@ -78,6 +78,16 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Gather vars for pitch page.
     dosomething_campaign_preprocess_pitch_page($vars);
   }
+  elseif ($vars['view_mode'] == 'full'){
+    // Output entity_metadata_wrapper for easier theming..
+    $campaign = entity_metadata_wrapper('node', menu_get_object());
+    $vars['campaign'] = $campaign;
+    // Collect all field_collection field values for easier theming.
+    $field_collections = array('faq', 'step_pre', 'step_post');
+    foreach ($field_collections as $fc) {
+      $vars[$fc] = dosomething_campaign_get_field_collection_values($campaign, 'field_' . $fc);
+    }
+  }
 }
 
 /**
@@ -85,4 +95,30 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars) {
   // Prepare vars for pitch page.
+}
+
+/**
+ * Returns array of values of a field collection field.
+ *
+ * @param object $wrapper
+ *   An entity_metadata_wrapper object.
+ * @param string $field_name
+ *   The field_collection field to return values from.
+ *
+ * @return array
+ *   Multi-dimensional array of field collection values.
+ *
+ */
+function dosomething_campaign_get_field_collection_values($wrapper, $field_name) {
+  $values = array();
+  // Loop through the given field.
+  foreach ($wrapper->{$field_name}->getIterator() as $delta => $field) {
+    // Copy is returned as an array.
+    $copy = $field->field_compound_text_copy->value();
+    $values[] = array(
+      'header' => $field->field_compound_text_header->value(),
+      'copy' => $copy['safe_value'],
+    );
+  }
+  return $values;
 }
