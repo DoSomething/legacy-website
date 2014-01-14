@@ -24,8 +24,8 @@ function dosomething_campaign_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_step_photo',
-      1 => 'field_step_post',
-      2 => 'field_step_pre',
+      1 => 'field_step_pre',
+      2 => 'field_step_post',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -85,8 +85,8 @@ function dosomething_campaign_field_group_info() {
       0 => 'field_fact_problem',
       1 => 'field_fact_solution',
       2 => 'field_facts',
-      3 => 'field_faq',
-      4 => 'field_psa',
+      3 => 'field_psa',
+      4 => 'field_faq',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

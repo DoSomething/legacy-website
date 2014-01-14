@@ -10,6 +10,210 @@
 function dosomething_campaign_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'field_collection_item-field_faq-field_compound_text_copy'
+  $field_instances['field_collection_item-field_faq-field_compound_text_copy'] = array(
+    'bundle' => 'field_faq',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Answer',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_faq-field_compound_text_header'
+  $field_instances['field_collection_item-field_faq-field_compound_text_header'] = array(
+    'bundle' => 'field_faq',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Question',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_post-field_compound_text_copy'
+  $field_instances['field_collection_item-field_step_post-field_compound_text_copy'] = array(
+    'bundle' => 'field_step_post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_post-field_compound_text_header'
+  $field_instances['field_collection_item-field_step_post-field_compound_text_header'] = array(
+    'bundle' => 'field_step_post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_pre-field_compound_text_copy'
+  $field_instances['field_collection_item-field_step_pre-field_compound_text_copy'] = array(
+    'bundle' => 'field_step_pre',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_pre-field_compound_text_header'
+  $field_instances['field_collection_item-field_step_pre-field_compound_text_header'] = array(
+    'bundle' => 'field_step_pre',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_action_type'
   $field_instances['node-campaign-field_action_type'] = array(
     'bundle' => 'campaign',
@@ -438,7 +642,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -451,30 +655,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 10,
+        'type' => 'field_collection_view',
+        'weight' => 31,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -491,37 +687,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 7,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 8,
     ),
   );
 
@@ -939,7 +1109,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -1219,7 +1389,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 25,
+      'weight' => 33,
     ),
   );
 
@@ -1232,30 +1402,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 12,
+        'type' => 'field_collection_view',
+        'weight' => 33,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1272,37 +1434,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 27,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 34,
     ),
   );
 
@@ -1315,30 +1451,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 11,
+        'type' => 'field_collection_view',
+        'weight' => 32,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1355,37 +1483,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 26,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 32,
     ),
   );
 
@@ -1531,13 +1633,16 @@ function dosomething_campaign_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action Type');
   t('Active Hours');
+  t('Answer');
   t('Call to Action');
   t('Campaign Gallery');
   t('Campaign Specific Starter Statement');
   t('Cause');
+  t('Copy');
   t('Cover Image');
   t('FAQ');
   t('Facts');
+  t('Header');
   t('High Season');
   t('I need a location finder');
   t('Internal Confirmation Doc URL');
@@ -1547,6 +1652,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('PSA');
   t('Problem Fact');
   t('Promoting Tips');
+  t('Question');
   t('Report Back Noun');
   t('Report Back Verb');
   t('Show End Date on Pitch & Action Page');
