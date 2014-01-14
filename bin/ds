@@ -1,6 +1,25 @@
 #!/bin/sh
 
 # ==============================================================================
+# GLOBALS
+# ==============================================================================
+
+# The base project directory
+BASE_PATH=`pwd -P`
+
+# The webroot directory name for the dev environment
+WEB_DIR='html'
+
+# Full webroot path
+WEB_PATH=$BASE_PATH/$WEB_DIR
+
+# Build directory name
+BUILD_DIR='build'
+
+# Project build make file
+BUILD_MAKEFILE=$BASE_PATH/build-dosomething.make
+
+# ==============================================================================
 # Functions
 # ==============================================================================
 
@@ -51,40 +70,36 @@ USAGE
 # DESCRIPTION: Builds project from make files
 #===============================================================================
 function build {
-  DRUSH_OPTS='--prepare-install --no-gitinfofile --no-cache'
-  MAKEFILE='build-dosomething.make'
-  TARGET='html'
 
-  CALLPATH="/vagrant"
-  ABS_CALLPATH=`cd "$CALLPATH"; pwd -P`
-  BASE_PATH=`cd ..; pwd`
-
+  # Display ascii art
   art
 
   set -e
-    cd $ABS_CALLPATH
+  cd $BASE_PATH
 
-  echo 'Wiping build directory...'
-  rm -rf "$CALLPATH/$TARGET"
+  if [ $WEB_PATH ]; then
+    echo 'Wiping html directory...'
+    rm -rf "$WEB_PATH"
+  fi
 
   # Create the db, if for some reason it's not there yet.
   mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
 
   # Do the build
   echo 'Running drush make...'
-  drush make $DRUSH_OPTS "$ABS_CALLPATH/$MAKEFILE" "$TARGET"
+  drush make --prepare-install --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
   set +e
 
   echo 'Linking modules'
-  rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
-  ln -s "$ABS_CALLPATH/modules/dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/modules/dosomething"
+  rm -rf "$WEB_PATH/profiles/dosomething/modules/dosomething"
+  ln -s "$BASE_PATH/modules/dosomething" "$WEB_PATH/profiles/dosomething/modules/dosomething"
 
   echo 'Linking themes'
-  rm -rf "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
-  ln -s "$ABS_CALLPATH/themes/dosomething/paraneue_dosomething" "$ABS_CALLPATH/$TARGET/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  ln -s "$BASE_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
 
   # Clear caches and Run updates
-  cd "$TARGET"
+  cd "$WEB_DIR"
 
   if [[ $1 == "--install" ]]
   then
@@ -92,7 +107,7 @@ function build {
   fi
 
   echo 'Replacing settings.php file...'
-  rm -f $CALLPATH/$TARGET/sites/default/settings.php && ln -s $CALLPATH/settings.php $CALLPATH/$TARGET/sites/default/settings.php
+  rm -f $WEB_PATH/sites/default/settings.php && ln -s $BASE_PATH/settings.php $WEB_PATH/sites/default/settings.php
 
   echo 'Updating database...'
   drush updb -y
@@ -103,12 +118,12 @@ function build {
   if [ ! -e "~/.bash_profile" ]
   then
     echo 'Setting up PHP CodeSniffer...'
-    echo 'alias codercs="phpcs --standard=/vagrant/html/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
+    echo 'alias codercs="phpcs --standard=$WEB_PATH/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' > ~/.bash_profile
     source ~/.bash_profile
   fi
 
   echo 'Adding APC script at /apc.php...'
-  ln -s /srv/salt/php5/apc.php /vagrant/html/apc.php
+  ln -s /srv/salt/php5/apc.php $BASE_PATH/html/apc.php
 
   echo 'Build complete.'
 }
@@ -136,7 +151,23 @@ function install {
 function deploy {
   echo 'deploying'
 
-  echo $1
+  BASE_PATH=`pwd -P` # do this to play nice with CI
+
+  if [ $BASE_PATH/$BUILD_DIR ]; then
+    echo 'Wiping build directory...'
+    rm -rf $BASE_PATH/$BUILD_DIR
+  fi
+
+  drush make --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$BUILD_DIR"
+
+  ln -s $BASE_PATH/settings.php $BASE_PATH/$BUILD_DIR/sites/default/settings.php
+
+  export ENV=dev
+  export SITE=2b03733d-f60b-f4dd-67fb-9c518a66b3ca
+
+  rsync -rlvz --size-only --ipv4 --progress -e 'ssh -p 2222' $BUILD_DIR/* $ENV.$SITE@appserver.$ENV.$SITE.drush.in:code/
+
+  drush psite-commit $SITE $ENV --message="Deployment"
 
 }
 
