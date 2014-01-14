@@ -25,6 +25,7 @@ dependencies[] = double_field
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
+dependencies[] = field_collection
 dependencies[] = libraries
 dependencies[] = link
 dependencies[] = mailsystem
