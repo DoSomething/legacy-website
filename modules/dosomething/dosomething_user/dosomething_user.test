@@ -99,6 +99,16 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'manage features',
       'view the administration theme',
     );
+    $this->editor_perms = array(
+      'access administration menu',
+      'access administration pages',
+      'access content overview',
+      'revert revisions',
+      'view any unpublished content',
+      'view own unpublished content',
+      'view revisions',
+      'view the administration theme',
+    );
   }
 
   /**
@@ -134,13 +144,12 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
    * @return object
    *  A newly created user object with the "authenticated user" and "administrator" roles.
    */
-  public function createAdminUser() {
-    $role_name = 'administrator';
+  public function createUserByRoleName($role_name) {
     $role = user_role_load_by_name($role_name);
     $timestamp = time();
     $fields = array(
-      'name' => 'Administrator ' . $timestamp,
-      'mail' => 'admin.' . $timestamp . '@example.com',
+      'name' => $role_name . ' ' . $timestamp,
+      'mail' => $role_name . ' ' . $timestamp . '@example.com',
       'pass' => 'password',
       'status' => 1,
       'init' => 'email address',
@@ -150,10 +159,10 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       ),
     );
     // First param is blank so a new user is created:
-    $admin = user_save('', $fields);
-    $this->assertTrue(is_numeric($admin->uid), "Admin user uid " . $admin->uid . " is numeric.");
-    $this->assertTrue(in_array($role_name, $admin->roles), "Admin user uid " . $admin->uid . " has 'administrator' role.");
-    return $admin;
+    $user = user_save('', $fields);
+    $this->assertTrue(is_numeric($user->uid), $role_name . " user uid " . $user->uid . " is numeric.");
+    $this->assertTrue(in_array($role_name, $user->roles), $role_name . " user uid " . $user->uid . " has '" . $role_name . "' role.");
+    return $user;
   }
 
   /**
@@ -161,7 +170,7 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
    */
   function testAdministratorPerms() {
     // Create an administrator user:  
-    $admin = $this->createAdminUser();
+    $admin = $this->createUserByRoleName('administrator');
     // Loop through admin perms and test that $admin user has them granted.
     foreach ($this->administrator_perms as $key => $perm) {
       $this->subTestUserAccess($perm, $admin);
