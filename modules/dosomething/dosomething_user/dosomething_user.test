@@ -172,8 +172,25 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
     // Create an administrator user:  
     $admin = $this->createUserByRoleName('administrator');
     // Loop through admin perms and test that $admin user has them granted.
-    foreach ($this->administrator_perms as $key => $perm) {
+    foreach ($this->administrator_perms as $perm) {
       $this->subTestUserAccess($perm, $admin);
+    }
+  }
+
+  /**
+   * Tests that an editor has all the expected editor permissions.
+   */
+  function testEditorPerms() {
+    // Create an editor user:  
+    $editor = $this->createUserByRoleName('editor');
+    // Loop through editor perms and test that $editor user has them granted.
+    foreach ($this->editor_perms as $perm) {
+      $this->subTestUserAccess($perm, $editor);
+    }
+    // Find the administrator permissions an editor should not have.
+    $admin_only = array_diff($this->administrator_perms, $this->editor_perms);
+    foreach ($admin_only as $perm) {
+      $this->subTestUserAccess($perm, $editor, FALSE);
     }
   }
 
@@ -184,7 +201,11 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
     // Create an authenticated user:
     $auth = $this->drupalCreateUser();
     // Loop through admin perms and test that $auth user does not have them.
-    foreach ($this->administrator_perms as $key => $perm) {
+    foreach ($this->administrator_perms as $perm) {
+      $this->subTestUserAccess($perm, $auth, FALSE);
+    }
+    // Loop through editor perms and test that $auth user does not have them.
+    foreach ($this->editor_perms as $perm) {
       $this->subTestUserAccess($perm, $auth, FALSE);
     }
   }
