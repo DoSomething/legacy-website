@@ -109,6 +109,9 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'view revisions',
       'view the administration theme',
     );
+    $this->authenticated_perms = array(
+      'access content',
+    );
   }
 
   /**
@@ -200,6 +203,10 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
   function testAuthUserAdminPerms() {
     // Create an authenticated user:
     $auth = $this->drupalCreateUser();
+    // Loop through authenticated perms and test that $auth user has them.
+    foreach ($this->authenticated_perms as $perm) {
+      $this->subTestUserAccess($perm, $auth);
+    }
     // Loop through admin perms and test that $auth user does not have them.
     foreach ($this->administrator_perms as $perm) {
       $this->subTestUserAccess($perm, $auth, FALSE);
