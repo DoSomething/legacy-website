@@ -96,3 +96,33 @@ function dosomething_signup_exists($nid, $uid = NULL) {
   // Otherwise return FALSE.
   return FALSE;
 }
+
+/**
+ * Form constructor for user signup form.
+ *
+ * @param int $nid
+ *   The node nid to signup for.
+ */
+function dosomething_signup_form($form, &$form_state, $nid) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $nid,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t("Sign Up"),
+  );
+  return $form;
+}
+
+/**
+ * Form submission handler for dosomething_signup_form().
+ *
+ * @see dosomething_signup_form()
+ */
+function dosomething_signup_form_submit($form, &$form_state) {
+  $sid = dosomething_signup_insert($form_state['values']['nid']);
+  if (is_numeric($sid)) {
+    drupal_set_message(t("You're signed up!"));
+  }
+}

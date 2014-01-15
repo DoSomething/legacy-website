@@ -8,6 +8,7 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = dosomething_fact
 dependencies[] = dosomething_image
+dependencies[] = dosomething_signup
 dependencies[] = dosomething_taxonomy
 dependencies[] = entity
 dependencies[] = entityreference
