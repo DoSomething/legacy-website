@@ -1,0 +1,99 @@
+<?php
+/**
+ * @file
+ * Tests for dosomething_reportback.module.
+ */
+
+class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething Reportback Web Tests',
+      'description' => 'Web tests for dosomething_reportback module.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    global $user;
+    parent::setUp(array('dosomething_reportback'));
+    $this->tbl_name = 'dosomething_reportback';
+    // Random uid to use for testing.
+    $this->uid = mt_rand(2, 100);
+    // If random test uid == user uid:
+    if ($this->uid == $user->uid) {
+      // Increment test uid so they won't be equal.
+      // We'll need to test separate functions for global $uid and a given $uid.
+      $this->uid++;
+    }
+    // Random nid to use for testing.
+    $this->nid = mt_rand(1, 10000);
+  }
+
+  /**
+   * Query the dosomething_reportback table for given $nid and $uid.
+   */
+  public function queryReportback($nid, $uid) {
+    $result = db_select($this->tbl_name, 'r')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->fields('r', array('rbid'))
+      ->execute();
+    $rbid = $result->fetchField(0);
+    // If a sid was found, return it.
+    if ($rbid) {
+      return $rbid;
+    }
+    // Otherwise return FALSE.
+    return FALSE;
+  }
+
+  /**
+   * Insert a dosomething_reportback record for given $nid and $uid.
+   */
+  public function insertReportback($nid, $uid) {
+    $rbid = db_insert($this->tbl_name)
+        ->fields(array(
+          'uid' => $uid,
+          'nid' => $nid,
+          'timestamp' => REQUEST_TIME,
+        )
+      )
+      ->execute();
+    return $rbid;
+  }
+
+  /**
+   * Test for dosomething_reportback_schema().
+   */
+  public function testSchema() {
+    $tbl = $this->tbl_name;
+    $this->assertTrue(db_table_exists($tbl), $tbl . ' table exists.');
+    $this->assertTrue(db_field_exists($tbl, 'rbid'), 'rbid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'uid'), 'uid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'nid'), 'nid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'timestamp'), 'timestamp field exists.');
+    $this->assertTrue(db_index_exists($tbl, 'uid'), 'uid index exists.');
+  }
+
+  /**
+   * Test for dosomething_signup_insert().
+   */
+  public function testInsert() {
+    $uid = $this->uid;
+    $nid = $this->nid;
+    $rbid = dosomething_reportback_insert($nid, $uid);
+    // Test that numeric rbid has been returned.
+    $this->assertTrue(is_numeric($rbid), "A numeric rbid was returned on insert.");
+    // Test that the record actually exists in the database.
+    $query_rbid = $this->queryReportback($nid, $uid);
+    $this->assertIdentical($query_rbid, $rbid, "Record exists in db.");
+    // Test that global $user uid is inserted when no 2nd param.
+    $rbid = dosomething_reportback_insert($nid);
+    global $user;
+    $query_rbid = $this->queryReportback($nid, $user->uid);
+    $this->assertIdentical($query_rbid, $rbid, "Record inserted for global user uid.");
+  }
+}
