@@ -21,7 +21,7 @@ class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
     parent::setUp();
   }
 
-  function testValidCell() {
+  public function testValidCell() {
     $good = '718-224-9982';
     $country = '1-718-224-9982';
     $stuff = '1 (718) 224.9982';
@@ -99,6 +99,19 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'manage features',
       'view the administration theme',
     );
+    $this->editor_perms = array(
+      'access administration menu',
+      'access administration pages',
+      'access content overview',
+      'revert revisions',
+      'view any unpublished content',
+      'view own unpublished content',
+      'view revisions',
+      'view the administration theme',
+    );
+    $this->authenticated_perms = array(
+      'access content',
+    );
   }
 
   /**
@@ -107,11 +120,12 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
    * Executes assertFalse and assertTrue tests based on boolean $granted value.
    *
    * @param string $permission
-   *  The permission to check for, e.g. "administer nodes".
+   *   The permission to check for, e.g. "administer nodes".
    * @param object $user
-   *  The loaded user to check permissions of.
-   * @param boolean $granted
-   *  The access to check: If $granted == FALSE, check that the permission doesn't exist for given $user.
+   *   The loaded user to check permissions of.
+   * @param bool $granted
+   *   If $granted == FALSE, test that permission is denied for given $user.
+   *   Else test that the permission us grabted for the given $user.
    */
   public function subTestUserAccess($permission, $user, $granted = TRUE) {
     $has_access = user_access($permission, $user);
@@ -127,20 +141,20 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
    * Creates and returns a user with "administrator" role.
    *
    * Because drupalCreateUser will actually just create a new role based
-   * on the permissions you pass it, that doesn't help us here, because we're 
-   * testing the actual administrator role as defined by dosomething_user.
-   * We need to create an actual "real" user in the users table to grant it the permission.
+   * on the permissions you pass it, that doesn't help us here, since we're 
+   * testing the actual roles defined by dosomething_user.
+   *
+   * We need to create an actual user in the users table to test the role.
    *
    * @return object
-   *  A newly created user object with the "authenticated user" and "administrator" roles.
+   *   A newly created user object with the "authenticated user" and given role.
    */
-  public function createAdminUser() {
-    $role_name = 'administrator';
+  public function createUserByRoleName($role_name) {
     $role = user_role_load_by_name($role_name);
     $timestamp = time();
     $fields = array(
-      'name' => 'Administrator ' . $timestamp,
-      'mail' => 'admin.' . $timestamp . '@example.com',
+      'name' => $role_name . ' ' . $timestamp,
+      'mail' => $role_name . ' ' . $timestamp . '@example.com',
       'pass' => 'password',
       'status' => 1,
       'init' => 'email address',
@@ -150,32 +164,57 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       ),
     );
     // First param is blank so a new user is created:
-    $admin = user_save('', $fields);
-    $this->assertTrue(is_numeric($admin->uid), "Admin user uid " . $admin->uid . " is numeric.");
-    $this->assertTrue(in_array($role_name, $admin->roles), "Admin user uid " . $admin->uid . " has 'administrator' role.");
-    return $admin;
+    $user = user_save('', $fields);
+    $this->assertTrue(is_numeric($user->uid), $role_name . " user uid " . $user->uid . " is numeric.");
+    $this->assertTrue(in_array($role_name, $user->roles), $role_name . " user uid " . $user->uid . " has '" . $role_name . "' role.");
+    return $user;
   }
 
   /**
-   * Tests that an administrator has all the expected admin permissions.
+   * Test that an administrator has all the expected admin permissions.
    */
-  function testAdministratorPerms() {
-    // Create an administrator user:  
-    $admin = $this->createAdminUser();
+  public function testAdministratorPerms() {
+    // Create an administrator user:
+    $admin = $this->createUserByRoleName('administrator');
     // Loop through admin perms and test that $admin user has them granted.
-    foreach ($this->administrator_perms as $key => $perm) {
+    foreach ($this->administrator_perms as $perm) {
       $this->subTestUserAccess($perm, $admin);
     }
   }
 
   /**
-   * Tests that an authenticated user has none of the expected admin permissions.
+   * Test that an editor has all the expected editor permissions.
    */
-  function testAuthUserAdminPerms() {
+  public function testEditorPerms() {
+    // Create an editor user:
+    $editor = $this->createUserByRoleName('editor');
+    // Loop through editor perms and test that $editor user has them granted.
+    foreach ($this->editor_perms as $perm) {
+      $this->subTestUserAccess($perm, $editor);
+    }
+    // Find the administrator permissions an editor should not have.
+    $admin_only = array_diff($this->administrator_perms, $this->editor_perms);
+    foreach ($admin_only as $perm) {
+      $this->subTestUserAccess($perm, $editor, FALSE);
+    }
+  }
+
+  /**
+   * Test that an authenticated user has none of the expected admin permissions.
+   */
+  public function testAuthUserAdminPerms() {
     // Create an authenticated user:
     $auth = $this->drupalCreateUser();
+    // Loop through authenticated perms and test that $auth user has them.
+    foreach ($this->authenticated_perms as $perm) {
+      $this->subTestUserAccess($perm, $auth);
+    }
     // Loop through admin perms and test that $auth user does not have them.
-    foreach ($this->administrator_perms as $key => $perm) {
+    foreach ($this->administrator_perms as $perm) {
+      $this->subTestUserAccess($perm, $auth, FALSE);
+    }
+    // Loop through editor perms and test that $auth user does not have them.
+    foreach ($this->editor_perms as $perm) {
       $this->subTestUserAccess($perm, $auth, FALSE);
     }
   }
