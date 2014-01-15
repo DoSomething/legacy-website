@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Provides Reportback functionality.
+ */
+
+/**
+ * Insert a user reportback.
+ *
+ * @param int $nid
+ *   The node nid the user has reported back for.
+ * @param int $uid
+ *   Optional - the user uid who has reported back.  
+ *   If not provided, uses global $user->uid.
+ *
+ * @return mixed
+ *   The rbid of the newly inserted reportback, or FALSE if error.
+ */
+function dosomething_reportback_insert($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  try {
+    $sid = db_insert('dosomething_reportback')
+        ->fields(array(
+          'uid' => $uid,
+          'nid' => $nid,
+          'timestamp' => REQUEST_TIME,
+        )
+      )
+      ->execute();
+    return $sid;
+  }
+  catch (Exception $e) {
+    // Keep message general in case a user ever sees it.
+    drupal_set_message(t("There was an error processing your request."));
+    // Log the error.
+    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
