@@ -72,6 +72,16 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['fields']['fact']['id'] = 'fact';
   $handler->display->display_options['fields']['fact']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['fact']['field'] = 'fact';
+  $handler->display->display_options['fields']['fact']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['fact']['alter']['path'] = 'fact/[id]';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Edit';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'edit';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/fact/manage/[id]';
   /* Field: Fact: Source */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'dosomething_fact';
