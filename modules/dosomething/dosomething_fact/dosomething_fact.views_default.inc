@@ -68,7 +68,7 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Fact: Label */
+  /* Field: Fact: Fact */
   $handler->display->display_options['fields']['fact']['id'] = 'fact';
   $handler->display->display_options['fields']['fact']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['fact']['field'] = 'fact';
@@ -76,12 +76,17 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['source']['field'] = 'source';
-  /* Field: Fact: Changed */
+  /* Field: Fact: Updated Date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = 'Updated';
-  /* Filter criterion: Fact: Label */
+  $handler->display->display_options['fields']['changed']['date_format'] = 'raw time ago';
+  /* Field: Fact: Created Date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'dosomething_fact';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  /* Filter criterion: Fact: Fact */
   $handler->display->display_options['filters']['fact']['id'] = 'fact';
   $handler->display->display_options['filters']['fact']['table'] = 'dosomething_fact';
   $handler->display->display_options['filters']['fact']['field'] = 'fact';
