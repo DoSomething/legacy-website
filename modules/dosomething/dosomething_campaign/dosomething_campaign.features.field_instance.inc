@@ -452,54 +452,6 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_confirmation_sentence'
-  $field_instances['node-campaign-field_confirmation_sentence'] = array(
-    'bundle' => 'campaign',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
-<br/>
-<strong> Limit 60 characters. </strong>',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 36,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_confirmation_sentence',
-    'label' => 'Confirmation Sentence',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 42,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign-field_display_end_date'
   $field_instances['node-campaign-field_display_end_date'] = array(
     'bundle' => 'campaign',
@@ -1251,12 +1203,12 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 34,
+      'weight' => 46,
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_post_baby_steps'
-  $field_instances['node-campaign-field_post_baby_steps'] = array(
+  // Exported field_instance: 'node-campaign-field_post_step_copy'
+  $field_instances['node-campaign-field_post_step_copy'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1264,16 +1216,10 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 42,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 48,
       ),
       'pitch' => array(
         'label' => 'above',
@@ -1289,23 +1235,26 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_post_baby_steps',
-    'label' => 'Post Baby Steps',
+    'field_name' => 'field_post_step_copy',
+    'label' => 'Post Step Copy',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 36,
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 48,
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_pre_baby_steps'
-  $field_instances['node-campaign-field_pre_baby_steps'] = array(
+  // Exported field_instance: 'node-campaign-field_post_step_header'
+  $field_instances['node-campaign-field_post_step_header'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1313,16 +1262,10 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 41,
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 47,
       ),
       'pitch' => array(
         'label' => 'above',
@@ -1338,18 +1281,113 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_pre_baby_steps',
-    'label' => 'Pre Baby Steps',
+    'field_name' => 'field_post_step_header',
+    'label' => 'Post Step Header',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 33,
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 47,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_pre_step_copy'
+  $field_instances['node-campaign-field_pre_step_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 46,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_step_copy',
+    'label' => 'Pre Step Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 44,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_pre_step_header'
+  $field_instances['node-campaign-field_pre_step_header'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 45,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_step_header',
+    'label' => 'Pre Step Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 43,
     ),
   );
 
@@ -1458,6 +1496,54 @@ function dosomething_campaign_field_default_field_instances() {
       'settings' => array(),
       'type' => 'link_field',
       'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_report_back_confirm_msg'
+  $field_instances['node-campaign-field_report_back_confirm_msg'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
+<br/>
+<strong> Limit 60 characters. </strong>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 44,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_report_back_confirm_msg',
+    'label' => 'Report Back Confirmation Sentence',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 42,
     ),
   );
 
@@ -1843,7 +1929,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 35,
+      'weight' => 49,
     ),
   );
 
@@ -1892,7 +1978,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 32,
+      'weight' => 45,
     ),
   );
 
@@ -2046,7 +2132,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Call to Action');
   t('Campaign Specific Starter Statement');
   t('Cause');
-  t('Confirmation Sentence');
   t('Copy');
   t('Cover Image');
   t('Do It Image');
@@ -2074,12 +2159,15 @@ function dosomething_campaign_field_default_field_instances() {
   t('Official Rules');
   t('PSA');
   t('PSA Replacement Image');
-  t('Post Baby Steps');
-  t('Pre Baby Steps');
+  t('Post Step Copy');
+  t('Post Step Header');
+  t('Pre Step Copy');
+  t('Pre Step Header');
   t('Problem Statement');
   t('Proof of Impact');
   t('Prove it Image');
   t('Question');
+  t('Report Back Confirmation Sentence');
   t('Report Back Noun');
   t('Report Back Verb');
   t('Scholarship Amount');

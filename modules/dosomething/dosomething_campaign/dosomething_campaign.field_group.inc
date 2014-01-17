@@ -54,9 +54,11 @@ function dosomething_campaign_field_group_info() {
     'children' => array(
       0 => 'field_step_post',
       1 => 'field_step_pre',
-      2 => 'field_pre_baby_steps',
-      3 => 'field_post_baby_steps',
-      4 => 'field_photo_step',
+      2 => 'field_photo_step',
+      3 => 'field_pre_step_header',
+      4 => 'field_pre_step_copy',
+      5 => 'field_post_step_header',
+      6 => 'field_post_step_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -185,7 +187,7 @@ function dosomething_campaign_field_group_info() {
       1 => 'field_report_back_verb',
       2 => 'field_scholarship_amount',
       3 => 'field_official_rules',
-      4 => 'field_confirmation_sentence',
+      4 => 'field_report_back_confirm_msg',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
