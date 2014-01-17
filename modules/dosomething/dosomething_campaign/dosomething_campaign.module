@@ -32,21 +32,29 @@ function dosomething_campaign_menu() {
 
   // node/nid/pitch
   $items['node/%node/pitch'] = array(
-    'title callback' => '_dosomething_campaign_page_title',
-    'title arguments' => array(1),
+    'title' => 'Pitch',
     'page callback' => '_dosomething_campaign_pitch_view_mode',
     'page arguments' => array(1),
-    'access arguments' => array('access content'),
+    'access callback' => '_dosomething_campaign_pitch_page_access',
+    'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
 }
-/**
- * Campaign title callback from hook_menu().
+
+/*
+ * Determines whether a user has access to the pitch page.
  */
-function _dosomething_campaign_page_title($node) {
-  return 'Pitch ' . $node->title;
+function _dosomething_campaign_pitch_page_access($node) {
+  // Are we on a campaign node?
+  if ($node->type == 'campaign') {
+    // Is the user a DS admin or editor?
+    if (dosomething_user_is_staff()) {
+      return TRUE;
+    }
+  }
+  return FALSE;
 }
 
 /**
@@ -71,6 +79,7 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
+  if ($vars['type'] != 'campaign') { return; }
   if ($vars['view_mode'] == 'pitch') {
     // Use the pitch page template to theme.
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
