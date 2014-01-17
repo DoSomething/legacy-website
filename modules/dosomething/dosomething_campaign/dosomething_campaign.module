@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_campaign.features.inc';
+define('STAFF_ROLES', serialize(array(3,4)));
 
 /**
  * Implements hook_form_alter().
@@ -32,22 +33,30 @@ function dosomething_campaign_menu() {
 
   // node/nid/pitch
   $items['node/%node/pitch'] = array(
-    'title callback' => '_dosomething_campaign_page_title',
-    'title arguments' => array(1),
+    'title' => 'Pitch',
     'page callback' => '_dosomething_campaign_pitch_view_mode',
     'page arguments' => array(1),
-    'access arguments' => array('access content'),
+    'access callback' => '_dosomething_campaign_pitch_page_access',
+    'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
 }
-/**
- * Campaign title callback from hook_menu().
+
+/*
+ * Determines whether a user has access to the pitch page.
  */
-function _dosomething_campaign_page_title($node) {
-  if ($node->type != 'campaign') { return; }
-  return 'Pitch';
+function _dosomething_campaign_pitch_page_access($node) {
+  global $user;
+  // Are we on a campaign node?
+  if ($node->type == 'campaign') {
+    // Is the user a DS admin or editor?
+    if (array_intersect(array_keys($user->roles), unserialize(STAFF_ROLES))) {
+      return TRUE;
+    }
+  }
+  return FALSE;
 }
 
 /**
