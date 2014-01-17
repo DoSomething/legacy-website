@@ -91,6 +91,8 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_image_psa_replacement',
       3 => 'field_image_do_it',
       4 => 'field_image_prove_it',
+      5 => 'field_image_step_gallery',
+      6 => 'field_image_reportback_gallery',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
