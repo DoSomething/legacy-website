@@ -3,3 +3,4 @@ description = Provides Reportback table and functionality.
 core = 7.x
 package = DoSomething
 files[] = dosomething_reportback.test
+files[] = includes/dosomething_reportback.inc

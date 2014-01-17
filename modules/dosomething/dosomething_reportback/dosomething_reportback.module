@@ -5,38 +5,89 @@
  */
 
 /**
- * Insert a user reportback.
- *
- * @param int $nid
- *   The node nid the user has reported back for.
- * @param int $uid
- *   Optional - the user uid who has reported back.  
- *   If not provided, uses global $user->uid.
- *
- * @return mixed
- *   The rbid of the newly inserted reportback, or FALSE if error.
+ * Implements hook_entity_info().
  */
-function dosomething_reportback_insert($nid, $uid = NULL) {
-  if ($uid == NULL) {
-    global $user;
-    $uid = $user->uid;
-  }
-  try {
-    $sid = db_insert('dosomething_reportback')
-        ->fields(array(
-          'uid' => $uid,
-          'nid' => $nid,
-          'timestamp' => REQUEST_TIME,
+function dosomething_reportback_entity_info() {
+  $info = array();
+  $info['reportback'] = array(
+    'label' => t('Reportback'),
+    'base table' => 'dosomething_reportback',
+    'entity keys' => array(
+      'id' => 'rbid',
+      'label' => 'rbid',
+    ),
+    'entity class' => 'ReportbackEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ReportbackEntityController',
+    'admin ui' => array(
+      'path' => 'admin/reportback',
+      'controller class' => 'ReportbackEntityUIController',
+      'menu wildcard' => '%reportback',
+      'file' => 'dosomething_reportback.admin.inc',
+    ),
+    'module' => 'dosomething_reportback',
+     // Controls who can access entity CRUD.
+    'access callback' => 'dosomething_reportback_access',
+    'fieldable' => TRUE,
+    'bundles' => array(
+      'reportback' => array(
+        'label' => t('Reportback'),
+        'admin' => array(
+          'path' => 'admin/reportback',
+          'access arguments' => array('administer modules'),
         )
-      )
-      ->execute();
-    return $sid;
-  }
-  catch (Exception $e) {
-    // Keep message general in case a user ever sees it.
-    drupal_set_message(t("There was an error processing your request."));
-    // Log the error.
-    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
+      ),
+    ),
+  );
+  return $info;
 }
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_reportback_menu() {
+  $items = array();
+  $items['reportback/%reportback'] = array(
+    'title callback' => t('Reportback'),
+    'page callback' => 'dosomething_reportback_view_entity',
+    'page arguments' => array(1, 2),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('view'),
+  );
+  return $items;
+}
+
+/**
+ * Menu autoloader for /reportback.
+ */
+function reportback_load($id) {
+  $reportback = entity_load('reportback', array($id));
+  return array_pop($reportback);
+}
+
+/**
+ * Callback for /fact/ID page.
+ */
+function dosomething_reportback_view_entity($reportback, $view_mode = 'full') {
+  return entity_view('reportback', array($reportback->rbid => $reportback), $view_mode);
+}
+
+/**
+ * Determines whether the given user has access to a Reportback.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return boolean
+ *   Whether access is allowed or not.
+ *
+ */
+function dosomething_reportback_access($op, $account = NULL) {
+  //@todo: Actually write real code here.
+  return TRUE;
+}
+
+
+
