@@ -1,6 +1,11 @@
-name = DoSomething Reportback
+name = dosomething_reportback
 description = Provides Reportback table and functionality.
 core = 7.x
 package = DoSomething
+dependencies[] = features
+dependencies[] = image
+features[features_api][] = api:2
+features[field_base][] = field_image_user_reportback
+features[field_instance][] = reportback-reportback-field_image_user_reportback
 files[] = dosomething_reportback.test
 files[] = includes/dosomething_reportback.inc
