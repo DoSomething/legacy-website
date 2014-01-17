@@ -43,3 +43,22 @@ function dosomething_user_valid_cell($number) {
   return !empty($valid) && empty($repeat) && strpos($number, '555') === FALSE;
 }
 
+/*
+ * Determines if a user is on the ds staff.
+ */
+function dosomething_user_is_staff() {
+  global $user;
+
+  // Create an array of staff role ids.
+  $staff_roles = array(
+    user_role_load_by_name('administrator')->rid,
+    user_role_load_by_name('editor')->rid,
+  );
+
+  // Does this user have a staff rid?
+  if (array_intersect(array_keys($user->roles), $staff_roles)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+

@@ -5,7 +5,6 @@
  */
 
 include_once 'dosomething_campaign.features.inc';
-define('STAFF_ROLES', serialize(array(3,4)));
 
 /**
  * Implements hook_form_alter().
@@ -48,11 +47,10 @@ function dosomething_campaign_menu() {
  * Determines whether a user has access to the pitch page.
  */
 function _dosomething_campaign_pitch_page_access($node) {
-  global $user;
   // Are we on a campaign node?
   if ($node->type == 'campaign') {
     // Is the user a DS admin or editor?
-    if (array_intersect(array_keys($user->roles), unserialize(STAFF_ROLES))) {
+    if (dosomething_user_is_staff()) {
       return TRUE;
     }
   }
