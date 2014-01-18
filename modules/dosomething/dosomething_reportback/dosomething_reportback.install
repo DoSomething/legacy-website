@@ -36,6 +36,12 @@ function dosomething_reportback_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'quantity' => array(
+        'description' => 'The quantity of reportback_nouns reportback_verbed.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
     ),
     'primary key' => array('rbid'),
     'indexes' => array(

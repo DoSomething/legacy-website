@@ -53,8 +53,8 @@ function dosomething_reportback_menu() {
     'title callback' => t('Reportback'),
     'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1, 2),
-    'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('view'),
+    //@todo: Write real access callback.
+    'access callback' => TRUE,
   );
   return $items;
 }
@@ -68,27 +68,10 @@ function reportback_load($id) {
 }
 
 /**
- * Callback for /fact/ID page.
+ * Callback for /reportback/ID page.
  */
 function dosomething_reportback_view_entity($reportback, $view_mode = 'full') {
   return entity_view('reportback', array($reportback->rbid => $reportback), $view_mode);
-}
-
-/**
- * Determines whether the given user has access to a Reportback.
- *
- * @param $op
- *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
- * @param $account
- *   The user to check for. Leave it to NULL to check for the global user.
- *
- * @return boolean
- *   Whether access is allowed or not.
- *
- */
-function dosomething_reportback_access($op, $account = NULL) {
-  //@todo: Actually write real code here.
-  return TRUE;
 }
 
 /**
@@ -132,6 +115,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
   $entity = entity_create('reportback', array(
     'nid' => $form_state['values']['nid'],
+    'quantity' => $form_state['values']['quantity'],
   ));
   // Attach field data from the form:
   field_attach_submit('reportback', $entity, $form, $form_state); 
