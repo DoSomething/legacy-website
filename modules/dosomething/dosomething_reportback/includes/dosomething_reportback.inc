@@ -36,9 +36,3 @@ class ReportbackEntityController extends EntityAPIController {
     return parent::save($entity, $transaction);
   }
 }
-
-/**
- * Our custom controller for the admin ui.
- */
-class ReportbackEntityUIController extends EntityDefaultUIController {
-}

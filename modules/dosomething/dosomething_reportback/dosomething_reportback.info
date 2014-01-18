@@ -1,5 +1,5 @@
-name = dosomething_reportback
-description = Provides Reportback table and functionality.
+name = DoSomething Reportback
+description = Provides Reportback entity and functionality.
 core = 7.x
 package = DoSomething
 dependencies[] = features
