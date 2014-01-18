@@ -1,4 +1,7 @@
 <div class="content clearfix <?php print $classes; ?>">
+
+  <?php print render($reportback_form); ?>
+
   <h3><?php print $campaign->field_call_to_action->value(); ?></h3>
 
   <h3>Pre Steps</h3>

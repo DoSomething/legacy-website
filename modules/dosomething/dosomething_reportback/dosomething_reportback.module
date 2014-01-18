@@ -89,5 +89,50 @@ function dosomething_reportback_access($op, $account = NULL) {
   return TRUE;
 }
 
+/**
+ * Form constructor for a node reportback form.
+ *
+ * @param object $wrapper
+ *   An entity_metadata_wrapper of the node to report back for.
+ *
+ * @ingroup forms
+ */
+function dosomething_reportback_form($form, &$form_state, $wrapper) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $wrapper->nid->value(),
+  );
+  $form['quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t("How many @noun did you @verb?", array(
+        '@noun' => $wrapper->field_report_back_noun->value(),
+        '@verb' => $wrapper->field_report_back_verb->value(),
+      )
+    ),
+  );
+  // Attach all reportback entity fields to the form:
+  $reportback = entity_create('reportback', array());
+  field_attach_form('reportback', $reportback, $form, $form_state);
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    ),
+  );
+  return $form;
+}
 
-
+/**
+ * Submit callback for dosomething_reportback_form().
+ */
+function dosomething_reportback_form_submit($form, &$form_state) {
+  global $user;
+  $entity = entity_create('reportback', array(
+    'nid' => $form_state['values']['nid'],
+  ));
+  // Attach field data from the form:
+  field_attach_submit('reportback', $entity, $form, $form_state); 
+  // Save entity. 
+  entity_save('reportback', $entity);
+}

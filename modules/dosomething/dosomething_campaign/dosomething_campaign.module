@@ -79,14 +79,17 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_pitch_page($vars);
   }
   elseif ($vars['view_mode'] == 'full'){
-    // Output entity_metadata_wrapper for easier theming..
-    $campaign = entity_metadata_wrapper('node', menu_get_object());
+    // Output entity_metadata_wrapper for easier theming.
+    $node = menu_get_object();
+    $campaign = entity_metadata_wrapper('node', $node);
     $vars['campaign'] = $campaign;
     // Collect all field_collection field values for easier theming.
     $field_collections = array('faq', 'step_pre', 'step_post');
     foreach ($field_collections as $fc) {
       $vars[$fc] = dosomething_campaign_get_field_collection_values($campaign, 'field_' . $fc);
     }
+    // Output reportback form:
+    $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $campaign);
   }
 }
 
