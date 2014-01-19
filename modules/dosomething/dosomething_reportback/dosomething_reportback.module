@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Provides Reportback functionality.
+ * Code for the DoSomething Reportback feature.
  */
+
+include_once 'dosomething_reportback.features.inc';
 
 /**
  * Implements hook_entity_info().
