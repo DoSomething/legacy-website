@@ -32,6 +32,49 @@ function dosomething_reportback_entity_info() {
         )
       ),
     ),
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function dosomething_reportback_entity_property_info() {
+  $info = array();
+  $properties = &$info['reportback']['properties'];
+  $properties['rbid'] = array(
+    'label' => t('Reportback rbid'),
+    'description' => t('The unique ID of the reportback.'),
+    'type' => 'integer',
+    'schema field' => 'rbid',
+    'entity views field' => TRUE,
+  );
+  $properties['nid'] = array(
+    'label' => t('Node nid'),
+    'description' => t('The node nid of the reportback.'),
+    'type' => 'node',
+    'schema field' => 'nid',
+    'entity views field' => TRUE,
+  );
+  $properties['uid'] = array(
+    'label' => t('User uid'),
+    'description' => t('The user uid of the reportback.'),
+    'type' => 'user',
+    'schema field' => 'uid',
+    'entity views field' => TRUE,
+  );
+  $properties['created'] = array(
+    'label' => t('Created Date'),
+    'description' => t('Date the reportback was created.'),
+    'type' => 'date',
+    'schema field' => 'created',
+  );
+  $properties['quantity'] = array(
+    'label' => t('Quantity'),
+    'description' => t('The number of reportback_nouns reportback_verbed.'),
+    'type' => 'integer',
+    'schema field' => 'quantity',
   );
   return $info;
 }
@@ -57,6 +100,16 @@ function dosomething_reportback_menu() {
     'access callback' => TRUE,
   );
   return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function dosomething_reportback_admin_paths() {
+  $paths = array(
+    'node/*/reportbacks' => TRUE,
+  );
+  return $paths;
 }
 
 /**
