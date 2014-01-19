@@ -115,6 +115,32 @@ function dosomething_reportback_admin_paths() {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function dosomething_reportback_permission() {
+  return array(
+    'delete any reportback' => array(
+      'title' => t('Delete any reportback'),
+    ),
+    'delete own reportback' => array(
+      'title' => t('Delete own reportback'),
+    ),
+    'edit any reportback' => array(
+      'title' => t('Edit any reportback'),
+    ),
+    'edit own reportback' => array(
+      'title' => t('Edit own reportback'),
+    ),
+    'view any reportback' => array(
+      'title' => t('View any reportback'),
+    ),
+    'view own reportback' => array(
+      'title' => t('View own reportback'),
+    ),
+  );
+}
+
+/**
  * Menu autoloader for /reportback.
  */
 function reportback_load($id) {
