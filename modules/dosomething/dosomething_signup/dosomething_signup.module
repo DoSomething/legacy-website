@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Provides Signup functionality.
+ * Code for the dosomething_signup feature.
  */
+
+include_once 'dosomething_signup.features.inc';
 
 /**
  * Insert a user signup.
