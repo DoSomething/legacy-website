@@ -47,7 +47,7 @@ function dosomething_user_valid_cell($number) {
  * Determines if a user is on the ds staff.
  */
 function dosomething_user_is_staff($user = NULL) {
-  if (!$user->uid) {
+  if ($user == NULL) {
     global $user;
   }
   // Create an array of staff role ids.
