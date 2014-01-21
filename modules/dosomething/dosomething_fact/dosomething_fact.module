@@ -218,3 +218,19 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
   $form_state['ajax_commands'][] = ajax_command_replace('#add-fact-status', '<div id="add-fact-status"><strong>' . t('New fact added:') . '</strong> ' . $form_state['values']['fact'] . '</div>');
 }
 
+/**
+ * Returns array of values of a Fact entity.
+ *
+ * @param object $fact_wrapper
+ *   A fact entity as returned by entity_metadata_wrapper.
+ *
+ * @return array
+ *   Array of fact values.
+ *
+ */
+function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+  return array(
+    'fact' => $fact_wrapper->fact->value(),
+    'source' => $fact_wrapper->source->value(),
+  );
+}

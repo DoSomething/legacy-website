@@ -2,6 +2,15 @@
 
   <?php print render($reportback_form); ?>
 
+  <div>
+    <p><?php print $fact_problem['fact']; ?></p>
+    <p class="legal">Source: <?php print $fact_problem['source']; ?></p>
+  </div>
+  <div>
+    <p><?php print $fact_solution['fact']; ?></p>
+    <p class="legal">Source: <?php print $fact_solution['source']; ?></p>
+  </div>
+
   <h3>Pre Steps</h3>
   <?php foreach ($step_pre as $item): ?>
   <h4><?php print $item['header']; ?></h4>
