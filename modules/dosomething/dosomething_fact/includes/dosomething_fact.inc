@@ -49,6 +49,20 @@ class FactEntityController extends EntityAPIController {
       '#type' => 'markup',
       '#markup' => l($entity->url_source, $entity->url_source, array('attributes' => array('target' => '_blank'))),
     );
+    if (module_exists('dosomething_campaign')) {
+      $build['campaign_problem_fact'] = array(
+        '#type' => 'markup',
+        '#markup' => views_embed_view('campaigns_by_fact', 'block_1', $entity->id),
+      );
+      $build['campaign_solution_fact'] = array(
+        '#type' => 'markup',
+        '#markup' => views_embed_view('campaigns_by_fact', 'block_2', $entity->id),
+      );
+      $build['campaign_more_fact'] = array(
+        '#type' => 'markup',
+        '#markup' => views_embed_view('campaigns_by_fact', 'block_3', $entity->id),
+      );
+    }
     return $build;
   }
 
