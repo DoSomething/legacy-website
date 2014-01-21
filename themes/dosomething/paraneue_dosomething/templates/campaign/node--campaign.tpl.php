@@ -2,8 +2,6 @@
 
   <?php print render($reportback_form); ?>
 
-  <h3><?php print $campaign->field_call_to_action->value(); ?></h3>
-
   <h3>Pre Steps</h3>
   <?php foreach ($step_pre as $item): ?>
   <h4><?php print $item['header']; ?></h4>
