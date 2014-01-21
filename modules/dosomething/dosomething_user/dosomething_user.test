@@ -115,7 +115,7 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Wrapper function to test user_access().  
+   * Wrapper function to test user_access().
    *
    * Executes assertFalse and assertTrue tests based on boolean $granted value.
    *
@@ -141,7 +141,7 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
    * Creates and returns a user with "administrator" role.
    *
    * Because drupalCreateUser will actually just create a new role based
-   * on the permissions you pass it, that doesn't help us here, since we're 
+   * on the permissions you pass it, that doesn't help us here, since we're
    * testing the actual roles defined by dosomething_user.
    *
    * We need to create an actual user in the users table to test the role.
@@ -216,6 +216,26 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
     // Loop through editor perms and test that $auth user does not have them.
     foreach ($this->editor_perms as $perm) {
       $this->subTestUserAccess($perm, $auth, FALSE);
+    }
+  }
+
+  /**
+   * @see dosomething_user_is_staff().
+   */
+  public function testIsStaff() {
+    $good_users = array(
+      'editor' => $this->createUserByRoleName('editor'),
+      'admin' => $this->createUserByRoleName('administrator'),
+    );
+    $bad_users = array(
+      'auth' => $this->createUserByRoleName('authenticated user'),
+      'rando' => $this->createUserByRoleName('anonymous user'),
+    );
+    foreach ($good_users as $user) {
+      $this->assertTrue(dosomething_user_is_staff($user));
+    }
+    foreach ($bad_users as $user) {
+      $this->assertFalse(dosomething_user_is_staff($user));
     }
   }
 }
