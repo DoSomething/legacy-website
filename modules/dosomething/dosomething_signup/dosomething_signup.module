@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Provides Signup functionality.
+ * Code for the dosomething_signup feature.
  */
+
+include_once 'dosomething_signup.features.inc';
 
 /**
  * Insert a user signup.
@@ -125,4 +127,94 @@ function dosomething_signup_form_submit($form, &$form_state) {
   if (is_numeric($sid)) {
     drupal_set_message(t("You're signed up!"));
   }
+}
+
+
+/**
+ * Implements hook_views_data().
+ */
+function dosomething_signup_views_data() {
+  // Define dosomething_signup table.
+  $data['dosomething_signup']['table']['group'] = t('Signups');
+  $data['dosomething_signup']['table']['base'] = array(
+    'field' => 'sid',
+    'title' => t('Signups'),
+    'help' => t('Dosomething Signups table.'),
+    'weight' => -10,
+  );
+  $data['dosomething_signup']['table']['join'] = array(
+    'node' => array(
+      'left_field' => 'nid',
+      'field' => 'nid',
+    ),
+    'users' => array(
+      'left_field' => 'uid',
+      'field' => 'uid',
+    ),
+  );
+  $data['dosomething_signup']['nid'] = array(
+    'title' => t('Nid'),
+    'help' => t('Signup node nid.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'node',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Signup Node Nid'),
+    ),
+  );
+  $data['dosomething_signup']['uid'] = array(
+    'title' => t('Uid'),
+    'help' => t('User id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'users',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Signup User'),
+    ),
+  );
+  $data['dosomething_signup']['timestamp'] = array(
+    'title' => t('Date submitted'),
+    'help' => t('Date submitted.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+  return $data;
+}
+
+/**
+ * Implements hook_user_view().
+ */
+function dosomething_user_user_view($account, $view_mode, $langcode) {
+  // Output user signups.
+  $account->content['campaigns'] = array(
+    '#type' => 'user_profile_item',
+    '#title' => t('Campaigns'),
+    '#markup' => views_embed_view('user_signups', 'block', $account->uid),
+  );
 }
