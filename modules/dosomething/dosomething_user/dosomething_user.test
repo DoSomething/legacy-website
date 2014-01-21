@@ -220,9 +220,9 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test that only staff member rold ids.
+   * @see dosomething_user_is_staff().
    */
-  public function testDoSomethingIsStaff() {
+  public function testIsStaff() {
     $good_users = array(
       'editor' => $this->createUserByRoleName('editor'),
       'admin' => $this->createUserByRoleName('administrator'),
@@ -231,10 +231,10 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'auth' => $this->createUserByRoleName('authenticated user'),
       'rando' => $this->createUserByRoleName('anonymous user'),
     );
-    foreach($good_users as $user) {
+    foreach ($good_users as $user) {
       $this->assertTrue(dosomething_user_is_staff($user));
     }
-    foreach($bad_users as $user) {
+    foreach ($bad_users as $user) {
       $this->assertFalse(dosomething_user_is_staff($user));
     }
   }
