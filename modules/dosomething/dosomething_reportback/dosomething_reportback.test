@@ -34,3 +34,4 @@ class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
     $this->assertTrue(db_field_exists($tbl, 'timestamp'), 'timestamp field exists.');
     $this->assertTrue(db_index_exists($tbl, 'uid'), 'uid index exists.');
   }
+}

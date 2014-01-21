@@ -31,7 +31,7 @@ function dosomething_reportback_entity_info() {
         'admin' => array(
           'path' => 'admin/reportback',
           'access arguments' => array('administer modules'),
-        )
+        ),
       ),
     ),
     'views controller class' => 'EntityDefaultViewsController',
@@ -95,10 +95,10 @@ function dosomething_reportback_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
   $items['reportback/%reportback'] = array(
-    'title callback' => t('Reportback'),
+    'title callback' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1, 2),
-    //@todo: Write real access callback.
+    // @todo: Write real access callback.
     'access callback' => TRUE,
   );
   return $items;
@@ -177,8 +177,8 @@ function dosomething_reportback_form($form, &$form_state, $wrapper) {
     ),
   );
   // Attach all reportback entity fields to the form:
-  $reportback = entity_create('reportback', array());
-  field_attach_form('reportback', $reportback, $form, $form_state);
+  $entity = entity_create('reportback', array());
+  field_attach_form('reportback', $entity, $form, $form_state);
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -199,7 +199,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     'quantity' => $form_state['values']['quantity'],
   ));
   // Attach field data from the form:
-  field_attach_submit('reportback', $entity, $form, $form_state); 
-  // Save entity. 
+  field_attach_submit('reportback', $entity, $form, $form_state);
+  // Save entity.
   entity_save('reportback', $entity);
 }
