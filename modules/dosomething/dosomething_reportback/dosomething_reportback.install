@@ -30,8 +30,14 @@ function dosomething_reportback_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'timestamp' => array(
-        'description' => 'The Unix timestamp when the reportback was submitted.',
+      'created' => array(
+        'description' => 'The Unix timestamp when the reportback was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'quantity' => array(
+        'description' => 'The quantity of reportback_nouns reportback_verbed.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,

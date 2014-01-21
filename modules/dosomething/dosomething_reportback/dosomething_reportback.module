@@ -1,42 +1,205 @@
 <?php
 /**
  * @file
- * Provides Reportback functionality.
+ * Code for the DoSomething Reportback feature.
  */
 
+include_once 'dosomething_reportback.features.inc';
+
 /**
- * Insert a user reportback.
- *
- * @param int $nid
- *   The node nid the user has reported back for.
- * @param int $uid
- *   Optional - the user uid who has reported back.  
- *   If not provided, uses global $user->uid.
- *
- * @return mixed
- *   The rbid of the newly inserted reportback, or FALSE if error.
+ * Implements hook_entity_info().
  */
-function dosomething_reportback_insert($nid, $uid = NULL) {
-  if ($uid == NULL) {
-    global $user;
-    $uid = $user->uid;
-  }
-  try {
-    $sid = db_insert('dosomething_reportback')
-        ->fields(array(
-          'uid' => $uid,
-          'nid' => $nid,
-          'timestamp' => REQUEST_TIME,
-        )
+function dosomething_reportback_entity_info() {
+  $info = array();
+  $info['reportback'] = array(
+    'label' => t('Reportback'),
+    'base table' => 'dosomething_reportback',
+    'entity keys' => array(
+      'id' => 'rbid',
+      'label' => 'rbid',
+    ),
+    'entity class' => 'ReportbackEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ReportbackEntityController',
+    'module' => 'dosomething_reportback',
+     // Controls who can access entity CRUD.
+    'access callback' => 'dosomething_reportback_access',
+    'fieldable' => TRUE,
+    'bundles' => array(
+      'reportback' => array(
+        'label' => t('Reportback'),
+        'admin' => array(
+          'path' => 'admin/reportback',
+          'access arguments' => array('administer modules'),
+        ),
+      ),
+    ),
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function dosomething_reportback_entity_property_info() {
+  $info = array();
+  $properties = &$info['reportback']['properties'];
+  $properties['rbid'] = array(
+    'label' => t('Reportback rbid'),
+    'description' => t('The unique ID of the reportback.'),
+    'type' => 'integer',
+    'schema field' => 'rbid',
+    'entity views field' => TRUE,
+  );
+  $properties['nid'] = array(
+    'label' => t('Node nid'),
+    'description' => t('The node nid of the reportback.'),
+    'type' => 'node',
+    'schema field' => 'nid',
+    'entity views field' => TRUE,
+  );
+  $properties['uid'] = array(
+    'label' => t('User uid'),
+    'description' => t('The user uid of the reportback.'),
+    'type' => 'user',
+    'schema field' => 'uid',
+    'entity views field' => TRUE,
+  );
+  $properties['created'] = array(
+    'label' => t('Created Date'),
+    'description' => t('Date the reportback was created.'),
+    'type' => 'date',
+    'schema field' => 'created',
+  );
+  $properties['quantity'] = array(
+    'label' => t('Quantity'),
+    'description' => t('The number of reportback_nouns reportback_verbed.'),
+    'type' => 'integer',
+    'schema field' => 'quantity',
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_reportback_menu() {
+  $items = array();
+  $items['admin/reportback'] = array(
+    'title' => 'Reportbacks',
+    'description' => 'Configuration settings for Reportbacks.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer modules'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['reportback/%reportback'] = array(
+    'title callback' => 'Reportback',
+    'page callback' => 'dosomething_reportback_view_entity',
+    'page arguments' => array(1, 2),
+    // @todo: Write real access callback.
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function dosomething_reportback_admin_paths() {
+  $paths = array(
+    'node/*/reportbacks' => TRUE,
+  );
+  return $paths;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_reportback_permission() {
+  return array(
+    'delete any reportback' => array(
+      'title' => t('Delete any reportback'),
+    ),
+    'delete own reportback' => array(
+      'title' => t('Delete own reportback'),
+    ),
+    'edit any reportback' => array(
+      'title' => t('Edit any reportback'),
+    ),
+    'edit own reportback' => array(
+      'title' => t('Edit own reportback'),
+    ),
+    'view any reportback' => array(
+      'title' => t('View any reportback'),
+    ),
+    'view own reportback' => array(
+      'title' => t('View own reportback'),
+    ),
+  );
+}
+
+/**
+ * Menu autoloader for /reportback.
+ */
+function reportback_load($id) {
+  $reportback = entity_load('reportback', array($id));
+  return array_pop($reportback);
+}
+
+/**
+ * Callback for /reportback/ID page.
+ */
+function dosomething_reportback_view_entity($reportback, $view_mode = 'full') {
+  return entity_view('reportback', array($reportback->rbid => $reportback), $view_mode);
+}
+
+/**
+ * Form constructor for a node reportback form.
+ *
+ * @param object $wrapper
+ *   An entity_metadata_wrapper of the node to report back for.
+ *
+ * @ingroup forms
+ */
+function dosomething_reportback_form($form, &$form_state, $wrapper) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $wrapper->nid->value(),
+  );
+  $form['quantity'] = array(
+    '#type' => 'textfield',
+    '#title' => t("How many @noun did you @verb?", array(
+        '@noun' => $wrapper->field_report_back_noun->value(),
+        '@verb' => $wrapper->field_report_back_verb->value(),
       )
-      ->execute();
-    return $sid;
-  }
-  catch (Exception $e) {
-    // Keep message general in case a user ever sees it.
-    drupal_set_message(t("There was an error processing your request."));
-    // Log the error.
-    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
+    ),
+  );
+  // Attach all reportback entity fields to the form:
+  $entity = entity_create('reportback', array());
+  field_attach_form('reportback', $entity, $form, $form_state);
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_reportback_form().
+ */
+function dosomething_reportback_form_submit($form, &$form_state) {
+  global $user;
+  $entity = entity_create('reportback', array(
+    'nid' => $form_state['values']['nid'],
+    'quantity' => $form_state['values']['quantity'],
+  ));
+  // Attach field data from the form:
+  field_attach_submit('reportback', $entity, $form, $form_state);
+  // Save entity.
+  entity_save('reportback', $entity);
 }
