@@ -117,6 +117,9 @@ function dosomething_fact_menu() {
  *
  */
 function dosomething_fact_access($op, $account = NULL) {
+  if(!isset($account)) {
+    $account = $GLOBALS['user'];
+  }
   if ($op == 'update') {
     $perm = 'edit fact';
   }
