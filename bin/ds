@@ -162,7 +162,8 @@ function dev {
 
   echo 'Auto-generating Content'
   drush php-eval "dosomething_fact_devel_create_facts();"
-  drush genc 50 0 --types=campaign,image
+  drush genc 50 0 --types=image
+  drush genc 50 0 --types=campaign
 
 }
 
