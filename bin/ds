@@ -106,6 +106,11 @@ function build {
     install
   fi
 
+  if [[ $2 == "--dev" ]]
+  then
+    dev
+  fi
+
   echo 'Replacing settings.php file...'
   rm -f $WEB_PATH/sites/default/settings.php && ln -s $BASE_PATH/settings.php $WEB_PATH/sites/default/settings.php
 
@@ -145,6 +150,21 @@ function install {
 
   echo 'Rebuilding node permissions'
   drush php-eval 'node_access_rebuild();'
+}
+
+#=== FUNCTION ==================================================================
+# NAME: devel
+# DESCRIPTION: Enables modules, generates nodes.
+#===============================================================================
+function dev {
+  echo 'Enabling modules'
+  drush en devel devel_generate dosomething_fact_devel -y
+
+  echo 'Auto-generating Content'
+  drush php-eval "dosomething_fact_devel_create_facts();"
+  drush genc 50 0 --types=image
+  drush genc 50 0 --types=campaign
+
 }
 
 #=== FUNCTION ==================================================================
@@ -193,7 +213,10 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "build" ]]
 then
-  if [[ $2 == "--install" ]]
+  if [[ $2 == "--install" ]] && [[ $3 == "--dev" ]]
+  then
+    build --install --dev
+  elif [[ $2 == "--install" ]]
   then
     build --install
   else
