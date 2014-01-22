@@ -223,19 +223,49 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
 }
 
 /**
- * Returns array of values of a Fact entity.
+ * Returns array of values of a Fact entityreference field.
  *
- * @param object $wrapper_fact_field
+ * @param object $fact_field_wrapper
  *   A Fact entityreference field as returned by entity_metadata_wrapper.
  *   e.g. dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem)
+ *
+ * @return mixed
+ *   Array of fact values, or NULL if not a valid wrapper property.
+ *
+ */
+function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
+  // Make sure $fact_field_wrapper is an object.
+  if (is_object($fact_field_wrapper)) {
+    // If EntityDrupalWrapper, it's a single value field:
+    if (get_class($fact_field_wrapper) == 'EntityDrupalWrapper') {
+      return dosomething_fact_get_fact_wrapper_values($fact_field_wrapper);
+    }
+    // If EntityListWrapper, it's a multi-value field:
+    if (get_class($fact_field_wrapper) == 'EntityListWrapper') {
+      $values = array();
+      foreach ($fact_field_wrapper->getIterator() as $delta => $fact) {
+        $values[] = dosomething_fact_get_fact_wrapper_values($fact);
+      }
+      return $values;
+    }
+  }
+  // Return NULL as default.
+  return NULL;
+}
+
+/**
+ * Returns array of values of a Fact entity.
+ *
+ * @param object $fact_wrapper
+ *   A Fact entityreference as returned by entity_metadata_wrapper.
  *
  * @return array
  *   Array of fact values.
  *
  */
-function dosomething_fact_get_fact_wrapper_values($wrapper_fact_field) {
+function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
   return array(
-    'fact' => $wrapper_fact_field->fact->value(),
-    'source' => $wrapper_fact_field->source->value(),
+    'fact' => $fact_wrapper->fact->value(),
+    'source' => $fact_wrapper->source->value(),
   );
 }
