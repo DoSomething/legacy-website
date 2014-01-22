@@ -105,11 +105,15 @@ function dosomething_campaign_preprocess_node(&$vars) {
       // Collect fact values for tpl variables.
       $fact_problem = $wrapper->field_fact_problem->value();
       if (isset($fact_problem)) {
-        $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem);
+        $vars['fact_problem'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_fact_problem);
       }
       $fact_solution = $wrapper->field_fact_solution->value();
       if (isset($fact_solution)) {
-        $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_solution);
+        $vars['fact_solution'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_fact_solution);
+      }
+      $more_facts = $wrapper->field_facts->value();
+      if (isset($more_facts)) {
+        $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
       }
 
       // Collect all field_collection field values for easier theming.

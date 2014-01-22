@@ -18,6 +18,15 @@
   <p><?php print $solution_support; ?></p>
   <?php endif; ?>
 
+  <?php if (isset($more_facts)): ?>
+  <?php foreach ($more_facts as $fact): ?>
+  <div>
+    <p><?php print $fact['fact']; ?></p>
+    <p class="legal">Source: <?php print $fact['source']; ?></p>
+  </div>
+  <?php endforeach; ?>
+  <?php endif; ?>
+
   <h3>Pre Steps</h3>
   <?php foreach ($step_pre as $item): ?>
   <h4><?php print $item['header']; ?></h4>
