@@ -221,16 +221,17 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
 /**
  * Returns array of values of a Fact entity.
  *
- * @param object $fact_wrapper
- *   A fact entity as returned by entity_metadata_wrapper.
+ * @param object $wrapper_fact_field
+ *   A Fact entityreference field as returned by entity_metadata_wrapper.
+ *   e.g. dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem)
  *
  * @return array
  *   Array of fact values.
  *
  */
-function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+function dosomething_fact_get_fact_wrapper_values($wrapper_fact_field) {
   return array(
-    'fact' => $fact_wrapper->fact->value(),
-    'source' => $fact_wrapper->source->value(),
+    'fact' => $wrapper_fact_field->fact->value(),
+    'source' => $wrapper_fact_field->source->value(),
   );
 }

@@ -87,8 +87,17 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $node = menu_get_object();
     $campaign = entity_metadata_wrapper('node', $node);
     $vars['campaign'] = $campaign;
-    $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($campaign->field_fact_problem);
-    $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($campaign->field_fact_solution);
+
+    $fact_problem = $campaign->field_fact_problem->value();
+    if (isset($fact_problem)) {
+      $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($campaign->field_fact_problem);
+    }
+
+    $fact_solution = $campaign->field_fact_solution->value();
+    if (isset($fact_solution)) {
+      $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($campaign->field_fact_solution);
+    }
+    $vars['solution_support'] = $campaign->field_solution_support->value();
 
     // Vars needed for both the pitch & action page.
     $vars['cta'] = $campaign->field_call_to_action->value();
