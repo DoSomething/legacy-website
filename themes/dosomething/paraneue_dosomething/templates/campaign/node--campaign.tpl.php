@@ -1,5 +1,5 @@
 <div class="content clearfix <?php print $classes; ?>">
-
+  <h3> Know </h3>
   <?php if (isset($fact_problem)): ?>
   <div>
     <p><?php print $fact_problem['fact']; ?></p>
