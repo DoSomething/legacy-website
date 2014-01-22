@@ -188,6 +188,7 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_report_back_noun',
       3 => 'field_report_back_verb',
       4 => 'field_scholarship_amount',
+      5 => 'field_report_back_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
