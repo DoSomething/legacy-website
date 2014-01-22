@@ -140,7 +140,7 @@ function dosomething_campagin_preprocess_action_page(&$vars, &$wrapper) {
     $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 
-  $psa = ($wrapper->field_psa->value());
+  $psa = $wrapper->field_psa->value();
   if (isset($psa)) {
     $vars['psa'] = '<iframe id="ytplayer" type="text/html" width="640" height="390"
      src="http://youtube.com/embed/' . $psa . '"' . '"frameborder="0"/>';
@@ -151,10 +151,21 @@ function dosomething_campagin_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Plan.
+  $vars['starter'] = $wrapper->field_starter_statement->value();
+  $vars['time'] = $wrapper->field_time_and_place->value();
+  $vars['vips'] = $wrapper->field_vips->value();
+  $vars['hype'] = $wrapper->field_promoting_tips->value();
+  $vars['items_needed'] = $wrapper->field_items_needed->value();
 
   // Do.
+  $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();
+  $vars['pre_step_copy'] = $wrapper->field_pre_step_copy->value();
+  $vars['pic_step'] = $wrapper->field_photo_step->value();
+  $vars['post_step_header'] = $wrapper->field_post_step_header->value();
+  $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
 
   // Prove.
+  $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
 
   // Collect all field_collection field values for easier theming.
   $field_collections = array('faq', 'step_pre', 'step_post');
