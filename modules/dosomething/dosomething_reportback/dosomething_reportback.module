@@ -22,8 +22,6 @@ function dosomething_reportback_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackEntityController',
     'module' => 'dosomething_reportback',
-     // Controls who can access entity CRUD.
-    'access callback' => 'dosomething_reportback_access',
     'fieldable' => TRUE,
     'bundles' => array(
       'reportback' => array(
@@ -97,9 +95,17 @@ function dosomething_reportback_menu() {
   $items['reportback/%reportback'] = array(
     'title callback' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
-    'page arguments' => array(1, 2),
-    // @todo: Write real access callback.
-    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('view', 1),
+  );
+  $items['reportback/%reportback/edit'] = array(
+    'title callback' => 'Reportback',
+    'page callback' => 'dosomething_reportback_edit_entity',
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('edit', 1),
+    'type' => MENU_LOCAL_TASK,
   );
   return $items;
 }
@@ -113,6 +119,24 @@ function dosomething_reportback_admin_paths() {
   );
   return $paths;
 }
+
+/**
+ * Access callback for reportback entity operations.
+ */
+function dosomething_reportback_access($op, $entity, $account = NULL) {
+  global $user;
+  if (!isset($account)) {
+    $account = $user;
+  }
+  $perm_any = $op . ' any reportback';
+  $perm_own = $op . ' own reportback';
+  if (user_access($perm_any, $account)){
+    return TRUE;
+  }
+  // Check that user has access to $op own, and is the author.
+  return user_access($perm_own, $account) && $account->uid == $entity->uid;
+}
+
 
 /**
  * Implements hook_permission().
@@ -151,8 +175,18 @@ function reportback_load($id) {
 /**
  * Callback for /reportback/ID page.
  */
-function dosomething_reportback_view_entity($reportback, $view_mode = 'full') {
-  return entity_view('reportback', array($reportback->rbid => $reportback), $view_mode);
+function dosomething_reportback_view_entity($entity) {
+  return entity_view('reportback', array($entity->rbid => $entity), 'full');
+}
+
+/**
+ * Callback for /reportback/ID/edit page.
+ */
+function dosomething_reportback_edit_entity($entity) {
+  // We need the node to pass through to rb form for quantity values.
+  $node = node_load($entity->nid);
+  $wrapper = entity_metadata_wrapper('node', $node);
+  return drupal_get_form('dosomething_reportback_form', $wrapper, $entity);
 }
 
 /**
@@ -163,7 +197,15 @@ function dosomething_reportback_view_entity($reportback, $view_mode = 'full') {
  *
  * @ingroup forms
  */
-function dosomething_reportback_form($form, &$form_state, $wrapper) {
+function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
+  if (!isset($entity)) {
+    $entity = entity_create('reportback', array());
+    $entity->rbid = 0;
+  }
+  $form['rbid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $entity->rbid,
+  );
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $wrapper->nid->value(),
@@ -175,9 +217,9 @@ function dosomething_reportback_form($form, &$form_state, $wrapper) {
         '@verb' => $wrapper->field_report_back_verb->value(),
       )
     ),
+    '#default_value' => $entity->quantity,
   );
   // Attach all reportback entity fields to the form:
-  $entity = entity_create('reportback', array());
   field_attach_form('reportback', $entity, $form, $form_state);
   $form['actions'] = array(
     '#type' => 'actions',
@@ -194,12 +236,26 @@ function dosomething_reportback_form($form, &$form_state, $wrapper) {
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
-  $entity = entity_create('reportback', array(
-    'nid' => $form_state['values']['nid'],
-    'quantity' => $form_state['values']['quantity'],
-  ));
+  $values = $form_state['values'];
+  $is_new = FALSE;
+  if ($values['rbid'] == 0) {
+    $entity = entity_create('reportback', array());
+    $is_new = TRUE;
+    // @todo: Store reportback confirmation message.
+    $msg = t("Thanks for reporting back!");
+  }
+  else {
+    // @todo: Test that entity author belongs to our user, if user can only edit own.
+    // In case someone's messing with values in browser inspector.
+    // Could potentially also make sure that signup value exists for uid / nid.
+    $entity = entity_load_single('reportback', $values['rbid']);
+    $msg = t("Reportback updated.");
+  }
+  $entity->nid = $values['nid'];
+  $entity->quantity = $values['quantity'];
   // Attach field data from the form:
   field_attach_submit('reportback', $entity, $form, $form_state);
   // Save entity.
   entity_save('reportback', $entity);
+  drupal_set_message($msg);
 }
