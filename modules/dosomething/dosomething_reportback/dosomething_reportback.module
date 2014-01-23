@@ -22,8 +22,6 @@ function dosomething_reportback_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackEntityController',
     'module' => 'dosomething_reportback',
-     // Controls who can access entity CRUD.
-    'access callback' => 'dosomething_reportback_access',
     'fieldable' => TRUE,
     'bundles' => array(
       'reportback' => array(
@@ -97,9 +95,9 @@ function dosomething_reportback_menu() {
   $items['reportback/%reportback'] = array(
     'title callback' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
-    'page arguments' => array(1, 2),
-    // @todo: Write real access callback.
-    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('view', 1),
   );
   return $items;
 }
@@ -113,6 +111,24 @@ function dosomething_reportback_admin_paths() {
   );
   return $paths;
 }
+
+/**
+ * Access callback for reportback entity operations.
+ */
+function dosomething_reportback_access($op, $entity, $account = NULL) {
+  global $user;
+  if (!isset($account)) {
+    $account = $user;
+  }
+  $perm_any = $op . ' any reportback';
+  $perm_own = $op . ' own reportback';
+  if (user_access($perm_any, $account)){
+    return TRUE;
+  }
+  // Check that user has access to $op own, and is the author.
+  return user_access($perm_own, $account) && $account->uid == $entity->uid;
+}
+
 
 /**
  * Implements hook_permission().
