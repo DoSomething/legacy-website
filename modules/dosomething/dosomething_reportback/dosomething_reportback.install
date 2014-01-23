@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_reportback.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_reportback_schema() {
+  $schema = array();
+  $schema['dosomething_reportback'] = array(
+    'description' => 'Table of user reportbacks.',
+    'fields' => array(
+      'rbid' => array(
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that reported back.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'The {node}.nid that the user has reported back for.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the reportback was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'quantity' => array(
+        'description' => 'The quantity of reportback_nouns reportback_verbed.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('rbid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+  return $schema;
+}

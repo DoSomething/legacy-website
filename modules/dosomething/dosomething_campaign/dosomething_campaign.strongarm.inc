@@ -19,10 +19,10 @@ function dosomething_campaign_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '1',
+          'weight' => '9',
         ),
       ),
       'display' => array(),

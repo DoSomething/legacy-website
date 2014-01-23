@@ -26,7 +26,7 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
-    2 => '2',
+    3 => '3',
     4 => '4',
   );
   $handler->display->display_options['cache']['type'] = 'none';
@@ -68,20 +68,35 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['fields']['id']['id'] = 'id';
   $handler->display->display_options['fields']['id']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Fact: Label */
+  /* Field: Fact: Fact */
   $handler->display->display_options['fields']['fact']['id'] = 'fact';
   $handler->display->display_options['fields']['fact']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['fact']['field'] = 'fact';
+  $handler->display->display_options['fields']['fact']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['fact']['alter']['path'] = 'fact/[id]';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Edit';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'edit';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/fact/manage/[id]';
   /* Field: Fact: Source */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['source']['field'] = 'source';
-  /* Field: Fact: Changed */
+  /* Field: Fact: Updated Date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'dosomething_fact';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = 'Updated';
-  /* Filter criterion: Fact: Label */
+  $handler->display->display_options['fields']['changed']['date_format'] = 'raw time ago';
+  /* Field: Fact: Created Date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'dosomething_fact';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  /* Filter criterion: Fact: Fact */
   $handler->display->display_options['filters']['fact']['id'] = 'fact';
   $handler->display->display_options['filters']['fact']['table'] = 'dosomething_fact';
   $handler->display->display_options['filters']['fact']['field'] = 'fact';
@@ -117,6 +132,11 @@ function dosomething_fact_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'admin/fact';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Facts';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $export['fact_search'] = $view;
 
   return $export;

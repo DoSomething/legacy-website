@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Tests for dosomething_reportback.module.
+ */
+
+class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething Reportback Web Tests',
+      'description' => 'Web tests for dosomething_reportback module.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  public function setUp() {
+    global $user;
+    parent::setUp(array('dosomething_reportback'));
+    $this->tbl_name = 'dosomething_reportback';
+  }
+
+  /**
+   * Test for dosomething_reportback_schema().
+   */
+  public function testSchema() {
+    $tbl = $this->tbl_name;
+    $this->assertTrue(db_table_exists($tbl), $tbl . ' table exists.');
+    $this->assertTrue(db_field_exists($tbl, 'rbid'), 'rbid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'uid'), 'uid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'nid'), 'nid field exists.');
+    $this->assertTrue(db_field_exists($tbl, 'timestamp'), 'timestamp field exists.');
+    $this->assertTrue(db_index_exists($tbl, 'uid'), 'uid index exists.');
+  }
+}

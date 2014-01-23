@@ -39,6 +39,48 @@ function dosomething_fact_entity_info() {
   return $info;
 }
 
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function dosomething_fact_entity_property_info() {
+  $info = array();
+  $properties = &$info['fact']['properties'];
+
+  $properties['id'] = array(
+    'label' => t('Fact ID'),
+    'description' => t('The unique ID of the Fact,'),
+    'type' => 'integer',
+    'schema field' => 'id',
+  );
+  $properties['fact'] = array(
+    'label' => t('Fact'),
+    'description' => t('The fact.'),
+    'type' => 'text',
+    'schema field' => 'fact',
+  );
+  $properties['source'] = array(
+    'label' => t('Source'),
+    'description' => t('The source the fact comes from.'),
+    'type' => 'text',
+    'schema field' => 'source',
+  );
+  $properties['changed'] = array(
+    'label' => t('Updated Date'),
+    'description' => t('Date the fact was updated.'),
+    'type' => 'date',
+    'schema field' => 'changed',
+  );
+  $properties['created'] = array(
+    'label' => t('Created Date'),
+    'description' => t('Date the fact was created.'),
+    'type' => 'date',
+    'schema field' => 'created',
+  );
+
+  return $info;
+}
+
 /**
  * Implements hook_menu().
  */
@@ -63,28 +105,28 @@ function dosomething_fact_menu() {
 }
 
 /**
- * Determines whether the given user has access to a fact.
+ * Access callback for fact operations.
  *
- * @param $op
- *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
- * @param $account
- *   The user to check for. Leave it to NULL to check for the global user.
+ * @see entity_access().
  *
- * @return boolean
+ * @param string $op
+ *   The operation being performed. 
+ *   One of 'view', 'update', 'create', 'delete'.
+ * @param object $entity
+ *   The entity being operated on if a fact is loaded, e.g. fact/[id]. 
+ *   We may never use this param, but keeping in definition in case
+ *   we ever introduce author permissions like  "edit own fact".
+ *
+ * @return bool
  *   Whether access is allowed or not.
  *
  */
-function dosomething_fact_access($op, $account = NULL) {
+function dosomething_fact_access($op, $entity = NULL) {
+  $perm = $op . ' fact';
   if ($op == 'update') {
     $perm = 'edit fact';
   }
-  else {
-    $perm = $op . ' fact';
-  }
-  if (user_access($perm, $account)) {
-    return TRUE;
-  }
-  return FALSE;
+  return user_access($perm);
 }
 
 /**
@@ -176,3 +218,50 @@ function dosomething_fact_modal_add_form_submit(&$form, &$form_state) {
   $form_state['ajax_commands'][] = ajax_command_replace('#add-fact-status', '<div id="add-fact-status"><strong>' . t('New fact added:') . '</strong> ' . $form_state['values']['fact'] . '</div>');
 }
 
+/**
+ * Returns array of values of a Fact entityreference field.
+ *
+ * @param object $fact_field_wrapper
+ *   A Fact entityreference field as returned by entity_metadata_wrapper.
+ *   e.g. dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem)
+ *
+ * @return mixed
+ *   Array of fact values, or NULL if not a valid wrapper property.
+ *
+ */
+function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
+  // Make sure $fact_field_wrapper is an object.
+  if (is_object($fact_field_wrapper)) {
+    // If EntityDrupalWrapper, it's a single value field:
+    if (get_class($fact_field_wrapper) == 'EntityDrupalWrapper') {
+      return dosomething_fact_get_fact_wrapper_values($fact_field_wrapper);
+    }
+    // If EntityListWrapper, it's a multi-value field:
+    if (get_class($fact_field_wrapper) == 'EntityListWrapper') {
+      $values = array();
+      foreach ($fact_field_wrapper->getIterator() as $delta => $fact) {
+        $values[] = dosomething_fact_get_fact_wrapper_values($fact);
+      }
+      return $values;
+    }
+  }
+  // Return NULL as default.
+  return NULL;
+}
+
+/**
+ * Returns array of values of a Fact entity.
+ *
+ * @param object $fact_wrapper
+ *   A Fact entityreference as returned by entity_metadata_wrapper.
+ *
+ * @return array
+ *   Array of fact values.
+ *
+ */
+function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+  return array(
+    'fact' => $fact_wrapper->fact->value(),
+    'source' => $fact_wrapper->source->value(),
+  );
+}

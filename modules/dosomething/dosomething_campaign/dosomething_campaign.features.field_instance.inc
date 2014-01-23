@@ -10,6 +10,210 @@
 function dosomething_campaign_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'field_collection_item-field_faq-field_compound_text_copy'
+  $field_instances['field_collection_item-field_faq-field_compound_text_copy'] = array(
+    'bundle' => 'field_faq',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Answer',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_faq-field_compound_text_header'
+  $field_instances['field_collection_item-field_faq-field_compound_text_header'] = array(
+    'bundle' => 'field_faq',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Question',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_post-field_compound_text_copy'
+  $field_instances['field_collection_item-field_step_post-field_compound_text_copy'] = array(
+    'bundle' => 'field_step_post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_post-field_compound_text_header'
+  $field_instances['field_collection_item-field_step_post-field_compound_text_header'] = array(
+    'bundle' => 'field_step_post',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_pre-field_compound_text_copy'
+  $field_instances['field_collection_item-field_step_pre-field_compound_text_copy'] = array(
+    'bundle' => 'field_step_pre',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_step_pre-field_compound_text_header'
+  $field_instances['field_collection_item-field_step_pre-field_compound_text_header'] = array(
+    'bundle' => 'field_step_pre',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_header',
+    'label' => 'Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_action_type'
   $field_instances['node-campaign-field_action_type'] = array(
     'bundle' => 'campaign',
@@ -101,7 +305,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. "Create an action plan to protect prescription drugs in your home from young children." or "Send a handmade birthday card to a child experiencing homelessness." 
+<br/>
+<strong> Limit: 65 characters </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -191,7 +397,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Include the link of the Google doc that proves the impact of the campaign.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -215,7 +421,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_confirmation_doc',
-    'label' => 'Internal Confirmation Doc URL',
+    'label' => 'Proof of Impact',
     'required' => 0,
     'settings' => array(
       'attributes' => array(
@@ -291,7 +497,7 @@ function dosomething_campaign_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 24,
+      'weight' => 23,
     ),
   );
 
@@ -300,7 +506,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Ideally this is a stat; should always be based on research. Compels people to care about the issue. i.e. 1 in 3 homeless people are under the age of 18. 
+<br/>
+<strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -326,7 +534,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_fact_problem',
-    'label' => 'Problem Fact',
+    'label' => 'Problem Statement',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -349,7 +557,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This should always be based on research - if possible it should be a stat. It is information that shows the call to action is what to do. i.e. "Number one thing teens ask for when arriving at a shelter is a pair of jeans."
+<br/>
+<strong> Limit: 135 characters. </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -375,7 +585,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_fact_solution',
-    'label' => 'Solution Fact',
+    'label' => 'Solution Statement - The Insight',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -398,7 +608,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This will open up as a separate modal. Only fill this out if you have 3+ stats you want the user to learn about.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -438,7 +648,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -451,30 +661,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 10,
+        'type' => 'field_collection_view',
+        'weight' => 31,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -491,37 +693,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 7,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 8,
     ),
   );
 
@@ -529,7 +705,7 @@ function dosomething_campaign_field_default_field_instances() {
   $field_instances['node-campaign-field_high_season'] = array(
     'bundle' => 'campaign',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Is there a time when this campaign should be heavily weighted and highly promoted in the campaign finder? If so, include a start date. Includes things like staff pick campaigns, beach cleanups (summer months), campaign ideas for the holidays, etc.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -634,12 +810,12 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_image_campaign_gallery'
-  $field_instances['node-campaign-field_image_campaign_gallery'] = array(
+  // Exported field_instance: 'node-campaign-field_image_psa_replacement'
+  $field_instances['node-campaign-field_image_psa_replacement'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'If there is no PSA then this image is required.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -648,13 +824,13 @@ function dosomething_campaign_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 38,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -664,8 +840,8 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_image_campaign_gallery',
-    'label' => 'Campaign Gallery',
+    'field_name' => 'field_image_psa_replacement',
+    'label' => 'PSA Replacement Image',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -679,7 +855,105 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 12,
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_image_reportback_gallery'
+  $field_instances['node-campaign-field_image_reportback_gallery'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 50,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_reportback_gallery',
+    'label' => 'Prove it Gallery',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_image_step_gallery'
+  $field_instances['node-campaign-field_image_step_gallery'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 49,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_step_gallery',
+    'label' => 'Do It Gallery',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 14,
     ),
   );
 
@@ -688,7 +962,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). To create bullet points put "* " in front of the word. For instance "* paper * crayons * smiles" 
+<br/> 
+<strong> Limit: 135  </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -712,7 +988,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_items_needed',
-    'label' => 'Items Needed',
+    'label' => 'Stuff You Need',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -725,7 +1001,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 12,
     ),
   );
 
@@ -762,7 +1038,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_location_finder',
-    'label' => 'I need a location finder',
+    'label' => 'Location Finder Needed',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -782,7 +1058,7 @@ function dosomething_campaign_field_default_field_instances() {
   $field_instances['node-campaign-field_low_season'] = array(
     'bundle' => 'campaign',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Is there a time when this campaign should be lightly weighted in the campaign finder? If so include a start date. We don\'t want to be highlighting beach cleanups in the winter or Thanksgiving ideas in the summer.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -833,7 +1109,285 @@ function dosomething_campaign_field_default_field_instances() {
         'year_range' => '-0:+0',
       ),
       'type' => 'date_select',
-      'weight' => 23,
+      'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_official_rules'
+  $field_instances['node-campaign-field_official_rules'] = array(
+    'bundle' => 'campaign',
+    'deleted' => 0,
+    'description' => 'If there is a prize to be won, you must include a PDF of the official rules.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 35,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_official_rules',
+    'label' => 'Official Rules',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => 'offical-rules',
+      'file_extensions' => 'txt pdf',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 42,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_photo_step'
+  $field_instances['node-campaign-field_photo_step'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 43,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_photo_step',
+    'label' => 'Snap a Pic',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 46,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_post_step_copy'
+  $field_instances['node-campaign-field_post_step_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 48,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_step_copy',
+    'label' => 'Post Step Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 48,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_post_step_header'
+  $field_instances['node-campaign-field_post_step_header'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 47,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_step_header',
+    'label' => 'Post Step Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 47,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_pre_step_copy'
+  $field_instances['node-campaign-field_pre_step_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 46,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_step_copy',
+    'label' => 'Pre Step Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 44,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_pre_step_header'
+  $field_instances['node-campaign-field_pre_step_header'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 45,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_step_header',
+    'label' => 'Pre Step Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 43,
     ),
   );
 
@@ -842,7 +1396,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press... 
+<br/>
+<strong> Limit: 135 character </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -866,7 +1422,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_promoting_tips',
-    'label' => 'Promoting Tips',
+    'label' => 'Hype',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -888,20 +1444,20 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The ID of the youtube video <strong> (comes after the ?v=) </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'link',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 18,
+        'type' => 'text_default',
+        'weight' => 51,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -915,31 +1471,111 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'PSA',
     'required' => 0,
     'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'rel_remove' => 'default',
-      'title' => 'none',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
-      'validate_url' => 1,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 8,
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_report_back_confirm_msg'
+  $field_instances['node-campaign-field_report_back_confirm_msg'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
+<br/>
+<strong> Limit 60 characters. </strong>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 44,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_report_back_confirm_msg',
+    'label' => 'Report Back Confirmation Sentence',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 43,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_report_back_copy'
+  $field_instances['node-campaign-field_report_back_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 52,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_report_back_copy',
+    'label' => 'Report Back Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 40,
     ),
   );
 
@@ -948,7 +1584,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -985,7 +1621,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 28,
+      'weight' => 38,
     ),
   );
 
@@ -994,7 +1630,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1031,7 +1667,108 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 29,
+      'weight' => 39,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_scholarship_amount'
+  $field_instances['node-campaign-field_scholarship_amount'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 34,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_scholarship_amount',
+    'label' => 'Scholarship Amount',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '$',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 41,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_solution_support'
+  $field_instances['node-campaign-field_solution_support'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.") 
+<br/>
+<strong> Limit: 135 characters </strong>
+',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 37,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_solution_support',
+    'label' => 'Supporting Statement on the Solution',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 6,
     ),
   );
 
@@ -1136,7 +1873,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
+<br/>
+<strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1177,52 +1916,6 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_step_photo'
-  $field_instances['node-campaign-field_step_photo'] = array(
-    'bundle' => 'campaign',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 19,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_step_photo',
-    'label' => 'Take a Photo Step',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 25,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign-field_step_post'
   $field_instances['node-campaign-field_step_post'] = array(
     'bundle' => 'campaign',
@@ -1232,30 +1925,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 12,
+        'type' => 'field_collection_view',
+        'weight' => 33,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1272,37 +1957,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 27,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 49,
     ),
   );
 
@@ -1315,30 +1974,22 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'double_field',
+        'module' => 'field_collection',
         'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 11,
+        'type' => 'field_collection_view',
+        'weight' => 32,
       ),
       'pitch' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1355,37 +2006,11 @@ function dosomething_campaign_field_default_field_instances() {
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 60,
-          ),
-        ),
-        'inline' => 0,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textarea' => array(
-            'cols' => 10,
-            'placeholder' => '',
-            'resizable' => 1,
-            'rows' => 5,
-          ),
-        ),
-      ),
-      'type' => 'textfield_&_textarea',
-      'weight' => 26,
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 45,
     ),
   );
 
@@ -1440,7 +2065,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate." 
+<br/>
+<strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1477,7 +2104,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -1486,7 +2113,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars. 
+<br/>
+<strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1523,7 +2152,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -1531,33 +2160,88 @@ function dosomething_campaign_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action Type');
   t('Active Hours');
+  t('Answer');
   t('Call to Action');
-  t('Campaign Gallery');
   t('Campaign Specific Starter Statement');
   t('Cause');
+  t('Copy');
   t('Cover Image');
+  t('Do It Gallery');
   t('FAQ');
   t('Facts');
+  t('Header');
   t('High Season');
-  t('I need a location finder');
-  t('Internal Confirmation Doc URL');
+  t('Hype');
+  t('Ideally this is a stat; should always be based on research. Compels people to care about the issue. i.e. 1 in 3 homeless people are under the age of 18. 
+<br/>
+<strong> Limit: 135 characters </strong>');
+  t('If there is a prize to be won, you must include a PDF of the official rules.');
+  t('If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.');
+  t('If there is no PSA then this image is required.');
+  t('If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.") 
+<br/>
+<strong> Limit: 135 characters </strong>
+');
+  t('Include the link of the Google doc that proves the impact of the campaign.');
   t('Is Staff Pick');
-  t('Items Needed');
+  t('Is there a time when this campaign should be heavily weighted and highly promoted in the campaign finder? If so, include a start date. Includes things like staff pick campaigns, beach cleanups (summer months), campaign ideas for the holidays, etc.');
+  t('Is there a time when this campaign should be lightly weighted in the campaign finder? If so include a start date. We don\'t want to be highlighting beach cleanups in the winter or Thanksgiving ideas in the summer.');
+  t('Location Finder Needed');
   t('Low Season');
+  t('Official Rules');
   t('PSA');
-  t('Problem Fact');
-  t('Promoting Tips');
+  t('PSA Replacement Image');
+  t('Post Step Copy');
+  t('Post Step Header');
+  t('Pre Step Copy');
+  t('Pre Step Header');
+  t('Problem Statement');
+  t('Proof of Impact');
+  t('Prove it Gallery');
+  t('Question');
+  t('Report Back Confirmation Sentence');
+  t('Report Back Copy');
   t('Report Back Noun');
   t('Report Back Verb');
+  t('Scholarship Amount');
+  t('Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
+<br/>
+<strong> Limit 60 characters. </strong>');
   t('Show End Date on Pitch & Action Page');
-  t('Solution Fact');
+  t('Snap a Pic');
+  t('Solution Statement - The Insight');
   t('Sponsor');
   t('Step Post');
   t('Step Pre');
+  t('Stuff You Need');
+  t('Supporting Statement on the Solution');
   t('Tags');
-  t('Take a Photo Step');
+  t('The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
+<br/>
+<strong> Limit: 135 characters </strong>');
+  t('This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). To create bullet points put "* " in front of the word. For instance "* paper * crayons * smiles" 
+<br/> 
+<strong> Limit: 135  </strong>');
+  t('This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press... 
+<br/>
+<strong> Limit: 135 character </strong>');
+  t('This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. "Create an action plan to protect prescription drugs in your home from young children." or "Send a handmade birthday card to a child experiencing homelessness." 
+<br/>
+<strong> Limit: 65 characters </strong>');
+  t('This should always be based on research - if possible it should be a stat. It is information that shows the call to action is what to do. i.e. "Number one thing teens ask for when arriving at a shelter is a pair of jeans."
+<br/>
+<strong> Limit: 135 characters. </strong>');
+  t('This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate." 
+<br/>
+<strong> Limit: 135 characters </strong>');
+  t('This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars. 
+<br/>
+<strong> Limit: 135 characters </strong>');
+  t('This will open up as a separate modal. Only fill this out if you have 3+ stats you want the user to learn about.');
   t('Time and Place');
   t('VIPs');
+  t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
+  t('i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected');
 
   return $field_instances;
 }
