@@ -98,33 +98,79 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     }
     elseif ($vars['view_mode'] == 'full'){
-
-      // Single value variables:
-      $vars['solution_support'] = $wrapper->field_solution_support->value();
-
-      // Collect fact values for tpl variables.
-      $fact_problem = $wrapper->field_fact_problem->value();
-      if (isset($fact_problem)) {
-        $vars['fact_problem'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_fact_problem);
-      }
-      $fact_solution = $wrapper->field_fact_solution->value();
-      if (isset($fact_solution)) {
-        $vars['fact_solution'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_fact_solution);
-      }
-      $more_facts = $wrapper->field_facts->value();
-      if (isset($more_facts)) {
-        $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
-      }
-
-      // Collect all field_collection field values for easier theming.
-      $field_collections = array('faq', 'step_pre', 'step_post');
-      foreach ($field_collections as $fc) {
-        $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
-      }
-
+      // Gather the vars for the action page.
+      dosomething_campaign_preprocess_action_page($vars, $wrapper);
       // Output reportback form:
       $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper);
     }
+  }
+}
+
+/**
+ * Preprocesses variables for a campaign action page.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ * @param object $wrapper
+ *   The corresponding entity wrapper for the node in $vars.
+ */
+function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
+  // Know.
+  // Single value variables:
+  $vars['solution_support'] = $wrapper->field_solution_support->value();
+
+  // Collect fact values for tpl variables.
+  $fact_problem = $wrapper->field_fact_problem->value();
+  if (isset($fact_problem)) {
+    $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem);
+  }
+  $fact_solution = $wrapper->field_fact_solution->value();
+  if (isset($fact_solution)) {
+    $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_solution);
+  }
+
+  $more_facts = $wrapper->field_facts->value();
+  if (isset($more_facts)) {
+    $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
+  }
+
+  // Collect all field_collection field values for easier theming.
+  $field_collections = array('faq', 'step_pre', 'step_post');
+  foreach ($field_collections as $fc) {
+    $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
+  }
+
+  $psa = $wrapper->field_psa->value();
+  if (isset($psa)) {
+    $vars['psa'] = '<iframe id="ytplayer" type="text/html" width="640" height="390"
+     src="http://youtube.com/embed/' . $psa . '"' . '"frameborder="0"/>';
+  }
+  else {
+    // @TODO: real image logic
+    $vars['psa'] = $vars['field_image_psa_replacement'][0]['entity']->field_image_square[LANGUAGE_NONE][0]['uri'];
+  }
+
+  // Plan.
+  $vars['starter'] = $wrapper->field_starter_statement->value();
+  $vars['time'] = $wrapper->field_time_and_place->value();
+  $vars['vips'] = $wrapper->field_vips->value();
+  $vars['hype'] = $wrapper->field_promoting_tips->value();
+  $vars['items_needed'] = $wrapper->field_items_needed->value();
+
+  // Do.
+  $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();
+  $vars['pre_step_copy'] = $wrapper->field_pre_step_copy->value();
+  $vars['pic_step'] = $wrapper->field_photo_step->value();
+  $vars['post_step_header'] = $wrapper->field_post_step_header->value();
+  $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
+
+  // Prove.
+  $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
+
+  // Collect all field_collection field values for easier theming.
+  $field_collections = array('faq', 'step_pre', 'step_post');
+  foreach ($field_collections as $fc) {
+    $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 }
 
