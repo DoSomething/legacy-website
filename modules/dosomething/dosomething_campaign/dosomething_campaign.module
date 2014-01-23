@@ -166,12 +166,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
-
-  // Collect all field_collection field values for easier theming.
-  $field_collections = array('faq', 'step_pre', 'step_post');
-  foreach ($field_collections as $fc) {
-    $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
-  }
 }
 
 /**
