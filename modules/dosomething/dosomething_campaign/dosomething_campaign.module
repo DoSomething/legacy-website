@@ -99,7 +99,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     }
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.
-      dosomething_campagin_preprocess_action_page($vars, $wrapper);
+      dosomething_campaign_preprocess_action_page($vars, $wrapper);
       // Output reportback form:
       $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper);
     }
@@ -114,7 +114,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
  * @param object $wrapper
  *   The corresponding entity wrapper for the node in $vars.
  */
-function dosomething_campagin_preprocess_action_page(&$vars, &$wrapper) {
+function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Know.
   // Single value variables:
   $vars['solution_support'] = $wrapper->field_solution_support->value();
