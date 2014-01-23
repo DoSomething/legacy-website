@@ -43,6 +43,10 @@ projects[entityreference][subdir] = "contrib"
 projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
 
+; Field Collection
+projects[field_group] = "1.0-beta5"
+projects[field_group][subdir] = "contrib"
+
 ; Field Group
 projects[field_group] = "1.3"
 projects[field_group][subdir] = "contrib"
