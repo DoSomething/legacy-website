@@ -105,32 +105,28 @@ function dosomething_fact_menu() {
 }
 
 /**
- * Determines whether the given user has access to a fact.
+ * Access callback for fact operations.
  *
- * @param $op
- *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
- * @param $account
- *   The user to check for. Leave it to NULL to check for the global user.
+ * @see entity_access().
  *
- * @return boolean
+ * @param string $op
+ *   The operation being performed. 
+ *   One of 'view', 'update', 'create', 'delete'.
+ * @param object $entity
+ *   The entity being operated on if a fact is loaded, e.g. fact/[id]. 
+ *   We may never use this param, but keeping in definition in case
+ *   we ever introduce author permissions like  "edit own fact".
+ *
+ * @return bool
  *   Whether access is allowed or not.
  *
  */
-function dosomething_fact_access($op, $account = NULL) {
-  if (!isset($account)) {
-    global $user;
-    $account = $user;
-  }
+function dosomething_fact_access($op, $entity = NULL) {
+  $perm = $op . ' fact';
   if ($op == 'update') {
     $perm = 'edit fact';
   }
-  else {
-    $perm = $op . ' fact';
-  }
-  if (user_access($perm, $account)) {
-    return TRUE;
-  }
-  return FALSE;
+  return user_access($perm);
 }
 
 /**
