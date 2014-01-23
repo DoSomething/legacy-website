@@ -119,7 +119,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Single value variables:
   $vars['solution_support'] = $wrapper->field_solution_support->value();
 
-  // Collect fact values for tpl variables.
+  // Collect fact values as tpl variables.
   $fact_problem = $wrapper->field_fact_problem->value();
   if (isset($fact_problem)) {
     $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem);
@@ -134,7 +134,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
   }
 
-  // Collect all field_collection field values for easier theming.
+  // Collect all field_collection values as vars.
   $field_collections = array('faq', 'step_pre', 'step_post');
   foreach ($field_collections as $fc) {
     $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
@@ -189,8 +189,8 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
  * @param string $field_name
  *   The field_collection field to return values from.
  *
- * @return array
- *   Multi-dimensional array of field collection values.
+ * @return mixed
+ *   Multi-dimensional array of field collection values or NULL if empty.
  *
  */
 function dosomething_campaign_get_field_collection_values($wrapper, $field_name) {
@@ -204,5 +204,8 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
       'copy' => $copy['safe_value'],
     );
   }
-  return $values;
+  if (!empty($values)) {
+    return $values;
+  } 
+  return NULL;
 }
