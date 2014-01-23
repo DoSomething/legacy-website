@@ -31,6 +31,10 @@ projects[double_field][patch][] = "http://drupalcode.org/project/double_field.gi
 projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
 
+; Entity Connect
+projects[entity_connect] = "1.0-rc1"
+projects[entity][subdir] = "contrib"
+
 ; Entity Reference
 projects[entityreference] = "1.1"
 projects[entityreference][subdir] = "contrib"

@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Static Content feature.
+ */
+
+include_once 'dosomething_static_content.features.inc';
+
+function dosomething_static_content_preprocess_node(&$vars) {
+  dpm($vars, 'vars');
+  //dosomething_image_get_image($field, $ratio);
+}
