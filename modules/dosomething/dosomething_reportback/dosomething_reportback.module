@@ -49,32 +49,41 @@ function dosomething_reportback_entity_property_info() {
     'type' => 'integer',
     'schema field' => 'rbid',
     'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
   );
   $properties['nid'] = array(
     'label' => t('Node nid'),
     'description' => t('The node nid of the reportback.'),
     'type' => 'node',
     'schema field' => 'nid',
+    'required' => TRUE,
     'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
   );
   $properties['uid'] = array(
     'label' => t('User uid'),
     'description' => t('The user uid of the reportback.'),
     'type' => 'user',
     'schema field' => 'uid',
+    'required' => TRUE,
     'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
   );
   $properties['created'] = array(
     'label' => t('Created Date'),
     'description' => t('Date the reportback was created.'),
     'type' => 'date',
+    'required' => TRUE,
     'schema field' => 'created',
+    'setter callback' => 'entity_property_verbatim_set',
   );
   $properties['quantity'] = array(
     'label' => t('Quantity'),
     'description' => t('The number of reportback_nouns reportback_verbed.'),
     'type' => 'integer',
+    'required' => TRUE,
     'schema field' => 'quantity',
+    'setter callback' => 'entity_property_verbatim_set',
   );
   return $info;
 }
@@ -100,11 +109,19 @@ function dosomething_reportback_menu() {
     'access arguments' => array('view', 1),
   );
   $items['reportback/%reportback/edit'] = array(
-    'title callback' => 'Reportback',
+    'title callback' => 'Edit Reportback',
     'page callback' => 'dosomething_reportback_edit_entity',
     'page arguments' => array(1),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['reportback/%reportback/delete'] = array(
+    'title callback' => 'Delete Reportback',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_delete_form', 1),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('delete', 1),
     'type' => MENU_LOCAL_TASK,
   );
   return $items;
@@ -180,6 +197,25 @@ function dosomething_reportback_view_entity($entity) {
 }
 
 /**
+ * Process variables for entity.tpl.php.
+ *
+ * @see template_preprocess_entity in Entity API module.
+ */
+function dosomething_reportback_preprocess_entity(&$variables) {
+  if ($variables['elements']['#entity_type'] == 'reportback' && $variables['view_mode'] == 'full') {
+    // Enables reportback.tpl.php naming suggestion.
+    $variables['theme_hook_suggestions'][] = 'reportback';
+    $entity = $variables['elements']['#entity'];
+    if (dosomething_reportback_access('edit', $entity)) {
+      $variables['edit_link'] = l('Update', 'reportback/' . $entity->rbid . '/edit');
+    }
+    if (dosomething_reportback_access('delete', $entity)) {
+      $variables['delete_link'] = l('Delete', 'reportback/' . $entity->rbid . '/delete');
+    }
+  }
+}
+
+/**
  * Callback for /reportback/ID/edit page.
  */
 function dosomething_reportback_edit_entity($entity) {
@@ -199,8 +235,10 @@ function dosomething_reportback_edit_entity($entity) {
  */
 function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
   if (!isset($entity)) {
-    $entity = entity_create('reportback', array());
-    $entity->rbid = 0;
+    $entity = entity_create('reportback', array(
+      'rbid' => 0,
+      'quantity' => ''
+    ));
   }
   $form['rbid'] = array(
     '#type' => 'hidden',
@@ -237,25 +275,162 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
-  $is_new = FALSE;
+  $values['uid'] = $user->uid;
+  $values['files'] = array();
+  // Loop through User Reportback Images field:
+  foreach ($values['field_image_user_reportback'][LANGUAGE_NONE] as $delta => $file) {
+    // Exclude the "add another" field (which has fid value 0).
+    if ($file['fid'] != 0) {
+      $values['files'][] = $file;
+    }
+  }
   if ($values['rbid'] == 0) {
     $entity = entity_create('reportback', array());
-    $is_new = TRUE;
-    // @todo: Store reportback confirmation message.
-    $msg = t("Thanks for reporting back!");
+    $rbid = dosomething_reportback_insert_reportback($values);
+    if ($rbid) {
+      // @todo: Use node's reportback message confirmation.
+      drupal_set_message(t("Reportback $rbid created."));
+      return;
+    }
   }
   else {
-    // @todo: Test that entity author belongs to our user, if user can only edit own.
-    // In case someone's messing with values in browser inspector.
-    // Could potentially also make sure that signup value exists for uid / nid.
-    $entity = entity_load_single('reportback', $values['rbid']);
-    $msg = t("Reportback updated.");
+    $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
+    if ($rbid) {
+      drupal_set_message(t("Reportback updated."));
+      return;
+    }
   }
-  $entity->nid = $values['nid'];
-  $entity->quantity = $values['quantity'];
-  // Attach field data from the form:
-  field_attach_submit('reportback', $entity, $form, $form_state);
-  // Save entity.
-  entity_save('reportback', $entity);
-  drupal_set_message($msg);
+  // If we didn't break out of function by now, insert/update didn't work.
+  drupal_set_message(t("An error has occurred.", 'error'));
 }
+
+/**
+ * Form constructor for a reportback delete form.
+ *
+ * @param object $entity
+ *   The reportback entity to delete.
+ *
+ * @ingroup forms
+ */
+function dosomething_reportback_delete_form($form, &$form_state, $entity) {
+  $form['rbid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $entity->rbid,
+  );
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $entity->nid,
+  );
+  $form['warning'] = array(
+    '#markup' => t("Are you sure you want to delete this reportback?  This cannot be undone."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_reportback_delete_form().
+ */
+function dosomething_reportback_delete_form_submit($form, &$form_state) {
+  $rbid = $form_state['values']['rbid'];
+  // Check for user screwing with form values via browser type firebuggin' things.
+  // This check will only work if the form lives only on reportback/*/delete.
+  if ($rbid == arg(1)) {
+    dosomething_reportback_delete_reportback($rbid);
+    // Redirect back to the node that the reportback was for.
+    $form_state['redirect'] = 'node/' . $form_state['values']['nid'];
+    drupal_set_message(t("Reportback deleted."));
+  }
+  // Else, there was some rat fuckery.
+  drupal_set_message(t("There was an error processing your request."));
+}
+
+/**
+ * Inserts a reportback entity.
+ *
+ * @param array $values
+ *   An array of expected reportback values.
+ *
+ * @return mixed
+ *   Newly inserted reportback rbid if success, or FALSE if error.
+ */
+function dosomething_reportback_insert_reportback($values) {
+  $entity = entity_create('reportback', array());
+  return dosomething_reportback_save($entity, $values);
+}
+
+/**
+ * Updates a reportback entity.
+ *
+ * @param array $values
+ *   An array of expected reportback values.
+ *
+ * @return mixed
+ *   The updated reportback rbid if success, or FALSE if error.
+ */
+function dosomething_reportback_update_reportback($rbid, $values) {
+  $entity = entity_load_single('reportback', $rbid);
+  return dosomething_reportback_save($entity, $values);
+}
+
+/**
+ * Deletes a reportback entity.
+ *
+ * @param int $rbid
+ *   Reportback rbid to delete.
+ *
+ * @return
+ *   FALSE, if error.
+ */
+function dosomething_reportback_delete_reportback($rbid) {
+  return entity_delete('reportback', $rbid);
+}
+
+/**
+ * Saves a reportback entity.
+ *
+ * @param array $values
+ *   The reportback entity values to save.
+ * @param object $entity
+ *   The reportback entity to save (may be a blank entity if insert).
+ *
+ *
+ * @return mixed
+ *   The reportback entity rbid if success, or FALSE if error.
+ */
+function dosomething_reportback_save($entity, $values) {
+  try {
+    $wrapper = entity_metadata_wrapper('reportback', $entity);
+    $wrapper->uid->set($values['uid']);
+    $wrapper->nid->set($values['nid']);
+    $wrapper->quantity->set($values['quantity']);
+    $num_images = count($wrapper->field_image_user_reportback);
+    $i = 0;
+    // Loop through all existing values in the form to write.
+    foreach ($values['files'] as $delta => $file) {
+      $wrapper->field_image_user_reportback[$i] = array('fid' => (int) $file['fid']);
+      $i++;
+    }
+    // Are there any more images stored than what we have in the form?
+    if (isset($wrapper->field_image_user_reportback[$i])) {
+      // Loop through remaining image values in the field.
+      for ($i=$i; $i<$num_images; $i++) {
+        // It means they were removed, so unset them.
+        unset($wrapper->field_image_user_reportback[$i]);
+      }
+    }
+    $wrapper->save();
+    return $wrapper->rbid->value();
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
+

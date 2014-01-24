@@ -141,11 +141,13 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $psa = $wrapper->field_psa->value();
   if (isset($psa)) {
     $vars['psa'] = '<iframe id="ytplayer" type="text/html" width="640" height="390"
-     src="http://youtube.com/embed/' . $psa . '"' . '"frameborder="0"/>';
+     src="http://youtube.com/embed/' . $psa . '"' . 'frameborder="0"/>';
   }
   else {
-    // @TODO: real image logic
-    $vars['psa'] = $vars['field_image_psa_replacement'][0]['entity']->field_image_square[LANGUAGE_NONE][0]['uri'];
+    if (isset($vars['field_image_psa_replacement'][0])) {
+      $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
+      $vars['psa'] = dosomething_image_get_image($psa_nid, 'horiz', '720x310');
+    }
   }
 
   // Plan.
@@ -164,6 +166,23 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
+
+  // Images.
+  if (isset($vars['field_image_campaign_cover'][0])) {
+    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+    $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
+    $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+  }
+
+  // Image galleries.
+  foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
+    $nid = $step_image['entity']->nid;
+    $vars['step_image'][$key] = dosomething_image_get_image($nid, 'sq', '310x310');
+  }
+  foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
+    $rb_image['nid'] = $rb_image['entity']->nid;
+    $vars['reportback_image'][$key] = dosomething_image_get_image($rb_image['nid'], 'horiz', '740x480');
+  }
 }
 
 /**
@@ -204,6 +223,6 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
   }
   if (!empty($values)) {
     return $values;
-  } 
+  }
   return NULL;
 }
