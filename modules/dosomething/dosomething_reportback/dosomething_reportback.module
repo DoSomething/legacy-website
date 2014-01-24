@@ -261,6 +261,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     ),
     '#default_value' => $entity->quantity,
   );
+
   // Attach all reportback entity fields to the form:
   field_attach_form('reportback', $entity, $form, $form_state);
   $form['actions'] = array(
@@ -295,15 +296,16 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $entity = entity_create('reportback', array());
     $rbid = dosomething_reportback_insert_reportback($values);
     if ($rbid) {
-      // @todo: Use node's reportback message confirmation.
-      drupal_set_message(t("Reportback $rbid created."));
+      // Load node to get reportback message confirmation.
+      $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
+      drupal_set_message($node_wrapper->field_report_back_confirm_msg->value());
       return;
     }
   }
   else {
     $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
     if ($rbid) {
-      drupal_set_message(t("Reportback updated."));
+      drupal_set_message(t("Your submission has been updated."));
       return;
     }
   }
