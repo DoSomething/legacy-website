@@ -99,8 +99,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
-      // Output reportback form:
-      $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper);
     }
   }
 }
@@ -183,6 +181,18 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $rb_image['nid'] = $rb_image['entity']->nid;
     $vars['reportback_image'][$key] = dosomething_image_get_image($rb_image['nid'], 'horiz', '740x480');
   }
+
+  // Reportback form.
+  // Intialize reportback entity to NULL.
+  $reportback = NULL;
+  $vars['reportback_link_label'] = t("Submit Your Pic");
+  // If logged in user's reportback exists for this node,
+  if ($rbid = dosomething_reportback_exists($vars['nid'])) {
+    // Load existing reportback entity to pass through to reportback form.
+    $reportback = entity_load_single('reportback', $rbid);
+    $vars['reportback_link_label'] = t("Update Submission");
+  }
+  $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
 }
 
 /**

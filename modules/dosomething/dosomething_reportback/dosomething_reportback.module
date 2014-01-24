@@ -226,7 +226,7 @@ function dosomething_reportback_edit_entity($entity) {
 }
 
 /**
- * Form constructor for a node reportback form.
+ * Form constructor for a node reportback create/update form.
  *
  * @param object $wrapper
  *   An entity_metadata_wrapper of the node to report back for.
@@ -234,11 +234,14 @@ function dosomething_reportback_edit_entity($entity) {
  * @ingroup forms
  */
 function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
+  $submit_label = t("Update");
+  // If entity is not set, this is a create form.
   if (!isset($entity)) {
     $entity = entity_create('reportback', array(
       'rbid' => 0,
       'quantity' => ''
     ));
+    $submit_label = t("Submit");
   }
   $form['rbid'] = array(
     '#type' => 'hidden',
@@ -250,7 +253,8 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
   );
   $form['quantity'] = array(
     '#type' => 'textfield',
-    '#title' => t("How many @noun did you @verb?", array(
+    '#required' => TRUE,
+    '#title' => t("Total number of @noun @verb", array(
         '@noun' => $wrapper->field_report_back_noun->value(),
         '@verb' => $wrapper->field_report_back_verb->value(),
       )
@@ -263,7 +267,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Submit'),
+      '#value' => $submit_label,
     ),
   );
   return $form;
@@ -274,6 +278,8 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
+  // @todo: Check that $form_state['values']['nid'] == arg(1), 
+  // If we can assume this form is always rendered on campaign.
   $values = $form_state['values'];
   $values['uid'] = $user->uid;
   $values['files'] = array();
@@ -284,6 +290,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       $values['files'][] = $file;
     }
   }
+  // @todo: Sort $files array by the weight field, to allow for re-ordering.
   if ($values['rbid'] == 0) {
     $entity = entity_create('reportback', array());
     $rbid = dosomething_reportback_insert_reportback($values);
@@ -390,6 +397,37 @@ function dosomething_reportback_update_reportback($rbid, $values) {
  */
 function dosomething_reportback_delete_reportback($rbid) {
   return entity_delete('reportback', $rbid);
+}
+
+/**
+ * Checks if a reportback exists for given $nid and $uid.
+ *
+ * @param int $nid
+ *   The node nid of the reportback to check.
+ * @param int $uid
+ *   Optional - the user uid of reportback to check.  
+ *   If not given, uses global $user->uid.
+ *
+ * @return mixed
+ *   The rbid of reportback or FALSE if it doesn't exist.
+ */
+function dosomething_reportback_exists($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $result = db_select('dosomething_reportback', 'r')
+    ->condition('uid', $uid)
+    ->condition('nid', $nid)
+    ->fields('r', array('rbid'))
+    ->execute();
+  $rbid = $result->fetchField(0);
+  // If a rbid was found, return it.
+  if (is_numeric($rbid)) {
+    return $rbid;
+  }
+  // Otherwise return FALSE.
+  return FALSE;
 }
 
 /**
