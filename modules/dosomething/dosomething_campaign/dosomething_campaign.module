@@ -165,9 +165,20 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
 
+  // Images.
   $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
   $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
   $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+
+  // Image galleries.
+  foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
+    $nid = $step_image['entity']->nid;
+    $vars['step_image'][$key] = dosomething_image_get_image($nid, 'sq', '310x310');
+  }
+  foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
+    $rb_image['nid'] = $rb_image['entity']->nid;
+    $vars['reportback_image'][$key] = dosomething_image_get_image($rb_image['nid'], 'horiz', '740x480');
+  }
 }
 
 /**
