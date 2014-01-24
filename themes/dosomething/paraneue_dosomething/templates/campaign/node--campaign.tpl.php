@@ -1,5 +1,7 @@
 <div class="content clearfix <?php print $classes; ?>">
-<?php print $hero_image_l; ?>
+<?php if (isset($hero_image_l)) : ?>
+  <?php print $hero_image_l; ?>
+<?php endif; ?>
 <?php print $cta; ?>
   <h2> Know It </h2>
   <?php if (isset($fact_problem)): ?>
