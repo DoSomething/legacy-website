@@ -30,8 +30,6 @@ class ReportbackEntityController extends EntityAPIController {
   public function save($entity, DatabaseTransaction $transaction = NULL) {
     if (isset($entity->is_new)) {
       $entity->created = REQUEST_TIME;
-      global $user;
-      $entity->uid = $user->uid;
     }
     return parent::save($entity, $transaction);
   }
