@@ -8,8 +8,8 @@ include_once 'dosomething_image.features.inc';
 
 /**
  * Returns an image src for any image field
- * @param array $nid
- *  The image node.
+ * @param int $nid
+ *  The image node id.
  * @param string $ratio
  *  The image field to pull from the desired image ratio (vert, horiz, sq).
  * @param string $style
