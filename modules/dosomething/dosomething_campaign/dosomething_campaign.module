@@ -144,8 +144,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
      src="http://youtube.com/embed/' . $psa . '"' . 'frameborder="0"/>';
   }
   else {
-    $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
-    $vars['psa'] = dosomething_image_get_image($psa_nid, 'horiz', '720x310');
+    if (isset($vars['field_image_psa_replacement'][0])) {
+      $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
+      $vars['psa'] = dosomething_image_get_image($psa_nid, 'horiz', '720x310');
+    }
   }
 
   // Plan.
@@ -166,9 +168,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
 
   // Images.
-  $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-  $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
-  $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+  if (isset($vars['field_image_campaign_cover'][0])) {
+    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+    $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
+    $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+  }
 
   // Image galleries.
   foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
