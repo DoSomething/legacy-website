@@ -8,28 +8,33 @@ include_once 'dosomething_image.features.inc';
 
 /**
  * Returns an image src for any image field
- * @param array $field
- *  The image field to grab the image for.
+ * @param int $nid
+ *  The image node id.
  * @param string $ratio
- *  The desired image ratio (vert, horiz, sq).
+ *  The image field to pull from the desired image ratio (vert, horiz, sq).
+ * @param string $style
+ *  The image style preset/size to return the image.
  *
  * @return array
  *  Array containing all image attributes.
  */
-function dosomething_image_get_image($field, $ratio) {
+function dosomething_image_get_image($nid, $ratio, $style) {
+  $node = node_load($nid);
   $image = array();
   switch ($ratio) {
     case 'vert':
-      return $field['entity']->field_image_vertical[LANGUAGE_NONE][0];
+      $path =  $node->field_image_vertical[LANGUAGE_NONE][0]['uri'];
       break;
     case 'horiz':
-      return $field['entity']->field_image_horizontal[LANGUAGE_NONE][0];
+      $path = $node->field_image_horizontal[LANGUAGE_NONE][0]['uri'];
       break;
     case 'sq':
-      return $field['entity']->field_image_square[LANGUAGE_NONE][0];
+      $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
       break;
   }
-  return;
+
+  $img = (theme('image_style', array('style_name' => $style, 'path' => $path)));
+  return $img;
 }
 
 //@todo: build this out, return themed image, image urls as needed.
