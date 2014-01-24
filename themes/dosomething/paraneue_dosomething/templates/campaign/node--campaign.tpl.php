@@ -84,6 +84,7 @@
   <h2> Prove It </h2>
   <h4> Pics or It Didn't Happen </h4>
   <?php print $reportback_copy; ?>
+  <a class="btn large"><?php print $reportback_link_label; ?></a>
 
   <?php print render($reportback_form); ?>
 
