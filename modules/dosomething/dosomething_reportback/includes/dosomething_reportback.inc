@@ -29,7 +29,9 @@ class ReportbackEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+    // Load user to get username.
     $account = user_load($entity->uid);
+    // Load node to output relevant reportback variables.
     $node_wrapper = entity_metadata_wrapper('node', $entity->nid);
     $build['username'] = array(
       '#type' => 'markup',
@@ -43,11 +45,13 @@ class ReportbackEntityController extends EntityAPIController {
       '#prefix' => '<p>',
       '#suffix' => '</p>',
     );
-    $build['quantity'] = array(
+    $build['quantity_count'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->quantity . ' ' . $node_wrapper->field_report_back_noun->value() . ' ' . $node_wrapper->field_report_back_verb->value(),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
+      '#markup' => $entity->quantity,
+    );
+    $build['quantity_label'] = array(
+      '#type' => 'markup',
+      '#markup' => $node_wrapper->field_report_back_noun->value() . ' ' . $node_wrapper->field_report_back_verb->value(),
     );
     return $build;
   }

@@ -189,6 +189,25 @@ function dosomething_reportback_view_entity($entity) {
 }
 
 /**
+ * Process variables for entity.tpl.php.
+ *
+ * @see template_preprocess_entity in Entity API module.
+ */
+function dosomething_reportback_preprocess_entity(&$variables) {
+  if ($variables['elements']['#entity_type'] == 'reportback' && $variables['view_mode'] == 'full') {
+    // Enables reportback.tpl.php naming suggestion.
+    $variables['theme_hook_suggestions'][] = 'reportback';
+    $entity = $variables['elements']['#entity'];
+    if (dosomething_reportback_access('edit', $entity)) {
+      $variables['edit_link'] = l('Update', 'reportback/' . $entity->rbid . '/edit');
+    }
+    if (dosomething_reportback_access('delete', $entity)) {
+      $variables['delete_link'] = l('Delete', 'reportback/' . $entity->rbid . '/delete');
+    }
+  }
+}
+
+/**
  * Callback for /reportback/ID/edit page.
  */
 function dosomething_reportback_edit_entity($entity) {
