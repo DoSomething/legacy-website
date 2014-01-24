@@ -109,11 +109,19 @@ function dosomething_reportback_menu() {
     'access arguments' => array('view', 1),
   );
   $items['reportback/%reportback/edit'] = array(
-    'title callback' => 'Reportback',
+    'title callback' => 'Edit Reportback',
     'page callback' => 'dosomething_reportback_edit_entity',
     'page arguments' => array(1),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['reportback/%reportback/delete'] = array(
+    'title callback' => 'Delete Reportback',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_delete_form', 1),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('delete', 1),
     'type' => MENU_LOCAL_TASK,
   );
   return $items;
@@ -297,7 +305,54 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 }
 
 /**
- * Creates a new reportback entity.
+ * Form constructor for a reportback delete form.
+ *
+ * @param object $entity
+ *   The reportback entity to delete.
+ *
+ * @ingroup forms
+ */
+function dosomething_reportback_delete_form($form, &$form_state, $entity) {
+  $form['rbid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $entity->rbid,
+  );
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $entity->nid,
+  );
+  $form['warning'] = array(
+    '#markup' => t("Are you sure you want to delete this reportback?  This cannot be undone."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_reportback_delete_form().
+ */
+function dosomething_reportback_delete_form_submit($form, &$form_state) {
+  $rbid = $form_state['values']['rbid'];
+  // Check for user screwing with form values via browser type firebuggin' things.
+  // This check will only work if the form lives only on reportback/*/delete.
+  if ($rbid == arg(1)) {
+    dosomething_reportback_delete_reportback($rbid);
+    // Redirect back to the node that the reportback was for.
+    $form_state['redirect'] = 'node/' . $form_state['values']['nid'];
+    drupal_set_message(t("Reportback deleted."));
+  }
+  // Else, there was some rat fuckery.
+  drupal_set_message(t("There was an error processing your request."));
+}
+
+/**
+ * Inserts a reportback entity.
  *
  * @param array $values
  *   An array of expected reportback values.
@@ -311,7 +366,7 @@ function dosomething_reportback_insert_reportback($values) {
 }
 
 /**
- * Updates an existing reportback entity.
+ * Updates a reportback entity.
  *
  * @param array $values
  *   An array of expected reportback values.
@@ -322,6 +377,19 @@ function dosomething_reportback_insert_reportback($values) {
 function dosomething_reportback_update_reportback($rbid, $values) {
   $entity = entity_load_single('reportback', $rbid);
   return dosomething_reportback_save($entity, $values);
+}
+
+/**
+ * Deletes a reportback entity.
+ *
+ * @param int $rbid
+ *   Reportback rbid to delete.
+ *
+ * @return
+ *   FALSE, if error.
+ */
+function dosomething_reportback_delete_reportback($rbid) {
+  return entity_delete('reportback', $rbid);
 }
 
 /**
