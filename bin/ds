@@ -148,8 +148,16 @@ function install {
   drush rap 'anonymous user' 'access content'
   drush rap 'authenticated user' 'access content'
 
+  # Without command below, view_unpublished module prompts you to 
+  # The content access permissions need to be rebuilt. Rebuild permissions.
+  # This does that.
   echo 'Rebuilding node permissions'
   drush php-eval 'node_access_rebuild();'
+
+  # For whatever weird reason, not all user permissions are set properly afer install.
+  # This fixes it.
+  echo 'Reverting all features'
+  drush -y fra
 }
 
 #=== FUNCTION ==================================================================
