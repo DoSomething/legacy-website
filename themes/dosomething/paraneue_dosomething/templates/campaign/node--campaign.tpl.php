@@ -3,6 +3,13 @@
   <?php print $hero_image_l; ?>
 <?php endif; ?>
 <?php print $cta; ?>
+<div class="sponsor">
+  <?php if (isset($sponsor)): ?>
+    <?php print $sponsor; ?>
+    <?php print $sponsor_img; ?>
+  <?php endif; ?>
+</div>
+
   <h2> Know It </h2>
   <?php if (isset($fact_problem)): ?>
   <div>
