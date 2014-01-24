@@ -10,6 +10,98 @@
 function dosomething_static_content_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-static_content-field_additional_text'
+  $field_instances['node-static_content-field_additional_text'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 13,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_additional_text',
+    'label' => 'Additional Text',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 7,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance: 'node-static_content-field_additional_text_title'
+  $field_instances['node-static_content-field_additional_text_title'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_additional_text_title',
+    'label' => 'Additional Text Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-static_content-field_call_to_action'
   $field_instances['node-static_content-field_call_to_action'] = array(
     'bundle' => 'static_content',
@@ -147,7 +239,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -244,7 +336,7 @@ function dosomething_static_content_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -295,7 +387,7 @@ function dosomething_static_content_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -341,12 +433,60 @@ function dosomething_static_content_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-static_content-field_subtitle'
+  $field_instances['node-static_content-field_subtitle'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_subtitle',
+    'label' => 'Subtitle',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
       'weight' => 10,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional Text');
+  t('Additional Text Title');
   t('CTA Button Text');
   t('Call to Action');
   t('Gallery');
@@ -354,6 +494,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Intro');
   t('Intro Image');
   t('Intro Title');
+  t('Subtitle');
   t('This text will appear on the Call To Action button.');
 
   return $field_instances;

@@ -47,7 +47,7 @@ function dosomething_static_content_strongarm() {
           'weight' => '9',
         ),
         'path' => array(
-          'weight' => '1',
+          'weight' => '0',
         ),
       ),
       'display' => array(),

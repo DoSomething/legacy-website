@@ -20,13 +20,13 @@ function dosomething_image_get_image($field, $ratio) {
   $image = array();
   switch ($ratio) {
     case 'vert':
-      return $field['entity']->field_image_vertical[LANGUAGE_NONE][0];
+      return $field['entity']->field_image_vertical['und'][0];
       break;
     case 'horiz':
-      return $field['entity']->field_image_horizontal[LANGUAGE_NONE][0];
+      return $field['entity']->field_image_horizontal['und'][0];
       break;
     case 'sq':
-      return $field['entity']->field_image_square[LANGUAGE_NONE][0];
+      return $field['entity']->field_image_square['und'][0];
       break;
   }
   return;

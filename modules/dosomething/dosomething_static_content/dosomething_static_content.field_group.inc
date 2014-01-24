@@ -13,6 +13,34 @@ function dosomething_static_content_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_additional_text|node|static_content|form';
+  $field_group->group_name = 'group_additional_text';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'static_content';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Additional Text',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_additional_text_title',
+      1 => 'field_additional_text',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-additional-text field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_additional_text|node|static_content|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_call_to_action|node|static_content|form';
   $field_group->group_name = 'group_call_to_action';
   $field_group->entity_type = 'node';
@@ -21,7 +49,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Call to Action',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_button_text',
@@ -49,13 +77,14 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Lead in',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_hero_image',
       1 => 'field_intro_title',
       2 => 'field_intro_image',
       3 => 'field_intro',
-      4 => 'title',
+      4 => 'field_subtitle',
+      5 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
