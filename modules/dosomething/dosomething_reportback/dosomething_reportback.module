@@ -258,15 +258,21 @@ function dosomething_reportback_edit_entity($entity) {
  * @ingroup forms
  */
 function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
-  $submit_label = t("Update");
   // If entity is not set, this is a create form.
   if (!isset($entity)) {
     $entity = entity_create('reportback', array(
       'rbid' => 0,
       'quantity' => '',
-      'why_participated' => '',
+      'why_participated' => NULL,
     ));
     $submit_label = t("Submit");
+  }
+  // Else, it's update form.  Display updated date.
+  else {
+    $form['header'] = array(
+      '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
+    );
+    $submit_label = t("Update");
   }
   $form['rbid'] = array(
     '#type' => 'hidden',

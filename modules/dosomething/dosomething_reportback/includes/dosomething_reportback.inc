@@ -67,9 +67,11 @@ class ReportbackEntityController extends EntityAPIController {
    * Populates created and uid automatically.
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
+    $now = REQUEST_TIME;
     if (isset($entity->is_new)) {
-      $entity->created = REQUEST_TIME;
+      $entity->created = $now;
     }
+    $entity->updated = $now;
     return parent::save($entity, $transaction);
   }
 }
