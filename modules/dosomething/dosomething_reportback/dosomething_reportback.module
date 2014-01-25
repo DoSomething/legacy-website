@@ -260,28 +260,21 @@ function dosomething_reportback_edit_entity($entity) {
 function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
   // If entity is not set, this is a create form.
   if (!isset($entity)) {
+    // Initalize empty entity to attach image field to.
     $entity = entity_create('reportback', array(
-      'rbid' => 0,
       'quantity' => '',
       'why_participated' => NULL,
     ));
     $submit_label = t("Submit");
   }
-  // Else, it's update form.  Display updated date.
+  // Else, it's an update form.  
   else {
+    // Display updated date.
     $form['header'] = array(
       '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
     );
     $submit_label = t("Update");
   }
-  $form['rbid'] = array(
-    '#type' => 'hidden',
-    '#default_value' => $entity->rbid,
-  );
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#default_value' => $wrapper->nid->value(),
-  );
   $form['why_participated'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
@@ -323,37 +316,51 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
-  // @todo: Check that $form_state['values']['nid'] == arg(1), 
-  // If we can assume this form is always rendered on campaign.
+  // Reportback form is always embedded on path 'node/[nid]'.
+  // We get nid from the URL to prevent users from altering the
+  // nid value, if was passed via hidden form field. 
+  $nid = arg(1);
+  // In case of $nid weirdness, bounce out.
+  if (!is_numeric($nid)) {
+    return;
+  }
+  // Prepare form values to write.
   $values = $form_state['values'];
+  $values['nid'] = $nid;
   $values['uid'] = $user->uid;
   $values['files'] = array();
   // Loop through User Reportback Images field:
   foreach ($values['field_image_user_reportback'][LANGUAGE_NONE] as $delta => $file) {
-    // Exclude the "add another" field (which has fid value 0).
+    // Exclude the "add another" value.
+    // It's always passed via Field widget with fid 0.
     if ($file['fid'] != 0) {
       $values['files'][] = $file;
     }
   }
-  // @todo: Sort $files array by the weight field, to allow for re-ordering.
-  if ($values['rbid'] == 0) {
-    $entity = entity_create('reportback', array());
-    $rbid = dosomething_reportback_insert_reportback($values);
-    if ($rbid) {
+
+  // @todo: Sort $files array by the weight values, to allow for re-ordering.
+  // @todo: then simply pass through array of single fid's and alter save.
+
+  // If reportback exists for current user and current node:
+  if ($rbid = dosomething_reportback_exists($nid)) {
+    // Update the reportback.
+    if (dosomething_reportback_update_reportback($rbid, $values)) {
+      drupal_set_message(t("Reportback updated."));
+      return;
+    }
+  }
+  // Else create a new reportback.
+  else {
+    // Insert the reportback.
+    if ($rbid = dosomething_reportback_insert_reportback($values)) {
       // Load node to get reportback message confirmation.
       $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
+      // Great job.
       drupal_set_message($node_wrapper->field_reportback_confirm_msg->value());
       return;
     }
   }
-  else {
-    $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
-    if ($rbid) {
-      drupal_set_message(t("Your submission has been updated."));
-      return;
-    }
-  }
-  // If we didn't break out of function by now, insert/update didn't work.
+  // If we haven't left function by now, insert/update didn't work.
   drupal_set_message(t("An error has occurred."), 'error');
 }
 
