@@ -77,9 +77,33 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'created',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $properties['updated'] = array(
+    'label' => t('Last Updated'),
+    'description' => t('Date the reportback was last updated.'),
+    'type' => 'date',
+    'required' => TRUE,
+    'schema field' => 'updated',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
   $properties['quantity'] = array(
     'label' => t('Quantity'),
     'description' => t('The number of reportback_nouns reportback_verbed.'),
+    'type' => 'integer',
+    'required' => TRUE,
+    'schema field' => 'quantity',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $properties['why_participated'] = array(
+    'label' => t('Why Participated'),
+    'description' => t('Why the user participated.'),
+    'type' => 'integer',
+    'required' => TRUE,
+    'schema field' => 'quantity',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $properties['num_participants'] = array(
+    'label' => t('Number of participants'),
+    'description' => t('The number of reportback participants, if applicable.'),
     'type' => 'integer',
     'required' => TRUE,
     'schema field' => 'quantity',
