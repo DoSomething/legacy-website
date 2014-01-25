@@ -255,8 +255,8 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => t("Total number of @noun @verb", array(
-        '@noun' => $wrapper->field_report_back_noun->value(),
-        '@verb' => $wrapper->field_report_back_verb->value(),
+        '@noun' => $wrapper->field_reportback_noun->value(),
+        '@verb' => $wrapper->field_reportback_verb->value(),
       )
     ),
     '#default_value' => $entity->quantity,
@@ -298,7 +298,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     if ($rbid) {
       // Load node to get reportback message confirmation.
       $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
-      drupal_set_message($node_wrapper->field_report_back_confirm_msg->value());
+      drupal_set_message($node_wrapper->field_reportback_confirm_msg->value());
       return;
     }
   }

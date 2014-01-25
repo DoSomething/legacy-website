@@ -51,7 +51,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['quantity_label'] = array(
       '#type' => 'markup',
-      '#markup' => $node_wrapper->field_report_back_noun->value() . ' ' . $node_wrapper->field_report_back_verb->value(),
+      '#markup' => $node_wrapper->field_reportback_noun->value() . ' ' . $node_wrapper->field_reportback_verb->value(),
     );
     return $build;
   }

@@ -184,11 +184,11 @@ function dosomething_campaign_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_official_rules',
-      1 => 'field_report_back_confirm_msg',
-      2 => 'field_report_back_noun',
-      3 => 'field_report_back_verb',
+      1 => 'field_reportback_confirm_msg',
+      2 => 'field_reportback_noun',
+      3 => 'field_reportback_verb',
       4 => 'field_scholarship_amount',
-      5 => 'field_report_back_copy',
+      5 => 'field_reportback_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
