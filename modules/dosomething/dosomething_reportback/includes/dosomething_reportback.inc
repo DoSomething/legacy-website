@@ -36,14 +36,10 @@ class ReportbackEntityController extends EntityAPIController {
     $build['username'] = array(
       '#type' => 'markup',
       '#markup' => l($account->name, 'user/' . $account->uid),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
     );
     $build['node_title'] = array(
       '#type' => 'markup',
       '#markup' => l($node_wrapper->title->value(), 'node/' . $entity->nid),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
     );
     $build['quantity_count'] = array(
       '#type' => 'markup',
@@ -53,6 +49,16 @@ class ReportbackEntityController extends EntityAPIController {
       '#type' => 'markup',
       '#markup' => $node_wrapper->field_reportback_noun->value() . ' ' . $node_wrapper->field_reportback_verb->value(),
     );
+    $build['why_participated'] = array(
+      '#type' => 'markup',
+      '#markup' => $entity->why_participated,
+    );
+    if ($entity->num_participants) {
+      $build['num_participants'] = array(
+        '#type' => 'markup',
+        '#markup' => $entity->num_participants,
+      );
+    }
     return $build;
   }
   /**
