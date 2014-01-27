@@ -4,9 +4,11 @@
 <?php endif; ?>
 <?php print $cta; ?>
 <div class="sponsor">
-  <?php if (isset($sponsor)): ?>
-    <?php print $sponsor; ?>
-    <?php print $sponsor_img; ?>
+  <?php if (!is_null($sponsors)): ?>
+    <?php foreach ($sponsors as $key => $sponsor) :?>
+      <?php print $sponsor; ?>
+      <?php print $sponsor_img[$key]; ?>
+    <?php endforeach; ?>
   <?php endif; ?>
 </div>
 
