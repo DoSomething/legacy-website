@@ -1485,8 +1485,8 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_report_back_confirm_msg'
-  $field_instances['node-campaign-field_report_back_confirm_msg'] = array(
+  // Exported field_instance: 'node-campaign-field_reportback_confirm_msg'
+  $field_instances['node-campaign-field_reportback_confirm_msg'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1515,7 +1515,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_report_back_confirm_msg',
+    'field_name' => 'field_reportback_confirm_msg',
     'label' => 'Report Back Confirmation Sentence',
     'required' => 0,
     'settings' => array(
@@ -1533,8 +1533,8 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_report_back_copy'
-  $field_instances['node-campaign-field_report_back_copy'] = array(
+  // Exported field_instance: 'node-campaign-field_reportback_copy'
+  $field_instances['node-campaign-field_reportback_copy'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1561,7 +1561,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_report_back_copy',
+    'field_name' => 'field_reportback_copy',
     'label' => 'Report Back Copy',
     'required' => 0,
     'settings' => array(
@@ -1579,8 +1579,8 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_report_back_noun'
-  $field_instances['node-campaign-field_report_back_noun'] = array(
+  // Exported field_instance: 'node-campaign-field_reportback_noun'
+  $field_instances['node-campaign-field_reportback_noun'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1607,7 +1607,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_report_back_noun',
+    'field_name' => 'field_reportback_noun',
     'label' => 'Report Back Noun',
     'required' => 0,
     'settings' => array(
@@ -1625,8 +1625,8 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_report_back_verb'
-  $field_instances['node-campaign-field_report_back_verb'] = array(
+  // Exported field_instance: 'node-campaign-field_reportback_verb'
+  $field_instances['node-campaign-field_reportback_verb'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1653,7 +1653,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_report_back_verb',
+    'field_name' => 'field_reportback_verb',
     'label' => 'Report Back Verb',
     'required' => 0,
     'settings' => array(

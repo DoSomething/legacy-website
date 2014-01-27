@@ -163,7 +163,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
 
   // Prove.
-  $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
+  $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
 
   // Images.
   if (isset($vars['field_image_campaign_cover'][0])) {

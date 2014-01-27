@@ -77,12 +77,36 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'created',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $properties['updated'] = array(
+    'label' => t('Last Updated'),
+    'description' => t('Date the reportback was last updated.'),
+    'type' => 'date',
+    'required' => TRUE,
+    'schema field' => 'updated',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
   $properties['quantity'] = array(
     'label' => t('Quantity'),
     'description' => t('The number of reportback_nouns reportback_verbed.'),
     'type' => 'integer',
     'required' => TRUE,
     'schema field' => 'quantity',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $properties['why_participated'] = array(
+    'label' => t('Why Participated'),
+    'description' => t('Why the user participated.'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'why_participated',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $properties['num_participants'] = array(
+    'label' => t('Number of participants'),
+    'description' => t('The number of reportback participants, if applicable.'),
+    'type' => 'integer',
+    'required' => FALSE,
+    'schema field' => 'num_participants',
     'setter callback' => 'entity_property_verbatim_set',
   );
   return $info;
@@ -234,14 +258,21 @@ function dosomething_reportback_edit_entity($entity) {
  * @ingroup forms
  */
 function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
-  $submit_label = t("Update");
   // If entity is not set, this is a create form.
   if (!isset($entity)) {
     $entity = entity_create('reportback', array(
       'rbid' => 0,
-      'quantity' => ''
+      'quantity' => '',
+      'why_participated' => NULL,
     ));
     $submit_label = t("Submit");
+  }
+  // Else, it's update form.  Display updated date.
+  else {
+    $form['header'] = array(
+      '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
+    );
+    $submit_label = t("Update");
   }
   $form['rbid'] = array(
     '#type' => 'hidden',
@@ -251,15 +282,28 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'hidden',
     '#default_value' => $wrapper->nid->value(),
   );
+  $form['why_participated'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#title' => t('Why is this campaign important to you?'),
+    '#default_value' => $entity->why_participated,    
+  );
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => t("Total number of @noun @verb", array(
-        '@noun' => $wrapper->field_report_back_noun->value(),
-        '@verb' => $wrapper->field_report_back_verb->value(),
+        '@noun' => $wrapper->field_reportback_noun->value(),
+        '@verb' => $wrapper->field_reportback_verb->value(),
       )
     ),
     '#default_value' => $entity->quantity,
+  );
+  // @todo: Add conditional around this if display_num_participants.
+  $form['num_participants'] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('Number of participants'),
+    '#default_value' => $entity->num_participants,    
   );
 
   // Attach all reportback entity fields to the form:
@@ -298,7 +342,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     if ($rbid) {
       // Load node to get reportback message confirmation.
       $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
-      drupal_set_message($node_wrapper->field_report_back_confirm_msg->value());
+      drupal_set_message($node_wrapper->field_reportback_confirm_msg->value());
       return;
     }
   }
@@ -310,7 +354,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     }
   }
   // If we didn't break out of function by now, insert/update didn't work.
-  drupal_set_message(t("An error has occurred.", 'error'));
+  drupal_set_message(t("An error has occurred."), 'error');
 }
 
 /**
@@ -447,19 +491,28 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 function dosomething_reportback_save($entity, $values) {
   try {
     $wrapper = entity_metadata_wrapper('reportback', $entity);
-    $wrapper->uid->set($values['uid']);
-    $wrapper->nid->set($values['nid']);
-    $wrapper->quantity->set($values['quantity']);
+    // List all possible entity properties to write.
+    $properties = array('uid', 'nid', 'quantity', 'why_participated', 'num_participants');
+    // For each of them:
+    foreach ($properties as $property) {
+      // If we have a value set for this property.
+      if (isset($values[$property])) {
+        // Set property value in wrapper.
+        $wrapper->{$property}->set($values[$property]);
+      }
+    }
+    // Handle Image User Reportback Field.
+    // Get total count of images present on entity.
     $num_images = count($wrapper->field_image_user_reportback);
     $i = 0;
-    // Loop through all existing values in the form to write.
+    // Loop through all files provided in $values.
     foreach ($values['files'] as $delta => $file) {
       $wrapper->field_image_user_reportback[$i] = array('fid' => (int) $file['fid']);
       $i++;
     }
-    // Are there any more images stored than what we have in the form?
+    // Are there existing images in entity field not present in $values['files']?
     if (isset($wrapper->field_image_user_reportback[$i])) {
-      // Loop through remaining image values in the field.
+      // Loop through remaining image values in the entity field.
       for ($i=$i; $i<$num_images; $i++) {
         // It means they were removed, so unset them.
         unset($wrapper->field_image_user_reportback[$i]);
