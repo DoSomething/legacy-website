@@ -4,6 +4,7 @@ core = 7.x
 package = DoSomething
 version = 7.x-1.0
 project = dosomething_taxonomy
+dependencies[] = entityreference
 dependencies[] = image
 dependencies[] = taxonomy
 dependencies[] = uuid

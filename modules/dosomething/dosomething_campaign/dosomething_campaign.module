@@ -86,9 +86,10 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
-
     // Vars needed for both the pitch & action page.
     $vars['cta'] = $wrapper->field_call_to_action->value();
+
+    $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
 
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
