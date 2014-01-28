@@ -89,11 +89,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Vars needed for both the pitch & action page.
     $vars['cta'] = $wrapper->field_call_to_action->value();
 
-    foreach ($wrapper->field_sponsor->getIterator() as $delta => $term_wrapper) {
-      $vars['sponsors'][$delta]  = $term_wrapper->name->value();
-      $sponsor_img_nid = $vars['field_sponsor'][$delta]['taxonomy_term']->field_image_sponsor_logo[LANGUAGE_NONE][0]['target_id'];
-      $vars['sponsor_img'][$delta] = dosomething_image_get_image($sponsor_img_nid, 'sq', '310x310');
-    }
+    $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
 
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
