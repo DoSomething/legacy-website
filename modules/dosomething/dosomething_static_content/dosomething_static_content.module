@@ -34,8 +34,6 @@ function _dosomething_static_content_insert_after_first_element(&$a, $element) {
 }
 
 function dosomething_static_content_preprocess_node(&$vars) {
-  global $base_url;
-
   if ($vars['type'] == 'static_content') {
     $content = $vars['content'];
     $vars['hero_image'] = dosomething_image_get_image($vars['field_hero_image'][0]['entity']->nid, 'horiz', 'hero_image');
