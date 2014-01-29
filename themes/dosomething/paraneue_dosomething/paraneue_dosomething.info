@@ -13,6 +13,5 @@ features[] = slogan
 features[] = main_menu
 features[] = secondary_menu
 
-stylesheets[all][] = css/style.css
-scripts[] = js/script.js
-settings[paraneue_neue_library_path] = 'profiles/dosomething/libraries/neue'
+stylesheets[all][] = dist/app.css
+scripts[] = dist/app.js
