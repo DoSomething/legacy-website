@@ -1,0 +1,157 @@
+/* jshint node:true */
+"use strict";
+
+module.exports = function(grunt) {
+  grunt.initConfig({
+    pkg: grunt.file.readJSON("package.json"),
+
+    watch: {
+      sass: {
+        files: ["scss/**/*.{scss,sass}"],
+        tasks: ["sass:compile"]
+      },
+      js: {
+        files: ["js/**/*.js", "tests/**/*.js"],
+        tasks: ["jshint:all", "uglify:dev"]
+      },
+      images: {
+        files: ["assets/images/**/*.{png,jpg,jpeg,gif}"],
+        tasks: ["imagemin"]
+      },
+      livereload: {
+        files: ["dist/**/*.css", "dist/**/*.{js,json}", "dist/images/**/*.{png,jpg,jpeg,gif,webp,svg}"],
+        options: {
+          livereload: true
+        }
+      }
+    },
+
+    sass: {
+      compile: {
+        files: {
+          "dist/app.css": "scss/app.scss",
+          "dist/ie.css": "scss/ie.scss"
+        },
+        options: {
+          sourceComments: "normal"
+        }
+      }
+    },
+
+    cssmin: {
+      minify: {
+        options: {
+          report: "gzip"
+        },
+        files: {
+          "dist/app.css": ["dist/app.css"],
+          "dist/ie.css": ["dist/ie.css"]
+        }
+      }
+    },
+
+    copy: {
+      main: {
+        files: [
+          {expand: true, src: ["assets/images/**", "!images/**/*"], dest: "dist/"},
+        ]
+      }
+    },
+
+
+    imagemin: {
+      bundle: {
+        files: [{
+          expand: true,
+          cwd: "assets/images/",
+          src: ["**/*.{png,jpg,jpeg,gif}"],
+          dest: "dist/assets/images"
+        }]
+      }
+    },
+
+    jshint: {
+      options: {
+        force: true,
+        jshintrc: true,
+        reporter: require("jshint-stylish")
+      },
+      all: ["js/**/*.js", "!js/vendor/**/*.js", "!js/polyfills/**/*.js",  "tests/**/*.js", "!tests/lib/**/*.js"]
+    },
+
+    qunit: {
+      all: ["tests/*.html"]
+    },
+
+    uglify: {
+      prod: {
+        options: {
+          report: "gzip"
+        },
+        files: {
+          "dist/app.js": ["js/**/*.js", "!js/polyfills/**/*.js"],
+        }
+      },
+      dev: {
+        options: {
+          mangle: false,
+          compress: false,
+          beautify: true
+        },
+        files: {
+          "dist/app.js": ["js/**/*.js", "!js/polyfills/**/*.js"],
+        }
+      }
+    },
+
+    docco: {
+      docs: {
+        src: ["js/*.js"],
+        options: {
+          output: "dist/docs"
+        }
+      }
+    },
+
+    shell: {
+      scsslint: {
+        command: "scss-lint scss/ --config .scss-lint.yaml",
+        options: {
+          stdout: true
+        }
+      },
+
+      clean: {
+        command: "rm -rf dist/*"
+      }
+    }
+
+  });
+
+
+  grunt.registerTask("default", ["build", "watch"]);
+
+  // code linting
+  grunt.registerTask("lint", ["jshint:all", "shell:scsslint"]);
+
+  // testing
+  grunt.registerTask("test", ["test:css", "test:js"]);
+  grunt.registerTask("test:css", ["shell:wraith"]);
+  grunt.registerTask("test:js", ["qunit"]);
+
+  // build
+  grunt.registerTask("build", ["lint", "sass:compile", "imagemin", "uglify:dev", "copy:main"]);
+  grunt.registerTask("prod", ["shell:clean", "sass:compile", "cssmin:minify", "copy:main", "imagemin", "uglify:prod"]); // used when preparing code for distribution
+
+
+  grunt.loadNpmTasks("grunt-sass");
+  grunt.loadNpmTasks("grunt-contrib-cssmin");
+  grunt.loadNpmTasks("grunt-contrib-imagemin");
+  grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-qunit");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-docco2");
+  grunt.loadNpmTasks("grunt-shell");
+};
