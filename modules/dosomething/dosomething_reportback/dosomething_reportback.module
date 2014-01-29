@@ -477,48 +477,27 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 }
 
 /**
- * Saves a reportback entity.
+ * Saves a reportback entity with given values.
  *
- * @param array $values
- *   The reportback entity values to save.
  * @param object $entity
  *   The reportback entity to save (may be a blank entity if insert).
- *
+ * @param array $values
+ *   The reportback entity values to save.
  *
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
  */
 function dosomething_reportback_save($entity, $values) {
   try {
+    // Load metadata wrapper for easier set methods.
     $wrapper = entity_metadata_wrapper('reportback', $entity);
-    // List all possible entity properties to write.
-    $properties = array('uid', 'nid', 'quantity', 'why_participated', 'num_participants');
-    // For each of them:
-    foreach ($properties as $property) {
-      // If we have a value set for this property.
-      if (isset($values[$property])) {
-        // Set property value in wrapper.
-        $wrapper->{$property}->set($values[$property]);
-      }
-    }
-    // Handle Image User Reportback Field.
-    // Get total count of images present on entity.
-    $num_images = count($wrapper->field_image_user_reportback);
-    $i = 0;
-    // Loop through all files provided in $values.
-    foreach ($values['files'] as $delta => $file) {
-      $wrapper->field_image_user_reportback[$i] = array('fid' => (int) $file['fid']);
-      $i++;
-    }
-    // Are there existing images in entity field not present in $values['files']?
-    if (isset($wrapper->field_image_user_reportback[$i])) {
-      // Loop through remaining image values in the entity field.
-      for ($i=$i; $i<$num_images; $i++) {
-        // It means they were removed, so unset them.
-        unset($wrapper->field_image_user_reportback[$i]);
-      }
-    }
+    // Set entity properties.
+    dosomething_reportback_set_properties(&$wrapper, $values);
+    // Set entity files.
+    dosomething_reportback_set_files(&$wrapper, $values);
+    // Save the entity.
     $wrapper->save();
+    // Return reportback rbid.
     return $wrapper->rbid->value();
   }
   catch (Exception $e) {
@@ -527,3 +506,50 @@ function dosomething_reportback_save($entity, $values) {
   }
 }
 
+/**
+ * Sets a reportback entity's properties via entity metadata wrapper.
+ *
+ * @param object $wrapper
+ *   The reportback entity wrapper to set properties for.
+ * @param array $values
+ *   Array of property values to set, indexed by the property name.
+ */
+function dosomething_reportback_set_properties(&$wrapper, $values) {
+  // List all possible entity properties to write.
+  $properties = array('uid', 'nid', 'quantity', 'why_participated', 'num_participants');
+  // For each of them:
+  foreach ($properties as $property) {
+    // If we have a value set for this property.
+    if (isset($values[$property])) {
+      // Set property value in wrapper.
+      $wrapper->{$property}->set($values[$property]);
+    }
+  }
+}
+
+/**
+ * Sets a reportback entity's files via entity metadata wrapper.
+ *
+ * @param object $wrapper
+ *   The reportback entity wrapper to set properties for.
+ * @param array $values
+ *   Multi-dimensional array of files to set.
+ */
+function dosomething_reportback_set_files(&$wrapper, $values) {
+  // Get total count of images present on entity.
+  $num_images = count($wrapper->field_image_user_reportback);
+  $i = 0;
+  // Loop through all files provided in $values.
+  foreach ($values['files'] as $delta => $file) {
+    $wrapper->field_image_user_reportback[$i] = array('fid' => (int) $file['fid']);
+    $i++;
+  }
+  // Are there existing images in entity field not present in $values['files']?
+  if (isset($wrapper->field_image_user_reportback[$i])) {
+    // Loop through remaining image values in the entity field.
+    for ($i=$i; $i<$num_images; $i++) {
+      // It means they were removed, so unset them.
+      unset($wrapper->field_image_user_reportback[$i]);
+    }
+  }
+}
