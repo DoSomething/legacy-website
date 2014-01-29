@@ -323,8 +323,6 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
-  // @todo: Check that $form_state['values']['nid'] == arg(1), 
-  // If we can assume this form is always rendered on campaign.
   $values = $form_state['values'];
   $values['uid'] = $user->uid;
   $values['files'] = array();
@@ -335,23 +333,19 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       $values['files'][] = $file['fid'];
     }
   }
-  // @todo: Sort $files array by the weight field, to allow for re-ordering.
-  if ($values['rbid'] == 0) {
-    $entity = entity_create('reportback', array());
-    $rbid = dosomething_reportback_insert_reportback($values);
-    if ($rbid) {
-      // Load node to get reportback message confirmation.
-      $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
-      drupal_set_message($node_wrapper->field_reportback_confirm_msg->value());
-      return;
-    }
+  // @todo: Sort $files array by the weight field, to support re-ordering.
+
+  // If no rbid, we need to insert. If insert is success:
+  if ($values['rbid'] == 0 && dosomething_reportback_insert_reportback($values)) {
+    // Load node to get reportback message confirmation.
+    $node_wrapper = entity_metadata_wrapper('node', $values['nid']);
+    drupal_set_message($node_wrapper->field_reportback_confirm_msg->value());
+    return;
   }
-  else {
-    $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
-    if ($rbid) {
-      drupal_set_message(t("Your submission has been updated."));
-      return;
-    }
+  // Else we are updating the entity:
+  elseif (dosomething_reportback_update_reportback($values['rbid'], $values)) {
+    drupal_set_message(t("Your submission has been updated."));
+    return;
   }
   // If we didn't break out of function by now, insert/update didn't work.
   drupal_set_message(t("An error has occurred."), 'error');
