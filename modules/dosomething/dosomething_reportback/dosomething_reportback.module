@@ -264,6 +264,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
       'rbid' => 0,
       'quantity' => '',
       'why_participated' => NULL,
+      'num_participants' => NULL,
     ));
     $submit_label = t("Submit");
   }
