@@ -332,7 +332,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   foreach ($values['field_image_user_reportback'][LANGUAGE_NONE] as $delta => $file) {
     // Exclude the "add another" field (which has fid value 0).
     if ($file['fid'] != 0) {
-      $values['files'][] = $file;
+      $values['files'][] = $file['fid'];
     }
   }
   // @todo: Sort $files array by the weight field, to allow for re-ordering.
@@ -405,10 +405,16 @@ function dosomething_reportback_delete_form_submit($form, &$form_state) {
 }
 
 /**
- * Inserts a reportback entity.
+ * Inserts a reportback entity with given $values.
  *
  * @param array $values
- *   An array of expected reportback values.
+ *   Associative array of values to save to new reportback, with keys:
+ *   - uid: The user uid who is reporting back.
+ *   - nid: The node nid that user is reporting back for.
+ *   - files: An array of File fid's to store with the reportback.
+ *   - quantity: Number of nouns verbed.
+ *   - why_participated: Why user participated.
+ *   - num_participants: Number of participants (if applicable).
  *
  * @return mixed
  *   Newly inserted reportback rbid if success, or FALSE if error.
@@ -419,10 +425,13 @@ function dosomething_reportback_insert_reportback($values) {
 }
 
 /**
- * Updates a reportback entity.
+ * Updates a reportback entity with given $values.
  *
+ * @param int $rbid
+ *   The reportback rbid of the reportback to update.
  * @param array $values
- *   An array of expected reportback values.
+ *   An array of expected reportback values.  
+ *   See @dosomething_reportback_insert_reportback().
  *
  * @return mixed
  *   The updated reportback rbid if success, or FALSE if error.
@@ -492,9 +501,9 @@ function dosomething_reportback_save($entity, $values) {
     // Load metadata wrapper for easier set methods.
     $wrapper = entity_metadata_wrapper('reportback', $entity);
     // Set entity properties.
-    dosomething_reportback_set_properties(&$wrapper, $values);
+    dosomething_reportback_set_properties($wrapper, $values);
     // Set entity files.
-    dosomething_reportback_set_files(&$wrapper, $values);
+    dosomething_reportback_set_files($wrapper, $values);
     // Save the entity.
     $wrapper->save();
     // Return reportback rbid.
@@ -512,7 +521,7 @@ function dosomething_reportback_save($entity, $values) {
  * @param object $wrapper
  *   The reportback entity wrapper to set properties for.
  * @param array $values
- *   Array of property values to set, indexed by the property name.
+ *   Associative of property values to set, with property name as keys.
  */
 function dosomething_reportback_set_properties(&$wrapper, $values) {
   // List all possible entity properties to write.
@@ -533,15 +542,16 @@ function dosomething_reportback_set_properties(&$wrapper, $values) {
  * @param object $wrapper
  *   The reportback entity wrapper to set properties for.
  * @param array $values
- *   Multi-dimensional array of files to set.
+ *   An array of file fid's to set.
  */
 function dosomething_reportback_set_files(&$wrapper, $values) {
   // Get total count of images present on entity.
   $num_images = count($wrapper->field_image_user_reportback);
   $i = 0;
   // Loop through all files provided in $values.
-  foreach ($values['files'] as $delta => $file) {
-    $wrapper->field_image_user_reportback[$i] = array('fid' => (int) $file['fid']);
+  foreach ($values['files'] as $fid) {
+    // Image field is stored as array of Files arrays.
+    $wrapper->field_image_user_reportback[$i] = array('fid' => $fid);
     $i++;
   }
   // Are there existing images in entity field not present in $values['files']?
