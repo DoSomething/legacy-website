@@ -173,6 +173,3 @@ libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mo
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
 
-; NEUE
-libraries[neue][download][type] = "git"
-libraries[neue][download][url] = "git@github.com:DoSomething/ds-neue.git"
