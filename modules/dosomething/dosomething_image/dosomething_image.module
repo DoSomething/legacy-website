@@ -19,22 +19,29 @@ include_once 'dosomething_image.features.inc';
  *  Array containing all image attributes.
  */
 function dosomething_image_get_image($nid, $ratio, $style) {
-  $node = node_load($nid);
-  $image = array();
-  switch ($ratio) {
-    case 'vert':
-      $path =  $node->field_image_vertical[LANGUAGE_NONE][0]['uri'];
-      break;
-    case 'horiz':
-      $path = $node->field_image_horizontal[LANGUAGE_NONE][0]['uri'];
-      break;
-    case 'sq':
-      $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
-      break;
+  // Attempt to get that image from cache.
+  if ($cached_img = cache_get('ds_img_' . $nid . '_' . $ratio . '_' . $style, 'cache_dosomething_image')) {
+    return $cached_img->data;
   }
+  // Theme the image.
+  else {
+    $node = node_load($nid);
+    $image = array();
+    switch ($ratio) {
+      case 'vert':
+        $path =  $node->field_image_vertical[LANGUAGE_NONE][0]['uri'];
+        break;
+      case 'horiz':
+        $path = $node->field_image_horizontal[LANGUAGE_NONE][0]['uri'];
+        break;
+      case 'sq':
+        $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
+        break;
+    }
 
-  $img = (theme('image_style', array('style_name' => $style, 'path' => $path)));
-  return $img;
+    $img = theme('image_style', array('style_name' => $style, 'path' => $path));
+    // Store the themed image.
+    cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $img, 'cache_dosomething_image');
+    return $img;
+  }
 }
-
-//@todo: build this out, return themed image, image urls as needed.
