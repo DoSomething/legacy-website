@@ -498,16 +498,14 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
  */
 function dosomething_reportback_save($entity, $values) {
   try {
-    // Load metadata wrapper for easier set methods.
-    $wrapper = entity_metadata_wrapper('reportback', $entity);
     // Set entity properties.
-    dosomething_reportback_set_properties($wrapper, $values);
+    dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
-    dosomething_reportback_set_files($wrapper, $values);
+    dosomething_reportback_set_files($entity, $values);
     // Save the entity.
-    $wrapper->save();
+    $entity->save();
     // Return reportback rbid.
-    return $wrapper->rbid->value();
+    return $entity->rbid;
   }
   catch (Exception $e) {
     watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
@@ -516,14 +514,14 @@ function dosomething_reportback_save($entity, $values) {
 }
 
 /**
- * Sets a reportback entity's properties via entity metadata wrapper.
+ * Sets a reportback entity's properties.
  *
- * @param object $wrapper
- *   The reportback entity wrapper to set properties for.
+ * @param object $entity
+ *   The reportback entity to set properties for.
  * @param array $values
  *   Associative of property values to set, with property name as keys.
  */
-function dosomething_reportback_set_properties(&$wrapper, $values) {
+function dosomething_reportback_set_properties(&$entity, $values) {
   // List all possible entity properties to write.
   $properties = array('uid', 'nid', 'quantity', 'why_participated', 'num_participants');
   // For each of them:
@@ -531,35 +529,25 @@ function dosomething_reportback_set_properties(&$wrapper, $values) {
     // If we have a value set for this property.
     if (isset($values[$property])) {
       // Set property value in wrapper.
-      $wrapper->{$property}->set($values[$property]);
+      $entity->{$property} = $values[$property];
     }
   }
 }
 
 /**
- * Sets a reportback entity's files via entity metadata wrapper.
+ * Sets a reportback entity's files.
  *
- * @param object $wrapper
- *   The reportback entity wrapper to set properties for.
+ * @param object $entity
+ *   The reportback entity to set properties for.
  * @param array $values
  *   An array of file fid's to set.
  */
-function dosomething_reportback_set_files(&$wrapper, $values) {
-  // Get total count of images present on entity.
-  $num_images = count($wrapper->field_image_user_reportback);
-  $i = 0;
+function dosomething_reportback_set_files(&$entity, $values) {
+  // Unset current image field values.
+  $entity->field_image_user_reportback = array();
   // Loop through all files provided in $values.
   foreach ($values['files'] as $fid) {
     // Image field is stored as array of Files arrays.
-    $wrapper->field_image_user_reportback[$i] = array('fid' => $fid);
-    $i++;
-  }
-  // Are there existing images in entity field not present in $values['files']?
-  if (isset($wrapper->field_image_user_reportback[$i])) {
-    // Loop through remaining image values in the entity field.
-    for ($i=$i; $i<$num_images; $i++) {
-      // It means they were removed, so unset them.
-      unset($wrapper->field_image_user_reportback[$i]);
-    }
+    $entity->field_image_user_reportback[LANGUAGE_NONE][] = array('fid' => $fid);
   }
 }
