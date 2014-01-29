@@ -80,7 +80,7 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
  */
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
-  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign') {
+  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
     $node = $context['entity'];
     // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
     if (!dosomething_user_is_staff()) {
