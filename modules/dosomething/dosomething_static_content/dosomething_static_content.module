@@ -43,7 +43,7 @@ function dosomething_static_content_preprocess_node(&$vars) {
     $vars['intro_image'] = dosomething_image_get_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
 
     $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
-    $vars['cta_button'] = $content['field_cta_button_text'][0]['#markup'];
+    $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
 
     $gallery_count = count($content['field_gallery']['#items']);
     $vars['galleries'] = array();
@@ -54,7 +54,6 @@ function dosomething_static_content_preprocess_node(&$vars) {
 
       $gallery_item_count = count($collection_item['#items']);
       $vars['galleries'][$i] = array();
-      //$vars['galleries'][$i]['gallery_title'] = 
       for ($a=0; $a<$gallery_item_count;$a++) {
         $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
         $vars['galleries'][$a]['image'] = dosomething_image_get_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'sq', 'gallery_large');
