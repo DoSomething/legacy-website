@@ -58,8 +58,11 @@ ds build [--install]
   --install
     Runs "drush site-install" to actually install the Drupal instance.
 
-ds bower [--update]
+ds bower [--install|--update]
   Installs bower components in the paraneue subtheme
+
+  --install (default)
+  Runs bower install command.  This is the default behavior
 
   --update
   Runs bower update command instead of install
@@ -221,10 +224,12 @@ function bower {
   if hash bower 2>/dev/null;
   then
     cd $BASE_PATH/themes/dosomething/paraneue_dosomething
+
     if [[ $1 == "--update" ]]
     then
       eval "/usr/bin/bower update"
-    else
+    elif [[ -z "$1" ]] || [[ $1 == "--install" ]]
+    then
       eval "/usr/bin/bower install"
     fi
     cd $BASE_PATH
