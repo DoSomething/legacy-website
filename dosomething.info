@@ -29,6 +29,7 @@ dependencies[] = libraries
 dependencies[] = link
 dependencies[] = mailsystem
 dependencies[] = markdown
+dependencies[] = metatag
 dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = securepages

@@ -66,7 +66,7 @@ projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag] = "1.0-beta7"
+projects[metatag] = "1.0-beta9"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
