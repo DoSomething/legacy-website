@@ -50,8 +50,8 @@ function dosomething_reportback_schema() {
       ),
       'why_participated' => array(
         'description' => 'Why the user participated.',
-        'type' => 'varchar',
-        'length' => '255',
+        'type' => 'text',
+        'length' => '2048',
         'not null' => FALSE,
       ),
       'num_participants' => array(
@@ -65,6 +65,72 @@ function dosomething_reportback_schema() {
     'indexes' => array(
       'uid' => array('uid'),
     ),
+  );
+  $schema['dosomething_reportback_log'] = array(
+    'description' => 'Table of reportback update activity.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'rbid' => array(
+        'description' => 'Reportback rbid updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'op' => array(
+        'description' => 'Operation performed on the reportback.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp of the update.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'quantity' => array(
+        'description' => 'The quantity of reportback_nouns reportback_verbed.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'why_participated' => array(
+        'description' => 'Why the user participated.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+      'num_participants' => array(
+        'description' => 'The number of participants (if applicable).',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'files' => array(
+        'description' => 'Comma separated list of file fids attached to reportback.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'num_files' => array(
+        'description' => 'The number of files attached to reportback.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
   );
   return $schema;
 }
