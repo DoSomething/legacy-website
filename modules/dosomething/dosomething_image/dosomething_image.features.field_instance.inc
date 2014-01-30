@@ -1,4 +1,4 @@
-<?php
+ƒfield<?php
 /**
  * @file
  * dosomething_image.features.field_instance.inc
@@ -41,7 +41,7 @@ function dosomething_image_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_image_landscape',
-    'label' => 'Horizontal Crop',
+    'label' => 'Landscape Crop',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -153,7 +153,7 @@ function dosomething_image_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_image_portrait',
-    'label' => 'Vertical Crop',
+    'label' => 'Portrait Crop',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -180,9 +180,9 @@ function dosomething_image_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Horizontal Crop');
+  t('Landscape Crop');
   t('Square Crop');
-  t('Vertical Crop');
+  t('Portrait Crop');
 
   return $field_instances;
 }
