@@ -7,7 +7,7 @@
 include_once 'dosomething_image.features.inc';
 
 /**
- * Returns an image src for any image field
+ * Returns a themed image for any image field
  * @param int $nid
  *  The image node id.
  * @param string $ratio
@@ -16,7 +16,7 @@ include_once 'dosomething_image.features.inc';
  *  The image style preset/size to return the image.
  *
  * @return array
- *  Array containing all image attributes.
+ *  A themed image.
  */
 function dosomething_image_get_themed_image($nid, $ratio, $style) {
   // Attempt to get that image from cache.
@@ -25,8 +25,29 @@ function dosomething_image_get_themed_image($nid, $ratio, $style) {
   }
   // Theme the image.
   else {
-    $node = node_load($nid);
-    $image = array();
+    $path = dosomething_image_get_image_url($nid, $ratio);
+
+    $img = theme('image_style', array('style_name' => $style, 'path' => $path));
+    // Store the themed image.
+    cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $img, 'cache_dosomething_image');
+    return $img;
+  }
+}
+
+/**
+ * Returns an image path.
+ * @param int $nid
+ *  The image node id.
+ * @param string $ratio
+ *  The image field to pull from the desired image ratio (vert, horiz, sq).
+ * @param string $style
+ *  The image style preset/size to return the image.
+ *
+ * @return string
+ *  An image url.
+ */
+function dosomething_image_get_image_url($nid, $ratio) {
+   $node = node_load($nid);
     switch ($ratio) {
       case 'vert':
         $path =  $node->field_image_portrait[LANGUAGE_NONE][0]['uri'];
@@ -38,10 +59,20 @@ function dosomething_image_get_themed_image($nid, $ratio, $style) {
         $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
         break;
     }
+    return $path;
+}
 
-    $img = theme('image_style', array('style_name' => $style, 'path' => $path));
-    // Store the themed image.
-    cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $img, 'cache_dosomething_image');
-    return $img;
-  }
+/**
+ * Returns a sized image path.
+ * @param int $nid
+ *  The image node id.
+ * @param string $ratio
+ *  The image field to pull from the desired image ratio (vert, horiz, sq).
+ *
+ * @return string
+ *  A sized image url.
+ */
+function dosomething_image_get_themed_image_url($nid, $ratio) {
+  $base_path = dosomething_image_get_image_url($nid, $ratio);
+  return image_style_url($style, $base_path);
 }
