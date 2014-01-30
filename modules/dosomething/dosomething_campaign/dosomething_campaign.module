@@ -163,7 +163,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
       $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
-      $vars['psa'] = dosomething_image_get_image($psa_nid, 'horiz', '720x310');
+      $vars['psa'] = dosomething_image_get_themed_image($psa_nid, 'horiz', '720x310');
     }
   }
 
@@ -187,18 +187,18 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Images.
   if (isset($vars['field_image_campaign_cover'][0])) {
     $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-    $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
-    $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+    $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'horiz', '1920x1280');
+    $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'vert', '640x800');
   }
 
   // Image galleries.
   foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
     $nid = $step_image['entity']->nid;
-    $vars['step_image'][$key] = dosomething_image_get_image($nid, 'sq', '310x310');
+    $vars['step_image'][$key] = dosomething_image_get_themed_image($nid, 'sq', '310x310');
   }
   foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
     $rb_image['nid'] = $rb_image['entity']->nid;
-    $vars['reportback_image'][$key] = dosomething_image_get_image($rb_image['nid'], 'horiz', '740x480');
+    $vars['reportback_image'][$key] = dosomething_image_get_themed_image($rb_image['nid'], 'horiz', '740x480');
   }
 
   // Reportback form.

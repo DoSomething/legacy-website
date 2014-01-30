@@ -18,7 +18,7 @@ include_once 'dosomething_image.features.inc';
  * @return array
  *  Array containing all image attributes.
  */
-function dosomething_image_get_image($nid, $ratio, $style) {
+function dosomething_image_get_themed_image($nid, $ratio, $style) {
   // Attempt to get that image from cache.
   if ($cached_img = cache_get('ds_img_' . $nid . '_' . $ratio . '_' . $style, 'cache_dosomething_image')) {
     return $cached_img->data;

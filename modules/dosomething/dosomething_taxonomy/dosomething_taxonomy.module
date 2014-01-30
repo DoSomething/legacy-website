@@ -19,7 +19,7 @@ function dosomething_taxonomy_get_sponsors($sponsor_field_wrapper) {
     $sponsors[$delta]['name']  = $term_wrapper->name->value();
     if (property_exists($term_wrapper->field_image_sponsor_logo, 'nid')) {
       $sponsor_img_nid =  $term_wrapper->field_image_sponsor_logo->value()->nid;
-      $sponsors[$delta]['img'] = dosomething_image_get_image($sponsor_img_nid, 'sq', '310x310');
+      $sponsors[$delta]['img'] = dosomething_image_get_themed_image($sponsor_img_nid, 'sq', '310x310');
     }
   }
   if (!is_null($sponsors)) {
