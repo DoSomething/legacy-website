@@ -8,12 +8,15 @@ include_once 'dosomething_static_content.features.inc';
 
 function dosomething_static_content_preprocess_node(&$vars) {
   if ($vars['type'] == 'static_content') {
+    //dpm($vars, 'vars');
     $content = $vars['content'];
     $vars['hero_image'] = dosomething_image_get_themed_image($vars['field_hero_image'][0]['entity']->nid, 'horiz', 'hero_image');
     $vars['subtitle'] = $content['field_subtitle'][0]['#markup'];
     $vars['intro_title'] = $content['field_intro_title'][0]['#markup'];
     $vars['intro'] = $content['field_intro'][0]['#markup'];
     $vars['intro_image'] = dosomething_image_get_themed_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
+
+    $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $vars['field_intro_video'][0]));
 
     $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
     $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
