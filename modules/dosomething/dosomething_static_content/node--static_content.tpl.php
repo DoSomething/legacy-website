@@ -19,12 +19,17 @@
     <div class="cta_button btn"><?php print $cta_button; ?></div>
   </div>
  <br/>
-  <?php foreach ($galleries as $gallery): ?>
-    <?php print $gallery['image']; ?>
-    <h3><?php print $gallery['image_title']; ?></h3>
-    <p><?php print $gallery['image_description']; ?></p>
-  <?php endforeach; ?>
-
+ <?php if ($galleries): ?>
+    <?php foreach ($galleries as $gallery): ?>
+      <?php print $gallery['image']; ?>
+      <?php if ($gallery['image_title']): ?>
+        <h3><?php print $gallery['image_title']; ?></h3>
+      <?php endif; ?>
+      <?php if ($gallery['image_description']): ?>
+        <p><?php print $gallery['image_description']; ?></p>
+      <?php endif; ?>
+    <?php endforeach; ?>
+  <? endif; ?>
   
   <h2><?php print $additional_text_title; ?></h2>
   <p><?php print $additional_text; ?></p>

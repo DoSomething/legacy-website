@@ -27,7 +27,6 @@ function dosomething_static_content_preprocess_node(&$vars) {
 
       $gallery_item_count = count($collection_item['#items']);
       $vars['galleries'][$i] = array();
-      //$vars['galleries'][$i]['gallery_title'] = 
       for ($a=0; $a<$gallery_item_count;$a++) {
         $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
         $vars['galleries'][$a]['image'] = dosomething_image_get_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'sq', 'gallery_large');
