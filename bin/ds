@@ -58,6 +58,12 @@ ds build [--install]
   --install
     Runs "drush site-install" to actually install the Drupal instance.
 
+ds bower [--update]
+  Installs bower components in the paraneue subtheme
+
+  --update
+  Runs bower update command instead of install
+
 ds --help
   Displays this help message.
 
@@ -97,6 +103,9 @@ function build {
   echo 'Linking themes'
   rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
   ln -s "$BASE_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+
+  echo 'Install bower dependencies'
+  bower
 
   # Clear caches and Run updates
   cd "$WEB_DIR"
@@ -148,7 +157,7 @@ function install {
   drush rap 'anonymous user' 'access content'
   drush rap 'authenticated user' 'access content'
 
-  # Without command below, view_unpublished module prompts you to 
+  # Without command below, view_unpublished module prompts you to
   # The content access permissions need to be rebuilt. Rebuild permissions.
   # This does that.
   echo 'Rebuilding node permissions'
@@ -204,6 +213,25 @@ function deploy {
 
 }
 
+#=== FUNCTION ==================================================================
+# NAME: bower
+# DESCRIPTION: Installs/Updates bower dependencies
+#===============================================================================
+function bower {
+  if hash bower 2>/dev/null;
+  then
+    cd $BASE_PATH/themes/dosomething/paraneue_dosomething
+    if [[ $1 == "--update" ]]
+    then
+      eval "/usr/bin/bower update"
+    else
+      eval "/usr/bin/bower install"
+    fi
+    cd $BASE_PATH
+
+  fi
+}
+
 
 # ==============================================================================
 # Commands
@@ -240,4 +268,12 @@ fi
 if [[ $1 == "deploy" ]]
 then
   deploy
+fi
+
+#----------------------------------------------------------------------
+# bower
+#----------------------------------------------------------------------
+if [[ $1 == "bower" ]]
+then
+  bower $2
 fi
