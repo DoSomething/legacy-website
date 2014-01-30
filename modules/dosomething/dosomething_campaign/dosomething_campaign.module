@@ -238,7 +238,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // If user is logged in:
   if (user_is_logged_in()) {
     // Render button as sign up form.
-    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label); 
+    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label);
   }
   // Otherwise, for anonymous user:
   else {
@@ -247,6 +247,13 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
       // @todo: Add relevant class to open up modal.
       '#markup' => '<a href="#" class="btn">' . $label . '</a>',
     );
+  }
+
+  // Images
+  if (isset($vars['field_image_campaign_cover'][0])) {
+    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+    $vars['hero_image_l'] = dosomething_image_get_path($hero_nid, 'horiz', '1920x1280');
+    $vars['hero_image_m'] = dosomething_image_get_path($hero_nid, 'vert', '640x800');
   }
 }
 
