@@ -14,4 +14,5 @@ features[] = main_menu
 features[] = secondary_menu
 
 stylesheets[all][] = dist/app.css
+stylesheets[all][] = vendor/pattern-library/neue.css
 scripts[] = dist/app.js
