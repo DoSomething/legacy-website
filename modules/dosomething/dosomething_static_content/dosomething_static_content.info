@@ -3,7 +3,6 @@ description = Content type and theme function definitions for the Static Content
 core = 7.x
 package = Features
 dependencies[] = ctools
-dependencies[] = dosomething_campaign
 dependencies[] = entityconnect
 dependencies[] = features
 dependencies[] = field_collection
