@@ -50,8 +50,8 @@ function dosomething_reportback_schema() {
       ),
       'why_participated' => array(
         'description' => 'Why the user participated.',
-        'type' => 'varchar',
-        'length' => '255',
+        'type' => 'text',
+        'length' => '2048',
         'not null' => FALSE,
       ),
       'num_participants' => array(
