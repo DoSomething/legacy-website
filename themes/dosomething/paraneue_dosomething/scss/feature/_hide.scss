@@ -1,0 +1,15 @@
+
+// --------------------------------------------------------------
+//  This partial should not exist. These overrides are temporary
+//  and allow for work to continue on the campaign pages while
+//  Furnes begins the site chrome and footer.
+// --------------------------------------------------------------
+
+.utility,
+.masthead-wrapper,
+.breadcrumbs,
+.tabs,
+.messages,
+.admin-menu-site-dev-dosomething-org {
+  display: none;
+}
