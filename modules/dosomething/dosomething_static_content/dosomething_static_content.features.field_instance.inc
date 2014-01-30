@@ -148,19 +148,19 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_cta_button_text'
-  $field_instances['node-static_content-field_cta_button_text'] = array(
+  // Exported field_instance: 'node-static_content-field_cta_link'
+  $field_instances['node-static_content-field_cta_link'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This text will appear on the Call To Action button.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
+        'module' => 'link',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 6,
+        'type' => 'link_default',
+        'weight' => 14,
       ),
       'pitch' => array(
         'label' => 'above',
@@ -176,21 +176,35 @@ function dosomething_static_content_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_cta_button_text',
-    'label' => 'CTA Button Text',
+    'field_name' => 'field_cta_link',
+    'label' => 'CTA Link',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'rel_remove' => 'default',
+      'title' => 'required',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
       'user_register_form' => FALSE,
+      'validate_url' => 1,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 7,
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 8,
     ),
   );
 
@@ -437,6 +451,88 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-static_content-field_intro_video'
+  $field_instances['node-static_content-field_intro_video'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Select the provider and enter the ID of the video on the selected platform.  e.g. Youtube, wetvnbDB4wg',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'double_field',
+        'settings' => array(
+          'first' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => ':&nbsp;',
+          ),
+          'second' => array(
+            'format' => '_none',
+            'hidden' => 0,
+            'prefix' => '',
+            'suffix' => '',
+          ),
+          'style' => 'inline',
+        ),
+        'type' => 'double_field_unformatted_list',
+        'weight' => 15,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_intro_video',
+    'label' => 'Intro Video',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'double_field',
+      'settings' => array(
+        'first' => array(
+          'general' => array(
+            'prefix' => '',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'select' => array(
+            'allowed_values' => array(
+              'youtube' => 'You Tube',
+            ),
+          ),
+        ),
+        'inline' => 1,
+        'second' => array(
+          'general' => array(
+            'prefix' => '',
+            'required' => 1,
+            'suffix' => '',
+          ),
+          'textfield' => array(
+            'placeholder' => '',
+            'size' => 10,
+          ),
+        ),
+      ),
+      'type' => 'select_&_textfield',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-static_content-field_subtitle'
   $field_instances['node-static_content-field_subtitle'] = array(
     'bundle' => 'static_content',
@@ -487,15 +583,16 @@ function dosomething_static_content_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Additional Text');
   t('Additional Text Title');
-  t('CTA Button Text');
+  t('CTA Link');
   t('Call to Action');
   t('Gallery');
   t('Hero Image');
   t('Intro');
   t('Intro Image');
   t('Intro Title');
+  t('Intro Video');
+  t('Select the provider and enter the ID of the video on the selected platform.  e.g. Youtube, wetvnbDB4wg');
   t('Subtitle');
-  t('This text will appear on the Call To Action button.');
 
   return $field_instances;
 }
