@@ -256,7 +256,6 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
     $vars['hero_image_l'] = dosomething_image_get_path($hero_nid, 'horiz', '1920x1280');
     $vars['hero_image_m'] = dosomething_image_get_path($hero_nid, 'vert', '640x800');
   }
-  $vars['signup_form'] = drupal_get_form('dosomething_signup_form', $vars['nid']);
 }
 
 /**
