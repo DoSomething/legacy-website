@@ -87,6 +87,12 @@ function dosomething_reportback_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'op' => array(
+        'description' => 'Operation performed on the reportback.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
       'timestamp' => array(
         'description' => 'The Unix timestamp of the update.',
         'type' => 'int',

@@ -546,3 +546,77 @@ function dosomething_reportback_set_files(&$entity, $values) {
     $entity->field_image_user_reportback[LANGUAGE_NONE][] = array('fid' => $fid);
   }
 }
+
+/**
+ * Inserts a record into the reportback log table for a given reportback.
+ *
+ * Called from various hook_entity_[operation] functions.
+ * @see dosomething_reportback_entity_insert().
+ *
+ * @param string $op
+ *   The operation performed, e.g. "insert", "update", "delete".
+ * @param object $entity
+ *   The reportback entity to log an update for.
+ */
+function dosomething_reportback_log_insert($op, $entity) {
+  global $user;
+  $fids = array();
+  // Loop through all files in field_image_user_reportback to store fids.
+  foreach ($entity->field_image_user_reportback[LANGUAGE_NONE] as $file) {
+    $fids[] = $file['fid'];
+  }
+  // If deleting, store current time.
+  if ($op == 'delete') {
+    $timestamp = REQUEST_TIME;
+  }
+  // Else use the entity's updated property.
+  else {
+    $timestamp = $entity->updated;
+  }
+  try {
+    // Log the entity values into the log table.
+    $id = db_insert('dosomething_reportback_log')
+      ->fields(array(
+        'rbid' => $entity->rbid,
+        'uid' => $user->uid,
+        'op' => $op,
+        'timestamp' => $timestamp,
+        'quantity' => $entity->quantity,
+        'why_participated' => $entity->why_participated,
+        'num_participants' => $entity->num_participants,
+        'files' => implode(',', $fids),
+        'num_files' => count($fids),
+      ))
+      ->execute();
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function dosomething_reportback_entity_insert($entity, $type) {
+  if ($type == 'reportback') {
+    dosomething_reportback_log_insert('insert', $entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function dosomething_reportback_entity_update($entity, $type) {
+  if ($type == 'reportback') {
+    dosomething_reportback_log_insert('update', $entity);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function dosomething_reportback_entity_delete($entity, $type) {
+  if ($type == 'reportback') {
+    dosomething_reportback_log_insert('delete', $entity);
+  }
+}
