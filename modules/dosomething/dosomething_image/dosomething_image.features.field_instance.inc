@@ -10,8 +10,8 @@
 function dosomething_image_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-image-field_image_horizontal'
-  $field_instances['node-image-field_image_horizontal'] = array(
+  // Exported field_instance: 'node-image-field_image_landscape'
+  $field_instances['node-image-field_image_landscape'] = array(
     'bundle' => 'image',
     'deleted' => 0,
     'description' => '',
@@ -40,7 +40,7 @@ function dosomething_image_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_image_horizontal',
+    'field_name' => 'field_image_landscape',
     'label' => 'Horizontal Crop',
     'required' => 0,
     'settings' => array(
@@ -122,8 +122,8 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_vertical'
-  $field_instances['node-image-field_image_vertical'] = array(
+  // Exported field_instance: 'node-image-field_image_portrait'
+  $field_instances['node-image-field_image_portrait'] = array(
     'bundle' => 'image',
     'deleted' => 0,
     'description' => '',
@@ -152,7 +152,7 @@ function dosomething_image_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_image_vertical',
+    'field_name' => 'field_image_portrait',
     'label' => 'Vertical Crop',
     'required' => 0,
     'settings' => array(

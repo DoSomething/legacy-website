@@ -29,10 +29,10 @@ function dosomething_image_get_image($nid, $ratio, $style) {
     $image = array();
     switch ($ratio) {
       case 'vert':
-        $path =  $node->field_image_vertical[LANGUAGE_NONE][0]['uri'];
+        $path =  $node->field_image_portrait[LANGUAGE_NONE][0]['uri'];
         break;
       case 'horiz':
-        $path = $node->field_image_horizontal[LANGUAGE_NONE][0]['uri'];
+        $path = $node->field_image_landscape[LANGUAGE_NONE][0]['uri'];
         break;
       case 'sq':
         $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
