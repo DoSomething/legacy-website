@@ -158,6 +158,7 @@ projects[paraneue][type] = "theme"
 projects[paraneue][download][type] = "git"
 projects[paraneue][download][url] = "git@github.com:DoSomething/paraneue.git"
 projects[paraneue][subdir] = "dosomething"
+projects[paraneue][options][working-copy] = TRUE
 
 ; LIBRARIES
 
