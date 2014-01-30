@@ -7,3 +7,4 @@ base:
     - install
     - composer
     - terminus
+    - node
