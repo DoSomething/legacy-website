@@ -12,7 +12,7 @@ include_once 'dosomething_signup.features.inc';
  * @param int $nid
  *   The node nid the user has signed up for.
  * @param int $uid
- *   Optional - the user uid who has signed up.  
+ *   Optional - the user uid who has signed up.
  *   If not provided, uses global $user->uid.
  *
  * @return mixed
@@ -113,6 +113,12 @@ function dosomething_signup_form($form, &$form_state, $nid) {
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t("Sign Up"),
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'medium',
+      ),
+    ),
   );
   return $form;
 }
