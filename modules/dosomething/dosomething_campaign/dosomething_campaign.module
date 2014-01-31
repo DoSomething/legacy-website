@@ -22,6 +22,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
 
   $form['field_fact_problem']['#prefix'] = $add_link_div;
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
+  $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
 }
 
 /**
