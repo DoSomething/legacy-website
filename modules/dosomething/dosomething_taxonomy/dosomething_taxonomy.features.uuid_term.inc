@@ -164,6 +164,15 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'metatags' => array(),
   );
   $terms[] = array(
+    'name' => 'Share Something',
+    'description' => '',
+    'format' => 'markdown',
+    'weight' => 5,
+    'uuid' => 'b750200f-b44e-410e-b0cd-5ddd22dd5c33',
+    'vocabulary_machine_name' => 'action_type',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Mental Health',
     'description' => '',
     'format' => 'plain_text',
