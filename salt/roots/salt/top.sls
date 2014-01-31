@@ -6,4 +6,5 @@ base:
     - selenium
     - install
     - composer
-    - terminus
+    - node
+    - drush-ext

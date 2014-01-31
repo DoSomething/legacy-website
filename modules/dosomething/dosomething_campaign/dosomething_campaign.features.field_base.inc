@@ -188,7 +188,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fact_problem',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'dosomething_fact' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'dosomething_fact',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -222,7 +229,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fact_solution',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'dosomething_fact' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'dosomething_fact',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -256,7 +270,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_facts',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'dosomething_fact' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'dosomething_fact',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -339,7 +360,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_campaign_cover',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -375,7 +403,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_psa_replacement',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -411,7 +446,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_reportback_gallery',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -447,7 +489,14 @@ function dosomething_campaign_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_step_gallery',
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -785,13 +834,13 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_report_back_confirm_msg'
-  $field_bases['field_report_back_confirm_msg'] = array(
+  // Exported field_base: 'field_reportback_confirm_msg'
+  $field_bases['field_reportback_confirm_msg'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_report_back_confirm_msg',
+    'field_name' => 'field_reportback_confirm_msg',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -812,13 +861,13 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_report_back_copy'
-  $field_bases['field_report_back_copy'] = array(
+  // Exported field_base: 'field_reportback_copy'
+  $field_bases['field_reportback_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_report_back_copy',
+    'field_name' => 'field_reportback_copy',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -839,13 +888,13 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_report_back_noun'
-  $field_bases['field_report_back_noun'] = array(
+  // Exported field_base: 'field_reportback_noun'
+  $field_bases['field_reportback_noun'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_report_back_noun',
+    'field_name' => 'field_reportback_noun',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -868,13 +917,13 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_report_back_verb'
-  $field_bases['field_report_back_verb'] = array(
+  // Exported field_base: 'field_reportback_verb'
+  $field_bases['field_reportback_verb'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_report_back_verb',
+    'field_name' => 'field_reportback_verb',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(

@@ -13,17 +13,17 @@ function dosomething_taxonomy_field_default_field_instances() {
   // Exported field_instance: 'taxonomy_term-sponsors-field_image_sponsor_logo'
   $field_instances['taxonomy_term-sponsors-field_image_sponsor_logo'] = array(
     'bundle' => 'sponsors',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
+        'module' => 'entityreference',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
+          'link' => FALSE,
         ),
-        'type' => 'image',
+        'type' => 'entityreference_label',
         'weight' => 0,
       ),
     ),
@@ -32,24 +32,17 @@ function dosomething_taxonomy_field_default_field_instances() {
     'label' => 'Sponsor Logo',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'entityreference',
       'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
       ),
-      'type' => 'image_image',
+      'type' => 'entityreference_autocomplete',
       'weight' => 31,
     ),
   );

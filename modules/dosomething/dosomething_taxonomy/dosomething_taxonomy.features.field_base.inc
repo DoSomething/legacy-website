@@ -86,26 +86,39 @@ function dosomething_taxonomy_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_image_sponsor_logo',
     'foreign keys' => array(
-      'fid' => array(
+      'node' => array(
         'columns' => array(
-          'fid' => 'fid',
+          'target_id' => 'nid',
         ),
-        'table' => 'file_managed',
+        'table' => 'node',
       ),
     ),
     'indexes' => array(
-      'fid' => array(
-        0 => 'fid',
+      'target_id' => array(
+        0 => 'target_id',
       ),
     ),
     'locked' => 0,
-    'module' => 'image',
+    'module' => 'entityreference',
     'settings' => array(
-      'default_image' => 0,
-      'uri_scheme' => 'public',
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'image' => 'image',
+        ),
+      ),
+      'target_type' => 'node',
     ),
     'translatable' => 0,
-    'type' => 'image',
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_sponsor'

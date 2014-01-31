@@ -102,7 +102,7 @@ function dosomething_user_views_default_views() {
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: Field: Cause */
+  /* Field: Content: Cause */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['table'] = 'field_data_field_cause';
   $handler->display->display_options['fields']['field_cause']['field'] = 'field_cause';
@@ -156,7 +156,7 @@ function dosomething_user_views_default_views() {
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: Field: Cause (field_cause) */
+  /* Filter criterion: Content: Cause (field_cause) */
   $handler->display->display_options['filters']['field_cause_tid']['id'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['table'] = 'field_data_field_cause';
   $handler->display->display_options['filters']['field_cause_tid']['field'] = 'field_cause_tid';

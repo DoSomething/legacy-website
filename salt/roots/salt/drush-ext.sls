@@ -11,5 +11,11 @@ update-terminus:
     - watch:
       - cmd: get-terminus
 
+drush-make-local:
+  cmd.wait:
+    - name: 'drush dl make_local-6.x-1.0'
+    - user: vagrant
+    - watch:
+      - cmd: get-terminus
 
 {% endif %}

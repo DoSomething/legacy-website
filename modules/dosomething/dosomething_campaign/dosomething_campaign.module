@@ -22,6 +22,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
 
   $form['field_fact_problem']['#prefix'] = $add_link_div;
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
+  $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
 }
 
 /**
@@ -74,6 +75,22 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
     'custom settings' => TRUE,
   );
 }
+/*
+ * Implements hook_entity_view_mode_alter().
+ * Used to change the view_mode of the campaign nodes.
+ */
+function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
+  // Is this a campaign node?
+  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+    $node = $context['entity'];
+    // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
+    if (!dosomething_user_is_staff()) {
+      if (!dosomething_signup_exists($node->nid)) {
+        $view_mode = 'pitch';
+      }
+    }
+  }
+}
 
 /**
  * Implements hook_preprocess_node().
@@ -86,9 +103,12 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
-
     // Vars needed for both the pitch & action page.
     $vars['cta'] = $wrapper->field_call_to_action->value();
+
+    if (!is_null($vars['field_sponsor'])) {
+      $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
+    }
 
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
@@ -99,8 +119,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
-      // Output reportback form:
-      $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper);
     }
   }
 }
@@ -146,7 +164,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
       $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
-      $vars['psa'] = dosomething_image_get_image($psa_nid, 'horiz', '720x310');
+      $vars['psa'] = dosomething_image_get_themed_image($psa_nid, 'landscape', '720x310');
     }
   }
 
@@ -165,24 +183,38 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
 
   // Prove.
-  $vars['reportback_copy'] = $wrapper->field_report_back_copy->value();
+  $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
 
   // Images.
   if (isset($vars['field_image_campaign_cover'][0])) {
     $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-    $vars['hero_image_l'] = dosomething_image_get_image($hero_nid, 'horiz', '1920x1280');
-    $vars['hero_image_m'] = dosomething_image_get_image($hero_nid, 'vert', '640x800');
+    $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280');
+    $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
+    $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280');
+    $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
   }
 
   // Image galleries.
   foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
     $nid = $step_image['entity']->nid;
-    $vars['step_image'][$key] = dosomething_image_get_image($nid, 'sq', '310x310');
+    $vars['step_image'][$key] = dosomething_image_get_themed_image($nid, 'square', '310x310');
   }
   foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
     $rb_image['nid'] = $rb_image['entity']->nid;
-    $vars['reportback_image'][$key] = dosomething_image_get_image($rb_image['nid'], 'horiz', '740x480');
+    $vars['reportback_image'][$key] = dosomething_image_get_themed_image($rb_image['nid'], 'landscape', '740x480');
   }
+
+  // Reportback form.
+  // Intialize reportback entity to NULL.
+  $reportback = NULL;
+  $vars['reportback_link_label'] = t("Submit Your Pic");
+  // If logged in user's reportback exists for this node,
+  if ($rbid = dosomething_reportback_exists($vars['nid'])) {
+    // Load existing reportback entity to pass through to reportback form.
+    $reportback = entity_load_single('reportback', $rbid);
+    $vars['reportback_link_label'] = t("Update Submission");
+  }
+  $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
 }
 
 /**

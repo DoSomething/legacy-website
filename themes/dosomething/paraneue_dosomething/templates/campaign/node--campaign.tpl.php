@@ -3,6 +3,15 @@
   <?php print $hero_image_l; ?>
 <?php endif; ?>
 <?php print $cta; ?>
+<div class="sponsor">
+  <?php if (isset($sponsors)): ?>
+    <?php foreach ($sponsors as $key => $sponsor) :?>
+      <?php print $sponsor['name']; ?>
+      <?php print $sponsor['img']; ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
+</div>
+
   <h2> Know It </h2>
   <?php if (isset($fact_problem)): ?>
   <div>
@@ -84,6 +93,7 @@
   <h2> Prove It </h2>
   <h4> Pics or It Didn't Happen </h4>
   <?php print $reportback_copy; ?>
+  <a class="btn large"><?php print $reportback_link_label; ?></a>
 
   <?php print render($reportback_form); ?>
 
