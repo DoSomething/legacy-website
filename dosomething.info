@@ -22,6 +22,7 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = diff
 dependencies[] = entity
+dependencies[] = entityconnect
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
