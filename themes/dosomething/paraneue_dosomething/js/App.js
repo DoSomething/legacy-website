@@ -4,10 +4,13 @@
 //
 //
 
-var DS = DS || {};
+// global variables
+var DS;
 
 (function() {
   "use strict";
+
+  var _ = require('underscore');
 
   // We configure Underscore templating to use brackets (Mustache-style) syntax.
   _.templateSettings = {
@@ -15,5 +18,6 @@ var DS = DS || {};
     interpolate: /\{\{[^#\{]([\s\S]+?)[^\}]\}\}/g,  // {{ title }}
     escape:      /\{\{\{([\s\S]+?)\}\}\}/g,         // {{{ title }}}
   };
+
 
 })();

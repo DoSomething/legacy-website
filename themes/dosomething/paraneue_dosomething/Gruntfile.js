@@ -83,13 +83,24 @@ module.exports = function(grunt) {
       all: ["tests/*.html"]
     },
 
+
+    browserify: {
+      dist: {
+        src: ['js/app.js'],
+        dest: 'dist/app.js',
+        options: {
+          transform: ['debowerify']
+        }
+      }
+    },
+
     uglify: {
       prod: {
         options: {
           report: "gzip"
         },
         files: {
-          "dist/app.js": ["js/**/*.js", "!js/polyfills/**/*.js"],
+          "dist/app.js": ["dist/app.js"],
         }
       },
       dev: {
@@ -99,7 +110,7 @@ module.exports = function(grunt) {
           beautify: true
         },
         files: {
-          "dist/app.js": ["js/**/*.js", "!js/polyfills/**/*.js"],
+          "dist/app.js": ["dist/app.js"],
         }
       }
     },
@@ -140,8 +151,8 @@ module.exports = function(grunt) {
   grunt.registerTask("test:js", ["qunit"]);
 
   // build
-  grunt.registerTask("build", ["lint", "sass:compile", "imagemin", "uglify:dev", "copy:main"]);
-  grunt.registerTask("prod", ["shell:clean", "sass:compile", "cssmin:minify", "copy:main", "imagemin", "uglify:prod"]); // used when preparing code for distribution
+  grunt.registerTask("build", ["lint", "sass:compile", "imagemin", "browserify:dist", "uglify:dev", "copy:main"]);
+  grunt.registerTask("prod", ["shell:clean", "sass:compile", "cssmin:minify", "copy:main", "imagemin", "browserify:dist", "uglify:prod"]); // used when preparing code for distribution
 
 
   grunt.loadNpmTasks("grunt-sass");
@@ -150,6 +161,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-qunit");
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-docco2");
