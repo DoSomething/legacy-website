@@ -1,0 +1,80 @@
+
+// ----------
+//  CAMPAIGN
+// ----------
+
+// Outermost campaign template wrapper that
+// has the hero image applied to it
+section.campaign-wrapper {
+  min-height: 600px;
+  padding: 250px 0 0;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 43% 50%;
+  background-size: cover;
+
+  @include media( $tablet ) {
+    @include outer-container;
+  }
+}
+
+// Inner campaign template container that
+// holds all content from the node fields
+div.campaign-container {
+  @include media( $tablet ) {
+    @include span-columns(3);
+    @include shift(1);
+  }
+
+  h1.campaign-title {
+    color: #fff;
+    font-size: $font-larger;
+    text-align: center;
+  }
+
+  p.campaign-cta {
+    text-align: center;
+    color: $light-gray;
+  }
+
+  input.btn {
+    margin: 0 auto;
+    display: block;
+    width: 125px;
+    color: #fff;
+
+    // @TODO - REMOVE THIS
+    // ONCE NEUE IS UPDATED
+    border: 0;
+  }
+
+  img.campaign-arrow {
+    position: relative;
+    left: 90px;
+    top: -15px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  p.campaign-scholarship {
+    position: relative;
+    margin: 0 auto;
+    left: 90px;
+    top: -15px;
+    display: block;
+    width: 155px;
+    font-family: $font-hand-written;
+    font-size: $font-medium;
+
+    .highlight {
+      display: inline-block;
+      padding: 0 10px;
+      background-repeat: no-repeat;
+      background-size: 150px 30px;
+      background-position: 50% 50%;
+      background-image: url("https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/10fb3a32f6c9eef369c955ca7f3ef74f/highlight.png");
+
+      @include transform( rotate(9deg) );
+    }
+  }
+}
