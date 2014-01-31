@@ -26,7 +26,7 @@ projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
 
 ; Entity Connect
-projects[entity_connect] = "1.0-rc1"
+projects[entityconnect] = "1.0-rc1"
 projects[entity][subdir] = "contrib"
 
 ; Entity Reference
