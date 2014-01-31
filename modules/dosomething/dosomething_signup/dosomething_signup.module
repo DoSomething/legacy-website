@@ -135,6 +135,24 @@ function dosomething_signup_form_submit($form, &$form_state) {
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_signup_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_login_block' || $form_id == 'user_register_form') {
+    $obj = menu_get_object();
+    // If we are viewing a campaign node:
+    if (isset($obj->type) && $obj->type == 'campaign') {
+      // Add a hidden nid field.
+      $form['nid'] = array(
+        '#type' => 'hidden',
+        '#value' => $obj->nid,
+      );
+      // Add additional submit handler.
+      $form['#submit'][] = 'dosomething_signup_login';
+    }
+  }
+}
 
 /**
  * Implements hook_views_data().
