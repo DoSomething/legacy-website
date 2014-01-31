@@ -7,6 +7,10 @@ build:
             keyname: DOSOMETHING
         - desmondmorris/drush@0.0.2
         - script:
+            name: Install make_local plugin
+            code: |-
+                drush dl make_local-6.x-1.0
+        - script:
             name: Run make file
             code: |-
                 drush make --prepare-install --no-gitinfofile --no-cache build-dosomething.make html
