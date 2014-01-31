@@ -1,4 +1,4 @@
-ƒfield<?php
+<?php
 /**
  * @file
  * dosomething_image.features.field_instance.inc
