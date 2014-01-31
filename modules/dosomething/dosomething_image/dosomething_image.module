@@ -39,7 +39,7 @@ function dosomething_image_get_themed_image($nid, $ratio, $style) {
  * @param int $nid
  *  The image node id.
  * @param string $ratio
- *  The image field to pull from the desired image ratio (vert, horiz, sq).
+ *  The image field to pull from the desired image ratio (portrait, landscape, square).
  * @param string $style
  *  The image style preset/size to return the image.
  *
