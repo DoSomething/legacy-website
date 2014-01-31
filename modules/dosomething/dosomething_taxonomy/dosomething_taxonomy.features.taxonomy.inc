@@ -25,6 +25,14 @@ function dosomething_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'issue' => array(
+      'name' => 'Issue',
+      'machine_name' => 'issue',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'sponsors' => array(
       'name' => 'Sponsors',
       'machine_name' => 'sponsors',
