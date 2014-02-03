@@ -89,10 +89,11 @@ function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
       return;
     }
     $node = $context['entity'];
-    // Otherwise, if auth user not signed up for the campaign:
-    if (!dosomething_signup_exists($node->nid)) {
-      // Display pitch view mode.
-      $view_mode = 'pitch';
+    // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
+    if (!dosomething_user_is_staff()) {
+      if (!dosomething_signup_exists($node->nid)) {
+        $view_mode = 'pitch';
+      }
     }
   }
 }
