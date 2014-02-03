@@ -19,6 +19,20 @@ function dosomething_image_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any image content'.
+  $permissions['delete any image content'] = array(
+    'name' => 'delete any image content',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own image content'.
+  $permissions['delete own image content'] = array(
+    'name' => 'delete own image content',
+    'roles' => array(),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any image content'.
   $permissions['edit any image content'] = array(
     'name' => 'edit any image content',
