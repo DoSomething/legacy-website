@@ -17,9 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "pattern-library": "git@github.com:DoSomething/ds-neue.git#~3.0.0",
     "underscore": "~1.5.2",
-    "jquery": "~1.11.0",
     "mailcheck": "~1.0.3"
   },
   "resolutions": {
