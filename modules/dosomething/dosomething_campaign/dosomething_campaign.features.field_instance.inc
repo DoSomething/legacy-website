@@ -1340,7 +1340,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_post_step_copy',
-    'label' => 'Post Step Copy',
+    'label' => 'After Copy',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1388,7 +1388,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_post_step_header',
-    'label' => 'Post Step Header',
+    'label' => 'After Header',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1436,7 +1436,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_pre_step_copy',
-    'label' => 'Pre Step Copy',
+    'label' => 'During Copy',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -1484,7 +1484,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_pre_step_header',
-    'label' => 'Pre Step Header',
+    'label' => 'During Header',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2147,7 +2147,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_step_post',
-    'label' => 'Step Post',
+    'label' => 'After Tips',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -2196,7 +2196,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_step_pre',
-    'label' => 'Step Pre',
+    'label' => 'During Tips',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -2361,6 +2361,9 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit: 135 characters </strong>');
   t('Action Type');
   t('Active Hours');
+  t('After Copy');
+  t('After Header');
+  t('After Tips');
   t('Answer');
   t('Call to Action');
   t('Campaign Specific Starter Statement');
@@ -2368,6 +2371,9 @@ function dosomething_campaign_field_default_field_instances() {
   t('Copy');
   t('Cover Image');
   t('Do It Gallery');
+  t('During Copy');
+  t('During Header');
+  t('During Tips');
   t('FAQ');
   t('Facts');
   t('Header');
@@ -2403,10 +2409,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('PSA');
   t('PSA Replacement Image');
   t('Partners');
-  t('Post Step Copy');
-  t('Post Step Header');
-  t('Pre Step Copy');
-  t('Pre Step Header');
   t('Primary Action Type');
   t('Primary Cause');
   t('Problem Statement');
@@ -2425,8 +2427,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Snap a Pic');
   t('Solution Statement - The Insight');
   t('Sponsor');
-  t('Step Post');
-  t('Step Pre');
   t('Stuff You Need');
   t('Supporting Statement on the Solution');
   t('Tags');
