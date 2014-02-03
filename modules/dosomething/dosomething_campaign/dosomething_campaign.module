@@ -247,8 +247,6 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
       // @todo: Add relevant class to open up modal.
       '#markup' => '<a href="#" class="btn">' . $label . '</a>',
     );
-
-  $vars['signup_form'] = drupal_get_form('dosomething_signup_form', $vars['nid']);
   }
 
   // Images
