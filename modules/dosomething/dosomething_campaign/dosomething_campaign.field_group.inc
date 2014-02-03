@@ -185,10 +185,10 @@ function dosomething_campaign_field_group_info() {
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_reportback_confirm_msg',
-      2 => 'field_reportback_noun',
-      3 => 'field_reportback_verb',
-      4 => 'field_scholarship_amount',
-      5 => 'field_reportback_copy',
+      2 => 'field_reportback_copy',
+      3 => 'field_reportback_noun',
+      4 => 'field_reportback_verb',
+      5 => 'field_scholarship_amount',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -217,6 +217,7 @@ function dosomething_campaign_field_group_info() {
     'weight' => '7',
     'children' => array(
       0 => 'field_sponsor',
+      1 => 'field_partners',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -249,6 +250,9 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_cause',
       3 => 'field_staff_pick',
       4 => 'field_tags',
+      5 => 'field_issue',
+      6 => 'field_primary_cause',
+      7 => 'field_primary_action_type',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

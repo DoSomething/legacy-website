@@ -18,6 +18,7 @@ features[field_base][] = field_tags
 features[field_instance][] = taxonomy_term-sponsors-field_image_sponsor_logo
 features[taxonomy][] = action_type
 features[taxonomy][] = cause
+features[taxonomy][] = issue
 features[taxonomy][] = sponsors
 features[taxonomy][] = tags
 features[uuid_term][] = 0514e41f-82ca-4f5c-8ed8-acc3a83d7b39
