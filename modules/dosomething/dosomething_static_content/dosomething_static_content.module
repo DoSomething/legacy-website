@@ -6,41 +6,14 @@
 
 include_once 'dosomething_static_content.features.inc';
 
-/**
- * Implements hook_theme_registry_alter()
-**/
-function dosomething_static_content_theme_registry_alter(&$theme_registry) {
-  $mod_path = drupal_get_path('module', 'dosomething_static_content');
-  $theme_registry_copy = $theme_registry;
-  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'paraneue_dosomething', $mod_path);
-  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
-  $hooks = array('node');
-  foreach ($hooks as $h) {
-    _dosomething_static_content_insert_after_first_element($theme_registry[$h]['theme paths'], $mod_path);
-  }
-}
-
-/**
- * Helper function for re-ordering arrays (needed by theme_registry_alter)
-*/
-function _dosomething_static_content_insert_after_first_element(&$a, $element) {
-  if (is_array($a)) {
-    $first_element = array_shift($a);
-    array_unshift($a, $first_element, $element);
-  }
-  else {
-    $a = $element;
-  }
-}
-
 function dosomething_static_content_preprocess_node(&$vars) {
   if ($vars['type'] == 'static_content') {
     $content = $vars['content'];
-    $vars['hero_image'] = dosomething_image_get_image($vars['field_hero_image'][0]['entity']->nid, 'horiz', 'hero_image');
+    $vars['hero_image'] = dosomething_image_get_themed_image($vars['field_hero_image'][0]['entity']->nid, 'horiz', 'hero_image');
     $vars['subtitle'] = $content['field_subtitle'][0]['#markup'];
     $vars['intro_title'] = $content['field_intro_title'][0]['#markup'];
     $vars['intro'] = $content['field_intro'][0]['#markup'];
-    $vars['intro_image'] = dosomething_image_get_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
+    $vars['intro_image'] = dosomething_image_get_themed_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
 
     $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
     $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
@@ -56,7 +29,7 @@ function dosomething_static_content_preprocess_node(&$vars) {
       $vars['galleries'][$i] = array();
       for ($a=0; $a<$gallery_item_count;$a++) {
         $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
-        $vars['galleries'][$a]['image'] = dosomething_image_get_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'sq', 'gallery_large');
+        $vars['galleries'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'sq', 'gallery_large');
         $vars['galleries'][$a]['image_title'] = $gallery_item['field_image_title'][0]['#markup'];
         $vars['galleries'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
       }

@@ -36,14 +36,10 @@ class ReportbackEntityController extends EntityAPIController {
     $build['username'] = array(
       '#type' => 'markup',
       '#markup' => l($account->name, 'user/' . $account->uid),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
     );
     $build['node_title'] = array(
       '#type' => 'markup',
       '#markup' => l($node_wrapper->title->value(), 'node/' . $entity->nid),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
     );
     $build['quantity_count'] = array(
       '#type' => 'markup',
@@ -51,8 +47,18 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['quantity_label'] = array(
       '#type' => 'markup',
-      '#markup' => $node_wrapper->field_report_back_noun->value() . ' ' . $node_wrapper->field_report_back_verb->value(),
+      '#markup' => $node_wrapper->field_reportback_noun->value() . ' ' . $node_wrapper->field_reportback_verb->value(),
     );
+    $build['why_participated'] = array(
+      '#type' => 'markup',
+      '#markup' => $entity->why_participated,
+    );
+    if ($entity->num_participants) {
+      $build['num_participants'] = array(
+        '#type' => 'markup',
+        '#markup' => $entity->num_participants,
+      );
+    }
     return $build;
   }
   /**
@@ -61,9 +67,11 @@ class ReportbackEntityController extends EntityAPIController {
    * Populates created and uid automatically.
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
+    $now = REQUEST_TIME;
     if (isset($entity->is_new)) {
-      $entity->created = REQUEST_TIME;
+      $entity->created = $now;
     }
+    $entity->updated = $now;
     return parent::save($entity, $transaction);
   }
 }

@@ -5,3 +5,6 @@ config/deploy_vars.yml
 docs
 doxy.sh
 Doxyfile
+node_modules
+themes/dosomething/paraneue_dosomething/dist/
+themes/dosomething/paraneue_dosomething/bower_components/

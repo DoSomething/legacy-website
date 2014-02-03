@@ -123,12 +123,70 @@ function dosomething_signup_form($form, &$form_state, $nid) {
  * @see dosomething_signup_form()
  */
 function dosomething_signup_form_submit($form, &$form_state) {
-  $sid = dosomething_signup_insert($form_state['values']['nid']);
-  if (is_numeric($sid)) {
-    drupal_set_message(t("You're signed up!"));
+  global $user;
+  if (!$user->uid) {
+    drupal_set_message("Please sign in first");
+  }
+  else {
+    $sid = dosomething_signup_insert($form_state['values']['nid']);
+    if (is_numeric($sid)) {
+      drupal_set_message(t("You're signed up!"));
+    }
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_signup_form_alter(&$form, &$form_state, $form_id) {
+  // If user login or user registration forms:
+  if ($form_id == 'user_login_block' || $form_id == 'user_register_form') {
+    $obj = menu_get_object();
+    // If we are viewing a campaign node:
+    if (isset($obj->type) && $obj->type == 'campaign') {
+      // Add a hidden nid field.
+      $form['nid'] = array(
+        '#type' => 'hidden',
+        //@todo: Encrypt me.
+        '#value' => $obj->nid,
+      );
+      // Add additional login submit handler.
+      $form['#submit'][] = 'dosomething_signup_login_submit';
+    }
+  }
+}
+
+/**
+ * Additional submit callback called from user login and register forms.
+ *
+ * @see dosomething_signup_form_alter().
+ *
+ * Signs up global $user for a node $nid if $nid isset in the $form_state. 
+ *
+ * This function will only work upon registration if account variables
+ * are set to the following:
+ * -- A visitor can register for the site without admin approval
+ * -- Email verification is not required when user creates account.
+ *
+ * Otherwise, the global $user upon account creation is set with uid 0 
+ * and signup will fail.
+ *
+ * @see dosomething_user_strongarm().
+ *
+ */
+function dosomething_signup_login_submit($form, &$form_state) {
+  // If nid is not present, nothing to sign up for.  Exit.
+  if (!isset($form_state['input']['nid'])) { return; };
+
+  $nid = $form_state['input']['nid'];
+  // Redirect to node (this is needed for user_register form). 
+  $form_state['redirect'] = 'node/' . $nid;
+  // If a signup does not exist:
+  if (!dosomething_signup_exists($nid)) {
+    // Signup for the node.
+    dosomething_signup_insert($nid);   
+  }
+}
 
 /**
  * Implements hook_views_data().
