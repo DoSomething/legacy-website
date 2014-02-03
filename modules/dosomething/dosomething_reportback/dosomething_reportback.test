@@ -42,6 +42,7 @@ class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
 
     // Test reportback log table.
     $tbl = $this->log_tbl_name;
+    $this->assertTrue(db_table_exists($tbl), $tbl . ' table exists.');
     $this->assertTrue(db_field_exists($tbl, 'id'), 'id field exists.');
     $this->assertTrue(db_field_exists($tbl, 'rbid'), 'rbid field exists.');
     $this->assertTrue(db_field_exists($tbl, 'uid'), 'uid field exists.');
