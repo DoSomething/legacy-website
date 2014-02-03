@@ -1,0 +1,10 @@
+name = Dosomething helpers
+description = Collection of helper functions for DoSomething
+package = DoSomething
+core = 7.x
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+files[] = tests/dosomething_helpers.test
+features[variable][] = dosomething_helpers_modules
