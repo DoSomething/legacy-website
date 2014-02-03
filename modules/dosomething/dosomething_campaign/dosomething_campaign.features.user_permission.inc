@@ -13,7 +13,9 @@ function dosomething_campaign_user_default_permissions() {
   // Exported permission: 'create campaign content'.
   $permissions['create campaign content'] = array(
     'name' => 'create campaign content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
@@ -34,14 +36,18 @@ function dosomething_campaign_user_default_permissions() {
   // Exported permission: 'edit any campaign content'.
   $permissions['edit any campaign content'] = array(
     'name' => 'edit any campaign content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own campaign content'.
   $permissions['edit own campaign content'] = array(
     'name' => 'edit own campaign content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
