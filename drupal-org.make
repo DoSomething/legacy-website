@@ -26,8 +26,8 @@ projects[entity] = "1.2"
 projects[entity][subdir] = "contrib"
 
 ; Entity Connect
-projects[entity_connect] = "1.0-rc1"
-projects[entity][subdir] = "contrib"
+projects[entityconnect] = "1.0-rc1"
+projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
 projects[entityreference] = "1.1"
@@ -70,7 +70,7 @@ projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag] = "1.0-beta7"
+projects[metatag] = "1.0-beta9"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
@@ -162,6 +162,7 @@ projects[paraneue][type] = "theme"
 projects[paraneue][download][type] = "git"
 projects[paraneue][download][url] = "git@github.com:DoSomething/paraneue.git"
 projects[paraneue][subdir] = "dosomething"
+projects[paraneue][options][working-copy] = TRUE
 
 ; LIBRARIES
 
@@ -177,6 +178,3 @@ libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mo
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
 
-; NEUE
-libraries[neue][download][type] = "git"
-libraries[neue][download][url] = "git@github.com:DoSomething/ds-neue.git"

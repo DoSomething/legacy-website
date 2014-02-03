@@ -1,0 +1,23 @@
+{
+  "name": "ds-paraneue",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoSomething/dosomething.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-sass": "~0.9.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-docco2": "~0.1.5",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-contrib-qunit": "~0.3.0",
+    "jshint-stylish": "~0.1.4",
+    "grunt-shell": "~0.6.1",
+    "grunt-contrib-imagemin": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0"
+  }
+}

@@ -55,9 +55,7 @@ function dosomething_reportback_user_default_permissions() {
   // Exported permission: 'view own reportback'.
   $permissions['view own reportback'] = array(
     'name' => 'view own reportback',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
+    'roles' => array(),
     'module' => 'dosomething_reportback',
   );
 

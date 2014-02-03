@@ -6,5 +6,5 @@ includes[] = drupal-org-core.make
 
 ; Dosomething Profile
 projects[dosomething][type] = profile
-projects[dosomething][download][type] = git
-projects[dosomething][download][url] = "git@github.com:DoSomething/dosomething.git"
+projects[dosomething][download][type] = local
+projects[dosomething][download][source] = '.'
