@@ -17,7 +17,7 @@ function dosomething_helpers_ctools_plugin_api($module = NULL, $api = NULL) {
  */
 function dosomething_helpers_form_alter(&$form, &$form_state, $form_id) {
   // If we are on a node add/edit form.
-  if (array_key_exists('#node_edit_form', $form)) {
+  if (array_key_exists('#node_edit_form', $form) || $form_id = 'fact_form') {
     // Add css to alter all node forms.
     drupal_add_css(drupal_get_path('module', 'dosomething_helpers') . '/dosomething_helpers_nodeform.css');
     drupal_add_js(drupal_get_path('module', 'dosomething_helpers') . '/dosomething_helpers_nodeform.js');
