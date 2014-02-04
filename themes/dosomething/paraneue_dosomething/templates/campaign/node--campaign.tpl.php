@@ -27,8 +27,12 @@
   </div>
   <?php endif; ?>
 
+  <?php if (isset($solution_copy)): ?>
+  <p><?php print $solution_copy['safe_value']; ?></p>
+  <?php endif; ?>
+
   <?php if (isset($solution_support)): ?>
-  <p><?php print $solution_support; ?></p>
+  <p><?php print $solution_support['safe_value']; ?></p>
   <?php endif; ?>
 
   <?php if (isset($more_facts)): ?>

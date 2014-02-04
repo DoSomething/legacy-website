@@ -139,6 +139,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Know.
+  $vars['solution_copy'] = $wrapper->field_solution_copy->value();
   $vars['solution_support'] = $wrapper->field_solution_support->value();
 
   // Collect fact values as tpl variables.
