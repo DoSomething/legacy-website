@@ -246,6 +246,9 @@ function dosomething_reportback_edit_entity($entity) {
  *
  * @param object $wrapper
  *   An entity_metadata_wrapper of the node to report back for.
+ * @param object $entity
+ *   Optional. The reportback entity to update, if updating an entity.
+ *   If NULL, submitting the form will create a new reportback entity.
  *
  * @ingroup forms
  */
