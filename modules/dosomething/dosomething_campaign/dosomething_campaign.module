@@ -180,6 +180,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['vips'] = $wrapper->field_vips->value();
   $vars['hype'] = $wrapper->field_promoting_tips->value();
   $vars['items_needed'] = $wrapper->field_items_needed->value();
+  $vars['location_finder_copy'] = $wrapper->field_location_finder_copy->value();
+  $vars['location_finder_url'] = $wrapper->field_location_finder_url->value();
 
   // Do.
   $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();

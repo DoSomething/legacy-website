@@ -64,6 +64,12 @@
   <?php if (isset($items_needed)) : ?>
     <?php print $items_needed['safe_value']; ?>
   <?php endif; ?>
+  <?php if (isset($location_finder_copy)) : ?>
+    <?php print $location_finder_copy['safe_value']; ?>
+  <?php endif; ?>
+  <?php if (isset($location_finder_url)) : ?>
+    <a href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+  <?php endif; ?>
 
   <h2> Do It </h2>
   <h4> <?php print $pre_step_header; ?> </h4>
