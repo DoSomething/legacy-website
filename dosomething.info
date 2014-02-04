@@ -41,7 +41,6 @@ dependencies[] = varnish
 dependencies[] = view_unpublished
 dependencies[] = views
 dependencies[] = views_ui
-dependencies[] = wysiwyg
 
 ; DOSOMETHING
 dependencies[] = dosomething_campaign

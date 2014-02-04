@@ -122,10 +122,6 @@ projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
 
-; WYSIWYG
-projects[wysiwyg] = "2.2"
-projects[wysiwyg][subdir] = "contrib"
-projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckeditor-1853550-46.patch"
 
 ; GIT PROJECTS
 
