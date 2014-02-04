@@ -10,7 +10,9 @@
 //
 //                                                                                
 
-@import "../bower_components/pattern-library/scss/helpers";
+// import paraneue's bower installation of Neue
+@import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers"; 
+
 
 // features
 @import "feature/auth";

@@ -82,6 +82,12 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+    // If anonymous user:
+    if (!user_is_logged_in()) {
+      // Display pitch view mode.
+      $view_mode = 'pitch';
+      return;
+    }
     $node = $context['entity'];
     // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
     if (!dosomething_user_is_staff()) {
@@ -227,7 +233,21 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
-  $vars['signup_form'] = drupal_get_form('dosomething_signup_form', $vars['nid']);
+  // Define label for signup button.
+  $label = t("Sign Up");
+  // If user is logged in:
+  if (user_is_logged_in()) {
+    // Render button as sign up form.
+    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label); 
+  }
+  // Otherwise, for anonymous user:
+  else {
+    // Render button as link to open up the login modal.
+    $vars['signup_button'] = array(
+      // @todo: Add relevant class to open up modal.
+      '#markup' => '<a href="#" class="btn">' . $label . '</a>',
+    );
+  }
 }
 
 /**

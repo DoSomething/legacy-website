@@ -101,14 +101,6 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'why_participated',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['num_participants'] = array(
-    'label' => t('Number of participants'),
-    'description' => t('The number of reportback participants, if applicable.'),
-    'type' => 'integer',
-    'required' => FALSE,
-    'schema field' => 'num_participants',
-    'setter callback' => 'entity_property_verbatim_set',
-  );
   return $info;
 }
 
@@ -264,7 +256,6 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
       'rbid' => 0,
       'quantity' => '',
       'why_participated' => NULL,
-      'num_participants' => NULL,
     ));
     $submit_label = t("Submit");
   }
@@ -299,14 +290,6 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     ),
     '#default_value' => $entity->quantity,
   );
-  // @todo: Add conditional around this if display_num_participants.
-  $form['num_participants'] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#title' => t('Number of participants'),
-    '#default_value' => $entity->num_participants,    
-  );
-
   // Attach all reportback entity fields to the form:
   field_attach_form('reportback', $entity, $form, $form_state);
   $form['actions'] = array(
@@ -518,7 +501,7 @@ function dosomething_reportback_save($entity, $values) {
  */
 function dosomething_reportback_set_properties(&$entity, $values) {
   // List all possible entity properties to write.
-  $properties = array('uid', 'nid', 'quantity', 'why_participated', 'num_participants');
+  $properties = array('uid', 'nid', 'quantity', 'why_participated');
   // For each of them:
   foreach ($properties as $property) {
     // If we have a value set for this property.
@@ -583,7 +566,6 @@ function dosomething_reportback_log_insert($op, $entity) {
         'timestamp' => $timestamp,
         'quantity' => $entity->quantity,
         'why_participated' => $entity->why_participated,
-        'num_participants' => $entity->num_participants,
         'files' => implode(',', $fids),
         'num_files' => count($fids),
       ))

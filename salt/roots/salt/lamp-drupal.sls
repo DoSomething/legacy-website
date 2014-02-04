@@ -20,7 +20,7 @@ php5-pkgs:
       - pkg: php5-pkgs
 
 php5-cli-config:
-  file.managed: 
+  file.managed:
     - name: /etc/php5/cli/php.ini
     - source: salt://php5/cli/php.ini
     - require:
@@ -94,7 +94,7 @@ apache2-restart:
   cmd.run:
     - name: sudo chown -R vagrant:vagrant /var/log/apache2 ; sudo chown -R vagrant:vagrant /var/lock/apache2 ; sudo service apache2 restart
     - require:
-      - cmd: apache2-mods  
+      - cmd: apache2-mods
 
 drupal-files:
   cmd.run:
@@ -131,6 +131,13 @@ varnish-default:
   file.managed:
     - name: /etc/default/varnish
     - source: salt://varnishd/etc-default-varnish
+    - require:
+      - pkg: varnish
+
+varnish-secret:
+  file.managed:
+    - name: /etc/varnish/secret
+    - source: salt://varnishd/secret
     - require:
       - pkg: varnish
 

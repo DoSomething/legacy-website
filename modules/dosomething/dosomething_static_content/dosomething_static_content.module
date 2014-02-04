@@ -19,7 +19,7 @@ function dosomething_static_content_preprocess_node(&$vars) {
     $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $vars['field_intro_video'][0]));
 
     $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
-    $vars['cta_button'] = $content['field_cta_button_text'][0]['#markup'];
+    $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
 
     $gallery_count = count($content['field_gallery']['#items']);
     $vars['galleries'] = array();
