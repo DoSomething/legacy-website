@@ -107,8 +107,8 @@ function dosomething_search_settings_default_search_api_server() {
     "options" : {
       "clean_ids" : true,
       "scheme" : "http",
-      "host" : "192.168.1.110",
-      "port" : "8080",
+      "host" : "localhost",
+      "port" : "8983",
       "path" : "\\/solr\\/collection1",
       "http_user" : "admin",
       "http_pass" : "password",
