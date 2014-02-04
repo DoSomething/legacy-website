@@ -1,0 +1,22 @@
+
+// --------------------------------------------------------------
+//  This partial should not exist. These overrides are temporary
+//  and allow for work to continue on the campaign pages while
+//  Furnes begins the site chrome and footer.
+// --------------------------------------------------------------
+
+.page-node-100 {
+  .utility,
+  .masthead-wrapper,
+  .breadcrumbs,
+  .tabs {
+    display: none;
+  }
+
+  // Admin menu gets in the way of mobile web styling
+  .admin-menu-site-dev-dosomething-org {
+    @include media($tablet) {
+      display: none;
+    }
+  }
+}

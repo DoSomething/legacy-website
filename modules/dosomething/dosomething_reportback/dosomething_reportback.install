@@ -54,12 +54,6 @@ function dosomething_reportback_schema() {
         'length' => '2048',
         'not null' => FALSE,
       ),
-      'num_participants' => array(
-        'description' => 'The number of participants (if applicable).',
-        'type' => 'int',
-        'not null' => FALSE,
-        'default' => NULL,
-      ),
     ),
     'primary key' => array('rbid'),
     'indexes' => array(
@@ -110,12 +104,6 @@ function dosomething_reportback_schema() {
         'type' => 'text',
         'length' => '2048',
         'not null' => FALSE,
-      ),
-      'num_participants' => array(
-        'description' => 'The number of participants (if applicable).',
-        'type' => 'int',
-        'not null' => FALSE,
-        'default' => NULL,
       ),
       'files' => array(
         'description' => 'Comma separated list of file fids attached to reportback.',

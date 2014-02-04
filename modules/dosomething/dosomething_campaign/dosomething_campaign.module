@@ -82,6 +82,12 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+    // If anonymous user:
+    if (!user_is_logged_in()) {
+      // Display pitch view mode.
+      $view_mode = 'pitch';
+      return;
+    }
     $node = $context['entity'];
     // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
     if (!dosomething_user_is_staff()) {
@@ -105,6 +111,15 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $wrapper = entity_metadata_wrapper('node', $node);
     // Vars needed for both the pitch & action page.
     $vars['cta'] = $wrapper->field_call_to_action->value();
+
+    // Images.
+    if (isset($vars['field_image_campaign_cover'][0])) {
+      $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280');
+      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
+      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280');
+      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
+    }
 
     if (!is_null($vars['field_sponsor'])) {
       $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
@@ -185,15 +200,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
 
-  // Images.
-  if (isset($vars['field_image_campaign_cover'][0])) {
-    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-    $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280');
-    $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
-    $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280');
-    $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
-  }
-
   // Image galleries.
   foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
     $nid = $step_image['entity']->nid;
@@ -227,7 +233,21 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
-  $vars['signup_form'] = drupal_get_form('dosomething_signup_form', $vars['nid']);
+  // Define label for signup button.
+  $label = t("Sign Up");
+  // If user is logged in:
+  if (user_is_logged_in()) {
+    // Render button as sign up form.
+    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label);
+  }
+  // Otherwise, for anonymous user:
+  else {
+    // Render button as link to open up the login modal.
+    $vars['signup_button'] = array(
+      // @todo: Add relevant class to open up modal.
+      '#markup' => '<a href="#" class="btn">' . $label . '</a>',
+    );
+  }
 }
 
 /**
