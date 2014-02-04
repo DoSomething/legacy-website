@@ -67,9 +67,25 @@ class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
       'why_participated' => "lorem ipsum",
     );
     dosomething_reportback_set_properties($entity, $values);
+    // Test that each property was written.
     foreach ($values as $property => $value) {
       $this->assertEqual($values[$property], $entity->{$property}, $property . " is equal.");
     }
   }
 
+  /**
+   * @see dosomething_reportback_set_files().
+   */
+  public function testSetFiles() {
+    $entity = entity_create('reportback', array());
+    $values = array(
+      'files' => array(2, 3, 20),
+    );
+    dosomething_reportback_set_files($entity, $values);
+    // Test that field_image_user_reportback value was written.
+    foreach ($entity->field_image_user_reportback[LANGUAGE_NONE] as $delta => $file) {
+      $this->assertEqual($file['fid'], $values['files'][$delta], "Fid "
+         . $file['fid'] . " found.");
+    }
+  }
 }
