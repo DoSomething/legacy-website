@@ -7,7 +7,7 @@
   <?php if (isset($sponsors)): ?>
     <?php foreach ($sponsors as $key => $sponsor) :?>
       <?php print $sponsor['name']; ?>
-      <?php print $sponsor['img']; ?>
+      <?php // print $sponsor['img']; ?>
     <?php endforeach; ?>
   <?php endif; ?>
 </div>

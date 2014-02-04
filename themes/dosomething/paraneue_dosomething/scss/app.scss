@@ -1,19 +1,26 @@
 //
-//   $$$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$\  $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\ 
+//   $$$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$\  $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\
 //   $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$$\  $$ |$$  _____|$$ |  $$ |$$  _____|
-//   $$ |  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$$$\ $$ |$$ |      $$ |  $$ |$$ |      
-//   $$$$$$$  |$$$$$$$$ |$$$$$$$  |$$$$$$$$ |$$ $$\$$ |$$$$$\    $$ |  $$ |$$$$$\    
-//   $$  ____/ $$  __$$ |$$  __$$< $$  __$$ |$$ \$$$$ |$$  __|   $$ |  $$ |$$  __|   
-//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |\$$$ |$$ |      $$ |  $$ |$$ |      
-//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ | \$$ |$$$$$$$$\ \$$$$$$  |$$$$$$$$\ 
+//   $$ |  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$$$\ $$ |$$ |      $$ |  $$ |$$ |
+//   $$$$$$$  |$$$$$$$$ |$$$$$$$  |$$$$$$$$ |$$ $$\$$ |$$$$$\    $$ |  $$ |$$$$$\
+//   $$  ____/ $$  __$$ |$$  __$$< $$  __$$ |$$ \$$$$ |$$  __|   $$ |  $$ |$$  __|
+//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |\$$$ |$$ |      $$ |  $$ |$$ |
+//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ | \$$ |$$$$$$$$\ \$$$$$$  |$$$$$$$$\
 //   \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|
 //
-//                                                                                
+//
 
 // import paraneue's bower installation of Neue
-@import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers"; 
-
+@import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers";
 
 // features
-@import "feature/auth";
-@import "feature/campaign";
+@import "feature/_auth";
+
+// Campaign Pages
+@import "feature/_campaign";
+@import "feature/_pitch";
+@import "feature/_action";
+
+// Temporary hacks
+@import "feature/_hide";
+@import "feature/_port-to-neue";
