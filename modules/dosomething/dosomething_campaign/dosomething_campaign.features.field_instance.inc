@@ -227,7 +227,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Limit: 2 per campaign.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -465,7 +465,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => 1,
       ),
     ),
     'deleted' => 0,
@@ -514,7 +514,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Ideally this is a stat; should always be based on research. Compels people to care about the issue. i.e. 1 in 3 homeless people are under the age of 18. 
+    'description' => 'Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
 <br/>
 <strong> Limit: 135 characters </strong>',
     'display' => array(
@@ -541,8 +541,10 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_fact_problem',
-    'label' => 'Problem Statement',
+    'label' => 'Problem Fact',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -565,9 +567,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This should always be based on research - if possible it should be a stat. It is information that shows the call to action is what to do. i.e. "Number one thing teens ask for when arriving at a shelter is a pair of jeans."
-<br/>
-<strong> Limit: 135 characters. </strong>',
+    'description' => 'Information that shows that the call to action is what to do to solve the issue. If using a fact, create a fact and reference it here.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -592,8 +592,10 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_fact_solution',
-    'label' => 'Solution Statement - The Insight',
+    'label' => 'Solution Fact',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -656,7 +658,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -705,7 +707,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -1092,7 +1094,7 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_location_finder',
-    'label' => 'Location Finder Needed',
+    'label' => 'Internal Location Finder Needed',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1105,6 +1107,113 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_location_finder_copy'
+  $field_instances['node-campaign-field_location_finder_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This is to describe what the location should be used for and any notes the user needs when using the finder. i.e. <i>Find a local food bank that accepts donations. Call them to arrange drop off in advance.</i><br>
+<strong>Limit 120 characters.</strong>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 57,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_location_finder_copy',
+    'label' => 'Location Finder Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_location_finder_url'
+  $field_instances['node-campaign-field_location_finder_url'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 58,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_location_finder_url',
+    'label' => 'External Location Finder URL',
+    'required' => 0,
+    'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 18,
     ),
   );
 
@@ -1919,6 +2028,54 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_solution_copy'
+  $field_instances['node-campaign-field_solution_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If you are not using a fact above, use this field. This is information that shows that the call to action is what to do to solve the issue.
+<br />
+<strong>Limit: 135 characters</strong>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 59,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_solution_copy',
+    'label' => 'Solution Statement',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_solution_support'
   $field_instances['node-campaign-field_solution_support'] = array(
     'bundle' => 'campaign',
@@ -1964,7 +2121,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -2368,23 +2525,27 @@ function dosomething_campaign_field_default_field_instances() {
   t('Call to Action');
   t('Campaign Specific Starter Statement');
   t('Cause');
+  t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
+<br/>
+<strong> Limit: 135 characters </strong>');
   t('Copy');
   t('Cover Image');
   t('Do It Gallery');
   t('During Copy');
   t('During Header');
   t('During Tips');
+  t('External Location Finder URL');
   t('FAQ');
   t('Facts');
   t('Header');
   t('High Season');
   t('Hype');
-  t('Ideally this is a stat; should always be based on research. Compels people to care about the issue. i.e. 1 in 3 homeless people are under the age of 18. 
-<br/>
-<strong> Limit: 135 characters </strong>');
   t('If there is a prize to be won, you must include a PDF of the official rules.');
   t('If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.');
   t('If there is no PSA then this image is required.');
+  t('If you are not using a fact above, use this field. This is information that shows that the call to action is what to do to solve the issue.
+<br />
+<strong>Limit: 135 characters</strong>');
   t('If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.") 
 <br/>
 <strong> Limit: 135 characters </strong>
@@ -2393,11 +2554,14 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Please use commas to separate terms. </strong>');
   t('Include the link of the Google doc that proves the impact of the campaign.');
+  t('Information that shows that the call to action is what to do to solve the issue. If using a fact, create a fact and reference it here.');
+  t('Internal Location Finder Needed');
   t('Is Staff Pick');
   t('Is there a time when this campaign should be heavily weighted and highly promoted in the campaign finder? If so, include a start date. Includes things like staff pick campaigns, beach cleanups (summer months), campaign ideas for the holidays, etc.');
   t('Is there a time when this campaign should be lightly weighted in the campaign finder? If so include a start date. We don\'t want to be highlighting beach cleanups in the winter or Thanksgiving ideas in the summer.');
   t('Issue');
-  t('Location Finder Needed');
+  t('Limit: 2 per campaign.');
+  t('Location Finder Copy');
   t('Low Season');
   t('Must start with a verb. Must end with a !. Encompass what the user needs to do before taking a picture i.e. Run Your Drive!, Hand Out Condoms!, Hide The Pills!"
 <br/>
@@ -2411,7 +2575,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Partners');
   t('Primary Action Type');
   t('Primary Cause');
-  t('Problem Statement');
+  t('Problem Fact');
   t('Proof of Impact');
   t('Prove it Gallery');
   t('Question');
@@ -2425,7 +2589,8 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit 60 characters. </strong>');
   t('Show End Date on Pitch & Action Page');
   t('Snap a Pic');
-  t('Solution Statement - The Insight');
+  t('Solution Fact');
+  t('Solution Statement');
   t('Sponsor');
   t('Stuff You Need');
   t('Supporting Statement on the Solution');
@@ -2455,9 +2620,8 @@ function dosomething_campaign_field_default_field_instances() {
   t('This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated. 
 <br/>
 <strong> Limit: 135 characters </strong>');
-  t('This should always be based on research - if possible it should be a stat. It is information that shows the call to action is what to do. i.e. "Number one thing teens ask for when arriving at a shelter is a pair of jeans."
-<br/>
-<strong> Limit: 135 characters. </strong>');
+  t('This is to describe what the location should be used for and any notes the user needs when using the finder. i.e. <i>Find a local food bank that accepts donations. Call them to arrange drop off in advance.</i><br>
+<strong>Limit 120 characters.</strong>');
   t('This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate." 
 <br/>
 <strong> Limit: 135 characters </strong>');
