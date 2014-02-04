@@ -122,10 +122,6 @@ projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
 
-; WYSIWYG
-projects[wysiwyg] = "2.2"
-projects[wysiwyg][subdir] = "contrib"
-projects[wysiwyg][patch][] = "https://drupal.org/files/wysiwyg-support_v4_ckeditor-1853550-46.patch"
 
 ; GIT PROJECTS
 
@@ -165,10 +161,6 @@ projects[paraneue][subdir] = "dosomething"
 projects[paraneue][options][working-copy] = TRUE
 
 ; LIBRARIES
-
-; CKEditor
-libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
 
 ; Mobile Commons PHP
 libraries[mobilecommons_php][download][type] = "git"
