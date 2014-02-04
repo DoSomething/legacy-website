@@ -85,7 +85,7 @@ function dosomething_static_content_field_group_info() {
       3 => 'field_intro',
       4 => 'field_subtitle',
       5 => 'title',
-      6 => 'field_intro_video',
+      6 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

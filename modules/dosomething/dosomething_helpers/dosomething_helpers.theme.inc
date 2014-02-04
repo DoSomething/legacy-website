@@ -41,8 +41,8 @@ function dosomething_helpers_theme($existing, $type, $theme, $path) {
     'dosomething_video_embed' => array(
       'variables' => array(
         'field' => NULL,
-        'height' => 560,
-        'width' => 315,
+        'height' => 315,
+        'width' => 560,
       ),
     ),
   );
@@ -52,8 +52,8 @@ function theme_dosomething_video_embed($variables) {
   $output = '<iframe';
   $output .= " width=\"{$variables['width']}\"";
   $output .= " height=\"{$variables['height']}\"";
-  if ($variables['field']['first'] == 'youtube') {
-    $output .= ' src="//www.' . $variables['field']['first'] . '.com/embed/' . $variables['field']['second'] . '"';
+  if ($variables['field']->field_provider['und'][0]['value'] == 'youtube') {
+    $output .= ' src="//www.' . $variables['field']->field_provider['und'][0]['value'] . '.com/embed/' . $variables['field']->field_video_id['und'][0]['value'] . '"';
   }
   $output .= ' frameborder="0" allowfullscreen></iframe>';
 

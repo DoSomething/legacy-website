@@ -451,88 +451,6 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_intro_video'
-  $field_instances['node-static_content-field_intro_video'] = array(
-    'bundle' => 'static_content',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Select the provider and enter the ID of the video on the selected platform.  e.g. Youtube, wetvnbDB4wg',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'double_field',
-        'settings' => array(
-          'first' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => ':&nbsp;',
-          ),
-          'second' => array(
-            'format' => '_none',
-            'hidden' => 0,
-            'prefix' => '',
-            'suffix' => '',
-          ),
-          'style' => 'inline',
-        ),
-        'type' => 'double_field_unformatted_list',
-        'weight' => 15,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_intro_video',
-    'label' => 'Intro Video',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'double_field',
-      'settings' => array(
-        'first' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'select' => array(
-            'allowed_values' => array(
-              'youtube' => 'You Tube',
-            ),
-          ),
-        ),
-        'inline' => 1,
-        'second' => array(
-          'general' => array(
-            'prefix' => '',
-            'required' => 1,
-            'suffix' => '',
-          ),
-          'textfield' => array(
-            'placeholder' => '',
-            'size' => 10,
-          ),
-        ),
-      ),
-      'type' => 'select_&_textfield',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'node-static_content-field_subtitle'
   $field_instances['node-static_content-field_subtitle'] = array(
     'bundle' => 'static_content',
@@ -579,6 +497,55 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-static_content-field_video'
+  $field_instances['node-static_content-field_video'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 15,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_video',
+    'label' => 'Video',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 14,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Additional Text');
@@ -590,9 +557,8 @@ function dosomething_static_content_field_default_field_instances() {
   t('Intro');
   t('Intro Image');
   t('Intro Title');
-  t('Intro Video');
-  t('Select the provider and enter the ID of the video on the selected platform.  e.g. Youtube, wetvnbDB4wg');
   t('Subtitle');
+  t('Video');
 
   return $field_instances;
 }
