@@ -1,4 +1,4 @@
-name = DoSomething Search Settings
+name = DoSomething Search
 core = 7.x
 package = Features
 dependencies[] = entity

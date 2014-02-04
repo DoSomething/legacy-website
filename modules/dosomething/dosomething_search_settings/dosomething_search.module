@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Search feature.
+ */
+
+include_once 'dosomething_search.features.inc';

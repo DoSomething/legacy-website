@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the DoSomething Search Settings feature.
- */
-
-include_once 'dosomething_search_settings.features.inc';

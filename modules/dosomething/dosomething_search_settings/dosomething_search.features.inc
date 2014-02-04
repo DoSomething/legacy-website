@@ -7,7 +7,7 @@
 /**
  * Implements hook_default_search_api_index().
  */
-function dosomething_search_settings_default_search_api_index() {
+function dosomething_search_default_search_api_index() {
   $items = array();
   $items['default_node_index'] = entity_import('search_api_index', '{
     "name" : "Default node index",
