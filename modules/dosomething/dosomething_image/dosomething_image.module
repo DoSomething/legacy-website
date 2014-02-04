@@ -72,7 +72,7 @@ function dosomething_image_get_image_url($nid, $ratio) {
  * @return string
  *  A sized image url.
  */
-function dosomething_image_get_themed_image_url($nid, $ratio) {
+function dosomething_image_get_themed_image_url($nid, $ratio, $style) {
   $base_path = dosomething_image_get_image_url($nid, $ratio);
   return image_style_url($style, $base_path);
 }
