@@ -52,11 +52,11 @@ function dosomething_fact_page_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_hero_image',
-      1 => 'field_subtitle',
+      1 => 'field_intro_image',
       2 => 'field_intro_title',
-      3 => 'field_intro_image',
-      4 => 'field_intro_video',
-      5 => 'title',
+      3 => 'field_subtitle',
+      4 => 'title',
+      5 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
