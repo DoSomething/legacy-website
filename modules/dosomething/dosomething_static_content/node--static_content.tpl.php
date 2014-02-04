@@ -13,13 +13,19 @@
   </div>
   <h2><?php print $intro_title; ?></h2>
   <div class="left"><?php print $intro; ?></div>
-  <?php print $intro_image; ?>
-  <div class="cta">
-    <h2><?php print $cta; ?></h2>
-    <div class="cta_button btn"><?php print $cta_button; ?></div>
-  </div>
+  <?php if (isset($intro_image)): ?>
+    <?php print $intro_image; ?>
+  <?php elseif ($intro_video): ?>
+    <?php print $intro_video; ?>
+  <?php endif; ?>
+  <?php if (isset($cta)): ?>
+    <div class="cta">
+      <h2><?php print $cta; ?></h2>
+      <div class="cta_button btn"><?php print $cta_button; ?></div>
+    </div>
+  <?php endif; ?>
  <br/>
- <?php if ($galleries): ?>
+ <?php if (isset($galleries)): ?>
     <?php foreach ($galleries as $gallery): ?>
       <?php print $gallery['image']; ?>
       <?php if ($gallery['image_title']): ?>
@@ -31,12 +37,17 @@
     <?php endforeach; ?>
   <? endif; ?>
   
-  <h2><?php print $additional_text_title; ?></h2>
-  <p><?php print $additional_text; ?></p>
-
-  <div class="cta">
-    <h2><?php print $cta; ?></h2>
-    <div class="cta_button btn"><?php print $cta_button; ?></div>
-  </div>
-
+  <?php if (isset($additional_text_title)): ?>
+    <h2><?php print $additional_text_title; ?></h2>
+  <?php endif; ?>
+  <?php if (isset($additional_text)): ?>
+    <p><?php print $additional_text; ?></p>
+  <?php endif; ?>
+  
+  <?php if (isset($cta)): ?>
+    <div class="cta">
+      <h2><?php print $cta; ?></h2>
+      <div class="cta_button btn"><?php print $cta_button; ?></div>
+    </div>
+  <?php endif; ?>
 </article>
