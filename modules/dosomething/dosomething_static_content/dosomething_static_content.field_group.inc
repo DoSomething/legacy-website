@@ -53,6 +53,7 @@ function dosomething_static_content_field_group_info() {
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_button_text',
+      2 => 'field_cta_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
