@@ -4,6 +4,9 @@
  * Tests for dosomething_reportback.module.
  */
 
+/**
+ * DoSomething Reportback web tests.
+ */
 class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
   // Required to test inside the DoSomething profile:
   protected $profile = 'dosomething';
