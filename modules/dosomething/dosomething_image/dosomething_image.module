@@ -49,13 +49,13 @@ function dosomething_image_get_themed_image($nid, $ratio, $style) {
 function dosomething_image_get_image_url($nid, $ratio) {
    $node = node_load($nid);
     switch ($ratio) {
-      case 'vert':
+      case 'portrait':
         $path =  $node->field_image_portrait[LANGUAGE_NONE][0]['uri'];
         break;
-      case 'horiz':
+      case 'landscape':
         $path = $node->field_image_landscape[LANGUAGE_NONE][0]['uri'];
         break;
-      case 'sq':
+      case 'square':
         $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
         break;
     }
@@ -72,7 +72,7 @@ function dosomething_image_get_image_url($nid, $ratio) {
  * @return string
  *  A sized image url.
  */
-function dosomething_image_get_themed_image_url($nid, $ratio) {
+function dosomething_image_get_themed_image_url($nid, $ratio, $style) {
   $base_path = dosomething_image_get_image_url($nid, $ratio);
   return image_style_url($style, $base_path);
 }

@@ -1,0 +1,43 @@
+
+// ----------
+//  CAMPAIGN
+// ----------
+
+// Outermost campaign template wrapper that
+// has the hero image applied to it
+section.campaign-wrapper {
+  min-height: 600px;
+  padding: 250px 0 0;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 43% 50%;
+  background-size: cover;
+
+  @include media( $tablet ) {
+    @include outer-container;
+  }
+}
+
+// Inner campaign template container that
+// holds all content from the node fields
+div.campaign-container {
+  @include media( $tablet ) {
+    @include span-columns(3);
+    @include shift(1);
+  }
+
+  input.btn {
+    margin: 0 auto;
+    display: block;
+    width: 125px;
+    color: #fff;
+  }
+
+  img.campaign-arrow {
+    position: relative;
+    left: 90px;
+    top: -15px;
+    display: block;
+    margin: 0 auto;
+  }
+}

@@ -12,7 +12,7 @@ include_once 'dosomething_signup.features.inc';
  * @param int $nid
  *   The node nid the user has signed up for.
  * @param int $uid
- *   Optional - the user uid who has signed up.  
+ *   Optional - the user uid who has signed up.
  *   If not provided, uses global $user->uid.
  *
  * @return mixed
@@ -102,17 +102,27 @@ function dosomething_signup_exists($nid, $uid = NULL) {
 /**
  * Form constructor for user signup form.
  *
+ * Displayed for an authenticated user to signup for a node.
+ *
  * @param int $nid
  *   The node nid to signup for.
+ * @param string $label
+ *   The label to display on the form submit button.
  */
-function dosomething_signup_form($form, &$form_state, $nid) {
+function dosomething_signup_form($form, &$form_state, $nid, $label) {
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $nid,
   );
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t("Sign Up"),
+    '#value' => $label,
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'medium',
+      ),
+    ),
   );
   return $form;
 }
@@ -123,15 +133,15 @@ function dosomething_signup_form($form, &$form_state, $nid) {
  * @see dosomething_signup_form()
  */
 function dosomething_signup_form_submit($form, &$form_state) {
-  global $user;
-  if (!$user->uid) {
-    drupal_set_message("Please sign in first");
+  // Shouldn't be able to submit form as anonymous user, but check.
+  if (!user_is_logged_in()) {
+    drupal_set_message("Please sign in first.");
+    return;
   }
-  else {
-    $sid = dosomething_signup_insert($form_state['values']['nid']);
-    if (is_numeric($sid)) {
-      drupal_set_message(t("You're signed up!"));
-    }
+  $nid = $form_state['values']['nid'];
+  // Signup shouldn't exist already, but check. 
+  if (!dosomething_signup_exists($nid) && dosomething_signup_insert($nid)) {
+    drupal_set_message(t("You're signed up!"));
   }
 }
 
