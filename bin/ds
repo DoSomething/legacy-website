@@ -125,6 +125,15 @@ function build {
 
   echo 'Replacing settings.php file...'
   rm -f $WEB_PATH/sites/default/settings.php && ln -s $BASE_PATH/settings.php $WEB_PATH/sites/default/settings.php
+  
+  if [ ! -e "$BASE_PATH/settings.local.php" ]
+  then
+    echo 'Creating local settings file...'
+    cp $BASE_PATH/default.settings.local.php $BASE_PATH/settings.local.php
+  fi
+  
+  echo 'Linking local settings file...'
+  ln -s $BASE_PATH/settings.local.php $WEB_PATH/sites/default/settings.local.php
 
   echo 'Adding role to admin user...'
   drush user-add-role 'administrator' 1
