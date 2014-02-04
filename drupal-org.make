@@ -166,10 +166,6 @@ projects[paraneue][options][working-copy] = TRUE
 
 ; LIBRARIES
 
-; CKEditor
-libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.2.2/ckeditor_4.2.2_standard.tar.gz"
-
 ; Mobile Commons PHP
 libraries[mobilecommons_php][download][type] = "git"
 libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
