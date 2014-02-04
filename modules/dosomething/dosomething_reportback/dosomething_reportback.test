@@ -54,7 +54,6 @@ class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
     $this->assertTrue(db_field_exists($tbl, 'num_files'), 'num_files field exists.');
   }
 
-
   /**
    * @see dosomething_reportback_set_properties().
    */
@@ -87,5 +86,28 @@ class DoSomethingReportbackWebTestCase extends DrupalWebTestCase {
       $this->assertEqual($file['fid'], $values['files'][$delta], "Fid "
          . $file['fid'] . " found.");
     }
+  }
+
+  /**
+   * @see dosomething_reportback_save().
+   */
+  public function testSave() {
+    $entity = entity_create('reportback', array());
+    $values = array(
+      'uid' => 1,
+      'nid' => 711,
+      'quantity' => 412,
+      'why_participated' => "lorem ipsum",
+      'files' => array(2, 3, 30),
+    );
+    // Numeric rbid should be returned upon successful save.
+    $rbid = dosomething_reportback_save($entity, $values);
+    $this->assertTrue(is_numeric($rbid), "Numeric rbid returned.");
+    // Drop reportback table and watch the world burn.
+    db_drop_table('dosomething_reportback');
+    $entity = entity_create('reportback', array());
+    // FALSE should be returned if there's an error saving entity.
+    $rbid = dosomething_reportback_save($entity, $values);
+    $this->assertFalse($rbid, "FALSE returned.");
   }
 }
