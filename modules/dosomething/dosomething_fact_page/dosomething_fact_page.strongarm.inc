@@ -24,6 +24,9 @@ function dosomething_fact_page_strongarm() {
         'path' => array(
           'weight' => '3',
         ),
+        'metatags' => array(
+          'weight' => '40',
+        ),
       ),
       'display' => array(),
     ),
