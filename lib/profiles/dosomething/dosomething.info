@@ -47,6 +47,7 @@ dependencies[] = views_ui
 ; DOSOMETHING
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_fact
+dependencies[] = dosomething_fact_page
 dependencies[] = dosomething_image
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_reportback
