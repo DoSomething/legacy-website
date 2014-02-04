@@ -19,8 +19,5 @@
   "dependencies": {
     "underscore": "~1.5.2",
     "mailcheck": "~1.0.3"
-  },
-  "resolutions": {
-    "jquery": "1.11.0"
   }
 }
