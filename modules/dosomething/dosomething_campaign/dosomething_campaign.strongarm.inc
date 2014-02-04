@@ -22,10 +22,10 @@ function dosomething_campaign_strongarm() {
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '10',
         ),
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '11',
         ),
       ),
       'display' => array(),
