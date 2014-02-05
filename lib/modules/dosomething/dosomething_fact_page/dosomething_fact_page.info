@@ -4,7 +4,6 @@ package = Features
 dependencies[] = ctools
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_static_content
-dependencies[] = double_field
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
