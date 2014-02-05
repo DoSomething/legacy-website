@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the DoSomething Fact Page feature.
- */
-
-include_once 'dosomething_fact_page.features.inc';
