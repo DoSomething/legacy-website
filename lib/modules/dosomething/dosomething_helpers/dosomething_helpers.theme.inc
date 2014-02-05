@@ -35,3 +35,27 @@ function _dosomething_helpers_insert_after_first_element(&$a, $element) {
     $a = $element;
   }
 }
+
+function dosomething_helpers_theme($existing, $type, $theme, $path) {
+  return array(
+    'dosomething_video_embed' => array(
+      'variables' => array(
+        'field' => NULL,
+        'height' => 315,
+        'width' => 560,
+      ),
+    ),
+  );
+}
+
+function theme_dosomething_video_embed($variables) {
+  $output = '<iframe';
+  $output .= " width=\"{$variables['width']}\"";
+  $output .= " height=\"{$variables['height']}\"";
+  if ($variables['field']->field_provider['und'][0]['value'] == 'youtube') {
+    $output .= ' src="//www.' . $variables['field']->field_provider['und'][0]['value'] . '.com/embed/' . $variables['field']->field_video_id['und'][0]['value'] . '"';
+  }
+  $output .= ' frameborder="0" allowfullscreen></iframe>';
+
+  return $output;
+}

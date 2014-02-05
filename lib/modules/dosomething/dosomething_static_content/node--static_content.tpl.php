@@ -14,6 +14,7 @@
   <h2><?php print $intro_title; ?></h2>
   <div class="left"><?php print $intro; ?></div>
   <?php print $intro_image; ?>
+  <?php print $intro_video; ?>
   <div class="cta">
     <h2><?php print $cta; ?></h2>
     <div class="cta_button btn"><?php print $cta_button; ?></div>

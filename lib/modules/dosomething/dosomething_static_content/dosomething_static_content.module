@@ -13,7 +13,12 @@ function dosomething_static_content_preprocess_node(&$vars) {
     $vars['subtitle'] = $content['field_subtitle'][0]['#markup'];
     $vars['intro_title'] = $content['field_intro_title'][0]['#markup'];
     $vars['intro'] = $content['field_intro'][0]['#markup'];
-    $vars['intro_image'] = dosomething_image_get_themed_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
+    if (isset($vars['field_intro_image'][0])) {
+      $vars['intro_image'] = dosomething_image_get_themed_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
+    }
+
+    $node = entity_metadata_wrapper('node', $vars['node']);
+    $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
 
     $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
     $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
