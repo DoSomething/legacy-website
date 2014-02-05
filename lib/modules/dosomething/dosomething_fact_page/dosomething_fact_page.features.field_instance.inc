@@ -167,55 +167,6 @@ function dosomething_fact_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_gallery'
-  $field_instances['node-fact_page-field_gallery'] = array(
-    'bundle' => 'fact_page',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 9,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_gallery',
-    'label' => 'Gallery',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 12,
-    ),
-  );
-
   // Exported field_instance: 'node-fact_page-field_hero_image'
   $field_instances['node-fact_page-field_hero_image'] = array(
     'bundle' => 'fact_page',
@@ -464,7 +415,6 @@ function dosomething_fact_page_field_default_field_instances() {
   t('CTA Link');
   t('Call to Action');
   t('Facts');
-  t('Gallery');
   t('Hero Image');
   t('Intro Image');
   t('Intro Title');

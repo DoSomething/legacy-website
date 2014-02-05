@@ -19,7 +19,6 @@ features[field_group][] = group_lead_in|node|fact_page|form
 features[field_instance][] = node-fact_page-field_call_to_action
 features[field_instance][] = node-fact_page-field_cta_link
 features[field_instance][] = node-fact_page-field_facts
-features[field_instance][] = node-fact_page-field_gallery
 features[field_instance][] = node-fact_page-field_hero_image
 features[field_instance][] = node-fact_page-field_intro_image
 features[field_instance][] = node-fact_page-field_intro_title
