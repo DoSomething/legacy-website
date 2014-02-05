@@ -50,7 +50,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Do It',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_photo_step',
       1 => 'field_post_step_copy',
@@ -84,7 +84,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_image_campaign_cover',
       1 => 'field_image_psa_replacement',
@@ -123,6 +123,7 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_facts',
       3 => 'field_faq',
       4 => 'field_solution_support',
+      5 => 'field_solution_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -140,6 +141,36 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_location_finder|node|campaign|form';
+  $field_group->group_name = 'group_location_finder';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_prep_it';
+  $field_group->data = array(
+    'label' => 'Location Finder',
+    'weight' => '17',
+    'children' => array(
+      0 => 'field_location_finder',
+      1 => 'field_location_finder_copy',
+      2 => 'field_location_finder_url',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Location Finder',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-location-finder field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_location_finder|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_prep_it|node|campaign|form';
   $field_group->group_name = 'group_prep_it';
   $field_group->entity_type = 'node';
@@ -148,14 +179,14 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Plan It',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_items_needed',
-      1 => 'field_location_finder',
-      2 => 'field_promoting_tips',
-      3 => 'field_starter_statement',
-      4 => 'field_time_and_place',
-      5 => 'field_vips',
+      1 => 'field_promoting_tips',
+      2 => 'field_starter_statement',
+      3 => 'field_time_and_place',
+      4 => 'field_vips',
+      5 => 'group_location_finder',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -181,7 +212,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prove It',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_reportback_confirm_msg',
@@ -214,10 +245,10 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
-      0 => 'field_sponsor',
-      1 => 'field_partners',
+      0 => 'field_partners',
+      1 => 'field_sponsor',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -243,16 +274,16 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',
       2 => 'field_cause',
-      3 => 'field_staff_pick',
-      4 => 'field_tags',
-      5 => 'field_issue',
-      6 => 'field_primary_cause',
-      7 => 'field_primary_action_type',
+      3 => 'field_issue',
+      4 => 'field_primary_action_type',
+      5 => 'field_primary_cause',
+      6 => 'field_staff_pick',
+      7 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

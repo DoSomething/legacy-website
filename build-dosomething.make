@@ -7,4 +7,4 @@ includes[] = drupal-org-core.make
 ; Dosomething Profile
 projects[dosomething][type] = profile
 projects[dosomething][download][type] = local
-projects[dosomething][download][source] = '.'
+projects[dosomething][download][source] = './lib/profiles/dosomething'

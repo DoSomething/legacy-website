@@ -1,11 +1,11 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the DoSomething Taxonomy feature.
  */
 
 /**
- * Returns array of values of sponser data.
+ * Returns array of values of sponsor data.
  *
  * @param object $sponsor_field_wrapper
  *   An entity_metadata_wrapper object.
@@ -15,6 +15,7 @@
  *
  */
 function dosomething_taxonomy_get_sponsors($sponsor_field_wrapper) {
+  $sponsors = array();
   foreach ($sponsor_field_wrapper->getIterator() as $delta => $term_wrapper) {
     $sponsors[$delta]['name']  = $term_wrapper->name->value();
     if (property_exists($term_wrapper->field_image_sponsor_logo, 'nid')) {
@@ -22,7 +23,7 @@ function dosomething_taxonomy_get_sponsors($sponsor_field_wrapper) {
       $sponsors[$delta]['img'] = dosomething_image_get_themed_image($sponsor_img_nid, 'sq', '310x310');
     }
   }
-  if (!is_null($sponsors)) {
+  if (!empty($sponsors)) {
     return $sponsors;
   }
   return NULL;
