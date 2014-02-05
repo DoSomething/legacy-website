@@ -244,6 +244,16 @@ function deploy {
 function bower {
   if hash bower 2>/dev/null;
   then
+    cd $WEB_PATH/profiles/dosomething/themes/dosomething/paraneue
+
+    if [[ $1 == "--update" ]]
+    then
+      eval "/usr/bin/bower update"
+    elif [[ -z "$1" ]] || [[ $1 == "--install" ]]
+    then
+      eval "/usr/bin/bower install"
+    fi
+
     cd $LIB_PATH/themes/dosomething/paraneue_dosomething
 
     if [[ $1 == "--update" ]]
@@ -253,6 +263,7 @@ function bower {
     then
       eval "/usr/bin/bower install"
     fi
+
     cd $BASE_PATH
 
   fi
