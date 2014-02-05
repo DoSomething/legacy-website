@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
 
   ## For masterless, mount your salt file root
-  config.vm.synced_folder "salt/roots/", "/srv/"
+  config.vm.synced_folder "provision/salt/roots/", "/srv/"
 
   # Bare Apache httpd (http and https)
   config.vm.network :forwarded_port, guest: 8888, host: 8888
@@ -29,8 +29,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision :salt do |salt|
     # Uncomment to see Salt output
     # salt.verbose = true
-    salt.minion_config = "salt/minion.conf"
+    salt.minion_config = "provision/salt/minion.conf"
     salt.run_highstate = true
   end
-  config.vm.provision :shell, :inline => 'more /vagrant/salt/install_complete.txt'
+  config.vm.provision :shell, :inline => 'more /vagrant/provision/install_complete.txt'
 end
