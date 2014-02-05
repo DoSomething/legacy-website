@@ -88,6 +88,15 @@ projects[optimizely][subdir] = "contrib"
 ; Pathauto
 projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
+search_api
+
+; Search API
+projects[search_api] = "1.11"
+projects[search_api][subdir] "contrib"
+
+; Search API Solr
+projects[search_api_solr] = "1.4"
+projects[search_api_solr][subdir] "contrib"
 
 ; Secure Pages
 projects[securepages] = "1.0-beta2"
