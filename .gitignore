@@ -7,5 +7,6 @@ docs
 doxy.sh
 Doxyfile
 node_modules
-themes/dosomething/paraneue_dosomething/dist/
-themes/dosomething/paraneue_dosomething/bower_components/
+lib/themes/dosomething/paraneue_dosomething/dist/
+lib/themes/dosomething/paraneue_dosomething/bower_components/
+lib/themes/dosomething/paraneue_dosomething/vendor/

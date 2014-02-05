@@ -13,6 +13,18 @@ WEB_DIR='html'
 # Full webroot path
 WEB_PATH=$BASE_PATH/$WEB_DIR
 
+# The lib directory name
+LIB_DIR='lib'
+
+# Full lib path
+LIB_PATH=$BASE_PATH/$LIB_DIR
+
+# The config directory name
+CONFIG_DIR='config'
+
+# Full lib path
+CONFIG_PATH=$BASE_PATH/$CONFIG_DIR
+
 # Build directory name
 BUILD_DIR='build'
 
@@ -101,11 +113,11 @@ function build {
 
   echo 'Linking modules'
   rm -rf "$WEB_PATH/profiles/dosomething/modules/dosomething"
-  ln -s "$BASE_PATH/modules/dosomething" "$WEB_PATH/profiles/dosomething/modules/dosomething"
+  ln -s "$LIB_PATH/modules/dosomething" "$WEB_PATH/profiles/dosomething/modules/dosomething"
 
   echo 'Linking themes'
   rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
-  ln -s "$BASE_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  ln -s "$LIB_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
 
   echo 'Install bower dependencies'
   bower
@@ -124,16 +136,16 @@ function build {
   fi
 
   echo 'Replacing settings.php file...'
-  rm -f $WEB_PATH/sites/default/settings.php && ln -s $BASE_PATH/settings.php $WEB_PATH/sites/default/settings.php
-  
-  if [ ! -e "$BASE_PATH/settings.local.php" ]
+  rm -f $WEB_PATH/sites/default/settings.php && ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/default/settings.php
+
+  if [ ! -e "$CONFIG_PATH/settings.local.php" ]
   then
     echo 'Creating local settings file...'
-    cp $BASE_PATH/default.settings.local.php $BASE_PATH/settings.local.php
+    cp $CONFIG_PATH/default.settings.local.php $CONFIG_PATH/settings.local.php
   fi
-  
+
   echo 'Linking local settings file...'
-  ln -s $BASE_PATH/settings.local.php $WEB_PATH/sites/default/settings.local.php
+  ln -s $CONFIG_PATH/settings.local.php $WEB_PATH/sites/default/settings.local.php
 
   echo 'Adding role to admin user...'
   drush user-add-role 'administrator' 1
@@ -152,7 +164,7 @@ function build {
   fi
 
   echo 'Adding APC script at /apc.php...'
-  ln -s /srv/salt/php5/apc.php $BASE_PATH/html/apc.php
+  ln -s /srv/salt/php5/apc.php $WEB_PATH/apc.php
 
   echo 'Build complete.'
 }
@@ -214,7 +226,7 @@ function deploy {
 
   drush make --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$BUILD_DIR"
 
-  ln -s $BASE_PATH/settings.php $BASE_PATH/$BUILD_DIR/sites/default/settings.php
+  ln -s $CONFIG_PATH/settings.php $CONFIG_PATH/$BUILD_DIR/sites/default/settings.php
 
   export ENV=dev
   export SITE=2b03733d-f60b-f4dd-67fb-9c518a66b3ca
@@ -232,7 +244,7 @@ function deploy {
 function bower {
   if hash bower 2>/dev/null;
   then
-    cd $BASE_PATH/themes/dosomething/paraneue_dosomething
+    cd $LIB_PATH/themes/dosomething/paraneue_dosomething
 
     if [[ $1 == "--update" ]]
     then
