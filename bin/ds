@@ -70,14 +70,11 @@ ds build [--install]
   --install
     Runs "drush site-install" to actually install the Drupal instance.
 
-ds bower [--install|--update]
-  Installs bower components in the paraneue subtheme
+ds grunt [--watch]
+  Installs Bower dependencies & compiles front-end assets (SCSS/JS) using Grunt.
 
-  --install (default)
-  Runs bower install command.  This is the default behavior
-
-  --update
-  Runs bower update command instead of install
+  --watch
+  Continues watching for changes and recompiles assets as necessary.
 
 ds --help
   Displays this help message.
@@ -166,6 +163,10 @@ function build {
   echo 'Adding APC script at /apc.php...'
   ln -s /srv/salt/php5/apc.php $WEB_PATH/apc.php
 
+  # Run grunt task to configure front-end environment
+  # this will install Bower/NPM dependencies
+  grunt
+
   echo 'Build complete.'
 }
 
@@ -245,29 +246,51 @@ function bower {
   if hash bower 2>/dev/null;
   then
     cd $WEB_PATH/profiles/dosomething/themes/dosomething/paraneue
-
-    if [[ $1 == "--update" ]]
-    then
-      eval "/usr/bin/bower update"
-    elif [[ -z "$1" ]] || [[ $1 == "--install" ]]
-    then
-      eval "/usr/bin/bower install"
-    fi
+    echo -e "\e[4mInstalling bower dependencies for Paraneue...\e[0m"
+    eval "/usr/bin/bower update"
 
     cd $LIB_PATH/themes/dosomething/paraneue_dosomething
-
-    if [[ $1 == "--update" ]]
-    then
-      eval "/usr/bin/bower update"
-    elif [[ -z "$1" ]] || [[ $1 == "--install" ]]
-    then
-      eval "/usr/bin/bower install"
-    fi
+    echo -e "\n\e[4mInstalling bower dependencies for Paraneue_DoSomething...\e[0m"
+    eval "/usr/bin/bower update"
 
     cd $BASE_PATH
 
   fi
 }
+
+
+#=== FUNCTION ==================================================================
+# NAME: grunt
+# DESCRIPTION: Builds front-end assets (JS/SCSS) using Grunt
+#===============================================================================
+function grunt {
+  # make sure bower dependencies are up to date
+  bower
+
+  cd $LIB_PATH/themes/dosomething/paraneue_dosomething
+
+  if hash npm 2>/dev/null;
+  then
+    echo -e "\n\e[4mInstalling NPM dependencies...\e[0m"
+    eval "/usr/bin/npm install"
+  fi
+
+  if hash grunt 2>/dev/null;
+  then
+    if [[ $1 == "--watch" ]]
+    then
+      echo -e "\n\e[4mBuilding SCSS/JS with Grunt, and watching for changes...\e[0m"
+      echo -e "\e[30;43m(Press Ctrl-C to stop.)\e[0m\n"
+      eval "/usr/bin/grunt"
+    else
+      eval "/usr/bin/grunt build"
+    fi
+  fi
+
+  cd $BASE_PATH
+
+}
+
 
 
 # ==============================================================================
@@ -312,5 +335,13 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "bower" ]]
 then
-  bower $2
+  bower
+fi
+
+#----------------------------------------------------------------------
+# grunt
+#----------------------------------------------------------------------
+if [[ $1 == "grunt" ]]
+then
+  grunt $2
 fi
