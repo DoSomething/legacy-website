@@ -51,7 +51,6 @@ dependencies[] = dosomething_fact_page
 dependencies[] = dosomething_image
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_reportback
-dependencies[] = dosomething_search
 dependencies[] = dosomething_settings
 dependencies[] = dosomething_signup
 dependencies[] = dosomething_static_content
