@@ -20,8 +20,10 @@ function dosomething_static_content_preprocess_node(&$vars) {
     $node = entity_metadata_wrapper('node', $vars['node']);
     $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
 
-    $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
-    $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
+    if (isset($content['field_call_to_action'])) {
+      $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
+      $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
+    }
 
     $gallery_count = count($content['field_gallery']['#items']);
     $vars['galleries'] = array();
@@ -40,7 +42,9 @@ function dosomething_static_content_preprocess_node(&$vars) {
       }
     }
 
-    $vars['additional_text_title'] = $content['field_additional_text_title'][0]['#markup'];
-    $vars['additional_text'] = $content['field_additional_text'][0]['#markup'];
+    if (isset($content['field_additional_text_title'])) {
+      $vars['additional_text_title'] = $content['field_additional_text_title'][0]['#markup'];
+      $vars['additional_text'] = $content['field_additional_text'][0]['#markup'];
+    }
   }
 }
