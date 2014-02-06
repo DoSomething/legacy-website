@@ -10,16 +10,6 @@
 function dosomething_fact_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'create fact'.
-  $permissions['create fact'] = array(
-    'name' => 'create fact',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'dosomething_fact',
-  );
-
   // Exported permission: 'create fact content'.
   $permissions['create fact content'] = array(
     'name' => 'create fact content',
@@ -34,15 +24,6 @@ function dosomething_fact_user_default_permissions() {
     'name' => 'delete any fact content',
     'roles' => array(),
     'module' => 'node',
-  );
-
-  // Exported permission: 'delete fact'.
-  $permissions['delete fact'] = array(
-    'name' => 'delete fact',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'dosomething_fact',
   );
 
   // Exported permission: 'delete own fact content'.
@@ -61,16 +42,6 @@ function dosomething_fact_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit fact'.
-  $permissions['edit fact'] = array(
-    'name' => 'edit fact',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'dosomething_fact',
-  );
-
   // Exported permission: 'edit own fact content'.
   $permissions['edit own fact content'] = array(
     'name' => 'edit own fact content',
@@ -78,16 +49,6 @@ function dosomething_fact_user_default_permissions() {
       'editor' => 'editor',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'view fact'.
-  $permissions['view fact'] = array(
-    'name' => 'view fact',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'dosomething_fact',
   );
 
   return $permissions;

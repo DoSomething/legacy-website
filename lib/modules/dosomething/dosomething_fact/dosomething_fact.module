@@ -138,26 +138,6 @@ function fact_load($id) {
 }
 
 /**
- * Implements hook_permission().
- */
-function dosomething_fact_permission() {
-  return array(
-    'view fact' => array(
-      'title' => t('View Facts'),
-    ),
-    'create fact' => array(
-      'title' => t('Create Facts'),
-    ),
-    'edit fact' => array(
-      'title' => t('Edit Facts'),
-    ),
-    'delete fact' => array(
-      'title' => t('Delete Facts'),
-    ),
-  );
-}
-
-/**
  * Callback for /fact/ID page.
  */
 function dosomething_fact_view_entity($fact, $view_mode = 'full') {
