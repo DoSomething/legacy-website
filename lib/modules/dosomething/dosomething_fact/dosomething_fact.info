@@ -26,5 +26,4 @@ features[variable][] = field_bundle_settings_node__fact
 features[variable][] = node_options_fact
 features[variable][] = node_preview_fact
 features[variable][] = node_submitted_fact
-features[views_view][] = fact_search
 files[] = includes/dosomething_fact.inc
