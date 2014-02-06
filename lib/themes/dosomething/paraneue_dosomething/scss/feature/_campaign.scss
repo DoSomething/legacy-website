@@ -18,9 +18,9 @@ section.campaign-wrapper {
   }
 }
 
-// Inner campaign template container that
-// holds all content from the node fields
-div.campaign-container {
+// Campaign header containing that campaign's
+// metadata sourced from the node fields
+header.campaign-meta {
   @include media( $tablet ) {
     @include span-columns(3);
     @include shift(1);
