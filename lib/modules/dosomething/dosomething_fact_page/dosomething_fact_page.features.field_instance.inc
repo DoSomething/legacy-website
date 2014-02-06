@@ -56,6 +56,49 @@ function dosomething_fact_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-fact_page-field_cause'
+  $field_instances['node-fact_page-field_cause'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 11,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cause',
+    'label' => 'Cause',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 0,
+    ),
+  );
+
   // Exported field_instance: 'node-fact_page-field_cta_link'
   $field_instances['node-fact_page-field_cta_link'] = array(
     'bundle' => 'fact_page',
@@ -163,7 +206,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -265,7 +308,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -311,7 +354,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -357,7 +400,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -406,7 +449,7 @@ function dosomething_fact_page_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -414,6 +457,7 @@ function dosomething_fact_page_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('CTA Link');
   t('Call to Action');
+  t('Cause');
   t('Facts');
   t('Hero Image');
   t('Intro Image');
