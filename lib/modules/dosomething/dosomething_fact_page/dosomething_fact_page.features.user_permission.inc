@@ -14,26 +14,7 @@ function dosomething_fact_page_user_default_permissions() {
   $permissions['create fact_page content'] = array(
     'name' => 'create fact_page content',
     'roles' => array(
-      'administrator' => 'administrator',
       'editor' => 'editor',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete any fact_page content'.
-  $permissions['delete any fact_page content'] = array(
-    'name' => 'delete any fact_page content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own fact_page content'.
-  $permissions['delete own fact_page content'] = array(
-    'name' => 'delete own fact_page content',
-    'roles' => array(
-      'administrator' => 'administrator',
     ),
     'module' => 'node',
   );
@@ -42,7 +23,6 @@ function dosomething_fact_page_user_default_permissions() {
   $permissions['edit any fact_page content'] = array(
     'name' => 'edit any fact_page content',
     'roles' => array(
-      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',
@@ -52,7 +32,6 @@ function dosomething_fact_page_user_default_permissions() {
   $permissions['edit own fact_page content'] = array(
     'name' => 'edit own fact_page content',
     'roles' => array(
-      'administrator' => 'administrator',
       'editor' => 'editor',
     ),
     'module' => 'node',
