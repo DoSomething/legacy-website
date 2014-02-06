@@ -47,6 +47,40 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_gallery-field_gallery_title'
+  $field_instances['field_collection_item-field_gallery-field_gallery_title'] = array(
+    'bundle' => 'field_gallery',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_gallery_title',
+    'label' => 'Gallery Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_gallery_item-field_gallery_image'
   $field_instances['field_collection_item-field_gallery_item-field_gallery_image'] = array(
     'bundle' => 'field_gallery_item',
@@ -144,7 +178,7 @@ function dosomething_static_content_field_default_field_instances() {
         'class' => '',
         'configurable_title' => 0,
         'rel' => '',
-        'target' => 'default',
+        'target' => '_blank',
         'title' => '',
       ),
       'display' => array(
@@ -155,7 +189,7 @@ function dosomething_static_content_field_default_field_instances() {
       'title' => 'optional',
       'title_maxlength' => 128,
       'title_value' => '',
-      'url' => 0,
+      'url' => 'optional',
       'user_register_form' => FALSE,
       'validate_url' => 1,
     ),
@@ -778,6 +812,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Gallery');
   t('Gallery Image');
   t('Gallery Item');
+  t('Gallery Title');
   t('Hero Image');
   t('Image Description');
   t('Image Title');
