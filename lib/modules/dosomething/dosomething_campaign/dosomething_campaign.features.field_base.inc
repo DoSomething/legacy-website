@@ -189,11 +189,11 @@ function dosomething_campaign_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_fact_problem',
     'foreign keys' => array(
-      'dosomething_fact' => array(
+      'node' => array(
         'columns' => array(
-          'target_id' => 'id',
+          'target_id' => 'nid',
         ),
-        'table' => 'dosomething_fact',
+        'table' => 'node',
       ),
     ),
     'indexes' => array(
@@ -214,9 +214,11 @@ function dosomething_campaign_field_default_field_bases() {
         'sort' => array(
           'type' => 'none',
         ),
-        'target_bundles' => array(),
+        'target_bundles' => array(
+          'fact' => 'fact',
+        ),
       ),
-      'target_type' => 'fact',
+      'target_type' => 'node',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -230,11 +232,11 @@ function dosomething_campaign_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_fact_solution',
     'foreign keys' => array(
-      'dosomething_fact' => array(
+      'node' => array(
         'columns' => array(
-          'target_id' => 'id',
+          'target_id' => 'nid',
         ),
-        'table' => 'dosomething_fact',
+        'table' => 'node',
       ),
     ),
     'indexes' => array(
@@ -255,9 +257,11 @@ function dosomething_campaign_field_default_field_bases() {
         'sort' => array(
           'type' => 'none',
         ),
-        'target_bundles' => array(),
+        'target_bundles' => array(
+          'fact' => 'fact',
+        ),
       ),
-      'target_type' => 'fact',
+      'target_type' => 'node',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -271,11 +275,11 @@ function dosomething_campaign_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_facts',
     'foreign keys' => array(
-      'dosomething_fact' => array(
+      'node' => array(
         'columns' => array(
-          'target_id' => 'id',
+          'target_id' => 'nid',
         ),
-        'table' => 'dosomething_fact',
+        'table' => 'node',
       ),
     ),
     'indexes' => array(
@@ -296,9 +300,11 @@ function dosomething_campaign_field_default_field_bases() {
         'sort' => array(
           'type' => 'none',
         ),
-        'target_bundles' => array(),
+        'target_bundles' => array(
+          'fact' => 'fact',
+        ),
       ),
-      'target_type' => 'fact',
+      'target_type' => 'node',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
