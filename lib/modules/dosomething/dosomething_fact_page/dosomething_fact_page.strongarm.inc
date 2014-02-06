@@ -19,13 +19,13 @@ function dosomething_fact_page_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '6',
+          'weight' => '7',
         ),
         'path' => array(
-          'weight' => '3',
+          'weight' => '4',
         ),
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
