@@ -643,6 +643,8 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_facts',
     'label' => 'Facts',
     'required' => 0,
