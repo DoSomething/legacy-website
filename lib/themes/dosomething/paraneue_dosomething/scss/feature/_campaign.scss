@@ -3,41 +3,49 @@
 //  CAMPAIGN
 // ----------
 
-// Outermost campaign template wrapper that
-// has the hero image applied to it
-section.campaign-wrapper {
-  min-height: 600px;
-  padding: 250px 0 0;
+.c--wrapper {
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: 43% 50%;
-  background-size: cover;
 
   @include media( $tablet ) {
     @include outer-container;
   }
-}
 
-// Campaign header containing that campaign's
-// metadata sourced from the node fields
-header.campaign-meta {
-  @include media( $tablet ) {
-    @include span-columns(3);
-    @include shift(1);
+  // Campaign header containing that campaign's
+  // metadata sourced from the node fields that
+  // has the hero image applied to it
+  header.header {
+    min-height: 600px;
+    padding: 250px 0 0;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: 43% 50%;
+    background-size: cover;
+
+    input.btn {
+      margin: 0 auto;
+      display: block;
+      width: 125px;
+      color: #fff;
+    }
+
+    img.arrow {
+      position: relative;
+      left: 90px;
+      top: -15px;
+      display: block;
+      margin: 0 auto;
+    }
   }
 
-  input.btn {
-    margin: 0 auto;
-    display: block;
-    width: 125px;
+  // Campaign "step" wrapper that
+  // contains "Know It", "Plan It", etc.
+  h2.step-header {
+    margin: 0;
+    background: $off-black;
     color: #fff;
   }
 
-  img.campaign-arrow {
-    position: relative;
-    left: 90px;
-    top: -15px;
-    display: block;
-    margin: 0 auto;
+  section.step {
+    @include section-padding;
   }
 }
