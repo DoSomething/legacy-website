@@ -165,14 +165,13 @@
   // Layout class that handles grid assignments
   div.col.first {
     @include media( $tablet ) {
-      @include span-columns(4);
-      @include shift(2);
+      @include span-columns(6);
     }
   }
 
   div.col.second {
     @include media( $tablet ) {
-      @include span-columns(4);
+      @include span-columns(6);
     }
   }
 }
