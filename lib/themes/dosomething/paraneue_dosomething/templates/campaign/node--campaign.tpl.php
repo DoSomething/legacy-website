@@ -63,6 +63,7 @@
         <p><?php print $fact['fact']; ?></p>
         <p class="legal">Source: <?php print $fact['source']; ?></p>
         <?php endforeach; ?>
+
         <?php endif; ?>
       </div>
       <?php if (isset($more_facts)): ?>
@@ -156,6 +157,11 @@
       <?php endforeach; ?>
       </div>
       <?php endif; ?>
+
+      <h4>Snap a Pic</h4>
+      <?php print $pic_step['safe_value']; ?>
+      <h4><?php print $post_step_header; ?></h4>
+      <?php print $post_step_header['safe_value']; ?>
     </section>
 
     <h2 id="prove" class="step-header">Prove It</h2>
