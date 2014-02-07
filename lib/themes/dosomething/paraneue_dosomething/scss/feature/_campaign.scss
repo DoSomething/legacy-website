@@ -5,6 +5,7 @@
 
 .c--wrapper {
   overflow: hidden;
+  background: #fff;
 
   @include media( $tablet ) {
     @include outer-container;
