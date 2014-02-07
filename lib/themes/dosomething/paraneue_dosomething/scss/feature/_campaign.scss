@@ -15,22 +15,50 @@
   // that is full-width on mobile and the left
   // sidebar on desktop
   nav.navigation {
-   background: $light-gray;
+    @include media( $tablet ) {
+      @include outer-container;
+    }
 
-   a {
-     text-decoration: none;
-     text-transform: uppercase;
-     font-weight: 600;
-     font-size: $font-medium;
+    ul {
+      padding: 0.5rem 0 0.5rem 0;
+      background: #eee;
+    }
 
-     &.plain {
-       color: #fff;
-     }
+    li {
+      text-align: center;
+      width: 100%;
 
-     &.primary {
-       color: $blue;
-     }
-   }
+      &:last-child a {
+        border-bottom: none;
+      }
+    }
+
+    a {
+      display: block;
+      margin: 0 auto;
+      padding: 0.25rem 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: $font-medium;
+
+      &.plain {
+        color: #fff;
+      }
+
+      &.primary {
+        color: $blue;
+      }
+    }
+
+    .is-stuck {
+      top: 26px;
+    }
+  }
+
+  // Element that sets the nav's pin location
+  .js-pin-to-top-anchor {
+    height: 0;
   }
 
   // Campaign header containing that campaign's
