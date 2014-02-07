@@ -75,3 +75,63 @@ function dosomething_user_is_staff($user = NULL) {
   return FALSE;
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_user_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id) {
+    case 'user_login_block':
+    case 'user_login' :
+      // Add another submission handler.
+      $form['#submit'][] = 'dosomething_user_login_submit';
+      break;
+  }
+}
+
+/**
+ * Additional submit callback called from user login and register forms.
+ * @see dosomething_user_form_alter().
+ */
+function dosomething_user_login_submit($form, &$form_state) {
+  if (module_exists('dosomething_signup')) {
+    $obj = menu_get_object();
+    // If we are viewing a campaign node:
+    if (isset($obj->type) && $obj->type == 'campaign') {
+      // Add info to the login form & sign the user up.
+      dosomething_user_signup($form, $form_state, $obj);
+    }
+  }
+}
+
+/**
+ * Additional callback to sign user up for campaign.
+ * Signs up global $user for a node $nid if $nid isset in the $form_state.
+ *
+ * This function will only work upon registration if account variables
+ * are set to the following:
+ * -- A visitor can register for the site without admin approval
+ * -- Email verification is not required when user creates account.
+ *
+ * Otherwise, the global $user upon account creation is set with uid 0
+ * and signup will fail.
+ *
+ * @see dosomething_user_strongarm().
+ *
+ */
+function dosomething_user_signup($form, &$form_state, $obj) {
+  // Add a hidden nid field.
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    //@todo: Encrypt me.
+    '#value' => $obj->nid,
+  );
+  $nid = $form_state['input']['nid'];
+  // Redirect to node (this is needed for user_register form).
+  $form_state['redirect'] = 'node/' . $nid;
+  // If a signup does not exist:
+  if (!dosomething_signup_exists($nid)) {
+    // Signup for the node.
+    dosomething_signup_insert($nid);
+  }
+}
+
