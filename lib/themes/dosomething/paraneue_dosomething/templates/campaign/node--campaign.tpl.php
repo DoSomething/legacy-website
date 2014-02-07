@@ -76,7 +76,7 @@
       <?php endforeach; ?>
       <?php endif; ?>
 
-      <aside class="js-modal-link">
+      <aside class="cached-modal">
         <?php if (isset($faq)): ?>
         <h4>FAQ</h4>
         <?php foreach ($faq as $item): ?>
@@ -87,8 +87,8 @@
       </aside>
     </section>
 
-    <h2 id="do" class="step-header">Plan It</h2>
-    <section class="do step">
+    <h2 id="plan" class="step-header">Plan It</h2>
+    <section class="plan step">
       <?php if (isset($starter)) : ?>
         <?php print $starter['safe_value']; ?>
       <?php endif; ?>
@@ -118,39 +118,44 @@
         <?php endif; ?>
       </div>
 
+      <div class="location-finder">
       <?php if (isset($location_finder_copy)) : ?>
         <h4>Find a Location</h4>
         <?php print $location_finder_copy['safe_value']; ?>
       <?php endif; ?>
 
       <?php if (isset($location_finder_url)) : ?>
-        <a href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+        <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
       <?php endif; ?>
+      </div>
     </section>
 
-    <h2 id="plan" class="step-header">Do It</h2>
-    <section class="plan step">
+    <h2 id="do" class="step-header"><span class="shift">Do It</span></h2>
+    <section class="do step">
       <h3><?php print $pre_step_header; ?></h3>
       <?php print $pre_step_copy['safe_value']; ?>
 
       <?php if (isset($step_pre)) : ?>
       <?php foreach ($step_pre as $item): ?>
-      <h4><?php print $item['header']; ?></h4>
-      <p><?php print $item['copy'] ?></p>
+      <h4 class="tip-header"><?php print $item['header']; ?></h4>
+      <p class="tip-body"><?php print $item['copy'] ?></p>
       <?php endforeach; ?>
       <?php endif; ?>
 
-      <?php if (isset($step_post)) : ?>
-      <?php foreach ($step_post as $item): ?>
-      <h4><?php print $item['header']; ?></h4>
-      <p><?php print $item['copy'] ?></p>
-      <?php endforeach; ?>
-      <?php endif; ?>
-
-      <h4>Snap a Pic</h4>
+      <h3>Snap a Pic</h3>
       <?php print $pic_step['safe_value']; ?>
-      <h4><?php print $post_step_header; ?></h4>
+      <h4 class="bash"><?php print $post_step_header; ?></h4>
       <?php print $post_step_header['safe_value']; ?>
+
+      <!-- MODAL -->
+      <?php if (isset($step_post)) : ?>
+      <div class="cached-modal">
+      <?php foreach ($step_post as $item): ?>
+      <h3 class="foo"><?php print $item['header']; ?></h3>
+      <p class="bar"><?php print $item['copy'] ?></p>
+      <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
     </section>
 
     <h2 id="prove" class="step-header">Prove It</h2>
