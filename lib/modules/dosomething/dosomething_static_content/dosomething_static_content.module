@@ -9,20 +9,48 @@ include_once 'dosomething_static_content.features.inc';
 function dosomething_static_content_preprocess_node(&$vars) {
   if ($vars['type'] == 'static_content') {
     $content = $vars['content'];
-    $vars['hero_image'] = dosomething_image_get_themed_image($vars['field_hero_image'][0]['entity']->nid, 'horiz', 'hero_image');
-    $vars['subtitle'] = $content['field_subtitle'][0]['#markup'];
-    $vars['intro_title'] = $content['field_intro_title'][0]['#markup'];
-    $vars['intro'] = $content['field_intro'][0]['#markup'];
-    if (isset($vars['field_intro_image'][0])) {
-      $vars['intro_image'] = dosomething_image_get_themed_image($vars['field_intro_image'][0]['entity']->nid, 'horiz', 'intro_image');
+    $template_vars = array(
+      'text' => array(
+        'subtitle',
+        'intro_title',
+        'intro',
+        'additional_text_title',
+        'additional_text',
+        'call_to_action',
+      ),
+      'image' => array(
+        'intro_image',
+        'hero_image',
+      ),
+      'link' => array(
+        'cta_link'
+      ),
+    );
+
+    foreach ($template_vars as $key => $labels) {
+      foreach ($labels as $label) {
+        $field = "field_{$label}";
+          if (isset($content[$field]) || isset($vars[$field])) {
+          switch ($key) {
+            case 'text':
+              $vars[$label] = $content[$field][0]['#markup'];
+              break;
+            case 'image':
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $label);
+            break;
+            case 'link':
+              $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'btn')));
+            break;
+            default:
+              break;
+          }
+        }
+      }
     }
 
     $node = entity_metadata_wrapper('node', $vars['node']);
-    $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
-
-    if (isset($content['field_call_to_action'])) {
-      $vars['cta'] = $content['field_call_to_action'][0]['#markup'];
-      $vars['cta_button'] = l($content['field_cta_link'][0]['#element']['title'], $content['field_cta_link'][0]['#element']['url']);
+    if ($node->field_video->value()) {
+      $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
     }
 
     $gallery_count = count($content['field_gallery']['#items']);
@@ -42,11 +70,6 @@ function dosomething_static_content_preprocess_node(&$vars) {
         $vars['galleries'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
         $vars['galleries'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
       }
-    }
-
-    if (isset($content['field_additional_text_title'])) {
-      $vars['additional_text_title'] = $content['field_additional_text_title'][0]['#markup'];
-      $vars['additional_text'] = $content['field_additional_text'][0]['#markup'];
     }
   }
 }
