@@ -49,7 +49,9 @@ function dosomething_static_content_preprocess_node(&$vars) {
     }
 
     $node = entity_metadata_wrapper('node', $vars['node']);
-    $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
+    if ($node->field_video->value()) {
+      $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
+    }
 
     $gallery_count = count($content['field_gallery']['#items']);
     $vars['galleries'] = array();
