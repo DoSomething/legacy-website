@@ -16,6 +16,10 @@
   // sidebar on desktop
   nav.navigation {
 
+    @include media( $tablet ) {
+      @include outer-container;
+    }
+
     ul {
       padding: 0.5rem 0 0.5rem 0;
       background: #eee;
