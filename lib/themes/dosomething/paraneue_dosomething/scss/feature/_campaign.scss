@@ -11,7 +11,9 @@
     @include outer-container;
   }
 
-  // Primary campaign navigation
+  // Primary persistent campaign navigation
+  // that is full-width on mobile and the left
+  // sidebar on desktop
   nav.navigation {
    background: $light-gray;
 
@@ -58,15 +60,32 @@
     }
   }
 
-  // Campaign "step" wrapper that
-  // contains "Know It", "Plan It", etc.
+  // Full-width header that comes
+  // immediately before each section.step 
   h2.step-header {
     margin: 0;
     background: $off-black;
     color: #fff;
   }
 
+  // Campaign "step" wrapper that
+  // contains "Know It", "Plan It", etc.
   section.step {
     @include section-padding;
+    @include outer-container;
+  }
+
+  // Layout class that handles grid assignments
+  div.col.first {
+    @include media( $tablet ) {
+      @include span-columns(4);
+      @include shift(2);
+    }
+  }
+
+  div.col.second {
+    @include media( $tablet ) {
+      @include span-columns(4);
+    }
   }
 }
