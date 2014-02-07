@@ -82,9 +82,41 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login' :
-      // Add another submission handler.
+      // Add additional submission/validation handlers.
+      array_unshift($form['#validate'],'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
       break;
+    case 'user_profile_form':
+    case 'user_register_form':
+      $form['#validate'][] = 'dosomething_user_register_validate';
+  }
+}
+/**
+ * Custom login validation.
+ * @see dosomething_user_form_alter().
+ * Allows for users to login via email or mobile number.
+ */
+function dosomething_user_login_validate($form, &$form_state) {
+  // Note: Taken from logintoboggan module.
+  if (isset($form_state['values']['name']) && $form_state['values']['name']) {
+    if ($account = dosomething_user_find_user_by_email($form_state['values']['name'])) {
+      form_set_value($form['name'], $account->name, $form_state);
+    }
+    else if ($number = $form_state['values']['name']) {
+      if ($account = dosomething_user_find_user_by_cell($number)) {
+        form_set_value($form['name'], $account->name, $form_state);
+      }
+    }
+  }
+}
+
+function dosomething_user_register_validate($form, &$form_state) {
+  $mobile = $form_state['values']['field_mobile'][LANGUAGE_NONE][0]['value'];
+  if (isset($mobile)) {
+    // Clean the user input text.
+    $mobile_clean = dosomething_user_clean_cell_number($mobile);
+    // Store only the numbers.
+    form_set_value($form['field_mobile'], array(LANGUAGE_NONE => array(0 => array('value' => $mobile_clean))), $form_state);
   }
 }
 
@@ -133,5 +165,59 @@ function dosomething_user_signup($form, &$form_state, $obj) {
     // Signup for the node.
     dosomething_signup_insert($nid);
   }
+}
+
+/**
+ * Find a user by email address.
+ * @param email - string
+ * @return String if true, else false.
+ */
+function dosomething_user_find_user_by_email($email) {
+  $user = user_load_by_mail($email);
+  return $user ? $user : FALSE;
+}
+
+/**
+ * Search for users users by their cell phone number.
+ *
+ * @param $number
+ *  (string) The cell phone number for which you are searching.
+ * @return
+ *  The user account object.
+ */
+function dosomething_user_find_user_by_cell($number) {
+  $clean_number = dosomething_user_clean_cell_number($number);
+
+  $query = db_select('field_data_field_mobile', 'm')
+            ->fields('m', array('entity_id'))
+            ->condition('field_mobile_value', $clean_number)
+            ->execute();
+  $uid = $query->fetchField(0);
+  if (is_numeric($uid)) {
+    return user_load($uid);
+  }
+
+  return FALSE;
+}
+
+
+/**
+ * Clean input phone number of all non-numeric characters.
+ *
+ * @param $number String to format into a 10-digit phone number
+ *
+ * @return Numeric-only string of the phone number, or FALSE if input is not a 10-digit number
+ */
+function dosomething_user_clean_cell_number($number) {
+  if (dosomething_user_valid_cell($number)) {
+    $trimmed_number = ltrim(preg_replace('#[^0-9]#', '', $number));
+
+    // Make sure the number is 10 digits long.
+    if (strlen($trimmed_number) == 10) {
+      return $trimmed_number;
+    }
+    return FALSE;
+  }
+  return FALSE;
 }
 
