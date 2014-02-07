@@ -7,6 +7,21 @@
 include_once 'dosomething_fact.features.inc';
 
 /**
+ * Implements hook_node_access().
+ */
+function dosomething_fact_node_access($node, $op, $account) {
+  // If viewing a fact:
+  if ($node->type == 'fact' && $op == 'view') {
+    // If staff user, able to view the Fact node.
+    if (module_exists('dosomething_user') && dosomething_user_is_staff($account)) {
+      return NODE_ACCESS_ALLOW;
+    }
+    // Otherwise, no facts for you.
+    return NODE_ACCESS_DENY;
+  }
+}
+
+/**
  * Returns array of values of a Fact entityreference field.
  *
  * @param object $fact_field_wrapper
