@@ -53,18 +53,24 @@ function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
 }
 
 /**
- * Returns array of values of a Fact entity.
+ * Returns array of values of a Fact node.
  *
  * @param object $fact_wrapper
- *   A Fact entityreference as returned by entity_metadata_wrapper.
+ *   A Fact node entity_metadata_wrapper.
  *
  * @return array
- *   Array of fact values.
+ *   Multi-dimensional of fact markdown values.
  *
  */
 function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+  $fact = $fact_wrapper->body->value();
+  $sources = array();
+  // Loop through sources multi-value field:
+  foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
+    $sources[] = $source['safe_value'];
+  }
   return array(
-    'fact' => $fact_wrapper->fact->value(),
-    'source' => $fact_wrapper->source->value(),
+    'fact' => $fact['safe_value'],
+    'sources' => $sources,
   );
 }

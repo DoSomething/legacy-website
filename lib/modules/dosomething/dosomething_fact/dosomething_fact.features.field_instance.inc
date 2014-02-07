@@ -45,7 +45,7 @@ function dosomething_fact_field_default_field_instances() {
     'label' => 'Fact',
     'required' => 1,
     'settings' => array(
-      'display_summary' => 1,
+      'display_summary' => 0,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -91,7 +91,7 @@ function dosomething_fact_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_source_copy',
     'label' => 'Source',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 1,
       'user_register_form' => FALSE,
