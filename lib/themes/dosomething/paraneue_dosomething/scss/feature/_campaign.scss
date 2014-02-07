@@ -5,7 +5,6 @@
 
 .c--wrapper {
   overflow: hidden;
-  background: #fff;
 
   @include media( $tablet ) {
     @include outer-container;
@@ -152,5 +151,8 @@
     @include media( $tablet ) {
       @include span-columns(6);
     }
+
+  section.step {
+    @include section-padding;
   }
 }
