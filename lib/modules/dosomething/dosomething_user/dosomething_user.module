@@ -7,9 +7,21 @@
 include_once 'dosomething_user.features.inc';
 
 /**
- * @file
- * Functionality for users on DoSomething.
+ * Implements hook_node_access().
  */
+function dosomething_user_node_access($node, $op, $account) {
+  // Internal content types to be viewed by staff only:
+  $staff_types = array('fact', 'image');
+  // If viewing an internal staff type:
+  if (in_array($node->type, $staff_types) && $op == 'view') {
+    // If staff user, able to view the Fact node.
+    if (dosomething_user_is_staff($account)) {
+      return NODE_ACCESS_ALLOW;
+    }
+    // Otherwise, no facts for you.
+    return NODE_ACCESS_DENY;
+  }
+}
 
  /**
   * Confirms that a specific cell phone number is valid.  A valid phone number
