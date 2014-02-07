@@ -18,10 +18,10 @@
   <?php elseif ($intro_video): ?>
     <?php print $intro_video; ?>
   <?php endif; ?>
-  <?php if (isset($cta)): ?>
+  <?php if (isset($call_to_action)): ?>
     <div class="cta">
-      <h2><?php print $cta; ?></h2>
-      <div class="cta_button btn"><?php print $cta_button; ?></div>
+      <h2><?php print $call_to_action; ?></h2>
+      <div class="cta_button"><?php print $cta_link; ?></div>
     </div>
   <?php endif; ?>
  <br/>
@@ -44,10 +44,10 @@
     <p><?php print $additional_text; ?></p>
   <?php endif; ?>
   
-  <?php if (isset($cta)): ?>
+  <?php if (isset($call_to_action)): ?>
     <div class="cta">
-      <h2><?php print $cta; ?></h2>
-      <div class="cta_button btn"><?php print $cta_button; ?></div>
+      <h2><?php print $call_to_action; ?></h2>
+      <div class="cta_button"><?php print $cta_link; ?></div>
     </div>
   <?php endif; ?>
 </article>
