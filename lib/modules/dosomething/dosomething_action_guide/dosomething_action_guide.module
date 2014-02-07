@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_action_guide feature.
+ */
+
+include_once 'dosomething_action_guide.features.inc';
