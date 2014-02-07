@@ -19,12 +19,13 @@
   </header>
 
   <div class="content">
-    <nav class="navigation js-jump-scroll">
+    <div id="js-pin-to-top-anchor" class="js-pin-to-top-anchor">&nbsp;</div>
+    <nav class="navigation js-pin-to-top">
       <ul>
-        <li><a class="plain" href="#know">know</a></li>
-        <li><a class="plain" href="#do">do</a></li>
-        <li><a class="plain" href="#plan">plan</a></li>
-        <li><a class="primary" href="#prove">prove it</a></li>
+        <li><a class="plain js-jump-scroll" href="#know">know</a></li>
+        <li><a class="plain js-jump-scroll" href="#do">do</a></li>
+        <li><a class="plain js-jump-scroll" href="#plan">plan</a></li>
+        <li><a class="primary js-jump-scroll" href="#prove">prove it</a></li>
       </ul>
     </nav>
 
