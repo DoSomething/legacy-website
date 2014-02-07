@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Overrides to modify Paraneue's <head> section. 
+ * Implements hook_html_head_alter(). 
  */
 function paraneue_dosomething_html_head_alter(&$head_elements) {
 
