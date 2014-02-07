@@ -37,7 +37,9 @@ function dosomething_static_content_preprocess_node(&$vars) {
       for ($a=0; $a<$gallery_item_count;$a++) {
         $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
         $vars['galleries'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'sq', 'gallery_large');
-        $vars['galleries'][$a]['image_title'] = $gallery_item['field_image_title'][0]['#markup'];
+  
+        $link_field = $gallery_item['field_image_title'][0]['#element'];
+        $vars['galleries'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
         $vars['galleries'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
       }
     }
