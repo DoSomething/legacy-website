@@ -79,10 +79,6 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Fact */
-  $handler->display->display_options['fields']['body']['id'] = 'body';
-  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
-  $handler->display->display_options['fields']['body']['field'] = 'body';
   /* Field: Content: Source */
   $handler->display->display_options['fields']['field_source_copy']['id'] = 'field_source_copy';
   $handler->display->display_options['fields']['field_source_copy']['table'] = 'field_data_field_source_copy';
@@ -117,27 +113,10 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['filters']['title']['group'] = 1;
   $handler->display->display_options['filters']['title']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Fact';
   $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
   $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
   $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-  );
-  /* Filter criterion: Content: Fact (body) */
-  $handler->display->display_options['filters']['body_value']['id'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['table'] = 'field_data_body';
-  $handler->display->display_options['filters']['body_value']['field'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['operator'] = 'allwords';
-  $handler->display->display_options['filters']['body_value']['group'] = 1;
-  $handler->display->display_options['filters']['body_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['body_value']['expose']['operator_id'] = 'body_value_op';
-  $handler->display->display_options['filters']['body_value']['expose']['label'] = 'Fact';
-  $handler->display->display_options['filters']['body_value']['expose']['operator'] = 'body_value_op';
-  $handler->display->display_options['filters']['body_value']['expose']['identifier'] = 'body_value';
-  $handler->display->display_options['filters']['body_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
