@@ -30,7 +30,7 @@ function dosomething_fact_node_info() {
       'base' => 'node_content',
       'description' => t('A Fact. Referenced by other content types such as Campaigns and Fact Pages.'),
       'has_title' => '1',
-      'title_label' => t('Title'),
+      'title_label' => t('Fact'),
       'help' => '',
     ),
   );

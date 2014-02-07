@@ -7,6 +7,21 @@
 include_once 'dosomething_fact.features.inc';
 
 /**
+ * Implements hook_node_access().
+ */
+function dosomething_fact_node_access($node, $op, $account) {
+  // If viewing a fact:
+  if ($node->type == 'fact' && $op == 'view') {
+    // If staff user, able to view the Fact node.
+    if (module_exists('dosomething_user') && dosomething_user_is_staff($account)) {
+      return NODE_ACCESS_ALLOW;
+    }
+    // Otherwise, no facts for you.
+    return NODE_ACCESS_DENY;
+  }
+}
+
+/**
  * Returns array of values of a Fact entityreference field.
  *
  * @param object $fact_field_wrapper
@@ -38,18 +53,23 @@ function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
 }
 
 /**
- * Returns array of values of a Fact entity.
+ * Returns array of values of a Fact node.
  *
  * @param object $fact_wrapper
- *   A Fact entityreference as returned by entity_metadata_wrapper.
+ *   A Fact node entity_metadata_wrapper.
  *
  * @return array
- *   Array of fact values.
+ *   Multi-dimensional of fact markdown values.
  *
  */
 function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+  $sources = array();
+  // Loop through sources multi-value field:
+  foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
+    $sources[] = $source['safe_value'];
+  }
   return array(
-    'fact' => $fact_wrapper->fact->value(),
-    'source' => $fact_wrapper->source->value(),
+    'fact' => $fact_wrapper->title->value(),
+    'sources' => $sources,
   );
 }
