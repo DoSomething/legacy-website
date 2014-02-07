@@ -109,7 +109,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
+
     // Vars needed for both the pitch & action page.
+    $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
     $vars['cta'] = $wrapper->field_call_to_action->value();
 
     // Images.
@@ -235,7 +237,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
-  $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
   // Define label for signup button.
   $label = t("Sign Up");
   // If user is logged in:
