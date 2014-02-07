@@ -10,11 +10,14 @@
 //
 //
 
-// import paraneue's bower installation of Neue
+// Import paraneue's bower installation of Neue
 @import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers";
 
-// features
+// Features
 @import "feature/_auth";
+
+// Staging Area for Neue
+@import "feature/_port-to-neue";
 
 // Campaign Pages
 @import "feature/_campaign";
@@ -23,4 +26,3 @@
 
 // Temporary hacks
 @import "feature/_hide";
-@import "feature/_port-to-neue";
