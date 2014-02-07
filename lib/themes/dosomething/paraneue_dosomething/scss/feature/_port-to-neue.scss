@@ -1,4 +1,8 @@
-header.campaign-meta {
+@mixin section-padding {
+  padding: 0 1.5rem;
+}
+
+header.campaign-header {
   // Campaign Header Styles
   h1.campaign-title {
     color: #fff;
