@@ -14,7 +14,7 @@ function dosomething_fact_views_default_views() {
   $view->name = 'fact_search';
   $view->description = '';
   $view->tag = 'default';
-  $view->base_table = 'dosomething_fact';
+  $view->base_table = 'node';
   $view->human_name = 'Fact Search';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -25,52 +25,42 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['title'] = 'Fact Search';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view fact';
+  $handler->display->display_options['access']['perm'] = 'edit any fact content';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'id' => 'id',
-    'fact' => 'fact',
-    'nothing' => 'nothing',
-    'source' => 'source',
-    'changed' => 'changed',
+    'title' => 'title',
+    'body' => 'body',
+    'field_source_copy' => 'field_source_copy',
+    'edit_node' => 'edit_node',
     'created' => 'created',
   );
   $handler->display->display_options['style_options']['default'] = 'created';
   $handler->display->display_options['style_options']['info'] = array(
-    'id' => array(
+    'title' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'fact' => array(
-      'sortable' => 1,
+    'body' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'nothing' => array(
+    'field_source_copy' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'source' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'changed' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
+    'edit_node' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -83,65 +73,88 @@ function dosomething_fact_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: Fact: Fact ID */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'dosomething_fact';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Fact: Fact */
-  $handler->display->display_options['fields']['fact']['id'] = 'fact';
-  $handler->display->display_options['fields']['fact']['table'] = 'dosomething_fact';
-  $handler->display->display_options['fields']['fact']['field'] = 'fact';
-  $handler->display->display_options['fields']['fact']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['fact']['alter']['path'] = 'fact/[id]';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Edit';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'edit';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/fact/manage/[id]';
-  /* Field: Fact: Source */
-  $handler->display->display_options['fields']['source']['id'] = 'source';
-  $handler->display->display_options['fields']['source']['table'] = 'dosomething_fact';
-  $handler->display->display_options['fields']['source']['field'] = 'source';
-  /* Field: Fact: Updated Date */
-  $handler->display->display_options['fields']['changed']['id'] = 'changed';
-  $handler->display->display_options['fields']['changed']['table'] = 'dosomething_fact';
-  $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['date_format'] = 'raw time ago';
-  /* Field: Fact: Created Date */
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Fact */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  /* Field: Content: Source */
+  $handler->display->display_options['fields']['field_source_copy']['id'] = 'field_source_copy';
+  $handler->display->display_options['fields']['field_source_copy']['table'] = 'field_data_field_source_copy';
+  $handler->display->display_options['fields']['field_source_copy']['field'] = 'field_source_copy';
+  $handler->display->display_options['fields']['field_source_copy']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_source_copy']['multi_type'] = 'ul';
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'dosomething_fact';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  /* Filter criterion: Fact: Fact */
-  $handler->display->display_options['filters']['fact']['id'] = 'fact';
-  $handler->display->display_options['filters']['fact']['table'] = 'dosomething_fact';
-  $handler->display->display_options['filters']['fact']['field'] = 'fact';
-  $handler->display->display_options['filters']['fact']['operator'] = 'contains';
-  $handler->display->display_options['filters']['fact']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['fact']['expose']['operator_id'] = 'fact_op';
-  $handler->display->display_options['filters']['fact']['expose']['label'] = 'Label';
-  $handler->display->display_options['filters']['fact']['expose']['operator'] = 'fact_op';
-  $handler->display->display_options['filters']['fact']['expose']['identifier'] = 'fact';
-  $handler->display->display_options['filters']['fact']['expose']['remember_roles'] = array(
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'fact' => 'fact',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'allwords';
+  $handler->display->display_options['filters']['title']['group'] = 1;
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
     4 => 0,
   );
-  /* Filter criterion: Fact: Source */
-  $handler->display->display_options['filters']['source']['id'] = 'source';
-  $handler->display->display_options['filters']['source']['table'] = 'dosomething_fact';
-  $handler->display->display_options['filters']['source']['field'] = 'source';
-  $handler->display->display_options['filters']['source']['operator'] = 'contains';
-  $handler->display->display_options['filters']['source']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
-  $handler->display->display_options['filters']['source']['expose']['label'] = 'Source';
-  $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
-  $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
-  $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+  /* Filter criterion: Content: Fact (body) */
+  $handler->display->display_options['filters']['body_value']['id'] = 'body_value';
+  $handler->display->display_options['filters']['body_value']['table'] = 'field_data_body';
+  $handler->display->display_options['filters']['body_value']['field'] = 'body_value';
+  $handler->display->display_options['filters']['body_value']['operator'] = 'allwords';
+  $handler->display->display_options['filters']['body_value']['group'] = 1;
+  $handler->display->display_options['filters']['body_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['body_value']['expose']['operator_id'] = 'body_value_op';
+  $handler->display->display_options['filters']['body_value']['expose']['label'] = 'Fact';
+  $handler->display->display_options['filters']['body_value']['expose']['operator'] = 'body_value_op';
+  $handler->display->display_options['filters']['body_value']['expose']['identifier'] = 'body_value';
+  $handler->display->display_options['filters']['body_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+  );
+  /* Filter criterion: Content: Source (field_source_copy) */
+  $handler->display->display_options['filters']['field_source_copy_value']['id'] = 'field_source_copy_value';
+  $handler->display->display_options['filters']['field_source_copy_value']['table'] = 'field_data_field_source_copy';
+  $handler->display->display_options['filters']['field_source_copy_value']['field'] = 'field_source_copy_value';
+  $handler->display->display_options['filters']['field_source_copy_value']['operator'] = 'allwords';
+  $handler->display->display_options['filters']['field_source_copy_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_source_copy_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_source_copy_value']['expose']['operator_id'] = 'field_source_copy_value_op';
+  $handler->display->display_options['filters']['field_source_copy_value']['expose']['label'] = 'Source';
+  $handler->display->display_options['filters']['field_source_copy_value']['expose']['operator'] = 'field_source_copy_value_op';
+  $handler->display->display_options['filters']['field_source_copy_value']['expose']['identifier'] = 'field_source_copy_value';
+  $handler->display->display_options['filters']['field_source_copy_value']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -150,9 +163,10 @@ function dosomething_fact_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/fact';
+  $handler->display->display_options['path'] = 'admin/content/fact';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Facts';
+  $handler->display->display_options['menu']['title'] = 'Search facts';
+  $handler->display->display_options['menu']['description'] = 'Search fact nodes by title, fact, or source';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;

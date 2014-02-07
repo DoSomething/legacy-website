@@ -200,10 +200,9 @@ function install {
 #===============================================================================
 function dev {
   echo 'Enabling modules'
-  drush en devel devel_generate dosomething_fact_devel -y
+  drush en devel devel_generate -y
 
   echo 'Auto-generating Content'
-  drush php-eval "dosomething_fact_devel_create_facts(100);"
   drush generate-terms sponsors 20
   drush generate-terms tags 50
   drush genc 50 0 --types=image

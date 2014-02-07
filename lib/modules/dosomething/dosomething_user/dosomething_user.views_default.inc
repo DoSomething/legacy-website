@@ -212,7 +212,7 @@ function dosomething_user_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'admin/content/search';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Search Content';
+  $handler->display->display_options['menu']['title'] = 'Search content';
   $handler->display->display_options['menu']['description'] = 'searches nodes';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;

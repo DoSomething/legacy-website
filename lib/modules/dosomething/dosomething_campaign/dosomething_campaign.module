@@ -10,17 +10,6 @@ include_once 'dosomething_campaign.features.inc';
  * Implements hook_form_alter().
  */
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-  // Include the CTools tools that we need.
-  ctools_include('ajax');
-  ctools_include('modal');
-  // Add CTools' javascript to the page.
-  ctools_modal_add_js();
-  // Link for the ctools modal page to render.
-  $add_fact_link = 'admin/dosomething-fact/modal-add/nojs';
-
-  $add_link_div = '<div id="add-fact-status"></div><div>' . l(t('Add new fact'), $add_fact_link, array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-
-  $form['field_fact_problem']['#prefix'] = $add_link_div;
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
 }
