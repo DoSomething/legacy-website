@@ -19,7 +19,16 @@
   </header>
 
   <div class="content">
-    <h2 class="step-header">Know It</h2>
+    <nav class="navigation js-jump-scroll">
+      <ul>
+        <li><a class="plain" href="#know">know</a></li>
+        <li><a class="plain" href="#do">do</a></li>
+        <li><a class="plain" href="#plan">plan</a></li>
+        <li><a class="primary" href="#prove">prove it</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="know" class="step-header">Know It</h2>
     <section class="step">
       <?php if (isset($fact_problem)): ?>
       <div>
@@ -61,7 +70,7 @@
       <?php endif; ?>
     </section>
 
-    <h2 class="step-header">Plan It</h2>
+    <h2 id="do" class="step-header">Plan It</h2>
     <section class="step">
       <?php if (isset($starter)) : ?>
         <?php print $starter['safe_value']; ?>
@@ -86,7 +95,7 @@
       <?php endif; ?>
     </section>
 
-    <h2 class="step-header">Do It</h2>
+    <h2 id="plan" class="step-header">Do It</h2>
     <section class="step">
       <h4> <?php print $pre_step_header; ?> </h4>
       <?php print $pre_step_copy['safe_value']; ?>
@@ -113,7 +122,7 @@
       <?php print $post_step_header['safe_value']; ?>
     </section>
 
-    <h2 class="step-header">Prove It</h2>
+    <h2 id="prove-it" class="step-header">Prove It</h2>
     <section class="step">
       <h4> Pics or It Didn't Happen </h4>
       <?php print $reportback_copy; ?>

@@ -5,9 +5,30 @@
 
 .c--wrapper {
   overflow: hidden;
+  background: #fff;
 
   @include media( $tablet ) {
     @include outer-container;
+  }
+
+  // Primary campaign navigation
+  nav.navigation {
+   background: $light-gray;
+
+   a {
+     text-decoration: none;
+     text-transform: uppercase;
+     font-weight: 600;
+     font-size: $font-medium;
+
+     &.plain {
+       color: #fff;
+     }
+
+     &.primary {
+       color: $blue;
+     }
+   }
   }
 
   // Campaign header containing that campaign's
