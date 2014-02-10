@@ -99,11 +99,11 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 function dosomething_user_login_validate($form, &$form_state) {
   // Note: Taken from logintoboggan module.
   if (isset($form_state['values']['name']) && $form_state['values']['name']) {
-    if ($account = dosomething_user_find_user_by_email($form_state['values']['name'])) {
+    if ($account = dosomething_user_get_user_by_email($form_state['values']['name'])) {
       form_set_value($form['name'], $account->name, $form_state);
     }
     else if ($number = $form_state['values']['name']) {
-      if ($account = dosomething_user_find_user_by_cell($number)) {
+      if ($account = dosomething_user_get_user_by_cell($number)) {
         form_set_value($form['name'], $account->name, $form_state);
       }
     }
@@ -168,11 +168,11 @@ function dosomething_user_signup($form, &$form_state, $obj) {
 }
 
 /**
- * Find a user by email address.
+ * Get a user by email address.
  * @param email - string
  * @return String if true, else false.
  */
-function dosomething_user_find_user_by_email($email) {
+function dosomething_user_get_user_by_email($email) {
   $user = user_load_by_mail($email);
   return $user ? $user : FALSE;
 }
@@ -185,7 +185,7 @@ function dosomething_user_find_user_by_email($email) {
  * @return
  *  The user account object.
  */
-function dosomething_user_find_user_by_cell($number) {
+function dosomething_user_get_user_by_cell($number) {
   $clean_number = dosomething_user_clean_cell_number($number);
 
   $query = db_select('field_data_field_mobile', 'm')
