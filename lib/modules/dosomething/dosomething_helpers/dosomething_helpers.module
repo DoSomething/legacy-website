@@ -95,4 +95,20 @@ function dosomething_helpers_add_entityref_links(&$node, $fields) {
     );
     $i = $i + 10;
   }
+
+/**
+ * Implements hook_html_head_alter(). 
+ */
+function dosomething_helpers_html_head_alter(&$head_elements) {
+
+  $head_elements['dmoz_meta_tag'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'robots',
+      'content' => 'NOODP'
+    )
+  );
+
+  drupal_add_html_head($head_elements, 'dmoz_meta_tag');
 }
