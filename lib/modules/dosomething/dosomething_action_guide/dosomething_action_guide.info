@@ -1,6 +1,6 @@
-name = dosomething_action_guide
+name = DoSomething Action Guide
 core = 7.x
-package = Features
+package = DoSomething
 dependencies[] = ctools
 dependencies[] = dosomething_static_content
 dependencies[] = entityreference
