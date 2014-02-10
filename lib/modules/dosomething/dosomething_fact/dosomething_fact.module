@@ -7,6 +7,14 @@
 include_once 'dosomething_fact.features.inc';
 
 /**
+ * Implements hook_form_alter().
+ */
+function dosomething_fact_form_fact_node_form_alter(&$form, &$form_state, $form_id) {
+  // Change title #type from text to textarea.
+  $form['title']['#type'] = 'textarea';
+}
+
+/**
  * Implements hook_node_view().
  */
 function dosomething_fact_node_view($node, $view_mode, $langcode) {
