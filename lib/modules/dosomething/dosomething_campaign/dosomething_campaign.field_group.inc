@@ -50,7 +50,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Do It',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_photo_step',
       1 => 'field_post_step_copy',
@@ -179,14 +179,15 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Plan It',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_items_needed',
       1 => 'field_promoting_tips',
       2 => 'field_starter_statement',
       3 => 'field_time_and_place',
       4 => 'field_vips',
-      5 => 'group_location_finder',
+      5 => 'field_action_guide',
+      6 => 'group_location_finder',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -212,7 +213,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prove It',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_reportback_confirm_msg',
@@ -274,7 +275,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',

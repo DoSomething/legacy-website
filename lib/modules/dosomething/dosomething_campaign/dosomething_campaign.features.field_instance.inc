@@ -222,6 +222,57 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_action_guide'
+  $field_instances['node-campaign-field_action_guide'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 60,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_action_guide',
+    'label' => 'Action Guide',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_action_type'
   $field_instances['node-campaign-field_action_type'] = array(
     'bundle' => 'campaign',
@@ -1322,7 +1373,7 @@ function dosomething_campaign_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 42,
+      'weight' => 12,
     ),
   );
 
@@ -1742,7 +1793,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -1836,7 +1887,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 43,
+      'weight' => 13,
     ),
   );
 
@@ -1882,7 +1933,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 40,
+      'weight' => 10,
     ),
   );
 
@@ -1928,7 +1979,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 8,
     ),
   );
 
@@ -1974,7 +2025,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 9,
     ),
   );
 
@@ -2026,7 +2077,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 41,
+      'weight' => 11,
     ),
   );
 
@@ -2461,7 +2512,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -2509,7 +2560,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -2518,6 +2569,7 @@ function dosomething_campaign_field_default_field_instances() {
   t(' Any tips for what the user should do after the action is finished. "Thank everyone who helped you put on the drive with a handwritten note."
 <br/>
 <strong> Limit: 135 characters </strong>');
+  t('Action Guide');
   t('Action Type');
   t('Active Hours');
   t('After Copy');
