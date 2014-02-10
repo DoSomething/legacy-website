@@ -24,10 +24,16 @@
   <?php if (isset($facts)): ?>
     <?php foreach ($facts as $key => $fact): ?>
       <?php print '#' . ($key + 1) . ' ' . $fact['fact']; ?>
-      <?php print $fact['sources']; ?>
+      <?php if (is_array($fact['sources'])): ?>
+        <?php foreach ($fact['sources'] as $source): ?>
+          <p class="legal">Source: <?php print $source; ?></p>
+        <?php endforeach; ?>
+      <?php elseif (isset($fact['source'])): ?>
+         <p class="legal">Source: <?php print $fact['source']; ?></p>
+      <?php endif; ?>
     <?php endforeach; ?>
   <?php endif; ?>
-  
+
   <?php if (isset($call_to_action)): ?>
     <div class="cta">
       <h2><?php print $call_to_action; ?></h2>
