@@ -4,3 +4,11 @@
  * Installation and schema hooks for dosomething_fact.module.
  */
 
+/**
+ * Remove body from Fact content type.
+ */
+function dosomething_fact_update_7001(&$sandbox) {
+  if ($instance = field_info_instance('node', 'body', 'fact')) {
+    field_delete_instance($instance);
+  }
+}
