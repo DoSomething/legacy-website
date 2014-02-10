@@ -24,11 +24,13 @@ function dosomething_user_node_access($node, $op, $account) {
 }
 
  /**
-  * Confirms that a specific cell phone number is valid.  A valid phone number
-  * is a number with either 10 or 11 digits (as long as the first digit is a "1").
+  * Confirms that a specific cell phone number is valid.
+  *
+  * A valid phone number is a number with either 10 or 11 digits
+  * (as long as the first digit is a "1").
   * Valid phone numbers do not have 3 consecutive 5's in any part, nor do they
-  * use punctuation where there should be numbers.  Phone numbers also do not have
-  * 9 consecutive, equal digits (e.g. 999-999-9999).
+  * use punctuation where there should be numbers.  Phone numbers also
+  * do not have 9 consecutive, equal digits (e.g. 999-999-9999).
   *
   * @code
   *  dosomething_user_valid_cell('123-456-7890');
@@ -47,7 +49,9 @@ function dosomething_user_node_access($node, $op, $account) {
   *
   * @param string $number
   *   The cell phone number that should be validated.
+  *
   * @return bool
+  *   True if valid, else false.
   */
 function dosomething_user_valid_cell($number) {
   preg_match('#^(?:\+?1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
@@ -55,8 +59,14 @@ function dosomething_user_valid_cell($number) {
   return !empty($valid) && empty($repeat) && strpos($number, '555') === FALSE;
 }
 
-/*
+/**
  * Determines if a user is on the ds staff.
+ *
+ * @param object $user
+ *   A user object.
+ *
+ * @return bool
+ *   Returns true if user has a staff role applied, else false.
  */
 function dosomething_user_is_staff($user = NULL) {
   if ($user == NULL) {
@@ -81,11 +91,12 @@ function dosomething_user_is_staff($user = NULL) {
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   switch ($form_id) {
     case 'user_login_block':
-    case 'user_login' :
+    case 'user_login':
       // Add additional submission/validation handlers.
-      array_unshift($form['#validate'],'dosomething_user_login_validate');
+      array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
       break;
+
     case 'user_profile_form':
     case 'user_register_form':
       $form['#validate'][] = 'dosomething_user_register_validate';
@@ -93,8 +104,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 }
 /**
  * Custom login validation.
- * @see dosomething_user_form_alter().
+ *
  * Allows for users to login via email or mobile number.
+ * @see dosomething_user_form_alter()
  */
 function dosomething_user_login_validate($form, &$form_state) {
   // Note: Taken from logintoboggan module.
@@ -102,14 +114,19 @@ function dosomething_user_login_validate($form, &$form_state) {
     if ($account = dosomething_user_get_user_by_email($form_state['values']['name'])) {
       form_set_value($form['name'], $account->name, $form_state);
     }
-    else if ($number = $form_state['values']['name']) {
+    elseif ($number = $form_state['values']['name']) {
       if ($account = dosomething_user_get_user_by_cell($number)) {
         form_set_value($form['name'], $account->name, $form_state);
       }
     }
   }
 }
-
+/**
+ * Addictional user registration validation hook.
+ *
+ * Clean user data on registration.
+ * @see dosomething_user_form_alter()
+ */
 function dosomething_user_register_validate($form, &$form_state) {
   $mobile = $form_state['values']['field_mobile'][LANGUAGE_NONE][0]['value'];
   if (isset($mobile)) {
@@ -122,7 +139,7 @@ function dosomething_user_register_validate($form, &$form_state) {
 
 /**
  * Additional submit callback called from user login and register forms.
- * @see dosomething_user_form_alter().
+ * @see dosomething_user_form_alter()
  */
 function dosomething_user_login_submit($form, &$form_state) {
   if (module_exists('dosomething_signup')) {
@@ -137,8 +154,8 @@ function dosomething_user_login_submit($form, &$form_state) {
 
 /**
  * Additional callback to sign user up for campaign.
- * Signs up global $user for a node $nid if $nid isset in the $form_state.
  *
+ * Signs up global $user for a node $nid if $nid isset in the $form_state.
  * This function will only work upon registration if account variables
  * are set to the following:
  * -- A visitor can register for the site without admin approval
@@ -147,14 +164,13 @@ function dosomething_user_login_submit($form, &$form_state) {
  * Otherwise, the global $user upon account creation is set with uid 0
  * and signup will fail.
  *
- * @see dosomething_user_strongarm().
- *
+ * @see dosomething_user_strongarm()
  */
 function dosomething_user_signup($form, &$form_state, $obj) {
   // Add a hidden nid field.
   $form['nid'] = array(
     '#type' => 'hidden',
-    //@todo: Encrypt me.
+    // @TODO: Encrypt me.
     '#value' => $obj->nid,
   );
   $nid = $form_state['input']['nid'];
@@ -169,8 +185,12 @@ function dosomething_user_signup($form, &$form_state, $obj) {
 
 /**
  * Get a user by email address.
- * @param email - string
- * @return String if true, else false.
+ *
+ * @param string $email
+ *   The user's email.
+ *
+ * @return object/bool
+ *   If true return the user object, else false.
  */
 function dosomething_user_get_user_by_email($email) {
   $user = user_load_by_mail($email);
@@ -180,10 +200,11 @@ function dosomething_user_get_user_by_email($email) {
 /**
  * Search for users users by their cell phone number.
  *
- * @param $number
- *  (string) The cell phone number for which you are searching.
- * @return
- *  The user account object.
+ * @param string $number
+ *   The cell phone number for which you are searching.
+ *
+ * @return object/bool
+ *   The user account object, or false if no user was found.
  */
 function dosomething_user_get_user_by_cell($number) {
   $clean_number = dosomething_user_clean_cell_number($number);
@@ -204,9 +225,11 @@ function dosomething_user_get_user_by_cell($number) {
 /**
  * Clean input phone number of all non-numeric characters.
  *
- * @param $number String to format into a 10-digit phone number
+ * @param string $number
+ *   The user-input mobile number.
  *
- * @return Numeric-only string of the phone number, or FALSE if input is not a 10-digit number
+ * @return string/bool
+ *   Numeric-only string of the phone number, or FALSE if not a 10-digit number.
  */
 function dosomething_user_clean_cell_number($number) {
   if (dosomething_user_valid_cell($number)) {
@@ -220,4 +243,5 @@ function dosomething_user_clean_cell_number($number) {
   }
   return FALSE;
 }
+
 
