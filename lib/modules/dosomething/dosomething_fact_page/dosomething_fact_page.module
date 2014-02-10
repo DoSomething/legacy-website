@@ -52,8 +52,5 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     }
 
     $vars['facts'] = dosomething_fact_get_fact_field_wrapper_values($node->field_facts);
-    foreach ($vars['facts'] as $key => $fact) {
-      $vars['facts'][$key]['sources'] = theme('item_list', array('items' => $fact['sources']));
-    }
   }
 }
