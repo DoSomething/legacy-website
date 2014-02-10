@@ -57,6 +57,7 @@ function dosomething_fact_page_field_group_info() {
       3 => 'field_subtitle',
       4 => 'field_video',
       5 => 'title',
+      6 => 'field_intro',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

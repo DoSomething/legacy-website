@@ -19,7 +19,7 @@ function dosomething_fact_page_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '7',
+          'weight' => '6',
         ),
         'path' => array(
           'weight' => '4',
