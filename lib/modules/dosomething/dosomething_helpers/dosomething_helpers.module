@@ -95,6 +95,7 @@ function dosomething_helpers_add_entityref_links(&$node, $fields) {
     );
     $i = $i + 10;
   }
+}
 
 /**
  * Implements hook_preprocess_html(). 
