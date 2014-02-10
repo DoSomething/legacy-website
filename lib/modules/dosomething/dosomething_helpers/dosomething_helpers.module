@@ -25,11 +25,10 @@ function dosomething_helpers_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_html_head_alter(). 
+ * Implements hook_preprocess_html(). 
  */
-function dosomething_helpers_html_head_alter(&$head_elements) {
-
-  $head_elements['dmoz_meta_tag'] = array(
+function dosomething_helpers_preprocess_html(&$vars) {
+  $dmoz_meta_tag = array(
     '#type' => 'html_tag',
     '#tag' => 'meta',
     '#attributes' => array(
@@ -38,6 +37,6 @@ function dosomething_helpers_html_head_alter(&$head_elements) {
     )
   );
 
-  drupal_add_html_head($head_elements, 'dmoz_meta_tag');
+  drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
 
 }
