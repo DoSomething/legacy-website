@@ -10,10 +10,11 @@ include_once 'dosomething_user.features.inc';
  * Implements hook_node_access().
  */
 function dosomething_user_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
   // Internal content types to be viewed by staff only:
   $staff_types = array('fact', 'image');
   // If viewing an internal staff type:
-  if (in_array($node->type, $staff_types) && $op == 'view') {
+  if (in_array($type, $staff_types) && $op == 'view') {
     // If staff user, able to view the Fact node.
     if (dosomething_user_is_staff($account)) {
       return NODE_ACCESS_ALLOW;
