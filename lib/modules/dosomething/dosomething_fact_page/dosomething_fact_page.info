@@ -22,6 +22,7 @@ features[field_instance][] = node-fact_page-field_cause
 features[field_instance][] = node-fact_page-field_cta_link
 features[field_instance][] = node-fact_page-field_facts
 features[field_instance][] = node-fact_page-field_hero_image
+features[field_instance][] = node-fact_page-field_intro
 features[field_instance][] = node-fact_page-field_intro_image
 features[field_instance][] = node-fact_page-field_intro_title
 features[field_instance][] = node-fact_page-field_subtitle

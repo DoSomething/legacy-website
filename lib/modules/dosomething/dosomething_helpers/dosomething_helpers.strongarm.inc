@@ -16,7 +16,8 @@ function dosomething_helpers_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'dosomething_helpers_modules';
   $strongarm->value = array(
-    'static_content'
+    'static_content',
+    'fact_page',
   );
   $export['dosomething_helpers_modules'] = $strongarm;
 
