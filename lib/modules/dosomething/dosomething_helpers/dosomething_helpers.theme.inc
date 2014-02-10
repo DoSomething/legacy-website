@@ -15,9 +15,9 @@ function dosomething_helpers_theme_registry_alter(&$theme_registry) {
       $theme_registry_copy = $theme_registry;
       _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'paraneue_dosomething', $mod_path);
       $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
-      $hooks = array('node');
+      $hooks = array('node__' . $module);
       foreach ($hooks as $h) {
-        _dosomething_helpers_insert_after_first_element($theme_registry[$h]['theme paths'], $mod_path);
+        _dosomething_helpers_insert_after_first_element($theme_registry[$h]['theme path'], $mod_path);
       }
     }
   }
