@@ -60,22 +60,15 @@
 
         <?php if (isset($more_facts)): ?>
         <?php foreach ($more_facts as $fact): ?>
-        <p><?php print $fact['fact']; ?></p>
-        <p class="legal">Source: <?php print $fact['source']; ?></p>
+          <div>
+            <p><?php print $fact['fact']; ?></p>
+            <?php foreach ($fact['sources'] as $source): ?>
+              <p class="legal">Source: <?php print $source; ?></p>
+            <?php endforeach; ?>
+          </div>
         <?php endforeach; ?>
-
         <?php endif; ?>
       </div>
-      <?php if (isset($more_facts)): ?>
-      <?php foreach ($more_facts as $fact): ?>
-        <div>
-          <p><?php print $fact['fact']; ?></p>
-          <?php foreach ($fact['sources'] as $source): ?>
-            <p class="legal">Source: <?php print $source; ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endforeach; ?>
-      <?php endif; ?>
 
       <aside class="cached-modal">
         <?php if (isset($faq)): ?>
