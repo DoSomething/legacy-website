@@ -1,43 +1,173 @@
-
 // ----------
 //  CAMPAIGN
 // ----------
 
-// Outermost campaign template wrapper that
-// has the hero image applied to it
-section.campaign-wrapper {
-  min-height: 600px;
-  padding: 250px 0 0;
+.c--wrapper {
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: 43% 50%;
-  background-size: cover;
+  background: #fff;
 
   @include media( $tablet ) {
     @include outer-container;
   }
-}
 
-// Inner campaign template container that
-// holds all content from the node fields
-div.campaign-container {
-  @include media( $tablet ) {
-    @include span-columns(3);
-    @include shift(1);
+  // Primary persistent campaign navigation
+  // that is full-width on mobile and the left
+  // sidebar on desktop
+  nav.navigation {
+    @include media( $tablet ) {
+      @include span-columns(2);
+    }
+
+    ul {
+      padding: 0.5rem 0 0.5rem 0;
+      background: #eee;
+    }
+
+    li {
+      text-align: center;
+      width: 100%;
+
+      &:last-child a {
+        border-bottom: none;
+      }
+    }
+
+    a {
+      display: block;
+      margin: 0 auto;
+      padding: 0.25rem 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: $font-medium;
+
+      &.plain {
+        color: #fff;
+      }
+
+      &.primary {
+        color: $blue;
+      }
+    }
+
+    .is-stuck {
+      top: 26px;
+    }
   }
 
-  input.btn {
-    margin: 0 auto;
-    display: block;
-    width: 125px;
+  // Element that sets the nav's pin location
+  .js-pin-to-top-anchor {
+    height: 0;
+  }
+
+  // Campaign header containing that campaign's
+  // metadata sourced from the node fields that
+  // has the hero image applied to it
+  header.header {
+    min-height: 600px;
+    padding: 250px 0 0;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: 43% 50%;
+    background-size: cover;
+
+    input.btn {
+      margin: 0 auto;
+      display: block;
+      width: 125px;
+      color: #fff;
+    }
+
+    img.arrow {
+      position: relative;
+      left: 90px;
+      top: -15px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  // Full-width header that comes
+  // immediately before each section.step
+  h2.step-header {
+    margin: 0;
+    padding: 0 1.5rem;
+    background: $off-black;
     color: #fff;
+    clear: both;
+
+    .shift {
+      @include shift(2);
+    }
   }
 
-  img.campaign-arrow {
-    position: relative;
-    left: 90px;
-    top: -15px;
-    display: block;
-    margin: 0 auto;
+  // Campaign "step" wrapper that
+  // contains "Know It", "Plan It", etc.
+  section.step {
+    @include section-padding;
+
+    @include media( $tablet ) {
+      // @include span-columns(9);
+      // @include shift(2);
+    }
+
+    h4 {
+      color: $purple;
+    }
+
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  // Step 2
+  // Plan It
+  .location-finder {
+    border: 1px solid $off-black;
+
+    @include media( $tablet ) {
+      @include span-columns(9);
+      @include shift(2);
+    }
+  }
+
+  // Step 3
+  // Do It
+  .step.do {
+
+    @include media( $tablet ) {
+      @include span-columns(7);
+      @include shift(2);
+    }
+  }
+
+  // Step 4
+  // Prove It
+  .step.prove {
+
+    @include media( $tablet ) {
+      @include span-columns(7);
+      @include shift(2);
+    }
+  }
+
+  // Layout class that handles grid assignments
+  div.col.first {
+    @include media( $tablet ) {
+      @include span-columns(4);
+      @include shift(2);
+    }
+  }
+
+  div.col.second {
+    @include media( $tablet ) {
+      @include span-columns(4);
+      @include shift(1);
+      @include omega;
+    }
+  }
+
+  section.step {
+    // @include section-padding;
   }
 }
