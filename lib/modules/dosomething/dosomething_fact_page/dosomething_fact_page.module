@@ -5,3 +5,55 @@
  */
 
 include_once 'dosomething_fact_page.features.inc';
+
+function dosomething_fact_page_preprocess_node(&$vars) {
+  if ($vars['type'] == 'fact_page') {
+    $content = $vars['content'];
+    $template_vars = array(
+      'text' => array(
+        'subtitle',
+        'intro_title',
+        'intro',
+        'call_to_action',
+      ),
+      'image' => array(
+        'intro_image',
+        'hero_image',
+      ),
+      'link' => array(
+        'cta_link'
+      ),
+    );
+
+    foreach ($template_vars as $key => $labels) {
+      foreach ($labels as $label) {
+        $field = "field_{$label}";
+          if (isset($content[$field])) {
+          switch ($key) {
+            case 'text':
+                $vars[$label] = $content[$field][0]['#markup'];
+              break;
+            case 'image':
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $label);
+            break;
+            case 'link':
+              $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'btn')));
+            break;
+            default:
+              break;
+          }
+        }
+      }
+    }
+
+    $node = entity_metadata_wrapper('node', $vars['node']);
+    if ($node->field_video->value()) {
+      $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
+    }
+
+    $vars['facts'] = dosomething_fact_get_fact_field_wrapper_values($node->field_facts);
+    foreach ($vars['facts'] as $key => $fact) {
+      $vars['facts'][$key]['sources'] = theme('item_list', array('items' => $fact['sources']));
+    }
+  }
+}
