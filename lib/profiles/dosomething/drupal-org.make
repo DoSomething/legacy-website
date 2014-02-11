@@ -172,8 +172,8 @@ projects[paraneue][options][working-copy] = TRUE
 ; LIBRARIES
 
 ; Mobile Commons PHP
-libraries[mobilecommons_php][download][type] = "git"
-libraries[mobilecommons_php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
+libraries[mobilecommons-php][download][type] = "git"
+libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
 
 ; DSAPI PHP Library
 ;libraries[dsapi][download][type] = "git"

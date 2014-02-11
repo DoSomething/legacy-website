@@ -225,11 +225,45 @@ function dosomething_signup_views_data() {
 /**
  * Implements hook_user_view().
  */
-function dosomething_user_user_view($account, $view_mode, $langcode) {
+function dosomething_signup_user_view($account, $view_mode, $langcode) {
   // Output user signups.
   $account->content['campaigns'] = array(
     '#type' => 'user_profile_item',
     '#title' => t('Campaigns'),
     '#markup' => views_embed_view('user_signups', 'block', $account->uid),
   );
+}
+
+/**
+ * Sends a Mobilecommons API request to sign up given user for campaigns opt-i
+ */
+function dosomething_signup_mobilecommons_opt_in() {
+  // Make sure mobilecommons module is enabled.
+  if (!module_exists('mobilecommons')) { return; }
+
+  // If user doesn't have mobile number, exit function.
+  $mobile = dosomething_user_get_mobile();
+  if (!$mobile) { return; }
+
+  try {
+    // @todo: Move this all into a new function in the mobilecommons.module.
+    libraries_load('mobilecommons-php');
+    $config = array(
+      'username' => variable_get('mobilecommons_api_auth_email'),
+      'password' => variable_get('mobilecommons_api_auth_password'),
+    );
+    $MobileCommons = new MobileCommons($config);
+    // Next get prepare the opt-in request.
+    $args = array(
+      // All campaigns use this opt-in path for now.
+      'opt_in_path' => variable_get('dosomething_signup_mobilecommons_opt_in', 164453),
+      'person[phone]' => $mobile,
+      //@todo: Pass campaign name as param for as 'person[campaign_name]'.
+    );
+    $response = $MobileCommons->opt_in($args);
+  }
+  catch (Exception $e) {
+    // Log the error.
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
 }

@@ -251,4 +251,35 @@ function dosomething_user_clean_cell_number($number) {
   return FALSE;
 }
 
+/**
+ * Returns value for given field on given user.
+ * 
+ * @param string $field_name
+ *   The machine name of the field that stores value to return.
+ * @param object $account
+ *   The account to return value for. If NULL, uses global $user.
+ *
+ * @return mixed
+ *   Returns NULL if not set, otherwise whatever type of data the field stores.
+ */
+function dosomething_user_get_field($field_name, $account = NULL) {
+  if ($account == NULL) {
+    global $user;
+    $account = $user;
+  }
+  $wrapper = entity_metadata_wrapper('user', $account);
+  return $wrapper->{$field_name}->value();
+}
 
+/**
+ * Returns given user's mobile number.
+ *
+ * @param object $account
+ *   The account to return value for. If NULL, uses global $user.
+ *
+ * @return mixed
+ *   Returns NULL if not set, otherwise string.
+ */
+function dosomething_user_get_mobile($account = NULL) {
+  return dosomething_user_get_field('field_mobile', $account);
+}
