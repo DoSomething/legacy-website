@@ -93,6 +93,14 @@
           <?php print $items_needed['safe_value']; ?>
         <?php endif; ?>
 
+        <?php if (isset($action_guides)) : ?>
+          <ul>
+          <?php foreach ($action_guides as $action_guide): ?>
+            <li><?php print $action_guide; ?></li>
+          <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
+
         <?php if (isset($time)) : ?>
           <h4>Time and Place</h4>
           <?php print $time['safe_value']; ?>

@@ -52,7 +52,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 56,
+      'weight' => 11,
     ),
   );
 
@@ -98,7 +98,53 @@ function dosomething_action_guide_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 54,
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-action_guide-field_description'
+  $field_instances['node-action_guide-field_description'] = array(
+    'bundle' => 'action_guide',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  e.g. <i>These tips on making birthday cards</i>. ',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_description',
+    'label' => 'Description',
+    'required' => 1,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -147,7 +193,7 @@ function dosomething_action_guide_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 52,
+      'weight' => 9,
     ),
   );
 
@@ -198,7 +244,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 42,
+      'weight' => 4,
     ),
   );
 
@@ -244,7 +290,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 48,
+      'weight' => 7,
     ),
   );
 
@@ -295,7 +341,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 50,
+      'weight' => 8,
     ),
   );
 
@@ -341,7 +387,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 46,
+      'weight' => 6,
     ),
   );
 
@@ -387,7 +433,7 @@ function dosomething_action_guide_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 44,
+      'weight' => 5,
     ),
   );
 
@@ -395,12 +441,14 @@ function dosomething_action_guide_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Additional Text');
   t('Additional Text Title');
+  t('Description');
   t('Gallery');
   t('Hero Image');
   t('Intro');
   t('Intro Image');
   t('Intro Title');
   t('Subtitle');
+  t('This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  e.g. <i>These tips on making birthday cards</i>. ');
 
   return $field_instances;
 }
