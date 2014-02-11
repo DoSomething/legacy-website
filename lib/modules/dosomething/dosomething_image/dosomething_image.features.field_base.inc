@@ -40,13 +40,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_square'
-  $field_bases['field_image_square'] = array(
+  // Exported field_base: 'field_image_portrait'
+  $field_bases['field_image_portrait'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_image_square',
+    'field_name' => 'field_image_portrait',
     'foreign keys' => array(
       'fid' => array(
         'columns' => array(
@@ -70,13 +70,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_portrait'
-  $field_bases['field_image_portrait'] = array(
+  // Exported field_base: 'field_image_square'
+  $field_bases['field_image_square'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_image_portrait',
+    'field_name' => 'field_image_square',
     'foreign keys' => array(
       'fid' => array(
         'columns' => array(
