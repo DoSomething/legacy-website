@@ -1,20 +1,22 @@
 <section class="c--wrapper">
   <header class="header <?php print $classes; ?>" style="background-image: url(<?php print $hero_image_l_url; ?>);">
-    <h1 class="title"><?php print $title; ?></h1>
-    <p class="cta"><?php print $cta; ?></p>
+    <div class="meta">
+      <h1 class="title"><?php print $title; ?></h1>
+      <p class="cta"><?php print $cta; ?></p>
 
-    <?php print render($signup_form); ?>
+      <?php print render($signup_form); ?>
 
-    <img class="arrow" src="https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7e9e3ef8974d815230449b9829e98ac0/arrow.png" alt="Click the button!" />
-    <p class="scholarship"><span class="highlight"><?php print $scholarship; ?></span></p>
+      <img class="arrow" src="https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7e9e3ef8974d815230449b9829e98ac0/arrow.png" alt="Click the button!" />
+      <p class="scholarship"><span class="highlight"><?php print $scholarship; ?></span></p>
 
-    <div class="sponsor">
-      <?php if (isset($sponsors)): ?>
-        <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php print $sponsor['name']; ?>
-          <?php // print $sponsor['img']; ?>
-        <?php endforeach; ?>
-      <?php endif; ?>
+      <div class="sponsor">
+        <?php if (isset($sponsors)): ?>
+          <?php foreach ($sponsors as $key => $sponsor) :?>
+            <?php print $sponsor['name']; ?>
+            <?php // print $sponsor['img']; ?>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
     </div>
   </header>
 
@@ -29,11 +31,11 @@
       </ul>
     </nav>
 
-    <h2 id="know" class="step-header">Know It</h2>
+    <h2 id="know" class="step-header"><span class="shift">Know It</span></h2>
     <section class="know step">
       <div class="col first">
-        <?php if (isset($fact_problem)): ?>
         <h4>The Problem</h4>
+        <?php if (isset($fact_problem)): ?>
         <p><?php print $fact_problem['fact']; ?></p>
         <?php foreach ($fact_problem['sources'] as $source): ?>
           <p class="legal">Source: <?php print $source; ?></p>
@@ -42,8 +44,8 @@
       </div>
 
       <div class="col second">
-        <?php if (isset($fact_solution)): ?>
         <h4>The Solution</h4>
+        <?php if (isset($fact_solution)): ?>
         <p><?php print $fact_solution['fact']; ?></p>
         <?php foreach ($fact_solution['sources'] as $source): ?>
           <p class="legal">Source: <?php print $source; ?></p>
@@ -51,11 +53,11 @@
         <?php endif; ?>
 
         <?php if (isset($solution_copy)): ?>
-        <p><?php print $solution_copy['safe_value']; ?></p>
+        <div class="solution-copy"><?php print $solution_copy['safe_value']; ?></div>
         <?php endif; ?>
 
         <?php if (isset($solution_support)): ?>
-        <p><?php print $solution_support['safe_value']; ?></p>
+        <div class="solution-supporting-copy"><?php print $solution_support['safe_value']; ?></div>
         <?php endif; ?>
 
         <?php if (isset($more_facts)): ?>
@@ -74,23 +76,23 @@
         <?php if (isset($faq)): ?>
         <h4>FAQ</h4>
         <?php foreach ($faq as $item): ?>
-        <h4><?php print $item['header']; ?></h4>
-        <p><?php print $item['copy'] ?></p>
+        <h4 class="faq-header"><?php print $item['header']; ?></h4>
+        <div class="faq-copy"><?php print $item['copy'] ?></div>
         <?php endforeach; ?>
         <?php endif; ?>
       </aside>
     </section>
 
-    <h2 id="plan" class="step-header">Plan It</h2>
+    <h2 id="plan" class="step-header"><span class="shift">Plan It</span></h2>
     <section class="plan step">
       <?php if (isset($starter)) : ?>
-        <?php print $starter['safe_value']; ?>
+        <div class="intro"><?php print $starter['safe_value']; ?></div>
       <?php endif; ?>
 
-      <div class="first col">
+      <div class="col first">
         <?php if (isset($items_needed)) : ?>
           <h4>Stuff You Need</h4>
-          <?php print $items_needed['safe_value']; ?>
+          <div><?php print $items_needed['safe_value']; ?></div>
         <?php endif; ?>
 
         <?php if (isset($action_guides)) : ?>
@@ -103,70 +105,76 @@
 
         <?php if (isset($time)) : ?>
           <h4>Time and Place</h4>
-          <?php print $time['safe_value']; ?>
+          <div><?php print $time['safe_value']; ?></div>
         <?php endif; ?>
       </div>
 
-      <div class="second col">
+      <div class="col second">
         <?php if (isset($hype)) : ?>
           <h4>Hype</h4>
-          <?php print $items_needed['safe_value']; ?>
-          <?php print $hype['safe_value']; ?>
+          <div><?php print $hype['safe_value']; ?></div>
         <?php endif; ?>
 
         <?php if (isset($vips)) : ?>
           <h4>VIPs</h4>
-          <?php print $vips['safe_value']; ?>
+          <div><?php print $vips['safe_value']; ?></div>
         <?php endif; ?>
       </div>
 
-      <div class="location-finder">
-      <?php if (isset($location_finder_copy)) : ?>
-        <h4>Find a Location</h4>
-        <?php print $location_finder_copy['safe_value']; ?>
-      <?php endif; ?>
-
       <?php if (isset($location_finder_url)) : ?>
-        <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+        <div class="location-finder">
+          <h4>Find a Location</h4>
+          <div class="border">
+            <?php if (isset($location_finder_copy)) : ?>
+              <div><?php print $location_finder_copy['safe_value']; ?></div>
+            <?php endif; ?>
+
+            <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+          </div>
+        </div>
       <?php endif; ?>
-      </div>
     </section>
 
     <h2 id="do" class="step-header"><span class="shift">Do It</span></h2>
     <section class="do step">
       <h3><?php print $pre_step_header; ?></h3>
-      <?php print $pre_step_copy['safe_value']; ?>
+      <div><?php print $pre_step_copy['safe_value']; ?></div>
 
       <?php if (isset($step_pre)) : ?>
       <?php foreach ($step_pre as $item): ?>
-      <h4 class="tip-header"><?php print $item['header']; ?></h4>
-      <p class="tip-body"><?php print $item['copy'] ?></p>
+        <p class="tip-header"><a href="#"><?php print $item['header']; ?></a><span class="bullet">&nbsp;&#149;&nbsp;</span></p>
       <?php endforeach; ?>
+
+      <div class="tip-wrapper">
+      <?php foreach ($step_pre as $item): ?>
+        <div class="tip-body"><?php print $item['copy'] ?></div>
+      <?php endforeach; ?>
+      </div>
       <?php endif; ?>
 
       <h3>Snap a Pic</h3>
       <?php print $pic_step['safe_value']; ?>
-      <h4 class="bash"><?php print $post_step_header; ?></h4>
-      <?php print $post_step_header['safe_value']; ?>
+      <h4><?php print $post_step_header; ?></h4>
+      <div><?php print $post_step_header['safe_value']; ?></div>
 
       <!-- MODAL -->
       <?php if (isset($step_post)) : ?>
       <div class="cached-modal">
       <?php foreach ($step_post as $item): ?>
-      <h3 class="foo"><?php print $item['header']; ?></h3>
-      <p class="bar"><?php print $item['copy'] ?></p>
+      <h3><?php print $item['header']; ?></h3>
+      <div><?php print $item['copy'] ?></div>
       <?php endforeach; ?>
       </div>
       <?php endif; ?>
     </section>
 
-    <h2 id="prove" class="step-header">Prove It</h2>
+   <h2 id="prove" class="step-header"><span class="shift">Prove It</span></h2>
     <section class="prove step">
       <h4> Pics or It Didn't Happen </h4>
-      <?php print $reportback_copy; ?>
+      <div><?php print $reportback_copy; ?></div>
       <a class="btn large"><?php print $reportback_link_label; ?></a>
 
-      <?php print render($reportback_form); ?>
+      <div class="cached-modal"><?php print render($reportback_form); ?></div>
     </section>
   </div>
 </section>

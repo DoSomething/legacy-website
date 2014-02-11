@@ -2,21 +2,20 @@
   // padding: 0 1.5rem;
 }
 
-header.campaign-header {
-  // Campaign Header Styles
-  h1.campaign-title {
+header.header {
+  h1.title {
     color: #fff;
     font-size: $font-larger;
     text-align: center;
   }
 
-  p.campaign-cta {
+  p.cta {
     text-align: center;
     color: $light-gray;
   }
 
   // Campaign Highlight Pattern
-  p.campaign-scholarship {
+  p.scholarship {
     position: relative;
     margin: 0 auto;
     left: 90px;
@@ -25,16 +24,16 @@ header.campaign-header {
     width: 155px;
     font-family: $font-hand-written;
     font-size: $font-medium;
+  }
 
-    .highlight {
-      display: inline-block;
-      padding: 0 10px;
-      background-repeat: no-repeat;
-      background-size: 150px 30px;
-      background-position: 50% 50%;
-      background-image: url("https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/10fb3a32f6c9eef369c955ca7f3ef74f/highlight.png");
+  .highlight {
+    display: inline-block;
+    padding: 0 10px;
+    background-repeat: no-repeat;
+    background-size: 150px 30px;
+    background-position: 50% 50%;
+    background-image: url("https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/10fb3a32f6c9eef369c955ca7f3ef74f/highlight.png");
 
-      @include transform( rotate(9deg) );
-    }
+    @include transform( rotate(9deg) );
   }
 }
