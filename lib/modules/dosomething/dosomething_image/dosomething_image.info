@@ -21,6 +21,7 @@ features[field_instance][] = node-image-field_image_square
 features[field_instance][] = node-image-field_image_tags
 features[image][] = 1920x1280
 features[image][] = 310x310
+features[image][] = 50x50
 features[image][] = 640x800
 features[image][] = 720x310
 features[image][] = 740x480
