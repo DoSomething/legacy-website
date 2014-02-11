@@ -133,8 +133,14 @@ function dosomething_user_register_validate($form, &$form_state) {
   if (isset($mobile)) {
     // Clean the user input text.
     $mobile_clean = dosomething_user_clean_cell_number($mobile);
-    // Store only the numbers.
-    form_set_value($form['field_mobile'], array(LANGUAGE_NONE => array(0 => array('value' => $mobile_clean))), $form_state);
+    if ($user = dosomething_user_get_user_by_cell($mobile_clean)) {
+      // This dude already has an account.
+      form_set_error('dosomething_user_already_registered', t('The phone number '. $mobile . ' is already registered. Have you ' . l('forgotten your password?', 'user/password')));
+    }
+    else {
+      // Store only the numbers.
+      form_set_value($form['field_mobile'], array(LANGUAGE_NONE => array(0 => array('value' => $mobile_clean))), $form_state);
+    }
   }
 }
 
