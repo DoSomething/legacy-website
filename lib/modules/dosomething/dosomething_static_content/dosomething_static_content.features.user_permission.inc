@@ -51,5 +51,23 @@ function dosomething_static_content_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'entityconnect add button'.
+  $permissions['entityconnect add button'] = array(
+    'name' => 'entityconnect add button',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'entityconnect',
+  );
+
+  // Exported permission: 'entityconnect edit button'.
+  $permissions['entityconnect edit button'] = array(
+    'name' => 'entityconnect edit button',
+    'roles' => array(
+      'editor' => 'editor',
+    ),
+    'module' => 'entityconnect',
+  );
+
   return $permissions;
 }
