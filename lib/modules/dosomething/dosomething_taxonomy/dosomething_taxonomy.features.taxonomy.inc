@@ -25,6 +25,14 @@ function dosomething_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'image_tags' => array(
+      'name' => 'Image Tags',
+      'machine_name' => 'image_tags',
+      'description' => 'additional metadata on image nodes',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'issue' => array(
       'name' => 'Issue',
       'machine_name' => 'issue',
