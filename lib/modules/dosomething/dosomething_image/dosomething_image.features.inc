@@ -14,6 +14,13 @@ function dosomething_image_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function dosomething_image_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_image_default_styles().
  */
 function dosomething_image_image_default_styles() {
@@ -59,6 +66,29 @@ function dosomething_image_image_default_styles() {
         'data' => array(
           'width' => 310,
           'height' => 310,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: 50x50.
+  $styles['50x50'] = array(
+    'name' => '50x50',
+    'label' => '50x50',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 50,
+          'height' => 50,
         ),
         'weight' => 1,
       ),

@@ -20,6 +20,15 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'metatags' => array(),
   );
   $terms[] = array(
+    'name' => 'Sporty',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 6,
+    'uuid' => '067466eb-225d-49ed-baf1-33713b1ed50e',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Education',
     'description' => '',
     'format' => 'plain_text',
@@ -47,12 +56,39 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'metatags' => array(),
   );
   $terms[] = array(
+    'name' => 'Somber',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 5,
+    'uuid' => '3b9731b6-6e98-4b2c-8525-78de118bf5f8',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Physical Health',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 0,
     'uuid' => '3db25e0b-7b89-468a-b2df-15952d902e6c',
     'vocabulary_machine_name' => 'cause',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Beneficiary',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 7,
+    'uuid' => '426a5ac5-2df4-4c1c-847e-bca28296c00f',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => '6+ People',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 2,
+    'uuid' => '517ca696-0f39-4f18-99f1-6a4ce7616d32',
+    'vocabulary_machine_name' => 'image_tags',
     'metatags' => array(),
   );
   $terms[] = array(
@@ -89,6 +125,24 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'weight' => 4,
     'uuid' => '6749c79e-70cb-42b6-aa4a-bd4aa670f1e2',
     'vocabulary_machine_name' => 'action_type',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Staff',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 9,
+    'uuid' => '677a623c-5d95-40b2-a0b6-c8b41bbe28ac',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => '1 Person',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '695bc629-f25f-42d1-864a-b843037282b9',
+    'vocabulary_machine_name' => 'image_tags',
     'metatags' => array(),
   );
   $terms[] = array(
@@ -164,12 +218,48 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'metatags' => array(),
   );
   $terms[] = array(
+    'name' => '2-5 People',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 1,
+    'uuid' => 'b3953a42-d176-48ec-be89-e2417c99d570',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Share Something',
     'description' => '',
-    'format' => 'markdown',
+    'format' => 'plain_text',
     'weight' => 5,
     'uuid' => 'b750200f-b44e-410e-b0cd-5ddd22dd5c33',
     'vocabulary_machine_name' => 'action_type',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Silly',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 4,
+    'uuid' => 'b75f5338-bd27-4746-b6c7-0177644d9796',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Volunteer',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 8,
+    'uuid' => 'b762d221-89c2-4501-bd17-0ef7cdcb4a6d',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Happy',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 3,
+    'uuid' => 'c317560a-10d2-4f7f-ac27-b9a0d9109f80',
+    'vocabulary_machine_name' => 'image_tags',
     'metatags' => array(),
   );
   $terms[] = array(
