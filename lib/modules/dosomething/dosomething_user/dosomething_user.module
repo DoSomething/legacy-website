@@ -90,9 +90,14 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
+  if (module_exists('securepages')) {
+    $secure_url = variable_get('securepages_basepath_ssl', NULL);
+  }
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
+      // Force login to submit to secure user login.
+      $form['#action'] = $secure_url . '/user/login';
       // Add additional submission/validation handlers.
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
@@ -100,7 +105,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     case 'user_profile_form':
     case 'user_register_form':
+      // Force registration to submit to secure registration.
+      $form['#action'] = $secure_url . '/user/register';
       $form['#validate'][] = 'dosomething_user_register_validate';
+      break;
   }
 }
 /**
@@ -253,7 +261,7 @@ function dosomething_user_clean_cell_number($number) {
 
 /**
  * Returns value for given field on given user.
- * 
+ *
  * @param string $field_name
  *   The machine name of the field that stores value to return.
  * @param object $account
