@@ -85,7 +85,7 @@ projects[dosomething_user][download][source] = './lib/modules/dosomething/dosome
 projects[dosomething_user][subdir] = "dosomething"
 
 ; THEMES
-; Dosomething User
+; Paraneue Dosomething
 projects[paraneue_dosomething][type] = "theme"
 projects[paraneue_dosomething][download][type] = local
 projects[paraneue_dosomething][download][source] = './lib/themes/dosomething/paraneue_dosomething'
