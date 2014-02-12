@@ -149,6 +149,56 @@ function dosomething_image_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Entity Reference */
+  $handler = $view->new_display('entityreference', 'Entity Reference', 'entityreference_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'entityreference_style';
+  $handler->display->display_options['style_options']['search_fields'] = array(
+    'nid' => 'nid',
+    'title' => 0,
+    'edit_node' => 0,
+    'field_image_square' => 0,
+    'field_image_landscape' => 0,
+    'field_image_portrait' => 0,
+    'field_cause' => 0,
+    'field_image_tags' => 0,
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entityreference_fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['nid']['alter']['text'] = '([nid])';
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Square Crop */
+  $handler->display->display_options['fields']['field_image_square']['id'] = 'field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['table'] = 'field_data_field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['field'] = 'field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['label'] = '';
+  $handler->display->display_options['fields']['field_image_square']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image_square']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image_square']['settings'] = array(
+    'image_style' => '50x50',
+    'image_link' => '',
+  );
   $export['search_images'] = $view;
 
   return $export;
