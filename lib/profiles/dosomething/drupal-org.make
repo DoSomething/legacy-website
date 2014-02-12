@@ -131,7 +131,6 @@ projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
 
-
 ; GIT PROJECTS
 
 ; Conductor
