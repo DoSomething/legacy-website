@@ -22,7 +22,7 @@
 
   <div class="content">
     <div id="js-pin-to-top-anchor" class="js-pin-to-top-anchor">&nbsp;</div>
-    <nav class="navigation js-pin-to-top">
+    <nav class="navigation sticky"> 
       <ul>
         <li><a class="plain js-jump-scroll" href="#know">know</a></li>
         <li><a class="plain js-jump-scroll" href="#do">do</a></li>
