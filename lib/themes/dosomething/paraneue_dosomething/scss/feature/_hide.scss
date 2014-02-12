@@ -6,17 +6,8 @@
 // --------------------------------------------------------------
 
 .page-node-100 {
-  .utility,
-  .masthead-wrapper,
   .breadcrumbs,
   .tabs {
     display: none;
-  }
-
-  // Admin menu gets in the way of mobile web styling
-  .admin-menu-site-dev-dosomething-org {
-    @include media($tablet) {
-      display: none;
-    }
   }
 }
