@@ -112,6 +112,12 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     case 'user_profile_form':
     case 'user_register_form':
+
+      // Hide the username field & randomly generate the value.
+      $form['account']['name']['#type'] = 'hidden';
+      $form['account']['name']['#value'] = user_password();
+
+      // Gather helper text.
       _dosomething_user_login_shared_helper_text($form);
       // Form specific helper text.
       unset($form['account']['mail']['#description']);
@@ -123,12 +129,26 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       $form['#after_build'][] = 'dosomething_user_register_after_build';
 
       // Force registration to submit to secure registration.
-      $form['account']['name']['#type'] = 'hidden';
       $form['#action'] = $secure_url . '/user/register';
       $form['#validate'][] = 'dosomething_user_register_validate';
 
       break;
   }
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
+
+  // Replace fake user name with uid.
+  db_update('users')
+    ->fields(array('name' => $account->uid))
+    ->condition('uid', $account->uid)
+    ->execute();
+
+  $edit['name'] = $account->uid;
+  $account->name = $account->uid;
 }
 
 /**
