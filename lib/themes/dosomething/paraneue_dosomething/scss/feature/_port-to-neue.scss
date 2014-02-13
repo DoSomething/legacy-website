@@ -37,3 +37,10 @@ header.header {
     @include transform( rotate(9deg) );
   }
 }
+
+.node-type-campaign .nav--wrapper {
+  .main-menu a,
+  .secondary-nav a {
+    color: #fff;
+  }
+}
