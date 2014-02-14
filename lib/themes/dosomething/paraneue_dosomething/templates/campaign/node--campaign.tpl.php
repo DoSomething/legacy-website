@@ -21,8 +21,7 @@
   </header>
 
   <div class="content">
-    <div id="js-pin-to-top-anchor" class="js-pin-to-top-anchor">&nbsp;</div>
-    <nav class="navigation sticky"> 
+    <nav id="nav" class="navigation">
       <ul>
         <li><a class="plain js-jump-scroll" href="#know">know</a></li>
         <li><a class="plain js-jump-scroll" href="#do">do</a></li>
@@ -170,11 +169,13 @@
 
    <h2 id="prove" class="step-header"><span class="shift">Prove It</span></h2>
     <section class="prove step">
-      <h4> Pics or It Didn't Happen </h4>
-      <div><?php print $reportback_copy; ?></div>
-      <a class="btn large"><?php print $reportback_link_label; ?></a>
+      <div class="content">
+        <h2 class="title">Pics or It Didn't Happen</h2>
+        <div class="copy"><?php print $reportback_copy; ?></div>
+        <a class="btn large"><?php print $reportback_link_label; ?></a>
 
-      <div class="cached-modal"><?php print render($reportback_form); ?></div>
+        <div class="cached-modal"><?php print render($reportback_form); ?></div>
+      </div>
     </section>
   </div>
 </section>
