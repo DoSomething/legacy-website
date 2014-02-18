@@ -98,6 +98,13 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     case 'user_login':
       // Force login to submit to secure user login.
       $form['#action'] = $secure_url . '/user/login';
+
+      _dosomething_user_login_shared_helper_text($form);
+
+      // Form specific helper text.
+      $form['name']['#title'] = 'Email or Cell Number';
+      $form['pass']['#attributes']['placeholder'] = t('[password]');
+
       // Add additional submission/validation handlers.
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
@@ -105,11 +112,78 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     case 'user_profile_form':
     case 'user_register_form':
+
+      // Hide the username field & randomly generate the value.
+      $form['account']['name']['#type'] = 'hidden';
+      $form['account']['name']['#value'] = user_password();
+
+      // Gather helper text.
+      _dosomething_user_login_shared_helper_text($form);
+      // Form specific helper text.
+      unset($form['account']['mail']['#description']);
+      unset($form['account']['pass']['#description']);
+      $form['field_first_name']['#weight'] = '-20';
+      $form['field_birthdate']['#weight'] = '-19';
+      $form['account']['mail']['#title'] = t('Email');
+      $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
+      $form['#after_build'][] = 'dosomething_user_register_after_build';
+
       // Force registration to submit to secure registration.
       $form['#action'] = $secure_url . '/user/register';
       $form['#validate'][] = 'dosomething_user_register_validate';
+
       break;
   }
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
+
+  // Replace fake user name with uid.
+  db_update('users')
+    ->fields(array('name' => $account->uid))
+    ->condition('uid', $account->uid)
+    ->execute();
+
+  $edit['name'] = $account->uid;
+  $account->name = $account->uid;
+}
+
+/**
+ * Custom afterbuild on registration form.
+ *
+ * @param array - $form
+ *  A drupal form array.
+ * @param array - $form_state
+ *  A drupal form_state array.
+ *
+ * @return - array - $form
+ *  Modified drupal form.
+ */
+function dosomething_user_register_after_build($form, &$form_state) {
+  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title']);
+  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('[What do we call you?]');
+  $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
+  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('[password]');
+  $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('[just double checking!]');
+
+  return $form;
+}
+
+/**
+ * Registration/login shared field updates.
+ *
+ * @param array - $form
+ *  A drupal form.
+ */
+function _dosomething_user_login_shared_helper_text(&$form) {
+  // Helper text and such.
+  unset($form['name']['#description']);
+  unset($form['pass']['#description']);
 }
 /**
  * Custom login validation.
