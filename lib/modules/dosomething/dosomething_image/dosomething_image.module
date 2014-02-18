@@ -7,6 +7,15 @@
 include_once 'dosomething_image.features.inc';
 
 /**
+ * Implements hook_node_form_alter().
+ */
+function dosomething_image_form_image_node_form_alter(&$form, &$form_state, $form_id) {
+  // Do magic.
+  drupal_add_js(drupal_get_path('module', 'dosomething_image') . '/dosomething_image_upload.js');
+
+}
+
+/**
  * Returns a themed image for any image field
  * @param int $nid
  *  The image node id.
