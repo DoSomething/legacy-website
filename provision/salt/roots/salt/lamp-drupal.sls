@@ -26,9 +26,9 @@ php5-cli-config:
     - require:
       - pkg: php5-pkgs
 
-pear-drush:
+drush:
   cmd.run:
-    - name: sudo pear config-set auto_discover 1 > /dev/null ; sudo pear channel-discover pear.drush.org > /dev/null ; sudo pear install drush/drush  > /dev/null
+    - name: curl -OL https://github.com/drush-ops/drush/archive/6.2.0.tar.gz; tar zxvf 6.2.0.tar.gz; cp -rf drush-6.2.0 /opt; ln -s /opt/drush-6.2.0/drush /usr/local/bin/drush
     - require:
       - pkg: php5-pkgs
       - pkg: curl
