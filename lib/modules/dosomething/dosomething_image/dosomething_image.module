@@ -13,19 +13,6 @@ function dosomething_image_form_image_node_form_alter(&$form, &$form_state, $for
   // Do magic.
   drupal_add_js(drupal_get_path('module', 'dosomething_image') . '/dosomething_image_upload.js');
 
-  // Hide things.
-  drupal_add_css(drupal_get_path('module', 'dosomething_image') . '/dosomething_image.css');
-
-  // Don't require a title on image nodes.
-  $form['title']['#required'] = FALSE;
-}
-
-/**
- * Implements hook_node_insert().
- */
-function dosomething_image_node_insert($node) {
-  if ($node->type != 'image') { return; }
-  $node->title = 'Image: ' . $node->nid;
 }
 
 /**
