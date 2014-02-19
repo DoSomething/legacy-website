@@ -296,15 +296,17 @@ function dosomething_user_get_user_by_email($email) {
  *   The user account object, or false if no user was found.
  */
 function dosomething_user_get_user_by_cell($number) {
-  $clean_number = dosomething_user_clean_cell_number($number);
+  if ($clean_number = dosomething_user_clean_cell_number($number)) {
 
-  $query = db_select('field_data_field_mobile', 'm')
-            ->fields('m', array('entity_id'))
-            ->condition('field_mobile_value', $clean_number)
-            ->execute();
-  $uid = $query->fetchField(0);
-  if (is_numeric($uid)) {
-    return user_load($uid);
+    $query = db_select('field_data_field_mobile', 'm')
+              ->fields('m', array('entity_id'))
+              ->condition('field_mobile_value', $clean_number)
+              ->execute();
+    $uid = $query->fetchField(0);
+    if (is_numeric($uid)) {
+      return user_load($uid);
+    }
+    return FALSE;
   }
 
   return FALSE;
