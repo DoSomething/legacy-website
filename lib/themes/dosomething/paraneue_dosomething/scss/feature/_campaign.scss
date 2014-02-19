@@ -14,6 +14,11 @@
   // that is full-width on mobile and the left
   // sidebar on desktop
   nav.navigation {
+    position: sticky;
+
+    display: none !important;
+    // TODO - TEMPORARY
+
     @include media( $tablet ) {
       @include span-columns(2);
     }
@@ -55,11 +60,6 @@
     }
   }
 
-  // Element that sets the nav's pin location
-  .js-pin-to-top-anchor {
-    height: 0;
-  }
-
   // Campaign header containing that campaign's
   // metadata sourced from the node fields that
   // has the hero image applied to it
@@ -74,12 +74,16 @@
     background-image: url(https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7bbfd71b19c829a2b0feb38073cdb205/campaign-hero.jpg) !important;
     // TODO - Remove this
 
+    @include media( $tablet ) {
+      padding: 450px 0 100px;
+    }
+
     // Wrapper for the campaign title, call to action
     // scholarship info., etc.
     div.meta {
       @include media( $tablet ) {
         @include span-columns(12);
-        @include shift(3);
+        @include shift(2);
       }
     }
 
@@ -88,6 +92,10 @@
       display: block;
       width: 125px;
       color: #fff;
+
+      @include media( $tablet ) {
+        float: left;
+      }
     }
 
     img.arrow {
@@ -96,6 +104,21 @@
       top: -15px;
       display: block;
       margin: 0 auto;
+
+      @include media( $tablet ) {
+        margin: 0;
+        top: 15px;
+        left: 20px;
+      }
+    }
+
+    p.scholarship {
+
+      @include media( $tablet ) {
+        margin: 0;
+        top: 25px;
+        left: 0;
+      }
     }
   }
 
@@ -202,10 +225,17 @@
   // Step 4
   // Prove It
   .step.prove {
+    overflow: hidden;
+    background-image: url(https://trello-attachments.s3.amazonaws.com/52efb2a8c56de7320e6ffc06/52e1724e23eeb26f4e9fc427/6e777d666be111dec7badaecb9bf18ac/polaroid-pattern.jpg);
 
-    @include media( $tablet ) {
-      @include span-columns(7);
-      @include shift(3);
+    h2.title, div.copy {
+      color: #fff;
+    }
+    .content {
+      @include media( $tablet ) {
+        @include span-columns(7);
+        @include shift(3);
+      }
     }
   }
 
