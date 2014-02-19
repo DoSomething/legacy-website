@@ -103,7 +103,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   );
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
-  return theme('dosomething_campaign_reportback_confirmation', array(
+  return theme('reportback_confirmation', array(
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
@@ -116,7 +116,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
  */
 function dosomething_campaign_theme($existing, $type, $theme, $path) {
   return array(
-    'dosomething_campaign_reportback_confirmation' => array(
+    'reportback_confirmation' => array(
       'template' => 'reportback-confirmation',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
       'variables' => array(
