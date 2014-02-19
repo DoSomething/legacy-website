@@ -49,7 +49,7 @@ function dosomething_signup_insert($nid, $uid = NULL) {
  * @param int $nid
  *   The node nid of the signup record to be deleted.
  * @param int $uid
- *   Optional - the user uid of signup record to be deleted.  
+ *   Optional - the user uid of signup record to be deleted.
  *   If not given, uses global $user->uid.
  */
 function dosomething_signup_delete($nid, $uid = NULL) {
@@ -74,7 +74,7 @@ function dosomething_signup_delete($nid, $uid = NULL) {
  * @param int $nid
  *   The node nid of the signup record to check.
  * @param int $uid
- *   Optional - the user uid of signup record to check.  
+ *   Optional - the user uid of signup record to check.
  *   If not given, uses global $user->uid.
  *
  * @return mixed
@@ -266,4 +266,22 @@ function dosomething_signup_mobilecommons_opt_in() {
     // Log the error.
     watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
   }
+}
+
+/**
+ * Returns array of nid's that a user has signed up for.
+ *
+ * @param int $uid
+ *   The user uid of signup record to check.
+ *
+ * @return array
+ *   Array of node nid's.
+ *
+ */
+function dosomething_signup_get_signup_nids_by_uid($uid) {
+  $query = db_select('dosomething_signup', 's');
+  $query->fields('s', array('nid'));
+  $query->condition('uid', $uid);
+  $result = $query->execute();
+  return array_keys($result->fetchAllAssoc('nid'));
 }
