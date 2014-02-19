@@ -19,8 +19,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
  */
 function dosomething_campaign_menu() {
   $items = array();
-
-  // node/nid/pitch
+  // Internal pitch page for staff.
   $items['node/%node/pitch'] = array(
     'title' => 'Pitch',
     'page callback' => '_dosomething_campaign_pitch_view_mode',
@@ -29,7 +28,14 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
   );
-
+  // User reportback confirmation page.
+  $items['node/%node/confirmation'] = array(
+    'title' => 'You Did It!',
+    'page callback' => 'dosomething_campaign_reportback_confirmation_page',
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_campaign_reportback_confirmation_page_access',
+    'access arguments' => array(1),
+  );
   return $items;
 }
 
@@ -53,6 +59,72 @@ function _dosomething_campaign_pitch_page_access($node) {
 function _dosomething_campaign_pitch_view_mode($node) {
   $node_rendered = node_view($node, 'pitch');
   return $node_rendered;
+}
+
+/**
+ * Determines whether a user has access to the user reportback confirmation page.
+ *
+ * @param object $node
+ *   The loaded campaign node.
+ *
+ * @return boolean
+ */
+function dosomething_campaign_reportback_confirmation_page_access($node) {
+  // Are we on a campaign node?
+  if ($node->type != 'campaign') {
+    return FALSE;
+  }
+  // Allow staff access to confirmation page regardless of reportback status.
+  if (module_exists('dosomething_user') && dosomething_user_is_staff()) {
+    return TRUE;
+  }
+  // Else only grant if the user has reported back on this campaign.
+  elseif (module_exists('dosomething_reportback') && dosomething_reportback_exists($node->nid)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Page callback for the user reportback confirmation page.
+ *
+ * @param object $node
+ *   The loaded campaign node.
+ *
+ * @return string
+ *   Rendered HTML.
+ */
+function dosomething_campaign_reportback_confirmation_page($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
+    'attributes' => array('class' => 
+      array('btn', 'large')
+    ))
+  );
+  $campaign_link_title = t('Back to @title', array('@title' => $node->title));
+  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  return theme('dosomething_campaign_reportback_confirmation', array(
+    'copy' => $wrapper->field_reportback_confirm_msg->value(),
+    'more_campaigns_link' => $more_campaigns_link,
+    'back_to_campaign_link' => $back_to_campaign_link,
+    )
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function dosomething_campaign_theme() {
+  return array(
+    'dosomething_campaign_reportback_confirmation' => array(
+      'template' => 'reportback-confirmation',
+      'variables' => array(
+        'copy' => NULL,
+        'more_campaigns_link' => NULL,
+        'back_to_campaign_link' => NULL,
+      ),
+    ),
+  );
 }
 
 /**
