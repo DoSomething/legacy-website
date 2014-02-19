@@ -167,14 +167,14 @@
       <?php endif; ?>
     </section>
 
-   <h2 id="prove" class="step-header"><span class="shift">Prove It</span></h2>
+    <h2 id="prove" class="step-header"><span class="shift">Prove It</span></h2>
     <section class="prove step">
       <div class="content">
         <h2 class="title">Pics or It Didn't Happen</h2>
         <div class="copy"><?php print $reportback_copy; ?></div>
-        <a class="btn large"><?php print $reportback_link_label; ?></a>
 
-        <div class="cached-modal"><?php print render($reportback_form); ?></div>
+        <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
+        <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
       </div>
     </section>
   </div>
