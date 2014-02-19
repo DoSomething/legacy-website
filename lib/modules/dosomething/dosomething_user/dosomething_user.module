@@ -90,6 +90,7 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
+  $secure_url = '';
   if (module_exists('securepages')) {
     $secure_url = variable_get('securepages_basepath_ssl', NULL);
   }
