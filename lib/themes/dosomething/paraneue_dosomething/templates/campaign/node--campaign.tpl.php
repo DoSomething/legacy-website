@@ -172,9 +172,9 @@
     <section class="prove step">
       <h4> Pics or It Didn't Happen </h4>
       <div><?php print $reportback_copy; ?></div>
-      <a class="btn large"><?php print $reportback_link_label; ?></a>
+      <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
 
-      <div class="cached-modal"><?php print render($reportback_form); ?></div>
+      <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
     </section>
   </div>
 </section>
