@@ -417,6 +417,8 @@ function _dosomething_campaign_get_recommended_query_nids($query) {
   if (isset($result['node'])) {
     return array_keys($result['node']);
   }
+  // Return empty array if no result.
+  return array();
 }
 
 /**
