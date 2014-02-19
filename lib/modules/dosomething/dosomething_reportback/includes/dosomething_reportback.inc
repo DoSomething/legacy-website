@@ -53,12 +53,6 @@ class ReportbackEntityController extends EntityAPIController {
       '#type' => 'markup',
       '#markup' => $entity->why_participated,
     );
-    if ($entity->num_participants) {
-      $build['num_participants'] = array(
-        '#type' => 'markup',
-        '#markup' => $entity->num_participants,
-      );
-    }
     return $build;
   }
   /**
