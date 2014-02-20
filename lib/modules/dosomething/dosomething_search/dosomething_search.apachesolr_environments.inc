@@ -10,11 +10,15 @@
 function dosomething_search_apachesolr_environments() {
   $export = array();
 
+  $host = variable_get('apachesolr_host', '10.179.104.149');
+  $port = variable_get('apachesolr_port', '8000');
+  $path = variable_get('apachesolr_path', '\\/sorl');
+
   $environment = new stdClass();
   $environment->api_version = 1;
   $environment->env_id = 'solr';
-  $environment->name = 'localhost server';
-  $environment->url = 'http://192.168.1.21:8080/solr/collection1';
+  $environment->name = 'Solr Server';
+  $environment->url = "http://{$host}:{$port}/{$path}";
   $environment->service_class = '';
   $environment->conf = array(
     'apachesolr_direct_commit' => 0,
@@ -28,6 +32,7 @@ function dosomething_search_apachesolr_environments() {
       0 => 'fact',
       1 => 'fact_page',
       2 => 'static_content',
+      3 => 'campaign',
     ),
   );
   $export['solr'] = $environment;
