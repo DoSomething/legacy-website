@@ -139,10 +139,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
     return;
   }
   $nid = $form_state['values']['nid'];
-  // Signup shouldn't exist already, but check.
-  if (!dosomething_signup_exists($nid) && dosomething_signup_insert($nid)) {
-    drupal_set_message(t("You're signed up!"));
-  }
+  dosomething_signup_user_signup($nid);
 }
 
 /**
@@ -233,6 +230,26 @@ function dosomething_signup_user_view($account, $view_mode, $langcode) {
     '#markup' => views_embed_view('user_signups', 'block', $account->uid),
   );
 }
+
+/**
+ * Signup a user $uid for a given node $nid.
+ */
+function dosomething_signup_user_signup($nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  // If a signup already exists, exit.
+  if (dosomething_signup_exists($nid, $uid)) { return; }
+
+  // Insert signup.
+  if ($sid = dosomething_signup_insert($nid, $uid)) {
+    // Set success message.
+    $message = t("You're signed up!");
+    drupal_set_message($message);
+  }
+}
+
 
 /**
  * Sends a Mobilecommons API request to sign up given user for campaigns opt-i
