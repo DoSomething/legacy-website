@@ -364,7 +364,7 @@ function dosomething_user_clean_cell_number($number) {
   return FALSE;
 }
 /**
- * A reqest to send a message to an external server.
+ * A request to send a message to an external server.
  *
  * @param string $origin
  *  Where the message request came from.
@@ -381,7 +381,7 @@ function dosomething_user_send_message_request($origin, $params = NULL) {
       break;
     case 'user_pass':
       break;
-    case 'campgin-signup':
+    case 'campaign-signup':
       break;
     case 'campaign-reportback':
       break;
