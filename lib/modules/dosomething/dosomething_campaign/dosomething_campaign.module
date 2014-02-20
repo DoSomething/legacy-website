@@ -96,32 +96,73 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
+  // Link to "more campaigns".
   $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
-    'attributes' => array('class' => 
+    'attributes' => array('class' =>
       array('btn', 'large')
     ))
   );
+  // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
-  return theme('dosomething_campaign_reportback_confirmation', array(
+  // Store current node's primary cause tid.
+  $tid = $wrapper->field_primary_cause->getIdentifier();
+  // Get recommended campaign nids for term $tid and current user.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid);
+  // Initalize array to store reccomended campaign vars.
+  $rec_vars = array();
+  // Loop through rec_nids to load relevant variables.
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
+  }
+  return theme('reportback_confirmation', array(
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
+    'recommended' => $rec_vars,
     )
+  );
+}
+
+/**
+ * Returns an array of variables for a given recommended campaign $nid.
+ *
+ * @param int $nid
+ *   The node $nid to return variables for.
+ *
+ * @return array
+ *   An array of variables.
+ */
+function dosomething_campaign_get_recommended_campaign_vars($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
+  $path = 'node/' . $nid;
+  $image_link = NULL;
+  $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
+  if ($image_nid) {
+    $image = dosomething_image_get_themed_image($image_nid, 'landscape', '740x480');
+    $image_link = l($image, $path, array('html' => TRUE));
+  }
+  return array(
+    'nid' => $wrapper->getIdentifier(),
+    'title' => l($wrapper->label(), $path),
+    'call_to_action' => $wrapper->field_call_to_action->value(),
+    'image' => $image_link,
   );
 }
 
 /**
  * Implements hook_theme().
  */
-function dosomething_campaign_theme() {
+function dosomething_campaign_theme($existing, $type, $theme, $path) {
   return array(
-    'dosomething_campaign_reportback_confirmation' => array(
+    'reportback_confirmation' => array(
       'template' => 'reportback-confirmation',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
       'variables' => array(
         'copy' => NULL,
         'more_campaigns_link' => NULL,
         'back_to_campaign_link' => NULL,
+        'recommended' => NULL,
       ),
     ),
   );
@@ -357,4 +398,112 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
     return $values;
   }
   return NULL;
+}
+
+/**
+ * Returns array of nid's of recommended campaigns for $uid.
+ *
+ * First finds published staff pick campaigns that user has not signed up for.
+ *
+ * If there are less than 3, it finds published campaigns that have the
+ * same primary cause as given $tid which the user has not signed up for.
+ *
+ *
+ * @param int $tid
+ *   The term $tid to query field_primary_cause for.
+ *   This is used if there are less than 3 recommended staff picks for $uid.
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ *
+ * @return array
+ *  An array of node nid's.
+ */
+function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  // Get recommended staff picks first.
+  $nids = dosomething_campaign_get_recommended_staff_pick_nids($uid);
+  // If less than 3 staff picks:
+  if (count($nids) < 3) {
+    // Add recommended campaigns by term $tid.
+    $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid);
+    $nids = array_merge($nids, $tid_nids);
+  }
+  // Return top 3 nids:
+  return array_slice($nids, 0, 3);
+}
+
+/**
+ * Returns an EntityFieldQuery of recommended published campaigns for $uid.
+ *
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ *
+ * @return object
+ *  An EntityFieldQuery of published campaigns that $uid has not signed up for.
+ */
+function _dosomething_campaign_get_recommended_base_query($uid) {
+  // Store the nid's that the user has already signed up for.
+  $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('nid', $signup_nids, 'NOT IN')
+    ->propertyCondition('status', 1)
+    ->range(0, 3);
+  return $query;
+}
+
+/**
+ * Helper function to execute a given node EntityFieldQuery and return $nid's.
+ *
+ * @param object $query
+ *   An EntityFieldQuery of campaign nodes.
+ *
+ * @return array
+ *  An array of the result node nid's.
+ */
+function _dosomething_campaign_get_recommended_query_nids($query) {
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    return array_keys($result['node']);
+  }
+  // Return empty array if no result.
+  return array();
+}
+
+/**
+ * Returns array of nid's of recommended staff picks for $uid.
+ *
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ *
+ * @return object
+ *  An EntityFieldQuery of staff pick nids that $uid has not signed up for.
+ */
+function dosomething_campaign_get_recommended_staff_pick_nids($uid) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid);
+  // Add field condition to only return staff picks.
+  $query->fieldCondition('field_staff_pick', 'value', 1);
+  return _dosomething_campaign_get_recommended_query_nids($query);
+}
+
+/**
+ * Returns array of nid's of recommended campaigns for $uid with given $tid.
+ *
+ * @param int $tid
+ *   The term $tid to query field_primary_cause for.
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ *
+ * @return object
+ *  An EntityFieldQuery of staff pick nids that $uid has not signed up for.
+ */
+function dosomething_campaign_get_recommended_nids_by_term($tid, $uid) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid);
+  // Add field condition to only campaigns with primary cause $tid.
+  $query->fieldCondition('field_primary_cause', 'tid', $tid);
+  return _dosomething_campaign_get_recommended_query_nids($query);
 }
