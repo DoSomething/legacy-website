@@ -29,10 +29,9 @@ function dosomething_search_apachesolr_environments() {
   );
   $environment->index_bundles = array(
     'node' => array(
-      0 => 'fact',
-      1 => 'fact_page',
-      2 => 'static_content',
-      3 => 'campaign',
+      0 => 'fact_page',
+      1 => 'static_content',
+      2 => 'campaign',
     ),
   );
   $export['solr'] = $environment;
