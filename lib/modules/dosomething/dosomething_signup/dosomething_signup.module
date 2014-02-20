@@ -139,10 +139,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
     return;
   }
   $nid = $form_state['values']['nid'];
-  // Signup shouldn't exist already, but check.
-  if (!dosomething_signup_exists($nid) && dosomething_signup_insert($nid)) {
-    drupal_set_message(t("You're signed up!"));
-  }
+  dosomething_signup_user_signup($nid);
 }
 
 /**
@@ -235,14 +232,49 @@ function dosomething_signup_user_view($account, $view_mode, $langcode) {
 }
 
 /**
- * Sends a Mobilecommons API request to sign up given user for campaigns opt-i
+ * Signup a user $uid for a given node $nid.
+ *
+ * @param int $nid
+ *   The node nid the user is signing up for.
+ * @param object account
+ *   Optional - the user object to sign up.
+ *   If not provided, uses global $user.
  */
-function dosomething_signup_mobilecommons_opt_in() {
+function dosomething_signup_user_signup($nid, $account = NULL) {
+  if ($account == NULL) {
+    global $user;
+    $account = $user;
+  }
+  // If a signup already exists, exit.
+  if (dosomething_signup_exists($nid, $account->uid)) { return; }
+
+  // Insert signup.
+  if ($sid = dosomething_signup_insert($nid, $account->uid)) {
+    $node = node_load($nid);
+    // Opt-in to mobilecommons.
+    dosomething_signup_mobilecommons_opt_in($account, $node->title);
+    // Set success message.
+    $message = t("You're signed up!") . '<br />';
+    $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
+    drupal_set_message($message);
+  }
+}
+
+
+/**
+ * Sends a Mobilecommons API request to opt-in user with given campaign title.
+ *
+ * @param object $account
+ *   The user object of user to opt-in.
+ * @param string $title
+ *   The campaign title the user has signed up for.
+ */
+function dosomething_signup_mobilecommons_opt_in($account, $title) {
   // Make sure mobilecommons module is enabled.
   if (!module_exists('mobilecommons')) { return; }
 
   // If user doesn't have mobile number, exit function.
-  $mobile = dosomething_user_get_mobile();
+  $mobile = dosomething_user_get_mobile($account);
   if (!$mobile) { return; }
 
   try {
@@ -258,7 +290,7 @@ function dosomething_signup_mobilecommons_opt_in() {
       // All campaigns use this opt-in path for now.
       'opt_in_path' => variable_get('dosomething_signup_mobilecommons_opt_in', 164453),
       'person[phone]' => $mobile,
-      //@todo: Pass campaign name as param for as 'person[campaign_name]'.
+      'person[campaign_name]' => $title,
     );
     $response = $MobileCommons->opt_in($args);
   }
@@ -276,7 +308,6 @@ function dosomething_signup_mobilecommons_opt_in() {
  *
  * @return array
  *   Array of node nid's.
- *
  */
 function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query = db_select('dosomething_signup', 's');

@@ -135,22 +135,32 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
   }
 }
+
 /**
  * Custom login submission handler.
  *
  * If there's a hidden nid, sign the user up for a campaign.
+ *
+ * This function will only work upon registration if account variables
+ * are set to the following:
+ * -- A visitor can register for the site without admin approval
+ * -- Email verification is not required when user creates account.
+ *
+ * Otherwise, the global $user upon account creation is set with uid 0
+ * and signup will fail.
+ *
+ * @see dosomething_user_strongarm()
  */
 function dosomething_user_login_submit($form, &$form_state) {
-   // If nid is not present, nothing to sign up for.  Exit.
-   if (!isset($form_state['input']['nid'])) { return; };
-   $nid = $form_state['input']['nid'];
-   // Redirect to node (this is needed for user_register form).
-   $form_state['redirect'] = 'node/' . $nid;
-   // If a signup does not exist:
-   if (!dosomething_signup_exists($nid)) {
-     // Signup for the node.
-     dosomething_signup_insert($nid);
-   }
+  // If nid is not present, nothing to sign up for.  Exit.
+  if (!isset($form_state['input']['nid'])) { return; }
+  $nid = $form_state['input']['nid'];
+  // Redirect to node (this is needed for user_register form).
+  $form_state['redirect'] = 'node/' . $nid;
+  // Signup global user for node $nid.
+  if (module_exists('dosomething_signup')) {
+    dosomething_signup_user_signup($nid);
+  }
 }
 
 /**
@@ -194,7 +204,7 @@ function dosomething_user_register_after_build($form, &$form_state) {
 /**
  * Add hidden campaign nid to signup/registration form.
  *
- * @param array - $form
+ * @param array $form
  *  A drupal form.
  */
 function _dosomething_user_add_campaign_data(&$form) {
@@ -227,7 +237,7 @@ function _dosomething_user_login_shared_helper_text(&$form) {
 /**
  * Registration helper text.
  *
- * @param array = $form
+ * @param array $form
  *  A drupal form.
  */
 function _dosomething_user_register_helper_text(&$form) {
@@ -241,6 +251,7 @@ function _dosomething_user_register_helper_text(&$form) {
   $form['account']['mail']['#title'] = t('Email');
   $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
 }
+
 /**
  * Custom login validation.
  *
@@ -282,30 +293,6 @@ function dosomething_user_register_validate($form, &$form_state) {
       // Store only the numbers.
       form_set_value($form['field_mobile'], array(LANGUAGE_NONE => array(0 => array('value' => $mobile_clean))), $form_state);
     }
-  }
-}
-
-
-/**
- * Additional callback to sign user up for campaign.
- *
- * Signs up global $user for a node $nid if $nid isset in the $form_state.
- * This function will only work upon registration if account variables
- * are set to the following:
- * -- A visitor can register for the site without admin approval
- * -- Email verification is not required when user creates account.
- *
- * Otherwise, the global $user upon account creation is set with uid 0
- * and signup will fail.
- *
- * @see dosomething_user_strongarm()
- */
-function dosomething_user_signup($form, &$form_state, $obj) {
-
-  // If a signup does not exist:
-  if (!dosomething_signup_exists($nid)) {
-    // Signup for the node.
-    dosomething_signup_insert($nid);
   }
 }
 
