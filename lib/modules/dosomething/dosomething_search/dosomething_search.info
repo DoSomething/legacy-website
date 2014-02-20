@@ -1,9 +1,9 @@
 name = DoSomething Search
 core = 7.x
 package = Features
+dependencies[] = apachesolr
+dependencies[] = ctools
 dependencies[] = entity
-dependencies[] = search_api
-dependencies[] = search_api_solr
+features[apachesolr_environment][] = solr
+features[ctools][] = apachesolr:apachesolr_environments:1
 features[features_api][] = api:2
-features[search_api_index][] = default_node_index
-features[search_api_server][] = solr
