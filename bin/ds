@@ -281,6 +281,10 @@ function grunt {
       echo -e "\n\e[4mBuilding SCSS/JS with Grunt, and watching for changes...\e[0m"
       echo -e "\e[30;43m(Press Ctrl-C to stop.)\e[0m\n"
       eval "/usr/bin/grunt"
+    elif [[ $1 == "--prod" ]]
+    then
+      echo -e "\n\e[4mBuilding minified SCSS/JS with Grunt...\e[0m"
+      eval "/usr/bin/grunt prod"
     else
       eval "/usr/bin/grunt build"
     fi
