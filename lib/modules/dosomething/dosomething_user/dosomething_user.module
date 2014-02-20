@@ -125,12 +125,17 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = $secure_url . '/user/register';
+        dosomething_user_send_message_request($form_id);
       }
 
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
 
+    break;
+
+    case 'user_pass':
+      dosomething_user_send_message_request($form_id);
     break;
 
   }
@@ -357,6 +362,31 @@ function dosomething_user_clean_cell_number($number) {
     return FALSE;
   }
   return FALSE;
+}
+/**
+ * A reqest to send a message to an external server.
+ *
+ * @param string $origin
+ *  Where the message request came from.
+ * @param array $params
+ *  Optional keyed array of data to send externally.
+ *  - nid - campaign nid.
+ * @TODO: add more as needed.
+ *
+ */
+function dosomething_user_send_message_request($origin, $params = NULL) {
+  //@TODO: gather array to send externally & make request.
+  switch ($origin) {
+    case 'user_register_form':
+      break;
+    case 'user_pass':
+      break;
+    case 'campgin-signup':
+      break;
+    case 'campaign-reportback':
+      break;
+
+  }
 }
 
 /**
