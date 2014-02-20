@@ -253,6 +253,11 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
     dosomething_signup_mobilecommons_opt_in($account, $node->title);
+    // Send external message request
+    $params = array(
+      'nid' => $nid
+    );
+    dosomething_user_send_message_request('campaign-signup', $params);
     // Set success message.
     $message = t("You're signed up!") . '<br />';
     $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
