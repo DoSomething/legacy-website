@@ -158,13 +158,8 @@ function dosomething_image_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'entityreference_style';
   $handler->display->display_options['style_options']['search_fields'] = array(
     'nid' => 'nid',
-    'title' => 0,
-    'edit_node' => 0,
+    'title' => 'title',
     'field_image_square' => 0,
-    'field_image_landscape' => 0,
-    'field_image_portrait' => 0,
-    'field_cause' => 0,
-    'field_image_tags' => 0,
   );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
