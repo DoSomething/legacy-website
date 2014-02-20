@@ -18,6 +18,8 @@ dependencies[] = taxonomy
 ; CONTRIB
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
+dependencies[] = apachesolr
+dependencies[] = apachesolr_search
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = diff
@@ -33,8 +35,6 @@ dependencies[] = markdown
 dependencies[] = metatag
 dependencies[] = module_filter
 dependencies[] = pathauto
-dependencies[] = search_api
-dependencies[] = search_api_solr
 dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = uuid
