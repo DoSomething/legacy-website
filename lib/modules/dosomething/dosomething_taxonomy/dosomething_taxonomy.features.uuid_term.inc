@@ -11,6 +11,15 @@ function dosomething_taxonomy_uuid_features_default_terms() {
   $terms = array();
 
   $terms[] = array(
+    'name' => 'Indoor',
+    'description' => '',
+    'format' => 'markdown',
+    'weight' => 10,
+    'uuid' => '006e4140-c312-48f8-9ec6-41e7589c4394',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Sex',
     'description' => '',
     'format' => 'plain_text',
@@ -191,6 +200,15 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'metatags' => array(),
   );
   $terms[] = array(
+    'name' => 'Outdoor',
+    'description' => '',
+    'format' => 'markdown',
+    'weight' => 11,
+    'uuid' => '998d75f6-fb2a-4484-8357-48eafe25a430',
+    'vocabulary_machine_name' => 'image_tags',
+    'metatags' => array(),
+  );
+  $terms[] = array(
     'name' => 'Poverty',
     'description' => '',
     'format' => 'plain_text',
@@ -278,6 +296,15 @@ function dosomething_taxonomy_uuid_features_default_terms() {
     'weight' => 7,
     'uuid' => 'db28f15c-be59-4438-a43f-cbbacf4a4a9a',
     'vocabulary_machine_name' => 'action_type',
+    'metatags' => array(),
+  );
+  $terms[] = array(
+    'name' => 'User Submitted',
+    'description' => '',
+    'format' => 'markdown',
+    'weight' => 12,
+    'uuid' => 'dfe9f578-cf88-46dc-ab97-24746f533516',
+    'vocabulary_machine_name' => 'image_tags',
     'metatags' => array(),
   );
   $terms[] = array(
