@@ -197,57 +197,6 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_hero_image'
-  $field_instances['node-action_guide-field_hero_image'] = array(
-    'bundle' => 'action_guide',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
-    'field_name' => 'field_hero_image',
-    'label' => 'Hero Image',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'node-action_guide-field_intro'
   $field_instances['node-action_guide-field_intro'] = array(
     'bundle' => 'action_guide',
@@ -443,7 +392,6 @@ function dosomething_action_guide_field_default_field_instances() {
   t('Additional Text Title');
   t('Description');
   t('Gallery');
-  t('Hero Image');
   t('Intro');
   t('Intro Image');
   t('Intro Title');

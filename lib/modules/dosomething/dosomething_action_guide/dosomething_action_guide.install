@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_action_guide.module.
+ */
+
+/**
+ * Remove hero image from Action Guide content type.
+ */
+function dosomething_action_guide_update_7001(&$sandbox) {
+  if ($instance = field_info_instance('node', 'field_hero_image', 'action_guide')) {
+    field_delete_instance($instance);
+  }
+}
