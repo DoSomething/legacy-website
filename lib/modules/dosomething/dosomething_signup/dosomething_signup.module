@@ -244,8 +244,12 @@ function dosomething_signup_user_signup($nid, $uid = NULL) {
 
   // Insert signup.
   if ($sid = dosomething_signup_insert($nid, $uid)) {
+    $node = node_load($nid);
+    // Opt-in to mobilecommons.
+    dosomething_signup_mobilecommons_opt_in($node->title);
     // Set success message.
-    $message = t("You're signed up!");
+    $message = t("You're signed up!") . '<br />';
+    $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
     drupal_set_message($message);
   }
 }
@@ -254,7 +258,7 @@ function dosomething_signup_user_signup($nid, $uid = NULL) {
 /**
  * Sends a Mobilecommons API request to sign up given user for campaigns opt-i
  */
-function dosomething_signup_mobilecommons_opt_in() {
+function dosomething_signup_mobilecommons_opt_in($campaign_title) {
   // Make sure mobilecommons module is enabled.
   if (!module_exists('mobilecommons')) { return; }
 
@@ -275,7 +279,7 @@ function dosomething_signup_mobilecommons_opt_in() {
       // All campaigns use this opt-in path for now.
       'opt_in_path' => variable_get('dosomething_signup_mobilecommons_opt_in', 164453),
       'person[phone]' => $mobile,
-      //@todo: Pass campaign name as param for as 'person[campaign_name]'.
+      'person[campaign_name]' => $campaign_title,
     );
     $response = $MobileCommons->opt_in($args);
   }
