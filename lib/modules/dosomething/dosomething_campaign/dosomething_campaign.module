@@ -96,18 +96,57 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
+  // Link to "more campaigns".
   $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
     'attributes' => array('class' =>
       array('btn', 'large')
     ))
   );
+  // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  // Store current node's primary cause tid.
+  $tid = $wrapper->field_primary_cause->getIdentifier();
+  // Get recommended campaign nids for term $tid and current user.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid);
+  // Initalize array to store reccomended campaign vars.
+  $rec_vars = array();
+  // Loop through rec_nids to load relevant variables.
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
+  }
   return theme('reportback_confirmation', array(
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
+    'recommended' => $rec_vars,
     )
+  );
+}
+
+/**
+ * Returns an array of variables for a given recommended campaign $nid.
+ *
+ * @param int $nid
+ *   The node $nid to return variables for.
+ *
+ * @return array
+ *   An array of variables.
+ */
+function dosomething_campaign_get_recommended_campaign_vars($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
+  $path = 'node/' . $nid;
+  $image_link = NULL;
+  $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
+  if ($image_nid) {
+    $image = dosomething_image_get_themed_image($image_nid, 'landscape', '740x480');
+    $image_link = l($image, $path, array('html' => TRUE));
+  }
+  return array(
+    'nid' => $wrapper->getIdentifier(),
+    'title' => l($wrapper->label(), $path),
+    'call_to_action' => $wrapper->field_call_to_action->value(),
+    'image' => $image_link,
   );
 }
 
@@ -123,6 +162,7 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
         'copy' => NULL,
         'more_campaigns_link' => NULL,
         'back_to_campaign_link' => NULL,
+        'recommended' => NULL,
       ),
     ),
   );
@@ -379,7 +419,8 @@ function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
     $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid);
     $nids = array_merge($nids, $tid_nids);
   }
-  return $nids;
+  // Return top 3 nids:
+  return array_slice($nids, 0, 3);
 }
 
 /**
