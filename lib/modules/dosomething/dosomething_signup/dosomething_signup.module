@@ -236,9 +236,9 @@ function dosomething_signup_user_view($account, $view_mode, $langcode) {
  *
  * @param int $nid
  *   The node nid the user is signing up for.
- * @param int $uid
- *   Optional - the user uid to sign up.
- *   If not provided, uses global $user->uid.
+ * @param object account
+ *   Optional - the user object to sign up.
+ *   If not provided, uses global $user.
  */
 function dosomething_signup_user_signup($nid, $account = NULL) {
   if ($account == NULL) {
@@ -308,7 +308,6 @@ function dosomething_signup_mobilecommons_opt_in($account, $title) {
  *
  * @return array
  *   Array of node nid's.
- *
  */
 function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query = db_select('dosomething_signup', 's');
