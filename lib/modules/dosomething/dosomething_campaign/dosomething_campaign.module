@@ -175,6 +175,13 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
     $vars['cta'] = $wrapper->field_call_to_action->value();
 
+    // Timing.
+    $display_date = $wrapper->field_display_end_date->value();
+    if ($display_date == 1) {
+      $end_date = date('F d', $wrapper->field_high_season->value2->value());
+      $vars['end_date'] = 'Ends ' . $end_date;
+    }
+
     // Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
