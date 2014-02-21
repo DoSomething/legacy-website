@@ -107,7 +107,8 @@ function dosomething_action_guide_field_default_field_instances() {
     'bundle' => 'action_guide',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  e.g. <i>These tips on making birthday cards</i>. ',
+    'description' => 'This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  i.e. <i>These tips on making birthday cards</i>.
+<p>These should be in noun format NOT verb format i.e. <em>This script for calling shelters</em>. NOT <em>View the script</em>.</p>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -396,7 +397,8 @@ function dosomething_action_guide_field_default_field_instances() {
   t('Intro Image');
   t('Intro Title');
   t('Subtitle');
-  t('This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  e.g. <i>These tips on making birthday cards</i>. ');
+  t('This is what will appear in "Stuff You Need" on every Campaign this Action Guide is linked to.  i.e. <i>These tips on making birthday cards</i>.
+<p>These should be in noun format NOT verb format i.e. <em>This script for calling shelters</em>. NOT <em>View the script</em>.</p>');
 
   return $field_instances;
 }
