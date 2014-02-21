@@ -364,9 +364,9 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. "Create an action plan to protect prescription drugs in your home from young children." or "Send a handmade birthday card to a child experiencing homelessness." 
-<br/>
-<strong> Limit: 65 characters </strong>',
+    'description' => 'This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. <em>"Create an action plan to protect prescription drugs in your home from young children."</em> or <em>"Send a handmade birthday card to a child experiencing homelessness."</em>
+<p>This should always start with a verb and end with a period.</p>
+<p><strong> Limit: 65 characters </strong></p>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -854,8 +854,6 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_campaign_cover',
     'label' => 'Cover Image',
     'required' => 0,
@@ -905,8 +903,6 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_psa_replacement',
     'label' => 'PSA Replacement Image',
     'required' => 0,
@@ -956,8 +952,6 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_reportback_gallery',
     'label' => 'Prove it Gallery',
     'required' => 0,
@@ -1007,8 +1001,6 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_step_gallery',
     'label' => 'Do It Gallery',
     'required' => 0,
@@ -1079,8 +1071,14 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). To create bullet points put "* " in front of the word. For instance "* paper * crayons * smiles" 
-<br/> 
+    'description' => 'This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). 
+<p>
+<li>To create bullet points put "* " in front of the word. For instance <em>"* paper * crayons * smiles"</em> </li>
+<li>Capitalize the first letter of the first word in a list (i.e. <em>* Peanuts</em> NOT <em>* peanuts</em>).</li>
+<li>Don\'t use articles in a list (i.e. <em>* Car</em> NOT <em>* A Car</em>).</li>
+<li>Use periods after the end of a list item if it\'s a sentence or long fragment, but do not use a period if it\'s a single item.</li>
+</ul>
+</p>
 <strong> Limit: 135  </strong>',
     'display' => array(
       'default' => array(
@@ -2667,8 +2665,14 @@ function dosomething_campaign_field_default_field_instances() {
   t('This describes the action the user must take before they can take a picture. I.e. "Set up a collection box outside the store. Tell people about your drive before they walk in - see the food pile up when they walk out."; "Head to the senior center or retirement home and hand out condoms to seniors in need (get it). Don’t forget the instructions!". 
 <br/>
 <strong> Limit 135 characters. </strong>');
-  t('This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). To create bullet points put "* " in front of the word. For instance "* paper * crayons * smiles" 
-<br/> 
+  t('This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). 
+<p>
+<li>To create bullet points put "* " in front of the word. For instance <em>"* paper * crayons * smiles"</em> </li>
+<li>Capitalize the first letter of the first word in a list (i.e. <em>* Peanuts</em> NOT <em>* peanuts</em>).</li>
+<li>Don\'t use articles in a list (i.e. <em>* Car</em> NOT <em>* A Car</em>).</li>
+<li>Use periods after the end of a list item if it\'s a sentence or long fragment, but do not use a period if it\'s a single item.</li>
+</ul>
+</p>
 <strong> Limit: 135  </strong>');
   t('This is a tip to help the member during this step of the action. 
 <br/>
@@ -2676,9 +2680,9 @@ function dosomething_campaign_field_default_field_instances() {
   t('This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press... 
 <br/>
 <strong> Limit: 135 character </strong>');
-  t('This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. "Create an action plan to protect prescription drugs in your home from young children." or "Send a handmade birthday card to a child experiencing homelessness." 
-<br/>
-<strong> Limit: 65 characters </strong>');
+  t('This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. <em>"Create an action plan to protect prescription drugs in your home from young children."</em> or <em>"Send a handmade birthday card to a child experiencing homelessness."</em>
+<p>This should always start with a verb and end with a period.</p>
+<p><strong> Limit: 65 characters </strong></p>');
   t('This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated. 
 <br/>
 <strong> Limit: 135 characters </strong>');
