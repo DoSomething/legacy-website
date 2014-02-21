@@ -218,7 +218,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     // Timing.
     $display_date = $wrapper->field_display_end_date->value();
-    if ($display_date == 1) {
+    // Check if there is a value in the date field.
+    $high_season = $wrapper->field_high_season->value();
+    if ($display_date == 1 && isset($high_season)) {
       $end_date = date('F d', $wrapper->field_high_season->value2->value());
       $vars['end_date'] = 'Ends ' . $end_date;
     }
