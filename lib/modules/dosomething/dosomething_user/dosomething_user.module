@@ -391,3 +391,26 @@ function dosomething_user_get_field($field_name, $account = NULL) {
 function dosomething_user_get_mobile($account = NULL) {
   return dosomething_user_get_field('field_mobile', $account);
 }
+
+/**
+ * Returns given user's birthdate.
+ *
+ * @param string $format
+ *   Optional- format to return. http://www.php.net/manual/en/function.date.php.
+ *   If NULL, the raw timestamp is returned.
+ * @param object $account
+ *   The account to return value for. If NULL, uses global $user.
+ *
+ * @return string
+ *   Returns the date in specified $format.
+ */
+function dosomething_user_get_birthdate($format = NULL, $account = NULL) {
+  $time = dosomething_user_get_field('field_birthdate', $account);
+  // If no format specified:
+  if ($format == NULL) {
+    // Return raw timestamp.
+    return $time;
+  }
+  // Return date formatted per $format string.
+  return format_date($time, 'custom', $format);
+}
