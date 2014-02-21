@@ -9,6 +9,10 @@ core = 7.x
 projects[admin_menu] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
 
+; Apachesolr
+projects[apachesolr] = "7.x-1.6"
+projects[apachesolr][subdir] = "contrib"
+
 ; Ctools
 projects[ctools] = "1.3"
 projects[ctools][subdir] = "contrib"
@@ -88,15 +92,6 @@ projects[optimizely][subdir] = "contrib"
 ; Pathauto
 projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
-search_api
-
-; Search API
-projects[search_api] = "1.11"
-projects[search_api][subdir] "contrib"
-
-; Search API Solr
-projects[search_api_solr] = "1.4"
-projects[search_api_solr][subdir] "contrib"
 
 ; Secure Pages
 projects[securepages] = "1.0-beta2"
