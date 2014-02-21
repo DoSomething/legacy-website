@@ -6,6 +6,9 @@
 
 include_once 'dosomething_static_content.features.inc';
 
+/**
+ * Implements hook_preprocess_node().
+ */
 function dosomething_static_content_preprocess_node(&$vars) {
   if ($vars['type'] == 'static_content') {
     $content = $vars['content'];

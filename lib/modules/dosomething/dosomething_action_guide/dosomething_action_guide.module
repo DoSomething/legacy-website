@@ -5,3 +5,32 @@
  */
 
 include_once 'dosomething_action_guide.features.inc';
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function dosomething_action_guide_preprocess_node(&$vars) {
+  if ($vars['type'] != 'action_guide') { return; }
+
+  if ($vars['view_mode'] == 'full') {
+    $node = menu_get_object();
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $text_vars = array(
+      'subtitle',
+      'intro_title',
+      'intro',
+      'additional_text_title',
+      'additional_text',
+    );
+    foreach ($text_vars as $label) {
+      $field = "field_" . $label;
+      $vars[$label] = $wrapper->{$field}->value();
+    }
+    $intro_image = $wrapper->field_intro_image->getIdentifier();
+    if ($intro_image) {
+      $vars['intro_image'] = dosomething_image_get_themed_image($intro_image, 'landscape', '550x330');
+    }
+    // Preprocess gallery variables.
+    dosomething_static_content_preprocess_gallery_vars($vars);
+  }
+}
