@@ -26,6 +26,7 @@ dependencies[] = entityconnect
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
+dependencies[] = i18n
 dependencies[] = libraries
 dependencies[] = link
 dependencies[] = mailsystem
@@ -39,10 +40,18 @@ dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = uuid
 dependencies[] = uuid_features
+dependencies[] = variable
 dependencies[] = varnish
 dependencies[] = view_unpublished
 dependencies[] = views
 dependencies[] = views_ui
+dependencies[] = xmlsitemap
+dependencies[] = xmlsitemap_custom
+dependencies[] = xmlsitemap_engines
+dependencies[] = xmlsitemap_18n
+dependencies[] = xmlsitemap_menu
+dependencies[] = xmlsitemap_node
+dependencies[] = xmlsitemap_taxonomy
 
 ; DOSOMETHING
 dependencies[] = dosomething_action_guide

@@ -33,11 +33,11 @@ function dosomething_configure() {
     ->execute();
   variable_set('admin_theme', 'seven');
   variable_set('theme_default', 'paraneue_dosomething');
-  variable_set('node_admin_theme', '1'); 
-  
+  variable_set('node_admin_theme', '1');
+
   // Set features default export path to our custom module directory:
   variable_set('features_default_export_path', 'profiles/dosomething/modules/dosomething');
-  
+
   // Secure Pages settings:
   variable_set('securepages_basepath', 'http://dev.dosomething.org:8888');
   variable_set('securepages_basepath_ssl', 'https://dev.dosomething.org:8889');
@@ -58,6 +58,14 @@ admin_menu/*
 batch');
   variable_set('securepages_secure', '1');
   variable_set('securepages_switch', true);
-  
+
+  // XML Sitemap: 1-day TTL for generated files.
+  variable_set('xmlsitemap_minimum_lifetime', 's:5:"86400"');
+
+  // XML Sitemap settings per content type.
+  variable_set('xmlsitemap_settings_node_campaign', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
+  variable_set('xmlsitemap_settings_node_fact_page', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
+  variable_set('xmlsitemap_settings_node_static_content', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
+
   drupal_set_message(t('DoSomething defaults configured.'));
 }

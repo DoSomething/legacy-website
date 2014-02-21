@@ -49,6 +49,10 @@ projects[field_group][subdir] = "contrib"
 projects[google_analytics] = "1.3"
 projects[google_analytics][subdir] = "contrib"
 
+; Internationalization (required for Sitemap, among others)
+projects[i18n] = "1.10"
+projects[libraries][subdir] = "contrib"
+
 ; Libraries
 projects[libraries] = "2.1"
 projects[libraries][subdir] = "contrib"
@@ -118,6 +122,10 @@ projects[uuid][subdir] = "contrib"
 projects[uuid_features] = "1.0-alpha3"
 projects[uuid_features][subdir] = "contrib"
 
+; Variable
+projects[variable] = "2.4"
+projects[variable][subdir] = "contrib"
+
 ; Varnish
 projects[varnish] = "1.0-beta2"
 projects[varnish][subdir] = "contrib"
@@ -130,6 +138,11 @@ projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished
 ; Views
 projects[views] = "3.7"
 projects[views][subdir] = "contrib"
+
+; XML Sitemap
+projects[xmlsitemap] = "2.0-rc2"
+projects[xmlsitemap][subdir] = "contrib"
+
 
 ; GIT PROJECTS
 
@@ -145,6 +158,7 @@ projects[conductor_sms][download][type] = "git"
 projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
 projects[conductor_sms][subdir] = "contrib"
 
+
 ; DEVELOPMENT
 
 ; Devel
@@ -159,6 +173,7 @@ projects[environment_indicator][subdir] = "contrib"
 projects[coder] = "2.0"
 projects[coder][subdir] = "contrib"
 
+
 ; THEMES
 
 ; Paraneue
@@ -167,6 +182,7 @@ projects[paraneue][download][type] = "git"
 projects[paraneue][download][url] = "https://github.com/DoSomething/paraneue.git"
 projects[paraneue][subdir] = "dosomething"
 projects[paraneue][options][working-copy] = TRUE
+
 
 ; LIBRARIES
 
@@ -177,4 +193,3 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 ; DSAPI PHP Library
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
-
