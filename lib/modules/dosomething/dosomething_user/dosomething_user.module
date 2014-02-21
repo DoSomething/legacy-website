@@ -128,9 +128,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $params = array(
           'email' => '??',
           'uid' => '??',
-          'first-name' => '??',
+          'first_name' => '??',
         );
-        dosomething_user_send_message_request('user-register', $params);
+        dosomething_user_send_message_request('user_register', $params);
       }
 
       // Custom validation & submission handlers.
@@ -143,10 +143,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       $params = array(
         'email' => '??',
         'uid' => '??',
-        'first-name' => '??',
-        'reset-link' => '??',
+        'first_name' => '??',
+        'reset_link' => '??',
       );
-      dosomething_user_send_message_request('user-password', $params);
+      dosomething_user_send_message_request('user_password', $params);
     break;
 
   }
@@ -387,17 +387,17 @@ function dosomething_user_clean_cell_number($number) {
  *    - uid
  *
  *  Values needed based on the $origin value:
- *    - first-name
- *    - reset-link
- *    - event-id
- *    - campaign-title
- *    - call-to-action
- *    - step-one
- *    - step-two
- *    - step-three
- *    - impact-verb
- *    - impact-number
- *    - impact-noun
+ *    - first_name
+ *    - reset_link
+ *    - event_id
+ *    - campaign_title
+ *    - call_to_action
+ *    - step_one
+ *    - step_two
+ *    - step_three
+ *    - impact_verb
+ *    - impact_number
+ *    - impact_noun
  */
 function dosomething_user_send_message_request($origin, $params = NULL) {
   $payload = array(
@@ -406,35 +406,35 @@ function dosomething_user_send_message_request($origin, $params = NULL) {
     'uid' => $params['uid'],
   );
   switch ($origin) {
-    case 'user-register':
+    case 'user_register':
       $payload['merge_vars'] = array(
-        'FNAME' => $params['first-name'],
+        'FNAME' => $params['first_name'],
       );
       break;
-    case 'user-password':
+    case 'user_password':
       $payload['merge_vars'] = array(
-        'FNAME' => $params['first-name'],
-        'RESET-LINK' => $params['reset-link'],
+        'FNAME' => $params['first_name'],
+        'RESET-LINK' => $params['reset_link'],
       );
       break;
-    case 'campaign-signup':
-      $payload['event_id'] = $params['event-id'];
+    case 'campaign_signup':
+      $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
-        'FNAME' => $params['first-name'],
-        'CAMPAIGN-TITLE' => 'campaign-title',
-        'CALL-TO-ACTION' => $params['call-to-action'],
-        'STEP-ONE' => $params['step-one'],
-        'STEP-TWO' => $params['step-two'],
-        'STEP-THREE' => $params['step-three'],
+        'FNAME' => $params['first_name'],
+        'CAMPAIGN-TITLE' => 'campaign_title',
+        'CALL-TO-ACTION' => $params['call_to_action'],
+        'STEP-ONE' => $params['step_one'],
+        'STEP-TWO' => $params['step_two'],
+        'STEP-THREE' => $params['step_three'],
       );
       break;
-    case 'campaign-reportback':
-      $payload['event_id'] = $params['event-id'];
+    case 'campaign_reportback':
+      $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
-        'FNAME' => $params['first-name'],
-        'IMPACT-VERB' => $params['impact-verb'],
-        'IMPACT-NUMBER' => $params['impact-number'],
-        'IMPACT-NOUN' => $params['impact-noun'],
+        'FNAME' => $params['first_name'],
+        'IMPACT-VERB' => $params['impact_verb'],
+        'IMPACT-NUMBER' => $params['impact_number'],
+        'IMPACT-NOUN' => $params['impact_noun'],
       );
       break;
   }

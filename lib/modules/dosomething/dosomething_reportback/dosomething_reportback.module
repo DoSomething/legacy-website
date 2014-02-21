@@ -489,13 +489,13 @@ function dosomething_reportback_save($entity, $values) {
       $params = array(
         'email' => '??',
         'uid' => '??',
-        'first-name' => '??',
-        'event-id' => '??',
-        'impact-verb' => '??',
-        'impact-number' => '??',
-        'impact-noun' => '??',
+        'first_name' => '??',
+        'event_id' => '??',
+        'impact_verb' => '??',
+        'impact_number' => '??',
+        'impact_noun' => '??',
       );
-      dosomething_user_send_message_request('campaign-reportback', $params);
+      dosomething_user_send_message_request('campaign_reportback', $params);
     }
     // Save the entity.
     $entity->save();

@@ -257,15 +257,15 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $params = array(
       'email' => '??',
       'uid' => '??',
-      'first-name' => '??',
-      'event-id' => '??',
-      'event-title' => '??',
-      'call-to-action' => '??',
-      'step-one' => '??',
-      'step-two' => '??',
-      'step-three' => '??',
+      'first_name' => '??',
+      'event_id' => $node->nid,
+      'event_title' => $node->title,
+      'call_to_action' => '??',
+      'step_one' => '??',
+      'step_two' => '??',
+      'step_three' => '??',
     );
-    dosomething_user_send_message_request('campaign-signup', $params);
+    dosomething_user_send_message_request('campaign_signup', $params);
     // Set success message.
     $message = t("You're signed up!") . '<br />';
     $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
