@@ -238,4 +238,52 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       $this->assertFalse(dosomething_user_is_staff($user));
     }
   }
+
+  /**
+   * Test that a user can login via email address.
+   */
+  public function testEmailLogin() {
+    // Create a new User
+    $name = $this->randomName();
+    $user_data = array(
+      'name' => $name,
+      'mail' =>  'random@example.com',
+      'pass' => user_password(),
+      'status' => 1,
+    );
+    $user = user_save('', $user_data);
+
+    // Send the email as the username
+    $login_data = array(
+      'name' => $user_data['mail'],
+      'pass' => $user_data['pass'],
+    );
+    // Post to the login page.
+    $this->drupalPost('user', $login_data, t('Log in'));
+  }
+
+  /**
+   * Test that a user can login via cell number.
+   */
+  public function testCellLogin() {
+    // Create a new User
+    $name = $this->randomName();
+    // Test a number the way it's stored.
+    $mobile_number = '7182249982';
+    $user_data = array(
+      'name' => $name,
+      'mail' =>  'random@example.com',
+      'pass' => user_password(),
+      'status' => 1,
+      'field_mobile' => array(LANGUAGE_NONE => array(0 => array('value' => $mobile_number))),
+    );
+    $user = user_save('', $user_data);
+    // Send the number as the username
+    $login_data = array(
+      'name' => $mobile_number,
+      'pass' => $user_data['pass'],
+    );
+    // Post to the login page.
+    $this->drupalPost('user', $login_data, t('Log in'));
+  }
 }
