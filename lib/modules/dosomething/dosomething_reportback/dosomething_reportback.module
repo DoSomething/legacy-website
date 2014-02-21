@@ -490,7 +490,7 @@ function dosomething_reportback_save($entity, $values) {
         'email' => '??',
         'uid' => '??',
         'first-name' => '??',
-        'event_id' => '??',
+        'event-id' => '??',
         'impact-verb' => '??',
         'impact-number' => '??',
         'impact-noun' => '??',
