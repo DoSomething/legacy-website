@@ -375,15 +375,29 @@ function dosomething_user_clean_cell_number($number) {
   return FALSE;
 }
 /**
- * A request to send a message to an external server.
+ * A request to send a message via the Message Broker library:
+ * https://github.com/DoSomething/messagebroker-phplib
  *
  * @param string $origin
  *  Where the message request came from.
  * @param array $params
  *  Optional keyed array of data to send externally.
- *  - nid - campaign nid.
- * @TODO: add more as needed.
+ *  Common values:
+ *    - email
+ *    - uid
  *
+ *  Values needed based on the $origin value:
+ *    - first-name
+ *    - reset-link
+ *    - event-id
+ *    - campaign-title
+ *    - call-to-action
+ *    - step-one
+ *    - step-two
+ *    - step-three
+ *    - impact-verb
+ *    - impact-number
+ *    - impact-noun
  */
 function dosomething_user_send_message_request($origin, $params = NULL) {
   $payload = array(
