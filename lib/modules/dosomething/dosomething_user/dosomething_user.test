@@ -239,9 +239,9 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
     }
   }
 
-  /**
-   * Test that a user can login via email address.
-   */
+  // /**
+  //  * Test that a user can login via email address.
+  //  */
   public function testEmailLogin() {
     // Create a new User
     $name = $this->randomName();
@@ -258,8 +258,7 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'name' => $user_data['mail'],
       'pass' => $user_data['pass'],
     );
-    // Post to the login page.
-    $this->drupalPost('user', $login_data, t('Log in'));
+    $this->loginSubmitTest($login_data);
   }
 
   /**
@@ -283,7 +282,14 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'name' => $mobile_number,
       'pass' => $user_data['pass'],
     );
-    // Post to the login page.
+    $this->loginSubmitTest($login_data);
+
+  }
+ /**
+  * Submit data to the login page.
+  */
+  private function loginSubmitTest($login_data) {
     $this->drupalPost('user', $login_data, t('Log in'));
+    $this->assertLink('Log out', 0, 'The logout link appears on the page');
   }
 }
