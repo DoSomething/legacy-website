@@ -278,7 +278,8 @@ function dosomething_signup_mobilecommons_opt_in($account, $title) {
   if (!$mobile) { return; }
 
   try {
-    // @todo: Move this all into a new function in the mobilecommons.module.
+    // @todo: Move $config / new MobileCommons($config) code
+    // into a new function in the contrib mobilecommons.module.
     libraries_load('mobilecommons-php');
     $config = array(
       'username' => variable_get('mobilecommons_api_auth_email'),
@@ -291,6 +292,8 @@ function dosomething_signup_mobilecommons_opt_in($account, $title) {
       'opt_in_path' => variable_get('dosomething_signup_mobilecommons_opt_in', 164453),
       'person[phone]' => $mobile,
       'person[campaign_name]' => $title,
+      // Expected format is YYYY-MM-DD.
+      'person[date_of_birth]' => dosomething_user_get_birthdate('Y-m-d'),
     );
     $response = $MobileCommons->opt_in($args);
   }
