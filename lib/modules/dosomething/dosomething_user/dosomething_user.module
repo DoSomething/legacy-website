@@ -381,9 +381,9 @@ function dosomething_user_send_message_request($origin, $params = NULL) {
       break;
     case 'user_pass':
       break;
-    case 'campaign-signup':
+    case 'campaign_signup':
       break;
-    case 'campaign-reportback':
+    case 'campaign_reportback':
       break;
 
   }

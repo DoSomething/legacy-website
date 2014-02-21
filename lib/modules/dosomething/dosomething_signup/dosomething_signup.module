@@ -257,7 +257,9 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $params = array(
       'nid' => $nid
     );
-    dosomething_user_send_message_request('campaign-signup', $params);
+    if (module_exists('dosomething_user')) {
+      dosomething_user_send_message_request('campaign_signup', $params);
+    }
     // Set success message.
     $message = t("You're signed up!") . '<br />';
     $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
