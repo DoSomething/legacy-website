@@ -484,11 +484,15 @@ function dosomething_reportback_save($entity, $values) {
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
-    // Send the request externally.
+    // Send external message request
     if (module_exists('dosomething_user')) {
+      if ($user == NULL) {
+        global $user;
+        $account = $user;
+      }
       $params = array(
-        'email' => '??',
-        'uid' => '??',
+        'email' => $account->mail,
+        'uid' => $account->uid,
         'first_name' => '??',
         'event_id' => '??',
         'impact_verb' => '??',

@@ -125,9 +125,14 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = $secure_url . '/user/register';
+        // Send external message request
+        if ($user == NULL) {
+          global $user;
+          $account = $user;
+        }
         $params = array(
-          'email' => '??',
-          'uid' => '??',
+          'email' => $account->mail,
+          'uid' => $account->uid,
           'first_name' => '??',
         );
         dosomething_user_send_message_request('user_register', $params);
@@ -140,6 +145,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_pass':
+      // Send external message request
       $params = array(
         'email' => '??',
         'uid' => '??',
