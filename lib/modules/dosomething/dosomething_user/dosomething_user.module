@@ -125,7 +125,12 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = $secure_url . '/user/register';
-        dosomething_user_send_message_request($form_id);
+        $params = array(
+          'email' => '??',
+          'uid' => '??',
+          'first-name' => '??',
+        );
+        dosomething_user_send_message_request('user-register', $params);
       }
 
       // Custom validation & submission handlers.
@@ -135,7 +140,13 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_pass':
-      dosomething_user_send_message_request($form_id);
+      $params = array(
+        'email' => '??',
+        'uid' => '??',
+        'first-name' => '??',
+        'reset-link' => '??',
+      );
+      dosomething_user_send_message_request('user-password', $params);
     break;
 
   }
@@ -375,17 +386,46 @@ function dosomething_user_clean_cell_number($number) {
  *
  */
 function dosomething_user_send_message_request($origin, $params = NULL) {
-  //@TODO: gather array to send externally & make request.
+  $payload = array(
+    'activity' => $origin,
+    'email' => $params['email'],
+    'uid' => $params['uid'],
+  );
   switch ($origin) {
-    case 'user_register_form':
+    case 'user-register':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first-name'],
+      );
       break;
-    case 'user_pass':
+    case 'user-password':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first-name'],
+        'RESET-LINK' => $params['reset-link'],
+      );
       break;
     case 'campaign-signup':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first-name'],
+        'CAMPAIGN-TITLE' => 'Campaign Test Title',
+        'CALL-TO-ACTION' => 'Some call to action',
+        'STEP-ONE' => 'Step one from Do It',
+        'STEP-TWO' => 'Step two from Do It',
+        'STEP-THREE' => 'Step three from Do It',
+      );
       break;
     case 'campaign-reportback':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => '',
+        'IMPACT-VERB' => '',
+        'IMPACT-NUMBER' => '',
+        'IMPACT-NOUN' => '',
+      );
       break;
-
+  }
+  if (module_exists('message_broker_producer')) {
+    message_broker_producer_request('produceTransactional', $payload);
   }
 }
 

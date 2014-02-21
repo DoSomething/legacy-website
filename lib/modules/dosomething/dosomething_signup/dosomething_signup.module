@@ -255,7 +255,14 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     dosomething_signup_mobilecommons_opt_in($account, $node->title);
     // Send external message request
     $params = array(
-      'nid' => $nid
+      'email' => '??',
+      'uid' => '??',
+      'first-name' => '??',
+      'event_id' => '??',
+      'call-to-action' => '??',
+      'step-one' => '??',
+      'step-two' => '??',
+      'step-three' => '??',
     );
     dosomething_user_send_message_request('campaign-signup', $params);
     // Set success message.
