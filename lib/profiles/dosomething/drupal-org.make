@@ -51,7 +51,7 @@ projects[google_analytics][subdir] = "contrib"
 
 ; Internationalization (required for Sitemap, among others)
 projects[i18n] = "1.10"
-projects[libraries][subdir] = "contrib"
+projects[i18n][subdir] = "contrib"
 
 ; Libraries
 projects[libraries] = "2.1"
