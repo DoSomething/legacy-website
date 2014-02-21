@@ -205,7 +205,11 @@ function dosomething_static_content_field_default_field_instances() {
   // Exported field_instance: 'field_collection_item-field_video-field_provider'
   $field_instances['field_collection_item-field_video-field_provider'] = array(
     'bundle' => 'field_video',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'youtube',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
