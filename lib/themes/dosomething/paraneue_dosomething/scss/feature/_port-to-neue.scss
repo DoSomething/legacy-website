@@ -46,13 +46,105 @@ header.header {
   }
 }
 
-.node-type-campaign .nav--wrapper {
-  .main-menu a,
-  .secondary-nav a {
-    color: #fff;
+// --------------------
+//
+//  CAMPAIGN OVERRIDES
+//  The following override default Neue styles for all campaigns
+//
+// --------------------
+
+.page-node-pitch,
+.node-type-campaign {
+
+  .nav--wrapper {
+    .primary-nav a,
+    .secondary-nav a {
+      color: #fff !important;
+
+      &:hover {
+        text-decoration: none;
+
+        strong {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .secondary-nav input[type="search"] {
+      border: 1px solid #fff;
+      background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
+    }
   }
+
+  .wrapper {
+    padding: 0 !important;
+    width: 100%;
+  }
+
 }
 
-.wrapper {
-  padding: 0 !important;
+/* ----------------- */
+/*  Carousel Styles  */
+/* ----------------  */
+
+.js-carousel {
+  position: relative;
+
+  .slide-wrapper {
+    float: left;
+    width: 100%;
+  }
+
+  .prev-wrapper,
+  .next-wrapper {
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .prev-wrapper {
+    left: -25px;
+  }
+
+  .next-wrapper {
+    right: 0;
+  }
+
+  .prev-button,
+  .next-button {
+    position: relative;
+    top: 33.3333%;
+    height: 25px;
+    width: 25px;
+    color: $purple;
+    font-size: 20px;
+    line-height: 10px;
+    border: 25px solid #fff;
+    border-radius: 25px;
+
+    @include user-select;
+  }
+
+  .prev-button {
+    left: 0;
+  }
+
+  .next-button {
+    right: 0;
+  }
+
+  .slide {
+    display: none;
+    border: 6px solid #fff;
+    padding: 0;
+
+    img {
+      display: block;
+    }
+  }
+
+  .slide.visible {
+    display: block;
+  }
 }

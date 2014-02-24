@@ -60,6 +60,15 @@
     }
   }
 
+  // Wrapper for the campaign title, call to action
+  // scholarship info., etc.
+  div.meta {
+    @include media( $tablet ) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+  }
+
   // Campaign header containing that campaign's
   // metadata sourced from the node fields that
   // has the hero image applied to it
@@ -76,15 +85,6 @@
 
     @include media( $tablet ) {
       padding: 450px 0 100px;
-    }
-
-    // Wrapper for the campaign title, call to action
-    // scholarship info., etc.
-    div.meta {
-      @include media( $tablet ) {
-        @include span-columns(12);
-        @include shift(2);
-      }
     }
 
     input.btn {
@@ -195,18 +195,27 @@
       @include shift(3);
     }
 
-    .tip-wrapper {
-      padding: 1rem;
-      background: $light-gray;
-    }
-
-    .tip-header {
+    .tip-header-wrapper {
       display: inline-block;
       text-decoration: none;
 
       a {
         text-decoration: none;
       }
+
+      span.bullet {
+        display: inline-block;
+        padding: 0 0 0 0.5rem;
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+    .tip-body-wrapper {
+      padding: 1rem;
+      background: $light-gray;
     }
 
     .tip-body {
@@ -231,10 +240,20 @@
     h2.title, div.copy {
       color: #fff;
     }
+
     .content {
       @include media( $tablet ) {
-        @include span-columns(7);
+        @include span-columns(5);
         @include shift(3);
+      }
+    }
+
+    .gallery {
+      margin: 2rem 0;
+
+      @include media( $tablet ) {
+        @include span-columns(6);
+        @include shift(1);
       }
     }
   }
