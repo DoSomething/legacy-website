@@ -484,6 +484,10 @@ function dosomething_reportback_save($entity, $values) {
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
+    // Send the request externally.
+    if (module_exists('dosomething_user')) {
+      dosomething_user_send_message_request('campaign_reportback');
+    }
     // Save the entity.
     $entity->save();
     // Return reportback rbid.
