@@ -155,7 +155,7 @@
       <h3>Snap a Pic</h3>
       <?php print $pic_step['safe_value']; ?>
       <h4><?php print $post_step_header; ?></h4>
-      <div><?php print $post_step_header['safe_value']; ?></div>
+      <div><?php print $post_step_copy; ?></div>
 
       <!-- MODAL -->
       <?php if (isset($step_post)) : ?>
