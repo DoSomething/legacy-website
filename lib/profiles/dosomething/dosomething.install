@@ -60,12 +60,17 @@ batch');
   variable_set('securepages_switch', true);
 
   // XML Sitemap: 1-day TTL for generated files.
-  variable_set('xmlsitemap_minimum_lifetime', 's:5:"86400"');
+  variable_set('xmlsitemap_minimum_lifetime', '86400');
 
   // XML Sitemap settings per content type.
-  variable_set('xmlsitemap_settings_node_campaign', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
-  variable_set('xmlsitemap_settings_node_fact_page', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
-  variable_set('xmlsitemap_settings_node_static_content', 'a:2:{s:6:"status";s:1:"1";s:8:"priority";s:3:"0.5";}');
+  variable_set('xmlsitemap_settings_node_campaign',
+    array('status' => 1, 'priority' => '0.5'));
+
+  variable_set('xmlsitemap_settings_node_fact_page',
+    array('status' => 1, 'priority' => '0.5'));
+
+  variable_set('xmlsitemap_settings_node_static_content',
+    array('status' => 1, 'priority' => '0.5'));
 
   drupal_set_message(t('DoSomething defaults configured.'));
 }
