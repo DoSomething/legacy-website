@@ -3,8 +3,9 @@
  * @file
  * Code for the DoSomething Zendesk module.
  */
-use Zendesk\API\Client as ZendeskAPI;
 
+// Namespace to allow use of ZendeskAPI class.
+use Zendesk\API\Client as ZendeskAPI;
 
 /**
  * Implements hook_menu().
@@ -44,7 +45,6 @@ function dosomething_zendesk_libraries_info() {
     ),
     'version' => 1
   );
-
   return $libraries;
 }
 
@@ -68,10 +68,6 @@ function dosomething_zendesk_get_client() {
  * Form constructor for submitting a Zendesk ticket.
  */
 function dosomething_zendesk_form($form, &$form_state)  {
-  $form['page_title'] = array(
-    '#type' => 'hidden',
-    '#default_value' => drupal_get_title(),
-  );
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
@@ -91,7 +87,7 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
   $values['email'] = $user->mail;
-  $values['subject'] = t('Question about') . '' . $values['page_title'];
+  $values['subject'] = t('Question about') . ' ' . drupal_get_title();
   // Attempt to submit a ticket via Zendesk API.
   if (dosomething_zendesk_create_ticket($values)) {
     $msg = t("Thanks for submitting your question.") . ' ';
