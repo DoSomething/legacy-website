@@ -71,6 +71,7 @@ features[user_permission][] = view revisions
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
 features[user_role][] = editor
+features[variable][] = user_admin_role
 features[variable][] = user_email_verification
 features[variable][] = user_mail_cancel_confirm_notify
 features[variable][] = user_mail_password_reset_notify
