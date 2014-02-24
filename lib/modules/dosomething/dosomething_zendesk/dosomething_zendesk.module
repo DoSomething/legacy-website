@@ -12,15 +12,7 @@ use Zendesk\API\Client as ZendeskAPI;
  */
 function dosomething_zendesk_menu() {
   $items = array();
-  // Test page for ZenDesk form.
-  $items['user/%user/zendesk'] = array(
-    'title' => 'Zendesk',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_zendesk_form'),
-    'access arguments' => array('administer modules'),
-    'type' => MENU_LOCAL_TASK,
-  );
-   $items['admin/config/services/dosomething_zendesk'] = array(
+  $items['admin/config/services/dosomething_zendesk'] = array(
     'title' => 'DoSomething Zendesk settings',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'drupal_get_form',

@@ -346,6 +346,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['reportback_link_label'] = t("Update Submission");
   }
   $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+
+  // Zendesk Support Ticket form.
+  if (module_exists('dosomething_zendesk')) {
+    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
+  }
 }
 
 /**

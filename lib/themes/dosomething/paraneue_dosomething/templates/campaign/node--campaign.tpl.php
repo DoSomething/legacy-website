@@ -178,5 +178,11 @@
         <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
       </div>
     </section>
+
+    <?php if (isset($zendesk_form)): ?>
+    <?php //@todo: Modalize and link to me. ?>
+    <?php print render($zendesk_form); ?>
+    <?php endif; ?>
+
   </div>
 </section>
