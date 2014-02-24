@@ -13,10 +13,10 @@ function dosomething_zendesk_menu() {
   $items = array();
   // Test page for ZenDesk form.
   $items['user/%user/zendesk'] = array(
-    'title' => 'Support',
+    'title' => 'Zendesk',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_user_zendesk_form'),
-    'access callback' => 'user_is_logged_in',
+    'page arguments' => array('dosomething_zendesk_form'),
+    'access arguments' => array('administer modules'),
     'type' => MENU_LOCAL_TASK,
   );
    $items['admin/config/services/dosomething_zendesk'] = array(
@@ -62,4 +62,99 @@ function dosomething_zendesk_get_client() {
   $client = new ZendeskAPI($subdomain, $username);
   $client->setAuth('token', $token);
   return $client;
+}
+
+/**
+ * Form constructor for submitting a Zendesk ticket.
+ */
+function dosomething_zendesk_form($form, &$form_state)  {
+  $form['page_title'] = array(
+    '#type' => 'hidden',
+    '#default_value' => drupal_get_title(),
+  );
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#title' => t('Message'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_zendesk_form().
+ */
+function dosomething_zendesk_form_submit($form, &$form_state) {
+  global $user;
+  $values = $form_state['values'];
+  $values['email'] = $user->mail;
+  $values['subject'] = t('Question about') . '' . $values['page_title'];
+  // Attempt to submit a ticket via Zendesk API.
+  if (dosomething_zendesk_create_ticket($values)) {
+    $msg = t("Thanks for submitting your question.") . ' ';
+    $msg .= t("We'll send a response to") . ' ';
+    $msg .= $values['email'] . ' ' . t("shortly.");
+    $msg_type = 'status';
+  }
+  else {
+    $msg = t("Sorry, there was an error with your request. Please try again.");
+    $msg_type = 'warning';
+  }
+  drupal_set_message($msg, $msg_type);
+}
+
+/**
+ * Submits a ticket to Zendesk via Zendesk API request.
+ *
+ * @param array $values
+ *   Values to pass to the Zendesk Tickets API. For expected format,
+ *   @see dosomething_zendesk_get_ticket_array()
+ *
+ * @return bool
+ *   Whether or not API request was successful.
+ */
+function dosomething_zendesk_create_ticket($values) {
+  if ($client = dosomething_zendesk_get_client()) {
+    // Get expected format for a create Ticket request.
+    $ticket = dosomething_zendesk_get_ticket_array($values);
+    // Submit API request to create ticket.
+    try {
+      $client->tickets()->create($ticket);
+      return TRUE;
+    }
+    catch (Exception $e) {
+      watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Prepares a Zendesk ticket array with expected keys.
+ *
+ * @param array $values
+ *   Values to pass to the Zendesk Tickets API.
+ *   http://developer.zendesk.com/documentation/rest_api/tickets.html
+ *   Expected keys:
+ *     - email: The email of user submitting ticket
+ *     - subject: Subject of the ticket.
+ *     - body: Body of the ticket.
+ *
+ * @return array
+ *   An array with expected keys and values for the Zendesk Tickets API.
+ */
+function dosomething_zendesk_get_ticket_array($values) {
+  return array(
+    'requester' => array(
+      'email' => $values['email'],
+    ),
+    'subject' => $values['subject'],
+    'comment' => array(
+      'body' => $values['body'],
+    ),
+    'priority' => 'normal',
+  );
 }
