@@ -1,0 +1,4 @@
+name = DoSomething Zendesk
+description = Functionality for Zendesk integration.
+core = 7.x
+package = DoSomething
