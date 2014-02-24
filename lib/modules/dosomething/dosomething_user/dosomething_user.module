@@ -420,27 +420,27 @@ function dosomething_user_send_message_request($origin, $params = NULL) {
     case 'user_password':
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
-        'RESET-LINK' => $params['reset_link'],
+        'RESET_LINK' => $params['reset_link'],
       );
       break;
     case 'campaign_signup':
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
-        'CAMPAIGN-TITLE' => 'campaign_title',
-        'CALL-TO-ACTION' => $params['call_to_action'],
-        'STEP-ONE' => $params['step_one'],
-        'STEP-TWO' => $params['step_two'],
-        'STEP-THREE' => $params['step_three'],
+        'CAMPAIGN_TITLE' => 'campaign_title',
+        'CALL_TO_ACTION' => $params['call_to_action'],
+        'STEP_ONE' => $params['step_one'],
+        'STEP_TWO' => $params['step_two'],
+        'STEP_THREE' => $params['step_three'],
       );
       break;
     case 'campaign_reportback':
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
-        'IMPACT-VERB' => $params['impact_verb'],
-        'IMPACT-NUMBER' => $params['impact_number'],
-        'IMPACT-NOUN' => $params['impact_noun'],
+        'IMPACT_VERB' => $params['impact_verb'],
+        'IMPACT_NUMBER' => $params['impact_number'],
+        'IMPACT_NOUN' => $params['impact_noun'],
       );
       break;
   }
