@@ -4,6 +4,18 @@ include_once('dosomething_helpers.theme.inc');
 include_once('dosomething_helpers.strongarm.inc');
 
 /**
+ * Implements hook_js_alter().
+ */
+function dosomething_helpers_js_alter(&$javascript) {
+  /* Globally remove user.js
+   * This is needed to avoid the 'Drupal is not defined' error on login/register.
+   * The file is loading before it's needed and breaking all other js.
+   * @see #764
+   */
+  unset($javascript['modules/user/user.js']);
+}
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function dosomething_helpers_ctools_plugin_api($module = NULL, $api = NULL) {
