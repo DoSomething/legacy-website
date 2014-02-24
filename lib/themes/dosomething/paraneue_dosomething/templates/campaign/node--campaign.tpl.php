@@ -1,23 +1,18 @@
 <section class="c--wrapper">
-  <header class="header <?php print $classes; ?>" style="background-image: url(<?php print $hero_image_l_url; ?>);">
+  <header class="header <?php print $classes; ?>" <?php print (isset($hero_img_l_url) ? 'style="background:url(' . $hero_img_l_url . ');"' : ''); ?>>
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>
       <p class="cta"><?php print $cta; ?></p>
       <p class="date"> <?php print $end_date; ?> </p>
 
-      <?php print render($signup_form); ?>
-
-      <img class="arrow" src="https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7e9e3ef8974d815230449b9829e98ac0/arrow.png" alt="Click the button!" />
-      <p class="scholarship"><span class="highlight"><?php print $scholarship; ?></span></p>
-
+      <?php if (isset($sponsors)): ?>
       <div class="sponsor">
-        <?php if (isset($sponsors)): ?>
-          <?php foreach ($sponsors as $key => $sponsor) :?>
-            <?php print $sponsor['name']; ?>
-            <?php // print $sponsor['img']; ?>
-          <?php endforeach; ?>
-        <?php endif; ?>
+        <?php foreach ($sponsors as $key => $sponsor) :?>
+          <?php print $sponsor['name']; ?>
+          <?php // print $sponsor['img']; ?>
+        <?php endforeach; ?>
       </div>
+      <?php endif; ?>
     </div>
   </header>
 
@@ -40,6 +35,10 @@
         <?php foreach ($fact_problem['sources'] as $source): ?>
           <p class="legal">Source: <?php print $source; ?></p>
         <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (isset($psa)): ?>
+          <?php print $psa; ?>
         <?php endif; ?>
       </div>
 
@@ -141,11 +140,13 @@
       <div><?php print $pre_step_copy['safe_value']; ?></div>
 
       <?php if (isset($step_pre)) : ?>
+      <div class="tip-header-wrapper">
       <?php foreach ($step_pre as $item): ?>
-        <p class="tip-header"><a href="#"><?php print $item['header']; ?></a><span class="bullet">&nbsp;&#149;&nbsp;</span></p>
+        <a href="#"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
       <?php endforeach; ?>
+      </div>
 
-      <div class="tip-wrapper">
+      <div class="tip-body-wrapper">
       <?php foreach ($step_pre as $item): ?>
         <div class="tip-body"><?php print $item['copy'] ?></div>
       <?php endforeach; ?>
@@ -176,6 +177,25 @@
 
         <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
         <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
+
+        <?php if (isset($reportback_image)): ?>
+        <section class="js-carousel">
+          <div id="prev" class="prev-wrapper">
+            <div class="prev-button">&vltri;</div>
+          </div>
+
+          <div class="slide-wrapper">
+            <?php foreach ($reportback_image as $key=>$image): ?>
+            <figure id="slide<?php print $key ?>" class="image slide"><?php print $image ?></figure>
+            <?php endforeach; ?>
+          </div>
+
+          <div id="next" class="next-wrapper">
+            <div class="next-button">&vrtri;</div>
+          </div>
+        </section>
+        <?php endif; ?>
+
       </div>
     </section>
 
