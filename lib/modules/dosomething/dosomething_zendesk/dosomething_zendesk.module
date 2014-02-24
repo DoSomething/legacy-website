@@ -3,6 +3,8 @@
  * @file
  * Code for the DoSomething Zendesk module.
  */
+use Zendesk\API\Client as ZendeskAPI;
+
 
 /**
  * Implements hook_menu().
