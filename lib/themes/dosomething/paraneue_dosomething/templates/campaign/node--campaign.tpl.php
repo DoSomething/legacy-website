@@ -140,14 +140,14 @@
 
       <?php if (isset($step_pre)) : ?>
       <div class="tip-header-wrapper">
-      <?php foreach ($step_pre as $item): ?>
-        <a href="#"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+      <?php foreach ($step_pre as $key=>$item): ?>
+        <a href="#tip<?php print $key; ?>" class="js-show-tip"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
       <?php endforeach; ?>
       </div>
 
       <div class="tip-body-wrapper">
-      <?php foreach ($step_pre as $item): ?>
-        <div class="tip-body"><?php print $item['copy'] ?></div>
+      <?php foreach ($step_pre as $key=>$item): ?>
+        <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
       <?php endforeach; ?>
       </div>
       <?php endif; ?>
