@@ -167,15 +167,17 @@ function dosomething_user_login_submit($form, &$form_state) {
  * Implements hook_user_insert().
  */
 function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
+  // Only automatically generate 'name' if not on staff.
+  if (!dosomething_user_is_staff()) {
+    // Replace fake user name with uid.
+    db_update('users')
+      ->fields(array('name' => $account->uid))
+      ->condition('uid', $account->uid)
+      ->execute();
 
-  // Replace fake user name with uid.
-  db_update('users')
-    ->fields(array('name' => $account->uid))
-    ->condition('uid', $account->uid)
-    ->execute();
-
-  $edit['name'] = $account->uid;
-  $account->name = $account->uid;
+    $edit['name'] = $account->uid;
+    $account->name = $account->uid;
+  }
 }
 
 /**
@@ -241,9 +243,11 @@ function _dosomething_user_login_shared_helper_text(&$form) {
  *  A drupal form.
  */
 function _dosomething_user_register_helper_text(&$form) {
-  // Hide the username field & randomly generate the value.
-  $form['account']['name']['#type'] = 'hidden';
-  $form['account']['name']['#value'] = user_password();
+  // Hide the username field & randomly generate the value for non-staffers.
+  if (!dosomething_user_is_staff()) {
+    $form['account']['name']['#type'] = 'hidden';
+    $form['account']['name']['#value'] = user_password();
+  }
   unset($form['account']['mail']['#description']);
   unset($form['account']['pass']['#description']);
   $form['field_first_name']['#weight'] = '-20';
