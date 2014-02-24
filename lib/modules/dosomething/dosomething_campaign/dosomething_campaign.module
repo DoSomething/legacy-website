@@ -210,7 +210,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
   foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
     $rb_image['nid'] = $rb_image['entity']->nid;
-    $vars['reportback_image'][$key] = dosomething_image_get_themed_image($rb_image['nid'], 'landscape', '740x480');
+    $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image['nid'], 'landscape', '720x310');
   }
 
   // Reportback form.
