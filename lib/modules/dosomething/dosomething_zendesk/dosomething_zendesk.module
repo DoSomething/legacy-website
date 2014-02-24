@@ -1,0 +1,55 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Zendesk module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_zendesk_menu() {
+  $items = array();
+  // Test page for ZenDesk form.
+  $items['user/%user/zendesk'] = array(
+    'title' => 'Support',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_zendesk_form'),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_zendesk_libraries_info() {
+  $libraries['zendesk'] = array(
+    'name' => 'Zendesk',
+    'path' => 'lib',
+    'files' => array(
+      'php' => array(
+        'ZenDesk.php'
+      ),
+    ),
+    'version' => 1
+  );
+
+  return $libraries;
+}
+
+/**
+ * Returns a Zendesk Client object with auth vars.
+ */
+function dosomething_zendesk_get_client() {
+  $library = libraries_load('zendesk');
+  if (empty($library['loaded'])) {
+    return FALSE;
+  }
+  $subdomain = variable_get('dosomething_zendesk_subdomain');
+  $username = variable_get('dosomething_zendesk_username');
+  $token = variable_get('dosomething_zendesk_token');
+  $client = new ZendeskAPI($subdomain, $username);
+  $client->setAuth('token', $token);
+  return $client;
+}
