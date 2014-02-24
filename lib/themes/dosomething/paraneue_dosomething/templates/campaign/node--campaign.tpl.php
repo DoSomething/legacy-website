@@ -173,30 +173,28 @@
       <div class="content">
         <h2 class="title">Pics or It Didn't Happen</h2>
         <div class="copy"><?php print $reportback_copy; ?></div>
-        <a class="btn large"><?php print $reportback_link_label; ?></a>
 
         <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
         <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
-
-        <?php if (isset($reportback_image)): ?>
-        <section class="js-carousel">
-          <div id="prev" class="prev-wrapper">
-            <div class="prev-button">&vltri;</div>
-          </div>
-
-          <div class="slide-wrapper">
-            <?php foreach ($reportback_image as $key=>$image): ?>
-            <figure id="slide<?php print $key ?>" class="image slide"><?php print $image ?></figure>
-            <?php endforeach; ?>
-          </div>
-
-          <div id="next" class="next-wrapper">
-            <div class="next-button">&vrtri;</div>
-          </div>
-        </section>
-        <?php endif; ?>
-
       </div>
+
+      <?php if (isset($reportback_image)): ?>
+      <div class="js-carousel gallery">
+        <div id="prev" class="prev-wrapper">
+          <div class="prev-button">&lt;</div>
+        </div>
+
+        <div class="slide-wrapper">
+          <?php foreach ($reportback_image as $key=>$image): ?>
+          <figure id="slide<?php print $key ?>" class="slide"><img src="<?php print $image ?>" /></figure>
+          <?php endforeach; ?>
+        </div>
+
+        <div id="next" class="next-wrapper">
+          <div class="next-button">&gt;</div>
+        </div>
+      </div>
+      <?php endif; ?>
     </section>
   </div>
 </section>
