@@ -13,7 +13,6 @@ function paraneue_dosomething_js_alter(&$js) {
   $js['html5shiv']['type'] = 'file';
   $js['html5shiv']['every_page'] = TRUE;
   $js['html5shiv']['weight'] = -50;
-  dpm($js);
 }
 
 ?>
