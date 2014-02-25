@@ -179,8 +179,8 @@
         <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
       </div>
 
-      <?php if (isset($reportback_image)): ?>
       <div class="js-carousel gallery">
+      <?php if (isset($reportback_image)): ?>
         <div id="prev" class="prev-wrapper">
           <div class="prev-button">&lt;</div>
         </div>
@@ -194,14 +194,17 @@
         <div id="next" class="next-wrapper">
           <div class="next-button">&gt;</div>
         </div>
-      </div>
+      <?php else: ?>
+      <div class="slide-wrapper">
+        <figure class="slide visible"><img src="https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/62291511fcc8d763184a04a99db007b7/placeholder.jpg" alt="This could be you!" /></figure>
+        </div>
       <?php endif; ?>
+      </div>
     </section>
 
     <?php if (isset($zendesk_form)): ?>
     <?php //@todo: Modalize and link to me. ?>
     <?php print render($zendesk_form); ?>
     <?php endif; ?>
-
   </div>
 </section>
