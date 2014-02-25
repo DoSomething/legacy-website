@@ -41,6 +41,14 @@ function dosomething_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'partners' => array(
+      'name' => 'Partners',
+      'machine_name' => 'partners',
+      'description' => 'Organizations, companies who are partners and/or sponsors.',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'tags' => array(
       'name' => 'Tags',
       'machine_name' => 'tags',

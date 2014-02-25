@@ -10,9 +10,9 @@
 function dosomething_taxonomy_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-sponsors-field_image_sponsor_logo'
-  $field_instances['taxonomy_term-sponsors-field_image_sponsor_logo'] = array(
-    'bundle' => 'sponsors',
+  // Exported field_instance: 'taxonomy_term-partners-field_partner_logo'
+  $field_instances['taxonomy_term-partners-field_partner_logo'] = array(
+    'bundle' => 'partners',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -28,13 +28,13 @@ function dosomething_taxonomy_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_image_sponsor_logo',
-    'label' => 'Sponsor Logo',
+    'field_name' => 'field_partner_logo',
+    'label' => 'Partner Logo',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => '',
+      'file_directory' => 'partners',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -50,13 +50,13 @@ function dosomething_taxonomy_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 41,
+      'weight' => 1,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Sponsor Logo');
+  t('Partner Logo');
 
   return $field_instances;
 }
