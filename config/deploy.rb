@@ -10,7 +10,7 @@ set :repo_url, 'git@github.com:DoSomething/dosomething.git'
 set :branch, "dev"
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/ubuntu/app'
+# set :deploy_to, '/var/www/my_app'
 
 # Default value for :scm is :git
 set :scm, :git
@@ -60,9 +60,15 @@ namespace :deploy do
 
   after :deploy, :drush_make do
     on roles(:app) do |host|
-      execute "cd '#{release_path}'; sudo drush make build-dosomething.make dist"
+      execute "cd '#{release_path}'; ds build"
+      execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
 
-      execute "sudo ln -nfs #{release_path}/config/settings.php #{release_path}/dist/sites/default/settings.php"
+      # The next two lines are temp until we get the "smart" settings reviewed and tested.
+      execute "sudo rm -rf #{release_path}/html/sites/default/settings.php"
+      execute "sudo rm -rf #{release_path}/html/sites/default/settings.local.php"
+
+      # Also temporary.
+      execute "ln -s #{release_path}/config/smart-settings.php #{release_path}/html/sites/default/settings.php"
     end
   end
 
