@@ -152,14 +152,16 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
  * @see dosomething_user_strongarm()
  */
 function dosomething_user_login_submit($form, &$form_state) {
-  // If nid is not present, nothing to sign up for.  Exit.
-  if (!isset($form_state['input']['nid'])) { return; }
-  $nid = $form_state['input']['nid'];
-  // Redirect to node (this is needed for user_register form).
-  $form_state['redirect'] = 'node/' . $nid;
-  // Signup global user for node $nid.
-  if (module_exists('dosomething_signup')) {
-    dosomething_signup_user_signup($nid);
+  // If nid is not present in the form_state or in the session, sign up baby!
+  if (isset($form_state['input']['nid']) || isset($_SESSION['nid'])) {
+    $nid = isset($form_state['input']['nid']) ? $form_state['input']['nid'] : $_SESSION['nid'];
+    unset($_SESSION['nid']);
+    // Redirect to node (this is needed for user_register form).
+    $form_state['redirect'] = 'node/' . $nid;
+    // Signup global user for node $nid.
+    if (module_exists('dosomething_signup')) {
+      dosomething_signup_user_signup($nid);
+    }
   }
 }
 
@@ -214,6 +216,7 @@ function _dosomething_user_add_campaign_data(&$form) {
     $obj = menu_get_object();
     // If we are viewing a campaign node:
     if (isset($obj->type) && $obj->type == 'campaign') {
+      $_SESSION['nid'] = $obj->nid;
       // Add a hidden nid field.
       $form['nid'] = array(
         '#type' => 'hidden',
