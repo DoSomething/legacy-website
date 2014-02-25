@@ -115,23 +115,38 @@ header.header {
   .next-button {
     position: relative;
     top: 33.3333%;
-    height: 25px;
-    width: 25px;
-    color: $purple;
-    font-size: 20px;
-    line-height: 10px;
+    height: 0;
+    width: 0;
     border: 25px solid #fff;
     border-radius: 25px;
 
     @include user-select;
+
+    .arrow {
+      font-size: 40px;
+      line-height: 10px;
+      color: $purple;
+      position: absolute;
+      top: -18px;
+
+      @include icomoon-icon;
+    }
   }
 
   .prev-button {
     left: 0;
+
+    .arrow {
+      left: -22px;
+    }
   }
 
   .next-button {
     right: 0;
+
+    .arrow {
+      right: -24px;
+    }
   }
 
   .slide {

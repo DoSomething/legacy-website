@@ -181,7 +181,7 @@
     <div class="js-carousel gallery">
     <?php if (isset($reportback_image)): ?>
       <div id="prev" class="prev-wrapper">
-        <div class="prev-button">&lt;</div>
+        <div class="prev-button"><span class="arrow">&#xe605;</span></div>
       </div>
 
       <div class="slide-wrapper">
@@ -191,7 +191,7 @@
       </div>
 
       <div id="next" class="next-wrapper">
-        <div class="next-button">&gt;</div>
+        <div class="next-button"><span class="arrow">&#xe60a;</span></div>
       </div>
     <?php else: ?>
     <div class="slide-wrapper">
