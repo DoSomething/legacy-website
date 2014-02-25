@@ -142,7 +142,7 @@
       <?php if (isset($step_pre)) : ?>
       <div class="tip-header-wrapper">
       <?php foreach ($step_pre as $key=>$item): ?>
-        <a href="#tip<?php print $key; ?>" class="js-show-tip"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+        <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
       <?php endforeach; ?>
       </div>
 

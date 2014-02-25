@@ -197,10 +197,31 @@
 
     .tip-header-wrapper {
       display: inline-block;
+      margin: 0 0 16px 0;
       text-decoration: none;
 
-      a {
+      a.tip-header {
+        position: relative;
         text-decoration: none;
+      }
+
+      a.tip-header.active {
+        display: inline-block;
+
+        &:after {
+          content: "";
+          display: block;
+          width: 0;
+          height: 0;
+          position: absolute;
+          background: transparent;
+          border-top: 12px solid #fff;
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-bottom: none;
+          left: 33.333%;
+          top: 40px;
+        }
       }
 
       span.bullet {
