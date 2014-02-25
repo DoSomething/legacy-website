@@ -212,8 +212,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
 
-    // Vars needed for both the pitch & action page.
-    $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
+    $scholarship = $wrapper->field_scholarship_amount->value();
+    if (isset($scholarship)) {
+      $vars['scholarship'] = '$' . $scholarship . ' Scholarship';
+    }
+
     $vars['cta'] = $wrapper->field_call_to_action->value();
 
     // Timing.
