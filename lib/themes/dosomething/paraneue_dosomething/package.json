@@ -1,7 +1,7 @@
 {
   "name": "ds-paraneue",
   "version": "0.0.1",
-  "description": "The sub-theme of Paraneue, Do Something's Drupal 7 theme that imports the Neue Pattern Library"
+  "description": "The sub-theme of Paraneue, Do Something's Drupal 7 theme that imports the Neue Pattern Library",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoSomething/dosomething.git"
