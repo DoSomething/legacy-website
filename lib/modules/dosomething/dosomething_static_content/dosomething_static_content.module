@@ -22,8 +22,8 @@ function dosomething_static_content_preprocess_node(&$vars) {
         'call_to_action',
       ),
       'image' => array(
-        '550x330',
-        '800x300',
+        'hero_image',
+        'intro_image',
       ),
       'link' => array(
         'cta_link'
@@ -39,7 +39,13 @@ function dosomething_static_content_preprocess_node(&$vars) {
               $vars[$label] = $content[$field][0]['#markup'];
               break;
             case 'image':
-              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $label);
+              if ($label == 'hero_image') {
+                $size = '800x300';
+              }
+              elseif ($label == 'intro_image') {
+                $size = '550x300';
+              }
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
             break;
             case 'link':
               $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'btn')));
