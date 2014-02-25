@@ -1,0 +1,9 @@
+// ----------------------------------------------
+// Styles to make sense of Drupal's stock markup:
+// ----------------------------------------------
+
+// Drupal likes to label things with "hidden" headers, let's
+// hide them for real.
+.element-invisible {
+  display: none;
+}
