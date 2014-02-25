@@ -81,7 +81,7 @@
     background-size: cover;
 
     background-image: url(https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7bbfd71b19c829a2b0feb38073cdb205/campaign-hero.jpg) !important;
-    // TODO - Remove this
+    // @TODO - Remove this
 
     @include media( $tablet ) {
       padding: 450px 0 100px;
@@ -257,6 +257,7 @@
   .step.prove {
     overflow: hidden;
     background-image: url(https://trello-attachments.s3.amazonaws.com/52efb2a8c56de7320e6ffc06/52e1724e23eeb26f4e9fc427/6e777d666be111dec7badaecb9bf18ac/polaroid-pattern.jpg);
+    // @TODO Remove this
 
     h2.title, div.copy {
       color: #fff;
