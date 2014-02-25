@@ -164,3 +164,38 @@ header.header {
     display: block;
   }
 }
+
+// --------------------
+//
+//  TYPOGRAPHY UPDATES
+//
+// --------------------
+
+// "legal" should extend down to inline child elements
+// so that it can be used as a Markdown wrapper
+.legal {
+  p,
+  sup,
+  strong {
+    font-size: 0.75rem;
+    color: #DDD;
+
+    // @TODO The following three are campaign-specific styles!
+    margin: 0;
+    padding: 0 3px 0 0;
+    display: inline-block;
+  }
+
+  sup {
+    top: -0.3rem !important;
+  }
+}
+
+// <sup> styles and specificity hack to get around CSS reset
+.wrapper sup {
+  position: relative;
+  top: -0.4rem;
+  font-size: 60%;
+  display: inline-block;
+  padding: 0 0.25rem;
+}
