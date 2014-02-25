@@ -21,10 +21,10 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Text',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_additional_text_title',
-      1 => 'field_additional_text',
+      0 => 'field_additional_text',
+      1 => 'field_additional_text_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -49,7 +49,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Call to Action',
-    'weight' => '5',
+    'weight' => '3',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
@@ -80,12 +80,8 @@ function dosomething_static_content_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_hero_image',
-      1 => 'field_intro_title',
-      2 => 'field_intro_image',
-      3 => 'field_intro',
-      4 => 'field_subtitle',
-      5 => 'title',
-      6 => 'field_video',
+      1 => 'field_subtitle',
+      2 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -98,6 +94,36 @@ function dosomething_static_content_field_group_info() {
     ),
   );
   $export['group_header|node|static_content|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_intro|node|static_content|form';
+  $field_group->group_name = 'group_intro';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'static_content';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Intro',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_intro',
+      1 => 'field_intro_image',
+      2 => 'field_intro_title',
+      3 => 'field_video',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-intro field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_intro|node|static_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

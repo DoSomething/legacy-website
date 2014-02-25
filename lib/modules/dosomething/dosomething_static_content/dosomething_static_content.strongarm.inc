@@ -49,6 +49,9 @@ function dosomething_static_content_strongarm() {
         'path' => array(
           'weight' => '0',
         ),
+        'metatags' => array(
+          'weight' => '6',
+        ),
       ),
       'display' => array(),
     ),

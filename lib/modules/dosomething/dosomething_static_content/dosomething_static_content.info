@@ -36,6 +36,7 @@ features[field_base][] = field_video_id
 features[field_group][] = group_additional_text|node|static_content|form
 features[field_group][] = group_call_to_action|node|static_content|form
 features[field_group][] = group_header|node|static_content|form
+features[field_group][] = group_intro|node|static_content|form
 features[field_group][] = group_section_list|field_collection_item|field_optional_blocks|form
 features[field_instance][] = field_collection_item-field_gallery-field_gallery_item
 features[field_instance][] = field_collection_item-field_gallery-field_gallery_title
