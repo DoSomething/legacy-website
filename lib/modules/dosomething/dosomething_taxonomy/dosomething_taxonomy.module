@@ -28,3 +28,13 @@ function dosomething_taxonomy_get_sponsors($sponsor_field_wrapper) {
   }
   return NULL;
 }
+
+/**
+ * Implements hook_taxonomy_term_view().
+ */
+function dosomething_taxonomy_taxonomy_term_view($term, $view_mode, $langcode) {
+  // Don't grant access to term pages for non-staffers.
+  if (module_exists('dosomething_user') && !dosomething_user_is_staff()) {
+    return drupal_access_denied();
+  }
+}
