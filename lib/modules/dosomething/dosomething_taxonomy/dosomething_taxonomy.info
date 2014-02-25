@@ -20,7 +20,6 @@ features[taxonomy][] = cause
 features[taxonomy][] = image_tags
 features[taxonomy][] = issue
 features[taxonomy][] = partners
-features[taxonomy][] = sponsors
 features[taxonomy][] = tags
 features[user_permission][] = administer taxonomy
 features[user_permission][] = edit terms in tags
