@@ -1,8 +1,39 @@
 
-// ---------
-//  CONTENT
-// ---------
+// ----------------
+//  STATIC CONTENT
+// ----------------
+
+.wrapper {
+	background: $purple;
+}
 
 .static_content--wrapper {
-  
+	background: #fff;
+
+	h2, h3, h4 {
+    color: $purple;
+  }
+
+	.header {
+		background: $purple;
+		h1.title, p.subtitle {
+			color: #fff;
+		}
+	}
+
+	.intro {
+	
+	}
+
+	.cta {
+
+	}
+
+	.gallery {
+
+	}
+
+	.additional-text {
+
+	}
 }
