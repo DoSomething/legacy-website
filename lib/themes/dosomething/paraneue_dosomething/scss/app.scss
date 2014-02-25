@@ -14,22 +14,21 @@
 @import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers";
 
 // Drupal styles
-@import "feature/_drupal";
-
+@import "feature/drupal";
 
 // Features
-@import "feature/_auth";
+@import "feature/auth";
 
 // Staging Area for Neue
-@import "feature/_port-to-neue";
+@import "feature/port-to-neue";
 
 // Campaign Pages
-@import "feature/_campaign";
-@import "feature/_pitch";
-@import "feature/_action";
+@import "feature/campaign";
+@import "feature/pitch";
+@import "feature/action";
 
 // Content Pages
-@import "feature/_content";
+@import "feature/content";
 
 // Temporary hacks
-@import "feature/_hide";
+@import "feature/hide";
