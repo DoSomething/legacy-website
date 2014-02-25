@@ -14,19 +14,31 @@
     color: $purple;
   }
 
-	.header {
+	.header--wrapper, .intro--wrapper, .cta--wrapper, .additional-text--wrapper, .gallery--wrapper {
+		@include media($tablet) {
+	    @include outer-container;
+	  }
+	}
+
+	.header--wrapper {
 		background: $purple;
+	}
+
+	.header {
 		h1.title, p.subtitle {
 			color: #fff;
 		}
 	}
 
-	.intro {
-	
+	.cta, .header, .intro, .additional-text {
+		@include media($tablet) {
+			@include span-columns(12);
+			@include shift(2);
+    }
 	}
 
-	.cta {
-
+	.gallery--wrapper {
+		background: $light-gray;
 	}
 
 	.gallery {
