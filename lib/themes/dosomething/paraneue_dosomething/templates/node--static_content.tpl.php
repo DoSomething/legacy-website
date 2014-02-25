@@ -7,7 +7,9 @@
 
     <div>
       <h1><?php print $title; ?></h1>
-      <?php print $hero_image; ?>
+      <?php if (isset($hero_image)): ?>
+        <?php print $hero_image; ?>
+      <?php endif; ?>
       <?php if ($subtitle): ?>
         <h2><?php print $subtitle; ?></h2>
       <?php endif; ?>
@@ -16,7 +18,7 @@
     <div class="left"><?php print $intro; ?></div>
     <?php if (isset($intro_image)): ?>
       <?php print $intro_image; ?>
-    <?php elseif ($intro_video): ?>
+    <?php elseif (isset($intro_video)): ?>
       <?php print $intro_video; ?>
     <?php endif; ?>
     <?php if (isset($call_to_action)): ?>
