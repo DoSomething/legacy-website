@@ -41,10 +41,10 @@ function dosomething_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
-    'sponsors' => array(
-      'name' => 'Sponsors',
-      'machine_name' => 'sponsors',
-      'description' => 'store campaign sponsors with a logo',
+    'partners' => array(
+      'name' => 'Partners',
+      'machine_name' => 'partners',
+      'description' => 'Organizations, companies who are partners and/or sponsors.',
       'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,

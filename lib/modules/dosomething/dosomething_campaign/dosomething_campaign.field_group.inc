@@ -84,7 +84,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_image_campaign_cover',
       1 => 'field_image_psa_replacement',
@@ -167,6 +167,33 @@ function dosomething_campaign_field_group_info() {
     ),
   );
   $export['group_location_finder|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_partners|node|campaign|form';
+  $field_group->group_name = 'group_partners';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Sponsors and Partners',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_partners',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-partners field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_partners|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

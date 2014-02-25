@@ -10,9 +10,195 @@
 function dosomething_taxonomy_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'taxonomy_term-sponsors-field_image_sponsor_logo'
-  $field_instances['taxonomy_term-sponsors-field_image_sponsor_logo'] = array(
-    'bundle' => 'sponsors',
+  // Exported field_instance: 'field_collection_item-field_partners-field_image_partner'
+  $field_instances['field_collection_item-field_partners-field_image_partner'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_image_partner',
+    'label' => 'Image',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_partners-field_is_sponsor'
+  $field_instances['field_collection_item-field_partners-field_is_sponsor'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_is_sponsor',
+    'label' => 'Is Sponsor',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_partners-field_partner'
+  $field_instances['field_collection_item-field_partners-field_partner'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_partner',
+    'label' => 'Name',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_partners-field_partner_copy'
+  $field_instances['field_collection_item-field_partners-field_partner_copy'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_partner_copy',
+    'label' => 'Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_partners-field_video'
+  $field_instances['field_collection_item-field_partners-field_video'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_video',
+    'label' => 'Video',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-partners-field_partner_logo'
+  $field_instances['taxonomy_term-partners-field_partner_logo'] = array(
+    'bundle' => 'partners',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -28,13 +214,13 @@ function dosomething_taxonomy_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_image_sponsor_logo',
-    'label' => 'Sponsor Logo',
+    'field_name' => 'field_partner_logo',
+    'label' => 'Partner Logo',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => '',
+      'file_directory' => 'partners',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -50,13 +236,18 @@ function dosomething_taxonomy_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 41,
+      'weight' => 1,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Sponsor Logo');
+  t('Copy');
+  t('Image');
+  t('Is Sponsor');
+  t('Name');
+  t('Partner Logo');
+  t('Video');
 
   return $field_instances;
 }

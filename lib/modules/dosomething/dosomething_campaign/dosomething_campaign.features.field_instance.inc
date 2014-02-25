@@ -1388,14 +1388,20 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Write out names of any organizations we want to list as strategic partners.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 56,
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 61,
       ),
       'pitch' => array(
         'label' => 'above',
@@ -1412,20 +1418,17 @@ function dosomething_campaign_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_partners',
-    'label' => 'Partners',
+    'label' => 'Sponsors and Partners',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 15,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 50,
     ),
   );
 
@@ -2184,53 +2187,6 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_sponsor'
-  $field_instances['node-campaign-field_sponsor'] = array(
-    'bundle' => 'campaign',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_sponsor',
-    'label' => 'Sponsor',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign-field_staff_pick'
   $field_instances['node-campaign-field_staff_pick'] = array(
     'bundle' => 'campaign',
@@ -2632,7 +2588,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Official Rules');
   t('PSA');
   t('PSA Replacement Image');
-  t('Partners');
   t('Primary Action Type');
   t('Primary Cause');
   t('Problem Fact');
@@ -2651,7 +2606,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Snap a Pic');
   t('Solution Fact');
   t('Solution Statement');
-  t('Sponsor');
+  t('Sponsors and Partners');
   t('Stuff You Need');
   t('Supporting Statement on the Solution');
   t('Tags');
@@ -2703,7 +2658,6 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Limit 20 characters. </strong>');
   t('VIPs');
-  t('Write out names of any organizations we want to list as strategic partners.');
   t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
   t('i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected');
 
