@@ -28,16 +28,6 @@
   <h2 id="know" class="step-header"><span class="shift">Know It</span></h2>
   <section class="know step">
 
-    <!--
-
-        USAGE NOTES
-
-        1. Neither the problem fact nor the solution fact are required.
-        2. There cannot be both a solution fact and a solution statement.
-        3. The solution supporting statement is optional and cannot be a fact (thus, it does not have a source).
-
-    -->
-
     <div class="col first">
       <h4>The Problem</h4>
 
@@ -49,6 +39,7 @@
     <div class="col second">
       <h4>The Solution</h4>
 
+      <?php // @TODO - Print only one of these ?>
       <?php if (isset($fact_solution)): ?>
       <div class="fact-solution"><?php print $fact_solution['fact']; ?></div>
       <?php endif; ?>
