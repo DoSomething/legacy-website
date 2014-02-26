@@ -104,7 +104,11 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   );
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
-  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array(
+    'attributes' => array('class' =>
+      array('btn', 'secondary', 'small')
+    ))
+  );
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
   // Get recommended campaign nids for term $tid and current user.
@@ -139,14 +143,13 @@ function dosomething_campaign_get_recommended_campaign_vars($nid) {
   $image_link = NULL;
   $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
   if ($image_nid) {
-    $image = dosomething_image_get_themed_image($image_nid, 'landscape', '740x480');
-    $image_link = l($image, $path, array('html' => TRUE));
+    $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
   }
   return array(
     'nid' => $wrapper->getIdentifier(),
     'title' => l($wrapper->label(), $path),
     'call_to_action' => $wrapper->field_call_to_action->value(),
-    'image' => $image_link,
+    'image' => $image,
   );
 }
 
