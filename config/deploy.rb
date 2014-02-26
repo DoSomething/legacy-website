@@ -58,17 +58,11 @@ namespace :deploy do
     end
   end
 
-  after :deploy, :drush_make do
+  after :deploy, :build do
     on roles(:app) do |host|
-      execute "cd '#{release_path}'; ds build"
+      execute "cd '#{release_path}'; #{release_path}/bin/ds build"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
-
-      # The next two lines are temp until we get the "smart" settings reviewed and tested.
-      execute "sudo rm -rf #{release_path}/html/sites/default/settings.php"
       execute "sudo rm -rf #{release_path}/html/sites/default/settings.local.php"
-
-      # Also temporary.
-      execute "ln -s #{release_path}/config/smart-settings.php #{release_path}/html/sites/default/settings.php"
     end
   end
 
