@@ -34,6 +34,17 @@
       <?php if (isset($fact_problem)): ?>
       <div class="fact-problem"><?php print $fact_problem['fact']; ?><sup>1</sup></div>
       <?php endif; ?>
+
+      <?php if (isset($faq)): ?>
+      <a href="#modal-faq" class="js-modal-link">Learn more about <?php print $issue; ?></a>
+      <div id="modal-faq" class="cached-modal">
+        <?php foreach ($faq as $item): ?>
+          <h4 class="faq-header"><?php print $item['header']; ?></h4>
+          <div class="faq-copy"><?php print $item['copy'] ?></div>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+
     </div>
 
     <div class="col second">
@@ -89,15 +100,6 @@
     <?php endforeach; ?>
     <?php endif; ?>
 
-    <aside class="cached-modal">
-      <?php if (isset($faq)): ?>
-      <h4>FAQ</h4>
-      <?php foreach ($faq as $item): ?>
-      <h4 class="faq-header"><?php print $item['header']; ?></h4>
-      <div class="faq-copy"><?php print $item['copy'] ?></div>
-      <?php endforeach; ?>
-      <?php endif; ?>
-    </aside>
   </section>
 
   <h2 id="plan" class="step-header"><span class="shift">Plan It</span></h2>

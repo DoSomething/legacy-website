@@ -237,8 +237,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
     }
 
-    if (!is_null($vars['field_sponsor'])) {
-      $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
+    if (isset($vars['field_partners'])) {
+      // Temp fix until we preprocess the field_partners field collection.
+      $vars['sponsors'] = array();
     }
 
     if ($vars['view_mode'] == 'pitch') {
@@ -266,6 +267,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Know.
   $vars['solution_copy'] = $wrapper->field_solution_copy->value();
   $vars['solution_support'] = $wrapper->field_solution_support->value();
+  $vars['issue'] = $wrapper->field_issue->value()->name;
 
   // Collect fact values as tpl variables.
   $fact_problem = $wrapper->field_fact_problem->value();
