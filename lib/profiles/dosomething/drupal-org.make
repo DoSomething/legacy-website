@@ -14,7 +14,7 @@ projects[apachesolr] = "7.x-1.6"
 projects[apachesolr][subdir] = "contrib"
 
 ; Ctools
-projects[ctools] = "1.3"
+projects[ctools] = "1.4"
 projects[ctools][subdir] = "contrib"
 
 ; Date
