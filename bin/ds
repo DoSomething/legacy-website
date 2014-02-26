@@ -348,3 +348,23 @@ if [[ $1 == "grunt" ]]
 then
   grunt $2
 fi
+
+#----------------------------------------------------------------------
+# update-files
+#----------------------------------------------------------------------
+if [[ $1 == "update-files" ]]
+then
+  echo "Pulling down files from staging"
+  cd $WEB_PATH
+  drush rsync @ds.staging @self -y
+fi
+
+#----------------------------------------------------------------------
+# update-db
+#----------------------------------------------------------------------
+if [[ $1 == "update-db" ]]
+then
+  echo "Pulling down db from staging"
+  cd $WEB_PATH
+  drush sql-sync @ds.staging @self -y
+fi
