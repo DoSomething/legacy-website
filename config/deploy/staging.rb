@@ -10,7 +10,7 @@ namespace :deploy do
   after :deploy, :symlink_shared do
     on roles(:app) do |host|
 
-      execute "cd '#{release_path}/html/sites/default'; sudo ln -s #{shared_path}/files files"
+      execute "cd '#{release_path}/html/sites/default'; sudo rm -rf files 2> /dev/null; sudo ln -s #{shared_path}/files files"
       execute "sudo ln -s #{shared_path}/settings.staging.php #{release_path}/html/sites/default/settings.staging.php"
     end
   end
