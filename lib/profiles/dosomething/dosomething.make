@@ -84,6 +84,12 @@ projects[dosomething_user][download][type] = local
 projects[dosomething_user][download][source] = './lib/modules/dosomething/dosomething_user'
 projects[dosomething_user][subdir] = "dosomething"
 
+; Dosomething Zendesk
+projects[dosomething_zendesk][type] = "module"
+projects[dosomething_zendesk][download][type] = local
+projects[dosomething_zendesk][download][source] = './lib/modules/dosomething/dosomething_zendesk'
+projects[dosomething_zendesk][subdir] = "dosomething"
+
 ; THEMES
 ; Paraneue Dosomething
 projects[paraneue_dosomething][type] = "theme"
