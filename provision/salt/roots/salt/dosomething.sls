@@ -5,6 +5,11 @@ drush-aliases:
     - name: /home/vagrant/.drush/ds.aliases.drushrc.php
     - source: salt://dosomething/ds.aliases.drushrc.php
 
+drush-policy:
+  file.managed:
+    - name: /home/vagrant/.drush/policy.drush.inc
+    - source: salt://dosomething/policy.drush.inc
+
 ssh-host-access:
   file.managed:
     - name: /home/vagrant/.ssh/config
