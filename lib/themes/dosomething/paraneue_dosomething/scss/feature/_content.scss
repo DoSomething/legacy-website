@@ -4,48 +4,48 @@
 // ----------------
 
 .wrapper {
-	background: $purple;
+  background: $purple;
 }
 
 .static_content--wrapper {
-	background: #fff;
+  background: #fff;
 
-	h2, h3, h4 {
+  h2, h3, h4 {
     color: $purple;
   }
 
-	.header--wrapper, .intro--wrapper, .cta--wrapper, .additional-text--wrapper, .gallery--wrapper {
-		@include media($tablet) {
-	    @include outer-container;
-	  }
-	}
-
-	.header--wrapper {
-		background: $purple;
-	}
-
-	.header {
-		h1.title, p.subtitle {
-			color: #fff;
-		}
-	}
-
-	.cta, .header, .intro, .additional-text {
-		@include media($tablet) {
-			@include span-columns(12);
-			@include shift(2);
+  .header--wrapper, .intro--wrapper, .cta--wrapper, .additional-text--wrapper, .gallery--wrapper {
+    @include media($tablet) {
+      @include outer-container;
     }
-	}
+  }
 
-	.gallery--wrapper {
-		background: $light-gray;
-	}
+  .header--wrapper {
+    background: $purple;
+  }
 
-	.gallery {
+  .header {
+    h1.title, p.subtitle {
+      color: #fff;
+    }
+  }
 
-	}
+  .cta, .header, .intro, .additional-text {
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+  }
 
-	.additional-text {
+  .gallery--wrapper {
+    background: $light-gray;
+  }
 
-	}
+  .gallery {
+
+  }
+
+  .additional-text {
+
+  }
 }
