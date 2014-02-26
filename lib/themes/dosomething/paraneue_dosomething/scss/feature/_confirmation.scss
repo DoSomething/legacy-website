@@ -1,0 +1,65 @@
+.confirmation--wrapper {
+
+  // --------
+  //  Layout
+  // --------
+
+  header.header,
+  section.campaigns {
+    overflow: auto;
+
+    .content {
+      @include media($tablet) {
+        @include span-columns(12);
+        @include shift(2);
+      }
+    }
+
+    .btn {
+      float: left;
+    }
+
+    .btn.secondary {
+      margin: 1.5rem 0 0 0;
+
+      a {
+        text-decoration: none;
+        color: #555;
+        display: block;
+      }
+    }
+  }
+
+
+  // ----------
+  //  Sections
+  // ----------
+
+  header.header {
+    padding: 144px 0 96px;
+    background: $purple;
+
+    h1, p {
+      color: #fff;
+    }
+  }
+
+  section.campaigns {
+    padding: 96px 0;
+
+    h3.title a {
+      text-decoration: none;
+    }
+  }
+
+  div.campaign {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+}
