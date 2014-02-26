@@ -4,6 +4,8 @@ github-access:
   file.managed:
     - name: /home/vagrant/.ssh/known_hosts
     - source: salt://ssh/known_hosts
+    - user: vagrant
+    - group: vagrant
     - require:
       - pkg: apache2
 
