@@ -27,48 +27,67 @@
 
   <h2 id="know" class="step-header"><span class="shift">Know It</span></h2>
   <section class="know step">
+
     <div class="col first">
       <h4>The Problem</h4>
-      <?php if (isset($fact_problem)): ?>
-      <p><?php print $fact_problem['fact']; ?></p>
-      <?php foreach ($fact_problem['sources'] as $source): ?>
-        <p class="legal">Source: <?php print $source; ?></p>
-      <?php endforeach; ?>
-      <?php endif; ?>
 
-      <?php if (isset($psa)): ?>
-        <?php print $psa; ?>
+      <?php if (isset($fact_problem)): ?>
+      <div class="fact-problem"><?php print $fact_problem['fact']; ?><sup>1</sup></div>
       <?php endif; ?>
     </div>
 
     <div class="col second">
       <h4>The Solution</h4>
+
+      <?php // @TODO - Print only one of these ?>
       <?php if (isset($fact_solution)): ?>
-      <p><?php print $fact_solution['fact']; ?></p>
-      <?php foreach ($fact_solution['sources'] as $source): ?>
-        <p class="legal">Source: <?php print $source; ?></p>
-      <?php endforeach; ?>
+      <div class="fact-solution"><?php print $fact_solution['fact']; ?></div>
       <?php endif; ?>
 
       <?php if (isset($solution_copy)): ?>
-      <div class="solution-copy"><?php print $solution_copy['safe_value']; ?></div>
+      <div class="solution-copy"><?php print $solution_copy['safe_value']; ?><sup>2</sup></div>
       <?php endif; ?>
 
       <?php if (isset($solution_support)): ?>
       <div class="solution-supporting-copy"><?php print $solution_support['safe_value']; ?></div>
       <?php endif; ?>
-
-      <?php if (isset($more_facts)): ?>
-      <?php foreach ($more_facts as $fact): ?>
-        <div>
-          <p><?php print $fact['fact']; ?></p>
-          <?php foreach ($fact['sources'] as $source): ?>
-            <p class="legal">Source: <?php print $source; ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endforeach; ?>
-      <?php endif; ?>
     </div>
+
+    <!-- @TODO - This is a mess. Clean it up after Aaron updates the fact counters -->
+
+    <div class="col sources">
+      <?php if (isset($fact_problem)): ?>
+      <div class="legal">
+        <strong>Sources:</strong>
+        <sup>1</sup>
+
+        <?php foreach ($fact_problem['sources'] as $source): ?>
+        <?php print $source; ?>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+
+      <?php if (isset($fact_solution)): ?>
+      <div class="legal">
+        <sup>2</sup>
+
+        <?php foreach ($fact_solution['sources'] as $source): ?>
+        <?php print $source; ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
+      </div>
+    </div>
+
+    <?php if (isset($more_facts)): ?>
+    <?php foreach ($more_facts as $fact): ?>
+      <div class="fact-more">
+        <div class="fact-more"><?php print $fact['fact']; ?></div>
+        <?php foreach ($fact['sources'] as $source): ?>
+          <div class="legal"><p>Source:</p><?php print $source; ?></div>
+        <?php endforeach; ?>
+      </div>
+    <?php endforeach; ?>
+    <?php endif; ?>
 
     <aside class="cached-modal">
       <?php if (isset($faq)): ?>
