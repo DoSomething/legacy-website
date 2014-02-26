@@ -493,7 +493,7 @@ function dosomething_reportback_save($entity, $values) {
       $params = array(
         'email' => $account->mail,
         'uid' => $account->uid,
-        'first_name' => '??',
+        'first_name' => dosomething_user_get_field('field_first_name', $account),
         'event_id' => '??',
         'impact_verb' => '??',
         'impact_number' => '??',

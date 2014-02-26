@@ -133,7 +133,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $params = array(
           'email' => $account->mail,
           'uid' => $account->uid,
-          'first_name' => '??',
+          'first_name' => dosomething_user_get_field('field_first_name', $account),
         );
         dosomething_user_send_message_request('user_register', $params);
       }
@@ -149,8 +149,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       $params = array(
         'email' => $account->mail,
         'uid' => $account->uid,
-        'first_name' => '??',
-        'reset_link' => '??',
+        'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'reset_link' => user_pass_reset_url($account),
       );
       dosomething_user_send_message_request('user_password', $params);
     break;
