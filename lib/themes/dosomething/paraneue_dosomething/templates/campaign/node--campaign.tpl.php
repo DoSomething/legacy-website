@@ -36,12 +36,27 @@
       <?php endif; ?>
 
       <?php if (isset($faq)): ?>
-      <a href="#modal-faq" class="js-modal-link">Learn more about <?php print $issue; ?></a>
+      <a href="#modal-faq" class="js-modal-link">Check out our FAQs</a>
       <div id="modal-faq" class="cached-modal">
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
         <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+
+      <?php if (isset($more_facts)): ?>
+      <a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a>
+      <div id="modal-facts" class="cached-modal">
+      <?php foreach ($more_facts as $fact): ?>
+        <div class="fact-more">
+          <div class="fact-more"><?php print $fact['fact']; ?></div>
+          <?php // @TODO: Output sources separately.  ?>
+          <?php foreach ($fact['sources'] as $source): ?>
+            <div class="legal"><p>Source:</p><?php print $source; ?></div>
+          <?php endforeach; ?>
+        </div>
+      <?php endforeach; ?>
       </div>
       <?php endif; ?>
 
@@ -88,17 +103,6 @@
       <?php endif; ?>
       </div>
     </div>
-
-    <?php if (isset($more_facts)): ?>
-    <?php foreach ($more_facts as $fact): ?>
-      <div class="fact-more">
-        <div class="fact-more"><?php print $fact['fact']; ?></div>
-        <?php foreach ($fact['sources'] as $source): ?>
-          <div class="legal"><p>Source:</p><?php print $source; ?></div>
-        <?php endforeach; ?>
-      </div>
-    <?php endforeach; ?>
-    <?php endif; ?>
 
   </section>
 
