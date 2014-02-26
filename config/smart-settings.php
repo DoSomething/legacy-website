@@ -20,7 +20,7 @@ $hostname = getenv('DS_HOSTNAME') ?: 'dev.dosomething.org';
 $insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
 
-if (!empty($insecure_port)) {
+if (!empty($insecure_port) && ($insecure_port != 80)) {
   $base_url = 'http://' . $hostname . ':' . $insecure_port;
 }
 else {
@@ -30,7 +30,7 @@ else {
 $conf['https'] = TRUE;
 $conf['securepages_basepath'] = $base_url;
 
-if (!empty($secure_port)) {
+if (!empty($secure_port) && ($insecure_port != 443)) {
   $conf['securepages_basepath_ssl'] = 'https://' . $hostname . ':' . $secure_port;
 }
 else {
