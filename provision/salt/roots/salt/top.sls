@@ -7,4 +7,5 @@ base:
     - install
     - composer
     - node
+    - dosomething
     - drush-ext
