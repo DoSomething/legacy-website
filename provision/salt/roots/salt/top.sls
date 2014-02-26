@@ -8,3 +8,4 @@ base:
     - composer
     - node
     - drush-ext
+    - dosomething
