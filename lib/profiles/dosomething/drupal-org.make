@@ -188,3 +188,7 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 ; DSAPI PHP Library
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
+
+; Zendesk PHP
+libraries[zendesk][download][type] = "git"
+libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
