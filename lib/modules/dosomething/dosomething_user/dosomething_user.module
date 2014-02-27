@@ -139,7 +139,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         dosomething_user_send_message_request('user_register', $params);
         // Sign user up for mobile commons
         if (module_exists('dosomething_singup')) {
-          dosomething_signup_mobilecommons_opt_in($account, 164905);
+          $opt_in = variable_get('dosomething_mobilecommons_general', 164905);
+          dosomething_signup_mobilecommons_opt_in($account, $opt_in);
         }
       }
 

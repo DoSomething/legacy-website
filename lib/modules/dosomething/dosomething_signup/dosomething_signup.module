@@ -8,6 +8,24 @@ include_once 'dosomething_signup.features.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_signup_menu() {
+  $items = array();
+
+  $items['admin/config/services/optins'] = array(
+    'title' => t('Third Party Opt-Ins'),
+    'description' => 'Admin form to manage custom opt-ins',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_optin_config'),
+    'access callback' => TRUE,
+    'file' => 'dosomething_signup.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
  * Insert a user signup.
  *
  * @param int $nid
@@ -253,7 +271,8 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
-    dosomething_signup_mobilecommons_opt_in($account, 164951, $node->title);
+    $opt_in = variable_get('dosomething_mobilecommons_campaign_general', 164951);
+    dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
     // Send external message request
     $params = array(
       'email' => $account->mail,

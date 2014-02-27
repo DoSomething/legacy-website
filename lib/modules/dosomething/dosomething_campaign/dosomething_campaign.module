@@ -448,6 +448,30 @@ function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
 }
 
 /**
+ * Returns all staff pick campaigns.
+ * @return array
+ *  Array of nids and titles of all published/unpublished staff picks.
+ */
+function dosomething_campaign_get_staff_picks() {
+ $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'campaign');
+  $query->innerJoin('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
+  $query->condition('field_staff_pick_value' , 1);
+  $results = $query->execute();
+
+  foreach($results as $key => $result) {
+    $staff_picks[$key]['nid'] = $result->nid;
+    $staff_picks[$key]['title'] = $result->title;
+  }
+  if ($staff_picks) {
+    return $staff_picks;
+  }
+  // If no staff picks, return null.
+  return NULL;
+}
+
+/**
  * Returns an EntityFieldQuery of recommended published campaigns for $uid.
  *
  * @param int $uid
