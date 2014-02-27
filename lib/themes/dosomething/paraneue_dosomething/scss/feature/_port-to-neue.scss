@@ -60,7 +60,7 @@ header.header {
   .nav--wrapper {
     .primary-nav a,
     .secondary-nav a {
-      color: #fff !important;
+      //color: #fff !important;
 
       &:hover {
         text-decoration: none;
@@ -72,8 +72,8 @@ header.header {
     }
 
     .secondary-nav input[type="search"] {
-      border: 1px solid #fff;
-      background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
+      //border: 1px solid #fff;
+      //background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
     }
   }
 
@@ -163,6 +163,11 @@ header.header {
   .slide.visible {
     display: block;
   }
+}
+
+// Navigation is not displaying on campaign pages
+.nav--wrapper {
+  z-index: 1;
 }
 
 // --------------------
