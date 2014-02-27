@@ -194,11 +194,37 @@ function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
 function dosomething_user_register_after_build($form, &$form_state) {
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title']);
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
+
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(What do we call you?)');
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
+
+
+  $form['field_birthdate'][LANGUAGE_NONE][0]['#theme_wrappers'] = array('form_element');
+  unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
+
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
-  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('[What do we call you?]');
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['class'] = array('js-validate');
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate'] = 'birthday';
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title_display'] = 'before';
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = 'Birthday';
+
+  $form['account']['mail']['#attributes']['class'] = array('js-validate');
+  $form['account']['mail']['#attributes']['data-validate'] = 'email';
+
   $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
-  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('[password]');
-  $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('[just double checking!]');
+  /* @TODO: Need client-side validation check for phone numbers. */
+  /* $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate'); */
+  /* $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone'; */
+
+  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('(password)');
+  $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
+  $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
+
+
+  $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('(just double checking!)');
+  /* $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate'); */
+  /* $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = 'password'; */
 
   return $form;
 }
