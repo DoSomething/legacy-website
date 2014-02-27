@@ -245,7 +245,7 @@ function deploy {
 
 #=== FUNCTION ==================================================================
 # NAME: composer
-# DESCRIPTION: Installs/Updates comopser dependencies
+# DESCRIPTION: Installs/Updates composer dependencies
 #===============================================================================
 function composer {
   if hash composer 2>/dev/null;

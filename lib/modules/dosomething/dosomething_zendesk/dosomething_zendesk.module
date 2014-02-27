@@ -138,12 +138,12 @@ function dosomething_zendesk_get_ticket_array($values) {
   $keys = array('email', 'subject', 'body');
   // Loop through $values to make sure all keys are present.
   foreach ($keys as $key) {
-    if (!isset($values['key'])) {
+    if (!isset($values[$key])) {
       // Return FALSE if key is not present.
       return FALSE;
     }
   }
-  // Return
+  // Return expected format for Ticket creation.
   return array(
     'requester' => array(
       'email' => $values['email'],
