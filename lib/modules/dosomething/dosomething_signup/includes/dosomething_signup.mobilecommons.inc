@@ -37,7 +37,7 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title) {
       // Expected format is YYYY-MM-DD.
       'person[date_of_birth]' => dosomething_user_get_birthdate('Y-m-d', $account),
       'person[first_name]' => dosomething_user_get_field('field_first_name', $account),
-      'person[email]' -> $account->mail,
+      'person[email]' => $account->mail,
     );
     return $MobileCommons->opt_in($args);
   }
