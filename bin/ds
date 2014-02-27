@@ -70,6 +70,9 @@ ds build [--install]
   --install
     Runs "drush site-install" to actually install the Drupal instance.
 
+ds composer
+  Installs libraries via Composer within the Drupal libraries directory.
+
 ds grunt [--watch]
   Installs Bower dependencies & compiles front-end assets (SCSS/JS) using Grunt.
 
@@ -115,6 +118,9 @@ function build {
   echo 'Linking themes'
   rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
   ln -s "$LIB_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+
+  echo 'Install composer dependencies'
+  composer
 
   echo 'Install bower dependencies'
   bower
@@ -238,6 +244,23 @@ function deploy {
 }
 
 #=== FUNCTION ==================================================================
+# NAME: composer
+# DESCRIPTION: Installs/Updates composer dependencies
+#===============================================================================
+function composer {
+  if hash composer 2>/dev/null;
+  then
+    cd $WEB_PATH/profiles/dosomething/libraries/zendesk
+    echo -e "\e[4mInstalling composer dependencies for Zendesk...\e[0m"
+    eval "/usr/local/bin/composer install"
+
+    cd $BASE_PATH
+
+  fi
+}
+
+
+#=== FUNCTION ==================================================================
 # NAME: bower
 # DESCRIPTION: Installs/Updates bower dependencies
 #===============================================================================
@@ -331,6 +354,14 @@ fi
 if [[ $1 == "deploy" ]]
 then
   deploy
+fi
+
+#----------------------------------------------------------------------
+# composer
+#----------------------------------------------------------------------
+if [[ $1 == "composer" ]]
+then
+  composer
 fi
 
 #----------------------------------------------------------------------

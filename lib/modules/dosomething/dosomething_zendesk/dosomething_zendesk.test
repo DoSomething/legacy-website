@@ -1,0 +1,36 @@
+<?php
+/**
+ * @file
+ * Tests for dosomething_zendesk.module.
+ */
+
+class DoSomethingZendeskUnitTestCase extends DrupalUnitTestCase {
+  // Required to test inside the DoSomething profile:
+  protected $profile = 'dosomething';
+
+  public static function getInfo() {
+    return array(
+      'name' => 'DoSomething Zendesk Unit Tests',
+      'description' => 'Unit tests for dosomething_zendesk module.',
+      'group' => 'DoSomething',
+    );
+  }
+
+  /**
+   * Test for dosomething_zendesk_get_ticket_array().
+   */
+  public function testGetTicketArray() {
+    // Initialize test values.
+    $values = array(
+      'email' => 'dosomething@example.com',
+      'subject' => 'Question about Batman',
+      'body' => "Hi, I was wondering why Batman is so awesome.",
+    );
+    $ticket = dosomething_zendesk_get_ticket_array($values);
+    $this->assertTrue(is_array($ticket), "An array was returned.");
+    $this->assertEqual($ticket['requester']['email'], $values['email']);
+    $this->assertEqual($ticket['subject'], $values['email']);
+    $this->assertEqual($ticket['comment']['body'], $values['body']);
+  }
+
+}

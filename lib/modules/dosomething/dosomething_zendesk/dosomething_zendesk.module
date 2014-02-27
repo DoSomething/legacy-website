@@ -4,9 +4,6 @@
  * Code for the DoSomething Zendesk module.
  */
 
-// Namespace to allow use of ZendeskAPI class.
-use Zendesk\API\Client as ZendeskAPI;
-
 /**
  * Implements hook_menu().
  */
@@ -29,10 +26,10 @@ function dosomething_zendesk_menu() {
 function dosomething_zendesk_libraries_info() {
   $libraries['zendesk'] = array(
     'name' => 'Zendesk',
-    'path' => 'lib',
+    'path' => 'vendor',
     'files' => array(
       'php' => array(
-        'ZenDesk.php'
+        'autoload.php'
       ),
     ),
     'version' => 1
@@ -51,7 +48,7 @@ function dosomething_zendesk_get_client() {
   $subdomain = variable_get('dosomething_zendesk_subdomain');
   $username = variable_get('dosomething_zendesk_username');
   $token = variable_get('dosomething_zendesk_token');
-  $client = new ZendeskAPI($subdomain, $username);
+  $client = new Zendesk\API\Client($subdomain, $username);
   $client->setAuth('token', $token);
   return $client;
 }
@@ -105,9 +102,9 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
  *   Whether or not API request was successful.
  */
 function dosomething_zendesk_create_ticket($values) {
-  if ($client = dosomething_zendesk_get_client()) {
-    // Get expected format for a create Ticket request.
-    $ticket = dosomething_zendesk_get_ticket_array($values);
+  // Get expected format for a create Ticket request.
+  $ticket = dosomething_zendesk_get_ticket_array($values);
+  if ($ticket && $client = dosomething_zendesk_get_client()) {
     // Submit API request to create ticket.
     try {
       $client->tickets()->create($ticket);
@@ -131,10 +128,22 @@ function dosomething_zendesk_create_ticket($values) {
  *     - subject: Subject of the ticket.
  *     - body: Body of the ticket.
  *
- * @return array
- *   An array with expected keys and values for the Zendesk Tickets API.
+ * @return mixed
+ *   FALSE if an expected key is not persent, otherwise an array with
+ *   expected keys and values for submitting to Zendesk Tickets API.
+ *
  */
 function dosomething_zendesk_get_ticket_array($values) {
+  // List expected array keys.
+  $keys = array('email', 'subject', 'body');
+  // Loop through $values to make sure all keys are present.
+  foreach ($keys as $key) {
+    if (!isset($values[$key])) {
+      // Return FALSE if key is not present.
+      return FALSE;
+    }
+  }
+  // Return expected format for Ticket creation.
   return array(
     'requester' => array(
       'email' => $values['email'],
