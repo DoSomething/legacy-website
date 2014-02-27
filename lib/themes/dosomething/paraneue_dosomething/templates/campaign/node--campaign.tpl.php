@@ -7,6 +7,7 @@
 
       <?php if (isset($sponsors)): ?>
       <div class="sponsor">
+        Powered by
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php print $sponsor['name']; ?>
           <?php // print $sponsor['img']; ?>
@@ -62,6 +63,17 @@
         </div>
       <?php endforeach; ?>
       </div>
+      <?php endif; ?>
+
+      <?php if (isset($partner_info)): ?>
+      <?php foreach ($partner_info as $delta => $partner): ?>
+        <a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">
+          Why we <3 <?php print $partner['name']; ?>
+        </a>
+        <div id="modal-partner-<?php print $delta; ?>" class="cached-modal">
+          <?php print $partner['copy']; ?>
+        </div>
+      <?php endforeach; ?>
       <?php endif; ?>
 
     </div>
@@ -238,6 +250,15 @@
       </div>
     <?php endif; ?>
     </div>
+
+    <?php if (isset($sponsors)): ?>
+    <div class="sponsor">
+      In partnership with
+      <?php foreach ($partners as $key => $partner) :?>
+        <?php print $partner['name']; ?>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
 
     <footer class="help">
       <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
