@@ -90,6 +90,10 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
+  if ($user == NULL) {
+    global $user;
+    $account = $user;
+  }
   $secure_url = '';
   if (module_exists('securepages')) {
     $secure_url = variable_get('securepages_basepath_ssl', NULL);
@@ -127,12 +131,30 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = $secure_url . '/user/register';
+        // Send external message request
+        $params = array(
+          'email' => $account->mail,
+          'uid' => $account->uid,
+          'first_name' => dosomething_user_get_field('field_first_name', $account),
+        );
+        dosomething_user_send_message_request('user_register', $params);
       }
 
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
 
+    break;
+
+    case 'user_pass':
+      // Send external message request
+      $params = array(
+        'email' => $account->mail,
+        'uid' => $account->uid,
+        'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'reset_link' => user_pass_reset_url($account),
+      );
+      dosomething_user_send_message_request('user_password', $params);
     break;
 
   }
@@ -390,6 +412,74 @@ function dosomething_user_clean_cell_number($number) {
     return FALSE;
   }
   return FALSE;
+}
+/**
+ * A request to send a message via the Message Broker library:
+ * https://github.com/DoSomething/messagebroker-phplib
+ *
+ * @param string $origin
+ *  Where the message request came from.
+ * @param array $params
+ *  Optional keyed array of data to send externally.
+ *  Common values:
+ *    - email
+ *    - uid
+ *
+ *  Values needed based on the $origin value:
+ *    - first_name
+ *    - reset_link
+ *    - event_id
+ *    - campaign_title
+ *    - call_to_action
+ *    - step_one
+ *    - step_two
+ *    - step_three
+ *    - impact_verb
+ *    - impact_number
+ *    - impact_noun
+ */
+function dosomething_user_send_message_request($origin, $params = NULL) {
+  $payload = array(
+    'activity' => $origin,
+    'email' => $params['email'],
+    'uid' => $params['uid'],
+  );
+  switch ($origin) {
+    case 'user_register':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+      );
+      break;
+    case 'user_password':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'RESET_LINK' => $params['reset_link'],
+      );
+      break;
+    case 'campaign_signup':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'CAMPAIGN_TITLE' => 'campaign_title',
+        'CALL_TO_ACTION' => $params['call_to_action'],
+        'STEP_ONE' => $params['step_one'],
+        'STEP_TWO' => $params['step_two'],
+        'STEP_THREE' => $params['step_three'],
+      );
+      break;
+    case 'campaign_reportback':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'IMPACT_VERB' => $params['impact_verb'],
+        'IMPACT_NUMBER' => $params['impact_number'],
+        'IMPACT_NOUN' => $params['impact_noun'],
+      );
+      break;
+  }
+  if (module_exists('message_broker_producer')) {
+    message_broker_producer_request('produceTransactional', $payload);
+  }
 }
 
 /**

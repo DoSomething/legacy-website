@@ -253,6 +253,19 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
     dosomething_signup_mobilecommons_opt_in($account, $node->title);
+    // Send external message request
+    $params = array(
+      'email' => $account->mail,
+      'uid' => $account->uid,
+      'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'event_id' => $node->nid,
+      'event_title' => $node->title,
+      'call_to_action' => '??',
+      'step_one' => '??',
+      'step_two' => '??',
+      'step_three' => '??',
+    );
+    dosomething_user_send_message_request('campaign_signup', $params);
     // Set success message.
     $message = t("You're signed up!") . '<br />';
     $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
