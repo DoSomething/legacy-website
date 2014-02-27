@@ -63,6 +63,9 @@
   // Wrapper for the campaign title, call to action
   // scholarship info., etc.
   div.meta {
+    position: absolute;
+    bottom: 0;
+
     @include media( $tablet ) {
       @include span-columns(12);
       @include shift(2);
@@ -73,18 +76,19 @@
   // metadata sourced from the node fields that
   // has the hero image applied to it
   header.header {
-    min-height: 600px;
-    padding: 250px 0 0;
+    position: relative;
     overflow: hidden;
+    min-height: 465px;
     background-repeat: no-repeat;
-    background-position: 43% 50%;
+    background-position: 50% 50%;
     background-size: cover;
 
-    background-image: url(https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7bbfd71b19c829a2b0feb38073cdb205/campaign-hero.jpg) !important;
+    background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/SxLIA2CviM86C6J/ZombieBloodDrive_square_gradient.jpg) !important;
     // @TODO - Remove this
 
     @include media( $tablet ) {
-      padding: 450px 0 100px;
+      min-height: 620px;
+      background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/If81HgDOniR1RN6/PositivityPages_landscape_gradient.jpg) !important;
     }
 
     input.btn {
