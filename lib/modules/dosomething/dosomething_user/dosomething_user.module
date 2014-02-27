@@ -138,6 +138,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
           'first_name' => dosomething_user_get_field('field_first_name', $account),
         );
         dosomething_user_send_message_request('user_register', $params);
+        // Sign user up for mobile commons
+        if (module_exists('dosomething_singup')) {
+          dosomething_signup_mobilecommons_opt_in($account, 164905);
+        }
       }
 
       // Custom validation & submission handlers.
