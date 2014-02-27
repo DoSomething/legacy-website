@@ -381,7 +381,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   else {
     // Render button as link to open up the login modal.
     $vars['signup_button'] = array(
-      '#markup' => '<a href="#modal-login" class="js-modal-link btn medium">' . $label . '</a>',
+      '#markup' => '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>',
     );
   }
 }
