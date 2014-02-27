@@ -4,11 +4,6 @@
  * Code for the DoSomething Zendesk module.
  */
 
-// @todo: Figure this out so we don't need to declare this.
-// This will break everything if the library is not installed.
-// Namespace to allow use of ZendeskAPI class.
-use Zendesk\API\Client as ZendeskAPI;
-
 /**
  * Implements hook_menu().
  */
@@ -53,7 +48,7 @@ function dosomething_zendesk_get_client() {
   $subdomain = variable_get('dosomething_zendesk_subdomain');
   $username = variable_get('dosomething_zendesk_username');
   $token = variable_get('dosomething_zendesk_token');
-  $client = new ZendeskAPI($subdomain, $username);
+  $client = new Zendesk\API\Client($subdomain, $username);
   $client->setAuth('token', $token);
   return $client;
 }
