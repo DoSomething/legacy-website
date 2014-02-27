@@ -238,8 +238,12 @@ function dosomething_campaign_preprocess_node(&$vars) {
     }
 
     if (isset($vars['field_partners'])) {
-      // Temp fix until we preprocess the field_partners field collection.
-      $vars['sponsors'] = array();
+      // Returns partners, sponsors, and partner_info arrays.
+      $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+      // Gather any returned arrays.
+      foreach ($partners_vars as $key => $values) {
+        $vars[$key] = $values;
+      }
     }
 
     if ($vars['view_mode'] == 'pitch') {
