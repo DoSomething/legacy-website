@@ -33,6 +33,13 @@ function dosomething_taxonomy_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'delete terms in image_tags'.
+  $permissions['delete terms in image_tags'] = array(
+    'name' => 'delete terms in image_tags',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'delete terms in issue'.
   $permissions['delete terms in issue'] = array(
     'name' => 'delete terms in issue',
@@ -64,6 +71,13 @@ function dosomething_taxonomy_user_default_permissions() {
   // Exported permission: 'edit terms in cause'.
   $permissions['edit terms in cause'] = array(
     'name' => 'edit terms in cause',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in image_tags'.
+  $permissions['edit terms in image_tags'] = array(
+    'name' => 'edit terms in image_tags',
     'roles' => array(),
     'module' => 'taxonomy',
   );
