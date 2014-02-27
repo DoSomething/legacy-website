@@ -10,9 +10,9 @@
 function dosomething_search_apachesolr_environments() {
   $export = array();
 
-  $host = variable_get('apachesolr_host', '10.179.104.149');
-  $port = variable_get('apachesolr_port', '8000');
-  $path = variable_get('apachesolr_path', '\\/sorl');
+  $host = variable_get('apachesolr_host', '192.168.1.169');
+  $port = variable_get('apachesolr_port', '8080');
+  $path = variable_get('apachesolr_path', 'solr/collection1');
 
   $environment = new stdClass();
   $environment->api_version = 1;
