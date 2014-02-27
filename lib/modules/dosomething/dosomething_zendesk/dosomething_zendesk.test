@@ -29,8 +29,29 @@ class DoSomethingZendeskUnitTestCase extends DrupalUnitTestCase {
     $ticket = dosomething_zendesk_get_ticket_array($values);
     $this->assertTrue(is_array($ticket), "An array was returned.");
     $this->assertEqual($ticket['requester']['email'], $values['email']);
-    $this->assertEqual($ticket['subject'], $values['email']);
+    $this->assertEqual($ticket['subject'], $values['subject']);
     $this->assertEqual($ticket['comment']['body'], $values['body']);
+    // Initialize test values missing expected 'email' key.
+    $values = array(
+      'subject' => 'Question about Batman',
+      'body' => "Hi, I was wondering why Batman is so awesome.",
+    );
+    $ticket = dosomething_zendesk_get_ticket_array($values);
+    $this->assertFalse($ticket, "FALSE was returned.");
+    // Initialize test values missing expected 'subject' key.
+    $values = array(
+      'email' => 'dosomething@example.com',
+      'body' => "Hi, I was wondering why Batman is so awesome.",
+    );
+    $ticket = dosomething_zendesk_get_ticket_array($values);
+    $this->assertFalse($ticket, "FALSE was returned.");
+    // Initialize test values missing expected 'body' key.
+    $values = array(
+      'email' => 'dosomething@example.com',
+      'subject' => 'Question about Batman',
+    );
+    $ticket = dosomething_zendesk_get_ticket_array($values);
+    $this->assertFalse($ticket, "FALSE was returned.");
   }
 
 }
