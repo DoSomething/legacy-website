@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Install/Update/Uninstall functions for dosomething_sms module
+ */
+
+/**
+ * Define the table schemas used for this module.
+ */
+function dosomething_sms_schema() {
+  $schema = array();
+
+  $schema['dosomething_sms_game'] = array(
+    'description' => 'Stores details to SMS games relative to a user / unique phone number.',
+    'fields' => array(
+      'game_id' => array(
+        'description' => 'Unique identifier for the game/quiz.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'phone' => array(
+        'description' => 'Phone number',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => true
+      ),
+      'started_paths' => array(
+        'description' => 'Serialized array of opt-in paths that the user has been sent to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+      'answers' => array(
+        'description' => 'Serialized struct of answers given by the user {optin-path: {array of answers}}',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+    ),
+  );
+
+  $schema['dosomething_sms_invite_records'] = array(
+    'description' => 'Stores alphas and betas who go through the SMS flow.',
+    'primary key' => array('sid'),
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The id of the record.',
+        'type' => 'serial',
+        'unsigned' => true,
+        'not null' => true,
+      ),
+      'alpha' => array(
+        'description' => 'The alpha\'s phone number.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+      ),
+      'beta' => array(
+        'description' => 'The beta\'s phone number.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+      ),
+      'type' => array(
+        'description' => 'The type of object that the beta has been invited to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+      'nid' => array(
+        'description' => 'The ID of the page / whatever that the person was invited to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'accepted_invite' => array(
+        'description' => 'Whether or not the user accepted the invitation.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'The time that it all began...',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      )
+    ),
+  );
+
+  return $schema;
+}
