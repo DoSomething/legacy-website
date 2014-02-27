@@ -67,3 +67,5 @@ dependencies[] = dosomething_signup
 dependencies[] = dosomething_static_content
 dependencies[] = dosomething_taxonomy
 dependencies[] = dosomething_user
+dependencies[] = dosomething_zendesk
+
