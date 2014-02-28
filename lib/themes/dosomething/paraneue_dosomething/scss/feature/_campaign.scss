@@ -65,7 +65,7 @@
   div.meta {
     width: 90%;
     position: absolute;
-    bottom: 0;
+    bottom: 1.5rem;
     left: 5%;
 
     @include media( $tablet ) {
@@ -146,6 +146,8 @@
       @include section-padding;
 
       @include media( $tablet ) {
+        padding: 0;
+
         @include shift(3);
       }
     }
@@ -162,6 +164,10 @@
     p,
     div {
       @include section-padding;
+
+      @include media( $tablet ) {
+        padding: 0;
+      }
     }
 
     div h3,
@@ -330,6 +336,7 @@
 
       @include media( $tablet ) {
         font-size: $font-large;
+        text-align: left;
       }
     }
     
@@ -347,16 +354,19 @@
     }
 
     .btn {
-      width: 255px;
+      width: 260px;
       display: block;
       margin: 0 auto;
 
       @include media( $tablet ) {
         margin: auto;
+        display: inline-block;
       }
     }
 
     .content {
+      margin-bottom: 3rem;
+
       @include media( $tablet ) {
         @include span-columns(5);
         @include shift(3);
@@ -378,6 +388,23 @@
       @include media( $tablet ) {
         margin: 0;
       }
+    }
+  }
+
+  footer.boilerplate {
+    padding: 0.5rem 1.5rem;
+    background: $off-black;
+    text-align: center;
+  }
+
+  footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+    padding: 1rem 1.5rem;
+    background: #000;
+    background: rgba(0, 0, 0, 0.3);
+    text-align: center;
+
+    p {
+      display: inline;
     }
   }
 
