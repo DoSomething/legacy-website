@@ -15,13 +15,13 @@ function dosomething_signup_optin_config($form, &$form_state){
   $form['dosomething_mobilecommons_general'] = array(
     '#type' => 'textfield',
     '#title' => t('Mobile Commons General Opt-In'),
-    '#default_value' => variable_get('dosomething_mobilecommons_general', 164905),
+    '#default_value' => variable_get('dosomething_mobilecommons_general'),
   );
 
   $form['dosomething_mobilecommons_campaign_general'] = array(
     '#type' => 'textfield',
     '#title' => t('Mobile Commons Campaigns Opt-In'),
-    '#default_value' => variable_get('dosomething_mobilecommons_campaign_general', 164951),
+    '#default_value' => variable_get('dosomething_mobilecommons_campaign_general'),
   );
 
   // Each staff pick could have a special opt-in for third party communications.

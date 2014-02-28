@@ -283,7 +283,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
-    $opt_in = variable_get('dosomething_mobilecommons_campaign_general', 164951);
+    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
     dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
     // Send external message request
     $params = array(
