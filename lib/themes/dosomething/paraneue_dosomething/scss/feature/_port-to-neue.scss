@@ -2,23 +2,26 @@
   padding: 0 1.5rem;
 }
 
+// Force wrapper to reach outer container
+.wrapper {
+  width: 100%;
+}
+
 header.header {
   h1.title {
     color: #fff;
-    font-size: 4rem;
+    font-size: $font-larger;
     text-align: center;
     line-height: 2rem;
-    font-size: $font-larger;
 
     @include media( $tablet ) {
-      font-size: $font-large;
+      font-size: $font-largest;
       text-align: left;
     }
   }
 
   p.cta {
     color: #fff !important;
-    font-size: 20px;
     text-align: center;
 
     @include media( $tablet ) {
@@ -72,9 +75,10 @@ header.header {
 .node-type-campaign {
 
   .nav--wrapper {
+    z-index: 1;
+
     .primary-nav a,
     .secondary-nav a {
-      //color: #fff !important;
 
       &:hover {
         text-decoration: none;
@@ -83,11 +87,6 @@ header.header {
           text-decoration: none;
         }
       }
-    }
-
-    .secondary-nav input[type="search"] {
-      //border: 1px solid #fff;
-      //background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
     }
   }
 
@@ -179,11 +178,6 @@ header.header {
   }
 }
 
-// Navigation is not displaying on campaign pages
-.nav--wrapper {
-  z-index: 1;
-}
-
 // --------------------
 //
 //  TYPOGRAPHY UPDATES
@@ -220,8 +214,7 @@ header.header {
 }
 
 // decrease base font size
-html {
-  font-size: 16px !important;
+body.node-type-campaign {
   
   p,
   div {
@@ -256,4 +249,5 @@ p {
 
 html {
   background: $dark-gray !important;
+  font-size: 16px !important;
 }
