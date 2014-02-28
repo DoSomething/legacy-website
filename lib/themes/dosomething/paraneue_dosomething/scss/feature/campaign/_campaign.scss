@@ -1,433 +1,72 @@
-// ----------
-//  CAMPAIGN
-// ----------
+overflow: hidden;
+background: #fff;
 
-.c--wrapper {
-  overflow: hidden;
-  background: #fff;
+@include media( $tablet ) {
+  @include outer-container;
+}
 
-  @include media( $tablet ) {
-    @include outer-container;
-  }
+// Full-width header that comes
+// immediately before each section.step
+h2.step-header {
+  margin: 0;
+  padding: 0;
+  background: $off-black;
+  color: #fff;
+  clear: both;
+  line-height: 4rem;
+  text-transform: uppercase;
 
-  // Primary persistent campaign navigation
-  // that is full-width on mobile and the left
-  // sidebar on desktop
-  nav.navigation {
-    position: sticky;
-
-    display: none !important;
-    // TODO - TEMPORARY
-
-    @include media( $tablet ) {
-      @include span-columns(2);
-    }
-
-    ul {
-      padding: 0.5rem 0 0.5rem 0;
-      background: #eee;
-    }
-
-    li {
-      text-align: center;
-      width: 100%;
-
-      &:last-child a {
-        border-bottom: none;
-      }
-    }
-
-    a {
-      display: block;
-      margin: 0 auto;
-      padding: 0.25rem 0;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: $font-medium;
-
-      &.plain {
-        color: #fff;
-      }
-
-      &.primary {
-        color: $blue;
-      }
-    }
-
-    .is-stuck {
-      top: 26px;
-    }
-  }
-
-  // Wrapper for the campaign title, call to action
-  // scholarship info., etc.
-  div.meta {
-    width: 90%;
-    position: absolute;
-    bottom: 1.5rem;
-    left: 5%;
+  .shift {
+    @include section-padding;
 
     @include media( $tablet ) {
-      width: 100%;
-      left: 0;
+      padding: 0;
 
-      @include span-columns(12);
       @include shift(3);
     }
   }
+}
 
-  // Campaign header containing that campaign's
-  // metadata sourced from the node fields that
-  // has the hero image applied to it
-  header.header {
-    position: relative;
-    overflow: hidden;
-    min-height: 465px;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
+// Campaign "step" wrapper that contains all campaign sections
+section.step {
+  margin: 1rem 0;
+  overflow: auto;
 
-    background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/SxLIA2CviM86C6J/ZombieBloodDrive_square_gradient.jpg) !important;
-    // @TODO - Remove this
+  h3,
+  h4,
+  p,
+  div {
+    @include section-padding;
 
     @include media( $tablet ) {
-      min-height: 620px;
-      background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/If81HgDOniR1RN6/PositivityPages_landscape_gradient.jpg) !important;
-    }
-
-    input.btn {
-      margin: 0 auto;
-      display: block;
-      width: 125px;
-      color: #fff;
-
-      @include media( $tablet ) {
-        float: left;
-      }
-    }
-
-    img.arrow {
-      position: relative;
-      left: 90px;
-      top: -15px;
-      display: block;
-      margin: 0 auto;
-
-      @include media( $tablet ) {
-        margin: 0;
-        top: 15px;
-        left: 20px;
-      }
-    }
-
-    p.scholarship {
-
-      @include media( $tablet ) {
-        margin: 0;
-        top: 25px;
-        left: 0;
-      }
+      padding: 0;
     }
   }
 
-  // Full-width header that comes
-  // immediately before each section.step
-  h2.step-header {
-    margin: 0;
-    padding: 0;
-    background: $off-black;
-    color: #fff;
-    clear: both;
-    line-height: 4rem;
-    text-transform: uppercase;
-
-    .shift {
-      @include section-padding;
-
-      @include media( $tablet ) {
-        padding: 0;
-
-        @include shift(3);
-      }
-    }
+  div h3,
+  div h4,
+  div p,
+  div div {
+    padding: 0 !important;
   }
 
-  // Campaign "step" wrapper that
-  // contains "Know It", "Plan It", etc.
-  section.step {
-    margin: 1rem 0;
-    overflow: auto;
-
-    h3,
-    h4,
-    p,
-    div {
-      @include section-padding;
-
-      @include media( $tablet ) {
-        padding: 0;
-      }
-    }
-
-    div h3,
-    div h4,
-    div p,
-    div div {
-      padding: 0 !important;
-    }
-
-    h3 {
-      color: $purple;
-      font-size: $font-large;
-    }
-
-    h4 {
-      color: $purple;
-      font-size: $font-medium;
-    }
-
-    li {
-      list-style-type: disc;
-      margin: 0 0 0 1.5rem;
-      padding: 0 0 0 0.25rem;
-
-      @include media( $tablet ) {
-        margin: 0 0 0 1rem;
-      }
-    }
+  h3 {
+    color: $purple;
+    font-size: $font-large;
   }
 
-  // Step 1
-  // Know It
-  .step.know {
-
-    .fact-problem {
-      margin: 0 0 1.5rem 0;
-    }
-
-    .solution-copy {
-      margin: 1.5rem 0 0 0;
-    }
+  h4 {
+    color: $purple;
+    font-size: $font-medium;
   }
 
-  // Step 2
-  // Plan It
-  .step.plan .intro {
-    margin-top: 1.5rem; // Creates a top margin for the first element because the section is headerless
+  li {
+    list-style-type: disc;
+    margin: 0 0 0 1.5rem;
+    padding: 0 0 0 0.25rem;
 
     @include media( $tablet ) {
-      @include span-columns(9);
-      @include shift(3);
-    }
-  }
-
-  .location-finder{
-    @include media( $tablet ) {
-      @include span-columns(11);
-      @include shift(3);
-    }
-
-    .border {
-      border: 1px solid $light-gray;
-      padding: 0 1.5rem 2rem;
-    }
-  }
-
-  // Step 3
-  // Do It
-  .step.do {
-
-    @include media( $tablet ) {
-      @include span-columns(9);
-      @include shift(3);
-    }
-
-    .pre,
-    .during {
-      @include media( $tablet ) {
-        border-bottom: 1px solid $light-gray;
-        margin: 0 0 2.5rem 0;
-      }
-    }
-
-    .tip-header-wrapper {
-      display: inline-block;
-      margin: 0 0 16px 0;
-      text-decoration: none;
-
-      a.tip-header {
-        position: relative;
-        text-decoration: none;
-      }
-
-      a.tip-header.active {
-        display: inline-block;
-        color: $off-black;
-
-        &:after {
-          content: "";
-          display: block;
-          width: 0;
-          height: 0;
-          position: absolute;
-          background: transparent;
-          border-top: 12px solid #fff;
-          border-left: 12px solid transparent;
-          border-right: 12px solid transparent;
-          border-bottom: none;
-          left: 33.333%;
-          top: 40px;
-        }
-      }
-
-      span.bullet {
-        display: inline-block;
-        padding: 0 0 0 0.5rem;
-
-        &:last-child {
-          display: none;
-        }
-      }
-    }
-
-    .tip-body-wrapper {
-      background: $light-gray;
-
-      @include media( $tablet ) {
-        margin: 0;
-      }
-    }
-
-    .tip-body {
-      display: none;
-      padding: 1rem !important;
-
-      &.active {
-        display: block;
-      }
-
-      &:first-child {
-        display: block;
-      }
-
-      p {
-        margin: 0 !important; // Override the default p margin
-      }
-    }
-
-    .post {
-      margin: 0 0 1rem 0;
-    }
-  }
-
-  // Step 4
-  // Prove It
-  .step.prove {
-    margin: 0;
-    overflow: hidden;
-    background-image: url(https://trello-attachments.s3.amazonaws.com/52efb2a8c56de7320e6ffc06/52e1724e23eeb26f4e9fc427/6e777d666be111dec7badaecb9bf18ac/polaroid-pattern.jpg);
-    // @TODO Remove this
-
-    h3.title {
-      color: #fff;
-      font-size: $font-large;
-      text-align: center;
-
-      @include media( $tablet ) {
-        font-size: $font-large;
-        text-align: left;
-      }
-    }
-    
-    div.copy {
-      color: #fff;
-      margin: 0 0 1rem 0;
-      color: #fff !important;
-      text-align: center;
-      font-size: $font-medium;
-
-      @include media( $tablet ) {
-        font-size: $font-regular;
-        text-align: left;
-      }
-    }
-
-    .btn {
-      width: 260px;
-      display: block;
-      margin: 0 auto;
-
-      @include media( $tablet ) {
-        margin: auto;
-        display: inline-block;
-      }
-    }
-
-    .content {
-      margin-bottom: 3rem;
-
-      @include media( $tablet ) {
-        @include span-columns(5);
-        @include shift(3);
-      }
-    }
-
-    .gallery {
-      margin: 2rem 0;
-
-      @include media( $tablet ) {
-        @include span-columns(6);
-        @include shift(1);
-      }
-    }
-
-    .slide-wrapper {
-      margin: 0 0 2rem 0;
-
-      @include media( $tablet ) {
-        margin: 0;
-      }
-    }
-  }
-
-  footer.boilerplate {
-    padding: 0.5rem 1.5rem;
-    background: $off-black;
-    text-align: center;
-  }
-
-  footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in place
-    padding: 1rem 1.5rem;
-    background: #000;
-    background: rgba(0, 0, 0, 0.3);
-    text-align: center;
-
-    p {
-      display: inline;
-    }
-  }
-
-  // Layout
-  // Layout classes that handles grid assignments
-  div.col.first {
-    @include media( $tablet ) {
-      @include span-columns(6);
-      @include shift(3);
-    }
-  }
-
-  div.col.second {
-    @include media( $tablet ) {
-      @include span-columns(6);
-      @include omega;
-    }
-  }
-
-  div.col.sources {
-    @include media( $tablet ) {
-      @include span-columns(12);
-      @include shift(3);
+      margin: 0 0 0 1rem;
     }
   }
 }

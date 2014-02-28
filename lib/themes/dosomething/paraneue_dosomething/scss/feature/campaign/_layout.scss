@@ -1,0 +1,21 @@
+// Layout classes that handles grid assignments
+div.col.first {
+  @include media( $tablet ) {
+    @include span-columns(6);
+    @include shift(3);
+  }
+}
+
+div.col.second {
+  @include media( $tablet ) {
+    @include span-columns(6);
+    @include omega;
+  }
+}
+
+div.col.sources {
+  @include media( $tablet ) {
+    @include span-columns(12);
+    @include shift(3);
+  }
+}

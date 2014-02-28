@@ -1,0 +1,69 @@
+// Step 4
+// Prove It
+.step.prove {
+  margin: 0;
+  overflow: hidden;
+  background-image: url(https://trello-attachments.s3.amazonaws.com/52efb2a8c56de7320e6ffc06/52e1724e23eeb26f4e9fc427/6e777d666be111dec7badaecb9bf18ac/polaroid-pattern.jpg);
+  // @TODO Remove this
+
+  h3.title {
+    color: #fff;
+    font-size: $font-large;
+    text-align: center;
+
+    @include media( $tablet ) {
+      font-size: $font-large;
+      text-align: left;
+    }
+  }
+  
+  div.copy {
+    color: #fff;
+    margin: 0 0 1rem 0;
+    color: #fff !important;
+    text-align: center;
+    font-size: $font-medium;
+
+    @include media( $tablet ) {
+      font-size: $font-regular;
+      text-align: left;
+    }
+  }
+
+  .btn {
+    width: 260px;
+    display: block;
+    margin: 0 auto;
+
+    @include media( $tablet ) {
+      margin: auto;
+      display: inline-block;
+    }
+  }
+
+  .content {
+    margin-bottom: 3rem;
+
+    @include media( $tablet ) {
+      @include span-columns(5);
+      @include shift(3);
+    }
+  }
+
+  .gallery {
+    margin: 2rem 0;
+
+    @include media( $tablet ) {
+      @include span-columns(6);
+      @include shift(1);
+    }
+  }
+
+  .slide-wrapper {
+    margin: 0 0 2rem 0;
+
+    @include media( $tablet ) {
+      margin: 0;
+    }
+  }
+}
