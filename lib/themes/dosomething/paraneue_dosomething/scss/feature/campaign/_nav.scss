@@ -1,0 +1,49 @@
+// Primary persistent campaign navigation
+// that is full-width on mobile and the left
+// sidebar on desktop
+nav.navigation {
+  position: sticky;
+
+  display: none !important;
+  // TODO - TEMPORARY
+
+  @include media( $tablet ) {
+    @include span-columns(2);
+  }
+
+  ul {
+    padding: 0.5rem 0 0.5rem 0;
+    background: #eee;
+  }
+
+  li {
+    text-align: center;
+    width: 100%;
+
+    &:last-child a {
+      border-bottom: none;
+    }
+  }
+
+  a {
+    display: block;
+    margin: 0 auto;
+    padding: 0.25rem 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: $font-medium;
+
+    &.plain {
+      color: #fff;
+    }
+
+    &.primary {
+      color: $blue;
+    }
+  }
+
+  .is-stuck {
+    top: 26px;
+  }
+}
