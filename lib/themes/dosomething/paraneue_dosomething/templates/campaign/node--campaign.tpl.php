@@ -238,10 +238,16 @@
       </div>
     <?php endif; ?>
     </div>
-  </section>
 
-  <?php if (isset($zendesk_form)): ?>
-  <?php //@todo: Modalize and link to me. ?>
-  <?php print render($zendesk_form); ?>
-  <?php endif; ?>
+    <footer class="help">
+      <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
+      <p>Have a Question?</p>
+      <a href="#">Email Us</a>
+
+      <?php if (isset($zendesk_form)): ?>
+      <?php //@todo: Modalize and link to me. ?>
+      <?php print render($zendesk_form); ?>
+      <?php endif; ?>
+    </footer>
+  </section>
 </section>
