@@ -234,9 +234,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280');
+      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280p');
       $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
-      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280');
+      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280p');
       $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
     }
 

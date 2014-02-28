@@ -49,12 +49,52 @@ function dosomething_image_image_default_styles() {
     ),
   );
 
+  // Exported image style: 1920x1280p.
+  $styles['1920x1280p'] = array(
+    'name' => '1920x1280p',
+    'label' => '1920x1280p',
+    'effects' => array(
+      3 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1920,
+          'height' => 1280,
+        ),
+        'weight' => 1,
+      ),
+      7 => array(
+        'label' => 'Overlay (watermark)',
+        'help' => 'Choose the file image you wish to use as an overlay, and position it in a layer on top of the canvas.',
+        'effect callback' => 'canvasactions_file2canvas_effect',
+        'dimensions passthrough' => TRUE,
+        'form callback' => 'canvasactions_file2canvas_form',
+        'summary theme' => 'canvasactions_file2canvas_summary',
+        'module' => 'imagecache_canvasactions',
+        'name' => 'canvasactions_file2canvas',
+        'data' => array(
+          'xpos' => 0,
+          'ypos' => 0,
+          'alpha' => 100,
+          'path' => '../lib/themes/dosomething/paraneue_dosomething/mask.png',
+        ),
+        'weight' => 3,
+      ),
+    ),
+  );
+
   // Exported image style: 300x300.
   $styles['300x300'] = array(
     'name' => '300x300',
     'label' => '300x300',
     'effects' => array(
-      1 => array(
+      2 => array(
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
