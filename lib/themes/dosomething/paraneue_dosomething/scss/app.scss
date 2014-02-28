@@ -23,8 +23,9 @@
 @import "feature/hide";
 
 // Campaign Pages
+@import "feature/campaign/campaign";
+
 .campaign--wrapper {
-  @import "feature/campaign/campaign";
   @import "feature/campaign/layout";
   @import "feature/campaign/header";
   @import "feature/campaign/footer";
