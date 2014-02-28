@@ -1,3 +1,6 @@
+// --------------------------
+//  Confirmation Page Styles
+// --------------------------
 .confirmation--wrapper {
 
   // --------
@@ -60,6 +63,31 @@
     img {
       width: 100%;
     }
+  }
+
+}
+
+// -----------------------------
+//  Global Navigation Overrides
+// -----------------------------
+body.page-node-confirmation {
+
+  .primary-nav a,
+  .secondary-nav a {
+    color: #fff !important;
+
+    &:hover {
+      text-decoration: none;
+
+      strong {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .secondary-nav input[type="search"] {
+    border: 1px solid #fff;
+    background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
   }
 
 }
