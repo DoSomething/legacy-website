@@ -257,6 +257,7 @@
     <?php endif; ?>
     </div>
 
+
     <?php if (isset($sponsors)): ?>
     <div class="sponsor">
       In partnership with
@@ -277,4 +278,5 @@
       <?php endif; ?>
     </footer>
   </section>
+
 </section>
