@@ -182,22 +182,22 @@
     <div class="pre">
       <h3><?php print $pre_step_header; ?></h3>
       <div><?php print $pre_step_copy['safe_value']; ?></div>
-    </div>
 
-    <div class="tips">
-      <?php if (isset($step_pre)) : ?>
-      <div class="tip-header-wrapper">
-      <?php foreach ($step_pre as $key=>$item): ?>
-        <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
-      <?php endforeach; ?>
-      </div>
+      <div class="tips">
+        <?php if (isset($step_pre)) : ?>
+        <div class="tip-header-wrapper">
+        <?php foreach ($step_pre as $key=>$item): ?>
+          <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+        <?php endforeach; ?>
+        </div>
 
-      <div class="tip-body-wrapper">
-      <?php foreach ($step_pre as $key=>$item): ?>
-        <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
-      <?php endforeach; ?>
+        <div class="tip-body-wrapper">
+        <?php foreach ($step_pre as $key=>$item): ?>
+          <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
+        <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
       </div>
-      <?php endif; ?>
     </div>
 
     <div class="during">
