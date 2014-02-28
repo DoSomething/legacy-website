@@ -35,6 +35,7 @@ dependencies[] = libraries
 dependencies[] = link
 dependencies[] = mailsystem
 dependencies[] = markdown
+dependencies[] = message_broker_producer
 dependencies[] = metatag
 dependencies[] = mobilecommons
 dependencies[] = module_filter

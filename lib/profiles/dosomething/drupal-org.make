@@ -73,10 +73,6 @@ projects[link][subdir] = "contrib"
 projects[mailsystem] = "2.34"
 projects[mailsystem][subdir] = "contrib"
 
-; Mandrill
-projects[mandrill] = "1.4"
-projects[mandrill][subdir] = "contrib"
-
 ; Markdown
 projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"
@@ -160,7 +156,7 @@ projects[conductor_sms][subdir] = "contrib"
 ; Message Broker Producer
 projects[message_broker_producer][type] = "module"
 projects[message_broker_producer][download][type] = "git"
-projects[message_broker_producer][url] = "https://github.com/DoSomething/message_broker_producer"
+projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
 projects[message_broker_producer][subdir] = "contrib"
 
 
