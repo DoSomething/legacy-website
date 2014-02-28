@@ -7,6 +7,7 @@
 
       <?php if (isset($sponsors)): ?>
       <div class="sponsor">
+        Powered by
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php print $sponsor['name']; ?>
           <?php // print $sponsor['img']; ?>
@@ -40,6 +41,7 @@
         <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
       </ul>
       <div id="modal-faq" class="cached-modal">
+        <a href="#" class="js-close-modal modal-close-button">×</a>
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
@@ -52,16 +54,29 @@
         <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
       </ul>
       <div id="modal-facts" class="cached-modal">
-      <?php foreach ($more_facts as $fact): ?>
-        <div class="fact-more">
-          <div class="fact-more"><?php print $fact['fact']; ?></div>
-          <?php // @TODO: Output sources separately.  ?>
-          <?php foreach ($fact['sources'] as $source): ?>
-            <div class="legal"><p>Source:</p><?php print $source; ?></div>
-          <?php endforeach; ?>
+        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <?php foreach ($more_facts as $fact): ?>
+          <div class="fact-more">
+            <div class="fact-more"><?php print $fact['fact']; ?></div>
+            <?php // @TODO: Output sources separately.  ?>
+            <?php foreach ($fact['sources'] as $source): ?>
+              <div class="legal"><p>Source:</p><?php print $source; ?></div>
+            <?php endforeach; ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+
+      <?php if (isset($partner_info)): ?>
+      <?php foreach ($partner_info as $delta => $partner): ?>
+        <a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">
+          Why we <3 <?php print $partner['name']; ?>
+        </a>
+        <div id="modal-partner-<?php print $delta; ?>" class="cached-modal">
+          <a href="#" class="js-close-modal modal-close-button">×</a>
+          <?php print $partner['copy']; ?>
         </div>
       <?php endforeach; ?>
-      </div>
       <?php endif; ?>
 
     </div>
@@ -213,7 +228,10 @@
       <div class="copy"><?php print $reportback_copy; ?></div>
 
       <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
-      <div id="modal-report-back" class="cached-modal"><?php print render($reportback_form); ?></div>
+      <div id="modal-report-back" class="cached-modal">
+        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <?php print render($reportback_form); ?>
+      </div>
     </div>
 
     <div class="js-carousel gallery">
@@ -239,6 +257,16 @@
     <?php endif; ?>
     </div>
 
+
+    <?php if (isset($sponsors)): ?>
+    <div class="sponsor">
+      In partnership with
+      <?php foreach ($partners as $key => $partner) :?>
+        <?php print $partner['name']; ?>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
     <footer class="help">
       <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
       <p>Have a Question?</p>
@@ -250,4 +278,5 @@
       <?php endif; ?>
     </footer>
   </section>
+
 </section>
