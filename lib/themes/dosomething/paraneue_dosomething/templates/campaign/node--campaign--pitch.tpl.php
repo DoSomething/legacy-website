@@ -1,4 +1,4 @@
-<section class="c--wrapper">
+<section class="campaign--wrapper">
   <header class="header <?php print $classes; ?>" <?php print (isset($hero_img_l_url) ? 'style="background:url(' . $hero_img_l_url . ');"' : ''); ?>>
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>

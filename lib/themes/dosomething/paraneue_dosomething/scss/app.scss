@@ -1,14 +1,13 @@
 //
-//   $$$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$\  $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\
-//   $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$$\  $$ |$$  _____|$$ |  $$ |$$  _____|
-//   $$ |  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$$$\ $$ |$$ |      $$ |  $$ |$$ |
-//   $$$$$$$  |$$$$$$$$ |$$$$$$$  |$$$$$$$$ |$$ $$\$$ |$$$$$\    $$ |  $$ |$$$$$\
-//   $$  ____/ $$  __$$ |$$  __$$< $$  __$$ |$$ \$$$$ |$$  __|   $$ |  $$ |$$  __|
-//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |\$$$ |$$ |      $$ |  $$ |$$ |
-//   $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ | \$$ |$$$$$$$$\ \$$$$$$  |$$$$$$$$\
-//   \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|
-//
-//
+//  $$$$$$$\   $$$$$$\  $$$$$$$\   $$$$$$\  $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\   $$$$$$$\   $$$$$$\  
+//  $$  __$$\ $$  __$$\ $$  __$$\ $$  __$$\ $$$\  $$ |$$  _____|$$ |  $$ |$$  _____|  $$  __$$\ $$  __$$\ 
+//  $$ |  $$ |$$ /  $$ |$$ |  $$ |$$ /  $$ |$$$$\ $$ |$$ |      $$ |  $$ |$$ |        $$ |  $$ |$$ /  \__|
+//  $$$$$$$  |$$$$$$$$ |$$$$$$$  |$$$$$$$$ |$$ $$\$$ |$$$$$\    $$ |  $$ |$$$$$\      $$ |  $$ |\$$$$$$\  
+//  $$  ____/ $$  __$$ |$$  __$$< $$  __$$ |$$ \$$$$ |$$  __|   $$ |  $$ |$$  __|     $$ |  $$ | \____$$\ 
+//  $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |\$$$ |$$ |      $$ |  $$ |$$ |        $$ |  $$ |$$\   $$ |
+//  $$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ | \$$ |$$$$$$$$\ \$$$$$$  |$$$$$$$$\   $$$$$$$  |\$$$$$$  |
+//  \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|  \_______/  \______/ 
+//  
 
 // Import paraneue's bower installation of Neue
 @import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/scss/helpers";
@@ -21,12 +20,23 @@
 
 // Staging Area for Neue
 @import "feature/port-to-neue";
+@import "feature/hide";
 
 // Campaign Pages
-@import "feature/campaign";
-@import "feature/pitch";
-@import "feature/action";
-@import "feature/confirmation";
+@import "feature/campaign/campaign";
+
+.campaign--wrapper {
+  @import "feature/campaign/layout";
+  @import "feature/campaign/header";
+  @import "feature/campaign/footer";
+  @import "feature/campaign/nav";
+
+  @import "feature/campaign/know";
+  @import "feature/campaign/plan";
+  @import "feature/campaign/do";
+  @import "feature/campaign/prove";
+  @import "feature/campaign/confirmation";
+}
 
 // Content Pages
 @import "feature/content";

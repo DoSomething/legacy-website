@@ -1,0 +1,86 @@
+// Step 3
+// Do It
+.step.do {
+
+  @include media( $tablet ) {
+    @include span-columns(9);
+    @include shift(3);
+  }
+
+  .pre,
+  .during {
+    @include media( $tablet ) {
+      border-bottom: 1px solid $light-gray;
+      margin: 0 0 2.5rem 0;
+    }
+  }
+
+  .tip-header-wrapper {
+    display: inline-block;
+    margin: 0 0 16px 0;
+    text-decoration: none;
+
+    a.tip-header {
+      position: relative;
+      text-decoration: none;
+    }
+
+    a.tip-header.active {
+      display: inline-block;
+      color: $off-black;
+
+      &:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        background: transparent;
+        border-top: 12px solid #fff;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: none;
+        left: 33.333%;
+        top: 40px;
+      }
+    }
+
+    span.bullet {
+      display: inline-block;
+      padding: 0 0 0 0.5rem;
+
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  .tip-body-wrapper {
+    background: $light-gray;
+
+    @include media( $tablet ) {
+      margin: 0;
+    }
+  }
+
+  .tip-body {
+    display: none;
+    padding: 1rem !important;
+
+    &.active {
+      display: block;
+    }
+
+    &:first-child {
+      display: block;
+    }
+
+    p {
+      margin: 0 !important; // Override the default p margin
+    }
+  }
+
+  .post {
+    margin: 0 0 1rem 0;
+  }
+}

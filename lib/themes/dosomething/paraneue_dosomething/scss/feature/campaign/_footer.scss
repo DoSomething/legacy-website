@@ -1,0 +1,16 @@
+footer.boilerplate {
+  padding: 0.5rem 1.5rem;
+  background: $off-black;
+  text-align: center;
+}
+
+footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+  padding: 1rem 1.5rem;
+  background: #000;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+
+  p {
+    display: inline;
+  }
+}
