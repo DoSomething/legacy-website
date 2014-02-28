@@ -100,9 +100,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
-      // After build form changes.
-      $form['#after_build'][] = 'paraneue_dosomething_login_after_build';
-
       // Add additional submission/validation/actions.
       $form['#action'] = $secure_url . '/user/login';
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
@@ -120,9 +117,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       // Add campaign data, if needed.
       _dosomething_user_add_campaign_data($form);
-
-      // After build form changes.
-      $form['#after_build'][] = 'paraneue_dosomething_register_after_build';
 
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {

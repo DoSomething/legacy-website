@@ -25,6 +25,9 @@ if( $form_id == "user_login_block" ) {
     '#markup' => '<p class="auth--toggle-link"><a href="/user/registration" data-cached-modal="#modal--register" class="js-modal-link">Create a DoSomething.org Account</a><br/><a href="/user/password">Forgot password?</a></p>',
     '#weight' => 500
   );
+
+  // After build form changes.
+  $form['#after_build'][] = 'paraneue_dosomething_login_after_build';
 }
 
 ?>
