@@ -42,8 +42,9 @@
     padding: 144px 0 96px;
     background: $purple;
 
-    h1, p {
-      color: #fff;
+    h1,
+    p {
+      color: #fff !important;
     }
   }
 
