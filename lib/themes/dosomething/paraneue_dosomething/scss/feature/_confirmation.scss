@@ -39,17 +39,41 @@
   // ----------
 
   header.header {
-    padding: 144px 0 96px;
+    padding: 96px 1.5rem 48px;
     background: $purple;
+
+    @include media($tablet) {
+      padding: 144px 0 96px;
+    }
 
     h1,
     p {
       color: #fff !important;
     }
+
+    h1 {
+      font-size: $font-larger;
+
+      @include media($tablet) {
+        font-size: $font-largest;
+      }
+    }
+
+    .btn.large {
+      font-size: $font-regular !important;
+
+      @include media($tablet) {
+        font-size: $font-medium;
+      }
+    }
   }
 
   section.campaigns {
-    padding: 96px 0;
+    padding: 0 1.5rem;
+
+    @include media($tablet) {
+      padding: 96px 0;
+    }
 
     h3.title a {
       text-decoration: none;
