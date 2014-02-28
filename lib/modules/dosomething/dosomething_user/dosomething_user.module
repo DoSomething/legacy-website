@@ -130,17 +130,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = $secure_url . '/user/register';
-        // Send external message request
-        $params = array(
-          'email' => $account->mail,
-          'uid' => $account->uid,
-          'first_name' => dosomething_user_get_field('field_first_name', $account),
-        );
-        dosomething_user_send_message_request('user_register', $params);
-        // Sign user up for mobile commons
-        if (module_exists('dosomething_singup')) {
-          dosomething_signup_mobilecommons_opt_in($account, 164905);
-        }
+        $form['#submit'][] = 'dosomething_user_new_user';
       }
 
       // Custom validation & submission handlers.
@@ -160,6 +150,26 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       dosomething_user_send_message_request('user_password', $params);
     break;
 
+  }
+}
+/**
+ * Custom new user login submission handler.
+ *
+ * Does actions after a new user has registered via the web.
+ * Sign user up for emails/texts.
+ */
+function dosomething_user_new_user($form, &$form_state) {
+  // Send external message request
+  $params = array(
+    'email' => $account->mail,
+    'uid' => $account->uid,
+    'first_name' => dosomething_user_get_field('field_first_name', $account),
+  );
+  dosomething_user_send_message_request('user_register', $params);
+  // Sign user up for mobile commons
+  if (module_exists('dosomething_signup')) {
+    $opt_in = variable_get('dosomething_mobilecommons_general');
+    dosomething_signup_mobilecommons_opt_in($account, $opt_in);
   }
 }
 

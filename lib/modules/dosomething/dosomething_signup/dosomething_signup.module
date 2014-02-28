@@ -8,6 +8,36 @@ include_once 'dosomething_signup.features.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_signup_menu() {
+  $items = array();
+
+  $items['admin/config/services/optins'] = array(
+    'title' => t('Third Party Opt-Ins'),
+    'description' => 'Admin form to manage custom opt-ins',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_optin_config'),
+    'access callback' => array('administer third party communication'),
+    'file' => 'dosomething_signup.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_signup_permission() {
+  return array(
+  'administer third party communication' =>  array(
+    'title' => t('Administer Third Party Communications'),
+    'description' => t('Manage Mobile Commons/MailChimp Opt-in IDs.'),
+  )
+);
+}
+
+/**
  * Insert a user signup.
  *
  * @param int $nid
@@ -253,7 +283,8 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
-    dosomething_signup_mobilecommons_opt_in($account, 164951, $node->title);
+    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
+    dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
     // Send external message request
     $params = array(
       'email' => $account->mail,
@@ -269,7 +300,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     dosomething_user_send_message_request('campaign_signup', $params);
     // Set success message.
     $message = t("You're signed up!") . '<br />';
-    $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
+    $message .= t("Get started with") . ' ' . $node->title . '  ' . t("below!");
     drupal_set_message($message);
   }
 }
