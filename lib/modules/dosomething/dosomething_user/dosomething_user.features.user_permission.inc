@@ -59,15 +59,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'access devel information'.
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: 'access site in maintenance mode'.
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
