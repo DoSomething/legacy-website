@@ -25,7 +25,7 @@
     </ul>
   </nav>
 
-  <h2 id="know" class="step-header"><span class="shift">Know It</span></h2>
+  <h2 id="know" class="step-header"><span class="shift">Step 1: Know It</span></h2>
   <section class="know step">
 
     <div class="col first">
@@ -36,7 +36,9 @@
       <?php endif; ?>
 
       <?php if (isset($faq)): ?>
-      <a href="#modal-faq" class="js-modal-link">Check out our FAQs</a>
+      <ul>
+        <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
+      </ul>
       <div id="modal-faq" class="cached-modal">
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
@@ -46,7 +48,9 @@
       <?php endif; ?>
 
       <?php if (isset($more_facts)): ?>
-      <a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a>
+      <ul>
+        <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
+      </ul>
       <div id="modal-facts" class="cached-modal">
       <?php foreach ($more_facts as $fact): ?>
         <div class="fact-more">
@@ -106,7 +110,7 @@
 
   </section>
 
-  <h2 id="plan" class="step-header"><span class="shift">Plan It</span></h2>
+  <h2 id="plan" class="step-header"><span class="shift">Step 2: Plan It</span></h2>
   <section class="plan step">
     <?php if (isset($starter)) : ?>
       <div class="intro"><?php print $starter['safe_value']; ?></div>
@@ -158,45 +162,54 @@
     <?php endif; ?>
   </section>
 
-  <h2 id="do" class="step-header"><span class="shift">Do It</span></h2>
+  <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
   <section class="do step">
-    <h3><?php print $pre_step_header; ?></h3>
-    <div><?php print $pre_step_copy['safe_value']; ?></div>
-
-    <?php if (isset($step_pre)) : ?>
-    <div class="tip-header-wrapper">
-    <?php foreach ($step_pre as $key=>$item): ?>
-      <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
-    <?php endforeach; ?>
+    <div class="pre">
+      <h3><?php print $pre_step_header; ?></h3>
+      <div><?php print $pre_step_copy['safe_value']; ?></div>
     </div>
 
-    <div class="tip-body-wrapper">
-    <?php foreach ($step_pre as $key=>$item): ?>
-      <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
-    <?php endforeach; ?>
-    </div>
-    <?php endif; ?>
+    <div class="tips">
+      <?php if (isset($step_pre)) : ?>
+      <div class="tip-header-wrapper">
+      <?php foreach ($step_pre as $key=>$item): ?>
+        <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+      <?php endforeach; ?>
+      </div>
 
-    <h3>Snap a Pic</h3>
-    <?php print $pic_step['safe_value']; ?>
-    <h4><?php print $post_step_header; ?></h4>
-    <div><?php print $post_step_copy; ?></div>
+      <div class="tip-body-wrapper">
+      <?php foreach ($step_pre as $key=>$item): ?>
+        <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
+      <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+    </div>
+
+    <div class="during">
+      <h3>Snap a Pic</h3>
+      <div><?php print $pic_step['safe_value']; ?></div>
+    </div>
+
+    <div class="post">
+      <h3><?php print $post_step_header; ?></h3>
+      <div><?php print $post_step_copy; ?></div>
+    </div>
 
     <!-- MODAL -->
     <?php if (isset($step_post)) : ?>
     <div class="cached-modal">
     <?php foreach ($step_post as $item): ?>
-    <h3><?php print $item['header']; ?></h3>
+    <h4><?php print $item['header']; ?></h4>
     <div><?php print $item['copy'] ?></div>
     <?php endforeach; ?>
     </div>
     <?php endif; ?>
   </section>
 
-  <h2 id="prove" class="step-header"><span class="shift">Prove It</span></h2>
+  <h2 id="prove" class="step-header"><span class="shift">Step 4: Prove It</span></h2>
   <section class="prove step">
     <div class="content">
-      <h2 class="title">Pics or It Didn't Happen</h2>
+      <h3 class="title">Pics or It Didn't Happen</h3>
       <div class="copy"><?php print $reportback_copy; ?></div>
 
       <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
@@ -225,10 +238,16 @@
       </div>
     <?php endif; ?>
     </div>
-  </section>
 
-  <?php if (isset($zendesk_form)): ?>
-  <?php //@todo: Modalize and link to me. ?>
-  <?php print render($zendesk_form); ?>
-  <?php endif; ?>
+    <footer class="help">
+      <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
+      <p>Have a Question?</p>
+      <a href="#">Email Us</a>
+
+      <?php if (isset($zendesk_form)): ?>
+      <?php //@todo: Modalize and link to me. ?>
+      <?php print render($zendesk_form); ?>
+      <?php endif; ?>
+    </footer>
+  </section>
 </section>

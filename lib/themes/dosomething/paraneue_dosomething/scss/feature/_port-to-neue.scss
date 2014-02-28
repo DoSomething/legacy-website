@@ -1,11 +1,24 @@
 @mixin section-padding {
-  // padding: 0 1.5rem;
+  padding: 0 1.5rem;
 }
 
 header.header {
   h1.title {
     color: #fff;
+    font-size: 4rem;
+    text-align: center;
+    line-height: 2rem;
     font-size: $font-larger;
+
+    @include media( $tablet ) {
+      font-size: $font-large;
+      text-align: left;
+    }
+  }
+
+  p.cta {
+    color: #fff !important;
+    font-size: 20px;
     text-align: center;
 
     @include media( $tablet ) {
@@ -13,9 +26,10 @@ header.header {
     }
   }
 
-  p.cta {
+  p.date {
+    color: #fff !important;
+    font-size: 14px;
     text-align: center;
-    color: $light-gray;
 
     @include media( $tablet ) {
       text-align: left;
@@ -203,4 +217,43 @@ header.header {
   font-size: 60%;
   display: inline-block;
   padding: 0 0.25rem;
+}
+
+// decrease base font size
+html {
+  font-size: 16px !important;
+  
+  p,
+  div {
+    color: #8a8d8d !important;
+  }
+
+  .legal {
+
+    p,
+    span,
+    sup,
+    strong {
+      color: $light-gray !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+h4 {
+  margin: 1.5rem 0 0.5rem 0 !important;
+}
+
+p {
+  margin: 0 0 1.5rem 0 !important;
+}
+
+// --------------------
+//
+//  GENERIC EL UPDATES
+//
+// --------------------
+
+html {
+  background: $dark-gray !important;
 }

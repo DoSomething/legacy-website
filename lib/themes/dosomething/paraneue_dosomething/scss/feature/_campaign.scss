@@ -63,12 +63,17 @@
   // Wrapper for the campaign title, call to action
   // scholarship info., etc.
   div.meta {
+    width: 90%;
     position: absolute;
-    bottom: 0;
+    bottom: 1.5rem;
+    left: 5%;
 
     @include media( $tablet ) {
+      width: 100%;
+      left: 0;
+
       @include span-columns(12);
-      @include shift(2);
+      @include shift(3);
     }
   }
 
@@ -134,24 +139,47 @@
     background: $off-black;
     color: #fff;
     clear: both;
+    line-height: 4rem;
+    text-transform: uppercase;
 
     .shift {
-      @include shift(3);
+      @include section-padding;
+
+      @include media( $tablet ) {
+        padding: 0;
+
+        @include shift(3);
+      }
     }
   }
 
   // Campaign "step" wrapper that
   // contains "Know It", "Plan It", etc.
   section.step {
-    @include section-padding;
+    margin: 1rem 0;
+    overflow: auto;
 
-    @include media( $tablet ) {
-      // @include span-columns(9);
-      // @include shift(2);
+    h3,
+    h4,
+    p,
+    div {
+      @include section-padding;
+
+      @include media( $tablet ) {
+        padding: 0;
+      }
     }
 
-    h4 {
-      font-size: $font-larger;
+    div h3,
+    div h4,
+    div p,
+    div div {
+      padding: 0 !important;
+    }
+
+    h3 {
+      color: $purple;
+      font-size: $font-large;
     }
 
     h4 {
@@ -161,24 +189,40 @@
 
     li {
       list-style-type: disc;
-      margin: 0 0 0 1rem;
+      margin: 0 0 0 1.5rem;
       padding: 0 0 0 0.25rem;
+
+      @include media( $tablet ) {
+        margin: 0 0 0 1rem;
+      }
+    }
+  }
+
+  // Step 1
+  // Know It
+  .step.know {
+
+    .fact-problem {
+      margin: 0 0 1.5rem 0;
+    }
+
+    .solution-copy {
+      margin: 1.5rem 0 0 0;
     }
   }
 
   // Step 2
   // Plan It
-  .plan .intro {
+  .step.plan .intro {
+    margin-top: 1.5rem; // Creates a top margin for the first element because the section is headerless
 
     @include media( $tablet ) {
       @include span-columns(9);
       @include shift(3);
     }
-
   }
 
   .location-finder{
-
     @include media( $tablet ) {
       @include span-columns(11);
       @include shift(3);
@@ -195,8 +239,16 @@
   .step.do {
 
     @include media( $tablet ) {
-      @include span-columns(12);
+      @include span-columns(9);
       @include shift(3);
+    }
+
+    .pre,
+    .during {
+      @include media( $tablet ) {
+        border-bottom: 1px solid $light-gray;
+        margin: 0 0 2.5rem 0;
+      }
     }
 
     .tip-header-wrapper {
@@ -211,6 +263,7 @@
 
       a.tip-header.active {
         display: inline-block;
+        color: $off-black;
 
         &:after {
           content: "";
@@ -239,12 +292,16 @@
     }
 
     .tip-body-wrapper {
-      padding: 1rem;
       background: $light-gray;
+
+      @include media( $tablet ) {
+        margin: 0;
+      }
     }
 
     .tip-body {
       display: none;
+      padding: 1rem !important;
 
       &.active {
         display: block;
@@ -253,21 +310,63 @@
       &:first-child {
         display: block;
       }
+
+      p {
+        margin: 0 !important; // Override the default p margin
+      }
+    }
+
+    .post {
+      margin: 0 0 1rem 0;
     }
   }
 
   // Step 4
   // Prove It
   .step.prove {
+    margin: 0;
     overflow: hidden;
     background-image: url(https://trello-attachments.s3.amazonaws.com/52efb2a8c56de7320e6ffc06/52e1724e23eeb26f4e9fc427/6e777d666be111dec7badaecb9bf18ac/polaroid-pattern.jpg);
     // @TODO Remove this
 
-    h2.title, div.copy {
+    h3.title {
       color: #fff;
+      font-size: $font-large;
+      text-align: center;
+
+      @include media( $tablet ) {
+        font-size: $font-large;
+        text-align: left;
+      }
+    }
+    
+    div.copy {
+      color: #fff;
+      margin: 0 0 1rem 0;
+      color: #fff !important;
+      text-align: center;
+      font-size: $font-medium;
+
+      @include media( $tablet ) {
+        font-size: $font-regular;
+        text-align: left;
+      }
+    }
+
+    .btn {
+      width: 260px;
+      display: block;
+      margin: 0 auto;
+
+      @include media( $tablet ) {
+        margin: auto;
+        display: inline-block;
+      }
     }
 
     .content {
+      margin-bottom: 3rem;
+
       @include media( $tablet ) {
         @include span-columns(5);
         @include shift(3);
@@ -282,9 +381,35 @@
         @include shift(1);
       }
     }
+
+    .slide-wrapper {
+      margin: 0 0 2rem 0;
+
+      @include media( $tablet ) {
+        margin: 0;
+      }
+    }
   }
 
-  // Layout class that handles grid assignments
+  footer.boilerplate {
+    padding: 0.5rem 1.5rem;
+    background: $off-black;
+    text-align: center;
+  }
+
+  footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+    padding: 1rem 1.5rem;
+    background: #000;
+    background: rgba(0, 0, 0, 0.3);
+    text-align: center;
+
+    p {
+      display: inline;
+    }
+  }
+
+  // Layout
+  // Layout classes that handles grid assignments
   div.col.first {
     @include media( $tablet ) {
       @include span-columns(6);
@@ -304,9 +429,5 @@
       @include span-columns(12);
       @include shift(3);
     }
-  }
-
-  section.step {
-    // @include section-padding;
   }
 }
