@@ -16,7 +16,22 @@
   }
 
   .pre {
-    padding: 0 0 2rem 0;
+    @include section-padding;
+
+
+    @include media( $tablet ) {
+      border-bottom: 1px solid $light-gray;
+      margin: 0 0 2.5rem 0;
+      padding: 0 0 2rem 0;
+    }
+  }
+
+  .tips {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+    }
   }
 
   .post {
