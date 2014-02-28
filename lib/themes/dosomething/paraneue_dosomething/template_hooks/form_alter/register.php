@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Registration modal markup.
+ */
+if ( $form_id == "user_register_form" ) {
+  $form['#attributes']['class'] = 'auth--register';
+
+  $form['modal-close-button'] = array(
+    '#type' => 'item',
+    '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>',
+    '#weight' => -200
+  );
+
+  $form['message'] = array(
+    '#type' => 'item',
+    '#markup' => '<h2 class="auth--header">Create a DoSomething.org account to get started!</h2>',
+    '#weight' => -199
+  );
+
+  $form['create-account-link'] = array(
+    '#type' => 'item',
+    '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-cached-modal="#modal--login" class="js-modal-link">Login to an existing account</a></p>',
+    '#weight' => 500
+  );
+}
+
+?>
