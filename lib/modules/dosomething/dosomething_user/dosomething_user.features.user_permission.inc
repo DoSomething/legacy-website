@@ -59,6 +59,15 @@ function dosomething_user_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'access devel information'.
+  $permissions['access devel information'] = array(
+    'name' => 'access devel information',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
+  );
+
   // Exported permission: 'access site in maintenance mode'.
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
@@ -75,6 +84,13 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: 'access user profiles'.
+  $permissions['access user profiles'] = array(
+    'name' => 'access user profiles',
+    'roles' => array(),
+    'module' => 'user',
   );
 
   // Exported permission: 'administer actions'.
@@ -149,6 +165,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'image',
   );
 
+  // Exported permission: 'administer languages'.
+  $permissions['administer languages'] = array(
+    'name' => 'administer languages',
+    'roles' => array(),
+    'module' => 'locale',
+  );
+
   // Exported permission: 'administer mailsystem'.
   $permissions['administer mailsystem'] = array(
     'name' => 'administer mailsystem',
@@ -156,6 +179,15 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'mailsystem',
+  );
+
+  // Exported permission: 'administer mobilecommons'.
+  $permissions['administer mobilecommons'] = array(
+    'name' => 'administer mobilecommons',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mobilecommons',
   );
 
   // Exported permission: 'administer module filter'.
@@ -202,6 +234,13 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'administer search'.
+  $permissions['administer search'] = array(
+    'name' => 'administer search',
+    'roles' => array(),
+    'module' => 'search',
   );
 
   // Exported permission: 'administer site configuration'.
@@ -258,6 +297,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'administer uuid'.
+  $permissions['administer uuid'] = array(
+    'name' => 'administer uuid',
+    'roles' => array(),
+    'module' => 'uuid',
+  );
+
   // Exported permission: 'administer views'.
   $permissions['administer views'] = array(
     'name' => 'administer views',
@@ -283,6 +329,13 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'change own username'.
+  $permissions['change own username'] = array(
+    'name' => 'change own username',
+    'roles' => array(),
+    'module' => 'user',
   );
 
   // Exported permission: 'create url aliases'.
