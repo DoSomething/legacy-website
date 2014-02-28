@@ -100,17 +100,12 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
-      // Form specific helper text.
-      $form['name']['#title'] = 'Email or Cell Number';
-      $form['pass']['#attributes']['placeholder'] = t('[password]');
-
       // Add additional submission/validation/actions.
       $form['#action'] = $secure_url . '/user/login';
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
 
       // Helper text & additional data.
-      _dosomething_user_login_shared_helper_text($form);
       _dosomething_user_add_campaign_data($form);
 
     break;
@@ -118,14 +113,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     case 'user_profile_form':
     case 'user_register_form':
       // Gather helper text.
-      _dosomething_user_login_shared_helper_text($form);
       _dosomething_user_register_helper_text($form);
 
       // Add campaign data, if needed.
       _dosomething_user_add_campaign_data($form);
-
-      // After build form changes.
-      $form['#after_build'][] = 'dosomething_user_register_after_build';
 
       // Force action to post to the secure user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
@@ -218,55 +209,6 @@ function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
 }
 
 /**
- * Custom afterbuild on registration form.
- *
- * @param array - $form
- *  A drupal form array.
- * @param array - $form_state
- *  A drupal form_state array.
- *
- * @return - array - $form
- *  Modified drupal form.
- */
-function dosomething_user_register_after_build($form, &$form_state) {
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title']);
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
-
-  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(What do we call you?)');
-  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
-  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
-
-
-  $form['field_birthdate'][LANGUAGE_NONE][0]['#theme_wrappers'] = array('form_element');
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
-
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['class'] = array('js-validate');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate'] = 'birthday';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title_display'] = 'before';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = 'Birthday';
-
-  $form['account']['mail']['#attributes']['class'] = array('js-validate');
-  $form['account']['mail']['#attributes']['data-validate'] = 'email';
-
-  $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
-  /* @TODO: Need client-side validation check for phone numbers. */
-  /* $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate'); */
-  /* $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone'; */
-
-  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('(password)');
-  $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
-  $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
-
-
-  $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('(just double checking!)');
-  /* $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate'); */
-  /* $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = 'password'; */
-
-  return $form;
-}
-
-/**
  * Add hidden campaign nid to signup/registration form.
  *
  * @param array $form
@@ -289,18 +231,6 @@ function _dosomething_user_add_campaign_data(&$form) {
 }
 
 /**
- * Registration/login shared field updates.
- *
- * @param array - $form
- *  A drupal form.
- */
-function _dosomething_user_login_shared_helper_text(&$form) {
-  // Helper text and such.
-  unset($form['name']['#description']);
-  unset($form['pass']['#description']);
-}
-
-/**
  * Registration helper text.
  *
  * @param array $form
@@ -312,12 +242,6 @@ function _dosomething_user_register_helper_text(&$form) {
     $form['account']['name']['#type'] = 'hidden';
     $form['account']['name']['#value'] = user_password();
   }
-  unset($form['account']['mail']['#description']);
-  unset($form['account']['pass']['#description']);
-  $form['field_first_name']['#weight'] = '-20';
-  $form['field_birthdate']['#weight'] = '-19';
-  $form['account']['mail']['#title'] = t('Email');
-  $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
 }
 
 /**
@@ -340,7 +264,7 @@ function dosomething_user_login_validate($form, &$form_state) {
   }
 }
 /**
- * Addictional user registration validation hook.
+ * Additional user registration validation hook.
  *
  * Clean user data on registration.
  * @see dosomething_user_form_alter()

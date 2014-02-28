@@ -1,15 +1,20 @@
 <?php
 
+include 'template_hooks/preprocess_page/html5shiv.php';
+include 'template_hooks/form_alter/login.php';
+include 'template_hooks/form_alter/register.php';
+
 /**
- * Implements hook_js_alter().
+ * Implements hook_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars, $hook) {
-  $html5shiv = array(
-    '#type' => 'markup',
-    '#markup' => '<!--[if lte IE 8]> <script type="text/javascript" src="' . NEUE_PATH . '/bower_components/dist/html5shiv.js' . '"></script> <![endif]-->'
-  );
-
-  drupal_add_html_head($html5shiv, 'html5shiv');
+  paraneue_dosomething_preprocess_page_html5shiv($vars, $hook);
 }
 
-?>
+/**
+ * Implements hook_form_alter();
+ */
+function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
+  paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
+  paraneue_dosomething_form_alter_register($form, $form_state, $form_id);
+}
