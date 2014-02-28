@@ -21,12 +21,20 @@
 
 // Staging Area for Neue
 @import "feature/port-to-neue";
+@import "feature/hide";
 
 // Campaign Pages
-@import "feature/campaign";
-@import "feature/pitch";
-@import "feature/action";
-@import "feature/confirmation";
+.c--wrapper {
+  @import "feature/campaign/campaign";
+  @import "feature/campaign/do";
+  @import "feature/campaign/header";
+  @import "feature/campaign/know";
+  @import "feature/campaign/plan";
+  @import "feature/campaign/prove";
+  @import "feature/campaign/confirmation";
+  @import "feature/campaign/footer";
+  @import "feature/campaign/layout";
+}
 
 // Content Pages
 @import "feature/content";
