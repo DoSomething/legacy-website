@@ -1,0 +1,49 @@
+.auth--login { 
+  .form-actions {
+    text-align: center;
+  }
+}
+
+.auth--register {
+  .field-label-optional {
+    color: $light-gray;
+  }
+
+  .form-actions {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .field-name-field-first-name {
+    @include media($tablet) {
+      float: left;
+      width: 50%;
+      padding-right: 0.5rem;
+      @include box-sizing(border-box);
+    }
+  }
+
+  .field-name-field-birthdate {
+    @include media($tablet) {
+      float: left;
+      width: 50%;
+      padding-left: 0.5rem;
+      @include box-sizing(border-box);
+    }
+  }
+}
+
+.auth--header {
+  text-align: center;
+  padding: 0 1rem;
+
+  @include media($tablet) {
+    padding: 0 3rem;
+  }
+}
+
+.auth--toggle-link {
+  text-align: center;
+  margin: 1rem 0;
+}
+
