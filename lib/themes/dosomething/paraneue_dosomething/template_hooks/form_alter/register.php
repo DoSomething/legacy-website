@@ -1,16 +1,10 @@
 <?php
 
 /**
- * Registration modal markup.
+ * Registration form & modal markup.
  */
 if ( $form_id == "user_register_form" ) {
   $form['#attributes']['class'] = 'auth--register';
-
-  $form['modal-close-button'] = array(
-    '#type' => 'item',
-    '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>',
-    '#weight' => -200
-  );
 
   $form['message'] = array(
     '#type' => 'item',
