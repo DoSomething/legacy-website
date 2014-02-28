@@ -10,20 +10,18 @@
 header.header {
   h1.title {
     color: #fff;
-    font-size: 4rem;
+    font-size: $font-larger;
     text-align: center;
     line-height: 2rem;
-    font-size: $font-larger;
 
     @include media( $tablet ) {
-      font-size: $font-large;
+      font-size: $font-largest;
       text-align: left;
     }
   }
 
   p.cta {
     color: #fff !important;
-    font-size: 20px;
     text-align: center;
 
     @include media( $tablet ) {
@@ -217,7 +215,6 @@ header.header {
 
 // decrease base font size
 body.node-type-campaign {
-  font-size: 16px !important;
   
   p,
   div {
@@ -252,4 +249,5 @@ p {
 
 html {
   background: $dark-gray !important;
+  font-size: 16px !important;
 }
