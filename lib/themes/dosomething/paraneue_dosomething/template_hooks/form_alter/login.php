@@ -1,16 +1,10 @@
 <?php
 
 /**
- * Login form markup (see `dosomething_user` module). 
+ * Login form & modal markup.
  */
-if( $form_id == "user_login_block" ) {
+if( $form_id == "user_login_block" || $form_id == 'user_login' ) {
   $form['#attributes']['class'] = 'auth--login';
-
-  $form['modal-close-button'] = array(
-    '#type' => 'item',
-    '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>',
-    '#weight' => -200
-  );
 
   $form['message'] = array(
     '#type' => 'item',
@@ -29,5 +23,6 @@ if( $form_id == "user_login_block" ) {
   // After build form changes.
   $form['#after_build'][] = 'paraneue_dosomething_login_after_build';
 }
+
 
 ?>
