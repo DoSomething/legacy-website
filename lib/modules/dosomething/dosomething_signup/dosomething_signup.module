@@ -300,7 +300,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     dosomething_user_send_message_request('campaign_signup', $params);
     // Set success message.
     $message = t("You're signed up!") . '<br />';
-    $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
+    $message .= t("Get started with") . ' ' . $node->title . '  ' . t("below!");
     drupal_set_message($message);
   }
 }
