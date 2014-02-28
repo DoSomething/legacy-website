@@ -25,14 +25,16 @@
 // Campaign Pages
 .campaign--wrapper {
   @import "feature/campaign/campaign";
-  @import "feature/campaign/do";
+  @import "feature/campaign/layout";
   @import "feature/campaign/header";
+  @import "feature/campaign/footer";
+  @import "feature/campaign/nav";
+
   @import "feature/campaign/know";
   @import "feature/campaign/plan";
+  @import "feature/campaign/do";
   @import "feature/campaign/prove";
   @import "feature/campaign/confirmation";
-  @import "feature/campaign/footer";
-  @import "feature/campaign/layout";
 }
 
 // Content Pages
