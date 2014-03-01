@@ -240,14 +240,14 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
     }
 
-    if (!empty($vars['field_partners'])) {
-      // Returns partners, sponsors, and partner_info arrays.
-      $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
-      // Gather any returned arrays.
-      foreach ($partners_vars as $key => $values) {
-        $vars[$key] = $values;
-      }
-    }
+    // if (isset($node->field_partners[LANGUAGE_NONE][0])) {
+    //   // Returns partners, sponsors, and partner_info arrays.
+    //   $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+    //   // Gather any returned arrays.
+    //   foreach ($partners_vars as $key => $values) {
+    //     $vars[$key] = $values;
+    //   }
+    // }
 
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
