@@ -26,7 +26,7 @@ projects[diff] = "3.2"
 projects[diff][subdir] = "contrib"
 
 ; Entity
-projects[entity] = "1.2"
+projects[entity] = "1.3"
 projects[entity][subdir] = "contrib"
 
 ; Entity Connect
@@ -42,8 +42,11 @@ projects[features] = "2.0-rc5"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-projects[field_collection] = "1.0-beta5"
 projects[field_collection][subdir] = "contrib"
+projects[field_collection][download][type] = "git"
+projects[field_collection][download][branch] = "7.x-1.x"
+; Contains fix for https://drupal.org/node/1776424
+projects[field_collection][download][revision] = "0fd332e7ce5fdd7ba13da059123908befc9d1824"
 
 ; Field Group
 projects[field_group] = "1.3"
