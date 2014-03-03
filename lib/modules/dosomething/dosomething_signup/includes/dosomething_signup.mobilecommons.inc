@@ -8,7 +8,7 @@
  * @param string $title
  *   The campaign title the user has signed up for.
  */
-function dosomething_signup_mobilecommons_opt_in($account, $lid, $title) {
+function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) {
   // Make sure mobilecommons module is enabled.
   if (!module_exists('mobilecommons')) { return; }
 
