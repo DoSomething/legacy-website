@@ -6,7 +6,6 @@ dependencies[] = admin_menu
 dependencies[] = block
 dependencies[] = ctools
 dependencies[] = date
-dependencies[] = devel
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
