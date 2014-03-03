@@ -53,7 +53,7 @@ function dosomething_user_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -87,7 +87,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 1,
     ),
   );
 
@@ -121,7 +121,44 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_under_thirteen'
+  $field_instances['user-user-field_under_thirteen'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_under_thirteen',
+    'label' => 'Under Thirteen',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 4,
     ),
   );
 
@@ -130,6 +167,7 @@ function dosomething_user_field_default_field_instances() {
   t('Birthday');
   t('Cell #');
   t('First Name');
+  t('Under Thirteen');
 
   return $field_instances;
 }
