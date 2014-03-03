@@ -63,6 +63,23 @@ function dosomething_taxonomy_get_partners_vars($nid) {
 }
 
 /**
+ * Implements hook_field_collection_is_empty_alter().
+ */
+function dosomething_taxonomy_field_collection_is_empty_alter(&$is_empty, $item) {
+  // If this is the field_partners field collection:
+  if ($item->field_name == 'field_partners') {
+    // If a Partner Term exists.
+    if (isset($item->field_partner[LANGUAGE_NONE][0]['target_id'])) {
+      // If no value exists, consider this field collection empty.
+      $is_empty = empty($item->field_partner[LANGUAGE_NONE][0]['target_id']);
+      return;
+    }
+    // Else assume this is an empty field collection.
+    $is_empty = TRUE;
+  }
+}
+
+/**
  * Implements hook_taxonomy_term_view().
  */
 function dosomething_taxonomy_taxonomy_term_view($term, $view_mode, $langcode) {
