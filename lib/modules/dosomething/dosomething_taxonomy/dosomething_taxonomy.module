@@ -4,6 +4,8 @@
  * Code for the DoSomething Taxonomy feature.
  */
 
+include_once 'dosomething_taxonomy.features.inc';
+
 /**
  * Returns array of values of sponsor data.
  *
