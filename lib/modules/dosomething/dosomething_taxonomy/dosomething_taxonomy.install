@@ -6,5 +6,5 @@
 function dosomething_taxonomy_update_7001(&$sandbox) {
   $field_name = "field_partners";
   field_delete_field($field_name);
-  field_purge_batch(10);
+  field_purge_batch(2000);
 }
