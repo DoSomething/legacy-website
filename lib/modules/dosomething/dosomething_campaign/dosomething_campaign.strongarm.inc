@@ -27,6 +27,9 @@ function dosomething_campaign_strongarm() {
         'metatags' => array(
           'weight' => '10',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),
