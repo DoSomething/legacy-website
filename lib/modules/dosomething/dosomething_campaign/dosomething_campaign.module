@@ -285,9 +285,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (isset($fact_solution)) {
     $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_solution);
   }
-
-  $more_facts = $wrapper->field_facts->value();
-  if (isset($more_facts)) {
+  if ($wrapper->field_facts->count() > 0) {
     $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
   }
 
