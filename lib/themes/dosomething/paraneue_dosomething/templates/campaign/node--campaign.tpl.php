@@ -182,7 +182,7 @@
   <section class="do step">
     <div class="pre">
       <?php if (isset($pre_step_header)): ?><h3><?php print $pre_step_header; ?></h3><?php endif; ?>
-      <?php if (isset($pre_step_copy)): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
+      <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
       <div class="tips">
         <?php if (isset($step_pre)) : ?>
