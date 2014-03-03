@@ -122,6 +122,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#submit'][] = 'dosomething_user_new_user';
       }
 
+      // This field should always be hidden from users.
+      $form['field_under_thirteen']['#type'] = 'hidden';
+
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
@@ -181,6 +184,11 @@ function dosomething_user_is_under_thirteen($user = NULL) {
   // Get the date 13 years ago today.
   $date_cutoff = strtotime('-13 years');
   if ($date_cutoff < $birthday) {
+    // Set under 13 bool to true.
+    //@TODO: Cron that checks users in these values and updates users.
+    $wrapper = entity_metadata_wrapper('user', $user);
+    $wrapper->field_under_thirteen->set(1);
+    $wrapper->save();
     return TRUE;
   }
   else {
