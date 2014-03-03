@@ -12,3 +12,13 @@ function dosomething_fact_update_7001(&$sandbox) {
     field_delete_instance($instance);
   }
 }
+
+/**
+ * Remove unused dosomething_fact custom table.
+ */
+function dosomething_fact_update_7002(&$sandbox) {
+  $table = 'dosomething_fact';
+  if (db_table_exists($table)) {
+    db_drop_table($table);
+  }
+}
