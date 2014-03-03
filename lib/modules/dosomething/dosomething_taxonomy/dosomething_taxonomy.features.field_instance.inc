@@ -82,7 +82,7 @@ function dosomething_taxonomy_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -108,7 +108,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     'entityconnect_unload_edit' => 0,
     'field_name' => 'field_partner',
     'label' => 'Name',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -121,7 +121,7 @@ function dosomething_taxonomy_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -192,7 +192,7 @@ function dosomething_taxonomy_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
