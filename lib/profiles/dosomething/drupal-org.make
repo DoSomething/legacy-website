@@ -73,10 +73,6 @@ projects[link][subdir] = "contrib"
 projects[mailsystem] = "2.34"
 projects[mailsystem][subdir] = "contrib"
 
-; Mandrill
-projects[mandrill] = "1.4"
-projects[mandrill][subdir] = "contrib"
-
 ; Markdown
 projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"
@@ -157,6 +153,12 @@ projects[conductor_sms][download][type] = "git"
 projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
 projects[conductor_sms][subdir] = "contrib"
 
+; Message Broker Producer
+projects[message_broker_producer][type] = "module"
+projects[message_broker_producer][download][type] = "git"
+projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
+projects[message_broker_producer][subdir] = "contrib"
+
 
 ; DEVELOPMENT
 
@@ -196,3 +198,7 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
 libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
+
+; Message Broker PHP Library
+libraries[messagebroker-phplib][download][type] = "git"
+libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
