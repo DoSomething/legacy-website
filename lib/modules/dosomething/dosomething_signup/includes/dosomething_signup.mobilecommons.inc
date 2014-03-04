@@ -17,6 +17,12 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
   // Make sure mobilecommons module is enabled.
   if (!module_exists('mobilecommons')) { return; }
 
+   // If user doesn't have mobile number, exit function.
+  $mobile = dosomething_user_get_mobile($account);
+  if (!$mobile) {
+    return FALSE;
+  }
+
   try {
     // If valid args for given $user:
     if ($args = dosomething_signup_get_mobilecommons_vars($account, $lid, $title)) {
@@ -45,15 +51,9 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
  *   Array of arguments to pass to a Mobilecommons request, or FALSE if no mobile.
  */
 function dosomething_signup_get_mobilecommons_vars($account, $lid, $title = NULL) {
-   // If user doesn't have mobile number, exit function.
-  $mobile = dosomething_user_get_mobile($account);
-  if (!$mobile) {
-    return FALSE;
-  }
-
   $args = array(
     'opt_in_path[]' => $lid,
-    'person[phone]' => $mobile,
+    'person[phone]' => dosomething_user_get_mobile($account),
     'person[email]' => $account->mail,
   );
   if ($first_name = dosomething_user_get_field('field_first_name', $account)) {
