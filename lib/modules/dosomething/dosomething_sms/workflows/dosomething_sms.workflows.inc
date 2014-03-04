@@ -11,7 +11,7 @@
  */
 $workflow = new ConductorWorkflow();
 $workflow->wid = 'new';
-$workflow->name = 'sms_flow_start_campaign_transition';
+$workflow->name = 'dosomething_sms_start_campaign_transition';
 $workflow->title = 'Start Campaign Transition';
 $workflow->api_version = '1.0';
 

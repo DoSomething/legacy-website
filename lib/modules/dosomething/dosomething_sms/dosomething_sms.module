@@ -142,7 +142,6 @@ function dosomething_sms_incoming_callback($path) {
  * Filter to ensure incoming texts are coming from Mobile Commons' IP.
  */
 function dosomething_sms_incoming_check() {
-return TRUE;
   // Valid IP range as specified by Mobile Commons is: 64.22.127.0/24.
   // This translates to any IP 64.22.127.0 - 64.22.127.255
   $ip = ip_address();

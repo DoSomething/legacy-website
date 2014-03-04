@@ -40,55 +40,5 @@ function dosomething_sms_schema() {
     ),
   );
 
-  $schema['dosomething_sms_invite_records'] = array(
-    'description' => 'Stores alphas and betas who go through the SMS flow.',
-    'primary key' => array('sid'),
-    'fields' => array(
-      'sid' => array(
-        'description' => 'The id of the record.',
-        'type' => 'serial',
-        'unsigned' => true,
-        'not null' => true,
-      ),
-      'alpha' => array(
-        'description' => 'The alpha\'s phone number.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => true,
-      ),
-      'beta' => array(
-        'description' => 'The beta\'s phone number.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => true,
-      ),
-      'type' => array(
-        'description' => 'The type of object that the beta has been invited to.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => true
-      ),
-      'nid' => array(
-        'description' => 'The ID of the page / whatever that the person was invited to.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE
-      ),
-      'accepted_invite' => array(
-        'description' => 'Whether or not the user accepted the invitation.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'default' => 0,
-        'not null' => TRUE,
-      ),
-      'timestamp' => array(
-        'description' => 'The time that it all began...',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE
-      )
-    ),
-  );
-
   return $schema;
 }
