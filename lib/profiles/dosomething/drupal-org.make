@@ -82,7 +82,7 @@ projects[metatag] = "1.0-beta9"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
-projects[mobilecommons] = "1.0"
+projects[mobilecommons] = "1.1"
 projects[mobilecommons][subdir] = "contrib"
 
 ; Module Filter
