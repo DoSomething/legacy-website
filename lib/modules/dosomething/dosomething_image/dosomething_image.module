@@ -23,23 +23,30 @@ function dosomething_image_form_image_node_form_alter(&$form, &$form_state, $for
  *  The image field to pull from the desired image ratio (vert, horiz, sq).
  * @param string $style
  *  The image style preset/size to return the image.
+ * @param string $title
+ *  Optional - image title
+ * @param array $attributes
+ *  Optional - key/value paired array of attributes to add to the image.
  *
  * @return array
- *  A themed image.
+ *  A themed image tag with no set height/width.
  */
-function dosomething_image_get_themed_image($nid, $ratio, $style) {
+function dosomething_image_get_themed_image($nid, $ratio, $style, $title = '', $attributes = array()) {
   // Attempt to get that image from cache.
   if ($cached_img = cache_get('ds_img_' . $nid . '_' . $ratio . '_' . $style, 'cache_dosomething_image')) {
     return $cached_img->data;
   }
   // Theme the image.
   else {
-    $path = dosomething_image_get_image_url($nid, $ratio);
-
-    $img = theme('image_style', array('style_name' => $style, 'path' => $path));
+    // Get the path of the themed image.
+    $path = dosomething_image_get_themed_image_url($nid, $ratio, $style);
+    // Set drupal attributes.
+    $attributes = drupal_attributes($attributes);
+    // Construst themed image tag.
+    $themed_image =  '<img src=' . check_url($path) . '" title="' . check_plain($title) . '"' .  $attributes .'>';
     // Store the themed image.
-    cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $img, 'cache_dosomething_image');
-    return $img;
+    cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $themed_image, 'cache_dosomething_image');
+    return $themed_image;
   }
 }
 
