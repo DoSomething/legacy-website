@@ -9,39 +9,8 @@
 //  \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|  \_______/  \______/ 
 //  
 
-// Import paraneue's bower installation of Neue
-@import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/scss/helpers";
 
-// Import our local variables and helpers
-@import "mixins";
-
-// Drupal styles
-@import "feature/drupal";
-
-// Features
-@import "feature/auth";
-
-// Staging Area for Neue
-@import "feature/port-to-neue";
-
-// Campaign Pages
-@import "feature/campaign";
-@import "feature/confirmation";
-
-.campaign--wrapper {
-  @import "feature/campaign/layout";
-  @import "feature/campaign/header";
-  @import "feature/campaign/footer";
-  @import "feature/campaign/nav";
-
-  @import "feature/campaign/know";
-  @import "feature/campaign/plan";
-  @import "feature/campaign/do";
-  @import "feature/campaign/prove";
+// Helper to generate image URLs
+@function image-url($url) {
+  @return "images/#{$url}";
 }
-
-// Content Pages
-@import "feature/content";
-
-// Temporary hacks
-@import "feature/hide";
