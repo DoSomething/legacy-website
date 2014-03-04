@@ -54,11 +54,15 @@ function dosomething_signup_get_mobilecommons_vars($account, $lid, $title = NULL
   $args = array(
     'opt_in_path[]' => $lid,
     'person[phone]' => $mobile,
-    // Expected format is YYYY-MM-DD.
-    'person[date_of_birth]' => dosomething_user_get_birthdate('Y-m-d', $account),
-    'person[first_name]' => dosomething_user_get_field('field_first_name', $account),
     'person[email]' => $account->mail,
   );
+  if ($first_name = dosomething_user_get_field('field_first_name', $account)) {
+    $args['person[first_name]'] = $first_name;
+  }
+  // Expected DOB format is YYYY-MM-DD.
+  if ($dob = dosomething_user_get_birthdate('Y-m-d', $account)) {
+    $args['person[date_of_birth]'] = $dob;
+  }
   if (isset($title)) {
     $args['person[campaign_name]'] = $title;
   }
