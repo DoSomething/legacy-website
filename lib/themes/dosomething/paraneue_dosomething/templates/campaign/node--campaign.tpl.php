@@ -70,7 +70,7 @@
       <?php if (isset($partner_info)): ?>
       <?php foreach ($partner_info as $delta => $partner): ?>
         <a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">
-          Why we <3 <?php print $partner['name']; ?>
+          Why we &lt;3 <?php print $partner['name']; ?>
         </a>
         <div id="modal-partner-<?php print $delta; ?>" class="cached-modal">
           <a href="#" class="js-close-modal modal-close-button">×</a>
