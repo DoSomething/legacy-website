@@ -39,29 +39,39 @@ function dosomething_fact_node_view($node, $view_mode, $langcode) {
  * @param object $fact_field_wrapper
  *   A Fact entityreference field as returned by entity_metadata_wrapper.
  *   e.g. dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem)
+ * @param int $source_index
+ *   The array key from which the return sources should begin counting.
  *
  * @return mixed
- *   Array of fact values, or NULL if not a valid wrapper property.
- *
+ *   Multi-dimensional array of facts and their sources.
  */
-function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
+function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper, $source_index = 0) {
   // Make sure $fact_field_wrapper is an object.
-  if (is_object($fact_field_wrapper)) {
-    // If EntityDrupalWrapper, it's a single value field:
-    if (get_class($fact_field_wrapper) == 'EntityDrupalWrapper') {
-      return dosomething_fact_get_fact_wrapper_values($fact_field_wrapper);
-    }
-    // If EntityListWrapper, it's a multi-value field:
-    if (get_class($fact_field_wrapper) == 'EntityListWrapper') {
-      $values = array();
-      foreach ($fact_field_wrapper->getIterator() as $delta => $fact) {
-        $values[] = dosomething_fact_get_fact_wrapper_values($fact);
-      }
-      return $values;
-    }
+  if (!is_object($fact_field_wrapper)) { return NULL; }
+
+  $field_class = get_class($fact_field_wrapper);
+
+  // If EntityDrupalWrapper, single value field:
+  if ($field_class == 'EntityDrupalWrapper') {
+    return dosomething_fact_get_fact_wrapper_values($fact_field_wrapper, $source_index);
   }
-  // Return NULL as default.
-  return NULL;
+  // If EntityListWrapper, multi-value field:
+  if ($field_class == 'EntityListWrapper') {
+    $values = array();
+    $i = 0;
+    foreach ($fact_field_wrapper->getIterator() as $delta => $fact) {
+      // Gather fact vars.
+      $fact = dosomething_fact_get_fact_wrapper_values($fact, $i);
+      // Add into return array.
+      $values['facts'][] = $fact;
+      // Append sources.
+      foreach ($fact['sources'] as $key => $source) {
+        $values['sources'][$key] = $source;
+        $i++;
+      }
+    }
+    return $values;
+  }
 }
 
 /**
@@ -69,19 +79,31 @@ function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper) {
  *
  * @param object $fact_wrapper
  *   A Fact node entity_metadata_wrapper.
+ * @param int $source_index
+ *   The array key from which the return sources should begin counting.
  *
  * @return array
- *   Multi-dimensional of fact markdown values.
- *
+ *   Array of a fact with keys:
+ *   - copy: The fact copy.
+ *   - footnotes: string of footnote numbers corresponding to fact sources
+ *   - sources: an array which beings indexing from given $source_index.
  */
-function dosomething_fact_get_fact_wrapper_values($fact_wrapper) {
+function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index = 0) {
+  // Initialize sources and footnotes return arrays.
+  $footnotes = array();
   $sources = array();
-  // Loop through sources multi-value field:
+  // Loop through field_source_copy multi-values:
   foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
-    $sources[] = $source['safe_value'];
+    // Store source safe_value for index $source_index.
+    $sources[$source_index] = $source['safe_value'];
+    // Add 1 to footnote display because $source_index is zero based.
+    $footnotes[] = $source_index + 1;
+    // Increment to count the next source.
+    $source_index++;
   }
   return array(
     'fact' => $fact_wrapper->title->value(),
+    'footnotes' => implode(' ', $footnotes),
     'sources' => $sources,
   );
 }

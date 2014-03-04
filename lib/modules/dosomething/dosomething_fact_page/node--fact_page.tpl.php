@@ -18,21 +18,26 @@
   <?php if (isset($intro_image)): ?>
     <?php print $intro_image; ?>
   <?php elseif ($intro_video): ?>
-    <?php print $intro_video; ?>
+    <?php //print $intro_video; ?>
   <?php endif; ?>
   <br/>
+
   <?php if (isset($facts)): ?>
     <?php foreach ($facts as $key => $fact): ?>
-      <?php print '#' . ($key + 1) . ' ' . $fact['fact']; ?>
-      <?php if (is_array($fact['sources'])): ?>
-        <?php foreach ($fact['sources'] as $source): ?>
-          <p class="legal">Source: <?php print $source; ?></p>
-        <?php endforeach; ?>
-      <?php elseif (isset($fact['source'])): ?>
-         <p class="legal">Source: <?php print $fact['source']; ?></p>
-      <?php endif; ?>
+      <p>
+        <?php print ($key + 1) . '. ' . $fact['fact']; ?>
+        <sup><?php print $fact['footnotes']; ?></sup>
+      </p>
     <?php endforeach; ?>
   <?php endif; ?>
+
+  <?php if (isset($sources)): ?>
+    <h4>Sources</h4>
+    <?php foreach ($sources as $key => $source): ?>
+      <p><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></p>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
 
   <?php if (isset($call_to_action)): ?>
     <div class="cta">
