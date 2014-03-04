@@ -123,7 +123,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
 
       // This field should always be hidden from users.
-      $form['field_under_thirteen']['#type'] = 'hidden';
+      unset($form['field_under_thirteen']);
 
       // Only staff can view/edit Partners term reference.
       if (!dosomething_user_is_staff()) {
