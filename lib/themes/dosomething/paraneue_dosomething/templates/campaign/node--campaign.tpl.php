@@ -99,8 +99,6 @@
       <?php endif; ?>
     </div>
 
-    <!-- @TODO - This is a mess. Clean it up after Aaron updates the fact counters -->
-
     <div class="col sources">
       <?php if (isset($fact_problem)): ?>
       <div class="legal">
@@ -120,10 +118,9 @@
         <?php foreach ($fact_solution['sources'] as $source): ?>
         <?php print $source; ?>
         <?php endforeach; ?>
-      <?php endif; ?>
       </div>
+      <?php endif; ?>
     </div>
-
   </section>
 
   <h2 id="plan" class="step-header"><span class="shift">Step 2: Plan It</span></h2>
