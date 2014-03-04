@@ -125,6 +125,45 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_partner'
+  $field_instances['user-user-field_partner'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'user',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_partner',
+    'label' => 'Partner / Sponsor',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_under_thirteen'
   $field_instances['user-user-field_under_thirteen'] = array(
     'bundle' => 'user',
@@ -167,6 +206,7 @@ function dosomething_user_field_default_field_instances() {
   t('Birthday');
   t('Cell #');
   t('First Name');
+  t('Partner / Sponsor');
   t('Under Thirteen');
 
   return $field_instances;
