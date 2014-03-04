@@ -41,20 +41,20 @@
       <ul>
         <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
       </ul>
-      <div id="modal-faq" class="cached-modal">
+      <script id="modal-faq" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
         <?php endforeach; ?>
-      </div>
+      </script>
       <?php endif; ?>
 
       <?php if (isset($more_facts)): ?>
       <ul>
         <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
       </ul>
-      <div id="modal-facts" class="cached-modal">
+      <script id="modal-facts" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
         <?php foreach ($more_facts as $fact): ?>
           <div class="fact-more">
@@ -65,18 +65,18 @@
             <?php endforeach; ?>
           </div>
         <?php endforeach; ?>
-      </div>
+      </script>
       <?php endif; ?>
 
       <?php if (isset($partner_info)): ?>
       <?php foreach ($partner_info as $delta => $partner): ?>
         <a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">
-          Why we <3 <?php print $partner['name']; ?>
+          Why we &lt;3 <?php print $partner['name']; ?>
         </a>
-        <div id="modal-partner-<?php print $delta; ?>" class="cached-modal">
+        <script id="modal-partner-<?php print $delta; ?>" type="text/cached-modal">
           <a href="#" class="js-close-modal modal-close-button">×</a>
           <?php print $partner['copy']; ?>
-        </div>
+        </script>
       <?php endforeach; ?>
       <?php endif; ?>
 
@@ -212,12 +212,12 @@
     </div>
 
     <?php if (isset($step_post)) : ?>
-    <div class="cached-modal">
+    <script type="text/cached-modal">
     <?php foreach ($step_post as $item): ?>
     <h4><?php print $item['header']; ?></h4>
     <div><?php print $item['copy'] ?></div>
     <?php endforeach; ?>
-    </div>
+    </script>
     <?php endif; ?>
   </section>
 
@@ -229,10 +229,10 @@
 
       <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
       <?php if (isset($reportback_form)): ?>
-      <div id="modal-report-back" class="cached-modal">
+      <script id="modal-report-back" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
         <?php print render($reportback_form); ?>
-      </div>
+      </script>
       <?php endif; ?>
     </div>
 
