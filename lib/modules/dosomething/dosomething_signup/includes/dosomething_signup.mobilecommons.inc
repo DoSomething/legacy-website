@@ -5,8 +5,10 @@
  *
  * @param object $account
  *   The user object of user to opt-in.
+ * @param int $lid
+ *   The opt-in path to use for opt-in.
  * @param string $title
- *   The campaign title the user has signed up for.
+ *   Optional The campaign title the user has signed up for.
  */
 function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) {
   // Make sure mobilecommons module is enabled.
@@ -17,20 +19,7 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
   if (!$mobile) { return; }
 
   try {
-    // @todo: Move $config / new MobileCommons($config) code
-    // into a new function in the contrib mobilecommons.module.
-    $library = libraries_load('mobilecommons-php');
-    if (empty($library['loaded'])) {
-      return FALSE;
-    }
-    $config = array(
-      'username' => variable_get('mobilecommons_api_auth_email'),
-      'password' => variable_get('mobilecommons_api_auth_password'),
-    );
-    $MobileCommons = new MobileCommons($config);
-    // Next get prepare the opt-in request.
     $args = array(
-      // All campaigns use this opt-in path for now.
       'opt_in_path' => $lid,
       'person[phone]' => $mobile,
       'person[campaign_name]' => $title,
@@ -39,7 +28,7 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
       'person[first_name]' => dosomething_user_get_field('field_first_name', $account),
       'person[email]' => $account->mail,
     );
-    return $MobileCommons->opt_in($args);
+    return mobilecommons_request('opt_in', $args);
   }
   catch (Exception $e) {
     // Log the error.
