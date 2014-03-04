@@ -233,13 +233,13 @@
       <?php endif; ?>
     </div>
 
-    <div class="js-carousel gallery">
+    <div class="carousel-wrapper gallery">
     <?php if (isset($reportback_image)): ?>
       <div id="prev" class="prev-wrapper">
         <div class="prev-button"><span class="arrow">&#xe605;</span></div>
       </div>
 
-      <div class="carousel-wrapper">
+      <div class="slide-wrapper">
         <?php foreach ($reportback_image as $key=>$image): ?>
         <figure id="slide<?php print $key ?>" class="slide"><img src="<?php print $image ?>" /></figure>
         <?php endforeach; ?>
