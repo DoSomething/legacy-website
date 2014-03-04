@@ -9,4 +9,21 @@
   .solution-copy {
     margin: 1.5rem 0 0 0;
   }
+
+  // Legal styles specific to the fact sources
+  .legal {
+
+    p,
+    sup,
+    strong {
+      margin: 0;
+      padding: 0 3px 0 0;
+      display: inline-block;
+    }
+
+    sup {
+      top: -0.3rem !important;
+    }
+
+  }
 }

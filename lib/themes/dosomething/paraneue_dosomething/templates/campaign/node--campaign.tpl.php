@@ -233,7 +233,7 @@
       <?php endif; ?>
     </div>
 
-    <div class="js-carousel gallery">
+    <div class="carousel-wrapper gallery">
     <?php if (isset($reportback_image)): ?>
       <div id="prev" class="prev-wrapper">
         <div class="prev-button"><span class="arrow">&#xe605;</span></div>
@@ -249,7 +249,7 @@
         <div class="next-button"><span class="arrow">&#xe60a;</span></div>
       </div>
     <?php else: ?>
-    <div class="slide-wrapper">
+    <div class="carousel-wrapper">
       <?php //@TODO: Remove Trello-hosted placeholder ?>
       <figure class="slide visible"><img src="https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/62291511fcc8d763184a04a99db007b7/placeholder.jpg" alt="This could be you!" /></figure>
       </div>
