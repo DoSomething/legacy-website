@@ -93,7 +93,7 @@ function dosomething_sms_ctools_plugin_directory($owner, $plugin_type) {
  * to trigger different keyword paths.
  *
  * @param string $path
- *   @TODO
+ *   Keyword associated with a ConductorWorkflow that the request will be handled by.
  */
 function dosomething_sms_incoming_callback($path) {
   // Direct correlation between path endpoint and keyword used. If the path doesn't
