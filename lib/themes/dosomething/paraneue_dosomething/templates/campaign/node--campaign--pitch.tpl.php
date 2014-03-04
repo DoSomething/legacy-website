@@ -3,10 +3,10 @@
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>
       <p class="cta"><?php print $cta; ?></p>
-    <p class="date"> <?php print $end_date; ?> </p>
 
+      <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
-      <?php print render($signup_button); ?>
+      <?php if (isset($signup_button)): ?><?php print render($signup_button); ?><?php endif; ?>
 
       <?php if (isset($scholarship)): ?>
       <?php //@TODO: Remove Trello-hosted placeholder ?>

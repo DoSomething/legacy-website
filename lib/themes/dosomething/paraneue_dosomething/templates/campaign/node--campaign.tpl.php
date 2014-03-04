@@ -3,7 +3,8 @@
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>
       <p class="cta"><?php print $cta; ?></p>
-      <p class="date"> <?php print $end_date; ?> </p>
+
+      <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($sponsors)): ?>
       <div class="sponsor">
@@ -180,8 +181,8 @@
   <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
   <section class="do step">
     <div class="pre">
-      <h3><?php print $pre_step_header; ?></h3>
-      <div><?php print $pre_step_copy['safe_value']; ?></div>
+      <?php if (isset($pre_step_header)): ?><h3><?php print $pre_step_header; ?></h3><?php endif; ?>
+      <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
       <div class="tips">
         <?php if (isset($step_pre)) : ?>
@@ -202,15 +203,14 @@
 
     <div class="during">
       <h3>Snap a Pic</h3>
-      <div><?php print $pic_step['safe_value']; ?></div>
+      <?php if (isset($pic_step['safe_value'])): ?><div><?php print $pic_step['safe_value']; ?></div><?php endif; ?>
     </div>
 
     <div class="post">
-      <h3><?php print $post_step_header; ?></h3>
-      <div><?php print $post_step_copy; ?></div>
+      <?php if (isset($post_step_header)): ?><h3><?php print $post_step_header; ?></h3><?php endif; ?>
+      <?php if (isset($post_step_copy)): ?><div><?php print $post_step_copy; ?></div><?php endif; ?>
     </div>
 
-    <!-- MODAL -->
     <?php if (isset($step_post)) : ?>
     <div class="cached-modal">
     <?php foreach ($step_post as $item): ?>
@@ -225,13 +225,15 @@
   <section class="prove step">
     <div class="content">
       <h3 class="title">Pics or It Didn't Happen</h3>
-      <div class="copy"><?php print $reportback_copy; ?></div>
+      <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
-      <a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a>
+      <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
+      <?php if (isset($reportback_form)): ?>
       <div id="modal-report-back" class="cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
         <?php print render($reportback_form); ?>
       </div>
+      <?php endif; ?>
     </div>
 
     <div class="js-carousel gallery">
@@ -256,7 +258,6 @@
       </div>
     <?php endif; ?>
     </div>
-
 
     <?php if (isset($sponsors)): ?>
     <div class="sponsor">
