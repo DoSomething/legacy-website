@@ -122,3 +122,10 @@ function dosomething_reportback_schema() {
   );
   return $schema;
 }
+
+/**
+ * Remove Reportback image field.
+ */
+function dosomething_reportback_update_7001(&$sandbox) {
+  field_delete_field('field_image_user_reportback');
+}

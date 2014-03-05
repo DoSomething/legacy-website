@@ -37,7 +37,6 @@ function dosomething_reportback_views_default_views() {
     'uid' => 'uid',
     'uid_1' => 'uid_1',
     'created' => 'created',
-    'field_image_user_reportback' => 'field_image_user_reportback',
     'quantity' => 'quantity',
   );
   $handler->display->display_options['style_options']['default'] = 'created';
@@ -116,17 +115,6 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = 'Date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
-  /* Field: Reportback: Pictures */
-  $handler->display->display_options['fields']['field_image_user_reportback']['id'] = 'field_image_user_reportback';
-  $handler->display->display_options['fields']['field_image_user_reportback']['table'] = 'field_data_field_image_user_reportback';
-  $handler->display->display_options['fields']['field_image_user_reportback']['field'] = 'field_image_user_reportback';
-  $handler->display->display_options['fields']['field_image_user_reportback']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_image_user_reportback']['settings'] = array(
-    'image_style' => 'medium',
-    'image_link' => 'content',
-  );
-  $handler->display->display_options['fields']['field_image_user_reportback']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_image_user_reportback']['multi_type'] = 'ol';
   /* Field: Reportback: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
@@ -180,6 +168,35 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '100';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['node_reportbacks'] = array(
+    t('Master'),
+    t('Reportbacks'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Copy'),
+    t('No reportbacks found.'),
+    t('Rbid'),
+    t('.'),
+    t('User'),
+    t('Uid'),
+    t('Date'),
+    t('Quantity'),
+    t(','),
+    t('All'),
+    t('Reportbacks: %1'),
+    t('Page'),
+  );
   $export['node_reportbacks'] = $view;
 
   return $export;
