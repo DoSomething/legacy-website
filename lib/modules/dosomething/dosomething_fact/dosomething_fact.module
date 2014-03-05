@@ -45,7 +45,7 @@ function dosomething_fact_node_view($node, $view_mode, $langcode) {
  * @return mixed
  *   Multi-dimensional array of facts and their sources.
  */
-function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper, $source_index = 0) {
+function dosomething_fact_get_fact_field_vars($fact_field_wrapper, $source_index = 0) {
   // Make sure $fact_field_wrapper is an object.
   if (!is_object($fact_field_wrapper)) { return NULL; }
 
@@ -61,7 +61,7 @@ function dosomething_fact_get_fact_field_wrapper_values($fact_field_wrapper, $so
     $i = 0;
     foreach ($fact_field_wrapper->getIterator() as $delta => $fact) {
       // Gather fact vars.
-      $fact = dosomething_fact_get_fact_wrapper_values($fact, $i);
+      $fact = dosomething_fact_get_fact_field_vars($fact, $i);
       // Add into return array.
       $values['facts'][] = $fact;
       // Append sources.

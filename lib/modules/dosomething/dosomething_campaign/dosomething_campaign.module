@@ -279,14 +279,14 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Collect fact values as tpl variables.
   $fact_problem = $wrapper->field_fact_problem->value();
   if (isset($fact_problem)) {
-    $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem);
+    $vars['fact_problem'] = dosomething_fact_get_fact_field_vars($wrapper->field_fact_problem);
   }
   $fact_solution = $wrapper->field_fact_solution->value();
   if (isset($fact_solution)) {
-    $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_solution);
+    $vars['fact_solution'] = dosomething_fact_get_fact_field_vars($wrapper->field_fact_solution);
   }
   if ($wrapper->field_facts->count() > 0) {
-    $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
+    $vars['more_facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
   }
 
   // Collect all field_collection values as vars.
