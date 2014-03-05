@@ -112,12 +112,3 @@ function dosomething_helpers_preprocess_html(&$vars) {
 
   drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
 }
-
-/**
- * Returns given $string without eclosing <p> and </p> tags.
- *
- * Useful for stripping from Markdown values.
- */
-function dosomething_helpers_strip_enclosing_ptags($string) {
-  return preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $string);
-}
