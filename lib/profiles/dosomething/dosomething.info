@@ -42,7 +42,6 @@ dependencies[] = mobilecommons
 dependencies[] = module_filter
 dependencies[] = pathauto
 dependencies[] = search
-dependencies[] = securepages
 dependencies[] = strongarm
 dependencies[] = uuid
 dependencies[] = uuid_features
