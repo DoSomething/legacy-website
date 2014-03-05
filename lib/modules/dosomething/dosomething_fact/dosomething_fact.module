@@ -137,7 +137,7 @@ function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index =
   // Loop through field_source_copy multi-values:
   foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
     // Store source safe_value for index $source_index.
-    $sources[$source_index] = $source['safe_value'];;
+    $sources[$source_index] = $source['safe_value'];
     // Add 1 to footnote display because $source_index is zero based.
     $footnotes[] = $source_index + 1;
     // Increment to count the next source.
