@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Install/Update/Uninstall functions for dosomething_sms module
+ * Installation and schema hooks for dosomething_sms.module.
  */
 
 /**

@@ -5,6 +5,54 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_sms_menu() {
+  $items = array();
+
+  $items['dosomething_sms/%'] = array(
+    'title' => 'SMS Receiver for Mobile Commons mData Requests',
+    'page callback' => 'dosomething_sms_incoming_callback',
+    'access callback' => 'dosomething_sms_incoming_check',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_sms_permission() {
+  return array(
+    'administer dosomething_sms' => array(
+      'title' => t('Administer dosomething_sms module'),
+      'description' => t('Administer access to everything in module'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function dosomething_sms_ctools_plugin_api($owner, $api) {
+  if ($owner == 'conductor') {
+    return array('version' => 1.0);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dosomething_sms_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'conductor') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
  * Implements hook_conductor_sms_keywords().
  *
  * Specifies conductor workflows that should trigger for a given endpoint
@@ -67,24 +115,6 @@ function _dosomething_sms_list_files_by_extension($dir, $file_ext, &$matching_fi
         $matching_files[] = $path;
       }
     }
-  }
-}
-
-/**
- * Implements hook_ctools_plugin_api().
- */
-function dosomething_sms_ctools_plugin_api($owner, $api) {
-  if ($owner == 'conductor') {
-    return array('version' => 1.0);
-  }
-}
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function dosomething_sms_ctools_plugin_directory($owner, $plugin_type) {
-  if ($owner == 'conductor') {
-    return "plugins/$plugin_type";
   }
 }
 
@@ -162,36 +192,6 @@ function dosomething_sms_incoming_check() {
 }
 
 /**
- * Implements hook_menu().
- */
-function dosomething_sms_menu() {
-  $items = array();
-
-  $items['dosomething_sms/%'] = array(
-    'title' => 'SMS Receiver for Mobile Commons mData Requests',
-    'page callback' => 'dosomething_sms_incoming_callback',
-    'access callback' => 'dosomething_sms_incoming_check',
-    'page arguments' => array(1),
-    'type' => MENU_CALLBACK,
-  );
-
-  return $items;
-}
-
-/**
- * Implements hook_permission().
- */
-function dosomething_sms_permission() {
-  return array(
-    'administer dosomething_sms' => array(
-      'title' => t('Administer dosomething_sms module'),
-      'description' => t('Administer access to everything in module'),
-      'restrict access' => TRUE,
-    ),
-  );
-}
-
-/**
  * Create record in dosomething_sms_game table.
  *
  * @param string $phone
@@ -233,14 +233,11 @@ function dosomething_sms_game_get_paths($phone, $game_id) {
   $phone = preg_replace('#[^0-9]#i', '', $phone);
   $phone = substr($phone, -10);
 
-  $select = db_query("
-    SELECT started_paths
-    FROM dosomething_sms_game
-    WHERE
-       phone = '" . $phone . "'
-       AND game_id = '" . $game_id . "'
-    LIMIT 1
-  ");
+  $select = db_select('dosomething_sms_game', 'g')
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->fields('g', array('started_paths'))
+    ->execute();
 
   $record = current($select->fetchAll());
 
@@ -294,16 +291,13 @@ function dosomething_sms_game_get_answers($phone, $game_id) {
   $phone = preg_replace('#[^0-9]#i', '', $phone);
   $phone = substr($phone, -10);
 
-  $select = db_query("
-    SELECT answers
-    FROM dosomething_sms_game
-    WHERE
-      phone = '" . $phone . "'
-      AND game_id = '" . $game_id . "'
-    LIMIT 1
-  ");
+  $select = db_select('dosomething_sms_game', 'g')
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->fields('g', array('answers'))
+    ->execute();
 
-  $record = current($select ->fetchAll());
+  $record = current($select->fetchAll());
 
   if ($record && !empty($record->answers)) {
     $return = json_decode($record->answers, TRUE);
