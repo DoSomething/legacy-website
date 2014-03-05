@@ -307,10 +307,15 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
  * Sets Drupal message for a signup for given $title.
  *
  * @param string $title
- *   Title to display within the Drupal message.
+ *   Optional - Title of whatever user has signed up for.
  */
-function dosomething_signup_set_signup_message($title) {
-  $message = t("You're signed up for") . ' <em>' . $title . '</em>! ';
+function dosomething_signup_set_signup_message($title = NULL) {
+  // If title exists:
+  if ($title) {
+    // Prepare it for the message.
+    $title = ' ' . t("for") . ' <em>' . $title . '</em>';
+  }
+  $message = t("You're signed up") . $title . '! ';
   $message .=  t("Get started below.");
   drupal_set_message($message);
 }
