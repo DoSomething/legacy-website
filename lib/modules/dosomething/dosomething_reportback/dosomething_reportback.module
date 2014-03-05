@@ -281,7 +281,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'textarea',
     '#required' => TRUE,
     '#title' => t('Why is this campaign important to you?'),
-    '#default_value' => $entity->why_participated,    
+    '#default_value' => $entity->why_participated,
   );
   $form['quantity'] = array(
     '#type' => 'textfield',
@@ -293,8 +293,6 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     ),
     '#default_value' => $entity->quantity,
   );
-  // Attach all reportback entity fields to the form:
-  field_attach_form('reportback', $entity, $form, $form_state);
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -313,16 +311,6 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $values['uid'] = $user->uid;
-  $values['files'] = array();
-  // Loop through User Reportback Images field:
-  foreach ($values['field_image_user_reportback'][LANGUAGE_NONE] as $delta => $file) {
-    // Exclude the "add another" field (which has fid value 0).
-    if ($file['fid'] != 0) {
-      $values['files'][] = $file['fid'];
-    }
-  }
-  // @todo: Sort $files array by the weight field, to support re-ordering.
-
   // If no rbid, we need to insert. If insert is success:
   if ($values['rbid'] == 0 && dosomething_reportback_insert_reportback($values)) {
     // Redirect to node reportback confirmation page.
@@ -412,7 +400,7 @@ function dosomething_reportback_insert_reportback($values) {
  * @param int $rbid
  *   The reportback rbid of the reportback to update.
  * @param array $values
- *   An array of expected reportback values.  
+ *   An array of expected reportback values.
  *   See @dosomething_reportback_insert_reportback().
  *
  * @return mixed
@@ -442,7 +430,7 @@ function dosomething_reportback_delete_reportback($rbid) {
  * @param int $nid
  *   The node nid of the reportback to check.
  * @param int $uid
- *   Optional - the user uid of reportback to check.  
+ *   Optional - the user uid of reportback to check.
  *   If not given, uses global $user->uid.
  *
  * @return mixed
@@ -542,13 +530,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of file fid's to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  // Unset current image field values.
-  $entity->field_image_user_reportback = array();
-  // Loop through all files provided in $values.
-  foreach ($values['files'] as $fid) {
-    // Image field is stored as array of Files arrays.
-    $entity->field_image_user_reportback[LANGUAGE_NONE][] = array('fid' => $fid);
-  }
+  // @todo: Make me work.
 }
 
 /**
@@ -565,10 +547,11 @@ function dosomething_reportback_set_files(&$entity, $values) {
 function dosomething_reportback_log_insert($op, $entity) {
   global $user;
   $fids = array();
+  // @todo: Update with new reportback file method.
   // Loop through all files in field_image_user_reportback to store fids.
-  foreach ($entity->field_image_user_reportback[LANGUAGE_NONE] as $file) {
-    $fids[] = $file['fid'];
-  }
+  // foreach ($entity->field_image_user_reportback[LANGUAGE_NONE] as $file) {
+  //   $fids[] = $file['fid'];
+  // }
   // If deleting, store current time.
   if ($op == 'delete') {
     $timestamp = REQUEST_TIME;
