@@ -299,10 +299,25 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     );
     dosomething_user_send_message_request('campaign_signup', $params);
     // Set success message.
-    $message = t("You're signed up!") . '<br />';
-    $message .= t("Get started with") . ' ' . $node->title . '  ' . t("below!");
-    drupal_set_message($message);
+    dosomething_signup_set_signup_message($node->title);
   }
+}
+
+/**
+ * Sets Drupal message for a signup for given $title.
+ *
+ * @param string $title
+ *   Optional - Title of whatever user has signed up for.
+ */
+function dosomething_signup_set_signup_message($title = NULL) {
+  // If title exists:
+  if ($title) {
+    // Prepare it for the message.
+    $title = ' ' . t("for") . ' <em>' . $title . '</em>';
+  }
+  $message = t("You're signed up") . $title . '! ';
+  $message .=  t("Get started below.");
+  drupal_set_message($message);
 }
 
 /**
