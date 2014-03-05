@@ -34,6 +34,18 @@ class ReportbackEntity extends Entity {
       ->execute()
       ->fetchCol();
   }
+
+  /**
+   * Inserts given fid into dosomething_reportback_files table for this entity.
+   */
+  public function insertFid($fid) {
+    return db_insert('dosomething_reportback_file')
+      ->fields(array(
+        'rbid' => $this->rbid,
+        'fid' => $fid,
+        ))
+      ->execute();
+  }
 }
 
 /**

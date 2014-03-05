@@ -338,9 +338,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   else {
     $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
   }
-
-  // Associate it to the reportback.
-  dosomething_reportback_insert_reportback_file($rbid, $file->fid);
+  // Add the file.
+  $reportback = reportback_load($rbid);
+  $reportback->insertFid($file->fid);
   // Redirect to confirmation.
   $form_state['redirect'] = $confirmation_path;
 }
@@ -588,23 +588,6 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  */
 function dosomething_reportback_set_files(&$entity, $values) {
   // @todo: Make me work.
-}
-
-/**
- * Inserts a record into the dosomething_reportback_files table.
- *
- * @param int $rbid
- *   Reportback id.
- * @param int $fid
- *   File id
- */
-function dosomething_reportback_insert_reportback_file($rbid, $fid) {
-  return db_insert('dosomething_reportback_file')
-    ->fields(array(
-      'rbid' => $rbid,
-      'fid' => $fid,
-      ))
-    ->execute();
 }
 
 /**
