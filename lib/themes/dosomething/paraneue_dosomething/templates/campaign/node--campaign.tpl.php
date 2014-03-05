@@ -103,16 +103,6 @@
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
-
-      <?php if (isset($fact_solution)): ?>
-      <div class="legal">
-        <sup>2</sup>
-
-        <?php foreach ($fact_solution['sources'] as $source): ?>
-        <?php print $source; ?>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
     </div>
   </section>
 
