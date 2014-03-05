@@ -24,6 +24,10 @@ function dosomething_fact_node_view($node, $view_mode, $langcode) {
 
   // If viewing a fact node:
   if ($node->type == 'fact' && $view_mode == 'full') {
+    $node->content['fact'] = array(
+      '#markup' => '<h1>' . $node->title . '</h1>',
+      '#weight' => -10,
+    );
     $entityref_fields = array(
       'field_facts',
       'field_fact_problem',
@@ -31,6 +35,40 @@ function dosomething_fact_node_view($node, $view_mode, $langcode) {
     );
     dosomething_helpers_add_entityref_links($node, $entityref_fields);
   }
+}
+
+/**
+ * Returns variables for multiple given Fact Entityreference fields.
+ *
+ * @param object|int $node
+ *   The nid or loaded node to return fact field values from.
+ * @param array $field_names
+ *   Array of field machine names to return values from.
+ *
+ * @return array
+ *   Multi-dimensional array with keys:
+ *   - facts: Array of fact values, indexed by keys of $field_names.
+ *   -   @see dosomething_fact_get_fact_vars()
+ *   - sources: Sequential array of all sources found in all $field_names.
+ */
+function dosomething_fact_get_mutiple_fact_field_vars($node, $field_names) {
+  // Initalize return array.
+  $vars = array(
+    'facts' => array(),
+    'sources' => array(),
+  );
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  foreach ($field_names as $field_name) {
+    $field_wrapper = $wrapper->{$field_name};
+    $i = count($vars['sources']);
+    $fact = dosomething_fact_get_fact_field_vars($field_wrapper, $i);
+    // Index fact by $field_name to reference $field_name's facts.
+    $vars['facts'][$field_name] = $fact;
+    // Append sources to composite $sources array.
+    $vars['sources'] = array_merge($vars['sources'], $fact['sources']);
+  }
+  return $vars;
 }
 
 /**
@@ -103,6 +141,7 @@ function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index =
   }
   return array(
     'fact' => $fact_wrapper->title->value(),
+    'nid' => $fact_wrapper->nid->value(),
     'footnotes' => implode(' ', $footnotes),
     'sources' => $sources,
   );
