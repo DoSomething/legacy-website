@@ -93,15 +93,11 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   global $user;
   $account = $user;
 
-  $secure_url = '';
-  if (module_exists('securepages')) {
-    $secure_url = variable_get('securepages_basepath_ssl', NULL);
-  }
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
       // Add additional submission/validation/actions.
-      $form['#action'] = $secure_url . '/user/login';
+      $form['#action'] = '/user/login';
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
       // Helper text & additional data.
@@ -116,9 +112,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Add campaign data, if needed.
       _dosomething_user_add_campaign_data($form);
 
-      // Force action to post to the secure user registration, but not on the add people screen.
+      // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
-        $form['#action'] = $secure_url . '/user/register';
+        $form['#action'] = '/user/register';
         $form['#submit'][] = 'dosomething_user_new_user';
       }
 
