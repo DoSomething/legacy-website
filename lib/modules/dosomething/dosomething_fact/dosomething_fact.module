@@ -62,11 +62,15 @@ function dosomething_fact_get_mutiple_fact_field_vars($node, $field_names) {
   foreach ($field_names as $field_name) {
     $field_wrapper = $wrapper->{$field_name};
     $i = count($vars['sources']);
-    $fact = dosomething_fact_get_fact_field_vars($field_wrapper, $i);
-    // Index fact by $field_name to reference $field_name's facts.
-    $vars['facts'][$field_name] = $fact;
-    // Append sources to composite $sources array.
-    $vars['sources'] = array_merge($vars['sources'], $fact['sources']);
+    // If values exist in this field:
+    if ($field_wrapper->value()) {
+      // Gather the field's fact vars.
+      $fact = dosomething_fact_get_fact_field_vars($field_wrapper, $i);
+      // Index vars by $field_name to reference $field_name specific facts.
+      $vars['facts'][$field_name] = $fact;
+      // Append sources to composite $sources array.
+      $vars['sources'] = array_merge($vars['sources'], $fact['sources']);
+    }
   }
   return $vars;
 }
@@ -133,7 +137,8 @@ function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index =
   // Loop through field_source_copy multi-values:
   foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
     // Store source safe_value for index $source_index.
-    $sources[$source_index] = $source['safe_value'];
+    $source_value = dosomething_helpers_strip_enclosing_ptags($source['safe_value']);
+    $sources[$source_index] = $source_value;
     // Add 1 to footnote display because $source_index is zero based.
     $footnotes[] = $source_index + 1;
     // Increment to count the next source.

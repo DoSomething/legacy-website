@@ -34,7 +34,9 @@
       <h4>The Problem</h4>
 
       <?php if (isset($fact_problem)): ?>
-      <div class="fact-problem"><?php print $fact_problem['fact']; ?><sup>1</sup></div>
+      <div class="fact-problem">
+        <?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup>
+      </div>
       <?php endif; ?>
 
       <?php if (isset($faq)): ?>
@@ -85,13 +87,12 @@
     <div class="col second">
       <h4>The Solution</h4>
 
-      <?php // @TODO - Print only one of these ?>
       <?php if (isset($fact_solution)): ?>
-      <div class="fact-solution"><?php print $fact_solution['fact']; ?></div>
-      <?php endif; ?>
-
-      <?php if (isset($solution_copy)): ?>
-      <div class="solution-copy"><?php print $solution_copy['safe_value']; ?><sup>2</sup></div>
+        <div class="fact-solution">
+          <?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup>
+        </div>
+      <?php elseif (isset($solution_copy)): ?>
+        <div class="solution-copy"><?php print $solution_copy['safe_value']; ?></div>
       <?php endif; ?>
 
       <?php if (isset($solution_support)): ?>
@@ -100,13 +101,11 @@
     </div>
 
     <div class="col sources">
-      <?php if (isset($fact_problem)): ?>
+      <?php if (isset($fact_sources)): ?>
       <div class="legal">
         <strong>Sources:</strong>
-        <sup>1</sup>
-
-        <?php foreach ($fact_problem['sources'] as $source): ?>
-        <?php print $source; ?>
+        <?php foreach ($fact_sources as $key => $source): ?>
+          <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
         <?php endforeach; ?>
       </div>
       <?php endif; ?>

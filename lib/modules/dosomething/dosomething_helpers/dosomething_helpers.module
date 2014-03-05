@@ -98,7 +98,7 @@ function dosomething_helpers_add_entityref_links(&$node, $fields) {
 }
 
 /**
- * Implements hook_preprocess_html(). 
+ * Implements hook_preprocess_html().
  */
 function dosomething_helpers_preprocess_html(&$vars) {
   $dmoz_meta_tag = array(
@@ -111,4 +111,13 @@ function dosomething_helpers_preprocess_html(&$vars) {
   );
 
   drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
+}
+
+/**
+ * Returns given $string without eclosing <p> and </p> tags.
+ *
+ * Useful for stripping from Markdown values.
+ */
+function dosomething_helpers_strip_enclosing_ptags($string) {
+  return preg_replace('/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $string);
 }

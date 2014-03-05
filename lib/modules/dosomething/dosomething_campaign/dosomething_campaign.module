@@ -276,15 +276,21 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['solution_support'] = $wrapper->field_solution_support->value();
   $vars['issue'] = $wrapper->field_issue->value()->name;
 
-  // Collect fact values as tpl variables.
-  $fact_problem = $wrapper->field_fact_problem->value();
-  if (isset($fact_problem)) {
-    $vars['fact_problem'] = dosomething_fact_get_fact_field_vars($wrapper->field_fact_problem);
+  // Collect multiple fact fields values as fact and sources variables.
+  $fact_fields = array('field_fact_problem', 'field_fact_solution');
+  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+  if (!empty($fact_vars)) {
+    if (isset($fact_vars['facts']['field_fact_problem'])) {
+      $vars['fact_problem'] = $fact_vars['facts']['field_fact_problem'];
+    }
+    if (isset($fact_vars['facts']['field_fact_solution'])) {
+      $vars['fact_solution'] = $fact_vars['facts']['field_fact_solution'];
+    }
+    // Store all sources from fields as a sources array.
+    $vars['fact_sources'] = $fact_vars['sources'];
   }
-  $fact_solution = $wrapper->field_fact_solution->value();
-  if (isset($fact_solution)) {
-    $vars['fact_solution'] = dosomething_fact_get_fact_field_vars($wrapper->field_fact_solution);
-  }
+
+  // Check for additional facts in field_facts.
   if ($wrapper->field_facts->count() > 0) {
     $vars['more_facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
   }
