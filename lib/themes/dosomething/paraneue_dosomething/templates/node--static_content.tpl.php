@@ -1,16 +1,16 @@
-<section class="static_content--wrapper">
+<section class="static_content-wrapper">
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <div class="header--wrapper">
+    <div class="header-wrapper">
       <header class="header">
         <h1 class="title"><?php print $title; ?></h1>
         <?php if (isset($subtitle)): ?>
-          <p class="subtitle"><?php print $subtitle; ?></p>
+	  <h3 class="subtitle"><?php print $subtitle; ?></h3>
         <?php endif; ?>
       </header>
     </div>
 
-    <div class="intro--wrapper">
+    <div class="intro-wrapper">
       <div class="intro">
         <?php if (isset($intro_title)): ?>
           <h2><?php print $intro_title; ?></h2>
@@ -27,32 +27,36 @@
     </div>
     
     <?php if (isset($call_to_action)): ?>
-      <div class="cta--wrapper">
+      <div class="cta-wrapper">
         <div class="cta">
-          <h2><?php print $call_to_action; ?></h2>
+	  <h3><?php print $call_to_action; ?></h3>
           <div class="cta_button"><?php print $cta_link; ?></div>
         </div>
       </div>
     <?php endif; ?>
   
     <?php if (isset($galleries)): ?>
-      <div class="gallery--wrapper">
+      <div class="gallery-wrapper">
         <div class="gallery">
           <?php foreach ($galleries as $gallery): ?>
-            <?php print $gallery['image']; ?>
-            <?php if ($gallery['image_title']): ?>
+	  <div class="gallery-item">
+	    <?php if (isset($gallery['image'])): ?>
+	      <?php print $gallery['image']; ?>
+	    <?php endif; ?>
+	    <?php if (isset($gallery['image_title'])): ?>
               <h3><?php print $gallery['image_title']; ?></h3>
             <?php endif; ?>
-            <?php if ($gallery['image_description']): ?>
-              <p><?php print $gallery['image_description']; ?></p>
+	    <?php if (isset($gallery['image_description'])): ?>
+	      <div class="gallery-description"><?php print $gallery['image_description']; ?></div>
             <?php endif; ?>
+	  </div>
           <?php endforeach; ?>
         </div>
       </div>
     <? endif; ?>
 
     <?php if (isset($additional_text)): ?>
-    <div class="additional-text--wrapper">
+    <div class="additional-text-wrapper">
       <div class="additional-text">
         <?php if (isset($additional_text_title)): ?>
           <h2><?php print $additional_text_title; ?></h2>
@@ -64,9 +68,9 @@
     <?php endif; ?>
 
     <?php if (isset($call_to_action)): ?>
-      <div class="cta--wrapper">
+      <div class="cta-wrapper">
         <div class="cta">
-          <h2><?php print $call_to_action; ?></h2>
+	  <h3><?php print $call_to_action; ?></h3>
           <div class="cta_button"><?php print $cta_link; ?></div>
         </div>
       </div>
