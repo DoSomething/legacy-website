@@ -40,10 +40,10 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
  *  Modified drupal form.
  */
 function paraneue_dosomething_login_after_build($form, &$form_state) {
-  // Field references 
-  $field_name = &$form['name'];
-  $field_pass = &$form['pass'];
-  
+  // Field references
+  $field_name = $form['name'];
+  $field_pass = $form['pass'];
+
   // Customize field elements.
   $field_name['title'] = 'Email address or cell number';
   $field_name['#attributes']['placeholder'] = 'Email address or cell number';

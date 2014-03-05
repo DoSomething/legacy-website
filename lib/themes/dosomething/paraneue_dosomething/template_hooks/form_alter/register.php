@@ -39,13 +39,13 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
  */
 function paraneue_dosomething_register_after_build($form, &$form_state) {
   // Field references
-  $field_first_name = &$form['field_first_name'][LANGUAGE_NONE][0]['value'];
-  $field_birthdate = &$form['field_birthdate'][LANGUAGE_NONE][0]['value']['date'];
-  $field_mail = &$form['account']['mail'];
-  $field_mobile = &$form['field_mobile'][LANGUAGE_NONE][0]['value'];
-  $field_pass = &$form['account']['pass']['pass1'];
-  $field_pass_confirmation = &$form['account']['pass']['pass2'];
-  
+  $field_first_name = $form['field_first_name'][LANGUAGE_NONE][0]['value'];
+  $field_birthdate = $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date'];
+  $field_mail = $form['account']['mail'];
+  $field_mobile = $form['field_mobile'][LANGUAGE_NONE][0]['value'];
+  $field_pass = $form['account']['pass']['pass1'];
+  $field_pass_confirmation = $form['account']['pass']['pass2'];
+
   // Re-arrange and clean up form and containers.
   $form['field_first_name']['#weight'] = '-20';
   $form['field_birthdate']['#weight'] = '-19';
