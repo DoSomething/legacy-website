@@ -120,5 +120,34 @@ function dosomething_reportback_schema() {
     ),
     'primary key' => array('id'),
   );
+  $schema['dosomething_reportback_file'] = array(
+    'fields' => array(
+      'rbid' => array(
+        'description' => 'Reportback rbid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'fid' => array(
+        'description' => 'File fid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('rbid', 'fid'),
+  );
   return $schema;
+}
+
+/**
+ * Drops field_image_user_reportback, adds dosomething_reportback_file table.
+ */
+function dosomething_reportback_update_7001(&$sandbox) {
+  field_delete_field('field_image_user_reportback');
+  $table_name = 'dosomething_reportback_file';
+  $schema = dosomething_reportback_schema();
+  db_create_table($table_name, $schema[$table_name]);
 }
