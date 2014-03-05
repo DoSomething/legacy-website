@@ -58,14 +58,12 @@
       </ul>
       <script id="modal-facts" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
-        <?php foreach ($more_facts as $fact): ?>
-          <div class="fact-more">
-            <div class="fact-more"><?php print $fact['fact']; ?></div>
-            <?php // @TODO: Output sources separately.  ?>
-            <?php foreach ($fact['sources'] as $source): ?>
-              <div class="legal"><p>Source:</p><?php print $source; ?></div>
-            <?php endforeach; ?>
-          </div>
+        <?php foreach ($more_facts['facts'] as $key => $fact): ?>
+          <div class="fact-more"><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></div>
+        <?php endforeach; ?>
+        Sources:
+        <?php foreach ($more_facts['sources'] as $key => $source): ?>
+          <div class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></div>
         <?php endforeach; ?>
       </script>
       <?php endif; ?>
