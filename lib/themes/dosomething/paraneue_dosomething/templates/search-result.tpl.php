@@ -23,6 +23,9 @@
  * - $title_suffix (array): An array containing additional output populated by
  *   modules, intended to be displayed after the main title tag that appears in
  *   the template.
+ * - $subtitle: For campaigns this is the Call to Action field, and for Fact Pages 
+ *   and Static content it's either the Subtitle or Intro title field, whichever
+ *   is populated.
  *
  * Default keys within $info_split:
  * - $info_split['module']: The module that implemented the search query.
