@@ -408,6 +408,8 @@ function dosomething_user_clean_cell_number($number) {
  *    - impact_noun
  */
 function dosomething_user_send_message_request($origin, $params = NULL) {
+  if (!module_exists('message_broker_producer')) return FALSE;
+
   $payload = array(
     'activity' => $origin,
     'email' => $params['email'],
@@ -446,8 +448,13 @@ function dosomething_user_send_message_request($origin, $params = NULL) {
       );
       break;
   }
-  if (module_exists('message_broker_producer')) {
-    message_broker_producer_request('produceTransactional', $payload);
+
+  try {
+    return message_broker_producer_request('produceTransactional', $payload);
+  }
+  catch (Exception $e){
+    watchdog('dosomething_user', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
   }
 }
 
