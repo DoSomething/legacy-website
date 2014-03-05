@@ -96,7 +96,7 @@
       <?php endif; ?>
 
       <?php if (isset($solution_support)): ?>
-      <div class="solution-supporting-copy"><?php print $solution_support['safe_value']; ?></div>
+      <div class="solution-supporting-copy"><?php print $solution_support; ?></div>
       <?php endif; ?>
     </div>
 
