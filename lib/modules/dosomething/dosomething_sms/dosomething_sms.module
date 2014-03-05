@@ -151,19 +151,8 @@ function dosomething_sms_incoming_callback($path) {
   $output = '';
   conductor_sms_response($output, $context);
 
-  // If an output is given, reply in the xml format expected from Mobile Commons
-  if (!empty($output)) {
-    $output =
-    '<?xml version="1.0" encoding="UTF-8"?>
-    <response>
-     <reply>
-      <text>
-       <![CDATA[' . $output . ']]>
-      </text>
-     </reply>
-    </response>';
-    print $output;
-  }
+  // Reply with output back to Mobile Commons. If empty, Mobile Commons will ignore it.
+  print $output;
 
   return NULL;
 }
