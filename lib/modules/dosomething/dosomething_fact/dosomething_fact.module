@@ -95,7 +95,7 @@ function dosomething_fact_get_fact_field_vars($fact_field_wrapper, $source_index
 
   // If EntityDrupalWrapper, single value field:
   if ($field_class == 'EntityDrupalWrapper') {
-    return dosomething_fact_get_fact_wrapper_values($fact_field_wrapper, $source_index);
+    return dosomething_fact_get_fact_vars($fact_field_wrapper, $source_index);
   }
   // If EntityListWrapper, multi-value field:
   if ($field_class == 'EntityListWrapper') {
@@ -119,7 +119,7 @@ function dosomething_fact_get_fact_field_vars($fact_field_wrapper, $source_index
 /**
  * Returns array of values of a Fact node.
  *
- * @param object $fact_wrapper
+ * @param object $fact
  *   A Fact node entity_metadata_wrapper.
  * @param int $source_index
  *   The array key from which the return sources should begin counting.
@@ -130,12 +130,12 @@ function dosomething_fact_get_fact_field_vars($fact_field_wrapper, $source_index
  *   - footnotes: string of footnote numbers corresponding to fact sources
  *   - sources: an array which beings indexing from given $source_index.
  */
-function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index = 0) {
+function dosomething_fact_get_fact_vars($fact, $source_index = 0) {
   // Initialize sources and footnotes return arrays.
   $footnotes = array();
   $sources = array();
   // Loop through field_source_copy multi-values:
-  foreach ($fact_wrapper->field_source_copy->value() as $delta => $source) {
+  foreach ($fact->field_source_copy->value() as $delta => $source) {
     // Store source safe_value for index $source_index.
     $sources[$source_index] = $source['safe_value'];
     // Add 1 to footnote display because $source_index is zero based.
@@ -144,8 +144,8 @@ function dosomething_fact_get_fact_wrapper_values($fact_wrapper, $source_index =
     $source_index++;
   }
   return array(
-    'fact' => $fact_wrapper->title->value(),
-    'nid' => $fact_wrapper->nid->value(),
+    'fact' => $fact->title->value(),
+    'nid' => $fact->nid->value(),
     'footnotes' => implode(' ', $footnotes),
     'sources' => $sources,
   );
