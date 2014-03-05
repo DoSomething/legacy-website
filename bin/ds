@@ -156,6 +156,10 @@ function build {
   echo 'Updating database...'
   drush updb -y
 
+  # Enable modules in info file
+  echo 'Enabling modules in dosomething.info'
+  drush --script-path=../bin/ php-script enable_modules.php
+
   echo 'Clearing caches...'
   drush cc all
 
