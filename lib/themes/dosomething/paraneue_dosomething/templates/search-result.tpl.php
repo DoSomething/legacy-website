@@ -70,13 +70,10 @@
     <a href="<?php print $url; ?>"><?php print $title; ?></a>
   </h3>
   <?php print render($title_suffix); ?>
-  <p><?php print $result['fields']['bundle_name']; ?></p>
+  <p><?php print $subtitle; ?></p>
   <div class="search-snippet-info">
     <?php if ($snippet): ?>
       <p class="search-snippet"<?php print $content_attributes; ?>><?php print $snippet; ?></p>
-    <?php endif; ?>
-    <?php if ($info): ?>
-      <p class="search-info"><?php //print $info; ?></p>
     <?php endif; ?>
   </div>
 </li>

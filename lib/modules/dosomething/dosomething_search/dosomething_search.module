@@ -18,7 +18,66 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Implements hook_apachesolr_query_alter().
+ * 
+ * Alter the query after it's prepared and cached.
+ *
+ * Any module performing a search should call
+ * drupal_alter('apachesolr_query', $query). That function then invokes this
+ * hook. It allows modules to modify the query object and its parameters.
+ *
+ * A module implementing HOOK_apachesolr_query_alter() may set
+ * $query->abort_search to TRUE to flag the query to be aborted.
+ *
+ * @param DrupalSolrQueryInterface $query
+ *   An object implementing DrupalSolrQueryInterface. No need for &.
+ *
+ * @see /admin/reports/apachesolr
+ * - This report displays the active solr index fields and can help you
+ *   create Solr filters based on the data currently in your system
+ */
+function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $query) {
+  $params = array(
+    'fl' => array(
+        'dm_field_high_season',
+        'dm_field_high_season_end',
+        'dm_field_low_season',
+        'dm_field_low_season_end',
+        'bm_field_staff_pick',
+        'bs_field_staff_pick',
+        'sm_field_call_to_action',
+        'bm_field_display_end_date',
+        'sm_field_subtitle',
+        'sm_field_intro_title',
+    ),
+  );
+  if ($query) {
+    $query->addParams($params);
+  }
+}
+
+/**
+ * Preprocess a single search result.
+ */
 function dosomething_search_preprocess_search_result(&$vars) {
+  $result = $vars['result'];
+  switch ($result['bundle']) {
+    case 'campaign':
+      $vars['subtitle'] = $result['fields']['sm_field_call_to_action'][0];
+      break;
+    case 'static_content':
+    case 'fact_page':
+      if (!empty($result['fields']['sm_field_subtitle'][0])) {
+        $vars['subtitle'] = $result['fields']['sm_field_subtitle'][0];
+      }
+      else {
+        $vars['subtitle'] = $result['fields']['sm_field_intro_title'][0];
+      }
+    break;
+    default:
+      break;
+  }
 }
 
 function dosomething_search_preprocess_search_results(&$vars) {
