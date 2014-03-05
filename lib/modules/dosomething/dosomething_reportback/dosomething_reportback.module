@@ -277,6 +277,10 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'hidden',
     '#default_value' => $wrapper->nid->value(),
   );
+  $form['reportback_file'] = array(
+    '#type' => 'file',
+    '#title' => t('Upload a pic'),
+  );
   $form['why_participated'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
@@ -304,27 +308,80 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
 }
 
 /**
+ * Validation callback for dosomething_reportback_form().
+ */
+function dosomething_reportback_form_validate($form, &$form_state) {
+  // Validate uploaded file.
+  dosomething_reportback_form_validate_file($form, $form_state);
+}
+
+/**
  * Submit callback for dosomething_reportback_form().
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
+
+  // Set confirmation_path for redirect.
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $values['uid'] = $user->uid;
+
+  // Save uploaded file.
+  $file = dosomething_reportback_form_save_file($form_state);
+  // Store new file's fid into values.
+  $values['fid'] = $file->fid;
+
   // If no rbid, we need to insert. If insert is success:
-  if ($values['rbid'] == 0 && dosomething_reportback_insert_reportback($values)) {
-    // Redirect to node reportback confirmation page.
-    $form_state['redirect'] = $confirmation_path;
-    return;
+  if ($values['rbid'] == 0) {
+    $rbid = dosomething_reportback_insert_reportback($values);
   }
-  // Else we are updating the entity:
-  elseif (dosomething_reportback_update_reportback($values['rbid'], $values)) {
-    // @todo: Pass through parameter to inform user we've updated (instead of generic Good job).
-    $form_state['redirect'] = $confirmation_path;
-    return;
+  else {
+    $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
   }
-  // If we didn't break out of function by now, insert/update didn't work.
-  drupal_set_message(t("An error has occurred."), 'error');
+
+  // Associate it to the reportback.
+  dosomething_reportback_insert_reportback_file($rbid, $file->fid);
+  // Redirect to confirmation.
+  $form_state['redirect'] = $confirmation_path;
+}
+
+/**
+ * Validates file uploaded to form and sets in $form_state[storage].
+ */
+function dosomething_reportback_form_validate_file($form, &$form_state) {
+  // Validate upload.
+  $file = file_save_upload('reportback_file', array(
+    'file_validate_is_image' => array(),
+    'file_validate_extensions' => array('png gif jpg jpeg'),
+  ));
+  // If the file passed validation:
+  if ($file) {
+    $nid = $form_state['values']['nid'];
+    // Move the file into its relevant reportbacks directory.
+    if ($file = file_move($file, dosomething_reportback_get_file_dir($nid))) {
+      // Save the file for use in the submit handler.
+      $form_state['storage']['file'] = $file;
+    }
+    else {
+      form_set_error('reportback_file', t('There was an error. Please try again.'));
+    }
+  }
+  else {
+    form_set_error('reportback_file', t('No file was uploaded.'));
+  }
+}
+
+/**
+ * Saves file from form into file_managed with permanent status.
+ */
+function dosomething_reportback_form_save_file(&$form_state) {
+  $file = $form_state['storage']['file'];
+  // We are done with the file, remove it from storage.
+  unset($form_state['storage']['file']);
+  // Make the storage of the file permanent.
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+  return $file;
 }
 
 /**
@@ -531,6 +588,30 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  */
 function dosomething_reportback_set_files(&$entity, $values) {
   // @todo: Make me work.
+}
+
+/**
+ * Inserts a record into the dosomething_reportback_files table.
+ *
+ * @param int $rbid
+ *   Reportback id.
+ * @param int $fid
+ *   File id
+ */
+function dosomething_reportback_insert_reportback_file($rbid, $fid) {
+  return db_insert('dosomething_reportback_file')
+    ->fields(array(
+      'rbid' => $rbid,
+      'fid' => $fid,
+      ))
+    ->execute();
+}
+
+/**
+ * Returns the path to write a reportback file for given node $nid.
+ */
+function dosomething_reportback_get_file_dir($nid) {
+  return 'public://reportbacks/' . $nid;
 }
 
 /**
