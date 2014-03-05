@@ -15,6 +15,25 @@ class ReportbackEntity extends Entity {
   protected function defaultUri() {
     return array('path' => 'reportback/' . $this->identifier());
   }
+
+  /**
+   * Override construct to set a calculated fids property.
+   */
+  public function __construct(array $values = array(), $entityType = NULL) {
+    parent::__construct($values, $entityType);
+    $this->fids = $this->getFids();
+  }
+
+  /**
+   * Return all fids from dosomething_reportback_files table for this entity.
+   */
+  public function getFids() {
+    return db_select('dosomething_reportback_file', 'rbf')
+      ->fields('rbf', array('fid'))
+      ->condition('rbid', $this->rbid)
+      ->execute()
+      ->fetchCol();
+  }
 }
 
 /**
