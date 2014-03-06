@@ -36,11 +36,11 @@ function dosomething_search_apachesolr_environments() {
     'apachesolr_search_sticky_boost' => '0',
     'apachesolr_search_type_boosts' => array(
       'action_guide' => '0',
-      'campaign' => '0',
+      'campaign' => '21.0',
       'fact' => '0',
       'fact_page' => '0',
       'image' => '0',
-      'static_content' => '0',
+      'static_content' => '0.1',
     ),
     'field_bias' => array(
       '_version_' => '0',
