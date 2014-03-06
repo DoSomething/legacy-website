@@ -511,8 +511,6 @@ function dosomething_reportback_save($entity, $values) {
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
-    // Send external request.
-    dosomething_reportback_message_broker();
     // Save the entity.
     $entity->save();
     // Return reportback rbid.
@@ -558,6 +556,15 @@ function dosomething_reportback_set_files(&$entity, $values) {
 }
 
 /**
+ * Implements hook_entity_insert().
+ */
+function dosomething_reportback_entity_insert($entity, $type) {
+  if ($type == 'reportback') {
+    dosomething_reportback_message_broker($entity);
+  }
+}
+
+/**
  * Returns the path to write a reportback file for given node $nid.
  */
 function dosomething_reportback_get_file_dir($nid) {
@@ -567,10 +574,10 @@ function dosomething_reportback_get_file_dir($nid) {
 /**
  * Sends exernal message request for a reportback.
  */
-function dosomething_reportback_message_broker() {
+function dosomething_reportback_message_broker($entity) {
   // Send external message request
   if (module_exists('dosomething_user')) {
-    global $user;
+    $account = user_load($entity->uid);
     $params = array(
       'email' => $account->mail,
       'uid' => $account->uid,
