@@ -77,4 +77,34 @@
   div {
     color: #8a8d8d;
   }
+
+  .legal {
+    padding: 0 !important;
+    text-align: left;
+
+    div {
+      line-height: 1;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    strong {
+      font-size: $font-regular;
+    }
+
+    p,
+    sup {
+      display: inline;
+    }
+
+    sup {
+      font-size: $font-smaller;
+    }
+  }
+}
+
+sup {
+  padding: 0 !important;
 }
