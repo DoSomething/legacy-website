@@ -9,6 +9,9 @@
  * Our Reportback entity class.
  */
 class ReportbackEntity extends Entity {
+  protected $files_table = 'dosomething_reportback_file';
+  protected $log_table = 'dosomething_reportback_log';
+
   /**
    * Override this in order to implement a custom default URI.
    */
@@ -28,8 +31,8 @@ class ReportbackEntity extends Entity {
    * Return all fids from dosomething_reportback_files table for this entity.
    */
   public function getFids() {
-    return db_select('dosomething_reportback_file', 'rbf')
-      ->fields('rbf', array('fid'))
+    return db_select($this->files_table, 'f')
+      ->fields('f', array('fid'))
       ->condition('rbid', $this->rbid)
       ->execute()
       ->fetchCol();
@@ -39,13 +42,48 @@ class ReportbackEntity extends Entity {
    * Inserts given fid into dosomething_reportback_files table for this entity.
    */
   public function insertFid($fid) {
-    return db_insert('dosomething_reportback_file')
+    return db_insert($this->files_table)
       ->fields(array(
         'rbid' => $this->rbid,
         'fid' => $fid,
         ))
       ->execute();
   }
+
+  /**
+   * Logs current entity values with given $op string.
+   */
+  public function insertLog($op) {
+    global $user;
+    // If deleting, store current time.
+    if ($op == 'delete') {
+      $timestamp = REQUEST_TIME;
+    }
+    // Else use the entity's updated property.
+    else {
+      $timestamp = $this->updated;
+    }
+    try {
+      $fids = $this->fids;
+      // Log the entity values into the log table.
+      $id = db_insert($this->log_table)
+        ->fields(array(
+          'rbid' => $this->rbid,
+          'uid' => $user->uid,
+          'op' => $op,
+          'timestamp' => $timestamp,
+          'quantity' => $this->quantity,
+          'why_participated' => $entity->why_participated,
+          'files' => implode(',', $fids),
+          'num_files' => count($fids),
+        ))
+        ->execute();
+    }
+    catch (Exception $e) {
+      watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+    }
+  }
+
 }
 
 /**
@@ -86,6 +124,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     return $build;
   }
+
   /**
    * Overrides save() method.
    *
@@ -93,10 +132,26 @@ class ReportbackEntityController extends EntityAPIController {
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
     $now = REQUEST_TIME;
+    $op = 'update';
     if (isset($entity->is_new)) {
       $entity->created = $now;
+      $op = 'insert';
     }
     $entity->updated = $now;
-    return parent::save($entity, $transaction);
+    parent::save($entity, $transaction);
+    // Log the write operation.
+    $entity->insertLog($op);
+  }
+
+  /**
+   * Overrides delete() method.
+   */
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    // Log deletions.
+    foreach ($ids as $id) {
+      $rb = reportback_load($ids);
+      $rb->insertLog('delete');
+    }
+    parent::delete($ids, $transaction);
   }
 }
