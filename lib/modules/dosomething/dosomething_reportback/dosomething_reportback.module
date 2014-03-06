@@ -312,17 +312,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   $file = dosomething_reportback_form_save_file($form_state);
   // Store new file's fid into values.
   $values['fid'] = $file->fid;
+  // Save values into reportback.
+  dosomething_reportback_save($values);
 
-  // If no rbid, we need to insert. If insert is success:
-  if ($values['rbid'] == 0) {
-    $rbid = dosomething_reportback_insert_reportback($values);
-  }
-  else {
-    $rbid = dosomething_reportback_update_reportback($values['rbid'], $values);
-  }
-  // Add the file.
-  $reportback = reportback_load($rbid);
-  $reportback->insertFid($file->fid);
   // Redirect to confirmation.
   $form_state['redirect'] = $confirmation_path;
 }
@@ -414,43 +406,6 @@ function dosomething_reportback_delete_form_submit($form, &$form_state) {
 }
 
 /**
- * Inserts a reportback entity with given $values.
- *
- * @param array $values
- *   Associative array of values to save to new reportback, with keys:
- *   - uid: The user uid who is reporting back.
- *   - nid: The node nid that user is reporting back for.
- *   - files: An array of File fid's to store with the reportback.
- *   - quantity: Number of nouns verbed.
- *   - why_participated: Why user participated.
- *   - num_participants: Number of participants (if applicable).
- *
- * @return mixed
- *   Newly inserted reportback rbid if success, or FALSE if error.
- */
-function dosomething_reportback_insert_reportback($values) {
-  $entity = entity_create('reportback', array());
-  return dosomething_reportback_save($entity, $values);
-}
-
-/**
- * Updates a reportback entity with given $values.
- *
- * @param int $rbid
- *   The reportback rbid of the reportback to update.
- * @param array $values
- *   An array of expected reportback values.
- *   See @dosomething_reportback_insert_reportback().
- *
- * @return mixed
- *   The updated reportback rbid if success, or FALSE if error.
- */
-function dosomething_reportback_update_reportback($rbid, $values) {
-  $entity = entity_load_single('reportback', $rbid);
-  return dosomething_reportback_save($entity, $values);
-}
-
-/**
  * Deletes a reportback entity.
  *
  * @param int $rbid
@@ -497,15 +452,20 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 /**
  * Saves a reportback entity with given values.
  *
- * @param object $entity
- *   The reportback entity to save (may be a blank entity if insert).
  * @param array $values
  *   The reportback entity values to save.
  *
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
  */
-function dosomething_reportback_save($entity, $values) {
+function dosomething_reportback_save($values) {
+  $rbid = $values['rbid'];
+  if ($rbid == 0) {
+    $entity = entity_create('reportback', array());
+  }
+  else {
+    $entity = entity_load_single('reportback', $rbid);
+  }
   try {
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
@@ -552,7 +512,9 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of file fid's to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  // @todo: Make me work.
+  if (isset($values['fid'])) {
+    $entity->fid = $values['fid'];
+  }
 }
 
 /**

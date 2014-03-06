@@ -73,7 +73,7 @@ class ReportbackEntity extends Entity {
           'op' => $op,
           'timestamp' => $timestamp,
           'quantity' => $this->quantity,
-          'why_participated' => $entity->why_participated,
+          'why_participated' => $this->why_participated,
           'files' => implode(',', $fids),
           'num_files' => count($fids),
         ))
@@ -139,6 +139,11 @@ class ReportbackEntityController extends EntityAPIController {
     }
     $entity->updated = $now;
     parent::save($entity, $transaction);
+    // If a file fid exists:
+    if (isset($entity->fid)) {
+      // Add it into the reportback files.
+      $entity->insertFid($entity->fid);
+    }
     // Log the write operation.
     $entity->insertLog($op);
   }
