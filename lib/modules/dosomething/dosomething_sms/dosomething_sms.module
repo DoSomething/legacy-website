@@ -329,7 +329,7 @@ function dosomething_sms_game_set_answers($phone, $game_id, $answers) {
  * @param array $args
  *   Additional arguments.
  */
-function dosomething_sms_mobile_commons_opt_in($phone, $opt_in_path, $args = array()) {
+function dosomething_sms_mobilecommons_opt_in($phone, $opt_in_path, $args = array()) {
   $content = array(
     'opt_in_path[]' => $opt_in_path,
     'person' => array(
@@ -354,7 +354,7 @@ function dosomething_sms_mobile_commons_opt_in($phone, $opt_in_path, $args = arr
  * @param int $campaign
  *   A single campaign ID to opt out of.
  */
-function dosomething_sms_mobile_commons_opt_out($phone, $campaign) {
+function dosomething_sms_mobilecommons_opt_out($phone, $campaign) {
   $content = array(
     'person' => array(
       'phone' => $phone,
