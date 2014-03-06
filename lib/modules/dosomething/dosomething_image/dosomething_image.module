@@ -114,3 +114,30 @@ function dosomething_image_node_view($node, $view_mode, $langcode) {
     dosomething_helpers_add_entityref_links($node, $entityref_fields);
   }
 }
+
+/**
+ * Returns a themed image for a given File $fid.
+ *
+ * @param int $fid
+ *  The File fid.
+ * @param string $style
+ *  The image style preset/size to return the image.
+ * @param string $alt
+ *  Optional - image alt text.
+ *
+ * @return array
+ *  A themed image tag with no set height/width.
+ */
+function dosomething_image_get_image_url_by_fid($fid, $style, $alt = '') {
+  $file = file_load($fid);
+  $image = image_load($file->uri);
+  $content = array(
+    'file' => array(
+      '#theme' => 'image_style',
+      '#style_name' => $style,
+      '#path' => $image->source,
+      '#alt' => $alt,
+    ),
+  );
+  return drupal_render($content);
+}
