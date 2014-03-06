@@ -214,14 +214,15 @@ function dosomething_user_is_under_thirteen($user = NULL) {
  */
 function dosomething_user_login_submit($form, &$form_state) {
   // If nid is not present, nothing to sign up for.  Exit.
-  if (!isset($form_state['input']['nid'])) { return; }
-  $nid = $form_state['input']['nid'];
-  // Redirect to node (this is needed for user_register form).
-  $form_state['redirect'] = 'node/' . $nid;
-  // Signup global user for node $nid.
-  if (module_exists('dosomething_signup')) {
-    dosomething_signup_user_signup($nid);
+  if (isset($form_state['input']['nid'])) {
+    $nid = $form_state['input']['nid'];
+    // Signup global user for node $nid.
+    if (module_exists('dosomething_signup')) {
+      dosomething_signup_user_signup($nid);
+    }
   }
+  // After all logins redirect to page user was just on.
+  $form_state['redirect'] = $_SERVER['HTTP_REFERER'];
 }
 
 /**
