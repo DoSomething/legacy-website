@@ -18,7 +18,7 @@
       <div class="sponsor">
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php print $sponsor['name']; ?>
-          <?php // print $sponsor['img']; ?>
+          <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
