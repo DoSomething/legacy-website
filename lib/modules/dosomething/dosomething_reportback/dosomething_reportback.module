@@ -249,7 +249,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     $form['header'] = array(
       '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
     );
-    $submit_label = t("Update");
+    $submit_label = t("Update submission");
   }
   $form['rbid'] = array(
     '#type' => 'hidden',
@@ -263,21 +263,27 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'file',
     '#title' => t('Upload a pic'),
   );
-  $form['why_participated'] = array(
-    '#type' => 'textarea',
-    '#required' => TRUE,
-    '#title' => t('Why is this campaign important to you?'),
-    '#default_value' => $entity->why_participated,
-  );
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t("Total number of @noun @verb", array(
+    '#attributes' => array(
+      'placeholder' => t("Enter # here"),
+    ),
+    '#title' => t("Total # of @noun @verb", array(
         '@noun' => $wrapper->field_reportback_noun->value(),
         '@verb' => $wrapper->field_reportback_verb->value(),
       )
     ),
     '#default_value' => $entity->quantity,
+  );
+  $form['why_participated'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#attributes' => array(
+      'placeholder' => t("Write something..."),
+    ),
+    '#title' => t('Why is this important to you?'),
+    '#default_value' => $entity->why_participated,
   );
   $form['actions'] = array(
     '#type' => 'actions',
