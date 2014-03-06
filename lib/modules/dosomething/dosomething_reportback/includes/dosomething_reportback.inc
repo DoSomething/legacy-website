@@ -84,6 +84,19 @@ class ReportbackEntity extends Entity {
     }
   }
 
+  /**
+   * Returns array of themed images for this Reportback.
+   */
+  public function getThemedImages($style) {
+    $images = array();
+    if (!module_exists('dosomething_image')) return $images();
+
+    foreach ($this->fids as $fid) {
+      $images[] = dosomething_image_get_image_url_by_fid($fid, $style);
+    }
+    return $images;
+  }
+
 }
 
 /**
