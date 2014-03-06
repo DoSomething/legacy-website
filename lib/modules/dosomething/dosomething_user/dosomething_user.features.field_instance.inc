@@ -33,7 +33,7 @@ function dosomething_user_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_birthdate',
     'label' => 'Birthday',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'default_value' => 'blank',
       'default_value2' => 'same',
@@ -75,7 +75,7 @@ function dosomething_user_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_first_name',
     'label' => 'First Name',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => 1,
