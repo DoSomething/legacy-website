@@ -22,16 +22,6 @@ function dosomething_reportback_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackEntityController',
     'module' => 'dosomething_reportback',
-    'fieldable' => TRUE,
-    'bundles' => array(
-      'reportback' => array(
-        'label' => t('Reportback'),
-        'admin' => array(
-          'path' => 'admin/reportback',
-          'access arguments' => array('administer modules'),
-        ),
-      ),
-    ),
     'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
@@ -109,14 +99,6 @@ function dosomething_reportback_entity_property_info() {
  */
 function dosomething_reportback_menu() {
   $items = array();
-  $items['admin/reportback'] = array(
-    'title' => 'Reportbacks',
-    'description' => 'Configuration settings for Reportbacks.',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer modules'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
   $items['reportback/%reportback'] = array(
     'title callback' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
