@@ -242,10 +242,11 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
       'quantity' => '',
       'why_participated' => NULL,
     ));
-    $submit_label = t("Submit");
+    $submit_label = t("Submit your pic");
   }
   // Else, it's update form.  Display updated date.
   else {
+    //@todo: Display uploaded reportback files here.
     $form['header'] = array(
       '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
     );
