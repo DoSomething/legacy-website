@@ -48,9 +48,11 @@ function paraneue_dosomething_login_after_build($form, &$form_state) {
   $field_name['title'] = 'Email address or cell number';
   $field_name['#attributes']['placeholder'] = 'Email address or cell number';
   unset($field_name['#description']);
+  unset($form['name']['#required']);
  
   $field_pass['#attributes']['placeholder'] = 'Password';
   unset($field_pass['#description']);
+  unset($form['pass']['#required']);
 
   return $form; 
 }

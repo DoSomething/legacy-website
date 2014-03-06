@@ -34,6 +34,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['account']['mail']['#attributes']['data-validate'] = 'email';
     $form['account']['mail']['#attributes']['data-validate-required'] = '';
     unset($form['account']['mail']['#description']);
+    unset($form['account']['mail']['#required']);
 
     $form['field_mobile']['#weight'] = -11;
     $form['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = 'Cell Number <span class="field-label-optional">(optional)</span>'; 
@@ -67,6 +68,7 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title_display'] = 'before';
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = 'Birthday';
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
+  unset($form['field_birthdate'][LANGUAGE_NONE][0]['#required']);
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
 
   $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('Top secret!');
@@ -74,12 +76,14 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
   $form['account']['pass']['pass1']['#attributes']['data-validate-required'] = '';
   $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2';
+  unset($form['account']['pass']['pass1']['#required']);
 
   $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('Just double checking!');
   $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass2']['#attributes']['data-validate'] = 'match';
   $form['account']['pass']['pass2']['#attributes']['data-validate-required'] = '';
   $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = '#edit-pass-pass1';
+  unset($form['account']['pass']['pass2']['#required']);
 
   unset($form['account']['pass']['#description']);
 
