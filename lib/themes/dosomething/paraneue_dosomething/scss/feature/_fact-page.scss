@@ -1,0 +1,90 @@
+
+// -----------
+//  FACT PAGE
+// -----------
+
+// @TODO: Sync naming between SCSS files and tpl.php
+
+.node-type-fact-page {
+  background: $purple;
+
+  // @TODO: White Navigation -- Ugh -- At least mixin this
+  .nav--wrapper {
+    .hamburger {
+      color: #fff !important;
+    }
+    a {
+      color: #fff !important;
+    }
+
+    .secondary-nav input[type="search"] {
+      border: 1px solid #fff;
+      background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
+    }
+  }
+}
+
+.fact_page-wrapper {
+  background: #fff;
+
+  h2, h3, h4 {
+    color: $purple;
+  }
+
+  // Set gutters on mobile
+  .header-wrapper, .intro-wrapper {
+    @include outer-container-margin();
+    @include media($tablet) {
+      @include outer-container;
+    }
+  }
+
+  // Set margins on desktop
+  .header, .intro {
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+  }
+
+  .header-wrapper {
+    background: $purple;
+  }
+
+  // @TODO: Default content page headers -- same as campaign template -- abstract this
+  .header {
+    .title {
+      color: #fff;
+    }
+
+    .subtitle {
+      color: #fff;
+      font-weight: $weight-normal;
+      margin-top: -25px;
+
+
+      text-align: center;
+      @include media($tablet) {
+	text-align: left;
+      }
+    }
+  }
+
+  .intro {
+    // @TODO: ಠ_ಠ
+    margin-top: 20px;
+    margin-bottom: 55px;
+
+    .intro-content {
+      @include media($tablet) {
+	@include span-columns(8 of 12);
+      }
+    }
+    img, video {
+      @include media($tablet) {
+	@include span-columns(4 of 12);
+	@include omega();
+      }
+    }
+  }
+}
