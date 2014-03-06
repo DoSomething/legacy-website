@@ -8,6 +8,12 @@
   display: none;
 }
 
+// Hide asterisks on required form fields.
+.form-required {
+  display: none;
+}
+
+
 
 // @TODO: Remove date.css to override this more cleanly
 .container-inline-date .date-padding {
