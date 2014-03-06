@@ -41,6 +41,7 @@ dependencies[] = metatag
 dependencies[] = mobilecommons
 dependencies[] = module_filter
 dependencies[] = pathauto
+dependencies[] = redis
 dependencies[] = search
 dependencies[] = strongarm
 dependencies[] = uuid

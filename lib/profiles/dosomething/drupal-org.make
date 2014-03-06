@@ -97,6 +97,10 @@ projects[optimizely][subdir] = "contrib"
 projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
+; Redis
+projects[redis] = "2.6"
+projects[redis][subdir] = "contrib"
+
 ; Secure Pages
 projects[securepages] = "1.0-beta2"
 projects[securepages][subdir] "contrib"
