@@ -28,6 +28,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
      
+    $form['account']['mail']['#weight'] = 10; 
     $form['account']['mail']['#title'] = t('Email');
     $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
     $form['account']['mail']['#attributes']['class'] = array('js-validate');
@@ -36,13 +37,18 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     unset($form['account']['mail']['#description']);
     unset($form['account']['mail']['#required']);
 
-    $form['field_mobile']['#weight'] = -11;
-    $form['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = 'Cell Number <span class="field-label-optional">(optional)</span>'; 
-    $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
-    $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
-    $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
+    $form['account']['field_mobile'] = $form['field_mobile'];
+    unset($form['field_mobile']);
+    
+    $form['account']['field_mobile']['#weight'] = 20;
+    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = 'Cell Number <span class="field-label-optional">(optional)</span>'; 
+    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
+    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
+    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
 
-    // After build form changes.
+    $form['account']['pass']['#weight'] = 30;
+
+    // Perform remaining form changes after build is complete.
     $form['#after_build'][] = 'paraneue_dosomething_register_after_build';
   }
 }
