@@ -22,16 +22,6 @@ function dosomething_reportback_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackEntityController',
     'module' => 'dosomething_reportback',
-    'fieldable' => TRUE,
-    'bundles' => array(
-      'reportback' => array(
-        'label' => t('Reportback'),
-        'admin' => array(
-          'path' => 'admin/reportback',
-          'access arguments' => array('administer modules'),
-        ),
-      ),
-    ),
     'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
@@ -109,14 +99,6 @@ function dosomething_reportback_entity_property_info() {
  */
 function dosomething_reportback_menu() {
   $items = array();
-  $items['admin/reportback'] = array(
-    'title' => 'Reportbacks',
-    'description' => 'Configuration settings for Reportbacks.',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer modules'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
   $items['reportback/%reportback'] = array(
     'title callback' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
@@ -260,14 +242,15 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
       'quantity' => '',
       'why_participated' => NULL,
     ));
-    $submit_label = t("Submit");
+    $submit_label = t("Submit your pic");
   }
   // Else, it's update form.  Display updated date.
   else {
+    //@todo: Display uploaded reportback files here.
     $form['header'] = array(
       '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
     );
-    $submit_label = t("Update");
+    $submit_label = t("Update submission");
   }
   $form['rbid'] = array(
     '#type' => 'hidden',
@@ -277,21 +260,31 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#type' => 'hidden',
     '#default_value' => $wrapper->nid->value(),
   );
-  $form['why_participated'] = array(
-    '#type' => 'textarea',
-    '#required' => TRUE,
-    '#title' => t('Why is this campaign important to you?'),
-    '#default_value' => $entity->why_participated,
+  $form['reportback_file'] = array(
+    '#type' => 'file',
+    '#title' => t('Upload a pic'),
   );
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t("Total number of @noun @verb", array(
+    '#attributes' => array(
+      'placeholder' => t("Enter # here"),
+    ),
+    '#title' => t("Total # of @noun @verb", array(
         '@noun' => $wrapper->field_reportback_noun->value(),
         '@verb' => $wrapper->field_reportback_verb->value(),
       )
     ),
     '#default_value' => $entity->quantity,
+  );
+  $form['why_participated'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#attributes' => array(
+      'placeholder' => t("Write something..."),
+    ),
+    '#title' => t('Why is this important to you?'),
+    '#default_value' => $entity->why_participated,
   );
   $form['actions'] = array(
     '#type' => 'actions',
@@ -304,27 +297,72 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
 }
 
 /**
+ * Validation callback for dosomething_reportback_form().
+ */
+function dosomething_reportback_form_validate($form, &$form_state) {
+  // Validate uploaded file.
+  dosomething_reportback_form_validate_file($form, $form_state);
+}
+
+/**
  * Submit callback for dosomething_reportback_form().
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
+
+  // Set confirmation_path for redirect.
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $values['uid'] = $user->uid;
-  // If no rbid, we need to insert. If insert is success:
-  if ($values['rbid'] == 0 && dosomething_reportback_insert_reportback($values)) {
-    // Redirect to node reportback confirmation page.
-    $form_state['redirect'] = $confirmation_path;
-    return;
+
+  // Save uploaded file.
+  $file = dosomething_reportback_form_save_file($form_state);
+  // Store new file's fid into values.
+  $values['fid'] = $file->fid;
+  // Save values into reportback.
+  dosomething_reportback_save($values);
+
+  // Redirect to confirmation.
+  $form_state['redirect'] = $confirmation_path;
+}
+
+/**
+ * Validates file uploaded to form and sets in $form_state[storage].
+ */
+function dosomething_reportback_form_validate_file($form, &$form_state) {
+  // Validate upload.
+  $file = file_save_upload('reportback_file', array(
+    'file_validate_is_image' => array(),
+    'file_validate_extensions' => array('png gif jpg jpeg'),
+  ));
+  // If the file passed validation:
+  if ($file) {
+    $nid = $form_state['values']['nid'];
+    // Move the file into its relevant reportbacks directory.
+    if ($file = file_move($file, dosomething_reportback_get_file_dir($nid))) {
+      // Save the file for use in the submit handler.
+      $form_state['storage']['file'] = $file;
+    }
+    else {
+      form_set_error('reportback_file', t('There was an error. Please try again.'));
+    }
   }
-  // Else we are updating the entity:
-  elseif (dosomething_reportback_update_reportback($values['rbid'], $values)) {
-    // @todo: Pass through parameter to inform user we've updated (instead of generic Good job).
-    $form_state['redirect'] = $confirmation_path;
-    return;
+  else {
+    form_set_error('reportback_file', t('No file was uploaded.'));
   }
-  // If we didn't break out of function by now, insert/update didn't work.
-  drupal_set_message(t("An error has occurred."), 'error');
+}
+
+/**
+ * Saves file from form into file_managed with permanent status.
+ */
+function dosomething_reportback_form_save_file(&$form_state) {
+  $file = $form_state['storage']['file'];
+  // We are done with the file, remove it from storage.
+  unset($form_state['storage']['file']);
+  // Make the storage of the file permanent.
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+  return $file;
 }
 
 /**
@@ -375,43 +413,6 @@ function dosomething_reportback_delete_form_submit($form, &$form_state) {
 }
 
 /**
- * Inserts a reportback entity with given $values.
- *
- * @param array $values
- *   Associative array of values to save to new reportback, with keys:
- *   - uid: The user uid who is reporting back.
- *   - nid: The node nid that user is reporting back for.
- *   - files: An array of File fid's to store with the reportback.
- *   - quantity: Number of nouns verbed.
- *   - why_participated: Why user participated.
- *   - num_participants: Number of participants (if applicable).
- *
- * @return mixed
- *   Newly inserted reportback rbid if success, or FALSE if error.
- */
-function dosomething_reportback_insert_reportback($values) {
-  $entity = entity_create('reportback', array());
-  return dosomething_reportback_save($entity, $values);
-}
-
-/**
- * Updates a reportback entity with given $values.
- *
- * @param int $rbid
- *   The reportback rbid of the reportback to update.
- * @param array $values
- *   An array of expected reportback values.
- *   See @dosomething_reportback_insert_reportback().
- *
- * @return mixed
- *   The updated reportback rbid if success, or FALSE if error.
- */
-function dosomething_reportback_update_reportback($rbid, $values) {
-  $entity = entity_load_single('reportback', $rbid);
-  return dosomething_reportback_save($entity, $values);
-}
-
-/**
  * Deletes a reportback entity.
  *
  * @param int $rbid
@@ -458,37 +459,25 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 /**
  * Saves a reportback entity with given values.
  *
- * @param object $entity
- *   The reportback entity to save (may be a blank entity if insert).
  * @param array $values
  *   The reportback entity values to save.
  *
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
  */
-function dosomething_reportback_save($entity, $values) {
+function dosomething_reportback_save($values) {
+  $rbid = $values['rbid'];
+  if ($rbid == 0) {
+    $entity = entity_create('reportback', array());
+  }
+  else {
+    $entity = entity_load_single('reportback', $rbid);
+  }
   try {
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
-    // Send external message request
-    if (module_exists('dosomething_user')) {
-      if ($user == NULL) {
-        global $user;
-        $account = $user;
-      }
-      $params = array(
-        'email' => $account->mail,
-        'uid' => $account->uid,
-        'first_name' => dosomething_user_get_field('field_first_name', $account),
-        'event_id' => '??',
-        'impact_verb' => '??',
-        'impact_number' => '??',
-        'impact_noun' => '??',
-      );
-      dosomething_user_send_message_request('campaign_reportback', $params);
-    }
     // Save the entity.
     $entity->save();
     // Return reportback rbid.
@@ -530,53 +519,8 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of file fid's to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  // @todo: Make me work.
-}
-
-/**
- * Inserts a record into the reportback log table for a given reportback.
- *
- * Called from various hook_entity_[operation] functions.
- * @see dosomething_reportback_entity_insert().
- *
- * @param string $op
- *   The operation performed, e.g. "insert", "update", "delete".
- * @param object $entity
- *   The reportback entity to log an update for.
- */
-function dosomething_reportback_log_insert($op, $entity) {
-  global $user;
-  $fids = array();
-  // @todo: Update with new reportback file method.
-  // Loop through all files in field_image_user_reportback to store fids.
-  // foreach ($entity->field_image_user_reportback[LANGUAGE_NONE] as $file) {
-  //   $fids[] = $file['fid'];
-  // }
-  // If deleting, store current time.
-  if ($op == 'delete') {
-    $timestamp = REQUEST_TIME;
-  }
-  // Else use the entity's updated property.
-  else {
-    $timestamp = $entity->updated;
-  }
-  try {
-    // Log the entity values into the log table.
-    $id = db_insert('dosomething_reportback_log')
-      ->fields(array(
-        'rbid' => $entity->rbid,
-        'uid' => $user->uid,
-        'op' => $op,
-        'timestamp' => $timestamp,
-        'quantity' => $entity->quantity,
-        'why_participated' => $entity->why_participated,
-        'files' => implode(',', $fids),
-        'num_files' => count($fids),
-      ))
-      ->execute();
-  }
-  catch (Exception $e) {
-    watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+  if (isset($values['fid'])) {
+    $entity->fid = $values['fid'];
   }
 }
 
@@ -585,24 +529,33 @@ function dosomething_reportback_log_insert($op, $entity) {
  */
 function dosomething_reportback_entity_insert($entity, $type) {
   if ($type == 'reportback') {
-    dosomething_reportback_log_insert('insert', $entity);
+    dosomething_reportback_message_broker($entity);
   }
 }
 
 /**
- * Implements hook_entity_update().
+ * Returns the path to write a reportback file for given node $nid.
  */
-function dosomething_reportback_entity_update($entity, $type) {
-  if ($type == 'reportback') {
-    dosomething_reportback_log_insert('update', $entity);
-  }
+function dosomething_reportback_get_file_dir($nid) {
+  return 'public://reportbacks/' . $nid;
 }
 
 /**
- * Implements hook_entity_delete().
+ * Sends exernal message request for a reportback.
  */
-function dosomething_reportback_entity_delete($entity, $type) {
-  if ($type == 'reportback') {
-    dosomething_reportback_log_insert('delete', $entity);
+function dosomething_reportback_message_broker($entity) {
+  // Send external message request
+  if (module_exists('dosomething_user')) {
+    $account = user_load($entity->uid);
+    $params = array(
+      'email' => $account->mail,
+      'uid' => $account->uid,
+      'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'event_id' => '??',
+      'impact_verb' => '??',
+      'impact_number' => '??',
+      'impact_noun' => '??',
+    );
+    dosomething_user_send_message_request('campaign_reportback', $params);
   }
 }
