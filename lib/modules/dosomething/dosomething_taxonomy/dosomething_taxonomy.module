@@ -35,7 +35,7 @@ function dosomething_taxonomy_get_partners_vars($nid) {
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
     $partners[$delta]['name'] = $term_wrapper->label();
     if ($logo = $term_wrapper->field_partner_logo->value()) {
-      $partners[$delta]['logo'] = $logo['fid'];
+      $partners[$delta]['fid'] = $logo['fid'];
     }
 
     // If partner is a sponsor, add into sponsors array.
