@@ -37,7 +37,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     unset($form['account']['mail']['#description']);
 
     $form['account']['field_mobile'] = $form['field_mobile'];
-    unset($form['field_mobile']);
+    $form['field_mobile']['#access'] = FALSE;
     
     $form['account']['field_mobile']['#weight'] = 20;
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = 'Cell Number <span class="field-label-optional">(optional)</span>'; 
