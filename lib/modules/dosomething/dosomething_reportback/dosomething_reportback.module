@@ -126,6 +126,22 @@ function dosomething_reportback_menu() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function dosomething_reportback_theme($existing, $type, $theme, $path) {
+  return array(
+    'reportback_form_images' => array(
+      'template' => 'reportback-form-images',
+      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
+      'variables' => array(
+        'updated' => NULL,
+        'images' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_admin_paths().
  */
 function dosomething_reportback_admin_paths() {
@@ -244,12 +260,13 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     ));
     $submit_label = t("Submit your pic");
   }
-  // Else, it's update form.  Display updated date.
+  // Else, it's update form.
   else {
-    //@todo: Display uploaded reportback files here.
-    $form['header'] = array(
-      '#markup' => '<p class="legal">Last updated ' . format_date($entity->updated, 'short') . '</p>',
-    );
+    // Output reportback images with date last updated.
+    $form['header']['#markup'] =theme('reportback_form_images', array(
+      'updated' => format_date($entity->updated, 'short'),
+      'images' => $entity->getThemedImages('300x300'),
+    ));
     $submit_label = t("Update submission");
   }
   $form['rbid'] = array(
