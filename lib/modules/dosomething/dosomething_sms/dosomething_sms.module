@@ -1,0 +1,367 @@
+<?php
+/**
+ * @file
+ * Provides Do Something-specific SMS functionality.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_sms_menu() {
+  $items = array();
+
+  $items['dosomething_sms/%'] = array(
+    'title' => 'SMS Receiver for Mobile Commons mData Requests',
+    'page callback' => 'dosomething_sms_incoming_callback',
+    'access callback' => 'dosomething_sms_incoming_check',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_sms_permission() {
+  return array(
+    'administer dosomething_sms' => array(
+      'title' => t('Administer dosomething_sms module'),
+      'description' => t('Administer access to everything in module'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function dosomething_sms_ctools_plugin_api($owner, $api) {
+  if ($owner == 'conductor') {
+    return array('version' => 1.0);
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dosomething_sms_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'conductor') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
+ * Implements hook_conductor_sms_keywords().
+ *
+ * Specifies conductor workflows that should trigger for a given endpoint
+ *   [endpoint] => [conductor workflow]
+ */
+function dosomething_sms_conductor_sms_keywords() {
+  $keywords = array();
+
+  // Find files in this directory tree with the .keywords.inc extension and
+  // include them to populate the keywords array.
+  $files = array();
+  _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.keywords.inc', $files);
+
+  foreach ($files as $file) {
+    include $file;
+  }
+
+  return $keywords;
+}
+
+/**
+ * Implements hook_default_conductor_workflows().
+ * Searches for local .workflows.inc files for instantiated ConductorWorkflows to add to array.
+ */
+function dosomething_sms_default_conductor_workflows() {
+  $workflows = array();
+
+  // Find files in this directory tree with the .workflows.inc extension and
+  // include them to populate the workflows array.
+  $files = array();
+  _dosomething_sms_list_files_by_extension(dirname(__FILE__), '.workflows.inc', $files);
+
+  foreach ($files as $file) {
+    include $file;
+  }
+
+  return $workflows;
+}
+
+/**
+ * Helper function to find all files within a directory that end with the given extension.
+ *
+ * @param string $dir
+ *   Directory to search for files.
+ * @param string $file_ext
+ *   File extension of files to search for.
+ * @param array $matching_files
+ *   The files that match the $file_ext being searched for.
+ */
+function _dosomething_sms_list_files_by_extension($dir, $file_ext, &$matching_files) {
+  $files = scandir($dir);
+  foreach ($files as $file) {
+    if ($file != '.' && $file != '..') {
+      $path = $dir . '/' . $file;
+
+      if (is_dir($path)) {
+        _dosomething_sms_list_files_by_extension($path, $file_ext, $matching_files);
+      }
+      elseif (preg_match('/'  . $file_ext . '$/', $path) === 1) {
+        $matching_files[] = $path;
+      }
+    }
+  }
+}
+
+/**
+ * Callback for Mobile Commons mData requests. Allows for different endpoints
+ * to trigger different keyword paths.
+ *
+ * @param string $path
+ *   Keyword associated with a ConductorWorkflow that the request will be handled by.
+ */
+function dosomething_sms_incoming_callback($path) {
+  // Direct correlation between path endpoint and keyword used. If the path doesn't
+  // match any keyword specified in the array of keywords, then error out.
+  $keyword = $path;
+  $keyword_map = module_invoke_all('conductor_sms_keywords');
+  if (!array_key_exists($path, $keyword_map)) {
+    watchdog('dosomething_sms', "Received message at unsupported path: /dosomething_sms/$path");
+    return NULL;
+  }
+
+  // Build context for the conductor workflow
+  $message = isset($_REQUEST['args']) ? $_REQUEST['args'] : FALSE;
+  $carrier = isset($_REQUEST['carrier']) ? $_REQUEST['carrier'] : FALSE;
+  $sender = isset($_REQUEST['phone']) ? $_REQUEST['phone'] : FALSE;
+
+  $context = array(
+    'message' => $message,
+    'keyword' => $keyword,
+    'carrier' => $carrier,
+    'sender' => $sender,
+  );
+
+  // Pass message on to Conductor to handle and generate a response
+  $output = '';
+  conductor_sms_response($output, $context);
+
+  // Reply with output back to Mobile Commons. If empty, Mobile Commons will ignore it.
+  print $output;
+
+  return NULL;
+}
+
+/**
+ * Filter to ensure incoming texts are coming from Mobile Commons' IP.
+ */
+function dosomething_sms_incoming_check() {
+  // Valid IP range as specified by Mobile Commons is: 64.22.127.0/24.
+  // This translates to any IP 64.22.127.0 - 64.22.127.255
+  $ip = ip_address();
+  $valid = FALSE;
+  if (strpos($ip, '64.22.127') === 0) {
+    if ((int) substr($ip, 9, 3) >= 0 && (int) substr($ip, 10, 3) <= 255) {
+      $valid = TRUE;
+    }
+  }
+
+  // Also check the Mobile Commons backup data center IP: 67.214.223.81 - .94
+  else if (strpos($ip, '67.214.213') === 0) {
+    if ((int) substr($ip, 11, 3) >= 81 && (int) substr($ip, 11, 3) <= 94) {
+      $valid = TRUE;
+    }
+  }
+  return $valid;
+}
+
+/**
+ * Create record in dosomething_sms_game table.
+ *
+ * @param string $phone
+ *   Phone number to add to the table.
+ * @param int $game_id
+ *   The game ID for this record.
+ *   @see dosomething_sms_game_constants.inc
+ *
+ * @return
+ *   If the record insert or update failed, returns FALSE. If it succeeded,
+ *   returns SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
+ */
+function dosomething_sms_game_create_record($phone, $game_id) {
+  $phone = substr($phone, -10);
+
+  $record = array(
+    'phone' => $phone,
+    'game_id' => $game_id,
+    'started_paths' => '',
+    'answers' => '',
+  );
+
+  $ret = drupal_write_record('dosomething_sms_game', $record);
+}
+
+/**
+ * Retrieve the opt-in paths a user has been sent to.
+ *
+ * @param string $phone
+ *   Phone number of the user to lookup.
+ * @param int $game_id
+ *   The game ID to query for.
+ *   @see dosomething_sms_game_constants.inc
+ *
+ * @return array
+ *   The paths a user has been opted-in to.
+ */
+function dosomething_sms_game_get_paths($phone, $game_id) {
+  $phone = preg_replace('#[^0-9]#i', '', $phone);
+  $phone = substr($phone, -10);
+
+  $select = db_select('dosomething_sms_game', 'g')
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->fields('g', array('started_paths'))
+    ->execute();
+
+  $record = current($select->fetchAll());
+
+  if ($record && !empty($record->started_paths)) {
+    // Deserialize string into array
+    $return = explode(',', $record->started_paths);
+  }
+
+  return !empty($return) ? $return : array();
+}
+
+/**
+ * Save the opt-in paths a user has been sent to to the dosomething_sms_game table.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   The game ID the paths are associated with.
+ *   @see dosomething_sms_game_constants.inc
+ * @param array $paths
+ *   The opt-in paths a user has been sent to.
+ */
+function dosomething_sms_game_set_paths($phone, $game_id, $paths) {
+  $phone = substr($phone, -10);
+
+  // Serialize array before writing it to the database
+  $serialized_paths = implode(',', $paths);
+
+  db_update('dosomething_sms_game')
+    ->fields(array(
+      'started_paths' => $serialized_paths
+    ))
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->execute();
+}
+
+/**
+ * Return answers from dosomething_sms_game.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   Game ID to get the answers for.
+ *   @see dosomething_sms_game_constants.inc
+ *
+ * @return
+ *   Associative array of the user's answers to the given game. Otherwise, NULL.
+ */
+function dosomething_sms_game_get_answers($phone, $game_id) {
+  $phone = preg_replace('#[^0-9]#i', '', $phone);
+  $phone = substr($phone, -10);
+
+  $select = db_select('dosomething_sms_game', 'g')
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->fields('g', array('answers'))
+    ->execute();
+
+  $record = current($select->fetchAll());
+
+  if ($record && !empty($record->answers)) {
+    $return = json_decode($record->answers, TRUE);
+  }
+
+  return !empty($return) ? $return : NULL;
+}
+
+/**
+ * Convert answers from associative array to json string and save to dosomething_sms_game.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $game_id
+ *   Game ID the answers are associated with.
+ *   @see dosomething_sms_game_constants.inc
+ * @param array $answers
+ *   The answers to convert and save.
+ */
+function dosomething_sms_game_set_answers($phone, $game_id, $answers) {
+  $phone = substr($phone, -10);
+  $serialized_answers = json_encode($answers);
+
+  db_update('dosomething_sms_game')
+    ->fields(array(
+      'answers' => $serialized_answers
+    ))
+    ->condition('phone', $phone)
+    ->condition('game_id', $game_id)
+    ->execute();
+}
+
+/**
+ * Subscribe to a Mobile Commons opt-in path.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $opt_in_path
+ *   Mobile Commons opt-in path id.
+ * @param array $args
+ *   Additional arguments.
+ */
+function dosomething_sms_mobilecommons_opt_in($phone, $opt_in_path, $args = array()) {
+  $content = array(
+    'opt_in_path[]' => $opt_in_path,
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  if (!empty($args)) {
+    foreach ($args as $key => $val) {
+      $content[$key] = urlencode($val);
+    }
+  }
+
+  mobilecommons_request('opt_in', $content);
+}
+
+/**
+ * Unsubscribe the user from a Mobile Commons campaign.
+ *
+ * @param string $phone
+ *   Phone number of the user.
+ * @param int $campaign
+ *   A single campaign ID to opt out of.
+ */
+function dosomething_sms_mobilecommons_opt_out($phone, $campaign) {
+  $content = array(
+    'person' => array(
+      'phone' => $phone,
+    ),
+  );
+
+  $content['campaign'] = $campaign;
+
+  mobilecommons_request('opt_out', $content);
+}
