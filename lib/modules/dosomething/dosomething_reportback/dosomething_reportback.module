@@ -511,23 +511,8 @@ function dosomething_reportback_save($entity, $values) {
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
-    // Send external message request
-    if (module_exists('dosomething_user')) {
-      if ($user == NULL) {
-        global $user;
-        $account = $user;
-      }
-      $params = array(
-        'email' => $account->mail,
-        'uid' => $account->uid,
-        'first_name' => dosomething_user_get_field('field_first_name', $account),
-        'event_id' => '??',
-        'impact_verb' => '??',
-        'impact_number' => '??',
-        'impact_noun' => '??',
-      );
-      dosomething_user_send_message_request('campaign_reportback', $params);
-    }
+    // Send external request.
+    dosomething_reportback_message_broker();
     // Save the entity.
     $entity->save();
     // Return reportback rbid.
@@ -577,4 +562,24 @@ function dosomething_reportback_set_files(&$entity, $values) {
  */
 function dosomething_reportback_get_file_dir($nid) {
   return 'public://reportbacks/' . $nid;
+}
+
+/**
+ * Sends exernal message request for a reportback.
+ */
+function dosomething_reportback_message_broker() {
+  // Send external message request
+  if (module_exists('dosomething_user')) {
+    global $user;
+    $params = array(
+      'email' => $account->mail,
+      'uid' => $account->uid,
+      'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'event_id' => '??',
+      'impact_verb' => '??',
+      'impact_number' => '??',
+      'impact_noun' => '??',
+    );
+    dosomething_user_send_message_request('campaign_reportback', $params);
+  }
 }
