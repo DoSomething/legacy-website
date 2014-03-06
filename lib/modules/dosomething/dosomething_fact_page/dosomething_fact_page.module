@@ -47,7 +47,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     }
 
     $node = entity_metadata_wrapper('node', $vars['node']);
-    if ($node->field_video->value()) {
+    if ($node->field_video->value()->field_video_id) {
       $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
     }
     $values = dosomething_fact_get_fact_field_vars($node->field_facts);
