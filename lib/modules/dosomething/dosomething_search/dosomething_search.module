@@ -58,6 +58,35 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
 }
 
 /**
+ * Implements hook_apachesolr_index_document_build_ENTITY_TYPE().
+ *
+ * Build the documents before sending them to Solr.
+ *
+ * Supports all types of
+ * hook_apachesolr_index_document_build_' . $entity_type($documents[$id], $entity, $env_id);
+ *
+ * The function is the follow-up for apachesolr_update_index but then for
+ * specific entity types
+ *
+ * @param ApacheSolrDocument $document
+ * @param object $entity
+ * @param string $env_id
+ *   The machine name of the environment.
+ */
+function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocument $document, $entity, $env_id) {
+  if ($entity->type == 'campaign') {
+    $wrapper = entity_metadata_wrapper('node', $entity);
+    $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
+    if ($image_nid) {
+      $image = dosomething_image_get_themed_image_url($image_nid, 'square', '300x300');
+    }
+    if (!empty($image)) {
+      $document->setField('ss_field_search_image', $image);
+    }
+  }
+}
+
+/**
  * Preprocess a single search result.
  */
 function dosomething_search_preprocess_search_result(&$vars) {

@@ -13,6 +13,10 @@ projects[admin_menu][subdir] = "contrib"
 projects[apachesolr] = "7.x-1.6"
 projects[apachesolr][subdir] = "contrib"
 
+; Apachesolr Views
+projects[apachesolr_views] = "7.x-1.0-beta2"
+projects[apachesolr_views][subdir] = "contrib"
+
 ; Ctools
 projects[ctools] = "1.4"
 projects[ctools][subdir] = "contrib"

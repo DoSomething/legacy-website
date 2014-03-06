@@ -23,12 +23,12 @@ function dosomething_search_apachesolr_environments() {
   $environment->conf = array(
     'apachesolr_index_last' => array(
       'node' => array(
-        'last_changed' => '1393971408',
-        'last_entity_id' => '715',
+        'last_changed' => '1394134209',
+        'last_entity_id' => '919',
       ),
     ),
-    'apachesolr_index_updated' => 0,
-    'apachesolr_last_optimize' => 1393976107,
+    'apachesolr_index_updated' => 1394134286,
+    'apachesolr_last_optimize' => 1394126904,
     'apachesolr_search_changed_boost' => '0:0',
     'apachesolr_search_comment_boost' => '0:0',
     'apachesolr_search_date_boost' => '0:0',
