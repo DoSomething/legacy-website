@@ -7,5 +7,6 @@ base:
     - install
     - composer
     - node
+    - redis
     - dosomething
     - drush-ext
