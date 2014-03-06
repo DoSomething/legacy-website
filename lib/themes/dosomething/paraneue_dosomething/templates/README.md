@@ -7,7 +7,12 @@ Place tpl files inside this directory if you need to override them.
 Campaign
 --------
 
-The campaign directory is for Campaign entity specific files.  The campaign.tpl.php file 
-is used for the "action" view mode, which is the default view mode for viewing a campaign.
-The campaign--pitch.tpl.php file is used for the "pitch" view mode.  Both of these tpl files
-have been copied from the entity.tpl.php file, in the Entity contrib module. 
+* `node--campaign.tpl.php` - Full node view of a campaign, a.k.a the Action Page
+* `node--campaign--pitch.tpl.php` - Pitch view mode of a campaign
+* `reportback-confirmation.tpl.php` - Displayed after a user submits the campaign's reportback form.
+
+
+Reportback
+----------
+* `reportback.tpl.php` - Staff only view of a reportback entity. e.g. /reportback/[id]
+* `reportback-form-images.tpl.php` - Displays a reportback's images, and last updated. @see `dosomething_reportback_form()`
