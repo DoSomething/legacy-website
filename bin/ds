@@ -59,7 +59,7 @@ function art {
 #===============================================================================
 function help {
   read -d '' help <<"USAGE"
-usage: ds [build [--install]|dbup|dbdump] [--help]
+usage: ds [build [--install]] [--help]
 
 Runs helper scripts for DoSomething environment.
 
