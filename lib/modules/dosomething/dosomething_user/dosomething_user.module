@@ -140,7 +140,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         'first_name' => dosomething_user_get_field('field_first_name', $account),
         'reset_link' => user_pass_reset_url($account),
       );
-      dosomething_user_send_message_request('user_password', $params);
+      dosomething_user_mbp_request('user_password', $params);
     break;
 
   }
@@ -160,7 +160,7 @@ function dosomething_user_new_user($form, &$form_state) {
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
     );
-    dosomething_user_send_message_request('user_register', $params);
+    dosomething_user_mbp_request('user_register', $params);
     // Sign user up for mobile commons
     if (module_exists('dosomething_signup')) {
       $opt_in = variable_get('dosomething_mobilecommons_general');
@@ -409,7 +409,7 @@ function dosomething_user_clean_cell_number($number) {
  *    - impact_number
  *    - impact_noun
  */
-function dosomething_user_send_message_request($origin, $params = NULL) {
+function dosomething_user_mbp_request($origin, $params = NULL) {
   if (!module_exists('message_broker_producer')) return FALSE;
 
   $payload = array(

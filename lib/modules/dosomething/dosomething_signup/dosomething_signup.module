@@ -297,7 +297,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
       'step_two' => '??',
       'step_three' => '??',
     );
-    dosomething_user_send_message_request('campaign_signup', $params);
+    dosomething_user_mbp_request('campaign_signup', $params);
     // Set success message.
     dosomething_signup_set_signup_message($node->title);
   }
