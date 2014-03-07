@@ -111,13 +111,8 @@ function build {
   drush make --prepare-install --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
   set +e
 
-  echo 'Linking modules'
-  rm -rf "$WEB_PATH/profiles/dosomething/modules/dosomething"
-  ln -s "$LIB_PATH/modules/dosomething" "$WEB_PATH/profiles/dosomething/modules/dosomething"
-
-  echo 'Linking themes'
-  rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
-  ln -s "$LIB_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  # Create symlinks
+  symlinks
 
   echo 'Install composer dependencies'
   composer
@@ -202,6 +197,20 @@ function install {
   # This fixes it.
   echo 'Reverting all features'
   drush -y fra
+}
+
+#=== FUNCTION ==================================================================
+# NAME: symlinks
+# DESCRIPTION: Sylinks web_path modules and themes to lib_path.
+#===============================================================================
+function symlinks {
+  echo 'Linking modules'
+  rm -rf "$WEB_PATH/profiles/dosomething/modules/dosomething"
+  ln -s "$LIB_PATH/modules/dosomething" "$WEB_PATH/profiles/dosomething/modules/dosomething"
+
+  echo 'Linking themes'
+  rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
+  ln -s "$LIB_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
 }
 
 #=== FUNCTION ==================================================================
@@ -357,6 +366,14 @@ then
 fi
 
 #----------------------------------------------------------------------
+# symlinks
+#----------------------------------------------------------------------
+if [[ $1 == "symlinks" ]]
+then
+  symlinks
+fi
+
+#----------------------------------------------------------------------
 # deploy
 #----------------------------------------------------------------------
 if [[ $1 == "deploy" ]]
@@ -396,6 +413,7 @@ then
   echo "Pulling down files from staging"
   cd $WEB_PATH
   drush rsync @ds.staging @self -y
+  symlinks
 fi
 
 #----------------------------------------------------------------------
