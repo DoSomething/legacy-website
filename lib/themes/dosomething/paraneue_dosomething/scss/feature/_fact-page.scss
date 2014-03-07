@@ -8,6 +8,11 @@
 .node-type-fact-page {
   background: $purple;
 
+  // @TODO: Sync with Dave/Maxwell on all 18px base font size for static content
+  p {
+    font-size: 18px;
+  }
+
   // @TODO: White Navigation -- Ugh -- At least mixin this
   .nav--wrapper {
     .hamburger {
@@ -32,7 +37,7 @@
   }
 
   // Set gutters on mobile
-  .header-wrapper, .intro-wrapper {
+  .header-wrapper, .intro-wrapper, .facts-wrapper, .sources-wrapper {
     @include outer-container-margin();
     @include media($tablet) {
       @include outer-container;
@@ -40,7 +45,7 @@
   }
 
   // Set margins on desktop
-  .header, .intro {
+  .header, .intro, .facts, .sources {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
@@ -65,7 +70,7 @@
 
       text-align: center;
       @include media($tablet) {
-	text-align: left;
+        text-align: left;
       }
     }
   }

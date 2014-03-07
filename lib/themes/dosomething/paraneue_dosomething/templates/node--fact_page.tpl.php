@@ -27,20 +27,49 @@
     </div>
 
     <?php if (isset($facts)): ?>
-    <?php foreach ($facts as $key => $fact): ?>
-      <p>
-        <?php print ($key + 1) . '. ' . $fact['fact']; ?>
-        <sup><?php print $fact['footnotes']; ?></sup>
-      </p>
-    <?php endforeach; ?>
-  <?php endif; ?>
+      <div class="facts-wrapper">
+        <div class="facts">
+          <?php foreach ($facts as $key => $fact): ?>
+            <p class="fact">
+              <?php print ($key + 1) . '. ' . $fact['fact']; ?>
+              <sup><?php print $fact['footnotes']; ?></sup>
+            </p>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endif; ?>
 
-  <?php if (isset($sources)): ?>
-    <h4>Sources</h4>
-    <?php foreach ($sources as $key => $source): ?>
-      <p><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></p>
-    <?php endforeach; ?>
-  <?php endif; ?>
+    <?php if (isset($sources)): ?>
+      <div class="sources-wrapper">
+        <div class="sources">
+          <?php foreach ($sources as $key => $source): ?>
+            <div class="source">
+              <sup><?php print ($key + 1); ?></sup> <?php print $source; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (isset($galleries)): ?>
+      <div class="gallery-wrapper">
+        <div class="gallery">
+          <?php foreach ($galleries as $gallery): ?>
+            <div class="gallery-item">
+              <?php if (isset($gallery['image'])): ?>
+                <?php print $gallery['image']; ?>
+              <?php endif; ?>
+              <?php if (isset($gallery['image_title'])): ?>
+                <h3><?php print $gallery['image_title']; ?></h3>
+              <?php endif; ?>
+              <?php if (isset($gallery['image_description'])): ?>
+                <div class="gallery-description"><?php print $gallery['image_description']; ?></div>
+              <?php endif; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <? endif; ?>
 
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
