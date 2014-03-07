@@ -379,12 +379,12 @@ function dosomething_campaign_preprocess_custom_vars(&$vars) {
     // Sanitize value for sanity's sake.
     $vars['alt_color'] = strip_tags($alt_color);
   }
-  // Check for alt background image.
+  // Check for alt background File fid.
   $fid = variable_get($prefix . 'alt_bg_fid');
   if (isset($fid) && !empty($fid)) {
-    $vars['alt_bg_image'] = dosomething_image_get_image_url_by_fid($fid, '50x50');
+    $file = file_load($fid);
+    $vars['alt_bg_src'] = file_create_url($file->uri);
   }
-  dsm($vars);
 }
 
 /**
