@@ -92,7 +92,7 @@ class ReportbackEntity extends Entity {
     if (!module_exists('dosomething_image')) return $images();
 
     foreach ($this->fids as $fid) {
-      $images[] = dosomething_image_get_image_url_by_fid($fid, $style);
+      $images[] = dosomething_image_get_themed_image_by_fid($fid, $style);
     }
     return $images;
   }
