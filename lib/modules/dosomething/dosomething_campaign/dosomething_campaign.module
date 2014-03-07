@@ -120,8 +120,11 @@ function dosomething_campaign_get_custom_var_prefix($nid) {
 /**
  * Implements hook_node_delete().
  */
-function dosomething_campaign_node_delete() {
-  // @todo: Delete any custom variables associated with node.
+function dosomething_campaign_node_delete($node) {
+  // Delete any custom variables associated with node.
+  foreach (dosomething_campaign_get_custom_varnames($node->nid) as $name) {
+    variable_del($name);
+  }
 }
 
 /*
