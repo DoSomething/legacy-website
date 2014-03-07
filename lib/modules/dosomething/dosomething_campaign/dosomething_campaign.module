@@ -241,21 +241,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
     }
 
     if (!empty($vars['field_partners'])) {
-      // Returns partners, sponsors, and partner_info arrays.
-      $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
-      // Gather any returned arrays.
-      foreach ($partners_vars as $key => $values) {
-        $vars[$key] = $values;
-      }
-      // Preprocess sponsor logos.
-      if (isset($vars['sponsors'])) {
-        foreach ($vars['sponsors'] as $delta => $sponsor) {
-          if (isset($sponsor['fid'])) {
-            $img = dosomething_image_get_image_url_by_fid($sponsor['fid'], '50x50');
-            $vars['sponsors'][$delta]['img'] = $img;
-          }
-        }
-      }
+      // Sets partners, sponsors, and partner_info arrays if present.
+      dosomething_campaign_preprocess_partners_vars($vars);
     }
 
     if ($vars['view_mode'] == 'pitch') {
@@ -267,6 +254,41 @@ function dosomething_campaign_preprocess_node(&$vars) {
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
+    }
+  }
+}
+
+/**
+ * Preprocesses variables for a campaign sponsors, partners, and partner info.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_preprocess_partners_vars(&$vars) {
+  // Returns partners, sponsors, and partner_info arrays.
+  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+  // Gather any returned arrays.
+  foreach ($partners_vars as $key => $values) {
+    $vars[$key] = $values;
+  }
+  // Preprocess sponsor logos.
+  if (isset($vars['sponsors'])) {
+    foreach ($vars['sponsors'] as $delta => $sponsor) {
+      if (isset($sponsor['fid'])) {
+        $img = dosomething_image_get_image_url_by_fid($sponsor['fid'], '50x50');
+        $vars['sponsors'][$delta]['img'] = $img;
+      }
+    }
+  }
+  // Preprocess partner info modals.
+  if (isset($vars['partner_info'])) {
+    foreach ($vars['partner_info'] as $delta => $info) {
+      // If image landscape field is set:
+      $image_node = $info['image'];
+      if (!empty($image_node->field_image_landscape)) {
+        $img = dosomething_image_get_themed_image($image_node->nid, 'landscape', '550x300');
+        $vars['partner_info'][$delta]['image'] = $img;
+      }
     }
   }
 }
