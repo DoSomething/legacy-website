@@ -554,7 +554,9 @@ function dosomething_reportback_entity_insert($entity, $type) {
  * Returns the path to write a reportback file for given node $nid.
  */
 function dosomething_reportback_get_file_dir($nid) {
-  return 'public://reportbacks/' . $nid;
+  return 'public://';
+  // @todo: Make me work. @see Issue #1054.
+  // return 'public://reportbacks/' . $nid;
 }
 
 /**
