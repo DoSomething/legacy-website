@@ -12,6 +12,7 @@
 $user_table = '_users_old_world';
 $profile_id = '_profile_old_world';
 $mobile_data = '_mobile_old_world';
+$birthday_data = '_birthday_old_world';
 
 $result = db_query('SELECT * FROM {' . $user_table . '}');
 
@@ -30,24 +31,42 @@ foreach ($result as $user_row) {
     $account = user_save('', $user);
   }
 
+  $edit = array();
   // Some users only have mobile as login method.
   $mobile_result = db_query("SELECT  m.field_user_mobile_value
                              FROM {$mobile_data} m
                              INNER JOIN {$profile_id} p on m.entity_id = p.pid
                              WHERE p.uid = $user_row->uid")->fetchField();
   if ($mobile_result) {
-    $edit = array(
-      'field_mobile' => array(
-        LANGUAGE_NONE => array(
-          0 => array(
-            'value' => $mobile_result,
-          ),
+    $edit['field_mobile'] = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $mobile_result,
         ),
       ),
     );
-    // Save account with mobile
-    user_save($account, $edit);
   }
+
+  $birthday_result = db_query("SELECT  b.field_user_birthday_value
+                               FROM {$birthday_data} b
+                               INNER JOIN {$profile_id} p on b.entity_id = p.pid
+                               WHERE p.uid = $user_row->uid")->fetchField();
+
+  if ($birthday_result) {
+    $edit['field_birthdate'] = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $birthday_result,
+        ),
+      ),
+    );
+  }
+
+  // Save account with extra data.
+  $account = user_save($account, $edit);
+
+  // Are any of these people under 13?
+  dosomething_user_is_under_thirteen($account);
 
 }
 
