@@ -108,6 +108,7 @@
     <script id="modal-partner-<?php print $delta; ?>" type="text/cached-modal">
       <a href="#" class="js-close-modal modal-close-button">×</a>
       <?php print $partner['copy']; ?>
+      <?php if (isset($partner['image'])): print $partner['image']; endif; ?>
     </script>
     <?php endforeach; ?>
     <?php endif; ?>
