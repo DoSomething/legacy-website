@@ -132,7 +132,7 @@ function dosomething_image_node_view($node, $view_mode, $langcode) {
  * @return array
  *  A themed image tag with no set height/width.
  */
-function dosomething_image_get_image_url_by_fid($fid, $style, $alt = '') {
+function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   $file = file_load($fid);
   $image = image_load($file->uri);
   $content = array(

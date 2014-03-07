@@ -12,6 +12,10 @@ include_once 'dosomething_campaign.features.inc';
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
+  // If we're updating an existing node, add the custom settings fieldset.
+  if (isset($form['nid']['#value'])) {
+    _dosomething_campaign_form_extras($form, $form_state);
+  }
 }
 
 /**
@@ -37,6 +41,105 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
   );
   return $items;
+}
+
+/**
+ * Adds form elements for custom campaign variables.
+ */
+function _dosomething_campaign_form_extras(&$form, &$form_state) {
+  $prefix = dosomething_campaign_get_custom_var_prefix($form['nid']['#value']);
+  $form['custom'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Custom settings'),
+    '#weight' => 60,
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $alt_color = $prefix . 'alt_color';
+  $form['custom'][$alt_color] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alt color'),
+    '#default_value' => variable_get($alt_color),
+    '#field_prefix' => '#',
+    '#size' => 6,
+  );
+  // Alt bg pattern variable.
+  $alt_bg_fid = $prefix . 'alt_bg_fid';
+  $form['custom'][$alt_bg_fid] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Alt background pattern'),
+    '#default_value' => variable_get($alt_bg_fid),
+    //@todo: /campaigns/[nid] directory?
+    '#upload_location' => 'public://',
+  );
+  $form['#submit'][] = 'dosomething_campaign_save_custom_vars';
+}
+
+/**
+ * Saves custom campaign variables.
+ */
+function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
+  $values = $form_state['values'];
+  $nid = $values['nid'];
+  // Gather all possible custom variable names for $nid.
+  $prefix = dosomething_campaign_get_custom_var_prefix($nid);
+  $varnames = dosomething_campaign_get_custom_varnames($nid);
+  // Store variable name for alt_bg_fid.
+  $alt_bg_fid = $prefix . 'alt_bg_fid';
+  // Foreach possible custom variable:
+  foreach ($varnames as $varname) {
+    // If a value is set, or if a value exists already (in case of removal):
+    if (!empty($values[$varname]) || variable_get($varname)) {
+      // Set variable value.
+      variable_set($varname, $values[$varname]);
+      // If this is the alt bg file, and we have a value present.
+      if ($varname == $alt_bg_fid && !empty($values[$varname])) {
+        // Load the file.
+        $file = file_load($values[$varname]);
+        // If not permanent, make it permanent.
+        if ($file->status != FILE_STATUS_PERMANENT) {
+          $file->status = FILE_STATUS_PERMANENT;
+          file_save($file);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns list of possible custom variable names for a given $nid.
+ */
+function dosomething_campaign_get_custom_varnames($nid) {
+  $names = array(
+    'alt_bg_fid',
+    'alt_color',
+  );
+  // Initialize return array.
+  $vars = array();
+  // For each custom variable:
+  foreach ($names as $name) {
+    // Generate the variable name for this $nid and append to return array.
+    $vars[] = dosomething_campaign_get_custom_var_prefix($nid) . $name;
+  }
+  return $vars;
+}
+
+/**
+ * Returns string of prefix used to identify a campaign's custom variables.
+ */
+function dosomething_campaign_get_custom_var_prefix($nid) {
+  return 'dosomething_campaign_nid_' . $nid . '_';
+}
+
+
+/**
+ * Implements hook_node_delete().
+ */
+function dosomething_campaign_node_delete($node) {
+  // Delete any custom variables associated with node.
+  foreach (dosomething_campaign_get_custom_varnames($node->nid) as $name) {
+    variable_del($name);
+  }
 }
 
 /*
@@ -245,6 +348,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_partners_vars($vars);
     }
 
+    // Preprocess any custom campaign variables.
+    dosomething_campaign_preprocess_custom_vars($vars);
+
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
@@ -255,6 +361,29 @@ function dosomething_campaign_preprocess_node(&$vars) {
       // Gather the vars for the action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
+  }
+}
+
+/**
+ * Preprocesses variables for any custom settings.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_preprocess_custom_vars(&$vars) {
+  // Get prefix to check for custom campaign variables.
+  $prefix = dosomething_campaign_get_custom_var_prefix($vars['nid']);
+  // Check for custom alt color.
+  $alt_color = variable_get($prefix . 'alt_color');
+  if (!empty($alt_color)) {
+    // Sanitize value for sanity's sake.
+    $vars['alt_color'] = strip_tags($alt_color);
+  }
+  // Check for alt background File fid.
+  $fid = variable_get($prefix . 'alt_bg_fid');
+  if (!empty($fid)) {
+    $file = file_load($fid);
+    $vars['alt_bg_src'] = file_create_url($file->uri);
   }
 }
 
@@ -275,7 +404,7 @@ function dosomething_campaign_preprocess_partners_vars(&$vars) {
   if (isset($vars['sponsors'])) {
     foreach ($vars['sponsors'] as $delta => $sponsor) {
       if (isset($sponsor['fid'])) {
-        $img = dosomething_image_get_image_url_by_fid($sponsor['fid'], '50x50');
+        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], '50x50');
         $vars['sponsors'][$delta]['img'] = $img;
       }
     }
