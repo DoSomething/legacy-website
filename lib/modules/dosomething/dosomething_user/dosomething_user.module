@@ -133,6 +133,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_pass':
+      // Get account object by email address submitted for reset
+      $account = user_load_by_mail($form_state['input']['name']);
       // Send external message request
       $params = array(
         'email' => $account->mail,
@@ -154,6 +156,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 function dosomething_user_new_user($form, &$form_state) {
   // Should we sign this kid up for messages?
   if (!dosomething_user_is_under_thirteen()) {
+    global $user;
+    $account = $user;
     // Send external message request
     $params = array(
       'email' => $account->mail,
