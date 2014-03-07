@@ -375,13 +375,13 @@ function dosomething_campaign_preprocess_custom_vars(&$vars) {
   $prefix = dosomething_campaign_get_custom_var_prefix($vars['nid']);
   // Check for custom alt color.
   $alt_color = variable_get($prefix . 'alt_color');
-  if (isset($alt_color) && !empty($alt_color)) {
+  if (!empty($alt_color)) {
     // Sanitize value for sanity's sake.
     $vars['alt_color'] = strip_tags($alt_color);
   }
   // Check for alt background File fid.
   $fid = variable_get($prefix . 'alt_bg_fid');
-  if (isset($fid) && !empty($fid)) {
+  if (!empty($fid)) {
     $file = file_load($fid);
     $vars['alt_bg_src'] = file_create_url($file->uri);
   }
