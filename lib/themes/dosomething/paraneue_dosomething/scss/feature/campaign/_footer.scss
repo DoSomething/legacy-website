@@ -1,15 +1,26 @@
+// ------------
+//  Pitch Page
+// ------------
 footer.boilerplate {
   padding: 0.5rem 1.5rem;
   background: $off-black;
   text-align: center;
 }
 
-footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+// -------------
+//  Action Page
+// -------------
+// @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+footer.help,
+footer.sources {
   padding: 1rem 1.5rem;
-  background: #000;
-  background: rgba(0, 0, 0, 0.3);
   text-align: center;
   clear: both;
+}
+
+.footer.help {
+  background: #000;
+  background: rgba(0, 0, 0, 0.3);
 
   p {
     display: inline;
@@ -22,5 +33,18 @@ footer.help { // @TODO - Placeholder styles until Sponsor / Zen Desk are in plac
     &:hover {
       color: #fff;
     }
+  }
+}
+
+footer.sources {
+  display: block;
+  background: $off-black;
+
+  @include media( $tablet ) {
+    display: none;
+  }
+
+  div {
+    margin: 0 0 1rem 0;
   }
 }
