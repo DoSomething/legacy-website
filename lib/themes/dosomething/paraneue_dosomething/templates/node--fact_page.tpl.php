@@ -51,26 +51,6 @@
       </div>
     <?php endif; ?>
 
-    <?php if (isset($galleries)): ?>
-      <div class="gallery-wrapper">
-        <div class="gallery">
-          <?php foreach ($galleries as $gallery): ?>
-            <div class="gallery-item">
-              <?php if (isset($gallery['image'])): ?>
-                <?php print $gallery['image']; ?>
-              <?php endif; ?>
-              <?php if (isset($gallery['image_title'])): ?>
-                <h3><?php print $gallery['image_title']; ?></h3>
-              <?php endif; ?>
-              <?php if (isset($gallery['image_description'])): ?>
-                <div class="gallery-description"><?php print $gallery['image_description']; ?></div>
-              <?php endif; ?>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-    <? endif; ?>
-
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
         <div class="cta">
