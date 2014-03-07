@@ -42,6 +42,7 @@
     <?php if (isset($sources)): ?>
       <div class="sources-wrapper">
         <div class="sources">
+          <h4>Sources</h4>
           <?php foreach ($sources as $key => $source): ?>
             <div class="source">
               <?php // @TODO: Need <sup> to print within the $source's <p> tag. Source markup needs a rework. ?>
