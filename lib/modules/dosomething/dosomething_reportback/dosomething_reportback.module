@@ -546,7 +546,7 @@ function dosomething_reportback_set_files(&$entity, $values) {
  */
 function dosomething_reportback_entity_insert($entity, $type) {
   if ($type == 'reportback') {
-    dosomething_reportback_message_broker($entity);
+    dosomething_reportback_mbp_request($entity);
   }
 }
 
@@ -562,7 +562,7 @@ function dosomething_reportback_get_file_dir($nid) {
 /**
  * Sends exernal message request for a reportback.
  */
-function dosomething_reportback_message_broker($entity) {
+function dosomething_reportback_mbp_request($entity) {
   // Send external message request
   if (module_exists('dosomething_user')) {
     $account = user_load($entity->uid);
@@ -575,6 +575,6 @@ function dosomething_reportback_message_broker($entity) {
       'impact_number' => '??',
       'impact_noun' => '??',
     );
-    dosomething_user_send_message_request('campaign_reportback', $params);
+    dosomething_user_mbp_request('campaign_reportback', $params);
   }
 }
