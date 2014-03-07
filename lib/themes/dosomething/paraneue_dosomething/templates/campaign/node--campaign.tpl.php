@@ -1,22 +1,25 @@
 <section class="campaign--wrapper">
-  <header class="header <?php print $classes; ?>" <?php print (isset($hero_img_l_url) ? 'style="background:url(' . $hero_img_l_url . ');"' : ''); ?>>
-    <div class="meta">
-      <h1 class="title"><?php print $title; ?></h1>
-      <p class="cta"><?php print $cta; ?></p>
 
-      <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
+  <?php foreach ($hero_image as $key => $image_url ) :?>
+    <header class="header <?php print $key . ' ' . $classes; ?>" <?php print (isset($image_url) ? 'style="background-image: url(' . $image_url . ');"' : ''); ?>>
+      <div class="meta">
+        <h1 class="title"><?php print $title; ?></h1>
+        <p class="cta"><?php print $cta; ?></p>
 
-      <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
-        Powered by
-        <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php print $sponsor['name']; ?>
-          <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
-        <?php endforeach; ?>
+        <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
+
+        <?php if (isset($sponsors)): ?>
+        <div class="sponsor">
+          Powered by
+          <?php foreach ($sponsors as $key => $sponsor) :?>
+            <?php print $sponsor['name']; ?>
+            <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
       </div>
-      <?php endif; ?>
-    </div>
-  </header>
+    </header>
+  <?php endforeach; ?>
 
   <nav id="nav" class="navigation">
     <ul>
