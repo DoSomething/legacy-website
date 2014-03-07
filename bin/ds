@@ -59,7 +59,7 @@ function art {
 #===============================================================================
 function help {
   read -d '' help <<"USAGE"
-usage: ds [build [--install]|dbup|dbdump] [--help]
+usage: ds [build [--install]] [--help]
 
 Runs helper scripts for DoSomething environment.
 
@@ -78,6 +78,15 @@ ds grunt [--watch]
 
   --watch
   Continues watching for changes and recompiles assets as necessary.
+
+ds pull [stage|prod] [--db|--files]
+  Pulls database and files from given environment down onto your local build.
+
+  --db
+    Pulls down database only.
+
+  --files
+    Pulls down files only.
 
 ds --help
   Displays this help message.
@@ -334,6 +343,44 @@ function grunt {
 
 }
 
+#=== FUNCTION ==================================================================
+# NAME: pull_db
+# DESCRIPTION: Pulls down database from given environment onto local.
+#===============================================================================
+function pull_db {
+  if [[ $1 == "stage" ]]
+  then
+    echo "Pulling down db from staging"
+    cd $WEB_PATH
+    drush sql-sync @ds.staging @self -y
+  fi
+}
+
+#=== FUNCTION ==================================================================
+# NAME: pull_files
+# DESCRIPTION: Pulls down files from given environment onto local.
+#===============================================================================
+function pull_files {
+  if [[ $1 == "stage" ]]
+  then
+    echo "Pulling down files from staging"
+    cd $WEB_PATH
+    drush rsync @ds.staging @self -y
+    symlinks
+  fi
+}
+
+#=== FUNCTION ==================================================================
+# NAME: check_environment_param
+# DESCRIPTION: Outputs error message for invalid alias argument.
+#===============================================================================
+function check_alias_param {
+  if [[ $1 != "stage" ]]
+  then
+    echo "Alias not found. Valid aliases: stage"
+    exit
+  fi
+}
 
 
 # ==============================================================================
@@ -406,22 +453,19 @@ then
 fi
 
 #----------------------------------------------------------------------
-# update-files
+# pull
 #----------------------------------------------------------------------
-if [[ $1 == "update-files" ]]
+if [[ $1 == "pull" ]]
 then
-  echo "Pulling down files from staging"
-  cd $WEB_PATH
-  drush rsync @ds.staging @self -y
-  symlinks
-fi
-
-#----------------------------------------------------------------------
-# update-db
-#----------------------------------------------------------------------
-if [[ $1 == "update-db" ]]
-then
-  echo "Pulling down db from staging"
-  cd $WEB_PATH
-  drush sql-sync @ds.staging @self -y
+  check_alias_param $2
+  if [[ $3 == "--db" ]]
+  then
+    pull_db $2
+  elif [[ $3 == "--files" ]]
+  then
+    pull_files $2
+  else
+    pull_db $2
+    pull_files $2
+  fi
 fi
