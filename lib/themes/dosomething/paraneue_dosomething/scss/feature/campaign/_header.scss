@@ -26,12 +26,26 @@ header.header {
   background-position: 50% 50%;
   background-size: cover;
 
-  background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/SxLIA2CviM86C6J/ZombieBloodDrive_square_gradient.jpg) !important;
-  // @TODO - Remove this
-
   @include media( $tablet ) {
     min-height: 620px;
-    background-image: url(https://s3.amazonaws.com/uploads.hipchat.com/34218/237177/If81HgDOniR1RN6/PositivityPages_landscape_gradient.jpg) !important;
+  }
+
+  // Square version of the hero image for smaller screen resolutions
+  &.mobile {
+    display: block;
+
+    @include media( $tablet ) {
+      display: none;
+    }
+  }
+
+  // Landscape version of the hero image for larger screen resolutions
+  &.desktop {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+    }
   }
 
   h1.title {
