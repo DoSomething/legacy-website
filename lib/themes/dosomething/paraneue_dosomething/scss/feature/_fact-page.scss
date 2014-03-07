@@ -82,14 +82,22 @@
 
     .intro-content {
       @include media($tablet) {
-	@include span-columns(8 of 12);
+	     @include span-columns(8 of 12);
       }
     }
     img, video {
       @include media($tablet) {
-	@include span-columns(4 of 12);
-	@include omega();
+	      @include span-columns(4 of 12);
+	      @include omega();
       }
+    }
+  }
+
+  .sources {
+    // @TODO: I just made sources small for now, need to revisit their structure
+    p {
+      font-size: $font-small;
+      color: $med-gray;
     }
   }
 }

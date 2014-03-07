@@ -44,7 +44,8 @@
         <div class="sources">
           <?php foreach ($sources as $key => $source): ?>
             <div class="source">
-              <sup><?php print ($key + 1); ?></sup> <?php print $source; ?>
+              <?php // @TODO: Need <sup> to print within the $source's <p> tag. Source markup needs a rework. ?>
+              <sup><?php print ($key + 1); ?></sup><?php print $source; ?>
             </div>
           <?php endforeach; ?>
         </div>
