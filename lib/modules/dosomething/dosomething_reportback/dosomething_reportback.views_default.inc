@@ -34,24 +34,16 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'rbid' => 'rbid',
-    'uid' => 'uid',
-    'uid_1' => 'uid_1',
     'created' => 'created',
+    'uid' => 'uid',
+    'mail' => 'mail',
     'quantity' => 'quantity',
+    'fid' => 'fid',
+    'updated' => 'updated',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = 'updated';
   $handler->display->display_options['style_options']['info'] = array(
     'rbid' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'uid' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'uid_1' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -63,12 +55,33 @@ function dosomething_reportback_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_image_user_reportback' => array(
+    'uid' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'mail' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
     'quantity' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'fid' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'updated' => array(
       'sortable' => 1,
       'default_sort_order' => 'desc',
       'align' => '',
@@ -90,6 +103,11 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'dosomething_reportback';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Reportback: Reportback image fid */
+  $handler->display->display_options['relationships']['fid']['id'] = 'fid';
+  $handler->display->display_options['relationships']['fid']['table'] = 'dosomething_reportback_file';
+  $handler->display->display_options['relationships']['fid']['field'] = 'fid';
+  $handler->display->display_options['relationships']['fid']['label'] = 'Image';
   /* Field: Reportback: Reportback rbid */
   $handler->display->display_options['fields']['rbid']['id'] = 'rbid';
   $handler->display->display_options['fields']['rbid']['table'] = 'views_entity_reportback';
@@ -97,17 +115,17 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['rbid']['label'] = 'Rbid';
   $handler->display->display_options['fields']['rbid']['separator'] = '';
   $handler->display->display_options['fields']['rbid']['link_to_entity'] = 1;
-  /* Field: Reportback: Created Date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'dosomething_reportback';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['label'] = 'Date';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  /* Field: Reportback: Last Updated */
+  $handler->display->display_options['fields']['updated']['id'] = 'updated';
+  $handler->display->display_options['fields']['updated']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['updated']['field'] = 'updated';
+  $handler->display->display_options['fields']['updated']['label'] = 'Updated';
+  $handler->display->display_options['fields']['updated']['date_format'] = 'raw time ago';
   /* Field: Reportback: User uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'views_entity_reportback';
   $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = 'UId';
+  $handler->display->display_options['fields']['uid']['label'] = 'Uid';
   $handler->display->display_options['fields']['uid']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['uid']['display'] = 'id';
   $handler->display->display_options['fields']['uid']['view_mode'] = 'full';
@@ -117,6 +135,19 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['mail']['table'] = 'users';
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['relationship'] = 'uid';
+  /* Field: File: File ID */
+  $handler->display->display_options['fields']['fid']['id'] = 'fid';
+  $handler->display->display_options['fields']['fid']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['fid']['field'] = 'fid';
+  $handler->display->display_options['fields']['fid']['relationship'] = 'fid';
+  $handler->display->display_options['fields']['fid']['label'] = 'Fid';
+  $handler->display->display_options['fields']['fid']['link_to_file'] = TRUE;
+  /* Field: Reportback: Created Date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short';
   /* Field: Reportback: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
@@ -189,16 +220,18 @@ function dosomething_reportback_views_default_views() {
     t('Copy'),
     t('No reportbacks found.'),
     t('User'),
+    t('Image'),
     t('Rbid'),
     t('.'),
-    t('Date'),
-    t('UId'),
+    t('Updated'),
+    t('Uid'),
     t('E-mail'),
+    t('Fid'),
+    t('Created'),
     t('Quantity'),
     t(','),
     t('All'),
     t('Reportbacks: %1'),
-    t('Uid'),
     t('Page'),
   );
   $export['node_reportbacks'] = $view;
