@@ -34,7 +34,7 @@
   <section class="know step">
 
     <div class="col first">
-      <h4>The Problem</h4>
+      <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">The Problem</h4>
 
       <?php if (isset($fact_problem)): ?>
       <div class="fact-problem"><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></div>
@@ -58,7 +58,7 @@
     </div>
 
     <div class="col second">
-      <h4>The Solution</h4>
+      <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">The Solution</h4>
 
       <?php if (isset($fact_solution)): ?>
         <div class="fact-solution"><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></div>
@@ -126,7 +126,7 @@
 
     <div class="col first">
       <?php if (isset($items_needed)) : ?>
-        <h4>Stuff You Need</h4>
+        <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Stuff You Need</h4>
         <div><?php print $items_needed['safe_value']; ?></div>
       <?php endif; ?>
 
@@ -139,26 +139,26 @@
       <?php endif; ?>
 
       <?php if (isset($time)) : ?>
-        <h4>Time and Place</h4>
+        <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Time and Place</h4>
         <div><?php print $time['safe_value']; ?></div>
       <?php endif; ?>
     </div>
 
     <div class="col second">
       <?php if (isset($hype)) : ?>
-        <h4>Hype</h4>
+        <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Hype</h4>
         <div><?php print $hype['safe_value']; ?></div>
       <?php endif; ?>
 
       <?php if (isset($vips)) : ?>
-        <h4>VIPs</h4>
+        <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">VIPs</h4>
         <div><?php print $vips['safe_value']; ?></div>
       <?php endif; ?>
     </div>
 
     <?php if (isset($location_finder_url)) : ?>
       <div class="location-finder">
-        <h4>Find a Location</h4>
+        <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Find a Location</h4>
         <div class="border">
           <?php if (isset($location_finder_copy)) : ?>
             <div><?php print $location_finder_copy['safe_value']; ?></div>
@@ -173,7 +173,7 @@
   <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
   <section class="do step">
     <div class="pre">
-      <?php if (isset($pre_step_header)): ?><h3><?php print $pre_step_header; ?></h3><?php endif; ?>
+      <?php if (isset($pre_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $pre_step_header; ?></h3><?php endif; ?>
       <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
       <div class="tips">
@@ -194,19 +194,19 @@
     </div>
 
     <div class="during">
-      <h3>Snap a Pic</h3>
+      <h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Snap a Pic</h3>
       <?php if (isset($pic_step['safe_value'])): ?><div><?php print $pic_step['safe_value']; ?></div><?php endif; ?>
     </div>
 
     <div class="post">
-      <?php if (isset($post_step_header)): ?><h3><?php print $post_step_header; ?></h3><?php endif; ?>
+      <?php if (isset($post_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $post_step_header; ?></h3><?php endif; ?>
       <?php if (isset($post_step_copy)): ?><div><?php print $post_step_copy; ?></div><?php endif; ?>
     </div>
 
     <?php if (isset($step_post)) : ?>
     <script type="text/cached-modal">
     <?php foreach ($step_post as $item): ?>
-    <h4><?php print $item['header']; ?></h4>
+    <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $item['header']; ?></h4>
     <div><?php print $item['copy'] ?></div>
     <?php endforeach; ?>
     </script>
@@ -214,12 +214,11 @@
   </section>
 
   <h2 id="prove" class="step-header"><span class="shift">Step 4: Prove It</span></h2>
-  <section class="prove step">
+  <section class="prove step" style="background-image: <?php isset($alt_bg_src) ? print 'url(' . $alt_bg_src . ')' : ''; ?>;">
     <div class="content">
       <h3 class="title">Pics or It Didn't Happen</h3>
       <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
-      <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
       <?php if (isset($reportback_form)): ?>
       <script id="modal-report-back" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button">×</a>
@@ -251,16 +250,16 @@
     <?php endif; ?>
     </div>
 
-    <?php if (isset($sponsors)): ?>
-    <div class="sponsor">
-      In partnership with
-      <?php foreach ($partners as $key => $partner) :?>
-        <?php print $partner['name']; ?>
-      <?php endforeach; ?>
-    </div>
-    <?php endif; ?>
+    <footer class="help sponsors">
+      <?php if (isset($sponsors)): ?>
+      <div class="sponsor">
+        In partnership with
+        <?php foreach ($partners as $key => $partner) :?>
+          <?php print $partner['name']; ?>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
 
-    <footer class="help">
       <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
       <p>Have a Question?</p>
       <a href="#">Email Us</a>
