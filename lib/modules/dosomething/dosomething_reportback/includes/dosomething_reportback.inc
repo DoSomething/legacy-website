@@ -119,10 +119,17 @@ class ReportbackEntityController extends EntityAPIController {
       '#type' => 'markup',
       '#markup' => l($account->name, 'user/' . $account->uid),
     );
+
     $build['node_title'] = array(
       '#type' => 'markup',
       '#markup' => l($node_wrapper->title->value(), 'node/' . $entity->nid),
     );
+    foreach ($entity->getThemedImages('300x300') as $delta => $image) {
+      $build['file_' . $delta] = array(
+        '#type' => 'markup',
+        '#markup' => $image,
+      );
+    }
     $build['quantity_count'] = array(
       '#type' => 'markup',
       '#markup' => $entity->quantity,
