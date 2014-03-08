@@ -504,6 +504,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
+  $official_rules = $wrapper->field_official_rules->value();
+  $vars['official_rules_src'] = file_create_url($official_rules['uri']);
 
   // Image galleries.
   foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
