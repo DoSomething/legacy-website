@@ -85,6 +85,11 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No reportbacks found.';
   $handler->display->display_options['empty']['area']['format'] = 'markdown';
+  /* Relationship: Reportback: User uid */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   /* Field: Reportback: Reportback rbid */
   $handler->display->display_options['fields']['rbid']['id'] = 'rbid';
   $handler->display->display_options['fields']['rbid']['table'] = 'views_entity_reportback';
@@ -92,29 +97,26 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['rbid']['label'] = 'Rbid';
   $handler->display->display_options['fields']['rbid']['separator'] = '';
   $handler->display->display_options['fields']['rbid']['link_to_entity'] = 1;
-  /* Field: Reportback: User uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'views_entity_reportback';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = 'User';
-  $handler->display->display_options['fields']['uid']['link_to_entity'] = 1;
-  $handler->display->display_options['fields']['uid']['view_mode'] = 'full';
-  $handler->display->display_options['fields']['uid']['bypass_access'] = 0;
-  /* Field: Reportback: User uid */
-  $handler->display->display_options['fields']['uid_1']['id'] = 'uid_1';
-  $handler->display->display_options['fields']['uid_1']['table'] = 'views_entity_reportback';
-  $handler->display->display_options['fields']['uid_1']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid_1']['label'] = 'Uid';
-  $handler->display->display_options['fields']['uid_1']['link_to_entity'] = 1;
-  $handler->display->display_options['fields']['uid_1']['display'] = 'id';
-  $handler->display->display_options['fields']['uid_1']['view_mode'] = 'full';
-  $handler->display->display_options['fields']['uid_1']['bypass_access'] = 0;
   /* Field: Reportback: Created Date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'dosomething_reportback';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = 'Date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
+  /* Field: Reportback: User uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'views_entity_reportback';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['label'] = 'UId';
+  $handler->display->display_options['fields']['uid']['link_to_entity'] = 1;
+  $handler->display->display_options['fields']['uid']['display'] = 'id';
+  $handler->display->display_options['fields']['uid']['view_mode'] = 'full';
+  $handler->display->display_options['fields']['uid']['bypass_access'] = 0;
+  /* Field: User: E-mail */
+  $handler->display->display_options['fields']['mail']['id'] = 'mail';
+  $handler->display->display_options['fields']['mail']['table'] = 'users';
+  $handler->display->display_options['fields']['mail']['field'] = 'mail';
+  $handler->display->display_options['fields']['mail']['relationship'] = 'uid';
   /* Field: Reportback: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
@@ -186,15 +188,17 @@ function dosomething_reportback_views_default_views() {
     t('last »'),
     t('Copy'),
     t('No reportbacks found.'),
+    t('User'),
     t('Rbid'),
     t('.'),
-    t('User'),
-    t('Uid'),
     t('Date'),
+    t('UId'),
+    t('E-mail'),
     t('Quantity'),
     t(','),
     t('All'),
     t('Reportbacks: %1'),
+    t('Uid'),
     t('Page'),
   );
   $export['node_reportbacks'] = $view;
