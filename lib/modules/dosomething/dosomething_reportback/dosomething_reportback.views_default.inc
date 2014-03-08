@@ -123,7 +123,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['updated']['label'] = 'Updated';
   $handler->display->display_options['fields']['updated']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['updated']['alter']['path'] = 'reportback/[rbid]';
-  $handler->display->display_options['fields']['updated']['date_format'] = 'raw time ago';
+  $handler->display->display_options['fields']['updated']['date_format'] = 'short';
   /* Field: Reportback: User uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'views_entity_reportback';
@@ -155,7 +155,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['uri']['relationship'] = 'fid';
   $handler->display->display_options['fields']['uri']['label'] = 'Pic';
   $handler->display->display_options['fields']['uri']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['uri']['alter']['text'] = '<img src="[uri]" width="200" height="200" />';
+  $handler->display->display_options['fields']['uri']['alter']['text'] = '<img src="[uri]" width="200" height="200"/>';
   $handler->display->display_options['fields']['uri']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['uri']['alter']['path'] = 'reportback/[rbid]';
   $handler->display->display_options['fields']['uri']['file_download_path'] = TRUE;
@@ -244,7 +244,7 @@ function dosomething_reportback_views_default_views() {
     t('Quantity'),
     t(','),
     t('Pic'),
-    t('<img src="[uri]" />'),
+    t('<img src="[uri]" width="200" height="200"/>'),
     t('Fid'),
     t('All'),
     t('Reportbacks: %1'),
