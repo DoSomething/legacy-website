@@ -286,6 +286,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     '#attributes' => array(
       'placeholder' => t("Enter # here"),
     ),
+    '#element_validate' => array('element_validate_integer_positive'),
     '#title' => t("Total # of @noun @verb", array(
         '@noun' => $wrapper->field_reportback_noun->value(),
         '@verb' => $wrapper->field_reportback_verb->value(),
