@@ -333,9 +333,10 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   $values['uid'] = $user->uid;
 
   // Save uploaded file.
-  $file = dosomething_reportback_form_save_file($form_state);
-  // Store new file's fid into values.
-  $values['fid'] = $file->fid;
+  if ($file = dosomething_reportback_form_save_file($form_state)) {
+    // Store new file's fid into values.
+    $values['fid'] = $file->fid;
+  }
   // Save values into reportback.
   dosomething_reportback_save($values);
 
@@ -364,8 +365,9 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
       form_set_error('reportback_file', t('There was an error. Please try again.'));
     }
   }
-  else {
-    form_set_error('reportback_file', t('No file was uploaded.'));
+  // If this is a new reportback form, file is mandatory.
+  elseif ($form_state['values']['rbid'] == 0) {
+    form_set_error('reportback_file', t('Please upload an image.'));
   }
 }
 
@@ -373,6 +375,10 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
  * Saves file from form into file_managed with permanent status.
  */
 function dosomething_reportback_form_save_file(&$form_state) {
+  // If nothing set in storage, exit.
+  if (!isset($form_state['storage']['file'])) return;
+
+  // Retrieve file from storage.
   $file = $form_state['storage']['file'];
   // We are done with the file, remove it from storage.
   unset($form_state['storage']['file']);
@@ -536,7 +542,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of file fid's to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  if (isset($values['fid'])) {
+  if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
   }
 }
