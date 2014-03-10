@@ -172,35 +172,49 @@
 
   <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
   <section class="do step">
-    <div class="pre">
-      <?php if (isset($pre_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $pre_step_header; ?></h3><?php endif; ?>
-      <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
+    <div class="content">
+      <div class="pre">
+        <?php if (isset($pre_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $pre_step_header; ?></h3><?php endif; ?>
+        <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
-      <div class="tips">
-        <?php if (isset($step_pre)) : ?>
-        <div class="tip-header-wrapper">
-        <?php foreach ($step_pre as $key=>$item): ?>
-          <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
-        <?php endforeach; ?>
-        </div>
+        <div class="tips">
+          <?php if (isset($step_pre)) : ?>
+          <div class="tip-header-wrapper">
+          <?php foreach ($step_pre as $key=>$item): ?>
+            <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+          <?php endforeach; ?>
+          </div>
 
-        <div class="tip-body-wrapper">
-        <?php foreach ($step_pre as $key=>$item): ?>
-          <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
-        <?php endforeach; ?>
+          <div class="tip-body-wrapper">
+          <?php foreach ($step_pre as $key=>$item): ?>
+            <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
+          <?php endforeach; ?>
+          </div>
+          <?php endif; ?>
         </div>
+      </div>
+
+      <div class="step-image-wrapper mobile">
+        <?php if (isset($step_image_landscape)): ?>
+          <figure class="step-image"><?php print $step_image_landscape; ?></figure>
         <?php endif; ?>
+      </div>
+
+      <div class="during">
+        <h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Snap a Pic</h3>
+        <?php if (isset($pic_step['safe_value'])): ?><div><?php print $pic_step['safe_value']; ?></div><?php endif; ?>
+      </div>
+
+      <div class="post">
+        <?php if (isset($post_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $post_step_header; ?></h3><?php endif; ?>
+        <?php if (isset($post_step_copy)): ?><div><?php print $post_step_copy; ?></div><?php endif; ?>
       </div>
     </div>
 
-    <div class="during">
-      <h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Snap a Pic</h3>
-      <?php if (isset($pic_step['safe_value'])): ?><div><?php print $pic_step['safe_value']; ?></div><?php endif; ?>
-    </div>
-
-    <div class="post">
-      <?php if (isset($post_step_header)): ?><h3 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;"><?php print $post_step_header; ?></h3><?php endif; ?>
-      <?php if (isset($post_step_copy)): ?><div><?php print $post_step_copy; ?></div><?php endif; ?>
+    <div class="step-image-wrapper desktop">
+      <?php if (isset($step_image_square)): ?>
+        <figure class="step-image"><?php print $step_image_square; ?></figure>
+      <?php endif; ?>
     </div>
 
     <?php if (isset($step_post)) : ?>
