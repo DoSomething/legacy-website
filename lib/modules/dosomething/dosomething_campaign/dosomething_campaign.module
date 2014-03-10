@@ -359,16 +359,19 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Hero Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280p');
-      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '300x300');
-      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280p');
-      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '300x300');
+      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810p');
+      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768p');
+      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810p');
+      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768p');
     }
 
     //@TODO: Remove Trello-hosted placeholder
     // Fall back to default values if a hero image was not set.
-    $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/c4b5ff2e6a0753a34d5db0216bb21d6f/hero-1-1.jpg');
-    $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/ff5624bf807958a73af3a89558e17ac8/hero-16-9.jpg');
+    $default_mobile = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/c4b5ff2e6a0753a34d5db0216bb21d6f/hero-1-1.jpg'
+    $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : $default_mobile);
+
+    $default_desktop = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/ff5624bf807958a73af3a89558e17ac8/hero-16-9.jpg';
+    $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : $default_desktop);
 
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
