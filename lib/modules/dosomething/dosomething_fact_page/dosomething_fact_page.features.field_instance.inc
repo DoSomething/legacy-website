@@ -10,6 +10,52 @@
 function dosomething_fact_page_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-fact_page-field_additional_text'
+  $field_instances['node-fact_page-field_additional_text'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 13,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_additional_text',
+    'label' => 'Sources',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-fact_page-field_call_to_action'
   $field_instances['node-fact_page-field_call_to_action'] = array(
     'bundle' => 'fact_page',
@@ -95,7 +141,7 @@ function dosomething_fact_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 4,
+      'weight' => 7,
     ),
   );
 
@@ -206,7 +252,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -303,7 +349,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -340,7 +386,7 @@ function dosomething_fact_page_field_default_field_instances() {
     'entityconnect_unload_add' => 0,
     'entityconnect_unload_edit' => 0,
     'field_name' => 'field_intro_image',
-    'label' => 'Inline Image',
+    'label' => 'Facts Image',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -354,7 +400,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -456,10 +502,11 @@ function dosomething_fact_page_field_default_field_instances() {
   t('Call to Action');
   t('Cause');
   t('Facts');
+  t('Facts Image');
   t('Hero Image');
-  t('Inline Image');
   t('Intro');
   t('Intro Title');
+  t('Sources');
   t('Subtitle');
 
   return $field_instances;

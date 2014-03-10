@@ -22,10 +22,10 @@ function dosomething_fact_page_strongarm() {
           'weight' => '7',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'metatags' => array(
-          'weight' => '6',
+          'weight' => '9',
         ),
       ),
       'display' => array(),
