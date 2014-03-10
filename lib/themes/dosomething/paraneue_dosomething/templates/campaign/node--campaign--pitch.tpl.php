@@ -1,6 +1,6 @@
 <section class="campaign--wrapper">
 
-  <?php foreach ($hero_image as $image_url ) :?>
+  <?php foreach ($hero_image as $key => $image_url ) :?>
     <header class="header <?php print $key . ' ' . $classes; ?>" <?php print (isset($image_url) ? 'style="background-image: url(' . $image_url . ');"' : ''); ?>>
       <div class="meta">
         <h1 class="title"><?php print $title; ?></h1>
