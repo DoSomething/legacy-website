@@ -234,7 +234,7 @@
       <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
       <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
-      <?php if (isset($official_rules_src)): ?><a href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
+      <?php if (isset($official_rules_src)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
       <?php if (isset($reportback_form)): ?>
       <script id="modal-report-back" type="text/cached-modal">
@@ -267,25 +267,27 @@
     <?php endif; ?>
     </div>
 
-    <footer class="help sponsors">
-      <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
-        In partnership with
-        <?php foreach ($partners as $key => $partner) :?>
-          <?php print $partner['name']; ?>
-        <?php endforeach; ?>
+    <footer class="help <?php isset($sponsors) ? print 'sponsors' : '' ; ?>">
+      <div class="footer-content">
+        <?php if (isset($sponsors)): ?>
+        <div class="sponsor-wrapper">
+          In partnership with
+          <?php foreach ($partners as $key => $partner) :?>
+            <?php print $partner['name']; ?>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+
+        <div class="help-wrapper" style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
       </div>
-      <?php endif; ?>
-
-      <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
-      <p>Have a Question?</p>
-      <a href="#">Email Us</a>
-
-      <?php if (isset($zendesk_form)): ?>
-      <?php //@todo: Modalize and link to me. ?>
-      <?php print render($zendesk_form); ?>
-      <?php endif; ?>
     </footer>
+
+    <?php if (isset($zendesk_form)): ?>
+    <script id="modal-help" type="text/cached-modal">
+      <a href="#" class="js-close-modal modal-close-button">×</a>
+      <?php print render($zendesk_form); ?>
+    </script>
+    <?php endif; ?>
 
     <?php if (isset($fact_sources)): ?>
     <footer class="sources">
