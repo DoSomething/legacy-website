@@ -1,24 +1,40 @@
 // Primary persistent campaign navigation
 // that is full-width on mobile and the left
 // sidebar on desktop
-nav.navigation {
-  position: sticky;
 
-  display: none !important;
-  // TODO - TEMPORARY
+.navigation {
+  position: absolute;
+  top: 4rem;
+  @include span-columns(8);
 
   @include media( $tablet ) {
-    @include span-columns(2);
+    top: 4rem;
+    padding-top: 1rem;
+    width: 130px; // need pixel width since it loses percent sizing when "fixed"
+  }
+
+  &.is-stuck {
+    position: fixed;
+    top: 0;
   }
 
   ul {
-    padding: 0.5rem 0 0.5rem 0;
-    background: #eee;
+    background: $off-black;
+    text-align: center;
+    overflow: hidden;
+
+    @include media($tablet) {
+      text-align: left;
+    }
   }
 
   li {
-    text-align: center;
-    width: 100%;
+    display: inline-block;
+
+    @include media($tablet) {
+      display: block;
+      width: 100%;
+    }
 
     &:last-child a {
       border-bottom: none;
@@ -26,24 +42,29 @@ nav.navigation {
   }
 
   a {
-    display: block;
+    display: inline-block;
     margin: 0 auto;
-    padding: 0.25rem 0;
+    padding: 0.75rem 1rem;
     text-decoration: none;
     text-transform: uppercase;
-    font-weight: 600;
-    font-size: $font-medium;
+    font-weight: $weight-sbold;
+    font-size: $font-regular;
+
+    @include media($tablet) {
+      display: block;
+      padding: 0.5rem 1rem;
+    }
 
     &.plain {
-      color: #fff;
+      color: $med-gray;
     }
 
     &.primary {
       color: $blue;
     }
-  }
 
-  .is-stuck {
-    top: 26px;
+    &.active {
+      color: #fff;
+    }
   }
 }

@@ -6,6 +6,11 @@
     @include outer-container;
   }
 
+  // Gives the floating nav a parent container to anchor to
+  .content-wrapper {
+    position: relative;
+  }
+
   // Full-width header that comes
   // immediately before each section.step
   h2.step-header {
