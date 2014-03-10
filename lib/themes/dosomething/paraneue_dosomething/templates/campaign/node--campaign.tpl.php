@@ -277,15 +277,16 @@
       </div>
       <?php endif; ?>
 
-      <!-- @TODO - This is a placeholder. Remove once Zen Desk is working. -->
       <p>Have a Question?</p>
-      <a href="#">Email Us</a>
-
-      <?php if (isset($zendesk_form)): ?>
-      <?php //@todo: Modalize and link to me. ?>
-      <?php print render($zendesk_form); ?>
-      <?php endif; ?>
+      <a href="#modal-help" class="js-modal-link">Email Us</a>
     </footer>
+
+    <?php if (isset($zendesk_form)): ?>
+    <script id="modal-help" type="text/cached-modal">
+      <a href="#" class="js-close-modal modal-close-button">×</a>
+      <?php print render($zendesk_form); ?>
+    </script>
+    <?php endif; ?>
 
     <?php if (isset($fact_sources)): ?>
     <footer class="sources">
