@@ -39,7 +39,6 @@ function dosomething_reportback_entity_property_info() {
     'type' => 'integer',
     'schema field' => 'rbid',
     'entity views field' => TRUE,
-    'setter callback' => 'entity_property_verbatim_set',
   );
   $properties['nid'] = array(
     'label' => t('Node nid'),
@@ -577,4 +576,53 @@ function dosomething_reportback_mbp_request($entity) {
     );
     dosomething_user_mbp_request('campaign_reportback', $params);
   }
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function dosomething_reportback_views_data() {
+  $data['dosomething_reportback_file']['table']['group'] = t('Reportback');
+  $data['dosomething_reportback_file']['table']['base'] = array(
+    'field' => 'rbid', // This is the identifier field for the view.
+    'title' => t('Reportback images'),
+    'help' => t('Image uploads for reportbacks.'),
+    'weight' => -10,
+  );
+  $data['dosomething_reportback_file']['table']['join'] = array(
+    'dosomething_reportback' => array(
+      'left_field' => 'rbid',
+      'field' => 'rbid',
+    ),
+    'file_managed' => array(
+      'left_field' => 'fid',
+      'field' => 'fid',
+    ),
+  );
+  $data['dosomething_reportback_file']['rbid'] = array(
+    'title' => t('Reportback file rbid'),
+    'help' => t('Reportback file rid that references a reportback.'),
+    'relationship' => array(
+      'base' => 'dosomething_reportback',
+      'base field' => 'rbid',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Reportback rbid'),
+      'title' => t('Reportback rbid'),
+      'help' => t('The Reportback rbid the File belongs to.'),
+    ),
+  );
+  $data['dosomething_reportback_file']['fid'] = array(
+    'title' => t('Reportback image fid'),
+    'help' => t('The fid of the Reportback image file.'),
+    'field' => array(
+      'handler' => 'views_handler_field_file',
+      'click sortable' => TRUE,
+    ),
+    'relationship' => array(
+      'base' => 'file_managed',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Reportback image'),
+    ),
+  );
+  return $data;
 }
