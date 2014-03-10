@@ -267,8 +267,8 @@
     <?php endif; ?>
     </div>
 
-    <footer class="help sponsors">
-      <div class="content">
+    <footer class="help <?php isset($sponsors) ? print 'sponsors' : '' ; ?>">
+      <div class="footer-content">
         <?php if (isset($sponsors)): ?>
         <div class="sponsor-wrapper">
           In partnership with
@@ -279,7 +279,6 @@
         <?php endif; ?>
 
         <div class="help-wrapper" style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
-      
       </div>
     </footer>
 

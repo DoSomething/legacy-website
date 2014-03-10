@@ -10,24 +10,32 @@ footer.boilerplate {
 // -------------
 //  Action Page
 // -------------
-footer.help.sponsors {
-  overflow: hidden;
 
-  .content {
-    margin: 0;
+// This footer exists in sponsored campaigns and
+// contains the default zendesk help link as well
+footer.sponsors {
+  .sponsor-wrapper {
+    float: none;
 
+    @include media( $tablet ) {
+      float: left;
+    }
+  }
+
+  .help-wrapper {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+      float: right;
+    }
+  }
+
+  .footer-content {
     @include media( $tablet ) {
       @include span-columns(12);
       @include shift(3);
     }
-  }
-
-  .sponsor-wrapper {
-    float: left;
-  }
-
-  .help-wrapper {
-    float: right;
   }
 }
 
@@ -39,6 +47,7 @@ footer.sources {
 }
 
 footer.help {
+  overflow: hidden;
   background: #000;
   background: rgba(0, 0, 0, 0.5);
 
