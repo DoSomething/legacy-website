@@ -3,11 +3,10 @@
 // sidebar on desktop
 
 .navigation {
-  position: absolute;
-  top: 4rem;
-  @include span-columns(8);
+  width: 100%; 
 
   @include media( $tablet ) {
+    position: absolute;
     top: 4rem;
     padding-top: 1rem;
     width: 130px; // need pixel width since it loses percent sizing when "fixed"
