@@ -39,15 +39,15 @@ function dosomething_signup_optin_config($form, &$form_state) {
       );
 
       // Each campagin gets a mailchimp & mobile commons id.
-      $form[$nid]['dosomething_signup_mailchimp_id_nid_' . $nid] = array(
+      $form[$nid]['dosomething_signup_nid_' . $nid . '_mailchimp_id'] = array(
         '#type' => 'textfield',
         '#title' => t('MailChimp Group'),
-        '#default_value' => variable_get('dosomething_signup_mailchimp_id_nid_' . $nid, ''),
+        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mailchimp_id', ''),
       );
-      $form[$nid]['dosomething_signup_mobilecommons_id_nid_' . $nid] = array(
+      $form[$nid]['dosomething_signup_nid_' . $nid . '_mobilecommons_id'] = array(
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Opt-In'),
-        '#default_value' => variable_get('dosomething_signup_mobilecommons_id_nid_' . $nid, ''),
+        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mobilecommons_id', ''),
       );
     }
   }
