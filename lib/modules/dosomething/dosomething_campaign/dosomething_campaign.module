@@ -275,6 +275,28 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function dosomething_campaign_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'campaign' && $view_mode == 'full') {
+    if (module_exists('dosomething_reportback')) {
+      // Initalize reportback to NULL.
+      $reportback = NULL;
+      if ($rbid = dosomething_reportback_exists($node->nid)) {
+        // Load existing reportback entity to pass through to reportback form.
+        $reportback = reportback_load($rbid);
+      }
+      $wrapper = entity_metadata_wrapper('node', $node->nid);
+      // Set Reportback Form variable in node content for rendering in theme layer.
+      $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+    }
+    if (module_exists('dosomething_zendesk')) {
+      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
+    }
+  }
+}
+
+/**
  * Implements hook_entity_info_alter().
  */
 function dosomething_campaign_entity_info_alter(&$entity_info) {
@@ -517,20 +539,16 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Reportback form.
-  // Intialize reportback entity to NULL.
-  $reportback = NULL;
   $vars['reportback_link_label'] = t("Submit Your Pic");
   // If logged in user's reportback exists for this node,
   if ($rbid = dosomething_reportback_exists($vars['nid'])) {
-    // Load existing reportback entity to pass through to reportback form.
-    $reportback = entity_load_single('reportback', $rbid);
     $vars['reportback_link_label'] = t("Update Submission");
   }
-  $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+  $vars['reportback_form'] = $vars['content']['reportback_form'];
 
   // Zendesk Support Ticket form.
-  if (module_exists('dosomething_zendesk')) {
-    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
+  if (isset($vars['content']['reportback_form'])) {
+    $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
 }
 
