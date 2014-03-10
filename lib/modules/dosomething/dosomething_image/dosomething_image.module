@@ -146,6 +146,9 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   return drupal_render($content);
 }
 
+/**
+ * Clear cache on dosomething_image table.
+ */
 function dosomething_image_cache_clear_all() {
   cache_clear_all('*', 'cache_dosomething_image', TRUE);
 }
