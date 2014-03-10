@@ -26,28 +26,30 @@ function dosomething_signup_optin_config($form, &$form_state) {
 
   // Each staff pick could have a special opt-in for third party communications.
   $staff_picks = dosomething_campaign_get_staff_picks();
-  foreach ($staff_picks as $staff_pick) {
-    $nid = $staff_pick['nid'];
-    $title = $staff_pick['title'];
-    // Create a fieldset for each campaign.
-    $form[$nid] = array(
-      '#type' => 'fieldset',
-      '#title' => $title . ' : ' . $nid,
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-    );
+  if ($staff_picks) {
+    foreach ($staff_picks as $staff_pick) {
+      $nid = $staff_pick['nid'];
+      $title = $staff_pick['title'];
+      // Create a fieldset for each campaign.
+      $form[$nid] = array(
+        '#type' => 'fieldset',
+        '#title' => $title . ' : ' . $nid,
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
 
-    // Each campagin gets a mailchimp & mobile commons id.
-    $form[$nid]['dosomething_mailchimp_id_' . $nid] = array(
-      '#type' => 'textfield',
-      '#title' => t('MailChimp Group'),
-      '#default_value' => variable_get('dosomething_mailchimp_id_' . $nid, ''),
-    );
-    $form[$nid]['dosomething_mobilecommons_id_' . $nid] = array(
-      '#type' => 'textfield',
-      '#title' => t('Mobile Commpns Opt-In'),
-      '#default_value' => variable_get('dosomething_mobilecommons_id_' . $nid, ''),
-    );
+      // Each campagin gets a mailchimp & mobile commons id.
+      $form[$nid]['dosomething_signup_nid_' . $nid . '_mailchimp_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('MailChimp Group'),
+        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mailchimp_id', ''),
+      );
+      $form[$nid]['dosomething_signup_nid_' . $nid . '_mobilecommons_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mobile Commons Opt-In'),
+        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mobilecommons_id', ''),
+      );
+    }
   }
 
   return system_settings_form($form);

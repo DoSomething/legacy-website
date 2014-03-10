@@ -18,7 +18,8 @@ function dosomething_signup_menu() {
     'description' => 'Admin form to manage custom opt-ins',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_signup_optin_config'),
-    'access callback' => array('administer third party communication'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer third party communication'),
     'file' => 'dosomething_signup.admin.inc'
   );
 
