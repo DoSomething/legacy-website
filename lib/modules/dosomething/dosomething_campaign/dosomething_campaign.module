@@ -334,14 +334,19 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['end_date'] = 'Ends ' . $end_date;
     }
 
-    // Images.
+    // Hero Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
       $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280p');
-      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
+      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '300x300');
       $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280p');
-      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
+      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '300x300');
     }
+
+    //@TODO: Remove Trello-hosted placeholder
+    // Fall back to default values if a hero image was not set.
+    $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/c4b5ff2e6a0753a34d5db0216bb21d6f/hero-1-1.jpg');
+    $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/ff5624bf807958a73af3a89558e17ac8/hero-16-9.jpg');
 
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
@@ -497,15 +502,15 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['pic_step'] = $wrapper->field_photo_step->value();
   $vars['post_step_header'] = $wrapper->field_post_step_header->value();
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
+  $vars['step_image_square'] = dosomething_image_get_themed_image($step_image['entity']->nid, 'square', '310x310');
+  $vars['step_image_landscape'] = dosomething_image_get_themed_image($step_image['entity']->nid, 'landscape', '720x310');
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
+  $official_rules = $wrapper->field_official_rules->value();
+  $vars['official_rules_src'] = file_create_url($official_rules['uri']);
 
-  // Image galleries.
-  foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
-    $nid = $step_image['entity']->nid;
-    $vars['step_image'][$key] = dosomething_image_get_themed_image($nid, 'square', '310x310');
-  }
+  // Reportback gallery.
   foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
     $rb_image['nid'] = $rb_image['entity']->nid;
     $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image['nid'], 'landscape', '720x310');

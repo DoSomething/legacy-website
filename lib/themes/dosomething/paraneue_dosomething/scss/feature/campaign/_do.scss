@@ -1,10 +1,13 @@
 // Step 3
 // Do It
 .step.do {
+  position: relative;
 
-  @include media( $tablet ) {
-    @include span-columns(9);
-    @include shift(3);
+  .content {
+    @include media( $tablet ) {
+      @include span-columns(9);
+      @include shift(3);
+    }
   }
 
   .pre,
@@ -18,11 +21,10 @@
   .pre {
     @include section-padding;
 
-
     @include media( $tablet ) {
       border-bottom: 1px solid $light-gray;
       margin: 0 0 2.5rem 0;
-      padding: 0 0 2rem 0;
+      padding: 0 0 2rem 0 !important;
     }
   }
 
@@ -100,6 +102,38 @@
 
     p {
       margin: 0 !important; // Override the default p margin
+    }
+  }
+
+  div.step-image-wrapper {
+    float: left;
+
+    &.mobile {
+     display: block;
+
+     @include media( $tablet ) {
+       display: none;
+     }
+    }
+
+    &.desktop {
+      display: none;
+
+      @include media( $tablet ) {
+        display: block;
+      }
+
+      figure.step-image {
+        position: absolute;
+        top: 40%;
+        background-image: url(../images/campaign-polaroid-frame.png);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        width: 200px;
+        height: 230px;
+
+        @include transform(rotate(-3deg));
+      }
     }
   }
 }
