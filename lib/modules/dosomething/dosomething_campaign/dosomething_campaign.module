@@ -284,11 +284,14 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
       $reportback = NULL;
       if ($rbid = dosomething_reportback_exists($node->nid)) {
         // Load existing reportback entity to pass through to reportback form.
-        $reportback = entity_load_single('reportback', $rbid);
+        $reportback = reportback_load($rbid);
       }
       $wrapper = entity_metadata_wrapper('node', $node->nid);
       // Set Reportback Form variable in node content for rendering in theme layer.
       $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+    }
+    if (module_exists('dosomething_zendesk')) {
+      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
     }
   }
 }
@@ -539,8 +542,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['reportback_form'] = $vars['content']['reportback_form'];
 
   // Zendesk Support Ticket form.
-  if (module_exists('dosomething_zendesk')) {
-    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
+  if (isset($vars['content']['reportback_form'])) {
+    $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
 }
 
