@@ -28,6 +28,7 @@ foreach ($result as $user_row) {
     $user['access'] = $user_row->access;
     // Set the init value as the old world uid.
     $user['init']= $user_row->uid;
+    $user['status'] = $user_row->status;
     $account = user_save('', $user);
   }
 
