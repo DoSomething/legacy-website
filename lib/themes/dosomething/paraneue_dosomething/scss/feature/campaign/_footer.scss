@@ -10,7 +10,27 @@ footer.boilerplate {
 // -------------
 //  Action Page
 // -------------
-// @TODO - Placeholder styles until Sponsor / Zen Desk are in place
+footer.help.sponsors {
+  overflow: hidden;
+
+  .content {
+    margin: 0;
+
+    @include media( $tablet ) {
+      @include span-columns(12);
+      @include shift(3);
+    }
+  }
+
+  .sponsor-wrapper {
+    float: left;
+  }
+
+  .help-wrapper {
+    float: right;
+  }
+}
+
 footer.help,
 footer.sources {
   padding: 1rem 1.5rem;
@@ -18,9 +38,9 @@ footer.sources {
   clear: both;
 }
 
-.footer.help {
+footer.help {
   background: #000;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
 
   p {
     display: inline;

@@ -268,17 +268,19 @@
     </div>
 
     <footer class="help sponsors">
-      <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
-        In partnership with
-        <?php foreach ($partners as $key => $partner) :?>
-          <?php print $partner['name']; ?>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
+      <div class="content">
+        <?php if (isset($sponsors)): ?>
+        <div class="sponsor-wrapper">
+          In partnership with
+          <?php foreach ($partners as $key => $partner) :?>
+            <?php print $partner['name']; ?>
+          <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
 
-      <p>Have a Question?</p>
-      <a href="#modal-help" class="js-modal-link">Email Us</a>
+        <div class="help-wrapper" style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
+      
+      </div>
     </footer>
 
     <?php if (isset($zendesk_form)): ?>
