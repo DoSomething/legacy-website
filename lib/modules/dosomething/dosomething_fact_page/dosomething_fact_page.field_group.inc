@@ -21,7 +21,7 @@ function dosomething_fact_page_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Call to Action',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
@@ -52,12 +52,10 @@ function dosomething_fact_page_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_hero_image',
-      1 => 'field_intro_image',
-      2 => 'field_intro_title',
-      3 => 'field_subtitle',
-      4 => 'field_video',
-      5 => 'field_intro',
-      6 => 'title',
+      1 => 'field_intro_title',
+      2 => 'field_subtitle',
+      3 => 'field_intro',
+      4 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

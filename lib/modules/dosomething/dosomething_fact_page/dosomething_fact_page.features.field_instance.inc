@@ -95,7 +95,7 @@ function dosomething_fact_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -206,7 +206,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -340,7 +340,7 @@ function dosomething_fact_page_field_default_field_instances() {
     'entityconnect_unload_add' => 0,
     'entityconnect_unload_edit' => 0,
     'field_name' => 'field_intro_image',
-    'label' => 'Intro Image',
+    'label' => 'Inline Image',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -354,7 +354,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 10,
+      'weight' => 1,
     ),
   );
 
@@ -450,55 +450,6 @@ function dosomething_fact_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_video'
-  $field_instances['node-fact_page-field_video'] = array(
-    'bundle' => 'fact_page',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 10,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_video',
-    'label' => 'Video',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 11,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('CTA Link');
@@ -506,11 +457,10 @@ function dosomething_fact_page_field_default_field_instances() {
   t('Cause');
   t('Facts');
   t('Hero Image');
+  t('Inline Image');
   t('Intro');
-  t('Intro Image');
   t('Intro Title');
   t('Subtitle');
-  t('Video');
 
   return $field_instances;
 }
