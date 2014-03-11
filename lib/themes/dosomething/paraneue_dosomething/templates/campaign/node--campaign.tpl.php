@@ -159,13 +159,11 @@
       <?php if (isset($location_finder_url)) : ?>
         <div class="location-finder">
           <h4 style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Find a Location</h4>
-          <div class="border">
-            <?php if (isset($location_finder_copy)) : ?>
-              <div><?php print $location_finder_copy['safe_value']; ?></div>
-            <?php endif; ?>
+          <?php if (isset($location_finder_copy)) : ?>
+            <div><?php print $location_finder_copy['safe_value']; ?></div>
+          <?php endif; ?>
 
-            <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
-          </div>
+          <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
         </div>
       <?php endif; ?>
     </section>
