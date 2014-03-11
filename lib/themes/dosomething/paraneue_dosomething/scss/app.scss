@@ -28,6 +28,9 @@
 @import "feature/campaign";
 @import "feature/confirmation";
 
+// Modal styles
+@import "feature/modals";
+
 .campaign--wrapper {
   @import "feature/campaign/layout";
   @import "feature/campaign/header";

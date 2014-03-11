@@ -1,0 +1,18 @@
+// Full-width header that comes
+// immediately before each section.step
+.modal-content{
+  h2 {
+    margin: 0;
+    padding: 0 1.5rem;
+    background: $off-black;
+    color: #fff;
+    clear: both;
+    line-height: 4rem;
+    text-transform: uppercase;
+
+    // fit this guy to edge of modal
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-top: -2rem;
+   }
+}
