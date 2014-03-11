@@ -388,6 +388,31 @@ function dosomething_user_clean_cell_number($number) {
   }
   return FALSE;
 }
+
+/**
+ * Create a user account when provided with only a cell phone number.
+ *
+ * @param string $number
+ *   User's phone number.
+ */
+function dosomething_user_create_user_by_mobile($number) {
+  if ($clean_number = dosomething_user_clean_cell_number($number)) {
+    $user_data = array(
+      'name' => user_password(), // Generating unique dummy name. dosomething_user_user_insert() will convert this to the uid.
+      'mail' => $clean_number . '@mobile', // Provide a dummy email address.
+      'pass' => user_password(),
+      'status' => 1,
+      'field_mobile' => array(LANGUAGE_NONE => array(0 => array('value' => $clean_number))),
+    );
+
+    $user = user_save('', $user_data);
+
+    return $user;
+  }
+
+  return FALSE;
+}
+
 /**
  * A request to send a message via the Message Broker library:
  * https://github.com/DoSomething/messagebroker-phplib
