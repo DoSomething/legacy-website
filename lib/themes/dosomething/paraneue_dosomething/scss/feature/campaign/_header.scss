@@ -97,6 +97,9 @@ header.header {
       overflow: hidden;
       float: right;
       width: 200px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
     }
 
     // Sponsor logo and "Powered By"
@@ -126,6 +129,7 @@ header.header {
 
       @include media( $tablet ) {
         font-size: $font-regular;
+        margin: 0;
         width: 100px;
         height: 100px;
         line-height: 100px;
