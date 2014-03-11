@@ -32,12 +32,11 @@ header.header {
 
   h1.title {
     color: #fff;
-    font-size: $font-larger;
+    font-size: $font-massive;
     text-align: center;
     line-height: 2rem;
 
     @include media( $tablet ) {
-      font-size: $font-largest;
       text-align: left;
     }
   }
@@ -45,15 +44,18 @@ header.header {
   p.cta {
     color: #fff !important;
     text-align: center;
+    font-size: $font-medium;
 
     @include media( $tablet ) {
       text-align: left;
     }
   }
 
+  // Campaign date not selected with a *-wrapper
+  // element because it can exist either in the
+  // sponsor section or on its own
   p.date {
     color: #fff !important;
-    font-size: 14px;
     text-align: center;
 
     @include media( $tablet ) {
@@ -72,10 +74,54 @@ header.header {
     }
   }
 
-  p.scholarship-copy {
-    font-family: Engineer;
+  div.sponsor-wrapper {
+    clear: both;
 
-    @include media( $tablet ) {
+    .copy {
+      color: #fff;
+    }
+  }
+
+  div.scholarship-wrapper {
+    width: 130px;
+    margin: -10px 0 0 15px;
+    float: left;
+
+    @include transform(rotate(-6deg));
+
+    .copy {
+      text-align: center;
+      color: #fff;
+      font-family: Engineer;
+      font-size: 1.5rem; // Some pixel fucking was required here
+      line-height: 1.5rem; // Tighten up leading when scholarship copy stacks
+
+      // Hand-drawn arrows pointing to the call to action
+      &:before,
+      &:after {
+        content: '';
+      }
+
+      // Left-pointing arrow to display on all "desktop" resolutions
+      @include media( $tablet ) {
+        &:before {
+          display: block;
+          width: 40px;
+          height: 60px;
+          float: left;
+          background: url('../images/campaign-left-arrow.png') 50% 50% / 35px no-repeat transparent;
+        }
+      }
+
+      // Up-pointing arrow to display on all "mobile" resolutions
+      &:after {
+        display: block;
+        background: url('../images/campaign-up-arrow.png') 50% 50% no-repeat transparent;
+
+        @include media( $tablet ) {
+          display: none;
+        }
+      }
     }
   }
 }

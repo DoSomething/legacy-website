@@ -10,13 +10,13 @@
 
       <?php if (isset($scholarship)): ?>
       <div class="scholarship-wrapper">
-        <p class="scholarship-copy" id="scholarship-copy"><?php print $scholarship; ?></p>
+        <p class="copy"><?php print $scholarship; ?></p>
       </div>
       <?php endif; ?>
 
       <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
-        <p class="sponsor-copy">Powered by:</p>
+      <div class="sponsor-wrapper">
+        <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
         <?php endforeach; ?>
