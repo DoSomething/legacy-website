@@ -72,6 +72,25 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
     //@todo: /campaigns/[nid] directory?
     '#upload_location' => 'public://',
   );
+
+  $form['custom']['optins'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Third Party Opt-ins'),
+    '#description' => t('Custom campaign opt-in values.'),
+  );
+  $form['custom']['optins']['mailchimp'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MailChimp Opt-in'),
+    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mailchimp_id'),
+    '#disabled' => TRUE,
+  );
+  $form['custom']['optins']['mobilecommons'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MobileCommons Opt-in'),
+    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mobilecommons_id'),
+    '#disabled' => TRUE,
+  );
+
   $form['#submit'][] = 'dosomething_campaign_save_custom_vars';
 }
 
