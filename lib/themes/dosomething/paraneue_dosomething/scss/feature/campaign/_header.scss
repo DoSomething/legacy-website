@@ -82,7 +82,7 @@ header.header {
   input.btn {
     margin: 0 auto;
     display: block;
-    width: 125px;
+    width: 150px;
     color: #fff;
 
     @include media( $tablet ) {
@@ -90,26 +90,10 @@ header.header {
     }
   }
 
-  img.arrow {
-    position: relative;
-    left: 90px;
-    top: -15px;
-    display: block;
-    margin: 0 auto;
+  p.scholarship-copy {
+    font-family: Engineer;
 
     @include media( $tablet ) {
-      margin: 0;
-      top: 15px;
-      left: 20px;
-    }
-  }
-
-  p.scholarship {
-
-    @include media( $tablet ) {
-      margin: 0;
-      top: 25px;
-      left: 0;
     }
   }
 }
