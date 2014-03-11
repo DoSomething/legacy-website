@@ -374,7 +374,8 @@ function dosomething_user_get_user_by_cell($number) {
  *   The user-input mobile number.
  *
  * @return string/bool
- *   Numeric-only string of the phone number, or FALSE if not a 10-digit number.
+ *   Numeric-only 10-digit string of the phone number, or FALSE if not a 10-digit
+ *   number or an 11-digit number with 1 as its international code.
  */
 function dosomething_user_clean_cell_number($number) {
   if (dosomething_user_valid_cell($number)) {
@@ -384,10 +385,41 @@ function dosomething_user_clean_cell_number($number) {
     if (strlen($trimmed_number) == 10) {
       return $trimmed_number;
     }
+    // If number is 11 digits long and the first number is 1, then it's also ok.
+    elseif (strlen($trimmed_number) == 11 && substr($trimmed_number, 0, 1) == '1') {
+      // Return the 10 digit number minus the international code.
+      return substr($trimmed_number, 1, 10);
+    }
     return FALSE;
   }
   return FALSE;
 }
+
+/**
+ * Create a user account when provided with only a cell phone number.
+ *
+ * @param string $number
+ *   User's phone number.
+ */
+function dosomething_user_create_user_by_cell($number) {
+  if ($clean_number = dosomething_user_clean_cell_number($number)) {
+    $user_data = array(
+      'name' => $clean_number, // @todo This doesn't seem to work. UID gets set as the name instead. Can it not be only numbers? meh, seems like $clean_number . '@mobile' does nothing either.
+      // Provide a dummy email address.
+      'mail' => $clean_number . '@mobile',
+      'pass' => user_password(),
+      'status' => 1,
+      'field_mobile' => array(LANGUAGE_NONE => array(0 => array('value' => $clean_number))),
+    );
+
+    $user = user_save('', $user_data);
+
+    return $user;
+  }
+
+  return FALSE;
+}
+
 /**
  * A request to send a message via the Message Broker library:
  * https://github.com/DoSomething/messagebroker-phplib
