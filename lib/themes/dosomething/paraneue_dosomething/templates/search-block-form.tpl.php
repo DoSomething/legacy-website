@@ -34,5 +34,4 @@
   <?php endif; ?>
   <?php print $search['search_block_form']; ?>
   <?php print $search['hidden']; ?>
-  <?php //print $search_form; ?>
 </div>
