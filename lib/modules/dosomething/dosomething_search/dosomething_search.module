@@ -57,6 +57,15 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
         'sm_field_intro_title',
     ),
   );
+
+  $defaults = array(
+    'bs_high_season' => '5.0',
+    'bm_field_staff_pick' => '4.0',
+    'bs_sponsored' => '3.0',
+  );
+  foreach ($boosts as $field => $boost) {
+    $params['bq'][] = "{$field}:true^$boost";
+  }
   if ($query) {
     $query->addParams($params);
   }
@@ -87,6 +96,21 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
     }
     if (!empty($image)) {
       $document->setField('ss_field_search_image', $image);
+    }
+
+    $node = entity_metadata_wrapper('node', $entity);
+    foreach (array('high_season', 'low_season') as $season) {
+      $value = $node->{"field_" . $season}->value();
+      if (isset($value)) {
+        $now = time();
+        if ($now >= $node->{"field_" . $season}->value->value() && $now <= $node->{"field_" . $season}->value2->value()) {
+          $document->setField("bs_{$season}", 'true');
+        }
+      }
+    }
+    $sponsored = $node->field_partners->value();
+    if (isset($sponsored)) {
+      $document->setField("bs_sponsored", 'true');
     }
   }
 }
