@@ -58,6 +58,9 @@
 
     .title {
       color: #fff;
+      @include media($tablet) {
+        font-size: $font-larger;
+      }
     }
 
     .subtitle {
