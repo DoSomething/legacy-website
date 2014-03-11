@@ -176,39 +176,20 @@ function dosomething_campaign_save_alt_bg_fid($nid, $fid) {
 }
 
 /**
- * Returns list of possible custom variable names for a given $nid.
- */
-function dosomething_campaign_get_custom_varnames($nid) {
-  $names = array(
-    'alt_bg_fid',
-    'alt_color',
-  );
-  // Initialize return array.
-  $vars = array();
-  // For each custom variable:
-  foreach ($names as $name) {
-    // Generate the variable name for this $nid and append to return array.
-    $vars[] = dosomething_campaign_get_custom_var_prefix($nid) . $name;
-  }
-  return $vars;
-}
-
-/**
  * Returns string of prefix used to identify a campaign's custom variables.
  */
 function dosomething_campaign_get_custom_var_prefix($nid) {
   return 'dosomething_campaign_nid_' . $nid . '_';
 }
 
-
 /**
  * Implements hook_node_delete().
  */
 function dosomething_campaign_node_delete($node) {
   // Delete any custom variables associated with node.
-  foreach (dosomething_campaign_get_custom_varnames($node->nid) as $name) {
-    variable_del($name);
-  }
+  $prefix = dosomething_campaign_get_custom_var_prefix($node->nid);
+  variable_del($prefix . 'alt_bg_fid');
+  variable_del($prefix . 'alt_color');
 }
 
 /*
