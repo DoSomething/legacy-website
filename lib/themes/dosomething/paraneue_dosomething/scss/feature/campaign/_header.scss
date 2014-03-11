@@ -1,14 +1,16 @@
 // Wrapper for the campaign title, call to action
 // scholarship info., etc.
 div.meta {
+  position: relative;
   width: 90%;
-  position: absolute;
-  bottom: 1.5rem;
-  left: 5%;
+  margin: 230px auto 0;
 
   @include media( $tablet ) {
+    position: absolute;
     width: 100%;
     left: 0;
+    bottom: 1.5rem;
+    margin: 0;
 
     @include span-columns(12);
     @include shift(3);
@@ -32,22 +34,28 @@ header.header {
 
   h1.title {
     color: #fff;
-    font-size: $font-massive;
-    text-align: center;
+    font-size: 2rem;
     line-height: 2rem;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
+      font-size: $font-massive;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
   p.cta {
     color: #fff !important;
+    font-size: $font-regular;
     text-align: center;
-    font-size: $font-medium;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
+      font-size: $font-medium;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
@@ -56,49 +64,87 @@ header.header {
   // sponsor section or on its own
   p.date {
     color: #fff !important;
+    font-size: $font-small;
     text-align: center;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
+      font-size: $font-regular;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
   input.btn {
     margin: 0 auto;
     display: block;
-    width: 150px;
+    width: 135px;
     color: #fff;
+    font-size: 1.1rem;
 
     @include media( $tablet ) {
       float: left;
+      width: 150px;
     }
   }
 
   div.sponsor-wrapper {
-    float: right;
+    overflow: hidden;
+    margin: 0 auto;
+    float: none;
+    width: 125px;
+
+    @include media( $tablet ) {
+      float: right;
+      width: 200px;
+    }
 
     // Sponsor logo and "Powered By"
     img,
     .copy {
       display: inline-block;
       float: left;
-      width: 100px;
-      height: 100px;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+
+      @include media( $tablet ) {
+        font-size: $font-regular;
+        width: 100px;
+        height: 100px;
+      }
     }
 
     .copy {
       color: #fff;
-      line-height: 100px;
       padding: 15px 0 0;
+      font-size: $font-small;
+      width: 70px;
+      height: 50px;
+
+      @include media( $tablet ) {
+        font-size: $font-regular;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+      }
     }
   }
 
-  div.scholarship-wrapper {
-    width: 130px;
-    margin: -10px 0 0 15px;
-    float: left;
+  .scholarship-wrapper {
+    width: 200px;
+    margin: 20px auto 0;
+    position: relative;
 
-    @include transform(rotate(-6deg));
+    @include media( $tablet ) {
+      width: 130px;
+      margin: -10px 0 0 15px;
+      float: left;
+
+      @include transform(rotate(-6deg));
+    }
 
     .copy {
       text-align: center;
@@ -107,31 +153,33 @@ header.header {
       font-family: Engineer;
       font-size: 1.5rem; // Some pixel fucking was required here
       line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
+      float: right;
+      position: relative;
+      right: -50px;
 
-      // Hand-drawn arrows pointing to the call to action
-      &:before,
-      &:after {
-        content: '';
+      @include media( $tablet ) {
+        float: none;
+        right: 0;
       }
 
+      // Hand-drawn arrows pointing to the call to action
       // Left-pointing arrow to display on all "desktop" resolutions
-      @include media( $tablet ) {
-        &:before {
-          display: block;
+      &:before {
+        content: "";
+        width: 25px;
+        height: 38px;
+        display: block;
+        background: url('../images/campaign-arrow-up.png') 50% 50% / 25px no-repeat transparent;
+        position: absolute;
+        top: -40px;
+        right: 40px;
+
+        @include media( $tablet ) {
           width: 40px;
           height: 60px;
           float: left;
-          background: url('../images/campaign-left-arrow.png') 50% 50% / 35px no-repeat transparent;
-        }
-      }
-
-      // Up-pointing arrow to display on all "mobile" resolutions
-      &:after {
-        display: block;
-        background: url('../images/campaign-up-arrow.png') 50% 50% no-repeat transparent;
-
-        @include media( $tablet ) {
-          display: none;
+          position: static;
+          background: url('../images/campaign-arrow-left.png') 50% 50% / 35px no-repeat transparent;
         }
       }
     }
