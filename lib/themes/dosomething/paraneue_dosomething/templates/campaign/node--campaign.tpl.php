@@ -274,7 +274,7 @@
           </div>
           <?php endif; ?>
 
-          <div class="help-wrapper" style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
+          <div class="help-wrapper">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
         </div>
       </footer>
 
