@@ -193,8 +193,8 @@
         </div>
 
         <div class="step-image-wrapper mobile">
-          <?php if (isset($step_image_landscape)): ?>
-            <figure class="step-image"><?php print $step_image_landscape; ?></figure>
+          <?php if (isset($step_image_square)): ?>
+            <figure class="step-image"><?php print $step_image_square; ?></figure>
           <?php endif; ?>
         </div>
 
