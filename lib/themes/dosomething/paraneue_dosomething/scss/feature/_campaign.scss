@@ -35,6 +35,7 @@
 
   // Campaign "step" wrapper that contains all campaign sections
   section.step {
+    overflow: hidden;
     margin: 1rem 0;
 
     h3,

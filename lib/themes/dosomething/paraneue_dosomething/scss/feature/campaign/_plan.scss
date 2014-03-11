@@ -14,13 +14,14 @@
 }
 
 .location-finder{
+  margin-bottom: 2rem;
+
   @include media( $tablet ) {
     @include span-columns(11);
     @include shift(3);
   }
 
-  .border {
-    border: 1px solid $light-gray;
-    padding: 0 1.5rem 2rem;
+  p {
+    margin-bottom:0.5rem;
   }
 }
