@@ -381,6 +381,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Preprocess any custom campaign variables.
     dosomething_campaign_preprocess_custom_vars($vars);
 
+    // Add inline css based on vars.
+    dosomething_campaign_add_inline_css($vars);
+
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
@@ -392,6 +395,22 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
   }
+}
+
+/**
+ * Adds inline css into HEAD based on current state of vars.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_add_inline_css(&$vars) {
+  // Check for alt_color variable.
+  if (isset($vars['alt_color'])) {
+    $alt_color = 'color: #' .  $vars['alt_color'] . ' !important;';
+  }
+  // Add as a class.
+  $style_alt_color = '.alt-color { ' . $alt_color . '}';
+  drupal_add_css($style_alt_color, $option['type'] = 'inline');
 }
 
 /**
