@@ -75,10 +75,21 @@ header.header {
   }
 
   div.sponsor-wrapper {
-    clear: both;
+    float: right;
+
+    // Sponsor logo and "Powered By"
+    img,
+    .copy {
+      display: inline-block;
+      float: left;
+      width: 100px;
+      height: 100px;
+    }
 
     .copy {
       color: #fff;
+      line-height: 100px;
+      padding: 15px 0 0;
     }
   }
 
@@ -92,9 +103,10 @@ header.header {
     .copy {
       text-align: center;
       color: #fff;
+      color: rgba(255, 255, 255, 0.9); // Random opacity to match opacity of arrow on mock
       font-family: Engineer;
       font-size: 1.5rem; // Some pixel fucking was required here
-      line-height: 1.5rem; // Tighten up leading when scholarship copy stacks
+      line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
 
       // Hand-drawn arrows pointing to the call to action
       &:before,
