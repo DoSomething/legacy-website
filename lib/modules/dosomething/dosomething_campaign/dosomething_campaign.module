@@ -367,10 +367,10 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     //@TODO: Remove Trello-hosted placeholder
     // Fall back to default values if a hero image was not set.
-    $default_mobile = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/c4b5ff2e6a0753a34d5db0216bb21d6f/hero-1-1.jpg';
+    $default_mobile = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/020eb5456f174a48b0b53b2925a4780c/hero-processed-1-1.jpg';
     $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : $default_mobile);
 
-    $default_desktop = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/ff5624bf807958a73af3a89558e17ac8/hero-16-9.jpg';
+    $default_desktop = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/9b1b65c66af0687562a5cb4f81bdf05d/hero-processed-16-9.jpg';
     $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : $default_desktop);
 
     if (!empty($vars['field_partners'])) {
