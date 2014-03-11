@@ -411,6 +411,19 @@ function dosomething_campaign_add_inline_css(&$vars) {
   // Add as a class.
   $style_alt_color = '.alt-color { ' . $alt_color . '}';
   drupal_add_css($style_alt_color, $option['type'] = 'inline');
+
+  // Add hero background images
+  $style_hero_image = '.campaign--wrapper header.header {
+      background-image: url("' . $vars['hero_image']['mobile'] . '");
+    }
+
+    @media only screen and (min-width: 768px) {
+      .campaign--wrapper header.header {
+        background-image: url("' . $vars['hero_image']['desktop'] . '");
+      }
+    }
+  }';
+  drupal_add_css($style_hero_image, $option['type'] = 'inline');
 }
 
 /**
