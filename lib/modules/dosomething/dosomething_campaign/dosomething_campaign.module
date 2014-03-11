@@ -76,7 +76,7 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
   $form['custom']['optins'] = array(
     '#type' => 'fieldset',
     '#title' => t('Third Party Opt-ins'),
-    '#description' => t('Overriden campagin opt-in values.'),
+    '#description' => t('Custom campaign opt-in values.'),
   );
   $form['custom']['optins']['mailchimp'] = array(
     '#type' => 'textfield',
@@ -85,10 +85,10 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
     '#disabled' => TRUE,
   );
   $form['custom']['optins']['mobilecommons'] = array(
-  '#type' => 'textfield',
-  '#title' => t('MobileCommons Opt-in'),
-  '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mobilecommons_id'),
-  '#disabled' => TRUE,
+    '#type' => 'textfield',
+    '#title' => t('MobileCommons Opt-in'),
+    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mobilecommons_id'),
+    '#disabled' => TRUE,
   );
 
   $form['#submit'][] = 'dosomething_campaign_save_custom_vars';
