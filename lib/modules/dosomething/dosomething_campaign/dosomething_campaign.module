@@ -100,31 +100,38 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
 function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
   $values = $form_state['values'];
   $nid = $values['nid'];
-  // Gather all possible custom variable names for $nid.
+  // Gather all possible custom vars.
   $prefix = dosomething_campaign_get_custom_var_prefix($nid);
-  $varnames = dosomething_campaign_get_custom_varnames($nid);
-  // Store variable name for alt_bg_fid.
+  $alt_color = $prefix . 'alt_color';
   $alt_bg_fid = $prefix . 'alt_bg_fid';
-  // Foreach possible custom variable:
-  foreach ($varnames as $varname) {
-    // If a value is set, or if a value exists already (in case of removal):
-    if (!empty($values[$varname]) || variable_get($varname)) {
-      // Set variable value.
-      variable_set($varname, $values[$varname]);
-      // If this is the alt bg file, and we have a value present.
-      if ($varname == $alt_bg_fid && !empty($values[$varname])) {
-        // If value is different from stored value:
-        if (variable_get($varname) != $values[$varname]) {
-          // Save alt bg file.
-          dosomething_campaign_save_alt_bg_fid($nid, $values[$varname]);
-        }
-      }
-    }
+  // Save alt color.
+  dosomething_campaign_save_custom_var($alt_color, $values[$alt_color]);
+  // If a bg fid is set, or if a value already exists:
+  if (!empty($values[$alt_bg_fid]) || variable_get($alt_bg_fid)) {
+    // Save the bg fid.
+    dosomething_campaign_save_alt_bg_fid($nid, $values[$alt_bg_fid]);
   }
 }
 
 /**
- * Handles saving a given $fid for the node $nid.
+ * Handles saving a given variable $varname with given $value.
+ *
+ * @param string $varname
+ *   The variable.name field to save (or delete).
+ * @param string $value
+ *   The variable.value to save. If empty, deletes variable $varname.
+ */
+function dosomething_campaign_save_custom_var($varname, $value) {
+  if (empty($value)) {
+    variable_del($varname);
+  }
+  else {
+    variable_set($varname, $value);
+  }
+}
+
+/**
+ * Handles saving a given $fid as alt_bg_fid variable for given node $nid.
  *
  * @param int $nid
  *   The node nid associated with the fid.
@@ -132,14 +139,40 @@ function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
  *   The file fid to save.
  */
 function dosomething_campaign_save_alt_bg_fid($nid, $fid) {
-  // Load the file.
+  // Get current value.
+  $varname = dosomething_campaign_get_custom_var_prefix($nid) . 'alt_bg_fid';
+  $current_value = variable_get($varname);
+  $module = 'dosomething_campaign';
+
+  // If it's the same, nothing to see here.  Keep moving.
+  if ($current_value == $fid) {
+    return;
+  }
+  // If we had a value and now we don't:
+  if (empty($fid) && is_numeric($current_value)) {
+    $file = file_load($current_value);
+    // Decrease the file's usage.
+    file_usage_delete($file, $module, 'node', $nid);
+    // Delete the variable.
+    variable_del($varname);
+    return;
+  }
+  // If we've made this far, we've got a new file to save.
   $file = file_load($fid);
-  // If not permanent, make it permanent.
+  // And a value to set.
+  variable_set($varname, $fid);
+  // If file status not permanent, make it permanent.
   if ($file->status != FILE_STATUS_PERMANENT) {
     $file->status = FILE_STATUS_PERMANENT;
     file_save($file);
   }
-  file_usage_add($file, 'dosomething_campaign', 'node', $nid);
+  // Increase file usage to avoid errors per https://drupal.org/comment/6866102.
+  file_usage_add($file, $module, 'node', $nid);
+  // If there was a file before:
+  if ($file = file_load($current_value)) {
+    // Decrease its usage.
+    file_usage_delete($file, $module, 'node', $nid);
+  }
 }
 
 /**
