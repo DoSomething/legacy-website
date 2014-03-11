@@ -28,6 +28,10 @@
 @import "feature/campaign";
 @import "feature/confirmation";
 
+// Modal styles
+@import "feature/modals";
+@import "feature/modal-reportback";
+
 .campaign--wrapper {
   @import "feature/campaign/layout";
   @import "feature/campaign/header";

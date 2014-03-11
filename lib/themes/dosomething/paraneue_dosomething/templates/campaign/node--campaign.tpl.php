@@ -83,17 +83,20 @@
       <!-- "Know It" Section Modals -->
       <?php if (isset($faq)): ?>
       <script id="modal-faq" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner">FAQs</h2>
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
         <?php endforeach; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
       <?php if (isset($more_facts)): ?>
       <script id="modal-facts" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner">Facts</h2>
         <?php foreach ($more_facts['facts'] as $key => $fact): ?>
           <div class="fact-more"><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></div>
         <?php endforeach; ?>
@@ -101,15 +104,18 @@
         <?php foreach ($more_facts['sources'] as $key => $source): ?>
           <div class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></div>
         <?php endforeach; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
       <?php if (isset($partner_info)): ?>
       <?php foreach ($partner_info as $delta => $partner): ?>
       <script id="modal-partner-<?php print $delta; ?>" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner">We &lt;3 <?php print $partner['name']; ?></h2>
         <?php print $partner['copy']; ?>
         <?php if (isset($partner['image'])): print $partner['image']; endif; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endforeach; ?>
       <?php endif; ?>
@@ -233,8 +239,9 @@
         <?php if (isset($official_rules_src)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
-        <script id="modal-report-back" type="text/cached-modal">
-          <a href="#" class="js-close-modal modal-close-button">×</a>
+        <script id="modal-report-back" class="modal--reportback" type="text/cached-modal">
+          <a href="#" class="js-close-modal modal-close-button white">×</a>
+          <h2 class="banner">Prove It</h2>
           <?php print render($reportback_form); ?>
         </script>
         <?php endif; ?>
@@ -274,7 +281,7 @@
           </div>
           <?php endif; ?>
 
-          <div class="help-wrapper" style="color: <?php isset($alt_color) ? print '#' . $alt_color : ''; ?>;">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
+          <div class="help-wrapper">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
         </div>
       </footer>
 
