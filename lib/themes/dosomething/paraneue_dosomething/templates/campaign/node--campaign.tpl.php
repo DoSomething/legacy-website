@@ -24,8 +24,8 @@
     <nav id="nav" class="navigation js-sticky">
       <ul>
         <li><a class="plain js-jump-scroll js-highlight-scroll" href="#know">know</a></li>
-        <li><a class="plain js-jump-scroll js-highlight-scroll" href="#do">do</a></li>
         <li><a class="plain js-jump-scroll js-highlight-scroll" href="#plan">plan</a></li>
+        <li><a class="plain js-jump-scroll js-highlight-scroll" href="#do">do</a></li>
         <li><a class="primary js-jump-scroll js-highlight-scroll" href="#prove">prove it</a></li>
       </ul>
     </nav>
