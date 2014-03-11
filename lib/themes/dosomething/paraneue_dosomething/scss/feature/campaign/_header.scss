@@ -12,7 +12,7 @@ div.meta {
     bottom: 1.5rem;
     margin: 0;
 
-    @include span-columns(12);
+    @include span-columns(9);
     @include shift(3);
   }
 }
