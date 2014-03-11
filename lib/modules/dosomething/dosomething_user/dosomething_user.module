@@ -404,9 +404,8 @@ function dosomething_user_clean_cell_number($number) {
 function dosomething_user_create_user_by_mobile($number) {
   if ($clean_number = dosomething_user_clean_cell_number($number)) {
     $user_data = array(
-      'name' => $clean_number, // @todo This doesn't seem to work. UID gets set as the name instead. Can it not be only numbers? meh, seems like $clean_number . '@mobile' does nothing either.
-      // Provide a dummy email address.
-      'mail' => $clean_number . '@mobile',
+      'name' => user_password(), // Generating unique dummy name. dosomething_user_user_insert() will convert this to the uid.
+      'mail' => $clean_number . '@mobile', // Provide a dummy email address.
       'pass' => user_password(),
       'status' => 1,
       'field_mobile' => array(LANGUAGE_NONE => array(0 => array('value' => $clean_number))),

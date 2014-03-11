@@ -64,8 +64,12 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
       $user = dosomething_user_create_user_by_mobile($mobile);
     }
 
-    // Check for an rbid indicating that the user's submitted a report back previously.
-    $values = array();
+    // Initialize reportback values, defaulting to create a new reportback.
+    $values = array(
+      'rbid' => 0,
+    );
+
+    // Check for a previously submitted reportback to update instead.
     if ($rbid = dosomething_reportback_exists($this->nid, $user->uid)) {
       $values['rbid'] = $rbid;
     }
