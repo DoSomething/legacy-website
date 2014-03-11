@@ -4,7 +4,7 @@
       <h1 class="title"><?php print $title; ?></h1>
       <p class="cta"><?php print $cta; ?></p>
 
-      <?php if (!isset($sponsors) && isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
+      <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($signup_button)): ?><?php print render($signup_button); ?><?php endif; ?>
 
@@ -20,7 +20,6 @@
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
         <?php endforeach; ?>
-        <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
       </div>
       <?php endif; ?>
     </div>
