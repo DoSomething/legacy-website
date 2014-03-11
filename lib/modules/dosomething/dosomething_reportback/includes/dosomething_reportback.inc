@@ -64,7 +64,7 @@ class ReportbackEntity extends Entity {
       $timestamp = $this->updated;
     }
     try {
-      $fids = $this->fids;
+      $fids = $this->getFids();
       // Log the entity values into the log table.
       $id = db_insert($this->log_table)
         ->fields(array(
