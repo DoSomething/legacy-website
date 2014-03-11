@@ -9,15 +9,15 @@
       <?php if (isset($signup_button)): ?><?php print render($signup_button); ?><?php endif; ?>
 
       <?php if (isset($scholarship)): ?>
-      <?php //@TODO: Remove Trello-hosted placeholder ?>
-      <img class="arrow" src="https://trello-attachments.s3.amazonaws.com/52de9089aa3032b85e9b0962/52e1724e23eeb26f4e9fc427/7e9e3ef8974d815230449b9829e98ac0/arrow.png" alt="Click the button!" />
-      <p class="scholarship highlight-wrapper"><span class="highlight"><?php print $scholarship; ?></span></p>
+      <div class="scholarship-wrapper">
+        <p class="copy"><?php print $scholarship; ?></p>
+      </div>
       <?php endif; ?>
 
       <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
+      <div class="sponsor-wrapper">
+        <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php print $sponsor['name']; ?>
           <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
         <?php endforeach; ?>
       </div>

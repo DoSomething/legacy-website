@@ -1,16 +1,18 @@
 // Wrapper for the campaign title, call to action
 // scholarship info., etc.
 div.meta {
+  position: relative;
   width: 90%;
-  position: absolute;
-  bottom: 1.5rem;
-  left: 5%;
+  margin: 230px auto 0;
 
   @include media( $tablet ) {
+    position: absolute;
     width: 100%;
     left: 0;
+    bottom: 1.5rem;
+    margin: 0;
 
-    @include span-columns(12);
+    @include span-columns(9);
     @include shift(3);
   }
 }
@@ -30,86 +32,156 @@ header.header {
     min-height: 620px;
   }
 
-  // Square version of the hero image for smaller screen resolutions
-  &.mobile {
-    display: block;
-
-    @include media( $tablet ) {
-      display: none;
-    }
-  }
-
-  // Landscape version of the hero image for larger screen resolutions
-  &.desktop {
-    display: none;
-
-    @include media( $tablet ) {
-      display: block;
-    }
-  }
-
   h1.title {
     color: #fff;
-    font-size: $font-larger;
-    text-align: center;
+    font-size: 2rem;
     line-height: 2rem;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
-      font-size: $font-largest;
+      font-size: $font-massive;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
   p.cta {
     color: #fff !important;
+    font-size: $font-regular;
     text-align: center;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
+      font-size: $font-medium;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
+  // Campaign date not selected with a *-wrapper
+  // element because it can exist either in the
+  // sponsor section or on its own
   p.date {
     color: #fff !important;
-    font-size: 14px;
+    font-size: $font-small;
     text-align: center;
+    margin: 0 0 0.5rem 0;
 
     @include media( $tablet ) {
+      font-size: $font-regular;
       text-align: left;
+      margin: 0 0 1.5rem 0;
     }
   }
 
   input.btn {
     margin: 0 auto;
     display: block;
-    width: 125px;
+    width: 135px;
     color: #fff;
+    font-size: 1.1rem;
 
     @include media( $tablet ) {
       float: left;
+      width: 150px;
     }
   }
 
-  img.arrow {
-    position: relative;
-    left: 90px;
-    top: -15px;
-    display: block;
+  div.sponsor-wrapper {
+    overflow: hidden;
     margin: 0 auto;
+    float: none;
+    width: 125px;
 
     @include media( $tablet ) {
-      margin: 0;
-      top: 15px;
-      left: 20px;
+      float: right;
+      width: 200px;
+    }
+
+    // Sponsor logo and "Powered By"
+    img,
+    .copy {
+      display: inline-block;
+      float: left;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+
+      @include media( $tablet ) {
+        font-size: $font-regular;
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    .copy {
+      color: #fff;
+      padding: 15px 0 0;
+      font-size: $font-small;
+      width: 70px;
+      height: 50px;
+
+      @include media( $tablet ) {
+        font-size: $font-regular;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+      }
     }
   }
 
-  p.scholarship {
+  .scholarship-wrapper {
+    width: 200px;
+    margin: 20px auto 0;
+    position: relative;
 
     @include media( $tablet ) {
-      margin: 0;
-      top: 25px;
-      left: 0;
+      width: 130px;
+      margin: -10px 0 0 15px;
+      float: left;
+
+      @include transform(rotate(-6deg));
+    }
+
+    .copy {
+      text-align: center;
+      color: #fff;
+      color: rgba(255, 255, 255, 0.9); // Random opacity to match opacity of arrow on mock
+      font-family: Engineer;
+      font-size: 1.5rem; // Some pixel fucking was required here
+      line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
+      float: right;
+      position: relative;
+      right: -50px;
+
+      @include media( $tablet ) {
+        float: none;
+        right: 0;
+      }
+
+      // Hand-drawn arrows pointing to the call to action
+      // Left-pointing arrow to display on all "desktop" resolutions
+      &:before {
+        content: "";
+        width: 25px;
+        height: 38px;
+        display: block;
+        background: url('../images/campaign-arrow-up.png') 50% 50% / 25px no-repeat transparent;
+        position: absolute;
+        top: -40px;
+        right: 40px;
+
+        @include media( $tablet ) {
+          width: 40px;
+          height: 60px;
+          float: left;
+          position: static;
+          background: url('../images/campaign-arrow-left.png') 50% 50% / 35px no-repeat transparent;
+        }
+      }
     }
   }
 }
