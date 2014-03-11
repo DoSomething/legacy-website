@@ -113,16 +113,33 @@ function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
       variable_set($varname, $values[$varname]);
       // If this is the alt bg file, and we have a value present.
       if ($varname == $alt_bg_fid && !empty($values[$varname])) {
-        // Load the file.
-        $file = file_load($values[$varname]);
-        // If not permanent, make it permanent.
-        if ($file->status != FILE_STATUS_PERMANENT) {
-          $file->status = FILE_STATUS_PERMANENT;
-          file_save($file);
+        // If value is different from stored value:
+        if (variable_get($varname) != $values[$varname]) {
+          // Save alt bg file.
+          dosomething_campaign_save_alt_bg_fid($nid, $values[$varname]);
         }
       }
     }
   }
+}
+
+/**
+ * Handles saving a given $fid for the node $nid.
+ *
+ * @param int $nid
+ *   The node nid associated with the fid.
+ * @param int $fid
+ *   The file fid to save.
+ */
+function dosomething_campaign_save_alt_bg_fid($nid, $fid) {
+  // Load the file.
+  $file = file_load($fid);
+  // If not permanent, make it permanent.
+  if ($file->status != FILE_STATUS_PERMANENT) {
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
+  }
+  file_usage_add($file, 'dosomething_campaign', 'node', $nid);
 }
 
 /**
