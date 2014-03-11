@@ -587,9 +587,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['official_rules_src'] = file_create_url($official_rules['uri']);
 
   // Reportback gallery.
-  foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
-    $rb_image['nid'] = $rb_image['entity']->nid;
-    $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image['nid'], 'landscape', '720x310');
+  if ($reportback_gallery = $wrapper->field_image_reportback_gallery->value()) {
+    foreach ($reportback_gallery as $key => $rb_image) {
+      $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image->nid, 'landscape', '720x310');
+    }
   }
 
   // Reportback form.
