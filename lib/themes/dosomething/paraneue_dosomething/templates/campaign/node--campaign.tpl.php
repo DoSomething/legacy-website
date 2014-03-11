@@ -89,6 +89,7 @@
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
         <?php endforeach; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
@@ -103,6 +104,7 @@
         <?php foreach ($more_facts['sources'] as $key => $source): ?>
           <div class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></div>
         <?php endforeach; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
@@ -113,6 +115,7 @@
         <h2>We &lt;3 <?php print $partner['name']; ?></h2>
         <?php print $partner['copy']; ?>
         <?php if (isset($partner['image'])): print $partner['image']; endif; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endforeach; ?>
       <?php endif; ?>
