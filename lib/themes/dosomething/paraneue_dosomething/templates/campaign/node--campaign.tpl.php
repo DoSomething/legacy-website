@@ -84,7 +84,7 @@
       <?php if (isset($faq)): ?>
       <script id="modal-faq" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button white">×</a>
-        <h2>FAQs</h2>
+        <h2 class="banner">FAQs</h2>
         <?php foreach ($faq as $item): ?>
           <h4 class="faq-header"><?php print $item['header']; ?></h4>
           <div class="faq-copy"><?php print $item['copy'] ?></div>
@@ -96,7 +96,7 @@
       <?php if (isset($more_facts)): ?>
       <script id="modal-facts" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button white">×</a>
-        <h2>Facts</h2>
+        <h2 class="banner">Facts</h2>
         <?php foreach ($more_facts['facts'] as $key => $fact): ?>
           <div class="fact-more"><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></div>
         <?php endforeach; ?>
@@ -112,7 +112,7 @@
       <?php foreach ($partner_info as $delta => $partner): ?>
       <script id="modal-partner-<?php print $delta; ?>" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button white">×</a>
-        <h2>We &lt;3 <?php print $partner['name']; ?></h2>
+        <h2 class="banner">We &lt;3 <?php print $partner['name']; ?></h2>
         <?php print $partner['copy']; ?>
         <?php if (isset($partner['image'])): print $partner['image']; endif; ?>
         <a href="#" class="js-close-modal">Back to main page</a>
