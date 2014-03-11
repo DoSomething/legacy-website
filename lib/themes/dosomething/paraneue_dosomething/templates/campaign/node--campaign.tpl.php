@@ -239,8 +239,9 @@
         <?php if (isset($official_rules_src)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
-        <script id="modal-report-back" type="text/cached-modal">
-          <a href="#" class="js-close-modal modal-close-button">×</a>
+        <script id="modal-report-back" class="modal--reportback" type="text/cached-modal">
+          <a href="#" class="js-close-modal modal-close-button white">×</a>
+          <h2 class="banner">Prove It</h2>
           <?php print render($reportback_form); ?>
         </script>
         <?php endif; ?>
