@@ -51,6 +51,11 @@
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this
   .header {
+    text-align: center;
+    @include media($tablet) {
+      text-align: left;
+    }
+
     .title {
       color: #fff;
     }
@@ -59,12 +64,6 @@
       color: #fff;
       font-weight: $weight-normal;
       margin-top: -25px;
-
-
-      text-align: center;
-      @include media($tablet) {
-	text-align: left;
-      }
     }
   }
 
