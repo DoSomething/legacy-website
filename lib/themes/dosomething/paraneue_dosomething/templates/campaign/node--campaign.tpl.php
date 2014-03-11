@@ -7,10 +7,9 @@
       <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($sponsors)): ?>
-      <div class="sponsor">
-        Powered by
+      <div class="sponsor-wrapper">
+        <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php print $sponsor['name']; ?>
           <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
         <?php endforeach; ?>
       </div>
