@@ -7,14 +7,19 @@
 include_once 'dosomething_search.features.inc';
 
 function dosomething_search_preprocess_page(&$vars) {
-  $form = drupal_get_form('search_form');
+  $form = drupal_get_form('search_block_form');
   $vars['search_box'] = drupal_render($form);
 }
 
 function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'search_form') {
-    $form['#action'] = url('search/apachesolr_search');
-    $form['#submit'] = array('dosomething_search_form_submit');
+  if ($form_id == 'search_block_form') {
+    unset($form['search_block_form']['#attributes'], $form['search_block_form']['#title']);
+    $form['search_block_form']['#theme'] = 'dosomething_search_field';
+  }
+  elseif ($form_id == 'apachesolr_search_custom_page_search_form') {
+    unset($form['basic']['keys']['#title']);
+    $form['basic']['keys']['#theme'] = 'dosomething_search_field';
+    $form['basic']['submit']['#attributes'] = array('class' => array('btn'));
   }
 }
 
@@ -112,16 +117,55 @@ function dosomething_search_preprocess_search_result(&$vars) {
 function dosomething_search_preprocess_search_results(&$vars) {
 }
 
+function dosomething_search_theme() {
+  return array(
+    'dosomething_search_field' => array(
+      'variables' => array(
+        'element' => array(
+          '#title' => NULL,
+          '#value' => NULL,
+          '#description' => NULL,
+          '#size' => NULL,
+          '#maxlength' => NULL,
+          '#required' => NULL,
+          '#attributes' => NULL,
+          '#autocomplete_path' => NULL,
+        ),
+      ),
+    ),
+  );
+}
+
 /**
- * Process a search form submission.
+ *
+ * Theme function for search field.  Makes the field type 'search' instead
+ * of the generic 'text'.
+ *
+ *
+ * @param array $variables
+ *  Contains a renderable $element array
  */
-function dosomething_search_form_submit($form, &$form_state) {
-  $keys = $form_state['values']['processed_keys'];
-  if ($keys == '') {
-    form_set_error('keys', t('Please enter some keywords.'));
-    // Fall through to the form redirect.
+function theme_dosomething_search_field($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['type'] = 'search';
+  element_set_attributes($element, array('id', 'name', 'value', 'size', 'maxlength'));
+  _form_set_class($element, array('form-text'));
+
+  $extra = '';
+  if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
+    drupal_add_library('system', 'drupal.autocomplete');
+    $element['#attributes']['class'][] = 'form-autocomplete';
+
+    $attributes = array();
+    $attributes['type'] = 'hidden';
+    $attributes['id'] = $element['#attributes']['id'] . '-autocomplete';
+    $attributes['value'] = url($element['#autocomplete_path'], array('absolute' => TRUE));
+    $attributes['disabled'] = 'disabled';
+    $attributes['class'][] = 'autocomplete';
+    $extra = '<input' . drupal_attributes($attributes) . ' />';
   }
 
-  $form_state['action'] = url('search/apachesolr_search');
-  $form_state['redirect'] =  'search/apachesolr_search/' . $keys;
+  $output = '<input' . drupal_attributes($element['#attributes']) . ' />';
+
+  return $output . $extra;
 }
