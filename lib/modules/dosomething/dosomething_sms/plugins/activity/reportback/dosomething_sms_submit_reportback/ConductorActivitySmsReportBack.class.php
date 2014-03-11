@@ -61,7 +61,7 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
     // Get user by cell number if it exists. Otherwise create it.
     $user = dosomething_user_get_user_by_cell($mobile);
     if (!$user) {
-      $user = dosomething_user_create_user_by_cell($mobile);
+      $user = dosomething_user_create_user_by_mobile($mobile);
     }
 
     // Check for an rbid indicating that the user's submitted a report back previously.

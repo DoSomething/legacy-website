@@ -401,7 +401,7 @@ function dosomething_user_clean_cell_number($number) {
  * @param string $number
  *   User's phone number.
  */
-function dosomething_user_create_user_by_cell($number) {
+function dosomething_user_create_user_by_mobile($number) {
   if ($clean_number = dosomething_user_clean_cell_number($number)) {
     $user_data = array(
       'name' => $clean_number, // @todo This doesn't seem to work. UID gets set as the name instead. Can it not be only numbers? meh, seems like $clean_number . '@mobile' does nothing either.
