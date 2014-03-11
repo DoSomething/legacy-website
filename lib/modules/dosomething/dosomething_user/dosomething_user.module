@@ -374,8 +374,7 @@ function dosomething_user_get_user_by_cell($number) {
  *   The user-input mobile number.
  *
  * @return string/bool
- *   Numeric-only 10-digit string of the phone number, or FALSE if not a 10-digit
- *   number or an 11-digit number with 1 as its international code.
+ *   Numeric-only string of the phone number, or FALSE if not a 10-digit number.
  */
 function dosomething_user_clean_cell_number($number) {
   if (dosomething_user_valid_cell($number)) {
@@ -384,11 +383,6 @@ function dosomething_user_clean_cell_number($number) {
     // Make sure the number is 10 digits long.
     if (strlen($trimmed_number) == 10) {
       return $trimmed_number;
-    }
-    // If number is 11 digits long and the first number is 1, then it's also ok.
-    elseif (strlen($trimmed_number) == 11 && substr($trimmed_number, 0, 1) == '1') {
-      // Return the 10 digit number minus the international code.
-      return substr($trimmed_number, 1, 10);
     }
     return FALSE;
   }
