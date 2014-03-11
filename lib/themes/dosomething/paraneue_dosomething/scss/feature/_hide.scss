@@ -15,3 +15,19 @@
     display: none;
   }
 }
+
+// Temporarily overrides the hero image for
+// the H&M campaign while we sort out what
+// is going on with the dosomething_image module;
+// this should be removed ASAP @TODO
+.page-node-362 {
+  .campaign--wrapper {
+    header.header {
+      background-image: url("https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/fc9ecccf8c3f09cb5ec2f6d500d1b800/temporary-hero-square.jpg");
+
+      @include media( $tablet ) {
+        background-image: url("https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/6ee35a94d92c59e143262517fa020283/temporary-hero-landscape.jpg");
+      }
+    }
+  }
+}
