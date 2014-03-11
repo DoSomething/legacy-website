@@ -186,10 +186,19 @@ function dosomething_campaign_get_custom_var_prefix($nid) {
  * Implements hook_node_delete().
  */
 function dosomething_campaign_node_delete($node) {
-  // Delete any custom variables associated with node.
+  // Get custom variable prefix for deleting any custom variables.
   $prefix = dosomething_campaign_get_custom_var_prefix($node->nid);
-  variable_del($prefix . 'alt_bg_fid');
+  // Delete alt color variable from db.
   variable_del($prefix . 'alt_color');
+  // Check for alt_bg_fid variable.
+  $fid = variable_get($prefix . 'alt_bg_fid');
+  // If alt bg file exists:
+  if ($file = file_load($fid)) {
+    // Decrease its usage.
+    file_usage_delete($file, 'dosomething_campaign', 'node', $node->nid);
+  }
+  // Delete alt bg fid variable from db.
+  variable_del($prefix . 'alt_bg_fid');
 }
 
 /*
