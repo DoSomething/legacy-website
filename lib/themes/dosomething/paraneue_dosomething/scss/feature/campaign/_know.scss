@@ -1,0 +1,25 @@
+// Step 1
+// Know It
+.step.know {
+
+  // NOTE: .legal styles are in _campaign.scss as they
+  //       apply to "Know It" and "Prove It" sections!
+
+  .fact-solution,
+  .fact-problem {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .solution-copy {
+    margin: 1.5rem 0 0 0;
+  }
+
+  // NOTE: Sources only displayed here on "desktop" views
+  .sources {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+    }
+  }
+}

@@ -12,6 +12,10 @@ include_once 'dosomething_campaign.features.inc';
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
+  // If we're updating an existing node, add the custom settings fieldset.
+  if (isset($form['nid']['#value'])) {
+    _dosomething_campaign_form_extras($form, $form_state);
+  }
 }
 
 /**
@@ -37,6 +41,124 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
   );
   return $items;
+}
+
+/**
+ * Adds form elements for custom campaign variables.
+ */
+function _dosomething_campaign_form_extras(&$form, &$form_state) {
+  $prefix = dosomething_campaign_get_custom_var_prefix($form['nid']['#value']);
+  $form['custom'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Custom settings'),
+    '#weight' => 60,
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $alt_color = $prefix . 'alt_color';
+  $form['custom'][$alt_color] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alt color'),
+    '#default_value' => variable_get($alt_color),
+    '#field_prefix' => '#',
+    '#size' => 6,
+  );
+  // Alt bg pattern variable.
+  $alt_bg_fid = $prefix . 'alt_bg_fid';
+  $form['custom'][$alt_bg_fid] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Alt background pattern'),
+    '#default_value' => variable_get($alt_bg_fid),
+    //@todo: /campaigns/[nid] directory?
+    '#upload_location' => 'public://',
+  );
+
+  $form['custom']['optins'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Third Party Opt-ins'),
+    '#description' => t('Custom campaign opt-in values.'),
+  );
+  $form['custom']['optins']['mailchimp'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MailChimp Opt-in'),
+    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mailchimp_id'),
+    '#disabled' => TRUE,
+  );
+  $form['custom']['optins']['mobilecommons'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MobileCommons Opt-in'),
+    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mobilecommons_id'),
+    '#disabled' => TRUE,
+  );
+
+  $form['#submit'][] = 'dosomething_campaign_save_custom_vars';
+}
+
+/**
+ * Saves custom campaign variables.
+ */
+function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
+  $values = $form_state['values'];
+  $nid = $values['nid'];
+  // Gather all possible custom variable names for $nid.
+  $prefix = dosomething_campaign_get_custom_var_prefix($nid);
+  $varnames = dosomething_campaign_get_custom_varnames($nid);
+  // Store variable name for alt_bg_fid.
+  $alt_bg_fid = $prefix . 'alt_bg_fid';
+  // Foreach possible custom variable:
+  foreach ($varnames as $varname) {
+    // If a value is set, or if a value exists already (in case of removal):
+    if (!empty($values[$varname]) || variable_get($varname)) {
+      // Set variable value.
+      variable_set($varname, $values[$varname]);
+      // If this is the alt bg file, and we have a value present.
+      if ($varname == $alt_bg_fid && !empty($values[$varname])) {
+        // Load the file.
+        $file = file_load($values[$varname]);
+        // If not permanent, make it permanent.
+        if ($file->status != FILE_STATUS_PERMANENT) {
+          $file->status = FILE_STATUS_PERMANENT;
+          file_save($file);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns list of possible custom variable names for a given $nid.
+ */
+function dosomething_campaign_get_custom_varnames($nid) {
+  $names = array(
+    'alt_bg_fid',
+    'alt_color',
+  );
+  // Initialize return array.
+  $vars = array();
+  // For each custom variable:
+  foreach ($names as $name) {
+    // Generate the variable name for this $nid and append to return array.
+    $vars[] = dosomething_campaign_get_custom_var_prefix($nid) . $name;
+  }
+  return $vars;
+}
+
+/**
+ * Returns string of prefix used to identify a campaign's custom variables.
+ */
+function dosomething_campaign_get_custom_var_prefix($nid) {
+  return 'dosomething_campaign_nid_' . $nid . '_';
+}
+
+
+/**
+ * Implements hook_node_delete().
+ */
+function dosomething_campaign_node_delete($node) {
+  // Delete any custom variables associated with node.
+  foreach (dosomething_campaign_get_custom_varnames($node->nid) as $name) {
+    variable_del($name);
+  }
 }
 
 /*
@@ -104,7 +226,11 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   );
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
-  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array(
+    'attributes' => array('class' =>
+      array('btn', 'secondary', 'small')
+    ))
+  );
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
   // Get recommended campaign nids for term $tid and current user.
@@ -139,14 +265,13 @@ function dosomething_campaign_get_recommended_campaign_vars($nid) {
   $image_link = NULL;
   $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
   if ($image_nid) {
-    $image = dosomething_image_get_themed_image($image_nid, 'landscape', '740x480');
-    $image_link = l($image, $path, array('html' => TRUE));
+    $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
   }
   return array(
     'nid' => $wrapper->getIdentifier(),
     'title' => l($wrapper->label(), $path),
     'call_to_action' => $wrapper->field_call_to_action->value(),
-    'image' => $image_link,
+    'image' => $image,
   );
 }
 
@@ -166,6 +291,28 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
       ),
     ),
   );
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function dosomething_campaign_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'campaign' && $view_mode == 'full') {
+    if (module_exists('dosomething_reportback')) {
+      // Initalize reportback to NULL.
+      $reportback = NULL;
+      if ($rbid = dosomething_reportback_exists($node->nid)) {
+        // Load existing reportback entity to pass through to reportback form.
+        $reportback = reportback_load($rbid);
+      }
+      $wrapper = entity_metadata_wrapper('node', $node->nid);
+      // Set Reportback Form variable in node content for rendering in theme layer.
+      $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+    }
+    if (module_exists('dosomething_zendesk')) {
+      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');
+    }
+  }
 }
 
 /**
@@ -212,8 +359,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
 
-    // Vars needed for both the pitch & action page.
-    $vars['scholarship'] = '$' . $wrapper->field_scholarship_amount->value() . ' Scholarship';
+    $scholarship = $wrapper->field_scholarship_amount->value();
+    if (isset($scholarship)) {
+      $vars['scholarship'] = '$' . $scholarship . ' Scholarship';
+    }
+
     $vars['cta'] = $wrapper->field_call_to_action->value();
 
     // Timing.
@@ -225,18 +375,30 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['end_date'] = 'Ends ' . $end_date;
     }
 
-    // Images.
+    // Hero Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1920x1280');
-      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'portrait', '640x800');
-      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1920x1280');
-      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '640x800');
+      $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810p');
+      $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768p');
+      $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810p');
+      $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768p');
     }
 
-    if (!is_null($vars['field_sponsor'])) {
-      $vars['sponsors'] = dosomething_taxonomy_get_sponsors($wrapper->field_sponsor);
+    //@TODO: Remove Trello-hosted placeholder
+    // Fall back to default values if a hero image was not set.
+    $default_mobile = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/c4b5ff2e6a0753a34d5db0216bb21d6f/hero-1-1.jpg';
+    $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : $default_mobile);
+
+    $default_desktop = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/ff5624bf807958a73af3a89558e17ac8/hero-16-9.jpg';
+    $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : $default_desktop);
+
+    if (!empty($vars['field_partners'])) {
+      // Sets partners, sponsors, and partner_info arrays if present.
+      dosomething_campaign_preprocess_partners_vars($vars);
     }
+
+    // Preprocess any custom campaign variables.
+    dosomething_campaign_preprocess_custom_vars($vars);
 
     if ($vars['view_mode'] == 'pitch') {
       // Use the pitch page template to theme.
@@ -247,6 +409,64 @@ function dosomething_campaign_preprocess_node(&$vars) {
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
+    }
+  }
+}
+
+/**
+ * Preprocesses variables for any custom settings.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_preprocess_custom_vars(&$vars) {
+  // Get prefix to check for custom campaign variables.
+  $prefix = dosomething_campaign_get_custom_var_prefix($vars['nid']);
+  // Check for custom alt color.
+  $alt_color = variable_get($prefix . 'alt_color');
+  if (!empty($alt_color)) {
+    // Sanitize value for sanity's sake.
+    $vars['alt_color'] = strip_tags($alt_color);
+  }
+  // Check for alt background File fid.
+  $fid = variable_get($prefix . 'alt_bg_fid');
+  if (!empty($fid)) {
+    $file = file_load($fid);
+    $vars['alt_bg_src'] = file_create_url($file->uri);
+  }
+}
+
+/**
+ * Preprocesses variables for a campaign sponsors, partners, and partner info.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_preprocess_partners_vars(&$vars) {
+  // Returns partners, sponsors, and partner_info arrays.
+  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+  // Gather any returned arrays.
+  foreach ($partners_vars as $key => $values) {
+    $vars[$key] = $values;
+  }
+  // Preprocess sponsor logos.
+  if (isset($vars['sponsors'])) {
+    foreach ($vars['sponsors'] as $delta => $sponsor) {
+      if (isset($sponsor['fid'])) {
+        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], '50x50');
+        $vars['sponsors'][$delta]['img'] = $img;
+      }
+    }
+  }
+  // Preprocess partner info modals.
+  if (isset($vars['partner_info'])) {
+    foreach ($vars['partner_info'] as $delta => $info) {
+      // If image landscape field is set:
+      $image_node = $info['image'];
+      if (!empty($image_node->field_image_landscape)) {
+        $img = dosomething_image_get_themed_image($image_node->nid, 'landscape', '550x300');
+        $vars['partner_info'][$delta]['image'] = $img;
+      }
     }
   }
 }
@@ -263,20 +483,25 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Know.
   $vars['solution_copy'] = $wrapper->field_solution_copy->value();
   $vars['solution_support'] = $wrapper->field_solution_support->value();
+  $vars['issue'] = $wrapper->field_issue->value()->name;
 
-  // Collect fact values as tpl variables.
-  $fact_problem = $wrapper->field_fact_problem->value();
-  if (isset($fact_problem)) {
-    $vars['fact_problem'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_problem);
-  }
-  $fact_solution = $wrapper->field_fact_solution->value();
-  if (isset($fact_solution)) {
-    $vars['fact_solution'] = dosomething_fact_get_fact_wrapper_values($wrapper->field_fact_solution);
+  // Collect multiple fact fields values as fact and sources variables.
+  $fact_fields = array('field_fact_problem', 'field_fact_solution');
+  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+  if (!empty($fact_vars)) {
+    if (isset($fact_vars['facts']['field_fact_problem'])) {
+      $vars['fact_problem'] = $fact_vars['facts']['field_fact_problem'];
+    }
+    if (isset($fact_vars['facts']['field_fact_solution'])) {
+      $vars['fact_solution'] = $fact_vars['facts']['field_fact_solution'];
+    }
+    // Store all sources from fields as a sources array.
+    $vars['fact_sources'] = $fact_vars['sources'];
   }
 
-  $more_facts = $wrapper->field_facts->value();
-  if (isset($more_facts)) {
-    $vars['more_facts'] = dosomething_fact_get_fact_field_wrapper_values($wrapper->field_facts);
+  // Check for additional facts in field_facts.
+  if ($wrapper->field_facts->count() > 0) {
+    $vars['more_facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
   }
 
   // Collect all field_collection values as vars.
@@ -321,31 +546,32 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['pic_step'] = $wrapper->field_photo_step->value();
   $vars['post_step_header'] = $wrapper->field_post_step_header->value();
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
+  $step_image = $vars['field_image_step_gallery'][0]['entity']->nid;
+  $vars['step_image_square'] = dosomething_image_get_themed_image($step_image, 'square', '310x310');
 
-  // Prove.
+  // Prove. 
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
+  $official_rules = $wrapper->field_official_rules->value();
+  $vars['official_rules_src'] = file_create_url($official_rules['uri']);
 
-  // Image galleries.
-  foreach ($vars['field_image_step_gallery'] as $key => $step_image) {
-    $nid = $step_image['entity']->nid;
-    $vars['step_image'][$key] = dosomething_image_get_themed_image($nid, 'square', '310x310');
-  }
+  // Reportback gallery.
   foreach ($vars['field_image_reportback_gallery'] as $key => $rb_image) {
     $rb_image['nid'] = $rb_image['entity']->nid;
-    $vars['reportback_image'][$key] = dosomething_image_get_themed_image($rb_image['nid'], 'landscape', '740x480');
+    $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image['nid'], 'landscape', '720x310');
   }
 
   // Reportback form.
-  // Intialize reportback entity to NULL.
-  $reportback = NULL;
   $vars['reportback_link_label'] = t("Submit Your Pic");
   // If logged in user's reportback exists for this node,
   if ($rbid = dosomething_reportback_exists($vars['nid'])) {
-    // Load existing reportback entity to pass through to reportback form.
-    $reportback = entity_load_single('reportback', $rbid);
     $vars['reportback_link_label'] = t("Update Submission");
   }
-  $vars['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+  $vars['reportback_form'] = $vars['content']['reportback_form'];
+
+  // Zendesk Support Ticket form.
+  if (isset($vars['content']['reportback_form'])) {
+    $vars['zendesk_form'] = $vars['content']['zendesk_form'];
+  }
 }
 
 /**
@@ -368,7 +594,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   else {
     // Render button as link to open up the login modal.
     $vars['signup_button'] = array(
-      '#markup' => '<a href="#modal-login" class="js-modal-link btn medium">' . $label . '</a>',
+      '#markup' => '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>',
     );
   }
 }
@@ -435,6 +661,30 @@ function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
   }
   // Return top 3 nids:
   return array_slice($nids, 0, 3);
+}
+
+/**
+ * Returns all staff pick campaigns.
+ * @return array
+ *  Array of nids and titles of all published/unpublished staff picks.
+ */
+function dosomething_campaign_get_staff_picks() {
+ $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'campaign');
+  $query->innerJoin('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
+  $query->condition('field_staff_pick_value' , 1);
+  $results = $query->execute();
+
+  foreach($results as $key => $result) {
+    $staff_picks[$key]['nid'] = $result->nid;
+    $staff_picks[$key]['title'] = $result->title;
+  }
+  if ($staff_picks) {
+    return $staff_picks;
+  }
+  // If no staff picks, return null.
+  return NULL;
 }
 
 /**

@@ -4,6 +4,8 @@
  * Code for the DoSomething Taxonomy feature.
  */
 
+include_once 'dosomething_taxonomy.features.inc';
+
 /**
  * Returns array of values of sponsor data.
  *
@@ -11,20 +13,80 @@
  *   An entity_metadata_wrapper object.
  *
  * @return mixed
- *   Multi-dimensional array of sponsor data or NULL if empty.
+ *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_sponsors($sponsor_field_wrapper) {
+function dosomething_taxonomy_get_partners_vars($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
+
+  // Intialize return arrays.
+  $partners = array();
   $sponsors = array();
-  foreach ($sponsor_field_wrapper->getIterator() as $delta => $term_wrapper) {
-    $sponsors[$delta]['name']  = $term_wrapper->name->value();
-    if (property_exists($term_wrapper->field_image_sponsor_logo, 'nid')) {
-      $sponsor_img_nid =  $term_wrapper->field_image_sponsor_logo->value()->nid;
-      $sponsors[$delta]['img'] = dosomething_image_get_themed_image($sponsor_img_nid, 'sq', '310x310');
+  $partner_info = array();
+  $info_count = 0;
+
+  // Loop through field collection items.
+  foreach ($wrapper->field_partners->value() as $delta => $item) {
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+
+    // Store partner term data.
+    $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
+    $partners[$delta]['name'] = $term_wrapper->label();
+    if ($logo = $term_wrapper->field_partner_logo->value()) {
+      $partners[$delta]['fid'] = $logo['fid'];
     }
+
+    // If partner is a sponsor, add into sponsors array.
+    if ($fc_item->field_is_sponsor->value()) {
+      $sponsors[] = $partners[$delta];
+    }
+
+    // If copy exists, add it and relevant image/video into the partner_info array.
+    if ($copy = $fc_item->field_partner_copy->value()) {
+      $partner_info[$info_count] = $partners[$delta];
+      $partner_info[$info_count]['copy'] = $copy['safe_value'];
+      $partner_info[$info_count]['image'] = $fc_item->field_image_partner->value();
+      $partner_info[$info_count]['video'] = $fc_item->field_video->value();
+      $info_count++;
+    }
+
+
   }
-  if (!empty($sponsors)) {
-    return $sponsors;
+  if (!empty($partners)) {
+    return array(
+      'partners' => $partners,
+      'sponsors' => $sponsors,
+      'partner_info' => $partner_info,
+    );
   }
   return NULL;
+}
+
+/**
+ * Implements hook_field_collection_is_empty_alter().
+ */
+function dosomething_taxonomy_field_collection_is_empty_alter(&$is_empty, $item) {
+  // If this is the field_partners field collection:
+  if ($item->field_name == 'field_partners') {
+    // If a Partner Term exists.
+    if (isset($item->field_partner[LANGUAGE_NONE][0]['target_id'])) {
+      // If no value exists, consider this field collection empty.
+      $is_empty = empty($item->field_partner[LANGUAGE_NONE][0]['target_id']);
+      return;
+    }
+    // Else assume this is an empty field collection.
+    $is_empty = TRUE;
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_view().
+ */
+function dosomething_taxonomy_taxonomy_term_view($term, $view_mode, $langcode) {
+  // Don't grant access to term pages for non-staffers.
+  if (module_exists('dosomething_user') && !dosomething_user_is_staff()) {
+    return drupal_access_denied();
+  }
 }

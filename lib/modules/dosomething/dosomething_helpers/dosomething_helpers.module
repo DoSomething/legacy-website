@@ -98,7 +98,7 @@ function dosomething_helpers_add_entityref_links(&$node, $fields) {
 }
 
 /**
- * Implements hook_preprocess_html(). 
+ * Implements hook_preprocess_html().
  */
 function dosomething_helpers_preprocess_html(&$vars) {
   $dmoz_meta_tag = array(

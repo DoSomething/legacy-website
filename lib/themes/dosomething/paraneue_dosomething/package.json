@@ -1,6 +1,7 @@
 {
   "name": "ds-paraneue",
   "version": "0.0.1",
+  "description": "The sub-theme of Paraneue, Do Something's Drupal 7 theme that imports the Neue Pattern Library",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoSomething/dosomething.git"
@@ -12,7 +13,6 @@
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-coffee": "~0.7.0",
     "grunt-contrib-uglify": "~0.2.4",
-    "grunt-docco2": "~0.1.5",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-qunit": "~0.3.0",
     "jshint-stylish": "~0.1.4",

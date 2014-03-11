@@ -13,8 +13,12 @@ projects[admin_menu][subdir] = "contrib"
 projects[apachesolr] = "7.x-1.6"
 projects[apachesolr][subdir] = "contrib"
 
+; Apachesolr Views
+projects[apachesolr_views] = "7.x-1.0-beta2"
+projects[apachesolr_views][subdir] = "contrib"
+
 ; Ctools
-projects[ctools] = "1.3"
+projects[ctools] = "1.4"
 projects[ctools][subdir] = "contrib"
 
 ; Date
@@ -53,6 +57,10 @@ projects[field_group][subdir] = "contrib"
 projects[google_analytics] = "1.3"
 projects[google_analytics][subdir] = "contrib"
 
+; ImageCache Actions
+projects[imagecache_actions] = "1.4"
+projects[imagecache_actions][subdir] = "contrib"
+
 ; Internationalization (required for Sitemap, among others)
 projects[i18n] = "1.10"
 projects[i18n][subdir] = "contrib"
@@ -69,10 +77,6 @@ projects[link][subdir] = "contrib"
 projects[mailsystem] = "2.34"
 projects[mailsystem][subdir] = "contrib"
 
-; Mandrill
-projects[mandrill] = "1.4"
-projects[mandrill][subdir] = "contrib"
-
 ; Markdown
 projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"
@@ -82,7 +86,7 @@ projects[metatag] = "1.0-beta9"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
-projects[mobilecommons] = "1.0"
+projects[mobilecommons] = "1.1"
 projects[mobilecommons][subdir] = "contrib"
 
 ; Module Filter
@@ -153,6 +157,12 @@ projects[conductor_sms][download][type] = "git"
 projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
 projects[conductor_sms][subdir] = "contrib"
 
+; Message Broker Producer
+projects[message_broker_producer][type] = "module"
+projects[message_broker_producer][download][type] = "git"
+projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
+projects[message_broker_producer][subdir] = "contrib"
+
 
 ; DEVELOPMENT
 
@@ -188,3 +198,11 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 ; DSAPI PHP Library
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
+
+; Zendesk PHP
+libraries[zendesk][download][type] = "git"
+libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
+
+; Message Broker PHP Library
+libraries[messagebroker-phplib][download][type] = "git"
+libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"

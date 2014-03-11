@@ -78,6 +78,21 @@ function dosomething_signup_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $translatables['user_signups'] = array(
+    t('Master'),
+    t('Campaigns'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Node'),
+    t('User'),
+    t('Signed up'),
+    t('All'),
+    t('Block'),
+  );
   $export['user_signups'] = $view;
 
   return $export;

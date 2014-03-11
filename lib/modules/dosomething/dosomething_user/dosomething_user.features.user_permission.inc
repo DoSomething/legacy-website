@@ -77,6 +77,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'access user profiles'.
+  $permissions['access user profiles'] = array(
+    'name' => 'access user profiles',
+    'roles' => array(),
+    'module' => 'user',
+  );
+
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -113,6 +120,24 @@ function dosomething_user_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'administer field collections'.
+  $permissions['administer field collections'] = array(
+    'name' => 'administer field collections',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_collection',
+  );
+
+  // Exported permission: 'administer fieldgroups'.
+  $permissions['administer fieldgroups'] = array(
+    'name' => 'administer fieldgroups',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_group',
+  );
+
   // Exported permission: 'administer filters'.
   $permissions['administer filters'] = array(
     'name' => 'administer filters',
@@ -131,6 +156,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'image',
   );
 
+  // Exported permission: 'administer languages'.
+  $permissions['administer languages'] = array(
+    'name' => 'administer languages',
+    'roles' => array(),
+    'module' => 'locale',
+  );
+
   // Exported permission: 'administer mailsystem'.
   $permissions['administer mailsystem'] = array(
     'name' => 'administer mailsystem',
@@ -138,6 +170,15 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'mailsystem',
+  );
+
+  // Exported permission: 'administer mobilecommons'.
+  $permissions['administer mobilecommons'] = array(
+    'name' => 'administer mobilecommons',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'mobilecommons',
   );
 
   // Exported permission: 'administer module filter'.
@@ -184,6 +225,13 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'administer search'.
+  $permissions['administer search'] = array(
+    'name' => 'administer search',
+    'roles' => array(),
+    'module' => 'search',
   );
 
   // Exported permission: 'administer site configuration'.
@@ -240,6 +288,13 @@ function dosomething_user_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'administer uuid'.
+  $permissions['administer uuid'] = array(
+    'name' => 'administer uuid',
+    'roles' => array(),
+    'module' => 'uuid',
+  );
+
   // Exported permission: 'administer views'.
   $permissions['administer views'] = array(
     'name' => 'administer views',
@@ -265,6 +320,13 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'change own username'.
+  $permissions['change own username'] = array(
+    'name' => 'change own username',
+    'roles' => array(),
+    'module' => 'user',
   );
 
   // Exported permission: 'create url aliases'.

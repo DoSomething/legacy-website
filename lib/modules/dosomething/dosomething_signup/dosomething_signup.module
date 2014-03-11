@@ -5,6 +5,38 @@
  */
 
 include_once 'dosomething_signup.features.inc';
+include_once 'includes/dosomething_signup.mobilecommons.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_signup_menu() {
+  $items = array();
+
+  $items['admin/config/services/optins'] = array(
+    'title' => t('Third Party Opt-Ins'),
+    'description' => 'Admin form to manage custom opt-ins',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_optin_config'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer third party communication'),
+    'file' => 'dosomething_signup.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_signup_permission() {
+  return array(
+  'administer third party communication' =>  array(
+    'title' => t('Administer Third Party Communications'),
+    'description' => t('Manage Mobile Commons/MailChimp Opt-in IDs.'),
+  )
+);
+}
 
 /**
  * Insert a user signup.
@@ -252,55 +284,41 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
     // Opt-in to mobilecommons.
-    dosomething_signup_mobilecommons_opt_in($account, $node->title);
+    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
+    dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
+    // Send external message request
+    $params = array(
+      'email' => $account->mail,
+      'uid' => $account->uid,
+      'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'event_id' => $node->nid,
+      'event_title' => $node->title,
+      'call_to_action' => '??',
+      'step_one' => '??',
+      'step_two' => '??',
+      'step_three' => '??',
+    );
+    dosomething_user_mbp_request('campaign_signup', $params);
     // Set success message.
-    $message = t("You're signed up!") . '<br />';
-    $message .= t("Get started with") . ' ' . $node->title .'  ' . t("below!");
-    drupal_set_message($message);
+    dosomething_signup_set_signup_message($node->title);
   }
 }
 
-
 /**
- * Sends a Mobilecommons API request to opt-in user with given campaign title.
+ * Sets Drupal message for a signup for given $title.
  *
- * @param object $account
- *   The user object of user to opt-in.
  * @param string $title
- *   The campaign title the user has signed up for.
+ *   Optional - Title of whatever user has signed up for.
  */
-function dosomething_signup_mobilecommons_opt_in($account, $title) {
-  // Make sure mobilecommons module is enabled.
-  if (!module_exists('mobilecommons')) { return; }
-
-  // If user doesn't have mobile number, exit function.
-  $mobile = dosomething_user_get_mobile($account);
-  if (!$mobile) { return; }
-
-  try {
-    // @todo: Move $config / new MobileCommons($config) code
-    // into a new function in the contrib mobilecommons.module.
-    libraries_load('mobilecommons-php');
-    $config = array(
-      'username' => variable_get('mobilecommons_api_auth_email'),
-      'password' => variable_get('mobilecommons_api_auth_password'),
-    );
-    $MobileCommons = new MobileCommons($config);
-    // Next get prepare the opt-in request.
-    $args = array(
-      // All campaigns use this opt-in path for now.
-      'opt_in_path' => variable_get('dosomething_signup_mobilecommons_opt_in', 164453),
-      'person[phone]' => $mobile,
-      'person[campaign_name]' => $title,
-      // Expected format is YYYY-MM-DD.
-      'person[date_of_birth]' => dosomething_user_get_birthdate('Y-m-d'),
-    );
-    $response = $MobileCommons->opt_in($args);
+function dosomething_signup_set_signup_message($title = NULL) {
+  // If title exists:
+  if ($title) {
+    // Prepare it for the message.
+    $title = ' ' . t("for") . ' <em>' . $title . '</em>';
   }
-  catch (Exception $e) {
-    // Log the error.
-    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
-  }
+  $message = t("You're signed up") . $title . '! ';
+  $message .=  t("Get started below.");
+  drupal_set_message($message);
 }
 
 /**

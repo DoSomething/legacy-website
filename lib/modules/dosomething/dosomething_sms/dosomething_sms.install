@@ -1,0 +1,44 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_sms.module.
+ */
+
+/**
+ * Define the table schemas used for this module.
+ */
+function dosomething_sms_schema() {
+  $schema = array();
+
+  $schema['dosomething_sms_game'] = array(
+    'description' => 'Stores details to SMS games relative to a user / unique phone number.',
+    'fields' => array(
+      'game_id' => array(
+        'description' => 'Unique identifier for the game/quiz.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'phone' => array(
+        'description' => 'Phone number',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => true
+      ),
+      'started_paths' => array(
+        'description' => 'Serialized array of opt-in paths that the user has been sent to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+      'answers' => array(
+        'description' => 'Serialized struct of answers given by the user {optin-path: {array of answers}}',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true
+      ),
+    ),
+  );
+
+  return $schema;
+}

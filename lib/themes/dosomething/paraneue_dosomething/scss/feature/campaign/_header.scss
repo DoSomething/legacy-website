@@ -1,0 +1,115 @@
+// Wrapper for the campaign title, call to action
+// scholarship info., etc.
+div.meta {
+  width: 90%;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 5%;
+
+  @include media( $tablet ) {
+    width: 100%;
+    left: 0;
+
+    @include span-columns(12);
+    @include shift(3);
+  }
+}
+
+// Campaign header containing that campaign's
+// metadata sourced from the node fields that
+// has the hero image applied to it
+header.header {
+  position: relative;
+  overflow: hidden;
+  min-height: 465px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+
+  @include media( $tablet ) {
+    min-height: 620px;
+  }
+
+  // Square version of the hero image for smaller screen resolutions
+  &.mobile {
+    display: block;
+
+    @include media( $tablet ) {
+      display: none;
+    }
+  }
+
+  // Landscape version of the hero image for larger screen resolutions
+  &.desktop {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+    }
+  }
+
+  h1.title {
+    color: #fff;
+    font-size: $font-larger;
+    text-align: center;
+    line-height: 2rem;
+
+    @include media( $tablet ) {
+      font-size: $font-largest;
+      text-align: left;
+    }
+  }
+
+  p.cta {
+    color: #fff !important;
+    text-align: center;
+
+    @include media( $tablet ) {
+      text-align: left;
+    }
+  }
+
+  p.date {
+    color: #fff !important;
+    font-size: 14px;
+    text-align: center;
+
+    @include media( $tablet ) {
+      text-align: left;
+    }
+  }
+
+  input.btn {
+    margin: 0 auto;
+    display: block;
+    width: 125px;
+    color: #fff;
+
+    @include media( $tablet ) {
+      float: left;
+    }
+  }
+
+  img.arrow {
+    position: relative;
+    left: 90px;
+    top: -15px;
+    display: block;
+    margin: 0 auto;
+
+    @include media( $tablet ) {
+      margin: 0;
+      top: 15px;
+      left: 20px;
+    }
+  }
+
+  p.scholarship {
+
+    @include media( $tablet ) {
+      margin: 0;
+      top: 25px;
+      left: 0;
+    }
+  }
+}

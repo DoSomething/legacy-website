@@ -217,6 +217,32 @@ function dosomething_user_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['content_search'] = array(
+    t('Master'),
+    t('Content Search'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Title'),
+    t('Edit link'),
+    t('Type'),
+    t('Cause'),
+    t('Updated date'),
+    t('Published'),
+    t('Cause (field_cause)'),
+    t('Has new content'),
+    t('Page'),
+  );
   $export['content_search'] = $view;
 
   return $export;

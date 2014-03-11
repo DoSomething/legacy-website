@@ -313,7 +313,7 @@ function dosomething_static_content_field_default_field_instances() {
         'rows' => 7,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 7,
     ),
   );
 
@@ -359,7 +359,7 @@ function dosomething_static_content_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 6,
     ),
   );
 
@@ -514,7 +514,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 

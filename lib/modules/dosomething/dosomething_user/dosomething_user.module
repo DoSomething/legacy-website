@@ -90,41 +90,40 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
-  $secure_url = '';
-  if (module_exists('securepages')) {
-    $secure_url = variable_get('securepages_basepath_ssl', NULL);
-  }
+  global $user;
+  $account = $user;
+
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
-      // Helper text & additional data.
-      _dosomething_user_login_shared_helper_text($form);
-      _dosomething_user_add_campaign_data($form);
-      // Form specific helper text.
-      $form['name']['#title'] = 'Email or Cell Number';
-      $form['pass']['#attributes']['placeholder'] = t('[password]');
-
       // Add additional submission/validation/actions.
-      $form['#action'] = $secure_url . '/user/login';
+      $form['#action'] = '/user/login';
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
+      // Helper text & additional data.
+      _dosomething_user_add_campaign_data($form);
+
     break;
 
     case 'user_profile_form':
     case 'user_register_form':
       // Gather helper text.
-      _dosomething_user_login_shared_helper_text($form);
       _dosomething_user_register_helper_text($form);
-
       // Add campaign data, if needed.
       _dosomething_user_add_campaign_data($form);
 
-      // After build form changes.
-      $form['#after_build'][] = 'dosomething_user_register_after_build';
-
-      // Force action to post to the secure user registration, but not on the add people screen.
+      // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
-        $form['#action'] = $secure_url . '/user/register';
+        $form['#action'] = '/user/register';
+        $form['#submit'][] = 'dosomething_user_new_user';
+      }
+
+      // This field should always be hidden from users.
+      unset($form['field_under_thirteen']);
+
+      // Only staff can view/edit Partners term reference.
+      if (!dosomething_user_is_staff()) {
+        unset($form['field_partner']);
       }
 
       // Custom validation & submission handlers.
@@ -133,6 +132,72 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     break;
 
+    case 'user_pass':
+      // Get account object by email address submitted for reset
+      $account = user_load_by_mail($form_state['input']['name']);
+      // Send external message request
+      $params = array(
+        'email' => $account->mail,
+        'uid' => $account->uid,
+        'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'reset_link' => user_pass_reset_url($account),
+      );
+      dosomething_user_mbp_request('user_password', $params);
+    break;
+
+  }
+}
+/**
+ * Custom new user login submission handler.
+ *
+ * Does actions after a new user has registered via the web.
+ * Sign user up for emails/texts.
+ */
+function dosomething_user_new_user($form, &$form_state) {
+  // Should we sign this kid up for messages?
+  if (!dosomething_user_is_under_thirteen()) {
+    global $user;
+    $account = $user;
+    // Send external message request
+    $params = array(
+      'email' => $account->mail,
+      'uid' => $account->uid,
+      'first_name' => dosomething_user_get_field('field_first_name', $account),
+    );
+    dosomething_user_mbp_request('user_register', $params);
+    // Sign user up for mobile commons
+    if (module_exists('dosomething_signup')) {
+      $opt_in = variable_get('dosomething_mobilecommons_general');
+      dosomething_signup_mobilecommons_opt_in($account, $opt_in);
+    }
+  }
+}
+/**
+ * Checks that user is over 13.
+ *
+ * This is needed to make sure a new user is old enough
+ * to get any external messages from us.
+ *
+ * @return bool
+ *  Returns true if user is under 13, else false.
+ */
+function dosomething_user_is_under_thirteen($user = NULL) {
+  if ($user == NULL) {
+    global $user;
+  }
+  $birthday = dosomething_user_get_birthdate(NULL, $user);
+  // Get the date 13 years ago today.
+  $date_cutoff = strtotime('-13 years');
+  if ($date_cutoff < $birthday) {
+    // Set under 13 bool to true.
+    //@TODO: Cron that checks users in these values and updates users.
+    $wrapper = entity_metadata_wrapper('user', $user);
+    $wrapper->field_under_thirteen->set(1);
+    $wrapper->save();
+    return TRUE;
+  }
+  else {
+    return FALSE;
   }
 }
 
@@ -153,52 +218,32 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
  */
 function dosomething_user_login_submit($form, &$form_state) {
   // If nid is not present, nothing to sign up for.  Exit.
-  if (!isset($form_state['input']['nid'])) { return; }
-  $nid = $form_state['input']['nid'];
-  // Redirect to node (this is needed for user_register form).
-  $form_state['redirect'] = 'node/' . $nid;
-  // Signup global user for node $nid.
-  if (module_exists('dosomething_signup')) {
-    dosomething_signup_user_signup($nid);
+  if (isset($form_state['input']['nid'])) {
+    $nid = $form_state['input']['nid'];
+    // Signup global user for node $nid.
+    if (module_exists('dosomething_signup')) {
+      dosomething_signup_user_signup($nid);
+    }
   }
+  // After all logins redirect to page user was just on.
+  $form_state['redirect'] = $_SERVER['HTTP_REFERER'];
 }
 
 /**
  * Implements hook_user_insert().
  */
 function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
+  // Only automatically generate 'name' if not on staff.
+  if (!dosomething_user_is_staff()) {
+    // Replace fake user name with uid.
+    db_update('users')
+      ->fields(array('name' => $account->uid))
+      ->condition('uid', $account->uid)
+      ->execute();
 
-  // Replace fake user name with uid.
-  db_update('users')
-    ->fields(array('name' => $account->uid))
-    ->condition('uid', $account->uid)
-    ->execute();
-
-  $edit['name'] = $account->uid;
-  $account->name = $account->uid;
-}
-
-/**
- * Custom afterbuild on registration form.
- *
- * @param array - $form
- *  A drupal form array.
- * @param array - $form_state
- *  A drupal form_state array.
- *
- * @return - array - $form
- *  Modified drupal form.
- */
-function dosomething_user_register_after_build($form, &$form_state) {
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title']);
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
-  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('[What do we call you?]');
-  $form['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
-  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('[password]');
-  $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('[just double checking!]');
-
-  return $form;
+    $edit['name'] = $account->uid;
+    $account->name = $account->uid;
+  }
 }
 
 /**
@@ -218,20 +263,9 @@ function _dosomething_user_add_campaign_data(&$form) {
         // @TODO: Encrypt me.
         '#value' => $obj->nid,
       );
+      $form['#action'] = '/node/' . $obj->nid;
     }
   }
-}
-
-/**
- * Registration/login shared field updates.
- *
- * @param array - $form
- *  A drupal form.
- */
-function _dosomething_user_login_shared_helper_text(&$form) {
-  // Helper text and such.
-  unset($form['name']['#description']);
-  unset($form['pass']['#description']);
 }
 
 /**
@@ -241,15 +275,11 @@ function _dosomething_user_login_shared_helper_text(&$form) {
  *  A drupal form.
  */
 function _dosomething_user_register_helper_text(&$form) {
-  // Hide the username field & randomly generate the value.
-  $form['account']['name']['#type'] = 'hidden';
-  $form['account']['name']['#value'] = user_password();
-  unset($form['account']['mail']['#description']);
-  unset($form['account']['pass']['#description']);
-  $form['field_first_name']['#weight'] = '-20';
-  $form['field_birthdate']['#weight'] = '-19';
-  $form['account']['mail']['#title'] = t('Email');
-  $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
+  // Hide the username field & randomly generate the value for non-staffers.
+  if (!dosomething_user_is_staff()) {
+    $form['account']['name']['#type'] = 'hidden';
+    $form['account']['name']['#value'] = user_password();
+  }
 }
 
 /**
@@ -272,7 +302,7 @@ function dosomething_user_login_validate($form, &$form_state) {
   }
 }
 /**
- * Addictional user registration validation hook.
+ * Additional user registration validation hook.
  *
  * Clean user data on registration.
  * @see dosomething_user_form_alter()
@@ -357,6 +387,81 @@ function dosomething_user_clean_cell_number($number) {
     return FALSE;
   }
   return FALSE;
+}
+/**
+ * A request to send a message via the Message Broker library:
+ * https://github.com/DoSomething/messagebroker-phplib
+ *
+ * @param string $origin
+ *  Where the message request came from.
+ * @param array $params
+ *  Optional keyed array of data to send externally.
+ *  Common values:
+ *    - email
+ *    - uid
+ *
+ *  Values needed based on the $origin value:
+ *    - first_name
+ *    - reset_link
+ *    - event_id
+ *    - campaign_title
+ *    - call_to_action
+ *    - step_one
+ *    - step_two
+ *    - step_three
+ *    - impact_verb
+ *    - impact_number
+ *    - impact_noun
+ */
+function dosomething_user_mbp_request($origin, $params = NULL) {
+  if (!module_exists('message_broker_producer')) return FALSE;
+
+  $payload = array(
+    'activity' => $origin,
+    'email' => $params['email'],
+    'uid' => $params['uid'],
+  );
+  switch ($origin) {
+    case 'user_register':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+      );
+      break;
+    case 'user_password':
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'RESET_LINK' => $params['reset_link'],
+      );
+      break;
+    case 'campaign_signup':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'CAMPAIGN_TITLE' => 'campaign_title',
+        'CALL_TO_ACTION' => $params['call_to_action'],
+        'STEP_ONE' => $params['step_one'],
+        'STEP_TWO' => $params['step_two'],
+        'STEP_THREE' => $params['step_three'],
+      );
+      break;
+    case 'campaign_reportback':
+      $payload['event_id'] = $params['event_id'];
+      $payload['merge_vars'] = array(
+        'FNAME' => $params['first_name'],
+        'IMPACT_VERB' => $params['impact_verb'],
+        'IMPACT_NUMBER' => $params['impact_number'],
+        'IMPACT_NOUN' => $params['impact_noun'],
+      );
+      break;
+  }
+
+  try {
+    return message_broker_producer_request('produceTransactional', $payload);
+  }
+  catch (Exception $e){
+    watchdog('dosomething_user', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
 }
 
 /**

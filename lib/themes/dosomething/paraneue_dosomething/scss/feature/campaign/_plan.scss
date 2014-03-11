@@ -1,0 +1,27 @@
+// Step 2
+// Plan It
+.step.plan .intro {
+  margin-top: 1.5rem; // Creates a top margin for the first element because the section is headerless
+
+  @include media( $tablet ) {
+    @include span-columns(9);
+    @include shift(3);
+  }
+
+  p {
+    margin-bottom: 0 !important;
+  }
+}
+
+.location-finder{
+  margin-bottom: 2rem;
+
+  @include media( $tablet ) {
+    @include span-columns(11);
+    @include shift(3);
+  }
+
+  p {
+    margin-bottom:0.5rem;
+  }
+}

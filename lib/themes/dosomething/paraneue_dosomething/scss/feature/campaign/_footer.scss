@@ -1,0 +1,80 @@
+// ------------
+//  Pitch Page
+// ------------
+footer.boilerplate {
+  padding: 0.5rem 1.5rem;
+  background: $off-black;
+  text-align: center;
+}
+
+// -------------
+//  Action Page
+// -------------
+
+// This footer exists in sponsored campaigns and
+// contains the default zendesk help link as well
+footer.sponsors {
+  overflow: hidden;
+
+  .sponsor-wrapper {
+    float: none;
+
+    @include media( $tablet ) {
+      float: left;
+    }
+  }
+
+  .help-wrapper {
+    display: none;
+
+    @include media( $tablet ) {
+      display: block;
+      float: right;
+    }
+  }
+
+  .footer-content {
+    @include media( $tablet ) {
+      @include span-columns(12);
+      @include shift(3);
+    }
+  }
+}
+
+footer.help,
+footer.sources {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  clear: both;
+}
+
+footer.help {
+  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+
+  p {
+    display: inline;
+  }
+
+  p,
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+footer.sources {
+  display: block;
+  background: $off-black;
+
+  @include media( $tablet ) {
+    display: none;
+  }
+
+  div {
+    margin: 0 0 1rem 0;
+  }
+}

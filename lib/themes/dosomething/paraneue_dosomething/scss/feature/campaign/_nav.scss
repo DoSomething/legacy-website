@@ -1,0 +1,69 @@
+// Primary persistent campaign navigation
+// that is full-width on mobile and the left
+// sidebar on desktop
+
+.navigation {
+  width: 100%; 
+
+  @include media( $tablet ) {
+    position: absolute;
+    top: 4rem;
+    padding-top: 1rem;
+    width: 130px; // need pixel width since it loses percent sizing when "fixed"
+  }
+
+  &.is-stuck {
+    position: fixed;
+    top: 0;
+  }
+
+  ul {
+    background: $off-black;
+    text-align: center;
+    overflow: hidden;
+
+    @include media($tablet) {
+      text-align: left;
+    }
+  }
+
+  li {
+    display: inline-block;
+
+    @include media($tablet) {
+      display: block;
+      width: 100%;
+    }
+
+    &:last-child a {
+      border-bottom: none;
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0.75rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: $weight-sbold;
+    font-size: $font-regular;
+
+    @include media($tablet) {
+      display: block;
+      padding: 0.5rem 1rem;
+    }
+
+    &.plain {
+      color: $med-gray;
+    }
+
+    &.primary {
+      color: $blue;
+    }
+
+    &.active {
+      color: #fff;
+    }
+  }
+}

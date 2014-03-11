@@ -1,0 +1,157 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Zendesk module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_zendesk_menu() {
+  $items = array();
+  $items['admin/config/services/dosomething_zendesk'] = array(
+    'title' => 'DoSomething Zendesk settings',
+    'description' => 'Manage Zendesk settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_zendesk_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_zendesk.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_zendesk_libraries_info() {
+  $libraries['zendesk'] = array(
+    'name' => 'Zendesk',
+    'path' => 'vendor',
+    'files' => array(
+      'php' => array(
+        'autoload.php'
+      ),
+    ),
+    'version' => 1
+  );
+  return $libraries;
+}
+
+/**
+ * Returns a Zendesk Client object with auth vars.
+ */
+function dosomething_zendesk_get_client() {
+  $library = libraries_load('zendesk');
+  if (empty($library['loaded'])) {
+    return FALSE;
+  }
+  $subdomain = variable_get('dosomething_zendesk_subdomain');
+  $username = variable_get('dosomething_zendesk_username');
+  $token = variable_get('dosomething_zendesk_token');
+  $client = new Zendesk\API\Client($subdomain, $username);
+  $client->setAuth('token', $token);
+  return $client;
+}
+
+/**
+ * Form constructor for submitting a Zendesk ticket.
+ */
+function dosomething_zendesk_form($form, &$form_state)  {
+  $form['body'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#title' => t('Enter your question below. Please be as specific as possible.'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_zendesk_form().
+ */
+function dosomething_zendesk_form_submit($form, &$form_state) {
+  global $user;
+  $values = $form_state['values'];
+  $values['email'] = $user->mail;
+  $values['subject'] = t('Question about') . ' ' . drupal_get_title();
+  // Attempt to submit a ticket via Zendesk API.
+  if (dosomething_zendesk_create_ticket($values)) {
+    $msg = t("Thanks for submitting your question.") . ' ';
+    $msg .= t("We'll send a response to") . ' ';
+    $msg .= $values['email'] . ' ' . t("shortly.");
+    $msg_type = 'status';
+  }
+  else {
+    $msg = t("Sorry, there was an error with your request. Please try again.");
+    $msg_type = 'warning';
+  }
+  drupal_set_message($msg, $msg_type);
+}
+
+/**
+ * Submits a ticket to Zendesk via Zendesk API request.
+ *
+ * @param array $values
+ *   Values to pass to the Zendesk Tickets API. For expected format,
+ *   @see dosomething_zendesk_get_ticket_array()
+ *
+ * @return bool
+ *   Whether or not API request was successful.
+ */
+function dosomething_zendesk_create_ticket($values) {
+  // Get expected format for a create Ticket request.
+  $ticket = dosomething_zendesk_get_ticket_array($values);
+  if ($ticket && $client = dosomething_zendesk_get_client()) {
+    // Submit API request to create ticket.
+    try {
+      $client->tickets()->create($ticket);
+      return TRUE;
+    }
+    catch (Exception $e) {
+      watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Prepares a Zendesk ticket array with expected keys.
+ *
+ * @param array $values
+ *   Values to pass to the Zendesk Tickets API.
+ *   http://developer.zendesk.com/documentation/rest_api/tickets.html
+ *   Expected keys:
+ *     - email: The email of user submitting ticket
+ *     - subject: Subject of the ticket.
+ *     - body: Body of the ticket.
+ *
+ * @return mixed
+ *   FALSE if an expected key is not persent, otherwise an array with
+ *   expected keys and values for submitting to Zendesk Tickets API.
+ *
+ */
+function dosomething_zendesk_get_ticket_array($values) {
+  // List expected array keys.
+  $keys = array('email', 'subject', 'body');
+  // Loop through $values to make sure all keys are present.
+  foreach ($keys as $key) {
+    if (!isset($values[$key])) {
+      // Return FALSE if key is not present.
+      return FALSE;
+    }
+  }
+  // Return expected format for Ticket creation.
+  return array(
+    'requester' => array(
+      'email' => $values['email'],
+    ),
+    'subject' => $values['subject'],
+    'comment' => array(
+      'body' => $values['body'],
+    ),
+    'priority' => 'normal',
+  );
+}

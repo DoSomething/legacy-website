@@ -1,0 +1,118 @@
+// --------------------------
+//  Confirmation Page Styles
+// --------------------------
+.confirmation--wrapper {
+
+  // --------
+  //  Layout
+  // --------
+
+  header.header,
+  section.campaigns {
+    overflow: auto;
+
+    .content {
+      @include media($tablet) {
+        @include span-columns(12);
+        @include shift(2);
+      }
+    }
+
+    .btn {
+      float: left;
+    }
+
+    .btn.secondary {
+      margin: 1.5rem 0 0 0;
+
+      a {
+        text-decoration: none;
+        color: #555;
+        display: block;
+      }
+    }
+  }
+
+
+  // ----------
+  //  Sections
+  // ----------
+
+  header.header {
+    padding: 96px 1.5rem 48px;
+    background: $purple;
+
+    @include media($tablet) {
+      padding: 144px 0 96px;
+    }
+
+    h1,
+    p {
+      color: #fff !important;
+    }
+
+    h1 {
+      font-size: $font-larger;
+
+      @include media($tablet) {
+        font-size: $font-largest;
+      }
+    }
+
+    .btn.large {
+      font-size: $font-regular !important;
+
+      @include media($tablet) {
+        font-size: $font-medium;
+      }
+    }
+  }
+
+  section.campaigns {
+    padding: 0 1.5rem;
+
+    @include media($tablet) {
+      padding: 96px 0;
+    }
+
+    h3.title a {
+      text-decoration: none;
+    }
+  }
+
+  div.campaign {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+}
+
+// -----------------------------
+//  Global Navigation Overrides
+// -----------------------------
+body.page-node-confirmation {
+
+  .primary-nav a,
+  .secondary-nav a {
+    color: #fff !important;
+
+    &:hover {
+      text-decoration: none;
+
+      strong {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .secondary-nav input[type="search"] {
+    border: 1px solid #fff;
+    background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
+  }
+
+}

@@ -1,0 +1,34 @@
+// ----------------------------------------------
+// Styles to make sense of Drupal's stock markup:
+// ----------------------------------------------
+
+// Drupal likes to label things with "hidden" headers, let's
+// hide them for real.
+.element-invisible {
+  display: none;
+}
+
+// Hide asterisks on required form fields.
+.form-required {
+  display: none;
+}
+
+
+
+// @TODO: Remove date.css to override this more cleanly
+.container-inline-date .date-padding {
+  padding: 0 !important;
+}
+
+.container-inline-date .form-item, .container-inline-date .form-item input {
+  width: 100% !important;
+}
+
+
+.container-inline-date .form-item input, .container-inline-date .form-item select, .container-inline-date .form-item option {
+  margin-right: 0 !important;
+}
+
+.container-inline-date > .form-item {
+  margin-right: 0;
+}

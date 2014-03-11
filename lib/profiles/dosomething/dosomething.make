@@ -66,6 +66,12 @@ projects[dosomething_signup][download][type] = local
 projects[dosomething_signup][download][source] = './lib/modules/dosomething/dosomething_signup'
 projects[dosomething_signup][subdir] = "dosomething"
 
+; Dosomething SMS
+projects[dosomething_sms][type] = "module"
+projects[dosomething_sms][download][type] = local
+projects[dosomething_sms][download][source] = './lib/modules/dosomething/dosomething_sms'
+projects[dosomething_sms][subdir] = "dosomething"
+
 ; Dosomething Static Content
 projects[dosomething_static_content][type] = "module"
 projects[dosomething_static_content][download][type] = local
@@ -83,6 +89,12 @@ projects[dosomething_user][type] = "module"
 projects[dosomething_user][download][type] = local
 projects[dosomething_user][download][source] = './lib/modules/dosomething/dosomething_user'
 projects[dosomething_user][subdir] = "dosomething"
+
+; Dosomething Zendesk
+projects[dosomething_zendesk][type] = "module"
+projects[dosomething_zendesk][download][type] = local
+projects[dosomething_zendesk][download][source] = './lib/modules/dosomething/dosomething_zendesk'
+projects[dosomething_zendesk][subdir] = "dosomething"
 
 ; THEMES
 ; Paraneue Dosomething

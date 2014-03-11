@@ -15,7 +15,7 @@ function dosomething_image_views_default_views() {
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'Search Images';
+  $view->human_name = 'Search images';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -100,6 +100,7 @@ function dosomething_image_views_default_views() {
   $handler->display->display_options['filters']['field_image_tags_tid']['id'] = 'field_image_tags_tid';
   $handler->display->display_options['filters']['field_image_tags_tid']['table'] = 'field_data_field_image_tags';
   $handler->display->display_options['filters']['field_image_tags_tid']['field'] = 'field_image_tags_tid';
+  $handler->display->display_options['filters']['field_image_tags_tid']['operator'] = 'and';
   $handler->display->display_options['filters']['field_image_tags_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_image_tags_tid']['expose']['operator_id'] = 'field_image_tags_tid_op';
   $handler->display->display_options['filters']['field_image_tags_tid']['expose']['label'] = 'Image Tags';
@@ -126,6 +127,7 @@ function dosomething_image_views_default_views() {
   $handler->display->display_options['filters']['field_cause_tid']['id'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['table'] = 'field_data_field_cause';
   $handler->display->display_options['filters']['field_cause_tid']['field'] = 'field_cause_tid';
+  $handler->display->display_options['filters']['field_cause_tid']['operator'] = 'and';
   $handler->display->display_options['filters']['field_cause_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_cause_tid']['expose']['operator_id'] = 'field_cause_tid_op';
   $handler->display->display_options['filters']['field_cause_tid']['expose']['label'] = 'Cause';
@@ -193,6 +195,36 @@ function dosomething_image_views_default_views() {
   $handler->display->display_options['fields']['field_image_square']['settings'] = array(
     'image_style' => '50x50',
     'image_link' => '',
+  );
+  $translatables['search_images'] = array(
+    t('Master'),
+    t('Search Images'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Title'),
+    t('Edit link'),
+    t('Nid'),
+    t('Square Crop'),
+    t('Landscape Crop'),
+    t('Portrait Crop'),
+    t('Cause'),
+    t('Tags'),
+    t('Image Tags'),
+    t('Image Tags (field_image_tags)'),
+    t('Page'),
+    t('Entity Reference'),
+    t('([nid])'),
   );
   $export['search_images'] = $view;
 
