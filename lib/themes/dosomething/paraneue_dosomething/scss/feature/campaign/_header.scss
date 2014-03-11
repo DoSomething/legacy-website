@@ -30,24 +30,6 @@ header.header {
     min-height: 620px;
   }
 
-  // Square version of the hero image for smaller screen resolutions
-  &.mobile {
-    display: block;
-
-    @include media( $tablet ) {
-      display: none;
-    }
-  }
-
-  // Landscape version of the hero image for larger screen resolutions
-  &.desktop {
-    display: none;
-
-    @include media( $tablet ) {
-      display: block;
-    }
-  }
-
   h1.title {
     color: #fff;
     font-size: $font-larger;
