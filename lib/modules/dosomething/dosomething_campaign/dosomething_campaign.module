@@ -578,10 +578,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['pic_step'] = $wrapper->field_photo_step->value();
   $vars['post_step_header'] = $wrapper->field_post_step_header->value();
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
-  $vars['step_image_square'] = dosomething_image_get_themed_image($step_image['entity']->nid, 'square', '310x310');
-  $vars['step_image_landscape'] = dosomething_image_get_themed_image($step_image['entity']->nid, 'landscape', '720x310');
+  $step_image = $vars['field_image_step_gallery'][0]['entity']->nid;
+  $vars['step_image_square'] = dosomething_image_get_themed_image($step_image, 'square', '310x310');
 
-  // Prove.
+  // Prove. 
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
   $official_rules = $wrapper->field_official_rules->value();
   $vars['official_rules_src'] = file_create_url($official_rules['uri']);
