@@ -1,10 +1,14 @@
 name = Dosomething helpers
 description = Collection of helper functions for DoSomething
-package = DoSomething
 core = 7.x
+package = DoSomething
 dependencies[] = ctools
+dependencies[] = entityconnect
+dependencies[] = features
 dependencies[] = strongarm
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
-files[] = tests/dosomething_helpers.test
+features[user_permission][] = entityconnect add button
+features[user_permission][] = entityconnect edit button
 features[variable][] = dosomething_helpers_modules
+files[] = tests/dosomething_helpers.test
