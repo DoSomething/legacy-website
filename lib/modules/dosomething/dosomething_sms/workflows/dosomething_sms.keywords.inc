@@ -6,4 +6,5 @@
  * associated with.
  */
 $keywords['start-campaign-transition'] = 'dosomething_sms_start_campaign_transition';
+$keywords['sms-game-paths'] = 'dosomething_sms_game_paths';
 $keywords['comeback-clothes-reportback'] = 'dosomething_sms_comeback_clothes_reportback';
