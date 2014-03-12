@@ -161,8 +161,11 @@ function build {
   drush updb -y
 
   # Enable modules in info file
-  echo 'Enabling modules in dosomething.info'
+  echo 'Enabling modules in dosomething.info...'
   drush --script-path=../bin/ php-script enable_modules.php
+
+  echo 'Reverting features...'
+  drush fra -y
 
   echo 'Clearing caches...'
   drush cc all
