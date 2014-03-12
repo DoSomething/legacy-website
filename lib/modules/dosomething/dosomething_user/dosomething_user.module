@@ -25,7 +25,7 @@ function dosomething_user_node_access($node, $op, $account) {
 }
 
  /**
-  * Confirms that a specific cell phone number is valid.
+  * Confirms that a specific mobile phone number is valid.
   *
   * A valid phone number is a number with either 10 or 11 digits
   * (as long as the first digit is a "1").
@@ -34,27 +34,27 @@ function dosomething_user_node_access($node, $op, $account) {
   * do not have 9 consecutive, equal digits (e.g. 999-999-9999).
   *
   * @code
-  *  dosomething_user_valid_cell('123-456-7890');
+  *  dosomething_user_valid_mobile('123-456-7890');
   *  # => true
-  *  dosomething_user_valid_cell('123.456 7890');
+  *  dosomething_user_valid_mobile('123.456 7890');
   *  # => true
-  *  dosomething_user_valid_cell('1 (123) 456-7890');
+  *  dosomething_user_valid_mobile('1 (123) 456-7890');
   *  # => true
-  *  dosomething_user_valid_cell('123-555-9942');
+  *  dosomething_user_valid_mobile('123-555-9942');
   *  # => false
-  *  dosomething_user_valid_cell('1 902 #@@ 1234');
+  *  dosomething_user_valid_mobile('1 902 #@@ 1234');
   *  # => false
-  *  dosomething_user_valid_cell('999 999 9999');
+  *  dosomething_user_valid_mobile('999 999 9999');
   *  # => false
   * @endcode
   *
   * @param string $number
-  *   The cell phone number that should be validated.
+  *   The mobile phone number that should be validated.
   *
   * @return bool
   *   True if valid, else false.
   */
-function dosomething_user_valid_cell($number) {
+function dosomething_user_valid_mobile($number) {
   preg_match('#^(?:\+?1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
   preg_match('#([0-9]{1})\1{9,}#', preg_replace('#[^0-9]+#', '', $number), $repeat);
   return !empty($valid) && empty($repeat) && strpos($number, '555') === FALSE;
@@ -295,7 +295,7 @@ function dosomething_user_login_validate($form, &$form_state) {
       form_set_value($form['name'], $account->name, $form_state);
     }
     elseif ($number = $form_state['values']['name']) {
-      if ($account = dosomething_user_get_user_by_cell($number)) {
+      if ($account = dosomething_user_get_user_by_mobile($number)) {
         form_set_value($form['name'], $account->name, $form_state);
       }
     }
@@ -311,11 +311,11 @@ function dosomething_user_register_validate($form, &$form_state) {
   $mobile = $form_state['values']['field_mobile'][LANGUAGE_NONE][0]['value'];
   if (!empty($mobile)) {
     // Clean the user input text.
-    $mobile_clean = dosomething_user_clean_cell_number($mobile);
+    $mobile_clean = dosomething_user_clean_mobile_number($mobile);
 
     // Get the user's current number & see if they are updating.
     $current_number = dosomething_user_get_field('field_mobile');
-    if ($mobile_clean != $current_number && ($user = dosomething_user_get_user_by_cell($mobile_clean))) {
+    if ($mobile_clean != $current_number && ($user = dosomething_user_get_user_by_mobile($mobile_clean))) {
       // This dude already has an account.
       form_set_error('dosomething_user_already_registered', t('The phone number '. $mobile . ' is already registered. Have you ' . l('forgotten your password?', 'user/password')));
     }
@@ -341,16 +341,16 @@ function dosomething_user_get_user_by_email($email) {
 }
 
 /**
- * Search for users users by their cell phone number.
+ * Search for users users by their mobile phone number.
  *
  * @param string $number
- *   The cell phone number for which you are searching.
+ *   The mobile phone number for which you are searching.
  *
  * @return object/bool
  *   The user account object, or false if no user was found.
  */
-function dosomething_user_get_user_by_cell($number) {
-  if ($clean_number = dosomething_user_clean_cell_number($number)) {
+function dosomething_user_get_user_by_mobile($number) {
+  if ($clean_number = dosomething_user_clean_mobile_number($number)) {
 
     $query = db_select('field_data_field_mobile', 'm')
               ->fields('m', array('entity_id'))
@@ -376,8 +376,8 @@ function dosomething_user_get_user_by_cell($number) {
  * @return string/bool
  *   Numeric-only string of the phone number, or FALSE if not a 10-digit number.
  */
-function dosomething_user_clean_cell_number($number) {
-  if (dosomething_user_valid_cell($number)) {
+function dosomething_user_clean_mobile_number($number) {
+  if (dosomething_user_valid_mobile($number)) {
     $trimmed_number = ltrim(preg_replace('#[^0-9]#', '', $number));
 
     // Make sure the number is 10 digits long.
@@ -390,13 +390,13 @@ function dosomething_user_clean_cell_number($number) {
 }
 
 /**
- * Create a user account when provided with only a cell phone number.
+ * Create a user account when provided with only a mobile phone number.
  *
  * @param string $number
  *   User's phone number.
  */
 function dosomething_user_create_user_by_mobile($number) {
-  if ($clean_number = dosomething_user_clean_cell_number($number)) {
+  if ($clean_number = dosomething_user_clean_mobile_number($number)) {
     $user_data = array(
       'name' => user_password(), // Generating unique dummy name. dosomething_user_user_insert() will convert this to the uid.
       'mail' => $clean_number . '@mobile', // Provide a dummy email address.

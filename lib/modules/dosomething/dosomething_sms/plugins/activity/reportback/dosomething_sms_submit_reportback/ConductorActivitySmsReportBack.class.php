@@ -61,8 +61,8 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
     // Mobile Commons sends the international code in its payload. Remove it.
     $mobile = substr($mobile, -10);
 
-    // Get user by cell number if it exists. Otherwise create it.
-    $user = dosomething_user_get_user_by_cell($mobile);
+    // Get user by mobile number if it exists. Otherwise create it.
+    $user = dosomething_user_get_user_by_mobile($mobile);
     if (!$user) {
       $user = dosomething_user_create_user_by_mobile($mobile);
     }
