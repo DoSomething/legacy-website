@@ -7,21 +7,29 @@
 include_once 'dosomething_user.features.inc';
 
 /**
- * Implements hook_node_access().
+ * Implements hook_init().
  */
-function dosomething_user_node_access($node, $op, $account) {
-  $type = is_string($node) ? $node : $node->type;
-  // Internal content types to be viewed by staff only:
-  $staff_types = array('fact', 'image');
-  // If viewing an internal staff type:
-  if (in_array($type, $staff_types) && $op == 'view') {
-    // If staff user, able to view the Fact node.
-    if (dosomething_user_is_staff($account)) {
-      return NODE_ACCESS_ALLOW;
+function dosomething_init() {
+  // If viewing a node/[nid] page:
+  if (arg(0) == 'node' && is_numeric(arg(1)) && (!arg(2) || arg(2) == 'view')) {
+    // Load that node.
+    $node = menu_get_object();
+    // If node type is staff only:
+    if (in_array($node->type, dosomething_user_get_staff_only_types())) {
+      // If logged in user is not staff:
+      if (!dosomething_user_is_staff()) {
+        // No node for you.  Redirect to front page for now.
+        drupal_goto();
+      }
     }
-    // Otherwise, no facts for you.
-    return NODE_ACCESS_DENY;
   }
+}
+
+/**
+ * Returns an array of node types that only staff can view.
+ */
+function dosomething_user_get_staff_only_types() {
+  return array('fact', 'image');
 }
 
  /**
