@@ -107,9 +107,16 @@
 
   div.step-image-wrapper {
     float: left;
+    position: relative;
+    width: 100%;
 
     &.mobile {
      display: block;
+
+     img {
+       width: 100%;
+       display: block;
+     }
 
      @include media( $tablet ) {
        display: none;
@@ -124,15 +131,30 @@
       }
 
       figure.step-image {
-        position: absolute;
-        top: 40%;
-        background-image: url(../images/campaign-polaroid-frame.png);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        width: 200px;
-        height: 230px;
+        position: relative;
+        top: 200px;
 
         @include transform(rotate(-3deg));
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          background-image: url(../images/campaign-polaroid-frame.png);
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          width: 200px;
+          height: 230px;
+        }
+
+        img {
+          position: relative;
+          left: 12px;
+          top: 9px;
+          padding: 0;
+          max-width: 175px;
+        }
       }
     }
   }
