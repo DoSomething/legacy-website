@@ -8,5 +8,6 @@
  * unless you know what you're getting yourself into.
  */
 class DoSomethingSmsGameConstants {
-  const COMEBACKCLOTHES_TIPS = 1;
+  const COMEBACKCLOTHES_KNOW = 1;
+  const COMEBACKCLOTHES_PLAN = 2;
 }
