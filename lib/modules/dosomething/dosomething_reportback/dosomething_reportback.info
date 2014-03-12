@@ -3,6 +3,7 @@ description = Provides Reportback entity and functionality.
 core = 7.x
 package = DoSomething
 dependencies[] = features
+dependencies[] = file
 dependencies[] = image
 dependencies[] = views
 features[ctools][] = views:views_default:3.0
