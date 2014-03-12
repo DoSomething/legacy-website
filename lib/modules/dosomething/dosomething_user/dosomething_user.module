@@ -140,6 +140,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         'email' => $account->mail,
         'uid' => $account->uid,
         'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'user_name' => $account->name,
         'reset_link' => user_pass_reset_url($account),
       );
       dosomething_user_mbp_request('user_password', $params);
@@ -455,6 +456,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
     case 'user_password':
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
+        'USERNAME' => $params['username'],
         'RESET_LINK' => $params['reset_link'],
       );
       break;
@@ -462,7 +464,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
-        'CAMPAIGN_TITLE' => 'campaign_title',
+        'CAMPAIGN_TITLE' => $params['campaign_title'],
         'CALL_TO_ACTION' => $params['call_to_action'],
         'STEP_ONE' => $params['step_one'],
         'STEP_TWO' => $params['step_two'],
@@ -473,6 +475,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
+        'CAMPAIGN_TITLE' => $params['campaign_title'],
         'IMPACT_VERB' => $params['impact_verb'],
         'IMPACT_NUMBER' => $params['impact_number'],
         'IMPACT_NOUN' => $params['impact_noun'],
