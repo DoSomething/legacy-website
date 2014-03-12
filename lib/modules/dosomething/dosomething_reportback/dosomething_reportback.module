@@ -356,8 +356,9 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
   // If the file passed validation:
   if ($file) {
     $nid = $form_state['values']['nid'];
-    // Move the file into its relevant reportbacks directory.
-    if ($file = file_move($file, dosomething_reportback_get_file_dir($nid))) {
+    // Move the file into its proper destination.
+    $new_dest = dosomething_reportback_get_file_dest($file->filename, $nid);
+    if ($file = file_move($file, $new_dest)) {
       // Save the file for use in the submit handler.
       $form_state['storage']['file'] = $file;
     }
@@ -557,12 +558,41 @@ function dosomething_reportback_entity_insert($entity, $type) {
 }
 
 /**
- * Returns the path to write a reportback file for given node $nid.
+ * Returns the file destination for a new reportback file for given node $nid.
+ *
+ * @param string $filename
+ *   Original upload filename, used to retain the file extension.
+ * @param int $nid
+ *   The node nid that this reportback is associated with.
+ * @param int $uid
+ *   The users uid that this reportback is associated with.
+ *
+ * @return string
+ *   The file destination path to write the next reportback image to.
  */
-function dosomething_reportback_get_file_dir($nid) {
-  return 'public://';
-  // @todo: Make me work. @see Issue #1054.
-  // return 'public://reportbacks/' . $nid;
+function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  // Parse original filename.
+  $pathinfo = pathinfo($name);
+  // Save its extension.
+  $ext = $pathinfo['extension'];
+  // Define reportback nid file directory.
+  $dir = 'public://reportbacks/' . $nid;
+  // If directory doesn't exist / can't be created:
+  if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY)) {
+    // Use default public directory instead.
+    $dir = 'public://';
+  }
+  $index = 0;
+  if ($rb = dosomething_reportback_exists($nid, $uid)) {
+    $reportback = reportback_load($rb);
+    $index = count($reportback->fids);
+  }
+  $filename = 'uid_' . $uid . '-nid_' . $nid . '-' . $index . '.' . $ext;
+  return $dir . '/' . $filename;
 }
 
 /**
