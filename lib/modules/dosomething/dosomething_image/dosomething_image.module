@@ -152,3 +152,10 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
 function dosomething_image_cache_clear_all() {
   cache_clear_all('*', 'cache_dosomething_image', TRUE);
 }
+
+/**
+ * Implements hook_flush_caches().
+ */
+function dosomething_flush_caches() {
+  return array('cache_dosomething_image');
+}
