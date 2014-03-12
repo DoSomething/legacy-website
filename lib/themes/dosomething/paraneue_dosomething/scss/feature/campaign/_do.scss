@@ -133,6 +133,15 @@
         height: 230px;
 
         @include transform(rotate(-3deg));
+
+        img {
+          position: relative;
+          left: 14px;
+          top: -15px;
+          padding: 0;
+          max-width: 174px;
+          background-color: pink;
+        }
       }
     }
   }
