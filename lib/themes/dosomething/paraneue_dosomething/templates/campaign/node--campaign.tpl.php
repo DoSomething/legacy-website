@@ -280,7 +280,7 @@
           </div>
           <?php endif; ?>
 
-          <div class="help-wrapper">Have a Question? <a href="#modal-help" class="js-modal-link">Email Us</a></div>
+          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link">Give us a shout</a></div>
         </div>
       </footer>
 
