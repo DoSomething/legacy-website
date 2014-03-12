@@ -26,9 +26,9 @@ $activity->name = 'start_campaign';
 $activity->inputs = array('start');
 $activity->outputs = array('end');
 $activity->routes = array(
-  '10851' => array(                // mData id with the campaign start keyword.
-    'out_campaign_id' => '124251', // Starting campaign id to opt-out of.
-    'opt_in_path_id' => '164793',  // In-progress campaign opt-in path id to opt-in to.
+  '10043' => array(                // mData id with the campaign start keyword.
+    'out_campaign_id' => '124817', // Starting campaign id to opt-out of.
+    'opt_in_path_id' => '165505',  // In-progress campaign opt-in path id to opt-in to.
   ),
 );
 
