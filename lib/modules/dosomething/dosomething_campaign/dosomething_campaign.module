@@ -426,10 +426,9 @@ function dosomething_campaign_add_inline_css(&$vars) {
   // Check for alt_color variable.
   if (isset($vars['alt_color'])) {
     $alt_color = 'color: #' .  $vars['alt_color'] . ' !important;';
+    $style_alt_color = '.inline--alt-color { ' . $alt_color . ' }';
+    drupal_add_css($style_alt_color, $option['type'] = 'inline');
   }
-  // Add as a class.
-  $style_alt_color = '.alt-color { ' . $alt_color . '}';
-  drupal_add_css($style_alt_color, $option['type'] = 'inline');
 
   // Add hero background images
   $style_hero_image = '.campaign--wrapper header.header {
