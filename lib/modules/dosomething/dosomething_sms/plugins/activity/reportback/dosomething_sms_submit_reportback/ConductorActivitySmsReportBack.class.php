@@ -83,7 +83,7 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
     // Download, save, and move the file to proper directory.
     $pictureContents = file_get_contents($pictureUrl);
     $file = file_save_data($pictureContents, $pictureFilename);
-    $new_dest = dosomething_reportback_get_file_dest($file->name, $this->nid);
+    $new_dest = dosomething_reportback_get_file_dest($file->name, $this->nid, $user->uid);
     $file = file_move($file, $new_dest);
 
     // Save UID and permanent status.
