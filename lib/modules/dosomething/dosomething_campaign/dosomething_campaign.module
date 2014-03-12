@@ -441,6 +441,15 @@ function dosomething_campaign_add_inline_css(&$vars) {
       }
     }';
   drupal_add_css($style_hero_image, $option['type'] = 'inline');
+
+  // Set alt sponsor bg for modals
+  if (isset($vars['alt_bg_src'])) {
+    $alt_bg = 'background-image: url("' . $vars['alt_bg_src'] . '") !important;';
+    $style_alt_background = '.inline--alt-bg { ' . $alt_bg . ' }';
+
+    drupal_add_css($style_alt_background, $option['type'] = 'inline');
+  }
+
 }
 
 /**
