@@ -8,7 +8,7 @@
   @include media( $tablet ) {
     position: absolute;
     top: 4rem;
-    padding-top: 1rem;
+    padding-top: 3rem;
     width: 130px; // need pixel width since it loses percent sizing when "fixed"
   }
 
