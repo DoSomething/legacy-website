@@ -149,6 +149,28 @@ function dosomething_fact_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['fact_search'] = array(
+    t('Master'),
+    t('Fact Search'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Title'),
+    t('Source'),
+    t('Created'),
+    t('Fact'),
+    t('Page'),
+  );
   $export['fact_search'] = $view;
 
   return $export;
