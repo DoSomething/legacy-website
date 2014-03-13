@@ -596,21 +596,20 @@ function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
 }
 
 /**
- * Sends exernal message request for a reportback.
+ * Sends mbp request for a reportback.
  */
 function dosomething_reportback_mbp_request($entity) {
-  // Send external message request
   if (module_exists('dosomething_user')) {
     $account = user_load($entity->uid);
     $params = array(
       'email' => $account->mail,
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'campaign_title' => '??',
-      'event_id' => '??',
-      'impact_verb' => '??',
-      'impact_number' => '??',
-      'impact_noun' => '??',
+      'campaign_title' => $entity->node_title,
+      'event_id' => $entity->nid,
+      'impact_verb' => $entity->verb,
+      'impact_number' => $entity->quantity,
+      'impact_noun' => $entity->noun,
     );
     dosomething_user_mbp_request('campaign_reportback', $params);
   }
