@@ -50,7 +50,7 @@ function dosomething_signup_permission() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_insert($nid, $uid = NULL) {
+function dosomething_signup_insert($nid, $uid = NULL, $timestamp = NULL) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
@@ -60,7 +60,7 @@ function dosomething_signup_insert($nid, $uid = NULL) {
         ->fields(array(
           'uid' => $uid,
           'nid' => $nid,
-          'timestamp' => REQUEST_TIME,
+          'timestamp' => isset($timestamp) ? $timestamp : REQUEST_TIME,
         )
       )
       ->execute();
