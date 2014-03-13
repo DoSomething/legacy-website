@@ -55,6 +55,9 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['ss_field_search_image']['label'] = '';
   $handler->display->display_options['fields']['ss_field_search_image']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['ss_field_search_image']['alter']['text'] = '<img src="[ss_field_search_image]"/>';
+  $handler->display->display_options['fields']['ss_field_search_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['ss_field_search_image']['alter']['path'] = '[path_alias]';
+  $handler->display->display_options['fields']['ss_field_search_image']['alter']['replace_spaces'] = TRUE;
   $handler->display->display_options['fields']['ss_field_search_image']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: label */
   $handler->display->display_options['fields']['label']['id'] = 'label';
