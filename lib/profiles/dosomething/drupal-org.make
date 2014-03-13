@@ -101,6 +101,10 @@ projects[optimizely][subdir] = "contrib"
 projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
+; Redis
+projects[redis] = "2.6"
+projects[redis][subdir] = "contrib"
+
 ; Secure Pages
 projects[securepages] = "1.0-beta2"
 projects[securepages][subdir] "contrib"
@@ -191,18 +195,22 @@ projects[paraneue][options][working-copy] = TRUE
 
 ; LIBRARIES
 
-; Mobile Commons PHP
-libraries[mobilecommons-php][download][type] = "git"
-libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
-
 ; DSAPI PHP Library
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
 
-; Zendesk PHP
-libraries[zendesk][download][type] = "git"
-libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
-
 ; Message Broker PHP Library
 libraries[messagebroker-phplib][download][type] = "git"
 libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
+
+; Mobile Commons PHP
+libraries[mobilecommons-php][download][type] = "git"
+libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
+
+; Predis
+libraries[predis][download][type] = "git"
+libraries[predis][download][url] = "git@github.com:nrk/predis.git"
+
+; Zendesk PHP
+libraries[zendesk][download][type] = "git"
+libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
