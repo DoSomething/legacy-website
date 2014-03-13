@@ -202,8 +202,8 @@
         </div>
 
         <div class="during">
-          <h3 class="inline--alt-color">Snap a Pic</h3>
-          <?php if (isset($pic_step['safe_value'])): ?><div><?php print $pic_step['safe_value']; ?></div><?php endif; ?>
+          <h3 class="inline--alt-color"><?php print $pic_step_header; ?></h3>
+          <?php if (isset($pic_step_copy['safe_value'])): ?><div><?php print $pic_step_copy['safe_value']; ?></div><?php endif; ?>
         </div>
 
         <div class="post">

@@ -297,7 +297,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
 }
 
 /**
- * Send external message request to Message Broker.
+ * Sends mbp request for a signup.
  *
  * @param object account
  *   Details about the user account that made the signup.
@@ -305,16 +305,17 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
  *   Details about the node that the signup was made on.
  */
 function dosomething_signup_mbp_request($account, $node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
   $params = array(
     'email' => $account->mail,
     'uid' => $account->uid,
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'event_id' => $node->nid,
     'campaign_title' => $node->title,
-    'call_to_action' => '??',
-    'step_one' => '??',
-    'step_two' => '??',
-    'step_three' => '??',
+    'call_to_action' => $wrapper->field_cta->value(),
+    'step_one' => $wrapper->field_pre_step_header->value(),
+    'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
+    'step_three' => $wrapper->field_post_step_header->value(),
   );
   dosomething_user_mbp_request('campaign_signup', $params);
 }

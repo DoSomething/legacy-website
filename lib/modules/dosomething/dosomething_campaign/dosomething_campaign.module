@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_campaign.features.inc';
+define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
 /**
  * Implements hook_form_alter().
@@ -622,7 +623,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Do.
   $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();
   $vars['pre_step_copy'] = $wrapper->field_pre_step_copy->value();
-  $vars['pic_step'] = $wrapper->field_photo_step->value();
+  $vars['pic_step_header'] = t(DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER);
+  $vars['pic_step_copy'] = $wrapper->field_photo_step->value();
   $vars['post_step_header'] = $wrapper->field_post_step_header->value();
   $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
   // Step gallery.
