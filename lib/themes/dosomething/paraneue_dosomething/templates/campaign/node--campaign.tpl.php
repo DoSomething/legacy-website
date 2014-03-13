@@ -178,6 +178,10 @@
           <?php if (isset($pre_step_header)): ?><h3 class="inline--alt-color"><?php print $pre_step_header; ?></h3><?php endif; ?>
           <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
+          <?php if (isset($step_pre)) : ?>
+          <a href="#modal-tips" class="js-modal-link more-tips">View tips</a>
+          <?php endif; ?>
+
           <div class="tips">
             <?php if (isset($step_pre)) : ?>
             <div class="tip-header-wrapper">
@@ -194,6 +198,19 @@
             <?php endif; ?>
           </div>
         </div>
+
+        <!-- "More tips" modal for mobile viewports -->
+        <script id="modal-tips" class="modal--tips" type="text/cached-modal">
+          <a href="#" class="js-close-modal modal-close-button white">×</a>
+
+          <h2 class="banner">Tips</h2>
+          <?php foreach ($faq as $item): ?>
+            <h4 class="inline--alt-color"><?php print $item['header']; ?></h4>
+            <div><?php print $item['copy']; ?></div>
+          <?php endforeach; ?>
+
+          <a href="#" class="js-close-modal">Back to main page</a>
+        </script>
 
         <div class="step-image-wrapper mobile">
           <?php if (isset($step_image_landscape)): ?>
