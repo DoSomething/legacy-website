@@ -232,10 +232,7 @@ function dosomething_reportback_preprocess_entity(&$variables) {
  * Callback for /reportback/ID/edit page.
  */
 function dosomething_reportback_edit_entity($entity) {
-  // We need the node to pass through to rb form for quantity values.
-  $node = node_load($entity->nid);
-  $wrapper = entity_metadata_wrapper('node', $node);
-  return drupal_get_form('dosomething_reportback_form', $wrapper, $entity);
+  return drupal_get_form('dosomething_reportback_form', $entity);
 }
 
 /**
