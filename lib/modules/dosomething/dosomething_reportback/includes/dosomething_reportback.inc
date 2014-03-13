@@ -132,7 +132,7 @@ class ReportbackEntityController extends EntityAPIController {
     }
     $build['quantity_count'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->quantity,
+      '#markup' => check_plain($entity->quantity),
     );
     $build['quantity_label'] = array(
       '#type' => 'markup',
@@ -140,7 +140,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['why_participated'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->why_participated,
+      '#markup' => check_plain($entity->why_participated),
     );
     return $build;
   }
