@@ -101,6 +101,10 @@ projects[optimizely][subdir] = "contrib"
 projects[pathauto] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
+; Redirect
+projects[redirect] = "1.0-rc1"
+projects[redirect][subdir] = "contrib"
+
 ; Secure Pages
 projects[securepages] = "1.0-beta2"
 projects[securepages][subdir] "contrib"
