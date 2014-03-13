@@ -28,11 +28,8 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '99';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['row_class'] = 'search-result';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
@@ -44,6 +41,13 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['content'] = '###Make the world suck less.  Check out one of these super easy, kickass campaigns.';
   $handler->display->display_options['header']['area']['format'] = 'markdown';
+  /* Field: Apache Solr: path_alias */
+  $handler->display->display_options['fields']['path_alias']['id'] = 'path_alias';
+  $handler->display->display_options['fields']['path_alias']['table'] = 'apachesolr__solr';
+  $handler->display->display_options['fields']['path_alias']['field'] = 'path_alias';
+  $handler->display->display_options['fields']['path_alias']['label'] = '';
+  $handler->display->display_options['fields']['path_alias']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path_alias']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: ss_field_search_image */
   $handler->display->display_options['fields']['ss_field_search_image']['id'] = 'ss_field_search_image';
   $handler->display->display_options['fields']['ss_field_search_image']['table'] = 'apachesolr__solr';
@@ -57,6 +61,11 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['label']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['label']['field'] = 'label';
   $handler->display->display_options['fields']['label']['label'] = '';
+  $handler->display->display_options['fields']['label']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['label']['alter']['path'] = '[path_alias]';
+  $handler->display->display_options['fields']['label']['alter']['replace_spaces'] = TRUE;
+  $handler->display->display_options['fields']['label']['alter']['alt'] = '[label]';
+  $handler->display->display_options['fields']['label']['alter']['target'] = '_blank';
   $handler->display->display_options['fields']['label']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: sm_field_call_to_action */
   $handler->display->display_options['fields']['sm_field_call_to_action']['id'] = 'sm_field_call_to_action';
@@ -82,15 +91,9 @@ function dosomething_search_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
     t('###Make the world suck less.  Check out one of these super easy, kickass campaigns.'),
     t('<img src="[ss_field_search_image]"/>'),
+    t('[label]'),
     t('Page'),
   );
   $export['explore_campaigns'] = $view;
