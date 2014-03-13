@@ -307,7 +307,7 @@ function dosomething_signup_mbp_request($account, $node) {
     'uid' => $account->uid,
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'event_id' => $node->nid,
-    'event_title' => $node->title,
+    'campaign_title' => $node->title,
     'call_to_action' => '??',
     'step_one' => '??',
     'step_two' => '??',
