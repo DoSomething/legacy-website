@@ -286,8 +286,12 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   // Insert signup.
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
+    // Is there an override set on this campaign?
+    $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
+    $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
+
     // Opt-in to mobilecommons.
-    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
+    $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
     dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
     // Send external message request
     dosomething_signup_mbp_request($account, $node);
