@@ -287,21 +287,33 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
     dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
     // Send external message request
-    $params = array(
-      'email' => $account->mail,
-      'uid' => $account->uid,
-      'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'event_id' => $node->nid,
-      'event_title' => $node->title,
-      'call_to_action' => '??',
-      'step_one' => '??',
-      'step_two' => '??',
-      'step_three' => '??',
-    );
-    dosomething_user_mbp_request('campaign_signup', $params);
+    dosomething_signup_mbp_request($account, $node);
     // Set success message.
     dosomething_signup_set_signup_message($node->title);
   }
+}
+
+/**
+ * Send external message request to Message Broker.
+ *
+ * @param object account
+ *   Details about the user account that made the signup.
+ * @param object node
+ *   Details about the node that the signup was made on.
+ */
+function dosomething_signup_mbp_request($account, $node) {
+  $params = array(
+    'email' => $account->mail,
+    'uid' => $account->uid,
+    'first_name' => dosomething_user_get_field('field_first_name', $account),
+    'event_id' => $node->nid,
+    'campaign_title' => $node->title,
+    'call_to_action' => '??',
+    'step_one' => '??',
+    'step_two' => '??',
+    'step_three' => '??',
+  );
+  dosomething_user_mbp_request('campaign_signup', $params);
 }
 
 /**

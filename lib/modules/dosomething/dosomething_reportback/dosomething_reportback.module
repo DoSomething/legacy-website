@@ -606,6 +606,7 @@ function dosomething_reportback_mbp_request($entity) {
       'email' => $account->mail,
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'campaign_title' => '??',
       'event_id' => '??',
       'impact_verb' => '??',
       'impact_number' => '??',
