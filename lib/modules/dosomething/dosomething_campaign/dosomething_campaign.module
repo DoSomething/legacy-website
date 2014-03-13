@@ -340,10 +340,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'campaign' && $view_mode == 'full') {
     if (module_exists('dosomething_reportback')) {
-      // Initalize reportback to NULL.
-      $reportback = NULL;
+      // Initalize reportback to a new entity for this nid.
+      $reportback = entity_create('reportback', array('nid' => $node->nid));
       if ($rbid = dosomething_reportback_exists($node->nid)) {
-        // Load existing reportback entity to pass through to reportback form.
+        // Replace with existing reportback entity if it exists.
         $reportback = reportback_load($rbid);
       }
       $wrapper = entity_metadata_wrapper('node', $node->nid);
