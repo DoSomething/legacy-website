@@ -106,10 +106,17 @@
   }
 
   div.step-image-wrapper {
-    float: left;
-    position: relative;
-    width: 100%;
+    @include media( $tablet ) {
+      overflow: hidden;
+      position: relative;
+      width: 180px;
+      height: 210px;
+      top: 150px;
+    }
 
+    // Display a full-width landscape
+    // crop for smaller screens viewing
+    // the campaign in a single column
     &.mobile {
      display: block;
 
@@ -123,6 +130,9 @@
      }
     }
 
+    // Only show the Polaroid version
+    // containing a square image crop
+    // on large viewports
     &.desktop {
       display: none;
 
@@ -131,11 +141,11 @@
       }
 
       figure.step-image {
-        position: relative;
-        top: 200px;
-
         @include transform(rotate(-3deg));
 
+        // Position a pseudo-element above the
+        // "Do It" gallery image with a Polaroid-
+        // style image background
         &:after {
           content: "";
           position: absolute;
@@ -144,8 +154,9 @@
           background-image: url(../images/campaign-polaroid-frame.png);
           background-repeat: no-repeat;
           background-position: 50% 50%;
-          width: 200px;
-          height: 230px;
+          background-size: 170px;
+          width: 180px;
+          height: 210px;
         }
 
         img {
@@ -153,7 +164,7 @@
           left: 12px;
           top: 9px;
           padding: 0;
-          max-width: 175px;
+          max-width: 160px;
         }
       }
     }
