@@ -17,25 +17,19 @@ $databases['default']['default'] = array(
  */
 $hostname = getenv('DS_HOSTNAME') ?: 'dev.dosomething.org';
 
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
 $insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
 
 if (!empty($insecure_port) && ($insecure_port != 80)) {
-  $base_url = 'http://' . $hostname . ':' . $insecure_port;
+  $base_url = $protocol . $hostname . ':' . $insecure_port;
 }
 else {
-  $base_url = 'http://' . $hostname;
+  $base_url = $protocol . $hostname;
 }
 
 $conf['https'] = TRUE;
-$conf['securepages_basepath'] = $base_url;
-
-if (!empty($secure_port) && ($insecure_port != 443)) {
-  $conf['securepages_basepath_ssl'] = 'https://' . $hostname . ':' . $secure_port;
-}
-else {
-  $conf['securepages_basepath_ssl'] = 'https://' . $hostname;
-}
 
 /**
  * Caching
