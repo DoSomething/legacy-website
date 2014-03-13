@@ -303,7 +303,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
 function dosomething_campaign_get_recommended_campaign_vars($nid) {
   $wrapper = entity_metadata_wrapper('node', $nid);
   $path = 'node/' . $nid;
-  $image_link = NULL;
+  $image = NULL;
   $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
   if ($image_nid) {
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
