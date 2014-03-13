@@ -311,7 +311,7 @@ function dosomething_signup_mbp_request($account, $node) {
     'campaign_title' => $node->title,
     'call_to_action' => $wrapper->field_cta->value(),
     'step_one' => $wrapper->field_pre_step_header->value(),
-    'step_two' => 'Snap a Pic',
+    'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
     'step_three' => $wrapper->field_post_step_header->value(),
   );
   dosomething_user_mbp_request('campaign_signup', $params);
