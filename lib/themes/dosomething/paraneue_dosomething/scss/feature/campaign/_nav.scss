@@ -2,8 +2,18 @@
 // that is full-width on mobile and the left
 // sidebar on desktop
 
+// Fix to keep "placeholder" in flow when fixed nav kicks in
+.navigation--wrapper {
+  height: 3rem;
+
+  @include media($tablet) {
+    height: auto;
+  }
+}
+
 .navigation {
   width: 100%; 
+  -webkit-font-smoothing: subpixel-antialiased; // fixes antialiasing issue on positioned elements in Safari
 
   @include media( $tablet ) {
     position: absolute;
