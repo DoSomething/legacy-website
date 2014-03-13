@@ -28,6 +28,15 @@
     }
   }
 
+  // Mobile only link triggering tip modal
+  .more-tips {
+    display: block;
+
+    @include media( $tablet ) {
+      display: none;
+    }
+  }
+
   .tips {
     display: none;
 
