@@ -812,10 +812,16 @@ function _dosomething_campaign_get_recommended_base_query($uid) {
  *  An array of the result node nid's.
  */
 function _dosomething_campaign_get_recommended_query_nids($query) {
-  $result = $query->execute();
-  if (isset($result['node'])) {
-    return array_keys($result['node']);
+  try {
+    $result = $query->execute();
+    if (isset($result['node'])) {
+      return array_keys($result['node']);
+    }
   }
+  catch (Exception $e) {
+    watchdog('dosomething_campaign', $e, array(), WATCHDOG_ERROR);
+  }
+
   // Return empty array if no result.
   return array();
 }
