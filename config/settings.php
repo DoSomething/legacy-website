@@ -30,14 +30,6 @@ else {
 }
 
 $conf['https'] = TRUE;
-$conf['securepages_basepath'] = $base_url;
-
-if (!empty($secure_port) && ($insecure_port != 443)) {
-  $conf['securepages_basepath_ssl'] = 'https://' . $hostname . ':' . $secure_port;
-}
-else {
-  $conf['securepages_basepath_ssl'] = 'https://' . $hostname;
-}
 
 /**
  * Caching
