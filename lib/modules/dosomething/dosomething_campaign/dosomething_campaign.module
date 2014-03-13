@@ -303,7 +303,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
 function dosomething_campaign_get_recommended_campaign_vars($nid) {
   $wrapper = entity_metadata_wrapper('node', $nid);
   $path = 'node/' . $nid;
-  $image_link = NULL;
+  $image = NULL;
   $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
   if ($image_nid) {
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
@@ -340,15 +340,19 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'campaign' && $view_mode == 'full') {
     if (module_exists('dosomething_reportback')) {
-      // Initalize reportback to NULL.
-      $reportback = NULL;
+      // Initalize reportback as a new entity for this nid.
+      $reportback = entity_create('reportback', array(
+        'nid' => $node->nid,
+        'quantity' => NULL,
+        'why_participated' => NULL,
+      ));
       if ($rbid = dosomething_reportback_exists($node->nid)) {
-        // Load existing reportback entity to pass through to reportback form.
+        // Replace with existing reportback entity if it exists.
         $reportback = reportback_load($rbid);
       }
       $wrapper = entity_metadata_wrapper('node', $node->nid);
       // Set Reportback Form variable in node content for rendering in theme layer.
-      $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $wrapper, $reportback);
+      $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $reportback);
     }
     if (module_exists('dosomething_zendesk')) {
       $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form');

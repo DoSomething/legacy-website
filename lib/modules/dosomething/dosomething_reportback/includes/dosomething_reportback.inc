@@ -24,13 +24,18 @@ class ReportbackEntity extends Entity {
    */
   public function __construct(array $values = array(), $entityType = NULL) {
     parent::__construct($values, $entityType);
-    // Set the reportback file fids as an array.
-    $this->fids = $this->getFids();
-    // Set properties found on the reportback's node nid.
-    $this->node_title = $this->getNodeTitle();
-    $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
-    $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
-
+    $this->fids = array();
+    // If this is a new entity, rbid may not be set.
+    if (isset($this->rbid)) {
+      $this->fids = $this->getFids();
+    }
+    // If a reportback nid exists:
+    if (isset($this->nid)) {
+      // Set properties found on the reportback's node nid.
+      $this->node_title = $this->getNodeTitle();
+      $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
+      $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+    }
   }
 
   /**

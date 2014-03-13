@@ -239,24 +239,17 @@ function dosomething_reportback_edit_entity($entity) {
 }
 
 /**
- * Form constructor for a node reportback create/update form.
+ * Form constructor for a reportback create/update form.
  *
- * @param object $wrapper
- *   An entity_metadata_wrapper of the node to report back for.
  * @param object $entity
- *   Optional. The reportback entity to update, if updating an entity.
- *   If NULL, submitting the form will create a new reportback entity.
+ *   A reportback entity to create or update. Must have a nid property set.
  *
  * @ingroup forms
  */
-function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NULL) {
-  // If entity is not set, this is a create form.
-  if (!isset($entity)) {
-    $entity = entity_create('reportback', array(
-      'rbid' => 0,
-      'quantity' => '',
-      'why_participated' => NULL,
-    ));
+function dosomething_reportback_form($form, &$form_state, $entity) {
+  // If rbid doesn't exist, this is a create form.
+  if (!isset($entity->rbid)) {
+    $entity->rbid = 0;
     $submit_label = t("Submit your pic");
   }
   // Else, it's update form.
@@ -274,7 +267,7 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
   );
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#default_value' => $wrapper->nid->value(),
+    '#default_value' => $entity->nid,
   );
   $form['reportback_file'] = array(
     '#type' => 'file',
@@ -288,8 +281,8 @@ function dosomething_reportback_form($form, &$form_state, $wrapper, $entity = NU
     ),
     '#element_validate' => array('element_validate_integer_positive'),
     '#title' => t("Total # of @noun @verb", array(
-        '@noun' => $wrapper->field_reportback_noun->value(),
-        '@verb' => $wrapper->field_reportback_verb->value(),
+        '@noun' => $entity->noun,
+        '@verb' => $entity->verb,
       )
     ),
     '#default_value' => $entity->quantity,
@@ -553,7 +546,10 @@ function dosomething_reportback_set_files(&$entity, $values) {
  */
 function dosomething_reportback_entity_insert($entity, $type) {
   if ($type == 'reportback') {
-    dosomething_reportback_mbp_request($entity);
+    // Reload entity to grab the relevant node variables.
+    $reportback = reportback_load($entity->rbid);
+    // Pass it into mbp request.
+    dosomething_reportback_mbp_request($reportback);
   }
 }
 
