@@ -15,11 +15,14 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'search_block_form') {
     unset($form['search_block_form']['#attributes'], $form['search_block_form']['#title']);
     $form['search_block_form']['#theme'] = 'dosomething_search_field';
+    $form['#submit'] = array('dosomething_search_form_submit');
   }
-  elseif ($form_id == 'apachesolr_search_custom_page_search_form') {
+  elseif ($form_id == 'search_form' || $form_id == 'apachesolr_search_custom_page_search_form') {
     unset($form['basic']['keys']['#title']);
     $form['basic']['keys']['#theme'] = 'dosomething_search_field';
     $form['basic']['submit']['#attributes'] = array('class' => array('btn'));
+    $form['#action'] = url('search/apachesolr_search');
+    $form['#submit'] = array('dosomething_search_form_submit');
   }
 }
 
@@ -144,18 +147,8 @@ function dosomething_search_preprocess_search_results(&$vars) {
 function dosomething_search_theme() {
   return array(
     'dosomething_search_field' => array(
-      'variables' => array(
-        'element' => array(
-          '#title' => NULL,
-          '#value' => NULL,
-          '#description' => NULL,
-          '#size' => NULL,
-          '#maxlength' => NULL,
-          '#required' => NULL,
-          '#attributes' => NULL,
-          '#autocomplete_path' => NULL,
-        ),
-      ),
+      'arguments' => array('element' => NULL),
+      'render element' => 'element'
     ),
   );
 }
@@ -192,4 +185,16 @@ function theme_dosomething_search_field($variables) {
   $output = '<input' . drupal_attributes($element['#attributes']) . ' />';
 
   return $output . $extra;
+}
+
+function dosomething_search_form_submit($form, &$form_state) {
+  $keys = $form['#form_id'] == 'search_block_form' ? $form_state['values'][$form['#form_id']] : $form_state['values']['keys'];
+  if ($keys == '') {
+    form_set_error('keys', t('Please enter some keywords.'));
+  }
+  else {
+    // Fall through to the form redirect.
+    $form_state['action'] = url('search/apachesolr_search');
+    $form_state['redirect'] =  'search/apachesolr_search/' . $keys;
+  }
 }
