@@ -18,14 +18,16 @@
   </header>
 
   <div class="content-wrapper">
-    <nav id="nav" class="navigation js-sticky">
-      <ul>
-        <li><a class="plain js-jump-scroll js-scroll-indicator" href="#know">know</a></li>
-        <li><a class="plain js-jump-scroll js-scroll-indicator" href="#plan">plan</a></li>
-        <li><a class="plain js-jump-scroll js-scroll-indicator" href="#do">do</a></li>
-        <li><a class="primary js-jump-scroll js-scroll-indicator" href="#prove">prove it</a></li>
-      </ul>
-    </nav>
+    <div class="navigation--wrapper">
+      <nav id="nav" class="navigation js-sticky">
+        <ul>
+          <li><a class="plain js-jump-scroll js-scroll-indicator" href="#know">know</a></li>
+          <li><a class="plain js-jump-scroll js-scroll-indicator" href="#plan">plan</a></li>
+          <li><a class="plain js-jump-scroll js-scroll-indicator" href="#do">do</a></li>
+          <li><a class="primary js-jump-scroll js-scroll-indicator" href="#prove">prove it</a></li>
+        </ul>
+      </nav>
+    </div>
 
     <h2 id="know" class="step-header"><span class="shift">Step 1: Know It</span></h2>
     <section class="know step">
