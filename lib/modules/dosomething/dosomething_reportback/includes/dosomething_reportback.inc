@@ -20,11 +20,17 @@ class ReportbackEntity extends Entity {
   }
 
   /**
-   * Override construct to set a calculated fids property.
+   * Override construct to set calculated properties.
    */
   public function __construct(array $values = array(), $entityType = NULL) {
     parent::__construct($values, $entityType);
+    // Set the reportback file fids as an array.
     $this->fids = $this->getFids();
+    // Set properties found on the reportback's node nid.
+    $this->node_title = $this->getNodeTitle();
+    $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
+    $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+
   }
 
   /**
@@ -36,6 +42,37 @@ class ReportbackEntity extends Entity {
       ->condition('rbid', $this->rbid)
       ->execute()
       ->fetchCol();
+  }
+
+  /**
+   * Returns the node title of the $entity->nid.
+   */
+  public function getNodeTitle() {
+    $result = db_select('node', 'n')
+      ->fields('n', array('title'))
+      ->condition('nid', $this->nid)
+      ->execute()
+      ->fetchCol();
+    if ($result) {
+      return $result[0];
+    }
+    return NULL;
+  }
+
+  /**
+   * Returns a single text value for a given $field_name for the $entity->nid.
+   */
+  public function getNodeSingleTextValue($field_name) {
+    $result = db_select('field_data_' . $field_name, 'f')
+      ->fields('f', array($field_name . '_value'))
+      ->condition('entity_id', $this->nid)
+      ->condition('entity_type', 'node')
+      ->execute()
+      ->fetchCol();
+    if ($result) {
+      return $result[0];
+    }
+    return NULL;
   }
 
   /**
@@ -113,8 +150,6 @@ class ReportbackEntityController extends EntityAPIController {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
     // Load user to get username.
     $account = user_load($entity->uid);
-    // Load node to output relevant reportback variables.
-    $node_wrapper = entity_metadata_wrapper('node', $entity->nid);
     $build['username'] = array(
       '#type' => 'markup',
       '#markup' => l($account->name, 'user/' . $account->uid),
@@ -122,7 +157,7 @@ class ReportbackEntityController extends EntityAPIController {
 
     $build['node_title'] = array(
       '#type' => 'markup',
-      '#markup' => l($node_wrapper->title->value(), 'node/' . $entity->nid),
+      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
     );
     foreach ($entity->getThemedImages('300x300') as $delta => $image) {
       $build['file_' . $delta] = array(
@@ -132,15 +167,15 @@ class ReportbackEntityController extends EntityAPIController {
     }
     $build['quantity_count'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->quantity,
+      '#markup' => check_plain($entity->quantity),
     );
     $build['quantity_label'] = array(
       '#type' => 'markup',
-      '#markup' => $node_wrapper->field_reportback_noun->value() . ' ' . $node_wrapper->field_reportback_verb->value(),
+      '#markup' => $entity->noun . ' ' . $entity->verb,
     );
     $build['why_participated'] = array(
       '#type' => 'markup',
-      '#markup' => $entity->why_participated,
+      '#markup' => check_plain($entity->why_participated),
     );
     return $build;
   }
