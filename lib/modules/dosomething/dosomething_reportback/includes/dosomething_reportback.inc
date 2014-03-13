@@ -150,8 +150,6 @@ class ReportbackEntityController extends EntityAPIController {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
     // Load user to get username.
     $account = user_load($entity->uid);
-    // Load node to output relevant reportback variables.
-    $node_wrapper = entity_metadata_wrapper('node', $entity->nid);
     $build['username'] = array(
       '#type' => 'markup',
       '#markup' => l($account->name, 'user/' . $account->uid),
@@ -159,7 +157,7 @@ class ReportbackEntityController extends EntityAPIController {
 
     $build['node_title'] = array(
       '#type' => 'markup',
-      '#markup' => l($node_wrapper->title->value(), 'node/' . $entity->nid),
+      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
     );
     foreach ($entity->getThemedImages('300x300') as $delta => $image) {
       $build['file_' . $delta] = array(
@@ -173,7 +171,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['quantity_label'] = array(
       '#type' => 'markup',
-      '#markup' => $node_wrapper->field_reportback_noun->value() . ' ' . $node_wrapper->field_reportback_verb->value(),
+      '#markup' => $entity->noun . ' ' . $entity->verb,
     );
     $build['why_participated'] = array(
       '#type' => 'markup',
