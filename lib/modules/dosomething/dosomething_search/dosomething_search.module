@@ -15,6 +15,7 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'search_block_form') {
     unset($form['search_block_form']['#attributes'], $form['search_block_form']['#title']);
     $form['search_block_form']['#theme'] = 'dosomething_search_field';
+    $form['#action'] = url('search/apachesolr_search');
     $form['#submit'] = array('dosomething_search_form_submit');
   }
   elseif ($form_id == 'search_form' || $form_id == 'apachesolr_search_custom_page_search_form') {
