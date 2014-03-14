@@ -394,11 +394,7 @@ function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
     if (module_exists('dosomething_legacy') && dosomething_legacy_check($node)) {
       if (dosomething_signup_exists($node->nid)) {
         // If the user is signed up redirect to old world campaign page.
-        dosomething_legacy_goto($node->nid, TRUE);
-      }
-      if (!dosomething_signup_exists($node->nid)) {
-        // If not signed up, old world join page.
-        dosomething_legacy_goto($node->nid, FALSE);
+        dosomething_legacy_goto($node->nid);
       }
     }
   }

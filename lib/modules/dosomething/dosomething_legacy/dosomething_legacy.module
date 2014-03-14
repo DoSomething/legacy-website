@@ -25,14 +25,8 @@ function dosomething_legacy_check($node) {
  *
  * @param int $nid
  *  Old world nid.
- * @param bool $signedup
- *  True if user is signed up for campaign, else false.
  */
-function dosomething_legacy_goto($nid, $signedup) {
-  if ($signedup) {
-    drupal_goto('https://www.dosomething.org/node/' . MOMM_NID_LEGACY);
-  }
-  else {
-    drupal_goto('https://www.dosomething.org/campaign/join/' . MOMM_NID_LEGACY);
-  }
+function dosomething_legacy_goto($nid) {
+  drupal_goto('https://www.dosomething.org/node/' . MOMM_NID_LEGACY);
+
 }
