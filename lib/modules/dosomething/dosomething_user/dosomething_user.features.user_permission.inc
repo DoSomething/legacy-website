@@ -227,13 +227,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'administer search'.
-  $permissions['administer search'] = array(
-    'name' => 'administer search',
-    'roles' => array(),
-    'module' => 'search',
-  );
-
   // Exported permission: 'administer site configuration'.
   $permissions['administer site configuration'] = array(
     'name' => 'administer site configuration',
