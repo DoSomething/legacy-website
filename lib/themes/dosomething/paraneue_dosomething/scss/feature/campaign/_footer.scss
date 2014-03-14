@@ -3,7 +3,7 @@
 // ------------
 footer.boilerplate {
   padding: 0.5rem 1.5rem;
-  background: $off-black;
+  background: #111; // Should we darken the default $off-black variable? @TODO
   text-align: center;
 }
 
