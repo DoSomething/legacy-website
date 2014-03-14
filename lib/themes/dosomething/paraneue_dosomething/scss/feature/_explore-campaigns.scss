@@ -20,17 +20,19 @@
   }
 }
 
-.page-campaigns, .view-header, h1 {
+.page-campaigns, .header-wrapper {
   background: $purple;
 }
 
 .view-explore-campaigns {
   background: #fff;
 
-  // Set gutters on mobile
-  @include outer-container-margin();
-  @include media($tablet) {
-    @include outer-container;
+  .header-wrapper, .content-wrapper {
+    // Set gutters on mobile
+    @include outer-container-margin();
+    @include media($tablet) {
+      @include outer-container;
+    }
   }
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this
@@ -60,47 +62,34 @@
   }
 
   .view-content {
-    margin: 0 auto 2rem;
+    margin: 2rem auto;
 
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
     }
 
-    // Pagination styles
-    // .pager li {
-    //   display: inline-block;
-    //   padding: 0 1rem 0 0;
-    // }
+    .search-result {
+      text-align: center;
+      margin-bottom: 3rem;
+
+      @include media($tablet) {
+	// @TODO: Something's messed up here
+	@include span-columns(5);
+	@include omega(3n);
+      }
+
+      .gallery-description, h3 {
+	text-align: center;
+      }
+
+      h3 {
+	margin-bottom: 5px;
+      }
+
+      img {
+	max-width: 100%;
+      }
+    }
   }
 }
-
-  // .gallery {
-  //   padding-top: 35px;
-  // }
-
-  // .gallery-item {
-  //   text-align: center;
-
-  //   @include media($tablet) {
-  //     @include span-columns(4 of 12);
-  //   }
-
-  //   .gallery-description, h3 {
-  //     text-align: center;
-  //   }
-
-  //   h3 {
-  //     margin-bottom: 5px;
-  //   }
-
-  //   img {
-  //     max-width: 100%;
-  //   }
-  // }
-
-  // .gallery-item:nth-child(3n+0) {
-  //   @include media($tablet) {
-  //     @include omega();
-  //   }
-  // }
