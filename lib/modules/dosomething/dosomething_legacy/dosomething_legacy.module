@@ -3,8 +3,7 @@
  * @file
  * Code for the DoSomething Legacy module.
  */
-define('MOMM_NID', 850);
-define('MOMM_NID_LEGACY', 731098);
+
 /**
  * Determines if a campaign is a legacy campaign.
  *
@@ -14,7 +13,8 @@ define('MOMM_NID_LEGACY', 731098);
  *  Returns true if node is a legacy campaign, else false.
  */
 function dosomething_legacy_check($node) {
-  if ($node->nid == MOMM_NID) {
+  $momm = variable_get('MOMM');
+  if ($node->nid == $momm['beta']) {
     return TRUE;
   }
   return FALSE;
@@ -27,6 +27,7 @@ function dosomething_legacy_check($node) {
  *  Old world nid.
  */
 function dosomething_legacy_goto($nid) {
-  drupal_goto('https://www.dosomething.org/node/' . MOMM_NID_LEGACY);
+  $momm = variable_get('MOMM');
+  drupal_goto('https://www.dosomething.org/node/' . $momm['legacy']);
 
 }
