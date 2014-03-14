@@ -20,6 +20,7 @@
   }
 }
 
+// Make the whole page purple, then we'll make the content wrapper white!
 .page-campaigns, .header-wrapper {
   background: $purple;
 }
@@ -27,8 +28,8 @@
 .view-explore-campaigns {
   background: #fff;
 
+  // Set gutters on mobile
   .header-wrapper, .content-wrapper {
-    // Set gutters on mobile
     @include outer-container-margin();
     @include media($tablet) {
       @include outer-container;
