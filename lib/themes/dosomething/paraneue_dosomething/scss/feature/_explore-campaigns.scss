@@ -21,7 +21,7 @@
 }
 
 // Make the whole page purple, then we'll make the content wrapper white!
-.page-campaigns, .header-wrapper {
+.page-campaigns {
   background: $purple;
 }
 
@@ -34,6 +34,10 @@
     @include media($tablet) {
       @include outer-container;
     }
+  }
+
+  .header-wrapper {
+    background: $purple;
   }
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this
