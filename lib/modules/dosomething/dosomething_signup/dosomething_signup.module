@@ -22,7 +22,15 @@ function dosomething_signup_menu() {
     'access arguments' => array('administer third party communication'),
     'file' => 'dosomething_signup.admin.inc'
   );
-
+  $items['node/%node/unsignup'] = array(
+    'title' => 'Remove signup',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_node_unsignup_form', 1),
+    'access callback' => 'dosomething_signup_node_unsignup_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 70,
+  );
   return $items;
 }
 
@@ -38,6 +46,15 @@ function dosomething_signup_permission() {
 );
 }
 
+/**
+ * Implements hook_admin_paths().
+ */
+function dosomething_signup_admin_paths() {
+  $paths = array(
+    'node/*/signups' => TRUE,
+  );
+  return $paths;
+}
 /**
  * Insert a user signup.
  *
@@ -97,10 +114,12 @@ function dosomething_signup_delete($nid, $uid = NULL) {
       ->condition('uid', $uid)
       ->condition('nid', $nid)
       ->execute();
+    return TRUE;
   }
   catch (Exception $e) {
     watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
   }
+  return FALSE;
 }
 
 /**
@@ -356,4 +375,57 @@ function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query->condition('uid', $uid);
   $result = $query->execute();
   return array_keys($result->fetchAllAssoc('nid'));
+}
+
+/**
+ * Access callback for node unsignup page.
+ *
+ * @param object $node
+ *   Loaded node to unsignup from.
+ *
+ * @return bool
+ *   Whether or not logged in user can remove signup (and if it exists).
+ */
+function dosomething_signup_node_unsignup_access($node) {
+  // Only allow access if user staff and is signed up.
+  return dosomething_user_is_staff() && dosomething_signup_exists($node->nid);
+}
+
+/**
+ * Form constructor for a node unsignup form.
+ *
+ * @param int $nid
+ *   The node nid to remove signup from.
+ *
+ * @ingroup forms
+ */
+function dosomething_signup_node_unsignup_form($form, &$form_state, $node) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $node->nid,
+  );
+  $form['warning'] = array(
+    '#markup' => t("Are you sure you want to remove this signup?  This cannot be undone."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Form submit handler for dosomething_signup_node_unsignup_form().
+ */
+function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  if (dosomething_signup_delete($nid)) {
+    drupal_set_message("Signup removed.");
+    $form_state['redirect'] = 'node/' . $nid;
+    return;
+  }
+  drupal_set_message("There was an error with your request.");
 }

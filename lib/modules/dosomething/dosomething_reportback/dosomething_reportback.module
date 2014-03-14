@@ -612,7 +612,7 @@ function dosomething_reportback_mbp_request($entity) {
  * Implements hook_views_data().
  */
 function dosomething_reportback_views_data() {
-  $data['dosomething_reportback_file']['table']['group'] = t('Reportback');
+  $data['dosomething_reportback_file']['table']['group'] = t('Reportbacks');
   $data['dosomething_reportback_file']['table']['base'] = array(
     'field' => 'rbid', // This is the identifier field for the view.
     'title' => t('Reportback images'),

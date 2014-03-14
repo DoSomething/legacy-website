@@ -15,7 +15,7 @@ function dosomething_reportback_views_default_views() {
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'dosomething_reportback';
-  $view->human_name = 'Campaign Reportbacks';
+  $view->human_name = 'Node Reportbacks';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -103,7 +103,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'dosomething_reportback';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Relationship: Reportback: Reportback image fid */
+  /* Relationship: Reportbacks: Reportback image fid */
   $handler->display->display_options['relationships']['fid']['id'] = 'fid';
   $handler->display->display_options['relationships']['fid']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['relationships']['fid']['field'] = 'fid';
