@@ -27,6 +27,6 @@
 
   <footer class="boilerplate">
     <strong>A DoSomething.org Campaign</strong>
-    <span>Join over 2.4 million young people taking action. Any Cause. Anytime. Anywhere.</span>
+    <span>A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. *Mic drop</span>
   </footer>
 </section>
