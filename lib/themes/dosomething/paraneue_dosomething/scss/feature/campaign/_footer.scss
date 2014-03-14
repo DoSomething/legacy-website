@@ -18,6 +18,7 @@ footer.sponsors {
 
   .sponsor-wrapper {
     float: none;
+    color: #fff;
 
     @include media( $tablet ) {
       float: left;
@@ -26,6 +27,7 @@ footer.sponsors {
 
   .help-wrapper {
     display: none;
+    color: #fff;
 
     @include media( $tablet ) {
       display: block;

@@ -298,7 +298,7 @@
           </div>
           <?php endif; ?>
 
-          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link">Give us a shout</a></div>
+          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Give us a shout</a></div>
         </div>
       </footer>
 
