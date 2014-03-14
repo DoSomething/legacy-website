@@ -61,6 +61,10 @@
       @include span-columns(6);
       @include shift(1);
     }
+
+    figure img {
+      width: 100%;
+    }
   }
 
   .slide-wrapper {
