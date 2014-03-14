@@ -23,7 +23,6 @@ dependencies[] = node
 dependencies[] = options
 dependencies[] = path
 dependencies[] = pathauto
-dependencies[] = search
 dependencies[] = simpletest
 dependencies[] = strongarm
 dependencies[] = system
