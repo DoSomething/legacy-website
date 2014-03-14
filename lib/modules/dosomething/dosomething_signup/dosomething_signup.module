@@ -23,12 +23,13 @@ function dosomething_signup_menu() {
     'file' => 'dosomething_signup.admin.inc'
   );
   $items['node/%node/unsignup'] = array(
-    'title callback' => 'Remove Signup',
+    'title' => 'Remove signup',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_signup_node_unsignup_form', 1),
     'access callback' => 'dosomething_signup_node_unsignup_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 70,
   );
   return $items;
 }

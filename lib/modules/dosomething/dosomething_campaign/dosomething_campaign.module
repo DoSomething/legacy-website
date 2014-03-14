@@ -32,6 +32,7 @@ function dosomething_campaign_menu() {
     'access callback' => '_dosomething_campaign_pitch_page_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 60,
   );
   // User reportback confirmation page.
   $items['node/%node/confirmation'] = array(
