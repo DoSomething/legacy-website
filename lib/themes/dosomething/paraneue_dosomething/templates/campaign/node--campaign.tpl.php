@@ -206,10 +206,12 @@
           <a href="#" class="js-close-modal modal-close-button white">×</a>
 
           <h2 class="banner">Tips</h2>
-          <?php foreach ($faq as $item): ?>
-            <h4 class="inline--alt-color"><?php print $item['header']; ?></h4>
-            <div><?php print $item['copy']; ?></div>
-          <?php endforeach; ?>
+          <?php if (is_array($faq)): ?>
+            <?php foreach ($faq as $item): ?>
+              <h4 class="inline--alt-color"><?php print $item['header']; ?></h4>
+              <div><?php print $item['copy']; ?></div>
+            <?php endforeach; ?>
+          <?php endif; ?>
 
           <a href="#" class="js-close-modal">Back to main page</a>
         </script>
