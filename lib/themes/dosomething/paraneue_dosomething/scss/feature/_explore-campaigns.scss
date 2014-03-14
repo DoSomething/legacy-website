@@ -3,6 +3,104 @@
 //  EXPLORE CAMPAIGNS
 // -------------------
 
-.view-explore-campaigns {
+// @TODO: White Navigation -- Ugh -- At least mixin this
+.page-campaigns {
+  .nav--wrapper {
+    .hamburger {
+      color: #fff !important;
+    }
+    a {
+      color: #fff !important;
+    }
 
+    .secondary-nav input[type="search"] {
+      border: 1px solid #fff;
+      background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
+    }
+  }
+}
+
+.page-campaigns, .view-header, h1 {
+  background: $purple;
+}
+
+.view-explore-campaigns {
+  background: #fff;
+
+  // Set gutters on mobile
+  @include outer-container-margin();
+  @include media($tablet) {
+    @include outer-container;
+  }
+
+  // @TODO: Default content page headers -- same as campaign template -- abstract this
+  .view-header {
+    text-align: center;
+    @include media($tablet) {
+      text-align: left;
+    }
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+
+    h1 {
+      color: #fff;
+      @include media($tablet) {
+        font-size: $font-larger;
+      }
+    }
+
+    h3 {
+      color: #fff;
+      font-weight: $weight-normal;
+      margin-top: -25px;
+    }
+  }
+
+  .view-content {
+    margin: 0 auto 2rem;
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+
+    // Pagination styles
+    // .pager li {
+    //   display: inline-block;
+    //   padding: 0 1rem 0 0;
+    // }
+  }
 } 
+
+  // .gallery {
+  //   padding-top: 35px;
+  // }
+
+  // .gallery-item {
+  //   text-align: center;
+
+  //   @include media($tablet) {
+  //     @include span-columns(4 of 12);
+  //   }
+
+  //   .gallery-description, h3 {
+  //     text-align: center;
+  //   }
+
+  //   h3 {
+  //     margin-bottom: 5px;
+  //   }
+
+  //   img {
+  //     max-width: 100%;
+  //   }
+  // }
+
+  // .gallery-item:nth-child(3n+0) {
+  //   @include media($tablet) {
+  //     @include omega();
+  //   }
+  // }
