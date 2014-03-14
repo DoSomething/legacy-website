@@ -8,7 +8,7 @@
 function paraneue_dosomething_preprocess_page_html5shiv(&$vars, $hook) {
   $html5shiv = array(
     '#type' => 'markup',
-    '#markup' => '<!--[if lte IE 8]> <script type="text/javascript" src="' . NEUE_PATH . '/bower_components/dist/html5shiv.js' . '"></script> <![endif]-->'
+    '#markup' => '<!--[if lte IE 8]> <script type="text/javascript" src="' . PARANEUE_DS_PATH .'/bower_components/html5shiv/dist/html5shiv.js' . '"></script> <![endif]-->'
   );
 
   drupal_add_html_head($html5shiv, 'html5shiv');

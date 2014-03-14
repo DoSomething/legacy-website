@@ -4,6 +4,8 @@ include 'template_hooks/preprocess_page/html5shiv.php';
 include 'template_hooks/form_alter/login.php';
 include 'template_hooks/form_alter/register.php';
 
+define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+
 /**
  * Implements hook_preprocess_page().
  */
