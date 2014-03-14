@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Legacy module.
+ */
+define('MOMM_NID', 850);
+define('MOMM_NID_LEGACY', 731098);
+/**
+ * Determines if a campaign is a legacy campaign.
+ *
+ * @param object $node
+ *  A node object.
+ * @return bool
+ *  Returns true if node is a legacy campaign, else false.
+ */
+function dosomething_legacy_check($node) {
+  if ($node->nid == MOMM_NID) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Handles redirects to the legacy app.
+ *
+ * @param int $nid
+ *  Old world nid.
+ * @param bool $signedup
+ *  True if user is signed up for campaign, else false.
+ */
+function dosomething_legacy_goto($nid, $signedup) {
+  if ($signedup) {
+    drupal_goto('https://www.dosomething.org/node/' . MOMM_NID_LEGACY);
+  }
+  else {
+    drupal_goto('https://www.dosomething.org/campaign/join/' . MOMM_NID_LEGACY);
+  }
+}
