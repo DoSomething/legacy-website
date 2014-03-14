@@ -46,6 +46,15 @@ function dosomething_signup_permission() {
 }
 
 /**
+ * Implements hook_admin_paths().
+ */
+function dosomething_signup_admin_paths() {
+  $paths = array(
+    'node/*/signups' => TRUE,
+  );
+  return $paths;
+}
+/**
  * Insert a user signup.
  *
  * @param int $nid
