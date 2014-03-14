@@ -282,7 +282,7 @@
         </div>
       <?php else: ?>
       <div class="carousel-wrapper">
-        <figure class="slide visible"><img src="/profiles/dosomething/themes/dosomething/paraneue_dosomething/images/this-could-be-you.jpg" alt="This could be you!" /></figure>
+        <figure class="slide visible"><?php print $reportback_placeholder; ?></figure>
         </div>
       <?php endif; ?>
       </div>
