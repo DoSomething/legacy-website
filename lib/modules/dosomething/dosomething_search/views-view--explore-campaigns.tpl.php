@@ -31,8 +31,8 @@
   <?php if ($header): ?>
     <div class="header-wrapper">
       <div class="view-header">
-	<h1>Campaigns</h1>
-	<?php print $header; ?>
+        <h1>Campaigns</h1>
+        <?php print $header; ?>
       </div>
     </div>
   <?php endif; ?>

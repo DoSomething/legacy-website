@@ -55,7 +55,7 @@
     h1 {
       color: #fff;
       @include media($tablet) {
-	font-size: $font-larger;
+        font-size: $font-larger;
       }
     }
 
@@ -79,21 +79,21 @@
       margin-bottom: 3rem;
 
       @include media($tablet) {
-	// @TODO: Something's messed up here
-	@include span-columns(5);
-	@include omega(3n);
+        // @TODO: Something's messed up here
+        @include span-columns(5);
+        @include omega(3n);
       }
 
       .gallery-description, h3 {
-	text-align: center;
+        text-align: center;
       }
 
       h3 {
-	margin-bottom: 5px;
+        margin-bottom: 5px; 
       }
 
       img {
-	max-width: 100%;
+        max-width: 100%;
       }
     }
   }
