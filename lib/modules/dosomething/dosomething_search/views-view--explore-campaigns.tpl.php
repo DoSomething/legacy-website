@@ -29,9 +29,11 @@
 ?>
 <div class="<?php print $classes; ?>">
   <?php if ($header): ?>
-    <div class="view-header">
-      <h1>Campaigns</h1>
-      <?php print $header; ?>
+    <div class="header-wrapper">
+      <div class="view-header">
+        <h1>Campaigns</h1>
+        <?php print $header; ?>
+      </div>
     </div>
   <?php endif; ?>
 
@@ -48,8 +50,10 @@
   <?php endif; ?>
 
   <?php if ($rows): ?>
-    <div class="view-content">
+    <div class="content-wrapper">
+      <div class="view-content">
       <?php print $rows; ?>
+      </div>
     </div>
   <?php elseif ($empty): ?>
     <div class="view-empty">
