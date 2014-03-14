@@ -254,7 +254,7 @@
         <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
         <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
-        <?php if (isset($official_rules_src)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
+        <?php if (isset($official_rules)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
         <script id="modal-report-back" class="modal--reportback inline--alt-bg" type="text/cached-modal">
