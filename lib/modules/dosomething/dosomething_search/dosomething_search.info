@@ -13,6 +13,7 @@ features[ctools][] = apachesolr:apachesolr_environments:1
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
+features[user_permission][] = administer search
 features[user_permission][] = search content
 features[variable][] = search_active_modules
 features[variable][] = search_default_module
