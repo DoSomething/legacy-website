@@ -28,9 +28,9 @@
  */
 ?>
 <div class="<?php print $classes; ?>">
-  <h1>Campaigns</h1>
   <?php if ($header): ?>
     <div class="view-header">
+      <h1>Campaigns</h1>
       <?php print $header; ?>
     </div>
   <?php endif; ?>
