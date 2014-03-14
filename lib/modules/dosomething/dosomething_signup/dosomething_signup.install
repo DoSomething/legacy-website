@@ -47,3 +47,17 @@ function dosomething_signup_schema() {
   );
   return $schema;
 }
+
+/**
+ * Adds a data colum to the signup table.
+ */
+function dosomething_signup_update_7001() {
+  $spec = array(
+    'type' => 'text',
+    'description' => 'Signup data',
+    'length' => 255,
+    'not null' => FALSE,
+    'default' => NULL,
+  );
+  db_add_field('dosomething_signup', 'data', $spec);
+}

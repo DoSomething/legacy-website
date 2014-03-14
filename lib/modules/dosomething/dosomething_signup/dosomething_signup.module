@@ -63,6 +63,8 @@ function dosomething_signup_admin_paths() {
  * @param int $uid
  *   Optional - the user uid who has signed up.
  *   If not provided, uses global $user->uid.
+ * @param text $data
+ *   Optional - serialized data.
  * @param int $timestamp
  *   Optional - the timestamp of the signup.
  *   If not provided, uses @dries time.
@@ -70,7 +72,7 @@ function dosomething_signup_admin_paths() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_insert($nid, $uid = NULL, $timestamp = NULL) {
+function dosomething_signup_insert($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
@@ -80,6 +82,7 @@ function dosomething_signup_insert($nid, $uid = NULL, $timestamp = NULL) {
         ->fields(array(
           'uid' => $uid,
           'nid' => $nid,
+          'data' => $data,
           'timestamp' => isset($timestamp) ? $timestamp : REQUEST_TIME,
         )
       )

@@ -5,7 +5,7 @@
  *
  * to run:
  * grab the latest signup data from production.
- *  SELECT uid, nid, timestamp from dosomething_campaign_signups
+ *  SELECT uid, nid, timestamp, data from dosomething_campaign_signups
  *  WHERE nid = 731234
  *  OR nid = 731098;
  *
@@ -34,6 +34,6 @@ foreach ($result as $signup) {
   else if ($signup->nid = PBJ_OLD) {
     $nid = PBJ;
   }
-  dosomething_signup_insert($nid, $signup->uid, $signup->timestamp);
+  dosomething_signup_insert($nid, $signup->uid, $signup->data, $signup->timestamp);
   }
 
