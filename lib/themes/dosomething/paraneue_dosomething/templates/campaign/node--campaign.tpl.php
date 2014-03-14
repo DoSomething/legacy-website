@@ -282,8 +282,7 @@
         </div>
       <?php else: ?>
       <div class="carousel-wrapper">
-        <?php //@TODO: Remove Trello-hosted placeholder ?>
-        <figure class="slide visible"><img src="https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/62291511fcc8d763184a04a99db007b7/placeholder.jpg" alt="This could be you!" /></figure>
+        <figure class="slide visible"><?php print $reportback_placeholder; ?></figure>
         </div>
       <?php endif; ?>
       </div>
