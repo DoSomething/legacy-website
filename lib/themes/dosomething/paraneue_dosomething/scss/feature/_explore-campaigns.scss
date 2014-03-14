@@ -30,7 +30,7 @@
 
   // Set gutters on mobile
   .header-wrapper, .content-wrapper {
-    @include outer-container-margin();
+    padding: 0 1rem;
     @include media($tablet) {
       @include outer-container;
     }
