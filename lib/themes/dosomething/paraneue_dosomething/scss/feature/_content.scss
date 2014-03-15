@@ -95,7 +95,7 @@
         @include span-columns(6 of 12);
       }
     }
-    img, video {
+    img, iframe {
       @include media($tablet) {
         @include span-columns(6 of 12);
         @include omega();
