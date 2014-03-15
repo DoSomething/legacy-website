@@ -38,6 +38,11 @@
     text-decoration: underline;
   }
 
+  li {
+    list-style-type: disc;
+    margin: 0 0 0 20px;
+  }
+
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
