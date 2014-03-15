@@ -29,6 +29,15 @@
     color: $purple;
   }
 
+   // @TODO: Abstract all of these base styles to ds-neue
+  a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
