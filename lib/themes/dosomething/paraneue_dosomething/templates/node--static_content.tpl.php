@@ -37,8 +37,8 @@
   
     <?php if (isset($galleries)): ?>
       <div class="gallery-wrapper">
-        <div class="gallery">
-          <?php foreach ($galleries as $gallery): ?>
+	<?php foreach ($galleries as $gallery): ?>
+	  <div class="gallery">
             <div class="gallery-item">
               <?php if (isset($gallery['title'])): ?>
                 <?php print $gallery['title']; ?>
@@ -55,8 +55,8 @@
                 <?php endif; ?>
               <?php endforeach; ?>
             </div>
-          <?php endforeach; ?>
-        </div>
+	  </div>
+	<?php endforeach; ?>
       </div>
     <? endif; ?>
 
