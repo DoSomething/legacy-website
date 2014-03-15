@@ -5,7 +5,7 @@
       <header class="header">
         <h1 class="title"><?php print $title; ?></h1>
         <?php if (isset($subtitle)): ?>
-	  <h3 class="subtitle"><?php print $subtitle; ?></h3>
+    <h3 class="subtitle"><?php print $subtitle; ?></h3>
         <?php endif; ?>
       </header>
     </div>
@@ -29,7 +29,7 @@
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
         <div class="cta">
-	  <h3><?php print $call_to_action; ?></h3>
+    <h3><?php print $call_to_action; ?></h3>
           <div class="cta_button"><?php print $cta_link; ?></div>
         </div>
       </div>
@@ -39,17 +39,22 @@
       <div class="gallery-wrapper">
         <div class="gallery">
           <?php foreach ($galleries as $gallery): ?>
-	  <div class="gallery-item">
-	    <?php if (isset($gallery['image'])): ?>
-	      <?php print $gallery['image']; ?>
-	    <?php endif; ?>
-	    <?php if (isset($gallery['image_title'])): ?>
-              <h3><?php print $gallery['image_title']; ?></h3>
-            <?php endif; ?>
-	    <?php if (isset($gallery['image_description'])): ?>
-	      <div class="gallery-description"><?php print $gallery['image_description']; ?></div>
-            <?php endif; ?>
-	  </div>
+            <div class="gallery-item">
+              <?php if (isset($gallery['title'])): ?>
+                <?php print $gallery['title']; ?>
+              <?php endif; ?>
+              <?php foreach ($gallery['items'] as $gallery_item): ?>
+                <?php if (isset($gallery_item['image'])): ?>
+                  <?php print $gallery_item['image']; ?>
+                <?php endif; ?>
+                <?php if (isset($gallery_item['image_title'])): ?>
+                    <h3><?php print $gallery_item['image_title']; ?></h3>
+                <?php endif; ?>
+                <?php if (isset($gallery_item['image_description'])): ?>
+                  <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -70,7 +75,7 @@
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
         <div class="cta">
-	  <h3><?php print $call_to_action; ?></h3>
+    <h3><?php print $call_to_action; ?></h3>
           <div class="cta_button"><?php print $cta_link; ?></div>
         </div>
       </div>
