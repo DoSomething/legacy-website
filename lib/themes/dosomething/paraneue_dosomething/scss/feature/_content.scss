@@ -52,7 +52,7 @@
   }
 
   // Set margins on desktop
-  .cta, .header, .intro, .additional-text {
+  .cta, .header, .intro, .additional-text, .gallery-title {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);

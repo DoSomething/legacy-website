@@ -38,10 +38,10 @@
     <?php if (isset($galleries)): ?>
       <div class="gallery-wrapper">
         <?php foreach ($galleries as $gallery): ?>
+          <?php if (isset($gallery['title'])): ?>
+            <h2 class="gallery-title"><?php print $gallery['title']; ?></h2>
+          <?php endif; ?>
           <div class="gallery">
-            <?php if (isset($gallery['title'])): ?>
-              <h2 class="gallery-title"><?php print $gallery['title']; ?></h2>
-            <?php endif; ?>
             <?php foreach ($gallery['items'] as $gallery_item): ?>
               <div class="gallery-item">
                 <?php if (isset($gallery_item['image'])): ?>
