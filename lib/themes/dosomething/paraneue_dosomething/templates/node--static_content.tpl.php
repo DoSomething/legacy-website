@@ -40,20 +40,15 @@
         <div class="gallery">
           <?php foreach ($galleries as $gallery): ?>
             <div class="gallery-item">
-              <?php if (isset($gallery['title'])): ?>
-                <?php print $gallery['title']; ?>
-              <?php endif; ?>
-              <?php foreach ($gallery['items'] as $gallery_item): ?>
-                <?php if (isset($gallery_item['image'])): ?>
-                  <?php print $gallery_item['image']; ?>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3><?php print $gallery_item['image_title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_description'])): ?>
-                  <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
-                <?php endif; ?>
-              <?php endforeach; ?>
+            <?php if (isset($gallery['image'])): ?>
+              <?php print $gallery['image']; ?>
+            <?php endif; ?>
+            <?php if (isset($gallery['image_title'])): ?>
+              <h3><?php print $gallery['image_title']; ?></h3>
+            <?php endif; ?>
+            <?php if (isset($gallery['image_description'])): ?>
+              <div class="gallery-description"><?php print $gallery['image_description']; ?></div>
+            <?php endif; ?>
             </div>
           <?php endforeach; ?>
         </div>

@@ -1,4 +1,3 @@
-
 // ----------------
 //  STATIC CONTENT
 // ----------------
@@ -29,17 +28,31 @@
     color: $purple;
   }
 
+   // @TODO: Abstract all of these base styles to ds-neue
+  a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  li {
+    list-style-type: disc;
+    margin: 0 0 0 20px;
+  }
+
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
-    @include row;
+    @include outer-container;
     @include media($tablet) {
       padding: 0;
     }
   }
 
   // Set margins on desktop
-  .cta, .header, .intro, .additional-text, .gallery {
+  .cta, .header, .intro, .additional-text {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
@@ -78,13 +91,13 @@
 
     .intro-content {
       @include media($tablet) {
-	@include span-columns(8 of 12);
+        @include span-columns(6 of 12);
       }
     }
-    img, video {
+    img, iframe {
       @include media($tablet) {
-	@include span-columns(4 of 12);
-	@include omega();
+        @include span-columns(6 of 12);
+        @include omega();
       }
     }
   }
@@ -102,13 +115,18 @@
 
   .gallery {
     padding-top: 35px;
+    @include media($tablet) {
+      @include shift(2 of 16);
+    }
   }
 
   .gallery-item {
     text-align: center;
 
+    // @TODO: This isn't correct, but it works for now. Try a "Table Grid" next.
     @include media($tablet) {
-      @include span-columns(4 of 12);
+      @include span-columns(4 of 14);
+      @include omega(3n);
     }
 
     .gallery-description, h3 {
@@ -121,12 +139,6 @@
 
     img {
       max-width: 100%;
-    }
-  }
-
-  .gallery-item:nth-child(3n+0) {
-    @include media($tablet) {
-      @include omega();
     }
   }
 
