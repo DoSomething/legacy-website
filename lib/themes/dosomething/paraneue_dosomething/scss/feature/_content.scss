@@ -44,7 +44,7 @@
 
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
-    padding: 1rem;
+    padding: 0 1rem;
     @include outer-container;
     @include media($tablet) {
       padding: 0;
@@ -52,7 +52,7 @@
   }
 
   // Set margins on desktop
-  .cta, .header, .intro, .additional-text {
+  .cta, .header, .intro, .additional-text, .gallery-title {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
@@ -87,7 +87,7 @@
   .intro {
     // @TODO: ಠ_ಠ
     margin-top: 20px;
-    margin-bottom: 55px;
+    margin-bottom: 20px;
 
     .intro-content {
       @include media($tablet) {
@@ -114,7 +114,7 @@
   }
 
   .gallery {
-    padding-top: 35px;
+    padding-top: 20px;
     @include media($tablet) {
       @include shift(2 of 16);
     }
@@ -148,7 +148,6 @@
     }
 
     // @TODO: ಠ_ಠ
-    margin-top: 20px;
-    margin-bottom: 55px;
+    margin: 20px 0;
   }
 }
