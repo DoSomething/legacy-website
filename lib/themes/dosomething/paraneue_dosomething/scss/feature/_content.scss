@@ -95,6 +95,7 @@
       }
     }
     img, iframe {
+      max-width: 100%;
       @include media($tablet) {
         @include span-columns(6 of 12);
         @include omega();
