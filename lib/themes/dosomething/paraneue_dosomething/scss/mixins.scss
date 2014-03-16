@@ -12,5 +12,10 @@
 
 // Helper to generate image URLs
 @function image-url($url) {
-  @return "images/#{$url}";
+  @return url("images/#{$url}");
+}
+
+// Helper to generate Neue URLs
+@function neue-image-url($url) {
+  @return url("/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/assets/images/#{$url}");
 }
