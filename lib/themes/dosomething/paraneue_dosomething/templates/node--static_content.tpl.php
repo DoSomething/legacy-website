@@ -16,7 +16,7 @@
           <h2><?php print $intro_title; ?></h2>
         <?php endif; ?>
         <?php if (isset($intro)): ?>
-          <div class="intro-content"><?php print $intro; ?></div>
+          <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
         <?php endif; ?>
         <?php if (isset($intro_image)): ?>
           <?php print $intro_image; ?>
