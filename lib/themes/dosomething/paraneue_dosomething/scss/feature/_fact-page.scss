@@ -36,8 +36,16 @@
     color: $purple;
   }
 
+  .header-wrapper {
+    padding: 7rem 1rem 1rem;
+    @include row;
+    @include media($tablet) {
+      padding: 7rem 0 0;
+    }
+  }
+
   // Set gutters on mobile
-  .header-wrapper, .intro-wrapper, .facts-wrapper, .sources-wrapper {
+  .intro-wrapper, .facts-wrapper, .sources-wrapper {
     padding: 1rem;
     @include row;
     @include media($tablet) {

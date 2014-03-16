@@ -10,6 +10,7 @@
     .hamburger {
       color: #fff !important;
     }
+
     a {
       color: #fff !important;
     }
@@ -28,11 +29,12 @@
     color: $purple;
   }
 
-   // @TODO: Abstract all of these base styles to ds-neue
+  // @TODO: Abstract all of these base styles to ds-neue
   a {
     font-weight: 600;
     text-decoration: none;
   }
+
   a:hover {
     text-decoration: underline;
   }
@@ -42,10 +44,18 @@
     margin: 0 0 0 20px;
   }
 
+  .header-wrapper {
+    padding: 7rem 1rem 0;
+    @include row; 
+    @include media($tablet) {
+      padding: 7rem 0 0;
+    }
+  }
+
   // Set gutters on mobile
-  .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
-    padding: 0 1rem;
-    @include outer-container;
+  .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
+    padding: 1rem;
+    @include row; 
     @include media($tablet) {
       padding: 0;
     }
