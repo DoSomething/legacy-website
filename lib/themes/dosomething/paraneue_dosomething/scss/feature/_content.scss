@@ -114,7 +114,7 @@
   }
 
   .gallery {
-    padding-top: 35px;
+    padding-top: 20px;
     @include media($tablet) {
       @include shift(2 of 16);
     }
@@ -148,7 +148,6 @@
     }
 
     // @TODO: ಠ_ಠ
-    margin-top: 20px;
-    margin-bottom: 55px;
+    margin: 20px 0;
   }
 }
