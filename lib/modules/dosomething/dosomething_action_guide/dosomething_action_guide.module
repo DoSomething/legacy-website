@@ -13,8 +13,7 @@ function dosomething_action_guide_preprocess_node(&$vars) {
   if ($vars['type'] != 'action_guide') { return; }
 
   if ($vars['view_mode'] == 'full') {
-    $node = menu_get_object();
-    $wrapper = entity_metadata_wrapper('node', $node);
+    $wrapper = entity_metadata_wrapper('node', $vars['nid']);
     $text_vars = array(
       'subtitle',
       'intro_title',

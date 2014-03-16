@@ -1,7 +1,6 @@
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <div>
-    <h1><?php print $title; ?></h1>
     <?php if (isset($subtitle)): ?>
       <h2><?php print $subtitle; ?></h2>
     <?php endif; ?>
