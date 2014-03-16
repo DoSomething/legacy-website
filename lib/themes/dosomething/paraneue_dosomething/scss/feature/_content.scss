@@ -44,7 +44,7 @@
 
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
-    padding: 1rem;
+    padding: 0 1rem;
     @include outer-container;
     @include media($tablet) {
       padding: 0;
