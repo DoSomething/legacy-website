@@ -143,11 +143,8 @@
   }
 
   .additional-text {
-    @include media($tablet) {
-      @include span-columns(8 of 12);
-    }
-
     // @TODO: ಠ_ಠ
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
