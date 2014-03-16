@@ -1,4 +1,3 @@
-
 // ----------------
 //  STATIC CONTENT
 // ----------------
@@ -124,6 +123,7 @@
   .gallery-item {
     text-align: center;
 
+    // @TODO: This isn't correct, but it works for now. Try a "Table Grid" next.
     @include media($tablet) {
       @include span-columns(4 of 14);
       @include omega(3n);
