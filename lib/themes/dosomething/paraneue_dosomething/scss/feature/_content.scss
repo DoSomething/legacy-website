@@ -46,14 +46,14 @@
   // Set gutters on mobile
   .header-wrapper, .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
-    @include row;
+    @include outer-container;
     @include media($tablet) {
       padding: 0;
     }
   }
 
   // Set margins on desktop
-  .cta, .header, .intro, .additional-text, .gallery {
+  .cta, .header, .intro, .additional-text {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
@@ -116,13 +116,17 @@
 
   .gallery {
     padding-top: 35px;
+    @include media($tablet) {
+      @include shift(2 of 16);
+    }
   }
 
   .gallery-item {
     text-align: center;
 
     @include media($tablet) {
-      @include span-columns(4 of 12);
+      @include span-columns(4 of 14);
+      @include omega(3n);
     }
 
     .gallery-description, h3 {
@@ -135,12 +139,6 @@
 
     img {
       max-width: 100%;
-    }
-  }
-
-  .gallery-item:nth-child(3n+0) {
-    @include media($tablet) {
-      @include omega();
     }
   }
 
