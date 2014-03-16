@@ -624,11 +624,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['location_finder_url'] = $wrapper->field_location_finder_url->value();
   $action_guides = $wrapper->field_action_guide->value();
   if (isset($action_guides)) {
+    $i = 0;
     foreach ($action_guides as $delta => $action_guide) {
       $action_guide_path = 'node/' . $action_guide->nid;
       $action_guide_wrapper = entity_metadata_wrapper('node', $action_guide->nid);
       $action_guide_desc = $action_guide_wrapper->field_description->value();
-      $vars['action_guides'][] = l($action_guide_desc, $action_guide_path);
+      $vars['action_guides'][$i]['link'] = l($action_guide_desc, $action_guide_path);
     }
   }
 

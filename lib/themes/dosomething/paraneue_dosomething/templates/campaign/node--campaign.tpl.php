@@ -138,7 +138,7 @@
         <?php if (isset($action_guides)) : ?>
           <ul>
           <?php foreach ($action_guides as $action_guide): ?>
-            <li><?php print $action_guide; ?></li>
+            <li><?php print $action_guide['link']; ?></li>
           <?php endforeach; ?>
           </ul>
         <?php endif; ?>
