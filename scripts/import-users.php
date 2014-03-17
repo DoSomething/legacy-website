@@ -15,7 +15,14 @@ $profile_id = '_profile_old_world';
 $mobile_data = '_mobile_old_world';
 $birthday_data = '_birthday_old_world';
 
-$result = db_query('SELECT * FROM {' . $old_users . '}');
+$last_saved = variable_get('last_user_saved', '');
+if ($last_saved) {
+  $result = db_query("SELECT * FROM {$old_users} where uid > $last_saved");
+}
+// This is just a fail safe, since we should set the last_saved variable.
+else {
+  $result = db_query("SELECT * FROM {$old_users}");
+}
 
 foreach ($result as $user_row) {
   // Only migrate users with active status.
@@ -66,6 +73,7 @@ foreach ($result as $user_row) {
 
   // Save account with extra data.
   $account = user_save($account, $edit);
+  variable_set('last_user_saved', $account->uid);
 
   // Are any of these people under 13?
   dosomething_user_is_under_thirteen($account);
