@@ -343,6 +343,7 @@ function dosomething_signup_mbp_request($account, $node) {
     'step_one' => $wrapper->field_pre_step_header->value(),
     'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
     'step_three' => $wrapper->field_post_step_header->value(),
+    'mailchimp_group_id' => '??'
   );
   dosomething_user_mbp_request('campaign_signup', $params);
 }
