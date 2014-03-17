@@ -33,9 +33,11 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => -199
     );
 
+    $form['actions']['submit']['#attributes']['class'] = array('btn', 'large');
+
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-cached-modal="#modal--login" class="js-modal-link">Login to an existing account</a></p>',
+      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-cached-modal="#modal--login" class="js-modal-link">Log in to an existing account</a></p>',
       '#weight' => 500
     );
 
@@ -97,13 +99,13 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
   $form['account']['pass']['pass1']['#attributes']['data-validate-required'] = '';
-  $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2--2';
+  $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2';
 
   $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('Just double checking!');
   $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass2']['#attributes']['data-validate'] = 'match';
   $form['account']['pass']['pass2']['#attributes']['data-validate-required'] = '';
-  $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = '#edit-pass-pass1--2';
+  $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = '#edit-pass-pass1';
 
   unset($form['account']['pass']['#description']);
 

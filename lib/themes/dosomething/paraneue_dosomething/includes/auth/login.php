@@ -15,15 +15,6 @@ function paraneue_dosomething_page_alter_login(&$page) {
       ),
       'login' => drupal_get_form('user_login_block')
     );
-
-    $page['page_bottom']['register'] = array(
-      '#prefix' => '<script type="text/cached-modal" id="modal--register">',
-      '#suffix' => '</script>',
-      'modal_close' => array(
-        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
-      ),
-      'register' => drupal_get_form('user_register_form')
-    );
   }
 }
 
@@ -44,9 +35,11 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
 
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/registration" data-cached-modal="#modal--register" class="js-modal-link">Create a DoSomething.org Account</a><br/><a href="/user/password">Forgot password?</a></p>',
+      '#markup' => '<p class="auth--toggle-link"><a href="/user/registration" data-cached-modal="#modal--register" class="js-modal-link">Create a DoSomething.org account</a><br/><a href="/user/password">Forgot password?</a></p>',
       '#weight' => 500
     );
+
+    $form['actions']['submit']['#attributes']['class'] = array('btn', 'large');
 
     unset($form['links']);
 
