@@ -473,6 +473,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
         'CAMPAIGN_TITLE' => $params['campaign_title'],
+        'CAMPAIGN_LINK' => $params['campaign_link'],
         'CALL_TO_ACTION' => $params['call_to_action'],
         'STEP_ONE' => $params['step_one'],
         'STEP_TWO' => $params['step_two'],
