@@ -379,8 +379,12 @@
 
       <?php if (isset($zendesk_form)): ?>
       <script id="modal-help" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button">×</a>
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner">Tips</h2>
+
         <?php print render($zendesk_form); ?>
+
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
