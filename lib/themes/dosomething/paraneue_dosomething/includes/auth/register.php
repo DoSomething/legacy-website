@@ -35,7 +35,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
 
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-cached-modal="#modal--login" class="js-modal-link">Login to an existing account</a></p>',
+      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-cached-modal="#modal--login" class="js-modal-link">Log in to an existing account</a></p>',
       '#weight' => 500
     );
 
