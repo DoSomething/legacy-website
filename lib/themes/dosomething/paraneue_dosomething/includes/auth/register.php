@@ -97,13 +97,13 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
   $form['account']['pass']['pass1']['#attributes']['data-validate-required'] = '';
-  $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2--2';
+  $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2';
 
   $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('Just double checking!');
   $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass2']['#attributes']['data-validate'] = 'match';
   $form['account']['pass']['pass2']['#attributes']['data-validate-required'] = '';
-  $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = '#edit-pass-pass1--2';
+  $form['account']['pass']['pass2']['#attributes']['data-validate-match'] = '#edit-pass-pass1';
 
   unset($form['account']['pass']['#description']);
 

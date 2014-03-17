@@ -15,15 +15,6 @@ function paraneue_dosomething_page_alter_login(&$page) {
       ),
       'login' => drupal_get_form('user_login_block')
     );
-
-    $page['page_bottom']['register'] = array(
-      '#prefix' => '<script type="text/cached-modal" id="modal--register">',
-      '#suffix' => '</script>',
-      'modal_close' => array(
-        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
-      ),
-      'register' => drupal_get_form('user_register_form')
-    );
   }
 }
 
