@@ -242,7 +242,7 @@
 
         <div class="post">
           <?php if (isset($post_step_header)): ?><h3 class="inline--alt-color"><?php print $post_step_header; ?></h3><?php endif; ?>
-          <?php if (isset($post_step_copy)): ?><div><?php print $post_step_copy; ?></div><?php endif; ?>
+          <?php if (isset($post_step_copy)): ?><p><?php print $post_step_copy; ?></p><?php endif; ?>
 
           <div class="tips">
             <?php if (isset($step_post)) : ?>
