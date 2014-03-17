@@ -112,3 +112,7 @@ $environment = getenv('DS_ENVIRONMENT') ?: 'local';
 if (is_readable('sites/default/settings.'. $environment .'.php')) {
   include_once('sites/default/settings.'. $environment .'.php');
 }
+
+$conf['locale_custom_strings_en'][''] = array(
+   'Registration successful. You are now logged in.' => "You've created an account with DoSomething.org."
+ );
