@@ -1,7 +1,34 @@
 <?php
 
 /**
- * Login form & modal markup.
+ * Adds login modal to page markup.
+ *
+ * Implements hook_page_alter().
+ */
+function paraneue_dosomething_page_alter_login(&$page) {
+  if (!user_is_logged_in()){
+    $page['page_bottom']['login'] = array(
+      '#prefix' => '<script type="text/cached-modal" id="modal--login">',
+      '#suffix' => '</script>',
+      'modal_close' => array(
+        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
+      ),
+      'login' => drupal_get_form('user_login_block')
+    );
+
+    $page['page_bottom']['register'] = array(
+      '#prefix' => '<script type="text/cached-modal" id="modal--register">',
+      '#suffix' => '</script>',
+      'modal_close' => array(
+        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
+      ),
+      'register' => drupal_get_form('user_register_form')
+    );
+  }
+}
+
+/**
+ * Configures login form.
  *
  * Implements hook_form_alter().
  */

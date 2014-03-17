@@ -1,7 +1,25 @@
 <?php
 
 /**
- * Registration form & modal markup.
+ * Adds registration modal to page markup.
+ *
+ * Implements hook_page_alter().
+ */
+function paraneue_dosomething_page_alter_register(&$page) {
+  if (!user_is_logged_in()){
+    $page['page_bottom']['register'] = array(
+      '#prefix' => '<script type="text/cached-modal" id="modal--register">',
+      '#suffix' => '</script>',
+      'modal_close' => array(
+        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
+      ),
+      'register' => drupal_get_form('user_register_form')
+    );
+  }
+}
+
+/**
+ * Configures registration form.
  *
  * Implements hook_form_alter().
  */
