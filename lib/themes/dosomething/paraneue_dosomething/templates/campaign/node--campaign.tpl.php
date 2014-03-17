@@ -10,7 +10,7 @@
       <div class="sponsor-wrapper">
         <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php if (isset($sponsor['img'])): print $sponsor['img']; endif; ?>
+          <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
