@@ -1,0 +1,2 @@
+<h1>HOME SWEET HOME</h1>
+<p>THIS IS A NICE PLACE</p>
