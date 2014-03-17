@@ -622,13 +622,14 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['items_needed'] = $wrapper->field_items_needed->value();
   $vars['location_finder_copy'] = $wrapper->field_location_finder_copy->value();
   $vars['location_finder_url'] = $wrapper->field_location_finder_url->value();
-  $action_guides = $wrapper->field_action_guide->value();
-  if (isset($action_guides)) {
-    foreach ($action_guides as $delta => $action_guide) {
-      $action_guide_path = 'node/' . $action_guide->nid;
-      $action_guide_wrapper = entity_metadata_wrapper('node', $action_guide->nid);
+  $action_guides = $vars['field_action_guide'];
+  if (!empty($action_guides)) {
+    foreach ($action_guides as $delta => $target) {
+      $action_guide = $target['entity'];
+      $action_guide_wrapper = entity_metadata_wrapper('node', $action_guide);
       $action_guide_desc = $action_guide_wrapper->field_description->value();
-      $vars['action_guides'][] = l($action_guide_desc, $action_guide_path);
+      $vars['action_guides'][$delta]['desc'] = $action_guide_desc;
+      $vars['action_guides'][$delta]['content'] = render(node_view($action_guide));
     }
   }
 

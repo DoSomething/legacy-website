@@ -137,8 +137,8 @@
 
         <?php if (isset($action_guides)) : ?>
           <ul>
-          <?php foreach ($action_guides as $action_guide): ?>
-            <li><?php print $action_guide; ?></li>
+          <?php foreach ($action_guides as $delta => $action_guide): ?>
+            <li><a href="#modal-action-guide-<?php print $delta; ?>" class="js-modal-link"><?php print $action_guide['desc']; ?></a></li>
           <?php endforeach; ?>
           </ul>
         <?php endif; ?>
@@ -171,6 +171,19 @@
           <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
         </div>
       <?php endif; ?>
+
+      <!-- "Plan It" Section Modals -->
+      <?php if (isset($action_guides)): ?>
+      <?php foreach ($action_guides as $delta => $action_guide): ?>
+      <script id="modal-action-guide-<?php print $delta; ?>" type="text/cached-modal">
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner"></h2>
+          <div><?php print $action_guide['content']; ?></div>
+        <a href="#" class="js-close-modal">Back to main page</a>
+      </script>
+      <?php endforeach; ?>
+      <?php endif; ?>
+
     </section>
 
     <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
