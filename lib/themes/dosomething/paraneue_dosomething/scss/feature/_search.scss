@@ -2,11 +2,11 @@
   // Generic wrapper for search content
   .content {
     width: 90%;
-    margin: 0 auto 2rem;
+    margin: 7rem auto 2rem;
 
     @include media( $tablet ) {
       width: 100%;
-      margin: 0 auto 4rem;
+      margin: 7rem auto 4rem;
 
       @include span-columns(8);
       @include shift(4);
