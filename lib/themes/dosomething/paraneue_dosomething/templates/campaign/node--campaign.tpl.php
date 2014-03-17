@@ -264,6 +264,28 @@
             <?php endif; ?>
 
         </div>
+
+        <?php if (isset($step_post)) : ?>
+          <a href="#modal-tips" class="js-modal-link more-tips">View tips</a>
+          <?php endif; ?>
+
+          <div class="tips">
+            <?php if (isset($step_post)) : ?>
+            <div class="tip-header-wrapper">
+            <?php foreach ($step_post as $key=>$item): ?>
+              <a href="#tip<?php print $key; ?>" class="js-show-tip tip-header <?php $key == 0 ? print ' active' : '' ?>"><?php print $item['header']; ?></a><span class="bullet">&#149;&nbsp;</span>
+            <?php endforeach; ?>
+            </div>
+
+            <div class="tip-body-wrapper">
+            <?php foreach ($step_post as $key=>$item): ?>
+              <div class="tip-body tip<?php print $key; ?>"><?php print $item['copy'] ?></div>
+            <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+          </div>
+        </div>
+
       </div>
 
       <div class="step-image-wrapper desktop">
