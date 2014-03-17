@@ -172,7 +172,7 @@ function dosomething_user_new_user($form, &$form_state) {
       'email' => $account->mail,
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'birthday' => '??',
+      'birthdate' => '??',
     );
     dosomething_user_mbp_request('user_register', $params);
     // Sign user up for mobile commons
@@ -458,7 +458,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
   );
   switch ($origin) {
     case 'user_register':
-      $payload['birthday'] = $params['birthday'];
+      $payload['birthdate'] = $params['birthdate'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
       );
