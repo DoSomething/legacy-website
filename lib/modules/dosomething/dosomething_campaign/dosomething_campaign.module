@@ -545,7 +545,7 @@ function dosomething_campaign_preprocess_partners_vars(&$vars) {
   if (isset($vars['sponsors'])) {
     foreach ($vars['sponsors'] as $delta => $sponsor) {
       if (isset($sponsor['fid'])) {
-        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], '300x300', 'H&M');
+        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], 'wmax-423px', $sponsor['name']);
         $vars['sponsors'][$delta]['img'] = $img;
       }
     }
