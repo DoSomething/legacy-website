@@ -12,6 +12,3 @@ features[] = name
 features[] = slogan
 features[] = main_menu
 features[] = secondary_menu
-
-stylesheets[all][] = dist/app.css
-scripts[] = dist/app.js
