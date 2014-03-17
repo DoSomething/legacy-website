@@ -13,7 +13,12 @@
   display: none;
 }
 
-
+// Make the admin tabs look pretty.
+.admin--tabs .tabs {
+  background: $light-gray;
+  background-image: image-url("admin-panel.png");
+  padding: 1rem 0;
+}
 
 // @TODO: Remove date.css to override this more cleanly
 .container-inline-date .date-padding {
