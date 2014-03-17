@@ -39,7 +39,7 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['header']['area']['id'] = 'area';
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '###Make the world suck less.  Check out one of these super easy, kickass campaigns.';
+  $handler->display->display_options['header']['area']['content'] = '###Make the world suck less. Choose a campaign below to get started.';
   $handler->display->display_options['header']['area']['format'] = 'markdown';
   /* Field: Apache Solr: path_alias */
   $handler->display->display_options['fields']['path_alias']['id'] = 'path_alias';
