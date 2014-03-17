@@ -33,7 +33,7 @@ function dosomething_signup_optin_config($form, &$form_state) {
       // Create a fieldset for each campaign.
       $form[$nid] = array(
         '#type' => 'fieldset',
-        '#title' => $title . ' : ' . $nid,
+        '#title' => $title . ' : NID ' . $nid,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
@@ -41,13 +41,15 @@ function dosomething_signup_optin_config($form, &$form_state) {
       // Each campagin gets a mailchimp & mobile commons id.
       $form[$nid]['dosomething_signup_nid_' . $nid . '_mailchimp_id'] = array(
         '#type' => 'textfield',
-        '#title' => t('MailChimp Group'),
+        '#title' => t('MailChimp Group ID'),
         '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mailchimp_id', ''),
+        '#description' => t("Enter the campaign's <strong>numeric</strong> Mailchimp Group group_id value."),
       );
       $form[$nid]['dosomething_signup_nid_' . $nid . '_mobilecommons_id'] = array(
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Opt-In'),
         '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mobilecommons_id', ''),
+        '#description' => t("Enter the campaign's Mobilecommons opt-in path."),
       );
     }
   }
