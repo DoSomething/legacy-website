@@ -57,7 +57,6 @@ function dosomething_zendesk_get_client() {
  * Form constructor for submitting a Zendesk ticket.
  */
 function dosomething_zendesk_form($form, &$form_state)  {
-  dpm($form);
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
