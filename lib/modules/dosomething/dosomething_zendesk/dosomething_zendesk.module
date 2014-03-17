@@ -60,12 +60,17 @@ function dosomething_zendesk_form($form, &$form_state)  {
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
-    '#title' => t('Enter your question below. Please be as specific as possible.'),
+    '#title' => t('Your Question'),
   );
+  
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
+    '#prefix' => '<div class="form-actions">',
+    '#suffix' => '</div>',
+    '#attributes' => array('class' => array('btn', 'large')),
   );
+
   return $form;
 }
 
