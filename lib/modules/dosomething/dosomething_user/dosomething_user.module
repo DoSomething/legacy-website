@@ -480,8 +480,11 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
         'STEP_ONE' => $params['step_one'],
         'STEP_TWO' => $params['step_two'],
         'STEP_THREE' => $params['step_three'],
-        'MAILCHIMP_GROUP_ID' => $params['mailchimp_group_id']
       );
+      // Check for mailchimp group:
+      if (isset($params['mailchimp_group_id'])) {
+        $payload['merge_vars']['MAILCHIMP_GROUP_ID'] = $params['mailchimp_group_id'];
+      }
       break;
     case 'campaign_reportback':
       $payload['event_id'] = $params['event_id'];
