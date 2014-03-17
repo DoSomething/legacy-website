@@ -95,7 +95,7 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
 
-  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('Top secret!');
+  $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('6+ characters... pick something tricky!');
   $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
   $form['account']['pass']['pass1']['#attributes']['data-validate-required'] = '';
