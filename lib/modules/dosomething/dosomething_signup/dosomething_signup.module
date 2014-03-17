@@ -331,6 +331,24 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
  *   Details about the node that the signup was made on.
  */
 function dosomething_signup_mbp_request($account, $node) {
+  // Gather mbp params for the signup.
+  $params = dosomething_signup_get_mbp_params($account, $node);
+  // Send MBP request.
+  dosomething_user_mbp_request('campaign_signup', $params);
+}
+
+/**
+ * Get params for a signup mbp request.
+ *
+ * @param object $account
+ *   Details about the user account that made the signup.
+ * @param object $node
+ *   Details about the node that the signup was made on.
+ *
+ * @return array
+ *   Associative array of values to use as params to a mbp_request.
+ */
+function dosomething_signup_get_mbp_params($account, $node) {
   $wrapper = entity_metadata_wrapper('node', $node);
   $params = array(
     'email' => $account->mail,
@@ -343,9 +361,29 @@ function dosomething_signup_mbp_request($account, $node) {
     'step_one' => $wrapper->field_pre_step_header->value(),
     'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
     'step_three' => $wrapper->field_post_step_header->value(),
-    'mailchimp_group_id' => '??'
   );
-  dosomething_user_mbp_request('campaign_signup', $params);
+  // Add any mailchimp params if needed.
+  dosomething_signup_get_mbp_params_mailchimp($params, $node);
+  return $params;
+}
+
+/**
+ * Checks if Mailchimp params should be included in a signup mbp request.
+ *
+ * @param array $params
+ *   Params array to be sent to a mbp request.
+ * @param object $node
+ *   Details about the node that the signup was made on.
+ */
+function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
+  $varname = 'dosomething_signup_nid_' . $node->nid . '_mailchimp_id';
+  // Variable may be set as empty string, so set empty string as default.
+  $group_id = variable_get($varname, '');
+  // If a value is present for Mailchimp Group ID:
+  if (!empty($group_id) && is_numeric($group_id)) {
+    // Add it into the mbp_request params.
+    $params['mailchimp_group_id'] = $group_id;
+  }
 }
 
 /**
