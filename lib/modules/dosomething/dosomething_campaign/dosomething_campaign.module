@@ -544,9 +544,18 @@ function dosomething_campaign_preprocess_partners_vars(&$vars) {
   // Preprocess sponsor logos.
   if (isset($vars['sponsors'])) {
     foreach ($vars['sponsors'] as $delta => $sponsor) {
+      $vars['sponsors'][$delta]['name'] = $sponsor['name'];
+      // If there is a file present for sponsor logo:
       if (isset($sponsor['fid'])) {
         $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], 'wmax-423px', $sponsor['name']);
         $vars['sponsors'][$delta]['img'] = $img;
+        // Set the display variable as the image.  This is outputted to tpl.
+        $vars['sponsors'][$delta]['display'] = $img;
+      }
+      // Else if no file:
+      else {
+        // Set the display variable as the name and relevant markup for tpl.
+        $vars['sponsors'][$delta]['display'] = '<span class="copy">' . $sponsor['name'] . '</span>';
       }
     }
   }
