@@ -68,7 +68,6 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['label']['alter']['path'] = '[path_alias]';
   $handler->display->display_options['fields']['label']['alter']['replace_spaces'] = TRUE;
   $handler->display->display_options['fields']['label']['alter']['alt'] = '[label]';
-  $handler->display->display_options['fields']['label']['alter']['target'] = '_blank';
   $handler->display->display_options['fields']['label']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: sm_field_call_to_action */
   $handler->display->display_options['fields']['sm_field_call_to_action']['id'] = 'sm_field_call_to_action';
