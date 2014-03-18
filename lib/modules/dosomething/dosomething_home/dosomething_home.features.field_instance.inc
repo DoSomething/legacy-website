@@ -10,8 +10,8 @@
 function dosomething_home_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-home-field_dek'
-  $field_instances['node-home-field_dek'] = array(
+  // Exported field_instance: 'node-home-field_subtitle'
+  $field_instances['node-home-field_subtitle'] = array(
     'bundle' => 'home',
     'default_value' => NULL,
     'deleted' => 0,
@@ -38,8 +38,8 @@ function dosomething_home_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_dek',
-    'label' => 'dek',
+    'field_name' => 'field_subtitle',
+    'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -58,7 +58,7 @@ function dosomething_home_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('dek');
+  t('Subtitle');
 
   return $field_instances;
 }
