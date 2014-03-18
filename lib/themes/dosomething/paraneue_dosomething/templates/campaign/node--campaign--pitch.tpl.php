@@ -14,7 +14,7 @@
       </div>
       <?php endif; ?>
 
-      <?php if (isset($sponsors)): ?>
+      <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor-wrapper">
         <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
