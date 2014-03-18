@@ -365,7 +365,10 @@ function dosomething_user_login_legacy_validate($form, &$form_state) {
       );
       return;
     }
-    // @TODO LOGIN THE USER?
+
+    user_login_finalize(array(
+      'name' => $user->name
+    ));
   }
 }
 
