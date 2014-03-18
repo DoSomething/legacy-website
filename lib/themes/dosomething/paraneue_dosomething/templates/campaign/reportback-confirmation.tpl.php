@@ -1,24 +1,40 @@
-<section class="confirmation--wrapper">
-  <header class="header">
-    <div class="content">
-      <h1>You Did It!</h1>
-      <?php if (isset($copy)): ?><p><?php print $copy; ?></p><?php endif; ?>
-      <?php if (isset($more_campaign_link)): ?><?php print $more_campaigns_link; ?><?php endif; ?>
-      <?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?>
-    </div>
-  </header>
-
-  <section class="campaigns">
-    <div class="content">
-    <?php foreach ($recommended as $rec): ?>
-      <div class="campaign">
-        <?php if (isset($rec['title'])): ?><h3 class="title"><?php print $rec['title']; ?></h3><?php endif; ?>
-        <?php if (isset($rec['image'])): ?>
-        <figure class="image"><img src="<?php print $rec['image']; ?>" alt="Campaign Image" /></figure>
-        <?php endif; ?>
-        <?php if (isset($rec['call_to_action'])): ?><p><?php print $rec['call_to_action']; ?></p><?php endif; ?>
+<section class="confirmation-wrapper">
+  <div class="header-wrapper">
+    <header class="header">
+      <h1 class="title">You Did It!</h1>
+      <?php if (isset($copy)): ?>
+        <h3 class="subtitle"><?php print $copy; ?></h3>
+      <?php endif; ?>
+    </header>
+  </div>
+  
+  <?php if (isset($recommended)): ?>
+    <div class="gallery-wrapper">
+      <h2 class="gallery-title">Keep it up! Find your next campaign.</h2>
+      <div class="gallery">
+        <?php foreach ($recommended as $rec): ?>
+          <div class="gallery-item">
+            <?php if (isset($rec['image'])): ?>
+              <img src="<?php print $rec['image']; ?>"/>
+            <?php endif; ?>
+            <?php if (isset($rec['title'])): ?>
+                <h3><?php print $rec['title']; ?></h3>
+            <?php endif; ?>
+            <?php if (isset($rec['call_to_action'])): ?>
+              <div class="gallery-description"><?php print $rec['call_to_action']; ?></div>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
       </div>
-    <?php endforeach; ?>
     </div>
-  </section>
+  <? endif; ?>
+
+  <?php if (isset($more_campaigns_link)): ?>
+    <div class="cta-wrapper">
+      <div class="cta">
+        <div class="cta-more-campaigns"><?php print $more_campaigns_link; ?></div>
+        <div class="cta-back-to-campaign"><?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?></div>
+      </div>
+    </div>
+  <?php endif; ?>
 </section>
