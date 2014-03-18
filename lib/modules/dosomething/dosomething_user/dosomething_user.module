@@ -106,6 +106,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     case 'user_login':
       // Add additional submission/validation/actions.
       $form['#action'] = '/user/login';
+      array_unshift($form['#validate'], 'dosomething_user_login_legacy_validate');
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
       // Helper text & additional data.
@@ -311,6 +312,26 @@ function dosomething_user_login_validate($form, &$form_state) {
     }
   }
 }
+
+/**
+ * Login validation against legacy app
+ *
+ * Allows for user auth against legacy app.
+ * @see dosomething_user_form_alter()
+ */
+function dosomething_user_login_legacy_validate($form, &$form_state) {
+  // Lets check user against endpoint
+  // http://mcommons.dosomething.org/rest/user/login.json?1234
+  // pass json object {username: 'user', 'password': '12345'}
+
+  // If failure, form_set_error
+
+  // If authentication works, create a new user from the JSON object returned
+
+
+
+}
+
 /**
  * Additional user registration validation hook.
  *
