@@ -127,7 +127,7 @@ function build {
   composer
 
   echo 'Install bower dependencies'
-  #bower
+  bower
 
   # Clear caches and Run updates
   cd "$WEB_DIR"
@@ -182,7 +182,7 @@ function build {
 
   # Run grunt task to configure front-end environment
   # this will install Bower/NPM dependencies
-  #grunt
+  grunt
 
   echo 'Build complete.'
 }
