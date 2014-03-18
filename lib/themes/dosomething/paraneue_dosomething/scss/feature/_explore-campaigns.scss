@@ -3,22 +3,9 @@
 //  EXPLORE CAMPAIGNS
 // -------------------
 
-// @TODO: White Navigation -- Ugh -- At least mixin this
 .page-campaigns {
-  .chrome--nav {
-    .hamburger {
-      color: #fff !important;
-    }
-    a {
-      color: #fff !important;
-    }
-
-    .secondary-nav input[type="search"] {
-      color: #fff;
-      border: 1px solid #fff;
-      background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
-    }
-  }
+  @include wrapper--nav-white;
+  @include wrapper--nav-floating;
 }
 
 // Make the whole page purple, then we'll make the content wrapper white!

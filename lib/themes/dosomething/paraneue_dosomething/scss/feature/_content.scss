@@ -5,22 +5,8 @@
 .node-type-static-content {
   background: $purple;
 
-  // @TODO: White Navigation -- Ugh -- At least mixin this
-  .chrome--nav {
-    .hamburger {
-      color: #fff !important;
-    }
-
-    a {
-      color: #fff !important;
-    }
-
-    .secondary-nav input[type="search"] {
-      color: #fff;
-      border: 1px solid #fff;
-      background-image: neue-image-url('search_light.png'); 
-    }
-  }
+  @include wrapper--nav-white;
+  @include wrapper--nav-floating;
 }
 
 .static_content-wrapper {

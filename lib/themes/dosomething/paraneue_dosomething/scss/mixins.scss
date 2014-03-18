@@ -28,3 +28,36 @@
     background-position: $pos-x $pos-y;
   };
 }
+
+// Applies styles to make nav text white
+@mixin wrapper--nav-white {
+  .chrome--nav { 
+    .hamburger {
+      color: #fff !important;
+    }
+
+    a {
+      color: #fff !important;
+    }
+
+    .secondary-nav input[type="search"] {
+      color: #fff;
+      border: 1px solid #fff;
+      background-image: neue-image-url('search_light.png'); 
+      @include hidpi {
+        background-image: neue-image-url('search_light@2x.png'); 
+      }
+    }
+  }
+}
+
+// Applies styles to make nav float over content wrapper
+@mixin wrapper--nav-floating {
+  .chrome--nav {
+    position: absolute;
+    top: 0;
+    margin-bottom: 0;
+    z-index: 1;
+  }
+}
+

@@ -18,12 +18,11 @@
 // Drupal styles
 @import "feature/drupal";
 
-// Features
-@import "feature/auth";
-
 // Staging Area for Neue
 @import "feature/port-to-neue";
 
+// Auth flow
+@import "feature/auth";
 
 // Homepage
 @import "feature/homepage";
@@ -56,5 +55,3 @@
 @import "feature/search";
 @import "feature/explore-campaigns";
 
-// Temporary hacks
-@import "feature/hide";

@@ -3,25 +3,6 @@
 // we have been designing to recently @TODO
 $font-massive: 4rem;
 
-// Updated anchor styles
-.node-type-campaign,
-.confirmation-wrapper {
-  a {
-    font-weight: 600;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &.secondary {
-      font-weight: 400;
-      text-decoration: underline;
-    }
-  }
-}
-
-
 // Form action styling
 .form-actions {
   text-align: center;
