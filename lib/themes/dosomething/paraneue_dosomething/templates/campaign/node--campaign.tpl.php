@@ -197,7 +197,7 @@
           <a href="#modal-tips-pre" class="js-modal-link more-tips">View tips</a>
           <?php endif; ?>
 
-          <div class="tips">
+          <div class="tips--wrapper">
             <?php if (isset($step_pre)) : ?>
             <div class="tip-header-wrapper">
             <?php foreach ($step_pre as $key=>$item): ?>
@@ -244,7 +244,7 @@
           <?php if (isset($post_step_header)): ?><h3 class="inline--alt-color"><?php print $post_step_header; ?></h3><?php endif; ?>
           <?php if (isset($post_step_copy)): ?><p><?php print $post_step_copy; ?></p><?php endif; ?>
 
-          <div class="tips">
+          <div class="tips--wrapper">
             <?php if (isset($step_post)) : ?>
             <div class="tip-header-wrapper">
             <?php foreach ($step_post as $key=>$item): ?>

@@ -37,7 +37,7 @@
     }
   }
 
-  .tips {
+  .tips--wrapper {
     display: none;
 
     @include media( $tablet ) {
