@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_home feature.
+ */
+
+include_once 'dosomething_home.features.inc';

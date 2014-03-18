@@ -36,6 +36,12 @@ projects[dosomething_helpers][download][type] = local
 projects[dosomething_helpers][download][source] = './lib/modules/dosomething/dosomething_helpers'
 projects[dosomething_helpers][subdir] = "dosomething"
 
+; Dosomething Home
+projects[dosomething_helpers][type] = "module"
+projects[dosomething_helpers][download][type] = local
+projects[dosomething_helpers][download][source] = './lib/modules/dosomething/dosomething_home'
+projects[dosomething_helpers][subdir] = "dosomething"
+
 ; Dosomething Image
 projects[dosomething_image][type] = "module"
 projects[dosomething_image][download][type] = local
