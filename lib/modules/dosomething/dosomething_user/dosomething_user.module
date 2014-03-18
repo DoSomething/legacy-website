@@ -457,6 +457,8 @@ function dosomething_user_create_user_from_legacy_json($values, $form_state) {
 
   if (isset($values['user']) && isset($values['profile'])) { 
     $user = array();
+    // Your legacy uid is your new uid!
+    $user['uid'] = $values['user']['uid'];
     // Will be overridden by uid.
     $user['name'] = user_password(8);
     $user['pass'] = $form_state['values']['pass'];
@@ -471,8 +473,7 @@ function dosomething_user_create_user_from_legacy_json($values, $form_state) {
     $user['mail'] = $mail;
     $user['created'] = $values['user']['created'];
     $user['access'] = $values['user']['access'];
-    // Set the init value as legacy uid.
-    $user['init']= $values['user']['uid'];
+    $user['init'] = $values['user']['init'];
     $user['status'] = 1;
     $account = user_save('', $user);
     // Save fields:
@@ -516,7 +517,7 @@ function dosomething_user_create_user_from_legacy_json($values, $form_state) {
     return;
   }
   // If no object returned, log error and return FALSE.
-  watchdog('dosomething_user', 'Failed user creation for values ' . print_r($values, TRUE), array(), WATCHDOG_ERROR);
+  watchdog('dosomething_user', 'Failed user creation for values ' . json_encode($values), array(), WATCHDOG_ERROR);
   return FALSE;
 }
 
