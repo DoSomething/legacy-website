@@ -357,7 +357,7 @@ function dosomething_signup_get_mbp_params($account, $node) {
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'event_id' => $node->nid,
     'campaign_title' => $node->title,
-    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid) . '#prove', array('absolute' => TRUE)),
+    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),
     'call_to_action' => $wrapper->field_call_to_action->value(),
     'step_one' => $wrapper->field_pre_step_header->value(),
     'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
