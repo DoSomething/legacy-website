@@ -236,7 +236,7 @@ function dosomething_user_login_submit($form, &$form_state) {
     }
   }
   // After all logins redirect to page user was just on.
-  $form_state['redirect'] = $_SERVER['HTTP_REFERER'];
+  $form_state['redirect'] = drupal_get_path_alias($_SERVER['HTTP_REFERER']);
 }
 
 /**
