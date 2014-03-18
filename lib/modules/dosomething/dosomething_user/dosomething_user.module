@@ -324,7 +324,10 @@ function dosomething_user_register_validate($form, &$form_state) {
     $mobile_clean = dosomething_user_clean_mobile_number($mobile);
 
     // Get the user's current number & see if they are updating.
-    $current_number = dosomething_user_get_field('field_mobile');
+    // We have to send in the uid of the form we are on, not the global user
+    // When admins are updating accounts this will fail!
+    $account = $form_state['build_info']['args'][0];
+    $current_number = dosomething_user_get_field('field_mobile', $account);
     if ($mobile_clean != $current_number && ($user = dosomething_user_get_user_by_mobile($mobile_clean))) {
       // This dude already has an account.
       form_set_error('dosomething_user_already_registered', t('The phone number '. $mobile . ' is already registered. Have you ' . l('forgotten your password?', 'user/password')));
