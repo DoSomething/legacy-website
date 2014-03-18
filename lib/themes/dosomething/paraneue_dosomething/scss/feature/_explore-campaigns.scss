@@ -5,7 +5,7 @@
 
 // @TODO: White Navigation -- Ugh -- At least mixin this
 .page-campaigns {
-  .nav--wrapper {
+  .chrome--nav {
     .hamburger {
       color: #fff !important;
     }
@@ -14,6 +14,7 @@
     }
 
     .secondary-nav input[type="search"] {
+      color: #fff;
       border: 1px solid #fff;
       background: url('../../../../../../profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/pattern-library/assets/images/search_light.png') no-repeat 5% 50%;
     }
