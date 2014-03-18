@@ -365,10 +365,10 @@ function dosomething_user_login_legacy_validate($form, &$form_state) {
       );
       return;
     }
-
-    user_login_finalize(array(
+    $account = array(
       'name' => $user->name
-    ));
+    );
+    user_login_finalize($account);
   }
 }
 
@@ -495,7 +495,7 @@ function dosomething_user_create_user_by_mobile($number) {
  */
 function dosomething_user_create_user_from_legacy_json($values, $form_state) {
 
-  if (isset($values['user']) && isset($values['profile'])) { 
+  if (isset($values['user']) && isset($values['profile'])) {
     $user = array();
     // Your legacy uid is your new uid!
     $user['uid'] = $values['user']['uid'];
