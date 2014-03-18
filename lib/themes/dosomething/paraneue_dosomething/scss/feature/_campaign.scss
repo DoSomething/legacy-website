@@ -1,3 +1,7 @@
+.node-type-campaign .region-content {
+  @include designed-width;
+}
+
 .campaign--wrapper {
   overflow: hidden;
   background: #fff;
