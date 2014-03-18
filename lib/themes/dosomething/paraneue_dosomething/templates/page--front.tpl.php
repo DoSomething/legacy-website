@@ -56,7 +56,7 @@
   <div class="homepage--grid">
   
     <div class="block-big" style="background-image: url('http://www.dosomething.org/files/u/neue-homepage/pbj-featured.jpg'); background-position: center center;">
-      <a class="full-link" href="/pbj"><span>Do This</span></a>
+      <a class="full-link" href="/campaigns/peanut-butter-jam-slam"><span>Do This</span></a>
       <div class="headline">
         <h2>Collect peanut butter for your local food bank.</h2>
       </div>
