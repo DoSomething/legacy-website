@@ -44,6 +44,9 @@
       color: #fff;
       border: 1px solid #fff;
       background-image: neue-image-url('search_light.png'); 
+      @include hidpi {
+        background-image: neue-image-url('search_light@2x.png'); 
+      }
     }
   }
 }
