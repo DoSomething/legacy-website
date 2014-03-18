@@ -554,8 +554,8 @@ function dosomething_campaign_preprocess_partners_vars(&$vars) {
       }
       // Else if no file:
       else {
-        // Set the display variable as the name and relevant markup for tpl.
-        $vars['sponsors'][$delta]['display'] = '<span class="copy">' . $sponsor['name'] . '</span>';
+        // Return null so we won't display anything
+        $vars['sponsors'][$delta]['display'] = NULL;
       }
     }
   }

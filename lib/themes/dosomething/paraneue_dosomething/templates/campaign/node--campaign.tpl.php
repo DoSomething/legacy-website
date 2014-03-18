@@ -6,7 +6,7 @@
 
       <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
-      <?php if (isset($sponsors)): ?>
+      <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor-wrapper">
         <p class="copy">Powered by:</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
