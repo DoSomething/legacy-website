@@ -485,6 +485,83 @@ function dosomething_user_create_user_by_mobile($number) {
 }
 
 /**
+ * Create a user account from provided legacy array.
+ *
+ * @param array $values
+ *   Array of legacy values.
+ *
+ * @return mixed
+ *   Newly created user object if TRUE, FALSE if no object returned..
+ */
+function dosomething_user_create_user_from_legacy_json($values, $form_state) {
+
+  if (isset($values['user']) && isset($values['profile'])) { 
+    $user = array();
+    // Your legacy uid is your new uid!
+    $user['uid'] = $values['user']['uid'];
+    // Will be overridden by uid.
+    $user['name'] = user_password(8);
+    $user['pass'] = $form_state['values']['pass'];
+    // Check for weird scenarios where we're not getting mail in the values.
+    if (!isset($values['user']['mail'])) {
+      $mail = 'uid-' . $values['user']['uid'] . '@mailinator.org';
+      watchdog('dosomething_user', 'No email provided for ' . $mail, array(), WATCHDOG_ERROR);
+    }
+    else {
+      $mail = $values['user']['mail'];
+    }
+    $user['mail'] = $mail;
+    $user['created'] = $values['user']['created'];
+    $user['access'] = $values['user']['access'];
+    $user['init'] = $values['user']['init'];
+    $user['status'] = 1;
+    $account = user_save('', $user);
+    // Save fields:
+    // First Name.
+    $first_name = $values['profile']['field_user_first_name'][LANGUAGE_NONE][0]['value'];
+    if ($first_name) {
+      $edit['field_first_name'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $first_name,
+          ),
+        ),
+      );
+    }
+    // Mobile.  @todo: Sanitize with clean
+    $mobile = $values['profile']['field_user_mobile'][LANGUAGE_NONE][0]['value'];
+    if ($mobile) {
+      $edit['field_mobile'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $mobile,
+          ),
+        ),
+      );
+    }
+    // Birthdate
+    $dob = $values['profile']['field_user_birthday'][LANGUAGE_NONE][0]['value'];
+    if ($dob) {
+      $edit['field_birthdate'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $dob,
+          ),
+        ),
+      );
+    }
+    // Save fields.
+    $account = user_save($account, $edit);
+    // Set under thirteen field.
+    dosomething_user_is_under_thirteen($account);
+    return;
+  }
+  // If no object returned, log error and return FALSE.
+  watchdog('dosomething_user', 'Failed user creation for values ' . json_encode($values), array(), WATCHDOG_ERROR);
+  return FALSE;
+}
+
+/**
  * A request to send a message via the Message Broker library:
  * https://github.com/DoSomething/messagebroker-phplib
  *
