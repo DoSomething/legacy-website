@@ -45,7 +45,7 @@
     </div>
   </nav>
 
-
+ <div class="homepage--wrapper">
  <div class="homepage--hero">
     <div class="header">
       <h1>Join over 2.5 million young people taking action.</h1>
@@ -100,6 +100,8 @@
       <i title="American Express" class="sprite sprite-amex"></i>
       <i title="Google" class="sprite sprite-google"></i>
     </p>
+  </div>
+
   </div>
    
 </main>

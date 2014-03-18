@@ -17,6 +17,10 @@
   }
 }
 
+.homepage--wrapper {
+  background: #fff;
+  overflow: hidden;
+}
 
 .homepage--hero {
   @include row;
@@ -55,6 +59,9 @@
 }
 
 .homepage--grid {
+  background: #fff;
+  overflow: hidden;
+
   @include media($tablet) {
     @include span-columns(12);
     @include shift(2);
@@ -124,7 +131,9 @@
 .homepage--sponsors {
   clear: both;
   width: 100%;
+  background: #fff;
   text-align: center;
+  overflow: hidden;
 
   @include media($tablet) {
     @include span-columns(12);
