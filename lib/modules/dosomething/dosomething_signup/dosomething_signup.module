@@ -308,6 +308,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   // Insert signup.
   if ($sid = dosomething_signup_insert($nid, $account->uid)) {
     $node = node_load($nid);
+
     // Is there an override set on this campaign?
     $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
     $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
@@ -356,12 +357,13 @@ function dosomething_signup_get_mbp_params($account, $node) {
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'event_id' => $node->nid,
     'campaign_title' => $node->title,
-    'campaign_link' => $node->path,
+    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid) . '#prove', array('absolute' => TRUE)),
     'call_to_action' => $wrapper->field_call_to_action->value(),
     'step_one' => $wrapper->field_pre_step_header->value(),
     'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
     'step_three' => $wrapper->field_post_step_header->value(),
   );
+
   // Add any mailchimp params if needed.
   dosomething_signup_get_mbp_params_mailchimp($params, $node);
   return $params;
