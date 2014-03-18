@@ -16,6 +16,7 @@ body.page-node-confirmation {
     }
 
     .secondary-nav input[type="search"] {
+      color: #fff;
       border: 1px solid #fff;
       background-image: neue-image-url('search_light.png'); 
     }
@@ -27,21 +28,6 @@ body.page-node-confirmation {
 
   h2, h3, h4 {
     color: $purple;
-  }
-
-  // @TODO: Abstract all of these base styles to ds-neue
-  a {
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  li {
-    list-style-type: disc;
-    margin: 0 0 0 20px;
   }
 
   .header-wrapper {
