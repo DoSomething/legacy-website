@@ -311,6 +311,13 @@ function dosomething_user_login_validate($form, &$form_state) {
       }
     }
   }
+
+  if($account || user_load_by_name($form_state['values']['name'])){
+
+    $form_state['temporary']['account'] = TRUE;
+
+  }
+
 }
 
 /**
@@ -321,9 +328,13 @@ function dosomething_user_login_validate($form, &$form_state) {
  */
 function dosomething_user_login_legacy_validate($form, &$form_state) {
 
+  if (isset($form_state['temporary']['account'])) {
+    return;
+  }
+
   $data = array(
-    "username" => $form_state['values']['name'],
-    "password" => $form_state['values']['pass'],
+    "username" => rawurlencode($form_state['values']['name']),
+    "password" => rawurlencode($form_state['values']['pass']),
   );
   $data = json_encode($data);
 
