@@ -1,3 +1,8 @@
+.node-type-campaign {
+  @include wrapper--nav-floating;
+}
+
+
 .campaign--wrapper {
   overflow: hidden;
   background: #fff;
