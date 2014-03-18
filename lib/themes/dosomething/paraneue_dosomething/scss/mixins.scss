@@ -61,3 +61,24 @@
   }
 }
 
+// Applies a default width to a container for Drupal's stock pages
+@mixin default-width {
+  padding: 100px 1.5rem 50px;
+
+  @include media( $tablet ) {
+    @include span-columns(8);
+    @include shift(4);
+
+    padding: 150px 0 100px;
+  }
+}
+
+// Overrides the default width for all "designed" pages (full-width campaigns, static content, etc.)
+@mixin designed-width {
+  padding: 0;
+
+  @include media( $tablet ) {
+    @include span-columns(16);
+    @include shift(0);
+  }
+}

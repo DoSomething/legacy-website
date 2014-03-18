@@ -2,6 +2,10 @@
 //  STATIC CONTENT
 // ----------------
 
+.node-type-static-content .region-content {
+  @include designed-width;
+}
+
 .node-type-static-content {
   background: $purple;
 

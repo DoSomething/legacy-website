@@ -37,3 +37,9 @@
 .container-inline-date > .form-item {
   margin-right: 0;
 }
+
+// Default container styles for stock Drupal pages
+// NOTE - This is overridden for all designed pages
+.region-content {
+  @include default-width;
+}
