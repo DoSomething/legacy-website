@@ -445,6 +445,74 @@ function dosomething_user_create_user_by_mobile($number) {
 }
 
 /**
+ * Create a user account from provided JSON object.
+ *
+ * @param object $json
+ *   User's phone number.
+ *
+ * @return mixed
+ *   Newly created user object if TRUE, FALSE if no object returned..
+ */
+function dosomething_user_create_user_from_legacy_json($json, $form_state) {
+  $object = drupal_json_decode($json);
+
+  if (isset($object['user']) && isset($object['profile'])) { 
+    $user = array();
+    // Will be overridden by uid.
+    $user['name'] = user_password(8);
+    $user['pass'] = $form_state['values']['pass'];
+    $user['mail'] = $object['user']['mail'];
+    $user['created'] = $object['user']['created'];
+    $user['access'] = $object['user']['access'];
+    // Set the init value as legacy uid.
+    $user['init']= $object['user']['uid'];
+    $user['status'] = 1;
+    $account = user_save('', $user);
+    // Save fields:
+    // First Name.
+    $first_name = $object['profile']['field_user_first_name'][LANGUAGE_NONE][0]['value'];
+    if ($first_name) {
+      $edit['field_first_name'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $first_name,
+          ),
+        ),
+      );
+    }
+    // Mobile.  @todo: Sanitize with clean
+    $mobile = $object['profile']['field_user_mobile'][LANGUAGE_NONE][0]['value'];
+    if ($mobile) {
+      $edit['field_mobile'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $mobile,
+          ),
+        ),
+      );
+    }
+    // Birthdate
+    $dob = $object['profile']['field_user_birthday'][LANGUAGE_NONE][0]['value'];
+    if ($dob) {
+      $edit['field_birthdate'] = array(
+        LANGUAGE_NONE => array(
+          0 => array(
+            'value' => $dob,
+          ),
+        ),
+      );
+    }
+    // Save fields.
+    $account = user_save($account, $edit);
+    // Set under thirteen field.
+    dosomething_user_is_under_thirteen($account);
+    return;
+  }
+  // If no object returned, return FALSE.
+  return FALSE;
+}
+
+/**
  * A request to send a message via the Message Broker library:
  * https://github.com/DoSomething/messagebroker-phplib
  *
