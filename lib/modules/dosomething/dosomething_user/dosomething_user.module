@@ -320,16 +320,53 @@ function dosomething_user_login_validate($form, &$form_state) {
  * @see dosomething_user_form_alter()
  */
 function dosomething_user_login_legacy_validate($form, &$form_state) {
-  // Lets check user against endpoint
-  // http://mcommons.dosomething.org/rest/user/login.json?1234
-  // pass json object {username: 'user', 'password': '12345'}
 
-  // If failure, form_set_error
+  $data = array(
+    "username" => $form_state['values']['name'],
+    "password" => $form_state['values']['pass'],
+  );
+  $data = json_encode($data);
 
-  // If authentication works, create a new user from the JSON object returned
+  $url = variable_get(
+    'DS_LEGACY_AUTH_ENDPOINT',
+    'http://mcommons.dosomething.org/rest/user/login.json'
+  );
 
+  $url .= '?' . time();
 
+  $ch = curl_init($url);
 
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($data))
+  );
+
+  $result = curl_exec($ch);
+  $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+  if ($status !== 200) {
+    // @TODO: We must make this validation smarter
+    form_set_error($form_state['values']['name'], t('Invalid login'));
+    return;
+  }
+
+  $result = json_decode($result);
+
+  if (function_exists('dosomething_user_create_user_from_legacy_json')){
+    $user = dosomething_user_create_user_from_legacy_json($result, $form_state);
+    if ($user === FALSE) {
+      form_set_error(
+        $form_state['values']['name'],
+        t('User account could not be created')
+      );
+      return;
+    }
+    // @TODO LOGIN THE USER?
+  }
 }
 
 /**
