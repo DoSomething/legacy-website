@@ -102,9 +102,21 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
  *   Whether or not API request was successful.
  */
 function dosomething_zendesk_create_ticket($values) {
+  global $user;
+
   // Get expected format for a create Ticket request.
   $ticket = dosomething_zendesk_get_ticket_array($values);
   if ($ticket && $client = dosomething_zendesk_get_client()) {
+    // Check whether a user exists
+    $zen_desk_user = $client->search(array('query' => "type:user email:{$ticket['requester']['email']}"));
+
+    if (empty($zen_desk_user->results)) {
+      $new_user = array(
+        'email' => $values['email'],
+        'name' => $user->name,
+      );
+      $client->users()->create($new_user);
+    }
     // Submit API request to create ticket.
     try {
       $client->tickets()->create($ticket);
