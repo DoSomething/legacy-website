@@ -9,7 +9,7 @@
 
 <?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
 <?php print $messages; ?>
-<main class="wrapper">
+<main class="wrapper node-home">
   <nav class="chrome--nav">
     <a class="logo" href="<?php print $base_path; ?>"><img src="/<?php print NEUE_PATH; ?>/assets/images/ds-logo.png" alt="DoSomething.org"></a>
     <a class="hamburger js-toggle-mobile-menu" href="#">&#xe606;</a>
