@@ -19,3 +19,12 @@
 @function neue-image-url($url) {
   @return url("/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/assets/images/#{$url}");
 }
+
+// @TODO: Temporary mixin for homepage sprites (from old world)
+@mixin responsive-sprite($pos-x, $pos-y) {
+  background-position: $pos-x/2 $pos-y/2;
+
+  @include media($tablet) { 
+    background-position: $pos-x $pos-y;
+  };
+}

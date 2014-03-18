@@ -1,0 +1,173 @@
+.node-home {
+  // @TODO: White Navigation -- Ugh -- At least mixin this
+  .nav--wrapper {
+    .hamburger {
+      color: #fff !important;
+    }
+
+    a {
+      color: #fff !important;
+    }
+
+    .secondary-nav input[type="search"] {
+      color: #fff;
+      border: 1px solid #fff;
+      background-image: neue-image-url('search_light.png'); 
+    }
+  }
+}
+
+
+.homepage--hero {
+  @include row;
+  background: $purple;
+  background-image: image-url("homepage.jpg");
+  background-size: cover;
+  padding: 7rem 0 2rem;
+  
+  .header {
+    @include span-columns(6);
+    @include shift(1);
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+    }
+
+    h1, p {
+      color: #fff;
+    }
+
+    h1 {
+      font-size: $font-large;
+      margin: 1.5rem 0 0.5rem;
+
+      @include media($tablet) {
+        font-size: $font-larger;
+      }
+    }
+    
+    // @TODO: Neue me!
+    p {
+      font-size: 18px;
+    }
+  }
+}
+
+.homepage--grid {
+  @include media($tablet) {
+    @include span-columns(12);
+    @include shift(2);
+  }
+
+  .block-big, .block-small {
+    position: relative;
+    background: #eee;
+    background-size: cover;
+    width: 100%;
+  }
+
+  .block-big {
+    height: 200px;
+    margin: 1rem 0;
+
+    @include media($tablet) {
+      height: 350px;
+      @include span-columns(12 of 12);
+    }
+  }
+
+  .block-small {
+    height: 100px;
+    margin: 0 0 1rem;
+
+    @include media($tablet) {
+      height: 175px;
+      @include span-columns(4 of 12);
+    }
+
+    @include media($desktop) {
+      height: 250px;
+    }
+
+    .headline h2 {
+      font-size: $font-medium;
+    }
+  }
+
+  .headline {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+
+    @include linear-gradient(transparent, #000);
+
+    h2 {
+      color: #fff;
+      margin: 2rem 0 0;
+    }
+  }
+
+  .full-link {
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+
+.homepage--sponsors {
+  clear: both;
+  width: 100%;
+  text-align: center;
+
+  @include media($tablet) {
+    @include span-columns(12);
+    @include shift(2);
+  }
+
+  h4 {
+    color: $light-gray;
+  }
+
+  .sprite {
+    background-image: image-url("sponsors.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: 175px 160px;
+    width: 50px;
+    height: 35px;
+    margin: 0 1rem;
+
+    @include media($tablet) {
+      background-size: 350px 320px;
+      width: 100px;
+      height: 70px;
+    }
+  }
+
+  .sprite-hrb {
+    width: 60px;
+    @include media($tablet) {
+      width: 120px;
+    }
+  }
+
+  .sprite-hrb { @include responsive-sprite(-5px, -5px); }
+  .sprite-aeropostale { @include responsive-sprite(-135px, -5px); }
+  .sprite-channel-one { @include responsive-sprite(-5px, -85px); }
+  .sprite-fastweb { @include responsive-sprite(-115px, -85px); }
+  .sprite-toyota { @include responsive-sprite(-5px, -165px); }
+  .sprite-jetblue { @include responsive-sprite(-115px, -165px); }
+  .sprite-aarp { @include responsive-sprite(-245px, -5px); }
+  .sprite-sprint { @include responsive-sprite(-225px, -85px); }
+  .sprite-hm { @include responsive-sprite(-228px, -165px); }
+  .sprite-salt { @include responsive-sprite(-13px, -245px); }
+  .sprite-amex { @include responsive-sprite(-110px, -245px); }
+  .sprite-google { @include responsive-sprite(-212px, -245px); }
+}
