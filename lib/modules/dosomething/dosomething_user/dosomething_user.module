@@ -460,7 +460,15 @@ function dosomething_user_create_user_from_legacy_json($values, $form_state) {
     // Will be overridden by uid.
     $user['name'] = user_password(8);
     $user['pass'] = $form_state['values']['pass'];
-    $user['mail'] = $values['user']['mail'];
+    // Check for weird scenarios where we're not getting mail in the values.
+    if (!isset($values['user']['mail'])) {
+      $mail = 'uid-' . $values['user']['uid'] . '@mailinator.org';
+      watchdog('dosomething_user', 'No email provided for ' . $mail, array(), WATCHDOG_ERROR);
+    }
+    else {
+      $mail = $values['user']['mail'];
+    }
+    $user['mail'] = $mail;
     $user['created'] = $values['user']['created'];
     $user['access'] = $values['user']['access'];
     // Set the init value as legacy uid.
@@ -507,7 +515,8 @@ function dosomething_user_create_user_from_legacy_json($values, $form_state) {
     dosomething_user_is_under_thirteen($account);
     return;
   }
-  // If no object returned, return FALSE.
+  // If no object returned, log error and return FALSE.
+  watchdog('dosomething_user', 'Failed user creation for values ' . print_r($values, TRUE), array(), WATCHDOG_ERROR);
   return FALSE;
 }
 
