@@ -24,7 +24,7 @@
 
 .homepage--hero {
   @include row;
-  background: $purple;
+  background: #26466d;
   background-image: image-url("homepage.jpg");
   background-size: cover;
   padding: 7rem 0 2rem;
@@ -76,20 +76,20 @@
 
   .block-big {
     height: 200px;
-    margin: 1rem 0;
 
     @include media($tablet) {
       height: 350px;
+      margin: 1rem 0;
       @include span-columns(12 of 12);
     }
   }
 
   .block-small {
     height: 100px;
-    margin: 0 0 1rem;
 
     @include media($tablet) {
       height: 175px;
+      margin: 0 0 1rem;
       @include span-columns(4 of 12);
     }
 
