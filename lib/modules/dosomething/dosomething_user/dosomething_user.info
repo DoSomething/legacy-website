@@ -29,7 +29,6 @@ dependencies[] = system
 dependencies[] = taxonomy
 dependencies[] = text
 dependencies[] = user
-dependencies[] = uuid
 dependencies[] = view_unpublished
 dependencies[] = views
 features[ctools][] = strongarm:strongarm:1
