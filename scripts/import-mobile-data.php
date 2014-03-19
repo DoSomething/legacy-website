@@ -13,7 +13,7 @@ $mobile_data = '_mobile_old_world';
 $users = 'users';
 
 // Let's only try to get people who don't already have a mobile value.
-$users_no_mobile = db_query("SELECT * FROM {$users} u
+$users_no_mobile = db_query("SELECT uid FROM {$users} u
                     LEFT JOIN field_data_field_mobile m ON m.entity_id = u.uid
                     WHERE m.field_mobile_value is NULL;");
 $edit = array();

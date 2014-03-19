@@ -18,7 +18,7 @@ $first_name = '_first_name_old_world';
 $users = 'users';
 
 // Let's only try to get people who don't already have a mobile value.
-$users_no_data = db_query("SELECT * FROM {$users} u
+$users_no_data = db_query("SELECT uid FROM {$users} u
                     LEFT JOIN field_data_field_first_name fn ON fn.entity_id = u.uid
                     LEFT JOIN field_data_field_birthdate b on b.entity_id = u.uid
                     WHERE fn.field_first_name_value is NULL
