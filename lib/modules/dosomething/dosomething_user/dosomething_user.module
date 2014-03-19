@@ -273,7 +273,7 @@ function _dosomething_user_add_campaign_data(&$form) {
         // @TODO: Encrypt me.
         '#value' => $obj->nid,
       );
-      $form['#action'] = '/node/' . $obj->nid;
+      $form['#action'] = '/' . drupal_get_path_alias('node/' . $obj->nid);
     }
   }
 }
