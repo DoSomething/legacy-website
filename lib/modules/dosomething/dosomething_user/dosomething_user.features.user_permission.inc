@@ -16,6 +16,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'member support' => 'member support',
     ),
     'module' => 'admin_menu',
   );
@@ -80,7 +81,11 @@ function dosomething_user_user_default_permissions() {
   // Exported permission: 'access user profiles'.
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'member support' => 'member support',
+    ),
     'module' => 'user',
   );
 
@@ -171,10 +176,12 @@ function dosomething_user_user_default_permissions() {
     ),
     'module' => 'mailsystem',
   );
+
+  // Exported permission: 'administer message_broker_producer'.
   $permissions['administer message_broker_producer'] = array(
     'name' => 'administer message_broker_producer',
     'roles' => array(
-       'administrator' => 'administrator',
+      'administrator' => 'administrator',
     ),
     'module' => 'message_broker_producer',
   );
@@ -284,6 +291,7 @@ function dosomething_user_user_default_permissions() {
     'name' => 'administer users',
     'roles' => array(
       'administrator' => 'administrator',
+      'member support' => 'member support',
     ),
     'module' => 'user',
   );
@@ -414,6 +422,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'member support' => 'member support',
     ),
     'module' => 'system',
   );

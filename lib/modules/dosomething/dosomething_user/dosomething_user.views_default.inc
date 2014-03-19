@@ -245,5 +245,143 @@ function dosomething_user_views_default_views() {
   );
   $export['content_search'] = $view;
 
+  $view = new view();
+  $view->name = 'user_search';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'users';
+  $view->human_name = 'User Search';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Search users';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['style_plugin'] = 'table';
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  /* Field: User: E-mail */
+  $handler->display->display_options['fields']['mail']['id'] = 'mail';
+  $handler->display->display_options['fields']['mail']['table'] = 'users';
+  $handler->display->display_options['fields']['mail']['field'] = 'mail';
+  $handler->display->display_options['fields']['mail']['label'] = 'Email';
+  $handler->display->display_options['fields']['mail']['link_to_user'] = '0';
+  /* Field: User: Cell # */
+  $handler->display->display_options['fields']['field_mobile']['id'] = 'field_mobile';
+  $handler->display->display_options['fields']['field_mobile']['table'] = 'field_data_field_mobile';
+  $handler->display->display_options['fields']['field_mobile']['field'] = 'field_mobile';
+  $handler->display->display_options['fields']['field_mobile']['label'] = 'Mobile';
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  /* Field: User: Last login */
+  $handler->display->display_options['fields']['login']['id'] = 'login';
+  $handler->display->display_options['fields']['login']['table'] = 'users';
+  $handler->display->display_options['fields']['login']['field'] = 'login';
+  $handler->display->display_options['fields']['login']['date_format'] = 'short';
+  /* Sort criterion: User: Created date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'users';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Filter criterion: User: The user ID */
+  $handler->display->display_options['filters']['uid_raw']['id'] = 'uid_raw';
+  $handler->display->display_options['filters']['uid_raw']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_raw']['field'] = 'uid_raw';
+  $handler->display->display_options['filters']['uid_raw']['group'] = 1;
+  $handler->display->display_options['filters']['uid_raw']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['uid_raw']['expose']['operator_id'] = 'uid_raw_op';
+  $handler->display->display_options['filters']['uid_raw']['expose']['label'] = 'Uid';
+  $handler->display->display_options['filters']['uid_raw']['expose']['operator'] = 'uid_raw_op';
+  $handler->display->display_options['filters']['uid_raw']['expose']['identifier'] = 'uid_raw';
+  $handler->display->display_options['filters']['uid_raw']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+  );
+  /* Filter criterion: User: E-mail */
+  $handler->display->display_options['filters']['mail']['id'] = 'mail';
+  $handler->display->display_options['filters']['mail']['table'] = 'users';
+  $handler->display->display_options['filters']['mail']['field'] = 'mail';
+  $handler->display->display_options['filters']['mail']['group'] = 1;
+  $handler->display->display_options['filters']['mail']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['mail']['expose']['operator_id'] = 'mail_op';
+  $handler->display->display_options['filters']['mail']['expose']['label'] = 'Email';
+  $handler->display->display_options['filters']['mail']['expose']['operator'] = 'mail_op';
+  $handler->display->display_options['filters']['mail']['expose']['identifier'] = 'mail';
+  $handler->display->display_options['filters']['mail']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+  );
+  /* Filter criterion: User: Cell # (field_mobile) */
+  $handler->display->display_options['filters']['field_mobile_value']['id'] = 'field_mobile_value';
+  $handler->display->display_options['filters']['field_mobile_value']['table'] = 'field_data_field_mobile';
+  $handler->display->display_options['filters']['field_mobile_value']['field'] = 'field_mobile_value';
+  $handler->display->display_options['filters']['field_mobile_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_mobile_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_mobile_value']['expose']['operator_id'] = 'field_mobile_value_op';
+  $handler->display->display_options['filters']['field_mobile_value']['expose']['label'] = 'Mobile';
+  $handler->display->display_options['filters']['field_mobile_value']['expose']['operator'] = 'field_mobile_value_op';
+  $handler->display->display_options['filters']['field_mobile_value']['expose']['identifier'] = 'field_mobile_value';
+  $handler->display->display_options['filters']['field_mobile_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'admin/users';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Users';
+  $handler->display->display_options['menu']['description'] = 'Search users';
+  $handler->display->display_options['menu']['weight'] = '80';
+  $handler->display->display_options['menu']['name'] = 'management';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $translatables['user_search'] = array(
+    t('Master'),
+    t('Search users'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Uid'),
+    t('Email'),
+    t('Mobile'),
+    t('First Name'),
+    t('Last login'),
+    t('Page'),
+  );
+  $export['user_search'] = $view;
+
   return $export;
 }

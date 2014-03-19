@@ -22,5 +22,11 @@ function dosomething_user_user_default_roles() {
     'weight' => 3,
   );
 
+  // Exported role: member support.
+  $roles['member support'] = array(
+    'name' => 'member support',
+    'weight' => 5,
+  );
+
   return $roles;
 }
