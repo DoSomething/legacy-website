@@ -33,7 +33,7 @@
 
   .header-wrapper {
     padding: 7rem 1rem 0;
-    @include row; 
+    @include row;
     @include media($tablet) {
       padding: 7rem 0 0;
     }
@@ -42,7 +42,7 @@
   // Set gutters on mobile
   .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
-    @include row; 
+    @include row;
     @include media($tablet) {
       padding: 0;
     }

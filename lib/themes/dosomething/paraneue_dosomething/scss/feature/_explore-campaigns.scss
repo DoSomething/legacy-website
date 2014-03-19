@@ -28,7 +28,7 @@
     background: $purple;
 
     padding: 7rem 1rem 0;
-    @include row; 
+    @include row;
     @include media($tablet) {
       padding: 7rem 0 0;
     }
@@ -83,7 +83,7 @@
       }
 
       h3 {
-        margin-bottom: 5px; 
+        margin-bottom: 5px;
       }
 
       img {

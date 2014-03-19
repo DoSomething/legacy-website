@@ -5,7 +5,7 @@ div.meta {
   width: 90%;
   margin: 230px auto 0;
 
-  @include media( $tablet ) {
+  @include media($tablet) {
     position: absolute;
     width: 100%;
     left: 0;
@@ -28,7 +28,7 @@ header.header {
   background-position: 50% 50%;
   background-size: cover;
 
-  @include media( $tablet ) {
+  @include media($tablet) {
     min-height: 620px;
   }
 
@@ -37,12 +37,12 @@ header.header {
     font-size: 2rem;
     line-height: 2rem;
     text-align: center;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       font-size: $font-massive;
       text-align: left;
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 1.5rem;
     }
   }
 
@@ -50,12 +50,12 @@ header.header {
     color: #fff !important;
     font-size: $font-regular;
     text-align: center;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       font-size: $font-medium;
       text-align: left;
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 1.5rem;
     }
   }
 
@@ -66,12 +66,12 @@ header.header {
     color: #fff !important;
     font-size: $font-small;
     text-align: center;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       font-size: $font-regular;
       text-align: left;
-      margin: 0 0 1.5rem 0;
+      margin: 0 0 1.5rem;
     }
   }
 
@@ -85,7 +85,7 @@ header.header {
     color: #fff;
     font-size: $font-medium;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       float: left;
       width: 150px;
       font-size: 1.5rem; // @TODO Should we bump the button size for .btn.large?
@@ -97,7 +97,7 @@ header.header {
     float: none;
     width: 125px;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       overflow: hidden;
       float: right;
       width: 200px;
@@ -117,7 +117,7 @@ header.header {
       width: 50px;
       height: 50px;
 
-      @include media( $tablet ) {
+      @include media($tablet) {
         font-size: $font-regular;
         width: 100px;
         height: 100px;
@@ -131,7 +131,7 @@ header.header {
       width: 70px;
       height: 50px;
 
-      @include media( $tablet ) {
+      @include media($tablet) {
         font-size: $font-regular;
         margin: 0;
         width: 100px;
@@ -146,7 +146,7 @@ header.header {
     margin: 20px auto 0;
     position: relative;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       width: 130px;
       margin: -10px 0 0 15px;
       float: left;
@@ -165,7 +165,7 @@ header.header {
       position: relative;
       right: -50px;
 
-      @include media( $tablet ) {
+      @include media($tablet) {
         float: none;
         right: 0;
       }
@@ -182,7 +182,7 @@ header.header {
         top: -40px;
         right: 40px;
 
-        @include media( $tablet ) {
+        @include media($tablet) {
           width: 40px;
           height: 60px;
           float: left;

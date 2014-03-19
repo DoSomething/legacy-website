@@ -79,13 +79,13 @@
 
     .intro-content {
       @include media($tablet) {
-	     @include span-columns(8 of 12);
+        @include span-columns(8 of 12);
       }
     }
     img, video {
       @include media($tablet) {
-	      @include span-columns(4 of 12);
-	      @include omega();
+        @include span-columns(4 of 12);
+        @include omega();
       }
     }
   }
