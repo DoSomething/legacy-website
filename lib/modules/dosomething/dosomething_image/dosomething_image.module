@@ -147,6 +147,18 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
 }
 
 /**
+ * Implements hook_node_update().
+ */
+function dosomething_image_node_update($node) {
+  if ($node->type == 'image') {
+    /* @TODO: Eh, I'm not crazy about this, but it's a quick win for now.
+     * We don't need to clear the whole cache, and should clear the cache
+     * where this is referenced, but that can come later! */
+    dosomething_image_cache_clear_all();
+  }
+}
+
+/**
  * Clear cache on dosomething_image table.
  */
 function dosomething_image_cache_clear_all() {
