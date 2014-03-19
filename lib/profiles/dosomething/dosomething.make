@@ -48,6 +48,12 @@ projects[dosomething_image][download][type] = local
 projects[dosomething_image][download][source] = './lib/modules/dosomething/dosomething_image'
 projects[dosomething_image][subdir] = "dosomething"
 
+; Dosomething Metatag
+projects[dosomething_metatag][type] = "module"
+projects[dosomething_metatag][download][type] = local
+projects[dosomething_metatag][download][source] = './lib/modules/dosomething/dosomething_metatag'
+projects[dosomething_metatag][subdir] = "dosomething"
+
 ; Dosomething Reportback
 projects[dosomething_reportback][type] = "module"
 projects[dosomething_reportback][download][type] = local
