@@ -62,6 +62,11 @@
     a.tip-header.active {
       display: inline-block;
       color: $off-black;
+      cursor: default;
+
+      &:hover {
+        cursor: default;
+      }
 
       &:after {
         content: "";
