@@ -27,6 +27,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'member support' => 'member support',
     ),
     'module' => 'system',
   );
