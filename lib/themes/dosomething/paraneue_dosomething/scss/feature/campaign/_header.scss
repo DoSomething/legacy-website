@@ -27,6 +27,7 @@ header.header {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
+  background-color: $purple;
 
   @include media($tablet) {
     min-height: 620px;
