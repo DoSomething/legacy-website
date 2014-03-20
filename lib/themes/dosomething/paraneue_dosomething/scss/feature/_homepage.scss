@@ -14,7 +14,7 @@
   background-image: image-url("homepage.jpg");
   background-size: cover;
   padding: 7rem 0 2rem;
-  
+
   .header {
     @include span-columns(6);
     @include shift(1);
@@ -36,7 +36,7 @@
         font-size: $font-larger;
       }
     }
-    
+
     // @TODO: Neue me!
     p {
       font-size: 18px;

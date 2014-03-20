@@ -12,10 +12,10 @@
 }
 
 .navigation {
-  width: 100%; 
+  width: 100%;
   -webkit-font-smoothing: subpixel-antialiased; // fixes antialiasing issue on positioned elements in Safari
 
-  @include media( $tablet ) {
+  @include media($tablet) {
     position: absolute;
     top: 4rem;
     padding-top: 3rem;
@@ -47,7 +47,7 @@
     }
 
     &:last-child a {
-      border-bottom: none;
+      border-bottom: 0;
     }
   }
 

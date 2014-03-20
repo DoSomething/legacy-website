@@ -4,7 +4,7 @@
 
 body.page-node-confirmation {
   background: $purple;
-  
+
   @include wrapper--nav-white;
   @include wrapper--nav-floating;
 }
@@ -19,7 +19,7 @@ body.page-node-confirmation {
   .header-wrapper {
     background: $purple;
     padding: 7rem 1rem 0;
-    @include row; 
+    @include row;
     @include media($tablet) {
       padding: 7rem 0 0;
     }
@@ -28,7 +28,7 @@ body.page-node-confirmation {
   // Set gutters on mobile
   .cta-wrapper, .gallery-wrapper {
     padding: 1rem;
-    @include row; 
+    @include row;
     @include media($tablet) {
       padding: 0;
     }

@@ -4,7 +4,7 @@
   position: relative;
 
   .content {
-    @include media( $tablet ) {
+    @include media($tablet) {
       @include span-columns(9);
       @include shift(3);
     }
@@ -12,19 +12,19 @@
 
   .pre,
   .during {
-    @include media( $tablet ) {
+    @include media($tablet) {
       border-bottom: 1px solid $light-gray;
-      margin: 0 0 2.5rem 0;
+      margin: 0 0 2.5rem;
     }
   }
 
   .pre {
     @include section-padding;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       border-bottom: 1px solid $light-gray;
-      margin: 0 0 2.5rem 0;
-      padding: 0 0 2rem 0 !important;
+      margin: 0 0 2.5rem;
+      padding: 0 0 2rem !important;
     }
   }
 
@@ -32,7 +32,7 @@
   .more-tips {
     display: block;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       display: none;
     }
   }
@@ -40,18 +40,18 @@
   .tips--wrapper {
     display: none;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       display: block;
     }
   }
 
   .post {
-    margin: 0 0 2.5rem 0;
+    margin: 0 0 2.5rem;
   }
 
   .tip-header-wrapper {
     display: inline-block;
-    margin: 0 0 16px 0;
+    margin: 0 0 16px;
     text-decoration: none;
 
     a.tip-header {
@@ -73,7 +73,7 @@
         border-top: 12px solid #fff;
         border-left: 12px solid transparent;
         border-right: 12px solid transparent;
-        border-bottom: none;
+        border-bottom: 0;
         left: 33.333%;
         top: 40px;
       }
@@ -92,7 +92,7 @@
   .tip-body-wrapper {
     background: $light-gray;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       margin: 0;
     }
   }
@@ -115,7 +115,7 @@
   }
 
   div.step-image-wrapper {
-    @include media( $tablet ) {
+    @include media($tablet) {
       overflow: hidden;
       position: relative;
       width: 180px;
@@ -127,16 +127,16 @@
     // crop for smaller screens viewing
     // the campaign in a single column
     &.mobile {
-     display: block;
+      display: block;
 
-     img {
-       width: 100%;
-       display: block;
-     }
+      img {
+        width: 100%;
+        display: block;
+      }
 
-     @include media( $tablet ) {
-       display: none;
-     }
+      @include media($tablet) {
+        display: none;
+      }
     }
 
     // Only show the Polaroid version
@@ -145,7 +145,7 @@
     &.desktop {
       display: none;
 
-      @include media( $tablet ) {
+      @include media($tablet) {
         display: block;
       }
 

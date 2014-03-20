@@ -20,7 +20,7 @@ footer.sponsors {
     float: none;
     color: #fff;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       float: left;
     }
   }
@@ -29,14 +29,14 @@ footer.sponsors {
     display: none;
     color: #fff;
 
-    @include media( $tablet ) {
+    @include media($tablet) {
       display: block;
       float: right;
     }
   }
 
   .footer-content {
-    @include media( $tablet ) {
+    @include media($tablet) {
       @include span-columns(12);
       @include shift(3);
     }
@@ -72,11 +72,11 @@ footer.sources {
   display: block;
   background: $off-black;
 
-  @include media( $tablet ) {
+  @include media($tablet) {
     display: none;
   }
 
   div {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
   }
 }
