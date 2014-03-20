@@ -23,7 +23,8 @@ function dosomething_signup_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view any signup';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -107,7 +108,6 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
     'campaign' => 'campaign',
   );
-  $handler->display->display_options['arguments']['nid']['validate_options']['access'] = TRUE;
   $handler->display->display_options['arguments']['nid']['validate_options']['access_op'] = 'update';
   /* Filter criterion: Signups: Uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';

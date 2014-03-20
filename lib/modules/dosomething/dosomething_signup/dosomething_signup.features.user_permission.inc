@@ -20,5 +20,16 @@ function dosomething_signup_user_default_permissions() {
     'module' => 'dosomething_signup',
   );
 
+  // Exported permission: 'view any signup'.
+  $permissions['view any signup'] = array(
+    'name' => 'view any signup',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+      'member support' => 'member support',
+    ),
+    'module' => 'dosomething_signup',
+  );
+
   return $permissions;
 }
