@@ -310,6 +310,7 @@ function dosomething_campaign_get_recommended_campaign_vars($nid) {
     'title' => l($wrapper->label(), $path),
     'call_to_action' => $wrapper->field_call_to_action->value(),
     'image' => $image,
+    'src' => $path,
   );
 }
 
