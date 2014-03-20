@@ -29,7 +29,7 @@
       </nav>
     </div>
 
-    <h2 id="know" class="step-header"><span class="shift">Step 1: Know It</span></h2>
+    <h2 id="know" class="banner"><span>Step 1: Know It</span></h2>
     <section class="know step">
 
       <div class="col first">
@@ -123,7 +123,7 @@
     </section>
     <!-- /KNOW -->
 
-    <h2 id="plan" class="step-header"><span class="shift">Step 2: Plan It</span></h2>
+    <h2 id="plan" class="banner"><span>Step 2: Plan It</span></h2>
     <section class="plan step">
       <?php if (isset($starter)) : ?>
         <div class="intro"><?php print $starter['safe_value']; ?></div>
@@ -186,7 +186,7 @@
 
     </section>
 
-    <h2 id="do" class="step-header"><span class="shift">Step 3: Do It</span></h2>
+    <h2 id="do" class="banner"><span>Step 3: Do It</span></h2>
     <section class="do step">
       <div class="content">
         <div class="pre">
@@ -300,7 +300,7 @@
       <?php endif; ?>
     </section>
 
-    <h2 id="prove" class="step-header"><span class="shift">Step 4: Prove It</span></h2>
+    <h2 id="prove" class="banner"><span>Step 4: Prove It</span></h2>
     <section class="prove step inline--alt-bg">
       <div class="content">
         <h3 class="title">Pics or It Didn't Happen</h3>
