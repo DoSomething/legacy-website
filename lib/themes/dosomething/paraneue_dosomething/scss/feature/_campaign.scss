@@ -13,21 +13,12 @@
 
   // Full-width header that comes
   // immediately before each section.step
-  h2.step-header {
-    margin: 0;
-    padding: 0;
-    background: #000;
-    color: #fff;
-    clear: both;
-    line-height: 4rem;
-    text-transform: uppercase;
-
-    .shift {
+  h2.banner {
+    span {
       @include section-padding;
 
       @include media($tablet) {
         padding: 0;
-
         @include shift(3 of 16);
       }
     }
@@ -77,15 +68,14 @@
     }
   }
 
-  // Overrides base font color for all campaigns
-  p,
-  div {
-    color: #444;
-  }
-
   .legal {
-    padding: 0 !important;
     text-align: left;
+
+    // Overrides to deal with markdown formatting
+    p,
+    sup {
+      display: inline;
+    }
 
     div {
       line-height: 1;
@@ -94,22 +84,5 @@
         margin: 0;
       }
     }
-
-    strong {
-      font-size: $font-regular;
-    }
-
-    p,
-    sup {
-      display: inline;
-    }
-
-    sup {
-      font-size: $font-smaller;
-    }
   }
-}
-
-sup {
-  padding: 0 !important;
 }
