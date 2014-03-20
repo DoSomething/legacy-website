@@ -27,6 +27,7 @@ header.header {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
+  background-color: $purple;
 
   @include media($tablet) {
     min-height: 620px;
@@ -177,7 +178,7 @@ header.header {
         width: 25px;
         height: 38px;
         display: block;
-        background: url('../images/campaign-arrow-up.png') 50% 50% / 25px no-repeat transparent;
+        background: image-url("campaign-arrow-up.png") 50% 50% / 25px no-repeat transparent;
         position: absolute;
         top: -40px;
         right: 40px;
@@ -187,7 +188,7 @@ header.header {
           height: 60px;
           float: left;
           position: static;
-          background: url('../images/campaign-arrow-left.png') 50% 50% / 35px no-repeat transparent;
+          background: image-url("campaign-arrow-left.png") 50% 50% / 35px no-repeat transparent;
         }
       }
     }
