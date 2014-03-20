@@ -126,9 +126,6 @@ function build {
   echo 'Install composer dependencies'
   composer
 
-  echo 'Install bower dependencies'
-  bower
-
   # Clear caches and Run updates
   cd "$WEB_DIR"
 
