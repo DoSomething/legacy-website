@@ -48,6 +48,7 @@ function dosomething_reportback_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'member support' => 'member support',
     ),
     'module' => 'dosomething_reportback',
   );

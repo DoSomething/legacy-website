@@ -189,7 +189,6 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
     'campaign' => 'campaign',
   );
-  $handler->display->display_options['arguments']['nid']['validate_options']['access'] = TRUE;
   $handler->display->display_options['arguments']['nid']['validate_options']['access_op'] = 'update';
   /* Filter criterion: Reportback: User uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
