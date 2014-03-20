@@ -433,13 +433,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768p');
     }
 
-    //@TODO: Remove Trello-hosted placeholder
-    // Fall back to default values if a hero image was not set.
-    $default_mobile = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/020eb5456f174a48b0b53b2925a4780c/hero-processed-1-1.jpg';
-    $vars['hero_image']['mobile'] = (isset($vars['hero_image_m_url']) ? $vars['hero_image_m_url'] : $default_mobile);
-
-    $default_desktop = 'https://trello-attachments.s3.amazonaws.com/53037337ba957ad54dc80486/53063914418de170762c28c0/9b1b65c66af0687562a5cb4f81bdf05d/hero-processed-16-9.jpg';
-    $vars['hero_image']['desktop'] = (isset($vars['hero_image_l_url']) ? $vars['hero_image_l_url'] : $default_desktop);
+    isset($vars['hero_image_m_url']) ? $vars['hero_image']['mobile'] = $vars['hero_image_m_url'] : NULL ;
+    isset($vars['hero_image_l_url']) ? $vars['hero_image']['desktop'] = $vars['hero_image_l_url'] : NULL ;
 
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
@@ -479,17 +474,19 @@ function dosomething_campaign_add_inline_css(&$vars) {
     drupal_add_css($style_alt_color, $option['type'] = 'inline');
   }
 
-  // Add hero background images
-  $style_hero_image = '.campaign--wrapper header.header {
-      background-image: url("' . $vars['hero_image']['mobile'] . '");
-    }
-
-    @media only screen and (min-width: 768px) {
-      .campaign--wrapper header.header {
-        background-image: url("' . $vars['hero_image']['desktop'] . '");
+  // Add hero background images if set
+  if (isset($vars['hero_image']['mobile']) && isset($vars['hero_image']['desktop'])) {
+    $style_hero_image = '.campaign--wrapper header.header {
+        background-image: url("' . $vars['hero_image']['mobile'] . '");
       }
-    }';
-  drupal_add_css($style_hero_image, $option['type'] = 'inline');
+
+      @media only screen and (min-width: 768px) {
+        .campaign--wrapper header.header {
+          background-image: url("' . $vars['hero_image']['desktop'] . '");
+        }
+      }';
+    drupal_add_css($style_hero_image, $option['type'] = 'inline');
+  }
 
   // Set alt sponsor bg for modals
   if (isset($vars['alt_bg_src'])) {
