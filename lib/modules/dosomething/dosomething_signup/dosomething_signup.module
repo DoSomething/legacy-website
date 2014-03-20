@@ -39,11 +39,15 @@ function dosomething_signup_menu() {
  */
 function dosomething_signup_permission() {
   return array(
-  'administer third party communication' =>  array(
-    'title' => t('Administer Third Party Communications'),
-    'description' => t('Manage Mobile Commons/MailChimp Opt-in IDs.'),
-  )
-);
+    'administer third party communication' =>  array(
+      'title' => t('Administer Third Party Communications'),
+      'description' => t('Manage Mobile Commons/MailChimp Opt-in IDs.'),
+    ),
+    'view any signup' =>  array(
+      'title' => t('View any signup'),
+      'description' => t('View any signup.'),
+    ),
+  );
 }
 
 /**
