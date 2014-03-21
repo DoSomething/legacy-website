@@ -13,7 +13,9 @@
 
   // Full-width header that comes
   // immediately before each section.step
-  h2.banner {
+  .banner {
+    margin: 0;
+
     span {
       @include section-padding;
 
@@ -25,7 +27,7 @@
   }
 
   // Campaign "step" wrapper that contains all campaign sections
-  section.step {
+  .step {
     overflow: hidden;
     margin: 1rem 0;
 
