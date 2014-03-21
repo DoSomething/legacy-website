@@ -114,11 +114,16 @@ function dosomething_zendesk_create_ticket($values) {
   if ($ticket && $client = dosomething_zendesk_get_client()) {
     // Check whether a user exists
     $zen_desk_user = $client->search(array('query' => "type:user email:{$ticket['requester']['email']}"));
+    $account = user_load($user->uid);
+    $wrapper = entity_metadata_wrapper('user', $account);
 
     if (empty($zen_desk_user->results)) {
+      // Use the email address as the name if there's no first name.
+      $first_name = $wrapper->field_first_name->value();
+      $name = isset($first_name) ? ucfirst($wrapper->field_first_name->value()) : $values['email'];
       $new_user = array(
         'email' => $values['email'],
-        'name' => $user->name,
+        'name' => $name,
       );
       $client->users()->create($new_user);
     }
