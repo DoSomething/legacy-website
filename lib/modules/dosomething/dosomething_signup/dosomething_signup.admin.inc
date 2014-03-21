@@ -30,6 +30,11 @@ function dosomething_signup_optin_config($form, &$form_state) {
     foreach ($staff_picks as $staff_pick) {
       $nid = $staff_pick['nid'];
       $title = $staff_pick['title'];
+      $prefix = 'dosomething_signup_nid_' . $nid;
+      $mailchimp_grouping_id = $prefix . '_mailchimp_grouping_id';
+      $mailchimp_group_name = $prefix . '_mailchimp_group_name';
+      $mobilecommons_id = $prefix . '_mobilecommons_id';
+
       // Create a fieldset for each campaign.
       $form[$nid] = array(
         '#type' => 'fieldset',
@@ -38,18 +43,24 @@ function dosomething_signup_optin_config($form, &$form_state) {
         '#collapsed' => TRUE,
       );
 
-      // Each campagin gets a mailchimp & mobile commons id.
-      $form[$nid]['dosomething_signup_nid_' . $nid . '_mailchimp_id'] = array(
+      // Each campaign gets a mailchimp grouping_id/group_name & mobilecommons id.
+      $form[$nid][$mailchimp_grouping_id] = array(
         '#type' => 'textfield',
-        '#title' => t('MailChimp Group ID'),
-        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mailchimp_id', ''),
-        '#description' => t("Enter the campaign's <strong>numeric</strong> Mailchimp Group group_id value."),
+        '#title' => t('MailChimp Grouping ID'),
+        '#default_value' => variable_get($mailchimp_grouping_id),
+        '#description' => t('The numeric Grouping ID that the Group Name belongs to.'),
       );
-      $form[$nid]['dosomething_signup_nid_' . $nid . '_mobilecommons_id'] = array(
+      $form[$nid][$mailchimp_group_name] = array(
         '#type' => 'textfield',
-        '#title' => t('Mobile Commons Opt-In'),
-        '#default_value' => variable_get('dosomething_signup_nid_' . $nid . '_mobilecommons_id', ''),
-        '#description' => t("Enter the campaign's Mobilecommons opt-in path."),
+        '#title' => t('MailChimp Group Name'),
+        '#default_value' => variable_get($mailchimp_group_name),
+        '#description' => t('The alphanumeric Interest Group name.'),
+      );
+      $form[$nid][$mobilecommons_id] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mobile Commons Opt-In Path'),
+        '#default_value' => variable_get($mobilecommons_id),
+        '#description' => t("The numeric Mobilecommons opt-in path."),
       );
     }
   }
