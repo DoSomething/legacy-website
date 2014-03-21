@@ -163,7 +163,7 @@ header.header {
       line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
       float: right;
       position: relative;
-      right: -50px;
+      right: -40px;
 
       @include media($tablet) {
         float: none;
@@ -180,7 +180,7 @@ header.header {
         background: image-url("campaign-arrow-up.png") 50% 50% / 25px no-repeat transparent;
         position: absolute;
         top: -40px;
-        right: 40px;
+        right: 30px;
 
         @include media($tablet) {
           width: 40px;
