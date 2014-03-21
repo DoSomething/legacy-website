@@ -54,7 +54,7 @@
   </div>
 
   <div class="homepage--grid">
-  
+
     <div class="block-big" style="background-image: url('https://www.dosomething.org/files/u/home/ComebackClothes_homepage_landscape.jpg'); background-position: center center;">
       <a class="full-link" href="/campaigns/comeback-clothes"><span>Do This</span></a>
       <div class="headline">
@@ -103,7 +103,7 @@
   </div>
 
   </div>
-   
+
 </main>
 
 <div class="footer--wrapper">
@@ -157,7 +157,6 @@
     </div>
 
     <div class="subfooter">
-      <div class="tagline">Any cause, anytime, anywhere. *mic drop*</div>
       <ul class="utility">
         <li><?php print l("Terms of Service", "node/1049") ?></li>
         <li><?php print l("Privacy Policy", "node/1050") ?></li>
