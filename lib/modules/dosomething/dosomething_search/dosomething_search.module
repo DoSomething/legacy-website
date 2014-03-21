@@ -77,6 +77,9 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
   foreach ($boosts as $field => $boost) {
     $params['bq'][] = "{$field}:true^$boost";
   }
+
+  $params['bq'][] = "bundle:campaign^100.0";
+
   if ($query) {
     $query->addParams($params);
   }
