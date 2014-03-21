@@ -13,18 +13,7 @@
   .pre,
   .during {
     @include media($tablet) {
-      border-bottom: 1px solid $light-gray;
       margin: 0 0 2.5rem;
-    }
-  }
-
-  .pre {
-    @include section-padding;
-
-    @include media($tablet) {
-      border-bottom: 1px solid $light-gray;
-      margin: 0 0 2.5rem;
-      padding: 0 0 2rem !important;
     }
   }
 
