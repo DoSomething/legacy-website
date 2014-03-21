@@ -56,7 +56,7 @@ header.header {
     @include media($tablet) {
       font-size: $font-medium;
       text-align: left;
-      margin: 0 0 1.5rem;
+      margin: 0;
     }
   }
 
@@ -67,12 +67,11 @@ header.header {
     color: #fff !important;
     font-size: $font-small;
     text-align: center;
-    margin: 0 0 0.5rem;
+    margin: 0 0 1.5rem;
 
     @include media($tablet) {
       font-size: $font-regular;
       text-align: left;
-      margin: 0 0 1.5rem;
     }
   }
 
