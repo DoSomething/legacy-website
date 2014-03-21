@@ -651,7 +651,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     }
     // We only need one image for tpl for now, so get the image for key 0.
     $vars['step_image_square'] = dosomething_image_get_themed_image($step_images[0]['nid'], 'square', '310x310');
-    $vars['step_image_landscape'] = dosomething_image_get_themed_image($step_images[0]['nid'], 'landscape', '740x480');
+    $vars['step_image_landscape'] = dosomething_image_get_themed_image($step_images[0]['nid'], 'landscape', '550x300');
   }
 
   // Prove.
