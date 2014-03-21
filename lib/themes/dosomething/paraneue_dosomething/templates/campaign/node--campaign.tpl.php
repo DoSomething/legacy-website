@@ -190,7 +190,7 @@
     <section class="do step">
       <div class="content">
         <div class="pre">
-          <?php if (isset($pre_step_header)): ?><h3 class="inline--alt-color"><?php print $pre_step_header; ?></h3><?php endif; ?>
+          <?php if (isset($pre_step_header)): ?><h4 class="inline--alt-color"><?php print $pre_step_header; ?></h4><?php endif; ?>
           <?php if (isset($pre_step_copy['safe_value'])): ?><div><?php print $pre_step_copy['safe_value']; ?></div><?php endif; ?>
 
           <?php if (isset($step_pre)) : ?>
@@ -236,12 +236,12 @@
         </div>
 
         <div class="during">
-          <h3 class="inline--alt-color"><?php print $pic_step_header; ?></h3>
+          <h4 class="inline--alt-color"><?php print $pic_step_header; ?></h4>
           <?php if (isset($pic_step_copy['safe_value'])): ?><div><?php print $pic_step_copy['safe_value']; ?></div><?php endif; ?>
         </div>
 
         <div class="post">
-          <?php if (isset($post_step_header)): ?><h3 class="inline--alt-color"><?php print $post_step_header; ?></h3><?php endif; ?>
+          <?php if (isset($post_step_header)): ?><h4 class="inline--alt-color"><?php print $post_step_header; ?></h4><?php endif; ?>
           <?php if (isset($post_step_copy)): ?><p><?php print $post_step_copy; ?></p><?php endif; ?>
 
           <div class="tips--wrapper">
