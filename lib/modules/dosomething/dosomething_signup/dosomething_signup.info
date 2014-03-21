@@ -8,7 +8,6 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[user_permission][] = administer third party communication
 features[user_permission][] = view any signup
-features[user_role][] = communications team
 features[views_view][] = node_signups
 features[views_view][] = user_signups
 files[] = dosomething_signup.test

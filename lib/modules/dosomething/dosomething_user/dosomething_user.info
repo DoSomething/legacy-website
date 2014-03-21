@@ -76,6 +76,7 @@ features[user_permission][] = view own unpublished content
 features[user_permission][] = view revisions
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
+features[user_role][] = communications team
 features[user_role][] = editor
 features[user_role][] = member support
 features[variable][] = user_admin_role
