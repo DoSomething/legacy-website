@@ -141,21 +141,32 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_pass':
-      // Get account object by email address submitted for reset
-      $account = user_load_by_mail($form_state['input']['name']);
-      // Send external message request
-      $params = array(
-        'email' => $account->mail,
-        'uid' => $account->uid,
-        'first_name' => dosomething_user_get_field('field_first_name', $account),
-        'user_name' => $account->name,
-        'reset_link' => user_pass_reset_url($account),
-      );
-      dosomething_user_mbp_request('user_password', $params);
+      $form['#submit'][] = 'dosomething_user_user_pass_submit';
+
     break;
 
   }
 }
+
+/**
+ * Custom password reset submission handler.
+ *
+ * Sends request to mbp (Message Broker Producer) to send transactional
+ * email message with reset link.
+ */
+function dosomething_user_user_pass_submit($form, &$form_state) {
+  $account = user_load_by_mail($form_state['input']['name']);
+  // Send external message request
+  $params = array(
+    'email' => $account->mail,
+    'uid' => $account->uid,
+    'first_name' => dosomething_user_get_field('field_first_name', $account),
+    'user_name' => $account->name,
+    'reset_link' => user_pass_reset_url($account),
+  );
+  dosomething_user_mbp_request('user_password', $params);
+}
+
 /**
  * Custom new user login submission handler.
  *
