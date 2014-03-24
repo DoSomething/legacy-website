@@ -62,12 +62,10 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
 function paraneue_dosomething_login_after_build($form, &$form_state) {
   // Customize field elements.
   $form['name']['#title'] = 'Email address or cell number';
-  $form['name']['#attributes']['placeholder'] = 'Email address or cell number';
   unset($form['name']['#description']);
- 
-  $form['pass']['#attributes']['placeholder'] = 'Password';
+
   unset($form['pass']['#description']);
 
-  return $form; 
+  return $form;
 }
 
