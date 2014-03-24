@@ -36,6 +36,17 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'signup_data_form_timestamp' => array(
+        'description' => 'The Unix timestamp when the signup data form submitted.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+      'why_signedup' => array(
+        'description' => 'Why the user signed up.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
@@ -161,3 +172,20 @@ function dosomething_signup_update_7002() {
   }
 }
 
+/**
+ * Adds relevant signup_data_form fields to dosomething_signups table.
+ */
+function dosomething_signup_update_7003() {
+  $tbl_name = 'dosomething_signup';
+  // New fields to add.
+  $fields = array('signup_data_form_timestamp', 'why_signedup');
+  // Load schema for field definitions.
+  $schema = dosomething_signup_schema();
+  foreach ($fields as $field_name) {
+    // If the field doesn't exist already:
+    if (!db_field_exists($tbl_name, $field_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+    }
+  }
+}
