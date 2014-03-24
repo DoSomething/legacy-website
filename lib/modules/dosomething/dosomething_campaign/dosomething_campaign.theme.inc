@@ -242,6 +242,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $vars['action_guides'][$delta]['content'] = render(node_view($action_guide));
     }
   }
+  // Preprocess signup data form link.
+  dosomething_campaign_preprocess_signup_data_form($vars);
 
   // Do.
   $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();
@@ -287,6 +289,16 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Zendesk Support Ticket form.
   if (isset($vars['content']['reportback_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
+  }
+}
+
+/**
+ * Preprocesses variables for the link to a signup data form.
+ */
+function dosomething_campaign_preprocess_signup_data_form(&$vars) {
+  if (isset($vars['content']['signup_data_form_link'])) {
+    $vars['signup_data_form_link'] = $vars['content']['signup_data_form_link'];
+    $vars['signup_data_form'] = $vars['content']['signup_data_form'];
   }
 }
 

@@ -143,6 +143,12 @@
           </ul>
         <?php endif; ?>
 
+        <?php if (isset($signup_data_form_link)): ?>
+          <ul>
+            <li><a href="#modal-signup-data-form" class="js-modal-link"><?php print $signup_data_form_link; ?></a></li>
+          </ul>
+        <?php endif; ?>
+
         <?php if (isset($time)) : ?>
           <h4 class="inline--alt-color">Time and Place</h4>
           <div><?php print $time['safe_value']; ?></div>
@@ -182,6 +188,15 @@
         <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endforeach; ?>
+      <?php endif; ?>
+
+      <?php if (isset($signup_data_form)): ?>
+      <script id="modal-signup-data-form" type="text/cached-modal">
+        <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <h2 class="banner"></h2>
+          <div><?php print render($signup_data_form); ?></div>
+        <a href="#" class="js-close-modal">Back to main page</a>
+      </script>
       <?php endif; ?>
 
     </section>
