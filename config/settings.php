@@ -24,14 +24,17 @@ $databases['default']['default'] = array(
 /**
  * Hosts & urls
  */
-$hostname = getenv('DS_HOSTNAME') ?: 'dev.dosomething.org';
+$hostname = $_SERVER['HTTP_HOST'] ?: 'dev.dosomething.org';
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 $insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
 
-if (!empty($insecure_port) && ($insecure_port != 80)) {
+// $hostname may already have port included. Check it before you wreck it!
+if (!preg_match('/.+:[0-9]+$/', $hostname) && !empty($insecure_port)
+    && ($insecure_port != 80)) {
+
   $base_url = $protocol . $hostname . ':' . $insecure_port;
 }
 else {
