@@ -478,6 +478,7 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
   switch ($origin) {
     case 'user_register':
       $payload['birthdate'] = $params['birthdate'];
+      $payload['mobile'] = $params['mobile'];
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
       );
