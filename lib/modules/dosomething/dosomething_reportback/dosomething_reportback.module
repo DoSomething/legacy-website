@@ -275,6 +275,9 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     '#required' => TRUE,
     '#attributes' => array(
       'placeholder' => t("Enter # here"),
+      'class' => array('js-validate'),
+      'data-validate' => 'reportbackNumber',
+      'data-validate-required' => '',
     ),
     '#element_validate' => array('element_validate_integer_positive'),
     '#title' => t("Total # of @noun @verb", array(
@@ -289,6 +292,9 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     '#required' => TRUE,
     '#attributes' => array(
       'placeholder' => t("Write something..."),
+      'class' => array('js-validate'),
+      'data-validate' => 'reportbackReason',
+      'data-validate-required' => '',
     ),
     '#title' => t('Why is this important to you?'),
     '#default_value' => $entity->why_participated,
