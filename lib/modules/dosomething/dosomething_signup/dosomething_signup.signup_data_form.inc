@@ -109,6 +109,11 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   $config = dosomething_signup_get_signup_data_form_info($nid);
+  // Store the logged-in user's signup sid.
+  $form['sid'] = array(
+    '#type' => 'hidden',
+    '#value' => dosomething_signup_exists($nid),
+  );
   $form['header'] = array(
     '#prefix' => '<h3>',
     '#markup' => $config['form_header'],
@@ -130,4 +135,33 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     ),
   );
   return $form;
+}
+
+/**
+ * Form submit handler for dosomething_signup_user_signup_data_form().
+ */
+function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
+  // Update signup record.
+  dosomething_signup_update_signup_data($form_state['values']);
+  //@todo: Update with confirmation_msg stored on signup_data_form record.
+  drupal_set_message("Great success!");
+}
+
+/**
+ * Saves signup_form_data to the relevant signup.
+ */
+function dosomething_signup_update_signup_data($values) {
+  try {
+    db_update('dosomething_signup')
+    ->fields(array(
+      'signup_data_form_timestamp' => REQUEST_TIME,
+    ))
+    ->condition('sid', $values['sid'])
+    ->execute();  
+    return TRUE;
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
+  return FALSE;
 }
