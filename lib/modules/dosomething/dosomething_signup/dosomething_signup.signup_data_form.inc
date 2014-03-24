@@ -27,7 +27,7 @@ function dosomething_signup_get_signup_data_form_info($nid) {
  * Note there is no submit form element returned.
  * This function is always called from within a node edit form. 
  */
-function dosomething_signup_node_signup_data_form(&$form, &$form_state) {
+function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   $nid = $form['nid']['#value'];
   $values = dosomething_signup_get_signup_data_form_info($nid);
   $fieldset = 'signup_data_form';
@@ -99,4 +99,35 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'collect_user_birthdate' => $values[$prefix . 'collect_user_birthdate'],
     ))
     ->execute();
+}
+
+/**
+ * Form constructor for a user signup data form.
+ *
+ * @param int $nid
+ *   The node which the signup data form is rendered on.
+ */
+function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
+  $config = dosomething_signup_get_signup_data_form_info($nid);
+  $form['header'] = array(
+    '#prefix' => '<h3>',
+    '#markup' => $config['form_header'],
+    '#suffix' => '</h3>',
+  );
+  $form['copy'] = array(
+    '#prefix' => '<p>',
+    '#markup' => $config['form_copy'],
+    '#suffix' => '</p>',
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => $label,
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'large',
+      ),
+    ),
+  );
+  return $form;
 }
