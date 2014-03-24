@@ -30,9 +30,7 @@
           <?php if (isset($intro_image)): ?>
             <aside class="media-wrapper">
               <div class="media">
-                <?php if (isset($intro_image)): ?>
-                  <?php print $intro_image; ?>
-                <?php endif; ?>
+                <?php print $intro_image; ?>
               </div>
             </aside>
           <?php endif; ?>
