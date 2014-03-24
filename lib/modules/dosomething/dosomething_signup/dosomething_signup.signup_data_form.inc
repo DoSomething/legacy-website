@@ -27,7 +27,7 @@ function dosomething_signup_get_signup_data_form_info($nid) {
  * Note there is no submit form element returned.
  * This function is always called from within a node edit form. 
  */
-function dosomething_signup_node_signup_data_form(&$form, &$form_state) {
+function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   $nid = $form['nid']['#value'];
   $values = dosomething_signup_get_signup_data_form_info($nid);
   $fieldset = 'signup_data_form';
