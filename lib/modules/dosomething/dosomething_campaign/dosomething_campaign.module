@@ -17,6 +17,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   // If we're updating an existing node, add the custom settings fieldset.
   if (isset($form['nid']['#value'])) {
     _dosomething_campaign_form_extras($form, $form_state);
+    dosomething_signup_node_signup_data_form($form, $form_state);
   }
 }
 

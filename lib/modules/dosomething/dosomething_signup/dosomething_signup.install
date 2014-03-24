@@ -45,11 +45,96 @@ function dosomething_signup_schema() {
       'uid' => array('uid'),
     ),
   );
+  $schema['dosomething_signup_data_form'] = array(
+    'description' => 'Table of signup data forms.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The {node}.nid that uses the signup form.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating the form is enabled.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'required' => array(
+        'description' => 'Boolean indicating the form is required for signup.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'required_allow_skip' => array(
+        'description' => 'Boolean indicating display skip link avaiable if required.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'link_text' => array(
+        'description' => 'The text to display in the link to the form.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'form_header' => array(
+        'description' => 'Form header text',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'form_copy' => array(
+        'description' => 'Form copy.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+      'collect_why_signedup' => array(
+        'description' => 'Boolean whether to collect why_signedup.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'why_signedup_label' => array(
+        'description' => 'Label for why_signedup field.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'collect_user_address' => array(
+        'description' => 'Boolean whether to collect user address.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'collect_user_school' => array(
+        'description' => 'Boolean whether to collect user school.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'collect_user_mobile' => array(
+        'description' => 'Boolean whether to collect user mobile.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'collect_user_birthdate' => array(
+        'description' => 'Boolean whether to collect user birthdate.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
   return $schema;
 }
 
 /**
- * Adds a data colum to the signup table.
+ * Adds a data column to the signup table.
  */
 function dosomething_signup_update_7001() {
   $spec = array(
@@ -61,3 +146,18 @@ function dosomething_signup_update_7001() {
   );
   db_add_field('dosomething_signup', 'data', $spec);
 }
+
+/**
+ * Adds dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7002() {
+  $tbl_name = 'dosomething_signup_data_form';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // If table not present:
+  if (!db_table_exists($tbl_name)) {
+    // Create it.
+    db_create_table($tbl_name, $schema[$tbl_name]);
+  }
+}
+
