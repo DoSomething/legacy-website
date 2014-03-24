@@ -488,10 +488,12 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
       // Check for mailchimp grouping_id+group_name:
       $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
       // If set, or if soon to be depecrated group_id isset:
+      // @todo: Remove check for group_id when ready for cleanup.
       if ( $mailchimp || isset($params['mailchimp_group_id']) ) {
-        $payload['merge_vars']['MAILCHIMP_GROUP_ID'] = $params['mailchimp_group_id'];
-        $payload['merge_vars']['MAILCHIMP_GROUPING_ID'] = $params['mailchimp_grouping_id'];
-        $payload['merge_vars']['MAILCHIMP_GROUP_NAME'] = $params['mailchimp_group_name'];
+        //@todo: Remove group_id when ready for cleanup.
+        $payload['mailchimp_group_id'] = $params['mailchimp_group_id'];
+        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
+        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
       }
       break;
     case 'campaign_reportback':
