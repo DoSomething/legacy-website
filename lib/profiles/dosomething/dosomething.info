@@ -16,6 +16,7 @@ dependencies[] = simpletest
 dependencies[] = taxonomy
 
 ; CONTRIB
+dependencies[] = addressfield
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
 dependencies[] = apachesolr
