@@ -9,5 +9,17 @@
     .form-actions {
       text-align: center;
     }
+
+    .inner-label {
+      .message {
+        &.success {
+          color: #fff;
+        }
+
+        &.error {
+          color: $light-gray;
+        }
+      }
+    }
   }
 }
