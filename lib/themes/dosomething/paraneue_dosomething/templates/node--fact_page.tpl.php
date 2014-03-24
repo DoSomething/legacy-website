@@ -1,3 +1,4 @@
+
 <section class="fact_page-wrapper">
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -10,25 +11,32 @@
       </header>
     </div>
 
-    <div class="intro-wrapper">
-      <div class="intro">
-        <?php if (isset($intro_title)): ?>
-          <h2><?php print $intro_title; ?></h2>
-        <?php endif; ?>
-        <?php if (isset($intro)): ?>
+    
+    <?php if (isset($intro)): ?>
+      <div class="intro-wrapper">
+        <div class="intro">
+          <?php if (isset($intro_title)): ?>
+            <h2><?php print $intro_title; ?></h2>
+          <?php endif; ?>
           <div class="intro-content"><?php print $intro; ?></div>
-        <?php endif; ?>
-        <?php if (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
-        <?php elseif (isset($intro_video)): ?>
-          <?php print $intro_video; ?>
-        <?php endif; ?>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
+
 
     <?php if (isset($facts)): ?>
       <div class="facts-wrapper">
         <div class="facts">
+          <?php if (isset($intro_image)): ?>
+            <aside class="media-wrapper">
+              <div class="media">
+                <?php if (isset($intro_image)): ?>
+                  <?php print $intro_image; ?>
+                <?php endif; ?>
+              </div>
+            </aside>
+          <?php endif; ?>
+
           <?php foreach ($facts as $key => $fact): ?>
             <p class="fact">
               <?php print ($key + 1) . '. ' . $fact['fact']; ?>
@@ -42,21 +50,21 @@
     <?php endif; ?>
   
     <?php // @TODO: Temporarily commented out until the new 'sources' solution in campaigns is implemented and we can use it here! ?>
-    <?php
-    // <?/php if (isset($sources)): ?/>
-    //   <div class="sources-wrapper">
-    //     <div class="sources">
-    //       <h4>Sources</h4>
-    //       <?/php foreach ($sources as $key => $source): ?/>
-    //         <div class="source">
-    //           <?/php // @TODO: Need <sup> to print within the $source's <p> tag. Source markup needs a rework. ?/>
-    //           <sup><?/php print ($key + 1); ?/></sup><?/php print $source; ?/>
-    //         </div>
-    //       <?/php endforeach; ?/>
-    //     </div>
-    //   </div>
-    // <?/php endif; ?/>
-    ?>
+    <?php /*
+    <?php if (isset($sources)): ?>
+      <div class="sources-wrapper">
+        <div class="sources">
+          <h4>Sources</h4>
+          <?php foreach ($sources as $key => $source): ?>
+            <div class="source">
+              <?php // @TODO: Need <sup> to print within the $source's <p> tag. Source markup needs a rework. ?>
+              <sup><?php print ($key + 1); ?></sup><?php print $source; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endif; ?>
+    */ ?>
 
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">

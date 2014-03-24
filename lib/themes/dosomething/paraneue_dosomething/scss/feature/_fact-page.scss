@@ -53,6 +53,24 @@
     background: $purple;
   }
 
+  .facts-wrapper {
+    @include media($tablet) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  .media-wrapper {
+    display: none;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+      @include omega;
+      display: block;
+      float: right;
+    }
+  }
+
   // @TODO: Default content page headers -- same as campaign template -- abstract this
   .header {
     .title {
@@ -79,13 +97,6 @@
     .intro-content {
       @include media($tablet) {
         @include span-columns(8 of 12);
-      }
-    }
-    img, video {
-      display: none;
-      @include media($tablet) {
-        @include span-columns(4 of 12);
-        @include omega();
       }
     }
   }
