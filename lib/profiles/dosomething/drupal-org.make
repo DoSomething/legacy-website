@@ -5,6 +5,10 @@ core = 7.x
 
 ; MODULES
 
+; Address Field
+projects[addressfield] = "1.0-beta5"
+projects[addressfield][subdir] = "contrib"
+
 ; Admin menu
 projects[admin_menu] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
