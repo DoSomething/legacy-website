@@ -76,13 +76,13 @@
     // @TODO: ಠ_ಠ
     margin-top: 20px;
     margin-bottom: 55px;
-
     .intro-content {
       @include media($tablet) {
         @include span-columns(8 of 12);
       }
     }
     img, video {
+      display: none;
       @include media($tablet) {
         @include span-columns(4 of 12);
         @include omega();
