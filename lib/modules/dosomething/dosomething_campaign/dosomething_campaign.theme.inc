@@ -18,7 +18,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     $scholarship = $wrapper->field_scholarship_amount->value();
     if (isset($scholarship)) {
-      $vars['scholarship'] = '$' . $scholarship . ' Scholarship';
+      $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
     }
 
     $vars['cta'] = $wrapper->field_call_to_action->value();
