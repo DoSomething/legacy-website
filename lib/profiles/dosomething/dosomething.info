@@ -43,6 +43,7 @@ dependencies[] = message_broker_producer
 dependencies[] = metatag
 dependencies[] = mobilecommons
 dependencies[] = module_filter
+dependencies[] = optimizely
 dependencies[] = pathauto
 dependencies[] = redirect
 dependencies[] = redis
