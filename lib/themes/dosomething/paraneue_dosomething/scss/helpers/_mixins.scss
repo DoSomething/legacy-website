@@ -17,7 +17,7 @@
 
 // Helper to generate Neue URLs
 @function neue-image-url($url) {
-  @return url("/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/assets/images/#{$url}");
+  @return url("/profiles/dosomething/themes/dosomething/paraneue_dosomething/bower_components/neue/assets/images/#{$url}");
 }
 
 // @TODO: Temporary mixin for homepage sprites (from old world)

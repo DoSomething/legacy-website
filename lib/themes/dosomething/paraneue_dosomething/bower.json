@@ -1,12 +1,12 @@
 {
-  "name": "DoSomething",
-  "version": "0.0.1",
+  "name": "paraneue_dosomething",
+  "version": "1.0.0",
   "homepage": "https://github.com/DoSomething/dosomething",
   "authors": [
     "David Furnes <dfurnes@dosomething.org>"
   ],
-  "description": "DoSomething app-specific styles and front-end logic.",
-  "main": "css/app.css",
+  "description": "DoSomething.org app-specific styles and presentation logic.",
+  "main": ["css/app.css", "js/app.js"],
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -17,8 +17,10 @@
     "tests"
   ],
   "dependencies": {
+    "jquery": "~1.11.0",
     "underscore": "~1.5.2",
     "mailcheck": "~1.0.3",
-    "html5shiv": "~3.7.0"
+    "html5shiv": "~3.7.0",
+    "neue": "git@github.com:DoSomething/neue.git#~3.1.0"
   }
 }
