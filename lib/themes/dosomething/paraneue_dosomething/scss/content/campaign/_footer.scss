@@ -51,8 +51,7 @@ footer.sources {
 }
 
 footer.help {
-  background: #000;
-  background: rgba(0, 0, 0, 0.5);
+  @include rgba('background', #000, 0.5);
 
   p {
     display: inline;
