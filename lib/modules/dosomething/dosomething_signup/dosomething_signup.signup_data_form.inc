@@ -134,6 +134,10 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   if ($config['collect_user_address']) {
     $form['user_address'] = array(
       '#type' => 'addressfield',
+      '#handlers' => array(
+        'address' => 'address',
+        'address-hide-country' => 'address-hide-country',
+      ),
       '#required' => TRUE,
       '#context' => array('countries' => array('US')),
       '#default_value' => $account->field_address[LANGUAGE_NONE][0],
