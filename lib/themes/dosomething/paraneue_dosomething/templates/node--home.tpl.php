@@ -1,3 +1,4 @@
+ <div class="homepage--wrapper">
   <div class="homepage--hero">
     <div class="header">
       <h1>Join over 2.5 million young people taking action.</h1>
@@ -6,11 +7,11 @@
   </div>
 
   <div class="homepage--grid">
-  
-    <div class="block-big" style="background-image: url('http://www.dosomething.org/files/u/neue-homepage/pbj-featured.jpg'); background-position: center center;">
-      <a class="full-link" href="/pbj"><span>Do This</span></a>
+
+    <div class="block-big" style="background-image: url('https://www.dosomething.org/files/u/home/ComebackClothes_homepage_landscape.jpg'); background-position: center center;">
+      <a class="full-link" href="/campaigns/comeback-clothes"><span>Do This</span></a>
       <div class="headline">
-        <h2>Collect peanut butter for your local food bank.</h2>
+        <h2>Recycle old or worn-out clothes to help our planet.</h2>
       </div>
     </div>
 
@@ -21,10 +22,10 @@
       </div>
     </div>
 
-    <div class="block-small" style="background-image: url('http://www.dosomething.org//files/u/neue-homepage/pregtext.jpg'); background-position: center center;">
-      <a class="full-link" href="/pregnancytext"><span>Do This</span></a>
+    <div class="block-small" style="background-image: url('https://www.dosomething.org/files/u/neue-homepage/pbj-small.jpg'); background-position: center center;">
+      <a class="full-link" href="/campaigns/peanut-butter-jam-slam"><span>Do This</span></a>
       <div class="headline">
-        <h2>Impregnate your friend's phones!</h2>
+        <h2>Collect peanut butter for your local food bank.</h2>
       </div>
     </div>
 
@@ -34,8 +35,6 @@
         <h2>Everyone has the power to stop bullying. Learn how.</h2>
       </div>
     </div>
-
-
   </div>
 
   <div class="homepage--sponsors">
@@ -55,4 +54,4 @@
       <i title="Google" class="sprite sprite-google"></i>
     </p>
   </div>
-   
+</div>
