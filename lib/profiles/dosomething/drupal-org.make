@@ -191,16 +191,6 @@ projects[coder] = "2.0"
 projects[coder][subdir] = "contrib"
 
 
-; THEMES
-
-; Paraneue
-projects[paraneue][type] = "theme"
-projects[paraneue][download][type] = "git"
-projects[paraneue][download][url] = "https://github.com/DoSomething/paraneue.git"
-projects[paraneue][subdir] = "dosomething"
-projects[paraneue][options][working-copy] = TRUE
-
-
 ; LIBRARIES
 
 ; DSAPI PHP Library
