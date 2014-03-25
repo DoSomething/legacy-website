@@ -74,11 +74,11 @@ $conf['cache_backends'][] = DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc
 $conf['redis_client_interface'] = 'Predis';
 $conf['redis_client_host'] = getenv('DS_REDIS_HOST') ?: '127.0.0.1';
 $conf['redis_client_port'] = getenv('DS_REDIS_PORT') ?: '6379';
-$conf['cache_class_cache'] = 'Redis_Cache';
-$conf['cache_class_cache_menu'] = 'Redis_Cache';
-$conf['cache_class_cache_bootstrap'] = 'Redis_Cache';
 
+// Cache everything in Redis, except the form cache.
+$conf['cache_default_class'] = 'Redis_Cache';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
 $conf['lock_inc'] = DS_MODULES_PATH . '/contrib/redis/redis.lock.inc';
 
 /**
