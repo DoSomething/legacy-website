@@ -13,29 +13,19 @@
 @import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/scss/helpers";
 
 // Import our local variables and helpers
-@import "globals/mixins";
+@import "helpers/mixins";
 
 // Drupal styles
 @import "overrides/drupal";
 
-// Auth flow
+// Content styles by section
 @import "content/auth";
-
-// Homepage
 @import "content/homepage";
-
-// Campaign Pages
 @import "content/campaign";
 @import "content/confirmation";
-
-// Modal styles
 @import "content/modals";
 @import "content/modal-reportback";
-
-// Content Pages
 @import "content/static";
 @import "content/fact-page";
-
-// Search Views
 @import "content/search";
 @import "content/explore-campaigns";
