@@ -62,6 +62,11 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Form copy'),
     '#default_value' => $values['form_copy'],
   );
+  $form[$fieldset][$prefix . 'confirm_msg'] = array(
+    '#type' => 'textarea', 
+    '#title' => t('Confirmation message'),
+    '#default_value' => $values['confirm_msg'],
+  );
   $form[$fieldset][$prefix . 'collect_user_address'] = array(
     '#type' => 'checkbox', 
     '#title' => t('Collect user address'),
@@ -94,6 +99,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
+        'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
         'collect_user_birthdate' => $values[$prefix . 'collect_user_mobile'],
         'collect_user_birthdate' => $values[$prefix . 'collect_user_birthdate'],
@@ -109,6 +115,10 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   $config = dosomething_signup_get_signup_data_form_info($nid);
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
   $form['header'] = array(
     '#prefix' => '<h3>',
     '#markup' => $config['form_header'],
@@ -130,4 +140,37 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     ),
   );
   return $form;
+}
+
+/**
+ * Form submit handler for dosomething_signup_user_signup_data_form().
+ */
+function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  $config = dosomething_signup_get_signup_data_form_info($values['nid']);
+  // Update signup record.
+  dosomething_signup_update_signup_data($values);
+  // Display the signup_data_form's confirm_msg field.
+  drupal_set_message($config['confirm_msg']);
+}
+
+/**
+ * Saves signup_form_data to the relevant signup.
+ */
+function dosomething_signup_update_signup_data($values) {
+  // Find the relevant signup sid to update.
+  $sid = dosomething_signup_exists($values['nid']);
+  try {
+    db_update('dosomething_signup')
+    ->fields(array(
+      'signup_data_form_timestamp' => REQUEST_TIME,
+    ))
+    ->condition('sid', $sid)
+    ->execute();  
+    return TRUE;
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
+  return FALSE;
 }
