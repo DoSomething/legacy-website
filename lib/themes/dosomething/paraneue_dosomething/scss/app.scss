@@ -13,7 +13,7 @@
 @import "../../../../html/profiles/dosomething/themes/dosomething/paraneue/paraneue/bower_components/neue/scss/helpers";
 
 // Import our local variables and helpers
-@import "mixins";
+@import "globals/mixins";
 
 // Drupal styles
 @import "overrides/drupal";
