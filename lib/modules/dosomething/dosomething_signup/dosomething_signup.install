@@ -102,6 +102,12 @@ function dosomething_signup_schema() {
         'length' => '2048',
         'not null' => FALSE,
       ),
+      'confirm_msg' => array(
+        'description' => 'Confirmation message displayed upon submit.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
       'collect_why_signedup' => array(
         'description' => 'Boolean whether to collect why_signedup.',
         'type' => 'int',
@@ -173,9 +179,10 @@ function dosomething_signup_update_7002() {
 }
 
 /**
- * Adds relevant signup_data_form fields to dosomething_signups table.
+ * Adds fields to dosomething_signup and dosomething_signup_data_form table.
  */
 function dosomething_signup_update_7003() {
+  // Add fields on signup to track signup_data_form submissions.
   $tbl_name = 'dosomething_signup';
   // New fields to add.
   $fields = array('signup_data_form_timestamp', 'why_signedup');
@@ -187,5 +194,14 @@ function dosomething_signup_update_7003() {
       // Add it per the schema field definition.
       db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
     }
+  }
+  // Add field on data_signup_form to customize the confirmation message.
+  $tbl_name = 'dosomething_signup_data_form';
+  // New field to add.
+  $field_name = 'confirm_msg';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
 }
