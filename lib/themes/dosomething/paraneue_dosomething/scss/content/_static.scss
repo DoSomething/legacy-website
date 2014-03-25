@@ -57,7 +57,7 @@
   }
 
   .header-wrapper {
-    background: $purple;
+    @include header-gradient();
   }
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this

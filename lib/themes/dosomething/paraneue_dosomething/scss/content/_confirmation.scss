@@ -17,7 +17,7 @@ body.page-node-confirmation {
   }
 
   .header-wrapper {
-    background: $purple;
+    @include header-gradient();
     padding: 7rem 1rem 0;
     @include row;
     @include media($tablet) {
