@@ -1,3 +1,15 @@
+.campaign--wrapper {
+  @import "campaign/layout";
+  @import "campaign/header";
+  @import "campaign/footer";
+  @import "campaign/nav";
+
+  @import "campaign/know";
+  @import "campaign/plan";
+  @import "campaign/do";
+  @import "campaign/prove";
+}
+
 .node-type-campaign {
   @include wrapper--nav-floating;
 }
