@@ -41,7 +41,7 @@ header.header {
     margin: 0 0 0.5rem;
 
     @include media($tablet) {
-      font-size: $font-massive;
+      font-size: $font-hero;
       text-align: left;
       margin: 0 0 1.5rem;
     }
