@@ -16,41 +16,26 @@
 @import "mixins";
 
 // Drupal styles
-@import "feature/drupal";
-
-// Staging Area for Neue
-@import "feature/port-to-neue";
+@import "overrides/drupal";
 
 // Auth flow
-@import "feature/auth";
+@import "content/auth";
 
 // Homepage
-@import "feature/homepage";
+@import "content/homepage";
 
 // Campaign Pages
-@import "feature/campaign";
-@import "feature/confirmation";
+@import "content/campaign";
+@import "content/confirmation";
 
 // Modal styles
-@import "feature/modals";
-@import "feature/modal-reportback";
-
-.campaign--wrapper {
-  @import "feature/campaign/layout";
-  @import "feature/campaign/header";
-  @import "feature/campaign/footer";
-  @import "feature/campaign/nav";
-
-  @import "feature/campaign/know";
-  @import "feature/campaign/plan";
-  @import "feature/campaign/do";
-  @import "feature/campaign/prove";
-}
+@import "content/modals";
+@import "content/modal-reportback";
 
 // Content Pages
-@import "feature/content";
-@import "feature/fact-page";
+@import "content/static";
+@import "content/fact-page";
 
 // Search Views
-@import "feature/search";
-@import "feature/explore-campaigns";
+@import "content/search";
+@import "content/explore-campaigns";
