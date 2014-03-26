@@ -16,7 +16,7 @@
 
       <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor-wrapper">
-        <p class="copy">Powered by:</p>
+        <p class="copy">Powered by</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
         <?php endforeach; ?>
