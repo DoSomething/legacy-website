@@ -47,6 +47,11 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Collect additional signup data'),
     '#default_value' => $values['status'],
   );
+  $form[$fieldset][$prefix . 'collect_user_address'] = array(
+    '#type' => 'checkbox', 
+    '#title' => t('Collect user address'),
+    '#default_value' => $values['collect_user_address'],
+  );
   $form[$fieldset][$prefix . 'link_text'] = array(
     '#type' => 'textfield', 
     '#title' => t('Link text'),
@@ -67,21 +72,6 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
-  $form[$fieldset][$prefix . 'collect_user_address'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user address'),
-    '#default_value' => $values['collect_user_address'],
-  );
-  $form[$fieldset][$prefix . 'collect_user_mobile'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user mobile'),
-    '#default_value' => $values['collect_user_birthdate'],
-  );
-  $form[$fieldset][$prefix . 'collect_user_birthdate'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user birthdate'),
-    '#default_value' => $values['collect_user_birthdate'],
-  );
 }
 
 /**
@@ -101,8 +91,6 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'form_copy' => $values[$prefix . 'form_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
-        'collect_user_birthdate' => $values[$prefix . 'collect_user_mobile'],
-        'collect_user_birthdate' => $values[$prefix . 'collect_user_birthdate'],
     ))
     ->execute();
 }
@@ -128,7 +116,23 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
     '#suffix' => '</p>',
-  );
+  ); 
+  if ($config['collect_user_address']) {
+    global $user;
+    // Load user to get relevant field values as form default_values.
+    $account = user_load($user->uid);
+    $form['user_address'] = array(
+      '#type' => 'addressfield',
+      '#handlers' => array(
+        'address' => 'address',
+        'address-hide-country' => 'address-hide-country',
+      ),
+      '#required' => TRUE,
+      '#context' => array('countries' => array('US')),
+      '#default_value' => $account->field_address[LANGUAGE_NONE][0],
+      '#required' => TRUE,
+    );
+  }
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => $label,
@@ -147,7 +151,12 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
  */
 function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   $values = $form_state['values'];
+  // Load signup_data_form record to gather relevant config and confirm_msg.
   $config = dosomething_signup_get_signup_data_form_info($values['nid']);
+  if ($config['collect_user_address']) {
+    // Update user data.
+    dosomething_signup_update_user_data($values);
+  }
   // Update signup record.
   dosomething_signup_update_signup_data($values);
   // Display the signup_data_form's confirm_msg field.
@@ -155,7 +164,25 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
 }
 
 /**
- * Saves signup_form_data to the relevant signup.
+ * Saves signup_form_data to fields on the user.
+ *
+ * @param array $values
+ *   The values passed from a user signup_data_form submission.
+ */
+function dosomething_signup_update_user_data($values) {
+  global $user;
+  $account = $user;
+  if (isset($values['user_address'])) {
+    $account->field_address[LANGUAGE_NONE][0] = $values['user_address'];
+  }
+  user_save($account);
+}
+
+/**
+ * Saves signup_form_data to the relevant signup record.
+ *
+ * @param array $values
+ *   The values passed from a user signup_data_form submission.
  */
 function dosomething_signup_update_signup_data($values) {
   // Find the relevant signup sid to update.

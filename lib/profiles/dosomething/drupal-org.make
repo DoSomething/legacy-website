@@ -8,6 +8,8 @@ core = 7.x
 ; Address Field
 projects[addressfield] = "1.0-beta5"
 projects[addressfield][subdir] = "contrib"
+; Allows addressfield as form element: https://drupal.org/node/970048
+projects[addressfield][patch][] = https://drupal.org/files/addressfield-element_info-970048-71.patch
 
 ; Admin menu
 projects[admin_menu] = "3.0-rc4"
