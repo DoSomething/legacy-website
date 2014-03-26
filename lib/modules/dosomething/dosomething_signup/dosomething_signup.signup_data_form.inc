@@ -47,6 +47,11 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Collect additional signup data'),
     '#default_value' => $values['status'],
   );
+  $form[$fieldset][$prefix . 'collect_user_address'] = array(
+    '#type' => 'checkbox', 
+    '#title' => t('Collect user address'),
+    '#default_value' => $values['collect_user_address'],
+  );
   $form[$fieldset][$prefix . 'link_text'] = array(
     '#type' => 'textfield', 
     '#title' => t('Link text'),
@@ -67,21 +72,6 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
-  $form[$fieldset][$prefix . 'collect_user_address'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user address'),
-    '#default_value' => $values['collect_user_address'],
-  );
-  $form[$fieldset][$prefix . 'collect_user_mobile'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user mobile'),
-    '#default_value' => $values['collect_user_birthdate'],
-  );
-  $form[$fieldset][$prefix . 'collect_user_birthdate'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t('Collect user birthdate'),
-    '#default_value' => $values['collect_user_birthdate'],
-  );
 }
 
 /**
@@ -101,8 +91,6 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'form_copy' => $values[$prefix . 'form_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
-        'collect_user_birthdate' => $values[$prefix . 'collect_user_mobile'],
-        'collect_user_birthdate' => $values[$prefix . 'collect_user_birthdate'],
     ))
     ->execute();
 }
