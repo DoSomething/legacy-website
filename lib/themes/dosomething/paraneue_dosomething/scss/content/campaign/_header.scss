@@ -93,55 +93,50 @@ header.header {
   }
 
   div.sponsor-wrapper {
-    margin: 0 auto;
+    margin: 1rem auto;
     float: none;
-    width: 125px;
 
     @include media($tablet) {
-      overflow: hidden;
-      float: right;
-      width: 200px;
+      margin: 0;
+      width: auto;
       position: absolute;
       right: 0;
       bottom: 0;
     }
 
-    // Sponsor logo and "Powered By"
-    img,
-    .copy {
-      display: inline-block;
-      float: left;
-    }
-
     img {
-      width: 50px;
+      display: block;
       height: 50px;
+      margin: 0 auto;
 
       @include media($tablet) {
-        font-size: $font-regular;
-        width: 100px;
-        height: 100px;
+        float: right;
+        margin: 0;
       }
     }
 
-    .copy {
-      color: #fff;
-      padding: 15px 0 0;
+    p.copy {
+      margin: 0 0 1rem 0;
+      padding: 0;
+      float: none;
       font-size: $font-small;
-      width: 70px;
-      height: 50px;
+      font-weight: $weight-bold;
+      text-align: center;
+      text-transform: uppercase;
+
+      @include rgba(color, #fff, 0.7);
 
       @include media($tablet) {
-        font-size: $font-regular;
         margin: 0;
-        width: 100px;
-        height: 100px;
-        line-height: 100px;
+        padding: 0 0.5rem 0 0;
+        position: relative;
+        bottom: -1.8rem;
+        float: left;
       }
     }
   }
 
-  .scholarship-wrapper {
+  div.scholarship-wrapper {
     width: 200px;
     margin: 20px auto 0;
     position: relative;
@@ -164,6 +159,7 @@ header.header {
       float: right;
       position: relative;
       right: -40px;
+      margin: 0;
 
       @include media($tablet) {
         float: none;
