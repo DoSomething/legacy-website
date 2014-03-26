@@ -34,7 +34,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
                 $vars[$label] = $content[$field][0]['#markup'];
               break;
             case 'image':
-              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $label);
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', '550x300', $label);
             break;
             case 'link':
               $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'btn')));

@@ -101,6 +101,12 @@
     }
   }
 
+  .media {
+    img {
+      max-width: 100%;
+    }
+  }
+
   .sources {
     // @TODO: I just made sources small for now, need to revisit their structure
     p {
