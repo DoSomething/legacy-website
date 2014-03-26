@@ -60,3 +60,9 @@
     z-index: 1;
   }
 }
+
+
+// Apply header gradient as a mixin since header styles not abstracted yet.
+@mixin header-gradient() {
+  @include linear-gradient($purple 25%, #000 100%);
+}

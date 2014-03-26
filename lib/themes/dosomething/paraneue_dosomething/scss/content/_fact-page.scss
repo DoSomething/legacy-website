@@ -50,7 +50,7 @@
   }
 
   .header-wrapper {
-    background: $purple;
+    @include header-gradient();
   }
 
   .facts-wrapper {
