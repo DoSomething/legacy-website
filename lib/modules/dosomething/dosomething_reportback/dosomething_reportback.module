@@ -261,10 +261,14 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
   $form['rbid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->rbid,
+    // Prevent this element from rendering in the browser.
+    '#access' => FALSE,
   );
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->nid,
+    // Prevent this element from rendering in the browser.
+    '#access' => FALSE,
   );
   $form['reportback_file'] = array(
     '#type' => 'file',
