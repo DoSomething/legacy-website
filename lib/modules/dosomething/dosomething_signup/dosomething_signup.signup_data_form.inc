@@ -102,8 +102,6 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  *   The node which the signup data form is rendered on.
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
-  global $user;
-  $account = user_load($user->uid);
   $config = dosomething_signup_get_signup_data_form_info($nid);
   $form['nid'] = array(
     '#type' => 'hidden',
@@ -120,6 +118,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#suffix' => '</p>',
   ); 
   if ($config['collect_user_address']) {
+    global $user;
+    // Load user to get relevant field values as form default_values.
+    $account = user_load($user->uid);
     $form['user_address'] = array(
       '#type' => 'addressfield',
       '#handlers' => array(
@@ -170,7 +171,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
  */
 function dosomething_signup_update_user_data($values) {
   global $user;
-  $account = user_load($user->uid);
+  $account = $user;
   if (isset($values['user_address'])) {
     $account->field_address[LANGUAGE_NONE][0] = $values['user_address'];
   }
