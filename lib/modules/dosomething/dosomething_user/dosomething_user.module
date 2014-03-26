@@ -85,6 +85,8 @@ function dosomething_user_is_staff($user = NULL) {
   $staff_roles = array(
     user_role_load_by_name('administrator')->rid,
     user_role_load_by_name('editor')->rid,
+    user_role_load_by_name('communications team')->rid,
+    user_role_load_by_name('member support')->rid,
   );
 
   // Does this user have a staff rid?
