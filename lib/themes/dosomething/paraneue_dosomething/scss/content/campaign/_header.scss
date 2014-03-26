@@ -95,6 +95,7 @@ header.header {
   div.sponsor-wrapper {
     margin: 1rem auto;
     float: none;
+    clear: both; // Accounts for floating scholarship callout above div.sponsor-wrapper
 
     @include media($tablet) {
       margin: 0;
@@ -139,11 +140,13 @@ header.header {
   div.scholarship-wrapper {
     width: 200px;
     margin: 20px auto 0;
+    padding: 0 0 2rem 0;
     position: relative;
 
     @include media($tablet) {
       width: 130px;
       margin: -10px 0 0 15px;
+      padding: 0;
       float: left;
 
       @include transform(rotate(-6deg));
