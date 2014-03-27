@@ -80,11 +80,12 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
     // Get the MMS URL from the provided context.
     $pictureUrl = $state->getContext($this->mmsContext);
 
-    // Download, save, and move the file to proper directory.
+    // Get the location for where file should be saved to.
+    $fileDest = dosomething_reportback_get_file_dest(basename($pictureUrl), $this->nid, $user->uid);
+
+    // Download and save file to that location.
     $pictureContents = file_get_contents($pictureUrl);
-    $file = file_save_data($pictureContents, $pictureFilename);
-    $new_dest = dosomething_reportback_get_file_dest($file->name, $this->nid, $user->uid);
-    $file = file_move($file, $new_dest);
+    $file = file_save_data($pictureContents, $fileDest);
 
     // Save UID and permanent status.
     $file->uid = $user->uid;
