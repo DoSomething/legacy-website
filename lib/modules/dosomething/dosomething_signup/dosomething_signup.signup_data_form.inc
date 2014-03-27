@@ -116,11 +116,23 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
     '#suffix' => '</p>',
-  ); 
+  );
   if ($config['collect_user_address']) {
     global $user;
     // Load user to get relevant field values as form default_values.
     $account = user_load($user->uid);
+    $form['user_first_name'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => t('First Name'),
+      '#default_value' => $account->field_first_name[LANGUAGE_NONE][0]['value'],
+    );
+    $form['user_last_name'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => t('Last Name'),
+      '#default_value' => $account->field_last_name[LANGUAGE_NONE][0]['value'],
+    );
     $form['user_address'] = array(
       '#type' => 'addressfield',
       '#handlers' => array(
@@ -172,10 +184,33 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
 function dosomething_signup_update_user_data($values) {
   global $user;
   $account = $user;
+  $edit = array();
   if (isset($values['user_address'])) {
-    $account->field_address[LANGUAGE_NONE][0] = $values['user_address'];
+    $edit['field_address'] = array(
+      LANGUAGE_NONE => array(
+        0 => $values['user_address']
+      ),
+    );
   }
-  user_save($account);
+  if (isset($values['user_first_name'])) {
+    $edit['field_first_name'] = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $values['user_first_name'],
+        ),
+      ),
+    );
+  }
+  if (isset($values['user_last_name'])) {
+    $edit['field_last_name'] = array(
+      LANGUAGE_NONE => array(
+        0 => array(
+          'value' => $values['user_last_name'],
+        ),
+      ),
+    );
+  }
+  user_save($account, $edit);
 }
 
 /**
