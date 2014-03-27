@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_campaign.module.
+ */
+
+
+/**
+ * Deletes field_psa.
+ */
+function dosomething_campaign_update_7001(&$sandbox) {
+  field_delete_field('field_psa');
+}

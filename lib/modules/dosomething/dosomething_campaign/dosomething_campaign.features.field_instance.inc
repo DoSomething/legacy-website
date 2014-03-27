@@ -1806,52 +1806,6 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-field_psa'
-  $field_instances['node-campaign-field_psa'] = array(
-    'bundle' => 'campaign',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'The ID of the youtube video <strong> (comes after the ?v=) </strong>',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 51,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_psa',
-    'label' => 'PSA',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 12,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign-field_reportback_confirm_msg'
   $field_instances['node-campaign-field_reportback_confirm_msg'] = array(
     'bundle' => 'campaign',
@@ -2586,7 +2540,6 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Limit 25 characters. </strong>');
   t('Official Rules');
-  t('PSA');
   t('PSA Replacement Image');
   t('Primary Action Type');
   t('Primary Cause');
@@ -2610,7 +2563,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Stuff You Need');
   t('Supporting Statement on the Solution');
   t('Tags');
-  t('The ID of the youtube video <strong> (comes after the ?v=) </strong>');
   t('The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
 <br/>
 <strong> Limit: 135 characters </strong>');
