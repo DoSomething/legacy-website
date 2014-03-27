@@ -99,3 +99,20 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
     }
   }
 }
+
+/**
+ * Implements hook_field_collection_is_empty_alter().
+ */
+function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, $item) {
+  // If this is the field_video field_collection:
+  if ($item->field_name == 'field_video') {
+    // If a Video ID exists.
+    if (isset($item->field_video_id[LANGUAGE_NONE][0]['value'])) {
+      // If no value exists, consider this field collection empty.
+      $is_empty = empty($item->field_video_id[LANGUAGE_NONE][0]['value']);
+      return;
+    }
+    // Else assume this is an empty field collection.
+    $is_empty = TRUE;
+  }
+}
