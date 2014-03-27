@@ -36,6 +36,9 @@ function _dosomething_helpers_insert_after_first_element(&$a, $element) {
   }
 }
 
+/**
+ * Implements hook_theme().
+ */
 function dosomething_helpers_theme($existing, $type, $theme, $path) {
   return array(
     'dosomething_video_embed' => array(
@@ -48,6 +51,9 @@ function dosomething_helpers_theme($existing, $type, $theme, $path) {
   );
 }
 
+/**
+ * Theme callback for dosomething_video_embed.
+ */
 function theme_dosomething_video_embed($variables) {
   $output = '<iframe';
   $output .= " width=\"{$variables['width']}\"";
