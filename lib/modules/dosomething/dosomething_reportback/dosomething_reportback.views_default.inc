@@ -166,6 +166,10 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['fid']['relationship'] = 'fid';
   $handler->display->display_options['fields']['fid']['label'] = 'Fid';
   $handler->display->display_options['fields']['fid']['link_to_file'] = TRUE;
+  /* Field: Reportbacks: Remote address */
+  $handler->display->display_options['fields']['remote_addr']['id'] = 'remote_addr';
+  $handler->display->display_options['fields']['remote_addr']['table'] = 'dosomething_reportback_file';
+  $handler->display->display_options['fields']['remote_addr']['field'] = 'remote_addr';
   /* Sort criterion: Reportback: Created Date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'dosomething_reportback';
@@ -245,6 +249,7 @@ function dosomething_reportback_views_default_views() {
     t('Pic'),
     t('<img src="[uri]" width="200" height="200"/>'),
     t('Fid'),
+    t('Remote address'),
     t('All'),
     t('Reportbacks: %1'),
     t('Page'),
