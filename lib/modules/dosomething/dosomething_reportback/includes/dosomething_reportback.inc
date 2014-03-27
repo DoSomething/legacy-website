@@ -88,7 +88,7 @@ class ReportbackEntity extends Entity {
       ->fields(array(
         'rbid' => $this->rbid,
         'fid' => $fid,
-        'remote_addr' => ip_address(),
+        'remote_addr' => dosomething_helpers_ip_address(),
         ))
       ->execute();
   }
@@ -119,7 +119,7 @@ class ReportbackEntity extends Entity {
           'why_participated' => $this->why_participated,
           'files' => implode(',', $fids),
           'num_files' => count($fids),
-          'remote_addr' => ip_address(),
+          'remote_addr' => dosomething_helpers_ip_address(),
         ))
         ->execute();
     }
