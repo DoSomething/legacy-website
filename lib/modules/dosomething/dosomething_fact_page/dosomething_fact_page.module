@@ -15,6 +15,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
         'intro_title',
         'intro',
         'call_to_action',
+        'additional_text',
       ),
       'image' => array(
         'intro_image',
@@ -52,6 +53,6 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     }
     $values = dosomething_fact_get_fact_field_vars($node->field_facts);
     $vars['facts'] = $values['facts'];
-    $vars['sources'] = $values['sources'];
+    $vars['sources'] = $vars['additional_text'];
   }
 }
