@@ -66,3 +66,36 @@
 @mixin header-gradient() {
   @include linear-gradient($purple 25%, #000 100%);
 }
+
+// Apply header typography as a mixin to style both static and campaign content.
+@mixin header-typography() {
+  .title {
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    text-align: center;
+    margin: 0 0 0.5rem;
+
+    @include media($tablet) {
+      font-size: $font-hero;
+      text-align: left;
+      margin: 0 0 0.5rem;
+    }
+  }
+
+  .subtitle {
+    color: #fff;
+    font-size: $font-regular;
+    font-weight: normal;
+    line-height: 1.5;
+    margin: 0 0 0.5rem;
+    text-align: center;
+
+
+    @include media($tablet) {
+      font-size: $font-medium;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+  }
+}

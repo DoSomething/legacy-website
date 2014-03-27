@@ -28,34 +28,14 @@ header.header {
   background-position: 50% 50%;
   background-size: cover;
   background-color: $purple;
+  @include header-typography();
 
   @include media($tablet) {
     min-height: 620px;
   }
 
-  h1.title {
-    color: #fff;
-    font-size: 2rem;
-    line-height: 2rem;
-    text-align: center;
-    margin: 0 0 0.5rem;
-
+  .subtitle {
     @include media($tablet) {
-      font-size: $font-hero;
-      text-align: left;
-      margin: 0 0 1.5rem;
-    }
-  }
-
-  p.cta {
-    color: #fff !important;
-    font-size: $font-regular;
-    text-align: center;
-    margin: 0 0 0.5rem;
-
-    @include media($tablet) {
-      font-size: $font-medium;
-      text-align: left;
       margin: 0;
     }
   }

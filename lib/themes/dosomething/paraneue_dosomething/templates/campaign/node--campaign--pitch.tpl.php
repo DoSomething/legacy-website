@@ -2,7 +2,7 @@
   <header class="header <?php print $classes; ?>">
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>
-      <p class="cta"><?php print $cta; ?></p>
+      <h2 class="subtitle"><?php print $cta; ?></h2>
 
       <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
 
