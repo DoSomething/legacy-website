@@ -75,6 +75,9 @@ $conf['redis_client_interface'] = 'Predis';
 $conf['redis_client_host'] = getenv('DS_REDIS_HOST') ?: '127.0.0.1';
 $conf['redis_client_port'] = getenv('DS_REDIS_PORT') ?: '6379';
 
+// Enforce a common cache key.
+$conf['cache_prefix'] = 'ds';
+
 // Cache everything in Redis, except the form cache.
 $conf['cache_default_class'] = 'Redis_Cache';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
