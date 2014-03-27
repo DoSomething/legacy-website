@@ -17,6 +17,19 @@ function dosomething_helpers_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Wrapper function for Drupal's ip_address function.
+ *
+ * Because varnish only likes to expose its own IP, and 
+ * apache and nginx will give different results as well.
+ *
+ * @return string
+ *   The IP address of the client machine.
+ */
+function dosomething_helpers_ip_address() {
+  return isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : ip_address();
+}
+
+/**
  * Implements hook_form_alter().
  */
 function dosomething_helpers_form_alter(&$form, &$form_state, $form_id) {
