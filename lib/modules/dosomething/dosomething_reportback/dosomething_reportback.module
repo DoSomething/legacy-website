@@ -99,27 +99,29 @@ function dosomething_reportback_entity_property_info() {
 function dosomething_reportback_menu() {
   $items = array();
   $items['reportback/%reportback'] = array(
-    'title callback' => 'Reportback',
+    'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
   $items['reportback/%reportback/edit'] = array(
-    'title callback' => 'Edit Reportback',
+    'title' => 'Edit',
     'page callback' => 'dosomething_reportback_edit_entity',
     'page arguments' => array(1),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
   );
   $items['reportback/%reportback/delete'] = array(
-    'title callback' => 'Delete Reportback',
+    'title' => 'Delete',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_delete_form', 1),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('delete', 1),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
   );
   return $items;
 }
@@ -219,12 +221,6 @@ function dosomething_reportback_preprocess_entity(&$variables) {
     // Enables reportback.tpl.php naming suggestion.
     $variables['theme_hook_suggestions'][] = 'reportback';
     $entity = $variables['elements']['#entity'];
-    if (dosomething_reportback_access('edit', $entity)) {
-      $variables['edit_link'] = l('Update', 'reportback/' . $entity->rbid . '/edit');
-    }
-    if (dosomething_reportback_access('delete', $entity)) {
-      $variables['delete_link'] = l('Delete', 'reportback/' . $entity->rbid . '/delete');
-    }
   }
 }
 
