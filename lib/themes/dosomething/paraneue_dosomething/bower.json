@@ -17,10 +17,9 @@
     "tests"
   ],
   "dependencies": {
+    "neue": "git@github.com:DoSomething/neue.git#~3.1.0",
     "jquery": "~1.11.0",
-    "underscore": "~1.5.2",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",
-    "neue": "git@github.com:DoSomething/neue.git#~3.1.0"
   }
 }
