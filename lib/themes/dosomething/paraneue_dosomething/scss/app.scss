@@ -21,7 +21,7 @@
 // Content styles by section
 @import "content/auth";
 @import "content/homepage";
-@import "content/campaign";
+@import "content/campaign"; // @NOTE - parent partial that imports sub-partials
 @import "content/confirmation";
 @import "content/modals";
 @import "content/modal-reportback";

@@ -12,26 +12,9 @@
 .static_content-wrapper {
   background: #fff;
 
-  h2, h3, h4 {
-    color: $purple;
-  }
-
-  // @TODO: Abstract all of these base styles to ds-neue
-  a {
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-  li {
-    list-style-type: disc;
-    margin: 0 0 0 20px;
-  }
-
   .header-wrapper {
+    @include header-gradient();
+    @include header-typography();
     padding: 7rem 1rem 0;
     @include row;
     @include media($tablet) {
@@ -53,31 +36,6 @@
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
-    }
-  }
-
-  .header-wrapper {
-    @include header-gradient();
-  }
-
-  // @TODO: Default content page headers -- same as campaign template -- abstract this
-  .header {
-    text-align: center;
-    @include media($tablet) {
-      text-align: left;
-    }
-
-    .title {
-      color: #fff;
-      @include media($tablet) {
-        font-size: $font-larger;
-      }
-    }
-
-    .subtitle {
-      color: #fff;
-      font-weight: $weight-normal;
-      margin-top: -25px;
     }
   }
 

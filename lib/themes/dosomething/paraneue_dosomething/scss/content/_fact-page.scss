@@ -51,6 +51,7 @@
 
   .header-wrapper {
     @include header-gradient();
+    @include header-typography();
   }
 
   .facts-wrapper {
@@ -71,21 +72,11 @@
     }
   }
 
-  // @TODO: Default content page headers -- same as campaign template -- abstract this
   .header {
     .title {
-      color: #fff;
-    }
-
-    .subtitle {
-      color: #fff;
-      font-weight: $weight-normal;
-      margin-top: -25px;
-
-
-      text-align: center;
       @include media($tablet) {
-        text-align: left;
+        font-size: $font-largest;  // Slightly smaller font-size, since 11 Facts titles are title-case.
+        margin: 1.5rem 0;
       }
     }
   }
