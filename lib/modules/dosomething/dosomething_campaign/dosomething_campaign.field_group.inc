@@ -83,7 +83,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Images',
+    'label' => 'Media',
     'weight' => '8',
     'children' => array(
       0 => 'field_image_campaign_cover',
@@ -94,7 +94,7 @@ function dosomething_campaign_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Images',
+      'label' => 'Media',
       'instance_settings' => array(
         'required_fields' => 0,
         'classes' => '',
