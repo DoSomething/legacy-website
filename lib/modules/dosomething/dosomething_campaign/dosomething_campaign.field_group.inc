@@ -90,7 +90,7 @@ function dosomething_campaign_field_group_info() {
       1 => 'field_image_psa_replacement',
       2 => 'field_image_reportback_gallery',
       3 => 'field_image_step_gallery',
-      4 => 'field_psa',
+      4 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -276,7 +276,6 @@ function dosomething_campaign_field_group_info() {
     'weight' => '8',
     'children' => array(
       0 => 'field_partners',
-      1 => 'field_sponsor',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

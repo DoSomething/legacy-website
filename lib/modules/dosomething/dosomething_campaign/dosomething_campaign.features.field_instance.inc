@@ -878,7 +878,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'If there is no PSA then this image is required.',
+    'description' => 'If there is no video, then this image is required.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -903,8 +903,10 @@ function dosomething_campaign_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_psa_replacement',
-    'label' => 'PSA Replacement Image',
+    'label' => 'Video Replacement Image',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -2432,6 +2434,53 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_video'
+  $field_instances['node-campaign-field_video'] = array(
+    'bundle' => 'campaign',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 62,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_video',
+    'label' => 'Video',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_vips'
   $field_instances['node-campaign-field_vips'] = array(
     'bundle' => 'campaign',
@@ -2512,7 +2561,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Hype');
   t('If there is a prize to be won, you must include a PDF of the official rules.');
   t('If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.');
-  t('If there is no PSA then this image is required.');
+  t('If there is no video, then this image is required.');
   t('If you are not using a fact above, use this field. This is information that shows that the call to action is what to do to solve the issue.
 <br />
 <strong>Limit: 135 characters</strong>');
@@ -2540,7 +2589,6 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Limit 25 characters. </strong>');
   t('Official Rules');
-  t('PSA Replacement Image');
   t('Primary Action Type');
   t('Primary Cause');
   t('Problem Fact');
@@ -2610,6 +2658,8 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Limit 20 characters. </strong>');
   t('VIPs');
+  t('Video');
+  t('Video Replacement Image');
   t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
   t('i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected');
 
