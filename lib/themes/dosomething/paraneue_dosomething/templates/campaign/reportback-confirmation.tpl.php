@@ -3,7 +3,7 @@
     <header class="header">
       <h1 class="title">You Did It!</h1>
       <?php if (isset($copy)): ?>
-        <h3 class="subtitle"><?php print $copy; ?></h3>
+        <h2 class="subtitle"><?php print $copy; ?></h2>
       <?php endif; ?>
     </header>
   </div>
