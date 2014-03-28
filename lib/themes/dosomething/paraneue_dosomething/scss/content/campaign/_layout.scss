@@ -2,7 +2,7 @@
 div.col.first {
   @include media($tablet) {
     @include span-columns(6);
-    @include shift(3);
+    @include shift(2);
   }
 }
 
@@ -16,6 +16,6 @@ div.col.second {
 div.col.sources {
   @include media($tablet) {
     @include span-columns(12);
-    @include shift(3);
+    @include shift(2);
   }
 }

@@ -5,7 +5,7 @@
 
   @include media($tablet) {
     @include span-columns(9);
-    @include shift(3);
+    @include shift(2);
   }
 
   p {
@@ -18,7 +18,7 @@
 
   @include media($tablet) {
     @include span-columns(11);
-    @include shift(3);
+    @include shift(2);
   }
 
   p {

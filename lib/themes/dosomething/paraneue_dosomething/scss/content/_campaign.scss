@@ -27,6 +27,7 @@
   // immediately before each section.step
   .banner {
     margin: 0;
+    padding: 0.1em 0 0; // Override default banner padding to prevent left indent
 
     span {
       @include section-padding;
