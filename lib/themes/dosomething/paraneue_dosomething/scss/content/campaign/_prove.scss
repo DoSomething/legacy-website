@@ -30,7 +30,6 @@
   }
 
   .btn {
-    display: block;
     margin: 0 auto;
 
     @include media($tablet) {
@@ -57,8 +56,11 @@
 
   .content {
     margin-bottom: 3rem;
+    text-align: center;
 
     @include media($tablet) {
+      text-align: left;
+
       @include span-columns(6);
       @include shift(2);
     }
