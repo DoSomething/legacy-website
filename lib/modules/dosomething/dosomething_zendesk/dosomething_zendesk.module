@@ -9,19 +9,10 @@
  */
 function dosomething_zendesk_menu() {
   $items = array();
-  $items['admin/config/services/dosomething_zendesk/auth'] = array(
-    'title' => 'DoSomething Zendesk auth',
+  $items['admin/config/services/dosomething_zendesk'] = array(
+    'title' => 'DoSomething Zendesk settings',
     'description' => 'Manage Zendesk settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_zendesk_config_form'),
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_zendesk.admin.inc',
-  );
-  $items['admin/config/services/dosomething_zendesk/groups'] = array(
-    'title' => 'DoSomething Zendesk groups',
-    'description' => 'Manage Zendesk Group IDs.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_zendesk_groups_config_form'),
+    'page callback' => 'dosomething_zendesk_admin_page',
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_zendesk.admin.inc',
   );
