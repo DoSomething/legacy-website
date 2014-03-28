@@ -176,7 +176,7 @@
             <div><?php print $location_finder_copy['safe_value']; ?></div>
           <?php endif; ?>
 
-          <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+          <a class="btn small secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
         </div>
       <?php endif; ?>
 
@@ -323,7 +323,7 @@
         <h3 class="title">Pics or It Didn't Happen</h3>
         <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
-        <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
+        <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn medium"><?php print $reportback_link_label; ?></a><?php endif; ?>
         <?php if (isset($official_rules)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
