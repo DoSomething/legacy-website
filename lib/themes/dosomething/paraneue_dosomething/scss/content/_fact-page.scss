@@ -98,11 +98,10 @@
     }
   }
 
-  .sources {
-    // @TODO: I just made sources small for now, need to revisit their structure
-    p {
-      font-size: $font-small;
+  .sources { margin-bottom: 1rem;
+    li {
       color: $med-gray;
+      font-size: $font-small;
     }
   }
 }
