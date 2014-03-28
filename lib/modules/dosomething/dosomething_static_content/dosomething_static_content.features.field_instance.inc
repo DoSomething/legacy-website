@@ -242,7 +242,7 @@ function dosomething_static_content_field_default_field_instances() {
     'bundle' => 'field_video',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The ID of the Youtube video <strong> (comes after the ?v=) </strong>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -825,6 +825,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Intro Title');
   t('Provider');
   t('Subtitle');
+  t('The ID of the Youtube video <strong> (comes after the ?v=) </strong>');
   t('Video');
   t('Video ID');
 

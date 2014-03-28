@@ -212,10 +212,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 
-  $psa = $wrapper->field_psa->value();
-  if (isset($psa)) {
-    $vars['psa'] = '<iframe id="ytplayer" type="text/html" width="640" height="390"
-     src="http://youtube.com/embed/' . $psa . '?wmode=transparent"' . 'frameborder="0"/>';
+  if (!empty($vars['field_video'])) {
+    $vars['psa'] = theme('dosomething_video_embed', array(
+      'field' => $wrapper->field_video->value(),
+      'width' => 640,
+      'height' => 390,
+    ));
   }
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
