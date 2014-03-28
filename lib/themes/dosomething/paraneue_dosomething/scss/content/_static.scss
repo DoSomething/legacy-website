@@ -39,15 +39,20 @@
     }
   }
 
+  .intro-wrapper + .cta-wrapper {
+      margin-top: 1rem;
+  }
+
   .cta-wrapper {
     background-color: lighten($light-gray, 10%);
     border-bottom: 2px solid $light-gray;
     border-top: 2px solid $light-gray;
   }
 
+
   .intro {
       margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
 
     .intro-content {
       max-width: 100%;
