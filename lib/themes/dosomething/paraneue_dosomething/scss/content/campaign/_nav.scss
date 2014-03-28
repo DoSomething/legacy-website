@@ -15,11 +15,16 @@
   width: 100%;
   -webkit-font-smoothing: subpixel-antialiased; // fixes antialiasing issue on positioned elements in Safari
 
-  @include media($tablet) {
+  // @NOTE: This is a custom breakpoint set for the campaign nav
+  // It is not stored in a mixin as it is context-specic and
+  // should not be used elsewhere!
+  $nav-break: 960px;
+
+  @media all and (min-width: $nav-break) {
     position: absolute;
     top: 4rem;
     padding-top: 3rem;
-    width: 130px; // need pixel width since it loses percent sizing when "fixed"
+    width: 105px; // need pixel width since it loses percent sizing when "fixed"
   }
 
   &.is-stuck {
@@ -34,7 +39,7 @@
     overflow: hidden;
     padding: 0;
 
-    @include media($tablet) {
+    @media all and (min-width: $nav-break) {
       text-align: left;
     }
   }
@@ -42,7 +47,7 @@
   li {
     display: inline-block;
 
-    @include media($tablet) {
+    @media all and (min-width: $nav-break) {
       display: block;
       width: 100%;
     }
@@ -62,7 +67,7 @@
     font-weight: $weight-sbold;
     font-size: $font-regular;
 
-    @include media($tablet) {
+    @media all and (min-width: $nav-break) {
       display: block;
       padding: 0.5rem 1rem;
     }

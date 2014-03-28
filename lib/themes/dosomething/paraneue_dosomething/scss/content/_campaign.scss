@@ -27,13 +27,14 @@
   // immediately before each section.step
   .banner {
     margin: 0;
+    padding: 0.1em 0 0; // Override default banner padding to prevent left indent
 
     span {
       @include section-padding;
 
       @include media($tablet) {
         padding: 0;
-        @include shift(3 of 16);
+        @include shift(2 of 16);
       }
     }
   }
@@ -69,16 +70,6 @@
     h4 {
       color: $purple;
       font-size: $font-medium;
-    }
-
-    li {
-      list-style-type: disc;
-      margin: 0 0 0 1.5rem;
-      padding: 0 0 0 0.25rem;
-
-      @include media($tablet) {
-        margin: 0 0 0 1rem;
-      }
     }
   }
 
