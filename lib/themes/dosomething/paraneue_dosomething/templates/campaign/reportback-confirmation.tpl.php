@@ -19,7 +19,7 @@
             <?php endif; ?>
 
             <?php if (isset($rec['title'])): ?>
-              <h3><?php print $rec['title']; ?></h3>
+              <h3 class="title"><?php print $rec['title']; ?></h3>
             <?php endif; ?>
 
             <?php if (isset($rec['call_to_action'])): ?>

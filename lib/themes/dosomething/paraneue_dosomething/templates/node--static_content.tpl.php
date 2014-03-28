@@ -48,7 +48,7 @@
                   <?php print $gallery_item['image']; ?>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3><?php print $gallery_item['image_title']; ?></h3>
+                    <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_description'])): ?>
                   <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
