@@ -9,11 +9,19 @@
  */
 function dosomething_zendesk_menu() {
   $items = array();
-  $items['admin/config/services/dosomething_zendesk'] = array(
-    'title' => 'DoSomething Zendesk settings',
+  $items['admin/config/services/dosomething_zendesk/auth'] = array(
+    'title' => 'DoSomething Zendesk auth',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_zendesk_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_zendesk.admin.inc',
+  );
+  $items['admin/config/services/dosomething_zendesk/groups'] = array(
+    'title' => 'DoSomething Zendesk groups',
+    'description' => 'Manage Zendesk Group IDs.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_zendesk_groups_config_form'),
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_zendesk.admin.inc',
   );
@@ -243,10 +251,7 @@ function dosomething_zendesk_get_zendesk_groups() {
     if (!empty($result->groups)) {
       foreach ($result->groups as $group) {
         if (!$group->deleted) {
-          $groups[] = array(
-            'id' => $group->id,
-            'name' => $group->name,
-          );
+          $groups[$group->id] = $group->name;
         }
       }
     }
@@ -256,4 +261,17 @@ function dosomething_zendesk_get_zendesk_groups() {
     watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
     return FALSE;
   }
+}
+
+/**
+ * Returns the variable name that stores a taxonomy term's Zendesk Group ID.
+ *
+ * @param int $tid
+ *   The taxonomy term to lookup.
+ *
+ * @return string
+ *  The variable name which stores the tid's Zendesk Group ID.
+ */
+function dosomething_zendesk_get_group_varname($tid) {
+  return 'dosomething_zendesk_tid_' . $tid . '_group_id';
 }
