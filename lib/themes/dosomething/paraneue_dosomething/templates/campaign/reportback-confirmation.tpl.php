@@ -7,7 +7,7 @@
       <?php endif; ?>
     </header>
   </div>
-  
+
   <?php if (isset($recommended)): ?>
     <div class="gallery-wrapper">
       <h2 class="gallery-title">Keep it up! Find your next campaign.</h2>
@@ -19,7 +19,7 @@
             <?php endif; ?>
 
             <?php if (isset($rec['title'])): ?>
-              <h3><?php print $rec['title']; ?></h3>
+              <h3 class="title"><?php print $rec['title']; ?></h3>
             <?php endif; ?>
 
             <?php if (isset($rec['call_to_action'])): ?>

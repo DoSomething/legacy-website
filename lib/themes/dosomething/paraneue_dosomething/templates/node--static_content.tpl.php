@@ -25,7 +25,7 @@
         <?php endif; ?>
       </div>
     </div>
-    
+
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
         <div class="cta">
@@ -34,7 +34,7 @@
         </div>
       </div>
     <?php endif; ?>
-  
+
     <?php if (isset($galleries)): ?>
       <div class="gallery-wrapper">
         <?php foreach ($galleries as $gallery): ?>
@@ -48,7 +48,7 @@
                   <?php print $gallery_item['image']; ?>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3><?php print $gallery_item['image_title']; ?></h3>
+                    <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_description'])): ?>
                   <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
@@ -66,7 +66,7 @@
         <?php if (isset($additional_text_title)): ?>
           <h2><?php print $additional_text_title; ?></h2>
         <?php endif; ?>
-        
+
         <p><?php print $additional_text; ?></p>
       </div>
     </div>

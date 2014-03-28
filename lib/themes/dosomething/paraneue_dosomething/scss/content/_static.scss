@@ -39,6 +39,17 @@
     }
   }
 
+  .gallery-wrapper {
+    background-color: $light-gray;
+    // background-color: lighten($light-gray, 10%);
+  }
+
+  .cta-wrapper + .gallery-wrapper {
+    // Since cta's have a bottom border, if they preceed a gallery with a background,
+    // the border blends into the gallery background. Adds a margin to give it some room.
+    margin-top: 1.25rem;
+  }
+
   .intro {
     // @TODO: ಠ_ಠ
     margin-top: 20px;
@@ -93,7 +104,8 @@
       text-align: center;
     }
 
-    h3 {
+    .title {
+      color: $dark-gray;
       margin-bottom: 5px;
     }
 
