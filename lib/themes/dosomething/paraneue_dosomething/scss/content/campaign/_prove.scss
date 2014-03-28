@@ -59,7 +59,7 @@
     margin-bottom: 3rem;
 
     @include media($tablet) {
-      @include span-columns(5);
+      @include span-columns(6);
       @include shift(2);
     }
   }
