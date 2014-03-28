@@ -381,17 +381,6 @@
         <?php print render($zendesk_form); ?>
       </script>
       <?php endif; ?>
-
-      <?php if (isset($fact_sources)): ?>
-      <footer class="sources">
-        <div class="legal">
-          <strong>Sources:</strong>
-          <?php foreach ($fact_sources as $key => $source): ?>
-            <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
-          <?php endforeach; ?>
-        </div>
-      </footer>
-      <?php endif; ?>
     </section>
   </div>
 </section>

@@ -43,8 +43,7 @@ footer.sponsors {
   }
 }
 
-footer.help,
-footer.sources {
+footer.help {
   padding: 1rem 0;
   text-align: center;
   clear: both;
@@ -64,18 +63,5 @@ footer.help {
     &:hover {
       color: #fff;
     }
-  }
-}
-
-footer.sources {
-  display: block;
-  background: $off-black;
-
-  @include media($tablet) {
-    display: none;
-  }
-
-  div {
-    margin: 0 0 1rem;
   }
 }
