@@ -1,6 +1,3 @@
-<?php
-  // krumo($vars);
-?>
 
 <section class="fact_page-wrapper">
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
