@@ -19,7 +19,9 @@ function dosomething_user_init() {
       // If logged in user is not staff:
       if (!dosomething_user_is_staff()) {
         // No node for you.  Redirect to front page for now.
-        drupal_goto();
+        if (!function_exists('drush_main')) {
+          drupal_goto();
+        }
       }
     }
   }
