@@ -19,7 +19,7 @@
     position: absolute;
     top: 4rem;
     padding-top: 3rem;
-    width: 130px; // need pixel width since it loses percent sizing when "fixed"
+    width: 105px; // need pixel width since it loses percent sizing when "fixed"
   }
 
   &.is-stuck {
