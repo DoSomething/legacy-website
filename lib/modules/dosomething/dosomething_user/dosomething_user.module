@@ -494,6 +494,12 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
       break;
     case 'campaign_signup':
       $payload['event_id'] = $params['event_id'];
+      // Check for mailchimp grouping_id+group_name:
+      $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
+      if ( $mailchimp ) {
+        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
+        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
+      }
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
         'CAMPAIGN_TITLE' => $params['campaign_title'],
@@ -503,16 +509,6 @@ function dosomething_user_mbp_request($origin, $params = NULL) {
         'STEP_TWO' => $params['step_two'],
         'STEP_THREE' => $params['step_three'],
       );
-      // Check for mailchimp grouping_id+group_name:
-      $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
-      // If set, or if soon to be depecrated group_id isset:
-      // @todo: Remove check for group_id when ready for cleanup.
-      if ( $mailchimp || isset($params['mailchimp_group_id']) ) {
-        //@todo: Remove group_id when ready for cleanup.
-        $payload['mailchimp_group_id'] = $params['mailchimp_group_id'];
-        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
-        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
-      }
       break;
     case 'campaign_reportback':
       $payload['event_id'] = $params['event_id'];
