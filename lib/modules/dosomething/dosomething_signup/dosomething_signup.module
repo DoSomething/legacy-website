@@ -387,15 +387,11 @@ function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
   $nid = $node->nid;
   $prefix = 'dosomething_signup_nid_' . $nid;
   // Variable may be set as empty string, so set empty string as default.
-  // The mailchimp_id will be deprecated soon. 
-  // @see https://github.com/DoSomething/dosomething/issues/1476
-  $group_id =  variable_get($prefix . '_mailchimp_id', '');
   $grouping_id = variable_get($prefix . '_mailchimp_grouping_id', '');
   $group_name = variable_get($prefix . '_mailchimp_group_name', '');
   // If a value is present for Mailchimp groups:
-  if (!empty($group_id) || !empty($grouping_id) || !empty($group_name)) {
+  if (!empty($grouping_id) || !empty($group_name)) {
     // Add it into the mbp_request params.
-    $params['mailchimp_group_id'] = $group_id;
     $params['mailchimp_grouping_id'] = $grouping_id;
     $params['mailchimp_group_name'] = $group_name;
   }
