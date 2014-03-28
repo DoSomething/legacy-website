@@ -7,7 +7,7 @@
       <?php endif; ?>
     </header>
   </div>
-  
+
   <?php if (isset($recommended)): ?>
     <div class="gallery-wrapper">
       <h2 class="gallery-title">Keep it up! Find your next campaign.</h2>
@@ -29,7 +29,7 @@
         <?php endforeach; ?>
       </div>
     </div>
-  <? endif; ?>
+  <?php endif; ?>
 
   <?php if (isset($more_campaigns_link)): ?>
     <div class="cta-wrapper">
