@@ -34,6 +34,7 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   $prefix = $fieldset . '_';
   // Set an additional submit handler to save the signup_data_form values.
   $form['#submit'][] = 'dosomething_signup_node_signup_data_form_submit';
+  $form['#validate'][] = 'dosomething_signup_node_signup_data_form_validate';
   // Create fieldset to collect signup data form values.
   $form[$fieldset] = array(
     '#type' => 'fieldset',
@@ -85,6 +86,27 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
+}
+
+/**
+ * Validates node signup_data_form values.
+ */
+function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state) {
+  $values = $form_state['values'];
+  $prefix = 'signup_data_form_';
+  // If signup data form is enabled:
+  if ($values[$prefix . 'status'] == 1) {
+    // Link text is mandatory.
+    $link_text = $prefix . 'link_text';
+    if (empty($values[$link_text])) {
+      form_set_error($link_text, t('Signup Data Form Link text is mandatory.'));
+    }
+    // Confirm_msg is mandatory.
+    $confirm_msg = $prefix . 'confirm_msg';
+    if (empty($values[$confirm_msg])) {
+      form_set_error($confirm_msg, t('Signup Data Form Confirmation message is mandatory.'));
+    }
+  }
 }
 
 /**
