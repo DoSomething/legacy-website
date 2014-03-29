@@ -25,7 +25,7 @@ function dosomething_signup_get_signup_data_form_info($nid) {
  * Adds form elements to given node $form to store nid signup_data_form values.
  *
  * Note there is no submit form element returned.
- * This function is always called from within a node edit form. 
+ * This function is always called from within a node edit form.
  */
 function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   $nid = $form['nid']['#value'];
@@ -43,32 +43,45 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#collapsed' => TRUE,
   );
   $form[$fieldset][$prefix . 'status'] = array(
-    '#type' => 'checkbox', 
+    '#type' => 'checkbox',
     '#title' => t('Collect additional signup data'),
     '#default_value' => $values['status'],
   );
-  $form[$fieldset][$prefix . 'collect_user_address'] = array(
-    '#type' => 'checkbox', 
+  $form[$fieldset]['config'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Configuration'),
+    '#weight' => 60,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    // Config fieldset should only be visible if the status field is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'status"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form[$fieldset]['config'][$prefix . 'collect_user_address'] = array(
+    '#type' => 'checkbox',
     '#title' => t('Collect user address'),
     '#default_value' => $values['collect_user_address'],
   );
-  $form[$fieldset][$prefix . 'link_text'] = array(
-    '#type' => 'textfield', 
+  $form[$fieldset]['config'][$prefix . 'link_text'] = array(
+    '#type' => 'textfield',
     '#title' => t('Link text'),
     '#default_value' => $values['link_text'],
   );
-  $form[$fieldset][$prefix . 'form_header'] = array(
-    '#type' => 'textfield', 
+  $form[$fieldset]['config'][$prefix . 'form_header'] = array(
+    '#type' => 'textfield',
     '#title' => t('Form header'),
     '#default_value' => $values['form_header'],
   );
-  $form[$fieldset][$prefix . 'form_copy'] = array(
-    '#type' => 'textarea', 
+  $form[$fieldset]['config'][$prefix . 'form_copy'] = array(
+    '#type' => 'textarea',
     '#title' => t('Form copy'),
     '#default_value' => $values['form_copy'],
   );
-  $form[$fieldset][$prefix . 'confirm_msg'] = array(
-    '#type' => 'textarea', 
+  $form[$fieldset]['config'][$prefix . 'confirm_msg'] = array(
+    '#type' => 'textarea',
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
@@ -228,7 +241,7 @@ function dosomething_signup_update_signup_data($values) {
       'signup_data_form_timestamp' => REQUEST_TIME,
     ))
     ->condition('sid', $sid)
-    ->execute();  
+    ->execute();
     return TRUE;
   }
   catch (Exception $e) {
