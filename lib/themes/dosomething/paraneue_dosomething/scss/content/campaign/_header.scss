@@ -62,11 +62,9 @@ header.header {
     margin: 0 auto;
     display: block;
     color: #fff;
-    font-size: $font-medium;
 
     @include media($tablet) {
       float: left;
-      font-size: 1.5rem; // @TODO Should we bump the button size for .btn.large?
     }
   }
 
