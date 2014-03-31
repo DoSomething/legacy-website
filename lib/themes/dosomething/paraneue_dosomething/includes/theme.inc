@@ -10,7 +10,7 @@ function paraneue_dosomething_breadcrumb($variables) {
 
   if (!empty($breadcrumb)) {
     $breadcrumbs = '<nav class="breadcrumbs"><ul>';
-    
+
     $count = count($breadcrumb) - 1;
     foreach ($breadcrumb as $key => $value) {
       if ($count != $key) {
@@ -21,7 +21,7 @@ function paraneue_dosomething_breadcrumb($variables) {
       }
     }
     $breadcrumbs .= '</ul></nav>';
-    
+
     return $breadcrumbs;
   }
 }
