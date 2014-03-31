@@ -1,7 +1,7 @@
 <?php
 /**
  * Returns the HTML for a node.
- * @see https://drupal.org/node/1728164 
+ * @see https://drupal.org/node/1728164
  */
 ?>
 
