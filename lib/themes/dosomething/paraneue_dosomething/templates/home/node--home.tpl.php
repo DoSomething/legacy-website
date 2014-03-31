@@ -8,28 +8,28 @@
 
   <div class="homepage--grid">
 
-    <div class="block-big" style="background-image: url('https://www.dosomething.org/files/u/home/ComebackClothes_homepage_landscape.jpg'); background-position: center center;">
+    <div class="block-big" style="background-image: url('//www.dosomething.org/files/u/home/ComebackClothes_homepage_landscape.jpg'); background-position: center center;">
       <a class="full-link" href="/campaigns/comeback-clothes"><span>Do This</span></a>
       <div class="headline">
         <h2>Recycle old or worn-out clothes to help our planet.</h2>
       </div>
     </div>
 
-    <div class="block-small" style="background-image: url('http://www.dosomething.org//files/u/neue-homepage/wyr-small.jpg'); background-position: top center;">
+    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/wyr-small.jpg'); background-position: top center;">
       <a class="full-link" href="/wyr"><span>Do This</span></a>
       <div class="headline">
         <h2>Challenge your friends to a game of "Would You Rather?"</h2>
       </div>
     </div>
 
-    <div class="block-small" style="background-image: url('https://www.dosomething.org/files/u/neue-homepage/pbj-small.jpg'); background-position: center center;">
+    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/pbj-small.jpg'); background-position: center center;">
       <a class="full-link" href="/campaigns/peanut-butter-jam-slam"><span>Do This</span></a>
       <div class="headline">
         <h2>Collect peanut butter for your local food bank.</h2>
       </div>
     </div>
 
-    <div class="block-small" style="background-image: url('http://www.dosomething.org//files/u/neue-homepage/bullytext-block.jpg'); background-position: center center;">
+    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/bullytext-block.jpg'); background-position: center center;">
       <a class="full-link" href="/bully"><span>Do This</span></a>
       <div class="headline">
         <h2>Everyone has the power to stop bullying. Learn how.</h2>
