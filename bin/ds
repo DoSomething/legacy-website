@@ -293,10 +293,6 @@ function composer {
 function bower {
   if hash bower 2>/dev/null;
   then
-    cd $WEB_PATH/profiles/dosomething/themes/dosomething/paraneue
-    echo -e "\e[4mInstalling bower dependencies for Paraneue...\e[0m"
-    eval "/usr/bin/bower update --config.interactive=false"
-
     cd $LIB_PATH/themes/dosomething/paraneue_dosomething
     echo -e "\n\e[4mInstalling bower dependencies for Paraneue_DoSomething...\e[0m"
     eval "/usr/bin/bower update --config.interactive=false"
