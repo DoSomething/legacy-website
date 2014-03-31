@@ -71,12 +71,14 @@
       </div>
 
       <?php if (isset($fact_sources)): ?>
-      <div class="col sources">
-        <div class="legal">
-          <strong>Sources:</strong>
-          <?php foreach ($fact_sources as $key => $source): ?>
-            <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
-          <?php endforeach; ?>
+      <div class="col sources-wrapper">
+        <a href="#" class="js-toggle-sources secondary">Sources</a>
+        <div class="sources">
+          <div class="legal">
+            <?php foreach ($fact_sources as $key => $source): ?>
+              <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
+            <?php endforeach; ?>
+          </div>
         </div>
       </div>
       <?php endif; ?>

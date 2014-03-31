@@ -13,7 +13,7 @@ div.col.second {
   }
 }
 
-div.col.sources {
+div.col.sources-wrapper {
   @include media($tablet) {
     @include span-columns(12);
     @include shift(2);

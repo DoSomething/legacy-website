@@ -10,17 +10,13 @@
     margin: 0 0 1.5rem;
   }
 
-  // NOTE: Sources only displayed here on "desktop" views.
-  //       Margin shorthand not used to respect layout grid
-  //       settings applied to the div.col.sources wrapper
-  //       which are set in _layout.scss
-  .sources {
-    display: none;
+  .sources-wrapper {
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
 
-    @include media($tablet) {
-      display: block;
-    }
+  .sources {
+    margin: 1.5rem 0 0;
+    display: none; // Hide sources by default! Wait for user to toggle visibility
   }
 }
