@@ -1,47 +1,45 @@
 <?php
 
-include 'includes/auth/login.php';
-include 'includes/auth/register.php';
-
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+define('NEUE_PATH', PARANEUE_DS_PATH . '/bower_components/neue');
+
+require_once PARANEUE_DS_PATH . '/includes/bootstrap.inc';
+require_once PARANEUE_DS_PATH . '/includes/theme.inc';
+require_once PARANEUE_DS_PATH . '/includes/preprocess.inc';
+require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
+
+require_once PARANEUE_DS_PATH . '/includes/form.inc';
+require_once PARANEUE_DS_PATH . '/includes/auth/login.inc';
+require_once PARANEUE_DS_PATH . '/includes/auth/register.inc';
 
 /**
+ * We use our own asset pipeline (through Grunt), so we want to bypass most
+ * of Drupal's included assets.
+ *
  * Implements hook_css_alter().
  */
 function paraneue_dosomething_css_alter(&$css) {
-  // Core
-  $app_css = PARANEUE_DS_PATH . '/dist/app.css';
-  $css['app']['data'] = $app_css;
-  $css['app']['media'] = 'all';
-  $css['app']['browsers'] = array('IE' => TRUE, '!IE' => TRUE);
-  $css['app']['preprocess'] = FALSE;
-  $css['app']['group'] = CSS_THEME;
-  $css['app']['type'] = 'file';
-  $css['app']['every_page'] = TRUE;
-  $css['app']['weight'] = 1;
+  // Load excluded CSS files from theme.
+  $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'css');
+  $css = array_diff_key($css, $excludes);
 
-  $app_css_ie = PARANEUE_DS_PATH . '/dist/ie.css';
-  $css['app-ie']['data'] = $app_css_ie;
-  $css['app-ie']['media'] = 'all';
-  $css['app-ie']['browsers'] = array('IE' => 'lte IE 8');
-  $css['app-ie']['preprocess'] = FALSE;
-  $css['app-ie']['group'] = CSS_THEME;
-  $css['app-ie']['type'] = 'file';
-  $css['app-ie']['every_page'] = TRUE;
-  $css['app-ie']['weight'] = 1;
+  // Force removal of files we can't seem to kill with exclude[css] array
+  // @TODO: Figure out why this is necessary.
+  unset($css[drupal_get_path('module', 'date') . '/date_api/date.css']);
+  unset($css[drupal_get_path('module', 'ctools') . '/css/ctools.css']);
+  unset($css[drupal_get_path('module', 'views') . '/css/views.css']);
 }
 
 /**
+ * We use our own asset pipeline (through Grunt), so we want to bypass most
+ * of Drupal's included assets.
+ *
  * Implements hook_js_alter().
  */
 function paraneue_dosomething_js_alter(&$js) {
-  $app_js = PARANEUE_DS_PATH . '/dist/app.js';
-  $js['app'] = drupal_js_defaults();
-  $js['app']['data'] = $app_js;
-  $js['app']['group'] = -100;
-  $js['app']['type'] = 'file';
-  $js['app']['every_page'] = TRUE;
-  $js['app']['weight'] = -10;
+  // Load excluded JS files from theme.
+  $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'js');
+  $js = array_diff_key($js, $excludes);
 }
 
 
@@ -62,6 +60,25 @@ function paraneue_dosomething_page_alter(&$page) {
  * Implements hook_form_alter();
  */
 function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
+  paraneue_dosomething_form_alter_base($form, $form_state, $form_id);
   paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
   paraneue_dosomething_form_alter_register($form, $form_state, $form_id);
+}
+
+
+/**
+ * Implements hook_head_alter().
+ */
+function paraneue_dosomething_html_head_alter(&$head_elements) {
+  foreach($head_elements as $key => $element) {
+    switch($key) {
+      case (preg_match('/^drupal_add_html_head_link*/', $key)) ? TRUE : FALSE:
+        $shortcut_key = $key;
+        break;
+    }
+  }
+
+  if ($shortcut_key) {
+    unset($head_elements[$shortcut_key]);
+  }
 }
