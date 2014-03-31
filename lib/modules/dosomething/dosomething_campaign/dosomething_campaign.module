@@ -14,11 +14,8 @@ define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
-  // If we're updating an existing node, add the custom settings fieldset.
-  if (isset($form['nid']['#value'])) {
-    _dosomething_campaign_form_extras($form, $form_state);
-    _dosomething_signup_node_signup_data_form($form, $form_state);
-  }
+  // Add extra non-field form elements.
+  _dosomething_campaign_form_extras($form, $form_state);
 }
 
 /**
@@ -48,14 +45,25 @@ function dosomething_campaign_menu() {
 }
 
 /**
- * Adds form elements for custom campaign variables.
+ * Adds form elements for non-field campaign elements.
  */
 function _dosomething_campaign_form_extras(&$form, &$form_state) {
+  // If this is a node create form, display help text and exit out of extras.
+  if (!isset($form['nid']['#value'])) {
+    $form['custom'] = array(
+      '#markup' => t('The signup data form and custom settings for this campaign will be available upon save.'),
+      '#weight' => 60,
+    );
+    return;
+  }
+  // Include signup data form configuration form.
+  _dosomething_signup_node_signup_data_form($form, $form_state);
+  // Set prefix for custom variables.
   $prefix = dosomething_campaign_get_custom_var_prefix($form['nid']['#value']);
   $form['custom'] = array(
     '#type' => 'fieldset',
     '#title' => t('Custom settings'),
-    '#weight' => 60,
+    '#weight' => 80,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
