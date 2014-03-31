@@ -117,6 +117,7 @@ function build {
 
   # Do the build
   echo 'Running drush make...'
+  echo "$BUILD_MAKEFILE" "$WEB_DIR"
   drush make --prepare-install --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
   set +e
 
