@@ -8,16 +8,35 @@
  * Implements hook_node_view().
  */
 function dosomething_metatag_node_view($node, $view_mode, $langcode) {
-  // If viewing a full campaign node:
-  if ($node->type == 'campaign' && $view_mode == 'full') {
-    dosomething_metatag_set_metatag_image($node, 'field_image_campaign_cover');
+  if ($view_mode == 'full') {
+    dosomething_metatag_add_metatag_image($node, $view_mode);
+  }
+}
+
+/**
+ * Determines and sets metatag img_src metatag for a given $node and $view_mode.
+ */
+function dosomething_metatag_add_metatag_image($node) {
+  // List of node types which use an Image EntityReference for image metatag.
+  $metatag_image_node_types = array(
+    'campaign' => 'field_image_campaign_cover',
+    'fact_page' => 'field_intro_image',
+  );
+  // Foreach type that needs Image EntityReference for image metatag:
+  foreach ($metatag_image_node_types as $type => $field) {
+    // If this node matches the type:
+    if ($type == $node->type) {
+      // Set the metatag for its image field.
+      dosomething_metatag_add_metatag_image_src($node, $field);
+      break;
+    }
   }
 }
 
 /**
  * Sets the img_src metatag with a given $node's Image EntityReference $field.
  */
-function dosomething_metatag_set_metatag_image($node, $field) {
+function dosomething_metatag_add_metatag_image_src($node, $field) {
   // @todo: Initialize $image with default URL if image exists in the field.
   $image = NULL;
   // If a value for the image entityreference exists:
