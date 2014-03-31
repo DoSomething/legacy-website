@@ -21,7 +21,6 @@
     "jquery": "1.11.0",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",
-    "almond": "~0.2.9",
     "requirejs": "~2.1.11"
   }
 }
