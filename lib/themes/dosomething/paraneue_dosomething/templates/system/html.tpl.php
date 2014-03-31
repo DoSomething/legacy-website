@@ -36,7 +36,7 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
-  <script type="text/javascript" data-main="main" src="<?php print PARANEUE_DS_PATH; ?>/dist/app.js"></script>
+  <script type="text/javascript" data-main="main" src="/<?php print PARANEUE_DS_PATH; ?>/dist/app.js"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
