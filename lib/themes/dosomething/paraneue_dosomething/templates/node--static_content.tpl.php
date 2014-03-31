@@ -10,21 +10,21 @@
       </header>
     </div>
 
-    <div class="intro-wrapper">
-      <div class="intro">
-        <?php if (isset($intro_title)): ?>
-          <h2><?php print $intro_title; ?></h2>
-        <?php endif; ?>
-        <?php if (isset($intro)): ?>
-          <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
-        <?php endif; ?>
-        <?php if (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
-        <?php elseif (isset($intro_video)): ?>
-          <?php print $intro_video; ?>
-        <?php endif; ?>
+    <?php if (isset($intro)): ?>
+      <div class="intro-wrapper">
+        <div class="intro">
+          <?php if (isset($intro_title)): ?>
+            <h2><?php print $intro_title; ?></h2>
+          <?php endif; ?>
+            <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
+          <?php if (isset($intro_image)): ?>
+            <?php print $intro_image; ?>
+          <?php elseif (isset($intro_video)): ?>
+            <?php print $intro_video; ?>
+          <?php endif; ?>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
 
     <?php if (isset($call_to_action)): ?>
       <div class="cta-wrapper">
@@ -48,7 +48,7 @@
                   <?php print $gallery_item['image']; ?>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3><?php print $gallery_item['image_title']; ?></h3>
+                    <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_description'])): ?>
                   <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
