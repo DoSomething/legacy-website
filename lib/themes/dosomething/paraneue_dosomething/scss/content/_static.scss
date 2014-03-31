@@ -39,10 +39,20 @@
     }
   }
 
+  .intro-wrapper + .cta-wrapper {
+      margin-top: 1rem;
+  }
+
+  .cta-wrapper {
+    background-color: lighten($light-gray, 10%);
+    border-bottom: 2px solid $light-gray;
+    border-top: 2px solid $light-gray;
+  }
+
+
   .intro {
-    // @TODO: ಠ_ಠ
-    margin-top: 20px;
-    margin-bottom: 20px;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
 
     .intro-content {
       max-width: 100%;
@@ -54,7 +64,7 @@
     }
 
     img, iframe {
-      max-width: 100%;
+      width: 100%;
       @include media($tablet) {
         @include span-columns(6 of 12);
         @include omega();
@@ -64,12 +74,11 @@
 
   .cta {
     text-align: center;
-    border-top: 2px solid $light-gray;
-    border-bottom: 2px solid $light-gray;
-    padding-bottom: 35px;
+    padding: 2rem 0;
 
     h3 {
       color: $copy-color;
+      margin: 0 0 0.5rem;
     }
   }
 
@@ -93,7 +102,8 @@
       text-align: center;
     }
 
-    h3 {
+    .title {
+      color: $dark-gray;
       margin-bottom: 5px;
     }
 
