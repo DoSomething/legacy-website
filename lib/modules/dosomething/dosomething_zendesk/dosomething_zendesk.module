@@ -12,8 +12,7 @@ function dosomething_zendesk_menu() {
   $items['admin/config/services/dosomething_zendesk'] = array(
     'title' => 'DoSomething Zendesk settings',
     'description' => 'Manage Zendesk settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_zendesk_config_form'),
+    'page callback' => 'dosomething_zendesk_admin_page',
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_zendesk.admin.inc',
   );
@@ -55,14 +54,47 @@ function dosomething_zendesk_get_client() {
 
 /**
  * Form constructor for submitting a Zendesk ticket.
+ *
+ * @param object $node
+ *   Optional. A loaded node which this zendesk form is being rendered on.
  */
-function dosomething_zendesk_form($form, &$form_state)  {
+function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
+  $form['subject'] = array(
+    '#type' => 'hidden',
+    '#access' => FALSE,
+    '#value' => t('Question about') . ' ' . drupal_get_title(),
+  );
+  $form['priority'] = array(
+    '#type' => 'hidden',
+    '#access' => FALSE,
+    '#value' => 'normal',
+  );
+  // If node has a primary cause:
+  if (isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
+    $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
+    $group_id = variable_get(dosomething_zendesk_get_group_varname($tid));
+    // If a Zendesk group_id variable exists:
+    if ($group_id) {
+      // Render as a hidden element:
+      $form['group_id'] = array(
+        '#type' => 'hidden',
+        '#access' => FALSE,
+        '#value' => $group_id,
+      );
+    }
+  }
+  // If staff_pick field exists:
+  if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
+    // If node is a staff pick:
+    if ($node->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
+      $form['priority']['#value'] = 'high';
+    }
+  }
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
     '#title' => t('Your Question'),
   );
-  
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
@@ -81,7 +113,6 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
   $values['email'] = $user->mail;
-  $values['subject'] = t('Question about') . ' ' . drupal_get_title();
   // Attempt to submit a ticket via Zendesk API.
   if (dosomething_zendesk_create_ticket($values)) {
     $msg = t("Thanks for submitting your question.") . ' ';
@@ -144,7 +175,7 @@ function dosomething_zendesk_create_ticket($values) {
  */
 function dosomething_zendesk_get_ticket_array($values) {
   // List expected array keys.
-  $keys = array('email', 'subject', 'body');
+  $keys = array('email', 'subject', 'body', 'priority');
   // Loop through $values to make sure all keys are present.
   foreach ($keys as $key) {
     if (!isset($values[$key])) {
@@ -152,8 +183,8 @@ function dosomething_zendesk_get_ticket_array($values) {
       return FALSE;
     }
   }
-  // Return expected format for Ticket creation.
-  return array(
+  // Build array with expected format for Ticket creation.
+  $ticket = array(
     'requester' => array(
       'email' => $values['email'],
     ),
@@ -161,8 +192,12 @@ function dosomething_zendesk_get_ticket_array($values) {
     'comment' => array(
       'body' => $values['body'],
     ),
-    'priority' => 'normal',
+    'priority' => $values['priority'],
   );
+  if (isset($values['group_id'])) {
+    $ticket['group_id'] = $values['group_id'];
+  }
+  return $ticket;
 }
 
 /**
@@ -227,4 +262,43 @@ function dosomething_zendesk_create_zendesk_user($account, $client = NULL) {
     watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
     return FALSE;
   }
+}
+
+/**
+ * Retrieves all non-deleted Zendesk groups from the API.
+ *
+ * @return mixed
+ *   A multi-dimensional array, or FALSE if exception was thrown.
+ */
+function dosomething_zendesk_get_zendesk_groups() {
+  $groups = array();
+  try {
+    $client = dosomething_zendesk_get_client();
+    $result = $client->groups()->findAll();
+    if (!empty($result->groups)) {
+      foreach ($result->groups as $group) {
+        if (!$group->deleted) {
+          $groups[$group->id] = $group->name;
+        }
+      }
+    }
+    return $groups;
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
+
+/**
+ * Returns the variable name that stores a taxonomy term's Zendesk Group ID.
+ *
+ * @param int $tid
+ *   The taxonomy term to lookup.
+ *
+ * @return string
+ *  The variable name which stores the tid's Zendesk Group ID.
+ */
+function dosomething_zendesk_get_group_varname($tid) {
+  return 'dosomething_zendesk_tid_' . $tid . '_group_id';
 }

@@ -1,0 +1,34 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_zendesk.module.
+ */
+
+
+/**
+ * Populates Zendesk group_id variables for all Cause terms.
+ */
+function dosomething_zendesk_update_7001(&$sandbox) {
+  // We can get away with this for now because all Zendesk groups are
+  // named with identical names as the Cause terms, and we only have Groups for
+  // Causes.
+  $vocab = taxonomy_vocabulary_machine_name_load('cause');
+
+  // Get group data from Zendesk API.
+  if ($groups = dosomething_zendesk_get_zendesk_groups()) {
+    // Loop through each group.
+    foreach ($groups as $group_id => $group_name) {
+      // Find tid by name.
+      $tid = db_select("taxonomy_term_data", "td")
+        ->fields("td", array("tid"))
+        ->condition("name", $group_name)
+        ->condition("vid", $vocab->vid)
+        ->execute()
+        ->fetchField();
+      // Get the tid's variable name.
+      $var = dosomething_zendesk_get_group_varname($tid);
+      // Set this tid's group variable to the group_id.
+      variable_set($var, $group_id);
+    }
+  }
+}
