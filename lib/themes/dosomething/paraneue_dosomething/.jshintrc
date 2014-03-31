@@ -14,13 +14,9 @@
     "undef": true,
     "unused": true,
     "globals": {
-        "module": false,
-        "require": false,
-        "$": false,
-        "_": false,
-        "Modernizr": false,
-        "jQuery": false,
-        "NEUE": false
+      "requirejs": false,
+      "require": false,
+      "define": false
     },
     "strict": true,
     "trailing": true,
