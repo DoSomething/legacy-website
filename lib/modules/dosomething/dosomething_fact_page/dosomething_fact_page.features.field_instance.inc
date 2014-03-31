@@ -150,7 +150,9 @@ function dosomething_fact_page_field_default_field_instances() {
     'bundle' => 'fact_page',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  
+
+<p>Do not include a leading slash, e.g. Enter <em>campaigns</em> , not <em>/campaigns</em></p>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -508,6 +510,9 @@ function dosomething_fact_page_field_default_field_instances() {
   t('Intro Title');
   t('Sources');
   t('Subtitle');
+  t('Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  
+
+<p>Do not include a leading slash, e.g. Enter <em>campaigns</em> , not <em>/campaigns</em></p>');
 
   return $field_instances;
 }
