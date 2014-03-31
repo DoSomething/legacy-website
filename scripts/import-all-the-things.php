@@ -16,7 +16,7 @@ $profile_id = '_profile_old_world';
 $birthday_data = '_birthday_old_world';
 $first_name = '_first_name_old_world';
 $users = 'users';
-
+$last_saved = variable_get('last_user_saved', '');
 // Let's only try to get people who don't already have a mobile value.
 $users_no_data = db_query("SELECT u.uid, ob.field_user_birthday_value, ofn.field_user_first_name_value
                     FROM {$users} u
@@ -25,12 +25,15 @@ $users_no_data = db_query("SELECT u.uid, ob.field_user_birthday_value, ofn.field
                     INNER JOIN {$profile_id} p on p.uid = u.uid
                     LEFT JOIN {$birthday_data} ob on ob.entity_id = p.pid
                     LEFT JOIN {$first_name} ofn on ofn.entity_id = p.pid
-                    WHERE fn.field_first_name_value is NULL
-                    OR b.field_birthdate_value is NULL;");
+                    WHERE u.uid > $last_saved
+                    AND (fn.field_first_name_value is NULL
+                    OR b.field_birthdate_value is NULL)");
 
 foreach ($users_no_data as $user_row) {
   $edit = array();
   if ($user_row->field_user_birthday_value) {
+    // Save the uid of the last saved.
+    variable_set('last_user_saved', $user_row->uid);
     $edit['field_birthdate'] = array(
       LANGUAGE_NONE => array(
         0 => array(
