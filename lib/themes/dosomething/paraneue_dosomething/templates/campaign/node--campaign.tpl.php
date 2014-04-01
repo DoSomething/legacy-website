@@ -323,7 +323,7 @@
         <h3 class="title">Pics or It Didn't Happen</h3>
         <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
-        <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn medium"><?php print $reportback_link_label; ?></a><?php endif; ?>
+        <?php if (isset($reportback_link)): ?><a href="#modal-report-back" class="js-modal-link btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a><?php endif; ?>
         <?php if (isset($official_rules)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
