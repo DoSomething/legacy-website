@@ -196,6 +196,12 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['label'] = 'User';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_image_campaign_cover_target_id']['id'] = 'field_image_campaign_cover_target_id';
+  $handler->display->display_options['relationships']['field_image_campaign_cover_target_id']['table'] = 'field_data_field_image_campaign_cover';
+  $handler->display->display_options['relationships']['field_image_campaign_cover_target_id']['field'] = 'field_image_campaign_cover_target_id';
+  $handler->display->display_options['relationships']['field_image_campaign_cover_target_id']['relationship'] = 'nid';
+  $handler->display->display_options['relationships']['field_image_campaign_cover_target_id']['label'] = 'Cover Image Reference';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -210,6 +216,18 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['label'] = 'Signed up';
   $handler->display->display_options['fields']['timestamp']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'short';
+  /* Field: Content: Square Crop */
+  $handler->display->display_options['fields']['field_image_square']['id'] = 'field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['table'] = 'field_data_field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['field'] = 'field_image_square';
+  $handler->display->display_options['fields']['field_image_square']['relationship'] = 'field_image_campaign_cover_target_id';
+  $handler->display->display_options['fields']['field_image_square']['label'] = '';
+  $handler->display->display_options['fields']['field_image_square']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image_square']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image_square']['settings'] = array(
+    'image_style' => '310x310',
+    'image_link' => '',
+  );
   /* Sort criterion: Signups: Date submitted */
   $handler->display->display_options['sorts']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['sorts']['timestamp']['table'] = 'dosomething_signup';
@@ -241,6 +259,7 @@ function dosomething_signup_views_default_views() {
     t('Desc'),
     t('Node'),
     t('User'),
+    t('Cover Image Reference'),
     t('Signed up'),
     t('All'),
     t('Block'),
