@@ -115,10 +115,6 @@ projects[redirect][subdir] = "contrib"
 projects[redis] = "2.6"
 projects[redis][subdir] = "contrib"
 
-; Secure Pages
-projects[securepages] = "1.0-beta2"
-projects[securepages][subdir] "contrib"
-
 ; Strongarm
 projects[strongarm] = "2.0"
 projects[strongarm][subdir] = "contrib"
