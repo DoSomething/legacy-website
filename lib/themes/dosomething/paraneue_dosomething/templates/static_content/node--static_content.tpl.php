@@ -12,7 +12,7 @@
 
     <?php if (isset($intro)): ?>
       <div class="intro-wrapper">
-        <div class="intro">
+        <div class="intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">
           <?php if (isset($intro_title)): ?>
             <h2><?php print $intro_title; ?></h2>
           <?php endif; ?>
@@ -35,7 +35,7 @@
       </div>
     <?php endif; ?>
 
-    <?php if (isset($galleries)): ?>
+    <?php if (!empty($galleries)): ?>
       <div class="gallery-wrapper">
         <?php foreach ($galleries as $gallery): ?>
           <?php if (isset($gallery['title'])): ?>
