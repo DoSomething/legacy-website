@@ -41,6 +41,10 @@
     }
   }
 
+  .cta-wrapper {
+    @include cta();
+  }
+
   // Set margins on desktop
   .header, .intro, .facts, .sources {
     @include media($tablet) {

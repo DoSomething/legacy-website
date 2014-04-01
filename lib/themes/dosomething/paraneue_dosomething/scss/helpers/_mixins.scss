@@ -63,11 +63,13 @@
 
 
 // Apply header gradient as a mixin since header styles not abstracted yet.
+// TODO: May want to unify styles across and use modifier classes.
 @mixin header-gradient() {
   @include linear-gradient($purple 25%, #000 100%);
 }
 
 // Apply header typography as a mixin to style both static and campaign content.
+// TODO: Same as above; would be best to unify header styles.
 @mixin header-typography() {
   .title {
     color: #fff;
@@ -96,6 +98,35 @@
       font-size: $font-medium;
       margin-bottom: 1.5rem;
       text-align: left;
+    }
+  }
+}
+
+
+// CTA styles that apply to static and facts pages.
+// TODO: Need to abstract out and unify these across.
+@mixin cta() {
+  background-color: lighten($light-gray, 10%);
+  border-bottom: 2px solid $light-gray;
+  border-top: 2px solid $light-gray;
+  padding: 1rem;
+  @include row;
+  @include media($tablet) {
+    padding: 0;
+  }
+
+  .cta {
+    text-align: center;
+    padding: 2rem 0;
+
+    h3 {
+      color: $copy-color;
+      margin: 0 0 0.5rem;
+    }
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
     }
   }
 }
