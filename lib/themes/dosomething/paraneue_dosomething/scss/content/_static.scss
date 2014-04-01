@@ -23,7 +23,7 @@
   }
 
   // Set gutters on mobile
-  .intro-wrapper, .cta-wrapper, .additional-text-wrapper, .gallery-wrapper {
+  .intro-wrapper, .additional-text-wrapper, .gallery-wrapper {
     padding: 1rem;
     @include row;
     @include media($tablet) {
@@ -31,8 +31,13 @@
     }
   }
 
+  .cta-wrapper {
+    @include cta();
+  }
+
+
   // Set margins on desktop
-  .cta, .header, .intro, .additional-text, .gallery-title {
+  .header, .intro, .additional-text, .gallery-title {
     @include media($tablet) {
       @include span-columns(12);
       @include shift(2);
@@ -42,13 +47,6 @@
   .intro-wrapper + .cta-wrapper {
       margin-top: 1rem;
   }
-
-  .cta-wrapper {
-    background-color: lighten($light-gray, 10%);
-    border-bottom: 2px solid $light-gray;
-    border-top: 2px solid $light-gray;
-  }
-
 
   .intro {
       margin-top: 1.5rem;
@@ -69,16 +67,6 @@
         @include span-columns(6 of 12);
         @include omega();
       }
-    }
-  }
-
-  .cta {
-    text-align: center;
-    padding: 2rem 0;
-
-    h3 {
-      color: $copy-color;
-      margin: 0 0 0.5rem;
     }
   }
 
