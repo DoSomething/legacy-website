@@ -1,4 +1,4 @@
-set :deploy_to, "/var/www/qa-beta-4"
+set :deploy_to, "/var/www/qa-beta"
 
 role :app, %w{dosomething@blackangus.dosomething.org}
 
@@ -11,6 +11,7 @@ namespace :deploy do
       execute "cd '#{release_path}/html/sites/default'; sudo rm -rf files 2> /dev/null; sudo ln -s #{shared_path}/files files"
 
       execute "printf 'User-agent: *\nDisallow: /' > #{release_path}/html/robots.txt"
+      execute "drush rsync @ds.staging:%files #{shared_path} -y"
     end
   end
 
