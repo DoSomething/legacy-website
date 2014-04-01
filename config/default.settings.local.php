@@ -38,8 +38,6 @@ $base_url = 'http://dev.dosomething.org:8888';  // NO trailing slash!
 
 // Secure Pages integration.
 $conf['https'] = TRUE;
-$conf['securepages_basepath'] = 'http://dev.dosomething.org:8888';
-$conf['securepages_basepath_ssl'] = 'https://dev.dosomething.org:8889';
 
 // Add Varnish as the page cache handler.
 $conf['varnish_version'] = '3';
