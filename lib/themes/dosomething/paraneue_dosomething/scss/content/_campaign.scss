@@ -10,10 +10,21 @@
   @import "campaign/prove";
 }
 
-.node-type-campaign {
+// Higher level selector to access content outside of .campaign--wrapper
+body.node-type-campaign {
   @include wrapper--nav-floating;
+
+  // Action Guide within campaigns styles
+  .node-action-guide {
+
+    // Prevent content from running into header
+    h2.banner {
+      margin-bottom: 1.5rem;
+    }
+  }
 }
 
+// Top level wrapper for all campaign content excluding modals and site chrome
 .campaign--wrapper {
   overflow: hidden;
   background: #fff;
