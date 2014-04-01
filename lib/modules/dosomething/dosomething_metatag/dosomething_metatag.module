@@ -9,7 +9,7 @@
  */
 function dosomething_metatag_node_view($node, $view_mode, $langcode) {
   if ($view_mode == 'full') {
-    dosomething_metatag_add_metatag_image($node, $view_mode);
+    dosomething_metatag_add_metatag_image($node);
   }
 }
 
@@ -48,10 +48,20 @@ function dosomething_metatag_add_metatag_image_src($node, $field) {
     }
   }
   if ($image) {
+    // Add <link img_src="[image]"> into the HEAD.
     $attributes = array(
       'href' => $image, 
       'rel' => 'image_src',
     );
     drupal_add_html_head_link($attributes, TRUE);
+    // Add the Facebook Open Graph tag into the HEAD.
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image",
+        "content" => $image,
+      ),
+    );
+    drupal_add_html_head($element, 'facebook_share_image');
   }
 }
