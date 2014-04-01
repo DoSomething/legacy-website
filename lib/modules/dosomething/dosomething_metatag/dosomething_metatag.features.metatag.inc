@@ -96,6 +96,16 @@ function dosomething_metatag_metatag_export_default() {
     ),
   );
 
+  // Exported Metatag config instance: node:fact_page.
+  $config['node:fact_page'] = array(
+    'instance' => 'node:fact_page',
+    'config' => array(
+      'keywords' => array(
+        'value' => '[node:title], [node:field_cause]',
+      ),
+    ),
+  );
+
   // Exported Metatag config instance: user.
   $config['user'] = array(
     'instance' => 'user',
