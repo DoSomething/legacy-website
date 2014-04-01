@@ -61,7 +61,7 @@
     @include media($tablet) {
       text-align: left;
 
-      @include span-columns(6.31);
+      @include span-columns(6);
       @include shift(2);
     }
   }
@@ -70,7 +70,7 @@
     margin: 2rem 0;
 
     @include media($tablet) {
-      @include span-columns(5.69);
+      @include span-columns(6);
       @include shift(1);
     }
 
