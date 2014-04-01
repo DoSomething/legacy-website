@@ -21,6 +21,18 @@ body.node-type-campaign {
     h2.banner {
       margin-bottom: 1.5rem;
     }
+
+    // Optional "intro" paragraph called out at a larger size
+    h3.subtitle {
+      color: $dark-gray;
+    }
+
+    // Add bottom margin to lists as Neue does not provide one
+    // @TODO - Revisit this! It should probably be ported up to Neue.
+    ul,
+    ol {
+      margin-bottom: 1.5rem;
+    }
   }
 }
 
