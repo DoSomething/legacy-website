@@ -1,10 +1,10 @@
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <div>
-    <?php if (isset($subtitle)): ?>
-      <h2><?php print $subtitle; ?></h2>
-    <?php endif; ?>
-  </div>
+  <h2 class="banner"><?php print $title; ?></h2>
+
+  <?php if (isset($subtitle)): ?>
+    <h3 class="subtitle"><?php print $subtitle; ?></h3>
+  <?php endif; ?>
 
   <?php if (isset($intro_title)): ?>
     <h2><?php print $intro_title; ?></h2>
@@ -33,6 +33,7 @@
   <?php if (isset($additional_text_title)): ?>
     <h2><?php print $additional_text_title; ?></h2>
   <?php endif; ?>
+
   <?php if (isset($additional_text)): ?>
     <?php print $additional_text['safe_value']; ?>
   <?php endif; ?>
