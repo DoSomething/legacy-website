@@ -93,7 +93,7 @@ header.header {
     }
 
     p.copy {
-      margin: 0 0 1rem 0;
+      margin: 0 0 1rem;
       padding: 0;
       float: none;
       font-size: $font-small;
@@ -116,7 +116,7 @@ header.header {
   div.scholarship-wrapper {
     width: 200px;
     margin: 20px auto 0;
-    padding: 0 0 2rem 0;
+    padding: 0 0 2rem;
     position: relative;
 
     @include media($tablet) {
