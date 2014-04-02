@@ -18,13 +18,13 @@
   // @NOTE: This is a custom breakpoint set for the campaign nav
   // It is not stored in a mixin as it is context-specic and
   // should not be used elsewhere!
-  $nav-break: 960px;
+  $nav-break: 1020px;
 
   @media all and (min-width: $nav-break) {
     position: absolute;
     top: 4rem;
     padding-top: 3rem;
-    width: 105px; // need pixel width since it loses percent sizing when "fixed"
+    width: 120px; // need pixel width since it loses percent sizing when "fixed"
   }
 
   &.is-stuck {
@@ -60,7 +60,7 @@
   a {
     display: inline-block;
     margin: 0 auto;
-    padding: 0.75rem;
+    padding: 0.75rem 0.65rem;
     color: $med-gray;
     text-decoration: none;
     text-transform: uppercase;

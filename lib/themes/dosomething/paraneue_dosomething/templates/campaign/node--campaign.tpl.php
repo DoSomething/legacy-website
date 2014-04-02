@@ -8,7 +8,7 @@
 
       <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor-wrapper">
-        <p class="copy">Powered by:</p>
+        <p class="copy">Powered by</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
         <?php endforeach; ?>
@@ -206,7 +206,7 @@
             <div><?php print $location_finder_copy['safe_value']; ?></div>
           <?php endif; ?>
 
-          <a class="btn secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
+          <a class="btn small secondary" href="<?php print $location_finder_url['url']; ?>" target="_blank">Locate</a>
         </div>
       <?php endif; ?>
 
@@ -352,7 +352,7 @@
         <h3 class="title">Pics or It Didn't Happen</h3>
         <?php if (isset($reportback_copy)): ?><div class="copy"><?php print $reportback_copy; ?></div><?php endif; ?>
 
-        <?php if (isset($reportback_link_label)): ?><a href="#modal-report-back" class="js-modal-link btn large"><?php print $reportback_link_label; ?></a><?php endif; ?>
+        <?php if (isset($reportback_link)): ?><a href="#modal-report-back" class="js-modal-link btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a><?php endif; ?>
         <?php if (isset($official_rules)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
@@ -397,7 +397,7 @@
           </div>
           <?php endif; ?>
 
-          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Give us a shout</a></div>
+          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Contact us</a></div>
         </div>
       </footer>
 
@@ -409,17 +409,6 @@
 
         <?php print render($zendesk_form); ?>
       </script>
-      <?php endif; ?>
-
-      <?php if (isset($fact_sources)): ?>
-      <footer class="sources">
-        <div class="legal">
-          <strong>Sources:</strong>
-          <?php foreach ($fact_sources as $key => $source): ?>
-            <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
-          <?php endforeach; ?>
-        </div>
-      </footer>
       <?php endif; ?>
     </section>
   </div>
