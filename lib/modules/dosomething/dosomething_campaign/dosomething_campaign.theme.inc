@@ -215,14 +215,14 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (!empty($vars['field_video'])) {
     $vars['psa'] = theme('dosomething_video_embed', array(
       'field' => $wrapper->field_video->value(),
-      'width' => 640,
-      'height' => 390,
+      'width' => 550,
+      'height' => 300,
     ));
   }
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
       $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
-      $vars['psa'] = dosomething_image_get_themed_image($psa_nid, 'landscape', '720x310');
+      $vars['psa'] = dosomething_image_get_themed_image($psa_nid, 'landscape', '550x300');
     }
   }
 
