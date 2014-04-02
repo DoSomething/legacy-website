@@ -1,0 +1,257 @@
+.campaign-finder {
+  @include outer-container;
+  @include fill-parent;
+  background-color: $light-gray;
+  @include pad(1rem 0);
+
+  p {
+    margin: 0;
+    font-size: $font-small;
+    font-weight: normal;
+  }
+
+  .facet-field {
+    margin-left: 1.5rem;
+    font-weight: 800;
+  }
+
+  p.facet-field {
+    color: lighten($med-gray, 20%);
+    font-weight: normal;
+    line-height: .9em;
+  }
+
+  label {
+    cursor: pointer;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin: .2em 0;
+    font-size: 0.8em;
+    font-weight: normal;
+    float: none;
+    display: block;
+
+    input {
+      display: none;
+    }
+
+    &.disabled {
+      color: $light-gray;
+    }
+
+    &.checked {
+      background: $yellow;
+    }
+  }
+}
+
+.dropdown {
+  margin: 1em;
+  @include media($tablet) {
+    margin: 0;
+  }
+  .dropdown-menu {
+    display: none;
+  }
+}
+
+.open {
+  .caret-toggle:before {
+    margin-left: -1.5em;
+    margin-right: .5em;
+    margin-top: .25em;
+    border-top: .5em solid;
+    border-right: .5em solid transparent;
+    border-left: .5em solid transparent;
+  }
+
+  .dropdown-menu {
+    display: block;
+    margin-top: 0.5em;
+  }
+}
+
+#campaign-results {
+  @include outer-container;
+  width: 100%;
+  position: relative;
+  height: 600px;
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  &.loading {
+    &:before {
+      content: ' ';
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.6);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    &:after {
+      content: 'Loading...';
+      position: absolute;
+      top: 2em;
+      left: 0;
+      color: #fff;
+      z-index: 2;
+      font-size: 5em;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.caret-toggle {
+  color: $purple;
+  cursor: pointer;
+
+  &:before {
+    content: ' ';
+    display: inline-block;
+    height: 0;
+    width: 0;
+    vertical-align: middle;
+    border-left: .5em solid;
+    border-top: .5em solid transparent;
+    border-bottom: .5em solid transparent;
+    margin-left: -1em;
+    margin-right: .5em;
+  }
+}
+
+.two-col {
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+  column-count: 2;
+}
+
+.toggle {
+  background: #fff;
+  padding: .5rem 1rem;
+  li {
+    display: block;
+  }
+}
+
+.toggle-lg {
+  @include media($tablet) {
+    @include span-columns(5.5);
+    &:first-child {
+      @include shift(.75);
+    }
+  }
+}
+
+.toggle-sm {
+  @include media($tablet) {
+    @include span-columns(3.5);
+  }
+}
+
+.multirow {
+  width: 50%;
+  float: left;
+  height: 600px;
+
+  @include media($tablet) {
+    width: 25%;
+    margin: 0;
+  }
+
+  p {
+    font-size: .9em;
+    line-height: 1em;
+    margin-top: 0;
+  }
+}
+
+.campaign-result {
+  position: relative;
+  display: block;
+  height: 50%;
+  width: 100%;
+  background-image: url('http://meragharkharcha.com/MGK_war/images/indicator.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @include transition(background-image .5s ease-in-out);
+
+  .headline-wrapper {
+    height: 66%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    @include linear-gradient(transparent, black);
+
+    .headline {
+      position: absolute;
+      bottom: 0;
+      margin: 0 1em;
+      * {
+        color: #fff;
+      }
+    }
+
+    h3 {
+      margin: 0;
+      margin-bottom: .2em;
+      line-height: 1.1em;
+    }
+  }
+}
+
+.single-result {
+  @include media($tablet) {
+    width: 50%;
+    height: 600px;
+    margin: 0;
+    float: left;
+    .campaign-result {
+      height: 100%;
+    }
+  }
+  p {
+    font-size: .9em;
+    margin-top: 0;
+  }
+}
+
+.template {
+  display: none;
+}
+
+.flag {
+  background: $yellow;
+  color: black;
+  text-transform: uppercase;
+  display: inline;
+  padding: .2em .5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-weight: 600;
+  font-size: .9em;
+}
+
+.campaign-search {
+  @include media($tablet) {
+    display: none;
+  }
+  text-align: center;
+
+  button {
+    background: $blue;
+    color: white;
+    border: 0;
+    padding: .5em 1em;
+    font-size: 1.5em;
+    border-radius: .5em;
+    cursor: pointer;
+  }
+}
