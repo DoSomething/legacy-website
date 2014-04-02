@@ -10,10 +10,13 @@
 <?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
 <?php print $messages; ?>
 
-<main class="wrapper">
+<div class="chrome--wrapper">
   <?php print $variables['navigation']; ?>
 
-  <?php print render($page['content']); ?>
-</main>
+  <main role="main">
+    <?php print render($page['content']); ?>
+  </main>
 
-<?php print $variables['footer']; ?>
+  <?php print $variables['footer']; ?>
+</div>
+
