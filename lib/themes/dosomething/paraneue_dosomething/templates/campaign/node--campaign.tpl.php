@@ -39,21 +39,33 @@
         <div class="fact-problem"><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></div>
         <?php endif; ?>
 
-        <ul class="modal-links">
-          <?php if (isset($faq)): ?>
-            <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
-          <?php endif; ?>
+        <?php if (isset($psa)): ?>
+          <div class="psa-wrapper"><?php print $psa; ?></div>
+        <?php endif; ?>
 
-          <?php if (isset($more_facts)): ?>
-            <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
-          <?php endif; ?>
+        <?php /* @TODO
+           Modal links are printed in either the left or right column depending
+           on whether or not there is a PSA/PSA fallback image associated with
+           the campaign. This code should be refactored to DRY it up.
+        */ ?>
 
-          <?php if (isset($partner_info)): ?>
-          <?php foreach ($partner_info as $delta => $partner): ?>
-            <li><a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">Why we &lt;3 <?php print $partner['name']; ?></a>
-          <?php endforeach; ?>
-          <?php endif; ?>
-        </ul>
+        <?php if (!isset($psa)): ?>
+          <ul class="modal-links">
+            <?php if (isset($faq)): ?>
+              <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($more_facts)): ?>
+              <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
+            <?php endif; ?>
+
+            <?php if (isset($partner_info)): ?>
+            <?php foreach ($partner_info as $delta => $partner): ?>
+              <li><a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">Why we &lt;3 <?php print $partner['name']; ?></a>
+            <?php endforeach; ?>
+            <?php endif; ?>
+          </ul>
+        <?php endif; ?>
       </div>
 
       <div class="col second">
@@ -67,6 +79,24 @@
 
         <?php if (isset($solution_support)): ?>
         <div class="solution-supporting-copy"><?php print $solution_support; ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($psa)): ?>
+          <ul class="modal-links">
+            <?php if (isset($faq)): ?>
+              <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
+            <?php endif; ?>
+
+            <?php if (isset($more_facts)): ?>
+              <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $issue; ?></a></li>
+            <?php endif; ?>
+
+            <?php if (isset($partner_info)): ?>
+            <?php foreach ($partner_info as $delta => $partner): ?>
+              <li><a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">Why we &lt;3 <?php print $partner['name']; ?></a>
+            <?php endforeach; ?>
+            <?php endif; ?>
+          </ul>
         <?php endif; ?>
       </div>
 

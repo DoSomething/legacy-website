@@ -2,8 +2,40 @@
 // Know It
 .step.know {
 
+  img {
+    width: 100%;
+  }
+
+  // @TODO - This is gross. Overrides needed because of the padding
+  //         hack we put in place to protect full-width images on
+  //         smaller devices. Once that gets refactored by either
+  //         allowing for a default page-width that affects all
+  //         elements or using a size + negative margin fix for the
+  //         images as needed.
+
+  .psa-wrapper {
+    position: relative;
+    padding-bottom: 56.25% !important;
+    height: 0;
+    overflow: hidden;
+
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
   // NOTE: .legal styles are in _campaign.scss as they
   //       apply to "Know It" and "Prove It" sections!
+
+  .col.second {
+    ul {
+      padding-top: 30px !important;
+    }
+  }
 
   .fact-solution,
   .fact-problem {
