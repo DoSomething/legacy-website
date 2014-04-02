@@ -59,7 +59,7 @@ function theme_dosomething_video_embed($variables) {
   $output .= " width=\"{$variables['width']}\"";
   $output .= " height=\"{$variables['height']}\"";
   if ($variables['field']->field_provider['und'][0]['value'] == 'youtube') {
-    $output .= ' src="//www.' . $variables['field']->field_provider['und'][0]['value'] . '.com/embed/' . $variables['field']->field_video_id['und'][0]['value'] . '?wmode=transparent"';
+    $output .= ' src="//www.' . $variables['field']->field_provider['und'][0]['value'] . '.com/embed/' . $variables['field']->field_video_id['und'][0]['value'] . '?wmode=transparent&hd=1&rel=0&autohide=1&showinfo=0"';
   }
   $output .= ' frameborder="0" allowfullscreen></iframe>';
 
