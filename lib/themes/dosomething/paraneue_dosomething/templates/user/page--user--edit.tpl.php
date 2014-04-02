@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Generates site-wide page chrome.
+ * Generates site-wide User Edit page chrome.
  * @see https://drupal.org/node/1728148
  **/
 

@@ -25,3 +25,20 @@ function paraneue_dosomething_breadcrumb($variables) {
     return $breadcrumbs;
   }
 }
+
+
+function paraneue_dosomething_theme() {
+  return array(
+
+    'footer' => array(
+      'template' => 'footer',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+    ),
+
+    'navigation' => array(
+      'template' => 'navigation',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+    ),
+
+  );
+}
