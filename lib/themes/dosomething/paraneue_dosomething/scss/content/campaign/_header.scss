@@ -30,6 +30,14 @@ header.header {
   background-color: $purple;
   @include header-typography();
 
+  &:before {
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    @include linear-gradient(transparent 25%, rgba(black, .6) 90%, rgba(black, .9) 100%);
+  }
+
   @include media($tablet) {
     min-height: 620px;
   }
