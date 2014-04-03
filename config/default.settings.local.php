@@ -32,9 +32,8 @@ $databases = array (
 // Salt for one-time login links and cancel links, form tokens, etc.
 $drupal_hash_salt = '3i_SZ1VTl_8FBxXeZhTEvf6LkeVNypM0EV90tNuHs5k';
 
-// Base URL (optional). This should make correspond to the securepages_basepath
-// setting, below.
-$base_url = 'http://dev.dosomething.org:8888';  // NO trailing slash!
+// Base URL
+$base_url = getenv('DS_BASE_URL') :? 'http://dev.dosomething.org:8888';  // NO trailing slash!
 
 // Secure Pages integration.
 $conf['https'] = TRUE;
