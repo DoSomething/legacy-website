@@ -33,7 +33,7 @@ $databases = array (
 $drupal_hash_salt = '3i_SZ1VTl_8FBxXeZhTEvf6LkeVNypM0EV90tNuHs5k';
 
 // Base URL
-$base_url = getenv('DS_BASE_URL') :? 'http://dev.dosomething.org:8888';  // NO trailing slash!
+$base_url = getenv('DS_BASE_URL') ?: 'http://dev.dosomething.org:8888';  // NO trailing slash!
 
 // Secure Pages integration.
 $conf['https'] = TRUE;
