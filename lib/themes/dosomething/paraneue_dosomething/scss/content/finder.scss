@@ -154,13 +154,13 @@
 }
 
 .multirow {
-  width: 50%;
+  width: 100%;
   float: left;
   height: 600px;
 
   @include media($tablet) {
-    width: 25%;
-    margin: 0;
+    width: 24%;
+    margin: 0 0.5% 0.75rem;
   }
 
   p {
@@ -179,6 +179,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  margin: 0.75rem 0;
 
   @include transition(background-image .5s ease-in-out);
 
