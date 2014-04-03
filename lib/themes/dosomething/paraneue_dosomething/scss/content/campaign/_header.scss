@@ -35,7 +35,11 @@ header.header {
     height: 100%;
     position: absolute;
     width: 100%;
-    @include linear-gradient(transparent 25%, rgba(black, .6) 90%, rgba(black, .9) 100%);
+    // @include linear-gradient(rgba(black, 0) 50%, rgba(black, .33) 75%, rgba(black, .66) 87.5%, rgba(black, .9) 100%);
+    // @include linear-gradient(rgba(black, 0) 50%, rgba(black, .33) 75%, rgba(black, .66) 87.5%, rgba(black, .9) 100%);
+    @include linear-gradient(rgba(black, 0) 40%, rgba(black, .2) 70%, rgba(black, .5) 87%, rgba(black, .85) 100%);
+
+    // background: linear-gradient(to bottom, rgba(0,0,0,0) 40%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0.5) 87%,rgba(0,0,0,0.9) 100%);
   }
 
   @include media($tablet) {
