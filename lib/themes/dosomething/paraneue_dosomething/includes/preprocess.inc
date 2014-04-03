@@ -6,7 +6,7 @@
 function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['logo'] = $vars['base_path'] . NEUE_PATH . '/assets/images/ds-logo.png';
 
-  $vars['navigation'] = theme('navigation');
+  $vars['navigation'] = theme('navigation', $vars);
   $vars['footer'] = theme('footer');
 }
 
