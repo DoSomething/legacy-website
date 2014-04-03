@@ -22,6 +22,11 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
     '#title' => t('Recommended'),
     '#markup' => $rec_vars, //@TODO: theme this.
   );
+
+  $account->content['updated'] = array(
+    '#type' => 'user_profile_item',
+    '#markup' => l('Update', 'user/' . $account->uid . '/edit'),
+  );
 }
 
 
