@@ -1,0 +1,9 @@
+<a class="campaign-result<% if(featured) { %> big<% } %>" style="background-image: url('<%= image %>')" href="<%= url %>">
+  <% if(staffPick) {  %><div class="flag staff-pick">Staff Pick</div><% } %>
+  <div class="headline-wrapper">
+    <div class="headline">
+      <h3><%= title %></h3>
+      <p><%= description %></p>
+    </div>
+  </div>
+</a>
