@@ -38,6 +38,12 @@ header.header {
     @include linear-gradient(rgba(black, 0) 40%, rgba(black, .2) 70%, rgba(black, .5) 87%, rgba(black, .85) 100%);
   }
 
+  .no-cssgradients & {
+    &:before {
+      background: fuchsia;
+    }
+  }
+
   @include media($tablet) {
     min-height: 620px;
   }
