@@ -9,6 +9,7 @@ namespace :deploy do
   task :shared_links do
     on roles(:app) do |host|
       execute "cd '#{release_path}/html/sites/default'; sudo rm -rf files 2> /dev/null; sudo ln -s #{shared_path}/files files"
+      execute "cd '#{release_path}/html/sites/default'; sudo ln -s #{shared_path}/settings.qa.php"
 
       execute "printf 'User-agent: *\nDisallow: /' > #{release_path}/html/robots.txt"
       #execute "drush rsync @ds.staging:%files #{shared_path} -y"
