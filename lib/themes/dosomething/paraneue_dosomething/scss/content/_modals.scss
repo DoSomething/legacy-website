@@ -2,16 +2,8 @@
 // immediately before each section.step
 .modal-content {
   h2.banner {
-    margin: 0;
-    padding: 0 1.5rem;
-    background: #000;
-    color: #fff;
-    clear: both;
-    line-height: 4rem;
-    text-transform: uppercase;
-
     // fit this guy to edge of modal
-    margin: -2rem -1.5rem 0;
+    margin: -1.8rem -1.5rem 0;
   }
 
   // Ensure modal images do not break out of their
