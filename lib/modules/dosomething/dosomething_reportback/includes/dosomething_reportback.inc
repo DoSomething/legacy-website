@@ -98,6 +98,13 @@ class ReportbackEntity extends Entity {
    */
   public function insertLog($op) {
     global $user;
+    // Store global uid, in rare case this is staff editing a reportback record.
+    $uid = $user->uid;
+    // If there is no uid, it's because this is a mobile submission.
+    if ($uid == 0) {
+      // Use the uid on the reportback entity instead.
+      $uid = $this->uid;
+    }
     // If deleting, store current time.
     if ($op == 'delete') {
       $timestamp = REQUEST_TIME;
@@ -112,7 +119,7 @@ class ReportbackEntity extends Entity {
       $id = db_insert($this->log_table)
         ->fields(array(
           'rbid' => $this->rbid,
-          'uid' => $user->uid,
+          'uid' => $uid,
           'op' => $op,
           'timestamp' => $timestamp,
           'quantity' => $this->quantity,

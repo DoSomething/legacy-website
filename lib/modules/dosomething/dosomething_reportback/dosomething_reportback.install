@@ -181,3 +181,15 @@ function dosomething_reportback_update_7002() {
     }
   }
 }
+
+/**
+ * Updates log records where uid==0 due to bug in $reportback->insertLog().
+ */
+function dosomething_reportback_update_7003() {
+  // Update records with uid==0 to the uid value stored on the reportback.
+  $sql = 'UPDATE dosomething_reportback_log log
+    INNER JOIN dosomething_reportback rb ON (rb.rbid = log.rbid)
+    SET log.uid = rb.uid
+    WHERE log.uid = 0;';
+  db_query($sql);
+}
