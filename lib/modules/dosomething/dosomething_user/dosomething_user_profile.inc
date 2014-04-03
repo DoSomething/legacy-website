@@ -16,12 +16,12 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   foreach ($rec_nids as $nid) {
     $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
   }
-
-  $account->content['recommended'] = array(
-    '#type' => 'user_profile_item',
-    '#title' => t('Recommended'),
-    '#markup' => $rec_vars, //@TODO: theme this.
-  );
+  // Leave this out till it's themed.
+  // $account->content['recommended'] = array(
+  //   '#type' => 'user_profile_item',
+  //   '#title' => t('Recommended'),
+  //   '#markup' => $rec_vars, //@TODO: theme this.
+  // );
 
   $account->content['updated'] = array(
     '#type' => 'user_profile_item',
