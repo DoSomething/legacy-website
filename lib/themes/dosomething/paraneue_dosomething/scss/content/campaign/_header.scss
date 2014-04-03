@@ -82,6 +82,17 @@ header.header {
     }
   }
 
+  // Default "large" button size is cartoonish
+  // on mobile. Drop it down to "medium" below
+  // the tablet breakpoint. @TODO - Port to Neue?
+  .btn.large {
+    font-size: $font-medium;
+
+    @include media($tablet) {
+      font-size: $font-large;
+    }
+  }
+
   div.sponsor-wrapper {
     margin: 1rem auto;
     float: none;
