@@ -17,9 +17,9 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
     $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
   }
 
-  $account->content['recomended'] = array(
+  $account->content['recommended'] = array(
     '#type' => 'user_profile_item',
-    '#title' => t('Recomended'),
+    '#title' => t('Recommended'),
     '#markup' => $rec_vars, //@TODO: theme this.
   );
 }
