@@ -468,15 +468,15 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
  *
  *
  * @param int $tid
- *   The term $tid to query field_primary_cause for.
+ *   Optional - The term $tid to query field_primary_cause for.
  *   This is used if there are less than 3 recommended staff picks for $uid.
  * @param int $uid
- *   The user $uid to recommend campaigns for.
+ *   Optional - The user $uid to recommend campaigns for.
  *
  * @return array
  *  An array of node nid's.
  */
-function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
+function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = NULL) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
@@ -485,9 +485,15 @@ function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
   $nids = dosomething_campaign_get_recommended_staff_pick_nids($uid);
   // If less than 3 staff picks:
   if (count($nids) < 3) {
-    // Add recommended campaigns by term $tid.
-    $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid);
-    $nids = array_merge($nids, $tid_nids);
+    if (!$tid) {
+      // Grab some published campaigns.
+      $nids = dosomething_campaign_get_recommended_published_nids($uid);
+    }
+    else {
+      // Add recommended campaigns by term $tid.
+      $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid);
+      $nids = array_merge($nids, $tid_nids);
+    }
   }
   // Return top 3 nids:
   return array_slice($nids, 0, 3);
@@ -560,6 +566,20 @@ function _dosomething_campaign_get_recommended_query_nids($query) {
 
   // Return empty array if no result.
   return array();
+}
+
+/**
+ * Returns array of nid's published campaigns.
+ *
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ *
+ * @return object
+ *  An EntityFieldQuery of published nids that $uid has not signed up for.
+ */
+function dosomething_campaign_get_recommended_published_nids($uid) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid);
+  return _dosomething_campaign_get_recommended_query_nids($query);
 }
 
 /**
