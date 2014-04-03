@@ -56,3 +56,4 @@ $conf['apachesolr_host'] = '192.168.1.169';
 $conf['apachesolr_port'] = '8008';
 $conf['apachesolr_path'] = '/solr/collection1';
 $conf['apachesolr_read_only'] = 1;
+
