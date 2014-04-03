@@ -40,7 +40,7 @@ header.header {
 
   .no-cssgradients & {
     &:before {
-      background: fuchsia;
+      background: transparent image-url('black-gradient.png') 0 bottom repeat-x;
     }
   }
 
