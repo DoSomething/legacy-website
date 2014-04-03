@@ -16,7 +16,9 @@
     "globals": {
       "requirejs": false,
       "require": false,
-      "define": false
+      "define": false,
+      "console": false,
+      "DEBUG": false
     },
     "strict": true,
     "trailing": true,
