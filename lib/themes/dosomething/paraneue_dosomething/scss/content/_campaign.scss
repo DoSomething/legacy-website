@@ -65,7 +65,15 @@ body.node-type-campaign {
   // Campaign "step" wrapper that contains all campaign sections
   .step {
     overflow: hidden;
+    // lightly reduce top margin to collapse the default margins
+    // present from any opening header or paragraph elements in
+    // each campaign section then pad the section horizontally
+    // on mobile
     margin: -0.5rem 1rem;
+
+    @include media($tablet) {
+      margin: 0;
+    }
 
     h3 {
       color: $purple;
