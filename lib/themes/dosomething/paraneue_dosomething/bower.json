@@ -6,7 +6,10 @@
     "David Furnes <dfurnes@dosomething.org>"
   ],
   "description": "DoSomething.org app-specific styles and presentation logic.",
-  "main": ["css/app.css", "js/app.js"],
+  "main": [
+    "css/app.css",
+    "js/app.js"
+  ],
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -21,6 +24,7 @@
     "jquery": "~1.11.0",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",
-    "requirejs": "~2.1.11"
+    "requirejs": "~2.1.11",
+    "lodash": "~2.4.1"
   }
 }
