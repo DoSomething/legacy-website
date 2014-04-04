@@ -209,3 +209,11 @@ function dosomething_search_form_submit($form, &$form_state) {
     $form_state['redirect'] =  'search/apachesolr_search/' . $keys;
   }
 }
+
+function dosomething_search_views_pre_render(&$view) {
+  foreach ($view->result as $key => $result) {
+    if (stristr($result->label, "&amp;")) {
+      $view->result[$key]->label = htmlspecialchars_decode($result->label);
+    }
+  }
+}
