@@ -41,6 +41,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => 500
     );
 
+
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What do we call you?');
@@ -64,6 +65,12 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
+
+    $form['account']['ctia-text'] = array(
+      '#type' => 'item',
+      '#markup' => '<p class="legal auth--ctia">4 msg/mo. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>',
+      '#weight' => 21
+    );
 
     $form['account']['pass']['#weight'] = 30;
 
