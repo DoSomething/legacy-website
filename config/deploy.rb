@@ -2,7 +2,7 @@
 lock '3.1.0'
 
 set :application, 'beta.dosomething.org'
-set :repo_url, 'git@github.com:blisteringherb/dosomething.git'
+set :repo_url, 'git@github.com:DoSomething/dosomething.git'
 set :branch, "qa-deploy"
 set :ssh_options, { :forward_agent => true }
 
