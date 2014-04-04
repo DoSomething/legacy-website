@@ -65,25 +65,7 @@ body.node-type-campaign {
   // Campaign "step" wrapper that contains all campaign sections
   .step {
     overflow: hidden;
-    margin: 1rem 0;
-
-    h3,
-    h4,
-    p,
-    div {
-      @include section-padding;
-
-      @include media($tablet) {
-        padding: 0;
-      }
-    }
-
-    div h3,
-    div h4,
-    div p,
-    div div {
-      padding: 0 !important;
-    }
+    margin: -0.5rem 1rem;
 
     h3 {
       color: $purple;
