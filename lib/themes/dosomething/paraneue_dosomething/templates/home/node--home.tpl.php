@@ -11,7 +11,7 @@
     <div class="block-big" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/pregnancytext-large.jpg'); background-position: center center;">
       <a class="full-link" href="/baby"><span>Do This</span></a>
       <div class="headline">
-        <h2>Impregnate your friends' phones to get them thinking about how life's different as a parent.</h2>
+        <h2>Send your friends a text baby to show them how their lives would change if they were a parent.</h2>
       </div>
     </div>
 
