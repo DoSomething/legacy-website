@@ -14,12 +14,6 @@
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
-
-      <?php if (isset($scholarship)): ?>
-      <div class="scholarship-wrapper">
-        <p class="copy"><?php print $scholarship; ?></p>
-      </div>
-      <?php endif; ?>
     </div>
   </header>
 
