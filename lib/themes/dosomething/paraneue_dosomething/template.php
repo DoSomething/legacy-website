@@ -40,6 +40,9 @@ function paraneue_dosomething_js_alter(&$js) {
   // Load excluded JS files from theme.
   $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'js');
   $js = array_diff_key($js, $excludes);
+
+  // Force removal of files that we can't seem to kill with exclude[js] array
+  unset($js['profiles/dosomething/modules/contrib/devel/devel_krumo_path.js']);
 }
 
 
