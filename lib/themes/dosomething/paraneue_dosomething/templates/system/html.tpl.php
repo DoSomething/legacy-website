@@ -14,6 +14,7 @@
   <title><?php print $head_title; ?></title>
 
   <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/neue.css" type="text/css" />
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Covered+By+Your+Grace' type='text/css'>
   <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/app.css" type="text/css" />
   <?php print $styles; ?>
 
