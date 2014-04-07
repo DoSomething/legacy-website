@@ -41,6 +41,11 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => 500
     );
 
+    $form['legal-text'] = array(
+      '#type' => 'item',
+      '#markup' => '<p class="legal">Creating an account means you agree to our ' . l("Terms of Service", "node/1049") . ' & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>',
+      '#weight' => 501
+    );
 
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
@@ -65,12 +70,6 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
-
-    $form['account']['ctia-text'] = array(
-      '#type' => 'item',
-      '#markup' => '<p class="legal auth--ctia">4 msg/mo. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>',
-      '#weight' => 21
-    );
 
     $form['account']['pass']['#weight'] = 30;
 
