@@ -462,35 +462,45 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
  * Returns array of nid's of recommended campaigns for $uid.
  *
  * First finds published staff pick campaigns that user has not signed up for.
+ * Then finds published campaigns if no $tid is specified.
  *
- * If there are less than 3, it finds published campaigns that have the
+ * If there are less than the limit needed, it finds published campaigns that have the
  * same primary cause as given $tid which the user has not signed up for.
  *
  *
  * @param int $tid
- *   The term $tid to query field_primary_cause for.
- *   This is used if there are less than 3 recommended staff picks for $uid.
+ *   Optional - The term $tid to query field_primary_cause for.
+ *   This is used if there are less than $limit recommended staff picks for $uid.
  * @param int $uid
- *   The user $uid to recommend campaigns for.
+ *   Optional - The user $uid to recommend campaigns for.
+ * @param int $limit
+ *   Optional - The amount of campaigns to return, defaults to 3.
  *
  * @return array
  *  An array of node nid's.
  */
-function dosomething_campaign_get_recommended_campaign_nids($tid, $uid = NULL) {
+function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = NULL, $limit = 3) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
   }
   // Get recommended staff picks first.
-  $nids = dosomething_campaign_get_recommended_staff_pick_nids($uid);
+  $nids = dosomething_campaign_get_recommended_staff_pick_nids($uid, $limit);
   // If less than 3 staff picks:
-  if (count($nids) < 3) {
-    // Add recommended campaigns by term $tid.
-    $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid);
-    $nids = array_merge($nids, $tid_nids);
+  if (count($nids) < $limit) {
+    // Do we want to return campaigns under a certain cause?
+    if (!$tid) {
+      // Grab some published campaigns.
+      $nids = dosomething_campaign_get_recommended_published_nids($uid, $limit);
+    }
+    else {
+      // Add recommended campaigns by term $tid.
+      $tid_nids = dosomething_campaign_get_recommended_nids_by_term($tid, $uid, $limit);
+      $nids = array_merge($nids, $tid_nids);
+    }
   }
-  // Return top 3 nids:
-  return array_slice($nids, 0, 3);
+  // Return the limit of nids:
+  return array_slice($nids, 0, $limit);
 }
 
 /**
@@ -522,11 +532,13 @@ function dosomething_campaign_get_staff_picks() {
  *
  * @param int $uid
  *   The user $uid to recommend campaigns for.
+ * @param int $limit
+ *   The amount of campaigns to return.
  *
  * @return object
  *  An EntityFieldQuery of published campaigns that $uid has not signed up for.
  */
-function _dosomething_campaign_get_recommended_base_query($uid) {
+function _dosomething_campaign_get_recommended_base_query($uid, $limit) {
   // Store the nid's that the user has already signed up for.
   $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
   $query = new EntityFieldQuery();
@@ -534,7 +546,7 @@ function _dosomething_campaign_get_recommended_base_query($uid) {
     ->entityCondition('bundle', 'campaign')
     ->propertyCondition('nid', $signup_nids, 'NOT IN')
     ->propertyCondition('status', 1)
-    ->range(0, 3);
+    ->range(0, $limit);
   return $query;
 }
 
@@ -563,16 +575,34 @@ function _dosomething_campaign_get_recommended_query_nids($query) {
 }
 
 /**
+ * Returns array of nid's published campaigns.
+ *
+ * @param int $uid
+ *   The user $uid to recommend campaigns for.
+ * @param int $limit
+ *   The amount of campaigns to return.
+ *
+ * @return object
+ *  An EntityFieldQuery of published nids that $uid has not signed up for.
+ */
+function dosomething_campaign_get_recommended_published_nids($uid, $limit) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid, $limit);
+  return _dosomething_campaign_get_recommended_query_nids($query);
+}
+
+/**
  * Returns array of nid's of recommended staff picks for $uid.
  *
  * @param int $uid
  *   The user $uid to recommend campaigns for.
+ * @param int $limit
+ *   The amount of campaigns to return.
  *
  * @return object
  *  An EntityFieldQuery of staff pick nids that $uid has not signed up for.
  */
-function dosomething_campaign_get_recommended_staff_pick_nids($uid) {
-  $query = _dosomething_campaign_get_recommended_base_query($uid);
+function dosomething_campaign_get_recommended_staff_pick_nids($uid, $limit) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid, $limit);
   // Add field condition to only return staff picks.
   $query->fieldCondition('field_staff_pick', 'value', 1);
   return _dosomething_campaign_get_recommended_query_nids($query);
@@ -585,12 +615,14 @@ function dosomething_campaign_get_recommended_staff_pick_nids($uid) {
  *   The term $tid to query field_primary_cause for.
  * @param int $uid
  *   The user $uid to recommend campaigns for.
+ * @param int $limit
+ *   The amount of campaigns to return.
  *
  * @return object
  *  An EntityFieldQuery of staff pick nids that $uid has not signed up for.
  */
-function dosomething_campaign_get_recommended_nids_by_term($tid, $uid) {
-  $query = _dosomething_campaign_get_recommended_base_query($uid);
+function dosomething_campaign_get_recommended_nids_by_term($tid, $uid, $limit) {
+  $query = _dosomething_campaign_get_recommended_base_query($uid, $limit);
   // Add field condition to only campaigns with primary cause $tid.
   $query->fieldCondition('field_primary_cause', 'tid', $tid);
   return _dosomething_campaign_get_recommended_query_nids($query);
