@@ -12,6 +12,9 @@ features[] = slogan
 features[] = main_menu
 features[] = secondary_menu
 
+; Settings
+settings[show_campaign_finder] = 0
+
 ;Exclude
 ;javascript
 exclude[js][] = 'misc/jquery.js'
