@@ -462,14 +462,15 @@ function dosomething_campaign_get_field_collection_values($wrapper, $field_name)
  * Returns array of nid's of recommended campaigns for $uid.
  *
  * First finds published staff pick campaigns that user has not signed up for.
+ * Then finds published campaigns if no $tid is specified.
  *
- * If there are less than 3, it finds published campaigns that have the
+ * If there are less than the limit needed, it finds published campaigns that have the
  * same primary cause as given $tid which the user has not signed up for.
  *
  *
  * @param int $tid
  *   Optional - The term $tid to query field_primary_cause for.
- *   This is used if there are less than 3 recommended staff picks for $uid.
+ *   This is used if there are less than $limit recommended staff picks for $uid.
  * @param int $uid
  *   Optional - The user $uid to recommend campaigns for.
  * @param int $limit
@@ -498,7 +499,7 @@ function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = 
       $nids = array_merge($nids, $tid_nids);
     }
   }
-  // Return top 3 nids:
+  // Return the limit of nids:
   return array_slice($nids, 0, $limit);
 }
 
