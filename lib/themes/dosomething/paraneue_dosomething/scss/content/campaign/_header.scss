@@ -35,7 +35,7 @@ header.header {
     height: 100%;
     position: absolute;
     width: 100%;
-    @include linear-gradient(rgba(black, 0) 40%, rgba(black, .2) 70%, rgba(black, .5) 87%, rgba(black, .85) 100%);
+    @include linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2) 70%, rgba(#000, .5) 87%, rgba(#000, .85) 100%);
   }
 
   .no-cssgradients & {
