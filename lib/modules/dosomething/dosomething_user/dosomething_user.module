@@ -248,8 +248,8 @@ function dosomething_user_is_under_thirteen($user = NULL) {
  */
 function dosomething_user_login_submit($form, &$form_state) {
   // If nid is not present, nothing to sign up for.  Exit.
-  if (isset($form_state['input']['nid'])) {
-    $nid = $form_state['input']['nid'];
+  if (isset($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
     // Signup global user for node $nid.
     if (module_exists('dosomething_signup')) {
       dosomething_signup_user_signup($nid);
@@ -290,8 +290,8 @@ function _dosomething_user_add_campaign_data(&$form) {
       // Add a hidden nid field.
       $form['nid'] = array(
         '#type' => 'hidden',
-        // @TODO: Encrypt me.
         '#value' => $obj->nid,
+        '#access' => FALSE,
       );
       $form['#action'] = '/' . drupal_get_path_alias('node/' . $obj->nid);
     }
