@@ -386,7 +386,7 @@
       <?php endif; ?>
       </div>
 
-      <footer class="prove help <?php isset($sponsors) ? print 'sponsors' : '' ; ?>">
+      <footer class="help <?php isset($sponsors) ? print 'sponsors' : '' ; ?>">
         <div class="footer-content">
           <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Contact us</a></div>
 
