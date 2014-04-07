@@ -19,6 +19,7 @@ exclude[js][] = 'misc/jquery.cookie.js'
 exclude[js][] = 'misc/jquery.once.js'
 exclude[js][] = 'modules/contextual/contextual.js'
 exclude[js][] = 'modules/user/user.js'
+exclude[js][] = 'misc/textarea.js'
 
 ;css
 exclude[css][] = 'misc/vertical-tabs.css'
