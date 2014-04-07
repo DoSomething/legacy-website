@@ -65,7 +65,7 @@
 // Apply header gradient as a mixin since header styles not abstracted yet.
 // TODO: May want to unify styles across and use modifier classes.
 @mixin header-gradient() {
-  @include linear-gradient($purple 35%, rgba(black, .60) 100%);
+  @include linear-gradient($purple 35%, rgba(#000, .60) 100%);
 }
 
 // Apply header typography as a mixin to style both static and campaign content.
