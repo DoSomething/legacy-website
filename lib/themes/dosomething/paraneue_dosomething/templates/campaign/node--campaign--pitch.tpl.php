@@ -1,4 +1,4 @@
-<section class="campaign--wrapper">
+<section class="campaign--wrapper pitch">
   <header class="header <?php print $classes; ?>">
     <div class="meta">
       <h1 class="title"><?php print $title; ?></h1>
