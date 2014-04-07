@@ -17,7 +17,7 @@ if( theme_get_setting('show_campaign_finder') ) {
   </div>
 
 
-  <div class="campaign-finder">
+  <div class="campaign-finder js-campaign-finder">
     <div class="dropdown toggle-lg toggle">
       <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
       <p class="facet-field">What are you passionate about?</p>
