@@ -10,25 +10,26 @@
 
 .home--hero {
   @include row;
-  background: $purple;
+  @include header-gradient;
   background-size: cover;
   padding: 7rem 0 2rem;
 
   .header {
+    margin-bottom: 1rem;
+    @include row;
     @include span-columns(6);
     @include shift(1);
 
     @include media($tablet) {
-      @include span-columns(12);
-      @include shift(2);
-    }
-
-    h1, p {
-      color: #fff;
+      @include span-columns(14);
+      @include shift(1);
     }
 
     h1 {
+      color: #fff;
       font-size: $font-large;
+      font-weight: $weight-normal;
+      text-align: center;
       margin: 1.5rem 0 0.5rem;
 
       @include media($tablet) {
@@ -36,9 +37,9 @@
       }
     }
 
-    // @TODO: Neue me!
-    p {
-      font-size: 18px;
+    .underline {
+      background: image-url("homepage-underline.png");
+      background-size: contain;
     }
   }
 }
