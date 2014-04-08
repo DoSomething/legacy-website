@@ -7,11 +7,11 @@
 
   .facet-field {
     margin-left: 1.5rem;
-    font-weight: 800;
+    font-weight: $weight-bold;
   }
 
   p.facet-field {
-    color: lighten($med-gray, 20%);
+    color: $med-gray;
     font-weight: normal;
     line-height: 0.9em;
   }
@@ -21,7 +21,7 @@
     display: block;
     height: auto;
     font-size: 0.8em;
-    font-weight: normal;
+    font-weight: $weight-normal;
     line-height: 1.5;
     margin: 0;
     padding: 0 0.5rem;
@@ -121,58 +121,6 @@
 }
 
 .finder--results {
-  .campaign-result {
-    float: left;
-    position: relative;
-    display: block;
-    width: 100%;
-    background: image-url("placeholder.png");
-    background-size: cover;
-
-    @include transition(background-image .5s ease-in-out);
-
-    @include media($tablet) {
-      float: left;
-      width: 25%;
-    }
-
-    &.big {
-      width: 50%;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-
-      // lazy-load animation
-      opacity: 0;
-      @include transition(opacity 0.5s ease-in);
-    }
-
-    .headline {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 2rem 1rem 0.5rem;
-
-      @include linear-gradient(transparent, #000);
-
-      h3 {
-        color: #fff;
-        font-weight: $weight-bold;
-        margin-bottom: 0;
-      }
-
-      p {
-        color: #fff;
-        font-size: 0.9rem;
-        font-weight: $weight-normal;
-      }
-    }
-  }
-}
-
-.finder--results {
   position: relative;
   background: #1f1227;
   min-height: 300px;
@@ -212,17 +160,69 @@
   .spinner {
     display: none;
   }
-}
 
-.flag {
-  background: $yellow;
-  color: #000;
-  text-transform: uppercase;
-  display: inline;
-  padding: .2em .5em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-weight: 600;
-  font-size: .9em;
+  .campaign-result {
+    float: left;
+    position: relative;
+    display: block;
+    width: 100%;
+    background: $off-black image-url("placeholder.png");
+    background-size: cover;
+
+    @include transition(background-image .5s ease-in-out);
+
+    @include media($tablet) {
+      float: left;
+      width: 25%;
+    }
+
+    &.big {
+      width: 50%;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+
+      // lazy-load animation
+      opacity: 0;
+      @include transition(opacity 0.5s ease-in);
+    }
+
+    .headline {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 2rem 1rem 1rem;
+
+      @include linear-gradient(transparent, #000);
+
+      h3 {
+        color: #fff;
+        font-weight: $weight-bold;
+        margin-bottom: 0;
+      }
+
+      p {
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: $weight-normal;
+        margin-bottom: 0;
+      }
+    }
+
+    .flag {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: $yellow;
+      color: #000;
+      font-weight: $weight-sbold;
+      text-transform: uppercase;
+      padding: 0.2em 0.5em;
+    }
+  }
 }
