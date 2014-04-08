@@ -48,6 +48,7 @@ function dosomething_campaign_menu() {
  * Adds form elements for non-field campaign elements.
  */
 function _dosomething_campaign_form_extras(&$form, &$form_state) {
+  global $user;
   // If this is a node create form, display help text and exit out of extras.
   if (!isset($form['nid']['#value'])) {
     $form['custom'] = array(
@@ -57,7 +58,7 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
     return;
   }
   // If admin:
-  if (user_access('administer modules') && module_exists('dosomething_reportback')) {
+  if (in_array('administrator', $user->roles) && module_exists('dosomething_reportback')) {
     // Include reportback field configuration form.
     _dosomething_reportback_node_reportback_field_form($form, $form_state);
   }
