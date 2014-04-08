@@ -11,6 +11,7 @@
 class ReportbackEntity extends Entity {
   protected $files_table = 'dosomething_reportback_file';
   protected $log_table = 'dosomething_reportback_log';
+  protected $field_data_table = 'dosomething_reportback_field_data';
 
   /**
    * Override this in order to implement a custom default URI.
@@ -35,7 +36,12 @@ class ReportbackEntity extends Entity {
       $this->node_title = $this->getNodeTitle();
       $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
       $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+      // Store the field configuration info.
       $this->field = dosomething_reportback_get_reportback_field_info($this->nid);
+      if ($this->field) {
+        // Store the user value for the reportback field.
+        $this->field['value'] = $this->getFieldValue($this->field['name']);
+      }
     }
   }
 
@@ -82,6 +88,22 @@ class ReportbackEntity extends Entity {
   }
 
   /**
+   * Gets value from dosomething_reportback_field_data table for given $name.
+   */
+  public function getFieldValue($name) {
+    $result = db_select($this->field_data_table, 'd')
+      ->fields('d', array('value'))
+      ->condition('rbid', $this->rbid)
+      ->condition('name', $name)
+      ->execute()
+      ->fetchCol();
+    if ($result) {
+      return $result[0];
+    }
+    return NULL;
+  }
+
+  /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
    */
   public function insertFid($fid) {
@@ -98,13 +120,13 @@ class ReportbackEntity extends Entity {
    * Saves given $value into dosomething_reportback_field_data for given $name.
    */
   public function saveFieldValue($name, $value) {
-    return db_merge('dosomething_reportback_field_data')
+    return db_merge($this->field_data_table)
       ->key(array('rbid' => $this->rbid, 'name' => $name))
       ->fields(array(
           'value' => $value,
       ))
       ->execute();
-}
+  }
 
   /**
    * Logs current entity values with given $op string.

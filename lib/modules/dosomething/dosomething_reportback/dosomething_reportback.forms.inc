@@ -97,26 +97,32 @@ function dosomething_reportback_node_reportback_field_form_submit(&$form, &$form
 }
 
 /**
- * Returns a Form API element based on given dosomething_reportback_field values.
+ * Returns a Form API element based on given entity values.
  *
- * @param array $config
- *   The dosomething_reportback_value record.
- * @param string $value
- *   Optional. The user value (if exists).
+ * @param array $rb_field
+ *   The field array as per returned by a loaded reportback $entity->field.
+ *
+ * @return array
+ *   An array to use as a form element.
  */
-function dosomething_reportback_get_reportback_field_form_element($config, $value = '') {
+function dosomething_reportback_get_reportback_field_form_element($rb_field) {
   $element = array(
-    '#title' => $config['label'],
-    '#type' => $config['type'],
+    '#title' => $rb_field['label'],
+    '#type' => $rb_field['type'],
     '#required' => TRUE,
   );
-  // @todo. Make this dynamic. Hardcoded for now, for Comeback Clothes.
-  $element['#options'] = array(
-    1 => t('Yes'),
-    0 => t('No'),
-  );
-  if (!empty($value)) {
-    $element['#default_value'] = $value;
+  if ($element['#type'] == 'radios') {
+    // @todo. Make this read $rb_field['options']. 
+    // Hardcoded for now, for Comeback Clothes.
+    $element['#options'] = array(
+      1 => t('Yes'),
+      0 => t('No'),
+    ); 
+  }
+  // If a value exists for the entity:
+  if (isset($rb_field['value'])) {
+    // Set it as the default value.
+    $element['#default_value'] = $rb_field['value'];
   }
   return $element;
 }
