@@ -127,6 +127,7 @@ function dosomething_reportback_schema() {
     'primary key' => array('id'),
   );
   $schema['dosomething_reportback_file'] = array(
+    'description' => 'Table of files associated with reportbacks.',
     'fields' => array(
       'rbid' => array(
         'description' => 'Reportback rbid',
@@ -150,6 +151,74 @@ function dosomething_reportback_schema() {
       ),
     ),
     'primary key' => array('rbid', 'fid'),
+  );
+  $schema['dosomething_reportback_field'] = array(
+    'description' => 'Table of reportback fields associated with nodes.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'Node nid that reportback field belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'The machine name of the reportback field.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'The user facing label of the reportback field.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The type of form field to render.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'options' => array(
+        'description' => 'Options for the form field, if applicable.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('nid', 'name'),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+  );
+  $schema['dosomething_reportback_field_data'] = array(
+    'description' => 'Stores user reportback field data.',
+    'fields' => array(
+      'rbid' => array(
+        'description' => 'Reportback rbid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'The machine name of the reportback field.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+      ),
+      'value' => array(
+        'description' => 'The user-inputted value for the reportback field.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('rbid', 'name'),
+    'indexes' => array(
+      'rbid' => array('rbid'),
+    ),
   );
   return $schema;
 }
@@ -192,4 +261,15 @@ function dosomething_reportback_update_7003() {
     SET log.uid = rb.uid
     WHERE log.uid = 0;';
   db_query($sql);
+}
+
+/**
+ * Adds dosomething_reportback_field and dosomething_reportback_field_data tables.
+ */
+function dosomething_reportback_update_7004() {
+  $schema = dosomething_reportback_schema();
+  $tables = array('dosomething_reportback_field', 'dosomething_reportback_field_data');
+  foreach ($tables as $table_name) {
+    db_create_table($table_name, $schema[$table_name]);
+  }
 }
