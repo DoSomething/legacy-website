@@ -46,7 +46,7 @@ if( theme_get_setting('show_campaign_finder') ) {
           </div>
         </div>
 
-        <div class="dropdown large">
+        <div class="dropdown large last">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Type</div>
           <p class="facet-field">What would you like to do?</p>
           <div class="dropdown-menu">

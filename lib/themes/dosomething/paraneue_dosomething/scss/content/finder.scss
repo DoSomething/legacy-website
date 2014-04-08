@@ -45,13 +45,17 @@
     padding: .5rem 1rem;
     @include media($tablet) {
       @include span-columns(5 of 14);
-      @include omega(3n);
     }
 
     &.small {
       @include media($tablet) {
         @include span-columns(4 of 14);
       }
+    }
+
+    // no :nth-of-type support in IE 8... :(
+    &.last {
+      margin-right: 0;
     }
 
     li {
