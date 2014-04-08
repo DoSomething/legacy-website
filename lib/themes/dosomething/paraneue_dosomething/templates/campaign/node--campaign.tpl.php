@@ -215,7 +215,6 @@
       <?php foreach ($action_guides as $delta => $action_guide): ?>
       <script id="modal-action-guide-<?php print $delta; ?>" type="text/cached-modal">
         <a href="#" class="js-close-modal modal-close-button white">×</a>
-        <h2 class="banner"></h2>
           <div><?php print $action_guide['content']; ?></div>
         <a href="#" class="js-close-modal">Back to main page</a>
       </script>
