@@ -123,6 +123,12 @@ function dosomething_reportback_schema() {
         'length' => 128,
         'not null' => FALSE,
       ),
+      'field_data' => array(
+        'description' => 'Any values stored in dosomething_reportback_field_data.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('id'),
   );
@@ -275,7 +281,17 @@ function dosomething_reportback_update_7003() {
 function dosomething_reportback_update_7004() {
   $schema = dosomething_reportback_schema();
   $tables = array('dosomething_reportback_field', 'dosomething_reportback_field_data');
+  // Add new tables.
   foreach ($tables as $table_name) {
-    db_create_table($table_name, $schema[$table_name]);
+    if (!db_table_exists($table_name)) {
+      db_create_table($table_name, $schema[$table_name]);
+    }
+  }
+  // Add new field to dosomething_reportback_log.
+  $tbl_name = 'dosomething_reportback_log';
+  $fld_name = 'field_data';
+  if (!db_field_exists($tbl_name, $fld_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
   }
 }
