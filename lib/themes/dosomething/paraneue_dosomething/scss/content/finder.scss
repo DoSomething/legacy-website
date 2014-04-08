@@ -45,13 +45,17 @@
     padding: .5rem 1rem;
     @include media($tablet) {
       @include span-columns(5 of 14);
-      @include omega(3n);
     }
 
     &.small {
       @include media($tablet) {
         @include span-columns(4 of 14);
       }
+    }
+
+    // no :nth-of-type support in IE 8... :(
+    &.last {
+      margin-right: 0;
     }
 
     li {
@@ -177,7 +181,9 @@
     }
 
     &.big {
-      width: 50%;
+      @include media($tablet) {
+        width: 50%;
+      }
     }
 
     img {
@@ -196,6 +202,7 @@
       width: 100%;
       padding: 2rem 1rem 1rem;
 
+      background: image-url("black-50.png");
       @include linear-gradient(transparent, #000);
 
       h3 {
