@@ -181,7 +181,9 @@
     }
 
     &.big {
-      width: 50%;
+      @include media($tablet) {
+        width: 50%;
+      }
     }
 
     img {
