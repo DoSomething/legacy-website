@@ -29,7 +29,7 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  * Implements hook_apachesolr_query_alter().
- * 
+ *
  * Alter the query after it's prepared and cached.
  *
  * Any module performing a search should call
@@ -211,9 +211,12 @@ function dosomething_search_form_submit($form, &$form_state) {
 }
 
 function dosomething_search_views_pre_render(&$view) {
+  // Only run this on the view that provides '/campaigns'
+  if ($view->name == 'explore_campaigns') {
   foreach ($view->result as $key => $result) {
-    if (stristr($result->label, "&amp;")) {
-      $view->result[$key]->label = htmlspecialchars_decode($result->label);
+      // Decode campaign title and campaign call to action, make sure to include single quotes!
+      $view->result[$key]->label = htmlspecialchars_decode($result->label, ENT_QUOTES);
+      $view->result[$key]->sm_field_call_to_action[0] = htmlspecialchars_decode($result->sm_field_call_to_action[0], ENT_QUOTES);
     }
   }
 }
