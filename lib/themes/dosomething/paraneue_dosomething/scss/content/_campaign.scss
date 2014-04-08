@@ -103,4 +103,63 @@ body.node-type-campaign {
       }
     }
   }
+
+  // .scholarship-wrapper {
+  //   width: 200px;
+  //   margin: 20px auto 0;
+  //   padding: 0 0 2rem;
+  //   position: relative;
+
+  //   @include media($tablet) {
+  //     width: 140px;
+  //     margin: -10px 0 0 15px;
+  //     padding: 0;
+  //     float: left;
+
+  //     @include transform(rotate(-6deg));
+  //   }
+
+  //   .copy {
+  //     text-align: center;
+  //     color: #fff;
+  //     color: rgba(255, 255, 255, 0.9); // Random opacity to match opacity of arrow on mock
+  //     font-family: 'Covered By Your Grace', cursive;
+  //     font-size: 1.5rem; // Some pixel fucking was required here
+  //     line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
+  //     float: right;
+  //     position: relative;
+  //     right: -40px;
+  //     margin: 0;
+
+  //     @include media($tablet) {
+  //       float: none;
+  //       right: 0;
+  //     }
+
+  //     // Hand-drawn arrows pointing to the call to action
+  //     // Left-pointing arrow to display on all "desktop" resolutions
+  //     &:before {
+  //       content: "";
+  //       width: 25px;
+  //       height: 38px;
+  //       display: block;
+  //       background: image-url("campaign-arrow-up.png") 50% 50% / 25px no-repeat transparent;
+  //       position: absolute;
+  //       top: -40px;
+  //       right: 30px;
+
+  //       @include media($tablet) {
+  //         width: 40px;
+  //         height: 60px;
+  //         float: left;
+  //         position: static;
+  //         background: image-url("campaign-arrow-left.png") 50% 50% / 35px no-repeat transparent;
+  //       }
+  //     }
+  //   }
+  // }
+
+  .scholarship-callout { background-color: fuchsia;
+
+  }
 }
