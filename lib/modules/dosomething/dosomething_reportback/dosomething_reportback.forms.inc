@@ -95,3 +95,28 @@ function dosomething_reportback_node_reportback_field_form_submit(&$form, &$form
     ))
     ->execute();
 }
+
+/**
+ * Returns a Form API element based on given dosomething_reportback_field values.
+ *
+ * @param array $config
+ *   The dosomething_reportback_value record.
+ * @param string $value
+ *   Optional. The user value (if exists).
+ */
+function dosomething_reportback_get_reportback_field_form_element($config, $value = '') {
+  $element = array(
+    '#title' => $config['label'],
+    '#type' => $config['type'],
+    '#required' => TRUE,
+  );
+  // @todo. Make this dynamic. Hardcoded for now, for Comeback Clothes.
+  $element['#options'] = array(
+    1 => t('Yes'),
+    0 => t('No'),
+  );
+  if (!empty($value)) {
+    $element['#default_value'] = $value;
+  }
+  return $element;
+}

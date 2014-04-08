@@ -35,6 +35,7 @@ class ReportbackEntity extends Entity {
       $this->node_title = $this->getNodeTitle();
       $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
       $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+      $this->field = dosomething_reportback_get_reportback_field_info($this->nid);
     }
   }
 
