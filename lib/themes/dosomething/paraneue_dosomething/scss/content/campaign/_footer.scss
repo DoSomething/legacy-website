@@ -12,26 +12,26 @@ footer.boilerplate {
 // -------------
 
 // This footer exists in sponsored campaigns and
-// contains the default zendesk help link as well
-footer.sponsors {
+// contains the default zendesk help link as well.
+.prove > footer {
+  color: #fff;
+  clear: both;
   overflow: hidden;
+  padding: 1rem 0;
+  text-align: center;
 
-  .sponsor-wrapper {
-    float: none;
-    color: #fff;
+  @include rgba('background', #000, 0.5);
 
-    @include media($tablet) {
-      float: left;
-    }
+  .no-rgba & {
+    background: transparent image-url('black-50.png') 0 0 repeat;
   }
 
-  .help-wrapper {
-    display: none;
+  a {
     color: #fff;
+    text-decoration: none;
 
-    @include media($tablet) {
-      display: block;
-      float: right;
+    &:hover {
+      text-decoration: underline;
     }
   }
 
@@ -41,27 +41,20 @@ footer.sponsors {
       @include shift(2);
     }
   }
-}
 
-footer.help {
-  padding: 1rem 0;
-  text-align: center;
-  clear: both;
-}
+  .help-wrapper {
+    margin-bottom: 0.5rem;
 
-footer.help {
-  @include rgba('background', #000, 0.5);
-
-  p {
-    display: inline;
-  }
-
-  p,
-  a {
-    color: #fff;
-
-    &:hover {
-      color: #fff;
+    @include media($tablet) {
+      float: right;
+      margin-bottom: 0px;
     }
   }
+
+  .sponsor-wrapper {
+    @include media($tablet) {
+      float: left;
+    }
+  }
+
 }

@@ -388,6 +388,8 @@
 
       <footer class="help <?php isset($sponsors) ? print 'sponsors' : '' ; ?>">
         <div class="footer-content">
+          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Contact us</a></div>
+
           <?php if (isset($sponsors)): ?>
           <div class="sponsor-wrapper">
             In partnership with
@@ -396,8 +398,6 @@
             <?php endforeach; ?>
           </div>
           <?php endif; ?>
-
-          <div class="help-wrapper">Have a question? <a href="#modal-help" class="js-modal-link secondary">Contact us</a></div>
         </div>
       </footer>
 

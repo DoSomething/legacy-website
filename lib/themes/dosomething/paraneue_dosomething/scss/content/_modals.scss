@@ -1,6 +1,8 @@
 // Full-width header that comes
 // immediately before each section.step
 .modal-content {
+  word-wrap: break-word;
+
   h2.banner {
     // fit this guy to edge of modal
     margin: -1.8rem -1.5rem 0;
