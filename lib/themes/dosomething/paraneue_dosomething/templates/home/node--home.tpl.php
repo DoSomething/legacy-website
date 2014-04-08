@@ -10,13 +10,13 @@ if( theme_get_setting('show_campaign_finder') ) {
 ?>
 
 <div class="home--wrapper">
-  <div class="campaign-finder js-campaign-finder">
+  <div class="finder--form js-campaign-finder">
     <div class="home--hero">
       <div class="header">
         <h1>What do you wanna do <span class="underline">today</span>?</h1>
       </div>
       <div class="header">
-        <div class="dropdown toggle-lg toggle">
+        <div class="dropdown large">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
           <p class="facet-field">What are you passionate about?</p>
           <div class="dropdown-menu">
@@ -34,7 +34,7 @@ if( theme_get_setting('show_campaign_finder') ) {
           </div>
         </div>
 
-        <div class="dropdown toggle-sm toggle">
+        <div class="dropdown small">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Time</div>
           <p class="facet-field">How long do you have?</p>
           <div class="dropdown-menu">
@@ -46,7 +46,7 @@ if( theme_get_setting('show_campaign_finder') ) {
           </div>
         </div>
 
-        <div class="dropdown toggle-lg toggle">
+        <div class="dropdown large">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Type</div>
           <p class="facet-field">What would you like to do?</p>
           <div class="dropdown-menu">
@@ -64,13 +64,15 @@ if( theme_get_setting('show_campaign_finder') ) {
         </div>
 
         <div class="campaign-search">
-          <button>Find a Campaign</button>
+          <button class="btn">Find a Campaign</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="campaign-results"></div>
+  <div id="campaign-results" class="finder--results">
+  </div>
+  </div>
 
 
   <div class="home--sponsors">
