@@ -143,9 +143,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#value' => $nid,
   );
   $form['header'] = array(
-    '#prefix' => '<h3>',
+    '#prefix' => '<h2 class="banner">',
     '#markup' => $config['form_header'],
-    '#suffix' => '</h3>',
+    '#suffix' => '</h2>',
   );
   $form['copy'] = array(
     '#prefix' => '<p>',
