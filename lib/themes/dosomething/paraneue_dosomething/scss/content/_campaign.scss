@@ -104,62 +104,105 @@ body.node-type-campaign {
     }
   }
 
-  // .scholarship-wrapper {
-  //   width: 200px;
-  //   margin: 20px auto 0;
-  //   padding: 0 0 2rem;
-  //   position: relative;
+}
 
-  //   @include media($tablet) {
-  //     width: 140px;
-  //     margin: -10px 0 0 15px;
-  //     padding: 0;
-  //     float: left;
 
-  //     @include transform(rotate(-6deg));
-  //   }
+.scholarship-callout {
+  margin: 0 auto;
+  position: relative;
+  padding: 1rem 0;
+  width: 200px;
 
-  //   .copy {
-  //     text-align: center;
-  //     color: #fff;
-  //     color: rgba(255, 255, 255, 0.9); // Random opacity to match opacity of arrow on mock
-  //     font-family: 'Covered By Your Grace', cursive;
-  //     font-size: 1.5rem; // Some pixel fucking was required here
-  //     line-height: 1.6rem; // Tighten up leading when scholarship copy stacks
-  //     float: right;
-  //     position: relative;
-  //     right: -40px;
-  //     margin: 0;
+  @include media($tablet) {
+    margin: 0;
+  }
 
-  //     @include media($tablet) {
-  //       float: none;
-  //       right: 0;
-  //     }
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+  }
 
-  //     // Hand-drawn arrows pointing to the call to action
-  //     // Left-pointing arrow to display on all "desktop" resolutions
-  //     &:before {
-  //       content: "";
-  //       width: 25px;
-  //       height: 38px;
-  //       display: block;
-  //       background: image-url("campaign-arrow-up.png") 50% 50% / 25px no-repeat transparent;
-  //       position: absolute;
-  //       top: -40px;
-  //       right: 30px;
+  .copy {
+    color: #fff;
+    font: 1.5rem/1.3 $font-hand-written, cursive;
+    letter-spacing: 0.03em;
+    margin: 0;
+    text-transform: lowercase;
+  }
 
-  //       @include media($tablet) {
-  //         width: 40px;
-  //         height: 60px;
-  //         float: left;
-  //         position: static;
-  //         background: image-url("campaign-arrow-left.png") 50% 50% / 35px no-repeat transparent;
-  //       }
-  //     }
-  //   }
-  // }
+  // Class indicates callout sites below item it's pointing at.
+  &.-below {
+    &:before {
+      background: image-url("callout-arrow-up.png") 50% 50% / 25px no-repeat transparent;
+      height: 38px;
+      right: -6px;
+      top: -6px;
+      width: 25px;
+    }
+  }
 
-  .scholarship-callout { background-color: fuchsia;
 
+  // Class indicates callout sites above item it's pointing at.
+  &.-above {
+    &:before {
+      background: image-url("callout-arrow-down.png") 50% 50% / 35px no-repeat transparent;
+      height: 32px;
+      right: -28px;
+      bottom: 5px;
+      width: 37px;
+    }
+  }
+
+
+  // Pitch Page Scholarship Callout
+  &.-pitch {
+    left: 20px;
+    top: 1px;
+
+    &:before {
+      right: 50px;
+      top: -20px;
+    }
+
+    @include media($tablet) {
+      float: left;
+      left: 40px;
+      top: -10px;
+      width: 130px;
+
+      @include transform(rotate(-6deg));
+
+      &:before {
+        background: image-url("callout-arrow-left.png") 50% 50% / 35px no-repeat transparent;
+        height: 19px;
+        left: -27px;
+        right: auto;
+        top: 34px;
+        width: 38px;
+      }
+
+      .copy {
+        line-height: 1.1;
+        text-align: center;
+      }
+    }
+  }
+
+  // Action Page Header Scholarship Callout
+  .action > header & {
+    @include media($tablet) {
+      display: none;
+    }
+  }
+
+  // Action Page Prove It Scholarship Callout
+  .prove & {
+    left: 50px;
+    top: 10px;
+
+    @include media($tablet) {
+      left: 70px;
+    }
   }
 }

@@ -16,7 +16,7 @@
       <?php endif; ?>
 
       <?php if (isset($scholarship)): ?>
-      <div class="scholarship-callout">
+      <div class="scholarship-callout -action -above">
         <p class="copy"><?php print $scholarship; ?></p>
       </div>
       <?php endif; ?>
@@ -361,7 +361,7 @@
         <?php if (isset($reportback_link)): ?><a href="#modal-report-back" class="js-modal-link btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a><?php endif; ?>
 
         <?php if (isset($scholarship)): ?>
-        <div class="scholarship-callout">
+        <div class="scholarship-callout -action -below">
           <p class="copy"><?php print $scholarship; ?></p>
         </div>
         <?php endif; ?>
