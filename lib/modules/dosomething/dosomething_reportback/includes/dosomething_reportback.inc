@@ -149,7 +149,15 @@ class ReportbackEntity extends Entity {
       $timestamp = $this->updated;
     }
     try {
+      // Grab file fids to keep as a record.
       $fids = $this->getFids();
+      // Gather field_data to log all changes.
+      $field_values = $this->field_values;
+      // If a field value exists:
+      if ($field_values != NULL) {
+        // Serialize to store in the log table.
+        $field_values = serialize($field_values);
+      }
       // Log the entity values into the log table.
       $id = db_insert($this->log_table)
         ->fields(array(
@@ -162,6 +170,7 @@ class ReportbackEntity extends Entity {
           'files' => implode(',', $fids),
           'num_files' => count($fids),
           'remote_addr' => dosomething_helpers_ip_address(),
+          'field_data' => $field_values,
         ))
         ->execute();
     }
