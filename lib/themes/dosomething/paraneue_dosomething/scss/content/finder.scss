@@ -136,6 +136,10 @@
       width: 25%;
     }
 
+    &.big {
+      width: 50%;
+    }
+
     img {
       width: 100%;
       height: auto;
@@ -149,7 +153,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      padding: 2rem 0.5rem 0.5rem;
+      padding: 2rem 1rem 0.5rem;
 
       @include linear-gradient(transparent, #000);
 
@@ -170,7 +174,7 @@
 
 .finder--results {
   position: relative;
-  background: $off-black;
+  background: #1f1227;
   min-height: 300px;
   @include clearfix;
 
