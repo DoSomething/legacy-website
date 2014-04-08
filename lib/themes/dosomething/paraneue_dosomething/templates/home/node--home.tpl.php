@@ -70,10 +70,92 @@ if( theme_get_setting('show_campaign_finder') ) {
     </div>
   </div>
 
-  <div id="campaign-results" class="finder--results">
-  </div>
+  <div class="finder--results js-campaign-blankslate">
+    <div class="campaign-result big">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/images/bully_text_square.jpg?itok=jFTUW6sr">
+      <div class="headline">
+        <h3>The Bully Text</h3>
+        <p>Challenge friends to stand up to bullying on their phones</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/bully-text"><span>The Bully Text</span></a>
+    </div>
+    <div class="campaign-result">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/PregnancyText_hero_square.jpg?itok=HgdCEvn2">
+      <div class="headline">
+        <h3>Pregnancy Text</h3>
+        <p>Send your friends a text baby to show them how their lives would change if they were a parent.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/pregnancy-text"><span>Pregnancy Text</span></a>
+    </div>
+    <div class="campaign-result">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/images/MindOnMyMoney_hero_square3.jpg?itok=T2RyqaBR">
+      <div class="headline">
+        <h3>Mind On My Money</h3>
+        <p>Run a workshop for your friends to teach them personal finance tips.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/mind-my-money"><span>Mind On My Money</span></a>
+    </div>
+    <div class="campaign-result">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/images/PBJamSlam_hero_square_0.jpg?itok=R5JQKLzW">
+      <div class="headline">
+        <h3>Peanut Butter + Jam Slam</h3>
+        <p>Collect peanut butter for your local food bank.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/peanut-butter-jam-slam"><span>Peanut Butter + Jam Slam</span></a>
+    </div>
+    <div class="campaign-result">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/ComebackClothes_hero_square.jpg?itok=4FFah0EJ">
+      <div class="headline">
+        <h3>Comeback Clothes</h3>
+        <p>Recycle old or worn-out clothes to help our planet.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/comeback-clothes"><span>Comeback Clothes</span></a>
+    </div>
+    <div class="campaign-result">
+
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/MommoGrams_hero_square.jpg?itok=Eiv2MgFT">
+      <div class="headline">
+        <h3>Momm-o-grams</h3>
+        <p>Make your mom a personalized card telling her to get a mammogram.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/momm-o-grams"><span>Momm-o-grams</span></a>
+    </div>
+    <div class="campaign-result">
+
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/images/UrbanGarden_hero_square.jpg?itok=r8NXZAmG">
+      <div class="headline">
+        <h3>Planting Par-tay</h3>
+        <p>Host a gardening shindig in a local green space.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/planting-par-tay"><span>Planting Par-tay</span></a>
+    </div>
+    <div class="campaign-result">
+
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/PromForAll_hero_square.jpg?itok=h9ZjTXGv">
+      <div class="headline">
+        <h3>Prom for All</h3>
+        <p>Run a dress drive so everyone can feel their best at prom.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/prom-all"><span>Prom for All</span></a>
+    </div>
+
+    <div class="campaign-result">
+      <div class="flag staff-pick">Staff Pick</div>
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="https://beta.dosomething.org/sites/default/files/styles/300x300/public/images/MindOnMyMoney_hero_square3.jpg?itok=T2RyqaBR">
+      <div class="headline">
+        <h3>Mind On My Money</h3>
+        <p>Run a workshop for your friends to teach them personal finance tips.</p>
+      </div>
+      <a class="full-link" href="https://beta.dosomething.org/campaigns/mind-my-money"><span>Mind On My Money</span></a>
+    </div>
   </div>
 
+  <div class="finder--results js-campaign-results"></div>
 
   <div class="home--sponsors">
     <h4>Sponsors</h4>
