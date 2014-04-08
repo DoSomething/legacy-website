@@ -10,7 +10,7 @@ if( theme_get_setting('show_campaign_finder') ) {
 ?>
 
 <div class="home--wrapper">
-  <div class="campaign-finder js-campaign-finder">
+  <div class="finder--form js-campaign-finder">
     <div class="home--hero">
       <div class="header">
         <h1>What do you wanna do <span class="underline">today</span>?</h1>
@@ -70,7 +70,9 @@ if( theme_get_setting('show_campaign_finder') ) {
     </div>
   </div>
 
-  <div id="campaign-results"></div>
+  <div id="campaign-results" class="finder--results">
+  </div>
+  </div>
 
 
   <div class="home--sponsors">
