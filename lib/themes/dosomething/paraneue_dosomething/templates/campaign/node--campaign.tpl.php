@@ -223,6 +223,7 @@
 
       <?php if (isset($signup_data_form)): ?>
       <script id="modal-signup-data-form" type="text/cached-modal">
+        <h2 class="banner"><?php print $signup_data_form_; ?></h2>
         <a href="#" class="js-close-modal modal-close-button white">×</a>
           <div><?php print render($signup_data_form); ?></div>
         <a href="#" class="js-close-modal">Back to main page</a>
