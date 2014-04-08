@@ -95,6 +95,18 @@ class ReportbackEntity extends Entity {
   }
 
   /**
+   * Saves given $value into dosomething_reportback_field_data for given $name.
+   */
+  public function saveFieldValue($name, $value) {
+    return db_merge('dosomething_reportback_field_data')
+      ->key(array('rbid' => $this->rbid, 'name' => $name))
+      ->fields(array(
+          'value' => $value,
+      ))
+      ->execute();
+}
+
+  /**
    * Logs current entity values with given $op string.
    */
   public function insertLog($op) {
@@ -213,6 +225,12 @@ class ReportbackEntityController extends EntityAPIController {
     if (isset($entity->fid)) {
       // Add it into the reportback files.
       $entity->insertFid($entity->fid);
+    }
+    // If reportback field values exist:
+    if (isset($entity->field_values)) {
+      foreach ($entity->field_values as $name => $value) {
+        $entity->saveFieldValue($name, $value);
+      }
     }
     // Log the write operation.
     $entity->insertLog($op);
