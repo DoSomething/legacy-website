@@ -271,12 +271,6 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     '#type' => 'file',
     '#title' => t('Upload a pic'),
   );
-  // If a custom reportback field exists and is set to active:
-  if (isset($entity->field) && $entity->field['status'] == 1) {
-    $field_name = $entity->field['name'];
-    // Add it as a form element.
-    $form[$field_name] = dosomething_reportback_get_reportback_field_form_element($entity->field);
-  }
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
@@ -294,6 +288,12 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     ),
     '#default_value' => $entity->quantity,
   );
+  // If a custom reportback field exists and is set to active:
+  if (isset($entity->field) && $entity->field['status'] == 1) {
+    $field_name = $entity->field['name'];
+    // Add it as a form element.
+    $form[$field_name] = dosomething_reportback_get_reportback_field_form_element($entity->field);
+  }
   $form['why_participated'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
