@@ -42,87 +42,64 @@
 }
 
 .dropdown {
-  @include omega(3n);
-
+  background: #fff;
+  padding: .5rem 1rem;
   @include media($tablet) {
-    margin: 0;
+    @include span-columns(5 of 14);
+    @include omega(3n);
   }
+
+  &.small {
+    @include media($tablet) {
+      @include span-columns(4 of 14);
+    }
+  }
+
+  li {
+    display: block;
+    padding: 0.1rem 0;
+  }
+
+  .caret-toggle {
+    color: $purple;
+    cursor: pointer;
+
+    &:before {
+      content: ' ';
+      display: inline-block;
+      height: 0;
+      width: 0;
+      vertical-align: middle;
+      border-left: .5em solid;
+      border-top: .5em solid transparent;
+      border-bottom: .5em solid transparent;
+      margin-left: -1em;
+      margin-right: .5em;
+    }
+  }
+
   .dropdown-menu {
     display: none;
-  }
-}
-
-.open {
-  .caret-toggle:before {
-    margin-left: -1.5em;
-    margin-right: .5em;
-    margin-top: .25em;
-    border-top: .5em solid;
-    border-right: .5em solid transparent;
-    border-left: .5em solid transparent;
-  }
-
-  .dropdown-menu {
-    display: block;
     margin-top: 0.5em;
 
     ul {
       padding-left: 1rem;
     }
   }
-}
 
-#campaign-results {
-  position: relative;
-  background: $off-black;
-  min-height: 300px;
-  @include clearfix;
-
-  p {
-    margin-bottom: 1em;
-  }
-
-  .spinner {
-    display: none;
-  }
-
-  &.loading {
-    &:before {
-      content: "";
-      display: block;
-      background: rgba(255, 255, 255, 0.2);
-      width: 100%;
-      height: 100%;
-      @include animation(fadeIn);
-    }
-
-    .spinner {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -1.5em;
+  &.open {
+    .caret-toggle:before {
       margin-left: -1.5em;
+      margin-right: .5em;
+      margin-top: .25em;
+      border-top: .5em solid;
+      border-right: .5em solid transparent;
+      border-left: .5em solid transparent;
     }
-  }
 
-}
-
-.caret-toggle {
-  color: $purple;
-  cursor: pointer;
-
-  &:before {
-    content: ' ';
-    display: inline-block;
-    height: 0;
-    width: 0;
-    vertical-align: middle;
-    border-left: .5em solid;
-    border-top: .5em solid transparent;
-    border-bottom: .5em solid transparent;
-    margin-left: -1em;
-    margin-right: .5em;
+    .dropdown-menu {
+      display: block;
+    }
   }
 }
 
@@ -131,28 +108,6 @@
   -moz-column-count: 2;
   -webkit-column-count: 2;
   column-count: 2;
-}
-
-.toggle {
-  background: #fff;
-  padding: .5rem 1rem;
-
-  li {
-    display: block;
-    padding: 0.1rem 0;
-  }
-}
-
-.toggle-lg {
-  @include media($tablet) {
-    @include span-columns(5 of 14);
-  }
-}
-
-.toggle-sm {
-  @include media($tablet) {
-    @include span-columns(4 of 14);
-  }
 }
 
 .campaign-result {
@@ -195,6 +150,51 @@
   }
 }
 
+.campaign-search {
+  text-align: center;
+  margin-top: 1.5rem;
+
+  @include media($tablet) {
+    display: none;
+  }
+}
+
+#campaign-results {
+  position: relative;
+  background: $off-black;
+  min-height: 300px;
+  @include clearfix;
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .spinner {
+    display: none;
+  }
+
+  &.loading {
+    &:before {
+      content: "";
+      display: block;
+      background: rgba(255, 255, 255, 0.2);
+      width: 100%;
+      height: 100%;
+      @include animation(fadeIn);
+    }
+
+    .spinner {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1.5em;
+      margin-left: -1.5em;
+    }
+  }
+
+}
+
 .flag {
   background: $yellow;
   color: #000;
@@ -206,21 +206,4 @@
   left: 0;
   font-weight: 600;
   font-size: .9em;
-}
-
-.campaign-search {
-  @include media($tablet) {
-    display: none;
-  }
-  text-align: center;
-
-  button {
-    background: $blue;
-    color: #fff;
-    border: 0;
-    padding: .5em 1em;
-    font-size: 1.5em;
-    border-radius: .5em;
-    cursor: pointer;
-  }
 }
