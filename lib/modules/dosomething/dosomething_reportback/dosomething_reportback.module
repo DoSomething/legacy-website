@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_reportback.features.inc';
+include_once 'dosomething_reportback.forms.inc';
 
 /**
  * Implements hook_entity_info().
@@ -287,6 +288,12 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     ),
     '#default_value' => $entity->quantity,
   );
+  // If a custom reportback field exists and is set to active:
+  if (isset($entity->field) && $entity->field['status'] == 1) {
+    $field_name = $entity->field['name'];
+    // Add it as a form element.
+    $form[$field_name] = dosomething_reportback_get_reportback_field_form_element($entity->field);
+  }
   $form['why_participated'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
@@ -498,6 +505,8 @@ function dosomething_reportback_save($values) {
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
+    // Set reportback field values.
+    dosomething_reportback_set_field_values($entity, $values);
     // Save the entity.
     $entity->save();
     // Return reportback rbid.
@@ -541,6 +550,20 @@ function dosomething_reportback_set_properties(&$entity, $values) {
 function dosomething_reportback_set_files(&$entity, $values) {
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
+  }
+}
+
+/**
+ * Sets a reportback entity's reportback field values.
+ */
+function dosomething_reportback_set_field_values(&$entity, $values) {
+  $entity->field_values = NULL;
+  // If this entity has an active custom field:
+  if ($entity->field != NULL && $entity->field['status'] == 1) {
+    $field_name = $entity->field['name'];
+    $entity->field_values = array(
+      $field_name => $values[$field_name],
+    );
   }
 }
 
@@ -678,4 +701,25 @@ function dosomething_reportback_views_data() {
     ),
   );
   return $data;
+}
+
+/**
+ * Returns the dosomething_reportback_field values for a given $nid.
+ *
+ * @param int $nid
+ *   The node nid to query dosomething_reportback_field with.
+ * @param string $name
+ *   Optional - The field name to additionally query by.
+ *
+ * @return mixed
+ *   An array of the reportback_field values if exists, NULL if doesn't exist.
+ */
+function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
+  $query = db_select('dosomething_reportback_field', 'f')
+    ->fields('f')
+    ->condition('nid', $nid);
+  if ($name) {
+    $query->condition('name', $name);
+  }
+  return $query->execute()->fetchAssoc();
 }

@@ -295,3 +295,29 @@ function dosomething_reportback_update_7004() {
     db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
   }
 }
+
+/**
+ * Adds a dosomething_reportback_field for Comeback Clothes (nid 362).
+ */
+function dosomething_reportback_update_7005() {
+  $nid = 362;
+  $name = 'dropoff_hm';
+  $label = 'Did you recycle the clothes through H&M?';
+  // Looks funny but we wanna keep the line break.
+  $options = '1|Yes
+0|No';
+
+  // If a record does not exist for $nid and $name:
+  if (!dosomething_reportback_get_reportback_field_info($nid, $name)) {
+    $bada_bing = db_insert('dosomething_reportback_field')
+      ->fields(array(
+        'nid' => $nid,
+        'name' => $name,
+        'status' => 0,
+        'label' => $label,
+        'type' => 'radios',
+        'options' => $options,
+      ))
+      ->execute();
+  }
+}
