@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_reportback.features.inc';
+include_once 'dosomething_reportback.forms.inc';
 
 /**
  * Implements hook_entity_info().
@@ -678,4 +679,21 @@ function dosomething_reportback_views_data() {
     ),
   );
   return $data;
+}
+
+/**
+ * Returns the dosomething_reportback_field values for a given $nid.
+ *
+ * @param int $nid
+ *   The node nid to query dosomething_reportback_field with.
+ *
+ * @return mixed
+ *   An array of the reportback_field values if exists, NULL if doesn't exist.
+ */
+function dosomething_reportback_get_reportback_field_info($nid) {
+  return db_select('dosomething_reportback_field', 'f')
+    ->fields('f')
+    ->condition('nid', $nid)
+    ->execute()
+    ->fetchAssoc();
 }

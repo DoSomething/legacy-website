@@ -56,6 +56,11 @@ function _dosomething_campaign_form_extras(&$form, &$form_state) {
     );
     return;
   }
+  // If admin:
+  if (user_access('administer modules') && module_exists('dosomething_reportback')) {
+    // Include reportback field configuration form.
+    _dosomething_reportback_node_reportback_field_form($form, $form_state);
+  }
   // Include signup data form configuration form.
   _dosomething_signup_node_signup_data_form($form, $form_state);
   // Set prefix for custom variables.
