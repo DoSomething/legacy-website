@@ -168,6 +168,12 @@ function dosomething_reportback_schema() {
         'length' => 128,
         'not null' => TRUE,
       ),
+      'status' => array(
+        'description' => 'Boolean indicating the field is enabled.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'label' => array(
         'description' => 'The user facing label of the reportback field.',
         'type' => 'varchar',
