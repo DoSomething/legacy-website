@@ -160,13 +160,13 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => t('First Name'),
-      '#default_value' => $account->field_first_name[LANGUAGE_NONE][0]['value'],
+      '#default_value' => isset($account->field_first_name[LANGUAGE_NONE][0]['value']) ? $account->field_first_name[LANGUAGE_NONE][0]['value'] : '',
     );
     $form['user_last_name'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => t('Last Name'),
-      '#default_value' => $account->field_last_name[LANGUAGE_NONE][0]['value'],
+      '#default_value' => isset($account->field_last_name[LANGUAGE_NONE][0]['value']) ? $account->field_last_name[LANGUAGE_NONE][0]['value'] : '',
     );
     $form['user_address'] = array(
       '#type' => 'addressfield',
@@ -176,7 +176,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       ),
       '#required' => TRUE,
       '#context' => array('countries' => array('US')),
-      '#default_value' => $account->field_address[LANGUAGE_NONE][0],
+      '#default_value' => isset($account->field_address[LANGUAGE_NONE][0]) ? $account->field_address[LANGUAGE_NONE][0] : '',
       '#required' => TRUE,
     );
   }
