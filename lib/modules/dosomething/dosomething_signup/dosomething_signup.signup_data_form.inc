@@ -182,7 +182,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   }
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => $label,
+    '#value' => t('Submit'),
     '#attributes' => array(
       'class' => array(
         'btn',
