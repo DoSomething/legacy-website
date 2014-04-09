@@ -15,7 +15,7 @@ if( theme_get_setting('show_campaign_finder') ) {
       <div class="header">
         <h1>What do you wanna do <span class="underline">today</span>?</h1>
       </div>
-      <div class="header">
+      <div class="js-finder-form header">
         <div class="dropdown large">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
           <p class="facet-field">What are you passionate about?</p>
