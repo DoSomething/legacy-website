@@ -268,8 +268,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $action_guide = $target['entity'];
       $action_guide_wrapper = entity_metadata_wrapper('node', $action_guide);
       $action_guide_desc = $action_guide_wrapper->field_description->value();
+      $action_guide_content = node_view($action_guide);
       $vars['action_guides'][$delta]['desc'] = $action_guide_desc;
-      $vars['action_guides'][$delta]['content'] = render(node_view($action_guide));
+      $vars['action_guides'][$delta]['content'] = render($action_guide_content);
     }
   }
   // Preprocess signup data form link.

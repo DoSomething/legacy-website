@@ -559,7 +559,7 @@ function dosomething_reportback_set_files(&$entity, $values) {
 function dosomething_reportback_set_field_values(&$entity, $values) {
   $entity->field_values = NULL;
   // If this entity has an active custom field:
-  if ($entity->field != NULL && $entity->field['status'] == 1) {
+  if (isset($entity->field) && $entity->field['status'] == 1) {
     $field_name = $entity->field['name'];
     $entity->field_values = array(
       $field_name => $values[$field_name],
