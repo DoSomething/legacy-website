@@ -26,7 +26,24 @@ $authors = array(
   19 => 547446,   /*'bclark@dosomething.org',        */
   22 => 329195,   /*'mfantini@dosomething.org',      */
 );
-// Grab all nodes
+
+// Need to update the revisions first, otherwise it zeros out uids
+$revision_results = db_query("SELECT nid, vid, uid from node_revision");
+foreach($revision_results as $result) {
+  $old_uid = $result->uid;
+  $new_uid = $authors[$old_uid];
+  if ($new_uid)  {
+    echo "Updating node revision: " . $result->nid . ' : ' . $result->vid . " from " . $old_uid . " to " . $new_uid . "\n";
+    db_update('node_revision') // Table name no longer needs {}
+      ->fields(array(
+        'uid' => $new_uid,
+      ))
+      ->execute();
+
+  }
+}
+
+// Then, grab all nodes
 $results = db_query("SELECT nid, uid from node");
 foreach($results as $result) {
   // For each node, grab the old and new uid.
@@ -34,11 +51,13 @@ foreach($results as $result) {
   $new_uid = $authors[$old_uid];
   // If in the authors array...
   if ($new_uid) {
-    echo "Updating node: " . $node->nid . " from " . $old_uid . " to" . $new_uid . "\n";
     $node = node_load($result->nid);
+    echo "Updating node: " . $node->nid . " from " . $old_uid . " to " . $new_uid . "\n";
     $node->uid = $new_uid;
     // Update the node author.
     node_save($node);
   }
 }
+
+
 echo "Finished";
