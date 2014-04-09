@@ -3,7 +3,7 @@
  * Script to update node authors from the random uids from stage to acutal uids.
  *
  * To get the authors array, ran this query on stage and then query for matching uids on prod.
- * SELECT DISTINCT u.uid, u.mail FROM users u INNER JOIN node n on n.uid = u.uid;
+ * SELECT DISTINCT u.uid, u.mail FROM users u INNER JOIN node  n on n.uid = u.uid NNER JOIN node_revision nr on nr.uid = u.uid;
  *
  * drush --script-path=../scripts/ php-script update-node-authors.php
  *
@@ -21,7 +21,9 @@ $authors = array(
   8  => 329195,   /*'mfantini@dosomething.org',      */
   9  => 1193105,  /*'nmody@dosomething.org',         */
   11 => 1192054,  /*'aruderman@dosomething.org',     */
+  12 => 1324854,   /*'mholford@dosomething.org',     */
   14 => 1157702,  /*'jlorch@dosomething.org',        */
+  15 => 879789,    /*'bkassoy@dosomething.org',      */
   18 => 1258186,  /*'dfurnes@dosomething.org',       */
   19 => 547446,   /*'bclark@dosomething.org',        */
   22 => 329195,   /*'mfantini@dosomething.org',      */
