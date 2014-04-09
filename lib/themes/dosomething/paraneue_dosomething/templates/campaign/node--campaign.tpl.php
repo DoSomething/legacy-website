@@ -392,9 +392,7 @@
           <?php if (isset($sponsors)): ?>
           <div class="sponsor-wrapper">
             In partnership with
-            <?php foreach ($partners as $key => $partner) :?>
-              <?php print $partner['name']; ?>
-            <?php endforeach; ?>
+              <?php print $formatted_partners; ?>
           </div>
           <?php endif; ?>
         </div>

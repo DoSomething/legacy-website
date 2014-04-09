@@ -1,3 +1,4 @@
+
 <?php
 /**
  * @file
@@ -47,6 +48,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
       dosomething_campaign_preprocess_partners_vars($vars);
+      dosomething_campaign_format_partnerts_list($vars);
     }
 
     // Preprocess any custom campaign variables.
@@ -66,6 +68,32 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
   }
+}
+/**
+ * Returns a list of partners formatted correctly
+ *
+ * If there are two partners, seperate them with "and"
+ * If there are three or more partners a comma seperating each and "and" before the last.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_campaign_format_partnerts_list(&$vars) {
+  $partners = $vars['partners'];
+  $formatted_partners = '';
+  foreach ($partners as $key => $partner) {
+    $formatted_partners .= $partner['name'];
+    if (count($partners) > 2 && $key == (count($partners) -2)) {
+      $formatted_partners .= ' and ';
+    }
+    elseif (count($partners) > 2 && $key < (count($partners) -1)) {
+      $formatted_partners .= ', ';
+    }
+    elseif ($key < (count($partners) -1)) {
+      $formatted_partners .= ' and ';
+    }
+  }
+  $vars['formatted_partners'] = $formatted_partners;
 }
 
 /**
