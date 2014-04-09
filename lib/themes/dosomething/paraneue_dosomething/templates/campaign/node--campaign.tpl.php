@@ -392,12 +392,7 @@
           <?php if (isset($sponsors)): ?>
           <div class="sponsor-wrapper">
             In partnership with
-            <?php foreach ($partners as $key => $partner) :?>
-              <?php print $partner['name']; ?>
-              <?php if (count($partners) > 2 && $key == (count($partners) -2)): print 'and '; ?>
-              <?php elseif (count($partners) > 2 && $key < (count($partners) -1)): print ','; ?>
-              <?php elseif ($key < (count($partners) -1)): print 'and'; endif;?>
-            <?php endforeach; ?>
+              <?php print $formatted_partners; ?>
           </div>
           <?php endif; ?>
         </div>
