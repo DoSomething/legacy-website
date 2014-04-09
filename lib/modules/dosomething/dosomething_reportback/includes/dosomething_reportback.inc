@@ -232,6 +232,19 @@ class ReportbackEntityController extends EntityAPIController {
       '#type' => 'markup',
       '#markup' => $entity->noun . ' ' . $entity->verb,
     );
+    // If entity has an active reportback field:
+    if (isset($entity->field) && $entity->field['status']==1) {
+      $build['reportback_field_label'] = array(
+        '#type' => 'markup',
+        '#markup' => $entity->field['label'],
+      );
+      if (isset($entity->field['value'])) {
+        $build['reportback_field_value'] = array(
+          '#type' => 'markup',
+          '#markup' => $entity->field['value'],
+        );
+      }
+    }
     $build['why_participated'] = array(
       '#type' => 'markup',
       '#markup' => check_plain($entity->why_participated),
