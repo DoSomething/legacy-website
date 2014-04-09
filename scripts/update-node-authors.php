@@ -36,10 +36,12 @@ foreach($revision_results as $result) {
   $new_uid = $authors[$old_uid];
   if ($new_uid)  {
     echo "Updating node revision: " . $result->nid . ' : ' . $result->vid . " from " . $old_uid . " to " . $new_uid . "\n";
-    db_update('node_revision') // Table name no longer needs {}
+    db_update('node_revision')
       ->fields(array(
         'uid' => $new_uid,
       ))
+      ->condition('uid', $old_uid)
+      ->condition('nid', $result->nid)
       ->execute();
 
   }
