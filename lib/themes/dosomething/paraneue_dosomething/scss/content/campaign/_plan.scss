@@ -13,12 +13,25 @@
   }
 }
 
+// TODO: Temp fix. The markup for this section will be changing to floated containers, instead of using wrapping column divs.
+.step.plan .col {
+  @include media($tablet) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+// TODO: Temp fix to margin on tablet, since column divs kill the margin collapsing effect on the heading for Location.
 .location-finder {
   margin-bottom: 2rem;
 
   @include media($tablet) {
     @include span-columns(11);
     @include shift(2);
+
+    h4 {
+      margin-top: 0;
+    }
   }
 
   p {
