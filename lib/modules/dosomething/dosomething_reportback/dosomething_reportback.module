@@ -488,6 +488,8 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
  *
  * @param array $values
  *   The reportback entity values to save.
+ *   If the rbid is set to 0, a new entity will be saved.
+ *   Otherwise if a numeric rbid is passed, the entity will be updated.
  *
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
