@@ -6,13 +6,14 @@
  */
 
 function dosomething_zendesk_admin_page() {
-  $auth = render(drupal_get_form('dosomething_zendesk_config_form'));
-  $output = $auth;
+  $config_form = drupal_get_form('dosomething_zendesk_config_form');
+  $output = render($config_form);
   // If authenticated:
   if ($client = dosomething_zendesk_get_client()) {
     $output .= '<hr>';
     // Include the groups settings form.
-    $output .= render(drupal_get_form('dosomething_zendesk_groups_config_form'));
+    $groups_form = drupal_get_form('dosomething_zendesk_groups_config_form');
+    $output .= render($groups_form);
   }
   return $output;
 }
