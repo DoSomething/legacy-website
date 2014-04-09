@@ -39,9 +39,9 @@ if( theme_get_setting('show_campaign_finder') ) {
           <p class="facet-field">How long do you have?</p>
           <div class="dropdown-menu">
             <ul>
-              <li><label><input name="time" type="checkbox" value="[* TO 2]" />Less than 2 hours</label></li>
-              <li><label><input name="time" type="checkbox" value="[2 TO 5]" />5 hours</label></li>
-              <li><label><input name="time" type="checkbox" value="[5 TO *]" />10 hours</label></li>
+              <li><label><input name="time" type="checkbox" value="[* TO 2]" />1 hour or less</label></li>
+              <li><label><input name="time" type="checkbox" value="[2 TO 5]" />2-5 hours</label></li>
+              <li><label><input name="time" type="checkbox" value="[5 TO *]" />5+ hours</label></li>
             </ul>
           </div>
         </div>
