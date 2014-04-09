@@ -9,7 +9,7 @@
       <?php if (isset($signup_button)): ?><?php print render($signup_button); ?><?php endif; ?>
 
       <?php if (isset($scholarship)): ?>
-      <div class="scholarship-wrapper">
+      <div class="scholarship-callout -below -pitch">
         <p class="copy"><?php print $scholarship; ?></p>
       </div>
       <?php endif; ?>
