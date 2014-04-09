@@ -21,5 +21,22 @@
         }
       }
     }
+
+    .form-type-radio {
+      clear: both;
+      margin-bottom: 0.25rem;
+      overflow: auto;
+
+      input[type="radio"] {
+        float: left;
+      }
+
+      label {
+        clear: none;
+        float: left;
+        margin: 0 0 0 0.25rem;
+        width: auto;
+      }
+    }
   }
 }
