@@ -376,15 +376,16 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
       }
     }
     if (module_exists('dosomething_reportback')) {
-      // Initalize reportback as a new entity for this nid.
-      $reportback = entity_create('reportback', array(
-        'nid' => $node->nid,
-        'quantity' => NULL,
-        'why_participated' => NULL,
-      ));
       if ($rbid = dosomething_reportback_exists($node->nid)) {
-        // Replace with existing reportback entity if it exists.
         $reportback = reportback_load($rbid);
+      }
+      else {
+        // Initalize reportback as a new entity for this nid.
+        $reportback = entity_create('reportback', array(
+          'nid' => $node->nid,
+          'quantity' => NULL,
+          'why_participated' => NULL,
+        ));
       }
       $wrapper = entity_metadata_wrapper('node', $node->nid);
       // Set Reportback Form variable in node content for rendering in theme layer.

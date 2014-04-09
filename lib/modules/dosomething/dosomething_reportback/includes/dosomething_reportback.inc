@@ -38,8 +38,8 @@ class ReportbackEntity extends Entity {
       $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
       // Store the field configuration info.
       $this->field = dosomething_reportback_get_reportback_field_info($this->nid);
-      // If active field:
-      if ($this->field && $this->field['status'] == 1) {
+      // If existing reportback and active field:
+      if (isset($this->rbid) && $this->field && $this->field['status'] == 1) {
         // Store the user value for the reportback field.
         $this->field['value'] = $this->getFieldValue($this->field['name']);
       }
