@@ -50,5 +50,6 @@
   .sources {
     margin: 1.5rem 0 0;
     display: none; // Hide sources by default! Wait for user to toggle visibility
+    word-wrap: break-word;
   }
 }
