@@ -497,7 +497,7 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 function dosomething_reportback_save($values) {
   $rbid = $values['rbid'];
   if ($rbid == 0) {
-    $entity = entity_create('reportback', array());
+    $entity = entity_create('reportback', array('nid' => $values['nid']));
   }
   else {
     $entity = entity_load_single('reportback', $rbid);
