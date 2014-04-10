@@ -41,7 +41,65 @@ function dosomething_campaign_menu() {
     'access callback' => 'dosomething_campaign_reportback_confirmation_page_access',
     'access arguments' => array(1),
   );
+
+  // Scholarship page
+  $items['about/scholarships'] = array(
+    'title' => t('Scholarships'),
+    'page callback' => 'dosomething_campaign_schaolarships_page',
+    'access callback' => TRUE,
+  );
+
   return $items;
+}
+/**
+ * Page callback for active scholarships.
+ */
+function dosomething_campaign_schaolarships_page() {
+  // Fake featurey flag so this is safe to deploy without a theme.
+  if (variable_get('dosomething_campaign_scholarship_page_is_active', '')) {
+    // Grab published campaigns with cash prizes.
+    $scholarships = dosomething_campaign_get_schaolarships();
+    if (isset($scholarships)) {
+      // Get a link, CTA, image, etc for each campaign.
+      foreach($scholarships as $key => $scholarship) {
+        $rows[$key]['data'] = dosomething_campaign_get_recommended_campaign_vars($scholarship['nid']);
+        unset($rows[$key]['data']['src']);
+        $rows[$key]['data']['amount'] = '$' . $scholarship['amount'];
+      }
+
+      $vars['header'] = array('nid', 'title', 'cta', 'image', 'amount');
+      $vars['rows'] = $rows;
+
+      // For now, just send back a table view of the campaigns.
+      return theme('table', $vars);
+    }
+    return t('No active scholarships right now, check back!');
+  }
+  return drupal_not_found();
+}
+
+/**
+ * Returns all published campaigns with a schalorship.
+ */
+function dosomething_campaign_get_schaolarships() {
+  // Find active campaigns with a scholarship.
+   $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->fields('s', array('field_scholarship_amount_value'))
+    ->condition('type', 'campaign');
+  $query->innerJoin('field_data_field_scholarship_amount', 's', 's.entity_id = n.nid');
+  $results = $query->execute();
+
+  foreach($results as $key => $result) {
+    $scholarships[$key]['nid'] = $result->nid;
+    $scholarships[$key]['title'] = $result->title;
+    $scholarships[$key]['amount'] = $result->field_scholarship_amount_value;
+  }
+  if ($scholarships) {
+    return $scholarships;
+  }
+  // If no active scholarships, return null.
+  return NULL;
 }
 
 /**
