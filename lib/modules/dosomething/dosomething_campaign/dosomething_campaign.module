@@ -45,7 +45,7 @@ function dosomething_campaign_menu() {
   // Scholarship page
   $items['about/scholarships'] = array(
     'title' => t('Scholarships'),
-    'page callback' => 'dosomething_campaign_schaolarships_page',
+    'page callback' => 'dosomething_campaign_scholarships_page',
     'access callback' => TRUE,
   );
 
@@ -54,20 +54,21 @@ function dosomething_campaign_menu() {
 /**
  * Page callback for active scholarships.
  */
-function dosomething_campaign_schaolarships_page() {
+function dosomething_campaign_scholarships_page() {
   // Fake featurey flag so this is safe to deploy without a theme.
   if (variable_get('dosomething_campaign_scholarship_page_is_active', '')) {
     // Grab published campaigns with cash prizes.
-    $scholarships = dosomething_campaign_get_schaolarships();
+    $scholarships = dosomething_campaign_get_scholarships();
     if (isset($scholarships)) {
       // Get a link, CTA, image, etc for each campaign.
       foreach($scholarships as $key => $scholarship) {
         $rows[$key]['data'] = dosomething_campaign_get_recommended_campaign_vars($scholarship['nid']);
         unset($rows[$key]['data']['src']);
         $rows[$key]['data']['amount'] = '$' . $scholarship['amount'];
+        $rows[$key]['data']['deadline'] = $scholarship['deadline'];
       }
 
-      $vars['header'] = array('nid', 'title', 'cta', 'image', 'amount');
+      $vars['header'] = array('nid', 'title', 'cta', 'image', 'amount', 'deadline');
       $vars['rows'] = $rows;
 
       // For now, just send back a table view of the campaigns.
@@ -81,19 +82,27 @@ function dosomething_campaign_schaolarships_page() {
 /**
  * Returns all published campaigns with a schalorship.
  */
-function dosomething_campaign_get_schaolarships() {
+function dosomething_campaign_get_scholarships() {
   // Find active campaigns with a scholarship.
    $query = db_select('node', 'n')
     ->fields('n', array('nid', 'title'))
     ->fields('s', array('field_scholarship_amount_value'))
-    ->condition('type', 'campaign');
+    ->fields('hs', array('field_high_season_value2'))
+    ->condition('type', 'campaign')
+    ->condition('status', 1, '=');
   $query->innerJoin('field_data_field_scholarship_amount', 's', 's.entity_id = n.nid');
+  $query->leftJoin('field_data_field_high_season', 'hs', 'hs.entity_id = n.nid');
+  $query->where('field_high_season_value2 > now()');
   $results = $query->execute();
 
   foreach($results as $key => $result) {
+    // $deadline = date_parse_from_format('Y-m-d H:i:s', $result->field_high_season_value2);
+    // For some reason $result->field_high_season_value2 is a string.
+    $deadline = strtotime($result->field_high_season_value2);
     $scholarships[$key]['nid'] = $result->nid;
     $scholarships[$key]['title'] = $result->title;
     $scholarships[$key]['amount'] = $result->field_scholarship_amount_value;
+    $scholarships[$key]['deadline'] = 'Ends ' . date('F j', $deadline);
   }
   if ($scholarships) {
     return $scholarships;
