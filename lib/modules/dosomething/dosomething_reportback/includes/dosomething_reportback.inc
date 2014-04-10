@@ -122,10 +122,18 @@ class ReportbackEntity extends Entity {
    */
   public function saveFieldValue($name, $value) {
     return db_merge($this->field_data_table)
-      ->key(array('rbid' => $this->rbid, 'name' => $name))
-      ->fields(array(
+      ->key(array(
+          'rbid' => $this->rbid,
+          'name'  => $name,
+        ))
+      ->insertFields(array(
+          'rbid' => $this->rbid,
+          'name'  => $name,
           'value' => $value,
-      ))
+        ))
+      ->updateFields(array(
+          'value' => $value,
+        ))
       ->execute();
   }
 
