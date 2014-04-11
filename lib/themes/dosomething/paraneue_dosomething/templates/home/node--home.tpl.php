@@ -22,14 +22,14 @@ if( theme_get_setting('show_campaign_finder') ) {
           <div class="dropdown-menu">
             <ul class="two-col">
               <li><label><input name="cause" type="checkbox" value="16" />Animals</label></li>
-              <li><label><input name="cause" type="checkbox" value="13 AND 17" />Bullying + Violence</label></li>
+              <li><label><input name="cause" type="checkbox" value="(13 OR 17)" />Bullying + Violence</label></li>
               <li><label><input name="cause" type="checkbox" value="12" />Disasters</label></li>
               <li><label><input name="cause" type="checkbox" value="14" />Discrimination</label></li>
               <li><label><input name="cause" type="checkbox" value="2" />Education</label></li>
               <li><label><input name="cause" type="checkbox" value="4" />Environment</label></li>
-              <li><label><input name="cause" type="checkbox" value="19 AND 5" />Health</label></li>
-              <li><label><input name="cause" type="checkbox" value="6 AND 15" />Homelessness + Poverty</label></li>
-              <li><label><input name="cause" type="checkbox" value="1 AND 21" />Sex + Relationships</label></li>
+              <li><label><input name="cause" type="checkbox" value="(19 OR 5)" />Health</label></li>
+              <li><label><input name="cause" type="checkbox" value="(6 OR 15)" />Homelessness + Poverty</label></li>
+              <li><label><input name="cause" type="checkbox" value="(1 OR 21)" />Sex + Relationships</label></li>
             </ul>
           </div>
         </div>
