@@ -17,8 +17,9 @@
   .header {
     margin-bottom: 1rem;
     @include row;
-    @include span-columns(6);
-    @include shift(1);
+    @include span-columns(7);
+    @include shift(0.5);
+    @include omega();
 
     @include media($tablet) {
       @include span-columns(14);
@@ -29,8 +30,9 @@
       color: #fff;
       font-size: $font-large;
       font-weight: $weight-normal;
-      text-align: center;
+      line-height: 1.1;
       margin: 1.5rem 0 0.5rem;
+      text-align: center;
 
       @include media($tablet) {
         font-size: $font-larger;
