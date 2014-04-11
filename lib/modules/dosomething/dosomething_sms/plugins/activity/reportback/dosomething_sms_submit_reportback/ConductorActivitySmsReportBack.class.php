@@ -96,8 +96,28 @@ class ConductorActivitySmsReportBack extends ConductorActivity {
     $values['fid'] = $file->fid;
 
     // Get answers from context and set them to their appropriate properties.
-    foreach ($this->propertyToContextMap as $property => $context) {
-      $values[$property] = $state->getContext($context);
+    foreach ($this->propertyToContextMap as $property => $value) {
+      // If $value is not an array, then treat it as a context name to pull the value from.
+      if (!is_array($value)) {
+        $context = $value;
+        $values[$property] = $state->getContext($context);
+      }
+      // If $value is an array, then it's an indication the message needs to be converted in some way.
+      // 'yesno' conversion will convert a YES to a 1 and a NO to a 0.
+      else if ($value['conversion_type'] == 'yesno') {
+        $message = $state->getContext($value['context']);
+
+        $words = explode(' ', $message);
+        $firstWord = strtolower(array_shift($words));
+        $yesAnswers = array('y', 'yes', 'ya', 'yea');
+
+        if (in_array($firstWord, $yesAnswers)) {
+          $values[$property] = 1;
+        }
+        else {
+          $values[$property] = 0;
+        }
+      }
     }
 
     // Set nid and uid.
