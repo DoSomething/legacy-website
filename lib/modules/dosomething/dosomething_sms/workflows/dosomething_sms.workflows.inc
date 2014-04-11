@@ -94,12 +94,18 @@ $activity->noMmsResponse = 165425;
 $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
 $activity->name = 'ask_quantity';
 $activity->inputs = array('ask_picture');
-$activity->outputs = array('ask_why_participated');
+$activity->outputs = array('ask_dropoff');
 $activity->optInPathId = 165421;
 
 $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
-$activity->name = 'ask_why_participated';
+$activity->name = 'ask_dropoff';
 $activity->inputs = array('ask_quantity');
+$activity->outputs = array('ask_why_participated');
+$activity->optInPathId = 166261;
+
+$activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
+$activity->name = 'ask_why_participated';
+$activity->inputs = array('ask_dropoff');
 $activity->outputs = array('strip_signature');
 $activity->optInPathId = 165423;
 
@@ -117,6 +123,10 @@ $activity->mmsContext = 'ask_picture:mms';
 $activity->propertyToContextMap = array(
   'quantity' => 'ask_quantity:message',
   'why_participated' => 'ask_why_participated:message',
+  'dropoff_hm' => array(
+    'conversion_type' => 'yesno',
+    'context' => 'ask_dropoff:message',
+  ),
 );
 $activity->optInPathId = 165405;
 $activity->optOutCampaignId = 124765;
