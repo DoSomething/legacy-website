@@ -6,8 +6,9 @@
   }
 
   .facet-field {
-    margin-left: 1.5rem;
     font-weight: $weight-bold;
+    line-height: 1.1;
+    padding-left: 1.5rem;
   }
 
   p.facet-field {
@@ -22,7 +23,7 @@
     height: auto;
     font-size: 0.8em;
     font-weight: $weight-normal;
-    line-height: 1.5;
+    line-height: 1.4;
     margin: 0;
     padding: 0.5rem;
     cursor: pointer;
@@ -40,15 +41,15 @@
     }
 
     @include media($tablet) {
-      padding-bottom: 0;
-      padding-top: 0;
+      padding-bottom: 0.1rem;
+      padding-top: 0.1rem;
     }
   }
 
   .dropdown {
     background: #fff;
     margin-bottom: 1rem;
-    padding: .5rem 1rem;
+    padding: .6rem 1rem;
 
     @include media($tablet) {
       margin-bottom: 0;
@@ -79,18 +80,22 @@
     .caret-toggle {
       color: $purple;
       cursor: pointer;
+      margin-bottom: 0.25rem;
+      position: relative;
 
       &:before {
         content: ' ';
-        display: inline-block;
+        // display: inline-block;
         height: 0;
         width: 0;
         vertical-align: middle;
+        border-bottom: .5em solid transparent;
         border-left: .5em solid;
         border-top: .5em solid transparent;
-        border-bottom: .5em solid transparent;
-        margin-left: -1em;
-        margin-right: .5em;
+        // margin-left: -1em;
+        // margin-right: .5em;
+        left: 10px;
+        position: absolute;
       }
     }
 
@@ -105,12 +110,14 @@
 
     &.open {
       .caret-toggle:before {
-        margin-left: -1.5em;
-        margin-right: .5em;
-        margin-top: .25em;
-        border-top: .5em solid;
-        border-right: .5em solid transparent;
+        // margin-left: -1.5em;
+        // margin-right: .5em;
+        // margin-top: .25em;
         border-left: .5em solid transparent;
+        border-right: .5em solid transparent;
+        border-top: .5em solid;
+        left: 2px;
+        top: 3px;
       }
 
       .dropdown-menu {
@@ -197,12 +204,19 @@
 
     @include transition(background-image .5s ease-in-out);
 
+    @include media(450px) {
+      width: 50%;
+    }
+
     @include media($tablet) {
       float: left;
       width: 25%;
     }
 
     &.big {
+      @include media(450px) {
+        width: 100%;
+      }
       @include media($tablet) {
         width: 50%;
       }
@@ -230,6 +244,7 @@
       h3 {
         color: #fff;
         font-weight: $weight-bold;
+        line-height: 1.2;
         margin-bottom: 0;
       }
 
@@ -237,6 +252,7 @@
         color: #fff;
         font-size: 0.9rem;
         font-weight: $weight-normal;
+        line-height: 1.2;
         margin-bottom: 0;
       }
     }
@@ -249,9 +265,14 @@
       z-index: 1;
       background: $yellow;
       color: #000;
+      font-size: 0.75rem;
       font-weight: $weight-sbold;
       text-transform: uppercase;
       padding: 0.2em 0.5em;
+
+      @include media($tablet) {
+        font-size: 1rem;
+      }
     }
   }
 }
