@@ -5,6 +5,12 @@
  * Settings form UPS integration.
  */
 function dosomething_user_ups_api_settings($form, &$form_state) {
+  $form['dosomething_user_ups_test_integration'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Development integration?'),
+    '#description' => t('Check if NOT on a production environment'),
+    '#default_value' =>variable_get('dosomething_user_ups_test_integration'),
+  );
 
   $form['dosomething_user_ups_access_license_number'] = array(
     '#type' => 'textfield',
