@@ -79,6 +79,10 @@ projects[libraries][subdir] = "contrib"
 projects[link] = "1.2"
 projects[link][subdir] = "contrib"
 
+; MailSystem
+projects[mailsystem] = "2.34"
+projects[mailsystem][subdir] = "contrib"
+
 ; Markdown
 projects[markdown] = "1.2"
 projects[markdown][subdir] = "contrib"

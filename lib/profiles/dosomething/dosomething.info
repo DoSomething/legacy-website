@@ -38,6 +38,7 @@ dependencies[] = i18n
 dependencies[] = libraries
 dependencies[] = link
 dependencies[] = locale
+dependencies[] = mailsystem
 dependencies[] = markdown
 dependencies[] = message_broker_producer
 dependencies[] = metatag
