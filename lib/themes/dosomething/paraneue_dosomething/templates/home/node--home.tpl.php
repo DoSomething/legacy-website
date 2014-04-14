@@ -13,7 +13,7 @@ if( theme_get_setting('show_campaign_finder') ) {
   <div class="finder--form">
     <div class="home--hero">
       <div class="header">
-        <h1>What do you wanna do <span class="underline">today</span>?</h1>
+        <h1>What do you wanna do today?</h1>
       </div>
       <div class="js-finder-form header">
         <div class="dropdown large">
