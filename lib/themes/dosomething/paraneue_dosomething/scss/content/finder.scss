@@ -199,6 +199,8 @@
 
     @include transition(background-image .5s ease-in-out);
 
+    // TODO: Custom media queries needed for scenarios inbetween currently established media queries.
+    // May be useful to add additional media queries to allow flexibility within the established breakpoints.
     @include media(450px) {
       width: 50%;
     }

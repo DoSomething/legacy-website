@@ -17,6 +17,7 @@
   .header {
     margin-bottom: 1rem;
     @include row;
+    // TODO: Possibly rethink the mobile grid to allow for thinner gutters.
     @include span-columns(7);
     @include shift(0.5);
     @include omega();
