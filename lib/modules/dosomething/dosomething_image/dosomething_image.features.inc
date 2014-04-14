@@ -49,46 +49,6 @@ function dosomething_image_image_default_styles() {
     ),
   );
 
-  // Exported image style: 1440x810p.
-  $styles['1440x810p'] = array(
-    'name' => '1440x810p',
-    'label' => '1440x810p',
-    'effects' => array(
-      5 => array(
-        'label' => 'Scale and crop',
-        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
-        'effect callback' => 'image_scale_and_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
-        'name' => 'image_scale_and_crop',
-        'data' => array(
-          'width' => 1440,
-          'height' => 810,
-        ),
-        'weight' => 1,
-      ),
-      6 => array(
-        'label' => 'Overlay (watermark)',
-        'help' => 'Choose the file image you wish to use as an overlay, and position it in a layer on top of the canvas.',
-        'effect callback' => 'canvasactions_file2canvas_effect',
-        'dimensions passthrough' => TRUE,
-        'form callback' => 'canvasactions_file2canvas_form',
-        'summary theme' => 'canvasactions_file2canvas_summary',
-        'module' => 'imagecache_canvasactions',
-        'name' => 'canvasactions_file2canvas',
-        'data' => array(
-          'xpos' => 0,
-          'ypos' => 0,
-          'alpha' => 100,
-          'path' => '../lib/themes/dosomething/paraneue_dosomething/images/mask_1440x810.png',
-        ),
-        'weight' => 2,
-      ),
-    ),
-  );
-
   // Exported image style: 1920x1280.
   $styles['1920x1280'] = array(
     'name' => '1920x1280',
@@ -112,45 +72,6 @@ function dosomething_image_image_default_styles() {
     ),
   );
 
-  // Exported image style: 1920x1280p.
-  $styles['1920x1280p'] = array(
-    'name' => '1920x1280p',
-    'label' => '1920x1280p',
-    'effects' => array(
-      2 => array(
-        'label' => 'Scale and crop',
-        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
-        'effect callback' => 'image_scale_and_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
-        'name' => 'image_scale_and_crop',
-        'data' => array(
-          'width' => 1920,
-          'height' => 1280,
-        ),
-        'weight' => 1,
-      ),
-      3 => array(
-        'label' => 'Overlay (watermark)',
-        'help' => 'Choose the file image you wish to use as an overlay, and position it in a layer on top of the canvas.',
-        'effect callback' => 'canvasactions_file2canvas_effect',
-        'dimensions passthrough' => TRUE,
-        'form callback' => 'canvasactions_file2canvas_form',
-        'summary theme' => 'canvasactions_file2canvas_summary',
-        'module' => 'imagecache_canvasactions',
-        'name' => 'canvasactions_file2canvas',
-        'data' => array(
-          'xpos' => 0,
-          'ypos' => 0,
-          'alpha' => 100,
-          'path' => '../lib/themes/dosomething/paraneue_dosomething/images/mask.png',
-        ),
-        'weight' => 3,
-      ),
-    ),
-  );
 
   // Exported image style: 300x300.
   $styles['300x300'] = array(
@@ -330,46 +251,6 @@ function dosomething_image_image_default_styles() {
         'data' => array(
           'width' => 768,
           'height' => 768,
-        ),
-        'weight' => 2,
-      ),
-    ),
-  );
-
-  // Exported image style: 768x768p.
-  $styles['768x768p'] = array(
-    'name' => '768x768p',
-    'label' => '768x768p',
-    'effects' => array(
-      8 => array(
-        'label' => 'Scale and crop',
-        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
-        'effect callback' => 'image_scale_and_crop_effect',
-        'dimensions callback' => 'image_resize_dimensions',
-        'form callback' => 'image_resize_form',
-        'summary theme' => 'image_resize_summary',
-        'module' => 'image',
-        'name' => 'image_scale_and_crop',
-        'data' => array(
-          'width' => 768,
-          'height' => 768,
-        ),
-        'weight' => 1,
-      ),
-      10 => array(
-        'label' => 'Overlay (watermark)',
-        'help' => 'Choose the file image you wish to use as an overlay, and position it in a layer on top of the canvas.',
-        'effect callback' => 'canvasactions_file2canvas_effect',
-        'dimensions passthrough' => TRUE,
-        'form callback' => 'canvasactions_file2canvas_form',
-        'summary theme' => 'canvasactions_file2canvas_summary',
-        'module' => 'imagecache_canvasactions',
-        'name' => 'canvasactions_file2canvas',
-        'data' => array(
-          'xpos' => 0,
-          'ypos' => 0,
-          'alpha' => 100,
-          'path' => '../lib/themes/dosomething/paraneue_dosomething/images/mask_768x768.png',
         ),
         'weight' => 2,
       ),
