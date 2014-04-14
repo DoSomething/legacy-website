@@ -6,6 +6,7 @@
 
 include_once 'dosomething_user.features.inc';
 include_once 'dosomething_user_profile.inc';
+include_once 'dosomething_user_valid_address.inc';
 
 /**
  * Implements hook_init().
@@ -27,6 +28,46 @@ function dosomething_user_init() {
     }
   }
 }
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_user_menu() {
+  $items = array();
+  $items['user/%/validate/address'] = array(
+    'title' => 'address',
+    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'page callback' => 'dosomething_user_validate_address',
+    'file' => 'dosomething_user_valid_address.inc'
+  );
+
+  $items['admin/config/services/ups-api-settings'] = array(
+    'title' => t('UPS API Configuration'),
+    'description' => t('UPS integration that provices address validation'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_ups_api_settings'),
+    'file' => 'dosomething_user_valid_address.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer UPS address validation'),
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_user_permission() {
+  return array(
+    'administer UPS address validation' =>  array(
+      'title' => t('Administer UPS address validation'),
+      'description' => t('Manage UPS api key, username & password'),
+    )
+  );
+}
+
 
 /**
  * Returns an array of node types that only staff can view.
