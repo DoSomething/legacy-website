@@ -21,15 +21,15 @@ if( theme_get_setting('show_campaign_finder') ) {
           <p class="facet-field">What are you passionate about?</p>
           <div class="dropdown-menu">
             <ul class="two-col">
-              <li><label><input name="cause" type="checkbox" value="16" />Animals</label></li>
-              <li><label><input name="cause" type="checkbox" value="(13 OR 17)" />Bullying + Violence</label></li>
-              <li><label><input name="cause" type="checkbox" value="12" />Disasters</label></li>
-              <li><label><input name="cause" type="checkbox" value="14" />Discrimination</label></li>
-              <li><label><input name="cause" type="checkbox" value="2" />Education</label></li>
-              <li><label><input name="cause" type="checkbox" value="4" />Environment</label></li>
-              <li><label><input name="cause" type="checkbox" value="(19 OR 5)" />Health</label></li>
-              <li><label><input name="cause" type="checkbox" value="(6 OR 15)" />Homelessness + Poverty</label></li>
-              <li><label><input name="cause" type="checkbox" value="(1 OR 21)" />Sex + Relationships</label></li>
+              <li><input id="cause-animals" name="cause" type="checkbox" value="16" /><label for="cause-animals">Animals</label></li>
+              <li><input id="cause-bullying-violence" name="cause" type="checkbox" value="(13 OR 17)" /><label for="cause-bullying-violence">Bullying + Violence</label></li>
+              <li><input id="cause-disasters" name="cause" type="checkbox" value="12" /><label for="cause-disasters">Disasters</label></li>
+              <li><input id="cause-discrimination" name="cause" type="checkbox" value="14" /><label for="cause-discrimination">Discrimination</label></li>
+              <li><input id="cause-education" name="cause" type="checkbox" value="2" /><label for="cause-education">Education</label></li>
+              <li><input id="cause-environment" name="cause" type="checkbox" value="4" /><label for="cause-environment">Environment</label></li>
+              <li><input id="cause-health" name="cause" type="checkbox" value="(19 OR 5)" /><label for="cause-health">Health</label></li>
+              <li><input id="cause-homelessness-poverty" name="cause" type="checkbox" value="(6 OR 15)" /><label for="cause-homelessness-poverty">Homelessness + Poverty</label></li>
+              <li><input id="cause-sex-relationships" name="cause" type="checkbox" value="(1 OR 21)" /><label for="cause-sex-relationships">Sex + Relationships</label></li>
             </ul>
           </div>
         </div>
@@ -39,9 +39,9 @@ if( theme_get_setting('show_campaign_finder') ) {
           <p class="facet-field">How long do you have?</p>
           <div class="dropdown-menu">
             <ul>
-              <li><label><input name="time" type="checkbox" value="[* TO 1]" />1 hour or less</label></li>
-              <li><label><input name="time" type="checkbox" value="[2 TO 5]" />2-5 hours</label></li>
-              <li><label><input name="time" type="checkbox" value="[6 TO *]" />5+ hours</label></li>
+              <li><input id="time-1-or-less" name="time" type="checkbox" value="[* TO 1]" /><label for="time-1-or-less">1 hour or less</label></li>
+              <li><input id="time-2-to-5" name="time" type="checkbox" value="[2 TO 5]" /><label for="time-2-to-5">2-5 hours</label></li>
+              <li><input id="time-5-or-more" name="time" type="checkbox" value="[6 TO *]" /><label for="time-5-or-more">5+ hours</label></li>
             </ul>
           </div>
         </div>
@@ -51,14 +51,14 @@ if( theme_get_setting('show_campaign_finder') ) {
           <p class="facet-field">What would you like to do?</p>
           <div class="dropdown-menu">
             <ul class="two-col">
-              <li><label><input name="action-type" type="checkbox" value="7" />Donate Something</label></li>
-              <li><label><input name="action-type" type="checkbox" value="3" />Face to Face</label></li>
-              <li><label><input name="action-type" type="checkbox" value="11" />Host an Event</label></li>
-              <li><label><input name="action-type" type="checkbox" value="8" />Improve a Space</label></li>
-              <li><label><input name="action-type" type="checkbox" value="9" />Make Something</label></li>
-              <li><label><input name="action-type" type="checkbox" value="18" />Share Something</label></li>
-              <li><label><input name="action-type" type="checkbox" value="10" />Start Something</label></li>
-              <li><label><input name="action-type" type="checkbox" value="20" />Take a Stand</label></li>
+              <li><input id="action-donate-something" name="action-type" type="checkbox" value="7" /><label for="action-donate-something">Donate Something</label></li>
+              <li><input id="action-face-to-face" name="action-type" type="checkbox" value="3" /><label for="action-face-to-face">Face to Face</label></li>
+              <li><input id="action-host-event" name="action-type" type="checkbox" value="11" /><label for="action-host-event">Host an Event</label></li>
+              <li><input id="action-improve-space" name="action-type" type="checkbox" value="8" /><label for="action-improve-space">Improve a Space</label></li>
+              <li><input id="action-make-something" name="action-type" type="checkbox" value="9" /><label for="action-make-something">Make Something</label></li>
+              <li><input id="action-share-something" name="action-type" type="checkbox" value="18" /><label for="action-share-something">Share Something</label></li>
+              <li><input id="action-start-something" name="action-type" type="checkbox" value="10" /><label for="action-start-something">Start Something</label></li>
+              <li><input id="action-take-stand" name="action-type" type="checkbox" value="20" /><label for="action-take-stand">Take a Stand</label></li>
             </ul>
           </div>
         </div>
