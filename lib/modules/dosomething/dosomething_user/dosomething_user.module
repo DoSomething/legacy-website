@@ -42,7 +42,30 @@ function dosomething_user_menu() {
     'file' => 'dosomething_user_valid_address.inc'
   );
 
+  $items['admin/config/services/ups-api-settings'] = array(
+    'title' => t('UPS API Configuration'),
+    'description' => t('UPS integration that provices address validation'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_ups_api_settings'),
+    'file' => 'dosomething_user_valid_address.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer UPS address vsalidation'),
+  );
+
   return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_user_permission() {
+  return array(
+    'administer UPS address vsalidation' =>  array(
+      'title' => t('Administer UPS address validation'),
+      'description' => t('Manage UPS api key, username & password'),
+    )
+  );
 }
 
 

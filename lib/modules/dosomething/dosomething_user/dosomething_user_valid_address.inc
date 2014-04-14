@@ -1,5 +1,32 @@
 <?php
 
+
+/**
+ * Settings form UPS integration.
+ */
+function dosomething_user_ups_api_settings($form, &$form_state) {
+
+  $form['dosomething_access_license_number'] = array(
+    '#type' => 'textfield',
+    '#title' => t('UPS access license number'),
+    '#default_value' => variable_get('dosomething_access_license_number'),
+  );
+
+  $form['dosomething_ups_username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('UPS username'),
+    '#default_value' => variable_get('dosomething_ups_username'),
+  );
+
+  $form['dosomething_ups_password'] = array(
+    '#type' => 'textfield',
+    '#title' => t('UPS password'),
+    '#default_value' => variable_get('dosomething_ups_password'),
+  );
+
+  return system_settings_form($form);
+}
+
 /**
  * Page callback to validate user address.
  *
