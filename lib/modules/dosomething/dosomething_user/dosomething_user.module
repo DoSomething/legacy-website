@@ -49,7 +49,7 @@ function dosomething_user_menu() {
     'page arguments' => array('dosomething_user_ups_api_settings'),
     'file' => 'dosomething_user_valid_address.inc',
     'access callback' => 'user_access',
-    'access arguments' => array('administer UPS address vsalidation'),
+    'access arguments' => array('administer UPS address validation'),
   );
 
   return $items;
@@ -61,7 +61,7 @@ function dosomething_user_menu() {
  */
 function dosomething_user_permission() {
   return array(
-    'administer UPS address vsalidation' =>  array(
+    'administer UPS address validation' =>  array(
       'title' => t('Administer UPS address validation'),
       'description' => t('Manage UPS api key, username & password'),
     )
