@@ -171,15 +171,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'locale',
   );
 
-  // Exported permission: 'administer mailsystem'.
-  $permissions['administer mailsystem'] = array(
-    'name' => 'administer mailsystem',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'mailsystem',
-  );
-
   // Exported permission: 'administer message_broker_producer'.
   $permissions['administer message_broker_producer'] = array(
     'name' => 'administer message_broker_producer',
