@@ -17,7 +17,7 @@
     line-height: 0.9em;
   }
 
-  label { //background-color: rgba(fuchsia, 0.3);
+  label {
     float: none;
     display: block;
     height: auto;
@@ -85,15 +85,13 @@
 
       &:before {
         content: ' ';
-        // display: inline-block;
+        display: block;
         height: 0;
         width: 0;
         vertical-align: middle;
         border-bottom: .5em solid transparent;
         border-left: .5em solid;
         border-top: .5em solid transparent;
-        // margin-left: -1em;
-        // margin-right: .5em;
         left: 10px;
         position: absolute;
       }
@@ -110,9 +108,6 @@
 
     &.open {
       .caret-toggle:before {
-        // margin-left: -1.5em;
-        // margin-right: .5em;
-        // margin-top: .25em;
         border-left: .5em solid transparent;
         border-right: .5em solid transparent;
         border-top: .5em solid;
