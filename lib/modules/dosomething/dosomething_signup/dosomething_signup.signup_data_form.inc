@@ -161,12 +161,22 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       '#required' => TRUE,
       '#title' => t('First Name'),
       '#default_value' => isset($account->field_first_name[LANGUAGE_NONE][0]['value']) ? $account->field_first_name[LANGUAGE_NONE][0]['value'] : '',
+      '#attributes' => array(
+        'class' => array('js-validate', 'required'),
+        'data-validate' => array('fname'),
+        'data-validate-required' => '',
+      ),
     );
     $form['user_last_name'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => t('Last Name'),
       '#default_value' => isset($account->field_last_name[LANGUAGE_NONE][0]['value']) ? $account->field_last_name[LANGUAGE_NONE][0]['value'] : '',
+      '#attributes' => array(
+        'class' => array('js-validate', 'required'),
+        'data-validate' => array('lname'),
+        'data-validate-required' => '',
+      ),
     );
     $form['user_address'] = array(
       '#type' => 'addressfield',
@@ -177,9 +187,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       '#required' => TRUE,
       '#context' => array('countries' => array('US')),
       '#default_value' => isset($account->field_address[LANGUAGE_NONE][0]) ? $account->field_address[LANGUAGE_NONE][0] : '',
-      '#required' => TRUE,
     );
   }
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
