@@ -281,4 +281,13 @@
       }
     }
   }
+
+  .pagination-link {
+    clear: both;
+    background: #fff;
+    text-align: center;
+    padding: 1rem;
+
+    @include row;
+  }
 }
