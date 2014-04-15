@@ -40,7 +40,7 @@ function dosomething_user_ups_api_settings($form, &$form_state) {
  *  User ID
  *
  */
-function dosomething_user_validate_address($uid) {
+function dosomething_user_validate_user_address($uid) {
   $user = user_load($uid);
   $address = $user->field_address[LANGUAGE_NONE][0];
   $first_name = $user->field_first_name[LANGUAGE_NONE][0]['value'];
@@ -48,13 +48,101 @@ function dosomething_user_validate_address($uid) {
   // Do we have all the variables we need, if not, fail out.
   if (!dosomething_user_pre_ups_request_check() && is_null($address)) { return; }
 
-  $xml = dosomething_user_compile_ups_xml($first_name, $address);
+  $xml = dosomething_user_compile_ups_xml($first_name, $last_name, $address);
 
   $results = dosomething_user_make_request_to_ups_api($xml);
 
   // For now, print results from request.
   print_r($results);
 }
+
+/**
+ * Validates addresses fields using the UPS api.
+ *
+ * This is used before the data is saved to the user object.
+ *
+ * @param string $first_name
+ *  The user's first name.
+ * @param string $last_name
+ *  The user's last name.
+ * @param array $address
+ *  The user's address array.
+ *
+ * @return array $parsed
+ *  An array in the addressfield format, parsed from the XML results.
+ */
+function dosomething_user_validate_any_address($first_name, $last_name, $address) {
+  if (!dosomething_user_pre_ups_request_check() && is_null($address)) { return; }
+
+  $xml = dosomething_user_compile_ups_xml($first_name, $last_name, $address);
+
+  $results = dosomething_user_make_request_to_ups_api($xml);
+
+  // Parse the results.
+  $parsed = dosomething_user_parse_xml_results($results);
+
+  return $parsed;
+}
+
+/**
+ * Parse XML results from UPS api.
+ *
+ * @param array $xml
+ *  XML results from the UPS api.
+ * @return array $address
+ *  A address array in the format the addressfield expects.
+ */
+function dosomething_user_parse_xml_results($xml) {
+  $parser = xml_parser_create();
+  xml_parse_into_struct($parser, $xml, $values);
+  $address = array();
+
+  foreach ($values as $value) {
+    switch ($value['tag']) {
+      // We got nothing for ya.
+      case 'NOCANDIDATESINDICATOR':
+        $address['sorry'] = TRUE;
+      break;
+      // We aren't sure if this is right, set a flag to offer a choice.
+      case 'AMBIGUOUSADDRESSINDICATOR':
+        $address['ambiguous'] = TRUE;
+      break;
+      // Street.
+      case 'ADDRESSLINE':
+        // We could get two keyed addresslines.
+        // This means we have a street number and apartment number/floor.
+        // The first key will be the street, set that to thoroughfare,
+        // the second will be the apartment number or floor, set premise.
+        if (isset($address['thoroughfare'])) {
+          $address['premise'] = $value['value'];
+        }
+        else {
+          $address['thoroughfare'] = $value['value'];
+        }
+      break;
+      // City
+      case 'POLITICALDIVISION2':
+        $address['locality'] = $value['value'];
+      break;
+      // State
+      case 'POLITICALDIVISION1':
+        $address['administrative_area'] = $value['value'];
+      break;
+      // Zip
+      case 'POSTCODEPRIMARYLOW':
+        $address['postal_code'] = $value['value'];
+      break;
+      // Zip-extra
+      case 'POSTCODEEXTENDEDLOW':
+        $address['postal_code'] .= '-' . $value['value'];
+      break;
+    }
+  }
+
+  // Return whatever we got back in that array.
+  return $address;
+}
+
 /**
  * Makes a post request to UPS api.
  *
@@ -101,12 +189,12 @@ function dosomething_user_make_request_to_ups_api($xml) {
  * @return string
  *   XML string
  */
-function dosomething_user_compile_ups_xml($first_name, $address) {
+function dosomething_user_compile_ups_xml($first_name, $last_name, $address) {
   $out = dosomething_user_compile_xml_access_request();
   $out .= '<?xml version="1.0" ?>';
   $out .= '<AddressValidationRequest  xml:lang="en-US">';
   $out .= dosomething_user_compile_xml_request_options();
-  $out .= dosomething_user_compile_xml_address($first_name, $address);
+  $out .= dosomething_user_compile_xml_address($first_name, $last_name, $address);
   $out .= '</AddressValidationRequest>';
 
   return $out;
@@ -118,10 +206,10 @@ function dosomething_user_compile_ups_xml($first_name, $address) {
  * @return string
  *   XML string
  */
-function dosomething_user_compile_xml_address($first_name, $address) {
+function dosomething_user_compile_xml_address($first_name, $last_name, $address) {
 
   $addr_xml = array(
-    'ConsigneeName' => $first_name, // Name
+    'ConsigneeName' => $first_name . $last_name, // Name
     'AddressLine' => $address['thoroughfare'] . ' ' . $address['premise'], // Addr
     'PoliticalDivision2' => $address['locality'], // City
     'PoliticalDivision1' => $address['administrative_area'], // State
