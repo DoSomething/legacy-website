@@ -17,7 +17,7 @@ function dosomething_user_init() {
     // Load that node.
     $node = menu_get_object();
     // If node type is staff only:
-    if (in_array($node->type, dosomething_user_get_staff_only_types())) {
+    if (isset($node->type) && in_array($node->type, dosomething_user_get_staff_only_types())) {
       // If logged in user is not staff:
       if (!dosomething_user_is_staff()) {
         // No node for you.  Redirect to front page for now.
