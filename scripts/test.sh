@@ -8,4 +8,4 @@ cd test
 
 drush site-install dosomething --db-url=mysql://root@localhost/dosomething_test --site-name=Testing -y
 
-drush test-run DoSomethingSignup --xml --verbose
+php scripts/run-tests.sh --verbose --class DoSomethingSignupWebTestCase
