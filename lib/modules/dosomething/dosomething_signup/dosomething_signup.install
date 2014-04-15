@@ -99,13 +99,19 @@ function dosomething_signup_schema() {
       'form_copy' => array(
         'description' => 'Form copy.',
         'type' => 'text',
-        'length' => '2048',
+        'length' => 2048,
         'not null' => FALSE,
       ),
       'confirm_msg' => array(
         'description' => 'Confirmation message displayed upon submit.',
         'type' => 'varchar',
         'length' => 255,
+        'not null' => FALSE,
+      ),
+      'form_submitted_copy' => array(
+        'description' => 'Copy to display on form if user has submitted.',
+        'type' => 'text',
+        'length' => 2048,
         'not null' => FALSE,
       ),
       'collect_why_signedup' => array(
@@ -199,6 +205,22 @@ function dosomething_signup_update_7003() {
   $tbl_name = 'dosomething_signup_data_form';
   // New field to add.
   $field_name = 'confirm_msg';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+}
+
+/**
+ * Adds form_submitted_copy column to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7004() {
+  // Load schema for field definitions.
+  $schema = dosomething_signup_schema();
+  $tbl_name = 'dosomething_signup_data_form';
+  // New field to add.
+  $field_name = 'form_submitted_copy';
   // If the field doesn't exist already:
   if (!db_field_exists($tbl_name, $field_name)) {
     // Add it per the schema field definition.
