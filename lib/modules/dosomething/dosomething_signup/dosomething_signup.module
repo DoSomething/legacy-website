@@ -328,7 +328,7 @@ function dosomething_signup_mbp_request($account, $node) {
   // Gather mbp params for the signup.
   $params = dosomething_signup_get_mbp_params($account, $node);
   // Send MBP request.
-  dosomething_user_mbp_request('campaign_signup', $params);
+  dosomething_mbp_request('campaign_signup', $params);
 }
 
 /**
