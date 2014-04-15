@@ -155,24 +155,12 @@
     }
   }
 
-}
-
-.finder--message {
-  clear: both;
-  color: $light-gray;
-  line-height: 1.3;
-  padding: 1rem 0 0;
-  text-align: center;
-
-  // // TODO: Possibly rethink the mobile grid to allow for thinner gutters.
-  @include span-columns(7);
-  @include shift(0.5);
-
-  @include media($tablet) {
-    @include span-columns(14);
-    @include shift(1);
+  .error {
+    clear: both;
+    // margin-top: 1rem;
   }
 }
+
 
 .finder--results {
   position: relative;
