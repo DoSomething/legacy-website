@@ -48,6 +48,12 @@ projects[dosomething_image][download][type] = local
 projects[dosomething_image][download][source] = './lib/modules/dosomething/dosomething_image'
 projects[dosomething_image][subdir] = "dosomething"
 
+; Dosomething MBP (Message Broker Producer)
+projects[dosomething_image][type] = "module"
+projects[dosomething_image][download][type] = local
+projects[dosomething_image][download][source] = './lib/modules/dosomething/dosomething_mbp'
+projects[dosomething_image][subdir] = "dosomething"
+
 ; Dosomething Metatag
 projects[dosomething_metatag][type] = "module"
 projects[dosomething_metatag][download][type] = local

@@ -635,7 +635,9 @@ function dosomething_reportback_mbp_request($entity) {
       'impact_number' => $entity->quantity,
       'impact_noun' => $entity->noun,
     );
-    dosomething_mbp_request('campaign_reportback', $params);
+    if(module_exsists('dosomething_mbp')) {
+      dosomething_mbp_request('campaign_reportback', $params);
+    }
   }
 }
 

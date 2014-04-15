@@ -171,7 +171,9 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
         'user_name' => $account->name,
         'reset_link' => user_pass_reset_url($account),
       );
-      dosomething_mbp_request('user_password', $params);
+      if (module_exsists('dosomething_mbp')) {
+        dosomething_mbp_request('user_password', $params);
+      }
     }
   }
 }
@@ -194,7 +196,9 @@ function dosomething_user_new_user($form, &$form_state) {
       'first_name' => dosomething_user_get_field('field_first_name', $account),
       'birthdate' => dosomething_user_get_birthdate(),
     );
-    dosomething_mbp_request('user_register', $params);
+    if (module_exsists('dosomething_mbp')) {
+      dosomething_mbp_request('user_register', $params);
+    }
     // Sign user up for mobile commons
     if (module_exists('dosomething_signup')) {
       $opt_in = variable_get('dosomething_mobilecommons_general');

@@ -19,7 +19,6 @@ dependencies[] = image
 dependencies[] = list
 dependencies[] = locale
 dependencies[] = mailsystem
-dependencies[] = message_broker_producer
 dependencies[] = mobilecommons
 dependencies[] = module_filter
 dependencies[] = node

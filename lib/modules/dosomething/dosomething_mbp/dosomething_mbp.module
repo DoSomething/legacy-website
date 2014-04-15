@@ -12,22 +12,6 @@
  *  Where the message request came from.
  * @param array $params
  *  Optional keyed array of data to send externally.
- *  Common values:
- *    - email
- *    - uid
- *
- *  Values needed based on the $origin value:
- *    - first_name
- *    - reset_link
- *    - event_id
- *    - campaign_title
- *    - call_to_action
- *    - step_one
- *    - step_two
- *    - step_three
- *    - impact_verb
- *    - impact_number
- *    - impact_noun
  */
 function dosomething_mbp_request($origin, $params = NULL) {
   if (!module_exists('message_broker_producer')) return FALSE;
@@ -88,7 +72,7 @@ function dosomething_mbp_request($origin, $params = NULL) {
     return message_broker_producer_request('produceTransactional', $payload);
   }
   catch (Exception $e){
-    watchdog('dosomething_user', $e, array(), WATCHDOG_ERROR);
+    watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
     return FALSE;
   }
 }
