@@ -58,7 +58,6 @@ function dosomething_signup_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'SignupEntityController',
     'module' => 'dosomething_signup',
-    'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
 }
