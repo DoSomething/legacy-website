@@ -63,10 +63,6 @@ projects[field_group][subdir] = "contrib"
 projects[google_analytics] = "1.3"
 projects[google_analytics][subdir] = "contrib"
 
-; ImageCache Actions
-projects[imagecache_actions] = "1.4"
-projects[imagecache_actions][subdir] = "contrib"
-
 ; Internationalization (required for Sitemap, among others)
 projects[i18n] = "1.10"
 projects[i18n][subdir] = "contrib"
