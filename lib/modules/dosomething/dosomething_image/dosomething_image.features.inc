@@ -72,7 +72,6 @@ function dosomething_image_image_default_styles() {
     ),
   );
 
-
   // Exported image style: 300x300.
   $styles['300x300'] = array(
     'name' => '300x300',
@@ -113,6 +112,29 @@ function dosomething_image_image_default_styles() {
         'data' => array(
           'width' => 310,
           'height' => 310,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: 400x400.
+  $styles['400x400'] = array(
+    'name' => '400x400',
+    'label' => '400x400',
+    'effects' => array(
+      2 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 400,
+          'height' => 400,
         ),
         'weight' => 1,
       ),
@@ -205,6 +227,29 @@ function dosomething_image_image_default_styles() {
         'data' => array(
           'width' => 720,
           'height' => 310,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: 720x720.
+  $styles['720x720'] = array(
+    'name' => '720x720',
+    'label' => '720x720',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 720,
+          'height' => 720,
         ),
         'weight' => 1,
       ),
