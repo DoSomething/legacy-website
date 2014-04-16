@@ -79,7 +79,7 @@ function dosomething_user_validate_any_address($first_name, $last_name, $address
   $results = dosomething_user_make_request_to_ups_api($xml);
 
   // Parse the results.
-  $parsed = dosomething_user_parse_xml_results($results);
+  $parsed = dosomething_user_parse_ups_xml_results($results);
 
   return $parsed;
 }
@@ -92,7 +92,7 @@ function dosomething_user_validate_any_address($first_name, $last_name, $address
  * @return array $address
  *  A address array in the format the addressfield expects.
  */
-function dosomething_user_parse_xml_results($xml) {
+function dosomething_user_parse_ups_xml_results($xml) {
   $parser = xml_parser_create();
   xml_parse_into_struct($parser, $xml, $values);
   $address = array();
@@ -190,11 +190,11 @@ function dosomething_user_make_request_to_ups_api($xml) {
  *   XML string
  */
 function dosomething_user_compile_ups_xml($first_name, $last_name, $address) {
-  $out = dosomething_user_compile_xml_access_request();
+  $out = dosomething_user_compile_ups_xml_access_request();
   $out .= '<?xml version="1.0" ?>';
   $out .= '<AddressValidationRequest  xml:lang="en-US">';
-  $out .= dosomething_user_compile_xml_request_options();
-  $out .= dosomething_user_compile_xml_address($first_name, $last_name, $address);
+  $out .= dosomething_user_compile_ups_xml_request_options();
+  $out .= dosomething_user_compile_ups_xml_address($first_name, $last_name, $address);
   $out .= '</AddressValidationRequest>';
 
   return $out;
@@ -206,10 +206,10 @@ function dosomething_user_compile_ups_xml($first_name, $last_name, $address) {
  * @return string
  *   XML string
  */
-function dosomething_user_compile_xml_address($first_name, $last_name, $address) {
+function dosomething_user_compile_ups_xml_address($first_name, $last_name, $address) {
 
   $addr_xml = array(
-    'ConsigneeName' => $first_name . $last_name, // Name
+    'ConsigneeName' => $first_name . ' ' . $last_name, // Name
     'AddressLine' => $address['thoroughfare'] . ' ' . $address['premise'], // Addr
     'PoliticalDivision2' => $address['locality'], // City
     'PoliticalDivision1' => $address['administrative_area'], // State
@@ -230,7 +230,7 @@ function dosomething_user_compile_xml_address($first_name, $last_name, $address)
  * @return string
  *   XML string
  */
-function dosomething_user_compile_xml_request_options() {
+function dosomething_user_compile_ups_xml_request_options() {
   /* Type of UPS requests.
    * 1 - Address Validation
    * 2 - Address Classification
@@ -255,7 +255,7 @@ function dosomething_user_compile_xml_request_options() {
  * @return string
  *   XML string
  */
-function dosomething_user_compile_xml_access_request() {
+function dosomething_user_compile_ups_xml_access_request() {
   $user_xml = array(
     'AccessLicenseNumber' => variable_get('dosomething_user_ups_access_license_number'),
     'UserId' => variable_get('dosomething_user_ups_username'),
