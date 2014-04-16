@@ -77,7 +77,6 @@ class DosomethingUserWebTestCase extends DrupalWebTestCase {
       'administer features',
       'administer filters',
       'administer image styles',
-      'administer message_broker_producer',
       'administer module filter',
       'administer modules',
       'administer nodes',
