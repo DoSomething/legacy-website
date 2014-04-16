@@ -36,12 +36,16 @@ function paraneue_dosomething_preprocess_node(&$variables) {
       $thumbnail = array();
       $thumbnail[nid] = $nid;
       $thumbnail[staff_pick] = $node->field_staff_pick[LANGUAGE_NONE][0][value];
-      if($key == 0) { $thumbnail[modifier_classes] = "big"; }
       $thumbnail[title] = $node->title;
       $thumbnail[cta] = $node->field_call_to_action[LANGUAGE_NONE][0][safe_value];
 
       $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0][target_id];
-      $thumbnail[image] = dosomething_image_get_themed_image_url($image_nid, 'square', '300x300');
+      if($key == 0) {
+        $thumbnail[modifier_classes] = "big";
+        $thumbnail[image] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+      } else {
+        $thumbnail[image] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
+      }
 
       $thumbnail[link] = l('<span>' . $title . '</span>', 'node/' . $nid, array(
         'attributes' => array(
