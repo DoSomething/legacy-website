@@ -96,11 +96,12 @@ function dosomething_user_parse_ups_xml_results($xml) {
   $parser = xml_parser_create();
   xml_parse_into_struct($parser, $xml, $values);
   $address = array();
-
   foreach ($values as $value) {
     switch ($value['tag']) {
       // We got nothing for ya.
       case 'NOCANDIDATESINDICATOR':
+      case 'ERROR':
+      case 'ERRORCODE':
         $address['sorry'] = TRUE;
       break;
       // We aren't sure if this is right, set a flag to offer a choice.
