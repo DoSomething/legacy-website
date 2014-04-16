@@ -1,3 +1,17 @@
+.finder--title {
+  color: #fff;
+  font-size: $font-medium;
+  font-weight: normal;
+  text-align: center;
+
+  @include visually-hidden();
+
+  @include media($tablet) {
+    @include visually-restored();
+    margin-bottom: 1rem;
+  }
+}
+
 .finder--form {
   p {
     margin: 0;

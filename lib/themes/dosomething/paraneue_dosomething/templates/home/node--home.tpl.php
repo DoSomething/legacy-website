@@ -13,9 +13,11 @@ if( theme_get_setting('show_campaign_finder') ) {
   <div class="finder--form">
     <div class="home--hero">
       <div class="header">
-        <h1>What do you wanna do today?</h1>
+        <h1 class="title">Join 2.5 million young people.</h1>
+        <h2 class="subtitle">Any cause, anytime, anywhere.</h2>
       </div>
       <div class="js-finder-form header">
+        <h2 class="finder--title">Start by finding a campaign below</h2>
         <div class="dropdown large">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
           <p class="facet-field">What are you passionate about?</p>

@@ -27,16 +27,36 @@
       @include shift(1);
     }
 
-    h1 {
+    .title {
       color: #fff;
-      font-size: $font-large;
-      font-weight: $weight-normal;
+      font-size: $font-larger;
+      font-weight: 700;
       line-height: 1.1;
       margin: 1.5rem 0 0.5rem;
       text-align: center;
 
+      @include visually-hidden();
+
       @include media($tablet) {
-        font-size: $font-larger;
+        @include visually-restored();
+        margin: 1.5rem 0;
+      }
+
+      @include media($desktop) {
+        font-size: 3rem;
+      }
+    }
+
+    .subtitle {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: normal;
+      line-height: 1.2;
+      margin: 0 0 0.6rem;
+      text-align: center;
+
+      @include media($tablet) {
+        @include visually-hidden();
       }
     }
   }
