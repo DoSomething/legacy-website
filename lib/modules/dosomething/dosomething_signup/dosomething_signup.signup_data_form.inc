@@ -216,12 +216,12 @@ function dosomething_signup_data_validate_address($form, &$form_state) {
 
   // Did we not get any results?
   if (in_array('sorry', $formatted_address)) {
-    form_set_error('dosomething_user_validate_address', t('We have no idea what you are doing, try again'));
+    form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
   }
   // Did it come back from the api as ambiguous? -- Check with the user.
   elseif (in_array('ambiguous', $formatted_address)) {
     dosomething_signup_data_set_address_values($form, $form_state, $formatted_address);
-    form_set_error('dosomething_user_ambiguous_address', t('We are not super sure, try this'));
+    form_set_error('dosomething_user_ambiguous_address', t('Hmmm, we couldn’t find that address. Did you mean:'));
   }
   // We have a full address, save it!
   else {
