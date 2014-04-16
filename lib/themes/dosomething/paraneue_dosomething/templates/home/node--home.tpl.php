@@ -71,7 +71,7 @@ if( theme_get_setting('show_campaign_finder') ) {
     </div>
   </div>
 
-  <div class="finder--results js-campaign-blankslate">
+  <div class="finder--results -blankslate js-campaign-blankslate">
     <?php foreach($thumbnails as $thumbnail) { print $thumbnail; } ?>
   </div>
 
