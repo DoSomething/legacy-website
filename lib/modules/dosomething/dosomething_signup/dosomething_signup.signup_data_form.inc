@@ -161,12 +161,22 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       '#required' => TRUE,
       '#title' => t('First Name'),
       '#default_value' => isset($account->field_first_name[LANGUAGE_NONE][0]['value']) ? $account->field_first_name[LANGUAGE_NONE][0]['value'] : '',
+      '#attributes' => array(
+        'class' => array('js-validate', 'required'),
+        'data-validate' => array('fname'),
+        'data-validate-required' => '',
+      ),
     );
     $form['user_last_name'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => t('Last Name'),
       '#default_value' => isset($account->field_last_name[LANGUAGE_NONE][0]['value']) ? $account->field_last_name[LANGUAGE_NONE][0]['value'] : '',
+      '#attributes' => array(
+        'class' => array('js-validate', 'required'),
+        'data-validate' => array('lname'),
+        'data-validate-required' => '',
+      ),
     );
     $form['user_address'] = array(
       '#type' => 'addressfield',
@@ -177,9 +187,11 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       '#required' => TRUE,
       '#context' => array('countries' => array('US')),
       '#default_value' => isset($account->field_address[LANGUAGE_NONE][0]) ? $account->field_address[LANGUAGE_NONE][0] : '',
-      '#required' => TRUE,
     );
+    // If we are collecting an address, run address validation.
+    $form['#validate'][] = 'dosomething_signup_data_validate_address';
   }
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
@@ -190,7 +202,54 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
       ),
     ),
   );
+
   return $form;
+}
+
+function dosomething_signup_data_validate_address($form, &$form_state) {
+  // Validate address against UPS api.
+  $address = $form_state['input']['user_address'];
+  $first_name = $form_state['input']['user_first_name'];
+  $last_name = $form_state['input']['user_last_name'];
+
+  $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
+
+  // Did we not get any results?
+  if (in_array('sorry', $formatted_address)) {
+    form_set_error('dosomething_user_validate_address', t('We have no idea what you are doing, try again'));
+  }
+  // Did it come back from the api as ambiguous? -- Check with the user.
+  elseif (in_array('ambiguous', $formatted_address)) {
+    dosomething_signup_data_set_address_values($form, $form_state, $formatted_address);
+    form_set_error('dosomething_user_ambiguous_address', t('We are not super sure, try this'));
+  }
+  // We have a full address, save it!
+  else {
+    dosomething_signup_data_set_address_values($form, $form_state, $formatted_address);
+  }
+}
+
+/**
+ * Set the formatted address values in a form.
+ *
+ * @param array $form
+ *  A drupal form.
+ * @param array $form_state
+ *  A drupal form_state.
+ * @param array $address
+ *  A validated drupal addressfield array.
+ */
+function dosomething_signup_data_set_address_values($form, &$form_state, $address) {
+  form_set_value($form['user_address']['address']['street_block']['thoroughfare'],
+      array('value' => $address['thoroughfare']), $form_state);
+  form_set_value($form['user_address']['address']['street_block']['premise'],
+      array('value' => $address['premise']), $form_state);
+  form_set_value($form['user_address']['address']['locality_block']['locality'],
+      array('value' => $address['locality']), $form_state);
+  form_set_value($form['user_address']['address']['locality_block']['administrative_area'],
+      array('value' => $address['administrative_area']), $form_state);
+  form_set_value($form['user_address']['address']['locality_block']['postal_code'],
+      array('value' => $address['postal_code']), $form_state);
 }
 
 /**
