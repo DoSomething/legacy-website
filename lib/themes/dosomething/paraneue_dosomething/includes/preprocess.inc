@@ -30,7 +30,7 @@ function paraneue_dosomething_preprocess_node(&$variables) {
     $homepage_nids = array(362, 843, 955, 832, 15, 31, 55, 850, 18);
     $thumbnails = array();
 
-    foreach($homepage_nids as $key => &$nid) {
+    foreach($homepage_nids as $key => $nid) {
       $node = node_load($nid);
 
       $thumbnail = array();
