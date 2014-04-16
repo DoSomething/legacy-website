@@ -3,6 +3,7 @@
  * @file
  * Code for dosomething_signup_data_form functionality.
  */
+define(DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN, '[submitted]');
 
 /**
  * Returns the dosomething_signup_data_form values for a given $nid.
@@ -90,7 +91,7 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Form submitted copy'),
     '#default_value' => $values['form_submitted_copy'],
-    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use [submitted] to display the time the user submitted the form, e.g. <em>You submitted this form on [submitted], your banner should arrive within 2 weeks from then!</em></p>'),
+    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
   );
 }
 
@@ -153,11 +154,13 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   // Load signup entity.
   $signup = signup_load(dosomething_signup_exists($nid));
   // If the user has submitted form already:
-  if ($signup->signup_data_form_timestamp) {
+  if ($timestamp = $signup->signup_data_form_timestamp) {
+    // Get filtered form_submitted_copy.
+    $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
     // Display the form submitted copy:
     $form['submitted_copy'] = array(
       '#prefix' => '<p>',
-      '#markup' => $config['form_submitted_copy'],
+      '#markup' => $copy,
       '#suffix' => '</p>',
     );
     // Return form as is (without a submit button).
@@ -351,4 +354,22 @@ function dosomething_signup_update_signup_data($values) {
     watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
   }
   return FALSE;
+}
+
+/**
+ * Wrapper for str_replace for usage with form_submitted_copy values.
+ *
+ * @param string $string
+ *   The original string, which may contain the 
+ *   DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN string.
+ * @param int $timestamp
+ *   The timestamp to replace the token string with.
+ *
+ * @return string
+ *   Original string, with token replaced with a readable $timestamp.
+ */
+function dosomething_signup_filter_form_submitted_copy($string, $timestamp) {
+  // Custom format: January 1st.
+  $submitted = format_date($timestamp, 'custom', 'F jS');
+  return str_replace(DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN, $submitted, $string);
 }
