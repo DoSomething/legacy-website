@@ -171,7 +171,7 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
         'user_name' => $account->name,
         'reset_link' => user_pass_reset_url($account),
       );
-      if (module_exsists('dosomething_mbp')) {
+      if (module_exists('dosomething_mbp')) {
         dosomething_mbp_request('user_password', $params);
       }
     }
@@ -196,7 +196,7 @@ function dosomething_user_new_user($form, &$form_state) {
       'first_name' => dosomething_user_get_field('field_first_name', $account),
       'birthdate' => dosomething_user_get_birthdate(),
     );
-    if (module_exsists('dosomething_mbp')) {
+    if (module_exists('dosomething_mbp')) {
       dosomething_mbp_request('user_register', $params);
     }
     // Sign user up for mobile commons

@@ -180,15 +180,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'mailsystem',
   );
 
-  // Exported permission: 'administer message_broker_producer'.
-  $permissions['administer message_broker_producer'] = array(
-    'name' => 'administer message_broker_producer',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'message_broker_producer',
-  );
-
   // Exported permission: 'administer mobilecommons'.
   $permissions['administer mobilecommons'] = array(
     'name' => 'administer mobilecommons',

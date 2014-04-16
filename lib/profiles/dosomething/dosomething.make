@@ -49,10 +49,10 @@ projects[dosomething_image][download][source] = './lib/modules/dosomething/dosom
 projects[dosomething_image][subdir] = "dosomething"
 
 ; Dosomething MBP (Message Broker Producer)
-projects[dosomething_image][type] = "module"
-projects[dosomething_image][download][type] = local
-projects[dosomething_image][download][source] = './lib/modules/dosomething/dosomething_mbp'
-projects[dosomething_image][subdir] = "dosomething"
+projects[dosomething_mbp][type] = "module"
+projects[dosomething_mbp][download][type] = local
+projects[dosomething_mbp][download][source] = './lib/modules/dosomething/dosomething_mbp'
+projects[dosomething_mbp][subdir] = "dosomething"
 
 ; Dosomething Metatag
 projects[dosomething_metatag][type] = "module"

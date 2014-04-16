@@ -14,7 +14,6 @@
  *  Optional keyed array of data to send externally.
  */
 function dosomething_mbp_request($origin, $params = NULL) {
-  if (!module_exists('message_broker_producer')) return FALSE;
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
   $payload = array(
     'activity' => $origin,
