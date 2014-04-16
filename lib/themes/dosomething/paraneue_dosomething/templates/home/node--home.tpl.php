@@ -17,7 +17,6 @@ if( theme_get_setting('show_campaign_finder') ) {
         <h2 class="subtitle">Any cause, anytime, anywhere.</h2>
       </div>
       <div class="js-finder-form header">
-        <h2 class="finder--title">Start by finding a campaign below</h2>
         <div class="dropdown large">
           <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
           <p class="facet-field">What are you passionate about?</p>
