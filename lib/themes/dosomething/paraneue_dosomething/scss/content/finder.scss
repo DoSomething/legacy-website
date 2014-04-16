@@ -155,7 +155,12 @@
     }
   }
 
+  .error {
+    clear: both;
+    // margin-top: 1rem;
+  }
 }
+
 
 .finder--results {
   position: relative;
