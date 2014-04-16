@@ -164,7 +164,6 @@
 
 .finder--results {
   position: relative;
-  background: #1f1227;
   min-height: 300px;
   @include clearfix;
 
@@ -285,5 +284,14 @@
         font-size: 1rem;
       }
     }
+  }
+
+  .pagination-link {
+    clear: both;
+    background: #fff;
+    text-align: center;
+    padding: 1rem;
+
+    @include row;
   }
 }
