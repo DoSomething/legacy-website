@@ -86,6 +86,12 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
+  $form[$fieldset]['config'][$prefix . 'form_submitted_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Form submitted copy'),
+    '#default_value' => $values['form_submitted_copy'],
+    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use [submitted] to display the time the user submitted the form, e.g. <em>You submitted this form on [submitted], your banner should arrive within 2 weeks from then!</em></p>'),
+  );
 }
 
 /**
@@ -124,6 +130,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
+        'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
     ))
