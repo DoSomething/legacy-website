@@ -202,6 +202,35 @@
     display: none;
   }
 
+  .no-result {
+    background: $off-black image-url("placeholder.png");
+    background-position: center center;
+    background-size: cover;
+    text-align: center;
+    min-height: 300px;
+    width: 100%;
+
+    > .wrapper {
+      padding: 2rem 1rem;
+      @include span-columns(7);
+      @include shift(0.5);
+    }
+
+    p {
+      color: $light-gray;
+    }
+
+    .message {
+      font-size: $font-large;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+
+      @include media($tablet) {
+        font-size: $font-larger;
+      }
+    }
+  }
+
   .campaign-result {
     float: left;
     position: relative;
