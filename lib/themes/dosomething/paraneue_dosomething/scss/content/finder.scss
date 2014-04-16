@@ -181,6 +181,12 @@
   min-height: 300px;
   @include clearfix;
 
+  &.-blankslate {
+    .campaign-result:nth-child(6) {
+      clear: both;
+    }
+  }
+
   &.loading {
     &:before {
       content: "";
