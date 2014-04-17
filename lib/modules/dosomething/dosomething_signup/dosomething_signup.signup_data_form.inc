@@ -3,6 +3,7 @@
  * @file
  * Code for dosomething_signup_data_form functionality.
  */
+define(DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN, '[submitted]');
 
 /**
  * Returns the dosomething_signup_data_form values for a given $nid.
@@ -86,6 +87,12 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
   );
+  $form[$fieldset]['config'][$prefix . 'form_submitted_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Form submitted copy'),
+    '#default_value' => $values['form_submitted_copy'],
+    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
+  );
 }
 
 /**
@@ -124,6 +131,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
+        'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
     ))
@@ -138,15 +146,32 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   $config = dosomething_signup_get_signup_data_form_info($nid);
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#value' => $nid,
-  );
   $form['header'] = array(
     '#prefix' => '<h2 class="banner">',
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
+  // Load signup entity.
+  $signup = signup_load(dosomething_signup_exists($nid));
+  // If the user has submitted form already:
+  if ($timestamp = $signup->signup_data_form_timestamp) {
+    // Get filtered form_submitted_copy.
+    $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
+    // Display the form submitted copy:
+    $form['submitted_copy'] = array(
+      '#prefix' => '<p>',
+      '#markup' => $copy,
+      '#suffix' => '</p>',
+    );
+    // Return form as is (without a submit button).
+    return $form;
+  }
+
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
+
   $form['copy'] = array(
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
@@ -329,4 +354,22 @@ function dosomething_signup_update_signup_data($values) {
     watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
   }
   return FALSE;
+}
+
+/**
+ * Wrapper for str_replace for usage with form_submitted_copy values.
+ *
+ * @param string $string
+ *   The original string, which may contain the 
+ *   DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN string.
+ * @param int $timestamp
+ *   The timestamp to replace the token string with.
+ *
+ * @return string
+ *   Original string, with token replaced with a readable $timestamp.
+ */
+function dosomething_signup_filter_form_submitted_copy($string, $timestamp) {
+  // Custom format: January 1st.
+  $submitted = format_date($timestamp, 'custom', 'F jS');
+  return str_replace(DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN, $submitted, $string);
 }
