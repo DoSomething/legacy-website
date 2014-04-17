@@ -3,5 +3,4 @@ description = Functionality specific to DoSomething for producing requests to Me
 core = 7.x
 package = DoSomething
 version = 7.x-1.0
-package = DoSomething
 dependencies[] = message_broker_producer
