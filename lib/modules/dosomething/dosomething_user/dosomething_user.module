@@ -213,20 +213,24 @@ function dosomething_user_validate_address_field($form, &$form_state) {
   $first_name = $form_state['input']['field_first_name'][LANGUAGE_NONE][0]['value'];
   $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];
   $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
-  $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
 
-  // Did we not get any results?
-  if (in_array('sorry', $formatted_address)) {
-    form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
-  }
-  // Did it come back from the api as ambiguous? -- Check with the user.
-  elseif (in_array('ambiguous', $formatted_address)) {
-    dosomething_user_set_address_values($form, $form_state, $formatted_address);
-    form_set_error('dosomething_user_ambiguous_address', t('Hmmm, we couldn’t find that address. Did you mean: '));
-  }
-  // We have a full address, save it!
-  else {
-    dosomething_user_set_address_values($form, $form_state, $formatted_address);
+  // Only validate if we have values in the array.
+  if ($address['thoroughfare'] !== '' && $address['locality'] !== '' && $address['administrative_area'] !== '' && $address['postal_code'] !== '') {
+    $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
+
+    // Did we not get any results?
+    if (in_array('sorry', $formatted_address)) {
+      form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
+    }
+    // Did it come back from the api as ambiguous? -- Check with the user.
+    elseif (in_array('ambiguous', $formatted_address)) {
+      dosomething_user_set_address_values($form, $form_state, $formatted_address);
+      form_set_error('dosomething_user_ambiguous_address', t('Hmmm, we couldn’t find that address. Did you mean: '));
+    }
+    // We have a full address, save it!
+    else {
+      dosomething_user_set_address_values($form, $form_state, $formatted_address);
+    }
   }
 }
 
