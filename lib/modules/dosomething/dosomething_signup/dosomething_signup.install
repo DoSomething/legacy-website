@@ -215,15 +215,15 @@ function dosomething_signup_update_7003() {
 /**
  * Adds form_submitted_copy column to the dosomething_signup_data_form table.
  */
-function dosomething_signup_update_7004() {
-  // Load schema for field definitions.
-  $schema = dosomething_signup_schema();
-  $tbl_name = 'dosomething_signup_data_form';
-  // New field to add.
-  $field_name = 'form_submitted_copy';
-  // If the field doesn't exist already:
-  if (!db_field_exists($tbl_name, $field_name)) {
-    // Add it per the schema field definition.
-    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
-  }
-}
+// function dosomething_signup_update_7004() {
+//   // Load schema for field definitions.
+//   $schema = dosomething_signup_schema();
+//   $tbl_name = 'dosomething_signup_data_form';
+//   // New field to add.
+//   $field_name = 'form_submitted_copy';
+//   // If the field doesn't exist already:
+//   if (!db_field_exists($tbl_name, $field_name)) {
+//     // Add it per the schema field definition.
+//     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+//   }
+// }
