@@ -145,30 +145,15 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   $config = dosomething_signup_get_signup_data_form_info($nid);
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
   $form['header'] = array(
     '#prefix' => '<h2 class="banner">',
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
-  // Load signup entity.
-  $signup = signup_load(dosomething_signup_exists($nid));
-  // If the user has submitted form already:
-  if ($signup->signup_data_form_timestamp) {
-    // Display the form submitted copy:
-    $form['submitted_copy'] = array(
-      '#prefix' => '<p>',
-      '#markup' => $config['form_submitted_copy'],
-      '#suffix' => '</p>',
-    );
-    // Return form as is (without a submit button).
-    return $form;
-  }
-
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#value' => $nid,
-  );
-
   $form['copy'] = array(
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
