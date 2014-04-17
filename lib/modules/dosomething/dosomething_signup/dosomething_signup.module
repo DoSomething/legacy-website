@@ -32,35 +32,35 @@ function dosomething_signup_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 70,
   );
-  $items['signup/%signup'] = array(
-    'title' => 'Signup',
-    'page callback' => 'dosomething_signup_view_entity',
-    'page arguments' => array(1),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
-  );
+  // $items['signup/%signup'] = array(
+  //   'title' => 'Signup',
+  //   'page callback' => 'dosomething_signup_view_entity',
+  //   'page arguments' => array(1),
+  //   'access callback' => 'user_access',
+  //   'access arguments' => array('administer modules'),
+  // );
   return $items;
 }
 
 /**
  * Implements hook_entity_info().
  */
-function dosomething_signup_entity_info() {
-  $info = array();
-  $info['signup'] = array(
-    'label' => t('Signup'),
-    'base table' => 'dosomething_signup',
-    'entity keys' => array(
-      'id' => 'sid',
-      'label' => 'sid',
-    ),
-    'entity class' => 'SignupEntity',
-    'uri callback' => 'entity_class_uri',
-    'controller class' => 'SignupEntityController',
-    'module' => 'dosomething_signup',
-  );
-  return $info;
-}
+// function dosomething_signup_entity_info() {
+//   $info = array();
+//   $info['signup'] = array(
+//     'label' => t('Signup'),
+//     'base table' => 'dosomething_signup',
+//     'entity keys' => array(
+//       'id' => 'sid',
+//       'label' => 'sid',
+//     ),
+//     'entity class' => 'SignupEntity',
+//     'uri callback' => 'entity_class_uri',
+//     'controller class' => 'SignupEntityController',
+//     'module' => 'dosomething_signup',
+//   );
+//   return $info;
+// }
 
 /**
  * Implements hook_permission().
@@ -81,17 +81,17 @@ function dosomething_signup_permission() {
 /**
  * Menu autoloader for /signup.
  */
-function signup_load($id) {
-  $entity = entity_load('signup', array($id));
-  return array_pop($entity);
-}
+// function signup_load($id) {
+//   $entity = entity_load('signup', array($id));
+//   return array_pop($entity);
+// }
 
 /**
  * Callback for /signup/ID page.
  */
-function dosomething_signup_view_entity($entity) {
-  return entity_view('signup', array($entity->sid => $entity), 'full');
-}
+// function dosomething_signup_view_entity($entity) {
+//   return entity_view('signup', array($entity->sid => $entity), 'full');
+// }
 
 /**
  * Implements hook_admin_paths().

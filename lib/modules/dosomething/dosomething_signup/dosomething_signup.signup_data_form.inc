@@ -152,20 +152,20 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#suffix' => '</h2>',
   );
   // Load signup entity.
-  $signup = signup_load(dosomething_signup_exists($nid));
-  // If the user has submitted form already:
-  if ($timestamp = $signup->signup_data_form_timestamp) {
-    // Get filtered form_submitted_copy.
-    $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
-    // Display the form submitted copy:
-    $form['submitted_copy'] = array(
-      '#prefix' => '<p>',
-      '#markup' => $copy,
-      '#suffix' => '</p>',
-    );
-    // Return form as is (without a submit button).
-    return $form;
-  }
+  // $signup = signup_load(dosomething_signup_exists($nid));
+  // // If the user has submitted form already:
+  // if ($timestamp = $signup->signup_data_form_timestamp) {
+  //   // Get filtered form_submitted_copy.
+  //   $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
+  //   // Display the form submitted copy:
+  //   $form['submitted_copy'] = array(
+  //     '#prefix' => '<p>',
+  //     '#markup' => $copy,
+  //     '#suffix' => '</p>',
+  //   );
+  //   // Return form as is (without a submit button).
+  //   return $form;
+  // }
 
   $form['nid'] = array(
     '#type' => 'hidden',
