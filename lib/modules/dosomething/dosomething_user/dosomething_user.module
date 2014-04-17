@@ -271,7 +271,9 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
         'user_name' => $account->name,
         'reset_link' => user_pass_reset_url($account),
       );
-      dosomething_user_mbp_request('user_password', $params);
+      if (module_exists('dosomething_mbp')) {
+        dosomething_mbp_request('user_password', $params);
+      }
     }
   }
 }
@@ -294,7 +296,9 @@ function dosomething_user_new_user($form, &$form_state) {
       'first_name' => dosomething_user_get_field('field_first_name', $account),
       'birthdate' => dosomething_user_get_birthdate(),
     );
-    dosomething_user_mbp_request('user_register', $params);
+    if (module_exists('dosomething_mbp')) {
+      dosomething_mbp_request('user_register', $params);
+    }
     // Sign user up for mobile commons
     if (module_exists('dosomething_signup')) {
       $opt_in = variable_get('dosomething_mobilecommons_general');
@@ -545,95 +549,6 @@ function dosomething_user_create_user_by_mobile($number) {
   }
 
   return FALSE;
-}
-
-/**
- * A request to send a message via the Message Broker library:
- * https://github.com/DoSomething/messagebroker-phplib
- *
- * @param string $origin
- *  Where the message request came from.
- * @param array $params
- *  Optional keyed array of data to send externally.
- *  Common values:
- *    - email
- *    - uid
- *
- *  Values needed based on the $origin value:
- *    - first_name
- *    - reset_link
- *    - event_id
- *    - campaign_title
- *    - call_to_action
- *    - step_one
- *    - step_two
- *    - step_three
- *    - impact_verb
- *    - impact_number
- *    - impact_noun
- */
-function dosomething_user_mbp_request($origin, $params = NULL) {
-  if (!module_exists('message_broker_producer')) return FALSE;
-  $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
-  $payload = array(
-    'activity' => $origin,
-    'email' => $params['email'],
-    'uid' => $params['uid'],
-  );
-  switch ($origin) {
-    case 'user_register':
-      $payload['birthdate'] = $params['birthdate'];
-      if (isset($params['mobile'])) {
-        $payload['mobile'] = $params['mobile'];
-      }
-      $payload['merge_vars'] = array(
-        'FNAME' => $params['first_name'],
-      );
-      break;
-    case 'user_password':
-      $payload['merge_vars'] = array(
-        'FNAME' => $params['first_name'],
-        'USERNAME' => $params['username'],
-        'RESET_LINK' => $params['reset_link'],
-      );
-      break;
-    case 'campaign_signup':
-      $payload['event_id'] = $params['event_id'];
-      // Check for mailchimp grouping_id+group_name:
-      $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
-      if ( $mailchimp ) {
-        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
-        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
-      }
-      $payload['merge_vars'] = array(
-        'FNAME' => $params['first_name'],
-        'CAMPAIGN_TITLE' => $params['campaign_title'],
-        'CAMPAIGN_LINK' => $params['campaign_link'],
-        'CALL_TO_ACTION' => $params['call_to_action'],
-        'STEP_ONE' => $params['step_one'],
-        'STEP_TWO' => $params['step_two'],
-        'STEP_THREE' => $params['step_three'],
-      );
-      break;
-    case 'campaign_reportback':
-      $payload['event_id'] = $params['event_id'];
-      $payload['merge_vars'] = array(
-        'FNAME' => $params['first_name'],
-        'CAMPAIGN_TITLE' => $params['campaign_title'],
-        'IMPACT_VERB' => $params['impact_verb'],
-        'IMPACT_NUMBER' => $params['impact_number'],
-        'IMPACT_NOUN' => $params['impact_noun'],
-      );
-      break;
-  }
-
-  try {
-    return message_broker_producer_request('produceTransactional', $payload);
-  }
-  catch (Exception $e){
-    watchdog('dosomething_user', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
 }
 
 /**

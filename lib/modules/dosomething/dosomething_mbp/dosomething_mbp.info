@@ -1,0 +1,6 @@
+name = DoSomething MBP
+description = Functionality specific to DoSomething for producing requests to Message Broker Producer.
+core = 7.x
+package = DoSomething
+version = 7.x-1.0
+dependencies[] = message_broker_producer
