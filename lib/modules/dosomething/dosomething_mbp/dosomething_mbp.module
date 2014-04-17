@@ -14,6 +14,43 @@
  *  Optional keyed array of data to send externally.
  */
 function dosomething_mbp_request($origin, $params = NULL) {
+
+  $productionType = NULL;
+  switch ($origin) {
+    case 'user_register':
+    case 'user_password':
+    case 'campaign_signup':
+    case 'campaign_reportback':
+      $productionType = 'produceTransactional';
+      $payload = dosomething_mbp_transactional($origin, $params);
+      break;
+
+    case 'create_campaign':
+    case 'update_campaign':
+      $productionType = 'produceCampaignCache';
+      $payload = dosomething_mbp_campaign_cache($origin, $params);
+      break;
+  }
+
+  try {
+    return message_broker_producer_request($productionType, $payload);
+  }
+  catch (Exception $e){
+    watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+}
+
+/**
+ * Build payload for transactional producer requeusts
+ *
+ * @param string $origin
+ *  Where the message request came from.
+ * @param array $params
+ *  Optional keyed array of data to send externally.
+ */
+function dosomething_mbp_transactional($origin, $params = NULL) {
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
   $payload = array(
     'activity' => $origin,
@@ -67,11 +104,37 @@ function dosomething_mbp_request($origin, $params = NULL) {
       break;
   }
 
-  try {
-    return message_broker_producer_request('produceTransactional', $payload);
+  return $payload;
+
+}
+
+/**
+ * Build payload for campaign cache message requests.
+ *
+ * @param string $origin
+ *  Where the message request came from.
+ * @param array $params
+ *  Optional keyed array of data to send externally.
+ */
+function dosomething_mbp_campaign_cache($origin, $params = NULL) {
+
+  switch ($origin) {
+    case 'create_campaign':
+    case 'update_campaign':
+      $payload = array(
+        'application_event' => $origin,
+        'application_id' => 2,
+        'title' => '??',
+        'url' => '??',
+        'call_to_action_text' => '??',
+        'do_it_text' => '??',
+        'cover_image_url' => '??',
+        'sponsor_image_url' => '??',
+        'update_text' => '??',
+        'update_date' => '??',
+      );
   }
-  catch (Exception $e){
-    watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
+
+  return $payload;
+
 }
