@@ -43,7 +43,8 @@ function dosomething_mbp_request($origin, $params = NULL) {
 }
 
 /**
- * Build payload for transactional producer requeusts
+ * Build payload for transactional producer requeusts. Any adjustments to the
+ * data before becoming a payload should be done in this function.
  *
  * @param string $origin
  *  Where the message request came from.
@@ -124,7 +125,7 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
       $payload = array(
         'application_event' => $origin,
         'application_id' => 2,
-        'title' => '??',
+        'title' => $params['title'],
         'url' => '??',
         'call_to_action_text' => '??',
         'do_it_text' => '??',
@@ -137,4 +138,38 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
 
   return $payload;
 
+}
+
+/*
+ * Impliments hook_node_insert()
+ *
+ * Respond to the creation of campaign nodes to produce Message Broker entries
+ * in the directCacheExchange.
+ */
+function dosomething_mbp_node_insert($node) {
+  
+  if ($node->type == 'campaign') {
+    $params = array(
+      'title' => $node->title,
+    );
+    dosomething_mbp_request('create_campaign', $params);
+  }
+  
+}
+
+/*
+ * Impliments hook_node_update()
+ *
+ * Respond to the update of campaign nodes to produce Message Broker entries
+ * in the directCacheExchange.
+ */
+function dosomething_mbp_node_update($node) {
+  
+  if ($node->type == 'campaign') {
+    $params = array(
+      'title' => $node->title,
+    );
+    dosomething_mbp_request('update_campaign', $params);
+  }
+  
 }
