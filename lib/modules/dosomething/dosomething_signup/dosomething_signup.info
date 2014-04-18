@@ -12,4 +12,4 @@ features[user_permission][] = view any signup
 features[views_view][] = node_signups
 features[views_view][] = user_signups
 files[] = dosomething_signup.test
-files[] = includes/dosomething_signup.inc
+; files[] = includes/dosomething_signup.inc
