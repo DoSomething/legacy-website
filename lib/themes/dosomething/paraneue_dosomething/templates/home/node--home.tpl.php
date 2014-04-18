@@ -17,9 +17,12 @@ if( theme_get_setting('show_campaign_finder') ) {
         <h2 class="subtitle">Any cause, anytime, anywhere.</h2>
       </div>
       <div class="js-finder-form header">
+        <h3 class="visually-hidden">Start by finding a campaign below</h3>
         <div class="dropdown large">
-          <div class="caret-toggle facet-field" data-toggle="dropdown">Cause</div>
-          <p class="facet-field">What are you passionate about?</p>
+          <div class="caret-toggle facet-field" data-toggle="dropdown">
+            <h4 class="__title">Cause</h4>
+            <p class="__question">What are you passionate about?</p>
+          </div>
           <div class="dropdown-menu">
             <ul class="two-col">
               <li><input id="cause-animals" name="cause" type="checkbox" value="16" /><label for="cause-animals">Animals</label></li>
@@ -36,8 +39,10 @@ if( theme_get_setting('show_campaign_finder') ) {
         </div>
 
         <div class="dropdown small">
-          <div class="caret-toggle facet-field" data-toggle="dropdown">Time</div>
-          <p class="facet-field">How long do you have?</p>
+          <div class="caret-toggle facet-field" data-toggle="dropdown">
+            <h4 class="__title">Time</h4>
+            <p class="__question">How long do you have?</p>
+          </div>
           <div class="dropdown-menu">
             <ul>
               <li><input id="time-1-or-less" name="time" type="checkbox" value="[* TO 1]" /><label for="time-1-or-less">1 hour or less</label></li>
@@ -48,8 +53,10 @@ if( theme_get_setting('show_campaign_finder') ) {
         </div>
 
         <div class="dropdown large last">
-          <div class="caret-toggle facet-field" data-toggle="dropdown">Type</div>
-          <p class="facet-field">What would you like to do?</p>
+          <div class="caret-toggle facet-field" data-toggle="dropdown">
+            <h4 class="__title">Type</h4>
+            <p class="__question">What would you like to do?</p>
+          </div>
           <div class="dropdown-menu">
             <ul class="two-col">
               <li><input id="action-donate-something" name="action-type" type="checkbox" value="7" /><label for="action-donate-something">Donate Something</label></li>

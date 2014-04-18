@@ -19,18 +19,6 @@
     font-weight: normal;
   }
 
-  .facet-field {
-    font-weight: $weight-bold;
-    line-height: 1.1;
-    padding-left: 1.5rem;
-  }
-
-  p.facet-field {
-    color: $med-gray;
-    font-weight: normal;
-    line-height: 0.9em;
-  }
-
   input[type="checkbox"] {
     left: -40px;
     position: absolute;
@@ -44,10 +32,17 @@
     height: auto;
     font-size: 0.8em;
     font-weight: $weight-normal;
-    line-height: 1.3;
+    left: 0;
+    line-height: 1.2;
     margin: 0;
     padding: 0.75rem 0.5rem;
+    position: relative;
     cursor: pointer;
+
+    // TODO: Pop this animatione effect into Neue?
+    -webkit-transition: left .1s linear;
+    -moz-transition: left .1s linear;
+    transition: left .1s linear;
 
     @include media($tablet) {
       padding-bottom: 0.1rem;
@@ -55,18 +50,27 @@
     }
   }
 
+  label:hover {
+    left: 3px;
+  }
+
+  .disabled label:hover,
+  .checked label:hover {
+    left: 0;
+  }
+
   .dropdown {
     background: #fff;
     margin-bottom: 1rem;
-    padding: .6rem 1rem;
 
     @include media($tablet) {
       margin-bottom: 0;
-      min-height: 70px;
+      min-height: 72px;
       @include span-columns(5 of 14);
     }
 
-    @include media($desktop) {
+    // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
+    @include media(960px) {
       min-height: 100%;
     }
 
@@ -103,11 +107,18 @@
     .caret-toggle {
       color: $purple;
       cursor: pointer;
-      margin-bottom: 0.25rem;
+      padding: .6rem 1rem;
+    }
+
+    .__title {
+      font-weight: $weight-bold;
+      line-height: 1;
+      margin: 0;
+      padding: 0 0 0.25rem 1.5rem;
       position: relative;
 
       &:before {
-        content: ' ';
+        content: '';
         display: block;
         height: 0;
         width: 0;
@@ -117,20 +128,29 @@
         border-top: .5em solid transparent;
         left: 10px;
         position: absolute;
+        top: -2px;
       }
+    }
+
+    .__question {
+      color: $med-gray;
+      line-height: 1;
+      padding-left: 1.5rem;
     }
 
     .dropdown-menu {
       display: none;
-      margin-top: 0.5em;
+      padding: 0 1rem .6rem 1rem;
 
       ul {
+        overflow: hidden;
         padding-left: 1rem;
       }
     }
 
+    // Dropdown open.
     &.open {
-      .caret-toggle:before {
+      .__title:before {
         border-left: .5em solid transparent;
         border-right: .5em solid transparent;
         border-top: .5em solid;

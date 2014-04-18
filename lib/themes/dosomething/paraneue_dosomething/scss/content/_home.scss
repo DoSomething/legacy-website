@@ -12,7 +12,11 @@
   @include row;
   @include header-gradient;
   background-size: cover;
-  padding: 7rem 0 2rem;
+  padding: 5.5rem 0 2rem;
+
+  @include media($tablet) {
+    padding-top: 7rem;
+  }
 
   .header {
     margin-bottom: 1rem;
