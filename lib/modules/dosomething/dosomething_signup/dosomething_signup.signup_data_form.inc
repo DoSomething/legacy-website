@@ -210,6 +210,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     ),
   );
 
+  $form['#action'] = "#modal-signup-data-form";
+
   return $form;
 }
 
@@ -224,13 +226,11 @@ function dosomething_signup_data_validate_address($form, &$form_state) {
   // Did we not get any results?
   if (in_array('sorry', $formatted_address)) {
     form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
-    drupal_goto($_SERVER['REQUEST_URI'], array('fragment' => 'modal-signup-data-form'));
   }
   // Did it come back from the api as ambiguous? -- Check with the user.
   elseif (in_array('ambiguous', $formatted_address)) {
     dosomething_signup_data_set_address_values($form, $form_state, $formatted_address);
     form_set_error('dosomething_user_ambiguous_address', t('Hmmm, we couldn’t find that address. Did you mean:'));
-    drupal_goto($_SERVER['REQUEST_URI'], array('fragment' => 'modal-signup-data-form'));
   }
   // We have a full address, save it!
   else {
