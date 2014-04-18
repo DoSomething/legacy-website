@@ -3,6 +3,11 @@
 .modal-content {
   word-wrap: break-word;
 
+  .modal-messages {
+    // fit this guy to edge of modal
+    margin: -2rem -1.5rem 2rem;
+  }
+
   h2.banner {
     // fit this guy to edge of modal
     margin: -2rem -1.5rem 1rem;
