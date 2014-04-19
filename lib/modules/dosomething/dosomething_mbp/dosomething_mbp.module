@@ -124,15 +124,13 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
     case 'update_campaign':
       $payload = array(
         'application_event' => $origin,
-        'application_id' => 2,
+        'application_id' => variable_get('message_broker_producer_application_id', '-1'),
         'title' => $params['title'],
-        'url' => '??',
-        'call_to_action_text' => '??',
-        'do_it_text' => '??',
-        'cover_image_url' => '??',
-        'sponsor_image_url' => '??',
-        'update_text' => '??',
-        'update_date' => '??',
+        'url' => $params['url'],
+        'call_to_action' => $params['call_to_action'],
+        'cover_image_url' => $params['image_campaign_cover'],
+        'fact_problem' => $params['fact_problem'],
+        'fact_solution' => $params['fact_solution'],
       );
   }
 
@@ -147,14 +145,31 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
  * in the directCacheExchange.
  */
 function dosomething_mbp_node_insert($node) {
-  
+
   if ($node->type == 'campaign') {
+
+    $url = 'http://dosomething.org/' . drupal_lookup_path('alias',"node/".$node->nid);
+    $field = field_get_items('node', $node, 'field_call_to_action');
+    $call_to_action = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_image_campaign_cover');
+    $image_campaign_cover = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_fact_problem');
+    $fact_problem = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_fact_solution');
+    $fact_solution = $field[0]['value'];
+
     $params = array(
       'title' => $node->title,
+      'url' => $url,
+      'call_to_action' => $call_to_action,
+      'cover_image_url' => $image_campaign_cover,
+      'fact_problem' => $fact_problem,
+      'fact_solution' => $fact_solution,
     );
+
     dosomething_mbp_request('create_campaign', $params);
   }
-  
+
 }
 
 /*
@@ -164,12 +179,29 @@ function dosomething_mbp_node_insert($node) {
  * in the directCacheExchange.
  */
 function dosomething_mbp_node_update($node) {
-  
+
   if ($node->type == 'campaign') {
+
+    $url = 'http://dosomething.org/' . drupal_lookup_path('alias',"node/".$node->nid);
+    $field = field_get_items('node', $node, 'field_call_to_action');
+    $call_to_action = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_image_campaign_cover');
+    $image_campaign_cover = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_fact_problem');
+    $fact_problem = $field[0]['value'];
+    $field = field_get_items('node', $node, 'field_fact_solution');
+    $fact_solution = $field[0]['value'];
+
     $params = array(
       'title' => $node->title,
+      'url' => $url,
+      'call_to_action' => $call_to_action,
+      'cover_image_url' => $image_campaign_cover,
+      'fact_problem' => $fact_problem,
+      'fact_solution' => $fact_solution,
     );
+
     dosomething_mbp_request('update_campaign', $params);
   }
-  
+
 }
