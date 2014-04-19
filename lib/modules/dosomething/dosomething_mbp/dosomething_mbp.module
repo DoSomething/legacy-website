@@ -5,37 +5,40 @@
  */
 
 /**
- * A request to send a message via the Message Broker library:
- * https://github.com/DoSomething/messagebroker-phplib
+ * A request to send a queue entry to the Message Broker system.
  *
  * @param string $origin
- *  Where the message request came from.
+ *   Where the message request came from.
  * @param array $params
- *  Optional keyed array of data to send externally.
+ *   Optional keyed array of data to send externally.
+ *
+ * @return bool
+ *   The status of the request.
  */
 function dosomething_mbp_request($origin, $params = NULL) {
 
-  $productionType = NULL;
+  $production_typee = NULL;
   switch ($origin) {
     case 'user_register':
     case 'user_password':
     case 'campaign_signup':
     case 'campaign_reportback':
-      $productionType = 'produceTransactional';
-      $payload = dosomething_mbp_transactional($origin, $params);
+      $production_type = 'produceTransactional';
+      $payload = dosomething_mbp_get_transactional_payload($origin, $params);
       break;
 
     case 'create_campaign':
     case 'update_campaign':
-      $productionType = 'produceCampaignCache';
-      $payload = dosomething_mbp_campaign_cache($origin, $params);
+      $production_type = 'produceCampaignCache';
+      $payload = dosomething_mbp_get_campaign_cache_payload($origin, $params);
       break;
+
   }
 
   try {
-    return message_broker_producer_request($productionType, $payload);
+    return message_broker_producer_request($production_type, $payload);
   }
-  catch (Exception $e){
+  catch (Exception $e) {
     watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
     return FALSE;
   }
@@ -43,15 +46,21 @@ function dosomething_mbp_request($origin, $params = NULL) {
 }
 
 /**
- * Build payload for transactional producer requeusts. Any adjustments to the
- * data before becoming a payload should be done in this function.
+ * Build payload for transactional producer requests.
+ *
+ * NOTE:
+ * Any adjustments to the data before becoming a payload should be done in
+ * this function.
  *
  * @param string $origin
- *  Where the message request came from.
+ *   Where the message request came from.
  * @param array $params
- *  Optional keyed array of data to send externally.
+ *   Optional keyed array of data to send externally.
+ *
+ * @return array $payload
+ *   Composed values ready to be sent as a message payload.
  */
-function dosomething_mbp_transactional($origin, $params = NULL) {
+function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
   $payload = array(
     'activity' => $origin,
@@ -68,6 +77,7 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
         'FNAME' => $params['first_name'],
       );
       break;
+
     case 'user_password':
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
@@ -75,11 +85,12 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
         'RESET_LINK' => $params['reset_link'],
       );
       break;
+
     case 'campaign_signup':
       $payload['event_id'] = $params['event_id'];
-      // Check for mailchimp grouping_id+group_name:
+      // Check for Mailchimp grouping_id+group_name:
       $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
-      if ( $mailchimp ) {
+      if ($mailchimp) {
         $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
         $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
       }
@@ -93,6 +104,7 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
         'STEP_THREE' => $params['step_three'],
       );
       break;
+
     case 'campaign_reportback':
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars'] = array(
@@ -103,6 +115,7 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
         'IMPACT_NOUN' => $params['impact_noun'],
       );
       break;
+
   }
 
   return $payload;
@@ -112,11 +125,14 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
  * Build payload for campaign cache message requests.
  *
  * @param string $origin
- *  Where the message request came from.
+ *   Where the message request came from.
  * @param array $params
- *  Optional keyed array of data to send externally.
+ *   Optional keyed array of data to send externally.
+ *
+ * @return array $payload
+ *   Composed values ready to be sent as a message payload.
  */
-function dosomething_mbp_campaign_cache($origin, $params = NULL) {
+function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
 
   switch ($origin) {
     case 'create_campaign':
@@ -131,26 +147,28 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
         'fact_problem' => $params['fact_problem'],
         'fact_solution' => $params['fact_solution'],
       );
+      break;
+
   }
 
   return $payload;
 }
 
 /*
- * Impliments hook_node_insert()
+ * Implements hook_node_insert().
  *
  * Respond to the creation of campaign nodes to produce Message Broker entries
  * in the directCacheExchange.
  *
  * @param object $node
- *  Submitted values for campaign
+ *   Submitted values for campaign
  */
 function dosomething_mbp_node_insert($node) {
   dosomething_mbp_collect_params('create_campaign', $node);
 }
 
 /*
- * Impliments hook_node_update()
+ * Implements hook_node_update().
  *
  * Respond to the update of campaign nodes to produce Message Broker entries
  * in the directCacheExchange.
@@ -166,15 +184,15 @@ function dosomething_mbp_node_update($node) {
  * Collects and format values from $node submission and populates $params.
  *
  * @param string $action
- *  Type of mbp requet
+ *   Type of mbp request
  * @param object $node
- *  Submitted values for campaign
+ *   Submitted values for campaign
  */
 function dosomething_mbp_collect_params($action, $node) {
 
   if ($node->type == 'campaign') {
 
-    $url = 'http://dosomething.org/' . drupal_lookup_path('alias',"node/".$node->nid);
+    $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" . $node->nid);
     $field = field_get_items('node', $node, 'field_call_to_action');
     $call_to_action = $field[0]['value'];
     $field = field_get_items('node', $node, 'field_image_campaign_cover');
