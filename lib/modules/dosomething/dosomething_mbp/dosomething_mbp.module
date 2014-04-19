@@ -106,7 +106,6 @@ function dosomething_mbp_transactional($origin, $params = NULL) {
   }
 
   return $payload;
-
 }
 
 /**
@@ -135,7 +134,6 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
   }
 
   return $payload;
-
 }
 
 /*
@@ -143,33 +141,12 @@ function dosomething_mbp_campaign_cache($origin, $params = NULL) {
  *
  * Respond to the creation of campaign nodes to produce Message Broker entries
  * in the directCacheExchange.
+ *
+ * @param object $node
+ *  Submitted values for campaign
  */
 function dosomething_mbp_node_insert($node) {
-
-  if ($node->type == 'campaign') {
-
-    $url = 'http://dosomething.org/' . drupal_lookup_path('alias',"node/".$node->nid);
-    $field = field_get_items('node', $node, 'field_call_to_action');
-    $call_to_action = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_image_campaign_cover');
-    $image_campaign_cover = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_fact_problem');
-    $fact_problem = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_fact_solution');
-    $fact_solution = $field[0]['value'];
-
-    $params = array(
-      'title' => $node->title,
-      'url' => $url,
-      'call_to_action' => $call_to_action,
-      'cover_image_url' => $image_campaign_cover,
-      'fact_problem' => $fact_problem,
-      'fact_solution' => $fact_solution,
-    );
-
-    dosomething_mbp_request('create_campaign', $params);
-  }
-
+  dosomething_mbp_collect_params('create_campaign', $node);
 }
 
 /*
@@ -177,8 +154,23 @@ function dosomething_mbp_node_insert($node) {
  *
  * Respond to the update of campaign nodes to produce Message Broker entries
  * in the directCacheExchange.
+ *
+ * @param object $node
+ *  Submitted values for campaign
  */
 function dosomething_mbp_node_update($node) {
+  dosomething_mbp_collect_params('update_campaign', $node);
+}
+
+/*
+ * Collects and format values from $node submission and populates $params.
+ *
+ * @param string $action
+ *  Type of mbp requet
+ * @param object $node
+ *  Submitted values for campaign
+ */
+function dosomething_mbp_collect_params($action, $node) {
 
   if ($node->type == 'campaign') {
 
@@ -201,7 +193,7 @@ function dosomething_mbp_node_update($node) {
       'fact_solution' => $fact_solution,
     );
 
-    dosomething_mbp_request('update_campaign', $params);
+    dosomething_mbp_request($action, $params);
   }
 
 }
