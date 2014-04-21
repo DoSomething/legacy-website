@@ -14,7 +14,7 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
 
   $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid);
   foreach ($rec_nids as $nid) {
-    $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
   }
   // Leave this out till it's themed.
   // $account->content['recommended'] = array(
