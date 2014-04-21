@@ -72,7 +72,7 @@ function dosomething_campaign_scholarships_page() {
     if (isset($scholarships)) {
       // Get a link, CTA, image, etc for each campaign.
       foreach($scholarships as $key => $scholarship) {
-        $rows[$key]['data'] = dosomething_campaign_get_recommended_campaign_vars($scholarship['nid']);
+        $rows[$key]['data'] = dosomething_campaign_get_campaign_block_vars($scholarship['nid']);
         unset($rows[$key]['data']['src']);
         $rows[$key]['data']['amount'] = '$' . $scholarship['amount'];
         $rows[$key]['data']['deadline'] = $scholarship['deadline'];
@@ -384,7 +384,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   $rec_vars = array();
   // Loop through rec_nids to load relevant variables.
   foreach ($rec_nids as $nid) {
-    $rec_vars[] = dosomething_campaign_get_recommended_campaign_vars($nid);
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
   }
   return theme('reportback_confirmation', array(
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
@@ -404,13 +404,13 @@ function dosomething_campaign_reportback_confirmation_page($node) {
  * @return array
  *   An array of variables.
  */
-function dosomething_campaign_get_recommended_campaign_vars($nid) {
+function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480') {
   $wrapper = entity_metadata_wrapper('node', $nid);
   $path = 'node/' . $nid;
   $image = NULL;
   $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
   if ($image_nid) {
-    $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
+    $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
   }
   return array(
     'nid' => $wrapper->getIdentifier(),
@@ -434,6 +434,13 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
         'more_campaigns_link' => NULL,
         'back_to_campaign_link' => NULL,
         'recommended' => NULL,
+      ),
+    ),
+    'campaign_block' => array(
+      'template' => 'campaign-block',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+      'variables' => array(
+        'vars' => NULL,
       ),
     ),
   );
