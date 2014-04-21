@@ -436,6 +436,13 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
         'recommended' => NULL,
       ),
     ),
+    'campaign_block' => array(
+      'template' => 'campaign-block',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+      'variables' => array(
+        'vars' => NULL,
+      ),
+    ),
   );
 }
 
