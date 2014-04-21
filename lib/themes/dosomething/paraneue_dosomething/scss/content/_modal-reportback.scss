@@ -22,6 +22,23 @@
       }
     }
 
+    .submitted-image {
+      text-align: center;
+
+      .legal {
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: $weight-bold;
+      }
+
+      img {
+        max-width: 250px;
+        max-height: 300px;
+        width: auto;
+        height: auto;
+        border: 6px solid #fff;
+      }
+    }
+
     .form-type-radio {
       clear: both;
       margin-bottom: 0.25rem;
@@ -37,6 +54,10 @@
         margin: 0 0 0 0.25rem;
         width: auto;
       }
+    }
+
+    input[type="file"] {
+      color: #fff;
     }
   }
 }
