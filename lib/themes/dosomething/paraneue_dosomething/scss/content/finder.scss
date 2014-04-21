@@ -111,24 +111,23 @@
     }
 
     .__title {
+      position: relative;
       font-weight: $weight-bold;
       line-height: 1;
       margin: 0;
       padding: 0 0 0.25rem 1.5rem;
-      position: relative;
 
       &:before {
-        content: '';
-        display: block;
-        height: 0;
-        width: 0;
-        vertical-align: middle;
-        border-bottom: .5em solid transparent;
-        border-left: .5em solid;
-        border-top: .5em solid transparent;
-        left: 10px;
         position: absolute;
-        top: -2px;
+        z-index: 1; // fixes display issue with css3 columns in below container
+        left: -0.25rem;
+        top: -0.5rem;
+        content: "\e609";
+        font-size: 32px;
+        @include icomoon-icon;
+        @include transform(rotate(-90deg));
+        @include transition-property(transform);
+        @include transition-duration(0.25s);
       }
     }
 
@@ -151,11 +150,7 @@
     // Dropdown open.
     &.open {
       .__title:before {
-        border-left: .5em solid transparent;
-        border-right: .5em solid transparent;
-        border-top: .5em solid;
-        left: 2px;
-        top: 3px;
+        @include transform(rotate(0));
       }
 
       .dropdown-menu {
