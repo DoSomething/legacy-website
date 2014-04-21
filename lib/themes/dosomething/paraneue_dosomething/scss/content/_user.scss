@@ -2,10 +2,12 @@
 //  USER PROFILE
 // ----------------
 
-.page-user {
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-}
+// .page-user {
+//   @include wrapper--nav-white;
+//   @include wrapper--nav-floating;
+// }
+
+// @TODO: Refactor header start:
 
 .profile {
   .header-wrapper {
@@ -17,25 +19,33 @@
       padding: 7rem 0 0;
     }
   }
+
+  // @TODO: Refactor to unify removing top margins on all headers.
+  .banner {
+    margin-top: 0;
+  }
 }
 
-.header-wrapper > header, .profile-info-wrapper > section {
+.header-wrapper > header {
   @include media($tablet) {
     @include span-columns(12);
     @include shift(2);
   }
 }
 
-.profile-info-wrapper {
-  padding: 1rem;
-  @include row;
-  @include media($tablet) {
-    padding: 0;
-  }
+// @TODO: Refactor header end.
 
-  > section {
-    span {
-      color: $med-gray;
-    }
-  }
-}
+
+// .profile-info-wrapper {
+//   padding: 1rem;
+//   @include row;
+//   @include media($tablet) {
+//     padding: 0;
+//   }
+
+//   > section {
+//     span {
+//       color: $med-gray;
+//     }
+//   }
+// }

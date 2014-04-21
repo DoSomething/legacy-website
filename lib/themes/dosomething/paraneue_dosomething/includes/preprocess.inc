@@ -60,11 +60,3 @@ function paraneue_dosomething_preprocess_node(&$variables) {
     $variables['thumbnails'] = $thumbnails;
   }
 }
-
-/**
- * Implements theme_preprocess_user_profile().
- */
-function paraneue_dosomething_preprocess_user_profile(&$variables) {
-  // krumo($variables);
-  // May delete this function if processing output content in the module.
-}
