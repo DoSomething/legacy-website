@@ -459,6 +459,7 @@ function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query = db_select('dosomething_signup', 's');
   $query->fields('s', array('nid'));
   $query->condition('uid', $uid);
+  $query->orderBy('timestamp', 'DESC');
   $result = $query->execute();
   return array_keys($result->fetchAllAssoc('nid'));
 }
