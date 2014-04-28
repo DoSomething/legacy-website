@@ -8,6 +8,6 @@
  *   - [title]: Title of campaign (string).
  *   - [call_to_action]: Call to action text for campaign. (string).
  *   - [image]: URL path for campaign image (string).
- *   - [src]: URL path for campaign node (string).
+ *   - [path]: URL path for campaign node (string).
  */
 ?>
