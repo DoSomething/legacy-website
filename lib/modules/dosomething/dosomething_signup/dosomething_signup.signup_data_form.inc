@@ -228,6 +228,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
   );
 
   $form['#action'] = "#modal-signup-data-form";
+  $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
 
   return $form;
 }
@@ -361,7 +362,7 @@ function dosomething_signup_update_signup_data($values) {
  * Wrapper for str_replace for usage with form_submitted_copy values.
  *
  * @param string $string
- *   The original string, which may contain the 
+ *   The original string, which may contain the
  *   DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN string.
  * @param int $timestamp
  *   The timestamp to replace the token string with.
