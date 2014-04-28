@@ -1,16 +1,17 @@
 <?php
 /**
  * @file
- * Code for the DoSomething specific Message Broker Producer functionality.
+ * Code for the DoSomething specific Message Broker Producer (mbp)
+ * functionality.
  */
 
 /**
- * A request to send a queue entry to the Message Broker system.
+ * Process requests to send a transaction to the Message Broker system.
  *
  * @param string $origin
  *   Where the message request came from.
  * @param array $params
- *   Optional keyed array of data to send externally.
+ *   Optional keyed array of data to build payload from.
  *
  * @return bool
  *   The status of the request.
@@ -49,15 +50,17 @@ function dosomething_mbp_request($origin, $params = NULL) {
  * Build payload for transactional producer requests.
  *
  * NOTE:
- * Any adjustments to the data before becoming a payload should be done in
+ * Any adjustments to the data before it becoms payload should be done in
  * this function.
  *
  * @param string $origin
- *   Where the message request came from.
+ *   Where the message request came from that's used to determine what the
+ *   payload should be.
  * @param array $params
- *   Optional keyed array of data to send externally.
+ *   Optional keyed array of data to build payload from.
  *
  * @return array $payload
+ * 
  *   Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
@@ -164,7 +167,9 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
  *   Submitted values for campaign
  */
 function dosomething_mbp_node_insert($node) {
-  dosomething_mbp_collect_params('create_campaign', $node);
+  if ($node->type == 'campaign') {
+    dosomething_mbp_campaign_request('create_campaign', $node);
+  }
 }
 
 /*
@@ -177,41 +182,39 @@ function dosomething_mbp_node_insert($node) {
  *  Submitted values for campaign
  */
 function dosomething_mbp_node_update($node) {
-  dosomething_mbp_collect_params('update_campaign', $node);
+  if ($node->type == 'campaign') {
+    dosomething_mbp_campaign_request('update_campaign', $node);
+  }
 }
 
 /*
- * Collects and format values from $node submission and populates $params.
+ * Collect and format values from campaign $node submissions and populate $params.
  *
  * @param string $action
  *   Type of mbp request
  * @param object $node
  *   Submitted values for campaign
  */
-function dosomething_mbp_collect_params($action, $node) {
+function dosomething_mbp_campaign_request($action, $node) {
 
-  if ($node->type == 'campaign') {
+  $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" . $node->nid);
+  $field = field_get_items('node', $node, 'field_call_to_action');
+  $call_to_action = $field[0]['value'];
+  $field = field_get_items('node', $node, 'field_image_campaign_cover');
+  $image_campaign_cover = $field[0]['value'];
+  $field = field_get_items('node', $node, 'field_fact_problem');
+  $fact_problem = $field[0]['value'];
+  $field = field_get_items('node', $node, 'field_fact_solution');
+  $fact_solution = $field[0]['value'];
 
-    $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" . $node->nid);
-    $field = field_get_items('node', $node, 'field_call_to_action');
-    $call_to_action = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_image_campaign_cover');
-    $image_campaign_cover = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_fact_problem');
-    $fact_problem = $field[0]['value'];
-    $field = field_get_items('node', $node, 'field_fact_solution');
-    $fact_solution = $field[0]['value'];
+  $params = array(
+    'title' => $node->title,
+    'url' => $url,
+    'call_to_action' => $call_to_action,
+    'cover_image_url' => $image_campaign_cover,
+    'fact_problem' => $fact_problem,
+    'fact_solution' => $fact_solution,
+  );
 
-    $params = array(
-      'title' => $node->title,
-      'url' => $url,
-      'call_to_action' => $call_to_action,
-      'cover_image_url' => $image_campaign_cover,
-      'fact_problem' => $fact_problem,
-      'fact_solution' => $fact_solution,
-    );
-
-    dosomething_mbp_request($action, $params);
-  }
-
+  dosomething_mbp_request($action, $params);
 }
