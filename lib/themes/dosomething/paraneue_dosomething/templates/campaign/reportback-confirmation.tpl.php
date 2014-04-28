@@ -15,11 +15,11 @@
         <?php foreach ($recommended as $rec): ?>
           <div class="gallery-item">
             <?php if (isset($rec['image'])): ?>
-              <a href="<?php print $rec['src']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
+              <a href="<?php print $rec['path']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
             <?php endif; ?>
 
             <?php if (isset($rec['title'])): ?>
-              <h3 class="title"><?php print $rec['title']; ?></h3>
+              <h3 class="title"><?php print l($rec['title'], $rec['path']); ?></h3>
             <?php endif; ?>
 
             <?php if (isset($rec['call_to_action'])): ?>
