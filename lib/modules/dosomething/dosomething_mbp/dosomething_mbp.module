@@ -18,7 +18,7 @@
  */
 function dosomething_mbp_request($origin, $params = NULL) {
 
-  $production_typee = NULL;
+  $production_type = NULL;
   switch ($origin) {
     case 'user_register':
     case 'user_password':
@@ -50,7 +50,7 @@ function dosomething_mbp_request($origin, $params = NULL) {
  * Build payload for transactional producer requests.
  *
  * NOTE:
- * Any adjustments to the data before it becoms payload should be done in
+ * Any adjustments to the data before it becomes payload should be done in
  * this function.
  *
  * @param string $origin
@@ -188,7 +188,9 @@ function dosomething_mbp_node_update($node) {
 
 /*
  * Collect and format values from campaign $node submissions and populate
- * $params.
+ * $params. The function responsible for ultimately triggering the request to
+ * produce a Message Broker caching transaction for campaign content creation
+ * and updates.
  *
  * @param string $action
  *   Type of mbp request
