@@ -23,31 +23,25 @@
  *   - [recommended]: Array containing a data for recommended campaigns for User.
  */
 
-
-  // krumo($variables);
-  krumo($user_profile);
-  krumo($user_account);
-
-  $recommended = $user_account['recommended'];
-  $campaigns = $user_account['campaigns'];
+  $signedup = $user_account['campaigns_signedup'];
+  $recommended = $user_account['campaigns_recommended'];
+  $address = $user_account['address'];
 ?>
 
 
-<article id="user-<?php print $user_account['id']; ?>" class="user profile"<?php print $attributes; ?>>
-  <?php //print render($user_profile); ?>
+<article class="user profile"<?php print $attributes; ?> id="user-<?php print $user_account['id']; ?>">
 
-  <?php //@TODO: Refactor markup to add wrapper inside header tag, when all headers are refactored. ?>
-  <div class="header-wrapper">
-    <header class="header">
+  <header role="banner">
+    <div class="wrapper">
       <h1 class="title">Hey, <?php print $user_account['first_name']; ?>!</h1>
       <h2 class="subtitle">Let us get to know you better.</h2>
-    </header>
-  </div>
+    </div>
+  </header>
 
   <section class="profile--campaigns">
     <h1 class="banner"><span>My Campaigns</span></h1>
 
-    <?php if(!$campaigns): ?>
+    <?php if(empty($signedup)): ?>
       <div class="cta">
         <h2>Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
         <a href="/campaigns" class="btn medium">Explore Campaigns</a>
@@ -55,21 +49,23 @@
     <?php endif; ?>
 
     <div class="wrapper">
-      <?php if($campaigns): ?>
-          <h2>Signed Up</h2>
-          <?php print render($campaigns); ?>
+      <?php if(!empty($signedup)): ?>
+        <h2>Signed Up</h2>
+        <ul>
+          <?php foreach($signedup as $index => $campaign): ?>
+            <li>
+              <?php print render($campaign); ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       <?php endif; ?>
 
-      <?php if ($recommended): ?>
+      <?php if (!empty($recommended)): ?>
         <h2>Recommended</h2>
         <ul>
           <?php foreach($recommended as $index => $campaign): ?>
             <li>
-              <article class="campaign--teaser" id="campaign-<?php print $campaign['nid']; ?>">
-                <?php //print l($campaign['title'], $campaign['src']); ?>
-                <?php print $campaign['call_to_action']; ?>
-                <img alt="<?php //print $campaign['title']; ?>" src="<?php print $campaign['image']; ?>" />
-              </article>
+              <?php print render($campaign); ?>
             </li>
           <?php endforeach; ?>
         </ul>
@@ -77,25 +73,52 @@
     </div>
   </section>
 
+
   <section class="profile--settings">
     <h1 class="banner"><span>My Settings</span></h1>
 
     <div class="wrapper">
       <div class="__user-info">
-        <p><strong>Name:</strong> <?php print $user_account['first_name']; ?>  <?php print $user_account['last_name']; ?></p>
-        <p><strong>Email:</strong> <?php print $user_account['email']; ?></p>
-        <p><strong>Mobile:</strong> <?php print $user_account['mobile']; ?></p>
-        <p><strong>Birthday:</strong> <?php print $user_account['birthday']; ?></p>
+        <div><strong>Name:</strong> <?php print $user_account['first_name']; ?>  <?php if (!empty($user_account['last_name'])): ?><?php print $user_account['last_name']; ?><?php endif; ?></div>
+        <div><strong>Email:</strong> <?php print $user_account['email']; ?></div>
+
+        <?php if (!empty($user_account['mobile'])): ?>
+          <div><strong>Mobile:</strong> <?php print $user_account['mobile']; ?></div>
+        <?php endif; ?>
+
+        <div><strong>Birthday:</strong> <?php print date('F j, Y', strtotime($user_account['birthday'])); ?></div>
       </div>
 
-      <div class="__address-info">
-        <p><strong>Address 1:</strong> <?php print $user_account['address']['street']; ?></p>
-        <p><strong>Address 2:</strong> <?php print $user_account['address']['premise']; ?></p>
-        <p><strong>City, State, Zip:</strong> <?php print $user_account['address']['city']; ?>, <?php print $user_account['address']['state']; ?>, <?php print $user_account['address']['zip']; ?></p>
-      </div>
+      <?php if (!empty($address)): ?>
+        <div class="__address-info">
+          <?php if (isset($address['street'])): ?>
+            <div><strong>Address 1:</strong> <?php print $address['street']; ?></div>
+          <?php endif;?>
+
+          <?php if (isset($address['premise'])): ?>
+            <div><strong>Address 2:</strong> <?php print $address['premise']; ?></div>
+          <?php endif;?>
+
+          <?php if (isset($address['city'])): ?>
+            <div><strong>City:</strong> <?php print $address['city']; ?></div>
+          <?php endif;?>
+
+          <?php if (isset($address['state'])): ?>
+            <div><strong>State:</strong> <?php print $address['state']; ?></div>
+          <?php endif;?>
+
+          <?php if (isset($address['zip'])): ?>
+            <div><strong>Zip:</strong> <?php print $address['zip']; ?></div>
+          <?php endif;?>
+
+          <?php if (isset($address['country'])): ?>
+            <div><strong>Country:</strong> <?php print $address['country']; ?></div>
+          <?php endif;?>
+        </div>
+      <?php endif; ?>
     </div>
 
-    <?php print render($user_profile['update']); ?>
+    <?php print render($user_profile['updated']); ?>
   </section>
 
 </article>
