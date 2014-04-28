@@ -187,7 +187,8 @@ function dosomething_mbp_node_update($node) {
 }
 
 /*
- * Collect and format values from campaign $node submissions and populate $params.
+ * Collect and format values from campaign $node submissions and populate
+ * $params.
  *
  * @param string $action
  *   Type of mbp request
@@ -196,7 +197,8 @@ function dosomething_mbp_node_update($node) {
  */
 function dosomething_mbp_campaign_request($action, $node) {
 
-  $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" . $node->nid);
+  $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" .
+    $node->nid);
   $field = field_get_items('node', $node, 'field_call_to_action');
   $call_to_action = $field[0]['value'];
   $field = field_get_items('node', $node, 'field_image_campaign_cover');
