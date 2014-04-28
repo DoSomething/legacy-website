@@ -146,7 +146,6 @@ function dosomething_user_is_staff($user = NULL) {
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   global $user;
   $account = $user;
-
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
@@ -187,6 +186,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_partner']);
       }
 
+      $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
@@ -195,11 +195,39 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     case 'user_pass':
       $form['#submit'][] = 'dosomething_user_user_pass_submit';
-
     break;
 
   }
 }
+/**
+ * After build to alter the address field options.
+ *
+ * Removes all extra state options from the addressfield dropdown.
+ */
+function dosomething_user_remove_extra_values_from_address_field($form, &$form_state) {
+  // Get the right form address field.
+  if ($form['#form_id'] == 'user_profile_form') {
+    $options = &$form['field_address'][LANGUAGE_NONE][0];
+  }
+  elseif ($form['#form_id'] == 'dosomething_signup_user_signup_data_form') {
+    $options = &$form['user_address'];
+  }
+  // Pass by ref to ensure changes are made to field.
+  $options = &$options['address']['locality_block']['administrative_area']['#options'];
+
+  $states_to_remove = array(
+    'AA', 'AE', 'AP', 'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'VI',
+  );
+
+  // Unset the extra state options.
+  foreach($states_to_remove as $state) {
+    unset($options[$state]);
+  }
+
+  return $form;
+
+}
+
 /**
  * Validate address field as it is on the user object
  *
