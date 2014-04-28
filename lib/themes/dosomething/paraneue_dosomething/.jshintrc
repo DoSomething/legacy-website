@@ -18,7 +18,9 @@
       "require": false,
       "define": false,
       "console": false,
-      "DEBUG": false
+      "DEBUG": false,
+      "jQuery": false,
+      "$": false
     },
     "strict": true,
     "trailing": true,
