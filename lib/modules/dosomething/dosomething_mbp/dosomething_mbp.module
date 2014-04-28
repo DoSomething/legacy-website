@@ -6,7 +6,7 @@
  */
 
 /**
- * Process requests to send a transaction to the Message Broker system.
+ * A request to send a queue entry to the Message Broker system.
  *
  * @param string $origin
  *   Where the message request came from.
@@ -60,7 +60,6 @@ function dosomething_mbp_request($origin, $params = NULL) {
  *   Optional keyed array of data to build payload from.
  *
  * @return array $payload
- * 
  *   Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
@@ -208,6 +207,7 @@ function dosomething_mbp_campaign_request($action, $node) {
   $fact_solution = $field[0]['value'];
 
   $params = array(
+    'nid' => $node->nid,
     'title' => $node->title,
     'url' => $url,
     'call_to_action' => $call_to_action,
