@@ -152,3 +152,15 @@
 @mixin visually-hidden($position:absolute) { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: $position; width: 1px; }
 
 @mixin visually-restored($position:static) { clip: auto; height: auto; margin: auto; overflow: visible; position: $position; width: auto; }
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// CLEARFIX
+//
+// Contain floats: h5bp.com/q
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }

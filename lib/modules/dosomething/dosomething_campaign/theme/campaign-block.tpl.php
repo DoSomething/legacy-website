@@ -9,5 +9,6 @@
  *   - [call_to_action]: Call to action text for campaign. (string).
  *   - [image]: URL path for campaign image (string).
  *   - [path]: URL path for campaign node (string).
+ *   - [pretty_path]: Pretty URL path for campaign node (string).
  */
 ?>

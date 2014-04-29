@@ -5,8 +5,13 @@
  * Implements hook_user_view().
  */
 function dosomething_user_user_view($account, $view_mode, $langcode) {
-  $image_size = '310x310';
+  $image_size = '400x400';
 
+  // krumo($account);
+
+  $account->content['uid'] = $account->uid;
+  $account->content['name'] = $account->name;
+  $account->content['mail'] = $account->mail;
 
   // Output user signup campaigns.
   $signup_nids = dosomething_signup_get_signup_nids_by_uid($account->uid);
@@ -36,9 +41,16 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   $account->content['campaigns_recommended'] = $recommended;
 
 
+  // Update link information.
+  $edit_path = 'user/' . $account->uid . '/edit';
+
+  $account->content['update_link_path'] = $edit_path;
+
   // Output update link.
-  $account->content['updated'] = array(
-    '#markup' => l('Update', 'user/' . $account->uid . '/edit'),
+  $account->content['update_link'] = array(
+    '#markup' => l('Update', $edit_path),
     '#weight' => 300,
   );
+
+
 }

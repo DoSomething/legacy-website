@@ -3,18 +3,35 @@
 // ----------------
 
 
+// @TODO: Ideally, make this universal... no scenarios where the nav shouldn't position abs on top of header.
+.page-user {
+  @include wrapper--nav-white;
+  @include wrapper--nav-floating;
+}
+
+
+
 // @TODO: Move to Neue.
 .tile { background-color: fuchsia;
   position: relative;
 
-  &:before {
-    content: '';
+  > .wrapper {
+    background-color: #fff;
     display: block;
     height: 100%;
-    position: absolute;
+    min-height: 200px;
     width: 100%;
-    @include linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2) 70%, rgba(#000, .5) 87%, rgba(#000, .85) 100%);
+
+    &:before {
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+      @include linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2) 70%, rgba(#000, .5) 87%, rgba(#000, .85) 100%);
+    }
   }
+
 
   img {
     display: block;
@@ -24,21 +41,54 @@
 
 .tile--meta {
   bottom: 0;
+  color: #fff;
+  padding: 1rem;
   position: absolute;
+
+  .__title {
+    color: inherit;
+    font-size: $font-medium;
+    line-height: 1.2;
+    margin: 0 0 0.25rem;
+  }
+
+  .__tagline {
+    color: inherit;
+    font-size: 0.9em;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .__title,
+  .__tagline {
+    text-shadow: 0 1px 3px rgba(black, 0.3);
+  }
 }
 
 
-// @TODO: Ideally, make this universal... no scenarios where the nav shouldn't position abs on top of header.
-.page-user {
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-}
 
 // @TODO: Will need to namespace or will likely cause conflict with other .gallery class!
 .gallery {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  margin: 0 -10px;
+
+  @include clearfix();
+
+  > li {
+    margin-bottom: 20px;
+    padding: 0 10px;
+
+    @include media(450px) {  // @TODO: custom mq; address when more mq's added.
+      float: left;
+      width: 50%;
+    }
+
+    @include media(930px) {  // @TODO: custom mq; address when more mq's added.
+      width: 33.333333333%;
+    }
+  }
 }
 
 
@@ -55,6 +105,9 @@
     padding: 7rem 1rem 0.5rem;  // @TODO: adding padding to bottom of header; remove bottom margin on subtitle
 
     @include media($tablet) {
+      padding-left: 0;
+      padding-right: 0;
+
       > .wrapper {
         @include span-columns(12);
         @include shift(2);
@@ -68,11 +121,45 @@
 
 
   section {
-    .banner { font-size: $font-medium; }
+    padding-bottom: 1rem;
+
+    .banner {
+      font-size: $font-medium;
+      margin-bottom: 0;
+
+      @include media($tablet) {
+        padding-left: 0;
+        padding-right: 0;
+
+        > span {
+          @include shift(2 of 16);
+        }
+      }
+    }
 
     > .wrapper {
-      padding: 1rem;
+      padding: 1.5rem 1rem;
+
+      @include media($tablet) {
+        padding-left: 0;
+        padding-right: 0;
+
+        @include span-columns(12);
+        @include shift(2);
+        float: none;
+      }
     }
+
+    .__segment {
+      padding-bottom: 0;
+    }
+
+    .__segment + .__segment {
+      > .wrapper {
+        padding-top: 0;
+      }
+    }
+
   }
 
 }
@@ -80,29 +167,40 @@
 
 
 // Profile Signed-Up Campaigns
-.profile--campaigns { //background-color: red;
+.profile--campaigns {
 
 }
 
 
 // Profile Settings
-.profile--settings { //background-color: pink;
+.profile--settings {
+
+  dl {
+    padding-right: 1rem;
+
+    @include clearfix();
+
+    @include media(930px) {
+      @include span-columns(6 of 12);
+      @include omega();
+    }
+
+    margin-bottom: 1rem;
+  }
+
+  dt, dd {
+    float: left;
+    margin-bottom: 0.5rem;
+  }
+
+  dt {
+    clear: both;
+    font-weight: $weight-bold;
+    padding-right: 0.5rem;
+  }
+
+  .btn {
+    clear: both;
+  }
 
 }
-
-
-// @TODO: Refactor header end.
-
-// .profile-info-wrapper {
-//   padding: 1rem;
-//   @include row;
-//   @include media($tablet) {
-//     padding: 0;
-//   }
-
-//   > section {
-//     span {
-//       color: $med-gray;
-//     }
-//   }
-// }
