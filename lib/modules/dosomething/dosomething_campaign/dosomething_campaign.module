@@ -456,7 +456,10 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
       // Only include signup data form if the status field is checked.
       if ($signup_data_info['status'] == 1) {
         $node->content['signup_data_form_link'] = $signup_data_info['link_text'];
-        $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $node->nid);
+        // Load the signup entity.
+        $signup = signup_load(dosomething_signup_exists($node->nid));
+        // Pass to the user signup data form.
+        $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
       }
     }
     if (module_exists('dosomething_reportback')) {

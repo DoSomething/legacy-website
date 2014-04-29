@@ -144,11 +144,11 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  * @param int $nid
  *   The node which the signup data form is rendered on.
  */
-function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
-  $config = dosomething_signup_get_signup_data_form_info($nid);
+function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
+  $config = dosomething_signup_get_signup_data_form_info($signup->nid);
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#value' => $nid,
+    '#value' => $signup->nid,
     '#access' => FALSE,
   );
   $form['header'] = array(
@@ -156,8 +156,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
-  // Load signup entity.
-  $signup = signup_load(dosomething_signup_exists($nid));
   // If the user has submitted form already:
   if ($timestamp = $signup->signup_data_form_timestamp) {
     // Get filtered form_submitted_copy.
