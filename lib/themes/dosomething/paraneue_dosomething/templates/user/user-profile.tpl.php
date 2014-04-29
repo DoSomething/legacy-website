@@ -26,8 +26,6 @@
   $signedup = $user_account['campaigns_signedup'];
   $recommended = $user_account['campaigns_recommended'];
   $address = $user_account['address'];
-
-  // $signedup = null;
 ?>
 
 
