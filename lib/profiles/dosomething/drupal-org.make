@@ -172,10 +172,6 @@ projects[message_broker_producer][subdir] = "contrib"
 projects[devel] = "1.3"
 projects[devel][subdir] = "contrib"
 
-; Environment Indicator
-projects[environment_indicator] = "2.0"
-projects[environment_indicator][subdir] = "contrib"
-
 ; Coder
 projects[coder] = "2.0"
 projects[coder][subdir] = "contrib"
