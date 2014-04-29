@@ -12,8 +12,12 @@
  */
 ?>
 
-<article class="campaign -teaser" id="campaign-<?php print $vars['nid']; ?>">
-  <h1><?php print l($vars['title'], $vars['path']); ?></h1>
-  <p><?php print $vars['call_to_action']; ?></p>
-  <img alt="<?php print $vars['title']; ?>" src="<?php print $vars['image']; ?>" />
+<article class="tile tile--campaign" id="campaign-<?php print $vars['nid']; ?>">
+  <a class="wrapper" href="<?php print $vars['path']; ?>">
+    <div class="tile--meta">
+      <h1 class="__title"><?php print $vars['title']; ?></h1>
+      <p class="__tagline"><?php print $vars['call_to_action']; ?></p>
+    </div>
+    <img alt="<?php print $vars['title']; ?>" src="<?php print $vars['image']; ?>" />
+  </a>
 </article>

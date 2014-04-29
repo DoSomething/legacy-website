@@ -51,7 +51,7 @@
     <div class="wrapper">
       <?php if(!empty($signedup)): ?>
         <h2>Signed Up</h2>
-        <ul>
+        <ul class="gallery">
           <?php foreach($signedup as $index => $campaign): ?>
             <li>
               <?php print render($campaign); ?>
@@ -62,7 +62,7 @@
 
       <?php if (!empty($recommended)): ?>
         <h2>Recommended</h2>
-        <ul>
+        <ul class="gallery">
           <?php foreach($recommended as $index => $campaign): ?>
             <li>
               <?php print render($campaign); ?>
@@ -116,9 +116,9 @@
           <?php endif;?>
         </div>
       <?php endif; ?>
-    </div>
 
-    <?php print render($user_profile['updated']); ?>
+      <?php print render($user_profile['updated']); ?>
+    </div>
   </section>
 
 </article>

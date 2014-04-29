@@ -38,7 +38,6 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
 
   // Output update link.
   $account->content['updated'] = array(
-    '#type' => 'user_profile_item',
     '#markup' => l('Update', 'user/' . $account->uid . '/edit'),
     '#weight' => 300,
   );

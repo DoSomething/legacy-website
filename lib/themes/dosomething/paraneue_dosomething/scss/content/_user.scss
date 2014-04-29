@@ -1,3 +1,108 @@
 // ----------------
 //  USER PROFILE
 // ----------------
+
+
+// @TODO: Move to Neue.
+.tile { background-color: fuchsia;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    @include linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2) 70%, rgba(#000, .5) 87%, rgba(#000, .85) 100%);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.tile--meta {
+  bottom: 0;
+  position: absolute;
+}
+
+
+// @TODO: Ideally, make this universal... no scenarios where the nav shouldn't position abs on top of header.
+.page-user {
+  @include wrapper--nav-white;
+  @include wrapper--nav-floating;
+}
+
+// @TODO: Will need to namespace or will likely cause conflict with other .gallery class!
+.gallery {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.profile {
+
+  h1, h2, h3, h4, h5, h6 {  // @TODO: remove from here and place globally.
+    margin-top: 0;
+  }
+
+  header[role="banner"] {
+    @include header-gradient();
+    @include header-typography();
+    padding: 7rem 1rem 0.5rem;  // @TODO: adding padding to bottom of header; remove bottom margin on subtitle
+
+    @include media($tablet) {
+      > .wrapper {
+        @include span-columns(12);
+        @include shift(2);
+        float: none;
+      }
+      padding-bottom: 1.5rem;
+    }
+
+    .subtitle { margin-bottom: 0; } // @TODO: temp for now; apply universally.
+  }
+
+
+  section {
+    .banner { font-size: $font-medium; }
+
+    > .wrapper {
+      padding: 1rem;
+    }
+  }
+
+}
+
+
+
+// Profile Signed-Up Campaigns
+.profile--campaigns { //background-color: red;
+
+}
+
+
+// Profile Settings
+.profile--settings { //background-color: pink;
+
+}
+
+
+// @TODO: Refactor header end.
+
+// .profile-info-wrapper {
+//   padding: 1rem;
+//   @include row;
+//   @include media($tablet) {
+//     padding: 0;
+//   }
+
+//   > section {
+//     span {
+//       color: $med-gray;
+//     }
+//   }
+// }
