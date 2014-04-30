@@ -270,6 +270,9 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
   $form['reportback_file'] = array(
     '#type' => 'file',
     '#title' => t('Upload a pic'),
+    '#attributes' => array(
+      'class' => array('js-image-upload'),
+    ),
   );
   $form['quantity'] = array(
     '#type' => 'textfield',
