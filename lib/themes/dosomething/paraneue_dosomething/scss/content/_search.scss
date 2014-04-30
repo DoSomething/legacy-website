@@ -10,6 +10,7 @@
 
       @include span-columns(8);
       @include shift(4);
+      float: none;
     }
   }
 
