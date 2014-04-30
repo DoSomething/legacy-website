@@ -68,12 +68,6 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#default_value' => $values['required'],
     '#description' => t('If checked, the form will be displayed after the user first signs up.'),
   );
-  $form[$fieldset]['config'][$prefix . 'collect_user_address'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Collect user address'),
-    '#default_value' => $values['collect_user_address'],
-    '#description' => t('If checked, collect the user address and save to profile.'),
-  );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Link text'),
@@ -88,6 +82,18 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Form copy'),
     '#default_value' => $values['form_copy'],
+  );
+  $form[$fieldset]['config'][$prefix . 'collect_user_address'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect user address'),
+    '#default_value' => $values['collect_user_address'],
+    '#description' => t('If checked, collect the user address and save to profile.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'collect_why_signedup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect why signedup'),
+    '#default_value' => $values['collect_why_signedup'],
+    '#description' => t('If checked, collect the reason why the user signed up for the campaign.'),
   );
   $form[$fieldset]['config'][$prefix . 'confirm_msg'] = array(
     '#type' => 'textarea',
@@ -142,6 +148,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
+        'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
     ))
     ->execute();
 }
