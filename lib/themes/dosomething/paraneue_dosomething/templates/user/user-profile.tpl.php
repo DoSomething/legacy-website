@@ -46,31 +46,35 @@
         <h2>Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
         <a href="/campaigns" class="btn medium">Explore Campaigns</a>
       </div>
+    <?php else: ?>
+      <section class="__segment">
+        <div class="wrapper">
+          <h2>Signed Up</h2>
+          <ul class="gallery">
+            <?php foreach($signedup as $index => $campaign): ?>
+              <li>
+                <?php print render($campaign); ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </section>
     <?php endif; ?>
 
-    <div class="wrapper">
-      <?php if(!empty($signedup)): ?>
-        <h2>Signed Up</h2>
-        <ul>
-          <?php foreach($signedup as $index => $campaign): ?>
-            <li>
-              <?php print render($campaign); ?>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php endif; ?>
-
-      <?php if (!empty($recommended)): ?>
-        <h2>Recommended</h2>
-        <ul>
-          <?php foreach($recommended as $index => $campaign): ?>
-            <li>
-              <?php print render($campaign); ?>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php endif; ?>
-    </div>
+    <?php if (!empty($recommended)): ?>
+      <section class="__segment">
+        <div class="wrapper">
+          <h2>Recommended</h2>
+          <ul class="gallery">
+            <?php foreach($recommended as $index => $campaign): ?>
+              <li>
+                <?php print render($campaign); ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </section>
+    <?php endif; ?>
   </section>
 
 
@@ -78,47 +82,57 @@
     <h1 class="banner"><span>My Settings</span></h1>
 
     <div class="wrapper">
-      <div class="__user-info">
-        <div><strong>Name:</strong> <?php print $user_account['first_name']; ?>  <?php if (!empty($user_account['last_name'])): ?><?php print $user_account['last_name']; ?><?php endif; ?></div>
-        <div><strong>Email:</strong> <?php print $user_account['email']; ?></div>
+      <dl class="__user-info">
+        <dt>Name:</dt>
+        <dd><?php print $user_account['first_name']; ?> <?php if (!empty($user_account['last_name'])): ?><?php print $user_account['last_name']; ?><?php endif; ?></dd>
+        <dt>Email:</dt>
+        <dd><?php print $user_account['email']; ?></dd>
 
         <?php if (!empty($user_account['mobile'])): ?>
-          <div><strong>Mobile:</strong> <?php print $user_account['mobile']; ?></div>
+          <dt>Mobile:</dt>
+          <dd><?php print $user_account['mobile']; ?></dd>
         <?php endif; ?>
 
-        <div><strong>Birthday:</strong> <?php print date('F j, Y', strtotime($user_account['birthday'])); ?></div>
-      </div>
+        <dt>Birthday:</dt>
+        <dd><?php print date('F j, Y', strtotime($user_account['birthday'])); ?></dd>
+      </dl>
 
       <?php if (!empty($address)): ?>
-        <div class="__address-info">
+        <dl class="__address-info">
           <?php if (isset($address['street'])): ?>
-            <div><strong>Address 1:</strong> <?php print $address['street']; ?></div>
+            <dt>Address 1:</dt>
+            <dd><?php print $address['street']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['premise'])): ?>
-            <div><strong>Address 2:</strong> <?php print $address['premise']; ?></div>
+            <dt>Address 2:</dt>
+            <dd><?php print $address['premise']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['city'])): ?>
-            <div><strong>City:</strong> <?php print $address['city']; ?></div>
+            <dt>City:</dt>
+            <dd><?php print $address['city']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['state'])): ?>
-            <div><strong>State:</strong> <?php print $address['state']; ?></div>
+            <dt>State:</dt>
+            <dd><?php print $address['state']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['zip'])): ?>
-            <div><strong>Zip:</strong> <?php print $address['zip']; ?></div>
+            <dt>Zip:</dt>
+            <dd><?php print $address['zip']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['country'])): ?>
-            <div><strong>Country:</strong> <?php print $address['country']; ?></div>
+            <dt>Country:</dt>
+            <dd><?php print $address['country']; ?></dd>
           <?php endif;?>
-        </div>
+        </dl>
       <?php endif; ?>
-    </div>
 
-    <?php print render($user_profile['updated']); ?>
+      <a class="btn medium" href="/<?php print $user_profile['update_link_path']; ?>">Update</a>
+    </div>
   </section>
 
 </article>
