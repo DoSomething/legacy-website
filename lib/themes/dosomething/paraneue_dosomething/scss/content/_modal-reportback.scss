@@ -22,6 +22,22 @@
       }
     }
 
+    .filename {
+      color: #fff;
+      font-size: $font-small;
+      font-weight: $weight-bold;
+    }
+
+    .preview {
+      float: left;
+      width: auto;
+      height: auto;
+      max-width: 100px;
+      max-height: 200px;
+      border: 5px solid #fff;
+      margin: 0.25rem 1rem;
+    }
+
     .submitted-image {
       text-align: center;
 
