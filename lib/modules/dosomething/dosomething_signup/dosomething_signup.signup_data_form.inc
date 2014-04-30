@@ -91,9 +91,21 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   );
   $form[$fieldset]['config'][$prefix . 'collect_why_signedup'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect why signedup'),
+    '#title' => t('Collect signup reason'),
     '#default_value' => $values['collect_why_signedup'],
     '#description' => t('If checked, collect the reason why the user signed up for the campaign.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'why_signedup_label'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Signup Reason Label'),
+    '#default_value' => $values['why_signedup_label'],
+    '#description' => t('This is the label for the field which collects the signup reason. e.g. <em>Tell us why you would like to receive Thumb Socks for Thumb Wars</em>.'),
+    // Why_signedup label should only be visible if collect_why_signedup is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_why_signedup"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   $form[$fieldset]['config'][$prefix . 'confirm_msg'] = array(
     '#type' => 'textarea',
@@ -149,6 +161,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
         'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
+        'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
     ))
     ->execute();
 }
