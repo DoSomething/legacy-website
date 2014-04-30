@@ -13,7 +13,9 @@ function dosomething_campaign_group_user_default_permissions() {
   // Exported permission: 'create campaign_group content'.
   $permissions['create campaign_group content'] = array(
     'name' => 'create campaign_group content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
@@ -34,22 +36,19 @@ function dosomething_campaign_group_user_default_permissions() {
   // Exported permission: 'edit any campaign_group content'.
   $permissions['edit any campaign_group content'] = array(
     'name' => 'edit any campaign_group content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own campaign_group content'.
   $permissions['edit own campaign_group content'] = array(
     'name' => 'edit own campaign_group content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'view any unpublished campaign_group content'.
-  $permissions['view any unpublished campaign_group content'] = array(
-    'name' => 'view any unpublished campaign_group content',
-    'roles' => array(),
-    'module' => 'view_unpublished',
   );
 
   return $permissions;
