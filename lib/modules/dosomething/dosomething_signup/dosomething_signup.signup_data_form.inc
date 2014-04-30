@@ -62,10 +62,17 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
       ),
     ),
   );
+  $form[$fieldset]['config'][$prefix . 'required'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display after signup'),
+    '#default_value' => $values['required'],
+    '#description' => t('If checked, the form will be displayed after the user first signs up.'),
+  );
   $form[$fieldset]['config'][$prefix . 'collect_user_address'] = array(
     '#type' => 'checkbox',
     '#title' => t('Collect user address'),
     '#default_value' => $values['collect_user_address'],
+    '#description' => t('If checked, collect the user address and save to profile.'),
   );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
@@ -91,7 +98,7 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Form submitted copy'),
     '#default_value' => $values['form_submitted_copy'],
-    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
+    '#description' => t('This is the copy that will appear if a user views the form after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
   );
 }
 
@@ -128,6 +135,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
     ->key(array('nid' => $nid))
     ->fields(array(
         'status' => $values[$prefix . 'status'],
+        'required' => $values[$prefix . 'required'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
