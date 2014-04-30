@@ -81,7 +81,7 @@
   <section class="profile--settings">
     <h1 class="banner"><span>My Settings</span></h1>
 
-    <div class="wrapper clearfix">
+    <div class="wrapper">
       <dl class="__user-info">
         <dt>Name:</dt>
         <dd><?php print $user_account['first_name']; ?> <?php if (!empty($user_account['last_name'])): ?><?php print $user_account['last_name']; ?><?php endif; ?></dd>

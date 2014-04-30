@@ -20,7 +20,7 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   foreach ($signup_nids as $delta => $nid) {
     $vars = dosomething_campaign_get_campaign_block_vars($nid, $image_size);
     $signups['signup_' . $delta] = array(
-      '#markup' => theme('campaign_block', array('vars' => $vars)),
+      '#markup' => theme('campaign_block', $vars),
     );
   }
 
@@ -34,7 +34,7 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   foreach ($rec_nids as $delta => $nid) {
     $vars = dosomething_campaign_get_campaign_block_vars($nid, $image_size);
     $recommended['recommended_' . $delta] = array(
-      '#markup' => theme('campaign_block', array('vars' => $vars)),
+      '#markup' => theme('campaign_block', $vars),
     );
   }
 
