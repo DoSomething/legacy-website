@@ -35,7 +35,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
 
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/registration" data-cached-modal="#modal--register" class="js-modal-link">Create a DoSomething.org account</a><br/><a href="/user/password">Forgot password?</a></p>',
+      '#markup' => '<p class="auth--toggle-link"><a href="/user/register" data-cached-modal="#modal--register" class="js-modal-link">Create a DoSomething.org account</a><br/><a href="/user/password">Forgot password?</a></p>',
       '#weight' => 500
     );
 
