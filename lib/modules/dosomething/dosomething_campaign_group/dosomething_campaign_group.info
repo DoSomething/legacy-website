@@ -41,7 +41,6 @@ features[user_permission][] = delete any campaign_group content
 features[user_permission][] = delete own campaign_group content
 features[user_permission][] = edit any campaign_group content
 features[user_permission][] = edit own campaign_group content
-features[user_permission][] = view any unpublished campaign_group content
 features[variable][] = field_bundle_settings_node__campaign_group
 features[variable][] = language_content_type_campaign_group
 features[variable][] = menu_options_campaign_group
