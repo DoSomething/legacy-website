@@ -49,6 +49,12 @@ class SignupEntityController extends EntityAPIController {
         '#markup' => '<p>Signup Data Form Timestamp: ' . format_date($entity->signup_data_form_timestamp, 'short') . '</p>',
       );    
     }
+    if ($entity->why_signedup) {
+      $build['why_signedup'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p>Signup Reason: ' . check_plain($entity->why_signedup) . '</p>',
+      );    
+    }
     return $build;
   }
 }

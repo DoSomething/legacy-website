@@ -184,7 +184,13 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  *   The node which the signup data form is rendered on.
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
+  // Load signup data form config to determine what form elements we need.
   $config = dosomething_signup_get_signup_data_form_info($signup->nid);
+  $form['sid'] = array(
+    '#type' => 'hidden',
+    '#value' => $signup->sid,
+    '#access' => FALSE,
+  );
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $signup->nid,
@@ -252,7 +258,15 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     // If we are collecting an address, run address validation.
     $form['#validate'][] = 'dosomething_signup_data_validate_address';
   }
-
+  // If we are collecting why_signedup:
+  if ($config['collect_why_signedup']) {
+    // Add it as a form element.
+    $form['why_signedup'] = array(
+      '#type' => 'textarea',
+      '#required' => TRUE,
+      '#title' => $config['why_signedup_label'],
+    );
+  }
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
@@ -378,15 +392,14 @@ function dosomething_signup_update_user_data($values) {
  *   The values passed from a user signup_data_form submission.
  */
 function dosomething_signup_update_signup_data($values) {
-  // Find the relevant signup sid to update.
-  $sid = dosomething_signup_exists($values['nid']);
   try {
-    db_update('dosomething_signup')
-    ->fields(array(
-      'signup_data_form_timestamp' => REQUEST_TIME,
-    ))
-    ->condition('sid', $sid)
-    ->execute();
+    // Load the signup entity to update.
+    $entity = signup_load($values['sid']);
+    $entity->signup_data_form_timestamp = REQUEST_TIME;
+    if (isset($values['why_signedup'])) {
+      $entity->why_signedup = $values['why_signedup'];
+    }
+    $entity->save();
     return TRUE;
   }
   catch (Exception $e) {
