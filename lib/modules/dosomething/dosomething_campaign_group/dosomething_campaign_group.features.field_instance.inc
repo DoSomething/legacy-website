@@ -397,7 +397,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -447,74 +447,23 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_partner'
-  $field_instances['node-campaign_group-field_partner'] = array(
+  // Exported field_instance: 'node-campaign_group-field_partners'
+  $field_instances['node-campaign_group-field_partners'] = array(
     'bundle' => 'campaign_group',
-    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
+        'module' => 'field_collection',
         'settings' => array(
-          'link' => FALSE,
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
         ),
-        'type' => 'entityreference_label',
-        'weight' => 6,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
-    'field_name' => 'field_partner',
-    'label' => 'Sponsors and Partners',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'taxonomy-index' => array(
-          'status' => TRUE,
-        ),
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-campaign_group-field_partners_term'
-  $field_instances['node-campaign_group-field_partners_term'] = array(
-    'bundle' => 'campaign_group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
+        'type' => 'field_collection_view',
         'weight' => 12,
       ),
       'pitch' => array(
@@ -531,18 +480,17 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_partners_term',
-    'label' => 'Partners',
-    'required' => 0,
+    'field_name' => 'field_partners',
+    'label' => 'Sponsors and Partners',
+    'required' => FALSE,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'options',
+      'module' => 'field_collection',
       'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 8,
+      'type' => 'field_collection_embed',
+      'weight' => 2,
     ),
   );
 
@@ -650,7 +598,6 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Intro');
   t('Intro Image');
   t('Intro Title');
-  t('Partners');
   t('Sponsors and Partners');
   t('Subtitle');
   t('Video');
