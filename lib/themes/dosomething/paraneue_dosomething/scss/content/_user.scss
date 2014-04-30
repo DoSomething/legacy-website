@@ -10,6 +10,55 @@
 }
 
 
+// @TODO: Refactor and incorporate into default page styles.
+// I know this is fugly, but it's only temporary! Who are you to judge!?!
+.page-user-edit {
+  .chrome--nav {
+    a {
+      color: #222 !important;  // @TDOD: blarg!
+    }
+
+    .hamburger {
+      color: #222 !important;  // @TDOD: blarg!
+    }
+
+    .secondary-nav input[type="search"] {
+      color: #222;
+      border-color: #222;
+    }
+
+    &.is-visible {
+      a {
+        color: #fff !important;  // @TDOD: blarg!
+      }
+
+      .hamburger {
+        color: #fff !important;  // @TDOD: blarg!
+      }
+    }
+  }
+
+  #user-profile-form {
+    padding: 7rem 0 2rem;
+
+    @include span-columns(7);
+    @include shift(0.5);
+    float: none;
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+      float: none;
+    }
+
+    @include media($desktop) {
+      @include span-columns(10);
+      @include shift(3);
+      float: none;
+    }
+  }
+}
+
 
 // @TODO: Move to Neue.
 .tile {
