@@ -62,36 +62,72 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
       ),
     ),
   );
-  $form[$fieldset]['config'][$prefix . 'collect_user_address'] = array(
+  $form[$fieldset]['config'][$prefix . 'required'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect user address'),
-    '#default_value' => $values['collect_user_address'],
+    '#title' => t('Display after signup'),
+    '#default_value' => $values['required'],
+    '#description' => t('If checked, the form modal will be displayed after the user first signs up.'),
   );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Link text'),
     '#default_value' => $values['link_text'],
+    '#description' => t('This is label of the link in "Stuff You Need" which opens the form modal.'),
   );
   $form[$fieldset]['config'][$prefix . 'form_header'] = array(
     '#type' => 'textfield',
     '#title' => t('Form header'),
     '#default_value' => $values['form_header'],
+    '#description' => t('This is the headline that appears in the form modal.'),
   );
   $form[$fieldset]['config'][$prefix . 'form_copy'] = array(
     '#type' => 'textarea',
     '#title' => t('Form copy'),
     '#default_value' => $values['form_copy'],
+    '#description' => t('This is the copy that appears above the form elements.'),
+  );
+  // Create fieldset to group configuration of the actual form elements.
+  $form[$fieldset]['config']['elements'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form Elements'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form[$fieldset]['config']['elements'] [$prefix . 'collect_user_address'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect user address'),
+    '#default_value' => $values['collect_user_address'],
+    '#description' => t('If checked, collect the user address and save to profile.'),
+  );
+  $form[$fieldset]['config']['elements'] [$prefix . 'collect_why_signedup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect signup reason'),
+    '#default_value' => $values['collect_why_signedup'],
+    '#description' => t('If checked, collect the reason why the user signed up for the campaign.'),
+  );
+  $form[$fieldset]['config']['elements'][$prefix . 'why_signedup_label'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Signup Reason Label'),
+    '#default_value' => $values['why_signedup_label'],
+    '#description' => t('This is the label for the field which collects the signup reason. e.g. <em>Tell us why you would like to receive Thumb Socks for Thumb Wars</em>.'),
+    // Why_signedup label should only be visible if collect_why_signedup is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_why_signedup"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   $form[$fieldset]['config'][$prefix . 'confirm_msg'] = array(
     '#type' => 'textarea',
     '#title' => t('Confirmation message'),
     '#default_value' => $values['confirm_msg'],
+    '#description' => t('This is the message displayed after the user submits the form.'),
   );
   $form[$fieldset]['config'][$prefix . 'form_submitted_copy'] = array(
     '#type' => 'textarea',
     '#title' => t('Form submitted copy'),
     '#default_value' => $values['form_submitted_copy'],
-    '#description' => t('This is the message that will appear if a user views the form after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
+    '#description' => t('This is the copy that will appear if a user views the form again after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
   );
 }
 
@@ -128,12 +164,15 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
     ->key(array('nid' => $nid))
     ->fields(array(
         'status' => $values[$prefix . 'status'],
+        'required' => $values[$prefix . 'required'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
+        'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
+        'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
     ))
     ->execute();
 }
@@ -144,11 +183,11 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  * @param int $nid
  *   The node which the signup data form is rendered on.
  */
-function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
-  $config = dosomething_signup_get_signup_data_form_info($nid);
+function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
+  $config = dosomething_signup_get_signup_data_form_info($signup->nid);
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#value' => $nid,
+    '#value' => $signup->nid,
     '#access' => FALSE,
   );
   $form['header'] = array(
@@ -156,8 +195,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $nid) {
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
-  // Load signup entity.
-  $signup = signup_load(dosomething_signup_exists($nid));
   // If the user has submitted form already:
   if ($timestamp = $signup->signup_data_form_timestamp) {
     // Get filtered form_submitted_copy.
