@@ -41,6 +41,11 @@ function dosomething_signup_schema() {
         'type' => 'int',
         'not null' => FALSE,
       ),
+      'signup_data_form_response' => array(
+        'description' => 'The response to signup data form.  If 0, user has skipped.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
       'why_signedup' => array(
         'description' => 'Why the user signed up.',
         'type' => 'text',
@@ -226,4 +231,28 @@ function dosomething_signup_update_7004() {
     // Add it per the schema field definition.
     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
+}
+
+/**
+ * Adds signup_data_form_response column to the dosomething_signup table.
+ * Updates existing signup records for this column where form was submitted.
+ */
+function dosomething_signup_update_7005() {
+  // Load schema for field definitions.
+  $schema = dosomething_signup_schema();
+  $tbl_name = 'dosomething_signup';
+  // New field to add.
+  $field_name = 'signup_data_form_response';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+  // Next, update existing signups.
+  $num_updated = db_update('dosomething_signup')
+    ->fields(array(
+      'signup_data_form_response' => 1,
+    ))
+    ->isNotNull('signup_data_form_timestamp')
+    ->execute();
 }
