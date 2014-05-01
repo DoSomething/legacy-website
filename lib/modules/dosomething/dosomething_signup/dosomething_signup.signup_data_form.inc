@@ -396,6 +396,8 @@ function dosomething_signup_update_signup_data($values) {
     // Load the signup entity to update.
     $entity = signup_load($values['sid']);
     $entity->signup_data_form_timestamp = REQUEST_TIME;
+    //@todo: If user submitted "skip", save response value = 0.
+    $entity->signup_data_form_response = 1;
     if (isset($values['why_signedup'])) {
       $entity->why_signedup = $values['why_signedup'];
     }
