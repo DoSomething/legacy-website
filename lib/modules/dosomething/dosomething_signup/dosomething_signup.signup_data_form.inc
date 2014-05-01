@@ -64,9 +64,21 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   );
   $form[$fieldset]['config'][$prefix . 'required'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Display after signup'),
+    '#title' => t('Prompt after signup'),
     '#default_value' => $values['required'],
     '#description' => t('If checked, the form modal will be displayed after the user first signs up.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow skip'),
+    '#default_value' => $values['required_allow_skip'],
+    '#description' => t('If checked, the form modal will provide a Skip button when the user is first prompted.'),
+    // Should only be visible if form is required.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'required"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
@@ -165,6 +177,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
     ->fields(array(
         'status' => $values[$prefix . 'status'],
         'required' => $values[$prefix . 'required'],
+        'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
@@ -180,8 +193,8 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
 /**
  * Form constructor for a user signup data form.
  *
- * @param int $nid
- *   The node which the signup data form is rendered on.
+ * @param object $signup
+ *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
   // Load signup data form config to determine what form elements we need.
@@ -202,7 +215,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</h2>',
   );
   // If the user has submitted form already:
-  if ($timestamp = $signup->signup_data_form_timestamp) {
+  if ($timestamp = $signup->signup_data_form_timestamp && $signup->signup_data_form_response == 1) {
     // Get filtered form_submitted_copy.
     $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
     // Display the form submitted copy:
@@ -277,13 +290,15 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
-
   $form['#action'] = "#modal-signup-data-form";
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
 
   return $form;
 }
 
+/**
+ * Validation callback for address field in dosomething_signup_user_signup_data_form().
+ */
 function dosomething_signup_data_validate_address($form, &$form_state) {
   // Validate address against UPS api.
   $address = $form_state['input']['user_address'];
@@ -348,6 +363,39 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
 }
 
 /**
+ * Form constructor for a user skip signup data form.
+ *
+ * @param object $signup
+ *   The signup entity to save additional data to.
+ */
+function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
+  $form['sid'] = array(
+    '#type' => 'hidden',
+    '#value' => $signup->sid,
+    '#access' => FALSE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Skip'),
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'tertiary',
+      ),
+    ),
+  );
+  return $form;
+}
+
+/*
+ * Form submit handler for dosomething_signup_user_skip_signup_data_form().
+ */
+function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
+  // Update signup record with response = 0.
+  dosomething_signup_update_signup_data($form_state['values'], 0);
+}
+
+/**
  * Saves signup_form_data to fields on the user.
  *
  * @param array $values
@@ -390,14 +438,20 @@ function dosomething_signup_update_user_data($values) {
  *
  * @param array $values
  *   The values passed from a user signup_data_form submission.
+ * @param int $response
+ *   If 0, the user chose to skip the form. Else, should be 1.
  */
-function dosomething_signup_update_signup_data($values) {
+function dosomething_signup_update_signup_data($values, $response = 1) {
   try {
     // Load the signup entity to update.
     $entity = signup_load($values['sid']);
     $entity->signup_data_form_timestamp = REQUEST_TIME;
-    if (isset($values['why_signedup'])) {
-      $entity->why_signedup = $values['why_signedup'];
+    $entity->signup_data_form_response = $response;
+    // If non-skip, store any additional signup data:
+    if ($response) {
+      if (isset($values['why_signedup'])) {
+        $entity->why_signedup = $values['why_signedup'];
+      } 
     }
     $entity->save();
     return TRUE;

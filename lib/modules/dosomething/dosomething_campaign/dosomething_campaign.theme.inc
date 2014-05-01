@@ -333,6 +333,9 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
     $vars['signup_data_form_link'] = $vars['content']['signup_data_form_link'];
     $vars['signup_data_form'] = $vars['content']['signup_data_form'];
   }
+  if (isset($vars['content']['skip_signup_data_form'])) {
+    $vars['skip_signup_data_form'] = $vars['content']['skip_signup_data_form'];
+  }
 }
 
 /**

@@ -460,6 +460,11 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
         $signup = signup_load(dosomething_signup_exists($node->nid));
         // Pass to the user signup data form.
         $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
+        // If form is set to include a skip button, and user has never submitted:
+        if ($signup_data_info['required_allow_skip'] && !$signup->signup_data_form_timestamp) {
+          // Include the skip form:
+          $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
+        }
       }
     }
     if (module_exists('dosomething_reportback')) {
