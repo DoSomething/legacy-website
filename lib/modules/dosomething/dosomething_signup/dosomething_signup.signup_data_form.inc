@@ -276,7 +276,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     // Add it as a form element.
     $form['why_signedup'] = array(
       '#type' => 'textarea',
-      '#required' => TRUE,
+      // @todo: This needs to be conditional. Can't be required if you skip.
+      //'#required' => TRUE,
       '#title' => $config['why_signedup_label'],
     );
   }
@@ -296,6 +297,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     $form['actions']['skip'] = array(
       '#type' => 'submit',
       '#value' => t('Skip'),
+      '#submit' => array('dosomething_signup_user_signup_data_form_skip'),
       '#attributes' => array(
         'class' => array(
           'btn',
@@ -374,6 +376,14 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   drupal_set_message($config['confirm_msg']);
 }
 
+/*
+ * Custom submit for the skip button in dosomething_signup_user_signup_data_form().
+ */
+function dosomething_signup_user_signup_data_form_skip($form, &$form_state) {
+  // Update signup record with response = 0.
+  dosomething_signup_update_signup_data($form_state['values'], 0);
+}
+
 /**
  * Saves signup_form_data to fields on the user.
  *
@@ -417,16 +427,20 @@ function dosomething_signup_update_user_data($values) {
  *
  * @param array $values
  *   The values passed from a user signup_data_form submission.
+ * @param int $response
+ *   If 0, the user chose to skip the form. Else, should be 1.
  */
-function dosomething_signup_update_signup_data($values) {
+function dosomething_signup_update_signup_data($values, $response = 1) {
   try {
     // Load the signup entity to update.
     $entity = signup_load($values['sid']);
     $entity->signup_data_form_timestamp = REQUEST_TIME;
-    //@todo: If user submitted "skip", save response value = 0.
-    $entity->signup_data_form_response = 1;
-    if (isset($values['why_signedup'])) {
-      $entity->why_signedup = $values['why_signedup'];
+    $entity->signup_data_form_response = $response;
+    // If non-skip, store any additional signup data:
+    if ($response) {
+      if (isset($values['why_signedup'])) {
+        $entity->why_signedup = $values['why_signedup'];
+      } 
     }
     $entity->save();
     return TRUE;
