@@ -64,9 +64,21 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   );
   $form[$fieldset]['config'][$prefix . 'required'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Display after signup'),
+    '#title' => t('Prompt after signup'),
     '#default_value' => $values['required'],
     '#description' => t('If checked, the form modal will be displayed after the user first signs up.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Allow skip'),
+    '#default_value' => $values['required_allow_skip'],
+    '#description' => t('If checked, the form modal will provide a Skip button when the user is first prompted.'),
+    // Should only be visible if form is required.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'required"]' => array('checked' => TRUE),
+      ),
+    ),
   );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
@@ -165,6 +177,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
     ->fields(array(
         'status' => $values[$prefix . 'status'],
         'required' => $values[$prefix . 'required'],
+        'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
@@ -267,7 +280,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => $config['why_signedup_label'],
     );
   }
-  $form['submit'] = array(
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
     '#attributes' => array(
@@ -277,6 +290,20 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
+  // If form is set to include a skip button, and user has never submitted:
+  if ($config['required_allow_skip'] && !$signup->signup_data_form_timestamp) {
+    // Include a Skip button.
+    $form['actions']['skip'] = array(
+      '#type' => 'submit',
+      '#value' => t('Skip'),
+      '#attributes' => array(
+        'class' => array(
+          'btn',
+          'secondary',
+        ),
+      ),
+    );
+  }
 
   $form['#action'] = "#modal-signup-data-form";
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
