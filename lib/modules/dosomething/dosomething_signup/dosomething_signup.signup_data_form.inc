@@ -193,8 +193,8 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
 /**
  * Form constructor for a user signup data form.
  *
- * @param int $nid
- *   The node which the signup data form is rendered on.
+ * @param object $signup
+ *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
   // Load signup data form config to determine what form elements we need.
@@ -280,7 +280,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => $config['why_signedup_label'],
     );
   }
-  $form['actions']['submit'] = array(
+  $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
     '#attributes' => array(
@@ -296,6 +296,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   return $form;
 }
 
+/**
+ * Validation callback for address field in dosomething_signup_user_signup_data_form().
+ */
 function dosomething_signup_data_validate_address($form, &$form_state) {
   // Validate address against UPS api.
   $address = $form_state['input']['user_address'];
@@ -360,10 +363,10 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
 }
 
 /**
- * Form constructor for a user signup data form.
+ * Form constructor for a user skip signup data form.
  *
- * @param int $nid
- *   The node which the signup data form is rendered on.
+ * @param object $signup
+ *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
   $form['sid'] = array(
@@ -385,7 +388,7 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
 }
 
 /*
- * Custom submit for the skip button in dosomething_signup_user_signup_data_form().
+ * Form submit handler for dosomething_signup_user_skip_signup_data_form().
  */
 function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
   // Update signup record with response = 0.
