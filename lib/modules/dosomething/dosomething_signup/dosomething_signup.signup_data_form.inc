@@ -215,7 +215,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</h2>',
   );
   // If the user has submitted form already:
-  if ($timestamp = $signup->signup_data_form_timestamp && $signup->signup_data_form_response == 1) {
+  if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
     // Get filtered form_submitted_copy.
     $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
     // Display the form submitted copy:
