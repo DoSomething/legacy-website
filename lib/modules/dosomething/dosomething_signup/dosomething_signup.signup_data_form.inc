@@ -276,8 +276,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     // Add it as a form element.
     $form['why_signedup'] = array(
       '#type' => 'textarea',
-      // @todo: This needs to be conditional. Can't be required if you skip.
-      //'#required' => TRUE,
+      '#required' => TRUE,
       '#title' => $config['why_signedup_label'],
     );
   }
@@ -291,22 +290,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
-  // If form is set to include a skip button, and user has never submitted:
-  if ($config['required_allow_skip'] && !$signup->signup_data_form_timestamp) {
-    // Include a Skip button.
-    $form['actions']['skip'] = array(
-      '#type' => 'submit',
-      '#value' => t('Skip'),
-      '#submit' => array('dosomething_signup_user_signup_data_form_skip'),
-      '#attributes' => array(
-        'class' => array(
-          'btn',
-          'secondary',
-        ),
-      ),
-    );
-  }
-
   $form['#action'] = "#modal-signup-data-form";
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
 
@@ -376,10 +359,35 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   drupal_set_message($config['confirm_msg']);
 }
 
+/**
+ * Form constructor for a user signup data form.
+ *
+ * @param int $nid
+ *   The node which the signup data form is rendered on.
+ */
+function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
+  $form['sid'] = array(
+    '#type' => 'hidden',
+    '#value' => $signup->sid,
+    '#access' => FALSE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Skip'),
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'secondary',
+      ),
+    ),
+  );
+  return $form;
+}
+
 /*
  * Custom submit for the skip button in dosomething_signup_user_signup_data_form().
  */
-function dosomething_signup_user_signup_data_form_skip($form, &$form_state) {
+function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
   // Update signup record with response = 0.
   dosomething_signup_update_signup_data($form_state['values'], 0);
 }
