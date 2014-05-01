@@ -26,6 +26,8 @@
   $signedup = $user_account['campaigns_signedup'];
   $recommended = $user_account['campaigns_recommended'];
   $address = $user_account['address'];
+
+  $signedup = null;
 ?>
 
 
@@ -43,8 +45,10 @@
 
     <?php if(empty($signedup)): ?>
       <div class="cta">
-        <h2>Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
-        <a href="/campaigns" class="btn medium">Explore Campaigns</a>
+        <div class="wrapper">
+          <h2 class="__message">Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
+          <a href="/campaigns" class="btn medium">Explore Campaigns</a>
+        </div>
       </div>
     <?php else: ?>
       <section class="__segment">

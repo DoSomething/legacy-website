@@ -168,6 +168,11 @@
     .subtitle { margin-bottom: 0; } // @TODO: temp for now; apply universally.
   }
 
+  // @TODO: Abstract out as a pattern to Neue
+  // @CTA (refernced to later remove it when CTA is patternized)
+  .cta {
+    @include cta();
+  }
 
   section {
     padding-bottom: 1rem;
