@@ -334,13 +334,6 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
     $vars['signup_data_form_link'] = $vars['content']['signup_data_form_link'];
     $vars['signup_data_form'] = $vars['content']['signup_data_form'];
   }
-  // If the signup data form is required to submit:
-  if (isset($vars['content']['required_signup_data_form'])) {
-    // Add JS to open the signup data form modal.
-    $id = 'modal-signup-data-form';
-    $js = '$(function() {window.NEUE.Modal.open( $("#' . $id . '", false) ); });';
-    drupal_add_js($js, 'inline');
-  }
   // If the skip form is present:
   if (isset($vars['content']['skip_signup_data_form'])) {
     // Store as a variable.
