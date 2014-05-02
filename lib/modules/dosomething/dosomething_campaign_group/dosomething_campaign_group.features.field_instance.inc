@@ -345,7 +345,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 13,
+      'weight' => 11,
     ),
   );
 
@@ -442,57 +442,6 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_intro_image'
-  $field_instances['node-campaign_group-field_intro_image'] = array(
-    'bundle' => 'campaign_group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 2,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
-    'field_name' => 'field_intro_image',
-    'label' => 'Intro Image',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 11,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign_group-field_intro_title'
   $field_instances['node-campaign_group-field_intro_title'] = array(
     'bundle' => 'campaign_group',
@@ -582,7 +531,99 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 2,
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_post_signup_body'
+  $field_instances['node-campaign_group-field_post_signup_body'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 18,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_signup_body',
+    'label' => 'Post Sign Up Body',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_post_signup_title'
+  $field_instances['node-campaign_group-field_post_signup_title'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 16,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_post_signup_title',
+    'label' => 'Post Sign Up Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 18,
     ),
   );
 
@@ -724,6 +765,52 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_signup_confirm_msg'
+  $field_instances['node-campaign_group-field_signup_confirm_msg'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 17,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_signup_confirm_msg',
+    'label' => 'Post Sign Up Notification',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_subtitle'
   $field_instances['node-campaign_group-field_subtitle'] = array(
     'bundle' => 'campaign_group',
@@ -770,53 +857,6 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_video'
-  $field_instances['node-campaign_group-field_video'] = array(
-    'bundle' => 'campaign_group',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'field_collection',
-        'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
-        ),
-        'type' => 'field_collection_view',
-        'weight' => 3,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_video',
-    'label' => 'Video',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 12,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('CTA Link');
@@ -828,14 +868,12 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('FAQ');
   t('Gallery');
   t('Intro');
-  t('Intro Image');
   t('Intro Title');
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
   t('Sponsors and Partners');
   t('Subtitle');
-  t('Video');
 
   return $field_instances;
 }

@@ -49,13 +49,12 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Intro',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'field_intro',
       1 => 'field_intro_title',
-      2 => 'field_intro_image',
-      3 => 'field_video',
-      4 => 'field_faq',
+      2 => 'field_faq',
+      3 => 'field_partners',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -96,8 +95,9 @@ function dosomething_campaign_group_field_group_info() {
       ),
     ),
   );
-  $export['group_post_signup|node|campaign_group|form'] = $field_group;
 
+  $export['group_post_signup|node|campaign_group|form'] = $field_group;
+  
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
@@ -108,8 +108,8 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Pre Sign Up',
-    'weight' => '5',
+    'label' => 'Pre Signup',
+    'weight' => '4',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -119,7 +119,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-pre-sign-up field-group-fieldset',
+        'classes' => 'group-pre-signup field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
