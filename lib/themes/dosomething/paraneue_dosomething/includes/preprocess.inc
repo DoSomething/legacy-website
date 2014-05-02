@@ -26,7 +26,16 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  * Implements theme_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node(&$variables) {
-  if($variables['node']->type == "home") {
+  if ($variables['node']->type == "campaign") {
+    // If the campaign requires a signup modal to display:
+    if (isset($variables['node']->required_signup_data_form)) {
+      // Add JS to open the signup data form modal.
+      $id = 'modal-signup-data-form';
+      $js = 'require(["neue/modal"], function(Modal) { Modal.open( $("#[' . $id . ']"), false); });';
+      drupal_add_js($js, 'inline');
+    }
+  }
+  elseif ($variables['node']->type == "home") {
     $homepage_nids = array(362, 843, 955, 832, 15, 31, 55, 850, 18);
     $thumbnails = array();
 
