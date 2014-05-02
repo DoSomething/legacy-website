@@ -53,13 +53,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_post_sign_up_body'
-  $field_bases['field_post_sign_up_body'] = array(
+  // Exported field_base: 'field_post_signup_body'
+  $field_bases['field_post_signup_body'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_post_sign_up_body',
+    'field_name' => 'field_post_signup_body',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -80,13 +80,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_post_sign_up_notification'
-  $field_bases['field_post_sign_up_notification'] = array(
+  // Exported field_base: 'field_post_signup_confirm_msg'
+  $field_bases['field_post_signup_confirm_msg'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_post_sign_up_notification',
+    'field_name' => 'field_post_signup_confirm_msg',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
@@ -109,13 +109,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_post_sign_up_title'
-  $field_bases['field_post_sign_up_title'] = array(
+  // Exported field_base: 'field_post_signup_title'
+  $field_bases['field_post_signup_title'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_post_sign_up_title',
+    'field_name' => 'field_post_signup_title',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(

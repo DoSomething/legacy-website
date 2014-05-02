@@ -586,8 +586,8 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_sign_up_body'
-  $field_instances['node-campaign_group-field_post_sign_up_body'] = array(
+  // Exported field_instance: 'node-campaign_group-field_post_signup_body'
+  $field_instances['node-campaign_group-field_post_signup_body'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
@@ -614,7 +614,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_post_sign_up_body',
+    'field_name' => 'field_post_signup_body',
     'label' => 'Post Sign Up Body',
     'required' => 0,
     'settings' => array(
@@ -632,8 +632,8 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_sign_up_notification'
-  $field_instances['node-campaign_group-field_post_sign_up_notification'] = array(
+  // Exported field_instance: 'node-campaign_group-field_post_signup_confirm_msg'
+  $field_instances['node-campaign_group-field_post_signup_confirm_msg'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
@@ -660,7 +660,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_post_sign_up_notification',
+    'field_name' => 'field_post_signup_confirm_msg',
     'label' => 'Post Sign Up Notification',
     'required' => 0,
     'settings' => array(
@@ -678,8 +678,8 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_sign_up_title'
-  $field_instances['node-campaign_group-field_post_sign_up_title'] = array(
+  // Exported field_instance: 'node-campaign_group-field_post_signup_title'
+  $field_instances['node-campaign_group-field_post_signup_title'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
@@ -706,7 +706,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_post_sign_up_title',
+    'field_name' => 'field_post_signup_title',
     'label' => 'Post Sign Up Title',
     'required' => 0,
     'settings' => array(
