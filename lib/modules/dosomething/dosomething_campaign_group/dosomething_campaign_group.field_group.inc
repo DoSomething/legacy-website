@@ -95,7 +95,7 @@ function dosomething_campaign_group_field_group_info() {
       ),
     ),
   );
-
+  
   $export['group_post_signup|node|campaign_group|form'] = $field_group;
   
   $field_group = new stdClass();
