@@ -482,28 +482,36 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
 function dosomething_campaign_add_signup_data_form_vars(&$node) {
   // Load signup_data_form configuration data.
   $config = dosomething_signup_get_signup_data_form_info($node->nid);
-  // If it doesn't exist, or is not active:
+  // If it doesn't exist, or is not active.
   if (!$config || $config['status'] != 1) {
-    // Exit out of function.
+    // Nothing to see here.
     return;
   }
-  // Store the label for the modal link.
+
+  // Store the label for the link to the modal.
   $node->content['signup_data_form_link'] = $config['link_text'];
+  // Load signup sid.
+  $sid = dosomething_signup_exists($node->nid);
+  // If no signup exists:
+  if (!$sid) {
+    // Staff is viewing a campaign which they haven't signed up for.
+    $node->content['signup_data_form'] = array(
+      '#markup' => "You haven't signed up for this campaign!",
+    );
+    return;
+  }
   // Load the signup entity.
-  $signup = signup_load(dosomething_signup_exists($node->nid));
+  $signup = signup_load($sid);
   // Pass to the user signup data form.
   $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
-  // If the signup_data_form needs to be prompted upon first signup:
-  if ($config['required']) {
-    // If the user has not submitted the signup_data_form:
-    if (!$signup->signup_data_form_timestamp) {
-      // Store flag to prompt user.
-      $node->required_signup_data_form = 1;
-      // If form is configured to include a skip button:
-      if ($config['required_allow_skip']) {
-        // Include the skip form:
-        $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
-      }
+  // If the signup_data_form is required and user has not submitted form yet:
+  if ($config['required'] && !$signup->signup_data_form_timestamp) {
+    // Store flag to indicate we need to prompt user (handled in theme).
+    $node->required_signup_data_form = 1;
+    // If form is configured to include a skip button:
+    if ($config['required_allow_skip']) {
+      // Include the skip form:
+      $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
     }
   }
 }
