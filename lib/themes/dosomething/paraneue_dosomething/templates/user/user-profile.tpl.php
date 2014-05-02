@@ -11,23 +11,32 @@
  *   - [first_name]: User's first name (string).
  *   - [last_name]: User's last name (string).
  *   - [birthday]: User's birthday (string).
- *   - [address]: Array containing address information.
+ *   - [mobile]: User's mobile cell number (string).
+ *   - [location]: Array containing address information whether empty or with data.
  *     - [country]: User's country of residence (string).
  *     - [state]: User's state of residence (string).
  *     - [city]: User's city of residence (string).
  *     - [zip]: User's postal zip code (string).
  *     - [street]: User's street address (string).
  *     - [premise]: User's apartment, suite, etc... (string).
- *   - [mobile]: User's mobile cell number (string).
- *   - [campaigns]: Array containing a data for campaigns a User has signed up for.
+*   - [address]: Array containing address information only for submitted data.
+ *     - [country]: User's country of residence (string).
+ *     - [state]: User's state of residence (string).
+ *     - [city]: User's city of residence (string).
+ *     - [zip]: User's postal zip code (string).
+ *     - [street]: User's street address (string).
+ *     - [premise]: User's apartment, suite, etc... (string).
+ *   - [signedup]: Array containing a data for campaigns a User has signed up for.
  *   - [recommended]: Array containing a data for recommended campaigns for User.
  */
 
-  $signedup = $user_account['campaigns_signedup'];
-  $recommended = $user_account['campaigns_recommended'];
+  $signedup = $user_account['signedup'];
+  $signedup_count = $user_account['signedup_count'];
+  $recommended = $user_account['recommended'];
   $address = $user_account['address'];
 
-  $signedup = null;
+  // $signedup = null;
+  // krumo($user_account);
 ?>
 
 
@@ -44,41 +53,57 @@
     <h1 class="banner"><span>My Campaigns</span></h1>
 
     <?php if(empty($signedup)): ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="__message">Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
-          <a href="/campaigns" class="btn medium">Explore Campaigns</a>
-        </div>
+
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="__message">Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
+        <a href="/campaigns" class="btn medium">Explore Campaigns</a>
       </div>
+    </div>
+
     <?php else: ?>
-      <section class="__segment">
-        <div class="wrapper">
-          <h2>Signed Up</h2>
-          <ul class="gallery">
-            <?php foreach($signedup as $index => $campaign): ?>
-              <li>
-                <?php print render($campaign); ?>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-      </section>
+
+    <ul class="gallery -mosaic">
+      <?php foreach($signedup as $index => $campaign): ?>
+        <li>
+          <?php print render($campaign); ?>
+        </li>
+      <?php endforeach; ?>
+
+      <?php if($signedup_count <= 3): ?>
+        <li class="empty <?php if ($user_account['empty_class_modifier']) print $user_account['empty_class_modifier']; ?>">
+          <div class="wrapper">
+            <div class="__message">
+              <div class="wrapper">
+                <p>More is better. Add a few more campaigns friend!</p>
+                <a href="/campaigns">Explore Campaigns</a>
+              </div>
+            </div>
+          </div>
+        </li>
+      <?php endif; ?>
+    </ul>
+
     <?php endif; ?>
 
+  </section>
+
+
+  <section class="profile--recommended">
+    <h1 class="banner"><span>Recommended Campaigns</span></h1>
+
     <?php if (!empty($recommended)): ?>
-      <section class="__segment">
-        <div class="wrapper">
-          <h2>Recommended</h2>
-          <ul class="gallery">
-            <?php foreach($recommended as $index => $campaign): ?>
-              <li>
-                <?php print render($campaign); ?>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-      </section>
+
+    <ul class="gallery -mosaic">
+      <?php foreach($recommended as $index => $campaign): ?>
+        <li>
+          <?php print render($campaign); ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
     <?php endif; ?>
+
   </section>
 
 

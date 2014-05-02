@@ -24,11 +24,11 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
     );
   }
 
-  $account->content['campaigns_signedup'] = $signups;
+  $account->content['signedup'] = $signups;
 
 
   // Output recommended campaigns.
-  $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid);
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid, 4);
   $recommended = array();
 
   foreach ($rec_nids as $delta => $nid) {
@@ -38,7 +38,7 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
     );
   }
 
-  $account->content['campaigns_recommended'] = $recommended;
+  $account->content['recommended'] = $recommended;
 
 
   // Update link information.

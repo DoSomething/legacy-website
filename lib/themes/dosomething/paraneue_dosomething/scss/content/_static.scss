@@ -15,7 +15,7 @@
   .header-wrapper {
     @include header-gradient();
     @include header-typography();
-    padding: 7rem 1rem 0;
+    padding: 8rem 1rem 0;
     @include row;
     @include media($tablet) {
       padding: 7rem 0 0;

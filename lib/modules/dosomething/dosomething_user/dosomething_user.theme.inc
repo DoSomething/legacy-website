@@ -44,13 +44,33 @@ function dosomething_user_preprocess_user_profile(&$variables) {
 
 
   // Collect Signed Up Campaigns data.
-  $user_account['campaigns_signedup'] = $variables['elements']['campaigns_signedup'];
+  $user_account['signedup'] = $variables['elements']['signedup'];
+
+
+  // Create empty gallery item.
+  $user_account['signedup_count'] = count($user_account['signedup']);
+  $empty_class_modifier = NULL;
+
+  switch ($user_account['signedup_count']) {
+    case 1:
+      $empty_class_modifier = '-trio';
+      break;
+
+    case 2:
+      $empty_class_modifier = '-duo';
+      break;
+
+    case 3:
+      $empty_class_modifier = '-mono';
+      break;
+  }
+
+  $user_account['empty_class_modifier'] = $empty_class_modifier;
   
 
   // Collect Recommended Campaigns data.
-  $user_account['campaigns_recommended'] = $variables['elements']['campaigns_recommended'];
+  $user_account['recommended'] = $variables['elements']['recommended'];
   
 
   $variables['user_account'] = $user_account;
-
 }
