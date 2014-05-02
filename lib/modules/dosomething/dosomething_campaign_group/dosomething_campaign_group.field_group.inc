@@ -83,7 +83,7 @@ function dosomething_campaign_group_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_post_signup_title',
-      1 => 'field_post_signup_confirm_msg',
+      1 => 'field_signup_confirm_msg',
       2 => 'field_post_signup_body',
     ),
     'format_type' => 'fieldset',

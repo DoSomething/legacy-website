@@ -80,13 +80,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_post_signup_confirm_msg'
-  $field_bases['field_post_signup_confirm_msg'] = array(
+  // Exported field_base: 'field_signup_confirm_msg'
+  $field_bases['field_signup_confirm_msg'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_post_signup_confirm_msg',
+    'field_name' => 'field_signup_confirm_msg',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(
