@@ -63,13 +63,13 @@
 
 
 // Apply header gradient as a mixin since header styles not abstracted yet.
-// TODO: May want to unify styles across and use modifier classes.
+// @TODO: May want to unify styles across and use modifier classes.
 @mixin header-gradient() {
   @include linear-gradient($purple 35%, rgba(#000, .60) 100%);
 }
 
 // Apply header typography as a mixin to style both static and campaign content.
-// TODO: Same as above; would be best to unify header styles.
+// @TODO: Same as above; would be best to unify header styles.
 @mixin header-typography() {
   .title {
     color: #fff;
@@ -108,7 +108,8 @@
 
 
 // CTA styles that apply to static and facts pages.
-// TODO: Need to abstract out and unify these across.
+// @TODO: Need to abstract out and unify these across.
+// @CTA
 @mixin cta() {
   background-color: lighten($light-gray, 10%);
   border-bottom: 2px solid $light-gray;
@@ -119,12 +120,16 @@
     padding: 0;
   }
 
-  .cta {
+  // When abstracted .cta will be the module class, and .wrapper sits inside it, so for now chaining the selectors.
+  .cta, > .wrapper {
     text-align: center;
     padding: 2rem 0;
 
-    h3 {
+    // When abstracted h3 will have an element class, and thus the .__message class will apply styles to whatever tag the cta uses for the message.
+    h3, .__message {
       color: $copy-color;
+      font-size: $font-medium;
+      font-weight: $weight-sbold;
       margin: 0 0 0.5rem;
     }
 

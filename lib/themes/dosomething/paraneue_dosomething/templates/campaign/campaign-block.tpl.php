@@ -20,7 +20,7 @@
 ?>
 
 <article class="tile tile--campaign" id="campaign-<?php print $nid; ?>">
-  <a class="wrapper" href="<?php print $pretty_path; ?>">
+  <a class="wrapper" href="/<?php print $pretty_path; ?>">
     <?php if ($staff_pick): ?>
       <div class="__flag -staff-pick">Staff Pick</div>
     <?php endif; ?>

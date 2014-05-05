@@ -60,24 +60,38 @@
 }
 
 
-// @TODO: Move to Neue.
+// @TODO: Campaign Tile. Move to NEUE.
 .tile {
+  height: 0;
+  padding-bottom: 100%;
   position: relative;
 
   > .wrapper {
     background-color: #fff;
     display: block;
     height: 100%;
-    min-height: 200px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
     width: 100%;
 
     &:before {
+      bottom: 0;
       content: '';
       display: block;
       height: 100%;
       position: absolute;
       width: 100%;
       @include linear-gradient(rgba(#000, 0) 40%, rgba(#000, .2) 70%, rgba(#000, .5) 87%, rgba(#000, .85) 100%);
+    }
+  }
+
+  .no-cssgradients & {
+    > .wrapper {
+      &:before {
+        background: transparent image-url('black-gradient.png') 0 bottom repeat-x;
+      }
     }
   }
 
@@ -93,6 +107,7 @@
   color: #fff;
   padding: 1rem;
   position: absolute;
+  width: 100%;
 
   .__title {
     color: inherit;
@@ -104,13 +119,17 @@
   .__tagline {
     color: inherit;
     font-size: 0.9em;
-    line-height: 1.2;
+    line-height: 1;
     margin: 0;
   }
 
   .__title,
   .__tagline {
     text-shadow: 0 1px 3px rgba(black, 0.3);
+  }
+
+  .no-cssgradients & {
+    background: transparent image-url('black-gradient.png') 0 bottom repeat-x;
   }
 }
 
@@ -121,21 +140,102 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin: 0 -10px;
 
   @include clearfix();
 
+  &.-mosaic {
+    background-color: #000;
+  }
+
   > li {
-    margin-bottom: 20px;
-    padding: 0 10px;
 
     @include media(450px) {  // @TODO: custom mq; address when more mq's added.
       float: left;
       width: 50%;
     }
 
-    @include media(930px) {  // @TODO: custom mq; address when more mq's added.
-      width: 33.333333333%;
+    @include media($tablet) {  // @TODO: custom mq; address when more mq's added.
+      width: 25%;
+    }
+  }
+
+
+  // Style for empty gallery item to help balance the space.
+  .empty {
+    background-color: lighten($light-gray, 10%);
+    display: none;
+    height: 0;
+    position: relative;
+
+    > .wrapper {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    &.-trio {
+
+      @include media(450px) {
+        display: block;
+        padding-bottom: 50%;
+      }
+
+      @include media($tablet) {
+        padding-bottom: 25%;
+        width: 75%;
+
+        p,a {
+          font-size: $font-medium;
+        }
+      }
+    }
+
+    &.-duo {
+      padding-bottom: 25%;
+      width: 50%;
+
+      p,a {
+        font-size: $font-regular;
+      }
+
+      @include media($tablet) {
+        display: block;
+      }
+
+      @include media($desktop) {
+        p,a {
+          font-size: $font-medium;
+        }
+      }
+    }
+
+    &.-mono {
+      display: block;
+      padding-bottom: 50%;
+
+      @include media($tablet) {
+        padding-bottom: 25%;
+      }
+    }
+  }
+
+  .__message {
+    display: table;
+    height: 100%;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+
+    > .wrapper {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    p {
+      line-height: 1.3;
+      margin: 0.25rem;
     }
   }
 }
@@ -151,7 +251,7 @@
   header[role="banner"] {
     @include header-gradient();
     @include header-typography();
-    padding: 7rem 1rem 0.5rem;  // @TODO: adding padding to bottom of header; remove bottom margin on subtitle
+    padding: 8rem 1rem 0.5rem;  // @TODO: adding padding to bottom of header; remove bottom margin on subtitle
 
     @include media($tablet) {
       padding-left: 0;
@@ -169,8 +269,15 @@
   }
 
 
+  // @TODO: Abstract out as a pattern to Neue
+  // @CTA (refernced to later remove it when CTA is patternized)
+  .cta {
+    @include cta();
+  }
+
+
   section {
-    padding-bottom: 1rem;
+    padding-bottom: 0;  // @TODO: Ideally these sections would have some bottom padding globally, but on profile needs to be 0.
 
     .banner {
       font-size: $font-medium;
@@ -209,6 +316,10 @@
       }
     }
 
+  }
+
+  .tile {
+    .__tagline { display: none; }
   }
 
 }
@@ -253,6 +364,7 @@
 
   .btn {
     clear: both;
+    float: left;
   }
 
 }
