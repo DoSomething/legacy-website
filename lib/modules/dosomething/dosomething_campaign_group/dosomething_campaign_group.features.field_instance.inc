@@ -335,7 +335,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_display_signup_form',
-    'label' => 'display_signup_form',
+    'label' => 'Display Signup Form',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -882,7 +882,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');
-  t('display_signup_form');
+  t('Display Signup Form');
 
   return $field_instances;
 }
