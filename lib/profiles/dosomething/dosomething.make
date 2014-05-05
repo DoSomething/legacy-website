@@ -19,10 +19,10 @@ projects[dosomething_campaign][download][source] = './lib/modules/dosomething/do
 projects[dosomething_campaign][subdir] = "dosomething"
 
 ; Dosomething Campaign Group
-projects[dosomething_campaign][type] = "module"
-projects[dosomething_campaign][download][type] = local
-projects[dosomething_campaign][download][source] = './lib/modules/dosomething/dosomething_campaign_group'
-projects[dosomething_campaign][subdir] = "dosomething"
+projects[dosomething_campaign_group][type] = "module"
+projects[dosomething_campaign_group][download][type] = local
+projects[dosomething_campaign_group][download][source] = './lib/modules/dosomething/dosomething_campaign_group'
+projects[dosomething_campaign_group][subdir] = "dosomething"
 
 ; Dosomething Fact
 projects[dosomething_fact][type] = "module"
