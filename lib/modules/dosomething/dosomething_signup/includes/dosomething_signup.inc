@@ -57,4 +57,22 @@ class SignupEntityController extends EntityAPIController {
     }
     return $build;
   }
+
+  /**
+   * Overrides save() method.
+   *
+   * Populates timestamp and uid automatically.
+   */
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    if (isset($entity->is_new)) {
+      if (!isset($entity->timestamp)) {
+        $entity->timestamp = REQUEST_TIME;
+      }
+      if (!isset($entity->uid)) {
+        global $user;
+        $entity->uid = $user->uid;
+      }
+    }
+    parent::save($entity, $transaction);
+  }
 }
