@@ -556,35 +556,6 @@ function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
 }
 
 /**
- * Returns array of values of a field collection field.
- *
- * @param object $wrapper
- *   An entity_metadata_wrapper object.
- * @param string $field_name
- *   The field_collection field to return values from.
- *
- * @return mixed
- *   Multi-dimensional array of field collection values or NULL if empty.
- *
- */
-function dosomething_campaign_get_field_collection_values($wrapper, $field_name) {
-  $values = array();
-  // Loop through the given field.
-  foreach ($wrapper->{$field_name}->getIterator() as $delta => $field) {
-    // Copy is returned as an array.
-    $copy = $field->field_compound_text_copy->value();
-    $values[] = array(
-      'header' => $field->field_compound_text_header->value(),
-      'copy' => $copy['safe_value'],
-    );
-  }
-  if (!empty($values)) {
-    return $values;
-  }
-  return NULL;
-}
-
-/**
  * Returns array of nid's of recommended campaigns for $uid.
  *
  * First finds published staff pick campaigns that user has not signed up for.
