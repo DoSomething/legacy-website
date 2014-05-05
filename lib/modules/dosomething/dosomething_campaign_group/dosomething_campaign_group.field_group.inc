@@ -23,8 +23,8 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Call to Action',
     'weight' => '3',
     'children' => array(
-      0 => 'field_cta_link',
-      1 => 'field_call_to_action',
+      0 => 'field_call_to_action',
+      1 => 'field_cta_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -49,13 +49,13 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Intro',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
-      0 => 'field_intro',
-      1 => 'field_intro_title',
-      2 => 'field_intro_image',
-      3 => 'field_video',
-      4 => 'field_faq',
+      0 => 'field_faq',
+      1 => 'field_intro',
+      2 => 'field_intro_title',
+      3 => 'field_partners',
+      4 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -82,9 +82,9 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Post Sign Up',
     'weight' => '6',
     'children' => array(
-      0 => 'field_post_signup_title',
+      0 => 'field_post_signup_body',
       1 => 'field_signup_confirm_msg',
-      2 => 'field_post_signup_body',
+      2 => 'field_post_signup_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -108,8 +108,8 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Pre Sign Up',
-    'weight' => '5',
+    'label' => 'Pre Signup',
+    'weight' => '4',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -119,7 +119,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-pre-sign-up field-group-fieldset',
+        'classes' => 'group-pre-signup field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
