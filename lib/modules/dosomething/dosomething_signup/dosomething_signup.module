@@ -150,16 +150,12 @@ function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp =
  *   Optional - the user uid of signup record to be deleted.
  *   If not given, uses global $user->uid.
  */
-function dosomething_signup_delete($nid, $uid = NULL) {
-  if ($uid == NULL) {
-    global $user;
-    $uid = $user->uid;
-  }
+function dosomething_signup_delete_signup($nid, $uid = NULL) {
+  $sid = dosomething_signup_exists($nid, $uid);
   try {
-    db_delete('dosomething_signup')
-      ->condition('uid', $uid)
-      ->condition('nid', $nid)
-      ->execute();
+    if ($sid) {
+      entity_delete('signup', $sid);
+    }
     return TRUE;
   }
   catch (Exception $e) {
@@ -505,7 +501,7 @@ function dosomething_signup_node_unsignup_form($form, &$form_state, $node) {
  */
 function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
   $nid = $form_state['values']['nid'];
-  if (dosomething_signup_delete($nid)) {
+  if (dosomething_signup_delete_signup($nid)) {
     drupal_set_message("Signup removed.");
     $form_state['redirect'] = 'node/' . $nid;
     return;

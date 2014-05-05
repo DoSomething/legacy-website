@@ -102,7 +102,7 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
   }
 
   /**
-   * Test for dosomething_signup_delete().
+   * Test for dosomething_signup_delete_signup().
    */
   public function testDelete() {
     // Delete all signups to test clean.
@@ -114,7 +114,7 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
     $sid2 = $this->insertSignup($this->nid, $this->uid + 1);
     $this->assertTrue(is_numeric($sid2), "Signup record 2 inserted.");
     // Delete signup record 1.
-    dosomething_signup_delete($this->nid, $this->uid);
+    dosomething_signup_delete_signup($this->nid, $this->uid);
     // Query for signup record we just deleted.
     $sid = $this->querySignup($this->nid, $this->uid);
     $this->assertIdentical($sid, FALSE, "Signup record 1 deleted.");
@@ -127,7 +127,7 @@ class DoSomethingSignupWebTestCase extends DrupalWebTestCase {
     $sid3 = $this->insertSignup($this->nid, $user->uid);
     $this->assertTrue(is_numeric($sid3), "Signup record for global user inserted.");
     // Excluding 2nd param should delete record for global $user->uid.
-    dosomething_signup_delete($this->nid);
+    dosomething_signup_delete_signup($this->nid);
     // Query for global $user->uid's signup record.
     $sid = $this->querySignup($this->nid, $user->uid);
     // Test that has been deleted.
