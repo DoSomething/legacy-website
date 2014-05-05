@@ -23,8 +23,8 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Call to Action',
     'weight' => '3',
     'children' => array(
-      0 => 'field_cta_link',
-      1 => 'field_call_to_action',
+      0 => 'field_call_to_action',
+      1 => 'field_cta_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -51,10 +51,11 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Intro',
     'weight' => '2',
     'children' => array(
-      0 => 'field_intro',
-      1 => 'field_intro_title',
-      2 => 'field_faq',
+      0 => 'field_faq',
+      1 => 'field_intro',
+      2 => 'field_intro_title',
       3 => 'field_partners',
+      4 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -81,9 +82,9 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Post Sign Up',
     'weight' => '6',
     'children' => array(
-      0 => 'field_post_signup_title',
+      0 => 'field_post_signup_body',
       1 => 'field_signup_confirm_msg',
-      2 => 'field_post_signup_body',
+      2 => 'field_post_signup_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -95,9 +96,8 @@ function dosomething_campaign_group_field_group_info() {
       ),
     ),
   );
-  
   $export['group_post_signup|node|campaign_group|form'] = $field_group;
-  
+
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
