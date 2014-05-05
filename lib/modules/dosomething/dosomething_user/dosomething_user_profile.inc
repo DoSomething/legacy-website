@@ -52,5 +52,4 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
     '#weight' => 300,
   );
 
-
 }
