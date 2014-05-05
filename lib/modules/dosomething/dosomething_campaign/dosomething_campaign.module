@@ -602,6 +602,7 @@ function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = 
 
 /**
  * Returns all staff pick campaigns.
+ *
  * @return array
  *  Array of nids and titles of all published/unpublished staff picks.
  */
