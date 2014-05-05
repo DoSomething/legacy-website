@@ -458,18 +458,21 @@ function dosomething_signup_set_signup_message($title = NULL) {
 }
 
 /**
- * Returns array of nid's that a user has signed up for.
+ * Returns array of campaign nid's that a user has signed up for.
  *
  * @param int $uid
- *   The user uid of signup record to check.
+ *   The user uid to return signups for.
  *
  * @return array
  *   Array of node nid's.
  */
 function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query = db_select('dosomething_signup', 's');
+  $query->join('node', 'n', 'n.nid = s.nid');
   $query->fields('s', array('nid'));
-  $query->condition('uid', $uid);
+  $query->condition('s.uid', $uid);
+  // Only return signups for campaign nodes.
+  $query->condition('n.type', 'campaign');
   $query->orderBy('timestamp', 'DESC');
   $result = $query->execute();
   return array_keys($result->fetchAllAssoc('nid'));
