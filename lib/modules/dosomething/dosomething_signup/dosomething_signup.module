@@ -395,9 +395,9 @@ function dosomething_signup_mbp_request($account, $node) {
   $params = dosomething_signup_get_mbp_params($account, $node);
   // Send MBP request.
   if (module_exists('dosomething_mbp')) {
-    // @todo: Check $node->type for campaign or campaign_group and send 
-    // the relevant call to mbp_request.
-    dosomething_mbp_request('campaign_signup', $params);
+    if ($node->type == 'campaign') {
+      dosomething_mbp_request('campaign_signup', $params);
+    }
   }
 }
 
