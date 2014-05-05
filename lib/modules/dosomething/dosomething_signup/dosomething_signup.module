@@ -82,8 +82,7 @@ function dosomething_signup_permission() {
  * Menu autoloader for /signup.
  */
 function signup_load($id) {
-  $entity = entity_load('signup', array($id));
-  return array_pop($entity);
+  return entity_load_single('signup', $id);
 }
 
 /**
@@ -119,22 +118,19 @@ function dosomething_signup_admin_paths() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_insert($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
-  if ($uid == NULL) {
-    global $user;
-    $uid = $user->uid;
-  }
+function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
+  $values = array(
+    'nid' => $nid,
+    'uid' => $uid,
+    'data'=> $data,
+    'timestamp' => $timestamp,
+  );
   try {
-    $sid = db_insert('dosomething_signup')
-        ->fields(array(
-          'uid' => $uid,
-          'nid' => $nid,
-          'data' => $data,
-          'timestamp' => isset($timestamp) ? $timestamp : REQUEST_TIME,
-        )
-      )
-      ->execute();
-    return $sid;
+    // Create a signup entity.
+    $entity = entity_create('signup', $values);
+    // The SignupEntityController save method handles any NULL values.
+    $entity->save();
+    return $entity->sid;
   }
   catch (Exception $e) {
     // Keep message general in case a user ever sees it.
@@ -154,16 +150,12 @@ function dosomething_signup_insert($nid, $uid = NULL, $data = NULL, $timestamp =
  *   Optional - the user uid of signup record to be deleted.
  *   If not given, uses global $user->uid.
  */
-function dosomething_signup_delete($nid, $uid = NULL) {
-  if ($uid == NULL) {
-    global $user;
-    $uid = $user->uid;
-  }
+function dosomething_signup_delete_signup($nid, $uid = NULL) {
+  $sid = dosomething_signup_exists($nid, $uid);
   try {
-    db_delete('dosomething_signup')
-      ->condition('uid', $uid)
-      ->condition('nid', $nid)
-      ->execute();
+    if ($sid) {
+      entity_delete('signup', $sid);
+    }
     return TRUE;
   }
   catch (Exception $e) {
@@ -341,7 +333,7 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   if (dosomething_signup_exists($nid, $account->uid)) { return; }
 
   // Insert signup.
-  if ($sid = dosomething_signup_insert($nid, $account->uid)) {
+  if ($sid = dosomething_signup_create($nid, $account->uid)) {
     $node = node_load($nid);
 
     // Is there an override set on this campaign?
@@ -509,7 +501,7 @@ function dosomething_signup_node_unsignup_form($form, &$form_state, $node) {
  */
 function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
   $nid = $form_state['values']['nid'];
-  if (dosomething_signup_delete($nid)) {
+  if (dosomething_signup_delete_signup($nid)) {
     drupal_set_message("Signup removed.");
     $form_state['redirect'] = 'node/' . $nid;
     return;

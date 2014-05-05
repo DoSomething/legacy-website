@@ -34,6 +34,6 @@ foreach ($result as $signup) {
   else if ($signup->nid = PBJ_OLD) {
     $nid = PBJ;
   }
-  dosomething_signup_insert($nid, $signup->uid, $signup->data, $signup->timestamp);
+  dosomething_signup_create($nid, $signup->uid, $signup->data, $signup->timestamp);
   }
 
