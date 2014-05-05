@@ -195,7 +195,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -238,7 +238,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -392,7 +392,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -719,6 +719,52 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_transactional_email_copy'
+  $field_instances['node-campaign_group-field_transactional_email_copy'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This copy will be pulled into the transactional email template when a user signs up for the campaign group.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 20,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_transactional_email_copy',
+    'label' => 'Transactional Email Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_video'
   $field_instances['node-campaign_group-field_video'] = array(
     'bundle' => 'campaign_group',
@@ -783,6 +829,8 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Title');
   t('Sponsors and Partners');
   t('Subtitle');
+  t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
+  t('Transactional Email Copy');
   t('Video');
 
   return $field_instances;
