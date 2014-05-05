@@ -324,6 +324,11 @@ function dosomething_signup_views_data() {
 function dosomething_signup_entity_insert($entity, $type) {
   // If not a signup, exit out of function.
   if ($type != 'signup') { return; }
+  
+  $account = user_load($entity->uid);
+  $node = node_load($entity->nid);
+  // Send relevant third-party subscribe requests.
+  dosomething_signup_third_party_subscribe($account, $node);
 
   // Check if inserted signup nid belongs to a Campaign Group.
   if (module_exists('dosomething_campaign_group')) {
@@ -337,7 +342,24 @@ function dosomething_signup_entity_insert($entity, $type) {
 }
 
 /**
- * Signup a user $uid for a given node $nid.
+ * Sends third-party subscription requests for given $account and $node.
+ */
+function dosomething_signup_third_party_subscribe($account, $node) {
+  // Is there an override set on this campaign?
+  $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
+  $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
+  // Opt-in to mobilecommons.
+  $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
+  dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
+  // Send message broker request.
+  dosomething_signup_mbp_request($account, $node);
+}
+
+/**
+ * Signup a user $uid for a given node $nid and display a confirmation message.
+ *
+ * This is most likely being within a form submit handler, hence displaying the
+ * confirmation message.
  *
  * @param int $nid
  *   The node nid the user is signing up for.
@@ -354,17 +376,8 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   // Insert signup.
   if ($sid = dosomething_signup_create($nid, $account->uid)) {
     $node = node_load($nid);
-
-    // Is there an override set on this campaign?
-    $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
-    $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
-
-    // Opt-in to mobilecommons.
-    $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
-    dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
-    // Send external message request
-    dosomething_signup_mbp_request($account, $node);
     // Set success message.
+    // @todo: Will need to drupal_set_message the campaign group's confirm msg.
     dosomething_signup_set_signup_message($node->title);
   }
 }
@@ -382,6 +395,8 @@ function dosomething_signup_mbp_request($account, $node) {
   $params = dosomething_signup_get_mbp_params($account, $node);
   // Send MBP request.
   if (module_exists('dosomething_mbp')) {
+    // @todo: Check $node->type for campaign or campaign_group and send 
+    // the relevant call to mbp_request.
     dosomething_mbp_request('campaign_signup', $params);
   }
 }
