@@ -34,9 +34,6 @@
   $signedup_count = $user_account['signedup_count'];
   $recommended = $user_account['recommended'];
   $address = $user_account['address'];
-
-  // $signedup = null;
-  // krumo($user_account);
 ?>
 
 
