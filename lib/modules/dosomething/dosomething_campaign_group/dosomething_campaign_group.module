@@ -6,6 +6,7 @@
 
 include_once 'dosomething_campaign_group.features.inc';
 
+
 function dosomething_campaign_group_preprocess_node(&$vars) {
   if ($vars['type'] == 'campaign_group') {
     $content = $vars['content'];
@@ -63,4 +64,17 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     // Preprocess gallery variables.
     dosomething_static_content_preprocess_gallery_vars($vars);
   }
+}
+
+/**
+ * Returns a Campaign Group parent nid for a given node $nid.
+ *
+ */
+function dosomething_campaign_group_get_parent_nid($nid) {
+  $result = db_select('field_data_field_campaigns', 'c')
+    ->condition('field_campaigns_target_id', $nid)
+    ->condition('deleted', 0)
+    ->fields('c', array('entity_id'))
+    ->execute();
+  return $result->fetchField(0);
 }

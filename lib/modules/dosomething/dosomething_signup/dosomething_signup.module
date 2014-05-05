@@ -316,6 +316,24 @@ function dosomething_signup_views_data() {
 }
 
 /**
+ * Implements hook_entity_insert().
+ */
+function dosomething_signup_entity_insert($entity, $type) {
+  // If not a signup, exit out of function.
+  if ($type != 'signup') { return; }
+
+  // Check if inserted signup nid belongs to a Campaign Group.
+  if (module_exists('dosomething_campaign_group')) {
+    $group_nid = dosomething_campaign_group_get_parent_nid($entity->nid);
+    // If a campaign group exists:
+    if ($group_nid) {
+      // Create a signup for the group nid.
+      dosomething_signup_create($group_nid);
+    }
+  }
+}
+
+/**
  * Signup a user $uid for a given node $nid.
  *
  * @param int $nid
