@@ -21,7 +21,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Call to Action',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
@@ -80,7 +80,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Post Sign Up',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_post_signup_body',
       1 => 'field_signup_confirm_msg',
@@ -109,7 +109,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pre Signup',
-    'weight' => '4',
+    'weight' => '6',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
