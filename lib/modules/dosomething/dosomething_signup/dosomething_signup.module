@@ -119,6 +119,9 @@ function dosomething_signup_admin_paths() {
  *   The sid of the newly inserted signup, or FALSE if error.
  */
 function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
+  // If a signup already exists, exit.
+  if (dosomething_signup_exists($nid, $uid)) { return FALSE; }
+
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
@@ -347,8 +350,6 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     global $user;
     $account = $user;
   }
-  // If a signup already exists, exit.
-  if (dosomething_signup_exists($nid, $account->uid)) { return; }
 
   // Insert signup.
   if ($sid = dosomething_signup_create($nid, $account->uid)) {
