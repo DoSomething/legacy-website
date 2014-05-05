@@ -67,7 +67,7 @@
         </li>
       <?php endforeach; ?>
 
-      <?php if($signedup_count <= 3): ?>
+      <?php if($user_account['empty_tile']): ?>
         <li class="empty <?php if ($user_account['empty_class_modifier']) print $user_account['empty_class_modifier']; ?>">
           <div class="wrapper">
             <div class="__message">

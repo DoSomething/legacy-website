@@ -45,27 +45,32 @@ function dosomething_user_preprocess_user_profile(&$variables) {
 
   // Collect Signed Up Campaigns data.
   $user_account['signedup'] = $variables['elements']['signedup'];
-
+  
 
   // Create empty gallery item.
   $user_account['signedup_count'] = count($user_account['signedup']);
   $empty_class_modifier = NULL;
+  $empty_tile = FALSE;
 
-  switch ($user_account['signedup_count']) {
+  switch ($user_account['signedup_count'] % 4) {
     case 1:
       $empty_class_modifier = '-trio';
+      $empty_tile = TRUE;
       break;
 
     case 2:
       $empty_class_modifier = '-duo';
+      $empty_tile = TRUE;
       break;
 
     case 3:
       $empty_class_modifier = '-mono';
+      $empty_tile = TRUE;
       break;
   }
 
   $user_account['empty_class_modifier'] = $empty_class_modifier;
+  $user_account['empty_tile'] = $empty_tile;
   
 
   // Collect Recommended Campaigns data.

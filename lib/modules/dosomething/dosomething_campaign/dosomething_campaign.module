@@ -670,9 +670,11 @@ function _dosomething_campaign_get_recommended_base_query($uid, $limit) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'campaign')
-    ->propertyCondition('nid', $signup_nids, 'NOT IN')
     ->propertyCondition('status', 1)
     ->range(0, $limit);
+    if ($signup_nids) {
+      $query->propertyCondition('nid', $signup_nids, 'NOT IN');
+    }
   return $query;
 }
 
