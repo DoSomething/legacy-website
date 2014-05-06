@@ -39,6 +39,7 @@ features[field_instance][] = node-campaign_group-field_display_signup_form
 features[field_instance][] = node-campaign_group-field_faq
 features[field_instance][] = node-campaign_group-field_gallery
 features[field_instance][] = node-campaign_group-field_intro
+features[field_instance][] = node-campaign_group-field_intro_image
 features[field_instance][] = node-campaign_group-field_intro_title
 features[field_instance][] = node-campaign_group-field_partners
 features[field_instance][] = node-campaign_group-field_post_signup_body
