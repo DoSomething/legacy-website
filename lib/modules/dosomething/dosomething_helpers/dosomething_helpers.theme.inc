@@ -65,3 +65,74 @@ function theme_dosomething_video_embed($variables) {
 
   return $output;
 }
+
+/**
+ * Preprocesses variables for a campaign sponsors, partners, and partner info.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_helpers_preprocess_partners_vars(&$vars) {
+  // Returns partners, sponsors, and partner_info arrays.
+  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+  // Gather any returned arrays.
+  foreach ($partners_vars as $key => $values) {
+    $vars[$key] = $values;
+  }
+  // Preprocess sponsor logos.
+  if (isset($vars['sponsors'])) {
+    foreach ($vars['sponsors'] as $delta => $sponsor) {
+      $vars['sponsors'][$delta]['name'] = $sponsor['name'];
+      // If there is a file present for sponsor logo:
+      if (isset($sponsor['fid'])) {
+        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], 'wmax-423px', $sponsor['name']);
+        $vars['sponsors'][$delta]['img'] = $img;
+        // Set the display variable as the image.  This is outputted to tpl.
+        $vars['sponsors'][$delta]['display'] = $img;
+      }
+      // Else if no file:
+      else {
+        // Return null so we won't display anything
+        $vars['sponsors'][$delta]['display'] = NULL;
+      }
+    }
+  }
+  // Preprocess partner info modals.
+  if (isset($vars['partner_info'])) {
+    foreach ($vars['partner_info'] as $delta => $info) {
+      // If image landscape field is set:
+      $image_node = $info['image'];
+      if (!empty($image_node->field_image_landscape)) {
+        $img = dosomething_image_get_themed_image($image_node->nid, 'landscape', '550x300');
+        $vars['partner_info'][$delta]['image'] = $img;
+      }
+    }
+  }
+}
+
+/**
+ * Returns a list of partners formatted correctly
+ *
+ * If there are two partners, seperate them with "and"
+ * If there are three or more partners a comma seperating each and "and" before the last.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_helpers_format_partners_list(&$vars) {
+  $partners = $vars['partners'];
+  $formatted_partners = '';
+  foreach ($partners as $key => $partner) {
+    $formatted_partners .= $partner['name'];
+    if (count($partners) > 2 && $key == (count($partners) -2)) {
+      $formatted_partners .= ' and ';
+    }
+    elseif (count($partners) > 2 && $key < (count($partners) -1)) {
+      $formatted_partners .= ', ';
+    }
+    elseif ($key < (count($partners) -1)) {
+      $formatted_partners .= ' and ';
+    }
+  }
+  $vars['formatted_partners'] = $formatted_partners;
+}

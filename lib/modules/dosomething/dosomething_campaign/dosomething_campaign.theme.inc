@@ -47,8 +47,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
-      dosomething_campaign_preprocess_partners_vars($vars);
-      dosomething_campaign_format_partnerts_list($vars);
+      dosomething_helpers_preprocess_partners_vars($vars);
+      dosomething_helpers_format_partners_list($vars);
     }
 
     // Preprocess any custom campaign variables.
@@ -68,32 +68,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
   }
-}
-/**
- * Returns a list of partners formatted correctly
- *
- * If there are two partners, seperate them with "and"
- * If there are three or more partners a comma seperating each and "and" before the last.
- *
- * @param array $vars
- *   Node variables, passed from preprocess_node.
- */
-function dosomething_campaign_format_partnerts_list(&$vars) {
-  $partners = $vars['partners'];
-  $formatted_partners = '';
-  foreach ($partners as $key => $partner) {
-    $formatted_partners .= $partner['name'];
-    if (count($partners) > 2 && $key == (count($partners) -2)) {
-      $formatted_partners .= ' and ';
-    }
-    elseif (count($partners) > 2 && $key < (count($partners) -1)) {
-      $formatted_partners .= ', ';
-    }
-    elseif ($key < (count($partners) -1)) {
-      $formatted_partners .= ' and ';
-    }
-  }
-  $vars['formatted_partners'] = $formatted_partners;
 }
 
 /**
@@ -158,50 +132,6 @@ function dosomething_campaign_preprocess_custom_vars(&$vars) {
 }
 
 /**
- * Preprocesses variables for a campaign sponsors, partners, and partner info.
- *
- * @param array $vars
- *   Node variables, passed from preprocess_node.
- */
-function dosomething_campaign_preprocess_partners_vars(&$vars) {
-  // Returns partners, sponsors, and partner_info arrays.
-  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
-  // Gather any returned arrays.
-  foreach ($partners_vars as $key => $values) {
-    $vars[$key] = $values;
-  }
-  // Preprocess sponsor logos.
-  if (isset($vars['sponsors'])) {
-    foreach ($vars['sponsors'] as $delta => $sponsor) {
-      $vars['sponsors'][$delta]['name'] = $sponsor['name'];
-      // If there is a file present for sponsor logo:
-      if (isset($sponsor['fid'])) {
-        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], 'wmax-423px', $sponsor['name']);
-        $vars['sponsors'][$delta]['img'] = $img;
-        // Set the display variable as the image.  This is outputted to tpl.
-        $vars['sponsors'][$delta]['display'] = $img;
-      }
-      // Else if no file:
-      else {
-        // Return null so we won't display anything
-        $vars['sponsors'][$delta]['display'] = NULL;
-      }
-    }
-  }
-  // Preprocess partner info modals.
-  if (isset($vars['partner_info'])) {
-    foreach ($vars['partner_info'] as $delta => $info) {
-      // If image landscape field is set:
-      $image_node = $info['image'];
-      if (!empty($image_node->field_image_landscape)) {
-        $img = dosomething_image_get_themed_image($image_node->nid, 'landscape', '550x300');
-        $vars['partner_info'][$delta]['image'] = $img;
-      }
-    }
-  }
-}
-
-/**
  * Preprocesses variables for a campaign action page.
  *
  * @param array $vars
@@ -237,7 +167,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Collect all field_collection values as vars.
   $field_collections = array('faq', 'step_pre', 'step_post');
   foreach ($field_collections as $fc) {
-    $vars[$fc] = dosomething_campaign_get_field_collection_values($wrapper, 'field_' . $fc);
+    $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 
   if (!empty($vars['field_video'])) {
