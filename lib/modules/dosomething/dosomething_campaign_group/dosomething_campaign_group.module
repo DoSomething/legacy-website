@@ -66,8 +66,12 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
     $vars['display_signup_form'] = $vars['field_display_signup_form'][0]['value'];
     if ($vars['display_signup_form']) {
-      //@todo: Add CTA Button label as 2nd param.
-      dosomething_signup_preprocess_signup_button($vars);
+      // Set default in case CTA label is not set.
+      $label = NULL;
+      if (isset($content['field_cta_link'][0]['#element']['title'])) {
+        $label = $content['field_cta_link'][0]['#element']['title'];
+      }
+      dosomething_signup_preprocess_signup_button($vars, $label);
     }
   }
 }
