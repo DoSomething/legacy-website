@@ -8,7 +8,8 @@
 /**
  * Preprocesses variables for a signup button.
  *
- * Will add either a signup form, or a link to open the login/registration modal.
+ * Adds a $signup_button variable into $vars, which is set to either a signup form, 
+ * or a link to open the login/registration modal.
  *
  * @param array $vars
  *   Node variables, passed from preprocess_node.  Must contain $vars['nid'].

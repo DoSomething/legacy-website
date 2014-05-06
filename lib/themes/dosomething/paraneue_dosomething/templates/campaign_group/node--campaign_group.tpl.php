@@ -36,11 +36,11 @@
       <a href="#modal-faq" class="js-modal-link"><?php print $faq[0]['header']; ?></a>
     <?php endif; ?>
 
-    <?php if (isset($call_to_action)): ?>
+    <?php if (isset($signup_button)): ?>
       <div class="cta-wrapper">
         <div class="cta">
           <h3><?php print $call_to_action; ?></h3>
-          <div class="cta_button"><?php print $cta_link; ?></div>
+          <div class="cta_button"><?php print render($signup_button); ?></div>
         </div>
       </div>
     <?php endif; ?>
@@ -75,15 +75,6 @@
         <p><?php print $additional_text; ?></p>
       </div>
     </div>
-    <?php endif; ?>
-
-    <?php if (isset($call_to_action)): ?>
-      <div class="cta-wrapper">
-        <div class="cta">
-          <h3><?php print $call_to_action; ?></h3>
-          <div class="cta_button"><?php print $cta_link; ?></div>
-        </div>
-      </div>
     <?php endif; ?>
 
     <?php if (!empty($galleries)): ?>
