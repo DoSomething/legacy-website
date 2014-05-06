@@ -60,113 +60,6 @@
 }
 
 
-// @TODO: Will need to namespace or will likely cause conflict with other .gallery class!
-.gallery {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  @include clearfix();
-
-  &.-mosaic {
-    background-color: #000;
-  }
-
-  > li {
-
-    @include media(450px) {  // @TODO: custom mq; address when more mq's added.
-      float: left;
-      width: 50%;
-    }
-
-    @include media($tablet) {  // @TODO: custom mq; address when more mq's added.
-      width: 25%;
-    }
-  }
-
-
-  // Style for empty gallery item to help balance the space.
-  .empty {
-    background-color: lighten($light-gray, 10%);
-    display: none;
-    height: 0;
-    position: relative;
-
-    > .wrapper {
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-
-    &.-trio {
-
-      @include media(450px) {
-        display: block;
-        padding-bottom: 50%;
-      }
-
-      @include media($tablet) {
-        padding-bottom: 25%;
-        width: 75%;
-
-        p,a {
-          font-size: $font-medium;
-        }
-      }
-    }
-
-    &.-duo {
-      padding-bottom: 25%;
-      width: 50%;
-
-      p,a {
-        font-size: $font-regular;
-      }
-
-      @include media($tablet) {
-        display: block;
-      }
-
-      @include media($desktop) {
-        p,a {
-          font-size: $font-medium;
-        }
-      }
-    }
-
-    &.-mono {
-      display: block;
-      padding-bottom: 50%;
-
-      @include media($tablet) {
-        padding-bottom: 25%;
-      }
-    }
-  }
-
-  .__message {
-    display: table;
-    height: 100%;
-    padding: 1rem;
-    text-align: center;
-    width: 100%;
-
-    > .wrapper {
-      display: table-cell;
-      vertical-align: middle;
-    }
-
-    p {
-      line-height: 1.3;
-      margin: 0.25rem;
-    }
-  }
-}
-
-
-
 .profile {
 
   h1, h2, h3, h4, h5, h6 {  // @TODO: remove from here and place globally.
@@ -191,13 +84,6 @@
     }
 
     .subtitle { margin-bottom: 0; } // @TODO: temp for now; apply universally.
-  }
-
-
-  // @TODO: Abstract out as a pattern to Neue
-  // @CTA (refernced to later remove it when CTA is patternized)
-  .cta {
-    @include cta();
   }
 
 
