@@ -155,7 +155,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       $form['#submit'][] = 'dosomething_user_login_submit';
       // Helper text & additional data.
-      _dosomething_user_add_campaign_data($form);
+      _dosomething_user_add_signup_data($form);
 
     break;
 
@@ -164,7 +164,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Gather helper text.
       _dosomething_user_register_helper_text($form);
       // Add campaign data, if needed.
-      _dosomething_user_add_campaign_data($form);
+      _dosomething_user_add_signup_data($form);
 
       // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
@@ -419,19 +419,17 @@ function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
  * @param array $form
  *  A drupal form.
  */
-function _dosomething_user_add_campaign_data(&$form) {
-   if (module_exists('dosomething_signup')) {
-    $obj = menu_get_object();
-    // If we are viewing a campaign node:
-    if (isset($obj->type) && $obj->type == 'campaign') {
-      // Add a hidden nid field.
-      $form['nid'] = array(
-        '#type' => 'hidden',
-        '#value' => $obj->nid,
-        '#access' => FALSE,
-      );
-      $form['#action'] = '/' . drupal_get_path_alias('node/' . $obj->nid);
-    }
+function _dosomething_user_add_signup_data(&$form) {
+  if (!module_exists('dosomething_signup')) { return; }
+
+  // If we're viewing a node to signup for:
+  if ($nid = dosomething_signup_get_login_signup_nid()) {
+    $form['nid'] = array(
+      '#type' => 'hidden',
+      '#value' => $nid,
+      '#access' => FALSE,
+    );
+    $form['#action'] = '/' . drupal_get_path_alias('node/' . $nid);
   }
 }
 
