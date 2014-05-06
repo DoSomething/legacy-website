@@ -18,7 +18,7 @@ function dosomething_signup_menu() {
     'title' => t('Third Party Opt-Ins'),
     'description' => 'Admin form to manage custom opt-ins',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_signup_optin_config'),
+    'page arguments' => array('dosomething_signup_optin_config_form'),
     'access callback' => 'user_access',
     'access arguments' => array('administer third party communication'),
     'file' => 'dosomething_signup.admin.inc'
@@ -119,6 +119,9 @@ function dosomething_signup_admin_paths() {
  *   The sid of the newly inserted signup, or FALSE if error.
  */
 function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
+  // If a signup already exists, exit.
+  if (dosomething_signup_exists($nid, $uid)) { return FALSE; }
+
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
@@ -316,7 +319,47 @@ function dosomething_signup_views_data() {
 }
 
 /**
- * Signup a user $uid for a given node $nid.
+ * Implements hook_entity_insert().
+ */
+function dosomething_signup_entity_insert($entity, $type) {
+  // If not a signup, exit out of function.
+  if ($type != 'signup') { return; }
+  
+  $account = user_load($entity->uid);
+  $node = node_load($entity->nid);
+  // Send relevant third-party subscribe requests.
+  dosomething_signup_third_party_subscribe($account, $node);
+
+  // Check if inserted signup nid belongs to a Campaign Group.
+  if (module_exists('dosomething_campaign_group')) {
+    $group_nid = dosomething_campaign_group_get_parent_nid($entity->nid);
+    // If a campaign group exists:
+    if ($group_nid) {
+      // Create a signup for the group nid.
+      dosomething_signup_create($group_nid);
+    }
+  }
+}
+
+/**
+ * Sends third-party subscription requests for given $account and $node.
+ */
+function dosomething_signup_third_party_subscribe($account, $node) {
+  // Is there an override set on this campaign?
+  $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
+  $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
+  // Opt-in to mobilecommons.
+  $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
+  dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
+  // Send message broker request.
+  dosomething_signup_mbp_request($account, $node);
+}
+
+/**
+ * Signup a user $uid for a given node $nid and display a confirmation message.
+ *
+ * This is most likely being within a form submit handler, hence displaying the
+ * confirmation message.
  *
  * @param int $nid
  *   The node nid the user is signing up for.
@@ -329,23 +372,12 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     global $user;
     $account = $user;
   }
-  // If a signup already exists, exit.
-  if (dosomething_signup_exists($nid, $account->uid)) { return; }
 
   // Insert signup.
   if ($sid = dosomething_signup_create($nid, $account->uid)) {
     $node = node_load($nid);
-
-    // Is there an override set on this campaign?
-    $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
-    $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
-
-    // Opt-in to mobilecommons.
-    $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
-    dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
-    // Send external message request
-    dosomething_signup_mbp_request($account, $node);
     // Set success message.
+    // @todo: Will need to drupal_set_message the campaign group's confirm msg.
     dosomething_signup_set_signup_message($node->title);
   }
 }
@@ -363,7 +395,9 @@ function dosomething_signup_mbp_request($account, $node) {
   $params = dosomething_signup_get_mbp_params($account, $node);
   // Send MBP request.
   if (module_exists('dosomething_mbp')) {
-    dosomething_mbp_request('campaign_signup', $params);
+    if ($node->type == 'campaign') {
+      dosomething_mbp_request('campaign_signup', $params);
+    }
   }
 }
 
@@ -439,18 +473,21 @@ function dosomething_signup_set_signup_message($title = NULL) {
 }
 
 /**
- * Returns array of nid's that a user has signed up for.
+ * Returns array of campaign nid's that a user has signed up for.
  *
  * @param int $uid
- *   The user uid of signup record to check.
+ *   The user uid to return signups for.
  *
  * @return array
  *   Array of node nid's.
  */
 function dosomething_signup_get_signup_nids_by_uid($uid) {
   $query = db_select('dosomething_signup', 's');
+  $query->join('node', 'n', 'n.nid = s.nid');
   $query->fields('s', array('nid'));
-  $query->condition('uid', $uid);
+  $query->condition('s.uid', $uid);
+  // Only return signups for campaign nodes.
+  $query->condition('n.type', 'campaign');
   $query->orderBy('timestamp', 'DESC');
   $result = $query->execute();
   return array_keys($result->fetchAllAssoc('nid'));

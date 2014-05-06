@@ -159,3 +159,26 @@ function dosomething_helpers_get_field_collection_values($wrapper, $field_name) 
   }
   return NULL;
 }
+
+/*
+ * Returns array of nid and titles of all nodes with given $type.
+ *
+ * @return array
+ *  Array of nids and titles of all campaign group nodes.
+ */
+function dosomething_helpers_get_node_vars($type) {
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', $type);
+  $results = $query->execute();
+
+  foreach($results as $key => $result) {
+    $vars[$key]['nid'] = $result->nid;
+    $vars[$key]['title'] = $result->title;
+  }
+  if ($vars) {
+    return $vars;
+  }
+  return NULL;
+}
+
