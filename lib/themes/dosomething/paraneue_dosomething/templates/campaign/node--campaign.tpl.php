@@ -228,14 +228,13 @@
       <?php endif; ?>
 
       <?php if (isset($signup_data_form)): ?>
-      <script id="modal-signup-data-form" type="text/cached-modal">
+      <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal">
         <div class="js-messages-clone"></div>
         <a href="#" class="js-close-modal modal-close-button white">×</a>
           <div><?php print render($signup_data_form); ?></div>
           <?php if (isset($skip_signup_data_form)): ?>
           <div><?php print render($skip_signup_data_form); ?></div>
           <?php endif; ?>
-        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 

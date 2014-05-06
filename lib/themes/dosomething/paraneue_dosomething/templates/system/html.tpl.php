@@ -12,6 +12,7 @@
 
 <head>
   <title><?php print $head_title; ?></title>
+  <script type="text/javascript" src="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/js/vendor/modernizr.js"></script>
 
   <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/neue.css" type="text/css" />
   <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/app.css" type="text/css" />
