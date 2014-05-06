@@ -302,6 +302,55 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_display_signup_form'
+  $field_instances['node-campaign_group-field_display_signup_form'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Should the Campaign Group Signup Form should be displayed?',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 19,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_display_signup_form',
+    'label' => 'display_signup_form',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_faq'
   $field_instances['node-campaign_group-field_faq'] = array(
     'bundle' => 'campaign_group',
@@ -827,11 +876,13 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
+  t('Should the Campaign Group Signup Form should be displayed?');
   t('Sponsors and Partners');
   t('Subtitle');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');
+  t('display_signup_form');
 
   return $field_instances;
 }
