@@ -1,0 +1,25 @@
+.modal {
+  .modal-content.modal--signup-data {
+    .form-actions {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .form-item-user-address-locality {
+      width: 50%;
+      padding-right: 1rem;
+      margin-right: 0;
+    }
+
+    .form-item-user-address-administrative-area {
+      width: 50%;
+      padding-right: 1rem;
+      padding-right: 0;
+      margin-right: 0;
+    }
+
+    .form-item-user-address-postal-code {
+      clear: both;
+    }
+  }
+}

@@ -280,7 +280,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => $config['why_signedup_label'],
     );
   }
-  $form['submit'] = array(
+
+  $form['actions'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div class="form-actions">',
+    '#suffix' => '</div>',
+  );
+
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
     '#attributes' => array(
