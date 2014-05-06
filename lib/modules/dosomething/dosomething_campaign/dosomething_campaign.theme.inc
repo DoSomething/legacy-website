@@ -280,18 +280,6 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
-  // Define label for signup button.
-  $label = t("Sign Up");
-  // If user is logged in:
-  if (user_is_logged_in()) {
-    // Render button as sign up form.
-    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label);
-  }
-  // Otherwise, for anonymous user:
-  else {
-    // Render button as link to open up the login modal.
-    $vars['signup_button'] = array(
-      '#markup' => '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>',
-    );
-  }
+  // Adds a signup_button variable.
+  dosomething_signup_preprocess_signup_button($vars);
 }
