@@ -21,9 +21,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'post_signup_body',
         'call_to_action',
       ),
-      'link' => array(
-        'cta_link'
-      ),
     );
 
     foreach ($template_vars as $key => $labels) {
@@ -34,9 +31,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
             case 'text':
               $vars[$label] = $content[$field][0]['#markup'];
               break;
-            case 'link':
-              $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'btn')));
-            break;
             default:
               break;
           }
@@ -63,6 +57,16 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
     // Preprocess gallery variables.
     dosomething_static_content_preprocess_gallery_vars($vars);
+
+    $vars['display_signup_form'] = $vars['field_display_signup_form'][0]['value'];
+    if ($vars['display_signup_form']) {
+      // Set default in case CTA label is not set.
+      $label = NULL;
+      if (isset($content['field_cta_link'][0]['#element']['title'])) {
+        $label = $content['field_cta_link'][0]['#element']['title'];
+      }
+      dosomething_signup_preprocess_signup_button($vars, $label);
+    }
   }
 }
 
