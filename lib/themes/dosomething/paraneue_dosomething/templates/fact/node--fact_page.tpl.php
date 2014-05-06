@@ -57,10 +57,10 @@
     <?php endif; ?>
 
     <?php if (isset($call_to_action)): ?>
-      <div class="cta-wrapper">
-        <div class="cta">
-          <h3><?php print $call_to_action; ?></h3>
-          <div class="cta_button"><?php print $cta_link; ?></div>
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
         </div>
       </div>
     <?php endif; ?>

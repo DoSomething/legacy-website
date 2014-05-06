@@ -120,13 +120,11 @@
     padding: 0;
   }
 
-  // When abstracted .cta will be the module class, and .wrapper sits inside it, so for now chaining the selectors.
-  .cta, > .wrapper {
+  .cta {
     text-align: center;
     padding: 2rem 0;
 
-    // When abstracted h3 will have an element class, and thus the .__message class will apply styles to whatever tag the cta uses for the message.
-    h3, .__message {
+    h3 {
       color: $copy-color;
       font-size: $font-medium;
       font-weight: $weight-sbold;
