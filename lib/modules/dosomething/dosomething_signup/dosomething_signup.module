@@ -377,9 +377,19 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   // Insert signup.
   if ($sid = dosomething_signup_create($nid, $account->uid)) {
     $node = node_load($nid);
-    // Set success message.
-    // @todo: Will need to drupal_set_message the campaign group's confirm msg.
-    dosomething_signup_set_signup_message($node->title);
+
+    // Check if a field_signup_confirm_msg field is set.
+    if (isset($node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'])) {
+      // Store that message.
+      $msg = $node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'];
+      // Display that message.
+      drupal_set_message($msg);
+      // Exit out of function.
+      return;
+    }
+
+    // Set default signup message if we're still in this function.
+    dosomething_signup_set_signup_message($node->title);      
   }
 }
 
