@@ -36,7 +36,7 @@ function paraneue_dosomething_preprocess_node(&$variables) {
     }
   }
   elseif ($variables['node']->type == "home") {
-    $homepage_nids = array(362, 832, 8, 843, 15, 31, 345, 17, 850);
+    $homepage_nids = array(362, 832, 8, 843, 345, 31, 15, 17, 850);
     $thumbnails = array();
 
     foreach($homepage_nids as $key => $nid) {
