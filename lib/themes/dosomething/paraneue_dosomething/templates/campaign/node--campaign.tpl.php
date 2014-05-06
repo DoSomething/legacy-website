@@ -235,7 +235,6 @@
           <?php if (isset($skip_signup_data_form)): ?>
           <div><?php print render($skip_signup_data_form); ?></div>
           <?php endif; ?>
-        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
 
