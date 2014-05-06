@@ -392,10 +392,11 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
  *   Details about the node that the signup was made on.
  */
 function dosomething_signup_mbp_request($account, $node) {
-  // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node);
   // Send MBP request.
   if (module_exists('dosomething_mbp')) {
+    // Gather mbp params for the signup.
+    $params = dosomething_signup_get_mbp_params($account, $node);
+    // Send campaign mbp request.
     if ($node->type == 'campaign') {
       dosomething_mbp_request('campaign_signup', $params);
     }
@@ -414,6 +415,10 @@ function dosomething_signup_mbp_request($account, $node) {
  *   Associative array of values to use as params to a mbp_request.
  */
 function dosomething_signup_get_mbp_params($account, $node) {
+  // @todo: Add checks and relevant vars for campaign_group when we're ready.
+  if ($node->type != 'campaign') {
+    return FALSE;
+  }
   $wrapper = entity_metadata_wrapper('node', $node);
   $params = array(
     'email' => $account->mail,
