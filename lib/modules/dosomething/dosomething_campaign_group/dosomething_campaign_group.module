@@ -17,7 +17,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'intro',
         'additional_text_title',
         'additional_text',
-        'signup_form_button_text'
+        'signup_form_button_text',
         'post_signup_title',
         'post_signup_body',
         'call_to_action',
