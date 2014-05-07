@@ -2,6 +2,7 @@ name = DoSomething Signup
 description = Provides Signup table and functionality.
 core = 7.x
 package = DoSomething
+version = 7.x-1.0
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = views

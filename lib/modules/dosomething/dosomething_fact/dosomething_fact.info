@@ -2,6 +2,7 @@ name = DoSomething Fact
 description = Provides a custom Fact Entity and its functionality.
 core = 7.x
 package = DoSomething
+version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = features

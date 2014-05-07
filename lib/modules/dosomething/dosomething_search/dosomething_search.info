@@ -1,6 +1,7 @@
 name = DoSomething Search
 core = 7.x
-package = Features
+package = DoSomething
+version = 7.x-1.0
 dependencies[] = apachesolr
 dependencies[] = ctools
 dependencies[] = entity

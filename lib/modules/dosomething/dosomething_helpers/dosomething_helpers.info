@@ -2,6 +2,7 @@ name = Dosomething helpers
 description = Collection of helper functions for DoSomething
 core = 7.x
 package = DoSomething
+version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = entityconnect
 dependencies[] = features
