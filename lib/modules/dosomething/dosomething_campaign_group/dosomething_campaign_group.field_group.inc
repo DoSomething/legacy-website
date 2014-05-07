@@ -20,23 +20,20 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Signup Form',
+    'label' => 'Call to Action',
     'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
-      2 => 'field_display_signup_form',
-      3 => 'field_transactional_email_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Signup Form',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-call-to-action field-group-fieldset',
-        'description' => '',
-      ),
       'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-call-to-action field-group-fieldset',
+        'required_fields' => 1,
+      ),
     ),
   );
   $export['group_call_to_action|node|campaign_group|form'] = $field_group;
@@ -56,10 +53,9 @@ function dosomething_campaign_group_field_group_info() {
     'children' => array(
       0 => 'field_faq',
       1 => 'field_intro',
-      2 => 'field_intro_image',
-      3 => 'field_intro_title',
-      4 => 'field_partners',
-      5 => 'field_video',
+      2 => 'field_intro_title',
+      3 => 'field_partners',
+      4 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

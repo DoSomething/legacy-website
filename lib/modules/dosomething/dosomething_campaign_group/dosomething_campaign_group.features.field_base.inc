@@ -71,7 +71,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => '',
-        1 => 'Display Signup Form',
+        1 => 'display',
       ),
       'allowed_values_function' => '',
     ),
