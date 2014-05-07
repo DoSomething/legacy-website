@@ -50,10 +50,12 @@ function dosomething_user_validate_user_address($uid) {
 
   $xml = dosomething_user_compile_ups_xml($first_name, $last_name, $address);
 
-  $results = dosomething_user_make_request_to_ups_api($xml);
+  $ups_results = dosomething_user_make_request_to_ups_api($xml);
+  // Parse the results.
+  $field_results = dosomething_user_parse_ups_xml_results($ups_results);
 
   // For now, print results from request.
-  print_r($results);
+  print_r(drupal_json_encode($field_results));
 }
 
 /**
