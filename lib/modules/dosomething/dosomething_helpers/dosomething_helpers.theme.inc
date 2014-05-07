@@ -108,6 +108,8 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
       }
     }
   }
+  // Preprocess a formatted list of partners.
+  dosomething_helpers_format_partners_list($vars);
 }
 
 /**
