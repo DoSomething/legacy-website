@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_campaign_group.module.
+ */
+
+
+/**
+ * Deletes field_cta_link.
+ */
+function dosomething_campaign_group_update_7001(&$sandbox) {
+  if ($instance = field_info_instance('node', 'field_cta_link', 'campaign_group')) {
+    field_delete_instance($instance);
+  }
+}
