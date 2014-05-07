@@ -19,31 +19,31 @@ function dosomething_home_preprocess_node(&$vars) {
     $nid = $campaign['target_id'];
     $node = node_load($nid);
 
-
-    // Grab all campagin attributes.
-    $campagin['nid'] = $nid;
-    $campagin['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
-    $campagin['title'] = $node->title;
-    $campagin['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
+    // Grab all tiles attributes.
+    $tiles = array();
+    $tiles['nid'] = $nid;
+    $tiles['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+    $tiles['title'] = $node->title;
+    $tiles['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
 
     // Get the campaign cover image.
     $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
     if ($key == 0) {
-      $campagin['modifier_classes'] = "big";
-      $campagin['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+      $tiles['modifier_classes'] = "big";
+      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
     }
     else {
-      $campagin['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
+      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
     }
 
-    $campagin['link'] = l('<span>' . $title . '</span>', 'node/' . $nid, array(
+    $tiles['link'] = l('<span>' . $title . '</span>', 'node/' . $nid, array(
       'attributes' => array(
         'class' => array('full-link')
       ),
       'html' => TRUE
     ));
 
-    $thumbnails[$nid] = theme('thumbnail', $campagin);
+    $thumbnails[$nid] = theme('thumbnail', $tiles);
   }
 
   $vars['thumbnails'] = $thumbnails;
