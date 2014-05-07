@@ -35,6 +35,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
     // Hero Images.
     if (isset($vars['field_image_campaign_cover'][0])) {
+      dosomething_helpers_preprocess_hero_images($vars);
       $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
       $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810');
       $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768');

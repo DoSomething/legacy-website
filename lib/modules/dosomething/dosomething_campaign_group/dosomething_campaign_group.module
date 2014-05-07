@@ -39,6 +39,9 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       }
     }
 
+    // Hero Images.
+    dosomething_helpers_preprocess_hero_images($vars);
+
     $wrapper = entity_metadata_wrapper('node', $vars['node']);
     if ($wrapper->field_video->value()->field_video_id) {
       $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $wrapper->field_video->value()));
