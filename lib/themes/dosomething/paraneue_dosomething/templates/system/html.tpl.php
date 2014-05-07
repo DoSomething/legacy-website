@@ -8,7 +8,8 @@
 ?>
 
 <!DOCTYPE html>
-<html class="no-js">
+<!--[if lte IE 8 ]> <html dir="ltr" lang="en-US" class="no-js ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
 
 <head>
   <title><?php print $head_title; ?></title>
@@ -34,6 +35,7 @@
 </head>
 
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
+  <!--[if lt IE 8 ]> <div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div>  <![endif]-->
   <?php print $page_top; ?>
   <?php print $page; ?>
 
