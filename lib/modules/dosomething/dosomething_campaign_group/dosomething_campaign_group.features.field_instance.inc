@@ -242,66 +242,6 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_cta_link'
-  $field_instances['node-campaign_group-field_cta_link'] = array(
-    'bundle' => 'campaign_group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 7,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_cta_link',
-    'label' => 'CTA Link',
-    'required' => 0,
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'rel_remove' => 'default',
-      'title' => 'optional',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 18,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign_group-field_display_signup_form'
   $field_instances['node-campaign_group-field_display_signup_form'] = array(
     'bundle' => 'campaign_group',
@@ -347,7 +287,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 19,
+      'weight' => 20,
     ),
   );
 
@@ -626,7 +566,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 23,
+      'weight' => 27,
     ),
   );
 
@@ -672,7 +612,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 20,
+      'weight' => 25,
     ),
   );
 
@@ -718,7 +658,53 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 21,
+      'weight' => 26,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_signup_form_button_text'
+  $field_instances['node-campaign_group-field_signup_form_button_text'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 21,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_signup_form_button_text',
+    'label' => 'Signup Form Button Text',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 18,
     ),
   );
 
@@ -863,7 +849,6 @@ function dosomething_campaign_group_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('CTA Link');
   t('Call to Action');
   t('Campaigns');
   t('Cause');
@@ -878,6 +863,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
   t('Should the Campaign Group Signup Form should be displayed?');
+  t('Signup Form Button Text');
   t('Sponsors and Partners');
   t('Subtitle');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');

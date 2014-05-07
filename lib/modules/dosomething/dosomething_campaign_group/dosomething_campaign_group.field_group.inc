@@ -114,6 +114,7 @@ function dosomething_campaign_group_field_group_info() {
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
       2 => 'field_display_signup_form',
+      3 => 'field_signup_form_button_text',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
