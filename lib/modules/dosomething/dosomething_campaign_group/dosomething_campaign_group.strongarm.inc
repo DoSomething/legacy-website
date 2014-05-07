@@ -22,7 +22,7 @@ function dosomething_campaign_group_strongarm() {
           'weight' => '14',
         ),
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
           'weight' => '13',

@@ -21,7 +21,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Intro',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_faq',
       1 => 'field_intro',
@@ -112,9 +112,8 @@ function dosomething_campaign_group_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
-      1 => 'field_cta_link',
-      2 => 'field_display_signup_form',
-      3 => 'field_signup_form_button_text',
+      1 => 'field_display_signup_form',
+      2 => 'field_signup_form_button_text',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
