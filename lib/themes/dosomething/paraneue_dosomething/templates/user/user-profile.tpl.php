@@ -42,7 +42,7 @@
   <header role="banner">
     <div class="wrapper">
       <h1 class="title">Hey, <?php print $user_account['first_name']; ?>!</h1>
-      <h2 class="subtitle">Let us get to know you better.</h2>
+      <?php //<h2 class="subtitle">Let us get to know you better.</h2> @TODO: Temp hidden as per Fantini's request. ?>
     </div>
   </header>
 
