@@ -13,14 +13,14 @@ function dosomething_campaign_group_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_call_to_action|node|campaign_group|form';
-  $field_group->group_name = 'group_call_to_action';
+  $field_group->identifier = 'group_signup_form|node|campaign_group|form';
+  $field_group->group_name = 'group_signup_form';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'campaign_group';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Call to Action',
+    'label' => 'Signup Form',
     'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
@@ -31,12 +31,12 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsible',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-call-to-action field-group-fieldset',
+        'classes' => 'group-signup-form field-group-fieldset',
         'required_fields' => 1,
       ),
     ),
   );
-  $export['group_call_to_action|node|campaign_group|form'] = $field_group;
+  $export['group_signup_form|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
