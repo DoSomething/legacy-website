@@ -14,7 +14,7 @@ function dosomething_home_preprocess_node(&$vars) {
 
   $campaigns = $vars['field_campaigns'];
 
-  foreach($campaigns as $key => $campaign) {
+  foreach ($campaigns as $key => $campaign) {
     // Get the campaign nid.
     $nid = $campaign['target_id'];
     $node = node_load($nid);
@@ -28,10 +28,11 @@ function dosomething_home_preprocess_node(&$vars) {
 
     // Get the campaign cover image.
     $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
-    if($key == 0) {
+    if ($key == 0) {
       $campagin['modifier_classes'] = "big";
       $campagin['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
-    } else {
+    }
+    else {
       $campagin['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
     }
 
