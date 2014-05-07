@@ -252,6 +252,15 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (isset($vars['content']['reportback_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
+
+  $vars['modals'] = theme('modal_links', array('modals' =>
+      array(
+        'faq' => $vars['faq'],
+        'more_facts' => $vars['more_facts'],
+        'partner_info' => $vars['partner_info'],
+      )
+    )
+  );
 }
 
 /**

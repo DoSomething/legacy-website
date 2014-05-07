@@ -26,14 +26,8 @@
       </div>
     <?php endif; ?>
 
-    <?php if (isset($partner_info)): ?>
-    <?php foreach ($partner_info as $delta => $partner): ?>
-      <li><a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">Why we &lt;3 <?php print $partner['name']; ?></a>
-    <?php endforeach; ?>
-    <?php endif; ?>
-
-    <?php if (isset($faq)): ?>
-      <a href="#modal-faq" class="js-modal-link"><?php print $faq[0]['header']; ?></a>
+    <?php if (isset($modals)): ?>
+      <?php print $modals; ?>
     <?php endif; ?>
 
     <?php if (isset($signup_button)): ?>
