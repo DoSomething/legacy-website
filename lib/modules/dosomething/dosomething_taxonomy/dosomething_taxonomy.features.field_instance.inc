@@ -159,6 +159,54 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_partners-field_partner_url'
+  $field_instances['field_collection_item-field_partners-field_partner_url'] = array(
+    'bundle' => 'field_partners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If set, the Partner name will link to the given value within the "In partnership with" section.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_partner_url',
+    'label' => 'Partner URL',
+    'required' => 0,
+    'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_partners-field_video'
   $field_instances['field_collection_item-field_partners-field_video'] = array(
     'bundle' => 'field_partners',
@@ -243,10 +291,12 @@ function dosomething_taxonomy_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Copy');
+  t('If set, the Partner name will link to the given value within the "In partnership with" section.');
   t('Image');
   t('Is Sponsor');
   t('Name');
   t('Partner Logo');
+  t('Partner URL');
   t('Video');
 
   return $field_instances;
