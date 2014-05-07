@@ -125,7 +125,13 @@ function dosomething_helpers_format_partners_list(&$vars) {
   $partners = $vars['partners'];
   $formatted_partners = '';
   foreach ($partners as $key => $partner) {
-    $formatted_partners .= $partner['name'];
+    $name = $partner['name'];
+    // If there is a partner url set:
+    if (isset($partner['url'])) {
+      // Link to it.
+      $name = l($name, $partner['url']);
+    }
+    $formatted_partners .= $name;
     if (count($partners) > 2 && $key == (count($partners) -2)) {
       $formatted_partners .= ' and ';
     }
