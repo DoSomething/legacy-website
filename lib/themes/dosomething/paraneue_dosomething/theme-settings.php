@@ -16,4 +16,11 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
     '#description'   => t('Toggles campaign finder on homepage/expore campaigns page.'),
     '#default_value' => theme_get_setting('show_campaign_finder')
   );
+
+  $form['feature_flags']['show_profile_link'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('User Profile Link') ,
+    '#description'   => t('Toggles the user profile/create an account link in the main navigation.'),
+    '#default_value' => theme_get_setting('show_profile_link')
+  );
 }
