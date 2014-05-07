@@ -377,9 +377,19 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
   // Insert signup.
   if ($sid = dosomething_signup_create($nid, $account->uid)) {
     $node = node_load($nid);
-    // Set success message.
-    // @todo: Will need to drupal_set_message the campaign group's confirm msg.
-    dosomething_signup_set_signup_message($node->title);
+
+    // Check if a field_signup_confirm_msg field is set.
+    if (isset($node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'])) {
+      // Store that message.
+      $msg = $node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'];
+      // Display that message.
+      drupal_set_message($msg);
+      // Exit out of function.
+      return;
+    }
+
+    // Set default signup message if we're still in this function.
+    dosomething_signup_set_signup_message($node->title);      
   }
 }
 
@@ -550,4 +560,30 @@ function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
     return;
   }
   drupal_set_message("There was an error with your request.");
+}
+
+/**
+ * Checks if the current page should create a signup upon login.
+ *
+ * @return mixed
+ *   Returns the node $nid to create signup for if TRUE, else returns NULL.
+ */
+function dosomething_signup_get_login_signup_nid() {
+  $obj = menu_get_object();
+  if (isset($obj->type)) {
+    switch ($obj->type) {
+      case 'campaign':
+        return $obj->nid;
+        break;
+      case 'campaign_group':
+        // Should only signup on login if the signup form is displayed.
+        if ($obj->field_display_signup_form[LANGUAGE_NONE][0]['value'] == 1) {
+          return $obj->nid;
+        }
+        break;
+      default:
+        return NULL;
+    }
+  }
+  return NULL;
 }
