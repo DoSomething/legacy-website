@@ -20,7 +20,7 @@
 
       <li>
         <a href="<?php print url('node/538');  ?>">
-          <strong>What is DoSomething.org?</strong>
+          <strong>What is D<span>o</span>S<span>omething</span>.org?</strong>
           <span>Young people + social change.</span>
         </a>
       </li>
@@ -32,9 +32,12 @@
           <?php print $search_box; ?>
         </li>
         <?php if(!$logged_in): ?>
-        <li><a href="<?php print $front_page; ?>user/login" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--login">Log In</a></li>
+        <?php // Will change 'Sign Up' to 'Create Account' once we refactor nav and can fit longer text! ?>
+        <li class="account"><a href="<?php print $front_page; ?>user/register" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--register">Register</a></li>
+        <li class="login"><a href="<?php print $front_page; ?>user/login" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--login">Log In</a></li>
         <?php else: ?>
-        <li><a href="<?php print $front_page; ?>user/logout" class="secondary-nav-item">Log Out</a></li>
+        <li class="account"><a href="/users/<?php print $user->uid ?>"><?php print $user_identifier; ?></a></li>
+        <li class="login"><a href="<?php print $front_page; ?>user/logout" class="secondary-nav-item">Log Out</a></li>
         <?php endif; ?>
       </ul>
     </div>
