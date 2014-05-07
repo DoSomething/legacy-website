@@ -14,9 +14,19 @@ function dosomething_home_preprocess_node(&$vars) {
 
   $campaigns = $vars['field_campaigns'];
 
+  if (empty($campaigns)) {
+    // Fallback to old stuff.
+    $campaigns = array(362, 832, 8, 843, 345, 31, 15, 17, 850);  
+  }
+
   foreach ($campaigns as $key => $campaign) {
     // Get the campaign nid.
-    $nid = $campaign['target_id'];
+    if (isset($campaign['target_id'])) {
+      $nid = $campaign['target_id'];
+    }
+    else {
+      $nid = $campaign;
+    }
     $node = node_load($nid);
 
     // Grab all tiles attributes.
