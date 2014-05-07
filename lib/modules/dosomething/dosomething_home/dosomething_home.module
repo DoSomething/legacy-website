@@ -5,3 +5,46 @@
  */
 
 include_once 'dosomething_home.features.inc';
+
+/**
+ * Implements hook_preprocess_node();
+ */
+function dosomething_home_preprocess_node(&$vars) {
+  if ($vars['type'] != 'home') { return; }
+
+  $campaigns = $vars['field_campaigns'];
+
+  foreach ($campaigns as $key => $campaign) {
+    // Get the campaign nid.
+    $nid = $campaign['target_id'];
+    $node = node_load($nid);
+
+    // Grab all tiles attributes.
+    $tiles = array();
+    $tiles['nid'] = $nid;
+    $tiles['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+    $tiles['title'] = $node->title;
+    $tiles['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
+
+    // Get the campaign cover image.
+    $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+    if ($key == 0) {
+      $tiles['modifier_classes'] = "big";
+      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+    }
+    else {
+      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
+    }
+
+    $tiles['link'] = l('<span>' . $title . '</span>', 'node/' . $nid, array(
+      'attributes' => array(
+        'class' => array('full-link')
+      ),
+      'html' => TRUE
+    ));
+
+    $thumbnails[$nid] = theme('thumbnail', $tiles);
+  }
+
+  $vars['thumbnails'] = $thumbnails;
+}
