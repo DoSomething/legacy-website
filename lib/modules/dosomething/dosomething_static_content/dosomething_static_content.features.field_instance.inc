@@ -712,6 +712,53 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-static_content-field_partners'
+  $field_instances['node-static_content-field_partners'] = array(
+    'bundle' => 'static_content',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 16,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partners',
+    'label' => 'Sponsors and Partners',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-static_content-field_subtitle'
   $field_instances['node-static_content-field_subtitle'] = array(
     'bundle' => 'static_content',
@@ -824,6 +871,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Intro Image');
   t('Intro Title');
   t('Provider');
+  t('Sponsors and Partners');
   t('Subtitle');
   t('The ID of the Youtube video <strong> (comes after the ?v=) </strong>');
   t('Video');

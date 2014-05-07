@@ -48,7 +48,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
       dosomething_helpers_preprocess_partners_vars($vars);
-      dosomething_helpers_format_partners_list($vars);
     }
 
     // Preprocess any custom campaign variables.
