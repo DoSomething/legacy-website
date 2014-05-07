@@ -2,6 +2,7 @@ name = DoSomething Static Content
 description = Content type and theme function definitions for the Static Content type
 core = 7.x
 package = DoSomething
+version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = dosomething_campaign
 dependencies[] = entityconnect

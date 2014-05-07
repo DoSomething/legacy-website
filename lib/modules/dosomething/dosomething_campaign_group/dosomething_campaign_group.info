@@ -2,6 +2,7 @@ name = DoSomething Campaign Group
 description = Campaign group content type and associated code
 core = 7.x
 package = DoSomething
+version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_static_content

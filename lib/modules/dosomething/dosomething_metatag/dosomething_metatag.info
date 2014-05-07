@@ -1,6 +1,7 @@
 name = DoSomething Metatag
 core = 7.x
-package = Dosomething
+package = DoSomething
+version = 7.x-1.0
 dependencies[] = features
 dependencies[] = metatag
 features[features_api][] = api:2
