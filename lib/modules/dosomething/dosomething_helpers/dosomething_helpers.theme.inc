@@ -48,6 +48,12 @@ function dosomething_helpers_theme($existing, $type, $theme, $path) {
         'width' => 560,
       ),
     ),
+    'modal_links' => array(
+      'variables' => array(
+        'modals' => NULL,
+      ),
+      'template' => 'modal-links',
+    ),
   );
 }
 
