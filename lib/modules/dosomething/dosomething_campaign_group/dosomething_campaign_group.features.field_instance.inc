@@ -335,7 +335,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_display_signup_form',
-    'label' => 'Display Signup Form',
+    'label' => 'Display Signup Form?',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -344,10 +344,10 @@ function dosomething_campaign_group_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'display_label' => 0,
+        'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 3,
+      'weight' => 19,
     ),
   );
 
@@ -869,6 +869,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Cause');
   t('Challenges');
   t('Challenges Title');
+  t('Display Signup Form?');
   t('FAQ');
   t('Gallery');
   t('Intro');
@@ -882,7 +883,6 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');
-  t('Display Signup Form');
 
   return $field_instances;
 }
