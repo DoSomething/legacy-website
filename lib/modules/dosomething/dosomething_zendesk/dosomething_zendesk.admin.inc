@@ -64,6 +64,8 @@ function dosomething_zendesk_groups_config_form() {
       '#markup' => '<p>' . $group_name . ': ' . $group_id . '</p>',
     );
   }
+
+  // Store Zendesk group id's for each term in the Cause vocabulary.
   $form['cause'] = array(
     '#title' => t('Cause'),
     '#type' => 'fieldset',
@@ -84,6 +86,29 @@ function dosomething_zendesk_groups_config_form() {
       '#default_value' => variable_get($var),
     );
   }
+
+  // Store Zendesk group id's for each campaign_group node.
+  $form['campaign_group'] = array(
+    '#title' => t('Grouped Campaigns'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+  );
+  if (module_exists('dosomething_helpers')) {
+    // Load nid and titles of all campaign_group nodes.
+    if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
+      // For each campaign_group:
+      foreach ($campaign_groups as $campaign_group) {
+        $var = dosomething_zendesk_get_group_varname('nid', $campaign_group['nid']);
+        $form['campaign_group'][$var] = array(
+          '#type' => 'textfield',
+          '#required' => TRUE,
+          '#title' => t($campaign_group['title']),
+          '#default_value' => variable_get($var),
+        );
+      }
+    }
+  }
+
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
