@@ -21,6 +21,12 @@
       <?php print $call_to_action; ?>
       <?php print render($signup_button); ?>
     <?php endif; ?>
+
+    <?php if (isset($scholarship)): ?>
+      <div class="scholarship-callout -action -above">
+        <p class="copy"><?php print $scholarship; ?></p>
+      </div>
+    <?php endif; ?>
   </header>
 
   <?php if (isset($intro)): ?>
