@@ -13,3 +13,12 @@ function dosomething_campaign_group_update_7001(&$sandbox) {
     field_delete_instance($instance);
   }
 }
+
+/**
+ * Deletes instance of field_subtitle.
+ */
+function dosomething_campaign_group_update_7002(&$sandbox) {
+  if ($instance = field_info_instance('node', 'field_subtitle', 'campaign_group')) {
+    field_delete_instance($instance);
+  }
+}
