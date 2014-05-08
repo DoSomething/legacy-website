@@ -34,7 +34,9 @@ function dosomething_home_user_default_permissions() {
   // Exported permission: 'edit any home content'.
   $permissions['edit any home content'] = array(
     'name' => 'edit any home content',
-    'roles' => array(),
+    'roles' => array(
+      'editor' => 'editor',
+    ),
     'module' => 'node',
   );
 
