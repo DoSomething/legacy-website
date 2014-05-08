@@ -39,7 +39,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_additional_text',
-    'label' => 'Challenges',
+    'label' => 'Pre-live Copy',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -85,7 +85,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_additional_text_title',
-    'label' => 'Challenges Title',
+    'label' => 'Pre-live Header',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -857,8 +857,8 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Call to Action');
   t('Campaigns');
   t('Cause');
-  t('Challenges');
-  t('Challenges Title');
+  t('Pre-live Copy');
+  t('Pre-live Header');
   t('Cover Image');
   t('Display Signup Form?');
   t('FAQ');
