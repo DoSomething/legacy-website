@@ -1,3 +1,15 @@
+<?php
+/**
+ * Returns the HTML for the Campaign Action page.
+ *
+ * Available Variables
+ * - $fact_problem:
+ * - $end_date: End date for the campaign (string).
+ * - $scholarship: Scholarship amount (string).
+ * - $classes: Additional classes passed for output (string).
+ */
+?>
+
 <section class="campaign--wrapper action">
   <header class="header <?php print $classes; ?>">
     <div class="meta">
