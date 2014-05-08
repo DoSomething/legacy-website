@@ -1,3 +1,23 @@
+<?php
+/**
+ * Returns the HTML for the Campaign Reportback Confirmation.
+ *
+ * Available Variables
+ * - $copy: Positive note message copy (string).
+ * - $more_campaigns_link: Link to find more campaigns (string).
+ * - $back_to_campaign_link: Link to head back to originating campagin (string).
+ * - $recommended: Array containing recommended campaigns for user.
+ *   - [nid]: Node ID for campaign (integer).
+ *   - [title]: Title of campaign (string).
+ *   - [call_to_action]: Call to action text for campaign. (string).
+ *   - [image]: URL path for campaign image (string).
+ *   - [path]: URL path for campaign node (string).
+ *   - [pretty_path]: Pretty URL path for campaign node (string).
+ *   - [staff_pick]: Indicate if this campaign a staff pick (boolean).
+ * - $classes: Additional classes passed for output (string).
+ */
+?>
+
 <section class="confirmation-wrapper">
   <div class="header-wrapper">
     <header class="header">
@@ -15,7 +35,7 @@
         <?php foreach ($recommended as $rec): ?>
           <div class="gallery-item">
             <?php if (isset($rec['image'])): ?>
-              <a href="<?php print $rec['path']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
+              <a href="/<?php print $rec['pretty_path']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
             <?php endif; ?>
 
             <?php if (isset($rec['title'])): ?>
