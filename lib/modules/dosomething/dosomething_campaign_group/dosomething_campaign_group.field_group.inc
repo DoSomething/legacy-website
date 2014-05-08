@@ -57,6 +57,7 @@ function dosomething_campaign_group_field_group_info() {
       2 => 'field_intro_title',
       3 => 'field_partners',
       4 => 'field_video',
+      5 => 'field_intro_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -81,7 +82,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Post Sign Up',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_post_signup_body',
       1 => 'field_signup_confirm_msg',
@@ -110,7 +111,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pre-Live',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -138,7 +139,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Signup Form',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_display_signup_form',
       1 => 'field_signup_form_button_text',
