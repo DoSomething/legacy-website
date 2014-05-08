@@ -82,6 +82,13 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
       // Store zendesk group_id of the primary cause.
       $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
     }
+    // If staff_pick field exists:
+    if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
+      // If node is a staff pick:
+      if ($node->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
+        $form['priority']['#value'] = 'high';
+      }
+    }
   }
 
   // If a Zendesk group_id variable exists:
@@ -92,14 +99,6 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
       '#access' => FALSE,
       '#value' => $group_id,
     );
-  }
-
-  // If staff_pick field exists:
-  if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
-    // If node is a staff pick:
-    if ($node->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
-      $form['priority']['#value'] = 'high';
-    }
   }
 
   $form['body'] = array(
