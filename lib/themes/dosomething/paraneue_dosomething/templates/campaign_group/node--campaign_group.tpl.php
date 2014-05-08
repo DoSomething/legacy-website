@@ -65,16 +65,17 @@
     </section>
   <?php endif; ?>
 
+    <?php if (isset($additional_text) && isset($campaigns['published'])): ?>
+    <div class="additional-text-wrapper">
+      <div class="additional-text">
+        <?php if (isset($additional_text_title)): ?>
+          <h2><?php print $additional_text_title; ?></h2>
+        <?php endif; ?>
 
-  <?php if (isset($additional_text)): ?>
-  <div class="additional-text">
-    <?php if (isset($additional_text_title)): ?>
-      <h2><?php print $additional_text_title; ?></h2>
+        <p><?php print $additional_text; ?></p>
+      </div>
+    </div>
     <?php endif; ?>
-
-    <p><?php print $additional_text; ?></p>
-  </div>
-  <?php endif; ?>
 
   <?php if (!empty($galleries)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
