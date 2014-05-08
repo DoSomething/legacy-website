@@ -59,6 +59,9 @@ function dosomething_zendesk_get_client() {
  *   Optional. A loaded node which this zendesk form is being rendered on.
  */
 function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
+  // Initialize zendesk group_id as NULL.
+  $group_id = NULL;
+
   $form['subject'] = array(
     '#type' => 'hidden',
     '#access' => FALSE,
@@ -69,20 +72,28 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
     '#access' => FALSE,
     '#value' => 'normal',
   );
-  // If node has a primary cause:
-  if (isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
-    $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
-    $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
-    // If a Zendesk group_id variable exists:
-    if ($group_id) {
-      // Render as a hidden element:
-      $form['group_id'] = array(
-        '#type' => 'hidden',
-        '#access' => FALSE,
-        '#value' => $group_id,
-      );
+
+  if ($node) {
+     // Check if node has its own Zendesk group_id:
+    $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $node->nid));   
+    // If not, check if node has a primary cause:
+    if (!$group_id && isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
+      $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
+      // Store zendesk group_id of the primary cause.
+      $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
     }
   }
+
+  // If a Zendesk group_id variable exists:
+  if ($group_id) {
+    // Render as a hidden element:
+    $form['group_id'] = array(
+      '#type' => 'hidden',
+      '#access' => FALSE,
+      '#value' => $group_id,
+    );
+  }
+
   // If staff_pick field exists:
   if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
     // If node is a staff pick:
@@ -90,6 +101,7 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
       $form['priority']['#value'] = 'high';
     }
   }
+
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
