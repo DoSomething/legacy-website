@@ -10,6 +10,92 @@
 function dosomething_campaign_group_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-campaign_group-field_action_type'
+  $field_instances['node-campaign_group-field_action_type'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 27,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_action_type',
+    'label' => 'Action Type',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_active_hours'
+  $field_instances['node-campaign_group-field_active_hours'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 29,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_active_hours',
+    'label' => 'Active Hours',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 15,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_additional_text'
   $field_instances['node-campaign_group-field_additional_text'] = array(
     'bundle' => 'campaign_group',
@@ -238,7 +324,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 11,
+      'weight' => 13,
     ),
   );
 
@@ -673,7 +759,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Intro Title',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -956,7 +1042,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Signup Form Button Text',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -967,6 +1053,55 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 18,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_staff_pick'
+  $field_instances['node-campaign_group-field_staff_pick'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 28,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_staff_pick',
+    'label' => 'Is Staff Pick',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 14,
     ),
   );
 
@@ -1065,6 +1200,8 @@ function dosomething_campaign_group_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Action Type');
+  t('Active Hours');
   t('Call to Action');
   t('Campaigns');
   t('Cause');
@@ -1076,6 +1213,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Intro');
   t('Intro Image');
   t('Intro Title');
+  t('Is Staff Pick');
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
