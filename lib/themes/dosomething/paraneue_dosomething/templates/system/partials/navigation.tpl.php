@@ -40,7 +40,7 @@
         <li class="login"><a href="<?php print $front_page; ?>user/login" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--login">Log In</a></li>
         <?php else: ?>
         <?php if( theme_get_setting('show_profile_link') ): ?>
-        <li class="account"><a href="/user/<?php print $user->uid ?>"><?php print $user_identifier; ?></a></li>
+        <li class="account"><?php print l($user_identifier, 'user/'. $user->uid); ?></li>
         <?php endif; ?>
         <li class="login"><a href="<?php print $front_page; ?>user/logout" class="secondary-nav-item">Log Out</a></li>
         <?php endif; ?>
