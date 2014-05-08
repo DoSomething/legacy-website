@@ -13,7 +13,7 @@
   <header role="banner">
     <h1 class="title"><?php print $title; ?></h1>
     <?php if (isset($subtitle)): ?>
-      <h2 class="subtitle"><?php print $subtitle; ?></h2>
+      <h2 class="subtitle"><?php print $cta; ?></h2>
     <?php endif; ?>
 
     <?php // @TODO: markup the following! ?>
