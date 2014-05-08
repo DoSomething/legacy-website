@@ -242,6 +242,55 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_display_end_date'
+  $field_instances['node-campaign_group-field_display_end_date'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 26,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_display_end_date',
+    'label' => 'Show End Date',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 18,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_display_signup_form'
   $field_instances['node-campaign_group-field_display_signup_form'] = array(
     'bundle' => 'campaign_group',
@@ -382,6 +431,65 @@ function dosomething_campaign_group_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_high_season'
+  $field_instances['node-campaign_group-field_high_season'] = array(
+    'bundle' => 'campaign_group',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 25,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_high_season',
+    'label' => 'High Season',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'm/d/Y - H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_select',
+      'weight' => 17,
     ),
   );
 
@@ -964,6 +1072,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Display Signup Form?');
   t('FAQ');
   t('Gallery');
+  t('High Season');
   t('Intro');
   t('Intro Image');
   t('Intro Title');
@@ -974,6 +1083,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Pre-live Header');
   t('Scholarship Amount');
   t('Should the Campaign Group Signup Form should be displayed?');
+  t('Show End Date');
   t('Signup Form Button Text');
   t('Sponsors and Partners');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
