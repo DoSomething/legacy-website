@@ -53,7 +53,7 @@ function dosomething_zendesk_config_form($form, &$form_state)  {
  */
 function dosomething_zendesk_groups_config_form() {
   $form['groups'] = array(
-    '#title' => t('Available Groups'),
+    '#title' => t('Available Zendesk Groups'),
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
@@ -67,9 +67,10 @@ function dosomething_zendesk_groups_config_form() {
 
   // Store Zendesk group id's for each term in the Cause vocabulary.
   $form['cause'] = array(
-    '#title' => t('Cause'),
+    '#title' => t('Terms: Cause'),
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   // Load the cause vocbulary.
   $vocab = taxonomy_vocabulary_machine_name_load('cause');
@@ -89,9 +90,10 @@ function dosomething_zendesk_groups_config_form() {
 
   // Store Zendesk group id's for each campaign_group node.
   $form['campaign_group'] = array(
-    '#title' => t('Grouped Campaigns'),
+    '#title' => t('Nodes: Grouped Campaigns'),
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   if (module_exists('dosomething_helpers')) {
     // Load nid and titles of all campaign_group nodes.
