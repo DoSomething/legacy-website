@@ -35,10 +35,10 @@
         <h1><?php print $intro_title; ?></h1>
       <?php endif; ?>
         <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
-        <?php if (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
-        <?php elseif (isset($intro_video)): ?>
+        <?php if (isset($intro_video)): ?>
           <?php print $intro_video; ?>
+        <?php elseif (isset($intro_image)): ?>
+          <?php print $intro_image; ?>
       <?php endif; ?>
     </section>
   <?php endif; ?>
