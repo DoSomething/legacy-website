@@ -68,7 +68,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_custom_vars(&$vars) {
   // Get prefix to check for custom campaign variables.
-  $prefix = dosomething_campaign_get_custom_var_prefix($vars['nid']);
+  $prefix = dosomething_helpers_get_custom_var_prefix('campaign', $vars['nid']);
   // Check for custom alt color.
   $alt_color = variable_get($prefix . 'alt_color');
   if (!empty($alt_color)) {

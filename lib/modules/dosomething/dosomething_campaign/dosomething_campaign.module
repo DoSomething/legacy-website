@@ -15,7 +15,7 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
   // Add extra non-field form elements.
-  _dosomething_campaign_form_extras($form, $form_state);
+  dosomething_helpers_form_extras($form, $form_state);
 }
 
 /**
@@ -122,181 +122,11 @@ function dosomething_campaign_get_scholarships() {
 }
 
 /**
- * Adds form elements for non-field campaign elements.
- */
-function _dosomething_campaign_form_extras(&$form, &$form_state) {
-  global $user;
-  // If this is a node create form, display help text and exit out of extras.
-  if (!isset($form['nid']['#value'])) {
-    $form['custom'] = array(
-      '#markup' => t('The signup data form and custom settings for this campaign will be available upon save.'),
-      '#weight' => 60,
-    );
-    return;
-  }
-  // If admin:
-  if (in_array('administrator', $user->roles) && module_exists('dosomething_reportback')) {
-    // Include reportback field configuration form.
-    _dosomething_reportback_node_reportback_field_form($form, $form_state);
-  }
-  // Include signup data form configuration form.
-  _dosomething_signup_node_signup_data_form($form, $form_state);
-  // Set prefix for custom variables.
-  $prefix = dosomething_campaign_get_custom_var_prefix($form['nid']['#value']);
-  $form['custom'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Custom settings'),
-    '#weight' => 80,
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['custom']['styles'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Styles'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $alt_color = $prefix . 'alt_color';
-  $form['custom']['styles'][$alt_color] = array(
-    '#type' => 'textfield',
-    '#title' => t('Alt color'),
-    '#default_value' => variable_get($alt_color),
-    '#field_prefix' => '#',
-    '#size' => 6,
-  );
-  // Alt bg pattern variable.
-  $alt_bg_fid = $prefix . 'alt_bg_fid';
-  $form['custom']['styles'][$alt_bg_fid] = array(
-    '#type' => 'managed_file',
-    '#title' => t('Alt background pattern'),
-    '#default_value' => variable_get($alt_bg_fid),
-    //@todo: /campaigns/[nid] directory?
-    '#upload_location' => 'public://',
-  );
-
-  $form['custom']['optins'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Third Party Opt-ins'),
-    '#description' => t('Custom campaign opt-in values.'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['custom']['optins']['mailchimp_grouping_id'] = array(
-    '#type' => 'textfield',
-    '#title' => t('MailChimp Grouping ID'),
-    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mailchimp_grouping_id'),
-    '#disabled' => TRUE,
-  );
-  $form['custom']['optins']['mailchimp_group_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('MailChimp Group Name'),
-    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mailchimp_group_name'),
-    '#disabled' => TRUE,
-  );
-  $form['custom']['optins']['mobilecommons'] = array(
-    '#type' => 'textfield',
-    '#title' => t('MobileCommons Opt-in Path'),
-    '#default_value' => variable_get('dosomething_signup_nid_' . $form['nid']['#value'] . '_mobilecommons_id'),
-    '#disabled' => TRUE,
-  );
-
-  $form['#submit'][] = 'dosomething_campaign_save_custom_vars';
-}
-
-/**
- * Saves custom campaign variables.
- */
-function dosomething_campaign_save_custom_vars(&$form, &$form_state) {
-  $values = $form_state['values'];
-  $nid = $values['nid'];
-  // Gather all possible custom vars.
-  $prefix = dosomething_campaign_get_custom_var_prefix($nid);
-  $alt_color = $prefix . 'alt_color';
-  $alt_bg_fid = $prefix . 'alt_bg_fid';
-  // Save alt color.
-  dosomething_campaign_save_custom_var($alt_color, $values[$alt_color]);
-  // If a bg fid is set, or if a value already exists:
-  if (!empty($values[$alt_bg_fid]) || variable_get($alt_bg_fid)) {
-    // Save the bg fid.
-    dosomething_campaign_save_alt_bg_fid($nid, $values[$alt_bg_fid]);
-  }
-}
-
-/**
- * Handles saving a given variable $varname with given $value.
- *
- * @param string $varname
- *   The variable.name field to save (or delete).
- * @param string $value
- *   The variable.value to save. If empty, deletes variable $varname.
- */
-function dosomething_campaign_save_custom_var($varname, $value) {
-  if (empty($value)) {
-    variable_del($varname);
-  }
-  else {
-    variable_set($varname, $value);
-  }
-}
-
-/**
- * Handles saving a given $fid as alt_bg_fid variable for given node $nid.
- *
- * @param int $nid
- *   The node nid associated with the fid.
- * @param int $fid
- *   The file fid to save.
- */
-function dosomething_campaign_save_alt_bg_fid($nid, $fid) {
-  // Get current value.
-  $varname = dosomething_campaign_get_custom_var_prefix($nid) . 'alt_bg_fid';
-  $current_value = variable_get($varname);
-  $module = 'dosomething_campaign';
-
-  // If it's the same, nothing to see here.  Keep moving.
-  if ($current_value == $fid) {
-    return;
-  }
-  // If we had a value and now we don't:
-  if (empty($fid) && is_numeric($current_value)) {
-    $file = file_load($current_value);
-    // Decrease the file's usage.
-    file_usage_delete($file, $module, 'node', $nid);
-    // Delete the variable.
-    variable_del($varname);
-    return;
-  }
-  // If we've made this far, we've got a new file to save.
-  $file = file_load($fid);
-  // And a value to set.
-  variable_set($varname, $fid);
-  // If file status not permanent, make it permanent.
-  if ($file->status != FILE_STATUS_PERMANENT) {
-    $file->status = FILE_STATUS_PERMANENT;
-    file_save($file);
-  }
-  // Increase file usage to avoid errors per https://drupal.org/comment/6866102.
-  file_usage_add($file, $module, 'node', $nid);
-  // If there was a file before:
-  if ($file = file_load($current_value)) {
-    // Decrease its usage.
-    file_usage_delete($file, $module, 'node', $nid);
-  }
-}
-
-/**
- * Returns string of prefix used to identify a campaign's custom variables.
- */
-function dosomething_campaign_get_custom_var_prefix($nid) {
-  return 'dosomething_campaign_nid_' . $nid . '_';
-}
-
-/**
  * Implements hook_node_delete().
  */
 function dosomething_campaign_node_delete($node) {
   // Get custom variable prefix for deleting any custom variables.
-  $prefix = dosomething_campaign_get_custom_var_prefix($node->nid);
+  $prefix = dosomething_helpers_get_custom_var_prefix($node->type, $node->nid);
   // Delete alt color variable from db.
   variable_del($prefix . 'alt_color');
   // Check for alt_bg_fid variable.
