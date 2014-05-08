@@ -15,14 +15,21 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'subtitle',
         'intro_title',
         'intro',
-        'additional_text_title',
-        'additional_text',
         'signup_form_button_text',
         'post_signup_title',
         'post_signup_body',
         'call_to_action',
       ),
     );
+
+    $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
+
+    // If there are no published campaigns show add'l text and remove campaigns from vars
+    if (!isset($vars['campaigns']['published'])) {
+      $template_vars['text'][] = 'additional_text';
+      $template_vars['text'][] = 'additional_text_title';
+      unset($vars['campaigns']);
+    }
 
     foreach ($template_vars as $key => $labels) {
       foreach ($labels as $label) {
@@ -80,8 +87,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     }
   }
 
-  $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
-
   $vars['modals'] = theme('modal_links', array('modals' =>
       array(
         'faq' => $vars['faq'],
@@ -124,10 +129,13 @@ function dosomething_campaign_group_get_campaigns($campaign_group_node) {
   $campaigns = array();
   if (isset($campaign_group_node->field_campaigns)) {
     foreach ($campaign_group_node->field_campaigns[LANGUAGE_NONE] as $campaign_field) {
+      if (isset($campaign_field['entity']->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'])) {
+        $image = dosomething_image_get_themed_image($campaign_field['entity']->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'], 'square', '300x300');
+      }
       $campaign = array(
         'title' => $campaign_field['entity']->title,
         'call_to_action' => $campaign_field['entity']->field_call_to_action[LANGUAGE_NONE][0]['value'],
-        'image' => dosomething_image_get_themed_image($campaign_field['entity']->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'], 'square', '300x300'),
+        'image' => $image,
       );
 
       if ($campaign_field['entity']->status == 1) {
