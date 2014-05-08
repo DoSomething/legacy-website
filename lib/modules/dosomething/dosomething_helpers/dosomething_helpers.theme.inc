@@ -150,3 +150,54 @@ function dosomething_helpers_format_partners_list(&$vars) {
   }
   $vars['formatted_partners'] = $formatted_partners;
 }
+
+function dosomething_helpers_preprocess_hero_images(&$vars) {
+  // Hero Images.
+  if (isset($vars['field_image_campaign_cover'][0])) {
+    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+    $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810');
+    $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768');
+    $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');
+    $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768');
+  }
+
+  isset($vars['hero_image_m_url']) ? $vars['hero_image']['mobile'] = $vars['hero_image_m_url'] : NULL ;
+  isset($vars['hero_image_l_url']) ? $vars['hero_image']['desktop'] = $vars['hero_image_l_url'] : NULL ;
+}
+
+/**
+ * Adds inline css into HEAD based on current state of vars.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_helpers_add_inline_css(&$vars) {
+  // Check for alt_color variable.
+  if (isset($vars['alt_color'])) {
+    $alt_color = 'color: #' .  $vars['alt_color'] . ' !important;';
+    $style_alt_color = '.inline--alt-color { ' . $alt_color . ' }';
+    drupal_add_css($style_alt_color, $option['type'] = 'inline');
+  }
+
+  // Add hero background images if set
+  if (isset($vars['hero_image']['mobile']) && isset($vars['hero_image']['desktop'])) {
+    $style_hero_image = '.campaign--wrapper header.header {
+        background-image: url("' . $vars['hero_image']['mobile'] . '");
+      }
+
+      @media only screen and (min-width: 768px) {
+        .campaign--wrapper header.header {
+          background-image: url("' . $vars['hero_image']['desktop'] . '");
+        }
+      }';
+    drupal_add_css($style_hero_image, $option['type'] = 'inline');
+  }
+
+  // Set alt sponsor bg for modals
+  if (isset($vars['alt_bg_src'])) {
+    $alt_bg = 'background-image: url("' . $vars['alt_bg_src'] . '") !important;';
+    $style_alt_background = '.inline--alt-bg { ' . $alt_bg . ' }';
+
+    drupal_add_css($style_alt_background, $option['type'] = 'inline');
+  }
+}
