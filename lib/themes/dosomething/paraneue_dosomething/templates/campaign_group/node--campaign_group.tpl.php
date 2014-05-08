@@ -101,5 +101,9 @@
       <?php endforeach; ?>
     </section>
   <?php endif; ?>
-
+<?php 
+// @todo: Modalize and link to me. 
+// Or preprocess me if you don't liek the $content['zendesk_form'].
+print render($content['zendesk_form']); 
+?>
 </article>
