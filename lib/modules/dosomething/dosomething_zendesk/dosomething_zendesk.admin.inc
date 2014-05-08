@@ -75,7 +75,7 @@ function dosomething_zendesk_groups_config_form() {
   $terms = taxonomy_get_tree($vocab->vid);
   // Foreach cause: term
   foreach ($terms as $term) {
-    $var = dosomething_zendesk_get_group_varname($term->tid);
+    $var = dosomething_zendesk_get_group_varname('tid', $term->tid);
     $form['cause'][$var] = array(
       '#type' => 'textfield',
       '#title' => t($term->name),

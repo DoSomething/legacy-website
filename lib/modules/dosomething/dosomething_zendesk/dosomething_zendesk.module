@@ -72,7 +72,7 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
   // If node has a primary cause:
   if (isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
     $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
-    $group_id = variable_get(dosomething_zendesk_get_group_varname($tid));
+    $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
     // If a Zendesk group_id variable exists:
     if ($group_id) {
       // Render as a hidden element:
@@ -291,14 +291,16 @@ function dosomething_zendesk_get_zendesk_groups() {
 }
 
 /**
- * Returns the variable name that stores a taxonomy term's Zendesk Group ID.
+ * Returns the variable name that stores an entity's Zendesk Group ID.
  *
+ * @param string $identifier
+ *   The identifier of the id to lookup. e.g. nid, tid.
  * @param int $tid
- *   The taxonomy term to lookup.
+ *   The id of the entity to lookup.
  *
  * @return string
- *  The variable name which stores the tid's Zendesk Group ID.
+ *  The variable name which stores the ids's Zendesk Group ID.
  */
-function dosomething_zendesk_get_group_varname($tid) {
-  return 'dosomething_zendesk_tid_' . $tid . '_group_id';
+function dosomething_zendesk_get_group_varname($identifier, $id) {
+  return 'dosomething_zendesk_' . $identifier . '_' . $id . '_group_id';
 }
