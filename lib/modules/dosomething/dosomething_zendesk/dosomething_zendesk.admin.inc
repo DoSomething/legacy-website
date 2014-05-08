@@ -53,7 +53,7 @@ function dosomething_zendesk_config_form($form, &$form_state)  {
  */
 function dosomething_zendesk_groups_config_form() {
   $form['groups'] = array(
-    '#title' => t('Available Groups'),
+    '#title' => t('Available Zendesk Groups'),
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
@@ -64,10 +64,13 @@ function dosomething_zendesk_groups_config_form() {
       '#markup' => '<p>' . $group_name . ': ' . $group_id . '</p>',
     );
   }
+
+  // Store Zendesk group id's for each term in the Cause vocabulary.
   $form['cause'] = array(
-    '#title' => t('Cause'),
+    '#title' => t('Terms: Cause'),
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   // Load the cause vocbulary.
   $vocab = taxonomy_vocabulary_machine_name_load('cause');
@@ -75,7 +78,7 @@ function dosomething_zendesk_groups_config_form() {
   $terms = taxonomy_get_tree($vocab->vid);
   // Foreach cause: term
   foreach ($terms as $term) {
-    $var = dosomething_zendesk_get_group_varname($term->tid);
+    $var = dosomething_zendesk_get_group_varname('tid', $term->tid);
     $form['cause'][$var] = array(
       '#type' => 'textfield',
       '#title' => t($term->name),
@@ -84,6 +87,30 @@ function dosomething_zendesk_groups_config_form() {
       '#default_value' => variable_get($var),
     );
   }
+
+  // Store Zendesk group id's for each campaign_group node.
+  $form['campaign_group'] = array(
+    '#title' => t('Nodes: Grouped Campaigns'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  if (module_exists('dosomething_helpers')) {
+    // Load nid and titles of all campaign_group nodes.
+    if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
+      // For each campaign_group:
+      foreach ($campaign_groups as $campaign_group) {
+        $var = dosomething_zendesk_get_group_varname('nid', $campaign_group['nid']);
+        $form['campaign_group'][$var] = array(
+          '#type' => 'textfield',
+          '#required' => TRUE,
+          '#title' => t($campaign_group['title']),
+          '#default_value' => variable_get($var),
+        );
+      }
+    }
+  }
+
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(

@@ -26,7 +26,7 @@ function dosomething_zendesk_update_7001(&$sandbox) {
         ->execute()
         ->fetchField();
       // Get the tid's variable name.
-      $var = dosomething_zendesk_get_group_varname($tid);
+      $var = dosomething_zendesk_get_group_varname('tid', $tid);
       // Set this tid's group variable to the group_id.
       variable_set($var, $group_id);
     }
