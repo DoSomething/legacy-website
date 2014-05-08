@@ -50,6 +50,11 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $wrapper->field_video->value()));
     }
 
+    $scholarship = $wrapper->field_scholarship_amount->value();
+    if (isset($scholarship)) {
+      $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
+    }
+
     // Collect all field_collection values as vars.
     $field_collections = array('faq');
     foreach ($field_collections as $fc) {

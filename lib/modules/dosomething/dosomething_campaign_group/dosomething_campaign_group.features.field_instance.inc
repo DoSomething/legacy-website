@@ -195,7 +195,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -238,7 +238,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -381,7 +381,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -667,6 +667,58 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_scholarship_amount'
+  $field_instances['node-campaign_group-field_scholarship_amount'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 23,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_scholarship_amount',
+    'label' => 'Scholarship Amount',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_signup_confirm_msg'
   $field_instances['node-campaign_group-field_signup_confirm_msg'] = array(
     'bundle' => 'campaign_group',
@@ -801,7 +853,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -857,8 +909,6 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Call to Action');
   t('Campaigns');
   t('Cause');
-  t('Pre-live Copy');
-  t('Pre-live Header');
   t('Cover Image');
   t('Display Signup Form?');
   t('FAQ');
@@ -868,6 +918,9 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
+  t('Pre-live Copy');
+  t('Pre-live Header');
+  t('Scholarship Amount');
   t('Should the Campaign Group Signup Form should be displayed?');
   t('Signup Form Button Text');
   t('Sponsors and Partners');
