@@ -122,23 +122,25 @@ function dosomething_campaign_group_get_parent_nid($nid) {
  */
 function dosomething_campaign_group_get_campaigns($campaign_group_node) {
   $campaigns = array();
-  foreach ($campaign_group_node->field_campaigns['und'] as $campaign_field) {
-    $campaign = array(
-      'title' => $campaign_field['entity']->title,
-      'call_to_action' => $campaign_field['entity']->field_call_to_action['und'][0]['value'],
-      'image' => dosomething_image_get_themed_image($campaign_field['entity']->field_image_campaign_cover['und'][0]['target_id'], 'square', '300x300'),
-    );
+  if (isset($campaign_group_node->field_campaigns)) {
+    foreach ($campaign_group_node->field_campaigns['und'] as $campaign_field) {
+      $campaign = array(
+        'title' => $campaign_field['entity']->title,
+        'call_to_action' => $campaign_field['entity']->field_call_to_action['und'][0]['value'],
+        'image' => dosomething_image_get_themed_image($campaign_field['entity']->field_image_campaign_cover['und'][0]['target_id'], 'square', '300x300'),
+      );
 
-    if ($campaign_field['entity']->status == 1) {
-      $campaigns['published'][] = $campaign;
-    }
-    else {
-      $campaigns['unpublished'][] = $campaign;
+      if ($campaign_field['entity']->status == 1) {
+        $campaigns['published'][] = $campaign;
+      }
+      else {
+        $campaigns['unpublished'][] = $campaign;
+      }
     }
   }
-
   return $campaigns;
 }
+
 
 /**
  * Implements hook_form_alter().
@@ -149,3 +151,4 @@ function dosomething_campaign_group_form_alter(&$form, &$form_state, $form_id) {
     dosomething_helpers_form_extras($form, $form_state);
   }
 }
+
