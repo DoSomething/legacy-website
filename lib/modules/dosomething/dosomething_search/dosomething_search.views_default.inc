@@ -48,17 +48,16 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['path_alias']['label'] = '';
   $handler->display->display_options['fields']['path_alias']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path_alias']['element_label_colon'] = FALSE;
-  /* Field: Apache Solr: ss_field_search_image */
-  $handler->display->display_options['fields']['ss_field_search_image']['id'] = 'ss_field_search_image';
-  $handler->display->display_options['fields']['ss_field_search_image']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['fields']['ss_field_search_image']['field'] = 'ss_field_search_image';
-  $handler->display->display_options['fields']['ss_field_search_image']['label'] = '';
-  $handler->display->display_options['fields']['ss_field_search_image']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['ss_field_search_image']['alter']['text'] = '<img src="[ss_field_search_image]"/>';
-  $handler->display->display_options['fields']['ss_field_search_image']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['ss_field_search_image']['alter']['path'] = '[path_alias]';
-  $handler->display->display_options['fields']['ss_field_search_image']['alter']['replace_spaces'] = TRUE;
-  $handler->display->display_options['fields']['ss_field_search_image']['element_label_colon'] = FALSE;
+  /* Field: Apache Solr: ss_field_search_image_300x300 */
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['id'] = 'ss_field_search_image_300x300';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['table'] = 'apachesolr__solr';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['field'] = 'ss_field_search_image_300x300';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['label'] = '';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['text'] = '<img src="[ss_field_search_image_300x300]"/>';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['path'] = '[path_alias]';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: label */
   $handler->display->display_options['fields']['label']['id'] = 'label';
   $handler->display->display_options['fields']['label']['table'] = 'apachesolr__solr';
@@ -75,11 +74,11 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['sm_field_call_to_action']['field'] = 'sm_field_call_to_action';
   $handler->display->display_options['fields']['sm_field_call_to_action']['label'] = '';
   $handler->display->display_options['fields']['sm_field_call_to_action']['element_label_colon'] = FALSE;
-  /* Filter criterion: Apache Solr: ss_field_search_image */
-  $handler->display->display_options['filters']['ss_field_search_image']['id'] = 'ss_field_search_image';
-  $handler->display->display_options['filters']['ss_field_search_image']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['filters']['ss_field_search_image']['field'] = 'ss_field_search_image';
-  $handler->display->display_options['filters']['ss_field_search_image']['value'] = '[* TO *]';
+  /* Filter criterion: Apache Solr: ss_field_search_image_300x300 */
+  $handler->display->display_options['filters']['ss_field_search_image_300x300']['id'] = 'ss_field_search_image_300x300';
+  $handler->display->display_options['filters']['ss_field_search_image_300x300']['table'] = 'apachesolr__solr';
+  $handler->display->display_options['filters']['ss_field_search_image_300x300']['field'] = 'ss_field_search_image_300x300';
+  $handler->display->display_options['filters']['ss_field_search_image_300x300']['value'] = '[* TO *]';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -93,11 +92,12 @@ function dosomething_search_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('###Make the world suck less.  Check out one of these super easy, kickass campaigns.'),
-    t('<img src="[ss_field_search_image]"/>'),
+    t('###Make the world suck less. Choose a campaign below to get started.'),
+    t('<img src="[ss_field_search_image_300x300]"/>'),
     t('[label]'),
     t('Page'),
   );
+
   $export['explore_campaigns'] = $view;
 
   return $export;
