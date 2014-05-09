@@ -410,6 +410,9 @@ function dosomething_signup_mbp_request($account, $node) {
     if ($node->type == 'campaign') {
       dosomething_mbp_request('campaign_signup', $params);
     }
+    elseif ($node->type == 'group_campaign') {
+      dosomething_mbp_request('group_campaign_signup', $params);
+    }
   }
 }
 
@@ -425,11 +428,9 @@ function dosomething_signup_mbp_request($account, $node) {
  *   Associative array of values to use as params to a mbp_request.
  */
 function dosomething_signup_get_mbp_params($account, $node) {
-  // @todo: Add checks and relevant vars for campaign_group when we're ready.
-  if ($node->type != 'campaign') {
+  if ($node->type != 'campaign' || $node->type != 'campaign_group') {
     return FALSE;
   }
-  $wrapper = entity_metadata_wrapper('node', $node);
   $params = array(
     'email' => $account->mail,
     'uid' => $account->uid,
@@ -438,15 +439,46 @@ function dosomething_signup_get_mbp_params($account, $node) {
     'event_id' => $node->nid,
     'campaign_title' => $node->title,
     'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),
-    'call_to_action' => $wrapper->field_call_to_action->value(),
-    'step_one' => $wrapper->field_pre_step_header->value(),
-    'step_two' => DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER,
-    'step_three' => $wrapper->field_post_step_header->value(),
   );
-
+  // Add additional values to $params based on campaign / campaign_group
+  dosomething_signup_get_mbp_params_campaign($params, $node);
+  dosomething_signup_get_mbp_params_campaign_group($params, $node);
   // Add any mailchimp params if needed.
   dosomething_signup_get_mbp_params_mailchimp($params, $node);
   return $params;
+}
+
+/**
+ * Adds campaign params in a signup mbp request.
+ *
+ * @param array $params
+ *   Params array to be sent to a mbp request.
+ * @param object $node
+ *   Details about the node that the signup was made on.
+ */
+function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
+  if ($node->type != 'campaign') {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $params['call_to_action'] = $wrapper->field_call_to_action->value();
+    $params['step_one'] = $wrapper->field_pre_step_header->value();
+    $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
+    $params['step_three'] = $wrapper->field_post_step_header->value();
+  }
+}
+
+/**
+ * Adds campaign group params in a signup mbp request.
+ *
+ * @param array $params
+ *   Params array to be sent to a mbp request.
+ * @param object $node
+ *   Details about the node that the signup was made on.
+ */
+function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
+  if ($node->type != 'campaign_group') {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $params['transactional_email_copy'] = $wrapper->field_transactional_email_copy->value();
+  }
 }
 
 /**
