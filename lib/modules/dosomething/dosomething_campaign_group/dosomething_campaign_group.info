@@ -57,6 +57,7 @@ features[field_instance][] = node-campaign_group-field_scholarship_amount
 features[field_instance][] = node-campaign_group-field_signup_confirm_msg
 features[field_instance][] = node-campaign_group-field_signup_form_button_text
 features[field_instance][] = node-campaign_group-field_staff_pick
+features[field_instance][] = node-campaign_group-field_tags
 features[field_instance][] = node-campaign_group-field_transactional_email_copy
 features[field_instance][] = node-campaign_group-field_video
 features[node][] = campaign_group
