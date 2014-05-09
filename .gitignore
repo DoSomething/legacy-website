@@ -1,4 +1,5 @@
 .vagrant
+.DS_Store
 html/
 settings.local.php
 build/
