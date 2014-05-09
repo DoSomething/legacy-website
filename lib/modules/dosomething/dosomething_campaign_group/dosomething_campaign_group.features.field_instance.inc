@@ -1105,6 +1105,52 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_tags'
+  $field_instances['node-campaign_group-field_tags'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 30,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_transactional_email_copy'
   $field_instances['node-campaign_group-field_transactional_email_copy'] = array(
     'bundle' => 'campaign_group',
@@ -1224,6 +1270,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Show End Date');
   t('Signup Form Button Text');
   t('Sponsors and Partners');
+  t('Tags');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');

@@ -173,6 +173,7 @@ function dosomething_campaign_group_field_group_info() {
       1 => 'field_action_type',
       2 => 'field_staff_pick',
       3 => 'field_active_hours',
+      4 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
