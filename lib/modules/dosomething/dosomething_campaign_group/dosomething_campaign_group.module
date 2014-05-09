@@ -85,15 +85,15 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       }
       dosomething_signup_preprocess_signup_button($vars, $label);
     }
-  }
 
-  $vars['modals'] = theme('modal_links', array('modals' =>
-      array(
-        'faq' => $vars['faq'],
-        'partner_info' => $vars['partner_info'],
+    $vars['modals'] = theme('modal_links', array('modals' =>
+        array(
+          'faq' => $vars['faq'],
+          'partner_info' => $vars['partner_info'],
+        )
       )
-    )
-  );
+    );
+  }
 }
 
 /**
