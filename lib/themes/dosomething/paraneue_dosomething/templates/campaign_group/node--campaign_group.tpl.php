@@ -83,6 +83,44 @@
     </div>
     <?php endif; ?>
 
+  <?php if (!empty($campaigns)): ?>
+    <?php // @TODO: Need to add a new class for this section. ?>
+    <section class="">
+      <ul class="campaigns">
+        <?php if (isset($campaigns['published'])): ?>
+          <?php foreach ($campaigns['published'] as $published_campaign): ?>
+            <li class="campaign published">
+              <?php if (isset($published_campaign['image'])): ?>
+                <?php print $published_campaign['image']; ?>
+              <?php endif; ?>
+              <?php if (isset($published_campaign['title'])): ?>
+                  <h3 class="title"><?php print $published_campaign['title']; ?></h3>
+              <?php endif; ?>
+              <?php if (isset($published_campaign['call_to_action'])): ?>
+                <div class="campaign-call-to-action"><?php print $published_campaign['call_to_action']; ?></div>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if (isset($campaigns['unpublished'])): ?>
+          <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
+            <li class="campaign unpublished">
+              <?php if (isset($unpublished_campaign['image'])): ?>
+                <?php print $unpublished_campaign['image']; ?>
+              <?php endif; ?>
+              <?php if (isset($unpublished_campaign['title'])): ?>
+                  <h3 class="title"><?php print $unpublished_campaign['title']; ?></h3>
+              <?php endif; ?>
+              <?php if (isset($unpublished_campaign['call_to_action'])): ?>
+                <div class="campaign-call-to-action"><?php print $unpublished_campaign['call_to_action']; ?></div>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+    </section>
+  <?php endif; ?>
+
   <?php if (!empty($galleries)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
     <section class="">
