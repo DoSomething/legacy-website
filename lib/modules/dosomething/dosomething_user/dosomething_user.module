@@ -35,10 +35,10 @@ function dosomething_user_init() {
  */
 function dosomething_user_menu() {
   $items = array();
-  $items['user/%/validate/address'] = array(
+  $items['user/validate/address'] = array(
     'title' => 'address',
     'access callback' => TRUE,
-    'page arguments' => array(1),
+    'page arguments' => array(3),
     'page callback' => 'dosomething_user_validate_user_address',
     'file' => 'dosomething_user_valid_address.inc'
   );

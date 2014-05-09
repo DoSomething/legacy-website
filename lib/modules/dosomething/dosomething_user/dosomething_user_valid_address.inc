@@ -40,11 +40,18 @@ function dosomething_user_ups_api_settings($form, &$form_state) {
  *  User ID
  *
  */
-function dosomething_user_validate_user_address($uid) {
-  $user = user_load($uid);
-  $address = $user->field_address[LANGUAGE_NONE][0];
-  $first_name = $user->field_first_name[LANGUAGE_NONE][0]['value'];
-
+function dosomething_user_validate_user_address($uid = NULL) {
+  if (!empty($uid)) {
+    $user = user_load($uid);
+    $address = $user->field_address[LANGUAGE_NONE][0];
+    $first_name = $user->field_first_name[LANGUAGE_NONE][0]['value'];
+  }
+  else {
+    // Get the info from the post data.
+    $address = $_POST["user_address"];
+    $first_name = '';
+    $last_name = '';
+  }
   // Do we have all the variables we need, if not, fail out.
   if (!dosomething_user_pre_ups_request_check() && is_null($address)) { return; }
 
