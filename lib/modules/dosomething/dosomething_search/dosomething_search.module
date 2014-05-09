@@ -106,10 +106,18 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
     $wrapper = entity_metadata_wrapper('node', $entity);
     $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
     if ($image_nid) {
-      $image = dosomething_image_get_themed_image_url($image_nid, 'square', '300x300');
-    }
-    if (!empty($image)) {
-      $document->setField('ss_field_search_image', $image);
+      $images = array();
+      $dimensions = array(
+        '300x300',
+        '400x400',
+        '720x720',
+      );
+      foreach ($dimensions as $dimension) {
+        $image = dosomething_image_get_themed_image_url($image_nid, 'square', $dimension);
+        if (!empty($image)) {
+          $document->setField("ss_field_search_image_{$dimension}", $image);
+        }
+      }
     }
 
     $node = entity_metadata_wrapper('node', $entity);
