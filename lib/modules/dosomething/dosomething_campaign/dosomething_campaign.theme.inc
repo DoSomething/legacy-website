@@ -211,6 +211,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
         'faq' => $vars['faq'],
         'more_facts' => $vars['more_facts'],
         'partner_info' => $vars['partner_info'],
+        'issue' => $vars['issue'],
       )
     )
   );
