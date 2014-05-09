@@ -30,7 +30,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     }
 
     $sid = dosomething_signup_exists($vars['node']->nid);
-    if (!empty($sid)) {
+    if (isset($sid)) {
       $template_vars['text'][] = 'post_signup_title';
       $template_vars['text'][] = 'post_signup_body';
     }
