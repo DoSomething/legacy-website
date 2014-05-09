@@ -29,13 +29,14 @@ node edit forms.
 
 ## Modal Theme Function
 
-This module contains a theme function, `theme_modal_links()` and a template, modal-links.tpl.php, for putting modal links and their associated script tags on a page. The function currently supports 'faq', 'more_facts', and 'partner_info'.  These items should be passed the theme function in a $modals array:
+This module contains a theme function, `theme_modal_links()` and a template, modal-links.tpl.php, for putting modal links and their associated script tags on a page. The function currently supports 'faq', 'more_facts', and 'partner_info'.  The $issue variable should be passed in if using 'more_facts'. These items should be passed the theme function in a $modals array:
 ````
 theme('modal_links', array('modals' =>
     array(
       'faq' => $vars['faq'],
       'partner_info' => $vars['partner_info'],
-      'more_facts' => $
+      'more_facts' => $vars['more_facts'],
+      'issue' => $vars['issue'],
     )
   )
 )
