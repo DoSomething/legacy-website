@@ -145,6 +145,7 @@ function dosomething_campaign_group_get_campaigns($campaign_group_node) {
       );
 
       if ($campaign_field['entity']->status == 1) {
+        $campaign['image'] = l($image, drupal_get_path_alias('node/' . $campaign_field['entity']->nid), array('html' => TRUE));
         $campaigns['published'][] = $campaign;
       }
       else {
