@@ -336,6 +336,14 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
     '#field_prefix' => '#',
     '#size' => 6,
   );
+  $pitch_page_label = $prefix . 'pitch_page_label';
+  $form['custom']['styles'][$pitch_page_label] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pitch Page Label'),
+    '#default_value' => variable_get($pitch_page_label),
+    '#field_prefix' => '#',
+    '#size' => 6,
+  );
 
   if ($type == 'campaign') {
     // Include signup data form configuration form.
@@ -404,14 +412,23 @@ function dosomething_helpers_save_custom_vars(&$form, &$form_state) {
   // Gather all possible custom vars.
   $type = $form['type']['#value'];
   $prefix = dosomething_helpers_get_custom_var_prefix($type, $nid);
-  $alt_color = $prefix . 'alt_color';
-  $alt_bg_fid = $prefix . 'alt_bg_fid';
-  // Save alt color.
-  dosomething_helpers_save_custom_var($alt_color, $values[$alt_color]);
+  $variables = array(
+    'alt_color',
+    'alt_bg_fid',
+    'pitch_page_label',
+  );
+  foreach ($variables as $variable) {
+    $$variable = "{$prefix}{$variable}";
+    // Save alt color and pitch page label.
+    if (in_array($variable, array('alt color', 'pitch_page_label'))) {
+      dosomething_helpers_save_custom_var($$variable, $values[$$variable]);
+    }
+  }
+
   // If a bg fid is set, or if a value already exists:
   if (!empty($values[$alt_bg_fid]) || variable_get($alt_bg_fid)) {
     // Save the bg fid.
-    dosomething_helpers_save_alt_bg_fid($nid, $values[$alt_bg_fid], $type);
+    dosomething_helpers_save_alt_bg_fid($alt_bg_fid, $nid, $values[$alt_bg_fid], $type);
   }
 }
 
@@ -440,9 +457,8 @@ function dosomething_helpers_save_custom_var($varname, $value) {
  * @param int $fid
  *   The file fid to save.
  */
-function dosomething_helpers_save_alt_bg_fid($nid, $fid, $type) {
+function dosomething_helpers_save_alt_bg_fid($varname, $nid, $fid, $type) {
   // Get current value.
-  $varname = dosomething_helpers_get_custom_var_prefix($type, $nid) . 'alt_bg_fid';
   $current_value = variable_get($varname);
   $module = "dosomething_{$type}";
 
