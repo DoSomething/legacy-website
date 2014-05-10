@@ -410,8 +410,8 @@ function dosomething_signup_mbp_request($account, $node) {
     if ($node->type == 'campaign') {
       dosomething_mbp_request('campaign_signup', $params);
     }
-    elseif ($node->type == 'group_campaign') {
-      dosomething_mbp_request('group_campaign_signup', $params);
+    elseif ($node->type == 'campaign_group') {
+      dosomething_mbp_request('campaign_group_signup', $params);
     }
   }
 }
@@ -428,7 +428,7 @@ function dosomething_signup_mbp_request($account, $node) {
  *   Associative array of values to use as params to a mbp_request.
  */
 function dosomething_signup_get_mbp_params($account, $node) {
-  if ($node->type != 'campaign' || $node->type != 'campaign_group') {
+  if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
     return FALSE;
   }
   $params = array(
@@ -457,7 +457,7 @@ function dosomething_signup_get_mbp_params($account, $node) {
  *   Details about the node that the signup was made on.
  */
 function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
-  if ($node->type != 'campaign') {
+  if ($node->type == 'campaign') {
     $wrapper = entity_metadata_wrapper('node', $node);
     $params['call_to_action'] = $wrapper->field_call_to_action->value();
     $params['step_one'] = $wrapper->field_pre_step_header->value();
@@ -475,9 +475,10 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
  *   Details about the node that the signup was made on.
  */
 function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
-  if ($node->type != 'campaign_group') {
+  if ($node->type == 'campaign_group') {
     $wrapper = entity_metadata_wrapper('node', $node);
-    $params['transactional_email_copy'] = $wrapper->field_transactional_email_copy->value();
+    $transactional_email_copy_values = $wrapper->field_transactional_email_copy->value();
+    $params['transactional_email_copy'] = $transactional_email_copy_values['value'];
   }
 }
 
