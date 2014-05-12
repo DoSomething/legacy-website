@@ -90,10 +90,7 @@
       overflow: hidden;
       padding: 0.1rem 0;
       position: relative;
-
-      -webkit-column-break-inside: avoid;
-      -moz-column-break-inside: avoid;
-      column-break-inside: avoid;
+      @include prefixer(column-break-inside, avoid, webkit moz spec);
 
       &.checked label {
         background-color: $yellow;
@@ -139,7 +136,7 @@
 
     .dropdown-menu {
       display: none;
-      padding: 0 1rem .6rem 1rem;
+      padding: 0 1rem .6rem;
 
       ul {
         overflow: hidden;
