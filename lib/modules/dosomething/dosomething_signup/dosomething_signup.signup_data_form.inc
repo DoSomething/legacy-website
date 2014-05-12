@@ -254,13 +254,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
         'data-validate' => 'lname' 
       ),
     );
-    $form['user_address_fieldset'] = array(
-      '#type' => 'fieldset',
-      '#attributes' => array(
-        'class' => array('js-validate-ups-address'),
-      )
-    );
-    $form['user_address_fieldset']['user_address'] = array(
+    $form['user_address'] = array(
       '#type' => 'addressfield',
       '#handlers' => array(
         'address' => 'address',
