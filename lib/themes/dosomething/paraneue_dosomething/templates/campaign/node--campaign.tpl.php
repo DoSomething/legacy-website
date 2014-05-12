@@ -11,16 +11,16 @@
 ?>
 
 <section class="campaign--wrapper action">
-  <header class="header <?php print $classes; ?>">
-    <div class="meta">
-      <h1 class="title"><?php print $title; ?></h1>
-      <h2 class="subtitle"><?php print $cta; ?></h2>
+  <header role="banner" class="-hero <?php print $classes; ?>">
+    <div class="wrapper">
+      <h1 class="__title"><?php print $title; ?></h1>
+      <h2 class="__subtitle"><?php print $cta; ?></h2>
 
-      <?php if (isset($end_date)): ?><p class="date"><?php print $end_date; ?></p><?php endif; ?>
+      <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($sponsors[0]['display'])): ?>
-      <div class="sponsor-wrapper">
-        <p class="copy">Powered by</p>
+      <div class="sponsor">
+        <p class="__copy">Powered by</p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
         <?php endforeach; ?>
