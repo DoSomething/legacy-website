@@ -12,8 +12,6 @@
  * - $partners: Array of partners for grouped campaigns (array).
  * - $partner_info: Array of information regarding partners for grouped campaigns (array).
  */
-
-// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
