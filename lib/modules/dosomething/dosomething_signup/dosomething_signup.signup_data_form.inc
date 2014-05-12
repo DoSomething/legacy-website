@@ -297,7 +297,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
-  $form['#action'] = "#modal-signup-data-form";
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
 
   return $form;
