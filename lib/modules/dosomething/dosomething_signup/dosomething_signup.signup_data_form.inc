@@ -377,6 +377,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
  *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
+  $form['#attributes']['class'] = array('form-actions');
   $form['sid'] = array(
     '#type' => 'hidden',
     '#value' => $signup->sid,
