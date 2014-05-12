@@ -23,6 +23,7 @@ function dosomething_mbp_request($origin, $params = NULL) {
     case 'user_register':
     case 'user_password':
     case 'campaign_signup':
+    case 'campaign_group_signup':
     case 'campaign_reportback':
       $production_type = 'produceTransactional';
       $payload = dosomething_mbp_get_transactional_payload($origin, $params);
@@ -89,21 +90,19 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       break;
 
     case 'campaign_signup':
-      $payload['event_id'] = $params['event_id'];
-      // Check for Mailchimp grouping_id+group_name:
-      $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
-      if ($mailchimp) {
-        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
-        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
-      }
+      dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars'] = array(
-        'FNAME' => $params['first_name'],
-        'CAMPAIGN_TITLE' => $params['campaign_title'],
-        'CAMPAIGN_LINK' => $params['campaign_link'],
         'CALL_TO_ACTION' => $params['call_to_action'],
         'STEP_ONE' => $params['step_one'],
         'STEP_TWO' => $params['step_two'],
         'STEP_THREE' => $params['step_three'],
+      );
+      break;
+
+    case 'group_campaign_signup':
+      dosomething_mbp_get_common_campaign_payload($payload, $params);
+      $payload['merge_vars'] = array(
+        'CAMPAIGN_COPY' => $params['transactional_email_copy'],
       );
       break;
 
@@ -121,6 +120,35 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   }
 
   return $payload;
+}
+
+/**
+ * Build common payload for campaign / group_campaign transactional producer
+ * requests.
+ *
+ * NOTE:
+ * Any adjustments to the data before it becomes common campaign /
+ * group_campaign payload should be done in this function.
+ *
+ * @param array $params
+ *   Keyed array of data to build payload from.
+ *
+ * @return array $payload
+ *   Composed values ready to be sent as a message payload.
+ */
+function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
+  $payload['event_id'] = $params['event_id'];
+  // Check for Mailchimp grouping_id+group_name:
+  $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
+  if ($mailchimp) {
+    $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
+    $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
+  }
+  $payload['merge_vars'] = array(
+    'FNAME' => $params['first_name'],
+    'CAMPAIGN_TITLE' => $params['campaign_title'],
+    'CAMPAIGN_LINK' => $params['campaign_link'],
+  );
 }
 
 /**
