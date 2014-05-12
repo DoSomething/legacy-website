@@ -198,3 +198,5 @@ libraries[predis][download][url] = "git@github.com:nrk/predis.git"
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
 libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
+; Use last working commit. See https://github.com/DoSomething/dosomething/issues/2064
+libraries[zendesk][download][revision] = "6aa9662fb1ed45b6bcc93ef9e1e4ab14685e80ac"
