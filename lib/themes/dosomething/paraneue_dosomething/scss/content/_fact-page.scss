@@ -76,8 +76,8 @@
     }
   }
 
-  .header {
-    .title {
+  [role="banner"] {
+    .__title {
       @include media($tablet) {
         font-size: $font-largest;  // Slightly smaller font-size, since 11 Facts titles are title-case.
         margin: 1.5rem 0;

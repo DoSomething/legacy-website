@@ -2,14 +2,14 @@
 <section class="fact_page-wrapper">
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <div class="header-wrapper">
-      <header class="header">
-        <h1 class="title"><?php print $title; ?></h1>
+    <header role="banner" class="-basic">
+      <div class="wrapper">
+        <h1 class="__title"><?php print $title; ?></h1>
         <?php if (isset($subtitle)): ?>
-        <h2 class="subtitle"><?php print $subtitle; ?></h2>
+        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
         <?php endif; ?>
-      </header>
-    </div>
+      </div>
+    </header>
 
 
     <?php if (isset($intro)): ?>

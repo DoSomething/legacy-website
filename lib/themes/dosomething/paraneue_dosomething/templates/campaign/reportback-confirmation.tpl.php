@@ -19,14 +19,15 @@
 ?>
 
 <section class="confirmation-wrapper">
-  <div class="header-wrapper">
-    <header class="header">
-      <h1 class="title">You Did It!</h1>
+
+  <header role="banner" class="-basic">
+    <div class="wrapper">
+      <h1 class="__title">You Did It!</h1>
       <?php if (isset($copy)): ?>
-        <h2 class="subtitle"><?php print $copy; ?></h2>
+        <h2 class="__subtitle"><?php print $copy; ?></h2>
       <?php endif; ?>
-    </header>
-  </div>
+    </div>
+  </header>
 
   <?php if (isset($recommended)): ?>
     <div class="gallery-wrapper">

@@ -181,12 +181,12 @@ function dosomething_helpers_add_inline_css(&$vars) {
 
   // Add hero background images if set
   if (isset($vars['hero_image']['mobile']) && isset($vars['hero_image']['desktop'])) {
-    $style_hero_image = '.campaign--wrapper header.header {
+    $style_hero_image = '[role="banner"].-hero {
         background-image: url("' . $vars['hero_image']['mobile'] . '");
       }
 
       @media only screen and (min-width: 768px) {
-        .campaign--wrapper header.header {
+        [role="banner"].-hero {
           background-image: url("' . $vars['hero_image']['desktop'] . '");
         }
       }';

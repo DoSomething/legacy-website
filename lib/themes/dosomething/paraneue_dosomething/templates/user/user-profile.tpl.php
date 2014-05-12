@@ -39,10 +39,10 @@
 
 <article class="user profile"<?php print $attributes; ?> id="user-<?php print $user_account['id']; ?>">
 
-  <header role="banner">
+  <header role="banner" class="-basic">
     <div class="wrapper">
-      <h1 class="title">Hey, <?php print $user_account['first_name']; ?>!</h1>
-      <?php //<h2 class="subtitle">Let us get to know you better.</h2> @TODO: Temp hidden as per Fantini's request. ?>
+      <h1 class="__title">Hey, <?php print $user_account['first_name']; ?>!</h1>
+      <?php //<h2 class="__subtitle">Let us get to know you better.</h2> @TODO: Temp hidden as per Fantini's request. ?>
     </div>
   </header>
 

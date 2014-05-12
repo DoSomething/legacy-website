@@ -66,26 +66,6 @@
     margin-top: 0;
   }
 
-  header[role="banner"] {
-    @include header-gradient();
-    @include header-typography();
-    padding: 8rem 1rem 0.5rem;  // @TODO: adding padding to bottom of header; remove bottom margin on subtitle
-
-    @include media($tablet) {
-      padding-left: 0;
-      padding-right: 0;
-
-      > .wrapper {
-        @include span-columns(12);
-        @include shift(2);
-        float: none;
-      }
-      padding-bottom: 1.5rem;
-    }
-
-    .subtitle { margin-bottom: 0; } // @TODO: temp for now; apply universally.
-  }
-
 
   section {
     padding-bottom: 0;  // @TODO: Ideally these sections would have some bottom padding globally, but on profile needs to be 0.

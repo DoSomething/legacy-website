@@ -3,31 +3,37 @@
  * Returns the HTML for Grouped Campaigns.
  *
  * Available Variables
- * - $nid: Node ID for grouped campaign page (integer).
- * - $title: Title of grouped campaign page (string).
+ * - $nid: Node ID for grouped campaigns page (integer).
+ * - $title: Title of grouped campaigns page (string).
+ * - $subtitle: Subtitle of grouped campaigns page (string).
+ * - $signup_button: Render array for outputting Signup form button (array).
+ * - $call_to_action: Call To Action of grouped campaigns page (string).
+ * - $scholarship: Scholarship amount (string).
+ * - $partners: Array of partners for grouped campaigns (array).
+ * - $partner_info: Array of information regarding partners for grouped campaigns (array).
  */
+
+// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <header role="banner">
-    <h1 class="title"><?php print $title; ?></h1>
-    <?php if (isset($subtitle)): ?>
-      <h2 class="subtitle"><?php print $cta; ?></h2>
-    <?php endif; ?>
+  <header role="banner" class="-hero">
+    <div class="wrapper">
+      <h1 class="__title"><?php print $title; ?></h1>
+      <?php if (isset($signup_button)): ?>
+        <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
+        <?php print render($signup_button); ?>
+      <?php endif; ?>
 
-    <?php // @TODO: markup the following! ?>
-    <?php if (isset($signup_button)): ?>
-      <?php print $call_to_action; ?>
-      <?php print render($signup_button); ?>
-    <?php endif; ?>
-
-    <?php if (isset($scholarship)): ?>
-      <div class="scholarship-callout -action -above">
-        <p class="copy"><?php print $scholarship; ?></p>
-      </div>
-    <?php endif; ?>
+      <?php if (isset($scholarship)): ?>
+        <div class="scholarship-callout -action -below">
+          <p class="copy"><?php print $scholarship; ?></p>
+        </div>
+      <?php endif; ?>
+    </div>
   </header>
+
 
   <?php if (isset($intro)): ?>
     <section class="intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">
@@ -36,16 +42,20 @@
       <?php endif; ?>
         <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
         <?php if (isset($intro_video)): ?>
-          <?php print $intro_video; ?>
+          <aside class="video">
+            <?php print $intro_video; ?>
+          </aside>
         <?php elseif (isset($intro_image)): ?>
           <?php print $intro_image; ?>
       <?php endif; ?>
     </section>
   <?php endif; ?>
 
+
   <?php if (isset($modals)): ?>
     <?php print $modals; ?>
   <?php endif; ?>
+
 
   <?php if (isset($post_signup_title) || isset($post_signup_body)): ?>
     <section>
@@ -146,9 +156,9 @@
       <?php endforeach; ?>
     </section>
   <?php endif; ?>
-<?php 
-// @todo: Modalize and link to me. 
+<?php
+// @todo: Modalize and link to me.
 // Or preprocess me if you don't liek the $content['zendesk_form'].
-print render($content['zendesk_form']); 
+print render($content['zendesk_form']);
 ?>
 </article>
