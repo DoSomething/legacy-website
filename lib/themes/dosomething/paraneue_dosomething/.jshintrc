@@ -20,7 +20,8 @@
       "console": false,
       "DEBUG": false,
       "jQuery": false,
-      "$": false
+      "$": false,
+      "_gaq": false
     },
     "strict": true,
     "trailing": true,
