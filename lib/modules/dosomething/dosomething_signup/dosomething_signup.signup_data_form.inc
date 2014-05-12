@@ -242,9 +242,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t('First Name'),
       '#default_value' => isset($account->field_first_name[LANGUAGE_NONE][0]['value']) ? $account->field_first_name[LANGUAGE_NONE][0]['value'] : '',
       '#attributes' => array(
-        'class' => array('js-validate', 'required'),
-        'data-validate' => array('fname'),
-        'data-validate-required' => '',
+        'data-validate' => 'fname',
       ),
     );
     $form['user_last_name'] = array(
@@ -253,12 +251,16 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t('Last Name'),
       '#default_value' => isset($account->field_last_name[LANGUAGE_NONE][0]['value']) ? $account->field_last_name[LANGUAGE_NONE][0]['value'] : '',
       '#attributes' => array(
-        'class' => array('js-validate', 'required'),
-        'data-validate' => array('lname'),
-        'data-validate-required' => '',
+        'data-validate' => 'lname' 
       ),
     );
-    $form['user_address'] = array(
+    $form['user_address_fieldset'] = array(
+      '#type' => 'fieldset',
+      '#attributes' => array(
+        'class' => array('js-validate-ups-address'),
+      )
+    );
+    $form['user_address_fieldset']['user_address'] = array(
       '#type' => 'addressfield',
       '#handlers' => array(
         'address' => 'address',
@@ -375,6 +377,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
  *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
+  $form['#attributes']['class'] = array('form-actions');
   $form['sid'] = array(
     '#type' => 'hidden',
     '#value' => $signup->sid,
