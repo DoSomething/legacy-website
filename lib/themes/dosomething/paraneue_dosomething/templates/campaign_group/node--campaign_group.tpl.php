@@ -37,19 +37,20 @@
     <section class="container intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
-          <h1><?php print $intro_title; ?></h1>
-        <?php endif; ?>
-          <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
-          <?php if (isset($intro_video)): ?>
-            <aside class="video">
-              <?php print $intro_video; ?>
-            </aside>
-          <?php elseif (isset($intro_image)): ?>
-            <?php print $intro_image; ?>
+          <h2 class="__title"><?php print $intro_title; ?></h2>
         <?php endif; ?>
 
+        <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
         <?php if (isset($modals)): ?>
           <?php print $modals; ?>
+        <?php endif; ?>
+
+        <?php if (isset($intro_video)): ?>
+          <aside class="video">
+            <?php print $intro_video; ?>
+          </aside>
+        <?php elseif (isset($intro_image)): ?>
+          <?php print $intro_image; ?>
         <?php endif; ?>
       </div>
     </section>
@@ -97,27 +98,20 @@
     <section class="container">
       <div class="wrapper">
         <?php if (isset($post_signup_title)): ?>
-        <div class="post-signup-title-wrapper">
-          <div class="post-signup-title">
-            <?php if (isset($post_signup_title)): ?>
-              <h2><?php print $post_signup_title; ?></h2>
-            <?php endif; ?>
-          </div>
-        </div>
+        <h2 class="__title"><?php print $post_signup_title; ?></h2>
         <?php endif; ?>
 
         <?php if (isset($post_signup_body)): ?>
-        <div class="post-signup-body-wrapper">
-          <div class="post-signup-body">
-            <?php if (isset($post_signup_body)): ?>
-              <h2><?php print $post_signup_body; ?></h2>
-            <?php endif; ?>
-          </div>
+        <div class="post-signup-body">
+          <?php if (isset($post_signup_body)): ?>
+            <?php print $post_signup_body; ?>
+          <?php endif; ?>
         </div>
         <?php endif; ?>
       </div>
     </section>
   <?php endif; ?>
+
 
   <?php if (isset($additional_text) && isset($campaigns['published'])): ?>
     <section class="container">
@@ -133,6 +127,7 @@
       </div>
     </section>
   <?php endif; ?>
+
 
   <?php if (!empty($campaigns)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
@@ -174,10 +169,12 @@
     </section>
   <?php endif; ?>
 
+
   <?php if (!empty($galleries)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
     <section class="container">
       <div class="wrapper">
+
         <?php foreach ($galleries as $gallery): ?>
           <?php if (isset($gallery['title'])): ?>
             <h2 class="__title"><?php print $gallery['title']; ?></h2>
@@ -198,6 +195,7 @@
             <?php endforeach; ?>
           </ul>
         <?php endforeach; ?>
+
       </div>
     </section>
   <?php endif; ?>
