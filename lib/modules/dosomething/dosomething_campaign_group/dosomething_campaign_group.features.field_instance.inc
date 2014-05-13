@@ -1094,7 +1094,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'settings' => array(
       'max' => '',
       'min' => '',
-      'prefix' => '',
+      'prefix' => '$',
       'suffix' => '',
       'user_register_form' => FALSE,
     ),
