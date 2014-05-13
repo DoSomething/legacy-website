@@ -80,6 +80,24 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
       ),
     ),
   );
+  $form[$fieldset]['config'][$prefix . 'prevent_old_people_submit'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Prevent Old People from submitting'),
+    '#default_value' => $values['prevent_old_people_submit'],
+    '#description' => t('If checked, Old People will be unable to submit the form.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'old_people_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Old People copy'),
+    '#default_value' => $values['link_text'],
+    '#description' => t('The copy displayed in the modal form for Old People.'),
+    // Should only be visible if old peeps can't submit.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'prevent_old_people_submit"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Link text'),
@@ -186,6 +204,8 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
         'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
         'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
+        'prevent_old_people_submit' => $values[$prefix . 'prevent_old_people_submit'],
+        'old_people_copy' => $values[$prefix . 'old_people_copy'],
     ))
     ->execute();
 }

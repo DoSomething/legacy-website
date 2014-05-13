@@ -155,6 +155,18 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'prevent_old_people_submit' => array(
+        'description' => 'Whether or not to prevent old people from submitting.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'old_people_copy' => array(
+        'description' => 'Copy to display when old person cannot submit.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
     ),
     'primary key' => array('nid'),
   );
@@ -255,4 +267,23 @@ function dosomething_signup_update_7005() {
     ))
     ->isNotNull('signup_data_form_timestamp')
     ->execute();
+}
+
+/**
+ * Adds old people columns to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7006() {
+  // Load schema for field definitions.
+  $schema = dosomething_signup_schema();
+  $tbl_name = 'dosomething_signup_data_form';
+  // New fields to add.
+  $fields = array('prevent_old_people_submit', 'old_people_copy');
+  // If the field doesn't exist already:
+  foreach ($fields as $field_name) {
+    // If the field doesn't exist already:
+    if (!db_field_exists($tbl_name, $field_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+    }
+  }
 }

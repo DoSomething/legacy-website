@@ -322,6 +322,7 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
   $node->content['signup_data_form_link'] = $config['link_text'];
   // Load signup sid.
   $sid = dosomething_signup_exists($node->nid);
+
   // If no signup exists:
   if (!$sid) {
     // Staff is viewing a campaign which they haven't signed up for.
@@ -330,6 +331,19 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
     );
     return;
   }
+
+  // If form is set to prevent Old People from submitting, and you're Old:
+  if ($config['prevent_old_people_submit'] && dosomething_user_is_old_person()) {
+    // Set the form to the Old People copy config property.
+    $node->content['signup_data_form'] = array(
+      '#markup' => $config['old_people_copy'],
+    );
+    // By exiting out of function now, we don't check to set the 
+    // required_signup_data_form variable, meaning Old People will never be
+    // auto prompted.
+    return;
+  }
+
   // Load the signup entity.
   $signup = signup_load($sid);
   // Pass to the user signup data form.
