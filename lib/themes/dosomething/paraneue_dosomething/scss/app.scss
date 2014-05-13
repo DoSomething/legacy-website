@@ -18,6 +18,9 @@
 // Drupal styles
 @import "overrides/drupal";
 
+// Global Content styles
+@import "content/container";
+
 // Content styles by section
 @import "content/auth";
 @import "content/home"; // new homepage

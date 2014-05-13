@@ -1,0 +1,15 @@
+.container { background-color: pink;
+
+  > .wrapper {
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+      float: none;
+    }
+  }
+
+  h1 {
+    margin: 0;  // @TODO: remove margins. Should be done globally!
+  }
+
+}
