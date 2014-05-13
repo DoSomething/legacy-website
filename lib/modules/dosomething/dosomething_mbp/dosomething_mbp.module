@@ -91,19 +91,15 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 
     case 'campaign_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
-      $payload['merge_vars'] = array(
-        'CALL_TO_ACTION' => $params['call_to_action'],
-        'STEP_ONE' => $params['step_one'],
-        'STEP_TWO' => $params['step_two'],
-        'STEP_THREE' => $params['step_three'],
-      );
+      $payload['merge_vars']['CALL_TO_ACTION'] = $params['call_to_action'];
+      $payload['merge_vars']['STEP_ONE'] = $params['step_one'];
+      $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
+      $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
       break;
 
     case 'group_campaign_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
-      $payload['merge_vars'] = array(
-        'CAMPAIGN_COPY' => $params['transactional_email_copy'],
-      );
+      $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
       break;
 
     case 'campaign_reportback':
