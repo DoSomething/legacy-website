@@ -21,7 +21,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Text',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -129,6 +129,34 @@ function dosomething_campaign_group_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_pre_launch|node|campaign_group|form';
+  $field_group->group_name = 'group_pre_launch';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Pre Launch',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_pre_launch_title',
+      1 => 'field_pre_launch_copy',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-pre-launch field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_pre_launch|node|campaign_group|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_pre_live|node|campaign_group|form';
   $field_group->group_name = 'group_pre_live';
   $field_group->entity_type = 'node';
@@ -193,7 +221,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
@@ -224,7 +252,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_display_end_date',
       1 => 'field_high_season',

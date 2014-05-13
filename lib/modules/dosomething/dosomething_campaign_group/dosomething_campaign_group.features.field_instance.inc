@@ -516,7 +516,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -816,7 +816,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -912,6 +912,98 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_pre_launch_copy'
+  $field_instances['node-campaign_group-field_pre_launch_copy'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 32,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_launch_copy',
+    'label' => 'Pre Launch Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 25,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_group-field_pre_launch_title'
+  $field_instances['node-campaign_group-field_pre_launch_title'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The Pre Launch Title and Copy fields will be displayed if there are no child campaigns which are published.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 31,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pre_launch_title',
+    'label' => 'Pre Launch Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 24,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_scholarship_amount'
   $field_instances['node-campaign_group-field_scholarship_amount'] = array(
     'bundle' => 'campaign_group',
@@ -960,7 +1052,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -1265,12 +1357,15 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
+  t('Pre Launch Copy');
+  t('Pre Launch Title');
   t('Scholarship Amount');
   t('Should the Campaign Group Signup Form should be displayed?');
   t('Show End Date');
   t('Signup Form Button Text');
   t('Sponsors and Partners');
   t('Tags');
+  t('The Pre Launch Title and Copy fields will be displayed if there are no child campaigns which are published.');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');
