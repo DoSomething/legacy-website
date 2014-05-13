@@ -8,11 +8,8 @@
 function paraneue_dosomething_page_alter_login(&$page) {
   if (!user_is_logged_in()){
     $page['page_bottom']['login'] = array(
-      '#prefix' => '<script type="text/cached-modal" id="modal--login">',
+      '#prefix' => '<script type="text/cached-modal" id="modal--login" data-modal-close="true">',
       '#suffix' => '</script>',
-      'modal_close' => array(
-        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
-      ),
       'login' => drupal_get_form('user_login_block')
     );
   }

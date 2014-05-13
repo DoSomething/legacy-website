@@ -45,7 +45,7 @@ function paraneue_dosomething_preprocess_node(&$variables) {
     if (isset($variables['node']->required_signup_data_form)) {
       // Add JS to open the signup data form modal.
       $id = 'modal-signup-data-form';
-      $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), false); });';
+      $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
       drupal_add_js($js, 'inline');
     }
   }

@@ -163,17 +163,15 @@
       <!-- "Plan It" Section Modals -->
       <?php if (isset($action_guides)): ?>
       <?php foreach ($action_guides as $delta => $action_guide): ?>
-      <script id="modal-action-guide-<?php print $delta; ?>" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button white">×</a>
-          <div><?php print $action_guide['content']; ?></div>
+      <script id="modal-action-guide-<?php print $delta; ?>" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+        <div><?php print $action_guide['content']; ?></div>
         <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endforeach; ?>
       <?php endif; ?>
 
       <?php if (isset($signup_data_form)): ?>
-      <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button white">×</a>
+      <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
           <div><?php print render($signup_data_form); ?></div>
           <?php if (isset($skip_signup_data_form)): ?>
           <div><?php print render($skip_signup_data_form); ?></div>
@@ -212,9 +210,7 @@
         </div>
 
         <!-- "More tips" modal for mobile viewports -->
-        <script id="modal-tips-pre" class="modal--tips" type="text/cached-modal">
-          <a href="#" class="js-close-modal modal-close-button white">×</a>
-
+        <script id="modal-tips-pre" class="modal--tips" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
           <h2 class="banner">Tips</h2>
           <?php if (is_array($step_pre)): ?>
             <?php foreach ($step_pre as $item): ?>
@@ -263,9 +259,7 @@
         </div>
 
         <!-- "More tips" modal for mobile viewports  -->
-        <script id="modal-tips-post" class="modal--tips2" type="text/cached-modal">
-          <a href="#" class="js-close-modal modal-close-button white">×</a>
-
+        <script id="modal-tips-post" class="modal--tips2" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
           <h2 class="banner">Tips</h2>
           <?php if (is_array($step_post)): ?>
             <?php foreach ($step_post as $item): ?>
@@ -285,14 +279,13 @@
       </div>
 
       <?php if (is_array($step_post)) : ?>
-      <script type="text/cached-modal" id="modal-post-tips" class="modal--tips">
-      <a href="#" class="js-close-modal modal-close-button white">×</a>
-      <h2 class="banner">Tips</h2>
-      <?php foreach ($step_post as $item): ?>
-      <h4 class="inline--alt-color"><?php print $item['header']; ?></h4>
-      <div><?php print $item['copy'] ?></div>
-      <?php endforeach; ?>
-      <a href="#" class="js-close-modal">Back to main page</a>
+      <script type="text/cached-modal" id="modal-post-tips" class="modal--tips" data-modal-close="true" data-modal-close-class="white">
+        <h2 class="banner">Tips</h2>
+        <?php foreach ($step_post as $item): ?>
+        <h4 class="inline--alt-color"><?php print $item['header']; ?></h4>
+        <div><?php print $item['copy'] ?></div>
+        <?php endforeach; ?>
+        <a href="#" class="js-close-modal">Back to main page</a>
       </script>
       <?php endif; ?>
     </section>
@@ -314,8 +307,7 @@
         <?php if (isset($official_rules)): ?><a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a><?php endif; ?>
 
         <?php if (isset($reportback_form)): ?>
-        <script id="modal-report-back" class="modal--reportback inline--alt-bg" type="text/cached-modal">
-          <a href="#" class="js-close-modal modal-close-button white">×</a>
+        <script id="modal-report-back" class="modal--reportback inline--alt-bg" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
           <h2 class="banner">Prove It</h2>
           <?php print render($reportback_form); ?>
         </script>
@@ -358,8 +350,7 @@
       </footer>
 
       <?php if (isset($zendesk_form)): ?>
-      <script id="modal-help" type="text/cached-modal">
-        <a href="#" class="js-close-modal modal-close-button white">×</a>
+      <script id="modal-help" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
         <h2 class="banner">Contact Us</h2>
         <p>Enter your question below. Please be as specific as possible.</p>
 
