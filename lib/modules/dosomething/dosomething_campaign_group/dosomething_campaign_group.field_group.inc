@@ -54,10 +54,10 @@ function dosomething_campaign_group_field_group_info() {
     'children' => array(
       0 => 'field_faq',
       1 => 'field_intro',
-      2 => 'field_intro_title',
-      3 => 'field_partners',
-      4 => 'field_video',
-      5 => 'field_intro_image',
+      2 => 'field_intro_image',
+      3 => 'field_intro_title',
+      4 => 'field_partners',
+      5 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -82,7 +82,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Post Sign Up',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_post_signup_body',
       1 => 'field_signup_confirm_msg',
@@ -111,7 +111,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pre-Live',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -139,7 +139,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Signup Form',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_display_signup_form',
       1 => 'field_signup_form_button_text',
@@ -167,12 +167,12 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '11',
+    'weight' => '10',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
-      2 => 'field_staff_pick',
-      3 => 'field_active_hours',
+      2 => 'field_active_hours',
+      3 => 'field_staff_pick',
       4 => 'field_tags',
     ),
     'format_type' => 'fieldset',
@@ -198,10 +198,10 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_high_season',
-      1 => 'field_display_end_date',
+      0 => 'field_display_end_date',
+      1 => 'field_high_season',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
