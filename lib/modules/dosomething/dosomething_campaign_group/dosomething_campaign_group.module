@@ -12,7 +12,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     $content = $vars['content'];
     $template_vars = array(
       'text' => array(
-        'subtitle',
         'intro_title',
         'intro',
         'signup_form_button_text',
