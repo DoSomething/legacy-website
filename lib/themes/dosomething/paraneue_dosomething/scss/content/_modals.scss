@@ -1,22 +1,5 @@
 // Full-width header that comes
 // immediately before each section.step
 .modal-content {
-  word-wrap: break-word;
 
-  .modal-messages {
-    // fit this guy to edge of modal
-    margin: -2rem -1.5rem 2rem;
-  }
-
-  h2.banner {
-    // fit this guy to edge of modal
-    margin: -2rem -1.5rem 1rem;
-  }
-
-  // Ensure modal images do not break out of their
-  // parent containers on mobile
-  img {
-    width: 100%;
-    height: auto;
-  }
 }

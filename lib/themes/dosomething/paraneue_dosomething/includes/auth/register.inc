@@ -8,11 +8,8 @@
 function paraneue_dosomething_page_alter_register(&$page) {
   if (!user_is_logged_in()){
     $page['page_bottom']['register'] = array(
-      '#prefix' => '<script type="text/cached-modal" id="modal--register">',
+      '#prefix' => '<script type="text/cached-modal" id="modal--register" data-modal-close="true">',
       '#suffix' => '</script>',
-      'modal_close' => array(
-        '#markup' => '<a href="#" class="js-close-modal modal-close-button">×</a>'
-      ),
       'register' => drupal_get_form('user_register_form')
     );
   }
