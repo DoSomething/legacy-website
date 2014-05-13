@@ -242,6 +242,12 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
+  // Check for a signup button label override.
+  $label_varname = 'dosomething_campaign_nid_' . $vars['nid']. '_pitch_page_label';
+  $label = variable_get($label_varname, '');
+  if (empty($label)) {
+    $label = NULL;
+  }
   // Adds a signup_button variable.
-  dosomething_signup_preprocess_signup_button($vars);
+  dosomething_signup_preprocess_signup_button($vars, $label);
 }
