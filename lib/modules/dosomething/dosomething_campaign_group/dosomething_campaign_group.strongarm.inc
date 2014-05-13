@@ -19,19 +19,19 @@ function dosomething_campaign_group_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '14',
+          'weight' => '16',
         ),
         'title' => array(
           'weight' => '2',
         ),
         'path' => array(
-          'weight' => '13',
+          'weight' => '15',
         ),
         'redirect' => array(
-          'weight' => '12',
+          'weight' => '14',
         ),
         'xmlsitemap' => array(
-          'weight' => '11',
+          'weight' => '13',
         ),
       ),
       'display' => array(),

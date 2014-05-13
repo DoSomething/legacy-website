@@ -125,7 +125,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_additional_text',
-    'label' => 'Pre-live Copy',
+    'label' => 'Additional Text Copy',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -138,7 +138,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -171,7 +171,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_additional_text_title',
-    'label' => 'Pre-live Header',
+    'label' => 'Additional Text Header',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -281,7 +281,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'weight' => 1,
     ),
   );
 
@@ -469,7 +469,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 11,
+      'weight' => 3,
     ),
   );
 
@@ -516,7 +516,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -816,7 +816,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 11,
     ),
   );
 
@@ -960,7 +960,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -1193,7 +1193,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
@@ -1248,6 +1248,8 @@ function dosomething_campaign_group_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action Type');
   t('Active Hours');
+  t('Additional Text Copy');
+  t('Additional Text Header');
   t('Call to Action');
   t('Campaigns');
   t('Cause');
@@ -1263,8 +1265,6 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Post Sign Up Body');
   t('Post Sign Up Notification');
   t('Post Sign Up Title');
-  t('Pre-live Copy');
-  t('Pre-live Header');
   t('Scholarship Amount');
   t('Should the Campaign Group Signup Form should be displayed?');
   t('Show End Date');
