@@ -140,8 +140,8 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Pre Launch',
     'weight' => '7',
     'children' => array(
-      0 => 'field_pre_launch_title',
-      1 => 'field_pre_launch_copy',
+      0 => 'field_pre_launch_copy',
+      1 => 'field_pre_launch_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -167,10 +167,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->data = array(
     'label' => 'Pre-Live',
     'weight' => '4',
-    'children' => array(
-      0 => 'field_additional_text',
-      1 => 'field_additional_text_title',
-    ),
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
