@@ -626,7 +626,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 4,
     ),
   );
 
@@ -849,7 +849,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_post_signup_body',
-    'label' => 'Post Sign Up Body',
+    'label' => 'Post Signup Body',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -871,7 +871,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The Post Signup fields are displayed if the user has signed up for the Grouped Campaign.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -895,7 +895,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_post_signup_title',
-    'label' => 'Post Sign Up Title',
+    'label' => 'Post Signup Title',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -908,7 +908,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 20,
+      'weight' => 22,
     ),
   );
 
@@ -1061,7 +1061,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Sets the notification message to be displayed after the user submits the signup form.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1085,7 +1085,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_signup_confirm_msg',
-    'label' => 'Post Sign Up Notification',
+    'label' => 'Signup Confirmation Message',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -1107,7 +1107,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Sets the label on the Signup Form button.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1354,17 +1354,20 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Intro Image');
   t('Intro Title');
   t('Is Staff Pick');
-  t('Post Sign Up Body');
-  t('Post Sign Up Notification');
-  t('Post Sign Up Title');
+  t('Post Signup Body');
+  t('Post Signup Title');
   t('Pre Launch Copy');
   t('Pre Launch Title');
   t('Scholarship Amount');
+  t('Sets the label on the Signup Form button.');
+  t('Sets the notification message to be displayed after the user submits the signup form.');
   t('Should the Campaign Group Signup Form should be displayed?');
   t('Show End Date');
+  t('Signup Confirmation Message');
   t('Signup Form Button Text');
   t('Sponsors and Partners');
   t('Tags');
+  t('The Post Signup fields are displayed if the user has signed up for the Grouped Campaign.');
   t('The Pre Launch Title and Copy fields will be displayed if there are no child campaigns which are published.');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');

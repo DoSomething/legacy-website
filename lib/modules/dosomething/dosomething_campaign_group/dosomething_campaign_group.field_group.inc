@@ -48,7 +48,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Header',
+    'label' => 'Basic Info',
     'weight' => '0',
     'children' => array(
       0 => 'field_call_to_action',
@@ -57,12 +57,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Basic Info',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-header field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-header field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_header|node|campaign_group|form'] = $field_group;
@@ -111,8 +112,7 @@ function dosomething_campaign_group_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_post_signup_body',
-      1 => 'field_signup_confirm_msg',
-      2 => 'field_post_signup_title',
+      1 => 'field_post_signup_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -195,8 +195,9 @@ function dosomething_campaign_group_field_group_info() {
     'label' => 'Signup Form',
     'weight' => '5',
     'children' => array(
-      0 => 'field_display_signup_form',
-      1 => 'field_signup_form_button_text',
+      0 => 'field_signup_confirm_msg',
+      1 => 'field_display_signup_form',
+      2 => 'field_signup_form_button_text',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
