@@ -370,7 +370,7 @@ function dosomething_user_is_under_thirteen($user = NULL) {
 }
 
 /**
- * Checks if user is an "old person", meaning over age 25.
+ * Checks if user is an "old person", meaning age 26 or older.
  *
  * @return bool
  *  Returns TRUE if user is an old person, else FALSE.
@@ -380,8 +380,8 @@ function dosomething_user_is_old_person($user = NULL) {
     global $user;
   }
   $birthday = dosomething_user_get_birthdate(NULL, $user);
-  // Get the date 25 years ago today.
-  $date_cutoff = strtotime('-25 years');
+  // Get the date 26 years ago today.
+  $date_cutoff = strtotime('-26 years');
   return $date_cutoff > $birthday;
 }
 
