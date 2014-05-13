@@ -322,6 +322,13 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  $pitch_page_label = $prefix . 'pitch_page_label';
+  $form['custom'][$pitch_page_label] = array(
+    '#type' => 'textfield',
+    '#title' => t('Signup Form Button Label'),
+    '#default_value' => variable_get($pitch_page_label),
+    '#description' => t('If set, this will override the label on the signup form.'),
+  );
   $form['custom']['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
@@ -333,14 +340,6 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Alt color'),
     '#default_value' => variable_get($alt_color),
-    '#field_prefix' => '#',
-    '#size' => 6,
-  );
-  $pitch_page_label = $prefix . 'pitch_page_label';
-  $form['custom']['styles'][$pitch_page_label] = array(
-    '#type' => 'textfield',
-    '#title' => t('Pitch Page Label'),
-    '#default_value' => variable_get($pitch_page_label),
     '#field_prefix' => '#',
     '#size' => 6,
   );
