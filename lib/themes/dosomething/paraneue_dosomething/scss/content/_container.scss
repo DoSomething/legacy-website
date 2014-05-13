@@ -1,7 +1,8 @@
 .container { background-color: pink;
 
   > .wrapper {
-    padding: 1rem 0;
+    padding: 1rem;
+    @include clearfix();
 
     @include media($tablet) {
       @include span-columns(12);
@@ -14,8 +15,27 @@
     }
   }
 
+  .-columned {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+  }
+
+  .-columned + .-columned {
+    margin-top: 1rem;
+
+    @include media($tablet) {
+      margin-top: 0;
+    }
+  }
+
   .__title {
-    margin: 0;  // @TODO: remove margins. Should be done globally!
+    line-height: 1.1;
+    margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
+
+    @include media($tablet) {
+      margin-bottom: 1.5rem;
+    }
   }
 
 }

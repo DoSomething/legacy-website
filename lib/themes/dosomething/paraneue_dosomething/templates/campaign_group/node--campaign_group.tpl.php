@@ -34,29 +34,35 @@
 
 
   <?php if (isset($intro)): ?>
-    <section class="container intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">
+    <section class="container intro">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
           <h2 class="__title"><?php print $intro_title; ?></h2>
         <?php endif; ?>
 
-        <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
-        <?php if (isset($modals)): ?>
-          <?php print $modals; ?>
-        <?php endif; ?>
+        <div class="__content<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
+          <?php print $intro; ?>
 
-        <?php if (isset($intro_video)): ?>
-          <aside class="video">
-            <?php print $intro_video; ?>
-          </aside>
-        <?php elseif (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
+          <?php if (isset($modals)): ?>
+            <?php print $modals; ?>
+          <?php endif; ?>
+        </div>
+
+        <?php if (isset($intro_image) || isset($intro_video)): ?>
+        <aside class="-columned">
+          <?php if (isset($intro_video)): ?>
+            <div class="video">
+              <?php print $intro_video; ?>
+            </div>
+          <?php elseif (isset($intro_image)): ?>
+            <?php print $intro_image; ?>
+          <?php endif; ?>
+        </aside>
         <?php endif; ?>
       </div>
     </section>
   <?php endif; ?>
 
-<<<<<<< HEAD
   <section>
     <?php if (isset($pre_launch_copy)): ?>
     <div class="pre-launch-wrapper">
@@ -92,7 +98,6 @@
         <?php if (isset($additional_text_image)): ?>
           <?php print $additional_text_image; ?>
         <?php endif; ?>
-=======
 
   <?php if (isset($post_signup_title) || isset($post_signup_body)): ?>
     <section class="container">
@@ -102,11 +107,9 @@
         <?php endif; ?>
 
         <?php if (isset($post_signup_body)): ?>
-        <div class="post-signup-body">
-          <?php if (isset($post_signup_body)): ?>
+          <div class="__content">
             <?php print $post_signup_body; ?>
-          <?php endif; ?>
-        </div>
+          </div>
         <?php endif; ?>
       </div>
     </section>
@@ -114,16 +117,14 @@
 
 
   <?php if (isset($additional_text) && isset($campaigns['published'])): ?>
-    <section class="container">
+    <section class="container additional-text">
       <div class="wrapper">
-        <div class="additional-text">
-          <?php if (isset($additional_text_title)): ?>
-            <h2><?php print $additional_text_title; ?></h2>
-          <?php endif; ?>
-
-          <p><?php print $additional_text; ?></p>
+        <?php if (isset($additional_text_title)): ?>
+          <h2><?php print $additional_text_title; ?></h2>
+        <?php endif; ?>
+        <div class="__content">
+          <?php print $additional_text; ?>
         </div>
->>>>>>> Progress on sections.
       </div>
     </section>
   <?php endif; ?>
@@ -132,40 +133,38 @@
   <?php if (!empty($campaigns)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
     <section class="container">
-      <div class="wrapper">
-        <ul class="campaigns">
-          <?php if (isset($campaigns['published'])): ?>
-            <?php foreach ($campaigns['published'] as $published_campaign): ?>
-              <li class="campaign published">
-                <?php if (isset($published_campaign['image'])): ?>
-                  <?php print $published_campaign['image']; ?>
-                <?php endif; ?>
-                <?php if (isset($published_campaign['title'])): ?>
-                    <h3 class="title"><?php print $published_campaign['title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($published_campaign['call_to_action'])): ?>
-                  <div class="campaign-call-to-action"><?php print $published_campaign['call_to_action']; ?></div>
-                <?php endif; ?>
-              </li>
-            <?php endforeach; ?>
-          <?php endif; ?>
-          <?php if (isset($campaigns['unpublished'])): ?>
-            <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
-              <li class="campaign unpublished">
-                <?php if (isset($unpublished_campaign['image'])): ?>
-                  <?php print $unpublished_campaign['image']; ?>
-                <?php endif; ?>
-                <?php if (isset($unpublished_campaign['title'])): ?>
-                    <h3 class="title"><?php print $unpublished_campaign['title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($unpublished_campaign['call_to_action'])): ?>
-                  <div class="campaign-call-to-action"><?php print $unpublished_campaign['call_to_action']; ?></div>
-                <?php endif; ?>
-              </li>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </ul>
-      </div>
+      <ul class="campaigns">
+        <?php if (isset($campaigns['published'])): ?>
+          <?php foreach ($campaigns['published'] as $published_campaign): ?>
+            <li class="campaign published">
+              <?php if (isset($published_campaign['image'])): ?>
+                <?php print $published_campaign['image']; ?>
+              <?php endif; ?>
+              <?php if (isset($published_campaign['title'])): ?>
+                  <h3 class="title"><?php print $published_campaign['title']; ?></h3>
+              <?php endif; ?>
+              <?php if (isset($published_campaign['call_to_action'])): ?>
+                <div class="campaign-call-to-action"><?php print $published_campaign['call_to_action']; ?></div>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if (isset($campaigns['unpublished'])): ?>
+          <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
+            <li class="campaign unpublished">
+              <?php if (isset($unpublished_campaign['image'])): ?>
+                <?php print $unpublished_campaign['image']; ?>
+              <?php endif; ?>
+              <?php if (isset($unpublished_campaign['title'])): ?>
+                  <h3 class="title"><?php print $unpublished_campaign['title']; ?></h3>
+              <?php endif; ?>
+              <?php if (isset($unpublished_campaign['call_to_action'])): ?>
+                <div class="campaign-call-to-action"><?php print $unpublished_campaign['call_to_action']; ?></div>
+              <?php endif; ?>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
     </section>
   <?php endif; ?>
 
