@@ -19,6 +19,10 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'signup_form_button_text',
         'call_to_action',
       ),
+      'image' => array(
+        'additional_text_image',
+        'intro_image',
+      ),
     );
 
     $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
@@ -47,6 +51,9 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
             case 'text':
               $vars[$label] = $content[$field][0]['#markup'];
               break;
+            case 'image':
+              $size = '550x300';
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
             default:
               break;
           }

@@ -86,6 +86,9 @@
           <h2><?php print $additional_text_title; ?></h2>
         <?php endif; ?>
         <p><?php print $additional_text; ?></p>
+        <?php if (isset($additional_text_image)): ?>
+          <?php print $additional_text_image; ?>
+        <?php endif; ?>
       </div>
     </div>
     <?php endif; ?>
