@@ -54,38 +54,37 @@
     <?php print $modals; ?>
   <?php endif; ?>
 
-
-  <?php if (isset($post_signup_title) || isset($post_signup_body)): ?>
-    <section>
-      <?php if (isset($post_signup_title)): ?>
-      <div class="post-signup-title-wrapper">
-        <div class="post-signup-title">
-          <?php if (isset($post_signup_title)): ?>
-            <h2><?php print $post_signup_title; ?></h2>
-          <?php endif; ?>
-        </div>
+  <section>
+    <?php if (isset($pre_launch_copy)): ?>
+    <div class="pre-launch-wrapper">
+      <div class="pre-launch">
+        <?php if (isset($pre_launch_title)): ?>
+          <h2><?php print $pre_launch_title; ?></h2>
+        <?php endif; ?>
+        <p><?php print $pre_launch_copy; ?></p>
       </div>
-      <?php endif; ?>
+    </div>
+    <?php endif; ?>
 
-      <?php if (isset($post_signup_body)): ?>
-      <div class="post-signup-body-wrapper">
-        <div class="post-signup-body">
-          <?php if (isset($post_signup_body)): ?>
-            <h2><?php print $post_signup_body; ?></h2>
-          <?php endif; ?>
-        </div>
+    <?php if (isset($post_signup_body)): ?>
+    <div class="post-signup-wrapper">
+      <div class="post-signup">
+        <?php if (isset($post_signup_title)): ?>
+          <h2><?php print $post_signup_title; ?></h2>
+        <?php endif; ?>
+        <p><?php print $post_signup_body; ?></p>
       </div>
-      <?php endif; ?>
-    </section>
-  <?php endif; ?>
+    </div>
+    <?php endif; ?>
+  </section>
 
-    <?php if (isset($additional_text) && isset($campaigns['published'])): ?>
+
+    <?php if (isset($additional_text)): ?>
     <div class="additional-text-wrapper">
       <div class="additional-text">
         <?php if (isset($additional_text_title)): ?>
           <h2><?php print $additional_text_title; ?></h2>
         <?php endif; ?>
-
         <p><?php print $additional_text; ?></p>
       </div>
     </div>
