@@ -281,7 +281,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -516,7 +516,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -759,7 +759,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Intro Title',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -960,7 +960,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 8,
+      'weight' => 7,
     ),
   );
 
@@ -1042,7 +1042,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Signup Form Button Text',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1052,7 +1052,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 18,
+      'weight' => 20,
     ),
   );
 
@@ -1183,7 +1183,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Transactional Email Copy',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1193,7 +1193,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
