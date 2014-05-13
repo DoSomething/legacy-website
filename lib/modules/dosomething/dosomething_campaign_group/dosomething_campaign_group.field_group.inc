@@ -25,6 +25,7 @@ function dosomething_campaign_group_field_group_info() {
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
+      2 => 'field_additional_text_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -222,7 +223,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
