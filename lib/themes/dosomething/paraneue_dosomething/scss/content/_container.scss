@@ -1,4 +1,4 @@
-.container {
+.container { //background-color: red;
 
   > .wrapper {
     padding: 1rem;
@@ -12,6 +12,14 @@
 
     @include media($desktop) {
       padding: 1.5rem 0;
+    }
+  }
+
+  // @TODO: (Revisit) Not supported in IE8; maybe use a class instead...
+  // but makes dictating extra padding on first item easy @_@
+  &:first-of-type {
+    > .wrapper {
+      padding-top: 2rem;
     }
   }
 
@@ -43,5 +51,13 @@
 
   @include media($tablet) {
     margin-bottom: 1.5rem;
+  }
+}
+
+
+// @TODO: temporary?
+.container--campaigns {
+  .gallery.-mosaic {
+    background-color: #fff;
   }
 }

@@ -117,21 +117,13 @@
 
   <?php if (!empty($campaigns)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
-    <section class="container">
-      <ul class="gallery">
+    <section class="container container--campaigns">
+      <ul class="gallery -mosaic">
 
         <?php if (isset($campaigns['published'])): ?>
           <?php foreach ($campaigns['published'] as $published_campaign): ?>
             <li class="campaign -published">
-              <?php if (isset($published_campaign['image'])): ?>
-                <?php print $published_campaign['image']; ?>
-              <?php endif; ?>
-              <?php if (isset($published_campaign['title'])): ?>
-                  <h3 class="title"><?php print $published_campaign['title']; ?></h3>
-              <?php endif; ?>
-              <?php if (isset($published_campaign['call_to_action'])): ?>
-                <div class="campaign-call-to-action"><?php print $published_campaign['call_to_action']; ?></div>
-              <?php endif; ?>
+              <?php print render($published_campaign); ?>
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -139,15 +131,7 @@
         <?php if (isset($campaigns['unpublished'])): ?>
           <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
             <li class="campaign -unpublished">
-              <?php if (isset($unpublished_campaign['image'])): ?>
-                <?php print $unpublished_campaign['image']; ?>
-              <?php endif; ?>
-              <?php if (isset($unpublished_campaign['title'])): ?>
-                  <h3 class="title"><?php print $unpublished_campaign['title']; ?></h3>
-              <?php endif; ?>
-              <?php if (isset($unpublished_campaign['call_to_action'])): ?>
-                <div class="campaign-call-to-action"><?php print $unpublished_campaign['call_to_action']; ?></div>
-              <?php endif; ?>
+              <?php print render($unpublished_campaign); ?>
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
