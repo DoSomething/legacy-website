@@ -166,6 +166,7 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
       $payload = array(
         'application_event' => $origin,
         'application_id' => variable_get('message_broker_producer_application_id', '-1'),
+        'nid' => $params['nid'],
         'title' => $params['title'],
         'url' => $params['url'],
         'call_to_action' => $params['call_to_action'],
