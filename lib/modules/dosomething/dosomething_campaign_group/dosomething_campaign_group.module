@@ -12,26 +12,35 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     $content = $vars['content'];
     $template_vars = array(
       'text' => array(
+        'additional_text',
+        'additional_text_title',
         'intro_title',
         'intro',
         'signup_form_button_text',
         'call_to_action',
       ),
+      'image' => array(
+        'additional_text_image',
+        'intro_image',
+      ),
     );
 
     $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
 
-    // If there are no published campaigns show add'l text and remove campaigns from vars
+    // If there are no published campaigns, 
+    // Display pre_launch vars and remove campaigns from vars.
     if (!isset($vars['campaigns']['published'])) {
-      $template_vars['text'][] = 'additional_text';
-      $template_vars['text'][] = 'additional_text_title';
+      $template_vars['text'][] = 'pre_launch_copy';
+      $template_vars['text'][] = 'pre_launch_title';
       unset($vars['campaigns']);
     }
 
+    // If current user is signed up:
     $sid = dosomething_signup_exists($vars['node']->nid);
-    if (isset($sid)) {
+    if ($sid) {
+      // Set the post_signup vars.
       $template_vars['text'][] = 'post_signup_title';
-      $template_vars['text'][] = 'post_signup_body';
+      $template_vars['text'][] = 'post_signup_copy';
     }
 
     foreach ($template_vars as $key => $labels) {
@@ -42,6 +51,9 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
             case 'text':
               $vars[$label] = $content[$field][0]['#markup'];
               break;
+            case 'image':
+              $size = '550x300';
+              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
             default:
               break;
           }

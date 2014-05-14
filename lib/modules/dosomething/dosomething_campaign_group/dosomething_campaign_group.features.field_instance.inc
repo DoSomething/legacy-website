@@ -567,7 +567,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -867,12 +867,12 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_signup_body'
-  $field_instances['node-campaign_group-field_post_signup_body'] = array(
+  // Exported field_instance: 'node-campaign_group-field_post_signup_copy'
+  $field_instances['node-campaign_group-field_post_signup_copy'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
@@ -883,7 +883,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 18,
+        'weight' => 34,
       ),
       'pitch' => array(
         'label' => 'above',
@@ -899,8 +899,8 @@ function dosomething_campaign_group_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_post_signup_body',
-    'label' => 'Post Signup Body',
+    'field_name' => 'field_post_signup_copy',
+    'label' => 'Post Signup Copy',
     'required' => 0,
     'settings' => array(
       'text_processing' => 1,
@@ -1094,7 +1094,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'settings' => array(
       'max' => '',
       'min' => '',
-      'prefix' => '',
+      'prefix' => '$',
       'suffix' => '',
       'user_register_form' => FALSE,
     ),
@@ -1103,7 +1103,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -1336,7 +1336,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -1406,7 +1406,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Intro Image');
   t('Intro Title');
   t('Is Staff Pick');
-  t('Post Signup Body');
+  t('Post Signup Copy');
   t('Post Signup Title');
   t('Pre Launch Copy');
   t('Pre Launch Title');
