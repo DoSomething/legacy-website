@@ -12,8 +12,6 @@
  * - $partners: Array of partners for grouped campaigns (array).
  * - $partner_info: Array of information regarding partners for grouped campaigns (array).
  */
-
-// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
@@ -34,15 +32,14 @@
     </div>
   </header>
 
-
   <?php if (isset($intro)): ?>
     <section class="container intro">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
-          <h2 class="__title"><?php print $intro_title; ?></h2>
+          <h2 class="container__title"><?php print $intro_title; ?></h2>
         <?php endif; ?>
 
-        <div class="__content<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
+        <div class="container__body<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
           <?php print $intro; ?>
 
           <?php if (isset($modals)): ?>
@@ -65,71 +62,57 @@
     </section>
   <?php endif; ?>
 
-  <section>
-    <?php if (isset($pre_launch_copy)): ?>
-    <div class="pre-launch-wrapper">
-      <div class="pre-launch">
-        <?php if (isset($pre_launch_title)): ?>
-          <h2><?php print $pre_launch_title; ?></h2>
-        <?php endif; ?>
-        <p><?php print $pre_launch_copy; ?></p>
-      </div>
-    </div>
-    <?php endif; ?>
 
-    <?php if (isset($post_signup_copy)): ?>
-    <div class="post-signup-wrapper">
-      <div class="post-signup">
-        <?php if (isset($post_signup_title)): ?>
-          <h2><?php print $post_signup_title; ?></h2>
-        <?php endif; ?>
-        <p><?php print $post_signup_copy; ?></p>
-      </div>
-    </div>
-    <?php endif; ?>
-  </section>
-
-
-    <?php if (isset($additional_text)): ?>
-    <div class="additional-text-wrapper">
-      <div class="additional-text">
-        <?php if (isset($additional_text_title)): ?>
-          <h2><?php print $additional_text_title; ?></h2>
-        <?php endif; ?>
-        <p><?php print $additional_text; ?></p>
-        <?php if (isset($additional_text_image)): ?>
-          <?php print $additional_text_image; ?>
-        <?php endif; ?>
-
-  <?php if (isset($post_signup_title) || isset($post_signup_body)): ?>
-    <section class="container">
+  <?php if (isset($post_signup_copy)): ?>
+    <section class="container post-signup">
       <div class="wrapper">
         <?php if (isset($post_signup_title)): ?>
-        <h2 class="__title"><?php print $post_signup_title; ?></h2>
+          <h2 class="container__title"><?php print $post_signup_title; ?></h2>
         <?php endif; ?>
 
-        <?php if (isset($post_signup_body)): ?>
-          <div class="__content">
-            <?php print $post_signup_body; ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    </section>
-  <?php endif; ?>
-
-
-  <?php if (isset($additional_text) && isset($campaigns['published'])): ?>
-    <section class="container additional-text">
-      <div class="wrapper">
-        <?php if (isset($additional_text_title)): ?>
-          <h2><?php print $additional_text_title; ?></h2>
-        <?php endif; ?>
-        <div class="__content">
-          <?php print $additional_text; ?>
+        <div class="container_body">
+          <?php print $post_signup_copy; ?>
         </div>
       </div>
     </section>
   <?php endif; ?>
+
+
+  <?php if (isset($pre_launch_copy)): ?>
+    <section class="container pre-launch">
+      <div class="wrapper">
+        <?php if (isset($pre_launch_title)): ?>
+          <h2 class="container__title"><?php print $pre_launch_title; ?></h2>
+        <?php endif; ?>
+
+        <div class="container__body">
+          <?php print $pre_launch_copy; ?></p>
+        </div>
+      </div>
+    </section>
+  <?php endif; ?>
+
+
+  <?php if (isset($additional_text)): ?>
+  <section class="container additional-text">
+    <div class="wrapper">
+      <?php if (isset($additional_text_title)): ?>
+        <h2 class="container__title"><?php print $additional_text_title; ?></h2>
+      <?php endif; ?>
+
+      <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
+        <?php print $additional_text; ?>
+      </div>
+
+      <?php if (isset($additional_text_image)): ?>
+        <aside class="-columned">
+          <?php print $additional_text_image; ?>
+        </aside>
+      <?php endif; ?>
+    </div>
+  </section>
+  <?php endif; ?>
+
 
 
   <?php if (!empty($campaigns)): ?>
@@ -203,10 +186,12 @@
       </div>
     </section>
   <?php endif; ?>
-<?php
 
-// @todo: Modalize and link to me.
-// Or preprocess me if you don't liek the $content['zendesk_form'].
-print render($content['zendesk_form']);
-?>
+
+  <?php
+    // @todo: Modalize and link to me.
+    // Or preprocess me if you don't liek the $content['zendesk_form'].
+    print render($content['zendesk_form']);
+  ?>
+
 </article>
