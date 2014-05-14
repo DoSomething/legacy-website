@@ -12,6 +12,8 @@
  * - $partners: Array of partners for grouped campaigns (array).
  * - $partner_info: Array of information regarding partners for grouped campaigns (array).
  */
+
+// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
@@ -133,10 +135,11 @@
   <?php if (!empty($campaigns)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
     <section class="container">
-      <ul class="campaigns">
+      <ul class="gallery">
+
         <?php if (isset($campaigns['published'])): ?>
           <?php foreach ($campaigns['published'] as $published_campaign): ?>
-            <li class="campaign published">
+            <li class="campaign -published">
               <?php if (isset($published_campaign['image'])): ?>
                 <?php print $published_campaign['image']; ?>
               <?php endif; ?>
@@ -149,9 +152,10 @@
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
+
         <?php if (isset($campaigns['unpublished'])): ?>
           <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
-            <li class="campaign unpublished">
+            <li class="campaign -unpublished">
               <?php if (isset($unpublished_campaign['image'])): ?>
                 <?php print $unpublished_campaign['image']; ?>
               <?php endif; ?>
@@ -164,6 +168,7 @@
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
+
       </ul>
     </section>
   <?php endif; ?>
@@ -180,15 +185,15 @@
           <?php endif; ?>
           <ul class="gallery">
             <?php foreach ($gallery['items'] as $gallery_item): ?>
-              <li class="gallery-item">
+              <li class="">
                 <?php if (isset($gallery_item['image'])): ?>
                   <?php print $gallery_item['image']; ?>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
+                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_description'])): ?>
-                  <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
+                  <div class="__description"><?php print $gallery_item['image_description']; ?></div>
                 <?php endif; ?>
               </li>
             <?php endforeach; ?>

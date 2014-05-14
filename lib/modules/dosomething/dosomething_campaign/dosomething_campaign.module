@@ -226,7 +226,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
 }
 
 /**
- * Returns an array of variables for a given recommended campaign $nid.
+ * Returns an array of variables for a given campaign $nid.
  *
  * @param int $nid
  *   The node $nid to return variables for.
