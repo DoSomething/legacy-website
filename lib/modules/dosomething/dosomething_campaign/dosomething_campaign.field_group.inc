@@ -25,7 +25,8 @@ function dosomething_campaign_field_group_info() {
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_confirmation_doc',
-      2 => 'title',
+      2 => 'field_campaign_type',
+      3 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -180,9 +181,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
     'weight' => '7',
-    'children' => array(
-      0 => 'field_partners',
-    ),
+    'children' => array(),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'formatter' => 'collapsible',
