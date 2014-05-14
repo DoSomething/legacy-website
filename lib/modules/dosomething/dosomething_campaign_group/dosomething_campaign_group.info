@@ -35,7 +35,6 @@ features[field_group][] = group_header|node|campaign_group|form
 features[field_group][] = group_intro|node|campaign_group|form
 features[field_group][] = group_post_signup|node|campaign_group|form
 features[field_group][] = group_pre_launch|node|campaign_group|form
-features[field_group][] = group_pre_live|node|campaign_group|form
 features[field_group][] = group_signup_form|node|campaign_group|form
 features[field_group][] = group_taxonomy|node|campaign_group|form
 features[field_group][] = group_timing|node|campaign_group|form
