@@ -263,6 +263,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#default_value' => isset($account->field_first_name[LANGUAGE_NONE][0]['value']) ? $account->field_first_name[LANGUAGE_NONE][0]['value'] : '',
       '#attributes' => array(
         'data-validate' => 'fname',
+        'data-validate-required' => '',
       ),
     );
     $form['user_last_name'] = array(
@@ -271,7 +272,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t('Last Name'),
       '#default_value' => isset($account->field_last_name[LANGUAGE_NONE][0]['value']) ? $account->field_last_name[LANGUAGE_NONE][0]['value'] : '',
       '#attributes' => array(
-        'data-validate' => 'lname' 
+        'data-validate' => 'lname',
+        'data-validate-required' => '',
       ),
     );
     $form['user_address'] = array(
@@ -294,6 +296,10 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'textarea',
       '#required' => TRUE,
       '#title' => $config['why_signedup_label'],
+      '#attributes' => array(
+        'data-validate' => 'why_signedup',
+        'data-validate-required' => '',
+      ),
     );
   }
 
@@ -314,6 +320,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     ),
   );
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
+  $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
 
   return $form;
 }
