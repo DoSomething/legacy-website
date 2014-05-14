@@ -188,6 +188,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
+      $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
@@ -227,6 +228,31 @@ function dosomething_user_remove_extra_values_from_address_field($form, &$form_s
 
   return $form;
 
+}
+
+/**
+ * After build to add validation to address fields.
+ */
+function dosomething_user_add_validation_attributes_to_address_fields($form, &$form_state) {
+  // Get the right form address field.
+  if ($form['#form_id'] == 'user_profile_form') {
+    $address = &$form['field_address'][LANGUAGE_NONE][0];
+  } elseif ($form['#form_id'] == 'dosomething_signup_user_signup_data_form') {
+    $address = &$form['user_address'];
+  }
+
+  // Add `data-validate` attributes:
+  $address['address']['street_block']['thoroughfare']['#attributes']['data-validate'] = 'address1';
+  $address['address']['street_block']['thoroughfare']['#attributes']['data-validate-required'] = '';
+  $address['address']['street_block']['premise']['#attributes']['data-validate'] = 'address2';
+  $address['address']['locality_block']['locality']['#attributes']['data-validate'] = 'city';
+  $address['address']['locality_block']['locality']['#attributes']['data-validate-required'] = '';
+  $address['address']['locality_block']['administrative_area']['#attributes']['data-validate'] = 'state';
+  $address['address']['locality_block']['administrative_area']['#attributes']['data-validate-required'] = '';
+  $address['address']['locality_block']['postal_code']['#attributes']['data-validate'] = 'zipcode';
+  $address['address']['locality_block']['postal_code']['#attributes']['data-validate-required'] = '';
+
+  return $form;
 }
 
 /**
