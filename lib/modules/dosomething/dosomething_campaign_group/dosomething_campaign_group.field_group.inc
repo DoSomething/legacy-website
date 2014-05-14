@@ -21,7 +21,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Text',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -110,10 +110,10 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Post Sign Up',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
-      0 => 'field_post_signup_body',
-      1 => 'field_post_signup_title',
+      0 => 'field_post_signup_title',
+      1 => 'field_post_signup_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -138,7 +138,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pre Launch',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_pre_launch_copy',
       1 => 'field_pre_launch_title',
@@ -191,7 +191,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Signup Form',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_signup_confirm_msg',
       1 => 'field_display_signup_form',
@@ -220,7 +220,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '14',
+    'weight' => '15',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
@@ -251,7 +251,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_display_end_date',
       1 => 'field_high_season',

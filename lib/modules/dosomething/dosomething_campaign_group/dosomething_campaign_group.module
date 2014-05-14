@@ -40,7 +40,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     if ($sid) {
       // Set the post_signup vars.
       $template_vars['text'][] = 'post_signup_title';
-      $template_vars['text'][] = 'post_signup_body';
+      $template_vars['text'][] = 'post_signup_copy';
     }
 
     foreach ($template_vars as $key => $labels) {

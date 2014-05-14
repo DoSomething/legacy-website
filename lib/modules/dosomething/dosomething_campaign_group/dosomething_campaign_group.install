@@ -6,7 +6,7 @@
 
 
 /**
- * Deletes field_cta_link.
+ * Deletes instance of field_cta_link.
  */
 function dosomething_campaign_group_update_7001(&$sandbox) {
   if ($instance = field_info_instance('node', 'field_cta_link', 'campaign_group')) {
@@ -21,4 +21,11 @@ function dosomething_campaign_group_update_7002(&$sandbox) {
   if ($instance = field_info_instance('node', 'field_subtitle', 'campaign_group')) {
     field_delete_instance($instance);
   }
+}
+
+/**
+ * Deletes field_post_signup_body.
+ */
+function dosomething_campaign_group_update_7003(&$sandbox) {
+  field_delete_field('field_post_signup_body');
 }

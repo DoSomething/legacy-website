@@ -122,13 +122,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_post_signup_body'
-  $field_bases['field_post_signup_body'] = array(
+  // Exported field_base: 'field_post_signup_copy'
+  $field_bases['field_post_signup_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_post_signup_body',
+    'field_name' => 'field_post_signup_copy',
     'foreign keys' => array(
       'format' => array(
         'columns' => array(

@@ -66,13 +66,13 @@
     </div>
     <?php endif; ?>
 
-    <?php if (isset($post_signup_body)): ?>
+    <?php if (isset($post_signup_copy)): ?>
     <div class="post-signup-wrapper">
       <div class="post-signup">
         <?php if (isset($post_signup_title)): ?>
           <h2><?php print $post_signup_title; ?></h2>
         <?php endif; ?>
-        <p><?php print $post_signup_body; ?></p>
+        <p><?php print $post_signup_copy; ?></p>
       </div>
     </div>
     <?php endif; ?>
