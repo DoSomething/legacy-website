@@ -89,7 +89,7 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
   $form[$fieldset]['config'][$prefix . 'old_people_copy'] = array(
     '#type' => 'textarea',
     '#title' => t('Old People copy'),
-    '#default_value' => $values['link_text'],
+    '#default_value' => $values['old_people_copy'],
     '#description' => t('The copy displayed in the modal form for Old People.'),
     // Should only be visible if old peeps can't submit.
     '#states' => array(
