@@ -11,8 +11,10 @@
 function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign') { return; }
 
-  // Are we on a the action/pitch page?
-  if ($vars['view_mode'] == 'pitch' || $vars['view_mode'] == 'full') {
+  // View modes which need preprocessing.
+  $view_modes = array('pitch', 'full', 'sms_game');
+
+  if (in_array($vars['view_mode'], $view_modes)) {
 
     $node = menu_get_object();
     $wrapper = entity_metadata_wrapper('node', $node);
@@ -52,6 +54,10 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
       // Gather vars for pitch page.
       dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+    }
+    elseif ($vars['view_mode'] == 'sms_game') {
+      // Use the pitch page template to theme.
+      $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
     }
     elseif ($vars['view_mode'] == 'full'){
       // Gather the vars for the action page.

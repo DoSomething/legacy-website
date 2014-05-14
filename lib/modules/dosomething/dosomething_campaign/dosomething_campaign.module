@@ -146,6 +146,10 @@ function dosomething_campaign_node_delete($node) {
 function _dosomething_campaign_pitch_page_access($node) {
   // Are we on a campaign node?
   if ($node->type == 'campaign') {
+    // No pitch page for SMS Games.
+    if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+      return FALSE;
+    }
     // Is the user a DS admin or editor?
     if (dosomething_user_is_staff()) {
       return TRUE;
@@ -361,6 +365,27 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
 }
 
 /**
+ * Returns a loaded campaign $node's field_campaign_type value.
+ *
+ * @param object $node
+ *   A loaded campaign node.
+ *
+ * @return Mixed
+ *   String: The node's campaign type, if a campaign.  Defaults to 'campaign'.
+ *   If the node passed is not a campaign, the function will return FALSE.
+ */
+function dosomething_campaign_get_campaign_type($node) {
+  // Sanity check to make sure this is a campaign.
+  if ($node->type != 'campaign') { return FALSE; }
+
+  // Return campaign by default if no value is set.
+  if (!isset($node->field_campaign_type[LANGUAGE_NONE][0]['value'])) {
+    return 'campaign';
+  }
+  return $node->field_campaign_type[LANGUAGE_NONE][0]['value'];
+}
+
+/**
  * Implements hook_entity_info_alter().
  */
 function dosomething_campaign_entity_info_alter(&$entity_info) {
@@ -368,7 +393,12 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
     'label' => t('Pitch page'),
     'custom settings' => TRUE,
   );
+  $entity_info['node']['view modes']['sms_game'] = array(
+    'label' => t('Sms game'),
+    'custom settings' => TRUE,
+  );
 }
+
 /*
  * Implements hook_entity_view_mode_alter().
  * Used to change the view_mode of the campaign nodes.
@@ -376,13 +406,20 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+    $node = $context['entity'];
+    // Find the campaign type.
+    $campaign_type = dosomething_campaign_get_campaign_type($node);
+    // If SMS Game:
+    if ($campaign_type == 'sms_game') {
+      $view_mode = 'sms_game';
+      return;
+    }
     // If anonymous user:
     if (!user_is_logged_in()) {
       // Display pitch view mode.
       $view_mode = 'pitch';
       return;
     }
-    $node = $context['entity'];
     // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
     if (!dosomething_user_is_staff()) {
       if (!dosomething_signup_exists($node->nid)) {
