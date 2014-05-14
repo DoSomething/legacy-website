@@ -1,0 +1,47 @@
+.container {
+
+  > .wrapper {
+    padding: 1rem;
+    @include clearfix();
+
+    @include media($tablet) {
+      @include span-columns(12);
+      @include shift(2);
+      float: none;
+    }
+
+    @include media($desktop) {
+      padding: 1.5rem 0;
+    }
+  }
+
+  .-columned {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+  }
+
+  .-columned + .-columned {
+    margin-top: 1rem;
+
+    @include media($tablet) {
+      margin-top: 0;
+    }
+  }
+
+  aside {
+    img {
+      @include fluid-image();
+    }
+  }
+
+}
+
+.container__title {
+  line-height: 1.1;
+  margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
+
+  @include media($tablet) {
+    margin-bottom: 1.5rem;
+  }
+}

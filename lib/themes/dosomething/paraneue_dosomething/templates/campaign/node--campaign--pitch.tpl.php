@@ -1,3 +1,15 @@
+<?php
+/**
+ * Returns the HTML for the Campaign Pitch page.
+ *
+ * Available Variables
+ * - $title: Title for the pitch page (string).
+ * - $cta: Call To Action for the pitch page (string).
+ * - $classes: Additional classes passed for output (string).
+ * - $scholarship: Scholarship amount (string).
+ */
+?>
+
 <section class="campaign--wrapper pitch">
 
   <header role="banner" class="-hero <?php print $classes; ?>">

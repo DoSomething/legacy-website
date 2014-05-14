@@ -137,3 +137,13 @@
     }
   }
 }
+
+
+
+// @TODO: Should be moved to Neue
+@mixin fluid-image() {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}

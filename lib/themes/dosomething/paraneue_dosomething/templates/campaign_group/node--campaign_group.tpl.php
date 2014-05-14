@@ -32,74 +32,97 @@
     </div>
   </header>
 
-
   <?php if (isset($intro)): ?>
-    <section class="intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">
-      <?php if (isset($intro_title)): ?>
-        <h1><?php print $intro_title; ?></h1>
-      <?php endif; ?>
-        <div class="intro-content<?php if (isset($intro_image) OR isset($intro_video)): print " intro-content-half-width"; endif; ?>"><?php print $intro; ?></div>
-        <?php if (isset($intro_video)): ?>
-          <aside class="video">
-            <?php print $intro_video; ?>
-          </aside>
-        <?php elseif (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
-      <?php endif; ?>
+    <section class="container intro">
+      <div class="wrapper">
+        <?php if (isset($intro_title)): ?>
+          <h2 class="container__title"><?php print $intro_title; ?></h2>
+        <?php endif; ?>
+
+        <div class="container__body<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
+          <?php print $intro; ?>
+
+          <?php if (isset($modals)): ?>
+            <?php print $modals; ?>
+          <?php endif; ?>
+        </div>
+
+        <?php if (isset($intro_image) || isset($intro_video)): ?>
+        <aside class="-columned">
+          <?php if (isset($intro_video)): ?>
+            <div class="video">
+              <?php print $intro_video; ?>
+            </div>
+          <?php elseif (isset($intro_image)): ?>
+            <?php print $intro_image; ?>
+          <?php endif; ?>
+        </aside>
+        <?php endif; ?>
+      </div>
     </section>
   <?php endif; ?>
 
 
-  <?php if (isset($modals)): ?>
-    <?php print $modals; ?>
+  <?php if (isset($post_signup_copy)): ?>
+    <section class="container post-signup">
+      <div class="wrapper">
+        <?php if (isset($post_signup_title)): ?>
+          <h2 class="container__title"><?php print $post_signup_title; ?></h2>
+        <?php endif; ?>
+
+        <div class="container_body">
+          <?php print $post_signup_copy; ?>
+        </div>
+      </div>
+    </section>
   <?php endif; ?>
 
-  <section>
-    <?php if (isset($pre_launch_copy)): ?>
-    <div class="pre-launch-wrapper">
-      <div class="pre-launch">
+
+  <?php if (isset($pre_launch_copy)): ?>
+    <section class="container pre-launch">
+      <div class="wrapper">
         <?php if (isset($pre_launch_title)): ?>
-          <h2><?php print $pre_launch_title; ?></h2>
+          <h2 class="container__title"><?php print $pre_launch_title; ?></h2>
         <?php endif; ?>
-        <p><?php print $pre_launch_copy; ?></p>
+
+        <div class="container__body">
+          <?php print $pre_launch_copy; ?></p>
+        </div>
       </div>
-    </div>
-    <?php endif; ?>
+    </section>
+  <?php endif; ?>
 
-    <?php if (isset($post_signup_copy)): ?>
-    <div class="post-signup-wrapper">
-      <div class="post-signup">
-        <?php if (isset($post_signup_title)): ?>
-          <h2><?php print $post_signup_title; ?></h2>
-        <?php endif; ?>
-        <p><?php print $post_signup_copy; ?></p>
+
+  <?php if (isset($additional_text)): ?>
+  <section class="container additional-text">
+    <div class="wrapper">
+      <?php if (isset($additional_text_title)): ?>
+        <h2 class="container__title"><?php print $additional_text_title; ?></h2>
+      <?php endif; ?>
+
+      <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
+        <?php print $additional_text; ?>
       </div>
-    </div>
-    <?php endif; ?>
-  </section>
 
-
-    <?php if (isset($additional_text)): ?>
-    <div class="additional-text-wrapper">
-      <div class="additional-text">
-        <?php if (isset($additional_text_title)): ?>
-          <h2><?php print $additional_text_title; ?></h2>
-        <?php endif; ?>
-        <p><?php print $additional_text; ?></p>
-        <?php if (isset($additional_text_image)): ?>
+      <?php if (isset($additional_text_image)): ?>
+        <aside class="-columned">
           <?php print $additional_text_image; ?>
-        <?php endif; ?>
-      </div>
+        </aside>
+      <?php endif; ?>
     </div>
-    <?php endif; ?>
+  </section>
+  <?php endif; ?>
+
+
 
   <?php if (!empty($campaigns)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
-    <section class="">
-      <ul class="campaigns">
+    <section class="container">
+      <ul class="gallery">
+
         <?php if (isset($campaigns['published'])): ?>
           <?php foreach ($campaigns['published'] as $published_campaign): ?>
-            <li class="campaign published">
+            <li class="campaign -published">
               <?php if (isset($published_campaign['image'])): ?>
                 <?php print $published_campaign['image']; ?>
               <?php endif; ?>
@@ -112,9 +135,10 @@
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
+
         <?php if (isset($campaigns['unpublished'])): ?>
           <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
-            <li class="campaign unpublished">
+            <li class="campaign -unpublished">
               <?php if (isset($unpublished_campaign['image'])): ?>
                 <?php print $unpublished_campaign['image']; ?>
               <?php endif; ?>
@@ -127,38 +151,47 @@
             </li>
           <?php endforeach; ?>
         <?php endif; ?>
+
       </ul>
     </section>
   <?php endif; ?>
 
+
   <?php if (!empty($galleries)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
-    <section class="">
-      <?php foreach ($galleries as $gallery): ?>
-        <?php if (isset($gallery['title'])): ?>
-          <h2 class="__title"><?php print $gallery['title']; ?></h2>
-        <?php endif; ?>
-        <ul class="gallery">
-          <?php foreach ($gallery['items'] as $gallery_item): ?>
-            <li class="gallery-item">
-              <?php if (isset($gallery_item['image'])): ?>
-                <?php print $gallery_item['image']; ?>
-              <?php endif; ?>
-              <?php if (isset($gallery_item['image_title'])): ?>
-                  <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
-              <?php endif; ?>
-              <?php if (isset($gallery_item['image_description'])): ?>
-                <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
-              <?php endif; ?>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php endforeach; ?>
+    <section class="container">
+      <div class="wrapper">
+
+        <?php foreach ($galleries as $gallery): ?>
+          <?php if (isset($gallery['title'])): ?>
+            <h2 class="__title"><?php print $gallery['title']; ?></h2>
+          <?php endif; ?>
+          <ul class="gallery">
+            <?php foreach ($gallery['items'] as $gallery_item): ?>
+              <li class="">
+                <?php if (isset($gallery_item['image'])): ?>
+                  <?php print $gallery_item['image']; ?>
+                <?php endif; ?>
+                <?php if (isset($gallery_item['image_title'])): ?>
+                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                <?php endif; ?>
+                <?php if (isset($gallery_item['image_description'])): ?>
+                  <div class="__description"><?php print $gallery_item['image_description']; ?></div>
+                <?php endif; ?>
+              </li>
+            <?php endforeach; ?>
+          </ul>
+        <?php endforeach; ?>
+
+      </div>
     </section>
   <?php endif; ?>
-<?php
-// @todo: Modalize and link to me.
-// Or preprocess me if you don't liek the $content['zendesk_form'].
-print render($content['zendesk_form']);
-?>
+
+
+  <?php
+    // @todo: Modalize and link to me.
+    // Or preprocess me if you don't liek the $content['zendesk_form'].
+    print render($content['zendesk_form']);
+  ?>
+
 </article>
