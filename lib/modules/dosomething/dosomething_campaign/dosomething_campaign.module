@@ -16,6 +16,8 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
   // Add extra non-field form elements.
   dosomething_helpers_form_extras($form, $form_state);
+  // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
+  $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 }
 
 /**
@@ -146,6 +148,10 @@ function dosomething_campaign_node_delete($node) {
 function _dosomething_campaign_pitch_page_access($node) {
   // Are we on a campaign node?
   if ($node->type == 'campaign') {
+    // No pitch page for SMS Games.
+    if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+      return FALSE;
+    }
     // Is the user a DS admin or editor?
     if (dosomething_user_is_staff()) {
       return TRUE;
@@ -280,7 +286,19 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
  * Implements hook_node_view().
  */
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
-  if ($node->type == 'campaign' && $view_mode == 'full') {
+  if ($node->type == 'campaign' && ($view_mode == 'full' || $view_mode == 'sms_game')) {
+
+    // Add Zendesk form variable:
+    if (module_exists('dosomething_zendesk')) {
+      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
+    }
+
+    // Check if SMS Game:
+    if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+      $node->content['signup_form'] = drupal_get_form('dosomething_signup_sms_game_form');
+      return;
+    }
+
     // Add signup_data_form variables if needed.
     dosomething_campaign_add_signup_data_form_vars($node);
     // Add reportback form variable:
@@ -298,10 +316,6 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
       }
       // Set Reportback Form variable in node content for rendering in theme layer.
       $node->content['reportback_form'] = drupal_get_form('dosomething_reportback_form', $reportback);
-    }
-    // Add Zendesk form variable:
-    if (module_exists('dosomething_zendesk')) {
-      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
     }
   }
 }
@@ -361,6 +375,27 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
 }
 
 /**
+ * Returns a loaded campaign $node's field_campaign_type value.
+ *
+ * @param object $node
+ *   A loaded campaign node.
+ *
+ * @return Mixed
+ *   String: The node's campaign type, if a campaign.  Defaults to 'campaign'.
+ *   If the node passed is not a campaign, the function will return FALSE.
+ */
+function dosomething_campaign_get_campaign_type($node) {
+  // Sanity check to make sure this is a campaign.
+  if ($node->type != 'campaign') { return FALSE; }
+
+  // Return campaign by default if no value is set.
+  if (!isset($node->field_campaign_type[LANGUAGE_NONE][0]['value'])) {
+    return 'campaign';
+  }
+  return $node->field_campaign_type[LANGUAGE_NONE][0]['value'];
+}
+
+/**
  * Implements hook_entity_info_alter().
  */
 function dosomething_campaign_entity_info_alter(&$entity_info) {
@@ -368,7 +403,12 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
     'label' => t('Pitch page'),
     'custom settings' => TRUE,
   );
+  $entity_info['node']['view modes']['sms_game'] = array(
+    'label' => t('Sms game'),
+    'custom settings' => TRUE,
+  );
 }
+
 /*
  * Implements hook_entity_view_mode_alter().
  * Used to change the view_mode of the campaign nodes.
@@ -376,13 +416,20 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+    $node = $context['entity'];
+    // Find the campaign type.
+    $campaign_type = dosomething_campaign_get_campaign_type($node);
+    // If SMS Game:
+    if ($campaign_type == 'sms_game') {
+      $view_mode = 'sms_game';
+      return;
+    }
     // If anonymous user:
     if (!user_is_logged_in()) {
       // Display pitch view mode.
       $view_mode = 'pitch';
       return;
     }
-    $node = $context['entity'];
     // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
     if (!dosomething_user_is_staff()) {
       if (!dosomething_signup_exists($node->nid)) {
@@ -570,4 +617,14 @@ function dosomething_campaign_get_recommended_nids_by_term($tid, $uid, $limit) {
   // Add field condition to only campaigns with primary cause $tid.
   $query->fieldCondition('field_primary_cause', 'tid', $tid);
   return _dosomething_campaign_get_recommended_query_nids($query);
+}
+
+
+/**
+ * Callback for the dosomething_campaign_form_campaign_node_form_alter #after_build setting.
+ */
+function dosomething_campaign_form_campaign_node_form_after_build($form, &$form_state) {
+  $path = drupal_get_path('module', 'dosomething_campaign');
+  drupal_add_js ($path . "/js/campaign_node_form.js");
+  return $form;
 }

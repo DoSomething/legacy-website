@@ -112,6 +112,32 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_campaign_type'
+  $field_bases['field_campaign_type'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_campaign_type',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'campaign' => 'Campaign',
+        'sms_game' => 'SMS Game',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_compound_text_copy'
   $field_bases['field_compound_text_copy'] = array(
     'active' => 1,

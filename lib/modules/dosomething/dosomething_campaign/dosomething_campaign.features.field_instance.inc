@@ -408,6 +408,53 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_campaign_type'
+  $field_instances['node-campaign-field_campaign_type'] = array(
+    'bundle' => 'campaign',
+    'default_value' => array(
+      0 => array(
+        'value' => 'campaign',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 63,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_campaign_type',
+    'label' => 'Campaign type',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_cause'
   $field_instances['node-campaign-field_cause'] = array(
     'bundle' => 'campaign',
@@ -507,7 +554,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -2543,6 +2590,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Answer');
   t('Call to Action');
   t('Campaign Specific Starter Statement');
+  t('Campaign type');
   t('Cause');
   t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
 <br/>
