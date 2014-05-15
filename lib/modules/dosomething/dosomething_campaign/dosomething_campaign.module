@@ -60,6 +60,13 @@ function dosomething_campaign_menu() {
     'page callback' => 'dosomething_campaign_scholarships_page',
     'access callback' => TRUE,
   );
+  // Submit a campaign idea page.
+  $items['campaigns/hunt/campaign-form'] = array(
+    'title' => t('Submit Your Causey Idea to DoSomething.org'),
+    'page callback' => 'dosomething_campaign_submit_idea_page',
+    'access callback' => TRUE,
+    'file' => 'dosomething_campaign.pages.inc',
+  );
   return $items;
 }
 
@@ -278,6 +285,9 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'campaign-block',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
       'variables' => NULL,
+    ),
+    'submit_campaign_idea' => array(
+      'template' => 'submit-campaign-idea',
     ),
   );
 }
