@@ -79,38 +79,6 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_images|node|campaign|form';
-  $field_group->group_name = 'group_images';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'campaign';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Media',
-    'weight' => '8',
-    'children' => array(
-      0 => 'field_image_campaign_cover',
-      1 => 'field_image_psa_replacement',
-      2 => 'field_image_reportback_gallery',
-      3 => 'field_image_step_gallery',
-      4 => 'field_video',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Media',
-      'instance_settings' => array(
-        'required_fields' => 0,
-        'classes' => '',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $export['group_images|node|campaign|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_incentives|node|campaign|form';
   $field_group->group_name = 'group_incentives';
   $field_group->entity_type = 'node';
@@ -294,34 +262,6 @@ function dosomething_campaign_field_group_info() {
     ),
   );
   $export['group_report_back|node|campaign|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_sponsors|node|campaign|form';
-  $field_group->group_name = 'group_sponsors';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'campaign';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Sponsors and Partners',
-    'weight' => '8',
-    'children' => array(
-      0 => 'field_partners',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Sponsors and Partners',
-      'instance_settings' => array(
-        'required_fields' => 0,
-        'classes' => '',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $export['group_sponsors|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
