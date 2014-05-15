@@ -11,13 +11,6 @@ end
 
 set :ssh_options, { :forward_agent => true }
 
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
-
-# Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-
-
 namespace :deploy do
 
   desc "Run ds build tasks"
@@ -25,6 +18,8 @@ namespace :deploy do
     on roles(:app) do |host|
       execute "cd '#{release_path}'; #{release_path}/bin/ds build"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
+      execute "cd '#{release_path}/html'; drush vset --yes ds_version " + ENV['branch']
+      execute "cd '#{release_path}/html'; echo " + ENV['branch'] + " > VERSION"
     end
   end
 
