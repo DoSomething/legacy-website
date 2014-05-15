@@ -5,6 +5,45 @@
  */
 
 /**
+ * Page callback for the user reportback confirmation page.
+ *
+ * @param object $node
+ *   The loaded campaign node.
+ *
+ * @return string
+ *   Rendered HTML.
+ */
+function dosomething_campaign_reportback_confirmation_page($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Link to "more campaigns".
+  $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
+    'attributes' => array('class' =>
+      array('btn', 'large')
+    ))
+  );
+  // Link back to current node.
+  $campaign_link_title = t('Back to @title', array('@title' => $node->title));
+  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  // Store current node's primary cause tid.
+  $tid = $wrapper->field_primary_cause->getIdentifier();
+  // Get recommended campaign nids for term $tid and current user.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid);
+  // Initalize array to store reccomended campaign vars.
+  $rec_vars = array();
+  // Loop through rec_nids to load relevant variables.
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+  }
+  return theme('reportback_confirmation', array(
+    'copy' => $wrapper->field_reportback_confirm_msg->value(),
+    'more_campaigns_link' => $more_campaigns_link,
+    'back_to_campaign_link' => $back_to_campaign_link,
+    'recommended' => $rec_vars,
+    )
+  );
+}
+
+/**
  * Page callback for campaigns/hunt/submit.
  *
  * @see dosomething_campaign_menu().
