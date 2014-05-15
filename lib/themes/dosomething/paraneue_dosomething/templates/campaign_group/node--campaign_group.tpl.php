@@ -116,7 +116,6 @@
 
 
   <?php if (!empty($campaigns)): ?>
-    <?php // @TODO: Need to add a new class for this section. ?>
     <section class="container container--campaigns">
       <ul class="gallery -mosaic">
 
@@ -150,18 +149,20 @@
           <?php if (isset($gallery['title'])): ?>
             <h2 class="__title"><?php print $gallery['title']; ?></h2>
           <?php endif; ?>
-          <ul class="gallery">
+          <ul class="gallery -triad">
             <?php foreach ($gallery['items'] as $gallery_item): ?>
               <li class="">
-                <?php if (isset($gallery_item['image'])): ?>
-                  <?php print $gallery_item['image']; ?>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_description'])): ?>
-                  <div class="__description"><?php print $gallery_item['image_description']; ?></div>
-                <?php endif; ?>
+                <div class="tile tile--figure">
+                  <?php if (isset($gallery_item['image'])): ?>
+                    <?php print $gallery_item['image']; ?>
+                  <?php endif; ?>
+                  <?php if (isset($gallery_item['image_title'])): ?>
+                      <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                  <?php endif; ?>
+                  <?php if (isset($gallery_item['image_description'])): ?>
+                    <div class="__description"><?php print $gallery_item['image_description']; ?></div>
+                  <?php endif; ?>
+                </div>
               </li>
             <?php endforeach; ?>
           </ul>
@@ -171,11 +172,25 @@
     </section>
   <?php endif; ?>
 
+  <div>
+    <?php if (isset($content['zendesk_form'])): ?>
+    <a href="#modal-contact-form" class="js-modal-link">Questions? Contact Us</a>
+    <script id="modal-contact-form"  class="modal--contact" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+      <?php print render($content['zendesk_form']); ?>
+    </script>
+    <?php endif; ?>
+  </div>
 
-  <?php
-    // @todo: Modalize and link to me.
-    // Or preprocess me if you don't liek the $content['zendesk_form'].
-    print render($content['zendesk_form']);
-  ?>
+  <?php /*
+  <a href="#modal-signup-data-form" class="js-modal-link"><?php print $signup_data_form_link; ?></a>
 
+  <?php if (isset($signup_data_form)): ?>
+  <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+      <div><?php print render($signup_data_form); ?></div>
+      <?php if (isset($skip_signup_data_form)): ?>
+      <div><?php print render($skip_signup_data_form); ?></div>
+      <?php endif; ?>
+  </script>
+  <?php endif; ?>
+  */ ?>
 </article>

@@ -8,6 +8,7 @@
       @include span-columns(12);
       @include shift(2);
       float: none;
+      padding: 1rem 0;
     }
 
     @include media($desktop) {
