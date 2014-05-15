@@ -16,6 +16,8 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
   // Add extra non-field form elements.
   dosomething_helpers_form_extras($form, $form_state);
+  // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
+  $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 }
 
 /**
@@ -607,4 +609,14 @@ function dosomething_campaign_get_recommended_nids_by_term($tid, $uid, $limit) {
   // Add field condition to only campaigns with primary cause $tid.
   $query->fieldCondition('field_primary_cause', 'tid', $tid);
   return _dosomething_campaign_get_recommended_query_nids($query);
+}
+
+
+/**
+ * Callback for the dosomething_campaign_form_campaign_node_form_alter #after_build setting.
+ */
+function dosomething_campaign_form_campaign_node_form_after_build($form, &$form_state) {
+  $path = drupal_get_path('module', 'dosomething_campaign');
+  drupal_add_js ($path . "/js/campaign_node_form.js");
+  return $form;
 }
