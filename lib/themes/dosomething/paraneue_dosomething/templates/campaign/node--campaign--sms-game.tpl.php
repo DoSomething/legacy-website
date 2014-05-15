@@ -88,16 +88,10 @@
       <?php endif; ?>
     </section>
 
-    <h2 id="plan" class="banner"><span>Step 2: Plan It</span></h2>
-    <section class="plan step">
-      <?php if (isset($starter)) : ?>
-        <div class="intro"><?php print $starter['safe_value']; ?></div>
-      <?php endif; ?>
-      <div class="col first">
-        <?php if (isset($items_needed)) : ?>
-          <h4 class="inline--alt-color">Stuff You Need</h4>
-          <div><?php print $items_needed['safe_value']; ?></div>
-        <?php endif; ?>
+    <h2 id="plan" class="banner"><span>Step 2: Share It</span></h2>
+    <section>
+      <div>
+        <?php print render($signup_form); ?>
       </div>
     </section>
 

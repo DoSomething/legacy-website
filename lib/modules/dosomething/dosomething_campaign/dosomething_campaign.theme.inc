@@ -63,6 +63,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     if ($vars['view_mode'] == 'sms_game') {
       // Use the pitch page template to theme.
       $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
+      dosomething_campaign_preprocess_sms_game($vars, $wrapper);
     }
     elseif ($vars['view_mode'] == 'full'){
       // Preprocess the vars for the campaign action page.
@@ -288,4 +289,16 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
     // Pass it as a param to display on the signup button.
     dosomething_signup_preprocess_signup_button($vars, $label);
   }  
+}
+
+/**
+ * Preprocesses variables for a SMS Game.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ * @param object $wrapper
+ *   The corresponding entity wrapper for the node in $vars.
+ */
+function dosomething_campaign_preprocess_sms_game(&$vars, &$wrapper) {
+  $vars['signup_form'] = $vars['content']['signup_form'];
 }
