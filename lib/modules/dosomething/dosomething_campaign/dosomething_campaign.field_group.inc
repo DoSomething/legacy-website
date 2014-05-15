@@ -25,8 +25,9 @@ function dosomething_campaign_field_group_info() {
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_confirmation_doc',
-      2 => 'field_campaign_type',
-      3 => 'title',
+      2 => 'field_image_campaign_cover',
+      3 => 'field_campaign_type',
+      4 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,13 +54,14 @@ function dosomething_campaign_field_group_info() {
     'label' => 'Do It',
     'weight' => '4',
     'children' => array(
-      0 => 'field_photo_step',
-      1 => 'field_post_step_copy',
-      2 => 'field_post_step_header',
-      3 => 'field_pre_step_copy',
-      4 => 'field_pre_step_header',
-      5 => 'field_step_post',
-      6 => 'field_step_pre',
+      0 => 'field_image_step_gallery',
+      1 => 'field_photo_step',
+      2 => 'field_post_step_copy',
+      3 => 'field_post_step_header',
+      4 => 'field_pre_step_copy',
+      5 => 'field_pre_step_header',
+      6 => 'field_step_post',
+      7 => 'field_step_pre',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -77,34 +79,31 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_images|node|campaign|form';
-  $field_group->group_name = 'group_images';
+  $field_group->identifier = 'group_incentives|node|campaign|form';
+  $field_group->group_name = 'group_incentives';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'campaign';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Media',
-    'weight' => '8',
+    'label' => 'Incentives',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_image_campaign_cover',
-      1 => 'field_image_psa_replacement',
-      2 => 'field_image_reportback_gallery',
-      3 => 'field_image_step_gallery',
-      4 => 'field_video',
+      0 => 'field_official_rules',
+      1 => 'field_scholarship_amount',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Media',
+      'label' => 'Incentives',
       'instance_settings' => array(
-        'required_fields' => 0,
-        'classes' => '',
+        'required_fields' => 1,
+        'classes' => 'group-incentives field-group-fieldset',
         'description' => '',
       ),
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_images|node|campaign|form'] = $field_group;
+  $export['group_incentives|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -123,8 +122,11 @@ function dosomething_campaign_field_group_info() {
       1 => 'field_fact_solution',
       2 => 'field_facts',
       3 => 'field_faq',
-      4 => 'field_solution_support',
-      5 => 'field_solution_copy',
+      4 => 'field_image_psa_replacement',
+      5 => 'field_solution_support',
+      6 => 'field_starter_statement',
+      7 => 'field_solution_copy',
+      8 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -180,16 +182,19 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
-    'weight' => '7',
-    'children' => array(),
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_partners',
+    ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Sponsors and Partners',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-partners field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-partners field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_partners|node|campaign|form'] = $field_group;
@@ -209,11 +214,10 @@ function dosomething_campaign_field_group_info() {
     'children' => array(
       0 => 'field_items_needed',
       1 => 'field_promoting_tips',
-      2 => 'field_starter_statement',
-      3 => 'field_time_and_place',
-      4 => 'field_vips',
-      5 => 'field_action_guide',
-      6 => 'group_location_finder',
+      2 => 'field_time_and_place',
+      3 => 'field_vips',
+      4 => 'field_action_guide',
+      5 => 'group_location_finder',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -241,12 +245,11 @@ function dosomething_campaign_field_group_info() {
     'label' => 'Prove It',
     'weight' => '5',
     'children' => array(
-      0 => 'field_official_rules',
+      0 => 'field_image_reportback_gallery',
       1 => 'field_reportback_confirm_msg',
       2 => 'field_reportback_copy',
       3 => 'field_reportback_noun',
       4 => 'field_reportback_verb',
-      5 => 'field_scholarship_amount',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -264,34 +267,6 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_sponsors|node|campaign|form';
-  $field_group->group_name = 'group_sponsors';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'campaign';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Sponsors and Partners',
-    'weight' => '8',
-    'children' => array(
-      0 => 'field_partners',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Sponsors and Partners',
-      'instance_settings' => array(
-        'required_fields' => 0,
-        'classes' => '',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $export['group_sponsors|node|campaign|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_taxonomy|node|campaign|form';
   $field_group->group_name = 'group_taxonomy';
   $field_group->entity_type = 'node';
@@ -300,7 +275,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',
