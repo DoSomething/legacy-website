@@ -54,13 +54,18 @@ function dosomething_campaign_preprocess_node(&$vars) {
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
       // Gather vars for pitch page.
       dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+      return;
     }
-    elseif ($vars['view_mode'] == 'sms_game') {
+    
+    // Preprocess common vars between all campaign types.
+    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
+    if ($vars['view_mode'] == 'sms_game') {
       // Use the pitch page template to theme.
       $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
     }
     elseif ($vars['view_mode'] == 'full'){
-      // Gather the vars for the action page.
+      // Preprocess the vars for the campaign action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
   }
@@ -90,19 +95,26 @@ function dosomething_campaign_preprocess_custom_vars(&$vars) {
 }
 
 /**
- * Preprocesses variables for a campaign action page.
- *
- * @param array $vars
- *   Node variables, passed from preprocess_node.
- * @param object $wrapper
- *   The corresponding entity wrapper for the node in $vars.
+ * Preprocesses variables common between campaign action page and sms_game.
  */
-function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
-  // Know.
+function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['solution_copy'] = $wrapper->field_solution_copy->value();
   $vars['solution_support'] = $wrapper->field_solution_support->value();
-  $vars['issue'] = $wrapper->field_issue->value()->name;
+  $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
+  dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
+  dosomething_campaign_preprocess_media_vars($vars, $wrapper);
+  $vars['official_rules'] = $wrapper->field_official_rules->value();
+  $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
+  // Zendesk Support Ticket form.
+  if (isset($vars['content']['zendesk_form'])) {
+    $vars['zendesk_form'] = $vars['content']['zendesk_form'];
+  }
+}
 
+/**
+ * Preprocesses variables for facts fields.
+ */
+function dosomething_campaign_preprocess_facts_vars(&$vars, &$wrapper) {
   // Collect multiple fact fields values as fact and sources variables.
   $fact_fields = array('field_fact_problem', 'field_fact_solution');
   $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
@@ -116,18 +128,21 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     // Store all sources from fields as a sources array.
     $vars['fact_sources'] = $fact_vars['sources'];
   }
-
   // Check for additional facts in field_facts.
   if ($wrapper->field_facts->count() > 0) {
     $vars['more_facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
   }
+}
 
-  // Collect all field_collection values as vars.
-  $field_collections = array('faq', 'step_pre', 'step_post');
-  foreach ($field_collections as $fc) {
-    $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
-  }
-
+/**
+ * Preprocesses variables for facts fields.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ * @param object $wrapper
+ *   The corresponding entity wrapper for the node in $vars.
+ */
+function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
   if (!empty($vars['field_video'])) {
     $vars['psa'] = theme('dosomething_video_embed', array(
       'field' => $wrapper->field_video->value(),
@@ -140,6 +155,25 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $psa_nid = $vars['field_image_psa_replacement'][0]['entity']->nid;
       $vars['psa'] = dosomething_image_get_themed_image($psa_nid, 'landscape', '550x300');
     }
+  }
+}
+
+/**
+ * Preprocesses variables for a campaign action page.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ * @param object $wrapper
+ *   The corresponding entity wrapper for the node in $vars.
+ */
+function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
+
+  $vars['issue'] = $wrapper->field_issue->value()->name;
+
+  // Collect step field_collection values.
+  $field_collections = array('step_pre', 'step_post');
+  foreach ($field_collections as $fc) {
+    $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 
   // Plan.
@@ -184,8 +218,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
-  $vars['official_rules'] = $wrapper->field_official_rules->value();
-  $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
 
   $reportback_placeholder = drupal_get_path('theme', 'paraneue_dosomething') . '/images/this-could-be-you.jpg';
   $vars['reportback_placeholder'] = theme('image', array('path'=>$reportback_placeholder, 'alt'=> 'This could be you!'));
@@ -206,11 +238,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['reportback_link']['size'] = "small";
   }
   $vars['reportback_form'] = $vars['content']['reportback_form'];
-
-  // Zendesk Support Ticket form.
-  if (isset($vars['content']['reportback_form'])) {
-    $vars['zendesk_form'] = $vars['content']['zendesk_form'];
-  }
 
   $vars['modals'] = theme('modal_links', array('modals' =>
       array(
