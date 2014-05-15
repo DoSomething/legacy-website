@@ -119,8 +119,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 }
 
 /**
- * Build common payload for campaign / group_campaign transactional producer
- * requests.
+ * Common payload for campaign / group_campaign transactional producer requests.
  *
  * NOTE:
  * Any adjustments to the data before it becomes common campaign /
@@ -166,6 +165,7 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
       $payload = array(
         'application_event' => $origin,
         'application_id' => variable_get('message_broker_producer_application_id', '-1'),
+        'nid' => $params['nid'],
         'title' => $params['title'],
         'url' => $params['url'],
         'call_to_action' => $params['call_to_action'],
