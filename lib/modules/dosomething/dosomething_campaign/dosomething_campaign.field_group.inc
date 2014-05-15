@@ -188,12 +188,13 @@ function dosomething_campaign_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Sponsors and Partners',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-partners field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-partners field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_partners|node|campaign|form'] = $field_group;
