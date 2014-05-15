@@ -553,8 +553,12 @@ function dosomething_signup_get_signup_nids_by_uid($uid) {
  *   Whether or not logged in user can remove signup (and if it exists).
  */
 function dosomething_signup_node_unsignup_access($node) {
-  // Only allow access if user staff and is signed up.
-  return dosomething_user_is_staff() && dosomething_signup_exists($node->nid);
+  // Only display for node types that implement signup forms.
+  if ($node->type == 'campaign' || $node->type == 'campaign_group') {
+    // Only allow access if user staff and is signed up.
+    return dosomething_user_is_staff() && dosomething_signup_exists($node->nid);
+  }
+  return FALSE;
 }
 
 /**
