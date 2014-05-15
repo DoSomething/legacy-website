@@ -65,7 +65,6 @@ features[user_permission][] = administer fieldgroups
 features[user_permission][] = administer filters
 features[user_permission][] = administer image styles
 features[user_permission][] = administer languages
-features[user_permission][] = administer message_broker_producer
 features[user_permission][] = administer mobilecommons
 features[user_permission][] = administer module filter
 features[user_permission][] = administer modules
@@ -110,3 +109,4 @@ features[variable][] = user_register
 features[views_view][] = content_search
 features[views_view][] = user_search
 files[] = dosomething_user.test
+
