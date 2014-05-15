@@ -181,16 +181,4 @@
     <?php endif; ?>
   </div>
 
-  <?php /*
-  <a href="#modal-signup-data-form" class="js-modal-link"><?php print $signup_data_form_link; ?></a>
-
-  <?php if (isset($signup_data_form)): ?>
-  <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
-      <div><?php print render($signup_data_form); ?></div>
-      <?php if (isset($skip_signup_data_form)): ?>
-      <div><?php print render($skip_signup_data_form); ?></div>
-      <?php endif; ?>
-  </script>
-  <?php endif; ?>
-  */ ?>
 </article>
