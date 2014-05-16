@@ -22,16 +22,16 @@ function dosomething_campaign_strongarm() {
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '10',
-        ),
-        'metatags' => array(
           'weight' => '11',
         ),
-        'redirect' => array(
+        'metatags' => array(
           'weight' => '12',
         ),
-        'xmlsitemap' => array(
+        'redirect' => array(
           'weight' => '13',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '14',
         ),
       ),
       'display' => array(),

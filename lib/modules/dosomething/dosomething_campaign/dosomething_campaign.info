@@ -70,6 +70,7 @@ features[field_base][] = field_step_pre
 features[field_base][] = field_time_and_place
 features[field_base][] = field_vips
 features[field_group][] = group_basic_info|node|campaign|form
+features[field_group][] = group_confirmation|node|campaign|form
 features[field_group][] = group_do_it|node|campaign|form
 features[field_group][] = group_incentives|node|campaign|form
 features[field_group][] = group_know_it|node|campaign|form
