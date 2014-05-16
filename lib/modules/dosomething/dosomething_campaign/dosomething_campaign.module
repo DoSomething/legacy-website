@@ -166,10 +166,18 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
   if (module_exists('dosomething_user') && dosomething_user_is_staff()) {
     return TRUE;
   }
-  // Else only grant if the user has reported back on this campaign.
-  elseif (module_exists('dosomething_reportback') && dosomething_reportback_exists($node->nid)) {
+
+  // If this a SMS Game, allow access to anybody, including anonymous users.
+  if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     return TRUE;
   }
+  
+  // Else only grant if the user has reported back on this campaign.
+  if (user_is_logged_in() && module_exists('dosomething_reportback') && dosomething_reportback_exists($node->nid)) {
+    return TRUE;
+  }
+
+  // Return FALSE as default.
   return FALSE;
 }
 
