@@ -240,7 +240,7 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
 
     // Check if SMS Game:
     if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-      $node->content['signup_form'] = drupal_get_form('dosomething_signup_sms_game_form');
+      $node->content['signup_form'] = drupal_get_form('dosomething_signup_alpha_beta_form');
       return;
     }
 
