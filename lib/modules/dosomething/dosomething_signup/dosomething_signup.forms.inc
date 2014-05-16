@@ -65,20 +65,50 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
 
 /**
  * Form validation handler for dosomething_signup_alpha_beta_form().
+ *
+ * Provides server-side checks for valid and duplicate numbers, cleans input format.
  */
 function dosomething_signup_alpha_beta_form_validate($form, &$form_state) {
   $values = $form_state['values'];
-  $msg = t("Please provide a valid telephone number.");
-  // If alpha_mobile is not a valid number:
-  if (!dosomething_user_clean_mobile_number($values['alpha_mobile'])) {
-    form_set_error('alpha_mobile', $msg);
+  // Text to display for invalid number format.
+  $invalid_format_msg = t("Please provide a valid telephone number.");
+  // Initialize array to store all inputted numbers, to check for duplicates.
+  $numbers = array();
+
+  // Check if alpha is a valid number:
+  $alpha_value = dosomething_user_clean_mobile_number($values['alpha_mobile']);
+  if (!$alpha_value) {
+    form_set_error('alpha_mobile', $invalid_format_msg);
   }
+  else {
+    // Add to numbers inputted.
+    $numbers[] = $alpha_value;
+    // Update form_state value with the clean format.
+    $form_state['values']['alpha_mobile'] = $alpha_value;
+  }
+
   // Loop through beta form values.
   for ($i = 0; $i < $values['num_betas']; $i++) {
     $beta = 'beta_mobile_' . $i;
-    // If a value exists and it is not a valid number:
-    if (!empty($values[$beta]) && !dosomething_user_clean_mobile_number($values[$beta])) {
-      form_set_error($beta, $msg);
+    // If a value exists:
+    if (!empty($values[$beta])) {
+
+      // Check if valid number.
+      $beta_value = dosomething_user_clean_mobile_number($values[$beta]);
+      if (!$beta_value) {
+        form_set_error($beta, $invalid_format_msg);
+      }
+      // Check if the number is a duplicate value.
+      elseif (in_array($beta_value, $numbers)) {
+        form_set_error($beta, t("Hey, you entered this number already!"));
+      }
+      // Else store as an inputted number to check against later.
+      else {
+        $numbers[] = $beta_value;
+        // Update form_state value with the clean format.
+        $form_state['values'][$beta] = $beta_value;
+      }
+
     }
   }
 }
