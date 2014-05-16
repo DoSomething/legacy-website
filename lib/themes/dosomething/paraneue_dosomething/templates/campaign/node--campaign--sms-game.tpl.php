@@ -90,6 +90,9 @@
 
     <h2 id="plan" class="banner"><span>Step 2: Share It</span></h2>
     <section>
+      <?php if (isset($starter)) : ?>
+        <div class="intro"><?php print $starter['safe_value']; ?></div>
+      <?php endif; ?>
       <div>
         <?php print render($signup_form); ?>
       </div>

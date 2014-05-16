@@ -104,6 +104,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);
+  $vars['starter'] = $wrapper->field_starter_statement->value();
   $vars['official_rules'] = $wrapper->field_official_rules->value();
   $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
   // Zendesk Support Ticket form.
@@ -178,7 +179,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Plan.
-  $vars['starter'] = $wrapper->field_starter_statement->value();
   $vars['time'] = $wrapper->field_time_and_place->value();
   $vars['vips'] = $wrapper->field_vips->value();
   $vars['hype'] = $wrapper->field_promoting_tips->value();
