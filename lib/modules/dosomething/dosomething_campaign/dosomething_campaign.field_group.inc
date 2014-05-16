@@ -52,7 +52,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Do It',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_image_step_gallery',
       1 => 'field_photo_step',
@@ -87,7 +87,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Incentives',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_scholarship_amount',
@@ -124,9 +124,8 @@ function dosomething_campaign_field_group_info() {
       3 => 'field_faq',
       4 => 'field_image_psa_replacement',
       5 => 'field_solution_support',
-      6 => 'field_starter_statement',
-      7 => 'field_solution_copy',
-      8 => 'field_video',
+      6 => 'field_solution_copy',
+      7 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -182,7 +181,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_partners',
     ),
@@ -210,7 +209,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Plan It',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_items_needed',
       1 => 'field_promoting_tips',
@@ -225,7 +224,7 @@ function dosomething_campaign_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 0,
         'classes' => '',
-        'description' => 'This section describes what a user needs to do BEFORE they can start taking the action (i.e. things they\'ll need, people to talk to, etc.). The Campaign Starter Statement is required. All other fields are optional however you MUST fill out AT LEAST TWO of Stuff You Need, Time and Place, VIPs, and Hype.',
+        'description' => 'This section describes what a user needs to do BEFORE they can start taking the action (i.e. things they\'ll need, people to talk to, etc.).  You MUST fill out AT LEAST TWO of Stuff You Need, Time and Place, VIPs, and Hype.',
       ),
       'formatter' => 'collapsed',
     ),
@@ -243,7 +242,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prove It',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_image_reportback_gallery',
       1 => 'field_reportback_confirm_msg',
@@ -267,6 +266,34 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_starter_statement|node|campaign|form';
+  $field_group->group_name = 'group_starter_statement';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Starter Statement',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_starter_statement',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Starter Statement',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-starter-statement field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_starter_statement|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_taxonomy|node|campaign|form';
   $field_group->group_name = 'group_taxonomy';
   $field_group->entity_type = 'node';
@@ -275,7 +302,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',

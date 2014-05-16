@@ -77,6 +77,7 @@ features[field_group][] = group_location_finder|node|campaign|form
 features[field_group][] = group_partners|node|campaign|form
 features[field_group][] = group_prep_it|node|campaign|form
 features[field_group][] = group_report_back|node|campaign|form
+features[field_group][] = group_starter_statement|node|campaign|form
 features[field_group][] = group_taxonomy|node|campaign|form
 features[field_group][] = group_timing|node|campaign|form
 features[field_instance][] = field_collection_item-field_faq-field_compound_text_copy
