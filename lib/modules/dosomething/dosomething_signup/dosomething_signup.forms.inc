@@ -19,6 +19,11 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
     '#default_value' => $node->nid,
     '#access' => FALSE,
   );
+  $form['num_betas'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $num_betas,
+    '#access' => FALSE,
+  );
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
@@ -56,6 +61,26 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
     ),
   );
   return $form;
+}
+
+/**
+ * Form validation handler for dosomething_signup_alpha_beta_form().
+ */
+function dosomething_signup_alpha_beta_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  $msg = t("Please provide a valid telephone number.");
+  // If alpha_mobile is not a valid number:
+  if (!dosomething_user_clean_mobile_number($values['alpha_mobile'])) {
+    form_set_error('alpha_mobile', $msg);
+  }
+  // Loop through beta form values.
+  for ($i = 0; $i < $values['num_betas']; $i++) {
+    $beta = 'beta_mobile_' . $i;
+    // If a value exists and it is not a valid number:
+    if (!empty($values[$beta]) && !dosomething_user_clean_mobile_number($values[$beta])) {
+      form_set_error($beta, $msg);
+    }
+  }
 }
 
 /**
