@@ -3,6 +3,7 @@
  * Returns the HTML for the Campaign Reportback Confirmation.
  *
  * Available Variables
+ * - $page_title: The page title (string).
  * - $copy: Positive note message copy (string).
  * - $more_campaigns_link: Link to find more campaigns (string).
  * - $back_to_campaign_link: Link to head back to originating campagin (string).
@@ -22,7 +23,7 @@
 
   <header role="banner" class="-basic">
     <div class="wrapper">
-      <h1 class="__title">You Did It!</h1>
+      <h1 class="__title"><?php print $page_title; ?></h1>
       <?php if (isset($copy)): ?>
         <h2 class="__subtitle"><?php print $copy; ?></h2>
       <?php endif; ?>

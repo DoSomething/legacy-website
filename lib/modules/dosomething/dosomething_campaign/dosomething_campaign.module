@@ -48,7 +48,8 @@ function dosomething_campaign_menu() {
   );
   // User reportback confirmation page.
   $items['node/%node/confirmation'] = array(
-    'title' => 'You Did It!',
+    'title callback' => 'dosomething_campaign_reportback_confirmation_page_title',
+    'title arguments' => array(1),
     'page callback' => 'dosomething_campaign_reportback_confirmation_page',
     'page arguments' => array(1),
     'access callback' => 'dosomething_campaign_reportback_confirmation_page_access',
@@ -150,6 +151,24 @@ function _dosomething_campaign_pitch_view_mode($node) {
 }
 
 /**
+ * Determines page title of the reportback confirmation page.
+ *
+ * @param object $node
+ *   The loaded campaign node.
+ *
+ * @return string
+ */
+function dosomething_campaign_reportback_confirmation_page_title($node) {
+  if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+    $title = 'Thanks for sharing!';
+  }
+  else {
+    $title = 'You did it!';
+  }
+  return t($title);
+}
+
+/**
  * Determines whether a user has access to the user reportback confirmation page.
  *
  * @param object $node
@@ -218,6 +237,7 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'reportback-confirmation',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
       'variables' => array(
+        'page_title' => NULL,
         'copy' => NULL,
         'more_campaigns_link' => NULL,
         'back_to_campaign_link' => NULL,

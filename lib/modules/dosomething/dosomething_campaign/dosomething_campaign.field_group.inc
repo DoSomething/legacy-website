@@ -44,6 +44,34 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_confirmation|node|campaign|form';
+  $field_group->group_name = 'group_confirmation';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Confirmation',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_reportback_confirm_msg',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Confirmation',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-confirmation field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_confirmation|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_do_it|node|campaign|form';
   $field_group->group_name = 'group_do_it';
   $field_group->entity_type = 'node';
@@ -87,7 +115,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Incentives',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_scholarship_amount',
@@ -181,7 +209,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_partners',
     ),
@@ -245,10 +273,9 @@ function dosomething_campaign_field_group_info() {
     'weight' => '6',
     'children' => array(
       0 => 'field_image_reportback_gallery',
-      1 => 'field_reportback_confirm_msg',
-      2 => 'field_reportback_copy',
-      3 => 'field_reportback_noun',
-      4 => 'field_reportback_verb',
+      1 => 'field_reportback_copy',
+      2 => 'field_reportback_noun',
+      3 => 'field_reportback_verb',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -302,7 +329,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',
