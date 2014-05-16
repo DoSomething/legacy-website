@@ -35,6 +35,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
   }
   return theme('reportback_confirmation', array(
+    'page_title' => dosomething_campaign_reportback_confirmation_page_title($node),
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
