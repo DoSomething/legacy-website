@@ -46,6 +46,17 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 60,
   );
+  // Campaign custom settings admin page.
+  $items['node/%node/custom-settings'] = array(
+    'title' => 'Custom Settings',
+    'page callback' => 'dosomething_campaign_admin_custom_settings_page',
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_campaign_admin_custom_settings_page_access',
+    'access arguments' => array(1),
+    'file' => 'dosomething_campaign.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 40,
+  );
   // User reportback confirmation page.
   $items['node/%node/confirmation'] = array(
     'title callback' => 'dosomething_campaign_reportback_confirmation_page_title',
@@ -122,6 +133,23 @@ function dosomething_campaign_node_delete($node) {
   }
   // Delete alt bg fid variable from db.
   variable_del($prefix . 'alt_bg_fid');
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function dosomething_campaign_admin_paths() {
+  $paths = array(
+    'node/*/custom-settings' => TRUE,
+  );
+  return $paths;
+}
+
+/**
+ * Page access callback for admin custom settings form.
+ */
+function dosomething_campaign_admin_custom_settings_page_access($node) {
+  return ($node->type == 'campaign' && dosomething_user_is_staff());
 }
 
 /*

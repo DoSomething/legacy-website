@@ -321,3 +321,12 @@ function dosomething_reportback_update_7005() {
       ->execute();
   }
 }
+
+/**
+ * Deletes empty records in the dosomething_reportback_field table.
+ */
+function dosomething_reportback_update_7006() {
+  $num_deleted = db_delete('dosomething_reportback_field')
+    ->condition('status', 0)
+    ->execute();
+}
