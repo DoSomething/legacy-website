@@ -99,6 +99,7 @@ function dosomething_campaign_preprocess_custom_vars(&$vars) {
  * Preprocesses variables common between campaign action page and sms_game.
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
+  $vars['issue'] = $wrapper->field_issue->value()->name;
   $vars['solution_copy'] = $wrapper->field_solution_copy->value();
   $vars['solution_support'] = $wrapper->field_solution_support->value();
   $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
@@ -107,6 +108,15 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['starter'] = $wrapper->field_starter_statement->value();
   $vars['official_rules'] = $wrapper->field_official_rules->value();
   $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
+  $vars['modals'] = theme('modal_links', array('modals' =>
+      array(
+        'faq' => $vars['faq'],
+        'more_facts' => $vars['more_facts'],
+        'partner_info' => $vars['partner_info'],
+        'issue' => $vars['issue'],
+      )
+    )
+  );
   // Zendesk Support Ticket form.
   if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
@@ -169,9 +179,6 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
-
-  $vars['issue'] = $wrapper->field_issue->value()->name;
-
   // Collect step field_collection values.
   $field_collections = array('step_pre', 'step_post');
   foreach ($field_collections as $fc) {
@@ -239,16 +246,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['reportback_link']['size'] = "small";
   }
   $vars['reportback_form'] = $vars['content']['reportback_form'];
-
-  $vars['modals'] = theme('modal_links', array('modals' =>
-      array(
-        'faq' => $vars['faq'],
-        'more_facts' => $vars['more_facts'],
-        'partner_info' => $vars['partner_info'],
-        'issue' => $vars['issue'],
-      )
-    )
-  );
 }
 
 /**
