@@ -257,6 +257,11 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
 
 /**
  * Implements hook_node_view().
+ *
+ * By the time this function is called, the $view_mode may have been altered
+ * based on the node's field_campaign_type or signup status.
+ *
+ * @see dosomething_campaign_entity_view_mode_alter().
  */
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'campaign' && ($view_mode == 'full' || $view_mode == 'sms_game')) {
@@ -353,9 +358,10 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
  * @param object $node
  *   A loaded campaign node.
  *
- * @return Mixed
- *   String: The node's campaign type, if a campaign.  Defaults to 'campaign'.
- *   If the node passed is not a campaign, the function will return FALSE.
+ * @return mixed
+ *   If node type == campaign, returns string value of field_campaign_type. 
+ *     - Defaults to 'campaign' if value is not set.
+ *   Else returns FALSE.
  */
 function dosomething_campaign_get_campaign_type($node) {
   // Sanity check to make sure this is a campaign.
@@ -370,6 +376,8 @@ function dosomething_campaign_get_campaign_type($node) {
 
 /**
  * Implements hook_entity_info_alter().
+ *
+ * Defines the custom Pitch and SMS Game view modes.
  */
 function dosomething_campaign_entity_info_alter(&$entity_info) {
   $entity_info['node']['view modes']['pitch'] = array(
@@ -384,7 +392,11 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 
 /*
  * Implements hook_entity_view_mode_alter().
- * Used to change the view_mode of the campaign nodes.
+ *
+ * When a campaign node is viewed in full, this function checks both signup status 
+ * and the node's field_campaign_type to determine what view_mode to set.
+ *
+ * This function also handles redirects to legacy nodes.
  */
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
