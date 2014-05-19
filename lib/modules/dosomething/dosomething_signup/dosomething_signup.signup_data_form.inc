@@ -277,6 +277,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     );
     $form['user_address'] = array(
+      '#prefix' => '<div data-validate="ups_address" data-validate-required>',
+      '#suffix' => '</div>',
       '#type' => 'addressfield',
       '#handlers' => array(
         'address' => 'address',
