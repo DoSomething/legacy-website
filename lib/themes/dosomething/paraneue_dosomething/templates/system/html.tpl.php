@@ -15,8 +15,8 @@
   <title><?php print $head_title; ?></title>
   <script type="text/javascript" src="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/js/vendor/modernizr.js"></script>
 
-  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/neue.css" type="text/css" />
-  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/app.css" type="text/css" />
+  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/neue.css?dontcachethisbro" type="text/css" />
+  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/app.css?dontcachethisbro" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
@@ -39,7 +39,7 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
-  <script type="text/javascript" data-main="main" src="/<?php print PARANEUE_DS_PATH; ?>/dist/app.js"></script>
+  <script type="text/javascript" data-main="main" src="/<?php print PARANEUE_DS_PATH; ?>/dist/app.js?dontcachethisbro"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
