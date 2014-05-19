@@ -42,6 +42,15 @@ function dosomething_helpers_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function dosomething_helpers_menu_alter(&$items) {
+  // This removes the default '/node' view on drupal.
+  unset($items['node']);
+}
+
+
+/**
  * Gets node nid's that reference the given $nid in a given $field_name.
  *
  * @param int $nid
