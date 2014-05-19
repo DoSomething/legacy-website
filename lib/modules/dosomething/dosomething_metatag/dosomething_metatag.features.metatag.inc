@@ -93,6 +93,15 @@ function dosomething_metatag_metatag_export_default() {
       'news_keywords' => array(
         'value' => '[node:field_tags]',
       ),
+      'twitter:creator' => array(
+        'value' => '@dosomething',
+      ),
+      'twitter:url' => array(
+        'value' => '[node:url]',
+      ),
+      'twitter:description' => array(
+        'value' => '[node:field_call_to_action]',
+      ),
     ),
   );
 
