@@ -39,6 +39,7 @@ dependencies[] = locale
 dependencies[] = markdown
 dependencies[] = message_broker_producer
 dependencies[] = metatag
+dependencies[] = metatag_twitter_cards
 dependencies[] = mobilecommons
 dependencies[] = module_filter
 dependencies[] = optimizely
@@ -82,4 +83,3 @@ dependencies[] = dosomething_static_content
 dependencies[] = dosomething_taxonomy
 dependencies[] = dosomething_user
 dependencies[] = dosomething_zendesk
-
