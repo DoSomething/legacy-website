@@ -65,15 +65,10 @@ function dosomething_reportback_node_reportback_field_form($form, &$form_state, 
      '#type' => 'select',
      '#title' => t('Field type'),
      '#options' => array(
-        'radios' => t('Radios'),
+        'radios' => t('Yes/No'),
         'textarea' => t('Textarea'),
      ),
      '#default_value' => $values['type'],
-  );
-  $form[$fieldset]['config'][$prefix . 'options'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Field options'),
-    '#default_value' => $values['options'],
   );
   $form[$fieldset]['actions'] = array(
     '#type' => 'actions',
@@ -99,7 +94,6 @@ function dosomething_reportback_node_reportback_field_form_submit(&$form, &$form
         'status' => $values[$prefix . 'status'],
         'label' => $values[$prefix . 'label'],
         'type' => $values[$prefix . 'type'],
-        'options' => $values[$prefix . 'options'],
     ))
     ->execute();
   drupal_set_message(t("Reportback field configuration saved."));
@@ -121,8 +115,7 @@ function dosomething_reportback_get_reportback_field_form_element($rb_field) {
     '#required' => TRUE,
   );
   if ($element['#type'] == 'radios') {
-    // @todo. Make this read $rb_field['options']. 
-    // Hardcoded for now, for Comeback Clothes.
+    // Hardcoded for now until we take on Github issue #1710.
     $element['#options'] = array(
       1 => t('Yes'),
       0 => t('No'),
