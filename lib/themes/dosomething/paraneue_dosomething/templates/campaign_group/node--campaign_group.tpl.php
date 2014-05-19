@@ -19,15 +19,26 @@
   <header role="banner" class="-hero">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
+      <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
+
       <?php if (isset($signup_button)): ?>
-        <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
-        <?php print render($signup_button); ?>
+        <div class="__signup">
+          <?php print render($signup_button); ?>
+          <?php if (isset($scholarship)): ?>
+            <div class="scholarship-callout -below -pitch">
+              <p class="copy"><?php print $scholarship; ?></p>
+            </div>
+          <?php endif; ?>
+        </div>
       <?php endif; ?>
 
-      <?php if (isset($scholarship)): ?>
-        <div class="scholarship-callout -action -below">
-          <p class="copy"><?php print $scholarship; ?></p>
-        </div>
+      <?php if (isset($sponsors[0]['display'])): ?>
+      <div class="sponsor">
+        <p class="__copy">Powered by</p>
+        <?php foreach ($sponsors as $key => $sponsor) :?>
+          <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
+        <?php endforeach; ?>
+      </div>
       <?php endif; ?>
     </div>
   </header>
