@@ -64,9 +64,9 @@ function dosomething_reportback_node_reportback_field_form($form, &$form_state, 
   $form[$fieldset]['config'][$prefix . 'type']= array(
      '#type' => 'select',
      '#title' => t('Field type'),
-     // Only support radios for now.
      '#options' => array(
         'radios' => t('Radios'),
+        'textarea' => t('Textarea'),
      ),
      '#default_value' => $values['type'],
   );
