@@ -6,21 +6,21 @@
  */
 
 /**
- * Adds form elements to given node $form to add additional reportback field.
+ * Form constructor to add additional reportback field to given $node.
  *
  * For now, this only supports adding one additional reportback field to a node.
- *
- * Note there is no submit form element returned.
- * This function is always called from within a node edit form.
  */
-function _dosomething_reportback_node_reportback_field_form(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
+function dosomething_reportback_node_reportback_field_form($form, &$form_state, $node) {
+  $nid = $node->nid;
+  // Load existing reportback_field config info.
   $values = dosomething_reportback_get_reportback_field_info($nid);
   $fieldset = 'reportback_field';
   $prefix = $fieldset . '_';
-  // Set an additional submit handler to save the dosomething_reportback_field values.
-  $form['#submit'][] = 'dosomething_reportback_node_reportback_field_form_submit';
-  // Create fieldset to collect signup data form values.
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+
+  );
   $form[$fieldset] = array(
     '#type' => 'fieldset',
     '#title' => t('Reportback Fields'),
@@ -75,14 +75,22 @@ function _dosomething_reportback_node_reportback_field_form(&$form, &$form_state
     '#title' => t('Field options'),
     '#default_value' => $values['options'],
   );
+  $form[$fieldset]['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    ),
+  );
+  return $form;
 }
 
 /**
  * Saves node reportback_field values into dosomething_reportback_field table.
  */
 function dosomething_reportback_node_reportback_field_form_submit(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
   $values = $form_state['values'];
+  $nid = $values['nid'];
   $prefix = 'reportback_field_';
   // Use db_merge to either insert or update existing record for $nid / $name.
   db_merge('dosomething_reportback_field')
@@ -94,6 +102,7 @@ function dosomething_reportback_node_reportback_field_form_submit(&$form, &$form
         'options' => $values[$prefix . 'options'],
     ))
     ->execute();
+  drupal_set_message(t("Reportback field configuration saved."));
 }
 
 /**

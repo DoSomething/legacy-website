@@ -348,12 +348,6 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
     // Include signup data form configuration form.
     _dosomething_signup_node_signup_data_form($form, $form_state);
 
-    // If admin:
-    if (in_array('administrator', $user->roles) && module_exists('dosomething_reportback')) {
-      // Include reportback field configuration form.
-      _dosomething_reportback_node_reportback_field_form($form, $form_state);
-    }
-
     // Alt bg pattern variable.
     $alt_bg_fid = $prefix . 'alt_bg_fid';
     $form['custom']['styles'][$alt_bg_fid] = array(

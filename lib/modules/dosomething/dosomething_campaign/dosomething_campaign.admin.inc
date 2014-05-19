@@ -5,6 +5,21 @@
  */
 
 /**
+ * Page callback for campaign admin custom settings page.
+ *
+ * @param object $node
+ *   A loaded node.
+ */
+function dosomething_campaign_admin_custom_settings_page($node) {
+  $output = '';
+  if (module_exists('dosomething_reportback')) {
+    $reportback_field_form = drupal_get_form('dosomething_reportback_node_reportback_field_form', $node);
+    $output .= render($reportback_field_form);
+  }
+  return $output;
+}
+
+/**
  * Page callback for campaign admin status page.
  */
 function dosomething_campaign_admin_status_page() {
