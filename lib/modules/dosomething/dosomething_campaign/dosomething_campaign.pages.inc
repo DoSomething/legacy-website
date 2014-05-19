@@ -23,7 +23,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   );
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
-  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid);
+  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
   // Get recommended campaign nids for term $tid and current user.
