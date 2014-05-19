@@ -311,13 +311,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</div>',
   );
 
-  // @NOTE We're using <button> element because it allows pseudo-elements
-  // and therefore works with our toggle-able "loading" class in Neue
   $form['actions']['submit'] = array(
-    '#type' => 'markup',
-    '#prefix' => '<button class="btn" type="submit">',
-    '#suffix' => '</button>',
-    '#markup' => t('Submit'),
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+      ),
+    ),
   );
 
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
