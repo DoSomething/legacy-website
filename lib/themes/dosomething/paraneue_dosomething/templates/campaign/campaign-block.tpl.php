@@ -20,7 +20,11 @@
 ?>
 
 <article class="tile tile--campaign" id="campaign-<?php print $nid; ?>">
+  <?php if ($status): ?>
   <a class="wrapper" href="/<?php print $pretty_path; ?>">
+  <?php else: ?>
+  <div class="wrapper">
+  <?php endif; ?>
     <?php if ($staff_pick): ?>
       <div class="__flag -staff-pick">Staff Pick</div>
     <?php endif; ?>
@@ -30,5 +34,9 @@
       <p class="__tagline"><?php print $call_to_action; ?></p>
     </div>
     <img alt="<?php print $title; ?>" src="<?php print $image; ?>" />
+  <?php if ($status): ?>
   </a>
+  <?php else: ?>
+  </div>
+  <?php endif;?>
 </article>
