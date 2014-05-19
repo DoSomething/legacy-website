@@ -354,8 +354,6 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
   );
 
   if ($type == 'campaign') {
-    // Include signup data form configuration form.
-    _dosomething_signup_node_signup_data_form($form, $form_state);
 
     // Alt bg pattern variable.
     $alt_bg_fid = $prefix . 'alt_bg_fid';
