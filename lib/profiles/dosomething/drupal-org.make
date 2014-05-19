@@ -6,142 +6,142 @@ core = 7.x
 ; MODULES
 
 ; Address Field
-projects[addressfield] = "1.0-beta5"
+projects[addressfield][version] = "1.0-beta5"
 projects[addressfield][subdir] = "contrib"
 ; Allows addressfield as form element: https://drupal.org/node/970048
 projects[addressfield][patch][] = https://drupal.org/files/addressfield-element_info-970048-71.patch
 
 ; Admin menu
-projects[admin_menu] = "3.0-rc4"
+projects[admin_menu][version] = "3.0-rc4"
 projects[admin_menu][subdir] = "contrib"
 
 ; Apachesolr
-projects[apachesolr] = "7.x-1.6"
+projects[apachesolr][version] = "1.6"
 projects[apachesolr][subdir] = "contrib"
 
 ; Apachesolr Views
-projects[apachesolr_views] = "7.x-1.0-beta2"
+projects[apachesolr_views][version] = "1.0-beta2"
 projects[apachesolr_views][subdir] = "contrib"
 
 ; Ctools
-projects[ctools] = "1.4"
+projects[ctools][version] = "1.4"
 projects[ctools][subdir] = "contrib"
 
 ; Date
-projects[date] = "2.6"
+projects[date][version] = "2.7"
 projects[date][subdir] = "contrib"
 
 ; Diff
-projects[diff] = "3.2"
+projects[diff][version] = "3.2"
 projects[diff][subdir] = "contrib"
 
 ; Entity
-projects[entity] = "1.2"
+projects[entity][version] = "1.5"
 projects[entity][subdir] = "contrib"
 
 ; Entity Connect
-projects[entityconnect] = "1.0-rc1"
+projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
-projects[entityreference] = "1.1"
+projects[entityreference][version] = "1.1"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
-projects[features] = "2.0-rc5"
+projects[features][version] = "2.0"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-projects[field_collection] = "1.0-beta5"
+projects[field_collection][version] = "1.0-beta7"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
-projects[field_group] = "1.3"
+projects[field_group][version] = "1.3"
 projects[field_group][subdir] = "contrib"
 
 ; Google Analytics
-projects[google_analytics] = "1.3"
+projects[google_analytics][version] = "1.4"
 projects[google_analytics][subdir] = "contrib"
 
 ; Internationalization (required for Sitemap, among others)
-projects[i18n] = "1.10"
+projects[i18n][version] = "1.11"
 projects[i18n][subdir] = "contrib"
 
 ; Libraries
-projects[libraries] = "2.1"
+projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
 
 ; Link
-projects[link] = "1.2"
+projects[link][version] = "1.2"
 projects[link][subdir] = "contrib"
 
 ; Markdown
-projects[markdown] = "1.2"
+projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag] = "1.0-beta9"
+projects[metatag][version] = "1.0-beta9"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
-projects[mobilecommons] = "1.1"
+projects[mobilecommons][version] = "1.1"
 projects[mobilecommons][subdir] = "contrib"
 
 ; Module Filter
-projects[module_filter] = "1.8"
+projects[module_filter][version] = "2.0-alpha2"
 projects[module_filter][subdir] = "contrib"
 
 ; Optimizely
-projects[optimizely] = "2.14"
+projects[optimizely][version] = "2.14"
 projects[optimizely][subdir] = "contrib"
 
 ; Pathauto
-projects[pathauto] = "1.2"
+projects[pathauto][version] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
 ; Redirect
-projects[redirect] = "1.0-rc1"
+projects[redirect][version] = "1.0-rc1"
 projects[redirect][subdir] = "contrib"
 
 ; Redis
-projects[redis] = "2.6"
+projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
 ; Strongarm
-projects[strongarm] = "2.0"
+projects[strongarm][version] = "2.0"
 projects[strongarm][subdir] = "contrib"
 
 ; Token
-projects[token] = "1.5"
+projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
 ; UUID
-projects[uuid] = "1.0-alpha"
+projects[uuid][version] = "1.0-alpha5"
 projects[uuid][subdir] = "contrib"
 
 ; UUID Features
-projects[uuid_features] = "1.0-alpha3"
+projects[uuid_features][version] = "1.0-alpha4"
 projects[uuid_features][subdir] = "contrib"
 
 ; Variable
-projects[variable] = "2.4"
+projects[variable][version] = "2.5"
 projects[variable][subdir] = "contrib"
 
 ; Varnish
-projects[varnish] = "1.0-beta2"
+projects[varnish][version] = "1.0-beta2"
 projects[varnish][subdir] = "contrib"
 
 ; View Unpublished
-projects[view_unpublished] = "1.1"
+projects[view_unpublished][version] = "1.1"
 projects[view_unpublished][subdir] = "contrib"
 projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished_content_admin-1192074-60.patch"
 
 ; Views
-projects[views] = "3.7"
+projects[views][version] = "3.7"
 projects[views][subdir] = "contrib"
 
 ; XML Sitemap
-projects[xmlsitemap] = "2.0-rc2"
+projects[xmlsitemap][version] = "2.0"
 projects[xmlsitemap][subdir] = "contrib"
 
 
@@ -169,11 +169,11 @@ projects[message_broker_producer][subdir] = "contrib"
 ; DEVELOPMENT
 
 ; Devel
-projects[devel] = "1.3"
+projects[devel][version] = "1.4"
 projects[devel][subdir] = "contrib"
 
 ; Coder
-projects[coder] = "2.0"
+projects[coder][version] = "2.2"
 projects[coder][subdir] = "contrib"
 
 
