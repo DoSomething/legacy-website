@@ -14,7 +14,7 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="campaign-group <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <header role="banner" class="-hero">
     <div class="wrapper">
@@ -172,13 +172,25 @@
     </section>
   <?php endif; ?>
 
-  <div>
-    <?php if (isset($content['zendesk_form'])): ?>
-    <a href="#modal-contact-form" class="js-modal-link">Questions? Contact Us</a>
-    <script id="modal-contact-form"  class="modal--contact" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
-      <?php print render($content['zendesk_form']); ?>
-    </script>
-    <?php endif; ?>
-  </div>
+  <footer>
+    <div class="wrapper">
+      <?php if (isset($content['zendesk_form'])): ?>
+        <div class="help">
+          Questions? <a href="#modal-contact-form" class="js-modal-link">Contact Us</a>
+          <script id="modal-contact-form"  class="modal--contact" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+            <h2 class="banner">Contact Us</h2>
+            <p>Enter your question below. Please be as specific as possible.</p>
+            <?php print render($content['zendesk_form']); ?>
+          </script>
+        </div>
+      <?php endif; ?>
+
+      <?php if (isset($sponsors)): ?>
+        <div class="sponsor">
+          In partnership with <?php print $formatted_partners; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  </footer>
 
 </article>
