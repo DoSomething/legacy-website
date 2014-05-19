@@ -6,6 +6,23 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_mbp_menu() {
+
+  $items['admin/config/services/dosomething-mbp'] = array(
+    'title' => 'DoSomething MBP',
+    'description' => 'DoSomething MBP (Message Broker Producer) settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_mbp_config_form'),
+    'access arguments' => array('administer message_broker_producer'),
+    'file' => 'dosomething_mbp.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
  * A request to send a queue entry to the Message Broker system.
  *
  * @param string $origin
@@ -190,7 +207,7 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
  *   Submitted values for campaign
  */
 function dosomething_mbp_node_insert($node) {
-  if ($node->type == 'campaign') {
+  if ($node->type == 'campaign' && variable_get('dosomething_mbp_send_campaign_api', FALSE) == TRUE) {
     dosomething_mbp_campaign_request('create_campaign', $node);
   }
 }
@@ -205,7 +222,7 @@ function dosomething_mbp_node_insert($node) {
  *  Submitted values for campaign
  */
 function dosomething_mbp_node_update($node) {
-  if ($node->type == 'campaign') {
+  if ($node->type == 'campaign' && variable_get('dosomething_mbp_send_campaign_api', FALSE) == TRUE) {
     dosomething_mbp_campaign_request('update_campaign', $node);
   }
 }
@@ -227,12 +244,47 @@ function dosomething_mbp_campaign_request($action, $node) {
     $node->nid);
   $field = field_get_items('node', $node, 'field_call_to_action');
   $call_to_action = $field[0]['value'];
+  // edit-field-image-campaign-cover-und-0-target-id
+  // @todo: reference field, need to look up referenced image path
   $field = field_get_items('node', $node, 'field_image_campaign_cover');
   $image_campaign_cover = $field[0]['value'];
+  // edit-field-fact-problem-und-0-target-id
+  // @todo: reference field, need to look up referenced fact node problem
   $field = field_get_items('node', $node, 'field_fact_problem');
   $fact_problem = $field[0]['value'];
+  // edit-field-fact-solution-und-0-target-id
+  // @todo: reference field, need to look up referenced fact node solution
   $field = field_get_items('node', $node, 'field_fact_solution');
   $fact_solution = $field[0]['value'];
+  /**
+   * @todo: Add high season dates:
+   * START
+   *   edit-field-high-season-und-0-value-month
+   *   edit-field-high-season-und-0-value-day
+   *   edit-field-high-season-und-0-value-year
+   * END
+   *   edit-field-high-season-und-0-value2-month
+   *   edit-field-high-season-und-0-value2-day
+   *   edit-field-high-season-und-0-value2-year
+   *
+   * Low season dates:
+   * START
+   *   edit-field-low-season-und-0-value-month
+   *   edit-field-low-season-und-0-value-day
+   *   edit-field-low-season-und-0-value-year
+   * END
+   *   edit-field-low-season-und-0-value2-month
+   *   edit-field-low-season-und-0-value2-day
+   *   edit-field-low-season-und-0-value2-year
+   */
+
+  /**
+   * @todo: Add report back details
+   *   edit-field-reportback-noun-und-0-value
+   *   edit-field-reportback-verb-und-0-value
+   *   edit-field-reportback-copy-und-0-value
+   *   edit-field-reportback-confirm-msg-und-0-value
+   */
 
   $params = array(
     'nid' => $node->nid,
