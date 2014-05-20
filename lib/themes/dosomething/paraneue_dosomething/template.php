@@ -3,8 +3,14 @@
 // Define theme directory path
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
 
+// If ds_version is set, use CDN assets
+if(theme_get_setting('use_cdn_assets')) {
+  define('DS_ASSET_PATH', 'https://dosomething-a.akamaihd.net/sites/default/files/assets/' . variable_get('ds_version', 'latest'));
+} else {
+  define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
+}
+
 // Define asset directory paths
-define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
 define('LIB_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
 define('NEUE_ASSET_PATH', LIB_ASSET_PATH . '/neue');
 
