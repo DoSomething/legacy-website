@@ -14,7 +14,12 @@
         var TEST = true;
       </script>
 
-      <script data-main="main" data-baseUrl="../js" src='../dist/app.js'></script>
+      <script type="text/javascript" charset="utf-8">
+        var require = {
+          baseUrl: "../js/"
+        };
+      </script>
+      <script data-main="main" src='../dist/app.js'></script>
       <!-- add any JS files under test (or put them in different .html files) -->
 
       <script src='lib/qunit-1.12.0.js'></script>

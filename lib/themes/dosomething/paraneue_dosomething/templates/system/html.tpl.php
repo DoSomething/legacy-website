@@ -13,19 +13,20 @@
 
 <head>
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/js/vendor/modernizr.js"></script>
+  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
 
-  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/bower_components/neue/neue.css?dontcachethisbro" type="text/css" />
-  <link rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/app.css?dontcachethisbro" type="text/css" />
+  <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/neue.css" type="text/css" />
+  <link rel="stylesheet" href="<?php print DS_ASSET_PATH;; ?>/app.css" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
-      <link type="text/css" rel="stylesheet" href="/<?php print PARANEUE_DS_PATH; ?>/dist/ie.css" media="all" />
-      <script type="text/javascript" src="/<?php print PARANEUE_DS_PATH; ?>/bower_components/html5shiv/dist/html5shiv.js"></script>
+      <link type="text/css" rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/ie.css" media="all" />
+      <link type="text/css" rel="stylesheet" href="<?php print DS_ASSET_PATH; ?>/ie.css" media="all" />
+      <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/html5shiv/dist/html5shiv.js"></script>
   <![endif]-->
 
-  <link rel="shortcut icon" href="/<?php print NEUE_PATH; ?>/assets/images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" href="/<?php print NEUE_PATH; ?>/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/apple-touch-icon-precomposed.png">
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -39,7 +40,12 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
-  <script type="text/javascript" data-main="main" src="/<?php print PARANEUE_DS_PATH; ?>/dist/app.js?dontcachethisbro"></script>
+  <script type="text/javascript" charset="utf-8">
+    var require = {
+      baseUrl: "<?php print DS_ASSET_PATH; ?>/js/"
+    };
+  </script>
+  <script type="text/javascript" data-main="main" src="<?php print DS_ASSET_PATH; ?>/app.js"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
