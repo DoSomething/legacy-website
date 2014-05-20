@@ -1,13 +1,18 @@
 <?php
 
+// Define theme directory path
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
-define('NEUE_PATH', PARANEUE_DS_PATH . '/bower_components/neue');
 
+// Define asset directory paths
+define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
+define('LIB_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
+define('NEUE_ASSET_PATH', LIB_ASSET_PATH . '/neue');
+
+// Theme includes
 require_once PARANEUE_DS_PATH . '/includes/bootstrap.inc';
 require_once PARANEUE_DS_PATH . '/includes/theme.inc';
 require_once PARANEUE_DS_PATH . '/includes/preprocess.inc';
 require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
-
 require_once PARANEUE_DS_PATH . '/includes/form.inc';
 require_once PARANEUE_DS_PATH . '/includes/auth/login.inc';
 require_once PARANEUE_DS_PATH . '/includes/auth/register.inc';
