@@ -12,6 +12,10 @@
  */
 function dosomething_campaign_admin_custom_settings_page($node) {
   $output = '';
+  if (module_exists('dosomething_signup')) {
+    $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
+    $output .= render($signup_data_config_form);
+  }
   if (module_exists('dosomething_reportback')) {
     $reportback_field_form = drupal_get_form('dosomething_reportback_node_reportback_field_form', $node);
     $output .= render($reportback_field_form);

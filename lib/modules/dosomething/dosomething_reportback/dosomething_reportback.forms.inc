@@ -19,7 +19,6 @@ function dosomething_reportback_node_reportback_field_form($form, &$form_state, 
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $nid,
-
   );
   $form[$fieldset] = array(
     '#type' => 'fieldset',

@@ -23,20 +23,20 @@ function dosomething_signup_get_signup_data_form_info($nid) {
 }
 
 /**
- * Adds form elements to given node $form to store nid signup_data_form values.
+ * Form constructor to configure a signup_data_form for a given $node.
  *
- * Note there is no submit form element returned.
- * This function is always called from within a node edit form.
+ * @param object $node
+ *   The loaded node to save the signup data form configuration for.
  */
-function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
+function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
+  $nid = $node->nid;
   $values = dosomething_signup_get_signup_data_form_info($nid);
   $fieldset = 'signup_data_form';
   $prefix = $fieldset . '_';
-  // Set an additional submit handler to save the signup_data_form values.
-  $form['#submit'][] = 'dosomething_signup_node_signup_data_form_submit';
-  $form['#validate'][] = 'dosomething_signup_node_signup_data_form_validate';
-  // Create fieldset to collect signup data form values.
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+  );
   $form[$fieldset] = array(
     '#type' => 'fieldset',
     '#title' => t('Signup Data Form'),
@@ -159,6 +159,14 @@ function _dosomething_signup_node_signup_data_form(&$form, &$form_state) {
     '#default_value' => $values['form_submitted_copy'],
     '#description' => t('This is the copy that will appear if a user views the form again after submitting. <p>You can use ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN .' to display the time the user submitted the form, e.g. <em>You submitted this form on ' . DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN . ', your banner should arrive within 2 weeks from then!</em></p>'),
   );
+  $form[$fieldset]['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    ),
+  );
+  return $form;
 }
 
 /**
@@ -186,8 +194,8 @@ function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state)
  * Saves node signup_data_form values into dosomething_signup_data_form.
  */
 function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
   $values = $form_state['values'];
+  $nid = $values['nid'];
   $prefix = 'signup_data_form_';
   // Use db_merge to either insert or update existing record for $nid.
   db_merge('dosomething_signup_data_form')
