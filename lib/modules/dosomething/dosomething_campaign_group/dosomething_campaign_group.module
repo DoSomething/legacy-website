@@ -146,7 +146,7 @@ function dosomething_campaign_group_get_campaigns($campaign_group_node) {
   $campaigns = array();
   $image_size = '400x400';
 
-  if (isset($campaign_group_node->field_campaigns)) {
+  if (!empty($campaign_group_node->field_campaigns)) {
     foreach ($campaign_group_node->field_campaigns[LANGUAGE_NONE] as $campaign_field) {
       $status = $campaign_field['entity']->status;
       $vars = dosomething_campaign_get_campaign_block_vars($campaign_field['entity']->nid, $image_size);
