@@ -150,6 +150,7 @@ if( theme_get_setting('show_campaign_finder') ) {
     </div>
   </div>
 
+<?php if( theme_get_setting('show_sponsors') ) : ?>
   <div class="homepage--sponsors">
     <h4>Sponsors</h4>
     <p>
@@ -168,6 +169,7 @@ if( theme_get_setting('show_campaign_finder') ) {
     </p>
   </div>
 </div>
+<?php endif; ?>
 
 <?php
 
