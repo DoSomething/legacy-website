@@ -14,7 +14,7 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
     '#type' => 'checkbox',
     '#title' => t('Use CDN Assets'),
     '#description' => t('Will use versiond assets hosted on Akamai CDN, generated when tagging deploy. On local development machines, this defaults to the latest assets on the CDN.'),
-    '#default_value' => theme_get_setting($name)
+    '#default_value' => theme_get_setting('use_cdn_assets')
   );
 
   $form['feature_flags'] = array(
