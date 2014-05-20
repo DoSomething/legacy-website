@@ -170,6 +170,42 @@ function dosomething_signup_schema() {
     ),
     'primary key' => array('nid'),
   );
+  $schema['dosomething_signup_variable'] = array(
+    'description' => 'Table of signup configuration variables.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'entity_type' => array(
+        'description' => 'The entity type this data is attached to.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'entity_id' => array(
+        'description' => 'The entity id this data is attached to.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'The name of the variable.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'value' => array(
+        'description' => 'The value of the variable.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
   return $schema;
 }
 
@@ -297,3 +333,16 @@ function dosomething_signup_update_7007() {
     ->execute();
 }
 
+/**
+ * Adds the dosomething_signup_variable table.
+ */
+function dosomething_signup_update_7008() {
+  $tbl_name = 'dosomething_signup_variable';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // If table not present:
+  if (!db_table_exists($tbl_name)) {
+    // Create it.
+    db_create_table($tbl_name, $schema[$tbl_name]);
+  }
+}
