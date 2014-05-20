@@ -13,8 +13,8 @@ if( theme_get_setting('show_campaign_finder') ) {
   <div class="finder--form">
     <div class="home--hero">
       <div class="header">
-        <h1 class="title">Join 2.5 million young people.</h1>
-        <h2 class="subtitle">Any cause, anytime, anywhere.</h2>
+        <h1 class="title"><?php print $title; ?></h1>
+        <h2 class="subtitle"><?php print $subtitle; ?></h2>
       </div>
       <div class="js-finder-form header">
         <h3 class="visually-hidden">Start by finding a campaign below</h3>
