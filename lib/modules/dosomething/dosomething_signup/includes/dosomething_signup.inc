@@ -41,12 +41,18 @@ class SignupEntityController extends EntityAPIController {
     );
     $build['timestamp'] = array(
       '#type' => 'markup',
-      '#markup' => '<p>Timestamp: ' . format_date($entity->timestamp, 'short') . '</p>',
+      '#markup' => '<p>Signed up: ' . format_date($entity->timestamp, 'short') . '</p>',
     );
     if ($entity->signup_data_form_timestamp) {
       $build['signup_data_form_submitted'] = array(
         '#type' => 'markup',
-        '#markup' => '<p>Signup Data Form Timestamp: ' . format_date($entity->signup_data_form_timestamp, 'short') . '</p>',
+        '#markup' => '<p>Signup Data Form Submitted: ' . format_date($entity->signup_data_form_timestamp, 'short') . '</p>',
+      );    
+    }
+    if ($entity->signup_data_form_response != NULL) {
+      $build['signup_data_form_response'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p>Signup Data Form Response: ' . $entity->signup_data_form_response . '</p>',
       );    
     }
     if ($entity->why_signedup) {
