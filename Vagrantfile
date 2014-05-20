@@ -4,7 +4,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", 1024]
+    v.customize ["modifyvm", :id, "--memory", 2048]
+    v.customize ["modifyvm", :id, "--cpus", 2]
   end
 
   # SSH Agent forwarding
@@ -24,6 +25,11 @@ Vagrant.configure("2") do |config|
 
   # Tomcat with Jenkins and Solr
   config.vm.network :forwarded_port, guest: 9090, host: 11111
+
+  if Vagrant.has_plugin?("vagrant-sshf")
+    # SSHFS for speed - Make sure to set the SSHFS_VAGRANT_PATH in .bashrc
+    config.sshfs.paths = { "/var/www/vagrant" => ENV['SSHFS_VAGRANT_PATH'] }
+  end
 
   ## Use all the defaults:
   config.vm.provision :salt do |salt|
