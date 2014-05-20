@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
 
   if Vagrant.has_plugin?("vagrant-sshf")
     # SSHFS for speed - Make sure to set the SSHFS_VAGRANT_PATH in .bashrc
+    # e.g. export SSHFS_VAGRANT_PATH="/Users/mrich/sites/dosomething/mount"
     config.sshfs.paths = { "/var/www/vagrant" => ENV['SSHFS_VAGRANT_PATH'] }
   end
 
