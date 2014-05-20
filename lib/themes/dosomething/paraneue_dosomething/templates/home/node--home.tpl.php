@@ -84,6 +84,7 @@ if( theme_get_setting('show_campaign_finder') ) {
 
   <div class="finder--results js-campaign-results"></div>
 
+  <?php if( theme_get_setting('show_sponsors') ) : ?>
   <div class="home--sponsors">
     <h4>Sponsors</h4>
     <p>
@@ -101,6 +102,7 @@ if( theme_get_setting('show_campaign_finder') ) {
       <i title="Google" class="sprite sprite-google"></i>
     </p>
   </div>
+  <?php endif; ?>
 
 <?php
 
