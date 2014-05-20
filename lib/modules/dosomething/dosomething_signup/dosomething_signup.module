@@ -265,6 +265,26 @@ function dosomething_signup_views_data() {
       'field' => 'uid',
     ),
   );
+
+  $data['dosomething_signup']['sid'] = array(
+    'title' => t('Signup sid'),
+    'help' => t('Signup sid that references a signup.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'dosomething_signup',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Signup Sid'),
+    ),
+  );
   $data['dosomething_signup']['nid'] = array(
     'title' => t('Nid'),
     'help' => t('Signup node nid.'),
