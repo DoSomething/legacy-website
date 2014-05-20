@@ -1,12 +1,28 @@
 <?php
 
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_state) {
+  $form['theme_settings'] = array(
+      '#type'          => 'fieldset',
+      '#title'         => t('Theme Settings'),
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
+      '#weight'=> -19
+  );
+
+
+  $form['theme_settings']['use_cdn_assets'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use CDN Assets'),
+    '#description' => t('Will use versiond assets hosted on Akamai CDN, generated when tagging deploy. On local development machines, this defaults to the latest assets on the CDN.'),
+    '#default_value' => theme_get_setting($name)
+  );
+
   $form['feature_flags'] = array(
       '#type'          => 'fieldset',
       '#title'         => t('Feature Flags'),
       '#description'   => t('Allows features to be toggled on or off in different environments.'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#collapsible' => FALSE,
+      '#collapsed' => FALSE,
       '#weight'=> -19
   );
 
