@@ -72,11 +72,18 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['label'] = 'User';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Field: Signups: Signup sid */
+  $handler->display->display_options['fields']['sid']['id'] = 'sid';
+  $handler->display->display_options['fields']['sid']['table'] = 'dosomething_signup';
+  $handler->display->display_options['fields']['sid']['field'] = 'sid';
+  $handler->display->display_options['fields']['sid']['exclude'] = TRUE;
   /* Field: Signups: Date submitted */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'dosomething_signup';
   $handler->display->display_options['fields']['timestamp']['field'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['label'] = 'Submitted';
+  $handler->display->display_options['fields']['timestamp']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['timestamp']['alter']['path'] = 'signup/[sid]';
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'short';
   /* Field: User: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
@@ -170,6 +177,9 @@ function dosomething_signup_views_default_views() {
     t('last »'),
     t('Node'),
     t('User'),
+    t('Signup sid'),
+    t('.'),
+    t(','),
     t('Submitted'),
     t('Uid'),
     t('E-mail'),
