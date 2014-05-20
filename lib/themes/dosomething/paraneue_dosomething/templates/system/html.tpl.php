@@ -40,6 +40,11 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
+  <script type="text/javascript" charset="utf-8">
+    var require = {
+      baseUrl: "<?php print DS_ASSET_PATH; ?>/js/"
+    };
+  </script>
   <script type="text/javascript" data-main="main" src="<?php print DS_ASSET_PATH; ?>/app.js"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
