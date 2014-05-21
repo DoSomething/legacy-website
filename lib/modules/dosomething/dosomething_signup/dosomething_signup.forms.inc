@@ -14,11 +14,33 @@
  *   Number of inputs to provide for beta numbers.
  */
 function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_betas = 3) {
+  $nid = $node->nid;
+  $opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path');
+  $friends_opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path');
+
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#default_value' => $node->nid,
+    '#default_value' => $nid,
     '#access' => FALSE,
   );
+  // If we have opt-in paths set:
+  if ($opt_in_path && $friends_opt_in_path) {
+    // Add as hidden form elements.
+    $form['opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $opt_in_path,
+      '#access' => FALSE,
+    );
+    $form['friends_opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $friends_opt_in_path,
+      '#access' => FALSE,
+    );
+  }
+  else {
+    // Else set a warning message to inform staff to not expect any texts.
+    drupal_set_message(t("The opt-in paths for this SMS Game have not been configured."), "error");
+  }
   $form['num_betas'] = array(
     '#type' => 'hidden',
     '#default_value' => $num_betas,
