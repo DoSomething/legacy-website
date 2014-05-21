@@ -13,10 +13,10 @@
 
 <head>
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
+  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js?12312"></script>
 
-  <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/neue.css" type="text/css" />
-  <link rel="stylesheet" href="<?php print DS_ASSET_PATH;; ?>/app.css" type="text/css" />
+  <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/neue.css?12312" type="text/css" />
+  <link rel="stylesheet" href="<?php print DS_ASSET_PATH;; ?>/app.css?12312" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
@@ -45,7 +45,7 @@
       baseUrl: "<?php print DS_ASSET_PATH; ?>/js/"
     };
   </script>
-  <script type="text/javascript" data-main="main" src="<?php print DS_ASSET_PATH; ?>/app.js"></script>
+  <script type="text/javascript" data-main="main" src="<?php print DS_ASSET_PATH; ?>/app.js?12312"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
