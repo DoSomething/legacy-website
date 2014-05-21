@@ -77,6 +77,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['fields']['sid']['table'] = 'dosomething_signup';
   $handler->display->display_options['fields']['sid']['field'] = 'sid';
   $handler->display->display_options['fields']['sid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['sid']['separator'] = '';
   /* Field: Signups: Date submitted */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'dosomething_signup';
@@ -179,7 +180,6 @@ function dosomething_signup_views_default_views() {
     t('User'),
     t('Signup sid'),
     t('.'),
-    t(','),
     t('Submitted'),
     t('Uid'),
     t('E-mail'),
