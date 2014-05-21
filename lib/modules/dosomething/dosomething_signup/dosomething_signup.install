@@ -173,12 +173,6 @@ function dosomething_signup_schema() {
   $schema['dosomething_signup_variable'] = array(
     'description' => 'Table of signup configuration variables.',
     'fields' => array(
-      'id' => array(
-        'description' => 'Primary key.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
       'entity_type' => array(
         'description' => 'The entity type this data is attached to.',
         'type' => 'varchar',
@@ -204,7 +198,7 @@ function dosomething_signup_schema() {
         'not null' => FALSE,
       ),
     ),
-    'primary key' => array('id'),
+    'primary key' => array('entity_type', 'entity_id', 'name'),
   );
   return $schema;
 }
