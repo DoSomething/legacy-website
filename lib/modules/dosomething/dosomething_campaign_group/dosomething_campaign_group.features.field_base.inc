@@ -88,6 +88,7 @@ function dosomething_campaign_group_field_default_field_bases() {
         ),
         'target_bundles' => array(
           'campaign' => 'campaign',
+          'campaign_group' => 'campaign_group',
         ),
       ),
       'target_type' => 'node',
