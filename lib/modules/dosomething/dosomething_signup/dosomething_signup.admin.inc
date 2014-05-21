@@ -40,13 +40,13 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Alpha Opt-In Path'),
         '#required' => TRUE,
-        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_alpha'),
+        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path'),
       );
       $form[$nid][$nid . '_beta'] = array(
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Beta Opt-In Path'),
         '#required' => TRUE,
-        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_beta'),
+        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path'),
       );
     }
   }
@@ -66,8 +66,8 @@ function dosomething_signup_admin_config_form_submit($form, &$form_state) {
   if ($sms_games) {
     foreach ($sms_games as $vars) {
       $nid = $vars['nid'];
-      dosomething_signup_variable_set($nid, 'mobilecommons_opt_in_alpha', $values[$nid . '_alpha']);
-      dosomething_signup_variable_set($nid, 'mobilecommons_opt_in_beta', $values[$nid . '_beta']);
+      dosomething_signup_variable_set($nid, 'mobilecommons_opt_in_path', $values[$nid . '_alpha']);
+      dosomething_signup_variable_set($nid, 'mobilecommons_friends_opt_in_path', $values[$nid . '_beta']);
     }
   }
   drupal_set_message(t("Configuration saved."));
