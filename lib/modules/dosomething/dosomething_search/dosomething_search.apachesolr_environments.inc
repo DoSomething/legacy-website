@@ -37,6 +37,7 @@ function dosomething_search_apachesolr_environments() {
     'apachesolr_search_type_boosts' => array(
       'action_guide' => '0',
       'campaign' => '21.0',
+      'campaign_group' => '21.0',
       'fact' => '0',
       'fact_page' => '0',
       'image' => '0',
@@ -138,6 +139,7 @@ function dosomething_search_apachesolr_environments() {
       0 => 'fact_page',
       1 => 'static_content',
       2 => 'campaign',
+      3 => 'campaign_group',
     ),
   );
   $export['solr'] = $environment;

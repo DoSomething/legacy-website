@@ -102,7 +102,7 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
  *   The machine name of the environment.
  */
 function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocument $document, $entity, $env_id) {
-  if ($entity->type == 'campaign') {
+  if ($entity->type == 'campaign' || $entity->type == 'campaign_group') {
     $wrapper = entity_metadata_wrapper('node', $entity);
     $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
     if ($image_nid) {
