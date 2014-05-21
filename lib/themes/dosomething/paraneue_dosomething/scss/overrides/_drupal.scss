@@ -2,6 +2,16 @@
 // Styles to make sense of Drupal's stock markup:
 // ----------------------------------------------
 
+// Quick and dirty fix for "Remove Signup" form being hidden
+// behind nav. @TODO Remove me when we fix "non-themed" template
+#dosomething-signup-node-unsignup-form {
+  padding-top: 8rem;
+  padding-bottom: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
 // Drupal likes to label things with "hidden" headers, let's
 // hide them for real.
 .element-invisible {
