@@ -6,6 +6,74 @@
  */
 
 /**
+ * Page callback for the Signup Opt In configuration page.
+ */
+function dosomething_signup_opt_in_config_page() {
+  $output = '';
+  // This is the form we'll replace.
+  $variables_form = drupal_get_form('dosomething_signup_optin_config_form');
+  $output .= drupal_render($variables_form);
+  // This is the new form writes to the signup_variable table.
+  $config_form = drupal_get_form('dosomething_signup_admin_config_form');
+  $output .= drupal_render($config_form);
+  return $output;
+}
+
+function dosomething_signup_admin_config_form($form, &$form_state) {
+  $form['header'] = array(
+    '#prefix' => '<h3>',
+    '#markup' => 'SMS Games',
+    '#suffix' => '</h3>',
+  );
+  $sms_games = dosomething_campaign_get_sms_games();
+  if ($sms_games) {
+    foreach ($sms_games as $vars) {
+      $nid = $vars['nid'];
+      // Create a fieldset for each SMS Game.
+      $form[$nid] = array(
+        '#type' => 'fieldset',
+        '#title' => $vars['title'] . ' : NID ' . $nid,
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      $form[$nid][$nid . '_alpha'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mobile Commons Alpha Opt-In Path'),
+        '#required' => TRUE,
+        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_alpha'),
+      );
+      $form[$nid][$nid . '_beta'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Mobile Commons Beta Opt-In Path'),
+        '#required' => TRUE,
+        '#default_value' => dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_beta'),
+      );
+    }
+  }
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for dosomething_signup_admin_config_form().
+ */
+function dosomething_signup_admin_config_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  $sms_games = dosomething_campaign_get_sms_games();
+  if ($sms_games) {
+    foreach ($sms_games as $vars) {
+      $nid = $vars['nid'];
+      dosomething_signup_variable_set($nid, 'mobilecommons_opt_in_alpha', $values[$nid . '_alpha']);
+      dosomething_signup_variable_set($nid, 'mobilecommons_opt_in_beta', $values[$nid . '_beta']);
+    }
+  }
+  drupal_set_message(t("Configuration saved."));
+}
+
+/**
  * Settings form third party opt-in ids.
  */
 function dosomething_signup_optin_config_form($form, &$form_state) {
