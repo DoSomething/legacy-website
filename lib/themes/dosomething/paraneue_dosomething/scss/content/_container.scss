@@ -24,6 +24,14 @@
     }
   }
 
+  > .gallery {
+    padding: 1rem 0;
+
+    @include media($desktop) {
+      padding: 1.5rem 0;
+    }
+  }
+
   .-columned {
     @include media($tablet) {
       @include span-columns(6 of 12);
