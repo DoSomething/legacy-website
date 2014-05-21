@@ -9,6 +9,7 @@ include_once 'dosomething_signup.forms.inc';
 include_once 'dosomething_signup.signup_data_form.inc';
 include_once 'dosomething_signup.theme.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
+include_once 'includes/dosomething_signup.variable.inc';
 
 /**
  * Implements hook_menu().
@@ -19,8 +20,7 @@ function dosomething_signup_menu() {
   $items['admin/config/services/optins'] = array(
     'title' => t('Third Party Opt-Ins'),
     'description' => 'Admin form to manage custom opt-ins',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_signup_optin_config_form'),
+    'page callback' => 'dosomething_signup_opt_in_config_page',
     'access callback' => 'user_access',
     'access arguments' => array('administer third party communication'),
     'file' => 'dosomething_signup.admin.inc'
