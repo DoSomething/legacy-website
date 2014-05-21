@@ -17,6 +17,17 @@ settings[use_cdn_assets] = 0
 settings[show_campaign_finder] = 0
 settings[show_sponsors] = 1
 
+settings[footer_links_first_column_heading] = 'Help'
+settings[footer_links_first_column_links] = 'Contact Us|about/get-touch\nHotlines|about/hotline-list\nFAQs|about/faq'
+settings[footer_links_first_column_class] = 'help'
+settings[footer_links_second_column_heading] = 'Get to Know Us'
+settings[footer_links_second_column_links] = 'Partners|about/our-partners\nDonate|about/donate-pretty-please\nTMI Agency|http://www.tmiagency.org'
+settings[footer_links_second_column_class] = 'knowus'
+settings[footer_links_third_column_heading] = 'About'
+settings[footer_links_third_column_links] = 'What is DoSomething.org?|about/who-we-are\nOur Team|about/our-people\nJobs|about/were-hiring\nInternships|about/internships\nOld People|about/old-people\nSexy Financials|about/sexy-financials\nInternational|about/international
+'
+settings[footer_links_third_column_class] = 'about'
+
 ;Exclude
 ;javascript
 exclude[js][] = 'misc/jquery.js'
