@@ -47,4 +47,79 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
     $form['feature_flags'][$name]['#default_value'] = theme_get_setting($name);
   }
 
+  // Lets break this up a little
+  _paraneue_dosomething_theme_settings_footer($form, $form_state);
+
+}
+
+function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
+  $form['footer'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Footer'),
+  );
+
+  $form['footer']['links'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Links',
+    '#description' => t('Manage the links in each column of the footer')
+  );
+
+  // Stuffing these into smaller variables, because the nesting gets nasty
+  $footer = &$form['footer'];
+  $links = &$form['links'];
+
+  $footer['footer_social'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Toggle Social Links'),
+    '#options' => array(
+      'facebook' => t('Facebook'),
+      'twitter' => t('Twitter'),
+      'tumblr' => t('Tumblr'),
+      'instagram' => t('Instagram'),
+      'youtube' => t('Youtube'),
+    ),
+    '#default_value' => theme_get_setting('footer_social')
+  );
+
+  $columns = array('first', 'second', 'third');
+
+  foreach ($columns as $column) {
+    $prefix = 'footer_links_' . $column;
+
+    $links[$prefix] = array(
+      '#type' => 'fieldset',
+      '#title' => t(ucwords($column) .' column'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE
+    );
+
+    $link_column = &$links[$prefix];
+
+    $link_column[$prefix . '_column_heading'] = array(
+      '#type' => 'textfield',
+      '#title' => t(ucwords($column) . ' Column Heading'),
+      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_heading')
+    );
+
+    $link_column[$prefix . '_column_links'] = array(
+      '#type' => 'textarea',
+      '#title' => t(ucwords($column) . ' Column Links'),
+      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_links')
+    );
+
+    $link_column[$prefix. '_advanced'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Advanced options'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE
+    );
+
+    $link_column[$prefix . '_advanced'][$prefix . '_column_class'] = array(
+      '#type' => 'textfield',
+      '#title' => t(ucwords($column) . ' Column Class'),
+      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_class')
+    );
+
+  }
+
 }
