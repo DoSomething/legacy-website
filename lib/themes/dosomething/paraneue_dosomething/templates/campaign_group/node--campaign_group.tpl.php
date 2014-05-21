@@ -104,28 +104,6 @@
   <?php endif; ?>
 
 
-  <?php if (isset($additional_text)): ?>
-  <section class="container additional-text">
-    <div class="wrapper">
-      <?php if (isset($additional_text_title)): ?>
-        <h2 class="container__title"><?php print $additional_text_title; ?></h2>
-      <?php endif; ?>
-
-      <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
-        <?php print $additional_text; ?>
-      </div>
-
-      <?php if (isset($additional_text_image)): ?>
-        <aside class="-columned">
-          <?php print $additional_text_image; ?>
-        </aside>
-      <?php endif; ?>
-    </div>
-  </section>
-  <?php endif; ?>
-
-
-
   <?php if (!empty($campaigns)): ?>
     <section class="container container--campaigns">
       <ul class="gallery -mosaic">
@@ -148,6 +126,27 @@
 
       </ul>
     </section>
+  <?php endif; ?>
+
+
+  <?php if (isset($additional_text)): ?>
+  <section class="container additional-text">
+    <div class="wrapper">
+      <?php if (isset($additional_text_title)): ?>
+        <h2 class="container__title"><?php print $additional_text_title; ?></h2>
+      <?php endif; ?>
+
+      <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
+        <?php print $additional_text; ?>
+      </div>
+
+      <?php if (isset($additional_text_image)): ?>
+        <aside class="-columned">
+          <?php print $additional_text_image; ?>
+        </aside>
+      <?php endif; ?>
+    </div>
+  </section>
   <?php endif; ?>
 
 

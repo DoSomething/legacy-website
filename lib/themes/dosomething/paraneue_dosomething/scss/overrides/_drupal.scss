@@ -43,3 +43,26 @@
   margin-right: 0;
   margin-bottom: 0;
 }
+
+
+// Hide Drupal Admin Menu on mobile and show it on desktop.
+html {
+  body.html.admin-menu { // @TODO: yes, I know this is ugly :(
+    margin-top: 0 !important;
+  }
+
+  @include media($desktop) {
+    body.html.admin-menu { // @TODO: yes, I know this is ugly :(
+      margin-top: 29px !important;
+    }
+  }
+}
+
+#admin-menu {
+  display: none;
+
+  @include media($desktop) {
+    display: block;
+  }
+}
+
