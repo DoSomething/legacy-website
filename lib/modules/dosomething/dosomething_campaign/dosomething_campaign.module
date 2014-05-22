@@ -76,7 +76,7 @@ function dosomething_campaign_menu() {
     'file' => 'dosomething_campaign.pages.inc',
   );
   // Submit a campaign idea page.
-  $items['campaigns/hunt/campaign-form'] = array(
+  $items['volunteer/hunt/campaign-form'] = array(
     'title' => t('Submit Your Causey Idea to DoSomething.org'),
     'page callback' => 'dosomething_campaign_submit_idea_page',
     'access callback' => TRUE,
