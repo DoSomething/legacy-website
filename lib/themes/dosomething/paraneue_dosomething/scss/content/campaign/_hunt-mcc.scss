@@ -1,0 +1,72 @@
+.mcc--googleform {
+  background: #fff;
+
+  .ss-form {
+    @include media($tablet) {
+      @include span-columns(8 of 12);
+      @include shift(2);
+    }
+  }
+
+  .ss-form-desc {
+    margin-bottom: 2rem;
+  }
+
+  .required-message {
+    @include visually-hidden;
+  }
+
+  .ss-required-asterisk {
+    display: none;
+  }
+
+  .ss-form-question {
+    margin-bottom: 1rem;
+    @include clearfix;
+  }
+
+  .ss-choices {
+    list-style-type: none;
+  }
+
+  .ss-choice-item label {
+    margin: 0.25em 0;
+  }
+
+  .ss-q-other-container {
+    padding-left: 1.25rem;
+
+    input {
+      max-width: 400px;
+    }
+  }
+
+  .ss-datetime-box select {
+    @include span-columns(2 of 8);
+    @include omega(3n);
+  }
+
+  // Hide Google Datepicker control
+  .ss-picker-button-container {
+    display: none;
+  }
+
+  .ss-secondary-text {
+    color: $med-gray;
+    font-size: 0.9rem;
+    padding-bottom: 1rem;
+  }
+
+  // These should be hidden since we're not running Google's JS
+  .error-message {
+    display: none;
+  }
+
+  .ss-navigate {
+    margin-bottom: 2rem;
+
+    table {
+      margin: 0 auto;
+    }
+  }
+}
