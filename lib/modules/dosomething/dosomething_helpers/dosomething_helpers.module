@@ -420,7 +420,7 @@ function dosomething_helpers_save_custom_vars(&$form, &$form_state) {
   foreach ($variables as $variable) {
     $$variable = "{$prefix}{$variable}";
     // Save alt color and pitch page label.
-    if (in_array($variable, array('alt color', 'pitch_page_label'))) {
+    if (in_array($variable, array('alt_color', 'pitch_page_label'))) {
       dosomething_helpers_save_custom_var($$variable, $values[$$variable]);
     }
   }
