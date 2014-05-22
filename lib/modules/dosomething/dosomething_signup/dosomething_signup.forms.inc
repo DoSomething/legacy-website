@@ -6,14 +6,14 @@
  */
 
 /**
- * Form constructor for an Alpha/Beta signup form.
+ * Form constructor for a Friends signup form.
  *
  * @param int $nid
  *   Loaded $node that the form is being rendered on.
- * @param int $num_betas
- *   Number of inputs to provide for beta numbers.
+ * @param int $num_friends
+ *   Number of inputs to provide for friends' numbers.
  */
-function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_betas = 3) {
+function dosomething_signup_friends_form($form, &$form_state, $node, $num_friends = 3) {
   $nid = $node->nid;
   $opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path');
   $friends_opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path');
@@ -71,7 +71,7 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
       'placeholder' => t('Enter your mobile number'),
     ),
   );
-  for ($i = 0; $i < $num_betas; $i++) {
+  for ($i = 0; $i < $num_friends; $i++) {
     $form['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#attributes' => array(
@@ -91,11 +91,11 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
 }
 
 /**
- * Form validation handler for dosomething_signup_alpha_beta_form().
+ * Form validation handler for dosomething_signup_friends_form().
  *
  * Provides server-side checks for valid and duplicate numbers, cleans input format.
  */
-function dosomething_signup_alpha_beta_form_validate($form, &$form_state) {
+function dosomething_signup_friends_form_validate($form, &$form_state) {
   $values = $form_state['values'];
   // Text to display for invalid number format.
   $invalid_format_msg = t("Please provide a valid telephone number.");
@@ -141,16 +141,18 @@ function dosomething_signup_alpha_beta_form_validate($form, &$form_state) {
 }
 
 /**
- * Form submission handler for dosomething_signup_alpha_beta_form().
+ * Form submission handler for dosomething_signup_friends_form().
  *
  * Redirects user to the reportback confirmation page for given node.
  */
-function dosomething_signup_alpha_beta_form_submit($form, &$form_state) {
+function dosomething_signup_friends_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $nid = $values['nid'];
   if (user_is_logged_in()) {
     // Create a signup.
     dosomething_signup_create($nid);
+    // @todo: Save mobile and first name to user if not set.
+    // @see https://github.com/DoSomething/dosomething/issues/2274.
   }
   
   // Send opt_in request to Mobilecommons API.
