@@ -193,7 +193,7 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 
 ; Predis
 libraries[predis][download][type] = "git"
-libraries[predis][download][url] = "git@github.com:nrk/predis.git"
+libraries[predis][download][url] = "https://github.com/nrk/predis.git"
 
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
