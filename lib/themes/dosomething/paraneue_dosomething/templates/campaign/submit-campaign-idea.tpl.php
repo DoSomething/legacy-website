@@ -33,7 +33,7 @@
       <div class="ss-form">
         <form action=
         "https://docs.google.com/forms/d/1PjmkallseEPvmmrJuEyEIgOWTlGThg1ylzxgPZloXfU/formResponse"
-        method="post" id="ss-form" target="_self" onsubmit="submitted=true;">
+        method="post" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
 
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='/campaigns/hunt?submitted-mcc=true';}"></iframe>
 
