@@ -218,51 +218,47 @@ body.node-type-campaign {
 
 // @TODO: Have to namespace the footer so it doesn't affect footers on campaigns;
 // but should eventually universalize this since it's very similar styles.
-.campaign-group {
-  footer {
-    color: #fff;
-    @include rgba('background', #000, 0.5);
+// .info-bar {
+//   color: #fff;
+//   @include rgba('background', #000, 0.5);
 
-    > .wrapper {
-      padding: 1rem;
-      @include clearfix();
+//   > .wrapper {
+//     padding: 1rem;
+//     @include clearfix();
 
-      @include media($tablet) {
-        @include span-columns(12);
-        @include shift(2);
-        float: none;
-        padding: 1rem 0;
-      }
-    }
+//     @include media($tablet) {
+//       @include span-columns(12);
+//       @include shift(2);
+//       float: none;
+//       padding: 1rem 0;
+//     }
+//   }
 
-    a {
-      color: #fff;
-      font-weight: $weight-normal;
-    }
+//   a {
+//     color: #fff;
+//     font-weight: $weight-normal;
+//   }
 
-    div + div {
-      margin-top: 0.5rem;
-    }
+//   div + div {
+//     margin-top: 0.5rem;
+//   }
 
-    .help {
-      border: 0 none; // @TODO: Inherited style to remove.
-    }
+//   .help {
+//     border: 0 none; // @TODO: Inherited style to remove.
+//   }
 
-    @include media($tablet) {
-      div + div {
-        margin-top: 0;
-      }
+//   @include media($tablet) {
+//     div + div {
+//       margin-top: 0;
+//     }
 
-      .help {
-        float: right;
-      }
+//     .help {
+//       float: right;
+//     }
 
-      .sponsor {
-        float: left;
-      }
-    }
-
-  }
-}
-
+//     .sponsor {
+//       float: left;
+//     }
+//   }
+// }
 

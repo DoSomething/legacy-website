@@ -19,7 +19,10 @@
   <header role="banner" class="-hero">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
+      <?php if (isset($subtitle)): ?>
       <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
+      <?php endif; ?>
+
 
       <?php if (isset($signup_button)): ?>
         <div class="__signup">
@@ -183,7 +186,7 @@
     </section>
   <?php endif; ?>
 
-  <footer>
+  <footer class="info-bar">
     <div class="wrapper">
       <?php if (isset($content['zendesk_form'])): ?>
         <div class="help">
