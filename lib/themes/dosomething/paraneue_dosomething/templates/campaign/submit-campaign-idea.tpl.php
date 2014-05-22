@@ -1548,7 +1548,7 @@
                 <div class="ss-form-entry">
                   <div class="ss-q-title">
                     <label class="ss-q-item-label" for="entry_767078954">Anything else
-                    you'd like to add?</label>
+                    you'd like to add? <span class="field-label-optional">(optional)</span></label>
                   </div>
 
                   <div class="ss-q-help ss-secondary-text" dir="ltr"></div>

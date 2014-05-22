@@ -20,6 +20,10 @@
     display: none;
   }
 
+  .field-label-optional {
+    color: $light-gray;
+  }
+
   .ss-form-question {
     margin-bottom: 1rem;
     @include clearfix;
