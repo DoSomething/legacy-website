@@ -61,8 +61,23 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       }
     }
 
+    $node = menu_get_object();
+    $wrapper = entity_metadata_wrapper('node', $node);
+
+    // Timing.
+    $display_date = $wrapper->field_display_end_date->value();
+    // Check if there is a value in the date field.
+    $high_season = $wrapper->field_high_season->value();
+    if ($display_date == 1 && isset($high_season)) {
+      $end_date = date('F d', $wrapper->field_high_season->value2->value());
+      $vars['end_date'] = 'Ends ' . $end_date;
+    }
+
     // Hero Images.
     dosomething_helpers_preprocess_hero_images($vars);
+
+    // Preprocess any custom campaign variables.
+    dosomething_campaign_preprocess_custom_vars($vars);
 
     // Add inline css based on vars.
     dosomething_helpers_add_inline_css($vars);
