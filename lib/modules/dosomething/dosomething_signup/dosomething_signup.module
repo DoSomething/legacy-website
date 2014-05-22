@@ -498,8 +498,7 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
 function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
   if ($node->type == 'campaign_group') {
     $wrapper = entity_metadata_wrapper('node', $node);
-    $transactional_email_copy_values = $wrapper->field_transactional_email_copy->value();
-    $params['transactional_email_copy'] = $transactional_email_copy_values['value'];
+    $params['transactional_email_copy'] = nl2br($wrapper->field_transactional_email_copy->value());
   }
 }
 
