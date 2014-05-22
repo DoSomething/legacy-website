@@ -43,9 +43,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_helpers_preprocess_partners_vars($vars);
     }
 
-    // Preprocess any custom campaign variables.
-    dosomething_campaign_preprocess_custom_vars($vars);
-
     // Add inline css based on vars.
     dosomething_helpers_add_inline_css($vars);
 
@@ -69,29 +66,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
       // Preprocess the vars for the campaign action page.
       dosomething_campaign_preprocess_action_page($vars, $wrapper);
     }
-  }
-}
-
-/**
- * Preprocesses variables for any custom settings.
- *
- * @param array $vars
- *   Node variables, passed from preprocess_node.
- */
-function dosomething_campaign_preprocess_custom_vars(&$vars) {
-  // Get prefix to check for custom campaign variables.
-  $prefix = dosomething_helpers_get_custom_var_prefix('campaign', $vars['nid']);
-  // Check for custom alt color.
-  $alt_color = variable_get($prefix . 'alt_color');
-  if (!empty($alt_color)) {
-    // Sanitize value for sanity's sake.
-    $vars['alt_color'] = strip_tags($alt_color);
-  }
-  // Check for alt background File fid.
-  $fid = variable_get($prefix . 'alt_bg_fid');
-  if (!empty($fid)) {
-    $file = file_load($fid);
-    $vars['alt_bg_src'] = file_create_url($file->uri);
   }
 }
 

@@ -161,7 +161,7 @@
 
         <?php foreach ($galleries as $gallery): ?>
           <?php if (isset($gallery['title'])): ?>
-            <h2 class="__title"><?php print $gallery['title']; ?></h2>
+            <h2 class="__title inline--alt-color"><?php print $gallery['title']; ?></h2>
           <?php endif; ?>
           <ul class="gallery -triad">
             <?php foreach ($gallery['items'] as $gallery_item): ?>

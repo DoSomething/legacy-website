@@ -166,12 +166,38 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
 }
 
 /**
+ * Preprocesses variables for any custom settings.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ */
+function dosomething_helpers_preprocess_custom_vars(&$vars) {
+  // Get prefix to check for custom node styles variables.
+  $prefix = dosomething_helpers_get_custom_var_prefix($vars['type'], $vars['nid']);
+  // Check for custom alt color.
+  $alt_color = variable_get($prefix . 'alt_color');
+  if (!empty($alt_color)) {
+    // Sanitize value for sanity's sake.
+    $vars['alt_color'] = strip_tags($alt_color);
+  }
+  // Check for alt background File fid.
+  $fid = variable_get($prefix . 'alt_bg_fid');
+  if (!empty($fid)) {
+    $file = file_load($fid);
+    $vars['alt_bg_src'] = file_create_url($file->uri);
+  }
+}
+
+/**
  * Adds inline css into HEAD based on current state of vars.
  *
  * @param array $vars
  *   Node variables, passed from preprocess_node.
  */
 function dosomething_helpers_add_inline_css(&$vars) {
+  // Preprocess custom vars to see if any inline css needed.
+  dosomething_helpers_preprocess_custom_vars($vars);
+
   // Check for alt_color variable.
   if (isset($vars['alt_color'])) {
     $alt_color = 'color: #' .  $vars['alt_color'] . ' !important;';
