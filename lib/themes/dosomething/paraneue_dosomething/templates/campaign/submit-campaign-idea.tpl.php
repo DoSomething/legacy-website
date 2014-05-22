@@ -12,11 +12,8 @@
       <div class="ss-top-of-page">
         <div class="ss-form-heading">
           <div class="ss-form-desc ss-no-ignore-whitespace">
-            Please fill out the following questions by <strong>FRIDAY, JUNE 20TH</strong> if you are
-            interested in submitting a campaign for The Hunt 2014! If you have any
-            questions, please email <a href=
-            "mailto:hunt@dosomething.org">hunt@dosomething.org</a>. Read this document
-            before submitting. <strong>CAMPAIGNS MUST MEET THESE REQUIREMENTS TO BE ELIGIBLE.</strong>
+            <p>Please fill out the following questions by <strong>Friday, June 20</strong> if you are interested in submitting a campaign for The Hunt 2014! If you have any questions, please email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a>.</p>
+            <p><strong>Read the <a href="https://www.dosomething.org/files/campaigns/thumb14/Hunt%20Submission%20Rules.pdf">submission rules</a> before submitting. Campaigns must meet these requirements to be eligible!</p>
           </div>
           <hr class="ss-email-break" style="display:none;" />
 
@@ -1344,8 +1341,7 @@
                     If your call to action has more than one campaign type, choose the one
                     that is most relevant. e.g if your campaign is an event (host an event)
                     where people donate a piece of clothing as admission (donate an item),
-                    choose host an event. See descriptions of all campaign type options
-                    here.
+                    choose host an event. See <a href="https://www.dosomething.org/files/campaigns/thumb14/Campaign_Types.pdf">descriptions of all campaign types</a>.
                   </div>
 
                   <ul class="ss-choices" role="radiogroup" aria-label=
