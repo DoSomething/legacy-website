@@ -23,6 +23,7 @@
       <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
       <?php endif; ?>
 
+      <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($signup_button)): ?>
         <div class="__signup">
@@ -50,7 +51,7 @@
     <section class="container intro">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
-          <h2 class="container__title"><?php print $intro_title; ?></h2>
+          <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
         <?php endif; ?>
 
         <div class="container__body<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
@@ -81,7 +82,7 @@
     <section class="container post-signup">
       <div class="wrapper">
         <?php if (isset($post_signup_title)): ?>
-          <h2 class="container__title"><?php print $post_signup_title; ?></h2>
+          <h2 class="container__title inline--alt-color"><?php print $post_signup_title; ?></h2>
         <?php endif; ?>
 
         <div class="container_body">
@@ -96,7 +97,7 @@
     <section class="container pre-launch">
       <div class="wrapper">
         <?php if (isset($pre_launch_title)): ?>
-          <h2 class="container__title"><?php print $pre_launch_title; ?></h2>
+          <h2 class="container__title inline--alt-color"><?php print $pre_launch_title; ?></h2>
         <?php endif; ?>
 
         <div class="container__body">
@@ -136,7 +137,7 @@
   <section class="container additional-text">
     <div class="wrapper">
       <?php if (isset($additional_text_title)): ?>
-        <h2 class="container__title"><?php print $additional_text_title; ?></h2>
+        <h2 class="container__title inline--alt-color"><?php print $additional_text_title; ?></h2>
       <?php endif; ?>
 
       <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
