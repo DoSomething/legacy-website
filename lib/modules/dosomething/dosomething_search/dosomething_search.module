@@ -122,9 +122,8 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
 
     $node = entity_metadata_wrapper('node', $entity);
     foreach (array('high_season', 'low_season') as $season) {
-      $field = $node->{"field_" . $season};
-      if (isset($field)) {
-        $value = $field->value();
+      if (isset($node->{"field_" . $season})) {
+        $value = $node->{"field_" . $season}->value();
         if (isset($value)) {
           $now = time();
           if ($now >= $node->{"field_" . $season}->value->value() && $now <= $node->{"field_" . $season}->value2->value()) {
