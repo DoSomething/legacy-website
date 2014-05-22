@@ -76,9 +76,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     // Hero Images.
     dosomething_helpers_preprocess_hero_images($vars);
 
-    // Preprocess any custom campaign variables.
-    dosomething_campaign_preprocess_custom_vars($vars);
-
     // Add inline css based on vars.
     dosomething_helpers_add_inline_css($vars);
 
