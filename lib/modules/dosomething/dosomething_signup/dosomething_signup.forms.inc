@@ -23,6 +23,11 @@ function dosomething_signup_alpha_beta_form($form, &$form_state, $node, $num_bet
     '#default_value' => $nid,
     '#access' => FALSE,
   );
+  $form['title'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $node->title,
+    '#access' => FALSE,
+  );
   // If we have opt-in paths set:
   if ($opt_in_path && $friends_opt_in_path) {
     // Add as hidden form elements.
@@ -147,6 +152,10 @@ function dosomething_signup_alpha_beta_form_submit($form, &$form_state) {
     // Create a signup.
     dosomething_signup_create($nid);
   }
+  
+  // Send opt_in request to Mobilecommons API.
+  dosomething_signup_mobilecommons_opt_in_friends($values);
+
   // Redirect to the reportback confirmation page.
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $form_state['redirect'] = $confirmation_path;
