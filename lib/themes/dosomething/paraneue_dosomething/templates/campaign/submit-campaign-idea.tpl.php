@@ -1,7 +1,7 @@
 <header role="banner" class="-basic">
   <div class="wrapper">
-    <h1 class="__title">Submit Your Causey Idea</h1>
-    <h2 class="__subtitle">Tell us about your idea for a campaign for The Hunt 2014!</h2>
+    <h1 class="__title">The Hunt: Create A Challenge</h1>
+    <h2 class="__subtitle">Submit your causey idea for a campaign for The Hunt 2014!</h2>
   </div>
 </header>
 
