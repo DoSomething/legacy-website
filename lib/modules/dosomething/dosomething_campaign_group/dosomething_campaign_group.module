@@ -103,13 +103,22 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       }
     }
 
-    $vars['modals'] = theme('modal_links', array('modals' =>
-        array(
-          'faq' => $vars['faq'],
-          'partner_info' => $vars['partner_info'],
-        )
-      )
-    );
+
+    // Theme modal items if any exist.
+    $modal_items = array();
+
+    if (isset($vars['faq'])) {
+      $modal_items['faq'] = $vars['faq'];
+    }
+
+    if (isset($vars['partner_info'])) {
+      $modal_items['partner_info'] = $vars['partner_info'];
+    }
+
+    if (!empty($modal_items)) {
+      $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
+    }
+
   }
 }
 
