@@ -31,6 +31,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
+  // Show Hunt MCC form confirmation if query string exists
+  $node_type = menu_get_object()->type;
+  if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
+    drupal_set_message('Thanks for submitting your idea!');
+  }
 
   // Footer Output Setup
   $vars['footer'] = theme('footer');

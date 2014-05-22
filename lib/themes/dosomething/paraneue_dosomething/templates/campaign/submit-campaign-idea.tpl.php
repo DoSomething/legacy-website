@@ -14,6 +14,7 @@
           <div class="ss-form-desc ss-no-ignore-whitespace">
             <p>Please fill out the following questions by <strong>Friday, June 20</strong> if you are interested in submitting a campaign for The Hunt 2014! If you have any questions, please email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a>.</p>
             <p><strong>Read the <a href="https://www.dosomething.org/files/campaigns/thumb14/Hunt%20Submission%20Rules.pdf">submission rules</a> before submitting. Campaigns must meet these requirements to be eligible!</p>
+            <p><strong>All fields are required!</strong></p>
           </div>
           <hr class="ss-email-break" style="display:none;" />
 
@@ -32,7 +33,7 @@
         "https://docs.google.com/forms/d/1PjmkallseEPvmmrJuEyEIgOWTlGThg1ylzxgPZloXfU/formResponse"
         method="post" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
 
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='/campaigns/hunt?submitted-mcc=true';}"></iframe>
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='/volunteer/hunt?submitted_mcc=true';}"></iframe>
 
           <div role="list" class="ss-question-list">
             <div class="ss-form-question errorbox-good" role="listitem">
