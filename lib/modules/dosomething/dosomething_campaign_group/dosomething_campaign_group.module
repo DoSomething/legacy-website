@@ -126,14 +126,14 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       $modal_items['faq'] = $vars['faq'];
     }
 
-    if (isset($vars['partner_info'])) {
+    if (isset($vars['partner_info']) && !empty($vars['partner_info'])) {
       $modal_items['partner_info'] = $vars['partner_info'];
     }
 
     if (!empty($modal_items)) {
       $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
     }
-
+    
   }
 }
 
