@@ -49,10 +49,12 @@
   aside {
     img {
       @include fluid-image();
+      width: 100%;
     }
   }
 
 }
+
 
 .container__title {
   line-height: 1.1;
@@ -60,6 +62,17 @@
 
   @include media($tablet) {
     margin-bottom: 1.5rem;
+  }
+}
+
+
+.container__body {
+  p {
+    margin-bottom: 0;
+  }
+
+  p + p {
+    margin-top: 1.5rem;
   }
 }
 

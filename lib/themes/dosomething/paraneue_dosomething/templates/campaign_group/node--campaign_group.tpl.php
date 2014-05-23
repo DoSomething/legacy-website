@@ -85,7 +85,7 @@
           <h2 class="container__title inline--alt-color"><?php print $post_signup_title; ?></h2>
         <?php endif; ?>
 
-        <div class="container_body">
+        <div class="container__body">
           <?php print $post_signup_copy; ?>
         </div>
       </div>
@@ -101,7 +101,7 @@
         <?php endif; ?>
 
         <div class="container__body">
-          <?php print $pre_launch_copy; ?></p>
+          <?php print $pre_launch_copy; ?>
         </div>
       </div>
     </section>
@@ -161,7 +161,7 @@
 
         <?php foreach ($galleries as $gallery): ?>
           <?php if (isset($gallery['title'])): ?>
-            <h2 class="__title inline--alt-color"><?php print $gallery['title']; ?></h2>
+            <h2 class="container__title inline--alt-color"><?php print $gallery['title']; ?></h2>
           <?php endif; ?>
           <ul class="gallery -triad">
             <?php foreach ($gallery['items'] as $gallery_item): ?>
