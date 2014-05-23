@@ -85,5 +85,12 @@ function dosomething_campaign_group_strongarm() {
   $strongarm->value = 0;
   $export['node_submitted_campaign_group'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_campaign_group_pattern';
+  $strongarm->value = 'volunteer/[node:title]';
+  $export['pathauto_node_campaign_group_pattern'] = $strongarm;
+
   return $export;
 }
