@@ -48,7 +48,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   }
   $form['num_betas'] = array(
     '#type' => 'hidden',
-    '#default_value' => $num_betas,
+    '#default_value' => $num_friends,
     '#access' => FALSE,
   );
   $form['alpha_first_name'] = array(
