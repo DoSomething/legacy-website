@@ -221,7 +221,7 @@ function dosomething_signup_form($form, &$form_state, $nid, $label) {
     '#attributes' => array(
       'class' => array(
         'btn',
-        'large',
+        'medium',
       ),
     ),
   );
