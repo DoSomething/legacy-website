@@ -630,7 +630,9 @@ function dosomething_signup_get_login_signup_nid() {
   if (isset($obj->type)) {
     switch ($obj->type) {
       case 'campaign':
-        return $obj->nid;
+        if (dosomething_campaign_get_campaign_type($obj) != 'sms_game') {
+          return $obj->nid;
+        }
         break;
       case 'campaign_group':
         // Should only signup on login if the signup form is displayed.
