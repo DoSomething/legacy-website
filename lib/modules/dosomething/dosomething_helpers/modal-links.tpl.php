@@ -47,7 +47,8 @@
       <a href="#" class="js-close-modal modal-close-button white">×</a>
       <h2 class="banner">We &lt;3 <?php print $partner['name']; ?></h2>
       <?php print $partner['copy']; ?>
-      <?php if (isset($partner['image'])): print $partner['image']; endif; ?>
+      <?php if (isset($partner['video'])): print $partner['video']; ?>
+      <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
       <a href="#" class="js-close-modal">Back to main page</a>
     </script>
   <?php endforeach; ?>

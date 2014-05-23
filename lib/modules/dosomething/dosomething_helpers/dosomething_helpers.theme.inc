@@ -106,6 +106,14 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
   // Preprocess partner info modals.
   if (isset($vars['partner_info'])) {
     foreach ($vars['partner_info'] as $delta => $info) {
+      // If video field is set:
+      if (!empty($info['video'])) {
+        $vars['partner_info'][$delta]['video'] = theme('dosomething_video_embed', array(
+          'field' => $info['video'],
+          'width' => 550,
+          'height' => 300,
+        ));
+      }
       // If image landscape field is set:
       $image_node = $info['image'];
       if (!empty($image_node->field_image_landscape)) {
