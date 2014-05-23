@@ -93,6 +93,20 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
     '#value' => 'normal',
   );
 
+  // If anonymous user:
+  if (!user_is_logged_in()) {
+    // Add email as a required field.
+    $form['email'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Your Email',
+      '#required' => TRUE,
+      '#attributes' => array(
+        'data-validate' => 'email',
+        'data-validate-required' => '',
+      ),
+    );
+  }
+
   if ($node) {
      // Check if node has its own Zendesk group_id:
     $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $node->nid));   
@@ -138,12 +152,28 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
 }
 
 /**
+ * Validation callback for dosomething_zendesk_form().
+ */
+function dosomething_zendesk_form_validate($form, &$form_state) {
+  // If an email field is present:
+  if (isset($form_state['values']['email'])) {
+    // Check if valid email.
+    if (!valid_email_address($form_state['values']['email'])) {
+      form_set_error('email', t("Please provide a valid email address."));
+    }
+  }
+}
+
+/**
  * Submit callback for dosomething_zendesk_form().
  */
 function dosomething_zendesk_form_submit($form, &$form_state) {
-  global $user;
   $values = $form_state['values'];
-  $values['email'] = $user->mail;
+  if (user_is_logged_in()) {
+    global $user;
+    $values['email'] = $user->mail;
+  }
+ 
   // Attempt to submit a ticket via Zendesk API.
   if (dosomething_zendesk_create_ticket($values)) {
     $msg = t("Thanks for submitting your question.") . ' ';
@@ -169,13 +199,12 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
  *   Whether or not API request was successful.
  */
 function dosomething_zendesk_create_ticket($values) {
-  global $user;
   // Get expected format for a create Ticket request.
   $ticket = dosomething_zendesk_get_ticket_array($values);
   if ($ticket && $client = dosomething_zendesk_get_client()) {
     try {
       // Make sure user exists as a Zendesk user (required to create Ticket).
-      if (dosomething_zendesk_verify_zendesk_user($user, $client)) {
+      if (dosomething_zendesk_verify_zendesk_user($values['email'], $client)) {
         // Submit API request to create Zendesk ticket.
         $client->tickets()->create($ticket);
         return TRUE;
@@ -242,28 +271,28 @@ function dosomething_zendesk_get_ticket_array($values) {
 }
 
 /**
- * Verifies that given user exists as zendesk user.
+ * Verifies that given $email exists for a zendesk user.
  * 
- * If a zendesk user doesn't exist for account, creates one.
+ * If a zendesk user doesn't exist for $email, creates one.
  *
- * @param object $user
- *   The user object to verify.
+ * @param string $email
+ *   The email address to verify.
  *
  * @return mixed
  *   An API response, or FALSE if exception was thrown.
  */
-function dosomething_zendesk_verify_zendesk_user($account, $client = NULL) {
+function dosomething_zendesk_verify_zendesk_user($email, $client = NULL) {
   if ($client == NULL) {
     $client = dosomething_zendesk_get_client();
   }
   try {
     $search = $client->search(array(
-      'query' => "type:user email:{$account->mail}",
+      'query' => "type:user email:{$email}",
     ));
     // If a zendesk user was not found:
     if (empty($search->results)) {
       // Create a zendesk user.
-      return dosomething_zendesk_create_zendesk_user($account, $client);
+      return dosomething_zendesk_create_zendesk_user($email, $client);
     }
     return $search->results;
   }
@@ -274,25 +303,32 @@ function dosomething_zendesk_verify_zendesk_user($account, $client = NULL) {
 }
 
 /**
- * Creates a zendesk user for a given user.
+ * Creates a zendesk user for a given email.
  *
- * @param object $user
- *   The user object to create a zendesk user for.
+ * @param string $email
+ *   The email addressto create a zendesk user for.
  *
  * @return mixed
  *   An API response, or FALSE if exception was thrown.
  */
-function dosomething_zendesk_create_zendesk_user($account, $client = NULL) {
+function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
   if ($client == NULL) {
     $client = dosomething_zendesk_get_client();
-  }  
-  $first_name = dosomething_user_get_field('field_first_name', $account);
+  }
+
+  $first_name = FALSE;
+  // Check to see if user exists with this email.
+  if ($account = user_load_by_mail($email)) {
+    // Check for first name.
+    $first_name = dosomething_user_get_field('field_first_name', $account);
+  }
+  
   // Use the email address as the name if there's no first name available.
   if (!$first_name) {
-    $first_name = $account->mail;
+    $first_name = $email;
   }
   $new_user = array(
-    'email' => $account->mail,
+    'email' => $email,
     'name' => $first_name,
   );
   try {
