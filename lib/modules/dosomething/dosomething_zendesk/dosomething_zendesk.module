@@ -100,6 +100,10 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
       '#type' => 'textfield',
       '#title' => 'Your Email',
       '#required' => TRUE,
+      '#attributes' => array(
+        'data-validate' => 'email',
+        'data-validate-required' => '',
+      ),
     );
   }
 
