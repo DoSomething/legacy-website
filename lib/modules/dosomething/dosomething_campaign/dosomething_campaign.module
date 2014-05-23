@@ -150,7 +150,7 @@ function dosomething_campaign_admin_paths() {
  * Page access callback for admin custom settings form.
  */
 function dosomething_campaign_admin_custom_settings_page_access($node) {
-  return ($node->type == 'campaign' && dosomething_user_is_staff());
+  return ($node->type == 'campaign' && dosomething_user_is_staff() && dosomething_campaign_get_campaign_type($node) == 'campaign');
 }
 
 /*
