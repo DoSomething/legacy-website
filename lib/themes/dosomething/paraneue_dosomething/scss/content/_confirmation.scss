@@ -64,8 +64,7 @@ body.page-node-confirmation {
   }
 
   .cta {
-    text-align: center;
-    margin: 50px 0;
+    margin-top: 50px;  // @TODO: This can eventually be reomoved when page markup refactored to use container class.
 
     .cta-back-to-campaign {
       margin-top: 20px;
