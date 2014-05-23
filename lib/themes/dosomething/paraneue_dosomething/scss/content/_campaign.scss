@@ -168,7 +168,7 @@ body.node-type-campaign {
     @include media($tablet) {
       float: left;
       left: 40px;
-      top: -10px;
+      top: -20px;
       width: 130px;
 
       @include transform(rotate(-6deg));
