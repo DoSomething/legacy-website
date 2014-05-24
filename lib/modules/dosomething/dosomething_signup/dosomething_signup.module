@@ -374,7 +374,9 @@ function dosomething_signup_third_party_subscribe($account, $node) {
   $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
   dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node);
+  if ($node->type == 'campaign' || $node->type == 'campaign_group') {
+    dosomething_signup_mbp_request($account, $node);
+  }
 }
 
 /**
