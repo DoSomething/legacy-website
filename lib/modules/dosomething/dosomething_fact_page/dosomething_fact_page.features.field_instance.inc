@@ -58,7 +58,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -159,7 +159,7 @@ function dosomething_fact_page_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -506,6 +506,55 @@ function dosomething_fact_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-fact_page-field_primary_cause'
+  $field_instances['node-fact_page-field_primary_cause'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 14,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'sms_game' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_primary_cause',
+    'label' => 'Primary Cause',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-fact_page-field_subtitle'
   $field_instances['node-fact_page-field_subtitle'] = array(
     'bundle' => 'fact_page',
@@ -568,6 +617,7 @@ function dosomething_fact_page_field_default_field_instances() {
   t('Hero Image');
   t('Intro');
   t('Intro Title');
+  t('Primary Cause');
   t('Sources');
   t('Subtitle');
   t('Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  

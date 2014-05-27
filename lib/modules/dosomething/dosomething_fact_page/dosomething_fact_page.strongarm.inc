@@ -22,10 +22,16 @@ function dosomething_fact_page_strongarm() {
           'weight' => '7',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '7',
         ),
         'metatags' => array(
+          'weight' => '8',
+        ),
+        'redirect' => array(
           'weight' => '9',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
