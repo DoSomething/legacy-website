@@ -12,7 +12,7 @@
       <div class="ss-top-of-page">
         <div class="ss-form-heading">
           <div class="ss-form-desc ss-no-ignore-whitespace">
-            <p>Here’s your chance to create a DoSomething.org campaign. DoSomething.org campaigns are fun, unique, can be done by people across the country, and make tangible impact. Please fill out the following questions by <strong>FRIDAY, JUNE 20TH</strong> if you are interested in submitting an idea for The Hunt 2014. If you have any questions, please email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a>.</p>
+            <p>Here’s your chance to create a DoSomething.org campaign. DoSomething.org campaigns are fun, unique, can be done by people across the country, and make tangible impact. Please fill out the following questions by <strong>Friday, June 20th</strong> if you are interested in submitting an idea for The Hunt 2014. If you have any questions, please email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a>.</p>
             <p>Read the <a href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9UHZGY1F3NnZ3MkVvR2h2OFhQek5RRnlRNXo4/edit">submission rules</a> before submitting. Ideas must meet these requirements to be eligible.</p>
             <p><strong>All fields are required!</strong></p>
           </div>
