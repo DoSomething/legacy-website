@@ -22,8 +22,11 @@
   }
 
   .ss-form-question {
+    clear: both;
+
     &.-compact {
       @include media($desktop) {
+        clear: none;
         float: left;
         width: 50%;
 
