@@ -6,6 +6,29 @@
     margin-bottom: 0.5em;
   }
 
+  .required {
+    color: $error;
+    margin-bottom: 0.5em;
+  }
+
+  .info-list {
+    p:first-child {
+      margin-bottom: 0.5em;
+    }
+
+    ul {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  // .ss-form-question {
+  //   &.-compact {
+  //     @include media($desktop) {
+  //       background-color: red;
+  //     }
+  //   }
+  // }
+
   .ss-form {
     @include media($tablet) {
       @include span-columns(8 of 12);
