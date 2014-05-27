@@ -21,13 +21,22 @@
     }
   }
 
-  // .ss-form-question {
-  //   &.-compact {
-  //     @include media($desktop) {
-  //       background-color: red;
-  //     }
-  //   }
-  // }
+  .ss-form-question {
+    &.-compact {
+      @include media($desktop) {
+        float: left;
+        width: 50%;
+
+        &.-alpha {
+          padding-right: 0.5rem;
+        }
+
+        &.-beta {
+          padding-left: 0.5rem;
+        }
+      }
+    }
+  }
 
   .ss-form {
     @include media($tablet) {

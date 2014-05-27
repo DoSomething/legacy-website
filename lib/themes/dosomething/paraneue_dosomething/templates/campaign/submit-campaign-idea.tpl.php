@@ -40,7 +40,7 @@
           <p class="required"><strong>All fields are required!</strong></p>
 
           <div role="list" class="ss-question-list">
-            <div class="ss-form-question errorbox-good -compact" role="listitem">
+            <div class="ss-form-question errorbox-good -compact -alpha" role="listitem">
               <div dir="ltr" class="ss-item ss-item-required ss-text">
 
                 <div class="ss-form-entry">
@@ -55,7 +55,7 @@
               </div>
             </div>
 
-            <div class="ss-form-question errorbox-good -compact" role="listitem">
+            <div class="ss-form-question errorbox-good -compact -beta" role="listitem">
               <div dir="ltr" class="ss-item ss-item-required ss-text">
                 <div class="ss-form-entry">
                   <div class="ss-q-title">
@@ -70,7 +70,7 @@
             </div>
 
 
-            <div class="ss-form-question errorbox-good -compact" role="listitem">
+            <div class="ss-form-question errorbox-good -compact -alpha" role="listitem">
               <div dir="ltr" class="ss-item ss-item-required ss-text">
                 <div class="ss-form-entry">
                   <div class="ss-q-title">
@@ -93,7 +93,7 @@
             </div>
 
 
-            <div class="ss-form-question errorbox-good -compact" role="listitem">
+            <div class="ss-form-question errorbox-good -compact -beta" role="listitem">
               <div dir="ltr" class="ss-item ss-item-required ss-text">
                 <div class="ss-form-entry">
                   <div class="ss-q-title">
