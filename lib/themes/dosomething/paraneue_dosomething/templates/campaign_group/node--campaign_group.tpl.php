@@ -19,7 +19,7 @@
   <header role="banner" class="-hero">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
-      <?php if (isset($subtitle)): ?>
+      <?php if (isset($call_to_action)): ?>
       <h2 class="__subtitle"><?php print $call_to_action; ?></h2>
       <?php endif; ?>
 
