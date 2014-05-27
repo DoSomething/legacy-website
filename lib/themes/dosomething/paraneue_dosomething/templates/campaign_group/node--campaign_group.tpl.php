@@ -165,7 +165,7 @@
           <?php endif; ?>
           <ul class="gallery -triad">
             <?php foreach ($gallery['items'] as $gallery_item): ?>
-              <li class="">
+              <li class="<?php print $gallery_item['order_class']; ?>">
                 <div class="tile tile--figure">
                   <?php if (isset($gallery_item['image'])): ?>
                     <?php print $gallery_item['image']; ?>
