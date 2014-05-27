@@ -512,63 +512,22 @@
                     If your idea addresses more than one cause, choose the one you think is most relevant.
                   </div>
 
-                  <ul class="ss-choices" role="radiogroup" aria-label=
-                  "What cause are you focusing on? If your call to action addresses more than one cause, choose the one that is most relevant. e.g if your campaign is about helping dogs (Animals) after a hurricane (Environment), choose Animals.">
-                  <li class="ss-choice-item"><label><span class=
-                  "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                  "entry.822732364" value="Animals" id="group_822732364_1" role="radio"
-                  class="ss-q-radio" aria-label="Animals" required="" aria-required=
-                  "true" /></span> <span class=
-                  "ss-choice-label">Animals</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="Bullying &amp; Discrimination" id=
-                    "group_822732364_3" role="radio" class="ss-q-radio" aria-label=
-                    "Bullying &amp; Discrimination" required="" aria-required=
-                    "true" /></span> <span class="ss-choice-label">Bullying &amp;
-                    Discrimination</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="Education" id="group_822732364_6" role="radio"
-                    class="ss-q-radio" aria-label="Education" required="" aria-required=
-                    "true" /></span> <span class=
-                    "ss-choice-label">Education</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="Environment" id="group_822732364_2" role=
-                    "radio" class="ss-q-radio" aria-label="Environment" required=""
-                    aria-required="true" /></span> <span class=
-                    "ss-choice-label">Environment</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="Physical &amp; Mental Health" id=
-                    "group_822732364_4" role="radio" class="ss-q-radio" aria-label=
-                    "Physical &amp; Mental Health" required="" aria-required=
-                    "true" /></span> <span class="ss-choice-label">Physical &amp; Mental
-                    Health</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="Poverty &amp; Homelessness" id=
-                    "group_822732364_5" role="radio" class="ss-q-radio" aria-label=
-                    "Poverty &amp; Homelessness" required="" aria-required="true" /></span>
-                    <span class="ss-choice-label">Poverty &amp;
-                    Homelessness</span></label></li>
-
-                    <li class="ss-choice-item"><label><span class=
-                    "ss-choice-item-control goog-inline-block"><input type="radio" name=
-                    "entry.822732364" value="__other_option__" id="group_822732364_7" role=
-                    "radio" class="ss-q-radio ss-q-other-toggle" required="" aria-required=
-                    "true" /></span> <span class="ss-choice-label">Other:</span></label>
-                    <span class="ss-q-other-container goog-inline-block"><input type="text"
-                    name="entry.822732364.other_option_response" value="" class=
-                    "ss-q-other" id="entry_822732364_other_option_response" dir="auto"
-                    aria-label="Other" /></span></li>
-                  </ul>
+                  <ul class="ss-choices" role="radiogroup" aria-label="What cause area does your idea impact? If your idea addresses more than one cause, choose the one you think is most relevant. "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Animals" id="group_822732364_1" role="radio" class="ss-q-radio" aria-label="Animals" required="" aria-required="true"></span>
+<span class="ss-choice-label">Animals</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Bullying &amp; Discrimination" id="group_822732364_2" role="radio" class="ss-q-radio" aria-label="Bullying &amp; Discrimination" required="" aria-required="true"></span>
+<span class="ss-choice-label">Bullying &amp; Discrimination</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Education" id="group_822732364_3" role="radio" class="ss-q-radio" aria-label="Education" required="" aria-required="true"></span>
+<span class="ss-choice-label">Education</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Environment" id="group_822732364_4" role="radio" class="ss-q-radio" aria-label="Environment" required="" aria-required="true"></span>
+<span class="ss-choice-label">Environment</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Physical &amp; Mental Health" id="group_822732364_5" role="radio" class="ss-q-radio" aria-label="Physical &amp; Mental Health" required="" aria-required="true"></span>
+<span class="ss-choice-label">Physical &amp; Mental Health</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="Poverty &amp; Homelessness" id="group_822732364_6" role="radio" class="ss-q-radio" aria-label="Poverty &amp; Homelessness" required="" aria-required="true"></span>
+<span class="ss-choice-label">Poverty &amp; Homelessness</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.822732364" value="__other_option__" id="group_822732364_7" role="radio" class="ss-q-radio ss-q-other-toggle" required="" aria-required="true"></span>
+<span class="ss-choice-label">Other:</span></label>
+<span class="ss-q-other-container goog-inline-block"><input type="text" name="entry.822732364.other_option_response" value="" class="ss-q-other" id="entry_822732364_other_option_response" dir="auto" aria-label="Other"></span>
+</li></ul>
 
                   <div class="error-message"></div>
 
@@ -591,63 +550,23 @@
                     If your idea is more than one type of action, choose the one that’s most relevant. Check out our <a href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9R0VnMjh5VWJybFB1QTRyRS05clF3V19VdkFj/edit">descriptions on each type of action</a>.
                   </div>
 
-                  <ul class="ss-choices" role="radiogroup" aria-label="What type of campaign are you creating? If your call to action has more than one campaign type, choose the one that is most relevant. e.g if your campaign is an event (host an event) where people donate a piece of clothing as admission (donate an item), choose host an event. See descriptions of all campaign type options here.">
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Donate an item" id="group_101412798_1" role="radio" class="ss-q-radio" aria-label="Donate an item" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Donate an item</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Face to face" id="group_101412798_3" role="radio" class="ss-q-radio" aria-label="Face to face" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Face to face interaction</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Host an event" id="group_101412798_4" role="radio" class="ss-q-radio" aria-label="Host an event" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Host an event</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Improve/clean up a (physical) space" id="group_101412798_2" role="radio" class="ss-q-radio" aria-label="Improve/clean up a (physical) space" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Improve/clean up a (physical) space</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Make something" id="group_101412798_6" role="radio" class="ss-q-radio" aria-label="Make something" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Make something</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Share something" id="group_101412798_8" role="radio" class="ss-q-radio" aria-label="Share something" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Share something</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Start something" id="group_101412798_7" role="radio" class="ss-q-radio" aria-label="Start something" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Start something (like a club)</span>
-                      </label>
-                    </li>
-
-                    <li class="ss-choice-item">
-                      <label>
-                        <span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Take a stand" id="group_101412798_5" role="radio" class="ss-q-radio" aria-label="Take a stand" required="" aria-required="true" /></span>
-                        <span class="ss-choice-label">Take a stand (protest-y stuff like petitions)</span>
-                      </label>
-                    </li>
-                  </ul>
+                  <ul class="ss-choices" role="radiogroup" aria-label="What type of action is your idea? If your idea is more than one type of action, choose the one that’s most relevant. Check out our descriptions on each type of action. "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Donate an item" id="group_101412798_1" role="radio" class="ss-q-radio" aria-label="Donate an item" required="" aria-required="true"></span>
+<span class="ss-choice-label">Donate an item</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Face to face interaction" id="group_101412798_2" role="radio" class="ss-q-radio" aria-label="Face to face interaction" required="" aria-required="true"></span>
+<span class="ss-choice-label">Face to face interaction</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Host an event" id="group_101412798_3" role="radio" class="ss-q-radio" aria-label="Host an event" required="" aria-required="true"></span>
+<span class="ss-choice-label">Host an event</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Improve/clean up a (physical) space" id="group_101412798_4" role="radio" class="ss-q-radio" aria-label="Improve/clean up a (physical) space" required="" aria-required="true"></span>
+<span class="ss-choice-label">Improve/clean up a (physical) space</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Make something&nbsp;" id="group_101412798_5" role="radio" class="ss-q-radio" aria-label="Make something&nbsp;" required="" aria-required="true"></span>
+<span class="ss-choice-label">Make something </span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Share something&nbsp;" id="group_101412798_6" role="radio" class="ss-q-radio" aria-label="Share something&nbsp;" required="" aria-required="true"></span>
+<span class="ss-choice-label">Share something </span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Start something (like a club)" id="group_101412798_7" role="radio" class="ss-q-radio" aria-label="Start something (like a club)" required="" aria-required="true"></span>
+<span class="ss-choice-label">Start something (like a club)</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Take a stand (protest-y stuff like petitions)" id="group_101412798_8" role="radio" class="ss-q-radio" aria-label="Take a stand (protest-y stuff like petitions)" required="" aria-required="true"></span>
+<span class="ss-choice-label">Take a stand (protest-y stuff like petitions)</span>
+</label></li></ul>
 
                   <div class="error-message"></div>
 
