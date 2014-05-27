@@ -493,6 +493,55 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-static_content-field_custom_content'
+  $field_instances['node-static_content-field_custom_content'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This should only be set if you know what you\'re doing.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 17,
+      ),
+      'pitch' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'sms_game' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_custom_content',
+    'label' => 'Custom Content',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-static_content-field_gallery'
   $field_instances['node-static_content-field_gallery'] = array(
     'bundle' => 'static_content',
@@ -544,7 +593,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -815,7 +864,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -932,6 +981,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Additional Text Title');
   t('CTA Link');
   t('Call to Action');
+  t('Custom Content');
   t('Gallery');
   t('Gallery Image');
   t('Gallery Item');
@@ -946,6 +996,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Sponsors and Partners');
   t('Subtitle');
   t('The ID of the Youtube video <strong> (comes after the ?v=) </strong>');
+  t('This should only be set if you know what you\'re doing.');
   t('Video');
   t('Video ID');
 

@@ -96,6 +96,31 @@ function dosomething_static_content_field_default_field_bases() {
     'type' => 'link_field',
   );
 
+  // Exported field_base: 'field_custom_content'
+  $field_bases['field_custom_content'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_custom_content',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'dosomething_fact_page_archive_custom_content' => '11 Facts Archive',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_gallery'
   $field_bases['field_gallery'] = array(
     'active' => 1,
