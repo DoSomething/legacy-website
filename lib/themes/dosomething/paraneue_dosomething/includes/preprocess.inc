@@ -45,7 +45,8 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  * Implements theme_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node(&$variables) {
-  if ($variables['node']->type == "campaign") {
+  $type = isset($variables['node']->type) ? $variables['node']->type : null;
+  if ($type == "campaign") {
     // If the campaign requires a signup modal to display:
     if (isset($variables['node']->required_signup_data_form)) {
       // Add JS to open the signup data form modal.
@@ -53,5 +54,10 @@ function paraneue_dosomething_preprocess_node(&$variables) {
       $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
       drupal_add_js($js, 'inline');
     }
+  }
+  elseif ($type == "home") {
+    // Set these here to remove db calls from tpl files
+    $variables['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
+    $variables['show_sponsors'] = theme_get_setting('show_sponsors');
   }
 }

@@ -5,8 +5,6 @@
  * Finder/new homepage design.
  * @see dosomething_user.module
  */
-if( theme_get_setting('show_campaign_finder') ) {
-
 ?>
 
 <div class="home--wrapper">
@@ -16,6 +14,7 @@ if( theme_get_setting('show_campaign_finder') ) {
         <h1 class="title"><?php print $title; ?></h1>
         <h2 class="subtitle"><?php print $subtitle; ?></h2>
       </div>
+      <?php if( $show_campaign_finder ): ?>
       <div class="js-finder-form header">
         <h3 class="visually-hidden">Start by finding a campaign below</h3>
         <div class="dropdown large">
@@ -75,6 +74,7 @@ if( theme_get_setting('show_campaign_finder') ) {
           <button class="btn">Find a Campaign</button>
         </div>
       </div>
+      <?php endif; ?>
     </div>
   </div>
 
@@ -82,9 +82,11 @@ if( theme_get_setting('show_campaign_finder') ) {
     <?php foreach($thumbnails as $thumbnail) { print $thumbnail; } ?>
   </div>
 
+  <?php if( $show_campaign_finder ): ?>
   <div class="finder--results js-campaign-results"></div>
+  <?php endif; ?>
 
-  <?php if( theme_get_setting('show_sponsors') ) : ?>
+  <?php if( $show_sponsors ) : ?>
   <div class="home--sponsors">
     <h4>Sponsors</h4>
     <p>
@@ -104,77 +106,4 @@ if( theme_get_setting('show_campaign_finder') ) {
   </div>
   <?php endif; ?>
 
-<?php
-
-/**
- * If not, let's just use the current homepage contents.
- */
-} else {
-
-?>
-
- <div class="homepage--wrapper">
-  <div class="homepage--hero">
-    <div class="header">
-      <h1>Join over 2.5 million young people taking action.</h1>
-      <p>Make the world suck less. Pick a campaign below to get started.</p>
-    </div>
-  </div>
-
-  <div class="homepage--grid">
-
-    <div class="block-big" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/pregnancytext-large.jpg'); background-position: center center;">
-      <a class="full-link" href="/baby"><span>Do This</span></a>
-      <div class="headline">
-        <h2>Send your friends a text baby to show them how their lives would change if they were a parent.</h2>
-      </div>
-    </div>
-
-    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/comebackclothes-small.jpg'); background-position: top center;">
-      <a class="full-link" href="/campaigns/comeback-clothes"><span>Do This</span></a>
-      <div class="headline">
-        <h2>Recycle old or worn-out clothes to help our planet.</h2>
-      </div>
-    </div>
-
-    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/pbj-small.jpg'); background-position: center center;">
-      <a class="full-link" href="/campaigns/peanut-butter-jam-slam"><span>Do This</span></a>
-      <div class="headline">
-        <h2>Collect peanut butter for your local food bank.</h2>
-      </div>
-    </div>
-
-    <div class="block-small" style="background-image: url('//www.dosomething.org/files/u/neue-homepage/bullytext-block.jpg'); background-position: center center;">
-      <a class="full-link" href="/bully"><span>Do This</span></a>
-      <div class="headline">
-        <h2>Everyone has the power to stop bullying. Learn how.</h2>
-      </div>
-    </div>
-  </div>
-
-<?php if( theme_get_setting('show_sponsors') ) : ?>
-  <div class="homepage--sponsors">
-    <h4>Sponsors</h4>
-    <p>
-      <i title="H&amp;R Block" class="sprite sprite-HRB"></i>
-      <i title="Aeropostale" class="sprite sprite-aeropostale"></i>
-      <i title="Channel One" class="sprite sprite-channel-one"></i>
-      <i title="Fastweb" class="sprite sprite-fastweb"></i>
-      <i title="Toyota" class="sprite sprite-toyota"></i>
-      <i title="JetBlue" class="sprite sprite-jetblue"></i>
-      <i title="AARP" class="sprite sprite-aarp"></i>
-      <i title="Sprint" class="sprite sprite-sprint"></i>
-      <i title="H&amp;M" class="sprite sprite-hm"></i>
-      <i title="Salt" class="sprite sprite-salt"></i>
-      <i title="American Express" class="sprite sprite-amex"></i>
-      <i title="Google" class="sprite sprite-google"></i>
-    </p>
-  </div>
 </div>
-<?php endif; ?>
-
-<?php
-
-}
-
-?>
