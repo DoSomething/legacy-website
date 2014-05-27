@@ -1,6 +1,11 @@
 .mcc--googleform {
   background: #fff;
 
+  label {
+    height: auto;
+    margin-bottom: 0.5em;
+  }
+
   .ss-form {
     @include media($tablet) {
       @include span-columns(8 of 12);
