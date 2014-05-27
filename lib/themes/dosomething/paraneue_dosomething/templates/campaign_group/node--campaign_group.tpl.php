@@ -63,7 +63,7 @@
         </div>
 
         <?php if (isset($intro_image) || isset($intro_video)): ?>
-        <aside class="-columned">
+        <aside class="-columned -col-last">
           <?php if (isset($intro_video)): ?>
             <div class="video">
               <?php print $intro_video; ?>
@@ -145,7 +145,7 @@
       </div>
 
       <?php if (isset($additional_text_image)): ?>
-        <aside class="-columned">
+        <aside class="-columned -col-last">
           <?php print $additional_text_image; ?>
         </aside>
       <?php endif; ?>

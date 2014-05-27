@@ -56,6 +56,18 @@
 }
 
 
+.ie8 & {
+  .-columned {
+    @include media($tablet) {
+      // Last-child not supported in IE8; using class as fallback.
+      &.-col-last {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+
 .container__title {
   line-height: 1.1;
   margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
