@@ -180,7 +180,7 @@
                       </select>
                       <select name="entry.164235794_year" id="entry.164235794_year" aria-label="Year" aria-required="true">
                         <option value="">Year</option>
-                        <option value="1989" selected="selected">1989</option>
+                        <option value="1989">1989</option>
                         <option value="1990">1990</option>
                         <option value="1991">1991</option>
                         <option value="1992">1992</option>
@@ -745,8 +745,7 @@
                     • Linking to an org that’s successfully done this E.g. “The Red Cross runs blood drives that save lives” OR;<br>
                     • Linking to research that proves your solution is valid. E.g. “The CDC says educating people about vaccines makes them more likely to get vaccinated.”
                   </div>
-                  <textarea name="entry.2116830440" rows="8" cols="0" class="ss-q-long" id="entry_2116830440" dir="auto" aria-label="Link to the solution of this problem. You MUST be able to prove that this solution will help solve the problem above. You can do this by telling us about your project (if you&#8217;ve done this before) OR by linking to a research study that proves that your solution is valid. e.g. &#8220;I run this campaign in my town every Christmas and last year we fed 100 people.&#8221; OR e.g. &quot;The CDC says that educating people about vaccines makes them more likely to get them.&quot; Must be fewer than 175 characters." aria-required="true" required="">
-                  </textarea>
+                  <textarea name="entry.2116830440" rows="8" cols="0" class="ss-q-long" id="entry_2116830440" dir="auto" aria-label="Link to the solution of this problem. You MUST be able to prove that this solution will help solve the problem above. You can do this by telling us about your project (if you&#8217;ve done this before) OR by linking to a research study that proves that your solution is valid. e.g. &#8220;I run this campaign in my town every Christmas and last year we fed 100 people.&#8221; OR e.g. &quot;The CDC says that educating people about vaccines makes them more likely to get them.&quot; Must be fewer than 175 characters." aria-required="true" required=""></textarea>
 
                   <div class="error-message">
                     Must be fewer than 175 characters.
