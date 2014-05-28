@@ -22,6 +22,7 @@ dependencies[] = admin_menu_toolbar
 dependencies[] = apachesolr
 dependencies[] = apachesolr_search
 dependencies[] = apachesolr_views
+dependencies[] = blockreference
 dependencies[] = conductor
 dependencies[] = conductor_sms
 dependencies[] = ctools
