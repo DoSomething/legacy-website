@@ -148,12 +148,24 @@ function dosomething_signup_friends_form_validate($form, &$form_state) {
 function dosomething_signup_friends_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $nid = $values['nid'];
+
   if (user_is_logged_in()) {
     // Create a signup.
     dosomething_signup_create($nid);
     // @todo: Save mobile and first name to user if not set.
     // @see https://github.com/DoSomething/dosomething/issues/2274.
   }
+
+  // Check if an account exists for the given alpha mobile.
+  // An anonymous user is able to submit the form, but they may still have an account.
+  if ($account = dosomething_user_get_user_by_mobile($values['alpha_mobile'])) {
+    // Create a signup for the account.
+    // If $account happens to be the logged in user, it's okay.
+    // dosomething_signup_create will check if a signup exists before creating.
+    dosomething_signup_create($nid, $account->uid);
+
+  }
+
   
   // Send opt_in request to Mobilecommons API.
   dosomething_signup_mobilecommons_opt_in_friends($values);
