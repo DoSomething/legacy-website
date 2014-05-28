@@ -100,6 +100,7 @@
       </div>
     <?php endif; ?>
 
+    <?php if (isset($sponsors)): ?>
     <footer class="info-bar">
       <div class="wrapper">
         <?php if (isset($sponsors)): ?>
@@ -109,6 +110,7 @@
         <?php endif; ?>
       </div>
     </footer>
+    <?php endif; ?>
 
   </article>
 </section>
