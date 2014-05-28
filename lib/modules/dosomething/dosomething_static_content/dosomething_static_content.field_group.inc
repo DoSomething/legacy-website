@@ -21,7 +21,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Text',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',

@@ -50,13 +50,13 @@ function dosomething_static_content_strongarm() {
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '7',
-        ),
-        'redirect' => array(
           'weight' => '8',
         ),
-        'xmlsitemap' => array(
+        'redirect' => array(
           'weight' => '9',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
