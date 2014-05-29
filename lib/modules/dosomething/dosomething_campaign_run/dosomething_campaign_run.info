@@ -1,6 +1,7 @@
-name = dosomething_campaign_run
+name = DoSomething Campaign Run
 core = 7.x
-package = Features
+package = DoSomething
+version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = dosomething_campaign_group
 dependencies[] = dosomething_static_content
