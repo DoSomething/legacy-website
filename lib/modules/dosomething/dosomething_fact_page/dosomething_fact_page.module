@@ -27,18 +27,29 @@ function dosomething_fact_page_block_view($delta = '') {
 
   switch ($delta) {
     case 'fact_page_list':
-      $block['content'] = dosomething_fact_page_list_block_content();
+      // Gather list of Fact Page links.
+      $links = dosomething_fact_page_get_fact_page_list_links();
+      $block['content'] = theme('fact_page_list', array(
+        'links' => $links,
+      ));
       break;
   }
   return $block;
 }
 
 /**
- * Callback for fact_page_list block content.
+ * Implements hook_theme().
  */
-function dosomething_fact_page_list_block_content() {
-  $links = dosomething_fact_page_get_fact_page_list_links();
-  return theme('item_list', array('items' => $links));
+function dosomething_fact_page_theme($existing, $type, $theme, $path) {
+  return array(
+    'fact_page_list' => array(
+      'template' => 'fact-page-list',
+      'path' => drupal_get_path('module', 'dosomething_fact_page') . '/theme',
+      'variables' => array(
+        'links' => NULL, 
+      ),
+    ),
+  );
 }
 
 /**
@@ -95,14 +106,20 @@ function dosomething_fact_page_preprocess_node(&$vars) {
 /**
  * Returns links of published fact_page nodes.
  *
+ * @param int $tid
+ *   Primary cause term tid to filter nodes by.
+ *
  * @return array
  *  Array of links.
  */
-function dosomething_fact_page_get_fact_page_list_links() {
- $query = db_select('node', 'n')
-    ->fields('n', array('nid', 'title'))
-    ->condition('type', 'fact_page')
-    ->condition('status', 1);
+function dosomething_fact_page_get_fact_page_list_by_tid($tid) {
+  $query = db_select('node', 'n');
+  $query->innerJoin('field_data_field_primary_cause', 'c', 'c.entity_id = n.nid');
+  $query->condition('type', 'fact_page')
+    ->condition('field_primary_cause_tid', $tid)
+    ->condition('status', 1)
+    ->orderBy('title');
+  $query->fields('n', array('nid', 'title'));
   $results = $query->execute();
 
   foreach($results as $key => $result) {
@@ -115,3 +132,22 @@ function dosomething_fact_page_get_fact_page_list_links() {
   return NULL;
 }
 
+/**
+ * Returns multi-dimensional array of published fact_page nodes.
+ *
+ * @return array
+ *   Array of arrays of links, keyed by Primary Cause name. 
+ */
+function dosomething_fact_page_get_fact_page_list_links() {
+  $vocab = taxonomy_vocabulary_machine_name_load('cause');
+  $tree = taxonomy_get_tree($vocab->vid);
+  foreach ($tree as $term) {
+    if ($links = dosomething_fact_page_get_fact_page_list_by_tid($term->tid)) {
+      $results[$term->name] = $links;
+    }
+  }
+  if ($results) {
+    return $results;
+  }
+  return NULL;
+}
