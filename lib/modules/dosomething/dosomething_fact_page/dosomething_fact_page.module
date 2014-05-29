@@ -6,6 +6,44 @@
 
 include_once 'dosomething_fact_page.features.inc';
 
+/**
+ * Implements hook_block_info().
+ */
+function dosomething_fact_page_block_info() {
+  $blocks = array();
+  $blocks['fact_page_list'] = array(
+    'info' => t('DS Fact Page List'),
+    //@todo: Remove and set to DRUPAL_CACHE_GLOBAL when done testing.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function dosomething_fact_page_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'fact_page_list':
+      $block['content'] = dosomething_fact_page_list_block_content();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Callback for fact_page_list block content.
+ */
+function dosomething_fact_page_list_block_content() {
+  $links = dosomething_fact_page_get_fact_page_list_links();
+  return theme('item_list', array('items' => $links));
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
 function dosomething_fact_page_preprocess_node(&$vars) {
   if ($vars['type'] == 'fact_page') {
     $content = $vars['content'];
@@ -53,3 +91,27 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     $vars['sources'] = $vars['additional_text'];
   }
 }
+
+/**
+ * Returns links of published fact_page nodes.
+ *
+ * @return array
+ *  Array of links.
+ */
+function dosomething_fact_page_get_fact_page_list_links() {
+ $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('type', 'fact_page')
+    ->condition('status', 1);
+  $results = $query->execute();
+
+  foreach($results as $key => $result) {
+    $output[$key] = l($result->title, 'node/' . $result->nid);
+  }
+  if ($output) {
+    return $output;
+  }
+  // If no results, return null.
+  return NULL;
+}
+
