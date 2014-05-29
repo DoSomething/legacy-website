@@ -54,6 +54,10 @@
       </div>
     <?php endif; ?>
 
+    <?php if (!empty($content['field_blocks'])): ?>
+    <?php print render($content['field_blocks']); ?>
+    <?php endif; ?>
+
     <?php if (!empty($galleries)): ?>
       <div class="gallery-wrapper">
         <?php foreach ($galleries as $gallery): ?>
