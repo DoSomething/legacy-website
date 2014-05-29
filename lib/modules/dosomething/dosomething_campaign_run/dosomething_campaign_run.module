@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_campaign_run feature.
+ */
+
+include_once 'dosomething_campaign_run.features.inc';

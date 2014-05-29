@@ -24,6 +24,12 @@ projects[dosomething_campaign_group][download][type] = local
 projects[dosomething_campaign_group][download][source] = './lib/modules/dosomething/dosomething_campaign_group'
 projects[dosomething_campaign_group][subdir] = "dosomething"
 
+; Dosomething Campaign Run
+projects[dosomething_campaign_run][type] = "module"
+projects[dosomething_campaign_run][download][type] = local
+projects[dosomething_campaign_run][download][source] = './lib/modules/dosomething/dosomething_campaign_run'
+projects[dosomething_campaign_run][subdir] = "dosomething"
+
 ; Dosomething Fact
 projects[dosomething_fact][type] = "module"
 projects[dosomething_fact][download][type] = local
