@@ -37,12 +37,14 @@
     }
 
     a {
+      text-shadow: 0 1px 3px rgba(#000, 0.3);
       color: #fff !important;
     }
 
     .secondary-nav input[type="search"] {
       color: #fff;
       border: 1px solid #fff;
+      box-shadow: 0 1px 3px rgba(#000, 0.3);
       background-image: neue-image-url('search_light.png');
       @include hidpi {
         background-image: neue-image-url('search_light@2x.png');
