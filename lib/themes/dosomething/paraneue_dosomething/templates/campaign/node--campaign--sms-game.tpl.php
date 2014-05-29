@@ -8,6 +8,8 @@
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
+
+// krumo('hjelloeda');
 ?>
 
 <article id="" class="">

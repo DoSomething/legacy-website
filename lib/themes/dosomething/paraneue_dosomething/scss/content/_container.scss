@@ -1,5 +1,10 @@
 .container {
 
+  // @TODO: move this to apply globally, but not until it can be checked properly.
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+
   > .wrapper {
     padding: 1rem;
     @include clearfix();
@@ -71,6 +76,10 @@
 .container__title {
   line-height: 1.1;
   margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
+
+  &.banner {
+    margin-bottom: 0;
+  }
 
   @include media($tablet) {
     margin-bottom: 1.5rem;
