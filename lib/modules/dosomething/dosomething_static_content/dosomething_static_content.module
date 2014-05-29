@@ -65,6 +65,9 @@ function dosomething_static_content_preprocess_node(&$vars) {
     // Preprocess gallery variables.
     dosomething_static_content_preprocess_gallery_vars($vars);
 
+    // Preprocess any custom_content variables.
+    dosomething_static_content_preprocess_custom_content_vars($vars);
+
     // If values present in the field_partners collection:
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
@@ -143,4 +146,30 @@ function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, 
     // Else assume this is an empty field collection.
     $is_empty = TRUE;
   }
+}
+
+/**
+ * Preprocesses variables for the field_custom_content field.
+ *
+ * @param array $vars
+ *   Variable array as passed from a hook_preprocess_node.
+ *
+ * @see dosomething_static_content_preprocess_node().
+ */
+function dosomething_static_content_preprocess_custom_content_vars(&$vars) {
+  $custom_content_vars = $vars['field_custom_content'];
+  if (!isset($custom_content_vars) || empty($custom_content_vars)) {
+    return;
+  }
+
+  foreach ($custom_content_vars as $key => $custom_content) {
+    // The return value should be an actual PHP function name to execute.
+    $value = $custom_content['value'];
+    // If this value is a defined function:
+    if (function_exists($value)) {
+      // Store its return into the custom_content array.
+      $vars['custom_content'][$key] = call_user_func($value);
+    }  
+  }
+
 }

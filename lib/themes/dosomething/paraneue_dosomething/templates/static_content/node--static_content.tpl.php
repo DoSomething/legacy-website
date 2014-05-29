@@ -54,6 +54,16 @@
       </div>
     <?php endif; ?>
 
+    <?php if (isset($custom_content)): ?>
+      <div class="additional-text-wrapper">
+        <div class="additional-text">
+          <?php foreach ($custom_content as $custom): ?>
+          <?php print $custom; ?>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <?php if (!empty($galleries)): ?>
       <div class="gallery-wrapper">
         <?php foreach ($galleries as $gallery): ?>
