@@ -417,20 +417,19 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 /*
  * Implements hook_entity_view_mode_alter().
  *
- * When a campaign node is viewed in full, this function checks both signup status
- * and the node's field_campaign_type to determine what view_mode to set.
+ * Sets "pitch" view_mode for campaign nodes based on user signup status.
  *
  * This function also handles redirects to legacy nodes.
  */
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
+
     $node = $context['entity'];
-    // Find the campaign type.
-    $campaign_type = dosomething_campaign_get_campaign_type($node);
     // If SMS Game:
-    if ($campaign_type == 'sms_game') {
-      return 'full';
+    if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+      // Exit out of function, don't need to check for pitch page.
+      return;
     }
 
     // If anonymous user:
