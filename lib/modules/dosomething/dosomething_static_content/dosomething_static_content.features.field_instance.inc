@@ -285,12 +285,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 13,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -330,12 +324,6 @@ function dosomething_static_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 12,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -377,12 +365,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'blockreference_default',
         'weight' => 17,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -419,12 +401,6 @@ function dosomething_static_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 5,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -465,12 +441,6 @@ function dosomething_static_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'link_default',
         'weight' => 14,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -532,12 +502,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 4,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -576,12 +540,6 @@ function dosomething_static_content_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 7,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -626,12 +584,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 10,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -673,12 +625,6 @@ function dosomething_static_content_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 9,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -722,12 +668,6 @@ function dosomething_static_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 8,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -774,12 +714,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 16,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -815,12 +749,6 @@ function dosomething_static_content_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 11,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -867,12 +795,6 @@ function dosomething_static_content_field_default_field_instances() {
         ),
         'type' => 'field_collection_view',
         'weight' => 15,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',

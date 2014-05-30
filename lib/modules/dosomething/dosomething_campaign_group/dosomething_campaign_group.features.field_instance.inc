@@ -24,12 +24,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 27,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -67,12 +61,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 29,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -109,12 +97,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 13,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -157,12 +139,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 33,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -207,12 +183,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 14,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -252,12 +222,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 8,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -300,12 +264,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 9,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -350,12 +308,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 10,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -396,12 +348,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 26,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -445,12 +391,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 19,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -496,12 +436,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 4,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -543,12 +477,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 11,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -589,12 +517,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         ),
         'type' => 'date_default',
         'weight' => 25,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -646,12 +568,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 22,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -693,12 +609,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -743,12 +653,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 24,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -791,12 +695,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -843,12 +741,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 12,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -884,12 +776,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 34,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -931,12 +817,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 16,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -977,12 +857,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 32,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1022,12 +896,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 31,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1074,12 +942,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'number_integer',
         'weight' => 23,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1121,12 +983,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 17,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1166,12 +1022,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 21,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1217,12 +1067,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 28,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1261,12 +1105,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 30,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1307,12 +1145,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 20,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1358,12 +1190,6 @@ function dosomething_campaign_group_field_default_field_instances() {
         ),
         'type' => 'field_collection_view',
         'weight' => 3,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',

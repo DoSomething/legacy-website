@@ -24,12 +24,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 13,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -69,12 +63,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 7,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -116,12 +104,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 11,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -160,12 +142,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'settings' => array(),
         'type' => 'link_default',
         'weight' => 8,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -223,12 +199,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 1,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -274,12 +244,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 2,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -323,12 +287,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 12,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -370,12 +328,6 @@ function dosomething_fact_page_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 5,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -420,12 +372,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 4,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -466,12 +412,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 14,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -508,12 +448,6 @@ function dosomething_fact_page_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 3,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',

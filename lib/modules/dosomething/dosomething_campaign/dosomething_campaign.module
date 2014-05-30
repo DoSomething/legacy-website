@@ -294,7 +294,7 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
  * @see dosomething_campaign_entity_view_mode_alter().
  */
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
-  if ($node->type == 'campaign' && ($view_mode == 'full' || $view_mode == 'sms_game')) {
+  if ($node->type == 'campaign' && $view_mode == 'full') {
 
     // Add Zendesk form variable:
     if (module_exists('dosomething_zendesk')) {
@@ -405,13 +405,31 @@ function dosomething_campaign_get_campaign_type($node) {
 }
 
 /**
- * Implements hook_entity_info_alter().
+ * For given campaign $node, determines if the pitch page should be displayed.
+ *
+ * @todo: Assumes the campaign is in a live state, for now.
+ * This logic will need to change when a campaign is in a closed state.
  */
-function dosomething_campaign_entity_info_alter(&$entity_info) {
-  $entity_info['node']['view modes']['pitch'] = array(
-    'label' => t('Pitch page'),
-    'custom settings' => TRUE,
-  );
+function dosomething_campaign_is_pitch_page($node) {
+
+  // If not a campaign (e.g. SMS Game), no pitch page is needed.
+  if (dosomething_campaign_get_campaign_type($node) != 'campaign') {
+    return FALSE;
+  }
+
+  // Anonymous users are always shown pitch page.
+  if (!user_is_logged_in()) {
+    return TRUE;
+  }
+
+  // If the current user is not on staff and not signed up:
+  if ( (!dosomething_user_is_staff()) && (!dosomething_signup_exists($node->nid)) ) {
+    // Then return pitch page.
+    return TRUE;
+  }
+
+  // Default to FALSE.
+  return FALSE;
 }
 
 /*
@@ -423,27 +441,7 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
  */
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
-  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign' && $view_mode == 'full') {
-
-    $node = $context['entity'];
-    // If SMS Game:
-    if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-      // Exit out of function, don't need to check for pitch page.
-      return;
-    }
-
-    // If anonymous user:
-    if (!user_is_logged_in()) {
-      // Display pitch view mode.
-      $view_mode = 'pitch';
-      return;
-    }
-    // If the current user is not on staff, and not signed up for the campaign, show the pitch page.
-    if (!dosomething_user_is_staff()) {
-      if (!dosomething_signup_exists($node->nid)) {
-        $view_mode = 'pitch';
-      }
-    }
+  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign') {
     // Is this a legacy campaign?
     if (module_exists('dosomething_legacy') && dosomething_legacy_check($node)) {
       if (dosomething_signup_exists($node->nid)) {

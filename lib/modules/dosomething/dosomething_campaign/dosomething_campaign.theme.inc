@@ -41,7 +41,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
-  if ($vars['view_mode'] == 'pitch') {
+  if (dosomething_campaign_is_pitch_page($node)) {
     // Use the pitch page template to theme.
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
     // Gather vars for pitch page.

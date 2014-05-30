@@ -24,12 +24,6 @@ function dosomething_fact_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
