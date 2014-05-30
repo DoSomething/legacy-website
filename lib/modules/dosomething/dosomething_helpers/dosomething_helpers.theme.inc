@@ -3,7 +3,7 @@
 /**
  * Implements hook_theme_registry_alter()
  *
- * Modules registered in dosomething_helpers_modules will 
+ * Modules registered in dosomething_helpers_modules will
  * have their paths added to the theme registry so that they
  * can store reference entity type templates within the module.
 **/
@@ -159,15 +159,24 @@ function dosomething_helpers_format_partners_list(&$vars) {
   $vars['formatted_partners'] = $formatted_partners;
 }
 
-function dosomething_helpers_preprocess_hero_images(&$vars) {
-  // Hero Images.
-  if (isset($vars['field_image_campaign_cover'][0])) {
-    $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
-    $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810');
-    $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768');
-    $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');
-    $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768');
-  }
+/**
+ * Handles preprocessing hero_images vars.
+ */
+function dosomething_helpers_preprocess_hero_images(&$vars, $wrapper) {
+
+  // Use entity_metadata_wrapper to handle field language issues.
+  // @see https://github.com/DoSomething/dosomething/issues/2349.
+  $hero_image = $wrapper->field_image_campaign_cover->value();
+  // If no hero image set, exit out of function.
+  if (!$hero_image) { return; }
+
+  $hero_nid = $hero_image->nid;
+  $large = '1440x810';
+  $medium = '768x768';
+  $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', $large);
+  $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', $medium);
+  $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', $large);
+  $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', $medium);
 
   isset($vars['hero_image_m_url']) ? $vars['hero_image']['mobile'] = $vars['hero_image_m_url'] : NULL ;
   isset($vars['hero_image_l_url']) ? $vars['hero_image']['desktop'] = $vars['hero_image_l_url'] : NULL ;

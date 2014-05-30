@@ -27,7 +27,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
     $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
 
-    // If there are no published campaigns, 
+    // If there are no published campaigns,
     // Display pre_launch vars and remove campaigns from vars.
     if (!isset($vars['campaigns']['published'])) {
       $template_vars['text'][] = 'pre_launch_copy';
@@ -74,7 +74,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     }
 
     // Hero Images.
-    dosomething_helpers_preprocess_hero_images($vars);
+    dosomething_helpers_preprocess_hero_images($vars, $wrapper);
 
     // Add inline css based on vars.
     dosomething_helpers_add_inline_css($vars);
@@ -130,7 +130,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     if (!empty($modal_items)) {
       $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
     }
-    
+
   }
 }
 
@@ -177,7 +177,7 @@ function dosomething_campaign_group_get_campaigns($campaign_group_node) {
 
       if ((int)$status === 1) {
         $campaigns['published'][] = $campaign;
-      } 
+      }
       else {
         $campaigns['unpublished'][] = $campaign;
       }
