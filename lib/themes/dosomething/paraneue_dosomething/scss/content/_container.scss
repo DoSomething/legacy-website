@@ -45,6 +45,10 @@
   .-columned {
     @include media($tablet) {
       @include span-columns(6 of 12);
+
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 

@@ -8,6 +8,10 @@
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
+
+krumo('spacer');
+krumo('spacer');
+krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
@@ -41,39 +45,34 @@
     <h2 class="container__title banner"><span>Step 1: Know It</span></h2>
 
     <div class="wrapper">
-      <div class="container__body">
 
-        <h4 class="inline--alt-color">The Problem</h4>
+      <div class="container__body<?php if (isset($psa)): print " -columned"; endif; ?>">
         <?php if (isset($fact_problem)): ?>
-        <div class="fact-problem">
-          <?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup>
-        </div>
+        <h3 class="inline--alt-color">The Problem</h3>
+        <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
         <?php endif; ?>
 
-        <?php if (isset($psa)): ?>
-          <div class="psa-wrapper"><?php print $psa; ?></div>
+        <?php if (isset($fact_solution)): ?>
+        <h3 class="inline--alt-color">The Solution</h3>
+        <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
+
+        <?php elseif (isset($solution_copy)): ?>
+        <p><?php print $solution_copy['safe_value']; ?></p>
         <?php endif; ?>
 
-        <?php if (!isset($psa)): ?>
+        <?php if (isset($solution_support)): ?>
+        <p><?php print $solution_support; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($modals)): ?>
           <?php print $modals; ?>
         <?php endif; ?>
-
       </div>
 
-      <h4 class="inline--alt-color">The Solution</h4>
-
-      <?php if (isset($fact_solution)): ?>
-        <div class="fact-solution"><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></div>
-      <?php elseif (isset($solution_copy)): ?>
-        <div class="solution-copy"><?php print $solution_copy['safe_value']; ?></div>
-      <?php endif; ?>
-
-      <?php if (isset($solution_support)): ?>
-      <div class="solution-supporting-copy"><?php print $solution_support; ?></div>
-      <?php endif; ?>
-
       <?php if (isset($psa)): ?>
-        <?php print $modals; ?>
+        <aside class="-columned -col-last">
+          <?php print $psa; ?>
+        </aside>
       <?php endif; ?>
 
       <?php if (isset($fact_sources)): ?>
