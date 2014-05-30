@@ -160,7 +160,7 @@ function dosomething_helpers_format_partners_list(&$vars) {
 }
 
 /**
- * Handles preprocessing Cover Images.
+ * Handles preprocessing hero_images vars.
  */
 function dosomething_helpers_preprocess_hero_images(&$vars, $wrapper) {
 
@@ -171,10 +171,12 @@ function dosomething_helpers_preprocess_hero_images(&$vars, $wrapper) {
   if (!$hero_image) { return; }
 
   $hero_nid = $hero_image->nid;
-  $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810');
-  $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768');
-  $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');
-  $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768');
+  $large = '1440x810';
+  $medium = '768x768';
+  $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', $large);
+  $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', $medium);
+  $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', $large);
+  $vars['hero_image_m_url'] = dosomething_image_get_themed_image_url($hero_nid, 'square', $medium);
 
   isset($vars['hero_image_m_url']) ? $vars['hero_image']['mobile'] = $vars['hero_image_m_url'] : NULL ;
   isset($vars['hero_image_l_url']) ? $vars['hero_image']['desktop'] = $vars['hero_image_l_url'] : NULL ;
@@ -201,7 +203,6 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
     $file = file_load($fid);
     $vars['alt_bg_src'] = file_create_url($file->uri);
   }
-
 }
 
 /**
@@ -211,7 +212,6 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
  *   Node variables, passed from preprocess_node.
  */
 function dosomething_helpers_add_inline_css(&$vars) {
-
   // Preprocess custom vars to see if any inline css needed.
   dosomething_helpers_preprocess_custom_vars($vars);
 
@@ -243,5 +243,4 @@ function dosomething_helpers_add_inline_css(&$vars) {
 
     drupal_add_css($style_alt_background, $option['type'] = 'inline');
   }
-
 }
