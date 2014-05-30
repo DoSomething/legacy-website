@@ -11,62 +11,58 @@
 function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign') { return; }
 
-  // View modes which need preprocessing.
-  $view_modes = array('pitch', 'full', 'sms_game');
+  $node = menu_get_object();
+  $wrapper = entity_metadata_wrapper('node', $node);
 
-  if (in_array($vars['view_mode'], $view_modes)) {
-
-    $node = menu_get_object();
-    $wrapper = entity_metadata_wrapper('node', $node);
-
-    $scholarship = $wrapper->field_scholarship_amount->value();
-    if (isset($scholarship)) {
-      $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
-    }
-
-    $vars['cta'] = $wrapper->field_call_to_action->value();
-
-    // Timing.
-    $display_date = $wrapper->field_display_end_date->value();
-    // Check if there is a value in the date field.
-    $high_season = $wrapper->field_high_season->value();
-    if ($display_date == 1 && isset($high_season)) {
-      $end_date = date('F d', $wrapper->field_high_season->value2->value());
-      $vars['end_date'] = 'Ends ' . $end_date;
-    }
-
-    // Hero Images.
-    dosomething_helpers_preprocess_hero_images($vars);
-
-    if (!empty($vars['field_partners'])) {
-      // Sets partners, sponsors, and partner_info arrays if present.
-      dosomething_helpers_preprocess_partners_vars($vars);
-    }
-
-    // Add inline css based on vars.
-    dosomething_helpers_add_inline_css($vars);
-
-    if ($vars['view_mode'] == 'pitch') {
-      // Use the pitch page template to theme.
-      $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
-      // Gather vars for pitch page.
-      dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
-      return;
-    }
-    
-    // Preprocess common vars between all campaign types.
-    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
-
-    if ($vars['view_mode'] == 'sms_game') {
-      // Use the pitch page template to theme.
-      $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
-      dosomething_campaign_preprocess_sms_game($vars, $wrapper);
-    }
-    elseif ($vars['view_mode'] == 'full'){
-      // Preprocess the vars for the campaign action page.
-      dosomething_campaign_preprocess_action_page($vars, $wrapper);
-    }
+  $scholarship = $wrapper->field_scholarship_amount->value();
+  if (isset($scholarship)) {
+    $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
   }
+
+  $vars['cta'] = $wrapper->field_call_to_action->value();
+
+  // Timing.
+  $display_date = $wrapper->field_display_end_date->value();
+  // Check if there is a value in the date field.
+  $high_season = $wrapper->field_high_season->value();
+  if ($display_date == 1 && isset($high_season)) {
+    $end_date = date('F d', $wrapper->field_high_season->value2->value());
+    $vars['end_date'] = 'Ends ' . $end_date;
+  }
+
+  // Hero Images.
+  dosomething_helpers_preprocess_hero_images($vars);
+
+  if (!empty($vars['field_partners'])) {
+    // Sets partners, sponsors, and partner_info arrays if present.
+    dosomething_helpers_preprocess_partners_vars($vars);
+  }
+
+  // Add inline css based on vars.
+  dosomething_helpers_add_inline_css($vars);
+
+  if ($vars['view_mode'] == 'pitch') {
+    // Use the pitch page template to theme.
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
+    // Gather vars for pitch page.
+    dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+    return;
+  }
+
+  // Preprocess common vars between all campaign types.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
+  if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+    // Use the SMS Game template to theme.
+    $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
+    dosomething_campaign_preprocess_sms_game($vars, $wrapper);
+    return;
+  }
+
+  // Preprocess the vars for the campaign action page.
+  dosomething_campaign_preprocess_action_page($vars, $wrapper);
+
+
 }
 
 /**
@@ -259,7 +255,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   else {
     // Pass it as a param to display on the signup button.
     dosomething_signup_preprocess_signup_button($vars, $label);
-  }  
+  }
 }
 
 /**

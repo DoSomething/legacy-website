@@ -244,12 +244,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -299,12 +293,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 20,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -347,12 +335,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 3,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -399,12 +381,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -456,12 +432,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -505,12 +475,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 21,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -553,12 +517,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 7,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -624,12 +582,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 16,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -678,12 +630,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 22,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -736,12 +682,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 23,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -792,12 +732,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 24,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -854,12 +788,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -907,12 +835,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 25,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -971,12 +893,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_entity_id',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1021,12 +937,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 38,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1083,12 +993,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1138,12 +1042,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1186,12 +1084,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 53,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1251,12 +1143,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 13,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1307,12 +1193,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 12,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1359,12 +1239,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1406,12 +1280,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 58,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1482,12 +1350,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 17,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1536,12 +1398,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 35,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1602,12 +1458,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1648,12 +1498,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 43,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1707,12 +1551,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1756,12 +1594,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 47,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1815,12 +1647,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1864,12 +1690,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 45,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1921,12 +1741,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1965,12 +1779,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 54,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2021,12 +1829,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 11,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2070,12 +1872,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 44,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2127,12 +1923,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2178,12 +1968,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 4,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2231,12 +2015,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 9,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2283,12 +2061,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 34,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2343,12 +2115,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2393,12 +2159,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 37,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2454,12 +2214,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 5,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2506,12 +2260,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 10,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2560,12 +2308,6 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 33,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2620,12 +2362,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2670,12 +2406,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 19,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2724,12 +2454,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 15,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2782,12 +2506,6 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2831,12 +2549,6 @@ function dosomething_campaign_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 14,
-      ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
