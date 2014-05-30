@@ -8,11 +8,10 @@
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
-
-// krumo('hjelloeda');
 ?>
 
-<article id="" class="">
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
@@ -88,8 +87,8 @@
       </div>
       <?php endif; ?>
     </div>
-
   </section>
+
 
   <section id="plan" class="container plan">
     <h2 class="container__title banner"><span>Step 2: Share It</span></h2>
@@ -103,6 +102,7 @@
       </div>
     </div>
   </section>
+
 
   <?php if (isset($zendesk_form) || isset($sponsors)): ?>
   <footer class="info-bar">
