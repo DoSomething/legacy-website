@@ -432,16 +432,6 @@ function dosomething_campaign_is_pitch_page($node) {
   return FALSE;
 }
 
-/**
- * Implements hook_entity_info_alter().
- */
-function dosomething_campaign_entity_info_alter(&$entity_info) {
-  $entity_info['node']['view modes']['pitch'] = array(
-    'label' => t('Pitch page'),
-    'custom settings' => TRUE,
-  );
-}
-
 /*
  * Implements hook_entity_view_mode_alter().
  *
