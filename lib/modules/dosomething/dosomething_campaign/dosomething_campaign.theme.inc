@@ -36,7 +36,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     }
 
     // Hero Images.
-    dosomething_helpers_preprocess_hero_images($vars);
+    dosomething_helpers_preprocess_hero_images($vars, $wrapper);
 
     if (!empty($vars['field_partners'])) {
       // Sets partners, sponsors, and partner_info arrays if present.
@@ -53,7 +53,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
       dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
       return;
     }
-    
+
     // Preprocess common vars between all campaign types.
     dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
@@ -259,7 +259,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   else {
     // Pass it as a param to display on the signup button.
     dosomething_signup_preprocess_signup_button($vars, $label);
-  }  
+  }
 }
 
 /**
