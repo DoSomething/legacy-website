@@ -24,12 +24,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 7,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -69,12 +63,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 6,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -116,12 +104,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 8,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -169,12 +151,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 5,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -211,12 +187,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 3,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -259,12 +229,6 @@ function dosomething_action_guide_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 4,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -309,12 +273,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 2,
       ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -354,12 +312,6 @@ function dosomething_action_guide_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
-      ),
-      'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
