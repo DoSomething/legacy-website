@@ -40,7 +40,7 @@ function dosomething_campaign_menu() {
   // Internal pitch page for staff.
   $items['node/%node/pitch'] = array(
     'title' => 'Pitch',
-    'page callback' => '_dosomething_campaign_pitch_view_mode',
+    'page callback' => 'node_page_view',
     'page arguments' => array(1),
     'access callback' => '_dosomething_campaign_pitch_page_access',
     'access arguments' => array(1),
@@ -169,14 +169,6 @@ function _dosomething_campaign_pitch_page_access($node) {
     }
   }
   return FALSE;
-}
-
-/**
- * Campaign pitch page callback from hook_menu().
- */
-function _dosomething_campaign_pitch_view_mode($node) {
-  $node_rendered = node_view($node, 'pitch');
-  return $node_rendered;
 }
 
 /**
