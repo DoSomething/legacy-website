@@ -401,27 +401,35 @@ function dosomething_campaign_get_campaign_type($node) {
  *
  * @todo: Assumes the campaign is in a live state, for now.
  * This logic will need to change when a campaign is in a closed state.
+ *
+ * @param obj $node
+ *   A loaded node.
+ *
+ * @return bool
  */
 function dosomething_campaign_is_pitch_page($node) {
+  // Exclude all non campaign node types.
+  if ($node->type != 'campaign') { return FALSE; }
 
-  // If not a campaign (e.g. SMS Game), no pitch page is needed.
+  // If not a campaign campaign (e.g. SMS Game), no pitch page is needed.
   if (dosomething_campaign_get_campaign_type($node) != 'campaign') {
     return FALSE;
   }
 
   // Anonymous users are always shown pitch page.
+  // @todo: Will need additional check here for if the campaign $node is closed.
   if (!user_is_logged_in()) {
     return TRUE;
   }
-
-  // If the current user is not on staff and not signed up:
-  if ( (!dosomething_user_is_staff()) && (!dosomething_signup_exists($node->nid)) ) {
-    // Then return pitch page.
-    return TRUE;
+  
+  if (dosomething_user_is_staff()) {
+    // Return whether or not we're on the staff-only pitch page URL.
+    // @see dosomething_campaign_menu().
+    return (current_path() == 'node/' . $node->nid . '/pitch');
   }
 
-  // Default to FALSE.
-  return FALSE;
+  // The $node is a pitch page if you haven't signed up yet.
+  return (!dosomething_signup_exists($node->nid));
 }
 
 /*
