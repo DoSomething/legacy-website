@@ -294,7 +294,7 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
  * @see dosomething_campaign_entity_view_mode_alter().
  */
 function dosomething_campaign_node_view($node, $view_mode, $langcode) {
-  if ($node->type == 'campaign' && ($view_mode == 'full' || $view_mode == 'sms_game')) {
+  if ($node->type == 'campaign' && $view_mode == 'full') {
 
     // Add Zendesk form variable:
     if (module_exists('dosomething_zendesk')) {
