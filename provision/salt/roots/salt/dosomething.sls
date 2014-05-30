@@ -17,4 +17,11 @@ ssh-host-access:
     - user: vagrant
     - group: vagrant
 
+webroot-internal:
+  cmd.run:
+    - name: 'tar czf /var/www/vagrant.tgz /vagrant ; cd /var/www ; tar xzf vagrant.tgz ; rm vagrant.tgz'
+    - unless: test -d /var/www/vagrant
+    - require:
+      - pkg: apache2
+
 {% endif %}
