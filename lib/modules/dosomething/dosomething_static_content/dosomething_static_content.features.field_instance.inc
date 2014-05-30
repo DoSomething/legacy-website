@@ -291,12 +291,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -338,12 +332,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 12,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -395,12 +383,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -439,12 +421,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 5,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -491,12 +467,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 14,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -568,12 +538,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -614,12 +578,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 7,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -674,12 +632,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -723,12 +675,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 9,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -778,12 +724,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 8,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -840,12 +780,6 @@ function dosomething_static_content_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
-      'sms_game' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -883,12 +817,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 11,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -941,12 +869,6 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 15,
       ),
       'pitch' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'sms_game' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
