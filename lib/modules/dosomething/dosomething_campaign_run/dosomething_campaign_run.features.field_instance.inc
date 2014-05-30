@@ -174,6 +174,46 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-field_total_quantity'
+  $field_instances['node-campaign_run-field_total_quantity'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_total_quantity',
+    'label' => 'Total Quantity',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_winners'
   $field_instances['node-campaign_run-field_winners'] = array(
     'bundle' => 'campaign_run',
@@ -213,7 +253,7 @@ function dosomething_campaign_run_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -223,6 +263,7 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Intro');
   t('The Campaign node associated with this Campaign Run.');
   t('Total Participants');
+  t('Total Quantity');
   t('User');
   t('Winners');
 
