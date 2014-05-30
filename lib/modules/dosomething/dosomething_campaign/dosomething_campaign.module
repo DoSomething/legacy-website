@@ -219,7 +219,7 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     return TRUE;
   }
-  
+
   // Else only grant if the user has reported back on this campaign.
   if (user_is_logged_in() && module_exists('dosomething_reportback') && dosomething_reportback_exists($node->nid)) {
     return TRUE;
@@ -360,7 +360,7 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
     $node->content['signup_data_form'] = array(
       '#markup' => $config['old_people_copy'],
     );
-    // By exiting out of function now, we don't check to set the 
+    // By exiting out of function now, we don't check to set the
     // required_signup_data_form variable, meaning Old People will never be
     // auto prompted.
     return;
@@ -389,7 +389,7 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
  *   A loaded campaign node.
  *
  * @return mixed
- *   If node type == campaign, returns string value of field_campaign_type. 
+ *   If node type == campaign, returns string value of field_campaign_type.
  *     - Defaults to 'campaign' if value is not set.
  *   Else returns FALSE.
  */
@@ -406,16 +406,10 @@ function dosomething_campaign_get_campaign_type($node) {
 
 /**
  * Implements hook_entity_info_alter().
- *
- * Defines the custom Pitch and SMS Game view modes.
  */
 function dosomething_campaign_entity_info_alter(&$entity_info) {
   $entity_info['node']['view modes']['pitch'] = array(
     'label' => t('Pitch page'),
-    'custom settings' => TRUE,
-  );
-  $entity_info['node']['view modes']['sms_game'] = array(
-    'label' => t('Sms game'),
     'custom settings' => TRUE,
   );
 }
@@ -423,7 +417,7 @@ function dosomething_campaign_entity_info_alter(&$entity_info) {
 /*
  * Implements hook_entity_view_mode_alter().
  *
- * When a campaign node is viewed in full, this function checks both signup status 
+ * When a campaign node is viewed in full, this function checks both signup status
  * and the node's field_campaign_type to determine what view_mode to set.
  *
  * This function also handles redirects to legacy nodes.
@@ -436,9 +430,9 @@ function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
     $campaign_type = dosomething_campaign_get_campaign_type($node);
     // If SMS Game:
     if ($campaign_type == 'sms_game') {
-      $view_mode = 'sms_game';
-      return;
+      return 'full';
     }
+
     // If anonymous user:
     if (!user_is_logged_in()) {
       // Display pitch view mode.
