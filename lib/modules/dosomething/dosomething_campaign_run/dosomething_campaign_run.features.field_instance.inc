@@ -49,6 +49,86 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-field_additional_text'
+  $field_instances['node-campaign_run-field_additional_text'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_additional_text',
+    'label' => 'Additional Text',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_additional_text_title'
+  $field_instances['node-campaign_run-field_additional_text_title'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_additional_text_title',
+    'label' => 'Additional Text Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_campaigns'
   $field_instances['node-campaign_run-field_campaigns'] = array(
     'bundle' => 'campaign_run',
@@ -170,7 +250,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -210,7 +290,47 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_total_quantity_label'
+  $field_instances['node-campaign_run-field_total_quantity_label'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_total_quantity_label',
+    'label' => 'Total Quantity Label',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 6,
     ),
   );
 
@@ -259,11 +379,14 @@ function dosomething_campaign_run_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional Text');
+  t('Additional Text Title');
   t('Campaign');
   t('Intro');
   t('The Campaign node associated with this Campaign Run.');
   t('Total Participants');
   t('Total Quantity');
+  t('Total Quantity Label');
   t('User');
   t('Winners');
 
