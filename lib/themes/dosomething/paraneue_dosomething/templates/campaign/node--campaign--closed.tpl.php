@@ -44,7 +44,52 @@
   </header>
 
   <div class="content-wrapper">
-    <p><?php print $total_participants; ?> members participated</p>
+
+    <h2 class="banner"><span>What You Did</span></h2>
+    <section class="plan step">
+      <div class="intro">
+
+        <?php if (isset($total_participants)): ?>
+        <div><?php print $total_participants; ?></div>
+        <div>members participated</div>
+        <?php endif; ?>
+
+        <?php if (isset($total_quantity)): ?>
+        <div><?php print $total_quantity; ?></div>
+        <div><?php print $total_quantity_label; ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($intro)): ?>
+        <?php print $intro['safe_value']; ?>
+        <?php endif; ?>
+
+      </div> 
+    </section>
+
+    <h2 class="banner"><span>Love From Celebs</span></h2>
+    <section class="plan step">
+      <div class="intro">
+
+        <?php if (isset($additional_text_title)): ?>
+        <h4><?php print $additional_text_title; ?></h4>
+        <?php endif; ?>
+
+        <?php if (isset($additional_text)): ?>
+        <div><?php print $additional_text['safe_value']; ?></div>
+        <?php endif; ?>
+
+      </div>
+    </section>
+
+    <h2 class="banner"><span>Congratulations to...</span></h2>
+    <section class="plan step">
+      <div class="intro">
+
+        <p>Winners go here</p>
+
+      </div>
+    </section>
+
   </div>
 
   <footer class="boilerplate">

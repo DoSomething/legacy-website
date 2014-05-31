@@ -23,8 +23,27 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
   }
 }
 
+/**
+ * Adds given campaign_run entity $wrapper values to $vars.
+ *
+ * @param array $vars
+ *   Array of variables via hook_preprocess_node. 
+ * @param object $wrapper
+ *   Entity metadata wrapper of the campaign_run node to gather values from. 
+ */
 function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
-  $vars['total_participants'] = $wrapper->field_total_participants->value();
+  $text_fields = array(
+    'additional_text',
+    'additional_text_title',
+    'intro',
+    'total_participants',
+    'total_quantity',
+    'total_quantity_label',
+  );
+  foreach ($text_fields as $key => $label) {
+    $field = "field_{$label}";
+    $vars[$label] = $wrapper->{$field}->value();
+  }
 }
 
 
