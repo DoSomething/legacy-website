@@ -435,6 +435,8 @@ function dosomething_campaign_is_pitch_page($node) {
   if (dosomething_user_is_staff()) {
     // Return whether or not we're on the staff-only pitch page URL.
     // @see dosomething_campaign_menu().
+    // This check also allows staff to bypass the Pitch Page to view Action Page 
+    // regardless of whether or not they're signed up for the campaign.
     return (current_path() == 'node/' . $node->nid . '/pitch');
   }
 
