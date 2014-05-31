@@ -5,3 +5,12 @@
  */
 
 include_once 'dosomething_campaign_run.features.inc';
+
+/**
+ * Adds closed campaign_run vars to the given parent campaign's $vars.
+ *
+ * @see dosomething_campaign_preprocess_node().
+ */
+function dosomething_campaign_run_preprocess_closed(&$vars) {
+  $vars['total_participated'] = '500';
+}

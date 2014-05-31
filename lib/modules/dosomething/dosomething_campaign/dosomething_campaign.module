@@ -47,6 +47,16 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 60,
   );
+  // Internal closed page for staff.
+  $items['node/%node/closed'] = array(
+    'title' => 'Closed',
+    'page callback' => 'node_page_view',
+    'page arguments' => array(1),
+    'access callback' => 'dosomething_campaign_is_closed',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 70,
+  );
   // Campaign custom settings admin page.
   $items['node/%node/custom-settings'] = array(
     'title' => 'Custom Settings',
@@ -430,6 +440,23 @@ function dosomething_campaign_is_pitch_page($node) {
 
   // The $node is a pitch page if you haven't signed up yet.
   return (!dosomething_signup_exists($node->nid));
+}
+
+/**
+ * For given campaign $node, determines if the closed page should be displayed.
+ *
+ * @param obj $node
+ *   A loaded node.
+ *
+ * @return bool
+ */
+function dosomething_campaign_is_closed($node) {
+  if (dosomething_user_is_staff()) {
+    // Check if staff-only closed path.
+    // @see dosomething_campaign_menu().
+    return current_path() == 'node/' . $node->nid . '/closed';
+  }
+  return FALSE;
 }
 
 /*
