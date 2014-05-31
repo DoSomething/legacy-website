@@ -44,7 +44,7 @@
   </header>
 
   <div class="content-wrapper">
-    <p><?php print $total_participated; ?> members participated</p>
+    <p><?php print $total_participants; ?> members participated</p>
   </div>
 
   <footer class="boilerplate">

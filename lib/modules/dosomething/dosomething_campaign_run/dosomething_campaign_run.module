@@ -7,10 +7,46 @@
 include_once 'dosomething_campaign_run.features.inc';
 
 /**
- * Adds closed campaign_run vars to the given parent campaign's $vars.
+ * Adds loaded closed campaign_run node to the given parent campaign's $vars.
  *
  * @see dosomething_campaign_preprocess_node().
  */
 function dosomething_campaign_run_preprocess_closed(&$vars) {
-  $vars['total_participated'] = '500';
+  if (!isset($vars['nid'])) { return; }
+
+  // If a closed Campaign Run node exists:
+  if ($closed_run_nid = dosomething_campaign_run_get_closed_run_nid($vars['nid'])) {
+    // Load the closed campaign_run.
+    $wrapper = entity_metadata_wrapper('node', $closed_run_nid);
+    // Gather the campaign_run vars.
+    dosomething_campaign_run_preprocess_run_vars($vars, $wrapper);
+  }
+}
+
+function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
+  $vars['total_participants'] = $wrapper->field_total_participants->value();
+}
+
+
+/**
+ * For given campaign $nid, return its closed Campaign Run nid.
+ *
+ * For now, this just returns a campaign_run node that references the $nid.
+ * As we build out multiple runs per campaign, we'll need to add logic 
+ * to determine sequence.
+ *
+ * @param int $nid
+ *   A campaign node nid.
+ *
+ * @return mixed
+ *   Returns the closed campaign_run node $nid if exists, FALSE if not.
+ */
+function dosomething_campaign_run_get_closed_run_nid($nid) {
+   // Query field_data_field_campaigns for campaign_run node referencing $nid.
+   $result = db_select('field_data_field_campaigns', 'c')
+    ->fields('c', array('entity_id'))
+    ->condition('field_campaigns_target_id', $nid)
+    ->condition('bundle', 'campaign_run')
+    ->execute();
+  return $result->fetchField(0);
 }
