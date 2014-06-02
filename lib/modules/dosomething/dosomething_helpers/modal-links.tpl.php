@@ -34,9 +34,11 @@
     <div class="fact-more"><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></div>
   <?php endforeach; ?>
   Sources:
+  <ul>
   <?php foreach ($modals['more_facts']['sources'] as $key => $source): ?>
-    <div class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></div>
+    <li class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></li>
   <?php endforeach; ?>
+  </ul>
   <a href="#" class="js-close-modal">Back to main page</a>
 </script>
 <?php endif; ?>
