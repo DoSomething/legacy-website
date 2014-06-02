@@ -54,6 +54,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
+    '#title' => 'Your First Name',
     '#default_value' => dosomething_user_get_field('field_first_name'),
     '#attributes' => array(
       'data-validate' => 'fname',
@@ -64,6 +65,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   $form['alpha_mobile'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
+    '#title' => 'Your Cell Number',
     '#default_value' => dosomething_user_get_mobile(),
     '#attributes' => array(
       'data-validate' => 'phone',
@@ -74,6 +76,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   for ($i = 0; $i < $num_friends; $i++) {
     $form['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
+      '#title' => 'xxxx\'s Cell Number',
       '#attributes' => array(
         'data-validate' => 'phone',
         'placeholder' => t('Enter someone else\'s number'),

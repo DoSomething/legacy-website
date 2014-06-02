@@ -76,14 +76,14 @@ krumo($variables);
       <?php endif; ?>
 
       <?php if (isset($fact_sources)): ?>
-      <a href="#" class="js-toggle-sources secondary">Sources</a>
-      <div class="sources">
-        <div class="legal">
+      <section class="sources">
+        <h3 class="js-toggle-sources secondary">Sources</h3>
+        <ul class="legal">
           <?php foreach ($fact_sources as $key => $source): ?>
-            <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
+            <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
           <?php endforeach; ?>
-        </div>
-      </div>
+        </ul>
+      </section>
       <?php endif; ?>
     </div>
   </section>
