@@ -57,12 +57,12 @@ apache2-env:
   file.managed:
     - name: /etc/apache2/envvars
     - source: salt://apache2/envvars
+    - require:
+      - pkg: apache2
 
 apache2:
   pkg:
     - installed
-    - require:
-      - file: apache2-env
   file.managed:
     - name: /etc/apache2/ports.conf
     - source: salt://apache2/ports.conf
