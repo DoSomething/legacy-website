@@ -30,6 +30,7 @@
     "unveil": "~1.3.0",
     "jquery-once": "~1.2.6",
     "respond": "~1.4.2",
-    "REM-unit-polyfill": "~1.2.3"
+    "REM-unit-polyfill": "~1.2.3",
+    "almond": "~0.2.9"
   }
 }
