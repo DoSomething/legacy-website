@@ -120,24 +120,18 @@
     padding-top: 1rem;
   }
 
-
-
   .form-actions {
     clear: both;
+    padding-top: 1rem;
 
-    @include media($desktop) {
+    @include media($tablet) {
       text-align: left;
     }
   }
-}
 
 
-// @TODO: temporary?
-.container--campaigns {
-  .gallery.-mosaic {
-    background-color: #fff;
-  }
 }
+
 
 
 // IE BUG Fixes
@@ -152,3 +146,28 @@
     }
   }
 }
+
+
+
+// @TODO: temporary?
+.container--campaigns {
+  .gallery.-mosaic {
+    background-color: #fff;
+  }
+}
+
+
+// @TODO: Need a better solution, good for now for this release for SMS Games Campaign.
+.container__body {
+
+  .form-item-alpha-first-name {
+    @include media($tablet) {
+      @include span-columns(6 of 12);
+    }
+  }
+
+  .-columned.second-group {
+    margin-right: 0;
+  }
+}
+
