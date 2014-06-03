@@ -94,10 +94,16 @@ function dosomething_signup_get_mobilecommons_friends_vars($values) {
   // Else set relevant alpha values from the given $values.
   else {
     $args['opt_in_path[]'] = $values['opt_in_path'];
-    $args['person[phone]'] = $values['alpha_mobile'];
     $args['person[first_name]'] = $values['alpha_name'];
     $args['person[campaign_name]'] = $title;  
   }
+
+  // Logged in user may not have a mobile #, so we check if its been set here,
+  // outside of the check to see if user is logged in or not.
+  if (!isset($args['person[phone]'])) {
+    $args['person[phone]'] = $values['alpha_mobile'];
+  }
+
   // Next set args for the friends.
   for ($i = 0; $i < $values['num_betas']; $i++) {
     if (!empty($values['beta_mobile_' . $i])) {
