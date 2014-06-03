@@ -7,7 +7,7 @@
 ?>
 
 <nav class="chrome--nav">
-  <a class="logo" href="<?php print $base_path; ?>"><img src="<?php print NEUE_ASSET_PATH; ?>/assets/images/ds-logo.png" alt="DoSomething.org"></a>
+  <a class="logo" href="<?php print $base_path; ?>"><img src="<?php print $logo ?>" alt="DoSomething.org"></a>
   <a class="hamburger js-toggle-mobile-menu" href="#">&#xe606;</a>
   <div class="menu">
     <ul class="primary-nav">
