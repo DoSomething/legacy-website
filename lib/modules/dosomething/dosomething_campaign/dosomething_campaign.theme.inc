@@ -276,5 +276,5 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_sms_game(&$vars, &$wrapper) {
   $vars['signup_form'] = $vars['content']['signup_form'];
 
-   drupal_add_js('//cdn.optimizely.com/js/1158700146.js');
+   drupal_add_js('//cdn.optimizely.com/js/1158700146.js', 'external');
 }
