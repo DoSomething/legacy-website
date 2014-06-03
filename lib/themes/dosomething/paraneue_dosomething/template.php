@@ -10,6 +10,15 @@ if(theme_get_setting('use_cdn_assets')) {
   define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
 }
 
+// Determine whether to use minified script or not
+if(theme_get_setting('use_minified_assets')) {
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/app.min.css');
+  define('DS_JAVASCRIPT_PATH', DS_ASSET_PATH . '/app.min.js');
+} else {
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/app.css');
+  define('DS_JAVASCRIPT_PATH', DS_ASSET_PATH . '/app.js');
+}
+
 // Define asset directory paths
 define('LIB_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
 define('NEUE_ASSET_PATH', LIB_ASSET_PATH . '/neue');

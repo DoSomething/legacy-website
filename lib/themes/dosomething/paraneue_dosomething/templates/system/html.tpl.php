@@ -17,7 +17,7 @@
   <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
 
   <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/neue.css" type="text/css" />
-  <link rel="stylesheet" href="<?php print DS_ASSET_PATH;; ?>/app.css" type="text/css" />
+  <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
@@ -41,12 +41,7 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
-  <script type="text/javascript" charset="utf-8">
-    var require = {
-      baseUrl: "<?php print DS_ASSET_PATH; ?>/js/"
-    };
-  </script>
-  <script type="text/javascript" data-main="main" src="<?php print DS_ASSET_PATH; ?>/app.js"></script>
+  <script type="text/javascript" src="<?php print DS_JAVASCRIPT_PATH; ?>"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
