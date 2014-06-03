@@ -62,7 +62,20 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
       'placeholder' => t('First Name'),
     ),
   );
-  $form['alpha_mobile'] = array(
+  // Add fieldsets to wrappers to various mobile form elements.
+  $form['group1'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array(
+      'class' => array('first-group'),
+    ),
+  );
+  $form['group2'] = array(
+    '#type' => 'fieldset',
+    '#attributes' => array(
+      'class' => array('second-group'),
+    ),
+  );
+  $form['group1']['alpha_mobile'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
@@ -70,11 +83,17 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     '#attributes' => array(
       'data-validate' => 'phone',
       'data-validate-required' => '',
-      'placeholder' => t('Enter your mobile number'),
+      'placeholder' => t('(555) 555-5555'),
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
-    $form['beta_mobile_' .$i] = array(
+    // Default to second fieldset.
+    $group = 'group2';
+    if ($i == 0) {
+      // Unless its the first beta.
+      $group = 'group1';
+    }
+    $form[$group]['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#title' => 'xxxx\'s Cell Number',
       '#attributes' => array(
