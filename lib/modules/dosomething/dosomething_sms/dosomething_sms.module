@@ -5,10 +5,6 @@
  */
 
 
-function dosomething_sms_preprocess_node(&$vars) {
-  // krumo($vars);
-}
-
 /**
  * Implements hook_menu().
  */
