@@ -52,6 +52,13 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Preprocess common vars between all campaign types.
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
+  if (dosomething_campaign_is_closed($node)) {
+    // Use the campaign closed template to theme.
+    $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
+    dosomething_campaign_run_preprocess_closed($vars);
+    return;
+  }
+
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Use the SMS Game template to theme.
     $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
