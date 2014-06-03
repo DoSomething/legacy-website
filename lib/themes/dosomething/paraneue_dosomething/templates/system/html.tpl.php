@@ -23,7 +23,10 @@
   <!--[if lte IE 8]>
       <link type="text/css" rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/ie.css" media="all" />
       <link type="text/css" rel="stylesheet" href="<?php print DS_ASSET_PATH; ?>/ie.css" media="all" />
-      <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/html5shiv/dist/html5shiv.js"></script>
+
+      <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
+      <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/respond/dest/respond.min.js"></script>
+      <script type="text/javascript" src="<?php print DS_ASSET_PATH ?>/js/respond.custom.js"></script>
   <![endif]-->
 
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">

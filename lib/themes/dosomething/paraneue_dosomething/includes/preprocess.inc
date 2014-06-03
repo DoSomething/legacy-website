@@ -4,7 +4,7 @@
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
-  $vars['logo'] = $vars['base_path'] . NEUE_PATH . '/assets/images/ds-logo.png';
+  $vars['logo'] = NEUE_ASSET_PATH . '/assets/images/ds-logo.png';
 
 
   // Get User Information
@@ -23,6 +23,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   // Navigation Output Setup
   $navigation_vars = array(
     'base_path'       => $vars['base_path'],
+    'logo'            => $vars['logo'],
     'front_page'      => $vars['front_page'],
     'logged_in'       => $vars['logged_in'],
     'search_box'      => $vars['search_box'],
