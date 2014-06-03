@@ -9,19 +9,17 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
       '#weight'=> -19
   );
 
-
-  $form['theme_settings']['use_cdn_assets'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Use CDN Assets'),
-    '#description' => t('Will use versioned assets hosted on Akamai CDN, generated when tagging deploy. On local development machines, this defaults to the latest assets on the CDN.'),
-    '#default_value' => theme_get_setting('use_cdn_assets')
+  $form['theme_settings']['asset_path'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Asset Path'),
+    '#description' => t('Path to load assets from. The <code>{ds_version}</code> string can be used to include the current <code>ds_version</code> value, or "latest" if not set. If left blank, assets will be loaded from the local theme folder.'),
+    '#default_value' => theme_get_setting('asset_path')
   );
-
 
   $form['theme_settings']['use_minified_assets'] = array(
     '#type' => 'checkbox',
     '#title' => t('Minify Assets'),
-    '#description' => t('Will use minified assets. Uncheck this if debugging in a browser without source maps. (Unminified assets are only built for production.)'),
+    '#description' => t('Will use minified assets. Uncheck this if debugging in a browser without source maps. <strong>(Unminified assets are only created in production builds.)</strong>'),
     '#default_value' => theme_get_setting('use_minified_assets')
   );
 

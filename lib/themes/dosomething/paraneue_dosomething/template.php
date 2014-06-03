@@ -4,8 +4,10 @@
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
 
 // If ds_version is set, use CDN assets
-if(theme_get_setting('use_cdn_assets')) {
-  define('DS_ASSET_PATH', 'https://dosomething-a.akamaihd.net/sites/default/files/assets/' . variable_get('ds_version', 'latest'));
+if(theme_get_setting('asset_path')) {
+  $cdn_path = theme_get_setting('asset_path');
+  $cdn_path = str_replace('{ds_version}', variable_get('ds_version', 'latest'), $cdn_path);
+  define('DS_ASSET_PATH', $cdn_path);
 } else {
   define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
 }
