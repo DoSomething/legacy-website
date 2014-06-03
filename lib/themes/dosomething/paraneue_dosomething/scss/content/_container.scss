@@ -1,5 +1,10 @@
 .container {
 
+  // @TODO: move this to apply globally, but not until it can be checked properly.
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+  }
+
   > .wrapper {
     padding: 1rem;
     @include clearfix();
@@ -21,6 +26,11 @@
   &:first-of-type {
     > .wrapper {
       padding-top: 2rem;
+    }
+
+    // If this is the first .container but has a header that's a .banner, then don't add the extra padding.
+    .container__title + .wrapper {
+      padding-top: 1.5rem;
     }
   }
 
@@ -56,21 +66,24 @@
 }
 
 
-.ie8 & {
-  .-columned {
-    @include media($tablet) {
-      // Last-child not supported in IE8; using class as fallback.
-      &.-col-last {
-        margin-right: 0;
-      }
-    }
-  }
-}
-
-
+// Styles for Container Titles.
 .container__title {
   line-height: 1.1;
   margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
+
+  &.banner {
+    margin-bottom: 0;
+    padding: .75rem .5rem;
+
+    > span {
+      display: inline-block;
+      line-height: 1; // @TODO: Move to Neue.
+
+      @include media($tablet) {
+        @include shift(2 of 16);
+      }
+    }
+  }
 
   @include media($tablet) {
     margin-bottom: 1.5rem;
@@ -78,12 +91,27 @@
 }
 
 
+// Styles for Container Body content.
 .container__body {
+  @include clearfix();
+
   p {
     margin-bottom: 0;
   }
 
-  p + p {
+  // <p> tags following other items.
+  p + p,
+  ul + p {
+    margin-top: 1.5rem;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  // Items following a <p> tag.
+  p + ul,
+  p + aside {
     margin-top: 1.5rem;
   }
 }
@@ -96,9 +124,16 @@
   }
 }
 
-// @TODO: should not be done here. This is a global issue that needs to be addressed in Neue.
-.container__body {
-  ul {
-    margin-bottom: 1rem;
+
+// IE BUG Fixes
+
+.ie8 & {
+  .-columned {
+    @include media($tablet) {
+      // Last-child not supported in IE8; using class as fallback.
+      &.-col-last {
+        margin-right: 0;
+      }
+    }
   }
 }

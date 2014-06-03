@@ -1,6 +1,6 @@
 <?php
 /**
- * Returns the HTML for a Campaign SMS Game.
+ * Returns the HTML for the Campaign SMS Game page.
  *
  * Available Variables
  * - $fact_problem:
@@ -10,7 +10,8 @@
  */
 ?>
 
-<article id="" class="">
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
@@ -40,67 +41,81 @@
     <h2 class="container__title banner"><span>Step 1: Know It</span></h2>
 
     <div class="wrapper">
+
       <div class="container__body">
+        <div class="-columned">
+          <?php if (isset($fact_problem)): ?>
+          <h3 class="inline--alt-color">The Problem</h3>
+          <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
+          <?php endif; ?>
 
-        <h4 class="inline--alt-color">The Problem</h4>
-        <?php if (isset($fact_problem)): ?>
-        <div class="fact-problem">
-          <?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup>
+          <?php if (isset($psa)): ?>
+            <aside>
+              <?php print $psa; ?>
+            </aside>
+          <?php else: ?>
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
+          <?php endif; ?>
         </div>
-        <?php endif; ?>
 
-        <?php if (isset($psa)): ?>
-          <div class="psa-wrapper"><?php print $psa; ?></div>
-        <?php endif; ?>
+        <div class="-columned">
+          <?php if (isset($fact_solution) || isset($solution_copy)): ?>
+              <h3 class="inline--alt-color">The Solution</h3>
 
-        <?php if (!isset($psa)): ?>
-          <?php print $modals; ?>
-        <?php endif; ?>
+            <?php if (isset($fact_solution)): ?>
+              <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
 
+            <?php elseif (isset($solution_copy)): ?>
+              <?php print $solution_copy['safe_value']; ?>
+
+              <?php if (isset($solution_support)): ?>
+                <p><?php print $solution_support; ?></p>
+              <?php endif; ?>
+            <?php endif; ?>
+
+          <?php endif; ?>
+
+          <?php if (isset($psa)): ?>
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
+          <?php endif; ?>
+        </div>
       </div>
 
-      <h4 class="inline--alt-color">The Solution</h4>
-
-      <?php if (isset($fact_solution)): ?>
-        <div class="fact-solution"><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></div>
-      <?php elseif (isset($solution_copy)): ?>
-        <div class="solution-copy"><?php print $solution_copy['safe_value']; ?></div>
-      <?php endif; ?>
-
-      <?php if (isset($solution_support)): ?>
-      <div class="solution-supporting-copy"><?php print $solution_support; ?></div>
-      <?php endif; ?>
-
-      <?php if (isset($psa)): ?>
-        <?php print $modals; ?>
-      <?php endif; ?>
 
       <?php if (isset($fact_sources)): ?>
-      <a href="#" class="js-toggle-sources secondary">Sources</a>
-      <div class="sources">
-        <div class="legal">
+      <section class="sources">
+        <h3 class="__title js-toggle-sources">Sources</h3>
+        <ul class="__body legal">
           <?php foreach ($fact_sources as $key => $source): ?>
-            <div><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></div>
+            <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
           <?php endforeach; ?>
-        </div>
-      </div>
+        </ul>
+      </section>
       <?php endif; ?>
     </div>
-
   </section>
+
 
   <section id="plan" class="container plan">
-    <h2 class="container__title banner"><span>Step 2: Share It</span></h2>
+    <h2 class="container__title banner"><span>Step 2: Do It</span></h2>
 
     <div class="wrapper">
-      <?php if (isset($starter)) : ?>
-        <div><?php print $starter['safe_value']; ?></div>
-      <?php endif; ?>
-      <div>
-        <?php print render($signup_form); ?>
+      <div class="container__body">
+        <?php if (isset($starter)) : ?>
+          <div><?php print $starter['safe_value']; ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($signup_form)) : ?>
+          <?php print render($signup_form); ?>
+        <?php endif; ?>
       </div>
     </div>
   </section>
+
 
   <?php if (isset($zendesk_form) || isset($sponsors)): ?>
   <footer class="info-bar">

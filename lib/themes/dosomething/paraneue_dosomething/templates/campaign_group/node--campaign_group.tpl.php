@@ -1,6 +1,6 @@
 <?php
 /**
- * Returns the HTML for Grouped Campaigns.
+ * Returns the HTML for Grouped Campaigns page.
  *
  * Available Variables
  * - $nid: Node ID for grouped campaigns page (integer).
@@ -47,6 +47,8 @@
     </div>
   </header>
 
+
+
   <?php if (isset($intro)): ?>
     <section class="container intro">
       <div class="wrapper">
@@ -54,28 +56,31 @@
           <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
         <?php endif; ?>
 
-        <div class="container__body<?php if (isset($intro_image) || isset($intro_video)): print " -columned"; endif; ?>">
+        <div class="container__body">
+          <div<?php if (isset($intro_image) || isset($intro_video)): print ' class="-columned"'; endif; ?>>
           <?php print $intro; ?>
 
           <?php if (isset($modals)): ?>
             <?php print $modals; ?>
           <?php endif; ?>
-        </div>
+          </div>
 
-        <?php if (isset($intro_image) || isset($intro_video)): ?>
-        <aside class="-columned -col-last">
-          <?php if (isset($intro_video)): ?>
-            <div class="video">
-              <?php print $intro_video; ?>
-            </div>
-          <?php elseif (isset($intro_image)): ?>
-            <?php print $intro_image; ?>
+          <?php if (isset($intro_image) || isset($intro_video)): ?>
+          <aside class="-columned -col-last">
+            <?php if (isset($intro_video)): ?>
+              <div class="video">
+                <?php print $intro_video; ?>
+              </div>
+            <?php elseif (isset($intro_image)): ?>
+              <?php print $intro_image; ?>
+            <?php endif; ?>
+          </aside>
           <?php endif; ?>
-        </aside>
-        <?php endif; ?>
+        </div>
       </div>
     </section>
   <?php endif; ?>
+
 
 
   <?php if (isset($post_signup_copy)): ?>
@@ -140,7 +145,8 @@
         <h2 class="container__title inline--alt-color"><?php print $additional_text_title; ?></h2>
       <?php endif; ?>
 
-      <div class="container__body<?php if (isset($additional_text_image)): print " -columned"; endif; ?>">
+      <div class="container__body">
+        <div<?php if (isset($additional_text_image)): print ' class="-columned"'; endif; ?>>
         <?php print $additional_text; ?>
       </div>
 
@@ -156,7 +162,7 @@
 
   <?php if (!empty($galleries)): ?>
     <?php // @TODO: Need to add a new class for this section. ?>
-    <section class="container">
+    <section class="container container--gallery">
       <div class="wrapper">
 
         <?php foreach ($galleries as $gallery): ?>
