@@ -26,7 +26,7 @@
 
       <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
       <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/respond/dest/respond.min.js"></script>
-      <script type="text/javascript" src="<?php print LIB_ASSET_PATH; ?>/REM-unit-polyfill/js/rem.min.js"></script>
+      <script type="text/javascript" src="<?php print DS_ASSET_PATH ?>/js/respond.custom.js"></script>
   <![endif]-->
 
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">
