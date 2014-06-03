@@ -34,5 +34,11 @@ function dosomething_user_user_default_roles() {
     'weight' => 5,
   );
 
+  // Exported role: org friend.
+  $roles['org friend'] = array(
+    'name' => 'org friend',
+    'weight' => 6,
+  );
+
   return $roles;
 }

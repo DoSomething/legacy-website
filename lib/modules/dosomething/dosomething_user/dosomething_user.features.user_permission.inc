@@ -379,6 +379,7 @@ function dosomething_user_user_default_permissions() {
     'name' => 'view any unpublished content',
     'roles' => array(
       'editor' => 'editor',
+      'org friend' => 'org friend',
     ),
     'module' => 'view_unpublished',
   );
