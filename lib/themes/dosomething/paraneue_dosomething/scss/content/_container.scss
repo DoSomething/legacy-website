@@ -114,6 +114,17 @@
   p + aside {
     margin-top: 1.5rem;
   }
+
+  // Form items inside Container Body.
+  form {
+    padding-top: 1rem;
+  }
+
+  .form-actions {
+    @include media($desktop) {
+      text-align: left;
+    }
+  }
 }
 
 

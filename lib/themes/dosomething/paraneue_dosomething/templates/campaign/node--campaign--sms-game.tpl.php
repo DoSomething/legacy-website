@@ -113,6 +113,10 @@
           <?php print render($signup_form); ?>
         <?php endif; ?>
       </div>
+
+      <div class="disclaimer legal">
+        <p>Taking part in this experience means you agree to our <a href="https://www.dosomething.org/about/terms-service">Terms of Service</a> &amp; to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>
+      </div>
     </div>
   </section>
 
