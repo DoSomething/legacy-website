@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_campaign_run.module.
+ */
+
+
+/**
+ * Deletes field_press.
+ */
+function dosomething_campaign_run_update_7001(&$sandbox) {
+  field_delete_field('field_press');
+}
