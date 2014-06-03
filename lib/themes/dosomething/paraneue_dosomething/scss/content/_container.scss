@@ -120,7 +120,11 @@
     padding-top: 1rem;
   }
 
+
+
   .form-actions {
+    clear: both;
+
     @include media($desktop) {
       text-align: left;
     }

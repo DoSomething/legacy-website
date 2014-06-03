@@ -66,13 +66,13 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   $form['group1'] = array(
     '#type' => 'fieldset',
     '#attributes' => array(
-      'class' => array('first-group'),
+      'class' => array('-columned first-group'),
     ),
   );
   $form['group2'] = array(
     '#type' => 'fieldset',
     '#attributes' => array(
-      'class' => array('second-group'),
+      'class' => array('-columned second-group'),
     ),
   );
   $form['group1']['alpha_mobile'] = array(
@@ -95,10 +95,10 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     }
     $form[$group]['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
-      '#title' => 'xxxx\'s Cell Number',
+      '#title' => 'Friend\'s Cell Number',
       '#attributes' => array(
         'data-validate' => 'phone',
-        'placeholder' => t('Enter someone else\'s number'),
+        'placeholder' => t('(555) 555-5555'),
       ),
     );
   }
@@ -106,7 +106,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Start'),
+      '#value' => t('Share'),
     ),
   );
   return $form;
