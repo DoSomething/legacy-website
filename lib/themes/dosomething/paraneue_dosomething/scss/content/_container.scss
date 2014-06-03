@@ -45,10 +45,6 @@
   .-columned {
     @include media($tablet) {
       @include span-columns(6 of 12);
-
-      &:last-of-type {
-        margin-right: 0;
-      }
     }
   }
 
@@ -69,6 +65,8 @@
 
 }
 
+
+// Styles for Container Titles.
 .container__title {
   line-height: 1.1;
   margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
@@ -93,12 +91,27 @@
 }
 
 
+// Styles for Container Body content.
 .container__body {
+  @include clearfix();
+
   p {
     margin-bottom: 0;
   }
 
-  p + p {
+  // <p> tags following other items.
+  p + p,
+  ul + p {
+    margin-top: 1.5rem;
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  // Items following a <p> tag.
+  p + ul,
+  p + aside {
     margin-top: 1.5rem;
   }
 }
@@ -112,11 +125,11 @@
 }
 
 // @TODO: should not be done here. This is a global issue that needs to be addressed in Neue.
-.container__body {
-  ul {
-    margin-bottom: 1rem;
-  }
-}
+// .container__body {
+//   ul {
+//     margin-bottom: 1rem;
+//   }
+// }
 
 
 

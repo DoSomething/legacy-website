@@ -1,6 +1,6 @@
 <?php
 /**
- * Returns the HTML for a Campaign SMS Game.
+ * Returns the HTML for the Campaign SMS Game page.
  *
  * Available Variables
  * - $fact_problem:
@@ -8,10 +8,6 @@
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
-
-krumo('spacer');
-krumo('spacer');
-krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
@@ -46,39 +42,54 @@ krumo($variables);
 
     <div class="wrapper">
 
-      <div class="container__body<?php if (isset($psa)): print " -columned"; endif; ?>">
-        <?php if (isset($fact_problem)): ?>
-        <h3 class="inline--alt-color">The Problem</h3>
-        <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
-        <?php endif; ?>
+      <div class="container__body">
+        <div class="-columned">
+          <?php if (isset($fact_problem)): ?>
+          <h3 class="inline--alt-color">The Problem</h3>
+          <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
+          <?php endif; ?>
 
-        <?php if (isset($fact_solution)): ?>
-        <h3 class="inline--alt-color">The Solution</h3>
-        <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
+          <?php if (isset($psa)): ?>
+            <aside>
+              <?php print $psa; ?>
+            </aside>
+          <?php else: ?>
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
+          <?php endif; ?>
+        </div>
 
-        <?php elseif (isset($solution_copy)): ?>
-        <p><?php print $solution_copy['safe_value']; ?></p>
-        <?php endif; ?>
+        <div class="-columned">
+          <?php if (isset($fact_solution) || isset($solution_copy)): ?>
+              <h3 class="inline--alt-color">The Solution</h3>
 
-        <?php if (isset($solution_support)): ?>
-        <p><?php print $solution_support; ?></p>
-        <?php endif; ?>
+            <?php if (isset($fact_solution)): ?>
+              <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
 
-        <?php if (isset($modals)): ?>
-          <?php print $modals; ?>
-        <?php endif; ?>
+            <?php elseif (isset($solution_copy)): ?>
+              <?php print $solution_copy['safe_value']; ?>
+
+              <?php if (isset($solution_support)): ?>
+                <p><?php print $solution_support; ?></p>
+              <?php endif; ?>
+            <?php endif; ?>
+
+          <?php endif; ?>
+
+          <?php if (isset($psa)): ?>
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
+          <?php endif; ?>
+        </div>
       </div>
 
-      <?php if (isset($psa)): ?>
-        <aside class="-columned -col-last">
-          <?php print $psa; ?>
-        </aside>
-      <?php endif; ?>
 
       <?php if (isset($fact_sources)): ?>
       <section class="sources">
-        <h3 class="js-toggle-sources secondary">Sources</h3>
-        <ul class="legal">
+        <h3 class="__title js-toggle-sources">Sources</h3>
+        <ul class="__body legal">
           <?php foreach ($fact_sources as $key => $source): ?>
             <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
           <?php endforeach; ?>
@@ -90,14 +101,17 @@ krumo($variables);
 
 
   <section id="plan" class="container plan">
-    <h2 class="container__title banner"><span>Step 2: Share It</span></h2>
+    <h2 class="container__title banner"><span>Step 2: Do It</span></h2>
 
     <div class="wrapper">
-      <?php if (isset($starter)) : ?>
-        <div><?php print $starter['safe_value']; ?></div>
-      <?php endif; ?>
-      <div>
-        <?php print render($signup_form); ?>
+      <div class="container__body">
+        <?php if (isset($starter)) : ?>
+          <div><?php print $starter['safe_value']; ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($signup_form)) : ?>
+          <?php print render($signup_form); ?>
+        <?php endif; ?>
       </div>
     </div>
   </section>
