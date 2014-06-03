@@ -60,7 +60,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="-columned">
+        <div class="-columned -col-last">
           <?php if (isset($fact_solution) || isset($solution_copy)): ?>
               <h3 class="inline--alt-color">The Solution</h3>
 
@@ -112,6 +112,10 @@
         <?php if (isset($signup_form)) : ?>
           <?php print render($signup_form); ?>
         <?php endif; ?>
+      </div>
+
+      <div class="disclaimer legal">
+        <p>Taking part in this experience means you agree to our <a href="https://www.dosomething.org/about/terms-service">Terms of Service</a> &amp; to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>
       </div>
     </div>
   </section>
