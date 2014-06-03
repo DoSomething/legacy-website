@@ -129,7 +129,6 @@
     }
   }
 
-
 }
 
 
@@ -158,6 +157,7 @@
 
 
 // @TODO: Need a better solution, good for now for this release for SMS Games Campaign.
+// The following is ugly and only temporary. Please ignore. Thanks much!
 .container__body {
 
   .form-item-alpha-first-name {
@@ -168,6 +168,14 @@
 
   .-columned.second-group {
     margin-right: 0;
+  }
+}
+
+.container {
+  form {
+    .-columned + .-columned {
+      margin-top: 0;
+    }
   }
 }
 

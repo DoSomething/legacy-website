@@ -60,7 +60,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="-columned">
+        <div class="-columned -col-last">
           <?php if (isset($fact_solution) || isset($solution_copy)): ?>
               <h3 class="inline--alt-color">The Solution</h3>
 
