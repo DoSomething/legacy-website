@@ -16,7 +16,7 @@
             <div class="info-list">
               <p>Some things to remember:</p>
               <ul>
-                <li>Read the <a href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9UHZGY1F3NnZ3MkVvR2h2OFhQek5RRnlRNXo4/edit">submission rules</a>.</li>
+                <li>Read the <a target="_blank" href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9UHZGY1F3NnZ3MkVvR2h2OFhQek5RRnlRNXo4/edit">submission rules</a>.</li>
                 <li>All fields are required.</li>
                 <li>Questions? Email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a></li>
               </ul>
@@ -547,7 +547,7 @@
                   </div>
 
                   <div class="ss-q-help ss-secondary-text" dir="ltr">
-                    If your idea is more than one type of action, choose the one that’s most relevant. Check out our <a href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9R0VnMjh5VWJybFB1QTRyRS05clF3V19VdkFj/edit">descriptions on each type of action</a>.
+                    If your idea is more than one type of action, choose the one that’s most relevant. Check out our <a target="_blank" href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9R0VnMjh5VWJybFB1QTRyRS05clF3V19VdkFj/edit">descriptions on each type of action</a>.
                   </div>
 
                   <ul class="ss-choices" role="radiogroup" aria-label="What type of action is your idea? If your idea is more than one type of action, choose the one that’s most relevant. Check out our descriptions on each type of action. "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.101412798" value="Donate an item" id="group_101412798_1" role="radio" class="ss-q-radio" aria-label="Donate an item" required="" aria-required="true"></span>
