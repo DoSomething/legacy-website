@@ -14,7 +14,7 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="campaign-group <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign--campaign-group <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <header role="banner" class="-hero">
     <div class="wrapper">

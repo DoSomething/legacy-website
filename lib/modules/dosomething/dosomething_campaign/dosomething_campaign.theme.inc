@@ -146,6 +146,7 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
       'width' => 550,
       'height' => 300,
     ));
+    $vars['is_video_psa'] = true;
   }
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
