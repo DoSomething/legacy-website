@@ -58,7 +58,6 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
 function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
   $closed_node = node_load($nid);
   // Get all winners
-  // print"<pre>"; print_r($closed_node->field_winners); print "</pre>"; die;
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
   $winners = array();
   $text_fields = array(

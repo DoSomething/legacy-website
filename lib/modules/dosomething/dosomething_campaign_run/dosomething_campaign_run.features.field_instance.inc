@@ -10,6 +10,72 @@
 function dosomething_campaign_run_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_gallery'
+  $field_instances['field_collection_item-field_gallery_collection-field_gallery'] = array(
+    'bundle' => 'field_gallery_collection',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_gallery',
+    'label' => 'Gallery',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_type'
+  $field_instances['field_collection_item-field_gallery_collection-field_type'] = array(
+    'bundle' => 'field_gallery_collection',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_type',
+    'label' => 'Type',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 31,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_winners-field_user'
   $field_instances['field_collection_item-field_winners-field_user'] = array(
     'bundle' => 'field_winners',
@@ -313,6 +379,49 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-field_gallery_collection'
+  $field_instances['node-campaign_run-field_gallery_collection'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_gallery_collection',
+    'label' => 'Klout Gallery',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_total_participants'
   $field_instances['node-campaign_run-field_total_participants'] = array(
     'bundle' => 'campaign_run',
@@ -481,11 +590,14 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Additional Text');
   t('Additional Text Title');
   t('Campaign');
+  t('Gallery');
   t('Intro');
+  t('Klout Gallery');
   t('The Campaign node associated with this Campaign Run.');
   t('Total Participants');
   t('Total Quantity');
   t('Total Quantity Label');
+  t('Type');
   t('User');
   t('Winner Description');
   t('Winner Quote');
