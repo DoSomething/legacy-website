@@ -115,6 +115,12 @@
     margin-top: 1.5rem;
   }
 
+  // Items following a list, <ul> or <ol>
+  ul + h2,
+  ol + h2 {
+    margin-top: 1.5rem;
+  }
+
   // Form items inside Container Body.
   form {
     padding-top: 1rem;
