@@ -93,6 +93,6 @@
   </div>
 
   <footer class="boilerplate">
-    <span>A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. *Mic drop</span>
+    <span>A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. <em>*Mic drop</em></span>
   </footer>
 </section>
