@@ -19,7 +19,8 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // Load the closed campaign_run.
     $wrapper = entity_metadata_wrapper('node', $closed_run_nid);
     // Gather the campaign_run vars.
-    dosomething_campaign_run_preprocess_run_vars($vars, $wrapper);
+    dosomething_campaign_run_preprocess_text_vars($vars, $wrapper);
+    dosomething_campaign_run_preprocess_winners($vars, $closed_run_nid);
   }
 }
 
@@ -27,11 +28,11 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
  * Adds given campaign_run entity $wrapper values to $vars.
  *
  * @param array $vars
- *   Array of variables via hook_preprocess_node. 
+ *   Array of variables via hook_preprocess_node.
  * @param object $wrapper
- *   Entity metadata wrapper of the campaign_run node to gather values from. 
+ *   Entity metadata wrapper of the campaign_run node to gather values from.
  */
-function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
+function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
   $text_fields = array(
     'additional_text',
     'additional_text_title',
@@ -46,12 +47,43 @@ function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
   }
 }
 
+/**
+ * Adds the $winners array to the campaign node.
+ *
+ * @param array $vars
+ *   Array of variables via hook_preprocess_node.
+ * @param int $nid
+ *   Node id of the campaign run node.
+ */
+function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
+  $closed_node = node_load($nid);
+  // Get all winners
+  // print"<pre>"; print_r($closed_node->field_winners); print "</pre>"; die;
+  $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
+  $winners = array();
+  $text_fields = array(
+    'field_winner_type',
+    'field_winner_quote',
+    'field_winner_description',
+  );
+  for ($i = 0; $i < $winner_count; $i++) {
+    $winner =  entity_load('field_collection_item', array($closed_node->field_winners[LANGUAGE_NONE][$i]['value']));
+    $entity_id = $closed_node->field_winners[LANGUAGE_NONE][$i]['value'];
+    $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
+    $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+    foreach($text_fields as $text_field) {
+      $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  $vars['winners'] = $winners;
+
+}
 
 /**
  * For given campaign $nid, return its closed Campaign Run nid.
  *
  * For now, this just returns a campaign_run node that references the $nid.
- * As we build out multiple runs per campaign, we'll need to add logic 
+ * As we build out multiple runs per campaign, we'll need to add logic
  * to determine sequence.
  *
  * @param int $nid
