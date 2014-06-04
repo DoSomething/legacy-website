@@ -120,13 +120,13 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_type'
-  $field_bases['field_type'] = array(
+  // Exported field_base: 'field_gallery_type'
+  $field_bases['field_gallery_type'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_type',
+    'field_name' => 'field_gallery_type',
     'foreign keys' => array(),
     'indexes' => array(
       'value' => array(

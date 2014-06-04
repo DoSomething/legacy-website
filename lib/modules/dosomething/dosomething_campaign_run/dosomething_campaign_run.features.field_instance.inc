@@ -45,8 +45,8 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_type'
-  $field_instances['field_collection_item-field_gallery_collection-field_type'] = array(
+  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_gallery_type'
+  $field_instances['field_collection_item-field_gallery_collection-field_gallery_type'] = array(
     'bundle' => 'field_gallery_collection',
     'default_value' => NULL,
     'deleted' => 0,
@@ -61,7 +61,7 @@ function dosomething_campaign_run_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_type',
+    'field_name' => 'field_gallery_type',
     'label' => 'Type',
     'required' => 0,
     'settings' => array(
