@@ -9,7 +9,6 @@
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
-  dpm($vars);
   if ($vars['type'] != 'campaign') { return; }
 
   $node = menu_get_object();

@@ -66,6 +66,7 @@
       </div>
     </section>
 
+<?php print_r($klout_gallery); ?>
     <h2 class="banner"><span>Love From Celebs</span></h2>
     <section class="plan step">
       <div class="intro">
