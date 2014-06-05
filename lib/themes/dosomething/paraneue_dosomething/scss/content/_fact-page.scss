@@ -17,11 +17,27 @@
   }
 }
 
+// Styles for Facts Listing page
+.container--facts-list {
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+}
+
 .fact_page-wrapper {
   background: #fff;
 
   h2, h3, h4 {
     color: $purple;
+  }
+
+  ol {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 1.5rem;
   }
 
   .header-wrapper {
@@ -64,18 +80,6 @@
     }
   }
 
-  .media-wrapper {
-    display: none;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
-    @include media($tablet) {
-      @include span-columns(6 of 12);
-      @include omega;
-      display: block;
-      float: right;
-    }
-  }
-
   [role="banner"] {
     .__title {
       @include media($tablet) {
@@ -96,16 +100,7 @@
     }
   }
 
-  .media {
-    img {
-      max-width: 100%;
-    }
-  }
-
-  .sources { margin-bottom: 1rem;
-    li {
-      color: $med-gray;
-      font-size: $font-small;
-    }
+  .sources { 
+    margin-bottom: 1rem;
   }
 }
