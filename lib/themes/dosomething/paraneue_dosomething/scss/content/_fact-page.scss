@@ -24,7 +24,7 @@
   }
 }
 
-.fact_page-wrapper {
+.fact-page {
   background: #fff;
 
   h2, h3, h4 {
@@ -38,14 +38,6 @@
 
   li {
     margin-bottom: 1.5rem;
-  }
-
-  .header-wrapper {
-    padding: 8rem 1rem 1rem;
-    @include row;
-    @include media($tablet) {
-      padding: 7rem 0 0;
-    }
   }
 
   // Set gutters on mobile
