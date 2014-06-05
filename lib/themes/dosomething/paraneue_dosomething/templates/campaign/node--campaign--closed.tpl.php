@@ -44,6 +44,7 @@
   </header>
 
   <div class="content-wrapper">
+    <?php print $psa; ?>
 
     <h2 class="banner"><span>What You Did</span></h2>
     <section class="plan step">
