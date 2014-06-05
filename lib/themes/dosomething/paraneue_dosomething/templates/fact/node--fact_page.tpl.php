@@ -1,60 +1,74 @@
+<?php
+/**
+ * Returns the HTML for the Fact page.
+ *
+ * Available Variables
+ * - $nid: Node ID for fact page (integer).
+ * - $classes: Additional classes passed for output (string).
+ * - $title: Title of fact page (string).
+ * - $subtitle: Subtitle of fact page (string).
+ * - $intro_title: Introductory title of fact page (string).
+ * - $facts: Array of facts for the fact page (array).
+ * - $sources: List of sources for the fact page (string).
+ * - $cta_link: Call To Action link of fact page (string).
+ */
+?>
 
-<section class="fact_page-wrapper">
-  <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="fact fact-page <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+  <header role="banner" class="-basic">
+    <div class="wrapper">
+      <h1 class="__title"><?php print $title; ?></h1>
+      <?php if (isset($subtitle)): ?>
+      <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+      <?php endif; ?>
+    </div>
+  </header>
 
-    <header role="banner" class="-basic">
+  <?php if (isset($intro)): ?>
+    <section class="container intro">
       <div class="wrapper">
-        <h1 class="__title"><?php print $title; ?></h1>
-        <?php if (isset($subtitle)): ?>
-        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+        <?php if (isset($intro_title)): ?>
+          <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
         <?php endif; ?>
       </div>
-    </header>
+    </section>
+  <?php endif; ?>
 
+  <?php if (isset($facts)): ?>
+    <section class="container container--fact">
 
-    <?php if (isset($intro)): ?>
-      <div class="intro-wrapper">
-        <div class="intro">
-          <?php if (isset($intro_title)): ?>
-            <h2><?php print $intro_title; ?></h2>
-          <?php endif; ?>
-          <div class="intro-content"><?php print $intro; ?></div>
-        </div>
-      </div>
-    <?php endif; ?>
+      <div class="wrapper">
 
+        <div class="container__body">
 
-    <?php if (isset($facts)): ?>
-      <div class="facts-wrapper">
-        <div class="facts">
           <?php if (isset($intro_image)): ?>
-            <aside class="media-wrapper">
-              <div class="media">
-                <?php print $intro_image; ?>
-              </div>
+            <aside class="media -inline">
+               <?php print $intro_image; ?>
             </aside>
           <?php endif; ?>
 
-          <?php foreach ($facts as $key => $fact): ?>
-            <p class="fact">
-              <?php print ($key + 1) . '. ' . $fact['fact']; ?>
+          <ol>
+            <?php foreach ($facts as $key => $fact): ?>
+              <li><?php print ($key + 1) . '. ' . $fact['fact']; ?>
+                <?php // @TODO: Sources reinstated, but not sure if the facts need to have numbers associated with their respective source? Need to clarify. ?>
+                <?php //<sup></?php print $fact['footnotes']; ?/></sup> ?>
+              </li>
+            <?php endforeach; ?>
+          </ol>            
 
-              <?php // @TODO: Sources reinstated, but not sure if the facts need to have numbers associated with their respective source? Need to clarify. ?>
-              <?php //<sup></?php print $fact['footnotes']; ?/></sup> ?>
-            </p>
-          <?php endforeach; ?>
         </div>
-      </div>
-    <?php endif; ?>
 
-    <?php if (isset($sources)): ?>
-      <div class="sources-wrapper">
-        <div class="sources">
-          <h4>Sources</h4>
-          <?php print $sources; ?>
-         </div>
+        <?php if (isset($sources)): ?>
+          <section class="sources">
+            <h3 class="__title  js-toggle-sources">Sources</h3>
+            <div class="__body legal">
+              <?php print $sources; ?>
+            </div>
+          </section>
+        <?php endif; ?>
       </div>
-    <?php endif; ?>
+
+    </section>
 
     <?php if (isset($call_to_action)): ?>
       <div class="cta">
@@ -64,5 +78,7 @@
         </div>
       </div>
     <?php endif; ?>
-  </article>
-</section>
+    
+  <?php endif; ?>
+</article>
+
