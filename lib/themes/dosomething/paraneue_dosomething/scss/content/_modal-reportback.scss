@@ -22,6 +22,23 @@
       }
     }
 
+    .imageUploadContainer {
+      position: relative;
+      width: 300px;
+      height: 100px;
+      overflow: hidden;
+
+      input[type="file"] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 200px;
+        opacity: 0;
+        cursor: pointer;
+      }
+    }
+
+
     .filename {
       color: #fff;
       font-size: $font-small;
@@ -34,6 +51,7 @@
       height: auto;
       max-width: 100px;
       max-height: 200px;
+      background: $light-gray;
       border: 5px solid #fff;
       margin: 0.25rem 1rem;
     }
@@ -51,6 +69,7 @@
         max-height: 300px;
         width: auto;
         height: auto;
+        background: $light-gray;
         border: 6px solid #fff;
       }
     }
