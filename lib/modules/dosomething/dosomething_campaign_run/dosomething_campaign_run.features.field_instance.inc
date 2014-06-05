@@ -76,6 +76,45 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_winners-field_gallery_image'
+  $field_instances['field_collection_item-field_winners-field_gallery_image'] = array(
+    'bundle' => 'field_winners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_gallery_image',
+    'label' => 'Gallery Image',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_winners-field_user'
   $field_instances['field_collection_item-field_winners-field_user'] = array(
     'bundle' => 'field_winners',
@@ -591,6 +630,7 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Additional Text Title');
   t('Campaign');
   t('Gallery');
+  t('Gallery Image');
   t('Intro');
   t('Klout Gallery');
   t('The Campaign node associated with this Campaign Run.');

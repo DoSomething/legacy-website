@@ -28,6 +28,7 @@ features[field_base][] = field_winners
 features[field_group][] = group_totals|node|campaign_run|form
 features[field_instance][] = field_collection_item-field_gallery_collection-field_gallery
 features[field_instance][] = field_collection_item-field_gallery_collection-field_gallery_type
+features[field_instance][] = field_collection_item-field_winners-field_gallery_image
 features[field_instance][] = field_collection_item-field_winners-field_user
 features[field_instance][] = field_collection_item-field_winners-field_winner_description
 features[field_instance][] = field_collection_item-field_winners-field_winner_quote
