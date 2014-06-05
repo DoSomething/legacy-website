@@ -63,9 +63,10 @@
         <?php print $intro['safe_value']; ?>
         <?php endif; ?>
 
-      </div> 
+      </div>
     </section>
 
+<?php print_r($klout_gallery); ?>
     <h2 class="banner"><span>Love From Celebs</span></h2>
     <section class="plan step">
       <div class="intro">
@@ -85,7 +86,8 @@
     <section class="plan step">
       <div class="intro">
 
-        <p>Winners go here</p>
+        <p>Winners go here.. HALP.</p>
+        <?php print_r($winners); ?>
 
       </div>
     </section>

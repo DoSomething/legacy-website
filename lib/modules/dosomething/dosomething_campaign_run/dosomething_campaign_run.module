@@ -1,4 +1,4 @@
-<?php
+  <?php
 /**
  * @file
  * Code for the dosomething_campaign_run feature.
@@ -19,7 +19,9 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // Load the closed campaign_run.
     $wrapper = entity_metadata_wrapper('node', $closed_run_nid);
     // Gather the campaign_run vars.
-    dosomething_campaign_run_preprocess_run_vars($vars, $wrapper);
+    dosomething_campaign_run_preprocess_text_vars($vars, $wrapper);
+    dosomething_campaign_run_preprocess_winners($vars, $closed_run_nid);
+    dosomething_campaign_run_preprocess_klout_gallery($vars, $closed_run_nid);
   }
 }
 
@@ -27,11 +29,11 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
  * Adds given campaign_run entity $wrapper values to $vars.
  *
  * @param array $vars
- *   Array of variables via hook_preprocess_node. 
+ *   Array of variables via hook_preprocess_node.
  * @param object $wrapper
- *   Entity metadata wrapper of the campaign_run node to gather values from. 
+ *   Entity metadata wrapper of the campaign_run node to gather values from.
  */
-function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
+function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
   $text_fields = array(
     'additional_text',
     'additional_text_title',
@@ -46,12 +48,77 @@ function dosomething_campaign_run_preprocess_run_vars(&$vars, $wrapper) {
   }
 }
 
+/**
+ * Adds the $winners array to the campaign node.
+ *
+ * @param array $vars
+ *   Array of variables via hook_preprocess_node.
+ * @param int $nid
+ *   Node id of the campaign run node.
+ */
+function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
+  $closed_node = node_load($nid);
+  // Get all winners
+  $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
+  $winners = array();
+  $text_fields = array(
+    'field_winner_type',
+    'field_winner_quote',
+    'field_winner_description',
+  );
+  for ($i = 0; $i < $winner_count; $i++) {
+    $entity_id = $closed_node->field_winners[LANGUAGE_NONE][$i]['value'];
+    $winner =  entity_load('field_collection_item', array($entity_id));
+    $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
+    $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+    foreach($text_fields as $text_field) {
+      $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  $vars['winners'] = $winners;
+}
+
+/**
+ * Adds the $klout_gallery array to the campaign node.
+ *
+ * @param array $vars
+ *   Array of variables via hook_preprocess_node.
+ * @param int $nid
+ *   Node id of the campaign run node.
+ */
+function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
+  $closed_node = node_load($nid);
+  $klout_count =  count($closed_node->field_gallery_collection[LANGUAGE_NONE]);
+  $klout_gallery = array();
+  // Get the type of klout
+  for ($i = 0; $i < $klout_count; $i++) {
+    $klout_entity_id = $closed_node->field_gallery_collection[LANGUAGE_NONE][$i]['value'];
+    $klout =  entity_load('field_collection_item', array($klout_entity_id));
+    // Get the type of klout.
+    $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_type[LANGUAGE_NONE][0]['value'];
+    $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
+    $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
+    $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];
+    $single_gallery_count = count($single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE]);
+    for ($a = 0; $a < $single_gallery_count; $a++) {
+      $gallery_item_entity_id = $single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE][$a]['value'];
+      $gallery_items = entity_load('field_collection_item', array($gallery_item_entity_id));
+      // @TODO: theme this image
+      $klout_gallery[$i]['items'][$a]['image'] = $gallery_items[$gallery_item_entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+      // @TODO: link this link?
+      $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
+      $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
+      $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  $vars['klout_gallery'] = $klout_gallery;
+}
 
 /**
  * For given campaign $nid, return its closed Campaign Run nid.
  *
  * For now, this just returns a campaign_run node that references the $nid.
- * As we build out multiple runs per campaign, we'll need to add logic 
+ * As we build out multiple runs per campaign, we'll need to add logic
  * to determine sequence.
  *
  * @param int $nid
