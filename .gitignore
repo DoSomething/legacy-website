@@ -8,6 +8,7 @@ docs
 doxy.sh
 Doxyfile
 node_modules
+Gemfile.lock
 lib/themes/dosomething/paraneue_dosomething/dist/
 lib/themes/dosomething/paraneue_dosomething/bower_components/
 lib/themes/dosomething/paraneue_dosomething/vendor/
