@@ -46,30 +46,30 @@
     a.tip-header {
       position: relative;
       text-decoration: none;
-    }
 
-    a.tip-header.active {
-      display: inline-block;
-      color: $off-black;
-      cursor: default;
-
-      &:hover {
+      &.active {
+        display: inline-block;
+        color: $off-black;
         cursor: default;
-      }
 
-      &:after {
-        content: "";
-        display: block;
-        width: 0;
-        height: 0;
-        position: absolute;
-        background: transparent;
-        border-top: 12px solid #fff;
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-        border-bottom: 0;
-        left: 33.333%;
-        top: 40px;
+        &:hover {
+          cursor: default;
+        }
+
+        &:after {
+          content: "";
+          display: block;
+          width: 0;
+          height: 0;
+          position: absolute;
+          background: transparent;
+          border-top: 12px solid #fff;
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-bottom: 0;
+          left: 33.333%;
+          top: 40px;
+        }
       }
     }
 

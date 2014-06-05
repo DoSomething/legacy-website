@@ -21,10 +21,10 @@ footer.boilerplate {
   padding: 1rem 0;
   text-align: center;
 
-  @include rgba('background', #000, 0.5);
+  @include rgba("background", #000, 0.5);
 
   .no-rgba & {
-    background: transparent image-url('black-50.png') 0 0 repeat;
+    background: transparent image-url("black-50.png") 0 0 repeat;
   }
 
   a {

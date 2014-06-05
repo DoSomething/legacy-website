@@ -288,6 +288,7 @@
       @include media(450px) {
         width: 100%;
       }
+
       @include media($tablet) {
         width: 50%;
       }

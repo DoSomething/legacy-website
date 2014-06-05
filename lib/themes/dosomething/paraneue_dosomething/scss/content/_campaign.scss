@@ -1,15 +1,3 @@
-.campaign--wrapper {
-  @import "campaign/layout";
-  @import "campaign/header";
-  @import "campaign/footer";
-  @import "campaign/nav";
-
-  @import "campaign/know";
-  @import "campaign/plan";
-  @import "campaign/do";
-  @import "campaign/prove";
-}
-
 // Higher level selector to access content outside of .campaign--wrapper
 body.node-type-campaign {
   @include wrapper--nav-floating;
@@ -40,6 +28,16 @@ body.node-type-campaign {
 .campaign--wrapper {
   overflow: hidden;
   background: #fff;
+
+  @import "campaign/layout";
+  @import "campaign/header";
+  @import "campaign/footer";
+  @import "campaign/nav";
+
+  @import "campaign/know";
+  @import "campaign/plan";
+  @import "campaign/do";
+  @import "campaign/prove";
 
   // Gives the floating nav a parent container to anchor to
   .content-wrapper {

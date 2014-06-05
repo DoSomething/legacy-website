@@ -4,13 +4,10 @@
 // -------------------
 
 .page-campaigns {
+  background: $purple;
+
   @include wrapper--nav-white;
   @include wrapper--nav-floating;
-}
-
-// Make the whole page purple, then we'll make the content wrapper white!
-.page-campaigns {
-  background: $purple;
 }
 
 .view-explore-campaigns {
@@ -19,15 +16,16 @@
   // Set gutters on mobile
   .content-wrapper {
     padding: 0 1rem;
+
     @include media($tablet) {
       @include outer-container;
     }
   }
 
   .header-wrapper {
-    @include header-gradient();
-
     padding: 8rem 1rem 0;
+
+    @include header-gradient();
     @include row;
     @include media($tablet) {
       padding: 7rem 0 0;
@@ -37,6 +35,7 @@
   // @TODO: Default content page headers -- same as campaign template -- abstract this
   .view-header {
     text-align: center;
+
     @include media($tablet) {
       text-align: left;
     }
@@ -48,6 +47,7 @@
 
     h1 {
       color: #fff;
+
       @include media($tablet) {
         font-size: $font-larger;
       }

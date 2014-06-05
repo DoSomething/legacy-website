@@ -101,12 +101,14 @@
 
   .sprite-hrb {
     width: 60px;
+
     @include media($tablet) {
       width: 120px;
     }
+
+    @include responsive-sprite(-5px, -5px);
   }
 
-  .sprite-hrb { @include responsive-sprite(-5px, -5px); }
   .sprite-aeropostale { @include responsive-sprite(-135px, -5px); }
   .sprite-channel-one { @include responsive-sprite(-5px, -85px); }
   .sprite-fastweb { @include responsive-sprite(-115px, -85px); }
