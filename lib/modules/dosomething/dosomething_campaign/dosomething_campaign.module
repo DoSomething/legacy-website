@@ -431,11 +431,11 @@ function dosomething_campaign_is_pitch_page($node) {
   if (!user_is_logged_in()) {
     return TRUE;
   }
-  
+
   if (dosomething_user_is_staff()) {
     // Return whether or not we're on the staff-only pitch page URL.
     // @see dosomething_campaign_menu().
-    // This check also allows staff to bypass the Pitch Page to view Action Page 
+    // This check also allows staff to bypass the Pitch Page to view Action Page
     // regardless of whether or not they're signed up for the campaign.
     return (current_path() == 'node/' . $node->nid . '/pitch');
   }
@@ -471,6 +471,7 @@ function dosomething_campaign_is_closed($node) {
 function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
   // Is this a campaign node?
   if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign') {
+    $node = $context['entity'];
     // Is this a legacy campaign?
     if (module_exists('dosomething_legacy') && dosomething_legacy_check($node)) {
       if (dosomething_signup_exists($node->nid)) {
