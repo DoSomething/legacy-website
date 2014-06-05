@@ -65,6 +65,7 @@
     .intro-content {
       max-width: 100%;
     }
+
     .intro-content-half-width {
       @include media($tablet) {
         @include span-columns(6 of 12);
@@ -73,6 +74,7 @@
 
     img, iframe {
       width: 100%;
+
       @include media($tablet) {
         @include span-columns(6 of 12);
         @include omega();
@@ -82,6 +84,7 @@
 
   .gallery {
     padding-top: 20px;
+
     @include media($tablet) {
       @include shift(2 of 16);
     }

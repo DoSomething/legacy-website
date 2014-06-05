@@ -38,12 +38,13 @@
 
   li {
     margin-bottom: 1.5rem;
-  }
 
   // Set gutters on mobile
   .intro-wrapper, .facts-wrapper, .sources-wrapper {
     padding: 1rem;
+
     @include row;
+
     @include media($tablet) {
       padding: 0;
     }
@@ -59,11 +60,6 @@
       @include span-columns(12);
       @include shift(2);
     }
-  }
-
-  .header-wrapper {
-    @include header-gradient();
-    @include header-typography();
   }
 
   .facts-wrapper {
@@ -85,6 +81,7 @@
     // @TODO: ಠ_ಠ
     margin-top: 20px;
     margin-bottom: 55px;
+
     .intro-content {
       @include media($tablet) {
         @include span-columns(8 of 12);
@@ -92,7 +89,7 @@
     }
   }
 
-  .sources { 
+  .sources {
     margin-bottom: 1rem;
   }
 }

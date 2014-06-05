@@ -23,6 +23,8 @@
 
   .ss-form-question {
     clear: both;
+    margin-bottom: 1rem;
+    @include clearfix;
 
     &.-compact {
       @include media($desktop) {
@@ -62,11 +64,6 @@
 
   .field-label-optional {
     color: $light-gray;
-  }
-
-  .ss-form-question {
-    margin-bottom: 1rem;
-    @include clearfix;
   }
 
   .ss-choices {
