@@ -13,6 +13,10 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
 
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title><?php print $head_title; ?></title>
   <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
 
@@ -32,9 +36,6 @@
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/apple-touch-icon-precomposed.png">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <?php print $head; ?>
 </head>
