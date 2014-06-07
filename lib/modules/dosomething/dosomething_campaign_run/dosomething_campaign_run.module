@@ -71,6 +71,8 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
     $winner =  entity_load('field_collection_item', array($entity_id));
     $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
     $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+    $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+    $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
     foreach($text_fields as $text_field) {
       $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
     }
@@ -103,8 +105,8 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
     for ($a = 0; $a < $single_gallery_count; $a++) {
       $gallery_item_entity_id = $single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE][$a]['value'];
       $gallery_items = entity_load('field_collection_item', array($gallery_item_entity_id));
-      // @TODO: theme this image
-      $klout_gallery[$i]['items'][$a]['image'] = $gallery_items[$gallery_item_entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+      $image_nid = $gallery_items[$gallery_item_entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+      $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
       // @TODO: link this link?
       $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
       $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
