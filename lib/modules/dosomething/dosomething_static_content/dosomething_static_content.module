@@ -100,7 +100,9 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
       $vars['galleries'][$i]['items'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'square', '300x300');
 
       $link_field = $gallery_item['field_image_title'][0]['#element'];
+      
       $vars['galleries'][$i]['items'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
+      $vars['galleries'][$i]['items'][$a]['image_url'] = $link_field['url'];
       $vars['galleries'][$i]['items'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
       $vars['galleries'][$i]['items'][$a]['order_class'] = dosomething_static_content_get_gallery_item_order_class($a);
     }
