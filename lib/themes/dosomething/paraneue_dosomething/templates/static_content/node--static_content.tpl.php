@@ -68,10 +68,14 @@
             <?php foreach ($gallery['items'] as $gallery_item): ?>
               <div class="gallery-item">
                 <?php if (isset($gallery_item['image'])): ?>
-                  <?php print $gallery_item['image']; ?>
+                  <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
+                    <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
+                  <?php else : ?>
+                    <?php print $gallery_item['image']; ?>
+                  <?php endif; ?>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
+                  <h3 class="title"><?php print $gallery_item['image_title']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($gallery_item['image_description'])): ?>
                   <div class="gallery-description"><?php print $gallery_item['image_description']; ?></div>
