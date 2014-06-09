@@ -2,6 +2,7 @@
 
 // Define theme directory path
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+define('LOCAL_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
 
 // If ds_version is set, use CDN assets
 if(theme_get_setting('asset_path')) {
@@ -9,7 +10,7 @@ if(theme_get_setting('asset_path')) {
   $cdn_path = str_replace('{ds_version}', variable_get('ds_version', 'latest'), $cdn_path);
   define('DS_ASSET_PATH', $cdn_path);
 } else {
-  define('DS_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
+  define('DS_ASSET_PATH', LOCAL_ASSET_PATH);
 }
 
 // Determine whether to use minified script or not
@@ -22,8 +23,8 @@ if(theme_get_setting('use_minified_assets')) {
 }
 
 // Define asset directory paths
-define('LIB_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
-define('NEUE_ASSET_PATH', LIB_ASSET_PATH . '/neue');
+define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
+define('NEUE_ASSET_PATH', VENDOR_ASSET_PATH . '/neue');
 
 // Theme includes
 require_once PARANEUE_DS_PATH . '/includes/bootstrap.inc';
