@@ -33,6 +33,7 @@ dependencies[] = entityconnect
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
+dependencies[] = file_entity
 dependencies[] = i18n
 dependencies[] = libraries
 dependencies[] = link
