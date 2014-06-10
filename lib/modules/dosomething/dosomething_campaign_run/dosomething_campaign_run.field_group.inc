@@ -13,12 +13,40 @@ function dosomething_campaign_run_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic_info|node|campaign_run|form';
+  $field_group->group_name = 'group_basic_info';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Basic Info',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_campaigns',
+      1 => 'title',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-basic-info field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_basic_info|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_totals|node|campaign_run|form';
   $field_group->group_name = 'group_totals';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'campaign_run';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_what_you_did';
   $field_group->data = array(
     'label' => 'Totals',
     'weight' => '3',
@@ -31,14 +59,101 @@ function dosomething_campaign_run_field_group_info() {
     'format_settings' => array(
       'label' => 'Totals',
       'instance_settings' => array(
-        'required_fields' => 1,
+        'required_fields' => 0,
         'classes' => 'group-totals field-group-fieldset',
         'description' => 'If you do not want to display the Totals, leave these fields blank.',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_totals|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what_people_are_saying|node|campaign_run|form';
+  $field_group->group_name = 'group_what_people_are_saying';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What People Are Saying',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_additional_text',
+      1 => 'field_additional_text_title',
+      2 => 'field_gallery_collection',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'What People Are Saying',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'group-what-people-are-saying field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_what_people_are_saying|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what_you_did|node|campaign_run|form';
+  $field_group->group_name = 'group_what_you_did';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What You Did',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_intro',
+      1 => 'group_totals',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'What You Did',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'group-what-you-did field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_what_you_did|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_winners|node|campaign_run|form';
+  $field_group->group_name = 'group_winners';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Winners',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_winners',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Winners',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'group-winners field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_winners|node|campaign_run|form'] = $field_group;
 
   return $export;
 }
