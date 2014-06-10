@@ -696,3 +696,12 @@ function dosomething_signup_presignup_exists($nid) {
   global $user;
   return dosomething_signup_exists($nid, $user->uid, $presignup = TRUE);
 }
+
+/**
+ * Presignup the global $user for given $nid.
+ */
+function dosomething_signup_user_presignup($nid) {
+  // Create the presignup record.
+  dosomething_signup_presignup_create($nid);
+  // @todo: Mailchimp subscription.
+}

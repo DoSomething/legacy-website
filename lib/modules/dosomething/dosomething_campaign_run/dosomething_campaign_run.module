@@ -22,6 +22,9 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     dosomething_campaign_run_preprocess_text_vars($vars, $wrapper);
     dosomething_campaign_run_preprocess_winners($vars, $closed_run_nid);
     dosomething_campaign_run_preprocess_klout_gallery($vars, $closed_run_nid);
+    // Preprocess the presignup form.
+    $label = t("I'm interested");
+    dosomething_signup_preprocess_signup_button($vars, $label, $presignup = TRUE);
   }
 }
 
