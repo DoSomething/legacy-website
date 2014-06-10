@@ -70,7 +70,14 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
     $entity_id = $closed_node->field_winners[LANGUAGE_NONE][$i]['value'];
     $winner =  entity_load('field_collection_item', array($entity_id));
     $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
-    $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+    // If there is no user, get the first name from the text field.
+    if (!isset($winners[$i]['uid'])) {
+      $winners[$i]['fname'] = $winner[$entity_id]->field_winner_name[LANGUAGE_NONE][0]['value'];
+    }
+    // Else, grab the first name from the user account.
+    else {
+      $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+    }
     $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
     $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
     foreach($text_fields as $text_field) {

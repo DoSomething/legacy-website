@@ -111,7 +111,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -150,7 +150,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -185,6 +185,40 @@ function dosomething_campaign_run_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_winners-field_winner_name'
+  $field_instances['field_collection_item-field_winners-field_winner_name'] = array(
+    'bundle' => 'field_winners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'User First Name should only be needed if there isn\'t a user to lookup. If there is a user to lookup, then we\'ll pull in their first name from the UID.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_winner_name',
+    'label' => 'User First Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -289,7 +323,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 4,
     ),
   );
 
@@ -329,7 +363,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 3,
     ),
   );
 
@@ -374,46 +408,6 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance: 'node-campaign_run-field_intro'
-  $field_instances['node-campaign_run-field_intro'] = array(
-    'bundle' => 'campaign_run',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_intro',
-    'label' => 'Intro',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
       'weight' => 2,
     ),
   );
@@ -457,7 +451,47 @@ function dosomething_campaign_run_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 14,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_intro'
+  $field_instances['node-campaign_run-field_intro'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_intro',
+    'label' => 'Intro',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
     ),
   );
 
@@ -620,7 +654,7 @@ function dosomething_campaign_run_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 4,
     ),
   );
 
@@ -639,6 +673,8 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Total Quantity Label');
   t('Type');
   t('User');
+  t('User First Name');
+  t('User First Name should only be needed if there isn\'t a user to lookup. If there is a user to lookup, then we\'ll pull in their first name from the UID.');
   t('Winner Description');
   t('Winner Quote');
   t('Winner Type');
