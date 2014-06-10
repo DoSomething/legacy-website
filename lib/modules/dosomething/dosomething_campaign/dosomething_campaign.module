@@ -54,7 +54,7 @@ function dosomething_campaign_menu() {
     'title' => 'Closed',
     'page callback' => 'node_page_view',
     'page arguments' => array(1),
-    'access callback' => 'dosomething_campaign_is_closed',
+    'access callback' => '_dosomething_campaign_closed_page_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'weight' => 70,
@@ -181,6 +181,19 @@ function _dosomething_campaign_pitch_page_access($node) {
     }
   }
   return FALSE;
+}
+
+/*
+ * Determines whether a user has access to the closed page callback.
+ */
+function _dosomething_campaign_closed_page_access($node) {
+  // Staff only.
+  if (!dosomething_user_is_staff()) { return FALSE; }
+
+  // Only display closed page link if a campaign run exists for node.
+  $run_nid = dosomething_campaign_run_get_closed_run_nid($node->nid);
+  // Closed page available if this is a campaign node with a campaign run.
+  return ($node->type == 'campaign' && $run_nid);
 }
 
 /**
@@ -456,16 +469,7 @@ function dosomething_campaign_is_pitch_page($node) {
  */
 function dosomething_campaign_is_closed($node) {
   // Is the campaign status set to closed?
-  if ($node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed') {
-    return TRUE;
-  }
-  // Is a staff trying to preview the closed node?
-  if (dosomething_user_is_staff()) {
-    // Check if staff-only closed path.
-    // @see dosomething_campaign_menu().
-    return current_path() == 'node/' . $node->nid . '/closed';
-  }
-  return FALSE;
+  return $node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed';
 }
 
 /*
