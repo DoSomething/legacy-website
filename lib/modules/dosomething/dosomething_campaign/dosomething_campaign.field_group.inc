@@ -27,7 +27,8 @@ function dosomething_campaign_field_group_info() {
       1 => 'field_confirmation_doc',
       2 => 'field_image_campaign_cover',
       3 => 'field_campaign_type',
-      4 => 'title',
+      4 => 'field_campaign_status',
+      5 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
