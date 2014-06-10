@@ -6,6 +6,64 @@
  */
 
 /**
+ * Form constructor for user presignup form.
+ *
+ * @param int $nid
+ *   The node nid to presignup for.
+ * @param string $label
+ *   The label to display on the form submit button.
+ */
+function dosomething_signup_presignup_form($form, &$form_state, $nid, $label) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+    '#access' => FALSE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => $label,
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'medium',
+      ),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Form submission handler for dosomething_signup_presignup_form().
+ *
+ * @see dosomething_signup_presignup_form()
+ */
+function dosomething_signup_presignup_form_submit($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  // Create the presignup.
+  dosomething_signup_presignup_create($nid);
+  // Assuming this form always just lives on the campaign,
+  // Let's grab title this way instead of querying db.
+  $title = drupal_get_title();
+  drupal_set_message(dosomething_signup_get_presignup_confirm_msg($title));
+}
+
+/**
+ * Returns the confirmation message after submitting presignup form.
+ *
+ * @param string $title
+ *   The title of the presignup node.
+ *
+ * @return string
+ */
+function dosomething_signup_get_presignup_confirm_msg($title) {
+  $link = l(t('find a campaign'), 'campaigns');
+  return t("Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now.", array(
+    '@title' => $title,
+    '!link' => $link,
+  ));
+}
+
+/**
  * Form constructor for a Friends signup form.
  *
  * @param int $nid

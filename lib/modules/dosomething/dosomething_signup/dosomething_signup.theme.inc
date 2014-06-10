@@ -15,13 +15,19 @@
  *   Node variables, passed from preprocess_node.  Must contain $vars['nid'].
  * @param string $label
  *   The label to display fon the button.
+ * @param string $presignup
+ *   Optional - If TRUE, get the presignup form, else regular signup form.
  */
-function dosomething_signup_preprocess_signup_button(&$vars, $label = "Sign Up") {
+function dosomething_signup_preprocess_signup_button(&$vars, $label = "Sign Up", $presignup = FALSE) {
   $label = t($label);
   // If user is logged in:
   if (user_is_logged_in()) {
+    $form_id = 'dosomething_signup_form';
+    if ($presignup) {
+      $form_id = 'dosomething_signup_presignup_form';
+    }
     // Render button as sign up form.
-    $vars['signup_button'] = drupal_get_form('dosomething_signup_form', $vars['nid'], $label);
+    $vars['signup_button'] = drupal_get_form($form_id, $vars['nid'], $label);
   }
   // Otherwise, for anonymous user:
   else {
