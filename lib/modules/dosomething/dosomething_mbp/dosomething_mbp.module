@@ -89,7 +89,10 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   );
   switch ($origin) {
     case 'user_register':
-      $payload['birthdate'] = $params['birthdate'];
+      $payload = array(
+        'birthdate' => $params['birthdate'],
+        'subscribed' => 1,
+      );
       if (isset($params['mobile'])) {
         $payload['mobile'] = $params['mobile'];
       }
@@ -149,6 +152,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
  *   Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
+  $payload['subscribed'] = 1;
   $payload['event_id'] = $params['event_id'];
   // Check for Mailchimp grouping_id+group_name:
   $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
