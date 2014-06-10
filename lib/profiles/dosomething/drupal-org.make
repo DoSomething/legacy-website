@@ -63,6 +63,14 @@ projects[field_collection][subdir] = "contrib"
 projects[field_group][version] = "1.3"
 projects[field_group][subdir] = "contrib"
 
+; File Entity
+projects[file_entity][version] = "2.0-alpha3"
+projects[file_entity][subdir] = "contrib"
+
+; Flag
+projects[flag][version] = "3.5"
+projects[flag][subdir] = "contrib"
+
 ; Google Analytics
 projects[google_analytics][version] = "1.4"
 projects[google_analytics][subdir] = "contrib"
