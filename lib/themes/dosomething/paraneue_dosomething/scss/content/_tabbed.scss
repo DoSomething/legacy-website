@@ -1,0 +1,38 @@
+.tabbed { background-color: orange;
+
+}
+
+.tabs__menu {
+  @include visually-hidden();
+}
+
+.tabs__body {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-top: 1.5rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.tab {
+  .__title {
+    font-weight: $weight-bold;
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+// JS Enabled
+.js {
+
+  .tabs__menu {
+    // @include visually-restored();
+  }
+
+}

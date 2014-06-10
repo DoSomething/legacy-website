@@ -1,0 +1,32 @@
+.waypoints {
+  background-color: pink;
+  overflow: hidden;
+
+  .menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      float: left;
+      position: relative;
+    }
+
+    li + li {
+      &:before { //background-color: red;
+        content: '\2022';
+        display: block;
+        float: left;
+        padding: 0 0.5rem;
+        // position: absolute;
+        // top: 0;
+        // left: 0;
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+}

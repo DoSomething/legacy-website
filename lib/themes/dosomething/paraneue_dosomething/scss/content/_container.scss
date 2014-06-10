@@ -45,6 +45,10 @@
   .-columned {
     @include media($tablet) {
       @include span-columns(6 of 12);
+
+      &.-even {
+        @include omega();
+      }
     }
   }
 
@@ -63,6 +67,14 @@
     }
   }
 
+  p + .__row,
+  .__row + .__row {
+    margin-top: 1.5rem;
+  }
+
+  p + .tabbed {
+    margin-top: 1.5rem;
+  }
 }
 
 
@@ -95,8 +107,23 @@
 .container__body {
   @include clearfix();
 
+  @include media($tablet) {
+    &.-compact {
+      @include span-columns(9 of 12);
+    }
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
   p {
     margin-bottom: 0;
+  }
+
+  .__row {
+    @include clearfix();
+    clear: both;
   }
 
   // <p> tags following other items.
@@ -119,6 +146,10 @@
   ul + h3,
   ol + h3 {
     margin-top: 1.5rem;
+  }
+
+  p + .btn {
+    margin-top: 0.5rem;
   }
 
   // Form items inside Container Body.

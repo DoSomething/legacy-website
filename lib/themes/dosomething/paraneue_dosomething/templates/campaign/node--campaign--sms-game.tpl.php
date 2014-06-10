@@ -9,9 +9,9 @@
  * - $classes: Additional classes passed for output (string).
  */
 
-krumo('spacer');
-krumo('spacer');
-krumo($variables);
+// krumo('spacer');
+// krumo('spacer');
+// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign--campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
@@ -54,7 +54,7 @@ krumo($variables);
           <?php endif; ?>
 
           <?php if (isset($psa)): ?>
-            <aside>
+            <aside <?php if ($is_video_psa) echo 'class="video"'; ?>>
               <?php print $psa; ?>
             </aside>
           <?php else: ?>
