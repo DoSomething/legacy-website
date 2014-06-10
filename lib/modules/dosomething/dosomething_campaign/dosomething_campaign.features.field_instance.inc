@@ -383,6 +383,47 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_campaign_status'
+  $field_instances['node-campaign-field_campaign_status'] = array(
+    'bundle' => 'campaign',
+    'default_value' => array(
+      0 => array(
+        'value' => 'active',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 65,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_campaign_status',
+    'label' => 'Campaign Status',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_campaign_type'
   $field_instances['node-campaign-field_campaign_type'] = array(
     'bundle' => 'campaign',
@@ -511,7 +552,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -830,7 +871,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -2300,6 +2341,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Answer');
   t('Call to Action');
   t('Campaign Specific Starter Statement');
+  t('Campaign Status');
   t('Campaign type');
   t('Cause');
   t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
