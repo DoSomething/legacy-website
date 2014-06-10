@@ -89,10 +89,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   );
   switch ($origin) {
     case 'user_register':
-      $payload = array(
-        'birthdate' => $params['birthdate'],
-        'subscribed' => 1,
-      );
+      $payload['birthdate'] = $params['birthdate'];
+      $payload['subscribed'] = 1;
       if (isset($params['mobile'])) {
         $payload['mobile'] = $params['mobile'];
       }
