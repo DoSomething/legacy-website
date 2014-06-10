@@ -59,13 +59,16 @@
         </div>
 
         <?php if (isset($sources)): ?>
-          <section class="sources">
-            <h3 class="__title  js-toggle-sources">Sources</h3>
-            <div class="__body legal">
-              <?php print $sources; ?>
-            </div>
-          </section>
+        <section class="sources">
+          <h3 class="__title js-toggle-sources">Sources</h3>
+          <ul class="__body legal">
+            <?php foreach ($sources as $key => $source): ?>
+              <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </section>
         <?php endif; ?>
+        
       </div>
 
     </section>
