@@ -103,6 +103,7 @@ function dosomething_signup_admin_paths() {
   );
   return $paths;
 }
+
 /**
  * Insert a user signup.
  *
@@ -177,16 +178,22 @@ function dosomething_signup_delete_signup($nid, $uid = NULL) {
  * @param int $uid
  *   Optional - the user uid of signup record to check.
  *   If not given, uses global $user->uid.
+ * @param string $presignup
+ *   Optional - If true, query the presignups table, not regular signups.
  *
  * @return mixed
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
-function dosomething_signup_exists($nid, $uid = NULL) {
+function dosomething_signup_exists($nid, $uid = NULL, $presignup = FALSE) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
   }
-  $result = db_select('dosomething_signup', 's')
+  $signup_tbl = 'dosomething_signup';
+  if ($presignup) {
+    $signup_tbl = 'dosomething_signup_presignup';
+  }
+  $result = db_select($signup_tbl, 's')
     ->condition('uid', $uid)
     ->condition('nid', $nid)
     ->fields('s', array('sid'))
@@ -654,4 +661,38 @@ function dosomething_signup_get_login_signup_nid() {
     }
   }
   return NULL;
+}
+
+/**
+ * Insert a pre-signup for the global $user.
+ *
+ * @param int $nid
+ *   The node nid the user has pre-signed up for.
+ *
+ * @return mixed
+ *   The sid of the newly inserted signup, or FALSE if error.
+ */
+function dosomething_signup_presignup_create($nid) {
+  // If a pre-signup does not exist already:
+  if (!dosomething_signup_presignup_exists($nid)) {
+    global $user;
+    // Insert one.
+    $sid = db_insert('dosomething_signup_presignup')
+      ->fields(array(
+        'nid' => $nid,
+        'uid' => $user->uid,
+        'timestamp' =>  REQUEST_TIME,
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * Checks if a pre-signup exists for given $nid for global $user.
+ *
+ * @return bool
+ */
+function dosomething_signup_presignup_exists($nid) {
+  global $user;
+  return dosomething_signup_exists($nid, $user->uid, $presignup = TRUE);
 }
