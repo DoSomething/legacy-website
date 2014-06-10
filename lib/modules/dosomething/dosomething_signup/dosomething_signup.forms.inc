@@ -39,9 +39,9 @@ function dosomething_signup_presignup_form($form, &$form_state, $nid, $label) {
  */
 function dosomething_signup_presignup_form_submit($form, &$form_state) {
   $nid = $form_state['values']['nid'];
-  // Create the presignup.
-  dosomething_signup_presignup_create($nid);
-  // Assuming this form always just lives on the campaign,
+  // Handle user presignup.
+  dosomething_signup_user_presignup($nid);
+  // Assuming this form always just lives on the campaign.
   // Let's grab title this way instead of querying db.
   $title = drupal_get_title();
   drupal_set_message(dosomething_signup_get_presignup_confirm_msg($title));
