@@ -453,6 +453,11 @@ function dosomething_campaign_is_pitch_page($node) {
  * @return bool
  */
 function dosomething_campaign_is_closed($node) {
+  // Is the campaign status set to closed?
+  if ($node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed') {
+    return TRUE;
+  }
+  // Is a staff trying to preview the closed node?
   if (dosomething_user_is_staff()) {
     // Check if staff-only closed path.
     // @see dosomething_campaign_menu().
