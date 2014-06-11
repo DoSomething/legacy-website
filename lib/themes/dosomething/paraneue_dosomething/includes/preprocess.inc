@@ -6,6 +6,12 @@
 function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['logo'] = NEUE_ASSET_PATH . '/assets/images/ds-logo.png';
 
+  // Add theme suggestion for page template based on node.
+  if (isset($vars['node']->type)) {
+    // If the content type's machine name is "my_machine_name" the file
+    // name will be "page--my-machine-name.tpl.php".
+    $vars['theme_hook_suggestions'][] = 'page__' . $vars['node']->type;
+  }
 
   // Get User Information
   $user_info = user_load($vars['user']->uid);
@@ -36,9 +42,19 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $node_type = menu_get_object()->type;
   if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
     drupal_set_message(t('Thanks! We\'ll be in touch soon with next steps. If you\'d like to submit more than one campaign idea, go for it!'));
+  // Header
+  // ------
+  $header_vars = array(
+    'title' => drupal_get_title(),
+  );
+
+  // If there's a subtitle field on this node, send it to the header
+  if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
+    $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
   }
 
   // Footer Output Setup
+  $vars['header'] = theme('header', $header_vars);
   $columns = array('first', 'second', 'third');
   $footer_links = array();
 

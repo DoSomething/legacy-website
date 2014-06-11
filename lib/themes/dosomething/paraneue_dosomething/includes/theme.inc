@@ -49,6 +49,11 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
     ),
 
+    'header' => array(
+      'template' => 'header',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+    ),
+
     'thumbnail' => array(
       'template' => 'thumbnail',
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
