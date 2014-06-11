@@ -23,16 +23,23 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['user_identifier'] = $user_info->mail;
   }
 
-  // krumo($vars['user_identifier']);
+  // Navigation
+  // ----------
 
-  // Navigation Output Setup
+  // @TODO: We should be able to specify these (probably as independent toggles) on nodes.
+  $modifier_classes = 'white floating';
+  if(isset($vars['node']->type) && $vars['node']->type == "campaign") {
+    $modifier_classes = 'floating';
+  }
+
   $navigation_vars = array(
-    'base_path'       => $vars['base_path'],
-    'logo'            => $vars['logo'],
-    'front_page'      => $vars['front_page'],
-    'logged_in'       => $vars['logged_in'],
-    'search_box'      => $vars['search_box'],
-    'user_identifier' => dosomething_helpers_text_truncate($vars['user_identifier'], 8),
+    'base_path'        => $vars['base_path'],
+    'modifier_classes' => $modifier_classes,
+    'logo'             => NEUE_ASSET_PATH . '/assets/images/ds-logo.png',
+    'front_page'       => $vars['front_page'],
+    'logged_in'        => $vars['logged_in'],
+    'search_box'       => $vars['search_box'],
+    'user_identifier'  => dosomething_helpers_text_truncate($vars['user_identifier'], 8),
   );
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
