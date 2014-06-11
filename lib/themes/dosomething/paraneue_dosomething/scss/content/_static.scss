@@ -2,13 +2,6 @@
 //  STATIC CONTENT
 // ----------------
 
-.node-type-static-content {
-  background: $purple;
-
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-}
-
 .static_content-wrapper {
   background: #fff;
 

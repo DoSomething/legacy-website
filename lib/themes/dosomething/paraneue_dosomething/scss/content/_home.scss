@@ -1,8 +1,3 @@
-.node-type-home {
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-}
-
 .home--wrapper {
   background: #fff;
   overflow: hidden;
@@ -73,6 +68,7 @@
   background: #fff;
   text-align: center;
   overflow: hidden;
+  padding-top: 2rem;
 
   @include media($tablet) {
     @include span-columns(12);

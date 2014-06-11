@@ -1,7 +1,5 @@
 // Higher level selector to access content outside of .campaign--wrapper
 body.node-type-campaign {
-  @include wrapper--nav-floating;
-
   // Action Guide within campaigns styles
   .node-action-guide {
 

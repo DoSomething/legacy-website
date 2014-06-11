@@ -1,18 +1,6 @@
 .page-search {
-  // Generic wrapper for search content
-  .content {
-    width: 90%;
-    margin: 7rem auto 2rem;
-
-    @include media($tablet) {
-      width: 100%;
-      margin: 7rem auto 4rem;
-
-      @include span-columns(8);
-      @include shift(4);
-      float: none;
-    }
-  }
+  @include wrapper--nav-white;
+  @include wrapper--nav-floating;
 
   // Pagination styles
   .pager li {
