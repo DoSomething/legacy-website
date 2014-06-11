@@ -1,13 +1,4 @@
-<header role="banner" class="-basic">
-  <div class="wrapper">
-    <h1 class="__title">The Hunt: Create A Challenge</h1>
-    <h2 class="__subtitle">Submit your causey idea for a campaign for The Hunt 2014!</h2>
-  </div>
-</header>
-
-<section class="container mcc--googleform">
-  <div class="wrapper">
-
+<section class="mcc--googleform">
     <div class="ss-form-container">
       <div class="ss-top-of-page">
         <div class="ss-form-heading">
@@ -698,5 +689,4 @@
       </div>
     </div>
   </div>
-
 </section>
