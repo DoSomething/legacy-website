@@ -4,8 +4,6 @@
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
-  $vars['logo'] = NEUE_ASSET_PATH . '/assets/images/ds-logo.png';
-
   // Add theme suggestion for page template based on node.
   if (isset($vars['node']->type)) {
     // If the content type's machine name is "my_machine_name" the file
@@ -13,7 +11,8 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['theme_hook_suggestions'][] = 'page__' . $vars['node']->type;
   }
 
-  // Get User Information
+  // User
+  // ----
   $user_info = user_load($vars['user']->uid);
 
   if (isset($user_info->field_first_name['und'][0]['safe_value'])) {
@@ -38,10 +37,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
-  // Show Hunt MCC form confirmation if query string exists
-  $node_type = menu_get_object()->type;
-  if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
-    drupal_set_message(t('Thanks! We\'ll be in touch soon with next steps. If you\'d like to submit more than one campaign idea, go for it!'));
   // Header
   // ------
   $header_vars = array(
@@ -53,8 +48,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
   }
 
-  // Footer Output Setup
   $vars['header'] = theme('header', $header_vars);
+
+
+  // Footer
+  // ------
   $columns = array('first', 'second', 'third');
   $footer_links = array();
 
@@ -82,6 +80,15 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       'links' => $footer_links
     )
   );
+
+
+  // Misc
+  // ----
+  // Show Hunt MCC form confirmation if query string exists
+  $node_type = menu_get_object()->type;
+  if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
+    drupal_set_message(t('Thanks! We\'ll be in touch soon with next steps. If you\'d like to submit more than one campaign idea, go for it!'));
+  }
 }
 
 /**
