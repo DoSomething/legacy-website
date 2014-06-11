@@ -49,6 +49,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Use the campaign closed template to theme.
     $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
     dosomething_campaign_run_preprocess_closed($vars);
+    // Preprocess common vars between all campaign types.
+    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
     return;
   }
 
