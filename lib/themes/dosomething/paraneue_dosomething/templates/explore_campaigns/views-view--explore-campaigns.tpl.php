@@ -28,15 +28,6 @@
  */
 ?>
 <div class="<?php print $classes; ?>">
-  <?php if ($header): ?>
-    <div class="header-wrapper">
-      <div class="view-header">
-        <h1>Campaigns</h1>
-        <?php print $header; ?>
-      </div>
-    </div>
-  <?php endif; ?>
-
   <?php if ($exposed): ?>
     <div class="view-filters">
       <?php print $exposed; ?>
