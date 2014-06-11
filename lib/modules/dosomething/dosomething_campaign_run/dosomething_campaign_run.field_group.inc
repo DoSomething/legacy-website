@@ -71,14 +71,14 @@ function dosomething_campaign_run_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_what_people_are_saying|node|campaign_run|form';
-  $field_group->group_name = 'group_what_people_are_saying';
+  $field_group->identifier = 'group_the_buzz|node|campaign_run|form';
+  $field_group->group_name = 'group_the_buzz';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'campaign_run';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'What People Are Saying',
+    'label' => 'The Buzz',
     'weight' => '2',
     'children' => array(
       0 => 'field_additional_text',
@@ -87,7 +87,7 @@ function dosomething_campaign_run_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'What People Are Saying',
+      'label' => 'The Buzz',
       'instance_settings' => array(
         'required_fields' => 0,
         'classes' => 'group-what-people-are-saying field-group-fieldset',
@@ -96,7 +96,7 @@ function dosomething_campaign_run_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_what_people_are_saying|node|campaign_run|form'] = $field_group;
+  $export['group_the_buzz|node|campaign_run|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
