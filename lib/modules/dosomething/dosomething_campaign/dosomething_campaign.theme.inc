@@ -41,6 +41,19 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  // Check if current path is closed path.
+  // @see dosomething_campaign_menu().
+  $closed_path = 'node/' . $node->nid . '/closed';
+  // If the campaign node is closed or we're on the closed path:
+  if (dosomething_campaign_is_closed($node) || current_path() == $closed_path) {
+    // Use the campaign closed template to theme.
+    $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
+    dosomething_campaign_run_preprocess_closed($vars);
+    // Preprocess common vars between all campaign types.
+    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+    return;
+  }
+
   if (dosomething_campaign_is_pitch_page($node)) {
     // Use the pitch page template to theme.
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
@@ -51,17 +64,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // Preprocess common vars between all campaign types.
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
-  
-  // Check if current path is closed path.
-  // @see dosomething_campaign_menu().
-  $closed_path = 'node/' . $node->nid . '/closed';
-  // If the campaign node is closed or we're on the closed path:
-  if (dosomething_campaign_is_closed($node) || current_path() == $closed_path) {
-    // Use the campaign closed template to theme.
-    $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
-    dosomething_campaign_run_preprocess_closed($vars);
-    return;
-  }
+
+
 
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Use the SMS Game template to theme.
