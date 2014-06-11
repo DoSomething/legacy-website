@@ -428,7 +428,14 @@ function dosomething_user_login_submit($form, &$form_state) {
     $nid = $form['nid']['#value'];
     // Signup global user for node $nid.
     if (module_exists('dosomething_signup')) {
-      dosomething_signup_user_signup($nid);
+      // First check if the campaign is closed.
+      $campaign = node_load($nid);
+      if (dosomething_campaign_is_closed($campaign)) {
+        dosomething_signup_user_presignup($nid);
+      }
+      else {
+        dosomething_signup_user_signup($nid);
+      }
     }
   }
   // After all logins redirect to page user was just on.
