@@ -37,20 +37,9 @@
   .view-content {
     margin: 2rem auto;
 
-    @include media($tablet) {
-      @include span-columns(12);
-      @include shift(2);
-    }
-
     .search-result {
       text-align: center;
       margin-bottom: 3rem;
-
-      @include media($tablet) {
-        // @TODO: Something's messed up here
-        @include span-columns(5);
-        @include omega(3n);
-      }
 
       .gallery-description, h3 {
         text-align: center;
