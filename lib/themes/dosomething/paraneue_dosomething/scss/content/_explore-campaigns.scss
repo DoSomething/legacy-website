@@ -3,33 +3,12 @@
 //  EXPLORE CAMPAIGNS
 // -------------------
 
-.page-campaigns {
-  background: $purple;
-
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-}
-
 .view-explore-campaigns {
   background: #fff;
 
   // Set gutters on mobile
   .content-wrapper {
     padding: 0 1rem;
-
-    @include media($tablet) {
-      @include outer-container;
-    }
-  }
-
-  .header-wrapper {
-    padding: 8rem 1rem 0;
-
-    @include header-gradient();
-    @include row;
-    @include media($tablet) {
-      padding: 7rem 0 0;
-    }
   }
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this
@@ -38,11 +17,6 @@
 
     @include media($tablet) {
       text-align: left;
-    }
-
-    @include media($tablet) {
-      @include span-columns(12);
-      @include shift(2);
     }
 
     h1 {

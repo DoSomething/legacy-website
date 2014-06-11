@@ -89,7 +89,7 @@ function dosomething_campaign_menu() {
   );
   // Submit a campaign idea page.
   $items['volunteer/hunt/campaign-form'] = array(
-    'title' => t('Submit Your Causey Idea to DoSomething.org'),
+    'title' => t('The Hunt: Create A Challenge'),
     'page callback' => 'dosomething_campaign_submit_idea_page',
     'access callback' => TRUE,
     'file' => 'dosomething_campaign.pages.inc',
