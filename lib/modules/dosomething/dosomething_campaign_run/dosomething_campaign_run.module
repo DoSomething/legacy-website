@@ -166,3 +166,10 @@ function dosomething_campaign_run_add_campaign_run_info(&$form, &$form_state) {
     return $form;
   }
 }
+
+/**
+ * Implements hook_form_NODE_TYPE_alter().
+ */
+function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, $form_state, $form_id) {
+  $form['title']['#description'] = t('The title is not user facing, it just helps wen searching for content. Suggestion: Use campaign name and year campaign ended (i.e. Comeback Clothes 2014).'); 
+  }
