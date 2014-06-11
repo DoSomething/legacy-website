@@ -107,7 +107,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
     $klout_entity_id = $closed_node->field_gallery_collection[LANGUAGE_NONE][$i]['value'];
     $klout =  entity_load('field_collection_item', array($klout_entity_id));
     // Get the type of klout.
-    $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_type[LANGUAGE_NONE][0]['value'];
+    $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
     $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
     $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
     $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];
