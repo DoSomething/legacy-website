@@ -12,12 +12,9 @@
 
 <div class="chrome--wrapper">
   <?php print $variables['navigation']; ?>
-  <?php print $variables['header']; ?>
 
   <main role="main" class="container">
-    <div class="wrapper">
-      <?php print render($page['content']); ?>
-    </div>
+    <?php print render($page['content']); ?>
   </main>
 
   <?php print $variables['footer']; ?>

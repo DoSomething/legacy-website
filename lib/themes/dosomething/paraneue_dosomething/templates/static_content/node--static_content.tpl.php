@@ -11,24 +11,6 @@
 <section class="static_content-wrapper">
   <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <header role="banner" class="-basic<?php if (isset($sponsors[0]['display'])): print ' -sponsored'; endif; ?>">
-      <div class="wrapper">
-        <h1 class="__title"><?php print $title; ?></h1>
-        <?php if (isset($subtitle)): ?>
-        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
-        <?php endif; ?>
-
-        <?php if (isset($sponsors[0]['display'])): ?>
-        <div class="sponsor">
-          <p class="__copy">Powered by</p>
-          <?php foreach ($sponsors as $key => $sponsor) :?>
-            <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
-          <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-      </div>
-    </header>
-
     <?php if (isset($intro)): ?>
       <div class="intro-wrapper">
         <div class="intro<?php if (!isset($intro_title)): print ' no-title'; endif; ?>">

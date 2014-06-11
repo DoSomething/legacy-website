@@ -5,12 +5,7 @@
 
 // @TODO: Sync naming between SCSS files and tpl.php
 
-.node-type-fact-page {
-  background: $purple;
-
-  @include wrapper--nav-white;
-  @include wrapper--nav-floating;
-
+.node-type-fact {
   // @TODO: Sync with Dave/Maxwell on all 18px base font size for static content
   p {
     font-size: 18px;

@@ -149,29 +149,3 @@
   }
 
 }
-
-
-// Forgot Password
-// @TODO: Let's fix this shit.
-.page-user-register, .page-user-password {
-  .chrome--nav {
-    position: static;
-
-    a {
-      color: $off-black !important;
-    }
-
-    .secondary-nav input[type="search"] {
-      color: $off-black !important;
-      background-image: neue-image-url("search_dark.png");
-      border: 1px solid $off-black;
-    }
-  }
-
-  main[role="main"] {
-    background: #fff;
-    max-width: 650px;
-    padding: 2rem;
-    margin: 20px auto 100px;
-  }
-}

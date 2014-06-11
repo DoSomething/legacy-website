@@ -6,7 +6,7 @@
 
 ?>
 
-<nav class="chrome--nav">
+<nav class="chrome--nav<?php if(isset($modifier_classes)): print ' ' . $modifier_classes; endif; ?>">
   <a class="logo" href="<?php print $base_path; ?>"><img src="<?php print $logo ?>" alt="DoSomething.org"></a>
   <a class="hamburger js-toggle-mobile-menu" href="#">&#xe606;</a>
   <div class="menu">
