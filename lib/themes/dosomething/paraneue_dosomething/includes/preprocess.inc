@@ -11,8 +11,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['theme_hook_suggestions'][] = 'page__' . $vars['node']->type;
   }
 
-  // User
-  // ----
+  /**
+   * User Info
+   */
+
   $user_info = user_load($vars['user']->uid);
 
   if (isset($user_info->field_first_name['und'][0]['safe_value'])) {
@@ -23,8 +25,9 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['user_identifier'] = $user_info->mail;
   }
 
-  // Navigation
-  // ----------
+  /**
+   * Navigation
+   */
 
   // @TODO: We should be able to specify these (probably as independent toggles) on nodes.
   $modifier_classes = 'white floating';
@@ -44,8 +47,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
-  // Header
-  // ------
+  /**
+   * Header
+   */
+
   $header_vars = array(
     'title' => drupal_get_title(),
   );
@@ -58,8 +63,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['header'] = theme('header', $header_vars);
 
 
-  // Footer
-  // ------
+  /**
+   * Footer
+   */
+
   $columns = array('first', 'second', 'third');
   $footer_links = array();
 
@@ -89,8 +96,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   );
 
 
-  // Misc
-  // ----
+  /**
+   * Miscellaneous
+   */
+
   // Show Hunt MCC form confirmation if query string exists
   $node_type = menu_get_object()->type;
   if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
