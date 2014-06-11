@@ -468,8 +468,10 @@ function dosomething_campaign_is_pitch_page($node) {
  * @return bool
  */
 function dosomething_campaign_is_closed($node) {
-  // Is the campaign status set to closed?
-  return $node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed';
+  if (isset($node->field_campaign_status[LANGUAGE_NONE][0]['value'])) {
+    return $node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed';
+  }
+  return FALSE;
 }
 
 /*
