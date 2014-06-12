@@ -202,10 +202,16 @@ function dosomething_reportback_gallery_form($form, $form_state, $node) {
  */
 function theme_dosomething_reportback_gallery_form($variables) {
   $form = $variables['form'];
+  $gallery_items = element_children($form['gallery_items']);
+
+  // If no results, just return form.
+  if (empty($gallery_items)) {
+    return t("No reportback images have been added to the gallery.");
+  }
 
   // Initialize the variable which will store our table rows.
   $rows = array();
-  foreach (element_children($form['gallery_items']) as $id) {
+  foreach ($gallery_items as $id) {
     $form['gallery_items'][$id]['weight']['#attributes']['class'] = array('gallery-item-weight');
     $rows[] = array(
       'data' => array(
