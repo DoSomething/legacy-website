@@ -1,0 +1,4 @@
+.field-type-field-collection.field-name-field-gallery > div > div > .clearfix .field-add-more-submit,
+.field-type-field-collection.field-name-field-gallery + input[value="Remove"]{
+    display: none;
+}
