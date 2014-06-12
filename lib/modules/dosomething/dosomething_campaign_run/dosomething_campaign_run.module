@@ -14,7 +14,6 @@ include_once 'dosomething_campaign_run.features.inc';
 function dosomething_campaign_run_preprocess_closed(&$vars) {
   if (!isset($vars['nid'])) { return; }
 
-  $campaign_nid = $vars['nid'];
   // If a closed Campaign Run node exists:
   if ($closed_run_nid = dosomething_campaign_run_get_closed_run_nid($vars['nid'])) {
     // Load the closed campaign_run.

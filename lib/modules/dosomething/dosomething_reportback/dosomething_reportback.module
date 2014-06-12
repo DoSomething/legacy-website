@@ -128,9 +128,8 @@ function dosomething_reportback_menu() {
     'title' => 'Gallery',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_gallery_form', 1),
-    //@todo: Needs access function to check for campaign-campaign node.
-    'access callback' => 'user_access',
-    'access arguments' => array('view any reportback'),
+    'access callback' => 'dosomething_reportback_gallery_form_access',
+    'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'weight' => 200,
     'file' => 'dosomething_reportback.forms.inc',
@@ -202,6 +201,18 @@ function dosomething_reportback_access($op, $entity, $account = NULL) {
   return user_access($perm_own, $account) && $account->uid == $entity->uid;
 }
 
+/**
+ * Access callback for a campaign reportback gallery form.
+ */
+function dosomething_reportback_gallery_form_access($node) {
+  // If viewing a campaign-campaign:
+  if (dosomething_campaign_get_campaign_type($node) == 'campaign') {
+    global $user;
+    $access_roles = array('administrator', 'editor');
+    $has_access = array_intersect($access_roles, $user->roles);
+    return !empty($has_access);
+  }
+}
 
 /**
  * Implements hook_permission().
