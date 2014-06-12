@@ -79,6 +79,12 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['field'] = 'ss_field_search_image_300x300';
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['value'] = '[* TO *]';
+    /* Filter criterion: Apache Solr: sm_field_campaign_status */
+  $handler->display->display_options['filters']['sm_field_campaign_status']['id'] = 'sm_field_campaign_status';
+  $handler->display->display_options['filters']['sm_field_campaign_status']['table'] = 'apachesolr__solr';
+  $handler->display->display_options['filters']['sm_field_campaign_status']['field'] = 'sm_field_campaign_status';
+  $handler->display->display_options['filters']['sm_field_campaign_status']['operator'] = '!=';
+  $handler->display->display_options['filters']['sm_field_campaign_status']['value'] = 'closed';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
