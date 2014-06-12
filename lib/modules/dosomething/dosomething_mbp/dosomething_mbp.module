@@ -242,61 +242,60 @@ function dosomething_mbp_node_update($node) {
  */
 function dosomething_mbp_campaign_request($action, $node) {
 
-  $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" .
-    $node->nid);
-  $field = field_get_items('node', $node, 'field_call_to_action');
-  $call_to_action = $field[0]['value'];
-  // edit-field-image-campaign-cover-und-0-target-id
-  // @todo: reference field, need to look up referenced image path
-  $field = field_get_items('node', $node, 'field_image_campaign_cover');
-  $image_campaign_cover = $field[0]['value'];
-  // edit-field-fact-problem-und-0-target-id
-  // @todo: reference field, need to look up referenced fact node problem
-  $field = field_get_items('node', $node, 'field_fact_problem');
-  $fact_problem = $field[0]['value'];
-  // edit-field-fact-solution-und-0-target-id
-  // @todo: reference field, need to look up referenced fact node solution
-  $field = field_get_items('node', $node, 'field_fact_solution');
-  $fact_solution = $field[0]['value'];
-  /**
-   * @todo: Add high season dates:
-   * START
-   *   edit-field-high-season-und-0-value-month
-   *   edit-field-high-season-und-0-value-day
-   *   edit-field-high-season-und-0-value-year
-   * END
-   *   edit-field-high-season-und-0-value2-month
-   *   edit-field-high-season-und-0-value2-day
-   *   edit-field-high-season-und-0-value2-year
-   *
-   * Low season dates:
-   * START
-   *   edit-field-low-season-und-0-value-month
-   *   edit-field-low-season-und-0-value-day
-   *   edit-field-low-season-und-0-value-year
-   * END
-   *   edit-field-low-season-und-0-value2-month
-   *   edit-field-low-season-und-0-value2-day
-   *   edit-field-low-season-und-0-value2-year
-   */
-
-  /**
-   * @todo: Add report back details
-   *   edit-field-reportback-noun-und-0-value
-   *   edit-field-reportback-verb-und-0-value
-   *   edit-field-reportback-copy-und-0-value
-   *   edit-field-reportback-confirm-msg-und-0-value
-   */
-
+  $params = array();
   $params = array(
     'nid' => $node->nid,
     'title' => $node->title,
-    'url' => $url,
-    'call_to_action' => $call_to_action,
-    'cover_image_url' => $image_campaign_cover,
-    'fact_problem' => $fact_problem,
-    'fact_solution' => $fact_solution,
   );
+
+  $url = 'http://dosomething.org/' . drupal_lookup_path('alias', "node/" .
+    $node->nid);
+  $params['url'] = $url;
+
+  $field = field_get_items('node', $node, 'field_call_to_action');
+  if (isset($field[LANGUAGE_NONE][0]['value'])) {
+    $params['call_to_action'] = t($field[LANGUAGE_NONE][0]['value']);
+  }
+
+  $field = field_get_items('node', $node, 'field_image_campaign_cover');
+  if (isset($field[0]['target_id'])) {
+    $image_campaign_cover_target_id = $field[0]['target_id'];
+    $params['image_campaign_cover_markup'] = dosomething_image_get_themed_image($image_campaign_cover_target_id, 'square', '300x300');
+  }
+
+  $field = field_get_items('node', $node, 'field_step_pre');
+  if (isset($field[0]['value'])) {
+    $do_it_prestep_target_id = $field[0]['value'];
+    $do_it_enitity = entity_load('field_collection_item', array($do_it_prestep_target_id));
+    $params['do_it_title'] = t($do_it_enitity[$do_it_prestep_target_id]->field_compound_text_header[LANGUAGE_NONE][0]['value']);
+    $params['do_it_body'] = t($do_it_enitity[$do_it_prestep_target_id]->field_compound_text_copy[LANGUAGE_NONE][0]['value']);
+  }
+
+  $field = field_get_items('node', $node, 'field_fact_problem');
+  if (isset($field[0]['target_id'])) {
+    $fact_problem_target_id = $field[0]['target_id'];
+    $fact_problem_node = node_load($fact_problem_target_id);
+    $params['fact_problem'] = t($fact_problem_node->title);
+  }
+
+  $field = field_get_items('node', $node, 'field_fact_solution');
+  if (isset($field[0]['target_id'])) {
+    $fact_solution_target_id = $field[0]['target_id'];
+    $fact_solution_node = node_load($fact_problem_target_id);
+    $params['fact_solution'] = t($fact_solution_node->title);
+  }
+
+  $field = field_get_items('node', $node, 'field_high_season');
+  if (isset($field[0]['value'])) {
+    $params['high_season_start_timestamp'] = strtotime($field[0]['value']);
+    $params['high_season_end_timestamp'] = strtotime($field[0]['value2']);
+  }
+
+  $field = field_get_items('node', $node, 'field_low_season');
+  if (isset($field[0]['value'])) {
+    $params['low_season_start_timestamp'] = strtotime($field[0]['value']);
+    $params['low_season_end_timestamp'] = strtotime($field[0]['value2']);
+  }
 
   dosomething_mbp_request($action, $params);
 }
