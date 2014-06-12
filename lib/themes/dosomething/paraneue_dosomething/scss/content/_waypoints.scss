@@ -1,32 +1,81 @@
 .waypoints {
-  background-color: pink;
-  overflow: hidden;
+  @include clearfix();
 
-  .menu {
+  .__menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    @include clearfix();
 
     li {
       float: left;
+      line-height: 1;
       position: relative;
     }
 
-    li + li {
-      &:before { //background-color: red;
-        content: '\2022';
-        display: block;
-        float: left;
-        padding: 0 0.5rem;
-        // position: absolute;
-        // top: 0;
-        // left: 0;
-      }
-    }
-
     a {
+      display: block;
+      line-height: 1;
+      padding: 1rem 0.5rem;
+      position: relative;
       text-decoration: none;
     }
   }
 
+}
+
+
+
+.waypoints--action-menu {
+  background-color: $light-gray;
+  width: 100%;
+
+  @include media($desktop) {
+    position: absolute;
+    top: 6.5rem;
+    width: 120px;
+    z-index: 100;
+  }
+
+  .__menu {
+    display: table;
+    margin: 0 auto;
+
+    li {
+      @include media($desktop) {
+        float: none;
+      }
+    }
+
+    a {
+      color: $med-gray;
+      text-transform: uppercase;
+
+      @include media($desktop) {
+        padding: 0.75rem 1rem;
+      }
+
+      &:hover {
+        color: $dark-gray;
+      }
+
+      &.is-active {
+        color: #000;
+      }
+
+      &.primary {
+        color: $blue;
+      }
+    }
+  }
+
+  &.is-stuck {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+
+    @include media($desktop) {
+      top: 3rem;
+    }
+  }
 }

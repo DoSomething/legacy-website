@@ -38,8 +38,9 @@
 @import "content/finder";
 @import "content/user";
 @import "content/volunteer";
-@import "content/waypoints";
-@import "content/tabbed";
+@import "content/waypoints"; // @TODO: Move to Neue!
+@import "content/tabbed"; // @TODO: Move to Neue!
+@import "content/polaroid"; // @TODO: Move to Neue!
 
 // One-off pages
 @import "content/campaign/hunt-mcc";

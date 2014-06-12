@@ -7,6 +7,7 @@
 
   > .wrapper {
     padding: 1rem;
+    position: relative;
     @include clearfix();
 
     @include media($tablet) {
@@ -149,7 +150,7 @@
   }
 
   p + .btn {
-    margin-top: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   // Form items inside Container Body.
@@ -175,6 +176,14 @@
         margin-left: 2.5rem;
         float: right;
       }
+    }
+  }
+
+  .polaroid + p {
+    margin-top: 1.5rem;
+
+    @include media($tablet) {
+      margin-top: 0;
     }
   }
 }
@@ -224,3 +233,46 @@
   }
 }
 
+
+// Specific Containers
+.container--prove {
+  background: $purple image-url("campaign-pattern-default.png") repeat center 3.5rem;
+  padding-bottom: 7rem;
+
+  @include media($tablet) {
+    padding-bottom: 5rem;
+  }
+
+  .container__body {
+    text-align: center;
+
+    @include media($desktop) {
+      text-align: left;
+    }
+  }
+
+  h3 {
+    color: #fff;
+    font-size: $font-large;
+    margin-bottom: 1.5rem;
+  }
+
+  p, a {
+    color: #fff;
+  }
+}
+
+
+// JS Enabled
+
+.js {
+
+  .container__body {
+
+    p + .tabbed {
+      margin-top: 0.5rem;
+    }
+
+  }
+
+}
