@@ -13,11 +13,6 @@ php5-pkgs:
       - php5-gd
       - php5-memcache
       - php-apc
-  file.managed:
-    - name: /etc/php5/apache2/php.ini
-    - source: salt://php5/apache2/php.ini
-    - require:
-      - pkg: php5-pkgs
 
 php5-cli-config:
   file.managed:
@@ -105,6 +100,11 @@ libapache2-mod-php5:
     - installed
     - require:
       - pkg: apache2
+  file.managed:
+    - name: /etc/php5/apache2/php.ini
+    - source: salt://php5/apache2/php.ini
+    - require:
+      - pkg: php5-pkgs
 
 memcached:
   pkg:
