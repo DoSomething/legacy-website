@@ -286,3 +286,25 @@ function dosomething_campaign_preprocess_sms_game(&$vars, &$wrapper) {
 
    drupal_add_js('//cdn.optimizely.com/js/1158700146.js', 'external');
 }
+
+/**
+ * Preprocesses variables for a Reportback Gallery.
+ *
+ * @param array $vars
+ *   Node variables, passed from preprocess_node.
+ * @param string $style
+ *   The image style to render the images in.
+ * @param int $num_items
+ *   Optional. The number of reportback files to return.
+ *   If not set, will return variables for all promoted files.
+ */
+function dosomething_campaign_preprocess_reportback_gallery(&$vars, $style = '300x300', $num_items = NULL) {
+  $items = dosomething_reportback_get_gallery_vars($vars['nid'], $style, $num_items);
+  // Loop through gallery_vars to only output what we need for theming:
+  foreach ($items as $delta => $item) {
+    $vars['reportback_gallery'][$delta]['image'] = $item['image'];
+    if (isset($item['caption'])) {
+      $vars['reportback_gallery'][$delta]['caption'] = $item['caption'];
+    }
+  }
+}

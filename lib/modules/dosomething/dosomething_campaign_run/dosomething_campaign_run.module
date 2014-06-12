@@ -14,6 +14,7 @@ include_once 'dosomething_campaign_run.features.inc';
 function dosomething_campaign_run_preprocess_closed(&$vars) {
   if (!isset($vars['nid'])) { return; }
 
+  $campaign_nid = $vars['nid'];
   // If a closed Campaign Run node exists:
   if ($closed_run_nid = dosomething_campaign_run_get_closed_run_nid($vars['nid'])) {
     // Load the closed campaign_run.
@@ -25,6 +26,8 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // Preprocess the presignup form.
     $label = t("I'm interested");
     dosomething_signup_preprocess_signup_button($vars, $label, $presignup = TRUE);
+    // Preprocess the campaign reportback gallery.
+    $vars['reportback_gallery'] = dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
   }
 }
 
