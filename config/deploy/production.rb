@@ -1,8 +1,8 @@
 set :deploy_to, "/var/www/beta.dosomething.org"
 
-role :app, %w{dosomething@98.129.111.169}
+role :app, %w{dosomething@10.241.0.26}
 
-server '98.129.111.169', user: 'dosomething', roles: %w{app}
+server '10.241.0.26', user: 'dosomething', roles: %w{app}
 
 namespace :deploy do
 
