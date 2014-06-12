@@ -254,7 +254,7 @@ function dosomething_mbp_campaign_request($action, $node) {
 
   $field = field_get_items('node', $node, 'field_call_to_action');
   if (isset($field[LANGUAGE_NONE][0]['value'])) {
-    $params['call_to_action'] = t($field[LANGUAGE_NONE][0]['value']);
+    $params['call_to_action'] = $field[LANGUAGE_NONE][0]['value'];
   }
 
   $field = field_get_items('node', $node, 'field_image_campaign_cover');
@@ -267,22 +267,22 @@ function dosomething_mbp_campaign_request($action, $node) {
   if (isset($field[0]['value'])) {
     $do_it_prestep_target_id = $field[0]['value'];
     $do_it_enitity = entity_load('field_collection_item', array($do_it_prestep_target_id));
-    $params['do_it_title'] = t($do_it_enitity[$do_it_prestep_target_id]->field_compound_text_header[LANGUAGE_NONE][0]['value']);
-    $params['do_it_body'] = t($do_it_enitity[$do_it_prestep_target_id]->field_compound_text_copy[LANGUAGE_NONE][0]['value']);
+    $params['do_it_title'] = $do_it_enitity[$do_it_prestep_target_id]->field_compound_text_header[LANGUAGE_NONE][0]['value'];
+    $params['do_it_body'] = $do_it_enitity[$do_it_prestep_target_id]->field_compound_text_copy[LANGUAGE_NONE][0]['value'];
   }
 
   $field = field_get_items('node', $node, 'field_fact_problem');
   if (isset($field[0]['target_id'])) {
     $fact_problem_target_id = $field[0]['target_id'];
     $fact_problem_node = node_load($fact_problem_target_id);
-    $params['fact_problem'] = t($fact_problem_node->title);
+    $params['fact_problem'] = $fact_problem_node->title;
   }
 
   $field = field_get_items('node', $node, 'field_fact_solution');
   if (isset($field[0]['target_id'])) {
     $fact_solution_target_id = $field[0]['target_id'];
     $fact_solution_node = node_load($fact_problem_target_id);
-    $params['fact_solution'] = t($fact_solution_node->title);
+    $params['fact_solution'] = $fact_solution_node->title;
   }
 
   $field = field_get_items('node', $node, 'field_high_season');
