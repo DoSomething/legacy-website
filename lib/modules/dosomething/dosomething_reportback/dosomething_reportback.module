@@ -765,8 +765,16 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
 
 /**
  * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
+ *
+ * @param int $nid
+ *   The node $nid to gather gallery id's for.
+ * @param int $num_items
+ *   Optional. The number of promoted files to return.
+ *   If not set, will return all promoted files.
+ *
+ * @return array
  */
-function dosomething_reportback_get_gallery_item_ids($nid) {
+function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
   // @todo: Future proof this.  Need to add a condition
   // where flag fid == promoted in case we add another file flag.
   $sql = "SELECT flagging_id, rbf.fid, rbf.rbid, field_weight_value
@@ -777,6 +785,9 @@ function dosomething_reportback_get_gallery_item_ids($nid) {
       ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
     WHERE nid = :nid
     ORDER BY field_weight_value";
+  if ($num_items) {
+    $sql .= " LIMIT 0, " . $num_items;
+  }
   return db_query($sql, array(':nid' => $nid))->fetchAll();
 }
 
@@ -795,8 +806,7 @@ function dosomething_reportback_get_gallery_item_ids($nid) {
  */
 function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_items = NULL) {
   $vars = array();
-  // @todo: Pass $num_items as param to get_gallery_item_ids.
-  $result = dosomething_reportback_get_gallery_item_ids($nid);
+  $result = dosomething_reportback_get_gallery_item_ids($nid, $num_items);
   foreach ($result as $delta => $record) {
     // Set reportback rbid that file belongs to.
     $vars[$delta]['rbid'] = $record->rbid;
