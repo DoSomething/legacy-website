@@ -372,7 +372,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'bundle' => 'campaign_run',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The Campaign node associated with this Campaign Run.',
+    'description' => 'Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -667,7 +667,7 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Gallery Image');
   t('Intro');
   t('Klout Gallery');
-  t('The Campaign node associated with this Campaign Run.');
+  t('Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.');
   t('Total Participants');
   t('Total Quantity');
   t('Total Quantity Label');

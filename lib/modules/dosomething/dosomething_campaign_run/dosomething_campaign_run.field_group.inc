@@ -41,36 +41,6 @@ function dosomething_campaign_run_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_totals|node|campaign_run|form';
-  $field_group->group_name = 'group_totals';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'campaign_run';
-  $field_group->mode = 'form';
-  $field_group->parent_name = 'group_what_you_did';
-  $field_group->data = array(
-    'label' => 'Totals',
-    'weight' => '3',
-    'children' => array(
-      0 => 'field_total_participants',
-      1 => 'field_total_quantity',
-      2 => 'field_total_quantity_label',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Totals',
-      'instance_settings' => array(
-        'required_fields' => 0,
-        'classes' => 'group-totals field-group-fieldset',
-        'description' => 'If you do not want to display the Totals, leave these fields blank.',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $export['group_totals|node|campaign_run|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_the_buzz|node|campaign_run|form';
   $field_group->group_name = 'group_the_buzz';
   $field_group->entity_type = 'node';
@@ -97,6 +67,36 @@ function dosomething_campaign_run_field_group_info() {
     ),
   );
   $export['group_the_buzz|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_totals|node|campaign_run|form';
+  $field_group->group_name = 'group_totals';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_what_you_did';
+  $field_group->data = array(
+    'label' => 'Totals',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_total_participants',
+      1 => 'field_total_quantity',
+      2 => 'field_total_quantity_label',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Totals',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'group-totals field-group-fieldset',
+        'description' => 'If you don\'t want any totals displayed leave all fields blank. If you want the user to know that we are still counting the output number fill out the Total Quantity Label field and leave the Total Quantity field blank. Otherwise any fields filled out will display.',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_totals|node|campaign_run|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
