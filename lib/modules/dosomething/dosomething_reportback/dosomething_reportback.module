@@ -207,11 +207,10 @@ function dosomething_reportback_access($op, $entity, $account = NULL) {
 function dosomething_reportback_gallery_form_access($node) {
   // If viewing a campaign-campaign:
   if (dosomething_campaign_get_campaign_type($node) == 'campaign') {
-    global $user;
-    $access_roles = array('administrator', 'editor');
-    $has_access = array_intersect($access_roles, $user->roles);
-    return !empty($has_access);
+    // Able to edit the gallery if able to promote images to it.
+    return (user_access('flag promoted'));
   }
+  return FALSE;
 }
 
 /**
