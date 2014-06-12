@@ -304,7 +304,10 @@ function dosomething_campaign_preprocess_reportback_gallery(&$vars, $style = '30
   foreach ($items as $delta => $item) {
     $vars['reportback_gallery'][$delta]['image'] = $item['image'];
     if (isset($item['caption'])) {
-      $vars['reportback_gallery'][$delta]['caption'] = $item['caption'];
+      $vars['reportback_gallery'][$delta]['caption'] = $item['caption']['safe_value'];
+    }
+    if (isset($item['first_name'])) {
+      $vars['reportback_gallery'][$delta]['first_name'] = $item['first_name'];
     }
   }
 }

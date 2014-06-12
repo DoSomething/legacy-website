@@ -788,10 +788,11 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
 function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
   // @todo: Future proof this.  Need to add a condition
   // where flag fid == promoted in case we add another file flag.
-  $sql = "SELECT flagging_id, rbf.fid, rbf.rbid, field_weight_value
+  $sql = "SELECT flagging_id, rbf.fid, rbf.rbid, file.uid, field_weight_value
     FROM flagging
     JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
     JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
+    JOIN file_managed file ON file.fid = rbf.fid
     LEFT OUTER JOIN field_data_field_weight weight 
       ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
     WHERE nid = :nid
@@ -825,6 +826,9 @@ function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_
     $fid = $record->fid;
     $vars[$delta]['fid'] = $fid;
     $vars[$delta]['image'] = dosomething_image_get_themed_image_by_fid($fid, $style);
+    // Set the file author name.
+    $account = user_load($record->uid);
+    $vars[$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
     // Set variables stored on the flagging object:
     $flagging_id = $record->flagging_id;
     $flagging = flagging_load($flagging_id);
