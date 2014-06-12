@@ -25,6 +25,8 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // Preprocess the presignup form.
     $label = t("I'm interested");
     dosomething_signup_preprocess_signup_button($vars, $label, $presignup = TRUE);
+    // Preprocess the campaign reportback gallery.
+    $vars['reportback_gallery'] = dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
   }
 }
 
