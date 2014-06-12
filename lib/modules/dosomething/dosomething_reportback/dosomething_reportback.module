@@ -124,7 +124,33 @@ function dosomething_reportback_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 30,
   );
+  $items['node/%node/gallery'] = array(
+    'title' => 'Gallery',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_gallery_form', 1),
+    //@todo: Needs access function to check for campaign-campaign node.
+    'access callback' => 'user_access',
+    'access arguments' => array('view any reportback'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 200,
+    'file' => 'dosomething_reportback.forms.inc',
+  );
   return $items;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_reportback_form_alter(&$form, &$form_state) {
+  if ($form['#form_id'] == 'flag_confirm') {
+    // Displays the image to be promoted/unpromoted.
+    // @todo: Add a check to see if this is the promoted flag.  Fine for now
+    // since we only have one flag in the system. 
+    $fid = $form['entity_id']['#value'];
+    $form['image'] = array(
+      '#markup' => dosomething_image_get_themed_image_by_fid($fid, '300x300'),
+    );
+  }
 }
 
 /**
@@ -140,6 +166,10 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
         'images' => NULL,
       ),
     ),
+    'dosomething_reportback_gallery_form' => array(
+      'render element' => 'form',
+      'file' => 'dosomething_reportback.forms.inc',
+    ),
   );
 }
 
@@ -149,6 +179,8 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
 function dosomething_reportback_admin_paths() {
   $paths = array(
     'node/*/reportbacks' => TRUE,
+    'node/*/gallery' => TRUE,
+    'flag/confirm/*/*/*' => TRUE,
   );
   return $paths;
 }
@@ -729,4 +761,58 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
     $query->condition('name', $name);
   }
   return $query->execute()->fetchAssoc();
+}
+
+/**
+ * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
+ */
+function dosomething_reportback_get_gallery_item_ids($nid) {
+  // @todo: Future proof this.  Need to add a condition
+  // where flag fid == promoted in case we add another file flag.
+  $sql = "SELECT flagging_id, rbf.fid, rbf.rbid, field_weight_value
+    FROM flagging
+    JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
+    JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
+    LEFT OUTER JOIN field_data_field_weight weight 
+      ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
+    WHERE nid = :nid
+    ORDER BY field_weight_value";
+  return db_query($sql, array(':nid' => $nid))->fetchAll();
+}
+
+/**
+ * For a given $nid, gets the relevant variables for its promoted reportback files.
+ *
+ * @param int $nid
+ *   The node $nid to gather gallery vars for.
+ * @param string $style
+ *   The image style to render the images in.
+ * @param int $num_items
+ *   Optional. The number of reportback files to return.
+ *   If not set, will return variables for all promoted files.
+ *
+ * @return array
+ */
+function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_items = NULL) {
+  $vars = array();
+  // @todo: Pass $num_items as param to get_gallery_item_ids.
+  $result = dosomething_reportback_get_gallery_item_ids($nid);
+  foreach ($result as $delta => $record) {
+    // Set reportback rbid that file belongs to.
+    $vars[$delta]['rbid'] = $record->rbid;
+    // Set variables for the file:
+    $fid = $record->fid;
+    $vars[$delta]['fid'] = $fid;
+    $vars[$delta]['image'] = dosomething_image_get_themed_image_by_fid($fid, $style);
+    // Set variables stored on the flagging object:
+    $flagging_id = $record->flagging_id;
+    $flagging = flagging_load($flagging_id);
+    $vars[$delta]['flagging_id'] = $flagging_id;
+    $vars[$delta]['weight'] = $flagging->field_weight[LANGUAGE_NONE][0]['value'];
+    $caption = $flagging->field_image_description;
+    if ($caption_value = $caption[LANGUAGE_NONE][0]) {
+      $vars[$delta]['caption'] = $caption_value;
+    }
+  }
+  return $vars;
 }
