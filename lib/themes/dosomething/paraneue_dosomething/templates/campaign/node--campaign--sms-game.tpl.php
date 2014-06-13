@@ -8,10 +8,6 @@
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
-
-// krumo('spacer');
-// krumo('spacer');
-// krumo($variables);
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign--campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
