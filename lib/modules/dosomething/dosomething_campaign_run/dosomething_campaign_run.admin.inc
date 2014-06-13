@@ -16,6 +16,7 @@ function dosomething_campaign_run_default_copy_config($form, &$form_state) {
   $form['dosomething_campaign_run_signup_button_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Signup Button Copy'),
+    '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_run_signup_button_copy'),
   );
 
@@ -24,6 +25,7 @@ function dosomething_campaign_run_default_copy_config($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Waiting for total copy'),
     '#description' => t('Place [label] where you would like the label to be replaced.'),
+    '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_run_no_total_copy'),
   );
 
@@ -31,6 +33,7 @@ function dosomething_campaign_run_default_copy_config($form, &$form_state) {
   $form['dosomething_campaign_run_no_winner_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Waiting for Winner Copy'),
+    '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_run_no_winner_copy'),
   );
 
