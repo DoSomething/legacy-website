@@ -215,10 +215,14 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
 
   $location_copy = $wrapper->field_location_finder_copy->value();
-  $vars['location_finder']['copy'] = $location_copy['safe_value'];
+  if (!empty($location_copy)) {
+    $vars['location_finder']['copy'] = $location_copy['safe_value'];
+  }
   
   $location_url = $wrapper->field_location_finder_url->value();
-  $vars['location_finder']['url'] = $location_url['url'];
+  if (!empty($location_url)) {
+    $vars['location_finder']['url'] = $location_url['url'];
+  }
 
 
   $action_guides = $vars['field_action_guide'];
