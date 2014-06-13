@@ -17,6 +17,22 @@ function dosomething_helpers_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_helpers_menu() {
+  $items['admin/config/dosomething'] = array(
+    'title' => 'DoSomething config',
+    'description' => 'Configuration for DoSomething custom functionality.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  return $items;
+}
+
+
+/**
  * Wrapper function for Drupal's ip_address function.
  *
  * Because varnish only likes to expose its own IP, and 
