@@ -474,27 +474,6 @@ function dosomething_campaign_is_closed($node) {
   return FALSE;
 }
 
-/*
- * Implements hook_entity_view_mode_alter().
- *
- * Sets "pitch" view_mode for campaign nodes based on user signup status.
- *
- * This function also handles redirects to legacy nodes.
- */
-function dosomething_campaign_entity_view_mode_alter(&$view_mode, $context) {
-  // Is this a campaign node?
-  if ($context['entity_type'] == 'node' && $context['entity']->type == 'campaign') {
-    $node = $context['entity'];
-    // Is this a legacy campaign?
-    if (module_exists('dosomething_legacy') && dosomething_legacy_check($node)) {
-      if (dosomething_signup_exists($node->nid)) {
-        // If the user is signed up redirect to old world campaign page.
-        dosomething_legacy_goto($node->nid);
-      }
-    }
-  }
-}
-
 /**
  * Returns array of nid's of recommended campaigns for $uid.
  *
