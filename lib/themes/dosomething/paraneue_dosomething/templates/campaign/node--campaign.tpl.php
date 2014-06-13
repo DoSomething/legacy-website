@@ -61,6 +61,7 @@
             <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
             <?php endif; ?>
 
+            <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
             <?php if (isset($psa)): ?>
               <aside <?php if ($is_video_psa) echo 'class="video"'; ?>>
                 <?php print $psa; ?>
@@ -89,6 +90,7 @@
 
             <?php endif; ?>
 
+            <?php // If there's a PSA image or video, then it was output in the first column above and thus need to output the modals in this second column instead. ?>
             <?php if (isset($psa)): ?>
               <?php if (isset($modals)): ?>
                 <?php print $modals; ?>
