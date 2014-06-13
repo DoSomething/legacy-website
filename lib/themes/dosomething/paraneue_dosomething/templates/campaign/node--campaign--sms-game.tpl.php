@@ -10,7 +10,7 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="campaign campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign--campaign-sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
@@ -50,7 +50,7 @@
           <?php endif; ?>
 
           <?php if (isset($psa)): ?>
-            <aside>
+            <aside <?php if ($is_video_psa) echo 'class="video"'; ?>>
               <?php print $psa; ?>
             </aside>
           <?php else: ?>

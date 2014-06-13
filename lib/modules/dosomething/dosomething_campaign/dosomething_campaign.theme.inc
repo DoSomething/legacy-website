@@ -146,6 +146,7 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
       'width' => 550,
       'height' => 300,
     ));
+    $vars['is_video_psa'] = true;
   }
   else {
     if (isset($vars['field_image_psa_replacement'][0])) {
@@ -170,13 +171,60 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
   }
 
+
   // Plan.
-  $vars['time'] = $wrapper->field_time_and_place->value();
-  $vars['vips'] = $wrapper->field_vips->value();
-  $vars['hype'] = $wrapper->field_promoting_tips->value();
-  $vars['items_needed'] = $wrapper->field_items_needed->value();
-  $vars['location_finder_copy'] = $wrapper->field_location_finder_copy->value();
-  $vars['location_finder_url'] = $wrapper->field_location_finder_url->value();
+
+  // 1) Materials
+  $materials['content'] = $wrapper->field_items_needed->value();
+  if (!empty($materials['content'])) {
+    $materials['category'] = 'materials';
+    $materials['title'] = 'Stuff You Need';
+    $materials['content'] = $materials['content']['safe_value'];
+    $vars['plan'][] = $materials;
+  }
+ 
+  // 2) Time
+  $time['content'] = $wrapper->field_time_and_place->value();
+  if (!empty($time['content'])) {
+    $time['category'] = 'time';
+    $time['title'] = 'Time and Place';
+    $time['content'] = $time['content']['safe_value'];
+    $vars['plan'][] = $time;
+  }
+
+  // 3) VIPs
+  $vips['content'] = $wrapper->field_vips->value();
+  if (!empty($vips['content'])) {
+    $vips['category'] = 'vips';
+    $vips['title'] = 'VIPs';
+    $vips['content'] = $vips['content']['safe_value'];
+    $vars['plan'][] = $vips;
+  }
+
+  // 4) Hype
+  $hype['content'] = $wrapper->field_promoting_tips->value();
+  if (!empty($hype['content'])) {
+    $hype['category'] = 'hype';
+    $hype['title'] = 'Hype';
+    $hype['content'] = $hype['content']['safe_value'];
+    $vars['plan'][] = $hype;
+  }
+
+  // Total Content Items in Plan
+  $vars['plan_count'] = count($vars['plan']);
+
+
+  $location_copy = $wrapper->field_location_finder_copy->value();
+  if (!empty($location_copy)) {
+    $vars['location_finder']['copy'] = $location_copy['safe_value'];
+  }
+  
+  $location_url = $wrapper->field_location_finder_url->value();
+  if (!empty($location_url)) {
+    $vars['location_finder']['url'] = $location_url['url'];
+  }
+
+
   $action_guides = $vars['field_action_guide'];
   if (!empty($action_guides)) {
     foreach ($action_guides as $delta => $target) {
@@ -191,23 +239,54 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Preprocess signup data form link.
   dosomething_campaign_preprocess_signup_data_form($vars);
 
+
   // Do.
-  $vars['pre_step_header'] = $wrapper->field_pre_step_header->value();
-  $vars['pre_step_copy'] = $wrapper->field_pre_step_copy->value();
-  $vars['pic_step_header'] = t(DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER);
-  $vars['pic_step_copy'] = $wrapper->field_photo_step->value();
-  $vars['post_step_header'] = $wrapper->field_post_step_header->value();
-  $vars['post_step_copy'] = $wrapper->field_post_step_copy->value();
-  // Step gallery.
-  if ($step_gallery = $wrapper->field_image_step_gallery->value()) {
-    $step_images = array();
-    foreach ($step_gallery as $key => $step_image) {
-      $step_images[$key]['nid'] = $step_image->nid;
+
+  // 1) During
+  $pre_step_header = $wrapper->field_pre_step_header->value();
+  if (!empty($pre_step_header)) {
+    $vars['do']['during']['header'] = $pre_step_header;
+  }
+  $pre_step_copy = $wrapper->field_pre_step_copy->value();
+  if (!empty($pre_step_copy)) {
+    $vars['do']['during']['copy'] = $pre_step_copy['safe_value'];
+  }
+  if (!empty($vars['step_pre'])) {
+    $vars['do']['during']['tips'] = $vars['step_pre'];
+  }
+
+
+  // 2) Snap Photo
+  $vars['do']['snap_photo']['header'] = t(DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER);
+  $pic_step_copy = $wrapper->field_photo_step->value();
+  if (!empty($pic_step_copy)) {
+    $vars['do']['snap_photo']['copy'] = $pic_step_copy['safe_value'];
+  }
+
+  // 3) After
+  $post_step_header = $wrapper->field_post_step_header->value();
+  if (!empty($post_step_header)) {
+    $vars['do']['after']['header'] = $post_step_header;
+  }
+  $post_step_copy = $wrapper->field_post_step_copy->value();
+  if (!empty($post_step_copy)) {
+    $vars['do']['after']['copy'] = $post_step_copy;
+  }
+  if (!empty($vars['step_post'])) {
+    $vars['do']['after']['tips'] = $vars['step_post'];
+  }
+
+
+  // Gallery
+  if ($do_gallery = $wrapper->field_image_step_gallery->value()) {
+    $do_images = array();
+    foreach ($do_gallery as $key => $do_image) {
+      $do_images[$key]['nid'] = $do_image->nid;
     }
     // We only need one image for tpl for now, so get the image for key 0.
-    $vars['step_image_square'] = dosomething_image_get_themed_image($step_images[0]['nid'], 'square', '310x310');
-    $vars['step_image_landscape'] = dosomething_image_get_themed_image($step_images[0]['nid'], 'landscape', '550x300');
+    $vars['do']['snap_photo']['image'] = dosomething_image_get_themed_image($do_images[0]['nid'], 'square', '310x310');
   }
+
 
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();

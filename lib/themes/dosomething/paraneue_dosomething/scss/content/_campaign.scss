@@ -1,3 +1,35 @@
+.campaign {
+  > .wrapper {
+    position: relative;
+  }
+}
+
+.campaign--action {
+  .info-bar {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+
+
+
+
+// @TODO campaign--wrapper no longer exists. Remove this code.
+.campaign--wrapper {
+  @import "campaign/layout";
+  @import "campaign/header";
+  @import "campaign/footer";
+  @import "campaign/nav";
+
+  @import "campaign/know";
+  @import "campaign/plan";
+  @import "campaign/do";
+  @import "campaign/prove";
+}
+
+
 // Higher level selector to access content outside of .campaign--wrapper
 body.node-type-campaign {
   // Action Guide within campaigns styles
@@ -102,7 +134,7 @@ body.node-type-campaign {
 
 }
 
-
+// @TODO: Move to Neue once finalized. (2014.06.12)
 .scholarship-callout {
   margin: 0 auto;
   position: relative;
@@ -193,12 +225,12 @@ body.node-type-campaign {
   }
 
   // Action Page Prove It Scholarship Callout
-  .prove & {
-    left: 50px;
-    top: 10px;
+  .container--prove & {
+    left: 36px;
+    top: 4px;
 
     @include media($tablet) {
-      left: 70px;
+      left: 50px;
     }
   }
 }
