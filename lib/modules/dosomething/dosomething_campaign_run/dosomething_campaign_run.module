@@ -6,6 +6,25 @@
 
 include_once 'dosomething_campaign_run.features.inc';
 
+ /**
+ * Implements hook_menu().
+ */
+function dosomething_campaign_run_menu() {
+  $items = array();
+
+  $items['admin/content/campaign-run-config'] = array(
+    'title' => 'Campaign Run Config',
+    'description' => 'Admin form to manage default copy on campaign run nodes.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_campaign_run_default_copy_config'),
+    'access callback' => 'user_access',
+    // This permission is currently held by admins & editors.
+    'access arguments' => array('administer nodes'),
+    'file' => 'dosomething_campaign_run.admin.inc',
+  );
+  return $items;
+}
+
 /**
  * Adds loaded closed campaign_run node to the given parent campaign's $vars.
  *
@@ -23,7 +42,7 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     dosomething_campaign_run_preprocess_winners($vars, $closed_run_nid);
     dosomething_campaign_run_preprocess_klout_gallery($vars, $closed_run_nid);
     // Preprocess the presignup form.
-    $label = t("I'm interested");
+    $label = variable_get('dosomething_campaign_run_signup_button_copy');
     dosomething_signup_preprocess_signup_button($vars, $label, $presignup = TRUE);
     // Preprocess the campaign reportback gallery.
     $vars['reportback_gallery'] = dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
@@ -51,6 +70,13 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
     $field = "field_{$label}";
     $vars[$label] = $wrapper->{$field}->value();
   }
+  // If there is no total yet, send default text.
+  if (!isset($vars['total_quantity'])) {
+    $placeholder_copy = variable_get('dosomething_campaign_run_no_total_copy');
+    // Replace the ['label'] section with the actual label (eg clothes or tacos).
+    $copy = str_replace('[label]', $vars['total_quantity_label'], $placeholder_copy);
+    $vars['total_quantity'] = $copy;
+  }
 }
 
 /**
@@ -65,28 +91,34 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
   $closed_node = node_load($nid);
   // Get all winners
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
-  $winners = array();
-  $text_fields = array(
-    'field_winner_type',
-    'field_winner_quote',
-    'field_winner_description',
-  );
-  for ($i = 0; $i < $winner_count; $i++) {
-    $entity_id = $closed_node->field_winners[LANGUAGE_NONE][$i]['value'];
-    $winner =  entity_load('field_collection_item', array($entity_id));
-    $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
-    // If there is no user, get the first name from the text field.
-    if (!isset($winners[$i]['uid'])) {
-      $winners[$i]['fname'] = $winner[$entity_id]->field_winner_name[LANGUAGE_NONE][0]['value'];
-    }
-    // Else, grab the first name from the user account.
-    else {
-      $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
-    }
-    $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
-    $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
-    foreach($text_fields as $text_field) {
-      $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+  // If there are no winners, send default text.
+  if ($winner_count == 0) {
+    $winners = variable_get('dosomething_campaign_run_no_winner_copy');
+  }
+  else {
+    $winners = array();
+    $text_fields = array(
+      'field_winner_type',
+      'field_winner_quote',
+      'field_winner_description',
+    );
+    for ($i = 0; $i < $winner_count; $i++) {
+      $entity_id = $closed_node->field_winners[LANGUAGE_NONE][$i]['value'];
+      $winner =  entity_load('field_collection_item', array($entity_id));
+      $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
+      // If there is no user, get the first name from the text field.
+      if (!isset($winners[$i]['uid'])) {
+        $winners[$i]['fname'] = $winner[$entity_id]->field_winner_name[LANGUAGE_NONE][0]['value'];
+      }
+      // Else, grab the first name from the user account.
+      else {
+        $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+      }
+      $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+      $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
+      foreach($text_fields as $text_field) {
+        $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+      }
     }
   }
   $vars['winners'] = $winners;

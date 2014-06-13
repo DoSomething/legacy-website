@@ -11,3 +11,12 @@
 function dosomething_campaign_run_update_7001(&$sandbox) {
   field_delete_field('field_press');
 }
+
+/**
+ * Sets default text copy variables.
+ */
+function dosomething_campaign_run_update_7002(&$sanebox) {
+  variable_set('dosomething_campaign_run_signup_button_copy', 'Notify Me');
+  variable_set('dosomething_campaign_run_no_total_copy', "We’re still tallying the [label]. The bigger the number, the longer it takes...so stay tuned!");
+  variable_set('dosomething_campaign_run_no_winner_copy', "Hold on! We’re still sifting through the (amazing!) submissions you sent to choose a winner. We’ll email you and post his or her name here soon!");
+}
