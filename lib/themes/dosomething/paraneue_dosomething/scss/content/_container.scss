@@ -86,7 +86,11 @@
 
   &.banner {
     margin-bottom: 0;
-    padding: .75rem .5rem;
+    padding: .75rem 1rem;
+
+    @include media($tablet) {
+      padding: .75rem 0;
+    }
 
     > span {
       display: inline-block;
