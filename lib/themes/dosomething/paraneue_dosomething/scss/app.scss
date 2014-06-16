@@ -25,6 +25,7 @@
 @import "content/auth";
 @import "content/home";
 @import "content/campaign"; // @NOTE - parent partial that imports sub-partials
+@import "content/campaign-closed";
 @import "content/sources";
 @import "content/disclaimer";
 @import "content/confirmation";
