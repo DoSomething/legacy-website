@@ -179,22 +179,6 @@
             <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
 
               <?php if ($klout_gallery_item['type'] === 'mention') : ?>
-
-              <?php else: ?>
-                <li>
-                  <div class="tile tile--figure">
-                    <?php if (isset($gallery_item['image'])): ?>
-                      <?php print $gallery_item['image']; ?>
-                    <?php endif; ?>
-                    <?php if (isset($gallery_item['title'])): ?>
-                      <h3 class="__title"><?php print $gallery_item['title']; ?></h3>
-                    <?php endif; ?>
-                    <?php if (isset($gallery_item['desc'])): ?>
-                      <div class="__description"><?php print $gallery_item['desc']; ?></div>
-                    <?php endif; ?>
-                  </div>
-                </li>
-              <?php endif; ?>
                 <li>
                   <div class="tile tile--figure">
                     <?php if (isset($gallery_item['image'])): ?>
@@ -211,6 +195,22 @@
                     </div>
                   </div>
                 </li>
+              <?php else: ?>
+                <li>
+                  <div class="tile tile--figure">
+                    <?php if (isset($gallery_item['image'])): ?>
+                      <?php print $gallery_item['image']; ?>
+                    <?php endif; ?>
+                    <?php if (isset($gallery_item['title'])): ?>
+                      <h3 class="__title"><?php print $gallery_item['title']; ?></h3>
+                    <?php endif; ?>
+                    <?php if (isset($gallery_item['desc'])): ?>
+                      <div class="__description"><?php print $gallery_item['desc']; ?></div>
+                    <?php endif; ?>
+                  </div>
+                </li>
+              <?php endif; ?>
+
             <?php endforeach; ?>
 
           </ul>
