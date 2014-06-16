@@ -241,36 +241,36 @@ class ReportbackEntityController extends EntityAPIController {
     // Load user to get username.
     $account = user_load($entity->uid);
     $build['username'] = array(
-      '#prefix' => '<div>',
+      '#prefix' => '<p>',
       '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
-      '#suffix' => '</div>',
+      '#suffix' => '</p>',
     );
     $build['node_title'] = array(
-      '#prefix' => '<div>',
+      '#prefix' => '<p>',
       '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
-      '#suffix' => '</div>',
+      '#suffix' => '</p>',
     );
     $quantity_label = $entity->noun . ' ' . $entity->verb;
     $build['quantity_count'] = array(
-      '#prefix' => '<div>',
+      '#prefix' => '<p>',
       '#markup' => 'Quantity: <strong>' . check_plain($entity->quantity) . '</strong> ' . $quantity_label,
-      '#suffix' => '</div>',
+      '#suffix' => '</p>',
     );
       // If entity has an active reportback field:
     if (isset($entity->field) && $entity->field['status']==1) {
       $reportback_field_label = $entity->field['label'];
       if (isset($entity->field['value'])) {
         $build['reportback_field_value'] = array(
-          '#prefix' => '<div>',
+          '#prefix' => '<p>',
           '#markup' => $reportback_field_label . ' ' . check_plain($entity->field['value']),
-          '#suffix' => '</div>',
+          '#suffix' => '</p>',
         );
       }
     }
     $build['why_participated'] = array(
-      '#prefix' => '<div>',
-      '#markup' => 'Why participated: ' . check_plain($entity->why_participated),
-      '#suffix' => '</div>',
+      '#prefix' => '<p>',
+      '#markup' => 'Why participated:<br />' . check_plain($entity->why_participated),
+      '#suffix' => '</p>',
     );
     // Output Reportback Files.
     $rows = array();
@@ -285,6 +285,7 @@ class ReportbackEntityController extends EntityAPIController {
     }
     $build['reportback_files'] = array(
       '#theme' => 'table',
+      '#prefix' => '<h3>Files</h3>',
       '#header' => $header,
       '#rows' => $rows,
     );
