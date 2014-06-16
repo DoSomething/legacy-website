@@ -782,7 +782,6 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
 }
 
 /**
-<<<<<<< HEAD
  * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
  *
  * @param int $nid
