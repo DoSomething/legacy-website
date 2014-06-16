@@ -253,15 +253,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'system',
   );
 
-  // Exported permission: 'administer unit tests'.
-  $permissions['administer unit tests'] = array(
-    'name' => 'administer unit tests',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'simpletest',
-  );
-
   // Exported permission: 'administer url aliases'.
   $permissions['administer url aliases'] = array(
     'name' => 'administer url aliases',
