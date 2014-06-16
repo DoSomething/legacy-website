@@ -58,6 +58,17 @@ class ReportbackEntity extends Entity {
   }
 
   /**
+   * Return all data from dosomething_reportback_files table for this entity.
+   */
+  public function getReportbackFileData() {
+    return db_select($this->files_table, 'f')
+      ->fields('f')
+      ->condition('rbid', $this->rbid)
+      ->execute()
+      ->fetchAll();
+  }
+
+  /**
    * Returns the node title of the $entity->nid.
    */
   public function getNodeTitle() {
@@ -215,6 +226,7 @@ class ReportbackEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
     // Load user to get username.
     $account = user_load($entity->uid);
     $build['username'] = array(
@@ -230,7 +242,7 @@ class ReportbackEntityController extends EntityAPIController {
     $quantity_label = $entity->noun . ' ' . $entity->verb;
     $build['quantity_count'] = array(
       '#prefix' => '<div>',
-      '#markup' => 'Quantity: ' . check_plain($entity->quantity) . ' ' . $quantity_label,
+      '#markup' => 'Quantity: <strong>' . check_plain($entity->quantity) . '</strong> ' . $quantity_label,
       '#suffix' => '</div>',
     );
       // If entity has an active reportback field:
@@ -249,11 +261,18 @@ class ReportbackEntityController extends EntityAPIController {
       '#markup' => 'Why participated: ' . check_plain($entity->why_participated),
       '#suffix' => '</div>',
     );
-    foreach ($entity->getThemedImages('300x300') as $delta => $image) {
-      $rows[] = array($image);
+    $header = array('Fid', 'Image', 'Remote Addr', 'Created');
+    foreach ($entity->getReportbackFileData() as $delta => $record) {
+      $fid = $record->fid;
+      $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
+      $file = file_load($fid);
+      $file_link = l($fid, 'file/' . $fid);
+      $created = format_date($file->timestamp, 'short');
+      $rows[] = array($file_link, $image, $record->remote_addr, $created);
     }
     $build['reportback_files'] = array(
       '#theme' => 'table',
+      '#header' => $header,
       '#rows' => $rows,
     );
     return $build;
