@@ -218,13 +218,14 @@ class ReportbackEntityController extends EntityAPIController {
     // Load user to get username.
     $account = user_load($entity->uid);
     $build['username'] = array(
-      '#type' => 'markup',
-      '#markup' => l($account->name, 'user/' . $account->uid),
+      '#prefix' => '<div>',
+      '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
+      '#prefix' => '</div>',
     );
-
     $build['node_title'] = array(
-      '#type' => 'markup',
-      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
+      '#prefix' => '<div>',
+      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
+      '#prefix' => '</div>',
     );
     foreach ($entity->getThemedImages('300x300') as $delta => $image) {
       $build['file_' . $delta] = array(

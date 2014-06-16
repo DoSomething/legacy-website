@@ -180,6 +180,7 @@ function dosomething_reportback_admin_paths() {
     'node/*/reportbacks' => TRUE,
     'node/*/gallery' => TRUE,
     'flag/confirm/*/*/*' => TRUE,
+    'reportback/*' => TRUE,
   );
   return $paths;
 }
