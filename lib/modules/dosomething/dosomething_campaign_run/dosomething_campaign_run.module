@@ -75,7 +75,8 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
     $placeholder_copy = variable_get('dosomething_campaign_run_no_total_copy');
     // Replace the ['label'] section with the actual label (eg clothes or tacos).
     $copy = str_replace('[label]', $vars['total_quantity_label'], $placeholder_copy);
-    $vars['total_quantity'] = $copy;
+    //$vars['total_quantity'] = $copy;
+    $vars['total_quantity_placeholder'] = $copy;
   }
 }
 
@@ -93,7 +94,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
   // If there are no winners, send default text.
   if ($winner_count == 0) {
-    $winners = variable_get('dosomething_campaign_run_no_winner_copy');
+    $vars['default_winners'] = variable_get('dosomething_campaign_run_no_winner_copy');
   }
   else {
     $winners = array();
@@ -120,8 +121,8 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
         $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
       }
     }
+    $vars['winners'] = $winners;
   }
-  $vars['winners'] = $winners;
 }
 
 /**

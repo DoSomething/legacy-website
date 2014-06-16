@@ -62,7 +62,7 @@
           <?php if (isset($total_participants)): ?>
 
             <?php // Number of members participated ?>
-            <div class="statistic<?php if (isset($total_quantity)): ?> -columned -odd<?php endif; ?>">
+            <div class="statistic<?php if (isset($total_quantity) OR isset($total_quantity_placeholder)): ?> -columned -odd<?php endif; ?>">
               <p>
                 <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
                 <em>members participated</em>
@@ -82,9 +82,12 @@
                 </p>
               </div>
 
-            <?php else: ?>
+            <?php elseif (isset($total_quantity_placeholder)): ?>
+              <?php // Placeholder copy when quantity has not been entered ?>
 
-              <?php // Coming soon copy ?>
+              <div class="statistic -columned -even -col-last">
+                <p><em><?php print $total_quantity_placeholder; ?></em></p>
+              </div>   
 
             <?php endif; ?>
           <?php endif; ?>
@@ -230,29 +233,40 @@
       <div class="container__body">
 
         <?php // Winners ?>
-        <?php foreach ($winners as $key => $winner) :?>
-          <div class="__row">
-            <div <?php if (isset($winner['image'])): ?>class="-columned"<?php endif; ?>>
-              <?php if (isset($winner['fname'])): ?>
-                <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
-              <?php endif; ?>
 
-              <?php if (isset($winner['field_winner_description'])): ?>
-                <p><?php print $winner['field_winner_description']; ?></p>
-              <?php endif; ?>
+        <?php // If winners have been picked, display as a gallery ?>
+        <?php if (isset($winners)): ?>
 
-              <?php if (isset($winner['field_winner_quote'])): ?>
-                <p>"<?php print $winner['field_winner_quote']; ?>"</p>
-              <?php endif; ?>
-            </div>
+          <?php foreach ($winners as $key => $winner) :?>
+            <div class="__row">
+              <div <?php if (isset($winner['image'])): ?>class="-columned"<?php endif; ?>>
+                <?php if (isset($winner['fname'])): ?>
+                  <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
+                <?php endif; ?>
 
-            <?php if (isset($winner['image'])): ?>
-              <aside class="-columned -col-last">
-                <?php print $winner['image']; ?>
-              </aside>
-            <?php endif; ?>
-          </div>  
-        <?php endforeach; ?>
+                <?php if (isset($winner['field_winner_description'])): ?>
+                  <p><?php print $winner['field_winner_description']; ?></p>
+                <?php endif; ?>
+
+                <?php if (isset($winner['field_winner_quote'])): ?>
+                  <p>"<?php print $winner['field_winner_quote']; ?>"</p>
+                <?php endif; ?>
+              </div>
+
+              <?php if (isset($winner['image'])): ?>
+                <aside class="-columned -col-last">
+                  <?php print $winner['image']; ?>
+                </aside>
+              <?php endif; ?>
+            </div>  
+          <?php endforeach; ?>
+
+      <?php // Else display the default while winners are being chosen ?>
+      <?php elseif (isset($default_winners)) : ?>
+
+        <p><?php print $default_winners; ?></p>
+
+      <?php endif; ?>
         
       </div>
 
