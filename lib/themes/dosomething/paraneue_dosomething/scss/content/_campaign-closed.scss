@@ -1,0 +1,105 @@
+.campaign.closed {
+	// Campaign statistics including number of participants and 
+	// total quantity donated
+	// @TODO: move to neue
+	.statistic {
+		text-align: center;
+		position: relative;
+		padding: 0.8rem 0;
+
+		p {
+			text-transform: capitalize;
+		}
+
+		strong {
+			font-size: 5rem;
+			line-height: 0.8;
+			display: block;
+		}
+
+		em {
+			font-size: 1.2rem;
+		}
+
+		@include media($tablet) {
+			margin-top: 1rem;
+
+			&.-columned {
+				margin-right: 0;
+				width: 50%;
+			}
+		}
+	}
+
+	.statistic + .statistic {
+		margin-top: 1.5rem;
+		padding-top: 2.5rem;
+
+		@include media($tablet) {
+			border-left: 2px solid #989898;
+			margin-top: 1rem;
+			padding-top: 0.8rem;
+		}
+
+		&:before {
+			content: '';
+			border-top: 2px solid #989898;
+			left: 50%;
+			margin-left: -61px;
+			position: absolute;
+			top: 0;
+			width: 132px;	
+
+			@include media($tablet) {
+				display: none;
+			}
+		
+			@include media($desktop) {
+				display: none;
+			}
+		}
+	}
+
+ .intro {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  // Galleries following a <h3>
+  h3 + .gallery {
+  	margin-top: 2.5rem;
+  }
+
+	// This introduces a new gallery pattern with floated image 
+	// and .__body
+	// TODO: move to neue
+	.gallery {
+	  &.-duo {
+	    > li {
+	      @include media($tablet) {
+	        @include span-columns(6 of 12);
+	        @include omega(2n);
+
+	        &:nth-child(3n) {
+	          clear: left;
+	        }
+	      }
+	    } 
+
+			.tile--figure {
+				@include clearfix();
+				text-align: left;
+
+				img {
+					max-width: 150px;
+					max-height: 150px;
+					@include span-columns(4 of 12);
+				}
+
+				.__body {
+					@include span-columns(8 of 12);
+				}
+			}
+	  }
+	} 
+}
