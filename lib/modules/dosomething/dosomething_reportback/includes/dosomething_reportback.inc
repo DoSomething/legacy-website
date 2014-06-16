@@ -58,6 +58,28 @@ class ReportbackEntity extends Entity {
   }
 
   /**
+   * Return all data from dosomething_reportback_files table for this entity.
+   */
+  public function getReportbackFileData() {
+    return db_select($this->files_table, 'f')
+      ->fields('f')
+      ->condition('rbid', $this->rbid)
+      ->execute()
+      ->fetchAll();
+  }
+
+  /**
+   * Return all data from dosomething_reportback_log table for this entity.
+   */
+  public function getReportbackLog() {
+    return db_select($this->log_table, 'l')
+      ->fields('l')
+      ->condition('rbid', $this->rbid)
+      ->execute()
+      ->fetchAll();
+  }
+
+  /**
    * Returns the node title of the $entity->nid.
    */
   public function getNodeTitle() {
@@ -215,47 +237,70 @@ class ReportbackEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
     // Load user to get username.
     $account = user_load($entity->uid);
     $build['username'] = array(
-      '#type' => 'markup',
-      '#markup' => l($account->name, 'user/' . $account->uid),
+      '#prefix' => '<div>',
+      '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
+      '#suffix' => '</div>',
     );
-
     $build['node_title'] = array(
-      '#type' => 'markup',
-      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
+      '#prefix' => '<div>',
+      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
+      '#suffix' => '</div>',
     );
-    foreach ($entity->getThemedImages('300x300') as $delta => $image) {
-      $build['file_' . $delta] = array(
-        '#type' => 'markup',
-        '#markup' => $image,
-      );
-    }
+    $quantity_label = $entity->noun . ' ' . $entity->verb;
     $build['quantity_count'] = array(
-      '#type' => 'markup',
-      '#markup' => check_plain($entity->quantity),
+      '#prefix' => '<div>',
+      '#markup' => 'Quantity: <strong>' . check_plain($entity->quantity) . '</strong> ' . $quantity_label,
+      '#suffix' => '</div>',
     );
-    $build['quantity_label'] = array(
-      '#type' => 'markup',
-      '#markup' => $entity->noun . ' ' . $entity->verb,
-    );
-    // If entity has an active reportback field:
+      // If entity has an active reportback field:
     if (isset($entity->field) && $entity->field['status']==1) {
-      $build['reportback_field_label'] = array(
-        '#type' => 'markup',
-        '#markup' => $entity->field['label'],
-      );
+      $reportback_field_label = $entity->field['label'];
       if (isset($entity->field['value'])) {
         $build['reportback_field_value'] = array(
-          '#type' => 'markup',
-          '#markup' => $entity->field['value'],
+          '#prefix' => '<div>',
+          '#markup' => $reportback_field_label . ' ' . check_plain($entity->field['value']),
+          '#suffix' => '</div>',
         );
       }
     }
     $build['why_participated'] = array(
-      '#type' => 'markup',
-      '#markup' => check_plain($entity->why_participated),
+      '#prefix' => '<div>',
+      '#markup' => 'Why participated: ' . check_plain($entity->why_participated),
+      '#suffix' => '</div>',
+    );
+    // Output Reportback Files.
+    $rows = array();
+    $header = array('Fid', 'Image', 'IP', 'Created');
+    foreach ($entity->getReportbackFileData() as $delta => $record) {
+      $fid = $record->fid;
+      $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
+      $file = file_load($fid);
+      $file_link = l($fid, 'file/' . $fid);
+      $created = format_date($file->timestamp, 'short');
+      $rows[] = array($file_link, $image, $record->remote_addr, $created);
+    }
+    $build['reportback_files'] = array(
+      '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    );
+    // Output Reportback Log.
+    $rows = array();
+    $header = array('Submitted', 'Op', 'Files', 'IP', 'Quantity', 'Why Participated');
+    foreach ($entity->getReportbackLog() as $delta => $record) {
+      $submitted = format_date($record->timestamp, 'short');
+      $why = check_plain($record->why_participated);
+      $rows[] = array($submitted, $record->op, $record->files, $record->remote_addr, $record->quantity, $why);
+    }
+    $build['reportback_log'] = array(
+      '#theme' => 'table',
+      '#prefix' => '<h3>Change Log</h3>',
+      '#header' => $header,
+      '#rows' => $rows,
     );
     return $build;
   }
