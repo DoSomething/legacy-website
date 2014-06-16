@@ -220,43 +220,41 @@ class ReportbackEntityController extends EntityAPIController {
     $build['username'] = array(
       '#prefix' => '<div>',
       '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
-      '#prefix' => '</div>',
+      '#suffix' => '</div>',
     );
     $build['node_title'] = array(
       '#prefix' => '<div>',
       '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
-      '#prefix' => '</div>',
+      '#suffix' => '</div>',
     );
-    foreach ($entity->getThemedImages('300x300') as $delta => $image) {
-      $build['file_' . $delta] = array(
-        '#type' => 'markup',
-        '#markup' => $image,
-      );
-    }
+    $quantity_label = $entity->noun . ' ' . $entity->verb;
     $build['quantity_count'] = array(
-      '#type' => 'markup',
-      '#markup' => check_plain($entity->quantity),
+      '#prefix' => '<div>',
+      '#markup' => 'Quantity: ' . check_plain($entity->quantity) . ' ' . $quantity_label,
+      '#suffix' => '</div>',
     );
-    $build['quantity_label'] = array(
-      '#type' => 'markup',
-      '#markup' => $entity->noun . ' ' . $entity->verb,
-    );
-    // If entity has an active reportback field:
+      // If entity has an active reportback field:
     if (isset($entity->field) && $entity->field['status']==1) {
-      $build['reportback_field_label'] = array(
-        '#type' => 'markup',
-        '#markup' => $entity->field['label'],
-      );
+      $reportback_field_label = $entity->field['label'];
       if (isset($entity->field['value'])) {
         $build['reportback_field_value'] = array(
-          '#type' => 'markup',
-          '#markup' => $entity->field['value'],
+          '#prefix' => '<div>',
+          '#markup' => $reportback_field_label . ' ' . check_plain($entity->field['value']),
+          '#suffix' => '</div>',
         );
       }
     }
     $build['why_participated'] = array(
-      '#type' => 'markup',
-      '#markup' => check_plain($entity->why_participated),
+      '#prefix' => '<div>',
+      '#markup' => 'Why participated: ' . check_plain($entity->why_participated),
+      '#suffix' => '</div>',
+    );
+    foreach ($entity->getThemedImages('300x300') as $delta => $image) {
+      $rows[] = array($image);
+    }
+    $build['reportback_files'] = array(
+      '#theme' => 'table',
+      '#rows' => $rows,
     );
     return $build;
   }
