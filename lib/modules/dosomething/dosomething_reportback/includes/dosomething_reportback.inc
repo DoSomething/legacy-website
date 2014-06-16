@@ -69,6 +69,17 @@ class ReportbackEntity extends Entity {
   }
 
   /**
+   * Return all data from dosomething_reportback_log table for this entity.
+   */
+  public function getReportbackLog() {
+    return db_select($this->log_table, 'l')
+      ->fields('l')
+      ->condition('rbid', $this->rbid)
+      ->execute()
+      ->fetchAll();
+  }
+
+  /**
    * Returns the node title of the $entity->nid.
    */
   public function getNodeTitle() {
@@ -261,7 +272,9 @@ class ReportbackEntityController extends EntityAPIController {
       '#markup' => 'Why participated: ' . check_plain($entity->why_participated),
       '#suffix' => '</div>',
     );
-    $header = array('Fid', 'Image', 'Remote Addr', 'Created');
+    // Output Reportback Files.
+    $rows = array();
+    $header = array('Fid', 'Image', 'IP', 'Created');
     foreach ($entity->getReportbackFileData() as $delta => $record) {
       $fid = $record->fid;
       $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
@@ -272,6 +285,20 @@ class ReportbackEntityController extends EntityAPIController {
     }
     $build['reportback_files'] = array(
       '#theme' => 'table',
+      '#header' => $header,
+      '#rows' => $rows,
+    );
+    // Output Reportback Log.
+    $rows = array();
+    $header = array('Submitted', 'Op', 'Files', 'IP', 'Quantity', 'Why Participated');
+    foreach ($entity->getReportbackLog() as $delta => $record) {
+      $submitted = format_date($record->timestamp, 'short');
+      $why = check_plain($record->why_participated);
+      $rows[] = array($submitted, $record->op, $record->files, $record->remote_addr, $record->quantity, $why);
+    }
+    $build['reportback_log'] = array(
+      '#theme' => 'table',
+      '#prefix' => '<h3>Change Log</h3>',
       '#header' => $header,
       '#rows' => $rows,
     );
