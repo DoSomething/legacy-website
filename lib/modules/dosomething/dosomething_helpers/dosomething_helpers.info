@@ -12,4 +12,3 @@ features[features_api][] = api:2
 features[user_permission][] = entityconnect add button
 features[user_permission][] = entityconnect edit button
 features[variable][] = dosomething_helpers_modules
-files[] = tests/dosomething_helpers.test
