@@ -12,11 +12,11 @@
     @include transform(rotate(-3deg));
 
     &:after {
-      background-image: image-url('campaign-polaroid-frame.png');
+      background-image: image-url("campaign-polaroid-frame.png");
       background-repeat: no-repeat;
       background-position: 50% 50%;
       background-size: 170px;
-      content: '';
+      content: "";
       height: 210px;
       left: 0;
       position: absolute;
