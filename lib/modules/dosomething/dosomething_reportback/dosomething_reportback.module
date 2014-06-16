@@ -144,7 +144,7 @@ function dosomething_reportback_form_alter(&$form, &$form_state) {
   if ($form['#form_id'] == 'flag_confirm') {
     // Displays the image to be promoted/unpromoted.
     // @todo: Add a check to see if this is the promoted flag.  Fine for now
-    // since we only have one flag in the system. 
+    // since we only have one flag in the system.
     $fid = $form['entity_id']['#value'];
     $form['image'] = array(
       '#markup' => dosomething_image_get_themed_image_by_fid($fid, '300x300'),
@@ -782,6 +782,7 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
 }
 
 /**
+<<<<<<< HEAD
  * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
  *
  * @param int $nid
@@ -800,7 +801,7 @@ function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
     JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
     JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
     JOIN file_managed file ON file.fid = rbf.fid
-    LEFT OUTER JOIN field_data_field_weight weight 
+    LEFT OUTER JOIN field_data_field_weight weight
       ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
     WHERE nid = :nid
     ORDER BY field_weight_value";
@@ -847,4 +848,39 @@ function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_
     }
   }
   return $vars;
+}
+
+/*
+ * Get the total number of campaign reportbacks.
+ *
+ * @param int $nid
+ *   A campaign node id.
+ * @return int $result
+ *   The number of users who reportedback on a camapgin.
+ */
+function dosomething_reportback_get_total_campaign_reportbacks($nid) {
+  $result = db_select('dosomething_reportback', 'rb')
+    ->fields('rb', array('rbid'))
+    ->condition('nid', $nid)
+    ->execute();
+  return $result->rowCount();
+}
+
+/**
+ * Get the total quanity from the reportbacks for a camapgin.
+ *
+ * @param int $nid
+ *   A campaign node id.
+ * @return int $result
+ *  The sum of all values in the `quantity` section from the reportback on a camapgin.
+ *
+ */
+function dosomething_reportback_get_total_campaign_reportback_sums($nid) {
+  $query = db_select('dosomething_reportback', 'rb')
+    ->fields('rb', array('quantity'))
+    ->condition('nid', $nid);
+  $query->addExpression('SUM(quantity)', 'quantity');
+  $result = $query->execute()->fetchAll();
+
+  return $result[0]->quantity;
 }
