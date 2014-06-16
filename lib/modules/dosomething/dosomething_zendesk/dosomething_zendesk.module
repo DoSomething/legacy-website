@@ -11,8 +11,8 @@ define('DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS', 22583120);
  */
 function dosomething_zendesk_menu() {
   $items = array();
-  $items['admin/config/services/dosomething_zendesk'] = array(
-    'title' => 'DoSomething Zendesk settings',
+  $items['admin/config/dosomething/dosomething_zendesk'] = array(
+    'title' => 'Zendesk settings',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'dosomething_zendesk_admin_page',
     'access arguments' => array('administer modules'),
