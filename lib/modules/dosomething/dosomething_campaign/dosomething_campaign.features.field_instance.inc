@@ -263,7 +263,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -1323,7 +1323,7 @@ function dosomething_campaign_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -1692,7 +1692,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 16,
+      'weight' => 17,
     ),
   );
 
@@ -1774,7 +1774,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -1900,7 +1900,7 @@ function dosomething_campaign_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -2070,7 +2070,47 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_starter_statement_header'
+  $field_instances['node-campaign-field_starter_statement_header'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If you are creating a standard campaign, leave this field blank. If you are creating an SMS game, you must fill it out. <strong>Limit: 25 characters</strong>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 66,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_starter_statement_header',
+    'label' => 'Starter Statement Header',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 13,
     ),
   );
 
@@ -2240,7 +2280,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -2323,7 +2363,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -2362,6 +2402,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('If there is a prize to be won, you must include a PDF of the official rules.');
   t('If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.');
   t('If there is no video, then this image is required.');
+  t('If you are creating a standard campaign, leave this field blank. If you are creating an SMS game, you must fill it out. <strong>Limit: 25 characters</strong>');
   t('If you are not using a fact above, use this field. This is information that shows that the call to action is what to do to solve the issue.
 <br />
 <strong>Limit: 135 characters</strong>');
@@ -2408,6 +2449,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Solution Fact');
   t('Solution Statement');
   t('Sponsors and Partners');
+  t('Starter Statement Header');
   t('Stuff You Need');
   t('Supporting Statement on the Solution');
   t('Tags');

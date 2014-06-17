@@ -180,7 +180,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = 'group_prep_it';
   $field_group->data = array(
     'label' => 'Location Finder',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_location_finder',
       1 => 'field_location_finder_copy',
@@ -305,6 +305,7 @@ function dosomething_campaign_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_starter_statement',
+      1 => 'field_starter_statement_header',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
