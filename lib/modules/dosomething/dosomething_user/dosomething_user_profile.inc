@@ -18,10 +18,15 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   $signups = array();
 
   foreach ($signup_nids as $delta => $nid) {
+    // Do not add the campaign if it is closed & user didn't reportback.
+    if (dosomething_campaign_is_closed(node_load($nid)) && !dosomething_reportback_exists($nid, $account->uid)) {
+      break;
+    }
     $vars = dosomething_campaign_get_campaign_block_vars($nid, $image_size);
     $signups['signup_' . $delta] = array(
       '#markup' => theme('campaign_block', $vars),
     );
+
   }
 
   $account->content['signedup'] = $signups;
