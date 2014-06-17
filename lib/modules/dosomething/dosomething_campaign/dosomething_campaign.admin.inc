@@ -5,6 +5,28 @@
  */
 
 /**
+ * Form constructor for campaign admin config form.
+ *
+ * @see dosomething_campaign_menu()
+ */
+function dosomething_campaign_admin_config_form($form, &$form_state) {
+  $form['sms_game'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('SMS Games'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['sms_game']['dosomething_campaign_sms_game_all_participants_copy'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#title' => t('Total participants in all SMS Games copy'),
+    '#description' => t("This copy is displayed in every SMS Game. e.g. <em>Join 250,000 people who have played since 2012!</em>"),
+    '#default_value' => variable_get('dosomething_campaign_sms_game_all_participants_copy'),
+  );
+  return system_settings_form($form);
+}
+
+/**
  * Page callback for campaign admin custom settings page.
  *
  * @param object $node
