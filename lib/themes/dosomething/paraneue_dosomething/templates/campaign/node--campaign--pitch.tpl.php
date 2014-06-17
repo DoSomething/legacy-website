@@ -10,7 +10,7 @@
  */
 ?>
 
-<section class="campaign--wrapper pitch">
+<section class="campaign campaign--pitch pitch">
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
@@ -43,7 +43,14 @@
     </div>
   </header>
 
-  <footer class="boilerplate">
-    <span>A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. <em>*Mic drop</em></span>
-  </footer>
+  <div class="wrapper">
+
+    <div class="container">
+      <div class="wrapper">
+        <p class="__tagline">A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. <em>*Mic drop</em></p>
+      </div>
+    </div>
+
+  </div>
+
 </section>
