@@ -47,6 +47,16 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // Preprocess the campaign reportback gallery.
     dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
   }
+
+  // Condition to display 'Buzz' section
+  $display_celebs = (
+    isset($vars['additional_text_title']) OR
+    isset($vars['additional_text']) OR
+    (isset($vars['psa']) AND $vars['psa'] !== '') OR
+    (isset($vars['klout_gallery']) AND !empty($vars['klout_gallery']))
+  );
+
+  $vars['display_buzz_section'] = $display_celebs;
 }
 
 /**
@@ -75,8 +85,9 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
     $placeholder_copy = variable_get('dosomething_campaign_run_no_total_copy');
     // Replace the ['label'] section with the actual label (eg clothes or tacos).
     $copy = str_replace('[label]', $vars['total_quantity_label'], $placeholder_copy);
-    $vars['total_quantity'] = $copy;
+    $vars['total_quantity_placeholder'] = $copy;
   }
+
 }
 
 /**
@@ -93,7 +104,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
   // If there are no winners, send default text.
   if ($winner_count == 0) {
-    $winners = variable_get('dosomething_campaign_run_no_winner_copy');
+    $vars['default_winners'] = variable_get('dosomething_campaign_run_no_winner_copy');
   }
   else {
     $winners = array();
@@ -120,8 +131,8 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
         $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
       }
     }
+    $vars['winners'] = $winners;
   }
-  $vars['winners'] = $winners;
 }
 
 /**
@@ -142,6 +153,20 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
     $klout =  entity_load('field_collection_item', array($klout_entity_id));
     // Get the type of klout.
     $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
+    
+    // Assign specific gallery css classes depending on the gallery type
+    // If the gallery type is 'mention' then it will use the -duo pattern, else use -triad
+    switch ($klout_gallery[$i]['type']) {
+      case 'mention':
+        $modifer = '-duo';
+        break;
+      default:
+        $modifer = '-triad';
+        break;
+    }
+    $modifer .= ' -' . $klout_gallery[$i]['type'];
+    $klout_gallery[$i]['modifer'] = $modifer;
+
     $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
     $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
     $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];

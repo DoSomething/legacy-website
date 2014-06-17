@@ -5,7 +5,7 @@
   .statistic {
     text-align: center;
     position: relative;
-    padding: 0.8rem 0;
+    padding: 0.8rem 2.5rem;
 
     p {
       text-transform: capitalize;
@@ -25,8 +25,7 @@
       margin-top: 1rem;
 
       &.-columned {
-        margin-right: 0;
-        width: 50%;
+        @include span-columns(6 of 12);
       }
     }
   }
@@ -59,6 +58,14 @@
       }
     }
   }
+
+  // @TODO: move to neue
+ 	.placeholder {
+ 		p {
+	 		font-size: 1.2rem;
+	 		font-style: italic;
+ 		}
+ 	}
 
   .intro {
     margin-top: 3rem;
