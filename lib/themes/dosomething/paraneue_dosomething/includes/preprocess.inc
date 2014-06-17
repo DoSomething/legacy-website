@@ -29,10 +29,9 @@ function paraneue_dosomething_preprocess_page(&$vars) {
    * Navigation
    */
 
-  // @TODO: We should be able to specify these (probably as independent toggles) on nodes.
   $modifier_classes = 'white floating';
-  if(isset($vars['node']->type) && $vars['node']->type == "campaign") {
-    $modifier_classes = 'floating';
+  if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
+    $modifier_classes = 'black floating';
   }
 
   $navigation_vars = array(

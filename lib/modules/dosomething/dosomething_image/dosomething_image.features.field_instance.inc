@@ -47,6 +47,49 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-image-field_dark_image'
+  $field_instances['node-image-field_dark_image'] = array(
+    'bundle' => 'image',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Check this if the top of the image is dark (and therefore the navigation text should be white).',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_dark_image',
+    'label' => 'Dark Image',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-image-field_image_landscape'
   $field_instances['node-image-field_image_landscape'] = array(
     'bundle' => 'image',
@@ -237,6 +280,8 @@ function dosomething_image_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Cause');
+  t('Check this if the top of the image is dark (and therefore the navigation text should be white).');
+  t('Dark Image');
   t('Image Tags');
   t('Landscape Crop');
   t('Portrait Crop');
