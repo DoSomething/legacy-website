@@ -74,7 +74,7 @@ function dosomething_user_permission() {
  * Returns an array of node types that only staff can view.
  */
 function dosomething_user_get_staff_only_types() {
-  return array('fact', 'image');
+  return array('fact', 'image', 'campaign_run');
 }
 
  /**
