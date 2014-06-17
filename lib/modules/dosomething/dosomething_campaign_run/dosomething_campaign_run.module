@@ -52,6 +52,13 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
   }
 
+  // Conditions for totals text display
+  $participants_columned = (isset($vars['total_quantity']) || isset($vars['total_quantity_placeholder'])) && (isset($vars['total_quantity']) || isset($vars['total_quantity_label']));
+  $vars['participants_columned'] = $participants_columned;
+
+  $quantity_columned = isset($vars['total_participants']);
+  $vars['quantity_columned'] = $quantity_columned;
+
   // Condition to display 'Buzz' section
   $display_celebs = (
     isset($vars['additional_text_title']) OR

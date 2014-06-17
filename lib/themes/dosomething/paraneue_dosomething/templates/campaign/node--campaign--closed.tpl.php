@@ -61,11 +61,6 @@
           <?php if (isset($total_participants)): ?>
 
             <?php // Number of members participated ?>
-            <?php
-              $participants_columned = (isset($total_quantity) || isset($total_quantity_placeholder)) &&
-                                       (isset($total_quantity) || isset($total_quantity_label));
-            ?>
-
             <div class="statistic<?php if ($participants_columned): ?> -columned -odd<?php endif; ?>">
               <p>
                 <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
@@ -75,9 +70,7 @@
           <?php endif; ?>
 
           <?php if (isset($total_quantity_label)) : ?>
-            <?php
-              $quantity_columned = isset($total_participants);
-            ?>
+
             <?php if (isset($total_quantity)): ?>
 
               <?php // Total quantity & label ?>
