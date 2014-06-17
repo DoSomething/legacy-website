@@ -129,14 +129,7 @@
     </div>
   </section>
 
-
-  <?php
-    if (isset($additional_text_title) OR
-        isset($additional_text) OR
-        (isset($psa) AND $psa !== '') OR
-        (isset($klout_gallery) AND !empty($klout_gallery))
-        ):
-    ?>
+  <?php if ($display_buzz_section): ?>
   <?php // THE BUZZ ////////////////////////////////////////////////////// ?>
     <section class="container container--celebs">
       <h2 class="container__title banner"><span>The Buzz</span></h2>
@@ -164,31 +157,10 @@
 
           <?php foreach ($klout_gallery as $key => $klout_gallery_item) :?>
 
-            <?php // Assign specific gallery css classes depending on 
-                  // the gallery type
-                  // If the gallery type is 'mention' then it will use the -duo pattern, 
-                  // else use -triad
-            ?>
-
-            <?php
-              switch ($klout_gallery_item['type']) {
-                case 'press':
-                  $modifer = '-triad';
-                  break;
-                case 'mention':
-                  $modifer = '-duo';
-                  break;
-                case 'action':
-                  $modifer = '-triad';
-                  break;
-              }
-              $modifer .= ' -' . $klout_gallery_item['type'];
-            ?>
-
             <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
 
             <?php // The klout galleries ?>
-            <ul class="gallery <?php print $modifer ?>">
+            <ul class="gallery <?php print $klout_gallery_item['modifer']; ?>">
               <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
 
                 <?php if ($klout_gallery_item['type'] === 'mention') : ?>
