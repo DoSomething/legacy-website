@@ -212,13 +212,13 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   $campaign_nid = $form['#node']->field_campaigns[LANGUAGE_NONE][0]['target_id'];
   if (isset($campaign_nid)) {
     // Get totals & language from the campaign.
-    $reportback_total_members = dosomething_reportback_get_total_campaign_reportbacks($campaign_nid);
+    $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
     $reportback_quantity = dosomething_reportback_get_total_campaign_reportback_sums($campaign_nid);
     $language = dosomething_reportback_get_noun_and_verb($campaign_nid);
 
     // Add the text to the form.
     // @TODO: why doesn't this work in the ['#description'] place?
-    $form['field_total_participants'][LANGUAGE_NONE]['#suffix'] = '<div class="description">' . $reportback_total_members . ' members have reported back. </div>';
+    $form['field_total_participants'][LANGUAGE_NONE]['#suffix'] = '<div class="description">' . $signup_total_members . ' members have signed up. </div>';
     $form['field_total_quantity'][LANGUAGE_NONE]['#suffix'] = '<div class="description">' . $reportback_quantity . ' ' .$language->noun . ' ' . $language->verb . ' have been reported back. </div>';
   }
 
