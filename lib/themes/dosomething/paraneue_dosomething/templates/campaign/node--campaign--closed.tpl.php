@@ -27,9 +27,9 @@
         <div class="__signup">
           <?php print render($signup_button); ?>
 
-          <?php if (isset($presignup_callout)): ?>
+          <?php if (isset($scholarship)): ?>
           <div class="scholarship-callout -below -pitch">
-            <p class="copy"><?php print $presignup_callout; ?></p>
+            <p class="copy"><?php print $scholarship; ?></p>
           </div>
           <?php endif; ?>
         </div>
@@ -56,40 +56,53 @@
       <div class="container__body">
 
         <?php // Campaign statistics ?>
+
         <div class="__row">
           <?php if (isset($total_participants)): ?>
 
             <?php // Number of members participated ?>
-            <div class="statistic<?php if (isset($total_quantity) OR isset($total_quantity_placeholder)): ?> -columned -odd<?php endif; ?>">
+            <?php
+              $participants_columned = (isset($total_quantity) || isset($total_quantity_placeholder)) &&
+                                       (isset($total_quantity) || isset($total_quantity_label));
+            ?>
+
+            <div class="statistic<?php if ($participants_columned): ?> -columned -odd<?php endif; ?>">
               <p>
                 <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
                 <em>members participated</em>
               </p>
             </div>
-
           <?php endif; ?>
 
           <?php if (isset($total_quantity_label)) : ?>
+            <?php
+              $quantity_columned = isset($total_participants);
+            ?>
             <?php if (isset($total_quantity)): ?>
 
               <?php // Total quantity & label ?>
-              <div class="statistic<?php if (isset($total_participants)): ?> -columned -even -col-last<?php endif; ?>">
+              <div class="statistic<?php if ($quantity_columned): ?> -columned -even -col-last<?php endif; ?>">
                 <p>
                   <strong class="inline--alt-color"><?php print $total_quantity; ?></strong>
                   <em><?php print $total_quantity_label; ?></em>
                 </p>
               </div>
 
-            <?php elseif (isset($total_quantity_placeholder)): ?>
-              <?php // Placeholder copy when quantity has not been entered ?>
+            <?php else: ?>
 
-              <div class="statistic -columned -even -col-last">
-                <div class="placeholder">
-                  <p><?php print $total_quantity_placeholder; ?></p>
+              <?php if (isset($total_quantity_placeholder)): ?>
+
+                <?php // Placeholder copy when quantity has not been entered ?>
+                <div class="statistic<?php if ($quantity_columned): ?> -columned -even -col-last<?php endif; ?>">
+                  <div class="placeholder">
+                    <p><?php print $total_quantity_placeholder; ?></p>
+                  </div>
                 </div>
-              </div>   
+
+              <?php endif; ?> 
 
             <?php endif; ?>
+
           <?php endif; ?>
         </div>
 
