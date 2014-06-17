@@ -23,8 +23,6 @@
       <h1 class="__title"><?php print $title; ?></h1>
       <h2 class="__subtitle"><?php print $cta; ?></h2>
 
-      <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
-
       <?php if (isset($signup_button)): ?>
         <div class="__signup">
           <?php print render($signup_button); ?>
