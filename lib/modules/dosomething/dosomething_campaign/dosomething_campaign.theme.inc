@@ -270,7 +270,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
   $post_step_copy = $wrapper->field_post_step_copy->value();
   if (!empty($post_step_copy)) {
-    $vars['do']['after']['copy'] = $post_step_copy;
+    $vars['do']['after']['copy'] = $post_step_copy['safe_value'];
   }
   if (!empty($vars['step_post'])) {
     $vars['do']['after']['tips'] = $vars['step_post'];
