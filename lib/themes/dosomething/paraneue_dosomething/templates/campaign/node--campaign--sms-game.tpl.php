@@ -100,7 +100,7 @@
   </section>
 
 
-  <section id="plan" class="container plan">
+  <section id="do" class="container campaign--do inline--alt-bg">
     <h2 class="container__title banner"><span>Step 2: Do It</span></h2>
 
     <div class="wrapper">
