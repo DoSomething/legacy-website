@@ -75,7 +75,9 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   $nid = $node->nid;
   $opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path');
   $friends_opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path');
-
+  // Load "all participants" copy.
+  $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
+ 
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $nid,
@@ -129,6 +131,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   );
   $form['group2'] = array(
     '#type' => 'fieldset',
+    '#prefix' => $all_participants_copy,
     '#attributes' => array(
       'class' => array('-columned second-group'),
     ),
@@ -160,11 +163,13 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
       ),
     );
   }
+  // Check if varaible is set for the Friends Form submit button label.
+  $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', t('Share'));
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Share'),
+      '#value' => $label,
     ),
   );
   return $form;
