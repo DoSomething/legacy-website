@@ -86,7 +86,9 @@
               <?php // Placeholder copy when quantity has not been entered ?>
 
               <div class="statistic -columned -even -col-last">
-                <p><em><?php print $total_quantity_placeholder; ?></em></p>
+                <div class="placeholder">
+                  <p><?php print $total_quantity_placeholder; ?></p>
+                </div>
               </div>   
 
             <?php endif; ?>
@@ -137,7 +139,7 @@
         <div class="__row">
           <div <?php if (isset($psa)): ?>class="-columned -odd"<?php endif; ?>>
             <?php if (isset($additional_text_title)): ?>
-            <h4><?php print $additional_text_title; ?></h4>
+            <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
             <?php endif; ?>
 
             <?php if (isset($additional_text)): ?>
@@ -263,9 +265,9 @@
 
       <?php // Else display the default while winners are being chosen ?>
       <?php elseif (isset($default_winners)) : ?>
-
-        <p><?php print $default_winners; ?></p>
-
+        <div class="placeholder">
+          <p><?php print $default_winners; ?></p>
+        </div>
       <?php endif; ?>
         
       </div>
