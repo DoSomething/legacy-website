@@ -19,3 +19,11 @@ function dosomething_campaign_update_7002(&$sandbox) {
   $copy = "Join 250,000 people who have played since 2012!";
   variable_set('dosomething_campaign_sms_game_all_participants_copy', $copy);
 }
+
+/**
+ * Sets Closed Callout variable.
+ */
+function dosomething_campaign_update_7003(&$sandbox) {
+  $copy = "We'll hit you up when it re-opens";
+  variable_set('dosomething_campaign_presignup_callout_copy', $copy);
+}

@@ -30,6 +30,20 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("This copy is displayed in every SMS Game. e.g. <em>Join 250,000 people who have played since 2012!</em>"),
     '#default_value' => variable_get('dosomething_campaign_sms_game_all_participants_copy'),
   );
+  // Closed variables.
+  $form['closed'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Closed Campaign'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['closed']['dosomething_campaign_presignup_callout_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Presignup Form Callout Copy'),
+    '#required' => TRUE,
+    '#description' => t("Callout text displayed for the Presignup Form."),
+    '#default_value' => variable_get('dosomething_campaign_presignup_callout_copy'),
+  );
   return system_settings_form($form);
 }
 

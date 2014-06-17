@@ -41,26 +41,6 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
   $nid = $form_state['values']['nid'];
   // Handle user presignup.
   dosomething_signup_user_presignup($nid);
-  // Assuming this form always just lives on the campaign.
-  // Let's grab title this way instead of querying db.
-  $title = drupal_get_title();
-  drupal_set_message(dosomething_signup_get_presignup_confirm_msg($title));
-}
-
-/**
- * Returns the confirmation message after submitting presignup form.
- *
- * @param string $title
- *   The title of the presignup node.
- *
- * @return string
- */
-function dosomething_signup_get_presignup_confirm_msg($title) {
-  $link = l(t('find a campaign'), 'campaigns');
-  return t("Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now.", array(
-    '@title' => $title,
-    '!link' => $link,
-  ));
 }
 
 /**

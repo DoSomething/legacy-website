@@ -27,9 +27,9 @@
         <div class="__signup">
           <?php print render($signup_button); ?>
 
-          <?php if (isset($scholarship)): ?>
+          <?php if (isset($presignup_callout)): ?>
           <div class="scholarship-callout -below -pitch">
-            <p class="copy"><?php print $scholarship; ?></p>
+            <p class="copy"><?php print $presignup_callout; ?></p>
           </div>
           <?php endif; ?>
         </div>

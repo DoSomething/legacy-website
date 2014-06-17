@@ -558,6 +558,23 @@ function dosomething_signup_set_signup_message($title = NULL) {
 }
 
 /**
+ * Returns the confirmation message after submitting presignup form.
+ *
+ * @param string $title
+ *   The title of the presignup node.
+ *
+ * @return string
+ */
+function dosomething_signup_set_presignup_message($title) {
+  $link = l(t('find a campaign'), 'campaigns');
+  $message = t("Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now.", array(
+    '@title' => $title,
+    '!link' => $link,
+  ));
+  drupal_set_message($message);
+}
+
+/**
  * Returns array of campaign nid's that a user has signed up for.
  *
  * @param int $uid
@@ -704,6 +721,10 @@ function dosomething_signup_user_presignup($nid) {
   // Create the presignup record.
   dosomething_signup_presignup_create($nid);
   // @todo: Mailchimp subscription.
+  // For now, we know the presignup always lives on the node we're presigning up for.
+  $title = drupal_get_title();
+  // Set the confirmation message.
+  dosomething_signup_set_presignup_message($title);
 }
 
 /*
