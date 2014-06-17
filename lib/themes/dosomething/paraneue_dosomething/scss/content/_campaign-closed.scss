@@ -122,4 +122,17 @@
       }
     }
   }
+
+  // Winners
+  .container--congrats {
+    h3 {
+      margin-bottom: 0;
+    }
+
+    h4 {
+      color: #444;
+      margin-bottom: 1rem;
+      text-transform: capitalize;
+    }
+  }
 }

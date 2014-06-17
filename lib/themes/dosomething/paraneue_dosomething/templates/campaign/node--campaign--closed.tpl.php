@@ -225,6 +225,11 @@
                   <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
                 <?php endif; ?>
 
+                <?php if (isset($winner['field_winner_type'])): ?>
+                  <h4><?php print $winner['field_winner_type']; ?> winner</h4>
+                <?php endif; ?>
+
+
                 <?php if (isset($winner['field_winner_description'])): ?>
                   <p><?php print $winner['field_winner_description']; ?></p>
                 <?php endif; ?>
@@ -242,7 +247,7 @@
             </div>  
           <?php endforeach; ?>
 
-      <?php // Else display the default while winners are being chosen ?>
+      <?php // Else display the default placeholder copy while winners are being chosen ?>
       <?php elseif (isset($default_winners)) : ?>
         <div class="placeholder">
           <p><?php print $default_winners; ?></p>
