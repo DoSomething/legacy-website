@@ -105,6 +105,9 @@
 
     <div class="wrapper">
       <div class="container__body">
+        <?php if (isset($starter_header)) : ?>
+          <h3 class="inline--alt-color"><?php print $starter_header; ?></h3>
+        <?php endif; ?>
         <?php if (isset($starter)) : ?>
           <div><?php print $starter['safe_value']; ?></div>
         <?php endif; ?>
