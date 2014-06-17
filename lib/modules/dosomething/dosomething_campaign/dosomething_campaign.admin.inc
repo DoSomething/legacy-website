@@ -10,11 +10,18 @@
  * @see dosomething_campaign_menu()
  */
 function dosomething_campaign_admin_config_form($form, &$form_state) {
+  // SMS Game variables.
   $form['sms_game'] = array(
     '#type' => 'fieldset',
     '#title' => t('SMS Games'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
+  );
+  $form['sms_game']['dosomething_campaign_sms_game_signup_friends_form_button_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Signup Friends Form Button Label'),
+    '#description' => t("Text displayed on the Signup Friends Form.  Defaults to <em>Share</em> if not set."),
+    '#default_value' => variable_get('dosomething_campaign_sms_game_signup_friends_form_button_text'),
   );
   $form['sms_game']['dosomething_campaign_sms_game_all_participants_copy'] = array(
     '#type' => 'textarea',
