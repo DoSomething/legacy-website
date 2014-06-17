@@ -164,7 +164,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     );
   }
   // Check if varaible is set for the Friends Form submit button label.
-  $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_text', t('Share'));
+  $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', t('Share'));
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(

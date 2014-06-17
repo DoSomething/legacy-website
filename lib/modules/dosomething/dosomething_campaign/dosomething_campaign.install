@@ -11,3 +11,11 @@
 function dosomething_campaign_update_7001(&$sandbox) {
   field_delete_field('field_psa');
 }
+
+/**
+ * Sets new variable value.
+ */
+function dosomething_campaign_update_7002(&$sandbox) {
+  $copy = "Join 250,000 people who have played since 2012!";
+  variable_set('dosomething_campaign_sms_game_all_participants_copy', $copy);
+}
