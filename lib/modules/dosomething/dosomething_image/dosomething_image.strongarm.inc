@@ -25,7 +25,13 @@ function dosomething_image_strongarm() {
           'weight' => '1',
         ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '8',
+        ),
+        'redirect' => array(
+          'weight' => '9',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
