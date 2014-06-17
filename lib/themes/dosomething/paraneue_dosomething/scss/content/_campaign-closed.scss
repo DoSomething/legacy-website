@@ -1,4 +1,17 @@
 .campaign.closed {
+
+  // Overrides to maintain default spacing between headers and cta
+  // since the end date is removed
+  // @TODO: might be worth while to make this a pattern
+  [role="banner"] {
+    &.-hero {
+      .__subtitle {
+        margin-bottom: 1.5rem;
+        margin-top: 0;
+      }
+    }
+  }
+
   // Campaign statistics including number of participants and
   // total quantity donated
   // @TODO: move to neue
