@@ -56,7 +56,10 @@ projects[features][version] = "2.0"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-projects[field_collection][version] = "1.0-beta7"
+projects[field_collection][type] = "module"
+; Fixes https://drupal.org/node/2141781, https://github.com/DoSomething/dosomething/issues/2561.
+projects[field_collection][download][type] = "git"
+projects[field_collection][download][revision] = "ae778f23f8e0968fa3a10a727c6e26c6e63309a0"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
