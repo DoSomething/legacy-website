@@ -902,7 +902,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entityconnect_unload_add' => 0,
     'entityconnect_unload_edit' => 0,
     'field_name' => 'field_image_psa_replacement',
-    'label' => 'Video Replacement Image',
+    'label' => 'Know It Image',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -2420,6 +2420,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Is there a time when this campaign should be heavily weighted and highly promoted in the campaign finder? If so, include a start date. Includes things like staff pick campaigns, beach cleanups (summer months), campaign ideas for the holidays, etc.');
   t('Is there a time when this campaign should be lightly weighted in the campaign finder? If so include a start date. We don\'t want to be highlighting beach cleanups in the winter or Thanksgiving ideas in the summer.');
   t('Issue');
+  t('Know It Image');
   t('Limit: 2 per campaign.');
   t('Location Finder Copy');
   t('Low Season');
@@ -2501,7 +2502,6 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit 20 characters. </strong>');
   t('VIPs');
   t('Video');
-  t('Video Replacement Image');
   t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
   t('i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected');
 
