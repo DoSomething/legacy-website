@@ -16,18 +16,18 @@
   // total quantity donated
   // @TODO: move to neue
   .statistic {
-    text-align: center;
-    position: relative;
     padding: 0.8rem 2.5rem;
+    position: relative;
+    text-align: center;
 
     p {
       text-transform: capitalize;
     }
 
     strong {
+      display: block;
       font-size: 5rem;
       line-height: 0.8;
-      display: block;
     }
 
     em {
@@ -65,24 +65,20 @@
       @include media($tablet) {
         display: none;
       }
-
-      @include media($desktop) {
-        display: none;
-      }
     }
   }
 
   // @TODO: move to neue
  	.placeholder {
- 		p {
-	 		font-size: 1.2rem;
-	 		font-style: italic;
- 		}
+    p {
+      font-size: 1.2rem;
+      font-style: italic;
+    }
  	}
 
   .intro {
-    margin-top: 3rem;
     margin-bottom: 3rem;
+    margin-top: 3rem;
   }
 
   // Galleries following a <h3>
@@ -111,9 +107,9 @@
         text-align: left;
 
         img {
-          max-width: 150px;
-          max-height: 150px;
           @include span-columns(4 of 12);
+          max-height: 150px;
+          max-width: 150px;
         }
 
         .__body {
