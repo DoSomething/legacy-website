@@ -67,11 +67,19 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_title'),
   );
-  $form['sms_game']['confirmation_page']['dosomething_campaign_sms_game_confirmation_page_button_text'] = array(
+  $form['sms_game']['confirmation_page']['dosomething_campaign_confirmation_page_anon_button_text'] = array(
     '#type' => 'textfield',
-    '#title' => t('Confirmation Page Button Text'),
+    '#title' => t('Anon User: Button Text'),
+    '#description' => t('Button label if an anonymous user is viewing the confirmation page -- links to the login/register modal.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_button_text'),
+    '#default_value' => variable_get('dosomething_campaign_confirmation_page_anon_button_text'),
+  );
+  $form['sms_game']['confirmation_page']['dosomething_campaign_confirmation_page_anon_cta_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Anon User: Call to Action'),
+    '#description' => t('Appears above the button if an anonymous user is viewing the confirmation page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_confirmation_page_anon_cta_text'),
   );
   // Closed variables.
   $form['closed'] = array(
