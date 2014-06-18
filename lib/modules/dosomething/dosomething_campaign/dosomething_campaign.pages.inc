@@ -16,9 +16,6 @@
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
 
-  $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
-  $call_to_action = NULL;
-
   if (!user_is_logged_in()) {
     $button_text = variable_get('dosomething_campaign_confirmation_page_anon_button_text');
     $call_to_action = variable_get('dosomething_campaign_confirmation_page_anon_cta_text');
@@ -26,6 +23,8 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     $more_campaigns_link = dosomething_user_get_login_modal_link_markup($button_text, 'large');
   }
   else {
+    $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
+    $call_to_action = NULL;
     // Set button to link to /campaigns.
     $more_campaigns_link = l(t($button_text), 'campaigns', array(
       'attributes' => array('class' =>
