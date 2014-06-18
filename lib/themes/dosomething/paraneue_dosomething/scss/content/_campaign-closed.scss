@@ -26,17 +26,17 @@
 
     strong {
       display: block;
-      font-size: 3.8rem;
+      font-size: $font-largest;
       line-height: 1;
     }
 
     em {
-      font-size: 1.2rem;
+      font-size: $font-medium;
     }
 
     @include media($desktop) {
       strong {
-        font-size: 5rem;
+        font-size: $font-hero;
       }
     }
 
@@ -91,7 +91,7 @@
     text-align: center;
     
     p {
-      font-size: 1.2rem;
+      font-size: $font-medium;
       font-style: italic;
     }
   }
