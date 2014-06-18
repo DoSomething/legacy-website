@@ -26,14 +26,22 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
-  // Get recommended campaign nids for term $tid and current user.
-  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid);
+  // Get 4 recommended campaign nids for term $tid and current user.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid, NULL, 4);
   // Initalize array to store reccomended campaign vars.
   $rec_vars = array();
   // Loop through rec_nids to load relevant variables.
   foreach ($rec_nids as $nid) {
-    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+    // Make sure $nid returned isn't the current $node's $nid.
+    // This could happen for a SMS Game, where the confirmation page can be
+    // viewed by anonymous user, so we don't have a signup to filter out.
+    if ($nid != $node->nid) {
+      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+    }
   }
+  // We only want to display 3 campaigns blocks - we might have 4.
+  $rec_vars = array_slice($rec_vars, 0, 3);
+  // Returned themed reportback confirmation page.
   return theme('reportback_confirmation', array(
     'page_title' => dosomething_campaign_reportback_confirmation_page_title($node),
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
