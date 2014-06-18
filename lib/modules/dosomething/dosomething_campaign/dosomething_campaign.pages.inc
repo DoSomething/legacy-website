@@ -16,18 +16,29 @@
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
   $campaign_type = dosomething_campaign_get_campaign_type($node);
+
   if ($campaign_type == 'sms_game') {
     $button_text = variable_get('dosomething_campaign_sms_game_confirmation_page_button_text');
+    // For anonymous users:
+    if (!user_is_logged_in()) {
+      // The button should open the login/register form.
+      $more_campaigns_link = dosomething_user_get_login_modal_link_markup($button_text, 'large');
+    }
   }
   else {
     $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
   }
-  // Link to "more campaigns".
-  $more_campaigns_link = l(t($button_text), 'campaigns', array(
-    'attributes' => array('class' =>
-      array('btn', 'large')
-    ))
-  );
+
+  // If button is not set yet:
+  if (!isset($more_campaigns_link)) {
+    // Set button to link to /campaigns.
+    $more_campaigns_link = l(t($button_text), 'campaigns', array(
+      'attributes' => array('class' =>
+        array('btn', 'large')
+      ))
+    );
+  }
+
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));

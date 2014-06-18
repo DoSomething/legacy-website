@@ -6,9 +6,14 @@
 
 /**
  * Returns markup for link to open the login/register modal with given $label.
+ *
+ * @param string $label
+ *   The text to display on the button.
+ * @param string $class
+ *   A class to apply to the button.
  */
-function dosomething_user_get_login_modal_link_markup($label) {
-  return '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>';
+function dosomething_user_get_login_modal_link_markup($label, $class = 'medium') {
+  return '<a href="#modal--login" class="js-modal-link btn ' . $class . '">' . $label . '</a>';
 }
 
 /**
