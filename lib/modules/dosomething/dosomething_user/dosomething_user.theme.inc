@@ -5,6 +5,13 @@
  */
 
 /**
+ * Returns markup for link to open the login/register modal with given $label.
+ */
+function dosomething_user_get_login_modal_link_markup($label) {
+  return '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>';
+}
+
+/**
  * Implements template_preprocess_user_profile().
  */
 function dosomething_user_preprocess_user_profile(&$variables) {
