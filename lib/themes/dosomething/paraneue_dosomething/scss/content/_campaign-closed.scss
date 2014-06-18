@@ -107,9 +107,15 @@
     margin-top: 3rem;
   }
 
-  // Galleries following a <h3>
+  // Items following a gallery
+
+
   h3 + .gallery {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .-psa {
+    margin-bottom: 3rem;
   }
 
   // This introduces a new gallery pattern with floated image
@@ -142,6 +148,10 @@
           @include span-columns(8 of 12);
         }
       }
+    }
+
+    &.-mention + h3 {
+      margin-top: 0;
     }
   }
 

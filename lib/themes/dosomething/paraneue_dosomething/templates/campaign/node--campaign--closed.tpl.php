@@ -147,7 +147,7 @@
 
         <div class="container__body">
 
-          <div class="__row">
+          <div class="__row -psa">
             <div <?php if (isset($psa)): ?>class="-columned -odd"<?php endif; ?>>
               <?php if (isset($additional_text_title)): ?>
               <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
