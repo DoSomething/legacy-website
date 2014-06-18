@@ -23,6 +23,17 @@ namespace :deploy do
     end
   end
 
+  task :shared_links do
+    on roles(:app) do |host|
+      execute "cd '#{release_path}/html/sites/default'; rm -rf files 2> /dev/null; ln -s #{shared_path}/files files"
+      execute "ln -s #{shared_path}/settings.#{stage}.php #{release_path}/html/sites/default/settings.#{stage}.php"
+      if :stage == 'staging'
+        execute "printf 'User-agent: *\nDisallow: /' > #{release_path}/html/robots.txt"
+      end
+    end
+  end
+
   after :updated, 'deploy:build'
+  after :build, 'deploy:shared_links'
 
 end

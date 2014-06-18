@@ -1,8 +1,4 @@
-set :deploy_to, "/var/www/international.dosomething.org"
-
-role :app, %w{dosomething@dosomething@deploy.international.dosomething.org}
-
-server 'deploy.international.dosomething.org', user: 'dosomething', roles: %w{app}
+require "includes/international"
 
 namespace :deploy do
 
