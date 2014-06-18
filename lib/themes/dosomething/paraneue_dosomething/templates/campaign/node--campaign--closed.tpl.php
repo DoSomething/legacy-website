@@ -6,7 +6,7 @@
  * - $title: Title for the campaign closed page (string).
  * - $cta: Call To Action for the campaign closed page (string).
  * - $classes: Additional classes passed for output (string).
- * - $scholarship: Scholarship amount (string).
+ * - $presignup_callout: Call to action (string).
  * - $sponsors: List of sponsors (array).
  * - $total_participants: Number of members participated (string).
  * - $total_quantity: Total quantity of campaign items (string).
@@ -27,9 +27,9 @@
         <div class="__signup">
           <?php print render($signup_button); ?>
 
-          <?php if (isset($scholarship)): ?>
+          <?php if (isset($presignup_callout)): ?>
           <div class="scholarship-callout -below -pitch">
-            <p class="copy"><?php print $scholarship; ?></p>
+            <p class="copy"><?php print $presignup_callout; ?></p>
           </div>
           <?php endif; ?>
         </div>
