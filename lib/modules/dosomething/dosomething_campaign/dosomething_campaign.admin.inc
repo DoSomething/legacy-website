@@ -10,6 +10,25 @@
  * @see dosomething_campaign_menu()
  */
 function dosomething_campaign_admin_config_form($form, &$form_state) {
+  // Standard campaign variables.
+  $form['campaign'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Standard Campaigns'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['campaign']['confirmation_page'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Confirmation Page'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['campaign']['confirmation_page']['dosomething_campaign_confirmation_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Page Title'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_confirmation_page_title'),
+  );
   // SMS Game variables.
   $form['sms_game'] = array(
     '#type' => 'fieldset',
@@ -29,6 +48,18 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Total participants in all SMS Games copy'),
     '#description' => t("This copy is displayed in every SMS Game. e.g. <em>Join 250,000 people who have played since 2012!</em>"),
     '#default_value' => variable_get('dosomething_campaign_sms_game_all_participants_copy'),
+  );
+  $form['sms_game']['confirmation_page'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Confirmation Page'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['sms_game']['confirmation_page']['dosomething_campaign_sms_game_confirmation_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Page Title'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_title'),
   );
   // Closed variables.
   $form['closed'] = array(

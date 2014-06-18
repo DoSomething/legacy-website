@@ -27,3 +27,14 @@ function dosomething_campaign_update_7003(&$sandbox) {
   $copy = "We'll hit you up when it re-opens";
   variable_set('dosomething_campaign_presignup_callout_copy', $copy);
 }
+
+/**
+ * Sets lots more variables.
+ */
+function dosomething_campaign_update_7004(&$sandbox) {
+  $value = "You did it!";
+  variable_set('dosomething_campaign_confirmation_page_title', $value);
+  $value = "Thanks for sharing!";
+  variable_set('dosomething_campaign_sms_game_confirmation_page_title', $value);
+}
+
