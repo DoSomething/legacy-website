@@ -16,7 +16,7 @@
   // total quantity donated
   // @TODO: move to neue
   .statistic {
-    padding: 0.8rem 2.5rem;
+    padding: 0.5rem 0;
     position: relative;
     text-align: center;
 
@@ -27,7 +27,7 @@
     strong {
       display: block;
       font-size: 5rem;
-      line-height: 0.8;
+      line-height: 1;
     }
 
     em {
@@ -39,23 +39,24 @@
 
       &.-columned {
         @include span-columns(6 of 12);
+        margin-right: 0;
       }
     }
   }
 
   .statistic + .statistic {
-    margin-top: 1.5rem;
-    padding-top: 2.5rem;
+    margin-top: 1.7rem;
+    padding-top: 2rem;
 
     @include media($tablet) {
       border-left: 2px solid #989898;
       margin-top: 1rem;
-      padding-top: 0.8rem;
+      padding-top: 0.5rem;
     }
 
     &:before {
-      content: "";
       border-top: 2px solid #989898;
+      content: "";
       left: 50%;
       margin-left: -61px;
       position: absolute;
@@ -69,13 +70,13 @@
   }
 
   // @TODO: move to neue
- 	.placeholder {
+  .placeholder {
     text-align: center;
     p {
       font-size: 1.2rem;
       font-style: italic;
     }
- 	}
+  }
 
   .intro {
     margin-bottom: 3rem;
