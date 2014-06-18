@@ -59,9 +59,14 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   }
   // We only want to display 3 campaigns blocks - we might have 4.
   $rec_vars = array_slice($rec_vars, 0, 3);
+  
+  // Page title is set already based on campaign type.
+  // @see dosomething_campaign_menu().
+  $page_title = drupal_get_title();
+
   // Returned themed reportback confirmation page.
   return theme('reportback_confirmation', array(
-    'page_title' => dosomething_campaign_reportback_confirmation_page_title($node),
+    'page_title' => $page_title,
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
