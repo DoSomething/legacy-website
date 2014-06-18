@@ -29,6 +29,12 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_confirmation_page_title'),
   );
+  $form['campaign']['confirmation_page']['dosomething_campaign_confirmation_page_button_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Page Button Text'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_confirmation_page_button_text'),
+  );
   // SMS Game variables.
   $form['sms_game'] = array(
     '#type' => 'fieldset',
@@ -60,6 +66,12 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Confirmation Page Title'),
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_title'),
+  );
+  $form['sms_game']['confirmation_page']['dosomething_campaign_sms_game_confirmation_page_button_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Page Button Text'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_button_text'),
   );
   // Closed variables.
   $form['closed'] = array(

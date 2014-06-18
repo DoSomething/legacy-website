@@ -15,8 +15,15 @@
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
+  $campaign_type = dosomething_campaign_get_campaign_type($node);
+  if ($campaign_type == 'sms_game') {
+    $button_text = variable_get('dosomething_campaign_sms_game_confirmation_page_button_text');
+  }
+  else {
+    $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
+  }
   // Link to "more campaigns".
-  $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
+  $more_campaigns_link = l(t($button_text), 'campaigns', array(
     'attributes' => array('class' =>
       array('btn', 'large')
     ))
