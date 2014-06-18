@@ -26,19 +26,36 @@
 
     strong {
       display: block;
-      font-size: 5rem;
+      font-size: $font-largest;
       line-height: 1;
     }
 
     em {
-      font-size: 1.2rem;
+      font-size: $font-medium;
+    }
+
+    @include media($desktop) {
+      strong {
+        font-size: $font-hero;
+      }
+    }
+
+    .placeholder {
+      p {
+        margin-top: .4em;
+      }
     }
 
     @include media($tablet) {
       margin-top: 1rem;
 
+      .statistic__body {
+        padding: 0 2rem;
+      }
+
       &.-columned {
         @include span-columns(6 of 12);
+        min-height: 138px;
         margin-right: 0;
       }
     }
@@ -74,7 +91,7 @@
     text-align: center;
     
     p {
-      font-size: 1.2rem;
+      font-size: $font-medium;
       font-style: italic;
     }
   }

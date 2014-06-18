@@ -62,10 +62,12 @@
 
             <?php // Number of members participated ?>
             <div class="statistic<?php if ($participants_columned): ?> -columned -odd<?php endif; ?>">
-              <p>
-                <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
-                <em>members participated</em>
-              </p>
+              <div class="statistic__body">
+                <p>
+                  <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
+                  <em>members participated</em>
+                </p>
+              </div>
             </div>
           <?php endif; ?>
 
@@ -75,10 +77,12 @@
 
               <?php // Total quantity & label ?>
               <div class="statistic<?php if ($quantity_columned): ?> -columned -even -col-last<?php endif; ?>">
-                <p>
-                  <strong class="inline--alt-color"><?php print $total_quantity; ?></strong>
-                  <em><?php print $total_quantity_label; ?></em>
-                </p>
+                <div class="statistic__body">
+                  <p>
+                    <strong class="inline--alt-color"><?php print $total_quantity; ?></strong>
+                    <em><?php print $total_quantity_label; ?></em>
+                  </p>
+                </div>
               </div>
 
             <?php else: ?>
@@ -87,8 +91,10 @@
 
                 <?php // Placeholder copy when quantity has not been entered ?>
                 <div class="statistic<?php if ($quantity_columned): ?> -columned -even -col-last<?php endif; ?>">
-                  <div class="placeholder">
-                    <p><?php print $total_quantity_placeholder; ?></p>
+                  <div class="statistic__body">
+                    <div class="placeholder">
+                      <p><?php print $total_quantity_placeholder; ?></p>
+                    </div>
                   </div>
                 </div>
 
@@ -153,7 +159,7 @@
             </div>
 
             <?php if (isset($psa)): ?>
-              <aside class="-columned -col-last">
+              <aside class="video -columned -col-last">
                 <?php print $psa; ?>
               </aside>
             <?php endif; ?>
