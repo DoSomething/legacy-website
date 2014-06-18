@@ -522,12 +522,12 @@ function dosomething_campaign_is_closed($node) {
  * @param int $uid
  *   Optional - The user $uid to recommend campaigns for.
  * @param int $limit
- *   Optional - The amount of campaigns to return, defaults to 3.
+ *   Optional - The amount of campaigns to return.
  *
  * @return array
  *  An array of node nid's.
  */
-function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = NULL, $limit = 3) {
+function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = NULL, $limit = 4) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
