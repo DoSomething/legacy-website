@@ -239,35 +239,6 @@
 }
 
 
-// Specific Containers
-.container--prove {
-  background: $purple image-url("campaign-pattern-default.png") repeat center 3.5rem;
-  padding-bottom: 7rem;
-
-  @include media($tablet) {
-    padding-bottom: 5rem;
-  }
-
-  .container__body {
-    text-align: center;
-
-    @include media($desktop) {
-      text-align: left;
-    }
-  }
-
-  h3 {
-    color: #fff;
-    font-size: $font-large;
-    margin-bottom: 1.5rem;
-  }
-
-  p, a {
-    color: #fff;
-  }
-}
-
-
 // Page Specific Containers
 .campaign--pitch {
   .container {

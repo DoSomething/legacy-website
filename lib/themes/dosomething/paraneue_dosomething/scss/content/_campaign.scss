@@ -4,13 +4,54 @@
   }
 }
 
-.campaign--action {
+
+
+// Page Specific Components
+.campaign--action,
+.campaign--sms {
   .info-bar {
     bottom: 0;
     position: absolute;
     width: 100%;
   }
 }
+
+
+// Page Specific Containers
+.campaign--action .container--prove,
+.campaign--sms .container--do {
+  background: $purple image-url("campaign-pattern-default.png") repeat center 3.5rem;
+  padding-bottom: 7rem;
+
+  @include media($tablet) {
+    padding-bottom: 5rem;
+  }
+}
+
+.campaign--action {
+  .container--prove {
+
+    .container__body {
+      text-align: center;
+
+      @include media($desktop) {
+        text-align: left;
+      }
+    }
+
+    h3 {
+      color: #fff;
+      font-size: $font-large;
+      margin-bottom: 1.5rem;
+    }
+
+    p, a {
+      color: #fff;
+    }
+  }
+}
+
+
 
 
 // @TODO: Move to Neue once finalized. (2014.06.12)
