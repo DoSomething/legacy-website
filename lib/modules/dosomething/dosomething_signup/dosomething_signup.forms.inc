@@ -55,8 +55,6 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   $nid = $node->nid;
   $opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path');
   $friends_opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path');
-  // Load "all participants" copy.
-  $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
  
   $form['nid'] = array(
     '#type' => 'hidden',
@@ -91,6 +89,13 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     '#default_value' => $num_friends,
     '#access' => FALSE,
   );
+  // Load "all participants" copy.
+  $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
+  $form['all_participants_copy'] = array(
+    '#prefix' => '<div class="scholarship-callout -action -below"><p class="copy">',
+    '#markup' => $all_participants_copy,
+    '#suffix' => '</p></div>',
+  );
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
@@ -111,7 +116,6 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   );
   $form['group2'] = array(
     '#type' => 'fieldset',
-    '#prefix' => $all_participants_copy,
     '#attributes' => array(
       'class' => array('-columned second-group'),
     ),
