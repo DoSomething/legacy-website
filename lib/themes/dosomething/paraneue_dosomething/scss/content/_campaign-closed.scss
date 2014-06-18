@@ -40,11 +40,22 @@
       }
     }
 
+    .placeholder {
+      p {
+        margin-top: .4em;
+      }
+    }
+
     @include media($tablet) {
       margin-top: 1rem;
 
+      .statistic__body {
+        padding: 0 2rem;
+      }
+
       &.-columned {
         @include span-columns(6 of 12);
+        min-height: 138px;
         margin-right: 0;
       }
     }
