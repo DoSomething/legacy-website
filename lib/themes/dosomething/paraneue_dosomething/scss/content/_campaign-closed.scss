@@ -26,12 +26,18 @@
 
     strong {
       display: block;
-      font-size: 5rem;
+      font-size: 3.8rem;
       line-height: 1;
     }
 
     em {
       font-size: 1.2rem;
+    }
+
+    @include media($desktop) {
+      strong {
+        font-size: 5rem;
+      }
     }
 
     @include media($tablet) {

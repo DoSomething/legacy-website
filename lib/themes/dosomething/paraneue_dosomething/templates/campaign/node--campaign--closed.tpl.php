@@ -153,7 +153,7 @@
             </div>
 
             <?php if (isset($psa)): ?>
-              <aside class="-columned -col-last">
+              <aside class="video -columned -col-last">
                 <?php print $psa; ?>
               </aside>
             <?php endif; ?>
