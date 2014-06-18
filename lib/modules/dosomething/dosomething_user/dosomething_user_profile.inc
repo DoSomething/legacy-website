@@ -33,7 +33,7 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
 
 
   // Output recommended campaigns.
-  $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid, 4);
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid);
   $recommended = array();
 
   foreach ($rec_nids as $delta => $nid) {
