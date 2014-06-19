@@ -220,7 +220,7 @@
 
   <?php // CONGRATULATIONS TO... ////////////////////////////////////////////////////// ?>
   <section class="container container--congrats">
-    <h2 class="container__title banner"><span>Congratulations to&hellip;</span></h2>
+    <h2 class="container__title banner"><span>Congrats to&hellip;</span></h2>
     <div class="wrapper">
 
       <div class="container__body">
