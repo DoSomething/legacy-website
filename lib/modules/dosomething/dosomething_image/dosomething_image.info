@@ -38,6 +38,7 @@ features[image][] = 720x720
 features[image][] = 740x480
 features[image][] = 768x768
 features[image][] = 800x300
+features[image][] = hmax75
 features[image][] = wmax-423px
 features[node][] = image
 features[user_permission][] = create image content
