@@ -20,7 +20,7 @@ function dosomething_image_form_image_node_form_alter(&$form, &$form_state, $for
  * @param int $nid
  *  The image node id.
  * @param string $ratio
- *  The image field to pull from the desired image ratio (portrait, landscape, square).
+ *  The image field to pull from the desired image ratio (portrait, landscape, square, thumb).
  * @param string $style
  *  The image style preset/size to return the image.
  * @param string $alt
@@ -55,7 +55,7 @@ function dosomething_image_get_themed_image($nid, $ratio, $style, $alt = '', $at
  * @param int $nid
  *  The image node id.
  * @param string $ratio
- *  The image field to pull from the desired image ratio (portrait, landscape, square).
+ *  The image field to pull from the desired image ratio (portrait, landscape, square, thumb).
  * @param string $style
  *  The image style preset/size to return the image.
  *
@@ -73,6 +73,9 @@ function dosomething_image_get_image_url($nid, $ratio) {
         break;
       case 'square':
         $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
+        break;
+      case 'thumb':
+        $path = $node->field_image_thumbnail[LANGUAGE_NONE][0]['uri'];
         break;
     }
     return $path;
