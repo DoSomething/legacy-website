@@ -161,7 +161,11 @@ function dosomething_static_content_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_gallery',
     'foreign keys' => array(),
-    'indexes' => array(),
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
@@ -223,7 +227,11 @@ function dosomething_static_content_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_gallery_item',
     'foreign keys' => array(),
-    'indexes' => array(),
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
@@ -522,7 +530,11 @@ function dosomething_static_content_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_video',
     'foreign keys' => array(),
-    'indexes' => array(),
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
