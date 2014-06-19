@@ -60,12 +60,12 @@
         <div class="__row">
           <?php if (isset($total_participants)): ?>
 
-            <?php // Number of members participated ?>
+            <?php // Number of members  participated ?>
             <div class="statistic<?php if ($participants_columned): ?> -columned -odd<?php endif; ?>">
               <div class="statistic__body">
                 <p>
                   <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
-                  <em>members participated</em>
+                  <em>Members Participated</em>
                 </p>
               </div>
             </div>
