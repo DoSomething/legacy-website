@@ -104,8 +104,8 @@
   }
 
   .intro {
-    margin-bottom: 3rem;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.5rem;
   }
 
   // Items following a gallery
@@ -154,6 +154,10 @@
     &.-mention + h3 {
       margin-top: 0;
     }
+  }
+
+  div + .gallery {
+    margin-top: 2.5rem;
   }
 
   // Winners

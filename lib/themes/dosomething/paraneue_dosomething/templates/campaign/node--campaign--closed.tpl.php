@@ -108,7 +108,7 @@
         <?php // Intro copy ?>
         <?php if (isset($intro)): ?>
           <div class="intro">
-            <p><?php print $intro['safe_value']; ?></p>
+            <?php print $intro['safe_value']; ?>
           </div>
         <?php endif; ?>
 
