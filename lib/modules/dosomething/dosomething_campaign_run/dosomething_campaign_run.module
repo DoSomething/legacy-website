@@ -6,25 +6,6 @@
 
 include_once 'dosomething_campaign_run.features.inc';
 
- /**
- * Implements hook_menu().
- */
-function dosomething_campaign_run_menu() {
-  $items = array();
-
-  $items['admin/content/campaign-run-config'] = array(
-    'title' => 'Campaign Run Config',
-    'description' => 'Admin form to manage default copy on campaign run nodes.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_campaign_run_default_copy_config'),
-    'access callback' => 'user_access',
-    // This permission is currently held by admins & editors.
-    'access arguments' => array('administer nodes'),
-    'file' => 'dosomething_campaign_run.admin.inc',
-  );
-  return $items;
-}
-
 /**
  * Adds loaded closed campaign_run node to the given parent campaign's $vars.
  *
