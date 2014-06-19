@@ -188,9 +188,15 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
         'title' => $params['title'],
         'url' => $params['url'],
         'call_to_action' => $params['call_to_action'],
-        'cover_image_url' => $params['image_campaign_cover'],
+        'image_campaign_cover_markup' => $params['image_campaign_cover_markup'],
+        'do_it_title' => $params['do_it_title'],
+        'do_it_body' => $params['do_it_body'],
         'fact_problem' => $params['fact_problem'],
         'fact_solution' => $params['fact_solution'],
+        'high_season_start_timestamp' => $params['high_season_start_timestamp'],
+        'high_season_end_timestamp' => $params['high_season_end_timestamp'],
+        'low_season_start_timestamp' => $params['low_season_start_timestamp'],
+        'low_season_start_timestamp' => $params['low_season_start_timestamp'],
       );
       break;
 
