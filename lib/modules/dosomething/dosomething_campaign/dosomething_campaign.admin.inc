@@ -95,6 +95,28 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("Callout text displayed for the Presignup Form."),
     '#default_value' => variable_get('dosomething_campaign_presignup_callout_copy'),
   );
+  // The pre-signup button text.
+  $form['closed']['dosomething_campaign_run_signup_button_copy'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Presignup Form Button Text'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_run_signup_button_copy'),
+  );
+  // If there are no total number of X collected.
+  $form['closed']['dosomething_campaign_run_no_total_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Waiting for total copy'),
+    '#description' => t('Place [label] where you would like the label to be replaced.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_run_no_total_copy'),
+  );
+   // No winners yet copy.
+  $form['closed']['dosomething_campaign_run_no_winner_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Waiting for Winner Copy'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_run_no_winner_copy'),
+  );
   return system_settings_form($form);
 }
 
