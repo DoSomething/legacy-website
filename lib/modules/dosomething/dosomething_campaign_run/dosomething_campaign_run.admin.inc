@@ -22,7 +22,7 @@ function dosomething_campaign_run_default_copy_config($form, &$form_state) {
 
   // If there are no total number of X collected.
   $form['dosomething_campaign_run_no_total_copy'] = array(
-    '#type' => 'textfield',
+    '#type' => 'textarea',
     '#title' => t('Waiting for total copy'),
     '#description' => t('Place [label] where you would like the label to be replaced.'),
     '#required' => TRUE,
@@ -31,7 +31,7 @@ function dosomething_campaign_run_default_copy_config($form, &$form_state) {
 
    // No winners yet copy.
   $form['dosomething_campaign_run_no_winner_copy'] = array(
-    '#type' => 'textfield',
+    '#type' => 'textarea',
     '#title' => t('Waiting for Winner Copy'),
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_run_no_winner_copy'),
