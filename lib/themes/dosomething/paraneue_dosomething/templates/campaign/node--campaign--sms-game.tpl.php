@@ -27,12 +27,6 @@
         <?php endforeach; ?>
       </div>
       <?php endif; ?>
-
-      <?php if (isset($scholarship)): ?>
-      <div class="scholarship-callout -action -above">
-        <p class="copy"><?php print $scholarship; ?></p>
-      </div>
-      <?php endif; ?>
     </div>
   </header>
 
@@ -115,6 +109,12 @@
 
           <?php if (isset($signup_form)) : ?>
             <?php print render($signup_form); ?>
+          <?php endif; ?>
+
+          <?php if (isset($scholarship)): ?>
+          <div class="message-callout -below -dynamic-left">
+            <p class="__body"><?php print $scholarship; ?></p>
+          </div>
           <?php endif; ?>
         </div>
 
