@@ -25,13 +25,13 @@ function dosomething_image_strongarm() {
           'weight' => '1',
         ),
         'metatags' => array(
-          'weight' => '8',
+          'weight' => '10',
         ),
         'redirect' => array(
-          'weight' => '9',
+          'weight' => '11',
         ),
         'xmlsitemap' => array(
-          'weight' => '10',
+          'weight' => '12',
         ),
       ),
       'display' => array(),
