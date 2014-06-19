@@ -36,7 +36,6 @@ function dosomething_campaign_menu() {
     'page arguments' => array('dosomething_campaign_admin_config_form'),
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
-    'type' => MENU_LOCAL_TASK,
     'file' => 'dosomething_campaign.admin.inc',
   );
   // Admin campaign status page.
@@ -216,13 +215,12 @@ function _dosomething_campaign_closed_page_access($node) {
  * @return string
  */
 function dosomething_campaign_reportback_confirmation_page_title($node) {
+  $campaign_type = '';
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    $title = 'Thanks for sharing!';
+    $campaign_type = 'sms_game_';
   }
-  else {
-    $title = 'You did it!';
-  }
-  return t($title);
+  $variable_name = 'dosomething_campaign_' . $campaign_type . 'confirmation_page_title';
+  return t(variable_get($variable_name));
 }
 
 /**

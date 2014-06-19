@@ -56,6 +56,10 @@
   <?php if (isset($more_campaigns_link)): ?>
     <div class="cta">
       <div class="wrapper">
+        <?php if (isset($call_to_action)): ?>
+        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <?php endif; ?>
+
         <?php //@TODO: Address styles for this slightly different CTA content. ?>
         <div class="cta-more-campaigns"><?php print $more_campaigns_link; ?></div>
         <div class="cta-back-to-campaign"><?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?></div>

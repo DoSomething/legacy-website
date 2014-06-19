@@ -33,7 +33,7 @@ function dosomething_signup_preprocess_signup_button(&$vars, $label = "Sign Up",
   else {
     // Render button as link to open up the login modal.
     $vars['signup_button'] = array(
-      '#markup' => '<a href="#modal--login" class="js-modal-link btn medium">' . $label . '</a>',
+      '#markup' => dosomething_user_get_login_modal_link_markup($label),
     );
   }
 }

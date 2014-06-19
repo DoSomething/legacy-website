@@ -15,12 +15,24 @@
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
-  // Link to "more campaigns".
-  $more_campaigns_link = l('Find more campaigns', 'campaigns', array(
-    'attributes' => array('class' =>
-      array('btn', 'large')
-    ))
-  );
+
+  if (!user_is_logged_in()) {
+    $button_text = variable_get('dosomething_campaign_confirmation_page_anon_button_text');
+    $call_to_action = variable_get('dosomething_campaign_confirmation_page_anon_cta_text');
+    // The button should open the login/register form.
+    $more_campaigns_link = dosomething_user_get_login_modal_link_markup($button_text, 'large');
+  }
+  else {
+    $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
+    $call_to_action = NULL;
+    // Set button to link to /campaigns.
+    $more_campaigns_link = l(t($button_text), 'campaigns', array(
+      'attributes' => array('class' =>
+        array('btn', 'large')
+      ))
+    );
+  }
+
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
   $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
@@ -41,13 +53,19 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   }
   // We only want to display 3 campaigns blocks - we might have 4.
   $rec_vars = array_slice($rec_vars, 0, 3);
+  
+  // Page title is set already based on campaign type.
+  // @see dosomething_campaign_menu().
+  $page_title = drupal_get_title();
+
   // Returned themed reportback confirmation page.
   return theme('reportback_confirmation', array(
-    'page_title' => dosomething_campaign_reportback_confirmation_page_title($node),
+    'page_title' => $page_title,
     'copy' => $wrapper->field_reportback_confirm_msg->value(),
     'more_campaigns_link' => $more_campaigns_link,
     'back_to_campaign_link' => $back_to_campaign_link,
     'recommended' => $rec_vars,
+    'call_to_action' => $call_to_action,
     )
   );
 }

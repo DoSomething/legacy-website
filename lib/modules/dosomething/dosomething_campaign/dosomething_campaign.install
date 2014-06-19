@@ -27,3 +27,19 @@ function dosomething_campaign_update_7003(&$sandbox) {
   $copy = "We'll hit you up when it re-opens";
   variable_set('dosomething_campaign_presignup_callout_copy', $copy);
 }
+
+/**
+ * Sets lots more variables.
+ */
+function dosomething_campaign_update_7004(&$sandbox) {
+  $value = "You did it!";
+  variable_set('dosomething_campaign_confirmation_page_title', $value);
+  $value = "Thanks for sharing!";
+  variable_set('dosomething_campaign_sms_game_confirmation_page_title', $value);
+  $value = "Find more campaigns";
+  variable_set('dosomething_campaign_confirmation_page_button_text', $value);
+  $value = "Join us";
+  variable_set('dosomething_campaign_confirmation_page_anon_button_text', $value);
+  $value = "Create an account to keep track of your campaigns!";
+  variable_set('dosomething_campaign_confirmation_page_anon_cta_text', $value);
+}
