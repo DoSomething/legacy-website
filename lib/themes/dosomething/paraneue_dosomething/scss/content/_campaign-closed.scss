@@ -180,6 +180,7 @@
         // Added wrapper to force minimum height so content below lines up on each <li>
         // @TODO: update pattern in neue
         .__media {
+          margin-bottom: 1rem;
           min-height: 75px;
 
           img {
