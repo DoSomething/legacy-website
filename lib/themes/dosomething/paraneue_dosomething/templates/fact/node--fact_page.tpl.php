@@ -54,6 +54,7 @@
                 <?php // @TODO: Sources reinstated, but not sure if the facts need to have numbers associated with their respective source? Need to clarify. ?>
                 <?php //<sup></?php print $fact['footnotes']; ?/></sup> ?>
 
+                <?php // @TODO: This is a temporary solution and will be updated in the near future (06.20.2014). ?>
                 <?php if ($key === 5): ?>
                   <?php if (isset($call_to_action)): ?>
                     <div class="cta -simple">
