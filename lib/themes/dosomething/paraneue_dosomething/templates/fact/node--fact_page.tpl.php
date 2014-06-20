@@ -49,12 +49,24 @@
 
           <ol>
             <?php foreach ($facts as $key => $fact): ?>
-              <li><?php print ($key + 1) . '. ' . $fact['fact']; ?>
+              <?php $key++; ?>
+              <li><?php print ($key) . '. ' . $fact['fact']; ?>
                 <?php // @TODO: Sources reinstated, but not sure if the facts need to have numbers associated with their respective source? Need to clarify. ?>
                 <?php //<sup></?php print $fact['footnotes']; ?/></sup> ?>
+
+                <?php if ($key === 5): ?>
+                  <?php if (isset($call_to_action)): ?>
+                    <div class="cta -simple">
+                      <div class="wrapper">
+                        <h2 class="__message">Tackle a campaign to make the world suck less.</h2>
+                        <?php print $cta_link; ?>
+                      </div>
+                    </div>
+                  <?php endif; ?>
+                <?php endif; ?>
               </li>
             <?php endforeach; ?>
-          </ol>            
+          </ol>
 
         </div>
 
@@ -68,7 +80,7 @@
           </ul>
         </section>
         <?php endif; ?>
-        
+
       </div>
 
     </section>
@@ -81,7 +93,7 @@
         </div>
       </div>
     <?php endif; ?>
-    
+
   <?php endif; ?>
 </article>
 
