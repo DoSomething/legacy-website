@@ -129,6 +129,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
       'data-validate' => 'phone',
       'data-validate-required' => '',
       'placeholder' => t('(555) 555-5555'),
+      'autocomplete' => 'off',
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
@@ -144,6 +145,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
       '#attributes' => array(
         'data-validate' => 'phone',
         'placeholder' => t('(555) 555-5555'),
+        'autocomplete' => 'off',
       ),
     );
   }
