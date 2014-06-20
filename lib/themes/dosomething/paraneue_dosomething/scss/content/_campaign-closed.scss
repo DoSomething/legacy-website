@@ -119,8 +119,8 @@
   }
 
   .intro {
-    margin-top: 2.5rem;
     margin-bottom: 0.5rem;
+    margin-top: 2.5rem;
   }
 
   // Items following a gallery
@@ -154,20 +154,40 @@
         @include clearfix();
         text-align: left;
 
-        img {
-          @include span-columns(4 of 12);
-          max-height: 150px;
-          max-width: 150px;
+        .__media {
+          @include span-columns(3 of 12);
+
+          img {
+            margin-left: 0;
+            margin-right: 0;
+            width: auto;
+          }
         }
 
         .__body {
-          @include span-columns(8 of 12);
+          @include span-columns(9 of 12);
         }
       }
     }
 
     &.-mention + h3 {
       margin-top: 0;
+    }
+
+    &.-press {
+      .tile--figure {
+
+        // Added wrapper to force minimum height so content below lines up on each <li>
+        // @TODO: update pattern in neue
+        .__media {
+          min-height: 75px;
+
+          img {
+            margin-bottom: 0;
+            width: auto;
+          }
+        }
+      }
     }
   }
 
