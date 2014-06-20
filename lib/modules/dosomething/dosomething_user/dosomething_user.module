@@ -635,51 +635,74 @@ function dosomething_user_create_user_by_mobile($number) {
  *   The machine name of the field that stores value to return.
  * @param object $account
  *   The account to return value for. If NULL, uses global $user.
+ * @param string $format
+ *   Optional- format to return.
+ *    - Dates, http://www.php.net/manual/en/function.date.php.
+ *    - Strings uclower, strtolower, strtoupper.
  *
  * @return mixed
  *   Returns NULL if not set, otherwise whatever type of data the field stores.
  */
-function dosomething_user_get_field($field_name, $account = NULL) {
+function dosomething_user_get_field($field_name, $account = NULL, $format = NULL) {
   if ($account == NULL) {
     global $user;
     $account = $user;
   }
+
   $wrapper = entity_metadata_wrapper('user', $account);
-  return $wrapper->{$field_name}->value();
+  $field_value =  $wrapper->{$field_name}->value();
+
+  // Check if there is a specifc function handler for that field, use that first.
+  $handler = 'dosomething_user_get_' . $field_name;
+  if (function_exists($handler)) {
+    return $handler($field_value, $format);
+  }
+  return $field_value;
+
 }
 
 /**
- * Returns given user's mobile number.
+ * Returns a user's first name.
  *
  * @param object $account
- *   The account to return value for. If NULL, uses global $user.
+ *   The account to return value for.
+ * @param string $format
+ *   Optional- format to return.
+ *    strtolower, strtoupper, ucwords
  *
  * @return mixed
  *   Returns NULL if not set, otherwise string.
  */
-function dosomething_user_get_mobile($account = NULL) {
-  return dosomething_user_get_field('field_mobile', $account);
+function dosomething_user_get_field_first_name($field_value, $format) {
+  switch ($format) {
+    case 'ucwords':
+      return ucwords(strtolower($field_value));
+    case 'strtoupper':
+      return strtoupper($field_value);
+    case 'strtolower':
+      return strtolower($field_value);
+  }
 }
+
 
 /**
  * Returns given user's birthdate.
  *
+ * @param string $field_value
+ *   The value of the field from `dosomething_user_get_field` to format.
  * @param string $format
  *   Optional- format to return. http://www.php.net/manual/en/function.date.php.
  *   If NULL, the raw timestamp is returned.
- * @param object $account
- *   The account to return value for. If NULL, uses global $user.
  *
  * @return string
  *   Returns the date in specified $format.
  */
-function dosomething_user_get_birthdate($format = NULL, $account = NULL) {
-  $time = dosomething_user_get_field('field_birthdate', $account);
+function dosomething_user_get_field_birthdate($field_value, $format) {
   // If no format specified:
   if ($format == NULL) {
     // Return raw timestamp.
-    return $time;
+    return $field_value;
   }
   // Return date formatted per $format string.
-  return format_date($time, 'custom', $format);
+  return format_date($field_value, 'custom', $format);
 }
