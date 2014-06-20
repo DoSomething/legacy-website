@@ -112,8 +112,10 @@
           <?php endif; ?>
 
           <?php if (isset($scholarship)): ?>
-          <div class="message-callout -below -dynamic-left">
-            <p class="__body"><?php print $scholarship; ?></p>
+          <div class="message-callout -right">
+            <div class="__copy">
+              <p><?php print $scholarship; ?></p>
+            </div>
           </div>
           <?php endif; ?>
         </div>
