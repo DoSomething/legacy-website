@@ -179,11 +179,13 @@
                   <li>
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
+                      <div class="__media">
                         <?php print $gallery_item['image']; ?>
+                      </div>
                       <?php endif; ?>
 
                       <div class="__body">
-                        <?php if (isset($gallery_item['title'])): ?>
+                        <?php if (isset($gallery_item['title']) AND !empty($gallery_item['title'])): ?>
                           <h3 class="__title"><?php print $gallery_item['title']; ?></h3>
                         <?php endif; ?>
                         <?php if (isset($gallery_item['desc'])): ?>
@@ -196,9 +198,11 @@
                   <li>
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
-                        <?php print $gallery_item['image']; ?>
+                        <div class="__media">
+                          <?php print $gallery_item['image']; ?>
+                        </div>
                       <?php endif; ?>
-                      <?php if (isset($gallery_item['title'])): ?>
+                      <?php if (isset($gallery_item['title']) AND !empty($gallery_item['title'])): ?>
                         <h3 class="__title"><?php print $gallery_item['title']; ?></h3>
                       <?php endif; ?>
                       <?php if (isset($gallery_item['desc'])): ?>
