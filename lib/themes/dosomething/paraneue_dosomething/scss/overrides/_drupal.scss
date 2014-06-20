@@ -12,6 +12,15 @@
 }
 
 
+// Make Krumo look okay when it's in the ".messages" module
+.messages .krumo-root {
+  color: #000;
+
+  strong {
+    color: #000;
+  }
+}
+
 // Drupal likes to label things with "hidden" headers, let's
 // hide them for real.
 .element-invisible {
