@@ -22,6 +22,15 @@
 .fact-page {
   background: #fff;
 
+  // @TODO: Temporary until refactor! (06.20.2014)
+  .cta {
+    &.-simple {
+      background-color: transparent;
+      border: 0 none;
+      margin-top: 1.5rem;
+    }
+  }
+
   h2, h3, h4 {
     color: $purple;
   }
