@@ -29,8 +29,10 @@
       <?php endif; ?>
 
       <?php if (isset($scholarship)): ?>
-      <div class="scholarship-callout -action -above">
-        <p class="copy"><?php print $scholarship; ?></p>
+      <div class="message-callout -above -white">
+        <div class="__copy">
+          <p><?php print $scholarship; ?></p>
+        </div>
       </div>
       <?php endif; ?>
     </div>
@@ -277,8 +279,10 @@
             <?php endif; ?>
 
             <?php if (isset($scholarship)): ?>
-            <div class="scholarship-callout -action -below">
-              <p class="copy"><?php print $scholarship; ?></p>
+            <div class="message-callout -below -white">
+              <div class="__copy">
+                <p><?php print $scholarship; ?></p>
+              </div>
             </div>
             <?php endif; ?>
 

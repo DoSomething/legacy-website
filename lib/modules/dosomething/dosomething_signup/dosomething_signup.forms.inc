@@ -92,9 +92,9 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
   // Load "all participants" copy.
   $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
   $form['all_participants_copy'] = array(
-    '#prefix' => '<div class="scholarship-callout -action -below"><p class="copy">',
+    '#prefix' => '<div class="message-callout -above"><div class="__copy"><p>',
     '#markup' => $all_participants_copy,
-    '#suffix' => '</p></div>',
+    '#suffix' => '</p></div></div>',
   );
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',

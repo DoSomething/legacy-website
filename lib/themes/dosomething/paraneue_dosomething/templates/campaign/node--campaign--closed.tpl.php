@@ -28,8 +28,10 @@
           <?php print render($signup_button); ?>
 
           <?php if (isset($presignup_callout)): ?>
-          <div class="scholarship-callout -below -pitch">
-            <p class="copy"><?php print $presignup_callout; ?></p>
+          <div class="message-callout -below -white">
+            <div class="__copy">
+              <p><?php print $presignup_callout; ?></p>
+            </div>
           </div>
           <?php endif; ?>
         </div>
@@ -98,7 +100,7 @@
                   </div>
                 </div>
 
-              <?php endif; ?> 
+              <?php endif; ?>
 
             <?php endif; ?>
 
@@ -116,7 +118,7 @@
         <?php if (isset($reportback_gallery)): ?>
           <ul class="gallery -triad">
             <?php foreach ($reportback_gallery as $key => $reportback_gallery_item) :?>
-              
+
               <li>
                 <div class="tile tile--figure">
                   <?php if (isset($reportback_gallery_item['image'])): ?>
@@ -256,7 +258,7 @@
                   <?php print $winner['image']; ?>
                 </aside>
               <?php endif; ?>
-            </div>  
+            </div>
           <?php endforeach; ?>
 
       <?php // Else display the default placeholder copy while winners are being chosen ?>
@@ -265,7 +267,7 @@
           <p><?php print $default_winners; ?></p>
         </div>
       <?php endif; ?>
-        
+
       </div>
 
     </div>

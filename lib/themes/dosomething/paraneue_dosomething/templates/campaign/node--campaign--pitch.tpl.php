@@ -25,8 +25,10 @@
           <?php print render($signup_button); ?>
 
           <?php if (isset($scholarship)): ?>
-          <div class="scholarship-callout -below -pitch">
-            <p class="copy"><?php print $scholarship; ?></p>
+          <div class="message-callout -below -white -dynamic-right">
+            <div class="__copy">
+              <p><?php print $scholarship; ?></p>
+            </div>
           </div>
           <?php endif; ?>
         </div>
