@@ -145,7 +145,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
     $klout =  entity_load('field_collection_item', array($klout_entity_id));
     // Get the type of klout.
     $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
-    
+
     // Assign specific gallery css classes depending on the gallery type
     // If the gallery type is 'mention' then it will use the -duo pattern, else use -triad
     switch ($klout_gallery[$i]['type']) {
@@ -173,7 +173,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
       }
       else if ($klout_gallery[$i]['type'] == 'press'){
         // Smaller image for these.
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'hmax-75');
+        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'wmax-300-hmax-75');
       }
       else if ($klout_gallery[$i]['type'] == 'mention') {
         $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '100x100');
