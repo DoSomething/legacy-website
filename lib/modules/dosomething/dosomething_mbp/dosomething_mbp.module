@@ -196,7 +196,7 @@ function dosomething_mbp_get_campaign_cache_payload($origin, $params = NULL) {
         'high_season_start_timestamp' => $params['high_season_start_timestamp'],
         'high_season_end_timestamp' => $params['high_season_end_timestamp'],
         'low_season_start_timestamp' => $params['low_season_start_timestamp'],
-        'low_season_start_timestamp' => $params['low_season_start_timestamp'],
+        'low_season_end_timestamp' => $params['low_season_end_timestamp'],
       );
       break;
 
