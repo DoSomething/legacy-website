@@ -1,4 +1,0 @@
-name = DoSomething Legacy
-description = Provides support for the legacy app.
-core = 7.x
-package = DoSomething
