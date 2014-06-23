@@ -655,7 +655,7 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
   // Check if there is a specifc function handler for that field, use that first.
   $handler = 'dosomething_user_get_' . $field_name;
   if (function_exists($handler)) {
-    return $handler($field_value, $format);
+    $field_value = ($format == NULL) ? $handler($field_value) : $handler($field_value, $format);
   }
   return $field_value;
 
