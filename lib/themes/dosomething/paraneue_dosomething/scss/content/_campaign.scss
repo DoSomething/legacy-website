@@ -38,31 +38,67 @@
 
 // Campaign Pitch Page
 .campaign--pitch {
-  .message-callout.-below {
-    .__copy {
-      &:before {
-        right: 35px;
-        top: -25px;
-      }
-    }
-
-    @include media($tablet) {
-      width: 165px;
-
+  [role="banner"] {
+    .message-callout {
       .__copy {
-        text-align: center;
-        top: -25px;
-
-        @include transform(rotate(-6deg));
-
         &:before {
-          right: auto;
-          top: 50%;
+          right: 35px;
+          top: -25px;
+        }
+      }
+
+      @include media($tablet) {
+        width: 165px;
+
+        .__copy {
+          text-align: center;
+          top: -25px;
+
+          @include transform(rotate(-6deg));
+
+          &:before {
+            right: auto;
+            top: 50%;
+          }
         }
       }
     }
   }
 }
+
+.campaign--closed {
+  [role="banner"] {
+    .message-callout {
+      margin: 0 auto;
+      width: 220px;
+
+      .__copy {
+        left: 45px;
+
+        &:before {
+          right: 27px;
+          top: -20px;
+        }
+      }
+
+      @include media($tablet) {
+        left: 9.5rem;
+        bottom: -20px;
+        width: 256px;
+
+        .__copy {
+          left: 0;
+
+          &:before {
+            right: auto;
+            top: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
 
 // Campaign Action Page
 .campaign--action {
@@ -95,9 +131,11 @@
     }
 
     .message-callout {
-      @include media($tablet) {
-        left: 75px;
-        top: -10px;
+      @include media($desktop) {
+        .__copy {
+          left: 75px;
+          top: -10px;
+        }
       }
     }
   }

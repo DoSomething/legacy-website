@@ -81,13 +81,12 @@
 
               <?php if (isset($fact_solution)): ?>
                 <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
-
               <?php elseif (isset($solution_copy)): ?>
                 <?php print $solution_copy['safe_value']; ?>
+              <?php endif; ?>
 
-                <?php if (isset($solution_support)): ?>
-                  <p><?php print $solution_support; ?></p>
-                <?php endif; ?>
+              <?php if (isset($solution_support)): ?>
+                <p><?php print $solution_support; ?></p>
               <?php endif; ?>
 
             <?php endif; ?>

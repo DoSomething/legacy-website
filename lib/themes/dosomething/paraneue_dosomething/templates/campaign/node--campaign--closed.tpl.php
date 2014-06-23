@@ -16,7 +16,7 @@
  */
 ?>
 
-<article class="campaign closed">
+<article class="campaign campaign--closed closed">
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
@@ -28,7 +28,7 @@
           <?php print render($signup_button); ?>
 
           <?php if (isset($presignup_callout)): ?>
-          <div class="message-callout -below -white">
+          <div class="message-callout -below -white -dynamic-right">
             <div class="__copy">
               <p><?php print $presignup_callout; ?></p>
             </div>

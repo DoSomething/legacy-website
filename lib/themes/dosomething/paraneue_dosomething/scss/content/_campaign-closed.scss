@@ -12,20 +12,6 @@
     }
   }
 
-  // Overrides default pattern
-  // Content spans two lines instead of three
-  // and text rotation is set to none
-  // @TODO: since this is specific to closed campaigns only, might be
-  // worthwhile making this a pattern
-  .scholarship-callout {
-    &.-pitch {
-      width: 210px;
-
-      @include media($tablet) {
-        @include transform(rotate(0deg));
-      }
-    }
-  }
 
   // Campaign statistics including number of participants and
   // total quantity donated
@@ -79,7 +65,7 @@
     @include media($desktop) {
       strong {
         margin-top: 0;
-      } 
+      }
     }
   }
 
@@ -111,7 +97,7 @@
   // @TODO: move to neue
   .placeholder {
     text-align: center;
-    
+
     p {
       font-size: $font-medium;
       font-style: italic;
