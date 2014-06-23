@@ -124,7 +124,7 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
-    '#default_value' => dosomething_user_get_mobile(),
+    '#default_value' => dosomething_user_get_field('field_mobile'),
     '#attributes' => array(
       'data-validate' => 'phone',
       'data-validate-required' => '',
