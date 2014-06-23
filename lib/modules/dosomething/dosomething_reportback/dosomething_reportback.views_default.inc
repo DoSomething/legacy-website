@@ -152,7 +152,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['rbid']['table'] = 'views_entity_reportback';
   $handler->display->display_options['fields']['rbid']['field'] = 'rbid';
   $handler->display->display_options['fields']['rbid']['label'] = 'Rbid';
-  $handler->display->display_options['fields']['rbid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['rbid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['rbid']['separator'] = '';
   $handler->display->display_options['fields']['rbid']['link_to_entity'] = 1;
   /* Field: File: Upload date */

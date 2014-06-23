@@ -261,7 +261,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['node_title'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
+      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid . '/reportbacks'),
       '#suffix' => '</p>',
     );
     $quantity_label = $entity->noun . ' ' . $entity->verb;
