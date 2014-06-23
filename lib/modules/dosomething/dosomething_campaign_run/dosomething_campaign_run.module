@@ -111,7 +111,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
       // If there is no user, get the first name from the text field.
       if (!isset($winners[$i]['uid'])) {
-        $winners[$i]['fname'] = $winner[$entity_id]->field_winner_name[LANGUAGE_NONE][0]['value'];
+        $winners[$i]['fname'] = dosomething_user_get_field('field_first_name', user_load($winners[$i]['uid'], 'ucwords'));
       }
       // Else, grab the first name from the user account.
       else {
