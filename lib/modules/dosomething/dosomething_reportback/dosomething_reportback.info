@@ -17,6 +17,7 @@ features[features_api][] = api:2
 features[field_base][] = field_weight
 features[field_instance][] = flagging-promoted-field_image_description
 features[field_instance][] = flagging-promoted-field_weight
+features[flag][] = flagged_reportback
 features[flag][] = promoted
 features[user_permission][] = delete any reportback
 features[user_permission][] = delete own reportback
