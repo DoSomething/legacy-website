@@ -472,7 +472,7 @@ function dosomething_signup_get_mbp_params($account, $node) {
     'email' => $account->mail,
     'uid' => $account->uid,
     'first_name' => dosomething_user_get_field('field_first_name', $account),
-    'mobile' => dosomething_user_get_mobile($account),
+    'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
     'campaign_title' => $node->title,
     'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),

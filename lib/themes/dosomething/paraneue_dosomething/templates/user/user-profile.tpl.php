@@ -120,7 +120,7 @@
         <?php endif; ?>
 
         <dt>Birthday:</dt>
-        <dd><?php print date('F j, Y', strtotime($user_account['birthday'])); ?></dd>
+        <dd><?php print $user_account['birthday']; ?></dd>
       </dl>
 
       <?php if (!empty($address)): ?>

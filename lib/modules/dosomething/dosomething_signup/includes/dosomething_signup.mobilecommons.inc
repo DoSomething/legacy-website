@@ -18,7 +18,7 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
   if (!module_exists('mobilecommons')) { return; }
 
    // If user doesn't have mobile number, exit function.
-  $mobile = dosomething_user_get_mobile($account);
+  $mobile = dosomething_user_get_field('field_mobile', $account);
   if (!$mobile) {
     return FALSE;
   }
@@ -53,14 +53,14 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
 function dosomething_signup_get_mobilecommons_vars($account, $lid, $title = NULL) {
   $args = array(
     'opt_in_path[]' => $lid,
-    'person[phone]' => dosomething_user_get_mobile($account),
+    'person[phone]' => dosomething_user_get_field('field_mobile', $account),
     'person[email]' => $account->mail,
   );
   if ($first_name = dosomething_user_get_field('field_first_name', $account)) {
     $args['person[first_name]'] = $first_name;
   }
   // Expected DOB format is YYYY-MM-DD.
-  if ($dob = dosomething_user_get_birthdate('Y-m-d', $account)) {
+  if ($dob = dosomething_user_get_field('field_birthdate', $account, 'Y-m-d')) {
     $args['person[date_of_birth]'] = $dob;
   }
   if (isset($title)) {
