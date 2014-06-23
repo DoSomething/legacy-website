@@ -38,11 +38,11 @@ function dosomething_reportback_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'flag_confirmation' => 'Flag reportback',
     'unflag_confirmation' => 'Remove reportback flag',
-    'api_version' => 3,
     'module' => 'dosomething_reportback',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   // Exported flag: "Promoted".
   $flags['promoted'] = array(

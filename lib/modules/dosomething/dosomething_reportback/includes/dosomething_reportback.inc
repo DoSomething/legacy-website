@@ -223,6 +223,20 @@ class ReportbackEntity extends Entity {
     return $images;
   }
 
+  /**
+   * Deletes the Reportback files.
+   */
+  public function deleteFiles() {
+    // Loop through the reportback files:
+    foreach ($this->getFids() as $fid) {
+      $file = file_load($fid);
+      file_delete($file);
+    }
+    // Delete the files table rows.
+    db_delete($this->files_table)
+      ->condition('rbid', $this->rbid)
+      ->execute();
+  }
 }
 
 /**
@@ -247,7 +261,7 @@ class ReportbackEntityController extends EntityAPIController {
     );
     $build['node_title'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid),
+      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid . '/reportbacks'),
       '#suffix' => '</p>',
     );
     $quantity_label = $entity->noun . ' ' . $entity->verb;
@@ -291,11 +305,11 @@ class ReportbackEntityController extends EntityAPIController {
     );
     // Output Reportback Log.
     $rows = array();
-    $header = array('Submitted', 'Op', 'Files', 'IP', 'Quantity', 'Why Participated');
+    $header = array('Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated');
     foreach ($entity->getReportbackLog() as $delta => $record) {
       $submitted = format_date($record->timestamp, 'short');
       $why = check_plain($record->why_participated);
-      $rows[] = array($submitted, $record->op, $record->files, $record->remote_addr, $record->quantity, $why);
+      $rows[] = array($submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why);
     }
     $build['reportback_log'] = array(
       '#theme' => 'table',
