@@ -141,14 +141,33 @@ function dosomething_reportback_menu() {
  * Implements hook_form_alter().
  */
 function dosomething_reportback_form_alter(&$form, &$form_state) {
-  if ($form['#form_id'] == 'flag_confirm') {
-    // Displays the image to be promoted/unpromoted.
-    // @todo: Add a check to see if this is the promoted flag.  Fine for now
-    // since we only have one flag in the system.
-    $fid = $form['entity_id']['#value'];
-    $form['image'] = array(
-      '#markup' => dosomething_image_get_themed_image_by_fid($fid, '300x300'),
-    );
+  // Only alter the flag_confirm form, provided by Flag module.
+  if ($form['#form_id'] != 'flag_confirm') { return; }
+
+  // The flag we're confirming:
+  $flag_name = $form['#flag']->name;
+  // The entity_id of whatever we're flagging.
+  $entity_id = $form['entity_id']['#value'];
+
+  switch ($flag_name) {
+
+    case 'promoted':
+      // Displays the image to be promoted/unpromoted.
+      $form['image'] = array(
+        '#markup' => dosomething_image_get_themed_image_by_fid($entity_id, '300x300'),
+      );
+      break;
+
+    case 'flagged_reportback':
+      $reportback = reportback_load($entity_id);
+      // Displays the reportback to be flagged:
+      $form['reportback'] = array(
+        '#prefix' => '<hr />',
+        '#markup' => render(dosomething_reportback_view_entity($reportback)),
+        '#weight' => 500,
+      );
+      break;
+
   }
 }
 
