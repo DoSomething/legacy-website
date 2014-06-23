@@ -118,10 +118,9 @@ function dosomething_metatag_metatag_export_default() {
   // Exported Metatag config instance: user.
   $config['user'] = array(
     'instance' => 'user',
-    'disabled' => TRUE,
     'config' => array(
       'title' => array(
-        'value' => '[user:name] | [site:name]',
+        'value' => '[user:field_first_name] | [site:name]',
       ),
     ),
   );
