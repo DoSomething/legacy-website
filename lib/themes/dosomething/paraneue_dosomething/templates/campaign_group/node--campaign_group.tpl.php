@@ -14,7 +14,7 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="campaign campaign--campaign-group <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign--grouped <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <header role="banner" class="-hero">
     <div class="wrapper">
@@ -29,8 +29,10 @@
         <div class="__signup">
           <?php print render($signup_button); ?>
           <?php if (isset($scholarship)): ?>
-            <div class="scholarship-callout -below -pitch">
-              <p class="copy"><?php print $scholarship; ?></p>
+            <div class="message-callout -below -white -dynamic-right">
+              <div class="__copy">
+                <p><?php print $scholarship; ?></p>
+              </div>
             </div>
           <?php endif; ?>
         </div>

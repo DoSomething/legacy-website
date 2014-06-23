@@ -27,6 +27,7 @@
 }
 
 .campaign--pitch,
+.campaign--grouped,
 .campaign--action .container--prove {
   .message-callout {
     .__copy {
@@ -35,9 +36,8 @@
   }
 }
 
-
-// Campaign Pitch Page
-.campaign--pitch {
+.campaign--pitch,
+.campaign--grouped {
   [role="banner"] {
     .message-callout {
       .__copy {
