@@ -159,14 +159,18 @@ function dosomething_reportback_form_alter(&$form, &$form_state) {
       break;
 
     case 'flagged_reportback':
-      $form['delete_files'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Delete reportback files'),
-        '#description' => t('If checked, the submitted reportback files will permanently be deleted.  This cannot be undone.'),
-        '#weight' => 30,
-      );
+      // If action is to create the flag:
+      if ($form['action']['#value'] == 'flag') {
+        // Add a checkbox to delete the reportback files.
+        $form['delete_files'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Delete reportback files'),
+          '#description' => t('If checked, the submitted reportback files will permanently be deleted.') . ' <strong>' . t('This cannot be undone.') . '</strong>',
+          '#weight' => 30,
+        );
+      }
       $reportback = reportback_load($entity_id);
-      // Displays the reportback to be flagged:
+      // Displays the reportback to confirm flag/unflag.
       $form['reportback'] = array(
         '#prefix' => '<hr />',
         '#markup' => render(dosomething_reportback_view_entity($reportback)),

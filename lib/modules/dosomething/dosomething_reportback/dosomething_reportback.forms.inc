@@ -265,9 +265,12 @@ function dosomething_reportback_gallery_form_submit($form, &$form_state) {
  */
 function dosomething_reportback_flag_confirm_submit($form, &$form_state) {
   $reportback = reportback_load($form_state['values']['entity_id']);
-  $op = 'flagged';
+  // Value is either flag or unflag.
+  $op = $form['action']['#value'];
+  // Sets value as "flagged" or "unflagged".
+  $op .= 'ged';
   // If the "Delete files" element is checked:
-  if ($form_state['values']['delete_files'] === 1) {
+  if (isset($form_state['values']['delete_files']) && $form_state['values']['delete_files'] === 1) {
     $reportback->deleteFiles();
     $op = 'flagged_delete_files';
   }
