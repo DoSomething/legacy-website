@@ -264,9 +264,13 @@ function dosomething_reportback_gallery_form_submit($form, &$form_state) {
  * Deletes the reportback's files if delete_files was checked.
  */
 function dosomething_reportback_flag_confirm_submit($form, &$form_state) {
+  $reportback = reportback_load($form_state['values']['entity_id']);
+  $op = 'flagged';
   // If the "Delete files" element is checked:
   if ($form_state['values']['delete_files'] === 1) {
-    $reportback = reportback_load($form_state['values']['entity_id']);
-    // dsm($reportback);
+    $reportback->deleteFiles();
+    $op = 'flagged_delete_files';
   }
+  // Log the flag operation.
+  $reportback->insertLog($op);
 }
