@@ -1,10 +1,8 @@
-.message-callout { background-color: rgba(#f0f, 0.1);
+.message-callout {
   position: relative;
-  // text-align: center;
 
   .__copy {
     display: inline-block;
-    // margin: 0 auto;
     padding: 1rem 0.5rem;
     position: relative;
 
@@ -42,14 +40,13 @@
     padding-top: 1rem;
 
     .__copy {
-      left: 45px;
 
       // Arrow Up
       &:before {
         background: image-url("callout-arrow-up-black.png") 50% 50% / 25px no-repeat transparent;
         height: 38px;
-        right: 35px;
-        top: -18px;
+        right: -5px;
+        top: -15px;
         width: 25px;
       }
     }
@@ -68,13 +65,11 @@
   &.-above {
     .__copy {
       &:before {
-        // background: image-url("callout-arrow-down-black.png") 50% 50% / 35px no-repeat transparent;
         background: image-url("callout-arrow-down-black.png") 50% 50% / 14px no-repeat transparent;
-        // height: 32px;
-        height: 80px;
-        right: -28px;
-        bottom: 5px;
-        width: 37px;
+        height: 50px;
+        right: -20px;
+        bottom: -15px;
+        width: 20px;
       }
     }
 
@@ -88,96 +83,124 @@
   }
 
 
-//   &.-dynamic-right {
-//     @include media($tablet) {
-//       float: left;
-//       padding-top: 0;
+  &.-right {
+    left: 8rem; // Default value: override this value for specific scenarios.
+    bottom: 0;
+    position: absolute;
 
-//       .__copy {
-//         left: 0;
-//         padding-left: 45px;
-//         text-align: center;
+    .__copy {
+      padding-left: 45px;
 
-//         &:before {
-//           background: image-url("callout-arrow-left-black.png") 50% 50% / 35px no-repeat transparent;
-//           height: 19px;
-//           left: 0;
-//           margin-top: -9px;
-//           right: auto;
-//           top: 50%;
-//           width: 38px;
-//         }
-//       }
-//     }
-//   }
+      &:before {
+        background: image-url("callout-arrow-left-black.png") 50% 50% / 35px no-repeat transparent;
+        height: 19px;
+        left: 0;
+        margin-top: -9px;
+        right: auto;
+        top: 50%;
+        width: 38px;
+      }
+    }
+
+    &.-white {
+      .__copy {
+        &:before {
+          background-image: image-url("callout-arrow-left-white.png");
+        }
+      }
+    }
+  }
+
+
+  // Class applies to a callout that starts below or above an item on mobile, but then switches to positon to the right of item.
+  &.-dynamic-right {
+    @include media($tablet) {
+      left: 8rem;  // Default value: override this value for specific scenarios.
+      padding-top: 0;
+      position: absolute;
+
+      .__copy {
+        left: 0;
+        padding-left: 45px;
+
+        &:before {
+          background: image-url("callout-arrow-left-black.png") 50% 50% / 35px no-repeat transparent;
+          height: 19px;
+          left: 0;
+          margin-top: -9px;
+          right: auto;
+          top: 50%;
+          width: 38px;
+        }
+      }
+    }
+
+    @include media($tablet) {
+      &.-white {
+        .__copy {
+          &:before {
+            background-image: image-url("callout-arrow-left-white.png");
+          }
+        }
+      }
+    }
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 // @TODO: Move to Neue once finalized. (2014.06.12)
-.scholarship-callout {
-  // Pitch Page Scholarship Callout
-  &.-pitch {
-    left: 45px;
-    top: 10px;
+// .scholarship-callout {
+//   // Pitch Page Scholarship Callout
+//   &.-pitch {
+//     left: 45px;
+//     top: 10px;
 
-    &:before {
-      right: 50px;
-      top: -20px;
-    }
+//     &:before {
+//       right: 50px;
+//       top: -20px;
+//     }
 
-    @include media($tablet) {
-      // float: left;
-      left: 40px;
-      top: -20px;
-      width: 130px;
+//     @include media($tablet) {
+//       // float: left;
+//       left: 40px;
+//       top: -20px;
+//       width: 130px;
 
-      @include transform(rotate(-6deg));
+//       @include transform(rotate(-6deg));
 
-      &:before {
-        background: image-url("callout-arrow-left.png") 50% 50% / 35px no-repeat transparent;
-        height: 19px;
-        left: -27px;
-        right: auto;
-        top: 34px;
-        width: 38px;
-      }
+//       &:before {
+//         background: image-url("callout-arrow-left.png") 50% 50% / 35px no-repeat transparent;
+//         height: 19px;
+//         left: -27px;
+//         right: auto;
+//         top: 34px;
+//         width: 38px;
+//       }
 
-      .copy {
-        line-height: 1.1;
-        text-align: center;
-      }
-    }
-  }
+//       .copy {
+//         line-height: 1.1;
+//         text-align: center;
+//       }
+//     }
+//   }
 
-  // Action Page Header Scholarship Callout
-  .action > header & {
-    @include media($tablet) {
-      display: none;
-    }
-  }
+//   // Action Page Header Scholarship Callout
+//   .action > header & {
+//     @include media($tablet) {
+//       display: none;
+//     }
+//   }
 
-  // Action Page Prove It Scholarship Callout
-  .container--prove & {
-    left: 36px;
-    top: 4px;
+//   // Action Page Prove It Scholarship Callout
+//   .container--prove & {
+//     left: 36px;
+//     top: 4px;
 
-    @include media($tablet) {
-      left: 50px;
-    }
-  }
-}
+//     @include media($tablet) {
+//       left: 50px;
+//     }
+//   }
+// }

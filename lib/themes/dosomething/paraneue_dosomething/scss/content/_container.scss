@@ -110,6 +110,8 @@
 
 // Styles for Container Body content.
 .container__body {
+  position: relative;
+
   @include clearfix();
 
   @include media($tablet) {
@@ -161,6 +163,7 @@
   // Form items inside Container Body.
   form {
     padding-top: 1rem;
+    position: relative;
   }
 
   .form-actions {

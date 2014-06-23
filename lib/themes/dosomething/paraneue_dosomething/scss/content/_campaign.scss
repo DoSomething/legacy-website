@@ -16,6 +16,82 @@
   }
 }
 
+.campaign--pitch,
+.campaign--action .container--prove {
+  .message-callout {
+    .__copy {
+      left: 45px;
+    }
+  }
+}
+
+// Campaign Pitch Page
+.campaign--pitch {
+  .message-callout.-below {
+    .__copy {
+      &:before {
+        right: 35px;
+        top: -25px;
+      }
+    }
+
+    @include media($tablet) {
+      width: 165px;
+
+      .__copy {
+        text-align: center;
+        top: -25px;
+
+        @include transform(rotate(-6deg));
+
+        &:before {
+          right: auto;
+          top: 50%;
+        }
+      }
+    }
+  }
+}
+
+// Campaign Action Page
+.campaign--action {
+  [role="banner"] {
+    @include media($tablet) {
+      .message-callout {
+        @include visually-hidden();
+      }
+    }
+  }
+}
+
+// Campaign SMS Game Page
+.campaign--sms {
+  .form-actions {
+    text-align: left;
+  }
+
+  .container--do {
+    form {
+      .message-callout {
+        margin: 0 auto;
+        width: 270px;
+
+        @include media($tablet) {
+          margin: 0;
+          right: 20px;
+          position: absolute;
+        }
+
+        .__copy {
+          &:before {
+            right: -10px;
+          }
+        }
+      }
+    }
+  }
+}
+
 
 // Page Specific Containers
 .campaign--action .container--prove,
