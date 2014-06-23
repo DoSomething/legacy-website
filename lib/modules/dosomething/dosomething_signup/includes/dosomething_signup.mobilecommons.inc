@@ -60,7 +60,7 @@ function dosomething_signup_get_mobilecommons_vars($account, $lid, $title = NULL
     $args['person[first_name]'] = $first_name;
   }
   // Expected DOB format is YYYY-MM-DD.
-  if ($dob = dosomething_user_get_birthdate('Y-m-d', $account)) {
+  if ($dob = dosomething_user_get_field('field_birthdate', $account, 'Y-m-d')) {
     $args['person[date_of_birth]'] = $dob;
   }
   if (isset($title)) {

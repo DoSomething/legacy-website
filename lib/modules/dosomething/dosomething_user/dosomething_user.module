@@ -349,7 +349,7 @@ function dosomething_user_new_user($form, &$form_state) {
       'email' => $account->mail,
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'birthdate' => dosomething_user_get_birthdate(),
+      'birthdate' => dosomething_user_get_field('field_birthdate', $account),
     );
     if (module_exists('dosomething_mbp')) {
       dosomething_mbp_request('user_register', $params);
@@ -375,7 +375,7 @@ function dosomething_user_is_under_thirteen($user = NULL) {
   if ($user == NULL) {
     global $user;
   }
-  $birthday = dosomething_user_get_birthdate(NULL, $user);
+  $birthday = dosomething_user_get_field('field_birthdate', $user);
   // Get the date 13 years ago today.
   $date_cutoff = strtotime('-13 years');
   if ($date_cutoff < $birthday) {
@@ -401,7 +401,7 @@ function dosomething_user_is_old_person($user = NULL) {
   if ($user == NULL) {
     global $user;
   }
-  $birthday = dosomething_user_get_birthdate(NULL, $user);
+  $birthday = dosomething_user_get_field('field_birthdate', $user);
   // Get the date 26 years ago today.
   $date_cutoff = strtotime('-26 years');
   return $date_cutoff > $birthday;
