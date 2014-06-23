@@ -163,6 +163,7 @@ function dosomething_reportback_form_alter(&$form, &$form_state) {
         '#type' => 'checkbox',
         '#title' => t('Delete reportback files'),
         '#description' => t('If checked, the submitted reportback files will permanently be deleted.  This cannot be undone.'),
+        '#weight' => 30,
       );
       $reportback = reportback_load($entity_id);
       // Displays the reportback to be flagged:

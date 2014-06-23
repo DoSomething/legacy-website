@@ -10,6 +10,37 @@
 function dosomething_reportback_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'flagging-flagged_reportback-field_flagged_reason'
+  $field_instances['flagging-flagged_reportback-field_flagged_reason'] = array(
+    'bundle' => 'flagged_reportback',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Please select at least one.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'flagging',
+    'field_name' => 'field_flagged_reason',
+    'label' => 'Reasons',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'flagging-promoted-field_image_description'
   $field_instances['flagging-promoted-field_image_description'] = array(
     'bundle' => 'promoted',
@@ -91,6 +122,8 @@ function dosomething_reportback_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Editorial Caption');
+  t('Please select at least one.');
+  t('Reasons');
   t('Weight');
 
   return $field_instances;
