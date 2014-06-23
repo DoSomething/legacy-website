@@ -16,6 +16,16 @@
   }
 }
 
+.campaign--action .container--prove,
+.campaign--sms .container--do {
+  background: $purple image-url("campaign-pattern-default.png") repeat center 3.5rem;
+  padding-bottom: 7rem;
+
+  @include media($tablet) {
+    padding-bottom: 5rem;
+  }
+}
+
 .campaign--pitch,
 .campaign--action .container--prove {
   .message-callout {
@@ -24,6 +34,7 @@
     }
   }
 }
+
 
 // Campaign Pitch Page
 .campaign--pitch {
@@ -62,6 +73,34 @@
       }
     }
   }
+
+  .container--prove {
+
+    .container__body {
+      text-align: center;
+
+      @include media($desktop) {
+        text-align: left;
+      }
+    }
+
+    h3 {
+      color: #fff;
+      font-size: $font-large;
+      margin-bottom: 1.5rem;
+    }
+
+    p, a {
+      color: #fff;
+    }
+
+    .message-callout {
+      @include media($tablet) {
+        left: 75px;
+        top: -10px;
+      }
+    }
+  }
 }
 
 // Campaign SMS Game Page
@@ -91,42 +130,6 @@
     }
   }
 }
-
-
-// Page Specific Containers
-.campaign--action .container--prove,
-.campaign--sms .container--do {
-  background: $purple image-url("campaign-pattern-default.png") repeat center 3.5rem;
-  padding-bottom: 7rem;
-
-  @include media($tablet) {
-    padding-bottom: 5rem;
-  }
-}
-
-.campaign--action {
-  .container--prove {
-
-    .container__body {
-      text-align: center;
-
-      @include media($desktop) {
-        text-align: left;
-      }
-    }
-
-    h3 {
-      color: #fff;
-      font-size: $font-large;
-      margin-bottom: 1.5rem;
-    }
-
-    p, a {
-      color: #fff;
-    }
-  }
-}
-
 
 
 
