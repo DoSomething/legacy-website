@@ -673,15 +673,44 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
  * @return mixed
  *   Returns NULL if not set, otherwise string.
  */
-function dosomething_user_get_field_first_name($field_value, $format) {
-  switch ($format) {
-    case 'ucwords':
-      return ucwords(strtolower($field_value));
-    case 'strtoupper':
-      return strtoupper($field_value);
-    case 'strtolower':
-      return strtolower($field_value);
-  }
+function dosomething_user_get_field_first_name($field_value, $format = 'ucwords') {
+  return dosomething_user_format_string($field_value, $format);
+}
+
+/**
+ * Returns a user's first name.
+ *
+ * @param object $account
+ *   The account to return value for.
+ * @param string $format
+ *   Optional- format to return.
+ *    strtolower, strtoupper, ucwords
+ *
+ * @return mixed
+ *   Returns NULL if not set, otherwise string.
+ */
+function dosomething_user_get_field_last_name($field_value, $format = 'ucwords') {
+  return dosomething_user_format_string($field_value, $format);
+}
+
+/**
+ * Helper function to format strings.
+ *
+ * @param string $string
+ *  The string to format
+ * @param string $format
+ *  The format that should be returned.
+ *    strtolower, strtoupper, ucwords
+ */
+function dosomething_user_format_string($string, $format) {
+    switch ($format) {
+      case 'ucwords':
+        return ucwords(strtolower($string));
+      case 'strtoupper':
+        return strtoupper($string);
+      case 'strtolower':
+        return strtolower($string);
+    }
 }
 
 
