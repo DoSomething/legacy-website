@@ -257,3 +257,16 @@ function dosomething_reportback_gallery_form_submit($form, &$form_state) {
   }
   drupal_set_message(t("Gallery updated."));
 }
+
+/**
+ * Additional submit callback for the flag_confirm form for Reportbacks.
+ *
+ * Deletes the reportback's files if delete_files was checked.
+ */
+function dosomething_reportback_flag_confirm_submit($form, &$form_state) {
+  // If the "Delete files" element is checked:
+  if ($form_state['values']['delete_files'] === 1) {
+    $reportback = reportback_load($form_state['values']['entity_id']);
+    // dsm($reportback);
+  }
+}
