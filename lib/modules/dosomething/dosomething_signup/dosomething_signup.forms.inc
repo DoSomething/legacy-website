@@ -141,9 +141,11 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     }
     $form[$group]['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
+      '#required' => TRUE,
       '#title' => 'Friend\'s Cell Number',
       '#attributes' => array(
         'data-validate' => 'phone',
+        'data-validate-required' => '',
         'placeholder' => t('(555) 555-5555'),
         'autocomplete' => 'off',
       ),
