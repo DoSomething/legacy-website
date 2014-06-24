@@ -167,6 +167,13 @@
       }
     }
   }
+
+  .disclaimer {
+
+    p, a {
+      color: darken($med-gray, 10%);
+    }
+  }
 }
 
 
