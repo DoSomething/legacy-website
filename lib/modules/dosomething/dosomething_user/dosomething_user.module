@@ -732,7 +732,7 @@ function dosomething_user_format_string($string, $format) {
  * @return string
  *   Returns the date in specified $format.
  */
-function dosomething_user_get_field_birthdate($field_value, $format) {
+function dosomething_user_get_field_birthdate($field_value, $format = NULL) {
   // If no format specified:
   if ($format == NULL) {
     // Return raw timestamp.
