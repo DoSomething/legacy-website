@@ -599,6 +599,12 @@ function dosomething_user_clean_mobile_number($number) {
     if (strlen($trimmed_number) == 10) {
       return $trimmed_number;
     }
+    // Else if it contains a leading 1.
+    // (iPhones return the 1 when you copy/paste a number from your contacts).
+    else if (strlen($trimmed_number) == 11 && $trimmed_number[0] == 1) {
+      // Remove the leading 1.
+      return substr($trimmed_number, 1);
+    }
     return FALSE;
   }
   return FALSE;
