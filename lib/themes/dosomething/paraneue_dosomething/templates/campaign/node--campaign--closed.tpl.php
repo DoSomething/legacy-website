@@ -182,7 +182,11 @@
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
                       <div class="__media">
-                        <?php print $gallery_item['image']; ?>
+                        <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
+                          <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
+                        <?php else: ?>
+                          <?php print $gallery_item['image']; ?>
+                        <?php endif; ?>
                       </div>
                       <?php endif; ?>
 
@@ -201,7 +205,11 @@
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
                         <div class="__media">
-                          <?php print $gallery_item['image']; ?>
+                          <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
+                            <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
+                          <?php else: ?>
+                            <?php print $gallery_item['image']; ?>
+                          <?php endif; ?>
                         </div>
                       <?php endif; ?>
                       <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
