@@ -34,6 +34,15 @@
 }
 
 
+// @TODO: Temporary Styles until the Modals are refactored (2014.06.24)
+.modal {
+  .sources {
+    padding-bottom: 1rem;
+    padding-top: 0;
+  }
+}
+
+
 // @TODO: Temporary Styles until Campaign markup is refactored to use Container Module:
 .sources-wrapper {
 
