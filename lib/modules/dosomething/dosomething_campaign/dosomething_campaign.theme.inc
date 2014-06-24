@@ -382,6 +382,7 @@ function dosomething_campaign_preprocess_reportback_gallery(&$vars, $style = '30
   // Loop through gallery_vars to only output what we need for theming:
   foreach ($items as $delta => $item) {
     $vars['reportback_gallery'][$delta]['image'] = $item['image'];
+    $vars['reportback_gallery'][$delta]['order_class'] = dosomething_helpers_get_gallery_item_order_class($delta);
     if (isset($item['caption'])) {
       $vars['reportback_gallery'][$delta]['caption'] = $item['caption']['safe_value'];
     }

@@ -119,7 +119,7 @@
           <ul class="gallery -triad">
             <?php foreach ($reportback_gallery as $key => $reportback_gallery_item) :?>
 
-              <li>
+              <li class="<?php print $reportback_gallery_item['order_class']; ?>">
                 <div class="tile tile--figure">
                   <?php if (isset($reportback_gallery_item['image'])): ?>
                     <?php print $reportback_gallery_item['image']; ?>
@@ -178,7 +178,7 @@
               <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
 
                 <?php if ($klout_gallery_item['type'] === 'mention') : ?>
-                  <li>
+                  <li class="<?php print $gallery_item['order_class']; ?>">
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
                       <div class="__media">
@@ -197,7 +197,7 @@
                     </div>
                   </li>
                 <?php else: ?>
-                  <li>
+                  <li class="<?php print $gallery_item['order_class']; ?>">
                     <div class="tile tile--figure">
                       <?php if (isset($gallery_item['image'])): ?>
                         <div class="__media">
