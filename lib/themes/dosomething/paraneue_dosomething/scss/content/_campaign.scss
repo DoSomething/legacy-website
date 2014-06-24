@@ -168,8 +168,8 @@
     }
   }
 
+  // @TODO: find a better way to address the variations in gray; sass lists? (2014.06.24)
   .disclaimer {
-
     p, a {
       color: darken($med-gray, 10%);
     }
