@@ -30,15 +30,20 @@
 <script id="modal-facts" type="text/cached-modal">
   <a href="#" class="js-close-modal modal-close-button white">×</a>
   <h2 class="banner">Facts</h2>
-  <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
-    <div class="fact-more"><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></div>
-  <?php endforeach; ?>
-  Sources:
   <ul>
-  <?php foreach ($modals['more_facts']['sources'] as $key => $source): ?>
-    <li class="legal"><sup><?php print ($key + 1); ?></sup><?php print $source; ?></li>
+  <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
+    <li><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></li>
   <?php endforeach; ?>
   </ul>
+
+  <section class="sources">
+    <h3 class="__title js-toggle-sources">Sources</h3>
+    <ul class="__body legal">
+    <?php foreach ($modals['more_facts']['sources'] as $key => $source): ?>
+      <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+    <?php endforeach; ?>
+    </ul>
+  </section>
   <a href="#" class="js-close-modal">Back to main page</a>
 </script>
 <?php endif; ?>
