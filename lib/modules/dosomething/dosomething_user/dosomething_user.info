@@ -95,6 +95,7 @@ features[user_role][] = communications team
 features[user_role][] = editor
 features[user_role][] = member support
 features[user_role][] = org friend
+features[variable][] = pathauto_user_pattern
 features[variable][] = user_admin_role
 features[variable][] = user_email_verification
 features[variable][] = user_mail_cancel_confirm_notify
@@ -108,4 +109,3 @@ features[variable][] = user_register
 features[views_view][] = content_search
 features[views_view][] = user_search
 files[] = dosomething_user.test
-
