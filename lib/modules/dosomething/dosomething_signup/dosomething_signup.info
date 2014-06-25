@@ -11,6 +11,5 @@ features[features_api][] = api:2
 features[user_permission][] = administer third party communication
 features[user_permission][] = view any signup
 features[views_view][] = node_signups
-features[views_view][] = user_signups
 files[] = dosomething_signup.test
 files[] = includes/dosomething_signup.inc
