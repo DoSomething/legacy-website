@@ -898,18 +898,29 @@ function dosomething_reportback_get_total_campaign_reportbacks($nid) {
 }
 
 /**
- * Get the total quanity from the reportbacks for a camapgin.
+ * Get the total quantity from the reportbacks for a campaign.
  *
  * @param int $nid
  *   A campaign node id.
+ * @param bool $filter_flagged
+ *   Whether or not to exclude flagged reportback sums.
+ *
  * @return int $result
- *  The sum of all values in the `quantity` section from the reportback on a camapgin.
+ *  The sum of all values in the `quantity` section from the reportback on a campaign.
  *
  */
-function dosomething_reportback_get_total_campaign_reportback_sums($nid) {
+function dosomething_reportback_get_total_campaign_reportback_sums($nid, $filter_flagged = TRUE) {
   $query = db_select('dosomething_reportback', 'rb')
     ->fields('rb', array('quantity'))
     ->condition('nid', $nid);
+
+  if ($filter_flagged) {
+    // Find reportback rbid's that have been flagged for given $nid.
+    $flagged = dosomething_reportback_get_flagged_rbids($nid);
+    // Filter them out.
+    $query->condition('rbid', $flagged, 'NOT IN');
+  }
+
   $query->addExpression('SUM(quantity)', 'quantity');
   $result = $query->execute()->fetchAll();
 
