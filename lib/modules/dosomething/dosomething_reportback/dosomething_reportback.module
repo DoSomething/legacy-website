@@ -917,6 +917,25 @@ function dosomething_reportback_get_total_campaign_reportback_sums($nid) {
 }
 
 /**
+ * Returns array of Reportback rbid's which have been flagged.
+ *
+ * @param int $nid
+ *   Node $nid.
+ *
+ * @return array
+ */
+function dosomething_reportback_get_flagged_rbids($nid) {
+  $query = db_select('flagging', 'f');
+  $query->join('dosomething_reportback', 'rb', 'rb.rbid = f.entity_id');
+  $query->fields('f', array('entity_id'));
+  // Filter flagging records for reportbacks only.
+  $query->condition('entity_type', 'reportback');
+  // Filter for the given $nid.
+  $query->condition('rb.nid', $nid);
+  return $query->execute()->fetchCol();
+}
+
+/**
  * Return the reportback noun & verb for a campaign.
  *
  * @param int $nid
