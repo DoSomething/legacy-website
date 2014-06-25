@@ -6,6 +6,6 @@ when production
   server 'deploy.international.dosomething.org', user: 'dosomething', roles: %w{app}
 
 when qa
-  role :app, %w{dosomething@10.241.0.33}
-  server '10.241.0.33', user: 'dosomething', roles: %w{app}
+  role :app, %w{dosomething@intl-qa}
+  server 'intl-qa', user: 'dosomething', roles: %w{app}
 end

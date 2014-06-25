@@ -1,6 +1,6 @@
 set :deploy_to, "/var/www/beta.dosomething.org"
 
-role :app, %w{dosomething@10.241.0.22}
+role :app, %w{dosomething@beta.staging.test}
 
-server '10.241.0.22', user: 'dosomething', roles: %w{app}
+server 'beta.staging.test', user: 'dosomething', roles: %w{app}
 
