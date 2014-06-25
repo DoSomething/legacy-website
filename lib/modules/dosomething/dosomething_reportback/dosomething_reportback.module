@@ -881,38 +881,23 @@ function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_
   return $vars;
 }
 
-/*
- * Get the total number of campaign reportbacks.
- *
- * @param int $nid
- *   A campaign node id.
- * @return int $result
- *   The number of users who reportedback on a camapgin.
- */
-function dosomething_reportback_get_total_campaign_reportbacks($nid) {
-  $result = db_select('dosomething_reportback', 'rb')
-    ->fields('rb', array('rbid'))
-    ->condition('nid', $nid)
-    ->execute();
-  return $result->rowCount();
-}
-
 /**
- * Get the total quantity from the reportbacks for a campaign.
+ * Returns reportback total for a given node $nid.
  *
  * @param int $nid
- *   A campaign node id.
+ *   A node nid.
+ * @param string $type
+ *   Type of total to return.  Accepted values: 'quantity' or 'count'.
  * @param bool $filter_flagged
- *   Whether or not to exclude flagged reportback sums.
+ *   Whether or not to exclude flagged reportbacks.
  *
  * @return int $result
- *  The sum of all values in the `quantity` section from the reportback on a campaign.
- *
+ *  Either the total reportback count, or the sum of all reportback quantity values.
  */
-function dosomething_reportback_get_total_campaign_reportback_sums($nid, $filter_flagged = TRUE) {
-  $query = db_select('dosomething_reportback', 'rb')
-    ->fields('rb', array('quantity'))
-    ->condition('nid', $nid);
+function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quantity', $filter_flagged = TRUE) {
+
+  // Select all reportbacks for given $nid.
+  $query = db_select('dosomething_reportback', 'rb')->condition('nid', $nid);
 
   if ($filter_flagged) {
     // Find reportback rbid's that have been flagged for given $nid.
@@ -921,10 +906,16 @@ function dosomething_reportback_get_total_campaign_reportback_sums($nid, $filter
     $query->condition('rbid', $flagged, 'NOT IN');
   }
 
-  $query->addExpression('SUM(quantity)', 'quantity');
-  $result = $query->execute()->fetchAll();
-
-  return $result[0]->quantity;
+  if ($type == 'quantity') {
+    $query->fields('rb', array('quantity'));
+    $query->addExpression('SUM(quantity)', 'quantity');
+    $result = $query->execute()->fetchAll();
+    return $result[0]->quantity;
+  }
+  elseif ($type == 'count') {
+    $query->fields('rb', array('rbid'));
+    return $query->execute()->rowCount();
+  }
 }
 
 /**
