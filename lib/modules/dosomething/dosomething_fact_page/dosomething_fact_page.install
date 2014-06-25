@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_fact_page.module.
+ */
+
+/**
+ * Removes field_additional_text from Fact Page content type.
+ */
+function dosomething_fact_page_update_7001(&$sandbox) {
+  if ($instance = field_info_instance('node', 'field_additional_text', 'fact_page')) {
+    field_delete_instance($instance);
+  }
+}
