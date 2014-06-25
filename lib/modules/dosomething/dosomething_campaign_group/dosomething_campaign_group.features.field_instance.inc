@@ -254,7 +254,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'When adding campaigns, make sure to add either 4, 5, 6, 9, 10, or 13 campaigns.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1250,6 +1250,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
   t('Video');
+  t('When adding campaigns, make sure to add either 4, 5, 6, 9, 10, or 13 campaigns.');
 
   return $field_instances;
 }
