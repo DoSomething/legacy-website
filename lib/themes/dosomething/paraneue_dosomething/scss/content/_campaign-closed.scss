@@ -6,7 +6,7 @@
   [role="banner"] {
     &.-hero {
       .__subtitle {
-        margin-bottom: 1.5rem;
+        margin-bottom: 27px;
         margin-top: 0;
       }
     }
@@ -17,7 +17,7 @@
   // total quantity donated
   // @TODO: move to neue
   .statistic {
-    padding: 0.5rem 0;
+    padding: 9px 0;
     position: relative;
     text-align: center;
 
@@ -45,14 +45,14 @@
     }
 
     @include media($tablet) {
-      margin-top: 1rem;
+      margin-top: 18px;
 
       .statistic__body {
-        padding: 0 2rem;
+        padding: 0 36px;
       }
 
       strong {
-        margin-top: 1.4rem;
+        margin-top: 25px;
       }
 
       &.-columned {
@@ -70,13 +70,13 @@
   }
 
   .statistic + .statistic {
-    margin-top: 1.7rem;
-    padding-top: 2rem;
+    margin-top: 30px;
+    padding-top: 36px;
 
     @include media($tablet) {
       border-left: 2px solid #989898;
-      margin-top: 1rem;
-      padding-top: 0.5rem;
+      margin-top: 18px;
+      padding-top: 9px;
     }
 
     &:before {
@@ -105,19 +105,19 @@
   }
 
   .intro {
-    margin-bottom: 0.5rem;
-    margin-top: 2.5rem;
+    margin-bottom: 9px;
+    margin-top: 45px;
   }
 
   // Items following a gallery
 
 
   h3 + .gallery {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 
   .-psa {
-    margin-bottom: 3rem;
+    margin-bottom: 54px;
   }
 
   // This introduces a new gallery pattern with floated image
@@ -173,7 +173,7 @@
           }
         }
       }
-    }    
+    }
 
     &.-mention + h3 {
       margin-top: 0;
@@ -185,7 +185,7 @@
         // Added wrapper to force minimum height so content below lines up on each <li>
         // @TODO: update pattern in neue
         .__media {
-          margin-bottom: 1rem;
+          margin-bottom: 18px;
           min-height: 75px;
 
           img {
@@ -198,7 +198,7 @@
   }
 
   div + .gallery {
-    margin-top: 2.5rem;
+    margin-top: 45px;
   }
 
   // Winners
@@ -209,7 +209,7 @@
 
     h4 {
       color: #444;
-      margin-bottom: 1rem;
+      margin-bottom: 18px;
       text-transform: capitalize;
     }
   }

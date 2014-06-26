@@ -47,10 +47,6 @@
   <?php print $page_top; ?>
   <?php print $page; ?>
 
-  <!--[if lte IE 8]>
-      <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/REM-unit-polyfill/js/rem.min.js"></script>
-  <![endif]-->
-
   <script type="text/javascript" src="<?php print DS_JAVASCRIPT_PATH; ?>"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>

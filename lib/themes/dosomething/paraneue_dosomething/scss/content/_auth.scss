@@ -1,7 +1,7 @@
 .auth--login {
   .form-actions {
     text-align: center;
-    margin: 1rem 0;
+    margin: 18px 0;
   }
 }
 
@@ -12,14 +12,14 @@
 
   .form-actions {
     text-align: center;
-    margin: 1rem 0;
+    margin: 18px 0;
   }
 
   .field-name-field-first-name {
     @include media($tablet) {
       float: left;
       width: 50%;
-      padding-right: 0.5rem;
+      padding-right: 9px;
       @include box-sizing(border-box);
     }
   }
@@ -28,7 +28,7 @@
     @include media($tablet) {
       float: left;
       width: 50%;
-      padding-left: 0.5rem;
+      padding-left: 9px;
       @include box-sizing(border-box);
     }
   }
@@ -36,15 +36,15 @@
 
 .auth--header {
   text-align: center;
-  padding: 0 1rem;
+  padding: 0 18px;
   color: $purple;
 
   @include media($tablet) {
-    padding: 0 3rem;
+    padding: 0 54px;
   }
 }
 
 .auth--toggle-link {
   text-align: center;
-  margin: 1rem 0;
+  margin: 18px 0;
 }

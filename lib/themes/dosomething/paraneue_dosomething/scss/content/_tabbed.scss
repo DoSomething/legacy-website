@@ -12,7 +12,7 @@
   padding: 0;
 
   li {
-    margin-top: 1.5rem;
+    margin-top: 27px;
 
     &:first-child {
       margin-top: 0;
@@ -23,7 +23,7 @@
 .tab {
   .__title {
     font-weight: $weight-bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 9px;
   }
 }
 
@@ -78,7 +78,7 @@
   .tabs__body {
     li {
       margin-top: 0;
-      padding: 1rem;
+      padding: 18px;
     }
   }
 

@@ -7,14 +7,14 @@
   @include row;
   @include header-gradient;
   background-size: cover;
-  padding: 5.5rem 0 2rem;
+  padding: 100px 0 36px;
 
   @include media($tablet) {
-    padding-top: 7rem;
+    padding-top: 126px;
   }
 
   .header {
-    margin-bottom: 1rem;
+    margin-bottom: 18px;
     @include row;
     // TODO: Possibly rethink the mobile grid to allow for thinner gutters.
     @include span-columns(7);
@@ -31,27 +31,27 @@
       font-size: $font-larger;
       font-weight: $weight-bold;
       line-height: 1.1;
-      margin: 1.5rem 0 0.5rem;
+      margin: 27px 0 9px;
       text-align: center;
 
       @include visually-hidden();
 
       @include media($tablet) {
         @include visually-restored();
-        margin: 1.5rem 0;
+        margin: 27px 0;
       }
 
       @include media($desktop) {
-        font-size: 3rem;
+        font-size: 54px;
       }
     }
 
     .subtitle {
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 27px;
       font-weight: normal;
       line-height: 1.2;
-      margin: 0 0 0.6rem;
+      margin: 0 0 10px;
       text-align: center;
 
       @include media($tablet) {
@@ -68,7 +68,7 @@
   background: #fff;
   text-align: center;
   overflow: hidden;
-  padding-top: 2rem;
+  padding-top: 36px;
 
   @include media($tablet) {
     @include span-columns(12);
@@ -86,7 +86,7 @@
     background-size: 175px 160px;
     width: 50px;
     height: 35px;
-    margin: 0 1rem;
+    margin: 0 18px;
 
     @include media($tablet) {
       background-size: 350px 320px;
