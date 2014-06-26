@@ -1,21 +1,6 @@
 <section class="mcc--googleform">
+  
     <div class="ss-form-container">
-      <div class="ss-top-of-page">
-        <div class="ss-form-heading">
-          <div class="ss-form-desc ss-no-ignore-whitespace">
-            <p>Here’s your chance to create a challenge for DoSomething.org’s The Hunt 2014! Your idea should be unique, accessible to young people around the country, and make a tangible impact. Submit this form by <strong>Friday, June 20</strong>.</p>
-            <div class="info-list">
-              <p>Some things to remember:</p>
-              <ul>
-                <li>Read the <a target="_blank" href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9UHZGY1F3NnZ3MkVvR2h2OFhQek5RRnlRNXo4/edit">submission rules</a>.</li>
-                <li>All fields are required.</li>
-                <li>Questions? Email <a href="mailto:hunt@dosomething.org">hunt@dosomething.org</a></li>
-              </ul>
-            </div>
-          </div>
-          <hr class="ss-email-break" style="display:none;" />
-        </div>
-      </div>
 
       <script type="text/javascript">
         var submitted=false;

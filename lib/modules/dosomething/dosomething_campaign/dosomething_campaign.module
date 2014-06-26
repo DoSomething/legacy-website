@@ -90,13 +90,6 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
     'file' => 'dosomething_campaign.pages.inc',
   );
-  // Submit a campaign idea page.
-  $items['volunteer/hunt/campaign-form'] = array(
-    'title' => t('The Hunt: Create A Challenge'),
-    'page callback' => 'dosomething_campaign_submit_idea_page',
-    'access callback' => TRUE,
-    'file' => 'dosomething_campaign.pages.inc',
-  );
   return $items;
 }
 
@@ -107,6 +100,11 @@ function dosomething_campaign_block_info() {
   $blocks = array();
   $blocks['scholarship_list'] = array(
     'info' => t('DS Scholarships'),
+    //@todo: Remove and set to DRUPAL_CACHE_GLOBAL when done testing.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['submit_campaign_idea'] = array(
+    'info' => t('DS Submit Campaign Idea'),
     //@todo: Remove and set to DRUPAL_CACHE_GLOBAL when done testing.
     'cache' => DRUPAL_NO_CACHE,
   );
@@ -122,6 +120,9 @@ function dosomething_campaign_block_view($delta = '') {
   switch ($delta) {
     case 'scholarship_list':
       $block['content']['#markup'] = dosomething_campaign_scholarship_block_content();
+      break;
+    case 'submit_campaign_idea':
+      $block['content']['#markup'] = theme('submit_campaign_idea');
       break;
   }
   return $block;
