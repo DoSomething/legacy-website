@@ -119,7 +119,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
      */
 
     $header_vars = array(
-      'title' => drupal_get_title(),
+      'title' => $vars['title'],
     );
 
     // If there's a subtitle field on this node, send it to the header
