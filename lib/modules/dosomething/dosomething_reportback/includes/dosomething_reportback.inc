@@ -58,14 +58,25 @@ class ReportbackEntity extends Entity {
   }
 
   /**
-   * Return all data from dosomething_reportback_files table for this entity.
+   * Return all data for reportback files and their promoted flags (if they exist).
    */
   public function getReportbackFileData() {
-    return db_select($this->files_table, 'f')
+    $file_data = array();
+
+    // Query for all reportback file records.
+    $result = db_select($this->files_table, 'f')
       ->fields('f')
       ->condition('rbid', $this->rbid)
       ->execute()
       ->fetchAll();
+
+    // Loop through $result to add any promoted flaggings:
+    foreach ($result as $delta => $record) {
+      $file_data[$delta] = $record;
+      $file_data[$delta]->promoted = $this->getPromotedFlagging($record->fid);
+    }
+
+    return $file_data;
   }
 
   /**
@@ -122,6 +133,27 @@ class ReportbackEntity extends Entity {
       ->fetchCol();
     if ($result) {
       return $result[0];
+    }
+    return NULL;
+  }
+
+  /**
+   * Returns reportback's "flagged_reportback" Flagging entity if exists.
+   */
+  public function getFlaggedFlagging() {
+    // If a flagged_reportback flagging entity exists for this reportback:
+    if ($result = flag_get_entity_flags('reportback', $this->rbid, 'flagged_reportback')) {
+      return flagging_load($result[0]->flagging_id);
+    }
+    return NULL;
+  }
+
+  /**
+   * Returns "promoted" Flagging entity for given $fid if exists.
+   */
+  public function getPromotedFlagging($fid) {
+    if ($result = flag_get_entity_flags('file', $fid, 'promoted')) {
+      return flagging_load($result[0]->flagging_id);
     }
     return NULL;
   }
@@ -252,6 +284,15 @@ class ReportbackEntityController extends EntityAPIController {
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
+    // If this reportback has been flagged:
+    if ($flagging = $entity->getFlaggedFlagging()) {
+      $wrapper = entity_metadata_wrapper('flagging', $flagging);
+      $flagged_time = format_date($flagging->timestamp, 'short');
+      $flagged_reason = implode(', ', $wrapper->field_flagged_reason->value());
+      $flagged_copy = 'Flagged on ' . $flagged_time . ' as ' . $flagged_reason . '.';
+      drupal_set_message($flagged_copy, 'warning');
+    }
+
     // Load user to get username.
     $account = user_load($entity->uid);
     $build['username'] = array(
@@ -288,14 +329,21 @@ class ReportbackEntityController extends EntityAPIController {
     );
     // Output Reportback Files.
     $rows = array();
-    $header = array('Fid', 'Image', 'IP', 'Created');
+    $header = array('Fid', 'Image', 'IP', 'Created', NULL);
     foreach ($entity->getReportbackFileData() as $delta => $record) {
       $fid = $record->fid;
       $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
       $file = file_load($fid);
       $file_link = l($fid, 'file/' . $fid);
       $created = format_date($file->timestamp, 'short');
-      $rows[] = array($file_link, $image, $record->remote_addr, $created);
+      $promoted = NULL;
+      // If file has been promoted:
+      if ($flagging = $record->promoted) {
+        $caption = $flagging->field_image_description[LANGUAGE_NONE][0]['safe_value'];
+        $promoted = "Promoted on " . format_date($flagging->timestamp, 'short');
+        $promoted .= $caption;
+      }
+      $rows[] = array($file_link, $image, $record->remote_addr, $created, $promoted);
     }
     $build['reportback_files'] = array(
       '#theme' => 'table',
