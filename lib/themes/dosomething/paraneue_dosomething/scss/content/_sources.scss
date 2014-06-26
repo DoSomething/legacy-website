@@ -1,6 +1,6 @@
 .sources {
   clear: both;
-  padding-top: 2rem;
+  padding-top: 36px;
   word-wrap: break-word;
 
   ul {
@@ -9,7 +9,7 @@
     padding: 0;
 
     li + li {
-      margin-top: 0.5rem;
+      margin-top: 9px;
     }
   }
 
@@ -28,7 +28,7 @@
 
 
   .__body {
-    padding-top: 1rem;
+    padding-top: 18px;
   }
 
 }
@@ -37,7 +37,7 @@
 // @TODO: Temporary Styles until the Modals are refactored (2014.06.24)
 .modal {
   .sources {
-    padding-bottom: 1rem;
+    padding-bottom: 18px;
     padding-top: 0;
   }
 }
@@ -47,11 +47,11 @@
 .sources-wrapper {
 
   @include media($tablet) {
-    margin-bottom: 1rem;
+    margin-bottom: 18px;
   }
 
   .sources {
-    padding: 0 0 1.5rem;
+    padding: 0 0 27px;
 
     @include media($tablet) {
       padding-bottom: 0;

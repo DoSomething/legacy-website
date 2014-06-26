@@ -5,8 +5,8 @@
 // Quick and dirty fix for "Remove Signup" form being hidden
 // behind nav. @TODO Remove me when we fix "non-themed" template
 #dosomething-signup-node-unsignup-form {
-  padding-top: 8rem;
-  padding-bottom: 2rem;
+  padding-top: 144px;
+  padding-bottom: 36px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -41,7 +41,7 @@
 .admin--tabs .tabs {
   background: $light-gray;
   background-image: image-url("admin-panel.png");
-  padding: 1rem 0;
+  padding: 18px 0;
 }
 
 // @TODO: Remove date.css to override this more cleanly

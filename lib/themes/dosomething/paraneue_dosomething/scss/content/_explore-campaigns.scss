@@ -8,7 +8,7 @@
 
   // Set gutters on mobile
   .content-wrapper {
-    padding: 0 1rem;
+    padding: 0 18px;
   }
 
   // @TODO: Default content page headers -- same as campaign template -- abstract this
@@ -35,11 +35,11 @@
   }
 
   .view-content {
-    margin: 2rem auto;
+    margin: 36px auto;
 
     .search-result {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 54px;
 
       @include media($tablet) {
         // @TODO: Something's messed up here

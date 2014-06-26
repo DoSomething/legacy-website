@@ -17,13 +17,13 @@
     }
 
     ul {
-      margin-bottom: 1.5rem;
+      margin-bottom: 27px;
     }
   }
 
   .ss-form-question {
     clear: both;
-    margin-bottom: 1rem;
+    margin-bottom: 18px;
     @include clearfix;
 
     &.-compact {
@@ -33,11 +33,11 @@
         width: 50%;
 
         &.-alpha {
-          padding-right: 0.5rem;
+          padding-right: 9px;
         }
 
         &.-beta {
-          padding-left: 0.5rem;
+          padding-left: 9px;
         }
       }
     }
@@ -51,7 +51,7 @@
   }
 
   .ss-form-desc {
-    margin-bottom: 2rem;
+    margin-bottom: 36px;
   }
 
   .required-message {
@@ -71,11 +71,11 @@
   }
 
   .ss-choice-item label {
-    margin: 0.25em 0;
+    margin: 4px 0;
   }
 
   .ss-q-other-container {
-    padding-left: 1.25rem;
+    padding-left: 22px;
 
     input {
       max-width: 400px;
@@ -94,8 +94,8 @@
 
   .ss-secondary-text {
     color: $med-gray;
-    font-size: 0.9rem;
-    padding-bottom: 1rem;
+    font-size: 16px;
+    padding-bottom: 18px;
   }
 
   // These should be hidden since we're not running Google's JS
@@ -104,7 +104,7 @@
   }
 
   .ss-navigate {
-    margin-bottom: 2rem;
+    margin-bottom: 36px;
 
     table {
       margin: 0 auto;

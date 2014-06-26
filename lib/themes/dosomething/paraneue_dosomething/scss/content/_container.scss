@@ -6,7 +6,7 @@
   }
 
   > .wrapper {
-    padding: 1rem;
+    padding: 18px;
     position: relative;
     @include clearfix();
 
@@ -14,11 +14,11 @@
       @include span-columns(12);
       @include shift(2);
       float: none;
-      padding: 1rem 0;
+      padding: 18px 0;
     }
 
     @include media($desktop) {
-      padding: 1.5rem 0;
+      padding: 27px 0;
     }
   }
 
@@ -26,20 +26,20 @@
   // but makes dictating extra padding on first item easy @_@
   &:first-of-type {
     > .wrapper {
-      padding-top: 2rem;
+      padding-top: 36px;
     }
 
     // If this is the first .container but has a header that's a .banner, then don't add the extra padding.
     .container__title + .wrapper {
-      padding-top: 1.5rem;
+      padding-top: 27px;
     }
   }
 
   > .gallery {
-    padding: 1rem 0;
+    padding: 18px 0;
 
     @include media($desktop) {
-      padding: 1.5rem 0;
+      padding: 27px 0;
     }
   }
 
@@ -54,7 +54,7 @@
   }
 
   .-columned + .-columned {
-    margin-top: 1rem;
+    margin-top: 18px;
 
     @include media($tablet) {
       margin-top: 0;
@@ -70,11 +70,11 @@
 
   p + .__row,
   .__row + .__row {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 
   p + .tabbed {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 }
 
@@ -82,14 +82,14 @@
 // Styles for Container Titles.
 .container__title {
   line-height: 1.1;
-  margin: 0 0 1rem;  // @TODO: remove margins. Should be done globally!
+  margin: 0 0 18px;  // @TODO: remove margins. Should be done globally!
 
   &.banner {
     margin-bottom: 0;
-    padding: .75rem 1rem;
+    padding: 14px 18px;
 
     @include media($tablet) {
-      padding: .75rem 0;
+      padding: 14px 0;
     }
 
     > span {
@@ -103,7 +103,7 @@
   }
 
   @include media($tablet) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 27px;
   }
 }
 
@@ -122,7 +122,7 @@
 
   h3 {
     color: $purple;
-    margin-bottom: 0.5rem;
+    margin-bottom: 9px;
   }
 
   p {
@@ -137,7 +137,7 @@
   // <p> tags following other items.
   p + p,
   ul + p {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 
   ul {
@@ -147,28 +147,28 @@
   // Items following a <p> tag.
   p + ul,
   p + aside {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 
   // Items following a list, <ul> or <ol>
   ul + h3,
   ol + h3 {
-    margin-top: 1.5rem;
+    margin-top: 27px;
   }
 
   p + .btn {
-    margin-top: 0.75rem;
+    margin-top: 14px;
   }
 
   // Form items inside Container Body.
   form {
-    padding-top: 1rem;
+    padding-top: 18px;
     position: relative;
   }
 
   .form-actions {
     clear: both;
-    padding-top: 1rem;
+    padding-top: 18px;
 
     @include media($tablet) {
       text-align: left;
@@ -178,17 +178,17 @@
   .media {
     &.-inline {
       float: none;
-      margin-bottom: 1.5rem;
+      margin-bottom: 27px;
 
       @include media($desktop) {
-        margin-left: 2.5rem;
+        margin-left: 45px;
         float: right;
       }
     }
   }
 
   .polaroid + p {
-    margin-top: 1.5rem;
+    margin-top: 27px;
 
     @include media($tablet) {
       margin-top: 0;
@@ -248,11 +248,11 @@
     background-color: #111;
 
     > .wrapper {
-      padding: 0.5rem 1rem;
+      padding: 9px 18px;
     }
 
     .__tagline {
-      font-size: 0.9rem;
+      font-size: 16px;
       margin: 0;
       text-align: center;
     }
@@ -267,7 +267,7 @@
   .container__body {
 
     p + .tabbed {
-      margin-top: 0.5rem;
+      margin-top: 9px;
     }
 
   }

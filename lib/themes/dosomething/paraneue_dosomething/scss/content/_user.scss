@@ -39,7 +39,7 @@
   }
 
   #user-profile-form {
-    padding: 7rem 0 2rem;
+    padding: 126px 0 36px;
 
     @include span-columns(7);
     @include shift(0.5);
@@ -85,7 +85,7 @@
     }
 
     > .wrapper {
-      padding: 1.5rem 1rem;
+      padding: 27px 18px;
 
       @include media($tablet) {
         padding-left: 0;
@@ -120,7 +120,7 @@
   }
 
   dl {
-    padding-right: 1rem;
+    padding-right: 18px;
 
     @include clearfix();
 
@@ -129,18 +129,18 @@
       @include omega();
     }
 
-    margin-bottom: 1rem;
+    margin-bottom: 18px;
   }
 
   dt, dd {
     float: left;
-    margin-bottom: 0.5rem;
+    margin-bottom: 9px;
   }
 
   dt {
     clear: both;
     font-weight: $weight-bold;
-    padding-right: 0.5rem;
+    padding-right: 9px;
   }
 
   .btn {

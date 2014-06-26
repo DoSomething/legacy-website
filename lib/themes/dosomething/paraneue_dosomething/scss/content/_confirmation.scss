@@ -18,16 +18,16 @@ body.page-node-confirmation {
 
   .header-wrapper {
     @include header-gradient();
-    padding: 8rem 1rem 0;
+    padding: 144px 18px 0;
     @include row;
     @include media($tablet) {
-      padding: 7rem 0 0;
+      padding: 126px 0 0;
     }
   }
 
   // Set gutters on mobile
   .cta-wrapper, .gallery-wrapper {
-    padding: 1rem;
+    padding: 18px;
     @include row;
     @include media($tablet) {
       padding: 0;

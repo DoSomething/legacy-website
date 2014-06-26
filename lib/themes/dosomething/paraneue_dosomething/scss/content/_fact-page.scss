@@ -15,12 +15,21 @@
 // Styles for Facts Listing page
 .container--facts-list {
   h3 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 9px;
   }
 }
 
 .fact-page {
   background: #fff;
+
+  // @TODO: Temporary until refactor! (06.20.2014)
+  .cta {
+    &.-simple {
+      background-color: transparent;
+      border: 0 none;
+      margin-top: 27px;
+    }
+  }
 
   h2, h3, h4 {
     color: $purple;
@@ -32,11 +41,11 @@
   }
 
   li {
-    margin-bottom: 1.5rem;
+    margin-bottom: 27px;
 
     // When number of facts > 5, call to action is placed within the 5th <li>
     .cta {
-      margin-top: 1.5rem;
+      margin-top: 27px;
       padding-left: 0;
       padding-right: 0;
     }
@@ -44,7 +53,7 @@
 
   // Set gutters on mobile
   .intro-wrapper, .facts-wrapper, .sources-wrapper {
-    padding: 1rem;
+    padding: 18px;
 
     @include row;
 
@@ -67,7 +76,7 @@
 
   .facts-wrapper {
     @include media($tablet) {
-      margin-top: 1.5rem;
+      margin-top: 27px;
     }
   }
 
@@ -75,7 +84,7 @@
     .__title {
       @include media($tablet) {
         font-size: $font-largest;  // Slightly smaller font-size, since 11 Facts titles are title-case.
-        margin: 1.5rem 0;
+        margin: 27px 0;
       }
     }
   }
@@ -93,6 +102,6 @@
   }
 
   .sources {
-    margin-bottom: 1rem;
+    margin-bottom: 18px;
   }
 }
