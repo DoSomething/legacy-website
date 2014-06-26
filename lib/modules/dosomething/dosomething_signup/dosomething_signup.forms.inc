@@ -6,6 +6,49 @@
  */
 
 /**
+ * Form constructor for user signup form.
+ *
+ * Displayed for an authenticated user to signup for a node.
+ *
+ * @param int $nid
+ *   The node nid to signup for.
+ * @param string $label
+ *   The label to display on the form submit button.
+ */
+function dosomething_signup_form($form, &$form_state, $nid, $label) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $nid,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => $label,
+    '#attributes' => array(
+      'class' => array(
+        'btn',
+        'medium',
+      ),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Form submission handler for dosomething_signup_form().
+ *
+ * @see dosomething_signup_form()
+ */
+function dosomething_signup_form_submit($form, &$form_state) {
+  // Shouldn't be able to submit form as anonymous user, but check.
+  if (!user_is_logged_in()) {
+    drupal_set_message("Please sign in first.");
+    return;
+  }
+  $nid = $form_state['values']['nid'];
+  dosomething_signup_user_signup($nid);
+}
+
+/**
  * Form constructor for user presignup form.
  *
  * @param int $nid
@@ -247,3 +290,43 @@ function dosomething_signup_friends_form_submit($form, &$form_state) {
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $form_state['redirect'] = $confirmation_path;
 }
+
+/**
+ * Form constructor for a node unsignup form.
+ *
+ * @param int $nid
+ *   The node nid to remove signup from.
+ *
+ * @ingroup forms
+ */
+function dosomething_signup_node_unsignup_form($form, &$form_state, $node) {
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $node->nid,
+  );
+  $form['warning'] = array(
+    '#markup' => t("Are you sure you want to remove this signup?  This cannot be undone."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Form submit handler for dosomething_signup_node_unsignup_form().
+ */
+function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  if (dosomething_signup_delete_signup($nid)) {
+    drupal_set_message("Signup removed.");
+    $form_state['redirect'] = 'node/' . $nid;
+    return;
+  }
+  drupal_set_message("There was an error with your request.");
+}
+
