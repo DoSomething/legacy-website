@@ -54,6 +54,22 @@ function dosomething_campaign_load($node) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
   }
+
+  // Fact fields.
+  // Collect multiple fact fields values as fact and sources variables.
+  $fact_fields = array('field_fact_problem', 'field_fact_solution');
+  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+  if (!empty($fact_vars)) {
+    if (isset($fact_vars['facts']['field_fact_problem'])) {
+      $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];
+    }
+    if (isset($fact_vars['facts']['field_fact_solution'])) {
+      $campaign->fact_solution = $fact_vars['facts']['field_fact_solution'];
+    }
+    // Store all sources from fields as a sources array.
+    $campaign->fact_sources  = $fact_vars['sources'];
+  }
+
   return $campaign;
 }
 

@@ -39,9 +39,9 @@
 
         <div class="container__body">
           <div class="-columned">
-            <?php if (isset($fact_problem)): ?>
+            <?php if (isset($campaign->fact_problem)): ?>
             <h3 class="inline--alt-color">The Problem</h3>
-            <p><?php print $fact_problem['fact']; ?><sup><?php print $fact_problem['footnotes']; ?></sup></p>
+            <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
             <?php endif; ?>
 
             <?php if (isset($psa)): ?>
@@ -80,11 +80,11 @@
         </div>
 
 
-        <?php if (isset($fact_sources)): ?>
+        <?php if (isset($campaign->fact_sources)): ?>
         <section class="sources">
           <h3 class="__title js-toggle-sources">Sources</h3>
           <ul class="__body legal">
-            <?php foreach ($fact_sources as $key => $source): ?>
+            <?php foreach ($campaign->fact_sources as $key => $source): ?>
               <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
             <?php endforeach; ?>
           </ul>

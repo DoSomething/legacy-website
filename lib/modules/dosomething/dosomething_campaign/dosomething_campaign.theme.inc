@@ -12,6 +12,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign') { return; }
 
   $node = menu_get_object();
+  $vars['campaign'] = dosomething_campaign_load($node);
   $wrapper = entity_metadata_wrapper('node', $node);
 
   $scholarship = $wrapper->field_scholarship_amount->value();
@@ -112,19 +113,6 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
  * Preprocesses variables for facts fields.
  */
 function dosomething_campaign_preprocess_facts_vars(&$vars, &$wrapper) {
-  // Collect multiple fact fields values as fact and sources variables.
-  $fact_fields = array('field_fact_problem', 'field_fact_solution');
-  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
-  if (!empty($fact_vars)) {
-    if (isset($fact_vars['facts']['field_fact_problem'])) {
-      $vars['fact_problem'] = $fact_vars['facts']['field_fact_problem'];
-    }
-    if (isset($fact_vars['facts']['field_fact_solution'])) {
-      $vars['fact_solution'] = $fact_vars['facts']['field_fact_solution'];
-    }
-    // Store all sources from fields as a sources array.
-    $vars['fact_sources'] = $fact_vars['sources'];
-  }
   // Check for additional facts in field_facts.
   if ($wrapper->field_facts->count() > 0) {
     $vars['more_facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
