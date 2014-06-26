@@ -56,11 +56,11 @@
           </div>
 
           <div class="-columned -col-last">
-            <?php if (isset($fact_solution) || isset($solution_copy)): ?>
+            <?php if (isset($campaign->fact_solution) || isset($solution_copy)): ?>
                 <h3 class="inline--alt-color">The Solution</h3>
 
-              <?php if (isset($fact_solution)): ?>
-                <p><?php print $fact_solution['fact']; ?><sup><?php print $fact_solution['footnotes']; ?></sup></p>
+              <?php if (isset($campaign->fact_solution)): ?>
+                <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
               <?php elseif (isset($solution_copy)): ?>
                 <?php print $solution_copy['safe_value']; ?>
               <?php endif; ?>

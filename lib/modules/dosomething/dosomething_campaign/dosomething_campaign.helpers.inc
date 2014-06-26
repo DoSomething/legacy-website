@@ -44,18 +44,22 @@ function dosomething_campaign_load($node) {
   foreach ($filtered_text as $property) {
     $field_name = 'field_' . $property;
     if ($value = $wrapper->{$field_name}->value()) {
-      // Store raw input (without markup).
-      $campaign->{$property} = $value['value'];
+      // Store filtered text.
+      $campaign->{$property} = $value['safe_value'];
     }
   }
 
   // Taxonomy fields.
+  $campaign->primary_cause = NULL;
   if ($primary_cause = $wrapper->field_primary_cause->value()) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
   }
 
   // Fact fields.
+  $campaign->fact_problem = NULL;
+  $campaign->fact_solution = NULL;
+  $campaign->fact_sources = NULL;
   // Collect multiple fact fields values as fact and sources variables.
   $fact_fields = array('field_fact_problem', 'field_fact_solution');
   $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
@@ -114,7 +118,7 @@ function dosomething_campaign_get_campaign_status($node) {
   if (!isset($node->field_campaign_status[LANGUAGE_NONE][0]['value'])) {
     return 'active';
   }
-  return $node->field_campaign_type[LANGUAGE_NONE][0]['value'];
+  return $node->field_campaign_status[LANGUAGE_NONE][0]['value'];
 }
 
 /**
