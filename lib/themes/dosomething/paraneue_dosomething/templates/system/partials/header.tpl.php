@@ -3,7 +3,6 @@
 /**
  * Generates site-wide global page nav.
  **/
-
 ?>
 
 <header role="banner" class="-basic<?php if (isset($sponsors)): print ' -sponsored'; endif; ?>">
