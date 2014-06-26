@@ -58,7 +58,7 @@
                 <?php // @TODO: This is a temporary solution and will be updated in the near future (06.20.2014). ?>
                 <?php if ($key === 5): ?>
                   <?php if (isset($call_to_action)): ?>
-                    <div class="cta -simple">
+                    <div class="cta">
                       <div class="wrapper">
                         <h2 class="__message">Tackle a campaign to make the world suck less.</h2>
                         <?php print $cta_link; ?>

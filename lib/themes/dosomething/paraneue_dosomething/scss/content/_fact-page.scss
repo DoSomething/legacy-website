@@ -22,15 +22,6 @@
 .fact-page {
   background: #fff;
 
-  // @TODO: Temporary until refactor! (06.20.2014)
-  .cta {
-    &.-simple {
-      background-color: transparent;
-      border: 0 none;
-      margin-top: 1.5rem;
-    }
-  }
-
   h2, h3, h4 {
     color: $purple;
   }
@@ -42,6 +33,13 @@
 
   li {
     margin-bottom: 1.5rem;
+
+    // When number of facts > 5, call to action is placed within the 5th <li>
+    .cta {
+      margin-top: 1.5rem;
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   // Set gutters on mobile
