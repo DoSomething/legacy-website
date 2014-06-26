@@ -6,10 +6,6 @@
  * - $title: Title for the page (string).
  * - $subtitle: Subtitle for the page (string).
  */
-
-// krumo('spacer');
-// krumo('STATIC NODE TPL');
-// krumo($variables);
 ?>
 
 
