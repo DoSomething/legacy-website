@@ -43,6 +43,43 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     // After build form changes.
     $form['#after_build'][] = 'paraneue_dosomething_login_after_build';
   }
+  // Add some changes for the reset password form.
+  if ( $form_id ==  'user_pass' ) {
+    // After build form changes.
+    $form['#after_build'][] = 'paraneue_dosomething_pass_reset_after_build';
+    $form['#submit'][] = 'paraneue_dosomething_pass_submit';
+   }
+}
+
+/**
+ * Custom afterbuild on password reset form.
+ *
+ * @param array - $form
+ *  A drupal form array.
+ * @param array - $form_state
+ *  A drupal form_state array.
+ *
+ * @return - array - $form
+ *  Modified drupal form.
+ */
+function paraneue_dosomething_pass_reset_after_build($form, &$form_state) {
+  $form['name']['#title'] = 'Email address';
+  return $form;
+}
+
+/**
+ * Custom submit handler on password reset form.
+ *
+ * Sets a message after form submission.
+ *
+ * @param array - $form
+ *  A drupal form array.
+ * @param array - $form_state
+ *  A drupal form_state array.
+ */
+function paraneue_dosomething_pass_submit($form, &$form_state) {
+  $email = $form_state['values']['name'];
+  drupal_set_message(t('An email has been sent to '. $email . ' to reset your password.'));
 }
 
 /**
@@ -65,4 +102,3 @@ function paraneue_dosomething_login_after_build($form, &$form_state) {
 
   return $form;
 }
-
