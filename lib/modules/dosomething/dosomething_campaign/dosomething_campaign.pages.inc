@@ -69,12 +69,3 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     )
   );
 }
-
-/**
- * Page callback for campaigns/hunt/submit.
- *
- * @see dosomething_campaign_menu().
- */
-function dosomething_campaign_submit_idea_page() {
-  return theme('submit_campaign_idea');
-}
