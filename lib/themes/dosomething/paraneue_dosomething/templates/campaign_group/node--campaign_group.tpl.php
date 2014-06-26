@@ -52,7 +52,7 @@
 
 
   <?php if (isset($intro)): ?>
-    <section class="container intro">
+    <section class="container container--intro">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
           <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
@@ -140,7 +140,7 @@
   <?php endif; ?>
 
 
-  <?php if (isset($additional_text)): ?>
+  <?php if (!empty($additional_text)): ?>
   <section class="container additional-text">
     <div class="wrapper">
       <?php if (isset($additional_text_title)): ?>
