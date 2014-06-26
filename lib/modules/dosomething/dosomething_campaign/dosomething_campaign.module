@@ -472,28 +472,6 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
 }
 
 /**
- * Returns a loaded campaign $node's field_campaign_type value.
- *
- * @param object $node
- *   A loaded campaign node.
- *
- * @return mixed
- *   If node type == campaign, returns string value of field_campaign_type.
- *     - Defaults to 'campaign' if value is not set.
- *   Else returns FALSE.
- */
-function dosomething_campaign_get_campaign_type($node) {
-  // Sanity check to make sure this is a campaign.
-  if ($node->type != 'campaign') { return FALSE; }
-
-  // Return campaign by default if no value is set.
-  if (!isset($node->field_campaign_type[LANGUAGE_NONE][0]['value'])) {
-    return 'campaign';
-  }
-  return $node->field_campaign_type[LANGUAGE_NONE][0]['value'];
-}
-
-/**
  * For given campaign $node, determines if the pitch page should be displayed.
  *
  * @todo: Assumes the campaign is in a live state, for now.
