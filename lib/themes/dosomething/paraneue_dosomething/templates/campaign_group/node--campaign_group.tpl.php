@@ -52,7 +52,7 @@
 
 
   <?php if (isset($intro)): ?>
-    <section class="container intro">
+    <section class="container container--intro">
       <div class="wrapper">
         <?php if (isset($intro_title)): ?>
           <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
@@ -140,7 +140,7 @@
   <?php endif; ?>
 
 
-  <?php if (isset($additional_text)): ?>
+  <?php if (!empty($additional_text)): ?>
   <section class="container additional-text">
     <div class="wrapper">
       <?php if (isset($additional_text_title)): ?>
@@ -171,6 +171,7 @@
           <?php if (isset($gallery['title'])): ?>
             <h2 class="container__title inline--alt-color"><?php print $gallery['title']; ?></h2>
           <?php endif; ?>
+
           <ul class="gallery -triad">
             <?php foreach ($gallery['items'] as $gallery_item): ?>
               <li class="<?php print $gallery_item['order_class']; ?>">
@@ -178,6 +179,7 @@
                   <?php if (isset($gallery_item['image'])): ?>
                     <?php print $gallery_item['image']; ?>
                   <?php endif; ?>
+
                   <?php if (isset($gallery_item['image_title'])): ?>
                       <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
                   <?php endif; ?>
@@ -188,6 +190,7 @@
               </li>
             <?php endforeach; ?>
           </ul>
+
         <?php endforeach; ?>
 
       </div>

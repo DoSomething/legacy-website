@@ -46,21 +46,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
-  /**
-   * Header
-   */
-
-  $header_vars = array(
-    'title' => drupal_get_title(),
-  );
-
-  // If there's a subtitle field on this node, send it to the header
-  if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
-    $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
-  }
-
-  $vars['header'] = theme('header', $header_vars);
-
 
   /**
    * Footer
@@ -106,23 +91,43 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   }
 }
 
+
 /**
  * Implements theme_preprocess_node().
  */
-function paraneue_dosomething_preprocess_node(&$variables) {
-  $type = isset($variables['node']->type) ? $variables['node']->type : null;
+function paraneue_dosomething_preprocess_node(&$vars) {
+  $type = isset($vars['node']->type) ? $vars['node']->type : null;
   if ($type == "campaign") {
     // If the campaign requires a signup modal to display:
-    if (isset($variables['node']->required_signup_data_form)) {
+    if (isset($vars['node']->required_signup_data_form)) {
       // Add JS to open the signup data form modal.
       $id = 'modal-signup-data-form';
       $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
       drupal_add_js($js, 'inline');
     }
   }
+
   elseif ($type == "home") {
     // Set these here to remove db calls from tpl files
-    $variables['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
-    $variables['show_sponsors'] = theme_get_setting('show_sponsors');
+    $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
+    $vars['show_sponsors'] = theme_get_setting('show_sponsors');
+  }
+
+  elseif ($type === "static_content" || $type === "fact_page") {
+    /**
+     * Header
+     */
+
+    $header_vars = array(
+      'title' => $vars['title'],
+    );
+
+    // If there's a subtitle field on this node, send it to the header
+    if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
+      $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
+    }
+
+    $vars['header'] = theme('header', $header_vars);
   }
 }
+
