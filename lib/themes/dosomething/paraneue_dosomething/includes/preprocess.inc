@@ -130,6 +130,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
   }
 
   elseif ($type == 'fact_page') {
+    // Return facts as a chunked array to allow cta's to be properly embedded in between
     $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
   }
 }
