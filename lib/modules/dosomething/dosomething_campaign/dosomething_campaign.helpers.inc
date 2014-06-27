@@ -16,10 +16,25 @@
  *   - type (string). 'campaign' | 'sms_game'
  *
  *   - call_to_action (string). Plain text.
+ *   - fact_problem (array)
+ *       - fact (string) HTML.
+ *   - fact_solution (array)
+ *       - fact (string) HTML.
+ *   - fact_sources (array)
+ *        Contains composite sources of fact_problem and fact_solution.
  *   - high_season_end (string). Date string.
  *   - high_season_start (string). Date string.
+ *   - items_needed (string). HTML.
  *   - low_season_end (string). Date string.
  *   - low_season_start (string). Date string.
+ *   - primary_cause (array)
+ *       - tid (int)
+ *       - name (string)
+ *   - promoting_tips (string). HTML.
+ *   - solution_copy (string). HTML.
+ *   - solution_support (string). Plain text.
+ *   - starter_statement (string). HTML.
+ *   - starter_statement_header (string). Plain text.
  *   - time_and_place (string). HTML.
  *   - vips (string). HTML.
  *
@@ -61,6 +76,9 @@ function dosomething_campaign_load($node) {
     if ($value = $wrapper->{$field_name}->value()) {
       // Store filtered text.
       $campaign->{$property} = $value['safe_value'];
+    }
+    else {
+      $campaign->{$property} = NULL;
     }
   }
 

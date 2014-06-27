@@ -306,4 +306,4 @@ function dosomething_mbp_campaign_request($action, $node) {
   $params = dosomething_mbp_get_campaign_request_params($node);
   // Send request.
   dosomething_mbp_request($action, $params);
-} 
+}

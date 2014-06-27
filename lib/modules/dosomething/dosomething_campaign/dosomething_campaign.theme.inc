@@ -84,8 +84,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['issue'] = $wrapper->field_issue->value()->name;
-  $vars['solution_copy'] = $wrapper->field_solution_copy->value();
-  $vars['solution_support'] = $wrapper->field_solution_support->value();
   $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);

@@ -76,17 +76,17 @@
           </div>
 
           <div class="-columned -even -col-last">
-            <?php if (isset($campaign->fact_solution) || isset($solution_copy)): ?>
+            <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
               <h3 class="inline--alt-color">The Solution</h3>
 
               <?php if (isset($campaign->fact_solution)): ?>
                 <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
-              <?php elseif (isset($solution_copy)): ?>
-                <?php print $solution_copy['safe_value']; ?>
+              <?php elseif (isset($campaign->solution_copy)): ?>
+                <?php print $campaign->solution_copy; ?>
               <?php endif; ?>
 
-              <?php if (isset($solution_support)): ?>
-                <p><?php print $solution_support; ?></p>
+              <?php if (isset($campaign->solution_support)): ?>
+                <p><?php print $campaign->solution_support; ?></p>
               <?php endif; ?>
 
             <?php endif; ?>
