@@ -11,6 +11,7 @@
 
 <div class="chrome--wrapper">
   <?php print $variables['navigation']; ?>
+  <?php print $variables['header']; ?>
 
   <main role="main">
     <?php print render($page['content']); ?>
