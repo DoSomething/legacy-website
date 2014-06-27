@@ -684,8 +684,10 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
   if ($filter_flagged) {
     // Find reportback rbid's that have been flagged for given $nid.
     $flagged = dosomething_reportback_get_flagged_rbids($nid);
-    // Filter them out.
-    $query->condition('rbid', $flagged, 'NOT IN');
+    if ($flagged) {
+      // Filter them out.
+      $query->condition('rbid', $flagged, 'NOT IN');
+    }
   }
 
   if ($type == 'quantity') {

@@ -244,8 +244,7 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   if (isset($campaign_nid)) {
     // Get totals & language from the campaign.
     $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
-    // @TODO: fix this
-    // $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
+    $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
     $language = dosomething_reportback_get_noun_and_verb($campaign_nid);
 
     // Add the text to the form.
