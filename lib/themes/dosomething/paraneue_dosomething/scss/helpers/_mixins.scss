@@ -29,15 +29,6 @@
   };
 }
 
-@mixin wrapper--nav-floating {
-  @warn "This old mixin is deprecated!";
-}
-
-@mixin wrapper--nav-white {
-  @warn "This old mixin is deprecated!";
-}
-
-
 // Apply header gradient as a mixin since header styles not abstracted yet.
 // @TODO: May want to unify styles across and use modifier classes.
 @mixin header-gradient() {
