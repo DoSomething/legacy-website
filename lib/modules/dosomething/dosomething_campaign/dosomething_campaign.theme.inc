@@ -20,8 +20,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
   }
 
-  $vars['cta'] = $wrapper->field_call_to_action->value();
-
   // Timing.
   $display_date = $wrapper->field_display_end_date->value();
   // Check if there is a value in the date field.

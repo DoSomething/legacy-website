@@ -7,7 +7,18 @@
 /**
  * Returns a scaled down version of a campaign loaded $node.
  *
- * @return $obj
+ * @return object
+ *   Available properties:
+ *
+ *   - nid: (int)
+ *   - title: (string)
+ *   - status (string). 'active' | 'closed'
+ *   - type (string). 'campaign' | 'sms_game'
+ *
+ *   - call_to_action (string). Plain text.
+ *   - time_and_place (string). HTML.
+ *   - vips (string). HTML.
+ *
  */
 function dosomething_campaign_load($node) {
   if ($node->type != 'campaign') { return FALSE; }

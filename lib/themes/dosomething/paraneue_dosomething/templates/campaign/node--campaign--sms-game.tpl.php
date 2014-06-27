@@ -15,7 +15,7 @@
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
-      <h2 class="__subtitle"><?php print $cta; ?></h2>
+      <h2 class="__subtitle"><?php print $campaign->call_to_action; ?></h2>
 
       <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
 
