@@ -47,9 +47,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
 
-  krumo($vars);
-  krumo($vars['node']);
-
   /**
    * Header
    */
