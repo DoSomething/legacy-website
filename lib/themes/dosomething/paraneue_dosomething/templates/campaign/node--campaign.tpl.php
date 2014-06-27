@@ -3,7 +3,7 @@
  * Returns the HTML for the Campaign Action page.
  *
  * Available Variables
- * - $fact_problem:
+ * - $campaign: A campaign object. @see dosomething_campaign_load()
  * - $end_date: End date for the campaign (string).
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
@@ -15,7 +15,7 @@
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
-      <h2 class="__subtitle"><?php print $cta; ?></h2>
+      <h2 class="__subtitle"><?php print $campaign->call_to_action; ?></h2>
 
       <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
 
@@ -76,17 +76,17 @@
           </div>
 
           <div class="-columned -even -col-last">
-            <?php if (isset($campaign->fact_solution) || isset($solution_copy)): ?>
+            <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
               <h3 class="inline--alt-color">The Solution</h3>
 
               <?php if (isset($campaign->fact_solution)): ?>
                 <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
-              <?php elseif (isset($solution_copy)): ?>
-                <?php print $solution_copy['safe_value']; ?>
+              <?php elseif (isset($campaign->solution_copy)): ?>
+                <?php print $campaign->solution_copy; ?>
               <?php endif; ?>
 
-              <?php if (isset($solution_support)): ?>
-                <p><?php print $solution_support; ?></p>
+              <?php if (isset($campaign->solution_support)): ?>
+                <p><?php print $campaign->solution_support; ?></p>
               <?php endif; ?>
 
             <?php endif; ?>

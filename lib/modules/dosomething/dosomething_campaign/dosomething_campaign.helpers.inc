@@ -7,7 +7,37 @@
 /**
  * Returns a scaled down version of a campaign loaded $node.
  *
- * @return $obj
+ * @return object
+ *   Available properties:
+ *
+ *   - nid: (int)
+ *   - title: (string)
+ *   - status (string). 'active' | 'closed'
+ *   - type (string). 'campaign' | 'sms_game'
+ *
+ *   - call_to_action (string). Plain text.
+ *   - fact_problem (array)
+ *       - fact (string) HTML.
+ *   - fact_solution (array)
+ *       - fact (string) HTML.
+ *   - fact_sources (array)
+ *        Contains composite sources of fact_problem and fact_solution.
+ *   - high_season_end (string). Date string.
+ *   - high_season_start (string). Date string.
+ *   - items_needed (string). HTML.
+ *   - low_season_end (string). Date string.
+ *   - low_season_start (string). Date string.
+ *   - primary_cause (array)
+ *       - tid (int)
+ *       - name (string)
+ *   - promoting_tips (string). HTML.
+ *   - solution_copy (string). HTML.
+ *   - solution_support (string). Plain text.
+ *   - starter_statement (string). HTML.
+ *   - starter_statement_header (string). Plain text.
+ *   - time_and_place (string). HTML.
+ *   - vips (string). HTML.
+ *
  */
 function dosomething_campaign_load($node) {
   if ($node->type != 'campaign') { return FALSE; }
@@ -22,18 +52,18 @@ function dosomething_campaign_load($node) {
   $campaign->type = dosomething_campaign_get_campaign_type($node);
 
   // Plain text fields.
-  $plain_text = array(
+  $fields_plain_text = array(
     'call_to_action',
     'solution_support',
     'starter_statement_header',
   );
-  foreach ($plain_text as $property) {
+  foreach ($fields_plain_text as $property) {
     $field_name = 'field_' . $property;
     $campaign->{$property} = $wrapper->{$field_name}->value();
   }
 
   // Filtered text fields.
-  $filtered_text = array(
+  $fields_filtered_text = array(
     'items_needed',
     'promoting_tips',
     'solution_copy',
@@ -41,11 +71,14 @@ function dosomething_campaign_load($node) {
     'time_and_place',
     'vips',
   );
-  foreach ($filtered_text as $property) {
+  foreach ($fields_filtered_text as $property) {
     $field_name = 'field_' . $property;
     if ($value = $wrapper->{$field_name}->value()) {
       // Store filtered text.
       $campaign->{$property} = $value['safe_value'];
+    }
+    else {
+      $campaign->{$property} = NULL;
     }
   }
 
@@ -54,6 +87,25 @@ function dosomething_campaign_load($node) {
   if ($primary_cause = $wrapper->field_primary_cause->value()) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
+  }
+
+  // Date fields.
+  $campaign->high_season_start = NULL;
+  $campaign->high_season_end = NULL;
+  $campaign->low_season_start = NULL;
+  $campaign->low_season_end = NULL;
+  $fields_date = array(
+    'high_season',
+    'low_season',
+  );
+  foreach ($fields_date as $property) {
+    $field_name = 'field_' . $property;
+    if ($value = $wrapper->{$field_name}->value()) {
+      $start_property = $property . '_start';
+      $campaign->{$start_property} = $value['value'];
+      $end_property = $property . '_end';
+      $campaign->{$end_property} = $value['value2'];
+    }
   }
 
   // Fact fields.

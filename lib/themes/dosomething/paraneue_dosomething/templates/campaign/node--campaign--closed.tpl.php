@@ -3,8 +3,8 @@
  * Returns the HTML for the Campaign Closed page.
  *
  * Available Variables
+ * - $campaign: A campaign object. @see dosomething_campaign_load()
  * - $title: Title for the campaign closed page (string).
- * - $cta: Call To Action for the campaign closed page (string).
  * - $classes: Additional classes passed for output (string).
  * - $presignup_callout: Call to action (string).
  * - $sponsors: List of sponsors (array).
@@ -21,7 +21,7 @@
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
-      <h2 class="__subtitle"><?php print $cta; ?></h2>
+      <h2 class="__subtitle"><?php print $campaign->call_to_action; ?></h2>
 
       <?php if (isset($signup_button)): ?>
         <div class="__signup">
