@@ -35,67 +35,69 @@
     </section>
   <?php endif; ?>
 
-  <?php if (isset($facts)): ?>
-    <section class="container container--fact">
+  <?php if (isset($facts_chunked)): ?>
+    <?php foreach ($facts_chunked as $key_chunk => $fact_chunk): ?>
+      <?php 
+        $start_value = (($key_chunk * 5) + 1); // Start value for list of facts
+        $is_first = ($start_value === 1); // First set of facts
+        $is_last = ($key_chunk === (sizeof($facts_chunked) - 1)); // Last set of facts
+      ?>
 
-      <div class="wrapper">
+      <section class="container container--fact">
 
-        <div class="container__body">
+        <div class="wrapper">
 
-          <?php if (isset($intro_image)): ?>
-            <aside class="media -inline">
-               <?php print $intro_image; ?>
-            </aside>
-          <?php endif; ?>
+          <div class="container__body">
 
-          <ol>
-            <?php foreach ($facts as $key => $fact): ?>
-              <?php $key++; ?>
-              <li><?php print ($key) . '. ' . $fact['fact']; ?>
-                <?php // @TODO: Sources reinstated, but not sure if the facts need to have numbers associated with their respective source? Need to clarify. ?>
-                <?php //<sup></?php print $fact['footnotes']; ?/></sup> ?>
+            <?php if (isset($intro_image) && $is_first): ?>
+              <aside class="media -inline">
+                 <?php print $intro_image; ?>
+              </aside>
+            <?php endif; ?>
+            
+            <ol start="<?php print $start_value; ?>">
+              <?php foreach ($fact_chunk as $key => $fact): ?>
+                <li><?php print ($start_value + $key) . '. ' . $fact['fact']; ?></li>
+              <?php endforeach; ?>
+            </ol>
 
-                <?php // @TODO: This is a temporary solution and will be updated in the near future (06.20.2014). ?>
-                <?php if ($key === 5): ?>
-                  <?php if (isset($call_to_action)): ?>
-                    <div class="cta">
-                      <div class="wrapper">
-                        <h2 class="__message">Tackle a campaign to make the world suck less.</h2>
-                        <?php print $cta_link; ?>
-                      </div>
-                    </div>
-                  <?php endif; ?>
-                <?php endif; ?>
-              </li>
-            <?php endforeach; ?>
-          </ol>
+          </div>
 
         </div>
 
-        <?php if (isset($sources)): ?>
-        <section class="sources">
-          <h3 class="__title js-toggle-sources">Sources</h3>
-          <ul class="__body legal">
-            <?php foreach ($sources as $key => $source): ?>
-              <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
-            <?php endforeach; ?>
-          </ul>
-        </section>
+        <?php if (isset($call_to_action) && $is_first): ?>
+          <div class="cta">
+            <div class="wrapper">
+              <h2 class="__message">Tackle a campaign to make the world suck less.</h2>
+              <?php print $cta_link; ?>
+            </div>
+          </div>
         <?php endif; ?>
 
-      </div>
-
-    </section>
-
-    <?php if (isset($call_to_action)): ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="__message"><?php print $call_to_action; ?></h2>
-          <?php print $cta_link; ?>
+        <?php if (isset($sources) && $is_last): ?>
+          <div class="wrapper">
+          <section class="sources">
+            <h3 class="__title js-toggle-sources">Sources</h3>
+            <ul class="__body legal">
+              <?php foreach ($sources as $key => $source): ?>
+                <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </section>
         </div>
-      </div>
-    <?php endif; ?>
+        <?php endif; ?>
 
+      </section>
+    <?php endforeach; ?>
   <?php endif; ?>
-</article>
 
+  <?php if (isset($call_to_action)): ?>
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <?php print $cta_link; ?>
+      </div>
+    </div>
+  <?php endif; ?>
+  
+</article>
