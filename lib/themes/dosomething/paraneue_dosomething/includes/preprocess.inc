@@ -47,6 +47,25 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
 
+  krumo($vars);
+  krumo($vars['node']);
+
+  /**
+   * Header
+   */
+
+  $header_vars = array(
+    'title' => drupal_get_title(),
+  );
+
+  // If there's a subtitle field on this node, send it to the header
+  if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
+    $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
+  }
+
+  $vars['header'] = theme('header', $header_vars);
+
+
   /**
    * Footer
    */
@@ -111,23 +130,6 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     // Set these here to remove db calls from tpl files
     $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
     $vars['show_sponsors'] = theme_get_setting('show_sponsors');
-  }
-
-  elseif ($type === "static_content" || $type === "fact_page") {
-    /**
-     * Header
-     */
-
-    $header_vars = array(
-      'title' => $vars['title'],
-    );
-
-    // If there's a subtitle field on this node, send it to the header
-    if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
-      $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
-    }
-
-    $vars['header'] = theme('header', $header_vars);
   }
 }
 
