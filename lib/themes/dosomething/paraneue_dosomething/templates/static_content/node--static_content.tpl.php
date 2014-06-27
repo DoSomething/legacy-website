@@ -11,7 +11,8 @@
 
 <article id="node-<?php print $node->nid; ?>" class="static <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print $variables['header']; ?>
+  <?php //@TODO: Aiming to add this back in once a better solution is found for default pages. ?>
+  <?php //print $variables['header']; ?>
 
   <div class="wrapper">
 
