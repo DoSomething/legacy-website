@@ -235,18 +235,15 @@ function dosomething_mbp_node_update($node) {
   }
 }
 
-/*
- * Collect and format values from campaign $node submissions and populate
- * $params. The function responsible for ultimately triggering the request to
- * produce a Message Broker caching transaction for campaign content creation
- * and updates.
+/**
+ * Collects and format values from campaign $node and returns a $params array.
  *
- * @param string $action
- *   Type of mbp request
  * @param object $node
- *   Submitted values for campaign
+ *   A loaded campaign $node.
+ *
+ * @return array
  */
-function dosomething_mbp_campaign_request($action, $node) {
+function dosomething_mbp_get_campaign_request_params($node) {
 
   $params = array();
   $params = array(
@@ -283,18 +280,30 @@ function dosomething_mbp_campaign_request($action, $node) {
   if (isset($campaign->fact_solution)) {
     $params['fact_solution'] = $campaign->fact_solution['fact'];
   }
-
-  $field = field_get_items('node', $node, 'field_high_season');
-  if (isset($field[0]['value'])) {
-    $params['high_season_start_timestamp'] = strtotime($field[0]['value']);
-    $params['high_season_end_timestamp'] = strtotime($field[0]['value2']);
+  if (isset($campaign->high_season_start)) {
+    $params['high_season_start_timestamp'] = strtotime($campaign->high_season_start);
+    $params['high_season_end_timestamp'] = strtotime($campaign->high_season_end);
   }
-
-  $field = field_get_items('node', $node, 'field_low_season');
-  if (isset($field[0]['value'])) {
-    $params['low_season_start_timestamp'] = strtotime($field[0]['value']);
-    $params['low_season_end_timestamp'] = strtotime($field[0]['value2']);
+  if (isset($campaign->low_season_start)) {
+    $params['low_season_start_timestamp'] = strtotime($campaign->low_season_start);
+    $params['low_season_end_timestamp'] = strtotime($campaign->low_season_end);
   }
-
-  dosomething_mbp_request($action, $params);
+  return $params; 
 }
+
+/**
+ * The function responsible for ultimately triggering the request to
+ * produce a Message Broker caching transaction for campaign content creation
+ * and updates.
+ *
+ * @param string $action
+ *   Type of mbp request
+ * @param object $node
+ *   Submitted values for campaign
+ */
+function dosomething_mbp_campaign_request($action, $node) {
+  // Get the params to send to Message Broker from given $node.
+  $params = dosomething_mbp_get_campaign_request_params($node);
+  // Send request.
+  dosomething_mbp_request($action, $params);
+} 

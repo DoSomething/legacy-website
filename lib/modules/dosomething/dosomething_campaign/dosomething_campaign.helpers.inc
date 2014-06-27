@@ -16,6 +16,10 @@
  *   - type (string). 'campaign' | 'sms_game'
  *
  *   - call_to_action (string). Plain text.
+ *   - high_season_end (string). Date string.
+ *   - high_season_start (string). Date string.
+ *   - low_season_end (string). Date string.
+ *   - low_season_start (string). Date string.
  *   - time_and_place (string). HTML.
  *   - vips (string). HTML.
  *
@@ -33,18 +37,18 @@ function dosomething_campaign_load($node) {
   $campaign->type = dosomething_campaign_get_campaign_type($node);
 
   // Plain text fields.
-  $plain_text = array(
+  $fields_plain_text = array(
     'call_to_action',
     'solution_support',
     'starter_statement_header',
   );
-  foreach ($plain_text as $property) {
+  foreach ($fields_plain_text as $property) {
     $field_name = 'field_' . $property;
     $campaign->{$property} = $wrapper->{$field_name}->value();
   }
 
   // Filtered text fields.
-  $filtered_text = array(
+  $fields_filtered_text = array(
     'items_needed',
     'promoting_tips',
     'solution_copy',
@@ -52,7 +56,7 @@ function dosomething_campaign_load($node) {
     'time_and_place',
     'vips',
   );
-  foreach ($filtered_text as $property) {
+  foreach ($fields_filtered_text as $property) {
     $field_name = 'field_' . $property;
     if ($value = $wrapper->{$field_name}->value()) {
       // Store filtered text.
@@ -65,6 +69,25 @@ function dosomething_campaign_load($node) {
   if ($primary_cause = $wrapper->field_primary_cause->value()) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
+  }
+
+  // Date fields.
+  $campaign->high_season_start = NULL;
+  $campaign->high_season_end = NULL;
+  $campaign->low_season_start = NULL;
+  $campaign->low_season_end = NULL;
+  $fields_date = array(
+    'high_season',
+    'low_season',
+  );
+  foreach ($fields_date as $property) {
+    $field_name = 'field_' . $property;
+    if ($value = $wrapper->{$field_name}->value()) {
+      $start_property = $property . '_start';
+      $campaign->{$start_property} = $value['value'];
+      $end_property = $property . '_end';
+      $campaign->{$end_property} = $value['value2'];
+    }
   }
 
   // Fact fields.
