@@ -55,8 +55,7 @@
 
 
     <?php if (!empty($content['field_blocks'])): ?>
-    <?php print render($content['field_blocks']); ?>
-      <pre>WHAT THE CRAP ARE THESE</pre>
+      <?php print render($content['field_blocks']); ?>
     <?php endif; ?>
 
 
