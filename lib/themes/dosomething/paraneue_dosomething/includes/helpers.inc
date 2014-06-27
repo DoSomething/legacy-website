@@ -29,3 +29,19 @@ function paraneue_dosomething_get_gallery_item_order_class($index) {
       return;
   }
 }
+
+/**
+ * Returns a an array split into chunks of new arrays
+ *
+ * @param array $array
+ *   An array to be chunked
+ *
+ * @param int $size
+ *   Specifies size of each chunk
+ *
+ * @return array
+ *   Array of array chunks
+ */
+function paraneue_dosomething_chunk_array($array, $size) {
+  return array_chunk($array, $size);
+}

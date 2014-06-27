@@ -98,6 +98,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     $node = entity_metadata_wrapper('node', $vars['node']);
     $values = dosomething_fact_get_fact_field_vars($node->field_facts);
     $vars['facts'] = $values['facts'];
+    $vars['facts_chunked'] = paraneue_dosomething_chunk_array($vars['facts'], 5);
     $vars['sources'] = $values['sources'];
   }
 }
