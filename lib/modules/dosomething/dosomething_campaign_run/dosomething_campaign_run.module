@@ -111,11 +111,11 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       $winners[$i]['uid'] = $winner[$entity_id]->field_user[LANGUAGE_NONE][0]['target_id'];
       // If there is no user, get the first name from the text field.
       if (!isset($winners[$i]['uid'])) {
-        $winners[$i]['fname'] = dosomething_user_get_field('field_first_name', user_load($winners[$i]['uid'], 'ucwords'));
+        $winners[$i]['fname'] = $winner[$entity_id]->field_winner_name[LANGUAGE_NONE][0]['value'];
       }
       // Else, grab the first name from the user account.
       else {
-        $winners[$i]['fname'] = user_load($winners[$i]['uid'])->field_first_name[LANGUAGE_NONE][0]['value'];
+        $winners[$i]['fname'] = dosomething_user_get_field('field_first_name', user_load($winners[$i]['uid'], 'ucwords'));
       }
       $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
       $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
@@ -182,7 +182,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
       $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
       $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
       $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
-      
+
       if (function_exists('paraneue_dosomething_get_gallery_item_order_class')) {
         $klout_gallery[$i]['items'][$a]['order_class'] = paraneue_dosomething_get_gallery_item_order_class($a);
       }
@@ -244,7 +244,8 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   if (isset($campaign_nid)) {
     // Get totals & language from the campaign.
     $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
-    $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
+    // @TODO: fix this
+    // $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
     $language = dosomething_reportback_get_noun_and_verb($campaign_nid);
 
     // Add the text to the form.
