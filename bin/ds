@@ -69,7 +69,8 @@ ds build [--install]
 
   --install
     Runs "drush site-install" to actually install the Drupal instance.
-
+ds test
+  Runs test suite.  Must be run from /vagrant.
 ds composer
   Installs libraries via Composer within the Drupal libraries directory.
 
@@ -378,6 +379,15 @@ function check_alias_param {
   fi
 }
 
+#=== FUNCTION ==================================================================
+# NAME: test
+# DESCRIPTION: Runs test suite.
+#===============================================================================
+function test {
+  cd $BASE_PATH
+  ./scripts/test.sh
+}
+
 
 # ==============================================================================
 # Commands
@@ -464,4 +474,12 @@ then
     pull_db $2
     pull_files $2
   fi
+fi
+
+#----------------------------------------------------------------------
+# test
+#----------------------------------------------------------------------
+if [[ $1 == "test" ]]
+then
+  test
 fi

@@ -1,6 +1,7 @@
 .vagrant
 .DS_Store
 html/
+test/
 settings.local.php
 build/
 config/deploy_vars.yml
