@@ -22,6 +22,9 @@
  *       - fact (string) HTML.
  *   - fact_sources (array)
  *        Contains composite sources of fact_problem and fact_solution.
+ *   - faq (array). Multidimensional - each element is an array which contains:
+ *       - header (string) Plain text.
+ *       - copy (string) HTML.
  *   - high_season_end (string). Date string.
  *   - high_season_start (string). Date string.
  *   - items_needed (string). HTML.
@@ -33,6 +36,12 @@
  *   - promoting_tips (string). HTML.
  *   - solution_copy (string). HTML.
  *   - solution_support (string). Plain text.
+ *   - step_pre (array). Multidimensional - each element is an array which contains:
+ *       - header (string) Plain text.
+ *       - copy (string) HTML.
+ *   - step_post (array). Multidimensional - each element is an array which contains:
+ *       - header (string) Plain text.
+ *       - copy (string) HTML.
  *   - starter_statement (string). HTML.
  *   - starter_statement_header (string). Plain text.
  *   - time_and_place (string). HTML.
@@ -124,6 +133,13 @@ function dosomething_campaign_load($node) {
     }
     // Store all sources from fields as a sources array.
     $campaign->fact_sources  = $fact_vars['sources'];
+  }
+
+  // Compound text field collections.
+  $compound_fc_fields = array('faq', 'step_pre', 'step_post');
+  foreach ($compound_fc_fields as $property) {
+    $field_name = 'field_' . $property;
+    $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
   }
 
   return $campaign;
