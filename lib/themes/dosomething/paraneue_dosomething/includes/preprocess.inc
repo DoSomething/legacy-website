@@ -128,5 +128,10 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
     $vars['show_sponsors'] = theme_get_setting('show_sponsors');
   }
+
+  elseif ($type == 'fact_page') {
+    // Return facts as a chunked array to allow cta's to be properly embedded in between
+    $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
+  }
 }
 

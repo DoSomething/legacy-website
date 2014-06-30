@@ -22,15 +22,6 @@
 .fact-page {
   background: #fff;
 
-  // @TODO: Temporary until refactor! (06.20.2014)
-  .cta {
-    &.-simple {
-      background-color: transparent;
-      border: 0 none;
-      margin-top: 27px;
-    }
-  }
-
   h2, h3, h4 {
     color: $purple;
   }
@@ -43,40 +34,8 @@
   li {
     margin-bottom: 27px;
 
-    // When number of facts > 5, call to action is placed within the 5th <li>
-    .cta {
-      margin-top: 27px;
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-
-  // Set gutters on mobile
-  .intro-wrapper, .facts-wrapper, .sources-wrapper {
-    padding: 18px;
-
-    @include row;
-
-    @include media($tablet) {
-      padding: 0;
-    }
-  }
-
-  .cta-wrapper {
-    @include cta();
-  }
-
-  // Set margins on desktop
-  .header, .intro, .facts, .sources {
-    @include media($tablet) {
-      @include span-columns(12);
-      @include shift(2);
-    }
-  }
-
-  .facts-wrapper {
-    @include media($tablet) {
-      margin-top: 27px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -102,6 +61,19 @@
   }
 
   .sources {
-    margin-bottom: 18px;
+    margin-bottom: 27px;
+  }
+
+  .container--fact {
+    > .wrapper {
+      padding-bottom: 0;
+    }
+
+    // When number of facts > 5, call to action is placed within the 5th <li>
+    .cta {
+      margin-top: 27px;
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
