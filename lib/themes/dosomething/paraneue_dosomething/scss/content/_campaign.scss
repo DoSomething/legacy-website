@@ -136,6 +136,16 @@
         }
       }
     }
+
+    .message-callout.-right {
+      position: absolute;
+      left: 144px;
+      bottom: -15px;
+
+      @include media($tablet) {
+        bottom: 0;
+      }
+    }
   }
 
   // @TODO: find a better way to address the variations in gray; sass lists? (2014.06.24)
