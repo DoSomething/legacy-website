@@ -84,7 +84,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['issue'] = $wrapper->field_issue->value()->name;
-  $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);
   $vars['starter'] = $wrapper->field_starter_statement->value();
@@ -92,7 +91,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
   $vars['modals'] = theme('modal_links', array('modals' =>
       array(
-        'faq' => $vars['faq'],
+        'faq' => $vars['campaign']->faq,
         'more_facts' => $vars['more_facts'],
         'partner_info' => $vars['partner_info'],
         'issue' => $vars['issue'],
