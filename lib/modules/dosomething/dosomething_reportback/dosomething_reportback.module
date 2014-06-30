@@ -607,21 +607,26 @@ function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
  * @return array
  */
 function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
-  // @todo: Future proof this.  Need to add a condition
-  // where flag fid == promoted in case we add another file flag.
-  $sql = "SELECT flagging_id, rbf.fid, rbf.rbid, file.uid, field_weight_value
+  // Load promoted flag.
+  $flag = flag_get_flag('promoted');
+  // If it doesn't exist, return empty array.
+  if (!$flag) { return array(); }
+  // Set the flag fid to query for.
+  $flag_id = $flag->fid;
+
+  $sql = "SELECT flagging_id, flagging.fid as 'flag_id', rbf.fid, rbf.rbid, file.uid, field_weight_value
     FROM flagging
     JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
     JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
     JOIN file_managed file ON file.fid = rbf.fid
     LEFT OUTER JOIN field_data_field_weight weight
       ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
-    WHERE nid = :nid
+    WHERE nid = :nid AND flagging.fid = :fid
     ORDER BY field_weight_value";
   if ($num_items) {
     $sql .= " LIMIT 0, " . $num_items;
   }
-  return db_query($sql, array(':nid' => $nid))->fetchAll();
+  return db_query($sql, array(':nid' => $nid, ':fid' => $flag_id))->fetchAll();
 }
 
 /**
