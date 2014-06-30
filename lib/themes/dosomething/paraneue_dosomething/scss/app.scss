@@ -18,13 +18,10 @@
 // Drupal styles
 @import "overrides/drupal";
 
-// Global Content styles
-@import "content/container";
-
 // Content styles by section
 @import "content/auth";
 @import "content/home";
-@import "content/campaign"; // @NOTE - parent partial that imports sub-partials
+@import "content/campaign";
 @import "content/campaign-closed";
 @import "content/sources";
 @import "content/disclaimer";
@@ -39,8 +36,6 @@
 @import "content/user";
 @import "content/waypoints"; // @TODO: Move to Neue!
 @import "content/tabbed"; // @TODO: Move to Neue!
-@import "content/polaroid"; // @TODO: Move to Neue!
-@import "content/membership-callout"; // @TODO: Move to Neue!
 
 // One-off pages
 @import "content/campaign/hunt-mcc";

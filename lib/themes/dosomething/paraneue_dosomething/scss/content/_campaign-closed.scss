@@ -1,13 +1,43 @@
 .campaign.closed {
-
-  // Overrides to maintain default spacing between headers and cta
-  // since the end date is removed
-  // @TODO: might be worth while to make this a pattern
   [role="banner"] {
     &.-hero {
+      // Overrides to maintain default spacing between headers and cta
+      // since the end date is removed
+      // @TODO: might be worth while to make this a pattern
       .__subtitle {
         margin-bottom: 27px;
         margin-top: 0;
+      }
+    }
+
+
+    .message-callout {
+      margin: 0 auto;
+      width: 220px;
+
+      .__copy {
+        left: 45px;
+
+        &:before {
+          right: 27px;
+          top: -20px;
+        }
+      }
+
+      @include media($tablet) {
+        position: absolute;
+        left: 190px;
+        bottom: -20px;
+        width: 256px;
+
+        .__copy {
+          left: 0;
+
+          &:before {
+            right: auto;
+            top: 50%;
+          }
+        }
       }
     }
   }

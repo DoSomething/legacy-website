@@ -40,6 +40,7 @@
 .campaign--grouped {
   [role="banner"] {
     .message-callout {
+
       .__copy {
         &:before {
           right: 35px;
@@ -48,46 +49,15 @@
       }
 
       @include media($tablet) {
+        position: absolute;
+        left: 144px;
+        bottom: 0;
         width: 165px;
 
         .__copy {
           text-align: center;
-          top: -25px;
 
           @include transform(rotate(-6deg));
-
-          &:before {
-            right: auto;
-            top: 50%;
-          }
-        }
-      }
-    }
-  }
-}
-
-.campaign--closed {
-  [role="banner"] {
-    .message-callout {
-      margin: 0 auto;
-      width: 220px;
-
-      .__copy {
-        left: 45px;
-
-        &:before {
-          right: 27px;
-          top: -20px;
-        }
-      }
-
-      @include media($tablet) {
-        left: 170px;
-        bottom: -20px;
-        width: 256px;
-
-        .__copy {
-          left: 0;
 
           &:before {
             right: auto;
@@ -164,6 +134,16 @@
             right: -10px;
           }
         }
+      }
+    }
+
+    .message-callout.-right {
+      position: absolute;
+      left: 144px;
+      bottom: -15px;
+
+      @include media($tablet) {
+        bottom: 0;
       }
     }
   }
