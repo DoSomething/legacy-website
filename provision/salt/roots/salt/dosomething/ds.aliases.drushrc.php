@@ -37,4 +37,3 @@ foreach ($countries as $country) {
    '%dump-dir' => '/tmp',
   );
 }
-r
