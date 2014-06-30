@@ -84,7 +84,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['issue'] = $wrapper->field_issue->value()->name;
-  $vars['faq'] = dosomething_helpers_get_field_collection_values($wrapper, 'field_faq');
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);
   $vars['starter'] = $wrapper->field_starter_statement->value();
@@ -92,7 +91,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
   $vars['modals'] = theme('modal_links', array('modals' =>
       array(
-        'faq' => $vars['faq'],
+        'faq' => $vars['campaign']->faq,
         'more_facts' => $vars['more_facts'],
         'partner_info' => $vars['partner_info'],
         'issue' => $vars['issue'],
@@ -149,12 +148,6 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
-  // Collect step field_collection values.
-  $field_collections = array('step_pre', 'step_post');
-  foreach ($field_collections as $fc) {
-    $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
-  }
-
 
   // Plan.
 
@@ -235,8 +228,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (!empty($pre_step_copy)) {
     $vars['do']['during']['copy'] = $pre_step_copy['safe_value'];
   }
-  if (!empty($vars['step_pre'])) {
-    $vars['do']['during']['tips'] = $vars['step_pre'];
+  if (!empty($vars['campaign']->step_pre)) {
+    $vars['do']['during']['tips'] = $vars['campaign']->step_pre;
   }
 
 
@@ -256,8 +249,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (!empty($post_step_copy)) {
     $vars['do']['after']['copy'] = $post_step_copy['safe_value'];
   }
-  if (!empty($vars['step_post'])) {
-    $vars['do']['after']['tips'] = $vars['step_post'];
+  if (!empty($vars['campaign']->step_post)) {
+    $vars['do']['after']['tips'] = $vars['campaign']->step_post;
   }
 
 

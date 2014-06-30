@@ -266,14 +266,10 @@ function dosomething_mbp_get_campaign_request_params($node) {
     $params['image_campaign_cover_markup'] = dosomething_image_get_themed_image($image_campaign_cover_target_id, 'square', '300x300');
   }
 
-  $field = field_get_items('node', $node, 'field_step_pre');
-  if (isset($field[0]['value'])) {
-    $do_it_prestep_target_id = $field[0]['value'];
-    $do_it_enitity = entity_load('field_collection_item', array($do_it_prestep_target_id));
-    $params['do_it_title'] = $do_it_enitity[$do_it_prestep_target_id]->field_compound_text_header[LANGUAGE_NONE][0]['value'];
-    $params['do_it_body'] = $do_it_enitity[$do_it_prestep_target_id]->field_compound_text_copy[LANGUAGE_NONE][0]['value'];
+  if (isset($campaign->step_pre)) {
+    $params['do_it_title'] = $campaign->step_pre[0]['header'];
+    $params['do_it_body'] = $campaign->step_pre[0]['copy'];
   }
-
   if (isset($campaign->fact_problem)) {
     $params['fact_problem'] = $campaign->fact_problem['fact'];
   }
