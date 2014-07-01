@@ -122,6 +122,10 @@ projects[redirect][subdir] = "contrib"
 projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
+; Services
+projects[services][version] = "3.7"
+projects[services][subdir] = "contrib"
+
 ; Strongarm
 projects[strongarm][version] = "2.0"
 projects[strongarm][subdir] = "contrib"
