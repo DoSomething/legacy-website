@@ -16,10 +16,9 @@ function dosomething_settings_services_request_postprocess_alter($controller, $a
     if (isset($result->nid) && $result->type == 'campaign') {
       if (function_exists('dosomething_campaign_load')) {
         // Return the Campaign class.
-        $result = dosomething_campaign_load($result);
+        $result = dosomething_campaign_load($result, TRUE);
       }
     }
-    // Else:
     else {
       // No content for you.
       $result = FALSE;
