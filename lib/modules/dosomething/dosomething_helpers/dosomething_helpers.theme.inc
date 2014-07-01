@@ -160,9 +160,16 @@ function dosomething_helpers_format_partners_list(&$vars) {
 }
 
 function dosomething_helpers_preprocess_hero_images(&$vars) {
-  // Hero Images.
-  if (isset($vars['field_image_campaign_cover'][0])) {
+  // If the Campaign class is available:
+  if (isset($vars['campaign'])) {
+    $hero_nid = $vars['campaign']->image_header['nid'];
+  }
+  // Else check the regular Image Campaign Cover field value.
+  elseif (isset($vars['field_image_campaign_cover'][0])) {
     $hero_nid = $vars['field_image_campaign_cover'][0]['entity']->nid;
+  }
+
+  if ($hero_nid) {
     $vars['hero_image_l'] = dosomething_image_get_themed_image($hero_nid, 'landscape', '1440x810');
     $vars['hero_image_m'] = dosomething_image_get_themed_image($hero_nid, 'square', '768x768');
     $vars['hero_image_l_url'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');

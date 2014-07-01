@@ -142,6 +142,30 @@ function dosomething_campaign_load($node) {
     $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
   }
 
+  // Store any field_variables.
+  $campaign->variables = dosomething_campaign_get_field_variables($wrapper);
+
+  // Set image_cover property.
+  $campaign->image_cover = NULL;
+  if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
+    $campaign->image_cover['nid'] = (int) $image_cover->nid;
+    $campaign->image_cover['is_dark_image'] = (int) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+  }
+
+  // Set image_header property.
+  // If there is an override for the campaign header image.
+  if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
+    // Set the nid to the overridden value.
+    $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
+    $alt_image = node_load($campaign->image_header['nid']);
+    $campaign->image_header['is_dark_image'] = (int) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+  }
+  // Else if no override:
+  else {
+    // Same as the image_cover.
+    $campaign->image_header = $campaign->image_cover;
+  }
+
   return $campaign;
 }
 
@@ -187,6 +211,21 @@ function dosomething_campaign_get_campaign_status($node) {
     return 'active';
   }
   return $node->field_campaign_status[LANGUAGE_NONE][0]['value'];
+}
+
+/**
+ * For given node entity wrapper, return its field_variables as an array.
+ */
+function dosomething_campaign_get_field_variables($wrapper) {
+  if (!isset($wrapper->field_variables)) { return array(); }
+
+  $vars = array();
+  foreach ($wrapper->field_variables->value() as $variable) {
+    $name = $variable->field_variable_name[LANGUAGE_NONE][0]['value'];
+    $value = $variable->field_variable_value[LANGUAGE_NONE][0]['value'];
+    $vars[$name] = $value;
+  }
+  return $vars;
 }
 
 /**
