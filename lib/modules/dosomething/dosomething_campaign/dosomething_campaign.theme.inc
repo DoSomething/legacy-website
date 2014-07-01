@@ -184,8 +184,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['plan'][] = $hype;
   }
 
-  // Total Content Items in Plan
-  $vars['plan_count'] = count($vars['plan']);
+  if (isset($vars['plan'])) {
+    // Total Content Items in Plan
+    $vars['plan_count'] = count($vars['plan']);
+  }
 
 
   $location_copy = $wrapper->field_location_finder_copy->value();
