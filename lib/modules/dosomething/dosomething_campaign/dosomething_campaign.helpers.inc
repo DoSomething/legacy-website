@@ -145,6 +145,26 @@ function dosomething_campaign_load($node) {
   // Store any field_variables.
   $campaign->variables = dosomething_campaign_get_field_variables($wrapper);
 
+  // Set image_cover property.
+  $campaign->image_cover = NULL;
+  if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
+    $campaign->image_cover['nid'] = (int) $image_cover->nid;
+    $campaign->image_cover['is_dark_image'] = (int) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+  }
+
+  // Set image_header property.
+  // If there is an override for the campaign header image.
+  if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
+    // Set the nid to the overridden value.
+    $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
+    $alt_image = node_load($campaign->image_header['nid']);
+    $campaign->image_header['is_dark_image'] = (int) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+  }
+  // Else if no override:
+  else {
+    // Same as the image_cover.
+    $campaign->image_header = $campaign->image_cover;
+  }
 
   return $campaign;
 }
