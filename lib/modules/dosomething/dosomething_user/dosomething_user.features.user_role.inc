@@ -22,6 +22,12 @@ function dosomething_user_user_default_roles() {
     'weight' => 4,
   );
 
+  // Exported role: creative team.
+  $roles['creative team'] = array(
+    'name' => 'creative team',
+    'weight' => 7,
+  );
+
   // Exported role: editor.
   $roles['editor'] = array(
     'name' => 'editor',

@@ -216,12 +216,13 @@ function dosomething_campaign_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Overrides',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-overrides field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-overrides field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_overrides|node|campaign|form'] = $field_group;

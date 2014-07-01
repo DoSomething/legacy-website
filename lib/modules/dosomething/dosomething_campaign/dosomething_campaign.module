@@ -15,6 +15,9 @@ define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
+  if (!user_access('edit campaign overrides')) {
+    unset($form['field_variables']);
+  }
   // Add extra non-field form elements.
   dosomething_helpers_form_extras($form, $form_state);
   // Add in campagin close info.
@@ -91,6 +94,17 @@ function dosomething_campaign_menu() {
     'file' => 'dosomething_campaign.pages.inc',
   );
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_campaign_permission() {
+  return array(
+    'edit campaign overrides' => array(
+      'title' => t('Edit campaign overrides'),
+    ),
+  );
 }
 
 /**
