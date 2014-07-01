@@ -66,6 +66,10 @@
 function dosomething_campaign_load($node, $public = FALSE) {
   if ($node->type != 'campaign') { return FALSE; }
 
+  // Set the image src ratio and styles.
+  $image_src_ratio = 'square';
+  $image_src_style = '300x300';
+
   // Load the entity metadata wrapper for easy value getting.
   $wrapper = entity_metadata_wrapper('node', $node);
 
@@ -171,6 +175,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
     if (isset($image_cover->field_dark_image[LANGUAGE_NONE][0]['value'])) {
       $campaign->image_cover['is_dark_image'] = (bool) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
     }
+    // Set the src property.
+    $campaign->image_cover['src'] = dosomething_image_get_themed_image_url($campaign->image_cover['nid'], $image_src_ratio, $image_src_style);
   }
 
   // Set image_header property.
@@ -185,6 +191,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
     if (isset($alt_image->field_dark_image[LANGUAGE_NONE][0]['value'])) {
       $campaign->image_header['is_dark_image'] = (bool) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
     }
+    // Set the src property.
+    $campaign->image_header['src'] = dosomething_image_get_themed_image_url($campaign->image_header['nid'], $image_src_ratio, $image_src_style);
   }
   // Else if no override:
   else {
