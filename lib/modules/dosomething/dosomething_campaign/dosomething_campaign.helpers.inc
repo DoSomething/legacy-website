@@ -142,6 +142,10 @@ function dosomething_campaign_load($node) {
     $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
   }
 
+  // Store any field_variables.
+  $campaign->variables = dosomething_campaign_get_field_variables($wrapper);
+
+
   return $campaign;
 }
 
@@ -187,6 +191,21 @@ function dosomething_campaign_get_campaign_status($node) {
     return 'active';
   }
   return $node->field_campaign_status[LANGUAGE_NONE][0]['value'];
+}
+
+/**
+ * For given node entity wrapper, return its field_variables as an array.
+ */
+function dosomething_campaign_get_field_variables($wrapper) {
+  if (!isset($wrapper->field_variables)) { return array(); }
+
+  $vars = array();
+  foreach ($wrapper->field_variables->value() as $variable) {
+    $name = $variable->field_variable_name[LANGUAGE_NONE][0]['value'];
+    $value = $variable->field_variable_value[LANGUAGE_NONE][0]['value'];
+    $vars[$name] = $value;
+  }
+  return $vars;
 }
 
 /**
