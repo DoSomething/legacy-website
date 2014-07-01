@@ -42,6 +42,16 @@ function dosomething_campaign_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit campaign overrides'.
+  $permissions['edit campaign overrides'] = array(
+    'name' => 'edit campaign overrides',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'creative team' => 'creative team',
+    ),
+    'module' => 'dosomething_campaign',
+  );
+
   // Exported permission: 'edit own campaign content'.
   $permissions['edit own campaign content'] = array(
     'name' => 'edit own campaign content',

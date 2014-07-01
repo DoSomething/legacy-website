@@ -92,6 +92,7 @@ features[user_permission][] = view revisions
 features[user_permission][] = view the administration theme
 features[user_role][] = administrator
 features[user_role][] = communications team
+features[user_role][] = creative team
 features[user_role][] = editor
 features[user_role][] = member support
 features[user_role][] = org friend
