@@ -149,7 +149,12 @@ function dosomething_campaign_load($node) {
   $campaign->image_cover = NULL;
   if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
     $campaign->image_cover['nid'] = (int) $image_cover->nid;
-    $campaign->image_cover['is_dark_image'] = (int) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+    // Initalize as 0.
+    $campaign->image_cover['is_dark_image'] = 0;
+    // If is_dark_image field value exists:
+    if (isset($image_cover->field_dark_image[LANGUAGE_NONE][0]['value'])) {
+      $campaign->image_cover['is_dark_image'] = (int) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+    }
   }
 
   // Set image_header property.
@@ -157,8 +162,13 @@ function dosomething_campaign_load($node) {
   if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
     // Set the nid to the overridden value.
     $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
+    // Initalize as 0.
+    $campaign->image_header['is_dark_image'] = 0;
+    // Load the alt image node.
     $alt_image = node_load($campaign->image_header['nid']);
-    $campaign->image_header['is_dark_image'] = (int) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+    if (isset($alt_image->field_dark_image[LANGUAGE_NONE][0]['value'])) {
+      $campaign->image_header['is_dark_image'] = (int) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+    }
   }
   // Else if no override:
   else {
