@@ -126,7 +126,7 @@
           <?php print $starter['safe_value']; ?>
         <?php endif; ?>
 
-        <?php if ($plan): ?>
+        <?php if (isset($plan)): ?>
           <?php foreach ($plan as $delta => $content): ?>
 
             <?php if ($delta%2 === 0) print '<div class="__row">'; ?>

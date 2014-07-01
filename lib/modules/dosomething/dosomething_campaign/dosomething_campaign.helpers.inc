@@ -7,7 +7,12 @@
 /**
  * Returns a scaled down version of a campaign loaded $node.
  *
- * @return object
+ * @param obj $node
+ *   A loaded Node object.
+ * @param bool $public
+ *   If TRUE, do not return non-content attributes, e.g. variables.
+ *
+ * @return obj
  *   Available properties:
  *
  *   - nid: (int)
@@ -27,6 +32,15 @@
  *       - copy (string) HTML.
  *   - high_season_end (string). Date string.
  *   - high_season_start (string). Date string.
+ *   - image_cover (array). The field_image_campaign_cover value.
+ *     - nid (int)
+ *     - is_dark_image (bool)
+ *     - src (string)
+ *   - image_header (array). Usually the image_cover, but can be overridden.
+ *     - nid (int)
+ *     - is_dark_image (bool)
+ *     - src (string)
+ *   - is_staff_pick (bool)
  *   - items_needed (string). HTML.
  *   - low_season_end (string). Date string.
  *   - low_season_start (string). Date string.
@@ -45,11 +59,16 @@
  *   - starter_statement (string). HTML.
  *   - starter_statement_header (string). Plain text.
  *   - time_and_place (string). HTML.
+ *   - variables (array). Used to control various presentation settings.
  *   - vips (string). HTML.
  *
  */
-function dosomething_campaign_load($node) {
+function dosomething_campaign_load($node, $public = FALSE) {
   if ($node->type != 'campaign') { return FALSE; }
+
+  // Set the image src ratio and styles.
+  $image_src_ratio = 'square';
+  $image_src_style = '300x300';
 
   // Load the entity metadata wrapper for easy value getting.
   $wrapper = entity_metadata_wrapper('node', $node);
@@ -92,6 +111,7 @@ function dosomething_campaign_load($node) {
   }
 
   // Taxonomy fields.
+  $campaign->is_staff_pick = $wrapper->field_staff_pick->value();
   $campaign->primary_cause = NULL;
   if ($primary_cause = $wrapper->field_primary_cause->value()) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
@@ -149,12 +169,14 @@ function dosomething_campaign_load($node) {
   $campaign->image_cover = NULL;
   if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
     $campaign->image_cover['nid'] = (int) $image_cover->nid;
-    // Initalize as 0.
-    $campaign->image_cover['is_dark_image'] = 0;
+    // Initalize as FALSE.
+    $campaign->image_cover['is_dark_image'] = FALSE;
     // If is_dark_image field value exists:
     if (isset($image_cover->field_dark_image[LANGUAGE_NONE][0]['value'])) {
-      $campaign->image_cover['is_dark_image'] = (int) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+      $campaign->image_cover['is_dark_image'] = (bool) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
     }
+    // Set the src property.
+    $campaign->image_cover['src'] = dosomething_image_get_themed_image_url($campaign->image_cover['nid'], $image_src_ratio, $image_src_style);
   }
 
   // Set image_header property.
@@ -162,18 +184,26 @@ function dosomething_campaign_load($node) {
   if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
     // Set the nid to the overridden value.
     $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
-    // Initalize as 0.
-    $campaign->image_header['is_dark_image'] = 0;
+    // Initalize as FALSE.
+    $campaign->image_header['is_dark_image'] = FALSE;
     // Load the alt image node.
     $alt_image = node_load($campaign->image_header['nid']);
     if (isset($alt_image->field_dark_image[LANGUAGE_NONE][0]['value'])) {
-      $campaign->image_header['is_dark_image'] = (int) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+      $campaign->image_header['is_dark_image'] = (bool) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
     }
+    // Set the src property.
+    $campaign->image_header['src'] = dosomething_image_get_themed_image_url($campaign->image_header['nid'], $image_src_ratio, $image_src_style);
   }
   // Else if no override:
   else {
     // Same as the image_cover.
     $campaign->image_header = $campaign->image_cover;
+  }
+
+  // If this is accessed via API:
+  if ($public) {
+    // Unset properties which shouldn't be public.
+    unset($campaign->variables);
   }
 
   return $campaign;

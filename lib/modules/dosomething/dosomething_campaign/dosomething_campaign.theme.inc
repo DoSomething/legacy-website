@@ -148,47 +148,46 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
+  $campaign = $vars['campaign'];
 
   // Plan.
 
   // 1) Materials
-  $materials['content'] = $wrapper->field_items_needed->value();
-  if (!empty($materials['content'])) {
+  if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
     $materials['title'] = 'Stuff You Need';
-    $materials['content'] = $materials['content']['safe_value'];
+    $materials['content'] = $campaign->items_needed;
     $vars['plan'][] = $materials;
   }
  
   // 2) Time
-  $time['content'] = $wrapper->field_time_and_place->value();
-  if (!empty($time['content'])) {
+  if (isset($campaign->time_and_place)) {
     $time['category'] = 'time';
     $time['title'] = 'Time and Place';
-    $time['content'] = $time['content']['safe_value'];
+    $time['content'] = $campaign->time_and_place;
     $vars['plan'][] = $time;
   }
 
   // 3) VIPs
-  $vips['content'] = $wrapper->field_vips->value();
-  if (!empty($vips['content'])) {
+  if (isset($campaign->vips)) {
     $vips['category'] = 'vips';
     $vips['title'] = 'VIPs';
-    $vips['content'] = $vips['content']['safe_value'];
+    $vips['content'] = $campaign->vips;
     $vars['plan'][] = $vips;
   }
 
   // 4) Hype
-  $hype['content'] = $wrapper->field_promoting_tips->value();
-  if (!empty($hype['content'])) {
+  if (isset($campaign->promoting_tips)) {
     $hype['category'] = 'hype';
     $hype['title'] = 'Hype';
-    $hype['content'] = $hype['content']['safe_value'];
+    $hype['content'] = $campaign->promoting_tips;
     $vars['plan'][] = $hype;
   }
 
-  // Total Content Items in Plan
-  $vars['plan_count'] = count($vars['plan']);
+  if (isset($vars['plan'])) {
+    // Total Content Items in Plan
+    $vars['plan_count'] = count($vars['plan']);
+  }
 
 
   $location_copy = $wrapper->field_location_finder_copy->value();
