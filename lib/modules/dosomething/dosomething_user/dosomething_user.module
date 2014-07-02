@@ -13,19 +13,18 @@ include_once 'dosomething_user.theme.inc';
  * Implements hook_init().
  */
 function dosomething_user_init() {
+  // If viewing a file/[fid] page:
+  if (arg(0) == 'file' && is_numeric(arg(1))) {
+    dosomething_user_non_staff_redirect();
+  }
+
   // If viewing a node/[nid] page:
-  if (arg(0) == 'node' && is_numeric(arg(1)) && (!arg(2) || arg(2) == 'view')) {
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
     // Load that node.
     $node = menu_get_object();
     // If node type is staff only:
     if (in_array($node->type, dosomething_user_get_staff_only_types())) {
-      // If logged in user is not staff:
-      if (!dosomething_user_is_staff()) {
-        // No node for you.  Redirect to front page for now.
-        if (!function_exists('drush_main')) {
-          drupal_goto();
-        }
-      }
+      dosomething_user_non_staff_redirect();
     }
   }
 }
@@ -719,7 +718,6 @@ function dosomething_user_format_string($string, $format) {
     }
 }
 
-
 /**
  * Returns given user's birthdate.
  *
@@ -740,4 +738,21 @@ function dosomething_user_get_field_birthdate($field_value, $format = NULL) {
   }
   // Return date formatted per $format string.
   return format_date($field_value, 'custom', $format);
+}
+
+/**
+ * Used to redirect non-staff users to the homepage.
+ *
+ * @see dosomething_user_init()
+ */
+function dosomething_user_non_staff_redirect() {
+  // If logged in user is not staff:
+  if (!dosomething_user_is_staff()) {
+    // Without this check, the `drupal_goto` below will break `drush cc all`.
+    // See https://www.drupal.org/node/1230132#comment-4790690.
+    if (!drupal_is_cli()) {
+      // No access for you.  Redirect to front page for now.
+      drupal_goto();
+    }
+  }
 }
