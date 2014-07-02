@@ -332,28 +332,14 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
 
   // If this is a node create form, display help text and exit out of extras.
   if (!isset($form['nid']['#value'])) {
-    $form['custom'] = array(
-      '#markup' => t('The signup data form and custom settings for this !type will be available upon save.', array('!type' => $type)),
-      '#weight' => 60,
-    );
     return;
   }
-
-  // Set prefix for custom variables.
-  $prefix = dosomething_helpers_get_custom_var_prefix($type, $form['nid']['#value']);
   $form['custom'] = array(
     '#type' => 'fieldset',
     '#title' => t('Custom settings'),
     '#weight' => 80,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
-  );
-  $pitch_page_label = $prefix . 'pitch_page_label';
-  $form['custom'][$pitch_page_label] = array(
-    '#type' => 'textfield',
-    '#title' => t('Signup Form Button Label'),
-    '#default_value' => variable_get($pitch_page_label),
-    '#description' => t('If set, this will override the label on the signup form.'),
   );
   $form['custom']['optins'] = array(
     '#type' => 'fieldset',

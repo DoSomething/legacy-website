@@ -39,6 +39,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['alt_image_campaign_cover_nid'],
     '#size' => 6,
   );
+  $form['styles']['signup_button_copy'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Signup Button Copy'),
+    '#description' => t('Override the copy on the signup button.'),
+    '#default_value' => $vars['signup_button_copy'],
+    '#size' => 20,
+  );
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
