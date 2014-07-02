@@ -185,17 +185,28 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
  *   Node variables, passed from preprocess_node.
  */
 function dosomething_helpers_preprocess_custom_vars(&$vars) {
-  // Get prefix to check for custom node styles variables.
-  $prefix = dosomething_helpers_get_custom_var_prefix($vars['type'], $vars['nid']);
-  // Check for custom alt color.
-  $alt_color = variable_get($prefix . 'alt_color');
-  if (!empty($alt_color)) {
+  if ($vars['type'] == 'campaign') {
+    $campaign = $vars['campaign'];
+    if ($campaign->variables['alt_color']) {
+      $alt_color = $campaign->variables['alt_color'];
+    }
+    if ($campaign->variables['alt_bg_fid']) {
+      $fid = $campaign->variables['alt_bg_fid'];
+    }
+  }
+  else {
+    $custom_vars = dosomething_helpers_get_variables($vars['nid']);
+     if ($custom_vars['alt_color']) {
+      $alt_color = $custom_vars['alt_color'];
+    }
+  }
+
+  if (isset($alt_color)) {
     // Sanitize value for sanity's sake.
     $vars['alt_color'] = strip_tags($alt_color);
   }
   // Check for alt background File fid.
-  $fid = variable_get($prefix . 'alt_bg_fid');
-  if (!empty($fid)) {
+  if (isset($fid)) {
     $file = file_load($fid);
     $vars['alt_bg_src'] = file_create_url($file->uri);
   }

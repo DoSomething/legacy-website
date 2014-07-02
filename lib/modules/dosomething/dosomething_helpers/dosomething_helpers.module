@@ -371,17 +371,6 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
   );
 
   if ($type == 'campaign') {
-
-    // Alt bg pattern variable.
-    $alt_bg_fid = $prefix . 'alt_bg_fid';
-    $form['custom']['styles'][$alt_bg_fid] = array(
-      '#type' => 'managed_file',
-      '#title' => t('Alt background pattern'),
-      '#default_value' => variable_get($alt_bg_fid),
-      //@todo: /campaigns/[nid] directory?
-      '#upload_location' => 'public://',
-    );
-
     $form['custom']['optins'] = array(
       '#type' => 'fieldset',
       '#title' => t('Third Party Opt-ins'),
@@ -389,7 +378,6 @@ function dosomething_helpers_form_extras(&$form, &$form_state) {
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
-
     $form['custom']['optins']['mailchimp_grouping_id'] = array(
       '#type' => 'textfield',
       '#title' => t('MailChimp Grouping ID'),
