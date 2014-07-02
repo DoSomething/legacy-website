@@ -1,3 +1,21 @@
+// Vertically align content
+// @TODO: move to neue
+//
+// Examples:
+// @include vertical-align(150px, container_body, middle);
+//
+@mixin vertical-align($height, $selector, $align: middle) {
+  // Height of the parent
+  display: table;
+  height: $height;
+
+  // Content to be aligned
+  .#{$selector} {
+    display: table-cell;
+    vertical-align: $align;
+  }
+}
+
 .campaign.closed {
   [role="banner"] {
     &.-hero {
@@ -9,7 +27,6 @@
         margin-top: 0;
       }
     }
-
 
     .message-callout {
       margin: 0 auto;
@@ -42,12 +59,10 @@
     }
   }
 
-
   // Campaign statistics including number of participants and
   // total quantity donated
   // @TODO: move to neue
   .statistic {
-    padding: 9px 0;
     position: relative;
     text-align: center;
 
@@ -68,18 +83,8 @@
       }
     }
 
-    .placeholder {
-      p {
-        margin-top: .4em;
-      }
-    }
-
     @include media($tablet) {
-      margin-top: 18px;
-
-      .statistic__body {
-        padding: 0 36px;
-      }
+      margin-top: 20px;
 
       strong {
         margin-top: 25px;
@@ -87,8 +92,12 @@
 
       &.-columned {
         @include span-columns(6 of 12);
-        min-height: 138px;
+        @include vertical-align(138px, statistic__body, middle);
         margin-right: 0;
+
+        .statistic__body {
+          padding: 0 36px;
+        }
       }
     }
 
@@ -105,8 +114,8 @@
 
     @include media($tablet) {
       border-left: 2px solid #989898;
-      margin-top: 18px;
-      padding-top: 9px;
+      margin-top: 20px;
+      padding-top: 0;
     }
 
     &:before {
@@ -132,6 +141,8 @@
       font-size: $font-medium;
       font-style: italic;
     }
+
+    
   }
 
   .intro {
