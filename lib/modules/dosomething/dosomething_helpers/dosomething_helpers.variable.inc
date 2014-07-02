@@ -25,6 +25,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#field_prefix' => '#',
     '#size' => 6,
   );
+  $form['styles']['alt_bg_fid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alt BG File fid'),
+    '#description' => t('File fid to display for BG pattern.'),
+    '#default_value' => $vars['alt_bg_fid'],
+    '#size' => 6,
+  );
   $form['styles']['alt_image_campaign_cover_nid'] = array(
     '#type' => 'textfield',
     '#title' => t('Alt header Image nid'),
@@ -60,6 +67,7 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
 
 function dosomething_helpers_get_default_variables() {
   return array(
+    'alt_bg_fid' => NULL,
     'alt_color' => NULL,
     'alt_image_campaign_cover_nid' => NULL,
   );
