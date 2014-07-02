@@ -195,10 +195,10 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
     }
   }
   else {
-    // Get prefix to check for custom node styles variables.
-    $prefix = dosomething_helpers_get_custom_var_prefix($vars['type'], $vars['nid']);
-    // Check for custom alt color.
-    $alt_color = variable_get($prefix . 'alt_color', NULL);
+    $custom_vars = dosomething_helpers_get_variables($vars['nid']);
+     if ($custom_vars['alt_color']) {
+      $alt_color = $custom_vars['alt_color'];
+    }
   }
 
   if (isset($alt_color)) {
