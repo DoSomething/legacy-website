@@ -54,7 +54,7 @@
     <div class="cta">
       <div class="wrapper">
         <h2 class="__message">Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
-        <a href="/campaigns" class="btn medium">Explore Campaigns</a>
+        <a href="/campaigns" class="btn">Explore Campaigns</a>
       </div>
     </div>
 
