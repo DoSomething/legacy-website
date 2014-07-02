@@ -43,3 +43,14 @@ function dosomething_campaign_update_7004(&$sandbox) {
   $value = "Create an account to keep track of your campaigns!";
   variable_set('dosomething_campaign_confirmation_page_anon_cta_text', $value);
 }
+
+/**
+ * Deletes the field_variables field collection and related fields.
+ *
+ * See https://github.com/DoSomething/dosomething/issues/2726.
+ */
+function dosomething_campaign_update_7005(&$sandbox) {
+  field_delete_field('field_variable_name');
+  field_delete_field('field_variable_value');
+  field_delete_field('field_variables');
+}
