@@ -39,6 +39,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['alt_image_campaign_cover_nid'],
     '#size' => 6,
   );
+  $form['styles']['signup_button_copy'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Signup Button Copy'),
+    '#description' => t('Override the copy on the signup button.'),
+    '#default_value' => $vars['signup_button_copy'],
+    '#size' => 20,
+  );
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -61,15 +68,19 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
   foreach ($values as $name => $value) {
     // Save to the variable table.
     dosomething_helpers_set_variable($node, $name, $value);
-
   }
+  drupal_set_message("Updated.");
 }
 
-function dosomething_helpers_get_default_variables() {
+/**
+ * Returns array of all variable names.
+ */
+function dosomething_helpers_get_variable_names() {
   return array(
-    'alt_bg_fid' => NULL,
-    'alt_color' => NULL,
-    'alt_image_campaign_cover_nid' => NULL,
+    'alt_bg_fid',
+    'alt_color',
+    'alt_image_campaign_cover_nid',
+    'signup_button_copy',
   );
 }
 
@@ -80,7 +91,10 @@ function dosomething_helpers_get_default_variables() {
  *   Keyed by the variable name.
  */
 function dosomething_helpers_get_variables($nid) {
-  $vars = array();
+  // Initialize array with NULL defaults.
+  foreach (dosomething_helpers_get_variable_names() as $name) {
+    $vars[$name] = NULL;
+  }
   // Query for variable records for given $node.
   $result = db_select('dosomething_helpers_variable', 'v')
     ->fields('v')
@@ -91,7 +105,7 @@ function dosomething_helpers_get_variables($nid) {
   foreach ($result as $record) {
     $vars[$record->name] = $record->value;
   }
-  return array_merge(dosomething_helpers_get_default_variables(), $vars);
+  return $vars;
 }
 
 /**
