@@ -62,3 +62,31 @@ function dosomething_helpers_update_7001() {
     db_create_table($tbl_name, $schema[$tbl_name]);
   }
 }
+
+/**
+ * Migrates alt_bf_fid, alt_color variables to the dosomething_helpers_variable table.
+ */
+function dosomething_helpers_update_7002() {
+  $variables = array('alt_bg_fid', 'alt_color');
+  foreach ($variables as $variable) {
+    // Grab all variable records:
+    $result = db_select('variable', 'v')
+      ->fields('v')
+      ->condition('name', '%' . $variable . '%', 'LIKE')
+      ->execute()
+      ->fetchAll();
+    // For each variable found:
+    foreach ($result as $record) {
+      $name = $record->name;
+      // Get the numeric nid from the variable name.
+      $nid = filter_var($name, FILTER_SANITIZE_NUMBER_INT);
+      // Store its value.
+      $value = variable_get($name);
+      // Save it to the dosomething_helpers_variable table for the node.
+      $node = node_load($nid);
+      dosomething_helpers_set_variable($node, $variable, $value);
+      // Delete the old variable.
+      variable_del($name);
+    }
+  }
+}
