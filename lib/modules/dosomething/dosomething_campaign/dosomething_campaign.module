@@ -225,7 +225,8 @@ function dosomething_campaign_admin_paths() {
  * Page access callback for admin custom settings form.
  */
 function dosomething_campaign_admin_custom_settings_page_access($node) {
-  if ($node->type != 'campaign') { return FALSE; }
+  $settings_nodes = array('campaign', 'campaign_group');
+  if (!in_array($node->type, $settings_nodes)) { return FALSE; }
 
   return (user_access('edit any campaign content') || user_access('bypass node access'));
 }

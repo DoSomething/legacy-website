@@ -61,8 +61,8 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
   foreach ($values as $name => $value) {
     // Save to the variable table.
     dosomething_helpers_set_variable($node, $name, $value);
-
   }
+  drupal_set_message("Updated.");
 }
 
 function dosomething_helpers_get_default_variables() {
