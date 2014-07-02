@@ -162,8 +162,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
     $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
   }
 
-  // Store any field_variables.
-  $campaign->variables = dosomething_campaign_get_field_variables($wrapper);
+  // Store any dosomething_helpers variables.
+  $campaign->variables = dosomething_helpers_get_variables($campaign->nid);
 
   // Set image_cover property.
   $campaign->image_cover = NULL;
