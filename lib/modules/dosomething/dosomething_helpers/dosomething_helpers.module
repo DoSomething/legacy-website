@@ -6,6 +6,7 @@
 
 include_once('dosomething_helpers.theme.inc');
 include_once('dosomething_helpers.strongarm.inc');
+include_once('dosomething_helpers.variable.inc');
 
 /**
  * Implements hook_ctools_plugin_api().
