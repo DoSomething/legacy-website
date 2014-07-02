@@ -26,7 +26,7 @@ namespace :deploy do
   task :shared_links do
     on roles(:app) do |host|
       execute "cd '#{release_path}/html/sites/default'; rm -rf files 2> /dev/null; ln -s #{shared_path}/files files"
-      execute "ln -s #{shared_path}/settings.#{:stage}.php #{release_path}/html/sites/default/settings.#{:stage}.php"
+      execute "ln -s #{shared_path}/settings.#{fetch(:deploy_env)}.php #{release_path}/html/sites/default/settings.#{fetch(:deploy_env)}.php"
       if :stage == 'staging'
         execute "printf 'User-agent: *\nDisallow: /' > #{release_path}/html/robots.txt"
       end
