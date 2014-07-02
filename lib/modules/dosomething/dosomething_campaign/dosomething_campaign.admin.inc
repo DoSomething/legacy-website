@@ -128,6 +128,9 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
  */
 function dosomething_campaign_admin_custom_settings_page($node) {
   $output = '';
+  $variable_form = drupal_get_form('dosomething_helpers_variable_form', $node);
+  $output .= render($variable_form);
+
   if (module_exists('dosomething_signup')) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
     $output .= render($signup_data_config_form);
