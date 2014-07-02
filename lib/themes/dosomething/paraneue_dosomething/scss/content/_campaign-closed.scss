@@ -140,8 +140,6 @@
   }
 
   // Items following a gallery
-
-
   h3 + .gallery {
     margin-top: 27px;
   }
@@ -181,7 +179,7 @@
         }
 
         .__body {
-          @include span-columns(4);
+          @include span-columns(6);
         }
       }
     }
