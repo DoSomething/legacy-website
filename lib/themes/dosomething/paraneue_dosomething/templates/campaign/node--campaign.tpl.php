@@ -162,7 +162,7 @@
               <?php print $location_finder['copy']; ?>
             <?php endif; ?>
 
-            <a class="btn small secondary" href="<?php print $location_finder['url']; ?>" target="_blank">Locate</a>
+            <a class="btn secondary" href="<?php print $location_finder['url']; ?>" target="_blank">Locate</a>
           </div>
         <?php endif; ?>
 

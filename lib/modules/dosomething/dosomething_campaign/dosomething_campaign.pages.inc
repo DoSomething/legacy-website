@@ -28,7 +28,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     // Set button to link to /campaigns.
     $more_campaigns_link = l(t($button_text), 'campaigns', array(
       'attributes' => array('class' =>
-        array('btn', 'large')
+        array('btn')
       ))
     );
   }
