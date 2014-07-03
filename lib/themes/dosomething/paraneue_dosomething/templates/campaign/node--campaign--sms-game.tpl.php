@@ -66,7 +66,7 @@
               <?php endif; ?>
 
               <?php if (isset($campaign->solution_support)): ?>
-                <p><?php print $campaign->solution_support; ?></p>
+                <?php print $campaign->solution_support; ?>
               <?php endif; ?>
 
             <?php endif; ?>
