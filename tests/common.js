@@ -13,7 +13,7 @@ casper.login = function() {
   this.echo("Logging in as test user.");
 
   // Go home and login.
-  casper.open(url + "/user", function() {
+  casper.thenOpen(url + "/user", function() {
     this.fill('form[action="/user/login"]', {
       name: 'QA_TEST_ACCOUNT@example.com',
       pass: 'tester'
@@ -24,7 +24,7 @@ casper.login = function() {
 // Use to log out after completing a test.
 casper.logout = function() {
   // Go home and click the "Log Out" button
-  casper.open(url + "/user/logout", function() {
+  casper.thenOpen(url + "/user/logout", function() {
     this.echo("Logging out of test user.");
   });
 }
