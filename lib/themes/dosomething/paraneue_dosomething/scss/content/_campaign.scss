@@ -34,8 +34,8 @@
 
   &.-dynamic-right {
     .__copy {
-      padding-top: 3px;
       padding-bottom: 3px;
+      padding-top: 3px;
     }
   }
 }
@@ -54,7 +54,6 @@
 .campaign--grouped {
   [role="banner"] {
     .message-callout {
-
       .__copy {
         &:before {
           right: 35px;
