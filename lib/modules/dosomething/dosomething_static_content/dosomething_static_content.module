@@ -94,7 +94,8 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
     // Check for a Gallery Style field value:
     if (isset($collection_item['field_gallery_style'][0])) {
       // Store the Gallery Style key.
-      $vars['galleries'][$i]['style'] = $collection_item['field_gallery_style']['#items'][0]['value'];
+      $style = $collection_item['field_gallery_style']['#items'][0]['value'];
+      $vars['galleries'][$i]['style'] = $style;
     }
     else {
       $vars['galleries'][$i]['style'] = 'default';
