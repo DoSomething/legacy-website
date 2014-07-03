@@ -95,8 +95,9 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
  */
 function dosomething_signup_friends_form($form, &$form_state, $node, $num_friends = 3) {
   $nid = $node->nid;
-  $opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_opt_in_path');
-  $friends_opt_in_path = dosomething_signup_variable_get($nid, 'mobilecommons_friends_opt_in_path');
+  $vars = dosomething_helpers_get_variables($node->nid);
+  $opt_in_path = $vars['mobilecommons_opt_in_path'];
+  $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
  
   $form['nid'] = array(
     '#type' => 'hidden',
