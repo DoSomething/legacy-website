@@ -43,6 +43,42 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_gallery-field_gallery_style'
+  $field_instances['field_collection_item-field_gallery-field_gallery_style'] = array(
+    'bundle' => 'field_gallery',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '<ul>
+<li><p><strong> - None - </strong>: Defaults to standard row of 3 images, uses the Image node\'s Square field.</p></li>
+<li><p><strong>2 column</strong>: Row of 2 square images, text to side, uses the Image node\'s Thumbnail field.</p></li>
+<li><p><strong>3 column (short)</strong>: Row of 3 shorter rectangular images, uses the Image node\'s Thumbnail field.</p></li>
+</ul>
+',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_gallery_style',
+    'label' => 'Gallery Style',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
       'weight' => 1,
     ),
   );
@@ -821,6 +857,12 @@ function dosomething_static_content_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('<ul>
+<li><p><strong> - None - </strong>: Defaults to standard row of 3 images, uses the Image node\'s Square field.</p></li>
+<li><p><strong>2 column</strong>: Row of 2 square images, text to side, uses the Image node\'s Thumbnail field.</p></li>
+<li><p><strong>3 column (short)</strong>: Row of 3 shorter rectangular images, uses the Image node\'s Thumbnail field.</p></li>
+</ul>
+');
   t('Additional Text');
   t('Additional Text Title');
   t('Blocks');
@@ -829,6 +871,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Gallery');
   t('Gallery Image');
   t('Gallery Item');
+  t('Gallery Style');
   t('Gallery Title');
   t('Hero Image');
   t('Image Description');
