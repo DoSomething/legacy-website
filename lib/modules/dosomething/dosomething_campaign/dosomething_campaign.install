@@ -54,3 +54,38 @@ function dosomething_campaign_update_7005(&$sandbox) {
   field_delete_field('field_variable_value');
   field_delete_field('field_variables');
 }
+
+/**
+ * Updates field_post_step_copy and field_solution_support values to markdown.
+ */
+function dosomething_campaign_update_7006() {
+  $format = 'markdown';
+
+  // Find all campaigns.
+  $result = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('type', 'campaign')
+    ->execute();
+
+  // Foreach campaign:
+  foreach ($result as $record) {
+    $nid = $record->nid;
+    $node = node_load($nid);
+    $updated = FALSE;
+    if (isset($node->field_post_step_copy[LANGUAGE_NONE])) {
+      $node->field_post_step_copy[LANGUAGE_NONE][0]['format'] = $format;
+      $updated = TRUE;
+      $msg = 'Nid ' . $nid . ' field_post_step_copy updated to ' . $format;
+      watchdog('dosomething_campaign', $msg);
+    }
+    if (isset($node->field_solution_support[LANGUAGE_NONE])) {
+      $node->field_solution_support[LANGUAGE_NONE][0]['format'] = $format;
+      $updated = TRUE;
+      $msg = 'Nid ' . $nid . ' field_solution_support updated to ' . $format;
+      watchdog('dosomething_campaign', $msg);
+    }
+    if ($updated) {
+      node_save($node);
+    }
+  }
+}
