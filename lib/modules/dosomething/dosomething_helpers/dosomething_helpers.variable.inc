@@ -111,6 +111,22 @@ function dosomething_helpers_get_variables($nid) {
 }
 
 /**
+ * Returns value of given $nid's $name variable.
+ *
+ * @return string
+ *   All variable values are stored as strings.
+ */
+function dosomething_helpers_get_variable($nid, $name) {
+  return db_select('dosomething_helpers_variable', 'v')
+    ->fields('v', array('value'))
+    ->condition('entity_id', $nid)
+    ->condition('entity_type', 'node')
+    ->condition('name', $name)
+    ->execute()
+    ->fetchField(0);
+}
+
+/**
  * Sets a given dosomething_helper variable $name to $value for given $node.
  */
 function dosomething_helpers_set_variable($node, $name, $value) {
