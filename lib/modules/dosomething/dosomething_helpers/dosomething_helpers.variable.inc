@@ -82,6 +82,8 @@ function dosomething_helpers_get_variable_names() {
     'alt_bg_fid',
     'alt_color',
     'alt_image_campaign_cover_nid',
+    'mobilecommons_opt_in_path',
+    'mobilecommons_friends_opt_in_path',
     'signup_form_submit_label',
   );
 }

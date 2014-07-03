@@ -360,7 +360,7 @@ function dosomething_signup_update_7009() {
  */
 function dosomething_signup_update_7010() {
   // List of variables to migrate.
-  $opt_in = 'mobilecommons_opt_in_path',
+  $opt_in = 'mobilecommons_opt_in_path';
   $opt_in_friends = 'mobilecommons_friends_opt_in_path';
   // Grab all variable records:
   $result = db_select('dosomething_signup_variable', 'v')
