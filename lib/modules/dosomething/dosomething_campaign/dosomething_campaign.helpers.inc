@@ -82,7 +82,6 @@ function dosomething_campaign_load($node, $public = FALSE) {
   // Plain text fields.
   $fields_plain_text = array(
     'call_to_action',
-    'solution_support',
     'starter_statement_header',
   );
   foreach ($fields_plain_text as $property) {
@@ -95,6 +94,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
     'items_needed',
     'promoting_tips',
     'solution_copy',
+    'solution_support',
     'starter_statement',
     'time_and_place',
     'vips',
