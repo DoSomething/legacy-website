@@ -26,12 +26,26 @@
   }
 }
 
+// @TODO update this in neue
+.message-callout {
+  @include media($tablet) {
+    @include transform(rotate(-3deg));
+  }
+
+  &.-dynamic-right {
+    .__copy {
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+  }
+}
+
 .campaign--pitch,
 .campaign--grouped,
 .campaign--action .container--prove {
   .message-callout {
     .__copy {
-      left: 45px;
+      left: 12px;
     }
   }
 }
@@ -52,12 +66,10 @@
         position: absolute;
         left: 144px;
         bottom: 0;
-        width: 165px;
+        width: 180px;
 
         .__copy {
           text-align: center;
-
-          @include transform(rotate(-6deg));
 
           &:before {
             right: auto;
