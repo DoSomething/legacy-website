@@ -238,6 +238,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 60,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 60,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -281,6 +287,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -318,6 +331,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 21,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 21,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -352,6 +371,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -401,6 +427,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 65,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 65,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -436,6 +468,13 @@ function dosomething_campaign_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 63,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
@@ -479,6 +518,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 3,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -514,6 +560,12 @@ function dosomething_campaign_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
+        'weight' => 17,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 17,
       ),
       'teaser' => array(
@@ -574,6 +626,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 16,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 16,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -615,6 +673,16 @@ function dosomething_campaign_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => TRUE,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
         'weight' => 8,
       ),
       'teaser' => array(
@@ -662,6 +730,16 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 9,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => TRUE,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 9,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -707,6 +785,16 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 13,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => TRUE,
+          'view_mode' => 'default',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 13,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -744,6 +832,19 @@ function dosomething_campaign_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 31,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
@@ -798,6 +899,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'date_default',
         'weight' => 14,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -848,6 +955,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 5,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -889,6 +1002,12 @@ function dosomething_campaign_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
+        'weight' => 38,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 38,
       ),
       'teaser' => array(
@@ -936,6 +1055,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 50,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 50,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -979,6 +1104,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 49,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 49,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1014,6 +1145,13 @@ function dosomething_campaign_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 53,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
@@ -1068,6 +1206,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 27,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 27,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1112,6 +1257,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 29,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1147,6 +1298,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 57,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1190,6 +1348,12 @@ function dosomething_campaign_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
+        'weight' => 58,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 58,
       ),
       'teaser' => array(
@@ -1251,6 +1415,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'date_default',
         'weight' => 15,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1296,6 +1466,12 @@ function dosomething_campaign_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
+        'weight' => 35,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 35,
       ),
       'teaser' => array(
@@ -1347,6 +1523,19 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 61,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 61,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1381,6 +1570,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 43,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1428,6 +1624,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 48,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 48,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1465,6 +1668,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 47,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1512,6 +1722,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 46,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 46,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1549,6 +1766,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 45,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1594,6 +1818,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 55,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 55,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1625,6 +1856,13 @@ function dosomething_campaign_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 54,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
@@ -1665,6 +1903,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 28,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1712,6 +1957,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 44,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 44,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1747,6 +1999,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 52,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -1792,6 +2051,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 22,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 22,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1832,6 +2097,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 23,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1866,6 +2137,18 @@ function dosomething_campaign_field_default_field_instances() {
     'description' => 'If there is a scholarship, enter the dollar amount here. If there is no scholarship, leave this field blank.',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 34,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'number',
         'settings' => array(
@@ -1920,6 +2203,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 59,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 59,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1958,6 +2248,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 37,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -2007,6 +2304,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 20,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 20,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2043,6 +2346,13 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 24,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -2134,6 +2444,19 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 33,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 33,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2166,6 +2489,19 @@ function dosomething_campaign_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 32,
+      ),
+      'search_index' => array(
+        'label' => 'hidden',
         'module' => 'field_collection',
         'settings' => array(
           'add' => 'Add',
@@ -2216,6 +2552,13 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 4,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2252,6 +2595,13 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 25,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(),
@@ -2303,6 +2653,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 62,
       ),
+      'search_index' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 62,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2335,6 +2691,13 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit: 135 characters </strong>',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 26,
+      ),
+      'search_index' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(),
