@@ -164,10 +164,6 @@ function build {
   echo 'Enabling modules in dosomething.info'
   drush --script-path=../bin/ php-script enable_modules.php
 
-  # Enable modules in info file
-  echo 'Enabling development modules'
-  drush en -y stage_file_proxy
-
   echo 'Reverting Features'
   drush fra -y --force
 
@@ -237,6 +233,7 @@ function symlinks {
 function dev {
   echo 'Enabling modules'
   drush en devel devel_generate -y
+  drush en -y stage_file_proxy
 
   echo 'Auto-generating Content'
   drush generate-terms sponsors 20
