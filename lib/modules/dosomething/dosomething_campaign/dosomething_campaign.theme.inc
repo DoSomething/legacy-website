@@ -17,7 +17,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   $scholarship = $wrapper->field_scholarship_amount->value();
   if (isset($scholarship)) {
-    $vars['scholarship'] = '$' . number_format($scholarship, 0, '', ',') . ' Scholarship';
+    $vars['scholarship'] = 'Win a $' . number_format($scholarship, 0, '', ',') . ' Scholarship';
   }
 
   // Timing.
