@@ -13,5 +13,6 @@ drush sql-query "DELETE FROM flood WHERE identifier LIKE '%127.0.0.1';"
 # Get test user account UID...
 uid=$( drush user-information QA_TEST_ACCOUNT@example.com | grep "User ID" | sed -e 's/[ ]*User ID[ ]*\:[ ]*//g' )
 
-# Remove campaign signup for test account
-drush php-eval "dosomething_signup_delete_signup(1261, $uid)"
+# Remove all campaign signups for test account
+drush sql-query "DELETE FROM dosomething_signup WHERE uid='$uid';"
+
