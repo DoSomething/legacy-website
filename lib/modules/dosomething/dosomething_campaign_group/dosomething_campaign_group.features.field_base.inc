@@ -264,35 +264,6 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_signup_form_button_text'
-  $field_bases['field_signup_form_button_text'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_signup_form_button_text',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_transactional_email_copy'
   $field_bases['field_transactional_email_copy'] = array(
     'active' => 1,
