@@ -29,3 +29,10 @@ function dosomething_campaign_group_update_7002(&$sandbox) {
 function dosomething_campaign_group_update_7003(&$sandbox) {
   field_delete_field('field_post_signup_body');
 }
+
+/**
+ * Deletes field_signup_form_button_text.
+ */
+function dosomething_campaign_group_update_7004(&$sandbox) {
+  field_delete_field('field_signup_form_button_text');
+}

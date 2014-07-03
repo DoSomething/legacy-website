@@ -19,6 +19,10 @@
  *   Optional - If TRUE, get the presignup form, else regular signup form.
  */
 function dosomething_signup_preprocess_signup_button(&$vars, $label = "Sign Up", $presignup = FALSE) {
+  // In case we were passed a NULL value for $label:
+  if ($label == NULL) {
+    $label = "Sign Up";
+  }
   $label = t($label);
   // If user is logged in:
   if (user_is_logged_in()) {

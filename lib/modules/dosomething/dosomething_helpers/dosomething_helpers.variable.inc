@@ -26,6 +26,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#size' => 6,
   );
   $form['styles']['alt_bg_fid'] = array(
+    //@todo: File Fid autocomplete?
     '#type' => 'textfield',
     '#title' => t('Alt BG File fid'),
     '#description' => t('File fid to display for BG pattern.'),
@@ -33,17 +34,18 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#size' => 6,
   );
   $form['styles']['alt_image_campaign_cover_nid'] = array(
+    //@todo: Node reference autocomplete.
     '#type' => 'textfield',
     '#title' => t('Alt header Image nid'),
     '#description' => t('An Image Node nid to display in the page header.'),
     '#default_value' => $vars['alt_image_campaign_cover_nid'],
     '#size' => 6,
   );
-  $form['styles']['signup_button_copy'] = array(
+  $form['styles']['signup_form_submit_label'] = array(
     '#type' => 'textfield',
-    '#title' => t('Signup Button Copy'),
-    '#description' => t('Override the copy on the signup button.'),
-    '#default_value' => $vars['signup_button_copy'],
+    '#title' => t('Signup Form Button Label'),
+    '#description' => t('Overrides the label on the Signup Form button.'),
+    '#default_value' => $vars['signup_form_submit_label'],
     '#size' => 20,
   );
   $form['actions'] = array(
@@ -80,7 +82,7 @@ function dosomething_helpers_get_variable_names() {
     'alt_bg_fid',
     'alt_color',
     'alt_image_campaign_cover_nid',
-    'signup_button_copy',
+    'signup_form_submit_label',
   );
 }
 
@@ -106,6 +108,22 @@ function dosomething_helpers_get_variables($nid) {
     $vars[$record->name] = $record->value;
   }
   return $vars;
+}
+
+/**
+ * Returns value of given $nid's $name variable.
+ *
+ * @return string
+ *   All variable values are stored as strings.
+ */
+function dosomething_helpers_get_variable($nid, $name) {
+  return db_select('dosomething_helpers_variable', 'v')
+    ->fields('v', array('value'))
+    ->condition('entity_id', $nid)
+    ->condition('entity_type', 'node')
+    ->condition('name', $name)
+    ->execute()
+    ->fetchField(0);
 }
 
 /**

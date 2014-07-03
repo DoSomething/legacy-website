@@ -314,17 +314,8 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Check for a signup button copy override.
-  $label = $vars['campaign']->variables['signup_button_copy'];
-  // If no override:
-  if (empty($label)) {
-    // Don't pass the $label parameter, using the default defined in function.
-    dosomething_signup_preprocess_signup_button($vars);
-  }
-  // Else if there is an override:
-  else {
-    // Pass it as a param to display on the signup button.
-    dosomething_signup_preprocess_signup_button($vars, $label);
-  }
+  $label = $vars['campaign']->variables['signup_form_submit_label'];
+  dosomething_signup_preprocess_signup_button($vars, $label);
 }
 
 /**

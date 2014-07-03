@@ -1009,46 +1009,6 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_signup_form_button_text'
-  $field_instances['node-campaign_group-field_signup_form_button_text'] = array(
-    'bundle' => 'campaign_group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Sets the label on the Signup Form button.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 21,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_signup_form_button_text',
-    'label' => 'Signup Form Button Text',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 20,
-    ),
-  );
-
   // Exported field_instance: 'node-campaign_group-field_staff_pick'
   $field_instances['node-campaign_group-field_staff_pick'] = array(
     'bundle' => 'campaign_group',
@@ -1237,12 +1197,10 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Pre Launch Copy');
   t('Pre Launch Title');
   t('Scholarship Amount');
-  t('Sets the label on the Signup Form button.');
   t('Sets the notification message to be displayed after the user submits the signup form.');
   t('Should the Campaign Group Signup Form should be displayed?');
   t('Show End Date');
   t('Signup Confirmation Message');
-  t('Signup Form Button Text');
   t('Sponsors and Partners');
   t('Tags');
   t('The Post Signup fields are displayed if the user has signed up for the Grouped Campaign.');

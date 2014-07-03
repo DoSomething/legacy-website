@@ -15,7 +15,7 @@
  * @param string $label
  *   The label to display on the form submit button.
  */
-function dosomething_signup_form($form, &$form_state, $nid, $label) {
+function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") {
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $nid,
@@ -26,7 +26,6 @@ function dosomething_signup_form($form, &$form_state, $nid, $label) {
     '#attributes' => array(
       'class' => array(
         'btn',
-        'medium',
       ),
     ),
   );
