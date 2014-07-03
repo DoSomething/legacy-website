@@ -14,4 +14,9 @@ webroot-internal:
     - require:
       - pkg: apache2
 
+stage-file-proxy:
+  cmd.run:
+    - name: 'drush en -y stage_file_proxy'
+    - user: vagrant
+
 {% endif %}
