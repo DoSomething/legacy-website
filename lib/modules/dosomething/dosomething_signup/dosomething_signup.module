@@ -340,11 +340,15 @@ function dosomething_signup_entity_insert($entity, $type) {
  * Sends third-party subscription requests for given $account and $node.
  */
 function dosomething_signup_third_party_subscribe($account, $node) {
+  $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
-  $opt_in_override = variable_get('dosomething_signup_nid_' . $node->nid . '_mobilecommons_id');
-  $opt_in_general = variable_get('dosomething_mobilecommons_campaign_general');
+  $opt_in = dosomething_helpers_get_variable($node->nid, $var_name);
+  // If not:
+  if (!$opt_in) {
+    // Use general opt_in_path.
+    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
+  }
   // Opt-in to mobilecommons.
-  $opt_in = isset($opt_in_override) ? $opt_in_override : $opt_in_general;
   dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
   // Send message broker request.
   dosomething_signup_mbp_request($account, $node);
