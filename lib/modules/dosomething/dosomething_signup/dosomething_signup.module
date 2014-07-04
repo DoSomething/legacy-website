@@ -489,12 +489,10 @@ function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
  */
 function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
   $nid = $node->nid;
-  $prefix = 'dosomething_signup_nid_' . $nid;
-  // Variable may be set as empty string, so set empty string as default.
-  $grouping_id = variable_get($prefix . '_mailchimp_grouping_id', '');
-  $group_name = variable_get($prefix . '_mailchimp_group_name', '');
+  $grouping_id = dosomething_helpers_get_variable($nid, 'mailchimp_grouping_id');
+  $group_name = dosomething_helpers_get_variable($nid, 'mailchimp_group_name');
   // If a value is present for Mailchimp groups:
-  if (!empty($grouping_id) || !empty($group_name)) {
+  if (isset($grouping_id) && isset($group_name)) {
     // Add it into the mbp_request params.
     $params['mailchimp_grouping_id'] = $grouping_id;
     $params['mailchimp_group_name'] = $group_name;
