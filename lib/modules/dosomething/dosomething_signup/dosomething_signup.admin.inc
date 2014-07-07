@@ -23,6 +23,28 @@ function dosomething_signup_opt_in_config_page() {
  * Form constructor for Signup opt-in configuration.
  */
 function dosomething_signup_admin_config_form($form, &$form_state) {
+  $form['staff_picks'] = array(
+    '#prefix' => '<h3>',
+    '#markup' => 'Staff Picks',
+    '#suffix' => '</h3>',
+  );
+  // Each staff pick could have a special opt-in for third party communications.
+  $staff_picks = dosomething_campaign_get_staff_picks();
+  if ($staff_picks) {
+    foreach ($staff_picks as $vars) {
+      dosomething_signup_optin_config_form_add_elements($form, $vars);
+    }
+  }
+  $form['campaign_groups'] = array(
+    '#prefix' => '<h3>',
+    '#markup' => 'Campaign Groups',
+    '#suffix' => '</h3>',
+  );
+  if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
+    foreach ($campaign_groups as $vars) {
+      dosomething_signup_optin_config_form_add_elements($form, $vars);
+    }
+  }
   $form['header'] = array(
     '#prefix' => '<h3>',
     '#markup' => 'SMS Games',
@@ -65,6 +87,18 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
  */
 function dosomething_signup_admin_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
+  $variables = dosomething_signup_get_admin_config_campaign_variables();
+  $staff_picks = dosomething_campaign_get_staff_picks();
+  if ($staff_picks) {
+    foreach ($staff_picks as $vars) {
+      $nid = $vars['nid'];
+      $node = node_load($nid);
+      foreach ($variables as $name => $description) {
+        $value = $values[$nid . '_' . $name];
+        dosomething_helpers_set_variable($node, $name, $value);
+      }
+    }
+  }
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
     foreach ($sms_games as $vars) {
@@ -80,6 +114,7 @@ function dosomething_signup_admin_config_form_submit($form, &$form_state) {
   }
   drupal_set_message(t("Configuration saved."));
 }
+
 
 /**
  * Settings form third party opt-in ids.
@@ -99,28 +134,6 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
     '#title' => t('Mobile Commons Campaigns Opt-In'),
     '#default_value' => variable_get('dosomething_mobilecommons_campaign_general'),
   );
-  $form['staff_picks'] = array(
-    '#prefix' => '<h3>',
-    '#markup' => 'Staff Picks',
-    '#suffix' => '</h3>',
-  );
-  // Each staff pick could have a special opt-in for third party communications.
-  $staff_picks = dosomething_campaign_get_staff_picks();
-  if ($staff_picks) {
-    foreach ($staff_picks as $vars) {
-      dosomething_signup_optin_config_form_add_elements($form, $vars);
-    }
-  }
-  $form['campaign_groups'] = array(
-    '#prefix' => '<h3>',
-    '#markup' => 'Campaign Groups',
-    '#suffix' => '</h3>',
-  );
-  if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
-    foreach ($campaign_groups as $vars) {
-      dosomething_signup_optin_config_form_add_elements($form, $vars);
-    }
-  }
   return system_settings_form($form);
 }
 
@@ -130,10 +143,7 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
 function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
   $nid = $vars['nid'];
   $title = $vars['title'];
-  $prefix = 'dosomething_signup_nid_' . $nid;
-  $mailchimp_grouping_id = $prefix . '_mailchimp_grouping_id';
-  $mailchimp_group_name = $prefix . '_mailchimp_group_name';
-  $mobilecommons_id = $prefix . '_mobilecommons_id';
+  $variables = dosomething_signup_get_admin_config_campaign_variables();
 
   // Create a fieldset for each campaign.
   $form[$nid] = array(
@@ -142,24 +152,22 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  // Loop through each variable it can contain:
+  foreach ($variables as $name => $description) {
+    // Create a form element for it.
+    $form[$nid][$nid . '_' . $name] = array(
+      '#type' => 'textfield',
+      '#title' => $name,
+      '#default_value' => dosomething_helpers_get_variable($nid, $name),
+      '#description' => $description,
+    );
+  }
+}
 
-  // Each campaign gets a mailchimp grouping_id/group_name & mobilecommons id.
-  $form[$nid][$mailchimp_grouping_id] = array(
-    '#type' => 'textfield',
-    '#title' => t('MailChimp Grouping ID'),
-    '#default_value' => variable_get($mailchimp_grouping_id),
-    '#description' => t('The numeric Grouping ID that the Group Name belongs to.'),
-  );
-  $form[$nid][$mailchimp_group_name] = array(
-    '#type' => 'textfield',
-    '#title' => t('MailChimp Group Name'),
-    '#default_value' => variable_get($mailchimp_group_name),
-    '#description' => t('The alphanumeric Interest Group name.'),
-  );
-  $form[$nid][$mobilecommons_id] = array(
-    '#type' => 'textfield',
-    '#title' => t('Mobile Commons Opt-In Path'),
-    '#default_value' => variable_get($mobilecommons_id),
-    '#description' => t("The numeric Mobilecommons opt-in path."),
+function dosomething_signup_get_admin_config_campaign_variables() {
+  return array(
+    'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name'),
+    'mailchimp_group_name' => t('The alphanumeric Interest Group Name'),
+    'mobilecommons_opt_in_path' => t('The numeric Mobilecommons opt-in path'),
   );
 }

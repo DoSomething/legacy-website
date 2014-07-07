@@ -124,7 +124,8 @@ function dosomething_helpers_update_7003() {
       dosomething_helpers_set_variable($node, $variable, $value);
       // Delete the old variable.
       variable_del($name);
-      //@todo: Delete unused 'mailchimp_id' variables.
+      // @todo: Delete unused 'mailchimp_id' variables.
+      // @see https://github.com/DoSomething/dosomething/issues/1476
     }
   }
 }
