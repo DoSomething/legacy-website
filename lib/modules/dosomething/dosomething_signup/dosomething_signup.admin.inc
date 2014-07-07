@@ -24,9 +24,7 @@ function dosomething_signup_opt_in_config_page() {
  */
 function dosomething_signup_admin_config_form($form, &$form_state) {
   $form['staff_picks'] = array(
-    '#prefix' => '<h3>',
-    '#markup' => 'Staff Picks',
-    '#suffix' => '</h3>',
+    '#markup' => '<h3>Staff Picks</h3>',
   );
   // Each staff pick could have a special opt-in for third party communications.
   $staff_picks = dosomething_campaign_get_staff_picks();
@@ -36,9 +34,7 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
     }
   }
   $form['campaign_groups'] = array(
-    '#prefix' => '<h3>',
-    '#markup' => 'Campaign Groups',
-    '#suffix' => '</h3>',
+    '#markup' => '<h3>Campaign Groups</h3>',
   );
   if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
     foreach ($campaign_groups as $vars) {
@@ -46,9 +42,7 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
     }
   }
   $form['header'] = array(
-    '#prefix' => '<h3>',
-    '#markup' => 'SMS Games',
-    '#suffix' => '</h3>',
+    '#markup' => '<h3>SMS Games</h3>',
   );
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
