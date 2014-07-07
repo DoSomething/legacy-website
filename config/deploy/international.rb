@@ -1,4 +1,4 @@
-require "includes/international"
+require "./includes/international"
 
 namespace :deploy do
 
