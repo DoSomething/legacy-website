@@ -400,7 +400,7 @@ function run_tests {
   fi
 
   # Run tests.
-  printf "\nRunning \"tests/$TEST\":\n"
+  printf "\n\033[1;33mRunning \"tests/$TEST\"...\033[00m\n"
   casperjs test $BASE_PATH/tests/$TEST --url=$URL --includes=$BASE_PATH/scripts/tests/common.js
 
   # Run "after tests" tasks:
