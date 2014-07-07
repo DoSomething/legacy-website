@@ -95,11 +95,31 @@ function dosomething_fact_page_preprocess_node(&$vars) {
       }
     }
 
-    $node = entity_metadata_wrapper('node', $vars['node']);
-    $values = dosomething_fact_get_fact_field_vars($node->field_facts);
+    $values = dosomething_fact_page_get_field_fact_collection_vars($vars['node']);
     $vars['facts'] = $values['facts'];
     $vars['sources'] = $values['sources'];
   }
+}
+
+/**
+ * Returns array of facts/sources from a given loaded Fact Page node.
+ */
+function dosomething_fact_page_get_field_fact_collection_vars($node) {
+  // Initialize output arrays.
+  $facts = $sources = array();
+  // Loop through the field_fact_collection values:
+  foreach ($node->field_fact_collection[LANGUAGE_NONE] as $delta => $fc_item_vars) {
+    $fc_item_id = $fc_item_vars['value'];
+    $fc_item = field_collection_item_load($fc_item_id);
+    $fact_nid = $fc_item->field_fact[LANGUAGE_NONE][0]['target_id'];
+    $fact_wrapper = entity_metadata_wrapper('node', $fact_nid);
+    $facts[$delta] = dosomething_fact_get_fact_vars($fact_wrapper, $delta);
+    $sources = array_merge($sources, $facts[$delta]['sources']);
+  }
+  return array(
+    'facts' => $facts,
+    'sources' => $sources,
+  );
 }
 
 /**
