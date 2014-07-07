@@ -15,5 +15,7 @@ npm-packages:
     - names:
       - bower
       - grunt-cli
+      - phantomjs
+      - casperjs
 
 {% endif %}

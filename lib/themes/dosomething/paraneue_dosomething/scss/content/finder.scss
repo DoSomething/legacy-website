@@ -60,7 +60,7 @@
     }
 
     // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
-    @include media(960px) {
+    @include media(860px) {
       min-height: 100%;
     }
 
@@ -118,7 +118,7 @@
 
     .__question {
       color: $med-gray;
-      font-size: 14px;
+      font-size: $font-small;
       line-height: 1;
       padding-left: 27px;
       margin: 0;

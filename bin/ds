@@ -88,6 +88,9 @@ ds pull [stage|prod] [--db|--files]
   --files
     Pulls down files only.
 
+ds test [dev|qa]
+  Run tests against the given environment using CasperJS.
+
 ds --help
   Displays this help message.
 
@@ -378,6 +381,32 @@ function check_alias_param {
   fi
 }
 
+#=== FUNCTION ==================================================================
+# NAME: run_tests
+# DESCRIPTION: Runs functional tests using CasperJS.
+#===============================================================================
+function run_tests {
+  # Optionally, specify an individual test or directory to run
+  TEST=$1
+
+  # Run "before tests" tasks:
+  sh $BASE_PATH/scripts/tests/before_tests.sh
+
+  # Optionally specify an alternate environment to test (mainly used for CI).
+  if [[ $2 == 'CI_TESTING' ]]
+    then URL='https://qa.dosomething.org'
+  else
+    URL='http://dev.dosomething.org:8888'
+  fi
+
+  # Run tests.
+  printf "\nRunning \"tests/$TEST\":\n"
+  casperjs test $BASE_PATH/tests/$TEST --url=$URL --includes=$BASE_PATH/scripts/tests/common.js
+
+  # Run "after tests" tasks:
+  sh $BASE_PATH/scripts/tests/after_tests.sh
+}
+
 
 # ==============================================================================
 # Commands
@@ -464,4 +493,13 @@ then
     pull_db $2
     pull_files $2
   fi
+fi
+
+
+#----------------------------------------------------------------------
+# test 
+#----------------------------------------------------------------------
+if [[ $1 == "test" ]]
+then
+  run_tests $2 $3
 fi
