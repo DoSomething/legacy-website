@@ -114,7 +114,7 @@ function dosomething_helpers_update_7003() {
       // Get the numeric nid from the variable name.
       $nid = filter_var($name, FILTER_SANITIZE_NUMBER_INT);
       // Store its value.
-      $value = variable_get($name);e.
+      $value = variable_get($name);
       $node = node_load($nid);
       if ($variable == 'mobilecommons_id') {
         // Rename to keep consistent with SMS Game variable.
