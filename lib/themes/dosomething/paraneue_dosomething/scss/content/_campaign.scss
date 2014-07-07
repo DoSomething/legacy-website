@@ -93,9 +93,11 @@
 
   .container--do {
     .polaroid {
-      position: absolute;
-      top: 117px;
-      left: 104%;
+      @include media($tablet) {
+        left: 104%;
+        position: absolute;
+        top: 117px;
+      }
     }
   }
 
