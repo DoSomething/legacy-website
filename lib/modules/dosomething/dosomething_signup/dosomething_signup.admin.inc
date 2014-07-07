@@ -88,6 +88,8 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
 function dosomething_signup_admin_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $variables = dosomething_signup_get_admin_config_campaign_variables();
+
+  // Save staff pick helpers variables.
   $staff_picks = dosomething_campaign_get_staff_picks();
   if ($staff_picks) {
     foreach ($staff_picks as $vars) {
@@ -99,6 +101,20 @@ function dosomething_signup_admin_config_form_submit($form, &$form_state) {
       }
     }
   }
+
+  // Save Campaign Group helpers variables.
+  if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
+    foreach ($campaign_groups as $vars) {
+      $nid = $vars['nid'];
+      $node = node_load($nid);
+      foreach ($variables as $name => $description) {
+        $value = $values[$nid . '_' . $name];
+        dosomething_helpers_set_variable($node, $name, $value);
+      }
+    }
+  }
+
+  // Save SMS Games helpers variables.
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
     foreach ($sms_games as $vars) {
