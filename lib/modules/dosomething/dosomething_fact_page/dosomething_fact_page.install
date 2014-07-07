@@ -46,6 +46,8 @@ function dosomething_fact_page_update_7002(&$sandbox) {
     node_save($node);
 
   }
-  // @todo: Delete the field instance of the field_facts from fact_page node
-  // once confirmed that all is well.
+  // Delete the old field_facts field instance.
+  if ($instance = field_info_instance('node', 'field_facts', 'fact_page')) {
+    field_delete_instance($instance);
+  }
 }

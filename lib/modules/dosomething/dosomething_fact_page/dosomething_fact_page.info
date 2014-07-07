@@ -32,7 +32,6 @@ features[field_instance][] = node-fact_page-field_call_to_action
 features[field_instance][] = node-fact_page-field_cause
 features[field_instance][] = node-fact_page-field_cta_link
 features[field_instance][] = node-fact_page-field_fact_collection
-features[field_instance][] = node-fact_page-field_facts
 features[field_instance][] = node-fact_page-field_hero_image
 features[field_instance][] = node-fact_page-field_intro
 features[field_instance][] = node-fact_page-field_intro_image
