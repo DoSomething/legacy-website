@@ -34,7 +34,7 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
     }
   }
   $form['campaign_groups'] = array(
-    '#markup' => '<h3>Campaign Groups</h3>',
+    '#markup' => '<h3>Grouped Campaigns</h3>',
   );
   if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
     foreach ($campaign_groups as $vars) {
