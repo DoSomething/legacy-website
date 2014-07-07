@@ -1,5 +1,7 @@
 set :deploy_to, "/var/www/international.dosomething.org"
 
+puts "THIS IS THE STAGE: " + ENV['stage']
+
 case ENV['stage']
 when 'production'
   role :app, %w{dosomething@deploy.international.dosomething.org}
