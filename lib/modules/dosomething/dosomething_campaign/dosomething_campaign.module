@@ -585,28 +585,28 @@ function dosomething_campaign_get_recommended_campaign_nids($tid = NULL, $uid = 
 }
 
 /**
- * Returns all staff pick campaigns.
+ * Returns all staff pick standard Campaigns.
  *
  * @return array
  *  Array of nids and titles of all published/unpublished staff picks.
  */
 function dosomething_campaign_get_staff_picks() {
- $query = db_select('node', 'n')
-    ->fields('n', array('nid', 'title'))
-    ->condition('type', 'campaign');
-  $query->innerJoin('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
-  $query->condition('field_staff_pick_value' , 1);
-  $results = $query->execute();
-
-  foreach($results as $key => $result) {
-    $staff_picks[$key]['nid'] = $result->nid;
-    $staff_picks[$key]['title'] = $result->title;
+  $staff_picks = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->fieldCondition('field_staff_pick', 'value', 1, '=')
+    ->fieldCondition('field_campaign_type', 'value', 'sms_game', '!=');
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $campaign_nids = array_keys($result['node']);
+    $campaigns = entity_load('node', $campaign_nids);
   }
-  if ($staff_picks) {
-    return $staff_picks;
+  foreach ($campaigns as $key => $node) {
+    $staff_picks[$key]['nid'] = $node->nid;
+    $staff_picks[$key]['title'] = $node->title;
   }
-  // If no staff picks, return null.
-  return NULL;
+  return $staff_picks;
 }
 
 /**
