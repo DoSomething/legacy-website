@@ -48,8 +48,6 @@ casper.test.begin("Test that a user can create an account.", 4, function suite(t
     });
   });
 
-  casper.logout();
-
   casper.run(function() {
     test.done();
   });

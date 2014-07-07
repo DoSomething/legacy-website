@@ -28,3 +28,8 @@ casper.logout = function() {
     this.echo("Logging out of test user.");
   });
 }
+
+// We want to clear session after every test.
+casper.test.tearDown(function() {
+  phantom.clearCookies();
+})
