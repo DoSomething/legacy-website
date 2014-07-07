@@ -384,3 +384,29 @@ function dosomething_signup_update_7010() {
   }
   db_drop_table('dosomething_signup_variable');
 }
+
+/**
+ * Renames mobilecommons variables to use 'opt_in_path' naming.
+ */
+function dosomething_signup_update_7011() {
+
+  $user_register_name = 'dosomething_mobilecommons_general';
+  // Store value of current user register opt_in_path.
+  $user_register_value = variable_get($user_register_name);
+
+  $campaign_signup_name = 'dosomething_mobilecommons_campaign_general';
+  // Store value of current general campaign signup opt_in_path.
+  $campaign_signup_value = variable_get($campaign_signup_name);
+
+  // Set new variable for user register opt_in_path.
+  $name = 'dosomething_mobilecommons_opt_in_path_user_register';
+  variable_set($name, $user_register_value);
+  // Set new variable for general campaign signup opt_in_path.
+  $name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
+  variable_set($name, $campaign_signup_value);
+
+  // Delete old variables.
+  variable_del($user_register_name);
+  variable_del($campaign_signup_name);
+
+}

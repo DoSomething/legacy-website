@@ -132,6 +132,12 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $variable_form = drupal_get_form('dosomething_helpers_variable_form', $node);
     $output .= render($variable_form);
   }
+
+  // Render third party form.
+  $form_id = 'dosomething_helpers_third_party_variable_form';
+  $third_party_form = drupal_get_form($form_id, $node);
+  $output .= render($third_party_form);
+
   if (module_exists('dosomething_signup')) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
     $output .= render($signup_data_config_form);

@@ -355,7 +355,8 @@ function dosomething_user_new_user($form, &$form_state) {
     }
     // Sign user up for mobile commons
     if (module_exists('dosomething_signup')) {
-      $opt_in = variable_get('dosomething_mobilecommons_general');
+      $var_name = 'dosomething_mobilecommons_opt_in_path_user_register';
+      $opt_in = variable_get($var_name);
       dosomething_signup_mobilecommons_opt_in($account, $opt_in);
     }
   }

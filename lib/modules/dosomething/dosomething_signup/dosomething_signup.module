@@ -20,7 +20,8 @@ function dosomething_signup_menu() {
   $items['admin/config/dosomething/optins'] = array(
     'title' => t('Third Party Opt-Ins'),
     'description' => 'Admin form to manage custom opt-ins',
-    'page callback' => 'dosomething_signup_opt_in_config_page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_admin_config_form'),
     'access callback' => 'user_access',
     'access arguments' => array('administer third party communication'),
     'file' => 'dosomething_signup.admin.inc'
@@ -346,7 +347,8 @@ function dosomething_signup_third_party_subscribe($account, $node) {
   // If not:
   if (!$opt_in) {
     // Use general opt_in_path.
-    $opt_in = variable_get('dosomething_mobilecommons_campaign_general');
+    $var_name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
+    $opt_in = variable_get($var_name);
   }
   // Opt-in to mobilecommons.
   dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
