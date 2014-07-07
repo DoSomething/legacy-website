@@ -124,8 +124,19 @@ function dosomething_helpers_update_7003() {
       dosomething_helpers_set_variable($node, $variable, $value);
       // Delete the old variable.
       variable_del($name);
-      // @todo: Delete unused 'mailchimp_id' variables.
-      // @see https://github.com/DoSomething/dosomething/issues/1476
     }
+  }
+  // Last, cleanup unused 'mailchimp_id' variables that were never deleted.
+  // @see https://github.com/DoSomething/dosomething/issues/1476
+  // Grab all mailchimp_id variables.
+  $result = db_select('variable', 'v')
+    ->fields('v')
+    ->condition('name', '%' . db_like('mailchimp_id'), 'LIKE')
+    ->execute()
+    ->fetchAll();
+  // For each variable found:
+  foreach ($result as $record) {
+    $name = $record->name;
+    variable_del($name);
   }
 }

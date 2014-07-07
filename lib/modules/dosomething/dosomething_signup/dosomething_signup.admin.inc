@@ -57,7 +57,7 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
       // Create a fieldset for each SMS Game.
       $form[$nid] = array(
         '#type' => 'fieldset',
-        '#title' => $vars['title'] . ' : NID ' . $nid,
+        '#title' => $vars['title'] . ' | NID ' . $nid,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
       );
@@ -164,7 +164,7 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
   // Create a fieldset for each campaign.
   $form[$nid] = array(
     '#type' => 'fieldset',
-    '#title' => $title . ' : NID ' . $nid,
+    '#title' => $title . ' | NID ' . $nid,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -180,6 +180,12 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
   }
 }
 
+/**
+ * Returns list of helper variables that a standard Campaign can implement.
+ *
+ * @return array
+ *   Associative array keyed by variable name.
+ */
 function dosomething_signup_get_admin_config_campaign_variables() {
   return array(
     'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name'),
