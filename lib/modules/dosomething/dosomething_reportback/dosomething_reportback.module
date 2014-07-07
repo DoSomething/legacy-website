@@ -437,18 +437,6 @@ function dosomething_reportback_set_field_values(&$entity, $values) {
 }
 
 /**
- * Implements hook_entity_insert().
- */
-function dosomething_reportback_entity_insert($entity, $type) {
-  if ($type == 'reportback') {
-    // Reload entity to grab the relevant node variables.
-    $reportback = reportback_load($entity->rbid);
-    // Pass it into mbp request.
-    dosomething_reportback_mbp_request($reportback);
-  }
-}
-
-/**
  * Returns the file destination for a new reportback file for given node $nid.
  *
  * @param string $filename
@@ -490,6 +478,10 @@ function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
  * Sends mbp request for a reportback.
  */
 function dosomething_reportback_mbp_request($entity) {
+  // This fid is the last file uploaded to the reportback.
+  // @see ReportbackEntity->save().
+  $inserted_fid = $entity->fid;
+
   if (module_exists('dosomething_user')) {
     $account = user_load($entity->uid);
     $params = array(
