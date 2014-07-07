@@ -28,12 +28,13 @@ function dosomething_fact_page_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Call to Action',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-call-to-action field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-call-to-action field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_call_to_action|node|fact_page|form'] = $field_group;
@@ -53,6 +54,7 @@ function dosomething_fact_page_field_group_info() {
     'children' => array(
       0 => 'field_facts',
       1 => 'field_intro_image',
+      2 => 'field_fact_collection',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -84,12 +86,13 @@ function dosomething_fact_page_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Intro',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-intro field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-intro field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_intro|node|fact_page|form'] = $field_group;

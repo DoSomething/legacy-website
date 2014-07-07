@@ -10,49 +10,117 @@
 function dosomething_fact_page_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-fact_page-field_additional_text'
-  $field_instances['node-fact_page-field_additional_text'] = array(
-    'bundle' => 'fact_page',
+  // Exported field_instance: 'field_collection_item-field_fact_collection-field_campaigns'
+  $field_instances['field_collection_item-field_fact_collection-field_campaigns'] = array(
+    'bundle' => 'field_fact_collection',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'If set, the [link] text in the Copy field will be replaced with a link to this Campaign.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 1,
+    'entityconnect_unload_edit' => 1,
+    'field_name' => 'field_campaigns',
+    'label' => 'Campaign',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 35,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_fact_collection-field_compound_text_copy'
+  $field_instances['field_collection_item-field_fact_collection-field_compound_text_copy'] = array(
+    'bundle' => 'field_fact_collection',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If set, this copy will be displayed after the Fact.
+
+You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 13,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 1,
       ),
     ),
-    'entity_type' => 'node',
-    'field_name' => 'field_additional_text',
-    'label' => 'Sources',
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_compound_text_copy',
+    'label' => 'Copy',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 5,
+        'rows' => 2,
       ),
       'type' => 'text_textarea',
-      'weight' => 3,
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_fact_collection-field_fact'
+  $field_instances['field_collection_item-field_fact_collection-field_fact'] = array(
+    'bundle' => 'field_fact_collection',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Select the Fact to display.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 0,
+    'entityconnect_unload_edit' => 0,
+    'field_name' => 'field_fact',
+    'label' => 'Fact',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 31,
     ),
   );
 
@@ -210,6 +278,49 @@ function dosomething_fact_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-fact_page-field_fact_collection'
+  $field_instances['node-fact_page-field_fact_collection'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_fact_collection',
+    'label' => 'Facts',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-fact_page-field_facts'
   $field_instances['node-fact_page-field_facts'] = array(
     'bundle' => 'fact_page',
@@ -261,7 +372,7 @@ function dosomething_fact_page_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -349,7 +460,7 @@ function dosomething_fact_page_field_default_field_instances() {
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -556,14 +667,21 @@ function dosomething_fact_page_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('CTA Link');
   t('Call to Action');
+  t('Campaign');
   t('Cause');
+  t('Copy');
+  t('Fact');
   t('Facts');
   t('Facts Image');
   t('Hero Image');
+  t('If set, the [link] text in the Copy field will be replaced with a link to this Campaign.');
+  t('If set, this copy will be displayed after the Fact.
+
+You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>');
   t('Intro');
   t('Intro Title');
   t('Primary Cause');
-  t('Sources');
+  t('Select the Fact to display.');
   t('Subtitle');
   t('Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  
 
