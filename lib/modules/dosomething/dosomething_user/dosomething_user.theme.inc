@@ -13,7 +13,7 @@
  *   A class to apply to the button.
  */
 function dosomething_user_get_login_modal_link_markup($label, $class = 'medium') {
-  return '<a href="#modal--login" class="js-modal-link btn ' . $class . '">' . $label . '</a>';
+  return '<a id="link--campaign-signup-login" href="#modal--login" class="js-modal-link btn ' . $class . '">' . $label . '</a>';
 }
 
 /**
