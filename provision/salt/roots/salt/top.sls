@@ -7,5 +7,5 @@ base:
     - composer
     - node
     - redis
+    - drush
     - dosomething
-    - drush-ext
