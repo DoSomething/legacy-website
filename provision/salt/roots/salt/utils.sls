@@ -14,7 +14,13 @@ python-pip:
 
 git:
   pkg:
-    - installed
+    - latest
+
+git-repo:
+  pkgrepo.managed:
+    - ppa: git-core/ppa
+    - require_in:
+      - pkg: git
 
 vim:
   pkg:
