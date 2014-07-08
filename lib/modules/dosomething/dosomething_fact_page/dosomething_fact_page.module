@@ -95,7 +95,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
       }
     }
 
-    $values = dosomething_fact_page_get_field_fact_collection_vars($vars['node']);
+    $values = dosomething_fact_page_get_fact_collection_vars($vars['node']);
     $vars['facts'] = $values['facts'];
     $vars['sources'] = $values['sources'];
   }
@@ -103,17 +103,27 @@ function dosomething_fact_page_preprocess_node(&$vars) {
 
 /**
  * Returns array of facts/sources from a given loaded Fact Page node.
+ *
+ * @param obj $node
+ *   A loaded Fact Page node.
+ *
+ * @return array
+ *   Multi dimensional array, keyed by facts and sources.
  */
-function dosomething_fact_page_get_field_fact_collection_vars($node) {
+function dosomething_fact_page_get_fact_collection_vars($node) {
+  if (!isset($node->field_fact_collection[LANGUAGE_NONE])) { return NULL; }
+
   // Initialize output arrays.
   $facts = $sources = array();
-  // Loop through the field_fact_collection values:
+  // Loop through the field_fact_collection Field Collection Item values:
   foreach ($node->field_fact_collection[LANGUAGE_NONE] as $delta => $fc_item_vars) {
     $fc_item_id = $fc_item_vars['value'];
     $fc_item = field_collection_item_load($fc_item_id);
     $fact_nid = $fc_item->field_fact[LANGUAGE_NONE][0]['target_id'];
+    // Get the fact's vars.
     $fact_wrapper = entity_metadata_wrapper('node', $fact_nid);
     $facts[$delta] = dosomething_fact_get_fact_vars($fact_wrapper, $delta);
+    // Append the fact's sources to the $sources array.
     $sources = array_merge($sources, $facts[$delta]['sources']);
   }
   return array(
