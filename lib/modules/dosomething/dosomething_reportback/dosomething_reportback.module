@@ -370,8 +370,6 @@ function dosomething_reportback_save($values) {
     $entity = entity_load_single('reportback', $rbid);
   }
   try {
-    // Send reportback transactional message
-    dosomething_reportback_mbp_request($entity);
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
