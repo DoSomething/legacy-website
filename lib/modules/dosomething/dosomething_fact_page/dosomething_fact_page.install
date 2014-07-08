@@ -17,6 +17,11 @@ function dosomething_fact_page_update_7001(&$sandbox) {
  * Imports existing field_facts data into the field_fact_collection field.
  */
 function dosomething_fact_page_update_7002(&$sandbox) {
+  // Revert all Fact Page feature components to add field_fact_collection.
+  $feature = features_get_features('dosomething_fact_page');
+  $components = array_keys($feature->info['features']);
+  features_revert(array('dosomething_fact_page' => $components));
+
   // Get all Fact Page node nid's.
   $fact_pages = dosomething_helpers_get_node_vars('fact_page');
   // Loop through all fact page nodes.
