@@ -3,6 +3,8 @@
  * Test that a user can sign up for a campaign.
  */
 
+var CAMPAIGN_SIGNUP_MESSAGE = "You're signed up for";
+
 casper.test.begin("Test pitch page is rendered correctly", 2, function suite(test) {
  casper.start(url);
 
@@ -44,7 +46,7 @@ casper.test.begin("Test that an unregistered user can register & sign up for a c
     
     // Make sure the signup happened.
     casper.waitForSelector('.messages.status', function() {
-      test.assertSelectorHasText('.messages.status', 'You\'re signed up for', 'User can register and sign up for a campaign');
+      test.assertSelectorHasText('.messages.status', CAMPAIGN_SIGNUP_MESSAGE, 'User can register and sign up for a campaign');
     });
   });
 
@@ -68,7 +70,7 @@ casper.test.begin("Test that a logged-out user can log in & sign up for a campai
 
       // Make sure the signup happened.
       casper.waitForSelector('.messages.status', function() {
-        test.assertSelectorHasText('.messages.status', 'You\'re signed up for', 'User can log in and sign up for a campaign');
+        test.assertSelectorHasText('.messages.status', CAMPAIGN_SIGNUP_MESSAGE, 'User can log in and sign up for a campaign');
       });
     });
   });
@@ -88,7 +90,7 @@ casper.test.begin("Test that a logged-in user can sign up for a campaign.", 1, f
 
     // Make sure the signup happened.
     casper.waitForSelector('.messages.status', function() {
-      test.assertSelectorHasText('.messages.status', 'You\'re signed up for', 'Clicking "Sign Up" signs up for a campaign');
+      test.assertSelectorHasText('.messages.status', CAMPAIGN_SIGNUP_MESSAGE, 'Clicking "Sign Up" signs up for a campaign');
     });
   });
 
