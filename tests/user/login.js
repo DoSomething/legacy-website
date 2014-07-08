@@ -42,7 +42,7 @@ casper.test.begin('Test that a user can authenticate correctly.', 6, function su
     this.waitUntilVisible(".modal-content", function() {
       this.fill('form[action="/user/login"]', {
         name: 'QA_TEST_ACCOUNT@example.com',
-        pass: 'tester'
+        pass: 'QA_TEST_ACCOUNT'
       }, true);
     });
 

@@ -37,9 +37,9 @@ casper.test.begin("Test that a user can create an account.", 4, function suite(t
     this.fill("form[id='user-register-form']", {
       "field_first_name[und][0][value]": "Panda",
       "field_birthdate[und][0][value][date]": "01/04/1989",
-      "mail": "QA_TEST_REGISTER@example.com",
-      "pass[pass1]": "abcdef",
-      "pass[pass2]": "abcdef",
+      "mail": "QA_TEST_USER_REGISTER@example.com",
+      "pass[pass1]": "QA_TEST_USER_REGISTER",
+      "pass[pass2]": "QA_TEST_USER_REGISTER",
     }, true);
 
     // This should be fine, so let's look for a successful confirmation message.
@@ -47,8 +47,6 @@ casper.test.begin("Test that a user can create an account.", 4, function suite(t
       test.assertSelectorHasText(".messages", "Registration successful");
     });
   });
-
-  casper.logout();
 
   casper.run(function() {
     test.done();

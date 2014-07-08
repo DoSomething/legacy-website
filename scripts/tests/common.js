@@ -16,7 +16,7 @@ casper.login = function() {
   casper.thenOpen(url + "/user", function() {
     this.fill('form[action="/user/login"]', {
       name: 'QA_TEST_ACCOUNT@example.com',
-      pass: 'tester'
+      pass: 'QA_TEST_ACCOUNT'
     }, true);
   });
 }
@@ -28,3 +28,8 @@ casper.logout = function() {
     this.echo("Logging out of test user.");
   });
 }
+
+// We want to clear session after every test.
+casper.test.tearDown(function() {
+  phantom.clearCookies();
+})
