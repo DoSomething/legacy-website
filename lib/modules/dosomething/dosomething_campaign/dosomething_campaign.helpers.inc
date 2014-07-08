@@ -210,6 +210,38 @@ function dosomething_campaign_load($node, $public = FALSE) {
 }
 
 /**
+ * Creates and returns a campaign node from given JSON string.
+ */
+function dosomething_campaign_create_node_from_json($string) {
+  $data = json_decode($string);
+  $node = new stdClass();
+  $node->type = 'campaign';
+  $node->title = $data->title;
+  $filtered_text = array(
+    'call_to_action',
+    'items_needed',
+    'promoting_tips',
+    'solution_copy',
+    'solution_support',
+    'starter_statement',
+    'starter_statement_header',
+    'time_and_place',
+    'vips',
+  );
+  foreach ($filtered_text as $text_field) {
+    if (isset($data->{$text_field})) {
+      $field_name = 'field_' . $text_field;
+      $node->{$field_name}[LANGUAGE_NONE][0]['value'] = $data->{$text_field};
+      if ($text_field != 'call_to_action') {
+        $node->{$field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
+      }
+    }
+  }
+  node_save($node);
+  return $node;
+}
+
+/**
  * Returns a loaded campaign $node's field_campaign_type value.
  *
  * @param object $node
