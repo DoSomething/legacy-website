@@ -200,14 +200,15 @@
 
           <?php foreach ($do as $key => $content): ?>
             <div class="__row">
-              <?php if (isset($content['header'])): ?>
-                <h3 class="inline--alt-color"><?php print $content['header']; ?></h3>
-              <?php endif; ?>
 
               <?php if (isset($content['image'])): ?>
                 <figure class="polaroid">
                   <?php print $content['image']; ?>
                 </figure>
+              <?php endif; ?>
+              
+              <?php if (isset($content['header'])): ?>
+                <h3 class="inline--alt-color"><?php print $content['header']; ?></h3>
               <?php endif; ?>
 
               <?php if (isset($content['copy'])): ?>
