@@ -21,13 +21,6 @@ php5-cli-config:
     - require:
       - pkg: php5-pkgs
 
-drush:
-  cmd.run:
-    - name: curl -OL https://github.com/drush-ops/drush/archive/6.2.0.tar.gz; tar zxvf 6.2.0.tar.gz; cp -rf drush-6.2.0 /opt; ln -s /opt/drush-6.2.0/drush /usr/local/bin/drush
-    - require:
-      - pkg: php5-pkgs
-      - pkg: curl
-
 pear-misc:
   cmd.run:
     - name: /bin/sh /srv/salt/php5/pear-install.sh > /dev/null
