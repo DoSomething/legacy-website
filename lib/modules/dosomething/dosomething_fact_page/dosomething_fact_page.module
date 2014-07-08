@@ -127,10 +127,8 @@ function dosomething_fact_page_get_fact_collection_vars($node) {
     // Append the fact's sources to the $sources array.
     $sources = array_merge($sources, $facts[$delta]['sources']);
     // If copy has been set:
-    if (isset($fc_item->field_compound_text_copy[LANGUAGE_NONE][0])) {
-      // Store the copy safe_value.
-      $copy = $fc_item->field_compound_text_copy[LANGUAGE_NONE][0]['safe_value'];
-      // Append copy to the end of the Fact.
+    if ($copy = dosomething_fact_page_get_fact_collection_copy($fc_item)) {
+      // Append to the end of the fact.
       $facts[$delta]['fact'] .= ' ' . $copy;
     }
   }
@@ -138,6 +136,34 @@ function dosomething_fact_page_get_fact_collection_vars($node) {
     'facts' => $facts,
     'sources' => $sources,
   );
+}
+
+/**
+ * Returns markup to displayed for a given Fact in a Fact Collection.
+ *
+ * @param obj $fc_item
+ *   A loaded field_fact_collection Field Collection Item.
+ *
+ * @return string
+ */
+function dosomething_fact_page_get_fact_collection_copy($fc_item) {
+  // If copy has not been set, nothing to do.
+  if (!isset($fc_item->field_compound_text_copy[LANGUAGE_NONE][0])) { 
+    return NULL;
+  }
+  // Store the copy safe_value.
+  $copy = $fc_item->field_compound_text_copy[LANGUAGE_NONE][0]['safe_value'];
+  // If no campaign has been set:
+  if (!isset($fc_item->field_campaigns[LANGUAGE_NONE][0])) {
+    // Return copy as is.
+    return $copy;
+  }
+
+  // Set the link to the Campaign node.
+  $node = $fc_item->field_campaigns[LANGUAGE_NONE][0]['entity'];
+  $link = l($node->title, $node->nid);
+  // Replace the [link] token with the link markup.
+  return str_replace("[link]", $link, $copy);
 }
 
 /**
