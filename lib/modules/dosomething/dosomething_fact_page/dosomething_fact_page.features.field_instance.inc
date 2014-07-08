@@ -298,6 +298,12 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'type' => 'field_collection_view',
         'weight' => 15,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
