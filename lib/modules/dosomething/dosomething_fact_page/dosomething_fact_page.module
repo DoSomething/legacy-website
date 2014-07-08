@@ -95,7 +95,19 @@ function dosomething_fact_page_preprocess_node(&$vars) {
       }
     }
 
-    $values = dosomething_fact_page_get_fact_collection_vars($vars['node']);
+    // @todo: Remove this conditional once fact_collection has been imported.
+    // If the fact collections have been imported:
+    if (variable_get('dosomething_fact_page_fact_collection_imported') == TRUE) {
+      // Get values from field_fact_collection.
+      $values = dosomething_fact_page_get_fact_collection_vars($vars['node']);
+    }
+    // Else if not imported yet:
+    else {
+      $node = entity_metadata_wrapper('node', $vars['node']);
+      // Get values from the field_facts field.
+      $values = dosomething_fact_get_fact_field_vars($node->field_facts);
+    }
+
     $vars['facts'] = $values['facts'];
     $vars['sources'] = $values['sources'];
   }
@@ -213,4 +225,65 @@ function dosomething_fact_page_get_fact_page_list_links() {
     return $results;
   }
   return NULL;
+}
+
+/**
+ * Imports values from field_facts into field_fact_collection foreach Fact Page.
+ *
+ * This is a one-time script that needs to be run once the field_fact_collection
+ * has been added to the content type via features-revert.
+ */
+function dosomething_fact_page_import_fact_collections() {
+  // If the fact collections have been imported already:
+  if (variable_get('dosomething_fact_page_fact_collection_imported') == TRUE) {
+    // Don't do anything.
+    return;
+  }
+
+  // Get all Fact Page node nid's.
+  $fact_pages = dosomething_helpers_get_node_vars('fact_page');
+  // If no Fact Page nodes:
+  if (empty($fact_pages)) {
+    // Nothing to do here, exit.
+    return;
+  }
+
+  // Loop through all fact page nodes.
+  foreach ($fact_pages as $fact_page) {
+
+    // Load the Fact Page node.
+    $node = node_load($fact_page['nid']);
+
+    // If a field_fact_collection doesn't exist, this will fail.
+    if (!isset($node->field_fact_collection)) {
+      return FALSE;
+    }
+
+    // If no field_facts set:
+    if (!isset($node->field_facts[LANGUAGE_NONE][0])) {
+      // Skip to next $fact_page node.
+      continue;
+    }
+
+    // Loop through all field_facts values.
+    foreach ($node->field_facts[LANGUAGE_NONE] as $fact_node) {
+      $fact_nid = $fact_node['target_id'];
+      // Initialize a new field_fact_collection field_collection_item entity.
+      $fc_item = entity_create('field_collection_item', array(
+        'field_name' => 'field_fact_collection',
+      ));
+      // Set its host entity to our stored Fact Page $node.
+      $fc_item->setHostEntity('node', $node);
+      // Set the Fact entityreference to our stored $fact_nid.
+      $fc_item->field_fact[LANGUAGE_NONE][0]['target_id'] = $fact_nid;
+      $fc_item->save();
+    }
+
+    // Save the parent Fact Page $node.
+    node_save($node);
+
+  }
+  // Indicate that the fact_collections have been imported.
+  variable_set('dosomething_fact_page_fact_collection_imported', TRUE);
+  return variable_get('dosomething_fact_page_fact_collection_imported');
 }
