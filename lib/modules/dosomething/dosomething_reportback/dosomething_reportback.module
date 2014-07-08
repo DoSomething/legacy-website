@@ -370,6 +370,8 @@ function dosomething_reportback_save($values) {
     $entity = entity_load_single('reportback', $rbid);
   }
   try {
+    // Send reportback transactional message
+    dosomething_reportback_mbp_request($entity);
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
     // Set entity files.
@@ -481,6 +483,7 @@ function dosomething_reportback_mbp_request($entity) {
   // This fid is the last file uploaded to the reportback.
   // @see ReportbackEntity->save().
   $inserted_fid = $entity->fid;
+  $image_markup = dosomething_image_get_themed_image_by_fid($inserted_fid, '300x300');
 
   if (module_exists('dosomething_user')) {
     $account = user_load($entity->uid);
@@ -493,6 +496,7 @@ function dosomething_reportback_mbp_request($entity) {
       'impact_verb' => $entity->verb,
       'impact_number' => $entity->quantity,
       'impact_noun' => $entity->noun,
+      'image_markup' => $image_markup,
     );
     if (module_exists('dosomething_mbp')) {
       dosomething_mbp_request('campaign_reportback', $params);
