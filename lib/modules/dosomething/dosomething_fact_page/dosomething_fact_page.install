@@ -24,17 +24,26 @@ function dosomething_fact_page_update_7002(&$sandbox) {
 
   // Get all Fact Page node nid's.
   $fact_pages = dosomething_helpers_get_node_vars('fact_page');
+  // If no Fact Page nodes:
+  if (empty($fact_pages)) {
+    // Nothing to do here, exit.
+    return;
+  }
+
   // Loop through all fact page nodes.
   foreach ($fact_pages as $fact_page) {
 
     // Load the Fact Page node.
     $node = node_load($fact_page['nid']);
 
-    // If no field_facts set, skip to next $fact_page.
-    if (!isset($node->field_facts[LANGUAGE_NONE][0])) { continue; }
+    // If no field_facts set:
+    if (!isset($node->field_facts[LANGUAGE_NONE][0])) {
+      // Skip to next $fact_page node.
+      continue;
+    }
 
     // Loop through all field_facts values.
-    foreach ($node->field_facts[LANGUAGE_NONE] as $delta => $fact_node) {
+    foreach ($node->field_facts[LANGUAGE_NONE] as $fact_node) {
       $fact_nid = $fact_node['target_id'];
       // Initialize a new field_fact_collection field_collection_item entity.
       $fc_item = entity_create('field_collection_item', array(
@@ -51,7 +60,12 @@ function dosomething_fact_page_update_7002(&$sandbox) {
     node_save($node);
 
   }
-  // Delete the old field_facts field instance.
+}
+
+/**
+ * Removes field_facts from Fact Page content type.
+ */
+function dosomething_fact_page_update_7003(&$sandbox) {
   if ($instance = field_info_instance('node', 'field_facts', 'fact_page')) {
     field_delete_instance($instance);
   }
