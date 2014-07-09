@@ -166,13 +166,13 @@ function dosomething_fact_page_get_fact_collection_copy($fc_item) {
   // Store the copy safe_value.
   $copy = $fc_item->field_compound_text_copy[LANGUAGE_NONE][0]['safe_value'];
   // If no campaign has been set:
-  if (!isset($fc_item->field_campaigns[LANGUAGE_NONE][0])) {
+  if (!isset($fc_item->field_node[LANGUAGE_NONE][0])) {
     // Return copy as is.
     return $copy;
   }
 
   // Set the link to the Campaign node.
-  $node = $fc_item->field_campaigns[LANGUAGE_NONE][0]['entity'];
+  $node = $fc_item->field_node[LANGUAGE_NONE][0]['entity'];
   $link = l($node->title, 'node/' . $node->nid);
   // Replace the [link] token with the link markup.
   return str_replace("[link]", $link, $copy);
