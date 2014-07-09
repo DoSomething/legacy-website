@@ -130,6 +130,10 @@ projects[services][subdir] = "contrib"
 projects[strongarm][version] = "2.0"
 projects[strongarm][subdir] = "contrib"
 
+; Taxonomy Access Fix
+projects[taxonomy_access_fix][version] = "2.1"
+projects[taxonomy_access_fix][subdir] = "contrib"
+
 ; Token
 projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"

@@ -10,6 +10,16 @@
 function dosomething_taxonomy_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'add terms in partners'.
+  $permissions['add terms in partners'] = array(
+    'name' => 'add terms in partners',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
   // Exported permission: 'administer taxonomy'.
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
@@ -101,9 +111,7 @@ function dosomething_taxonomy_user_default_permissions() {
   // Exported permission: 'edit terms in tags'.
   $permissions['edit terms in tags'] = array(
     'name' => 'edit terms in tags',
-    'roles' => array(
-      'editor' => 'editor',
-    ),
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 
