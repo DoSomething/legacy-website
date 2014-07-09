@@ -10,45 +10,6 @@
 function dosomething_fact_page_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_fact_collection-field_campaigns'
-  $field_instances['field_collection_item-field_fact_collection-field_campaigns'] = array(
-    'bundle' => 'field_fact_collection',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'If set, the [link] text in the Copy field will be replaced with a link to this Campaign.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'entityconnect_unload_add' => 1,
-    'entityconnect_unload_edit' => 1,
-    'field_name' => 'field_campaigns',
-    'label' => 'Campaign',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 35,
-    ),
-  );
-
   // Exported field_instance: 'field_collection_item-field_fact_collection-field_compound_text_copy'
   $field_instances['field_collection_item-field_fact_collection-field_compound_text_copy'] = array(
     'bundle' => 'field_fact_collection',
@@ -121,6 +82,45 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 31,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_fact_collection-field_node'
+  $field_instances['field_collection_item-field_fact_collection-field_node'] = array(
+    'bundle' => 'field_fact_collection',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'If set, the [link] text in the copy will be replaced with a link to this campaign.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'entityconnect_unload_add' => 1,
+    'entityconnect_unload_edit' => 1,
+    'field_name' => 'field_node',
+    'label' => 'Campaign',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 34,
     ),
   );
 
@@ -625,7 +625,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
   t('Facts');
   t('Facts Image');
   t('Hero Image');
-  t('If set, the [link] text in the Copy field will be replaced with a link to this Campaign.');
+  t('If set, the [link] text in the copy will be replaced with a link to this campaign.');
   t('If set, this copy will be displayed after the Fact.
 
 You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>');
