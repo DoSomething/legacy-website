@@ -1,0 +1,42 @@
+.chrome--footer {
+  &.-intl {
+    .affiliate {
+      h4 {
+        cursor: text;
+        margin-bottom: 10px;
+        text-align: center;
+
+        &:after {
+          content: "";
+        }
+      }
+
+      img {
+        @include fluid-image();
+        margin: 0 auto;
+      }
+
+      @include media($tablet) {
+        @include span-columns(2);
+
+        h4 {
+          font-size: $font-small;
+          padding-right: 20px;
+          text-align: left;
+        }
+      }
+    }
+
+    .social {
+      @include media($tablet) {
+        @include span-columns(5);
+      }
+
+      &.mobile {
+        @include media($tablet) {
+          display: none;
+        }
+      }
+    }
+  }
+}
