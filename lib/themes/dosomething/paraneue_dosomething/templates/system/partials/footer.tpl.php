@@ -7,7 +7,13 @@
 ?>
 
 
-<footer class="chrome--footer">
+<footer class="chrome--footer -intl">
+
+  <div class="col affiliate js-footer-col">
+    <h4>Do Something Congo is a programme of:</h4>
+    <img src="/profiles/dosomething/themes/dosomething/paraneue_dosomething/dist/images/tmp-botswana.png" alt="">
+  </div>
+
   <div class="social tablet">
     <ul>
       <?php if ($social['facebook'] !== 0): ?>
