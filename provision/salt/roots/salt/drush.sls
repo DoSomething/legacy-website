@@ -3,9 +3,11 @@
 drush:
   git.latest:
     - name: https://github.com/drush-ops/drush
-    - rev: 6.2.0
+    - rev: 6.3.0
     - target: /opt/drush
-    - unless: which drush
+    # Check drush version not by calling drush --version, but in drush.info
+    # so it doesn't create non-writable drush cache owned by root.
+    - unless: test "6.3.0" == "`grep drush_version /opt/drush/drush.info | cut -d= -f2`"
     - require:
       - pkg: php5-pkgs
   cmd.wait:
