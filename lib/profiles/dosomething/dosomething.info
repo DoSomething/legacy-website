@@ -54,6 +54,7 @@ dependencies[] = rest_server
 dependencies[] = search
 dependencies[] = services
 dependencies[] = strongarm
+dependencies[] = taxonomy_access_fix
 dependencies[] = uuid
 dependencies[] = uuid_features
 dependencies[] = variable
