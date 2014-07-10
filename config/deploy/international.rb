@@ -2,7 +2,7 @@ set :deploy_to, "/var/www/international.dosomething.org"
 
 set :deploy_env, "intl"
 
-sites = %{botswana canada congo ghana kenya indonesia training uk}
+sites = %w{botswana canada congo ghana kenya indonesia training uk}
 
 case ENV['STAGE']
 when 'production'
