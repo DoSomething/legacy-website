@@ -138,14 +138,14 @@
               <?php if ($content['category'] === 'materials' && isset($action_guides)) : ?>
                 <ul>
                 <?php foreach ($action_guides as $delta => $action_guide): ?>
-                  <li><a href="#modal-action-guide-<?php print $delta; ?>" class="js-modal-link"><?php print $action_guide['desc']; ?></a></li>
+                  <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
                 <?php endforeach; ?>
                 </ul>
               <?php endif; ?>
 
               <?php if ($content['category'] === 'materials' && isset($signup_data_form_link)): ?>
                 <ul>
-                  <li><a href="#modal-signup-data-form" class="js-modal-link "><?php print $signup_data_form_link; ?></a></li>
+                  <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
                 </ul>
               <?php endif; ?>
             </div>
@@ -170,20 +170,20 @@
         <?php // "Plan It" Section Modals ?>
         <?php if (isset($action_guides)): ?>
           <?php foreach ($action_guides as $delta => $action_guide): ?>
-          <script id="modal-action-guide-<?php print $delta; ?>" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+          <div data-modal id="modal-action-guide-<?php print $delta; ?>" role="dialog">
             <div><?php print $action_guide['content']; ?></div>
             <a href="#" class="js-close-modal">Back to main page</a>
-          </script>
+          </div>
           <?php endforeach; ?>
         <?php endif; ?>
 
         <?php if (isset($signup_data_form)): ?>
-          <script id="modal-signup-data-form" class="modal--signup-data" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+          <div data-modal id="modal-signup-data-form" class="modal--signup-data" role="dialog">
             <div><?php print render($signup_data_form); ?></div>
             <?php if (isset($skip_signup_data_form)): ?>
             <div><?php print render($skip_signup_data_form); ?></div>
             <?php endif; ?>
-          </script>
+          </div>
         <?php endif; ?>
 
       </div>
@@ -217,7 +217,7 @@
 
               <?php if (isset($content['tips'])): ?>
                 <section class="tabbed js-tabs">
-                  <a href="#modal-tips-<?php print $key; ?>" class="js-modal-link tabs__modal-toggle">View Tips</a>
+                  <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle">View Tips</a>
                   <h4 class="visually-hidden">Tips</h4>
                   <div class="wrapper">
                     <nav class="tabs__menu waypoints">
@@ -243,14 +243,14 @@
                   </div>
                 </section>
 
-                <script id="modal-tips-<?php print $key; ?>" class="modal--tips" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+                <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
                   <h2 class="banner">Tips</h2>
                   <?php foreach ($content['tips'] as $delta => $tip): ?>
                     <h4 class="inline--alt-color"><?php print $tip['header']; ?></h4>
                     <?php print $tip['copy']; ?>
                   <?php endforeach; ?>
                   <a href="#" class="js-close-modal">Back to main page</a>
-                </script>
+                </div>
               <?php endif; ?>
             </div>
           <?php endforeach; ?>
@@ -275,7 +275,7 @@
             <?php endif; ?>
 
             <?php if (isset($reportback_link)): ?>
-              <a href="#modal-report-back" class="js-modal-link btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a>
+              <a href="#" data-modal-href="#modal-report-back" class="btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a>
             <?php endif; ?>
 
             <?php if (isset($scholarship)): ?>
@@ -288,10 +288,10 @@
 
 
             <?php if (isset($reportback_form)): ?>
-              <script id="modal-report-back" class="modal--reportback inline--alt-bg" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+              <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
                 <h2 class="banner">Prove It</h2>
                 <?php print render($reportback_form); ?>
-              </script>
+              </div>
             <?php endif; ?>
           </div>
 

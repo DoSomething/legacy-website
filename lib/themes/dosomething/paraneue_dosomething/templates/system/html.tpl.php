@@ -43,9 +43,11 @@
 </head>
 
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
-  <!--[if lt IE 8 ]> <div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div>  <![endif]-->
-  <?php print $page_top; ?>
-  <?php print $page; ?>
+  <div class="chrome">
+    <!--[if lt IE 8 ]> <div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div>  <![endif]-->
+    <?php print $page_top; ?>
+    <?php print $page; ?>
+  </div>
 
   <script type="text/javascript" src="<?php print DS_JAVASCRIPT_PATH; ?>"></script>
   <?php print $scripts; ?>
