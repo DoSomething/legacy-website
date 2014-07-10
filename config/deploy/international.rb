@@ -14,24 +14,3 @@ when 'qa'
   server 'intl-qa', user: 'dosomething', roles: %w{app}
 end
 
-namespace :deploy do
-
-  task :shared_international_links do
-    on roles(:app) do |host|
-      execute "rm -rf #{release_path}/html/sites"
-      execute "sudo ln -s #{shared_path}/sites #{release_path}/html/sites"
-    end
-  end
-
-  desc "Run ds build tasks for international"
-  task :build_international do
-    on roles(:app) do |host|
-      execute "cd '#{release_path}'; #{release_path}/bin/ds build --intl"
-      execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
-      sites.each do |site|
-        execute "cd '#{release_path}/html/sites/#{site}'; drush vset --yes ds_version " + ENV['branch']
-        execute "cd '#{release_path}/html/sites/#{site}'; echo " + ENV['branch'] + " > VERSION"
-      end
-    end
-  end
-end
