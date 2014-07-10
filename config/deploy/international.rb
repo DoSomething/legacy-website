@@ -2,7 +2,7 @@ set :deploy_to, "/var/www/international.dosomething.org"
 
 set :deploy_env, "intl"
 
-set :sites, %{botswana canada congo ghana kenya indonesia training uk}
+sites = %{botswana canada congo ghana kenya indonesia training uk}
 
 case ENV['STAGE']
 when 'production'
@@ -28,7 +28,7 @@ namespace :deploy do
     on roles(:app) do |host|
       execute "cd '#{release_path}'; #{release_path}/bin/ds build --intl"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
-      fetch(:sites).each do |site|
+      sites.each do |site|
         execute "cd '#{release_path}/html/sites/#{site}'; drush vset --yes ds_version " + ENV['branch']
         execute "cd '#{release_path}/html/sites/#{site}'; echo " + ENV['branch'] + " > VERSION"
       end
