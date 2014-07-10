@@ -44,13 +44,18 @@ function paraneue_dosomething_theme() {
       )
     ),
 
-    'navigation' => array(
-      'template' => 'navigation',
+    'header' => array(
+      'template' => 'header',
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
     ),
 
-    'header' => array(
-      'template' => 'header',
+    'info_bar' => array(
+      'template' => 'info-bar',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+    ),
+
+    'navigation' => array(
+      'template' => 'navigation',
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
     ),
 

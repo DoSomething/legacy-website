@@ -197,6 +197,9 @@
     </section>
   <?php endif; ?>
 
+  <?php print $info_bar; ?>
+
+  <?php /*
   <?php if (isset($content['zendesk_form']) || isset($sponsors)): ?>
   <footer class="info-bar">
     <div class="wrapper">
@@ -219,5 +222,6 @@
     </div>
   </footer>
   <?php endif; ?>
+  */?>
 
 </article>
