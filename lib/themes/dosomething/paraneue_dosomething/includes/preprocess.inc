@@ -26,7 +26,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   }
 
   /**
-   * Navigation
+   * Global Main Navigation
    */
 
   $modifier_classes = 'white floating';
@@ -48,7 +48,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
 
   /**
-   * Header
+   * Global Page Header
    */
 
   $header_vars = array(
@@ -64,7 +64,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
 
   /**
-   * Footer
+   * Global Page Footer
    */
 
   $columns = array('first', 'second', 'third');
@@ -112,6 +112,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  * Implements theme_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
+
   $type = isset($vars['node']->type) ? $vars['node']->type : null;
   if ($type == "campaign") {
     // If the campaign requires a signup modal to display:
@@ -133,5 +134,18 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     // Return facts as a chunked array to allow cta's to be properly embedded in between
     $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
   }
+
+
+  /**
+   * Info Bar
+   */
+
+  $info_bar_vars = array(
+    'zendesk_form'       => $vars['zendesk_form'] || $vars['content']['zendesk_form'], // @TODO: not ideal... unify these!
+    'sponsors'           => $vars['sponsors'],
+    'formatted_partners' => $vars['formatted_partners'],
+  );
+
+  $vars['info_bar'] = theme('info_bar', $info_bar_vars);
 }
 

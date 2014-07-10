@@ -129,16 +129,8 @@
     <?php endif; ?>
 
 
-    <?php if (isset($sponsors)): ?>
-    <footer class="info-bar">
-      <div class="wrapper">
-        <?php if (isset($sponsors)): ?>
-          <div class="sponsor">
-            In partnership with <?php print $formatted_partners; ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    </footer>
+    <?php if ($info_bar): ?>
+      <?php print $info_bar; ?>
     <?php endif; ?>
 
   </div>
