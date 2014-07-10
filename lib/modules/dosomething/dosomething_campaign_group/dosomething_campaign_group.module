@@ -136,6 +136,8 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
   }
 }
+
+
 /**
  * Returns a Campaign Group parent nid for a given node $nid.
  *
