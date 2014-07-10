@@ -1,3 +1,4 @@
+require 'pp'
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
@@ -33,14 +34,15 @@ namespace :deploy do
       end
     end
   end
-
+  
   if fetch(:deploy_env) == 'intl'
     puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for intl"
-    after :updated, 'deploy:build_international'
-    after :build_international, 'deploy:shared_international_links'
+    #after :updated, 'deploy:build_international'
+    #after :build_international, 'deploy:shared_international_links'
   else
+    pp ENV
     puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for regular build"
-    after :updated, 'deploy:build'
-    after :build, 'deploy:shared_links'
+    #after :updated, 'deploy:build'
+    #after :build, 'deploy:shared_links'
   end
 end
