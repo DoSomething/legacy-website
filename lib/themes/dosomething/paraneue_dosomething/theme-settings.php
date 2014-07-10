@@ -53,9 +53,34 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
     $form['feature_flags'][$name]['#default_value'] = theme_get_setting($name);
   }
 
-  // Lets break this up a little
+  // Lets break this up a little.
+  _paraneue_dosomething_theme_settings_header($form, $form_state);
   _paraneue_dosomething_theme_settings_footer($form, $form_state);
 
+}
+
+function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
+  $form['header'] = array(
+    '#type'  => 'fieldset',
+    '#title' => t('Header'),
+  );
+
+  $form['header']['who_we_are'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Who We Are?'),
+    '#collapsible' => TRUE,
+    '#collapsed'   => TRUE,
+  );
+  $form['header']['who_we_are']['header_who_we_are_text'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Text',
+    '#default_value' => theme_get_setting('header_who_we_are_text'),
+  );
+  $form['header']['who_we_are']['header_who_we_are_link'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Link to Page',
+    '#default_value' => theme_get_setting('header_who_we_are_link'),
+  );
 }
 
 function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
