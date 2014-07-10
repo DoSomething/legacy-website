@@ -40,12 +40,10 @@ namespace :deploy do
   end
 
   if ENV["TIER"] == 'international'
-    puts "Running international build tasks"
-    #after :updated, 'deploy:build_international'
-    #after :build_international, 'deploy:shared_international_links'
+    after :updated, 'deploy:build_international'
+    after :build_international, 'deploy:shared_international_links'
   else
-    puts "Running regular build tasks"
-    #after :updated, 'deploy:build'
-    #after :build, 'deploy:shared_links'
+    after :updated, 'deploy:build'
+    after :build, 'deploy:shared_links'
   end
 end
