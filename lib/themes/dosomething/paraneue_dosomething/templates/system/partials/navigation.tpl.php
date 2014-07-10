@@ -18,9 +18,9 @@
       </li>
 
       <li>
-        <a href="<?php print url('node/538');  ?>">
+        <a href="<?php print url('node/' . $who_we_are['link']); ?>">
           <?php //<strong>What is D<span>o</span>S<span>omething</span>.org?</strong> @TODO: Temp hidden. ?>
-          <strong><?php print $who_we_are; ?></strong>
+          <strong><?php print $who_we_are['text']; ?></strong>
           <span>Young people + social change.</span>
         </a>
       </li>

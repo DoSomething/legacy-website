@@ -76,7 +76,11 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#title'         => 'Text',
     '#default_value' => theme_get_setting('header_who_we_are_text'),
   );
-
+  $form['header']['who_we_are']['header_who_we_are_link'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Link to Page',
+    '#default_value' => theme_get_setting('header_who_we_are_link'),
+  );
 }
 
 function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
