@@ -3,7 +3,6 @@
 /**
  * Generates site-wide global page nav.
  **/
-
 ?>
 
 <nav class="chrome--nav<?php if(isset($modifier_classes)): print ' ' . $modifier_classes; endif; ?>">
@@ -21,7 +20,7 @@
       <li>
         <a href="<?php print url('node/538');  ?>">
           <?php //<strong>What is D<span>o</span>S<span>omething</span>.org?</strong> @TODO: Temp hidden. ?>
-          <strong>What is DoSomething.org?</strong>
+          <strong><?php print $who_we_are; ?></strong>
           <span>Young people + social change.</span>
         </a>
       </li>

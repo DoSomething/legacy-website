@@ -42,6 +42,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
     'user_identifier'  => dosomething_helpers_text_truncate($vars['user_identifier'], 8),
+    'who_we_are'       => theme_get_setting('header_who_we_are_text'),
   );
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
