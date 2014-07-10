@@ -35,9 +35,11 @@ namespace :deploy do
   end
 
   if fetch(:deploy_env) == 'intl'
+    puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for intl"
     after :updated, 'deploy:build_international'
     after :build_international, 'deploy:shared_international_links'
   else
+    puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for regular build"
     after :updated, 'deploy:build'
     after :build, 'deploy:shared_links'
   end
