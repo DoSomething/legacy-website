@@ -34,8 +34,4 @@ namespace :deploy do
       end
     end
   end
-
-  after :updated, 'deploy:build_international'
-  after :build_international, 'deploy:shared_international_links'
-
 end

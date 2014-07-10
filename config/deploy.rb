@@ -32,8 +32,12 @@ namespace :deploy do
       end
     end
   end
-
-  after :updated, 'deploy:build'
-  after :build, 'deploy:shared_links'
-
+  
+  if fetch(:deploy_env) == 'intl'
+    after :updated, 'deploy:build_international'
+    after :build_international, 'deploy:shared_international_links'
+  else
+    after :updated, 'deploy:build'
+    after :build, 'deploy:shared_links'
+  end
 end
