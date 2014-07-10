@@ -145,7 +145,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
    */
 
   $info_bar_vars = array(
-    'zendesk_form'       => $vars['zendesk_form'] || $vars['content']['zendesk_form'], // @TODO: not ideal... unify these!
+    'zendesk_form'       => $vars['zendesk_form'],
     'sponsors'           => $vars['sponsors'],
     'formatted_partners' => $vars['formatted_partners'],
   );
