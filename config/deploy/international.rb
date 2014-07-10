@@ -16,7 +16,7 @@ end
 
 namespace :deploy do
 
-  task :shared_links do
+  task :shared_international_links do
     on roles(:app) do |host|
       execute "rm -rf #{release_path}/html/sites"
       execute "sudo ln -s #{shared_path}/sites #{release_path}/html/sites"
@@ -24,7 +24,7 @@ namespace :deploy do
   end
 
   desc "Run ds build tasks for international"
-  task :build do
+  task :build_international do
     on roles(:app) do |host|
       execute "cd '#{release_path}'; #{release_path}/bin/ds build --intl"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
@@ -35,7 +35,7 @@ namespace :deploy do
     end
   end
 
-  after :updated, 'deploy:build'
-  after :build, 'deploy:shared_links'
+  after :updated, 'deploy:build_international'
+  after :build_international, 'deploy:shared_international_links'
 
 end
