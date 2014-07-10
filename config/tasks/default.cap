@@ -1,5 +1,7 @@
 namespace :deploy do
 
+sites = %w{botswana canada congo ghana kenya indonesia training uk}
+
   desc "Run ds build tasks"
   task :build do
     on roles(:app) do |host|
