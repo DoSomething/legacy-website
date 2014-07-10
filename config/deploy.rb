@@ -17,7 +17,6 @@ namespace :deploy do
   desc "Run ds build tasks"
   task :build do
     on roles(:app) do |host|
-      puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in regular build func"
       execute "cd '#{release_path}'; #{release_path}/bin/ds build"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
       execute "cd '#{release_path}/html'; drush vset --yes ds_version " + ENV['branch']
@@ -36,13 +35,10 @@ namespace :deploy do
   end
 
   if ENV["TIER"] == 'international'
-    puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for intl"
-    #after :updated, 'deploy:build_international'
-    #after :build_international, 'deploy:shared_international_links'
+    after :updated, 'deploy:build_international'
+    after :build_international, 'deploy:shared_international_links'
   else
-    pp ENV
-    puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in switch for regular build"
-    #after :updated, 'deploy:build'
-    #after :build, 'deploy:shared_links'
+    after :updated, 'deploy:build'
+    after :build, 'deploy:shared_links'
   end
 end

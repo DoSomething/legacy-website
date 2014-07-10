@@ -26,7 +26,6 @@ namespace :deploy do
   desc "Run ds build tasks for international"
   task :build_international do
     on roles(:app) do |host|
-      puts "THE DEPLOY ENV IS: #{fetch(:deploy_env)} in regular build func"
       execute "cd '#{release_path}'; #{release_path}/bin/ds build --intl"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
       sites.each do |site|
