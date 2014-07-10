@@ -130,21 +130,13 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     if (!empty($modal_items)) {
       $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
     }
-    
+   
+    // Include Zendesk Form
+    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
+
   }
 }
 
-/**
- * Implements hook_node_view().
- */
-function dosomething_campaign_group_node_view($node, $view_mode, $langcode) {
-  if ($node->type == 'campaign_group' && $view_mode == 'full') {
-    // Add Zendesk form variable:
-    if (module_exists('dosomething_zendesk')) {
-      $node->content['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
-    }
-  }
-}
 
 /**
  * Returns a Campaign Group parent nid for a given node $nid.

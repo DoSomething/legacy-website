@@ -3,7 +3,6 @@
 /**
  * Generates info bar footer.
  **/
-
 ?>
 
 <?php if (isset($zendesk_form) || isset($sponsors)): ?>
@@ -29,5 +28,4 @@
   </div>
 </footer>
 <?php endif; ?>
-
 
