@@ -71,14 +71,17 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#collapsible' => TRUE,
     '#collapsed'   => TRUE,
   );
-  $form['header']['who_we_are']['header_who_we_are_text'] = array(
+
+  $form_who_we_are = &$form['header']['who_we_are'];
+  $form_who_we_are['header_who_we_are_text'] = array(
     '#type'          => 'textfield',
     '#title'         => 'Text',
     '#default_value' => theme_get_setting('header_who_we_are_text'),
   );
   $form['header']['who_we_are']['header_who_we_are_link'] = array(
-    '#type'          => 'textfield',
-    '#title'         => 'Link to Page',
+    '#type'          => 'entity_autocomplete',
+    '#title'         => 'Link to',
+    '#bundles'       => array('static_content'),
     '#default_value' => theme_get_setting('header_who_we_are_link'),
   );
 }
