@@ -24,8 +24,8 @@ $countries = array(
   'botswana',
   'canada',
   'congo',
-  'ghana'
-  'kenya'
+  'ghana',
+  'kenya',
   'indonesia',
   'nigeria',
   'training',
