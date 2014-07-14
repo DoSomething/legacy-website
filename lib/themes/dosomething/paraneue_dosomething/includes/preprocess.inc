@@ -157,15 +157,12 @@ function paraneue_dosomething_preprocess_node(&$vars) {
   );
   // Loop through the variable names:
   foreach ($info_var_names as $variable) {
+    $info_bar_vars[$variable] = NULL;
     // If the vars is set for this variable name:
     if (isset($vars[$variable])) {
       // Store its value.
-      $value = $vars[$variable];
+      $info_bar_vars[$variable] = $vars[$variable];
     }
-    else {
-      $value = NULL;
-    }
-    $info_bar_vars[$variable] = $value;
   }
   $vars['info_bar'] = theme('info_bar', $info_bar_vars);
 }
