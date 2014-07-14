@@ -79,11 +79,15 @@
   </div>
 
   <div class="finder--results -blankslate js-campaign-blankslate">
-    <?php foreach($thumbnails as $thumbnail) { print $thumbnail; } ?>
+    <ul class="gallery -mosaic">
+    <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
+    </ul>
   </div>
 
   <?php if( $show_campaign_finder ): ?>
-  <div class="finder--results js-campaign-results"></div>
+  <div class="finder--results js-campaign-results">
+    <ul class="gallery -mosaic"></ul>
+  </div>
   <?php endif; ?>
 
   <?php if( $show_sponsors ) : ?>
