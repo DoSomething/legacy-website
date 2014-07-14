@@ -14,7 +14,7 @@
       Questions? <a href="#" data-modal-href="#modal-contact-form">Contact Us</a>
       <div data-modal id="modal-contact-form" class="modal--contact" role="dialog">
         <h2 class="banner">Contact Us</h2>
-        <p>Enter your question below. Please be as specific as possible.</p>
+        <p><?php print $zendesk_form_header; ?></p>
         <?php print render($zendesk_form); ?>
       </div>
     </div>

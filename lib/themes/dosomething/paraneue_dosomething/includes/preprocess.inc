@@ -144,12 +144,26 @@ function paraneue_dosomething_preprocess_node(&$vars) {
    * Info Bar
    */
 
+  // Initialize info_bar_vars with variable that will always be set:
+  $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
   $info_bar_vars = array(
-    'zendesk_form'       => $vars['zendesk_form'],
-    'sponsors'           => $vars['sponsors'],
-    'formatted_partners' => $vars['formatted_partners'],
+    'zendesk_form_header' => $zendesk_form_header,
   );
-
+  // List $vars variable names to pass to info bar:
+  $info_var_names = array(
+    'formatted_partners',
+    'sponsors',
+    'zendesk_form',
+  );
+  // Loop through the variable names:
+  foreach ($info_var_names as $variable) {
+    $info_bar_vars[$variable] = NULL;
+    // If the vars is set for this variable name:
+    if (isset($vars[$variable])) {
+      // Store its value.
+      $info_bar_vars[$variable] = $vars[$variable];
+    }
+  }
   $vars['info_bar'] = theme('info_bar', $info_bar_vars);
 }
 
