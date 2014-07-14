@@ -7,8 +7,8 @@ sites = %w{botswana canada congo ghana kenya indonesia training uk}
     on roles(:app) do |host|
       execute "cd '#{release_path}'; #{release_path}/bin/ds build"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
-      execute "cd '#{release_path}/html'; drush vset --yes ds_version " + ENV['branch']
-      execute "cd '#{release_path}/html'; echo " + ENV['branch'] + " > VERSION"
+      execute "cd '#{release_path}/html'; drush vset --yes ds_version #{ENV['branch']}"
+      execute "cd '#{release_path}/html'; echo #{ENV['branch']} > VERSION"
     end
   end
 
@@ -18,8 +18,8 @@ sites = %w{botswana canada congo ghana kenya indonesia training uk}
       execute "cd '#{release_path}'; #{release_path}/bin/ds build --intl"
       execute "cd '#{release_path}/lib/themes/dosomething/paraneue_dosomething'; grunt prod"
       sites.each do |site|
-        execute "cd '#{release_path}/html/sites/#{site}'; drush vset --yes ds_version " + ENV['branch']
-        execute "cd '#{release_path}/html/sites/#{site}'; echo " + ENV['branch'] + " > VERSION"
+        execute "cd '#{release_path}/html/sites/#{site}'; drush vset --yes ds_version #{ENV['branch']}"
+        execute "cd '#{release_path}/html/sites/#{site}'; echo #{ENV['branch']} > VERSION"
       end
     end
   end
