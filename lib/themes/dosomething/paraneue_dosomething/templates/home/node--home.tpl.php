@@ -85,9 +85,7 @@
   </div>
 
   <?php if( $show_campaign_finder ): ?>
-  <div class="finder--results js-campaign-results">
-    <ul class="gallery -mosaic"></ul>
-  </div>
+  <div class="finder--results js-campaign-results"></div>
   <?php endif; ?>
 
   <?php if( $show_sponsors ) : ?>
