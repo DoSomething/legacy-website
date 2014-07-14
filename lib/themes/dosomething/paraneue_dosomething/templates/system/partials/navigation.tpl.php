@@ -34,9 +34,9 @@
         <?php if(!$logged_in): ?>
         <?php // Will change 'Sign Up' to 'Create Account' once we refactor nav and can fit longer text! ?>
         <?php if( theme_get_setting('show_profile_link') ): ?>
-        <li class="account"><a id="link--register" href="<?php print $front_page; ?>user/register" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--register">Register</a></li>
+        <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register">Register</a></li>
         <?php endif; ?>
-        <li class="login"><a id="link--login" href="<?php print $front_page; ?>user/login" class="secondary-nav-item js-modal-link" data-cached-modal="#modal--login">Log In</a></li>
+        <li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login">Log In</a></li>
         <?php else: ?>
         <?php if( theme_get_setting('show_profile_link') ): ?>
         <li class="account"><?php print l($user_identifier, 'user/'. $user->uid); ?></li>

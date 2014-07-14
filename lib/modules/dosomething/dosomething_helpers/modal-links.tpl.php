@@ -1,21 +1,21 @@
 <ul class="modal-links">
   <?php if (isset($modals['faq'])): ?>
-    <li><a href="#modal-faq" class="js-modal-link">Check out our FAQs</a></li>
+    <li><a href="#" data-modal-href="#modal-faq">Check out our FAQs</a></li>
   <?php endif; ?>
 
   <?php if (isset($modals['more_facts'])): ?>
-    <li><a href="#modal-facts" class="js-modal-link">Learn more about <?php print $modals['issue']; ?></a></li>
+    <li><a href="#" data-modal-href="#modal-facts">Learn more about <?php print $modals['issue']; ?></a></li>
   <?php endif; ?>
 
   <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
-    <li><a href="#modal-partner-<?php print $delta; ?>" class="js-modal-link">Why we &lt;3 <?php print $partner['name']; ?></a>
+    <li><a href="#" data-modal-href="#modal-partner-<?php print $delta; ?>">Why we &lt;3 <?php print $partner['name']; ?></a>
   <?php endforeach; ?>
   <?php endif; ?>
 </ul>
 
 <?php if (isset($modals['faq'])): ?>
-<script id="modal-faq" type="text/cached-modal">
+<div data-modal id="modal-faq" role="dialog">
   <a href="#" class="js-close-modal modal-close-button white">×</a>
   <h2 class="banner">FAQs</h2>
   <?php foreach ($modals['faq'] as $item): ?>
@@ -23,11 +23,11 @@
     <div class="faq-copy"><?php print $item['copy'] ?></div>
   <?php endforeach; ?>
   <a href="#" class="js-close-modal">Back to main page</a>
-</script>
+</div>
 <?php endif; ?>
 
 <?php if (isset($modals['more_facts'])): ?>
-<script id="modal-facts" type="text/cached-modal">
+<div data-modal id="modal-facts" role="dialog">
   <a href="#" class="js-close-modal modal-close-button white">×</a>
   <h2 class="banner">Facts</h2>
   <ul>
@@ -45,18 +45,18 @@
     </ul>
   </section>
   <a href="#" class="js-close-modal">Back to main page</a>
-</script>
+</div>
 <?php endif; ?>
 
 <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
-    <script id="modal-partner-<?php print $delta; ?>" type="text/cached-modal">
+    <div data-modal id="modal-partner-<?php print $delta; ?>" role="dialog">
       <a href="#" class="js-close-modal modal-close-button white">×</a>
       <h2 class="banner">We &lt;3 <?php print $partner['name']; ?></h2>
       <?php print $partner['copy']; ?>
       <?php if (isset($partner['video'])): print $partner['video']; ?>
       <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
       <a href="#" class="js-close-modal">Back to main page</a>
-    </script>
+    </div>
   <?php endforeach; ?>
 <?php endif; ?>

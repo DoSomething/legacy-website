@@ -11,12 +11,12 @@
 
     <?php if (isset($zendesk_form)): ?>
     <div class="help">
-      Questions? <a href="#modal-contact-form" class="js-modal-link">Contact Us</a>
-      <script id="modal-contact-form" class="modal--contact" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+      Questions? <a href="#" data-modal-href="#modal-contact-form">Contact Us</a>
+      <div data-modal id="modal-contact-form" class="modal--contact" role="dialog">
         <h2 class="banner">Contact Us</h2>
         <p>Enter your question below. Please be as specific as possible.</p>
         <?php print render($zendesk_form); ?>
-      </script>
+      </div>
     </div>
     <?php endif; ?>
 

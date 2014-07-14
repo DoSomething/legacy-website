@@ -125,7 +125,6 @@
       </div>
     </section>
 
-
     <?php if ($info_bar): ?>
       <?php print $info_bar; ?>
     <?php endif; ?>
