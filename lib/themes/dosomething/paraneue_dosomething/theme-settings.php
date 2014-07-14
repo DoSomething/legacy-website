@@ -65,6 +65,23 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#title' => t('Header'),
   );
 
+  $form['header']['logo'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Logo Override'),
+    '#collapsible' => TRUE,
+    '#collapsed'   => TRUE,
+  );
+  $form_logo = &$form['header']['logo'];
+  $form_logo['header_logo_override'] = array(
+    '#type'              => 'managed_file',
+    '#title'             => t('File'),
+    '#upload_location'   => file_default_scheme() . '://theme/',
+    '#default_value'     => theme_get_setting('header_logo_override'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png'),
+    ),
+  );
+
   $form['header']['who_we_are'] = array(
     '#type'        => 'fieldset',
     '#title'       => t('Who We Are?'),
