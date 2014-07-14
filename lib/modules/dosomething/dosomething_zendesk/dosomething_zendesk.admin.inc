@@ -45,6 +45,26 @@ function dosomething_zendesk_config_form($form, &$form_state)  {
     '#description' => t('Do not share this token publicly.'),
     '#default_value' => variable_get('dosomething_zendesk_token', ''),
   );
+  $form['copy'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form copy'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['copy']['dosomething_zendesk_form_header'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Form Header'),
+    '#description' => t("Copy displayed in the form header."),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_zendesk_form_header'),
+  );
+  $form['copy']['dosomething_zendesk_form_body_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Textarea Label'),
+    '#description' => t("Label displayed above the textarea."),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_zendesk_form_body_label'),
+  );
   return system_settings_form($form);
 }
 

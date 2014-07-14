@@ -143,9 +143,10 @@ function paraneue_dosomething_preprocess_node(&$vars) {
   /**
    * Info Bar
    */
-
+  $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
   $info_bar_vars = array(
     'zendesk_form'       => $vars['zendesk_form'],
+    'zendesk_form_header' => $zendesk_form_header,
     'sponsors'           => $vars['sponsors'],
     'formatted_partners' => $vars['formatted_partners'],
   );

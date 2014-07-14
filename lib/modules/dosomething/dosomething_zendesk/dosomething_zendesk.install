@@ -32,3 +32,12 @@ function dosomething_zendesk_update_7001(&$sandbox) {
     }
   }
 }
+
+/**
+ * Populates Zendesk form variables.
+ */
+function dosomething_zendesk_update_7002(&$sandbox) {
+  $copy = "Enter your question below. Please be as specific as possible. If you are having a technical issue, please make sure to provide detailed steps (click by click) on how you encountered the problem, so our developers can re-create the issue.";
+  variable_set('dosomething_zendesk_form_header', $copy);
+  variable_set('dosomething_zendesk_form_body_label', "Your Question");
+}

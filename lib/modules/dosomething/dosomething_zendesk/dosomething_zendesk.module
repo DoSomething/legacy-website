@@ -138,7 +138,7 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
   $form['body'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
-    '#title' => t('Your Question'),
+    '#title' => t(variable_get('dosomething_zendesk_form_body_label')),
   );
   $form['submit'] = array(
     '#type' => 'submit',
