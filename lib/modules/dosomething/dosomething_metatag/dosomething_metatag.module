@@ -63,5 +63,14 @@ function dosomething_metatag_add_metatag_image_src($node, $field) {
       ),
     );
     drupal_add_html_head($element, 'facebook_share_image');
+    // Add the Twitter Image tag into the HEAD.
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "twitter:image",
+        "content" => $image,
+      ),
+    );
+    drupal_add_html_head($element, 'twitter_image');
   }
 }
