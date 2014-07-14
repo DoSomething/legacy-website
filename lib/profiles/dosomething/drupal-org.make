@@ -43,6 +43,10 @@ projects[diff][subdir] = "contrib"
 projects[entity][version] = "1.5"
 projects[entity][subdir] = "contrib"
 
+; Entity Autocomplete
+projects[entity_autocomplete][version] = "1.0-beta3"
+projects[entity_autocomplete][subdir] = "contrib"
+
 ; Entity Connect
 projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"

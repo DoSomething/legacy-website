@@ -29,6 +29,7 @@ dependencies[] = ctools
 dependencies[] = date
 dependencies[] = diff
 dependencies[] = entity
+dependencies[] = entity_autocomplete
 dependencies[] = entityconnect
 dependencies[] = entityreference
 dependencies[] = features
