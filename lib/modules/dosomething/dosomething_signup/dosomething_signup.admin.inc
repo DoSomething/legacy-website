@@ -63,13 +63,11 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
       $form[$nid][$nid . '_alpha'] = array(
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Alpha Opt-In Path'),
-        '#required' => TRUE,
         '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path'),
       );
       $form[$nid][$nid . '_beta'] = array(
         '#type' => 'textfield',
         '#title' => t('Mobile Commons Beta Opt-In Path'),
-        '#required' => TRUE,
         '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path'),
       );
     }
