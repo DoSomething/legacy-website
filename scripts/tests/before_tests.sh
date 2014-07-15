@@ -33,6 +33,12 @@ drush_delete_user_with_email() {
   } &> /dev/null
 }
 
+drush_signup_user() {
+  uid=$(drush_get_uid_from_email $2)
+  drush php-eval "dosomething_signup_create($1, $uid)"
+}
+
+echo "Deleting users created during previous test runs..."
 drush_delete_user_with_email QA_TEST_ACCOUNT@example.com
 drush_delete_user_with_email QA_TEST_USER_REGISTER@example.com
 drush_delete_user_with_email QA_TEST_CAMPAIGN_SIGNUP_EXISTING@example.com 
