@@ -16,8 +16,8 @@ casper.test.begin('Test that a user can authenticate correctly.', 6, function su
     this.click("#link--login");
 
     // We should see a modal with the login form.
-    this.waitUntilVisible(".modal-content", function() {
-      test.assertExists(".modal-content form[action='/user/login']", "Clicking the login link shows modal login form");
+    this.waitUntilVisible("[data-modal]", function() {
+      test.assertExists("[data-modal] form[action='/user/login']", "Clicking the login link shows modal login form");
     });
   });
 
@@ -36,10 +36,12 @@ casper.test.begin('Test that a user can authenticate correctly.', 6, function su
 
   casper.thenOpen(url, function() {
     // Now let's go back home and login using the login modal.
-    this.click("#link--login");
+    this.waitUntilVisible("#link--login", function() {
+      this.click("#link--login");
+    });
     
     // We should see a modal with the login form.
-    this.waitUntilVisible(".modal-content", function() {
+    this.waitUntilVisible("[data-modal]", function() {
       this.fill('form[action="/user/login"]', {
         name: 'QA_TEST_ACCOUNT@example.com',
         pass: 'QA_TEST_ACCOUNT'
