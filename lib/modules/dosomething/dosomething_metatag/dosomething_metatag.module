@@ -5,6 +5,32 @@
  */
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function dosomething_metatag_preprocess_html(&$vars) {
+  // Prevent search engines from using DMOZ site descriptions.
+  $dmoz_meta_tag = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'robots',
+      'content' => 'NOODP'
+    )
+  );
+  drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
+  // Verifies DS Pinterest account.
+  $pinterest_verify_tag = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'p:domain_verify',
+      'content' => '14e81c42e6c4ff0ca4ec7be173a4799f'
+    )
+  );
+  drupal_add_html_head($pinterest_verify_tag, 'pinterest_verify_tag');
+}
+
+/**
  * Implements hook_node_view().
  */
 function dosomething_metatag_node_view($node, $view_mode, $langcode) {

@@ -141,22 +141,6 @@ function dosomething_helpers_add_entityref_links(&$node, $fields) {
 }
 
 /**
- * Implements hook_preprocess_html().
- */
-function dosomething_helpers_preprocess_html(&$vars) {
-  $dmoz_meta_tag = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'name' => 'robots',
-      'content' => 'NOODP'
-    )
-  );
-
-  drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
-}
-
-/**
  * Returns array of values of a field collection field.
  *
  * @param object $wrapper
