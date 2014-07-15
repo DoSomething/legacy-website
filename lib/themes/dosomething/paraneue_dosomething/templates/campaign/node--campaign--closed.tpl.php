@@ -174,7 +174,7 @@
             <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
 
             <?php // The klout galleries ?>
-            <ul class="gallery <?php print $klout_gallery_item['modifer']; ?>">
+            <ul class="gallery <?php print $klout_gallery_item['style']; ?>">
               <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
 
                 <?php if ($klout_gallery_item['type'] === 'mention') : ?>

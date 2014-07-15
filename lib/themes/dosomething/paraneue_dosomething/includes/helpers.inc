@@ -29,3 +29,26 @@ function paraneue_dosomething_get_gallery_item_order_class($index) {
       return;
   }
 }
+
+/**
+ * Returns a gallery css class name for a given gallery cms $style
+ *
+ * @param string $style
+ *   CSS class selected from gallery style dropdown
+ *
+ * @return string
+ *   Gallery css class name
+ */
+function paraneue_dosomething_get_gallery_style($style) {
+  switch ($style) {
+    case '2col':
+      return '-duo';
+      break;
+    case '3col_short':
+      return '-triad -aligned';
+      break;
+    default:
+      return '-triad';
+      break;
+  }
+}

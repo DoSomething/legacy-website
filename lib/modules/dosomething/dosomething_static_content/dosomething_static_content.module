@@ -95,11 +95,11 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
     if (isset($collection_item['field_gallery_style'][0])) {
       // Store the Gallery Style key.
       $style = $collection_item['field_gallery_style']['#items'][0]['value'];
-      $vars['galleries'][$i]['style'] = $style;
     }
     else {
-      $vars['galleries'][$i]['style'] = 'default';
+      $style = "-triad";
     }
+    $vars['galleries'][$i]['style'] = paraneue_dosomething_get_gallery_style($style);
     $collection_item = $collection_item['field_gallery_item'];
 
     $gallery_item_count = count($collection_item['#items']);
