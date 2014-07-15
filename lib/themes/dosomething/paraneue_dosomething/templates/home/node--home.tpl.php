@@ -79,7 +79,7 @@
   </div>
 
   <div class="finder--results -blankslate js-campaign-blankslate">
-    <ul class="gallery -mosaic">
+    <ul class="gallery -mosaic -featured">
     <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
     </ul>
   </div>
