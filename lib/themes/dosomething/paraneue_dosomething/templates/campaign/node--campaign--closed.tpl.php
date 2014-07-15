@@ -174,7 +174,7 @@
             <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
 
             <?php // The klout galleries ?>
-            <ul class="gallery <?php print $klout_gallery_item['modifer']; ?>">
+            <ul class="gallery <?php print $klout_gallery_item['style']; ?>">
               <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
 
                 <?php if ($klout_gallery_item['type'] === 'mention') : ?>
@@ -287,8 +287,25 @@
     </div>
   </section>
 
-  <?php if ($info_bar): ?>
-    <?php print $info_bar; ?>
-  <?php endif; ?>
+  <footer class="info-bar">
+    <div class="wrapper">
+      <?php if (isset($zendesk_form)): ?>
+      <div class="help">
+        Questions? <a href="#modal-contact-form" class="js-modal-link">Contact Us</a>
+        <script id="modal-contact-form" class="modal--contact" type="text/cached-modal" data-modal-close="true" data-modal-close-class="white">
+          <h2 class="banner">Contact Us</h2>
+          <p>Enter your question below. Please be as specific as possible.</p>
+          <?php print render($zendesk_form); ?>
+        </script>
+      </div>
+      <?php endif; ?>
+
+      <?php if (isset($sponsors)): ?>
+        <div class="sponsor">
+          In partnership with <?php print $formatted_partners; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+  </footer>
 
 </article>

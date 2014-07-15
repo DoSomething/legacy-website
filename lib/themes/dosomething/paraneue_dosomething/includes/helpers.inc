@@ -29,3 +29,17 @@ function paraneue_dosomething_get_gallery_item_order_class($index) {
       return;
   }
 }
+
+function paraneue_dosomething_get_gallery_style($style) {
+  switch ($style) {
+    case '2col':
+      return '-duo';
+      break;
+    case '3col_short':
+      return '-triad -aligned';
+      break;
+    default:
+      return '-triad';
+      break;
+  }
+}
