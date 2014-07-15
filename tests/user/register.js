@@ -3,6 +3,8 @@
  * Test that a user can create an account.
  */
 
+var REGISTER_SUCCESSFUL_MESSAGE = "You've created an account";
+
 casper.test.begin("Test that a user can create an account.", 4, function suite(test) {
   casper.start(url);
 
@@ -13,7 +15,7 @@ casper.test.begin("Test that a user can create an account.", 4, function suite(t
     // Click the login link in the header navigation menu.
     this.click("#link--login");
 
-    this.waitUntilVisible(".modal-content", function() {
+    this.waitUntilVisible("[data-modal]", function() {
       this.click("#link--register");
 
       // Enter with some incorrect fields (email and confirmation)
@@ -44,7 +46,7 @@ casper.test.begin("Test that a user can create an account.", 4, function suite(t
 
     // This should be fine, so let's look for a successful confirmation message.
     casper.waitForSelector(".messages", function() {
-      test.assertSelectorHasText(".messages", "Registration successful");
+      test.assertSelectorHasText(".messages", REGISTER_SUCCESSFUL_MESSAGE);
     });
   });
 

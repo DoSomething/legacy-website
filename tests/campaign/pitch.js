@@ -27,9 +27,12 @@ casper.test.begin("Test that an unregistered user can register & sign up for a c
 
   casper.thenOpen(url + "/campaigns/test-campaign", function(){
     // We expect to see a sign up button, and to be able to click it to sign up.
-    this.click("#link--campaign-signup-login");
+    
+    this.waitUntilVisible("#link--campaign-signup-login", function() {
+      this.click("#link--campaign-signup-login");
+    });
 
-    this.waitUntilVisible(".modal-content", function() {
+    this.waitUntilVisible("[data-modal]", function() {
       this.click("#link--register");
     });
   });
@@ -60,9 +63,11 @@ casper.test.begin("Test that a logged-out user can log in & sign up for a campai
 
   casper.thenOpen(url + "/campaigns/test-campaign", function(){
     // We expect to see a sign up button, and to be able to click it to sign up.
-    this.click("#link--campaign-signup-login");
+    this.waitUntilVisible("#link--campaign-signup-login", function() {
+      this.click("#link--campaign-signup-login");
+    });
 
-    this.waitUntilVisible(".modal-content", function() {
+    this.waitUntilVisible("[data-modal]", function() {
       this.fill("form#user-login-form", {
         name: 'QA_TEST_CAMPAIGN_SIGNUP_EXISTING@example.com',
         pass: 'QA_TEST_CAMPAIGN_SIGNUP_EXISTING'
