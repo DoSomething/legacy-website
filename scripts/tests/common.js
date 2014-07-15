@@ -9,14 +9,18 @@ var url = casper.cli.get('url');
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
 // Use to log in before performing a test.
-casper.login = function() {
-  this.echo("Logging in as test user.");
+casper.login = function(username, password) {
+  // If no arguments are given, log in using default test account
+  username = typeof username == "string" ? username : "QA_TEST_ACCOUNT@example.com";
+  password = typeof password == "string" ? password : "QA_TEST_ACCOUNT";
+
+  this.echo("Logging in as: " + username);
 
   // Go home and login.
   casper.thenOpen(url + "/user", function() {
     this.fill('form[action="/user/login"]', {
-      name: 'QA_TEST_ACCOUNT@example.com',
-      pass: 'QA_TEST_ACCOUNT'
+      name: username,
+      pass: password
     }, true);
   });
 }
