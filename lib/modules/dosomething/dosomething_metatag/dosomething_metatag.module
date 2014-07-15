@@ -5,6 +5,22 @@
  */
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function dosomething_helpers_preprocess_html(&$vars) {
+  // Prevent search engines from using DMOZ site descriptions.
+  $dmoz_meta_tag = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'robots',
+      'content' => 'NOODP'
+    )
+  );
+  drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
+}
+
+/**
  * Implements hook_node_view().
  */
 function dosomething_metatag_node_view($node, $view_mode, $langcode) {
