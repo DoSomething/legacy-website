@@ -33,6 +33,11 @@ casper.logout = function() {
   });
 }
 
+// We want to start at the homepage on each test.
+casper.test.setUp(function() {
+  casper.start(url);
+});
+
 // We want to clear session after every test.
 casper.test.tearDown(function() {
   phantom.clearCookies();
