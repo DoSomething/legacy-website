@@ -145,24 +145,20 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
     $klout =  entity_load('field_collection_item', array($klout_entity_id));
     // Get the type of klout.
     $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
-
-    // Assign specific gallery css classes depending on the gallery type
-    // If the gallery type is 'mention' then it will use the -duo pattern, else use -triad
-    switch ($klout_gallery[$i]['type']) {
-      case 'mention':
-        $modifer = '-duo';
-        break;
-      default:
-        $modifer = '-triad';
-        break;
-    }
-    $modifer .= ' -' . $klout_gallery[$i]['type'];
-    $klout_gallery[$i]['modifer'] = $modifer;
-
     $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
     $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
     $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];
     $single_gallery_count = count($single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE]);
+    // Check for a Gallery Style field value:
+    if ($single_gallery[$gallery_entity_id]->field_gallery_style[LANGUAGE_NONE][0]) {
+      // Store the Gallery Style key.
+      $style = $single_gallery[$gallery_entity_id]->field_gallery_style[LANGUAGE_NONE][0]['value'];
+    }
+    else {
+      $style = "-triad";
+    }
+
+    $klout_gallery[$i]['style'] = paraneue_dosomething_get_gallery_style($style);
     for ($a = 0; $a < $single_gallery_count; $a++) {
       $gallery_item_entity_id = $single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE][$a]['value'];
       $gallery_items = entity_load('field_collection_item', array($gallery_item_entity_id));
