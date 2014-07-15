@@ -329,6 +329,16 @@ function dosomething_user_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit user info'.
+  $permissions['edit user info'] = array(
+    'name' => 'edit user info',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'editor' => 'editor',
+    ),
+    'module' => 'dosomething_user',
+  );
+
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
