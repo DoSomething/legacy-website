@@ -108,16 +108,49 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#type' => 'fieldset',
     '#title' => t('Footer'),
   );
+  $footer = &$form['footer'];
 
+  // Affiliate logo.
+  $footer['logo'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Affiliate logo'),
+    '#collapsible' => TRUE,
+  );
+  $footer['logo']['footer_affiliate_logo'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Enable affiliate logo'),
+    '#default_value' => theme_get_setting('footer_affiliate_logo'),
+  );
+  $footer['logo']['settings'] = array(
+    '#type' => 'container',
+    '#states' => array(
+      'invisible' => array(
+        'input[name="footer_affiliate_logo"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  $form_logo_settings = &$footer['logo']['settings'];
+  $form_logo_settings['footer_affiliate_logo_text'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Text'),
+    '#default_value' => theme_get_setting('footer_affiliate_logo_text'),
+  );
+  $form_logo_settings['footer_affiliate_logo_file'] = array(
+    '#type'              => 'managed_file',
+    '#title'             => t('File'),
+    '#upload_location'   => file_default_scheme() . '://theme/footer-logo/',
+    '#default_value'     => theme_get_setting('footer_affiliate_logo_file'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png'),
+    ),
+  );
+
+  // Links.
   $form['footer']['links'] = array(
     '#type' => 'fieldset',
     '#title' => 'Links',
     '#description' => t('Manage the links in each column of the footer')
   );
-
-  // Stuffing these into smaller variables, because the nesting gets nasty
-  $footer = &$form['footer'];
-  $links = &$form['links'];
 
   $footer['footer_social'] = array(
     '#type' => 'checkboxes',
@@ -132,8 +165,8 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#default_value' => theme_get_setting('footer_social')
   );
 
+  $links = &$form['links'];
   $columns = array('first', 'second', 'third');
-
   foreach ($columns as $column) {
     $prefix = 'footer_links_' . $column;
 

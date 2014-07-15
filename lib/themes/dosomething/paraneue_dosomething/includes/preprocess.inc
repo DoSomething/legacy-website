@@ -98,13 +98,24 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $footer_links[$column]['class'] = theme_get_setting($prefix . "class");
   }
 
-  $vars['footer'] = theme(
-    'footer',
-    array(
-      'social' => theme_get_setting('footer_social'),
-      'links' => $footer_links
-    )
+  $footer_vars = array(
+    'social' => theme_get_setting('footer_social'),
+    'links'  => $footer_links,
   );
+
+  // Footer affiliate logo.
+  $footer_logo_enabled = theme_get_setting('footer_affiliate_logo');
+  $footer_logo_file    = theme_get_setting('footer_affiliate_logo_file');
+  if ($footer_logo_enabled && $footer_logo_file) {
+    $file = file_load(theme_get_setting('footer_affiliate_logo_file'));
+    if (!empty($file->uri)) {
+      $footer_logo = &$footer_vars['affiliate_logo'];
+      $footer_logo['file'] = $file->uri;
+      $footer_logo['text'] = theme_get_setting('footer_affiliate_logo_text');
+    }
+  }
+  // Render footer.
+  $vars['footer'] = theme('footer', $footer_vars);
 
 
   /**
