@@ -3,16 +3,12 @@
 
     <div class="container__body">
       <div class="-columned -odd">
-        <div class="__row">
-          <h3>The Problem</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem impedit reprehenderit omnis laudantium dolore quod fugiat recusandae, sunt doloremque odit minima veritatis dolorum reiciendis, soluta, ex. Neque placeat, itaque sed.</p>
-        </div>
+        <h3>The Problem</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem impedit reprehenderit omnis laudantium dolore quod fugiat recusandae, sunt doloremque odit minima veritatis dolorum reiciendis, soluta, ex. Neque placeat, itaque sed.</p>
 
-        <div class="__row">
-          <h3>The Solution</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam velit natus, amet.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae adipisci, magni. Dolore illum illo perferendis!</p>
-        </div>
+        <h3>The Solution</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam velit natus, amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae adipisci, magni. Dolore illum illo perferendis!</p>
       </div>
 
       <div class="-columned -even">
