@@ -47,7 +47,7 @@
 
   <div class="wrapper">
 
-    <div class="container">
+    <div class="container container--tagline">
       <div class="wrapper">
         <p class="__tagline">A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere. <em>*Mic drop</em></p>
       </div>
