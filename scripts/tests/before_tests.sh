@@ -43,8 +43,13 @@ drush_delete_user_with_email QA_TEST_ACCOUNT@example.com
 drush_delete_user_with_email QA_TEST_USER_REGISTER@example.com
 drush_delete_user_with_email QA_TEST_CAMPAIGN_SIGNUP_EXISTING@example.com 
 drush_delete_user_with_email QA_TEST_CAMPAIGN_SIGNUP_NEW@example.com
+drush_delete_user_with_email QA_TEST_CAMPAIGN_ACTION@example.com
 
 echo "Making fresh test accounts..."
 drush_create_test_user QA_TEST_ACCOUNT
 drush_create_test_user QA_TEST_CAMPAIGN_SIGNUP_EXISTING
+drush_create_test_user QA_TEST_CAMPAIGN_ACTION
 
+echo "Signing action page test account up for test campaign..."
+example_campaign_nid=1261
+drush_signup_user $example_campaign_nid QA_TEST_CAMPAIGN_ACTION@example.com
