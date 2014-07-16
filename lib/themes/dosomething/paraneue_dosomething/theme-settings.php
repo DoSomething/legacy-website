@@ -69,9 +69,14 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
   }
 }
 
+/**
+ * Sets setting form file status so it doesn't get removed by a cron job.
+ */
 function paraneue_dosomething_theme_settings_handle_files($form, &$form_state) {
-  // Set file status so it doesn't get removed by a cron job.
+  // A shortcut to form values.
   $input = &$form_state['input'];
+
+  // Act only when footer_affiliate_logo_file exists.
   if (empty($input['footer_affiliate_logo_file']['fid'])) {
     return;
   }
@@ -79,19 +84,30 @@ function paraneue_dosomething_theme_settings_handle_files($form, &$form_state) {
   if (empty($file)) {
     return;
   }
+
+  // Set footer_affiliate_logo_file status and record if it changed.
   if (!empty($input['footer_affiliate_logo'])) {
+    // Logo is enabled, store file permanently.
     $changed      = $file->status != FILE_STATUS_PERMANENT;
     $file->status = FILE_STATUS_PERMANENT;
-  } else {
+  }
+  else {
+    // Logo is disabled, allow cron to cleanup the file.
     $changed      = $file->status != 0;
     $file->status = 0;
   }
+
+  // Act only when file status actually changed.
   if ($changed) {
     file_save($file);
+
+    // Handle file usage reference.
     if ($file->status == FILE_STATUS_PERMANENT) {
-      file_usage_add($file, 'dosomething_settings', 'dosomething_settings', $file->fid);
-    } else {
-      file_usage_delete($file, 'dosomething_settings', 'dosomething_settings');
+      file_usage_add($file, 'paraneue_dosomething', 'paraneue_dosomething', $file->fid);
+    }
+    else {
+      // Remove usage reference if the logo disabled.
+      file_usage_delete($file, 'paraneue_dosomething', 'paraneue_dosomething');
     }
   }
 }
