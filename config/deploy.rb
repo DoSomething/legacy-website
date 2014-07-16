@@ -11,3 +11,5 @@ if ENV['branch']
 end
 
 set :ssh_options, { :forward_agent => true }
+
+default_run_options[:pty] = true
