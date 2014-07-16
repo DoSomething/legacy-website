@@ -1,6 +1,6 @@
 <?php
 
-function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_state) {
+function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['theme_settings'] = array(
       '#type'          => 'fieldset',
       '#title'         => t('Theme Settings'),
@@ -57,6 +57,43 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
   _paraneue_dosomething_theme_settings_header($form, $form_state);
   _paraneue_dosomething_theme_settings_footer($form, $form_state);
 
+  if (!isset($form['#submit'])) {
+    $form['#submit'] = array();
+  }
+  $form['#submit'][] = 'paraneue_dosomething_theme_settings_handle_files';
+
+  // Work-around for this bug: https://drupal.org/node/1862892.
+  $theme_settings_path = drupal_get_path('theme', 'paraneue_dosomething') . '/theme-settings.php';
+  if (!in_array($theme_settings_path, $form_state['build_info']['files'])) {
+    $form_state['build_info']['files'][] = $theme_settings_path;
+  }
+}
+
+function paraneue_dosomething_theme_settings_handle_files($form, &$form_state) {
+  // Set file status so it doesn't get removed by a cron job.
+  $input = &$form_state['input'];
+  if (empty($input['footer_affiliate_logo_file']['fid'])) {
+    return;
+  }
+  $file = file_load($input['footer_affiliate_logo_file']['fid']);
+  if (empty($file)) {
+    return;
+  }
+  if (!empty($input['footer_affiliate_logo'])) {
+    $changed      = $file->status != FILE_STATUS_PERMANENT;
+    $file->status = FILE_STATUS_PERMANENT;
+  } else {
+    $changed      = $file->status != 0;
+    $file->status = 0;
+  }
+  if ($changed) {
+    file_save($file);
+    if ($file->status == FILE_STATUS_PERMANENT) {
+      file_usage_add($file, 'dosomething_settings', 'dosomething_settings', $file->fid);
+    } else {
+      file_usage_delete($file, 'dosomething_settings', 'dosomething_settings');
+    }
+  }
 }
 
 function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
