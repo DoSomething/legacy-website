@@ -86,7 +86,9 @@ function dosomething_campaign_load($node, $public = FALSE) {
   );
   foreach ($fields_plain_text as $property) {
     $field_name = 'field_' . $property;
-    $campaign->{$property} = $wrapper->{$field_name}->value();
+    if (isset($wrapper->{$field_name})) {
+      $campaign->{$property} = $wrapper->{$field_name}->value();
+    }
   }
 
   // Filtered text fields.
