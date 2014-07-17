@@ -5,7 +5,7 @@
 
 var x = require('casper').selectXPath;
 
-casper.test.begin("Test action page is rendered correctly", 22, function suite(test) {
+casper.test.begin("Test action page is rendered correctly", function suite(test) {
   casper.login("QA_TEST_CAMPAIGN_ACTION@example.com", "QA_TEST_CAMPAIGN_ACTION");
 
   // ## Header 
@@ -15,13 +15,28 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
     test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", "This is a test unsponsored campaign.", "Subtitle of campaign is printed in H2.");
   });
 
-  // ## Know It
+  // ## Content tests
   casper.then(function() {
     test.assertSelectorHasText("#know .container__title", "Step 1: Know It", "\"Know It\" banner exists.");
-    this.captureSelector("tmp/tests/step1.png", "#know");
+    test.assertSelectorHasText("#plan .container__title", "Step 2: Plan It", "\"Plan It\" banner exists.");
+    test.assertSelectorHasText("#do .container__title", "Step 3: Do It", "\"Do It\" banner exists.");
+    test.assertSelectorHasText("#prove .container__title", "Step 4: Prove It", "\"Prove It\" banner exists.");
 
     test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
+  });
 
+
+  casper.run(function() {
+    test.done();
+  });
+});
+
+
+casper.test.begin("Test action page functions correctly", function suite(test) {
+  casper.login("QA_TEST_CAMPAIGN_ACTION@example.com", "QA_TEST_CAMPAIGN_ACTION");
+  
+  // ## Know It
+  casper.thenOpen(url + "/campaigns/test-campaign", function() {
     casper.click(x('//*[text()="Check out our FAQs"]'));
     this.waitUntilVisible("#modal-faq", function() {
       test.assertSelectorHasText("#modal-faq", "Why is 'fee awesome?", "FAQ modal displays on click.");
@@ -40,22 +55,12 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
     this.waitUntilVisible("#modal-facts", function() {
       test.assertSelectorHasText("#modal-facts", "1 in 3 teenagers have slept through math", "Fact modal displays on click.");
     });
-  });
-
-  // ## Plan It
-  casper.then(function() {
-    test.assertSelectorHasText("#plan .container__title", "Step 2: Plan It", "\"Plan It\" banner exists.");
-    this.captureSelector("tmp/tests/step2.png", "#plan");
     
     casper.click("#modal-facts .js-close-modal");
   });
 
   // ## Do It
   casper.then(function() {
-    test.assertSelectorHasText("#do .container__title", "Step 3: Do It", "\"Do It\" banner exists.");
-    this.captureSelector("tmp/tests/step3.png", "#do");
-
-
     // @NOTE: Can't use assertVisible() because of "visually-hidden" mixin trickiness.
     test.assertExists("#tip-1.is-active", "First tip is visible on page load.");
     test.assertDoesntExist("#tip-2.is-active", "Second tip is hidden on page load.");
@@ -68,9 +73,6 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
 
   // ## Prove It
   casper.then(function() {
-    test.assertSelectorHasText("#prove .container__title", "Step 4: Prove It", "\"Prove It\" banner exists.");
-    this.captureSelector("tmp/tests/step4.png", "#prove");
-
     casper.click(".info-bar .help a");
     this.waitUntilVisible("#modal-contact-form", function() {
       test.assertSelectorHasText("#modal-contact-form", "Contact Us", "Zendesk modal displays on click.");
