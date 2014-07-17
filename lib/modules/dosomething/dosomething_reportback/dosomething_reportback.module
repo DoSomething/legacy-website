@@ -738,3 +738,34 @@ function dosomething_reportback_get_noun_and_verb($nid) {
 
   return $results;
 }
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function dosomething_reportback_services_resources() {
+  $resources = array();
+  $resources['reportback'] = array(
+    'operations' => array(
+      'retrieve' => array(
+        'help' => 'Retrieve a reportback.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_reportback',
+          'name' => 'resources/dosomething_reportback.resource'
+        ),
+        'callback' => '_dosomething_reportback_resource_retrieve',
+        'args' => array(
+          array(
+            'name' => 'rbid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The rbid of the reportback to retrieve.',
+          ),
+        ),
+        'access callback' => '_dosomething_reportback_resource_access',
+      ),
+    ),
+  );
+  return $resources;
+}

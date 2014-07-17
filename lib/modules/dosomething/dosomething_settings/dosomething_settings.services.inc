@@ -47,6 +47,13 @@ function dosomething_settings_default_services_endpoint() {
         ),
       ),
     ),
+    'reportback' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'system' => array(
       'actions' => array(
         'connect' => array(
