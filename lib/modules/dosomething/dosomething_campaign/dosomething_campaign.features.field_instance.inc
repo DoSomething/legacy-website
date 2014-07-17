@@ -608,6 +608,103 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_created_by'
+  $field_instances['node-campaign-field_created_by'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Select the user who created this campaign.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 67,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'entityconnect_unload_add' => 1,
+    'entityconnect_unload_edit' => 1,
+    'field_name' => 'field_created_by',
+    'label' => 'Created By',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_created_copy'
+  $field_instances['node-campaign-field_created_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 68,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_created_copy',
+    'label' => 'Created Copy',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 17,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_display_end_date'
   $field_instances['node-campaign-field_display_end_date'] = array(
     'bundle' => 'campaign',
@@ -2398,6 +2495,12 @@ function dosomething_campaign_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 66,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2752,6 +2855,8 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit: 135 characters </strong>');
   t('Copy');
   t('Cover Image');
+  t('Created By');
+  t('Created Copy');
   t('Do It Gallery');
   t('During Copy');
   t('During Header');
@@ -2805,6 +2910,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Report Back Noun');
   t('Report Back Verb');
   t('Scholarship Amount');
+  t('Select the user who created this campaign.');
   t('Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
 <br/>
 <strong> Limit 60 characters. </strong>');

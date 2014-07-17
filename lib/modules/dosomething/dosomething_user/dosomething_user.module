@@ -878,11 +878,19 @@ function dosomething_user_info_form_submit($form, &$form_state) {
   $edit['field_address'][LANGUAGE_NONE][0]['administrative_area'] = $values['state'];
   // Hardcoded to 'merica for now.
   $edit['field_address'][LANGUAGE_NONE][0]['country'] = 'US';
+  $file = NULL;
   // If a file was uploaded:
   if (!empty($values['upload'])) {
     $file = file_load($values['upload']);
+    // Set the status to permanent to avoid getting deleted by cron.
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
     $edit['picture'] = $file;
   }
-  user_save($account, $edit);
+  // If successful save:
+  if (user_save($account, $edit) && $file) {
+    // Track usage for the new file.
+    file_usage_add($file, 'user', 'user', $account->uid);
+  }
   drupal_set_message("User information saved.");
 }
