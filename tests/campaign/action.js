@@ -25,6 +25,16 @@ casper.test.begin("Test action page is rendered correctly", function suite(test)
     test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
   });
 
+  // ## Visual tests
+  casper.then(function() {
+
+    phantomcss.screenshot("#know", "step1");
+    phantomcss.screenshot("#plan", "step2");
+    phantomcss.screenshot("#do", "step3");
+    phantomcss.screenshot("#prove", "step4");
+    phantomcss.compareAll();
+
+  });
 
   casper.run(function() {
     test.done();
