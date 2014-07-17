@@ -4,15 +4,25 @@
  * Generates site-wide global page footer.
  **/
 
+  // Checks if current site is an international affiliate
+  $is_affiliate = dosomething_settings_is_affiliate();
+  
 ?>
 
+<footer class="chrome--footer<?php if ($is_affiliate): ?> -intl <?php endif; ?>">
 
-<footer class="chrome--footer -intl">
-
-  <div class="col affiliate js-footer-col">
-    <h4>Do Something Congo is a programme of:</h4>
-    <img src="/profiles/dosomething/themes/dosomething/paraneue_dosomething/dist/images/tmp-botswana.png" alt="">
+  <?php if (isset($affiliate_logo)): ?>
+  <div class="col affiliate">
+    <h4><?php print $affiliate_logo['text'] ?></h4>
+    <?php 
+      print theme_image(array(
+        'path'  => $affiliate_logo['file'],
+        'title' => $affiliate_logo['text'],
+        'alt'   => $affiliate_logo['text'],
+      )); 
+    ?>
   </div>
+  <?php endif; ?>
 
   <div class="social tablet">
     <ul>
