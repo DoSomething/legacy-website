@@ -17,6 +17,16 @@ phantomcss.init({
   onNewImage: function(test) {
     casper.test.info('New baseline screenshot generated at "'+ test.filename + '".');
   },
+  fileNameGetter: function(root,filename){ 
+    var expected = root + fs.separator + filename + '.png';
+    var diff = root + fs.separator + filename + '.diff.png';
+    if(fs.isFile(expected)){
+      return diff;
+    } else {
+      return expected;
+    }
+  },
+
 });
 
 // Set default viewport for all tests.
