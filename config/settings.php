@@ -119,3 +119,12 @@ $conf['locale_custom_strings_en'][''] = array(
  );
 
 $conf['optimizely_id'] = '747623297';
+
+/**
+ * DoSomething specific settings.
+ */
+// Determines whether current site is an international affiliate.
+// @todo: set this variable to TRUE for international affiliate.
+// e.g. in_array($hostname, $affiliates);
+// @see https://github.com/DoSomething/dosomething/pull/2809
+$conf['dosomething_is_affiliate'] = FALSE;
