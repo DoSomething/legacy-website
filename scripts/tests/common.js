@@ -10,6 +10,7 @@ var phantomcss = require(ROOT + 'scripts/tests/vendor/phantomcss');
 phantomcss.init({
   libraryRoot: ROOT + '/scripts/tests/vendor',
   screenshotRoot: ROOT + '/tests/visual',
+  addLabelToFailedImage: false,
   onPass: function(test) {
     casper.test.pass('No changes found for visual regression test "' + test.filename + '".');
   },
