@@ -8,6 +8,15 @@ var ROOT = '/var/www/vagrant/';
 var url = casper.cli.get('url');
 var phantomcss = require(ROOT + 'scripts/tests/vendor/phantomcss');
 phantomcss.init({
+  onPass: function(test) {
+    casper.test.pass('No changes found for visual regression test "' + test.filename + '".');
+  },
+  onFail: function(test) {
+    casper.test.fail('Visual change found in "' + test.filename + '" (' + test.mismatch + '% mismatch)');
+  },
+  onNewImage: function(test) {
+    casper.test.info('New baseline screenshot generated at "'+ test.filename + '".');
+  },
 });
 
 // Set default viewport for all tests.
