@@ -5,6 +5,9 @@
  * Finder/new homepage design.
  * @see dosomething_user.module
  */
+
+  // Checks if current site is an international affiliate
+  $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
 <div class="home--wrapper">
@@ -78,6 +81,8 @@
     </div>
   </div>
 
+
+
   <div class="finder--results -blankslate js-campaign-blankslate">
     <ul class="gallery -mosaic -featured">
     <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
@@ -88,7 +93,7 @@
   <div class="finder--results js-campaign-results"></div>
   <?php endif; ?>
 
-  <?php if( $show_sponsors ) : ?>
+  <?php if( $show_sponsors && !$is_affiliate ) : ?>
   <div class="home--sponsors">
     <h4>Sponsors</h4>
     <p>
