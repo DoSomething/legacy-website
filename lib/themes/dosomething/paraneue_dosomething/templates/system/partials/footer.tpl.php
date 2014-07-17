@@ -6,7 +6,6 @@
 
   // Checks if current site is an international affiliate
   $is_affiliate = dosomething_settings_is_affiliate();
-  
 ?>
 
 <footer class="chrome--footer<?php if ($is_affiliate): ?> -intl <?php endif; ?>">
