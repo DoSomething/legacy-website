@@ -46,6 +46,8 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
   casper.then(function() {
     test.assertSelectorHasText("#plan .container__title", "Step 2: Plan It", "\"Plan It\" banner exists.");
     this.captureSelector("tmp/tests/step2.png", "#plan");
+    
+    casper.click("#modal-facts .js-close-modal");
   });
 
   // ## Do It
@@ -71,7 +73,7 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
 
     casper.click(".info-bar .help a");
     this.waitUntilVisible("#modal-contact-form", function() {
-      test.assertSelectorHasText("#modal-contact-form", "Enter your question below.", "Zendesk modal displays on click.");
+      test.assertSelectorHasText("#modal-contact-form", "Contact Us", "Zendesk modal displays on click.");
     });
   });
 
@@ -82,13 +84,13 @@ casper.test.begin("Test action page is rendered correctly", 22, function suite(t
   // ## Report Back
   casper.then(function() {
     casper.click(x('//*[text()="Submit Your Pic"]'));
-    this.waitUntilVisible("[data-modal]", function() {
+    this.waitUntilVisible("#modal-report-back", function() {
       test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
     });
   });
 
   casper.then(function() {
-    this.fill("form[action='/campaigns/test-campaign']", {
+    this.fill("#dosomething-reportback-form", {
       "files[reportback_file]": "tests/fixtures/reportback-image.png",
       "quantity": "10",
       "why_participated": "Test response."
