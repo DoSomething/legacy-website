@@ -5,16 +5,24 @@ Filter, File Entity, and Services.
 
 ## Services
 
-The `drupalapi` endpoint is defined at `api/v1`.  It is currently configured 
-to not use session information, so all requests will be done as an anonymous user.
+See https://github.com/DoSomething/dosomething/wiki/API for usage.
 
-### Retrieve a campaign
+The API is provided by the `drupalapi` Services endpoint, defined at `api/v1`.
+
+
+### Users
+
+User authentication is handled via Services User resources:
+* login
+* logout
+
+And the System resources:
+* connect
+
+
+### Nodes
 
 Currently we are only using the Node Retrieve resource, at alias `content`.
-
-**GET** `https://www.dosomething.org/api/v1/content/:nid`
-
-**nid** (int) Required. The Node nid to retrieve content for. 
 
 The `dosomething_settings_services_request_postprocess_alter` function is 
 postprocessing the Node resource's output to only return content for a given 
@@ -23,6 +31,12 @@ as defined in `dosomething_campaign_load`.
 
 If a non-campaign Node nid is passed, the response returned will be `false`.
 
-Since all requests are done as an anonymous user, the Node resource will 
-use our user permissions and not return unpublished campaigns for anonymous 
-users: `["Access denied for user anonymous"]`
+The Node resource will use our user permissions and not return unpublished 
+campaigns for anonymous or authenticated users:
+
+````
+["Access denied for user anonymous"]
+````
+
+If an editor or administrator were logged in via Services and accessed an 
+unpublished node, it would be returned. 

@@ -16,7 +16,9 @@ function dosomething_settings_default_services_endpoint() {
   $endpoint->name = 'drupalapi';
   $endpoint->server = 'rest_server';
   $endpoint->path = 'api/v1';
-  $endpoint->authentication = array();
+  $endpoint->authentication = array(
+    'services' => 'services',
+  );
   $endpoint->server_settings = array(
     'formatters' => array(
       'json' => TRUE,
@@ -42,6 +44,33 @@ function dosomething_settings_default_services_endpoint() {
       'operations' => array(
         'retrieve' => array(
           'enabled' => '1',
+        ),
+      ),
+    ),
+    'system' => array(
+      'actions' => array(
+        'connect' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'user' => array(
+      'actions' => array(
+        'login' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
+        ),
+        'logout' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
         ),
       ),
     ),
