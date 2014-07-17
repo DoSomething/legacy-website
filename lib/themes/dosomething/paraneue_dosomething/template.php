@@ -35,6 +35,7 @@ require_once PARANEUE_DS_PATH . '/includes/form.inc';
 require_once PARANEUE_DS_PATH . '/includes/auth/login.inc';
 require_once PARANEUE_DS_PATH . '/includes/auth/register.inc';
 
+
 /**
  * We use our own asset pipeline (through Grunt), so we want to bypass most
  * of Drupal's included assets.

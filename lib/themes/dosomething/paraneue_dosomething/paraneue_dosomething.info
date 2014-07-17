@@ -20,6 +20,7 @@ settings[show_sponsors] = 1
 settings[header_who_we_are_text] = 'What is DoSomething.org?'
 settings[header_who_we_are_link] = '538'
 
+settings[footer_affiliate_logo] = 0
 settings[footer_links_first_column_heading] = 'Help'
 settings[footer_links_first_column_links] = 'Contact Us|node/516
 Hotlines|node/518

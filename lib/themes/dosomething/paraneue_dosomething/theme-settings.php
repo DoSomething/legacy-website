@@ -1,6 +1,6 @@
 <?php
 
-function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_state) {
+function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['theme_settings'] = array(
       '#type'          => 'fieldset',
       '#title'         => t('Theme Settings'),
@@ -57,6 +57,59 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, $form_sta
   _paraneue_dosomething_theme_settings_header($form, $form_state);
   _paraneue_dosomething_theme_settings_footer($form, $form_state);
 
+  if (!isset($form['#submit'])) {
+    $form['#submit'] = array();
+  }
+  $form['#submit'][] = 'paraneue_dosomething_theme_settings_handle_files';
+
+  // Work-around for this bug: https://drupal.org/node/1862892.
+  $theme_settings_path = drupal_get_path('theme', 'paraneue_dosomething') . '/theme-settings.php';
+  if (!in_array($theme_settings_path, $form_state['build_info']['files'])) {
+    $form_state['build_info']['files'][] = $theme_settings_path;
+  }
+}
+
+/**
+ * Sets setting form file status so it doesn't get removed by a cron job.
+ */
+function paraneue_dosomething_theme_settings_handle_files($form, &$form_state) {
+  // A shortcut to form values.
+  $input = &$form_state['input'];
+
+  // Act only when footer_affiliate_logo_file exists.
+  if (empty($input['footer_affiliate_logo_file']['fid'])) {
+    return;
+  }
+  $file = file_load($input['footer_affiliate_logo_file']['fid']);
+  if (empty($file)) {
+    return;
+  }
+
+  // Set footer_affiliate_logo_file status and record if it changed.
+  if (!empty($input['footer_affiliate_logo'])) {
+    // Logo is enabled, store file permanently.
+    $changed      = $file->status != FILE_STATUS_PERMANENT;
+    $file->status = FILE_STATUS_PERMANENT;
+  }
+  else {
+    // Logo is disabled, allow cron to cleanup the file.
+    $changed      = $file->status != 0;
+    $file->status = 0;
+  }
+
+  // Act only when file status actually changed.
+  if ($changed) {
+    file_save($file);
+
+    // Handle file usage reference.
+    if ($file->status == FILE_STATUS_PERMANENT) {
+      file_usage_add($file, 'paraneue_dosomething', 'paraneue_dosomething', $file->fid);
+    }
+    else {
+      // Remove usage reference if the logo disabled.
+      file_usage_delete($file, 'paraneue_dosomething', 'paraneue_dosomething');
+    }
+  }
 }
 
 function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
@@ -108,16 +161,49 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#type' => 'fieldset',
     '#title' => t('Footer'),
   );
+  $footer = &$form['footer'];
 
+  // Affiliate logo.
+  $footer['logo'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Affiliate logo'),
+    '#collapsible' => TRUE,
+  );
+  $footer['logo']['footer_affiliate_logo'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Enable affiliate logo'),
+    '#default_value' => theme_get_setting('footer_affiliate_logo'),
+  );
+  $footer['logo']['settings'] = array(
+    '#type' => 'container',
+    '#states' => array(
+      'invisible' => array(
+        'input[name="footer_affiliate_logo"]' => array('checked' => FALSE),
+      ),
+    ),
+  );
+  $form_logo_settings = &$footer['logo']['settings'];
+  $form_logo_settings['footer_affiliate_logo_text'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Text'),
+    '#default_value' => theme_get_setting('footer_affiliate_logo_text'),
+  );
+  $form_logo_settings['footer_affiliate_logo_file'] = array(
+    '#type'              => 'managed_file',
+    '#title'             => t('File'),
+    '#upload_location'   => file_default_scheme() . '://theme/footer-logo/',
+    '#default_value'     => theme_get_setting('footer_affiliate_logo_file'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png'),
+    ),
+  );
+
+  // Links.
   $form['footer']['links'] = array(
     '#type' => 'fieldset',
     '#title' => 'Links',
     '#description' => t('Manage the links in each column of the footer')
   );
-
-  // Stuffing these into smaller variables, because the nesting gets nasty
-  $footer = &$form['footer'];
-  $links = &$form['links'];
 
   $footer['footer_social'] = array(
     '#type' => 'checkboxes',
@@ -132,8 +218,8 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#default_value' => theme_get_setting('footer_social')
   );
 
+  $links = &$form['links'];
   $columns = array('first', 'second', 'third');
-
   foreach ($columns as $column) {
     $prefix = 'footer_links_' . $column;
 
