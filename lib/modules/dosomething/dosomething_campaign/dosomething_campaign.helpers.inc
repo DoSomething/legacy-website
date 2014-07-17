@@ -79,27 +79,16 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->status = dosomething_campaign_get_campaign_status($node);
   $campaign->type = dosomething_campaign_get_campaign_type($node);
 
-  // Plain text fields.
-  $fields_plain_text = array(
-    'call_to_action',
-    'starter_statement_header',
-  );
-  foreach ($fields_plain_text as $property) {
+  // Plain text properties.
+  $plain_text = dosomething_campaign_get_property_names_plain_text();
+  foreach ($plain_text as $property) {
     $field_name = 'field_' . $property;
     $campaign->{$property} = $wrapper->{$field_name}->value();
   }
 
-  // Filtered text fields.
-  $fields_filtered_text = array(
-    'items_needed',
-    'promoting_tips',
-    'solution_copy',
-    'solution_support',
-    'starter_statement',
-    'time_and_place',
-    'vips',
-  );
-  foreach ($fields_filtered_text as $property) {
+  // Filtered text properties.
+  $filtered_text = dosomething_campaign_get_property_names_filtered_text();
+  foreach ($filtered_text as $property) {
     $field_name = 'field_' . $property;
     if ($value = $wrapper->{$field_name}->value()) {
       // Store filtered text.
@@ -209,6 +198,59 @@ function dosomething_campaign_load($node, $public = FALSE) {
   return $campaign;
 }
 
+/**
+ * Creates and returns a campaign node from given JSON string.
+ */
+function dosomething_campaign_create_node_from_json($string) {
+  $data = json_decode($string);
+  $node = new stdClass();
+  $node->type = 'campaign';
+  $node->title = $data->title;
+  // Set all plain text properties:
+  $plain_text = dosomething_campaign_get_property_names_plain_text();
+  foreach ($plain_text as $text_field) {
+    if (isset($data->{$text_field})) {
+      $field_name = 'field_' . $text_field;
+      $node->{$field_name}[LANGUAGE_NONE][0]['value'] = $data->{$text_field};
+    }
+  }
+  // Set all filtered text properties:
+  $filtered_text = dosomething_campaign_get_property_names_filtered_text();
+  foreach ($filtered_text as $text_field) {
+    if (isset($data->{$text_field})) {
+      $field_name = 'field_' . $text_field;
+      $node->{$field_name}[LANGUAGE_NONE][0]['value'] = $data->{$text_field};
+      $node->{$field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
+    }
+  }
+  node_save($node);
+  return $node;
+}
+
+/**
+ * Returns array of campaign property names which contain plain text.
+ */
+function dosomething_campaign_get_property_names_plain_text() {
+  return array(
+    'call_to_action',
+    'starter_statement_header',
+  );
+}
+
+/**
+ * Returns array of campaign property names which contain filtered text.
+ */
+function dosomething_campaign_get_property_names_filtered_text() {
+  return array(
+    'items_needed',
+    'promoting_tips',
+    'solution_copy',
+    'solution_support',
+    'starter_statement',
+    'time_and_place',
+    'vips',
+  );
+}
 /**
  * Returns a loaded campaign $node's field_campaign_type value.
  *
