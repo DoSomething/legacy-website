@@ -83,7 +83,9 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $plain_text = dosomething_campaign_get_property_names_plain_text();
   foreach ($plain_text as $property) {
     $field_name = 'field_' . $property;
-    $campaign->{$property} = $wrapper->{$field_name}->value();
+    if (isset($wrapper->{$field_name})) {
+      $campaign->{$property} = $wrapper->{$field_name}->value();
+    }
   }
 
   // Filtered text properties.

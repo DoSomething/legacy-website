@@ -362,27 +362,29 @@ function dosomething_signup_update_7010() {
   // List of variables to migrate.
   $opt_in = 'mobilecommons_opt_in_path';
   $opt_in_friends = 'mobilecommons_friends_opt_in_path';
-  // Grab all variable records:
-  $result = db_select('dosomething_signup_variable', 'v')
-    ->fields('v')
-    ->execute()
-    ->fetchAll();
-  // For each variable found:
-  foreach ($result as $record) {
-    $name = $record->name;
-    if ($name == $opt_in || $name == $opt_in_friends) {
-      db_insert('dosomething_helpers_variable')
-        ->fields(array(
-          'entity_type' => 'node',
-          'bundle' => 'campaign',
-          'entity_id' => $record->entity_id,
-          'name' => $record->name,
-          'value' => $record->value,
-        ))
-        ->execute();
+  if (db_table_exists('dosomething_signup_variable')) {
+    // Grab all variable records:
+    $result = db_select('dosomething_signup_variable', 'v')
+      ->fields('v')
+      ->execute()
+      ->fetchAll();
+    // For each variable found:
+    foreach ($result as $record) {
+      $name = $record->name;
+      if ($name == $opt_in || $name == $opt_in_friends) {
+        db_insert('dosomething_helpers_variable')
+          ->fields(array(
+            'entity_type' => 'node',
+            'bundle' => 'campaign',
+            'entity_id' => $record->entity_id,
+            'name' => $record->name,
+            'value' => $record->value,
+          ))
+          ->execute();
+      }
     }
+    db_drop_table('dosomething_signup_variable');
   }
-  db_drop_table('dosomething_signup_variable');
 }
 
 /**
