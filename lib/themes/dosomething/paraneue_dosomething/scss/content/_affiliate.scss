@@ -1,3 +1,15 @@
+body.-affiliate {
+  .home--hero {
+    .header {
+      .subtitle {
+        @include media($tablet) {
+          @include visually-restored();
+        }
+      }
+    }
+  }
+}
+
 .chrome--footer {
   &.-affiliate {
     .branding {
