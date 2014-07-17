@@ -53,6 +53,11 @@ function dosomething_settings_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
+      'actions' => array(
+        'save' => array(
+          'enabled' => '1',
+        ),
+      ),
     ),
     'system' => array(
       'actions' => array(
