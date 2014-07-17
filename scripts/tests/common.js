@@ -2,8 +2,13 @@
  * Helper methods and variables for capser test suite.
  */
 
+var ROOT = '/var/www/vagrant/';
+
 // Define the url for all tests.
 var url = casper.cli.get('url');
+var phantomcss = require(ROOT + 'scripts/tests/vendor/phantomcss');
+phantomcss.init({
+});
 
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
