@@ -8,6 +8,8 @@ var ROOT = '/var/www/vagrant/';
 var url = casper.cli.get('url');
 var phantomcss = require(ROOT + 'scripts/tests/vendor/phantomcss');
 phantomcss.init({
+  libraryRoot: ROOT + '/scripts/tests/vendor',
+  screenshotRoot: ROOT + '/tests/visual',
   onPass: function(test) {
     casper.test.pass('No changes found for visual regression test "' + test.filename + '".');
   },
