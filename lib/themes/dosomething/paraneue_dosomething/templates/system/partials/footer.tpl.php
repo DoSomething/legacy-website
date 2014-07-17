@@ -4,10 +4,25 @@
  * Generates site-wide global page footer.
  **/
 
+  // Checks if current site is an international affiliate
+  $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
+<footer class="chrome--footer<?php if ($is_affiliate): ?> -affiliate <?php endif; ?>">
 
-<footer class="chrome--footer">
+  <?php if (isset($affiliate_logo)): ?>
+  <div class="col branding">
+    <h4><?php print $affiliate_logo['text'] ?></h4>
+    <?php 
+      print theme_image(array(
+        'path'  => $affiliate_logo['file'],
+        'title' => $affiliate_logo['text'],
+        'alt'   => $affiliate_logo['text'],
+      )); 
+    ?>
+  </div>
+  <?php endif; ?>
+
   <div class="social tablet">
     <ul>
       <?php if ($social['facebook'] !== 0): ?>
