@@ -254,13 +254,6 @@
   }
 
   .campaign-result {
-    // float: left;
-    // position: relative;
-    // display: block;
-    // width: 100%;
-    // background: $off-black image-url("placeholder.png");
-    // background-size: cover;
-
     @include transition(background-image .5s ease-in-out);
 
     img {
@@ -268,81 +261,6 @@
       opacity: 0;
       @include transition(opacity 0.5s ease-in);
     }
-
-
-    // TODO: Custom media queries needed for scenarios inbetween currently established media queries.
-    // May be useful to add additional media queries to allow flexibility within the established breakpoints.
-    // @include media(450px) {
-    //   width: 50%;
-    // }
-
-    // @include media($tablet) {
-    //   float: left;
-    //   width: 25%;
-    // }
-
-    // &.big {
-    //   @include media(450px) {
-    //     width: 100%;
-    //   }
-
-    //   @include media($tablet) {
-    //     width: 50%;
-    //   }
-    // }
-
-    // img {
-    //   display: block;
-    //   width: 100%;
-    //   height: auto;
-
-    //   // lazy-load animation
-    //   opacity: 0;
-    //   @include transition(opacity 0.5s ease-in);
-    // }
-
-    // .headline {
-    //   position: absolute;
-    //   bottom: 0;
-    //   width: 100%;
-    //   padding: 36px 18px 18px;
-
-    //   background: image-url("black-50.png");
-    //   @include linear-gradient(transparent, #000);
-
-    //   h3 {
-    //     color: #fff;
-    //     font-weight: $weight-bold;
-    //     line-height: 1.2;
-    //     margin-bottom: 0;
-    //   }
-
-    //   p {
-    //     color: #fff;
-    //     font-size: 16px;
-    //     font-weight: $weight-normal;
-    //     line-height: 1.2;
-    //     margin-bottom: 0;
-    //   }
-    // }
-
-    // .flag {
-    //   display: block;
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    //   z-index: 1;
-    //   background: $yellow;
-    //   color: #000;
-    //   font-size: 14px;
-    //   font-weight: $weight-sbold;
-    //   text-transform: uppercase;
-    //   padding: 0.2em 0.5em;
-
-    //   @include media($tablet) {
-    //     font-size: 18px;
-    //   }
-    // }
   }
 
   .pagination-link {
