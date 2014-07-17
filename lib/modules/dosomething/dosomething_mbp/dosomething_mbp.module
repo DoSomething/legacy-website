@@ -128,6 +128,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'IMPACT_VERB' => $params['impact_verb'],
         'IMPACT_NUMBER' => $params['impact_number'],
         'IMPACT_NOUN' => $params['impact_noun'],
+        'REPORTBACK_IMAGE_MARKUP' => $params['image_markup'],
       );
       break;
 
