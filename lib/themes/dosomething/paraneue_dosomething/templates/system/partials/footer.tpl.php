@@ -8,10 +8,10 @@
   $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
-<footer class="chrome--footer<?php if ($is_affiliate): ?> -intl <?php endif; ?>">
+<footer class="chrome--footer<?php if ($is_affiliate): ?> -affiliate <?php endif; ?>">
 
   <?php if (isset($affiliate_logo)): ?>
-  <div class="col affiliate">
+  <div class="col branding">
     <h4><?php print $affiliate_logo['text'] ?></h4>
     <?php 
       print theme_image(array(
