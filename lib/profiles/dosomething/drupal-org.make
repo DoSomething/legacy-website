@@ -86,6 +86,10 @@ projects[google_analytics][subdir] = "contrib"
 projects[i18n][version] = "1.11"
 projects[i18n][subdir] = "contrib"
 
+; Localization update
+projects[l10n_update][version] = "1.0"
+projects[l10n_update][subdir] = "contrib"
+
 ; Libraries
 projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
