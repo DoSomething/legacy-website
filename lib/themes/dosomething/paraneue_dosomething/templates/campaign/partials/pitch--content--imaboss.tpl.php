@@ -1,3 +1,9 @@
+<?php
+/**
+ * Content for Optimizely A/B SEO tests used on Pitch pages.
+ */
+?>
+
 <div class="container">
   <div class="wrapper">
 
