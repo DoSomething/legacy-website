@@ -24,7 +24,7 @@
 
 <div class="cta">
   <div class="wrapper">
-    <h2 class="__message">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
+    <h2 class="__message">Sign up for #ImABoss to boost your friends’ self-esteem.</h2>
     <a href="#" class="btn">Sign Up</a>
   </div>
 </div>
