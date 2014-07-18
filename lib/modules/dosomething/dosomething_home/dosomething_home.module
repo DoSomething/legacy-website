@@ -48,8 +48,8 @@ function dosomething_home_preprocess_node(&$vars) {
     }
 
 
-
-    $tiles['link'] = drupal_get_path_alias('node/' . $nid);
+    $tiles['path'] = 'node/' . $nid;
+    $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']);
 
     $thumbnails[$nid] = theme('thumbnail', $tiles);
   }

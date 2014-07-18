@@ -1,5 +1,5 @@
 <article class="tile tile--campaign campaign-result <?php print $modifier_classes ?>">
-  <a class="wrapper" href="<?php print $link; ?>">
+  <a class="wrapper" href="<?php print $pretty_path; ?>">
     <?php if ($staff_pick): ?>
       <div class="__flag -staff-pick">Staff Pick</div>
     <?php endif; ?>
