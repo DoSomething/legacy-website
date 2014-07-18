@@ -1,6 +1,7 @@
 <?php
 /**
  * Content for Optimizely A/B SEO tests used on Pitch pages.
+ * Currently not included into any templates via Drupal, but will be in future after A/B tests completed.
  */
 ?>
 
