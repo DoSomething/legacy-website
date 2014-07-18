@@ -202,10 +202,6 @@
     }
   }
 
-  p {
-    margin-bottom: 1em;
-  }
-
   .spinner {
     display: none;
   }
@@ -226,6 +222,7 @@
 
     p {
       color: $light-gray;
+      margin-bottom: 1em;
     }
 
     .message {
