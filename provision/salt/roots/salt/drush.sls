@@ -26,12 +26,21 @@ drush-user-config-folder:
     - require:
       - cmd: drush
 
-drush-make-local:
+drush-module-make-local:
   cmd.run:
     - name: 'drush -y dl make_local-6.x-1.0'
     - user:  vagrant
     - group: vagrant
     - unless: test -f /home/vagrant/.drush/make_local/make_local.drush.inc
+    - require:
+      - cmd: drush
+
+drush-module-language:
+  cmd.run:
+    - name: 'drush dl drush_language'
+    - user:  vagrant
+    - group: vagrant
+    - unless: test -f /home/vagrant/.drush/drush_language/language.drush.inc
     - require:
       - cmd: drush
 
