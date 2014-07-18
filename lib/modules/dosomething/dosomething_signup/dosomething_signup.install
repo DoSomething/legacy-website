@@ -391,10 +391,6 @@ function dosomething_signup_update_7010() {
     }
     db_drop_table('dosomething_signup_variable');
   }
-
-    // Remove it.
-    db_drop_table('dosomething_signup_variable');
-  }
 }
 
 /**
