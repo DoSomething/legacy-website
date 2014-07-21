@@ -347,21 +347,6 @@ function dosomething_campaign_get_campaign_status($node) {
 }
 
 /**
- * For given node entity wrapper, return its field_variables as an array.
- */
-function dosomething_campaign_get_field_variables($wrapper) {
-  if (!isset($wrapper->field_variables)) { return array(); }
-
-  $vars = array();
-  foreach ($wrapper->field_variables->value() as $variable) {
-    $name = $variable->field_variable_name[LANGUAGE_NONE][0]['value'];
-    $value = $variable->field_variable_value[LANGUAGE_NONE][0]['value'];
-    $vars[$name] = $value;
-  }
-  return $vars;
-}
-
-/**
  * Returns variables for campaigns with field_campaign_type.
  *
  * @return array
