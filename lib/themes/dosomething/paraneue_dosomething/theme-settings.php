@@ -198,13 +198,6 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     ),
   );
 
-  // Links.
-  $form['footer']['links'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Links',
-    '#description' => t('Manage the links in each column of the footer')
-  );
-
   $footer['footer_social'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Toggle Social Links'),
@@ -218,7 +211,14 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#default_value' => theme_get_setting('footer_social')
   );
 
-  $links = &$form['links'];
+  // Links.
+  $form['footer']['links'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Links',
+    '#description' => t('Manage the links in each column of the footer')
+  );
+
+  $links = &$form['footer']['links'];
   $columns = array('first', 'second', 'third');
   foreach ($columns as $column) {
     $prefix = 'footer_links_' . $column;
