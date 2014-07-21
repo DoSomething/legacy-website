@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+
+user = ENV["USER"]
+error_found = false
+
+# "Forbidden" regular expressions
+FORBIDDEN_STRINGS = [
+  />>>>>>/,    # Git conflict markers
+  /<<<<<</,    # ''
+  /dpm/,         # drupal debug statements
+  /krumo/,
+  /dsm/,
+]
+
+full_diff = `git diff --cached --`
+
+full_diff.scan(%r{^\+\+\+ b/(.+)\n@@.*\n([\s\S]*?)(?:^diff|\z)}).each do |file, diff|
+  changed_code_for_file = diff.split("\n").select { |x| x.start_with?("+") }.join("\n")
+  changed_lines_for_file = diff.split("\n").select { |x| x.start_with?("+") }
+  dir = File.dirname(file)
+
+  # Scan for "forbidden" calls
+  FORBIDDEN_STRINGS.each do |re|
+    if changed_code_for_file.match(re)
+      puts %{Error: git pre-commit hook forbids committing "#{$1 || $&}" to #{file}\n--------------}
+      error_found = true
+    end
+  end
+end
+
+
+# Finally, report errors
+if error_found
+  puts "To commit anyway, use --no-verify"
+  exit 1
+end
