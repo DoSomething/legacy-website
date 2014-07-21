@@ -43,14 +43,13 @@ function paraneue_dosomething_theme() {
     'footer' => array(
       'template' => 'footer',
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+    ),
+
+    'social-networks' => array(
+      'template' => 'social-networks',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
       'variables' => array(
-        'social' => array(
-          'facebook' => 0,
-          'twitter' => 0,
-          'instagram' => 0,
-          'tumblr' => 0,
-          'youtube' => 0,
-        )
+        'container_classes' => '',
       )
     ),
 

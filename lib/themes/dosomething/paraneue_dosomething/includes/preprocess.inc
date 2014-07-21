@@ -98,8 +98,27 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $footer_links[$column]['class'] = theme_get_setting($prefix . "class");
   }
 
+  // Footer social networks menu.
+  $social = paraneue_dosomething_get_social_networks();
+  foreach ($social as $id => &$network) {
+    $setting_key     = 'footer_social_' . $id;
+    $setting_enabled = theme_get_setting($setting_key . '_enabled');
+    $setting_url     = theme_get_setting($setting_key . '_url');
+    $setting_alt     = theme_get_setting($setting_key . '_alt');
+
+    // Skip disabled and with no URL:
+    if (empty($setting_enabled) || empty($setting_enabled)) {
+      unset($social[$id]);
+      continue;
+    }
+
+    // Extend $social array with url and alt text.
+    $network['url'] = $setting_url;
+    $network['alt'] = t($setting_alt);
+  }
+
   $footer_vars = array(
-    'social' => theme_get_setting('footer_social'),
+    'social' => $social,
     'links'  => $footer_links,
   );
 

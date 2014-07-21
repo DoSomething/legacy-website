@@ -52,3 +52,39 @@ function paraneue_dosomething_get_gallery_style($style) {
       break;
   }
 }
+
+/**
+ * Returns available social networks.
+ *
+ * @return array
+ *   Supported social networks names indexed with designated ids
+ */
+function paraneue_dosomething_get_social_networks() {
+  return array(
+    'facebook'  => array(
+      'id'    => 'facebook',
+      'name'  => t('Facebook'),
+      'glyph' => '&#xe600;'
+    ),
+    'twitter'   => array(
+      'id'    => 'twitter',
+      'name'  => t('Twitter'),
+      'glyph' => '&#xe603;'
+    ),
+    'tumblr'    => array(
+      'id'    => 'tumblr',
+      'name'  => t('Tumblr'),
+      'glyph' => '&#xe602;'
+    ),
+    'instagram' => array(
+      'id'    => 'instagram',
+      'name'  => t('Instagram'),
+      'glyph' => '&#xe604;'
+    ),
+    'youtube'   => array(
+      'id'    => 'youtube',
+      'name'  => t('Youtube'),
+      'glyph' => '&#xe601;'
+    ),
+  );
+}
