@@ -137,6 +137,13 @@ function paraneue_dosomething_preprocess_node(&$vars) {
 
   $type = isset($vars['node']->type) ? $vars['node']->type : null;
   if ($type == "campaign") {
+    // Check for campaign class, and if the creator property has been set.
+    // @see dosomething_campaign_preprocess_node().
+    $vars['campaign_creator'] = NULL;
+    if (isset($vars['campaign']) && $creator = $vars['campaign']->creator) {
+      // Pass $campaign->creator array to the campaign_creator theme function.
+      $vars['campaign_creator'] = theme('campaign_creator', $creator);
+    }
     // If the campaign requires a signup modal to display:
     if (isset($vars['node']->required_signup_data_form)) {
       // Add JS to open the signup data form modal.
