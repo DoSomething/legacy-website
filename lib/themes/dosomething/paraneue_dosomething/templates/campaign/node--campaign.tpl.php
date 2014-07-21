@@ -7,6 +7,7 @@
  * - $end_date: End date for the campaign (string).
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
+ * - $campaign_creator: HTML for the Campaign Creator link/modal.
  */
 ?>
 
@@ -36,10 +37,15 @@
       </div>
       <?php endif; ?>
     </div>
+
+    <?php
+    // Theme and print me. Then copy me to pitch page tpl too.
+    // print $campaign_creator;
+    ?>
+
   </header>
 
   <div class="wrapper">
-
     <nav id="nav" class="waypoints waypoints--action-menu js-sticky">
       <ul class="__menu">
         <li><a class="js-jump-scroll js-scroll-indicator" href="#know">Know</a></li>

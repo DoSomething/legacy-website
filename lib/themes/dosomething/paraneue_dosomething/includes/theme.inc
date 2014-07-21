@@ -30,6 +30,11 @@ function paraneue_dosomething_breadcrumb($variables) {
 function paraneue_dosomething_theme() {
   return array(
 
+    'campaign_creator' => array(
+      'template' => 'campaign-creator',
+      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+    ),
+
     'footer' => array(
       'template' => 'footer',
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
