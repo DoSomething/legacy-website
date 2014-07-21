@@ -149,6 +149,8 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     // Check for campaign class:
     // @see dosomething_campaign_preprocess_node().
     if (isset($vars['campaign'])) {
+      // Add $campaign_scholarship variable.
+      paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
       // Set campaign headings.
       $vars['campaign_headings'] = theme('campaign_headings', $vars);
       // If creator property has been set:
@@ -205,3 +207,36 @@ function paraneue_dosomething_preprocess_node(&$vars) {
   $vars['info_bar'] = theme('info_bar', $info_bar_vars);
 }
 
+/**
+ * Sets a $campaign_scholarship variable based on $vars.
+ *
+ * @see paraneue_dosomething_preprocess_node().
+ */
+function paraneue_dosomething_preprocess_node_campaign_scholarship(&$vars) {
+  // Initialize to NULL to avoid isset checks in the tpl.
+  $vars['campaign_scholarship'] = NULL;
+
+  // If a campaign class exists and it has a scholarship:
+  if ($vars['campaign'] && $vars['campaign']->scholarship) {
+    $campaign = $vars['campaign'];
+
+    // Default to action page classes.
+    $classes = array('-above',  '-white');
+
+    // Pitch page classes:
+    if (isset($campaign->is_pitch_page)) {
+      // Values for pitch page:
+      $classes = array('-below', '-white',  '-dynamic-right');
+    }
+
+    // SMS Game classes:
+    elseif ($campaign->type == 'sms_game') {
+      $classes = array('-right');
+    }
+
+    $vars['campaign_scholarship'] = theme('campaign_scholarship', array(
+      'amount' => $campaign->scholarship,
+      'classes' => $classes,
+    ));
+  }
+}

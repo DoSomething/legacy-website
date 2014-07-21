@@ -90,6 +90,10 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->title = $node->title;
   $campaign->status = dosomething_campaign_get_campaign_status($node);
   $campaign->type = dosomething_campaign_get_campaign_type($node);
+  $campaign->scholarship = $wrapper->field_scholarship_amount->value();
+  if ($campaign->scholarship) {
+    $campaign->scholarship = (int) $campaign->scholarship;
+  }
 
   // Plain text properties.
   $plain_text = dosomething_campaign_get_property_names_plain_text();

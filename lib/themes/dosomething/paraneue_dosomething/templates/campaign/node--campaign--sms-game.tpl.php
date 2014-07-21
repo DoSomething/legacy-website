@@ -106,13 +106,7 @@
             <?php print render($signup_form); ?>
           <?php endif; ?>
 
-          <?php if (isset($scholarship)): ?>
-          <div class="message-callout -right">
-            <div class="__copy">
-              <p><?php print $scholarship; ?></p>
-            </div>
-          </div>
-          <?php endif; ?>
+          <?php print $campaign_scholarship; ?>
         </div>
 
         <div class="disclaimer legal">

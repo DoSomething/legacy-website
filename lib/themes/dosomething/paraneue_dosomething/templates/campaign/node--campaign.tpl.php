@@ -15,6 +15,7 @@
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
+
       <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor">
         <p class="__copy">Powered by</p>
@@ -24,13 +25,7 @@
       </div>
       <?php endif; ?>
 
-      <?php if (isset($scholarship)): ?>
-      <div class="message-callout -above -white">
-        <div class="__copy">
-          <p><?php print $scholarship; ?></p>
-        </div>
-      </div>
-      <?php endif; ?>
+      <?php print $campaign_scholarship; ?>
     </div>
 
     <?php
