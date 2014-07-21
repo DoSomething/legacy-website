@@ -23,25 +23,10 @@
   </div>
   <?php endif; ?>
 
-  <div class="social tablet">
-    <ul>
-      <?php if ($social['facebook'] !== 0): ?>
-      <li><a class="social-link" title="dosomething on Facebook" href="https://www.facebook.com/dosomething">&#xe600;</a></li>
-      <?php endif; ?>
-      <?php if ($social['twitter'] !== 0): ?>
-      <li><a class="social-link" title="@dosomething on Twitter" href="https://twitter.com/dosomething">&#xe603;</a></li>
-      <?php endif; ?>
-      <?php if ($social['tumblr'] !== 0): ?>
-      <li><a class="social-link" title="@dosomething on Tumblr" href="http://dosomething.tumblr.com">&#xe602;</a></li>
-      <?php endif; ?>
-      <?php if ($social['instagram'] !== 0): ?>
-      <li><a class="social-link" title="@dosomething on Instagram" href="http://instagram.com/dosomething">&#xe604;</a></li>
-      <?php endif; ?>
-      <?php if ($social['youtube'] !== 0): ?>
-      <li><a class="social-link" title="dosomething1 on YouTube" href="http://www.youtube.com/dosomething1">&#xe601;</a></li>
-      <?php endif; ?>
-    </ul>
-  </div>
+  <?php print theme('social-networks', array(
+    'social' => $social,
+    'container_classes' => 'tablet',
+  )); ?>
 
   <?php foreach($links as $column): ?>
   <div class="col <?php print $column['class']; ?> js-footer-col">

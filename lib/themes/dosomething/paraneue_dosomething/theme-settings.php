@@ -1,5 +1,11 @@
 <?php
 
+// Include helpers.
+if (!defined('PARANEUE_DS_PATH')) {
+  define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+}
+require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
+
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['theme_settings'] = array(
       '#type'          => 'fieldset',
@@ -198,20 +204,62 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     ),
   );
 
-  $footer['footer_social'] = array(
-    '#type' => 'checkboxes',
-    '#title' => t('Toggle Social Links'),
-    '#options' => array(
-      'facebook' => t('Facebook'),
-      'twitter' => t('Twitter'),
-      'tumblr' => t('Tumblr'),
-      'instagram' => t('Instagram'),
-      'youtube' => t('Youtube'),
-    ),
-    '#default_value' => theme_get_setting('footer_social')
+  // Social.
+  // @todo: consider using drupal menu?
+  $footer['social'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Social'),
+    '#collapsible' => TRUE,
   );
+  foreach (paraneue_dosomething_get_social_networks() as $id => $network) {
+    $setting_key     = 'footer_social_' . $id;
+    $setting_enabled = $setting_key . '_enabled';
+    $setting_url     = $setting_key . '_url';
+    $setting_alt     = $setting_key . '_alt';
 
-  // Links.
+    // Fieldset.
+    $footer['social'][$setting_key] = array(
+      '#type'        => 'fieldset',
+      '#title'       => $network['name'] . ": " .
+                        (theme_get_setting($setting_enabled) ? t('On') : t('Off')),
+      '#collapsible' => TRUE,
+      '#collapsed'   => TRUE
+    );
+
+    // On/off checkbox.
+    $form_social = &$footer['social'][$setting_key];
+    $form_social[$setting_enabled] = array(
+      '#type'          => 'checkbox',
+      '#title'         => t('Enabled'),
+      '#default_value' => theme_get_setting($setting_enabled),
+    );
+    $form_social[$setting_key . '_settings'] = array(
+      '#type' => 'container',
+      '#states' => array(
+        'invisible' => array(
+          'input[name="' . $setting_enabled  . '"]' => array('checked' => FALSE),
+        ),
+      ),
+    );
+
+    // Settings: URL, Title Text, etc.
+    $form_social_settings = &$form_social[$setting_key . '_settings'];
+    $form_social_settings[$setting_url] = array(
+      '#type'          => 'textfield',
+      '#title'         => t('URL'),
+      '#default_value' => theme_get_setting($setting_url),
+    );
+    $form_social_settings[$setting_alt] = array(
+      '#type'          => 'textfield',
+      '#title'         => t('Title Text'),
+      '#description'   => t('Optional') . '. ' .
+          t('Title text is displayed when the image is hovered'),
+      '#default_value' => theme_get_setting($setting_alt),
+    );
+  }
+
+  // Menu.
+  // @todo: consider using drupal menu?
   $form['footer']['links'] = array(
     '#type' => 'fieldset',
     '#title' => 'Links',
