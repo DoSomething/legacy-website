@@ -4,7 +4,6 @@
  *
  * Available Variables
  * - $campaign: A campaign object. @see dosomething_campaign_load()
- * - $end_date: End date for the campaign (string).
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  * - $campaign_creator: HTML for the Campaign Creator link/modal.

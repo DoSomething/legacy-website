@@ -3,8 +3,7 @@
  * Returns the HTML for the Campaign Pitch page.
  *
  * Available Variables
- * - $title: Title for the pitch page (string).
- * - $cta: Call To Action for the pitch page (string).
+ * - $campaign: A campaign object. @see dosomething_campaign_load()
  * - $classes: Additional classes passed for output (string).
  * - $scholarship: Scholarship amount (string).
  */

@@ -20,8 +20,7 @@
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title; ?></h1>
-      <h2 class="__subtitle"><?php print $campaign->call_to_action; ?></h2>
+      <?php print $campaign_headings; ?>
 
       <?php if (isset($signup_button)): ?>
         <div class="__signup">

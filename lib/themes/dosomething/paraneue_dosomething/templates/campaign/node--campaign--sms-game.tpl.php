@@ -3,8 +3,7 @@
  * Returns the HTML for the Campaign SMS Game page.
  *
  * Available Variables
- * - $fact_problem:
- * - $end_date: End date for the campaign (string).
+ * - $campaign: A campaign object. @see dosomething_campaign_load()
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
