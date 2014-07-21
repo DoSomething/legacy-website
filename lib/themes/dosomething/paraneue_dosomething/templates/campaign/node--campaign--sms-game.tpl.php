@@ -3,8 +3,7 @@
  * Returns the HTML for the Campaign SMS Game page.
  *
  * Available Variables
- * - $fact_problem:
- * - $end_date: End date for the campaign (string).
+ * - $campaign: A campaign object. @see dosomething_campaign_load()
  * - $scholarship: Scholarship amount (string).
  * - $classes: Additional classes passed for output (string).
  */
@@ -14,10 +13,7 @@
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title; ?></h1>
-      <h2 class="__subtitle"><?php print $campaign->call_to_action; ?></h2>
-
-      <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
+      <?php print $campaign_headings; ?>
 
       <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor">

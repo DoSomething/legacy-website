@@ -35,6 +35,11 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
     ),
 
+    'campaign_headings' => array(
+      'template' => 'campaign-headings',
+      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+    ),
+
     'footer' => array(
       'template' => 'footer',
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',

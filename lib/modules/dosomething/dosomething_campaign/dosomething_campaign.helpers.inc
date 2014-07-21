@@ -31,6 +31,8 @@
  *     - picture (array)
  *       - fid (int)
  *       - src (string)
+ *   - end_date (string). Timestamp.
+ *     @todo: Investigate making format consistent with season date strings.
  *   - fact_problem (array)
  *       - fact (string) HTML.
  *   - fact_solution (array)
@@ -137,6 +139,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
       $campaign->{$end_property} = $value['value2'];
     }
   }
+  // Load end_date property.
+  dosomething_campaign_load_end_date($campaign, $wrapper);
 
   // Fact fields.
   $campaign->fact_problem = NULL;
@@ -214,7 +218,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
 }
 
 /**
- * Adds Creator property to given $campaign with given node entity $wrapper.
+ * Adds creator property to given $campaign with given node entity $wrapper.
  */
 function dosomething_campaign_load_creator(&$campaign, $wrapper) {
   $campaign->creator = NULL;
@@ -246,6 +250,19 @@ function dosomething_campaign_load_creator(&$campaign, $wrapper) {
     if ($copy =$wrapper->field_created_copy->value()) {
       $campaign->creator['copy'] = $copy['safe_value'];
     }
+  }
+}
+
+/**
+ * Adds end_date property to given $campaign with given node entity $wrapper.
+ */
+function dosomething_campaign_load_end_date(&$campaign, $wrapper) {
+  $campaign->end_date = NULL;
+  // Determines whether or not to display end date.
+  $display_date = $wrapper->field_display_end_date->value();
+  // Check if there is a value in the High Season date field.
+  if ($display_date == 1 && $wrapper->field_high_season->value()) {
+    $campaign->end_date = $wrapper->field_high_season->value2->value();
   }
 }
 
