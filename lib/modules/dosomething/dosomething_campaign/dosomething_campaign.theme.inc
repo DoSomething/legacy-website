@@ -20,15 +20,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $vars['scholarship'] = 'Win a $' . number_format($scholarship, 0, '', ',') . ' Scholarship';
   }
 
-  // Timing.
-  $display_date = $wrapper->field_display_end_date->value();
-  // Check if there is a value in the date field.
-  $high_season = $wrapper->field_high_season->value();
-  if ($display_date == 1 && isset($high_season)) {
-    $end_date = date('F d', $wrapper->field_high_season->value2->value());
-    $vars['end_date'] = 'Ends ' . $end_date;
-  }
-
   // Hero Images.
   dosomething_helpers_preprocess_hero_images($vars);
 
