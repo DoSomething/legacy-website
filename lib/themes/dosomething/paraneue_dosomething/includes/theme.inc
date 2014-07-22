@@ -26,7 +26,9 @@ function paraneue_dosomething_breadcrumb($variables) {
   }
 }
 
-
+/**
+ * Implements hook_theme().
+ */
 function paraneue_dosomething_theme() {
   return array(
 
@@ -38,6 +40,15 @@ function paraneue_dosomething_theme() {
     'campaign_headings' => array(
       'template' => 'campaign-headings',
       'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+    ),
+
+    'campaign_scholarship' => array(
+      'template' => 'campaign-scholarship',
+      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+      'variables' => array(
+        'amount' => NULL,
+        'classes' => NULL,
+      )
     ),
 
     'footer' => array(

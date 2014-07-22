@@ -15,11 +15,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
   $vars['campaign'] = dosomething_campaign_load($node);
   $wrapper = entity_metadata_wrapper('node', $node);
 
-  $scholarship = $wrapper->field_scholarship_amount->value();
-  if (isset($scholarship)) {
-    $vars['scholarship'] = 'Win a $' . number_format($scholarship, 0, '', ',') . ' Scholarship';
-  }
-
   // Hero Images.
   dosomething_helpers_preprocess_hero_images($vars);
 
@@ -304,6 +299,8 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
+  // Track that we're viewing a pitch page.
+  $vars['campaign']->is_pitch_page = TRUE;
   // Check for a signup button copy override.
   $label = $vars['campaign']->variables['signup_form_submit_label'];
   dosomething_signup_preprocess_signup_button($vars, $label);

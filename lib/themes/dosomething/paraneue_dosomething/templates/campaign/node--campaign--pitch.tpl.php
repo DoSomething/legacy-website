@@ -18,14 +18,7 @@
       <?php if (isset($signup_button)): ?>
         <div class="__signup">
           <?php print render($signup_button); ?>
-
-          <?php if (isset($scholarship)): ?>
-          <div class="message-callout -below -white -dynamic-right">
-            <div class="__copy">
-              <p><?php print $scholarship; ?></p>
-            </div>
-          </div>
-          <?php endif; ?>
+          <?php print $campaign_scholarship; ?>
         </div>
       <?php endif; ?>
 
