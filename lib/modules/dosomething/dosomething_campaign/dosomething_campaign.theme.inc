@@ -279,11 +279,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Reportback form.
   $vars['reportback_link']['label'] = t("Submit Your Pic");
-  $vars['reportback_link']['size'] = "medium";
   // If logged in user's reportback exists for this node,
   if ($rbid = dosomething_reportback_exists($vars['nid'])) {
     $vars['reportback_link']['label'] = t("Update Submission");
-    $vars['reportback_link']['size'] = "small";
   }
   $vars['reportback_form'] = $vars['content']['reportback_form'];
 }

@@ -275,7 +275,7 @@
             <?php endif; ?>
 
             <?php if (isset($reportback_link)): ?>
-              <a href="#" data-modal-href="#modal-report-back" class="btn <?php print $reportback_link['size']; ?>"><?php print $reportback_link['label']; ?></a>
+              <a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="btn"><?php print $reportback_link['label']; ?></a>
             <?php endif; ?>
 
             <?php if (isset($scholarship)): ?>
