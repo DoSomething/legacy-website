@@ -14,5 +14,5 @@ $countries = array(
 
 $sites = array();
 foreach ($countries as $country) {
-  $sites["8888.{$country}.dosomething.org"] = $country;
+  $sites["8888.dev.{$country}.dosomething.org"] = $country;
 }
