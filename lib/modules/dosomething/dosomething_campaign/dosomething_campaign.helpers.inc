@@ -52,6 +52,9 @@
  *     - nid (int)
  *     - is_dark_image (bool)
  *     - src (string)
+ *     - url (array)
+ *       - square (array)
+ *         - raw (string). URL to the raw file uploaded.
  *   - is_staff_pick (bool)
  *   - items_needed (string). HTML.
  *   - low_season_end (string). Date string.
@@ -187,7 +190,10 @@ function dosomething_campaign_load($node, $public = FALSE) {
       $campaign->image_cover['is_dark_image'] = (bool) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
     }
     // Set the src property.
+    // @todo: Deprecate when Message Broker uses url array instead.
     $campaign->image_cover['src'] = dosomething_image_get_themed_image_url($campaign->image_cover['nid'], $image_src_ratio, $image_src_style);
+    // Set the url array.
+    dosomething_campaign_load_image_url($campaign->image_cover['url'], $image_cover);
   }
 
   // Set image_header property.
@@ -272,6 +278,25 @@ function dosomething_campaign_load_end_date(&$campaign, $wrapper) {
   // Check if there is a value in the High Season date field.
   if ($display_date == 1 && $wrapper->field_high_season->value()) {
     $campaign->end_date = $wrapper->field_high_season->value2->value();
+  }
+}
+
+function dosomething_campaign_load_image_url(&$campaign_property, $image_node) {
+  $fields = array(
+    'landscape',
+    'square',
+    'portrait',
+    'thumbnail',
+  );
+  foreach ($fields as $name) {
+    $campaign_property[$name] = NULL;
+    $field_name = 'field_image_' . $name;
+    if (isset($image_node->{$field_name}[LANGUAGE_NONE][0])) {
+      $file = $image_node->{$field_name}[LANGUAGE_NONE][0];
+      $campaign_property[$name] = array(
+        'raw' => file_create_url($file['uri']),
+      );
+    }
   }
 }
 
