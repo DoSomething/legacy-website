@@ -21,7 +21,7 @@
       <div class="-columned -even">
         <div class="message-box">
           <h3 class="__title">What You Get</h3>
-          <p class="__copy">Sign up and you’ll get facts on women’s empowerment, tips on raising your friends’ self-esteem, a sign for telling your friends what they are boss at, an entry into the contest to win a $2500 scholarship for school, plus the chance to boss around Fifth Harmony for a day (seriously you could meet them).</p>
+          <p class="__copy">Sign up and you’ll get facts on women’s empowerment, tips on raising your friends’ self-esteem, a sign for telling your friends what they are boss at, an entry into the contest to win a $2,500 scholarship for school, plus the chance to boss around Fifth Harmony for a day (seriously you could meet them).</p>
         </div>
       </div>
     </div>
