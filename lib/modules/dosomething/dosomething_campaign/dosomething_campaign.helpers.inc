@@ -70,6 +70,8 @@
  *       - copy (string) HTML.
  *   - starter_statement (string). HTML.
  *   - starter_statement_header (string). Plain text.
+ *   - stats (array)
+ *     - signups (int)
  *   - time_and_place (string). HTML.
  *   - variables (array). Used to control various presentation settings.
  *   - vips (string). HTML.
@@ -212,6 +214,9 @@ function dosomething_campaign_load($node, $public = FALSE) {
   // Load Creator property.
   dosomething_campaign_load_creator($campaign, $wrapper);
 
+  // Add stats property.
+  dosomething_campaign_load_stats($campaign);
+
   // If this is accessed via API:
   if ($public) {
     // Unset properties which shouldn't be public.
@@ -269,6 +274,16 @@ function dosomething_campaign_load_end_date(&$campaign, $wrapper) {
     $campaign->end_date = $wrapper->field_high_season->value2->value();
   }
 }
+
+/**
+ * Adds stats property to given $campaign.
+ */
+function dosomething_campaign_load_stats(&$campaign) {
+  $campaign->stats = array(
+    'signups' => dosomething_signup_get_signup_total_by_nid($campaign->nid),
+  );
+}
+
 
 /**
  * Creates and returns a campaign node from given JSON string.
