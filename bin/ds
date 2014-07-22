@@ -165,7 +165,7 @@ function build {
   drush --script-path=../bin/ php-script enable_modules.php
 
   echo 'Reverting Features'
-  drush fl | grep 'Overridden' | awk '{print ($(NF-3))}' | xargs -i drush fr {} --force -y
+  drush fra -y --force
 
   echo 'Clearing caches...'
   drush cc all
