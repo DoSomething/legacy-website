@@ -253,33 +253,35 @@ function dosomething_campaign_load($node, $public = FALSE) {
  */
 function dosomething_campaign_load_creator(&$campaign, $wrapper) {
   $campaign->creator = NULL;
-  // If a Created By field value exists:
-  if ($account = $wrapper->field_created_by->value()) {
-    // Initialize Creator array.
-    $campaign->creator = array(
-      'uid' => $account->uid,
-      'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'last_initial' => NULL,
-      'city' => NULL,
-      'state' => NULL,
-      'picture' => NULL,
-      'copy' => NULL,
-    );
-    if ($last_name = dosomething_user_get_field('field_last_name', $account)) {
-      $campaign->creator['last_initial'] = $last_name[0];
-    }
-    if ($address = dosomething_user_get_field('field_address', $account)) {
-      $campaign->creator['city'] = $address['locality'];
-      $campaign->creator['state'] = $address['administrative_area'];
-    }
-    if ($file = $account->picture) {
-      $campaign->creator['picture'] = array(
-        'fid' => $file->fid,
-        'src' => file_create_url($file->uri),
+  if (isset($wrapper->field_created_by)) {
+    // If a Created By field value exists:
+    if ($account = $wrapper->field_created_by->value()) {
+      // Initialize Creator array.
+      $campaign->creator = array(
+        'uid' => $account->uid,
+        'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'last_initial' => NULL,
+        'city' => NULL,
+        'state' => NULL,
+        'picture' => NULL,
+        'copy' => NULL,
       );
-    }
-    if ($copy =$wrapper->field_created_copy->value()) {
-      $campaign->creator['copy'] = $copy['safe_value'];
+      if ($last_name = dosomething_user_get_field('field_last_name', $account)) {
+        $campaign->creator['last_initial'] = $last_name[0];
+      }
+      if ($address = dosomething_user_get_field('field_address', $account)) {
+        $campaign->creator['city'] = $address['locality'];
+        $campaign->creator['state'] = $address['administrative_area'];
+      }
+      if ($file = $account->picture) {
+        $campaign->creator['picture'] = array(
+          'fid' => $file->fid,
+          'src' => file_create_url($file->uri),
+        );
+      }
+      if ($copy =$wrapper->field_created_copy->value()) {
+        $campaign->creator['copy'] = $copy['safe_value'];
+      }
     }
   }
 }
