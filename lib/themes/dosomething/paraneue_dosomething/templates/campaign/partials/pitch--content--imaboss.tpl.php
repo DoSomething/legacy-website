@@ -32,6 +32,6 @@
 <div class="cta">
   <div class="wrapper">
     <h2 class="__message">Sign up for #ImABoss to boost your friends’ self-esteem.</h2>
-    <a href="#" class="btn">Sign Up</a>
+    <a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="btn medium">Sign Up</a>
   </div>
 </div>
