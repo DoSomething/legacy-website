@@ -135,17 +135,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   }
   // Render footer.
   $vars['footer'] = theme('footer', $footer_vars);
-
-
-  /**
-   * Miscellaneous
-   */
-
-  // Show Hunt MCC form confirmation if query string exists
-  $node_type = menu_get_object()->type;
-  if ($node_type == 'campaign_group' && array_key_exists('submitted_mcc', $_GET)) {
-    drupal_set_message(t('Thanks! We\'ll be in touch soon with next steps. If you\'d like to submit more than one campaign idea, go for it!'));
-  }
 }
 
 
