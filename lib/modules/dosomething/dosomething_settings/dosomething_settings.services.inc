@@ -84,6 +84,9 @@ function dosomething_settings_default_services_endpoint() {
             ),
           ),
         ),
+        'register' => array(
+          'enabled' => '1',
+        ),
       ),
     ),
   );
