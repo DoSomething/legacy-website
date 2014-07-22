@@ -44,12 +44,15 @@ casper.test.begin("Test action page is rendered correctly", function suite(test)
 
 casper.test.begin("Test action page functions correctly", function suite(test) {
   casper.login("QA_TEST_CAMPAIGN_ACTION@example.com", "QA_TEST_CAMPAIGN_ACTION");
-  
+
   // ## Know It
   casper.thenOpen(url + "/campaigns/test-campaign", function() {
-    casper.click(x('//*[text()="Check out our FAQs"]'));
-    this.waitUntilVisible("#modal-faq", function() {
-      test.assertSelectorHasText("#modal-faq", "Why is 'fee awesome?", "FAQ modal displays on click.");
+    this.wait(1000, function() { // let's make sure JS has loaded before clicking modal link
+      casper.click(x('//*[text()="Check out our FAQs"]'));
+
+      this.waitUntilVisible("#modal-faq", function() {
+        test.assertSelectorHasText("#modal-faq", "Why is 'fee awesome?", "FAQ modal displays on click.");
+      });
     });
   });
 
@@ -86,16 +89,15 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
     casper.click(".info-bar .help a");
     this.waitUntilVisible("#modal-contact-form", function() {
       test.assertSelectorHasText("#modal-contact-form", "Contact Us", "Zendesk modal displays on click.");
-    });
-  });
 
-  casper.then(function() {
-    casper.click("#modal-contact-form .js-close-modal");
+      casper.click("#modal-contact-form .js-close-modal");
+    });
   });
 
   // ## Report Back
   casper.then(function() {
-    casper.click(x('//*[text()="Submit Your Pic"]'));
+    casper.click("#link--report-back");
+
     this.waitUntilVisible("#modal-report-back", function() {
       test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
     });
@@ -109,8 +111,11 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
     }, true);
   });
 
-
   // Confirmation page
+  casper.then(function() {
+    test.assertDoesntExist(".messages.error", "No errors triggered after report back submission.");
+  });
+
   casper.then(function() {
     test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
     test.assertSelectorHasText("header[role='banner'] .__subtitle", "You sure drank that 'fee. Good work!", "Campaign confirmation message is shown in subtitle.");

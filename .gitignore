@@ -1,4 +1,6 @@
-tmp/
+tests/visual/*.fail.png
+tests/visual/*.diff.png
+tests/visual/failures
 .vagrant
 *.DS_Store
 html/
