@@ -386,6 +386,9 @@ function check_alias_param {
 # DESCRIPTION: Runs functional tests using CasperJS.
 #===============================================================================
 function run_tests {
+  # Make sure latest project NPM dependencies are installed
+  npm install
+
   # Optionally, specify an individual test or directory to run
   TEST=$1
 

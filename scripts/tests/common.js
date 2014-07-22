@@ -6,14 +6,14 @@ var ROOT = '/var/www/vagrant/';
 
 // Define the url for all tests.
 var url = casper.cli.get('url');
-var phantomcss = require(ROOT + 'scripts/tests/vendor/phantomcss');
+var phantomcss = require(ROOT + 'node_modules/phantomcss/phantomcss');
 
 function formattedFilename(test) {
   return test.filename.replace("/var/www/vagrant/tests/visual/", "").replace(".png", "");
 }
 
 phantomcss.init({
-  libraryRoot: ROOT + '/scripts/tests/vendor',
+  libraryRoot: ROOT + 'node_modules/phantomcss',
   screenshotRoot: ROOT + '/tests/visual',
   failedComparisonsRoot: ROOT + '/tests/visual/failures',
   addLabelToFailedImage: false,

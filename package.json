@@ -1,0 +1,25 @@
+{
+  "name": "dosomething",
+  "version": "0.0.0",
+  "description": "A private Drupal 7 distribution that will power the DoSomething.org website.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "ds test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DoSomething/dosomething.git"
+  },
+  "author": "DoSomething.org <developers@dosomething.org",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoSomething/dosomething/issues"
+  },
+  "homepage": "https://github.com/DoSomething/dosomething",
+  "devDependencies": {
+    "phantomcss": "^0.7.2"
+  }
+}
