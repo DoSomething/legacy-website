@@ -136,7 +136,7 @@ function build {
       build_helper $COUNTRY $2 $3
     done
     echo 'Adding sites.php file'
-    ln -nfs $CONFIG_PATH/sites.php $WEB_PATH/sites/sites.php
+    ln -s $CONFIG_PATH/sites.php $WEB_PATH/sites/sites.php
   else
     #default
     build_helper 'default' $1 $2
