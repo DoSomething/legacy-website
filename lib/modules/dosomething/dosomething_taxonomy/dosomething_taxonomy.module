@@ -7,7 +7,72 @@
 include_once 'dosomething_taxonomy.features.inc';
 
 /**
- * Returns array of values of sponsor data.
+ * Returns data from field_partners field collection for a given $node.
+ *
+ * @param object $node
+ *   A loaded Node object.
+ *
+ * @return mixed
+ *   Multi-dimensional array of partners/sponsors, or NULL if empty.
+ *
+ */
+function dosomething_taxonomy_get_partners_data($node) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  // Intialize return array.
+  $partners = array();
+
+  if (!isset($wrapper->field_partners)) {
+    return NULL;
+  }
+
+  // Default style to render the logo.
+  $logo_style = 'wmax-423px';
+
+  // Loop through field collection items.
+  foreach ($wrapper->field_partners->value() as $delta => $item) {
+
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+
+    // Gather partner term data.
+    $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
+    $partners[$delta]['name'] = $term_wrapper->label();
+
+    $partners[$delta]['is_sponsor'] = $fc_item->field_is_sponsor->value();
+
+    if ($url = $fc_item->field_partner_url->value()) {
+      $partners[$delta]['url'] = $url['url'];
+    }
+
+    // If a logo has been uploaded:
+    if ($logo = $term_wrapper->field_partner_logo->value()) {
+      $partners[$delta]['logo']['fid'] = $logo['fid'];
+      // Get url of themed file in the default $logo_style.
+      $logo_url = image_style_url($logo_style, $logo['uri']);
+      $partners[$delta]['logo']['url']['default'] = $logo_url;
+    }
+
+    $partners[$delta]['info'] = NULL;
+    // If copy exists, add it and relevant image/video into info.
+    if ($copy = $fc_item->field_partner_copy->value()) {
+      $partners[$delta]['info'] = array(
+        'copy' => $copy['safe_value'],
+        'image' => $fc_item->field_image_partner->value(),
+        'video' => $fc_item->field_video->value(),
+      );
+    }
+  }
+
+  if (!empty($partners)) {
+    return $partners;
+  }
+  return NULL;
+}
+
+/**
+ * Returns array of values of partners / sponsor data.
+ * This function will be replaced by dosomething_taxonomy_get_partners_data().
  *
  * @param object $sponsor_field_wrapper
  *   An entity_metadata_wrapper object.
