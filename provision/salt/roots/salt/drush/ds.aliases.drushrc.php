@@ -10,26 +10,6 @@ $aliases['staging'] = array(
  ),
 );
 
-$aliases['international.qa'] = array(
- 'uri' => 'default',
- 'root' => '/var/www/international.dosomething.org/current/html',
- 'remote-host' => '10.241.0.33',
- 'remote-user' => 'dosomething',
- 'path-aliases' => array(
-   '%files' => '/var/www/international.dosomething.org/shared/files',
- ),
-);
-
-$aliases['international.prod'] = array(
- 'uri' => 'default',
- 'root' => '/var/www/international.dosomething.org/current/html',
- 'remote-host' => '72.32.106.161',
- 'remote-user' => 'dosomething',
- 'path-aliases' => array(
-   '%files' => '/var/www/international.dosomething.org/shared/files',
- ),
-);
-
 $countries = array(
   'botswana',
   'canada',
@@ -43,17 +23,16 @@ $countries = array(
 );
 
 foreach ($countries as $country) {
-  $aliases[$country . '.prod'] = array(
-   'parent' => '@international.prod',
-   'uri' => $country,
-   '%dump-dir' => '/tmp',
-  );
-}
-
-foreach ($countries as $country) {
-  $aliases[$country . '.qa'] = array(
-   'parent' => '@international.qa',
-   'uri' => $country,
-   '%dump-dir' => '/tmp',
-  );
+  foreach (array('prod', 'qa') as $environment) {
+    $aliases[$country . $environment] = array(
+     'root' => '/var/www/international.dosomething.org/current/html',
+     'remote-host' => 'international.' . $environment,
+     'remote-user' => 'dosomething',
+     'uri' => $country,
+     '%dump-dir' => '/tmp',
+      'path-aliases' => array(
+       '%files' =>  "/var/www/international.dosomething.org/current/html/sites/{$country}/files",
+     ),
+    );
+  }
 }
