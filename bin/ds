@@ -131,7 +131,7 @@ function build {
 
   if [[ $1 == "--intl" ]]
   then
-    for COUNTRY in botswana canada congo ghana kenya indonesia nigeria training uk
+    for COUNTRY in botswana canada congo default ghana kenya indonesia nigeria training uk
     do
       build_helper $COUNTRY $2 $3
     done
