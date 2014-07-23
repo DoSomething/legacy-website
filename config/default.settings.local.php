@@ -65,5 +65,5 @@ $conf['dosomething_search_finder_collection'] = $solr_path;
 
 #$conf['apachesolr_read_only'] = 1;
 
-$conf['stage_file_proxy_origin'] = "http://www.dosomething.org";
+$conf['stage_file_proxy_origin'] = "http://staging.beta.dosomething.org";
 
