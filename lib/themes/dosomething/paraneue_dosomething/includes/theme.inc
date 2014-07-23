@@ -79,6 +79,14 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/system/partials',
     ),
 
+    'sponsor_logos' => array(
+      'template' => 'sponsor-logos',
+      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'variables' => array(
+        'sponsors' => NULL,
+      ),
+    ),
+
     'thumbnail' => array(
       'template' => 'thumbnail',
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',

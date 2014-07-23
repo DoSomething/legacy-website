@@ -100,6 +100,9 @@ function dosomething_campaign_load($node, $public = FALSE) {
     $campaign->scholarship = (int) $campaign->scholarship;
   }
 
+  // Set partners.
+  $campaign->partners = dosomething_taxonomy_get_partners_data($node);
+
   // Plain text properties.
   $plain_text = dosomething_campaign_get_property_names_plain_text();
   foreach ($plain_text as $property) {
