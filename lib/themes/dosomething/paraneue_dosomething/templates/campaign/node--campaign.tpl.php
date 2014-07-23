@@ -16,14 +16,7 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php if (isset($sponsors[0]['display'])): ?>
-      <div class="sponsor">
-        <p class="__copy">Powered by</p>
-        <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
-        <?php endforeach; ?>
-      </div>
-      <?php endif; ?>
+      <?php print $sponsor_logos; ?>
 
       <?php print $campaign_scholarship; ?>
     </div>

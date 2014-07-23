@@ -149,6 +149,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     $partials = array(
       'campaign_creator',
       'campaign_headings',
+      'sponsor_logos',
     );
     // Initialize to NULL.
     foreach ($partials as $partial) {
@@ -157,16 +158,38 @@ function paraneue_dosomething_preprocess_node(&$vars) {
     // Check for campaign class:
     // @see dosomething_campaign_preprocess_node().
     if (isset($vars['campaign'])) {
+
+      $campaign = $vars['campaign'];
+
       // Add $campaign_scholarship variable.
       paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
+
       // Set campaign headings.
       $vars['campaign_headings'] = theme('campaign_headings', $vars);
       // If creator property has been set:
-      if ($creator = $vars['campaign']->creator) {
+      if ($creator = $campaign->creator) {
         // Pass $campaign->creator array to the campaign_creator theme function.
         $vars['campaign_creator'] = theme('campaign_creator', $creator);
       }
+
+      // Check for sponsors.
+      if ($partners = $campaign->partners) {
+        $sponsors = array();
+        foreach ($partners as $delta => $partner) {
+          if ($partner['is_sponsor']) {
+            $sponsors[$delta]['name'] = $partner['name'];
+            $sponsors[$delta]['logo_url'] = $partner['logo']['url']['default'];
+          }
+        }
+        if (!empty($sponsors)) {
+          $vars['sponsor_logos'] = theme('sponsor_logos', array(
+            'sponsors' => $sponsors,
+          ));
+        }
+      }
+
     }
+
     // If the campaign requires a signup modal to display:
     if (isset($vars['node']->required_signup_data_form)) {
       // Add JS to open the signup data form modal.
