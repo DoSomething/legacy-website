@@ -233,7 +233,6 @@ function symlinks {
 function dev {
   echo 'Enabling modules'
   drush en devel devel_generate -y
-  drush en -y stage_file_proxy
 
   echo 'Auto-generating Content'
   drush generate-terms sponsors 20
@@ -354,6 +353,7 @@ function pull_db {
     echo "Pulling down db from staging"
     cd $WEB_PATH
     drush sql-sync @ds.staging @self -y
+    drush en -y stage_file_proxy
   fi
 }
 
@@ -366,7 +366,7 @@ function pull_files {
   then
     echo "Pulling down files from staging"
     cd $WEB_PATH
-    drush rsync @ds.staging @self -y
+    drush rsync -y @ds.staging:%files @self:%files
     symlinks
   fi
 }
@@ -502,7 +502,7 @@ fi
 
 
 #----------------------------------------------------------------------
-# test 
+# test
 #----------------------------------------------------------------------
 if [[ $1 == "test" ]]
 then
