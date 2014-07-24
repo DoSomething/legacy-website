@@ -82,12 +82,6 @@ function dosomething_static_content_preprocess_node(&$vars) {
  * @see dosomething_static_content_preprocess_node().
  */
 function dosomething_static_content_preprocess_gallery_vars(&$vars) {
-  // Set Gallery style default variables:
-  $style = 'default';
-  // Defaults to use the Image node square field.
-  $image_ratio = 'square';
-  $image_style = '300x300';
-
   $content = $vars['content'];
   $gallery_count = count($content['field_gallery']['#items']);
 
@@ -95,6 +89,12 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
 
   // Loop through the galleries.
   for ($i = 0; $i < $gallery_count; $i++) {
+
+    // Set Gallery style default variables:
+    $style = 'default';
+    // Defaults to use the Image node square field.
+    $image_ratio = 'square';
+    $image_style = '300x300';
 
     $vars['galleries'][$i] = array();
     $collection_item = reset($content['field_gallery'][$i]['entity']['field_collection_item']);
@@ -128,6 +128,7 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
       $vars['galleries'][$i]['items'][$a]['image_url'] = $link_field['url'];
       $vars['galleries'][$i]['items'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
     }
+
   }
 }
 
