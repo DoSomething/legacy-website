@@ -312,7 +312,6 @@ function dosomething_campaign_load_stats(&$campaign) {
   );
 }
 
-
 /**
  * Creates and returns a campaign node from given JSON string.
  */
@@ -367,6 +366,7 @@ function dosomething_campaign_get_property_names_filtered_text() {
     'solution_copy',
     'solution_support',
     'starter_statement',
+    'items_needed',
     'time_and_place',
     'vips',
     'location_finder_copy',
