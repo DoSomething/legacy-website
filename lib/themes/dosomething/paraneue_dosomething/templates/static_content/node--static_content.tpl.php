@@ -68,7 +68,7 @@
           <h2 class="container__title inline--alt-color"><?php print $gallery['title']; ?></h2>
         <?php endif; ?>
 
-        <ul class="gallery -triad">
+        <ul class="gallery <?php print $gallery['class']; ?>">
           <?php foreach ($gallery['items'] as $gallery_item): ?>
             <li class="<?php print $gallery_item['order_class']; ?>">
               <div class="tile tile--figure">

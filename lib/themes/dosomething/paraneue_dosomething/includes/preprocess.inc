@@ -143,78 +143,41 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
 
-  $type = isset($vars['node']->type) ? $vars['node']->type : null;
-  if ($type == "campaign") {
-    // List of theme functions to display.
-    $partials = array(
-      'campaign_creator',
-      'campaign_headings',
-      'sponsor_logos',
-    );
-    // Initialize to NULL.
-    foreach ($partials as $partial) {
-      $vars[$partial] = NULL;
-    }
-    // Check for campaign class:
-    // @see dosomething_campaign_preprocess_node().
-    if (isset($vars['campaign'])) {
+  switch($vars['node']->type) {
 
-      $campaign = $vars['campaign'];
+    case "campaign":
+      paraneue_dosomething_preprocess_node_campaign($vars);
+      break;
 
-      // Add $campaign_scholarship variable.
-      paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
+    case "fact_page":
+      // Return facts as a chunked array.
+      // Allow cta's to be properly embedded in between.
+      $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
+      break;
 
-      // Set campaign headings.
-      $vars['campaign_headings'] = theme('campaign_headings', $vars);
-      // If creator property has been set:
-      if ($creator = $campaign->creator) {
-        // Pass $campaign->creator array to the campaign_creator theme function.
-        $vars['campaign_creator'] = theme('campaign_creator', $creator);
-      }
+    case "home":
+      // Set these here to remove db calls from tpl files:
+      $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
+      $vars['show_sponsors'] = theme_get_setting('show_sponsors');
+      break;
 
-      // Check for sponsors.
-      if ($partners = $campaign->partners) {
-        $sponsors = array();
-        foreach ($partners as $delta => $partner) {
-          if ($partner['is_sponsor']) {
-            $sponsors[$delta]['name'] = $partner['name'];
-            $sponsors[$delta]['logo_url'] = $partner['logo']['url']['default'];
-          }
-        }
-        if (!empty($sponsors)) {
-          $vars['sponsor_logos'] = theme('sponsor_logos', array(
-            'sponsors' => $sponsors,
-          ));
-        }
-      }
+    case "static_content":
+      // Preprocess field_gallery.
+      paraneue_dosomething_preprocess_node_field_gallery($vars);
+      break;
 
-    }
-
-    // If the campaign requires a signup modal to display:
-    if (isset($vars['node']->required_signup_data_form)) {
-      // Add JS to open the signup data form modal.
-      $id = 'modal-signup-data-form';
-      $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
-      drupal_add_js($js, 'inline');
-    }
   }
 
-  elseif ($type == "home") {
-    // Set these here to remove db calls from tpl files
-    $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
-    $vars['show_sponsors'] = theme_get_setting('show_sponsors');
-  }
+  // Add $info_bar for all nodes.
+  paraneue_dosomething_add_info_bar($vars);
+}
 
-  elseif ($type == 'fact_page') {
-    // Return facts as a chunked array to allow cta's to be properly embedded in between
-    $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
-  }
-
-
-  /**
-   * Info Bar
-   */
-
+/**
+ * Preprocesses an info_bar based on given $vars.
+ *
+ * @see paraneue_dosomething_preprocess_node().
+ */
+function paraneue_dosomething_add_info_bar(&$vars) {
   // Initialize info_bar_vars with variable that will always be set:
   $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
   $info_bar_vars = array(
@@ -235,7 +198,69 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       $info_bar_vars[$variable] = $vars[$variable];
     }
   }
+
   $vars['info_bar'] = theme('info_bar', $info_bar_vars);
+}
+
+/**
+ * Preprocesses a campaign node's $vars.
+ *
+ * @see paraneue_dosomething_preprocess_node().
+ */
+function paraneue_dosomething_preprocess_node_campaign(&$vars) {
+
+  // List of partials to add as $vars.
+  $partials = array(
+    'campaign_creator',
+    'campaign_headings',
+    'sponsor_logos',
+  );
+  // Initialize to NULL.
+  foreach ($partials as $partial) {
+    $vars[$partial] = NULL;
+  }
+
+  // Check for campaign class:
+  // @see dosomething_campaign_preprocess_node().
+  if (isset($vars['campaign'])) {
+
+    $campaign = $vars['campaign'];
+
+    // Add $campaign_scholarship variable.
+    paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
+
+    // Set campaign headings.
+    $vars['campaign_headings'] = theme('campaign_headings', $vars);
+    // If creator property has been set:
+    if ($creator = $campaign->creator) {
+      // Pass $campaign->creator array to the campaign_creator theme function.
+      $vars['campaign_creator'] = theme('campaign_creator', $creator);
+    }
+
+    // Check for sponsors.
+    if ($partners = $campaign->partners) {
+      $sponsors = array();
+      foreach ($partners as $delta => $partner) {
+        if ($partner['is_sponsor']) {
+          $sponsors[$delta]['name'] = $partner['name'];
+          $sponsors[$delta]['logo_url'] = $partner['logo']['url']['default'];
+        }
+      }
+      if (!empty($sponsors)) {
+        $vars['sponsor_logos'] = theme('sponsor_logos', array(
+          'sponsors' => $sponsors,
+        ));
+      }
+    }
+  }
+
+  // If the campaign requires a signup modal to display:
+  if (isset($vars['node']->required_signup_data_form)) {
+    // Add JS to open the signup data form modal.
+    $id = 'modal-signup-data-form';
+    $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
+    drupal_add_js($js, 'inline');
+  }
 }
 
 /**
@@ -270,4 +295,33 @@ function paraneue_dosomething_preprocess_node_campaign_scholarship(&$vars) {
       'classes' => $classes,
     ));
   }
+}
+
+/**
+ * Preprocesses the $vars['galleries'] if exists.
+ *
+ * @see dosomething_static_content_preprocess_gallery_vars().
+ *
+ * @param array $vars
+ *   Vars passed from a hook_preprocess_node().
+ */
+function paraneue_dosomething_preprocess_node_field_gallery(&$vars) {
+
+  if (!isset($vars['galleries'])) return;
+
+  // Loop through each gallery:
+  foreach ($vars['galleries'] as $delta => &$gallery) {
+    // Get the class to apply based on gallery style.
+    $gallery_class = paraneue_dosomething_get_gallery_style($gallery['style']);
+    // Sets $vars['galleries'][$delta]['class'] to $gallery_class.
+    $gallery['class'] = $gallery_class;
+    $items_count = count($gallery['items']);
+    // Preprocess the $gallery['items'] array.
+    for ($i = 0; $i <= $items_count; $i++) {
+      // Get class based on the gallery item's sequence.
+      $order_class = paraneue_dosomething_get_gallery_item_order_class($i);
+      $gallery['items'][$i]['order_class'] = $order_class;
+    }
+  }
+
 }
