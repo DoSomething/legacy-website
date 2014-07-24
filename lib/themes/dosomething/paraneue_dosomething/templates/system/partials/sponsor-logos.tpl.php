@@ -7,7 +7,7 @@
  */
 ?>
 <div class="sponsor">
-  <p class="__copy">Powered by</p>
+  <p class="__copy"><?php print t('Powered by'); ?></p>
   <?php foreach ($sponsors as $sponsor) :?>
     <img src="<?php print $sponsor['logo_url']; ?>" alt="<?php print $sponsor['name']; ?>" />
   <?php endforeach; ?>

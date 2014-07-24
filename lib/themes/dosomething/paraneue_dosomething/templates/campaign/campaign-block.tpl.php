@@ -26,7 +26,7 @@
   <div class="wrapper">
   <?php endif; ?>
     <?php if ($staff_pick): ?>
-      <div class="__flag -staff-pick">Staff Pick</div>
+      <div class="__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
     <?php endif; ?>
 
     <div class="tile--meta">

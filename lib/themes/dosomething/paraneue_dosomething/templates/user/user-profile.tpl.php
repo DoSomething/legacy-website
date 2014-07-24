@@ -41,20 +41,20 @@
 
   <header role="banner" class="-basic">
     <div class="wrapper">
-      <h1 class="__title">Hey, <?php print $user_account['first_name']; ?>!</h1>
+      <h1 class="__title"><?php print t("Hey, @name!", array("@name" => $user_account['first_name'])); ?></h1>
       <?php //<h2 class="__subtitle">Let us get to know you better.</h2> @TODO: Temp hidden as per Fantini's request. ?>
     </div>
   </header>
 
   <section class="profile--campaigns">
-    <h1 class="banner"><span>My Campaigns</span></h1>
+    <h1 class="banner"><span><?php print t('My Campaigns'); ?></span></h1>
 
     <?php if(empty($signedup)): ?>
 
     <div class="cta">
       <div class="wrapper">
-        <h2 class="__message">Rut Roh! You haven't signed up for any campaigns yet. Find something to do:</h2>
-        <a href="/campaigns" class="btn">Explore Campaigns</a>
+        <h2 class="__message"><?php print t("Rut Roh! You haven't signed up for any campaigns yet. Find something to do:"); ?></h2>
+        <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
       </div>
     </div>
 
@@ -72,8 +72,8 @@
           <div class="wrapper">
             <div class="__message">
               <div class="wrapper">
-                <p>More is better. Add a few more campaigns friend!</p>
-                <a href="/campaigns">Explore Campaigns</a>
+                <p><?php print t('More is better. Add a few more campaigns friend!'); ?></p>
+                <a href="/campaigns"><?php print t('Explore Campaigns'); ?></a>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
 
 
   <section class="profile--recommended">
-    <h1 class="banner"><span>Recommended Campaigns</span></h1>
+    <h1 class="banner"><span><?php print t('Recommended Campaigns'); ?></span></h1>
 
     <?php if (!empty($recommended)): ?>
 
@@ -105,59 +105,59 @@
 
 
   <section class="profile--settings">
-    <h1 class="banner"><span>My Settings</span></h1>
+    <h1 class="banner"><span><?php print t('My Settings'); ?></span></h1>
 
     <div class="wrapper">
       <dl class="__user-info">
-        <dt>Name:</dt>
+        <dt><?php print t('Name'); ?>:</dt>
         <dd><?php print $user_account['first_name']; ?> <?php if (!empty($user_account['last_name'])): ?><?php print $user_account['last_name']; ?><?php endif; ?></dd>
-        <dt>Email:</dt>
+        <dt><?php print t('Email'); ?>:</dt>
         <dd><?php print $user_account['email']; ?></dd>
 
         <?php if (!empty($user_account['mobile'])): ?>
-          <dt>Mobile:</dt>
+          <dt><?php print t('Mobile'); ?>:</dt>
           <dd><?php print $user_account['mobile']; ?></dd>
         <?php endif; ?>
 
-        <dt>Birthday:</dt>
+        <dt><?php print t('Birthday'); ?>:</dt>
         <dd><?php print $user_account['birthday']; ?></dd>
       </dl>
 
       <?php if (!empty($address)): ?>
         <dl class="__address-info">
           <?php if (isset($address['street'])): ?>
-            <dt>Address 1:</dt>
+            <dt><?php print t('Address 1'); ?>:</dt>
             <dd><?php print $address['street']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['premise'])): ?>
-            <dt>Address 2:</dt>
+            <dt><?php print t('Address 2'); ?>:</dt>
             <dd><?php print $address['premise']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['city'])): ?>
-            <dt>City:</dt>
+            <dt><?php print t('City'); ?>:</dt>
             <dd><?php print $address['city']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['state'])): ?>
-            <dt>State:</dt>
+            <dt><?php print t('State'); ?>:</dt>
             <dd><?php print $address['state']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['zip'])): ?>
-            <dt>Zip:</dt>
+            <dt><?php print t('Zip'); ?>:</dt>
             <dd><?php print $address['zip']; ?></dd>
           <?php endif;?>
 
           <?php if (isset($address['country'])): ?>
-            <dt>Country:</dt>
+            <dt><?php print t('Country'); ?>:</dt>
             <dd><?php print $address['country']; ?></dd>
           <?php endif;?>
         </dl>
       <?php endif; ?>
 
-      <a class="btn medium" href="/<?php print $user_profile['update_link_path']; ?>">Update</a>
+      <a class="btn medium" href="/<?php print $user_profile['update_link_path']; ?>"><?php print t('Update'); ?></a>
     </div>
   </section>
 

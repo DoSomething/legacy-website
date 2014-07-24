@@ -1,5 +1,7 @@
 <div class="message-callout <?php print implode(' ', $classes); ?>">
   <div class="__copy">
-    <p>Win a $<?php print number_format($amount, 0, '', ','); ?> Scholarship</p>
+    <p>
+      <?php print t("Win a $@amount Scholarship", array("@amount" => number_format($amount, 0, '', ','))); ?>
+    </p>
   </div>
 </div>
