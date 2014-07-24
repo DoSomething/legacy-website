@@ -7,8 +7,20 @@
 
     "call_to_action": "This is a test unsponsored campaign.",
     "starter_statement": "Seriously, drink some 'fee.",
+    "fact_problem": {
+      "title": "In the United Kingdom, people drink tea.",
+      "sources": [
+        "Clark, Barry. \"A Treatise on The Motherland\", British Royal Archives, 2009."
+      ]
+    },
     "solution_support": "Sandwiches help self esteem and hunger.",
     "solution_copy": "Be American! Drink coffee to stay awake! DoSomething.org recommends 3 or more cups per day.",
+    "fact_solution": {
+      "title": "Experts agree that drinking at 3 cups of coffee per day prevents all sleepiness-related disasters.",
+      "sources": [
+        "Lorch, Julie. \"Coffee Sure Is Great\", Royal Academy of Coffee, 2010."
+      ]
+    },
 
     "items_needed": "* Fresh coffee beans\n* Aeropress or Chemex\n* Hot water",
     "vips": "Celestial at Birch Coffee knows what's up.",

@@ -337,6 +337,17 @@ function dosomething_campaign_create_node_from_json($string) {
       $node->{$field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
     }
   }
+
+  // Set all fact properties:
+  $fact = dosomething_campaign_get_property_names_fact();
+  foreach($fact as $fact_field) {
+    if (isset($data->{$fact_field})) {
+      $field_name = 'field_' . $fact_field;
+      $fact_node = dosomething_fact_create_node_from_json(json_encode($data->{$fact_field}));
+      $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $fact_node->nid;
+    }
+  }
+
   node_save($node);
   return $node;
 }
@@ -377,6 +388,17 @@ function dosomething_campaign_get_property_names_filtered_text() {
     'reportback_confirm_msg',
   );
 }
+
+/**
+ * Returns array of campaign property names which contain a fact node.
+ */
+function dosomething_campaign_get_property_names_fact() {
+  return array(
+    'fact_problem',
+    'fact_solution',
+  );
+}
+
 /**
  * Returns a loaded campaign $node's field_campaign_type value.
  *
