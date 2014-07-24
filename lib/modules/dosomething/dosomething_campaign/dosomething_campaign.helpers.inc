@@ -319,7 +319,7 @@ function dosomething_campaign_load_stats(&$campaign) {
 function dosomething_campaign_create_node_from_json($string) {
   $data = json_decode($string);
   $node = new stdClass();
-  $node->type = 'campaign';
+  $node->type = $data->type;
   $node->title = $data->title;
   // Set all plain text properties:
   $plain_text = dosomething_campaign_get_property_names_plain_text();
@@ -349,6 +349,11 @@ function dosomething_campaign_get_property_names_plain_text() {
   return array(
     'call_to_action',
     'starter_statement_header',
+    'pre_step_header',
+    'post_step_header',
+    'reportback_noun',
+    'reportback_verb',
+    'location_finder_url',
   );
 }
 
@@ -364,6 +369,12 @@ function dosomething_campaign_get_property_names_filtered_text() {
     'starter_statement',
     'time_and_place',
     'vips',
+    'location_finder_copy',
+    'pre_step_copy',
+    'photo_step',
+    'post_step_copy',
+    'reportback_copy',
+    'reportback_confirm_msg',
   );
 }
 /**

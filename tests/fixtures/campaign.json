@@ -1,7 +1,30 @@
 {
-    "title": "Super Sweet Test Campaign",
+    "title": "Test Campaign",
+    "type": "campaign",
+
     "status": "active",
-    "type": "sms_game",
-    "call_to_action": "Challenge friends to stand up to testing sandwiches.",
-    "solution_support": "Sandwiches help self esteem and hunger."
+    "active_hours": "2",
+
+    "call_to_action": "This is a test unsponsored campaign.",
+    "starter_statement": "Seriously, drink some 'fee.",
+    "solution_support": "Sandwiches help self esteem and hunger.",
+    "solution_copy": "Be American! Drink coffee to stay awake! DoSomething.org recommends 3 or more cups per day.",
+
+    "items_needed": "* Fresh coffee beans\n* Aeropress or Chemex\n* Hot water",
+    "vips": "Celestial at Birch Coffee knows what's up.",
+    "time_and_place": "Early in the morning. Mid-afternoon. Actually, all day long. Don't sleep.",
+    "promoting_tips": "You're going to be very hyped. From caffeine.",
+    "location_finder_copy": "Seriously, just get some beans. But also get a cold brew while you're there.",
+    "location_finder_url": "http://www.birchcoffee.com/locations",
+
+    "pre_step_header": "Get your 'Fee!",
+    "pre_step_copy": "You'll need to find some 'fee, fast. Find Maxwell Watson.",
+    "photo_step": "Take a photo of yourself and Maxwell enjoying your 'fee.",
+    "post_step_header": "Submit your photo!",
+    "post_step_copy": "Put that photo on the group drive so all the other interns can enjoy admire your fantastic success! You should drink a celebratory espresso.",
+
+    "reportback_copy": "Man, that's fine! Drink an espresso to celebrate!",
+    "reportback_confirm_msg": "You sure drank that 'fee. Good work!",
+    "reportback_noun": "Cups",
+    "reportback_verb": "Consumed"
 }
