@@ -82,41 +82,51 @@ function dosomething_static_content_preprocess_node(&$vars) {
  * @see dosomething_static_content_preprocess_node().
  */
 function dosomething_static_content_preprocess_gallery_vars(&$vars) {
+  // Set Gallery style default variables:
+  $style = 'default';
+  // Defaults to use the Image node square field.
+  $image_ratio = 'square';
+  $image_style = '300x300';
+
   $content = $vars['content'];
   $gallery_count = count($content['field_gallery']['#items']);
 
   $vars['galleries'] = array();
+
   // Loop through the galleries.
   for ($i = 0; $i < $gallery_count; $i++) {
+
     $vars['galleries'][$i] = array();
     $collection_item = reset($content['field_gallery'][$i]['entity']['field_collection_item']);
     $vars['galleries'][$i]['title'] = $collection_item['field_gallery_title'][0]['#markup'];
+
     // Check for a Gallery Style field value:
     if (isset($collection_item['field_gallery_style'][0])) {
       // Store the Gallery Style key.
       $style = $collection_item['field_gallery_style']['#items'][0]['value'];
+      // If a key exists and it's not the default:
+      if ($style && $style != 'default') {
+        // Set to use the thumbnail field on the Image node instead.
+        $image_ratio = 'thumb';
+        $image_style = '100x100';
+      }
     }
-    else {
-      $style = "-triad";
-    }
-    $vars['galleries'][$i]['style'] = paraneue_dosomething_get_gallery_style($style);
-    $collection_item = $collection_item['field_gallery_item'];
+    // Set Style variable for theme layer.
+    $vars['galleries'][$i]['style'] = $style;
 
+    $collection_item = $collection_item['field_gallery_item'];
     $gallery_item_count = count($collection_item['#items']);
 
+    // Loop through the gallery items.
     for ($a = 0; $a < $gallery_item_count; $a++) {
       $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
-      $vars['galleries'][$i]['items'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], 'square', '300x300');
+      $vars['galleries'][$i]['items'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], $image_ratio, $image_style);
 
       $link_field = $gallery_item['field_image_title'][0]['#element'];
       
       $vars['galleries'][$i]['items'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
       $vars['galleries'][$i]['items'][$a]['image_url'] = $link_field['url'];
       $vars['galleries'][$i]['items'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
-
-      if (function_exists('paraneue_dosomething_get_gallery_item_order_class')) {
-        $vars['galleries'][$i]['items'][$a]['order_class'] = paraneue_dosomething_get_gallery_item_order_class($a);
-      }
     }
   }
 }
