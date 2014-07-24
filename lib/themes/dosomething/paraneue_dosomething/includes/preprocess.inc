@@ -143,31 +143,41 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
 
-  $type = isset($vars['node']->type) ? $vars['node']->type : null;
-  if ($type == "campaign") {
-    paraneue_dosomething_preprocess_node_campaign($vars);
+  switch($vars['node']->type) {
+
+    case "campaign":
+      paraneue_dosomething_preprocess_node_campaign($vars);
+      break;
+
+    case "fact_page":
+      // Return facts as a chunked array.
+      // Allow cta's to be properly embedded in between.
+      $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
+      break;
+
+    case "home":
+      // Set these here to remove db calls from tpl files:
+      $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
+      $vars['show_sponsors'] = theme_get_setting('show_sponsors');
+      break;
+
+    case "static_content":
+      // Preprocess field_gallery.
+      paraneue_dosomething_preprocess_node_field_gallery($vars);
+      break;
+
   }
 
-  elseif ($type == "home") {
-    // Set these here to remove db calls from tpl files
-    $vars['show_campaign_finder'] = theme_get_setting('show_campaign_finder');
-    $vars['show_sponsors'] = theme_get_setting('show_sponsors');
-  }
+  // Add $info_bar for all nodes.
+  paraneue_dosomething_add_info_bar($vars);
+}
 
-  elseif ($type == 'fact_page') {
-    // Return facts as a chunked array to allow cta's to be properly embedded in between
-    $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
-  }
-
-  elseif ($type == 'static_content') {
-    // Preprocess field_gallery.
-    paraneue_dosomething_preprocess_node_field_gallery($vars);
-  }
-
-  /**
-   * Info Bar
-   */
-
+/**
+ * Preprocesses an info_bar based on given $vars.
+ *
+ * @see paraneue_dosomething_preprocess_node().
+ */
+function paraneue_dosomething_add_info_bar(&$vars) {
   // Initialize info_bar_vars with variable that will always be set:
   $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
   $info_bar_vars = array(
@@ -188,6 +198,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       $info_bar_vars[$variable] = $vars[$variable];
     }
   }
+
   $vars['info_bar'] = theme('info_bar', $info_bar_vars);
 }
 
