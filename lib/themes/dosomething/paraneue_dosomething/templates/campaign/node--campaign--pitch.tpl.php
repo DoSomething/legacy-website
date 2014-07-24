@@ -23,6 +23,7 @@
       <?php endif; ?>
 
       <?php print $sponsor_logos; ?>
+      <?php print $campaign_creator; ?>
     </div>
   </header>
 

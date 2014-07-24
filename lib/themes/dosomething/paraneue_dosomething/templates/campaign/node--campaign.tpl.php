@@ -8,6 +8,8 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_creator: HTML for the Campaign Creator link/modal.
  */
+
+dpm($campaign);
 ?>
 
 <article class="campaign campaign--action action"><?php // @TODO: need to deal w/ "action" class. ?>
@@ -16,16 +18,16 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php print $sponsor_logos; ?>
+      <?php if ($sponsor_logos || $campaign_creator): ?>
+        <div class="media-group">
+          <?php print $sponsor_logos; ?>
+          <?php print $campaign_creator; ?>
+        </div>
+      <?php endif; ?>
 
       <?php print $campaign_scholarship; ?>
+
     </div>
-
-    <?php
-    // Theme and print me. Then copy me to pitch page tpl too.
-    // print $campaign_creator;
-    ?>
-
   </header>
 
   <div class="wrapper">
