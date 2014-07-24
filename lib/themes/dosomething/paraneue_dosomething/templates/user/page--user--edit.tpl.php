@@ -14,7 +14,7 @@
   <?php print $variables['navigation']; ?>
   <header role="banner" class="-basic">
     <div class="wrapper">
-      <h1 class="__title">Edit Profile</h1>
+      <h1 class="__title"><?php print t('Edit Profile'); ?></h1>
     </div>
   </header>
 

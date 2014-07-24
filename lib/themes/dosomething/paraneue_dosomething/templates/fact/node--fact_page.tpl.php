@@ -68,7 +68,7 @@
         <?php if (isset($call_to_action) && $is_first): ?>
           <div class="cta">
             <div class="wrapper">
-              <h2 class="__message">Tackle a campaign to make the world suck less.</h2>
+              <h2 class="__message"><?php print t('Tackle a campaign to make the world suck less.'); ?></h2>
               <?php print $cta_link; ?>
             </div>
           </div>
@@ -77,7 +77,7 @@
         <?php if (isset($sources) && $is_last): ?>
           <div class="wrapper">
           <section class="sources">
-            <h3 class="__title js-toggle-sources">Sources</h3>
+            <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
             <ul class="__body legal">
               <?php foreach ($sources as $key => $source): ?>
                 <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>

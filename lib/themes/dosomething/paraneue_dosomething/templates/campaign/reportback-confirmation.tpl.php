@@ -32,7 +32,7 @@
 
   <?php if (isset($recommended)): ?>
     <div class="gallery-wrapper">
-      <h2 class="gallery-title">Keep it up! Find your next campaign.</h2>
+      <h2 class="gallery-title"><?php print t('Keep it up! Find your next campaign.'); ?></h2>
       <div class="gallery">
         <?php foreach ($recommended as $rec): ?>
           <div class="gallery-item">

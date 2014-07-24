@@ -43,7 +43,7 @@
 
   <?php // WHAT YOU DID ////////////////////////////////////////////////////// ?>
   <section class="container container--did">
-    <h2 class="container__title banner"><span>What You Did</span></h2>
+    <h2 class="container__title banner"><span><?php print t('What You Did'); ?></span></h2>
 
     <div class="wrapper">
 
@@ -59,7 +59,7 @@
               <div class="statistic__body">
                 <p>
                   <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
-                  <em>Members Participated</em>
+                  <em><?php print t('Members Participated'); ?></em>
                 </p>
               </div>
             </div>
@@ -136,7 +136,7 @@
   <?php if ($display_buzz_section): ?>
   <?php // THE BUZZ ////////////////////////////////////////////////////// ?>
     <section class="container container--celebs">
-      <h2 class="container__title banner"><span>The Buzz</span></h2>
+      <h2 class="container__title banner"><span><?php print t('The Buzz'); ?></span></h2>
       <div class="wrapper">
 
         <div class="container__body">
@@ -228,7 +228,7 @@
 
   <?php // CONGRATULATIONS TO... ////////////////////////////////////////////////////// ?>
   <section class="container container--congrats">
-    <h2 class="container__title banner"><span>Congrats to&hellip;</span></h2>
+    <h2 class="container__title banner"><span><?php print t('Congrats to&hellip;'); ?></span></h2>
     <div class="wrapper">
 
       <div class="container__body">
@@ -246,7 +246,7 @@
                 <?php endif; ?>
 
                 <?php if (isset($winner['field_winner_type'])): ?>
-                  <h4><?php print $winner['field_winner_type']; ?> winner</h4>
+                  <h4><?php print t("@field_winner_type winner", array("@field_winner_type" => $winner['field_winner_type'])); ?></h4>
                 <?php endif; ?>
 
 

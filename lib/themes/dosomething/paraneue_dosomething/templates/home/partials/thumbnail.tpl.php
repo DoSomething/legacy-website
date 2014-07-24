@@ -1,7 +1,7 @@
 <article class="tile tile--campaign campaign-result <?php print $modifier_classes ?>">
   <a class="wrapper" href="<?php print $pretty_path; ?>">
     <?php if ($staff_pick): ?>
-      <div class="__flag -staff-pick">Staff Pick</div>
+      <div class="__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
     <?php endif; ?>
     <div class="tile--meta">
       <h1 class="__title"><?php print $title; ?></h1>

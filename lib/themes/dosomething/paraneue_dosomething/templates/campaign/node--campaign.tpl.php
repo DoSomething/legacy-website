@@ -31,24 +31,24 @@
   <div class="wrapper">
     <nav id="nav" class="waypoints waypoints--action-menu js-sticky">
       <ul class="__menu">
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#know">Know</a></li>
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#plan">Plan</a></li>
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#do">Do</a></li>
-        <li><a class="primary js-jump-scroll js-scroll-indicator" href="#prove">Prove It</a></li>
+        <li><a class="js-jump-scroll js-scroll-indicator" href="#know"><?php print t('Know'); ?></a></li>
+        <li><a class="js-jump-scroll js-scroll-indicator" href="#plan"><?php print t('Plan'); ?></a></li>
+        <li><a class="js-jump-scroll js-scroll-indicator" href="#do"><?php print t('Do'); ?></a></li>
+        <li><a class="primary js-jump-scroll js-scroll-indicator" href="#prove"><?php print t('Prove It'); ?></a></li>
       </ul>
     </nav>
 
 
     <?php // KNOW IT ////////////////////////////////////////////////////// ?>
     <section id="know" class="container container--know">
-      <h2 class="container__title banner"><span>Step 1: Know It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
 
       <div class="wrapper">
 
         <div class="container__body">
           <div class="-columned -odd">
             <?php if (isset($campaign->fact_problem)): ?>
-            <h3 class="inline--alt-color">The Problem</h3>
+            <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
             <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
             <?php endif; ?>
 
@@ -66,7 +66,7 @@
 
           <div class="-columned -even -col-last">
             <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-              <h3 class="inline--alt-color">The Solution</h3>
+              <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
 
               <?php if (isset($campaign->fact_solution)): ?>
                 <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
@@ -91,7 +91,7 @@
 
         <?php if (isset($campaign->fact_sources)): ?>
         <section class="sources">
-          <h3 class="__title js-toggle-sources">Sources</h3>
+          <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
           <ul class="__body legal">
             <?php foreach ($campaign->fact_sources as $key => $source): ?>
               <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
@@ -106,7 +106,7 @@
 
     <?php // PLAN IT ////////////////////////////////////////////////////// ?>
     <section id="plan" class="container container--plan">
-      <h2 class="container__title banner"><span>Step 2: Plan It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 2: Plan It'); ?></span></h2>
 
       <div class="wrapper">
 
@@ -146,12 +146,12 @@
 
         <?php if (isset($location_finder['url'])) : ?>
           <div class="__row">
-            <h3 class="inline--alt-color">Find a Location</h3>
+            <h3 class="inline--alt-color"><?php print t('Find a Location'); ?></h3>
             <?php if (isset($location_finder['copy'])) : ?>
               <?php print $location_finder['copy']; ?>
             <?php endif; ?>
 
-            <a class="btn secondary" href="<?php print $location_finder['url']; ?>" target="_blank">Locate</a>
+            <a class="btn secondary" href="<?php print $location_finder['url']; ?>" target="_blank"><?php print t('Locate'); ?></a>
           </div>
         <?php endif; ?>
 
@@ -161,7 +161,7 @@
           <?php foreach ($action_guides as $delta => $action_guide): ?>
           <div data-modal id="modal-action-guide-<?php print $delta; ?>" role="dialog">
             <div><?php print $action_guide['content']; ?></div>
-            <a href="#" class="js-close-modal">Back to main page</a>
+            <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
           </div>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -181,7 +181,7 @@
 
     <?php // DO IT ////////////////////////////////////////////////////// ?>
     <section id="do" class="container container--do">
-      <h2 class="container__title banner"><span>Step 3: Do It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
 
       <div class="wrapper">
 
@@ -206,8 +206,8 @@
 
               <?php if (isset($content['tips'])): ?>
                 <section class="tabbed js-tabs">
-                  <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle">View Tips</a>
-                  <h4 class="visually-hidden">Tips</h4>
+                  <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle"><?php print t('View Tips'); ?></a>
+                  <h4 class="visually-hidden"><?php print t('Tips'); ?></h4>
                   <div class="wrapper">
                     <nav class="tabs__menu waypoints">
                       <ul class="__menu">
@@ -238,7 +238,7 @@
                     <h4 class="inline--alt-color"><?php print $tip['header']; ?></h4>
                     <?php print $tip['copy']; ?>
                   <?php endforeach; ?>
-                  <a href="#" class="js-close-modal">Back to main page</a>
+                  <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
                 </div>
               <?php endif; ?>
             </div>
@@ -252,12 +252,12 @@
 
     <?php // PROVE IT ////////////////////////////////////////////////////// ?>
     <section id="prove" class="container container--prove inline--alt-bg">
-      <h2 class="container__title banner"><span>Step 4: Prove It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
       <div class="wrapper">
         <div class="container__body">
           <div class="-columned">
-            <h3>Pics or It Didn't Happen</h3>
+            <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
             <?php if (isset($reportback_copy)): ?>
               <p class="copy"><?php print $reportback_copy; ?></p>
@@ -278,7 +278,7 @@
 
             <?php if (isset($reportback_form)): ?>
               <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
-                <h2 class="banner">Prove It</h2>
+                <h2 class="banner"><?php print t('Prove It'); ?></h2>
                 <?php print render($reportback_form); ?>
               </div>
             <?php endif; ?>
@@ -309,7 +309,7 @@
 
         <?php if (isset($official_rules)): ?>
           <div class="disclaimer">
-            <a class="official-rules" href="<?php print $official_rules_src; ?>">Official Rules</a>
+            <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
           </div>
         <?php endif; ?>
       </div>

@@ -22,14 +22,14 @@
   <div class="wrapper">
 
     <section id="know" class="container know">
-      <h2 class="container__title banner"><span>Step 1: Know It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
 
       <div class="wrapper">
 
         <div class="container__body">
           <div class="-columned">
             <?php if (isset($campaign->fact_problem)): ?>
-            <h3 class="inline--alt-color">The Problem</h3>
+            <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
             <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
             <?php endif; ?>
 
@@ -46,7 +46,7 @@
 
           <div class="-columned -col-last">
             <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-                <h3 class="inline--alt-color">The Solution</h3>
+                <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
 
               <?php if (isset($campaign->fact_solution)): ?>
                 <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
@@ -71,7 +71,7 @@
 
         <?php if (isset($campaign->fact_sources)): ?>
         <section class="sources">
-          <h3 class="__title js-toggle-sources">Sources</h3>
+          <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
           <ul class="__body legal">
             <?php foreach ($campaign->fact_sources as $key => $source): ?>
               <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
@@ -84,7 +84,7 @@
 
 
     <section id="do" class="container container--do inline--alt-bg">
-      <h2 class="container__title banner"><span>Step 2: Do It</span></h2>
+      <h2 class="container__title banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
 
       <div class="wrapper">
         <div class="container__body">
@@ -103,7 +103,11 @@
         </div>
 
         <div class="disclaimer legal">
-          <p>Taking part in this experience means you agree to our <a href="https://www.dosomething.org/about/terms-service">Terms of Service</a> &amp; to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>
+          <p>
+            <?php
+              print t("Taking part in this experience means you agree to our @terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
+              array("@terms_link" => '<a href="https://www.dosomething.org/about/terms-service">Terms of Service</a>')); ?>
+          </p>
         </div>
       </div>
     </section>

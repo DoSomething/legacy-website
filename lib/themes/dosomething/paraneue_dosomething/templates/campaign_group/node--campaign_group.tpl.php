@@ -40,7 +40,7 @@
 
       <?php if (isset($sponsors[0]['display'])): ?>
       <div class="sponsor">
-        <p class="__copy">Powered by</p>
+        <p class="__copy"><?php print t('Powered by'); ?></p>
         <?php foreach ($sponsors as $key => $sponsor) :?>
           <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
         <?php endforeach; ?>

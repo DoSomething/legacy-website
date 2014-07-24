@@ -9,7 +9,7 @@
 
 <section class="container container--facts-list">
 	<div class="wrapper">
-		<h2 class="container__title visually-hidden">List of All Facts</h2>
+		<h2 class="container__title visually-hidden"><?php print t('List of All Facts'); ?></h2>
 		<div class="container__body">
 			<?php foreach ($links as $cause => $fact_pages): ?>
 			  <h3 class="inline--alt-color"><?php print $cause; ?></h3>
