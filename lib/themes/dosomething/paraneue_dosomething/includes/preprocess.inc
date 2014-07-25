@@ -270,27 +270,36 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 function paraneue_dosomething_preprocess_node_campaign_scholarship(&$vars) {
   // Initialize to NULL to avoid isset checks in the tpl.
   $vars['campaign_scholarship'] = NULL;
+  $vars['prove_scholarship'] = NULL;
 
   // If a campaign class exists and it has a scholarship:
   if ($vars['campaign'] && $vars['campaign']->scholarship) {
     $campaign = $vars['campaign'];
+    $amount = $campaign->scholarship;
 
-    // Default to action page classes.
-    $classes = array('-above',  '-white');
-
+    // SMS Game classes:
+    if ($campaign->type == 'sms_game') {
+      $classes = array('-right');
+    }
     // Pitch page classes:
-    if (isset($campaign->is_pitch_page)) {
+    elseif (isset($campaign->is_pitch_page)) {
       // Values for pitch page:
       $classes = array('-below', '-white',  '-dynamic-right');
     }
-
-    // SMS Game classes:
-    elseif ($campaign->type == 'sms_game') {
-      $classes = array('-right');
+    // Else action page classes:
+    else {
+      // Default classes.
+      $classes = array('-above',  '-white');
+      // Prove it section classes.
+      $prove_classes = array('-below', '-white');
+      $vars['prove_scholarship'] = theme('campaign_scholarship', array(
+        'amount' => $amount,
+        'classes' => $prove_classes,
+      ));
     }
-
+    // Default $campaign_scholarship for campaign templates.
     $vars['campaign_scholarship'] = theme('campaign_scholarship', array(
-      'amount' => $campaign->scholarship,
+      'amount' => $amount,
       'classes' => $classes,
     ));
   }
