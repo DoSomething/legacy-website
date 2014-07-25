@@ -186,7 +186,6 @@ function paraneue_dosomething_add_info_bar(&$vars) {
   // List $vars variable names to pass to info bar:
   $info_var_names = array(
     'formatted_partners',
-    'sponsors',
     'zendesk_form',
   );
   // Loop through the variable names:
