@@ -135,6 +135,8 @@ function build {
     do
       build_helper $COUNTRY $2 $3
     done
+    echo 'Adding sites.php file'
+    ln -nfs $CONFIG_PATH/sites.php $WEB_PATH/sites/sites.php
   else
     #default
     build_helper 'default' $1 $2
@@ -200,7 +202,8 @@ function build_helper {
   fi
 
   echo 'Replacing settings.php file...'
-  rm -f $WEB_PATH/sites/$SITE/settings.php && ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/$SITE/settings.php
+  sudo rm -f $WEB_PATH/sites/$SITE/settings.php && chmod u+w $WEB_PATH/sites/$SITE
+  ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/$SITE/settings.php
 
   if [[ $SITE != "default" ]]
   then
@@ -244,11 +247,10 @@ function build_helper {
 # DESCRIPTION: Installs project using dosomething profile
 #===============================================================================
 function install {
-  echo 'Installing site...'
   SITE=${PWD##*/}
   if [[ $SITE != "default" ]]
   then
-    drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething_$SITE --site-name="DoSomething $SITE"
+    drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething_$SITE --site-name="DoSomething $SITE" --sites-subdir=$SITE
   else
     drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
   fi
@@ -314,7 +316,7 @@ function deploy {
     rm -rf $BASE_PATH/$BUILD_DIR
   fi
 
-  drush make --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$BUILD_DIR"
+  drush make --no-gitinfofile "$BUILD_MAKEFILE" "$BUILD_DIR"
 
   ln -s $CONFIG_PATH/settings.php $CONFIG_PATH/$BUILD_DIR/sites/default/settings.php
 
@@ -571,7 +573,6 @@ then
     pull_files $2
   fi
 fi
-
 
 #----------------------------------------------------------------------
 # test
