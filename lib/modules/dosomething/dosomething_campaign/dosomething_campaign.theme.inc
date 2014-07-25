@@ -9,9 +9,9 @@
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
-  if ($vars['type'] != 'campaign') { return; }
+  if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
 
-  $node = menu_get_object();
+  $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
   $wrapper = entity_metadata_wrapper('node', $node);
 
