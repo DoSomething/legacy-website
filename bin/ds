@@ -224,8 +224,6 @@ function symlinks {
   rm -rf "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
   ln -s "$LIB_PATH/themes/dosomething/paraneue_dosomething" "$WEB_PATH/profiles/dosomething/themes/dosomething/paraneue_dosomething"
 
-  echo 'Add git pre-commit hook'
-  ln -s "../../hooks/pre-commit" ".git/hooks/pre-commit"
 }
 
 #=== FUNCTION ==================================================================
