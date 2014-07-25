@@ -45,14 +45,14 @@ $conf['cache_class_cache_page'] = 'VarnishCache';
 
 // This is managed from salt://varnishd/secret
 $conf['varnish_control_key'] = '00c9203c65874ca5b4c359e19f00bf56';
-    
+
 // Drupal 7 does not cache pages when we invoke hooks during bootstrap.
 // This needs to be disabled.
 $conf['page_cache_invoke_hooks'] = FALSE;
 
 // These settings point to the solr instance on staging.
-$conf['apachesolr_host'] = '192.168.1.169';
-$conf['apachesolr_port'] = '8008';
+$conf['apachesolr_host'] = 'solr';
+$conf['apachesolr_port'] = '8080';
 $conf['apachesolr_path'] = '/solr/collection1';
 $conf['apachesolr_read_only'] = 1;
 

@@ -9,10 +9,13 @@
  */
 function dosomething_search_apachesolr_environments() {
   $export = array();
-  
-  $host = variable_get('apachesolr_host', '192.168.1.169');
+
+  $host = variable_get('apachesolr_host', 'solr');
   $port = variable_get('apachesolr_port', '8080');
-  $path = variable_get('apachesolr_path', 'solr/collection1');
+
+  $conf_path = explode('/', conf_path());
+  $solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
+  $path = variable_get('apachesolr_path', "solr/{$solr_path}");
 
   $environment = new stdClass();
   $environment->api_version = 1;

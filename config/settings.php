@@ -128,3 +128,8 @@ $conf['optimizely_id'] = '747623297';
 // e.g. in_array($hostname, $affiliates);
 // @see https://github.com/DoSomething/dosomething/pull/2809
 $conf['dosomething_is_affiliate'] = FALSE;
+
+// The 'solr' hostname must be defined in /etc/hosts.
+$conf['apachesolr_host'] = getenv('DS_APACHESOLR_HOST') ?: 'solr';
+$conf['apachesolr_port'] = getenv('DS_APACHESOLR_PORT') ?: '8080';
+$conf['apachesolr_path'] = 'solr/' . ($hostname == 'default' ? 'collection1' : $hostname);
