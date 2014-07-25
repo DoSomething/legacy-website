@@ -267,14 +267,7 @@
               <a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="btn"><?php print $reportback_link['label']; ?></a>
             <?php endif; ?>
 
-            <?php if (isset($scholarship)): ?>
-            <div class="message-callout -below -white">
-              <div class="__copy">
-                <p><?php print $scholarship; ?></p>
-              </div>
-            </div>
-            <?php endif; ?>
-
+            <?php print $prove_scholarship; ?>
 
             <?php if (isset($reportback_form)): ?>
               <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">

@@ -138,6 +138,7 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
 function dosomething_helpers_format_partners_list(&$vars) {
   $partners = $vars['partners'];
   $formatted_partners = '';
+
   foreach ($partners as $key => $partner) {
     $name = $partner['name'];
     // If there is a partner url set:
@@ -147,13 +148,13 @@ function dosomething_helpers_format_partners_list(&$vars) {
     }
     $formatted_partners .= $name;
     if (count($partners) > 2 && $key == (count($partners) -2)) {
-      $formatted_partners .= ' and ';
+      $formatted_partners .= ' ' . t('and') .' ';
     }
     elseif (count($partners) > 2 && $key < (count($partners) -1)) {
       $formatted_partners .= ', ';
     }
     elseif ($key < (count($partners) -1)) {
-      $formatted_partners .= ' and ';
+      $formatted_partners .= ' ' . t('and') .' ';
     }
   }
   $vars['formatted_partners'] = $formatted_partners;

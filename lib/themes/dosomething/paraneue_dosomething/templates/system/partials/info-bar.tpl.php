@@ -5,7 +5,7 @@
  **/
 ?>
 
-<?php if (isset($zendesk_form) || isset($sponsors)): ?>
+<?php if (isset($zendesk_form) || isset($formatted_partners)): ?>
 <footer class="info-bar">
   <div class="wrapper">
 
@@ -20,9 +20,9 @@
     </div>
     <?php endif; ?>
 
-    <?php if (isset($sponsors)): ?>
+    <?php if (isset($formatted_partners)): ?>
       <div class="sponsor">
-      <?php print t("In partnership with @partners", array("@" => $formatted_partners)); ?>
+      <?php print t("In partnership with"); ?> <?php print $formatted_partners; ?>
       </div>
     <?php endif; ?>
   </div>
