@@ -271,7 +271,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
         $vars['promotions'] = $vars['campaign_creator'];
       }
 
-      $vars['promotions'] = '<div class="promotion' . $classes . '">' . $vars['promotions'] . '</div>';
+      $vars['promotions'] = '<div class="promotions' . $classes . '">' . $vars['promotions'] . '</div>';
 
     }
   }

@@ -22,8 +22,10 @@
         </div>
       <?php endif; ?>
 
-      <?php print $sponsor_logos; ?>
-      <?php print $campaign_creator; ?>
+      <?php //print $sponsor_logos; ?>
+      <?php //print $campaign_creator; ?>
+
+      <?php print $promotions; ?>
     </div>
   </header>
 

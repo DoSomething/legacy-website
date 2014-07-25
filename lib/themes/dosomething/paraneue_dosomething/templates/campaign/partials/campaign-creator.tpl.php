@@ -6,7 +6,7 @@
  * @see dosomething_campaign_load().
  */
 
-dpm($variables);
+// dpm($variables);
 ?>
 
 <div class="promotion promotion--creator">
