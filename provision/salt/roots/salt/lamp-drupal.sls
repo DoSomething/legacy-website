@@ -154,4 +154,14 @@ apt-update:
   cmd.run:
     - name: sudo apt-get update
 
+solr:
+  host.present:
+    - ip: 192.168.1.169
+
+solr_port:
+   environ.set:
+     - name: DS_APACHESOLR_PORT
+     - value: 8080
+     - update_minion: True
+
 {% endif %}
