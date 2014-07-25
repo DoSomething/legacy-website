@@ -132,4 +132,7 @@ $conf['dosomething_is_affiliate'] = FALSE;
 // The 'solr' hostname must be defined in /etc/hosts.
 $conf['apachesolr_host'] = getenv('DS_APACHESOLR_HOST') ?: 'solr';
 $conf['apachesolr_port'] = getenv('DS_APACHESOLR_PORT') ?: '8080';
-$conf['apachesolr_path'] = 'solr/' . ($hostname == 'default' ? 'collection1' : $hostname);
+
+$conf_path = explode('/', conf_path());
+$solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
+$conf['apachesolr_path'] = "solr/{$solr_path}";

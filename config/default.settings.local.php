@@ -53,6 +53,10 @@ $conf['page_cache_invoke_hooks'] = FALSE;
 // These settings point to the solr instance on staging.
 $conf['apachesolr_host'] = 'solr';
 $conf['apachesolr_port'] = '8080';
-$conf['apachesolr_path'] = '/solr/collection1';
+
+$conf_path = explode('/', conf_path());
+$solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
+$conf['apachesolr_path'] = "solr/{$solr_path}";
+
 $conf['apachesolr_read_only'] = 1;
 
