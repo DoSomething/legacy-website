@@ -22,7 +22,7 @@
 
     <?php if (isset($formatted_partners)): ?>
       <div class="sponsor">
-      <?php print t("In partnership with @partners", array("@" => $formatted_partners)); ?>
+      <?php print t("In partnership with"); ?> <?php print $formatted_partners; ?>
       </div>
     <?php endif; ?>
   </div>
