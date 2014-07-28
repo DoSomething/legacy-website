@@ -31,6 +31,9 @@
  *     - picture (array)
  *       - fid (int)
  *       - src (string)
+ *   - downloads (array).
+ *     - url (string).
+ *     - description (string).
  *   - end_date (string). Timestamp.
  *     @todo: Investigate making format consistent with season date strings.
  *   - fact_problem (array)
@@ -177,6 +180,16 @@ function dosomething_campaign_load($node, $public = FALSE) {
   foreach ($compound_fc_fields as $property) {
     $field_name = 'field_' . $property;
     $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
+  }
+
+  $campaign->downloads = NULL;
+  if (!empty($node->field_downloads)) {
+    foreach ($node->field_downloads[LANGUAGE_NONE] as $file) {
+      $campaign->downloads[] = array(
+        'url' => file_create_url($file['uri']),
+        'description' => $file['description'],
+      );
+    }
   }
 
   // Store any dosomething_helpers variables.
