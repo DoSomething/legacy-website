@@ -27,12 +27,12 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 6081, host: 9999
 
   # Tomcat with Jenkins and Solr
-  # config.vm.network :forwarded_port, guest: 9090, host: 11111
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 
   ## Use all the defaults:
   config.vm.provision :salt do |salt|
     # Uncomment to see Salt output
-    # salt.verbose = true
+    salt.verbose = true
     salt.minion_config = "provision/salt/minion.conf"
     salt.run_highstate = true
   end

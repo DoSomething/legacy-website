@@ -7,5 +7,6 @@ base:
     - composer
     - node
     - redis
+    - tomcat
     - drush
     - dosomething

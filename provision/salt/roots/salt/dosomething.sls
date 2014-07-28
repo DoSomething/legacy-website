@@ -7,6 +7,13 @@ ssh-host-access:
     - user: vagrant
     - group: vagrant
 
+/var/www/vagrant:
+  file.directory:
+    - user: vagrant
+    - group: vagrant
+    - mode: 755
+    - makedirs: True
+
 webroot-internal:
   cmd.run:
     - name: 'tar czf /var/www/vagrant.tgz /vagrant ; cd /var/www ; tar xzf vagrant.tgz ; rm vagrant.tgz'
