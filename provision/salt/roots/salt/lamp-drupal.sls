@@ -156,7 +156,7 @@ apt-update:
 
 solr:
   host.present:
-    - ip: 192.168.1.169
+    - ip: 127.0.0.1
 
 solr_port:
    environ.set:
