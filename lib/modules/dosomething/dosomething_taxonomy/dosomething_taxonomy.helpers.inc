@@ -12,7 +12,7 @@
 function dosomething_taxonomy_create_term_once($name, $vocabulary_machine_name) {
   if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name)) {
     $vid = $vocabulary->vid;
-    $existing_term = dosomething_taxonomy_get_term_from_name($name, $vid);
+    $existing_tid = dosomething_taxonomy_get_tid_from_name($name, $vid);
 
     $term = new stdClass();
 
@@ -20,7 +20,7 @@ function dosomething_taxonomy_create_term_once($name, $vocabulary_machine_name) 
     $term->vid = $vid;
 
     if($existing_term) {
-      $term->tid = $existing_term;
+      $term->tid = $existing_tid;
     }
 
     taxonomy_term_save($term);
@@ -37,7 +37,7 @@ function dosomething_taxonomy_create_term_once($name, $vocabulary_machine_name) 
  *
  * @return Term ID of the found term or else FALSE
  */
-function dosomething_taxonomy_get_term_from_name($term_name, $vid) {
+function dosomething_taxonomy_get_tid_from_name($term_name, $vid) {
   $tree = taxonomy_get_tree($vid);
   foreach ($tree as $term) {
     if ($term->name == $term_name) {
