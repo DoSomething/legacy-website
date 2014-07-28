@@ -1,0 +1,26 @@
+.modal--creator {
+
+  padding: 0;
+
+  h2.banner {
+    margin: 0;
+  }
+
+  > .wrapper {
+    overflow: hidden;
+
+    @include media($tablet) {
+      // display: table;
+    }
+  }
+
+  img,
+  .__body {
+    @include media($tablet) {
+      // display: table-cell;
+      float: left;
+      width: 50%;
+    }
+  }
+
+}

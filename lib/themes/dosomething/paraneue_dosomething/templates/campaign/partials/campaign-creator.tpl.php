@@ -10,20 +10,22 @@
 ?>
 
 <div class="promotion promotion--creator">
-  <a href="#" data-modal-href="#modal--promotion--creator">
+  <a href="#" data-modal-href="#modal--creator">
     <p class="__copy"><?php print t('Created by'); ?></p>
     <img src="<?php print $picture['src_square']; ?>" />
   </a>
 
-  <div data-modal id="modal--promotion--creator" class="modal--promotion--creator" role="dialog">
+  <div data-modal id="modal--creator" class="modal--creator" role="dialog">
     <a href="#" class="js-close-modal modal-close-button white">×</a>
     <h2 class="banner">The Creator</h2>
-    <img src="<?php print $picture['src_square']; ?>" />
     <div class="wrapper">
-      <h4><?php print $first_name; ?> <?php print $last_initial; ?></h4>
-      <p><?php print $city; ?>, <?php print $state; ?></p>
-      <div class="copy"><?php print $copy; ?></div>
-      <a href="#" class="js-close-modal">Back to main page</a>
+      <img src="<?php print $picture['src_square']; ?>" />
+      <div class="__body">
+        <h4><?php print $first_name; ?> <?php print $last_initial; ?></h4>
+        <p><?php print $city; ?>, <?php print $state; ?></p>
+        <div class="copy"><?php print $copy; ?></div>
+        <a href="#" class="js-close-modal">Back to main page</a>
+      </div>
     </div>
   </div>
 </div>

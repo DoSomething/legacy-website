@@ -4,8 +4,8 @@
   padding: 18px 0 9px;
 
   &.-dual {
-    padding-left: 18px;
-    padding-right: 18px;
+    max-width: 280px;
+    margin: 0 auto;
 
     .promotion {
       float: left;
@@ -20,7 +20,9 @@
 
 
 // Promotion Individual
-.promotion { //background-color: #f00;
+.promotion { background-color: #f00;
+  display: inline-block;
+  padding: 0 10px;
   position: relative;
 
   > a {
