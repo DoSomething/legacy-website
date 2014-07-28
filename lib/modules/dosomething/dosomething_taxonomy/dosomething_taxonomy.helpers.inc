@@ -47,21 +47,3 @@ function dosomething_taxonomy_get_term_from_name($term_name, $vid) {
 
   return FALSE;
 }
-
-/**
- * Creates a vocabulary with the given machine name if it doesn't already exist.
- * Otherwise, update the existing vocabulary with the new name.
- * @return vocabulary object
- */
-function dosomething_taxonomy_create_vocabulary_once($name, $machine_name) {
-  $vocabulary = new stdClass();
-  $vocabulary->name = $name;
-  $vocabulary->machine_name = $machine_name;
-
-  if($existing_vocabulary = taxonomy_vocabulary_machine_name_load($machine_name)) {
-    $vocabulary->vid = $existing_vocabulary->vid;
-  }
-
-  taxonomy_vocabulary_save($vocabulary);
-  return $vocabulary;
-}

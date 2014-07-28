@@ -364,7 +364,6 @@ function dosomething_campaign_create_node_from_json($string) {
 
   // Set issue
   if(isset($data->issue)) {
-    $cause = dosomething_taxonomy_create_vocabulary_once("Cause", "cause");
     $term = dosomething_taxonomy_create_term_once($data->issue, $cause->machine_name);
     $node->field_issue[LANGUAGE_NONE][0]['tid'] = $term->tid;
   }
