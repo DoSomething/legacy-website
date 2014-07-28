@@ -318,8 +318,10 @@ function dosomething_campaign_load_stats(&$campaign) {
 function dosomething_campaign_create_node_from_json($string) {
   $data = json_decode($string);
   $node = new stdClass();
+
   $node->type = $data->type;
   $node->title = $data->title;
+
   // Set all plain text properties:
   $plain_text = dosomething_campaign_get_property_names_plain_text();
   foreach ($plain_text as $text_field) {
@@ -345,6 +347,18 @@ function dosomething_campaign_create_node_from_json($string) {
       $field_name = 'field_' . $fact_field;
       $fact_node = dosomething_fact_create_node_from_json(json_encode($data->{$fact_field}));
       $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $fact_node->nid;
+    }
+  }
+
+  // Set all fact array properties:
+  $fact_array = dosomething_campaign_get_property_names_fact_array();
+  foreach($fact_array as $fact_field) {
+    if (isset($data->{$fact_field})) {
+      $field_name = 'field_' . $fact_field;
+      foreach($data->{$fact_field} as $data_fact) {
+        $fact_node = dosomething_fact_create_node_from_json(json_encode($data_fact));
+        $node->{$field_name}[LANGUAGE_NONE][]['target_id'] = $fact_node->nid;
+      }
     }
   }
 
@@ -396,6 +410,15 @@ function dosomething_campaign_get_property_names_fact() {
   return array(
     'fact_problem',
     'fact_solution',
+  );
+}
+
+/**
+ * Returns array of campaign property names which contain an array of fact nodes.
+ */
+function dosomething_campaign_get_property_names_fact_array() {
+  return array(
+    'facts',
   );
 }
 
