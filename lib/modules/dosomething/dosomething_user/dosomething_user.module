@@ -204,6 +204,11 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       if (!dosomething_user_is_staff()) {
         unset($form['field_partner']);
         unset($form['picture']);
+        unset($form['field_user_registration_source']);
+      }
+      else {
+        // Registration Source should always be read-only.
+        $form['field_user_registration_source']['#disabled'] = TRUE;
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
