@@ -2,7 +2,7 @@
     "title": "Test Campaign",
     "type": "campaign",
 
-    "issue": "Testing",
+    "issue": "Test Issue",
     "status": "active",
     "active_hours": "2",
 
