@@ -109,6 +109,7 @@ features[variable][] = user_mail_register_no_approval_required_notify
 features[variable][] = user_mail_status_activated_notify
 features[variable][] = user_mail_status_blocked_notify
 features[variable][] = user_mail_status_canceled_notify
+features[variable][] = user_picture_dimensions
 features[variable][] = user_picture_path
 features[variable][] = user_picture_style
 features[variable][] = user_pictures
