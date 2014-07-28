@@ -312,14 +312,13 @@ function dosomething_campaign_load_stats(&$campaign) {
   );
 }
 
-
 /**
  * Creates and returns a campaign node from given JSON string.
  */
 function dosomething_campaign_create_node_from_json($string) {
   $data = json_decode($string);
   $node = new stdClass();
-  $node->type = 'campaign';
+  $node->type = $data->type;
   $node->title = $data->title;
   // Set all plain text properties:
   $plain_text = dosomething_campaign_get_property_names_plain_text();
@@ -338,6 +337,17 @@ function dosomething_campaign_create_node_from_json($string) {
       $node->{$field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
     }
   }
+
+  // Set all fact properties:
+  $fact = dosomething_campaign_get_property_names_fact();
+  foreach($fact as $fact_field) {
+    if (isset($data->{$fact_field})) {
+      $field_name = 'field_' . $fact_field;
+      $fact_node = dosomething_fact_create_node_from_json(json_encode($data->{$fact_field}));
+      $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $fact_node->nid;
+    }
+  }
+
   node_save($node);
   return $node;
 }
@@ -349,6 +359,11 @@ function dosomething_campaign_get_property_names_plain_text() {
   return array(
     'call_to_action',
     'starter_statement_header',
+    'pre_step_header',
+    'post_step_header',
+    'reportback_noun',
+    'reportback_verb',
+    'location_finder_url',
   );
 }
 
@@ -362,10 +377,28 @@ function dosomething_campaign_get_property_names_filtered_text() {
     'solution_copy',
     'solution_support',
     'starter_statement',
+    'items_needed',
     'time_and_place',
     'vips',
+    'location_finder_copy',
+    'pre_step_copy',
+    'photo_step',
+    'post_step_copy',
+    'reportback_copy',
+    'reportback_confirm_msg',
   );
 }
+
+/**
+ * Returns array of campaign property names which contain a fact node.
+ */
+function dosomething_campaign_get_property_names_fact() {
+  return array(
+    'fact_problem',
+    'fact_solution',
+  );
+}
+
 /**
  * Returns a loaded campaign $node's field_campaign_type value.
  *
