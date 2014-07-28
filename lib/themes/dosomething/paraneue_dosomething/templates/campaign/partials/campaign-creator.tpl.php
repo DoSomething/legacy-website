@@ -19,10 +19,12 @@
     <a href="#" class="js-close-modal modal-close-button white">×</a>
     <h2 class="banner">The Creator</h2>
     <div class="wrapper">
-      <img src="<?php print $picture['src_square']; ?>" />
+      <div class="__member">
+        <img src="<?php print $picture['src_square']; ?>" />
+      </div>
       <div class="__body">
-        <h4><?php print $first_name; ?> <?php print $last_initial; ?></h4>
-        <p><?php print $city; ?>, <?php print $state; ?></p>
+        <h4 class="__title heading -delta"><?php print $first_name; ?> <?php print $last_initial; ?></h4>
+        <p class="__location"><?php print $city; ?>, <?php print $state; ?></p>
         <div class="copy"><?php print $copy; ?></div>
         <a href="#" class="js-close-modal">Back to main page</a>
       </div>

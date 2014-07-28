@@ -1,27 +1,77 @@
-// Promotions Grouping
-.promotions {
-  overflow: hidden;
+$btw-mobile-and-tablet: 860px;
+$btw-tablet-and-desktop: 960px;
+
+// Temp to be moved to the module in Neue!
+[role="banner"] .promotions {
+  background-color: rgba(#f0f05f, 0.1);
+  clear: both;
   padding: 18px 0 9px;
 
+  @include media($tablet) {
+    padding-top: 28px;
+  }
+
+  @include media($btw-mobile-and-tablet) {
+    bottom: -28px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    // margin-left: -15%; // potentially use negative margin to offset right.
+  }
+
   &.-dual {
-    max-width: 280px;
-    margin: 0 auto;
+    @include media($btw-mobile-and-tablet) {
+      right: -110px;
+    }
+  }
+
+  @include media($desktop) {
+    background-color: #0f0ff0;
+  }
+
+  .promotion--sponsor {
+    @include media($btw-mobile-and-tablet) {
+      padding-bottom: 28px;
+    }
+  }
+}
+
+// ==============================================================================
+
+
+
+// // Promotions Grouping
+.promotions {
+  // overflow: hidden;
+  display: table;
+  margin: 0 auto;
+
+  &.-dual {
+    // clear: both;
+    // max-width: 280px;
+
+    // @include media(960px) {
+    //   clear: none;
+    //   padding: 0;
+    // }
 
     .promotion {
-      float: left;
+      // float: left;
       width: 50%;
 
-      &:first-child {
-        border-right: 1px solid #fff;
-      }
+    //   &:first-child {
+    //     border-right: 1px solid #fff;
+    //   }
     }
   }
 }
 
 
-// Promotion Individual
-.promotion { background-color: #f00;
-  display: inline-block;
+// // Promotion Individual
+.promotion { background-color: rgba(#f0f, 0.2);
+  // display: inline-block;
+  // display: inline-block;
+  display: table-cell;
   padding: 0 10px;
   position: relative;
 
@@ -32,17 +82,21 @@
 
   img {
     display: block;
+    height: auto;
     margin: 0 auto;
+    max-width: 100%;
+    width: auto;
   }
 
   .__copy {
-    @include rgba(color, #fff, 0.7);
+    @include rgba(color, #fff, 0.7, #fff);
 
     font-size: $font-small;
     font-weight: $weight-bold;
     line-height: 1;
     margin: 0;
     padding: 0 0 9px;
+    text-align: center;
     text-transform: uppercase;
   }
 }
@@ -52,14 +106,18 @@
 .promotion--sponsor { //background-color: #00f;
 
   img {
-    height: 50px;
+    max-height: 50px;
   }
 }
 
 
 .promotion--creator { //background-color: #0f0;
 
+  @include media($btw-tablet-and-desktop) {
+    background-color: #0ff;
+  }
+
   img {
-    height: 100px;
+    max-height: 100px;
   }
 }

@@ -1,0 +1,22 @@
+.heading {
+  font-family: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-top: 0;
+
+  &.-alpha {
+    font-size: $font-hero;
+  }
+
+  &.-beta {
+    font-size: $font-largest;
+  }
+
+  &.-gamma {
+    font-size: $font-large;
+  }
+
+  &.-delta {
+    color: $purple;
+    font-size: $font-medium;
+  }
+
+}

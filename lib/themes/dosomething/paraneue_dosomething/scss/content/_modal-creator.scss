@@ -1,5 +1,5 @@
 .modal--creator {
-
+  max-width: 700px;
   padding: 0;
 
   h2.banner {
@@ -10,17 +10,52 @@
     overflow: hidden;
 
     @include media($tablet) {
-      // display: table;
+      display: table;
     }
   }
 
-  img,
-  .__body {
+  .__member {
+    background-color: $yellow;
+    position: relative;
+
     @include media($tablet) {
-      // display: table-cell;
-      float: left;
-      width: 50%;
+      display: table-cell;
+      // float: left;
+      width: 30%;
     }
+
+    > img {
+      display: block;
+
+      @include media($tablet) {
+        bottom: 0;
+        left: 5%;
+        position: absolute;
+        width: 90%;
+      }
+    }
+  }
+
+  .__body {
+    padding: 18px;
+
+    @include media($tablet) {
+      display: table-cell;
+      // float: left;
+      width: 70%;
+    }
+  }
+
+  .__title {
+    margin-bottom: 0;
+  }
+
+  .__location {
+    color: $med-gray;
+    font-size: $font-small;
+    font-weight: $weight-sbold;
+    margin: 0 0 18px;
   }
 
 }
+
