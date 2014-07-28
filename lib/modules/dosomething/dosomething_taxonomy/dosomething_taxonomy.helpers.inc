@@ -9,7 +9,7 @@
  * Creates a taxonomy term with the given name if it doesn't already exist.
  * @return term object
  */
-function dosomething_taxonomy_create_term_once($name, $vocabulary_machine_name) {
+function dosomething_taxonomy_create_term($name, $vocabulary_machine_name) {
   if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name)) {
     $vid = $vocabulary->vid;
     $existing_tid = dosomething_taxonomy_get_tid_from_name($name, $vid);
