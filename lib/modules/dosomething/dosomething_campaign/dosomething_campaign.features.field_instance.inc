@@ -269,7 +269,7 @@ function dosomething_campaign_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 14,
+      'weight' => 13,
     ),
   );
 
@@ -751,6 +751,54 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_downloads'
+  $field_instances['node-campaign-field_downloads'] = array(
+    'bundle' => 'campaign',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 69,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_downloads',
+    'label' => 'Downloads',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => 'downloads',
+      'file_extensions' => 'pdf jpg png',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 14,
     ),
   );
 
@@ -2858,6 +2906,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Created By');
   t('Created Copy');
   t('Do It Gallery');
+  t('Downloads');
   t('During Copy');
   t('During Header');
   t('During Tips');
