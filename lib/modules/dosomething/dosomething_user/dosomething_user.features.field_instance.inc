@@ -63,7 +63,7 @@ function dosomething_user_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 8,
+      'weight' => 11,
     ),
   );
 
@@ -212,7 +212,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -251,7 +251,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 7,
+      'weight' => 10,
     ),
   );
 
@@ -288,7 +288,41 @@ function dosomething_user_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 6,
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_user_registration_source'
+  $field_instances['user-user-field_user_registration_source'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This field may be set if a User has been programatically created.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_user_registration_source',
+    'label' => 'User Registration Source',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 12,
     ),
   );
 
@@ -300,7 +334,9 @@ function dosomething_user_field_default_field_instances() {
   t('First Name');
   t('Last Name');
   t('Partner / Sponsor');
+  t('This field may be set if a User has been programatically created.');
   t('Under Thirteen');
+  t('User Registration Source');
 
   return $field_instances;
 }
