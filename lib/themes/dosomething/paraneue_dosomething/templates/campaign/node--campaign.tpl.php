@@ -134,6 +134,14 @@
                   </ul>
                 <?php endif; ?>
 
+                <?php if (!empty($campaign->downloads)): ?>
+                  <ul>
+                    <?php foreach ($campaign->downloads as $link): ?>
+                      <li><?php print l($link['description'], $link['url']); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+
                 <?php if (isset($signup_data_form_link)): ?>
                   <ul>
                     <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
