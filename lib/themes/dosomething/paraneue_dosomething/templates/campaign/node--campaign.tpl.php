@@ -8,8 +8,6 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_creator: HTML for the Campaign Creator link/modal.
  */
-
-// dpm($variables);
 ?>
 
 <article class="campaign campaign--action action"><?php // @TODO: need to deal w/ "action" class. ?>
