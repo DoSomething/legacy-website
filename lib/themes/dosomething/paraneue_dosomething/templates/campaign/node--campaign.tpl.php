@@ -16,16 +16,11 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php print $sponsor_logos; ?>
+      <?php print $promotions; ?>
 
       <?php print $campaign_scholarship; ?>
+
     </div>
-
-    <?php
-    // Theme and print me. Then copy me to pitch page tpl too.
-    // print $campaign_creator;
-    ?>
-
   </header>
 
   <div class="wrapper">

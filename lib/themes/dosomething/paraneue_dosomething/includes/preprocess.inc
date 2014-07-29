@@ -213,6 +213,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     'campaign_creator',
     'campaign_headings',
     'sponsor_logos',
+    'promotions',
   );
   // Initialize to NULL.
   foreach ($partials as $partial) {
@@ -233,6 +234,9 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     // If creator property has been set:
     if ($creator = $campaign->creator) {
       // Pass $campaign->creator array to the campaign_creator theme function.
+
+      $file = file_load($creator['picture']['fid']);
+      $creator['picture']['src_square'] = image_style_url('300x300', $file->uri);
       $vars['campaign_creator'] = theme('campaign_creator', $creator);
     }
 
@@ -250,6 +254,25 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
           'sponsors' => $sponsors,
         ));
       }
+    }
+
+    // Output sponsors and creator in promotions module
+    if ($vars['sponsor_logos'] || $vars['campaign_creator']) {
+      $classes = NULL;
+
+      if ($vars['sponsor_logos'] && $vars['campaign_creator']) {
+        $classes = ' -dual';
+        $vars['promotions'] = $vars['sponsor_logos'] . $vars['campaign_creator'];
+      }
+      elseif ($vars['sponsor_logos']) {
+        $vars['promotions'] = $vars['sponsor_logos'];
+      }
+      elseif ($vars['campaign_creator']) {
+        $vars['promotions'] = $vars['campaign_creator'];
+      }
+
+      $vars['promotions'] = '<div class="promotions' . $classes . '">' . $vars['promotions'] . '</div>';
+
     }
   }
 

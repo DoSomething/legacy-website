@@ -1,0 +1,163 @@
+$btw-mobile-and-tablet: 860px;
+$btw-tablet-and-desktop: 960px;
+
+// Temp to be moved to the module in Neue!
+[role="banner"] .promotions {
+  clear: both;
+  padding: 18px 0 9px;
+
+  @include media($tablet) {
+    padding-top: 28px;
+  }
+
+  @include media($btw-mobile-and-tablet) {
+    bottom: -28px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  &.-dual {
+    @include media($btw-mobile-and-tablet) {
+      right: -110px;
+    }
+
+    .promotion--sponsor {
+      @include media($btw-mobile-and-tablet) {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  .promotion--sponsor {
+    @include media($btw-mobile-and-tablet) {
+      padding-bottom: 28px;
+    }
+  }
+}
+
+
+
+
+// Promotions Grouping
+.promotions {
+  display: table;
+  margin: 0 auto;
+
+  @include media($btw-tablet-and-desktop) {
+    margin: 0;
+  }
+
+  &.-dual {
+
+    .promotion {
+      width: 50%;
+
+      @include media($btw-tablet-and-desktop) {
+        height: 100px;
+        width: auto;
+      }
+
+      &:first-child {
+        padding-right: 20px;
+
+        &:after {
+          background-color: #fff;
+          background-color: rgba(#fff, 0.5);
+          content: "";
+          height: 80%;
+          position: absolute;
+          right: 0;
+          top: 10%;
+          width: 1px;
+
+          @include media($btw-tablet-and-desktop) {
+            right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Promotion Individual
+.promotion {
+  display: table-cell;
+  position: relative;
+
+  > .wrapper {
+    @include media($btw-tablet-and-desktop) {
+      display: table;
+      height: 100%;
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto;
+  }
+
+  .__image {
+    @include media($btw-tablet-and-desktop) {
+      display: table-cell;
+      padding: 0 0 0 10px;
+      vertical-align: middle;
+    }
+  }
+
+  .__copy {
+    @include rgba(color, #fff, 0.7, #fff);
+
+    font-size: $font-small;
+    font-weight: $weight-bold;
+    line-height: 1;
+    margin: 0;
+    padding: 0 0 9px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include media($btw-tablet-and-desktop) {
+      display: table-cell;
+      min-width: 85px;  // @TODO: Not ideal.
+      text-align: right;
+      vertical-align: middle;
+    }
+  }
+}
+
+
+// Promotion Specific
+.promotion--sponsor {
+
+  img {
+    max-height: 50px;
+  }
+}
+
+
+.promotion--creator {
+
+  @include media($btw-tablet-and-desktop) {
+    vertical-align: bottom;
+  }
+
+  .__image {
+
+    @include media($btw-tablet-and-desktop) {
+      vertical-align: bottom;
+    }
+  }
+
+  img {
+    max-height: 100px;
+  }
+}

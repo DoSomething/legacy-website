@@ -6,9 +6,14 @@
  *    - name: (string) Sponsor name
  */
 ?>
-<div class="sponsor">
-  <p class="__copy"><?php print t('Powered by'); ?></p>
-  <?php foreach ($sponsors as $sponsor) :?>
-    <img src="<?php print $sponsor['logo_url']; ?>" alt="<?php print $sponsor['name']; ?>" />
-  <?php endforeach; ?>
+
+<div class="promotion promotion--sponsor">
+  <div class="wrapper">
+    <p class="__copy"><?php print t('Powered by'); ?></p>
+    <?php foreach ($sponsors as $sponsor) :?>
+      <div class="__image">
+        <img src="<?php print $sponsor['logo_url']; ?>" alt="<?php print $sponsor['name']; ?>" />
+      </div>
+    <?php endforeach; ?>
+  </div>
 </div>
