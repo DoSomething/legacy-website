@@ -5,6 +5,15 @@
     "issue": "Test Issue",
     "status": "active",
     "active_hours": "2",
+    "image_campaign_cover": {
+      "title": "Test Cover Image",
+      "src": {
+        "landscape": "/var/www/vagrant/tests/fixtures/cover-landscape.jpg",
+        "portrait": "/var/www/vagrant/tests/fixtures/cover-portrait.jpg",
+        "square": "/var/www/vagrant/tests/fixtures/cover-square.jpg"
+      },
+      "is_dark_image": true
+    },
 
     "call_to_action": "This is a test unsponsored campaign.",
     "starter_statement": "Seriously, drink some 'fee.",
@@ -13,6 +22,12 @@
       "sources": [
         "Clark, Barry. \"A Treatise on The Motherland\", British Royal Archives, 2009."
       ]
+    },
+    "image_psa_replacement": {
+      "title": "Test PSA Image",
+      "src": {
+        "landscape": "/var/www/vagrant/tests/fixtures/knowit-landscape.jpg"
+      }
     },
     "solution_support": "Sandwiches help self esteem and hunger.",
     "solution_copy": "Be American! Drink coffee to stay awake! DoSomething.org recommends 3 or more cups per day.",
@@ -49,6 +64,13 @@
     "promoting_tips": "You're going to be very hyped. From caffeine.",
     "location_finder_copy": "Seriously, just get some beans. But also get a cold brew while you're there.",
     "location_finder_url": "http://www.birchcoffee.com/locations",
+    "image_step_gallery": {
+      "title": "Test Do It Image",
+      "src": {
+        "landscape": "/var/www/vagrant/tests/fixtures/doit-landscape.jpg",
+        "square": "/var/www/vagrant/tests/fixtures/doit-square.jpg"
+      }
+    },
 
     "pre_step_header": "Get your 'Fee!",
     "pre_step_copy": "You'll need to find some 'fee, fast. Find Maxwell Watson.",
