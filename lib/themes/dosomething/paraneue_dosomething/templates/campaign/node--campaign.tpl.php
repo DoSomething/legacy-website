@@ -18,13 +18,6 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php/* if ($sponsor_logos || $campaign_creator): ?>
-        <div class="media-group">
-          <?php print $sponsor_logos; ?>
-          <?php print $campaign_creator; ?>
-        </div>
-      <?php endif; */?>
-
       <?php print $promotions; ?>
 
       <?php print $campaign_scholarship; ?>
