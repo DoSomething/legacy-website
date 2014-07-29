@@ -1206,9 +1206,9 @@ function dosomething_campaign_group_field_default_field_instances() {
         'weight' => 28,
       ),
       'search_index' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 28,
       ),
       'teaser' => array(
