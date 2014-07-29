@@ -238,7 +238,6 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 
       $file = file_load($creator['picture']['fid']);
       $creator['picture']['src_square'] = image_style_url('300x300', $file->uri);
-      // $creator['picture']['src_square'] = image_style_url('square', $creator['picture']['src']);
       $vars['campaign_creator'] = theme('campaign_creator', $creator);
     }
 
