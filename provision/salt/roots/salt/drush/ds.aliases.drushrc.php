@@ -24,7 +24,7 @@ $countries = array(
 
 foreach ($countries as $country) {
   foreach (array('prod', 'qa') as $environment) {
-    $aliases[$country . $environment] = array(
+    $aliases["{$country . $environment}"] = array(
      'root' => '/var/www/international.dosomething.org/current/html',
      'remote-host' => 'international.' . $environment,
      'remote-user' => 'dosomething',
