@@ -32,6 +32,7 @@
     <core name="botswana" instanceDir="botswana" />
     <core name="congo" instanceDir="congo" />
     <core name="canada" instanceDir="canada" />
+    <core name="collection1" instanceDir="collection1" />
     <core name="ghana" instanceDir="ghana" />
     <core name="kenya" instanceDir="kenya" />
     <core name="indonesia" instanceDir="indonesia" />

@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
   ## Use all the defaults:
   config.vm.provision :salt do |salt|
     # Uncomment to see Salt output
-    salt.verbose = true
+    # salt.verbose = true
     salt.minion_config = "provision/salt/minion.conf"
     salt.run_highstate = true
   end
