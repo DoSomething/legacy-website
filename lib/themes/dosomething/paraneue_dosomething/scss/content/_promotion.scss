@@ -128,6 +128,7 @@ $btw-tablet-and-desktop: 960px;
     @include media($btw-tablet-and-desktop) {
       display: table-cell;
       min-width: 85px;  // @TODO: Not ideal.
+      padding: 0;
       text-align: right;
       vertical-align: middle;
     }
