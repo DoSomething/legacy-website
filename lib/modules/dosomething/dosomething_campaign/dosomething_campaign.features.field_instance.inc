@@ -428,9 +428,9 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 65,
       ),
       'search_index' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 65,
       ),
       'teaser' => array(
@@ -2402,9 +2402,9 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 20,
       ),
       'search_index' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 20,
       ),
       'teaser' => array(
