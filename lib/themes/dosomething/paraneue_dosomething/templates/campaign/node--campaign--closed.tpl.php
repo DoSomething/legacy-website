@@ -36,7 +36,7 @@
         </div>
       <?php endif; ?>
 
-      <?php print $sponsor_logos; ?>
+      <?php print $promotions; ?>
 
     </div>
   </header>
