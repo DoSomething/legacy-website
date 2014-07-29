@@ -10,9 +10,11 @@
 ?>
 
 <div class="promotion promotion--creator">
-  <a href="#" data-modal-href="#modal--creator">
+  <a class="wrapper" href="#" data-modal-href="#modal--creator">
     <p class="__copy"><?php print t('Created by'); ?></p>
-    <img src="<?php print $picture['src_square']; ?>" />
+    <div class="__image">
+      <img src="<?php print $picture['src_square']; ?>" />
+    </div>
   </a>
 
   <div data-modal id="modal--creator" class="modal--creator" role="dialog">

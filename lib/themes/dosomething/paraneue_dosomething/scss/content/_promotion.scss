@@ -3,7 +3,6 @@ $btw-tablet-and-desktop: 960px;
 
 // Temp to be moved to the module in Neue!
 [role="banner"] .promotions {
-  background-color: rgba(#f0f05f, 0.1);
   clear: both;
   padding: 18px 0 9px;
 
@@ -16,17 +15,18 @@ $btw-tablet-and-desktop: 960px;
     padding: 0;
     position: absolute;
     right: 0;
-    // margin-left: -15%; // potentially use negative margin to offset right.
   }
 
   &.-dual {
     @include media($btw-mobile-and-tablet) {
       right: -110px;
     }
-  }
 
-  @include media($desktop) {
-    background-color: #0f0ff0;
+    .promotion--sponsor {
+      @include media($btw-mobile-and-tablet) {
+        padding-bottom: 0;
+      }
+    }
   }
 
   .promotion--sponsor {
@@ -42,40 +42,59 @@ $btw-tablet-and-desktop: 960px;
 
 // // Promotions Grouping
 .promotions {
-  // overflow: hidden;
   display: table;
   margin: 0 auto;
 
-  &.-dual {
-    // clear: both;
-    // max-width: 280px;
+  @include media($btw-tablet-and-desktop) {
+    margin: 0;
+  }
 
-    // @include media(960px) {
-    //   clear: none;
-    //   padding: 0;
-    // }
+  &.-dual {
 
     .promotion {
-      // float: left;
       width: 50%;
 
-    //   &:first-child {
-    //     border-right: 1px solid #fff;
-    //   }
+      @include media($btw-tablet-and-desktop) {
+        height: 100px;
+        width: auto;
+      }
+
+      &:first-child {
+        padding-right: 20px;
+
+        &:after {
+          background-color: #fff;
+          background-color: rgba(#fff, 0.5);
+          content: "";
+          height: 80%;
+          position: absolute;
+          right: 0;
+          top: 10%;
+          width: 1px;
+
+          @include media($btw-tablet-and-desktop) {
+            right: 10px;
+          }
+        }
+      }
     }
   }
 }
 
 
 // // Promotion Individual
-.promotion { background-color: rgba(#f0f, 0.2);
-  // display: inline-block;
-  // display: inline-block;
+.promotion {
   display: table-cell;
-  padding: 0 10px;
   position: relative;
 
-  > a {
+  > .wrapper {
+    @include media($btw-tablet-and-desktop) {
+      display: table;
+      height: 100%;
+    }
+  }
+
+  a {
     display: block;
     text-decoration: none;
   }
@@ -88,6 +107,14 @@ $btw-tablet-and-desktop: 960px;
     width: auto;
   }
 
+  .__image {
+    @include media($btw-tablet-and-desktop) {
+      display: table-cell;
+      padding: 0 0 0 10px;
+      vertical-align: middle;
+    }
+  }
+
   .__copy {
     @include rgba(color, #fff, 0.7, #fff);
 
@@ -98,12 +125,19 @@ $btw-tablet-and-desktop: 960px;
     padding: 0 0 9px;
     text-align: center;
     text-transform: uppercase;
+
+    @include media($btw-tablet-and-desktop) {
+      display: table-cell;
+      min-width: 85px;  // @TODO: Not ideal.
+      text-align: right;
+      vertical-align: middle;
+    }
   }
 }
 
 
 // Promotion Specific
-.promotion--sponsor { //background-color: #00f;
+.promotion--sponsor {
 
   img {
     max-height: 50px;
@@ -111,10 +145,17 @@ $btw-tablet-and-desktop: 960px;
 }
 
 
-.promotion--creator { //background-color: #0f0;
+.promotion--creator {
 
   @include media($btw-tablet-and-desktop) {
-    background-color: #0ff;
+    vertical-align: bottom;
+  }
+
+  .__image {
+
+    @include media($btw-tablet-and-desktop) {
+      vertical-align: bottom;
+    }
   }
 
   img {
