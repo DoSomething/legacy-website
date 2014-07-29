@@ -10,7 +10,6 @@
  */
 ?>
 
-
 <article class="campaign campaign--action action"><?php // @TODO: need to deal w/ "action" class. ?>
 
   <header role="banner" class="-hero <?php print $classes; ?>">
