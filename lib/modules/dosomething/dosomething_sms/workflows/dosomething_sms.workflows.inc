@@ -267,19 +267,19 @@ $activity = $workflow->newActivity('mms_prompt');
 $activity->name = 'ask_picture';
 $activity->inputs = array('start');
 $activity->outputs = array('ask_quantity');
-$activity->noMmsResponse = 169175;
+$activity->noMmsResponse = 169337;
 
 $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
 $activity->name = 'ask_quantity';
 $activity->inputs = array('ask_picture');
 $activity->outputs = array('ask_why_participated');
-$activity->optInPathId = 169177;
+$activity->optInPathId = 169339;
 
 $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
 $activity->name = 'ask_why_participated';
 $activity->inputs = array('ask_quantity');
 $activity->outputs = array('strip_signature');
-$activity->optInPathId = 169179;
+$activity->optInPathId = 169341;
 
 $activity = $workflow->newActivity('sms_strip_signature');
 $activity->name = 'strip_signature';
@@ -296,7 +296,7 @@ $activity->propertyToContextMap = array(
   'quantity' => 'ask_quantity:message',
   'why_participated' => 'ask_why_participated:message',
 );
-$activity->optInPathId = 169231;
+$activity->optInPathId = 169183;
 $activity->optOutCampaignId = 126955;
 $activity->mobileCommonsCompletedCampaignId = 126957;
 
