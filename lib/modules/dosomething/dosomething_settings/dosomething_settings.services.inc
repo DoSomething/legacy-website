@@ -84,7 +84,14 @@ function dosomething_settings_default_services_endpoint() {
             ),
           ),
         ),
-        'register' => array(
+        'token' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'users' => array(
+      'operations' => array(
+        'create' => array(
           'enabled' => '1',
         ),
       ),
