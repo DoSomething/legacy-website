@@ -274,7 +274,8 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_time_and_place',
       3 => 'field_vips',
       4 => 'field_action_guide',
-      5 => 'group_location_finder',
+      5 => 'field_downloads',
+      6 => 'group_location_finder',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

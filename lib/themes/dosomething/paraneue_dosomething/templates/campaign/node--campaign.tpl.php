@@ -119,19 +119,32 @@
               <?php print $content['content']; ?>
 
               <?php // Content specifically for Materials content section. ?>
-              <?php if ($content['category'] === 'materials' && isset($action_guides)) : ?>
-                <ul>
-                <?php foreach ($action_guides as $delta => $action_guide): ?>
-                  <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
-                <?php endforeach; ?>
-                </ul>
-              <?php endif; ?>
+              <?php if ($content['category'] === 'materials'): ?>
 
-              <?php if ($content['category'] === 'materials' && isset($signup_data_form_link)): ?>
-                <ul>
-                  <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
-                </ul>
-              <?php endif; ?>
+                <?php if (isset($action_guides)): ?>
+                  <ul>
+                  <?php foreach ($action_guides as $delta => $action_guide): ?>
+                    <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
+                  <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+
+                <?php if (!empty($campaign->downloads)): ?>
+                  <ul>
+                    <?php foreach ($campaign->downloads as $link): ?>
+                      <li><?php print l($link['description'], $link['url']); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+
+                <?php if (isset($signup_data_form_link)): ?>
+                  <ul>
+                    <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
+                  </ul>
+                <?php endif; ?>
+
+              <?php endif; // if content['category'] == 'materials' ?>
+
             </div>
             <?php if ($delta%2 === 1 || $delta + 1 === $plan_count) print '</div>'; ?>
 
