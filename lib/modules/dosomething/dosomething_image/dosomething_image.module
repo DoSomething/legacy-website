@@ -4,6 +4,7 @@
  * Code for the dosomething_image feature.
  */
 
+include_once 'dosomething_image.helpers.inc';
 include_once 'dosomething_image.features.inc';
 
 /**

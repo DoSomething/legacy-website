@@ -381,6 +381,16 @@ function dosomething_campaign_create_node_from_json($string) {
     $node->field_issue[LANGUAGE_NONE][0]['tid'] = $term->tid;
   }
 
+  // Set all image properties:
+  $image = dosomething_campaign_get_property_names_image();
+  foreach($image as $image_field) {
+    if (isset($data->{$image_field})) {
+      $field_name = 'field_' . $image_field;
+      $image_node = dosomething_image_create_node_from_json(json_encode($data->{$image_field}));
+      $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $image_node->nid;
+    }
+  }
+
   node_save($node);
   return $node;
 }
@@ -438,6 +448,17 @@ function dosomething_campaign_get_property_names_fact() {
 function dosomething_campaign_get_property_names_fact_array() {
   return array(
     'facts',
+  );
+}
+
+/**
+ * Returns array of campaign property names which contain an image node.
+ */
+function dosomething_campaign_get_property_names_image() {
+  return array(
+    'image_campaign_cover',
+    'image_psa_replacement',
+    'image_step_gallery'
   );
 }
 
