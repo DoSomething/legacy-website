@@ -391,6 +391,18 @@ function dosomething_campaign_create_node_from_json($string) {
     }
   }
 
+  // Set all field collection properties:
+  $field_collection = dosomething_campaign_get_property_names_field_collection();
+  foreach($field_collection as $field_collection_field) {
+    if (isset($data->{$field_collection_field})) {
+      foreach($data->{$field_collection_field} as $key => $item) {
+        $field_name = 'field_' . $field_collection_field;
+        $field_collection_entity = dosomething_campaign_create_field_collection_from_json(json_encode($item), $field_name, $node);
+        $node->{$field_name}[LANGUAGE_NONE][$key]['target_id'] = $field_collection_entity->nid;
+      }
+    }
+  }
+
   node_save($node);
   return $node;
 }
@@ -460,6 +472,37 @@ function dosomething_campaign_get_property_names_image() {
     'image_psa_replacement',
     'image_step_gallery'
   );
+}
+
+/**
+ * Returns array of campaign property names which contain field collections.
+ */
+function dosomething_campaign_get_property_names_field_collection() {
+  return array(
+    'faq',
+    'step_pre',
+    'step_post',
+  );
+}
+
+/**
+ * Create a field collection with the given fields from JSON string.
+ */
+function dosomething_campaign_create_field_collection_from_json($string, $field_collection_name, $node) {
+  $data = json_decode($string);
+
+  $field_collection_item = entity_create('field_collection_item', array('field_name' => $field_collection_name));
+  $field_collection_item->setHostEntity('node', $node);
+
+  foreach($data as $data_field => $data_field_value) {
+    $collection_field_name =  "field_compound_text_" . $data_field;
+    $field_collection_item->{$collection_field_name}[LANGUAGE_NONE][0]['value'] = $data_field_value;
+    if($data_field == "copy") {
+      $field_collection_item->{$collection_field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
+    }
+  }
+
+  $field_collection_item->save();
 }
 
 /**
