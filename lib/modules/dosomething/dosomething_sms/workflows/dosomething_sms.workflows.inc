@@ -273,13 +273,13 @@ $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
 $activity->name = 'ask_quantity';
 $activity->inputs = array('ask_picture');
 $activity->outputs = array('ask_why_participated');
-$activity->optInPathId = 169339;
+$activity->optInPathId = 167303;
 
 $activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
 $activity->name = 'ask_why_participated';
 $activity->inputs = array('ask_quantity');
 $activity->outputs = array('strip_signature');
-$activity->optInPathId = 169341;
+$activity->optInPathId = 167305;
 
 $activity = $workflow->newActivity('sms_strip_signature');
 $activity->name = 'strip_signature';
