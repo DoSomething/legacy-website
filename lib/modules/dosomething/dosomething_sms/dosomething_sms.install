@@ -45,18 +45,18 @@ function dosomething_sms_schema() {
     'fields' => array(
       'id' => array(
         'description' => 'Unique identifier for the workflow.',
-        'type' => 'int',
+        'type' => 'serial',
         'unsigned' => TRUE,
-        'not null' => TRUE
+        'not null' => TRUE,
       ),
-      'name' => array(
-        'description' => 'Workflow machine name.',
+      'endpoint' => array(
+        'description' => 'The endpoint path to access this workflow.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
       ),
       'title' => array(
-        'description' => 'Workflow human readable title.',
+        'description' => 'Human readable title for the workflow.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -103,6 +103,7 @@ function dosomething_sms_schema() {
         'type' => 'int',
       ),
     ),
+    'primary key' => array('id'),
   );
 
   return $schema;

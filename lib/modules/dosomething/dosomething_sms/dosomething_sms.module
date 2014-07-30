@@ -4,7 +4,6 @@
  * Provides Do Something-specific SMS functionality.
  */
 
-
 /**
  * Implements hook_menu().
  */
@@ -18,7 +17,31 @@ function dosomething_sms_menu() {
     'page arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
-
+  $items['admin/config/dosomething/dosomething_sms'] = array(
+    'title' => 'SMS Workflows',
+    'description' => 'Overview of all SMS Workflows',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_sms_workflow_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_sms.admin.inc',
+  );
+  $items['sms-workflow/%sms_workflow'] = array(
+    'title' => 'SMS Workflow',
+    'page callback' => 'dosomething_sms_view_sms_worfklow',
+    'page arguments' => array(1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+  );
+  $items['sms-workflow/%sms_workflow/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_sms_workflow_form', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+  );
   return $items;
 }
 
@@ -33,6 +56,41 @@ function dosomething_sms_permission() {
       'restrict access' => TRUE,
     ),
   );
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_sms_entity_info() {
+  $info = array();
+  $info['sms_workflow'] = array(
+    'label' => t('SMS Workflow'),
+    'base table' => 'dosomething_sms_workflow',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'title',
+    ),
+    'entity class' => 'SMSWorkflowEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'SMSWorkflowEntityController',
+    'module' => 'dosomething_sms',
+  );
+  return $info;
+}
+
+/**
+ * Menu autoloader for /%sms_workflow.
+ */
+function sms_worfklow_load($id) {
+  $entity = entity_load('sms_workflow', array($id));
+  return array_pop($entity);
+}
+
+/**
+ * Callback for /reportback/ID page.
+ */
+function dosomething_sms_view_sms_worfklow($entity) {
+  return entity_view('sms_workflow', array($entity->id => $entity), 'full');
 }
 
 /**
