@@ -14,6 +14,12 @@ function dosomething_sms_workflow_overview_page() {
     t('Endpoint'),
     t('Node'),
     t('Status'),
+    t('MMS Response'),
+    t('Ask Quantity'),
+    t('Ask Why Participated'),
+    t('Submit Reportback'),
+    t('Campaign Opt-out'),
+    t('Campaign Completed'),
     t('Op'),
   );
   // Loop through all sms_workflows, regardless of status:
@@ -24,6 +30,12 @@ function dosomething_sms_workflow_overview_page() {
       $workflow->endpoint,
       l($nid, 'node/' . $nid . '/reportbacks'),
       $workflow->status ? t('Enabled') : t('Disabled'),
+      $workflow->id_no_mms_response,
+      $workflow->id_ask_quantity,
+      $workflow->id_ask_why_participated,
+      $workflow->id_submit_reportback,
+      $workflow->id_campaign_opt_out,
+      $workflow->id_campaign_completed,
       l(t('Edit'), $admin_path . '/' . $workflow->id . '/edit'),
     );
   }
