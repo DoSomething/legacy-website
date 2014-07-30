@@ -41,7 +41,7 @@ function dosomething_sms_menu() {
     'page arguments' => array('dosomething_sms_workflow_form', 4),
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_CALLBACK,
     'weight' => 20,
     'file' => 'dosomething_sms.admin.inc',
   );
