@@ -5,7 +5,7 @@
  */
 
 function dosomething_sms_workflow_overview_page() {
-  $admin_path = 'admin/config/dosomething/dosomething_sms';
+  $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   $add_path = $admin_path . '/add';
   $add_link = l(t('Add SMS Workflow'), $add_path);
   $output = '<ul class="action-links"><li>' . $add_link. '</li></ul>';
@@ -97,6 +97,6 @@ function dosomething_sms_workflow_form_submit($form, &$form_state) {
   }
   $entity->save();
   // Redirect to confirmation.
-  $form_state['redirect'] = 'admin/config/dosomething/dosomething_sms';
+  $form_state['redirect'] = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   drupal_set_message("SMS Workflow saved.");
 }

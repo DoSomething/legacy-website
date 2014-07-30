@@ -3,6 +3,7 @@
  * @file
  * Provides Do Something-specific SMS functionality.
  */
+define('DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH', 'admin/config/dosomething/dosomething_sms');
 
 /**
  * Implements hook_menu().
@@ -17,7 +18,7 @@ function dosomething_sms_menu() {
     'page arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
-  $admin_path = 'admin/config/dosomething/dosomething_sms';
+  $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   $items[$admin_path] = array(
     'title' => 'SMS Workflows',
     'description' => 'Overview of all SMS Workflows',
@@ -37,7 +38,7 @@ function dosomething_sms_menu() {
   $items[$admin_path . '/%sms_workflow/edit'] = array(
     'title' => 'Edit',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_sms_workflow_form', 2),
+    'page arguments' => array('dosomething_sms_workflow_form', 4),
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
     'type' => MENU_LOCAL_TASK,
