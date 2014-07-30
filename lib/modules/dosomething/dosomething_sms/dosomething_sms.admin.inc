@@ -16,8 +16,8 @@ function dosomething_sms_workflow_overview_page() {
     t('Status'),
     t('Op'),
   );
-
-  foreach (dosomething_sms_get_sms_workflows() as $workflow) {
+  // Loop through all sms_workflows, regardless of status:
+  foreach (dosomething_sms_get_sms_workflows(FALSE) as $workflow) {
     $nid = $workflow->nid;
     $rows[] = array(
       $workflow->id,

@@ -420,9 +420,10 @@ function dosomething_sms_mobilecommons_opt_out($phone, $campaign) {
 /**
  * Returns all SMS Workflow data as an array of objects.
  */
-function dosomething_sms_get_sms_workflows() {
-  return db_select('dosomething_sms_workflow', 'sw')
-      ->fields('sw')
-      ->execute()
-      ->fetchAll();
+function dosomething_sms_get_sms_workflows($filter_active = TRUE) {
+  $query = db_select('dosomething_sms_workflow', 'sw')->fields('sw');
+  if ($filter_active) {
+    $query->condition('status', 0, '>');
+  }
+  return $query->execute()->fetchAll();
 }
