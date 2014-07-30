@@ -4,6 +4,9 @@
  * Code for dosomething_sms admin functionality.
  */
 
+/**
+ * Page callback for SMS Workflow admin page.
+ */
 function dosomething_sms_workflow_overview_page() {
   $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   $add_link = l(t('Add SMS Workflow'), $admin_path . '/add');
@@ -61,13 +64,13 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
     '#title' => t('Endpoint'),
     '#description' => "The unique path that this workflow is be accessed from.",
     '#required' => TRUE,
-    '#default_value' => $workflow->endpoint,
+    '#default_value' => isset($workflow->endpoint) ? $workflow->endpoint : NULL,
   );
   $form['title'] =  array(
     '#type' => 'textfield',
     '#title' => t('Human readable title'),
     '#required' => TRUE,
-    '#default_value' => $workflow->title,
+    '#default_value' => isset($workflow->title) ? $workflow->title : NULL,
   );
   $form['nid'] =  array(
     '#type' => 'entity_autocomplete',
@@ -75,7 +78,7 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
     '#description' => t('Select the campaign this workflow is for.'),
     '#bundles' => array('campaign'),
     '#required' => TRUE,
-    '#default_value' => $workflow->nid,
+    '#default_value' => isset($workflow->nid) ? $workflow->nid : NULL,
   );
   $form['status'] = array(
     '#type' => 'checkbox',
@@ -97,7 +100,7 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
       '#type' => 'textfield',
       '#title' => $id,
       '#required' => TRUE,
-      '#default_value' => $workflow->{$id},
+      '#default_value' => isset($workflow->{$id}) ? $workflow->{$id} : NULL,
     );
   }
   $form['actions'] = array('#type' => 'actions');
@@ -123,7 +126,6 @@ function dosomething_sms_workflow_form_submit($form, &$form_state) {
     }
   }
   $entity->save();
-  // Redirect to confirmation.
   $form_state['redirect'] = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   drupal_set_message("SMS Workflow saved.");
 }
