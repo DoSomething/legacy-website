@@ -51,7 +51,13 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'user_identifier'  => dosomething_helpers_text_truncate($vars['user_identifier'], 8),
     'who_we_are'       => array(
       'text' => theme_get_setting('header_who_we_are_text'),
+      'subtext' => theme_get_setting('header_who_we_are_subtext'),
       'link' => theme_get_setting('header_who_we_are_link'),
+    ),
+    'explore_campaigns'=> array(
+      'text' => theme_get_setting('header_explore_campaigns_text'),
+      'subtext' => theme_get_setting('header_explore_campaigns_subtext'),
+      // 'link' => theme_get_setting('header_explore_campaigns_link'),
     ),
   );
 

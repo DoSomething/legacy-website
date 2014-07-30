@@ -154,12 +154,43 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#title'         => 'Text',
     '#default_value' => theme_get_setting('header_who_we_are_text'),
   );
+  $form_who_we_are['header_who_we_are_subtext'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Subtext',
+    '#default_value' => theme_get_setting('header_who_we_are_subtext'),
+  );
   $form['header']['who_we_are']['header_who_we_are_link'] = array(
     '#type'          => 'entity_autocomplete',
     '#title'         => 'Link to',
     '#bundles'       => array('static_content'),
     '#default_value' => theme_get_setting('header_who_we_are_link'),
   );
+
+
+  $form['header']['explore_campaigns'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Explore Campaigns'),
+    '#collapsible' => TRUE,
+    '#collapsed'   => TRUE,
+  );
+
+  $form_explore_campaigns = &$form['header']['explore_campaigns'];
+  $form_explore_campaigns['header_explore_campaigns_text'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Text',
+    '#default_value' => theme_get_setting('header_explore_campaigns_text'),
+  );
+  $form_explore_campaigns['header_explore_campaigns_subtext'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Subtext',
+    '#default_value' => theme_get_setting('header_explore_campaigns_subtext'),
+  );
+  // $form['header']['explore_campaigns']['header_explore_campaigns_link'] = array(
+  //   '#type'          => 'entity_autocomplete',
+  //   '#title'         => 'Link to',
+  //   '#bundles'       => array('static_content'),
+  //   '#default_value' => theme_get_setting('header_explore_campaigns_link'),
+  // );
 }
 
 function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
