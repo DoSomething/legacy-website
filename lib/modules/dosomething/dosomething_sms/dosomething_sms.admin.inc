@@ -6,8 +6,7 @@
 
 function dosomething_sms_workflow_overview_page() {
   $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
-  $add_path = $admin_path . '/add';
-  $add_link = l(t('Add SMS Workflow'), $add_path);
+  $add_link = l(t('Add SMS Workflow'), $admin_path . '/add');
   $output = '<ul class="action-links"><li>' . $add_link. '</li></ul>';
   $rows = array();
   $header = array(
@@ -28,10 +27,11 @@ function dosomething_sms_workflow_overview_page() {
       l(t('Edit'), $admin_path . '/' . $workflow->id . '/edit'),
     );
   }
-  return $output . theme('table', array(
+  $output .= theme('table', array(
     'header' => $header,
     'rows' => $rows,
   ));
+  return $output;
 }
 
 /**
