@@ -164,4 +164,10 @@ solr_port:
      - value: 8080
      - update_minion: True
 
+finder_url:
+  environ.set:
+     - name: DS_FINDER_URL
+     - value: http://solr.dev.dosomething.org
+
+
 {% endif %}

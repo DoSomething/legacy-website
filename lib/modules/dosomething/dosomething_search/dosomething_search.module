@@ -7,6 +7,17 @@
 include_once 'dosomething_search.features.inc';
 
 function dosomething_search_preprocess_page(&$vars) {
+  $solrURL = variable_get('dosomething_search_finder_url', 'https://search.dosomething.org');
+  $collection = variable_get('dosomething_search_finder_collection', 'collection1');
+  drupal_add_js(
+    array('dosomething_search' =>
+      array(
+        'solrURL' => $solrURL,
+        'collection' => $collection
+      )
+    ),
+    'setting'
+  );
   $form = drupal_get_form('search_block_form');
   $vars['search_box'] = drupal_render($form);
 }

@@ -58,5 +58,10 @@ $conf_path = explode('/', conf_path());
 $solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
 $conf['apachesolr_path'] = "solr/{$solr_path}";
 
-$conf['apachesolr_read_only'] = 1;
+// This is different from the apachesolr host because it's on the client side
+$conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: 'http://solr.dev.dosomething.org') . ":{$conf['apachesolr_port']}/solr/";
+
+$conf['dosomething_search_finder_collection'] = $solr_path;
+
+#$conf['apachesolr_read_only'] = 1;
 
