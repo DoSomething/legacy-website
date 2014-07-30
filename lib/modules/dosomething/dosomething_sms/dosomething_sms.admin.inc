@@ -46,6 +46,10 @@ function dosomething_sms_workflow_overview_page() {
     'header' => $header,
     'rows' => $rows,
   ));
+  $output .= '<h2>Development</h2>';
+  $output .= '<p>These should be turned off in production.</p>';
+  $config_form = drupal_get_form('dosomething_sms_workflow_config_form');
+  $output .= render($config_form);
   return $output;
 }
 
@@ -128,4 +132,23 @@ function dosomething_sms_workflow_form_submit($form, &$form_state) {
   $entity->save();
   $form_state['redirect'] = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   drupal_set_message("SMS Workflow saved.");
+}
+
+/**
+ * Form constructor for SMS Workflow config form.
+ */
+function dosomething_sms_workflow_config_form($form, &$form_state) {
+  $form['dosomething_sms_workflow_log'] =  array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable logging'),
+    '#description' => t("Logs requests to any SMS Workflow endpoint."),
+    '#default_value' => variable_get('dosomething_sms_workflow_log'),
+  );
+  $form['dosomething_sms_workflow_access_bypass'] =  array(
+    '#type' => 'checkbox',
+    '#title' => t('Bypass IP checks'),
+    '#description' => t("Disables check for incoming MobileCommons IP."),
+    '#default_value' => variable_get('dosomething_sms_workflow_access_bypass'),
+  );
+  return system_settings_form($form);
 }
