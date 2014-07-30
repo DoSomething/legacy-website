@@ -17,11 +17,8 @@ function dosomething_sms_workflow_overview_page() {
     t('Status'),
     t('Op'),
   );
-  $result = db_select('dosomething_sms_workflow', 'sw')
-      ->fields('sw')
-      ->execute()
-      ->fetchAll();
-  foreach ($result as $workflow) {
+
+  foreach (dosomething_sms_get_sms_workflows() as $workflow) {
     $nid = $workflow->nid;
     $rows[] = array(
       $workflow->id,

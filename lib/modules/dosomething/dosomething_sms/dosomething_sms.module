@@ -416,3 +416,13 @@ function dosomething_sms_mobilecommons_opt_out($phone, $campaign) {
 
   mobilecommons_request('opt_out', $content);
 }
+
+/**
+ * Returns all SMS Workflow data as an array of objects.
+ */
+function dosomething_sms_get_sms_workflows() {
+  return db_select('dosomething_sms_workflow', 'sw')
+      ->fields('sw')
+      ->execute()
+      ->fetchAll();
+}
