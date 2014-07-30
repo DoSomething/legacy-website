@@ -58,8 +58,10 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
     '#default_value' => $workflow->title,
   );
   $form['nid'] =  array(
-    '#type' => 'textfield',
-    '#title' => t('Node nid'),
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Campaign'),
+    '#description' => t('Select the campaign this workflow is for.'),
+    '#bundles' => array('campaign'),
     '#required' => TRUE,
     '#default_value' => $workflow->nid,
   );
