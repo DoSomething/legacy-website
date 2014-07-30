@@ -201,6 +201,9 @@ function dosomething_sms_incoming_callback($path) {
     'carrier' => $carrier,
     'sender' => $sender,
   );
+  if (variable_get('dosomething_sms_workflow_log')) {
+    watchdog('dosomething_sms', '$context: ' . json_encode($context));
+  }
 
   // Pass message on to Conductor to handle and generate a response
   $output = '';
@@ -208,6 +211,9 @@ function dosomething_sms_incoming_callback($path) {
 
   // Reply with output back to Mobile Commons. If empty, Mobile Commons will ignore it.
   print $output;
+  if (variable_get('dosomething_sms_workflow_log')) {
+    watchdog('dosomething_sms', '$output: ' . json_encode($output));
+  }
 
   return NULL;
 }
@@ -216,6 +222,9 @@ function dosomething_sms_incoming_callback($path) {
  * Filter to ensure incoming texts are coming from Mobile Commons' IP.
  */
 function dosomething_sms_incoming_check() {
+  if (variable_get('dosomething_sms_workflow_access_bypass')) {
+    return TRUE;
+  }
   // Valid IP range as specified by Mobile Commons is: 64.22.127.0/24.
   // This translates to any IP 64.22.127.0 - 64.22.127.255
   $ips = array();
