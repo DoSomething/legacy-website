@@ -15,7 +15,7 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php print $sponsor_logos; ?>
+      <?php print $promotions; ?>
     </div>
   </header>
 

@@ -256,7 +256,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
       }
     }
 
-    // Output sponsors and creator in promotions module
+    // Output sponsors and creator in promotions module.
     if ($vars['sponsor_logos'] || $vars['campaign_creator']) {
       $classes = NULL;
 
@@ -274,6 +274,11 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
       $vars['promotions'] = '<div class="promotions' . $classes . '">' . $vars['promotions'] . '</div>';
 
     }
+  }
+
+  // Add class to header if promotions will be included in display.
+  if ($vars['promotions']) {
+    $vars['classes_array'][] = 'has-promotions';
   }
 
   // If the campaign requires a signup modal to display:

@@ -89,6 +89,18 @@
         @include visually-hidden();
       }
     }
+
+    &.has-promotions {
+      > .wrapper {
+        @include media($tablet) {
+          padding-bottom: 12px;
+        }
+
+        @include media($desktop) {
+          padding-bottom: 0;
+        }
+      }
+    }
   }
 
   .container--do {
@@ -99,7 +111,7 @@
         top: 117px;
       }
 
-      // TODO: might have to replace neue pattern for
+      // @TODO: might have to replace neue pattern for
       // .polaroid + p definition with the following
       & + h3 {
         margin-top: 27px;

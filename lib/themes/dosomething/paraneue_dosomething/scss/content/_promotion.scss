@@ -107,6 +107,7 @@ $btw-tablet-and-desktop: 960px;
   }
 
   .__image {
+
     @include media($btw-tablet-and-desktop) {
       display: table-cell;
       padding: 0 0 0 10px;
@@ -139,6 +140,10 @@ $btw-tablet-and-desktop: 960px;
 // Promotion Specific
 .promotion--sponsor {
 
+  .__image {
+    max-width: 125px;
+  }
+
   img {
     max-height: 50px;
   }
@@ -159,6 +164,10 @@ $btw-tablet-and-desktop: 960px;
   }
 
   img {
-    max-height: 100px;
+    max-height: 70px;
+
+    @include media($btw-tablet-and-desktop) {
+      max-height: 100px;
+    }
   }
 }
