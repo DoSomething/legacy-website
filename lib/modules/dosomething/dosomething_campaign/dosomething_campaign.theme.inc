@@ -85,7 +85,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     )
   );
   // Zendesk Support Ticket form.
-  if (isset($vars['content']['zendesk_form'])) {
+  if (isset($vars['content']['zendesk_form']) && !dosomething_settings_is_affiliate()) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
 }
