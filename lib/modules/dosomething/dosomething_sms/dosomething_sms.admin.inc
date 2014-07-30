@@ -73,6 +73,22 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
     // Default to 1 for new workflows.
     '#default_value' => isset($workflow->status) ? $workflow->status : 1,
   );
+  $ids = array(
+    'id_no_mms_response',
+    'id_ask_quantity',
+    'id_ask_why_participated',
+    'id_submit_reportback',
+    'id_campaign_opt_out',
+    'id_campaign_completed',
+  );
+  foreach ($ids as $id) {
+    $form[$id] =  array(
+      '#type' => 'textfield',
+      '#title' => $id,
+      '#required' => TRUE,
+      '#default_value' => $workflow->{$id},
+    );
+  }
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',

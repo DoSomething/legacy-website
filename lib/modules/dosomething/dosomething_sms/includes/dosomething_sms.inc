@@ -24,18 +24,6 @@ class SMSWorkflowEntity extends Entity {
 class SMSWorkflowEntityController extends EntityAPIController {
 
   /**
-   * Overrides buildContent() method.
-   */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
-    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-    $build['nid'] = array(
-      '#type' => 'markup',
-      '#markup' => '<p>Nid: ' . l($entity->nid, 'node/' . $entity->nid) . '</p>',
-    );
-    return $build;
-  }
-
-  /**
    * Overrides save() method.
    *
    * Populates created and updated automatically.
