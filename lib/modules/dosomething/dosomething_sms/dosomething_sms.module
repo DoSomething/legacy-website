@@ -3,7 +3,7 @@
  * @file
  * Provides Do Something-specific SMS functionality.
  */
-
+define('DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH', 'admin/config/dosomething/dosomething_sms');
 
 /**
  * Implements hook_menu().
@@ -18,7 +18,33 @@ function dosomething_sms_menu() {
     'page arguments' => array(1),
     'type' => MENU_CALLBACK,
   );
-
+  $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
+  $items[$admin_path] = array(
+    'title' => 'SMS Workflows',
+    'description' => 'Overview of all SMS Workflows',
+    'page callback' => 'dosomething_sms_workflow_overview_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_sms.admin.inc',
+  );
+  $items[$admin_path . '/add'] = array(
+    'title' => 'Add SMS Workflow',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_sms_workflow_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_sms.admin.inc',
+  );
+  $items[$admin_path . '/%sms_workflow/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_sms_workflow_form', 4),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+    'file' => 'dosomething_sms.admin.inc',
+  );
   return $items;
 }
 
@@ -33,6 +59,34 @@ function dosomething_sms_permission() {
       'restrict access' => TRUE,
     ),
   );
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_sms_entity_info() {
+  $info = array();
+  $info['sms_workflow'] = array(
+    'label' => t('SMS Workflow'),
+    'base table' => 'dosomething_sms_workflow',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'title',
+    ),
+    'entity class' => 'SMSWorkflowEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'SMSWorkflowEntityController',
+    'module' => 'dosomething_sms',
+  );
+  return $info;
+}
+
+/**
+ * Menu autoloader for /%sms_workflow.
+ */
+function sms_workflow_load($id) {
+  $entity = entity_load('sms_workflow', array($id));
+  return array_pop($entity);
 }
 
 /**
@@ -361,4 +415,14 @@ function dosomething_sms_mobilecommons_opt_out($phone, $campaign) {
   $content['campaign'] = $campaign;
 
   mobilecommons_request('opt_out', $content);
+}
+
+/**
+ * Returns all SMS Workflow data as an array of objects.
+ */
+function dosomething_sms_get_sms_workflows() {
+  return db_select('dosomething_sms_workflow', 'sw')
+      ->fields('sw')
+      ->execute()
+      ->fetchAll();
 }
