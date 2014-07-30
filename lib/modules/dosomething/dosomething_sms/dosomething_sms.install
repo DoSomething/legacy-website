@@ -40,5 +40,81 @@ function dosomething_sms_schema() {
     ),
   );
 
+  $schema['dosomething_sms_workflow'] = array(
+    'description' => 'Stores configurations for SMS Reportback workflows.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Unique identifier for the workflow.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'name' => array(
+        'description' => 'Workflow machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'title' => array(
+        'description' => 'Workflow human readable title.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'description' => 'Workflow status.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the workflow was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'The Unix timestamp when the workflow was updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'description' => 'The Node nid for the Reportback.',
+        'type' => 'int',
+      ),
+      // Various Opt-in IDs:
+      'id_no_mms_response' => array(
+        'type' => 'int',
+      ),
+      'id_ask_quantity' => array(
+        'type' => 'int',
+      ),
+      'id_ask_why_participated' => array(
+        'type' => 'int',
+      ),
+      'id_submit_reportback' => array(
+        'type' => 'int',
+      ),
+      'id_campaign_opt_out' => array(
+        'type' => 'int',
+      ),
+      'id_campaign_completed' => array(
+        'type' => 'int',
+      ),
+    ),
+  );
+
   return $schema;
+}
+
+/**
+ * Creates dosomething_sms_workflow table.
+ */
+function dosomething_sms_update_7001(&$sandbox) {
+  $table_name = 'dosomething_sms_workflow';
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_sms_schema();
+    db_create_table($table_name, $schema[$table_name]);  
+  }
 }
