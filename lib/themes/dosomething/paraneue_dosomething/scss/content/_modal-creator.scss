@@ -11,6 +11,8 @@
 
     @include media($tablet) {
       display: table;
+      min-height: 200px;
+      width: 100%;
     }
   }
 
