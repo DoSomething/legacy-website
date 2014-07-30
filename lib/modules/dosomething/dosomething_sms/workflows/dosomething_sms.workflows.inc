@@ -250,59 +250,6 @@ $activity->inputs = array('submit_reportback');
 
 $workflows[$workflow->name] = $workflow;
 
-/**
- * @Report back for Birthday Cards 2014.
- */
-$workflow = new ConductorWorkflow();
-$workflow->wid = 'new';
-$workflow->name = 'dosomething_sms_birthdaymail_reportback';
-$workflow->title = 'Birthday Mail 2014 Report Back';
-$workflow->api_version = '1.0';
-
-$activity = $workflow->newActivity('start');
-$activity->name = 'start';
-$activity->outputs = array('ask_picture');
-
-$activity = $workflow->newActivity('mms_prompt');
-$activity->name = 'ask_picture';
-$activity->inputs = array('start');
-$activity->outputs = array('ask_quantity');
-$activity->noMmsResponse = 169337;
-
-$activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
-$activity->name = 'ask_quantity';
-$activity->inputs = array('ask_picture');
-$activity->outputs = array('ask_why_participated');
-$activity->optInPathId = 167303;
-
-$activity = $workflow->newActivity('mobilecommons_opt_in_prompt');
-$activity->name = 'ask_why_participated';
-$activity->inputs = array('ask_quantity');
-$activity->outputs = array('strip_signature');
-$activity->optInPathId = 167305;
-
-$activity = $workflow->newActivity('sms_strip_signature');
-$activity->name = 'strip_signature';
-$activity->inputs = array('ask_why_participated');
-$activity->outputs = array('submit_reportback');
-
-$activity = $workflow->newActivity('dosomething_sms_submit_reportback');
-$activity->name = 'submit_reportback';
-$activity->inputs = array('strip_signature');
-$activity->outputs = array('end');
-$activity->nid = 2461;  // Birthday Mail 2014, staging.beta: 1324, www: 2461
-$activity->mmsContext = 'ask_picture:mms';
-$activity->propertyToContextMap = array(
-  'quantity' => 'ask_quantity:message',
-  'why_participated' => 'ask_why_participated:message',
-);
-$activity->optInPathId = 169183;
-$activity->optOutCampaignId = 126955;
-$activity->mobileCommonsCompletedCampaignId = 126957;
-
-$activity = $workflow->newActivity('end');
-$activity->name = 'end';
-$activity->inputs = array('submit_reportback');
 
 // Loop through all active SMS Workflows.
 foreach (dosomething_sms_get_sms_workflows() as $wf) {
