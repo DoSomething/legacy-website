@@ -57,6 +57,20 @@
         ]
       }
     ],
+    "faq": [
+      {
+        "header": "Why is 'fee awesome?'",
+        "copy": "It's great, you can drink it alone or with your friends."
+      },
+      {
+        "header": "Are there health risks?",
+        "copy": "No, just keep drinking 'fee and you'll never have to sleep again."
+      },
+      {
+        "header": "This sounds great, sign me up!",
+        "copy": "That's the spirit! Head over to Birch Coffee, just remember - pics or it didn't happen!"
+      }
+    ],
 
     "items_needed": "* Fresh coffee beans\n* Aeropress or Chemex\n* Hot water",
     "vips": "Celestial at Birch Coffee knows what's up.",
@@ -74,9 +88,25 @@
 
     "pre_step_header": "Get your 'Fee!",
     "pre_step_copy": "You'll need to find some 'fee, fast. Find Maxwell Watson.",
+    "step_pre": [
+      {
+        "header": "Find Maxwell",
+        "copy": "He's drinking 'fee. But he needs some more 'fee."
+      },
+      {
+        "header": "Give Him 'Fee",
+        "copy": "Give him some 'fee. You'll get 300 points in the Intern Scavenger Hunt."
+      }
+    ],
     "photo_step": "Take a photo of yourself and Maxwell enjoying your 'fee.",
     "post_step_header": "Submit your photo!",
     "post_step_copy": "Put that photo on the group drive so all the other interns can enjoy admire your fantastic success! You should drink a celebratory espresso.",
+    "step_post": [
+      {
+        "header": "Thank the Barista",
+        "copy": "The espresso machine is powerful. Thank them for only using their powers for good."
+      }
+    ],
 
     "reportback_copy": "Man, that's fine! Drink an espresso to celebrate!",
     "reportback_confirm_msg": "You sure drank that 'fee. Good work!",

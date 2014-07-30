@@ -376,7 +376,7 @@ function dosomething_campaign_create_node_from_json($string) {
   }
 
   // Set issue
-  if(isset($data->issue)) {
+  if (isset($data->issue)) {
     $term = dosomething_taxonomy_create_term($data->issue, "cause");
     $node->field_issue[LANGUAGE_NONE][0]['tid'] = $term->tid;
   }
@@ -388,6 +388,18 @@ function dosomething_campaign_create_node_from_json($string) {
       $field_name = 'field_' . $image_field;
       $image_node = dosomething_image_create_node_from_json(json_encode($data->{$image_field}));
       $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $image_node->nid;
+    }
+  }
+
+  // Set all field collection properties:
+  $field_collection = dosomething_campaign_get_property_names_field_collection();
+  foreach ($field_collection as $field_collection_field) {
+    if (isset($data->{$field_collection_field})) {
+      foreach ($data->{$field_collection_field} as $key => $item) {
+        $field_name = 'field_' . $field_collection_field;
+        $field_collection_entity = dosomething_campaign_create_field_collection_from_json(json_encode($item), $field_name, $node);
+        $node->{$field_name}[LANGUAGE_NONE][$key]['target_id'] = $field_collection_entity->nid;
+      }
     }
   }
 
@@ -463,6 +475,37 @@ function dosomething_campaign_get_property_names_image() {
 }
 
 /**
+ * Returns array of campaign property names which contain field collections.
+ */
+function dosomething_campaign_get_property_names_field_collection() {
+  return array(
+    'faq',
+    'step_pre',
+    'step_post',
+  );
+}
+
+/**
+ * Create a field collection with the given fields from JSON string.
+ */
+function dosomething_campaign_create_field_collection_from_json($string, $field_collection_name, $node) {
+  $data = json_decode($string);
+
+  $field_collection_item = entity_create('field_collection_item', array('field_name' => $field_collection_name));
+  $field_collection_item->setHostEntity('node', $node);
+
+  foreach ($data as $data_field => $data_field_value) {
+    $collection_field_name =  "field_compound_text_" . $data_field;
+    $field_collection_item->{$collection_field_name}[LANGUAGE_NONE][0]['value'] = $data_field_value;
+    if ($data_field == "copy") {
+      $field_collection_item->{$collection_field_name}[LANGUAGE_NONE][0]['format'] = 'markdown';
+    }
+  }
+
+  $field_collection_item->save();
+}
+
+/**
  * Returns a loaded campaign $node's field_campaign_type value.
  *
  * @param object $node
@@ -520,7 +563,7 @@ function dosomething_campaign_get_sms_games() {
   $query->condition('field_campaign_type_value' , 'sms_game');
   $results = $query->execute();
 
-  foreach($results as $key => $result) {
+  foreach ($results as $key => $result) {
     $sms_games[$key]['nid'] = $result->nid;
     $sms_games[$key]['title'] = $result->title;
   }
