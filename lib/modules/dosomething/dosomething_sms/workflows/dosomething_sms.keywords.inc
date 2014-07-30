@@ -10,4 +10,4 @@ $keywords['sms-game-paths'] = 'dosomething_sms_game_paths';
 $keywords['comeback-clothes-reportback'] = 'dosomething_sms_comeback_clothes_reportback';
 $keywords['thumbwars-reportback'] = 'dosomething_sms_thumbwars_reportback';
 $keywords['imaboss-reportback'] = 'dosomething_sms_imaboss_reportback';
-$keywords['bithdaymail-reportback'] = 'dosomething_sms_birthdaymail_reportback';
+$keywords['birthdaymail-reportback'] = 'dosomething_sms_birthdaymail_reportback';
