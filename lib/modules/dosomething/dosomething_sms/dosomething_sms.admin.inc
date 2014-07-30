@@ -14,16 +14,28 @@ function dosomething_sms_workflow_overview_page() {
     t('Endpoint'),
     t('Node'),
     t('Status'),
+    t('MMS Response'),
+    t('Ask Quantity'),
+    t('Ask Why Participated'),
+    t('Submit Reportback'),
+    t('Campaign Opt-out'),
+    t('Campaign Completed'),
     t('Op'),
   );
-
-  foreach (dosomething_sms_get_sms_workflows() as $workflow) {
+  // Loop through all sms_workflows, regardless of status:
+  foreach (dosomething_sms_get_sms_workflows(FALSE) as $workflow) {
     $nid = $workflow->nid;
     $rows[] = array(
       $workflow->id,
       $workflow->endpoint,
       l($nid, 'node/' . $nid . '/reportbacks'),
       $workflow->status ? t('Enabled') : t('Disabled'),
+      $workflow->id_no_mms_response,
+      $workflow->id_ask_quantity,
+      $workflow->id_ask_why_participated,
+      $workflow->id_submit_reportback,
+      $workflow->id_campaign_opt_out,
+      $workflow->id_campaign_completed,
       l(t('Edit'), $admin_path . '/' . $workflow->id . '/edit'),
     );
   }
@@ -58,8 +70,10 @@ function dosomething_sms_workflow_form($form, &$form_state, $workflow = NULL) {
     '#default_value' => $workflow->title,
   );
   $form['nid'] =  array(
-    '#type' => 'textfield',
-    '#title' => t('Node nid'),
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Campaign'),
+    '#description' => t('Select the campaign this workflow is for.'),
+    '#bundles' => array('campaign'),
     '#required' => TRUE,
     '#default_value' => $workflow->nid,
   );

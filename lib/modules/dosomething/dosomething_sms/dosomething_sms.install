@@ -119,3 +119,22 @@ function dosomething_sms_update_7001(&$sandbox) {
     db_create_table($table_name, $schema[$table_name]);  
   }
 }
+
+/**
+ * Imports SMS Workflow record for Birthday Mail on prod.
+ */
+function dosomething_sms_update_7002(&$sandbox) {
+  $sms_workflow = entity_create('sms_workflow', array(
+    'endpoint' => 'birthdaymail-reportback',
+    'title' => 'Birthday Mail 2014 Report Back',
+    'nid' => 2461,
+    'status' => 1,
+    'id_no_mms_response' => 169337,
+    'id_ask_quantity' => 167303,
+    'id_ask_why_participated' => 167305,
+    'id_submit_reportback' => 169183,
+    'id_campaign_opt_out' => 126955,
+    'id_campaign_completed' => 126957,
+  ));
+  $sms_workflow->save();
+}
