@@ -12,8 +12,8 @@
     <ul class="primary-nav">
       <li>
         <a href="/campaigns">
-          <strong><?php print t('Explore Campaigns'); ?></strong>
-          <span><?php print t('Any cause, anytime, anywhere.'); ?></span>
+          <strong><?php print $explore_campaigns['text']; ?></strong>
+          <span><?php print $explore_campaigns['subtext']; ?></span>
         </a>
       </li>
 
@@ -21,7 +21,7 @@
         <a href="<?php print url('node/' . $who_we_are['link']); ?>">
           <?php //<strong>What is D<span>o</span>S<span>omething</span>.org?</strong> @TODO: Temp hidden. ?>
           <strong><?php print $who_we_are['text']; ?></strong>
-          <span><?php print t('Young people + social change.'); ?></span>
+          <span><?php print $who_we_are['subtext']; ?></span>
         </a>
       </li>
     </ul>
