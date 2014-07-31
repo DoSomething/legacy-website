@@ -24,7 +24,7 @@ function dosomething_sms_menu() {
     'description' => 'Overview of all SMS Workflows',
     'page callback' => 'dosomething_sms_workflow_overview_page',
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('administer dosomething_sms'),
     'file' => 'dosomething_sms.admin.inc',
   );
   $items[$admin_path . '/add'] = array(
@@ -32,7 +32,7 @@ function dosomething_sms_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_sms_workflow_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('administer dosomething_sms'),
     'file' => 'dosomething_sms.admin.inc',
   );
   $items[$admin_path . '/%sms_workflow/edit'] = array(
@@ -40,7 +40,7 @@ function dosomething_sms_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_sms_workflow_form', 4),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('administer dosomething_sms'),
     'type' => MENU_CALLBACK,
     'weight' => 20,
     'file' => 'dosomething_sms.admin.inc',
@@ -211,9 +211,6 @@ function dosomething_sms_incoming_callback($path) {
 
   // Reply with output back to Mobile Commons. If empty, Mobile Commons will ignore it.
   print $output;
-  if (variable_get('dosomething_sms_workflow_log')) {
-    watchdog('dosomething_sms', '$output: ' . json_encode($output));
-  }
 
   return NULL;
 }
