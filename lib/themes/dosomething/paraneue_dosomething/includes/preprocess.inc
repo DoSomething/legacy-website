@@ -13,8 +13,8 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   //       with '/' so Drupal can't open js file for parsing.
   //       @see drupal_add_js().
   //    b) DS_ASSET_PATH is not local. It is already a valid URL to CDN.
-  $app_js = DS_ASSET_PATH == LOCAL_ASSET_PATH ? PARANEUE_DS_PATH . '/dist'
-                                              : DS_ASSET_PATH;
+  $is_local_asset = DS_ASSET_PATH == LOCAL_ASSET_PATH;
+  $app_js = $is_local_asset ? (PARANEUE_DS_PATH . '/dist') : DS_ASSET_PATH;
 
   // 2. Build name. Determine whether suffix '.min' should be inserted.
   $minified = theme_get_setting('use_minified_assets');
