@@ -211,9 +211,6 @@ function dosomething_sms_incoming_callback($path) {
 
   // Reply with output back to Mobile Commons. If empty, Mobile Commons will ignore it.
   print $output;
-  if (variable_get('dosomething_sms_workflow_log')) {
-    watchdog('dosomething_sms', '$output: ' . json_encode($output));
-  }
 
   return NULL;
 }
