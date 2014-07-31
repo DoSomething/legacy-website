@@ -142,9 +142,17 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
     $output .= render($signup_data_config_form);
   }
-  if (module_exists('dosomething_reportback')) {
-    $reportback_field_form = drupal_get_form('dosomething_reportback_node_reportback_field_form', $node);
+  if (module_exists('dosomething_helpers')) {
+    $form_id = 'dosomething_campaign_reportback_config_form';
+    $reportback_field_form = drupal_get_form($form_id, $node);
     $output .= render($reportback_field_form);
+    if (user_access('administer modules')) {
+      // Only admin's can use this Reportback Field form.
+      // This form will soon be deprecated but Thumb Wars uses it.
+      $form_id = 'dosomething_reportback_node_reportback_field_form';
+      $reportback_field_form = drupal_get_form($form_id, $node);
+      $output .= render($reportback_field_form);
+    }
   }
   return $output;
 }
@@ -229,4 +237,48 @@ function dosomething_campaign_admin_status_call_to_action_query($char_count = 65
   $query->addExpression('CHAR_LENGTH(cta.field_call_to_action_value)', 'length');
   $query->where('CHAR_LENGTH(cta.field_call_to_action_value) > ' . $char_count);
   return $query->execute();
+}
+
+/**
+ * Sets helpers variables related to Reportback functionality.
+ */
+function dosomething_campaign_reportback_config_form($form, &$form_state, $node) {
+  // Load the node's helpers variables.
+  $vars = dosomething_helpers_get_variables($node->nid);
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->nid,
+  );
+  $form['rb'] = array(
+    '#type' => 'fieldset',
+    '#title' => t("Reportbacks"),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['rb']['collect_num_participants'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect number of participants'),
+    '#description' => t('If set, the Reportback form will include an additional question asking for number of participants.'),
+    '#default_value' => $vars['collect_num_participants'],
+    '#size' => 20,
+  );
+  $form['rb']['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => 'Save',
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_campaign_reportback_config_form().
+ */
+function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state) {
+  $var_name = 'collect_num_participants';
+  $values = $form_state['values'];
+  $node = node_load($values['nid']);
+  dosomething_helpers_set_variable($node, $var_name, $values[$var_name]);
+  drupal_set_message("Updated.");
 }
