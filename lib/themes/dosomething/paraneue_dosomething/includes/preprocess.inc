@@ -141,25 +141,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 /**
  * Implements theme_preprocess_node().
  */
-function paraneue_dosomething_preprocess_block(&$vars) {
-
-  $vars['clean_output'] = false;
-
-  // Array containing names of blocks that need clean markup output.
-  $clean_output_blocks = array(
-    'block-dosomething-campaign-submit-campaign-idea',
-  );
-
-  if (in_array($vars['block_html_id'], $clean_output_blocks)) {
-    $vars['clean_output'] = true;
-  }
-
-}
-
-
-/**
- * Implements theme_preprocess_node().
- */
 function paraneue_dosomething_preprocess_node(&$vars) {
 
   switch($vars['node']->type) {
