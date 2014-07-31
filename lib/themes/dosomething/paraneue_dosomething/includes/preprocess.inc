@@ -67,18 +67,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
     $modifier_classes = 'black floating';
   }
-
-  $logo = NEUE_ASSET_PATH . '/assets/images/ds-logo.png';
-  if (theme_get_setting('header_logo_override')) {
-    $file = file_load(theme_get_setting('header_logo_override'));
-    if (!empty($file->uri)) {
-      $logo = file_create_url($file->uri);
-    }
-  }
+  
   $navigation_vars = array(
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
-    'logo'             => $logo,
+    'logo'             => $vars['logo'],
     'front_page'       => $vars['front_page'],
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],

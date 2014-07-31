@@ -6,6 +6,7 @@ core = 7.x
 php = 5.2
 
 features[] = favicon
+features[] = logo
 features[] = name
 features[] = slogan
 features[] = main_menu
