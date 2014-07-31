@@ -1,9 +1,4 @@
 <?php
-/**
- * @file
- * Code for the Dosomething helpers feature.
- */
-
 include_once 'dosomething_helpers.features.inc';
 /**
  * @file
