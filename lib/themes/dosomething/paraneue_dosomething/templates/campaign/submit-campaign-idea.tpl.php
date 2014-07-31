@@ -241,7 +241,7 @@
                     <label class="ss-q-item-label" for="entry_223902718">What type of action is your idea? <span class="ss-required-asterisk">*</span></label>
                 </div>
                 <div class="ss-q-help ss-secondary-text" dir="ltr">
-                    If your idea is more than one type of action, choose the one that’s most relevant. Check out our descriptions on each type of action.
+                    If your idea is more than one type of action, choose the one that’s most relevant. Check out our <a href="https://docs.google.com/a/dosomething.org/file/d/0B5fENCbpVZv9R0VnMjh5VWJybFB1QTRyRS05clF3V19VdkFj/edit" target="_blank">descriptions on each type of action</a>.
                 </div>
                 <ul class="ss-choices" role="radiogroup" aria-label="What type of action is your idea? If your idea is more than one type of action, choose the one that’s most relevant. Check out our descriptions on each type of action.">
                     <li class="ss-choice-item">
