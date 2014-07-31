@@ -119,7 +119,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'field_step_post',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Use active verbs. 
+    'description' => 'Use active verbs.
 </br>
 <strong> Limit 20 characters. </strong>',
     'display' => array(
@@ -155,7 +155,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'field_step_pre',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is a tip to help the member during this step of the action. 
+    'description' => 'This is a tip to help the member during this step of the action.
 <br/>
 <strong> Limit: 135 characters </strong>',
     'display' => array(
@@ -191,7 +191,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'field_step_pre',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Use active verbs. 
+    'description' => 'Use active verbs.
 <br/>
 <strong> Limit 20 characters. </strong>',
     'display' => array(
@@ -332,9 +332,9 @@ function dosomething_campaign_field_default_field_instances() {
         'weight' => 21,
       ),
       'search_index' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 21,
       ),
       'teaser' => array(
@@ -1334,7 +1334,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). 
+    'description' => 'This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets).
 <p>
 <li>To create bullet points put "* " in front of the word. For instance <em>"* paper * crayons * smiles"</em> </li>
 <li>Capitalize the first letter of the first word in a list (i.e. <em>* Peanuts</em> NOT <em>* peanuts</em>).</li>
@@ -1709,7 +1709,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated. 
+    'description' => 'This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated.
 <br/>
 <strong> Limit: 135 characters </strong>',
     'display' => array(
@@ -1856,7 +1856,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This describes the action the user must take before they can take a picture. I.e. "Set up a collection box outside the store. Tell people about your drive before they walk in - see the food pile up when they walk out."; "Head to the senior center or retirement home and hand out condoms to seniors in need (get it). Don’t forget the instructions!". 
+    'description' => 'This describes the action the user must take before they can take a picture. I.e. "Set up a collection box outside the store. Tell people about your drive before they walk in - see the food pile up when they walk out."; "Head to the senior center or retirement home and hand out condoms to seniors in need (get it). Don’t forget the instructions!".
 <br/>
 <strong> Limit 135 characters. </strong>',
     'display' => array(
@@ -2042,7 +2042,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press... 
+    'description' => 'This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press...
 <br/>
 <strong> Limit: 135 character </strong>',
     'display' => array(
@@ -2091,7 +2091,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
+    'description' => 'Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need.
 <br/>
 <strong> Limit 60 characters. </strong>',
     'display' => array(
@@ -2386,7 +2386,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.") 
+    'description' => 'If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.")
 <br/>
 <strong> Limit: 135 characters </strong>
 ',
@@ -2692,7 +2692,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Include any key words or phrases we want to associate for both external and internal search. i.e. Music, Hospital, Children, Kids for the campaign "Put on a concert in a Children\'s Hospital". Also could include celebrity tied to the campaign like Miley Cyrus. 
+    'description' => 'Include any key words or phrases we want to associate for both external and internal search. i.e. Music, Hospital, Children, Kids for the campaign "Put on a concert in a Children\'s Hospital". Also could include celebrity tied to the campaign like Miley Cyrus.
 <br/>
 <strong> Please use commas to separate terms. </strong>',
     'display' => array(
@@ -2741,7 +2741,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate." 
+    'description' => 'This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate."
 <br/>
 <strong> Limit: 135 characters </strong>',
     'display' => array(
@@ -2837,7 +2837,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars. 
+    'description' => 'This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars.
 <br/>
 <strong> Limit: 135 characters </strong>',
     'display' => array(
@@ -2923,11 +2923,11 @@ function dosomething_campaign_field_default_field_instances() {
   t('If you are not using a fact above, use this field. This is information that shows that the call to action is what to do to solve the issue.
 <br />
 <strong>Limit: 135 characters</strong>');
-  t('If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.") 
+  t('If you need more clarification on the solution statement. (i.e., "Last year, teens who got thumb socks were less likely to text and drive and more likely to ask others to stop.")
 <br/>
 <strong> Limit: 135 characters </strong>
 ');
-  t('Include any key words or phrases we want to associate for both external and internal search. i.e. Music, Hospital, Children, Kids for the campaign "Put on a concert in a Children\'s Hospital". Also could include celebrity tied to the campaign like Miley Cyrus. 
+  t('Include any key words or phrases we want to associate for both external and internal search. i.e. Music, Hospital, Children, Kids for the campaign "Put on a concert in a Children\'s Hospital". Also could include celebrity tied to the campaign like Miley Cyrus.
 <br/>
 <strong> Please use commas to separate terms. </strong>');
   t('Include the link of the Google doc that proves the impact of the campaign.');
@@ -2960,7 +2960,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Report Back Verb');
   t('Scholarship Amount');
   t('Select the user who created this campaign.');
-  t('Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need. 
+  t('Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need.
 <br/>
 <strong> Limit 60 characters. </strong>');
   t('Show End Date on Pitch & Action Page');
@@ -2978,10 +2978,10 @@ function dosomething_campaign_field_default_field_instances() {
   t('This describes the action the user must take after they take a picture. I.e. "Drop off the food you collected at your local food bank at the time you decided. Then pat yourself on the back like the boss you are."; "Check in with the senior center two weeks later. See if they’ve been acting safer with the tip sheets and condoms - no details needed.".
 <br/>
 <strong> Limit 135 characters. </strong>');
-  t('This describes the action the user must take before they can take a picture. I.e. "Set up a collection box outside the store. Tell people about your drive before they walk in - see the food pile up when they walk out."; "Head to the senior center or retirement home and hand out condoms to seniors in need (get it). Don’t forget the instructions!". 
+  t('This describes the action the user must take before they can take a picture. I.e. "Set up a collection box outside the store. Tell people about your drive before they walk in - see the food pile up when they walk out."; "Head to the senior center or retirement home and hand out condoms to seniors in need (get it). Don’t forget the instructions!".
 <br/>
 <strong> Limit 135 characters. </strong>');
-  t('This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets). 
+  t('This is a list of the items you\'ll need to complete the action. This section should just be a set of bullet points (i.e. no sentence introducing the bullets).
 <p>
 <li>To create bullet points put "* " in front of the word. For instance <em>"* paper * crayons * smiles"</em> </li>
 <li>Capitalize the first letter of the first word in a list (i.e. <em>* Peanuts</em> NOT <em>* peanuts</em>).</li>
@@ -2990,32 +2990,32 @@ function dosomething_campaign_field_default_field_instances() {
 </ul>
 </p>
 <strong> Limit: 135  </strong>');
-  t('This is a tip to help the member during this step of the action. 
+  t('This is a tip to help the member during this step of the action.
 <br/>
 <strong> Limit: 135 characters </strong>');
-  t('This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press... 
+  t('This is for tips on promoting the campaign once it\'s live - hanging posters, to social media tips, to getting local press...
 <br/>
 <strong> Limit: 135 character </strong>');
   t('This is one simple, specific action. It tells our members exactly what the action is they are taking during the campaign. i.e. <em>"Create an action plan to protect prescription drugs in your home from young children."</em> or <em>"Send a handmade birthday card to a child experiencing homelessness."</em>
 <p>This should always start with a verb and end with a period.</p>
 <p><strong> Limit: 65 characters </strong></p>');
-  t('This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated. 
+  t('This is the step where the user should take a photo confirming that their action took place. i.e. Take a photo of the jeans you collected and everyone who donated.
 <br/>
 <strong> Limit: 135 characters </strong>');
   t('This is to describe what the location should be used for and any notes the user needs when using the finder. i.e. <i>Find a local food bank that accepts donations. Call them to arrange drop off in advance.</i><br>
 <strong>Limit 120 characters.</strong>');
-  t('This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate." 
+  t('This should include advice about both timing and location. "Put your donation box in a place where lots of people walk by." "Have your drive run for at least a week to give people a chance to donate."
 <br/>
 <strong> Limit: 135 characters </strong>');
-  t('This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars. 
+  t('This should include info on people you may need to involve. Ranges from getting permission from your principal, to getting your artsy friend involved to make a compelling poster, to how you pick a friend who texts and drives for Thumb Wars.
 <br/>
 <strong> Limit: 135 characters </strong>');
   t('This will open up as a separate modal. Only fill this out if you have 3+ stats you want the user to learn about.');
   t('Time and Place');
-  t('Use active verbs. 
+  t('Use active verbs.
 </br>
 <strong> Limit 20 characters. </strong>');
-  t('Use active verbs. 
+  t('Use active verbs.
 <br/>
 <strong> Limit 20 characters. </strong>');
   t('VIPs');
