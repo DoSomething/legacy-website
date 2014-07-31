@@ -7,6 +7,17 @@
 include_once 'dosomething_search.features.inc';
 
 function dosomething_search_preprocess_page(&$vars) {
+  $solrURL = variable_get('dosomething_search_finder_url', 'https://search.dosomething.org');
+  $collection = variable_get('dosomething_search_finder_collection', 'collection1');
+  drupal_add_js(
+    array('dosomething_search' =>
+      array(
+        'solrURL' => $solrURL,
+        'collection' => $collection
+      )
+    ),
+    'setting'
+  );
   $form = drupal_get_form('search_block_form');
   $vars['search_box'] = drupal_render($form);
 }
@@ -120,6 +131,7 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
       }
     }
 
+    $bubble_factor = 0;
     $node = entity_metadata_wrapper('node', $entity);
     foreach (array('high_season', 'low_season') as $season) {
       if (isset($node->{"field_" . $season})) {
@@ -128,6 +140,9 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
           $now = time();
           if ($now >= $node->{"field_" . $season}->value->value() && $now <= $node->{"field_" . $season}->value2->value()) {
             $document->setField("bs_{$season}", 'true');
+            if ($node->field_high_season->value() && $season == 'high_season') {
+              $bubble_factor += 5;
+            }
           }
         }
       }
@@ -135,9 +150,17 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
     $sponsored = $node->field_partners->value();
     if (isset($sponsored)) {
       $document->setField("bs_sponsored", 'true');
+      $bubble_factor += 10;
     }
+
+    if (isset($node->field_staff_pick) && $node->field_staff_pick->value()) {
+      $bubble_factor += 20;
+    }
+
+    $document->setField('is_bubble_factor', $bubble_factor);
   }
 }
+
 
 /**
  * Preprocess a single search result.
