@@ -87,6 +87,7 @@ function dosomething_reportback_user_default_permissions() {
     'name' => 'view any reportback',
     'roles' => array(
       'administrator' => 'administrator',
+      'communications team' => 'communications team',
       'editor' => 'editor',
       'member support' => 'member support',
     ),

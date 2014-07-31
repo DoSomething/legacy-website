@@ -1,4 +1,4 @@
-name = dosomething_sms
+name = DoSomething SMS
 description = Provides SMS integration for DoSomething.org
 core = 7.x
 package = DoSomething

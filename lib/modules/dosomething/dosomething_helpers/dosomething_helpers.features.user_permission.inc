@@ -30,5 +30,15 @@ function dosomething_helpers_user_default_permissions() {
     'module' => 'entityconnect',
   );
 
+  // Exported permission: 'use entity autocomplete'.
+  $permissions['use entity autocomplete'] = array(
+    'name' => 'use entity autocomplete',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'communications team' => 'communications team',
+    ),
+    'module' => 'entity_autocomplete',
+  );
+
   return $permissions;
 }
