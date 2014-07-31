@@ -75,16 +75,38 @@
   }
 
   .ss-q-other-container {
-    padding-left: 22px;
+
+    @include media($tablet) {
+      padding-left: 22px;
+    }
 
     input {
       max-width: 400px;
     }
   }
 
-  .ss-datetime-box select {
-    @include span-columns(2 of 8);
-    @include omega(3n);
+
+  // Birthday Dropdown
+  .ss-datetime-box {
+    overflow: hidden;
+
+    select {
+      float: left;
+      width: 30%;
+
+      @include media($tablet) {
+        @include span-columns(2 of 8);
+        @include omega(3n);
+      }
+    }
+
+    select + select {
+      margin-left: 3%;
+
+      @include media($tablet) {
+        margin-left: 0;
+      }
+    }
   }
 
   // Hide Google Datepicker control

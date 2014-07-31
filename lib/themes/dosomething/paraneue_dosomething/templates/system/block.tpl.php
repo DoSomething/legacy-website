@@ -2,6 +2,11 @@
 /**
  * Returns the HTML for a block.
  * @see https://drupal.org/node/1728246
+ *
+ * @see
+ * paraneue_dosomething_preprocess_block() in includes/preprocess.inc
+ * If the $clean_output variable is set to TRUE, then the content for
+ * the block will be output, without any of the extra markup around it.
  */
 ?>
 

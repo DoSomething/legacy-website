@@ -2,7 +2,7 @@
 
   <form class="wrapper" action="https://docs.google.com/a/dosomething.org/forms/d/1YY2BTXz65IcqyjaTf6GT8FZx0Z2E1251LcSf5LIhc0s/formResponse" method="post" id="ss-form" target="_self" onsubmit="">
     <p class="required">
-      <strong><?php print t('All fields are required.'); ?></strong>
+      <strong>All fields are required.</strong>
     </p>
 
     <?php // First Name Field ?>
@@ -10,13 +10,11 @@
       <div dir="ltr" class="ss-item ss-item-required ss-text">
         <div class="ss-form-entry">
           <div class="ss-q-title">
-            <label class="ss-q-item-label" for="entry_212037837"><?php print t('First Name'); ?> <span class="ss-required-asterisk">*</span></label>
+            <label class="ss-q-item-label" for="entry_212037837">First Name <span class="ss-required-asterisk">*</span></label>
           </div>
-          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.212037837" value="" class="ss-q-short" id="entry_212037837" dir="auto" aria-label="<?php print t('First Name'); ?>" aria-required="true" required="" title="">
+          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.212037837" value="" class="ss-q-short" id="entry_212037837" dir="auto" aria-label="First Name" aria-required="true" required="" title="">
           <div class="error-message" id="1205439792_errorMessage"></div>
-          <div class="required-message">
-            <?php print t('This is a required question'); ?>
-          </div>
+          <div class="required-message">This is a required question.</div>
         </div>
       </div>
     </div>
@@ -26,13 +24,11 @@
       <div dir="ltr" class="ss-item ss-item-required ss-text">
         <div class="ss-form-entry">
           <div class="ss-q-title">
-            <label class="ss-q-item-label" for="entry_2068859039"><?php print t('Last Name'); ?> <span class="ss-required-asterisk">*</span></label>
+            <label class="ss-q-item-label" for="entry_2068859039">Last Name <span class="ss-required-asterisk">*</span></label>
           </div>
-          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.2068859039" value="" class="ss-q-short" id="entry_2068859039" dir="auto" aria-label="<?php print t('Last Name'); ?>" aria-required="true" required="" title="">
+          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.2068859039" value="" class="ss-q-short" id="entry_2068859039" dir="auto" aria-label="Last Name" aria-required="true" required="" title="">
           <div class="error-message" id="1427438197_errorMessage"></div>
-          <div class="required-message">
-            <?php print t('This is a required question'); ?>
-          </div>
+          <div class="required-message">This is a required question.</div>
         </div>
       </div>
     </div>
@@ -42,13 +38,11 @@
       <div dir="ltr" class="ss-item ss-item-required ss-text">
         <div class="ss-form-entry">
           <div class="ss-q-title">
-            <label class="ss-q-item-label" for="entry_1282358104"><?php print t('Email Address'); ?> <span class="ss-required-asterisk">*</span></label>
+            <label class="ss-q-item-label" for="entry_1282358104">Email Address <span class="ss-required-asterisk">*</span></label>
           </div>
-          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.1282358104" value="" class="ss-q-short" id="entry_1282358104" dir="auto" aria-label="<?php print t('Email Address'); ?>" aria-required="true" required="" title="">
+          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.1282358104" value="" class="ss-q-short" id="entry_1282358104" dir="auto" aria-label="Email Address" aria-required="true" required="" title="">
           <div class="error-message" id="970803978_errorMessage"></div>
-          <div class="required-message">
-            <?php print t('This is a required question'); ?>
-          </div>
+          <div class="required-message">This is a required question.</div>
         </div>
       </div>
     </div>
@@ -58,13 +52,11 @@
       <div dir="ltr" class="ss-item ss-item-required ss-text">
         <div class="ss-form-entry">
           <div class="ss-q-title">
-            <label class="ss-q-item-label" for="entry_35169248"><?php print t('Cell Number'); ?> <span class="ss-required-asterisk">*</span></label>
+            <label class="ss-q-item-label" for="entry_35169248">Cell Number <span class="ss-required-asterisk">*</span></label>
           </div>
-          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.35169248" value="" class="ss-q-short" id="entry_35169248" dir="auto" aria-label="<?php print t('Cell Number'); ?>" aria-required="true" required="" title="">
+          <div class="ss-q-help ss-secondary-text" dir="ltr"></div><input type="text" name="entry.35169248" value="" class="ss-q-short" id="entry_35169248" dir="auto" aria-label="Cell Number" aria-required="true" required="" title="">
           <div class="error-message" id="437089912_errorMessage"></div>
-          <div class="required-message">
-            <?php print t('This is a required question'); ?>
-          </div>
+          <div class="required-message">This is a required question.</div>
         </div>
       </div>
     </div>
@@ -79,11 +71,78 @@
           <div class="ss-q-help ss-secondary-text" dir="ltr">
             <?php print t('You must be ages 13 to 25 (sorry 26-and-up-year-olds).'); ?>
           </div>
-          <?php // @TODO: Question if this should be a dropdown? ?>
-          <input type="date" name="entry.164235794" value="" class="ss-q-date" dir="auto" id="entry_164235794" aria-label="<?php print t('Birthday You must be ages 13 to 25 (sorry 26-and-up-year-olds).'); ?>" aria-required="true" required="">
-          <div class="required-message">
-            <?php print t('This is a required question'); ?>
+
+          <div class="ss-datetime-box">
+            <select name="entry.164235794_month" class="ss-month-dropdown" id="entry.164235794_month" aria-label="<?php print t('Month'); ?>" aria-required="true">
+              <option value=""><?php print t('Month'); ?></option>
+              <option value="1"><?php print t('January'); ?></option>
+              <option value="2"><?php print t('February'); ?></option>
+              <option value="3"><?php print t('March'); ?></option>
+              <option value="4"><?php print t('April'); ?></option>
+              <option value="5"><?php print t('May'); ?></option>
+              <option value="6"><?php print t('June'); ?></option>
+              <option value="7"><?php print t('July'); ?></option>
+              <option value="8"><?php print t('August'); ?></option>
+              <option value="9"><?php print t('September'); ?></option>
+              <option value="10"><?php print t('October'); ?></option>
+              <option value="11"><?php print t('November'); ?></option>
+              <option value="12"><?php print t('December'); ?></option>
+            </select>
+
+            <select name="entry.164235794_day" class="ss-day-dropdown" id="entry.164235794_day" aria-label="<?php print t('Day of month'); ?>" aria-required="true">
+              <option value=""><?php print t('Day'); ?></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+
+            <select name="entry.164235794_year" id="entry.164235794_year" aria-label="Year" aria-required="true">
+              <option value="">Year</option>
+              <option value="1989">1989</option>
+              <option value="1990">1990</option>
+              <option value="1991">1991</option>
+              <option value="1992">1992</option>
+              <option value="1993">1993</option>
+              <option value="1994">1994</option>
+              <option value="1995">1995</option>
+              <option value="1996">1996</option>
+              <option value="1997">1997</option>
+              <option value="1998">1998</option>
+              <option value="1999">1999</option>
+              <option value="2000">2000</option>
+              <option value="2001">2001</option>
+            </select>
           </div>
+
+          <div class="required-message">This is a required question.</div>
         </div>
       </div>
     </div>
@@ -105,9 +164,7 @@
                     </li>
                 </ul>
                 <div class="error-message" id="1600151592_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
@@ -123,14 +180,12 @@
                     Please provide your (valid!) Zip Code.
                 </div><input type="text" name="entry.429981564" value="" class="ss-q-short" id="entry_429981564" dir="auto" aria-label="Where are you located? Please provide your (valid!) Zip Code." aria-required="true" required="" title="">
                 <div class="error-message" id="1112487280_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // Cause Area Radio Selection ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-radio">
             <div class="ss-form-entry">
@@ -173,14 +228,12 @@
                     </li>
                 </ul>
                 <div class="error-message" id="1031662904_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // Type of Action Radio Selection ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-radio">
             <div class="ss-form-entry">
@@ -217,14 +270,12 @@
                     </li>
                 </ul>
                 <div class="error-message" id="223902718_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // What Problem Addressed Text Area ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-paragraph-text">
             <div class="ss-form-entry">
@@ -236,14 +287,12 @@
                 </div>
                 <textarea name="entry.1255883103" rows="8" cols="0" class="ss-q-long" id="entry_1255883103" dir="auto" aria-label="What problem are you addressing? You MUST include a fact/statistic that proves this problem. e.g. X% of animals end up in shelters after hurricanes. Limit 1-2 sentences." aria-required="true" required=""></textarea>
                 <div class="error-message" id="1184451617_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // Source Text Area ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-paragraph-text">
             <div class="ss-form-entry">
@@ -255,14 +304,12 @@
                 </div>
                 <textarea name="entry.1631970968" rows="8" cols="0" class="ss-q-long" id="entry_1631970968" dir="auto" aria-label="Please cite the source(s) of the fact(s) you listed above. Get your research on. Be sure to include: (1) Title of specific study, article, website, or book OR (2) Organization or author that published it OR (3) Link to study or stat. Limit 1-2 sentences." aria-required="true" required=""></textarea>
                 <div class="error-message" id="2043198594_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // Action Description Text Area ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-paragraph-text">
             <div class="ss-form-entry">
@@ -274,14 +321,12 @@
                 </div>
                 <textarea name="entry.334582054" rows="8" cols="0" class="ss-q-long" id="entry_334582054" dir="auto" aria-label="Describe the action you want people to take. This should be one clear single action anyone in the U.S. can do. E.g., “Collect gently used towels and deliver them to your local animal shelter.” Limit 1-2 sentences." aria-required="true" required=""></textarea>
                 <div class="error-message" id="711595546_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
 
-    <?php // ?>
+    <?php // Prove Idea Text Area ?>
     <div class="ss-form-question errorbox-good">
         <div dir="ltr" class="ss-item ss-item-required ss-paragraph-text">
             <div class="ss-form-entry">
@@ -293,9 +338,7 @@
                 </div>
                 <textarea name="entry.2116830440" rows="8" cols="0" class="ss-q-long" id="entry_2116830440" dir="auto" aria-label="How can you prove your idea is an effective solution to the problem? Do this by (1) Sharing results if you’ve done this before (e.g. “I ran this project last Christmas and fed 100 people”) OR (2) Linking to someone that’s successfully done this (e.g. “The Red Cross runs blood drives that save lives”) OR (3) Linking to research that proves your solution is valid (e.g. “The CDC says educating people about vaccines makes them more likely to get vaccinated”). Limit 1-2 sentences." aria-required="true" required=""></textarea>
                 <div class="error-message" id="1391945183_errorMessage"></div>
-                <div class="required-message">
-                    <?php print t('This is a required question'); ?>
-                </div>
+                <div class="required-message">This is a required question.</div>
             </div>
         </div>
     </div>
