@@ -4,6 +4,40 @@
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
+
+  // Build app.js URL:
+  // 1. Build path:
+  //    a) DS_ASSET_PATH is local. Path must be built with drupal_get_path()
+  //       function (already assigned to PARANEUE_DS_PATH).
+  //       Using DS_ASSET_PATH in this case is wrong: it starts
+  //       with '/' so Drupal can't open js file for parsing.
+  //       @see drupal_add_js().
+  //    b) DS_ASSET_PATH is not local. It is already a valid URL to CDN.
+  $is_local_asset = DS_ASSET_PATH == LOCAL_ASSET_PATH;
+  $app_js = $is_local_asset ? (PARANEUE_DS_PATH . '/dist') : DS_ASSET_PATH;
+
+  // 2. Build name. Determine whether suffix '.min' should be inserted.
+  $minified = theme_get_setting('use_minified_assets');
+  $app_js .= '/app' . (!$minified ?: '.min') . '.js';
+
+  // Add app.js using Drupal API:
+  // - Please note that group must be JS_LIBRARY, weight must be < -100,
+  //   every_page must be set to TRUE. This way app.js will be added
+  //   above drupal.js (weight -100, same options).
+  //   @see drupal_add_js(), 'weight' option.
+  // - The reason why app.js must be above drupal.js is that app.js contains
+  //   bundled libraries (e.g. jQuery) which drupal.js depends.on.
+  //   @see paraneue_dosomething_js_alter().
+  // - Preprocess is turned off to avoid double minification
+  //   of local (non-cdn) app.min.js.
+  //   @see drupal_add_js(), 'preprocess' option.
+  drupal_add_js($app_js, array(
+    'group'      => JS_LIBRARY,
+    'weight'     => -200,
+    'every_page' => TRUE,
+    'preprocess' => FALSE,
+  ));
+
   // Add theme suggestion for page template based on node.
   if (isset($vars['node']->type)) {
     // If the content type's machine name is "my_machine_name" the file

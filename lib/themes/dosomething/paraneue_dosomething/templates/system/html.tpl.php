@@ -51,7 +51,6 @@
     <?php print $page; ?>
   </div>
 
-  <script type="text/javascript" src="<?php print DS_JAVASCRIPT_PATH; ?>"></script>
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
