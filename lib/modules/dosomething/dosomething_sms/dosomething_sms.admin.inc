@@ -51,8 +51,12 @@ function dosomething_sms_workflow_overview_page() {
     'header' => $header,
     'rows' => $rows,
   ));
-  $config_form = drupal_get_form('dosomething_sms_workflow_config_form');
-  $output .= render($config_form);
+
+  if (user_access('administer modules')) {
+    $config_form = drupal_get_form('dosomething_sms_workflow_config_form');
+    $output .= render($config_form);
+  }
+
   return $output;
 }
 

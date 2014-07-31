@@ -1,9 +1,9 @@
-name = DoSomething SMS
+name = dosomething_sms
 description = Provides SMS integration for DoSomething.org
 core = 7.x
-dependencies[] = conductor_sms
-dependencies[] = entity
-dependencies[] = entity_autocomplete
 package = DoSomething
+dependencies[] = features
 configure = admin/config/dosomething/dosomething_sms
+features[features_api][] = api:2
+features[user_permission][] = administer dosomething_sms
 files[] = includes/dosomething_sms.inc
