@@ -311,6 +311,13 @@ class ReportbackEntityController extends EntityAPIController {
       '#markup' => 'Quantity: <strong>' . check_plain($entity->quantity) . '</strong> ' . $quantity_label,
       '#suffix' => '</p>',
     );
+    if ($entity->num_participants) {
+       $build['num_participants'] = array(
+        '#prefix' => '<p>',
+        '#markup' => '# of Participants: <strong>' . $entity->num_participants . '</strong> ',
+        '#suffix' => '</p>',
+      );
+    }
       // If entity has an active reportback field:
     if (isset($entity->field) && $entity->field['status']==1) {
       $reportback_field_label = $entity->field['label'];
