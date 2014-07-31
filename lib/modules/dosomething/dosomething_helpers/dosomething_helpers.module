@@ -10,15 +10,6 @@ include_once('dosomething_helpers.strongarm.inc');
 include_once('dosomething_helpers.variable.inc');
 
 /**
- * Implements hook_ctools_plugin_api().
- */
-function dosomething_helpers_ctools_plugin_api($module = NULL, $api = NULL) {
-  if ($module == "strongarm" && $api == "strongarm") {
-    return array("version" => "1");
-  }
-}
-
-/**
  * Implements hook_menu().
  */
 function dosomething_helpers_menu() {
