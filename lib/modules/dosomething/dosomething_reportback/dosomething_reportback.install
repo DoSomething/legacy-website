@@ -54,6 +54,10 @@ function dosomething_reportback_schema() {
         'length' => '2048',
         'not null' => FALSE,
       ),
+      'num_participants' => array(
+        'description' => 'The number of participants, if applicable.',
+        'type' => 'int',
+      ),
     ),
     'primary key' => array('rbid'),
     'indexes' => array(
@@ -329,4 +333,17 @@ function dosomething_reportback_update_7006() {
   $num_deleted = db_delete('dosomething_reportback_field')
     ->condition('status', 0)
     ->execute();
+}
+
+/**
+ * Adds num_participants to the dosomething_reportback table.
+ */
+function dosomething_reportback_update_7007() {
+  $tbl_name = 'dosomething_reportback';
+  $fld_name = 'num_participants';
+  $schema = dosomething_reportback_schema();
+  if (!db_field_exists($tbl_name, $fld_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
+  }
 }
