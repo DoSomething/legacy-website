@@ -64,6 +64,25 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     ),
     '#default_value' => $entity->quantity,
   );
+
+  // Load helpers variables for the nid this reportback is for.
+  $config = dosomething_helpers_get_variables($entity->nid);
+  if ($config['collect_num_participants']) {
+    $form['num_participants'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#attributes' => array(
+        'placeholder' => t("Enter # here"),
+        'class' => array('js-validate'),
+        'data-validate' => 'reportbackNumber',
+        'data-validate-required' => '',
+      ),
+      '#element_validate' => array('element_validate_integer_positive'),
+      '#title' => t("Total # of people participated"),
+      '#default_value' => $entity->num_participants,
+    );
+  }
+
   // If a custom reportback field exists and is set to active:
   if (isset($entity->field) && $entity->field['status'] == 1) {
     $field_name = $entity->field['name'];
