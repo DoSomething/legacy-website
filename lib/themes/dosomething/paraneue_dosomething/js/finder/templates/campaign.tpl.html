@@ -1,7 +1,7 @@
 <li>
 <article class="tile tile--campaign campaign-result<% if(featured) { %> big<% } %>">
   <a class="wrapper" href="<%= url %>">
-    <% if(staffPick) {  %><div class="__flag -staff-pick">Staff Pick</div><% } %>
+    <% if(staffPick) {  %><div class="__flag -staff-pick"><%= Drupal.t("Staff Pick") %></div><% } %>
     <div class="tile--meta">
       <h1 class="__title"><%= title %></h1>
       <p class="__tagline"><%= description %></p>
