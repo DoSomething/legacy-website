@@ -21,6 +21,7 @@
       "DEBUG": false,
       "jQuery": false,
       "$": false,
+      "Drupal": false,
       "_gaq": false
     },
     "strict": true,
