@@ -26,6 +26,9 @@ function dosomething_signup_mobilecommons_opt_in($account, $lid, $title = NULL) 
   try {
     // If valid args for given $user:
     if ($args = dosomething_signup_get_mobilecommons_vars($account, $lid, $title)) {
+      if (variable_get('dosomething_signup_log_mobilecommons')) {
+        watchdog('dosomething_signup', json_encode($args));
+      }
       // Submit Mobilecommons request.
       return mobilecommons_request('opt_in', $args);
     }
