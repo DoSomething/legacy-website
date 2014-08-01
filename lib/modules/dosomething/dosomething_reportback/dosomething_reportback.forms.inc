@@ -53,7 +53,7 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     '#attributes' => array(
       'placeholder' => t("Enter # here"),
       'class' => array('js-validate'),
-      'data-validate' => 'reportbackNumber',
+      'data-validate' => 'positiveInteger',
       'data-validate-required' => '',
     ),
     '#element_validate' => array('element_validate_integer_positive'),
@@ -74,7 +74,7 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
       '#attributes' => array(
         'placeholder' => t("Enter # here"),
         'class' => array('js-validate'),
-        'data-validate' => 'reportbackNumber',
+        'data-validate' => 'positiveInteger',
         'data-validate-required' => '',
       ),
       '#element_validate' => array('element_validate_integer_positive'),
