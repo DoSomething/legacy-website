@@ -8,7 +8,7 @@
 /**
  * Form constructor for Signup opt-in configuration.
  */
-function dosomething_signup_admin_opt_in_form($form, &$form_state) {
+function dosomething_signup_optin_config_form($form, &$form_state) {
   $name = 'dosomething_mobilecommons_opt_in_path_user_register';
   $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
   $form[$name] = array(
@@ -80,9 +80,9 @@ function dosomething_signup_admin_opt_in_form($form, &$form_state) {
 }
 
 /**
- * Submit handler for dosomething_signup_admin_config_form().
+ * Submit handler for dosomething_signup_optin_config_form().
  */
-function dosomething_signup_admin_config_form_submit($form, &$form_state) {
+function dosomething_signup_optin_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
   $config_variables = array(
