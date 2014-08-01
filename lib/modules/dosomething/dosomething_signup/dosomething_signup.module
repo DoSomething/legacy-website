@@ -21,9 +21,18 @@ function dosomething_signup_menu() {
     'title' => t('Third Party Opt-Ins'),
     'description' => 'Admin form to manage custom opt-ins',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_signup_admin_config_form'),
+    'page arguments' => array('dosomething_signup_optin_config_form'),
     'access callback' => 'user_access',
     'access arguments' => array('administer third party communication'),
+    'file' => 'dosomething_signup.admin.inc'
+  );
+  $items['admin/config/dosomething/dosomething_signup'] = array(
+    'title' => t('DoSomething Signup'),
+    'description' => t('Admin configuration form for DoSomething Signup.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_signup_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
     'file' => 'dosomething_signup.admin.inc'
   );
   $items['node/%node/unsignup'] = array(
@@ -341,6 +350,12 @@ function dosomething_signup_entity_insert($entity, $type) {
  * Sends third-party subscription requests for given $account and $node.
  */
 function dosomething_signup_third_party_subscribe($account, $node) {
+  // If this $node belongs to a Campaign Group:
+  if ($parent_nid = dosomething_campaign_group_get_parent_nid($node->nid)) {
+    // Exit out of function.
+    // The third_party_subscribe will be called by the parent signup.
+    return;
+  }
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable($node->nid, $var_name);

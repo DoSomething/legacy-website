@@ -53,7 +53,9 @@ function dosomething_mbp_request($origin, $params = NULL) {
       break;
 
   }
-
+  if (variable_get('dosomething_mbp_log')) {
+    watchdog('dosomething_mbp', json_encode($payload));
+  }
   try {
     return message_broker_producer_request($production_type, $payload);
   }

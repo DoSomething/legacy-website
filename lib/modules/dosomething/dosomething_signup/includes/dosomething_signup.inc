@@ -80,5 +80,8 @@ class SignupEntityController extends EntityAPIController {
       }
     }
     parent::save($entity, $transaction);
+    if (variable_get('dosomething_signup_log_signups')) {
+      watchdog('dosomething_signup', json_encode($entity));
+    }
   }
 }

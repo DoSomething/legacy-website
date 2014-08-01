@@ -145,6 +145,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 function dosomething_campaign_group_get_parent_nid($nid) {
   $result = db_select('field_data_field_campaigns', 'c')
     ->condition('field_campaigns_target_id', $nid)
+    ->condition('bundle', 'campaign_group')
     ->condition('deleted', 0)
     ->fields('c', array('entity_id'))
     ->execute();
