@@ -225,6 +225,8 @@ libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mo
 ; Predis
 libraries[predis][download][type] = "git"
 libraries[predis][download][url] = "https://github.com/nrk/predis.git"
+; Pin to 0.8 release, which still has the lib directory.
+libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf6"
 
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
