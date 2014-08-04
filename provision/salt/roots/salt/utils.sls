@@ -30,4 +30,11 @@ bash-fix:
   cmd.run:
     - name: sudo rm /bin/sh && sudo ln -s /bin/bash /bin/sh
 
+America/New_York:
+  timezone.system
+
+/home/vagrant/.bashrc:
+  file.uncomment:
+    - regex: 'force_color_prompt=yes'
+
 {% endif %}
