@@ -353,6 +353,7 @@ function pull_db {
     echo "Pulling down db from staging"
     cd $WEB_PATH
     drush sql-sync @ds.staging @self -y
+    drush en -y stage_file_proxy
   fi
 }
 
@@ -501,7 +502,7 @@ fi
 
 
 #----------------------------------------------------------------------
-# test 
+# test
 #----------------------------------------------------------------------
 if [[ $1 == "test" ]]
 then
