@@ -2,7 +2,7 @@
 
 // Define theme directory path
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
-define('LOCAL_ASSET_PATH', '/' . PARANEUE_DS_PATH . '/dist');
+define('LOCAL_ASSET_PATH', '/' . PARANEUE_DS_PATH);
 
 // If ds_version is set, use CDN assets
 if(theme_get_setting('asset_path')) {
@@ -15,9 +15,9 @@ if(theme_get_setting('asset_path')) {
 
 // Determine whether to use minified stylesheets or not.
 if(theme_get_setting('use_minified_assets')) {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/app.min.css');
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.min.css');
 } else {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/app.css');
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.css');
 }
 
 // Define asset directory paths
@@ -59,7 +59,33 @@ function paraneue_dosomething_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function paraneue_dosomething_js_alter(&$js) {
-  // Load excluded JS files from theme.
+  // Get $js_dir path:
+  //    a) DS_ASSET_PATH is local. Path must be built with drupal_get_path()
+  //       function (already assigned to PARANEUE_DS_PATH).
+  //       Using DS_ASSET_PATH in this case is wrong: it starts
+  //       with '/' so Drupal can't open js file for parsing.
+  //       @see drupal_add_js().
+  //    b) DS_ASSET_PATH is not local. It is already a valid URL to CDN.
+  $is_local_asset = DS_ASSET_PATH == LOCAL_ASSET_PATH;
+  $js_dir = $is_local_asset ? PARANEUE_DS_PATH : DS_ASSET_PATH;
+  $js_subdir = theme_get_setting('use_minified_assets') ? '/dist/js' : '/dist/debug';
+
+  // Add lib.js and app.js using Drupal API:
+  drupal_add_js($js_dir . $js_subdir . '/lib.js', array(
+    'group'      => JS_LIBRARY,
+    'weight'     => -200,
+    'every_page' => TRUE,
+    'preprocess' => FALSE,
+  ));
+
+  drupal_add_js($js_dir . $js_subdir . '/app.js', array(
+    'group'      => JS_THEME,
+    'weight'     => 999,
+    'every_page' => TRUE,
+    'preprocess' => FALSE,
+  ));
+
+  // Load excluded JS files from theme info file.
   $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'js');
   $js = array_diff_key($js, $excludes);
 
