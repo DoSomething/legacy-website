@@ -208,7 +208,7 @@ projects[coder][version] = "2.2"
 projects[coder][subdir] = "contrib"
 
 ; Stage File Proxy
-projects[stage_file_proxy][version] = "1.5"
+projects[stage_file_proxy][version] = "1.6"
 projects[stage_file_proxy][subdir] = "contrib"
 
 
