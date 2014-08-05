@@ -350,10 +350,13 @@ function grunt {
 function pull_db {
   if [[ $1 == "stage" ]]
   then
-    echo "Pulling down db from staging"
+    echo "Pulling down db from staging..."
     cd $WEB_PATH
     drush sql-sync @ds.staging @self -y
+    echo "Enabling Stage File Proxy..."
     drush en -y stage_file_proxy
+    echo "Setting Stage File Proxy to staging URL..."
+    drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
   fi
 }
 
