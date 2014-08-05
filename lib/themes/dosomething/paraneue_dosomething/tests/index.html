@@ -4,23 +4,18 @@
       <meta charset='UTF-8' />
       <meta http-equiv='content-type' content='text/html; charset=utf-8' />
 
-      <title>NEUE QUnit Test Runner</title>
+      <title>DS QUnit Test Runner</title>
 
       <!-- add any external libraries your code needs -->
-      <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
-      <link rel='stylesheet' href='lib/qunit-1.12.0.css'>
+      <script src='../bower_components/jquery/jquery.js'></script>
+      <script src='../node_modules/grunt-contrib-qunit/test/libs/qunit.js'></script>
+      <link rel='stylesheet' href='../node_modules/grunt-contrib-qunit/test/libs/qunit.css'>
 
-      <script type="text/javascript" charset="utf-8">
-        var TEST = true;
-      </script>
-
-      <script src='../dist/app.min.js'></script>
       <!-- add any JS files under test (or put them in different .html files) -->
+      <script src='../dist/js/lib.js'></script>
+      <script src='../../../../../html/misc/drupal.js'></script>
+      <script src='../dist/js/app.js'></script>
 
-      <script src='lib/qunit-1.12.0.js'></script>
-      <script>
-        // Defer Qunit so RequireJS can work its magic and resolve all modules.
-        QUnit.config.autostart = false;
       <script type="text/javascript">
         jQuery.extend(Drupal.settings, {
           "dosomethingSearch": {
