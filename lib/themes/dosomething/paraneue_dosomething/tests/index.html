@@ -21,6 +21,13 @@
       <script>
         // Defer Qunit so RequireJS can work its magic and resolve all modules.
         QUnit.config.autostart = false;
+      <script type="text/javascript">
+        jQuery.extend(Drupal.settings, {
+          "dosomethingSearch": {
+            "solrURL": "http://search.dosomething.org/solr/",
+            "collection": "collection1"
+          }
+        });
       </script>
 
       <!-- your tests, any and all to run with the given fixtures below -->
