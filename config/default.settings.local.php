@@ -64,6 +64,3 @@ $conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: 'http://sol
 $conf['dosomething_search_finder_collection'] = $solr_path;
 
 #$conf['apachesolr_read_only'] = 1;
-
-$conf['stage_file_proxy_origin'] = "http://staging.beta.dosomething.org";
-
