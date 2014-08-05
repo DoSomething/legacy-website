@@ -236,11 +236,10 @@ function dosomething_campaign_load($node, $public = FALSE) {
   // Load Creator property.
   dosomething_campaign_load_creator($campaign, $wrapper);
 
-  // Add stats property.
-  dosomething_campaign_load_stats($campaign);
-
   // If this is accessed via API:
   if ($public) {
+    // Add stats property.
+    dosomething_campaign_load_stats($campaign);
     // Unset properties which shouldn't be public.
     unset($campaign->variables);
   }
