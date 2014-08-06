@@ -60,6 +60,7 @@
  *         - raw (string). URL to the raw file uploaded.
  *   - is_staff_pick (bool)
  *   - items_needed (string). HTML.
+ *   - latest_news_copy (string). Plain text.
  *   - low_season_end (string). Date string.
  *   - low_season_start (string). Date string.
  *   - primary_cause (array)
@@ -412,6 +413,7 @@ function dosomething_campaign_create_node_from_json($string) {
 function dosomething_campaign_get_property_names_plain_text() {
   return array(
     'call_to_action',
+    'latest_news_copy',
     'starter_statement_header',
     'pre_step_header',
     'post_step_header',
