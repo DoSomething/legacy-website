@@ -67,7 +67,13 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
 
   // Load helpers variables for the nid this reportback is for.
   $config = dosomething_helpers_get_variables($entity->nid);
+  // If we are collecting num_participants for this node:
   if ($config['collect_num_participants']) {
+    // Set default label for num_participants form element.
+    $label_default = t("Total # of people participated");
+    // Check for the num_participants_label variable.
+    $var_name = 'dosomething_reportback_num_participants_label';
+    $label = variable_get($var_name, $label_default);
     $form['num_participants'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
@@ -78,7 +84,7 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
         'data-validate-required' => '',
       ),
       '#element_validate' => array('element_validate_integer_positive'),
-      '#title' => t("Total # of people participated"),
+      '#title' => $label,
       '#default_value' => $entity->num_participants,
     );
   }

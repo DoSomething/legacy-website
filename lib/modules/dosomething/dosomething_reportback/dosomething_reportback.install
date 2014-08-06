@@ -347,3 +347,12 @@ function dosomething_reportback_update_7007() {
     db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
   }
 }
+
+/**
+ * Sets dosomething_reportback_num_participants_label variable.
+ */
+function dosomething_reportback_update_7008() {
+  $var_name = 'dosomething_reportback_num_participants_label';
+  $value = 'How many people did you do this with?';
+  variable_set($var_name, $value);
+}
