@@ -10,6 +10,7 @@
  * @see dosomething_campaign_menu()
  */
 function dosomething_campaign_admin_config_form($form, &$form_state) {
+
   // Standard campaign variables.
   $form['campaign'] = array(
     '#type' => 'fieldset',
@@ -17,6 +18,25 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+
+  // Reportback variables.
+  $form['campaign']['reportback'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Reportback'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  // Label for Number of particpiants form field.
+  $var_name = 'dosomething_reportback_num_participants_label';
+  $form['campaign']['reportback'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of Participants Form Label'),
+    '#description' => t("If a Campaign is set to collect number of participants in the Reportback form, this label is displayed."),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
+  // Confirmation page:
   $form['campaign']['confirmation_page'] = array(
     '#type' => 'fieldset',
     '#title' => t('Confirmation Page'),
@@ -35,6 +55,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_confirmation_page_button_text'),
   );
+
   // SMS Game variables.
   $form['sms_game'] = array(
     '#type' => 'fieldset',
