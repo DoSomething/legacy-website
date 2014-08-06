@@ -4,3 +4,4 @@ core = 7.x
 package = DoSomething
 version = 7.x-1.0
 dependencies[] = entity
+files[] = includes/dosomething_reward.inc
