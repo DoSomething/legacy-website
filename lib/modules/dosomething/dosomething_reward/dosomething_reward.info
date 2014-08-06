@@ -1,0 +1,6 @@
+name = DoSomething Reward
+description = Provides Reward entity and functionality.
+core = 7.x
+package = DoSomething
+version = 7.x-1.0
+dependencies[] = entity
