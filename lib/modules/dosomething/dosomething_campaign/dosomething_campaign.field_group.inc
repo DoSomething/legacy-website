@@ -45,6 +45,34 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_campaign_additional_info|node|campaign|form';
+  $field_group->group_name = 'group_campaign_additional_info';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Additional Info',
+    'weight' => '12',
+    'children' => array(
+      0 => 'field_latest_news_copy',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Additional Info',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-campaign-additional-info field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_campaign_additional_info|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_confirmation|node|campaign|form';
   $field_group->group_name = 'group_confirmation';
   $field_group->entity_type = 'node';

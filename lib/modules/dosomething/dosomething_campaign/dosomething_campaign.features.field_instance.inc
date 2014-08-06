@@ -333,6 +333,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'search_index' => array(
         'label' => 'hidden',
+        'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 21,
@@ -429,6 +430,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'search_index' => array(
         'label' => 'hidden',
+        'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 65,
@@ -1381,6 +1383,54 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_latest_news_copy'
+  $field_instances['node-campaign-field_latest_news_copy'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Used by Staff Picks.  This copy will be displayed within the Email Digest.
+
+<p><b>Limit: 140 characters.</b></p>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 70,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_latest_news_copy',
+    'label' => 'Latest News',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 17,
     ),
   );
 
@@ -2451,6 +2501,7 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'search_index' => array(
         'label' => 'hidden',
+        'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 20,
@@ -2938,6 +2989,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Is there a time when this campaign should be lightly weighted in the campaign finder? If so include a start date. We don\'t want to be highlighting beach cleanups in the winter or Thanksgiving ideas in the summer.');
   t('Issue');
   t('Know It Image');
+  t('Latest News');
   t('Limit: 2 per campaign.');
   t('Location Finder Copy');
   t('Low Season');
@@ -3018,6 +3070,9 @@ function dosomething_campaign_field_default_field_instances() {
   t('Use active verbs.
 <br/>
 <strong> Limit 20 characters. </strong>');
+  t('Used by Staff Picks.  This copy will be displayed within the Email Digest.
+
+<p><b>Limit: 140 characters.</b></p>');
   t('VIPs');
   t('Video');
   t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
