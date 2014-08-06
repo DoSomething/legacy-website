@@ -3,7 +3,7 @@
  * @file
  * Code for the DoSomething Reward module.
  */
-
+DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
 /**
  * Implements hook_entity_info().
  */
@@ -23,4 +23,77 @@ function dosomething_reward_entity_info() {
     'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
+}
+
+/**
+ * Checks if a Reward exists.
+ *
+ * @param string $reward_type
+ *   The type of Reward to check for.
+ * @param int $uid
+ *   Optional - the user uid of Reward record to check.
+ *   If not given, uses global $user->uid.
+ *
+ * @return mixed
+ *   The Reward entity if exists, FALSE if it doesn't exist.
+ */
+function dosomething_reward_exists($reward_type, $uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $result = db_select('dosomething_reward', 'r')
+    ->condition('uid', $uid)
+    ->condition('reward_type', $reward_type)
+    ->fields('r', array('id'))
+    ->execute();
+  $id = $result->fetchField(0);
+  // If an id was found, return the Reward.
+  if (is_numeric($id)) {
+    return entity_load_single('reward', $id);
+  }
+  // Otherwise return FALSE.
+  return FALSE;
+}
+
+/**
+ * Creates a Reportback Count Reward for a Reportback, if applicable.
+ *
+ * This function is to be called when a Reportback has been inserted.
+ * @see ReportbackEntityController->save()
+ *
+ * @param obj $reportback
+ *   The newly inserted Reportback entity.
+ *
+ * @return mixed
+ *   The Reward entity if success, FALSE if fail or not applicable.
+ */
+function dosomething_reward_reportback_count($reportback) {
+  $reward_type = 'reportback_count';
+  $uid = $reportback->uid;
+
+  // Check if User already has a Reportback Count Reward.
+  if ($reward = dosomething_reward_exists($reward_type, $uid)) {
+    // Exit out of function because User already has earned a Reward.
+    return FALSE;
+  }
+
+  $rb_count = dosomething_reportback_get_count_by_uid($uid);
+  if ($rb_count >= DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT) {
+    // Create a Reward entity:
+    try {
+      $reward = entity_create('reward', array(
+        'reward_type' => $reward_type,
+        'uid' => $uid,
+        'entity_type' => 'reportback',
+        'entity_id' => $reportback->rbid,
+      ));
+      $reward->save();
+      return $reward;
+    }
+    catch (Exception $e) {
+      watchdog('dosomething_reward', $e, array(), WATCHDOG_ERROR);
+    }
+  }
+  return FALSE;
 }

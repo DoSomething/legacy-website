@@ -402,10 +402,19 @@ class ReportbackEntityController extends EntityAPIController {
     }
     // Log the write operation.
     $entity->insertLog($op);
-    // If this was an insert, send a Message Broker request.
-    if ($op == 'insert' && module_exists('dosomething_mbp')) {
-      dosomething_reportback_mbp_request($entity);
+
+    // If this was an insert:
+    if ($op == 'insert') {
+      // Send Message Broker request.
+      if (module_exists('dosomething_mbp')) {
+        dosomething_reportback_mbp_request($entity);
+      }
+      if (module_exists('dosomething_reward')) {
+        // Check for Reportback Count Reward.
+        dosomething_reward_reportback_count($entity);
+      }
     }
+
   }
 
   /**
