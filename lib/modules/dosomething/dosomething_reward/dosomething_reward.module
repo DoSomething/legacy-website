@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Reward module.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_reward_entity_info() {
+  $info = array();
+  $info['reward'] = array(
+    'label' => t('Reward'),
+    'base table' => 'dosomething_reward',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'id',
+    ),
+    'entity class' => 'RewardEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'RewardEntityController',
+    'module' => 'dosomething_reward',
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+  return $info;
+}

@@ -78,6 +78,12 @@ projects[dosomething_reportback][download][type] = local
 projects[dosomething_reportback][download][source] = './lib/modules/dosomething/dosomething_reportback'
 projects[dosomething_reportback][subdir] = "dosomething"
 
+; Dosomething Reward
+projects[dosomething_reward][type] = "module"
+projects[dosomething_reward][download][type] = local
+projects[dosomething_reward][download][source] = './lib/modules/dosomething/dosomething_reward'
+projects[dosomething_reward][subdir] = "dosomething"
+
 ; Dosomething Search
 projects[dosomething_search][type] = "module"
 projects[dosomething_search][download][type] = local

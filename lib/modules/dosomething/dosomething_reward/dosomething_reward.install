@@ -1,0 +1,60 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_reward.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_reward_schema() {
+  $schema = array();
+  $schema['dosomething_reward'] = array(
+    'description' => 'Table of User Rewards.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid associated with the Reward.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'reward_type' => array(
+        'description' => 'The type of Reward.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'entity_type' => array(
+        'description' => 'The entity type this data is attached to.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'entity_id' => array(
+        'description' => 'The type of the Entity associated with the Reward.',
+        'type' => 'int',
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the Reward was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'redeemed' => array(
+        'description' => 'The Unix timestamp when the Reward was redeemed.',
+        'type' => 'int',
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+  return $schema;
+}
