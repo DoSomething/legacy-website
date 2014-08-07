@@ -403,6 +403,7 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
           'nid' => $node->nid,
           'quantity' => NULL,
           'why_participated' => NULL,
+          'num_participants' => NULL,
         ));
       }
       // Set Reportback Form variable in node content for rendering in theme layer.
