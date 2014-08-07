@@ -737,7 +737,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
  * Returns count of Reportbacks for a given node $uid.
  *
  * @param int $uid
- *   Optional - the user uid to get count of Reportbacks for.
+ *   (optional) The User uid to get count of Reportbacks for.
  *   If not given, uses global $user->uid.
  *
  * @return int

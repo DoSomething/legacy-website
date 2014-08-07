@@ -31,11 +31,11 @@ function dosomething_reward_entity_info() {
  * @param string $reward_type
  *   The type of Reward to check for.
  * @param int $uid
- *   Optional - the user uid of Reward record to check.
+ *   (optional) The User uid of Reward record to check.
  *   If not given, uses global $user->uid.
  *
- * @return mixed
- *   The Reward entity if exists, FALSE if it doesn't exist.
+ * @return
+ *   The Reward object, or FALSE.
  */
 function dosomething_reward_exists($reward_type, $uid = NULL) {
   if ($uid == NULL) {
@@ -62,11 +62,11 @@ function dosomething_reward_exists($reward_type, $uid = NULL) {
  * This function is to be called when a Reportback has been inserted.
  * @see ReportbackEntityController->save()
  *
- * @param obj $reportback
+ * @param object $reportback
  *   The newly inserted Reportback entity.
  *
- * @return mixed
- *   The Reward entity if success, FALSE if fail or not applicable.
+ * @return
+ *   The Reward object, or FALSE.
  */
 function dosomething_reward_reportback_count($reportback) {
   $reward_type = 'reportback_count';
