@@ -18,10 +18,10 @@ class RewardEntity extends Entity {
   }
 
   /**
-   * Sets the Reward's redeemed property to current time.
+   * Sets the Reward's redeemed property to given $timestamp or current time.
    */
-  public function redeem() {
-    $this->redeemed = REQUEST_TIME;
+  public function redeem($timestamp = REQUEST_TIME) {
+    $this->redeemed = $timestamp;
     $this->save();
     if (module_exists('dosomething_mbp')) {
       //@todo: Send confirmation Message Broker request.

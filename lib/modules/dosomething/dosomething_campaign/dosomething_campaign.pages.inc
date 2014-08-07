@@ -15,27 +15,45 @@
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = entity_metadata_wrapper('node', $node);
+  // Initialize $vars to pass to the reportback_confirmation theme function.
+  $vars = array(
+    'back_to_campaign_link' => NULL,
+    'call_to_action' => NULL,
+    'copy' => $node->field_reportback_confirm_msg[LANGUAGE_NONE][0]['value'],
+    'more_campaigns_link' => NULL,
+    'page_title' => NULL,
+    'recommended' => NULL,
+    'reward_form' => NULL,
+  );
 
+  // Set variables for anonymous user:
   if (!user_is_logged_in()) {
     $button_text = variable_get('dosomething_campaign_confirmation_page_anon_button_text');
-    $call_to_action = variable_get('dosomething_campaign_confirmation_page_anon_cta_text');
+    $vars['call_to_action'] = variable_get('dosomething_campaign_confirmation_page_anon_cta_text');
     // The button should open the login/register form.
-    $more_campaigns_link = dosomething_user_get_login_modal_link_markup($button_text, 'large');
+    $vars['more_campaigns_link'] = dosomething_user_get_login_modal_link_markup($button_text, 'large');
   }
+  // Else set variables for authenticated user:
   else {
     $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
-    $call_to_action = NULL;
     // Set button to link to /campaigns.
-    $more_campaigns_link = l(t($button_text), 'campaigns', array(
+    $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', array(
       'attributes' => array('class' =>
         array('btn')
       ))
     );
+    if (module_exists('dosomething_reward')) {
+      if ($reward = dosomething_reward_exists('reportback_count')) {
+        $form_id = 'dosomething_reward_redeem_form';
+        $vars['reward_form'] = drupal_get_form($form_id, $reward);
+      }
+    }
   }
 
   // Link back to current node.
   $campaign_link_title = t('Back to @title', array('@title' => $node->title));
-  $back_to_campaign_link = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
+  $vars['back_to_campaign_link'] = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
+
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
   // Get 4 recommended campaign nids for term $tid and current user.
@@ -52,20 +70,12 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     }
   }
   // We only want to display 3 campaigns blocks - we might have 4.
-  $rec_vars = array_slice($rec_vars, 0, 3);
+  $vars['recommended'] = array_slice($rec_vars, 0, 3);
 
   // Page title is set already based on campaign type.
   // @see dosomething_campaign_menu().
-  $page_title = drupal_get_title();
+  $vars['page_title'] = drupal_get_title();
 
   // Returned themed reportback confirmation page.
-  return theme('reportback_confirmation', array(
-    'page_title' => $page_title,
-    'copy' => $wrapper->field_reportback_confirm_msg->value(),
-    'more_campaigns_link' => $more_campaigns_link,
-    'back_to_campaign_link' => $back_to_campaign_link,
-    'recommended' => $rec_vars,
-    'call_to_action' => $call_to_action,
-    )
-  );
+  return theme('reportback_confirmation', $vars);
 }

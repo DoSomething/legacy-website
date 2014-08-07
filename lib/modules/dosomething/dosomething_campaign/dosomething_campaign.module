@@ -349,13 +349,6 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
     'reportback_confirmation' => array(
       'template' => 'reportback-confirmation',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
-      'variables' => array(
-        'page_title' => NULL,
-        'copy' => NULL,
-        'more_campaigns_link' => NULL,
-        'back_to_campaign_link' => NULL,
-        'recommended' => NULL,
-      ),
     ),
     'campaign_block' => array(
       'template' => 'campaign-block',

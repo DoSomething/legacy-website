@@ -15,7 +15,7 @@
  *   - [path]: URL path for campaign node (string).
  *   - [pretty_path]: Pretty URL path for campaign node (string).
  *   - [staff_pick]: Indicate if this campaign a staff pick (boolean).
- * - $classes: Additional classes passed for output (string).
+ * - $reward_form: Form array, to be rendered.
  */
 ?>
 
@@ -65,5 +65,8 @@
         <div class="cta-back-to-campaign"><?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?></div>
       </div>
     </div>
+  <?php endif; ?>
+  <?php if ($reward_form): ?>
+  <?php print render($reward_form); ?>
   <?php endif; ?>
 </section>

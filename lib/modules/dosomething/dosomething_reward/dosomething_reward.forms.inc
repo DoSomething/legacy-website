@@ -21,7 +21,7 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   );
   $form['id'] = array(
     '#type' => 'hidden',
-    '#default_value' => $entity->id,
+    '#default_value' => $reward->id,
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
