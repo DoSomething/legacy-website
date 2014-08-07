@@ -1,6 +1,12 @@
 <?php
 /**
  * @file
+ * Code for the dosomething_reward feature.
+ */
+
+include_once 'dosomething_reward.features.inc';
+/**
+ * @file
  * Code for the DoSomething Reward module.
  */
 DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
@@ -20,9 +26,144 @@ function dosomething_reward_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'RewardEntityController',
     'module' => 'dosomething_reward',
-    'views controller class' => 'EntityDefaultViewsController',
   );
   return $info;
+}
+
+
+/**
+ * Implements hook_views_data().
+ */
+function dosomething_reward_views_data() {
+  // Define dosomething_reward table.
+  $data['dosomething_reward']['table']['group'] = t('Rewards');
+  $data['dosomething_reward']['table']['base'] = array(
+    'field' => 'id',
+    'title' => t('Rewards'),
+    'help' => t('Dosomething Rewards table.'),
+    'weight' => -10,
+  );
+  $data['dosomething_reward']['table']['join'] = array(
+    'users' => array(
+      'left_field' => 'uid',
+      'field' => 'uid',
+    ),
+  );
+  $data['dosomething_reward']['id'] = array(
+    'title' => t('Reward id'),
+    'help' => t('Reward id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'dosomething_reward',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Reward id'),
+    ),
+  );
+  $data['dosomething_reward']['uid'] = array(
+    'title' => t('Uid'),
+    'help' => t('User id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'users',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Reward User'),
+    ),
+  );
+  $data['dosomething_reward']['reward_type'] = array(
+    'title' => t('Reward type'),
+    'help' => t('Reward type.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['dosomething_reward']['entity_type'] = array(
+    'title' => t('Reward Entity type'),
+    'help' => t('The type of the Entity associated with the Reward.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['dosomething_reward']['entity_id'] = array(
+    'title' => t('Reward Entity id'),
+    'help' => t('The id of the Entity associated with the Reward.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+  $data['dosomething_reward']['created'] = array(
+    'title' => t('Date created'),
+    'help' => t('Date created.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+  $data['dosomething_reward']['redeemed'] = array(
+    'title' => t('Date redeemed'),
+    'help' => t('Date redeemed.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+  return $data;
 }
 
 /**
