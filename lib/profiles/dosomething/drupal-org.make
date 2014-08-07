@@ -32,7 +32,7 @@ projects[ctools][version] = "1.4"
 projects[ctools][subdir] = "contrib"
 
 ; Date
-projects[date][version] = "2.7"
+projects[date][version] = "2.8"
 projects[date][subdir] = "contrib"
 
 ; Diff
@@ -168,7 +168,7 @@ projects[view_unpublished][subdir] = "contrib"
 projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished_content_admin-1192074-60.patch"
 
 ; Views
-projects[views][version] = "3.7"
+projects[views][version] = "3.8"
 projects[views][subdir] = "contrib"
 
 ; XML Sitemap
