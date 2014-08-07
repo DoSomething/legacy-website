@@ -27,6 +27,10 @@ projects[apachesolr_views][subdir] = "contrib"
 projects[blockreference][version] = "1.16"
 projects[blockreference][subdir] = "contrib"
 
+; CDN
+projects[cdn][version] = "2.6"
+projects[cdn][subdir] = "contrib"
+
 ; Ctools
 projects[ctools][version] = "1.4"
 projects[ctools][subdir] = "contrib"
