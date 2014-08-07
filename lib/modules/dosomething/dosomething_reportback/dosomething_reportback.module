@@ -734,6 +734,28 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
 }
 
 /**
+ * Returns count of Reportbacks for a given node $uid.
+ *
+ * @param int $uid
+ *   (optional) The User uid to get count of Reportbacks for.
+ *   If not given, uses global $user->uid.
+ *
+ * @return int
+ *   The number of Reportbacks for the User.
+ */
+function dosomething_reportback_get_count_by_uid($uid = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
+  // Select all reportbacks for given $uid.
+  $query = db_select('dosomething_reportback', 'rb')
+    ->fields('rb', array('rbid'))
+    ->condition('uid', $uid);
+  return $query->execute()->rowCount();
+}
+
+/**
  * Returns array of Reportback rbid's which have been flagged.
  *
  * @param int $nid
