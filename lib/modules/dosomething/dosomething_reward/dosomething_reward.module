@@ -5,11 +5,9 @@
  */
 
 include_once 'dosomething_reward.features.inc';
-/**
- * @file
- * Code for the DoSomething Reward module.
- */
+include_once 'dosomething_reward.forms.inc';
 DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
+
 /**
  * Implements hook_entity_info().
  */
@@ -29,7 +27,6 @@ function dosomething_reward_entity_info() {
   );
   return $info;
 }
-
 
 /**
  * Implements hook_views_data().
