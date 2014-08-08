@@ -33,8 +33,8 @@ class RewardEntity extends Entity {
         'entity_type' => 'reward',
         'entity_id' => $this->id,
         'shipment_type' => 'shirts',
-        'shirt_size1' => $values['shirt_size1'],
-        'shirt_size2' => $values['shirt_size2'],
+        'shirt_size' => $values['shirt_size'],
+        'shirt_size_additional' => $values['shirt_size_additional'],
       ));
       $shipment->save();
     }

@@ -21,13 +21,13 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
-  $form['shirt_size1'] = array(
+  $form['shirt_size'] = array(
     '#type' => 'radios',
     '#required' => TRUE,
     '#title' => t("Your T-Shirt size"),
     '#options' => $size_options,
   );
-  $form['shirt_size2'] = array(
+  $form['shirt_size_additional'] = array(
     '#type' => 'radios',
     '#required' => TRUE,
     '#title' => t("Your friend's T-Shirt size"),

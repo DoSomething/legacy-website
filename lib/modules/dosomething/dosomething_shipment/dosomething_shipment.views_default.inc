@@ -160,15 +160,15 @@ function dosomething_shipment_views_default_views() {
   $handler->display->display_options['fields']['entity_id']['alter']['text'] = '[entity_type]/[entity_id] ';
   $handler->display->display_options['fields']['entity_id']['separator'] = '';
   /* Field: Shipments: Shipment shirt size */
-  $handler->display->display_options['fields']['shirt_size1']['id'] = 'shirt_size1';
-  $handler->display->display_options['fields']['shirt_size1']['table'] = 'dosomething_shipment';
-  $handler->display->display_options['fields']['shirt_size1']['field'] = 'shirt_size1';
-  $handler->display->display_options['fields']['shirt_size1']['label'] = 'Shirt size';
-  /* Field: Shipments: Shipment 2nd shirt size */
-  $handler->display->display_options['fields']['shirt_size2']['id'] = 'shirt_size2';
-  $handler->display->display_options['fields']['shirt_size2']['table'] = 'dosomething_shipment';
-  $handler->display->display_options['fields']['shirt_size2']['field'] = 'shirt_size2';
-  $handler->display->display_options['fields']['shirt_size2']['label'] = '2nd shirt size';
+  $handler->display->display_options['fields']['shirt_size']['id'] = 'shirt_size';
+  $handler->display->display_options['fields']['shirt_size']['table'] = 'dosomething_shipment';
+  $handler->display->display_options['fields']['shirt_size']['field'] = 'shirt_size';
+  $handler->display->display_options['fields']['shirt_size']['label'] = 'Shirt Size';
+  /* Field: Shipments: Shipment additional shirt size */
+  $handler->display->display_options['fields']['shirt_size_additional']['id'] = 'shirt_size_additional';
+  $handler->display->display_options['fields']['shirt_size_additional']['table'] = 'dosomething_shipment';
+  $handler->display->display_options['fields']['shirt_size_additional']['field'] = 'shirt_size_additional';
+  $handler->display->display_options['fields']['shirt_size_additional']['label'] = 'Additional Shirt Size';
   /* Filter criterion: Shipments: Uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'dosomething_shipment';
@@ -249,8 +249,8 @@ function dosomething_shipment_views_default_views() {
     t('Entity type'),
     t('Entity'),
     t('[entity_type]/[entity_id] '),
-    t('Shirt size'),
-    t('2nd shirt size'),
+    t('Shirt Size'),
+    t('Additional Shirt Size'),
     t('Page'),
   );
   $export['user_shipments'] = $view;

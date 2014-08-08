@@ -144,7 +144,7 @@ function dosomething_shipment_views_data() {
       'handler' => 'views_handler_filter_date',
     ),
   );
-  $data['dosomething_shipment']['shirt_size1'] = array(
+  $data['dosomething_shipment']['shirt_size'] = array(
     'title' => t('Shipment shirt size'),
     'help' => t('Shipment shirt size, if applicable'),
     'field' => array(
@@ -161,9 +161,9 @@ function dosomething_shipment_views_data() {
       'handler' => 'views_handler_argument_string',
     ),
   );
-  $data['dosomething_shipment']['shirt_size2'] = array(
-    'title' => t('Shipment 2nd shirt size'),
-    'help' => t('Shipment 2nd shirt size, if applicable'),
+  $data['dosomething_shipment']['shirt_size_additional'] = array(
+    'title' => t('Shipment additional shirt size'),
+    'help' => t('Shipment additional shirt size, if applicable'),
     'field' => array(
       'handler' => 'views_handler_field',
       'click sortable' => TRUE,
