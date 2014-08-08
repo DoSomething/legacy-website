@@ -260,9 +260,7 @@ function dosomething_reward_get_redeem_form_vars($reward) {
   // Initialize return array.
   $vars = array();
   // Get the Redeem Form for this $reward.
-  $form = drupal_get_form('dosomething_reward_redeem_form', $reward);
-  // Set the rendered Redeem Form markup.
-  $vars['form'] = render($form);
+  $vars['form'] = drupal_get_form('dosomething_reward_redeem_form', $reward);
   // Set copy variables.
   $copy_vars = array(
     'copy',

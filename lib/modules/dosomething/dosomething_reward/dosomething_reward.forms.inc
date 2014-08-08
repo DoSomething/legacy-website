@@ -13,7 +13,7 @@
  * @ingroup forms
  */
 function dosomething_reward_redeem_form($form, &$form_state, $reward) {
-  $submit_label = t("Redeem");
+  $submit_label = variable_get('dosomething_reward_redeem_form_button_text');
   $size_options = array(
     'S' => t('S'), 
     'M' => t('M'),
