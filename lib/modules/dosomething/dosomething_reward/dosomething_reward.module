@@ -9,6 +9,23 @@ include_once 'dosomething_reward.forms.inc';
 DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_reward_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_reward'] = array(
+    'title' => 'DoSomething Reward',
+    'description' => 'Admin configuration form for DoSomething Reward.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reward_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reward.admin.inc',
+  );
+  return $items;
+}
+
+/**
  * Implements hook_entity_info().
  */
 function dosomething_reward_entity_info() {
