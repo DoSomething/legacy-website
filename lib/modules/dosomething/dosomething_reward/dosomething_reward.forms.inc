@@ -14,20 +14,23 @@
  */
 function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   $submit_label = variable_get('dosomething_reward_redeem_form_button_text');
-  $size_options = array(
-    'S' => t('S'), 
-    'M' => t('M'),
-    'L' => t('L'),
-  );
+  $size_options = dosomething_shipment_get_shirt_size_options();
   $form['id'] = array(
     '#type' => 'hidden',
     '#default_value' => $reward->id,
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
-  $form['size'] = array(
+  $form['shirt_size1'] = array(
     '#type' => 'radios',
-    '#title' => t('T-Shirt size'),
+    '#required' => TRUE,
+    '#title' => t("Your T-Shirt size"),
+    '#options' => $size_options,
+  );
+  $form['shirt_size2'] = array(
+    '#type' => 'radios',
+    '#required' => TRUE,
+    '#title' => t("Your friend's T-Shirt size"),
     '#options' => $size_options,
   );
   $form['actions'] = array(
@@ -49,8 +52,9 @@ function dosomething_reward_redeem_form_submit($form, &$form_state) {
     // Tell them that.
     drupal_set_message(t("You are no longer logged in. Please log in."), 'error');
   }
-  $reward = entity_load_single('reward', $form_state['values']['id']);
-  $reward->redeem();
+  $values = $form_state['values'];
+  $reward = entity_load_single('reward', $values['id']);
+  $reward->redeem($values);
   $msg = variable_get('dosomething_reward_redeem_form_confirm_msg');
   drupal_set_message($msg);
 }

@@ -29,9 +29,13 @@ class ShipmentEntityController extends EntityAPIController {
    * Populates created and updated automatically.
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
+    $op = NULL;
     if (isset($entity->is_new)) {
       $op = 'insert';
     }
     parent::save($entity, $transaction);
+    if ($op == 'insert') {
+      // @todo: Send MBP request with shipment details.
+    }
   }
 }
