@@ -5,11 +5,26 @@
  */
 
 include_once 'dosomething_reward.features.inc';
-/**
- * @file
- * Code for the DoSomething Reward module.
- */
+include_once 'dosomething_reward.forms.inc';
 DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_reward_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_reward'] = array(
+    'title' => 'DoSomething Reward',
+    'description' => 'Admin configuration form for DoSomething Reward.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reward_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reward.admin.inc',
+  );
+  return $items;
+}
+
 /**
  * Implements hook_entity_info().
  */
@@ -29,7 +44,6 @@ function dosomething_reward_entity_info() {
   );
   return $info;
 }
-
 
 /**
  * Implements hook_views_data().
@@ -237,4 +251,25 @@ function dosomething_reward_reportback_count($reportback) {
     }
   }
   return FALSE;
+}
+
+/**
+ * For a given $reward, return an array of relevant Redeem Form variables.
+ */
+function dosomething_reward_get_redeem_form_vars($reward) {
+  // Initialize return array.
+  $vars = array();
+  // Get the Redeem Form for this $reward.
+  $vars['form'] = drupal_get_form('dosomething_reward_redeem_form', $reward);
+  // Set copy variables.
+  $copy_vars = array(
+    'copy',
+    'header',
+    'link',
+  );
+  foreach ($copy_vars as $key) {
+    $var_name = 'dosomething_reward_redeem_form_' . $key;
+    $vars[$key] = variable_get($var_name);
+  }
+  return $vars;
 }

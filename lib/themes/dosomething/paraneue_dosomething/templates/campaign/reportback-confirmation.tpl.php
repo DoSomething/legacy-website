@@ -15,7 +15,11 @@
  *   - [path]: URL path for campaign node (string).
  *   - [pretty_path]: Pretty URL path for campaign node (string).
  *   - [staff_pick]: Indicate if this campaign a staff pick (boolean).
- * - $classes: Additional classes passed for output (string).
+ * - $redeem_form: Array containing variables for Reward Reedem Form, if exists:
+ *   - [copy]: Copy displayed in the Redeem Form modal (string).
+ *   - [form]: Reward Reedem Form to be rendered (array).
+ *   - [header]: Header text of the Redeem Form modal (string).
+ *   - [link]: Label of link to open the Redeem form modal (string).
  */
 ?>
 
@@ -66,4 +70,14 @@
       </div>
     </div>
   <?php endif; ?>
+
+  <?php if ($redeem_form): ?>
+    <a href="#" data-modal-href="#modal-redeem-form"><?php print $redeem_form['link']; ?></a>
+    <div data-modal id="modal-redeem-form" role="dialog">
+      <h2 class="banner"><?php print ($redeem_form['header']); ?></h2>
+      <?php print $redeem_form['copy']; ?>
+      <?php print render($redeem_form['form']); ?>
+    </div>
+  <?php endif; ?>
+
 </section>
