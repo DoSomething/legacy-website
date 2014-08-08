@@ -54,7 +54,7 @@ function dosomething_reward_views_data() {
   $data['dosomething_reward']['table']['base'] = array(
     'field' => 'id',
     'title' => t('Rewards'),
-    'help' => t('Dosomething Rewards table.'),
+    'help' => t('Dosomething Reward table.'),
     'weight' => -10,
   );
   $data['dosomething_reward']['table']['join'] = array(

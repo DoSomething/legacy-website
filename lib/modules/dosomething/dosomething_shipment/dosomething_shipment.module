@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file
+ * Code for the dosomething_shipment feature.
+ */
+
+include_once 'dosomething_shipment.features.inc';
 
 /**
  * Implements hook_entity_info().
@@ -18,6 +24,161 @@ function dosomething_shipment_entity_info() {
     'module' => 'dosomething_shipment',
   );
   return $info;
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function dosomething_shipment_views_data() {
+  // Define dosomething_shipment table.
+  $data['dosomething_shipment']['table']['group'] = t('Shipments');
+  $data['dosomething_shipment']['table']['base'] = array(
+    'field' => 'id',
+    'title' => t('Shipments'),
+    'help' => t('Dosomething Shipment table.'),
+    'weight' => -10,
+  );
+  $data['dosomething_shipment']['table']['join'] = array(
+    'users' => array(
+      'left_field' => 'uid',
+      'field' => 'uid',
+    ),
+  );
+  $data['dosomething_shipment']['id'] = array(
+    'title' => t('Shipment id'),
+    'help' => t('Shipment id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'dosomething_shipment',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Shipment id'),
+    ),
+  );
+  $data['dosomething_shipment']['uid'] = array(
+    'title' => t('Uid'),
+    'help' => t('User id.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'users',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Shipment User'),
+    ),
+  );
+  $data['dosomething_shipment']['shipment_type'] = array(
+    'title' => t('Shipment type'),
+    'help' => t('Shipment type.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['dosomething_shipment']['entity_type'] = array(
+    'title' => t('Shipment Entity type'),
+    'help' => t('The type of the Entity associated with the Shipment.'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['dosomething_shipment']['entity_id'] = array(
+    'title' => t('Shipment Entity id'),
+    'help' => t('The id of the Entity associated with the Shipment.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+  $data['dosomething_shipment']['created'] = array(
+    'title' => t('Date created'),
+    'help' => t('Date created.'),
+    'field' => array(
+      'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort_date',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_date',
+    ),
+  );
+  $data['dosomething_shipment']['shirt_size1'] = array(
+    'title' => t('Shipment shirt size'),
+    'help' => t('Shipment shirt size, if applicable'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  $data['dosomething_shipment']['shirt_size2'] = array(
+    'title' => t('Shipment 2nd shirt size'),
+    'help' => t('Shipment 2nd shirt size, if applicable'),
+    'field' => array(
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+  return $data;
 }
 
 /**
