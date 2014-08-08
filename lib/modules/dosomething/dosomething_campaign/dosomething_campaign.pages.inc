@@ -23,7 +23,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     'more_campaigns_link' => NULL,
     'page_title' => NULL,
     'recommended' => NULL,
-    'reward_form' => NULL,
+    'redeem_form' => NULL,
   );
 
   // Set variables for anonymous user:
@@ -44,8 +44,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     );
     if (module_exists('dosomething_reward')) {
       if ($reward = dosomething_reward_exists('reportback_count')) {
-        $form_id = 'dosomething_reward_redeem_form';
-        $vars['reward_form'] = drupal_get_form($form_id, $reward);
+        $vars['redeem_form'] = dosomething_reward_get_redeem_form_vars($reward);
       }
     }
   }

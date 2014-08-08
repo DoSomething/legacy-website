@@ -15,7 +15,7 @@
  *   - [path]: URL path for campaign node (string).
  *   - [pretty_path]: Pretty URL path for campaign node (string).
  *   - [staff_pick]: Indicate if this campaign a staff pick (boolean).
- * - $reward_form: Form array, to be rendered.
+ * - $redeem_form: Array containing relevant markup:Form array, to be rendered.
  */
 ?>
 
@@ -66,7 +66,9 @@
       </div>
     </div>
   <?php endif; ?>
-  <?php if ($reward_form): ?>
-  <?php print render($reward_form); ?>
+
+  <?php if ($redeem_form): ?>
+  <?php print $redeem_form['form']; ?>
   <?php endif; ?>
+
 </section>

@@ -252,3 +252,26 @@ function dosomething_reward_reportback_count($reportback) {
   }
   return FALSE;
 }
+
+/**
+ * For a given $reward, return an array of relevant Redeem Form variables.
+ */
+function dosomething_reward_get_redeem_form_vars($reward) {
+  // Initialize return array.
+  $vars = array();
+  // Get the Redeem Form for this $reward.
+  $form = drupal_get_form('dosomething_reward_redeem_form', $reward);
+  // Set the rendered Redeem Form markup.
+  $vars['form'] = render($form);
+  // Set copy variables.
+  $copy_vars = array(
+    'copy',
+    'header',
+    'link',
+  );
+  foreach ($copy_vars as $key) {
+    $var_name = 'dosomething_reward_redeem_form_' . $key;
+    $vars[$key] = variable_get($var_name);
+  }
+  return $vars;
+}
