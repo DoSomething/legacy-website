@@ -1,28 +1,28 @@
 <?php
 /**
  * @file
- * dosomething_reward.views_default.inc
+ * dosomething_shipment.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function dosomething_reward_views_default_views() {
+function dosomething_shipment_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'user_rewards';
-  $view->description = 'List of Reward entities.';
+  $view->name = 'user_shipments';
+  $view->description = 'List of Shipment entities.';
   $view->tag = 'default';
-  $view->base_table = 'dosomething_reward';
-  $view->human_name = 'User Rewards';
+  $view->base_table = 'dosomething_shipment';
+  $view->human_name = 'User Shipments';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Rewards';
+  $handler->display->display_options['title'] = 'Shipments';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access user profiles';
@@ -30,32 +30,22 @@ function dosomething_reward_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'id' => 'id',
-    'uid' => 'uid',
-    'mail' => 'mail',
     'created' => 'created',
-    'redeemed' => 'redeemed',
+    'shirt_size2' => 'shirt_size2',
+    'entity_id' => 'entity_id',
+    'entity_type' => 'entity_type',
+    'id_1' => 'id_1',
+    'shirt_size1' => 'shirt_size1',
+    'shipment_type' => 'shipment_type',
+    'uid' => 'uid',
   );
   $handler->display->display_options['style_options']['default'] = 'created';
   $handler->display->display_options['style_options']['info'] = array(
     'id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'uid' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'mail' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -69,8 +59,50 @@ function dosomething_reward_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'redeemed' => array(
-      'sortable' => 1,
+    'shirt_size2' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'entity_id' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'entity_type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'id_1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'shirt_size1' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'shipment_type' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'uid' => array(
+      'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
@@ -81,26 +113,25 @@ function dosomething_reward_views_default_views() {
   $handler->display->display_options['header']['result']['id'] = 'result';
   $handler->display->display_options['header']['result']['table'] = 'views';
   $handler->display->display_options['header']['result']['field'] = 'result';
-  $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Rewards';
-  /* Relationship: Rewards: Uid */
+  $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Shipments';
+  /* Relationship: Shipments: Uid */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['table'] = 'dosomething_reward';
+  $handler->display->display_options['relationships']['uid']['table'] = 'dosomething_shipment';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['label'] = 'User';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Field: Rewards: Reward id */
+  /* Field: Shipments: Shipment id */
   $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'dosomething_reward';
+  $handler->display->display_options['fields']['id']['table'] = 'dosomething_shipment';
   $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Rewards: Date created */
+  /* Field: Shipments: Date created */
   $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'dosomething_reward';
+  $handler->display->display_options['fields']['created']['table'] = 'dosomething_shipment';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
-  /* Field: Rewards: Uid */
+  /* Field: Shipments: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'dosomething_reward';
+  $handler->display->display_options['fields']['uid']['table'] = 'dosomething_shipment';
   $handler->display->display_options['fields']['uid']['field'] = 'uid';
   $handler->display->display_options['fields']['uid']['separator'] = '';
   /* Field: User: E-mail */
@@ -109,36 +140,38 @@ function dosomething_reward_views_default_views() {
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['relationship'] = 'uid';
   $handler->display->display_options['fields']['mail']['label'] = 'Email';
-  /* Field: Rewards: Reward type */
-  $handler->display->display_options['fields']['reward_type']['id'] = 'reward_type';
-  $handler->display->display_options['fields']['reward_type']['table'] = 'dosomething_reward';
-  $handler->display->display_options['fields']['reward_type']['field'] = 'reward_type';
-  /* Field: Rewards: Reward Entity type */
+  /* Field: Shipments: Shipment type */
+  $handler->display->display_options['fields']['shipment_type']['id'] = 'shipment_type';
+  $handler->display->display_options['fields']['shipment_type']['table'] = 'dosomething_shipment';
+  $handler->display->display_options['fields']['shipment_type']['field'] = 'shipment_type';
+  $handler->display->display_options['fields']['shipment_type']['label'] = 'Type';
+  /* Field: Shipments: Shipment Entity type */
   $handler->display->display_options['fields']['entity_type']['id'] = 'entity_type';
-  $handler->display->display_options['fields']['entity_type']['table'] = 'dosomething_reward';
+  $handler->display->display_options['fields']['entity_type']['table'] = 'dosomething_shipment';
   $handler->display->display_options['fields']['entity_type']['field'] = 'entity_type';
-  $handler->display->display_options['fields']['entity_type']['label'] = 'Entity Type';
+  $handler->display->display_options['fields']['entity_type']['label'] = 'Entity type';
   $handler->display->display_options['fields']['entity_type']['exclude'] = TRUE;
-  /* Field: Rewards: Reward Entity id */
+  /* Field: Shipments: Shipment Entity id */
   $handler->display->display_options['fields']['entity_id']['id'] = 'entity_id';
-  $handler->display->display_options['fields']['entity_id']['table'] = 'dosomething_reward';
+  $handler->display->display_options['fields']['entity_id']['table'] = 'dosomething_shipment';
   $handler->display->display_options['fields']['entity_id']['field'] = 'entity_id';
   $handler->display->display_options['fields']['entity_id']['label'] = 'Entity';
   $handler->display->display_options['fields']['entity_id']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['entity_id']['alter']['text'] = '[entity_type]/[entity_id]';
-  $handler->display->display_options['fields']['entity_id']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['entity_id']['alter']['path'] = '[entity_type]/[entity_id]';
+  $handler->display->display_options['fields']['entity_id']['alter']['text'] = '[entity_type]/[entity_id] ';
   $handler->display->display_options['fields']['entity_id']['separator'] = '';
-  /* Field: Rewards: Date redeemed */
-  $handler->display->display_options['fields']['redeemed']['id'] = 'redeemed';
-  $handler->display->display_options['fields']['redeemed']['table'] = 'dosomething_reward';
-  $handler->display->display_options['fields']['redeemed']['field'] = 'redeemed';
-  $handler->display->display_options['fields']['redeemed']['label'] = 'Redeemed';
-  $handler->display->display_options['fields']['redeemed']['date_format'] = 'short';
-  $handler->display->display_options['fields']['redeemed']['second_date_format'] = 'long';
-  /* Filter criterion: Rewards: Uid */
+  /* Field: Shipments: Shipment shirt size */
+  $handler->display->display_options['fields']['shirt_size']['id'] = 'shirt_size';
+  $handler->display->display_options['fields']['shirt_size']['table'] = 'dosomething_shipment';
+  $handler->display->display_options['fields']['shirt_size']['field'] = 'shirt_size';
+  $handler->display->display_options['fields']['shirt_size']['label'] = 'Shirt Size';
+  /* Field: Shipments: Shipment additional shirt size */
+  $handler->display->display_options['fields']['shirt_size_additional']['id'] = 'shirt_size_additional';
+  $handler->display->display_options['fields']['shirt_size_additional']['table'] = 'dosomething_shipment';
+  $handler->display->display_options['fields']['shirt_size_additional']['field'] = 'shirt_size_additional';
+  $handler->display->display_options['fields']['shirt_size_additional']['label'] = 'Additional Shirt Size';
+  /* Filter criterion: Shipments: Uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
-  $handler->display->display_options['filters']['uid']['table'] = 'dosomething_reward';
+  $handler->display->display_options['filters']['uid']['table'] = 'dosomething_shipment';
   $handler->display->display_options['filters']['uid']['field'] = 'uid';
   $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
@@ -161,7 +194,6 @@ function dosomething_reward_views_default_views() {
   $handler->display->display_options['filters']['mail']['table'] = 'users';
   $handler->display->display_options['filters']['mail']['field'] = 'mail';
   $handler->display->display_options['filters']['mail']['relationship'] = 'uid';
-  $handler->display->display_options['filters']['mail']['operator'] = 'contains';
   $handler->display->display_options['filters']['mail']['group'] = 1;
   $handler->display->display_options['filters']['mail']['exposed'] = TRUE;
   $handler->display->display_options['filters']['mail']['expose']['operator_id'] = 'mail_op';
@@ -181,17 +213,17 @@ function dosomething_reward_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/users/rewards';
+  $handler->display->display_options['path'] = 'admin/users/shipments';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Rewards';
-  $handler->display->display_options['menu']['description'] = 'List of all User Rewards';
+  $handler->display->display_options['menu']['title'] = 'Shipments';
+  $handler->display->display_options['menu']['description'] = 'List of all User Shipments.';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'management';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $translatables['user_rewards'] = array(
+  $translatables['user_shipments'] = array(
     t('Master'),
-    t('Rewards'),
+    t('Shipments'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -205,22 +237,23 @@ function dosomething_reward_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Displaying @start - @end of @total Rewards'),
-    t('User'),
-    t('Reward id'),
+    t('Displaying @start - @end of @total Shipments'),
+    t('Shipment User'),
+    t('Shipment id'),
     t('.'),
     t(','),
     t('Date created'),
     t('Uid'),
     t('Email'),
-    t('Reward type'),
-    t('Entity Type'),
+    t('Type'),
+    t('Entity type'),
     t('Entity'),
-    t('[entity_type]/[entity_id]'),
-    t('Redeemed'),
+    t('[entity_type]/[entity_id] '),
+    t('Shirt Size'),
+    t('Additional Shirt Size'),
     t('Page'),
   );
-  $export['user_rewards'] = $view;
+  $export['user_shipments'] = $view;
 
   return $export;
 }

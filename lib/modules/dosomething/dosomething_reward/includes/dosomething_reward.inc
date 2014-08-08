@@ -18,13 +18,25 @@ class RewardEntity extends Entity {
   }
 
   /**
-   * Sets the Reward's redeemed property to given $timestamp or current time.
+   * Sets the Reward as redeemed and creates a relevant Shipment if applciable.
    */
-  public function redeem($timestamp = REQUEST_TIME) {
-    $this->redeemed = $timestamp;
+  public function redeem($values = array()) {
+    $time = REQUEST_TIME;
+    // Set the Reward as redeemed.
+    $this->redeemed = $time;
     $this->save();
-    if (module_exists('dosomething_mbp')) {
-      //@todo: Send confirmation Message Broker request.
+    if ($this->reward_type == 'reportback_count') {
+      // Create corresponding shipment entity for this reward.
+      $shipment = entity_create('shipment', array(
+        'uid' => $this->uid,
+        'created' => $time,
+        'entity_type' => 'reward',
+        'entity_id' => $this->id,
+        'shipment_type' => 'shirts',
+        'shirt_size' => $values['shirt_size'],
+        'shirt_size_additional' => $values['shirt_size_additional'],
+      ));
+      $shipment->save();
     }
   }
 }

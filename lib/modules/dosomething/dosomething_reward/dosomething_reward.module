@@ -54,7 +54,7 @@ function dosomething_reward_views_data() {
   $data['dosomething_reward']['table']['base'] = array(
     'field' => 'id',
     'title' => t('Rewards'),
-    'help' => t('Dosomething Rewards table.'),
+    'help' => t('Dosomething Reward table.'),
     'weight' => -10,
   );
   $data['dosomething_reward']['table']['join'] = array(
@@ -226,6 +226,12 @@ function dosomething_reward_exists($reward_type, $uid = NULL) {
 function dosomething_reward_reportback_count($reportback) {
   $reward_type = 'reportback_count';
   $uid = $reportback->uid;
+  $account = user_load($uid);
+
+  // Old people are not eligible for the Reward.
+  if (dosomething_user_is_old_person($account)) {
+    return FALSE;
+  }
 
   // Check if User already has a Reportback Count Reward.
   if ($reward = dosomething_reward_exists($reward_type, $uid)) {

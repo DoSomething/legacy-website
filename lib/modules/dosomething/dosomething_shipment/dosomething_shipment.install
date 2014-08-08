@@ -1,0 +1,66 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_shipment.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_shipment_schema() {
+  $schema = array();
+  $schema['dosomething_shipment'] = array(
+    'description' => 'Table of User Shipments.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid associated with the Shipment.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'shipment_type' => array(
+        'description' => 'The type of Shipment.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'entity_type' => array(
+        'description' => 'The type of the Entity associated with the Shipment.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'entity_id' => array(
+        'description' => 'The id of the Entity associated with the Shipment.',
+        'type' => 'int',
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the Shipment was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'shirt_size' => array(
+        'description' => 'The size of shirt, if applicable.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'shirt_size_additional' => array(
+        'description' => 'The size of additional shirt, if applicable.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+  return $schema;
+}

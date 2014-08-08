@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * dosomething_shipment.features.inc
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function dosomething_shipment_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
