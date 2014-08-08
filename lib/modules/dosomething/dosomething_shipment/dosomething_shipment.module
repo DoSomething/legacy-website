@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_entity_info().
+ */
+function dosomething_shipment_entity_info() {
+  $info = array();
+  $info['shipment'] = array(
+    'label' => t('Shipment'),
+    'base table' => 'dosomething_shipment',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'id',
+    ),
+    'entity class' => 'ShipmentEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ShipmentEntityController',
+    'module' => 'dosomething_shipment',
+  );
+  return $info;
+}
