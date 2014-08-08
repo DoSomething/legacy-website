@@ -51,5 +51,6 @@ function dosomething_reward_redeem_form_submit($form, &$form_state) {
   }
   $reward = entity_load_single('reward', $form_state['values']['id']);
   $reward->redeem();
-  drupal_set_message(t("Reward redeemed!"));
+  $msg = variable_get('dosomething_reward_redeem_form_confirm_msg');
+  drupal_set_message($msg);
 }
