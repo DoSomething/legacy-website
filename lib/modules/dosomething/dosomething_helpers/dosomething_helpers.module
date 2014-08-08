@@ -5,6 +5,7 @@ include_once 'dosomething_helpers.features.inc';
  * Code for the Dosomething helpers feature.
  */
 
+include_once('dosomething_helpers.drush.inc');
 include_once('dosomething_helpers.theme.inc');
 include_once('dosomething_helpers.strongarm.inc');
 include_once('dosomething_helpers.variable.inc');
@@ -22,6 +23,26 @@ function dosomething_helpers_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
   return $items;
+}
+
+/**
+ * Utility function to delete automated test data.
+ */
+function dosomething_helpers_delete_test_nodes() {
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node');
+  $query->propertyCondition('created', -1);
+
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $test_nids = array_keys($result['node']);
+    node_delete_multiple($test_nids);
+
+    return $test_nids;
+  } else {
+    return null;
+  }
 }
 
 
