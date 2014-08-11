@@ -6,6 +6,8 @@
 
 include_once 'dosomething_reward.features.inc';
 include_once 'dosomething_reward.forms.inc';
+
+DEFINE('DOSOMETHING_REWARD_LOG', variable_get('dosomething_reward_log') ? TRUE : FALSE);
 DEFINE('DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT', 2);
 
 /**
@@ -228,22 +230,21 @@ function dosomething_reward_reportback_count($reportback) {
   $uid = $reportback->uid;
   $account = user_load($uid);
 
-  $log = variable_get('dosomething_reward_log');
-  $log_type = 'dosomething_reward_reportback_count';
+  $log_category = 'dosomething_reward_reportback_count';
 
-  if ($log) {
-    watchdog($log_type, 'Reportback @reportback', array(
+  if (DOSOMETHING_REWARD_LOG) {
+    watchdog($log_category, 'Reportback @reportback', array(
       '@reportback' => json_encode($reportback),
     ));
-    watchdog($log_type, 'User @account', array(
+    watchdog($log_category, 'User @account', array(
       '@account' => json_encode($account),
     ));
   }
 
   // Old people are not eligible for the Reward.
   if (dosomething_user_is_old_person($account)) {
-    if ($log) {
-      watchdog($log_type, 'User uid @uid is an old person.', array(
+    if (DOSOMETHING_REWARD_LOG) {
+      watchdog($log_category, 'User uid @uid is an old person.', array(
         '@uid' => $account->uid,
       ));
     }
@@ -252,8 +253,8 @@ function dosomething_reward_reportback_count($reportback) {
 
   // Check if User already has a Reportback Count Reward.
   if ($reward = dosomething_reward_exists($reward_type, $uid)) {
-    if ($log) {
-      watchdog($log_type, 'Reward already exists: @reward', array(
+    if (DOSOMETHING_REWARD_LOG) {
+      watchdog($log_category, 'Reward already exists: @reward', array(
         '@reward' => json_encode($reward),
       ));
     }
@@ -262,8 +263,8 @@ function dosomething_reward_reportback_count($reportback) {
   }
 
   $rb_count = dosomething_reportback_get_count_by_uid($uid);
-  if ($log) {
-    watchdog($log_type, 'Count == @count', array(
+  if (DOSOMETHING_REWARD_LOG) {
+    watchdog($log_category, 'Count == @count', array(
       '@count' => json_encode($rb_count),
     ));
   }
@@ -276,8 +277,8 @@ function dosomething_reward_reportback_count($reportback) {
         'entity_type' => 'reportback',
         'entity_id' => $reportback->rbid,
       ));
-      if ($log) {
-        watchdog($log_type, 'entity_create @reward', array(
+      if (DOSOMETHING_REWARD_LOG) {
+        watchdog($log_category, 'entity_create @reward', array(
           '@reward' => json_encode($reward),
         ));
       }
