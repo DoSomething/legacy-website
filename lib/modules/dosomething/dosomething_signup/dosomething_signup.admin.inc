@@ -52,24 +52,7 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
     foreach ($sms_games as $vars) {
-      $nid = $vars['nid'];
-      // Create a fieldset for each SMS Game.
-      $form[$nid] = array(
-        '#type' => 'fieldset',
-        '#title' => $vars['title'] . ' | NID ' . $nid,
-        '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
-      );
-      $form[$nid][$nid . '_alpha'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Mobile Commons Alpha Opt-In Path'),
-        '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path'),
-      );
-      $form[$nid][$nid . '_beta'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Mobile Commons Beta Opt-In Path'),
-        '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path'),
-      );
+      dosomething_signup_optin_config_form_sms_game_element($form, $vars);
     }
   }
   $form['actions']['submit'] = array(
@@ -163,6 +146,27 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
       '#description' => $description,
     );
   }
+}
+
+function dosomething_signup_optin_config_form_sms_game_element(&$form, $vars) {
+  $nid = $vars['nid'];
+  // Create a fieldset for each SMS Game.
+  $form[$nid] = array(
+    '#type' => 'fieldset',
+    '#title' => $vars['title'] . ' | NID ' . $nid,
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form[$nid][$nid . '_alpha'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mobile Commons Alpha Opt-In Path'),
+    '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path'),
+  );
+  $form[$nid][$nid . '_beta'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mobile Commons Beta Opt-In Path'),
+    '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path'),
+  );
 }
 
 /**
