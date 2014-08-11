@@ -22,6 +22,11 @@ class RewardEntity extends Entity {
    */
   public function redeem($values = array()) {
     $time = REQUEST_TIME;
+    if (DOSOMETHING_REWARD_LOG) {
+      watchdog('dosomething_reward', 'Redeem time @time', array(
+        '@time' => $time,
+      ));
+    }
     // Set the Reward as redeemed.
     $this->redeemed = $time;
     $this->save();
@@ -36,6 +41,11 @@ class RewardEntity extends Entity {
         'shirt_size' => $values['shirt_size'],
         'shirt_size_additional' => $values['shirt_size_additional'],
       ));
+      if (DOSOMETHING_REWARD_LOG) {
+        watchdog('dosomething_reward', 'Shipment entity_create: @entity', array(
+          '@entity' => json_encode($shipment),
+        ));
+      }
       $shipment->save();
     }
   }
@@ -56,17 +66,32 @@ class RewardEntityController extends EntityAPIController {
       $entity->created = REQUEST_TIME;
     }
     parent::save($entity, $transaction);
+    if (DOSOMETHING_REWARD_LOG) {
+      watchdog('dosomething_reward', 'Save: @entity', array(
+        '@entity' => json_encode($entity),
+      ));
+    }
   }
 
   /**
    * Overrides delete() method.
    */
   public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    if (DOSOMETHING_REWARD_LOG) {
+      watchdog('dosomething_reward', 'Delete reward: @ids', array(
+        '@ids' => json_encode($ids),
+      ));
+    }
     parent::delete($ids, $transaction);
     foreach ($ids as $id) {
       // Check if a Shipment exists for this Reward.
       $shipment = dosomething_shipment_get_shipment_id_by_entity('reward', $id);
       if ($shipment) {
+        if (DOSOMETHING_REWARD_LOG) {
+          watchdog('dosomething_reward', 'Delete shipment: @entity', array(
+            '@entity' => json_encode($shipment),
+          ));
+        }
         // Delete it.
         entity_delete('shipment', $shipment->id);
       }
