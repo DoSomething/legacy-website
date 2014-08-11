@@ -17,6 +17,7 @@
  *   - [staff_pick]: Indicate if this campaign a staff pick (boolean).
  * - $redeem_form: Array containing variables for Reward Reedem Form, if exists:
  *   - [copy]: Copy displayed in the Redeem Form modal (string).
+ *   - [delete_form]: If staff, the Reward Delete Form to be rendered (array).
  *   - [form]: Reward Reedem Form to be rendered (array).
  *   - [header]: Header text of the Redeem Form modal (string).
  *   - [link]: Label of link to open the Redeem form modal (string).
@@ -78,6 +79,9 @@
       <?php print $redeem_form['copy']; ?>
       <?php print render($redeem_form['form']); ?>
     </div>
+    <?php if ($redeem_form['delete_form']): ?>
+      <?php print render($redeem_form['delete_form']); ?>
+    <?php endif; ?>
   <?php endif; ?>
 
 </section>

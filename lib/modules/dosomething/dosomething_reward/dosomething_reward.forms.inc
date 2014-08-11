@@ -58,3 +58,38 @@ function dosomething_reward_redeem_form_submit($form, &$form_state) {
   $msg = variable_get('dosomething_reward_redeem_form_confirm_msg');
   drupal_set_message($msg);
 }
+
+/**
+ * Form constructor for a Delete Reward form.
+ *
+ * @param object $reward
+ *   The Reward entity to delete.
+ *
+ * @ingroup forms
+ */
+function dosomething_reward_delete_form($form, &$form_state, $reward) {
+  $form['id'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $reward->id,
+  );
+  $help = "As staff, you may delete your Reward for testing. Cannot be undone.";
+  $form['help'] = array(
+    '#markup' => t($help),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Delete Reward"),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_reward_delete_form().
+ */
+function dosomething_reward_delete_form_submit($form, &$form_state) {
+  entity_delete('reward', $form_state['values']['id']);
+  drupal_set_message(t("Reward deleted."));
+}
