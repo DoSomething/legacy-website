@@ -277,5 +277,12 @@ function dosomething_reward_get_redeem_form_vars($reward) {
     $var_name = 'dosomething_reward_redeem_form_' . $key;
     $vars[$key] = variable_get($var_name);
   }
+  // Initialize delete form.
+  $vars['delete_form'] = NULL;
+  // Allow staff to delete the Reward to test functionality.
+  if (dosomething_user_is_staff()) {
+    $form_id = 'dosomething_reward_delete_form';
+    $vars['delete_form'] = drupal_get_form($form_id, $reward);
+  }
   return $vars;
 }

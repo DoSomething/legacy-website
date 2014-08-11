@@ -58,4 +58,18 @@ class RewardEntityController extends EntityAPIController {
     parent::save($entity, $transaction);
   }
 
+  /**
+   * Overrides delete() method.
+   */
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    parent::delete($ids, $transaction);
+    foreach ($ids as $id) {
+      // Check if a Shipment exists for this Reward.
+      $shipment = dosomething_shipment_get_shipment_id_by_entity('reward', $id);
+      if ($shipment) {
+        // Delete it.
+        entity_delete('shipment', $shipment->id);
+      }
+    }
+  }
 }
