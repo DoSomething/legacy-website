@@ -182,6 +182,31 @@ function dosomething_shipment_views_data() {
 }
 
 /**
+ * Returns Shipment for given Entity type and id.
+ *
+ * @param string $type
+ *   The Entity type.
+ * @param int $id
+ *   The Entity id.
+ *
+ * @return
+ *   The Shipment object, or FALSE.
+ */
+function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
+  $result = db_select('dosomething_shipment', 's')
+    ->condition('entity_id', $id)
+    ->condition('entity_type', $type)
+    ->fields('s', array('id'))
+    ->execute();
+  $id = $result->fetchField(0);
+  // If an id was found, return the Reward.
+  if (is_numeric($id)) {
+    return entity_load_single('shipment', $id);
+  }
+  return FALSE;
+}
+
+/**
  * Returns array of available shirt sizes.
  */
 function dosomething_shipment_get_shirt_size_options() {

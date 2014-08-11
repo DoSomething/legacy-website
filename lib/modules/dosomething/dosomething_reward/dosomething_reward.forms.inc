@@ -71,10 +71,11 @@ function dosomething_reward_delete_form($form, &$form_state, $reward) {
   $form['id'] = array(
     '#type' => 'hidden',
     '#default_value' => $reward->id,
+    '#access' => FALSE,
   );
-  $help = "As staff, you may delete your Reward for testing. Cannot be undone.";
+  $help = "As staff, you may delete your Reward (id: @id) for testing.  The corresponding Shipment record will also be deleted if the Reward has been redeemed.";
   $form['help'] = array(
-    '#markup' => t($help),
+    '#markup' => t($help, array('@id' => $reward->id)),
   );
   $form['actions'] = array(
     '#type' => 'actions',
