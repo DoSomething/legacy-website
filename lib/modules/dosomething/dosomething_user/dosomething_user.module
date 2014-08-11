@@ -4,6 +4,7 @@
  * Code for the DoSomething User feature.
  */
 
+include_once 'dosomething_user.address.inc';
 include_once 'dosomething_user.features.inc';
 include_once 'dosomething_user_profile.inc';
 include_once 'dosomething_user_valid_address.inc';
