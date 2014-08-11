@@ -369,7 +369,7 @@ function pull_files {
   then
     echo "Pulling down files from staging"
     cd $WEB_PATH
-    drush rsync @ds.staging @self -y
+    drush -y rsync @ds.staging @self
     symlinks
   fi
 }
