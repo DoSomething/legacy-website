@@ -228,18 +228,45 @@ function dosomething_reward_reportback_count($reportback) {
   $uid = $reportback->uid;
   $account = user_load($uid);
 
+  $log = variable_get('dosomething_reward_log');
+  $log_type = 'dosomething_reward_reportback_count';
+
+  if ($log) {
+    watchdog($log_type, 'Reportback @reportback', array(
+      '@reportback' => json_encode($reportback),
+    ));
+    watchdog($log_type, 'User @account', array(
+      '@account' => json_encode($account),
+    ));
+  }
+
   // Old people are not eligible for the Reward.
   if (dosomething_user_is_old_person($account)) {
+    if ($log) {
+      watchdog($log_type, 'User uid @uid is an old person.', array(
+        '@uid' => $account->uid,
+      ));
+    }
     return FALSE;
   }
 
   // Check if User already has a Reportback Count Reward.
   if ($reward = dosomething_reward_exists($reward_type, $uid)) {
+    if ($log) {
+      watchdog($log_type, 'Reward already exists: @reward', array(
+        '@reward' => json_encode($reward),
+      ));
+    }
     // Exit out of function because User already has earned a Reward.
     return FALSE;
   }
 
   $rb_count = dosomething_reportback_get_count_by_uid($uid);
+  if ($log) {
+    watchdog($log_type, 'Count == @count', array(
+      '@count' => json_encode($rb_count),
+    ));
+  }
   if ($rb_count >= DOSOMETHING_REWARD_NUM_REPORTBACK_COUNT) {
     // Create a Reward entity:
     try {
@@ -249,6 +276,11 @@ function dosomething_reward_reportback_count($reportback) {
         'entity_type' => 'reportback',
         'entity_id' => $reportback->rbid,
       ));
+      if ($log) {
+        watchdog($log_type, 'entity_create @reward', array(
+          '@reward' => json_encode($reward),
+        ));
+      }
       $reward->save();
       return $reward;
     }
