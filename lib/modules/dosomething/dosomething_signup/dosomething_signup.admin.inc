@@ -52,7 +52,7 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
     foreach ($sms_games as $vars) {
-      dosomething_signup_optin_config_form_sms_game_element($form, $vars);
+      dosomething_signup_optin_config_form_add_elements($form, $vars, 'sms_game');
     }
   }
   $form['actions']['submit'] = array(
@@ -107,15 +107,14 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
   // Save SMS Games helpers variables.
   $sms_games = dosomething_campaign_get_sms_games();
   if ($sms_games) {
+    $variables = dosomething_signup_get_admin_config_sms_game_variables();
     foreach ($sms_games as $vars) {
       $nid = $vars['nid'];
       $node = node_load($nid);
-      $alpha_name = 'mobilecommons_opt_in_path';
-      $alpha_value = $values[$nid . '_alpha'];
-      $beta_name = 'mobilecommons_friends_opt_in_path';
-      $beta_value = $values[$nid . '_beta'];
-      dosomething_helpers_set_variable($node, $alpha_name, $alpha_value);
-      dosomething_helpers_set_variable($node, $beta_name, $beta_value);
+      foreach ($variables as $name => $description) {
+        $value = $values[$nid . '_' . $name];
+        dosomething_helpers_set_variable($node, $name, $value);
+      }
     }
   }
   drupal_set_message(t("Configuration saved."));
@@ -124,15 +123,19 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
 /**
  * Adds form elements to store third party values for given set of $vars.
  */
-function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
+function dosomething_signup_optin_config_form_add_elements(&$form, $vars, $type = NULL) {
   $nid = $vars['nid'];
-  $title = $vars['title'];
-  $variables = dosomething_signup_get_admin_config_campaign_variables();
 
+  // Get the helper variables to create form elements based on the $type.
+  $variables = dosomething_signup_get_admin_config_campaign_variables();
+  if ($type == 'sms_game') {
+    $variables = dosomething_signup_get_admin_config_sms_game_variables();
+  }
+ 
   // Create a fieldset for each campaign.
   $form[$nid] = array(
     '#type' => 'fieldset',
-    '#title' => $title . ' | NID ' . $nid,
+    '#title' => $vars['title'] . ' | NID ' . $nid,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -148,27 +151,6 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars) {
   }
 }
 
-function dosomething_signup_optin_config_form_sms_game_element(&$form, $vars) {
-  $nid = $vars['nid'];
-  // Create a fieldset for each SMS Game.
-  $form[$nid] = array(
-    '#type' => 'fieldset',
-    '#title' => $vars['title'] . ' | NID ' . $nid,
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form[$nid][$nid . '_alpha'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Mobile Commons Alpha Opt-In Path'),
-    '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path'),
-  );
-  $form[$nid][$nid . '_beta'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Mobile Commons Beta Opt-In Path'),
-    '#default_value' => dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path'),
-  );
-}
-
 /**
  * Returns list of helper variables that a standard Campaign can implement.
  *
@@ -180,6 +162,21 @@ function dosomething_signup_get_admin_config_campaign_variables() {
     'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name.'),
     'mailchimp_group_name' => t('The alphanumeric Interest Group Name.'),
     'mobilecommons_opt_in_path' => t('The numeric Mobilecommons opt-in path.'),
+  );
+}
+
+/**
+ * Returns list of helper variables that a SMS Game Campaign can implement.
+ *
+ * @return array
+ *   Associative array keyed by variable name.
+ */
+function dosomething_signup_get_admin_config_sms_game_variables() {
+  return array(
+    'mobilecommons_opt_in_path' => t('Single-player: Mobile Commons Alpha Opt-In Path'),
+    'mobilecommons_friends_opt_in_path' => t('Single-player: Mobile Commons Beta Opt-In Path'),
+    'sms_game_mp_story_id' => t('Multi-player: Story Id'),
+    'sms_game_mp_story_type' => t('Multi-player: Story Type'),
   );
 }
 
