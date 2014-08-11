@@ -41,23 +41,9 @@ function dosomething_user_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'user_mail_password_reset_notify';
-  $strongarm->value = 0;
-  $export['user_mail_password_reset_notify'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'user_mail_register_admin_created_notify';
   $strongarm->value = 0;
   $export['user_mail_register_admin_created_notify'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_mail_register_no_approval_required_notify';
-  $strongarm->value = 0;
-  $export['user_mail_register_no_approval_required_notify'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
