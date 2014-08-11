@@ -183,6 +183,18 @@ function dosomething_signup_get_admin_config_campaign_variables() {
  * System settings form for DoSomething Signup specific variables.
  */
 function dosomething_signup_admin_config_form($form, &$form_state) {
+  $form['sms_game'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('SMS Game'),
+  );
+  $var_name = 'dosomething_signup_sms_game_multiplayer_endpoint';
+  $form['sms_game'][$var_name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('SMS Multi-player Game Endpoint'),
+    '#description' => t("URL to post a multi-player SMS Game request, e.g. <em>http://ds-heroku/sms-multiplayer-game/create</em>"),
+    '#default_value' => variable_get($var_name),
+  );
   $form['log'] = array(
     '#type' => 'fieldset',
     '#title' => t('Logging'),
