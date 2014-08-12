@@ -86,6 +86,8 @@ function dosomething_helpers_get_variable_names() {
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
     'signup_form_submit_label',
+    'sms_game_mp_story_id',
+    'sms_game_mp_story_type',
   );
 }
 
