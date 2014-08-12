@@ -62,6 +62,7 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
 function dosomething_signup_optin_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
+  // Save general Drupal variables.
   $config_variables = array(
     'dosomething_mobilecommons_opt_in_path_user_register',
     'dosomething_mobilecommons_opt_in_path_general_campaign_signup',
@@ -70,47 +71,25 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
     variable_set($var_name, $values[$var_name]);
   }
 
-  // Store list of variables that each Campaign can implement.
-  $variables = dosomething_signup_get_admin_config_campaign_variables();
+  // Save node helpers variables.
+  foreach (dosomething_signup_get_optin_config_form_helpers_vars() as $vars) {
+    // If no nodes exist, go to next group.
+    if (empty($vars['node_vars'])) continue;
 
-  // Save staff pick helpers variables.
-  $staff_picks = dosomething_campaign_get_staff_picks();
-  if ($staff_picks) {
-    foreach ($staff_picks as $vars) {
-      $nid = $vars['nid'];
+    // Loop through each node:
+    foreach ($vars['node_vars'] as $node_vars) {
+      $nid = $node_vars['nid'];
       $node = node_load($nid);
-      foreach ($variables as $name => $description) {
+      // Loop through the relevant helpers_vars for this node.
+      foreach ($vars['helpers_vars'] as $name => $description) {
+        // Get the form input value for this node helpers variable.
         $value = $values[$nid . '_' . $name];
+        // Save it as a helpers variable.
         dosomething_helpers_set_variable($node, $name, $value);
       }
     }
   }
 
-  // Save Campaign Group helpers variables.
-  if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
-    foreach ($campaign_groups as $vars) {
-      $nid = $vars['nid'];
-      $node = node_load($nid);
-      foreach ($variables as $name => $description) {
-        $value = $values[$nid . '_' . $name];
-        dosomething_helpers_set_variable($node, $name, $value);
-      }
-    }
-  }
-
-  // Save SMS Games helpers variables.
-  $sms_games = dosomething_campaign_get_sms_games();
-  if ($sms_games) {
-    $variables = dosomething_signup_get_admin_config_sms_game_variables();
-    foreach ($sms_games as $vars) {
-      $nid = $vars['nid'];
-      $node = node_load($nid);
-      foreach ($variables as $name => $description) {
-        $value = $values[$nid . '_' . $name];
-        dosomething_helpers_set_variable($node, $name, $value);
-      }
-    }
-  }
   drupal_set_message(t("Configuration saved."));
 }
 
