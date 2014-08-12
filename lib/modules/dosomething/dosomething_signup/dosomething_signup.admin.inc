@@ -34,17 +34,19 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
 
   // Node helpers variables.
   foreach (dosomething_signup_get_optin_config_form_helpers_vars() as $key => $vars) {
-    // Output section header:
+    // Output group header:
     $form[$key] =array(
       '#markup' => '<h3>' . $vars['title'] . '</h3>',
     );
-    // If nodes exist for this section:
+    // If nodes exist for this group:
     if (!empty($vars['node_vars'])) {
+      // Get the helpers_vars names for this group.
+      $helpers_vars = $vars['helpers_vars'];
       // Loop through each node:
       foreach ($vars['node_vars'] as $node_vars) {
         $type = $vars['form_element_type'];
         // Add a form element for the node's helpers variables.
-        dosomething_signup_optin_config_form_add_elements($form, $node_vars, $type);
+        dosomething_signup_optin_config_form_add_elements($form, $node_vars, $helpers_vars);
       }
     }
   }
@@ -94,27 +96,29 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
 }
 
 /**
- * Adds form elements to store third party values for given set of $vars.
+ * Adds form elements to store third party values for given set of $node_vars.
+ *
+ * @param array $form
+ *   The Form API form to add the elements to.
+ * @param array $node_vars
+ *   The relevant node variables for these form elements. Expected values:
+ *   - nid: The node nid (int).
+ *   - title: The node title (string).
+ * @param array $helpers_vars
+ *   The helpers variable names to get/set for this node.
  */
-function dosomething_signup_optin_config_form_add_elements(&$form, $vars, $type = NULL) {
-  $nid = $vars['nid'];
-
-  // Get the helper variables to create form elements based on the $type.
-  $variables = dosomething_signup_get_admin_config_campaign_variables();
-  if ($type == 'sms_game') {
-    $variables = dosomething_signup_get_admin_config_sms_game_variables();
-  }
- 
+function dosomething_signup_optin_config_form_add_elements(&$form, $node_vars, $helpers_vars) {
+  $nid = $node_vars['nid']; 
   // Create a fieldset for each campaign.
   $form[$nid] = array(
     '#type' => 'fieldset',
-    '#title' => $vars['title'] . ' | NID ' . $nid,
+    '#title' => $node_vars['title'] . ' | NID ' . $nid,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  // Loop through each variable it can contain:
-  foreach ($variables as $name => $description) {
-    // Create a form element for it.
+  // Loop through each helpers variable name for this node:
+  foreach ($helpers_vars as $name => $description) {
+    // Create a form element for setting the node helpers variable.
     $form[$nid][$nid . '_' . $name] = array(
       '#type' => 'textfield',
       '#title' => $name,
@@ -125,31 +129,24 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $vars, $type 
 }
 
 /**
- * Returns list of helper variables that a standard Campaign can implement.
+ * Returns multi-dimensional array of relevant Signup helpers variable names.
  *
  * @return array
- *   Associative array keyed by variable name.
+ *   Returns multi-dimensional array, keyed by the Campaign type.
  */
-function dosomething_signup_get_admin_config_campaign_variables() {
+function dosomething_signup_get_signup_helpers_var_names() {
   return array(
-    'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name.'),
-    'mailchimp_group_name' => t('The alphanumeric Interest Group Name.'),
-    'mobilecommons_opt_in_path' => t('The numeric Mobilecommons opt-in path.'),
-  );
-}
-
-/**
- * Returns list of helper variables that a SMS Game Campaign can implement.
- *
- * @return array
- *   Associative array keyed by variable name.
- */
-function dosomething_signup_get_admin_config_sms_game_variables() {
-  return array(
-    'mobilecommons_opt_in_path' => t('Single-player: Mobile Commons Alpha Opt-In Path'),
-    'mobilecommons_friends_opt_in_path' => t('Single-player: Mobile Commons Beta Opt-In Path'),
-    'sms_game_mp_story_id' => t('Multi-player: Story Id'),
-    'sms_game_mp_story_type' => t('Multi-player: Story Type'),
+    'campaign' => array(
+      'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name.'),
+      'mailchimp_group_name' => t('The alphanumeric Interest Group Name.'),
+      'mobilecommons_opt_in_path' => t('The numeric Mobilecommons opt-in path.'),
+    ),
+    'sms_game' => array(
+      'mobilecommons_opt_in_path' => t('Single-player: Mobile Commons Alpha Opt-In Path'),
+      'mobilecommons_friends_opt_in_path' => t('Single-player: Mobile Commons Beta Opt-In Path'),
+      'sms_game_mp_story_id' => t('Multi-player: Story Id'),
+      'sms_game_mp_story_type' => t('Multi-player: Story Type'),
+    ),
   );
 }
 
@@ -160,22 +157,24 @@ function dosomething_signup_get_admin_config_sms_game_variables() {
  */
 function dosomething_signup_get_optin_config_form_helpers_vars() {
   $vars = array();
+  $helpers_var_names = dosomething_signup_get_signup_helpers_var_names();
   $vars['staff_pick'] = array(
     'title' => t("Staff Picks"),
     'node_vars' => dosomething_campaign_get_staff_picks(),
-    'helpers_vars' => dosomething_signup_get_admin_config_campaign_variables(),
+    'helpers_vars' => $helpers_var_names['campaign'],
     'form_element_type' => NULL,
   );
   $vars['campaign_group'] = array(
     'title' => t("Grouped Campaigns"),
     'node_vars' => dosomething_helpers_get_node_vars('campaign_group'),
-    'helpers_vars' => dosomething_signup_get_admin_config_campaign_variables(),
+    // A Campaign Group uses the same helpers variables as a standard Campaign.
+    'helpers_vars' => $helpers_var_names['campaign'],
     'form_element_type' => NULL,
   );
   $vars['sms_game'] = array(
     'title' => t("SMS Games"),
     'node_vars' => dosomething_campaign_get_sms_games(),
-    'helpers_vars' => dosomething_signup_get_admin_config_sms_game_variables(),
+    'helpers_vars' => $helpers_var_names['sms_game'],
     'form_element_type' => 'sms_game',
   );
   return $vars;
@@ -194,7 +193,7 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => t('SMS Multi-player Game Endpoint'),
-    '#description' => t("URL to post a multi-player SMS Game request, e.g. <em>http://ds-heroku/sms-multiplayer-game/create</em>"),
+    '#description' => t("URL to post a multi-player SMS Game request, e.g. <em>http://ds-heroku.biz/sms-multiplayer-game/create</em>"),
     '#default_value' => variable_get($var_name),
   );
   $form['log'] = array(
