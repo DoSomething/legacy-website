@@ -86,19 +86,18 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
 }
 
 /**
- * Form constructor for a Friends signup form.
+ * Form constructor for a SMS Game signup form.
  *
  * @param int $nid
  *   Loaded $node that the form is being rendered on.
  * @param int $num_friends
  *   Number of inputs to provide for friends' numbers.
  */
-function dosomething_signup_friends_form($form, &$form_state, $node, $num_friends = 3) {
+function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_friends = 3) {
   $nid = $node->nid;
-  $vars = dosomething_helpers_get_variables($node->nid);
-  $opt_in_path = $vars['mobilecommons_opt_in_path'];
-  $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
- 
+  // Add relevant configuration form elements.
+  dosomething_signup_sms_game_form_config($form, $nid);
+
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $nid,
@@ -109,24 +108,6 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
     '#default_value' => $node->title,
     '#access' => FALSE,
   );
-  // If we have opt-in paths set:
-  if ($opt_in_path && $friends_opt_in_path) {
-    // Add as hidden form elements.
-    $form['opt_in_path'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $opt_in_path,
-      '#access' => FALSE,
-    );
-    $form['friends_opt_in_path'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $friends_opt_in_path,
-      '#access' => FALSE,
-    );
-  }
-  else {
-    // Else set a warning message to inform staff to not expect any texts.
-    drupal_set_message(t("The opt-in paths for this SMS Game have not been configured."), "error");
-  }
   $form['num_betas'] = array(
     '#type' => 'hidden',
     '#default_value' => $num_friends,
@@ -207,11 +188,74 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
 }
 
 /**
- * Form validation handler for dosomething_signup_friends_form().
+ * Add hidden form elements for SMS Game $nid, or set message if not configured.
+ *
+ * @param array $form
+ *   A Form API form to add the elements to.
+ * @param int $nid
+ *   The node $nid to check configuration values for.
+ */
+function dosomething_signup_sms_game_form_config(&$form, $nid) {
+  $vars = dosomething_helpers_get_variables($nid);
+
+  $sms_game_type = NULL;
+
+  // Single-player variables:
+  $opt_in_path = $vars['mobilecommons_opt_in_path'];
+  $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
+
+  // Multi-player variables:
+  $mp_story_id = $vars['sms_game_mp_story_id'];
+  $mp_story_type = $vars['sms_game_mp_story_type'];
+
+  // Check for single-player variables:
+  if ($opt_in_path && $friends_opt_in_path) {
+    $sms_game_type = 'single_player';
+    $form['opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $opt_in_path,
+      '#access' => FALSE,
+    );
+    $form['friends_opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $friends_opt_in_path,
+      '#access' => FALSE,
+    );
+  }
+  // Else check for multi-player variables:
+  elseif ($mp_story_id && $mp_story_type) {
+    $sms_game_type = 'multi_player';
+    $form['story_id'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $mp_story_id,
+      '#access' => FALSE,
+    );
+    $form['story_type'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $mp_story_type,
+      '#access' => FALSE,
+    );
+  }
+  else {
+    // Else set a warning message to inform staff to not expect any texts.
+    drupal_set_message(t("This SMS Game is not properly configured."), "error");
+  }
+
+  if ($sms_game_type) {
+    $form['sms_game_type'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $sms_game_type,
+      '#access' => FALSE,
+    );
+  }
+}
+
+/**
+ * Form validation handler for dosomething_signup_sms_game_form().
  *
  * Provides server-side checks for valid and duplicate numbers, cleans input format.
  */
-function dosomething_signup_friends_form_validate($form, &$form_state) {
+function dosomething_signup_sms_game_form_validate($form, &$form_state) {
   $values = $form_state['values'];
   // Text to display for invalid number format.
   $invalid_format_msg = t("Please provide a valid telephone number.");
@@ -257,11 +301,11 @@ function dosomething_signup_friends_form_validate($form, &$form_state) {
 }
 
 /**
- * Form submission handler for dosomething_signup_friends_form().
+ * Form submission handler for dosomething_signup_sms_game_form().
  *
  * Redirects user to the reportback confirmation page for given node.
  */
-function dosomething_signup_friends_form_submit($form, &$form_state) {
+function dosomething_signup_sms_game_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $nid = $values['nid'];
 
@@ -279,12 +323,10 @@ function dosomething_signup_friends_form_submit($form, &$form_state) {
     // If $account happens to be the logged in user, it's okay.
     // dosomething_signup_create will check if a signup exists before creating.
     dosomething_signup_create($nid, $account->uid);
-
   }
 
-  
-  // Send opt_in request to Mobilecommons API.
-  dosomething_signup_mobilecommons_opt_in_friends($values);
+  // Send request to relevant SMS Game endpoints.
+  dosomething_signup_sms_game_signup_request($values['sms_game_type'], $values);
 
   // Redirect to the reportback confirmation page.
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
