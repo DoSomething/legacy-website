@@ -11,6 +11,9 @@ function dosomething_image_create_node_from_json($string) {
   $data = json_decode($string);
   $image = new stdClass();
 
+  // We'll use this as a flag to find test nodes.
+  $node->created = '-1'; 
+
   $node->type = 'image';
   $node->title = $data->title;
   $node->active = 1;

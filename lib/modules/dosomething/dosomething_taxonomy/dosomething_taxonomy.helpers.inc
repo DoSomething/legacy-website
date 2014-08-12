@@ -16,6 +16,9 @@ function dosomething_taxonomy_create_term($name, $vocabulary_machine_name) {
 
     $term = new stdClass();
 
+    // We'll use this as a flag to find test nodes.
+    $term->created = '-1'; 
+
     $term->name = $name;
     $term->vid = $vid;
 
