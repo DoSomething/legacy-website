@@ -44,7 +44,6 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
       $helpers_vars = $vars['helpers_vars'];
       // Loop through each node:
       foreach ($vars['node_vars'] as $node_vars) {
-        $type = $vars['form_element_type'];
         // Add a form element for the node's helpers variables.
         dosomething_signup_optin_config_form_add_elements($form, $node_vars, $helpers_vars);
       }
@@ -162,20 +161,17 @@ function dosomething_signup_get_optin_config_form_helpers_vars() {
     'title' => t("Staff Picks"),
     'node_vars' => dosomething_campaign_get_staff_picks(),
     'helpers_vars' => $helpers_var_names['campaign'],
-    'form_element_type' => NULL,
   );
   $vars['campaign_group'] = array(
     'title' => t("Grouped Campaigns"),
     'node_vars' => dosomething_helpers_get_node_vars('campaign_group'),
     // A Campaign Group uses the same helpers variables as a standard Campaign.
     'helpers_vars' => $helpers_var_names['campaign'],
-    'form_element_type' => NULL,
   );
   $vars['sms_game'] = array(
     'title' => t("SMS Games"),
     'node_vars' => dosomething_campaign_get_sms_games(),
     'helpers_vars' => $helpers_var_names['sms_game'],
-    'form_element_type' => 'sms_game',
   );
   return $vars;
 }
