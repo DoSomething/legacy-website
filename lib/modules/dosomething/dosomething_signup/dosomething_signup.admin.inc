@@ -8,7 +8,7 @@
 /**
  * Form constructor for Signup opt-in configuration.
  */
-function dosomething_signup_optin_config_form($form, &$form_state) {
+function dosomething_signup_opt_in_config_form($form, &$form_state) {
 
   // General Drupal variables.
   $name = 'dosomething_mobilecommons_opt_in_path_user_register';
@@ -33,8 +33,8 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
   );
 
   // Node helpers variables.
-  $optin_helpers = dosomething_signup_get_optin_config_form_helpers_vars();
-  foreach ($optin_helpers as $key => $vars) {
+  $opt_in_helpers = dosomething_signup_get_opt_in_config_form_helpers_vars();
+  foreach ($opt_in_helpers as $key => $vars) {
     // Output group header:
     $form[$key] = array(
       '#markup' => '<h3>' . $vars['title'] . '</h3>',
@@ -46,7 +46,7 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
       // Loop through each node:
       foreach ($vars['node_vars'] as $node_vars) {
         // Add a form element for the node's helpers variables.
-        dosomething_signup_optin_config_form_add_elements($form, $node_vars, $helpers_vars);
+        dosomething_signup_opt_in_config_form_add_elements($form, $node_vars, $helpers_vars);
       }
     }
   }
@@ -59,9 +59,9 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
 }
 
 /**
- * Submit handler for dosomething_signup_optin_config_form().
+ * Submit handler for dosomething_signup_opt_in_config_form().
  */
-function dosomething_signup_optin_config_form_submit($form, &$form_state) {
+function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
   // Save general Drupal variables.
@@ -74,10 +74,12 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
   }
 
   // Save node helpers variables.
-  $optin_helpers = dosomething_signup_get_optin_config_form_helpers_vars();
-  foreach ($optin_helpers as $vars) {
+  $opt_in_helpers = dosomething_signup_get_opt_in_config_form_helpers_vars();
+  foreach ($opt_in_helpers as $vars) {
     // If no nodes exist, go to next group.
-    if (empty($vars['node_vars'])) { continue; }
+    if (empty($vars['node_vars'])) {
+      continue;
+    }
 
     // Loop through each node:
     foreach ($vars['node_vars'] as $node_vars) {
@@ -108,9 +110,9 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
  * @param array $helpers_vars
  *   The helpers variable names to get/set for this node.
  */
-function dosomething_signup_optin_config_form_add_elements(&$form, $node_vars, $helpers_vars) {
+function dosomething_signup_opt_in_config_form_add_elements(&$form, $node_vars, $helpers_vars) {
   $nid = $node_vars['nid'];
-  $title = isset($node_vars['title']) ? $node_vars['title'] : NULL;
+  $title = !empty($node_vars['title']) ? $node_vars['title'] : t("Undefined");
   // Create a fieldset for each campaign.
   $form[$nid] = array(
     '#type' => 'fieldset',
@@ -157,7 +159,7 @@ function dosomething_signup_get_signup_helpers_var_names() {
  *
  * @return array
  */
-function dosomething_signup_get_optin_config_form_helpers_vars() {
+function dosomething_signup_get_opt_in_config_form_helpers_vars() {
   $vars = array();
   $helpers_var_names = dosomething_signup_get_signup_helpers_var_names();
   $vars['staff_pick'] = array(
