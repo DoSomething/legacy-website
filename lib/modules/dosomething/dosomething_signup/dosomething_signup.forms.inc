@@ -198,6 +198,8 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
 function dosomething_signup_sms_game_form_config(&$form, $nid) {
   $vars = dosomething_helpers_get_variables($nid);
 
+  $sms_game_type = NULL;
+
   // Single-player variables:
   $opt_in_path = $vars['mobilecommons_opt_in_path'];
   $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
@@ -208,6 +210,7 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
 
   // Check for single-player variables:
   if ($opt_in_path && $friends_opt_in_path) {
+    $sms_game_type = 'single_player';
     $form['opt_in_path'] = array(
       '#type' => 'hidden',
       '#default_value' => $opt_in_path,
@@ -221,6 +224,7 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
   }
   // Else check for multi-player variables:
   elseif ($mp_story_id && $mp_story_type) {
+    $sms_game_type = 'multi_player';
     $form['story_id'] = array(
       '#type' => 'hidden',
       '#default_value' => $mp_story_id,
@@ -235,6 +239,14 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
   else {
     // Else set a warning message to inform staff to not expect any texts.
     drupal_set_message(t("This SMS Game is not properly configured."), "error");
+  }
+
+  if ($sms_game_type) {
+    $form['sms_game_type'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $sms_game_type,
+      '#access' => FALSE,
+    );
   }
 }
 
@@ -311,12 +323,10 @@ function dosomething_signup_sms_game_form_submit($form, &$form_state) {
     // If $account happens to be the logged in user, it's okay.
     // dosomething_signup_create will check if a signup exists before creating.
     dosomething_signup_create($nid, $account->uid);
-
   }
 
-  
-  // Send opt_in request to Mobilecommons API.
-  dosomething_signup_mobilecommons_opt_in_friends($values);
+  // Send request to relevant SMS Game endpoints.
+  dosomething_signup_sms_game_signup_request($values['sms_game_type'], $values);
 
   // Redirect to the reportback confirmation page.
   $confirmation_path = 'node/' . $values['nid'] . '/confirmation';

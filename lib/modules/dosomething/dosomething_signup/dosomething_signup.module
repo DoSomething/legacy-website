@@ -682,3 +682,58 @@ function dosomething_signup_get_signup_total_by_nid($nid) {
     ->execute();
   return $result->rowCount();
 }
+
+/**
+ * Handles a SMS Game Signup Form signup.
+ *
+ * @param string $sms_game_type
+ *   Expected values: 'single_player' | 'multi_player'.
+ * @param array $values
+ *   Values to use for the signup request.
+ *   @see dosomething_signup_sms_game_form()
+ */
+function dosomething_signup_sms_game_signup_request($sms_game_type, $values) {
+  if ($sms_game_type == 'single_player') {
+    // Send opt_in request to Mobilecommons API.
+    return dosomething_signup_mobilecommons_opt_in_friends($values);
+  }
+  // Default to multi-player signup:
+  dosomething_signup_sms_game_multi_player_signup_request($values);
+}
+
+/**
+ * Posts to to the Multi-player SMS Game URL with relevant $values.
+ *
+ * @param array @values
+ */
+function dosomething_signup_sms_game_multi_player_signup_request($values) {
+  // Initialize post data.
+  $data = array();
+  $data_vars = array(
+    'alpha_first_name',
+    'alpha_mobile',
+    'beta_mobile_0',
+    'beta_mobile_1',
+    'beta_mobile_2',
+    'story_id',
+    'story_type',
+  );
+  foreach ($data_vars as $var) {
+    $data[$var] = $values[$var];
+  }
+  $options = array(
+    'method' => 'POST',
+    'data' => drupal_http_build_query($data),
+    'timeout' => 60,
+    'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
+  );
+
+  $url = variable_get('dosomething_signup_sms_game_multiplayer_endpoint');
+  $response = drupal_http_request($url, $options);
+
+  if (DOSOMETHING_SIGNUP_LOG_SIGNUPS) {
+    $log = json_encode($response);
+    watchdog('dosomething_signup_sms_game_multi_player_signup_request', $log);
+  }
+  return $response;
+}
