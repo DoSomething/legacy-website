@@ -33,15 +33,16 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
   );
 
   // Node helpers variables.
-  foreach (dosomething_signup_get_optin_config_form_helpers_vars() as $key => $vars) {
+  $optin_helpers = dosomething_signup_get_optin_config_form_helpers_vars();
+  foreach ($optin_helpers as $key => $vars) {
     // Output group header:
-    $form[$key] =array(
+    $form[$key] = array(
       '#markup' => '<h3>' . $vars['title'] . '</h3>',
     );
     // If nodes exist for this group:
     if (!empty($vars['node_vars'])) {
       // Get the helpers_vars names for this group.
-      $helpers_vars = $vars['helpers_vars'];
+      $helpers_vars = &$vars['helpers_vars'];
       // Loop through each node:
       foreach ($vars['node_vars'] as $node_vars) {
         // Add a form element for the node's helpers variables.
@@ -73,9 +74,10 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
   }
 
   // Save node helpers variables.
-  foreach (dosomething_signup_get_optin_config_form_helpers_vars() as $vars) {
+  $optin_helpers = dosomething_signup_get_optin_config_form_helpers_vars();
+  foreach ($optin_helpers as $vars) {
     // If no nodes exist, go to next group.
-    if (empty($vars['node_vars'])) continue;
+    if (empty($vars['node_vars'])) { continue; }
 
     // Loop through each node:
     foreach ($vars['node_vars'] as $node_vars) {
@@ -107,11 +109,12 @@ function dosomething_signup_optin_config_form_submit($form, &$form_state) {
  *   The helpers variable names to get/set for this node.
  */
 function dosomething_signup_optin_config_form_add_elements(&$form, $node_vars, $helpers_vars) {
-  $nid = $node_vars['nid']; 
+  $nid = $node_vars['nid'];
+  $title = isset($node_vars['title']) ? $node_vars['title'] : NULL;
   // Create a fieldset for each campaign.
   $form[$nid] = array(
     '#type' => 'fieldset',
-    '#title' => $node_vars['title'] . ' | NID ' . $nid,
+    '#title' => $title . ' | NID ' . $nid,
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -131,7 +134,7 @@ function dosomething_signup_optin_config_form_add_elements(&$form, $node_vars, $
  * Returns multi-dimensional array of relevant Signup helpers variable names.
  *
  * @return array
- *   Returns multi-dimensional array, keyed by the Campaign type.
+ *   Returns multi-dimensional array, indexed by the Campaign type.
  */
 function dosomething_signup_get_signup_helpers_var_names() {
   return array(
