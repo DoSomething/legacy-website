@@ -95,10 +95,9 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
  */
 function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_friends = 3) {
   $nid = $node->nid;
-  $vars = dosomething_helpers_get_variables($node->nid);
-  $opt_in_path = $vars['mobilecommons_opt_in_path'];
-  $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
- 
+  // Add relevant configuration form elements.
+  dosomething_signup_sms_game_form_config($form, $nid);
+
   $form['nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $nid,
@@ -109,24 +108,6 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#default_value' => $node->title,
     '#access' => FALSE,
   );
-  // If we have opt-in paths set:
-  if ($opt_in_path && $friends_opt_in_path) {
-    // Add as hidden form elements.
-    $form['opt_in_path'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $opt_in_path,
-      '#access' => FALSE,
-    );
-    $form['friends_opt_in_path'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $friends_opt_in_path,
-      '#access' => FALSE,
-    );
-  }
-  else {
-    // Else set a warning message to inform staff to not expect any texts.
-    drupal_set_message(t("The opt-in paths for this SMS Game have not been configured."), "error");
-  }
   $form['num_betas'] = array(
     '#type' => 'hidden',
     '#default_value' => $num_friends,
@@ -204,6 +185,57 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   return $form;
+}
+
+/**
+ * Add hidden form elements for SMS Game $nid, or set message if not configured.
+ *
+ * @param array $form
+ *   A Form API form to add the elements to.
+ * @param int $nid
+ *   The node $nid to check configuration values for.
+ */
+function dosomething_signup_sms_game_form_config(&$form, $nid) {
+  $vars = dosomething_helpers_get_variables($nid);
+
+  // Single-player variables:
+  $opt_in_path = $vars['mobilecommons_opt_in_path'];
+  $friends_opt_in_path = $vars['mobilecommons_friends_opt_in_path'];
+
+  // Multi-player variables:
+  $mp_story_id = $vars['sms_game_mp_story_id'];
+  $mp_story_type = $vars['sms_game_mp_story_type'];
+
+  // Check for single-player variables:
+  if ($opt_in_path && $friends_opt_in_path) {
+    $form['opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $opt_in_path,
+      '#access' => FALSE,
+    );
+    $form['friends_opt_in_path'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $friends_opt_in_path,
+      '#access' => FALSE,
+    );
+  }
+  // Else check for multi-player variables:
+  elseif ($mp_story_id && $mp_story_type) {
+    $form['story_id'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $mp_story_id,
+      '#access' => FALSE,
+    );
+    $form['story_type'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $mp_story_type,
+      '#access' => FALSE,
+    );
+  }
+  else {
+    // Else set a warning message to inform staff to not expect any texts.
+    drupal_set_message(t("This SMS Game is not properly configured."), "error");
+  }
 }
 
 /**
