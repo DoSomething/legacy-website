@@ -1,4 +1,4 @@
-<article class="tile tile--campaign campaign-result <?php print $modifier_classes ?>">
+<article class="tile tile--campaign campaign-result">
   <a class="wrapper" href="<?php print $pretty_path; ?>">
     <?php if ($staff_pick): ?>
       <div class="__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
