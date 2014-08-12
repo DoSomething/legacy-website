@@ -86,14 +86,14 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
 }
 
 /**
- * Form constructor for a Friends signup form.
+ * Form constructor for a SMS Game signup form.
  *
  * @param int $nid
  *   Loaded $node that the form is being rendered on.
  * @param int $num_friends
  *   Number of inputs to provide for friends' numbers.
  */
-function dosomething_signup_friends_form($form, &$form_state, $node, $num_friends = 3) {
+function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_friends = 3) {
   $nid = $node->nid;
   $vars = dosomething_helpers_get_variables($node->nid);
   $opt_in_path = $vars['mobilecommons_opt_in_path'];
@@ -207,11 +207,11 @@ function dosomething_signup_friends_form($form, &$form_state, $node, $num_friend
 }
 
 /**
- * Form validation handler for dosomething_signup_friends_form().
+ * Form validation handler for dosomething_signup_sms_game_form().
  *
  * Provides server-side checks for valid and duplicate numbers, cleans input format.
  */
-function dosomething_signup_friends_form_validate($form, &$form_state) {
+function dosomething_signup_sms_game_form_validate($form, &$form_state) {
   $values = $form_state['values'];
   // Text to display for invalid number format.
   $invalid_format_msg = t("Please provide a valid telephone number.");
@@ -257,11 +257,11 @@ function dosomething_signup_friends_form_validate($form, &$form_state) {
 }
 
 /**
- * Form submission handler for dosomething_signup_friends_form().
+ * Form submission handler for dosomething_signup_sms_game_form().
  *
  * Redirects user to the reportback confirmation page for given node.
  */
-function dosomething_signup_friends_form_submit($form, &$form_state) {
+function dosomething_signup_sms_game_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $nid = $values['nid'];
 
