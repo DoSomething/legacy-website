@@ -105,8 +105,8 @@
         <div class="disclaimer legal">
           <p>
             <?php
-              print t("Taking part in this experience means you agree to our @terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
-              array("@terms_link" => '<a href="https://www.dosomething.org/about/terms-service">Terms of Service</a>')); ?>
+              print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
+              array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
           </p>
         </div>
       </div>
