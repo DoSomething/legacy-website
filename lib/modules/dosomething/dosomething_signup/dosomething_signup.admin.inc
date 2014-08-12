@@ -9,6 +9,8 @@
  * Form constructor for Signup opt-in configuration.
  */
 function dosomething_signup_optin_config_form($form, &$form_state) {
+
+  // General Drupal variables.
   $name = 'dosomething_mobilecommons_opt_in_path_user_register';
   $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
   $form[$name] = array(
@@ -29,32 +31,24 @@ function dosomething_signup_optin_config_form($form, &$form_state) {
     '#size' => 10,
     '#description' => $desc,
   );
-  $form['staff_picks'] = array(
-    '#markup' => '<h3>Staff Picks</h3>',
-  );
-  $staff_picks = dosomething_campaign_get_staff_picks();
-  if ($staff_picks) {
-    foreach ($staff_picks as $vars) {
-      dosomething_signup_optin_config_form_add_elements($form, $vars);
+
+  // Node helpers variables.
+  foreach (dosomething_signup_get_optin_config_form_helpers_vars() as $key => $vars) {
+    // Output section header:
+    $form[$key] =array(
+      '#markup' => '<h3>' . $vars['title'] . '</h3>',
+    );
+    // If nodes exist for this section:
+    if (!empty($vars['node_vars'])) {
+      // Loop through each node:
+      foreach ($vars['node_vars'] as $node_vars) {
+        $type = $vars['form_element_type'];
+        // Add a form element for the node's helpers variables.
+        dosomething_signup_optin_config_form_add_elements($form, $node_vars, $type);
+      }
     }
   }
-  $form['campaign_groups'] = array(
-    '#markup' => '<h3>Grouped Campaigns</h3>',
-  );
-  if ($campaign_groups = dosomething_helpers_get_node_vars('campaign_group')) {
-    foreach ($campaign_groups as $vars) {
-      dosomething_signup_optin_config_form_add_elements($form, $vars);
-    }
-  }
-  $form['header'] = array(
-    '#markup' => '<h3>SMS Games</h3>',
-  );
-  $sms_games = dosomething_campaign_get_sms_games();
-  if ($sms_games) {
-    foreach ($sms_games as $vars) {
-      dosomething_signup_optin_config_form_add_elements($form, $vars, 'sms_game');
-    }
-  }
+
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
@@ -178,6 +172,34 @@ function dosomething_signup_get_admin_config_sms_game_variables() {
     'sms_game_mp_story_id' => t('Multi-player: Story Id'),
     'sms_game_mp_story_type' => t('Multi-player: Story Type'),
   );
+}
+
+/**
+ * Returns list of variables to construct the Op-tin Config form.
+ *
+ * @return array
+ */
+function dosomething_signup_get_optin_config_form_helpers_vars() {
+  $vars = array();
+  $vars['staff_pick'] = array(
+    'title' => t("Staff Picks"),
+    'node_vars' => dosomething_campaign_get_staff_picks(),
+    'helpers_vars' => dosomething_signup_get_admin_config_campaign_variables(),
+    'form_element_type' => NULL,
+  );
+  $vars['campaign_group'] = array(
+    'title' => t("Grouped Campaigns"),
+    'node_vars' => dosomething_helpers_get_node_vars('campaign_group'),
+    'helpers_vars' => dosomething_signup_get_admin_config_campaign_variables(),
+    'form_element_type' => NULL,
+  );
+  $vars['sms_game'] = array(
+    'title' => t("SMS Games"),
+    'node_vars' => dosomething_campaign_get_sms_games(),
+    'helpers_vars' => dosomething_signup_get_admin_config_sms_game_variables(),
+    'form_element_type' => 'sms_game',
+  );
+  return $vars;
 }
 
 /**
