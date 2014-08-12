@@ -106,24 +106,27 @@
       <div class="wrapper">
 
         <div class="container__body">
+
         <?php if (isset($starter)) : ?>
           <?php print $starter['safe_value']; ?>
         <?php endif; ?>
 
         <?php if (isset($plan)): ?>
-          <?php foreach ($plan as $delta => $content): ?>
+          <?php foreach ($plan as $index => $content): ?>
 
-            <?php if ($delta%2 === 0) print '<div class="__row">'; ?>
-            <div class="-columned <?php print $delta%2 ? '-even' : '-odd'; ?>">
+            <?php if ($index%2 === 0) print '<div class="__row">'; ?>
+            <div class="-columned <?php print $index%2 ? '-even' : '-odd'; ?>">
+
+
               <h3 class="inline--alt-color"><?php print $content['title']; ?></h3>
               <?php print $content['content']; ?>
 
-              <?php // Content specifically for Materials content section. ?>
+              <?php // Start: Content specifically for Materials content section. ?>
               <?php if ($content['category'] === 'materials'): ?>
 
                 <?php if (isset($action_guides)): ?>
                   <ul>
-                  <?php foreach ($action_guides as $delta => $action_guide): ?>
+                  <?php  foreach ($action_guides as $delta => $action_guide): ?>
                     <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
                   <?php endforeach; ?>
                   </ul>
@@ -143,10 +146,11 @@
                   </ul>
                 <?php endif; ?>
 
-              <?php endif; // if content['category'] == 'materials' ?>
+              <?php endif; ?>
+              <?php  // End: Materials content section. ?>
 
             </div>
-            <?php if ($delta%2 === 1 || $delta + 1 === $plan_count) print '</div>'; ?>
+            <?php if ($index%2 === 1 || $index + 1 === $plan_count) print '</div>'; ?>
 
           <?php endforeach; ?>
         <?php endif; ?>
