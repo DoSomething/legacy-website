@@ -62,6 +62,7 @@ function dosomething_reportback_schema() {
     'primary key' => array('rbid'),
     'indexes' => array(
       'uid' => array('uid'),
+      'nid' => array('nid'),
     ),
   );
   $schema['dosomething_reportback_log'] = array(
