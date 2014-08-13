@@ -159,83 +159,6 @@
     margin-bottom: 54px;
   }
 
-  // This introduces a new gallery pattern with floated image
-  // and .__body
-  // TODO: move to neue
-  .gallery {
-    &.-duo {
-      > li {
-        @include media($tablet) {
-          @include span-columns(6 of 12);
-          @include omega(2n);
-
-          &:nth-child(3n) {
-            clear: left;
-          }
-        }
-      }
-
-      .tile--figure {
-        @include clearfix();
-        text-align: left;
-
-        .__media {
-          @include span-columns(2);
-
-          img {
-            margin-left: 0;
-            margin-right: 0;
-            width: auto;
-          }
-        }
-
-        .__body {
-          @include span-columns(6);
-        }
-      }
-    }
-
-    .ie8 & {
-      &.-duo {
-        > li {
-          @include media($tablet) {
-            // Last-child not supported in IE8; using class as fallback.
-            &.-second {
-              margin-right: 0;
-              border: 1px solid #000;
-            }
-
-            // Nth-child not supported in IE8; using class as fallback.
-            &.-first {
-              clear: left;
-            }
-          }
-        }
-      }
-    }
-
-    &.-mention + h3 {
-      margin-top: 0;
-    }
-
-    &.-aligned {
-      .tile--figure {
-
-        // Added wrapper to force minimum height so content below lines up on each <li>
-        // @TODO: update pattern in neue
-        .__media {
-          margin-bottom: 18px;
-          min-height: 75px;
-
-          img {
-            margin-bottom: 0;
-            width: auto;
-          }
-        }
-      }
-    }
-  }
-
   div + .gallery {
     margin-top: 45px;
   }
@@ -250,6 +173,84 @@
       color: #444;
       margin-bottom: 18px;
       text-transform: capitalize;
+    }
+  }
+}
+
+
+// This introduces a new gallery pattern with floated image
+// and .__body
+// TODO: move to neue
+.gallery {
+  &.-duo {
+    > li {
+      @include media($tablet) {
+        @include span-columns(6 of 12);
+        @include omega(2n);
+
+        &:nth-child(3n) {
+          clear: left;
+        }
+      }
+    }
+
+    .tile--figure {
+      @include clearfix();
+      text-align: left;
+
+      .__media {
+        @include span-columns(2);
+
+        img {
+          margin-left: 0;
+          margin-right: 0;
+          width: auto;
+        }
+      }
+
+      .__body {
+        @include span-columns(6);
+      }
+    }
+  }
+
+  .ie8 & {
+    &.-duo {
+      > li {
+        @include media($tablet) {
+          // Last-child not supported in IE8; using class as fallback.
+          &.-second {
+            margin-right: 0;
+            border: 1px solid #000;
+          }
+
+          // Nth-child not supported in IE8; using class as fallback.
+          &.-first {
+            clear: left;
+          }
+        }
+      }
+    }
+  }
+
+  &.-mention + h3 {
+    margin-top: 0;
+  }
+
+  &.-aligned {
+    .tile--figure {
+
+      // Added wrapper to force minimum height so content below lines up on each <li>
+      // @TODO: update pattern in neue
+      .__media {
+        margin-bottom: 18px;
+        min-height: 75px;
+
+        img {
+          margin-bottom: 0;
+          width: auto;
+        }
+      }
     }
   }
 }
