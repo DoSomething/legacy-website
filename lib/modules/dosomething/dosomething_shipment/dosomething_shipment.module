@@ -224,6 +224,17 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 }
 
 /**
+ * Returns array of available shirts.
+ */
+function dosomething_shipment_get_shirt_options() {
+  //@todo: Return images as the description.
+  return array(
+    'shirt_dope' => t('Dope shirt'),
+    'shirt_social_action' => t('Social action speaks louder'),
+  );
+}
+
+/**
  * Returns array of available shirt sizes.
  */
 function dosomething_shipment_get_shirt_size_options() {
