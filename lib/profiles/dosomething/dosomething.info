@@ -55,6 +55,7 @@ dependencies[] = redis
 dependencies[] = rest_server
 dependencies[] = search
 dependencies[] = services
+dependencies[] = services_entity
 dependencies[] = strongarm
 dependencies[] = taxonomy_access_fix
 dependencies[] = uuid
