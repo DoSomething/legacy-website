@@ -138,6 +138,6 @@ $solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
 $conf['apachesolr_path'] = "solr/{$solr_path}";
 
 // This is different from the apachesolr host because it's on the client side
-$conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: 'http://search.dosomething.org') . "/solr/";
+$conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: '//search.dosomething.org') . "/solr/";
 
 $conf['dosomething_search_finder_collection'] = $solr_path;
