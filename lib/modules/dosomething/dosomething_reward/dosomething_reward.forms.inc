@@ -36,7 +36,7 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
     '#title' => t("Your Shirt style"),
     '#options' => $shirt_options,
   );
-  $form['item_size'] = array(
+  $form['item_option'] = array(
     '#type' => 'select',
     '#required' => TRUE,
     '#title' => t("Your Shirt Size"),
@@ -52,7 +52,7 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
     '#title' => t("Your Friend's Shirt style"),
     '#options' => $shirt_options,
   );
-  $form['item_additional_size'] = array(
+  $form['item_additional_option'] = array(
     '#type' => 'select',
     '#required' => TRUE,
     '#title' => t("Your Friend's Shirt Size"),
