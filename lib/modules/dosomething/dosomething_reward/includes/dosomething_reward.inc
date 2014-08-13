@@ -37,9 +37,10 @@ class RewardEntity extends Entity {
         'created' => $time,
         'entity_type' => 'reward',
         'entity_id' => $this->id,
-        'shipment_type' => 'shirts',
-        'shirt_size' => $values['shirt_size'],
-        'shirt_size_additional' => $values['shirt_size_additional'],
+        'item' => $values['item'],
+        'item_option' => $values['item_option'],
+        'item_additional' => $values['item_additional'],
+        'item_additional_option' => $values['item_additional_option'],
       ));
       if (DOSOMETHING_REWARD_LOG) {
         watchdog('dosomething_reward', 'Shipment entity_create: @entity', array(

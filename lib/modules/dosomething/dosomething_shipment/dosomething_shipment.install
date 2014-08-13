@@ -24,13 +24,6 @@ function dosomething_shipment_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'shipment_type' => array(
-        'description' => 'The type of Shipment.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => '',
-      ),
       'entity_type' => array(
         'description' => 'The type of the Entity associated with the Shipment.',
         'type' => 'varchar',
@@ -46,13 +39,23 @@ function dosomething_shipment_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'shirt_size' => array(
-        'description' => 'The size of shirt, if applicable.',
+      'item' => array(
+        'description' => 'The shipment item.',
         'type' => 'varchar',
         'length' => 255,
       ),
-      'shirt_size_additional' => array(
-        'description' => 'The size of additional shirt, if applicable.',
+      'item_option' => array(
+        'description' => 'The shipment item option, if applicable.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'item_additional' => array(
+        'description' => 'The additional shipment item, if applicable.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'item_additional_option' => array(
+        'description' => 'The additional shipment item option, if applicable.',
         'type' => 'varchar',
         'length' => 255,
       ),
