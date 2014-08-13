@@ -62,6 +62,7 @@ function dosomething_reportback_schema() {
     'primary key' => array('rbid'),
     'indexes' => array(
       'uid' => array('uid'),
+      'nid' => array('nid'),
     ),
   );
   $schema['dosomething_reportback_log'] = array(
@@ -356,3 +357,25 @@ function dosomething_reportback_update_7008() {
   $value = 'How many people did you do this with?';
   variable_set($var_name, $value);
 }
+
+/**
+ * Add index to nid on dosomething_reportback table.
+ */
+function dosomething_reportback_update_7009() {
+  $table = 'dosomething_reportback';
+  $column = 'nid';
+  if (!db_index_exists($table, $column)) {
+    db_add_index($table, $column, array($column));
+  }
+}
+
+/**
+ * Add index to rbid on dosomething_reportback_field_data table.
+ */
+ function dosomething_reportback_update_7010() {
+   $table = 'dosomething_reportback_field_data';
+   $column = 'rbid';
+   if (!db_index_exists($table, $column)) {
+    db_add_index($table, $column, array($column));
+  }
+ }
