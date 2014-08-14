@@ -138,10 +138,6 @@ projects[redis][subdir] = "contrib"
 projects[services][version] = "3.7"
 projects[services][subdir] = "contrib"
 
-; Services Entity
-projects[services_entity][version] = "2.0-alpha8"
-projects[services_entity][subdir] = "contrib"
-
 ; Strongarm
 projects[strongarm][version] = "2.0"
 projects[strongarm][subdir] = "contrib"

@@ -39,13 +39,10 @@ function dosomething_api_default_services_endpoint() {
     ),
   );
   $endpoint->resources = array(
-    'entity_node' => array(
+    'node' => array(
       'alias' => 'content',
       'operations' => array(
         'retrieve' => array(
-          'enabled' => '1',
-        ),
-        'index' => array(
           'enabled' => '1',
         ),
       ),
