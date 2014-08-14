@@ -39,21 +39,6 @@ function dosomething_api_default_services_endpoint() {
     ),
   );
   $endpoint->resources = array(
-    'node' => array(
-      'alias' => 'content',
-      'operations' => array(
-        'retrieve' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'system' => array(
-      'actions' => array(
-        'connect' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
     'user' => array(
       'alias' => 'auth',
       'actions' => array(
@@ -74,6 +59,28 @@ function dosomething_api_default_services_endpoint() {
           ),
         ),
         'token' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'campaigns' => array(
+      'operations' => array(
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'node' => array(
+      'alias' => 'content',
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'system' => array(
+      'actions' => array(
+        'connect' => array(
           'enabled' => '1',
         ),
       ),
