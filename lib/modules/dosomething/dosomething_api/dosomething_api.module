@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_api feature.
+ */
+
+include_once 'dosomething_api.features.inc';
+
+/**
+ * Implements hook_services_request_postprocess_alter().
+ */
+function dosomething_api_services_request_postprocess_alter($controller, $args, &$result) {
+  // If we are retrieving a node:
+  if ($controller['callback'] == '_node_resource_retrieve') {
+    // if it's a campaign node:
+    if (isset($result->nid) && $result->type == 'campaign') {
+      if (function_exists('dosomething_campaign_load')) {
+        // Return the Campaign class.
+        $result = dosomething_campaign_load($result, TRUE);
+      }
+    }
+    else {
+      // No content for you.
+      $result = FALSE;
+    }
+  }
+}

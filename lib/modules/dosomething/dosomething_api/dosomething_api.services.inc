@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * dosomething_settings.services.inc
+ * dosomething_api.services.inc
  */
 
 /**
  * Implements hook_default_services_endpoint().
  */
-function dosomething_settings_default_services_endpoint() {
+function dosomething_api_default_services_endpoint() {
   $export = array();
 
   $endpoint = new stdClass();
@@ -47,18 +47,6 @@ function dosomething_settings_default_services_endpoint() {
         ),
       ),
     ),
-    'reportback' => array(
-      'operations' => array(
-        'retrieve' => array(
-          'enabled' => '1',
-        ),
-      ),
-      'actions' => array(
-        'save' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
     'system' => array(
       'actions' => array(
         'connect' => array(
@@ -67,6 +55,7 @@ function dosomething_settings_default_services_endpoint() {
       ),
     ),
     'user' => array(
+      'alias' => 'auth',
       'actions' => array(
         'login' => array(
           'enabled' => '1',
