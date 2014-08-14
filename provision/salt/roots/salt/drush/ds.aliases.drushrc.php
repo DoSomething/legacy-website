@@ -23,8 +23,8 @@ $countries = array(
 );
 
 foreach ($countries as $country) {
-  foreach (array('prod', 'qa') as $environment) {
-    $aliases["{$country . $environment}"] = array(
+  foreach (array('prod', 'staging') as $environment) {
+    $aliases["{$country}.{$environment}"] = array(
      'root' => '/var/www/international.dosomething.org/current/html',
      'remote-host' => 'international.' . $environment,
      'remote-user' => 'dosomething',
@@ -35,4 +35,29 @@ foreach ($countries as $country) {
      ),
     );
   }
+  $aliases["{$country}.dev"] = array (
+    'root' => '/var/www/vagrant/html',
+    'uri' => "http://dev.{$country}.dosomething.org",
+    'path-aliases' =>
+      array (
+        '%files' => "/var/www/vagrant/html/sites/{$country}/files",
+      ),
+    '%dump-dir' => '/tmp',
+    'databases' =>
+      array (
+        'default' =>
+        array (
+          'default' =>
+          array (
+            'database' => "dosomething_{$country}",
+            'username' => 'root',
+            'password' => '',
+            'host' => 'localhost',
+            'port' => '',
+            'driver' => 'mysql',
+            'prefix' => '',
+          ),
+        ),
+      ),
+  );
 }

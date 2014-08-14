@@ -85,14 +85,17 @@ ds grunt [--watch]
   --watch
   Continues watching for changes and recompiles assets as necessary.
 
-ds pull [stage|prod] [--db|--files]
+ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
   Pulls database and files from given environment down onto your local build.
+  Note: Running 'ds pull stage' will destroy any affiliate sites.
+  Run  Run 'ds pull stage.$AFFILIATE' to preserve the folders and
 
   --db
     Pulls down database only.
 
   --files
-    Pulls down files only.
+    Pulls down files only. If pulling from an affiliate site, only the files directory
+    can be synced to avoid overwriting the html directory.
 
 ds test [dev|qa]
   Run tests against the given environment using CasperJS.
@@ -404,19 +407,38 @@ function grunt {
 }
 
 #=== FUNCTION ==================================================================
+# NAME: set_alias
+# DESCRIPTION: Helper function to get alias for ds pull.
+#===============================================================================
+function set_alias {
+  if [[ $1 == "stage" ]]
+  then
+    alias[0]=$1
+  else
+    IFS='.' read -a alias <<< "$1"
+  fi
+}
+
+#=== FUNCTION ==================================================================
 # NAME: pull_db
 # DESCRIPTION: Pulls down database from given environment onto local.
 #===============================================================================
 function pull_db {
-  if [[ $1 == "stage" ]]
+  if [[ ${alias[0]} == "stage" ]]
   then
-    echo "Pulling down db from staging..."
-    cd $WEB_PATH
-    drush sql-sync @ds.staging @self -y
-    echo "Enabling Stage File Proxy..."
-    drush en -y stage_file_proxy
-    echo "Setting Stage File Proxy to staging URL..."
-    drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+    if [[ ${#alias[@]} == 1 ]]
+    then
+      echo "Pulling down db from staging"
+      cd $WEB_PATH
+      drush sql-sync @ds.staging @self -y
+      echo "Enabling Stage File Proxy..."
+      drush en -y stage_file_proxy
+      echo "Setting Stage File Proxy to staging URL..."
+      drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+    else
+      echo "Pulling down the db from ${alias[1]} staging"
+      drush sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev -y
+    fi
   fi
 }
 
@@ -425,12 +447,19 @@ function pull_db {
 # DESCRIPTION: Pulls down files from given environment onto local.
 #===============================================================================
 function pull_files {
-  if [[ $1 == "stage" ]]
+  if [[ ${alias[0]} == "stage" ]]
   then
-    echo "Pulling down files from staging"
-    cd $WEB_PATH
-    drush -y rsync @ds.staging @self
-    symlinks
+    if [[ ${#alias[@]} == 1 ]]
+    then
+      echo "Pulling down files from stage. Any affiliate sites will be destroyed"
+      cd $WEB_PATH
+      drush rsync @ds.staging @self
+      symlinks
+    else
+      echo "Pulling down files from ${alias[1]} staging"
+      cd $WEB_PATH/sites/${alias[1]}
+      drush rsync @ds.${alias[1]}.staging:%files @ds.${alias[1]}.dev:%files -y
+    fi
   fi
 }
 
@@ -561,7 +590,9 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "pull" ]]
 then
-  check_alias_param $2
+  declare -a alias=()
+  set_alias $2
+  check_alias_param ${alias[0]}
   if [[ $3 == "--db" ]]
   then
     pull_db $2
