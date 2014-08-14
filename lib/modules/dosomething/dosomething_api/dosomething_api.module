@@ -25,3 +25,32 @@ function dosomething_api_services_request_postprocess_alter($controller, $args, 
     }
   }
 }
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function dosomething_api_services_resources() {
+  $resources = array();
+  $resources['campaigns'] = array(
+    'operations' => array(
+      'index' => array(
+        'help' => 'List all campaigns',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'callback' => '_campaign_resource_index',
+        'access callback' => '_campaign_resource_access',
+        'args' => array(
+          array(
+            'name' => 'parameters',
+            'optional' => TRUE,
+            'type' => 'array',
+            'description' => 'Parameters',
+            'default value' => array(),
+            'source' => array('param' => 'parameters'),
+          ),
+        ),
+      ),
+    ),
+  );
+  return $resources;
+}
