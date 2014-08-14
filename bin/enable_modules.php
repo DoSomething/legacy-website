@@ -7,9 +7,9 @@
  *
  */
 
-// Parse the data in the info file.
-$info = drupal_parse_info_file('../lib/profiles/dosomething/dosomething.info');
-$modules = $info['dependencies'];
+// Get all modules from the default  json file.
+$modules = json_decode(file_get_contents("../bin/default.modules.json"));
+
 
 // Enable modules
 enable_modules_if_needed($modules);
@@ -21,12 +21,12 @@ enable_modules_if_needed($modules);
  *  An array of modules
  */
 function enable_modules_if_needed($modules) {
-  foreach ($modules as $module) {
-    // Check if modules are disabled.
+  foreach ($modules as $module => $status) {
+    // Check if the status in the file matches current status.
     $result = db_select('system', 's')
             ->fields('s', array('status'))
             ->condition('name', $module, '=')
-            ->condition('status', 0, '=')
+            ->condition('status', $status, '<>')
             ->execute();
     if ($result->fetchAssoc()) {
       // Create an array of modules to enable.
@@ -35,7 +35,7 @@ function enable_modules_if_needed($modules) {
   }
   if ($to_enable) {
     module_enable($to_enable);
-    echo "Enabled new modules";
+    echo "Enabled new modules.";
   }
   else {
     echo "No new modules to enable";
