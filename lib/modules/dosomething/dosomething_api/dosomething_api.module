@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_api feature.
+ */
+
+include_once 'dosomething_api.features.inc';

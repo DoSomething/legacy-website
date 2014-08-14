@@ -12,6 +12,13 @@ projects[dosomething_action_guide][download][type] = local
 projects[dosomething_action_guide][download][source] = './lib/modules/dosomething/dosomething_action_guide'
 projects[dosomething_action_guide][subdir] = "dosomething"
 
+; Dosomething API
+projects[dosomething_api][type] = "module"
+projects[dosomething_api][download][type] = local
+projects[dosomething_api][download][source] = './lib/modules/dosomething/dosomething_api'
+projects[dosomething_api][subdir] = "dosomething"
+
+
 ; Dosomething Campaign
 projects[dosomething_campaign][type] = "module"
 projects[dosomething_campaign][download][type] = local
