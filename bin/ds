@@ -162,7 +162,7 @@ function build {
 
   # Enable modules in info file
   echo 'Enabling modules in dosomething.info'
-  drush --script-path=../bin/ php-script enable_modules.php
+  drush --script-path=../bin/ php-script enable_modules.php --key=us
 
   echo 'Reverting Features'
   drush fra -y --force
