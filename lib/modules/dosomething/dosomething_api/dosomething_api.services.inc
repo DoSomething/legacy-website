@@ -54,6 +54,30 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'user' => array(
+      'alias' => 'auth',
+      'actions' => array(
+        'login' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
+        ),
+        'logout' => array(
+          'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
+        ),
+        'token' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'users' => array(
       'operations' => array(
         'create' => array(
