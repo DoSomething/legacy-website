@@ -73,19 +73,23 @@
             <li class="<?php print $gallery_item['order_class']; ?>">
               <div class="tile tile--figure">
                 <?php if (isset($gallery_item['image'])): ?>
-                  <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
-                    <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
-                  <?php else : ?>
-                    <?php print $gallery_item['image']; ?>
-                  <?php endif; ?>
+                  <div class="__media">
+                    <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
+                      <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
+                    <?php else : ?>
+                      <?php print $gallery_item['image']; ?>
+                    <?php endif; ?>
+                  </div>
                 <?php endif; ?>
 
-                <?php if (isset($gallery_item['image_title'])): ?>
-                  <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_description'])): ?>
-                  <div class="__description"><?php print $gallery_item['image_description']; ?></div>
-                <?php endif; ?>
+                <div class="__body">
+                  <?php if (isset($gallery_item['image_title'])): ?>
+                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                  <?php endif; ?>
+                  <?php if (isset($gallery_item['image_description'])): ?>
+                    <div class="__description"><?php print $gallery_item['image_description']; ?></div>
+                  <?php endif; ?>
+                </div>
               </div>
             </li>
           <?php endforeach; ?>
