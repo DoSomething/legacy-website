@@ -59,6 +59,7 @@ function dosomething_signup_schema() {
     ),
     'indexes' => array(
       'uid' => array('uid'),
+      'nid' => array('nid'),
     ),
   );
   $schema['dosomething_signup_data_form'] = array(
@@ -411,4 +412,15 @@ function dosomething_signup_update_7011() {
   variable_del($user_register_name);
   variable_del($campaign_signup_name);
 
+}
+
+/**
+ * Add index to nid on dosomething_signup table.
+ */
+function dosomething_signup_update_7012() {
+  $table = 'dosomething_signup';
+  $column = 'nid';
+  if (!db_index_exists($table, $column)) {
+      db_add_index($table, $column, array($column));
+  }
 }
