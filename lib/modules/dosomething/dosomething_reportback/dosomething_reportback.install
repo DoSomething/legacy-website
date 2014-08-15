@@ -237,6 +237,8 @@ function dosomething_reportback_schema() {
       'rbid' => array('rbid'),
     ),
   );
+  // Add a custom cache table.
+  $schema['cache_dosomething_reportback'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
 }
 
@@ -378,4 +380,12 @@ function dosomething_reportback_update_7009() {
    if (!db_index_exists($table, $column)) {
     db_add_index($table, $column, array($column));
   }
+ }
+
+/**
+ * Creates dosomething reportback cache table.
+ */
+ function dosomething_reportback_update_7011() {
+   $schema = drupal_get_schema_unprocessed('system', 'cache');
+   db_create_table('cache_dosomething_reportback', $schema);
  }
