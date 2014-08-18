@@ -5,8 +5,14 @@
  * Available Variables
  * - $page_title: The page title (string).
  * - $page_subtitle: (string).
+ * - $page_header: (string).
  * - $page_copy: (string).
- * - $redeem_form: Array containing variables for Reward Reedem Form, if exists.
+ * - $page_image: Rendered image (string).
+ * - $form_link: (string).
+ * - $form_header: (string).
+ * - $form_copy: (string).
+ * - $form: Array containing Reward Reedem Form.
+ * - $delete_form: Array containing Reward Delete Form, if exists.
  */
 ?>
 
@@ -33,9 +39,9 @@
     <?php print $form_copy; ?>
     <?php print render($form); ?>
   </div>
-  <?php if ($redeem_form['delete_form']): ?>
-    <?php print render($redeem_form['delete_form']); ?>
-  <?php endif; ?>
 
+  <?php if ($delete_form): ?>
+    <?php print render($delete_form); ?>
+  <?php endif; ?>
 
 </section>
