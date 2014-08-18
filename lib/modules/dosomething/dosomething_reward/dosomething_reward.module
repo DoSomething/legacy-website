@@ -226,6 +226,10 @@ function dosomething_reward_exists($reward_type, $uid = NULL) {
  *   The Reward object, or FALSE.
  */
 function dosomething_reward_reportback_count($reportback) {
+  // If Reportback Count is not enabled:
+  if (!variable_get('dosomething_reward_enable_reportback_count', FALSE)) {
+    return FALSE;
+  }
   $reward_type = 'reportback_count';
   $uid = $reportback->uid;
   $account = user_load($uid);

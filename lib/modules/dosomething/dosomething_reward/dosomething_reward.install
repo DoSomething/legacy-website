@@ -64,13 +64,19 @@ function dosomething_reward_schema() {
  */
 function dosomething_reward_install() {
 
+  $value = "Free Stuff!  You've earned some swag.";
+  variable_set('dosomething_reward_redeem_page_header', $value);
+
+  $value = "You're a kickass DoSomething.org member. For completing 2 campaigns within a year, we want to thank you by offering you two free DoSomething.org t-shirts - one for you and one for a friend.";
+  variable_set('dosomething_reward_redeem_page_copy', $value);
+
   $value = "Hey, do you want a T-Shirt?";
   variable_set('dosomething_reward_redeem_form_link', $value);
 
   $value = "Free T-shirts";
   variable_set('dosomething_reward_redeem_form_header', $value);
 
-  $value = "You're a kickass DoSomething.org member. For completing 2 campaigns within a year, we want to thank you by offering you two free DoSomething.org t-shirts - one for you and one for a friend. Fill out the form below to get both shirts mailed to you.";
+  $value = "Fill out the form below to get both shirts mailed to you.";
   variable_set('dosomething_reward_redeem_form_copy', $value);
 
   $value = "Submit";
@@ -87,11 +93,15 @@ function dosomething_reward_install() {
 function dosomething_reward_uninstall() {
   $vars = array(
     'dosomething_reward_log',
+    'dosomething_reward_enable_reportback_count',
     'dosomething_reward_redeem_form_button_text',
     'dosomething_reward_redeem_form_confirm_msg',
     'dosomething_reward_redeem_form_copy',
     'dosomething_reward_redeem_form_header',
     'dosomething_reward_redeem_form_link',
+    'dosomething_reward_redeem_page_copy',
+    'dosomething_reward_redeem_page_header',
+    'dosomething_reward_redeem_page_image',
   );
   foreach ($vars as $var) {
     variable_del($var);
