@@ -397,9 +397,6 @@ function run_tests {
   # Optionally, specify an individual test or directory to run
   TEST=$1
 
-  # Run "before tests" tasks:
-  sh $BASE_PATH/scripts/tests/before_tests.sh
-
   # Optionally specify an alternate environment to test (mainly used for CI).
   if [[ $2 == 'CI_TESTING' ]]
     then URL='https://qa.dosomething.org'
@@ -407,12 +404,15 @@ function run_tests {
     URL='http://dev.dosomething.org:8888'
   fi
 
+  # Run "before tests" tasks:
+  source $BASE_PATH/scripts/tests/before_tests.sh
+
   # Run tests.
   printf "\n\033[1;33mRunning \"tests/$TEST\"...\033[00m\n"
-  casperjs test $BASE_PATH/tests/$TEST --url=$URL --includes=$BASE_PATH/scripts/tests/common.js
+  casperjs test $BASE_PATH/tests/$TEST --url=$URL --campaign_nid=$CAMPAIGN_NID --includes=$BASE_PATH/scripts/tests/common.js
 
   # Run "after tests" tasks:
-  sh $BASE_PATH/scripts/tests/after_tests.sh
+  source $BASE_PATH/scripts/tests/after_tests.sh
 }
 
 

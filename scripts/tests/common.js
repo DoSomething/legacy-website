@@ -2,14 +2,18 @@
  * Helper methods and variables for capser test suite.
  */
 
-var ROOT = '/var/www/vagrant/';
+var pwd = require('system').env['PWD'];
+var ROOT = pwd + '/../'
 
 // Define the url for all tests.
 var url = casper.cli.get('url');
+var campaign_nid = casper.cli.get('campaign_nid');
+var campaign_url = url + '/node/' + campaign_nid;
+
 var phantomcss = require(ROOT + 'node_modules/phantomcss/phantomcss');
 
 function formattedFilename(test) {
-  return test.filename.replace("/var/www/vagrant/tests/visual/", "").replace(".png", "");
+  return test.filename.replace(ROOT + "tests/visual/", "").replace(".png", "");
 }
 
 phantomcss.init({

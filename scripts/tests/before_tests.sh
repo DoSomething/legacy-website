@@ -50,6 +50,8 @@ drush_create_test_user QA_TEST_ACCOUNT
 drush_create_test_user QA_TEST_CAMPAIGN_SIGNUP_EXISTING
 drush_create_test_user QA_TEST_CAMPAIGN_ACTION
 
+echo "Creating test campaign node from 'campaign.json' fixture..."
+export CAMPAIGN_NID=1261
+
 echo "Signing action page test account up for test campaign..."
-example_campaign_nid=1261
-drush_signup_user $example_campaign_nid QA_TEST_CAMPAIGN_ACTION@example.com
+drush_signup_user $CAMPAIGN_NID QA_TEST_CAMPAIGN_ACTION@example.com
