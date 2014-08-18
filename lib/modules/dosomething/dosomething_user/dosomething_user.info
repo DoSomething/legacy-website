@@ -89,6 +89,7 @@ features[user_permission][] = flush caches
 features[user_permission][] = generate features
 features[user_permission][] = manage features
 features[user_permission][] = revert revisions
+features[user_permission][] = translate interface
 features[user_permission][] = view any unpublished content
 features[user_permission][] = view own unpublished content
 features[user_permission][] = view revisions
