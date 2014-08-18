@@ -48,6 +48,18 @@ function dosomething_reward_entity_info() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function dosomething_reward_theme($existing, $type, $theme, $path) {
+  return array(
+    'reward_redeem_reportback_count' => array(
+      'template' => 'reward-redeem-reportback-count',
+      'path' => drupal_get_path('module', 'dosomething_reward') . '/theme',
+    ),
+  );
+}
+
+/**
  * Implements hook_views_data().
  */
 function dosomething_reward_views_data() {
@@ -306,12 +318,15 @@ function dosomething_reward_get_redeem_form_vars($reward) {
   $vars['form'] = drupal_get_form('dosomething_reward_redeem_form', $reward);
   // Set copy variables.
   $copy_vars = array(
-    'copy',
-    'header',
-    'link',
+    'form_copy',
+    'form_header',
+    'form_link',
+    'page_copy',
+    'page_header',
+    'page_image',
   );
   foreach ($copy_vars as $key) {
-    $var_name = 'dosomething_reward_redeem_form_' . $key;
+    $var_name = 'dosomething_reward_redeem_' . $key;
     $vars[$key] = variable_get($var_name);
   }
   // Initialize delete form.

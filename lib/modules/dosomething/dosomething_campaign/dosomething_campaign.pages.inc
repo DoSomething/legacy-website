@@ -43,8 +43,12 @@ function dosomething_campaign_reportback_confirmation_page($node) {
       ))
     );
     if (module_exists('dosomething_reward')) {
+      // @todo: Modify this check to return TRUE only when Reward is redeemable.
       if ($reward = dosomething_reward_exists('reportback_count')) {
-        $vars['redeem_form'] = dosomething_reward_get_redeem_form_vars($reward);
+        // Get the Reward Redeem vars for this Reward.
+        $vars = dosomething_reward_get_redeem_form_vars($reward);
+        // Return the themed Reward Redeem page.
+        return theme('reward_redeem_reportback_count', $vars);
       }
     }
   }
