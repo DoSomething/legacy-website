@@ -386,6 +386,8 @@ function dosomething_reportback_update_7009() {
  * Creates dosomething reportback cache table.
  */
  function dosomething_reportback_update_7011() {
-   $schema = drupal_get_schema_unprocessed('system', 'cache');
-   db_create_table('cache_dosomething_reportback', $schema);
+   if (!db_table_exists('cache_dosomething_reportback')) {
+     $schema = drupal_get_schema_unprocessed('system', 'cache');
+     db_create_table('cache_dosomething_reportback', $schema);
+   }
  }
