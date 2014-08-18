@@ -102,7 +102,7 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
   });
 
   casper.then(function() {
-    this.fill("form[action='/campaigns/test-campaign']", {
+    this.fill("#dosomething-reportback-form", {
       "files[reportback_file]": "tests/fixtures/reportback-image.png",
       "quantity": "10",
       "why_participated": "Test response."
