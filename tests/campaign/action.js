@@ -68,17 +68,21 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
       test.assertSelectorHasText("#modal-facts", "1 in 3 teenagers have slept through math", "Fact modal displays on click.");
     });
   });
-
+  
   // ## Do It
+  // @NOTE: Can't use assertVisible() because of "visually-hidden" mixin trickiness.
+  var tab1_active = "#tips-during .is-active [data-tab='1']";
+  var tab2_active = "#tips-during .is-active [data-tab='2']";
   casper.then(function() {
-    // @NOTE: Can't use assertVisible() because of "visually-hidden" mixin trickiness.
-    test.assertExists("#tip-1.is-active", "First tip is visible on page load.");
-    test.assertDoesntExist("#tip-2.is-active", "Second tip is hidden on page load.");
+    test.assertExists(tab1_active, "First tip is visible on page load.");
+    test.assertDoesntExist(tab2_active, "Second tip is hidden on page load.");
 
-    casper.click(x('//*[text()="Give Him \'Fee"]'));
+    casper.click("#tips-during [data-tab='2']");
+  });
 
-    test.assertDoesntExist("#tip-1.is-active", "First tip is hidden after clicking second tip link.");
-    test.assertExists("#tip-2.is-active", "Second tip is visible after clicking second tip link.");
+  casper.then(function() {
+    test.assertDoesntExist(tab1_active, "First tip is hidden after clicking second tip link.");
+    test.assertExists(tab2_active, "Second tip is visible after clicking second tip link.");
   });
 
   // ## Prove It
