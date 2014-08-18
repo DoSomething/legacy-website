@@ -329,6 +329,17 @@ function dosomething_reward_get_redeem_form_vars($reward) {
     $var_name = 'dosomething_reward_redeem_' . $key;
     $vars[$key] = variable_get($var_name);
   }
+  // Store the image HTML.
+  if ($img_nid = $vars['page_image']) {
+    $img_ratio = 'landscape';
+    $img_size = '300x300';
+    $vars['page_image'] = dosomething_image_get_themed_image($img_nid, $img_ratio, $img_size);
+  }
+
+  // Placeholders until finalized.
+  $vars['page_title'] = t("You did it!");
+  $vars['page_subtitle'] = t("You got a T-Shirt!");
+
   // Initialize delete form.
   $vars['delete_form'] = NULL;
   // Allow staff to delete the Reward to test functionality.

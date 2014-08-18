@@ -70,7 +70,7 @@ function dosomething_reward_install() {
   $value = "You're a kickass DoSomething.org member. For completing 2 campaigns within a year, we want to thank you by offering you two free DoSomething.org t-shirts - one for you and one for a friend.";
   variable_set('dosomething_reward_redeem_page_copy', $value);
 
-  $value = "Hey, do you want a T-Shirt?";
+  $value = "Get your shirts";
   variable_set('dosomething_reward_redeem_form_link', $value);
 
   $value = "Free T-shirts";
