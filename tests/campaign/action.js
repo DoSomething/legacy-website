@@ -120,13 +120,12 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
     test.assertSelectorHasText("header[role='banner'] .__subtitle", "You sure drank that 'fee. Good work!", "Campaign confirmation message is shown in subtitle.");
 
     test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
-
-    casper.click(x('//*[text()="Back to Test Campaign"]'));
   });
 
   // Check that reportback submitted successfully.
-  casper.then(function() {
-    casper.click(x('//*[text()="Update Submission"]'));
+  casper.thenOpen(campaign_url, function() {
+    test.assertSelectorHasText("#link--report-back", "Update Submission", "Report back button changed to 'Update Submission'.");
+    casper.click("#link--report-back");
     this.waitUntilVisible("[data-modal]", function() {
       test.assertExists("#modal-report-back .submitted-image img", "Submitted report back image is shown.")
       test.assertField("quantity", "10", "Submitted quantity is shown for editing.")
