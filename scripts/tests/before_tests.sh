@@ -38,6 +38,13 @@ drush_signup_user() {
   drush php-eval "dosomething_signup_create($1, $uid)"
 }
 
+drush_create_campaign() {
+  drush campaign-create ../tests/fixtures/campaign.json | sed -e 's/Created node nid //g' | sed -e 's/\.//g'
+}
+
+echo "Deleting nodes created during previous test runs..."
+drush test-node-delete
+
 echo "Deleting users created during previous test runs..."
 drush_delete_user_with_email QA_TEST_ACCOUNT@example.com
 drush_delete_user_with_email QA_TEST_USER_REGISTER@example.com
@@ -51,7 +58,7 @@ drush_create_test_user QA_TEST_CAMPAIGN_SIGNUP_EXISTING
 drush_create_test_user QA_TEST_CAMPAIGN_ACTION
 
 echo "Creating test campaign node from 'campaign.json' fixture..."
-export CAMPAIGN_NID=1261
+export CAMPAIGN_NID=$(drush_create_campaign)
 
 echo "Signing action page test account up for test campaign..."
 drush_signup_user $CAMPAIGN_NID QA_TEST_CAMPAIGN_ACTION@example.com
