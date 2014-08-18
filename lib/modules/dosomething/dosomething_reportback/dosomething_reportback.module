@@ -879,3 +879,11 @@ function dosomething_reportback_services_resources() {
   );
   return $resources;
 }
+
+
+/**
+ * Clear cache on dosomething_reportback table.
+ */
+function dosomething_reportback_cache_clear_all() {
+  cache_clear_all('*', 'cache_dosomething_reportback', TRUE);
+}
