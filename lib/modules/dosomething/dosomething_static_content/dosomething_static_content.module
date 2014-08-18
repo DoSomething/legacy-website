@@ -106,9 +106,14 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
       $style = $collection_item['field_gallery_style']['#items'][0]['value'];
       // If a key exists and it's not the default:
       if ($style && $style != 'default') {
-        // Set to use the thumbnail field on the Image node instead.
         $image_ratio = 'thumb';
-        $image_style = '100x100';
+        if ($style == '3col_short') {
+          $image_style = 'wmax-300-hmax-75';
+        }
+        else {
+          // Set to use the thumbnail field on the Image node instead.
+          $image_style = '100x100';
+        }
       }
     }
     // Set Style variable for theme layer.
