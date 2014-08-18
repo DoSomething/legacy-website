@@ -669,29 +669,36 @@ function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
  * @return array
  */
 function dosomething_reportback_get_gallery_vars($nid, $style = '300x300', $num_items = NULL) {
-  $vars = array();
-  $result = dosomething_reportback_get_gallery_item_ids($nid, $num_items);
-  foreach ($result as $delta => $record) {
-    // Set reportback rbid that file belongs to.
-    $vars[$delta]['rbid'] = $record->rbid;
-    // Set variables for the file:
-    $fid = $record->fid;
-    $vars[$delta]['fid'] = $fid;
-    $vars[$delta]['image'] = dosomething_image_get_themed_image_by_fid($fid, $style);
-    // Set the file author name.
-    $account = user_load($record->uid);
-    $vars[$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
-    // Set variables stored on the flagging object:
-    $flagging_id = $record->flagging_id;
-    $flagging = flagging_load($flagging_id);
-    $vars[$delta]['flagging_id'] = $flagging_id;
-    $vars[$delta]['weight'] = $flagging->field_weight[LANGUAGE_NONE][0]['value'];
-    $caption = $flagging->field_image_description;
-    if ($caption_value = $caption[LANGUAGE_NONE][0]) {
-      $vars[$delta]['caption'] = $caption_value;
-    }
+  $cache = cache_get('ds_reportback_gallery_' . $nid . '_' . $style, 'cache_dosomething_reportback');
+  if (is_object($cache)) {
+    return $cache->data;
   }
-  return $vars;
+  else {
+    $vars = array();
+    $result = dosomething_reportback_get_gallery_item_ids($nid, $num_items);
+    foreach ($result as $delta => $record) {
+      // Set reportback rbid that file belongs to.
+      $vars[$delta]['rbid'] = $record->rbid;
+      // Set variables for the file:
+      $fid = $record->fid;
+      $vars[$delta]['fid'] = $fid;
+      $vars[$delta]['image'] = dosomething_image_get_themed_image_by_fid($fid, $style);
+      // Set the file author name.
+      $account = user_load($record->uid);
+      $vars[$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
+      // Set variables stored on the flagging object:
+      $flagging_id = $record->flagging_id;
+      $flagging = flagging_load($flagging_id);
+      $vars[$delta]['flagging_id'] = $flagging_id;
+      $vars[$delta]['weight'] = $flagging->field_weight[LANGUAGE_NONE][0]['value'];
+      $caption = $flagging->field_image_description;
+      if ($caption_value = $caption[LANGUAGE_NONE][0]) {
+        $vars[$delta]['caption'] = $caption_value;
+      }
+    }
+    cache_set('ds_reportback_gallery_' . $nid . '_' . $style, $vars, 'cache_dosomething_reportback');
+    return $vars;
+  }
 }
 
 /**
@@ -871,4 +878,21 @@ function dosomething_reportback_services_resources() {
     ),
   );
   return $resources;
+}
+
+/**
+ * Implements hook_flag_flag().
+ */
+function dosomething_reportback_flag_flag($flag, $entity_id, $account, $flagging) {
+    if ($flag->name == 'promoted') {
+      dosomething_reportback_cache_clear_all();
+    }
+
+}
+
+/**
+ * Clear cache on dosomething_reportback table.
+ */
+function dosomething_reportback_cache_clear_all() {
+  cache_clear_all('*', 'cache_dosomething_reportback', TRUE);
 }
