@@ -243,6 +243,7 @@ function dosomething_reportback_delete_form_submit($form, &$form_state) {
     // Redirect back to the node that the reportback was for.
     $form_state['redirect'] = 'node/' . $form_state['values']['nid'];
     drupal_set_message(t("Reportback deleted."));
+    return;
   }
   // Else, there was some rat fuckery.
   drupal_set_message(t("There was an error processing your request."));
