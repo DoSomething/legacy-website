@@ -339,13 +339,5 @@ function dosomething_reward_get_redeem_form_vars($reward) {
   // Placeholders until finalized.
   $vars['page_title'] = t("You did it!");
   $vars['page_subtitle'] = t("You got a T-Shirt!");
-
-  // Initialize delete form.
-  $vars['delete_form'] = NULL;
-  // Allow staff to delete the Reward to test by using with secret query string.
-  if (dosomething_user_is_staff() && isset($_GET['delete-reward'])) {
-    $form_id = 'dosomething_reward_delete_form';
-    $vars['delete_form'] = drupal_get_form($form_id, $reward);
-  }
   return $vars;
 }
