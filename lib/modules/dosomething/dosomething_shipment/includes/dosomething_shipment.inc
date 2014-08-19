@@ -34,6 +34,11 @@ class ShipmentEntityController extends EntityAPIController {
       $op = 'insert';
     }
     parent::save($entity, $transaction);
+    if (DOSOMETHING_SHIPMENT_LOG) {
+      watchdog('dosomething_shipment', 'Save: @entity', array(
+        '@entity' => json_encode($entity),
+      ));
+    }
     if ($op == 'insert') {
       // @todo: Send MBP request with shipment details.
     }

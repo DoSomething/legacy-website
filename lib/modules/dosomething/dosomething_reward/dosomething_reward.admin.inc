@@ -9,28 +9,29 @@
  */
 function dosomething_reward_admin_config_form($form, &$form_state) {
 
+  $form['copy'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Reportback Count'),
+    '#collapsible' => TRUE,
+  );
   $var_name = 'dosomething_reward_enable_reportback_count';
-  $form[$var_name] = array(
+  $form['copy'][$var_name] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Reportback Count Rewards'),
     '#default_value' => variable_get($var_name, FALSE),
     '#description' => t("When checked, users can earn a Reportback Count Reward."),
   );
-
-  $form['copy'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Copy'),
-    '#collapsible' => TRUE,
-  );
   $form['copy']['page'] = array(
     '#type' => 'fieldset',
     '#title' => t('Redeem Page'),
     '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   $form['copy']['form'] = array(
     '#type' => 'fieldset',
     '#title' => t('Redeem Form'),
     '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   $var_name = 'dosomething_reward_redeem_page_header';
   $form['copy']['page'][$var_name] = array(
@@ -85,26 +86,6 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
     '#rows' => 4,
     '#title' => t('Redeem Form Copy'),
     '#description' => t("Copy displayed in the Redeem Form modal."),
-    '#required' => TRUE,
-    '#default_value' => variable_get($var_name),
-  );
-
-  $var_name = 'dosomething_reward_image_shirt_dope';
-  $form['copy']['form'][$var_name] = array(
-    '#type' => 'entity_autocomplete',
-    '#title' => t('Dope Shirt Image'),
-    '#entity_type' => 'node',
-    '#bundles' => array('image'),
-    '#required' => TRUE,
-    '#default_value' => variable_get($var_name),
-  );
-
-  $var_name = 'dosomething_reward_image_shirt_social_action';
-  $form['copy']['form'][$var_name] = array(
-    '#type' => 'entity_autocomplete',
-    '#title' => t('Social Action Shirt Image'),
-    '#entity_type' => 'node',
-    '#bundles' => array('image'),
     '#required' => TRUE,
     '#default_value' => variable_get($var_name),
   );
