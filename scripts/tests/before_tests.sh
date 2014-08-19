@@ -7,7 +7,7 @@
 
 printf "\033[1;33mPerforming pre-test steps...\033[00m\n"
 
-cd /var/www/vagrant/html
+cd $WEB_PATH
 
 # Clear out localhost from flood table (prevents "more than 5 failed login attempts" error)
 echo "Clearing localhost from flood table..."
@@ -38,6 +38,13 @@ drush_signup_user() {
   drush php-eval "dosomething_signup_create($1, $uid)"
 }
 
+drush_create_campaign() {
+  drush campaign-create ../tests/fixtures/$1 | sed -e 's/Created node nid //g' | sed -e 's/\.//g'
+}
+
+echo "Deleting nodes created during previous test runs..."
+drush test-node-delete
+
 echo "Deleting users created during previous test runs..."
 drush_delete_user_with_email QA_TEST_ACCOUNT@example.com
 drush_delete_user_with_email QA_TEST_USER_REGISTER@example.com
@@ -50,6 +57,13 @@ drush_create_test_user QA_TEST_ACCOUNT
 drush_create_test_user QA_TEST_CAMPAIGN_SIGNUP_EXISTING
 drush_create_test_user QA_TEST_CAMPAIGN_ACTION
 
+echo "Creating test campaign node from 'campaign.json' fixture..."
+export CAMPAIGN_NID=$(drush_create_campaign campaign.json)
+
+echo "Creating some extra campaign nodes to show as related..."
+drush_create_campaign campaign.json &> /dev/null
+drush_create_campaign campaign.json &> /dev/null
+drush_create_campaign campaign.json &> /dev/null
+
 echo "Signing action page test account up for test campaign..."
-example_campaign_nid=1261
-drush_signup_user $example_campaign_nid QA_TEST_CAMPAIGN_ACTION@example.com
+drush_signup_user $CAMPAIGN_NID QA_TEST_CAMPAIGN_ACTION@example.com

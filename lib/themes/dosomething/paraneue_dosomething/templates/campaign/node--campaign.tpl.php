@@ -217,7 +217,7 @@
               <?php endif; ?>
 
               <?php if (isset($content['tips'])): ?>
-                <section class="tabbed js-tabs">
+                <section id="<?php print 'tips-' . $key ?>" class="tabbed js-tabs">
                   <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle"><?php print t('View Tips'); ?></a>
                   <h4 class="visually-hidden"><?php print t('Tips'); ?></h4>
                   <div class="wrapper">
