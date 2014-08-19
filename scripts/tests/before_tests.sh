@@ -7,7 +7,7 @@
 
 printf "\033[1;33mPerforming pre-test steps...\033[00m\n"
 
-cd /var/www/vagrant/html
+cd $WEB_PATH
 
 # Clear out localhost from flood table (prevents "more than 5 failed login attempts" error)
 echo "Clearing localhost from flood table..."

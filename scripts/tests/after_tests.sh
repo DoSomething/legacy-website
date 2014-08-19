@@ -7,7 +7,7 @@
 
 printf "\n\033[1;33mPerforming post-test cleanup...\033[00m\n"
 
-cd /var/www/vagrant/html
+cd $WEB_PATH
 
 echo "Deleting test nodes..."
 drush test-node-delete
