@@ -6,6 +6,8 @@
 
 include_once 'dosomething_shipment.features.inc';
 
+DEFINE('DOSOMETHING_SHIPMENT_LOG', variable_get('dosomething_shipment_log') ? TRUE : FALSE);
+
 /**
  * Implements hook_entity_info().
  */
@@ -24,6 +26,23 @@ function dosomething_shipment_entity_info() {
     'module' => 'dosomething_shipment',
   );
   return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_shipment_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_shipment'] = array(
+    'title' => 'DoSomething Shipment',
+    'description' => 'Admin configuration form for DoSomething Shipment.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_shipment_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_shipment.admin.inc',
+  );
+  return $items;
 }
 
 /**
@@ -226,11 +245,24 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 /**
  * Returns array of available shirts.
  */
-function dosomething_shipment_get_shirt_options() {
-  //@todo: Return images as the description.
+function dosomething_shipment_get_shirt_options($images = TRUE, $ratio = 'square', $size = '100x100') {
+  // Default as text.
+  $opt_dope = t("Dope shirt");
+  $var_dope = 'dosomething_shipment_image_shirt_dope';
+  // If displaying as images, and we have an Image set for this shirt:
+  if ($images && $nid_dope = variable_get($var_dope)) {
+    // Render the image with the ratio and size.
+    $opt_dope = dosomething_image_get_themed_image($nid_dope, $ratio, $size);
+  }
+  // Repeat for Social action shirt.
+  $opt_social = t("Social action shirt");
+  $var_social = 'dosomething_shipment_image_shirt_social_action';
+  if ($images && $nid_social = variable_get($var_social)) {
+    $opt_social = dosomething_image_get_themed_image($nid_social, $ratio, $size);
+  }
   return array(
-    'shirt_dope' => t('Dope shirt'),
-    'shirt_social_action' => t('Social action speaks louder'),
+    'shirt_dope' => $opt_dope,
+    'shirt_social_action' => $opt_social,
   );
 }
 

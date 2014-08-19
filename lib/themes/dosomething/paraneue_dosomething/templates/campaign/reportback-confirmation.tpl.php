@@ -72,16 +72,4 @@
     </div>
   <?php endif; ?>
 
-  <?php if ($redeem_form): ?>
-    <a href="#" data-modal-href="#modal-redeem-form"><?php print $redeem_form['link']; ?></a>
-    <div data-modal id="modal-redeem-form" role="dialog">
-      <h2 class="banner"><?php print ($redeem_form['header']); ?></h2>
-      <?php print $redeem_form['copy']; ?>
-      <?php print render($redeem_form['form']); ?>
-    </div>
-    <?php if ($redeem_form['delete_form']): ?>
-      <?php print render($redeem_form['delete_form']); ?>
-    <?php endif; ?>
-  <?php endif; ?>
-
 </section>

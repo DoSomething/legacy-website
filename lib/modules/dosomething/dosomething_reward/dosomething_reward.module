@@ -48,6 +48,18 @@ function dosomething_reward_entity_info() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function dosomething_reward_theme($existing, $type, $theme, $path) {
+  return array(
+    'reward_redeem_reportback_count' => array(
+      'template' => 'reward-redeem-reportback-count',
+      'path' => drupal_get_path('module', 'dosomething_reward') . '/theme',
+    ),
+  );
+}
+
+/**
  * Implements hook_views_data().
  */
 function dosomething_reward_views_data() {
@@ -226,6 +238,10 @@ function dosomething_reward_exists($reward_type, $uid = NULL) {
  *   The Reward object, or FALSE.
  */
 function dosomething_reward_reportback_count($reportback) {
+  // If Reportback Count is not enabled:
+  if (!variable_get('dosomething_reward_enable_reportback_count', FALSE)) {
+    return FALSE;
+  }
   $reward_type = 'reportback_count';
   $uid = $reportback->uid;
   $account = user_load($uid);
@@ -302,18 +318,32 @@ function dosomething_reward_get_redeem_form_vars($reward) {
   $vars['form'] = drupal_get_form('dosomething_reward_redeem_form', $reward);
   // Set copy variables.
   $copy_vars = array(
-    'copy',
-    'header',
-    'link',
+    'form_copy',
+    'form_header',
+    'form_link',
+    'page_copy',
+    'page_header',
+    'page_image',
   );
   foreach ($copy_vars as $key) {
-    $var_name = 'dosomething_reward_redeem_form_' . $key;
+    $var_name = 'dosomething_reward_redeem_' . $key;
     $vars[$key] = variable_get($var_name);
   }
+  // Store the image HTML.
+  if ($img_nid = $vars['page_image']) {
+    $img_ratio = 'landscape';
+    $img_size = '300x300';
+    $vars['page_image'] = dosomething_image_get_themed_image($img_nid, $img_ratio, $img_size);
+  }
+
+  // Placeholders until finalized.
+  $vars['page_title'] = t("You did it!");
+  $vars['page_subtitle'] = t("You got a T-Shirt!");
+
   // Initialize delete form.
   $vars['delete_form'] = NULL;
-  // Allow staff to delete the Reward to test functionality.
-  if (dosomething_user_is_staff()) {
+  // Allow staff to delete the Reward to test by using with secret query string.
+  if (dosomething_user_is_staff() && isset($_GET['delete-reward'])) {
     $form_id = 'dosomething_reward_delete_form';
     $vars['delete_form'] = drupal_get_form($form_id, $reward);
   }

@@ -67,3 +67,17 @@ function dosomething_shipment_schema() {
   );
   return $schema;
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_shipment_uninstall() {
+  $vars = array(
+    'dosomething_shipment_image_shirt_dope',
+    'dosomething_shipment_image_shirt_social_action',
+    'dosomething_shipment_log',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
