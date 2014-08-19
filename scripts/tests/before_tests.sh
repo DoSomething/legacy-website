@@ -39,7 +39,7 @@ drush_signup_user() {
 }
 
 drush_create_campaign() {
-  drush campaign-create ../tests/fixtures/campaign.json | sed -e 's/Created node nid //g' | sed -e 's/\.//g'
+  drush campaign-create ../tests/fixtures/$1 | sed -e 's/Created node nid //g' | sed -e 's/\.//g'
 }
 
 echo "Deleting nodes created during previous test runs..."
@@ -58,7 +58,12 @@ drush_create_test_user QA_TEST_CAMPAIGN_SIGNUP_EXISTING
 drush_create_test_user QA_TEST_CAMPAIGN_ACTION
 
 echo "Creating test campaign node from 'campaign.json' fixture..."
-export CAMPAIGN_NID=$(drush_create_campaign)
+export CAMPAIGN_NID=$(drush_create_campaign campaign.json)
+
+echo "Creating some extra campaign nodes to show as related..."
+drush_create_campaign campaign.json &> /dev/null
+drush_create_campaign campaign.json &> /dev/null
+drush_create_campaign campaign.json &> /dev/null
 
 echo "Signing action page test account up for test campaign..."
 drush_signup_user $CAMPAIGN_NID QA_TEST_CAMPAIGN_ACTION@example.com
