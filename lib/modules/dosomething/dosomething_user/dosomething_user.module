@@ -59,6 +59,14 @@ function dosomething_user_menu() {
     'access arguments' => array('edit user info'),
     'type' => MENU_LOCAL_TASK,
   );
+  $items['admin/users/clean-slate'] = array(
+    'title' => 'Clean Slate',
+    'access callback' => 'user_access',
+    'access arguments' => array('access administration menu'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_clean_slate_form'),
+    'weight' => 500,
+  );
   return $items;
 }
 
@@ -929,4 +937,106 @@ function dosomething_user_info_form_submit($form, &$form_state) {
     file_usage_add($file, 'user', 'user', $account->uid);
   }
   drupal_set_message("User information saved.");
+}
+
+/**
+ * Form constructor for a Clean Slate form.
+ *
+ * Deletes all of the logged in user's campaign activity.
+ *
+ * @ingroup forms
+ */
+function dosomething_user_clean_slate_form($form, &$form_state) {
+  $help = "As staff, you may delete all of your Campaign Signups, Reportbacks, Rewards, and Shipments.<h1>WARNING THIS CANNOT BE UNDONE</h1><h1>ARE YOU REALLY SURE ABOUT THIS</h1><h2>YOU ARE BRINGING THIS UPON YOURSELF</h2>";
+  $form['help'] = array(
+    '#markup' => $help,
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Clean Slate Me"),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_user_clean_slate_form().
+ */
+function dosomething_user_clean_slate_form_submit($form, &$form_state) {
+  global $user;
+  $msg = t("Clean Slate form submitted for User %uid", array(
+    '%uid' => $user->uid,
+  ));
+  watchdog('dosomething_user_clean_slate', $msg);
+  // Go git em.
+  dosomething_user_clean_slate($user->uid);
+}
+
+/**
+ * Returns all records from table $tbl_name for a given user uid.
+ *
+ * @param string $tbl_name
+ *   The name of the table to query.
+ * @param int $uid
+ *    The user $uid to filter by.
+ *
+ * @return
+ *   Array of record objects.
+ */
+function dosomething_user_get_records($tbl_name, $uid) {
+  if (db_table_exists($tbl_name)) {
+   return db_select($tbl_name, 't')
+    ->fields('t')
+    ->condition('uid', $uid, '=')
+    ->execute()
+    ->fetchAll();   
+  }
+  else {
+    watchdog('dosomething_user', 'Table %tbl_name', array('%tbl_name' => $tbl_name), WATCHDOG_WARNING);
+  }
+}
+
+/**
+ * Deletes all entities for a given user $uid a clean slate.
+ *
+ * To be used with great responsibility.
+ *
+ * @param int $uid
+ *   The user $uid to delete records for.
+ */
+function dosomething_user_clean_slate($uid, $display_messages = TRUE) {
+  // List of all entities users can create, and their identifiers.
+  $entity_list = array(
+    'signup' => 'sid',
+    'reportback' => 'rbid',
+    'reward' => 'id',
+    'shipment' => 'id',
+  );
+  foreach ($entity_list as $entity_type => $identifier) {
+    $tbl = 'dosomething_' . $entity_type;
+    // Get all records from the entity table for this user.
+    $results = dosomething_user_get_records($tbl, $uid);
+    if (empty($results)) {
+      continue;
+    }
+    // Loop through each result:
+    foreach ($results as $result) {
+      // Load the entity.
+      $entity = entity_load_single($entity_type, $result->{$identifier});
+      // Store entity identifier.
+      $id = $entity->{$identifier};
+      $entity->delete();
+      $msg = t("@type @identifier @id deleted.", array(
+        '@type' => ucfirst($entity_type),
+        '@identifier' => $identifier,
+        '@id' => $id,
+      ));
+      if ($display_messages) {
+        drupal_set_message($msg);
+      }
+      watchdog('dosomething_user_clean_slate', $msg);
+    }
+  }
 }
