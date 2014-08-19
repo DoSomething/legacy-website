@@ -3,10 +3,8 @@
  * Test that a user can authenticate correctly.
  */
 
-casper.test.begin('Test that a user can authenticate correctly.', 6, function suite(test) {
+casper.test.begin('Test that a user can authenticate correctly.', 5, function suite(test) {
   casper.start(url, function() {
-    test.assertTitle("DoSomething.org | Largest organization for teens and social cause", "Homepage has expected title");
-
     // We reference the login link's ID to avoid a crazy selector.
     test.assertExists("#link--login", "Login link exists on page for anonymous user");
   });
