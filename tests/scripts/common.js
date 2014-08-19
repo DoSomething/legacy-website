@@ -3,21 +3,21 @@
  */
 
 var pwd = require('system').env['PWD'];
-var ROOT = pwd + '/../'
+var ROOT = pwd;
 
 // Define the url for all tests.
 var url = casper.cli.get('url');
 var campaign_nid = casper.cli.get('campaign_nid');
 var campaign_url = url + '/node/' + campaign_nid;
 
-var phantomcss = require(ROOT + 'node_modules/phantomcss/phantomcss');
+var phantomcss = require(ROOT + '/node_modules/phantomcss/phantomcss');
 
 function formattedFilename(test) {
-  return test.filename.replace(ROOT + "tests/visual/", "").replace(".png", "");
+  return test.filename.replace(ROOT + "/tests/visual/", "").replace(".png", "");
 }
 
 phantomcss.init({
-  libraryRoot: ROOT + 'node_modules/phantomcss',
+  libraryRoot: ROOT + '/node_modules/phantomcss',
   screenshotRoot: ROOT + '/tests/visual',
   failedComparisonsRoot: ROOT + '/tests/visual/failures',
   addLabelToFailedImage: false,
