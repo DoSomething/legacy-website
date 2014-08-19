@@ -9,32 +9,32 @@
  */
 function dosomething_reward_admin_config_form($form, &$form_state) {
 
-  $form['copy'] = array(
+  $form['rb_count'] = array(
     '#type' => 'fieldset',
     '#title' => t('Reportback Count'),
     '#collapsible' => TRUE,
   );
   $var_name = 'dosomething_reward_enable_reportback_count';
-  $form['copy'][$var_name] = array(
+  $form['rb_count'][$var_name] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Reportback Count Rewards'),
     '#default_value' => variable_get($var_name, FALSE),
     '#description' => t("When checked, users can earn a Reportback Count Reward."),
   );
-  $form['copy']['page'] = array(
+  $form['rb_count']['page'] = array(
     '#type' => 'fieldset',
     '#title' => t('Redeem Page'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $form['copy']['form'] = array(
+  $form['rb_count']['form'] = array(
     '#type' => 'fieldset',
     '#title' => t('Redeem Form'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
   $var_name = 'dosomething_reward_redeem_page_header';
-  $form['copy']['page'][$var_name] = array(
+  $form['rb_count']['page'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Redeem Page Header'),
     '#description' => t("Redeem Page content header."),
@@ -43,7 +43,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_page_copy';
-  $form['copy']['page'][$var_name] = array(
+  $form['rb_count']['page'][$var_name] = array(
     '#type' => 'textarea',
     '#title' => t('Redeem Page Copy'),
     '#description' => t("Redeem Page content copy."),
@@ -52,7 +52,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_page_image';
-  $form['copy']['page'][$var_name] = array(
+  $form['rb_count']['page'][$var_name] = array(
     '#type' => 'entity_autocomplete',
     '#title' => t('Redeem Page Image'),
     '#description' => t("Redeem Page content image."),
@@ -63,7 +63,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_form_link';
-  $form['copy']['page'][$var_name] = array(
+  $form['rb_count']['page'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Redeem Form Link Text'),
     '#description' => t("Link text that opens the Redeem Form modal."),
@@ -72,7 +72,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_form_header';
-  $form['copy']['form'][$var_name] = array(
+  $form['rb_count']['form'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Redeem Form Header'),
     '#description' => t("Header text of the Redeem Form modal."),
@@ -81,7 +81,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_form_copy';
-  $form['copy']['form'][$var_name] = array(
+  $form['rb_count']['form'][$var_name] = array(
     '#type' => 'textarea',
     '#rows' => 4,
     '#title' => t('Redeem Form Copy'),
@@ -91,7 +91,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_form_button_text';
-  $form['copy']['form'][$var_name] = array(
+  $form['rb_count']['form'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Redeem Form Button Label'),
     '#description' => t("Label displayed on the Redeem Form submit button."),
@@ -100,7 +100,7 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   );
 
   $var_name = 'dosomething_reward_redeem_form_confirm_msg';
-  $form['copy']['form'][$var_name] = array(
+  $form['rb_count']['form'][$var_name] = array(
     '#type' => 'textarea',
     '#rows' => 2,
     '#title' => t('Redeem Form Confirmation Message'),
