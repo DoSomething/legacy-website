@@ -4,7 +4,7 @@
  */
 
 var x = require('casper').selectXPath;
-var CAMPAIGN = require(ROOT + 'tests/fixtures/campaign.json');
+var CAMPAIGN = require(ROOT + '/tests/fixtures/campaign.json');
 
 casper.test.begin("Test action page is rendered correctly", function suite(test) {
   casper.login("QA_TEST_CAMPAIGN_ACTION@example.com", "QA_TEST_CAMPAIGN_ACTION");
@@ -107,7 +107,7 @@ casper.test.begin("Test action page functions correctly", function suite(test) {
 
   casper.then(function() {
     this.fill("#dosomething-reportback-form", {
-      "files[reportback_file]": ROOT + "tests/fixtures/reportback-image.png",
+      "files[reportback_file]": ROOT + "/tests/fixtures/reportback-image.png",
       "quantity": "10",
       "why_participated": "Test response."
     }, true);

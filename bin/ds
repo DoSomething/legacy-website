@@ -22,8 +22,14 @@ LIB_PATH=$BASE_PATH/$LIB_DIR
 # The config directory name
 CONFIG_DIR='config'
 
-# Full lib path
+# Full config path
 CONFIG_PATH=$BASE_PATH/$CONFIG_DIR
+
+# The test directory name
+TEST_DIR='tests'
+
+# Full test path
+TEST_PATH=$BASE_PATH/$TEST_DIR
 
 # Build directory name
 BUILD_DIR='build'
@@ -392,27 +398,25 @@ function check_alias_param {
 #===============================================================================
 function run_tests {
   # Make sure latest project NPM dependencies are installed
+  cd $BASE_PATH
   npm install
 
   # Optionally, specify an individual test or directory to run
   TEST=$1
 
-  # Optionally specify an alternate environment to test (mainly used for CI).
-  if [[ $2 == 'CI_TESTING' ]]
-    then URL='https://qa.dosomething.org'
-  else
-    URL='http://dev.dosomething.org:8888'
-  fi
+  # An alternative test environment can be set using the $DS_TEST_HOSTNAME environment variable
+  DS_TEST_HOSTNAME='http://dev.dosomething.org:8888'
 
   # Run "before tests" tasks:
-  source $BASE_PATH/scripts/tests/before_tests.sh
+  source $TEST_PATH/scripts/before_tests.sh
 
   # Run tests.
-  printf "\n\033[1;33mRunning \"tests/$TEST\"...\033[00m\n"
-  casperjs test $BASE_PATH/tests/$TEST --url=$URL --campaign_nid=$CAMPAIGN_NID --includes=$BASE_PATH/scripts/tests/common.js
+  cd $BASE_PATH
+  printf "\n\033[1;33mRunning integration tests...\033[00m\n"
+  casperjs test $TEST_PATH/integration --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js
 
   # Run "after tests" tasks:
-  source $BASE_PATH/scripts/tests/after_tests.sh
+  source $TEST_PATH/scripts/after_tests.sh
 }
 
 
