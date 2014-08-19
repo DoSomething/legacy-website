@@ -89,6 +89,26 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  $var_name = 'dosomething_reward_image_shirt_dope';
+  $form['copy']['form'][$var_name] = array(
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Dope Shirt Image'),
+    '#entity_type' => 'node',
+    '#bundles' => array('image'),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
+  $var_name = 'dosomething_reward_image_shirt_social_action';
+  $form['copy']['form'][$var_name] = array(
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Social Action Shirt Image'),
+    '#entity_type' => 'node',
+    '#bundles' => array('image'),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
   $var_name = 'dosomething_reward_redeem_form_button_text';
   $form['copy']['form'][$var_name] = array(
     '#type' => 'textfield',

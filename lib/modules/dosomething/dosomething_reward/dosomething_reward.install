@@ -94,6 +94,8 @@ function dosomething_reward_uninstall() {
   $vars = array(
     'dosomething_reward_log',
     'dosomething_reward_enable_reportback_count',
+    'dosomething_reward_image_shirt_dope',
+    'dosomething_reward_image_shirt_social_action',
     'dosomething_reward_redeem_form_button_text',
     'dosomething_reward_redeem_form_confirm_msg',
     'dosomething_reward_redeem_form_copy',

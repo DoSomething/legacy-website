@@ -226,11 +226,18 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 /**
  * Returns array of available shirts.
  */
-function dosomething_shipment_get_shirt_options() {
-  //@todo: Return images as the description.
+function dosomething_shipment_get_shirt_options($ratio = 'square', $size = '100x100') {
+  $img_dope = t("Dope shirt");
+  if ($nid_dope = variable_get('dosomething_reward_image_shirt_dope')) {
+    $img_dope = dosomething_image_get_themed_image($nid_dope, $ratio, $size);
+  }
+  $img_social = t("Social action shirt");
+  if ($nid_social = variable_get('dosomething_reward_image_shirt_social_action')) {
+    $img_social = dosomething_image_get_themed_image($nid_social, $ratio, $size);
+  }
   return array(
-    'shirt_dope' => t('Dope shirt'),
-    'shirt_social_action' => t('Social action speaks louder'),
+    'shirt_dope' => $img_dope,
+    'shirt_social_action' => $img_social,
   );
 }
 
