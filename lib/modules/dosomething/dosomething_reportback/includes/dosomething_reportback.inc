@@ -423,7 +423,7 @@ class ReportbackEntityController extends EntityAPIController {
   public function delete($ids, DatabaseTransaction $transaction = NULL) {
     // Log deletions.
     foreach ($ids as $id) {
-      $rb = reportback_load($ids);
+      $rb = reportback_load($id);
       $rb->insertLog('delete');
     }
     parent::delete($ids, $transaction);
