@@ -93,8 +93,10 @@ function dosomething_user_address_form_element_validate($form, &$form_state) {
 function dosomething_user_address_form_element_set_values($form, &$form_state, $address) {
   form_set_value($form['user_address']['address']['street_block']['thoroughfare'],
       array('value' => $address['thoroughfare']), $form_state);
-  form_set_value($form['user_address']['address']['street_block']['premise'],
+  if (isset($address['premise'])) {
+   form_set_value($form['user_address']['address']['street_block']['premise'],
       array('value' => $address['premise']), $form_state);
+  }
   form_set_value($form['user_address']['address']['locality_block']['locality'],
       array('value' => $address['locality']), $form_state);
   form_set_value($form['user_address']['address']['locality_block']['administrative_area'],
