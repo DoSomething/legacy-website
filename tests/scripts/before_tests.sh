@@ -12,6 +12,7 @@ cd $WEB_PATH
 # Clear out localhost from flood table (prevents "more than 5 failed login attempts" error)
 echo "Clearing localhost from flood table..."
 drush sql-query "DELETE FROM flood WHERE identifier LIKE '%127.0.0.1';"
+drush sql-query "DELETE FROM flood WHERE identifier LIKE '%192.168.1.161';"
 
 # Create fresh test accounts
 drush_get_uid_from_email() {
