@@ -12,7 +12,6 @@
  * - $form_header: (string).
  * - $form_copy: (string).
  * - $form: Array containing Reward Reedem Form.
- * - $delete_form: Array containing Reward Delete Form, if exists.
  */
 ?>
 
@@ -39,9 +38,5 @@
     <?php print $form_copy; ?>
     <?php print render($form); ?>
   </div>
-
-  <?php if ($delete_form): ?>
-    <?php print render($delete_form); ?>
-  <?php endif; ?>
 
 </section>

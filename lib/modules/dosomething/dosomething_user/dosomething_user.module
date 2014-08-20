@@ -42,6 +42,15 @@ function dosomething_user_menu() {
     'page callback' => 'dosomething_user_validate_user_address',
     'file' => 'dosomething_user_valid_address.inc'
   );
+  $items['admin/config/dosomething/dosomething_user'] = array(
+    'title' => 'DoSomething User',
+    'description' => 'Admin configuration form for DoSomething User.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_admin_config_form'),
+    'file' => 'dosomething_user.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+  );
   $items['admin/config/dosomething/ups-api-settings'] = array(
     'title' => t('UPS API Configuration'),
     'description' => t('UPS integration that provices address validation'),
@@ -58,6 +67,15 @@ function dosomething_user_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('edit user info'),
     'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/users/clean-slate'] = array(
+    'title' => 'Clean Slate',
+    'access callback' => 'user_access',
+    'access arguments' => array('access administration menu'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_user_clean_slate_form'),
+    'file' => 'dosomething_user.admin.inc',
+    'weight' => 500,
   );
   return $items;
 }
@@ -931,4 +949,71 @@ function dosomething_user_info_form_submit($form, &$form_state) {
     file_usage_add($file, 'user', 'user', $account->uid);
   }
   drupal_set_message("User information saved.");
+}
+
+/**
+ * Returns all records from table $tbl_name for a given user uid.
+ *
+ * @param string $tbl_name
+ *   The name of the table to query.
+ * @param int $uid
+ *    The user $uid to filter by.
+ *
+ * @return
+ *   Array of record objects.
+ */
+function dosomething_user_get_records($tbl_name, $uid) {
+  if (db_table_exists($tbl_name)) {
+   return db_select($tbl_name, 't')
+    ->fields('t')
+    ->condition('uid', $uid, '=')
+    ->execute()
+    ->fetchAll();   
+  }
+  else {
+    watchdog('dosomething_user', 'Table %tbl_name', array('%tbl_name' => $tbl_name), WATCHDOG_WARNING);
+  }
+}
+
+/**
+ * Deletes all entities for a given user $uid a clean slate.
+ *
+ * To be used with great responsibility.
+ *
+ * @param int $uid
+ *   The user $uid to delete records for.
+ */
+function dosomething_user_clean_slate($uid, $display_messages = TRUE) {
+  // List of all entities users can create, and their identifiers.
+  $entity_list = array(
+    'signup' => 'sid',
+    'reportback' => 'rbid',
+    'reward' => 'id',
+    'shipment' => 'id',
+  );
+  foreach ($entity_list as $entity_type => $identifier) {
+    $tbl = 'dosomething_' . $entity_type;
+    // Get all records from the entity table for this user.
+    $results = dosomething_user_get_records($tbl, $uid);
+    if (empty($results)) {
+      continue;
+    }
+    // Loop through each result:
+    foreach ($results as $result) {
+      // Load the entity.
+      $entity = entity_load_single($entity_type, $result->{$identifier});
+      // Store entity identifier.
+      $id = $entity->{$identifier};
+      $entity->delete();
+      $msg = t("@type @identifier @id deleted.", array(
+        '@type' => ucfirst($entity_type),
+        '@identifier' => $identifier,
+        '@id' => $id,
+      ));
+      if ($display_messages) {
+        drupal_set_message($msg);
+      }
+      watchdog('dosomething_user_clean_slate', $msg);
+    }
+  }
 }
