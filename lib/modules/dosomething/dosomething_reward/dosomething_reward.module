@@ -24,6 +24,13 @@ function dosomething_reward_menu() {
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_reward.admin.inc',
   );
+  $items['admin/users/rewards/%reward/edit'] = array(
+    'title' => 'Edit Reward',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reward_form', 3),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+  );
   return $items;
 }
 
@@ -45,6 +52,13 @@ function dosomething_reward_entity_info() {
     'module' => 'dosomething_reward',
   );
   return $info;
+}
+
+/**
+ * Menu autoloader for /reward.
+ */
+function reward_load($id) {
+  return entity_load_single('reward', $id);
 }
 
 /**
