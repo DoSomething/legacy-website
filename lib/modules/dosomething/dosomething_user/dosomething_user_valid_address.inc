@@ -227,7 +227,7 @@ function dosomething_user_compile_ups_xml_address($first_name, $last_name, $addr
     'CountryCode' => 'US',
   );
 
-  $out .= '<AddressKeyFormat>';
+  $out = '<AddressKeyFormat>';
   $out .= format_xml_elements($addr_xml);
   $out .= '</AddressKeyFormat>';
 
