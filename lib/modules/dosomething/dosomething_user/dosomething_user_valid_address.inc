@@ -252,7 +252,7 @@ function dosomething_user_compile_ups_xml_request_options() {
   );
 
 
-  $out .= '<Request>';
+  $out = '<Request>';
   $out .= format_xml_elements($request_xml);
   $out .= '</Request>';
 
