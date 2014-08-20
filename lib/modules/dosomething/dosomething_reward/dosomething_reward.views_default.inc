@@ -136,6 +136,14 @@ function dosomething_reward_views_default_views() {
   $handler->display->display_options['fields']['redeemed']['label'] = 'Redeemed';
   $handler->display->display_options['fields']['redeemed']['date_format'] = 'short';
   $handler->display->display_options['fields']['redeemed']['second_date_format'] = 'long';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Op';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Edit';
+  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/users/rewards/[id]/edit';
   /* Filter criterion: Rewards: Uid */
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'dosomething_reward';
@@ -218,6 +226,8 @@ function dosomething_reward_views_default_views() {
     t('Entity'),
     t('[entity_type]/[entity_id]'),
     t('Redeemed'),
+    t('Op'),
+    t('Edit'),
     t('Page'),
   );
   $export['user_rewards'] = $view;
