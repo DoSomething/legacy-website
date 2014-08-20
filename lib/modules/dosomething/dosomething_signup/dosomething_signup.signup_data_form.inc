@@ -129,6 +129,23 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#default_value' => $values['collect_user_address'],
     '#description' => t('If checked, collect the user address and save to profile.'),
   );
+  $form[$fieldset]['config']['elements'] [$prefix . 'shipment_item'] = array(
+    '#type' => 'select',
+    '#title' => t('Select Shipment Item'),
+    '#options' => array(
+      'banner' => t('Banner'),
+      'shirt' => t('T-Shirt'),
+      'thumb_socks' => t('Thumb Socks'),
+    ),
+    '#default_value' => $values['shipment_item'],
+    '#description' => t('When the User submits the form, a User Shipment will be created for this Item.'),
+    // Why_signedup label should only be visible if collect_user_address is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_user_address"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_why_signedup'] = array(
     '#type' => 'checkbox',
     '#title' => t('Collect signup reason'),
@@ -187,6 +204,7 @@ function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state)
     if (empty($values[$confirm_msg])) {
       form_set_error($confirm_msg, t('Signup Data Form Confirmation message is mandatory.'));
     }
+    //@todo: Cehck that Shipment Item is set if Collect User Addresses.
   }
 }
 
@@ -201,8 +219,10 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
   db_merge('dosomething_signup_data_form')
     ->key(array('nid' => $nid))
     ->fields(array(
+      // This is how i feel today about those things.
         'status' => $values[$prefix . 'status'],
         'required' => $values[$prefix . 'required'],
+        // whopos ok great fu
         'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
@@ -214,6 +234,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
         'prevent_old_people_submit' => $values[$prefix . 'prevent_old_people_submit'],
         'old_people_copy' => $values[$prefix . 'old_people_copy'],
+        'shipment_item' => $values[$prefix . 'shipment_item'],
     ))
     ->execute();
 }
