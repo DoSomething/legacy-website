@@ -33,6 +33,23 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+
+  $var_name = 'dosomething_reward_redeem_page_title';
+  $form['rb_count']['page'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redeem Page Title'),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
+  $var_name = 'dosomething_reward_redeem_page_subtitle';
+  $form['rb_count']['page'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redeem Page Subtitle'),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
   $var_name = 'dosomething_reward_redeem_page_header';
   $form['rb_count']['page'][$var_name] = array(
     '#type' => 'textfield',

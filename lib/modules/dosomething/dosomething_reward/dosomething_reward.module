@@ -338,6 +338,8 @@ function dosomething_reward_get_redeem_form_vars($reward) {
     'page_copy',
     'page_header',
     'page_image',
+    'page_subtitle',
+    'page_title',
   );
   foreach ($copy_vars as $key) {
     $var_name = 'dosomething_reward_redeem_' . $key;
@@ -349,9 +351,5 @@ function dosomething_reward_get_redeem_form_vars($reward) {
     $img_size = '300x300';
     $vars['page_image'] = dosomething_image_get_themed_image($img_nid, $img_ratio, $img_size);
   }
-
-  // Placeholders until finalized.
-  $vars['page_title'] = t("You did it!");
-  $vars['page_subtitle'] = t("You got a T-Shirt!");
   return $vars;
 }
