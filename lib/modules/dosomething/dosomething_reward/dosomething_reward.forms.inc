@@ -28,12 +28,14 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   dosomething_user_address_form_element($form, $form_state);
 
   $form['item_header'] = array(
-    '#markup' => t("Your Shirt"),
+    '#markup' => t("<h3>Your Shirt</h3>"),
   );
   $form['item'] = array(
+    '#prefix' => '<div data-validate="shirt_style" data-validate-required>',
+    '#suffix' => '</div>',
     '#type' => 'radios',
     '#required' => TRUE,
-    '#title' => t("Your Shirt style"),
+    '#title' => t("<div class='label'>Your Shirt style</div>"),
     '#options' => $shirt_options,
   );
   $form['item_option'] = array(
@@ -41,15 +43,21 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
     '#required' => TRUE,
     '#title' => t("Your Shirt Size"),
     '#options' => $size_options,
+    '#attributes' => array(
+      'data-validate' => 'shirt_size',
+      'data-validate-required' => '',
+    ),
   );
 
   $form['item_additional_header'] = array(
-    '#markup' => t("Your Friend's Shirt"),
+    '#markup' => t("<h3>Your Friend's Shirt</h3>"),
   );
   $form['item_additional'] = array(
+    '#prefix' => '<div data-validate="shirt_style" data-validate-required>',
+    '#suffix' => '</div>',
     '#type' => 'radios',
     '#required' => TRUE,
-    '#title' => t("Your Friend's Shirt style"),
+    '#title' => t("<div class='label'>Your Friend's Shirt style</div>"),
     '#options' => $shirt_options,
   );
   $form['item_additional_option'] = array(
@@ -57,6 +65,10 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
     '#required' => TRUE,
     '#title' => t("Your Friend's Shirt Size"),
     '#options' => $size_options,
+    '#attributes' => array(
+      'data-validate' => 'shirt_size',
+      'data-validate-required' => '',
+    ),
   );
 
   $form['actions'] = array(
