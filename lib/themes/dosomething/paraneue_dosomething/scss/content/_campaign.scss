@@ -211,3 +211,109 @@
   }
 }
 
+
+// @TODO: update in Neue: _forms.scss
+.-media-options {
+  @include clearfix();
+
+  .form-item {
+    @include span-columns(4);
+    position: relative;
+
+    label {
+      height: auto;
+      margin-top: 0;
+      max-width: 150px;
+      position: relative;
+
+      .inner-label {
+        top: 0;
+      }
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      @include visually-hidden();
+    }
+
+    img {
+      cursor: pointer;
+      border: 2px solid $med-gray;
+      border-radius: $sm-border-radius;
+
+      &:hover {
+        border-color: $blue;
+      }
+    }
+
+    &:before {
+      display: none;
+      font-size: $font-regular;
+      font-weight: $weight-sbold;
+      height: 30px;
+      left: -50%;
+      margin: -15px 0 0 40px;
+      position: absolute;
+      text-align: center;
+      text-transform: uppercase;
+      top: 50%;
+      width: 40px;
+
+      @include media($tablet) {
+        display: block;
+        font-size: $font-medium;
+      }
+    }
+
+    &.form-type-radio {
+      &:before {
+        content: "or";
+      }
+    }
+
+    &:first-child {
+      &:before {
+        content: "";
+      }
+    }
+
+    &.selected {
+      img {
+        border-color: $blue;
+      }
+    }
+  }
+}
+
+[data-modal] {
+  // @TODO: update in Neue: _forms.scss
+  label {
+    display: block;
+    float: none;
+  }
+
+  select {
+    margin-bottom: .5em;
+  }
+
+  // @TODO: update in Neue: _modal.scss
+  h3 {
+    font-size: $font-regular;
+    font-weight: $weight-bold;
+    margin-bottom: 0;
+    margin-top: 27px;
+
+    & + .form-item {
+      label {
+        margin-top: .3em;
+      }
+    }
+  }
+
+  // @TODO: remove once radio button validation is properly added to Neue
+  .error {
+    .label {
+      display: none;
+    }
+  }
+}
