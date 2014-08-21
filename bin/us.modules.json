@@ -1,0 +1,13 @@
+{
+  "conductor" : 1,
+  "conductor_sms" : 1,
+  "dosomething_api" : 1,
+  "dosomething_fact_page" : 1,
+  "dosomething_mbp" : 1,
+  "dosomething_reward" : 1,
+  "dosomething_shipment" : 1,
+  "dosomething_sms" : 1,
+  "dosomething_zendesk" : 1,
+  "message_broker_producer" : 1,
+  "optimizely" : 1
+}
