@@ -129,14 +129,14 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#default_value' => $values['collect_user_address'],
     '#description' => t('If checked, collect the user address and save to profile.'),
   );
+  $shipment_item_options = array();
+  if (module_exists('dosomething_shipment')) {
+    $shipment_item_options = dosomething_shipment_get_item_options();
+  }
   $form[$fieldset]['config']['elements'] [$prefix . 'shipment_item'] = array(
     '#type' => 'select',
     '#title' => t('Select Shipment Item'),
-    '#options' => array(
-      'banner' => t('Banner'),
-      'shirt' => t('T-Shirt'),
-      'thumb_socks' => t('Thumb Socks'),
-    ),
+    '#options' => $shipment_item_options,
     '#default_value' => $values['shipment_item'],
     '#description' => t('When the User submits the form, a User Shipment will be created for this Item.'),
     // Why_signedup label should only be visible if collect_user_address is checked.

@@ -243,6 +243,17 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 }
 
 /**
+ * Returns array of valid values for a Shipment's item / additional_item.
+ */
+function dosomething_shipment_get_item_options() {
+  return array(
+    'banner' => t('Banner'),
+    'shirt' => t('Shirt'),
+    'thumb_socks' => t('Thumb Socks'),
+  );
+}
+
+/**
  * Returns array of available shirts.
  */
 function dosomething_shipment_get_shirt_options($images = TRUE, $ratio = 'square', $size = '100x100') {
