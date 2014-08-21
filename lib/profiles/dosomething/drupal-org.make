@@ -122,9 +122,11 @@ projects[mobilecommons][subdir] = "contrib"
 projects[module_filter][version] = "2.0-alpha2"
 projects[module_filter][subdir] = "contrib"
 
-; Oauth
+; OAuth
 projects[oauth][version] = "3.2"
 projects[oauth][subdir] = "contrib"
+; See https://www.drupal.org/node/2328685
+projects[oauth][patch][] = "https://www.drupal.org/files/issues/oauth-OAuth-PHP-library-Authorization-Header-parameters-separator-2328685-1.patch"
 
 ; Optimizely
 projects[optimizely][version] = "2.14"
