@@ -187,10 +187,6 @@
       @include media($tablet) {
         @include span-columns(6 of 12);
         @include omega(2n);
-
-        &:nth-child(3n) {
-          clear: left;
-        }
       }
     }
 
