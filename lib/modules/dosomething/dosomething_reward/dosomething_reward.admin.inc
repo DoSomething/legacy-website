@@ -46,7 +46,6 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
   $form['rb_count']['page'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Redeem Page Subtitle'),
-    '#required' => TRUE,
     '#default_value' => variable_get($var_name),
   );
 
@@ -55,7 +54,6 @@ function dosomething_reward_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Redeem Page Header'),
     '#description' => t("Redeem Page content header."),
-    '#required' => TRUE,
     '#default_value' => variable_get($var_name),
   );
 
