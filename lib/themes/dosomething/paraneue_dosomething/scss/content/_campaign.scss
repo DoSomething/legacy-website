@@ -280,6 +280,7 @@
     &.selected {
       img {
         border-color: $blue;
+        border-width: 4px;
       }
     }
   }
