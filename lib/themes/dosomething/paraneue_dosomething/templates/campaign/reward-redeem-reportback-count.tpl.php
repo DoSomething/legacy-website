@@ -21,7 +21,7 @@
     <div class="wrapper">
       <h1 class="__title"><?php print $page_title; ?></h1>
       <?php if (isset($subtitle)): ?>
-      <h2 class="__subtitle"><?php print $page_subtitle; ?></h2>
+      <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
     </div>
   </header>
@@ -46,11 +46,7 @@
           <h2 class="banner"><?php print ($form_header); ?></h2>
           <?php print $form_copy; ?>
           <?php print render($form); ?>
-        </div>
-
-        <?php if ($delete_form): ?>
-          <?php print render($delete_form); ?>
-        <?php endif; ?>        
+        </div>       
       </div>
     </div>
   </section>
