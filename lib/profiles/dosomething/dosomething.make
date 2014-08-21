@@ -127,6 +127,12 @@ projects[dosomething_taxonomy][download][type] = local
 projects[dosomething_taxonomy][download][source] = './lib/modules/dosomething/dosomething_taxonomy'
 projects[dosomething_taxonomy][subdir] = "dosomething"
 
+; Dosomething UK
+projects[dosomething_uk][type] = "module"
+projects[dosomething_uk][download][type] = local
+projects[dosomething_uk][download][source] = './lib/modules/dosomething/dosomething_uk'
+projects[dosomething_uk][subdir] = "dosomething"
+
 ; Dosomething User
 projects[dosomething_user][type] = "module"
 projects[dosomething_user][download][type] = local

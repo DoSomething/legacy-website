@@ -1,0 +1,197 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething UK.
+ * TODO: set oauth_common_enable_provider = false;
+ */
+define('DOSOMETHING_UK_WATCHDOG', 'dosomething_uk');
+define('DOSOMETHING_UK_USER_SOURCE', 'dosomething_uk');
+
+// -----------------------------------------------------------------------
+// Hook implementations.
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Moves the hook_form_alter() implementation to the bottom.
+ * That way we ensure to run last and have the final word in form callbacks
+ * altering.
+ */
+function dosomething_uk_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' && isset($implementations['dosomething_uk'])) {
+    $group = $implementations['dosomething_uk'];
+    unset($implementations['dosomething_uk']);
+    $implementations['dosomething_uk'] = $group;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_login.
+ */
+function dosomething_uk_form_user_login_alter(&$form, &$form_state, $form_id) {
+  array_unshift($form['#validate'], 'dosomething_uk_login_validate');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_login_block.
+ */
+function dosomething_uk_form_user_login_block_alter(&$form, &$form_state) {
+  array_unshift($form['#validate'], 'dosomething_uk_login_validate');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_register.
+ */
+function dosomething_uk_form_user_register_form_alter(&$form, $form_state) {
+  array_unshift($form['#submit'], 'dosomething_uk_register_validate');
+}
+
+// -----------------------------------------------------------------------
+// Callbacks.
+
+/**
+ * Validates user_login_form.
+ */
+function dosomething_uk_login_validate($form, &$form_state) {
+  $values = &$form_state['values'];
+
+  // Fallback to default validation when name or pass not set.
+  if (empty($values['name']) || empty($values['pass'])) {
+    return;
+  }
+
+  $name = $values['name'];
+  $pass = $values['pass'];
+
+  // Check whether local account exists.
+  $account = dosomething_user_get_user_by_email($name);
+
+  // Process user with existing local account:
+  if ($account) {
+    dosomething_uk_process_existing_user($name, $pass, $account);
+  }
+  else {
+    $account = dosomething_uk_process_new_user($name, $pass);
+    form_set_value($form['name'], $account->name, $form_state);
+  }
+}
+
+/**
+ * Validates user_register.
+ */
+function dosomething_uk_register_validate($form, &$form_state) {
+  // var_dump($form_state['values']); die();
+  // Todo: save.
+}
+
+// -----------------------------------------------------------------------
+// OAuth processing.
+
+function dosomething_uk_process_existing_user($name, $pass, $account) {
+  // Check whether the user is already authrorized on SSO.
+  $sso = DosomethingUkSsoController::initForUser($account->uid);
+  if ($sso->isAuthrizedForRemoteApi()) {
+    // Todo: update local password and/or profile data.
+    return TRUE;
+  }
+
+  // Todo: try to create remote user based on local.
+  return TRUE;
+}
+
+function dosomething_uk_process_new_user($name, $pass) {
+  // Check whether remote account with requested name exists:
+  try {
+    $sso = DosomethingUkSsoController::init()->authorizeRemoteRedirect();
+    $remote_account = dosomething_uk_authorize_remote_user($name, $pass, $sso);
+  }
+  catch (Exception $e) {
+    form_set_error('name', t('Unexpected login error.'));
+    return FALSE;
+  }
+
+  if (!$remote_account) {
+    // Todo: link to forgot password page.
+    form_set_error('name', t('Sorry, unrecognized username or password.'));
+    return FALSE;
+  }
+
+  $account = dosomething_uk_new_user_from_remote($name, $pass, $remote_account);
+  if (!$account) {
+    return FALSE;
+  }
+  $sso->authorizeUserAccess($account->uid);
+  return $account;
+}
+
+// -----------------------------------------------------------------------
+// OAuth helpers.
+
+function dosomething_uk_authorize_remote_user($name, $pass, $sso) {
+  $url = $sso->getAuthorizationUrl(TRUE, TRUE);
+  if (!$url) {
+    throw new Exception('Unexpected login error: request token.');
+  }
+
+  // Authorize remote user with given credentials:
+  $result = DosomethingUkUserImpersonator::init($name, $pass)->authorize($url);
+  if (!$result) {
+    // Todo: link to forgot password page.
+    // Remote login failed: wrong credentials.
+    return FALSE;
+  }
+
+  // Retrieve remote account:
+  $remote_account = $sso->authorizeAccessToken()->getRemoteUser();
+  if (!$remote_account) {
+    throw new Exception('Unexpected login error: request token.');
+  }
+  return $remote_account;
+}
+
+function dosomething_uk_new_user_from_remote($name, $pass, $remote_account) {
+  $edit = array(
+    'mail'    => $name,
+    'name'    => $name,
+    'pass'    => $pass,
+    'status'  => 1,
+    'created' => REQUEST_TIME,
+  );
+
+  $dob = new DateObject($remote_account['dob']);
+  $fields = array(
+    'birthdate'  => $dob->format(DATE_FORMAT_DATE),
+    'first_name' => $remote_account['first_name'],
+    'last_name'  => $remote_account['last_name'],
+    'user_registration_source' => DOSOMETHING_UK_USER_SOURCE,
+  );
+  _dosomething_uk_utility_set_user_fields($edit, $fields);
+  try {
+    $account = user_save('', $edit);
+  }
+  catch (Exception $e) {
+    watchdog_exception(DOSOMETHING_UK_WATCHDOG, $e);
+  }
+  return $account;
+}
+
+// -----------------------------------------------------------------------
+// Miscellaneous.
+
+function _dosomething_uk_utility_set_user_fields(&$values, $fields) {
+  foreach ($fields as $field_key => $field_value) {
+    if (empty($field_value)) {
+      continue;
+    }
+    $name = 'field_' . $field_key;
+    $values[$name] = array(LANGUAGE_NONE => array(
+      0 => array('value' => $field_value),
+    ));
+  }
+}
