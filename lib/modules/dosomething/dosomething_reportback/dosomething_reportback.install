@@ -163,80 +163,6 @@ function dosomething_reportback_schema() {
     ),
     'primary key' => array('rbid', 'fid'),
   );
-  $schema['dosomething_reportback_field'] = array(
-    'description' => 'Table of reportback fields associated with nodes.',
-    'fields' => array(
-      'nid' => array(
-        'description' => 'Node nid that reportback field belongs to.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'name' => array(
-        'description' => 'The machine name of the reportback field.',
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-      ),
-      'status' => array(
-        'description' => 'Boolean indicating the field is enabled.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'label' => array(
-        'description' => 'The user facing label of the reportback field.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-      'type' => array(
-        'description' => 'The type of form field to render.',
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-      ),
-      'options' => array(
-        'description' => 'Options for the form field, if applicable.',
-        'type' => 'text',
-        'length' => '2048',
-        'not null' => FALSE,
-      ),
-    ),
-    'primary key' => array('nid', 'name'),
-    'indexes' => array(
-      'nid' => array('nid'),
-    ),
-  );
-  $schema['dosomething_reportback_field_data'] = array(
-    'description' => 'Stores user reportback field data.',
-    'fields' => array(
-      'rbid' => array(
-        'description' => 'Reportback rbid',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-      'name' => array(
-        'description' => 'The machine name of the reportback field.',
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-      ),
-      'value' => array(
-        'description' => 'The user-inputted value for the reportback field.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-    ),
-    'primary key' => array('rbid', 'name'),
-    'indexes' => array(
-      'rbid' => array('rbid'),
-    ),
-  );
   // Add a custom cache table.
   $schema['cache_dosomething_reportback'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
@@ -286,56 +212,24 @@ function dosomething_reportback_update_7003() {
  * Adds dosomething_reportback_field and dosomething_reportback_field_data tables.
  */
 function dosomething_reportback_update_7004() {
-  $schema = dosomething_reportback_schema();
-  $tables = array('dosomething_reportback_field', 'dosomething_reportback_field_data');
-  // Add new tables.
-  foreach ($tables as $table_name) {
-    if (!db_table_exists($table_name)) {
-      db_create_table($table_name, $schema[$table_name]);
-    }
-  }
-  // Add new field to dosomething_reportback_log.
-  $tbl_name = 'dosomething_reportback_log';
-  $fld_name = 'field_data';
-  if (!db_field_exists($tbl_name, $fld_name)) {
-    // Add it per the schema field definition.
-    db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
-  }
+  // No longer applicable.
+  // @see dosomething_reportback_update_7012().
 }
 
 /**
  * Adds a dosomething_reportback_field for Comeback Clothes (nid 362).
  */
 function dosomething_reportback_update_7005() {
-  $nid = 362;
-  $name = 'dropoff_hm';
-  $label = 'Did you recycle the clothes through H&M?';
-  // Looks funny but we wanna keep the line break.
-  $options = '1|Yes
-0|No';
-
-  // If a record does not exist for $nid and $name:
-  if (!dosomething_reportback_get_reportback_field_info($nid, $name)) {
-    $bada_bing = db_insert('dosomething_reportback_field')
-      ->fields(array(
-        'nid' => $nid,
-        'name' => $name,
-        'status' => 0,
-        'label' => $label,
-        'type' => 'radios',
-        'options' => $options,
-      ))
-      ->execute();
-  }
+  // No longer applicable.
+  // @see dosomething_reportback_update_7012().
 }
 
 /**
  * Deletes empty records in the dosomething_reportback_field table.
  */
 function dosomething_reportback_update_7006() {
-  $num_deleted = db_delete('dosomething_reportback_field')
-    ->condition('status', 0)
-    ->execute();
+  // No longer applicable.
+  // @see dosomething_reportback_update_7012().
 }
 
 /**
@@ -375,11 +269,8 @@ function dosomething_reportback_update_7009() {
  * Add index to rbid on dosomething_reportback_field_data table.
  */
  function dosomething_reportback_update_7010() {
-   $table = 'dosomething_reportback_field_data';
-   $column = 'rbid';
-   if (!db_index_exists($table, $column)) {
-    db_add_index($table, $column, array($column));
-  }
+  // No longer applicable.
+  // @see dosomething_reportback_update_7012().
  }
 
 /**
@@ -390,4 +281,24 @@ function dosomething_reportback_update_7009() {
      $schema = drupal_get_schema_unprocessed('system', 'cache');
      db_create_table('cache_dosomething_reportback', $schema);
    }
+ }
+
+/**
+ * Deletes Reportback Field tables.
+ */
+ function dosomething_reportback_update_7012() {
+  $delete_tables = array(
+    'dosomething_reportback_field',
+    'dosomething_reportback_field_data',
+  );
+  foreach ($delete_tables as $table) {
+    if (db_table_exists($table)) {
+      db_drop_table($table);
+    }
+  }
+  $table = 'dosomething_reportback_log';
+  $field = 'field_data';
+  if (db_field_exists($table, $field)) {
+    db_drop_field($table, $field);
+  }
  }

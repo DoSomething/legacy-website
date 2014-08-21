@@ -167,13 +167,6 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $form_id = 'dosomething_campaign_reportback_config_form';
     $reportback_field_form = drupal_get_form($form_id, $node);
     $output .= render($reportback_field_form);
-    if (user_access('administer modules')) {
-      // Only admin's can use this Reportback Field form.
-      // This form will soon be deprecated but Thumb Wars uses it.
-      $form_id = 'dosomething_reportback_node_reportback_field_form';
-      $reportback_field_form = drupal_get_form($form_id, $node);
-      $output .= render($reportback_field_form);
-    }
   }
   return $output;
 }
