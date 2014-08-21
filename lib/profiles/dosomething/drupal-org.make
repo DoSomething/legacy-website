@@ -126,6 +126,10 @@ projects[optimizely][subdir] = "contrib"
 projects[pathauto][version] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
+; POTX (Translation template extractor)
+projects[potx][version] = "1.0"
+projects[potx][subdir] = "contrib"
+
 ; Redirect
 projects[redirect][version] = "1.0-rc1"
 projects[redirect][subdir] = "contrib"
