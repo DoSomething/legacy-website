@@ -289,6 +289,12 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       );
       // If shipping shirts:
       if ($config['shipment_item'] == 'shirt') {
+        // Prompt for shirt style.
+        $form['item'] = array(
+          '#type' => 'radios',
+          '#required' => TRUE,
+          '#options' => dosomething_shipment_get_shirt_options(),
+        );
         // Prompt for shirt size.
         $form['item_option'] = array(
           '#type' => 'select',
