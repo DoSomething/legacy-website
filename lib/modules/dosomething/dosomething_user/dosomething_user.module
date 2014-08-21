@@ -145,7 +145,7 @@ function dosomething_user_get_staff_only_types() {
 }
 
  /**
-  * Confirms that a specific mobile phone number is valid.
+  * Confirms that the provided string is a valid US phone number.
   *
   * A valid phone number is a number with either 10 or 11 digits
   * (as long as the first digit is a "1").
@@ -161,7 +161,7 @@ function dosomething_user_get_staff_only_types() {
   *  dosomething_user_valid_mobile('1 (123) 456-7890');
   *  # => true
   *  dosomething_user_valid_mobile('123-555-9942');
-  *  # => false
+  *  # => true
   *  dosomething_user_valid_mobile('1 902 #@@ 1234');
   *  # => false
   *  dosomething_user_valid_mobile('999 999 9999');
@@ -177,7 +177,7 @@ function dosomething_user_get_staff_only_types() {
 function dosomething_user_valid_mobile($number) {
   preg_match('#^(?:\+?1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
   preg_match('#([0-9]{1})\1{9,}#', preg_replace('#[^0-9]+#', '', $number), $repeat);
-  return !empty($valid) && empty($repeat) && strpos($number, '555') === FALSE;
+  return !empty($valid) && empty($repeat);
 }
 
 /**
