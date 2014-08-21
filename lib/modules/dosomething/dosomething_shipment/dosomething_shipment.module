@@ -253,6 +253,49 @@ function dosomething_shipment_get_item_options() {
   );
 }
 
+
+/**
+ * Adds Shirt style and size form element to a given Form API $form.
+ *
+ * @param array $form
+ *   A Form API array.
+ * @param array $form_state
+ *   A Form State Form API array.
+ */
+function dosomething_shipment_shirt_form_element(&$form, &$form_state, $additional = FALSE) {
+  $form['item_header'] = array(
+    '#markup' => t("Your Shirt"),
+  );
+  $form['item'] = array(
+    '#type' => 'radios',
+    '#required' => TRUE,
+    '#title' => t("Your Shirt"),
+    '#options' => dosomething_shipment_get_shirt_options(),
+  );
+  $form['item_option'] = array(
+    '#type' => 'select',
+    '#required' => TRUE,
+    '#title' => t("Your Shirt Size"),
+    '#options' => dosomething_shipment_get_shirt_size_options(),
+  );
+  if ($additional) {
+    $form['item_additional_header'] = array(
+      '#markup' => t("Your Friend's Shirt"),
+    );
+    $form['item_additional'] = array(
+      '#type' => 'radios',
+      '#required' => TRUE,
+      '#title' => t("Your Friend's Shirt"),
+      '#options' => dosomething_shipment_get_shirt_options(),
+    );
+    $form['item_additional_option'] = array(
+      '#type' => 'select',
+      '#required' => TRUE,
+      '#title' => t("Your Friend's Shirt Size"),
+      '#options' => dosomething_shipment_get_shirt_size_options(),
+    );
+  }
+}
 /**
  * Returns array of available shirts.
  */

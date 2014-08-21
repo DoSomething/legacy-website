@@ -9,8 +9,10 @@
 /**
  * Adds an address form element to a given Form API $form.
  *
- * @param object $node
- *   The loaded node to save the signup data form configuration for.
+ * @param array $form
+ *   A Form API array.
+ * @param array $form_state
+ *   A Form State Form API array.
  */
 function dosomething_user_address_form_element(&$form, &$form_state) {
   global $user;

@@ -8,29 +8,53 @@
 function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
   // Add `.btn` to all form submit buttons.
   $form['actions']['submit']['#attributes']['class'][] = 'btn';
+  // Check if this form needs Shirt Styles applied.
+  paraneue_dosomething_form_alter_shirt_options($form, $form_state, $form_id);
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Checks if given $form needs Shirt Styles applied based on its $form_id.
  */
-function paraneue_dosomething_form_dosomething_reward_redeem_form_alter(&$form, &$form_state, $form_id) {
-  $class_name = 'js-media-options';
-  $form['item']['#attributes']['class'][] = $class_name;
-  $form['item']['#prefix'] = '<div data-validate="shirt_style" data-validate-required>';
-  $form['item']['#suffix'] = '</div>';
-  $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
-  $form['item_additional']['#attributes']['class'][] = $class_name;
-  $form['item_additional']['#prefix'] = '<div data-validate="shirt_style" data-validate-required>';
-  $form['item_additional']['#suffix'] = '</div>';
-  $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>';
+function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $form_id) {
+  // Form IDs which need Shirt styles.
+  $form_ids = array(
+    'dosomething_reward_redeem_form',
+    'dosomething_signup_user_signup_data_form'
+  );
+  // If this form is not one of the Shirt Style forms.
+  if (!in_array($form_id, $form_ids)) {
+    // Exit out.
+    return;
+  }
+  // If this is the User Signup Data Form:
+  if ($form_id == 'dosomething_signup_user_signup_data_form') {
+    // If we aren't collecting an item:
+    if (!isset($form['item'])) {
+      // Exit out.
+      return;
+    }
+  }
   $form['item_header']['#markup'] = '<h3>' . t('Your Shirt') . '</h3>';
-  $form['item_additional_header']['#markup'] = '<h3>' . t("Your Friend's Shirt") . '</h3>';
-  $form['item_option']['#attributes'] = array(
+  // Class to be applied to the Shirt Style options.
+  $shirt_style_class = 'js-media-options';
+  // Attributes to be applied to the Shirt Size options.
+  $shirt_size_attributes = array(
     'data-validate' => 'shirt_size',
     'data-validate-required' => '',
   );
-  $form['item_additional_option']['#attributes'] = array(
-    'data-validate' => 'shirt_size',
-    'data-validate-required' => '',
-  );
+  $form['item']['#attributes']['class'][] = $shirt_style_class;
+  $shirt_style_prefix = '<div data-validate="shirt_style" data-validate-required>';
+  $shirt_style_suffix = '</div>';
+  $form['item']['#prefix'] = $shirt_style_prefix;
+  $form['item']['#suffix'] = $shirt_style_suffix;
+  $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
+  $form['item_option']['#attributes'] = $size_attributes;
+  if (isset($form['item_additional'])) {
+    $form['item_additional_header']['#markup'] = '<h3>' . t("Your Friend's Shirt") . '</h3>';
+    $form['item_additional']['#attributes']['class'][] = $shirt_style_class;
+    $form['item_additional']['#prefix'] = $style_prefix;
+    $form['item_additional']['#suffix'] = $style_suffix;
+    $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>'; 
+    $form['item_additional_option']['#attributes'] = $size_attributes;
+  }
 }
