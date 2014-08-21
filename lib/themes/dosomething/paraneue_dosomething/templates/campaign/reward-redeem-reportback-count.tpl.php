@@ -20,8 +20,8 @@
   <header role="banner" class="-basic">
     <div class="wrapper">
       <h1 class="__title"><?php print $page_title; ?></h1>
-      <?php if (isset($subtitle)): ?>
-      <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+      <?php if (isset($page_subtitle)): ?>
+      <h2 class="__subtitle"><?php print $page_subtitle; ?></h2>
       <?php endif; ?>
     </div>
   </header>
