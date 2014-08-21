@@ -32,6 +32,9 @@ class ShipmentEntityController extends EntityAPIController {
     $op = NULL;
     if (isset($entity->is_new)) {
       $op = 'insert';
+      if (!isset($entity->created)) {
+        $entity->created = REQUEST_TIME;
+      }
     }
     parent::save($entity, $transaction);
     if (DOSOMETHING_SHIPMENT_LOG) {

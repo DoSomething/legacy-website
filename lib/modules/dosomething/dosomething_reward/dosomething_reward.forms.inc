@@ -27,37 +27,8 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   // Add Address form fields.
   dosomething_user_address_form_element($form, $form_state);
 
-  $form['item_header'] = array(
-    '#markup' => t("Your Shirt"),
-  );
-  $form['item'] = array(
-    '#type' => 'radios',
-    '#required' => TRUE,
-    '#title' => t("Your Shirt style"),
-    '#options' => $shirt_options,
-  );
-  $form['item_option'] = array(
-    '#type' => 'select',
-    '#required' => TRUE,
-    '#title' => t("Your Shirt Size"),
-    '#options' => $size_options,
-  );
-
-  $form['item_additional_header'] = array(
-    '#markup' => t("Your Friend's Shirt"),
-  );
-  $form['item_additional'] = array(
-    '#type' => 'radios',
-    '#required' => TRUE,
-    '#title' => t("Your Friend's Shirt style"),
-    '#options' => $shirt_options,
-  );
-  $form['item_additional_option'] = array(
-    '#type' => 'select',
-    '#required' => TRUE,
-    '#title' => t("Your Friend's Shirt Size"),
-    '#options' => $size_options,
-  );
+  // Add Shirt form fields.
+  dosomething_shipment_shirt_form_element($form, $form_state, $friend = TRUE);
 
   $form['actions'] = array(
     '#type' => 'actions',
