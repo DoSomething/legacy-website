@@ -28,7 +28,7 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   dosomething_user_address_form_element($form, $form_state);
 
   $form['item_header'] = array(
-    '#markup' => t("Your Shirt"),
+    '#markup' => t("<h3>Your Shirt</h3>"),
   );
   $form['item'] = array(
     '#type' => 'radios',
@@ -44,7 +44,7 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   );
 
   $form['item_additional_header'] = array(
-    '#markup' => t("Your Friend's Shirt"),
+    '#markup' => t("<h3>Your Friend's Shirt</h3>"),
   );
   $form['item_additional'] = array(
     '#type' => 'radios',
