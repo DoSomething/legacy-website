@@ -348,7 +348,7 @@ function dosomething_reward_get_redeem_form_vars($reward) {
   // Store the image HTML.
   if ($img_nid = $vars['page_image']) {
     $img_ratio = 'landscape';
-    $img_size = '300x300';
+    $img_size = '550x300';
     $vars['page_image'] = dosomething_image_get_themed_image($img_nid, $img_ratio, $img_size);
   }
   return $vars;
