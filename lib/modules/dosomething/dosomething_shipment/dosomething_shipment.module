@@ -263,6 +263,11 @@ function dosomething_shipment_get_item_options() {
  *   A Form State Form API array.
  */
 function dosomething_shipment_shirt_form_element(&$form, &$form_state, $additional = FALSE) {
+
+  $shirt_style_options = dosomething_shipment_get_shirt_options();
+  $shirt_style_default = 'shirt_dope';
+  $shirt_size_options = dosomething_shipment_get_shirt_size_options();
+
   $form['item_header'] = array(
     '#markup' => t("Your Shirt"),
   );
@@ -270,7 +275,8 @@ function dosomething_shipment_shirt_form_element(&$form, &$form_state, $addition
     '#type' => 'radios',
     '#required' => TRUE,
     '#title' => t("Your Shirt"),
-    '#options' => dosomething_shipment_get_shirt_options(),
+    '#options' => $shirt_style_options,
+    '#default_value' => $shirt_style_default,
   );
   $form['item_option'] = array(
     '#type' => 'select',
@@ -286,13 +292,14 @@ function dosomething_shipment_shirt_form_element(&$form, &$form_state, $addition
       '#type' => 'radios',
       '#required' => TRUE,
       '#title' => t("Your Friend's Shirt"),
-      '#options' => dosomething_shipment_get_shirt_options(),
+      '#options' => $shirt_style_options,
+      '#default_value' => $shirt_style_default,
     );
     $form['item_additional_option'] = array(
       '#type' => 'select',
       '#required' => TRUE,
       '#title' => t("Your Friend's Shirt Size"),
-      '#options' => dosomething_shipment_get_shirt_size_options(),
+      '#options' => $shirt_size_options,
     );
   }
 }
