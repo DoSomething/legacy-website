@@ -280,6 +280,24 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   );
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form, $form_state);
+    if (isset($config['shipment_item'])) {
+      // Store the shipment item to create.
+      $form['item'] = array(
+        '#type' => 'hidden',
+        '#value' => $config['shipment_item'],
+        '#access' => FALSE,
+      );
+      // If shipping shirts:
+      if ($config['shipment_item'] == 'shirt') {
+        // Prompt for shirt size.
+        $form['item_option'] = array(
+          '#type' => 'select',
+          '#required' => TRUE,
+          '#title' => t("Your Shirt Size"),
+          '#options' => dosomething_shipment_get_shirt_size_options(),
+        );
+      }
+    }
   }
   // If we are collecting why_signedup:
   if ($config['collect_why_signedup']) {
@@ -318,12 +336,25 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
  * Form submit handler for dosomething_signup_user_signup_data_form().
  */
 function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
+  global $user;
   $values = $form_state['values'];
   // Load signup_data_form record to gather relevant config and confirm_msg.
   $config = dosomething_signup_get_signup_data_form_info($values['nid']);
   if ($config['collect_user_address']) {
     // Update user address.
     dosomething_user_save_address_values($values);
+    if (isset($values['item'])) {
+      // Create a shipment entity for this signup.
+      $shipment = entity_create('shipment', array(
+        'uid' => $user->uid,
+        'entity_type' => 'signup',
+        'entity_id' => $values['sid'],
+        'item' => $values['item'],
+        'item_option' => $values['item_option'],
+      ));
+      // Save the shipment entity.
+      $shipment->save();
+    }
   }
   // Update signup record.
   dosomething_signup_update_signup_data($values);
