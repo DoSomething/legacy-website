@@ -133,9 +133,6 @@ function dosomething_reportback_form_validate($form, &$form_state) {
 function dosomething_reportback_form_submit($form, &$form_state) {
   global $user;
   $values = $form_state['values'];
-
-  // Set confirmation_path for redirect.
-  $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
   $values['uid'] = $user->uid;
 
   // Save uploaded file.
@@ -147,7 +144,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   dosomething_reportback_save($values);
 
   // Redirect to confirmation.
-  $form_state['redirect'] = $confirmation_path;
+  $redirect = dosomething_campaign_get_confirmation_path($values['nid']);
+  $form_state['redirect'] = $redirect;
 }
 
 /**
