@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_mbp.module.
+ */
+ 
+ /**
+ * Deletes dosomething_mbp_send_campaign_api system variable
+ */
+function dosomething_mbp_update_7001(&$sandbox) {
+  variable_del('dosomething_mbp_send_campaign_api');
+}
