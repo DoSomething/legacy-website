@@ -44,16 +44,16 @@ function dosomething_campaign_strongarm() {
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '13',
-        ),
-        'metatags' => array(
           'weight' => '14',
         ),
-        'redirect' => array(
+        'metatags' => array(
           'weight' => '15',
         ),
-        'xmlsitemap' => array(
+        'redirect' => array(
           'weight' => '16',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '17',
         ),
       ),
       'display' => array(),

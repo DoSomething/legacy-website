@@ -712,7 +712,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => array(
       0 => array(
-        'value' => 1,
+        'value' => 0,
       ),
     ),
     'deleted' => 0,
@@ -2382,6 +2382,54 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_secondary_call_to_action'
+  $field_instances['node-campaign-field_secondary_call_to_action'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Include key phrases for SEO. Ex: <em>Boost your friends’ self-esteem. Prevent texting and driving. Speak out against sexist comments.</em>
+
+<p><strong>Limit: 45 characters</strong></p>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 72,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_secondary_call_to_action',
+    'label' => 'Secondary Call to Action',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 3,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 19,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_solution_copy'
   $field_instances['node-campaign-field_solution_copy'] = array(
     'bundle' => 'campaign',
@@ -2836,6 +2884,52 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_value_proposition'
+  $field_instances['node-campaign-field_value_proposition'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Suggested template: <em>Sign up for facts on _______ [issue] and tips on _______ [action]. You’ll also receive [anything the user physically gets like a banner or a sign template]. Plus, you’ll enter for the chance to win _________ [incentive].</em>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 71,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_value_proposition',
+    'label' => 'What You Get',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 18,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_video'
   $field_instances['node-campaign-field_video'] = array(
     'bundle' => 'campaign',
@@ -2981,6 +3075,9 @@ function dosomething_campaign_field_default_field_instances() {
   t('Include any key words or phrases we want to associate for both external and internal search. i.e. Music, Hospital, Children, Kids for the campaign "Put on a concert in a Children\'s Hospital". Also could include celebrity tied to the campaign like Miley Cyrus.
 <br/>
 <strong> Please use commas to separate terms. </strong>');
+  t('Include key phrases for SEO. Ex: <em>Boost your friends’ self-esteem. Prevent texting and driving. Speak out against sexist comments.</em>
+
+<p><strong>Limit: 45 characters</strong></p>');
   t('Include the link of the Google doc that proves the impact of the campaign.');
   t('Information that shows that the call to action is what to do to solve the issue. If using a fact, create a fact and reference it here.');
   t('Internal Location Finder Needed');
@@ -3011,6 +3108,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Report Back Noun');
   t('Report Back Verb');
   t('Scholarship Amount');
+  t('Secondary Call to Action');
   t('Select the user who created this campaign.');
   t('Sentence user sees after reporting back. I.e. You kicked ass making birthday cards for children in need.
 <br/>
@@ -3022,6 +3120,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Sponsors and Partners');
   t('Starter Statement Header');
   t('Stuff You Need');
+  t('Suggested template: <em>Sign up for facts on _______ [issue] and tips on _______ [action]. You’ll also receive [anything the user physically gets like a banner or a sign template]. Plus, you’ll enter for the chance to win _________ [incentive].</em>');
   t('Supporting Statement on the Solution');
   t('Tags');
   t('The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
@@ -3075,6 +3174,7 @@ function dosomething_campaign_field_default_field_instances() {
 <p><b>Limit: 140 characters.</b></p>');
   t('VIPs');
   t('Video');
+  t('What You Get');
   t('i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans');
   t('i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected');
 
