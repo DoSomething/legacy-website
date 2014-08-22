@@ -46,12 +46,6 @@ function dosomething_mbp_request($origin, $params = NULL) {
       $payload = dosomething_mbp_get_transactional_payload($origin, $params);
       break;
 
-    case 'create_campaign':
-    case 'update_campaign':
-      $production_type = 'produceCampaignCache';
-      $payload = dosomething_mbp_get_campaign_cache_payload($origin, $params);
-      break;
-
   }
   if (variable_get('dosomething_mbp_log')) {
     watchdog('dosomething_mbp', json_encode($payload));
