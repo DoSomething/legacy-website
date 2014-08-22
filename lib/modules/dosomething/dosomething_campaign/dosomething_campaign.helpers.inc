@@ -425,6 +425,8 @@ function dosomething_campaign_get_property_names_plain_text() {
     'reportback_noun',
     'reportback_verb',
     'location_finder_url',
+    'secondary_call_to_action',
+    'value_proposition',
   );
 }
 
