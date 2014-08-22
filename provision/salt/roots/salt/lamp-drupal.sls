@@ -158,6 +158,13 @@ solr:
   host.present:
     - ip: 127.0.0.1
 
+international.staging:
+  host.present:
+    - ip: 98.129.111.174
+    - names:
+      - international.staging
+      - international.qa
+
 solr_port:
    environ.set:
      - name: DS_APACHESOLR_PORT

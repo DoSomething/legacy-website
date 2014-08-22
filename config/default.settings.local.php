@@ -51,8 +51,8 @@ $conf['varnish_control_key'] = '00c9203c65874ca5b4c359e19f00bf56';
 $conf['page_cache_invoke_hooks'] = FALSE;
 
 // These settings point to the solr instance on staging.
-$conf['apachesolr_host'] = 'solr';
-$conf['apachesolr_port'] = '8080';
+$conf['apachesolr_host'] = getenv('DS_APACHESOLR_HOST') ?: 'solr';
+$conf['apachesolr_port'] = getenv('DS_APACHESOLR_PORT') ?: '8080';
 
 $conf_path = explode('/', conf_path());
 $solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];

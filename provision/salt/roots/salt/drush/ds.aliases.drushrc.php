@@ -10,20 +10,12 @@ $aliases['staging'] = array(
  ),
 );
 
-$aliases['international.prod'] = array(
- 'uri' => 'default',
- 'root' => '/var/www/international.dosomething.org/current/html',
- 'remote-host' => '72.32.106.161',
- 'remote-user' => 'dosomething',
- 'path-aliases' => array(
-   '%files' => '/var/www/international.dosomething.org/shared/files',
- ),
-);
-
 $countries = array(
   'botswana',
   'canada',
   'congo',
+  'ghana',
+  'kenya',
   'indonesia',
   'nigeria',
   'training',
@@ -31,9 +23,41 @@ $countries = array(
 );
 
 foreach ($countries as $country) {
-  $aliases[$country . '.prod'] = array(
-   'parent' => '@international.prod',
-   'uri' => $country,
-   '%dump-dir' => '/tmp',
+  foreach (array('prod', 'staging') as $environment) {
+    $aliases["{$country}.{$environment}"] = array(
+     'root' => '/var/www/international.dosomething.org/current/html',
+     'remote-host' => 'international.' . $environment,
+     'remote-user' => 'dosomething',
+     'uri' => $country,
+     '%dump-dir' => '/tmp',
+      'path-aliases' => array(
+       '%files' =>  "/var/www/international.dosomething.org/current/html/sites/{$country}/files",
+     ),
+    );
+  }
+  $aliases["{$country}.dev"] = array (
+    'root' => '/var/www/vagrant/html',
+    'uri' => "http://dev.{$country}.dosomething.org",
+    'path-aliases' =>
+      array (
+        '%files' => "/var/www/vagrant/html/sites/{$country}/files",
+      ),
+    '%dump-dir' => '/tmp',
+    'databases' =>
+      array (
+        'default' =>
+        array (
+          'default' =>
+          array (
+            'database' => "dosomething_{$country}",
+            'username' => 'root',
+            'password' => '',
+            'host' => 'localhost',
+            'port' => '',
+            'driver' => 'mysql',
+            'prefix' => '',
+          ),
+        ),
+      ),
   );
 }

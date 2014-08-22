@@ -100,9 +100,11 @@ function dosomething_taxonomy_get_partners_vars($nid) {
     $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
     $partners[$delta]['name'] = $term_wrapper->label();
-    // If a partner_url value exists:
-    if ($url = $fc_item->field_partner_url->value()) {
-      $partners[$delta]['url'] = $url['url'];
+    if (isset($fc_item->field_partner_url)) {
+      // If a partner_url value exists:
+      if ($url = $fc_item->field_partner_url->value()) {
+        $partners[$delta]['url'] = $url['url'];
+      }
     }
     if ($logo = $term_wrapper->field_partner_logo->value()) {
       $partners[$delta]['fid'] = $logo['fid'];

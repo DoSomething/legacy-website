@@ -69,7 +69,7 @@ usage: ds [build [--install]] [--help]
 
 Runs helper scripts for DoSomething environment.
 
-ds build [--install]
+ds build [--intl] [--install] [--dev]
   Builds your environment with "drush make".  Also symlinks appropriate
   files into their respective directories.
 
@@ -85,14 +85,17 @@ ds grunt [--watch]
   --watch
   Continues watching for changes and recompiles assets as necessary.
 
-ds pull [stage|prod] [--db|--files]
+ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
   Pulls database and files from given environment down onto your local build.
+  Note: Running 'ds pull stage' will destroy any affiliate sites.
+  Run  Run 'ds pull stage.$AFFILIATE' to preserve the folders and
 
   --db
     Pulls down database only.
 
   --files
-    Pulls down files only.
+    Pulls down files only. If pulling from an affiliate site, only the files directory
+    can be synced to avoid overwriting the html directory.
 
 ds test [dev|qa]
   Run tests against the given environment using CasperJS.
@@ -106,10 +109,9 @@ USAGE
 
 #=== FUNCTION ==================================================================
 # NAME: build
-# DESCRIPTION: Builds project from make files
+# DESCRIPTION: Builds project from make files.
 #===============================================================================
 function build {
-
   # Display ascii art
   art
 
@@ -121,60 +123,27 @@ function build {
     rm -rf "$WEB_PATH"
   fi
 
-  # Create the db, if for some reason it's not there yet.
-  mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
-
   # Do the build
   echo 'Running drush make...'
   drush make --prepare-install --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
   set +e
 
   # Create symlinks
+  echo "Creating symlinks"
   symlinks
 
-  echo 'Install composer dependencies'
-  composer
-
-  # Clear caches and Run updates
-  cd "$WEB_DIR"
-
-  if [[ $1 == "--install" ]]
+  if [[ $1 == "--intl" ]]
   then
-    install
+    for COUNTRY in botswana canada congo default ghana kenya indonesia nigeria training uk
+    do
+      build_helper $COUNTRY $2 $3
+    done
+    echo 'Adding sites.php file'
+    ln -s $CONFIG_PATH/sites.php $WEB_PATH/sites/sites.php
+  else
+    #default
+    build_helper 'default' $1 $2
   fi
-
-  if [[ $2 == "--dev" ]]
-  then
-    dev
-  fi
-
-  echo 'Replacing settings.php file...'
-  rm -f $WEB_PATH/sites/default/settings.php && ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/default/settings.php
-
-  if [ ! -e "$CONFIG_PATH/settings.local.php" ]
-  then
-    echo 'Creating local settings file...'
-    cp $CONFIG_PATH/default.settings.local.php $CONFIG_PATH/settings.local.php
-  fi
-
-  echo 'Linking local settings file...'
-  ln -s $CONFIG_PATH/settings.local.php $WEB_PATH/sites/default/settings.local.php
-
-  echo 'Adding role to admin user...'
-  drush user-add-role 'administrator' 1
-
-  echo 'Updating database...'
-  drush updb -y
-
-  # Enable modules in info file
-  echo 'Enabling modules in dosomething.info'
-  drush --script-path=../bin/ php-script enable_modules.php
-
-  echo 'Reverting Features'
-  drush fra -y --force
-
-  echo 'Clearing caches...'
-  drush cc all
 
   if [ ! -e "~/.bash_profile" ]
   then
@@ -193,13 +162,101 @@ function build {
   echo 'Build complete.'
 }
 
+
+#=== FUNCTION ==================================================================
+# NAME: build_helper
+# DESCRIPTION: Helper for build function. Performs site-specific actions.
+#===============================================================================
+function build_helper {
+
+  SITE=$1
+  echo $SITE
+
+  if [[ $SITE != "default" ]]
+  then
+    echo "creating db for $SITE"
+    # Create the db, if for some reason it's not there yet.
+    mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething_$SITE;"
+  else
+    echo "creating db for $SITE"
+    # Create the db, if for some reason it's not there yet.
+    mysql -uroot -e "CREATE DATABASE IF NOT EXISTS dosomething;"
+  fi
+
+  echo 'Install composer dependencies'
+  composer
+
+  echo "Creating $SITE folder"
+  mkdir -p "$WEB_PATH/sites/$SITE"
+
+  # Clear caches and Run updates
+  cd "$WEB_PATH/sites/$SITE"
+
+  if [[ $2 == "--install" ]]
+  then
+    echo "Installing"
+    install
+  fi
+
+  if [[ $3 == "--dev" ]]
+  then
+    echo "Dev"
+    dev
+  fi
+
+  echo 'Replacing settings.php file...'
+  sudo rm -f $WEB_PATH/sites/$SITE/settings.php && chmod u+w $WEB_PATH/sites/$SITE
+  ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/$SITE/settings.php
+
+  if [[ $SITE != "default" ]]
+  then
+    echo 'Replacing database name in settings.php file...'
+    sed -i "s/'dosomething'/'dosomething_$SITE'/g" $WEB_PATH/sites/$SITE/settings.php
+  fi
+
+  if [[ $SITE == "default" ]]
+  then
+    if [ ! -e "$CONFIG_PATH/settings.local.php" ]
+    then
+      echo 'Creating local settings file...'
+      cp $CONFIG_PATH/default.settings.local.php $CONFIG_PATH/settings.local.php
+    fi
+
+  echo 'Linking local settings file...'
+  ln -s $CONFIG_PATH/settings.local.php $WEB_PATH/sites/$SITE/settings.local.php
+
+  fi
+
+  echo 'Adding role to admin user...'
+  drush user-add-role 'administrator' 1
+
+  echo 'Updating database...'
+  drush updb -y
+
+  # Enable modules in info file
+  echo 'Enabling modules in dosomething.info'
+  drush --script-path=$BASE_PATH/bin/ php-script enable_modules.php
+
+  echo 'Reverting Features'
+  drush fra -y --force
+
+  echo 'Clearing caches...'
+  drush cc all
+}
+
+
 #=== FUNCTION ==================================================================
 # NAME: install
 # DESCRIPTION: Installs project using dosomething profile
 #===============================================================================
 function install {
-  echo 'Installing site...'
-  drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+  SITE=${PWD##*/}
+  if [[ $SITE != "default" ]]
+  then
+    drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething_$SITE --site-name="DoSomething $SITE" --sites-subdir=$SITE
+  else
+    drush site-install dosomething -y --db-url=mysql://root@localhost/dosomething --site-name=DoSomething
+  fi
 
   echo 'Granting basic permissions...'
   drush rap 'anonymous user' 'access content'
@@ -219,7 +276,7 @@ function install {
 
 #=== FUNCTION ==================================================================
 # NAME: symlinks
-# DESCRIPTION: Sylinks web_path modules and themes to lib_path.
+# DESCRIPTION: Symlinks web_path modules and themes to lib_path.
 #===============================================================================
 function symlinks {
   echo 'Linking modules'
@@ -262,7 +319,7 @@ function deploy {
     rm -rf $BASE_PATH/$BUILD_DIR
   fi
 
-  drush make --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$BUILD_DIR"
+  drush make --no-gitinfofile "$BUILD_MAKEFILE" "$BUILD_DIR"
 
   ln -s $CONFIG_PATH/settings.php $CONFIG_PATH/$BUILD_DIR/sites/default/settings.php
 
@@ -350,19 +407,38 @@ function grunt {
 }
 
 #=== FUNCTION ==================================================================
+# NAME: set_alias
+# DESCRIPTION: Helper function to get alias for ds pull.
+#===============================================================================
+function set_alias {
+  if [[ $1 == "stage" ]]
+  then
+    alias[0]=$1
+  else
+    IFS='.' read -a alias <<< "$1"
+  fi
+}
+
+#=== FUNCTION ==================================================================
 # NAME: pull_db
 # DESCRIPTION: Pulls down database from given environment onto local.
 #===============================================================================
 function pull_db {
-  if [[ $1 == "stage" ]]
+  if [[ ${alias[0]} == "stage" ]]
   then
-    echo "Pulling down db from staging..."
-    cd $WEB_PATH
-    drush sql-sync @ds.staging @self -y
-    echo "Enabling Stage File Proxy..."
-    drush en -y stage_file_proxy
-    echo "Setting Stage File Proxy to staging URL..."
-    drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+    if [[ ${#alias[@]} == 1 ]]
+    then
+      echo "Pulling down db from staging"
+      cd $WEB_PATH
+      drush sql-sync @ds.staging @self -y
+      echo "Enabling Stage File Proxy..."
+      drush en -y stage_file_proxy
+      echo "Setting Stage File Proxy to staging URL..."
+      drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+    else
+      echo "Pulling down the db from ${alias[1]} staging"
+      drush sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev -y
+    fi
   fi
 }
 
@@ -371,12 +447,19 @@ function pull_db {
 # DESCRIPTION: Pulls down files from given environment onto local.
 #===============================================================================
 function pull_files {
-  if [[ $1 == "stage" ]]
+  if [[ ${alias[0]} == "stage" ]]
   then
-    echo "Pulling down files from staging"
-    cd $WEB_PATH
-    drush -y rsync @ds.staging @self
-    symlinks
+    if [[ ${#alias[@]} == 1 ]]
+    then
+      echo "Pulling down files from stage. Any affiliate sites will be destroyed"
+      cd $WEB_PATH
+      drush rsync @ds.staging @self
+      symlinks
+    else
+      echo "Pulling down files from ${alias[1]} staging"
+      cd $WEB_PATH/sites/${alias[1]}
+      drush rsync @ds.${alias[1]}.staging:%files @ds.${alias[1]}.dev:%files -y
+    fi
   fi
 }
 
@@ -438,14 +521,27 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "build" ]]
 then
-  if [[ $2 == "--install" ]] && [[ $3 == "--dev" ]]
+  if [[ $2 == "--intl" ]]
   then
-    build --install --dev
-  elif [[ $2 == "--install" ]]
-  then
-    build --install
+    if [[ $3 == "--install" ]] && [[ $4 == "--dev" ]]
+    then
+      build --intl --install --dev
+    elif [[ $3 == "--install" ]]
+    then
+      build --intl --install
+    else
+      build --intl
+    fi
   else
-    build
+    if [[ $2 == "--install" ]] && [[ $3 == "--dev" ]]
+    then
+      build --install --dev
+    elif [[ $2 == "--install" ]]
+    then
+      build --install
+    else
+      build
+    fi
   fi
 fi
 
@@ -494,7 +590,9 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "pull" ]]
 then
-  check_alias_param $2
+  declare -a alias=()
+  set_alias $2
+  check_alias_param ${alias[0]}
   if [[ $3 == "--db" ]]
   then
     pull_db $2
@@ -506,7 +604,6 @@ then
     pull_files $2
   fi
 fi
-
 
 #----------------------------------------------------------------------
 # test
