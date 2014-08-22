@@ -21,7 +21,7 @@ phantomcss.init({
   screenshotRoot: ROOT + '/tests/visual',
   failedComparisonsRoot: ROOT + '/tests/visual/failures',
   addLabelToFailedImage: false,
-  mismatchTolerance: 0.02,
+  mismatchTolerance: 2.00,
   onPass: function(test) {
     casper.test.pass('No changes found for visual regression test "' + formattedFilename(test) + '".');
   },
