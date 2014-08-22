@@ -79,7 +79,7 @@ function dosomething_campaign_menu() {
     'weight' => 40,
   );
   // User reportback confirmation page.
-  $items['node/%node/confirmation'] = array(
+  $items['campaigns/%node/confirmation'] = array(
     'title callback' => 'dosomething_campaign_reportback_confirmation_page_title',
     'title arguments' => array(1),
     'page callback' => 'dosomething_campaign_reportback_confirmation_page',
@@ -159,7 +159,16 @@ function dosomething_campaign_scholarship_block_content() {
 }
 
 /**
- * Returns all published campaigns with a schalorship.
+ * Returns a given campaign $nid confirmation path.
+ *
+ * @see dosomething_campaign_menu().
+ */
+function dosomething_campaign_get_confirmation_path($nid) {
+  return 'campaigns/' . $nid . '/confirmation';
+}
+
+/**
+ * Returns all published campaigns with a scholarship.
  */
 function dosomething_campaign_get_scholarships() {
   // Find active campaigns with a scholarship.

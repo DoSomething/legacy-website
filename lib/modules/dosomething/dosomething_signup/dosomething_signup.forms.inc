@@ -329,8 +329,8 @@ function dosomething_signup_sms_game_form_submit($form, &$form_state) {
   dosomething_signup_sms_game_signup_request($values['sms_game_type'], $values);
 
   // Redirect to the reportback confirmation page.
-  $confirmation_path = 'node/' . $values['nid'] . '/confirmation';
-  $form_state['redirect'] = $confirmation_path;
+  $redirect = dosomething_campaign_get_confirmation_path($values['nid']);
+  $form_state['redirect'] = $redirect;
 }
 
 /**
