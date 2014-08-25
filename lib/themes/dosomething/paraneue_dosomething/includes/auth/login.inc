@@ -24,16 +24,21 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
   if( $form_id == "user_login_block" || $form_id == 'user_login' ) {
     $form['#attributes']['class'] = 'auth--login';
 
+    $copy_login = t("Log in to get started!");
     $form['message'] = array(
       '#type' => 'item',
-      '#markup' => '<h2 class="auth--header">Log in to get started!</h2>',
+      '#markup' => '<h2 class="auth--header">' . $copy_login . '</h2>',
       '#weight' => -199
     );
 
+    $copy_create = t("Create a DoSomething.org account");
+    $link_create = '<a href="/user/register" id="link--register" data-modal-href="#modal--register">' . $copy_create . '</a>';
+    $copy_forgot = t("Forgot password?");
+    $link_forgot = l($copy_forgot, 'user/password');
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/register" id="link--register" data-modal-href="#modal--register">Create a DoSomething.org account</a><br/><a href="/user/password">Forgot password?</a></p>',
-      '#weight' => 500
+      '#markup' => '<p class="auth--toggle-link">' . $link_create . '<br/>' . $link_forgot . '</p>',
+      '#weight' => 500,
     );
 
     $form['actions']['submit']['#attributes']['class'] = array('btn');
@@ -63,7 +68,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
  *  Modified drupal form.
  */
 function paraneue_dosomething_pass_reset_after_build($form, &$form_state) {
-  $form['name']['#title'] = 'Email address';
+  $form['name']['#title'] = t('Email address');
   return $form;
 }
 
@@ -79,7 +84,10 @@ function paraneue_dosomething_pass_reset_after_build($form, &$form_state) {
  */
 function paraneue_dosomething_pass_submit($form, &$form_state) {
   $email = $form_state['values']['name'];
-  drupal_set_message(t('An email has been sent to '. $email . ' to reset your password.'));
+  $msg = t('An email has been sent to @email to reset your password.', array(
+    '@email' => check_plain($email),
+  ));
+  drupal_set_message($msg);
 }
 
 /**
@@ -95,7 +103,7 @@ function paraneue_dosomething_pass_submit($form, &$form_state) {
  */
 function paraneue_dosomething_login_after_build($form, &$form_state) {
   // Customize field elements.
-  $form['name']['#title'] = 'Email address or cell number';
+  $form['name']['#title'] = t('Email address or cell number');
   unset($form['name']['#description']);
 
   unset($form['pass']['#description']);
