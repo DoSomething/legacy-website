@@ -76,8 +76,17 @@ function dosomething_shipment_uninstall() {
     'dosomething_shipment_image_shirt_dope',
     'dosomething_shipment_image_shirt_social_action',
     'dosomething_shipment_log',
+    'dosomething_shipment_shirt_size_options',
   );
   foreach ($vars as $var) {
     variable_del($var);
   }
+}
+
+/**
+ * Sets dosomething_shipment_shirt_size_options variable.
+ */
+function dosomething_shipment_update_7001() {
+  $sizes = array('S', 'M', 'L', 'XL', 'XXL');
+  variable_set('dosomething_shipment_shirt_size_options', $sizes);
 }
