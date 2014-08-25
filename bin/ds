@@ -295,7 +295,7 @@ function symlinks {
 #===============================================================================
 function dev {
   echo 'Enabling modules'
-  drush en devel devel_generate -y
+  drush -y en devel devel_generate
 
   echo 'Auto-generating Content'
   drush generate-terms sponsors 20
@@ -430,14 +430,14 @@ function pull_db {
     then
       echo "Pulling down db from staging"
       cd $WEB_PATH
-      drush sql-sync @ds.staging @self -y
+      drush -y sql-sync @ds.staging @self
       echo "Enabling Stage File Proxy..."
-      drush en -y stage_file_proxy
+      drush -y en stage_file_proxy
       echo "Setting Stage File Proxy to staging URL..."
       drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
     else
       echo "Pulling down the db from ${alias[1]} staging"
-      drush sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev -y
+      drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
     fi
   fi
 }
@@ -453,12 +453,12 @@ function pull_files {
     then
       echo "Pulling down files from stage. Any affiliate sites will be destroyed"
       cd $WEB_PATH
-      drush rsync @ds.staging @self
+      drush -y rsync @ds.staging @self
       symlinks
     else
       echo "Pulling down files from ${alias[1]} staging"
       cd $WEB_PATH/sites/${alias[1]}
-      drush rsync @ds.${alias[1]}.staging:%files @ds.${alias[1]}.dev:%files -y
+      drush -y rsync @ds.${alias[1]}.staging:%files @ds.${alias[1]}.dev:%files
     fi
   fi
 }
