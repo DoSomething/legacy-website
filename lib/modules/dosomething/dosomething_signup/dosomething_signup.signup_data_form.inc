@@ -282,7 +282,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     dosomething_user_address_form_element($form, $form_state);
     if (isset($config['shipment_item'])) {
       // Store the shipment item to create.
-      $form['item'] = array(
+      $form['shipment_item'] = array(
         '#type' => 'hidden',
         '#value' => $config['shipment_item'],
         '#access' => FALSE,

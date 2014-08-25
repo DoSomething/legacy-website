@@ -28,8 +28,9 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   }
   // If this is the User Signup Data Form:
   if ($form_id == 'dosomething_signup_user_signup_data_form') {
-    // If we aren't collecting an item:
-    if (!isset($form['item'])) {
+    // If we aren't collecting a shirt, item_header won't be set.
+    // @see dosomething_signup_user_signup_data_form().
+    if (isset($form['shipment_item']) && ($form['shipment_item']['#value'] != 'shirt')) {
       // Exit out.
       return;
     }
@@ -48,13 +49,13 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   $form['item']['#prefix'] = $shirt_style_prefix;
   $form['item']['#suffix'] = $shirt_style_suffix;
   $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
-  $form['item_option']['#attributes'] = $size_attributes;
+  $form['item_option']['#attributes'] = $shirt_size_attributes;
   if (isset($form['item_additional'])) {
     $form['item_additional_header']['#markup'] = '<h3>' . t("Your Friend's Shirt") . '</h3>';
     $form['item_additional']['#attributes']['class'][] = $shirt_style_class;
     $form['item_additional']['#prefix'] = $style_prefix;
     $form['item_additional']['#suffix'] = $style_suffix;
     $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>'; 
-    $form['item_additional_option']['#attributes'] = $size_attributes;
+    $form['item_additional_option']['#attributes'] = $shirt_size_attributes;
   }
 }
