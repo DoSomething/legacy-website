@@ -331,13 +331,12 @@ function dosomething_shipment_get_shirt_options($images = TRUE, $ratio = 'square
  * Returns array of available shirt sizes.
  */
 function dosomething_shipment_get_shirt_size_options() {
-  return array(
-    'XS' => t('XS'),
-    'S' => t('S'),
-    'M' => t('M'),
-    'L' => t('L'),
-    'XL' => t('XL'),
-    'XXL' => t('XXL'),
-    'XXXL' => t('XXXL'),
-  );
+  $options = array();
+  // Sets default sizes in case variable not set.
+  $sizes = array('S', 'M', 'L', 'XL', 'XXL');
+  $values = variable_get('dosomething_shipment_shirt_size_options', $sizes);
+  foreach ($values as $size) {
+    $options[$size] = t($size);
+  }
+  return $options;
 }
