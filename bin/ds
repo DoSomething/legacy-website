@@ -502,7 +502,7 @@ function integration_tests {
   # Run tests.
   cd $BASE_PATH
   printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $TEST_PATH/integration --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
+  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
 
   # Run "after tests" tasks:
   source $TEST_PATH/scripts/after_tests.sh
@@ -643,6 +643,6 @@ then
     integration_tests $3
   else
     unit_tests
-    integration_tests $3
+    integration_tests
   fi
 fi
