@@ -240,7 +240,11 @@
       cursor: pointer;
       border: 2px solid $med-gray;
       border-radius: $sm-border-radius;
-      width: 102px;
+      max-width: 100px;
+
+      @include media($tablet) {
+        max-width: none;
+      }
 
       &:hover {
         border-color: $blue;
@@ -253,12 +257,11 @@
     }
 
     &:before {
-      display: none;
       font-size: $font-regular;
       font-weight: $weight-sbold;
       height: 30px;
       left: -50%;
-      margin: -15px 0 0 40px;
+      margin: -15px 0 0 23px;
       position: absolute;
       text-align: center;
       text-transform: uppercase;
@@ -266,8 +269,9 @@
       width: 40px;
 
       @include media($tablet) {
-        display: block;
         font-size: $font-medium;
+        margin-left: 45px;
+        margin-top: -25px;
       }
     }
 

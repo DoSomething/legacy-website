@@ -31,7 +31,8 @@
       
       <div class="container__body">
         <div class="-columned">
-          <?php if (isset($page_header)): ?>
+
+          <?php if (isset($page_header) && !empty($page_header)): ?>
           <h2 class="container__title inline--alt-color"><?php print $page_header; ?></h2>
           <?php endif; ?>
           <p><?php print $page_copy; ?></p>
