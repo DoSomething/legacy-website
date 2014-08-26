@@ -97,8 +97,14 @@ ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
     Pulls down files only. If pulling from an affiliate site, only the files directory
     can be synced to avoid overwriting the html directory.
 
-ds test [dev|qa]
-  Run tests against the given environment using CasperJS.
+ds test
+  Run unit and integration tests.
+  
+  --unit
+  Runs unit tests using Mocha.
+
+  --integration
+  Runs integration tests using CasperJS.
 
 ds --help
   Displays this help message.
@@ -476,10 +482,10 @@ function check_alias_param {
 }
 
 #=== FUNCTION ==================================================================
-# NAME: run_tests
+# NAME: integration_tests
 # DESCRIPTION: Runs functional tests using CasperJS.
 #===============================================================================
-function run_tests {
+function integration_tests {
   # Make sure latest project NPM dependencies are installed
   cd $BASE_PATH
   npm install
@@ -496,10 +502,29 @@ function run_tests {
   # Run tests.
   cd $BASE_PATH
   printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $TEST_PATH/integration --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
+  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
 
   # Run "after tests" tasks:
   source $TEST_PATH/scripts/after_tests.sh
+}
+
+#=== FUNCTION ==================================================================
+# NAME: unit_tests 
+# DESCRIPTION: Runs unit tests using Mocha. 
+#===============================================================================
+function unit_tests {
+  # Make sure latest project NPM dependencies are installed
+  cd $BASE_PATH
+  npm install
+
+  printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
+  if [[ $DS_TEST_OUTPUT == "xunit" ]]
+  then
+    mocha-phantomjs $TEST_PATH/unit/index.html -R xunit -f $BASE_PATH/tmp/mocha.xml
+    printf "\n\033[1;33mOutputted results to $BASE_PATH/tmp/mocha.xml\033[00m\n"
+  else
+    mocha-phantomjs $TEST_PATH/unit/index.html -R spec
+  fi
 }
 
 
@@ -610,5 +635,14 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "test" ]]
 then
-  run_tests $2 $3
+  if [[ $2 == "--unit" ]]
+  then
+    unit_tests
+  elif [[ $2 == "--integration" ]]
+  then
+    integration_tests $3
+  else
+    unit_tests
+    integration_tests
+  fi
 fi
