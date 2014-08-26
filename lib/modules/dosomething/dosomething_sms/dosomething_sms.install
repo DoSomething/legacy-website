@@ -9,37 +9,6 @@
  */
 function dosomething_sms_schema() {
   $schema = array();
-
-  $schema['dosomething_sms_game'] = array(
-    'description' => 'Stores details to SMS games relative to a user / unique phone number.',
-    'fields' => array(
-      'game_id' => array(
-        'description' => 'Unique identifier for the game/quiz.',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE
-      ),
-      'phone' => array(
-        'description' => 'Phone number',
-        'type' => 'varchar',
-        'length' => 32,
-        'not null' => true
-      ),
-      'started_paths' => array(
-        'description' => 'Serialized array of opt-in paths that the user has been sent to.',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => true
-      ),
-      'answers' => array(
-        'description' => 'Serialized struct of answers given by the user {optin-path: {array of answers}}',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => true
-      ),
-    ),
-  );
-
   $schema['dosomething_sms_workflow'] = array(
     'description' => 'Stores configurations for SMS Reportback workflows.',
     'fields' => array(
@@ -137,4 +106,14 @@ function dosomething_sms_update_7002(&$sandbox) {
     'id_campaign_completed' => 126957,
   ));
   $sms_workflow->save();
+}
+
+/**
+ * Drops unused dosomething_sms_game table.
+ */
+function dosomething_sms_update_7003(&$sandbox) {
+  $table = 'dosomething_sms_game';
+  if (db_table_exists($table)) {
+    db_drop_table($table);
+  }
 }
