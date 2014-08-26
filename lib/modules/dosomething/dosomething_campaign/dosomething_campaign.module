@@ -592,7 +592,7 @@ function dosomething_campaign_get_staff_picks() {
 }
 
 /**
- * Returns an EntityFieldQuery of recommended published campaigns for $uid.
+ * Returns an EntityFieldQuery of recommended active campaigns for $uid.
  *
  * @param int $uid
  *   The user $uid to recommend campaigns for.
@@ -600,17 +600,21 @@ function dosomething_campaign_get_staff_picks() {
  *   The amount of campaigns to return.
  *
  * @return object
- *  An EntityFieldQuery of published campaigns that $uid has not signed up for.
+ *  An EntityFieldQuery of active campaigns that $uid has not signed up for.
  */
 function _dosomething_campaign_get_recommended_base_query($uid, $limit) {
   // Store the nid's that the user has already signed up for.
   $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
   $query = new EntityFieldQuery();
+  // Find all published Campaign nodes with Campaign Status != 'closed'.
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'campaign')
     ->propertyCondition('status', 1)
+    ->fieldCondition('field_campaign_status', 'value', 'closed', '<>')
     ->range(0, $limit);
+    // If the $uid has signed up for campaigns:
     if ($signup_nids) {
+      // Exclude these nid's from the result.
       $query->propertyCondition('nid', $signup_nids, 'NOT IN');
     }
   return $query;
