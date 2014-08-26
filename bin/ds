@@ -97,8 +97,14 @@ ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
     Pulls down files only. If pulling from an affiliate site, only the files directory
     can be synced to avoid overwriting the html directory.
 
-ds test [dev|qa]
-  Run tests against the given environment using CasperJS.
+ds test
+  Run unit and integration tests.
+  
+  --unit
+  Runs unit tests using Mocha.
+
+  --integration
+  Runs integration tests using CasperJS.
 
 ds --help
   Displays this help message.
@@ -629,14 +635,14 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "test" ]]
 then
-  if [[ $2 == "--integration" ]]
-  then
-    integration_tests $3
-  elif [[ $2 == "--unit" ]]
+  if [[ $2 == "--unit" ]]
   then
     unit_tests
+  elif [[ $2 == "--integration" ]]
+  then
+    integration_tests $3
   else
-    integration_tests $3
     unit_tests
+    integration_tests $3
   fi
 fi
