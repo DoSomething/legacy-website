@@ -306,7 +306,7 @@ function dosomething_shipment_shirt_form_element(&$form, &$form_state, $addition
 /**
  * Returns array of available shirts.
  */
-function dosomething_shipment_get_shirt_options($images = TRUE, $ratio = 'square', $size = '150x150') {
+function dosomething_shipment_get_shirt_options($images = TRUE, $ratio = 'square', $size = '300x300') {
   // Default as text.
   $opt_dope = t("Dope shirt");
   $var_dope = 'dosomething_shipment_image_shirt_dope';
