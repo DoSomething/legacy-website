@@ -17,5 +17,6 @@ npm-packages:
       - grunt-cli
       - phantomjs
       - casperjs
+      - mocha-phantomjs 
 
 {% endif %}
