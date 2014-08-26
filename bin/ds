@@ -498,8 +498,16 @@ function run_tests {
   printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
   casperjs test $TEST_PATH/integration --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
 
+  if [[ $DS_TEST_OUTPUT == "xunt" ]]
+  then
+    printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
+    mocha-phantomjs $TEST_PATH/unit/index.html -R xunit -f $BASE_PATH/tmp/mocha.xml
+    printf "\n\033[1;33mOutput results to $BASE_PATH/tmp/mocha.xml\033[00m\n"
+  else
     printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
     mocha-phantomjs $TEST_PATH/unit/index.html -R spec
+  fi
+
   # Run "after tests" tasks:
   source $TEST_PATH/scripts/after_tests.sh
 }
