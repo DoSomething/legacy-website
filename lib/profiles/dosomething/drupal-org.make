@@ -86,6 +86,10 @@ projects[flag][subdir] = "contrib"
 projects[google_analytics][version] = "1.4"
 projects[google_analytics][subdir] = "contrib"
 
+; Http Client
+projects[http_client][version] = "2.4"
+projects[http_client][subdir] = "contrib"
+
 ; Internationalization (required for Sitemap, among others)
 projects[i18n][version] = "1.11"
 projects[i18n][subdir] = "contrib"
@@ -117,6 +121,12 @@ projects[mobilecommons][subdir] = "contrib"
 ; Module Filter
 projects[module_filter][version] = "2.0-alpha2"
 projects[module_filter][subdir] = "contrib"
+
+; OAuth
+projects[oauth][version] = "3.2"
+projects[oauth][subdir] = "contrib"
+; See https://www.drupal.org/node/2328685
+projects[oauth][patch][] = "https://www.drupal.org/files/issues/oauth-OAuth-PHP-library-Authorization-Header-parameters-separator-2328685-1.patch"
 
 ; Optimizely
 projects[optimizely][version] = "2.14"

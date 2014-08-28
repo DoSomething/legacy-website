@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Installation for dosomething_uk.module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dosomething_uk_install() {
+
+  // Todo: set env variables.
+  variable_set('dosomething_uk_oauth_url',    getenv('DS_UK_OAUTH_URL'));
+  variable_set('dosomething_uk_oauth_key',    getenv('DS_UK_OAUTH_KEY'));
+  variable_set('dosomething_uk_oauth_secret', getenv('DS_UK_OAUTH_SECRET'));
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_uk_uninstall() {
+  $vars = array(
+    'dosomething_uk_oauth_url',
+    'dosomething_uk_oauth_key',
+    'dosomething_uk_oauth_secret',
+    'dosomething_uk_oauth_callback',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}

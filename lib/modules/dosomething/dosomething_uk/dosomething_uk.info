@@ -1,0 +1,21 @@
+name = DoSomething UK
+description = Provides functionality specific to DoSomething UK international affiliate
+core = 7.x
+package = DoSomething
+version = 7.x-0.2
+project = dosomething_uk
+
+; Core
+dependencies[] = user
+dependencies[] = date
+
+; Contrib
+dependencies[] = oauth_common
+dependencies[] = http_client
+dependencies[] = http_client_oauth
+
+; Custom
+dependencies[] = dosomething_user
+
+files[] = includes/dosomething_uk_sso_controller.inc
+files[] = includes/dosomething_uk_sso_user_impersonator.inc
