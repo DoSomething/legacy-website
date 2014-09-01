@@ -8,12 +8,12 @@
  * Implements hook_menu().
  */
 function dosomething_uk_menu() {
-  $items['sso/request'] = array(
-    'page callback' => 'dosomething_uk_test_request',
+  $items['sso/register'] = array(
+    'page callback' => 'dosomething_uk_test_register',
     'access arguments' => array('access content'),
   );
-  $items['sso/login'] = array(
-    'page callback' => 'dosomething_uk_test_login',
+  $items['sso/request'] = array(
+    'page callback' => 'dosomething_uk_test_request',
     'access arguments' => array('access content'),
   );
   $items['sso/access'] = array(
@@ -31,6 +31,35 @@ function dosomething_uk_menu() {
   return $items;
 }
 
+function dosomething_uk_test_register() {
+  $random_url = 'http://api.randomuser.me/';
+  $randomuser = json_decode(file_get_contents($random_url))->results[0]->user;
+
+  $user_data = array(
+    'first_name' => ucfirst($randomuser->name->first),
+    'last_name'  => ucfirst($randomuser->name->last),
+    'password'   => $randomuser->password . $randomuser->password,
+    'email'      => $randomuser->email,
+    'postcode'   => 'CF10 5AN',
+    'dob'        => new DateTime('1990-05-28T0000Z'),
+  );
+  $sso_user = DosomethingUkSsoUser::fromArray($user_data);
+
+  // Register remotely.
+  $sso = DosomethingUkSsoController::signup($sso_user);
+  $result = $sso->getLastResult();
+
+  if (!$result) {
+    if ($error_messages = $sso->getErrorMessages()) {
+      var_dump($error_messages);
+    }
+    return;
+  }
+
+  var_dump($result);
+  return;
+}
+
 function dosomething_uk_test_request() {
   $sso = DosomethingUkSsoController::init()
   ->authorizeRequestToken()
@@ -40,13 +69,6 @@ function dosomething_uk_test_request() {
   print($authorize_url);
 }
 
-function dosomething_uk_test_login() {
-  $imitator = DosomethingUkUserImpersonator::init('email@example.com', 'password');
-
-  $result = $imitator->getTokenAuthorization('/oauth/authorize?oauth_token=RequestToken');
-  var_dump($imitator, $result);
-}
-
 function dosomething_uk_test_access() {
   global $user;
 
@@ -54,7 +76,7 @@ function dosomething_uk_test_access() {
   ->authorizeAccessToken()
   ->authorizeUserAccess($user->uid);
 
-  if (!$sso->isAuthrizedForRemoteApi()) {
+  if (!$sso->remoteUserAdmitted()) {
     print 'Clearance: ' . $sso->getClearance();
     return;
   }
@@ -65,14 +87,14 @@ function dosomething_uk_test_access() {
 function dosomething_uk_test_get() {
   global $user;
 
-  $sso = DosomethingUkSsoController::initForUser($user->uid);
+  $sso = DosomethingUkSsoController::initForLocalUser($user->uid);
 
-  if (!$sso->isAuthrizedForRemoteApi()) {
+  if (!$sso->remoteUserAdmitted()) {
     print 'Clearance: ' . $sso->getClearance();
     return;
   }
 
-  var_dump($sso->get('/users/current'));
+  var_dump($sso->getRemote('/users/current'));
 }
 
 
@@ -87,15 +109,18 @@ function dosomething_uk_test_flow() {
   }
   print $url . PHP_EOL;
 
-  $login = 'email@example.com';
-  $pass =  'password';
-  $result = DosomethingUkUserImpersonator::init($login, $pass)->authorize($url);
+  // A testee user created on staging for test purposes.
+  $name = 'evelyn.wilson19@example.com';
+  $pass = 'steelersteeler';
+
+  $impersonator = DosomethingUkSsoImpersonator::login($name, $pass);
+  $result = $impersonator->acceptRemoteOAuth($url);
 
   if (!$result) {
     print "Wrong login or pass";
     return;
   }
-  print $login . PHP_EOL;
+  print $result . PHP_EOL;
 
   $remote_user = $sso->authorizeAccessToken()->getRemoteUser();
   if (!$remote_user) {

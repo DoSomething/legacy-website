@@ -2,12 +2,12 @@ name = DoSomething UK
 description = Provides functionality specific to DoSomething UK international affiliate
 core = 7.x
 package = DoSomething
-version = 7.x-0.2
+version = 7.x-0.3
 project = dosomething_uk
 
 ; Core
 dependencies[] = user
-dependencies[] = date
+dependencies[] = date_api
 
 ; Contrib
 dependencies[] = oauth_common
@@ -18,4 +18,5 @@ dependencies[] = http_client_oauth
 dependencies[] = dosomething_user
 
 files[] = includes/dosomething_uk_sso_controller.inc
-files[] = includes/dosomething_uk_sso_user_impersonator.inc
+files[] = includes/dosomething_uk_sso_impersonator.inc
+files[] = includes/dosomething_uk_sso_user.inc

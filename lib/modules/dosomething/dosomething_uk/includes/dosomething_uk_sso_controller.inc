@@ -26,7 +26,8 @@ class DosomethingUkSsoController {
   const AUTHORIZED_USER_ACCESS     = 5;
 
   // Endpoints.
-  const ENDPOINT_CURRENT_USER = '/users/current';
+  const ENDPOINT_USER_SHOW_CURRENT = '/users/current';
+  const ENDPOINT_USER_CREATE       = '/signup';
 
   // Other.
   const DEBUG                      = 1;
@@ -68,7 +69,7 @@ class DosomethingUkSsoController {
 
   /**
    * [$parser description]
-   * @var HttpClientBaseFormatter
+   * @var HttpClientFormatter
    */
   private $parser;
 
@@ -115,16 +116,22 @@ class DosomethingUkSsoController {
   private $http_client;
 
   /**
-   * [$last description]
+   * [$last_result description]
    * @var string
    */
-  private $last;
+  private $last_result;
+
+  /**
+   * [$error_messages description]
+   * @var string
+   */
+  private $error_messages;
 
   // ---------------------------------------------------------------------
   // Constructor and factories
 
   /**
-   *
+   * Constructs a DosomethingUkSsoController object.
    */
   public function __construct()
   {
@@ -133,30 +140,34 @@ class DosomethingUkSsoController {
     global $base_url;
 
     // OAuth credentials.
-    $this->url = variable_get('dosomething_uk_oauth_url');
-    $this->key      = variable_get('dosomething_uk_oauth_key');
-    $this->secret   = variable_get('dosomething_uk_oauth_secret');
+    $this->url    = variable_get('dosomething_uk_oauth_url');
+    $this->key    = variable_get('dosomething_uk_oauth_key');
+    $this->secret = variable_get('dosomething_uk_oauth_secret');
     if (!$this->url || !$this->key || !$this->secret) {
       throw new OAuthException("Insufficient OAuth configuration.");
     }
 
     // Optional callback.
-    $this->callback = variable_get('dosomething_uk_oauth_callback', $url);
+    $this->callback = variable_get('dosomething_uk_oauth_callback', $base_url);
 
     // HTTP client settings.
     $this->cipher = DrupalOAuthClient::signatureMethod(self::SIGNATURE_METHOD);
     $this->parser = new HttpClientBaseFormatter(self::PARSE_METHOD);
 
     // Defaults.
-    $this->uid         = FALSE;
-    $this->http_client = FALSE;
+    $this->keymaker       = FALSE;
+    $this->consumer       = FALSE;
+    $this->request_token  = FALSE;
+    $this->access_token   = FALSE;
+    $this->uid            = FALSE;
+    $this->clearance      = self::AUTHORIZED_NONE;
+    $this->http_client    = FALSE;
+    $this->last_result    = FALSE;
+    $this->error_messages = FALSE;
   }
 
   /**
-   * Initialize class using saved user's access token.
-   *
-   * @param int $uid
-   *   Integer specifying the user ID to load access for.
+   *  Static class builder.
    *
    * @return static
    */
@@ -174,13 +185,106 @@ class DosomethingUkSsoController {
    *
    * @return static
    */
-  public static function initForUser($uid) {
+  public static function initForLocalUser($uid) {
     $instance = new self();
     $instance->uid = $uid;
     $instance->authorize($uid);
     return $instance;
   }
 
+public static function signup(DosomethingUkSsoUser $sso_user) {
+    $instance = new self();
+    $instance->setupConsumer();
+    $instance->setupRemoteClient();
+    // @todo: Find a place to keep the user.
+    $user = $instance->createRemoteUser($sso_user);
+    // @todo: Assign perishable token.
+    return $instance;
+  }
+
+  // ---------------------------------------------------------------------
+  // Public: remote API calls
+
+  public function remoteUserAdmitted()
+  {
+    return !!$this->http_client;
+  }
+
+  public function getRemoteUser()
+  {
+    return $this->getRemote(self::ENDPOINT_USER_SHOW_CURRENT);
+  }
+
+  public function createRemoteUser(DosomethingUkSsoUser $sso_user)
+  {
+    $sso_user = $this->createRemote(
+      self::ENDPOINT_USER_CREATE, $sso_user->toFormFields()
+    );
+    return $sso_user;
+  }
+
+  /**
+   * Performs a GET request to the remote API.
+   *
+   * @param  string $path
+   *   Endpoint path on the remote server.
+   *
+   * @return mixed
+   *   Remote response parsed to PHP compound type
+   */
+  public function getRemote($path)
+  {
+    if (!$this->remoteUserAdmitted()) {
+      return FALSE;
+    }
+
+    $this->error_messages = FALSE;
+    $this->last_result    = FALSE;
+
+    try {
+      $this->last_result = $this->http_client->get($this->apiPath($path));
+      // @todo: parse result like it's done in createRemote().
+    }
+    catch (Exception $e) {
+      $this->logExeption($e);
+    }
+    return $this->last_result;
+  }
+
+  /**
+   * Performs a POST request to the remote API.
+   *
+   * @param  string $path
+   *   Endpoint path on the remote server.
+   *
+   * @return mixed
+   *   Remote response parsed to PHP compound type
+   */
+  public function createRemote($path, $data)
+  {
+    if (!$this->remoteUserAdmitted()) {
+      return FALSE;
+    }
+
+    $this->error_messages = FALSE;
+    $this->last_result    = FALSE;
+
+    try {
+      $this->last_result = $this->http_client->post($this->apiPath($path), NULL, $data);
+    }
+    catch (HttpClientException $e) {
+      $this->processResponseErrorMessages($e);
+      if (!$this->error_messages) {
+        // Abnormal response: unexpected HTTP code or no body.
+        $this->logExeption($e);
+      }
+    }
+    catch (Exception $e) {
+      $this->logExeption($e);
+    }
+
+    return $this->last_result;
+  }
 
   // ---------------------------------------------------------------------
   // Public: getters
@@ -196,6 +300,16 @@ class DosomethingUkSsoController {
   public function getClearance()
   {
     return $this->clearance;
+  }
+
+  public function getLastResult()
+  {
+    return $this->last_result;
+  }
+
+  public function getErrorMessages()
+  {
+    return $this->error_messages;
   }
 
   public function getAuthorizationUrl($relative = FALSE, $skip_callback = FALSE)
@@ -222,58 +336,19 @@ class DosomethingUkSsoController {
     return $parsed['path'] . '?' . $parsed['query'];
   }
 
-  public function isAuthrizedForRemoteApi()
-  {
-    return !!$this->http_client;
-  }
-
-  // ---------------------------------------------------------------------
-  // Public: remote API calls
-
-  /**
-   * Performs a GET request to the remote API.
-   *
-   * @param  string $path
-   *   Endpoint path on the remote server.
-   *
-   * @return mixed
-   *   Remote response parsed to PHP compound type
-   */
-  public function get($path)
-  {
-    if (!$this->isAuthrizedForRemoteApi()) {
-      return FALSE;
-    }
-
-    $result = FALSE;
-    try {
-      $result = $this->http_client->get($this->apiPath($path));
-    }
-    catch (Exception $e) {
-      $this->logExeption($e);
-    }
-    $this->last = $result;
-    return $result;
-  }
-
-  public function getRemoteUser()
-  {
-    return $this->get(self::ENDPOINT_CURRENT_USER);
-  }
-
   // ---------------------------------------------------------------------
   // Public: auth flow
 
   public function authorize()
   {
-    $this->initOAuthConsumer();
-    $this->initClearance();
+    $this->setupConsumer();
+    $this->checkClearance();
 
     if ($this->clearance < self::AUTHORIZED_ACCESS_TOKEN) {
-      $this->initKeymaker();
+      $this->setupKeymaker();
     }
     else {
-      $this->enableApiCalls();
+      $this->admitRemoteUser();
     }
     return $this;
   }
@@ -372,7 +447,7 @@ class DosomethingUkSsoController {
     $this->request_token->delete();
     $this->destroyProdigalUserSession();
     $this->clearance = self::AUTHORIZED_ACCESS_TOKEN;
-    $this->enableApiCalls();
+    $this->admitRemoteUser();
     return $this;
   }
 
@@ -395,7 +470,7 @@ class DosomethingUkSsoController {
   // ---------------------------------------------------------------------
   // Private: initialization
 
-  private function initClearance()
+  private function checkClearance()
   {
     // Check if self::AUTHORIZED_USER_ACCESS. From saved user access token:
     if ($this->uid) {
@@ -429,7 +504,17 @@ class DosomethingUkSsoController {
     return TRUE;
   }
 
-  private function initKeymaker()
+  private function admitRemoteUser()
+  {
+    if ($this->clearance < self::AUTHORIZED_ACCESS_TOKEN) {
+      // Todo: watchdog.
+      return FALSE;
+    }
+
+    $this->setupRemoteClient();
+  }
+
+  private function setupKeymaker()
   {
     switch ($this->clearance) {
       case self::AUTHORIZED_USER_RETURNED:
@@ -443,7 +528,7 @@ class DosomethingUkSsoController {
     }
   }
 
-  private function initOAuthConsumer()
+  private function setupConsumer()
   {
     if ($this->consumer) {
       return FALSE;
@@ -465,21 +550,19 @@ class DosomethingUkSsoController {
     return TRUE;
   }
 
-  // ---------------------------------------------------------------------
-  // Private: utilities
-
-  private function enableApiCalls()
+  private function setupRemoteClient()
   {
-    if ($this->clearance < self::AUTHORIZED_ACCESS_TOKEN) {
-      // Todo: watchdog.
-      return FALSE;
-    }
+    $oauth = new HttpClientOAuth(
+      $this->consumer, $this->access_token, $this->cipher, FALSE, TRUE
+    );
 
-    $authentication = new HttpClientOAuth(
-        $this->consumer, $this->access_token, $this->cipher, TRUE, TRUE);
-
-    $this->http_client = new HttpClient($authentication, $this->parser);
+    $this->http_client = new HttpClient();
+    $this->http_client->setFormatter($this->parser);
+    $this->http_client->setAuthentication($oauth);
   }
+
+  // ---------------------------------------------------------------------
+  // Private: getters/setters
 
   private function getStoredRequestToken($request_token_key)
   {
@@ -521,6 +604,38 @@ class DosomethingUkSsoController {
   {
     $_SESSION[self::PRODIGAL_USER_SESSION_NAME] = null;
     unset($_SESSION[self::PRODIGAL_USER_SESSION_NAME]);
+  }
+
+  // ---------------------------------------------------------------------
+  // Private: utilities
+
+  private function processResponseErrorMessages(HttpClientException $http_error) {
+    // Allow the following HTTP codes:
+    // - 422 Unprocessable Entity
+    $allowed_http_codes = array(422);
+    if (!in_array($http_error->getCode(), $allowed_http_codes)) {
+      return FALSE;
+    }
+
+    // Retrieve HTTP response body text.
+    $response = $http_error->getResponse();
+    if (!is_object($response) || empty($response->body)) {
+      return FALSE;
+    }
+
+    self::logDebug('Response error messages: ' . $response->body);
+
+    // Process response to PHP data types.
+    try {
+      $this->error_messages = $this->parser->unserialize($response->body);
+    }
+    catch (Exception $e) {
+      // Deserialization failed.
+      // @see HttpClientBaseFormatter::unserialize()
+      throw new HttpClientException($e->getMessage(), 0, $response, $e);
+    }
+
+    return TRUE;
   }
 
   private function apiPath($path) {
