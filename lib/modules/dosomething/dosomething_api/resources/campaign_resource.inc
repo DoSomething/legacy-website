@@ -43,11 +43,50 @@ function _campaign_resource_index($parameters) {
 }
 
 /**
- * Callback for Campaigns signup targeted action.
+ * Callback for Campaigns Signup targeted action.
  */
 function _campaign_resource_signup($nid) {
   // @todo: Pass parameter into signup_create whether or not to send SMS.
   // Since SMS campaign signups would hit this endpoint, would not want 
   // to send an additional "You've signed up text".
   return dosomething_signup_create($nid);
+}
+
+/**
+ * Callback for Campaigns Reportback targeted action.
+ *
+ * @param int $nid
+ *   The Node nid to post the reportback to.
+ * @param array $values
+ *   The reportback data to post. Expected keys:
+ *   - uid: The user uid (int).  Optional, uses global $user if not set.
+ *   - file_url: The URL of the reportback file.
+ *   - quantity (int).
+ *   - why_participated (string).
+ *   - num_participants (int).
+ */
+function _campaign_resource_reportback($nid, $values) {
+  // @todo: Return error if signup doesn't exist.
+  $values['nid'] = $nid;
+  if (!isset($values['uid'])) {
+    global $user;
+    $values['uid'] = $user->uid;
+  }
+  $uid = $values['uid'];
+
+  // Create a file from the $file_url.
+  $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
+  if (!$file) {
+    return FALSE;
+  }
+  $values['fid'] = $file->fid;
+
+  // @todo: Move this logic into dosomething_reportback_save().
+  $rbid = dosomething_reportback_exists($nid, $uid);
+  if (!$rbid) {
+    $rbid = 0;
+  }
+  $values['rbid'] = $rbid;
+
+  return dosomething_reportback_save($values);
 }

@@ -77,6 +77,28 @@ function dosomething_api_services_resources() {
           // ),
         ),
       ),
+      'reportback' => array(
+        'help' => 'Post a user reportback for a campaign: campaigns/123/reportback',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'callback' => '_campaign_resource_reportback',
+        'access callback' => '_campaign_resource_access',
+        'args' => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the Campaign node to post a reportback.',
+          ),
+          array(
+            'name' => 'values',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The Reportback data',
+            'type' => 'array',
+          ),
+        ),
+      ),
     ),
   );
   return $resources;
