@@ -496,16 +496,10 @@ function integration_tests {
   # An alternative test environment can be set using the $DS_TEST_HOSTNAME environment variable
   DS_TEST_HOSTNAME="${DS_TEST_HOSTNAME:=http://dev.dosomething.org:8888}"
 
-  # Run "before tests" tasks:
-  source $TEST_PATH/scripts/before_tests.sh
-
-  # Run tests.
+  # Run integration tests.
   cd $BASE_PATH
   printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
-
-  # Run "after tests" tasks:
-  source $TEST_PATH/scripts/after_tests.sh
+  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js,$TEST_PATH/scripts/drush.js,$TEST_PATH/scripts/phantomcss.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
 }
 
 #=== FUNCTION ==================================================================
@@ -518,7 +512,7 @@ function unit_tests {
   npm install
 
   printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
-  if [[ $DS_TEST_OUTPUT == "xunit" ]]
+  if [[ $DS_MOCHA_OUTPUT == "xunit" ]]
   then
     mocha-phantomjs $TEST_PATH/unit/index.html -R xunit -f $BASE_PATH/tmp/mocha.xml
     printf "\n\033[1;33mOutputted results to $BASE_PATH/tmp/mocha.xml\033[00m\n"
