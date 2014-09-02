@@ -46,7 +46,7 @@ casper.createTestUser = function() {
  * Create a user with the given email and password.
  */
 casper.createUser = function(email, password) {
-  console.log("Creating user with email '" + email + "' and password '" + password + "'.");
+  casper.log("Creating user with email '" + email + "' and password '" + password + "'.", "debug");
   casper.drush(['user-create', 'CASPER_USER', '--mail=' + email, '--password=' + password]);
   return casper.getUserWithEmail(email, password);
 };
@@ -74,12 +74,12 @@ casper.deleteUserWithEmail = function(email) {
 };
 
 casper.deleteUser = function(uid) {
-  console.log("Deleting user '" + uid + "'.");
+  casper.log("Deleting user '" + uid + "'.", "debug");
   casper.drush(["user-cancel", uid, "-y"]);
 };
 
 casper.createCampaign = function(fixture) {
-  console.log("Creating campaign from fixture '" + fixture + "'.")
+  casper.log("Creating campaign from fixture '" + fixture + "'.", "debug")
   var drush_campaign = casper.drush(["campaign-create", "../tests/fixtures/" + fixture]);
   var nid = drush_campaign.replace(/[^0-9]/g, "");
 
@@ -94,18 +94,18 @@ casper.createCampaign = function(fixture) {
 
 
 casper.deleteAllTestNodes = function(fixture) {
-  console.log("Clearing all test nodes.");
+  casper.log("Clearing all test nodes.", "debug");
   casper.drush(["test-node-delete"]);
 };
 
 casper.campaignSignup = function(nid, uid) {
-  console.log("Signing user '" + uid + "' up for campaign '" + nid + "'.")
+  casper.log("Signing user '" + uid + "' up for campaign '" + nid + "'.", "debug");
   casper.drush(["php-eval", "dosomething_signup_create(" + nid + ", " + uid + ");"]);
 };
 
 // Use to log in before performing a test.
 casper.login = function(username, password) {
-  this.echo("Logging in as: " + username);
+  casper.log("Logging in as: " + username, "debug");
 
   // Go home and login.
   casper.thenOpen(url + "/user", function() {
@@ -126,7 +126,7 @@ casper.login = function(username, password) {
 casper.logout = function() {
   // Go home and click the "Log Out" button
   casper.thenOpen(url + "/user/logout", function() {
-    this.echo("Logging out of test user.");
+    casper.log("Logging out of test user.", "debug");
   });
 }
 
