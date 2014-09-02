@@ -7,70 +7,104 @@ var ROOT = pwd;
 
 // Define the url for all tests.
 var url = casper.cli.get('url');
-var campaign_nid = casper.cli.get('campaign_nid');
-var campaign_url = url + '/node/' + campaign_nid;
 
-var phantomcss = require(ROOT + '/node_modules/phantomcss/phantomcss');
-
-function formattedFilename(test) {
-  return test.filename.replace(ROOT + "/tests/visual/", "").replace(".png", "");
-}
-
-phantomcss.init({
-  libraryRoot: ROOT + '/node_modules/phantomcss',
-  screenshotRoot: ROOT + '/tests/visual',
-  failedComparisonsRoot: ROOT + '/tests/visual/failures',
-  addLabelToFailedImage: false,
-  mismatchTolerance: 2.00,
-  onPass: function(test) {
-    casper.test.pass('No changes found for visual regression test "' + formattedFilename(test) + '".');
-  },
-  onFail: function(test) {
-    casper.test.fail('Visual change found in "' + formattedFilename(test) + '" (' + test.mismatch + '% mismatch)');
-  },
-  onNewImage: function(test) {
-    casper.test.info('New baseline screenshot generated at "'+ formattedFilename(test) + '".');
-  },
-  onComplete: function(tests, noOfFails, noOfErrors) {
-    if( tests.length === 0){
-      casper.test.info("No tests run.");
-    } else {
-      if(noOfFails !== 0) {
-        casper.test.info("Visual diffs generated in 'tests/visual/failures' for failing tests.");
-        casper.test.info("If changes are expected, replace testName.png with testName.fail.png to \"merge\" the changes so that future tests pass, and commit the updated test image.");
-      }
-    }
-  },
-  fileNameGetter: function(root,filename){ 
-    var expected = root + fs.separator + filename + '.png';
-    var diff = root + fs.separator + filename + '.diff.png';
-    if(fs.isFile(expected)){
-      return diff;
-    } else {
-      return expected;
-    }
-  },
-  outputSettings: {
-    errorColor: {
-      red: 255,
-      green: 0,
-      blue: 255
-    },
-    errorType: 'movement',
-    transparency: 0.3,
-    largeImageThreshold: 1440
-  }
-});
+// Set some static strings
+var CAMPAIGN_SIGNUP_MESSAGE = "You're signed up for";
 
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
+/**
+ * Remove test IPs from flood table (preventing tests from failing after repeated failed logins).
+ */
+casper.clearFloodTable = function() {
+  // Remove failed login attempts from localhost (tests on Vagrant boxes).
+  casper.drush(["sql-query", "DELETE FROM flood WHERE identifier LIKE '%127.0.0.1';"]);
+
+  // Remove failed login attempts from QA server IP address.
+  casper.drush(["sql-query", "DELETE FROM flood WHERE identifier LIKE '%192.168.1.161';"]);
+};
+
+casper.randomEmail = function() {
+  return Date.now() + "@example.com";
+};
+
+casper.randomPassword = function() {
+  return Math.random().toString(36).slice(-8);
+};
+
+/**
+ * Generate a user with a random email and password.
+ */
+casper.createTestUser = function() {
+  var email = casper.randomEmail();
+  var password = casper.randomPassword();
+  return casper.createUser(email, password);
+};
+
+/**
+ * Create a user with the given email and password.
+ */
+casper.createUser = function(email, password) {
+  console.log("Creating user with email '" + email + "' and password '" + password + "'.");
+  casper.drush(['user-create', 'CASPER_USER', '--mail=' + email, '--password=' + password]);
+  return casper.getUserWithEmail(email, password);
+};
+
+casper.getUserWithEmail = function(email, password) {
+  var info = casper.drush(['user-information', email], true);
+  var userKeys = Object.keys(info);
+
+  var response = {
+    uid: info[userKeys[0]].uid,
+    username: info[userKeys[0]].name,
+    email: info[userKeys[0]].mail,
+  }
+
+  if(password) {
+    response.password = password;
+  }
+
+  return response;
+};
+
+casper.deleteUserWithEmail = function(email) {
+  var uid = casper.getUserWithEmail(email).uid;
+  casper.deleteUser(uid);
+};
+
+casper.deleteUser = function(uid) {
+  console.log("Deleting user '" + uid + "'.");
+  casper.drush(["user-cancel", uid, "-y"]);
+};
+
+casper.createCampaign = function(fixture) {
+  console.log("Creating campaign from fixture '" + fixture + "'.")
+  var drush_campaign = casper.drush(["campaign-create", "../tests/fixtures/" + fixture]);
+  var nid = drush_campaign.replace(/[^0-9]/g, "");
+
+  var data = require(ROOT + "/tests/fixtures/" + fixture);
+
+  return {
+    nid: nid,
+    url: url + "/node/" + nid,
+    data: data
+  };
+};
+
+
+casper.deleteAllTestNodes = function(fixture) {
+  console.log("Clearing all test nodes.");
+  casper.drush(["test-node-delete"]);
+};
+
+casper.campaignSignup = function(nid, uid) {
+  console.log("Signing user '" + uid + "' up for campaign '" + nid + "'.")
+  casper.drush(["php-eval", '"dosomething_signup_create(' + nid + ', ' + uid + ')"']);
+};
+
 // Use to log in before performing a test.
 casper.login = function(username, password) {
-  // If no arguments are given, log in using default test account
-  username = typeof username == "string" ? username : "QA_TEST_ACCOUNT@example.com";
-  password = typeof password == "string" ? password : "QA_TEST_ACCOUNT";
-
   this.echo("Logging in as: " + username);
 
   // Go home and login.
@@ -96,12 +130,10 @@ casper.logout = function() {
   });
 }
 
-// We want to start at the homepage on each test.
-casper.test.setUp(function() {
-  casper.start(url);
-});
-
 // We want to clear session after every test.
+// @NOTE: You'll have to do this manually if you override the tearDown
+//        method on a particular test.
 casper.test.tearDown(function() {
   phantom.clearCookies();
 })
+
