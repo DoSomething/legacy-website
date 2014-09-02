@@ -1,0 +1,30 @@
+<?php
+/**
+ * @file
+ * Installation for dosomething_canada.module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dosomething_canada_install() {
+
+  variable_set('dosomething_canada_sso_url',    getenv('DS_CANADA_SSO_URL'));
+  variable_set('dosomething_canada_sso_appid',    getenv('DS_CANADA_SSO_APPID'));
+  variable_set('dosomething_canada_sso_key', getenv('DS_CANADA_SSO_KEY'));
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_canada_uninstall() {
+  $vars = array(
+    'dosomething_canada_sso_url',
+    'dosomething_canada_sso_appid',
+    'dosomething_canada_sso_key',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
