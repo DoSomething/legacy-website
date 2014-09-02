@@ -512,7 +512,7 @@ function unit_tests {
   npm install
 
   printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
-  if [[ $DS_TEST_OUTPUT == "xunit" ]]
+  if [[ $DS_MOCHA_OUTPUT == "xunit" ]]
   then
     mocha-phantomjs $TEST_PATH/unit/index.html -R xunit -f $BASE_PATH/tmp/mocha.xml
     printf "\n\033[1;33mOutputted results to $BASE_PATH/tmp/mocha.xml\033[00m\n"
