@@ -42,3 +42,12 @@ function _campaign_resource_index($parameters) {
   return $index;
 }
 
+/**
+ * Callback for Campaigns signup targeted action.
+ */
+function _campaign_resource_signup($nid) {
+  // @todo: Pass parameter into signup_create whether or not to send SMS.
+  // Since SMS campaign signups would hit this endpoint, would not want 
+  // to send an additional "You've signed up text".
+  return dosomething_signup_create($nid);
+}
