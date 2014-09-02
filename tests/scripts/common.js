@@ -100,7 +100,7 @@ casper.deleteAllTestNodes = function(fixture) {
 
 casper.campaignSignup = function(nid, uid) {
   console.log("Signing user '" + uid + "' up for campaign '" + nid + "'.")
-  casper.drush(["php-eval", '"dosomething_signup_create(' + nid + ', ' + uid + ')"']);
+  casper.drush(["php-eval", "dosomething_signup_create(" + nid + ", " + uid + ");"]);
 };
 
 // Use to log in before performing a test.
