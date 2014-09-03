@@ -437,10 +437,16 @@ function pull_db {
       echo "Pulling down db from staging"
       cd $WEB_PATH
       drush -y sql-sync @ds.staging @self
+      
       echo "Enabling Stage File Proxy..."
       drush -y en stage_file_proxy
+      
       echo "Setting Stage File Proxy to staging URL..."
       drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+
+      echo "Unsetting Asset Path theme setting..."
+      drush php-eval '$theme_settings = variable_get("theme_paraneue_dosomething_settings", array()); $theme_settings["asset_path"] = ""; variable_set("theme_paraneue_dosomething_settings", $theme_settings);'
+
     else
       echo "Pulling down the db from ${alias[1]} staging"
       drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
