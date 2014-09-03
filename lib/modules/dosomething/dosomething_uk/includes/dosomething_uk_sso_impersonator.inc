@@ -3,7 +3,7 @@
 /**
  * A http client.
  */
-class DosomethingUkUserImpersonator {
+class DosomethingUkSsoImpersonator {
 
 
   // ---------------------------------------------------------------------
@@ -24,7 +24,7 @@ class DosomethingUkUserImpersonator {
 
   // Other.
   const USER_AGENT  = 'Drupal (+https://www.dosomething.org/)';
-  const LOGGER_NAME = 'DosomethingUkUserImpersonator';
+  const LOGGER_NAME = 'DosomethingUkSsoImpersonator';
 
 
   // ---------------------------------------------------------------------
@@ -59,7 +59,7 @@ class DosomethingUkUserImpersonator {
   // Constructor and factories
 
   /**
-   *
+   * Constructs a DosomethingUkSsoImpersonator object.
    */
   public function __construct()
   {
@@ -69,45 +69,50 @@ class DosomethingUkUserImpersonator {
     $this->last    = new stdClass();
   }
 
-  public static function init($login, $password) {
+  /**
+   * Returns remotely authorized impersonator.
+   *
+   * @param string $login
+   *   The login of the remote user.
+   * @param string $password
+   *   The password of the remote user.
+   *
+   * @return static
+   */
+  public static function login($login, $password) {
     $instance = new self();
-    $instance->login($login, $password);
+    $instance->impersonateRemoteUser($login, $password);
     return $instance;
   }
 
   // ---------------------------------------------------------------------
-  // Public: getters
+  // Public: field accessors
 
-
-  public function isAuthorized()
+  public function isLoggedIn()
   {
-    return !empty($this->session);
+    return (bool) $this->session;
   }
 
   // ---------------------------------------------------------------------
   // Public: remote API calls
 
-  /**
-   *
-   */
-  public function get($path)
+  public function getRemote($path)
   {
-    if (!$this->isAuthorized()) {
+    if (!$this->isLoggedIn()) {
       return FALSE;
     }
-    $response = drupal_http_request($this->apiPath($path), $this->options());
+    $response = drupal_http_request($this->apiPath($path), $this->defaults());
     $this->last = $response;
     return $response;
   }
 
-
-  public function authorize($path)
+  public function acceptRemoteOAuth($path)
   {
-    if (!$this->isAuthorized()) {
+    if (!$this->isLoggedIn()) {
       return FALSE;
     }
     $result = FALSE;
-    $response = $this->get($path);
+    $response = $this->getRemote($path);
 
     // Validate result.
     // Success condition: `201 Created`.
@@ -118,13 +123,7 @@ class DosomethingUkUserImpersonator {
     return $result;
   }
 
-  // ---------------------------------------------------------------------
-  // Public: auth flow
-
-  /**
-   *
-   */
-  public function login($login, $password)
+  public function impersonateRemoteUser($login, $password)
   {
     // Reset previous authorization.
     $this->user    = FALSE;
@@ -144,7 +143,7 @@ class DosomethingUkUserImpersonator {
     $data = http_build_query($form_data);
 
     // Prepare request options.
-    $options = $this->options(array(
+    $options = $this->defaults(array(
       'method'  => 'POST',
       'headers' => array('Content-Type' => self::LOGIN_CONTENT_TYPE),
       'data'    => $data,
@@ -170,7 +169,7 @@ class DosomethingUkUserImpersonator {
     if (isset($response->headers) && !empty($response->headers['set-cookie'])) {
       $cookies_string = $response->headers['set-cookie'];
       $this->session = $this->findSessionTokenInCookies($cookies_string);
-      if ($this->isAuthorized()) {
+      if ($this->isLoggedIn()) {
         $this->user = $login;
       }
     }
@@ -219,10 +218,7 @@ class DosomethingUkUserImpersonator {
     return FALSE;
   }
 
-  // ---------------------------------------------------------------------
-  // Private: utilities
-
-  private function options($options = array()) {
+  private function defaults($options = array()) {
     $defaults = array(
       'max_redirects' => 0,
       'headers' => array(
@@ -230,7 +226,7 @@ class DosomethingUkUserImpersonator {
         'User-Agent'   => self::USER_AGENT,
       ),
     );
-    if ($this->isAuthorized()) {
+    if ($this->isLoggedIn()) {
       $session = array(self::SESSION_NAME => $this->session);
       $defaults['headers']['Cookie'] = http_build_query($session);
     }
