@@ -12,6 +12,10 @@
  * @see node_access()
  */
 function _campaign_resource_access($op = 'view', $args = array()) {
+  if ($op == 'index') {
+    return TRUE;
+  }
+
   $node = node_load($args[0]);
 
   if ($op == 'view') {

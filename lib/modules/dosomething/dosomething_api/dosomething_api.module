@@ -39,6 +39,7 @@ function dosomething_api_services_resources() {
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
         'callback' => '_campaign_resource_index',
         'access callback' => '_campaign_resource_access',
+        'access arguments' => array('index'),
         'args' => array(
           array(
             'name' => 'parameters',
