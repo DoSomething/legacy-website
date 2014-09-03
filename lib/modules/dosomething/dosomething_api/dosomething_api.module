@@ -57,8 +57,8 @@ function dosomething_api_services_resources() {
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
         'callback' => '_campaign_resource_signup',
         'access callback' => '_campaign_resource_access',
-        //'access arguments' => array('signup'),
-        //'access arguments append' => TRUE,
+        'access arguments' => array('signup'),
+        'access arguments append' => TRUE,
         'args' => array(
           array(
             'name' => 'nid',

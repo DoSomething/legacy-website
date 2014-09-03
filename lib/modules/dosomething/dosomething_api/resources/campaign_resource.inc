@@ -1,10 +1,29 @@
 <?php
 
 /**
- * Access callback for Campaign resources.
+ * Determine whether the current user can access a node resource.
+ *
+ * @param string $op
+ *   Possible values of view, signup, reportback.
+ * @param array $args
+ *   Resource arguments passed through from the original request.
+ * @return bool
+ *
+ * @see node_access()
  */
-function _campaign_resource_access() {
-  return TRUE;
+function _campaign_resource_access($op = 'view', $args = array()) {
+  $node = node_load($args[0]);
+
+  if ($op == 'view') {
+    return node_access($op, $node);
+  }
+
+  if (dosomething_campaign_is_active($node)) {
+    return TRUE;
+    //@todo: If op==reportback and SMS Game, return 403 error.
+  }
+
+  return services_error(t('Campaign node @nid is not active.', array('@nid' => $node->nid)), 403);
 }
 
 /**
