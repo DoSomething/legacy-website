@@ -49,14 +49,6 @@ function dosomething_canada_form_user_login_block_alter(&$form, &$form_state) {
   array_unshift($form['#validate'], 'dosomething_canada_login_validate');
 }
 
-/**
- * Implements hook_form_FORM_ID_alter().
- *
- * Form user_register.
- */
-function dosomething_canada_form_user_register_form_alter(&$form, $form_state) {
-  array_unshift($form['#submit'], 'dosomething_canada_register_validate');
-}
 
 // -----------------------------------------------------------------------
 // Callbacks.
@@ -258,7 +250,7 @@ function dosomething_canada_create_sso_user($email, $pass, $account) {
 
 /**
  * Prepare the user array for submission to user_save().
- * 
+ *
  * @param array $values
  * @param array $fields
  */
