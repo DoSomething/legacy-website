@@ -1,0 +1,19 @@
+name = DoSomething Canada
+description = Provides functionality specific to our Canadian friends.
+core = 7.x
+package = DoSomething
+version = 7.x-0.1
+project = dosomething_canada
+
+; Core
+dependencies[] = user
+dependencies[] = date
+
+; Contrib
+
+
+; Custom
+dependencies[] = dosomething_user
+
+; Includes
+files[] = includes/CanadaSSOClient.php

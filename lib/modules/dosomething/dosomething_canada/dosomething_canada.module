@@ -1,0 +1,275 @@
+<?php
+
+/**
+ * @file
+ * Code for DS Canada integration.
+ */
+
+define('DOSOMETHING_CANADA_WATCHDOG', 'dosomething_canada');
+define('DOSOMETHING_CANADA_USER_SOURCE', 'dosomething_canada');
+
+// In lieu of a future, global management solution, standardize feedback
+// messages here.
+define('DOSOMETHING_CANADA_MSG_FAILED_LOGIN', "Sorry, we don't recognize that email and password.");
+
+
+// -----------------------------------------------------------------------
+// Hook implementations.
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Moves the hook_form_alter() implementation to the bottom.
+ * That way we ensure to run last and have the final word in form callbacks
+ * altering.
+ */
+function dosomething_canada_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' && isset($implementations['dosomething_canada'])) {
+    $group = $implementations['dosomething_canada'];
+    unset($implementations['dosomething_canada']);
+    $implementations['dosomething_canada'] = $group;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_login.
+ */
+function dosomething_canada_form_user_login_alter(&$form, &$form_state, $form_id) {
+  array_unshift($form['#validate'], 'dosomething_canada_login_validate');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_login_block.
+ */
+function dosomething_canada_form_user_login_block_alter(&$form, &$form_state) {
+  array_unshift($form['#validate'], 'dosomething_canada_login_validate');
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Form user_register.
+ */
+function dosomething_canada_form_user_register_form_alter(&$form, $form_state) {
+  array_unshift($form['#submit'], 'dosomething_canada_register_validate');
+}
+
+// -----------------------------------------------------------------------
+// Callbacks.
+
+/**
+ * Validates user_login_form. Handles two possible cases:
+ *
+ * 1. The user exists locally, and/or remotely; and
+ * 2. The doesn't exist locally
+ */
+function dosomething_canada_login_validate($form, &$form_state) {
+  $values = &$form_state['values'];
+
+  // Fallback to default validation when name or pass not set.
+  if (empty($values['name']) || empty($values['pass'])) {
+    return;
+  }
+
+  $name = $values['name'];
+  $pass = $values['pass'];
+
+  // Check whether local account exists.
+  $account = dosomething_user_get_user_by_email($name);
+
+  // Process user with existing local account:
+  if ($account) {
+    dosomething_canada_process_existing_user($name, $pass, $account);
+  }
+  else {
+    $account = dosomething_canada_process_new_user($name, $pass);
+    form_set_value($form['name'], $account->name, $form_state);
+  }
+}
+
+
+// -----------------------------------------------------------------------
+// SSO integration functions.
+
+/**
+ * Try to authenticate an existing, local user against the API. Failing that,
+ * try to create it as a remote user.
+ *
+ * @param string $email
+ * @param string $pass
+ * @param stdClass $account
+ */
+function dosomething_canada_process_existing_user($email, $pass, $account) {
+
+  // Check whether remote account with requested email exists:
+  try {
+    $sso = dosomething_canada_get_sso();
+
+    if ($sso->authenticate($email, $pass)) {
+      $remote_account = $sso->getRemoteUser();
+    }
+  }
+  catch (Exception $e) {
+
+    // The only users that exist locally but not remotely should be admin
+    // accounts that were created before SSO integration. These should be
+    // created remotely as well.
+
+    return $sso->propagateLocalUser(
+      $email,
+      $pass,
+      dosomething_canada_create_sso_user($email, $pass, $account)
+    );
+  }
+}
+
+/**
+ * Authenticate a user against the API.
+ *
+ * @param $email
+ * @param $pass
+ * @return bool|stdClass
+ */
+function dosomething_canada_process_new_user($email, $pass) {
+
+  $remote_account = null;
+
+  // Check whether remote account with requested email exists:
+  try {
+    $sso = dosomething_canada_get_sso();
+
+    if ($sso->authenticate($email, $pass)) {
+      $remote_account = $sso->getRemoteUser();
+    }
+  }
+  catch (Exception $e) {
+    form_set_error('name', t(DOSOMETHING_CANADA_MSG_FAILED_LOGIN));
+    return FALSE;
+  }
+
+  if (!$remote_account) {
+    // Todo: link to forgot password page.
+    form_set_error('name', t(DOSOMETHING_CANADA_MSG_FAILED_LOGIN));
+    return FALSE;
+  }
+
+  $account = dosomething_canada_new_user_from_remote($email, $pass, $remote_account);
+
+  return (empty($account)) ? FALSE : $account;
+}
+
+// -----------------------------------------------------------------------
+// SSO helpers.
+
+/**
+ * Create an SSO client instance as a singleton.
+ *
+ * @return CanadaSSOClient
+ */
+function dosomething_canada_get_sso() {
+  static $sso;
+
+  if (empty($sso)) {
+    $sso = new CanadaSSOClient(
+      variable_get('dosomething_canada_sso_url'),
+      variable_get('dosomething_canada_sso_appid'),
+      variable_get('dosomething_canada_sso_key')
+    );
+  }
+  return $sso;
+}
+
+/**
+ * Given a remote user object, create the local Drupal user.
+ *
+ * @param string $name
+ * @param string $pass
+ * @param object $remote_account
+ * @return bool|stdClass
+ */
+function dosomething_canada_new_user_from_remote($name, $pass, $remote_account) {
+  $edit = array(
+    'mail'    => $name,
+    'name'    => $name,
+    'pass'    => $pass,
+    'status'  => 1,
+    'created' => REQUEST_TIME,
+  );
+
+  $dob = new DateObject($remote_account->DOB);
+
+  $fields = array(
+    'birthdate'  => $dob->format(DATE_FORMAT_DATE),
+    'first_name' => $remote_account->Name,
+    'user_registration_source' => DOSOMETHING_CANADA_USER_SOURCE,
+  );
+
+  _dosomething_canada_utility_set_user_fields($edit, $fields);
+
+  try {
+    $account = user_save('', $edit);
+  }
+  catch (Exception $e) {
+    watchdog_exception(DOSOMETHING_CANADA_WATCHDOG, $e);
+  }
+
+  return $account;
+}
+
+/**
+ * Construct a well-formed user object that the API integration library
+ * can accept.
+ *
+ * @param $email
+ * @param $pass
+ * @param $account
+ * @return stdClass
+ */
+function dosomething_canada_create_sso_user($email, $pass, $account) {
+  $user = new stdClass();
+  $user->email = $email;
+  $user->password = $pass;
+
+  if (!empty($account->field_birthdate['und'][0])) {
+    $user->dob = date('Y-m-d', strtotime($account->field_birthdate['und'][0]['value']));
+  }
+
+  if (!empty($account->field_mobile['und'][0])) {
+    $user->mobile = $account->field_mobile['und'][0]['value'];
+  }
+
+  if (!empty($account->field_first_name['und'][0])) {
+    $user->firstName = $account->field_first_name['und'][0]['value'];
+  }
+
+  if (!empty($account->field_last_name['und'][0])) {
+    $user->lastName = $account->field_last_name['und'][0]['value'];
+  }
+
+  return $user;
+}
+
+// -----------------------------------------------------------------------
+// Miscellaneous.
+
+/**
+ * Prepare the user array for submission to user_save().
+ * 
+ * @param array $values
+ * @param array $fields
+ */
+function _dosomething_canada_utility_set_user_fields(&$values, $fields) {
+  foreach ($fields as $field_key => $field_value) {
+    if (empty($field_value)) {
+      continue;
+    }
+    $name = 'field_' . $field_key;
+    $values[$name] = array(LANGUAGE_NONE => array(
+      0 => array('value' => $field_value),
+    ));
+  }
+}
