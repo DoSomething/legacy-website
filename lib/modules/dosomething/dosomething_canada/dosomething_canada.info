@@ -2,7 +2,7 @@ name = DoSomething Canada
 description = Provides functionality specific to our Canadian friends.
 core = 7.x
 package = DoSomething
-version = 7.x-0.2
+version = 7.x-0.1
 project = dosomething_canada
 
 ; Core

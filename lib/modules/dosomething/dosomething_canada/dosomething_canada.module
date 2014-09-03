@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Code for DS Canada integration.
@@ -6,6 +7,11 @@
 
 define('DOSOMETHING_CANADA_WATCHDOG', 'dosomething_canada');
 define('DOSOMETHING_CANADA_USER_SOURCE', 'dosomething_canada');
+
+// In lieu of a future, global management solution, standardize feedback
+// messages here.
+define('DOSOMETHING_CANADA_MSG_FAILED_LOGIN', "Sorry, we don't recognize that email and password.");
+
 
 // -----------------------------------------------------------------------
 // Hook implementations.
@@ -82,13 +88,6 @@ function dosomething_canada_login_validate($form, &$form_state) {
   }
 }
 
-/**
- * Validates user_register.
- */
-function dosomething_canada_register_validate($form, &$form_state) {
-  // var_dump($form_state['values']); die();
-  // Todo: save.
-}
 
 // -----------------------------------------------------------------------
 // SSO integration functions.
@@ -145,13 +144,13 @@ function dosomething_canada_process_new_user($email, $pass) {
     }
   }
   catch (Exception $e) {
-    form_set_error('name', t("Sorry, we don't recognize that email and password."));
+    form_set_error('name', t(DOSOMETHING_CANADA_MSG_FAILED_LOGIN));
     return FALSE;
   }
 
   if (!$remote_account) {
     // Todo: link to forgot password page.
-    form_set_error('name', t('Sorry, unrecognized username or password.'));
+    form_set_error('name', t(DOSOMETHING_CANADA_MSG_FAILED_LOGIN));
     return FALSE;
   }
 
