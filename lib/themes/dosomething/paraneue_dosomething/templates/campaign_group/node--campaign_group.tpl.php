@@ -117,7 +117,7 @@
 
   <?php if (!empty($campaigns)): ?>
     <section class="container container--campaigns">
-      <ul class="gallery -mosaic">
+      <ul class="gallery -mosaic -featured">
 
         <?php if (isset($campaigns['published'])): ?>
           <?php foreach ($campaigns['published'] as $published_campaign): ?>
