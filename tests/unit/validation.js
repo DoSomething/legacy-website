@@ -191,6 +191,18 @@ describe("Validation", function(){
         assert.isFalse(result.success);
       });
     });
+
+    it("should accept number with non-US formatting", function() {
+      Validations.phone.fn("44 07708 200 305", function(result) {
+        assert.isTrue(result.success);
+      });
+    });
+
+    it("should accept number with non-US country code", function() {
+      Validations.phone.fn("44 07708 200 305", function(result) {
+        assert.isTrue(result.success);
+      });
+    });
   });
 
 

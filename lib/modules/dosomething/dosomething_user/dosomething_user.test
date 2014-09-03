@@ -26,7 +26,8 @@ class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
     $country = '1-718-224-9982';
     $stuff = '1 (718) 224.9982';
     $plus = '+1 (718) 224-9982';
-    $bad = '718-555-2234';
+    $international_number = '07708 200 305';
+    $international_number_with_country_code = '+44 07708 200 305';
     $too_short = '718-224';
     $even_worse = 'abcdefg';
     $bad_punctuation = '718#224_9982';
@@ -37,7 +38,8 @@ class DosomethingUserUnitTestCase extends DrupalUnitTestCase {
     $this->assertTrue(dosomething_user_valid_mobile($country));
     $this->assertTrue(dosomething_user_valid_mobile($stuff));
     $this->assertTrue(dosomething_user_valid_mobile($plus));
-    $this->assertFalse(dosomething_user_valid_mobile($bad));
+    $this->assertTrue(dosomething_user_valid_mobile($international_number));
+    $this->assertTrue(dosomething_user_valid_mobile($international_number_with_country_code));
     $this->assertFalse(dosomething_user_valid_mobile($too_short));
     $this->assertFalse(dosomething_user_valid_mobile($even_worse));
     $this->assertFalse(dosomething_user_valid_mobile($bad_punctuation));
