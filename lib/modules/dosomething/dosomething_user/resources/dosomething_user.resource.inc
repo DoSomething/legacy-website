@@ -38,8 +38,8 @@ function _dosomething_user_resource_create($account) {
   }
   $email = $account['email'];
   // Check if account exists for email.
-  if (user_load_by_mail($email)) {
-    return services_error("Email $email is already registered.");
+  if ($user = user_load_by_mail($email)) {
+    return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
   }
   // Initialize array to pass to user_save().
   $edit = array();
