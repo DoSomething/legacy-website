@@ -14,6 +14,10 @@ var CAMPAIGN_SIGNUP_MESSAGE = "You're signed up for";
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
+casper.logAction = function(action) {
+  casper.echo(action, "PARAMETER");
+}
+
 /**
  * Remove test IPs from flood table (preventing tests from failing after repeated failed logins).
  */
@@ -46,12 +50,13 @@ casper.createTestUser = function() {
  * Create a user with the given email and password.
  */
 casper.createUser = function(email, password) {
-  casper.log("Creating user with email '" + email + "' and password '" + password + "'.", "debug");
+  casper.logAction("Creating user with email '" + email + "' and password '" + password + "'...");
   casper.drush(['user-create', 'CASPER_USER', '--mail=' + email, '--password=' + password]);
   return casper.getUserWithEmail(email, password);
 };
 
 casper.getUserWithEmail = function(email, password) {
+  casper.logAction("Getting user information for '" + email + "'...");
   var info = casper.drush(['user-information', email], true);
   var userKeys = Object.keys(info);
 
@@ -69,17 +74,18 @@ casper.getUserWithEmail = function(email, password) {
 };
 
 casper.deleteUserWithEmail = function(email) {
+  casper.logAction("Deleting user with email '" + email + "'...");
   var uid = casper.getUserWithEmail(email).uid;
   casper.deleteUser(uid);
 };
 
 casper.deleteUser = function(uid) {
-  casper.log("Deleting user '" + uid + "'.", "debug");
+  casper.logAction("Deleting user '" + uid + "'...");
   casper.drush(["user-cancel", uid, "-y"]);
 };
 
 casper.createCampaign = function(fixture) {
-  casper.log("Creating campaign from fixture '" + fixture + "'.", "debug")
+  casper.logAction("Creating campaign from fixture '" + fixture + "'...");
   var drush_campaign = casper.drush(["campaign-create", "../tests/fixtures/" + fixture]);
   var nid = drush_campaign.replace(/[^0-9]/g, "");
 
@@ -94,18 +100,18 @@ casper.createCampaign = function(fixture) {
 
 
 casper.deleteAllTestNodes = function(fixture) {
-  casper.log("Clearing all test nodes.", "debug");
+  casper.logAction("Clearing all test nodes...");
   casper.drush(["test-node-delete"]);
 };
 
 casper.campaignSignup = function(nid, uid) {
-  casper.log("Signing user '" + uid + "' up for campaign '" + nid + "'.", "debug");
+  casper.logAction("Signing user '" + uid + "' up for campaign '" + nid + "'...");
   casper.drush(["php-eval", "dosomething_signup_create(" + nid + ", " + uid + ");"]);
 };
 
 // Use to log in before performing a test.
 casper.login = function(username, password) {
-  casper.log("Logging in as: " + username, "debug");
+  casper.logAction("Logging in as '" + username + "'...");
 
   // Go home and login.
   casper.thenOpen(url + "/user", function() {
@@ -124,9 +130,12 @@ casper.login = function(username, password) {
 
 // Use to log out after completing a test.
 casper.logout = function() {
-  // Go home and click the "Log Out" button
+  casper.logAction("Logging out of current user...");
+
   casper.thenOpen(url + "/user/logout", function() {
-    casper.log("Logging out of test user.", "debug");
+    if(casper.exists(".messages.error")) {
+      casper.log(this.getElementInfo(".messages.error").text, "warning");
+    }
   });
 }
 
