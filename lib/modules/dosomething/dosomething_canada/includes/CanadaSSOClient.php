@@ -183,7 +183,7 @@ class CanadaSSOClient {
       return true;
     }
 
-    throw new Exception("Can't understand response: %s", $response);
+    throw new Exception(sprintf("Can't understand response: %s", $response));
   }
 
 /**
