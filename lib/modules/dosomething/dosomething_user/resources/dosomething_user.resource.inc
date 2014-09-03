@@ -36,10 +36,15 @@ function _dosomething_user_resource_create($account) {
   if (!isset($account['email'])) {
     return services_error("Email is required.");
   }
+  $email = $account['email'];
+  // Check if account exists for email.
+  if ($user = user_load_by_mail($email)) {
+    return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
+  }
   // Initialize array to pass to user_save().
   $edit = array();
-  $edit['mail'] = $account['email'];
-  $edit['name'] = $account['email'];
+  $edit['mail'] = $email;
+  $edit['name'] = $email;
   $edit['status'] = 1;
   $edit['created'] = REQUEST_TIME;
   if (isset($account['password'])) {
