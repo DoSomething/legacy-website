@@ -62,7 +62,10 @@ function dosomething_canada_form_user_register_form_alter(&$form, $form_state) {
 // Callbacks.
 
 /**
- * Validates user_login_form.
+ * Validates user_login_form. Handles two possible cases:
+ *
+ * 1. The user exists locally, and/or remotely; and
+ * 2. The doesn't exist locally
  */
 function dosomething_canada_login_validate($form, &$form_state) {
   $values = &$form_state['values'];
@@ -198,18 +201,22 @@ function dosomething_canada_new_user_from_remote($name, $pass, $remote_account) 
   );
 
   $dob = new DateObject($remote_account->DOB);
+
   $fields = array(
     'birthdate'  => $dob->format(DATE_FORMAT_DATE),
     'first_name' => $remote_account->Name,
     'user_registration_source' => DOSOMETHING_CANADA_USER_SOURCE,
   );
+
   _dosomething_canada_utility_set_user_fields($edit, $fields);
+
   try {
     $account = user_save('', $edit);
   }
   catch (Exception $e) {
     watchdog_exception(DOSOMETHING_CANADA_WATCHDOG, $e);
   }
+
   return $account;
 }
 
@@ -249,6 +256,12 @@ function dosomething_canada_create_sso_user($email, $pass, $account) {
 // -----------------------------------------------------------------------
 // Miscellaneous.
 
+/**
+ * Prepare the user array for submission to user_save().
+ * 
+ * @param array $values
+ * @param array $fields
+ */
 function _dosomething_canada_utility_set_user_fields(&$values, $fields) {
   foreach ($fields as $field_key => $field_value) {
     if (empty($field_value)) {
