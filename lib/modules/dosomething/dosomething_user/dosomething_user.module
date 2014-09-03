@@ -175,7 +175,7 @@ function dosomething_user_get_staff_only_types() {
   *   True if valid, else false.
   */
 function dosomething_user_valid_mobile($number) {
-  preg_match('#^(?:\+?1([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', $number, $valid);
+  preg_match('#^(?:\+?([0-9]{1,3})([\-\s\.]{1})?)?\(?([0-9]{3})\)?(?:[\-\s\.]{1})?([0-9]{3})(?:[\-\s\.]{1})?([0-9]{4})#', preg_replace('#\-\s\.#', '', $number), $valid);
   preg_match('#([0-9]{1})\1{9,}#', preg_replace('#[^0-9]+#', '', $number), $repeat);
   return !empty($valid) && empty($repeat);
 }
