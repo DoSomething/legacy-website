@@ -1,5 +1,34 @@
 <?php
 
+$aliases["default"] = array (
+  'root' => '/var/www/vagrant/html',
+  'uri' => true,
+  'path-aliases' =>
+  array (
+    '%drush' => '/opt/drush',
+    '%site' => 'sites/1/',
+  ),
+  '%dump-dir' => '/tmp',
+  'databases' =>
+  array (
+    'default' =>
+    array (
+      'default' =>
+      array (
+        'database' => 'dosomething',
+        'username' => 'root',
+        'password' => '',
+        'host' => 'localhost',
+        'port' => '',
+        'driver' => 'mysql',
+        'prefix' => '',
+      ),
+    ),
+  ),
+  '#file' => '/home/vagrant/.drush/ds.aliases.drushrc.php',
+  '#name' => 'default',
+);
+
 $aliases['staging'] = array(
  'uri' => 'staging.beta.dosomething.org',
  'root' => '/var/www/beta.dosomething.org/current/html',
