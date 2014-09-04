@@ -1,7 +1,13 @@
 body.-affiliate {
   .home--hero {
     .header {
+      .title {
+        @include visually-restored();
+      }
+
       .subtitle {
+        @include visually-hidden();
+
         @include media($tablet) {
           @include visually-restored();
         }
