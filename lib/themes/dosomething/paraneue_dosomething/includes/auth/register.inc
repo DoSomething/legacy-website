@@ -24,24 +24,30 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
   if ( $form_id == "user_register_form" ) {
     $form['#attributes']['class'] = 'auth--register';
 
+    $copy = t("Create a DoSomething.org account to get started!");
     $form['message'] = array(
       '#type' => 'item',
-      '#markup' => '<h2 class="auth--header">Create a DoSomething.org account to get started!</h2>',
-      '#weight' => -199
+      '#markup' => '<h2 class="auth--header">' . $copy . '</h2>',
+      '#weight' => -199,
     );
 
     $form['actions']['submit']['#attributes']['class'] = array('btn', 'large');
 
+    $copy = t("Log in to an existing account");
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-modal-href="#modal--login">Log in to an existing account</a></p>',
-      '#weight' => 500
+      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-modal-href="#modal--login">' . $copy . '</a></p>',
+      '#weight' => 500,
     );
 
+    $copy = t("Creating an account means you agree to our !link & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", array(
+      //@todo: Make this nid a variable.
+      '!link' => l(t('Terms of Service'), "node/1049")
+    ));
     $form['legal-text'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="legal">Creating an account means you agree to our ' . l("Terms of Service", "node/1049") . ' & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help.</p>',
-      '#weight' => 501
+      '#markup' => '<p class="legal">' . $copy . '</p>',
+      '#weight' => 501,
     );
 
     // Customize field elements.
@@ -63,7 +69,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['field_mobile']['#access'] = FALSE;
 
     $form['account']['field_mobile']['#weight'] = 20;
-    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = 'Cell Number <span class="field-label-optional">(optional)</span>';
+    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = t('Cell Number') . ' <span class="field-label-optional">' . t("(optional)") . '</span>';
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
@@ -94,7 +100,7 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate'] = 'birthday';
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate-required'] = '';
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title_display'] = 'before';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = 'Birthday';
+  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = t('Birthday');
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
 
