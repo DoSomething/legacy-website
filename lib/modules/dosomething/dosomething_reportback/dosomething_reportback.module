@@ -827,55 +827,6 @@ function dosomething_reportback_services_resources() {
         'access callback' => '_dosomething_reportback_resource_access',
       ),
     ),
-    'actions' => array(
-      'save' => array(
-        'help'   => 'Creates or updates a reportback for given uid and nid.',
-        'file' => array(
-          'type' => 'inc',
-          'module' => 'dosomething_reportback',
-          'name' => 'resources/dosomething_reportback.resource',
-        ),
-        'callback' => '_dosomething_reportback_resource_save',
-        'access callback' => '_dosomething_reportback_resource_access',
-        'args' => array(
-          array(
-            'name' => 'uid',
-            'optional' => FALSE,
-            'source' => array('data' => 'uid'),
-            'description' => t('The uid of the user reporting back.'),
-            'type' => 'int',
-          ),
-          array(
-            'name' => 'nid',
-            'optional' => FALSE,
-            'source' => array('data' => 'nid'),
-            'description' => t('The nid of node the user is reporting back for.'),
-            'type' => 'int',
-          ),
-          array(
-            'name' => 'quantity',
-            'optional' => FALSE,
-            'source' => array('data' => 'quantity'),
-            'description' => t('The reportback quantity.'),
-            'type' => 'int',
-          ),
-          array(
-            'name' => 'why_participated',
-            'optional' => FALSE,
-            'source' => array('data' => 'why_participated'),
-            'description' => t('The reportback reason.'),
-            'type' => 'int',
-          ),
-          array(
-            'name' => 'file_url',
-            'optional' => FALSE,
-            'source' => array('data' => 'file_url'),
-            'description' => t('The URL of the reportback image.'),
-            'type' => 'string',
-          ),
-        ),
-      ),
-    ),
   );
   return $resources;
 }

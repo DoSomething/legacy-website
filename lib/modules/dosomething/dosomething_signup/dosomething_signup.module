@@ -135,8 +135,15 @@ function dosomething_signup_admin_paths() {
  *   The sid of the newly inserted signup, or FALSE if error.
  */
 function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
+  if ($uid == NULL) {
+    global $user;
+    $uid = $user->uid;
+  }
   // If a signup already exists, exit.
   if (dosomething_signup_exists($nid, $uid)) { return FALSE; }
+
+  // @todo: If the campaign is closed, return error.
+  // @todo: If campaign is unpublished and non-staff $uid, return error.
 
   $values = array(
     'nid' => $nid,

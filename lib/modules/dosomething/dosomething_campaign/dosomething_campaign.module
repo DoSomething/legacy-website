@@ -522,6 +522,19 @@ function dosomething_campaign_is_closed($node) {
 }
 
 /**
+ * For given campaign $node, determines if it is active.
+ *
+ * @param obj $node
+ *   A loaded node.
+ *
+ * @return bool
+ */
+function dosomething_campaign_is_active($node) {
+  // Node must be published, and campaign status != closed.
+  return $node->status == 1 && !dosomething_campaign_is_closed($node);
+}
+
+/**
  * Returns array of nid's of recommended campaigns for $uid.
  *
  * First finds published staff pick campaigns that user has not signed up for.
