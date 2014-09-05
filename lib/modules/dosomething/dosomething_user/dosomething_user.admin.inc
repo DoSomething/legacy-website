@@ -8,6 +8,8 @@
  * System settings form for DoSomething Shipment specific variables.
  */
 function dosomething_user_admin_config_form($form, &$form_state) {
+
+  // Terms of Service node.
   $var_name = 'dosomething_user_node_terms_service';
   $form[$var_name] = array(
     '#type' => 'entity_autocomplete',
@@ -18,6 +20,8 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get($var_name),
   );
+
+  // Privacy Policy node.
   $var_name = 'dosomething_user_node_privacy_policy';
   $form[$var_name] = array(
     '#type' => 'entity_autocomplete',
@@ -36,6 +40,8 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+
+  // Login form copy.
   $var_name = 'dosomething_user_login_form_copy';
   $form['login'][$var_name] = array(
     '#type' => 'textarea',
@@ -44,12 +50,38 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#description' => t("Copy displayed below the Login Form header. Optional."),
     '#default_value' => variable_get($var_name),
   );
+
+  // Display Forgot Password.
   $var_name = 'dosomething_user_login_form_display_password_link';
   $form['login'][$var_name] = array(
     '#type' => 'checkbox',
     '#title' => t('Display "Forgot Password" link'),
     '#default_value' => variable_get($var_name, FALSE),
     '#description' => t("If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."),
+  );
+
+  // Registration form settings.
+  $form['reg'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Registration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Display Opt-in Email field.
+  $var_name = 'dosomething_user_register_form_display_opt_in_email';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Opt-In Email" field'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
+  // Display Opt-in SMS field.
+  $var_name = 'dosomething_user_register_form_display_opt_in_sms';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Opt-In SMS" field'),
+    '#default_value' => variable_get($var_name, FALSE),
   );
 
   // Development settings.
@@ -59,6 +91,8 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+
+  // Enable Clean Slate form.
   $var_name = 'dosomething_user_enable_clean_slate';
   $form['devel'][$var_name] = array(
     '#type' => 'checkbox',
@@ -66,6 +100,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name, FALSE),
     '#description' => t("Allows staff user access to delete all activity for their account. This should be disabled on production."),
   );
+
   return system_settings_form($form);
 }
 

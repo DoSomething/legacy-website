@@ -17,11 +17,17 @@ function dosomething_uk_install() {
 }
 
 /**
- * Sets Login Form copy variable.
+ * Sets Login and Registration form variable.
  */
 function dosomething_uk_update_7003() {
+  // Login Form copy.
   $copy = "(use your vInspired login if you have one)";
   variable_set('dosomething_user_login_form_copy', $copy);
+  // Hide the Forgot password link.
+  variable_set('dosomething_user_login_form_display_password_link', FALSE);
+  // Display the Opt-in fields.
+  variable_set('dosomething_user_register_form_display_opt_in_email', TRUE);
+  variable_set('dosomething_user_register_form_display_opt_in_sms', TRUE);
 }
 
 /**

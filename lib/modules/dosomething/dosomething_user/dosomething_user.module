@@ -246,6 +246,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
+      // Unsets relevant form fields based on configuration variables.
+      _dosomething_user_register_display_fields($form);
+
       // This field should always be hidden from users.
       unset($form['field_under_thirteen']);
 
@@ -566,6 +569,33 @@ function _dosomething_user_register_helper_text(&$form) {
   if (!dosomething_user_is_staff()) {
     $form['account']['name']['#type'] = 'hidden';
     $form['account']['name']['#value'] = user_password();
+  }
+}
+
+/**
+ * Conditionally displays user registration / profile fields.
+ *
+ * @see dosomething_user_form_alter().
+ *
+ * @param array $form
+ *  A Drupal Form API array, expected forms are User Register/Profile forms. 
+ */
+function _dosomething_user_register_display_fields(&$form) {
+  // List of fields which have display variables to check.
+  $display_vars = array(
+    'opt_in_email',
+    'opt_in_sms',
+  );
+  // For each display variable:
+  foreach ($display_vars as $var) {
+    $var_name = 'dosomething_user_register_form_display_' . $var;
+    $display = variable_get($var_name, FALSE);
+    // If variable is set to NOT display:
+    if (!$display) {
+      // Unset the corresponding form field.
+      $field_name = 'field_' . $var;
+      unset($form[$field_name]);
+    }
   }
 }
 
