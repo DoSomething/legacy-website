@@ -14,6 +14,8 @@
 <!--[if IE 9 ]> <html dir="ltr" lang="en-US" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
 
+<!-- DoSomething.org Platform <?php print $variables['ds_version'] ?> -->
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">

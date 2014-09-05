@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * Implements theme_preprocess_html().
+ */
+function paraneue_dosomething_preprocess_html(&$vars) {
+  // Used to print current tagged version in page source
+  $vars['ds_version'] = variable_get('ds_version', '[dev]');
+}
+
+/**
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
@@ -33,7 +41,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
     $modifier_classes = 'black floating';
   }
-  
+
   $navigation_vars = array(
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
