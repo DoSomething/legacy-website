@@ -102,14 +102,18 @@ function dosomething_uk_register_validate($form, &$form_state) {
 
   // User data.
   $dob = new DateObject($values['field_birthdate'][LANGUAGE_NONE][0]['value']);
+  // Initialize Last Name to default value.
+  $last_name = 'Harkness';
+  // Check if Last Name field form value exists.
+  if (isset($values['field_last_name'][LANGUAGE_NONE][0]['value'])) {
+    $last_name = $values['field_last_name'][LANGUAGE_NONE][0]['value'];
+  }
   $user_data = array(
     'first_name' => $values['field_first_name'][LANGUAGE_NONE][0]['value'],
     'password'   => $values['pass'],
     'email'      => $values['mail'],
     'dob'        => $dob,
-    // $values['field_last_name'][LANGUAGE_NONE][0]['value']
-    // @todo: add last_name field to the registration form.
-    'last_name'  => 'Harkness',
+    'last_name'  => $last_name,
     // @todo: add postcode field to the registration form.
     // Until then everybody is living in Torchwood.
     'postcode'   => 'CF10 5AN',
