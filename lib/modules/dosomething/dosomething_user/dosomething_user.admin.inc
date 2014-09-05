@@ -28,14 +28,31 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get($var_name),
   );
+
+  // Login form settings.
+  $form['login'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Login'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
   $var_name = 'dosomething_user_login_form_copy';
-  $form[$var_name] = array(
+  $form['login'][$var_name] = array(
     '#type' => 'textarea',
     '#rows' => 2,
     '#title' => t('Login Form copy'),
     '#description' => t("Copy displayed below the Login Form header. Optional."),
     '#default_value' => variable_get($var_name),
   );
+  $var_name = 'dosomething_user_login_form_display_password_link';
+  $form['login'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Forgot Password" link'),
+    '#default_value' => variable_get($var_name, FALSE),
+    '#description' => t("If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."),
+  );
+
+  // Development settings.
   $form['devel'] = array(
     '#type' => 'fieldset',
     '#title' => t('Development'),
@@ -43,7 +60,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
   $var_name = 'dosomething_user_enable_clean_slate';
-  $form['devel']['log'][$var_name] = array(
+  $form['devel'][$var_name] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Clean Slate Form.'),
     '#default_value' => variable_get($var_name, FALSE),

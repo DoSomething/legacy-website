@@ -6,6 +6,7 @@
 function dosomething_user_update_7001() {
   variable_set('dosomething_user_node_terms_service', 1049);
   variable_set('dosomething_user_node_privacy_policy', 1050);
+  variable_set('dosomething_user_login_form_display_password_link', TRUE);
 }
 
 /**
@@ -15,6 +16,7 @@ function dosomething_user_uninstall() {
   // This list is alphabetical, please keep it that way!
   $vars = array(
     'dosomething_user_enable_clean_slate',
+    'dosomething_user_login_form_display_password_link',
     'dosomething_user_login_form_copy',
     'dosomething_user_node_privacy_policy',
     'dosomething_user_node_terms_service',
