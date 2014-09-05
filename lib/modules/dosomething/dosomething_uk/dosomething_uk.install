@@ -17,6 +17,14 @@ function dosomething_uk_install() {
 }
 
 /**
+ * Sets Login Form copy variable.
+ */
+function dosomething_uk_update_7003() {
+  $copy = "(use your vInspired login if you have one)";
+  variable_set('dosomething_user_login_form_copy', $copy);
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_uk_uninstall() {
