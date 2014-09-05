@@ -8,8 +8,34 @@
  * System settings form for DoSomething Shipment specific variables.
  */
 function dosomething_user_admin_config_form($form, &$form_state) {
+  $var_name = 'dosomething_user_node_terms_service';
+  $form[$var_name] = array(
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Terms of Service'),
+    '#entity_type' => 'node',
+    '#bundles' => array('static_content'),
+    '#description' => t("Select the node which provides site Terms of Service."),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+  $var_name = 'dosomething_user_node_privacy_policy';
+  $form[$var_name] = array(
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Privacy Policy'),
+    '#entity_type' => 'node',
+    '#bundles' => array('static_content'),
+    '#description' => t("Select the node which provides site Privacy Policy."),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+  $form['devel'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Development'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
   $var_name = 'dosomething_user_enable_clean_slate';
-  $form['log'][$var_name] = array(
+  $form['devel']['log'][$var_name] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Clean Slate Form.'),
     '#default_value' => variable_get($var_name, FALSE),
