@@ -24,12 +24,22 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
   if( $form_id == "user_login_block" || $form_id == 'user_login' ) {
     $form['#attributes']['class'] = 'auth--login';
 
-    $copy_login = t("Log in to get started!");
-    $form['message'] = array(
+    $header = t("Log in to get started!");
+    $form['header'] = array(
       '#type' => 'item',
-      '#markup' => '<h2 class="auth--header">' . $copy_login . '</h2>',
-      '#weight' => -199
+      '#markup' => '<h2 class="auth--header">' . $header . '</h2>',
+      '#weight' => -199,
     );
+
+    // Check if the Login Form copy variable has been set.
+    $subheader = variable_get('dosomething_user_login_form_copy', '');
+    if (!empty($subheader)) {
+      $form['subheader'] = array(
+        '#type' => 'item',
+        '#markup' => '<p class="auth--subheader">' . $subheader . '</p>',
+        '#weight' => -189,
+      );
+    }
 
     $copy_create = t("Create a DoSomething.org account");
     $link_create = '<a href="/user/register" id="link--register" data-modal-href="#modal--register">' . $copy_create . '</a>';
