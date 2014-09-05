@@ -447,6 +447,9 @@ function pull_db {
       echo "Unsetting Asset Path theme setting..."
       drush php-eval '$theme_settings = variable_get("theme_paraneue_dosomething_settings", array()); $theme_settings["asset_path"] = ""; variable_set("theme_paraneue_dosomething_settings", $theme_settings);'
 
+      echo "Unsetting tagged version variable..."
+      drush variable-delete ds_version -y
+
     else
       echo "Pulling down the db from ${alias[1]} staging"
       drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
