@@ -48,8 +48,8 @@
 
   <div class="subfooter">
     <ul class="utility">
-      <li><?php print l("Terms of Service", "node/1049") ?></li>
-      <li><?php print l("Privacy Policy", "node/1050") ?></li>
+      <li><?php print $terms; ?></li>
+      <li><?php print $privacy; ?></li>
     </ul>
   </div>
 </footer>

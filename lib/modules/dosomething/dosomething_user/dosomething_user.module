@@ -1017,3 +1017,19 @@ function dosomething_user_clean_slate($uid, $display_messages = TRUE) {
     }
   }
 }
+
+/**
+ * Returns link to Privacy Policy node.
+ */
+function dosomething_user_get_link_privacy_policy($text = 'Privacy Policy') {
+  $nid = variable_get('dosomething_user_node_privacy_policy', 1050);
+  return l(t($text), 'node/' . $nid);
+}
+
+/**
+ * Returns link to Terms of Service node.
+ */
+function dosomething_user_get_link_terms_service($text = 'Terms of Service') {
+  $nid = variable_get('dosomething_user_node_terms_service', 1049);
+  return l(t($text), 'node/' . $nid);
+}

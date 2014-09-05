@@ -119,6 +119,8 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $footer_vars = array(
     'social' => $social,
     'links'  => $footer_links,
+    'privacy' => dosomething_user_get_link_privacy_policy(),
+    'terms' => dosomething_user_get_link_terms_service(),
   );
 
   // Footer affiliate logo.
