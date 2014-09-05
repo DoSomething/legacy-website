@@ -128,7 +128,7 @@
     .container__body {
       text-align: center;
 
-      @include media($desktop) {
+      @include media($tablet) {
         text-align: left;
       }
     }
