@@ -43,11 +43,17 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
 
     $copy_create = t("Create a DoSomething.org account");
     $link_create = '<a href="/user/register" id="link--register" data-modal-href="#modal--register">' . $copy_create . '</a>';
-    $copy_forgot = t("Forgot password?");
-    $link_forgot = l($copy_forgot, 'user/password');
+
+    $link_forgot = NULL;
+    // Check if the password link should be displayed.
+    $display_pw = variable_get('dosomething_user_login_form_display_password_link', TRUE);
+    if ($display_pw) {
+      $copy_forgot = t("Forgot password?");
+      $link_forgot = '<br/>' . l($copy_forgot, 'user/password');
+    }
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link">' . $link_create . '<br/>' . $link_forgot . '</p>',
+      '#markup' => '<p class="auth--toggle-link">' . $link_create . $link_forgot . '</p>',
       '#weight' => 500,
     );
 
