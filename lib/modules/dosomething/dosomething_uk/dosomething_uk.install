@@ -25,6 +25,8 @@ function dosomething_uk_update_7003() {
   variable_set('dosomething_user_login_form_copy', $copy);
   // Hide the Forgot password link.
   variable_set('dosomething_user_login_form_display_password_link', FALSE);
+  // Display the Last Name field.
+  variable_set('dosomething_user_register_form_display_last_name', TRUE);
   // Display the Opt-in fields.
   variable_set('dosomething_user_register_form_display_opt_in_email', TRUE);
   variable_set('dosomething_user_register_form_display_opt_in_sms', TRUE);

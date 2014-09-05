@@ -107,9 +107,7 @@ function dosomething_uk_register_validate($form, &$form_state) {
     'password'   => $values['pass'],
     'email'      => $values['mail'],
     'dob'        => $dob,
-    // $values['field_last_name'][LANGUAGE_NONE][0]['value']
-    // @todo: add last_name field to the registration form.
-    'last_name'  => 'Harkness',
+    'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
     // @todo: add postcode field to the registration form.
     // Until then everybody is living in Torchwood.
     'postcode'   => 'CF10 5AN',

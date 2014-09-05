@@ -68,6 +68,14 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  // Display Last Name field.
+  $var_name = 'dosomething_user_register_form_display_last_name';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Last Name" field'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
   // Display Opt-in Email field.
   $var_name = 'dosomething_user_register_form_display_opt_in_email';
   $form['reg'][$var_name] = array(

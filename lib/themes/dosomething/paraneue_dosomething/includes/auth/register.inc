@@ -57,6 +57,16 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
 
+    // If the last name field is present:
+    // @see _dosomething_user_register_display_fields().
+    if (isset($form['field_last_name'])) {
+      $form['field_last_name']['#weight'] = '-19';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What does your P.E. teacher call you?');
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';   
+    }
+
     $form['account']['mail']['#weight'] = 10;
     $form['account']['mail']['#title'] = t('Email');
     $form['account']['mail']['#attributes']['placeholder'] = t('your_email@example.com');
