@@ -40,9 +40,14 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => 500,
     );
 
-    $copy = t("Creating an account means you agree to our !link & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", array(
-      //@todo: Make this nid a variable.
-      '!link' => l(t('Terms of Service'), "node/1049")
+    $terms_nid = variable_get('dosomething_user_node_terms_service', 1049);
+    $terms_link = l(t('Terms of Service'), 'node/' . $terms_nid);
+    $privacy_nid = variable_get('dosomething_user_node_privacy_policy', 1050);
+    $privacy_link = l(t('Privacy Policy'), 'node/' . $privacy_nid);
+
+    $copy = t("Creating an account means you agree to our !terms & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", array(
+      '!terms' => $terms_link,
+      '!privacy' => $privacy_link,
     ));
     $form['legal-text'] = array(
       '#type' => 'item',
