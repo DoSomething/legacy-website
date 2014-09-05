@@ -581,7 +581,6 @@ function _dosomething_user_register_helper_text(&$form) {
  *  A Drupal Form API array, expected forms are User Register/Profile forms. 
  */
 function _dosomething_user_register_display_fields(&$form) {
-  $var_prefix = 'dosomething_user_register_form_display';
   // List of fields which have display variables to check.
   $display_vars = array(
     'opt_in_email',
@@ -589,7 +588,7 @@ function _dosomething_user_register_display_fields(&$form) {
   );
   // For each display variable:
   foreach ($display_vars as $var) {
-    $var_name = $var_prefix . '_' . $var;
+    $var_name = 'dosomething_user_register_form_display_' . $var;
     $display = variable_get($var_name, FALSE);
     // If variable is set to NOT display:
     if (!$display) {
