@@ -52,6 +52,26 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#description' => t("If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."),
   );
 
+  // Registration form settings.
+  $form['reg'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Registration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $var_name = 'dosomething_user_register_form_display_opt_in_email';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Opt-In Email" field'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+  $var_name = 'dosomething_user_register_form_display_opt_in_sms';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display "Opt-In SMS" field'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
   // Development settings.
   $form['devel'] = array(
     '#type' => 'fieldset',

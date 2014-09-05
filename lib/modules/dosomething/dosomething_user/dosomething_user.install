@@ -20,6 +20,8 @@ function dosomething_user_uninstall() {
     'dosomething_user_login_form_copy',
     'dosomething_user_node_privacy_policy',
     'dosomething_user_node_terms_service',
+    'dosomething_user_register_form_display_opt_in_email',
+    'dosomething_user_register_form_display_opt_in_sms',
     'dosomething_user_ups_access_license_number',
     'dosomething_user_ups_password',
     'dosomething_user_ups_test_integration',
