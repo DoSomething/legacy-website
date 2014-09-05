@@ -1,12 +1,8 @@
 <?php
-
 /**
  * Generates basic HTML structure.
  * @see https://drupal.org/node/1728208
  **/
-
-  // Checks if current site is an international affiliate
-  $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +42,7 @@
   <?php print $head; ?>
 </head>
 
-<body class="<?php print $classes; ?><?php if ($is_affiliate): ?> -affiliate <?php endif; ?>" <?php print $attributes;?>>
+<body class="<?php print $classes; ?><?php if ($variables['is_affiliate']): ?> -affiliate <?php endif; ?>" <?php print $attributes;?>>
   <div class="chrome">
     <!--[if lt IE 8 ]> <div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div>  <![endif]-->
     <?php print $page_top; ?>

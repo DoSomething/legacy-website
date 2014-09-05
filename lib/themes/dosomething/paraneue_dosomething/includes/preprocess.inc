@@ -6,6 +6,9 @@
 function paraneue_dosomething_preprocess_html(&$vars) {
   // Used to print current tagged version in page source
   $vars['ds_version'] = variable_get('ds_version', '[dev]');
+
+  // Checks if current site is an international affiliate
+  $vars['is_affiliate'] = dosomething_settings_is_affiliate();
 }
 
 /**
