@@ -30,6 +30,8 @@ function dosomething_uk_update_7003() {
   // Display the Opt-in fields.
   variable_set('dosomething_user_register_form_display_opt_in_email', TRUE);
   variable_set('dosomething_user_register_form_display_opt_in_sms', TRUE);
+  // Display the Postal Code element within field_address.
+  variable_set('dosomething_user_register_form_display_postal_code', TRUE);
 }
 
 /**

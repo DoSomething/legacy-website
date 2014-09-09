@@ -586,15 +586,22 @@ function _dosomething_user_register_display_fields(&$form) {
     'last_name',
     'opt_in_email',
     'opt_in_sms',
+    'postal_code',
   );
   // For each display variable:
   foreach ($display_vars as $var) {
     $var_name = 'dosomething_user_register_form_display_' . $var;
     $display = variable_get($var_name, FALSE);
+    $field_name = 'field_' . $var;
+    // For the postal code variable:
+    if ($var == 'postal_code') {
+      // Postal code is a form element within the field_address field.
+      // We store 'field_address' as the field_name value to unset.
+      $field_name = 'field_address';
+    }
     // If variable is set to NOT display:
     if (!$display) {
       // Unset the corresponding form field.
-      $field_name = 'field_' . $var;
       unset($form[$field_name]);
     }
     // Else if set to display:
@@ -603,8 +610,27 @@ function _dosomething_user_register_display_fields(&$form) {
       if ($var == 'last_name') {
         $form[$field_name]['#required'] = TRUE;
       }
+      elseif ($var == 'postal_code') {
+        $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
+      }
     }
   }
+}
+
+/**
+ * After build function to unset all address field elements except postal code.
+ */
+function dosomething_user_address_field_postal_code_only($form, &$form_state) {
+  $element = &$form['field_address'][LANGUAGE_NONE][0]['address'];
+  // Hide the Address field label.
+  unset($element['#title']);
+  // Require Postal Code.
+  $element['locality_block']['postal_code']['#required'] = TRUE;
+  // Remove all other address fields.
+  unset($element['street_block']);
+  unset($element['locality_block']['locality']);
+  unset($element['locality_block']['administrative_area']);
+  return $form;
 }
 
 /**

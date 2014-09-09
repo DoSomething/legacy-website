@@ -45,7 +45,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Address',
     'required' => 0,
     'settings' => array(
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 1,
