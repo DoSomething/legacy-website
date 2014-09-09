@@ -586,15 +586,20 @@ function _dosomething_user_register_display_fields(&$form) {
     'last_name',
     'opt_in_email',
     'opt_in_sms',
+    'postal_code',
   );
   // For each display variable:
   foreach ($display_vars as $var) {
     $var_name = 'dosomething_user_register_form_display_' . $var;
     $display = variable_get($var_name, FALSE);
+    $field_name = 'field_' . $var;
+    if ($var == 'postal_code') {
+      // The field_address Address field contains the Postal Code element.
+      $field_name = 'field_address';
+    }
     // If variable is set to NOT display:
     if (!$display) {
       // Unset the corresponding form field.
-      $field_name = 'field_' . $var;
       unset($form[$field_name]);
     }
     // Else if set to display:

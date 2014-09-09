@@ -72,7 +72,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   $var_name = 'dosomething_user_register_form_display_last_name';
   $form['reg'][$var_name] = array(
     '#type' => 'checkbox',
-    '#title' => t('Display "Last Name" field'),
+    '#title' => t('Collect Last Name'),
     '#default_value' => variable_get($var_name, FALSE),
   );
 
@@ -80,7 +80,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   $var_name = 'dosomething_user_register_form_display_opt_in_email';
   $form['reg'][$var_name] = array(
     '#type' => 'checkbox',
-    '#title' => t('Display "Opt-In Email" field'),
+    '#title' => t('Collect Opt-in Email'),
     '#default_value' => variable_get($var_name, FALSE),
   );
 
@@ -88,7 +88,15 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   $var_name = 'dosomething_user_register_form_display_opt_in_sms';
   $form['reg'][$var_name] = array(
     '#type' => 'checkbox',
-    '#title' => t('Display "Opt-In SMS" field'),
+    '#title' => t('Collect Opt-In SMS'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
+  // Display Postal Code field.
+  $var_name = 'dosomething_user_register_form_display_postal_code';
+  $form['reg'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect Postal Code'),
     '#default_value' => variable_get($var_name, FALSE),
   );
 
