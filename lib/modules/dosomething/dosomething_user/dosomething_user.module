@@ -593,8 +593,10 @@ function _dosomething_user_register_display_fields(&$form) {
     $var_name = 'dosomething_user_register_form_display_' . $var;
     $display = variable_get($var_name, FALSE);
     $field_name = 'field_' . $var;
+    // For the postal code variable:
     if ($var == 'postal_code') {
-      // The field_address Address field contains the Postal Code element.
+      // Postal code is a form element within the field_address field.
+      // We store 'field_address' as the field_name value to unset.
       $field_name = 'field_address';
     }
     // If variable is set to NOT display:
