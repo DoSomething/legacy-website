@@ -89,6 +89,7 @@ function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect Recommended Campaigns data.
   $user_account['recommended'] = $variables['elements']['recommended'];
   
-
   $variables['user_account'] = $user_account;
+
+  $variables['subtitle'] = variable_get('dosomething_user_profile_subtitle', NULL);
 }

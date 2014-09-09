@@ -100,6 +100,25 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name, FALSE),
   );
 
+  // Profile settings.
+  $form['profile'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Profile'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Profile subtitle.
+  $var_name = 'dosomething_user_profile_subtitle';
+  $form['profile'][$var_name] = array(
+    '#type' => 'textarea',
+    '#rows' => 2,
+    '#title' => t('Subtitle'),
+    '#required' => TRUE,
+    '#description' => t("Displayed below the Profile main page title."),
+    '#default_value' => variable_get($var_name),
+  );
+
   // Development settings.
   $form['devel'] = array(
     '#type' => 'fieldset',
