@@ -108,11 +108,19 @@ function dosomething_uk_register_validate($form, &$form_state) {
     'email'      => $values['mail'],
     'dob'        => $dob,
     'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
-    // @todo: add postcode field to the registration form.
+    // @todo save cell.
+    // 'phone_number' => $values['field_mobile'][LANGUAGE_NONE][0]['value'],
+    // @todo add postcode field to the registration form.
     // Until then everybody is living in Torchwood.
     'postcode'   => 'CF10 5AN',
   );
   $sso_user = DosomethingUkSsoUser::fromArray($user_data);
+
+  // Determines whether the user agreed to receive e-mail newsletter.
+  if (!empty($values['field_opt_in_email'][LANGUAGE_NONE][0]['value'])) {
+    $sso_user->setContactable(TRUE);
+  }
+
   $sso = DosomethingUkSsoController::signup($sso_user);
   $result = $sso->getLastResult();
 

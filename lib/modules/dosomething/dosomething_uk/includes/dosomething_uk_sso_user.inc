@@ -73,6 +73,13 @@ class DosomethingUkSsoUser {
    */
   private $screen_name;
 
+  /**
+   * A boolean determines whether the user agreed to receive e-mail newsletter.
+   *
+   * @var boolean
+   */
+  private $contactable;
+
   // ---------------------------------------------------------------------
   // Constructor and factories
 
@@ -102,6 +109,9 @@ class DosomethingUkSsoUser {
     $this->postcode   = $postcode;
     $this->email      = $email;
     $this->dob        = $dob;
+
+    // Defaults for optional fields.
+    $this->contactable = FALSE;
 
     // Figured from reals generated screen names on UK SSO.
     $this->screen_name = strtolower($this->first_name) . time();
@@ -150,6 +160,11 @@ class DosomethingUkSsoUser {
 
     // Must be the same as user's password.
     $fields['password_confirmation'] = $this->password;
+
+    // Optional user settings.
+    if ($this->contactable) {
+      $fields['contactable'] = 1;
+    }
 
     // Must be 1 to indicate acceptance of the terms & conditions of vInspired.
     // You should make sure to present these terms to the user.
@@ -226,6 +241,33 @@ class DosomethingUkSsoUser {
   public function getScreenName()
   {
     return $this->screen_name;
+  }
+
+  /**
+   * Determines whether the user agreed to receive e-mail newsletter.
+   *
+   * @return boolean
+   */
+  public function isContactable()
+  {
+    return $this->contactable;
+  }
+
+  // ---------------------------------------------------------------------
+  // Public: field mutators
+
+  /**
+   * Sets user's agreement for newsletter e-mails.
+   *
+   * @param boolean
+   *   $contactable A boolean correspondent to the user's agreement.
+   *
+   * @return $this
+   */
+  public function setContactable($contactable)
+  {
+    $this->contactable = $contactable;
+    return $this;
   }
 
   // ---------------------------------------------------------------------
