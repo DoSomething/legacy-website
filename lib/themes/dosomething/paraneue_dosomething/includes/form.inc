@@ -12,6 +12,8 @@ function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_shirt_options($form, $form_state, $form_id);
 }
 
+
+
 /**
  * Checks if given $form needs Shirt Styles applied based on its $form_id.
  */
@@ -35,7 +37,7 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
       return;
     }
   }
-  $form['item_header']['#markup'] = '<h3>' . t('Your Shirt') . '</h3>';
+  $form['item_header']['#markup'] = '<h4>' . t('Your Shirt') . '</h4>';
   // Class to be applied to the Shirt Style options.
   $shirt_style_class = 'js-media-options';
   // Attributes to be applied to the Shirt Size options.
@@ -51,11 +53,11 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
   $form['item_option']['#attributes'] = $shirt_size_attributes;
   if (isset($form['item_additional'])) {
-    $form['item_additional_header']['#markup'] = '<h3>' . t("Your Friend's Shirt") . '</h3>';
+    $form['item_additional_header']['#markup'] = '<h4>' . t("Your Friend's Shirt") . '</h4>';
     $form['item_additional']['#attributes']['class'][] = $shirt_style_class;
     $form['item_additional']['#prefix'] = $style_prefix;
     $form['item_additional']['#suffix'] = $style_suffix;
-    $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>'; 
+    $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>';
     $form['item_additional_option']['#attributes'] = $shirt_size_attributes;
   }
 }

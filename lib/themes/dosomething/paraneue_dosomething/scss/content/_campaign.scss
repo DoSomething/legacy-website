@@ -295,16 +295,3 @@
     }
   }
 }
-  // @TODO: update in Neue: _modal.scss
-  h3 {
-    font-size: $font-regular;
-    font-weight: $weight-bold;
-    margin-bottom: 0;
-    margin-top: 27px;
-
-    & + .form-item {
-      label {
-        margin-top: .3em;
-      }
-    }
-  }
