@@ -608,8 +608,27 @@ function _dosomething_user_register_display_fields(&$form) {
       if ($var == 'last_name') {
         $form[$field_name]['#required'] = TRUE;
       }
+      elseif ($var == 'postal_code') {
+        $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
+      }
     }
   }
+}
+
+/**
+ * After build function to unset all address field elements except postal code.
+ */
+function dosomething_user_address_field_postal_code_only($form, &$form_state) {
+  $element = &$form['field_address'][LANGUAGE_NONE][0]['address'];
+  // Hide the Address field label.
+  unset($element['#title']);
+  // Require Postal Code.
+  $element['locality_block']['postal_code']['#required'] = TRUE;
+  // Remove all other address fields.
+  unset($element['street_block']);
+  unset($element['locality_block']['locality']);
+  unset($element['locality_block']['administrative_area']);
+  return $form;
 }
 
 /**
