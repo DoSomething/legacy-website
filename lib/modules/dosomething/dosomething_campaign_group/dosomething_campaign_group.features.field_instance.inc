@@ -242,6 +242,55 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_group-field_automatic_parent_signup'
+  $field_instances['node-campaign_group-field_automatic_parent_signup'] = array(
+    'bundle' => 'campaign_group',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'If checked, when a user signup is created for a child Campaign of this Campaign Collection, a user signup will be automatically created for the Campaign Collection node as well.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 35,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_automatic_parent_signup',
+    'label' => 'Automatic Parent Signup',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_group-field_call_to_action'
   $field_instances['node-campaign_group-field_call_to_action'] = array(
     'bundle' => 'campaign_group',
@@ -340,7 +389,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 1,
+      'weight' => 5,
     ),
   );
 
@@ -482,7 +531,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 19,
+      'weight' => 21,
     ),
   );
 
@@ -892,7 +941,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 14,
+      'weight' => 13,
     ),
   );
 
@@ -1183,7 +1232,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 21,
+      'weight' => 23,
     ),
   );
 
@@ -1326,7 +1375,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 22,
     ),
   );
 
@@ -1384,6 +1433,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Additional Text Copy');
   t('Additional Text Header');
   t('Additional Text Image');
+  t('Automatic Parent Signup');
   t('Call to Action');
   t('Campaigns');
   t('Cause');
@@ -1392,6 +1442,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('FAQ');
   t('Gallery');
   t('High Season');
+  t('If checked, when a user signup is created for a child Campaign of this Campaign Collection, a user signup will be automatically created for the Campaign Collection node as well.');
   t('Intro');
   t('Intro Image');
   t('Intro Title');

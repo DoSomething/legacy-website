@@ -41,19 +41,19 @@ function dosomething_campaign_group_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '19',
+          'weight' => '18',
         ),
         'title' => array(
           'weight' => '2',
         ),
         'path' => array(
-          'weight' => '18',
-        ),
-        'redirect' => array(
           'weight' => '17',
         ),
-        'xmlsitemap' => array(
+        'redirect' => array(
           'weight' => '16',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '15',
         ),
       ),
       'display' => array(),

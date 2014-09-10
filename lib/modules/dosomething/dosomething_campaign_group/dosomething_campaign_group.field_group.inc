@@ -54,8 +54,9 @@ function dosomething_campaign_group_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_call_to_action',
-      1 => 'field_image_campaign_cover',
-      2 => 'title',
+      1 => 'field_campaigns',
+      2 => 'field_image_campaign_cover',
+      3 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -112,7 +113,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Post Sign Up',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_post_signup_title',
       1 => 'field_post_signup_copy',
@@ -169,15 +170,17 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Signup Form',
-    'weight' => '6',
+    'label' => 'Signup Configuration',
+    'weight' => '5',
     'children' => array(
       0 => 'field_signup_confirm_msg',
       1 => 'field_display_signup_form',
+      2 => 'field_transactional_email_copy',
+      3 => 'field_automatic_parent_signup',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Signup Form',
+      'label' => 'Signup Configuration',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-signup-form field-group-fieldset',
@@ -199,7 +202,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '15',
+    'weight' => '14',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
