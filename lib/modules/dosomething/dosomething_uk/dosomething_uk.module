@@ -110,9 +110,7 @@ function dosomething_uk_register_validate($form, &$form_state) {
     'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
     // @todo save cell.
     // 'phone_number' => $values['field_mobile'][LANGUAGE_NONE][0]['value'],
-    // @todo add postcode field to the registration form.
-    // Until then everybody is living in Torchwood.
-    'postcode'   => 'CF10 5AN',
+    'postcode'   => $values['field_address'][LANGUAGE_NONE][0]['postal_code'],
   );
   $sso_user = DosomethingUkSsoUser::fromArray($user_data);
 
