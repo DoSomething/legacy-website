@@ -168,7 +168,7 @@ function dosomething_signup_get_opt_in_config_form_helpers_vars() {
     'helpers_vars' => $helpers_var_names['campaign'],
   );
   $vars['campaign_group'] = array(
-    'title' => t("Grouped Campaigns"),
+    'title' => t("Campaign Collections"),
     'node_vars' => dosomething_helpers_get_node_vars('campaign_group'),
     // A Campaign Group uses the same helpers variables as a standard Campaign.
     'helpers_vars' => $helpers_var_names['campaign'],
