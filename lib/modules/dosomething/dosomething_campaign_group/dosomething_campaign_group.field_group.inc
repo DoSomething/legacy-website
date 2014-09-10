@@ -54,8 +54,9 @@ function dosomething_campaign_group_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_call_to_action',
-      1 => 'field_image_campaign_cover',
-      2 => 'title',
+      1 => 'field_campaigns',
+      2 => 'field_image_campaign_cover',
+      3 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
