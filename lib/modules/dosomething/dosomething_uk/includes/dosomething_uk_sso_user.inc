@@ -68,13 +68,26 @@ class DosomethingUkSsoUser {
    *
    * UK SSO unique user's sting identifier.
    * Must be between 4 and 20 chars, must be unique to the SSO.
+   * Generated automatically.
    *
    * @var string
    */
   private $screen_name;
 
   /**
+   * The mobile phone number.
+   *
+   * Optional, defaults to FALSE.
+   * The phone number must be valid UK phone number.
+   *
+   * @var string
+   */
+  private $phone_number;
+
+  /**
    * A boolean determines whether the user agreed to receive e-mail newsletter.
+   *
+   * Optional.
    *
    * @var boolean
    */
@@ -112,6 +125,7 @@ class DosomethingUkSsoUser {
 
     // Defaults for optional fields.
     $this->contactable = FALSE;
+    $this->phone_number = FALSE;
 
     // Figured from reals generated screen names on UK SSO.
     $this->screen_name = strtolower($this->first_name) . time();
@@ -148,6 +162,7 @@ class DosomethingUkSsoUser {
 
   public function toFormFields()
   {
+    // -- Required user data. --
     $fields = array(
       'first_name'  => $this->first_name,
       'last_name'   => $this->last_name,
@@ -161,9 +176,14 @@ class DosomethingUkSsoUser {
     // Must be the same as user's password.
     $fields['password_confirmation'] = $this->password;
 
-    // Optional user settings.
+    // -- Optional user data. --
+    // User's agreement to the email newsletter.
     if ($this->contactable) {
       $fields['contactable'] = 1;
+    }
+    // User's mobile phone number.
+    if ($this->phone_number) {
+      $fields['phone_number'] = $this->phone_number;
     }
 
     // Must be 1 to indicate acceptance of the terms & conditions of vInspired.
@@ -244,7 +264,30 @@ class DosomethingUkSsoUser {
   }
 
   /**
+   * Gets the mobile phone number.
+   *
+   * This field is optional for new users.
+   *
+   * @return string|false
+   *   The mobile phone number or FALSE when the number is not available.
+   *
+   *   The number is consistent with UK phone number format. It could be either
+   *   the international format starting with the UK telephone country code +44
+   *   or local formatted number with the country code omitted.
+   *
+   *   Refer to Wikipedia article "Telephone numbers in the United Kingdom"
+   *   http://en.wikipedia.org/wiki/Telephone_numbers_in_the_United_Kingdom
+   *   for more details.
+   */
+  public function getPhoneNumber()
+  {
+    return $this->phone_number;
+  }
+
+  /**
    * Determines whether the user agreed to receive e-mail newsletter.
+   *
+   * This field is optional for new users and defaults to FALSE.
    *
    * @return boolean
    */
@@ -255,6 +298,20 @@ class DosomethingUkSsoUser {
 
   // ---------------------------------------------------------------------
   // Public: field mutators
+
+  /**
+   * Sets the mobile phone number.
+   *
+   * @param string
+   *   $phone_number The phone number consistent with UK phone number format.
+   *
+   * @return $this
+   */
+  public function setPhoneNumber($phone_number)
+  {
+    $this->phone_number = $phone_number;
+    return $this;
+  }
 
   /**
    * Sets user's agreement for newsletter e-mails.
