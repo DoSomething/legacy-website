@@ -100,7 +100,7 @@ function dosomething_uk_register_validate($form, &$form_state) {
   }
   $values = &$form_state['values'];
 
-  // User data.
+  // -- Required user data. --
   $dob = new DateObject($values['field_birthdate'][LANGUAGE_NONE][0]['value']);
   $user_data = array(
     'first_name' => $values['field_first_name'][LANGUAGE_NONE][0]['value'],
@@ -108,15 +108,38 @@ function dosomething_uk_register_validate($form, &$form_state) {
     'email'      => $values['mail'],
     'dob'        => $dob,
     'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
-    // @todo save cell.
-    // 'phone_number' => $values['field_mobile'][LANGUAGE_NONE][0]['value'],
     'postcode'   => $values['field_address'][LANGUAGE_NONE][0]['postal_code'],
   );
   $sso_user = DosomethingUkSsoUser::fromArray($user_data);
 
+  // -- Optional user data. --
   // Determines whether the user agreed to receive e-mail newsletter.
   if (!empty($values['field_opt_in_email'][LANGUAGE_NONE][0]['value'])) {
     $sso_user->setContactable(TRUE);
+  }
+
+  // Use unpreprocessed cell number.
+  // Actual value is unset during validation of the number format,
+  // @see dosomething_user_register_validate().
+  // However, it's fine to use the raw value since it will be validated on SSO
+  // anyways. Appropriate error message will be rendered on validation fail.
+  //
+  // WARNING! If you are copying this block, please be aware that
+  // $form_state['input'] is not the same as $form_state['values'] and may
+  // contain unsafe data values.
+  //
+  // @todo: use normal value when the international phone validator is ready.
+  if (!empty($form_state['input']['field_mobile'][LANGUAGE_NONE][0]['value'])) {
+    $phone = $form_state['input']['field_mobile'][LANGUAGE_NONE][0]['value'];
+    $sso_user->setPhoneNumber($phone);
+
+    // Save the phone number as is to the local DB only
+    // when it passed the remote validation.
+    form_set_value(
+      $form['field_mobile'],
+      array(LANGUAGE_NONE => array(0 => array('value' => $phone))),
+      $form_state
+    );
   }
 
   $sso = DosomethingUkSsoController::signup($sso_user);
