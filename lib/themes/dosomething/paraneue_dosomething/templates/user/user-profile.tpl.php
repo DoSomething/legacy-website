@@ -42,7 +42,9 @@
   <header role="banner" class="-basic">
     <div class="wrapper">
       <h1 class="__title"><?php print t("Hey, @name!", array("@name" => $user_account['first_name'])); ?></h1>
-      <?php //<h2 class="__subtitle">Let us get to know you better.</h2> @TODO: Temp hidden as per Fantini's request. ?>
+      <?php if (!empty($subtitle)): ?>
+        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+      <?php endif; ?>
     </div>
   </header>
 
