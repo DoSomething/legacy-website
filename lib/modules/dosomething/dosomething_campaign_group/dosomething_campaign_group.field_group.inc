@@ -29,12 +29,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Additional Text',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-additional-text field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-additional-text field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_additional_text|node|campaign_group|form'] = $field_group;
@@ -89,12 +90,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Intro',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-intro field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-intro field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_intro|node|campaign_group|form'] = $field_group;
@@ -117,12 +119,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Post Sign Up',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-post-sign-up field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-post-sign-up field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_post_signup|node|campaign_group|form'] = $field_group;
@@ -145,12 +148,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Pre Launch',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-pre-launch field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-pre-launch field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_pre_launch|node|campaign_group|form'] = $field_group;
@@ -170,16 +174,16 @@ function dosomething_campaign_group_field_group_info() {
     'children' => array(
       0 => 'field_signup_confirm_msg',
       1 => 'field_display_signup_form',
-      2 => 'field_signup_form_button_text',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Signup Form',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-signup-form field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-signup-form field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_signup_form|node|campaign_group|form'] = $field_group;
@@ -205,12 +209,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Taxonomy and Discovery',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-taxonomy field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-taxonomy field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_taxonomy|node|campaign_group|form'] = $field_group;
@@ -233,12 +238,13 @@ function dosomething_campaign_group_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Timing',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-timing field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-timing field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_timing|node|campaign_group|form'] = $field_group;
