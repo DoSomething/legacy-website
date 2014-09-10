@@ -7,8 +7,6 @@
 function dosomething_user_user_view($account, $view_mode, $langcode) {
   $image_size = '400x400';
 
-  // krumo($account);
-
   $account->content['uid'] = $account->uid;
   $account->content['name'] = $account->name;
   $account->content['mail'] = $account->mail;

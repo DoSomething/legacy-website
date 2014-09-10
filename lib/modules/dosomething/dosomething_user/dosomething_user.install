@@ -10,6 +10,15 @@ function dosomething_user_update_7001() {
 }
 
 /**
+ * Populates Profile variables.
+ */
+function dosomething_user_update_7002() {
+  // Profile subtitle.
+  $copy = "Rock your campaigns and send pics to prove it.";
+  variable_set('dosomething_user_profile_subtitle', $copy);
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {
@@ -20,6 +29,7 @@ function dosomething_user_uninstall() {
     'dosomething_user_login_form_copy',
     'dosomething_user_node_privacy_policy',
     'dosomething_user_node_terms_service',
+    'dosomething_user_profile_subtitle',
     'dosomething_user_register_form_display_last_name',
     'dosomething_user_register_form_display_opt_in_email',
     'dosomething_user_register_form_display_opt_in_sms',
