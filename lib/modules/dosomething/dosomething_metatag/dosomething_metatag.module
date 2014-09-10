@@ -74,12 +74,20 @@ function dosomething_metatag_add_metatag_image_src($node, $field) {
     }
   }
   if ($image) {
-    // Add <link img_src="[image]"> into the HEAD.
+    // Add social sharing thumbnail meta tag, 
+    // <link rel="image_src" href="[image]"> into the HEAD.
     $attributes = array(
       'href' => $image, 
       'rel' => 'image_src',
     );
     drupal_add_html_head_link($attributes, TRUE);
+    // Add the kik icon meta tag,
+    // <link  rel="kik-icon" href="[image]"> into the HEAD
+    $attributes_kik = array(
+      'href' => $image, 
+      'rel' => 'kik-icon',
+    );
+    drupal_add_html_head_link($attributes_kik, TRUE);
     // Add the Facebook Open Graph tag into the HEAD.
     $element = array(
       '#tag' => 'meta',

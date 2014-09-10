@@ -19,6 +19,7 @@
 
   <title><?php print $head_title; ?></title>
   <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
+  <script src="http://cdn.kik.com/kik/1.0.9/kik.js"></script>
 
   <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/dist/neue.css" type="text/css" />
   <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
@@ -38,7 +39,6 @@
 
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/apple-touch-icon-precomposed.png">
-
   <?php print $head; ?>
 </head>
 
