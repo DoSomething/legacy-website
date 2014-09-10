@@ -22,9 +22,9 @@ function dosomething_campaign_group_ctools_plugin_api($module = NULL, $api = NUL
 function dosomething_campaign_group_node_info() {
   $items = array(
     'campaign_group' => array(
-      'name' => t('Grouped Campaign'),
+      'name' => t('Campaign Collection'),
       'base' => 'node_content',
-      'description' => t('A grouping of campaigns, which can be configured to collect signups.'),
+      'description' => t('A collection of campaigns, which can be configured to collect signups and pre-signups.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
