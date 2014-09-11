@@ -40,7 +40,7 @@
 // Make the admin tabs look pretty.
 .admin--tabs .tabs {
   background: $light-gray;
-  background-image: image-url("admin-panel.png");
+  background-image: asset-url("images/admin-panel.png");
   padding: 18px 0;
 }
 

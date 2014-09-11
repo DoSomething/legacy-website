@@ -10,16 +10,6 @@
 //
 
 
-// Helper to generate image URLs
-@function image-url($url) {
-  @return url("images/#{$url}");
-}
-
-// Helper to generate Neue URLs
-@function neue-image-url($url) {
-  @return url("bower_components/neue/assets/images/#{$url}");
-}
-
 // @TODO: Temporary mixin for homepage sprites (from old world)
 @mixin responsive-sprite($pos-x, $pos-y) {
   background-position: $pos-x/2 $pos-y/2;
