@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
+  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/dist/modernizr-neue.js"></script>
   <script src="http://cdn.kik.com/kik/1.0.9/kik.js"></script>
 
   <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
