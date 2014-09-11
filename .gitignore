@@ -3,6 +3,7 @@ tests/visual/*.diff.png
 tests/visual/failures
 .vagrant
 *.DS_Store
+.idea
 html/
 settings.local.php
 build/
