@@ -20,16 +20,18 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Additional Text',
-    'weight' => '9',
+    'label' => 'Additional Info',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_additional_text',
-      1 => 'field_additional_text_title',
-      2 => 'field_additional_text_image',
+      0 => 'field_gallery',
+      1 => 'field_additional_text',
+      2 => 'field_additional_text_title',
+      3 => 'field_scholarship_amount',
+      4 => 'field_additional_text_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Additional Text',
+      'label' => 'Additional Info',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-additional-text field-group-fieldset',
@@ -82,12 +84,13 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Intro',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_intro',
-      1 => 'field_intro_image',
-      2 => 'field_intro_title',
-      3 => 'field_video',
+      0 => 'field_faq',
+      1 => 'field_intro',
+      2 => 'field_intro_image',
+      3 => 'field_intro_title',
+      4 => 'field_video',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -105,6 +108,34 @@ function dosomething_campaign_group_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_partners|node|campaign_group|form';
+  $field_group->group_name = 'group_partners';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_group';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Sponsors and Partners',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_partners',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Sponsors and Partners',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-partners field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_partners|node|campaign_group|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_post_signup|node|campaign_group|form';
   $field_group->group_name = 'group_post_signup';
   $field_group->entity_type = 'node';
@@ -112,15 +143,15 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Post Sign Up',
-    'weight' => '6',
+    'label' => 'Post Signup',
+    'weight' => '3',
     'children' => array(
       0 => 'field_post_signup_title',
       1 => 'field_post_signup_copy',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'Post Sign Up',
+      'label' => 'Post Signup',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => 'group-post-sign-up field-group-fieldset',
@@ -142,7 +173,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pre Launch',
-    'weight' => '8',
+    'weight' => '4',
     'children' => array(
       0 => 'field_pre_launch_copy',
       1 => 'field_pre_launch_title',
@@ -171,7 +202,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Signup Configuration',
-    'weight' => '5',
+    'weight' => '2',
     'children' => array(
       0 => 'field_signup_confirm_msg',
       1 => 'field_display_signup_form',
@@ -202,7 +233,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '14',
+    'weight' => '8',
     'children' => array(
       0 => 'field_cause',
       1 => 'field_action_type',
@@ -234,7 +265,7 @@ function dosomething_campaign_group_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '10',
+    'weight' => '6',
     'children' => array(
       0 => 'field_display_end_date',
       1 => 'field_high_season',

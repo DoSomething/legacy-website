@@ -140,7 +140,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 13,
     ),
   );
 
@@ -191,7 +191,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 14,
     ),
   );
 
@@ -238,7 +238,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 12,
     ),
   );
 
@@ -585,7 +585,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 3,
+      'weight' => 10,
     ),
   );
 
@@ -632,7 +632,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 12,
+      'weight' => 15,
     ),
   );
 
@@ -840,7 +840,7 @@ function dosomething_campaign_group_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -941,7 +941,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 13,
+      'weight' => 7,
     ),
   );
 
@@ -997,7 +997,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'bundle' => 'campaign_group',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The Post Signup fields are displayed if the user has signed up for the Grouped Campaign.',
+    'description' => 'The Post Signup fields are displayed if the user has signed up for this node.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1422,7 +1422,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -1458,7 +1458,7 @@ function dosomething_campaign_group_field_default_field_instances() {
   t('Signup Confirmation Message');
   t('Sponsors and Partners');
   t('Tags');
-  t('The Post Signup fields are displayed if the user has signed up for the Grouped Campaign.');
+  t('The Post Signup fields are displayed if the user has signed up for this node.');
   t('The Pre Launch Title and Copy fields will be displayed if there are no child campaigns which are published.');
   t('This copy will be pulled into the transactional email template when a user signs up for the campaign group.');
   t('Transactional Email Copy');
