@@ -34,6 +34,7 @@ features[field_base][] = field_transactional_email_copy
 features[field_group][] = group_additional_text|node|campaign_group|form
 features[field_group][] = group_header|node|campaign_group|form
 features[field_group][] = group_intro|node|campaign_group|form
+features[field_group][] = group_partners|node|campaign_group|form
 features[field_group][] = group_post_signup|node|campaign_group|form
 features[field_group][] = group_pre_launch|node|campaign_group|form
 features[field_group][] = group_signup_form|node|campaign_group|form
