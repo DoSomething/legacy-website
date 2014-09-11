@@ -125,8 +125,8 @@ function dosomething_signup_admin_paths() {
  * @param int $uid
  *   Optional - the user uid who has signed up.
  *   If not provided, uses global $user->uid.
- * @param text $data
- *   Optional - serialized data.
+ * @param string $source
+ *   Optional - Signup source.
  * @param int $timestamp
  *   Optional - the timestamp of the signup.
  *   If not provided, uses @dries time.
@@ -134,7 +134,7 @@ function dosomething_signup_admin_paths() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp = NULL) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
   if ($uid == NULL) {
     global $user;
     $uid = $user->uid;
@@ -148,7 +148,7 @@ function dosomething_signup_create($nid, $uid = NULL, $data = NULL, $timestamp =
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
-    'data'=> $data,
+    'source'=> $source,
     'timestamp' => $timestamp,
   );
   try {
@@ -394,8 +394,14 @@ function dosomething_signup_user_signup($nid, $account = NULL) {
     $account = $user;
   }
 
+  // Check if source has been passed from query string.
+  $source = NULL;
+  if (isset($_GET['source'])) {
+    $source = check_plain($_GET['source']);
+  }
+
   // Insert signup.
-  if ($sid = dosomething_signup_create($nid, $account->uid)) {
+  if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
     $node = node_load($nid);
 
     // Check if a field_signup_confirm_msg field is set.
