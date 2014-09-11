@@ -5,9 +5,9 @@
  */
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_page().
  */
-function dosomething_metatag_preprocess_html(&$vars) {
+function dosomething_metatag_preprocess_page(&$vars) {
   // Prevent search engines from using DMOZ site descriptions.
   $dmoz_meta_tag = array(
     '#type' => 'html_tag',
@@ -28,21 +28,25 @@ function dosomething_metatag_preprocess_html(&$vars) {
     )
   );
   drupal_add_html_head($pinterest_verify_tag, 'pinterest_verify_tag');
-}
-
-/**
- * Implements hook_node_view().
- */
-function dosomething_metatag_node_view($node, $view_mode, $langcode) {
-  if ($view_mode == 'full' || $view_mode == 'pitch') {
-    dosomething_metatag_add_metatag_image($node);
+  $node = NULL;
+  // Is this a node page?
+  if (!empty($vars['node'])) {
+    $node = $vars['node'];
   }
+  // Add relevant image metatags.
+  dosomething_metatag_add_metatag_image($node);
 }
 
 /**
  * Determines and sets metatag img_src metatag for a given $node and $view_mode.
  */
-function dosomething_metatag_add_metatag_image($node) {
+function dosomething_metatag_get_metatag_image($node = NULL) {
+  // Initialize as site logo as default.
+  $image =  theme_get_setting('logo');
+  // If no node is present, return default.
+  if ($node == NULL) {
+    return $image;
+  }
   // List of node types which use an Image EntityReference for image metatag.
   $metatag_image_node_types = array(
     'campaign' => 'field_image_campaign_cover',
@@ -50,29 +54,24 @@ function dosomething_metatag_add_metatag_image($node) {
   );
   // Foreach type that needs Image EntityReference for image metatag:
   foreach ($metatag_image_node_types as $type => $field) {
-    // If this node matches the type:
-    if ($type == $node->type) {
-      // Set the metatag for its image field.
-      dosomething_metatag_add_metatag_image_src($node, $field);
-      break;
+    // If this node matches the type and a field value exists:
+    if ($type == $node->type && !empty($node->{$field})) {
+      // Get the image node nid.
+      $image_nid = $node->{$field}[LANGUAGE_NONE][0]['target_id'];
+      // Get the image URL.
+      if (module_exists('dosomething_image')) {
+        return dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
+      }
     }
   }
+  return $image;
 }
 
 /**
  * Sets the img_src metatag with a given $node's Image EntityReference $field.
  */
-function dosomething_metatag_add_metatag_image_src($node, $field) {
-  // @todo: Initialize $image with default URL if image exists in the field.
-  $image = NULL;
-  // If a value for the image entityreference exists:
-  if (!empty($node->{$field})) {
-    $image_nid = $node->{$field}[LANGUAGE_NONE][0]['target_id'];
-    if (module_exists('dosomething_image')) {
-      // Get the image URL.
-      $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
-    }
-  }
+function dosomething_metatag_add_metatag_image($node = NULL) {
+  $image = dosomething_metatag_get_metatag_image($node);
   if ($image) {
     // Add social sharing thumbnail meta tag, 
     // <link rel="image_src" href="[image]"> into the HEAD.
