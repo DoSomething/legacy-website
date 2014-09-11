@@ -230,15 +230,12 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     case 'user_register_form':
       // Gather helper text.
       _dosomething_user_register_helper_text($form);
-      // Add campaign data, if needed.
-      _dosomething_user_add_signup_data($form);
 
       // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = '/user/register';
         $form['#submit'][] = 'dosomething_user_new_user';
       }
-
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
@@ -262,6 +259,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         // Registration Source should always be read-only.
         $form['field_user_registration_source']['#disabled'] = TRUE;
       }
+
+      // Add campaign data, if needed.
+      _dosomething_user_add_signup_data($form);
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
       $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
