@@ -9,8 +9,16 @@
 //  \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|  \_______/  \______/
 //
 
-// Import helpers from Neue (including Bourbon & Bourbon Neat)
-@import "../bower_components/neue/scss/helpers";
+// Set up our asset pipeline
+$neue-path: "../bower_components/neue/dist/assets/";
+$asset-path: "";
+
+// Import Bourbon, grid-settings, Neat, and Neue
+@import "../bower_components/bourbon/dist/bourbon";
+@import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
+@import "../bower_components/neue/scss/helpers/grid-settings";
+@import "../bower_components/neat/app/assets/stylesheets/neat";
+@import "../bower_components/neue/scss/neue";
 
 // Import our local variables and helpers
 @import "helpers/mixins";
