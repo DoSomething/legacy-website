@@ -18,7 +18,7 @@
 
 .campaign--action .container--prove,
 .campaign--sms .container--do {
-  background: $purple image-url("campaign-pattern-default.png") repeat center 63px;
+  background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
   padding-bottom: 126px;
 
   @include media($tablet) {

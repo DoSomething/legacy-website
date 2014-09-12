@@ -49,7 +49,7 @@
 
             <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
             <?php if (isset($psa)): ?>
-              <aside <?php if ($is_video_psa) echo 'class="video"'; ?>>
+              <aside <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
                 <?php print $psa; ?>
               </aside>
             <?php else: ?>

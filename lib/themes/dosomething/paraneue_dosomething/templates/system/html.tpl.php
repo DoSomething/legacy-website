@@ -18,17 +18,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/js/vendor/modernizr.js"></script>
+  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/dist/modernizr-neue.js"></script>
   <script src="http://cdn.kik.com/kik/1.0.9/kik.js"></script>
 
-  <link rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/dist/neue.css" type="text/css" />
   <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
-      <link type="text/css" rel="stylesheet" href="<?php print NEUE_ASSET_PATH; ?>/dist/ie.css" media="all" />
-      <link type="text/css" rel="stylesheet" href="<?php print DS_ASSET_PATH; ?>/ie.css" media="all" />
-
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
 
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/respond/dest/respond.min.js"></script>

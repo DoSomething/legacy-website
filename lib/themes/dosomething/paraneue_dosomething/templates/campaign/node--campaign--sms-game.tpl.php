@@ -34,7 +34,7 @@
             <?php endif; ?>
 
             <?php if (isset($psa)): ?>
-              <aside <?php if ($is_video_psa) echo 'class="video"'; ?>>
+              <aside <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
                 <?php print $psa; ?>
               </aside>
             <?php else: ?>
