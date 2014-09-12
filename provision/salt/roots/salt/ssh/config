@@ -1,2 +1,0 @@
-Host *.dosomething.org
-    StrictHostKeyChecking no
