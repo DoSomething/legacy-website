@@ -11,7 +11,10 @@ include_once 'dosomething_home.features.inc';
  */
 function dosomething_home_preprocess_node(&$vars) {
   if ($vars['type'] != 'home') { return; }
+
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
+  // Store this node as the signup source.
+  $source = '?source=node/' . $vars['nid'];
 
   $campaigns = $vars['field_campaigns'];
 
@@ -49,7 +52,7 @@ function dosomething_home_preprocess_node(&$vars) {
 
 
     $tiles['path'] = 'node/' . $nid;
-    $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']);
+    $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']) . $source;
 
     $thumbnails[$nid] = theme('thumbnail', $tiles);
   }
