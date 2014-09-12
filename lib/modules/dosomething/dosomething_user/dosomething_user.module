@@ -220,9 +220,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Add additional submission/validation/actions.
       $form['#action'] = '/user/login';
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
-      $form['#submit'][] = 'dosomething_user_login_submit';
       // Helper text & additional data.
       _dosomething_user_add_signup_data($form);
+      $form['#submit'][] = 'dosomething_user_login_submit';
 
     break;
 
@@ -504,6 +504,10 @@ function dosomething_user_login_submit($form, &$form_state) {
   // If nid is not present, nothing to sign up for.  Exit.
   if (isset($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
+    $source = NULL;
+    if (isset($form['source']['#value'])) {
+      $source = $form['source']['#value'];
+    }
     // Signup global user for node $nid.
     if (module_exists('dosomething_signup')) {
       // First check if the campaign is closed.
@@ -512,7 +516,7 @@ function dosomething_user_login_submit($form, &$form_state) {
         dosomething_signup_user_presignup($nid);
       }
       else {
-        dosomething_signup_user_signup($nid);
+        dosomething_signup_user_signup($nid, NULL, $source);
       }
     }
   }
@@ -553,7 +557,20 @@ function _dosomething_user_add_signup_data(&$form) {
       '#value' => $nid,
       '#access' => FALSE,
     );
+    // Check query string for signup source value.
+    if ($source = dosomething_signup_get_query_source()) {
+      $form['source'] = array(
+        '#type' => 'hidden',
+        '#value' => $source,
+        '#access' => FALSE,
+      );
+    }
     $form['#action'] = '/' . drupal_get_path_alias('node/' . $nid);
+    // Source needs to be added into query string into form action,
+    // in order to be found later in form submit states.
+    if ($source) {
+      $form['#action'] = $form['#action'] . '?source=' . $source;
+    }
   }
 }
 

@@ -118,6 +118,16 @@ function dosomething_signup_admin_paths() {
 }
 
 /**
+ * Checks if a source parameter has been passed into query string and returns it.
+ */
+function dosomething_signup_get_query_source() {
+  if (isset($_GET['source'])) {
+    return check_plain($_GET['source']);
+  }
+  return NULL;
+}
+
+/**
  * Insert a user signup.
  *
  * @param int $nid
@@ -388,16 +398,10 @@ function dosomething_signup_third_party_subscribe($account, $node) {
  *   Optional - the user object to sign up.
  *   If not provided, uses global $user.
  */
-function dosomething_signup_user_signup($nid, $account = NULL) {
+function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
   if ($account == NULL) {
     global $user;
     $account = $user;
-  }
-
-  // Check if source has been passed from query string.
-  $source = NULL;
-  if (isset($_GET['source'])) {
-    $source = check_plain($_GET['source']);
   }
 
   // Insert signup.
