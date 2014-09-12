@@ -25,6 +25,10 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     'recommended' => NULL,
     'redeem_form' => NULL,
   );
+  // Image size to pass to campaign block.
+  $image_size = '740x480';
+  // Signup source to pass to campaign block.
+  $source = dosomething_campaign_get_confirmation_path($node->nid);
 
   // Set variables for anonymous user:
   if (!user_is_logged_in()) {
@@ -72,7 +76,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     // This could happen for a SMS Game, where the confirmation page can be
     // viewed by anonymous user, so we don't have a signup to filter out.
     if ($nid != $node->nid) {
-      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid, $image_size, $source);
     }
   }
   // We only want to display 3 campaigns blocks - we might have 4.
