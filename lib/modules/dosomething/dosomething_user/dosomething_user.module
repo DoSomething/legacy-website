@@ -235,6 +235,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = '/user/register';
         $form['#submit'][] = 'dosomething_user_new_user';
+        // Unsets relevant form fields based on configuration variables.
+        _dosomething_user_register_display_fields($form);
+          // Add campaign data, if needed.
+        _dosomething_user_add_signup_data($form);
       }
 
       // Add extra validation on the edit page, for addresses.
@@ -242,9 +246,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       if (preg_match('/user\/([0-9]+)\/edit/', $current_page)) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
-
-      // Unsets relevant form fields based on configuration variables.
-      _dosomething_user_register_display_fields($form);
 
       // This field should always be hidden from users.
       unset($form['field_under_thirteen']);
@@ -255,13 +256,11 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['picture']);
         unset($form['field_user_registration_source']);
       }
+      // else if staff:
       else {
         // Registration Source should always be read-only.
         $form['field_user_registration_source']['#disabled'] = TRUE;
       }
-
-      // Add campaign data, if needed.
-      _dosomething_user_add_signup_data($form);
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
       $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
