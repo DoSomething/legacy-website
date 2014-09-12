@@ -31,7 +31,7 @@
             <?php if (isset($intro_image) || isset($intro_video)): ?>
             <aside class="-columned -col-last">
               <?php if (isset($intro_video)): ?>
-                <div class="video">
+                <div class="media-video">
                   <?php print $intro_video; ?>
                 </div>
               <?php elseif (isset($intro_image)): ?>
