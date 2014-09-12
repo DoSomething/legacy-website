@@ -18,8 +18,17 @@
 function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") {
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#default_value' => $nid,
+    '#value' => $nid,
+    '#access' => FALSE,
   );
+  // Check query string for signup source value.
+  if ($source = dosomething_signup_get_query_source()) {
+    $form['source'] = array(
+      '#type' => 'hidden',
+      '#value' => $source,
+      '#access' => FALSE,
+    );
+  }
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => $label,
@@ -44,7 +53,12 @@ function dosomething_signup_form_submit($form, &$form_state) {
     return;
   }
   $nid = $form_state['values']['nid'];
-  dosomething_signup_user_signup($nid);
+  $source = NULL;
+  if (isset($form_state['values']['source'])) {
+    $source = $form_state['values']['source'];
+  }
+  // Create signup for logged in user.
+  dosomething_signup_user_signup($nid, NULL, $source);
 }
 
 /**

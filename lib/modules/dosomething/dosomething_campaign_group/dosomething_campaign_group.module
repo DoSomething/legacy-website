@@ -180,11 +180,13 @@ function dosomething_campaign_group_is_automatic_parent_signup($nid) {
 function dosomething_campaign_group_get_campaigns($campaign_group_node) {
   $campaigns = array();
   $image_size = '400x400';
+  // Signup source to pass to the query string in campaign links.
+  $source = 'node/' . $campaign_group_node->nid;
 
   if (!empty($campaign_group_node->field_campaigns)) {
     foreach ($campaign_group_node->field_campaigns[LANGUAGE_NONE] as $campaign_field) {
       $status = $campaign_field['entity']->status;
-      $vars = dosomething_campaign_get_campaign_block_vars($campaign_field['entity']->nid, $image_size);
+      $vars = dosomething_campaign_get_campaign_block_vars($campaign_field['entity']->nid, $image_size, $source);
       if ((int)$status === 0) {
         $vars['title'] = t('Stay Tuned');
       }
