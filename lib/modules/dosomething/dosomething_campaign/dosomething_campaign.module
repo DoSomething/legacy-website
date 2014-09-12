@@ -307,7 +307,7 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  * @param string $image_size
  *   The image size to return.
  * @param string $source
- *   The signup source to append to the campaign query string.
+ *   (optional) The signup source to append to the campaign query string.
  *
  * @return array
  *   An array of variables.

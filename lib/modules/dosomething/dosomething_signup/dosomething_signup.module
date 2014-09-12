@@ -133,12 +133,12 @@ function dosomething_signup_get_query_source() {
  * @param int $nid
  *   The node nid the user has signed up for.
  * @param int $uid
- *   Optional - the user uid who has signed up.
+ *   (optional) The user uid who has signed up.
  *   If not provided, uses global $user->uid.
  * @param string $source
- *   Optional - Signup source.
+ *   (optional) Signup source.
  * @param int $timestamp
- *   Optional - the timestamp of the signup.
+ *   (optional) The timestamp of the signup.
  *   If not provided, uses @dries time.
  *
  * @return mixed
@@ -394,9 +394,11 @@ function dosomething_signup_third_party_subscribe($account, $node) {
  *
  * @param int $nid
  *   The node nid the user is signing up for.
- * @param object account
- *   Optional - the user object to sign up.
+ * @param object $account
+ *   (optional) The user object to sign up.
  *   If not provided, uses global $user.
+ * @param string $source
+ *   (optional) The signup source.
  */
 function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
   if ($account == NULL) {
