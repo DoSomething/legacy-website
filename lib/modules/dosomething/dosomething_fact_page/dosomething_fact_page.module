@@ -112,7 +112,6 @@ function dosomething_fact_page_preprocess_node(&$vars) {
  */
 function dosomething_fact_page_get_fact_collection_vars($node) {
   if (!isset($node->field_fact_collection[LANGUAGE_NONE])) { return NULL; }
-
   // Initialize output arrays.
   $facts = $sources = array();
   // Loop through the field_fact_collection Field Collection Item values:
@@ -127,7 +126,7 @@ function dosomething_fact_page_get_fact_collection_vars($node) {
     // Append the fact's sources to the $sources array.
     $sources = array_merge($sources, $facts[$delta]['sources']);
     // If copy has been set:
-    if ($copy = dosomething_fact_page_get_fact_collection_copy($fc_item)) {
+    if ($copy = dosomething_fact_page_get_fact_collection_copy($fc_item, $node->nid)) {
       // Append to the end of the fact.
       $facts[$delta]['fact'] .= ' ' . $copy;
     }
@@ -143,10 +142,12 @@ function dosomething_fact_page_get_fact_collection_vars($node) {
  *
  * @param obj $fc_item
  *   A loaded field_fact_collection Field Collection Item.
+ * @param int $fact_page_nid
+ *   The parent Fact Page node nid, to sent as Signup source in campaign link.
  *
  * @return string
  */
-function dosomething_fact_page_get_fact_collection_copy($fc_item) {
+function dosomething_fact_page_get_fact_collection_copy($fc_item, $fact_page_nid) {
   // If copy has not been set, nothing to do.
   if (!isset($fc_item->field_compound_text_copy[LANGUAGE_NONE][0])) { 
     return NULL;
@@ -159,9 +160,12 @@ function dosomething_fact_page_get_fact_collection_copy($fc_item) {
     return $copy;
   }
 
-  // Set the link to the Campaign node.
+  // Get the linked Campaign node.
   $node = $fc_item->field_node[LANGUAGE_NONE][0]['entity'];
-  $link = l($node->title, 'node/' . $node->nid);
+  // Prepare link query string to send the Fact Page nid as the signup source.
+  $query = array('query' => array('source' => 'node/' . $fact_page_nid));
+  // Prepare the campaign link.
+  $link = l($node->title, 'node/' . $node->nid, $query);
   // Replace the [link] token with the link markup.
   return str_replace("[link]", $link, $copy);
 }
