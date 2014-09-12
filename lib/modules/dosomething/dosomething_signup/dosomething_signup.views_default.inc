@@ -101,6 +101,11 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['relationship'] = 'uid';
   $handler->display->display_options['fields']['mail']['link_to_user'] = 'user';
+  /* Field: Signups: Signup source */
+  $handler->display->display_options['fields']['source']['id'] = 'source';
+  $handler->display->display_options['fields']['source']['table'] = 'dosomething_signup';
+  $handler->display->display_options['fields']['source']['field'] = 'source';
+  $handler->display->display_options['fields']['source']['label'] = 'Source';
   /* Contextual filter: Content: Nid */
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
@@ -156,6 +161,25 @@ function dosomething_signup_views_default_views() {
     6 => 0,
     7 => 0,
   );
+  /* Filter criterion: Signups: Signup source */
+  $handler->display->display_options['filters']['source']['id'] = 'source';
+  $handler->display->display_options['filters']['source']['table'] = 'dosomething_signup';
+  $handler->display->display_options['filters']['source']['field'] = 'source';
+  $handler->display->display_options['filters']['source']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['label'] = 'Source';
+  $handler->display->display_options['filters']['source']['expose']['operator'] = 'source_op';
+  $handler->display->display_options['filters']['source']['expose']['identifier'] = 'source';
+  $handler->display->display_options['filters']['source']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -189,6 +213,7 @@ function dosomething_signup_views_default_views() {
     t('Submitted'),
     t('Uid'),
     t('E-mail'),
+    t('Source'),
     t('All'),
     t('Signups: %1'),
     t('Signups'),

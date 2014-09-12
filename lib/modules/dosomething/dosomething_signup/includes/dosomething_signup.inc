@@ -61,6 +61,12 @@ class SignupEntityController extends EntityAPIController {
         '#markup' => '<p>Signup Reason: ' . check_plain($entity->why_signedup) . '</p>',
       );    
     }
+    if ($entity->source) {
+      $build['source'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p>Source: ' . check_plain($entity->source) . '</p>',
+      );
+    }
     return $build;
   }
 
