@@ -142,11 +142,16 @@ class DosomethingUkSsoUser {
    *   - password: The email of the user.
    *   - postcode: The password of the user.
    *   - email: The postcode of the user.
-   *   - dob: A DateTime object representing user's birthdate.
+   *   - dob: A DateTime object or DateTime-complaint string representing
+   *     user's birthdate.
    *
    * @return static
    */
   public static function fromArray($data) {
+    if (is_string($data['dob'])) {
+      $data['dob'] = new DateObject($data['dob']);
+    }
+
     $instance = new self(
       $data['first_name'],
       $data['last_name'],
@@ -245,13 +250,23 @@ class DosomethingUkSsoUser {
   }
 
   /**
-   * Returns the date of birth.
+   * Returns DateTime object of the user's date of birth.
    *
-   * @return string
+   * @return DateTime
    */
   public function getDob()
   {
     return $this->dob;
+  }
+
+  /**
+   * Returns the string representaion of the user's date of birth.
+   *
+   * @return string
+   */
+  public function getDobString()
+  {
+    return $this->dob->format(DATE_FORMAT_DATE);
   }
 
   /**

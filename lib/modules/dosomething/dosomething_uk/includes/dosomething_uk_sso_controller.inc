@@ -212,7 +212,9 @@ public static function signup(DosomethingUkSsoUser $sso_user) {
 
   public function getRemoteUser()
   {
-    return $this->getRemote(self::ENDPOINT_USER_SHOW_CURRENT);
+    $user_data = $this->getRemote(self::ENDPOINT_USER_SHOW_CURRENT);
+    $sso_user = DosomethingUkSsoUser::fromArray($user_data);
+    return $sso_user;
   }
 
   public function createRemoteUser(DosomethingUkSsoUser $sso_user)
