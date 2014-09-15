@@ -63,7 +63,7 @@ require_once DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc';
 // Predis autoloader not working. Declare here instead.
 spl_autoload_register(function($classname) {
   if (0 === strpos($classname, 'Predis\\')) {
-    $filename = DS_LIBRARIES_PATH . '/predis/lib/';
+    $filename = DRUPAL_ROOT . '/' . DS_LIBRARIES_PATH . '/predis/lib/';
     $filename .= str_replace('\\', '/', $classname) . '.php';
     return (bool)require_once $filename;
   }
