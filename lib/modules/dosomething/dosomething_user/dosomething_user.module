@@ -618,7 +618,7 @@ function _dosomething_user_register_display_fields(&$form) {
     // If variable is set to NOT display:
     if (!$display) {
       // Unset the corresponding form field.
-      unset($form[$field_name]);
+      $form[$field_name]['#access'] = FALSE;
     }
     // Else if set to display:
     else {
