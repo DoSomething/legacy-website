@@ -13,6 +13,22 @@ define('DOSOMETHING_UK_WATCHDOG', 'dosomething_uk');
 // Hook implementations.
 
 /**
+ * Implements hook_menu().
+ */
+function  dosomething_uk_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_uk'] = array(
+    'title'            => 'DoSomething UK',
+    'description'      => 'Setup DoSomething UK integration settings',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('dosomething_uk_admin_settings'),
+    'file'             => 'dosomething_uk.admin.inc',
+    'access arguments' => array('administer modules'),
+   );
+  return $items;
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function dosomething_uk_preprocess_page(&$vars) {
