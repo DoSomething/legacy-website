@@ -58,20 +58,16 @@ $conf['varnish_control_key'] = '00c9203c65874ca5b4c359e19f00bf56';
 // This needs to be disabled.
 $conf['page_cache_invoke_hooks'] = FALSE;
 
-require_once DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc';
-
-// Predis autoloader not working. Declare here instead.
-spl_autoload_register(function($classname) {
-  if (0 === strpos($classname, 'Predis\\')) {
-    $filename = DRUPAL_ROOT . '/' . DS_LIBRARIES_PATH . '/predis/lib/';
-    $filename .= str_replace('\\', '/', $classname) . '.php';
-    return (bool)require_once $filename;
-  }
-  return false;
-});
-
-$conf['cache_backends'][] = DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc';
+// Setup Redis cache backend using Predis PHP library.
 $conf['redis_client_interface'] = 'Predis';
+
+// Register Predis classes autoload.
+// @see Redis_Client_Predis::setPredisAutoload().
+define('PREDIS_BASE_PATH', DRUPAL_ROOT . '/' . DS_LIBRARIES_PATH . '/predis/lib/');
+require_once DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc';
+$conf['cache_backends'][] = DS_MODULES_PATH . '/contrib/redis/redis.autoload.inc';
+
+// Redis client settings.
 $conf['redis_client_host'] = getenv('DS_REDIS_HOST') ?: '127.0.0.1';
 $conf['redis_client_port'] = getenv('DS_REDIS_PORT') ?: '6379';
 
