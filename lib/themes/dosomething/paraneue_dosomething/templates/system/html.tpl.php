@@ -16,7 +16,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name='crowdcurity-site-verification' content='voJ0lyI8JXV5Ab1XAYMaoQj7WsoScgkfk9TLG0dA'>
+  <meta name="crowdcurity-site-verification" content="voJ0lyI8JXV5Ab1XAYMaoQj7WsoScgkfk9TLG0dA">
 
   <title><?php print $head_title; ?></title>
   <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/dist/modernizr-neue.js"></script>
