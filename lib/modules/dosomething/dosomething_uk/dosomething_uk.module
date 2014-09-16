@@ -12,6 +12,17 @@ define('DOSOMETHING_UK_WATCHDOG', 'dosomething_uk');
 // -----------------------------------------------------------------------
 // Hook implementations.
 
+function dosomething_uk_preprocess_page(&$vars) {
+  drupal_add_js(
+    array('dosomethingUK' =>
+      array(
+        'use_uk_date_validator' => true 
+      )
+    ),
+    'setting'
+  );
+}
+
 /**
  * Implements hook_module_implements_alter().
  *
