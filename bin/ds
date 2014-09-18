@@ -367,8 +367,14 @@ function bower {
   if hash bower 2>/dev/null;
   then
     cd $LIB_PATH/themes/dosomething/paraneue_dosomething
-    echo -e "\n\e[4mInstalling bower dependencies for Paraneue_DoSomething...\e[0m"
-    eval "/usr/bin/bower update --config.interactive=false"
+
+    if [[ `ls -A bower_components/ | wc -l` -eq 0 ]]; then
+      echo -e "\n\e[4mInstalling bower dependencies for Paraneue_DoSomething...\e[0m"
+      eval "/usr/bin/bower install --config.interactive=false"
+    else
+      echo -e "\n\e[4mUpdating bower dependencies for Paraneue_DoSomething...\e[0m"
+      eval "/usr/bin/bower update --config.interactive=false"
+    fi
 
     cd $BASE_PATH
 
