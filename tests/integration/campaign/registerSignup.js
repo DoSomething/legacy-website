@@ -1,11 +1,10 @@
-var campaign, userEmail, userPassword;
+var userEmail, userPassword;
 
 casper.test.begin("Test that an unregistered user can register & sign up for a campaign.", 1, {
   /*
    * Prepare campaign from fixture.
    */
   setUp: function() {
-    campaign = casper.createCampaign("campaign.json");
     userEmail = casper.randomEmail();
     userPassword = casper.randomPassword();
   },
@@ -14,7 +13,6 @@ casper.test.begin("Test that an unregistered user can register & sign up for a c
    * Delete test nodes.
    */
   tearDown: function() {
-    casper.deleteAllTestNodes();
     casper.deleteUserWithEmail(userEmail);
     phantom.clearCookies();
   },
@@ -23,7 +21,7 @@ casper.test.begin("Test that an unregistered user can register & sign up for a c
     casper.start(url);
 
     // We expect to see a sign up button, and to be able to click it to sign up.
-    casper.thenOpen(campaign.url, function(){
+    casper.thenOpen(CAMPAIGN.url, function(){
       this.waitUntilVisible("#link--campaign-signup-login", function() {
         this.click("#link--campaign-signup-login");
       });
