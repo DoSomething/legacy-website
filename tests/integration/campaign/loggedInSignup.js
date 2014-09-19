@@ -14,7 +14,7 @@ casper.test.begin("Test that a logged-in user can sign up for a campaign.", 1, {
    */
   tearDown: function() {
     casper.deleteAllTestNodes();
-    casper.deleteUserWithEmail(user.email);
+    casper.deleteUser(user.uid);
     phantom.clearCookies();
   },
 
