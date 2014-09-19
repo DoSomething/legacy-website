@@ -2,18 +2,9 @@
  * Helper methods and variables for capser test suite.
  */
 
-var pwd = require('system').env['PWD'];
-var ROOT = pwd;
-
-// Define the url for all tests.
-var url = casper.cli.get('url');
-
-// Set some static strings
-var CAMPAIGN_SIGNUP_MESSAGE = "You're signed up for";
-
-// Set default viewport for all tests.
-casper.options.viewportSize = { width: 1280, height: 1024 };
-
+/**
+ * Log an action to the Casper console output.
+ */
 casper.logAction = function(action) {
   casper.echo(action, "PARAMETER");
 }
