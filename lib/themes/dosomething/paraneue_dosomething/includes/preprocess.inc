@@ -45,6 +45,15 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $modifier_classes = 'black floating';
   }
 
+  // Override with environment-specific logo if on staging or local dev:
+  $host = $_SERVER['HTTP_HOST'];
+  if(strpos($host, 'staging.') !== FALSE) {
+    $vars['logo'] = DS_ASSET_PATH . '/images/logo-staging.png';
+  }
+  else if(strpos($host, 'dev.') !== FALSE) {
+    $vars['logo'] = DS_ASSET_PATH . '/images/logo-dev.png';
+  }
+
   $navigation_vars = array(
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
