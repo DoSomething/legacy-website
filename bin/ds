@@ -517,7 +517,7 @@ function integration_tests {
   # Run integration tests.
   cd $BASE_PATH
   printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --campaign_nid=$CAMPAIGN_NID --includes=$TEST_PATH/scripts/common.js,$TEST_PATH/scripts/drush.js,$TEST_PATH/scripts/phantomcss.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
+  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --includes=$TEST_PATH/scripts/common.js,$TEST_PATH/scripts/drush.js,$TEST_PATH/scripts/phantomcss.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
 }
 
 #=== FUNCTION ==================================================================
