@@ -15,21 +15,11 @@
     margin: 18px 0;
   }
 
-  .field-name-field-first-name {
+  .auth--twocol {
     @include media($tablet) {
       float: left;
       width: 50%;
       padding-right: 9px;
-      @include box-sizing(border-box);
-    }
-  }
-
-  .field-name-field-birthdate {
-    @include media($tablet) {
-      float: left;
-      width: 50%;
-      padding-left: 9px;
-      @include box-sizing(border-box);
     }
   }
 }
