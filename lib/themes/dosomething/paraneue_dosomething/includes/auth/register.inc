@@ -57,7 +57,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
-    
+
     // If last name is shown, make first name full width
     if (isset($form['field_last_name'])) {
       $form['field_first_name']['#attributes']['class'] = array();
@@ -69,7 +69,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       $form['field_last_name']['#weight'] = '-19';
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What\'s your P.E. teacher call you?');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
-      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'last_name';
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
     }
 
