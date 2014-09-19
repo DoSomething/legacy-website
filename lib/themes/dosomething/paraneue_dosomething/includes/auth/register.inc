@@ -52,19 +52,25 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
 
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
+    $form['field_first_name']['#attributes']['class'] = array('auth--twocol');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What do we call you?');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
 
+    // If last name is shown, make first name full width
+    if (isset($form['field_last_name'])) {
+      $form['field_first_name']['#attributes']['class'] = array();
+    }
+
     // If the last name field is present:
     // @see _dosomething_user_register_display_fields().
     if (isset($form['field_last_name'])) {
       $form['field_last_name']['#weight'] = '-19';
-      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What does your P.E. teacher call you?');
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What\'s your P.E. teacher call you?');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
-      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
-      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';   
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'last_name';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate-required'] = '';
     }
 
     $form['account']['mail']['#weight'] = 10;
@@ -103,7 +109,8 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
  *  Modified drupal form.
  */
 function paraneue_dosomething_register_after_build($form, &$form_state) {
-  $form['field_birthdate']['#weight'] = '-19';
+  $form['field_birthdate']['#weight'] = '-18';
+  $form['field_birthdate']['#attributes']['class'] = array('auth--twocol');
   $form['field_birthdate'][LANGUAGE_NONE][0]['#theme_wrappers'] = array('form_element');
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['class'] = array('js-validate');
@@ -113,6 +120,11 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = t('Birthday');
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
   unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
+
+  // If last name is shown, make first name full width
+  if (isset($form['field_last_name'])) {
+    $form['field_birthdate']['#attributes']['class'] = array();
+  }
 
   $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('6+ characters... make it tricky!');
   $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
