@@ -120,7 +120,8 @@ function runIntegrationTests() {
     });
 
     _casperFiles = getFiles(_casperFiles);
-    console.log("Running %d integration tests with CasperJS...".bold.underline.yellow, _casperFiles.length);
+    console.log("Running %d integration test suites with CasperJS...".bold.underline.yellow, _casperFiles.length);
+    console.log( _casperFiles.join("\n").grey );
   }
 
   var _casperIncludes = [
