@@ -112,7 +112,11 @@ function runIntegrationTests() {
   var _casperFiles;
   if(config.casperjs) {
     _casperFiles = _.map(config.casperjs, function(glob) {
-      return __dirname + "/../tests/integration/" + glob + ".{js,coffee}"
+      if(glob.charAt(0) === "!") {
+        return "!" + __dirname + "/../tests/integration/" + glob.substr(1) + ".{js,coffee}"
+      } else {
+        return __dirname + "/../tests/integration/" + glob + ".{js,coffee}"
+      }
     });
 
     _casperFiles = getFiles(_casperFiles);
