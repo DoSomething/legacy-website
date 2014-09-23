@@ -1,11 +1,10 @@
-var campaign, user;
+var user;
 
 casper.test.begin("Test that a logged-out user can log in & sign up for a campaign.", 1, {
   /*
    * Prepare campaign from fixture.
    */
   setUp: function() {
-    campaign = casper.createCampaign("campaign.json");
     user = casper.createTestUser();
   },
 
@@ -13,14 +12,13 @@ casper.test.begin("Test that a logged-out user can log in & sign up for a campai
    * Delete test nodes.
    */
   tearDown: function() {
-    casper.deleteAllTestNodes();
-    casper.deleteUserWithEmail(user.email);
+    casper.deleteUser(user.uid);
     phantom.clearCookies();
   },
 
 
   test: function(test) {
-    casper.start(campaign.url, function(){
+    casper.start(CAMPAIGN.url, function(){
       // We expect to see a sign up button, and to be able to click it to sign up.
       this.waitUntilVisible("#link--campaign-signup-login", function() {
         this.click("#link--campaign-signup-login");

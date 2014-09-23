@@ -2,18 +2,9 @@
  * Helper methods and variables for capser test suite.
  */
 
-var pwd = require('system').env['PWD'];
-var ROOT = pwd;
-
-// Define the url for all tests.
-var url = casper.cli.get('url');
-
-// Set some static strings
-var CAMPAIGN_SIGNUP_MESSAGE = "You're signed up for";
-
-// Set default viewport for all tests.
-casper.options.viewportSize = { width: 1280, height: 1024 };
-
+/**
+ * Log an action to the Casper console output.
+ */
 casper.logAction = function(action) {
   casper.echo(action, "PARAMETER");
 }
@@ -22,6 +13,8 @@ casper.logAction = function(action) {
  * Remove test IPs from flood table (preventing tests from failing after repeated failed logins).
  */
 casper.clearFloodTable = function() {
+  casper.logAction("Removing localhost entries from flood table...")
+  
   // Remove failed login attempts from localhost (tests on Vagrant boxes).
   casper.drush(["sql-query", "DELETE FROM flood WHERE identifier LIKE '%127.0.0.1';"]);
 

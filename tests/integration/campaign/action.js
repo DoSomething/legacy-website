@@ -4,24 +4,22 @@
  */
 
 var x = require('casper').selectXPath;
-var campaign, user;
+var user;
 
 casper.test.begin("Test action page is rendered and functions correctly", {
   /*
-   * Prepare campaign from fixture.
+   * Prepare CAMPAIGN from fixture.
    */
   setUp: function() {
-    campaign = casper.createCampaign("campaign.json");
     user = casper.createTestUser();
-    casper.campaignSignup(campaign.nid, user.uid);
+    casper.campaignSignup(CAMPAIGN.nid, user.uid);
   },
 
   /*
    * Delete test nodes.
    */
   tearDown: function() {
-    casper.deleteAllTestNodes();
-    casper.deleteUserWithEmail(user.email);
+    casper.deleteUser(user.uid);
     phantom.clearCookies();
   },
 
@@ -30,11 +28,10 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     casper.login(user.email, user.password);
     
     // ## Header 
-    casper.thenOpen(campaign.url, function() {
-      this.capture("yo.png");
-      // We expect to see the title and subtitle of the campaign
-      test.assertSelectorHasText("header[role='banner'].-hero .__title", campaign.data.title, "Title of campaign is printed in H1.");
-      test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", campaign.data.call_to_action, "Subtitle of campaign is printed in H2.");
+    casper.thenOpen(CAMPAIGN.url, function() {
+      // We expect to see the title and subtitle of the CAMPAIGN
+      test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
+      test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
     });
 
     // ## Content
@@ -55,13 +52,13 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     });
 
     // ## Know It
-    casper.thenOpen(campaign.url, function() {
+    casper.thenOpen(CAMPAIGN.url, function() {
       test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
 
       this.wait(1000, function() { // let's make sure JS has loaded before clicking modal link
         casper.click(x('//*[text()="Check out our FAQs"]'));
         this.waitUntilVisible("#modal-faq", function() {
-          test.assertSelectorHasText("#modal-faq", campaign.data.faq[0].header, "FAQ displays in modal on click.");
+          test.assertSelectorHasText("#modal-faq", CAMPAIGN.data.faq[0].header, "FAQ displays in modal on click.");
         });
       });
     });
@@ -74,9 +71,9 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     });
 
     casper.then(function() {
-      casper.click(x('//*[text()="Learn more about ' + campaign.data.issue + '"]'));
+      casper.click(x('//*[text()="Learn more about ' + CAMPAIGN.data.issue + '"]'));
       this.waitUntilVisible("#modal-facts", function() {
-        test.assertSelectorHasText("#modal-facts", campaign.data.facts[0].title, "Fact displays in modal on click.");
+        test.assertSelectorHasText("#modal-facts", CAMPAIGN.data.facts[0].title, "Fact displays in modal on click.");
       });
     });
     
@@ -128,13 +125,13 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     // Confirmation page
     casper.then(function() {
       test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
-      test.assertSelectorHasText("header[role='banner'] .__subtitle", campaign.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
+      test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
 
       test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
     });
 
     // Check that reportback submitted successfully.
-    casper.thenOpen(campaign.url, function() {
+    casper.thenOpen(CAMPAIGN.url, function() {
       test.assertSelectorHasText("#link--report-back", "Update Submission", "Report back button changed to 'Update Submission'.");
       casper.click("#link--report-back");
       this.waitUntilVisible("[data-modal]", function() {
