@@ -499,79 +499,9 @@ function check_alias_param {
   fi
 }
 
-#=== FUNCTION ==================================================================
-# NAME: integration_tests
-# DESCRIPTION: Runs functional tests using CasperJS.
-#===============================================================================
-function integration_tests {
-  # Make sure latest project NPM dependencies are installed
-  cd $BASE_PATH
-  npm install
-
-  # Optionally, specify an individual test or directory to run
-  TEST=$1
-
-  # An alternative test environment can be set using the $DS_TEST_HOSTNAME environment variable
-  DS_TEST_HOSTNAME="${DS_TEST_HOSTNAME:=http://dev.dosomething.org:8888}"
-
-  # Run integration tests.
-  cd $BASE_PATH
-  printf "\n\033[1;33mRunning integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $TEST_PATH/integration/$TEST --url=$DS_TEST_HOSTNAME --includes=$TEST_PATH/scripts/config.js,$TEST_PATH/scripts/common.js,$TEST_PATH/scripts/drush.js,$TEST_PATH/scripts/phantomcss.js --xunit=$BASE_PATH/tmp/integration-test-results.xml
-}
-
-#=== FUNCTION ==================================================================
-# NAME: intl_integration_tests
-# DESCRIPTION: Runs affiliate-specific integration tests
-#===============================================================================
-function intl_integration_tests {
-  # Make sure latest project NPM dependencies are installed
-  cd $BASE_PATH
-  npm install
-
-  AFFILIATE=$1
-  AFFILIATE_TEST_PATH="$TEST_PATH/integration-intl/$AFFILIATE"
-  if [[ ! -d "$AFFILIATE_TEST_PATH" ]]; then
-    printf "\n\033[1;33mIntegration tests do not exist for $1.\033[00m\n"
-    return 1
-  fi
-
-  # Optionally, specify an individual test or directory to run
-  TEST=$2
-
-  # An alternative test environment can be set using the $DS_TEST_HOSTNAME environment variable
-  DS_TEST_HOSTNAME="${DS_TEST_HOSTNAME:=http://dev.dosomething.org:8888}"
-
-  # Run integration tests.
-  cd $BASE_PATH
-  printf "\n\033[1;33mRunning $AFFILIATE integration tests on $DS_TEST_HOSTNAME...\033[00m\n"
-  casperjs test $AFFILIATE_TEST_PATH/$TEST --fail-fast --url=$DS_TEST_HOSTNAME --includes=$TEST_PATH/scripts/common.js,$TEST_PATH/scripts/drush.js,$TEST_PATH/scripts/randomuser.js --xunit=$BASE_PATH/tmp/integration-intl-test-results.xml
-}
-
-#=== FUNCTION ==================================================================
-# NAME: unit_tests 
-# DESCRIPTION: Runs unit tests using Mocha. 
-#===============================================================================
-function unit_tests {
-  # Make sure latest project NPM dependencies are installed
-  cd $BASE_PATH
-  npm install
-
-  printf "\n\033[1;33mRunning JavaScript unit tests with Mocha...\033[00m\n"
-  if [[ $DS_MOCHA_OUTPUT == "xunit" ]]
-  then
-    mocha-phantomjs $TEST_PATH/unit/index.html -R xunit > $BASE_PATH/tmp/mocha.xml
-    printf "\n\033[1;33mOutputted results to $BASE_PATH/tmp/mocha.xml\033[00m\n"
-  else
-    mocha-phantomjs $TEST_PATH/unit/index.html -R spec
-  fi
-}
-
-
 # ==============================================================================
 # Commands
 # ==============================================================================
-
 
 #----------------------------------------------------------------------
 # help
@@ -675,17 +605,6 @@ fi
 #----------------------------------------------------------------------
 if [[ $1 == "test" ]]
 then
-  if [[ $2 == "--unit" ]]
-  then
-    unit_tests
-  elif [[ $2 == "--integration" ]]
-  then
-    integration_tests $3
-  elif [[ $2 == "--intl-integration" ]]
-  then
-    intl_integration_tests $3 $4
-  else
-    unit_tests
-    integration_tests
-  fi
+  shift
+  $BASE_PATH/bin/test $@
 fi
