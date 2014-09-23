@@ -176,7 +176,8 @@
     form {
       .message-callout {
         margin: 0 auto;
-        width: 270px;
+        text-align: center;
+        width: 215px;
 
         @include media($tablet) {
           margin: 0;
