@@ -148,7 +148,6 @@ function runIntegrationTests() {
   var casperCmd = [
     "casperjs test",
     _casperFiles.join(" "),
-    "--fail-fast",
     "--includes=" + _casperIncludes.join(","),
     "--url=" + _casperURL,
     _casperXUnit,
