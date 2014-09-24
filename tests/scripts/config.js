@@ -8,8 +8,8 @@ var url = casper.cli.get('url');
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
 var CAMPAIGN = {
-  nid: 1535,
-  url: url + "/node/" + 1535,
+  nid: 1485,
+  url: url + "/node/" + 1485,
   data: require(ROOT + "/tests/fixtures/campaign.json")
 }
 
