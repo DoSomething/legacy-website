@@ -36,36 +36,37 @@ program
 
 // Load a configuration file from the tests/config directory:
 if(program.args.length) {
-  config = require("../tests/config/" + program.args[0] + ".json");
+  configPath = program.args[0];
 } else {
-  console.log("Running tests with `default` configuration.".bold.blue)
-  config = require("../tests/config/default.json");
+  configPath = "default";
 }
 
-// Set or override unit tests with --unit [test]:
-if(program.mocha) {
+console.log("Running tests with '%s' configuration.".bold.blue, configPath);
+config = require("../tests/config/" + configPath + ".json");
+
+// Set or override unit tests with --mocha [test]:
+if(!_.isUndefined(program.mocha)) {
   config.mocha = program.mocha;
 }
 
-// Set or override integration tests with --integration [test]:
-if(program.casperjs) {
-  integrationFiles = getFiles("tests/integration" + program.casperjs + ".{js,coffee}");
-  console.log(integrationFiles);
+// Set or override integration tests with --casperjs [test]:
+if(!_.isUndefined(program.casperjs)) {
+  config.casperjs = [program.casperjs];
 }
 
 // Toggle verbose output with --verbose:
 if(program.url) {
-  config.url = program.url;  
+  config.url = program.url;
 }
 
 // Toggle XUnit XML output with --xunit:
 if(program.xunit) {
-  config.xunit = true;  
+  config.xunit = true;
 }
 
 // Set or override CasperJS URL with --url [url]:
 if(program.verbose) {
-  config.verbose = true;  
+  config.verbose = true;
 }
 
 // Start 'er up.
