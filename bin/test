@@ -143,8 +143,8 @@ function runIntegrationTests() {
   }
 
   var _casperXUnit = "";
-  if(config.verbose) {
-    _casperXUnit = "--xunit=" + __dirname + "../tmp/tests/integration-test-results.xml";
+  if(config.xunit) {
+    _casperXUnit = "--xunit=" + __dirname + "/../tmp/tests/integration-test-results.xml";
   }
 
   var casperCmd = [
