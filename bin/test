@@ -97,7 +97,7 @@ function runUnitTests(callback) {
     }
 
     if(config.xunit) {
-      fs.writeFileSync(__dirname + '/../tmp/mocha-test-results.xml', output);
+      fs.writeFileSync(__dirname + '/../tmp/tests/mocha-test-results.xml', output);
       console.log("Wrote Mocha test results to file.".bold.blue);
     }
 
@@ -144,7 +144,7 @@ function runIntegrationTests() {
 
   var _casperXUnit = "";
   if(config.verbose) {
-    _casperXUnit = "--xunit=" + __dirname + "../tmp/integration-test-results.xml";
+    _casperXUnit = "--xunit=" + __dirname + "../tmp/tests/integration-test-results.xml";
   }
 
   var casperCmd = [
