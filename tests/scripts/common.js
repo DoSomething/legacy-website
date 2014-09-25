@@ -142,6 +142,11 @@ casper.timestampCapture = function(label) {
   casper.capture(ROOT + "/tmp/tests/screenshots/" + filename);
 }
 
+// Take a screenshot when a test fails
+casper.test.on("fail", function(failure) {
+  casper.timestampCapture("fail");
+});
+
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown
 //        method on a particular test.
