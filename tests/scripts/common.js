@@ -51,25 +51,37 @@ casper.createUser = function(email, password) {
 casper.getUserWithEmail = function(email, password) {
   casper.logAction("Getting user information for '" + email + "'...");
   var info = casper.drush(['user-information', email], true);
-  var userKeys = Object.keys(info);
 
-  var response = {
-    uid: info[userKeys[0]].uid,
-    username: info[userKeys[0]].name,
-    email: info[userKeys[0]].mail,
-  }
+  if(info) {
+    var userKeys = Object.keys(info);
 
-  if(password) {
-    response.password = password;
-  }
+    var response = {
+      uid: info[userKeys[0]].uid,
+      username: info[userKeys[0]].name,
+      email: info[userKeys[0]].mail,
+    }
 
-  return response;
+    if(password) {
+      response.password = password;
+    }
+
+    return response;
+  } 
+
+
+  // If `info` is not defined, user didn't exist.
+  casper.echo("User with email '" + email + "' does not exist.", "WARNING");
+  return false;
 };
 
 casper.deleteUserWithEmail = function(email) {
   casper.logAction("Deleting user with email '" + email + "'...");
-  var uid = casper.getUserWithEmail(email).uid;
-  casper.deleteUser(uid);
+  var user = casper.getUserWithEmail(email);
+  if(user) {
+    casper.deleteUser(user.uid);
+  } else {
+    casper.logAction("Skipping delete...");
+  }
 };
 
 casper.deleteUser = function(uid) {
@@ -118,7 +130,7 @@ casper.login = function(username, password) {
     if(casper.exists(".messages.error")) {
       casper.log(this.getElementInfo(".messages.error").text, "warning");
     }
-  })
+  });
 }
 
 // Use to log out after completing a test.
