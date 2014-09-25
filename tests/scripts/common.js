@@ -132,6 +132,16 @@ casper.logout = function() {
   });
 }
 
+// Capture a screenshot with timestamp to tmp directory.
+casper.timestampCapture = function(label) {
+  label = (typeof label === "string" ? label : "");
+
+  var timestamp = new Date().getTime();
+  var filename = timestamp + "-" + label + ".png";
+  casper.echo("Captured screenshot to `tmp/tests/screenshots/" + filename + "`.", "PARAMETER");
+  casper.capture(ROOT + "/tmp/tests/screenshots/" + filename);
+}
+
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown
 //        method on a particular test.
