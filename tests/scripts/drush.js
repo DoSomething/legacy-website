@@ -73,7 +73,7 @@ casper.drush = function(command, json) {
 
     this.log("Drush command output: " + output);
 
-    if(json) {
+    if(json && typeof output !== "undefined") {
       output = JSON.parse(output);
     }
 
