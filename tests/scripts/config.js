@@ -7,9 +7,6 @@ var url = casper.cli.get('url');
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
-// Increase timeout.
-casper.options.waitTimeout = 20000;
-
 var CAMPAIGN = {
   nid: 1485,
   url: url + "/node/" + 1485,
