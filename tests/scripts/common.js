@@ -130,7 +130,7 @@ casper.login = function(username, password) {
     if(casper.exists(".messages.error")) {
       casper.log(this.getElementInfo(".messages.error").text, "warning");
     }
-  })
+  });
 }
 
 // Use to log out after completing a test.
