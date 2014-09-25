@@ -159,6 +159,11 @@ casper.test.on("fail", function(failure) {
   casper.timestampCapture("fail");
 });
 
+// Output JavaScript errors to CasperJS log.
+casper.on("page.error", function(msg, trace) {
+  this.echo("Error: " + msg, "ERROR");
+});
+
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown
 //        method on a particular test.

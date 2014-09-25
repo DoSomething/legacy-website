@@ -53,6 +53,9 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     // ## Know It
     casper.thenOpen(CAMPAIGN.url, function() {
+      console.log("WAITING FOR LOAD");
+      casper.waitForLoad();
+      console.log("HI");
       test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
 
       this.wait(1000, function() { // let's make sure JS has loaded before clicking modal link
