@@ -53,10 +53,9 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     // ## Know It
     casper.thenOpen(CAMPAIGN.url, function() {
-      console.log("WAITING FOR LOAD");
-      casper.waitForLoad();
-      console.log("HI");
-      test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
+      casper.waitWhileVisible("[data-modal]", function() {
+        test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
+      });
 
       this.wait(1000, function() { // let's make sure JS has loaded before clicking modal link
         casper.click(x('//*[text()="Check out our FAQs"]'));
@@ -111,7 +110,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     // ## Report Back
     casper.then(function() {
       casper.click(x('//*[text()="Submit Your Pic"]'));
-      this.waitUntilVisible("[data-modal]", function() {
+      this.waitUntilVisible("#modal-report-back", function() {
         test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
       });
     });
