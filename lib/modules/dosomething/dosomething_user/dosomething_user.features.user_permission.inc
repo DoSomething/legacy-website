@@ -173,15 +173,6 @@ function dosomething_user_user_default_permissions() {
     'module' => 'locale',
   );
 
-  // Exported permission: 'administer mobilecommons'.
-  $permissions['administer mobilecommons'] = array(
-    'name' => 'administer mobilecommons',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'mobilecommons',
-  );
-
   // Exported permission: 'administer module filter'.
   $permissions['administer module filter'] = array(
     'name' => 'administer module filter',
