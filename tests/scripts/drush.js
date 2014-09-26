@@ -1,11 +1,18 @@
-/** Helper functions */
-function isArray(o) {
-  return Object.prototype.toString.call(o) === '[object Array]';
-}
-
+/**
+ * @file
+ * Allow CasperJS tests to interact with local Drush installation.
+ */
 
 /**
- * Execute a drush command.
+ * Check if given object is an array.
+ * @returns {boolean} If true, object is an array.
+ */
+var isArray = function(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
+}
+
+/**
+ * Execute a Drush command.
  * Adapted from https://bitbucket.org/davereid/drush-casperjs/
  *
  * @param command
@@ -82,3 +89,4 @@ casper.drush = function(command, json) {
 
   return false;
 };
+
