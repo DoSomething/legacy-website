@@ -240,6 +240,10 @@ projects[stage_file_proxy][subdir] = "contrib"
 libraries[messagebroker-phplib][download][type] = "git"
 libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
 
+; Message Broker Configuration
+libraries[messagebroker-config][download][type] = "git"
+libraries[messagebroker-config][download][url] = "https://github.com/DoSomething/messagebroker-config.git"
+
 ; Mobile Commons PHP
 libraries[mobilecommons-php][download][type] = "git"
 libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
