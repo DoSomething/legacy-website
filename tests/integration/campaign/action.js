@@ -48,7 +48,13 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       phantomcss.screenshot("#plan", "step2");
       phantomcss.screenshot("#do", "step3");
       phantomcss.screenshot("#prove", "step4");
-      phantomcss.compareAll();
+
+      phantomcss.compareExplicit([
+        ROOT + '/tests/visual/step1.diff.png',
+        ROOT + '/tests/visual/step2.diff.png',
+        ROOT + '/tests/visual/step3.diff.png',
+        ROOT + '/tests/visual/step4.diff.png'
+      ]);
     });
 
     // ## Know It

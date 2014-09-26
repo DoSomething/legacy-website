@@ -1,9 +1,11 @@
 /**
- * Helper methods and variables for capser test suite.
+ * @file
+ * Helper methods and default settings for CasperJS test suites.
  */
 
 /**
  * Log an action to the Casper console output.
+ * @param {string} action - Action to be logged. Use present-tense.
  */
 casper.logAction = function(action) {
   casper.echo(action, "PARAMETER");
@@ -22,10 +24,17 @@ casper.clearFloodTable = function() {
   casper.drush(["sql-query", "DELETE FROM flood WHERE identifier LIKE '%192.168.1.161';"]);
 };
 
+
+/**
+ * Generate a randomized fake email.
+ */
 casper.randomEmail = function() {
   return Date.now() + "@example.com";
 };
 
+/**
+ * Generate a randomized 8-character password string.
+ */
 casper.randomPassword = function() {
   return Math.random().toString(36).slice(-8);
 };
@@ -41,6 +50,8 @@ casper.createTestUser = function() {
 
 /**
  * Create a user with the given email and password.
+ * @param {string} email - Email to create user with
+ * @param {string} password - Password for user account
  */
 casper.createUser = function(email, password) {
   casper.logAction("Creating user with email '" + email + "' and password '" + password + "'...");
@@ -48,6 +59,11 @@ casper.createUser = function(email, password) {
   return casper.getUserWithEmail(email, password);
 };
 
+/**
+ * Get information for user with a given email.
+ * @param {string} user - Email address to retrieve account info for.
+ * @param {string} [password] - Optionally, include this unhashed password in user object.
+ */
 casper.getUserWithEmail = function(email, password) {
   casper.logAction("Getting user information for '" + email + "'...");
   var info = casper.drush(['user-information', email], true);
@@ -74,6 +90,10 @@ casper.getUserWithEmail = function(email, password) {
   return false;
 };
 
+/**
+ * Delete the user with a given email.
+ * @param {string} email - Email address associated with user account
+ */
 casper.deleteUserWithEmail = function(email) {
   casper.logAction("Deleting user with email '" + email + "'...");
   var user = casper.getUserWithEmail(email);
@@ -84,37 +104,28 @@ casper.deleteUserWithEmail = function(email) {
   }
 };
 
+/**
+ * Delete the user with a given ID.
+ * @param {int} uid - User ID
+ */
 casper.deleteUser = function(uid) {
   casper.logAction("Deleting user '" + uid + "'...");
   casper.drush(["user-cancel", uid, "-y"]);
 };
 
-casper.createCampaign = function(fixture) {
-  casper.logAction("Creating campaign from fixture '" + fixture + "'...");
-  var drush_campaign = casper.drush(["campaign-create", "../tests/fixtures/" + fixture]);
-  var nid = drush_campaign.replace(/[^0-9]/g, "");
-
-  var data = require(ROOT + "/tests/fixtures/" + fixture);
-
-  return {
-    nid: nid,
-    url: url + "/node/" + nid,
-    data: data
-  };
-};
-
-
-casper.deleteAllTestNodes = function(fixture) {
-  casper.logAction("Clearing all test nodes...");
-  casper.drush(["test-node-delete"]);
-};
-
+/**
+ * Directly sign a user up for a given campaign.
+ * @param {int} nid - Node ID of the campaign
+ * @param {int} uid - User ID of the user
+ */
 casper.campaignSignup = function(nid, uid) {
   casper.logAction("Signing user '" + uid + "' up for campaign '" + nid + "'...");
   casper.drush(["php-eval", "dosomething_signup_create(" + nid + ", " + uid + ");"]);
 };
 
-// Use to log in before performing a test.
+/**
+ * Log in a user with the given username and password
+ */
 casper.login = function(username, password) {
   casper.logAction("Logging in as '" + username + "'...");
 
@@ -133,7 +144,9 @@ casper.login = function(username, password) {
   });
 }
 
-// Use to log out after completing a test.
+/**
+ * Log the current user out of the site.
+ */
 casper.logout = function() {
   casper.logAction("Logging out of current user...");
 
@@ -144,7 +157,10 @@ casper.logout = function() {
   });
 }
 
-// Capture a screenshot with timestamp to tmp directory.
+/**
+ * Capture a screenshot with timestamp to tmp directory.
+ * @param {string} label - Label appended to end of filename.
+ */
 casper.timestampCapture = function(label) {
   label = (typeof label === "string" ? label : "");
 
@@ -153,6 +169,10 @@ casper.timestampCapture = function(label) {
   casper.echo("Captured screenshot to `tmp/tests/screenshots/" + filename + "`.", "PARAMETER");
   casper.capture(ROOT + "/tmp/tests/screenshots/" + filename);
 }
+
+/**
+ * Configure default CasperJS options.
+ */
 
 // Take a screenshot when a test fails
 casper.test.on("fail", function(failure) {
@@ -163,6 +183,9 @@ casper.test.on("fail", function(failure) {
 casper.on("page.error", function(msg, trace) {
   this.echo("Error: " + msg, "ERROR");
 });
+
+// Set default viewport for all tests.
+casper.options.viewportSize = { width: 1280, height: 1024 };
 
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown

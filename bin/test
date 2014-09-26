@@ -126,7 +126,7 @@ function runIntegrationTests() {
   }
 
   var _casperIncludes = [
-    __dirname + "/../tests/scripts/config.js",
+    __dirname + "/../tests/scripts/variables.js",
     __dirname + "/../tests/scripts/common.js",
     __dirname + "/../tests/scripts/drush.js",
     __dirname + "/../tests/scripts/phantomcss.js",
