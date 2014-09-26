@@ -126,10 +126,12 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     // Confirmation page
     casper.then(function() {
-      test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
-      test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
+      this.waitUntilVisible(".page-campaigns-confirmation", function() {
+        test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
+        test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
 
-      test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
+        test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
+      });
     });
 
     // Check that reportback submitted successfully.
