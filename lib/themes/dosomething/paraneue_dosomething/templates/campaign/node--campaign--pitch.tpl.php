@@ -15,9 +15,9 @@
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php if (isset($signup_button)): ?>
+      <?php if (isset($signup_button_primary)): ?>
         <div class="__signup">
-          <?php print render($signup_button); ?>
+          <?php print render($signup_button_primary); ?>
           <?php print $campaign_scholarship; ?>
         </div>
       <?php endif; ?>
@@ -59,7 +59,9 @@
     <div class="cta">
       <div class="wrapper">
         <h2 class="__message"><?php print $campaign->secondary_call_to_action; ?></h2>
-        <?php print render($signup_button); ?>
+        <?php if (isset($signup_button_secondary)): ?>
+          <?php print render($signup_button_secondary); ?>
+        <?php endif; ?>
       </div>
     </div>
   <?php endif; ?>

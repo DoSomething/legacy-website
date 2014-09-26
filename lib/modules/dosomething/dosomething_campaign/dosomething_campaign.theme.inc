@@ -301,7 +301,10 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   $vars['campaign']->is_pitch_page = TRUE;
   // Check for a signup button copy override.
   $label = $vars['campaign']->variables['signup_form_submit_label'];
-  dosomething_signup_preprocess_signup_button($vars, $label);
+  // Adds signup_button_primary variable.
+  dosomething_signup_preprocess_signup_button($vars, $label, NULL, 'primary');
+  // Adds signup_button_secondary variable.
+  dosomething_signup_preprocess_signup_button($vars, $label, NULL, 'secondary');
 }
 
 /**

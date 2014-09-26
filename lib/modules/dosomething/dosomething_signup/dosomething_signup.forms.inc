@@ -6,6 +6,25 @@
  */
 
 /**
+ * Implements hook_forms().
+ *
+ * Allows dosomething_signup_form to render multiple times on auth pitch page.
+ */
+function dosomething_signup_forms($form_id, $args) {
+  // If this is one of multiple signup forms rendered on the page:
+  if (strpos($form_id, 'dosomething_signup_form_') === 0) {
+    // Set its callback and callback arguments:
+    $forms[$form_id] = array(
+      // Set the callback as dosomething_signup_form.
+      'callback' => 'dosomething_signup_form',
+      // Pass the relevant $args to it.
+      'callback arguments' => $args,
+    );
+  }
+  return $forms;
+}
+
+/**
  * Form constructor for user signup form.
  *
  * Displayed for an authenticated user to signup for a node.
