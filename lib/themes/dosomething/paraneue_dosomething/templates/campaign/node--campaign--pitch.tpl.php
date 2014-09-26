@@ -39,4 +39,13 @@
 
   </div>
 
+  <?php if (isset($campaign->secondary_call_to_action)): ?>
+  <div class="cta">
+    <div class="wrapper">
+      <h2 class="__message"><?php print $campaign->secondary_call_to_action; ?></h2>
+      <?php print render($signup_button); ?>
+    </div>
+  </div>
+  <?php endif; ?>
+
 </section>
