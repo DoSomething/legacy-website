@@ -267,6 +267,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
+
   // If the user has submitted form already:
   if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
     // Get filtered form_submitted_copy.
@@ -280,11 +281,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     // Return form as is (without a submit button).
     return $form;
   }
+
   $form['copy'] = array(
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
     '#suffix' => '</p>',
   );
+
+  // If we are colleciting User address:
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form, $form_state);
     if (isset($config['shipment_item'])) {
@@ -300,6 +304,18 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       }
     }
   }
+
+  // If we are collecting User school:
+  if ($config['collect_user_school']) {
+    // Add it as a form element.
+    $form['school_id'] = array(
+      // @todo: Make me a hidden element for front-end autocomplete.
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => t("School ID"),
+    );
+  }
+
   // If we are collecting why_signedup:
   if ($config['collect_why_signedup']) {
     // Add it as a form element.
@@ -356,6 +372,9 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
       // Save the shipment entity.
       $shipment->save();
     }
+  }
+  if ($config['collect_user_school']) {
+    dosomething_user_save_school_id($values['school_id']);
   }
   // Update signup record.
   dosomething_signup_update_signup_data($values);
