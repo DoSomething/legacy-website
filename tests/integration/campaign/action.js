@@ -130,11 +130,8 @@ casper.test.begin("Test action page is rendered and functions correctly", {
           "why_participated": "Test response."
         }, true);
       });
-    });
 
-    // Confirmation page
-    casper.then(function() {
-      this.waitUntilVisible(".page-campaigns-confirmation", function() {
+      casper.waitForUrl(/confirmation/, function() {
         test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
         test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
 
@@ -143,7 +140,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     });
 
     // Check that reportback submitted successfully.
-    casper.thenOpen(CAMPAIGN.url, function() {
+    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       test.assertSelectorHasText("#link--report-back", "Update Submission", "Report back button changed to 'Update Submission'.");
       casper.click("#link--report-back");
       this.waitUntilVisible("[data-modal]", function() {
