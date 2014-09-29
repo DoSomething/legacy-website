@@ -288,7 +288,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</p>',
   );
 
-  // If we are colleciting User address:
+  // If we are collecting User address:
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form, $form_state);
     if (isset($config['shipment_item'])) {
