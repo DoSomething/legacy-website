@@ -12,6 +12,28 @@ casper.logAction = function(action) {
 }
 
 /**
+ * Wait until JavaScript is finished executing and page is ready.
+ * @param {function} callback - Code to execute after page is ready
+ */
+casper.thenWhenReady = function(fn) {
+    casper.then(function() {;
+      this.waitUntilVisible("html.js-ready");
+    });
+    
+    casper.then(fn);
+};
+
+/**
+ * Wait until JavaScript is finished executing and page is ready.
+ * @param {function} callback - Code to execute after page is ready
+ */
+casper.thenOpenWhenReady = function(url, fn) {
+  casper.thenOpen(url);
+  casper.thenWhenReady(fn);
+};
+
+
+/**
  * Remove test IPs from flood table (preventing tests from failing after repeated failed logins).
  */
 casper.clearFloodTable = function() {
