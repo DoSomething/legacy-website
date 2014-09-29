@@ -329,6 +329,40 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_school_id'
+  $field_instances['user-user-field_school_id'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_school_id',
+    'label' => 'School ID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 43,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_under_thirteen'
   $field_instances['user-user-field_under_thirteen'] = array(
     'bundle' => 'user',
@@ -408,6 +442,7 @@ function dosomething_user_field_default_field_instances() {
   t('First Name');
   t('Last Name');
   t('Partner / Sponsor');
+  t('School ID');
   t('Subscribe to SMS updates');
   t('Subscribe to our email newsletter');
   t('This field may be set if a User has been programatically created.');
