@@ -25,9 +25,9 @@
 
       <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
 
-      <?php if (isset($signup_button)): ?>
+      <?php if (isset($signup_button_primary)): ?>
         <div class="__signup">
-          <?php print render($signup_button); ?>
+          <?php print render($signup_button_primary); ?>
           <?php if (isset($scholarship)): ?>
             <div class="message-callout -below -white -dynamic-right">
               <div class="__copy">
@@ -195,6 +195,17 @@
 
       </div>
     </section>
+  <?php endif; ?>
+
+  <?php if (isset($signup_button_secondary)): ?>
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <?php if (isset($signup_button_secondary)): ?>
+          <?php print render($signup_button_secondary); ?>
+        <?php endif; ?>
+      </div>
+    </div>
   <?php endif; ?>
 
   <?php if ($info_bar): ?>
