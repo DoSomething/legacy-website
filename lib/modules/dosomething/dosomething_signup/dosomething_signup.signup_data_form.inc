@@ -125,9 +125,9 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
   );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_user_address'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect user address'),
+    '#title' => t('Collect User address'),
     '#default_value' => $values['collect_user_address'],
-    '#description' => t('If checked, collect the user address and save to profile.'),
+    '#description' => t('If checked, collect the User address and save to profile.'),
   );
   $shipment_item_options = array();
   if (module_exists('dosomething_shipment')) {
@@ -146,11 +146,17 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
       ),
     ),
   );
+  $form[$fieldset]['config']['elements'] [$prefix . 'collect_user_school'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect User school'),
+    '#default_value' => $values['collect_user_school'],
+    '#description' => t('If checked, collect the User school and save to profile.'),
+  );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_why_signedup'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect signup reason'),
+    '#title' => t('Collect Signup reason'),
     '#default_value' => $values['collect_why_signedup'],
-    '#description' => t('If checked, collect the reason why the user signed up for the campaign.'),
+    '#description' => t('If checked, collect the reason why the User signed up for the campaign.'),
   );
   $form[$fieldset]['config']['elements'][$prefix . 'why_signedup_label'] = array(
     '#type' => 'textarea',
@@ -227,6 +233,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
+        'collect_user_school' => $values[$prefix . 'collect_user_school'],
         'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
         'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
         'prevent_old_people_submit' => $values[$prefix . 'prevent_old_people_submit'],
