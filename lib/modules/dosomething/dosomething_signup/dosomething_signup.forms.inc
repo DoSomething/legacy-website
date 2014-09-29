@@ -20,8 +20,8 @@ function dosomething_signup_forms($form_id, $args) {
       // Pass the relevant $args to it.
       'callback arguments' => $args,
     );
+    return $forms;
   }
-  return $forms;
 }
 
 /**
