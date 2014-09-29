@@ -149,7 +149,7 @@ projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
 ; Services
-projects[services][version] = "3.7"
+projects[services][version] = "3.10"
 projects[services][subdir] = "contrib"
 
 ; Strongarm
