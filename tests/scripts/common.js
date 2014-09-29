@@ -209,6 +209,9 @@ casper.on("page.error", function(msg, trace) {
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
 
+// Increase default timeout from 5s to 10s.
+casper.options.waitTimeout = 10000;
+
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown
 //        method on a particular test.
