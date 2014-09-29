@@ -253,8 +253,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Hide specific fields from non-staff.
       if (!dosomething_user_is_staff()) {
         unset($form['field_partner']);
-        unset($form['picture']);
+        unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
+        unset($form['picture']);
       }
       // else if staff:
       else {
