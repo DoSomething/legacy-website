@@ -30,10 +30,15 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   }
   // If this is the User Signup Data Form:
   if ($form_id == 'dosomething_signup_user_signup_data_form') {
-    // If we aren't collecting a shirt, item_header won't be set.
+    // If we aren't collecting a shirt, we don't need to preprocess anything.
     // @see dosomething_signup_user_signup_data_form().
     if (isset($form['shipment_item']) && ($form['shipment_item']['#value'] != 'shirt')) {
       // Exit out.
+      return;
+    }
+    // If the form has been submitted already:
+    if (isset($form['submitted_copy'])) {
+      // We don't need to preprocess anything, exit.
       return;
     }
   }
