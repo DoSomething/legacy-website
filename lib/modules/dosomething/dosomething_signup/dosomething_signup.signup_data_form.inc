@@ -125,9 +125,9 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
   );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_user_address'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect user address'),
+    '#title' => t('Collect User address'),
     '#default_value' => $values['collect_user_address'],
-    '#description' => t('If checked, collect the user address and save to profile.'),
+    '#description' => t('If checked, collect the User address and save to profile.'),
   );
   $shipment_item_options = array();
   if (module_exists('dosomething_shipment')) {
@@ -146,11 +146,17 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
       ),
     ),
   );
+  $form[$fieldset]['config']['elements'] [$prefix . 'collect_user_school'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Collect User school'),
+    '#default_value' => $values['collect_user_school'],
+    '#description' => t('If checked, collect the User school and save to profile.'),
+  );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_why_signedup'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Collect signup reason'),
+    '#title' => t('Collect Signup reason'),
     '#default_value' => $values['collect_why_signedup'],
-    '#description' => t('If checked, collect the reason why the user signed up for the campaign.'),
+    '#description' => t('If checked, collect the reason why the User signed up for the campaign.'),
   );
   $form[$fieldset]['config']['elements'][$prefix . 'why_signedup_label'] = array(
     '#type' => 'textarea',
@@ -227,6 +233,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
         'confirm_msg' => $values[$prefix . 'confirm_msg'],
         'collect_user_address' => $values[$prefix . 'collect_user_address'],
+        'collect_user_school' => $values[$prefix . 'collect_user_school'],
         'collect_why_signedup' => $values[$prefix . 'collect_why_signedup'],
         'why_signedup_label' => $values[$prefix . 'why_signedup_label'],
         'prevent_old_people_submit' => $values[$prefix . 'prevent_old_people_submit'],
@@ -260,6 +267,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );
+
   // If the user has submitted form already:
   if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
     // Get filtered form_submitted_copy.
@@ -273,11 +281,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     // Return form as is (without a submit button).
     return $form;
   }
+
   $form['copy'] = array(
     '#prefix' => '<p>',
     '#markup' => $config['form_copy'],
     '#suffix' => '</p>',
   );
+
+  // If we are collecting User address:
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form, $form_state);
     if (isset($config['shipment_item'])) {
@@ -293,6 +304,18 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       }
     }
   }
+
+  // If we are collecting User school:
+  if ($config['collect_user_school']) {
+    // Add it as a form element.
+    $form['school_id'] = array(
+      // @todo: Make me a hidden element for front-end autocomplete.
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => t("School ID"),
+    );
+  }
+
   // If we are collecting why_signedup:
   if ($config['collect_why_signedup']) {
     // Add it as a form element.
@@ -349,6 +372,9 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
       // Save the shipment entity.
       $shipment->save();
     }
+  }
+  if ($config['collect_user_school']) {
+    dosomething_user_save_school_id($values['school_id']);
   }
   // Update signup record.
   dosomething_signup_update_signup_data($values);

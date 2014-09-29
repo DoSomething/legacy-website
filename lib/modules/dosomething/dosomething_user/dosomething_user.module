@@ -1114,3 +1114,17 @@ function dosomething_user_get_link_terms_service($text = 'Terms of Service') {
   $nid = variable_get('dosomething_user_node_terms_service', 1049);
   return l(t($text), 'node/' . $nid);
 }
+
+/**
+ * Saves given value to global user's field_school_id.
+ *
+ * @param string $school_id
+ *   Value to store in field_school_id.
+ */
+function dosomething_user_save_school_id($school_id) {
+  global $user;
+  $account = $user;
+  $edit = array();
+  $edit['field_school_id'] = array(LANGUAGE_NONE => array(0 => array('value' => $school_id)));
+  user_save($account, $edit);
+}
