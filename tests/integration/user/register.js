@@ -20,7 +20,7 @@ casper.test.begin("Test that a user can create an account.", 4, {
   test: function(test) {
     casper.start(url);
 
-    casper.then(function() {
+    casper.thenWhenReady(function() {
       // We reference the login link's ID to avoid a crazy selector.
       test.assertExists("#link--login", "Login link exists on page for anonymous user");
 

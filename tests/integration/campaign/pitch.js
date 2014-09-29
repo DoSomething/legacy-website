@@ -18,9 +18,9 @@ casper.test.begin("Test pitch page is rendered correctly", 2, {
    * Test that pitch page is rendered correctly.
    */
   test: function(test) {
-    casper.start(url);
-
-    casper.thenOpen(CAMPAIGN.url, function(){
+    casper.start(CAMPAIGN.url);
+    
+    casper.thenWhenReady(function(){
       // We expect to see the title of the campaign, "Test Campaign"
       test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
 

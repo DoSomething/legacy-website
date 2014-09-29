@@ -20,7 +20,7 @@ casper.test.begin("Test that a logged-in user can sign up for a campaign.", 1, {
     casper.start(url);
     casper.login(user.email, user.password);
 
-    casper.thenOpen(CAMPAIGN.url, function(){
+    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       // We expect to see a sign up button, and to be able to click it to sign up.
       casper.waitForSelector("#dosomething-signup-form-primary input[type='submit']", function() {
         this.click("#dosomething-signup-form-primary input[type='submit']");

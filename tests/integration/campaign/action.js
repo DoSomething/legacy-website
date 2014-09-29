@@ -28,7 +28,8 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     casper.login(user.email, user.password);
     
     // ## Header 
-    casper.thenOpen(CAMPAIGN.url, function() {
+
+    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       // We expect to see the title and subtitle of the CAMPAIGN
       test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
       test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
@@ -58,31 +59,35 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     });
 
     // ## Know It
-    casper.thenOpen(CAMPAIGN.url, function() {
-      casper.waitWhileVisible("[data-modal]", function() {
-        test.assertNotVisible("[data-modal]", "Modals are hidden on page load.")
-      });
 
-      this.wait(1000, function() { // let's make sure JS has loaded before clicking modal link
-        casper.click(x('//*[text()="Check out our FAQs"]'));
-        this.waitUntilVisible("#modal-faq", function() {
-          test.assertSelectorHasText("#modal-faq", CAMPAIGN.data.faq[0].header, "FAQ displays in modal on click.");
-        });
+    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
+      test.assertNotVisible("[data-modal]", "Modals are hidden on page load.");
+
+      this.click(x('//*[text()="Check out our FAQs"]'));
+
+      this.waitUntilVisible("#modal-faq", function() {
+        test.assertSelectorHasText("#modal-faq", CAMPAIGN.data.faq[0].header, "FAQ displays in modal on click.");
       });
     });
 
     casper.then(function() {
-      casper.click("#modal-faq .js-close-modal");
+      this.click("#modal-faq .js-close-modal");
+
       this.waitWhileVisible("#modal-faq", function() {
         test.assert(true, "Clicking the close button hides the modal.")
       });
     });
 
     casper.then(function() {
-      casper.click(x('//*[text()="Learn more about ' + CAMPAIGN.data.issue + '"]'));
+      this.click(x('//*[text()="Learn more about ' + CAMPAIGN.data.issue + '"]'));
+      
       this.waitUntilVisible("#modal-facts", function() {
         test.assertSelectorHasText("#modal-facts", CAMPAIGN.data.facts[0].title, "Fact displays in modal on click.");
       });
+    });
+
+    casper.then(function() {
+      this.click("#modal-facts .js-close-modal");
     });
     
     // ## Do It
@@ -93,7 +98,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       test.assertExists(tab1_active, "First tip is visible on page load.");
       test.assertDoesntExist(tab2_active, "Second tip is hidden on page load.");
 
-      casper.click("#tips-during [data-tab='2']");
+      this.click("#tips-during [data-tab='2']");
     });
 
     casper.then(function() {
@@ -118,17 +123,14 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       casper.click(x('//*[text()="Submit Your Pic"]'));
       this.waitUntilVisible("#modal-report-back", function() {
         test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
+        
+        this.fill("#dosomething-reportback-form", {
+          "files[reportback_file]": ROOT + "/tests/fixtures/reportback-image.png",
+          "quantity": "10",
+          "why_participated": "Test response."
+        }, true);
       });
     });
-
-    casper.then(function() {
-      this.fill("#dosomething-reportback-form", {
-        "files[reportback_file]": ROOT + "/tests/fixtures/reportback-image.png",
-        "quantity": "10",
-        "why_participated": "Test response."
-      }, true);
-    });
-
 
     // Confirmation page
     casper.then(function() {

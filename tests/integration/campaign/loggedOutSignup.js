@@ -18,7 +18,9 @@ casper.test.begin("Test that a logged-out user can log in & sign up for a campai
 
 
   test: function(test) {
-    casper.start(CAMPAIGN.url, function(){
+    casper.start(CAMPAIGN.url);
+
+    casper.thenWhenReady(function() {
       // We expect to see a sign up button, and to be able to click it to sign up.
       this.waitUntilVisible("#link--campaign-signup-login", function() {
         this.click("#link--campaign-signup-login");
