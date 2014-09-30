@@ -307,7 +307,11 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   // If we are collecting User school:
   if ($config['collect_user_school']) {
-    // Add it as a form element.
+    $form['school_administrative_area'] = array(
+      '#type' => 'select',
+      '#options' => dosomething_user_get_administrative_area_options(),
+      '#title' => t("Select state"),
+    );
     $form['school_id'] = array(
       // @todo: Make me a hidden element for front-end autocomplete.
       '#type' => 'textfield',
