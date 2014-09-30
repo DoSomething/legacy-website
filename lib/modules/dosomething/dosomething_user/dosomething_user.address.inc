@@ -144,3 +144,14 @@ function dosomething_user_save_address_values($values) {
   }
   user_save($account, $edit);
 }
+
+/**
+ * Returns list of administrative areas based on country.
+ */
+function dosomething_user_get_administrative_area_options($country = 'US') {
+  module_load_include('inc', 'addressfield', 'plugins/format/address');
+  $format = array();
+  $address['country'] = $country;
+  addressfield_format_address_generate($format, $address);
+  return $format['locality_block']['administrative_area']['#options'];
+}
