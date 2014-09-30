@@ -315,8 +315,11 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     $form['school_id'] = array(
       // @todo: Make me a hidden element for front-end autocomplete.
       '#type' => 'textfield',
-      '#required' => TRUE,
       '#title' => t("School ID"),
+    );
+    $form['school_not_affiliated'] = array(
+      '#type' => 'checkbox',
+      '#title' => t("I am not affiliated with a school."),
     );
   }
 
