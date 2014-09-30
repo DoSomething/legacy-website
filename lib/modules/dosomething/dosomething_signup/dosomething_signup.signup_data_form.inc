@@ -321,6 +321,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'checkbox',
       '#title' => t("I am not affiliated with a school."),
     );
+    $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
   }
 
   // If we are collecting why_signedup:
@@ -387,6 +388,20 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   dosomething_signup_update_signup_data($values);
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
+}
+
+/**
+ * Validates school input in the user Signup Data Form.
+ *
+ * @see dosomething_signup_user_signup_data_form().
+ */
+function dosomething_signup_user_signup_data_form_validate_school($form, &$form_state) {
+  $values = $form_state['values'];
+  // If "not affiliated" is unchecked and no school has been entered:
+  if ($values['school_not_affiliated'] != 1 && empty($values['school_id'])) {
+    // No form submit for you.
+    form_set_error('school_id', t("Please select a school."));
+  }
 }
 
 /**
