@@ -119,6 +119,24 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  // School settings.
+  $form['school'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('School'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // School API endpoint.
+  $var_name = 'dosomething_user_school_api_endpoint';
+  $form['school'][$var_name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('School API Endpoint'),
+    '#description' => t("URL to request school data, e.g. <em>http://lofischools.herokuapp.com/search</em>."),
+    '#default_value' => variable_get($var_name),
+  );
+
   // Development settings.
   $form['devel'] = array(
     '#type' => 'fieldset',
