@@ -72,7 +72,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       this.click("#modal-faq .js-close-modal");
 
       this.waitWhileVisible("#modal-faq", function() {
-        test.assert(true, "Clicking the close button hides the modal.")
+        test.assert(true, "Clicking the close button hides the FAQ modal.")
       });
     });
 
@@ -86,6 +86,10 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     casper.then(function() {
       this.click("#modal-facts .js-close-modal");
+
+      this.waitWhileVisible("#modal-facts", function() {
+        test.assert(true, "Clicking the close button hides the Fact modal.")
+      });
     });
     
     // ## Do It
@@ -114,6 +118,10 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     casper.then(function() {
       casper.click("#modal-contact-form .js-close-modal");
+
+      this.waitWhileVisible("#modal-contact-form", function() {
+        test.assert(true, "Clicking the close button hides the Contact Form modal.")
+      });
     });
 
     // ## Report Back
