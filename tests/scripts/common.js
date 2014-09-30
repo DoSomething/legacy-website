@@ -202,8 +202,12 @@ casper.test.on("fail", function(failure) {
 });
 
 // Output JavaScript errors to CasperJS log.
-casper.on("page.error", function(msg, trace) {
-  this.echo("Page Error: " + msg, "ERROR");
+casper.on("page.error", function(msg, stack) {
+  casper.echo("Page Error: " + msg, "ERROR");
+  stack.forEach(function(trace) {
+    var line = trace.file + ": Line " + trace.line + " ( " + trace.function + ")";
+    casper.echo(line, "WARNING");
+  });
 });
 
 // Set default viewport for all tests.
