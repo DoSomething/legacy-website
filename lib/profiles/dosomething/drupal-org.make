@@ -189,6 +189,10 @@ projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished
 projects[views][version] = "3.8"
 projects[views][subdir] = "contrib"
 
+; Views Data Export
+projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][subdir] = "contrib"
+
 ; XML Sitemap
 projects[xmlsitemap][version] = "2.0"
 projects[xmlsitemap][subdir] = "contrib"
