@@ -152,6 +152,12 @@ function dosomething_user_get_administrative_area_options($country = 'US') {
   module_load_include('inc', 'addressfield', 'plugins/format/address');
   $format = array();
   $address['country'] = $country;
-  addressfield_format_address_generate($format, $address);
+  // Initialize $context array to avoid addressfield PHP notices.
+  // @see https://www.drupal.org/node/1678800.
+  $context = array(
+    'countries' => array(),
+    'mode' => 'form',
+  );
+  addressfield_format_address_generate($format, $address, $context);
   return $format['locality_block']['administrative_area']['#options'];
 }
