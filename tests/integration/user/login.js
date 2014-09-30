@@ -21,7 +21,9 @@ casper.test.begin('Test that a user can authenticate correctly.', 5, {
    * Test that a user can authenticate correctly.
    */
   test: function(test) {
-    casper.start(url, function() {
+    casper.start(url);
+
+    casper.thenWhenReady(function() {
       // We reference the login link's ID to avoid a crazy selector.
       test.assertExists("#link--login", "Login link exists on page for anonymous user");
     });
@@ -49,7 +51,7 @@ casper.test.begin('Test that a user can authenticate correctly.', 5, {
       });
     });
 
-    casper.thenOpen(url, function() {
+    casper.thenOpenWhenReady(url, function() {
       // Now let's go back home and login using the login modal.
       this.waitUntilVisible("#link--login", function() {
         this.click("#link--login");
@@ -68,7 +70,7 @@ casper.test.begin('Test that a user can authenticate correctly.', 5, {
       });
     });
 
-    casper.thenOpen(url, function() {
+    casper.thenOpenWhenReady(url, function() {
       // Let's log out using the logout button.
       this.click("#link--logout");
       

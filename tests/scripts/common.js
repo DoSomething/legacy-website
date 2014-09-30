@@ -12,6 +12,28 @@ casper.logAction = function(action) {
 }
 
 /**
+ * Wait until JavaScript is finished executing and page is ready.
+ * @param {function} callback - Code to execute after page is ready
+ */
+casper.thenWhenReady = function(fn) {
+    casper.then(function() {;
+      this.waitUntilVisible("html.js-ready");
+    });
+    
+    casper.then(fn);
+};
+
+/**
+ * Wait until JavaScript is finished executing and page is ready.
+ * @param {function} callback - Code to execute after page is ready
+ */
+casper.thenOpenWhenReady = function(url, fn) {
+  casper.thenOpen(url);
+  casper.thenWhenReady(fn);
+};
+
+
+/**
  * Remove test IPs from flood table (preventing tests from failing after repeated failed logins).
  */
 casper.clearFloodTable = function() {
@@ -180,12 +202,19 @@ casper.test.on("fail", function(failure) {
 });
 
 // Output JavaScript errors to CasperJS log.
-casper.on("page.error", function(msg, trace) {
-  this.echo("Error: " + msg, "ERROR");
+casper.on("page.error", function(msg, stack) {
+  casper.echo("Page Error: " + msg, "ERROR");
+  stack.forEach(function(trace) {
+    var line = trace.file + ": Line " + trace.line + " ( " + trace.function + ")";
+    casper.echo(line, "WARNING");
+  });
 });
 
 // Set default viewport for all tests.
 casper.options.viewportSize = { width: 1280, height: 1024 };
+
+// Increase default timeout from 5s to 10s.
+casper.options.waitTimeout = 10000;
 
 // We want to clear session after every test.
 // @NOTE: You'll have to do this manually if you override the tearDown

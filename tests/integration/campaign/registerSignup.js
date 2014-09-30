@@ -18,13 +18,11 @@ casper.test.begin("Test that an unregistered user can register & sign up for a c
   },
 
   test: function(test) {
-    casper.start(url);
-
     // We expect to see a sign up button, and to be able to click it to sign up.
-    casper.thenOpen(CAMPAIGN.url, function(){
-      this.waitUntilVisible("#link--campaign-signup-login", function() {
-        this.click("#link--campaign-signup-login");
-      });
+    casper.start(CAMPAIGN.url);
+
+    casper.thenWhenReady(function(){
+      this.click("#link--campaign-signup-login");
     });
 
     // There should be a link to the registration form within the sign-in modal.
