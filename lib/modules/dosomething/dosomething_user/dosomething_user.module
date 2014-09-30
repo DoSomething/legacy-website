@@ -627,38 +627,37 @@ function _dosomething_user_global_display_fields(&$form) {
  *  A Drupal Form API array, expected form is the User Register form.
  */
 function _dosomething_user_register_display_fields(&$form) {
-  // List of fields which have display variables to check.
-  $display_vars = array(
-    'last_name',
-    'postal_code',
-  );
-  // For each display variable:
-  foreach ($display_vars as $var) {
-    $var_name = 'dosomething_user_register_form_display_' . $var;
-    $display = variable_get($var_name, FALSE);
-    $field_name = 'field_' . $var;
-    // For the postal code variable:
-    if ($var == 'postal_code') {
-      // Postal code is a form element within the field_address field.
-      // We store 'field_address' as the field_name value to unset.
-      $field_name = 'field_address';
-    }
-    // If variable is set to NOT display:
-    if (!$display) {
-      // Unset the corresponding form field.
-      $form[$field_name]['#access'] = FALSE;
-    }
-    // Else if set to display:
-    else {
-      // Last name needs to be required.
-      if ($var == 'last_name') {
-        $form[$field_name]['#required'] = TRUE;
-      }
-      elseif ($var == 'postal_code') {
-        $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
-      }
-    }
+
+  // Check if last name is being collected.
+  $var_name = 'dosomething_user_register_form_display_last_name';
+  $collect_last_name = variable_get($var_name, FALSE);
+  $field_name = 'field_last_name';
+
+  if ($collect_last_name) {
+    // Make it required.
+    $form[$field_name]['#required'] = TRUE;
   }
+  // Else unset from the form.
+  else {
+    unset($form[$field_name]);
+  }
+
+  // Check if postal code is being collected.
+  $var_name = 'dosomething_user_register_form_display_postal_code';
+  $collect_postal_code = variable_get($var_name, FALSE);
+  // Postal code is a form element within the field_address field.
+  // We store 'field_address' as the field_name value to unset.
+  $field_name = 'field_address';
+
+  if ($collect_postal_code) {
+    // Adds form element for postal code only to the register form.
+    $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
+  }
+  // Else unset corresponding form field.
+  else {
+    unset($form[$field_name]);
+  }
+
 }
 
 /**
