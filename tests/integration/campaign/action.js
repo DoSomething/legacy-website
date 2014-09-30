@@ -28,7 +28,6 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     casper.login(user.email, user.password);
     
     // ## Header 
-
     casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       // We expect to see the title and subtitle of the CAMPAIGN
       test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
@@ -59,7 +58,6 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     });
 
     // ## Know It
-
     casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       test.assertNotVisible("[data-modal]", "Modals are hidden on page load.");
 
