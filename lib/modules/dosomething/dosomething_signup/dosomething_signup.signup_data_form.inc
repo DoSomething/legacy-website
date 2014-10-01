@@ -154,9 +154,21 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
   );
   $form[$fieldset]['config']['elements'] [$prefix . 'school_not_affiliated_label'] = array(
     '#type' => 'textfield',
-    '#title' => t('Not affiliated with school label'),
+    '#title' => t('Not Affiliated Label'),
     '#default_value' => $values['school_not_affiliated_label'],
-    '#description' => t('Checkbox label for if a user is not affiliated with a school'),
+    '#description' => t('Checkbox label for if a user is not affiliated with a school.'),
+    // Label should only be visible if collect_user_school is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_user_school"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form[$fieldset]['config']['elements'] [$prefix . 'school_not_affiliated_confirm_msg'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Not Affiliated Confirmation Message'),
+    '#default_value' => $values['school_not_affiliated_confirm_msg'],
+    '#description' => t('Confirmation message if a user selects not affiliated with school.'),
     // Label should only be visible if collect_user_school is checked.
     '#states' => array(
       'visible' => array(
@@ -252,6 +264,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'old_people_copy' => $values[$prefix . 'old_people_copy'],
         'shipment_item' => $values[$prefix . 'shipment_item'],
         'school_not_affiliated_label' => $values[$prefix . 'school_not_affiliated_label'],
+        'school_not_affiliated_confirm_msg' => $values[$prefix . 'school_not_affiliated_confirm_msg'],
     ))
     ->execute();
 }
