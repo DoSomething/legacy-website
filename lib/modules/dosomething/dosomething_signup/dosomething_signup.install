@@ -179,6 +179,11 @@ function dosomething_signup_schema() {
         'type' => 'varchar',
         'length' => 255,
       ),
+      'school_not_affiliated_label' => array(
+        'description' => 'Label for the not affiliated with school option.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
     ),
     'primary key' => array('nid'),
   );
@@ -479,5 +484,21 @@ function dosomething_signup_update_7015() {
   // If the field exists:
   if (db_field_exists($tbl_name, $field_name)) {
     db_drop_field($tbl_name, $field_name);
+  }
+}
+
+/**
+ * Adds school_not_affiliated_label column to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7016() {
+  $tbl_name = 'dosomething_signup_data_form';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New field to add.
+  $field_name = 'school_not_affiliated_label';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
 }
