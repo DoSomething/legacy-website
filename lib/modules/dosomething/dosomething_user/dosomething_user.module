@@ -230,14 +230,16 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     case 'user_register_form':
       // Gather helper text.
       _dosomething_user_register_helper_text($form);
+      // Conditionally displays certain fields based on configuration settings.
+      _dosomething_user_global_display_fields($form);
 
       // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = '/user/register';
         $form['#submit'][] = 'dosomething_user_new_user';
-        // Unsets relevant form fields based on configuration variables.
+        // Unsets relevant register form fields based on configuration variables.
         _dosomething_user_register_display_fields($form);
-          // Add campaign data, if needed.
+        // Add campaign data, if needed.
         _dosomething_user_add_signup_data($form);
       }
 
@@ -590,48 +592,72 @@ function _dosomething_user_register_helper_text(&$form) {
 }
 
 /**
- * Conditionally displays user registration / profile fields.
+ * Conditionally displays User fields based on display settings.
  *
  * @see dosomething_user_form_alter().
  *
  * @param array $form
  *  A Drupal Form API array, expected forms are User Register/Profile forms. 
  */
-function _dosomething_user_register_display_fields(&$form) {
-  // List of fields which have display variables to check.
+function _dosomething_user_global_display_fields(&$form) {
+  // List of fields to globally turn on/off.
   $display_vars = array(
-    'last_name',
     'opt_in_email',
     'opt_in_sms',
-    'postal_code',
   );
   // For each display variable:
   foreach ($display_vars as $var) {
     $var_name = 'dosomething_user_register_form_display_' . $var;
     $display = variable_get($var_name, FALSE);
     $field_name = 'field_' . $var;
-    // For the postal code variable:
-    if ($var == 'postal_code') {
-      // Postal code is a form element within the field_address field.
-      // We store 'field_address' as the field_name value to unset.
-      $field_name = 'field_address';
-    }
     // If variable is set to NOT display:
     if (!$display) {
       // Unset the corresponding form field.
       $form[$field_name]['#access'] = FALSE;
     }
-    // Else if set to display:
-    else {
-      // Last name needs to be required.
-      if ($var == 'last_name') {
-        $form[$field_name]['#required'] = TRUE;
-      }
-      elseif ($var == 'postal_code') {
-        $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
-      }
-    }
   }
+}
+
+/**
+ * Conditionally displays user fields to collect on the Registration form.
+ *
+ * @see dosomething_user_form_alter().
+ *
+ * @param array $form
+ *  A Drupal Form API array, expected form is the User Register form.
+ */
+function _dosomething_user_register_display_fields(&$form) {
+
+  // Check if last name is being collected.
+  $var_name = 'dosomething_user_register_form_display_last_name';
+  $collect_last_name = variable_get($var_name, FALSE);
+  $field_name = 'field_last_name';
+
+  if ($collect_last_name) {
+    // Make it required.
+    $form[$field_name]['#required'] = TRUE;
+  }
+  // Else unset from the form.
+  else {
+    unset($form[$field_name]);
+  }
+
+  // Check if postal code is being collected.
+  $var_name = 'dosomething_user_register_form_display_postal_code';
+  $collect_postal_code = variable_get($var_name, FALSE);
+  // Postal code is a form element within the field_address field.
+  // We store 'field_address' as the field_name value to unset.
+  $field_name = 'field_address';
+
+  if ($collect_postal_code) {
+    // Adds form element for postal code only to the register form.
+    $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
+  }
+  // Else unset corresponding form field.
+  else {
+    unset($form[$field_name]);
+  }
+
 }
 
 /**
