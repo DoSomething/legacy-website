@@ -351,6 +351,10 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'checkbox',
       '#title' => $label,
     );
+    $form['school_not_affiliated_confirm_msg'] = array(
+      '#type' => 'item',
+      '#markup' => $config['school_not_affiliated_confirm_msg'],
+    );
     $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
   }
 
