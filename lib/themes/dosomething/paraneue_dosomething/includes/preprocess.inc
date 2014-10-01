@@ -306,7 +306,15 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   if (isset($vars['node']->required_signup_data_form)) {
     // Add JS to open the signup data form modal.
     $id = 'modal-signup-data-form';
-    $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "skip", skipForm: "#dosomething-signup-user-skip-signup-data-form"}); });';
+    $closeButton = 'false';
+    $skipForm = '#dosomething-signup-user-skip-signup-data-form';
+
+    // Add skip button if setting is enabled
+    if (isset($vars['node']->skippable_signup_data_form)) {
+      $closeButton = 'skip';
+    }
+
+    $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '", skipForm: "' . $skipForm . '"}); });';
     drupal_add_js($js, 'inline');
   }
 }
