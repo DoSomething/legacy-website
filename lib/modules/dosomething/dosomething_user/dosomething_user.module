@@ -239,7 +239,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#submit'][] = 'dosomething_user_new_user';
         // Unsets relevant register form fields based on configuration variables.
         _dosomething_user_register_display_fields($form);
-          // Add campaign data, if needed.
+        // Add campaign data, if needed.
         _dosomething_user_add_signup_data($form);
       }
 
