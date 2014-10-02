@@ -337,16 +337,21 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'select',
       '#options' => dosomething_user_get_administrative_area_options(),
       '#title' => t("Select state"),
+      '#attributes' => array(
+        'data-validate' => 'state',
+      ),
     );
+
     $form['school_id'] = array(
-      // @todo: Make me a hidden element for front-end autocomplete.
-      '#type' => 'textfield',
+      '#type' => 'hidden',
       '#title' => t("School ID"),
     );
+    
     $label = $config['school_not_affiliated_label'];
     if (empty($label)) {
       $label = t("I am not affiliated with a school.");
     }
+
     $form['school_not_affiliated'] = array(
       '#type' => 'checkbox',
       '#title' => $label,
@@ -355,6 +360,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'item',
       '#markup' => $config['school_not_affiliated_confirm_msg'],
     );
+
     $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
   }
 
