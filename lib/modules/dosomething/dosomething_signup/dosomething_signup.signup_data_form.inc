@@ -346,6 +346,12 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'hidden',
       '#title' => t("School ID"),
     );
+
+    $form['school_name'] = array(
+      // Used for front-end autocomplete.
+      '#type' => 'textfield',
+      '#title' => t("School Name"),
+    );
     
     $label = $config['school_not_affiliated_label'];
     if (empty($label)) {
@@ -356,9 +362,12 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'checkbox',
       '#title' => $label,
     );
+
     $form['school_not_affiliated_confirm_msg'] = array(
       '#type' => 'item',
+      '#prefix' => '<div class="checkbox-validation-message">',
       '#markup' => $config['school_not_affiliated_confirm_msg'],
+      '#suffix' => '</div>',
     );
 
     $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
