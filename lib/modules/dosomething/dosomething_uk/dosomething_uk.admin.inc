@@ -35,8 +35,10 @@ function dosomething_uk_admin_settings() {
     '#title'         => t('OAuth Host URL'),
     '#default_value' => $api_url,
     '#required'      => TRUE,
-    '#description'   => 'Example: https://api.twitter.com.<br />' .
-                        'No trailing slash or /oauth path needed.',
+    '#attributes'    => array(
+      'placeholder' => 'https://api.twitter.com'
+    ),
+    '#description'   => 'No trailing slash or /oauth path needed.',
   );
   $form_oauth['dosomething_uk_oauth_key'] = array(
     '#type'          => 'textfield',
