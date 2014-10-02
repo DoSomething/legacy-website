@@ -152,6 +152,30 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#default_value' => $values['collect_user_school'],
     '#description' => t('If checked, collect the User school and save to profile.'),
   );
+  $form[$fieldset]['config']['elements'] [$prefix . 'school_not_affiliated_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Not Affiliated Label'),
+    '#default_value' => $values['school_not_affiliated_label'],
+    '#description' => t('Checkbox label for if a user is not affiliated with a school.'),
+    // Label should only be visible if collect_user_school is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_user_school"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form[$fieldset]['config']['elements'] [$prefix . 'school_not_affiliated_confirm_msg'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Not Affiliated Confirmation Message'),
+    '#default_value' => $values['school_not_affiliated_confirm_msg'],
+    '#description' => t('Confirmation message if a user selects not affiliated with school.'),
+    // Label should only be visible if collect_user_school is checked.
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $prefix . 'collect_user_school"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
   $form[$fieldset]['config']['elements'] [$prefix . 'collect_why_signedup'] = array(
     '#type' => 'checkbox',
     '#title' => t('Collect Signup reason'),
@@ -239,6 +263,8 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'prevent_old_people_submit' => $values[$prefix . 'prevent_old_people_submit'],
         'old_people_copy' => $values[$prefix . 'old_people_copy'],
         'shipment_item' => $values[$prefix . 'shipment_item'],
+        'school_not_affiliated_label' => $values[$prefix . 'school_not_affiliated_label'],
+        'school_not_affiliated_confirm_msg' => $values[$prefix . 'school_not_affiliated_confirm_msg'],
     ))
     ->execute();
 }
@@ -317,9 +343,17 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#type' => 'textfield',
       '#title' => t("School ID"),
     );
+    $label = $config['school_not_affiliated_label'];
+    if (empty($label)) {
+      $label = t("I am not affiliated with a school.");
+    }
     $form['school_not_affiliated'] = array(
       '#type' => 'checkbox',
-      '#title' => t("I am not affiliated with a school."),
+      '#title' => $label,
+    );
+    $form['school_not_affiliated_confirm_msg'] = array(
+      '#type' => 'item',
+      '#markup' => $config['school_not_affiliated_confirm_msg'],
     );
     $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
   }
