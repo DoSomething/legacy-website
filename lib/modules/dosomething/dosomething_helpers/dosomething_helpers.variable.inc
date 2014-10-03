@@ -48,6 +48,57 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['signup_form_submit_label'],
     '#size' => 20,
   );
+  if (module_exists('dosomething_shipment')) {
+    $form['shipment'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Shipment Form'),
+      '#description' => t("If set, a modal is provided to create a User Shipment for this node."),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['shipment']['shipment_item'] = array(
+      '#type' => 'select',
+      '#title' => t('Select Shipment Item'),
+      '#options' => dosomething_shipment_get_item_options(TRUE),
+      '#default_value' => $vars['shipment_item'],
+    );
+    $form['shipment']['shipment_form_header'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Shipment Form Header'),
+      '#default_value' => $vars['shipment_form_header'],
+      '#size' => 20,
+    );
+    $form['shipment']['shipment_form_copy'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Shipment Form Copy'),
+      '#default_value' => $vars['shipment_form_copy'],
+      '#size' => 20,
+    );
+    $form['shipment']['shipment_form_submit_label'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Submit Button Label'),
+      '#default_value' => $vars['shipment_form_submit_label'],
+      '#size' => 20,
+    );
+    $form['shipment']['shipment_form_confirm_msg'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Confirmation Message'),
+      '#default_value' => $vars['shipment_form_confirm_msg'],
+      '#size' => 20,
+    );
+    $form['shipment']['shipment_form_submitted_copy'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Form Submitted Copy'),
+      '#default_value' => $vars['shipment_form_submitted_copy'],
+      '#size' => 20,
+    );
+    $form['shipment']['shipment_form_old_people_copy'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Old People Copy'),
+      '#default_value' => $vars['shipment_form_old_people_copy'],
+      '#size' => 20,
+    );
+  }
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -85,6 +136,12 @@ function dosomething_helpers_get_variable_names() {
     'collect_num_participants',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
+    'shipment_form_copy',
+    'shipment_form_header',
+    'shipment_form_link_text',
+    'shipment_form_old_people_copy',
+    'shipment_form_submit_label',
+    'shipment_item',
     'signup_form_submit_label',
     'sms_game_mp_story_id',
     'sms_game_mp_story_type',
