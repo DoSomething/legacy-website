@@ -333,7 +333,15 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   // If we are collecting User school:
   if ($config['collect_user_school']) {
-    $form['school_administrative_area'] = array(
+    $form['school_finder'] = array(
+      '#type' => 'fieldset',
+      '#attributes' => array(
+        'data-validate' => 'school_finder',
+        'data-validate-required' => 'true',
+      ),
+    );
+
+    $form['school_finder']['school_administrative_area'] = array(
       '#type' => 'select',
       '#options' => dosomething_user_get_administrative_area_options(),
       '#title' => t("Select state"),
@@ -342,15 +350,16 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     );
 
-    $form['school_id'] = array(
+    $form['school_finder']['school_id'] = array(
       '#type' => 'hidden',
       '#title' => t("School ID"),
     );
 
-    $form['school_name'] = array(
+    $form['school_finder']['school_name'] = array(
       // Used for front-end autocomplete.
-      '#type' => 'textfield',
+      '#type' => 'markup',
       '#title' => t("School Name"),
+      '#markup' => '<input type="search" placeholder="' . t('Find your school by name...') . '" class="js-schoolfinder-search"><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
     
     $label = $config['school_not_affiliated_label'];
@@ -358,14 +367,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       $label = t("I am not affiliated with a school.");
     }
 
-    $form['school_not_affiliated'] = array(
+    $form['school_finder']['school_not_affiliated'] = array(
       '#type' => 'checkbox',
       '#title' => $label,
     );
 
-    $form['school_not_affiliated_confirm_msg'] = array(
+    $form['school_finder']['school_not_affiliated_confirm_msg'] = array(
       '#type' => 'item',
-      '#prefix' => '<div class="checkbox-validation-message">',
+      '#prefix' => '<div class="js-school-not-affiliated-confirmation fade-in-up checkbox-validation-message" style="display: none;">',
       '#markup' => $config['school_not_affiliated_confirm_msg'],
       '#suffix' => '</div>',
     );
