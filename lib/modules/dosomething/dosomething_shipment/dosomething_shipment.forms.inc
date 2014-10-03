@@ -48,8 +48,16 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     // Return form without a submit button.
     return $form;
   }
-  // @todo: Check if old person and display old people copy if so.
-  // @Todo: Check if shipment has been created and display submitted_copy if so.
+  // If shipment exists already:
+  if (dosomething_shipment_get_shipment_id_by_entity($config['entity_type'], $config['entity_id'])) {
+    $form['copy'] = array(
+      '#prefix' => '<p>',
+      '#markup' => $config['shipment_form_submitted_copy'],
+      '#suffix' => '</p>',
+    );
+    // Return form without a submit button.
+    return $form;
+  }
   $form['copy'] = array(
     '#prefix' => '<p>',
     '#markup' => $config['shipment_form_copy'],
