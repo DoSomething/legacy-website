@@ -106,9 +106,6 @@ ds test
   --integration
   Runs integration tests using CasperJS.
 
-  --intl-integration <affiliate> [test]
-  Runs affiliate-specific integration tests.
-
 ds --help
   Displays this help message.
 
@@ -446,10 +443,10 @@ function pull_db {
       echo "Pulling down db from staging"
       cd $WEB_PATH
       drush -y sql-sync @ds.staging @self
-      
+
       echo "Enabling Stage File Proxy..."
       drush -y en stage_file_proxy
-      
+
       echo "Setting Stage File Proxy to staging URL..."
       drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
 
