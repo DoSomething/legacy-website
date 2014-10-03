@@ -62,6 +62,12 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#options' => dosomething_shipment_get_item_options(TRUE),
       '#default_value' => $vars['shipment_item'],
     );
+    $form['shipment']['shipment_form_link_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Shipment Form Link Text'),
+      '#default_value' => $vars['shipment_form_link_text'],
+      '#size' => 20,
+    );
     $form['shipment']['shipment_form_header'] = array(
       '#type' => 'textfield',
       '#title' => t('Shipment Form Header'),
