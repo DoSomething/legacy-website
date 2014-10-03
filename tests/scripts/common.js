@@ -189,7 +189,11 @@ casper.timestampCapture = function(label) {
   var timestamp = new Date().getTime();
   var filename = timestamp + "-" + label + ".png";
   casper.echo("Captured screenshot to `tmp/tests/screenshots/" + filename + "`.", "PARAMETER");
-  casper.capture(ROOT + "/tmp/tests/screenshots/" + filename);
+  try {
+    casper.capture(ROOT + "/tmp/tests/screenshots/" + filename);
+  } catch (e) {
+    casper.echo('Error saving screenshot.', 'ERROR');
+  }
 }
 
 /**

@@ -30,6 +30,7 @@ program
     console.log('  Examples:');
     console.log('    test default');
     console.log('    test default --integration=specific/test/dir/**/*');
+    console.log('    test uk');
     console.log('');
   })
   .parse(process.argv);
@@ -130,6 +131,7 @@ function runIntegrationTests() {
     __dirname + "/../tests/scripts/common.js",
     __dirname + "/../tests/scripts/drush.js",
     __dirname + "/../tests/scripts/phantomcss.js",
+    __dirname + "/../tests/scripts/randomuser.js",
   ];
 
   var _casperVerbose = "";
