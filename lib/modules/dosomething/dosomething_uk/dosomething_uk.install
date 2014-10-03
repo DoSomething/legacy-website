@@ -8,18 +8,46 @@
  * Implements hook_install().
  */
 function dosomething_uk_install() {
-
-  // Todo: set env variables.
+  // Setup OAuth access.
   variable_set('dosomething_uk_oauth_url',    getenv('DS_UK_OAUTH_URL'));
   variable_set('dosomething_uk_oauth_key',    getenv('DS_UK_OAUTH_KEY'));
   variable_set('dosomething_uk_oauth_secret', getenv('DS_UK_OAUTH_SECRET'));
 
+  _dosomething_uk_install_set_display_defaults();
 }
 
 /**
  * Sets Login and Registration form variable.
  */
 function dosomething_uk_update_7003() {
+  _dosomething_uk_install_set_display_defaults();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_uk_uninstall() {
+  $vars = array(
+    'dosomething_uk_oauth_url',
+    'dosomething_uk_oauth_key',
+    'dosomething_uk_oauth_secret',
+    'dosomething_uk_oauth_callback',
+    'dosomething_user_login_form_copy',
+    'dosomething_user_login_form_display_password_link',
+    'dosomething_user_register_form_display_last_name',
+    'dosomething_user_register_form_display_opt_in_email',
+    'dosomething_user_register_form_display_opt_in_sms',
+    'dosomething_user_register_form_display_postal_code',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
+
+/**
+ * Sets Login and Registration form variable.
+ */
+function _dosomething_uk_install_set_display_defaults() {
   // Login Form copy.
   $copy = "(use your vInspired login if you have one)";
   variable_set('dosomething_user_login_form_copy', $copy);
@@ -32,19 +60,4 @@ function dosomething_uk_update_7003() {
   variable_set('dosomething_user_register_form_display_opt_in_sms', TRUE);
   // Display the Postal Code element within field_address.
   variable_set('dosomething_user_register_form_display_postal_code', TRUE);
-}
-
-/**
- * Implements hook_uninstall().
- */
-function dosomething_uk_uninstall() {
-  $vars = array(
-    'dosomething_uk_oauth_url',
-    'dosomething_uk_oauth_key',
-    'dosomething_uk_oauth_secret',
-    'dosomething_uk_oauth_callback',
-  );
-  foreach ($vars as $var) {
-    variable_del($var);
-  }
 }
