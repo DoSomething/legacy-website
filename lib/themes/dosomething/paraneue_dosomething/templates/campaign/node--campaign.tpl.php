@@ -146,6 +146,12 @@
                   </ul>
                 <?php endif; ?>
 
+                <?php if (isset($shipment_form_link)): ?>
+                  <ul>
+                    <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
+                  </ul>
+                <?php endif; ?>
+
               <?php endif; ?>
               <?php  // End: Materials content section. ?>
 
@@ -184,6 +190,12 @@
             <?php if (isset($skip_signup_data_form)): ?>
             <div><?php print render($skip_signup_data_form); ?></div>
             <?php endif; ?>
+          </div>
+        <?php endif; ?>
+
+        <?php if (isset($shipment_form)): ?>
+          <div data-modal id="modal-shipment-form" class="modal--shipment" role="dialog">
+            <div><?php print render($shipment_form); ?></div>
           </div>
         <?php endif; ?>
 

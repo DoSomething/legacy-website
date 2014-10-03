@@ -198,9 +198,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $vars['action_guides'][$delta]['content'] = render($action_guide_content);
     }
   }
-  // Preprocess signup data form link.
+  // Preprocess signup data form.
   dosomething_campaign_preprocess_signup_data_form($vars);
 
+  // Preprocess shipment form.
+  dosomething_campaign_preprocess_shipment_form($vars);
 
   // Do.
 
@@ -285,6 +287,17 @@ function dosomething_campaign_preprocess_signup_data_form(&$vars) {
   if (isset($vars['content']['skip_signup_data_form'])) {
     // Store as a variable.
     $vars['skip_signup_data_form'] = $vars['content']['skip_signup_data_form'];
+  }
+}
+
+/**
+ * Preprocesses variables for the link to a Shipment form.
+ */
+function dosomething_campaign_preprocess_shipment_form(&$vars) {
+  // If the signup data form link is present:
+  if (isset($vars['content']['shipment_form_link'])) {
+    $vars['shipment_form_link'] = $vars['content']['shipment_form_link'];
+    $vars['shipment_form'] = $vars['content']['shipment_form'];
   }
 }
 

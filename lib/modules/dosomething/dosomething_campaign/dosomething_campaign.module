@@ -402,6 +402,11 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
 
     // Add signup_data_form variables if needed.
     dosomething_campaign_add_signup_data_form_vars($node);
+
+    if (module_exists('dosomething_shipment')) {
+      dosomething_campaign_add_shipment_form_vars($node);
+    }
+
     // Add reportback form variable:
     if (module_exists('dosomething_reportback')) {
       if ($rbid = dosomething_reportback_exists($node->nid)) {
@@ -473,6 +478,22 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
       // Include the skip form:
       $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
     }
+  }
+}
+
+/**
+ * Preprocesses a Shipment Form for the $node, if configured.
+ */
+function dosomething_campaign_add_shipment_form_vars($node) {
+  $config = dosomething_helpers_get_variables($node->nid);
+  if (!empty($config['shipment_item'])) {
+    // Pass the user signup path as the entity to store on the Shipment.
+    $config['entity_type'] = 'signup';
+    $config['entity_id'] = dosomething_signup_exists($node->nid);
+    $shipment_form = drupal_get_form('dosomething_shipment_form', $config);
+    $node->content['shipment_form'] = $shipment_form;
+    // Store the label for the link to the Shipment Form.
+    $node->content['shipment_form_link'] = $config['shipment_form_link_text'];
   }
 }
 
