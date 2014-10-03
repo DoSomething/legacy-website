@@ -104,7 +104,7 @@ function dosomething_shipment_form_submit($form, &$form_state) {
     'entity_id' => $values['entity_id'],
     'item' => $values['shipment_item'],
   ));
-  //@todo: If Shipment Item is shirt, add option / additional item/option values.
+  // @todo: If Shipment Item is shirt, add option / additional item values.
   $shipment->save();
 
   drupal_set_message($values['confirm_msg']);

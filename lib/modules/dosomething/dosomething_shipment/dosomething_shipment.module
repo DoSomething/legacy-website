@@ -246,11 +246,8 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 /**
  * Returns array of valid values for a Shipment's item / additional_item.
  */
-function dosomething_shipment_get_item_options($allow_empty = FALSE) {
+function dosomething_shipment_get_item_options() {
   $options = array();
-  if ($allow_empty) {
-    $options[''] = ' -- ';
-  }
   $options['banner'] = t('Banner');
   $options['shirt'] = t('Shirt');
   $options['thumb_socks'] =  t('Thumb Socks');

@@ -59,7 +59,8 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     $form['shipment']['shipment_item'] = array(
       '#type' => 'select',
       '#title' => t('Select Shipment Item'),
-      '#options' => dosomething_shipment_get_item_options(TRUE),
+      '#options' => dosomething_shipment_get_item_options(),
+      '#empty_option' => '',
       '#default_value' => $vars['shipment_item'],
     );
     $form['shipment']['shipment_form_link_text'] = array(
