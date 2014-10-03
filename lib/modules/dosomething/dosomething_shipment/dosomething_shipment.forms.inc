@@ -38,6 +38,16 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     '#markup' => $config['shipment_form_header'],
     '#suffix' => '</h2>',
   );
+  // If old person:
+  if (dosomething_user_is_old_person()) {
+    $form['copy'] = array(
+      '#prefix' => '<p>',
+      '#markup' => $config['shipment_form_old_people_copy'],
+      '#suffix' => '</p>',
+    );
+    // Return form without a submit button.
+    return $form;
+  }
   // @todo: Check if old person and display old people copy if so.
   // @Todo: Check if shipment has been created and display submitted_copy if so.
   $form['copy'] = array(
