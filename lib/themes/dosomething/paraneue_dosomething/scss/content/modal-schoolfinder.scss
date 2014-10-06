@@ -19,7 +19,7 @@
       padding: 0;
     }
 
-    &:hover { 
+    &:hover {
       text-decoration: none;
 
       span {
@@ -56,5 +56,16 @@
         content: "\00a0\2014\00a0"; // em-dash
       }
     }
+  }
+}
+
+.schoolfinder-help {
+  border: 1px solid $light-gray;
+  border-radius: $sm-border-radius;
+  margin-bottom: 16px;
+  padding: 16px;
+
+  ol {
+    margin: 0 0 27px;
   }
 }

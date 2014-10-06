@@ -361,6 +361,17 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t("School Name"),
       '#markup' => '<input type="search" placeholder="' . t('Find your school by name...') . '" class="js-schoolfinder-search"><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
+
+    $form['school_finder']['help_link'] = array(
+      // Used for front-end autocomplete.
+      '#type' => 'markup',
+      '#markup' => '<a href="#" class="secondary js-schoolfinder-help">Need help locating your school?</a></p>',
+    );
+
+    $form['school_finder']['help_text'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;"><p>Here are some tricks to help you find your school:</p><ol><li>Abbreviations. If "St. Mary\'s" doesn\'t work, try "Saint Mary\'s" and vice versa. Same with JFK vs. John F. Kennedy.</li><li>You need to search for a specific school, not a whole district.</li></ol><p>Still having issues? <a href="#" data-modal-href="#modal-contact-form">Contact us</a>.</div>',
+    );
     
     $label = $config['school_not_affiliated_label'];
     if (empty($label)) {
