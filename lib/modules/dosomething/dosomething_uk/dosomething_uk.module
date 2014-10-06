@@ -268,12 +268,14 @@ function dosomething_uk_new_user_from_remote($name, $password, $sso_user) {
 
   $dob = new DateObject($sso_user['dob']);
   $fields = array(
-    'birthdate'  => $dob->format(DATE_FORMAT_DATE),
-    'first_name' => $sso_user['first_name'],
-    'last_name'  => $sso_user['last_name'],
+    'birthdate'   => $dob->format(DATE_FORMAT_DATE),
+    'first_name'  => $sso_user['first_name'],
+    'last_name'   => $sso_user['last_name'],
+    'postal_code' => $sso_user['postcode'],
     'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
   );
   _dosomething_uk_utility_set_user_fields($edit, $fields);
+
   try {
     $account = user_save('', $edit);
   }
@@ -313,9 +315,18 @@ function _dosomething_uk_utility_set_user_fields(&$values, $fields) {
     if (empty($field_value)) {
       continue;
     }
-    $name = 'field_' . $field_key;
-    $values[$name] = array(LANGUAGE_NONE => array(
-      0 => array('value' => $field_value),
-    ));
+    switch ($field_key) {
+      case 'postal_code':
+        $values['field_address'][LANGUAGE_NONE][0] = array(
+          'postal_code' => $field_value,
+        );
+        break;
+
+      default:
+        $values['field_' . $field_key] = array(LANGUAGE_NONE => array(
+          array('value' => $field_value),
+        ));
+        break;
+    }
   }
 }
