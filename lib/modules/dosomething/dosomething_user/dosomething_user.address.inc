@@ -146,6 +146,24 @@ function dosomething_user_save_address_values($values) {
 }
 
 /**
+ * Removes extra values from given $options of US States.
+ */
+function dosomething_user_get_us_states_to_remove() {
+  return array(
+    'AA', 'AE', 'AP', 'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'VI',
+  );
+}
+
+function dosomething_user_remove_extra_us_states(&$options) {
+  $states_to_remove = dosomething_user_get_us_states_to_remove();
+  // Unset the extra state options.
+  foreach($states_to_remove as $state) {
+    unset($options[$state]);
+  }
+}
+
+
+/**
  * Returns list of administrative areas based on country.
  */
 function dosomething_user_get_addressfield_administrative_area_options($country = 'US') {
@@ -159,7 +177,11 @@ function dosomething_user_get_addressfield_administrative_area_options($country 
     'mode' => 'form',
   );
   addressfield_format_address_generate($format, $address, $context);
-  return $format['locality_block']['administrative_area']['#options'];
+  $options = $format['locality_block']['administrative_area']['#options'];
+  if ($country == 'US') {
+    dosomething_user_remove_extra_us_states($options);
+  }
+  return $options;
 }
 
 /**
