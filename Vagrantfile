@@ -10,8 +10,14 @@ Vagrant.configure("2") do |config|
   # SSH Agent forwarding
   config.ssh.forward_agent = true
 
-  # SSHFS -- reverse mount from within Vagrant box
-  config.sshfs.paths = { "/var/www/vagrant" => "../dosomething-mount" }
+  if ENV['DS_VAGRANT_MOUNT_NFS']
+    # NFS
+    config.vm.network :private_network, ip: "10.11.12.13"
+    config.vm.synced_folder ".", "/var/www/vagrant", type: "nfs"
+  else
+    # SSHFS -- reverse mount from within Vagrant box
+    config.sshfs.paths = { "/var/www/vagrant" => "../dosomething-mount" }
+  end
 
   # Bare Apache httpd (http and https)
   config.vm.network :forwarded_port, guest: 8888, host: 8888
