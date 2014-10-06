@@ -19,11 +19,19 @@ function dosomething_user_update_7002() {
 }
 
 /**
+ * Executes dosomething_user_set_address_administrative_area_options().
+ */
+function dosomething_user_update_7003() {
+  dosomething_user_set_address_administrative_area_options();
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {
   // This list is alphabetical, please keep it that way!
   $vars = array(
+    'dosomething_user_address_administrative_area_options',
     'dosomething_user_enable_clean_slate',
     'dosomething_user_login_form_display_password_link',
     'dosomething_user_login_form_copy',

@@ -335,7 +335,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   if ($config['collect_user_school']) {
     $form['school_administrative_area'] = array(
       '#type' => 'select',
-      '#options' => dosomething_user_get_administrative_area_options(),
+      '#options' => dosomething_user_get_address_administrative_area_options(),
       '#title' => t("Select state"),
     );
     $form['school_id'] = array(

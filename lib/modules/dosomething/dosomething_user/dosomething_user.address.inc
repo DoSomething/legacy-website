@@ -148,7 +148,7 @@ function dosomething_user_save_address_values($values) {
 /**
  * Returns list of administrative areas based on country.
  */
-function dosomething_user_get_administrative_area_options($country = 'US') {
+function dosomething_user_get_addressfield_administrative_area_options($country = 'US') {
   module_load_include('inc', 'addressfield', 'plugins/format/address');
   $format = array();
   $address['country'] = $country;
@@ -160,4 +160,20 @@ function dosomething_user_get_administrative_area_options($country = 'US') {
   );
   addressfield_format_address_generate($format, $address, $context);
   return $format['locality_block']['administrative_area']['#options'];
+}
+
+/**
+ * Sets variable to use for Address adminstrative area options.
+ */
+function dosomething_user_set_address_administrative_area_options($country = 'US') {
+  $options = dosomething_user_get_addressfield_administrative_area_options($country);
+  variable_set('dosomething_user_address_administrative_area_options', $options);
+}
+
+/**
+ * Gets Address adminstrative area options from variable.
+ */
+function dosomething_user_get_address_administrative_area_options() {
+  $options = variable_get('dosomething_user_address_administrative_area_options', array());
+  return $options;
 }
