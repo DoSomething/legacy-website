@@ -299,7 +299,7 @@ function dosomething_user_remove_extra_values_from_address_field($form, &$form_s
   }
   // Pass by ref to ensure changes are made to field.
   $options = &$options['address']['locality_block']['administrative_area']['#options'];
-  //@todo: Only remove states if address country == US.
+  // @todo Only remove states if address country == US.
   dosomething_user_remove_extra_us_states($options);
   return $form;
 }
