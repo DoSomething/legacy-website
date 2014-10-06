@@ -10,6 +10,23 @@ include_once 'dosomething_user.profile.inc';
 include_once 'dosomething_user_valid_address.inc';
 include_once 'dosomething_user.theme.inc';
 
+
+/**
+ * Implements hook_preprocess_page.
+ */
+function dosomething_user_preprocess_page(&$vars) {
+  $schoolFinderAPIEndpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
+  
+  drupal_add_js(
+    array('dosomethingUser' =>
+      array(
+        'schoolFinderAPIEndpoint' => $schoolFinderAPIEndpoint,
+      )
+    ),
+    'setting'
+  );
+}
+
 /**
  * Implements hook_init().
  */
