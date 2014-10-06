@@ -302,7 +302,6 @@ function dosomething_user_remove_extra_values_from_address_field($form, &$form_s
   //@todo: Only remove states if address country == US.
   dosomething_user_remove_extra_us_states($options);
   return $form;
-
 }
 
 /**

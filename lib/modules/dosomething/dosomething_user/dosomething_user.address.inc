@@ -146,7 +146,9 @@ function dosomething_user_save_address_values($values) {
 }
 
 /**
- * Removes extra values from given $options of US States.
+ * Returns options of Addressfield module's US States to remove.
+ *
+ * @see https://github.com/DoSomething/dosomething/issues/1807.
  */
 function dosomething_user_get_us_states_to_remove() {
   return array(
@@ -154,6 +156,11 @@ function dosomething_user_get_us_states_to_remove() {
   );
 }
 
+/**
+ * Removes extra values from given Addressfield Form API $options of US States.
+ *
+ * @see dosomething_user_get_us_states_to_remove().
+ */
 function dosomething_user_remove_extra_us_states(&$options) {
   $states_to_remove = dosomething_user_get_us_states_to_remove();
   // Unset the extra state options.
