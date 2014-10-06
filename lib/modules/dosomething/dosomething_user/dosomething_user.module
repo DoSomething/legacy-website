@@ -285,27 +285,23 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
  * Removes all extra state options from the addressfield dropdown.
  */
 function dosomething_user_remove_extra_values_from_address_field($form, &$form_state) {
+  // Forms that use field_address as Form API element.
+  $user_address_form_ids = array(
+    'dosomething_signup_user_signup_data_form',
+    'dosomething_shipment_form',
+  );
   // Get the right form address field.
   if ($form['#form_id'] == 'user_profile_form') {
     $options = &$form['field_address'][LANGUAGE_NONE][0];
   }
-  elseif ($form['#form_id'] == 'dosomething_signup_user_signup_data_form') {
+  elseif (in_array($form['#form_id'], $user_address_form_ids)) {
     $options = &$form['user_address'];
   }
   // Pass by ref to ensure changes are made to field.
   $options = &$options['address']['locality_block']['administrative_area']['#options'];
-
-  $states_to_remove = array(
-    'AA', 'AE', 'AP', 'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'VI',
-  );
-
-  // Unset the extra state options.
-  foreach($states_to_remove as $state) {
-    unset($options[$state]);
-  }
-
+  // @todo Only remove states if address country == US.
+  dosomething_user_remove_extra_us_states($options);
   return $form;
-
 }
 
 /**

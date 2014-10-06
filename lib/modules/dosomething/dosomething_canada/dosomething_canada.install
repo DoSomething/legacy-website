@@ -28,3 +28,10 @@ function dosomething_canada_uninstall() {
     variable_del($var);
   }
 }
+
+/**
+ * Sets dosomething_user_address_administrative_area_options() for Canada site.
+ */
+function dosomething_canada_update_7002() {
+  dosomething_user_set_address_administrative_area_options('CA');
+}

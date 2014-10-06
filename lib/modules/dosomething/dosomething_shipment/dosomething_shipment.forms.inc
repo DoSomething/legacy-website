@@ -66,7 +66,7 @@ function dosomething_shipment_form($form, &$form_state, $config) {
   // Add Address form fields.
   dosomething_user_address_form_element($form, $form_state);
 
-  if ($config['shipment_type'] == 'shirt') {
+  if ($config['shipment_item'] == 'shirt') {
     // Add Shirt form fields.
     dosomething_shipment_shirt_form_element($form, $form_state);   
   }

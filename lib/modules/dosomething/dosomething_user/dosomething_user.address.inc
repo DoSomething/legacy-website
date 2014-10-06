@@ -146,9 +146,34 @@ function dosomething_user_save_address_values($values) {
 }
 
 /**
+ * Returns options of Addressfield module's US States to remove.
+ *
+ * @see https://github.com/DoSomething/dosomething/issues/1807.
+ */
+function dosomething_user_get_us_states_to_remove() {
+  return array(
+    'AA', 'AE', 'AP', 'AS', 'FM', 'GU', 'MH', 'MP', 'PW', 'VI',
+  );
+}
+
+/**
+ * Removes extra values from given Addressfield Form API $options of US States.
+ *
+ * @see dosomething_user_get_us_states_to_remove().
+ */
+function dosomething_user_remove_extra_us_states(&$options) {
+  $states_to_remove = dosomething_user_get_us_states_to_remove();
+  // Unset the extra state options.
+  foreach($states_to_remove as $state) {
+    unset($options[$state]);
+  }
+}
+
+
+/**
  * Returns list of administrative areas based on country.
  */
-function dosomething_user_get_administrative_area_options($country = 'US') {
+function dosomething_user_get_addressfield_administrative_area_options($country = 'US') {
   module_load_include('inc', 'addressfield', 'plugins/format/address');
   $format = array();
   $address['country'] = $country;
@@ -159,5 +184,25 @@ function dosomething_user_get_administrative_area_options($country = 'US') {
     'mode' => 'form',
   );
   addressfield_format_address_generate($format, $address, $context);
-  return $format['locality_block']['administrative_area']['#options'];
+  $options = $format['locality_block']['administrative_area']['#options'];
+  if ($country == 'US') {
+    dosomething_user_remove_extra_us_states($options);
+  }
+  return $options;
+}
+
+/**
+ * Sets variable to use for Address adminstrative area options.
+ */
+function dosomething_user_set_address_administrative_area_options($country = 'US') {
+  $options = dosomething_user_get_addressfield_administrative_area_options($country);
+  variable_set('dosomething_user_address_administrative_area_options', $options);
+}
+
+/**
+ * Gets Address adminstrative area options from variable.
+ */
+function dosomething_user_get_address_administrative_area_options() {
+  $options = variable_get('dosomething_user_address_administrative_area_options', array());
+  return $options;
 }
