@@ -1,15 +1,37 @@
 <?php
-/**
- * @file
- * Code for DoSomething User Services resources.
- *
- * @see dosomething_user_services_resources()
- */
+
+function _member_resource_defintion() {
+  $member_resource = array();
+  $member_resource['users'] = array(
+    'operations' => array(
+      'create' => array(
+        'help' => 'Create a user.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member.resource',
+        ),
+        'callback' => '_member_resource_create',
+          'args' => array(
+            array(
+              'name' => 'account',
+              'type' => 'array',
+              'description' => 'The user object',
+              'source' => 'data',
+              'optional' => FALSE,
+            ),
+          ),
+        'access callback' => '_member_resource_access',
+      ),
+    ),
+  );
+  return $member_resource;
+}
 
 /**
  * Access callback for User resources.
  */
-function _dosomething_user_resource_access() {
+function _member_resource_access() {
   // Return TRUE for development.
   return TRUE;
   global $user;
@@ -32,7 +54,7 @@ function _dosomething_user_resource_access() {
  * @return mixed
  *   Object of the newly created user if successful. String if errors.
  */
-function _dosomething_user_resource_create($account) {
+function _member_resource_create($account) {
   if (!isset($account['email'])) {
     return services_error("Email is required.");
   }

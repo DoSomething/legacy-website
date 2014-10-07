@@ -98,36 +98,6 @@ function dosomething_user_permission() {
 }
 
 /**
- * Implementation of hook_services_resources().
- */
-function dosomething_user_services_resources() {
-  $resources = array();
-  $resources['users'] = array(
-    'operations' => array(
-      'create' => array(
-        'help' => 'Create a user.',
-        'file' => array(
-          'type' => 'inc',
-          'module' => 'dosomething_user',
-          'name' => 'resources/dosomething_user.resource',
-        ),
-        'callback' => '_dosomething_user_resource_create',
-          'args' => array(
-            array(
-              'name' => 'account',
-              'type' => 'array',
-              'description' => 'The user object',
-              'source' => 'data',
-              'optional' => FALSE,
-            ),
-          ),
-        'access callback' => '_dosomething_user_resource_access',
-      ),
-    ),
-  );
-  return $resources;
-}
-/**
  * Implements hook_admin_paths().
  */
 function dosomething_user_admin_paths() {
