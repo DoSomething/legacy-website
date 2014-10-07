@@ -44,19 +44,9 @@ function dosomething_api_default_services_endpoint() {
       'actions' => array(
         'login' => array(
           'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
         ),
         'logout' => array(
           'enabled' => '1',
-          'settings' => array(
-            'services' => array(
-              'resource_api_version' => '1.0',
-            ),
-          ),
         ),
         'token' => array(
           'enabled' => '1',
@@ -81,6 +71,9 @@ function dosomething_api_default_services_endpoint() {
     'system' => array(
       'actions' => array(
         'connect' => array(
+          'enabled' => '1',
+        ),
+        'set_variable' => array(
           'enabled' => '1',
         ),
       ),
