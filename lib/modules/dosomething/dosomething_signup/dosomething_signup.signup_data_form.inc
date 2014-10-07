@@ -333,28 +333,63 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   // If we are collecting User school:
   if ($config['collect_user_school']) {
-    $form['school_administrative_area'] = array(
+    $form['school_finder'] = array(
+      '#type' => 'fieldset',
+      '#attributes' => array(
+        'data-validate' => 'school_finder',
+        'data-validate-required' => 'true',
+      ),
+    );
+
+    $form['school_finder']['school_administrative_area'] = array(
       '#type' => 'select',
       '#options' => dosomething_user_get_address_administrative_area_options(),
       '#title' => t("Select state"),
+      '#attributes' => array(
+        'data-validate' => 'state',
+      ),
     );
-    $form['school_id'] = array(
-      // @todo: Make me a hidden element for front-end autocomplete.
-      '#type' => 'textfield',
+
+    $form['school_finder']['school_id'] = array(
+      '#type' => 'hidden',
       '#title' => t("School ID"),
     );
+
+    $form['school_finder']['school_name'] = array(
+      // Used for front-end autocomplete.
+      '#type' => 'markup',
+      '#title' => t("School Name"),
+      '#markup' => '<input type="search" placeholder="' . t('Find your school by name...') . '" class="js-schoolfinder-search"><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
+    );
+
+    $form['school_finder']['help_link'] = array(
+      // Used for front-end autocomplete.
+      '#type' => 'markup',
+      '#markup' => '<a href="#" class="secondary js-schoolfinder-help">Need help locating your school?</a></p>',
+    );
+
+    $form['school_finder']['help_text'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;"><p>Here are some tricks to help you find your school:</p><ol><li>Abbreviations. If "St. Mary\'s" doesn\'t work, try "Saint Mary\'s" and vice versa. Same with JFK vs. John F. Kennedy.</li><li>You need to search for a specific school, not a whole district.</li></ol><p>Still having issues? <a href="#" data-modal-href="#modal-contact-form">Contact us</a>.</div>',
+    );
+    
     $label = $config['school_not_affiliated_label'];
     if (empty($label)) {
       $label = t("I am not affiliated with a school.");
     }
-    $form['school_not_affiliated'] = array(
+
+    $form['school_finder']['school_not_affiliated'] = array(
       '#type' => 'checkbox',
       '#title' => $label,
     );
-    $form['school_not_affiliated_confirm_msg'] = array(
+
+    $form['school_finder']['school_not_affiliated_confirm_msg'] = array(
       '#type' => 'item',
+      '#prefix' => '<div class="js-school-not-affiliated-confirmation fade-in-up checkbox-validation-message" style="display: none;">',
       '#markup' => $config['school_not_affiliated_confirm_msg'],
+      '#suffix' => '</div>',
     );
+
     $form['#validate'][] = 'dosomething_signup_user_signup_data_form_validate_school';
   }
 
