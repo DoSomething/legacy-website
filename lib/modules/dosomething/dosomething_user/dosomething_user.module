@@ -878,6 +878,40 @@ function dosomething_user_get_field_last_name($field_value, $format = 'ucwords')
   return dosomething_user_format_string($field_value, $format);
 }
 
+
+/**
+ * Helper function to prepare an array of user fields.
+ *
+ * Extends existing array of user form values with Entity API's fields.
+ * The fields will be added to &$edit array prefixed with `field_`.
+ * All from this flow exceprions will be processed so &$edit is ready for
+ * user_save() execution.
+ *
+ * @param  array $edit
+ *   The array of the user form values.
+ * @param  array $fields
+ *   The array of the user fields.
+ */
+function dosomething_user_set_fields(&$edit, $fields) {
+  foreach ($fields as $key => $value) {
+    if (empty($value)) {
+      continue;
+    }
+
+    switch ($key) {
+      case 'country':
+      case 'postal_code':
+        $edit['field_address'][LANGUAGE_NONE][0][$key] = $value;
+        break;
+
+      default:
+        $edit['field_' . $key][LANGUAGE_NONE][0]['value'] = $value;
+        break;
+    }
+  }
+}
+
+
 /**
  * Helper function to format strings.
  *

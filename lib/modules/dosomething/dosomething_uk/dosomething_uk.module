@@ -272,9 +272,10 @@ function dosomething_uk_new_user_from_remote($name, $password, $sso_user) {
     'first_name'  => $sso_user['first_name'],
     'last_name'   => $sso_user['last_name'],
     'postal_code' => $sso_user['postcode'],
+    'country'     => DosomethingUkSsoUser::COUNTRY,
     'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
   );
-  _dosomething_uk_utility_set_user_fields($edit, $fields);
+  dosomething_user_set_fields($edit, $fields);
 
   try {
     $account = user_save('', $edit);
@@ -306,28 +307,6 @@ function dosomething_uk_remote_errors_to_local_form($error_messages, &$form) {
       $human_name = ucwords(preg_replace('/[^\da-z]/i', ' ', $field_name));
       $error_text = $human_name . ': ' . $error;
       form_set_error($field_name, $error_text);
-    }
-  }
-}
-
-function _dosomething_uk_utility_set_user_fields(&$values, $fields) {
-  foreach ($fields as $field_key => $field_value) {
-    if (empty($field_value)) {
-      continue;
-    }
-    switch ($field_key) {
-      case 'postal_code':
-        $values['field_address'][LANGUAGE_NONE][0] = array(
-          'postal_code' => $field_value,
-          'country' => DosomethingUkSsoUser::COUNTRY,
-        );
-        break;
-
-      default:
-        $values['field_' . $field_key] = array(LANGUAGE_NONE => array(
-          array('value' => $field_value),
-        ));
-        break;
     }
   }
 }
