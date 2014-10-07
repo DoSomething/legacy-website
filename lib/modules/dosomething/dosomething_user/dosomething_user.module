@@ -1150,3 +1150,23 @@ function dosomething_user_save_school_id($school_id) {
   $edit['field_school_id'] = array(LANGUAGE_NONE => array(0 => array('value' => $school_id)));
   user_save($account, $edit);
 }
+
+/**
+ * Gets the Member Count variable.
+ *
+ * @todo Pass param for format string?
+ */
+function dosomething_user_get_member_count() {
+  return variable_get('dosomething_user_member_count');
+}
+
+/**
+ * Sets the Member Count variable.
+ *
+ * @param int $value
+ *   Number of members.
+ */
+function dosomething_user_set_member_count($value) {
+  //@todo Validate that $value is numeric?  Need to define usage.
+  variable_set('dosomething_user_member_count', $value);
+}
