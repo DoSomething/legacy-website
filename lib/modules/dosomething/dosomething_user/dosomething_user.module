@@ -1129,14 +1129,3 @@ function dosomething_user_save_school_id($school_id) {
 function dosomething_user_get_member_count() {
   return variable_get('dosomething_user_member_count');
 }
-
-/**
- * Sets the Member Count variable.
- *
- * @param int $value
- *   Number of members.
- */
-function dosomething_user_set_member_count($value) {
-  //@todo Validate that $value is numeric?  Need to define usage.
-  variable_set('dosomething_user_member_count', $value);
-}
