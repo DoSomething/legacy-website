@@ -14,6 +14,7 @@ class DosomethingUkSsoUser {
 
 
   // Local drupal user.
+  const COUNTRY = 'UK';
   const REGISTRATION_SOURCE = 'dosomething_uk';
 
   // ---------------------------------------------------------------------
@@ -282,6 +283,17 @@ class DosomethingUkSsoUser {
   public function getPhoneNumber()
   {
     return $this->phone_number;
+  }
+
+  /**
+   * Gets the user's country.
+   *
+   * @return string.
+   *   Always returns DosomethingUkSsoUser::COUNTRY.
+   */
+  public function getCountry()
+  {
+    return self::COUNTRY;
   }
 
   /**

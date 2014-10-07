@@ -268,12 +268,15 @@ function dosomething_uk_new_user_from_remote($name, $password, $sso_user) {
 
   $dob = new DateObject($sso_user['dob']);
   $fields = array(
-    'birthdate'  => $dob->format(DATE_FORMAT_DATE),
-    'first_name' => $sso_user['first_name'],
-    'last_name'  => $sso_user['last_name'],
+    'birthdate'   => $dob->format(DATE_FORMAT_DATE),
+    'first_name'  => $sso_user['first_name'],
+    'last_name'   => $sso_user['last_name'],
+    'postal_code' => $sso_user['postcode'],
+    'country'     => DosomethingUkSsoUser::COUNTRY,
     'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
   );
-  _dosomething_uk_utility_set_user_fields($edit, $fields);
+  dosomething_user_set_fields($edit, $fields);
+
   try {
     $account = user_save('', $edit);
   }
@@ -305,17 +308,5 @@ function dosomething_uk_remote_errors_to_local_form($error_messages, &$form) {
       $error_text = $human_name . ': ' . $error;
       form_set_error($field_name, $error_text);
     }
-  }
-}
-
-function _dosomething_uk_utility_set_user_fields(&$values, $fields) {
-  foreach ($fields as $field_key => $field_value) {
-    if (empty($field_value)) {
-      continue;
-    }
-    $name = 'field_' . $field_key;
-    $values[$name] = array(LANGUAGE_NONE => array(
-      0 => array('value' => $field_value),
-    ));
   }
 }
