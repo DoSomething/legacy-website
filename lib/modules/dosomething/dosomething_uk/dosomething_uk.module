@@ -319,6 +319,7 @@ function _dosomething_uk_utility_set_user_fields(&$values, $fields) {
       case 'postal_code':
         $values['field_address'][LANGUAGE_NONE][0] = array(
           'postal_code' => $field_value,
+          'country' => DosomethingUkSsoUser::COUNTRY,
         );
         break;
 
