@@ -1,5 +1,80 @@
 <?php
 
+function _campaign_resource_defintion() {
+  $campaign_resource = array();
+  $campaign_resource['campaigns'] = array(
+    'operations' => array(
+      'index' => array(
+        'help' => 'List all active campaigns.',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'callback' => '_campaign_resource_index',
+        'access callback' => '_campaign_resource_access',
+        'access arguments' => array('index'),
+        'args' => array(
+          array(
+            'name' => 'parameters',
+            'optional' => TRUE,
+            'type' => 'array',
+            'description' => 'Parameters',
+            'default value' => array(),
+            'source' => array('param' => 'parameters'),
+          ),
+        ),
+      ),
+    ),
+    'targeted_actions' => array(
+      'signup' => array(
+        'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'callback' => '_campaign_resource_signup',
+        'access callback' => '_campaign_resource_access',
+        'access arguments' => array('signup'),
+        'access arguments append' => TRUE,
+        'args' => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the Campaign node to signup for.',
+          ),
+          // @todo: We'll want this for SMS campaigns where uid doesn't exist?
+          // array(
+          //   'name' => 'uid',
+          //   'optional' => TRUE,
+          //   'source' => array('data' => 'uid'),
+          //   'description' => 'The User uid to signup',
+          //   'type' => 'int',
+          // ),
+        ),
+      ),
+      'reportback' => array(
+        'help' => 'Post a user reportback for a campaign: campaigns/123/reportback',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'callback' => '_campaign_resource_reportback',
+        'access callback' => '_campaign_resource_access',
+        'args' => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the Campaign node to post a reportback.',
+          ),
+          array(
+            'name' => 'values',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The Reportback data',
+            'type' => 'array',
+          ),
+        ),
+      ),
+    ),
+  );
+  return $campaign_resource;
+}
+
 /**
  * Determine whether the current user can access a node resource.
  *
