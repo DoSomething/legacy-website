@@ -33,6 +33,15 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  // Member Count.
+  $var_name = 'dosomething_user_member_count';
+  $form[$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Member Count'),
+    '#description' => t("Number of members, which is displayed around the site. Don't change this unless you know what you're doing."),
+    '#default_value' => variable_get($var_name),
+  );
+
   // Login form settings.
   $form['login'] = array(
     '#type' => 'fieldset',
