@@ -1180,7 +1180,7 @@ function dosomething_user_save_school_id($school_id) {
 function dosomething_user_get_member_count($readable = FALSE) {
   $count = variable_get('dosomething_user_member_count');
   if (!$count) {
-    return 0;
+    return NULL;
   }
 
   if (!$readable) {
