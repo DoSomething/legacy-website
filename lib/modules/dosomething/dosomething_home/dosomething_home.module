@@ -7,32 +7,14 @@
 include_once 'dosomething_home.features.inc';
 
 /**
- * Implements hook_menu().
- */
-function dosomething_home_menu() {
-  $items['admin/config/dosomething/dosomething_home'] = array(
-    'title' => 'DoSomething Home',
-    'description' => 'DoSomething Home settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_home_admin_config_form'),
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_home.admin.inc',
-  );
-  return $items;
-}
-
-
-/**
  * Implements hook_preprocess_node();
  */
 function dosomething_home_preprocess_node(&$vars) {
   if ($vars['type'] != 'home') { return; }
 
-  // Check if the Home Title variable has been set.
-  if ($title = variable_get('dosomething_home_title')) {
-    $vars['title'] = $title;
-  }
-
+  // Replaces any global/site tokens in the title.
+  $vars['title'] = token_replace($vars['title']);
+  // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
   // Store this node as the signup source.
   $source = '?source=node/' . $vars['nid'];
