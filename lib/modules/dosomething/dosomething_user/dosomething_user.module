@@ -1190,11 +1190,11 @@ function dosomething_user_get_member_count($readable = FALSE) {
   }
 
   if ($count > 1000000) {
-    $num = $count/1000000;
+    $num = $count / 1000000;
     $suffix =  t('million');
   }
   elseif ($count > 1000) {
-    $num = $count/1000;
+    $num = $count / 1000;
     $suffix = t('thousand');
   }
   return dosomething_helpers_floor_decimal($num) . ' ' . $suffix;

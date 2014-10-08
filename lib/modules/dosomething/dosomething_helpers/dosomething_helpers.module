@@ -330,5 +330,5 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
  * @see http://php.net/manual/en/function.floor.php#96568
  */
 function dosomething_helpers_floor_decimal($value, $decimals = 1) {
-  return floor($value * pow(10,$decimals)) / pow(10, $decimals);
+  return floor($value * pow(10, $decimals)) / pow(10, $decimals);
 }
