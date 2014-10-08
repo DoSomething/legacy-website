@@ -1178,5 +1178,35 @@ function dosomething_user_save_school_id($school_id) {
  * @todo Pass param for format string?
  */
 function dosomething_user_get_member_count() {
-  return variable_get('dosomething_user_member_count');
+  $count = variable_get('dosomething_user_member_count');
+  // Put some commas in that count.
+  return number_format($count);
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function dosomething_user_token_info() {
+  $info['tokens']['site']['member-count'] = array(
+    'name' => t('Member Count'),
+    'description' => t('Number of site members.'),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function dosomething_user_tokens($type, $tokens, array $data = array(), array $options = array()) {
+ $replacements = array();
+   if ($type == 'site') {
+     foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'member-count':
+          $replacements[$original] = dosomething_user_get_member_count();
+          break;
+      }
+     }
+  }
+  return $replacements;
 }

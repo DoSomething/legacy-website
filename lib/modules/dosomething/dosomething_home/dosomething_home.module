@@ -12,6 +12,9 @@ include_once 'dosomething_home.features.inc';
 function dosomething_home_preprocess_node(&$vars) {
   if ($vars['type'] != 'home') { return; }
 
+  // Replaces any global/site tokens in the title.
+  $vars['title'] = token_replace($vars['title']);
+  // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
   // Store this node as the signup source.
   $source = '?source=node/' . $vars['nid'];
