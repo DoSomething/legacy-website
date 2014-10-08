@@ -319,3 +319,16 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
     return $truncate;
    
 }
+
+/**
+ * Rounds a decimal $value down always, and to given number of $decimals.
+ *
+ * e.g. dosomething_helpers_floor_decimal(2.999999, 1) = 2.9
+ * e.g. dosomething_helpers_floor_decimal(2.989999, 2) = 2.98
+ *
+ * Many thanks to our buddy seppili_ at gmx dot de:
+ * @see http://php.net/manual/en/function.floor.php#96568
+ */
+function dosomething_helpers_floor_decimal($value, $decimals = 1) {
+  return floor($value * pow(10,$decimals)) / pow(10, $decimals);
+}
