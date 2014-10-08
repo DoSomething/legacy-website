@@ -317,6 +317,18 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Adds signup_button_primary and signup_button_secondary variables.
   $ids = array('primary', 'secondary');
   dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
+  // Begin $tagline variable:
+  $vars['tagline'] = t('A DoSomething.org Campaign.') . ' ';
+  // If Member Count variable is set:
+  if ($count = dosomething_user_get_member_count(TRUE)) {
+    // Add it into the $tagline.
+    $vars['tagline'] .= t('Join over @count members taking action.', array(
+      '@count' => $count,
+    ));
+    $vars['tagline'] .= ' ';
+  }
+  // Moar $tagline.
+  $vars['tagline'] .= t('Any cause, anytime, anywhere.');
 }
 
 /**

@@ -69,7 +69,7 @@
   <div class="container container--tagline">
     <div class="wrapper">
       <p class="__tagline">
-        <?php print t('A DoSomething.org Campaign. Join over 2.5 million young people taking action. Any cause, anytime, anywhere.'); ?>
+        <?php print $tagline; ?>
         <em><?php print t('*Mic drop'); ?></em>
       </p>
     </div>

@@ -1175,12 +1175,27 @@ function dosomething_user_save_school_id($school_id) {
 /**
  * Gets the Member Count variable.
  *
- * @todo Pass param for format string?
+ * @param bool $readable
+ *   Whether or not to return the value as a readable string (e.g. 3.1 million)
  */
-function dosomething_user_get_member_count() {
+function dosomething_user_get_member_count($readable = FALSE) {
   $count = variable_get('dosomething_user_member_count');
-  // Put some commas in that count.
-  return number_format($count);
+  if (!$count) {
+    return NULL;
+  }
+
+  if (!$readable) {
+    // Put some commas in that count.
+    return number_format($count);
+  }
+
+  if ($count > 1000000) {
+    return round(($count/1000000), 1) . ' ' . t('million');
+  }
+  elseif ($count > 1000) {
+    return round(($count/1000), 1) . ' ' . t('thousand');
+  }
+  return $count;
 }
 
 /**
@@ -1190,6 +1205,10 @@ function dosomething_user_token_info() {
   $info['tokens']['site']['member-count'] = array(
     'name' => t('Member Count'),
     'description' => t('Number of site members.'),
+  );
+  $info['tokens']['site']['member-count-readable'] = array(
+    'name' => t('Member Count - Readable'),
+    'description' => t('Number of site members, formatted as "3.2 million".'),
   );
   return $info;
 }
@@ -1204,6 +1223,9 @@ function dosomething_user_tokens($type, $tokens, array $data = array(), array $o
       switch ($name) {
         case 'member-count':
           $replacements[$original] = dosomething_user_get_member_count();
+          break;
+        case 'member-count-readable':
+          $replacements[$original] = dosomething_user_get_member_count(TRUE);
           break;
       }
      }
