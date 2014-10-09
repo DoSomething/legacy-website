@@ -84,6 +84,11 @@ function dosomething_api_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
+      'actions' => array(
+        'get_member_count' => array(
+          'enabled' => '1',
+        ),
+      ),
     ),
   );
   $endpoint->debug = 0;

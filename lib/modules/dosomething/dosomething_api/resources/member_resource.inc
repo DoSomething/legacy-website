@@ -24,6 +24,18 @@ function _member_resource_defintion() {
         'access callback' => '_member_resource_access',
       ),
     ),
+    'actions' => array(
+      'get_member_count' => array(
+        'help' => 'Returns current member count.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member.resource',
+        ),
+        'callback' => '_member_resource_get_member_count',
+        'access callback' => '_member_resource_access',
+      ),
+    ),
   );
   return $member_resource;
 }
@@ -101,4 +113,17 @@ function _member_resource_create($account) {
   catch (Exception $e) {
     services_error($e);
   }
+}
+
+/**
+ * Callback for the get_member_count resource.
+ *
+ * @return array
+ *   Associative array of the member count, in different formats.
+ */
+function _member_resource_get_member_count() {
+  return array(
+    'formatted' => dosomething_user_get_member_count(),
+    'readable' => dosomething_user_get_member_count($readable = TRUE),
+  );
 }
