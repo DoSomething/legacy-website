@@ -7,10 +7,9 @@
 define('DOSOMETHING_UK_WATCHDOG', 'dosomething_uk');
 
 // @todo: define debugging mode.
-// require_once dirname(__FILE__) . '/misc/dosomething_uk-example.inc';
 
 // -----------------------------------------------------------------------
-// Hook implementations.
+// Hook implementations
 
 /**
  * Implements hook_menu().
@@ -54,21 +53,21 @@ function dosomething_uk_module_implements_alter(&$implementations, $hook) {
  * Implements hook_form_FORM_ID_alter() form user_login_form().
  */
 function dosomething_uk_form_user_login_alter(&$form, &$form_state, $form_id) {
-  _dosomething_alter_login($form);
+  _dosomething_uk_alter_login($form);
 }
 
 /**
  * Implements hook_form_FORM_ID_alter() form user_login_block_form().
  */
 function dosomething_uk_form_user_login_block_alter(&$form, &$form_state) {
-  _dosomething_alter_login($form);
+  _dosomething_uk_alter_login($form);
 }
 
 /**
  * Implements hook_form_FORM_ID_alter() form user_register_form().
  */
 function dosomething_uk_form_user_register_form_alter(&$form, $form_state) {
-  _dosomething_alter_registration($form);
+  _dosomething_uk_alter_registration($form);
 }
 
 /**
@@ -79,7 +78,7 @@ function dosomething_uk_form_user_profile_form_alter(&$form, $form_state) {
 }
 
 // -----------------------------------------------------------------------
-// Callbacks.
+// Callbacks
 
 /**
  * Validates user_login_form.
@@ -92,18 +91,18 @@ function dosomething_uk_login_validate($form, &$form_state) {
     return;
   }
 
-  $name = $values['name'];
+  $email = $values['name'];
   $password = $values['pass'];
 
   // Check whether local account exists.
-  $account = dosomething_user_get_user_by_email($name);
-
+  $account = dosomething_user_get_user_by_email($email);
+  
   // Process user with existing local account:
   if ($account) {
-    dosomething_uk_process_existing_user($name, $password, $account);
+    dosomething_uk_process_existing_login($email, $password, $account);
   }
   else {
-    $account = dosomething_uk_process_new_user($name, $password);
+    $account = dosomething_uk_process_new_login($email, $password);
     if ($account) {
       form_set_value($form['name'], $account->name, $form_state);
     }
@@ -124,12 +123,11 @@ function dosomething_uk_register_validate($form, &$form_state) {
   $values = &$form_state['values'];
 
   // -- Required user data. --
-  $dob = new DateObject($values['field_birthdate'][LANGUAGE_NONE][0]['value']);
   $user_data = array(
     'first_name' => $values['field_first_name'][LANGUAGE_NONE][0]['value'],
     'password'   => $values['pass'],
     'email'      => $values['mail'],
-    'dob'        => $dob,
+    'dob'        => $values['field_birthdate'][LANGUAGE_NONE][0]['value'],
     'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
     'postcode'   => $values['field_address'][LANGUAGE_NONE][0]['postal_code'],
   );
@@ -170,13 +168,12 @@ function dosomething_uk_register_validate($form, &$form_state) {
 
   if (!$result) {
     if ($error_messages = $sso->getErrorMessages()) {
-      dosomething_uk_remote_errors_to_local_form($error_messages, $form);
+      dosomething_uk_remote_errors_to_local_fields($error_messages, $form);
     }
 
+    // SSO returned unexpected errors with no much to local fields.
     if (!form_get_errors()) {
-      // @todo: Log unexpected response.
-      // form_set_error('form', t('Something went wrong.'));
-      throw new Exception("Response messages parsing error ");
+      form_set_error('form', t('Unknown error during response parsing.'));
     }
     return FALSE;
   }
@@ -185,10 +182,23 @@ function dosomething_uk_register_validate($form, &$form_state) {
 }
 
 // -----------------------------------------------------------------------
-// OAuth processing.
+// OAuth processing
 
-function dosomething_uk_process_existing_user($name, $password, $account) {
-  // Check whether the user is already authrorized on SSO.
+/**
+ * Processes existing user during login.
+ *
+ * @param string $email
+ *   The email of the user.
+ * @param string $password
+ *   The password of the user.
+ * @param  object $account
+ *   The object representing loaded local user account.
+ *
+ * @return boolean
+ *   Whether the processing was successful.
+ */
+function dosomething_uk_process_existing_login($name, $password, $account) {
+  // Check whether the user is already authorized on SSO.
   $sso = DosomethingUkSsoController::initForLocalUser($account->uid);
   if ($sso->remoteUserAdmitted()) {
     // Todo: update local password and/or profile data.
@@ -199,11 +209,24 @@ function dosomething_uk_process_existing_user($name, $password, $account) {
   return TRUE;
 }
 
-function dosomething_uk_process_new_user($name, $password) {
+/**
+ * Processes new user during login.
+ *
+ * Creates new local user based on remote SSO users or renders login errors.
+ *
+ * @param string $email
+ *   The email of the user.
+ * @param string $password
+ *   The password of the user.
+ *
+ * @return DosomethingUkSsoUser
+ *   The remote user object.
+ */
+function dosomething_uk_process_new_login($email, $password) {
   // Check whether remote account with requested name exists:
   try {
     $sso = DosomethingUkSsoController::init()->authorizeRemoteRedirect();
-    $sso_user = dosomething_uk_authorize_remote_user($name, $password, $sso);
+    $sso_user = dosomething_uk_authorize_remote_user($email, $password, $sso);
   }
   catch (Exception $e) {
     form_set_error('name', t('Unexpected login error.'));
@@ -216,7 +239,7 @@ function dosomething_uk_process_new_user($name, $password) {
     return FALSE;
   }
 
-  $account = dosomething_uk_new_user_from_remote($name, $password, $sso_user);
+  $account = dosomething_uk_new_user_from_remote($email, $password, $sso_user);
   if (!$account) {
     return FALSE;
   }
@@ -225,16 +248,31 @@ function dosomething_uk_process_new_user($name, $password) {
 }
 
 // -----------------------------------------------------------------------
-// OAuth helpers.
+// OAuth helpers
 
-function dosomething_uk_authorize_remote_user($name, $password, $sso) {
+/**
+ * Logins remote user on remote SSO with given credentials and
+ * returns the remote user.
+ *
+ * @param string $email
+ *   The email of the user.
+ * @param string $password
+ *   The password of the user.
+ * @param DosomethingUkSsoController $sso
+ *   The SSO controller.
+ *
+ * @return DosomethingUkSsoUser
+ *   The remote user object.
+ */
+function dosomething_uk_authorize_remote_user($email, $password,
+                                              DosomethingUkSsoController $sso) {
   $url = $sso->getAuthorizationUrl(TRUE, TRUE);
   if (!$url) {
     throw new Exception('Unexpected login error: request token.');
   }
 
   // Impersonate remote user logged into SSO.
-  $impersonator = DosomethingUkSsoImpersonator::login($name, $password);
+  $impersonator = DosomethingUkSsoImpersonator::login($email, $password);
 
   if (!$impersonator->isLoggedIn()) {
     // Todo: link to forgot password page.
@@ -257,22 +295,33 @@ function dosomething_uk_authorize_remote_user($name, $password, $sso) {
   return $sso_user;
 }
 
-function dosomething_uk_new_user_from_remote($name, $password, $sso_user) {
+/**
+ * Create new local user based on remote SSO user during login.
+ * @param string $email
+ *   The email of the user.
+ * @param string $password
+ *   The password of the user.
+ * @param DosomethingUkSsoUser $sso_user
+ *   The SSO user
+ *
+ * @return object|false
+ *   A fully-loaded $user object upon successful save or FALSE.
+ */
+function dosomething_uk_new_user_from_remote($email, $password,
+                                             DosomethingUkSsoUser $sso_user) {
   $edit = array(
-    'mail'    => $name,
-    'name'    => $name,
+    'mail'    => $email,
+    'name'    => $email,
     'pass'    => $password,
     'status'  => 1,
     'created' => REQUEST_TIME,
   );
-
-  $dob = new DateObject($sso_user['dob']);
   $fields = array(
-    'birthdate'   => $dob->format(DATE_FORMAT_DATE),
-    'first_name'  => $sso_user['first_name'],
-    'last_name'   => $sso_user['last_name'],
-    'postal_code' => $sso_user['postcode'],
-    'country'     => DosomethingUkSsoUser::COUNTRY,
+    'birthdate'                => $sso_user->getDobString(),
+    'first_name'               => $sso_user->getFirstName(),
+    'last_name'                => $sso_user->getLastName(),
+    'postal_code'              => $sso_user->getPostcode(),
+    'country'                  => $sso_user->getCountry(),
     'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
   );
   dosomething_user_set_fields($edit, $fields);
@@ -287,26 +336,38 @@ function dosomething_uk_new_user_from_remote($name, $password, $sso_user) {
 }
 
 // -----------------------------------------------------------------------
-// Miscellaneous.
+// Miscellaneous
 
-function _dosomething_alter_login(&$form) {
+/**
+ * Alters user login forms.
+ */
+function _dosomething_uk_alter_login(&$form) {
   // Run login validator **BEFORE** everything else.
   array_unshift($form['#validate'], 'dosomething_uk_login_validate');
 }
 
-function _dosomething_alter_registration(&$form) {
+/**
+ * Alters user registration forms.
+ */
+function _dosomething_uk_alter_registration(&$form) {
   // Run registration validator **AFTER** everything else.
   array_push($form['#validate'], 'dosomething_uk_register_validate');
 }
 
-function dosomething_uk_remote_errors_to_local_form($error_messages, &$form) {
+/**
+ * Maps remote error messages to local fields.
+ *
+ * @todo Map and assign fields.
+ * @todo Fix message 'Sorry, but vinspired is only for 14 to 25 year olds'
+ */
+function dosomething_uk_remote_errors_to_local_fields($error_messages, &$form) {
   foreach ($error_messages as $field_name => $field_errors) {
     foreach ($field_errors as $error) {
-      // @todo Map and assign fields.
-      // @todo Fix message 'Sorry, but vinspired is only for 14 to 25 year olds'
       $human_name = ucwords(preg_replace('/[^\da-z]/i', ' ', $field_name));
       $error_text = $human_name . ': ' . $error;
       form_set_error($field_name, $error_text);
     }
   }
 }
+
+// -----------------------------------------------------------------------
