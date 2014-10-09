@@ -19,7 +19,7 @@
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
       <?php if (isset($subtitle)): ?>
-      <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
     </div>
   </header>
@@ -68,7 +68,7 @@
         <?php if (isset($call_to_action) && $is_first): ?>
           <div class="cta">
             <div class="wrapper">
-              <h2 class="__message"><?php print t('Tackle a campaign to make the world suck less.'); ?></h2>
+              <h2 class="__message"><?php print $call_to_action; ?></h2>
               <?php print $cta_link; ?>
             </div>
           </div>

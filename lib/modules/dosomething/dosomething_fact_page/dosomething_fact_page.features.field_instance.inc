@@ -411,7 +411,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
