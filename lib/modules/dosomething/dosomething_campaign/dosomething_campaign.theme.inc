@@ -318,7 +318,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   $ids = array('primary', 'secondary');
   dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
   // Begin $tagline variable:
-  $vars['tagline'] = t('A DoSomething.org Campaign.') . ' ';
+  $vars['tagline'] = t('A DoSomething.org campaign.') . ' ';
   // If Member Count variable is set:
   if ($count = dosomething_user_get_member_count(TRUE)) {
     // Add it into the $tagline.

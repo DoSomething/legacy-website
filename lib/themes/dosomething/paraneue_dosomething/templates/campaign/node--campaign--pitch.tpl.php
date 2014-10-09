@@ -70,7 +70,7 @@
     <div class="wrapper">
       <p class="__tagline">
         <?php print $tagline; ?>
-        <em><?php print t('*Mic drop'); ?></em>
+        <em><?php print t('*mic drop'); ?></em>
       </p>
     </div>
   </div>
