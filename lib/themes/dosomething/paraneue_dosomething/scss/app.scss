@@ -16,7 +16,7 @@ $asset-path: "";
 // Import Bourbon, grid-settings, Neat, and Neue
 @import "../bower_components/bourbon/dist/bourbon";
 @import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
-@import "../bower_components/neue/scss/helpers/grid-settings";
+@import "../bower_components/neue/scss/_utilities/grid-settings";
 @import "../bower_components/neat/app/assets/stylesheets/neat";
 @import "../bower_components/neue/scss/neue";
 
