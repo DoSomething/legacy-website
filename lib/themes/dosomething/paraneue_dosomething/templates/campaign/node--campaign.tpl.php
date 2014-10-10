@@ -25,11 +25,11 @@
 
   <div class="wrapper">
     <nav id="nav" class="waypoints waypoints--action-menu js-sticky">
-      <ul class="__menu">
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#know"><?php print t('Know'); ?></a></li>
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#plan"><?php print t('Plan'); ?></a></li>
-        <li><a class="js-jump-scroll js-scroll-indicator" href="#do"><?php print t('Do'); ?></a></li>
-        <li><a class="primary js-jump-scroll js-scroll-indicator" href="#prove"><?php print t('Prove It'); ?></a></li>
+      <ul class="__menu js-scroll-indicator">
+        <li><a class="js-jump-scroll" href="#know"><?php print t('Know'); ?></a></li>
+        <li><a class="js-jump-scroll" href="#plan"><?php print t('Plan'); ?></a></li>
+        <li><a class="js-jump-scroll" href="#do"><?php print t('Do'); ?></a></li>
+        <li><a class="primary js-jump-scroll" href="#prove"><?php print t('Prove It'); ?></a></li>
       </ul>
     </nav>
 
