@@ -91,6 +91,16 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
  *   Node id of the campaign run node.
  */
 function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
+  // If no scholarship:
+  if (empty($vars['field_scholarship_amount'])) {
+    // Don't display the winners section.
+    $vars['display_winners'] = FALSE;
+    return;
+  }
+
+  // Display the winners section.
+  $vars['display_winners'] = TRUE;
+
   $closed_node = node_load($nid);
   // Get all winners
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);

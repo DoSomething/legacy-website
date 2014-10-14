@@ -225,7 +225,9 @@
       </div>
     </section>
   <?php endif; ?>
+  
 
+  <?php if ($display_winners): ?>
   <?php // CONGRATULATIONS TO... ////////////////////////////////////////////////////// ?>
   <section class="container container--congrats">
     <h2 class="container__title banner"><span><?php print t('Congrats to&hellip;'); ?></span></h2>
@@ -278,6 +280,7 @@
 
     </div>
   </section>
+  <?php endif; ?>
 
   <?php if ($info_bar): ?>
     <?php print $info_bar; ?>
