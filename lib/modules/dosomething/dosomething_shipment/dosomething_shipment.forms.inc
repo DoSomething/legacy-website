@@ -38,8 +38,8 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     '#markup' => $config['shipment_form_header'],
     '#suffix' => '</h2>',
   );
-  // If old person:
-  if (dosomething_user_is_old_person()) {
+  // If old people can't submit form and logged user is an old person:
+  if ($config['shipment_form_prevent_old_people_submit'] && dosomething_user_is_old_person()) {
     $form['copy'] = array(
       '#prefix' => '<p>',
       '#markup' => $config['shipment_form_old_people_copy'],

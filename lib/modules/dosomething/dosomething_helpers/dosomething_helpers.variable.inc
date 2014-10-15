@@ -99,11 +99,22 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#default_value' => $vars['shipment_form_submitted_copy'],
       '#size' => 20,
     );
+    $form['shipment']['shipment_form_prevent_old_people_submit'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Prevent Old People from submitting'),
+      '#default_value' => $vars['shipment_form_prevent_old_people_submit'],
+      '#description' => t('If checked, Old People will be unable to submit the form.'),
+    );
     $form['shipment']['shipment_form_old_people_copy'] = array(
       '#type' => 'textarea',
       '#title' => t('Old People Copy'),
       '#default_value' => $vars['shipment_form_old_people_copy'],
-      '#size' => 20,
+      '#description' => t('The copy displayed in the modal form for Old People.'),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="shipment_form_prevent_old_people_submit"]' => array('checked' => TRUE),
+        ),
+      ),
     );
   }
   $form['actions'] = array(
@@ -148,6 +159,7 @@ function dosomething_helpers_get_variable_names() {
     'shipment_form_header',
     'shipment_form_link_text',
     'shipment_form_old_people_copy',
+    'shipment_form_prevent_old_people_submit',
     'shipment_form_submit_label',
     'shipment_form_submitted_copy',
     'shipment_item',
