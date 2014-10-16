@@ -2,18 +2,21 @@ name = DoSomething Canada
 description = Provides functionality specific to our Canadian friends.
 core = 7.x
 package = DoSomething
-version = 7.x-0.1
+version = 7.x-0.3
 project = dosomething_canada
 
 ; Core
+dependencies[] = date_api
 dependencies[] = user
-dependencies[] = date
 
 ; Contrib
-
+dependencies[] = external_auth
 
 ; Custom
 dependencies[] = dosomething_user
 
 ; Includes
 files[] = includes/CanadaSSOClient.php
+
+files[] = includes/dosomething_canada_login_controller.inc
+files[] = includes/dosomething_canada_register_controller.inc
