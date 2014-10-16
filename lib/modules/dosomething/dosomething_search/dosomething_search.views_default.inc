@@ -56,7 +56,7 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['text'] = '<img src="[ss_field_search_image_300x300]"/>';
   $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['path'] = '[path_alias]';
+  $handler->display->display_options['fields']['ss_field_search_image_300x300']['alter']['path'] = '[path_alias]?source=campaigns';
   $handler->display->display_options['fields']['ss_field_search_image_300x300']['element_label_colon'] = FALSE;
   /* Field: Apache Solr: label */
   $handler->display->display_options['fields']['label']['id'] = 'label';
@@ -64,7 +64,7 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['fields']['label']['field'] = 'label';
   $handler->display->display_options['fields']['label']['label'] = '';
   $handler->display->display_options['fields']['label']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['label']['alter']['path'] = '[path_alias]';
+  $handler->display->display_options['fields']['label']['alter']['path'] = '[path_alias]?source=campaigns';
   $handler->display->display_options['fields']['label']['alter']['replace_spaces'] = TRUE;
   $handler->display->display_options['fields']['label']['alter']['alt'] = '[label]';
   $handler->display->display_options['fields']['label']['element_label_colon'] = FALSE;
@@ -79,7 +79,7 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['field'] = 'ss_field_search_image_300x300';
   $handler->display->display_options['filters']['ss_field_search_image_300x300']['value'] = '[* TO *]';
-    /* Filter criterion: Apache Solr: sm_field_campaign_status */
+  /* Filter criterion: Apache Solr: sm_field_campaign_status */
   $handler->display->display_options['filters']['sm_field_campaign_status']['id'] = 'sm_field_campaign_status';
   $handler->display->display_options['filters']['sm_field_campaign_status']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['sm_field_campaign_status']['field'] = 'sm_field_campaign_status';
@@ -103,7 +103,6 @@ function dosomething_search_views_default_views() {
     t('[label]'),
     t('Page'),
   );
-
   $export['explore_campaigns'] = $view;
 
   return $export;
