@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Page callbacks for the taxonomy module.
+ * Page callbacks for the Dosomething Taxonomy module.
  */
 
 /**
@@ -21,6 +21,7 @@ function dosomething_taxonomy_term_page($term) {
     '#markup' => check_markup($term->description, $term->format),
   );
   $image_size = '400x400';
+  $source = 'taxonomy/term/' . $term->tid;
   // Load term's campaigns.
   $view = views_get_view('campaigns_by_term');
   $view->set_arguments(array($term->tid));
@@ -28,7 +29,7 @@ function dosomething_taxonomy_term_page($term) {
   $campaigns = array();
   $size = '400x400';
   foreach ($view->result as $delta => $record) {
-    $campaign_vars = dosomething_campaign_get_campaign_block_vars($record->nid, $size, $vars['term_url']);
+    $campaign_vars = dosomething_campaign_get_campaign_block_vars($record->nid, $size, $source);
     $campaigns[] = theme('campaign_block', $campaign_vars);
   }
   $build['campaigns'] = array(
