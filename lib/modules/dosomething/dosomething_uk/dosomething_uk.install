@@ -24,6 +24,13 @@ function dosomething_uk_update_7003() {
 }
 
 /**
+ * Sets Login and Registration form variable.
+ */
+function dosomething_uk_update_7005() {
+  module_enable(array('external_auth'));
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_uk_uninstall() {
