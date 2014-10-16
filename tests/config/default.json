@@ -4,6 +4,7 @@
   "casperjs": [
     "**/*",
     "!uk/**/*"
+    "!canada/**/*"
   ],
   "xunit": false
 }

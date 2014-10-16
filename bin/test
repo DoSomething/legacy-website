@@ -32,8 +32,6 @@ program
     console.log('    test default --integration=specific/test/dir/**/*');
     console.log('    test uk');
     console.log('    test uk --casperjs=uk/sso');
-    console.log('    test canada');
-    console.log('    test canada --casperjs=canada/sso');
     console.log('');
   })
   .parse(process.argv);
