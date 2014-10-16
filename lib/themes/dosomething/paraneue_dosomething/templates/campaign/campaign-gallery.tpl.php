@@ -9,7 +9,9 @@
 <section class="container container--campaigns">
   <ul class="gallery -mosaic -featured">
   <?php foreach($items as $item): ?>
-    <li class="campaign -published"><?php print $item; ?></li>
+    <li class="campaign -<?php print $item['class'] ?>">
+      <?php print $item['campaign']; ?>
+    </li>
   <?php endforeach; ?>
   </li>
 </div>
