@@ -375,6 +375,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
     'submit_campaign_idea' => array(
       'template' => 'submit-campaign-idea',
     ),
+    'campaign_gallery' => array(
+      'template' => 'campaign-gallery',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+    ),
   );
 }
 
@@ -749,4 +753,19 @@ function dosomething_campaign_form_campaign_node_form_after_build($form, &$form_
   $path = drupal_get_path('module', 'dosomething_campaign');
   drupal_add_js ($path . "/js/campaign_node_form.js");
   return $form;
+}
+
+/**
+ * For given array of objects, return themed Campaign Gallery.
+ *
+ * @param array $campaigns
+ *   Array of objects, each should have a nid.
+ */
+function dosomething_campaign_get_campaign_gallery($campaigns, $size = '400x400', $source = NULL) {
+  $vars['items'] = array();
+  foreach ($campaigns as $campaign) {
+    $campaign_vars = dosomething_campaign_get_campaign_block_vars($campaign->nid, $size, $source);
+    $vars['items'][] = theme('campaign_block', $campaign_vars);
+  }
+  return theme('campaign_gallery', $vars);
 }

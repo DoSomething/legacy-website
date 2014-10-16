@@ -26,14 +26,9 @@ function dosomething_taxonomy_term_page($term) {
   $view = views_get_view('campaigns_by_term');
   $view->set_arguments(array($term->tid));
   $view->execute();
-  $campaigns = array();
-  $size = '400x400';
-  foreach ($view->result as $delta => $record) {
-    $campaign_vars = dosomething_campaign_get_campaign_block_vars($record->nid, $size, $source);
-    $campaigns[] = theme('campaign_block', $campaign_vars);
-  }
+  // Render campaigns as campaign gallery.
   $build['campaigns'] = array(
-    '#theme' => 'item_list',
+    '#markup' => dosomething_campaign_get_campaign_gallery($view->result, $image_size, $source),
     '#items' => $campaigns,
   );
   return $build;
