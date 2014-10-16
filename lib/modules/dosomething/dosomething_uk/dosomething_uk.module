@@ -35,7 +35,7 @@ function dosomething_uk_preprocess_page(&$vars) {
 }
 
 /**
- * Implements external_auth_method().
+ * Implements hook_external_auth_method().
  */
 function dosomething_uk_external_auth_method() {
   $items = array();
