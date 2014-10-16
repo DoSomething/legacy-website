@@ -313,26 +313,29 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  *   An array of variables.
  */
 function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480', $source = NULL) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
-  $path = 'node/' . $nid;
-  $pretty_path = drupal_get_path_alias($path);
+  $node = node_load($nid);
+  $path_alias = drupal_get_path_alias('node/' . $nid);
   if ($source) {
-    $pretty_path .= '?source=' . $source;
+    $path_alias .= '?source=' . $source;
   }
   $image = NULL;
-  $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
-  if ($image_nid) {
+  if (!empty($node->field_image_campaign_cover)) {
+    $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
   }
+  $cta = NULL;
+  if (!empty($node->field_call_to_action)) {
+    $cta = $node->field_call_to_action[LANGUAGE_NONE][0]['value'];
+  }
   return array(
-    'nid' => $wrapper->getIdentifier(),
-    'title' => $wrapper->label(),
-    'call_to_action' => $wrapper->field_call_to_action->value(),
+    'nid' => $nid,
+    'title' => $node->title,
+    'call_to_action' => $cta,
     'image' => $image,
     'path' => $path,
-    'pretty_path' => $pretty_path,
-    'status' => $wrapper->status->value(),
-    'staff_pick' => $wrapper->field_staff_pick->value(),
+    'path_alias' => $path_alias,
+    'status' => $node->status,
+    'staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
   );
 }
 
