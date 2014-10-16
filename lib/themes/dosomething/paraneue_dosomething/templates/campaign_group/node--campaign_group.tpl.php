@@ -114,31 +114,7 @@
     </section>
   <?php endif; ?>
 
-
-  <?php if (!empty($campaigns)): ?>
-    <section class="container container--campaigns">
-      <ul class="gallery -mosaic -featured">
-
-        <?php if (isset($campaigns['published'])): ?>
-          <?php foreach ($campaigns['published'] as $published_campaign): ?>
-            <li class="campaign -published">
-              <?php print render($published_campaign); ?>
-            </li>
-          <?php endforeach; ?>
-        <?php endif; ?>
-
-        <?php if (isset($campaigns['unpublished'])): ?>
-          <?php foreach ($campaigns['unpublished'] as $unpublished_campaign): ?>
-            <li class="campaign -unpublished">
-              <?php print render($unpublished_campaign); ?>
-            </li>
-          <?php endforeach; ?>
-        <?php endif; ?>
-
-      </ul>
-    </section>
-  <?php endif; ?>
-
+  <?php if (!empty($campaign_gallery)): print $campaign_gallery; endif; ?>
 
   <?php if (!empty($additional_text)): ?>
   <section class="container additional-text">
