@@ -6,10 +6,10 @@
  * - $items: The Campaign gallery items to display.
  */
 ?>
-<div>
-  <ul>
+<section class="container container--campaigns">
+  <ul class="gallery -mosaic -featured">
   <?php foreach($items as $item): ?>
-    <li><?php print $item; ?></li>
+    <li class="campaign -published"><?php print $item; ?></li>
   <?php endforeach; ?>
-  </ul>
+  </li>
 </div>
