@@ -8,6 +8,21 @@ include_once 'dosomething_taxonomy.features.inc';
 include_once 'dosomething_taxonomy.helpers.inc';
 
 /**
+* Implements hook_menu_alter().
+*/
+function dosomething_taxonomy_menu_alter(&$menu) {
+  // Override Taxonomy module's term view page.
+  $path = 'taxonomy/term/%taxonomy_term';
+  if (isset($menu[$path])) {
+    $menu[$path]['page callback'] = 'dosomething_taxonomy_term_page';
+    // Only staff can view term pages for now.
+    $menu[$path]['access arguments'] = array('access administration menu');
+    $menu[$path]['file'] = 'dosomething_taxonomy.pages.inc';
+    $menu[$path]['file path'] = drupal_get_path('module', 'dosomething_taxonomy');
+  }
+}
+
+/**
  * Returns data from field_partners field collection for a given $node.
  *
  * @param object $node
@@ -150,15 +165,5 @@ function dosomething_taxonomy_field_collection_is_empty_alter(&$is_empty, $item)
     }
     // Else assume this is an empty field collection.
     $is_empty = TRUE;
-  }
-}
-
-/**
- * Implements hook_taxonomy_term_view().
- */
-function dosomething_taxonomy_taxonomy_term_view($term, $view_mode, $langcode) {
-  // Don't grant access to term pages for non-staffers.
-  if (module_exists('dosomething_user') && !dosomething_user_is_staff()) {
-    return drupal_access_denied();
   }
 }
