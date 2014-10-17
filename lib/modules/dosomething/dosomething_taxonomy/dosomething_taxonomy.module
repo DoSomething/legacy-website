@@ -48,6 +48,9 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   // Cover image.
   dosomething_helpers_preprocess_hero_images($vars);
   dosomething_helpers_add_inline_css($vars);
+
+  // Global copy variables.
+  $vars['global_copy'] = dosomething_settings_get_sitewide_copy();
 }
 
 /**

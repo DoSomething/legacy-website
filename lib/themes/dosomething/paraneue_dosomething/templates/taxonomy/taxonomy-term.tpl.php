@@ -20,5 +20,30 @@
   <?php if (!empty($campaign_gallery)): ?>
     <?php print $campaign_gallery; ?>
   <?php endif; ?>
+  <section class="container additional-text">
+    <div class="wrapper">
 
+      <?php if (isset($global_copy['campaign_value_proposition'])): ?>
+        <h2 class="container__title inline--alt-color">
+          <?php print t('What You Get'); ?>
+        </h2>
+        <?php print $global_copy['campaign_value_proposition']; ?>
+      <?php endif; ?>
+
+      <?php if (isset($global_copy['scholarships'])): ?>
+        <h2 class="container__title inline--alt-color">
+          <?php print t('Scholarships and Contests'); ?>
+        </h2>
+        <?php print $global_copy['scholarships']; ?>
+      <?php endif; ?>
+
+      <?php if (isset($global_copy['about_ds'])): ?>
+        <h2 class="container__title inline--alt-color">
+          <?php print t('About Dosomething.org'); ?>
+        </h2>
+        <?php print $global_copy['about_ds']; ?>
+      <?php endif; ?>
+
+    </div>
+  </section>
 </div>
