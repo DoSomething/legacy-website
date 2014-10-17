@@ -9,11 +9,16 @@
     </div>
   </header>
 
-  <div class="content">
-    <?php if (isset($description)): print $description; endif; ?>
-    <?php if (!empty($campaign_gallery)): ?>
-      <?php print $campaign_gallery; ?>
-    <?php endif; ?>
-  </div>
+  <?php if (isset($intro)): ?>
+    <section class="container container--intro">
+      <div class="wrapper">
+        <?php print $intro; ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
+  <?php if (!empty($campaign_gallery)): ?>
+    <?php print $campaign_gallery; ?>
+  <?php endif; ?>
 
 </div>
