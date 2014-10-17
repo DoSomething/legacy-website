@@ -79,24 +79,36 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
 
   /**
-   * Global Page Header
+   * Determine Page template.
    */
-
-  $header_vars = array(
-    'title' => drupal_get_title(),
+  $full_width = FALSE;
+  // Node types to render in the full width page:
+  $full_width_types = array(
+    'campaign',
+    'campaign_group',
+    'fact_page',
   );
-
-  // If there's a subtitle field on this node, send it to the header
-  if(isset( $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'] )) {
-    $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
+  if (isset($vars['node']->type) && in_array($vars['node']->type, $full_width_types)) {
+    $full_width = TRUE;
+  }
+  elseif ($vars['theme_hook_suggestions'][0] == 'page__taxonomy') {
+    $full_width = TRUE;
   }
 
-  // If this is not a taxonomy term page:
-  if ($vars['theme_hook_suggestions'][0] != 'page__taxonomy') {
-    // Add the header.
+  if ($full_width) {
+    $vars['theme_hook_suggestions'][] = 'page__full_width';
+  }
+  else {
+    $header_vars = array(
+      'title' => drupal_get_title(),
+    );
+    // If there's a subtitle field on this node, send it to the header
+    if (isset($vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'])) {
+      $header_vars['subtitle'] = $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
+    }
+     // Add global header.
     $vars['header'] = theme('header', $header_vars);
   }
-
 
   /**
    * Global Page Footer
