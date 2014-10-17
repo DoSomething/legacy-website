@@ -23,6 +23,34 @@ function dosomething_taxonomy_menu_alter(&$menu) {
 }
 
 /**
+* Implements hook_preprocess_taxonomy_term().
+*/
+function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
+  $campaigns = dosomething_taxonomy_get_campaigns($vars['tid']);
+  $gallery = dosomething_campaign_get_campaign_gallery($campaigns, '400x400', $vars['term_url']);
+  $vars['campaign_gallery'] = $gallery;
+}
+
+/**
+ * Returns array of node nid's with the given Term $tid.
+ *
+ * @param int $tid
+ *   A taxonomy term tid.
+ *
+ * @return array
+ */
+function dosomething_taxonomy_get_campaigns($tid) {
+  $nids = array();
+  $view = views_get_view('campaigns_by_term');
+  $view->set_arguments(array($tid));
+  $view->execute();
+  foreach ($view->result as $record) {
+    $nids[] = $record->nid;
+  }
+  return $nids;
+}
+
+/**
  * Returns data from field_partners field collection for a given $node.
  *
  * @param object $node
