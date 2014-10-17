@@ -20,20 +20,19 @@ function dosomething_taxonomy_term_page($term) {
   $build['description'] = array(
     '#markup' => check_markup($term->description, $term->format),
   );
-  $image_size = '400x400';
+  $size = '400x400';
   $source = 'taxonomy/term/' . $term->tid;
   // Load term's campaigns.
   $view = views_get_view('campaigns_by_term');
   $view->set_arguments(array($term->tid));
   $view->execute();
-  $campaigns = array();
-  $size = '400x400';
-  foreach ($view->result as $delta => $record) {
-    $campaign_vars = dosomething_campaign_get_campaign_block_vars($record->nid, $size, $source);
-    $campaigns[] = theme('campaign_block', $campaign_vars);
+  $nids = array();
+  foreach ($view->result as $record) {
+    $nids[] = $record->nid;
   }
+  // Render campaigns as campaign gallery.
   $build['campaigns'] = array(
-    '#theme' => 'item_list',
+    '#markup' => dosomething_campaign_get_campaign_gallery($nids, $size, $source),
     '#items' => $campaigns,
   );
   return $build;

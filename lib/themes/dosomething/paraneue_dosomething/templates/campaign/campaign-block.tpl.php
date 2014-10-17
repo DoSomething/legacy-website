@@ -7,8 +7,7 @@
  * - $title: Title of campaign (string).
  * - $call_to_action: Call to action text for campaign. (string).
  * - $image: URL path for campaign image (string).
- * - $path: URL path for campaign node (string).
- * - $pretty_path: Pretty URL path for campaign node (string).
+ * - $path_alas: Pretty URL path for campaign node (string).
  * - $staff_pick: Indicate if this campaign a staff pick (boolean).
  */
 
@@ -21,7 +20,7 @@
 
 <article class="tile tile--campaign" id="campaign-<?php print $nid; ?>">
   <?php if ($status): ?>
-  <a class="wrapper" href="/<?php print $pretty_path; ?>">
+  <a class="wrapper" href="/<?php print $path_alias; ?>">
   <?php else: ?>
   <div class="wrapper">
   <?php endif; ?>

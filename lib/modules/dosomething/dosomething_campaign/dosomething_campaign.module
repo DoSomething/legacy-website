@@ -313,26 +313,29 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  *   An array of variables.
  */
 function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480', $source = NULL) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
-  $path = 'node/' . $nid;
-  $pretty_path = drupal_get_path_alias($path);
+  $node = node_load($nid);
+  $path_alias = drupal_get_path_alias('node/' . $nid);
   if ($source) {
-    $pretty_path .= '?source=' . $source;
+    $path_alias .= '?source=' . $source;
   }
   $image = NULL;
-  $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
-  if ($image_nid) {
+  if (!empty($node->field_image_campaign_cover)) {
+    $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
   }
+  $cta = NULL;
+  if (!empty($node->field_call_to_action)) {
+    $cta = $node->field_call_to_action[LANGUAGE_NONE][0]['value'];
+  }
   return array(
-    'nid' => $wrapper->getIdentifier(),
-    'title' => $wrapper->label(),
-    'call_to_action' => $wrapper->field_call_to_action->value(),
+    'nid' => $nid,
+    'title' => $node->title,
+    'call_to_action' => $cta,
     'image' => $image,
     'path' => $path,
-    'pretty_path' => $pretty_path,
-    'status' => $wrapper->status->value(),
-    'staff_pick' => $wrapper->field_staff_pick->value(),
+    'path_alias' => $path_alias,
+    'status' => $node->status,
+    'staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
   );
 }
 
@@ -374,6 +377,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
     ),
     'submit_campaign_idea' => array(
       'template' => 'submit-campaign-idea',
+    ),
+    'campaign_gallery' => array(
+      'template' => 'campaign-gallery',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
     ),
   );
 }
@@ -749,4 +756,36 @@ function dosomething_campaign_form_campaign_node_form_after_build($form, &$form_
   $path = drupal_get_path('module', 'dosomething_campaign');
   drupal_add_js ($path . "/js/campaign_node_form.js");
   return $form;
+}
+
+/**
+ * For given array of objects, return themed Campaign Gallery.
+ *
+ * @param array $nids
+ *   Array of Campaign node $nid's.
+ * @param string $size
+ *   Size to render Gallery items.
+ * @param string $source
+ *   The signup source param to pass to each campaign link.
+ *
+ * @return string
+ *   HTML of rendered Campaign Gallery.
+ */
+function dosomething_campaign_get_campaign_gallery($nids, $size = '400x400', $source = NULL) {
+  $vars['items'] = array();
+  foreach ($nids as $delta => $nid) {
+    // Default class as published.
+    $vars['items'][$delta]['class'] = 'published';
+    // Load vars for this Campaign block.
+    $campaign_vars = dosomething_campaign_get_campaign_block_vars($nid, $size, $source);
+    // If unpublished campaign:
+    if ($campaign_vars['status'] == 0) {
+      // Set relevant unpublished vars.
+      $vars['items'][$delta]['class'] = 'unpublished';
+      $campaign_vars['title'] = t('Stay Tuned');
+    }
+    // Add the themed campaign block.
+    $vars['items'][$delta]['campaign'] = theme('campaign_block', $campaign_vars);
+  }
+  return theme('campaign_gallery', $vars);
 }
