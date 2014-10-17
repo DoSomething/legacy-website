@@ -283,6 +283,43 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-action_type-field_is_published'
+  $field_instances['taxonomy_term-action_type-field_is_published'] = array(
+    'bundle' => 'action_type',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_is_published',
+    'label' => 'Published',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-action_type-field_subtitle'
   $field_instances['taxonomy_term-action_type-field_subtitle'] = array(
     'bundle' => 'action_type',
@@ -356,6 +393,43 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-cause-field_is_published'
+  $field_instances['taxonomy_term-cause-field_is_published'] = array(
+    'bundle' => 'cause',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'If checked, this term page will be accessible by anonymous and authenticated users.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_is_published',
+    'label' => 'Published',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-cause-field_subtitle'
   $field_instances['taxonomy_term-cause-field_subtitle'] = array(
     'bundle' => 'cause',
@@ -426,6 +500,43 @@ function dosomething_taxonomy_field_default_field_instances() {
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-issue-field_is_published'
+  $field_instances['taxonomy_term-issue-field_is_published'] = array(
+    'bundle' => 'issue',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_is_published',
+    'label' => 'Published',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 4,
     ),
   );
 
@@ -511,12 +622,14 @@ function dosomething_taxonomy_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Copy');
   t('Cover Image');
+  t('If checked, this term page will be accessible by anonymous and authenticated users.');
   t('If set, the Partner name will link to the given value within the "In partnership with" section.');
   t('Image');
   t('Is Sponsor');
   t('Name');
   t('Partner Logo');
   t('Partner URL');
+  t('Published');
   t('Subtitle');
   t('Video');
 
