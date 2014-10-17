@@ -7,6 +7,23 @@
 include_once 'dosomething_settings.features.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function dosomething_settings_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_settings'] = array(
+    'title' => 'DoSomething Settings',
+    'description' => 'Admin configuration form for DoSomething Settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_settings_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_settings.admin.inc',
+  );
+  return $items;
+}
+
+/**
  * Determines whether current site is an international affiliate.
  *
  * @return bool
@@ -14,4 +31,23 @@ include_once 'dosomething_settings.features.inc';
  */
 function dosomething_settings_is_affiliate() {
   return (bool) variable_get('dosomething_is_affiliate', FALSE);
+}
+
+/**
+ * Returns array of copy variables.
+ *
+ * @return array
+ */
+function dosomething_settings_get_sitewide_copy() {
+  $copy = array();
+  $copy_vars = array(
+    'about_ds',
+    'campaign_value_proposition',
+    'scholarships',
+  );
+  foreach ($copy_vars as $var) {
+    $var_name = 'dosomething_settings_copy_' . $var;
+    $copy[$var] = check_markup(variable_get($var_name), 'markdown');
+  }
+  return $copy;
 }

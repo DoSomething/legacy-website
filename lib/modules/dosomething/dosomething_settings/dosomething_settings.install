@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_settings.module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_settings_uninstall() {
+  $vars = array(
+    'dosomething_settings_copy_about_ds',
+    'dosomething_settings_copy_campaign_value_proposition',
+    'dosomething_settings_copy_scholarships',
+    'dosomething_is_affiliate',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
+
+/**
+ * Sets global copy variables.
+ */
+function dosomething_settings_update_7001() {
+
+  // About DS.
+  $copy = "We are one of the largest organizations for young people and social change. Our millions of members tackle campaigns that impact every cause, from poverty to violence to the education to literally everything else. Any cause, anytime, anywhere. *&#42;mic drop*";
+  variable_set('dosomething_settings_copy_about_ds', $copy);
+
+  // Campaign Value Proposition.
+  $copy = "Each campaign comes with action guides, tips, and tools that give you all the help you need. We'll tell you what items you need to run the best drives and even give you scripts that help you talk to your high school or college administration. Our **Do It** section gives step by step advice on the best way to complete your action. Each campaign also has facts about education (complete with sources) so you can be confident that the action you're doing is important. Finally, we know how important volunteer hours are, so each campaign counts as volunteer experience for your resume. And if that's not enough, we're just an email away.";
+  variable_set('dosomething_settings_copy_campaign_value_proposition', $copy);
+
+  // Scholarships.
+  $copy = "You make the world suck less for others. We love that, so we want to give you money (for school.) DoSomething.org offers a seasonal scholarship that you can enter to win. Complete any campaign on this page (or on our site) to enter a $10,000 scholarship. We aware one of these four times a year. Hooray, $$$$$!";
+  variable_set('dosomething_settings_copy_scholarships', $copy);
+
+}
