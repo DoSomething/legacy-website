@@ -440,9 +440,9 @@ function pull_db {
   then
     if [[ ${#alias[@]} == 1 ]]
     then
-      echo "Pulling down db from staging"
+      echo "Pulling down db from staging. Note that existing unique tables in local db will not be removed in sql-sync."
       cd $WEB_PATH
-      drush -y sql-sync @ds.staging @self
+      drush -y --create-db sql-sync @ds.staging @self
 
       echo "Enabling Stage File Proxy..."
       drush -y en stage_file_proxy
@@ -457,8 +457,8 @@ function pull_db {
       drush variable-delete ds_version -y
 
     else
-      echo "Pulling down the db from ${alias[1]} staging"
-      drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
+      echo "Pulling down the db from ${alias[1]} staging. Note that existing unique tables in local db will not be removed in sql-sync."
+      drush -y --create-db sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
     fi
   fi
 }
