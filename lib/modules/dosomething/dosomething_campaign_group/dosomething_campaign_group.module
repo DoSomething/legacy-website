@@ -25,23 +25,29 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       ),
     );
 
-    $vars['campaigns'] = dosomething_campaign_group_get_campaigns($vars['node']);
+    // Initialize variable assuming Campaign Group is pre-launch state.
+    $pre_launch = TRUE;
     $vars['campaign_gallery'] = NULL;
+    // If campaign have been added to this Campaign Group:
     if (!empty($vars['node']->field_campaigns)) {
+      // Store the nids for rendering the Campaign gallery.
       $nids = array();
-      foreach ($vars['node']->field_campaigns[LANGUAGE_NONE] as $delta => $campaign) {
-        $nids[] = $vars['node']->field_campaigns[LANGUAGE_NONE][$delta]['target_id'];
+      foreach ($vars['node']->field_campaigns[LANGUAGE_NONE] as $delta => $value) {
+        $campaign = $value['entity'];
+        $nids[] = $campaign->nid;
+        // If the campaign is published:
+        if ($campaign->status) {
+          // The Campaign Group is not in pre-launch.
+          $pre_launch = FALSE;
+        }
       }
       $campaign_gallery = dosomething_campaign_get_campaign_gallery($nids);
       $vars['campaign_gallery']= $campaign_gallery;
     }
 
-    // If there are no published campaigns, 
-    // Display pre_launch vars and remove campaigns from vars.
-    if (!isset($vars['campaigns']['published'])) {
+    if ($pre_launch) {
       $template_vars['text'][] = 'pre_launch_copy';
       $template_vars['text'][] = 'pre_launch_title';
-      unset($vars['campaigns']);
     }
 
     // If current user is signed up:
@@ -148,7 +154,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
   }
 }
 
-
 /**
  * Returns a Campaign Group parent nid for a given node $nid.
  *
@@ -182,37 +187,4 @@ function dosomething_campaign_group_is_automatic_parent_signup($nid) {
     return TRUE;
   }
   return FALSE;
-}
-
-/**
- * Returns an array with title, cta, and image for published and unpublished campaigns.
- *
- */
-function dosomething_campaign_group_get_campaigns($campaign_group_node) {
-  $campaigns = array();
-  $image_size = '400x400';
-  // Signup source to pass to the query string in campaign links.
-  $source = 'node/' . $campaign_group_node->nid;
-
-  if (!empty($campaign_group_node->field_campaigns)) {
-    foreach ($campaign_group_node->field_campaigns[LANGUAGE_NONE] as $campaign_field) {
-      $status = $campaign_field['entity']->status;
-      $vars = dosomething_campaign_get_campaign_block_vars($campaign_field['entity']->nid, $image_size, $source);
-      if ((int)$status === 0) {
-        $vars['title'] = t('Stay Tuned');
-      }
-      $campaign = array(
-        '#markup' => theme('campaign_block', $vars),
-      );
-
-      if ((int)$status === 1) {
-        $campaigns['published'][] = $campaign;
-      } 
-      else {
-        $campaigns['unpublished'][] = $campaign;
-      }
-    }
-  }
-
-  return $campaigns;
 }
