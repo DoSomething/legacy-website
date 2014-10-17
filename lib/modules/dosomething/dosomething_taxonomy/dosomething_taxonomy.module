@@ -15,11 +15,23 @@ function dosomething_taxonomy_menu_alter(&$menu) {
   $path = 'taxonomy/term/%taxonomy_term';
   if (isset($menu[$path])) {
     $menu[$path]['page callback'] = 'dosomething_taxonomy_term_page';
-    // Only staff can view term pages for now.
-    $menu[$path]['access arguments'] = array('access administration menu');
+    $menu[$path]['access callback'] = 'dosomething_taxonomy_term_page_access';
+    $menu[$path]['access arguments'] = array(2);
     $menu[$path]['file'] = 'dosomething_taxonomy.pages.inc';
     $menu[$path]['file path'] = drupal_get_path('module', 'dosomething_taxonomy');
   }
+}
+
+/**
+ * Access callback for dosomething_taxonomy_term_page().
+ *
+ * @see dosomething_taxonomy_menu().
+ */
+function dosomething_taxonomy_term_page_access($term) {
+  if (isset($term->field_is_published)) {
+    return $term->field_is_published[LANGUAGE_NONE][0]['value'];
+  }
+  return FALSE;
 }
 
 /**
