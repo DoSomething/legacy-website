@@ -17,23 +17,8 @@
  *   The page content.
  */
 function dosomething_taxonomy_term_page($term) {
-  $build['description'] = array(
-    '#markup' => check_markup($term->description, $term->format),
-  );
-  $size = '400x400';
-  $source = 'taxonomy/term/' . $term->tid;
-  // Load term's campaigns.
-  $view = views_get_view('campaigns_by_term');
-  $view->set_arguments(array($term->tid));
-  $view->execute();
-  $nids = array();
-  foreach ($view->result as $record) {
-    $nids[] = $record->nid;
-  }
-  // Render campaigns as campaign gallery.
-  $build['campaigns'] = array(
-    '#markup' => dosomething_campaign_get_campaign_gallery($nids, $size, $source),
-    '#items' => $campaigns,
-  );
-  return $build;
+  // This code is somewhat lifted from contrib module:
+  // @see https://www.drupal.org/project/disable_term_node_listings
+  drupal_set_title($term->name);
+  return taxonomy_term_view($term, 'full');
 }

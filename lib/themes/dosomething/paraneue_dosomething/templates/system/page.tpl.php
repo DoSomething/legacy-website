@@ -12,7 +12,10 @@
 
 <div class="chrome--wrapper">
   <?php print $variables['navigation']; ?>
-  <?php print $variables['header']; ?>
+
+  <?php if (isset($variables['header'])): ?>
+    <?php print $variables['header']; ?>
+  <?php endif; ?>
 
   <main role="main" class="container">
     <div class="wrapper">

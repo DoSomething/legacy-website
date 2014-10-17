@@ -15,6 +15,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
+
   // Add theme suggestion for page template based on node.
   if (isset($vars['node']->type)) {
     // If the content type's machine name is "my_machine_name" the file
@@ -90,7 +91,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $header_vars['subtitle'] =  $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
   }
 
-  $vars['header'] = theme('header', $header_vars);
+  // If this is not a taxonomy term page:
+  if ($vars['theme_hook_suggestions'][0] != 'page__taxonomy') {
+    // Add the header.
+    $vars['header'] = theme('header', $header_vars);
+  }
 
 
   /**
