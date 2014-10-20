@@ -20,12 +20,6 @@ function dosomething_home_preprocess_node(&$vars) {
   $source = '?source=node/' . $vars['nid'];
 
   $campaigns = $vars['field_campaigns'];
-
-  if (empty($campaigns)) {
-    // Fallback to old stuff.
-    $campaigns = array(362, 832, 8, 843, 345, 31, 15, 17, 850);  
-  }
-
   foreach ($campaigns as $key => $campaign) {
     // Get the campaign nid.
     if (isset($campaign['target_id'])) {
