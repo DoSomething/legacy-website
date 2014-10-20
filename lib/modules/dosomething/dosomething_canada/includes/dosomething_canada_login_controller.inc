@@ -86,9 +86,13 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
 
   public function getRemoteUser() {
     $this->sso = dosomething_canada_get_sso();
-
-    if ($this->sso->authenticate($this->email, $this->password)) {
-      $this->remote_account = $this->sso->getRemoteUser();
+    try {
+      if ($this->sso->authenticate($this->email, $this->password)) {
+        $this->remote_account = $this->sso->getRemoteUser();
+      }
+    } catch (Exception $e) {
+      // Login failed.
+      return FALSE;
     }
     return $this->remote_account;
   }
