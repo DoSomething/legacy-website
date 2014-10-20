@@ -105,22 +105,20 @@ function dosomething_taxonomy_get_campaigns($tid) {
  *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_partners_data($node) {
-  $wrapper = entity_metadata_wrapper('node', $node);
+function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = 'wmax-423px') {
+
+  if (empty($field_partners)) {
+    return NULL;
+  }
   // Intialize return array.
   $partners = array();
 
-  if (!isset($wrapper->field_partners)) {
-    return NULL;
-  }
-
-  // Default style to render the logo.
-  $logo_style = 'wmax-423px';
-
   // Loop through field collection items.
-  foreach ($wrapper->field_partners->value() as $delta => $item) {
-
-    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+  foreach ($field_partners as $delta => $item) {
+    if (!isset($item['value'])) {
+      continue;
+    }
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
 
     // Gather partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
@@ -163,15 +161,18 @@ function dosomething_taxonomy_get_partners_data($node) {
  * Returns array of values of partners / sponsor data.
  * This function will be replaced by dosomething_taxonomy_get_partners_data().
  *
- * @param object $sponsor_field_wrapper
- *   An entity_metadata_wrapper object.
+ * @param array $field_partners
+ *   An loaded field_partners field array.
  *
  * @return mixed
  *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_partners_vars($nid) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
+function dosomething_taxonomy_get_partners_vars($field_partners = array()) {
+
+  if (empty($field_partners)) {
+    return;
+  }
 
   // Intialize return arrays.
   $partners = array();
@@ -180,8 +181,11 @@ function dosomething_taxonomy_get_partners_vars($nid) {
   $info_count = 0;
 
   // Loop through field collection items.
-  foreach ($wrapper->field_partners->value() as $delta => $item) {
-    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+  foreach ($field_partners as $delta => $item) {
+    if (!isset($item['value'])) {
+      continue;
+    }
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
 
     // Store partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);

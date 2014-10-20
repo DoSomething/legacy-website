@@ -6,6 +6,9 @@
       <?php if (isset($subtitle)): ?>
         <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
+    <?php if (!empty($sponsor_logos)): ?>
+      <div class="promotions"><?php print $sponsor_logos; ?></div>
+    <?php endif; ?>
     </div>
   </header>
 
@@ -31,6 +34,7 @@
   <?php if (!empty($campaign_gallery)): ?>
     <?php print $campaign_gallery; ?>
   <?php endif; ?>
+
   <section class="container additional-text">
     <div class="wrapper">
 

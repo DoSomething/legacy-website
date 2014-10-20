@@ -88,3 +88,28 @@ function paraneue_dosomething_get_social_networks() {
     ),
   );
 }
+
+/**
+ * For given $partners_data array, return themed sponsor logos.
+ *
+ * @param array $partners_data
+ *   Array of field_partners data.
+ *   @see dosomething_taxonomy_get_partners_data().
+ *
+ * @return string
+ */
+function paraneue_dosomething_get_sponsor_logos($partners_data) {
+  $sponsors = array();
+  foreach ($partners_data as $delta => $partner) {
+    if ($partner['is_sponsor']) {
+      $sponsors[$delta]['name'] = $partner['name'];
+      $sponsors[$delta]['logo_url'] = $partner['logo']['url']['default'];
+    }
+  }
+  if (!empty($sponsors)) {
+    return theme('sponsor_logos', array(
+      'sponsors' => $sponsors,
+    ));
+  }
+  return '';
+}
