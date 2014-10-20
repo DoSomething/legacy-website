@@ -279,20 +279,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     }
 
     // Check for sponsors.
-    if ($partners = $campaign->partners) {
-      $sponsors = array();
-      foreach ($partners as $delta => $partner) {
-        if ($partner['is_sponsor']) {
-          $sponsors[$delta]['name'] = $partner['name'];
-          $sponsors[$delta]['logo_url'] = $partner['logo']['url']['default'];
-        }
-      }
-      if (!empty($sponsors)) {
-        $vars['sponsor_logos'] = theme('sponsor_logos', array(
-          'sponsors' => $sponsors,
-        ));
-      }
-    }
+    $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($campaign->partners);
 
     // Output sponsors and creator in promotions module.
     if ($vars['sponsor_logos'] || $vars['campaign_creator']) {
@@ -406,4 +393,12 @@ function paraneue_dosomething_preprocess_node_field_gallery(&$vars) {
     }
   }
 
+}
+
+/**
+ * Implements template_preprocess_taxonomy_term().
+ */
+function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
+  $vars['partners'] = dosomething_taxonomy_get_partners_data($vars['field_partners']);
+  $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($vars['partners']);
 }

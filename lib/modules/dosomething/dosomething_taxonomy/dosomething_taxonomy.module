@@ -72,9 +72,6 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   dosomething_helpers_preprocess_hero_images($vars);
   dosomething_helpers_add_inline_css($vars);
 
-  // Partners
-  dosomething_helpers_preprocess_partners_vars($vars);
-
   // Global copy variables.
   $vars['global_copy'] = dosomething_settings_get_sitewide_copy();
 }
@@ -108,22 +105,18 @@ function dosomething_taxonomy_get_campaigns($tid) {
  *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_partners_data($node) {
-  $wrapper = entity_metadata_wrapper('node', $node);
+function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = 'wmax-423px') {
+
+  if (empty($field_partners)) {
+    return NULL;
+  }
   // Intialize return array.
   $partners = array();
 
-  if (!isset($wrapper->field_partners)) {
-    return NULL;
-  }
-
-  // Default style to render the logo.
-  $logo_style = 'wmax-423px';
-
   // Loop through field collection items.
-  foreach ($wrapper->field_partners->value() as $delta => $item) {
+  foreach ($field_partners as $delta => $item) {
 
-    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
 
     // Gather partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
