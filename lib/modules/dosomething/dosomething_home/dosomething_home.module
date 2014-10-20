@@ -14,11 +14,14 @@ function dosomething_home_preprocess_node(&$vars) {
 
   // Replaces any global/site tokens in the title.
   $vars['title'] = token_replace($vars['title']);
+
   // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
+
   // Store this node as the signup source.
   $source = '?source=node/' . $vars['nid'];
 
+  // Prepare campaign thumbnails for homepage
   $campaigns = $vars['field_campaigns'];
   foreach ($campaigns as $key => $campaign) {
     // Get the campaign nid.
@@ -54,5 +57,32 @@ function dosomething_home_preprocess_node(&$vars) {
     $thumbnails[$nid] = theme('thumbnail', $tiles);
   }
 
+  // Prepare sponsor logos for homepage
+  $partners = array();
+  $wrapper = entity_metadata_wrapper('node', $vars['node']);
+
+  // Loop through field collection items.
+  foreach ($wrapper->field_partners->value() as $delta => $item) {
+    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
+
+    // Gather partner term data.
+    $tvalue = $fc_item->field_partner->value();
+    $tid = $tvalue[0]->tid;
+    $term = taxonomy_term_load($tid);
+
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+
+    $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
+    $partners[$delta]['name'] = $term_wrapper->label();
+
+    // If a logo has been uploaded:
+    if ($logo = $term_wrapper->field_partner_logo->value()) {
+      $partners[$delta]['logo']['uri'] = $logo['uri'];
+      $partners[$delta]['logo']['path'] = image_style_url('partner_homepage_image', $logo['uri']);
+    }
+  }
+
+  // Pass processed variables to the theme
   $vars['thumbnails'] = $thumbnails;
+  $vars['partners'] = $partners;
 }

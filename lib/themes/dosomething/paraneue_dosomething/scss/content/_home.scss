@@ -68,7 +68,7 @@
   background: #fff;
   text-align: center;
   overflow: hidden;
-  padding-top: 36px;
+  padding: 36px 0;
 
   @include media($tablet) {
     @include span-columns(12);
@@ -77,43 +77,23 @@
 
   h4 {
     color: $light-gray;
+    margin-top: 0;
   }
 
-  .sprite {
-    background-image: asset-url("images/sponsors.png");
-    background-repeat: no-repeat;
-    display: inline-block;
-    background-size: 175px 160px;
-    width: 50px;
-    height: 35px;
-    margin: 0 18px;
-
-    @include media($tablet) {
-      background-size: 350px 320px;
-      width: 100px;
-      height: 70px;
-    }
+  ul {
+    list-style: none;
   }
 
-  .sprite-hrb {
-    width: 60px;
-
-    @include media($tablet) {
-      width: 120px;
-    }
-
-    @include responsive-sprite(-5px, -5px);
+  li {
+    display: inline;
+    margin: 9px 18px;
   }
 
-  .sprite-aeropostale { @include responsive-sprite(-135px, -5px); }
-  .sprite-channel-one { @include responsive-sprite(-5px, -85px); }
-  .sprite-fastweb { @include responsive-sprite(-115px, -85px); }
-  .sprite-toyota { @include responsive-sprite(-5px, -165px); }
-  .sprite-jetblue { @include responsive-sprite(-115px, -165px); }
-  .sprite-aarp { @include responsive-sprite(-245px, -5px); }
-  .sprite-sprint { @include responsive-sprite(-225px, -85px); }
-  .sprite-hm { @include responsive-sprite(-228px, -165px); }
-  .sprite-salt { @include responsive-sprite(-13px, -245px); }
-  .sprite-amex { @include responsive-sprite(-110px, -245px); }
-  .sprite-google { @include responsive-sprite(-212px, -245px); }
+  img {
+    max-width: 125px;
+    max-height: 40px;
+    vertical-align: middle;
+    opacity: 0.2;
+  }
+
 }

@@ -96,20 +96,9 @@
   <?php if( $show_sponsors && !$is_affiliate ) : ?>
   <div class="home--sponsors">
     <h4><?php print t('Sponsors'); ?></h4>
-    <p>
-      <i title="H&amp;R Block" class="sprite sprite-HRB"></i>
-      <i title="Aeropostale" class="sprite sprite-aeropostale"></i>
-      <i title="Channel One" class="sprite sprite-channel-one"></i>
-      <i title="Fastweb" class="sprite sprite-fastweb"></i>
-      <i title="Toyota" class="sprite sprite-toyota"></i>
-      <i title="JetBlue" class="sprite sprite-jetblue"></i>
-      <i title="AARP" class="sprite sprite-aarp"></i>
-      <i title="Sprint" class="sprite sprite-sprint"></i>
-      <i title="H&amp;M" class="sprite sprite-hm"></i>
-      <i title="Salt" class="sprite sprite-salt"></i>
-      <i title="American Express" class="sprite sprite-amex"></i>
-      <i title="Google" class="sprite sprite-google"></i>
-    </p>
+    <ul>
+      <?php foreach($partners as $partner) { print '<li><img src="' . $partner['logo']['path'] . '" title="' . $partner['name'] . '"></li>'; } ?>
+    </ul>
   </div>
   <?php endif; ?>
 
