@@ -111,5 +111,5 @@ function paraneue_dosomething_get_sponsor_logos($partners_data) {
       'sponsors' => $sponsors,
     ));
   }
-  return NULL;
+  return '';
 }

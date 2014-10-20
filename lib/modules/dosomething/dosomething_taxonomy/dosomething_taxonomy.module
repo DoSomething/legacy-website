@@ -115,7 +115,9 @@ function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = '
 
   // Loop through field collection items.
   foreach ($field_partners as $delta => $item) {
-
+    if (!isset($item['value'])) {
+      continue;
+    }
     $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
 
     // Gather partner term data.
@@ -180,6 +182,9 @@ function dosomething_taxonomy_get_partners_vars($field_partners = array()) {
 
   // Loop through field collection items.
   foreach ($field_partners as $delta => $item) {
+    if (!isset($item['value'])) {
+      continue;
+    }
     $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
 
     // Store partner term data.
