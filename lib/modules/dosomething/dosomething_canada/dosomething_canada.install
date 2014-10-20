@@ -8,11 +8,10 @@
  * Implements hook_install().
  */
 function dosomething_canada_install() {
-
-  variable_set('dosomething_canada_sso_url', getenv('DS_CANADA_SSO_URL'));
+  // Setup OAuth access.
+  variable_set('dosomething_canada_sso_url',   getenv('DS_CANADA_SSO_URL'));
   variable_set('dosomething_canada_sso_appid', getenv('DS_CANADA_SSO_APPID'));
-  variable_set('dosomething_canada_sso_key', getenv('DS_CANADA_SSO_KEY'));
-
+  variable_set('dosomething_canada_sso_key',   getenv('DS_CANADA_SSO_KEY'));
 }
 
 /**
@@ -34,4 +33,11 @@ function dosomething_canada_uninstall() {
  */
 function dosomething_canada_update_7002() {
   dosomething_user_set_address_administrative_area_options('CA');
+}
+
+/**
+ * Enables External Auth module.
+ */
+function dosomething_canada_update_7003() {
+  module_enable(array('external_auth'));
 }

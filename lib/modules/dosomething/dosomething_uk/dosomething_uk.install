@@ -24,7 +24,7 @@ function dosomething_uk_update_7003() {
 }
 
 /**
- * Sets Login and Registration form variable.
+ * Enables External Auth module.
  */
 function dosomething_uk_update_7005() {
   module_enable(array('external_auth'));
