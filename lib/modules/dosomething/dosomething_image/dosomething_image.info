@@ -39,6 +39,7 @@ features[image][] = 720x720
 features[image][] = 740x480
 features[image][] = 768x768
 features[image][] = 800x300
+features[image][] = partner_homepage_image
 features[image][] = wmax-300-hmax-75
 features[image][] = wmax-423px
 features[node][] = image

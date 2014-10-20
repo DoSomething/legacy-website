@@ -348,6 +348,40 @@ function dosomething_image_image_default_styles() {
     ),
   );
 
+  // Exported image style: partner_homepage_image.
+  $styles['partner_homepage_image'] = array(
+    'name' => 'partner_homepage_image',
+    'label' => 'Partner Homepage Image',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale',
+        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
+        'effect callback' => 'image_scale_effect',
+        'dimensions callback' => 'image_scale_dimensions',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'image',
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 250,
+          'height' => 80,
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+      2 => array(
+        'label' => 'Desaturate',
+        'help' => 'Desaturate converts an image to grayscale.',
+        'effect callback' => 'image_desaturate_effect',
+        'dimensions passthrough' => TRUE,
+        'module' => 'image',
+        'name' => 'image_desaturate',
+        'data' => array(),
+        'weight' => 2,
+      ),
+    ),
+  );
+
   // Exported image style: wmax-300-hmax-75.
   $styles['wmax-300-hmax-75'] = array(
     'name' => 'wmax-300-hmax-75',
