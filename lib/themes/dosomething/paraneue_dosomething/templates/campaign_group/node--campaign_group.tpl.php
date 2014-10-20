@@ -38,18 +38,12 @@
         </div>
       <?php endif; ?>
 
-      <?php if (isset($sponsors[0]['display'])): ?>
-      <div class="sponsor">
-        <p class="__copy"><?php print t('Powered by'); ?></p>
-        <?php foreach ($sponsors as $key => $sponsor) :?>
-          <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
-        <?php endforeach; ?>
-      </div>
+      <?php if (!empty($sponsor_logos)): ?>
+        <div class="promotions"><?php print $sponsor_logos; ?></div>
       <?php endif; ?>
+
     </div>
   </header>
-
-
 
   <?php if (isset($intro)): ?>
     <section class="container container--intro">
