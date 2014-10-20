@@ -42,8 +42,15 @@ function dosomething_taxonomy_term_page_access($term) {
 * Implements hook_preprocess_taxonomy_term().
 */
 function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
-  // Term description.
+  // Use term description as $intro variable.
   $vars['intro'] = check_markup($vars['description'], $vars['format']);
+  // Check for video.
+  if (!empty($vars['term']->field_video)) {
+    $wrapper = entity_metadata_wrapper('taxonomy_term', $vars['term']);
+    $vars['intro_video'] = theme('dosomething_video_embed', array(
+      'field' => $wrapper->field_video->value(),
+    ));
+  }
 
   // Term campaigns.
   $campaigns = dosomething_taxonomy_get_campaigns($vars['tid']);

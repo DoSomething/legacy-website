@@ -12,7 +12,18 @@
   <?php if (isset($intro)): ?>
     <section class="container container--intro">
       <div class="wrapper">
-        <?php print $intro; ?>
+        <div class="container__body">
+          <div<?php if (isset($intro_video)): print ' class="-columned"'; endif; ?>>
+          <?php print $intro; ?>
+          </div>
+          <?php if (isset($intro_video)): ?>
+          <aside class="-columned -col-last">
+            <div class="media-video">
+              <?php print $intro_video; ?>
+            </div>
+          </aside>
+          <?php endif; ?>
+        </div>
       </div>
     </section>
   <?php endif; ?>
