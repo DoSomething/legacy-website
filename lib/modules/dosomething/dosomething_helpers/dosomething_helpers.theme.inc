@@ -80,7 +80,7 @@ function theme_dosomething_video_embed($variables) {
  */
 function dosomething_helpers_preprocess_partners_vars(&$vars) {
   // Returns partners, sponsors, and partner_info arrays.
-  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['nid']);
+  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners']);
   // Gather any returned arrays.
   foreach ($partners_vars as $key => $values) {
     $vars[$key] = $values;
