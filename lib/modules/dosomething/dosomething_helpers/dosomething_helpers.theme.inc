@@ -85,24 +85,6 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
   foreach ($partners_vars as $key => $values) {
     $vars[$key] = $values;
   }
-  // Preprocess sponsor logos.
-  if (isset($vars['sponsors'])) {
-    foreach ($vars['sponsors'] as $delta => $sponsor) {
-      $vars['sponsors'][$delta]['name'] = $sponsor['name'];
-      // If there is a file present for sponsor logo:
-      if (isset($sponsor['fid'])) {
-        $img = dosomething_image_get_themed_image_by_fid($sponsor['fid'], 'wmax-423px', $sponsor['name']);
-        $vars['sponsors'][$delta]['img'] = $img;
-        // Set the display variable as the image.  This is outputted to tpl.
-        $vars['sponsors'][$delta]['display'] = $img;
-      }
-      // Else if no file:
-      else {
-        // Return null so we won't display anything
-        $vars['sponsors'][$delta]['display'] = NULL;
-      }
-    }
-  }
   // Preprocess partner info modals.
   if (isset($vars['partner_info'])) {
     foreach ($vars['partner_info'] as $delta => $info) {
