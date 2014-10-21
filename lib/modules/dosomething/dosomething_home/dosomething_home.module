@@ -66,7 +66,7 @@ function dosomething_home_preprocess_node(&$vars) {
     $term_wrapper = entity_metadata_wrapper('taxonomy_term', $item);
 
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
-    $partners[$delta]['name'] = $term_wrapper->name;
+    $partners[$delta]['name'] = $item->name;
 
     // If a logo has been uploaded:
     if ($logo = $term_wrapper->field_partner_logo->value()) {
