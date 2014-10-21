@@ -90,10 +90,16 @@
   }
 
   img {
-    max-width: 125px;
-    max-height: 40px;
+    max-width: 90px;
+    max-height: 30px;
     vertical-align: middle;
     opacity: 0.2;
+
+    @include media($tablet) {
+      /* retina sizing, see Image Style preset */
+      max-width: 125px;
+      max-height: 40px;
+    }
   }
 
 }
