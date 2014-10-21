@@ -22,56 +22,62 @@ function dosomething_home_preprocess_node(&$vars) {
   $source = '?source=node/' . $vars['nid'];
 
   // Prepare campaign thumbnails for homepage
-  $campaigns = $vars['field_campaigns'];
-  foreach ($campaigns as $key => $campaign) {
-    // Get the campaign nid.
-    if (isset($campaign['target_id'])) {
-      $nid = $campaign['target_id'];
+  $campaigns = array();
+  if(isset($vars['field_campaigns'])) {
+    $campaigns = $vars['field_campaigns'];
+
+    foreach ($campaigns as $key => $campaign) {
+      // Get the campaign nid.
+      if (isset($campaign['target_id'])) {
+        $nid = $campaign['target_id'];
+      }
+      else {
+        $nid = $campaign;
+      }
+      $node = node_load($nid);
+
+      // Grab all tiles attributes.
+      $tiles = array();
+      $tiles['nid'] = $nid;
+      $tiles['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+      $tiles['title'] = $node->title;
+      $tiles['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
+
+      // Get the campaign cover image.
+      $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+      if ($key == 0) {
+        $tiles['modifier_classes'] = "big";
+        $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+      }
+      else {
+        $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
+      }
+
+
+      $tiles['path'] = 'node/' . $nid;
+      $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']) . $source;
+
+      $thumbnails[$nid] = theme('thumbnail', $tiles);
     }
-    else {
-      $nid = $campaign;
-    }
-    $node = node_load($nid);
-
-    // Grab all tiles attributes.
-    $tiles = array();
-    $tiles['nid'] = $nid;
-    $tiles['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
-    $tiles['title'] = $node->title;
-    $tiles['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
-
-    // Get the campaign cover image.
-    $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
-    if ($key == 0) {
-      $tiles['modifier_classes'] = "big";
-      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
-    }
-    else {
-      $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
-    }
-
-
-    $tiles['path'] = 'node/' . $nid;
-    $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']) . $source;
-
-    $thumbnails[$nid] = theme('thumbnail', $tiles);
   }
 
   // Prepare sponsor logos for homepage
   $partners = array();
   $wrapper = entity_metadata_wrapper('node', $vars['node']);
 
-  // Loop through field collection items.
-  foreach ($wrapper->field_sponsors->value() as $delta => $item) {
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $item);
+  if(isset($wrapper->field_sponsors)) {
+    // Loop through field collection items.
+    foreach ($wrapper->field_sponsors->value() as $delta => $item) {
+      $term_wrapper = entity_metadata_wrapper('taxonomy_term', $item);
 
-    $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
-    $partners[$delta]['name'] = $item->name;
+      $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
+      $partners[$delta]['name'] = $item->name;
 
-    // If a logo has been uploaded:
-    if ($logo = $term_wrapper->field_partner_logo->value()) {
-      $partners[$delta]['logo']['uri'] = $logo['uri'];
-      $partners[$delta]['logo']['path'] = image_style_url('partner_homepage_image', $logo['uri']);
+      // If a logo has been uploaded:
+      if ($logo = $term_wrapper->field_partner_logo->value()) {
+        $partners[$delta]['logo']['uri'] = $logo['uri'];
+        $partners[$delta]['logo']['path'] = image_style_url('partner_homepage_image', $logo['uri']);
+      }
     }
   }
 
