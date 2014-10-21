@@ -57,6 +57,16 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 60,
   );
+  // Internal active page for staff.
+  $items['node/%node/active'] = array(
+    'title' => 'Active',
+    'page callback' => 'node_page_view',
+    'page arguments' => array(1),
+    'access callback' => '_dosomething_campaign_active_page_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 70,
+  );
   // Internal closed page for staff.
   $items['node/%node/closed'] = array(
     'title' => 'Closed',
@@ -246,8 +256,20 @@ function _dosomething_campaign_closed_page_access($node) {
 
   // Only display closed page link if a campaign run exists for node.
   $run_nid = dosomething_campaign_run_get_closed_run_nid($node->nid);
-  // Closed page available if this is a campaign node with a campaign run.
-  return ($node->type == 'campaign' && $run_nid);
+
+  // Closed page available if this is an active campaign node with a campaign run.
+  $is_active = !dosomething_campaign_is_closed($node);
+  return ($node->type == 'campaign' && $run_nid && $is_active);
+}
+
+/*
+ * Determines whether a user has access to the active page callback.
+ */
+function _dosomething_campaign_active_page_access($node) {
+  // Staff only.
+  if (!dosomething_user_is_staff()) { return FALSE; }
+
+  return (dosomething_campaign_is_closed($node));
 }
 
 /**

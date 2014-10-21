@@ -15,6 +15,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
   $vars['campaign'] = dosomething_campaign_load($node);
   $wrapper = entity_metadata_wrapper('node', $node);
 
+  $current_path = current_path();
+
   // Hero Images.
   dosomething_helpers_preprocess_hero_images($vars);
 
@@ -26,11 +28,22 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  // Check if current path is active path.
+  // @see dosomething_campaign_menu().
+  $active_path = 'node/' . $node->nid . '/active';
+  if ($current_path == $active_path) {
+    // Preprocess common vars between all campaign types.
+    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+    // Preprocess the vars for the campaign action page.
+    dosomething_campaign_preprocess_action_page($vars, $wrapper);
+    return;
+  }
+
   // Check if current path is closed path.
   // @see dosomething_campaign_menu().
   $closed_path = 'node/' . $node->nid . '/closed';
   // If the campaign node is closed or we're on the closed path:
-  if (dosomething_campaign_is_closed($node) || current_path() == $closed_path) {
+  if (dosomething_campaign_is_closed($node) || $current_path == $closed_path) {
     // Use the campaign closed template to theme.
     $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
     dosomething_campaign_run_preprocess_closed($vars);
