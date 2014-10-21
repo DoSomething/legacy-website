@@ -62,18 +62,11 @@ function dosomething_home_preprocess_node(&$vars) {
   $wrapper = entity_metadata_wrapper('node', $vars['node']);
 
   // Loop through field collection items.
-  foreach ($wrapper->field_partners->value() as $delta => $item) {
-    $fc_item = entity_metadata_wrapper('field_collection_item', $item);
-
-    // Gather partner term data.
-    $tvalue = $fc_item->field_partner->value();
-    $tid = $tvalue[0]->tid;
-    $term = taxonomy_term_load($tid);
-
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+  foreach ($wrapper->field_sponsors->value() as $delta => $item) {
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $item);
 
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
-    $partners[$delta]['name'] = $term_wrapper->label();
+    $partners[$delta]['name'] = $term_wrapper->name;
 
     // If a logo has been uploaded:
     if ($logo = $term_wrapper->field_partner_logo->value()) {
