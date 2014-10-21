@@ -68,6 +68,14 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
     }
   }
 
+  // Facts.
+  $vars['facts'] = array();
+  $wrapper = entity_metadata_wrapper('taxonomy_term', $vars['tid']);
+  if ($wrapper->field_facts->count() > 0) {
+    $vars['facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
+    $vars['facts_header'] = t("Facts About @name", array('@name' => $vars['term']->name));
+  }
+
   // Cover image.
   dosomething_helpers_preprocess_hero_images($vars);
   dosomething_helpers_add_inline_css($vars);
