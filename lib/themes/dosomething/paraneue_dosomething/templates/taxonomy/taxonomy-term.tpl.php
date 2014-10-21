@@ -51,7 +51,7 @@
           <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
           <ul class="__body legal">
             <?php foreach ($facts['sources'] as $key => $source): ?>
-              <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+              <li><sup><?php print $key + 1; ?></sup> <?php print $source; ?></li>
             <?php endforeach; ?>
           </ul>
         </section>
@@ -73,7 +73,7 @@
 
       <?php if (isset($global_copy['about_ds'])): ?>
         <h2 class="container__title inline--alt-color">
-          <?php print t('About Dosomething.org'); ?>
+          <?php print t('About DoSomething.org'); ?>
         </h2>
         <?php print $global_copy['about_ds']; ?>
       <?php endif; ?>
