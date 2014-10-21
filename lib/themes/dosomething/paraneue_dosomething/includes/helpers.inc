@@ -98,7 +98,10 @@ function paraneue_dosomething_get_social_networks() {
  *
  * @return string
  */
-function paraneue_dosomething_get_sponsor_logos($partners_data) {
+function paraneue_dosomething_get_sponsor_logos($partners_data = array()) {
+  if (empty($partners_data)) {
+    return '';
+  }
   $sponsors = array();
   foreach ($partners_data as $delta => $partner) {
     if ($partner['is_sponsor']) {
