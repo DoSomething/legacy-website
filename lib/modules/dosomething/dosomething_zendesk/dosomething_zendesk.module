@@ -5,6 +5,7 @@
  */
 define('DOSOMETHING_ZENDESK_FIELD_ID_BROWSER', 22583110);
 define('DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS', 22583120);
+DEFINE('DOSOMETHING_ZENDESK_LOG', variable_get('dosomething_zendesk_log') ? TRUE : FALSE);
 
 /**
  * Implements hook_menu().
@@ -12,7 +13,7 @@ define('DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS', 22583120);
 function dosomething_zendesk_menu() {
   $items = array();
   $items['admin/config/dosomething/dosomething_zendesk'] = array(
-    'title' => 'Zendesk settings',
+    'title' => 'DoSomething Zendesk',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'dosomething_zendesk_admin_page',
     'access arguments' => array('administer modules'),
@@ -57,10 +58,10 @@ function dosomething_zendesk_get_client() {
 /**
  * Form constructor for submitting a Zendesk ticket.
  *
- * @param object $node
- *   Optional. A loaded node which this zendesk form is being rendered on.
+ * @param object $entity
+ *   Optional. A loaded entity which this zendesk form is being rendered on.
  */
-function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
+function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
   // Initialize zendesk group_id as NULL.
   $group_id = NULL;
 
@@ -162,6 +163,11 @@ function dosomething_zendesk_get_zendesk_group_id($entity) {
     $tid = $entity->field_primary_cause[LANGUAGE_NONE][0]['tid'];
     // Store zendesk group_id of the primary cause.
     $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
+  }
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', "dosomething_zendesk_get_zendesk_group_id: @id", array(
+      '@id' => $group_id,
+    ));
   }
   return $group_id;
 }
@@ -282,6 +288,9 @@ function dosomething_zendesk_get_ticket_array($values) {
   if (isset($values['group_id'])) {
     $ticket['group_id'] = $values['group_id'];
   }
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', json_encode($ticket));
+  }
   return $ticket;
 }
 
@@ -346,6 +355,9 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
     'email' => $email,
     'name' => $first_name,
   );
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', json_encode($new_user));
+  }
   try {
     // Send API request to create new user.
     return $client->users()->create($new_user);

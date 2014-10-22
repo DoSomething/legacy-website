@@ -24,7 +24,9 @@ function dosomething_zendesk_admin_page() {
 function dosomething_zendesk_config_form($form, &$form_state)  {
   $form['authentication'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Authentication')
+    '#title' => t('Authentication'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
   $form['authentication']['dosomething_zendesk_subdomain'] = array(
     '#type' => 'textfield',
@@ -65,6 +67,18 @@ function dosomething_zendesk_config_form($form, &$form_state)  {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_zendesk_form_body_label'),
   );
+  $form['log'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Logging'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['log']['dosomething_zendesk_log'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Log Zendesk.'),
+    '#default_value' => variable_get('dosomething_zendesk_log', FALSE),
+    '#description' => t("Logs Zendesk activity. This should be disabled on production."),
+  );
   return system_settings_form($form);
 }
 
@@ -78,6 +92,12 @@ function dosomething_zendesk_groups_config_form() {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  $groups = dosomething_zendesk_get_zendesk_groups();
+  if (empty($groups)) {
+    return array('help' => array(
+      '#markup' => t("Not authenticated."),
+    ));
+  }
   // List available groups and group id's from Zendesk API.
   foreach (dosomething_zendesk_get_zendesk_groups() as $group_id => $group_name) {
     $form['groups'][$group_id] = array(
