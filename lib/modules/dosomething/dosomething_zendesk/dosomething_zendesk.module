@@ -107,19 +107,13 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
     );
   }
 
-  if ($node) {
-     // Check if node has its own Zendesk group_id:
-    $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $node->nid));   
-    // If not, check if node has a primary cause:
-    if (!$group_id && isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
-      $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
-      // Store zendesk group_id of the primary cause.
-      $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
-    }
+  if ($entity) {
+    // Check if entity has a Zendesk group id.
+    $group_id = dosomething_zendesk_get_zendesk_group_id($entity);
     // If staff_pick field exists:
-    if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
-      // If node is a staff pick:
-      if ($node->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
+    if (isset($entity->field_staff_pick) && isset($entity->field_staff_pick[LANGUAGE_NONE][0])) {
+      // If entity is a staff pick:
+      if ($entity->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
         $form['priority']['#value'] = 'high';
       }
     }
@@ -149,6 +143,27 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
   );
 
   return $form;
+}
+
+/**
+ * Returns the Zendesk Group ID that a given $entity should submit tickets to.
+ *
+ * @param object $entity
+ *   A loaded entity, such as a node or a taxonomy term.
+ * @return
+ *   An integer, or NULL.
+ */
+function dosomething_zendesk_get_zendesk_group_id($entity) {
+  $group_id = NULL;
+   // Check if node has its own Zendesk group_id:
+  $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $entity->nid));
+  // If not, check if node has a primary cause:
+  if (!$group_id && isset($entity->field_primary_cause[LANGUAGE_NONE][0])) {
+    $tid = $entity->field_primary_cause[LANGUAGE_NONE][0]['tid'];
+    // Store zendesk group_id of the primary cause.
+    $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
+  }
+  return $group_id;
 }
 
 /**
