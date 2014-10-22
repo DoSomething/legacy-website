@@ -38,6 +38,7 @@ function dosomething_user_address_form_element(&$form, &$form_state) {
       'data-validate-required' => '',
     ),
   );
+  $country = variable_get('dosomething_user_address_country', 'US');
   $form['user_address'] = array(
     '#prefix' => '<div data-validate="ups_address" data-validate-required>',
     '#suffix' => '</div>',
@@ -47,7 +48,7 @@ function dosomething_user_address_form_element(&$form, &$form_state) {
       'address-hide-country' => 'address-hide-country',
     ),
     '#required' => TRUE,
-    '#context' => array('countries' => array('US')),
+    '#context' => array('countries' => array($country)),
     '#default_value' => isset($account->field_address[LANGUAGE_NONE][0]) ? $account->field_address[LANGUAGE_NONE][0] : '',
   );
   // If we are collecting an address, run address validation.
