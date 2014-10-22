@@ -59,6 +59,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 
   // Term fields:
   $text_fields = array(
+    'intro_title',
     'subtitle',
   );
   foreach ($text_fields as $label) {
