@@ -264,6 +264,9 @@ function dosomething_zendesk_get_ticket_array($values) {
       return FALSE;
     }
   }
+  // Include subject within the body to allow for Zendesk auto-tagging.
+  // (Zendesk currently doesn't let you filter by subject).
+  $body = $values['subject'] . ': ' . $values['body'];
   // Build array with expected format for Ticket creation.
   $ticket = array(
     'requester' => array(
@@ -271,7 +274,7 @@ function dosomething_zendesk_get_ticket_array($values) {
     ),
     'subject' => $values['subject'],
     'comment' => array(
-      'body' => $values['body'],
+      'body' => $body,
     ),
     'priority' => $values['priority'],
     'custom_fields' => array(
