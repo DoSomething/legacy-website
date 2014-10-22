@@ -383,6 +383,7 @@ function dosomething_user_user_default_permissions() {
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',
     'roles' => array(
+      'communications team' => 'communications team',
       'editor' => 'editor',
       'org friend' => 'org friend',
     ),
