@@ -156,14 +156,26 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
  */
 function dosomething_zendesk_get_zendesk_group_id($entity) {
   $group_id = NULL;
-   // Check if node has its own Zendesk group_id:
-  $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $entity->nid));
-  // If not, check if node has a primary cause:
-  if (!$group_id && isset($entity->field_primary_cause[LANGUAGE_NONE][0])) {
-    $tid = $entity->field_primary_cause[LANGUAGE_NONE][0]['tid'];
-    // Store zendesk group_id of the primary cause.
-    $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
+  // If this is a taxonomy term:
+  if (isset($entity->tid)) {
+    // Check if this term has its own group.
+    $var_name = dosomething_zendesk_get_group_varname('tid', $entity->tid);
+    $group_id = variable_get($var_name);
   }
+  // Else if a node:
+  elseif (isset($entity->nid)) {
+     // Check if node has its own Zendesk group_id:
+    $var_name = dosomething_zendesk_get_group_varname('nid', $entity->nid);
+    $group_id = variable_get($var_name);
+    // If not, check if node has a primary cause:
+    if (!$group_id && isset($entity->field_primary_cause[LANGUAGE_NONE][0])) {
+      $tid = $entity->field_primary_cause[LANGUAGE_NONE][0]['tid'];
+      // Store zendesk group_id of the primary cause.
+      $var_name = dosomething_zendesk_get_group_varname('tid', $tid);
+      $group_id = variable_get($var_name);
+    }
+  }
+
   if (DOSOMETHING_ZENDESK_LOG) {
     watchdog('dosomething_zendesk', "dosomething_zendesk_get_zendesk_group_id: @id", array(
       '@id' => $group_id,
