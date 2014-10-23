@@ -636,9 +636,9 @@ function _dosomething_user_register_display_fields(&$form) {
     // Adds form element for postal code only to the register form.
     $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
   }
-  // Else unset corresponding form field.
+  // Else deny access to the corresponding form field.
   else {
-    unset($form[$field_name]);
+    $form[$field_name]['#access'] = FALSE;
   }
 
 }
