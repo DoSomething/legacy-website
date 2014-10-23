@@ -411,6 +411,11 @@ function paraneue_dosomething_preprocess_field_partners(&$vars) {
  * Implements template_preprocess_taxonomy_term().
  */
 function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
+
+  // Adds sponsor logos.
   paraneue_dosomething_preprocess_field_partners($vars);
+  // Adds Partner Info modals, and $formatted_partners variable.
+  dosomething_helpers_preprocess_partners_vars($vars);
+
   paraneue_dosomething_add_info_bar($vars);
 }
