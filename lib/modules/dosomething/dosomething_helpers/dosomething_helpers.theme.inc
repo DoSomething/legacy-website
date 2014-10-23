@@ -168,7 +168,7 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
  *   Node variables, passed from preprocess_node.
  */
 function dosomething_helpers_preprocess_custom_vars(&$vars) {
-  if ($vars['type'] == 'campaign') {
+  if (isset($vars['type']) && $vars['type'] == 'campaign') {
     $campaign = $vars['campaign'];
     if ($campaign->variables['alt_color']) {
       $alt_color = $campaign->variables['alt_color'];
@@ -177,7 +177,7 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
       $fid = $campaign->variables['alt_bg_fid'];
     }
   }
-  else {
+  elseif (isset($vars['nid'])) {
     $custom_vars = dosomething_helpers_get_variables($vars['nid']);
      if ($custom_vars['alt_color']) {
       $alt_color = $custom_vars['alt_color'];
