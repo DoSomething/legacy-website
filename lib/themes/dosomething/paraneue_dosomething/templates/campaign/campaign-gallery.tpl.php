@@ -13,5 +13,5 @@
       <?php print $item['campaign']; ?>
     </li>
   <?php endforeach; ?>
-  </li>
-</div>
+  </ul>
+</section>
