@@ -79,6 +79,9 @@ function theme_dosomething_video_embed($variables) {
  *   Node variables, passed from preprocess_node.
  */
 function dosomething_helpers_preprocess_partners_vars(&$vars) {
+  if (!isset($vars['field_partners'])) {
+    return;
+  }
   // Returns partners, sponsors, and partner_info arrays.
   $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners']);
   // Gather any returned arrays.
