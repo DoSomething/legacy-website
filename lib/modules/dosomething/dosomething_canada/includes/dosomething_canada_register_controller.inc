@@ -23,7 +23,7 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
   // ---------------------------------------------------------------------
   // Public: interface implementation
 
-  public function setup(Array $form_state) {
+  public function setup(Array $form, Array &$form_state) {
     $this->account_values = $form_state['values'];
     $this->sso = dosomething_canada_get_sso();
     return $this;

@@ -46,7 +46,7 @@ class DosomethingUkLoginController implements ExternalAuthLoginController {
   // ---------------------------------------------------------------------
   // Public: interface implementation
 
-  public function setup(Array $form_state) {
+  public function setup(Array $form, Array &$form_state) {
     $this->email    = $form_state['values']['name'];
     $this->password = $form_state['values']['pass'];
     $this->local_account  = dosomething_user_get_user_by_email($this->email);

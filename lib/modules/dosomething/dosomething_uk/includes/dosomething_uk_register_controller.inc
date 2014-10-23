@@ -30,7 +30,7 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
   // ---------------------------------------------------------------------
   // Public: interface implementation
 
-  public function setup(Array $form_state) {
+  public function setup(Array $form, Array &$form_state) {
     $values = &$form_state['values'];
 
     // -- Required user data. --
@@ -70,6 +70,18 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
       form_set_value(
         $form['field_mobile'],
         array(LANGUAGE_NONE => array(0 => array('value' => $phone))),
+        $form_state
+      );
+    }
+
+    // If the postal code is validated remotely, save also the country.
+    if ($this->remote_account->getPostcode()) {
+      form_set_value(
+        $form['field_address'],
+        array(LANGUAGE_NONE => array(array(
+          'postal_code' => $this->remote_account->getPostcode(),
+          'country' => $this->remote_account->getCountry(),
+        ))),
         $form_state
       );
     }
