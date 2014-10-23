@@ -416,6 +416,11 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
   paraneue_dosomething_preprocess_field_partners($vars);
   // Adds Partner Info modals, and $formatted_partners variable.
   dosomething_helpers_preprocess_partners_vars($vars);
-
+  $vars['modals'] = theme('modal_links', array('modals' =>
+    array(
+      'partner_info' => $vars['partner_info'],
+      'issue' => $vars['term']->name,
+    ),
+  ));
   paraneue_dosomething_add_info_bar($vars);
 }
