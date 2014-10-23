@@ -16,6 +16,8 @@ FIELD_LAST_NAME  = 'field_last_name[und][0][value]'
 FIELD_BIRTHDATE  = 'field_birthdate[und][0][value][date]'
 FIELD_POSTCODE   = 'field_address[und][0][postal_code]'
 
+USER_COUNTRY = 'UK'
+
 # Generate user.
 user = casper.getRandomUser()
 uid = false
@@ -65,13 +67,18 @@ casper.test.begin "Test that registration form is integrated with SSO", 3, (test
 # ------------------------------------------------------------------------
 # Test user created from SSO
 
-casper.test.begin "Test that user created from SSO has correct data", 6, (test) ->
+casper.test.begin "Test that user created from SSO has correct data", 9, (test) ->
 
   # Launch browser on registration page.
   casper.start url
 
   # Test the nid is present
   test.assertTruthy uid, "User id from the signup test found."
+
+  # Check user's country.
+  login test
+  country test
+  phantom.clearCookies()
 
   # Delete user account.
   casper.then ->
@@ -80,6 +87,7 @@ casper.test.begin "Test that user created from SSO has correct data", 6, (test) 
 
   # Perform the login.
   login test
+  country test
 
   # Go to the edit profile page.
   # We don't know new uid yet, but user/register will redirect to the page.
@@ -162,7 +170,6 @@ saveUserUid = ->
 
 # Finds user uid on the profile edit page ans saves it to global variable.
 login = (test) ->
-
   # Login user.
   casper.then -> @login user.email, user.password
 
@@ -170,7 +177,16 @@ login = (test) ->
   casper.then ->
     test.assertSelectorHasText "h1.__title", "Hey, #{user.first_name}",
       "Test if user is logged in."
+    return
   return
 
+# Ensure profile page contains right county.
+country = (test) ->
+  casper.thenOpen "#{url}/user"
+  casper.then ->
+    test.assertSelectorHasText "dl.__address-info dd:last-child", "#{USER_COUNTRY}",
+      "Test user's country."
+    return
+  return
 
 # ------------------------------------------------------------------------
