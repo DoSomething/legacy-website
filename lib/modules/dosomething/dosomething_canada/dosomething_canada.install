@@ -12,6 +12,9 @@ function dosomething_canada_install() {
   variable_set('dosomething_canada_sso_url',   getenv('DS_CANADA_SSO_URL'));
   variable_set('dosomething_canada_sso_appid', getenv('DS_CANADA_SSO_APPID'));
   variable_set('dosomething_canada_sso_key',   getenv('DS_CANADA_SSO_KEY'));
+
+  // Setup user.
+  variable_set('dosomething_user_address_country', 'CA');
 }
 
 /**

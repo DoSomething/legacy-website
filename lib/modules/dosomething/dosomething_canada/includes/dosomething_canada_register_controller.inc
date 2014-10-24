@@ -31,8 +31,7 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
     form_set_value(
       $form['field_address'],
       array(LANGUAGE_NONE => array(array(
-        'postal_code' => '',
-        'country'     => DOSOMETHING_CANADA_USER_COUNTRY,
+        'country' => variable_get('dosomething_user_address_country'),
       ))),
       $form_state
     );
