@@ -41,7 +41,9 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
           $pre_launch = FALSE;
         }
       }
-      $campaign_gallery = dosomething_campaign_get_campaign_gallery($nids);
+      $size = '400x400';
+      $source = 'node/' . $vars['node']->nid;
+      $campaign_gallery = dosomething_campaign_get_campaign_gallery($nids, $size, $source);
       $vars['campaign_gallery']= $campaign_gallery;
     }
 
