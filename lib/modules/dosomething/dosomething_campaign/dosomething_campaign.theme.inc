@@ -28,12 +28,20 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  $pitch_path = 'node/' . $node->nid . '/pitch';
+  if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
+    // Gather vars for pitch page.
+    dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+    return;
+  }
+
+  // Preprocess common vars between all campaign types for non-pitch templates.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
   // Check if current path is active path.
   // @see dosomething_campaign_menu().
   $active_path = 'node/' . $node->nid . '/active';
   if ($current_path == $active_path) {
-    // Preprocess common vars between all campaign types.
-    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
     // Preprocess the vars for the campaign action page.
     dosomething_campaign_preprocess_action_page($vars, $wrapper);
     return;
@@ -44,38 +52,17 @@ function dosomething_campaign_preprocess_node(&$vars) {
   $closed_path = 'node/' . $node->nid . '/closed';
   // If the campaign node is closed or we're on the closed path:
   if (dosomething_campaign_is_closed($node) || $current_path == $closed_path) {
-    // Use the campaign closed template to theme.
-    $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
     dosomething_campaign_run_preprocess_closed($vars);
-    // Preprocess common vars between all campaign types.
-    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
     return;
   }
-
-  if (dosomething_campaign_is_pitch_page($node)) {
-    // Use the pitch page template to theme.
-    $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
-    // Gather vars for pitch page.
-    dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
-    return;
-  }
-
-  // Preprocess common vars between all campaign types.
-  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
-
-
 
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    // Use the SMS Game template to theme.
-    $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
     dosomething_campaign_preprocess_sms_game($vars, $wrapper);
     return;
   }
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);
-
-
 }
 
 /**
@@ -323,6 +310,8 @@ function dosomething_campaign_preprocess_shipment_form(&$vars) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
+  // Use the pitch page template to theme.
+  $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
   // Track that we're viewing a pitch page.
   $vars['campaign']->is_pitch_page = TRUE;
   // Check for a signup button copy override.
@@ -353,6 +342,8 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_sms_game(&$vars, &$wrapper) {
+  // Use the SMS Game template to theme.
+  $vars['theme_hook_suggestions'][] = 'node__campaign__sms_game';
   $vars['signup_form'] = $vars['content']['signup_form'];
   $vars['starter_header'] = $wrapper->field_starter_statement_header->value();
   drupal_add_js('//cdn.optimizely.com/js/1158700146.js', 'external');

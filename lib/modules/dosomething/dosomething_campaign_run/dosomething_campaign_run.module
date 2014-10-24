@@ -14,6 +14,9 @@ include_once 'dosomething_campaign_run.features.inc';
 function dosomething_campaign_run_preprocess_closed(&$vars) {
   if (!isset($vars['nid'])) { return; }
 
+  // Use the campaign closed template to theme.
+  $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
+
   // If a closed Campaign Run node exists:
   if ($closed_run_nid = dosomething_campaign_run_get_closed_run_nid($vars['nid'])) {
     // Load the closed campaign_run.

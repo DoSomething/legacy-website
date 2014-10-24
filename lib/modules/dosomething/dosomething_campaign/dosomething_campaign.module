@@ -546,21 +546,17 @@ function dosomething_campaign_is_pitch_page($node) {
   if (dosomething_campaign_get_campaign_type($node) != 'campaign') {
     return FALSE;
   }
+  // If campaign is closed, no pitch page.
+  elseif (dosomething_campaign_is_closed($node)) {
+    return FALSE;
+  }
+
+  // If we've made it this far, the campaign is active.
 
   // Anonymous users are always shown pitch page.
-  // @todo: Will need additional check here for if the campaign $node is closed.
   if (!user_is_logged_in()) {
     return TRUE;
   }
-
-  if (dosomething_user_is_staff()) {
-    // Return whether or not we're on the staff-only pitch page URL.
-    // @see dosomething_campaign_menu().
-    // This check also allows staff to bypass the Pitch Page to view Action Page
-    // regardless of whether or not they're signed up for the campaign.
-    return (current_path() == 'node/' . $node->nid . '/pitch');
-  }
-
   // The $node is a pitch page if you haven't signed up yet.
   return (!dosomething_signup_exists($node->nid));
 }
