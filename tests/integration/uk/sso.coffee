@@ -133,7 +133,7 @@ growOld = (user) ->
 saveUserUid = ->
   uid = casper.getCurrentUrl().match(/\/user\/([0-9]+)\/edit$/)[1]
 
-# Finds user uid on the profile edit page ans saves it to global variable.
+# Fills and submits the login form.
 login = (test) ->
   # Login user.
   casper.then -> @login user.email, user.password
