@@ -49,10 +49,15 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     return $form;
   }
   // If shipment exists already:
-  if (dosomething_shipment_get_shipment_id_by_entity($config['entity_type'], $config['entity_id'])) {
+  $shipment = dosomething_shipment_get_shipment_id_by_entity($config['entity_type'], $config['entity_id']);
+  if ($shipment) {
+    // Store submitted copy.
+    $copy = $config['shipment_form_submitted_copy'];
+    // Check for [submitted] token.
+    $copy = dosomething_signup_filter_form_submitted_copy($copy, $shipment->created);
     $form['copy'] = array(
       '#prefix' => '<p>',
-      '#markup' => $config['shipment_form_submitted_copy'],
+      '#markup' => $copy,
       '#suffix' => '</p>',
     );
     // Return form without a submit button.
