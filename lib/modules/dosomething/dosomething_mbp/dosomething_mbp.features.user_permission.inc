@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * dosomething_user.features.user_permission.inc
+ * dosomething_mbp.features.user_permission.inc
  */
 
 /**
