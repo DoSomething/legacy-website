@@ -49,7 +49,8 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     return $form;
   }
   // If shipment exists already:
-  if ($shipment = dosomething_shipment_get_shipment_id_by_entity($config['entity_type'], $config['entity_id'])) {
+  $shipment = dosomething_shipment_get_shipment_id_by_entity($config['entity_type'], $config['entity_id']);
+  if ($shipment) {
     // Store submitted copy.
     $copy = $config['shipment_form_submitted_copy'];
     // Check for [submitted] token.
