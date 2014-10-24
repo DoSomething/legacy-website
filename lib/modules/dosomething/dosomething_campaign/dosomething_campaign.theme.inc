@@ -28,23 +28,24 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
-  // Check if current path is active path.
-  // @see dosomething_campaign_menu().
-  $active_path = 'node/' . $node->nid . '/active';
-  if ($current_path == $active_path) {
-    // Preprocess common vars between all campaign types.
-    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
-    // Preprocess the vars for the campaign action page.
-    dosomething_campaign_preprocess_action_page($vars, $wrapper);
-    return;
-  }
-
   $pitch_path = 'node/' . $node->nid . '/pitch';
   if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
     // Use the pitch page template to theme.
     $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
     // Gather vars for pitch page.
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+    return;
+  }
+
+  // Preprocess common vars between all campaign types for non-pitch templates.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
+  // Check if current path is active path.
+  // @see dosomething_campaign_menu().
+  $active_path = 'node/' . $node->nid . '/active';
+  if ($current_path == $active_path) {
+    // Preprocess the vars for the campaign action page.
+    dosomething_campaign_preprocess_action_page($vars, $wrapper);
     return;
   }
 
@@ -56,13 +57,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
     // Use the campaign closed template to theme.
     $vars['theme_hook_suggestions'][] = 'node__campaign__closed';
     dosomething_campaign_run_preprocess_closed($vars);
-    // Preprocess common vars between all campaign types.
-    dosomething_campaign_preprocess_common_vars($vars, $wrapper);
     return;
   }
-
-  // Preprocess common vars between all campaign types.
-  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Use the SMS Game template to theme.
