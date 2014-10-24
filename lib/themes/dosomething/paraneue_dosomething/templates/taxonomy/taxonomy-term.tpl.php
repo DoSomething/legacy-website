@@ -20,7 +20,10 @@
         <?php endif; ?>
         <div class="container__body">
           <div<?php if (isset($intro_video)): print ' class="-columned"'; endif; ?>>
-          <?php print $intro; ?>
+            <?php print $intro; ?>
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
           </div>
           <?php if (isset($intro_video)): ?>
           <aside class="-columned -col-last">
@@ -83,4 +86,9 @@
 
     </div>
   </section>
+
+  <?php if ($info_bar): ?>
+    <?php print $info_bar; ?>
+  <?php endif; ?>
+
 </div>

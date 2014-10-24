@@ -85,6 +85,11 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 
   // Global copy variables.
   $vars['global_copy'] = dosomething_settings_get_sitewide_copy();
+
+  // Zendesk form.
+  if (module_exists('dosomething_zendesk')) {
+    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $vars['term']);
+  }
 }
 
 /**

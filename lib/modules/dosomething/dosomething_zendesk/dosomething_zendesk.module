@@ -5,6 +5,7 @@
  */
 define('DOSOMETHING_ZENDESK_FIELD_ID_BROWSER', 22583110);
 define('DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS', 22583120);
+DEFINE('DOSOMETHING_ZENDESK_LOG', variable_get('dosomething_zendesk_log') ? TRUE : FALSE);
 
 /**
  * Implements hook_menu().
@@ -12,7 +13,7 @@ define('DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS', 22583120);
 function dosomething_zendesk_menu() {
   $items = array();
   $items['admin/config/dosomething/dosomething_zendesk'] = array(
-    'title' => 'Zendesk settings',
+    'title' => 'DoSomething Zendesk',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'dosomething_zendesk_admin_page',
     'access arguments' => array('administer modules'),
@@ -57,10 +58,10 @@ function dosomething_zendesk_get_client() {
 /**
  * Form constructor for submitting a Zendesk ticket.
  *
- * @param object $node
- *   Optional. A loaded node which this zendesk form is being rendered on.
+ * @param object $entity
+ *   Optional. A loaded entity which this zendesk form is being rendered on.
  */
-function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
+function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
   // Initialize zendesk group_id as NULL.
   $group_id = NULL;
 
@@ -107,19 +108,13 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
     );
   }
 
-  if ($node) {
-     // Check if node has its own Zendesk group_id:
-    $group_id = variable_get(dosomething_zendesk_get_group_varname('nid', $node->nid));   
-    // If not, check if node has a primary cause:
-    if (!$group_id && isset($node->field_primary_cause[LANGUAGE_NONE][0])) {
-      $tid = $node->field_primary_cause[LANGUAGE_NONE][0]['tid'];
-      // Store zendesk group_id of the primary cause.
-      $group_id = variable_get(dosomething_zendesk_get_group_varname('tid', $tid));
-    }
+  if ($entity) {
+    // Check if entity has a Zendesk group id.
+    $group_id = dosomething_zendesk_get_zendesk_group_id($entity);
     // If staff_pick field exists:
-    if (isset($node->field_staff_pick[LANGUAGE_NONE][0])) {
-      // If node is a staff pick:
-      if ($node->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
+    if (isset($entity->field_staff_pick) && isset($entity->field_staff_pick[LANGUAGE_NONE][0])) {
+      // If entity is a staff pick:
+      if ($entity->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
         $form['priority']['#value'] = 'high';
       }
     }
@@ -149,6 +144,44 @@ function dosomething_zendesk_form($form, &$form_state, $node = NULL)  {
   );
 
   return $form;
+}
+
+/**
+ * Returns the Zendesk Group ID that a given $entity should submit tickets to.
+ *
+ * @param object $entity
+ *   A loaded entity, such as a node or a taxonomy term.
+ * @return
+ *   An integer, or NULL.
+ */
+function dosomething_zendesk_get_zendesk_group_id($entity) {
+  $group_id = NULL;
+  // If this is a taxonomy term:
+  if (isset($entity->tid)) {
+    // Check if this term has its own group.
+    $var_name = dosomething_zendesk_get_group_varname('tid', $entity->tid);
+    $group_id = variable_get($var_name);
+  }
+  // Else if a node:
+  elseif (isset($entity->nid)) {
+     // Check if node has its own Zendesk group_id:
+    $var_name = dosomething_zendesk_get_group_varname('nid', $entity->nid);
+    $group_id = variable_get($var_name);
+    // If not, check if node has a primary cause:
+    if (!$group_id && isset($entity->field_primary_cause[LANGUAGE_NONE][0])) {
+      $tid = $entity->field_primary_cause[LANGUAGE_NONE][0]['tid'];
+      // Store zendesk group_id of the primary cause.
+      $var_name = dosomething_zendesk_get_group_varname('tid', $tid);
+      $group_id = variable_get($var_name);
+    }
+  }
+
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', "dosomething_zendesk_get_zendesk_group_id: @id", array(
+      '@id' => $group_id,
+    ));
+  }
+  return $group_id;
 }
 
 /**
@@ -243,6 +276,9 @@ function dosomething_zendesk_get_ticket_array($values) {
       return FALSE;
     }
   }
+  // Include subject within the body to allow for Zendesk auto-tagging.
+  // (Zendesk currently doesn't let you filter by subject).
+  $body = $values['subject'] . ': ' . $values['body'];
   // Build array with expected format for Ticket creation.
   $ticket = array(
     'requester' => array(
@@ -250,7 +286,7 @@ function dosomething_zendesk_get_ticket_array($values) {
     ),
     'subject' => $values['subject'],
     'comment' => array(
-      'body' => $values['body'],
+      'body' => $body,
     ),
     'priority' => $values['priority'],
     'custom_fields' => array(
@@ -266,6 +302,9 @@ function dosomething_zendesk_get_ticket_array($values) {
   );
   if (isset($values['group_id'])) {
     $ticket['group_id'] = $values['group_id'];
+  }
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', json_encode($ticket));
   }
   return $ticket;
 }
@@ -331,6 +370,9 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
     'email' => $email,
     'name' => $first_name,
   );
+  if (DOSOMETHING_ZENDESK_LOG) {
+    watchdog('dosomething_zendesk', json_encode($new_user));
+  }
   try {
     // Send API request to create new user.
     return $client->users()->create($new_user);
