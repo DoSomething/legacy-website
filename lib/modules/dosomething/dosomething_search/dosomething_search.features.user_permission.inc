@@ -12,11 +12,11 @@ function dosomething_search_user_default_permissions() {
 
   // Exported permission: 'administer search'.
   $permissions['administer search'] = array(
-   'name' => 'administer search',
-   'roles' => array(
-    'administrator' => 'administrator'
+    'name' => 'administer search',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
-   'module' => 'search',
+    'module' => 'search',
   );
 
   // Exported permission: 'search content'.

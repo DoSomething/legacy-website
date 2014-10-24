@@ -30,5 +30,6 @@ function dosomething_campaign_run_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }
