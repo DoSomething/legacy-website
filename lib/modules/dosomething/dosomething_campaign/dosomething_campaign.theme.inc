@@ -69,21 +69,31 @@ function dosomething_campaign_preprocess_node(&$vars) {
  * Preprocesses variables common between campaign action page and sms_game.
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
-  $vars['issue'] = $wrapper->field_issue->value()->name;
+  if (isset($wrapper->field_issue)) {
+    $vars['issue'] = $wrapper->field_issue->value()->name;
+  }
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);
   $vars['starter'] = $wrapper->field_starter_statement->value();
   $vars['official_rules'] = $wrapper->field_official_rules->value();
   $vars['official_rules_src'] = file_create_url($vars['official_rules']['uri']);
-  $vars['modals'] = theme('modal_links', array('modals' =>
-      array(
-        'faq' => $vars['campaign']->faq,
-        'more_facts' => $vars['more_facts'],
-        'partner_info' => $vars['partner_info'],
-        'issue' => $vars['issue'],
-      )
-    )
-  );
+  // Check for modals.
+  $modal_links = array();
+  if (isset($vars['campaign']->faq)) {
+    $modal_links['faq'] = $vars['campaign']->faq;
+  }
+  if (isset($vars['more_facts'])) {
+    $modal_links['more_facts'] = $vars['more_facts'];
+    if (isset($vars['issue'])) {
+      $modal_links['issue'] = $vars['issue'];
+    }
+  }
+  if (isset($vars['partner_info'])) {
+    $modal_links['partner_info'] = $vars['partner_info'];
+  }
+  if (!empty($modal_links)) {
+    $vars['modals'] = theme('modal_links', array('modals' => $modal_links));
+  }
   // Zendesk Support Ticket form.
   if (isset($vars['content']['zendesk_form']) && !dosomething_settings_is_affiliate()) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
