@@ -11,6 +11,8 @@ FIELD_PASS_2     = 'pass[pass2]'
 FIELD_FIRST_NAME = 'field_first_name[und][0][value]'
 FIELD_BIRTHDATE  = 'field_birthdate[und][0][value][date]'
 
+USER_COUNTRY = 'CA'
+
 # Generate user.
 user = casper.getRandomUser()
 uid = false
@@ -18,7 +20,7 @@ uid = false
 # ------------------------------------------------------------------------
 # Test registration form
 
-casper.test.begin "Test that registration form is integrated with SSO", 2, (test) ->
+casper.test.begin "Test the registration form", 2, (test) ->
 
   # Launch browser on registration page.
   casper.start "#{url}/user/register"
@@ -47,30 +49,41 @@ casper.test.begin "Test that registration form is integrated with SSO", 2, (test
   return
 
 # ------------------------------------------------------------------------
-# Test login form
+# Test the user created
 
-casper.test.begin "Test that user created from SSO can login", 1, (test) ->
-
-  # Launch browser on registration page.
+casper.test.begin "Test the registred user", 4, (test) ->
   casper.start url
+  login test
+  user_profile test
+  casper.run -> @test.done()
+  return
 
-  # Perform the login.
-  casper.then -> @login user.email, user.password
+# ------------------------------------------------------------------------
+# Test user created from new login
 
-  # Go to the edit profile page.
-  # We don't know new uid yet, but user/register will redirect to the page.
-  casper.thenOpen "#{url}/user/register"
-  casper.then -> saveUserUid()
+casper.test.begin "Test the user created from new login", 5, (test) ->
+  # Test the nid is present so we can remove it.
+  test.assertTruthy uid, "User id from the signup test found."
 
-  # Test the nid is present
-  test.assertTruthy uid, "User is found."
-
-  # Cleanup after success.
+  casper.start url
   casper.then ->
-    @logAction "Cleanup:"
+    # Delete user account.
+    @logAction "Remove the user to test login using remote account only:"
     @deleteUser uid
 
-  # Run tests.
+  # Check user profile.
+  login test
+  user_profile test
+  casper.run -> @test.done()
+  return
+
+# ------------------------------------------------------------------------
+# Test login form
+
+casper.test.begin "Test that the user created can login again", 1, (test) ->
+  casper.start url
+  login test
+  casper.then -> @logAction "Cleanup:"; @deleteUser uid
   casper.run -> @test.done()
   return
 
@@ -93,5 +106,44 @@ fillSignupForm = (user) ->
 # Finds user uid on the profile edit page ans saves it to global variable.
 saveUserUid = ->
   uid = casper.getCurrentUrl().match(/\/user\/([0-9]+)\/edit$/)[1]
+
+# Fills and submits the login form.
+login = (test) ->
+  # Login user.
+  casper.then -> @login user.email, user.password
+
+  # Ensure user has landed on its profile page.
+  casper.then ->
+    test.assertSelectorHasText "h1.__title", "Hey, #{user.first_name}",
+      "Test if user is logged in."
+    return
+  return
+
+# Performs 3 tests to check user's profile.
+user_profile = (test) ->
+  # Test user's country.
+  casper.thenOpen "#{url}/user"
+  casper.then ->
+    test.assertSelectorHasText "dl.__address-info dd:last-child", "#{USER_COUNTRY}",
+      "Test user's country."
+    return
+
+  # Test user's profile.
+  # Go to the edit profile page.
+  # We don't know new uid yet, but user/register will redirect to the page.
+  casper.thenOpen "#{url}/user/register"
+
+  # Ensure user data is consistent with the original one.
+  casper.then ->
+    test.assertField FIELD_FIRST_NAME, user.first_name,
+      "Test if user has correct first name."
+
+    test.assertField FIELD_BIRTHDATE, user.dob.format("MM/DD/YYYY"),
+      "Test if user has correct birthdate."
+
+    saveUserUid()
+    return
+
+  return
 
 # ------------------------------------------------------------------------
