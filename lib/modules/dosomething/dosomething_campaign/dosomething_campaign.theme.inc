@@ -39,6 +39,15 @@ function dosomething_campaign_preprocess_node(&$vars) {
     return;
   }
 
+  $pitch_path = 'node/' . $node->nid . '/pitch';
+  if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
+    // Use the pitch page template to theme.
+    $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
+    // Gather vars for pitch page.
+    dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
+    return;
+  }
+
   // Check if current path is closed path.
   // @see dosomething_campaign_menu().
   $closed_path = 'node/' . $node->nid . '/closed';
@@ -52,18 +61,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
     return;
   }
 
-  if (dosomething_campaign_is_pitch_page($node)) {
-    // Use the pitch page template to theme.
-    $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
-    // Gather vars for pitch page.
-    dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
-    return;
-  }
-
   // Preprocess common vars between all campaign types.
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
-
-
 
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Use the SMS Game template to theme.
@@ -74,8 +73,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);
-
-
 }
 
 /**
