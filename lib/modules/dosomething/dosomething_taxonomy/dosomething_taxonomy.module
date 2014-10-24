@@ -52,9 +52,11 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
     ));
   }
 
-  // Term campaigns.
+  // Display Campaign Gallery for this term.
   $campaigns = dosomething_taxonomy_get_campaigns($vars['tid']);
-  $gallery = dosomething_campaign_get_campaign_gallery($campaigns, '400x400', $vars['term_url']);
+  $size = '400x400';
+  $source = 'taxonomy/term/' . $vars['tid'];
+  $gallery = dosomething_campaign_get_campaign_gallery($campaigns, $size, $source);
   $vars['campaign_gallery'] = $gallery;
 
   // Term fields:
