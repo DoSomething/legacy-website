@@ -26,6 +26,16 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
   public function setup(Array $form, Array &$form_state) {
     $this->account_values = $form_state['values'];
     $this->sso = dosomething_canada_get_sso();
+
+    // Set users address country.
+    form_set_value(
+      $form['field_address'],
+      array(LANGUAGE_NONE => array(array(
+        'country' => variable_get('dosomething_user_address_country'),
+      ))),
+      $form_state
+    );
+
     return $this;
   }
 
