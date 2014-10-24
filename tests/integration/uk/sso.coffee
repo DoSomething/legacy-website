@@ -25,7 +25,7 @@ uid = false
 # ------------------------------------------------------------------------
 # Test registration form
 
-casper.test.begin "Test that registration form is integrated with SSO", 3, (test) ->
+casper.test.begin "Test the registration form", 3, (test) ->
 
   # Launch browser on registration page.
   casper.start "#{url}/user/register"
@@ -51,11 +51,8 @@ casper.test.begin "Test that registration form is integrated with SSO", 3, (test
   # Check whether the registration is successful.
   assert_message = 'User is registered can see own profile.'
   casper.waitForUrl /\/user\/[0-9]+\/edit$/,
-    ->
-      # Success.
-      test.assertExists '.status', assert_message
-      saveUserUid()
-    ->
+    -> test.assertExists '.status', assert_message # Success
+    -> # Fail
       @echo 'Registration form errors:', 'ERROR'
       @echo @fetchText('.error').trim(), 'WARNING'
       test.assert false, assert_message
@@ -65,73 +62,41 @@ casper.test.begin "Test that registration form is integrated with SSO", 3, (test
   return
 
 # ------------------------------------------------------------------------
-# Test user created from SSO
+# Test the user created
 
-casper.test.begin "Test that user created from SSO has correct data", 9, (test) ->
-
-  # Launch browser on registration page.
+casper.test.begin "Test the registred user", 6, (test) ->
   casper.start url
-
-  # Test the nid is present
-  test.assertTruthy uid, "User id from the signup test found."
-
-  # Check user's country.
   login test
-  country test
-  phantom.clearCookies()
-
-  # Delete user account.
-  casper.then ->
-    @logAction "Remove the user to test login using remote account only:"
-    @deleteUser uid
-
-  # Perform the login.
-  login test
-  country test
-
-  # Go to the edit profile page.
-  # We don't know new uid yet, but user/register will redirect to the page.
-  casper.thenOpen "#{url}/user/register"
-
-  # Ensure user data is consistent with the original one.
-  casper.then ->
-    test.assertField FIELD_FIRST_NAME, user.first_name,
-      "Test if user has correct first name."
-
-    test.assertField FIELD_LAST_NAME, user.last_name,
-      "Test if user has correct last name."
-
-    test.assertField FIELD_BIRTHDATE, user.dob.format("DD/MM/YYYY"),
-      "Test if user has correct birthdate."
-
-    test.assertField FIELD_POSTCODE, user.postcode,
-      "Test if user has correct postcode."
-
-    saveUserUid()
-    return
-
-  # Run tests.
+  user_profile test
   casper.run -> @test.done()
   return
 
+# ------------------------------------------------------------------------
+# Test user created from new login
+
+casper.test.begin "Test the user created from new login", 7, (test) ->
+  # Test the nid is present so we can remove it.
+  test.assertTruthy uid, "User id from the signup test found."
+
+  casper.start url
+  casper.then ->
+    # Delete user account.
+    @logAction "Remove the user to test login using remote account only:"
+    @deleteUser uid
+
+  # Check user profile.
+  login test
+  user_profile test
+  casper.run -> @test.done()
+  return
 
 # ------------------------------------------------------------------------
 # Test login form
 
-casper.test.begin "Test that user created from SSO can login", 1, (test) ->
-
-  # Launch browser on registration page.
+casper.test.begin "Test that the user created can login again", 1, (test) ->
   casper.start url
-
-  # Perform the login.
   login test
-
-  # Cleanup after success.
-  casper.then ->
-    @logAction "Cleanup after full success:"
-    @deleteUser uid
-
-  # Run tests.
+  casper.then -> @logAction "Cleanup:"; @deleteUser uid
   casper.run -> @test.done()
   return
 
@@ -180,13 +145,37 @@ login = (test) ->
     return
   return
 
-# Ensure profile page contains right county.
-country = (test) ->
+# Performs 5 tests to check user's profile.
+user_profile = (test) ->
+  # Test user's country.
   casper.thenOpen "#{url}/user"
   casper.then ->
     test.assertSelectorHasText "dl.__address-info dd:last-child", "#{USER_COUNTRY}",
       "Test user's country."
     return
+
+  # Test user's profile.
+  # Go to the edit profile page.
+  # We don't know new uid yet, but user/register will redirect to the page.
+  casper.thenOpen "#{url}/user/register"
+
+  # Ensure user data is consistent with the original one.
+  casper.then ->
+    test.assertField FIELD_FIRST_NAME, user.first_name,
+      "Test if user has correct first name."
+
+    test.assertField FIELD_LAST_NAME, user.last_name,
+      "Test if user has correct last name."
+
+    test.assertField FIELD_BIRTHDATE, user.dob.format("DD/MM/YYYY"),
+      "Test if user has correct birthdate."
+
+    test.assertField FIELD_POSTCODE, user.postcode,
+      "Test if user has correct postcode."
+
+    saveUserUid()
+    return
+
   return
 
 # ------------------------------------------------------------------------
