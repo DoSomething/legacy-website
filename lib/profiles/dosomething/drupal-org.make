@@ -223,8 +223,6 @@ projects[conductor_sms][subdir] = "contrib"
 projects[message_broker_producer][type] = "module"
 projects[message_broker_producer][download][type] = "git"
 projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
-; Pin to 0.1.21+aug25 pending 0.2.x development
-projects[message_broker_producer][download][revision] = "40e8d9892e378846adf5cb9b295f53c8a533f123"
 projects[message_broker_producer][subdir] = "contrib"
 
 
