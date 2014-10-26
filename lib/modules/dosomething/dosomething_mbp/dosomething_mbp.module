@@ -35,23 +35,29 @@ function dosomething_mbp_menu() {
  */
 function dosomething_mbp_request($origin, $params = NULL) {
 
-  $production_type = NULL;
+  $production = NULL;
   switch ($origin) {
     case 'user_register':
-    case 'user_password':
-    case 'campaign_signup':
-    case 'campaign_group_signup':
-    case 'campaign_reportback':
-      $production_type = 'produceTransactional';
-      $payload = dosomething_mbp_get_transactional_payload($origin, $params);
+      $production = 'transactional_user_register';
       break;
-
+    case 'user_password':
+      $production = 'transactional_user_password';
+      break;
+    case 'campaign_signup':
+      $production = 'transactional_campaign_signup';
+      break;
+    case 'campaign_group_signup':
+      $production = 'transactional_campaign_group_signup';
+      break;
+    case 'campaign_reportback':
+      $production = 'transactional_campaign_reportback';
+      break;
   }
   if (variable_get('dosomething_mbp_log')) {
     watchdog('dosomething_mbp', json_encode($payload));
   }
   try {
-    return message_broker_producer_request($production_type, $payload);
+    return message_broker_producer_request($production, $payload);
   }
   catch (Exception $e) {
     watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
