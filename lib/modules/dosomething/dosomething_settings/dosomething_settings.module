@@ -49,6 +49,7 @@ function dosomething_settings_is_affiliate() {
  *   - kenya
  *   - nigeria
  *   - training
+ *   - uk
  */
 function dosomething_settings_get_affiliate_code() {
   $code = &drupal_static(__FUNCTION__);
@@ -81,6 +82,7 @@ function dosomething_settings_get_affiliate_country_code() {
       'indonesia' => 'ID',
       'kenya'     => 'KE',
       'nigeria'   => 'NG',
+      'uk'        => 'UK',
     );
     $code = strtolower(dosomething_settings_get_affiliate_code());
     $country_code = isset($mapping[$code]) ? $mapping[$code] : 'US';
