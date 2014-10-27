@@ -61,6 +61,34 @@ function dosomething_settings_get_affiliate_code() {
 }
 
 /**
+ * Returns current affiliate's ISO 3166-1 Alpha-2 country code.
+ *
+ * @see http://en.wikipedia.org/wiki/ISO_3166-1
+ * @see  https://www.drupal.org/project/addressfield
+ *
+ * @return string
+ *   Two-letter country code when country code detected,
+ *   otherwise default: US.
+ */
+function dosomething_settings_get_affiliate_country_code() {
+  $country_code = &drupal_static(__FUNCTION__);
+  if (!isset($country_code)) {
+    $mapping = array(
+      'botswana'  => 'BW',
+      'canada'    => 'CA',
+      'congo'     => 'CD',
+      'ghana'     => 'GH',
+      'indonesia' => 'ID',
+      'kenya'     => 'KE',
+      'nigeria'   => 'NG',
+    );
+    $code = strtolower(dosomething_settings_get_affiliate_code());
+    $country_code = isset($mapping[$code]) ? $mapping[$code] : 'US';
+  }
+  return $country_code;
+}
+
+/**
  * Returns array of copy variables.
  *
  * @return array
