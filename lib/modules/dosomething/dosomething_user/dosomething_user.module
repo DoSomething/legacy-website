@@ -1144,7 +1144,7 @@ function dosomething_user_delete_all_data($uid, $display_messages = TRUE) {
       if ($display_messages) {
         drupal_set_message($msg);
       }
-      watchdog('dosomething_user_clean_slate', $msg);
+      watchdog('dosomething_user', $msg);
     }
   }
 }
