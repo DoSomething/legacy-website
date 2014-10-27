@@ -1100,14 +1100,21 @@ function dosomething_user_get_records($tbl_name, $uid) {
 }
 
 /**
- * Deletes all entities for a given user $uid a clean slate.
+ * Implements hook_user_delete().
+ */
+function dosomething_user_user_delete($account) {
+  dosomething_user_delete_all_data($account->uid);
+}
+
+/**
+ * Deletes all entities for a given user $uid.
  *
  * To be used with great responsibility.
  *
  * @param int $uid
  *   The user $uid to delete records for.
  */
-function dosomething_user_clean_slate($uid, $display_messages = TRUE) {
+function dosomething_user_delete_all_data($uid, $display_messages = TRUE) {
   // List of all entities users can create, and their identifiers.
   $entity_list = array(
     'signup' => 'sid',

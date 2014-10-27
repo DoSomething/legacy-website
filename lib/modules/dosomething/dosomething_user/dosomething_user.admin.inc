@@ -202,7 +202,7 @@ function dosomething_user_clean_slate_form_submit($form, &$form_state) {
   $msg = t("Clean Slate form submitted for User %uid", array(
     '%uid' => $user->uid,
   ));
-  watchdog('dosomething_user_clean_slate', $msg);
+  watchdog('dosomething_user', $msg);
   // Go git em.
-  dosomething_user_clean_slate($user->uid);
+  dosomething_user_delete_all_data($user->uid);
 }
