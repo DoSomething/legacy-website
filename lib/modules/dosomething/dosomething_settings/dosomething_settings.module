@@ -34,6 +34,33 @@ function dosomething_settings_is_affiliate() {
 }
 
 /**
+ * Returns a code of DS affiliate currently executing.
+ *
+ * Determines the code from settings.php path, e.g. sites/uk/settings.php.
+ *
+ * @return string
+ *   One of the list:
+ *   - botswana
+ *   - canada
+ *   - congo
+ *   - default
+ *   - ghana
+ *   - indonesia
+ *   - kenya
+ *   - nigeria
+ *   - training
+ */
+function dosomething_settings_get_affiliate_code() {
+  $code = &drupal_static(__FUNCTION__);
+  if (!isset($code)) {
+    // Split sites/[code] string.
+    $conf_path = explode('/', conf_path());
+    $code = !empty($conf_path[1]) ? $conf_path[1] : 'default';
+  }
+  return $code;
+}
+
+/**
  * Returns array of copy variables.
  *
  * @return array
