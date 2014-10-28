@@ -56,6 +56,13 @@ function dosomething_user_preprocess_user_profile(&$variables) {
     }
   }
 
+  // Collect User Reportbacks.
+  $variables['reportbacks'] = array();
+  $reportbacks = dosomething_reportback_get_reportbacks($uid);
+  if (!empty($reportbacks)) {
+    $variables['reportbacks'] = $reportbacks;
+  }
+
   $variables['title'] = t("Hey, @name!", array("@name" => $variables['first_name'])); 
   $variables['subtitle'] = variable_get('dosomething_user_profile_subtitle', NULL);
 }
