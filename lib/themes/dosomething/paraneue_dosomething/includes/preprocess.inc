@@ -108,8 +108,9 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       'page__user__register',
     );
     $is_user_page = $vars['theme_hook_suggestions'][0] == 'page__user';
-    if ($is_user_page) {
-      // User Profile page should be full width.
+    // If this is user page with multiple suggestions:
+    if ($is_user_page && count($vars['theme_hook_suggestions']) > 1) {
+      // Assume we're viewing a User Profile page, which should be full width.
       $full_width = TRUE;
       // But check other suggestions too:
       foreach ($vars['theme_hook_suggestions'] as $suggestion) {
