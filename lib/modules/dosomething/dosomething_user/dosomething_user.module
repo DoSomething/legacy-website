@@ -16,7 +16,6 @@ include_once 'dosomething_user.theme.inc';
  */
 function dosomething_user_preprocess_page(&$vars) {
   $school_api_endpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
-  
   drupal_add_js(
     array('dosomethingUser' =>
       array(
