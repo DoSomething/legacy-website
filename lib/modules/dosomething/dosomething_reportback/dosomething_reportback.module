@@ -601,27 +601,6 @@ function dosomething_reportback_views_data() {
 }
 
 /**
- * Returns the dosomething_reportback_field values for a given $nid.
- *
- * @param int $nid
- *   The node nid to query dosomething_reportback_field with.
- * @param string $name
- *   Optional - The field name to additionally query by.
- *
- * @return mixed
- *   An array of the reportback_field values if exists, NULL if doesn't exist.
- */
-function dosomething_reportback_get_reportback_field_info($nid, $name = NULL) {
-  $query = db_select('dosomething_reportback_field', 'f')
-    ->fields('f')
-    ->condition('nid', $nid);
-  if ($name) {
-    $query->condition('name', $name);
-  }
-  return $query->execute()->fetchAssoc();
-}
-
-/**
  * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
  *
  * @param int $nid
