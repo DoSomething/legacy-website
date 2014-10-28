@@ -113,8 +113,15 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       $full_width = TRUE;
       // But check other suggestions too:
       foreach ($vars['theme_hook_suggestions'] as $suggestion) {
+        // If this is the User Edit page:
+        if ($suggestion == 'page__user__edit') {
+          // Override the title (which is set to the username by default).
+          drupal_set_title(t("Edit Profile"));
+          $full_width = FALSE;
+          break;
+        }
         // If a standard page:
-        if (in_array($suggestion, $standard_pages)) {
+        elseif (in_array($suggestion, $standard_pages)) {
           // Use regular tpl.
           $full_width = FALSE;
           break;
