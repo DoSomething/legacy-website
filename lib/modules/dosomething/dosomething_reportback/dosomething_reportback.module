@@ -601,6 +601,26 @@ function dosomething_reportback_views_data() {
 }
 
 /**
+ * Returns array of Reportback rbid's for a given User $uid.
+ *
+ * @param int $uid
+ *   The User uid to query for.
+ *
+ * @return array
+ */
+function dosomething_reportback_get_reportbacks($uid = NULL) {
+  if (!$uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  return db_select('dosomething_reportback', 'rb')
+    ->fields('rb', array('rbid'))
+    ->condition('uid', $uid)
+    ->execute()
+    ->fetchCol(0);
+}
+
+/**
  * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
  *
  * @param int $nid
