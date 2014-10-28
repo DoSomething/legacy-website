@@ -3,9 +3,9 @@
  * Returns the HTML for User Profile page.
  * @see https://api.drupal.org/api/drupal/modules%21user%21user-profile.tpl.php/7
  *
- * Available Variables.
- *  - $title (string).
- *  - $subtitle (string).
+ * Available variables:
+ *  - $title: (string).
+ *  - $subtitle: (string).
  *  - $email: Account email address (string).
  *  - $first_name: User's first name (string).
  *  - $last_name: User's last name (string).
