@@ -16,11 +16,15 @@ include_once 'dosomething_user.theme.inc';
  */
 function dosomething_user_preprocess_page(&$vars) {
   $school_api_endpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
-  
+  $school_help_text = variable_get('dosomething_user_school_finder_help_text');
+  if ($school_help_text) {
+    $school_help_text = check_markup($school_help_text, 'markdown');
+  }
   drupal_add_js(
     array('dosomethingUser' =>
       array(
         'schoolFinderAPIEndpoint' => $school_api_endpoint,
+        //@todo: Add $school_help_text.
       )
     ),
     'setting'

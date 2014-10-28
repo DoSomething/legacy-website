@@ -146,6 +146,15 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  // School API endpoint.
+  $var_name = 'dosomething_user_school_finder_help_text';
+  $form['school'][$var_name] = array(
+    '#type' => 'textarea',
+    '#title' => t('School Finder Help Text'),
+    '#description' => t("Text displayed if User needs help finding school.  Markdown supported."),
+    '#default_value' => variable_get($var_name),
+  );
+
   // Development settings.
   $form['devel'] = array(
     '#type' => 'fieldset',
