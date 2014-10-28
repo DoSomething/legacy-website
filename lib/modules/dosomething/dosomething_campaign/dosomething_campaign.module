@@ -340,14 +340,17 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
   $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
   $doing = array();
   foreach ($signup_nids as $delta => $nid) {
+    // If they reported back, they already did it.
+    if (dosomething_reportback_exists($nid, $uid)) {
+      continue;
+    }
     $node = node_load($nid);
     // If the campaign is closed, they're not doing it anymore.
     $is_closed = dosomething_campaign_is_closed($node);
-    //@todo: Check Campaign Type != SMS Game.
-    // If they reported back, they already did it.
-    $reported_back = dosomething_reportback_exists($nid, $uid);
-    if ($is_closed || $reported_back) {
-      break;
+    // SMS Games should not appear in the Doing list.
+    $is_sms = dosomething_campaign_get_campaign_type($node) == 'sms_game';
+    if ($is_closed || $is_sms) {
+      continue;
     }
     $doing[] = $nid;
   }
