@@ -14,7 +14,7 @@
  */
 ?>
 
-<article class="user profile"<?php print $attributes; ?> id="user-<?php print $user_account['id']; ?>">
+<article class="user profile"<?php print $attributes; ?> id="user-<?php print $user->uid; ?>">
 
   <header role="banner" class="-basic">
     <div class="wrapper">
