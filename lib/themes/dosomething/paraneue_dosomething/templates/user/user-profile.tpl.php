@@ -26,11 +26,8 @@
  *     - [zip]: User's postal zip code (string).
  *     - [street]: User's street address (string).
  *     - [premise]: User's apartment, suite, etc... (string).
- *   - [signedup]: Array containing a data for campaigns a User has signed up for.
+ *   - [doing]: Array containing a data for campaigns a User has signed up for.
  */
-
-  $signedup = $user_account['signedup'];
-  $signedup_count = $user_account['signedup_count'];
   $address = $user_account['address'];
 ?>
 
@@ -39,7 +36,7 @@
 
   <header role="banner" class="-basic">
     <div class="wrapper">
-      <h1 class="__title"><?php print t("Hey, @name!", array("@name" => $user_account['first_name'])); ?></h1>
+      <h1 class="__title"><?php print $title; ?></h1>
       <?php if (!empty($subtitle)): ?>
         <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
@@ -47,42 +44,22 @@
   </header>
 
   <section class="profile--campaigns">
-    <h1 class="banner"><span><?php print t('My Campaigns'); ?></span></h1>
-
-    <?php if(empty($signedup)): ?>
-
-    <div class="cta">
-      <div class="wrapper">
-        <h2 class="__message"><?php print t("Rut Roh! You haven't signed up for any campaigns yet. Find something to do:"); ?></h2>
-        <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
-      </div>
-    </div>
-
+    <h1 class="banner"><span><?php print t("You're Doing"); ?></span></h1>
+    <div class="wrapper">
+    <?php if (empty($doing)): ?>
+      <h2 class="__message"><?php print $no_signups_header; ?></h2>
+      <p><?php print $no_signups_copy; ?></p>
+      <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
-
-    <ul class="gallery -mosaic">
-      <?php foreach($signedup as $index => $campaign): ?>
-        <li>
-          <?php print render($campaign); ?>
-        </li>
-      <?php endforeach; ?>
-
-      <?php if($user_account['empty_tile']): ?>
-        <li class="empty <?php if ($user_account['empty_class_modifier']) print $user_account['empty_class_modifier']; ?>">
-          <div class="wrapper">
-            <div class="__message">
-              <div class="wrapper">
-                <p><?php print t('More is better. Add a few more campaigns friend!'); ?></p>
-                <a href="/campaigns"><?php print t('Explore Campaigns'); ?></a>
-              </div>
-            </div>
-          </div>
-        </li>
-      <?php endif; ?>
-    </ul>
-
+      <ul class="gallery -triad">
+        <?php foreach($doing as $index => $campaign): ?>
+          <li>
+            <?php print render($campaign); ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
     <?php endif; ?>
-
+    </div>
   </section>
 
   <section class="profile--settings">
@@ -138,7 +115,7 @@
         </dl>
       <?php endif; ?>
 
-      <a class="btn medium" href="/<?php print $user_profile['update_link_path']; ?>"><?php print t('Update'); ?></a>
+      <a class="btn medium" href="/<?php print $edit_link; ?>"><?php print t('Update'); ?></a>
     </div>
   </section>
 

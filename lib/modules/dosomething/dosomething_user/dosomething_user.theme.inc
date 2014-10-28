@@ -27,10 +27,12 @@ function dosomething_user_preprocess_user_profile(&$variables) {
 
   // Collect User Account data.
   $user_profile = $variables['user_profile'];
-  $user = user_load($user_profile['uid']);
+  $uid = $variables['user']->uid;
+  $user = user_load($uid);
+  $variables['first_name'] = dosomething_user_get_field('field_first_name', $user, 'ucwords');
+  $variables['edit_link'] = 'user/' . $uid . '/edit';
 
-  $user_account['id']                  = isset($user_profile['uid']) ? $user_profile['uid'] : NULL;
-  $user_account['username']            = isset($user_profile['username']) ? $user_profile['username'] : NULL;
+
   $user_account['email']               = isset($user_profile['mail']) ? $user_profile['mail'] : NULL;
   $user_account['first_name']          = dosomething_user_get_field('field_first_name', $user, 'ucwords');
   $user_account['last_name']           = dosomething_user_get_field('field_last_name', $user, 'ucwords');
@@ -55,38 +57,26 @@ function dosomething_user_preprocess_user_profile(&$variables) {
 
   $user_account['address'] = $address;
 
-
-  // Collect Signed Up Campaigns data.
-  $user_account['signedup'] = $variables['elements']['signedup'];
-  
-
-  // Create empty gallery item.
-  $user_account['signedup_count'] = count($user_account['signedup']);
-  $empty_class_modifier = NULL;
-  $empty_tile = FALSE;
-
-  switch ($user_account['signedup_count'] % 4) {
-    case 1:
-      $empty_class_modifier = '-trio';
-      $empty_tile = TRUE;
-      break;
-
-    case 2:
-      $empty_class_modifier = '-duo';
-      $empty_tile = TRUE;
-      break;
-
-    case 3:
-      $empty_class_modifier = '-mono';
-      $empty_tile = TRUE;
-      break;
+  // Collect Campaigns Doing.
+  $variables['doing'] = array();
+  $doing = dosomething_campaign_get_campaigns_doing($user->uid);
+  if (empty($doing)) {
+    $default_header = t("There's nothing here!");
+    $variables['no_signups_header'] = $default_header;
+    $default_copy = t("(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag.");
+    $variables['no_signups_copy'] = $default_copy;
+  }
+  else {
+    $image_size = '400x400';
+    foreach ($doing as $doing_nid) {
+      $campaign_vars = dosomething_campaign_get_campaign_block_vars($doing_nid, $image_size);
+      $variables['doing'][] = array(
+        '#markup' => theme('campaign_block', $campaign_vars),
+      );
+    }
   }
 
-  $user_account['empty_class_modifier'] = $empty_class_modifier;
-  $user_account['empty_tile'] = $empty_tile;
-  
-
   $variables['user_account'] = $user_account;
-
+  $variables['title'] = t("Hey, @name!", array("@name" => $variables['first_name'])); 
   $variables['subtitle'] = variable_get('dosomething_user_profile_subtitle', NULL);
 }
