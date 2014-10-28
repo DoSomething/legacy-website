@@ -27,12 +27,10 @@
  *     - [street]: User's street address (string).
  *     - [premise]: User's apartment, suite, etc... (string).
  *   - [signedup]: Array containing a data for campaigns a User has signed up for.
- *   - [recommended]: Array containing a data for recommended campaigns for User.
  */
 
   $signedup = $user_account['signedup'];
   $signedup_count = $user_account['signedup_count'];
-  $recommended = $user_account['recommended'];
   $address = $user_account['address'];
 ?>
 
@@ -86,25 +84,6 @@
     <?php endif; ?>
 
   </section>
-
-
-  <section class="profile--recommended">
-    <h1 class="banner"><span><?php print t('Recommended Campaigns'); ?></span></h1>
-
-    <?php if (!empty($recommended)): ?>
-
-    <ul class="gallery -mosaic">
-      <?php foreach($recommended as $index => $campaign): ?>
-        <li>
-          <?php print render($campaign); ?>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-
-    <?php endif; ?>
-
-  </section>
-
 
   <section class="profile--settings">
     <h1 class="banner"><span><?php print t('My Settings'); ?></span></h1>
