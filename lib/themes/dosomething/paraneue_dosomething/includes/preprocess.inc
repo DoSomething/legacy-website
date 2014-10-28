@@ -95,7 +95,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   if (isset($vars['node']->type) && in_array($vars['node']->type, $full_width_types)) {
     $full_width = TRUE;
   }
-  elseif ($vars['theme_hook_suggestions'][0] == 'page__taxonomy') {
+  elseif ($vars['theme_hook_suggestions'][0] === 'page__taxonomy') {
     $full_width = TRUE;
   }
   // Check for User Profile:
@@ -107,14 +107,15 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       'page__user__password',
       'page__user__register',
     );
-    $is_user_page = $vars['theme_hook_suggestions'][0] == 'page__user';
-    if ($is_user_page) {
-      // User Profile page should be full width.
+    $is_user_page = ($vars['theme_hook_suggestions'][0] === 'page__user');
+    // If this is user page with multiple suggestions:
+    if ($is_user_page && count($vars['theme_hook_suggestions']) > 1) {
+      // Assume we're viewing a User Profile page, which should be full width.
       $full_width = TRUE;
       // But check other suggestions too:
       foreach ($vars['theme_hook_suggestions'] as $suggestion) {
         // If this is the User Edit page:
-        if ($suggestion == 'page__user__edit') {
+        if ($suggestion === 'page__user__edit') {
           // Override the title (which is set to the username by default).
           drupal_set_title(t("Edit Profile"));
           $full_width = FALSE;
