@@ -94,6 +94,30 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   elseif ($vars['theme_hook_suggestions'][0] == 'page__taxonomy') {
     $full_width = TRUE;
   }
+  // Check for User Profile:
+  else {
+    // Pages to use regular page.tpl.php:
+    $standard_pages = array(
+      'page__user__edit',
+      'page__user__login',
+      'page__user__password',
+      'page__user__register',
+    );
+    $is_user_page = $vars['theme_hook_suggestions'][0] == 'page__user';
+    if ($is_user_page) {
+      // User Profile page should be full width.
+      $full_width = TRUE;
+      // But check other suggestions too:
+      foreach ($vars['theme_hook_suggestions'] as $suggestion) {
+        // If a standard page:
+        if (in_array($suggestion, $standard_pages)) {
+          // Use regular tpl.
+          $full_width = FALSE;
+          break;
+        }
+      }
+    }
+  }
 
   if ($full_width) {
     $vars['theme_hook_suggestions'][] = 'page__full_width';
