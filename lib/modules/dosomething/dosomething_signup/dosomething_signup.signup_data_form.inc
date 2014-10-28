@@ -361,7 +361,13 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t("School Name"),
       '#markup' => '<input type="search" placeholder="' . t('Find your school by name...') . '" class="js-schoolfinder-search"><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
-
+    $school_help_text = variable_get('dosomething_user_school_finder_help_text');
+    if ($school_help_text) {
+      $school_help_text = check_markup($school_help_text, 'markdown');
+    }
+    else {
+      $school_help_text = '<p>Here are some tricks to help you find your school:</p><ol><li>Abbreviations. If "St. Mary\'s" doesn\'t work, try "Saint Mary\'s" and vice versa. Same with JFK vs. John F. Kennedy.</li><li>You need to search for a specific school, not a whole district.</li></ol><p>';
+    }
     $form['school_finder']['help_link'] = array(
       // Used for front-end autocomplete.
       '#type' => 'markup',
@@ -370,7 +376,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
     $form['school_finder']['help_text'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;"><p>Here are some tricks to help you find your school:</p><ol><li>Abbreviations. If "St. Mary\'s" doesn\'t work, try "Saint Mary\'s" and vice versa. Same with JFK vs. John F. Kennedy.</li><li>You need to search for a specific school, not a whole district.</li></ol><p>Still having issues? <a href="#" data-modal-href="#modal-contact-form">Contact us</a>.</div>',
+      '#markup' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;">' . $school_help_text . 'Still having issues? <a href="#" data-modal-href="#modal-contact-form">Contact us</a>.</div>',
     );
     
     $label = $config['school_not_affiliated_label'];
