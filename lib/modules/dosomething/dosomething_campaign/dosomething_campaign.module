@@ -323,6 +323,44 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
 }
 
 /**
+ * Returns an array of Campaign Node nid's the given user is doing.
+ *
+ * @param int $uid
+ *   The User uid to retrieve list for.
+ *
+ * @return array
+ *   Array of Campaign node nid's.
+ */
+function dosomething_campaign_get_campaigns_doing($uid = NULL) {
+  if (!$uid) {
+    global $user;
+    $uid = $user->uid;
+  }
+  // Get all signups.
+  $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
+  if (empty($signup_nids)) {
+    return array();
+  }
+  $doing = array();
+  foreach ($signup_nids as $delta => $nid) {
+    // If they reported back, they already did it.
+    if (dosomething_reportback_exists($nid, $uid)) {
+      continue;
+    }
+    $node = node_load($nid);
+    // If the campaign is closed, they're not doing it anymore.
+    $is_closed = dosomething_campaign_is_closed($node);
+    // SMS Games should not appear in the Doing list.
+    $is_sms = (dosomething_campaign_get_campaign_type($node) === 'sms_game');
+    if ($is_closed || $is_sms) {
+      continue;
+    }
+    $doing[] = $nid;
+  }
+  return $doing;
+}
+
+/**
  * Returns an array of variables for a given campaign $nid.
  *
  * @param int $nid

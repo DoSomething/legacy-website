@@ -128,6 +128,22 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  // No Signups header.
+  $var_name = 'dosomething_user_profile_no_signups_header';
+  $form['profile'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('No Signups Header'),
+    '#default_value' => variable_get($var_name),
+  );
+
+  // No Signups copy.
+  $var_name = 'dosomething_user_profile_no_signups_copy';
+  $form['profile'][$var_name] = array(
+    '#type' => 'textarea',
+    '#title' => t('No Signups Copy'),
+    '#default_value' => variable_get($var_name),
+  );
+
   // School settings.
   $form['school'] = array(
     '#type' => 'fieldset',
