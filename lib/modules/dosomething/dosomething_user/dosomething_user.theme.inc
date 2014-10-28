@@ -60,11 +60,18 @@ function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect Campaigns Doing.
   $variables['doing'] = array();
   $doing = dosomething_campaign_get_campaigns_doing($user->uid);
+  // If user isn't doing anything:
   if (empty($doing)) {
-    $default_header = t("There's nothing here!");
-    $variables['no_signups_header'] = $default_header;
-    $default_copy = t("(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag.");
-    $variables['no_signups_copy'] = $default_copy;
+    // Set No Signups Header.
+    $variables['no_signups_header'] = variable_get('dosomething_user_profile_no_signups_header');
+    if (empty($variables['no_signups_header'])) {
+      $variables['no_signups_header'] = t("There's nothing here!");
+    }
+    // Set No Signups Copy.
+    $variables['no_signups_copy'] = variable_get('dosomething_user_profile_no_signups_copy');
+    if (empty($variables['no_signups_copy'])) {
+      $variables['no_signups_copy'] = t("(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag.");
+    }
   }
   else {
     $image_size = '400x400';
