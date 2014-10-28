@@ -30,20 +30,6 @@ function dosomething_user_user_view($account, $view_mode, $langcode) {
   $account->content['signedup'] = $signups;
 
 
-  // Output recommended campaigns.
-  $rec_nids = dosomething_campaign_get_recommended_campaign_nids('', $account->uid);
-  $recommended = array();
-
-  foreach ($rec_nids as $delta => $nid) {
-    $vars = dosomething_campaign_get_campaign_block_vars($nid, $image_size);
-    $recommended['recommended_' . $delta] = array(
-      '#markup' => theme('campaign_block', $vars),
-    );
-  }
-
-  $account->content['recommended'] = $recommended;
-
-
   // Update link information.
   $edit_path = 'user/' . $account->uid . '/edit';
 
