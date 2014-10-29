@@ -235,12 +235,10 @@ function build_helper {
 
   # Before running drush it's required to flush Redis cache to avoid
   # a race condition state between DB and cache.
-  if [[ $SITE == "default" ]]
+  if [[ $SITE != "default" ]]
   then
-    # Flush everything when building US.
-    redis-cli flushall
-  else
-    # Flush only country-specific cache during intl deployments.
+    # Flush only country-specific cache during international deployments.
+    echo "Flush Redis cache on $SITE."
     redis-cli --raw keys "$SITE:*" | xargs -n1 redis-cli del
   fi
 
