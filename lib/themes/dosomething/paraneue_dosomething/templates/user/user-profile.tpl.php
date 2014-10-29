@@ -51,7 +51,18 @@
         <ul class="gallery -duo">
           <?php foreach ($reportbacks as $index => $reportback): ?>
             <li>
-              <?php print ($reportback); ?>
+              <div class="tile tile--figure">
+                <div class="__media">
+                  <?php print $reportback->img; ?>
+                </div>
+                <div class="__body">
+                  <h3 class="__title"><?php print $reportback->link; ?></h3>
+                  <div class="__description">
+                    <p><?php print t('My impact:'); ?>
+                    <p><?php print $reportback->impact; ?></p>
+                  </div>
+                </div>
+              </div>
             </li>
           <?php endforeach; ?>
         </ul>
