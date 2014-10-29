@@ -19,17 +19,21 @@
           <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
         <?php endif; ?>
         <div class="container__body">
-          <div<?php if (isset($intro_video)): print ' class="-columned"'; endif; ?>>
+          <div<?php if (isset($intro_image) || isset($intro_video)): print ' class="-columned"'; endif; ?>>
             <?php print $intro; ?>
             <?php if (isset($modals)): ?>
               <?php print $modals; ?>
             <?php endif; ?>
           </div>
-          <?php if (isset($intro_video)): ?>
+          <?php if (isset($intro_image) || isset($intro_video)): ?>
           <aside class="-columned -col-last">
-            <div class="media-video">
-              <?php print $intro_video; ?>
-            </div>
+            <?php if (isset($intro_video)): ?>
+              <div class="media-video">
+                <?php print $intro_video; ?>
+              </div>
+            <?php elseif (isset($intro_image)): ?>
+              <?php print $intro_image; ?>
+            <?php endif; ?>
           </aside>
           <?php endif; ?>
         </div>

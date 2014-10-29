@@ -42,6 +42,7 @@ function dosomething_taxonomy_term_page_access($term) {
 * Implements hook_preprocess_taxonomy_term().
 */
 function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
+
   // Use term description as $intro variable.
   $vars['intro'] = check_markup($vars['description'], $vars['format']);
   // Check for video.
@@ -50,6 +51,12 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
     $vars['intro_video'] = theme('dosomething_video_embed', array(
       'field' => $wrapper->field_video->value(),
     ));
+  }
+  // Else check for intro image.
+  elseif (!empty($vars['field_intro_image'])) {
+    $image_nid = $vars['field_intro_image'][0]['target_id'];
+    $size = '550x300';
+    $vars['intro_image'] = dosomething_image_get_themed_image($image_nid, 'landscape', $size);
   }
 
   // Display Campaign Gallery for this term.
