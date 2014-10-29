@@ -616,6 +616,7 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
   return db_select('dosomething_reportback', 'rb')
     ->fields('rb', array('rbid'))
     ->condition('uid', $uid)
+    ->orderBy('created', 'DESC')
     ->execute()
     ->fetchCol(0);
 }
