@@ -261,7 +261,7 @@ function build_helper {
   drush --script-path=$BASE_PATH/bin/ php-script enable_modules.php
 
   echo 'Reverting Features'
-  drush fra -y --force
+  drush fra -y
 
   echo 'Clearing caches...'
   drush cc all
