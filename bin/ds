@@ -233,6 +233,23 @@ function build_helper {
 
   fi
 
+  # Before running drush it's required to flush Redis cache to avoid
+  # a race condition state between DB and cache.
+  if [[ $SITE != "default" ]]
+  then
+    # Flush only country-specific cache during international deployments.
+    echo "Flush Redis cache on $SITE."
+
+    # Solve Redis cache prefix.
+    case $DS_ENVIRONMENT in
+     "local") CACHE_PREFIX="ds" ;;
+     *) CACHE_PREFIX=$SITE ;;
+    esac
+
+    # Redis CLI connection settings must be preset.
+    redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
+  fi
+
   echo 'Adding role to admin user...'
   drush user-add-role 'administrator' 1
 
