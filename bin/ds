@@ -250,6 +250,9 @@ function build_helper {
     redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
   fi
 
+  echo 'Drush status:'
+  drush status
+
   echo 'Adding role to admin user...'
   drush user-add-role 'administrator' 1
 
