@@ -239,7 +239,15 @@ function build_helper {
   then
     # Flush only country-specific cache during international deployments.
     echo "Flush Redis cache on $SITE."
-    redis-cli --raw keys "$SITE:*" | xargs -n1 redis-cli del
+
+    # Solve Redis cache prefix.
+    case $DS_ENVIRONMENT in
+     "local") CACHE_PREFIX="ds" ;;
+     *) CACHE_PREFIX=$SITE ;;
+    esac
+
+    # Redis CLI connection settings must be preset.
+    redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
   fi
 
   echo 'Adding role to admin user...'
