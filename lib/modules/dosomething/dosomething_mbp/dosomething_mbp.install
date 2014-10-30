@@ -10,3 +10,70 @@
 function dosomething_mbp_update_7001(&$sandbox) {
   variable_del('dosomething_mbp_send_campaign_api');
 }
+
+ /**
+ * Creates default production entries in message_broker_producer
+ */
+function dosomething_mbp_update_7002(&$sandbox) {
+
+  $productions = array();
+
+  $productions[0]['target_production'] = 'transactional_user_register';
+  $productions[0]['exchange'] = 'transactionalExchange';
+  $productions[0]['queues'][] = 'transactionalQueue';
+  $productions[0]['queues'][] = 'loggingQueue';
+  $productions[0]['queues'][] = 'activityStatsQueue';
+  $productions[0]['queues'][] = 'mailchimpCampaignSignupQueue';
+  $productions[0]['queues'][] = 'mobileCommonsQueue';
+  $productions[0]['queues'][] = 'userAPIRegistrationQueue';
+  $productions[0]['routing_key'] = 'user.registration.transactional';
+  $productions[0]['status'] = 1;
+
+  $productions[1]['target_production'] = 'transactional_user_password';
+  $productions[1]['exchange'] = 'transactionalExchange';
+  $productions[1]['queues'][] = 'transactionalQueue';
+  $productions[1]['queues'][] = 'loggingQueue';
+  $productions[1]['queues'][] = 'activityStatsQueue';
+  $productions[1]['queues'][] = 'mobileCommonsQueue';
+  $productions[1]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[1]['routing_key'] = 'user.password_reset.transactional';
+  $productions[1]['status'] = 1;
+
+  $productions[2]['target_production'] = 'transactional_campaign_signup';
+  $productions[2]['exchange'] = 'transactionalExchange';
+  $productions[2]['queues'][] = 'transactionalQueue';
+  $productions[2]['queues'][] = 'loggingQueue';
+  $productions[2]['queues'][] = 'activityStatsQueue';
+  $productions[2]['queues'][] = 'mailchimpCampaignSignupQueue';
+  $productions[2]['queues'][] = 'userCampaignActivityQueue';
+  $productions[2]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[2]['routing_key'] = 'campaign.signup.transactional';
+  $productions[2]['status'] = 1;
+
+  $productions[3]['target_production'] = 'transactional_campaign_group_signup';
+  $productions[3]['exchange'] = 'transactionalExchange';
+  $productions[3]['queues'][] = 'transactionalQueue';
+  $productions[3]['queues'][] = 'loggingQueue';
+  $productions[3]['queues'][] = 'activityStatsQueue';
+  $productions[3]['queues'][] = 'mailchimpCampaignSignupQueue';
+  $productions[3]['queues'][] = 'userCampaignActivityQueue';
+  $productions[3]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[3]['routing_key'] = 'campaign.signup.transactional';
+  $productions[3]['status'] = 1;
+
+  $productions[4]['target_production'] = 'transactional_campaign_reportback';
+  $productions[4]['exchange'] = 'transactionalExchange';
+  $productions[4]['queues'][] = 'transactionalQueue';
+  $productions[4]['queues'][] = 'loggingQueue';
+  $productions[4]['queues'][] = 'activityStatsQueue';
+  $productions[4]['queues'][] = 'userCampaignActivityQueue';
+  $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[4]['routing_key'] = 'campaign.report_back.transactional';
+  $productions[4]['status'] = 1;
+
+  foreach($productions as $production) {
+    message_broker_producer_production_crud($production['target_production'] , 'create', $production);
+    message_broker_producer_production_crud($production['target_production'] , 'update', $production);
+  }
+
+}
