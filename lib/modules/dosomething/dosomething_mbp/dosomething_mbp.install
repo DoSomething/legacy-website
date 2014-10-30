@@ -18,7 +18,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
 
   $productions = array();
 
-  $productions[0]['target_production'] = 'transactional_user_register';
+  $productions[0]['machine_name'] = 'transactional_user_register';
   $productions[0]['exchange'] = 'transactionalExchange';
   $productions[0]['queues'][] = 'transactionalQueue';
   $productions[0]['queues'][] = 'loggingQueue';
@@ -29,7 +29,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[0]['routing_key'] = 'user.registration.transactional';
   $productions[0]['status'] = 1;
 
-  $productions[1]['target_production'] = 'transactional_user_password';
+  $productions[1]['machine_name'] = 'transactional_user_password';
   $productions[1]['exchange'] = 'transactionalExchange';
   $productions[1]['queues'][] = 'transactionalQueue';
   $productions[1]['queues'][] = 'loggingQueue';
@@ -39,7 +39,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[1]['routing_key'] = 'user.password_reset.transactional';
   $productions[1]['status'] = 1;
 
-  $productions[2]['target_production'] = 'transactional_campaign_signup';
+  $productions[2]['machine_name'] = 'transactional_campaign_signup';
   $productions[2]['exchange'] = 'transactionalExchange';
   $productions[2]['queues'][] = 'transactionalQueue';
   $productions[2]['queues'][] = 'loggingQueue';
@@ -50,7 +50,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[2]['routing_key'] = 'campaign.signup.transactional';
   $productions[2]['status'] = 1;
 
-  $productions[3]['target_production'] = 'transactional_campaign_group_signup';
+  $productions[3]['machine_name'] = 'transactional_campaign_group_signup';
   $productions[3]['exchange'] = 'transactionalExchange';
   $productions[3]['queues'][] = 'transactionalQueue';
   $productions[3]['queues'][] = 'loggingQueue';
@@ -61,7 +61,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[3]['routing_key'] = 'campaign.signup.transactional';
   $productions[3]['status'] = 1;
 
-  $productions[4]['target_production'] = 'transactional_campaign_reportback';
+  $productions[4]['machine_name'] = 'transactional_campaign_reportback';
   $productions[4]['exchange'] = 'transactionalExchange';
   $productions[4]['queues'][] = 'transactionalQueue';
   $productions[4]['queues'][] = 'loggingQueue';
@@ -72,8 +72,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[4]['status'] = 1;
 
   foreach($productions as $production) {
-    message_broker_producer_production_crud($production['target_production'] , 'create', $production);
-    message_broker_producer_production_crud($production['target_production'] , 'update', $production);
+    message_broker_producer_production_create($production);
   }
 
 }
