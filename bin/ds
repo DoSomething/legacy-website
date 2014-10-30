@@ -250,6 +250,9 @@ function build_helper {
     redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
   fi
 
+  echo -n 'Running drush from directory '
+  pwd
+
   echo 'Drush status:'
   drush status
 
