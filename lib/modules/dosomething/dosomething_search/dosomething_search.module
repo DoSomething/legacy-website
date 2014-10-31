@@ -80,16 +80,9 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
     $params['q'] = '*:*';
   }
 
-  $boosts = array(
-    'bs_high_season' => '1.0',
-    'bs_field_staff_pick' => '5.0',
-    'bs_sponsored' => '4.0',
-  );
-  foreach ($boosts as $field => $boost) {
-    $params['bq'][] = "{$field}:true^$boost";
-  }
-
-  $params['bq'][] = "bundle:campaign^100.0";
+  // Add a term proximity boost so that multiple search terms
+  // are treated as one phrase.
+  $params['pf'] = 'content~2^1000';
 
   if ($query) {
     $query->addParams($params);
