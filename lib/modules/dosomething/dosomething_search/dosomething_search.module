@@ -74,7 +74,9 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
   );
 
   // Add a 'q' param to apachesolr_views queries to enable the
-  // elevate.xml to work properly.
+  // elevate.xml to work properly. This also needs to be here
+  // so that these boots are applied to the /campaigns or any
+  // other apachesolr views.
   $query_params = $query->getParams();
   if (!isset($query_params['q'])) {
     $params['q'] = '*:*';
