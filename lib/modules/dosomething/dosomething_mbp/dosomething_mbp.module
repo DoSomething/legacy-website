@@ -35,23 +35,29 @@ function dosomething_mbp_menu() {
  */
 function dosomething_mbp_request($origin, $params = NULL) {
 
-  $production_type = NULL;
+  $production = NULL;
   switch ($origin) {
     case 'user_register':
-    case 'user_password':
-    case 'campaign_signup':
-    case 'campaign_group_signup':
-    case 'campaign_reportback':
-      $production_type = 'produceTransactional';
-      $payload = dosomething_mbp_get_transactional_payload($origin, $params);
+      $production = 'transactional_user_register';
       break;
-
+    case 'user_password':
+      $production = 'transactional_user_password';
+      break;
+    case 'campaign_signup':
+      $production = 'transactional_campaign_signup';
+      break;
+    case 'campaign_group_signup':
+      $production = 'transactional_campaign_group_signup';
+      break;
+    case 'campaign_reportback':
+      $production = 'transactional_campaign_reportback';
+      break;
   }
   if (variable_get('dosomething_mbp_log')) {
     watchdog('dosomething_mbp', json_encode($payload));
   }
   try {
-    return message_broker_producer_request($production_type, $payload);
+    return message_broker_producer_request($production, $payload);
   }
   catch (Exception $e) {
     watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
@@ -93,6 +99,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars'] = array(
         'FNAME' => $params['first_name'],
       );
+      $payload['email_template'] = 'mb-general-signup';
+      $payload['email_tag'] = 'drupal_user_register';
       break;
 
     case 'user_password':
@@ -101,6 +109,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'USERNAME' => $params['username'],
         'RESET_LINK' => $params['reset_link'],
       );
+      $payload['email_template'] = 'mb-password-reset';
+      $payload['email_tag'] = 'drupal_user_password';
       break;
 
     case 'campaign_signup':
@@ -109,11 +119,15 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_ONE'] = $params['step_one'];
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
+      $payload['email_template'] = 'mb-campaign-signup';
+      $payload['email_tag'] = 'drupal_campaign_signup';
       break;
       
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
+      $payload['email_template'] = 'mb-group-campaign-signup';
+      $payload['email_tag'] = 'drupal_campaign_group_signup';
       break;
 
     case 'campaign_reportback':
@@ -126,6 +140,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'IMPACT_NOUN' => $params['impact_noun'],
         'REPORTBACK_IMAGE_MARKUP' => $params['image_markup'],
       );
+      $payload['email_template'] = 'mb-campaign-report-back';
+      $payload['email_tag'] = 'drupal_campaign_reportback';
       break;
 
   }
