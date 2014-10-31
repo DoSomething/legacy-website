@@ -106,6 +106,15 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
+  $items['admin/users/reportbacks/add'] = array(
+    'title' => 'Add reportback',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_form'),
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('edit', 1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+  );
   $items['reportback/%reportback/edit'] = array(
     'title' => 'Edit',
     'page callback' => 'dosomething_reportback_edit_entity',

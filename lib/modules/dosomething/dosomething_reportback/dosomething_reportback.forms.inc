@@ -9,11 +9,47 @@
  * Form constructor for a reportback create/update form.
  *
  * @param object $entity
- *   A reportback entity to create or update. Must have a nid property set.
+ *   A reportback entity to create or update.
  *
  * @ingroup forms
  */
-function dosomething_reportback_form($form, &$form_state, $entity) {
+function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
+  if (!$entity) {
+    $entity = entity_create('reportback', array(
+      'uid' => NULL,
+      'noun' => 'Nouns',
+      'verb' => 'verbed',
+      'quantity' => NULL,
+      'why_participated' => NULL,
+    ));
+  }
+    // Admin form elements:
+  $paths = array('reportback', 'admin');
+  if (user_access('administer modules') && in_array(arg(0), $paths)) {
+    $form['nid'] = array(
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Node'),
+      '#description' => t("The node this reportback was submitted for."),
+      '#entity_type' => 'node',
+      '#bundles' => array('campaign'),
+      '#required' => TRUE,
+      '#default_value' => $entity->nid,
+    );
+    if (!empty($entity->uid)) {
+      $account = user_load($entity->uid);
+      $username = $account->name;
+    }
+    else {
+      $username = NULL;
+    }
+    $form['username'] = array(
+      '#type' => 'textfield',
+      '#title' => t('User'),
+      '#description' => t("The user that submitted this reportback."),
+      '#autocomplete_path' => 'user/autocomplete',
+      '#default_value' => $username,
+    );
+  }
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
@@ -34,12 +70,14 @@ function dosomething_reportback_form($form, &$form_state, $entity) {
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#default_value' => $entity->nid,
-    // Prevent this element from rendering in the browser.
-    '#access' => FALSE,
-  );
+  if (!isset($form['nid'])) {
+    $form['nid'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $entity->nid,
+      // Prevent this element from rendering in the browser.
+      '#access' => FALSE,
+    );
+  }
   $form['reportback_file'] = array(
     '#type' => 'file',
     '#title' => t('Upload a pic'),
@@ -131,9 +169,21 @@ function dosomething_reportback_form_validate($form, &$form_state) {
  * Submit callback for dosomething_reportback_form().
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
-  global $user;
   $values = $form_state['values'];
-  $values['uid'] = $user->uid;
+
+  // If username field is set, this is an admin form.
+  $is_admin_form = isset($form_state['values']['username']);
+  // Load uid by selected username.
+  if ($is_admin_form) {
+    $account = user_load_by_name($form_state['values']['username']);
+    $values['uid'] = $account->uid;
+  }
+  // Else if regular user form:
+  else {
+    // Store logged in user's uid.
+    global $user;
+    $values['uid'] = $user->uid;
+  }
 
   // Save uploaded file.
   if ($file = dosomething_reportback_form_save_file($form_state)) {
@@ -144,8 +194,10 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   dosomething_reportback_save($values);
 
   // Redirect to confirmation.
-  $redirect = dosomething_campaign_get_confirmation_path($values['nid']);
-  $form_state['redirect'] = $redirect;
+  if (!$is_admin_form) {
+    $redirect = dosomething_campaign_get_confirmation_path($values['nid']);
+    $form_state['redirect'] = $redirect;
+  }
 }
 
 /**
