@@ -133,3 +133,55 @@ function paraneue_dosomething_html_head_alter(&$head_elements) {
     unset($head_elements[$shortcut_key]);
   }
 }
+
+/**
+ * Return a string that contains the rendered representation of a figure tile.
+ */
+function theme_paraneue_tile_figure($vars) {
+  // Temp array to use for values. 
+  $vars = array(
+    "title" => "bar",
+    "description" => "According to the latest research, kittens will outlive the human species after the apocalypse.",
+    "image" => "http://placekitten.com/g/600/600", // this should be an array with alt and img src info.
+    "url" => "#",
+  );
+
+  $output  = 
+  '<article class="tile tile--campaign">' .
+    '<a class="wrapper" href="' . $vars['url'] . '">' .
+      '<div class="tile--meta">' .
+        '<h1 class="__title">' . $vars['title'] . '</h1>' .
+        '<p class="__tagline">' . $vars['description'] . '</p>' .
+      '</div>' .
+      '<img alt="kitten overlords" src="' . $vars['image'] . '"/>' .
+      '<!-- <video src="source.mp4" width="1080" height="1080" poster="poster.png" autoplay loop></video> -->' .
+    '</a>' .
+  '</article>';
+  return $output; 
+}
+
+/**
+ * Takes in an array containing: 
+ * - title
+ * - description
+ * - image
+ * - url
+ */
+function paraneue_get_tile($vars, $type = 'figure') {
+  switch ($type) {
+    case 'campaign':
+      return theme('paraneue_tile_campaign', $vars);    
+      break;
+    default:
+      return theme('paraneue_tile_figure', $vars);
+      break;
+  }
+}
+
+/**
+ * Preprocesses variables for user profiles. 
+ */
+function paranaue_dosomething_preprocess_user_profile(&$vars) {
+  // Calls theme functions to provide variables to the user profile template that add tile markup.
+}
+  
