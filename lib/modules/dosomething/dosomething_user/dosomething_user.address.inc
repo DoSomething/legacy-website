@@ -189,7 +189,10 @@ function dosomething_user_get_addressfield_administrative_area_options($country 
   if ($country == 'US') {
     dosomething_user_remove_extra_us_states($options);
   }
-  return $options;
+  return array(
+    'title' => $format['locality_block']['administrative_area']['#title'],
+    'options' => $options,
+  );
 }
 
 /**
