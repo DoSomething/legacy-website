@@ -6,21 +6,10 @@
 
   <div>
     <h1><?php print $title; ?></h1>
-    <?php if (isset($hero_image)): ?>
-      <?php print $hero_image; ?>
-    <?php endif; ?>
     <?php if ($subtitle): ?>
       <h2><?php print $subtitle; ?></h2>
     <?php endif; ?>
   </div>
-  <h2><?php print $intro_title; ?></h2>
-  <div class="left"><?php print $intro; ?></div>
-  <?php if (isset($intro_image)): ?>
-    <?php print $intro_image; ?>
-  <?php elseif ($intro_video): ?>
-    <?php //print $intro_video; ?>
-  <?php endif; ?>
-  <br/>
 
   <?php if (isset($facts)): ?>
     <?php foreach ($facts as $key => $fact): ?>
