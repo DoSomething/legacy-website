@@ -34,7 +34,7 @@
       <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
       <ul class="gallery -triad">
-        <?php foreach($doing as $index => $campaign): ?>
+        <?php foreach ($doing as $index => $campaign): ?>
           <li>
             <?php print render($campaign); ?>
           </li>
@@ -43,6 +43,32 @@
     <?php endif; ?>
     </div>
   </section>
+
+  <?php if (!empty($reportbacks)): ?>
+    <section class="profile--reportbacks">
+      <h1 class="banner"><span><?php print t("You Did"); ?></span></h1>
+      <div class="wrapper">
+        <ul class="gallery -duo">
+          <?php foreach ($reportbacks as $index => $reportback): ?>
+            <li>
+              <div class="tile tile--figure">
+                <div class="__media">
+                  <?php print $reportback->img; ?>
+                </div>
+                <div class="__body">
+                  <h3 class="__title"><?php print $reportback->link; ?></h3>
+                  <div class="__description">
+                    <p><?php print t('My impact:'); ?>
+                    <p><?php print $reportback->impact; ?></p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </section>
+  <?php endif; ?>
 
   <section class="profile--settings">
     <h1 class="banner"><span><?php print t('Your Info'); ?></span></h1>

@@ -56,6 +56,22 @@ function dosomething_user_preprocess_user_profile(&$variables) {
     }
   }
 
+  // Collect User Reportbacks.
+  $variables['reportbacks'] = array();
+  $reportbacks = dosomething_reportback_get_reportbacks($uid);
+  if (!empty($reportbacks)) {
+    foreach ($reportbacks as $delta => $rbid) {
+      $reportback = reportback_load($rbid);
+      $variables['reportbacks'][$delta] = $reportback;
+      $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
+      $variables['reportbacks'][$delta]->link = l($reportback->node_title, 'node/' . $reportback->nid);
+      $variables['reportbacks'][$delta]->impact = $impact;
+      // Use the first file uploaded for now.
+      $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
+      $variables['reportbacks'][$delta]->img = $img;
+    }
+  }
+
   $variables['title'] = t("Hey, @name!", array("@name" => $variables['first_name'])); 
   $variables['subtitle'] = variable_get('dosomething_user_profile_subtitle', NULL);
 }

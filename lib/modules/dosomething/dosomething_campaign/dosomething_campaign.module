@@ -595,6 +595,10 @@ function dosomething_campaign_is_pitch_page($node) {
   if (!user_is_logged_in()) {
     return TRUE;
   }
+  // Staff can always bypass pitch page to view full action page.
+  elseif (dosomething_user_is_staff()) {
+    return FALSE;
+  }
   // The $node is a pitch page if you haven't signed up yet.
   return (!dosomething_signup_exists($node->nid));
 }

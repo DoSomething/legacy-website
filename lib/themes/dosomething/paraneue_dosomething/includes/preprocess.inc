@@ -100,33 +100,22 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   }
   // Check for User Profile:
   else {
-    // Pages to use regular page.tpl.php:
-    $standard_pages = array(
-      'page__user__edit',
-      'page__user__login',
-      'page__user__password',
-      'page__user__register',
-    );
-    $is_user_page = ($vars['theme_hook_suggestions'][0] === 'page__user');
-    // If this is user page with multiple suggestions:
-    if ($is_user_page && count($vars['theme_hook_suggestions']) > 1) {
-      // Assume we're viewing a User Profile page, which should be full width.
-      $full_width = TRUE;
-      // But check other suggestions too:
-      foreach ($vars['theme_hook_suggestions'] as $suggestion) {
-        // If this is the User Edit page:
-        if ($suggestion === 'page__user__edit') {
-          // Override the title (which is set to the username by default).
-          drupal_set_title(t("Edit Profile"));
-          $full_width = FALSE;
-          break;
-        }
-        // If a standard page:
-        elseif (in_array($suggestion, $standard_pages)) {
-          // Use regular tpl.
-          $full_width = FALSE;
-          break;
-        }
+    $is_profile = FALSE;
+    if (isset($vars['theme_hook_suggestions'][1])) {
+      // Check if page is user/%.
+      $is_profile = ($vars['theme_hook_suggestions'][1] === 'page__user__%');
+    }
+    if ($is_profile) {
+      // User profile page does not contain anymore suggestions than
+      // 0 => page__user, 1 => page__user__%, and 2=> page__user__[uid].
+      if (!isset($vars['theme_hook_suggestions'][3])) {
+        // Profile should be full width.
+        $full_width = TRUE;
+      }
+      // Else If this is the Edit Profile page:
+      elseif ($vars['theme_hook_suggestions'][3] === 'page__user__edit') {
+        // Override the title (which is set to the username by default).
+        drupal_set_title(t("Edit Profile"));
       }
     }
   }

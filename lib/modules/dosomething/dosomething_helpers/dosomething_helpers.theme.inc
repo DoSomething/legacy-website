@@ -149,6 +149,7 @@ function dosomething_helpers_format_partners_list(&$vars) {
  * Sets hero_image variables based on image_header / Cover Image field.
  */
 function dosomething_helpers_preprocess_hero_images(&$vars) {
+  $hero_nid = NULL;
   // If the Campaign class is available:
   if (isset($vars['campaign'])) {
     $hero_nid = $vars['campaign']->image_header['nid'];

@@ -140,7 +140,7 @@ function build {
 
   if [[ $1 == "--intl" ]]
   then
-    for COUNTRY in botswana canada congo default ghana kenya indonesia nigeria training uk
+    for COUNTRY in botswana canada congo ghana kenya indonesia nigeria training uk
     do
       build_helper $COUNTRY $2 $3
     done
@@ -233,6 +233,29 @@ function build_helper {
 
   fi
 
+  # Before running drush it's required to flush Redis cache to avoid
+  # a race condition state between DB and cache.
+  if [[ $SITE != "default" ]]
+  then
+    # Flush only country-specific cache during international deployments.
+    echo "Flush Redis cache on $SITE."
+
+    # Solve Redis cache prefix.
+    case $DS_ENVIRONMENT in
+     "local") CACHE_PREFIX="ds" ;;
+     *) CACHE_PREFIX=$SITE ;;
+    esac
+
+    # Redis CLI connection settings must be preset.
+    redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
+  fi
+
+  echo -n 'Running drush from directory '
+  pwd
+
+  echo 'Drush status:'
+  drush status
+
   echo 'Adding role to admin user...'
   drush user-add-role 'administrator' 1
 
@@ -244,7 +267,7 @@ function build_helper {
   drush --script-path=$BASE_PATH/bin/ php-script enable_modules.php
 
   echo 'Reverting Features'
-  drush fra -y --force
+  drush fra -y
 
   echo 'Clearing caches...'
   drush cc all
