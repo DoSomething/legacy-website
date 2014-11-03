@@ -25,7 +25,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
     // Admin form elements:
   $paths = array('reportback', 'admin');
-  if (user_access('administer modules') && in_array(arg(0), $paths)) {
+  if (user_access('edit any reportback') && in_array(arg(0), $paths)) {
     $form['nid'] = array(
       '#type' => 'entity_autocomplete',
       '#title' => t('Node'),
@@ -41,6 +41,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     }
     else {
       $username = NULL;
+      drupal_set_title(t("Add reportback"));
     }
     $form['username'] = array(
       '#type' => 'textfield',
