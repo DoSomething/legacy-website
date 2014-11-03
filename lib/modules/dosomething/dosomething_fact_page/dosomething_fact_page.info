@@ -24,7 +24,6 @@ features[field_base][] = field_fact_collection
 features[field_base][] = field_node
 features[field_group][] = group_call_to_action|node|fact_page|form
 features[field_group][] = group_facts|node|fact_page|form
-features[field_group][] = group_intro|node|fact_page|form
 features[field_group][] = group_lead_in|node|fact_page|form
 features[field_instance][] = field_collection_item-field_fact_collection-field_compound_text_copy
 features[field_instance][] = field_collection_item-field_fact_collection-field_fact
