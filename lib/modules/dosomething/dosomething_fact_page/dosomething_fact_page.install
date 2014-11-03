@@ -49,3 +49,19 @@ function dosomething_fact_page_update_7003(&$sandbox) {
 function dosomething_fact_page_update_7004() {
   variable_del('dosomething_fact_page_fact_collection_imported');
 }
+
+/**
+ * Removes field_intro, field_intro_title, field_hero_image from fact_page.
+ */
+function dosomething_fact_page_update_7005(&$sandbox) {
+  $fields = array(
+    'field_hero_image',
+    'field_intro',
+    'field_intro_title',
+  );
+  foreach ($fields as $field_name) {
+    if ($instance = field_info_instance('node', $field_name, 'fact_page')) {
+      field_delete_instance($instance);
+    }
+  }
+}

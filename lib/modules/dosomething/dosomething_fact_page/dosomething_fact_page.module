@@ -61,13 +61,10 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     $template_vars = array(
       'text' => array(
         'subtitle',
-        'intro_title',
-        'intro',
         'call_to_action',
       ),
       'image' => array(
         'intro_image',
-        'hero_image',
       ),
       'link' => array(
         'cta_link'
