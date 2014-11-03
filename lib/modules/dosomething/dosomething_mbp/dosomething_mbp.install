@@ -16,6 +16,11 @@ function dosomething_mbp_update_7001(&$sandbox) {
  */
 function dosomething_mbp_update_7002(&$sandbox) {
 
+  if (!db_table_exists('message_broker_producer_productions')) {
+    $message_broker_producer_productions_schema = drupal_get_schema_unprocessed('message_broker_producer', 'message_broker_producer_productions');
+    db_create_table('message_broker_producer_productions', $message_broker_producer_productions_schema);
+  }
+
   $productions = array();
 
   $productions[0]['machine_name'] = 'transactional_user_register';
