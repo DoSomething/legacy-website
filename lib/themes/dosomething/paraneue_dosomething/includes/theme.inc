@@ -91,5 +91,11 @@ function paraneue_dosomething_theme() {
       'template' => 'thumbnail',
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
+
+    'paraneue_tile_figure' => array(
+      'variables' => array(
+        'content' => NULL,
+      ),
+    ),
   );
 }

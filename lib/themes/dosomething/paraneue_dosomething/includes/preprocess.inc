@@ -451,3 +451,19 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
   }
   paraneue_dosomething_add_info_bar($vars);
 }
+
+/**
+ * Preprocesses variables for user profiles. 
+ */
+function paraneue_dosomething_preprocess_user_profile(&$vars) {
+  // Calls theme functions to provide variables to the user profile template that add tile markup.
+  $reportbacks = $vars['reportbacks'];
+  $reported_thing = $reportbacks[0];
+  $reported_item = array(
+    'title' => $reported_thing->link, 
+    // 'description' => $reported_thing->why_participated,
+    'image' => $reported_thing->img,
+    'impact' => $reported_thing->impact,
+  );  
+  $vars['reportback'] = theme('paraneue_tile_figure', $reported_item);
+}
