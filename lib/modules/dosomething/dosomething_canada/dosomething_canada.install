@@ -58,3 +58,12 @@ function dosomething_canada_update_7004() {
 function dosomething_canada_update_7005() {
   variable_set('dosomething_user_address_country', 'CA');
 }
+
+/**
+ * Updates dosomething_user_address_administrative_area_options() for CA site.
+ *
+ * New variable is an array, including title ("Province").
+ */
+function dosomething_canada_update_7006() {
+  dosomething_user_set_address_administrative_area_options('CA');
+}
