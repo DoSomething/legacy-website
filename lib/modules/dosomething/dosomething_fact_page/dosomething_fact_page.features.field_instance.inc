@@ -327,104 +327,6 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_hero_image'
-  $field_instances['node-fact_page-field_hero_image'] = array(
-    'bundle' => 'fact_page',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 2,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'entityconnect_unload_add' => 0,
-    'entityconnect_unload_edit' => 0,
-    'field_name' => 'field_hero_image',
-    'label' => 'Hero Image',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance: 'node-fact_page-field_intro'
-  $field_instances['node-fact_page-field_intro'] = array(
-    'bundle' => 'fact_page',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 12,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 12,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_intro',
-    'label' => 'Intro',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 10,
-    ),
-  );
-
   // Exported field_instance: 'node-fact_page-field_intro_image'
   $field_instances['node-fact_page-field_intro_image'] = array(
     'bundle' => 'fact_page',
@@ -473,53 +375,6 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-fact_page-field_intro_title'
-  $field_instances['node-fact_page-field_intro_title'] = array(
-    'bundle' => 'fact_page',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_intro_title',
-    'label' => 'Intro Title',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 9,
     ),
   );
 
@@ -624,13 +479,10 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
   t('Fact');
   t('Facts');
   t('Facts Image');
-  t('Hero Image');
   t('If set, the [link] text in the copy will be replaced with a link to this campaign.');
   t('If set, this copy will be displayed after the Fact.
 
 You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>');
-  t('Intro');
-  t('Intro Title');
   t('Primary Cause');
   t('Select the Fact to display.');
   t('Subtitle');
