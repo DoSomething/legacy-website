@@ -477,6 +477,12 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'dosomething_reportback';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
+  /* Field: Reportback: Reportback rbid */
+  $handler->display->display_options['fields']['rbid']['id'] = 'rbid';
+  $handler->display->display_options['fields']['rbid']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['rbid']['field'] = 'rbid';
+  $handler->display->display_options['fields']['rbid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['rbid']['separator'] = '';
   /* Field: File: Upload date */
   $handler->display->display_options['fields']['timestamp']['id'] = 'timestamp';
   $handler->display->display_options['fields']['timestamp']['table'] = 'file_managed';
@@ -641,12 +647,13 @@ function dosomething_reportback_views_default_views() {
     t('flag'),
     t('RB Flag'),
     t('Content'),
+    t('Reportback rbid'),
+    t('.'),
     t('Submitted'),
     t('Fid'),
     t('Nid'),
     t('Campaign Title'),
     t('Quantity'),
-    t('.'),
     t(','),
     t('Email'),
     t('Cause'),
