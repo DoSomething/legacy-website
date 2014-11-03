@@ -65,3 +65,11 @@ function dosomething_fact_page_update_7005(&$sandbox) {
     }
   }
 }
+
+/**
+ * Sets dosomething_fact_page_copy_intro variable.
+ */
+function dosomething_fact_page_update_7006() {
+  $copy = "Welcome to DoSomething.org, one of the largest orgs for young people and social change! After you've browsed the 11 facts (with citations at the bottom), take action and volunteer with our millions of members. Sign up for a [campaign](/campaigns) and make the world suck less.";
+  variable_set('dosomething_fact_page_copy_intro', $copy);
+}

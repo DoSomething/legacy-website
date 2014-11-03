@@ -24,6 +24,14 @@
     </div>
   </header>
 
+  <?php if (isset($intro)): ?>
+    <section class="container intro">
+      <div class="wrapper">
+        <?php print $intro; ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
   <?php if (isset($facts_chunked)): ?>
     <?php foreach ($facts_chunked as $key_chunk => $fact_chunk): ?>
       <?php 
