@@ -223,7 +223,7 @@ function dosomething_helpers_add_inline_css(&$vars) {
       }
 
       @media only screen and (min-width: 768px) {
-        [role="banner"].-hero {
+        [role="banner"].-hero, [role="banner"].-centered {
           background-image: url("' . $vars['hero_image']['desktop'] . '");
         }
       }';
