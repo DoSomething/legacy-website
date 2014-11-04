@@ -92,10 +92,9 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
 
-    'paraneue_tile_figure' => array(
-      'variables' => array(
-        'content' => NULL,
-      ),
+    'paraneue_media' => array(
+      'template' => 'media',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
     ),
   );
 }

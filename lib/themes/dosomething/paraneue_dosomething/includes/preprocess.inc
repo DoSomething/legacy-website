@@ -465,5 +465,5 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     'image' => $reported_thing->img,
     'impact' => $reported_thing->impact,
   );  
-  $vars['reportback'] = theme('paraneue_tile_figure', $reported_item);
+  $vars['reportback'] = paraneue_get_gallery_item($reported_item, 'media');
 }

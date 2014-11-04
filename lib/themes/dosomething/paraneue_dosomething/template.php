@@ -135,42 +135,43 @@ function paraneue_dosomething_html_head_alter(&$head_elements) {
 }
 
 /**
- * Return a string that contains the rendered representation of a figure tile.
- */
-function theme_paraneue_tile_figure($content) {
-  // Create markup string.
-  // $output = 
-  //   '<div class="tile tile--figure">' .
-  //     '<div class="__media">' . 
-  //       $vars['image'] .
-  //     '</div>' . 
-  //     '<div class="__body">' . 
-  //       '<h3 class="__title">' . $vars['title'] . '</h3>' . 
-  //       '<div class="__description">' . 
-  //         '<p>My impact:</p>' . 
-  //         '<p>' . $vars['impact'] . '</p>' . 
-  //       '</div>' .
-  //     '</div>' . 
-  //   '</div>';
-  return '<h2>Hello</h2>'; 
-}
-
-/**
- * Takes in an array containing: 
  * - title
  * - description
  * - image
  * - url
  */
-// function paraneue_get_tile($vars, $type = 'figure') {
-//   switch ($type) {
-//     case 'campaign':
-//       return theme('paraneue_tile_campaign', $vars);    
-//       break;
-//     default:
-//       return theme('paraneue_tile_figure', $vars);
-//       break;
-//   }
-// }
+function paraneue_get_gallery_item($vars, $type = 'figure') {
+  switch ($type) {
+    case 'campaign':
+      return theme('paraneue_tile_campaign', $vars);
+      break;
+    case 'media':
+      return theme('paraneue_media', $vars);
+      break;
+    default:
+      return theme('paraneue_tile_figure', $vars);
+      break;
+  }
+}
 
+/**
+ * Returns <ul> of $items as gallery $type.
+ */
+function paraneue_get_gallery($items, $type = 'duo') {
+  // Adds relevant classes to the <li> based on $type.
+  switch ($type) {
+    case 'duo':
+      return theme('paraneue_tile_campaign', $vars);
+      break;
+    case 'triad':
+      return theme('paraneue_media', $vars);
+      break;
+    case 'mosaic':
+      return 
+      break;
+    default:
+      return theme('paraneue_tile_figure', $vars);
+      break;
+  }
+}
   
