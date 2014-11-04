@@ -572,9 +572,16 @@ function dosomething_static_content_field_default_field_instances() {
         'weight' => 4,
       ),
       'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
         'weight' => 4,
       ),
       'teaser' => array(
