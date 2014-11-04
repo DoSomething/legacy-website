@@ -151,6 +151,8 @@ projects[redis][subdir] = "contrib"
 ; Services
 projects[services][version] = "3.10"
 projects[services][subdir] = "contrib"
+; See https://www.drupal.org/node/2200269, https://github.com/DoSomething/dosomething/issues/3311
+projects[services][patch][] = "https://www.drupal.org/files/issues/services-2200269.patch"
 
 ; Strongarm
 projects[strongarm][version] = "2.0"
