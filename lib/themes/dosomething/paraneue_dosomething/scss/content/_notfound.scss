@@ -1,0 +1,16 @@
+div.notfound-header p {
+	color: #fff;
+}
+
+div.notfound-search-results {
+
+	#bar {
+		float: left;
+		@include span-columns(4);
+	}
+
+	.center-text {
+		text-align: center;
+	}
+
+}
