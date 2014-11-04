@@ -22,6 +22,6 @@ function dosomething_notfound_install(){
   node_save($node);
 
 	// Sets the Drupal 404 URL 
-	variable_set('site_404', 'notfound');
+  variable_set('site_404', 'notfound');
 
 }
