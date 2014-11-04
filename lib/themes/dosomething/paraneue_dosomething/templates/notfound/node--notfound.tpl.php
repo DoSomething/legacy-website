@@ -13,8 +13,8 @@
 ?>
 <article>
  
-	<header role="banner" class="-centered">
-	  <div class="wrapper notfound-header">
+	<header role="banner" class="-centered notfound">
+	  <div class="wrapper">
 	  	<h1 class="__title"><?php print $title ?></h1>  	
 	  	<?php print $subtitle ?> <!-- TODO, this should get the same properties of __subtitle -->
 	  </div>
