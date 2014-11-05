@@ -13,24 +13,24 @@
 ?>
 <article>
 
-	<header role="banner" class="-centered notfound">
-		<div class="wrapper">
-			<h1 class="__title"><?php print $title ?></h1>  	
-			<?php print $subtitle ?> <!-- TODO, this should get the same properties of __subtitle -->
-		</div>
-	</header>
+  <header role="banner" class="-centered notfound">
+    <div class="wrapper">
+      <h1 class="__title"><?php print $title ?></h1>    
+      <?php print $subtitle ?> <!-- TODO, this should get the same properties of __subtitle -->
+    </div>
+  </header>
 
-	<?php if (isset($results)): ?>
-		<div class="container notfound-search-results">
-			<div class="wrapper">
-				<?php if (isset($results_info)): ?>
-					<p class="center-text"><strong><?php print $results_info ?></strong></p>
-				<?php endif; ?>
-				<?php if ($search): ?>
+  <?php if (isset($results)): ?>
+    <div class="container notfound-search-results">
+      <div class="wrapper">
+        <?php if (isset($results_info)): ?>
+          <p class="center-text"><strong><?php print $results_info ?></strong></p>
+        <?php endif; ?>
+        <?php if ($search): ?>
 
-				<?php endif; ?>
-			</div>
-		</div>
-	<?php endif; ?>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endif; ?>
 
 </article>
