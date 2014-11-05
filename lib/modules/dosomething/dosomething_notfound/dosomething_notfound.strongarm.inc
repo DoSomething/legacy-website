@@ -20,23 +20,23 @@ function dosomething_notfound_strongarm() {
       'form' => array(
         'metatags' => array(
           'weight' => '6',
-          ),
+        ),
         'title' => array(
           'weight' => '0',
-          ),
+        ),
         'path' => array(
           'weight' => '5',
-          ),
+        ),
         'redirect' => array(
           'weight' => '4',
-          ),
+        ),
         'xmlsitemap' => array(
           'weight' => '3',
-          ),
         ),
-      'display' => array(),
       ),
-    );
+      'display' => array(),
+    ),
+  );
   $export['field_bundle_settings_node__notfound'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -52,7 +52,7 @@ function dosomething_notfound_strongarm() {
   $strongarm->name = 'menu_options_notfound';
   $strongarm->value = array(
     0 => 'main-menu',
-    );
+  );
   $export['menu_options_notfound'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -68,7 +68,7 @@ function dosomething_notfound_strongarm() {
   $strongarm->name = 'node_options_notfound';
   $strongarm->value = array(
     0 => 'status',
-    );
+  );
   $export['node_options_notfound'] = $strongarm;
 
   $strongarm = new stdClass();
