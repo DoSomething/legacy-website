@@ -50,7 +50,7 @@ function dosomething_notfound_page() {
   } // No else is needed as a default node is always created when the module installs
 
   // Return & Load node
-  return node_view(node_load($nid), 'full');
+  return node_view($node, 'full');
 }
 
 /**
