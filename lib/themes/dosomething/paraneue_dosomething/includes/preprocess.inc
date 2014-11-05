@@ -460,10 +460,10 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   $reportbacks = $vars['reportbacks'];
   $reported_thing = $reportbacks[0];
   $reported_item = array(
-    'title' => $reported_thing->link, 
-    // 'description' => $reported_thing->why_participated,
+    'title' => $reported_thing->link,
+    'description' => $reported_thing->why_participated,
     'image' => $reported_thing->img,
     'impact' => $reported_thing->impact,
-  );  
+  );
   $vars['reportback'] = paraneue_get_gallery_item($reported_item, 'media');
 }

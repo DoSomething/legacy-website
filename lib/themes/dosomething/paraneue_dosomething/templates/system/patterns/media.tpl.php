@@ -4,13 +4,9 @@
   </div>
 
   <div class="__body">
-    <h3 class="__title"><a href=
-        "http://twitter.com/harryshumjr">@HarryShumJr</a></h3>
-
+    <h3 class="__title"><?php print $content['title']; ?></h3>
     <div class="__description">
-      Do you have stained or ripped clothes you don't wear? Recycle them
-      w/ <a href="http://twitter.com/dosomething">@DoSomething</a>
-      <a href="http://twitter.com/hmusa">http://dsorg.us/CLOTHES</a>
+      <?php print $content['description']; ?>
     </div>
   </div>
 </article>

@@ -95,6 +95,9 @@ function paraneue_dosomething_theme() {
     'paraneue_media' => array(
       'template' => 'media',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'variables' => array(
+        'content' => NULL,
+      ),
     ),
   );
 }
