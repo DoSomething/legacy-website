@@ -58,35 +58,29 @@ function dosomething_user_update_7011(&$sandbox) {
   // Find users…
   $query = db_select('users', 'u')->fields('u', array('uid'));
 
-  // …registered with DoSomething UK…
-  $query->leftJoin(
-    'field_data_field_user_registration_source', 'f',
-    'f.entity_id = u.uid'
-  );
-  $where = db_or()
-  ->condition(
-    'f.field_user_registration_source_value',
-    'dosomething_uk',
-    '<>'
-  )
-  // …or without registration source…
-  ->isNull('f.entity_id', NULL);
-  $query->condition($where);
+ // …registered before the international release (2014-09-03 23:00:00 UTC)…
+ $date = new DateTime('2014-09-03T23:00:00Z');
+ $where = db_or()
+ ->condition(
+   'u.created',
+   $date->getTimestamp(),
+   '<'
+ );
+ $query->condition($where);
 
-  $staff_roles = array(
-    user_role_load_by_name('administrator')->rid,
-    user_role_load_by_name('editor')->rid,
-  );
-
-  // …and that are not staff…
-  $query->leftJoin('users_roles', 'r', 'r.uid = u.uid');
-  $where = db_or()
-  ->condition('r.rid', $staff_roles, 'not IN')
-  // …or don't have any role assigned…
-  ->isNull('r.uid', NULL);
-  $query->condition($where);
-  // …and not the anonymous.
-  $query->condition('u.uid', 0, '<>');
+ // …and that are not staff…
+ $staff_roles = array(
+   user_role_load_by_name('administrator')->rid,
+   user_role_load_by_name('editor')->rid,
+ );
+ $query->leftJoin('users_roles', 'r', 'r.uid = u.uid');
+ $where = db_or()
+ ->condition('r.rid', $staff_roles, 'not IN')
+ // …or don't have any role assigned…
+ ->isNull('r.uid', NULL);
+ $query->condition($where);
+ // …and not the anonymous.
+ $query->condition('u.uid', 0, '<>');
 
   if (!isset($sandbox['total'])) {
     $sandbox['current'] = 0;
