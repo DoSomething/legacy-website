@@ -6,6 +6,5 @@ function dosomething_notfound_admin_config_form($form, &$form_state){
     '#type' => 'checkbox',
     '#title' => t('Disable relevant results'),
     );
-  //variable_get
   return system_settings_form($form);
 }

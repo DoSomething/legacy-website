@@ -8,16 +8,16 @@
  * Implements hook_menu().
  */
 function dosomething_notfound_menu() {
-	$items = array();
-	//404 page
-	$items['notfound'] = array(
-		'title' => '404',
-		'page callback' => 'dosomething_notfound_page',
-		'access callback' => 'user_access',
+  $items = array();
+  //404 page
+  $items['notfound'] = array(
+    'title' => '404',
+    'page callback' => 'dosomething_notfound_page',
+    'access callback' => 'user_access',
     'access arguments' => array('access content'),
     );
-	// 404 page settings
-	$items['admin/config/dosomething/dosomething_notfound'] = array(
+  // 404 page settings
+  $items['admin/config/dosomething/dosomething_notfound'] = array(
    'title' => '404 page settings',
    'description' => 'Admin form to set 404 page variables.',
    'page callback' => 'drupal_get_form',
@@ -27,7 +27,7 @@ function dosomething_notfound_menu() {
    'file' => 'dosomething_notfound.admin.inc',
    );
 
-	return $items;
+  return $items;
 }
 
 /*
@@ -35,7 +35,7 @@ function dosomething_notfound_menu() {
  */
 function dosomething_notfound_page() {
 
-	$result = db_select('node', 'n')
+  $result = db_select('node', 'n')
   ->condition('type', 'notfound')
   ->condition('status', 1)
   ->fields('n', array('nid'))
@@ -47,17 +47,17 @@ function dosomething_notfound_page() {
   if ($result) {
    $nid = $result[0];
    $node = node_load($nid);
-	} // No else is needed as a default node is always created when the module installs
+  } // No else is needed as a default node is always created when the module installs
 
-	// Return & Load node
-	return node_view(node_load($nid), 'full');
+  // Return & Load node
+  return node_view(node_load($nid), 'full');
 }
 
 /**
  * Implements hook_preprocess_node();
  */
 function dosomething_notfound_preprocess_node(&$vars)  {
-	if ($vars['type'] != 'notfound') { return; }
+  if ($vars['type'] != 'notfound') { return; }
 
   // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
@@ -70,11 +70,11 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   // No need to search or lookup anything else
   if(variable_get('dosomething_notfound_disable_results') == 1){
-  	$vars['search'] = false;
-  	return;
+    $vars['search'] = false;
+    return;
   }
   
-	//@TODO: Populate results info $vars['results'] = array();
-	//$vars['results_info'] = "We did a quick search, here is some similiar content that we do have.";
+  //@TODO: Populate results info $vars['results'] = array();
+  //$vars['results_info'] = "We did a quick search, here is some similiar content that we do have.";
 
 }

@@ -4,9 +4,9 @@
  * Implements hook_install()
  */
 function dosomething_notfound_install(){
-	
-	// Creates a default node, based on https://www.drupal.org/node/1388922
-	global $user;
+  
+  // Creates a default node, based on https://www.drupal.org/node/1388922
+  global $user;
 
   $node = new stdClass();
   $node->title = "Page not found";
@@ -21,7 +21,7 @@ function dosomething_notfound_install(){
   $node = node_submit($node); 
   node_save($node);
 
-	// Sets the Drupal 404 URL 
+  // Sets the Drupal 404 URL 
   variable_set('site_404', 'notfound');
 
 }
