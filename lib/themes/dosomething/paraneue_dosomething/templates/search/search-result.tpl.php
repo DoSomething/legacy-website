@@ -23,9 +23,11 @@
  * - $title_suffix (array): An array containing additional output populated by
  *   modules, intended to be displayed after the main title tag that appears in
  *   the template.
- * - $subtitle: For campaigns this is the Call to Action field, and for Fact Pages 
+ * - $subtitle: For campaigns this is the Call to Action field, and for Fact Pages
  *   and Static content it's either the Subtitle or Intro title field, whichever
  *   is populated.
+ * - $display_image: The cover image for campaigns.  Should default to the logo
+ *   for other content types.
  *
  * Default keys within $info_split:
  * - $info_split['module']: The module that implemented the search query.
@@ -67,16 +69,16 @@
  * @ingroup themeable
  */
 ?>
-<li class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php print render($title_prefix); ?>
-  <h3 class="title"<?php print $title_attributes; ?>>
-    <a href="<?php print $url; ?>"><?php print $title; ?></a>
-  </h3>
-  <?php print render($title_suffix); ?>
-  <p><?php print $subtitle; ?></p>
-  <div class="search-snippet-info">
-    <?php if ($snippet): ?>
-      <p class="search-snippet"<?php print $content_attributes; ?>><?php print $snippet; ?></p>
-    <?php endif; ?>
-  </div>
+
+<li>
+  <article class="tile media">
+    <div class="wrapper">
+      <?php print $display_image; ?>
+    </div>
+    <div class="__body">
+      <h3 class="__title"><a href="<?php print $url; ?>"><?php print $title; ?></a></h3>
+      <div class="__description"><?php print $subtitle; ?></div>
+    </div>
+
+  </article>
 </li>
