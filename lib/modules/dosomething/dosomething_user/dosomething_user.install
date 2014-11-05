@@ -50,7 +50,7 @@ function dosomething_user_update_7005() {
 /**
  * Cancels temporary users accounts at the affiliate sites.
  */
-function dosomething_user_update_7011(&$sandbox) {
+function dosomething_user_update_7006(&$sandbox) {
   if (!dosomething_settings_is_affiliate()) {
     return t('Done');
   }
