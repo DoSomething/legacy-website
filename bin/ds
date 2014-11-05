@@ -86,12 +86,12 @@ ds grunt [--watch]
   Continues watching for changes and recompiles assets as necessary.
 
 ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
-  Pulls database and files from given environment down onto your local build.
+  Drops your local database and pulls database and files from given environment down onto your local build.
   Note: Running 'ds pull stage' will destroy any affiliate sites.
   Run  Run 'ds pull stage.$AFFILIATE' to preserve the folders and
 
   --db
-    Pulls down database only.
+    Drops your local database and pulls down db from given environment.
 
   --files
     Pulls down files only. If pulling from an affiliate site, only the files directory
@@ -463,8 +463,12 @@ function pull_db {
   then
     if [[ ${#alias[@]} == 1 ]]
     then
-      echo "Pulling down db from staging"
       cd $WEB_PATH
+
+      echo "Dropping local DB"
+      drush -y sql-drop
+
+      echo "Pulling down db from staging"
       drush -y sql-sync @ds.staging @self
 
       echo "Enabling Stage File Proxy..."
