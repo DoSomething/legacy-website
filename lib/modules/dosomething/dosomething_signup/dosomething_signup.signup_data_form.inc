@@ -340,11 +340,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
         'data-validate-required' => 'true',
       ),
     );
+    $administrative_area = dosomething_user_get_address_administrative_area_options();
 
     $form['school_finder']['school_administrative_area'] = array(
       '#type' => 'select',
-      '#options' => dosomething_user_get_address_administrative_area_options(),
-      '#title' => t("Select state"),
+      '#options' => $administrative_area['options'],
+      '#title' => t("Select @label", array(
+        '@label' => $administrative_area['title'],
+      )),
       '#attributes' => array(
         'data-validate' => 'state',
       ),

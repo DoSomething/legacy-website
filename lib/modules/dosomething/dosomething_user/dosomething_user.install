@@ -37,6 +37,17 @@ function dosomething_user_update_7004() {
 }
 
 /**
+ * Updates dosomething_user_address_administrative_area_options() for US site.
+ *
+ * New variable is an array, including title ("State").
+ */
+function dosomething_user_update_7005() {
+  if (!dosomething_settings_is_affiliate()) {
+    dosomething_user_set_address_administrative_area_options();
+  }
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {

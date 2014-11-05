@@ -53,9 +53,11 @@ function dosomething_mbp_request($origin, $params = NULL) {
       $production = 'transactional_campaign_reportback';
       break;
   }
+  $payload = dosomething_mbp_get_transactional_payload($origin, $params);
   if (variable_get('dosomething_mbp_log')) {
     watchdog('dosomething_mbp', json_encode($payload));
   }
+
   try {
     return message_broker_producer_request($production, $payload);
   }

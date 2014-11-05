@@ -22,7 +22,7 @@ function dosomething_user_get_login_modal_link_markup($label, $class = 'medium')
 function dosomething_user_preprocess_user_profile(&$variables) {
 
   // Collect User Account data.
-  $uid = $variables['user']->uid;
+  $uid = $variables['elements']['#account']->uid;
   $user = user_load($uid);
   $variables['first_name'] = dosomething_user_get_field('field_first_name', $user, 'ucwords');
   $variables['last_name'] = dosomething_user_get_field('field_last_name', $user, 'ucwords');
