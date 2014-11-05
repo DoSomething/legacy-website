@@ -4,6 +4,8 @@
  * A  module that handles 404's
  */
 
+include_once 'dosomething_notfound.features.inc';
+
 /**
  * Implements hook_menu().
  */
