@@ -96,7 +96,7 @@
     opacity: 0.2;
 
     @include media($tablet) {
-      /* retina sizing, see Image Style preset */
+      // retina sizing, see Image Style preset
       max-width: 125px;
       max-height: 40px;
     }
