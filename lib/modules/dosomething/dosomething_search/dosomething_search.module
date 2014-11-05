@@ -79,7 +79,9 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
   // other apachesolr views.
   $query_params = $query->getParams();
   if (!isset($query_params['q'])) {
-    $params['q'] = '*:*';
+    // Set both vars so that disallowed types never
+    // show up in apachesolr views.
+    $query_params['q'] = $params['q'] = '*:*';
     $boosts = array(
       'bs_high_season' => '1.0',
       'bs_field_staff_pick' => '5.0',
@@ -92,12 +94,32 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
     $params['bq'][] = "bundle:campaign^100.0";
   }
 
+  // There is a bug in the apachesolr allowed types export that
+  // always overrides the types that should be indexed in search. This
+  // code is necessary to make sure that only the allowed types are included
+  // in search results.
+  $disallowed_types = implode(' ', array_filter(array_keys(node_type_get_types()), 'dosomething_search_filter_types'));
+  $params['q'] = "{$query_params['q']} -bundle:({$disallowed_types})";
+
   // Add a term proximity boost so that multiple search terms
   // are treated as one phrase.
   $params['pf'] = 'content~2^1000';
 
   if ($query) {
     $query->addParams($params);
+  }
+}
+
+function dosomething_search_filter_types($type) {
+  $defaults = array(
+    'campaign',
+    'campaign_collection',
+    'fact_page',
+    'static_content'
+  );
+  $allowed_types = variable_get('allowed_search_types', $defaults);
+  if (!in_array($type, $allowed_types)) {
+    return true;
   }
 }
 
