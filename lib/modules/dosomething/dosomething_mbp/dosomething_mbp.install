@@ -15,6 +15,10 @@ function dosomething_mbp_update_7001(&$sandbox) {
  * Creates default production entries in message_broker_producer
  */
 function dosomething_mbp_update_7002(&$sandbox) {
+  // Only run this if Message Broker Producer is enabled.
+  if (!module_exists('message_broker_producer')) {
+    return;
+  }
 
   if (!db_table_exists('message_broker_producer_productions')) {
     $message_broker_producer_productions_schema = drupal_get_schema_unprocessed('message_broker_producer', 'message_broker_producer_productions');
