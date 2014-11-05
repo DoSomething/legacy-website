@@ -91,8 +91,12 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'campaign',
     'campaign_group',
     'fact_page',
+    'notfound',
   );
   if (isset($vars['node']->type) && in_array($vars['node']->type, $full_width_types)) {
+    $full_width = TRUE;
+  }
+  elseif ($vars['theme_hook_suggestions'][0] === 'page__notfound'){
     $full_width = TRUE;
   }
   elseif ($vars['theme_hook_suggestions'][0] === 'page__taxonomy') {
