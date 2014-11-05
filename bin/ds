@@ -464,8 +464,10 @@ function pull_db {
     if [[ ${#alias[@]} == 1 ]]
     then
       cd $WEB_PATH
+
       echo "Dropping local DB"
-      drush sql-drop
+      drush -y sql-drop
+
       echo "Pulling down db from staging"
       drush -y sql-sync @ds.staging @self
 
