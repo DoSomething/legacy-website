@@ -113,13 +113,13 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
 function dosomething_search_filter_types($type) {
   $defaults = array(
     'campaign',
-    'campaign_collection',
+    'campaign_group',
     'fact_page',
     'static_content'
   );
-  $allowed_types = variable_get('allowed_search_types', $defaults);
+  $allowed_types = variable_get('dosomething_search_allowed_search_types', $defaults);
   if (!in_array($type, $allowed_types)) {
-    return true;
+    return TRUE;
   }
 }
 
