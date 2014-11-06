@@ -46,10 +46,10 @@
 
   .preview {
     float: left;
-    width: auto;
+    width: 100%;
     height: auto;
-    max-width: 100px;
-    max-height: 200px;
+    // max-width: 100px;
+    // max-height: 200px;
     background: $light-gray;
     border: 5px solid #fff;
     margin: 4px 18px;
