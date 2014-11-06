@@ -95,7 +95,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['modals'] = theme('modal_links', array('modals' => $modal_links));
   }
   // Zendesk Support Ticket form.
-  if (isset($vars['content']['zendesk_form']) && !dosomething_settings_is_affiliate()) {
+  if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
 }
