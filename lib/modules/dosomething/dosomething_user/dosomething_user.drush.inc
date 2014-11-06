@@ -21,6 +21,13 @@ function drush_dosomething_user_cancel_us_users() {
   if (!dosomething_settings_is_affiliate()) {
     return t("Available only on affiliates.");
   }
+  $lock = variable_get('dosomething_user_cancell_us_users_lock', FALSE);
+  if ($lock) {
+    return t("Waiting for previous operation to complete.");
+  }
+  variable_set('dosomething_user_cancell_us_users_lock', TRUE);
+
+  $sandbox = variable_get('dosomething_user_cancell_us_users_sandbox');
 
   // Find users…
   $query = db_select('users', 'u')->fields('u', array('uid'));
@@ -78,12 +85,14 @@ function drush_dosomething_user_cancel_us_users() {
 
   // Set status message on success.
   if ($sandbox['#finished'] === 1) {
+    variable_del('dosomething_user_cancell_us_users_lock');
     variable_del('dosomething_user_cancell_us_users_sandbox');
     return t('Canceled !total user accounts.',
              array('!total' => $sandbox['total']));
   }
 
   // Save the sandbox.
+  variable_set('dosomething_user_cancell_us_users_lock', FALSE);
   variable_set('dosomething_user_cancell_us_users_sandbox', $sandbox);
   return t('Canceled !current of !total user accounts.',
            array('!current' => $sandbox['current'],
