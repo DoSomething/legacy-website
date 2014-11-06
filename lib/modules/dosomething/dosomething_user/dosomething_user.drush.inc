@@ -67,6 +67,7 @@ function drush_dosomething_user_cancel_us_users() {
   }
 
   if (!$sandbox['total']) {
+    variable_del('dosomething_user_cancel_us_users_lock');
     return t("User cleansing has finished.");
   }
 
@@ -157,6 +158,7 @@ function drush_dosomething_user_update_users_country() {
   }
 
   if (!$sandbox['total']) {
+    variable_del('dosomething_user_update_users_country_lock');
     return t("All users has been fixed.");
   }
 
