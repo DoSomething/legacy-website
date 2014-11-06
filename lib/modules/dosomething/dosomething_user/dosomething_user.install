@@ -47,6 +47,16 @@ function dosomething_user_update_7005() {
   }
 }
 
+
+/**
+ * Sets dosomething_user_validate_address variable for US site.
+ */
+function dosomething_user_update_7006() {
+  if (!dosomething_settings_is_affiliate()) {
+    variable_set('dosomething_user_validate_address', 1);
+  }
+}
+
 /**
  * Implements hook_uninstall().
  */
@@ -70,6 +80,7 @@ function dosomething_user_uninstall() {
     'dosomething_user_ups_password',
     'dosomething_user_ups_test_integration',
     'dosomething_user_ups_username',
+    'dosomething_user_validate_address',
   );
   foreach ($vars as $var) {
     variable_del($var);
