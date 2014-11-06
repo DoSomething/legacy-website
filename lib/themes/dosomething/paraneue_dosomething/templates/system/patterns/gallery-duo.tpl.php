@@ -12,17 +12,12 @@
 <?php $row_count = 0; ?>
 
 <ul class="gallery -duo">
-  <?php foreach ($items as $item): ?>
-    <?php if ($row_count == 0): ?>
-      <li class="-first">
-        <?php print $item; ?>
-      </li>
-      <?php $row_count++; ?>
-    <?php elseif ($row_count == 1): ?>
-      <li class="-second">
-        <?php print $item; ?>
-      </li>      
-      <?php $row_count = 0; ?>
-    <?php endif; ?>
-  <?php endforeach; ?>
+  <?php if (!empty($items)): ?>
+    <?php foreach ($items as $item): ?>
+        <li class="<?php ($row_count == 0) ? print '-first' : print '-second' ?>">
+          <?php print $item; ?>
+        </li>
+        <?php ($row_count == 0) ? $row_count++ : $row_count = 0 ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
 </ul>
