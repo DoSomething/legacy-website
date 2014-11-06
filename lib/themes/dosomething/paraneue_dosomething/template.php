@@ -135,12 +135,17 @@ function paraneue_dosomething_html_head_alter(&$head_elements) {
 }
 
 /**
- * @TODO - Documentation
- * - title
- * - description
- * - impact
- * - image
- * - url
+ * Function that themes an item, based on a pattern from neue, that can then go into a gallery. 
+ *
+ * @param array $content
+ *   array that can contain: 
+ *     - title
+ *     - description
+ *     - impact
+ *     - image
+ *     - url
+ *
+ * @param $type - The pattern that the content should be themed by. 
  */
 function paraneue_get_gallery_item($content, $type) {
   $variables = array(
@@ -158,8 +163,12 @@ function paraneue_get_gallery_item($content, $type) {
 }
 
 /**
- * @TODO - Documentation
- * Returns <ul> of $items as gallery $type. 
+ * Function that returns a <ul> representing a gallery.  
+ *
+ * @param array $items
+ *   An array of themed items to go into each <li>. 
+ *
+ * @param $type - The type of gallery. 
  */
 function paraneue_get_gallery($items, $type) {
   $variables = array(
@@ -175,4 +184,4 @@ function paraneue_get_gallery($items, $type) {
       break;
   }
 }
-  
+ 
