@@ -139,6 +139,16 @@ function drush_dosomething_user_update_users_country() {
   ->isNull('f.entity_id', NULL);
   $query->condition($where);
 
+  // …registered after the international release (2014-09-03 23:00:00 UTC)…
+  $date = new DateTime('2014-09-03T23:00:00Z');
+  $where = db_or()
+  ->condition(
+    'u.created',
+    $date->getTimestamp(),
+    '>'
+  );
+  $query->condition($where);
+
   // Load sandbox data.
   $sandbox = variable_get('dosomething_user_update_users_country_sandbox');
   if (!isset($sandbox['total'])) {
