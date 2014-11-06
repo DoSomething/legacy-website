@@ -92,7 +92,7 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
 
-    // Register theme functions for the neue pattern.
+    // Register theme functions for the Neue library.
     'paraneue_media' => array(
       'template' => 'media',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',

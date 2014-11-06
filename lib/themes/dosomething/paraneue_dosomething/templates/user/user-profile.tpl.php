@@ -13,7 +13,6 @@
  *  - $doing: Array containing campaign blocks for campaigns User is doing.
  */
 ?>
-<?php dpm($variables); ?>
 <article class="user profile"<?php print $attributes; ?> id="user-<?php print $user->uid; ?>">
 
   <header role="banner" class="-basic">
