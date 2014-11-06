@@ -20,7 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "neue": "DoSomething/neue#~5.3.0",
+    "neue": "DoSomething/neue#~5.3.1",
     "jquery": "1.8.3",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",

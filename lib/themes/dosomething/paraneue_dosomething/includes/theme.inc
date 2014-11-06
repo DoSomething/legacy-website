@@ -92,11 +92,20 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
 
+    // Register theme functions for the neue pattern.
     'paraneue_media' => array(
       'template' => 'media',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
       'variables' => array(
         'content' => NULL,
+      ),
+    ),
+
+    'paraneue_gallery_duo' => array(
+      'template' => 'gallery-duo',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'variables' => array(
+        'items' => NULL,
       ),
     ),
   );

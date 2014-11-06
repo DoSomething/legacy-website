@@ -135,6 +135,7 @@ function paraneue_dosomething_html_head_alter(&$head_elements) {
 }
 
 /**
+ * @TODO - Documentation
  * - title
  * - description
  * - impact
@@ -147,9 +148,6 @@ function paraneue_get_gallery_item($content, $type) {
   );
 
   switch ($type) {
-    case 'campaign':
-      return theme('paraneue_tile_campaign', $variables);
-      break;
     case 'media':
       return theme('paraneue_media', $variables);
       break;
@@ -160,23 +158,20 @@ function paraneue_get_gallery_item($content, $type) {
 }
 
 /**
- * Returns <ul> of $items as gallery $type.
+ * @TODO - Documentation
+ * Returns <ul> of $items as gallery $type. 
  */
 function paraneue_get_gallery($items, $type) {
-  // Adds relevant classes to the <li> based on $type.
+  $variables = array(
+    'items' => $items,
+  );
+
   switch ($type) {
     case 'duo':
-      return theme('paraneue_tile_campaign', $vars);
-      break;
-    case 'triad':
-      return theme('paraneue_media', $vars);
-      break;
-    case 'mosaic':
-      // @TODO - Create mosaic pattern.
-      return theme('paraneue_media', $vars); 
+      return theme('paraneue_gallery_duo', $variables);
       break;
     default:
-      return theme('paraneue_tile_figure', $vars);
+      return theme('paraneue_gallery_triad', $variables);
       break;
   }
 }

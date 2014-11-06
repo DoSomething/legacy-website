@@ -456,14 +456,22 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
  * Preprocesses variables for user profiles. 
  */
 function paraneue_dosomething_preprocess_user_profile(&$vars) {
-  // Calls theme functions to provide variables to the user profile template that add tile markup.
   $reportbacks = $vars['reportbacks'];
-  $reported_thing = $reportbacks[0];
-  $reported_item = array(
-    'title' => $reported_thing->link,
-    'description' => $reported_thing->why_participated,
-    'image' => $reported_thing->img,
-    'impact' => $reported_thing->impact,
-  );
-  $vars['reportback'] = paraneue_get_gallery_item($reported_item, 'media');
+  // $reportback_items;
+
+  // Create an array of themed reportback items.
+  $i = 0;
+  foreach ($reportbacks as $value) {
+    $item = array(
+      'title' => $value->link,
+      'description' => $value->why_participated,
+      'image' => $value->img,
+      'impact' => $value->impact,
+    );
+    $reportback_items[$i] = paraneue_get_gallery_item($item, 'media');
+    $i++;
+  } 
+
+  // Theme the gallery of reportbacks, and give the user profile template access to it.
+  $vars['reportback_gallery'] = paraneue_get_gallery($reportback_items, 'duo');
 }
