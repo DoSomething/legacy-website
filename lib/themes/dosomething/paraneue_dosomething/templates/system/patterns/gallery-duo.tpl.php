@@ -15,7 +15,6 @@
         <li class="<?php ($delta % 2) ? print '-second' : print '-first' ?>">
           <?php print $item; ?>
         </li>
-        <?php ($delta % 2) ? $row_count = 0 : $row_count++ ?>
     <?php endforeach; ?>
   <?php endif; ?>
 </ul>
