@@ -128,7 +128,7 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
       $vars['galleries'][$i]['items'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], $image_ratio, $image_style);
 
       $link_field = $gallery_item['field_image_title'][0]['#element'];
-      
+
       $vars['galleries'][$i]['items'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
       $vars['galleries'][$i]['items'][$a]['image_url'] = $link_field['url'];
       $vars['galleries'][$i]['items'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
@@ -152,4 +152,15 @@ function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, 
     // Else assume this is an empty field collection.
     $is_empty = TRUE;
   }
+}
+
+/**
+* Implements hook_entity_info_alter().
+* Adds a search index view mode for the gallery field collection
+*/
+function dosomething_search_entity_info_alter(&$entity_info) {
+  $entity_info['field_collection_item']['view modes']['dosomething_search_index'] = array(
+    'label' => t('DoSomething Search Index'),
+    'custom settings' => TRUE,
+  );
 }
