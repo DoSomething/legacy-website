@@ -1,0 +1,107 @@
+
+// -------------------
+//  DONATE
+// -------------------
+
+[role="banner"] {
+  &.-utility {
+    .__title,
+    .__subtitle {
+      @include visually-hidden();
+    }
+
+    .__tertiary {
+      color: #fff;
+      clear: none;
+      display: inline-block;
+      font-size: $font-larger;
+      font-weight: $weight-bold;
+      height: auto;
+      line-height: 1;
+      margin: 0 22px 9px 0;
+      overflow: visible;
+      width: auto;
+
+      &:after {
+        content: "$";
+        position: relative;
+        left: 20px;
+      }
+
+      @include media($tablet) {
+        font-size: $font-hero;
+      }
+    }
+
+    input.-clear {
+      color: #fff;
+      display: inline-block;
+      font-size: $font-larger;
+      font-weight: $weight-bold;
+      line-height: 1;
+      margin: 0;
+      width: 190px;
+
+      &:focus {
+        border: 0;
+        box-shadow: none;
+      }
+
+      @include media($tablet) {
+        font-size: $font-hero;
+      }
+    }
+
+    .btn {
+      float: right;
+      margin-top: 7px;
+    }
+  }
+}
+
+// @TODO: add to Neue (_components/_forms)
+input.-clear {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
+.donate--header {
+  padding: 0 30px;
+  text-align: center;
+}
+
+.donate--payment {
+  .complete & {
+    @include visually-hidden();
+  }
+
+  .donate--threecol {
+    @include media($tablet) {
+      @include span-columns(3 of 12);
+    }
+  }
+
+  .donate--twocol {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+      display: inline-block;
+      float: none;
+    }
+  }
+}
+
+.form-confirmation {
+  @include visually-hidden();
+  text-align: center;
+
+  .complete & {
+    @include visually-restored();
+  }
+
+  img {
+    transform: rotate(-5deg);
+    width: auto;
+  }
+}
