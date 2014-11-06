@@ -16,13 +16,25 @@
 ?>
 <article class="media">
   <div class="wrapper">
-    <?php print $content['image']; ?>
+    <?php if ($content['image']): ?>
+      <?php print $content['image']; ?>
+    <?php endif; ?>
   </div>
 
   <div class="__body">
-    <h3 class="__title"><?php print $content['title']; ?></h3>
+    <?php if ($content['title']): ?>
+      <h3 class="__title">
+        <?php print $content['title']; ?>
+      </h3>
+    <?php endif; ?>
     <div class="__description">
-      <?php print $content['description']; ?>
+      <?php if ($content['impact']): ?>
+        <p><?php print t('My impact:'); ?>
+        <p><?php print $content['impact']; ?></p>
+      <?php endif; ?>        
+      <?php if ($content['description']): ?>
+        <?php print $content['description']; ?>
+      <?php endif; ?>
     </div>
   </div>
 </article>
