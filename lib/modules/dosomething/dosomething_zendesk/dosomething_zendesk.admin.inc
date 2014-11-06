@@ -105,6 +105,21 @@ function dosomething_zendesk_groups_config_form() {
     );
   }
 
+  // Affiliate sites can route all ZD tickets to just one ZD group.
+  $form['sitewide'] = array(
+    '#title' => t('Sitewide'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['sitewide']['dosomething_zendesk_group_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Sitewide Zendesk Group ID"),
+    '#size' => 10,
+    '#default_value' => variable_get('dosomething_zendesk_group_id'),
+    '#description' => t("If set, all Zendesk tickets will be sent to this Group.")
+  );
+
   // Store Zendesk group id's for each term in the Cause vocabulary.
   $form['cause'] = array(
     '#title' => t('Terms: Cause'),
@@ -122,7 +137,6 @@ function dosomething_zendesk_groups_config_form() {
     $form['cause'][$var] = array(
       '#type' => 'textfield',
       '#title' => t($term->name),
-      '#required' => TRUE,
       '#size' => 10,
       '#default_value' => variable_get($var),
     );
@@ -170,8 +184,8 @@ function dosomething_zendesk_groups_config_form_validate($form, &$form_state) {
   $group_ids = array_keys(dosomething_zendesk_get_zendesk_groups());
   // Foreach value:
   foreach ($form_state['values'] as $key => $value) {
-    // If the value is not in the group ids:
-    if (!in_array($value, $group_ids)) {
+    // If the value is set, and not in the group ids:
+    if (!empty($value) && !in_array($value, $group_ids)) {
       // Set error.
       form_set_error($key, 'Group_id ' . $value . ' does not exist.');
     }
