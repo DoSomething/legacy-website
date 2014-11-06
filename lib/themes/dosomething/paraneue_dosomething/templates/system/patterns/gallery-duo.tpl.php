@@ -9,20 +9,13 @@
  * @see paraneue_get_gallery()
  */
 ?>
-<?php $row_count = 0; ?>
-
 <ul class="gallery -duo">
-  <?php foreach ($items as $item): ?>
-    <?php if ($row_count == 0): ?>
-      <li class="-first">
-        <?php print $item; ?>
-      </li>
-      <?php $row_count++; ?>
-    <?php elseif ($row_count == 1): ?>
-      <li class="-second">
-        <?php print $item; ?>
-      </li>      
-      <?php $row_count = 0; ?>
-    <?php endif; ?>
-  <?php endforeach; ?>
+  <?php if (!empty($items)): ?>
+    <?php foreach ($items as $delta => $item): ?>
+        <li class="<?php ($delta % 2) ? print '-second' : print '-first' ?>">
+          <?php print $item; ?>
+        </li>
+        <?php ($delta % 2) ? $row_count = 0 : $row_count++ ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
 </ul>

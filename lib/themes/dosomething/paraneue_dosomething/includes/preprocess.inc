@@ -455,7 +455,7 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
 /**
  * Preprocesses variables for user profiles. 
  * Themes the reportback gallery. 
- * @TODO - Theme the campaigns gallery using theme functions.
+ * @TODO - Theme the campaigns gallery using theme functions. 
  */
 function paraneue_dosomething_preprocess_user_profile(&$vars) {
   // Get an array of reportbacks.
@@ -463,15 +463,13 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 
   if ($reportbacks) {
     // Theme each reportback and create an array.
-    $i = 0;
-    foreach ($reportbacks as $value) {
+    foreach ($reportbacks as $delta => $value) {
       $item = array(
         'title' => $value->link,
         'image' => $value->img,
         'impact' => $value->impact,
       );
-      $reportback_items[$i] = paraneue_get_gallery_item($item, 'media');
-      $i++;
+      $reportback_items[$delta] = paraneue_get_gallery_item($item, 'media');
     } 
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
