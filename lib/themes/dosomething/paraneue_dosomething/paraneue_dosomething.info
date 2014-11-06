@@ -66,6 +66,9 @@ Sexy Financials|node/540
 International|node/523'
 settings[footer_links_third_column_class] = 'about'
 
+; User
+settings[user_validate_js_postcode] = 1
+
 ;Exclude
 ;javascript
 exclude[js][] = 'misc/jquery.js'

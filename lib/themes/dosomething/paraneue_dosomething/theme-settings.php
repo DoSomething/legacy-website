@@ -62,6 +62,7 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
   // Lets break this up a little.
   _paraneue_dosomething_theme_settings_header($form, $form_state);
   _paraneue_dosomething_theme_settings_footer($form, $form_state);
+  _paraneue_dosomething_theme_settings_user($form, $form_state);
 
   if (!isset($form['#submit'])) {
     $form['#submit'] = array();
@@ -320,5 +321,27 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     );
 
   }
+
+}
+
+function _paraneue_dosomething_theme_settings_user(&$form, $form_state) {
+  $form['user'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('User'),
+  );
+  $form_user = &$form['user'];
+
+  // Validaions.
+  $form_user['validations'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('JS Validations'),
+    '#collapsible' => TRUE,
+    '#collapsed'   => TRUE
+  );
+  $form_user['validations']['user_validate_js_postcode'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Validate Post Code'),
+    '#default_value' => theme_get_setting('user_validate_js_postcode'),
+  );
 
 }

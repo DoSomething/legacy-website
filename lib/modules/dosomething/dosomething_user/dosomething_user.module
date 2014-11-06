@@ -307,7 +307,9 @@ function dosomething_user_add_validation_attributes_to_address_fields($form, &$f
   $address['address']['street_block']['premise']['#attributes']['data-validate'] = 'address2';
   $address['address']['locality_block']['locality']['#attributes']['data-validate'] = 'city';
   $address['address']['locality_block']['administrative_area']['#attributes']['data-validate'] = 'state';
-  $address['address']['locality_block']['postal_code']['#attributes']['data-validate'] = 'zipcode';
+
+  $zip_validation = theme_get_setting('user_validate_js_postcode') ? 'zipcode' : '';
+  $address['address']['locality_block']['postal_code']['#attributes']['data-validate'] = $zip_validation;
 
   return $form;
 }
