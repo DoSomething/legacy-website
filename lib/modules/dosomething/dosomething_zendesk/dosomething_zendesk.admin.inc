@@ -143,7 +143,6 @@ function dosomething_zendesk_groups_config_form() {
         $var = dosomething_zendesk_get_group_varname('nid', $campaign_group['nid']);
         $form['campaign_group'][$var] = array(
           '#type' => 'textfield',
-          '#required' => TRUE,
           '#title' => t($campaign_group['title']),
           '#default_value' => variable_get($var),
         );
