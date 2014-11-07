@@ -40,8 +40,6 @@ function dosomething_user_address_form_element(&$form, &$form_state) {
   );
   $country = variable_get('dosomething_user_address_country', 'US');
   $form['user_address'] = array(
-    '#prefix' => '<div data-validate="ups_address" data-validate-required>',
-    '#suffix' => '</div>',
     '#type' => 'addressfield',
     '#handlers' => array(
       'address' => 'address',
@@ -51,10 +49,14 @@ function dosomething_user_address_form_element(&$form, &$form_state) {
     '#context' => array('countries' => array($country)),
     '#default_value' => isset($account->field_address[LANGUAGE_NONE][0]) ? $account->field_address[LANGUAGE_NONE][0] : '',
   );
-  // If we are collecting an address, run address validation.
-  $form['#validate'][] = 'dosomething_user_address_form_element_validate';
   $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
-  $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
+  // Check if we should be validating addresses.
+  if (variable_get('dosomething_user_validate_address')) {
+    $form['user_address']['#prefix'] = '<div data-validate="ups_address" data-validate-required>';
+    $form['user_address']['#suffix'] = '</div>';
+    $form['#validate'][] = 'dosomething_user_address_form_element_validate';
+    $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
+  }
 }
 
 /**

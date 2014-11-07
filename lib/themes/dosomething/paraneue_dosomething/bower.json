@@ -30,6 +30,7 @@
     "unveil": "~1.3.0",
     "jquery-once": "~1.2.6",
     "respond": "~1.4.2",
-    "almond": "~0.2.9"
+    "almond": "~0.2.9",
+    "jquery.iecors": "*"
   }
 }

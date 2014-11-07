@@ -42,6 +42,15 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  // Display Postal Code field.
+  $var_name = 'dosomething_user_validate_address';
+  $form[$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Validate Address Field'),
+    '#default_value' => variable_get($var_name, FALSE),
+    '#description' => t("If set, the user's field_address values will be validated against a geolocator API."),
+  );
+
   // Login form settings.
   $form['login'] = array(
     '#type' => 'fieldset',

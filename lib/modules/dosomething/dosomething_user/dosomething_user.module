@@ -66,14 +66,13 @@ function dosomething_user_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
   );
-  $items['admin/config/dosomething/ups-api-settings'] = array(
+  $items['admin/config/dosomething/dosomething_user/ups-api-settings'] = array(
     'title' => t('UPS API Configuration'),
     'description' => t('UPS integration that provices address validation'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_user_ups_api_settings'),
     'file' => 'dosomething_user_valid_address.inc',
-    'access callback' => 'user_access',
-    'access arguments' => array('administer UPS address validation'),
+    'access callback' => 'dosomething_user_ups_api_config_access',
   );
   $items['user/%user/info'] = array(
     'title' => 'Edit info',
@@ -101,10 +100,6 @@ function dosomething_user_menu() {
  */
 function dosomething_user_permission() {
   return array(
-    'administer UPS address validation' =>  array(
-      'title' => t('Administer UPS address validation'),
-      'description' => t('Manage UPS api key, username & password'),
-    ),
     'edit user info' =>  array(
       'title' => t('Edit user information'),
       'description' => t('Can edit any user info form.'),
@@ -120,6 +115,19 @@ function dosomething_user_admin_paths() {
     'user/*/info' => TRUE,
   );
   return $paths;
+}
+
+/**
+ * Access callback for UPS API configuration page.
+ *
+ * @see dosomething_user_menu()
+ */
+function dosomething_user_ups_api_config_access() {
+  // If administrator:
+  if (user_access('administer modules')) {
+    // Display page if we are validating addresses.
+    return variable_get('dosomething_user_validate_address', FALSE);
+  }
 }
 
 /**
@@ -199,6 +207,9 @@ function dosomething_user_is_staff($user = NULL) {
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   global $user;
   $account = $user;
+  // Check if we should be validating addresses.
+  $is_validate_address_set = variable_get('dosomething_user_validate_address');
+
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
@@ -230,7 +241,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
-      if (preg_match('/user\/([0-9]+)\/edit/', $current_page)) {
+      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $is_validate_address_set) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
@@ -251,7 +262,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
-      $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+      if ($is_validate_address_set) {
+        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+      }
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
