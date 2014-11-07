@@ -241,7 +241,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
-      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) & $is_validate_address_set) {
+      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $is_validate_address_set) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
