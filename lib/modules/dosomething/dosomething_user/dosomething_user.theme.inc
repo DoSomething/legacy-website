@@ -47,12 +47,8 @@ function dosomething_user_preprocess_user_profile(&$variables) {
     }
   }
   else {
-    $image_size = '400x400';
     foreach ($doing as $doing_nid) {
-      $campaign_vars = dosomething_campaign_get_campaign_block_vars($doing_nid, $image_size);
-      $variables['doing'][] = array(
-        '#markup' => theme('campaign_block', $campaign_vars),
-      );
+      $variables['doing'][] = dosomething_campaign_get_campaign_block_vars($doing_nid, $image_size);
     }
   }
 

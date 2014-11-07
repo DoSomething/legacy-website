@@ -108,5 +108,13 @@ function paraneue_dosomething_theme() {
         'items' => NULL,
       ),
     ),
+
+    'paraneue_gallery_triad' => array(
+      'template' => 'gallery-triad',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'variables' => array(
+        'items' => NULL,
+      ),
+    ),
   );
 }

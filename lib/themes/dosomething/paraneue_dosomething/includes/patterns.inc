@@ -39,7 +39,7 @@ function paraneue_get_gallery_item($content, $type) {
  *
  * @param $type - The type of gallery. 
  */
-function paraneue_get_gallery($items, $type) {
+function paraneue_get_gallery($items, $type = 'triad') {
   $variables = array(
     'items' => $items,
   );
@@ -47,8 +47,7 @@ function paraneue_get_gallery($items, $type) {
   switch ($type) {
     case 'duo':
       return theme('paraneue_gallery_duo', $variables);
-      break;
-    default:
-      break;
+    case 'triad':
+      return theme('paraneue_gallery_triad', $variables);
   }
 }
