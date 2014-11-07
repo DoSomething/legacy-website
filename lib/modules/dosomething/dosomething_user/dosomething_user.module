@@ -126,7 +126,7 @@ function dosomething_user_ups_api_config_access() {
   // If administrator:
   if (user_access('administer modules')) {
     // Display page if we are validating addresses.
-    return variable_get('dosomething_user_validate_address');
+    return variable_get('dosomething_user_validate_address', FALSE);
   }
 }
 
