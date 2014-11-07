@@ -199,6 +199,9 @@ function dosomething_user_is_staff($user = NULL) {
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   global $user;
   $account = $user;
+  // Check if we should be validating addresses.
+  $is_validate_address_set = variable_get('dosomething_user_validate_address');
+
   switch ($form_id) {
     case 'user_login_block':
     case 'user_login':
@@ -230,7 +233,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
-      if (preg_match('/user\/([0-9]+)\/edit/', $current_page)) {
+      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) & $is_validate_address_set) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
@@ -251,7 +254,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
-      $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+      if ($is_validate_address_set) {
+        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+      }
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
       $form['#submit'][] = 'dosomething_user_login_submit';
