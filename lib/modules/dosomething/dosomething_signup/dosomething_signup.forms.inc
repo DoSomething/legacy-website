@@ -405,3 +405,42 @@ function dosomething_signup_node_unsignup_form_submit($form, &$form_state) {
   drupal_set_message("There was an error with your request.");
 }
 
+/**
+ * Form constructor for Reset Signup Data Form.
+ *
+ * Sets the given Signup's signup_data_form_timestamp to NULL.
+ *
+ * @param int $sid
+ *   The Signup $sid.
+ */
+function dosomething_signup_reset_signup_data_form($form, &$form_state, $sid) {
+  $form['sid'] = array(
+    '#type' => 'hidden',
+    '#value' => $sid,
+    '#access' => FALSE,
+  );
+  $form['reset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t("Reset Signup Data Form"),
+  );
+  $form['reset']['header'] = array(
+    '#markup' => '<p>' . t("Submitting this form will allow the user to submit their Signup Data Form again.") . '</p><p>' . ("Warning: This cannot be done. Do not submit unless you really really mean it.") . '</p>',
+  );
+  $form['reset']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t("Reset"),
+  );
+  return $form;
+}
+
+/**
+ * Form submit handler for dosomething_signup_reset_signup_data_form().
+ */
+function dosomething_signup_reset_signup_data_form_submit($form, &$form_state) {
+  $signup = signup_load($form_state['values']['sid']);
+  // Set all signup data form values back to NULL.
+  $signup->signup_data_form_timestamp = NULL;
+  $signup->signup_data_form_response = NULL;
+  entity_save('signup', $signup);
+  drupal_set_message(t("The Signup data form has been reset."));
+}
