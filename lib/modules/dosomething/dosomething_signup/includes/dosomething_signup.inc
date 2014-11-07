@@ -33,7 +33,7 @@ class SignupEntityController extends EntityAPIController {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
     $build['nid'] = array(
       '#type' => 'markup',
-      '#markup' => '<p>Nid: ' . l($entity->nid, 'node/' . $entity->nid) . '</p>',
+      '#markup' => '<p>Nid: ' . l($entity->nid, 'node/' . $entity->nid . '/signups') . '</p>',
     );
     $build['username'] = array(
       '#type' => 'markup',
@@ -47,13 +47,15 @@ class SignupEntityController extends EntityAPIController {
       $build['signup_data_form_submitted'] = array(
         '#type' => 'markup',
         '#markup' => '<p>Signup Data Form Submitted: ' . format_date($entity->signup_data_form_timestamp, 'short') . '</p>',
-      );    
-    }
-    if ($entity->signup_data_form_response != NULL) {
-      $build['signup_data_form_response'] = array(
-        '#type' => 'markup',
-        '#markup' => '<p>Signup Data Form Response: ' . $entity->signup_data_form_response . '</p>',
-      );    
+      );
+      if ($entity->signup_data_form_response != NULL) {
+        $build['signup_data_form_response'] = array(
+          '#type' => 'markup',
+          '#markup' => '<p>Signup Data Form Response: ' . $entity->signup_data_form_response . '</p>',
+        );
+      }
+      $reset_form = drupal_get_form('dosomething_signup_reset_signup_data_form', $entity->sid);
+      $build['reset_form'] = $reset_form;
     }
     if ($entity->why_signedup) {
       $build['why_signedup'] = array(

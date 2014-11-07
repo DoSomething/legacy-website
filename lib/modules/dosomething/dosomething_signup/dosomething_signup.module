@@ -113,6 +113,7 @@ function dosomething_signup_view_entity($entity) {
 function dosomething_signup_admin_paths() {
   $paths = array(
     'node/*/signups' => TRUE,
+    'signup/*' => TRUE,
   );
   return $paths;
 }
