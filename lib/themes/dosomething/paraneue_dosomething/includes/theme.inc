@@ -104,17 +104,11 @@ function paraneue_dosomething_theme() {
     'paraneue_gallery_duo' => array(
       'template' => 'gallery-duo',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
-      'variables' => array(
-        'items' => NULL,
-      ),
     ),
 
     'paraneue_gallery_triad' => array(
       'template' => 'gallery-triad',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
-      'variables' => array(
-        'items' => NULL,
-      ),
     ),
   );
 }

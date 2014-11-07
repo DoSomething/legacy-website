@@ -14,12 +14,15 @@
  *     - impact
  *     - image
  *     - url
+ * @param string $classes
+ *   Any additional class(es) added into the <ul>.
  *
  * @param $type - The pattern that the content should be themed by. 
  */
-function paraneue_get_gallery_item($content, $type) {
+function paraneue_get_gallery_item($content, $type, $classes = NULL) {
   $variables = array(
     'content' => $content,
+    'classes' => $classes,
   );
 
   switch ($type) {
