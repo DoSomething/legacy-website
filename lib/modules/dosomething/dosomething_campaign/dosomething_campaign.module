@@ -26,9 +26,9 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
  */
 function dosomething_campaign_menu() {
   $items = array();
-  // Admin campaign status page.
+  // Admin campaign configuration page.
   $items['admin/config/dosomething/dosomething_campaign'] = array(
-    'title' => 'Campaign settings',
+    'title' => 'DoSomething Campaign',
     'description' => 'Admin form to set campaign variables.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_campaign_admin_config_form'),

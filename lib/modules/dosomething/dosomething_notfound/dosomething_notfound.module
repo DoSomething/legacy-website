@@ -20,7 +20,7 @@ function dosomething_notfound_menu() {
     );
   // 404 page settings
   $items['admin/config/dosomething/dosomething_notfound'] = array(
-   'title' => '404 page settings',
+   'title' => 'DoSomething Notfound',
    'description' => 'Admin form to set 404 page variables.',
    'page callback' => 'drupal_get_form',
    'page arguments' => array('dosomething_notfound_admin_config_form'),
