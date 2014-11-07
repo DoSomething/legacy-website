@@ -20,7 +20,7 @@ function dosomething_sms_menu() {
   );
   $admin_path = DOSOMETHING_SMS_WORKFLOW_ADMIN_PATH;
   $items[$admin_path] = array(
-    'title' => 'SMS Workflows',
+    'title' => 'DoSomething SMS',
     'description' => 'Overview of all SMS Workflows',
     'page callback' => 'dosomething_sms_workflow_overview_page',
     'access callback' => 'user_access',
