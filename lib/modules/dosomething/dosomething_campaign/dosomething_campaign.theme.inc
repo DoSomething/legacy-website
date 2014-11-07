@@ -282,6 +282,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['reportback_link']['label'] = t("Update Submission");
   }
   $vars['reportback_form'] = $vars['content']['reportback_form'];
+
+  // Add analytics custom event on action page.
+  $js = 'if(typeof(_gaq) !== "undefined" && _gaq !== null) { _gaq.push(["_trackEvent", "Action Page View", "' . $vars['title'] . '", null, null, true]); }';
+  drupal_add_js($js, 'inline');
+  
 }
 
 /**
