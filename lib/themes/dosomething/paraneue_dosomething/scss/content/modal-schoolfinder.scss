@@ -59,6 +59,27 @@
   }
 }
 
+.schoolfinder-showmore {
+  font-size: $font-small;
+
+  a {
+    position: relative;
+    display: inline-block;
+    padding-right: 24px;
+
+    &:after {
+      @include icomoon-icon;
+      content: " \e609";
+      color: $med-gray;
+      font-size: 16px;
+      position: absolute;
+      top: 1px;
+      right: 6px;
+      @include transform(rotate(0));
+    }
+  }
+}
+
 .schoolfinder-help {
   border: 1px solid $light-gray;
   border-radius: $sm-border-radius;
