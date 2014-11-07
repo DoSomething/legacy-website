@@ -21,6 +21,16 @@
     }
   }
 
+  .image-crop-container {
+    position: relative;
+
+    .crop-box {
+      background-color: #ff0;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
   .image-upload-container {
     position: relative;
     width: 300px;
@@ -45,14 +55,10 @@
   }
 
   .preview {
-    float: left;
     width: 100%;
     height: auto;
-    // max-width: 100px;
-    // max-height: 200px;
     background: $light-gray;
     border: 5px solid #fff;
-    margin: 4px 18px;
   }
 
   .submitted-image {
