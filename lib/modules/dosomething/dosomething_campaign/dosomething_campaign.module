@@ -391,6 +391,7 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
   return array(
     'nid' => $nid,
     'title' => $node->title,
+    'link' => l($node->title, 'node/' . $nid),
     'call_to_action' => $cta,
     'image' => $image,
     'nid_image' => $image_nid,

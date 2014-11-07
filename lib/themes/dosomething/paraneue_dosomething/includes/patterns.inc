@@ -19,7 +19,7 @@
  *
  * @param $type - The pattern that the content should be themed by. 
  */
-function paraneue_get_gallery_item($content, $type, $classes = NULL) {
+function paraneue_get_gallery_item($content, $type) {
   $variables = array(
     'content' => $content,
     'classes' => $classes,
@@ -28,9 +28,8 @@ function paraneue_get_gallery_item($content, $type, $classes = NULL) {
   switch ($type) {
     case 'media':
       return theme('paraneue_media', $variables);
-      break;
     default:
-      break;
+      return theme('paraneue_figure', $variables);
   }
 }
 
@@ -41,10 +40,14 @@ function paraneue_get_gallery_item($content, $type, $classes = NULL) {
  *   An array of themed items to go into each <li>. 
  *
  * @param $type - The type of gallery. 
+ *
+ * @return string
  */
-function paraneue_get_gallery($items, $type = 'triad') {
+function paraneue_get_gallery($items, $type = 'triad', $classes = NULL) {
+  // Prepare variables to send to gallery theme functions.
   $variables = array(
     'items' => $items,
+    'classes' => $classes,
   );
 
   switch ($type) {

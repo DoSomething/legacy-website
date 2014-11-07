@@ -466,11 +466,11 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
       $item = array(
-        'title' => $value['title'],
+        'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
       );
-      $doing_items[$delta] = paraneue_get_gallery_item($item, 'media');
+      $doing_items[$delta] = paraneue_get_gallery_item($item, 'figure');
     }
     $vars['doing_gallery'] = paraneue_get_gallery($doing_items, 'triad');
   }

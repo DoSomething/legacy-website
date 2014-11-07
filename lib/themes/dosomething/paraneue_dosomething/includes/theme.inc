@@ -93,6 +93,11 @@ function paraneue_dosomething_theme() {
     ),
 
     // Register theme functions for the Neue library.
+    'paraneue_figure' => array(
+      'template' => 'figure',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
     'paraneue_media' => array(
       'template' => 'media',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
