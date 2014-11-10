@@ -36,24 +36,28 @@ function paraneue_get_gallery_item($content, $type) {
 /**
  * Function that returns a <ul> representing a gallery.  
  *
- * @param array $items
- *   An array of themed items to go into each <li>. 
- *
- * @param $type - The type of gallery. 
+ * @param array $content
+ *   An array of themed content to go into each <li>. 
+ * @param sting $layout
+ *   The type of gallery.
+ * @param sting $classes
+ *   Any additional classes to append to the <ul> classes.
  *
  * @return string
  */
-function paraneue_get_gallery($items, $type = 'triad', $classes = NULL) {
+function paraneue_get_gallery($content, $layout = 'triad', $classes = NULL) {
+  $items = array();
+  foreach ($content as $delta => $item) {
+    $items[$delta]['content'] = $item;
+    $class = paraneue_dosomething_get_gallery_item_order_class($delta, $layout);
+    $items[$delta]['class'] = $class;
+  }
+
   // Prepare variables to send to gallery theme functions.
   $variables = array(
     'items' => $items,
+    'layout' => $layout,
     'classes' => $classes,
   );
-
-  switch ($type) {
-    case 'duo':
-      return theme('paraneue_gallery_duo', $variables);
-    case 'triad':
-      return theme('paraneue_gallery_triad', $variables);
-  }
+  return theme('paraneue_gallery', $variables);
 }
