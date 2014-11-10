@@ -32,13 +32,7 @@
       <p><?php print $no_signups_copy; ?></p>
       <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
-      <ul class="gallery -triad">
-        <?php foreach ($doing as $index => $campaign): ?>
-          <li>
-            <?php print render($campaign); ?>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+      <?php print $doing_gallery; ?>
     <?php endif; ?>
     </div>
   </section>
