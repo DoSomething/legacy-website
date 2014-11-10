@@ -8,21 +8,21 @@
  * Function that themes an item, based on a pattern from neue, that can then go into a gallery. 
  *
  * @param array $content
- *   array that can contain: 
- *     - title
- *     - description
- *     - impact
- *     - image
- *     - url
- * @param string $classes
- *   Any additional class(es) added into the <ul>.
+ *   An associative array of content, can contain:
+ *   - $content['title']: Used as a heading (string).
+ *   - $content['description']: (string).
+ *   - $content['impact']: Reportback impact (string).
+ *   - $content['image']: Image markup to display (string).
+ *   - $content['url']: Url to link to (string).
  *
- * @param $type - The pattern that the content should be themed by. 
+ * @param string $type
+ *   The pattern that the content should be themed by.
+ *
+ * @return string
  */
 function paraneue_get_gallery_item($content, $type) {
   $variables = array(
     'content' => $content,
-    'classes' => $classes,
   );
 
   switch ($type) {

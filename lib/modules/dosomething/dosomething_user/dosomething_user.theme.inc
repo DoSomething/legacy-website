@@ -47,8 +47,8 @@ function dosomething_user_preprocess_user_profile(&$variables) {
     }
   }
   else {
-    foreach ($doing as $doing_nid) {
-      $variables['doing'][] = dosomething_campaign_get_campaign_block_vars($doing_nid, $image_size);
+    foreach ($doing as $nid) {
+      $variables['doing'][] = dosomething_campaign_get_campaign_block_vars($nid);
     }
   }
 

@@ -5,13 +5,13 @@
     </div>
   <?php endif; ?>
   <?php if (!empty($content['title'])): ?>
-  <h3 class="__title">
-    <?php print $content['title']; ?>
-  </h3>
+    <h3 class="__title">
+      <?php print $content['title']; ?>
+    </h3>
   <?php endif; ?>
   <?php if (!empty($content['description'])): ?>
-  <div class="__description">
-    <?php print $content['description']; ?>
-  </div>
+    <div class="__description">
+      <?php print $content['description']; ?>
+    </div>
   <?php endif; ?>
 </div>
