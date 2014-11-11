@@ -25,9 +25,13 @@
     position: relative;
 
     .crop-box {
-      background-color: #ff0;
       position: absolute;
       z-index: 1;
+      top: 10px;
+      left: 10px;
+      width: 100px;
+      height: 100px;
+      border: 1px dashed #186ab5;
     }
 
     .resize-handle-wrapper {
