@@ -102,7 +102,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'FNAME' => $params['first_name'],
       );
       $payload['email_template'] = 'mb-general-signup';
-      $payload['email_tag'] = 'drupal_user_register';
+      $payload['email_tags'][] = 'drupal_user_register';
       break;
 
     case 'user_password':
@@ -112,7 +112,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'RESET_LINK' => $params['reset_link'],
       );
       $payload['email_template'] = 'mb-password-reset';
-      $payload['email_tag'] = 'drupal_user_password';
+      $payload['email_tags'][] = 'drupal_user_password';
       break;
 
     case 'campaign_signup':
@@ -122,14 +122,14 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
       $payload['email_template'] = 'mb-campaign-signup';
-      $payload['email_tag'] = 'drupal_campaign_signup';
+      $payload['email_tags'] = 'drupal_campaign_signup';
       break;
       
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
       $payload['email_template'] = 'mb-group-campaign-signup';
-      $payload['email_tag'] = 'drupal_campaign_group_signup';
+      $payload['email_tag'][] = 'drupal_campaign_group_signup';
       break;
 
     case 'campaign_reportback':
@@ -143,7 +143,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         'REPORTBACK_IMAGE_MARKUP' => $params['image_markup'],
       );
       $payload['email_template'] = 'mb-campaign-report-back';
-      $payload['email_tag'] = 'drupal_campaign_reportback';
+      $payload['email_tags'][] = 'drupal_campaign_reportback';
       break;
 
   }
@@ -167,6 +167,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['subscribed'] = 1;
   $payload['event_id'] = $params['event_id'];
+  $payload['email_tags'][] = $params['event_id'];
   // Check for Mailchimp grouping_id+group_name:
   $mailchimp = isset($params['mailchimp_group_name']) && isset($params['mailchimp_grouping_id']);
   if ($mailchimp) {
