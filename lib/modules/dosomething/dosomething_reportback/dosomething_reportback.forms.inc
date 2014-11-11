@@ -86,6 +86,19 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'class' => array('js-image-upload'),
     ),
   );
+  // Hidden fields to set crop data. Populated with js.
+  $form['crop_x'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_y'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_width'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_height'] = array(
+    '#type' => 'hidden',
+  );
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
