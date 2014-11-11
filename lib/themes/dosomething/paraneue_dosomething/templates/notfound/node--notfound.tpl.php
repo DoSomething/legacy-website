@@ -5,8 +5,9 @@
  * Available Variables
  * - $header: The page header (string).
  * - $subtitle: The page subtitle (string). 
- * - $results: List of related results to display (array).
- * - $search: Indicate if this is specific content or search (boolean).
+ * - $results: List of results to display (array).
+ * - $search: Indicate if results is a search (boolean).
+ * - $suggestions: Indicate if results is a recomendation (boolean).
  * PLANNED
  * - $results_info: Quick description about the results shown (string).
  */
@@ -23,14 +24,23 @@
     <?php endif; ?>
   </header>
 
-  <?php if (isset($results)): ?>
+  <?php if ($search == TRUE || $suggestions == TRUE): ?>
     <div class="container notfound-search-results">
       <div class="wrapper">
         <?php if (isset($results_info)): ?>
           <p class="center-text"><strong><?php print $results_info ?></strong></p>
         <?php endif; ?>
+        <?php if ($suggestions): ?>
+          <!-- Suggestions go here -->
+        <?php endif; ?>
         <?php if ($search): ?>
-
+          <!-- TEMP solution for debugging, actual will be implemented later -->
+          <?php
+            foreach($results as $result){
+              print $result['title'];
+              print '<br>';
+            }
+          ?>
         <?php endif; ?>
       </div>
     </div>
