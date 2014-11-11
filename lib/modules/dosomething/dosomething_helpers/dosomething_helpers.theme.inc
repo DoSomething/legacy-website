@@ -238,4 +238,5 @@ function dosomething_helpers_add_inline_css(&$vars) {
 
     drupal_add_css($style_alt_background, $option['type'] = 'inline');
   }
+  
 }

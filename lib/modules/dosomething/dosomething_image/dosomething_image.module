@@ -100,7 +100,7 @@ function dosomething_image_get_themed_image_url($nid, $ratio, $style) {
   // If the image doesn't have the appropriate crop don't return a url.
   if (isset($base_path)) {
     // For videos
-    if(!isset($style)){
+    if (!isset($style)) {
       return file_create_url($base_path);
     }
     return image_style_url($style, $base_path);
