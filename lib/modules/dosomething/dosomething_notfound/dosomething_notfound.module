@@ -73,15 +73,37 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['video'] = $vars['hero_image']['video'];
   }
 
-  $vars['search'] = true;
+  $vars['search'] = FALSE;
+  $vars['suggestions'] = FALSE;
 
   // No need to search or lookup anything else
-  if(variable_get('dosomething_notfound_disable_results') == 1){
-    $vars['search'] = false;
+  if (variable_get('dosomething_notfound_disable_results') == 1) {
     return;
   }
+
+  // @TODO: Check if its path specific (Intentionally hardcoded), get campaign suggestions, return & set suggestions var to true if it is 
+
+  $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
+  $raw_search = request_path();
+  $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_search));
   
-  //@TODO: Populate results info $vars['results'] = array();
-  //$vars['results_info'] = "We did a quick search, here is some similiar content that we do have.";
+  if (count($formatted_terms) <= 1) {
+    return;
+  }
+
+  $query_string = "";
+  $total = count($formatted_terms);
+  for ($i = 1; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
+    $query_string .= $formatted_terms[$i] . " ";
+  }
+
+  $search = apachesolr_search_search_execute($query_string);
+
+  if (count($search) == 0) {
+    return;
+  }
+
+  $vars['search'] = TRUE;
+  $vars['results'] = $search;
 
 }
