@@ -73,14 +73,23 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['video'] = $vars['hero_image']['video'];
   }
 
-  $vars['search'] = true;
-
   // No need to search or lookup anything else
   if(variable_get('dosomething_notfound_disable_results') == 1){
     $vars['search'] = false;
     return;
   }
   
+  $vars['search'] = true;
+
+  $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
+  $raw_search = request_path();
+  $formmated_terms = explode(" ", str_replace($invalid_chars, " ", $raw_search));
+  
+  if (strlen($formmated_terms) <= 1){
+    $vars['search'] = false;
+    return;
+  }
+
   //@TODO: Populate results info $vars['results'] = array();
   //$vars['results_info'] = "We did a quick search, here is some similiar content that we do have.";
 
