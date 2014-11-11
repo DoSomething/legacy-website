@@ -162,6 +162,8 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
   if ($hero_nid) {
     $vars['hero_image']['desktop'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');
     $vars['hero_image']['mobile'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768');
+    $vars['hero_image']['video'] = dosomething_image_get_themed_image_url($hero_nid, 'video', NULL);
+    
   }
 }
 
