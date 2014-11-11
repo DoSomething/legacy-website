@@ -68,6 +68,9 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   dosomething_helpers_preprocess_hero_images($vars);
   dosomething_helpers_add_inline_css($vars);
 
+  // Add hero video
+  $vars['video'] = $vars['hero_image']['video'];
+
   $vars['search'] = true;
 
   // No need to search or lookup anything else
