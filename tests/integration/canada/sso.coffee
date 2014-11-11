@@ -121,13 +121,6 @@ login = (test) ->
 
 # Performs 3 tests to check user's profile.
 user_profile = (test) ->
-  # Test user's country.
-  casper.thenOpen "#{url}/user"
-  casper.then ->
-    test.assertSelectorHasText "dl.__address-info dd:last-child", "#{USER_COUNTRY}",
-      "Test user's country."
-    return
-
   # Test user's profile.
   # Go to the edit profile page.
   # We don't know new uid yet, but user/register will redirect to the page.
@@ -140,6 +133,9 @@ user_profile = (test) ->
 
     test.assertField FIELD_BIRTHDATE, user.dob.format("MM/DD/YYYY"),
       "Test if user has correct birthdate."
+
+    test.assertExists "div.addressfield-container-inline.country-#{USER_COUNTRY}",
+      "Test if user has correct country."
 
     saveUserUid()
     return
