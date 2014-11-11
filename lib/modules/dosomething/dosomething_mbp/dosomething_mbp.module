@@ -40,18 +40,23 @@ function dosomething_mbp_request($origin, $params = NULL) {
     case 'user_register':
       $production = 'transactional_user_register';
       break;
+
     case 'user_password':
       $production = 'transactional_user_password';
       break;
+
     case 'campaign_signup':
       $production = 'transactional_campaign_signup';
       break;
+
     case 'campaign_group_signup':
       $production = 'transactional_campaign_group_signup';
       break;
+
     case 'campaign_reportback':
       $production = 'transactional_campaign_reportback';
       break;
+
   }
   $payload = dosomething_mbp_get_transactional_payload($origin, $params);
   if (variable_get('dosomething_mbp_log')) {
@@ -81,11 +86,11 @@ function dosomething_mbp_request($origin, $params = NULL) {
  * @param array $params
  *   Optional keyed array of data to build payload from.
  *
- * @return array $payload
- *   Composed values ready to be sent as a message payload.
+ * @return array
+ *   $payload - Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
-  // payload items common to all transactional messages
+  // Payload items common to all transactional messages.
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
   $payload = array(
     'activity' => $origin,
@@ -93,10 +98,10 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'uid' => $params['uid'],
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
-    )
+    ),
   );
 
-  // payload specific to each transaction type
+  // Payload specific to each transaction type.
   switch ($origin) {
     case 'user_register':
       $payload['birthdate'] = $params['birthdate'];
@@ -126,7 +131,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['email_template'] = 'mb-campaign-signup';
       $payload['email_tag'] = 'drupal_campaign_signup';
       break;
-      
+
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
@@ -161,8 +166,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
  * @param array $params
  *   Keyed array of data to build payload from.
  *
- * @return array $payload
- *   Composed values ready to be sent as a message payload.
+ * @return array
+ *   $payload - Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['subscribed'] = 1;
