@@ -52,7 +52,7 @@ function dosomething_signup_menu() {
     'page callback' => 'dosomething_signup_view_entity',
     'page arguments' => array(1),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('view any signup'),
   );
   return $items;
 }
