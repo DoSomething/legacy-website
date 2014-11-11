@@ -85,16 +85,16 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $raw_search = request_path();
-  $formmated_terms = explode(" ", str_replace($invalid_chars, " ", $raw_search));
+  $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_search));
   
-  if (count($formmated_terms) <= 1) {
+  if (count($formatted_terms) <= 1) {
     return;
   }
 
   $query_string = "";
-  $total = count($formmated_terms);
-  for($i = 1; $i < $total; $i++){ // Cannot start at 0, don't want that part of URL
-    $query_string .= $formmated_terms[$i] . " ";
+  $total = count($formatted_terms);
+  for ($i = 1; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
+    $query_string .= $formatted_terms[$i] . " ";
   }
 
   $search = apachesolr_search_search_execute($query_string);
