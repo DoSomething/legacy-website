@@ -46,6 +46,15 @@ function dosomething_user_init() {
 }
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dosomething_user_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'addressfield') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function dosomething_user_menu() {
@@ -1069,8 +1078,8 @@ function dosomething_user_info_form_submit($form, &$form_state) {
   // Overwrite City/State if values are present.
   $edit['field_address'][LANGUAGE_NONE][0]['locality'] = $values['city'];
   $edit['field_address'][LANGUAGE_NONE][0]['administrative_area'] = $values['state'];
-  // Hardcoded to 'merica for now.
-  $edit['field_address'][LANGUAGE_NONE][0]['country'] = 'US';
+  $country_code = dosomething_settings_get_affiliate_country_code();
+  $edit['field_address'][LANGUAGE_NONE][0]['country'] = $country_code;
   $file = NULL;
   // If a file was uploaded:
   if (!empty($values['upload'])) {

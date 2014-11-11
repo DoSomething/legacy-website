@@ -116,7 +116,7 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
     $fields = array(
       'birthdate'                => $dob->format(DATE_FORMAT_DATE),
       'first_name'               => $this->remote_account->Name,
-      'country'                  => variable_get('dosomething_user_address_country'),
+      'country'                  => dosomething_settings_get_affiliate_country_code(),
       'user_registration_source' => DOSOMETHING_CANADA_USER_SOURCE,
     );
     dosomething_user_set_fields($edit, $fields);
