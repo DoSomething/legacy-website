@@ -81,9 +81,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     return;
   }
 
-  // Check if its path specific (Intentionally hardcoded)
-  // if 1, return
-  // if 2, return
+  // @TODO: Check if its path specific (Intentionally hardcoded), get campaign suggestions, return & set suggestions var to true if it is 
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $raw_search = request_path();
@@ -101,7 +99,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $search = apachesolr_search_search_execute($query_string);
 
-  if(count($search) == 0){
+  if (count($search) == 0) {
     return;
   }
 

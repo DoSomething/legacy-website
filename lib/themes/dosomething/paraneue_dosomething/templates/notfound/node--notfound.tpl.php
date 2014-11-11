@@ -36,7 +36,7 @@
         <?php if ($search): ?>
           <!-- TEMP solution for debugging, actual will be implemented later -->
           <?php
-            foreach($results as $result){
+            foreach ($results as $result) {
               print $result['title'];
               print '<br>';
             }
