@@ -14,6 +14,7 @@ dependencies[] = external_auth
 
 ; Custom
 dependencies[] = dosomething_user
+dependencies[] = dosomething_settings
 
 ; Includes
 files[] = includes/CanadaSSOClient.php

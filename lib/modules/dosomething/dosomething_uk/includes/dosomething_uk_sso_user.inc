@@ -14,7 +14,6 @@ class DosomethingUkSsoUser {
 
 
   // Local drupal user.
-  const COUNTRY = 'UK';
   const REGISTRATION_SOURCE = 'dosomething_uk';
 
   // ---------------------------------------------------------------------
@@ -308,7 +307,7 @@ class DosomethingUkSsoUser {
    */
   public function getCountry()
   {
-    return self::COUNTRY;
+    return dosomething_settings_get_affiliate_country_code();
   }
 
   /**
