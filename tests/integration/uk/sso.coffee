@@ -147,12 +147,6 @@ login = (test) ->
 
 # Performs 5 tests to check user's profile.
 user_profile = (test) ->
-  # Test user's country.
-  casper.thenOpen "#{url}/user"
-  casper.then ->
-    test.assertSelectorHasText "dl.__address-info dd:last-child", "#{USER_COUNTRY}",
-      "Test user's country."
-    return
 
   # Test user's profile.
   # Go to the edit profile page.
@@ -172,6 +166,9 @@ user_profile = (test) ->
 
     test.assertField FIELD_POSTCODE, user.postcode,
       "Test if user has correct postcode."
+
+    test.assertExists "div.addressfield-container-inline.country-#{USER_COUNTRY}",
+      "Test if user has correct country."
 
     saveUserUid()
     return
