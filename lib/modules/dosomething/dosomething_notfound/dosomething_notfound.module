@@ -11,29 +11,29 @@ include_once 'dosomething_notfound.features.inc';
  */
 function dosomething_notfound_menu() {
   $items = array();
-  //404 page
+  // 404 page.
   $items['notfound'] = array(
     'title' => '404',
     'page callback' => 'dosomething_notfound_page',
     'access callback' => 'user_access',
     'access arguments' => array('access content'),
     );
-  // 404 page settings
+  // 404 page settings.
   $items['admin/config/dosomething/dosomething_notfound'] = array(
-   'title' => 'DoSomething Notfound',
-   'description' => 'Admin form to set 404 page variables.',
-   'page callback' => 'drupal_get_form',
-   'page arguments' => array('dosomething_notfound_admin_config_form'),
-   'access callback' => 'user_access',
-   'access arguments' => array('administer modules'),
-   'file' => 'dosomething_notfound.admin.inc',
-   );
+    'title' => 'DoSomething Notfound',
+    'description' => 'Admin form to set 404 page variables.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_notfound_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_notfound.admin.inc',
+    );
 
   return $items;
 }
 
 /*
- * Create the page from the node. 
+ * Create the page from the node.
  */
 function dosomething_notfound_page() {
 
@@ -41,17 +41,17 @@ function dosomething_notfound_page() {
   ->condition('type', 'notfound')
   ->condition('status', 1)
   ->fields('n', array('nid'))
-  ->range(0,1)
+  ->range(0, 1)
   ->orderRandom()
   ->execute()
   ->fetchCol(0);
-  
-  if ($result) {
-   $nid = $result[0];
-   $node = node_load($nid);
-  } // No else is needed as a default node is always created when the module installs
 
-  // Return & Load node
+  if ($result) {
+    $nid = $result[0];
+    $node = node_load($nid);
+  } // Else isn't needed as a default node is always created when the module installs.
+
+  // Return & Load node.
   return node_view($node, 'full');
 }
 
@@ -90,7 +90,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
-  else if (strpos($raw_url, "projects") === 0){
+  elseif (strpos($raw_url, "projects") === 0) {
     $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
     $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();

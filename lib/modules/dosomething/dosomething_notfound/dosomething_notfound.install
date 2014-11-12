@@ -3,7 +3,7 @@
 /**
  * Implements hook_install()
  */
-function dosomething_notfound_install(){
+function dosomething_notfound_install() {
   
   // Creates a default node, based on https://www.drupal.org/node/1388922
   global $user;
