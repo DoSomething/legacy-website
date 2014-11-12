@@ -263,16 +263,16 @@ function dosomething_reportback_form_save_file(&$form_state) {
   $crop_width = $form_state['values']['crop_width'];
   $crop_height = $form_state['values']['crop_height'];
   // Crop the image.
-  dosomething_reportback_image_crop($file,$crop_x,$crop_y,$crop_width,$crop_height);
+  dosomething_reportback_image_crop($file, $crop_x, $crop_y, $crop_width, $crop_height);
   return $file;
 }
 
 // Function to crop image.
-function dosomething_reportback_image_crop($file,$crop_x,$crop_y,$crop_width,$crop_height) {
+function dosomething_reportback_image_crop($file, $x, $y, $width, $height) {
   // Load the image.
   $image = image_load($file->uri);
   // Crop the image.
-  $result = image_crop($image,$crop_x,$crop_y,$crop_width,$crop_height);
+  $result = image_crop($image, $x, $y, $width, $height);
   // Save the image.
   // @TODO - this saves the new cropped image over the original one. Eventually we want to save it as a separate image.
   image_save($image);
