@@ -26,13 +26,58 @@ function dosomething_payment_menu() {
 function dosomething_payment_libraries_info() {
   $libraries['stripe-php'] = array(
     'name' => 'Stripe',
-    'path' => 'vendor',
+    'path' => 'lib',
     'files' => array(
       'php' => array(
-        'autoload.php'
+        'Stripe.php'
       ),
     ),
     'version' => 1
   );
   return $libraries;
+}
+
+/**
+ * Posts a USD payment to Stripe.
+ *
+ * @param array $values
+ *   An associative array containing:
+ *   - number: Credit card number (string).
+ *   - exp_month: Credit card expiration month (int).
+ *   - exp_year: Credit card expiration year (int).
+ *   - amount: Amount to charge (in cents).
+ */
+function dosomething_payment_post_payment_stripe($values) {
+  $library = libraries_load('stripe-php');
+  if (empty($library['loaded'])) {
+    return FALSE;
+  }
+  $api_key = variable_get('dosomething_payment_stripe_api_key');
+  Stripe::setApiKey($api_key);
+  $card = array(
+    'number' => $values['number'],
+    'exp_month' => $values['exp_month'],
+    'exp_year' => $values['exp_year'],
+  );
+  $charge = Stripe_Charge::create(array(
+    'card' => $card,
+    'amount' => $values['amount'],
+    'currency' => 'usd',
+  ));
+  return $charge;
+}
+
+/**
+ * Returns array of values for Stripe client testing.
+ *
+ * @param int $amount
+ *   Amount to post to a Stripe charge.
+ */
+function dosomething_payment_get_stripe_test_values($amount = 2000) {
+  return array(
+    'number' => '4242424242424242',
+    'exp_month' => 5,
+    'exp_year' => 2015,
+    'amount' => $amount,
+  );
 }
