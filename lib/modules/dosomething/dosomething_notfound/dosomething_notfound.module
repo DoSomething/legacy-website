@@ -87,13 +87,13 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   if (strpos($raw_url, "grants") === 0) {
     $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
-    // get results
+    $vars['results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
   else if (strpos($raw_url, "projects") === 0){
     $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
-    // get results 
+    $vars['results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
 
@@ -119,4 +119,17 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $vars['search'] = TRUE;
   $vars['results'] = $search;
 
+}
+
+function dosomething_notfound_get_recommended_campaigns(){
+  // Get 4 recommended campaign nids for term $tid and current user.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids();
+  // Initalize array to store reccomended campaign vars.
+  $rec_vars = array();
+  // Loop through rec_nids to load relevant variables.
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+  }
+  // We only want to display 3 campaigns blocks - we might have 4.
+  return array_slice($rec_vars, 0, 3);
 }
