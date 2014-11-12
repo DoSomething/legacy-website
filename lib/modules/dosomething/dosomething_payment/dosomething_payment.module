@@ -29,13 +29,131 @@ function dosomething_payment_libraries_info() {
     'path' => 'lib',
     'files' => array(
       'php' => array(
-        'Stripe.php'
+        'Stripe.php',
       ),
     ),
-    'version' => 1
+    'version' => 1,
   );
   return $libraries;
 }
+
+
+/**
+ * Implements hook_block_info().
+ */
+function dosomething_payment_block_info() {
+  $blocks = array();
+  $blocks['donate_form'] = array(
+    'info' => t('DS Payment: Donate Form'),
+    //@todo: Remove and set to DRUPAL_CACHE_GLOBAL when done testing.
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function dosomething_payment_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'donate_form':
+      $config = array(
+        'confirm_msg' => variable_get('dosomething_payment_donate_confirm_msg'),
+        'submit_label' => t("Donate"),
+      );
+      $block['content'] = drupal_get_form('dosomething_payment_form', $config);
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Form constructor for creating a Payment.
+ */
+function dosomething_payment_form($form, &$form_state, $config = array()) {
+  $form['first_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('First Name'),
+    '#required' => TRUE,
+  );
+  $form['last_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Last Name'),
+    '#required' => TRUE,
+  );
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => TRUE,
+  );
+  $form['number'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CC #'),
+    '#required' => TRUE,
+  );
+  $form['exp_month'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MM'),
+    '#required' => TRUE,
+  );
+  $form['exp_year'] = array(
+    '#type' => 'textfield',
+    '#title' => t('YY'),
+    '#required' => TRUE,
+  );
+  $form['amount'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Amount'),
+    '#field_prefix' => t('$'),
+    '#required' => TRUE,
+  );
+
+  // Check if submit label has been set.
+  $submit = t("Submit");
+  if (isset($config['submit_label'])) {
+    $submit = $config['submit_label'];
+  }
+
+  // Check if confirmation has been set.
+  $confirm_msg = t("Thanks!");
+  if (isset($config['confirm_msg'])) {
+    $form['confirm_msg'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $confirm_msg,
+      '#access' => FALSE,
+    );
+  }
+
+  // Check if we are in secret testing mode.
+  if ($_GET['testing']) {
+    $email = variable_get('site_mail', '');
+    $test = dosomething_payment_get_stripe_test_values($email, 71100);
+    foreach ($test as $key => $value) {
+      $form[$key]['#default_value'] = $value;
+    }
+  }
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => $submit,
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_reportback_form().
+ */
+function dosomething_payment_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  dosomething_payment_post_payment_stripe($values);
+  drupal_set_message($values['confirm_msg']);
+}
+
 
 /**
  * Posts a USD payment to Stripe.
@@ -50,21 +168,34 @@ function dosomething_payment_libraries_info() {
 function dosomething_payment_post_payment_stripe($values) {
   $library = libraries_load('stripe-php');
   if (empty($library['loaded'])) {
+    form_set_error(NULL, t("Stripe PHP Library not found."));
     return FALSE;
   }
   $api_key = variable_get('dosomething_payment_stripe_api_key');
-  Stripe::setApiKey($api_key);
+  try {
+    Stripe::setApiKey($api_key);
+  }
+  catch (Exception $e) {
+    form_set_error(NULL, t("Stripe configuration error."));
+    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+  }
   $card = array(
     'number' => $values['number'],
     'exp_month' => $values['exp_month'],
     'exp_year' => $values['exp_year'],
   );
-  $charge = Stripe_Charge::create(array(
-    'card' => $card,
-    'amount' => $values['amount'],
-    'currency' => 'usd',
-  ));
-  return $charge;
+  try {
+    Stripe_Charge::create(array(
+      'card' => $card,
+      'amount' => $values['amount'],
+      'currency' => 'usd',
+      'receipt_email' => $values['email'],
+    ));
+  }
+  catch (Exception $e) {
+    form_set_error(NULL, t("Sorry, there was an error processing your request."));
+    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+  }
 }
 
 /**
@@ -73,8 +204,9 @@ function dosomething_payment_post_payment_stripe($values) {
  * @param int $amount
  *   Amount to post to a Stripe charge.
  */
-function dosomething_payment_get_stripe_test_values($amount = 2000) {
+function dosomething_payment_get_stripe_test_values($email, $amount = 2000) {
   return array(
+    'email' => $email,
     'number' => '4242424242424242',
     'exp_month' => 5,
     'exp_year' => 2015,
