@@ -78,6 +78,8 @@ function dosomething_image_get_image_url($nid, $ratio) {
       case 'thumb':
         $path = $node->field_image_thumbnail[LANGUAGE_NONE][0]['uri'];
         break;
+      case 'video':
+        $path = $node->field_image_video[LANGUAGE_NONE][0]['uri'];
     }
     return $path;
 }
@@ -97,6 +99,10 @@ function dosomething_image_get_themed_image_url($nid, $ratio, $style) {
 
   // If the image doesn't have the appropriate crop don't return a url.
   if (isset($base_path)) {
+    // For videos
+    if (!isset($style)) {
+      return file_create_url($base_path);
+    }
     return image_style_url($style, $base_path);
   }
 }

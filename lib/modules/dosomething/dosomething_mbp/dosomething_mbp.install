@@ -15,6 +15,10 @@ function dosomething_mbp_update_7001(&$sandbox) {
  * Creates default production entries in message_broker_producer
  */
 function dosomething_mbp_update_7002(&$sandbox) {
+  // Only run this if Message Broker Producer is enabled.
+  if (!module_exists('message_broker_producer')) {
+    return;
+  }
 
   if (!db_table_exists('message_broker_producer_productions')) {
     $message_broker_producer_productions_schema = drupal_get_schema_unprocessed('message_broker_producer', 'message_broker_producer_productions');
@@ -75,6 +79,29 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[4]['routing_key'] = 'campaign.report_back.transactional';
   $productions[4]['status'] = 1;
+
+  foreach($productions as $production) {
+    message_broker_producer_production_create($production);
+  }
+
+}
+
+ /**
+ * Creates production entry in message_broker_producer for user profile updates
+ */
+function dosomething_mbp_update_7003(&$sandbox) {
+  // Only run this if Message Broker Producer is enabled.
+  if (!module_exists('message_broker_producer')) {
+    return;
+  }
+
+  $productions[0]['machine_name'] = 'transactional_user_profile_update';
+  $productions[0]['exchange'] = 'transactionalExchange';
+  $productions[0]['queues'][] = 'userAPIProfileQueue';
+  $productions[0]['queues'][] = 'userProfileMailchimpQueue';
+  $productions[0]['routing_key'] = 'user.profile.update';
+  $productions[0]['status'] = 1;
+
 
   foreach($productions as $production) {
     message_broker_producer_production_create($production);

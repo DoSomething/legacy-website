@@ -91,8 +91,12 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'campaign',
     'campaign_group',
     'fact_page',
+    'notfound',
   );
   if (isset($vars['node']->type) && in_array($vars['node']->type, $full_width_types)) {
+    $full_width = TRUE;
+  }
+  elseif ($vars['theme_hook_suggestions'][0] === 'page__notfound'){
     $full_width = TRUE;
   }
   elseif ($vars['theme_hook_suggestions'][0] === 'page__taxonomy') {
@@ -450,4 +454,41 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
     ));
   }
   paraneue_dosomething_add_info_bar($vars);
+}
+
+/**
+ * Preprocesses variables for user profiles.
+ *
+ * Themes the doing, reportback galleries.
+ */
+function paraneue_dosomething_preprocess_user_profile(&$vars) {
+  if ($doing = $vars['doing']) {
+    foreach ($doing as $delta => $value) {
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $item = array(
+        'title' => $value['link'],
+        'image' => $image,
+        'description' => $value['call_to_action'],
+      );
+      $doing_items[$delta] = paraneue_get_gallery_item($item, 'figure');
+    }
+    $vars['doing_gallery'] = paraneue_get_gallery($doing_items, 'triad');
+  }
+
+  // Get an array of reportbacks.
+  $reportbacks = $vars['reportbacks'];
+
+  if ($reportbacks) {
+    // Theme each reportback and create an array.
+    foreach ($reportbacks as $delta => $value) {
+      $item = array(
+        'title' => $value->link,
+        'image' => $value->img,
+        'impact' => $value->impact,
+      );
+      $reportback_items[$delta] = paraneue_get_gallery_item($item, 'media');
+    } 
+  }
+  // Theme a gallery of reportbacks, and give the user profile template access to it.
+  $vars['reportback_gallery'] = paraneue_get_gallery($reportback_items, 'duo');
 }

@@ -52,7 +52,7 @@ function dosomething_signup_menu() {
     'page callback' => 'dosomething_signup_view_entity',
     'page arguments' => array(1),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('view any signup'),
   );
   return $items;
 }
@@ -113,6 +113,7 @@ function dosomething_signup_view_entity($entity) {
 function dosomething_signup_admin_paths() {
   $paths = array(
     'node/*/signups' => TRUE,
+    'signup/*' => TRUE,
   );
   return $paths;
 }

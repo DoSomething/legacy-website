@@ -91,5 +91,24 @@ function paraneue_dosomething_theme() {
       'template' => 'thumbnail',
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
+
+    // Register theme functions for the Neue library.
+    'paraneue_figure' => array(
+      'template' => 'figure',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
+    'paraneue_media' => array(
+      'template' => 'media',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'variables' => array(
+        'content' => NULL,
+      ),
+    ),
+
+    'paraneue_gallery' => array(
+      'template' => 'gallery',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
   );
 }

@@ -26,9 +26,9 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
  */
 function dosomething_campaign_menu() {
   $items = array();
-  // Admin campaign status page.
+  // Admin campaign configuration page.
   $items['admin/config/dosomething/dosomething_campaign'] = array(
-    'title' => 'Campaign settings',
+    'title' => 'DoSomething Campaign',
     'description' => 'Admin form to set campaign variables.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_campaign_admin_config_form'),
@@ -391,8 +391,10 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
   return array(
     'nid' => $nid,
     'title' => $node->title,
+    'link' => l($node->title, 'node/' . $nid),
     'call_to_action' => $cta,
     'image' => $image,
+    'nid_image' => $image_nid,
     'path_alias' => $path_alias,
     'status' => $node->status,
     'staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],

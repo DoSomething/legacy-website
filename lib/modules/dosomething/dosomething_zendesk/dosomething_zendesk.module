@@ -16,10 +16,22 @@ function dosomething_zendesk_menu() {
     'title' => 'DoSomething Zendesk',
     'description' => 'Manage Zendesk settings.',
     'page callback' => 'dosomething_zendesk_admin_page',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('administer zendesk'),
     'file' => 'dosomething_zendesk.admin.inc',
   );
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function dosomething_zendesk_permission() {
+  return array(
+    'administer zendesk' =>  array(
+      'title' => t('Administer Zendesk'),
+      'description' => t('Administer Zendesk auth and group ids.'),
+    )
+  );
 }
 
 /**
@@ -154,8 +166,14 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
  * @return
  *   An integer, or NULL.
  */
-function dosomething_zendesk_get_zendesk_group_id($entity) {
+function dosomething_zendesk_get_zendesk_group_id($entity = NULL) {
   $group_id = NULL;
+  // If a sitewide Group ID has been set, tickets are always sent to it.
+  if ($sitewide = variable_get('dosomething_zendesk_group_id')) {
+    if (!empty($sitewide)) {
+      return $sitewide;
+    }
+  }
   // If this is a taxonomy term:
   if (isset($entity->tid)) {
     // Check if this term has its own group.

@@ -374,12 +374,19 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     $form['school_finder']['help_link'] = array(
       // Used for front-end autocomplete.
       '#type' => 'markup',
-      '#markup' => '<a href="#" class="secondary js-schoolfinder-help">Need help locating your school?</a></p>',
+      '#prefix' => '<a href="#" class="secondary js-schoolfinder-help">',
+      '#markup' => t("Need help locating your school?"),
+      '#suffix' => '</a></p>',
     );
-
+    $contact_link = t("Still having issues? !contact with your school name and @state.", array(
+      '!contact' => '<a href="#" data-modal-href="#modal-contact-form">' . t("Contact us") . '</a> ',
+      '@state' => lcfirst($administrative_area['title']),
+    ));
     $form['school_finder']['help_text'] = array(
       '#type' => 'markup',
-      '#markup' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;">' . $school_help_text . 'Still having issues? <a href="#" data-modal-href="#modal-contact-form">Contact us</a>.</div>',
+      '#prefix' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;">',
+      '#markup' => $school_help_text . $contact_link,
+      '#suffix' => '</div>',
     );
     
     $label = $config['school_not_affiliated_label'];

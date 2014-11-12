@@ -162,6 +162,7 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
   if ($hero_nid) {
     $vars['hero_image']['desktop'] = dosomething_image_get_themed_image_url($hero_nid, 'landscape', '1440x810');
     $vars['hero_image']['mobile'] = dosomething_image_get_themed_image_url($hero_nid, 'square', '768x768');
+    $vars['hero_image']['video'] = dosomething_image_get_themed_image_url($hero_nid, 'video', NULL);
   }
 }
 
@@ -218,12 +219,12 @@ function dosomething_helpers_add_inline_css(&$vars) {
 
   // Add hero background images if set
   if (isset($vars['hero_image']['mobile']) && isset($vars['hero_image']['desktop'])) {
-    $style_hero_image = '[role="banner"].-hero {
+    $style_hero_image = '[role="banner"].-hero, [role="banner"].-centered {
         background-image: url("' . $vars['hero_image']['mobile'] . '");
       }
 
       @media only screen and (min-width: 768px) {
-        [role="banner"].-hero {
+        [role="banner"].-hero, [role="banner"].-centered {
           background-image: url("' . $vars['hero_image']['desktop'] . '");
         }
       }';
@@ -237,4 +238,5 @@ function dosomething_helpers_add_inline_css(&$vars) {
 
     drupal_add_css($style_alt_background, $option['type'] = 'inline');
   }
+  
 }

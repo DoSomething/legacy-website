@@ -95,7 +95,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['modals'] = theme('modal_links', array('modals' => $modal_links));
   }
   // Zendesk Support Ticket form.
-  if (isset($vars['content']['zendesk_form']) && !dosomething_settings_is_affiliate()) {
+  if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
 }
@@ -282,6 +282,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['reportback_link']['label'] = t("Update Submission");
   }
   $vars['reportback_form'] = $vars['content']['reportback_form'];
+
+  // Add analytics custom event on action page.
+  $js = 'if(typeof(_gaq) !== "undefined" && _gaq !== null) { _gaq.push(["_trackEvent", "Action Page View", "' . $vars['title'] . '", null, null, true]); }';
+  drupal_add_js($js, 'inline');
+  
 }
 
 /**

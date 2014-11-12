@@ -13,20 +13,28 @@
  * @return string
  *   CSS class name
  */
-function paraneue_dosomething_get_gallery_item_order_class($index) {
-  $index++;
-  switch ($index % 3) {
-    case 0:
-      return '-third';
-      break;
-    case 1:
-      return '-first';
-      break;
-    case 2:
+function paraneue_dosomething_get_gallery_item_order_class($index, $layout = 'triad') {
+  if ($layout == 'duo') {
+    if ($index % 2) {
       return '-second';
-      break;
-    default:
-      return;
+    }
+    return '-first';
+  }
+  elseif ($layout == 'triad') {
+    $index++;
+    switch ($index % 3) {
+      case 0:
+        return '-third';
+        break;
+      case 1:
+        return '-first';
+        break;
+      case 2:
+        return '-second';
+        break;
+      default:
+        return;
+    }
   }
 }
 

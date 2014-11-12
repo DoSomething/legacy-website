@@ -13,7 +13,6 @@
  *  - $doing: Array containing campaign blocks for campaigns User is doing.
  */
 ?>
-
 <article class="user profile"<?php print $attributes; ?> id="user-<?php print $user->uid; ?>">
 
   <header role="banner" class="-basic">
@@ -33,13 +32,7 @@
       <p><?php print $no_signups_copy; ?></p>
       <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
-      <ul class="gallery -triad">
-        <?php foreach ($doing as $index => $campaign): ?>
-          <li>
-            <?php print render($campaign); ?>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+      <?php print $doing_gallery; ?>
     <?php endif; ?>
     </div>
   </section>
@@ -48,24 +41,7 @@
     <section class="profile--reportbacks">
       <h1 class="banner"><span><?php print t("You Did"); ?></span></h1>
       <div class="wrapper">
-        <ul class="gallery -duo">
-          <?php foreach ($reportbacks as $index => $reportback): ?>
-            <li>
-              <div class="tile tile--figure">
-                <div class="__media">
-                  <?php print $reportback->img; ?>
-                </div>
-                <div class="__body">
-                  <h3 class="__title"><?php print $reportback->link; ?></h3>
-                  <div class="__description">
-                    <p><?php print t('My impact:'); ?>
-                    <p><?php print $reportback->impact; ?></p>
-                  </div>
-                </div>
-              </div>
-            </li>
-          <?php endforeach; ?>
-        </ul>
+        <?php print $reportback_gallery; ?>
       </div>
     </section>
   <?php endif; ?>
