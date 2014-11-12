@@ -63,6 +63,9 @@ function dosomething_payment_block_view($delta = '') {
         'confirm_msg' => variable_get('dosomething_payment_donate_confirm_msg'),
         'submit_label' => t("Donate"),
       );
+      // This is a bit of a hack to get two different variables.
+      // Use the block's subject as the form header.
+      $block['subject'] = t("Your $$$ fires up young people to make an impact. A big one.");
       $block['content'] = drupal_get_form('dosomething_payment_form', $config);
       break;
   }
