@@ -29,9 +29,7 @@
         <?php if (isset($results_info)): ?>
           <p class="center-text"><strong><?php print $results_info ?></strong></p>
         <?php endif; ?>
-        <?php if ($suggestions): ?>
-          <!-- Suggestions go here -->
-        <?php endif; ?>
+        <?php if ($suggestions){ print $results; }?>
         <?php if ($search): ?>
           <!-- TEMP solution for debugging, actual will be implemented later -->
           <?php

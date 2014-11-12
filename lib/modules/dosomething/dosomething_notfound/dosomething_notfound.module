@@ -87,13 +87,13 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   if (strpos($raw_url, "grants") === 0) {
     $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
-    $vars['results'] = dosomething_notfound_get_recommended_campaigns();
+    $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
   else if (strpos($raw_url, "projects") === 0){
     $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
-    $vars['results'] = dosomething_notfound_get_recommended_campaigns();
+    $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
 
