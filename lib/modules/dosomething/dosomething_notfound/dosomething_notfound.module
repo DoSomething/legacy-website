@@ -73,6 +73,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['video'] = $vars['hero_image']['video'];
   }
 
+  // False until proven true
   $vars['search'] = FALSE;
   $vars['suggestions'] = FALSE;
 
@@ -81,11 +82,23 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     return;
   }
 
-  // @TODO: Check if its path specific (Intentionally hardcoded), get campaign suggestions, return & set suggestions var to true if it is 
+  $raw_url = request_path();
+
+  if (strpos($raw_url, "grants") === 0) {
+    $vars['suggestions'] = TRUE;
+    $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
+    // get results
+    return;
+  }
+  else if (strpos($raw_url, "projects") === 0){
+    $vars['suggestions'] = TRUE;
+    $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
+    // get results 
+    return;
+  }
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
-  $raw_search = request_path();
-  $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_search));
+  $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
   
   if (count($formatted_terms) <= 1) {
     return;

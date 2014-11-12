@@ -8,7 +8,6 @@
  * - $results: List of results to display (array).
  * - $search: Indicate if results is a search (boolean).
  * - $suggestions: Indicate if results is a recomendation (boolean).
- * PLANNED
  * - $results_info: Quick description about the results shown (string).
  */
 ?>
