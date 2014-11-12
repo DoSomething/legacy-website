@@ -85,15 +85,21 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $raw_url = request_path();
 
   if (strpos($raw_url, "grants") === 0) {
-    $vars['suggestions'] = TRUE;
     $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
-    $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();
-    return;
   }
-  elseif (strpos($raw_url, "projects") === 0) {
-    $vars['suggestions'] = TRUE;
+  elseif (strpos($raw_url, "project") === 0) {
     $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
-    $vars['raw_results'] = dosomething_notfound_get_recommended_campaigns();
+  }
+
+  if (isset($vars['results_info'])) {
+    $vars['suggestions'] = TRUE;
+    // Get recommended campaigns.
+    $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
+    $rec_vars = array();
+    foreach ($rec_nids as $nid) {
+      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+    }
+    $vars['raw_results'] = $rec_vars;
     return;
   }
 
