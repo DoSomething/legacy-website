@@ -37,7 +37,6 @@ function dosomething_payment_libraries_info() {
   return $libraries;
 }
 
-
 /**
  * Implements hook_block_info().
  */
@@ -45,8 +44,7 @@ function dosomething_payment_block_info() {
   $blocks = array();
   $blocks['donate_form'] = array(
     'info' => t('DS Payment: Donate Form'),
-    //@todo: Remove and set to DRUPAL_CACHE_GLOBAL when done testing.
-    'cache' => DRUPAL_NO_CACHE,
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
 }

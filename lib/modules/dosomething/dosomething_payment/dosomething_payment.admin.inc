@@ -34,7 +34,7 @@ function dosomething_payment_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $form['stripe']['dosomething_payment_stripe_api_key'] =  array(
+  $form['stripe']['dosomething_payment_stripe_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Stripe API key'),
     '#default_value' => variable_get('dosomething_payment_stripe_api_key'),
