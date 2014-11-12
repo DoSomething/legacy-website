@@ -258,19 +258,19 @@ function dosomething_reportback_form_save_file(&$form_state) {
   file_save($file);
   // @TODO - only if cropping is active.
   // Grab cropping information.
-  $crop_x = $form_state['values']['crop_x'];
-  $crop_y = $form_state['values']['crop_y'];
-  $crop_width = $form_state['values']['crop_width'];
-  $crop_height = $form_state['values']['crop_height'];
+  $x = $form_state['values']['crop_x'];
+  $y = $form_state['values']['crop_y'];
+  $width = $form_state['values']['crop_width'];
+  $height = $form_state['values']['crop_height'];
+  // Load the image.
+  $image = image_load($file->uri);
   // Crop the image.
-  dosomething_reportback_image_crop($file, $crop_x, $crop_y, $crop_width, $crop_height);
+  dosomething_reportback_image_crop($image, $x, $y, $width, $height);
   return $file;
 }
 
 // Function to crop image.
-function dosomething_reportback_image_crop($file, $x, $y, $width, $height) {
-  // Load the image.
-  $image = image_load($file->uri);
+function dosomething_reportback_image_crop($image, $x, $y, $width, $height) {
   // Crop the image.
   $result = image_crop($image, $x, $y, $width, $height);
   // Save the image.
