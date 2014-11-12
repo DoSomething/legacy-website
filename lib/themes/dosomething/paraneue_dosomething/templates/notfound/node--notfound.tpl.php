@@ -8,7 +8,6 @@
  * - $results: List of results to display (array).
  * - $search: Indicate if results is a search (boolean).
  * - $suggestions: Indicate if results is a recomendation (boolean).
- * PLANNED
  * - $results_info: Quick description about the results shown (string).
  */
 ?>
@@ -28,11 +27,9 @@
     <div class="container notfound-search-results">
       <div class="wrapper">
         <?php if (isset($results_info)): ?>
-          <p class="center-text"><strong><?php print $results_info ?></strong></p>
+          <p class="results-info-copy"><strong><?php print $results_info ?></strong></p>
         <?php endif; ?>
-        <?php if ($suggestions): ?>
-          <!-- Suggestions go here -->
-        <?php endif; ?>
+        <?php if ($suggestions){ print $results; }?>
         <?php if ($search): ?>
           <!-- TEMP solution for debugging, actual will be implemented later -->
           <?php

@@ -237,6 +237,10 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       paraneue_dosomething_preprocess_node_field_gallery($vars);
       break;
 
+    case "notfound":
+      paraneue_dosomething_preprocess_node_notfound($vars);
+      break;
+
   }
 
   // Add $info_bar for all nodes.
@@ -491,4 +495,25 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
   $vars['reportback_gallery'] = paraneue_get_gallery($reportback_items, 'duo');
+}
+
+/**
+ * Themes the recommended campaigns 
+ */
+function paraneue_dosomething_preprocess_node_notfound(&$vars) {
+  if ($vars['suggestions'] == FALSE) {
+    return;
+  }
+  $suggestions = $vars['raw_results'];
+  $gallery_items = array();
+  foreach ($suggestions as $suggestion => $value) {
+    $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300'); 
+    $item = array(
+      'title' => $value['link'],
+      'image' => $image,
+      'description' => $value['call_to_action'],
+    );
+    array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+  }
+  $vars['results'] = paraneue_get_gallery($gallery_items, 'triad');
 }
