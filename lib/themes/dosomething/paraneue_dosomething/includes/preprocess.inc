@@ -239,6 +239,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
 
     case "notfound":
       paraneue_dosomething_preprocess_node_notfound($vars);
+      break;
 
   }
 
@@ -500,12 +501,12 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
  * Themes the recommended campaigns 
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
-  if($vars['suggestions'] == FALSE){
+  if ($vars['suggestions'] == FALSE) {
     return;
   }
   $suggestions = $vars['raw_results'];
   $gallery_items = array();
-  foreach($suggestions as $suggestion => $value){
+  foreach ($suggestions as $suggestion => $value) {
     $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300'); 
     $item = array(
       'title' => $value['link'],

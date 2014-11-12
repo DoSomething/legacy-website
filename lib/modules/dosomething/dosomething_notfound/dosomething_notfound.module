@@ -121,7 +121,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
 }
 
-function dosomething_notfound_get_recommended_campaigns(){
+function dosomething_notfound_get_recommended_campaigns() {
   // Get 4 recommended campaign nids for term $tid and current user.
   $rec_nids = dosomething_campaign_get_recommended_campaign_nids();
   // Initalize array to store reccomended campaign vars.
