@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Payment module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_payment_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_payment'] = array(
+    'title' => 'DoSomething Payment',
+    'description' => 'Manage Payment settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_payment_admin_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_payment.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_payment_libraries_info() {
+  $libraries['stripe-php'] = array(
+    'name' => 'Stripe',
+    'path' => 'vendor',
+    'files' => array(
+      'php' => array(
+        'autoload.php'
+      ),
+    ),
+    'version' => 1
+  );
+  return $libraries;
+}

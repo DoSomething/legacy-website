@@ -267,6 +267,10 @@ libraries[predis][download][url] = "https://github.com/nrk/predis.git"
 ; Pin to 0.8 release, which still has the lib directory.
 libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf6"
 
+; Stripe PHP
+libraries[stripe-php][download][type] = "git"
+libraries[stripe-php][download][url] = "https://github.com/stripe/stripe-php"
+
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
 libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
