@@ -84,7 +84,8 @@ input.-clear {
     }
   }
 
-  .donate--twocol {
+  .donate--twocol,
+  .form-actions {
     @include media($tablet) {
       @include span-columns(4 of 12);
       display: inline-block;
