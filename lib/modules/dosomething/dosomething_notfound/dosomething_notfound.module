@@ -119,7 +119,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $query_string = "";
   $total = count($formatted_terms);
-  for ($i = 0; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
+  for ($i = 0; $i < $total; $i++) {
     $query_string .= $formatted_terms[$i] . " ";
   }
 
