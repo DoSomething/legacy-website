@@ -1,12 +1,17 @@
 .page-search {
   // Pagination styles
-  .pager li {
-    display: inline-block;
-    padding: 0 18px 0 0;
+  .pager {
+    text-align: center;
+
+    li {
+      display: inline-block;
+      padding: 0 18px 0 0;
+    }
   }
 
   // Search Form.
   .search-form {
+    margin-bottom: 2em;
 
     .container-inline {
       @include clearfix();
