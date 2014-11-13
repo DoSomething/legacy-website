@@ -147,7 +147,7 @@ function paraneue_dosomething_get_search_results($results) {
         break;
       case 'static_content':
       case 'fact_page':
-        if (!empty($vale['fields']['sm_field_subtitle'][0])) {
+        if (!empty($value['fields']['sm_field_subtitle'][0])) {
           $value['subtitle'] = $value['fields']['sm_field_subtitle'][0];
         }
         else {
