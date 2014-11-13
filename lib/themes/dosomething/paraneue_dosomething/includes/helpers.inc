@@ -144,6 +144,12 @@ function paraneue_dosomething_get_search_vars($results) {
         $wrapper = entity_metadata_wrapper('node', node_load($value['node']->entity_id));
         $value['display_image'] = dosomething_image_get_themed_image($wrapper->field_image_campaign_cover->value()->nid, 'square', '100x100');
         $value['subtitle'] = $value['fields']['sm_field_call_to_action'][0];
+        $item = array(
+          'title' => $value['title'],
+          'link' => $value['link'],
+          'image' => $value['display_image'],
+          'description' => $value['subtitle'],
+        );
         break;
       case 'static_content':
       case 'fact_page':
@@ -153,17 +159,15 @@ function paraneue_dosomething_get_search_vars($results) {
         else {
           $value['subtitle'] = $value['fields']['sm_field_intro_title'][0];
         }
+        $item = array(
+          'title' => $value['title'],
+          'link' => $value['link'],
+          'description' => $value['subtitle'],
+        );
       break;
       default:
         break;
     }
-    // Store the variable we need to theme each result.
-    $item = array(
-      'title' => $value['title'],
-      'link' => $value['link'],
-      'image' => $value['display_image'],
-      'description' => $value['subtitle'],
-    );
     $result_variables[$delta] = $item;
   }
   return $result_variables;
