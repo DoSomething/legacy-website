@@ -12,7 +12,6 @@
  */
 ?>
 <article>
-<?php dpm($variables); ?>
   <header role="banner" class="-centered notfound">
     <div class="wrapper">
       <h1 class="__title"><?php print $title ?></h1>

@@ -164,7 +164,7 @@ function paraneue_dosomething_get_search_results($results) {
       'image' => $value['display_image'],
       'description' => $value['subtitle'],
     );
-    $result_items[$delta] = paraneue_get_gallery_item($item, 'media');
+    $result_items[$delta] = paraneue_get_gallery_item($item, 'media', TRUE);
   }
   // Theme the set of results as duo gallery.
   return paraneue_get_gallery($result_items, 'duo');

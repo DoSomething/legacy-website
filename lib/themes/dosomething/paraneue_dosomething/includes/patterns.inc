@@ -5,7 +5,7 @@
  */
 
 /**
- * Function that themes an item, based on a pattern from neue, that can then go into a gallery. 
+ * Function that themes an item, based on a pattern from neue, that can then go into a gallery.
  *
  * @param array $content
  *   An associative array of content, can contain:
@@ -18,11 +18,15 @@
  * @param string $type
  *   The pattern that the content should be themed by.
  *
+ * @param boolean $use_default
+ *   If the template should use a default image if it can't find one.
+ *
  * @return string
  */
-function paraneue_get_gallery_item($content, $type) {
+function paraneue_get_gallery_item($content, $type, $use_default) {
   $variables = array(
     'content' => $content,
+    'use_default' => $use_default,
   );
 
   switch ($type) {
@@ -34,10 +38,10 @@ function paraneue_get_gallery_item($content, $type) {
 }
 
 /**
- * Function that returns a <ul> representing a gallery.  
+ * Function that returns a <ul> representing a gallery.
  *
  * @param array $content
- *   An array of themed content to go into each <li>. 
+ *   An array of themed content to go into each <li>.
  * @param string $layout
  *   The type of gallery.
  * @param string $classes
