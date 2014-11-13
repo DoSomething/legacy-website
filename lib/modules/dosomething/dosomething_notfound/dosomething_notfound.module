@@ -126,7 +126,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $vars['results'] = $search;
 
   // Theme the set of results as duo gallery.
-  $vars['search_results_gallery'] = paraneue_dosomething_get_search_results($vars['results']);
+  $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($vars['results']);
 
   // Make the search form availabe to the page.
   $vars['search_form'] = drupal_render(drupal_get_form('search_form'));

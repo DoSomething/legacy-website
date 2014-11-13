@@ -7,6 +7,8 @@ header.notfound p {
 }
 
 .search-form {
-  margin: 0 auto 2em;
-  width: 80%;
+  @include media($tablet) {
+    margin: 0 auto 2em;
+    width: 80%;
+  }
 }

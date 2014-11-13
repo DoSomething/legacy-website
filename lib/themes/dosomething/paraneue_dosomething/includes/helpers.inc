@@ -133,7 +133,7 @@ function paraneue_dosomething_get_sponsor_logos($partners_data = array()) {
  *
  * @return string
  */
-function paraneue_dosomething_get_search_results($results) {
+function paraneue_dosomething_get_search_vars($results) {
   if (empty($results)) {
     return '';
   }
@@ -157,14 +157,29 @@ function paraneue_dosomething_get_search_results($results) {
       default:
         break;
     }
-    // Theme each result using the neue media pattern.
+    // Store the variable we need to theme each result.
     $item = array(
       'title' => $value['title'],
       'link' => $value['link'],
       'image' => $value['display_image'],
       'description' => $value['subtitle'],
     );
-    $result_items[$delta] = paraneue_get_gallery_item($item, 'media', TRUE);
+    $result_variables[$delta] = $item;
+  }
+  return $result_variables;
+}
+
+function paraneue_dosomething_get_search_gallery($results) {
+  if (empty($results)) {
+    return '';
+  }
+  // Get the variables we need to theme each result.
+  $results_variables = paraneue_dosomething_get_search_vars($results);
+  // Theme each result with the media pattern.
+  if ($results_variables) {
+    foreach ($results_variables as $delta => $value) {
+      $result_items[$delta] = paraneue_get_gallery_item($value, 'media', TRUE);
+    }
   }
   // Theme the set of results as duo gallery.
   return paraneue_get_gallery($result_items, 'duo');
