@@ -78,32 +78,73 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'full_name',
+      'data-validate-required' => '',
+      'data-stripe' => 'name',
+    ),
   );
   $form['email'] = array(
     '#type' => 'textfield',
     '#title' => t('Email'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'email',
+      'data-validate-required' => '',
+      'data-stripe' => 'email',
+    ),
   );
   $form['number'] = array(
     '#type' => 'textfield',
-    '#title' => t('CC #'),
+    '#title' => t('Card Number'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cc_num',
+      'data-validate-required' => '',
+      'data-stripe' => 'number',
+      'autocomplete' => 'off',
+    ),
+  );
+  $form['cvv'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CVV'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cvv',
+      'data-validate-required' => '',
+      'data-stripe' => 'cvv',
+    ),
   );
   $form['exp_month'] = array(
     '#type' => 'textfield',
     '#title' => t('MM'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_month',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-month',
+    ),
   );
   $form['exp_year'] = array(
     '#type' => 'textfield',
-    '#title' => t('YY'),
+    '#title' => t('YYYY'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_year',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-year',
+    ),
   );
   $form['amount'] = array(
     '#type' => 'textfield',
     '#title' => t('Amount'),
     '#field_prefix' => t('$'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'amount',
+      'data-validate-required' => '',
+      'data-stripe' => 'amount',
+    ),
   );
 
   // Check if submit label has been set.

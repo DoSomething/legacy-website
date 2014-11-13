@@ -71,3 +71,19 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
     $form['item_additional_option']['#attributes'] = $shirt_size_attributes;
   }
 }
+
+
+/**
+ * Sets customs alterations to the dosomething_payment form.
+ */
+function paraneue_dosomething_form_dosomething_payment_form_alter(&$form, &$form_state, $form_id) {
+  // Customize field elements.
+  $form['cvv']['#prefix'] = '<div class="donate--threecol">';
+  $form['cvv']['#suffix'] = '</div>';
+  $form['exp_month']['#prefix'] = '<div class="donate--threecol">';
+  $form['exp_month']['#suffix'] = '</div>';
+  $form['exp_year']['#prefix'] = '<div class="donate--threecol">';
+  $form['exp_year']['#suffix'] = '</div>';
+  $form['amount']['#prefix'] = '<div class="donate--twocol">';
+  $form['amount']['#suffix'] = '</div>';
+}
