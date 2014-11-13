@@ -83,15 +83,18 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   }
 
   $raw_url = request_path();
+  $copy = NULL;
 
   if (strpos($raw_url, "grants") === 0) {
-    $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
+    $copy = variable_get('dosomething_notfound_copy_grants');
   }
   elseif (strpos($raw_url, "project") === 0) {
-    $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
+    $copy = variable_get('dosomething_notfound_copy_projects');
   }
 
-  if (isset($vars['results_info'])) {
+  if (isset($copy)) {
+    $vars['results_info'] = check_markup($copy, 'markdown');
+
     $vars['suggestions'] = TRUE;
     // Get recommended campaigns.
     $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
@@ -103,6 +106,10 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     return;
   }
 
+  // Search results info copy.
+  $copy = variable_get('dosomething_notfound_copy_search');
+  $vars['results_info'] = check_markup($copy, 'markdown');
+
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
   
@@ -112,7 +119,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $query_string = "";
   $total = count($formatted_terms);
-  for ($i = 1; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
+  for ($i = 0; $i < $total; $i++) {
     $query_string .= $formatted_terms[$i] . " ";
   }
 

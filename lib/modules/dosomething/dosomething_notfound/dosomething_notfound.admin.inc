@@ -18,5 +18,11 @@ function dosomething_notfound_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_notfound_copy_grants'),
     '#required' => TRUE,
     );
+  $form['dosomething_notfound_copy_search'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Grants copy', 
+    '#default_value' => variable_get('dosomething_notfound_copy_search'),
+    '#required' => TRUE,
+    );
   return system_settings_form($form);
 }
