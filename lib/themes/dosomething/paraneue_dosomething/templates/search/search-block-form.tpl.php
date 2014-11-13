@@ -32,6 +32,7 @@
 <div class="container-inline">
   <?php if (empty($variables['form']['#block']->subject)): ?>
   <?php endif; ?>
+  <h2>lAKJSD</h2>
   <?php print $search['search_block_form']; ?>
   <?php print $search['hidden']; ?>
 </div>

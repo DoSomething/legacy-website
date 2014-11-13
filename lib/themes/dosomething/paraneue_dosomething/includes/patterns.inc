@@ -38,9 +38,9 @@ function paraneue_get_gallery_item($content, $type) {
  *
  * @param array $content
  *   An array of themed content to go into each <li>. 
- * @param sting $layout
+ * @param string $layout
  *   The type of gallery.
- * @param sting $classes
+ * @param string $classes
  *   Any additional classes to append to the <ul> classes.
  *
  * @return string

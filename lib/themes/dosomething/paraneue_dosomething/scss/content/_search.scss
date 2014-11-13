@@ -4,4 +4,30 @@
     display: inline-block;
     padding: 0 18px 0 0;
   }
+
+  // Search Form.
+  .search-form {
+
+    .container-inline {
+      @include clearfix();
+    }
+
+    .form-type-textfield {
+      display: inline-block;
+      float: left;
+      width: 100%;
+      margin-right: 10px;
+
+      @include media($tablet) {
+        width: 80%;
+      }
+    }
+
+    .form-submit {
+      float: left;
+      clear: right;
+      background: $blue;
+      margin: 0;
+    }
+  }
 }

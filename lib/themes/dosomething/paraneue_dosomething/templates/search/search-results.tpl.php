@@ -24,10 +24,7 @@
  */
 ?>
 <?php if ($search_results): ?>
-  <h2><?php print t('Search results');?></h2>
-  <ul class="gallery -duo">
-    <?php print $search_results; ?>
-  </ul>
+  <?php print $search_results_gallery; ?>
   <?php print $pager; ?>
 <?php else : ?>
   <h2><?php print t('Your search yielded no results');?></h2>
