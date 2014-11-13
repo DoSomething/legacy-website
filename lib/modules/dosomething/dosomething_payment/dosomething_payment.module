@@ -74,7 +74,7 @@ function dosomething_payment_block_view($delta = '') {
  * Form constructor for creating a Payment.
  */
 function dosomething_payment_form($form, &$form_state, $config = array()) {
-  $form['name'] = array(
+  $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
     '#required' => TRUE,
