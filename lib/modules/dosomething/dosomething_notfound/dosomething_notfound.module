@@ -85,10 +85,12 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $raw_url = request_path();
 
   if (strpos($raw_url, "grants") === 0) {
-    $vars['results_info'] = variable_get('dosomething_notfound_copy_grants');
+    $copy = variable_get('dosomething_notfound_copy_grants');
+    $vars['results_info'] = check_markup($copy, 'markdown');
   }
   elseif (strpos($raw_url, "project") === 0) {
-    $vars['results_info'] = variable_get('dosomething_notfound_copy_projects');
+    $copy = variable_get('dosomething_notfound_copy_projects');
+    $vars['results_info'] = check_markup($copy, 'markdown');
   }
 
   if (isset($vars['results_info'])) {
@@ -112,7 +114,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $query_string = "";
   $total = count($formatted_terms);
-  for ($i = 1; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
+  for ($i = 0; $i < $total; $i++) { // Cannot start at 0, don't want that part of URL
     $query_string .= $formatted_terms[$i] . " ";
   }
 
