@@ -105,7 +105,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
-  
+
   if (count($formatted_terms) <= 1) {
     return;
   }
@@ -125,4 +125,6 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $vars['search'] = TRUE;
   $vars['results'] = $search;
 
+  // Theme the set of results as duo gallery.
+  $vars['search_results_gallery'] = paraneue_dosomething_get_search_results($vars['results']);
 }

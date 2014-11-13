@@ -498,7 +498,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 }
 
 /**
- * Themes the recommended campaigns 
+ * Themes the recommended campaigns
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
   if ($vars['suggestions'] == FALSE) {
@@ -507,7 +507,7 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
   $suggestions = $vars['raw_results'];
   $gallery_items = array();
   foreach ($suggestions as $suggestion => $value) {
-    $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300'); 
+    $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
     $item = array(
       'title' => $value['link'],
       'image' => $image,
@@ -517,3 +517,14 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
   }
   $vars['results'] = paraneue_get_gallery($gallery_items, 'triad');
 }
+
+/**
+ * Preprocesses variables for the search results page.
+ */
+function paraneue_dosomething_preprocess_search_results(&$vars) {
+  if ($search_results = $vars['results']) {
+    // Theme the set of results as duo gallery.
+    $vars['search_results_gallery'] = paraneue_dosomething_get_search_results($search_results);
+  }
+}
+

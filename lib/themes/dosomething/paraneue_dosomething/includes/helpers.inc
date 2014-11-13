@@ -124,3 +124,48 @@ function paraneue_dosomething_get_sponsor_logos($partners_data = array()) {
   }
   return '';
 }
+
+/**
+ * For given array of search results, theme a duo gallery with them.
+ *
+ * @param array $results
+ *   Array of search results.
+ *
+ * @return string
+ */
+function paraneue_dosomething_get_search_results($results) {
+  if (empty($results)) {
+    return '';
+  }
+  // Preprocess each result and store the information we need.
+  foreach ($results as $delta => $value) {
+    switch ($value['bundle']) {
+      case 'campaign':
+        $wrapper = entity_metadata_wrapper('node', node_load($value['node']->entity_id));
+        $value['display_image'] = dosomething_image_get_themed_image($wrapper->field_image_campaign_cover->value()->nid, 'square', '100x100');
+        $value['subtitle'] = $value['fields']['sm_field_call_to_action'][0];
+        break;
+      case 'static_content':
+      case 'fact_page':
+        if (!empty($vale['fields']['sm_field_subtitle'][0])) {
+          $value['subtitle'] = $value['fields']['sm_field_subtitle'][0];
+        }
+        else {
+          $value['subtitle'] = $value['fields']['sm_field_intro_title'][0];
+        }
+      break;
+      default:
+        break;
+    }
+    // Theme each result using the neue media pattern.
+    $item = array(
+      'title' => $value['title'],
+      'link' => $value['link'],
+      'image' => $value['display_image'],
+      'description' => $value['subtitle'],
+    );
+    $result_items[$delta] = paraneue_get_gallery_item($item, 'media');
+  }
+  // Theme the set of results as duo gallery.
+  return paraneue_get_gallery($result_items, 'duo');
+}

@@ -4,7 +4,7 @@
  *
  * Available Variables
  * - $header: The page header (string).
- * - $subtitle: The page subtitle (string). 
+ * - $subtitle: The page subtitle (string).
  * - $results: List of results to display (array).
  * - $search: Indicate if results is a search (boolean).
  * - $suggestions: Indicate if results is a recomendation (boolean).
@@ -12,10 +12,10 @@
  */
 ?>
 <article>
-
+<?php dpm($variables); ?>
   <header role="banner" class="-centered notfound">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title ?></h1>    
+      <h1 class="__title"><?php print $title ?></h1>
       <?php print $subtitle ?>
     </div>
     <?php if (isset($video)): ?>
@@ -31,13 +31,7 @@
         <?php endif; ?>
         <?php if ($suggestions){ print $results; }?>
         <?php if ($search): ?>
-          <!-- TEMP solution for debugging, actual will be implemented later -->
-          <?php
-            foreach ($results as $result) {
-              print $result['title'];
-              print '<br>';
-            }
-          ?>
+          <?php print $search_results_gallery; ?>
         <?php endif; ?>
       </div>
     </div>

@@ -23,7 +23,7 @@
  * @ingroup themeable
  */
 ?>
-<?php if ($search_results): ?>
+<?php if ($search_results_gallery): ?>
   <?php print $search_results_gallery; ?>
   <?php print $pager; ?>
 <?php else : ?>
