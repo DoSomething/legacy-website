@@ -106,10 +106,6 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     return;
   }
 
-  // Search results info copy.
-  $copy = variable_get('dosomething_notfound_copy_search');
-  $vars['results_info'] = check_markup($copy, 'markdown');
-
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
 
@@ -138,4 +134,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // Make the search form availabe to the page.
   $search_form = drupal_get_form('search_form');
   $vars['search_form'] = drupal_render($search_form);
+
+  // Search header text.
+  $vars['search_header'] = t('We did a quick search, here is some similar content that we do have.');
 }
