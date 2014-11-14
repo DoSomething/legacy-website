@@ -76,6 +76,16 @@ function dosomething_payment_block_view($delta = '') {
 function dosomething_payment_form($form, &$form_state, $config = array()) {
   // This JS is needed to create a Stripe token, which is used for API posts. 
   drupal_add_js('https://js.stripe.com/v2/');
+  // Add the API publish key to JS settings.
+  $api_publish = variable_get('dosomething_payment_stripe_api_key_publish');
+  drupal_add_js(
+    array('dosomethingPayment' =>
+      array(
+        'stripeAPIPublish' => $api_publish,
+      )
+    ),
+    'setting'
+  );
   $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
