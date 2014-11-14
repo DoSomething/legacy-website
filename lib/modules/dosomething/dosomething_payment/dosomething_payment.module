@@ -74,6 +74,7 @@ function dosomething_payment_block_view($delta = '') {
  * Form constructor for creating a Payment.
  */
 function dosomething_payment_form($form, &$form_state, $config = array()) {
+  drupal_add_js('https://js.stripe.com/v2/');
   $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
@@ -263,6 +264,7 @@ function dosomething_payment_post_payment_stripe($values) {
       'amount' => $values['amount'],
       'currency' => 'usd',
       'receipt_email' => $values['email'],
+      "description" => "Donation for DoSomething.org"
     ));
     return TRUE;
   }
@@ -309,7 +311,6 @@ function dosomething_payment_stripe_create_customer($values) {
   }
   try {
     $customer = Stripe_Customer::create(array(
-      'description' => $values['name'],
       'email' => $values['email'],
       'card' => $values['token'],
     ));
