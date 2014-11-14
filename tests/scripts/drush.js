@@ -49,6 +49,7 @@ casper.drush = function(command, json) {
     if(json === true) {
       command.push("--format=json");
     }
+    command.push("--uri=" + url);
 
     var DIRECTORY = ROOT + "/html";
     this.log("Running Drush command in " + DIRECTORY + ": " + command.join(' '));

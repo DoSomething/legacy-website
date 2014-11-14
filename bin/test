@@ -141,7 +141,7 @@ function runIntegrationTests() {
   }
 
   var _casperURL = "http://dev.dosomething.org:8888";
-  if(config.verbose) {
+  if(config.url) {
     _casperURL = config.url;
   }
 
