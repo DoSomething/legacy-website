@@ -1,6 +1,7 @@
 <?php
 /**
  * Available variables:
+ * - $block->subject: Block title.
  * - $content: The rendered Payment Form.
  */
 ?>

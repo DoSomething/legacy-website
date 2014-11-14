@@ -24,12 +24,9 @@
 
   <?php if ($search == TRUE || $suggestions == TRUE): ?>
     <div class="container notfound-search-results">
-      <div class="wrapper">
+      <div class="wrapper notfound-results">
         <?php if (isset($results_info)): ?>
-          <p class="results-info-copy"><?php print $results_info ?></p>
-        <?php endif; ?>
-        <?php if (!empty($search_form)): ?>
-          <?php print $search_form; ?>
+          <?php print $results_info ?>
         <?php endif; ?>
         <?php if ($suggestions){ print $results; }?>
         <?php if ($search): ?>
