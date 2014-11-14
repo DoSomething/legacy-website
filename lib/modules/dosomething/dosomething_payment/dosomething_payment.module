@@ -74,36 +74,81 @@ function dosomething_payment_block_view($delta = '') {
  * Form constructor for creating a Payment.
  */
 function dosomething_payment_form($form, &$form_state, $config = array()) {
-  $form['name'] = array(
+  drupal_add_js('https://js.stripe.com/v2/');
+  $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'full_name',
+      'data-validate-required' => '',
+      'data-stripe' => 'name',
+    ),
   );
   $form['email'] = array(
     '#type' => 'textfield',
     '#title' => t('Email'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'email',
+      'data-validate-required' => '',
+      'data-stripe' => 'email',
+    ),
   );
   $form['number'] = array(
     '#type' => 'textfield',
-    '#title' => t('CC #'),
+    '#title' => t('Card Number'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cc_num',
+      'data-validate-required' => '',
+      'data-stripe' => 'number',
+      'autocomplete' => 'off',
+    ),
+  );
+  $form['cvv'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CVV'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cvv',
+      'data-validate-required' => '',
+      'data-stripe' => 'cvv',
+    ),
   );
   $form['exp_month'] = array(
     '#type' => 'textfield',
     '#title' => t('MM'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_month',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-month',
+    ),
   );
   $form['exp_year'] = array(
     '#type' => 'textfield',
-    '#title' => t('YY'),
+    '#title' => t('YYYY'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_year',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-year',
+    ),
   );
   $form['amount'] = array(
     '#type' => 'textfield',
     '#title' => t('Amount'),
     '#field_prefix' => t('$'),
     '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'amount',
+      'data-validate-required' => '',
+      'data-stripe' => 'amount',
+    ),
+  );
+  $form['token'] = array(
+    '#type' => 'hidden',
   );
 
   // Check if submit label has been set.
@@ -148,6 +193,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
  */
 function dosomething_payment_form_submit($form, &$form_state) {
   $values = $form_state['values'];
+
   // Expected amount to charge to Stripe should be in cents.
   $values['amount'] = $values['amount'] * 100;
   // Send Payment request to Stripe API.
@@ -218,6 +264,7 @@ function dosomething_payment_post_payment_stripe($values) {
       'amount' => $values['amount'],
       'currency' => 'usd',
       'receipt_email' => $values['email'],
+      "description" => "Donation for DoSomething.org"
     ));
     return TRUE;
   }
@@ -258,13 +305,14 @@ function dosomething_payment_get_stripe_test_values($email, $amount = 2000) {
  */
 function dosomething_payment_stripe_create_customer($values) {
   $client = dosomething_payment_stripe_get_client();
+
   if (!$client) {
     return;
   }
   try {
     $customer = Stripe_Customer::create(array(
-      'description' => $values['name'],
       'email' => $values['email'],
+      'card' => $values['token'],
     ));
     return $customer;
   }

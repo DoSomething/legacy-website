@@ -1,0 +1,45 @@
+
+// -------------------
+//  DONATE
+// -------------------
+
+.donate--header {
+  padding: 0 30px;
+  text-align: center;
+}
+
+.donate--payment {
+  .donate__cvv,
+  .donate__expmonth,
+  .donate__expyear {
+    @include media($tablet) {
+      @include span-columns(3 of 12);
+    }
+  }
+
+  .donate__amount,
+  .form-actions {
+    @include media($tablet) {
+      @include span-columns(4 of 12);
+      display: inline-block;
+      float: none;
+    }
+  }
+
+  .form-item-amount {
+    position: relative;
+
+    // Dollar sign label that appears within input field
+    .field-prefix {
+      left: 17px;
+      line-height: 1.3;
+      position: absolute;
+      top: 37px;
+    }
+
+    // Extra left padding to accomodate for dollar sign
+    .form-text {
+      padding-left: 1.7em;
+    }
+  }
+}
