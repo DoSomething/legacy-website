@@ -68,7 +68,7 @@ projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
-projects[field_group][version] = "1.3"
+projects[field_group][version] = "1.4"
 projects[field_group][subdir] = "contrib"
 
 ; File Entity
@@ -108,7 +108,7 @@ projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag][version] = "1.0-beta9"
+projects[metatag][version] = "1.4"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
