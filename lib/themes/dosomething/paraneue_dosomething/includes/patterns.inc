@@ -5,7 +5,7 @@
  */
 
 /**
- * Function that themes an item, based on a pattern from neue, that can then go into a gallery. 
+ * Function that themes an item, based on a pattern from neue, that can then go into a gallery.
  *
  * @param array $content
  *   An associative array of content, can contain:
@@ -18,9 +18,17 @@
  * @param string $type
  *   The pattern that the content should be themed by.
  *
+ * @param boolean $use_default
+ *   If the template should use a default image if it can't find one.
+ *
  * @return string
  */
-function paraneue_get_gallery_item($content, $type) {
+function paraneue_get_gallery_item($content, $type, $use_default = TRUE) {
+  // If no image is provided and we want to use a default, then set the default image here.
+  if (empty($content['image']) && $use_default) {
+    $content['image'] = "<img src='/" . path_to_theme() . "/bower_components/neue/dist/assets/images/apple-touch-icon-precomposed.png' />";
+  }
+
   $variables = array(
     'content' => $content,
   );
@@ -34,13 +42,13 @@ function paraneue_get_gallery_item($content, $type) {
 }
 
 /**
- * Function that returns a <ul> representing a gallery.  
+ * Function that returns a <ul> representing a gallery.
  *
  * @param array $content
- *   An array of themed content to go into each <li>. 
- * @param sting $layout
+ *   An array of themed content to go into each <li>.
+ * @param string $layout
  *   The type of gallery.
- * @param sting $classes
+ * @param string $classes
  *   Any additional classes to append to the <ul> classes.
  *
  * @return string

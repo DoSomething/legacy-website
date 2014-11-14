@@ -4,12 +4,12 @@
  * Generates the HTML for the Neue Media pattern.
  *
  * Available variables:
- * - $content: An array containing - 
- *    - title
- *    - description
- *    - impact
- *    - image
- *    - url
+ * - $content: An associative array that can contain:
+ *    - $title: Title of the item.
+ *    - $description: Description or subtitle.
+ *    - $impact: Impact number.
+ *    - $image: Thumbnail image.
+ *    - $link: Link to the item.
  *
  * @see paraneue_get_gallery_item()
  */
@@ -24,14 +24,18 @@
   <div class="__body">
     <?php if (!empty($content['title'])): ?>
       <h3 class="__title">
-        <?php print $content['title']; ?>
+        <?php if (!empty($content['link'])): ?>
+          <a href="<?php print $content['link']; ?>">
+            <?php print $content['title']; ?>
+          </a>
+        <?php endif; ?>
       </h3>
     <?php endif; ?>
     <div class="__description">
       <?php if (!empty($content['impact'])): ?>
         <p><?php print t('My impact:'); ?>
         <p><?php print $content['impact']; ?></p>
-      <?php endif; ?>        
+      <?php endif; ?>
       <?php if (!empty($content['description'])): ?>
         <?php print $content['description']; ?>
       <?php endif; ?>
