@@ -36,8 +36,13 @@ function dosomething_payment_admin_config_form($form, &$form_state) {
   );
   $form['stripe']['dosomething_payment_stripe_api_key'] = array(
     '#type' => 'textfield',
-    '#title' => t('Stripe API key'),
+    '#title' => t('Secret API key'),
     '#default_value' => variable_get('dosomething_payment_stripe_api_key'),
+  );
+  $form['stripe']['dosomething_payment_stripe_api_key_public'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Publishable API key'),
+    '#default_value' => variable_get('dosomething_payment_stripe_api_key_public'),
   );
   return system_settings_form($form);
 }
