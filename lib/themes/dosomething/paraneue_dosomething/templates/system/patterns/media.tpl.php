@@ -18,8 +18,6 @@
   <div class="wrapper">
     <?php if (!empty($content['image'])): ?>
       <?php print $content['image']; ?>
-    <?php elseif ($use_default): ?>
-      <img src='/profiles/dosomething/themes/dosomething/paraneue_dosomething/bower_components/neue/dist/assets/images/apple-touch-icon-precomposed.png' />
     <?php endif; ?>
   </div>
 

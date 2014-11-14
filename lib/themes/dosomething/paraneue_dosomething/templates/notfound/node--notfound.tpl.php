@@ -25,10 +25,10 @@
   <?php if ($search == TRUE || $suggestions == TRUE): ?>
     <div class="container notfound-search-results">
       <div class="wrapper notfound-results">
-        <?php if (isset($results_info)): ?>
-          <?php print $results_info ?>
+        <h3 class="search-results-header">We did a quick search, here is similar content that we do have</h3>
+        <?php if (!empty($search_form)): ?>
+          <?php print $search_form; ?>
         <?php endif; ?>
-        <?php if ($suggestions){ print $results; }?>
         <?php if ($search): ?>
           <?php print $search_results_gallery; ?>
         <?php endif; ?>
