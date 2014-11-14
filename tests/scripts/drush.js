@@ -50,6 +50,10 @@ casper.drush = function(command, json) {
       command.push("--format=json");
     }
 
+    // URI of the drupal site run drush at. Needed to run drush on the right
+    // affiliate in the multi-site environment.
+    command.push("--uri=" + url);
+
     var DIRECTORY = ROOT + "/html";
     this.log("Running Drush command in " + DIRECTORY + ": " + command.join(' '));
 
