@@ -25,9 +25,9 @@
   <?php if ($disable_results == FALSE): ?>
     <div class="container notfound-search-results">
       <div class="wrapper notfound-results">
-        <?php if (isset($results_info)): ?>
+        <?php if (isset($results_copy)): ?>
           <h3 class="search-results-header">
-            <?php print $results_info; ?>
+            <?php print $results_copy; ?>
           </h3>
         <?php endif; ?>
         <?php if (!empty($search_form)): ?>

@@ -95,7 +95,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // For path specific results.
   if (isset($copy)) {
     // Sets the copy above the results.
-    $vars['results_info'] = check_markup($copy, 'markdown');
+    $vars['results_copy'] = check_markup($copy, 'markdown');
 
     // Get recommended campaigns.
     $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
@@ -136,5 +136,5 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $vars['search_form'] = drupal_render($search_form);
 
   // Search header text.
-  $vars['results_info'] = t('We did a quick search, here is some similar content that we do have.');
+  $vars['results_copy'] = t('We did a quick search, here is some similar content that we do have.');
 }
