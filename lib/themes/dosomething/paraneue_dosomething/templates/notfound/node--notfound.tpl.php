@@ -5,10 +5,10 @@
  * Available Variables
  * - $header: The page header (string).
  * - $subtitle: The page subtitle (string).
- * - $results: List of results to display (array).
- * - $search: Indicate if results is a search (boolean).
- * - $suggestions: Indicate if results is a recomendation (boolean).
+ * - $campaign_results: List of campaign recommends (array).
+ * - $search_results: List of search results (array).
  * - $results_info: Quick description about the results shown (string).
+ * - $disable_results: Indicates if there should be something below header (bool).
  */
 ?>
 <article>
@@ -22,25 +22,22 @@
     <?php endif; ?>
   </header>
 
-  <?php if ($search == TRUE || $suggestions == TRUE): ?>
+  <?php if ($disable_results == FALSE): ?>
     <div class="container notfound-search-results">
       <div class="wrapper notfound-results">
-        <?php if (isset($results_info)): ?>
-          <?php print $results_info; ?>
+        <?php if (isset($results_copy)): ?>
+          <h3 class="search-results-header">
+            <?php print $results_copy; ?>
+          </h3>
         <?php endif; ?>
-        <?php if ($suggestions): ?>
-          <?php print $results; ?>
+        <?php if (!empty($search_form)): ?>
+          <?php print $search_form; ?>
         <?php endif; ?>
-        <?php if ($search): ?>
-          <?php if ($search_header): ?>
-            <h3 class="search-results-header">
-              <?php print $search_header; ?>
-            </h3>
-          <?php endif; ?>
-          <?php if (!empty($search_form)): ?>
-            <?php print $search_form; ?>
-          <?php endif; ?>
-          <?php print $search_results_gallery; ?>
+        <?php if (isset($campaign_results)): ?>
+          <?php print $campaign_results; ?>
+        <?php endif; ?>
+        <?php if (isset($search_results)): ?>
+          <?php print $search_results; ?>
         <?php endif; ?>
       </div>
     </div>

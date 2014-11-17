@@ -498,13 +498,13 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 }
 
 /**
- * Themes the recommended campaigns
+ * Themes the recommended campaigns for the notfound page
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
-  if ($vars['suggestions'] == FALSE) {
+  if (!isset($vars['raw_campaign_results'])) {
     return;
   }
-  $suggestions = $vars['raw_results'];
+  $suggestions = $vars['raw_campaign_results'];
   $gallery_items = array();
   foreach ($suggestions as $suggestion => $value) {
     $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
@@ -515,7 +515,7 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
     );
     array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
   }
-  $vars['results'] = paraneue_get_gallery($gallery_items, 'triad');
+  $vars['campaign_results'] = paraneue_get_gallery($gallery_items, 'triad');
 }
 
 /**
