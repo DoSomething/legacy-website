@@ -19,5 +19,11 @@ function dosomething_notfound_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_notfound_copy_grants'),
     '#required' => TRUE,
     );
+  $form['dosomething_notfound_search_filter'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Search filter words',
+    '#description' => 'Comma seperate all filter words (eg: blog,actnow,etc)', 
+    '#default_value' => variable_get('dosomething_notfound_search_filter'),
+    );
   return system_settings_form($form);
 }
