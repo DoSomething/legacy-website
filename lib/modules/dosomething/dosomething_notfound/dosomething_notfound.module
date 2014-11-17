@@ -128,10 +128,30 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     return;
   }
 
-  // Make the search form availabe to the page.
-  $search_form = drupal_get_form('search_form');
-  $vars['search_form'] = drupal_render($search_form);
+  // Pass the query string used in the search to the search form.
+  $form_state = array(
+    'build_info' => array(
+      'args' => array(
+        'query_string' => $query_string,
+      ),
+    ),
+  );
+  $search_form = drupal_build_form('search_form', $form_state);
 
+  // Make the search form availabe to the page.
+  $vars['search_form'] = drupal_render($search_form);
   // Search header text.
   $vars['results_copy'] = t('We did a quick search, here is some similar content that we do have.');
+}
+
+/**
+* Implementation of hook_form_FORM_ID_alter()
+*/
+function dosomething_notfound_form_search_form_alter(&$form, &$form_state, $form_id) {
+  // Get the query string from the form state.
+  $query_string = $form_state['build_info']['args']['query_string'];
+  // Use the query as the default text in the search form.
+  if (!empty($query_string)) {
+    $form['basic']['keys']['#default_value'] = $query_string;
+  }
 }
