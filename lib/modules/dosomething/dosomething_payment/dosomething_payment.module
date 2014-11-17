@@ -294,9 +294,19 @@ function dosomething_payment_post_payment_stripe($values) {
  *   Amount to post to a Stripe charge.
  */
 function dosomething_payment_get_stripe_test_values($email, $amount = 2000) {
+  $number = '4242424242424242';
+  if (isset($_GET['declined'])) {
+    $number = '4000000000000002';
+  }
+  elseif (isset($_GET['cvc'])) {
+    $number = '4000000000000127';
+  }
+  elseif (isset($_GET['expired'])) {
+    $number = '4000000000000069';
+  }
   return array(
     'email' => $email,
-    'number' => '4242424242424242',
+    'number' => $number,
     'exp_month' => '05',
     'exp_year' => 2015,
     'amount' => $amount,
