@@ -152,5 +152,5 @@ function dosomething_notfound_form_search_form_alter(&$form, &$form_state, $form
   // Get the query string from the form state.
   $query_string = $form_state['build_info']['args']['query_string'];
   // Use the query as the default text in the search form.
-  $form['basic']['keys']['#default_value'] = t($query_string);
+  $form['basic']['keys']['#default_value'] = $query_string;
 }
