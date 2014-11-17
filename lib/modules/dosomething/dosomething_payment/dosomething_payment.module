@@ -1,0 +1,338 @@
+<?php
+/**
+ * @file
+ * Code for the DoSomething Payment module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_payment_menu() {
+  $items = array();
+  $items['admin/config/dosomething/dosomething_payment'] = array(
+    'title' => 'DoSomething Payment',
+    'description' => 'Manage Payment settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_payment_admin_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_payment.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_payment_libraries_info() {
+  $libraries['stripe-php'] = array(
+    'name' => 'Stripe',
+    'path' => 'lib',
+    'files' => array(
+      'php' => array(
+        'Stripe.php',
+      ),
+    ),
+    'version' => 1,
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function dosomething_payment_block_info() {
+  $blocks = array();
+  $blocks['donate_form'] = array(
+    'info' => t('DS Payment: Donate Form'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function dosomething_payment_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'donate_form':
+      $config = array(
+        'submit_label' => t("Donate"),
+      );
+      // This is a bit of a hack to get two different variables.
+      // Use the block's subject as the form header.
+      $block['subject'] = variable_get('dosomething_payment_donate_form_header');
+      // Check for confirmation query string:
+      if (isset($_GET['donated'])) {
+        $msg = variable_get('dosomething_payment_donate_confirm_msg');
+        $block['content'] = $msg;
+      }
+      // Else render the Payment Form.
+      else {
+         $block['content'] = drupal_get_form('dosomething_payment_form', $config);
+      }
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Form constructor for creating a Payment.
+ */
+function dosomething_payment_form($form, &$form_state, $config = array()) {
+  // This JS is needed to create a Stripe token, which is used for API posts. 
+  drupal_add_js('https://js.stripe.com/v2/');
+  // Add the API publish key to JS settings.
+  $api_publish = variable_get('dosomething_payment_stripe_api_key_publish');
+  drupal_add_js(
+    array('dosomethingPayment' =>
+      array(
+        'stripeAPIPublish' => $api_publish,
+      )
+    ),
+    'setting'
+  );
+  $form['full_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name on Card'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'full_name',
+      'data-validate-required' => '',
+      'data-stripe' => 'name',
+    ),
+  );
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'email',
+      'data-validate-required' => '',
+      'data-stripe' => 'email',
+    ),
+  );
+  $form['number'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Card Number'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cc_num',
+      'data-validate-required' => '',
+      'data-stripe' => 'number',
+      'autocomplete' => 'off',
+    ),
+  );
+  $form['cvv'] = array(
+    '#type' => 'textfield',
+    '#title' => t('CVV'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'cvv',
+      'data-validate-required' => '',
+      'data-stripe' => 'cvc',
+    ),
+  );
+  $form['exp_month'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MM'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_month',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-month',
+    ),
+  );
+  $form['exp_year'] = array(
+    '#type' => 'textfield',
+    '#title' => t('YYYY'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'exp_year',
+      'data-validate-required' => '',
+      'data-stripe' => 'exp-year',
+    ),
+  );
+  $form['amount'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Amount'),
+    '#field_prefix' => t('$'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'amount',
+      'data-validate-required' => '',
+      'data-stripe' => 'amount',
+    ),
+  );
+  // Gets set by the JS request to Stripe API.
+  $form['token'] = array(
+    '#type' => 'hidden',
+  );
+
+  // Check if submit label has been set.
+  $submit = t("Submit");
+  if (isset($config['submit_label'])) {
+    $submit = $config['submit_label'];
+  }
+
+  // Check if we are in secret testing mode.
+  // @todo: Remove this code when we're ready to go live.
+  if (isset($_GET['testing']) && is_numeric($_GET['testing'])) {
+    $amount = $_GET['testing'];
+    $email = variable_get('site_mail', '');
+    $test = dosomething_payment_get_stripe_test_values($email, $amount);
+    foreach ($test as $key => $value) {
+      $form[$key]['#default_value'] = $value;
+    }
+  }
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => $submit,
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_payment_form().
+ */
+function dosomething_payment_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+
+  // Expected amount to charge to Stripe should be in cents.
+  $values['amount'] = $values['amount'] * 100;
+  // Send Payment request to Stripe API.
+  if (dosomething_payment_post_payment_stripe($values)) {
+    // Redirect to current page with query string.
+    $form_state['redirect'] = array(
+      drupal_get_path_alias(),
+      array(
+        'query' => array('donated' => 1),
+      ),
+    );
+  }
+}
+
+/**
+ * Sets a Stripe static client object.
+ *
+ * @see https://stripe.com/docs/api/php#authentication
+ *
+ * @return bool
+ *   TRUE if success, FALSE if not.
+ */
+function dosomething_payment_stripe_get_client() {
+  $library = libraries_load('stripe-php');
+  if (empty($library['loaded'])) {
+    $error = t("Stripe library not found.");
+    watchdog('dosomething_payment', $error, NULL, WATCHDOG_ERROR);
+    return FALSE;
+  }
+  $api_key = variable_get('dosomething_payment_stripe_api_key');
+  try {
+    Stripe::setApiKey($api_key);
+    return TRUE;
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
+
+/**
+ * Posts a USD payment to Stripe.
+ *
+ * @see https://stripe.com/docs/api/php#charges
+ *
+ * @param array $values
+ *   An associative array containing:
+ *   - number: Credit card number (string).
+ *   - exp_month: Credit card expiration month (int).
+ *   - exp_year: Credit card expiration year (int).
+ *   - amount: Amount of USD to charge (in cents).
+ */
+function dosomething_payment_post_payment_stripe($values) {
+  $client = dosomething_payment_stripe_get_client();
+  if (!$client) {
+    form_set_error(NULL, t("Stripe configuration error."));
+    return;
+  }
+
+  // Create a Stripe customer.
+  $customer = dosomething_payment_stripe_create_customer($values);
+  if (!$customer) {
+    form_set_error(NULL, t("Sorry, there was an error processing your request."));
+    return;
+  }
+
+  try {
+    // Charge the customer.
+    // @see https://stripe.com/docs/tutorials/charges
+    Stripe_Charge::create(array(
+      'customer' => $customer->id,
+      'amount' => $values['amount'],
+      'currency' => 'usd',
+      'receipt_email' => $values['email'],
+      "description" => "Donation for DoSomething.org"
+    ));
+    return TRUE;
+  }
+  catch (Exception $e) {
+    form_set_error(NULL, t("Sorry, there was an error processing your request."));
+    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Returns array of values for Stripe client testing.
+ *
+ * @param int $amount
+ *   Amount to post to a Stripe charge.
+ */
+function dosomething_payment_get_stripe_test_values($email, $amount = 2000) {
+  return array(
+    'email' => $email,
+    'number' => '4242424242424242',
+    'exp_month' => '05',
+    'exp_year' => 2015,
+    'amount' => $amount,
+  );
+}
+
+/**
+ * Creates a Stripe customer.
+ *
+ * @see https://stripe.com/docs/api/php#create_customer
+ *
+ * @param array $values
+ *   An associative array containing:
+ *   - email: (string).
+ *   - full_name: (string).
+ *   - token: (string).
+ *
+ * @return
+ *   The newly created customer object, or FALSE if error.
+ */
+function dosomething_payment_stripe_create_customer($values) {
+  $client = dosomething_payment_stripe_get_client();
+
+  if (!$client) {
+    return;
+  }
+  try {
+    $customer = Stripe_Customer::create(array(
+      'email' => $values['email'],
+      'card' => $values['token'],
+      'description' => $values['full_name'],
+    ));
+    return $customer;
+  }
+  catch (Exception $e) {
+    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+    return FALSE;
+  }
+}

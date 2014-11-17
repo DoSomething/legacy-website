@@ -55,6 +55,7 @@ function dosomething_user_field_default_field_instances() {
           'US' => 'US',
         ),
         'format_handlers' => array(
+          'dosomething-affiliate-country' => 'dosomething-affiliate-country',
           'address' => 'address',
           'address-hide-country' => 'address-hide-country',
           'organisation' => 0,

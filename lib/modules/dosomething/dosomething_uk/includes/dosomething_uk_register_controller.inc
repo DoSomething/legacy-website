@@ -74,18 +74,6 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
       );
     }
 
-    // If the postal code is validated remotely, save also the country.
-    if ($this->remote_account->getPostcode()) {
-      form_set_value(
-        $form['field_address'],
-        array(LANGUAGE_NONE => array(array(
-          'postal_code' => $this->remote_account->getPostcode(),
-          'country' => $this->remote_account->getCountry(),
-        ))),
-        $form_state
-      );
-    }
-
     return $this;
   }
 

@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_payment.module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_payment_uninstall() {
+  $vars = array(
+    'dosomething_payment_donate_confirm_msg',
+    'dosomething_payment_stripe_api_key',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}

@@ -93,6 +93,11 @@ function paraneue_dosomething_theme() {
     ),
 
     // Register theme functions for the Neue library.
+    'paraneue_figure' => array(
+      'template' => 'figure',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
     'paraneue_media' => array(
       'template' => 'media',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
@@ -101,12 +106,9 @@ function paraneue_dosomething_theme() {
       ),
     ),
 
-    'paraneue_gallery_duo' => array(
-      'template' => 'gallery-duo',
+    'paraneue_gallery' => array(
+      'template' => 'gallery',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
-      'variables' => array(
-        'items' => NULL,
-      ),
     ),
   );
 }

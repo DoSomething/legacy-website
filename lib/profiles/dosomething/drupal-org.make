@@ -64,14 +64,11 @@ projects[features][version] = "2.2"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-projects[field_collection][type] = "module"
-; Fixes https://drupal.org/node/2141781, https://github.com/DoSomething/dosomething/issues/2561.
-projects[field_collection][download][type] = "git"
-projects[field_collection][download][revision] = "ae778f23f8e0968fa3a10a727c6e26c6e63309a0"
+projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
-projects[field_group][version] = "1.3"
+projects[field_group][version] = "1.4"
 projects[field_group][subdir] = "contrib"
 
 ; File Entity
@@ -111,7 +108,7 @@ projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag][version] = "1.0-beta9"
+projects[metatag][version] = "1.4"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
@@ -266,6 +263,10 @@ libraries[predis][download][type] = "git"
 libraries[predis][download][url] = "https://github.com/nrk/predis.git"
 ; Pin to 0.8 release, which still has the lib directory.
 libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf6"
+
+; Stripe PHP
+libraries[stripe-php][download][type] = "git"
+libraries[stripe-php][download][url] = "https://github.com/stripe/stripe-php"
 
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"

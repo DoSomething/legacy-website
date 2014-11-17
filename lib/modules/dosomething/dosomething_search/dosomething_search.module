@@ -32,7 +32,7 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
   elseif ($form_id == 'search_form' || $form_id == 'apachesolr_search_custom_page_search_form') {
     unset($form['basic']['keys']['#title']);
     $form['basic']['keys']['#theme'] = 'dosomething_search_field';
-    $form['basic']['submit']['#attributes'] = array('class' => array('btn'));
+    $form['basic']['submit']['#attributes'] = array('class' => array('btn','secondary'));
     $form['#action'] = url('search/apachesolr_search');
     $form['#submit'] = array('dosomething_search_form_submit');
   }
@@ -186,33 +186,6 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
 
     $document->setField('is_bubble_factor', $bubble_factor);
   }
-}
-
-
-/**
- * Preprocess a single search result.
- */
-function dosomething_search_preprocess_search_result(&$vars) {
-  $result = $vars['result'];
-  switch ($result['bundle']) {
-    case 'campaign':
-      $vars['subtitle'] = $result['fields']['sm_field_call_to_action'][0];
-      break;
-    case 'static_content':
-    case 'fact_page':
-      if (!empty($result['fields']['sm_field_subtitle'][0])) {
-        $vars['subtitle'] = $result['fields']['sm_field_subtitle'][0];
-      }
-      else {
-        $vars['subtitle'] = $result['fields']['sm_field_intro_title'][0];
-      }
-    break;
-    default:
-      break;
-  }
-}
-
-function dosomething_search_preprocess_search_results(&$vars) {
 }
 
 function dosomething_search_theme() {
