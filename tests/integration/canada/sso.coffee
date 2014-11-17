@@ -25,6 +25,9 @@ casper.test.begin "Test the registration form", 2, (test) ->
   # Launch browser on registration page.
   casper.start "#{url}/user/register"
 
+  # Wait for user to be loaded.
+  casper.waitFor userIsLoaded = -> !!user.username
+
   # Ensure registration form.
   casper.then -> test.assertExists FORM, 'Registration form found.'
 
