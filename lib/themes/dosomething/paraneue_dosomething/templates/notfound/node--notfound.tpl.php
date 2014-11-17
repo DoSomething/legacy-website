@@ -23,7 +23,7 @@
   </header>
 
   <?php if ($disable_results == FALSE): ?>
-    <div class="container notfound-search-results">
+    <div class="container notfound-search-results <?php if (!empty($notfound_page_type)) { print $notfound_page_type; } ?>">
       <div class="wrapper notfound-results">
         <?php if (isset($results_copy)): ?>
           <h3 class="search-results-header">

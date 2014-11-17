@@ -6,13 +6,17 @@ header.notfound p {
   text-align: center;
 }
 
-.notfound-results p {
-  text-align: center;
-}
-
 .search-form {
   @include media($tablet) {
     margin: 0 auto 2em;
     width: 80%;
+  }
+}
+
+.path-specific {
+
+  .search-results-header {
+    text-align: left;
+    @include span-columns(9 of 12);
   }
 }

@@ -83,7 +83,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   }
 
   $raw_url = request_path();
-  $copy = NULL; // Temp variable. 
+  $copy = NULL; // Temp variable.
 
   if (strpos($raw_url, "grants") === 0) {
     $copy = variable_get('dosomething_notfound_copy_grants');
@@ -94,6 +94,8 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   // For path specific results.
   if (isset($copy)) {
+    // Create class for themeing path specific pages.
+    $vars['notfound_page_type'] = "path-specific";
     // Sets the copy above the results.
     $vars['results_copy'] = check_markup($copy, 'markdown');
 
