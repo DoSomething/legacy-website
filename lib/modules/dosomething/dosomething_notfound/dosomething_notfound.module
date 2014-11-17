@@ -122,14 +122,11 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $query_string .= $formatted_terms[$i] . " ";
   }
 
-  $search = apachesolr_search_search_execute($query_string);
+  $vars['raw_search_results'] = apachesolr_search_search_execute($query_string);
 
-  if (count($search) == 0) {
+  if (count($vars['raw_search_results']) == 0) {
     return;
   }
-
-  // Theme the set of results as duo gallery.
-  $vars['search_results'] = paraneue_dosomething_get_search_gallery($search);
 
   // Make the search form availabe to the page.
   $search_form = drupal_get_form('search_form');
