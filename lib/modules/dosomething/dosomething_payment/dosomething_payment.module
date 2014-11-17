@@ -131,7 +131,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
     '#attributes' => array(
       'data-validate' => 'cvv',
       'data-validate-required' => '',
-      'data-stripe' => 'cvv',
+      'data-stripe' => 'cvc',
     ),
   );
   $form['exp_month'] = array(
