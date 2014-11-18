@@ -157,6 +157,22 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
 }
 
 /**
+ * Returns a themed image URL for a given File $fid and $style preset.
+ *
+ * @param int $fid
+ *  The File fid.
+ * @param string $style
+ *  The image style preset/size to return the image.
+ *
+ * @return string
+ *  URL of the image source.
+ */
+function dosomething_image_get_themed_image_url_by_fid($fid, $style) {
+  $file = file_load($fid);
+  return image_style_url($style, $file->uri);
+}
+
+/**
  * Implements hook_node_update().
  */
 function dosomething_image_node_update($node) {
