@@ -283,13 +283,15 @@ class ReportbackEntityController extends EntityAPIController {
       t('Caption'),
       t('IP'),
       t('Created'),
-      NULL
+      NULL,
     );
     foreach ($entity->getReportbackFileData() as $delta => $record) {
       $fid = $record->fid;
       $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
       $file = file_load($fid);
-      $file_link = l($fid, 'file/' . $fid);
+      $file_url = file_create_url($file->uri);
+      $file_link = l($fid, $file_url);
+      $image = l($image, $file_url, array('html' => TRUE));
       $created = format_date($file->timestamp, 'short');
       $promoted = NULL;
       // If file has been promoted:
