@@ -68,6 +68,13 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'reportback_files' => array(
+      'operations' => array(
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'system' => array(
       'actions' => array(
         'connect' => array(
