@@ -33,6 +33,11 @@
         <?php if (!empty($search_form)): ?>
           <?php print $search_form; ?>
         <?php endif; ?>
+        <?php if (!empty($suggestions_header)): ?>
+          <h3 class="search-results-header">
+            <?php print $suggestions_header; ?>
+          </h3>
+        <?php endif; ?>
         <?php if (isset($campaign_results)): ?>
           <?php print $campaign_results; ?>
         <?php endif; ?>
