@@ -280,7 +280,10 @@
 
       <div class="wrapper">
         <?php if( $show_new_reportback ): ?>
-          <?php print t('New reportback interface here!'); ?>
+          <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
+          <button>
+            Be the first to add your photo here!
+          </button>
         <?php else: ?>
           <div class="container__body">
             <div class="-columned">
