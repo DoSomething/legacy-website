@@ -22,7 +22,7 @@ function dosomething_notfound_admin_config_form($form, &$form_state) {
   $form['dosomething_notfound_search_filter'] = array(
     '#type' => 'textarea',
     '#title' => 'Search filter words',
-    '#description' => 'Comma seperate all filter words (eg: blog,actnow,etc)', 
+    '#description' => 'Comma separated list of all words to exclude from the search string (e.g. blog, actnow)', 
     '#default_value' => variable_get('dosomething_notfound_search_filter'),
     );
   return system_settings_form($form);
