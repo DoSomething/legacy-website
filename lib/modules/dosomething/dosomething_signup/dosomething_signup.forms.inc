@@ -247,12 +247,10 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
     $form['opt_in_path'] = array(
       '#type' => 'hidden',
       '#default_value' => $opt_in_path,
-      '#access' => FALSE,
     );
     $form['friends_opt_in_path'] = array(
       '#type' => 'hidden',
       '#default_value' => $friends_opt_in_path,
-      '#access' => FALSE,
     );
   }
   // Else check for multi-player variables:
@@ -261,12 +259,10 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
     $form['story_id'] = array(
       '#type' => 'hidden',
       '#default_value' => $mp_story_id,
-      '#access' => FALSE,
     );
     $form['story_type'] = array(
       '#type' => 'hidden',
       '#default_value' => $mp_story_type,
-      '#access' => FALSE,
     );
   }
   else {
