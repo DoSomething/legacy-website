@@ -146,7 +146,7 @@ function paraneue_dosomething_get_search_vars($results) {
         $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
-          $value['display_image'] = dosomething_image_get_themed_image($image['und'][0]['target_id'], 'square', '100x100');
+          $value['display_image'] = dosomething_image_get_themed_image($image['und'][0]['target_id'], 'square', '300x300');
         }
         else {
           $value['display_image'] = '';
