@@ -58,8 +58,10 @@ function dosomething_static_content_preprocess_node(&$vars) {
     }
 
     $node = entity_metadata_wrapper('node', $vars['node']);
-    if ($node->field_video->value()->field_video_id) {
-      $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
+    if (!empty($vars['node']->field_video)) {
+      if ($node->field_video->value()->field_video_id) {
+        $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
+      }
     }
 
     // Preprocess gallery variables.
