@@ -8,34 +8,34 @@ require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
 
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['theme_settings'] = array(
-      '#type'          => 'fieldset',
-      '#title'         => t('Theme Settings'),
+      '#type'        => 'fieldset',
+      '#title'       => t('Theme Settings'),
       '#collapsible' => FALSE,
-      '#collapsed' => FALSE,
-      '#weight'=> -19
+      '#collapsed'   => FALSE,
+      '#weight'      => -19
   );
 
   $form['theme_settings']['asset_path'] = array(
     '#type' => 'textfield',
     '#title' => t('Asset Path'),
-    '#description' => t('Path to load assets from. The <code>{ds_version}</code> string can be used to include the current <code>ds_version</code> value, or "latest" if not set. If left blank, assets will be loaded from the local theme folder.'),
+    '#description'   => t('Path to load assets from. The <code>{ds_version}</code> string can be used to include the current <code>ds_version</code> value, or "latest" if not set. If left blank, assets will be loaded from the local theme folder.'),
     '#default_value' => theme_get_setting('asset_path')
   );
 
   $form['theme_settings']['use_minified_assets'] = array(
     '#type' => 'checkbox',
     '#title' => t('Minify Assets'),
-    '#description' => t('Will use minified assets. Uncheck this if debugging in a browser without source maps. <strong>(Unminified assets are only created in production builds.)</strong>'),
+    '#description'   => t('Will use minified assets. Uncheck this if debugging in a browser without source maps. <strong>(Unminified assets are only created in production builds.)</strong>'),
     '#default_value' => theme_get_setting('use_minified_assets')
   );
 
   $form['feature_flags'] = array(
-      '#type'          => 'fieldset',
-      '#title'         => t('Feature Flags'),
-      '#description'   => t('Allows features to be toggled on or off in different environments.'),
+      '#type'        => 'fieldset',
+      '#title'       => t('Feature Flags'),
+      '#description' => t('Allows features to be toggled on or off in different environments.'),
       '#collapsible' => FALSE,
-      '#collapsed' => FALSE,
-      '#weight'=> -19
+      '#collapsed'   => FALSE,
+      '#weight'      => -19
   );
 
   $flags = array(
@@ -50,6 +50,10 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
     'show_sponsors' => array(
       '#title' => t('Show sponsors'),
       '#description' => t('Toggles the sponsors block on the home page when finder is enabled.')
+    ),
+    'show_new_reportback' => array(
+      '#title' => t('Show New Reportback'),
+      '#description' => t('Toggles using the new Reportback user interface on the Action page.')
     )
   );
 

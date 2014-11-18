@@ -279,50 +279,54 @@
       <h2 class="container__title banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
       <div class="wrapper">
-        <div class="container__body">
-          <div class="-columned">
-            <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
+        <?php if( $show_new_reportback ): ?>
+          <?php print t('New reportback interface here!'); ?>
+        <?php else: ?>
+          <div class="container__body">
+            <div class="-columned">
+              <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
-            <?php if (isset($reportback_copy)): ?>
-              <p class="copy"><?php print $reportback_copy; ?></p>
-            <?php endif; ?>
+              <?php if (isset($reportback_copy)): ?>
+                <p class="copy"><?php print $reportback_copy; ?></p>
+              <?php endif; ?>
 
-            <?php if (isset($reportback_link)): ?>
-              <a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="btn"><?php print $reportback_link['label']; ?></a>
-            <?php endif; ?>
+              <?php if (isset($reportback_link)): ?>
+                <a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="btn"><?php print $reportback_link['label']; ?></a>
+              <?php endif; ?>
 
-            <?php print $prove_scholarship; ?>
+              <?php print $prove_scholarship; ?>
 
-            <?php if (isset($reportback_form)): ?>
-              <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
-                <h2 class="banner"><?php print t('Prove It'); ?></h2>
-                <?php print render($reportback_form); ?>
-              </div>
-            <?php endif; ?>
+              <?php if (isset($reportback_form)): ?>
+                <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
+                  <h2 class="banner"><?php print t('Prove It'); ?></h2>
+                  <?php print render($reportback_form); ?>
+                </div>
+              <?php endif; ?>
+            </div>
+
+            <aside class="carousel-wrapper gallery -columned">
+              <?php if (isset($reportback_image)): ?>
+                <div id="prev" class="prev-wrapper">
+                  <div class="prev-button"><span class="arrow">&#xe605;</span></div>
+                </div>
+
+                <div class="slide-wrapper">
+                  <?php foreach ($reportback_image as $key=>$image): ?>
+                  <figure id="slide<?php print $key ?>" class="slide"><img src="<?php print $image ?>" /></figure>
+                  <?php endforeach; ?>
+                </div>
+
+                <div id="next" class="next-wrapper">
+                  <div class="next-button"><span class="arrow">&#xe60a;</span></div>
+                </div>
+              <?php else: ?>
+              <div class="carousel-wrapper">
+                <figure class="slide visible"><?php print $reportback_placeholder; ?></figure>
+                </div>
+              <?php endif; ?>
+            </aside>
           </div>
-
-          <aside class="carousel-wrapper gallery -columned">
-            <?php if (isset($reportback_image)): ?>
-              <div id="prev" class="prev-wrapper">
-                <div class="prev-button"><span class="arrow">&#xe605;</span></div>
-              </div>
-
-              <div class="slide-wrapper">
-                <?php foreach ($reportback_image as $key=>$image): ?>
-                <figure id="slide<?php print $key ?>" class="slide"><img src="<?php print $image ?>" /></figure>
-                <?php endforeach; ?>
-              </div>
-
-              <div id="next" class="next-wrapper">
-                <div class="next-button"><span class="arrow">&#xe60a;</span></div>
-              </div>
-            <?php else: ?>
-            <div class="carousel-wrapper">
-              <figure class="slide visible"><?php print $reportback_placeholder; ?></figure>
-              </div>
-            <?php endif; ?>
-          </aside>
-        </div>
+        <?php endif; ?>
 
         <?php if (isset($official_rules)): ?>
           <div class="disclaimer">

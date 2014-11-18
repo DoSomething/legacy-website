@@ -214,6 +214,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
 
     case "campaign":
       paraneue_dosomething_preprocess_node_campaign($vars);
+      $vars['show_new_reportback'] = theme_get_setting('show_new_reportback');
       break;
 
     case "campaign_group":
@@ -513,7 +514,7 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
       );
       array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
     }
-    $vars['campaign_results'] = paraneue_get_gallery($gallery_items, 'triad');    
+    $vars['campaign_results'] = paraneue_get_gallery($gallery_items, 'triad');
   }
   else if (isset($vars['raw_search_results'])){
     // Theme the set of results as duo gallery.
