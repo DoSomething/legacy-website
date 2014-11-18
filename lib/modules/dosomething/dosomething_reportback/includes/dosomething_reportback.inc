@@ -136,13 +136,17 @@ class ReportbackEntity extends Entity {
 
   /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
+   *
+   * @param object $values
+   *   Values to write to a dosomething_reportback_file record.
    */
-  public function insertFid($fid) {
+  public function createReportbackFile($values) {
     return db_insert($this->files_table)
       ->fields(array(
-        'rbid' => $this->rbid,
-        'fid' => $fid,
-        'remote_addr' => dosomething_helpers_ip_address(),
+          'rbid' => $this->rbid,
+          'fid' => $values->fid,
+          'caption' => $values->caption,
+          'remote_addr' => dosomething_helpers_ip_address(),
         ))
       ->execute();
   }
@@ -329,7 +333,7 @@ class ReportbackEntityController extends EntityAPIController {
     // If a file fid exists:
     if (isset($entity->fid)) {
       // Add it into the reportback files.
-      $entity->insertFid($entity->fid);
+      $entity->createReportbackFile($entity);
     }
     // Log the write operation.
     $entity->insertLog($op);
