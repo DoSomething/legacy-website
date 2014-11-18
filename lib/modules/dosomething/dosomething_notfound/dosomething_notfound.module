@@ -114,14 +114,18 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
 
   if (count($formatted_terms) <= 1) {
+    // @TODO: Issue 3428 
     return;
   }
 
+  $filter_words = explode(",", variable_get('dosomething_notfound_search_filter'));
   $query_string = "";
   $total = count($formatted_terms);
   for ($i = 0; $i < $total; $i++) {
-    // TODO: Check for terms to ignore.
-    $query_string .= $formatted_terms[$i] . " ";
+    $term = $formatted_terms[$i];
+    if (!in_array($term, $filter_words)) {
+      $query_string .= $term . " ";
+    }
   }
 
   $vars['raw_search_results'] = apachesolr_search_search_execute($query_string);
