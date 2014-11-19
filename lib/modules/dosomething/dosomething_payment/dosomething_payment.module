@@ -232,15 +232,16 @@ function dosomething_payment_stripe_get_client() {
     watchdog('dosomething_payment', $error, NULL, WATCHDOG_ERROR);
     return FALSE;
   }
+  $client = TRUE;
   $api_key = variable_get('dosomething_payment_stripe_api_key');
   try {
     Stripe::setApiKey($api_key);
-    return TRUE;
   }
   catch (Exception $e) {
-    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
-    return FALSE;
+    $client = FALSE;
+    watchdog('dosomething_payment', $e->getMessage(), NULL, WATCHDOG_ERROR);
   }
+  return $client;
 }
 
 /**
@@ -258,14 +259,13 @@ function dosomething_payment_stripe_get_client() {
 function dosomething_payment_post_payment_stripe($values) {
   $client = dosomething_payment_stripe_get_client();
   if (!$client) {
-    form_set_error(NULL, t("Stripe configuration error."));
+    drupal_set_message(t("Stripe configuration error."), 'error');
     return;
   }
 
   // Create a Stripe customer.
   $customer = dosomething_payment_stripe_create_customer($values);
   if (!$customer) {
-    form_set_error(NULL, t("Sorry, there was an error processing your request."));
     return;
   }
 
@@ -282,8 +282,9 @@ function dosomething_payment_post_payment_stripe($values) {
     return TRUE;
   }
   catch (Exception $e) {
-    form_set_error(NULL, t("Sorry, there was an error processing your request."));
-    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+    $error = $e->getMessage();
+    drupal_set_message($error, 'error');
+    watchdog('dosomething_payment', $e->getMessage(), NULL, WATCHDOG_ERROR);
   }
 }
 
@@ -294,9 +295,19 @@ function dosomething_payment_post_payment_stripe($values) {
  *   Amount to post to a Stripe charge.
  */
 function dosomething_payment_get_stripe_test_values($email, $amount = 2000) {
+  $number = '4242424242424242';
+  if (isset($_GET['declined'])) {
+    $number = '4000000000000002';
+  }
+  elseif (isset($_GET['cvc'])) {
+    $number = '4000000000000127';
+  }
+  elseif (isset($_GET['expired'])) {
+    $number = '4000000000000069';
+  }
   return array(
     'email' => $email,
-    'number' => '4242424242424242',
+    'number' => $number,
     'exp_month' => '05',
     'exp_year' => 2015,
     'amount' => $amount,
@@ -332,7 +343,9 @@ function dosomething_payment_stripe_create_customer($values) {
     return $customer;
   }
   catch (Exception $e) {
-    watchdog('dosomething_payment', $e, NULL, WATCHDOG_ERROR);
+    $error = $e->getMessage();
+    drupal_set_message($error, 'error');
+    watchdog('dosomething_payment', $e->getMessage(), NULL, WATCHDOG_ERROR);
     return FALSE;
   }
 }

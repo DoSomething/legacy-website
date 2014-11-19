@@ -99,6 +99,16 @@ function dosomething_reportback_entity_property_info() {
  */
 function dosomething_reportback_menu() {
   $items = array();
+  // Admin campaign configuration page.
+  $items['admin/config/dosomething/dosomething_reportback'] = array(
+    'title' => 'DoSomething Reportback',
+    'description' => 'Admin form to set Reportback variables.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+  );
   $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
@@ -434,6 +444,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
 function dosomething_reportback_set_files(&$entity, $values) {
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
+    $entity->caption = $values['caption'];
   }
 }
 
@@ -814,7 +825,7 @@ function dosomething_reportback_get_noun_and_verb($nid) {
  */
 function dosomething_reportback_services_resources() {
   $resources = array();
-  $resources['reportback'] = array(
+  $resources['reportbacks'] = array(
     'operations' => array(
       'retrieve' => array(
         'help' => 'Retrieve a reportback.',

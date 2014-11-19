@@ -214,6 +214,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
 
     case "campaign":
       paraneue_dosomething_preprocess_node_campaign($vars);
+      $vars['show_new_reportback'] = theme_get_setting('show_new_reportback');
       break;
 
     case "campaign_group":
@@ -498,24 +499,27 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 }
 
 /**
- * Themes the recommended campaigns
+ * Themes the recommended campaigns for the notfound page
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
-  if ($vars['suggestions'] == FALSE) {
-    return;
+  if (isset($vars['raw_campaign_results'])) {
+    $suggestions = $vars['raw_campaign_results'];
+    $gallery_items = array();
+    foreach ($suggestions as $suggestion => $value) {
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $item = array(
+        'title' => $value['link'],
+        'image' => $image,
+        'description' => $value['call_to_action'],
+      );
+      array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+    }
+    $vars['campaign_results'] = paraneue_get_gallery($gallery_items, 'triad');
   }
-  $suggestions = $vars['raw_results'];
-  $gallery_items = array();
-  foreach ($suggestions as $suggestion => $value) {
-    $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
-    $item = array(
-      'title' => $value['link'],
-      'image' => $image,
-      'description' => $value['call_to_action'],
-    );
-    array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+  else if (isset($vars['raw_search_results'])){
+    // Theme the set of results as duo gallery.
+    $vars['search_results'] = paraneue_dosomething_get_search_gallery($vars['raw_search_results']);
   }
-  $vars['results'] = paraneue_get_gallery($gallery_items, 'triad');
 }
 
 /**

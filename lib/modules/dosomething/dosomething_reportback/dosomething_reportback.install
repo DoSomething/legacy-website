@@ -148,7 +148,7 @@ function dosomething_reportback_schema() {
         'default' => 0,
       ),
       'fid' => array(
-        'description' => 'File fid',
+        'description' => 'Original file fid',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
@@ -159,6 +159,25 @@ function dosomething_reportback_schema() {
         'type' => 'varchar',
         'length' => 128,
         'not null' => FALSE,
+      ),
+      'caption' => array(
+        'description' => 'File caption.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'options_processed' => array(
+        'description' => 'File processing options.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
+      'fid_processed' => array(
+        'description' => 'Processed file fid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
       ),
     ),
     'primary key' => array('rbid', 'fid'),
@@ -301,4 +320,23 @@ function dosomething_reportback_update_7009() {
   if (db_field_exists($table, $field)) {
     db_drop_field($table, $field);
   }
- }
+}
+
+/**
+ * Adds new columnns to the dosomething_reportback_file table.
+ */
+function dosomething_reportback_update_7013(&$sandbox) {
+  $tbl_name = 'dosomething_reportback_file';
+  $new_fields = array(
+    'caption',
+    'options_processed',
+    'fid_processed',
+  );
+  $schema = dosomething_reportback_schema();
+  foreach ($new_fields as $fld_name) {
+    if (!db_field_exists($tbl_name, $fld_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
+    }
+  }
+}

@@ -136,13 +136,17 @@ class ReportbackEntity extends Entity {
 
   /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
+   *
+   * @param object $values
+   *   Values to write to a dosomething_reportback_file record.
    */
-  public function insertFid($fid) {
+  public function createReportbackFile($values) {
     return db_insert($this->files_table)
       ->fields(array(
-        'rbid' => $this->rbid,
-        'fid' => $fid,
-        'remote_addr' => dosomething_helpers_ip_address(),
+          'rbid' => $this->rbid,
+          'fid' => $values->fid,
+          'caption' => $values->caption,
+          'remote_addr' => dosomething_helpers_ip_address(),
         ))
       ->execute();
   }
@@ -273,12 +277,21 @@ class ReportbackEntityController extends EntityAPIController {
     );
     // Output Reportback Files.
     $rows = array();
-    $header = array('Fid', 'Image', 'IP', 'Created', NULL);
+    $header = array(
+      t('Fid'),
+      t('Image'),
+      t('Caption'),
+      t('IP'),
+      t('Created'),
+      NULL,
+    );
     foreach ($entity->getReportbackFileData() as $delta => $record) {
       $fid = $record->fid;
       $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
       $file = file_load($fid);
-      $file_link = l($fid, 'file/' . $fid);
+      $file_url = file_create_url($file->uri);
+      $file_link = l($fid, $file_url);
+      $image = l($image, $file_url, array('html' => TRUE));
       $created = format_date($file->timestamp, 'short');
       $promoted = NULL;
       // If file has been promoted:
@@ -287,7 +300,14 @@ class ReportbackEntityController extends EntityAPIController {
         $promoted = "Promoted on " . format_date($flagging->timestamp, 'short');
         $promoted .= $caption;
       }
-      $rows[] = array($file_link, $image, $record->remote_addr, $created, $promoted);
+      $rows[] = array(
+        $file_link,
+        $image,
+        $record->caption,
+        $record->remote_addr,
+        $created,
+        $promoted,
+      );
     }
     $build['reportback_files'] = array(
       '#theme' => 'table',
@@ -329,7 +349,7 @@ class ReportbackEntityController extends EntityAPIController {
     // If a file fid exists:
     if (isset($entity->fid)) {
       // Add it into the reportback files.
-      $entity->insertFid($entity->fid);
+      $entity->createReportbackFile($entity);
     }
     // Log the write operation.
     $entity->insertLog($op);

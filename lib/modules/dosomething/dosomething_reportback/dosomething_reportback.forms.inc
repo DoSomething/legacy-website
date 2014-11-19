@@ -99,6 +99,20 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['crop_height'] = array(
     '#type' => 'hidden',
   );
+  $caption = NULL;
+  if (isset($entity->caption)) {
+    $caption = $entity->caption;
+  }
+  $form['caption'] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate-required' => '',
+      'placeholder' => t("Write something..."),
+    ),
+    '#title' => t("Caption"),
+    '#default_value' => $caption,
+  );
   $form['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,

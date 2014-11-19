@@ -73,17 +73,17 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['video'] = $vars['hero_image']['video'];
   }
 
-  // False until proven true
-  $vars['search'] = FALSE;
-  $vars['suggestions'] = FALSE;
+  // Indicates if we should display results below header.
+  $vars['disable_results'] = FALSE;
 
-  // No need to search or lookup anything else
+  // No need to search or lookup anything else.
   if (variable_get('dosomething_notfound_disable_results') == 1) {
+    $vars['disable_results'] = TRUE;
     return;
   }
 
   $raw_url = request_path();
-  $copy = NULL;
+  $copy = NULL; // Temp variable.
 
   if (strpos($raw_url, "grants") === 0) {
     $copy = variable_get('dosomething_notfound_copy_grants');
@@ -92,57 +92,61 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $copy = variable_get('dosomething_notfound_copy_projects');
   }
 
+  // For path specific results.
   if (isset($copy)) {
-    $vars['results_info'] = check_markup($copy, 'markdown');
-
-    $vars['suggestions'] = TRUE;
-    // Get recommended campaigns.
-    $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
-    $rec_vars = array();
-    foreach ($rec_nids as $nid) {
-      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
-    }
-    $vars['raw_results'] = $rec_vars;
+    // Create class for theming path specific pages.
+    $vars['notfound_page_type'] = "path-specific";
+    // Sets the copy above the results.
+    $vars['results_copy'] = check_markup($copy, 'markdown');
+    // Raw results is themed in preprocessing and stored as $campaign_results.
+    $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
 
-  if (count($formatted_terms) <= 1) {
-    return;
-  }
-
+  // Get a list of terms that we don't want to search by.
+  $filter_words = explode(",", variable_get('dosomething_notfound_search_filter'));
   $query_string = "";
   $total = count($formatted_terms);
+  // Create the query string.
   for ($i = 0; $i < $total; $i++) {
-    $query_string .= $formatted_terms[$i] . " ";
+    $term = $formatted_terms[$i];
+    if (!in_array($term, $filter_words)) {
+      $query_string .= $term . " ";
+    }
   }
 
-  $search = apachesolr_search_search_execute($query_string);
+  // For 404 pages with search.
+  if (!empty($query_string)) {
+    $vars['raw_search_results'] = apachesolr_search_search_execute($query_string);
+    if (count($vars['raw_search_results']) != 0) {
+      // Pass the query string used in the search to the search form.
+      $form_state = array(
+        'build_info' => array(
+          'args' => array(
+            'query_string' => $query_string,
+          ),
+        ),
+      );
+      $search_form = drupal_build_form('search_form', $form_state);
 
-  if (count($search) == 0) {
-    return;
+      // Make the search form availabe to the page.
+      $vars['search_form'] = drupal_render($search_form);
+      // Search header text.
+      $vars['results_copy'] = t('We did a quick search, here is some similar content that we do have.');
+      return;
+    }
   }
 
-  $vars['search'] = TRUE;
-  $vars['results'] = $search;
-
-  // Theme the set of results as duo gallery.
-  $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($vars['results']);
-  // Pass the query string used in the search to the search form.
-  $form_state = array(
-    'build_info' => array(
-      'args' => array(
-        'query_string' => $query_string,
-      ),
-    ),
-  );
-  $search_form = drupal_build_form('search_form', $form_state);
-  // Make the search form availabe to the page.
+  // Defaults for 404 pages when no results are found or all the terms used are not allowed.
+  $search_form = drupal_get_form('search_form');
   $vars['search_form'] = drupal_render($search_form);
-  // Search header text.
-  $vars['search_header'] = t('We did a quick search, here is some similar content that we do have.');
+  $vars['results_copy'] = t('We couldn\'t find what you were looking for, but try searching our site for something similar.');
+  $vars['suggestions_header'] = t('Or join a campaign');
+  // Raw results is themed in preprocessing and stored as $campaign_results.
+  $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
 }
 
 /**
@@ -150,9 +154,20 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 */
 function dosomething_notfound_form_search_form_alter(&$form, &$form_state, $form_id) {
   // Get the query string from the form state.
-  $query_string = $form_state['build_info']['args']['query_string'];
-  // Use the query as the default text in the search form.
-  if (!empty($query_string)) {
+  if (!empty($form_state['build_info']['args']['query_string'])) {
+    $query_string = $form_state['build_info']['args']['query_string'];
     $form['basic']['keys']['#default_value'] = $query_string;
   }
+}
+
+/**
+* Get recommended campaigns
+*/
+function dosomething_notfound_get_recommended_campaigns() {
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
+  $rec_vars = array();
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+  }
+  return $rec_vars;
 }
