@@ -204,3 +204,32 @@ function paraneue_dosomething_get_search_gallery($results) {
   // Theme the set of results as duo gallery.
   return paraneue_get_gallery($result_items, 'duo');
 }
+
+/**
+ * Returns a Paraneue Gallery content array for a given Node $nid.
+ *
+ * @param int $nid
+ *   The Node $nid to render as Gallery Item content.
+ * @param string $source
+ *   The source query string to append to the link.
+ */
+function paraneue_get_gallery_item_content($nid, $source = NULL) {
+  $size = '400x400';
+  $node = node_load($nid);
+  $link = drupal_get_path_alias('node/' . $nid);
+  if ($source) {
+    $link .= '?source=' . $source;
+  }
+  if (!empty($node->field_image_campaign_cover)) {
+    $nid_image = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+    $image = dosomething_image_get_themed_image($nid_image, 'landscape', $size, $node->title);
+  }
+  return array(
+    'link' => $link,
+    'title' => $node->title,
+    'tagline' => $node->field_call_to_action[LANGUAGE_NONE][0]['value'],
+    'status' => $node->status,
+    'image' => $image,
+    'is_staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
+  );
+}

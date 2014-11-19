@@ -106,6 +106,11 @@ function paraneue_dosomething_theme() {
       ),
     ),
 
+    'paraneue_tile' => array(
+      'template' => 'tile',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
     'paraneue_gallery' => array(
       'template' => 'gallery',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
