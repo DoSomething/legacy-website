@@ -75,11 +75,12 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       // The only users that exist locally but not remotely should be admin
       // accounts that were created before SSO integration. These should be
       // created remotely as well.
-      $this->sso->propagateLocalUser(
+      $local_account = dosomething_canada_create_sso_user(
         $this->email,
         $this->password,
-        dosomething_canada_create_sso_user($this->email, $this->password, $this->local_account)
+        $this->local_account
       );
+      $this->sso->propagateLocalUser($local_account);
     }
     return TRUE;
   }
