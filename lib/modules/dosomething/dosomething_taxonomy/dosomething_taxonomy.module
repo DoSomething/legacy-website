@@ -66,11 +66,18 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   $gallery = dosomething_campaign_get_campaign_gallery($campaigns, $size, $source);
   $vars['campaign_gallery'] = $gallery;
 
+  // Set title field to name if there is nothing set.
+  if (empty($vars['field_title'])) {
+    $vars['field_title'][0]['value'] = $vars['name'];
+  }
+  $vars['title'] = $vars['field_title'][0]['value'];
+
   // Term fields:
   $text_fields = array(
     'intro_title',
     'subtitle',
   );
+
   foreach ($text_fields as $label) {
     $field = "field_{$label}";
     if (isset($vars['content'][$field])) {
@@ -97,6 +104,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   if (module_exists('dosomething_zendesk')) {
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $vars['term']);
   }
+
 }
 
 /**
