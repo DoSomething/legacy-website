@@ -280,10 +280,88 @@
 
       <div class="wrapper">
         <?php if( $show_new_reportback ): ?>
+
+
           <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
-          <button>
-            Be the first to add your photo here!
-          </button>
+
+          <?php if (isset($reportback_copy)): ?>
+            <p class="copy"><?php print $reportback_copy; ?></p>
+          <?php endif; ?>
+
+          <ul class="gallery">
+            <li>
+              <figure class="media -stacked -framed">
+                <img src="http://placeimg.com/300/300/animals" alt="aminals" />
+                <figcaption class="__copy">Lorem ipsum dolor sit amet.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="media -stacked -framed">
+                <img src="http://placeimg.com/300/300/tech" alt="aminals" />
+                <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="media -stacked -framed">
+                <img src="http://placeimg.com/300/300/arch" alt="aminals" />
+                <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="media -stacked -framed">
+                <img src="http://placeimg.com/300/300/nature" alt="aminals" />
+                <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
+              </figure>
+            </li>
+          </ul>
+
+          <form class="reportback" enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
+            <div>
+
+              <button>
+                <div class="message-callout -below">
+                  <div class="__copy">
+                    <p>Be the first! Add your photo here!</p>
+                  </div>
+                </div>
+              </button>
+
+              <div class="form-item form-type-textfield form-item-caption-new">
+                <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
+                <input data-validate-required="" placeholder="Write something..." type="text" id="edit-caption" name="caption" value="" size="60" maxlength="128" class="form-text required">
+              </div>
+
+              <div class="form-item form-type-textfield form-item-quantity">
+                <label for="edit-quantity">
+                  <div class="inner-label">
+                    <div class="label">Total # of Coffee Consumed <span class="form-required" title="This field is required.">*</span></div>
+                    <div class="message"></div>
+                  </div>
+                </label>
+                <input placeholder="Enter # here" class="js-validate form-text required" data-validate="positiveInteger" data-validate-required="" type="text" id="edit-quantity" name="quantity" value="" size="60" maxlength="128">
+              </div>
+
+              <div class="form-item form-type-textarea form-item-why-participated">
+              <label for="edit-why-participated">
+                <div class="inner-label">
+                  <div class="label">Why is this important to you? <span class="form-required" title="This field is required.">*</span></div>
+                  <div class="message"></div>
+                </div>
+                </label>
+              <div class="form-textarea-wrapper resizable">
+                <textarea placeholder="Write something..." class="js-validate form-textarea required" data-validate="reportbackReason" data-validate-required="" id="edit-why-participated" name="why_participated" cols="60" rows="5"></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions form-wrapper" id="edit-actions--4">
+              <input class="btn form-submit" type="submit" id="edit-submit--5" name="op" value="Update Pic">
+            </div>
+
+            </div>
+          </form>
+
+
+
         <?php else: ?>
           <div class="container__body">
             <div class="-columned">

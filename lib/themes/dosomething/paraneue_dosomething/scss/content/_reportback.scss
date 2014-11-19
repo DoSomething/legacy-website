@@ -1,0 +1,16 @@
+.media {
+
+  &.-framed { 
+    background-color: #fff;
+    padding: 5px; 
+
+    .__copy {
+      font-size: $font-small;  
+    }
+  }
+}
+
+.reportback {
+  background-color: #f0f;
+  padding: 15px;
+}
