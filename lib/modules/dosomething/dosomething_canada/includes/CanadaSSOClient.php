@@ -107,7 +107,7 @@ class CanadaSSOClient {
    * @param stdClass $user
    * @return boolean
    */
-  public function propagateLocalUser($email, $password, $user)
+  public function propagateLocalUser($user)
   {
     $params = get_object_vars($user);
 
