@@ -206,18 +206,26 @@ function paraneue_dosomething_get_search_gallery($results) {
 }
 
 /**
- * Returns a Paraneue Gallery content array for a given campaign $nid.
+ * Returns a Paraneue Gallery content array for a given Node $nid.
+ *
+ * @param int $nid
+ *   The Node $nid to render as Gallery Item content.
+ * @param string $source
+ *   The source query string to append to the link.
  */
-function paraneue_get_gallery_item_content($nid, $size = '400x400') {
+function paraneue_get_gallery_item_content($nid, $source = NULL) {
+  $size = '400x400';
   $node = node_load($nid);
-  $path = 'node/' . $nid;
+  $link = drupal_get_path_alias('node/' . $nid);
+  if ($source) {
+    $link .= '?source=' . $source;
+  }
   if (!empty($node->field_image_campaign_cover)) {
     $nid_image = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
     $image = dosomething_image_get_themed_image($nid_image, 'landscape', $size, $node->title);
   }
-  // Can't use campaign class yet because Campaign Group nodes can be displayed.
   return array(
-    'link' => drupal_get_path_alias($path),
+    'link' => $link,
     'title' => $node->title,
     'tagline' => $node->field_call_to_action[LANGUAGE_NONE][0]['value'],
     'status' => $node->status,
