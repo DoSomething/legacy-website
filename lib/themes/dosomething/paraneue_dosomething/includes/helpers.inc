@@ -204,3 +204,23 @@ function paraneue_dosomething_get_search_gallery($results) {
   // Theme the set of results as duo gallery.
   return paraneue_get_gallery($result_items, 'duo');
 }
+
+/**
+ * Returns a Paraneue Gallery content array for a given campaign $nid.
+ */
+function paraneue_get_gallery_item_content($nid, $size = '400x400') {
+  $node = node_load($nid);
+  $path = 'node/' . $nid;
+  if (!empty($node->field_image_campaign_cover)) {
+    $nid_image = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+    $image = dosomething_image_get_themed_image($nid_image, 'landscape', $size, $node->title);
+  }
+  // Can't use campaign class yet because Campaign Group nodes can be displayed.
+  return array(
+    'link' => drupal_get_path_alias($path),
+    'title' => $node->title,
+    'tagline' => $node->field_call_to_action[LANGUAGE_NONE][0]['value'],
+    'status' => $node->status,
+    'image' => $image,
+  );
+}

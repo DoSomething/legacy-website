@@ -18,23 +18,28 @@
 ?>
 
 <article class="tile <?php print $classes; ?>">
-  <?php if ($status): ?>
-  <a class="wrapper" href="/<?php print $link; ?>">
+
+  <?php if ($content['status']): ?>
+  <a class="wrapper" href="/<?php print $content['link']; ?>">
   <?php else: ?>
   <div class="wrapper">
   <?php endif; ?>
-    <?php if ($is_staff_pick): ?>
+
+    <?php if ($content['is_staff_pick']): ?>
       <div class="__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
     <?php endif; ?>
 
     <div class="tile--meta">
-      <h1 class="__title"><?php print $title; ?></h1>
-      <p class="__tagline"><?php print $call_to_action; ?></p>
+      <h1 class="__title"><?php print $content['title']; ?></h1>
+      <p class="__tagline"><?php print $content['tagline']; ?></p>
     </div>
-    <img alt="<?php print $title; ?>" src="<?php print $image; ?>" />
-  <?php if ($status): ?>
+
+    <?php print $content['image']; ?>
+
+  <?php if ($content['status']): ?>
   </a>
   <?php else: ?>
   </div>
   <?php endif;?>
+
 </article>

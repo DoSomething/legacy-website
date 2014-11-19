@@ -61,6 +61,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 
   // Display Campaign Gallery for this term.
   $campaigns = dosomething_taxonomy_get_campaigns($vars['tid']);
+  $vars['campaigns'] = $campaigns;
   $size = '400x400';
   $source = 'taxonomy/term/' . $vars['tid'];
   $gallery = dosomething_campaign_get_campaign_gallery($campaigns, $size, $source);

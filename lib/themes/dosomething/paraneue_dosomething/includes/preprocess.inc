@@ -445,6 +445,14 @@ function paraneue_dosomething_preprocess_field_partners(&$vars) {
  * Implements template_preprocess_taxonomy_term().
  */
 function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
+  // Get Campaign tiles.
+  $items = array();
+  foreach ($vars['campaigns'] as $delta => $nid) {
+    $content = paraneue_get_gallery_item_content($nid);
+    $classes = 'tile--campaign';
+    $items[] = paraneue_get_gallery_item($content, 'tile', TRUE, 'tile--campaign');
+  }
+  $vars['campaign_gallery'] = paraneue_get_gallery($items, 'mosaic');
 
   // Adds sponsor logos.
   paraneue_dosomething_preprocess_field_partners($vars);
