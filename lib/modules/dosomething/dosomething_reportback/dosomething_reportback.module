@@ -815,7 +815,7 @@ function dosomething_reportback_get_noun_and_verb($nid) {
  */
 function dosomething_reportback_services_resources() {
   $resources = array();
-  $resources['reportback'] = array(
+  $resources['reportbacks'] = array(
     'operations' => array(
       'retrieve' => array(
         'help' => 'Retrieve a reportback.',
