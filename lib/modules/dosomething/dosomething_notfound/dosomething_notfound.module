@@ -135,7 +135,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
       // Make the search form availabe to the page.
       $vars['search_form'] = drupal_render($search_form);
       // Search header text.
-      $vars['results_copy'] = t('We did a quick search, here is some similar content that we do have.');
+      $vars['results_copy'] = variable_get('dosomething_notfound_copy_search_results');
       return;
     }
   }
@@ -143,7 +143,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // Defaults for 404 pages when no results are found or all the terms used are not allowed.
   $search_form = drupal_get_form('search_form');
   $vars['search_form'] = drupal_render($search_form);
-  $vars['results_copy'] = t('We couldn\'t find what you were looking for, but try searching our site for something similar.');
+  $vars['results_copy'] = variable_get('dosomething_notfound_copy_no_results');
   $vars['suggestions_header'] = t('Or join a campaign');
   // Raw results is themed in preprocessing and stored as $campaign_results.
   $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
