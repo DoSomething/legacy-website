@@ -66,11 +66,12 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   $gallery = dosomething_campaign_get_campaign_gallery($campaigns, $size, $source);
   $vars['campaign_gallery'] = $gallery;
 
-  // Set title field to name if there is nothing set.
-  if (empty($vars['field_title'])) {
-    $vars['field_title'][0]['value'] = $vars['name'];
+  // Set the title field.
+  $vars['title'] = $vars['name'];
+  if (!empty($vars['field_title'])) {
+    $vars['title'] = $vars['field_title'][0]['value'];
   }
-  $vars['title'] = $vars['field_title'][0]['value'];
+  drupal_set_title($vars['title']);
 
   // Term fields:
   $text_fields = array(

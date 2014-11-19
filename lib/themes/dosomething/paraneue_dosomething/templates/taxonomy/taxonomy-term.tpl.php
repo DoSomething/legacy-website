@@ -2,7 +2,7 @@
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
-      <h1 class="__title"><?php print $term->name; ?></h1>
+      <h1 class="__title"><?php print $title ?></h1>
       <?php if (isset($subtitle)): ?>
         <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
