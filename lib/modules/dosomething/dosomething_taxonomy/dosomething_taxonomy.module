@@ -92,6 +92,9 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   if (isset($wrapper->field_facts) && $wrapper->field_facts->count() > 0) {
     $vars['facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
     $vars['facts_header'] = t("Facts About @name", array('@name' => $vars['term']->name));
+    if (!empty($vars['field_facts_header'])) {
+      $vars['facts_header'] = $vars['field_facts_header'][0]['value'];
+    }
   }
 
   // Cover image.
