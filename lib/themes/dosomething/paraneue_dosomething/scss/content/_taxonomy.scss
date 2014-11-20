@@ -28,5 +28,9 @@
     color: $med-gray;
     display: table;
     margin: 0 auto 18px;
+
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
