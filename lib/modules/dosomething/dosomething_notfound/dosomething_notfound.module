@@ -149,7 +149,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['search_form'] = drupal_render($search_form);
   }
   // Set the default copy.
-  $vars['results_copy'] = variable_get('dosomething_notfound_copy_no_results');
+  $vars['results_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
   // Raw results is themed in preprocessing and stored as $campaign_results.
   $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
 }
