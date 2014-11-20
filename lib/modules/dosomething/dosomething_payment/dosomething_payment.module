@@ -132,6 +132,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'cvv',
       'data-validate-required' => '',
       'data-stripe' => 'cvc',
+      'autocomplete' => 'off',
     ),
   );
   $form['exp_month'] = array(
@@ -142,6 +143,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'exp_month',
       'data-validate-required' => '',
       'data-stripe' => 'exp-month',
+      'autocomplete' => 'off',
     ),
   );
   $form['exp_year'] = array(
@@ -152,6 +154,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'exp_year',
       'data-validate-required' => '',
       'data-stripe' => 'exp-year',
+      'autocomplete' => 'off',
     ),
   );
   $form['amount'] = array(
