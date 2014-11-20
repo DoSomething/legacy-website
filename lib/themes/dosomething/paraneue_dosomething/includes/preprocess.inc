@@ -490,9 +490,9 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'image' => $image,
         'description' => $value['call_to_action'],
       );
-      $doing_items[$delta] = paraneue_get_gallery_item($item, 'figure');
+      $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
     }
-    $vars['doing_gallery'] = paraneue_get_gallery($doing_items, 'triad');
+    $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad');
   }
 
   // Get an array of reportbacks.
@@ -506,11 +506,11 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'image' => $value->img,
         'impact' => $value->impact,
       );
-      $reportback_items[$delta] = paraneue_get_gallery_item($item, 'media');
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'media');
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
-  $vars['reportback_gallery'] = paraneue_get_gallery($reportback_items, 'duo');
+  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo');
 }
 
 /**
@@ -527,9 +527,9 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
         'image' => $image,
         'description' => $value['call_to_action'],
       );
-      array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+      array_push($gallery_items, paraneue_dosomething_get_gallery_item($item, 'figure'));
     }
-    $vars['campaign_results'] = paraneue_get_gallery($gallery_items, 'triad');
+    $vars['campaign_results'] = paraneue_dosomething_get_gallery($gallery_items, 'triad');
   }
   else if (isset($vars['raw_search_results'])){
     // Theme the set of results as duo gallery.

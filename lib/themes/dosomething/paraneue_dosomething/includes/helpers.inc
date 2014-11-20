@@ -213,8 +213,8 @@ function paraneue_dosomething_get_search_gallery($results) {
  * @param string $source
  *   The source query string to append to the link.
  */
-function paraneue_dosomething_get_gallery_item($nid, $source = NULL) {
-  $classes = '';
+function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
+  $classes_array = array();
 
   $node = node_load($nid);
   $link = drupal_get_path_alias('node/' . $nid);
@@ -225,7 +225,7 @@ function paraneue_dosomething_get_gallery_item($nid, $source = NULL) {
   $title = $node->title;
   if ($node->status == 0) {
     $title = t('Stay Tuned');
-    $classes = 'unpublished';
+    $classes_array[] = 'unpublished';
   }
 
   // If the node has a Cover Image:
@@ -255,7 +255,7 @@ function paraneue_dosomething_get_gallery_item($nid, $source = NULL) {
   );
   return array(
     'content' => $content,
-    'classes' => $classes,
+    'classes_array' => $classes_array,
   );
 }
 
@@ -265,9 +265,10 @@ function paraneue_dosomething_get_gallery_item($nid, $source = NULL) {
 function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
   $items = array();
   foreach ($nids as $delta => $nid) {
-    $item = paraneue_dosomething_get_gallery_item($nid, $source);
-    $item['classes'] .= ' tile--campaign';
-    $items[] = paraneue_get_gallery_item($item['content'], 'tile', TRUE, $item['classes']);
+    $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
+    $item['classes_array'][] = 'tile--campaign';
+    $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE, $item['classes_array']);
   }
-  return paraneue_get_gallery($items, 'mosaic', '-featured');
+  $gallery_classes = array('-featured');
+  return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes);
 }
