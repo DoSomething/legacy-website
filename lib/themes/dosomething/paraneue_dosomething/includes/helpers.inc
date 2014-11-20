@@ -223,7 +223,7 @@ function paraneue_get_gallery_item_content($nid, $source = NULL) {
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.
-    $ratio = 'landscape';
+    $ratio = 'square';
     $default = '400x400';
     $large = '768x768';
     // Get the Cover Image node nid.
