@@ -25,8 +25,10 @@
   <?php if ($disable_results == FALSE): ?>
     <div class="container notfound-search-results <?php if (!empty($notfound_page_type)) { print $notfound_page_type; } ?>">
       <div class="wrapper notfound-results">
-        <?php if (isset($results_copy)): ?>
-          <h3 class="search-results-header">
+        <?php if (isset($results_copy) && $notfound_page_type == "path-specific"): ?>
+          <?php print $results_copy; ?>
+        <?php elseif (isset($results_copy)): ?>
+          <h3 class="notfound-results-header">
             <?php print $results_copy; ?>
           </h3>
         <?php endif; ?>

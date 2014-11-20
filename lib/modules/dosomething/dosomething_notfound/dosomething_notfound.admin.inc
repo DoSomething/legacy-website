@@ -31,6 +31,12 @@ function dosomething_notfound_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_notfound_copy_search_results'),
     '#required' => TRUE,
     );
+  $form['dosomething_notfound_copy_suggested_campaigns'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Suggested Campaigns Copy',
+    '#default_value' => variable_get('dosomething_notfound_copy_suggested_campaigns'),
+    '#required' => TRUE,
+    );
   $form['dosomething_notfound_search_filter'] = array(
     '#type' => 'textarea',
     '#title' => 'Search filter words',
