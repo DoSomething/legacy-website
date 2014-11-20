@@ -209,11 +209,17 @@ function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocum
   }
 }
 
+/**
+ * Implements hook_theme().
+ */
 function dosomething_search_theme() {
   return array(
     'dosomething_search_field' => array(
       'arguments' => array('element' => NULL),
       'render element' => 'element'
+    ),
+    'dosomething_search_noresults' => array(
+      'variables' => array(),
     ),
   );
 }
@@ -252,6 +258,37 @@ function theme_dosomething_search_field($variables) {
   return $output . $extra;
 }
 
+/**
+ *
+ * Theme function for when there are no results found.
+ * TODO - Document return value.
+ *      - Try moving all this search theme stuff to the theme layer.
+ *      - When it's in the theme layer, create a template for it. DONE!
+ */
+function theme_dosomething_search_noresults() {
+  $no_results_found_header = variable_get('dosomething_search_copy_no_results', 'No results found');
+  // Get recommended campaigns and theme them.
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
+  $rec_vars = array();
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+  }
+  if (isset($rec_vars)) {
+    $gallery_items = array();
+    foreach ($rec_vars as $delta => $value) {
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $item = array(
+        'title' => $value['link'],
+        'image' => $image,
+        'description' => $value['call_to_action'],
+      );
+      array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+    }
+    $recommented_campaigns = paraneue_get_gallery($gallery_items, 'triad');
+  }
+  return $recommented_campaigns;
+}
+
 function dosomething_search_form_submit($form, &$form_state) {
   $keys = $form['#form_id'] == 'search_block_form' ? $form_state['values'][$form['#form_id']] : $form_state['values']['keys'];
   if ($keys == '') {
@@ -274,3 +311,14 @@ function dosomething_search_views_pre_render(&$view) {
     }
   }
 }
+
+/**
+ * Implements hook_apachesolr_search_page_alter().
+ * Allows us to manipulate the default behavior of the search page when there are no results.
+ */
+function dosomething_search_apachesolr_search_page_alter(&$variables) {
+  if (!empty($variables['search_results']['#markup'])) {
+    $variables['search_results']['#markup'] = theme('dosomething_search_noresults');
+  }
+}
+
