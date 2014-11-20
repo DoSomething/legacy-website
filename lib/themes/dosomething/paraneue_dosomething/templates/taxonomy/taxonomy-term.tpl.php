@@ -41,16 +41,6 @@
     </section>
   <?php endif; ?>
 
-  
-  <div class="cta">
-    <div class="wrapper">
-      <?php if (isset($call_to_action)): ?>
-        <h2 class="__message"><?php print $call_to_action; ?></h2>
-      <?php endif; ?>
-      <a href="#gallery" class="btn"><?php print t("Do it"); ?></a>
-    </div>
-  </div>
-
 
   <?php if (!empty($campaign_gallery)): ?>
     <section id="gallery" class="container container--campaigns">
@@ -103,6 +93,15 @@
 
     </div>
   </section>
+
+  <div class="cta">
+    <div class="wrapper">
+      <?php if (isset($call_to_action)): ?>
+        <h2 class="__message"><?php print $call_to_action; ?></h2>
+      <?php endif; ?>
+      <a href="#gallery" class="btn"><?php print t("Do it"); ?></a>
+    </div>
+  </div>
 
   <?php if ($info_bar): ?>
     <?php print $info_bar; ?>
