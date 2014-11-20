@@ -121,28 +121,30 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // For 404 pages with search.
   if (!empty($query_string)) {
     $vars['raw_search_results'] = apachesolr_search_search_execute($query_string);
-    if (count($vars['raw_search_results']) != 0) {
-      // Pass the query string used in the search to the search form.
-      $form_state = array(
-        'build_info' => array(
-          'args' => array(
-            'query_string' => $query_string,
-          ),
+    // Pass the query string used in the search to the search form.
+    $form_state = array(
+      'build_info' => array(
+        'args' => array(
+          'query_string' => $query_string,
         ),
-      );
-      $search_form = drupal_build_form('search_form', $form_state);
+      ),
+    );
+    $search_form = drupal_build_form('search_form', $form_state);
+    // Make the search form availabe to the page.
+    $vars['search_form'] = drupal_render($search_form);
 
-      // Make the search form availabe to the page.
-      $vars['search_form'] = drupal_render($search_form);
+    if (count($vars['raw_search_results']) != 0) {
       // Search header text.
       $vars['results_copy'] = variable_get('dosomething_notfound_copy_search_results');
       return;
     }
   }
 
-  // Defaults for 404 pages when no results are found or all the terms used are not allowed.
-  $search_form = drupal_get_form('search_form');
-  $vars['search_form'] = drupal_render($search_form);
+  // Defaults for 404 pages.
+  if (empty($vars['search_form'])) {
+    $search_form = drupal_get_form('search_form');
+    $vars['search_form'] = drupal_render($search_form);
+  }
   $vars['results_copy'] = variable_get('dosomething_notfound_copy_no_results');
   // Raw results is themed in preprocessing and stored as $campaign_results.
   $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
