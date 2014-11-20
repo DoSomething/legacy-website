@@ -1,24 +1,16 @@
-header.notfound p {
-  color: #fff;
-}
-
-.search-results-header {
-  text-align: center;
-}
-
-.search-form {
-  @include media($tablet) {
-    margin: 0 auto 2em;
-    width: 80%;
+.page-notfound {
+  header.notfound p {
+    color: #fff;
   }
-}
 
-.path-specific {
+  .search-form {
+    @include media($tablet) {
+      width: 75%;
+    }
+  }
 
   // @TODO - Refactor this pattern when we revisit typography.
-  .search-results-header {
-    text-align: left;
-
+  .notfound-search-results p {
     @include media($tablet) {
       @include span-columns(9 of 12);
     }
