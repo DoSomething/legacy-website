@@ -275,13 +275,18 @@ function dosomething_payment_post_payment_stripe($values) {
   try {
     // Charge the customer.
     // @see https://stripe.com/docs/tutorials/charges
-    Stripe_Charge::create(array(
+    $charge = Stripe_Charge::create(array(
       'customer' => $customer->id,
       'amount' => $values['amount'],
       'currency' => 'usd',
       'receipt_email' => $values['email'],
-      "description" => "Donation for DoSomething.org"
+      'description' => "Donation for DoSomething.org"
     ));
+    watchdog('dosomething_payment', 'Create charge %amount to Customer %id', array(
+      '%amount' => $values['amount'],
+      '%id' => $customer->id,
+    ));
+    watchdog('dosomething_payment', 'Stripe_Charge::create response: ' . json_encode($charge));
     return TRUE;
   }
   catch (Exception $e) {
@@ -343,6 +348,11 @@ function dosomething_payment_stripe_create_customer($values) {
       'card' => $values['token'],
       'description' => $values['full_name'],
     ));
+    watchdog('dosomething_payment', 'Create customer %email with %token', array(
+      '%email' => $values['email'],
+      '%token' => $values['token'],
+    ));
+    watchdog('dosomething_payment', 'Stripe_Customer::create response:' . json_encode($customer));
     return $customer;
   }
   catch (Exception $e) {
