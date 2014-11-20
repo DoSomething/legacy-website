@@ -25,29 +25,15 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       ),
     );
 
-    // Initialize variable assuming Campaign Group is pre-launch state.
-    $pre_launch = TRUE;
-    $vars['campaign_gallery'] = NULL;
-    // If campaign have been added to this Campaign Group:
-    if (!empty($vars['node']->field_campaigns)) {
-      // Store the nids for rendering the Campaign gallery.
-      $nids = array();
-      foreach ($vars['node']->field_campaigns[LANGUAGE_NONE] as $delta => $value) {
-        $campaign = $value['entity'];
-        $nids[] = $campaign->nid;
-        // If the campaign is published:
-        if ($campaign->status) {
-          // The Campaign Group is not in pre-launch.
-          $pre_launch = FALSE;
-        }
-      }
-      $size = '400x400';
-      $source = 'node/' . $vars['node']->nid;
-      $campaign_gallery = dosomething_campaign_get_campaign_gallery($nids, $size, $source);
-      $vars['campaign_gallery']= $campaign_gallery;
-    }
+    // Determine Campaign Group attributes based on its children.
+    $campaign_group_data = dosomething_campaign_group_get_child_data($vars['node']);
 
-    if ($pre_launch) {
+    // Store child nid's to render within the theme.
+    $vars['campaigns'] = $campaign_group_data['nids'];
+
+    // If Campaign Group is in pre-launch state:
+    if ($campaign_group_data['pre_launch']) {
+      // Add relevant fields to set as template vars.
       $template_vars['text'][] = 'pre_launch_copy';
       $template_vars['text'][] = 'pre_launch_title';
     }
@@ -154,6 +140,34 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
 
   }
+}
+
+/**
+ * For a given campaign_group $node, get child nids and determine if pre_launch.
+ *
+ * @param object $node
+ *   Loaded campaign_group Node.
+ *
+ * @return array
+ */
+function dosomething_campaign_group_get_child_data($node) {
+  // Initalize return array.
+  $data = array(
+    'pre_launch' => TRUE,
+    'nids' => array(),
+  );
+  if (!empty($node->field_campaigns)) {
+    foreach ($node->field_campaigns[LANGUAGE_NONE] as $delta => $value) {
+      // Add the child nid to nid's array.
+      $data['nids'][] = $value['entity']->nid;
+      // If the node is published:
+      if ($value['entity']->status) {
+        // The Campaign Group node is not in pre-launch.
+        $data['pre_launch'] = FALSE;
+      }
+    }
+  }
+  return $data;
 }
 
 /**

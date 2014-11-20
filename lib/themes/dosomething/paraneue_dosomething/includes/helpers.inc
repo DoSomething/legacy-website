@@ -246,3 +246,15 @@ function paraneue_get_gallery_item_content($nid, $source = NULL) {
     'is_staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
   );
 }
+
+/**
+ * Returns a themed mosaic gallery with campaign tiles for given $nids.
+ */
+function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
+  $items = array();
+  foreach ($nids as $delta => $nid) {
+    $content = paraneue_get_gallery_item_content($nid, $source);
+    $items[] = paraneue_get_gallery_item($content, 'tile', TRUE, 'tile--campaign');
+  }
+  return paraneue_get_gallery($items, 'mosaic', '-featured');
+}
