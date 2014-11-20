@@ -225,14 +225,14 @@ function paraneue_get_gallery_item_content($nid, $source = NULL) {
     // Presets for the node's Cover Image display.
     $ratio = 'landscape';
     $default = '400x400';
-    $high_res = '768x768';
+    $large = '768x768';
     // Get the Cover Image node nid.
     $nid_image = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
     // Get its high-res URL.
-    $high_res_url = dosomething_image_get_themed_image_url($nid_image, $ratio, $high_res);
+    $large_url = dosomething_image_get_themed_image_url($nid_image, $ratio, $large);
     // Set attributes to pass to the themed image.
     $attributes = array(
-      'data-src-large' => $high_res_url,
+      'data-src-large' => $large_url,
     );
     $image = dosomething_image_get_themed_image($nid_image, $ratio, $default, $node->title, $attributes);
   }
