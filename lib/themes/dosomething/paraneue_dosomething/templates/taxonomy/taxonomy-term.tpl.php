@@ -47,7 +47,7 @@
       <?php if (isset($call_to_action)): ?>
         <h2 class="__message"><?php print $call_to_action; ?></h2>
       <?php endif; ?>
-      <a href="#gallery" class="btn">Do it</a>
+      <a href="#gallery" class="btn"><?php print t("Do it"); ?></a>
     </div>
   </div>
 

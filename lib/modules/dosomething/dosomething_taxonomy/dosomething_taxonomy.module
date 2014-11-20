@@ -73,6 +73,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   $text_fields = array(
     'intro_title',
     'subtitle',
+    'call_to_action',
   );
 
   foreach ($text_fields as $label) {
@@ -103,11 +104,6 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   // Zendesk form.
   if (module_exists('dosomething_zendesk')) {
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $vars['term']);
-  }
-
-  // Call to action.
-  if (!empty($vars['field_call_to_action'])) {
-    $vars['call_to_action'] = $vars['field_call_to_action'][0]['value'];
   }
 
 }
