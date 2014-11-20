@@ -105,6 +105,11 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $vars['term']);
   }
 
+  // Call to action.
+  if (!empty($vars['field_call_to_action'])) {
+    $vars['call_to_action'] = $vars['field_call_to_action'][0]['value'];
+  }
+
 }
 
 /**
