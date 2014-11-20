@@ -94,8 +94,8 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   // For path specific results.
   if (isset($copy)) {
-    // Create class for theming path specific pages.
-    $vars['notfound_page_type'] = "path-specific";
+    // Create a variable to use for templating path-specific pages vs search based 404 pages.
+    $vars['is_path_specific_page'] = TRUE;
     // Sets the copy above the results.
     $vars['results_copy'] = check_markup($copy, 'markdown');
     // Raw results is themed in preprocessing and stored as $campaign_results.
@@ -120,6 +120,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
 
   // For 404 pages with search.
   if (!empty($query_string)) {
+    // Do a search with the query string. Results are themed in a preproccessor.
     $vars['raw_search_results'] = apachesolr_search_search_execute($query_string);
     // Pass the query string used in the search to the search form.
     $form_state = array(
@@ -132,7 +133,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $search_form = drupal_build_form('search_form', $form_state);
     // Make the search form availabe to the page.
     $vars['search_form'] = drupal_render($search_form);
-
+    // If there are search results set the appropiate copy and exit.
     if (count($vars['raw_search_results']) != 0) {
       // Search header text.
       $vars['results_copy'] = variable_get('dosomething_notfound_copy_search_results');
@@ -140,11 +141,14 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     }
   }
 
-  // Defaults for 404 pages.
+  // Defaults for 404 pages when there are no search results,
+  // or the only term(s) used in the path are filtered terms.
   if (empty($vars['search_form'])) {
+    // Show the search from with no query string, if we haven't set it yet.
     $search_form = drupal_get_form('search_form');
     $vars['search_form'] = drupal_render($search_form);
   }
+  // Set the default copy.
   $vars['results_copy'] = variable_get('dosomething_notfound_copy_no_results');
   // Raw results is themed in preprocessing and stored as $campaign_results.
   $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
