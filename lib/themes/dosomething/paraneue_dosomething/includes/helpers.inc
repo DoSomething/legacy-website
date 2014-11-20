@@ -225,7 +225,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   $title = $node->title;
   if ($node->status == 0) {
     $title = t('Stay Tuned');
-    $classes_array[] = 'unpublished';
+    $classes_array[] = '-unpublished';
   }
 
   // If the node has a Cover Image:
