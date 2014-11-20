@@ -42,7 +42,9 @@
   <?php endif; ?>
 
   <?php if (!empty($campaign_gallery)): ?>
-    <?php print $campaign_gallery; ?>
+    <section class="container container--campaigns">
+      <?php print $campaign_gallery; ?>
+    </section>
   <?php endif; ?>
 
   <section class="container additional-text">
