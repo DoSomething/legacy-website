@@ -10,7 +10,7 @@
  *   - $item['class']: The class to apply to the li (string).
  *   - $item['content']: Themed item content (string).
  *
- * @see paraneue_get_gallery()
+ * @see paraneue_dosomething_get_gallery()
  */
 ?>
 <ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>">
