@@ -228,6 +228,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
     $classes_array[] = '-unpublished';
   }
 
+  $image = NULL;
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.

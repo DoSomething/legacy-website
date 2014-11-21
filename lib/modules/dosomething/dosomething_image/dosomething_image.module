@@ -52,36 +52,27 @@ function dosomething_image_get_themed_image($nid, $ratio, $style, $alt = '', $at
 }
 
 /**
- * Returns an image path.
+ * Returns an image path for a given $nid and $ratio field.
+ *
  * @param int $nid
  *  The image node id.
+ *
  * @param string $ratio
  *  The image field to pull from the desired image ratio (portrait, landscape, square, thumb).
- * @param string $style
- *  The image style preset/size to return the image.
  *
- * @return string
- *  An image url.
+ * @return
+ *  An image url, or NULL if file doesn't exist.
  */
 function dosomething_image_get_image_url($nid, $ratio) {
-   $node = node_load($nid);
-    switch ($ratio) {
-      case 'portrait':
-        $path =  $node->field_image_portrait[LANGUAGE_NONE][0]['uri'];
-        break;
-      case 'landscape':
-        $path = $node->field_image_landscape[LANGUAGE_NONE][0]['uri'];
-        break;
-      case 'square':
-        $path =  $node->field_image_square[LANGUAGE_NONE][0]['uri'];
-        break;
-      case 'thumb':
-        $path = $node->field_image_thumbnail[LANGUAGE_NONE][0]['uri'];
-        break;
-      case 'video':
-        $path = $node->field_image_video[LANGUAGE_NONE][0]['uri'];
-    }
-    return $path;
+  $node = node_load($nid);
+  $field_name = 'field_image_' . $ratio;
+  if ($ratio == 'thumb') {
+    $field_name = 'field_image_thumbnail';
+  }
+  if (!empty($node->{$field_name})) {
+    return $node->{$field_name}[LANGUAGE_NONE][0]['uri'];
+  }
+  return NULL;
 }
 
 /**
