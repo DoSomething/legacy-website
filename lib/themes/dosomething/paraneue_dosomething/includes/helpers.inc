@@ -269,6 +269,9 @@ function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
     $item['classes_array'][] = 'tile--campaign';
     $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE, $item['classes_array']);
   }
-  $gallery_classes = array('-featured');
+  // If 5 items or more, the tiles should appear with a featured tile.
+  if (count($items) > 4) {
+    $gallery_classes = array('-featured');
+  }
   return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes);
 }
