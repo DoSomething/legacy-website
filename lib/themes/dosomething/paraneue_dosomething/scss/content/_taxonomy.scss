@@ -1,15 +1,25 @@
 .taxonomy-term {
   .container__title,
-  .container__body,
   .sources {
     @include compacted();
   }
 
+  .container__body,
   .additional-text {
     p,
     ul,
     ol {
       @include compacted();
+    }
+  }
+
+  .container__body {
+    .-columned {
+      p,
+      ul,
+      ol {
+        width: auto;
+      }
     }
   }
 
