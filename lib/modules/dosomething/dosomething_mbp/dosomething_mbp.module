@@ -10,7 +10,7 @@
  */
 function dosomething_mbp_menu() {
 
-  $items['admin/config/services/dosomething-mbp'] = array(
+  $items['admin/config/dosomething/dosomething_mbp'] = array(
     'title' => 'DoSomething MBP',
     'description' => 'DoSomething MBP (Message Broker Producer) settings.',
     'page callback' => 'drupal_get_form',
