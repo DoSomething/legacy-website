@@ -11,7 +11,7 @@
  *    - $image: Thumbnail image.
  *    - $link: Link to the item.
  *
- * @see paraneue_get_gallery_item()
+ * @see paraneue_dosomething_get_gallery_item()
  */
 ?>
 <article class="media">

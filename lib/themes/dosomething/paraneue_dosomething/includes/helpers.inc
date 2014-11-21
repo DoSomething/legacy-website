@@ -198,11 +198,11 @@ function paraneue_dosomething_get_search_gallery($results) {
   // Theme each result with the media pattern.
   if ($results_variables) {
     foreach ($results_variables as $delta => $value) {
-      $result_items[$delta] = paraneue_get_gallery_item($value, 'media', TRUE);
+      $result_items[$delta] = paraneue_dosomething_get_gallery_item($value, 'media', TRUE);
     }
   }
   // Theme the set of results as duo gallery.
-  return paraneue_get_gallery($result_items, 'duo');
+  return paraneue_dosomething_get_gallery($result_items, 'duo');
 }
 
 /**
