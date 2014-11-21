@@ -32,15 +32,4 @@
       display: inline;
     }
   }
-
-  //@TODO: move into Neue by way of button update.
-  .gallery.-mosaic + .btn {
-    color: $med-gray;
-    display: table;
-    margin: 0 auto 18px;
-
-    &:focus {
-      box-shadow: none;
-    }
-  }
 }
