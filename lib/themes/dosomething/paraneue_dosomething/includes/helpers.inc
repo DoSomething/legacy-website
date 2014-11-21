@@ -213,17 +213,25 @@ function paraneue_dosomething_get_search_gallery($results) {
  * @param string $source
  *   The source query string to append to the link.
  */
-function paraneue_get_gallery_item_content($nid, $source = NULL) {
+function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
+  $classes_array = array();
+
   $node = node_load($nid);
   $link = drupal_get_path_alias('node/' . $nid);
   if ($source) {
     $link .= '?source=' . $source;
   }
 
+  $title = $node->title;
+  if ($node->status == 0) {
+    $title = t('Stay Tuned');
+    $classes_array[] = '-unpublished';
+  }
+
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.
-    $ratio = 'landscape';
+    $ratio = 'square';
     $default = '400x400';
     $large = '768x768';
     // Get the Cover Image node nid.
@@ -237,12 +245,33 @@ function paraneue_get_gallery_item_content($nid, $source = NULL) {
     $image = dosomething_image_get_themed_image($nid_image, $ratio, $default, $node->title, $attributes);
   }
 
-  return array(
+  $content = array(
     'link' => $link,
-    'title' => $node->title,
+    'title' => $title,
     'tagline' => $node->field_call_to_action[LANGUAGE_NONE][0]['value'],
     'status' => $node->status,
     'image' => $image,
     'is_staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
   );
+  return array(
+    'content' => $content,
+    'classes_array' => $classes_array,
+  );
+}
+
+/**
+ * Returns a themed mosaic gallery with campaign tiles for given $nids.
+ */
+function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
+  $items = array();
+  foreach ($nids as $delta => $nid) {
+    $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
+    $item['classes_array'][] = 'tile--campaign';
+    $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE, $item['classes_array']);
+  }
+  // If 5 items or more, the tiles should appear with a featured tile.
+  if (count($items) > 4) {
+    $gallery_classes = array('-featured');
+  }
+  return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes);
 }

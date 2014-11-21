@@ -16,7 +16,7 @@
 <ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>">
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
-      <li class="<?php print $item['class']; ?>">
+      <li <?php if (!empty($item['class'])): print 'class="' . $item['class'] . '"'; endif; ?>>
         <?php print $item['content']; ?>
       </li>
     <?php endforeach; ?>
