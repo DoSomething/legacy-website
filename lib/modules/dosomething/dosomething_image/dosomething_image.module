@@ -185,6 +185,6 @@ function dosomething_image_cache_clear_all() {
 /**
  * Implements hook_flush_caches().
  */
-function dosomething_flush_caches() {
+function dosomething_image_flush_caches() {
   return array('cache_dosomething_image');
 }

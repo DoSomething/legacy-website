@@ -867,3 +867,11 @@ function dosomething_reportback_flag_flag($flag, $entity_id, $account, $flagging
 function dosomething_reportback_cache_clear_all() {
   cache_clear_all('*', 'cache_dosomething_reportback', TRUE);
 }
+
+
+/**
+ * Implements hook_flush_caches().
+ */
+function dosomething_reportback_flush_caches() {
+  return array('cache_dosomething_reportback');
+}
