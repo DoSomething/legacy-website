@@ -10,7 +10,7 @@
  */
 function dosomething_mbp_menu() {
 
-  $items['admin/config/dosomething/dosomething_mbp'] = array(
+  $items['admin/config/services/dosomething-mbp'] = array(
     'title' => 'DoSomething MBP',
     'description' => 'DoSomething MBP (Message Broker Producer) settings.',
     'page callback' => 'drupal_get_form',
@@ -129,7 +129,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
       $payload['email_template'] = 'mb-campaign-signup';
-      $payload['email_tags'] = 'drupal_campaign_signup';
+      $payload['email_tags'][] = 'drupal_campaign_signup';
       break;
 
     case 'campaign_group_signup':
@@ -152,6 +152,8 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       break;
 
   }
+  // Assemble message based on standard template merge_var regions
+  $payload['merge_vars'] = dosomething_mbp_populate_template($origin, $payload['merge_vars']);
 
   return $payload;
 }
@@ -182,4 +184,28 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['merge_vars']['FNAME'] = $params['first_name'];
   $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
   $payload['merge_vars']['CAMPAIGN_LINK'] = $params['campaign_link'];
+}
+
+/**
+ * Assemble merge_var values for the six common general email template areas
+ * defined in mb-general-v1-0 Mandrill template.
+ *
+ * https://mandrillapp.com/templates/code?id=mb-general-v1-0.
+ *
+ * *|PREVIEW_LINE|*
+ * *|LOGO_LINK|*
+ * *|BANNER|*
+ * *|BODY|*
+ * *|TAG_LINE|*
+ * *|FOOTER|*
+ *
+ * @param string $source
+ *   The source of the message request. Used to define what content should be collected
+ *
+ * @return array
+ *   $payload - Composed values ready to be sent as a message payload.
+ */
+function dosomething_mbp_populate_template($source, $merge_vars) {
+  
+  return $payload['merge_vars'];
 }
