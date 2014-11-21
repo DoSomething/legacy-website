@@ -52,7 +52,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
  *
  * @return string
  */
-function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = NULL) {
+function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = array()) {
   if (empty($content)) {
     return '';
   }
@@ -65,12 +65,15 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
       $items[$delta]['class'] = $class;
     }
   }
-
+  $classes = NULL;
+  if (!empty($classes_array)) {
+    $classes = implode(' ', $classes_array);
+  }
   // Prepare variables to send to gallery theme functions.
   $variables = array(
     'items' => $items,
     'layout' => $layout,
-    'classes' => implode(' ', $classes_array),
+    'classes' => $classes,
   );
   return theme('paraneue_gallery', $variables);
 }
