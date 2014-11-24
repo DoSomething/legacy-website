@@ -11,3 +11,10 @@ function dosomething_image_schema() {
   $schema['cache_dosomething_image'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
 }
+
+/**
+ * Deletes field_video_poster.
+ */
+function dosomething_image_update_7001(&$sandbox) {
+  field_delete_field('field_video_poster');
+}
