@@ -66,19 +66,31 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
     // Check whether remote account with requested email exists:
     $remote_account = $this->sso->login($this->email, $this->password);
     if (!$remote_account) {
-      // NOTE: By this point user already passed local authentication?
       // The only users that exist locally but not remotely should be admin
       // accounts that were created before SSO integration. These should be
       // created remotely as well.
-      $local_account = dosomething_canada_create_sso_user(
-        $this->email,
-        $this->password,
-        $this->local_account
-      );
-      $this->sso->propagateLocalUser($local_account);
+
+      // Make sure the user has provided the right password before
+      // creating the remote account.
+      require_once DRUPAL_ROOT . '/' . variable_get('password_inc', 'includes/password.inc');
+      if (!user_check_password($this->password, $this->local_account)) {
+        return FALSE;
+      }
+
+      if (dosomething_user_is_staff($this->local_account)) {
+        $local_account = dosomething_canada_create_sso_user(
+          $this->email,
+          $this->password,
+          $this->local_account
+        );
+        $remote_account = $this->sso->propagateLocalUser($local_account);
+      }
     }
-    $this->remote_account = $remote_account;
-    return TRUE;
+
+    if (!empty($this->remote_account)) {
+      $this->remote_account = $remote_account;
+    }
+    return !!$this->remote_account;
   }
 
   public function getRemoteUser() {
