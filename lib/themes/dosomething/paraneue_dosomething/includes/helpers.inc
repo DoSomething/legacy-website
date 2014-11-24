@@ -176,6 +176,12 @@ function paraneue_dosomething_get_search_vars($results) {
         $result_variables[$delta] = $item;
       break;
       default:
+        $item = array(
+          'title' => $value['title'],
+          'link' => $value['link'],
+          'description' => $value['subtitle'],
+        );
+        $result_variables[$delta] = $item;
         break;
     }
   }
