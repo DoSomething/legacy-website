@@ -73,8 +73,8 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['video'] = $vars['hero_image']['video'];
     
     // Add video poster.
-    if (isset($vars['field_video_poster'])) {
-
+    if (isset($vars['hero_image']['poster'])) {
+      $vars['video_poster'] = $vars['hero_image']['poster'];
     }
   }
 
