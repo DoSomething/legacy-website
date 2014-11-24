@@ -158,6 +158,7 @@ function paraneue_dosomething_get_search_vars($results) {
           'image' => $value['display_image'],
           'description' => $value['subtitle'],
         );
+        $result_variables[$delta] = $item;
         break;
       case 'static_content':
       case 'fact_page':
@@ -172,11 +173,11 @@ function paraneue_dosomething_get_search_vars($results) {
           'link' => $value['link'],
           'description' => $value['subtitle'],
         );
+        $result_variables[$delta] = $item;
       break;
       default:
         break;
     }
-    $result_variables[$delta] = $item;
   }
   return $result_variables;
 }
