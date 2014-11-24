@@ -88,7 +88,7 @@ class CanadaSSOClient {
    * @param $password
    * @return array
    */
-  public function authenticate($email, $password)
+  public function login($email, $password)
   {
 
     $params = array(
@@ -111,18 +111,6 @@ class CanadaSSOClient {
   {
     $params = get_object_vars($user);
     $this->post(self::ENDPOINT_USERS, $params);
-    return $this->getUser();
-  }
-
-  /**
-   * If there was a successful authentication, this array will contain all
-   * the remote user data.
-   *
-   * @return array
-   * @throws Exception
-   */
-  public function getRemoteUser()
-  {
     return $this->getUser();
   }
 
