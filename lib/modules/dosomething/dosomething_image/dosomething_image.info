@@ -3,6 +3,7 @@ description = Provides an image type with various crops.
 core = 7.x
 package = DoSomething
 version = 7.x-1.0
+dependencies[] = dosomething_notfound
 dependencies[] = dosomething_taxonomy
 dependencies[] = features
 dependencies[] = file
