@@ -71,6 +71,11 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // Add hero video
   if (isset($vars['hero_image']['video'])) {
     $vars['video'] = $vars['hero_image']['video'];
+    
+    // Add video poster.
+    if (isset($vars['field_video_poster'])) {
+
+    }
   }
 
   // Indicates if we should display results below header.
