@@ -855,9 +855,9 @@ function dosomething_reportback_services_resources() {
  * Implements hook_flag_flag().
  */
 function dosomething_reportback_flag_flag($flag, $entity_id, $account, $flagging) {
-    if ($flag->name == 'promoted') {
-      dosomething_reportback_cache_clear_all();
-    }
+  if ($flag->name == 'promoted') {
+    dosomething_reportback_cache_clear_all();
+  }
 
 }
 
