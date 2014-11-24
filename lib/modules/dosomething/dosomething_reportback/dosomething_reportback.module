@@ -660,7 +660,7 @@ function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
   // Set the flag fid to query for.
   $flag_id = $flag->fid;
 
-  $sql = "SELECT flagging_id, flagging.fid as 'flag_id', rbf.fid, rbf.rbid, file.uid, field_weight_value
+  $sql = "SELECT flagging_id, flagging.fid as 'flag_id', rbf.fid, rbf.rbid, rb.uid, field_weight_value
     FROM flagging
     JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
     JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
@@ -855,9 +855,9 @@ function dosomething_reportback_services_resources() {
  * Implements hook_flag_flag().
  */
 function dosomething_reportback_flag_flag($flag, $entity_id, $account, $flagging) {
-    if ($flag->name == 'promoted') {
-      dosomething_reportback_cache_clear_all();
-    }
+  if ($flag->name == 'promoted') {
+    dosomething_reportback_cache_clear_all();
+  }
 
 }
 
