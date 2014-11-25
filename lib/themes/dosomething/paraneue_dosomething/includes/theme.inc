@@ -92,10 +92,6 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
 
-    'dosomething_search_noresults' => array(
-      'variables' => array(),
-    ),
-
     // Register theme functions for the Neue library.
     'paraneue_figure' => array(
       'template' => 'figure',

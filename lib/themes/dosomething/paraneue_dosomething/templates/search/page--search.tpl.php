@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Generates site-wide page chrome.
- * @see https://drupal.org/node/1728148
+ * Page template for search results.
  **/
 
 ?>

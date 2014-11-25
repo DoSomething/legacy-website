@@ -228,9 +228,9 @@ function paraneue_dosomething_preprocess_page(&$vars) {
               'image' => $image,
               'description' => $value['call_to_action'],
             );
-            array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+            array_push($gallery_items, paraneue_dosomething_get_gallery_item($item, 'figure'));
           }
-          $vars['recommended_campaigns'] = paraneue_get_gallery($gallery_items, 'triad');
+          $vars['recommended_campaigns'] = paraneue_dosomething_get_gallery($gallery_items, 'triad');
         }
       }
     }
@@ -579,8 +579,3 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
   }
 }
-
-function paraneue_dosomething_preprocess_page_search(&$vars) {
-  print "hi";
-}
-
