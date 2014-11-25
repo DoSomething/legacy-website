@@ -19,8 +19,8 @@
         <h3><?php print $noresults_copy; ?></h3>
       <?php endif; ?>
       <?php print render($page['content']); ?>
-      <?php if (!empty($noresults_copy)): ?>
-        <?php print $recommended_campaigns; ?>
+      <?php if (!empty($recommended_campaigns_gallery)): ?>
+        <?php print $recommended_campaigns_gallery; ?>
       <?php endif; ?>
     </div>
   </main>

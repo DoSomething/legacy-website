@@ -283,3 +283,29 @@ function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
   }
   return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes);
 }
+
+/**
+ * Returns a themed gallery of recommended campagins.
+ */
+function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid = NULL, $limit = 3) {
+  // Get recommended campaigns
+  $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid, $uid, $limit);
+  $rec_vars = array();
+  foreach ($rec_nids as $nid) {
+    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+  }
+  // Theme the gallery.
+  if (isset($rec_vars)) {
+    $gallery_items = array();
+    foreach ($rec_vars as $delta => $value) {
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $item = array(
+        'title' => $value['link'],
+        'image' => $image,
+        'description' => $value['call_to_action'],
+      );
+      array_push($gallery_items, paraneue_dosomething_get_gallery_item($item, 'figure'));
+    }
+    return paraneue_dosomething_get_gallery($gallery_items, 'triad');
+  }
+}
