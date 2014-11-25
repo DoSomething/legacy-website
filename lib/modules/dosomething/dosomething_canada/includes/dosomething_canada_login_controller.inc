@@ -43,9 +43,10 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
   // Public: interface implementation
 
   public function setup(Array $form, Array &$form_state) {
-    $this->email    = $form_state['values']['name'];
-    $this->password = $form_state['values']['pass'];
-    $this->local_account  = dosomething_user_get_user_by_email($this->email);
+    $this->email         = $form_state['values']['name'];
+    $this->password      = $form_state['values']['pass'];
+    $this->local_account = dosomething_user_get_user_by_email($this->email);
+    $this->sso           = dosomething_canada_get_sso();
     return $this;
   }
 
@@ -63,40 +64,39 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
   public function loginExistingUser() {
 
     // Check whether remote account with requested email exists:
-    try {
-      $this->sso = dosomething_canada_get_sso();
-
-      if ($this->sso->authenticate($this->email, $this->password)) {
-        $this->remote_account = $this->sso->getRemoteUser();
-      }
-    }
-    catch (Exception $e) {
-
+    $remote_account = $this->sso->login($this->email, $this->password);
+    if (!$remote_account) {
       // The only users that exist locally but not remotely should be admin
       // accounts that were created before SSO integration. These should be
       // created remotely as well.
-      $local_account = dosomething_canada_create_sso_user(
-        $this->email,
-        $this->password,
-        $this->local_account
-      );
-      $this->sso->propagateLocalUser($local_account);
+
+      // Make sure the user has provided the right password before
+      // creating the remote account.
+      require_once DRUPAL_ROOT . '/' . variable_get('password_inc', 'includes/password.inc');
+      if (!user_check_password($this->password, $this->local_account)) {
+        return FALSE;
+      }
+
+      if (dosomething_user_is_staff($this->local_account)) {
+        $local_account = dosomething_canada_create_sso_user(
+          $this->email,
+          $this->password,
+          $this->local_account
+        );
+        $remote_account = $this->sso->propagateLocalUser($local_account);
+      }
     }
-    return TRUE;
+
+    if (!empty($this->remote_account)) {
+      $this->remote_account = $remote_account;
+    }
+    return !!$this->remote_account;
   }
 
   public function getRemoteUser() {
-    $this->sso = dosomething_canada_get_sso();
-    try {
-      if ($this->sso->authenticate($this->email, $this->password)) {
-        $this->remote_account = $this->sso->getRemoteUser();
-      }
-    } catch (Exception $e) {
-      // Login failed.
-      return FALSE;
-    }
+    $this->remote_account = $this->sso->login($this->email, $this->password);
     return $this->remote_account;
-  }
+   }
 
   /**
    * Create new local user based on remote SSO user during login.

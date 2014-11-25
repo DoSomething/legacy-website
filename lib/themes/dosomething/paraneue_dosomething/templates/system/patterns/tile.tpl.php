@@ -13,7 +13,7 @@
  *    - $image: Rendered image (string).
  *    - $link: Link to the item.
  *
- * @see paraneue_get_gallery_item()
+ * @see paraneue_dosomething_get_gallery_item()
  */
 ?>
 

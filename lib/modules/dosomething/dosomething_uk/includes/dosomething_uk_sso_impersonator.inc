@@ -54,7 +54,6 @@ class DosomethingUkSsoImpersonator {
    */
   private $last;
 
-
   // ---------------------------------------------------------------------
   // Constructor and factories
 
@@ -230,7 +229,7 @@ class DosomethingUkSsoImpersonator {
       $session = array(self::SESSION_NAME => $this->session);
       $defaults['headers']['Cookie'] = http_build_query($session);
     }
-    return  array_replace_recursive($options, $defaults);
+    return array_replace_recursive($options, $defaults);
   }
 
   private function apiPath($path) {

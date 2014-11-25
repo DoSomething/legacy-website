@@ -27,5 +27,6 @@ function dosomething_notfound_node_info() {
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }
