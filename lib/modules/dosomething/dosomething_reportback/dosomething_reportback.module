@@ -119,7 +119,7 @@ function dosomething_reportback_menu() {
   $items['admin/users/reportbacks/inbox'] = array(
     'title' => 'Inbox',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_files_form'),
+    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
     'file' => 'dosomething_reportback.admin.inc',
@@ -891,17 +891,27 @@ function dosomething_reportback_flush_caches() {
 /**
  * Returns Reportback Gallery data.
  */
-function dosomething_reportback_get_gallery_results() {
+function dosomething_reportback_get_gallery_results($status = NULL) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
+  if ($status) {
+    $query->condition('rbf.status', $status);
+  }
   $query->fields('rbf');
   $query->fields('rb');
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('rb.updated', 'DESC');
-  $query->range(0,10);
+  $query->range(0,5);
   $result = $query->execute()->fetchAll();
   return $result;
+}
+
+function dosomething_reportback_update_reportback_file_status($fid, $status) {
+  return db_update('dosomething_reportback_file')
+    ->fields(array('status' => $status))
+    ->condition('fid', $fid)
+    ->execute();
 }

@@ -362,4 +362,9 @@ function dosomething_reportback_update_7014(&$sandbox) {
   if (!db_index_exists($tbl_name, $fld_name)) {
     db_add_index($tbl_name, $fld_name, array($fld_name));
   }
+  // Add index for fid column.
+  $fld_name = 'fid';
+  if (!db_index_exists($tbl_name, $fld_name)) {
+    db_add_index($tbl_name, $fld_name, array($fld_name));
+  }
 }

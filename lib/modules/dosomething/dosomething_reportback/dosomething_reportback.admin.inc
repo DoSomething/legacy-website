@@ -31,27 +31,32 @@ function dosomething_reportback_get_file_status_options() {
 /**
  * Form to review Reportback Files.
  */
-function dosomething_reportback_files_form() {
+function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
   // Identify that the elements in 'gallery_items' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
   $options = dosomething_reportback_get_file_status_options();
 
-  $result = dosomething_reportback_get_gallery_results();
+  $result = dosomething_reportback_get_gallery_results($status);
   foreach ($result as $record) {
     $preview = dosomething_reportback_file_preview($record);
+    $rb_path = 'reportback/' . $record->rbid;
     $form['rb_files'][$record->fid] = array(
       'preview' => array(
         '#markup' => $preview,
       ),
       'date' => array(
-        '#markup' => format_date($record->updated, 'short'),
+        '#markup' => l(format_date($record->updated, 'short'), $rb_path),
       ),
       'quantity' => array(
         '#markup' => $record->quantity,
       ),
       'node' => array(
         '#markup' => $record->title,
+      ),
+      'fid' => array(
+        '#type' => 'hidden',
+        '#value' => $record->fid,
       ),
       'status' => array(
         '#type' => 'radios',
@@ -67,6 +72,16 @@ function dosomething_reportback_files_form() {
     '#value' => t('Save')
   );
   return $form;
+}
+
+function dosomething_reportback_files_form_submit($form, &$form_state) {
+  foreach ($form_state['values']['rb_files'] as $id => $item) {
+    $status = dosomething_reportback_update_reportback_file_status($item['fid'], $item['status']);
+    if (!$status) {
+      form_set_error(t("An error has occurred."));
+    }
+  }
+  drupal_set_message(t("Updated."));
 }
 
 function theme_dosomething_reportback_files_form($variables) {
