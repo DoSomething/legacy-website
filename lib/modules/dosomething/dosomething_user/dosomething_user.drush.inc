@@ -51,8 +51,13 @@ function drush_dosomething_user_cancel_us_users() {
   $where = db_or()
   ->condition('r.rid', $staff_roles, 'not IN')
   // …or don't have any role assigned…
-  ->isNull('r.uid', NULL);
+  ->isNull('r.uid');
   $query->condition($where);
+
+  // …and has no content created…
+  $query->leftJoin('node', 'n', 'n.uid = u.uid');
+  $query->condition(db_and()->isNull('n.uid'));
+
   // …and not the anonymous.
   $query->condition('u.uid', 0, '<>');
 
