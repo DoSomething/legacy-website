@@ -16,7 +16,13 @@
 
   <main role="main" class="container">
     <div class="wrapper">
+      <?php if (!empty($noresults_copy)): ?>
+        <h3><?php print $noresults_copy; ?></h3>
+      <?php endif; ?>
       <?php print render($page['content']); ?>
+      <?php if (!empty($noresults_copy)): ?>
+        <?php print $recommended_campaigns; ?>
+      <?php endif; ?>
     </div>
   </main>
 

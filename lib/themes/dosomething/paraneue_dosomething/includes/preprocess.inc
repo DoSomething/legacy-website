@@ -203,14 +203,35 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   // Render footer.
   $vars['footer'] = theme('footer', $footer_vars);
 
-  // Search.
+  /**
+   * Search page.
+   */
   if (isset($vars['theme_hook_suggestions'][0])) {
     if ($vars['theme_hook_suggestions'][0] == 'page__search' ) {
-      dpm($vars);
-      print "FINALLY KNOW IM ON THE SEARCH PAGE NOW DO SOMETHING";
-
+      // If there are no results.
       if (empty($vars['page']['content']['system_main']['search_results']['search_results']['#results'])) {
-        $vars['page']['content']['system_main']['search_form']['#prefix'] = "<h3>Hllo</h3>";
+        // Set copy.
+        $vars['noresults_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
+
+        // Get recommended campaigns and theme them.
+        $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
+        $rec_vars = array();
+        foreach ($rec_nids as $nid) {
+          $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
+        }
+        if (isset($rec_vars)) {
+          $gallery_items = array();
+          foreach ($rec_vars as $delta => $value) {
+            $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+            $item = array(
+              'title' => $value['link'],
+              'image' => $image,
+              'description' => $value['call_to_action'],
+            );
+            array_push($gallery_items, paraneue_get_gallery_item($item, 'figure'));
+          }
+          $vars['recommended_campaigns'] = paraneue_get_gallery($gallery_items, 'triad');
+        }
       }
     }
   }
