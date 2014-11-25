@@ -202,6 +202,21 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   }
   // Render footer.
   $vars['footer'] = theme('footer', $footer_vars);
+
+  /**
+   * Search page.
+   */
+  if (isset($vars['theme_hook_suggestions'][0])) {
+    if ($vars['theme_hook_suggestions'][0] == 'page__search' ) {
+      // If there are no results.
+      if (empty($vars['page']['content']['system_main']['search_results']['search_results']['#results'])) {
+        // Set copy.
+        $vars['noresults_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
+        // Recommended campaigns.
+        $vars['recommended_campaigns_gallery'] = paraneue_dosomething_get_recommended_campaign_gallery(NULL, NULL, 3);
+      }
+    }
+  }
 }
 
 
@@ -517,23 +532,12 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
  * Themes the recommended campaigns for the notfound page
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
-  if (isset($vars['raw_campaign_results'])) {
-    $suggestions = $vars['raw_campaign_results'];
-    $gallery_items = array();
-    foreach ($suggestions as $suggestion => $value) {
-      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
-      $item = array(
-        'title' => $value['link'],
-        'image' => $image,
-        'description' => $value['call_to_action'],
-      );
-      array_push($gallery_items, paraneue_dosomething_get_gallery_item($item, 'figure'));
-    }
-    $vars['campaign_results'] = paraneue_dosomething_get_gallery($gallery_items, 'triad');
-  }
-  else if (isset($vars['raw_search_results'])){
+  if (isset($vars['raw_search_results']) && count($vars['raw_search_results']) != 0) {
     // Theme the set of results as duo gallery.
     $vars['search_results'] = paraneue_dosomething_get_search_gallery($vars['raw_search_results']);
+  }
+  else {
+    $vars['campaign_results'] = paraneue_dosomething_get_recommended_campaign_gallery(NULL, NULL, 3);
   }
 }
 
@@ -546,4 +550,3 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
   }
 }
-

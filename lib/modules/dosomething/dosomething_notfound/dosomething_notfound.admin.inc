@@ -19,12 +19,6 @@ function dosomething_notfound_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_notfound_copy_grants'),
     '#required' => TRUE,
     );
-  $form['dosomething_notfound_copy_no_results'] = array(
-    '#type' => 'textarea',
-    '#title' => 'No Results Found Copy',
-    '#default_value' => variable_get('dosomething_notfound_copy_no_results'),
-    '#required' => TRUE,
-    );
   $form['dosomething_notfound_copy_search_results'] = array(
     '#type' => 'textarea',
     '#title' => 'Search Copy',
