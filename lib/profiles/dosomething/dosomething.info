@@ -47,6 +47,7 @@ dependencies[] = redirect
 dependencies[] = redis
 dependencies[] = search
 dependencies[] = services
+dependencies[] = stringoverrides
 dependencies[] = strongarm
 dependencies[] = taxonomy_access_fix
 dependencies[] = uuid
