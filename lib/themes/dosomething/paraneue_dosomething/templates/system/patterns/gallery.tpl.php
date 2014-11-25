@@ -10,13 +10,13 @@
  *   - $item['class']: The class to apply to the li (string).
  *   - $item['content']: Themed item content (string).
  *
- * @see paraneue_get_gallery()
+ * @see paraneue_dosomething_get_gallery()
  */
 ?>
 <ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>">
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
-      <li class="<?php print $item['class']; ?>">
+      <li <?php if (!empty($item['class'])): print 'class="' . $item['class'] . '"'; endif; ?>>
         <?php print $item['content']; ?>
       </li>
     <?php endforeach; ?>

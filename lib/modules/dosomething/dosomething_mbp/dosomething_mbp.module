@@ -129,7 +129,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
       $payload['email_template'] = 'mb-campaign-signup';
-      $payload['email_tags'] = 'drupal_campaign_signup';
+      $payload['email_tags'][] = 'drupal_campaign_signup';
       break;
 
     case 'campaign_group_signup':

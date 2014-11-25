@@ -2,7 +2,7 @@
 
   <header role="banner" class="-hero <?php print $classes; ?>">
     <div class="wrapper">
-      <h1 class="__title"><?php print $term->name; ?></h1>
+      <h1 class="__title"><?php print $title ?></h1>
       <?php if (isset($subtitle)): ?>
         <h2 class="__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
@@ -41,8 +41,11 @@
     </section>
   <?php endif; ?>
 
+
   <?php if (!empty($campaign_gallery)): ?>
-    <?php print $campaign_gallery; ?>
+    <section id="gallery" class="container container--campaigns">
+      <?php print $campaign_gallery; ?>
+    </section>
   <?php endif; ?>
 
   <section class="container additional-text">
@@ -90,6 +93,15 @@
 
     </div>
   </section>
+
+  <div class="cta">
+    <div class="wrapper">
+      <?php if (isset($call_to_action)): ?>
+        <h2 class="__message"><?php print $call_to_action; ?></h2>
+      <?php endif; ?>
+      <a href="#gallery" class="btn"><?php print t("Do it"); ?></a>
+    </div>
+  </div>
 
   <?php if ($info_bar): ?>
     <?php print $info_bar; ?>

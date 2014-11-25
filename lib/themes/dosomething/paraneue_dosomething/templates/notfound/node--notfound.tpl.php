@@ -18,25 +18,22 @@
       <?php print $subtitle ?>
     </div>
     <?php if (isset($video)): ?>
-      <video src=<?php print $video ?> autoplay="" loop=""></video>
+      <video src=<?php print $video ?> autoplay="" loop="" poster=<?php print $video_poster ?> ></video>
     <?php endif; ?>
   </header>
 
   <?php if ($disable_results == FALSE): ?>
-    <div class="container notfound-search-results <?php if (!empty($notfound_page_type)) { print $notfound_page_type; } ?>">
+    <div class="container notfound-search-results">
       <div class="wrapper notfound-results">
-        <?php if (isset($results_copy)): ?>
-          <h3 class="search-results-header">
+        <?php if (isset($results_copy) && !empty($is_path_specific_page)): ?>
+          <?php print $results_copy; ?>
+        <?php elseif (isset($results_copy)): ?>
+          <h3 class="notfound-results-header">
             <?php print $results_copy; ?>
           </h3>
         <?php endif; ?>
         <?php if (!empty($search_form)): ?>
           <?php print $search_form; ?>
-        <?php endif; ?>
-        <?php if (!empty($suggestions_header)): ?>
-          <h3 class="search-results-header">
-            <?php print $suggestions_header; ?>
-          </h3>
         <?php endif; ?>
         <?php if (isset($campaign_results)): ?>
           <?php print $campaign_results; ?>

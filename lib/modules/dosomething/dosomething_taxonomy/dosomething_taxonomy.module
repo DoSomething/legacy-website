@@ -59,18 +59,23 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
     $vars['intro_image'] = dosomething_image_get_themed_image($image_nid, 'landscape', $size);
   }
 
-  // Display Campaign Gallery for this term.
-  $campaigns = dosomething_taxonomy_get_campaigns($vars['tid']);
-  $size = '400x400';
-  $source = 'taxonomy/term/' . $vars['tid'];
-  $gallery = dosomething_campaign_get_campaign_gallery($campaigns, $size, $source);
-  $vars['campaign_gallery'] = $gallery;
+  // Gather campaigns to display for this term.
+  $vars['campaigns'] = dosomething_taxonomy_get_campaigns($vars['tid']);
+
+  // Set the title field.
+  $vars['title'] = $vars['name'];
+  if (!empty($vars['field_title'])) {
+    $vars['title'] = $vars['field_title'][0]['value'];
+  }
+  drupal_set_title($vars['title']);
 
   // Term fields:
   $text_fields = array(
     'intro_title',
     'subtitle',
+    'call_to_action',
   );
+
   foreach ($text_fields as $label) {
     $field = "field_{$label}";
     if (isset($vars['content'][$field])) {
@@ -84,6 +89,9 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   if (isset($wrapper->field_facts) && $wrapper->field_facts->count() > 0) {
     $vars['facts'] = dosomething_fact_get_fact_field_vars($wrapper->field_facts);
     $vars['facts_header'] = t("Facts About @name", array('@name' => $vars['term']->name));
+    if (!empty($vars['field_facts_header'])) {
+      $vars['facts_header'] = $vars['field_facts_header'][0]['value'];
+    }
   }
 
   // Cover image.
@@ -97,6 +105,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
   if (module_exists('dosomething_zendesk')) {
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $vars['term']);
   }
+
 }
 
 /**

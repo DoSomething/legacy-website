@@ -467,6 +467,9 @@ function dosomething_reportback_gallery_form_submit($form, &$form_state) {
     $flagging->field_image_description[LANGUAGE_NONE][0]['value'] = $item['caption'];
     flagging_save($flagging);
   }
+  // Update gallery cache.
+  // @todo Delete specific cache entry for this nid, not all.
+  dosomething_reportback_cache_clear_all();
   drupal_set_message(t("Gallery updated."));
 }
 

@@ -132,6 +132,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'cvv',
       'data-validate-required' => '',
       'data-stripe' => 'cvc',
+      'autocomplete' => 'off',
     ),
   );
   $form['exp_month'] = array(
@@ -142,6 +143,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'exp_month',
       'data-validate-required' => '',
       'data-stripe' => 'exp-month',
+      'autocomplete' => 'off',
     ),
   );
   $form['exp_year'] = array(
@@ -152,6 +154,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate' => 'exp_year',
       'data-validate-required' => '',
       'data-stripe' => 'exp-year',
+      'autocomplete' => 'off',
     ),
   );
   $form['amount'] = array(
@@ -272,13 +275,20 @@ function dosomething_payment_post_payment_stripe($values) {
   try {
     // Charge the customer.
     // @see https://stripe.com/docs/tutorials/charges
-    Stripe_Charge::create(array(
+    $charge = Stripe_Charge::create(array(
       'customer' => $customer->id,
       'amount' => $values['amount'],
       'currency' => 'usd',
       'receipt_email' => $values['email'],
-      "description" => "Donation for DoSomething.org"
+      'description' => "Donation for DoSomething.org"
     ));
+    // Log the values we're sending to create the charge.
+    watchdog('dosomething_payment', 'Create charge %amount to Customer %id', array(
+      '%amount' => $values['amount'],
+      '%id' => $customer->id,
+    ));
+    // Log the Charge response.
+    watchdog('dosomething_payment', $charge);
     return TRUE;
   }
   catch (Exception $e) {
@@ -340,6 +350,13 @@ function dosomething_payment_stripe_create_customer($values) {
       'card' => $values['token'],
       'description' => $values['full_name'],
     ));
+    // Log the values we're sending to create the Customer.
+    watchdog('dosomething_payment', 'Create customer %email with %token', array(
+      '%email' => $values['email'],
+      '%token' => $values['token'],
+    ));
+    // Log the Customer response.
+    watchdog('dosomething_payment', $customer);
     return $customer;
   }
   catch (Exception $e) {

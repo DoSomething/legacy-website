@@ -1,0 +1,35 @@
+.taxonomy-term {
+  .container__title,
+  .sources {
+    @include compacted();
+  }
+
+  .container__body,
+  .additional-text {
+    p,
+    ul,
+    ol {
+      @include compacted();
+    }
+  }
+
+  .container__body {
+    .-columned {
+      p,
+      ul,
+      ol {
+        width: auto;
+      }
+    }
+  }
+
+  .sources {
+    ul {
+      width: auto;
+    }
+
+    p {
+      display: inline;
+    }
+  }
+}
