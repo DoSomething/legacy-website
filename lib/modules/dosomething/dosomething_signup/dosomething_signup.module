@@ -527,8 +527,8 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
 function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
   if ($node->type == 'campaign_group') {
     $copy = '';
-    if (isset($node->field_transactional_email_copy [LANGUAGE_NONE][0]['safe_value'])) {
-      $copy = $node->field_transactional_email_copy [LANGUAGE_NONE][0]['safe_value'];
+    if (isset($node->field_transactional_email_copy[LANGUAGE_NONE][0]['safe_value'])) {
+      $copy = $node->field_transactional_email_copy[LANGUAGE_NONE][0]['safe_value'];
     }
     $params['transactional_email_copy'] = $copy;
   }
