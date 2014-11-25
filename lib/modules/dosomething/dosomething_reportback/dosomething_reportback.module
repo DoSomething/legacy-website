@@ -116,6 +116,7 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
+
   $items['admin/users/reportbacks/inbox'] = array(
     'title' => 'Inbox',
     'page callback' => 'drupal_get_form',
@@ -123,15 +124,33 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
     'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 10,
   );
+  // Loop through status options.
+  $status_options = dosomething_reportback_get_file_status_options();
+  $weight = 20;
+  foreach ($status_options as $status => $title) {
+    $items['admin/users/reportbacks/' . $status] = array(
+      'title' => $title,
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('dosomething_reportback_files_form', $status),
+      'access callback' => 'dosomething_reportback_access',
+      'access arguments' => array('edit', 1),
+      'file' => 'dosomething_reportback.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => $weight,
+    );
+    $weight++;
+  }
   $items['admin/users/reportbacks/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_form'),
-    'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('edit', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 20,
+    'weight' => 100,
   );
   $items['reportback/%reportback/edit'] = array(
     'title' => 'Edit',
@@ -904,9 +923,18 @@ function dosomething_reportback_get_gallery_results($status = NULL) {
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('rb.updated', 'DESC');
-  $query->range(0,5);
+  $query->range(0,25);
   $result = $query->execute()->fetchAll();
   return $result;
+}
+
+function dosomething_reportback_get_file_status_options() {
+  return array(
+    'approved' => 'Approved',
+    'promoted' => 'Promoted',
+    'excluded' => 'Excluded',
+    'flagged' => 'Flagged',
+  );
 }
 
 function dosomething_reportback_update_reportback_file_status($fid, $status) {

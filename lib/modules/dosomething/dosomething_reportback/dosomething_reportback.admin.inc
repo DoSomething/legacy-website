@@ -19,15 +19,6 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
-function dosomething_reportback_get_file_status_options() {
-  return array(
-    'approved' => 'Approved',
-    'promoted' => 'Promoted',
-    'excluded' => 'Excluded',
-    'flagged' => 'Flagged',
-  );
-}
-
 /**
  * Form to review Reportback Files.
  */
@@ -63,6 +54,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#title' => t('Status'),
         '#required' => TRUE,
         '#options' => $options,
+        '#default_value' => $record->status,
       ),
     );
   }
@@ -107,7 +99,13 @@ function theme_dosomething_reportback_files_form($variables) {
       ),
     );
   }
-  $header = array(t('Submitted'), NULL, t('Quantity'), t('Op'), t('Campaign'));
+  $header = array(
+    t('Submitted'),
+    NULL,
+    t('Quantity'),
+    t('Campaign'),
+    t('Op'),
+  );
   // We can render our tabledrag table for output.
   $output = theme('table', array(
     'header' => $header,
@@ -116,44 +114,6 @@ function theme_dosomething_reportback_files_form($variables) {
   // And then render any remaining form elements (such as our submit button).
   $output .= drupal_render_children($form);
   return $output;
-}
-
-
-/**
- * Page callback for Admin Gallery table.
- */
-function dosomething_reportback_admin_gallery_page() {
-  $header = array(
-    t('Submitted'),
-    NULL,
-    t('Quantity'),
-    t('Email'),
-    t('Campaign'),
-  );
-
-  $result = dosomething_reportback_get_gallery_results();
-  $rows = array();
-
-  foreach ($result as $record) {
-    $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
-    $info = $img . '<p><strong>' . $record->caption . '</strong></p>';
-    $info .= '<hr />' . $record->why_participated;
-    $date = format_date($record->updated, 'short');
-
-    $rows[] = array(
-      l($date, 'reportback/' . $record->rbid),
-      $info,
-      $record->quantity,
-      l($record->mail, 'user/'. $record->uid),
-      l($record->title, 'node/'. $record->nid),
-    );
-
-  }
-
-  return theme('table', array(
-    'header' => $header,
-    'rows' => $rows,
-  ));
 }
 
 function dosomething_reportback_file_preview($record) {
