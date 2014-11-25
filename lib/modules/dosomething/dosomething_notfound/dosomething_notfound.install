@@ -29,6 +29,6 @@ function dosomething_notfound_install() {
 /**
  * Implements hook_update_N()
  */
-function dosomethig_notfound_update_7100() {
+function dosomething_notfound_update_7001() {
   variable_del('dosomething_notfound_copy_no_results');
 }
