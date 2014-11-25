@@ -86,6 +86,19 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'class' => array('js-image-upload'),
     ),
   );
+  // Hidden fields to collect cropping information.
+  $form['crop_x'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_y'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_width'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_height'] = array(
+    '#type' => 'hidden',
+  );
   $caption = NULL;
   if (isset($entity->caption)) {
     $caption = $entity->caption;
@@ -257,7 +270,26 @@ function dosomething_reportback_form_save_file(&$form_state) {
   // Make the storage of the file permanent.
   $file->status = FILE_STATUS_PERMANENT;
   file_save($file);
+  // @TODO - only if cropping is active.
+  // Grab cropping information.
+  $x = $form_state['values']['crop_x'];
+  $y = $form_state['values']['crop_y'];
+  $width = $form_state['values']['crop_width'];
+  $height = $form_state['values']['crop_height'];
+  // Load the image.
+  $image = image_load($file->uri);
+  // Crop the image.
+  dosomething_reportback_image_crop($image, $x, $y, $width, $height);
   return $file;
+}
+
+// Function to crop image.
+function dosomething_reportback_image_crop($image, $x, $y, $width, $height) {
+  // Crop the image.
+  $result = image_crop($image, $x, $y, $width, $height);
+  // Save the image.
+  // @TODO - this saves the new cropped image over the original one. Eventually we want to save it as a separate image.
+  image_save($image);
 }
 
 /**
