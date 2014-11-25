@@ -644,6 +644,16 @@ public static function signup(DosomethingUkSsoUser $sso_user) {
     return $this->url . $path;
   }
 
+  /**
+   * Logs unexpected errors to Drupal log instance.
+   *
+   * @param  string $message
+   *   The text of custom error message.
+   * @param  string $error
+   *   The text of unexpected error. Replaces `%s` in the custom error.
+   *
+   * @return NULL
+   */
   private static function log($message, $error)
   {
     $variables = array();

@@ -56,9 +56,16 @@ class CanadaSSOClient {
   /**
    * Last response.
    *
-   * @var string
+   * @var string|false
    */
-  private $last;
+  private $last_result;
+
+  /**
+   * Expected error messages provided in the last result.
+   *
+   * @var array|false
+   */
+  private $error_messages;
 
   // ---------------------------------------------------------------------
   // Constructor and factories
@@ -72,9 +79,12 @@ class CanadaSSOClient {
    */
   public function __construct($sso_url, $sso_appid, $sso_appkey)
   {
-    $this->ssoUrl = $sso_url;
-    $this->ssoAppid = $sso_appid;
+    $this->ssoUrl    = $sso_url;
+    $this->ssoAppid  = $sso_appid;
     $this->ssoAppkey = $sso_appkey;
+
+    $this->last_result    = FALSE;
+    $this->error_messages = FALSE;
   }
 
   // ---------------------------------------------------------------------
@@ -115,6 +125,14 @@ class CanadaSSOClient {
   }
 
   // ---------------------------------------------------------------------
+  // Public: getters
+
+  public function getErrorMessages()
+  {
+    return $this->error_messages;
+  }
+
+  // ---------------------------------------------------------------------
   // Private: utilities
 
   /**
@@ -139,7 +157,8 @@ class CanadaSSOClient {
   private function execute($uri, $method = 'GET', $data)
   {
     // Reset last result.
-    $this->last = FALSE;
+    $this->last_result    = FALSE;
+    $this->error_messages = FALSE;
 
     // Prepare request options.
     $data = http_build_query($data);
@@ -150,7 +169,8 @@ class CanadaSSOClient {
       // Adjustments for POST.
       $options['headers']['Content-Type'] = self::POST_CONTENT_TYPE;
       $options['data'] = $data;
-    } else if ($method === 'GET') {
+    }
+    elseif ($method === 'GET') {
       // Adjustments for GET.
       $url .= '?' . $data;
     }
@@ -162,12 +182,15 @@ class CanadaSSOClient {
     $success_codes = array(200, 201);
     if (!$response->code || !in_array($response->code, $success_codes)) {
       // An error occurred while executing the request.
-      // @todo: log expected errors.
-      self::log("Execution error for: %s", $response->error);
+      $this->processResponseErrorMessages($response);
+      if (!$this->error_messages) {
+        // Abnormal response: unexpected HTTP code or no body.
+        self::log("Execution error for: %s", $response->error);
+      }
       return FALSE;
     }
 
-    $this->last = $response;
+    $this->last_result = $response;
     return TRUE;
   }
 
@@ -203,11 +226,11 @@ class CanadaSSOClient {
    */
   private function getUser()
   {
-    if (!$this->last || empty($this->last->data)) {
+    if (!$this->last_result || empty($this->last_result->data)) {
       return FALSE;
     }
 
-    $user = json_decode($this->last->data);
+    $user = json_decode($this->last_result->data);
     if (!$user) {
       return FALSE;
     }
@@ -220,6 +243,7 @@ class CanadaSSOClient {
    *
    * @param  array  $options
    *   Request options to extend.
+   *
    * @return array
    *   The array of merged defaults and the options provided.
    */
@@ -237,6 +261,54 @@ class CanadaSSOClient {
     return array_replace_recursive($options, $defaults);
   }
 
+  /**
+   * Parse expected error messages from HTTP response.
+   *
+   * @param  object $response
+   *   The result of drupal_http_request().
+   *
+   * @return  bool
+   *   Whether the parsing was successful.
+   */
+  private function processResponseErrorMessages($response) {
+    // RFC 2616 states that all unknown HTTP codes must be treated the same as the
+    // base code in their class.
+    // @see drupal_http_request().
+    // Allow the following HTTP codes:
+    // - 422 Unprocessable Entity
+    $allowed_http_codes = array(400);
+    if (!in_array($response->code, $allowed_http_codes)) {
+      return FALSE;
+    }
+
+    if (!$response || empty($response->data)) {
+      return FALSE;
+    }
+
+    // Decode HTTP response body text.
+    $response_data = json_decode($response->data);
+    if (!$response_data) {
+      return FALSE;
+    }
+
+    if (empty($response_data->error_messages)) {
+      return FALSE;
+    }
+
+    $this->error_messages = (array) $response_data->error_messages;
+    return TRUE;
+  }
+
+  /**
+   * Logs unexpected errors to Drupal log instance.
+   *
+   * @param  string $message
+   *   The text of custom error message.
+   * @param  string $error
+   *   The text of unexpected error. Replaces `%s` in the custom error.
+   *
+   * @return NULL
+   */
   private static function log($message, $error)
   {
     $variables = array();
