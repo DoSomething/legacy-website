@@ -116,6 +116,13 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
+  $items['admin/users/reportbacks/inbox'] = array(
+    'title' => 'Inbox',
+    'page callback' => 'dosomething_reportback_admin_gallery_page',
+    'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('edit', 1),
+    'file' => 'dosomething_reportback.admin.inc',
+  );
   $items['admin/users/reportbacks/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
@@ -874,4 +881,22 @@ function dosomething_reportback_cache_clear_all() {
  */
 function dosomething_reportback_flush_caches() {
   return array('cache_dosomething_reportback');
+}
+
+/**
+ * Returns Reportback Gallery data.
+ */
+function dosomething_reportback_get_gallery_results() {
+  $query = db_select('dosomething_reportback_file', 'rbf');
+  $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
+  $query->join('users', 'u', 'rb.uid = u.uid');
+  $query->join('node', 'n', 'rb.nid = n.nid');
+  $query->fields('rbf');
+  $query->fields('rb');
+  $query->fields('u', array('uid', 'mail'));
+  $query->fields('n', array('nid', 'title'));
+  $query->orderBy('rb.updated', 'DESC');
+  $query->range(0,10);
+  $result = $query->execute()->fetchAll();
+  return $result;
 }
