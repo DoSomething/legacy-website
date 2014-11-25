@@ -118,7 +118,8 @@ function dosomething_reportback_menu() {
   );
   $items['admin/users/reportbacks/inbox'] = array(
     'title' => 'Inbox',
-    'page callback' => 'dosomething_reportback_admin_gallery_page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form'),
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('edit', 1),
     'file' => 'dosomething_reportback.admin.inc',
@@ -225,6 +226,10 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
     'dosomething_reportback_gallery_form' => array(
       'render element' => 'form',
       'file' => 'dosomething_reportback.forms.inc',
+    ),
+    'dosomething_reportback_files_form' => array(
+      'render element' => 'form',
+      'file' => 'dosomething_reportback.admin.inc',
     ),
   );
 }

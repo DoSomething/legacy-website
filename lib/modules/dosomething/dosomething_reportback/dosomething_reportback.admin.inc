@@ -19,6 +19,90 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
+function dosomething_reportback_get_file_status_options() {
+  return array(
+    'approved' => 'Approve',
+    'promoted' => 'Promote',
+    'ignored' => 'Ignore',
+    'flagged' => 'Flag',
+  );
+}
+
+/**
+ * Form to review Reportback Files.
+ */
+function dosomething_reportback_files_form() {
+  // Identify that the elements in 'gallery_items' are a collection, to
+  // prevent Form API from flattening the array when submitted.
+  $form['rb_files']['#tree'] = TRUE;
+  $options = dosomething_reportback_get_file_status_options();
+
+  $result = dosomething_reportback_get_gallery_results();
+  foreach ($result as $record) {
+    $preview = dosomething_reportback_file_preview($record);
+    $form['rb_files'][$record->fid] = array(
+      'preview' => array(
+        '#markup' => $preview,
+      ),
+      'date' => array(
+        '#markup' => format_date($record->updated, 'short'),
+      ),
+      'quantity' => array(
+        '#markup' => $record->quantity,
+      ),
+      'node' => array(
+        '#markup' => $record->title,
+      ),
+      'status' => array(
+        '#type' => 'radios',
+        '#required' => TRUE,
+        '#options' => $options,
+      ),
+    );
+  }
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Save')
+  );
+  return $form;
+}
+
+function theme_dosomething_reportback_files_form($variables) {
+  $form = $variables['form'];
+  $rb_files = element_children($form['rb_files']);
+
+  // If no results, just return form.
+  if (empty($rb_files)) {
+    return t("No results found.");
+  }
+
+  // Initialize the variable which will store our table rows.
+  $rows = array();
+  foreach ($rb_files as $id) {
+    $rows[] = array(
+      'data' => array(
+        // Add the columns defined in the form.
+        drupal_render($form['rb_files'][$id]['date']),
+        drupal_render($form['rb_files'][$id]['preview']),
+        drupal_render($form['rb_files'][$id]['quantity']),
+        drupal_render($form['rb_files'][$id]['status']),
+        drupal_render($form['rb_files'][$id]['node']),
+      ),
+    );
+  }
+  $header = array(t('Submitted'), NULL, t('Quantity'), t('Op'), t('Campaign'));
+  // We can render our tabledrag table for output.
+  $output = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+  ));
+  // And then render any remaining form elements (such as our submit button).
+  $output .= drupal_render_children($form);
+  return $output;
+}
+
+
 /**
  * Page callback for Admin Gallery table.
  */
@@ -56,6 +140,9 @@ function dosomething_reportback_admin_gallery_page() {
   ));
 }
 
-function dosomething_reportback_admin_gallery_row_form() {
-
+function dosomething_reportback_file_preview($record) {
+  $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
+  $info = $img . '<p><strong>' . $record->caption . '</strong></p>';
+  $info .= '<hr />' . $record->why_participated;
+  return $info;
 }
