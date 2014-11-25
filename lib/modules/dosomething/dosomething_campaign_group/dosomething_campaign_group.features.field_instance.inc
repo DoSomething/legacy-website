@@ -1365,7 +1365,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Transactional Email Copy',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
