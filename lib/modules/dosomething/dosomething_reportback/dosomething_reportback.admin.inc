@@ -21,10 +21,10 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
 
 function dosomething_reportback_get_file_status_options() {
   return array(
-    'approved' => 'Approve',
-    'promoted' => 'Promote',
-    'ignored' => 'Ignore',
-    'flagged' => 'Flag',
+    'approved' => 'Approved',
+    'promoted' => 'Promoted',
+    'excluded' => 'Excluded',
+    'flagged' => 'Flagged',
   );
 }
 
@@ -55,6 +55,7 @@ function dosomething_reportback_files_form() {
       ),
       'status' => array(
         '#type' => 'radios',
+        '#title' => t('Status'),
         '#required' => TRUE,
         '#options' => $options,
       ),
@@ -86,8 +87,8 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($form['rb_files'][$id]['date']),
         drupal_render($form['rb_files'][$id]['preview']),
         drupal_render($form['rb_files'][$id]['quantity']),
-        drupal_render($form['rb_files'][$id]['status']),
         drupal_render($form['rb_files'][$id]['node']),
+        drupal_render($form['rb_files'][$id]['status']),
       ),
     );
   }
@@ -143,6 +144,7 @@ function dosomething_reportback_admin_gallery_page() {
 function dosomething_reportback_file_preview($record) {
   $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
   $info = $img . '<p><strong>' . $record->caption . '</strong></p>';
+  $info .= l($record->mail, 'user/' . $record->uid);
   $info .= '<hr />' . $record->why_participated;
   return $info;
 }
