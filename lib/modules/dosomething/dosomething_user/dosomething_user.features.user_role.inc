@@ -46,5 +46,11 @@ function dosomething_user_user_default_roles() {
     'weight' => 6,
   );
 
+  // Exported role: site admin.
+  $roles['site admin'] = array(
+    'name' => 'site admin',
+    'weight' => 8,
+  );
+
   return $roles;
 }
