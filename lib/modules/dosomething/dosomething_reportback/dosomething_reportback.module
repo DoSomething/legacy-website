@@ -918,6 +918,13 @@ function dosomething_reportback_flush_caches() {
  * Returns Reportback Gallery data.
  */
 function dosomething_reportback_get_gallery_results($status = NULL) {
+  $limit = 25;
+  if (isset($_GET['pagesize'])) {
+    $limit = $_GET['pagesize'];
+    if (!is_numeric($limit) || $limit > 100) {
+      $limit = 25;
+    }
+  }
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');
@@ -930,7 +937,7 @@ function dosomething_reportback_get_gallery_results($status = NULL) {
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('rb.updated', 'DESC');
-  $query->range(0,25);
+  $query->range(0,$limit);
   $result = $query->execute()->fetchAll();
   return $result;
 }
