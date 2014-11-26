@@ -46,7 +46,18 @@
       bottom: 0;
       width: 40px;
       height: 40px;
-      background: #f00;
+      // background: asset-url("images/placeholder_rightanddownarrow.svg");
+    }
+
+    .resize-triangle {
+      width: 0;
+      height: 0;
+      bottom: 0;
+      right: 0;
+      border-style: solid;
+      border-width: 0 0 40px 40px;
+      border-color: transparent transparent $blue; //transparent;
+      position: absolute;
     }
   }
 
