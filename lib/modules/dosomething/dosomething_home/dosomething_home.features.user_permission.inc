@@ -35,7 +35,7 @@ function dosomething_home_user_default_permissions() {
   $permissions['edit any home content'] = array(
     'name' => 'edit any home content',
     'roles' => array(
-      'editor' => 'editor',
+      'site admin' => 'site admin',
     ),
     'module' => 'node',
   );
