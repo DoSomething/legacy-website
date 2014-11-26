@@ -270,16 +270,17 @@ function dosomething_reportback_form_save_file(&$form_state) {
   // Make the storage of the file permanent.
   $file->status = FILE_STATUS_PERMANENT;
   file_save($file);
-  // @TODO - only if cropping is active.
-  // Grab cropping information.
-  $x = $form_state['values']['crop_x'];
-  $y = $form_state['values']['crop_y'];
-  $width = $form_state['values']['crop_width'];
-  $height = $form_state['values']['crop_height'];
-  // Load the image.
-  $image = image_load($file->uri);
-  // Crop the image.
-  dosomething_reportback_image_crop($image, $x, $y, $width, $height);
+  // Crop the image if cropping is enabled.
+  if (variable_get('dosomething_reportback_is_crop_enabled')) {
+    $x = $form_state['values']['crop_x'];
+    $y = $form_state['values']['crop_y'];
+    $width = $form_state['values']['crop_width'];
+    $height = $form_state['values']['crop_height'];
+    // Load the image.
+    $image = image_load($file->uri);
+    // Crop the image.
+    dosomething_reportback_image_crop($image, $x, $y, $width, $height);
+  }
   return $file;
 }
 

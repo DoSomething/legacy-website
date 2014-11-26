@@ -875,3 +875,16 @@ function dosomething_reportback_cache_clear_all() {
 function dosomething_reportback_flush_caches() {
   return array('cache_dosomething_reportback');
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function dosomething_reportback_preprocess_page(&$vars) {
+  drupal_add_js(
+    array(
+      'dsReportback' => array(
+        'cropEnabled' => variable_get('dosomething_reportback_is_crop_enabled', FALSE),
+      )
+    ),
+  'setting');
+}
