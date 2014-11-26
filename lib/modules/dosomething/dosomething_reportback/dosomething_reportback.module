@@ -116,13 +116,20 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
-
-  $items['admin/users/reportbacks/inbox'] = array(
+  $items['admin/users/rb'] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+  );
+  $items['admin/users/rb/inbox'] = array(
     'title' => 'Inbox',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_files_form', 'pending'),
-    'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('edit', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
     'file' => 'dosomething_reportback.admin.inc',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 10,
@@ -131,12 +138,12 @@ function dosomething_reportback_menu() {
   $status_options = dosomething_reportback_get_file_status_options();
   $weight = 20;
   foreach ($status_options as $status => $title) {
-    $items['admin/users/reportbacks/' . $status] = array(
+    $items['admin/users/rb/' . $status] = array(
       'title' => $title,
       'page callback' => 'drupal_get_form',
       'page arguments' => array('dosomething_reportback_files_form', $status),
-      'access callback' => 'dosomething_reportback_access',
-      'access arguments' => array('edit', 1),
+      'access callback' => 'user_access',
+      'access arguments' => array('administer modules'),
       'file' => 'dosomething_reportback.admin.inc',
       'type' => MENU_LOCAL_TASK,
       'weight' => $weight,
