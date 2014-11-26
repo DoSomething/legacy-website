@@ -942,6 +942,9 @@ function dosomething_reportback_get_gallery_results($status = NULL) {
   return $result;
 }
 
+/**
+ * Returns list of valid options a Reportback File can be set to.
+ */
 function dosomething_reportback_get_file_status_options() {
   return array(
     'approved' => 'Approved',
@@ -951,6 +954,9 @@ function dosomething_reportback_get_file_status_options() {
   );
 }
 
+/**
+ * Updates a given Reportback File $fid's Reportback File status.
+ */
 function dosomething_reportback_update_reportback_file_status($fid, $status) {
   return db_update('dosomething_reportback_file')
     ->fields(array('status' => $status))

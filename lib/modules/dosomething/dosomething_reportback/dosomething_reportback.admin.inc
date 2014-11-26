@@ -20,7 +20,10 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
 }
 
 /**
- * Form to review Reportback Files.
+ * Form to set the status of Reportback Files.
+ *
+ * @param string $status
+ *   (optional) The Reportback File status to filter by.
  */
 function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
   // Identify that the elements in 'gallery_items' are a collection, to
@@ -66,6 +69,9 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
   return $form;
 }
 
+/**
+ * Form submit callback for dosomething_reportback_files_form_submit.
+ */
 function dosomething_reportback_files_form_submit($form, &$form_state) {
   foreach ($form_state['values']['rb_files'] as $id => $item) {
     $status = dosomething_reportback_update_reportback_file_status($item['fid'], $item['status']);
@@ -76,6 +82,9 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   drupal_set_message(t("Updated."));
 }
 
+/**
+ * Themes the dosomething_reportback_files_form constructor.
+ */
 function theme_dosomething_reportback_files_form($variables) {
   $form = $variables['form'];
   $rb_files = element_children($form['rb_files']);
@@ -116,6 +125,11 @@ function theme_dosomething_reportback_files_form($variables) {
   return $output;
 }
 
+/**
+ * Returns markup for a Reportback File preview.
+ *
+ * @todo Move this into a tpl file.
+ */
 function dosomething_reportback_file_preview($record) {
   $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
   $info = $img . '<p><strong>' . $record->caption . '</strong></p>';
