@@ -883,7 +883,7 @@ function dosomething_reportback_preprocess_page(&$vars) {
   drupal_add_js(
     array(
       'dsReportback' => array(
-        'cropEnabled' => variable_get('dosomething_reportback_is_crop_enabled', FALSE),
+        'cropEnabled' => DOSOMETHING_CROP_ENABLED,
       )
     ),
   'setting');
