@@ -915,6 +915,19 @@ function dosomething_reportback_flush_caches() {
 }
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function dosomething_reportback_preprocess_page(&$vars) {
+  drupal_add_js(
+    array(
+      'dsReportback' => array(
+        'cropEnabled' => DOSOMETHING_CROP_ENABLED,
+      )
+    ),
+  'setting');
+}
+
+/**
  * Returns Reportback Gallery data.
  */
 function dosomething_reportback_get_gallery_results($status = NULL) {
