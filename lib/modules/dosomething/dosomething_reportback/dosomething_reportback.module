@@ -116,14 +116,48 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
+  $items['admin/users/rb'] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+  );
+  $items['admin/users/rb/inbox'] = array(
+    'title' => 'Inbox',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 10,
+  );
+  // Loop through status options.
+  $status_options = dosomething_reportback_get_file_status_options();
+  $weight = 20;
+  foreach ($status_options as $status => $title) {
+    $items['admin/users/rb/' . $status] = array(
+      'title' => $title,
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('dosomething_reportback_files_form', $status),
+      'access callback' => 'user_access',
+      'access arguments' => array('administer modules'),
+      'file' => 'dosomething_reportback.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => $weight,
+    );
+    $weight++;
+  }
   $items['admin/users/reportbacks/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_form'),
-    'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('edit', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 20,
+    'weight' => 100,
   );
   $items['reportback/%reportback/edit'] = array(
     'title' => 'Edit',
@@ -218,6 +252,10 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
     'dosomething_reportback_gallery_form' => array(
       'render element' => 'form',
       'file' => 'dosomething_reportback.forms.inc',
+    ),
+    'dosomething_reportback_files_form' => array(
+      'render element' => 'form',
+      'file' => 'dosomething_reportback.admin.inc',
     ),
   );
 }
@@ -874,4 +912,59 @@ function dosomething_reportback_cache_clear_all() {
  */
 function dosomething_reportback_flush_caches() {
   return array('cache_dosomething_reportback');
+}
+
+/**
+ * Returns Reportback Gallery data.
+ */
+function dosomething_reportback_get_gallery_results($status = NULL) {
+  $limit = 25;
+  if (isset($_GET['pagesize'])) {
+    $limit = $_GET['pagesize'];
+    if (!is_numeric($limit) || $limit > 100) {
+      $limit = 25;
+    }
+  }
+  $query = db_select('dosomething_reportback_file', 'rbf');
+  $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
+  $query->join('users', 'u', 'rb.uid = u.uid');
+  $query->join('node', 'n', 'rb.nid = n.nid');
+  if ($status) {
+    $query->condition('rbf.status', $status);
+  }
+  $query->fields('rbf');
+  $query->fields('rb');
+  $query->fields('u', array('uid', 'mail'));
+  $query->fields('n', array('nid', 'title'));
+  $query->orderBy('rb.updated', 'DESC');
+  $query->range(0, $limit);
+  $result = $query->execute()->fetchAll();
+  return $result;
+}
+
+/**
+ * Returns list of valid options a Reportback File can be set to.
+ */
+function dosomething_reportback_get_file_status_options() {
+  $keys = array(
+    'approved',
+    'promoted',
+    'excluded',
+    'flagged',
+  );
+  $options = array();
+  foreach ($keys as $name) {
+    $options[$name] = t(ucfirst($name));
+  }
+  return $options;
+}
+
+/**
+ * Updates a given Reportback File $fid's Reportback File status.
+ */
+function dosomething_reportback_update_reportback_file_status($fid, $status) {
+  return db_update('dosomething_reportback_file')
+    ->fields(array('status' => $status))
+    ->condition('fid', $fid)
+    ->execute();
 }
