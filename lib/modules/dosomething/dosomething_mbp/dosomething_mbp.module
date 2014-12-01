@@ -60,7 +60,8 @@ function dosomething_mbp_request($origin, $params = NULL) {
   }
   $payload = dosomething_mbp_get_transactional_payload($origin, $params);
   if (variable_get('dosomething_mbp_log')) {
-    watchdog('dosomething_mbp', json_encode($payload));
+    watchdog('dosomething_mbp', $production . " params: " . json_encode($params));
+    watchdog('dosomething_mbp', "Payload: " . json_encode($payload));
   }
 
   try {

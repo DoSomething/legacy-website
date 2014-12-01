@@ -179,7 +179,7 @@ class CanadaSSOClient {
     $response = drupal_http_request($url, $options);
 
     // Evaluate results.
-    $success_codes = array(200, 201);
+    $success_codes = array(200, 201, 302);
     if (!$response->code || !in_array($response->code, $success_codes)) {
       // An error occurred while executing the request.
       $this->processResponseErrorMessages($response);

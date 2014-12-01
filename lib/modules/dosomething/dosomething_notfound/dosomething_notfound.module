@@ -103,8 +103,6 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['is_path_specific_page'] = TRUE;
     // Sets the copy above the results.
     $vars['results_copy'] = check_markup($copy, 'markdown');
-    // Raw results is themed in preprocessing and stored as $campaign_results.
-    $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
     return;
   }
 
@@ -154,9 +152,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['search_form'] = drupal_render($search_form);
   }
   // Set the default copy.
-  $vars['results_copy'] = variable_get('dosomething_notfound_copy_no_results');
-  // Raw results is themed in preprocessing and stored as $campaign_results.
-  $vars['raw_campaign_results'] = dosomething_notfound_get_recommended_campaigns();
+  $vars['results_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
 }
 
 /**
@@ -168,16 +164,4 @@ function dosomething_notfound_form_search_form_alter(&$form, &$form_state, $form
     $query_string = $form_state['build_info']['args']['query_string'];
     $form['basic']['keys']['#default_value'] = $query_string;
   }
-}
-
-/**
-* Get recommended campaigns
-*/
-function dosomething_notfound_get_recommended_campaigns() {
-  $rec_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
-  $rec_vars = array();
-  foreach ($rec_nids as $nid) {
-    $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid);
-  }
-  return $rec_vars;
 }
