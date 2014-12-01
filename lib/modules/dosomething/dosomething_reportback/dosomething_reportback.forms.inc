@@ -5,6 +5,8 @@
  * Provides form constructors for the DoSomething Reportback module.
  */
 
+DEFINE('DOSOMETHING_CROP_ENABLED', variable_get('dosomething_reportback_is_crop_enabled') ? TRUE : FALSE);
+
 /**
  * Form constructor for a reportback create/update form.
  *
@@ -87,18 +89,20 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
   );
   // Hidden fields to collect cropping information.
-  $form['crop_x'] = array(
-    '#type' => 'hidden',
-  );
-  $form['crop_y'] = array(
-    '#type' => 'hidden',
-  );
-  $form['crop_width'] = array(
-    '#type' => 'hidden',
-  );
-  $form['crop_height'] = array(
-    '#type' => 'hidden',
-  );
+  if (DOSOMETHING_CROP_ENABLED) {
+    $form['crop_x'] = array(
+      '#type' => 'hidden',
+    );
+    $form['crop_y'] = array(
+      '#type' => 'hidden',
+    );
+    $form['crop_width'] = array(
+      '#type' => 'hidden',
+    );
+    $form['crop_height'] = array(
+      '#type' => 'hidden',
+    );
+  }
   $caption = NULL;
   if (isset($entity->caption)) {
     $caption = $entity->caption;
@@ -218,6 +222,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     // Store new file's fid into values.
     $values['fid'] = $file->fid;
   }
+
   // Save values into reportback.
   dosomething_reportback_save($values);
 
@@ -271,7 +276,7 @@ function dosomething_reportback_form_save_file(&$form_state) {
   $file->status = FILE_STATUS_PERMANENT;
   file_save($file);
   // Crop the image if cropping is enabled.
-  if (variable_get('dosomething_reportback_is_crop_enabled')) {
+  if (DOSOMETHING_CROP_ENABLED) {
     $x = $form_state['values']['crop_x'];
     $y = $form_state['values']['crop_y'];
     $width = $form_state['values']['crop_width'];
@@ -288,9 +293,11 @@ function dosomething_reportback_form_save_file(&$form_state) {
 function dosomething_reportback_image_crop($image, $x, $y, $width, $height) {
   // Crop the image.
   $result = image_crop($image, $x, $y, $width, $height);
-  // Save the image.
+  // Save the image, if result is successful;
   // @TODO - this saves the new cropped image over the original one. Eventually we want to save it as a separate image.
-  image_save($image);
+  if ($result) {
+    image_save($image);
+  }
 }
 
 /**
@@ -391,7 +398,7 @@ function dosomething_reportback_gallery_form($form, $form_state, $node) {
   }
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
-    '#type' => 'submit', 
+    '#type' => 'submit',
     '#value' => t('Save')
   );
   $form['actions']['cancel'] = array(
