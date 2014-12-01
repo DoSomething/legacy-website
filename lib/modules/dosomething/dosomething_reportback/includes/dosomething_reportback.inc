@@ -141,6 +141,9 @@ class ReportbackEntity extends Entity {
    *   Values to write to a dosomething_reportback_file record.
    */
   public function createReportbackFile($values) {
+    if (!isset($values->caption)) {
+      $values->caption = NULL;
+    }
     return db_insert($this->files_table)
       ->fields(array(
           'rbid' => $this->rbid,
@@ -345,6 +348,9 @@ class ReportbackEntityController extends EntityAPIController {
       $op = 'insert';
     }
     $entity->updated = $now;
+    if (DOSOMETHING_REPORTBACK_LOG) {
+      watchdog('dosomething_reportback', 'save:' . json_encode($entity));
+    }
     parent::save($entity, $transaction);
     // If a file fid exists:
     if (isset($entity->fid)) {

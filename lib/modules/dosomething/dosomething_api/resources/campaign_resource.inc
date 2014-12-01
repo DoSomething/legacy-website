@@ -53,6 +53,8 @@ function _campaign_resource_defintion() {
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
         'callback' => '_campaign_resource_reportback',
         'access callback' => '_campaign_resource_access',
+        'access arguments' => array('reportback'),
+        'access arguments append' => TRUE,
         'args' => array(
           array(
             'name' => 'nid',
@@ -87,14 +89,25 @@ function _campaign_resource_defintion() {
  * @see node_access()
  */
 function _campaign_resource_access($op = 'view', $args = array()) {
+  if (DOSOMETHING_REPORTBACK_LOG) {
+    watchdog('dosomething_api', '_campaign_resource_access args:' . json_encode($args));
+  }
+
   if ($op == 'index') {
     return TRUE;
   }
 
   $node = node_load($args[0]);
+  if (!$node) {
+    return services_error(t('No node found for @nid', array('@nid' => $args[0])), 403);
+  }
 
   if ($op == 'view') {
     return node_access($op, $node);
+  }
+
+  if (!user_is_logged_in()) {
+    return services_error(t('Must be logged in!'), 403);
   }
 
   if (dosomething_campaign_is_active($node)) {
@@ -185,6 +198,8 @@ function _campaign_resource_reportback($nid, $values) {
     $rbid = 0;
   }
   $values['rbid'] = $rbid;
-
+  if (DOSOMETHING_REPORTBACK_LOG) {
+    watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
+  }
   return dosomething_reportback_save($values);
 }

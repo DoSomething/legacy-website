@@ -16,6 +16,13 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_reportback_is_crop_enabled', FALSE),
     '#description' => t("Allows users to crop their own Reportback images."),
   );
+
+  $form['dosomething_reportback_log'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Log Reportbacks.'),
+    '#default_value' => variable_get('dosomething_reportback_log', FALSE),
+    '#description' => t("Logs Reportback activity. This should be disabled on production."),
+  );
   return system_settings_form($form);
 }
 
