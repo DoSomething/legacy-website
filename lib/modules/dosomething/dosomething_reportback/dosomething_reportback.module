@@ -3,11 +3,10 @@
  * @file
  * Code for the DoSomething Reportback feature.
  */
+define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') ? TRUE : FALSE);
 
 include_once 'dosomething_reportback.features.inc';
 include_once 'dosomething_reportback.forms.inc';
-
-DEFINE('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') ? TRUE : FALSE);
 
 /**
  * Implements hook_entity_info().
