@@ -472,17 +472,19 @@ function dosomething_reportback_set_properties(&$entity, $values) {
 }
 
 /**
- * Sets a reportback entity's files.
+ * Sets a reportback entity's file and caption.
  *
  * @param object $entity
  *   The reportback entity to set properties for.
  * @param array $values
- *   An array of file fid's to set.
+ *   An array of Reportback File data to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
-    $entity->caption = $values['caption'];
+    if (!empty($values['caption'])) {
+      $entity->caption = $values['caption'];
+    }
   }
 }
 
