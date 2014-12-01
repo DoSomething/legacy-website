@@ -106,6 +106,10 @@ function _campaign_resource_access($op = 'view', $args = array()) {
     return node_access($op, $node);
   }
 
+  if (!user_is_logged_in()) {
+    return services_error(t('Must be logged in!'), 403);
+  }
+
   if (dosomething_campaign_is_active($node)) {
     return TRUE;
     //@todo: If op==reportback and SMS Game, return 403 error.
