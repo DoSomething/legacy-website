@@ -28,6 +28,8 @@
           <a href="<?php print $content['link']; ?>">
             <?php print $content['title']; ?>
           </a>
+        <?php else: ?>
+          <?php print $content['title']; ?>
         <?php endif; ?>
       </h3>
     <?php endif; ?>

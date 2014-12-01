@@ -512,16 +512,19 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
-
-  if ($reportbacks) {
+  if (!empty($reportbacks)) {
     // Theme each reportback and create an array.
-    foreach ($reportbacks as $delta => $value) {
-      $item = array(
-        'title' => $value->link,
-        'image' => $value->img,
-        'impact' => $value->impact,
+    foreach ($reportbacks as $delta => $rbid) {
+      $reportback = reportback_load((int) $rbid);
+      $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
+      $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
+      $content = array(
+        'link' => 'node/' . $reportback->nid,
+        'title' => $reportback->node_title,
+        'image' => $img,
+        'impact' => $impact,
       );
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'media');
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'media');
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
