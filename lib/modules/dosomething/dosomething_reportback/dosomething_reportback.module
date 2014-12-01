@@ -937,7 +937,7 @@ function dosomething_reportback_get_gallery_results($status = NULL) {
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('rb.updated', 'DESC');
-  $query->range(0,$limit);
+  $query->range(0, $limit);
   $result = $query->execute()->fetchAll();
   return $result;
 }
@@ -946,12 +946,17 @@ function dosomething_reportback_get_gallery_results($status = NULL) {
  * Returns list of valid options a Reportback File can be set to.
  */
 function dosomething_reportback_get_file_status_options() {
-  return array(
-    'approved' => 'Approved',
-    'promoted' => 'Promoted',
-    'excluded' => 'Excluded',
-    'flagged' => 'Flagged',
+  $keys = array(
+    'approved',
+    'promoted',
+    'excluded',
+    'flagged',
   );
+  $options = array();
+  foreach ($keys as $name) {
+    $options[$name] = t(ucfirst($name));
+  }
+  return $options;
 }
 
 /**

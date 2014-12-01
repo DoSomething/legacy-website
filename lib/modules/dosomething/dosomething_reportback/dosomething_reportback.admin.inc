@@ -26,7 +26,7 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
  *   (optional) The Reportback File status to filter by.
  */
 function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
-  // Identify that the elements in 'gallery_items' are a collection, to
+  // Identify that the elements in 'rb_files' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
   $options = dosomething_reportback_get_file_status_options();
@@ -73,7 +73,11 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
  * Form submit callback for dosomething_reportback_files_form_submit.
  */
 function dosomething_reportback_files_form_submit($form, &$form_state) {
-  foreach ($form_state['values']['rb_files'] as $id => $item) {
+  $rb_files = $form_state['values']['rb_files'];
+  if (empty($rb_files) || !is_array($rb_files)) {
+    return;
+  }
+  foreach ($rb_files as $id => $item) {
     $status = dosomething_reportback_update_reportback_file_status($item['fid'], $item['status']);
     if (!$status) {
       form_set_error(t("An error has occurred."));
@@ -132,8 +136,8 @@ function theme_dosomething_reportback_files_form($variables) {
  */
 function dosomething_reportback_file_preview($record) {
   $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
-  $info = $img . '<p><strong>' . $record->caption . '</strong></p>';
+  $info = $img . '<p><strong>' . check_plain($record->caption) . '</strong></p>';
   $info .= l($record->mail, 'user/' . $record->uid);
-  $info .= '<hr />' . $record->why_participated;
+  $info .= '<hr />' . check_plain($record->why_participated);
   return $info;
 }
