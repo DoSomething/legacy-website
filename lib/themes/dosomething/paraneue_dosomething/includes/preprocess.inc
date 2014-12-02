@@ -509,7 +509,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     }
     $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad');
   }
-
+  global $base_url;
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
   if (!empty($reportbacks)) {
@@ -518,8 +518,10 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       $reportback = reportback_load((int) $rbid);
       $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
       $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
+      // Media gallery template expects a full URL.
+      $url = $base_url . '/' . drupal_get_path_alias('node/' . $reportback->nid);
       $content = array(
-        'link' => 'node/' . $reportback->nid,
+        'link' => $url,
         'title' => $reportback->node_title,
         'image' => $img,
         'impact' => $impact,
