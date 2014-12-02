@@ -60,6 +60,9 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
       'targeted_actions' => array(
+        'signup' => array(
+          'enabled' => '1',
+        ),
         'reportback' => array(
           'enabled' => '1',
         ),

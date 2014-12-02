@@ -3,6 +3,8 @@
  * @file
  * Code for the dosomething_signup feature.
  */
+define('DOSOMETHING_SIGNUP_LOG_MOBILECOMMONS', variable_get('dosomething_signup_log_mobilecommons') ? TRUE : FALSE);
+define('DOSOMETHING_SIGNUP_LOG_SIGNUPS', variable_get('dosomething_signup_log_signups') ? TRUE : FALSE);
 
 include_once 'dosomething_signup.features.inc';
 include_once 'dosomething_signup.forms.inc';
@@ -10,9 +12,6 @@ include_once 'dosomething_signup.signup_data_form.inc';
 include_once 'dosomething_signup.theme.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
 include_once 'includes/dosomething_signup.variable.inc';
-
-DEFINE('DOSOMETHING_SIGNUP_LOG_MOBILECOMMONS', variable_get('dosomething_signup_log_mobilecommons') ? TRUE : FALSE);
-DEFINE('DOSOMETHING_SIGNUP_LOG_SIGNUPS', variable_get('dosomething_signup_log_signups') ? TRUE : FALSE);
 
 /**
  * Implements hook_menu().
