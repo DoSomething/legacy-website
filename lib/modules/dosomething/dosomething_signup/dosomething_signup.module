@@ -170,7 +170,10 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     $entity = entity_create('signup', $values);
     // The SignupEntityController save method handles any NULL values.
     $entity->save();
-    return $entity->sid;
+    if (isset($entity->sid)) {
+      return $entity->sid;
+    }
+    return FALSE;
   }
   catch (Exception $e) {
     // Keep message general in case a user ever sees it.
