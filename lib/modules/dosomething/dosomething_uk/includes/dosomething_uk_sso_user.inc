@@ -101,6 +101,9 @@ class DosomethingUkSsoUser extends DosomethingUserRemote {
    */
   public function __construct($data)
   {
+    if (empty($data['password'])) {
+      $data['password'] = FALSE;
+    }
     parent::__construct($data['email'], $data['password']);
 
     if (is_string($data['dob'])) {

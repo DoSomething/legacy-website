@@ -11,9 +11,11 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
   // Instance variables
 
   /**
-   * The registration form.
+   * The remote user object.
+   *
+   * @var DosomethingCanadaSsoUser
    */
-  private $account_values;
+  private $remote_account;
 
   /**
    * The SSO controller.
@@ -24,39 +26,29 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
   // Public: interface implementation
 
   public function setup(Array $form, Array &$form_state) {
-    $this->account_values = $form_state['values'];
     $this->sso = dosomething_canada_get_sso();
+
+    // -- Required user data. --
+    $values = &$form_state['values'];
+    $user_data = array(
+      'email'     => $values['mail'],
+      'password'  => $values['pass'],
+      'firstName' => $values['field_first_name'][LANGUAGE_NONE][0]['value'],
+      'dob'       => $values['field_birthdate'][LANGUAGE_NONE][0]['value'],
+    );
+
+    // -- Optional user data. --
+    if (!empty($values['field_mobile']['und'][0])) {
+      $user_data['mobile'] = $values['field_mobile']['und'][0]['value'];
+    }
+
+    // Create SSO user.
+    $this->remote_account = new DosomethingCanadaSsoUser($user_data);
     return $this;
   }
 
   public function signup() {
-    $local_user = new stdClass();
-    $local_user->email    = $this->account_values['mail'];
-    $local_user->password = $this->account_values['pass'];
-
-    if (!empty($this->account_values['field_birthdate']['und'][0])) {
-      $local_user->dob = $this->account_values['field_birthdate']['und'][0]['value'];
-    }
-
-    if (!empty($this->account_values['field_mobile']['und'][0])) {
-      $local_user->mobile = $this->account_values['field_mobile']['und'][0]['value'];
-    }
-
-    if (!empty($this->account_values['field_first_name']['und'][0])) {
-      $local_user->firstName = $this->account_values['field_first_name']['und'][0]['value'];
-    }
-
-    if (!empty($this->account_values['field_last_name']['und'][0])) {
-      $local_user->lastName = $this->account_values['field_last_name']['und'][0]['value'];
-    }
-
-    $result = FALSE;
-    try {
-      $result = $this->sso->propagateLocalUser($local_user);
-    } catch (Exception $e) {
-      return FALSE;
-    }
-    return $result;
+    return $this->sso->signup($this->remote_account);
   }
 
   /**

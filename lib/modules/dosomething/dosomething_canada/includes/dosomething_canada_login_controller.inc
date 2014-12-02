@@ -78,12 +78,22 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       }
 
       if (dosomething_user_is_staff($this->local_account)) {
-        $local_account = dosomething_canada_create_sso_user(
-          $this->email,
-          $this->password,
-          $this->local_account
+        $user_data = array(
+          'email'     => $this->email,
+          'password'  => $this->password,
+          'firstName' => $this->local_account->field_first_name['und'][0]['value'],
+          'dob'       => $this->local_account->field_birthdate['und'][0]['value'],
         );
-        $remote_account = $this->sso->propagateLocalUser($local_account);
+
+        if (!empty($this->local_account->field_mobile['und'][0]['value'])) {
+          $user_data['mobile'] = $this->local_account->field_mobile['und'][0]['value'];
+        }
+
+        // Create SSO user.
+        $remote_account = new DosomethingCanadaSsoUser($user_data);
+        if ($this->sso->signup($remote_account)) {
+          $this->remote_account = $remote_account;
+        }
       }
     }
 
@@ -113,16 +123,16 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       'created' => REQUEST_TIME,
     );
 
-    $dob = new DateObject($this->remote_account->DOB);
     $fields = array(
-      'birthdate'                => $dob->format(DATE_FORMAT_DATE),
-      'first_name'               => $this->remote_account->Name,
+      'birthdate'                => $this->remote_account->getDobString(),
+      'first_name'               => $this->remote_account->getFirstName(),
       'country'                  => dosomething_settings_get_affiliate_country_code(),
-      'user_registration_source' => DOSOMETHING_CANADA_USER_SOURCE,
+      'user_registration_source' => DosomethingCanadaSsoUser::REGISTRATION_SOURCE,
     );
 
-    if (!empty($this->remote_account->Phone)) {
-      $fields['mobile'] = $this->remote_account->Phone;
+    $mobile = $this->remote_account->getMobile();
+    if (!empty($mobile)) {
+      $fields['mobile'] = $this->remote_account->getMobile();
     }
 
     dosomething_user_set_fields($edit, $fields);
