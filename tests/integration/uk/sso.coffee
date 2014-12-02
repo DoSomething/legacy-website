@@ -68,7 +68,7 @@ casper.test.begin "Test the registration form", 3, (test) ->
 # ------------------------------------------------------------------------
 # Test the user created
 
-casper.test.begin "Test the registred user", 7, (test) ->
+casper.test.begin "Test the registered user", 7, (test) ->
   casper.start url
   login test
   user_profile test
@@ -154,7 +154,7 @@ login = (test) ->
     return
   return
 
-# Performs 5 or 6 (depends on the phone nuber) tests to check user's profile.
+# Performs 5 or 6 (depends on the phone number) tests to check user's profile.
 user_profile = (test) ->
 
   # Test user's profile.
