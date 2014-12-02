@@ -38,14 +38,13 @@ function _campaign_resource_defintion() {
             'type' => 'int',
             'description' => 'The nid of the Campaign node to signup for.',
           ),
-          // @todo: We'll want this for SMS campaigns where uid doesn't exist?
-          // array(
-          //   'name' => 'uid',
-          //   'optional' => TRUE,
-          //   'source' => array('data' => 'uid'),
-          //   'description' => 'The User uid to signup',
-          //   'type' => 'int',
-          // ),
+          array(
+            'name' => 'values',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The Signup data',
+            'type' => 'array',
+          ),
         ),
       ),
       'reportback' => array(
@@ -155,12 +154,29 @@ function _campaign_resource_index($parameters) {
 
 /**
  * Callback for Campaigns Signup targeted action.
+ *
+ * @param int $nid
+ *   The Node nid to post the signup to.
+ * @param array $values
+ *   The signup data to post. Expected keys:
+ *   - uid: The user uid (int).  Optional, uses global $user if not set.
+ *   - source (string).
  */
-function _campaign_resource_signup($nid) {
+function _campaign_resource_signup($nid, $values) {
+  global $user;
+  if (!isset($values['uid'])) {
+    $values['uid'] = $user->uid;
+  }
+  if (!isset($values['source'])) {
+    $values['source'] = NULL;
+  }
+  if (DOSOMETHING_SIGNUP_LOG_SIGNUPS) {
+    watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
+  }
   // @todo: Pass parameter into signup_create whether or not to send SMS.
   // Since SMS campaign signups would hit this endpoint, would not want 
   // to send an additional "You've signed up text".
-  return dosomething_signup_create($nid);
+  return dosomething_signup_create($nid, $values['uid'], $values['source']);
 }
 
 /**

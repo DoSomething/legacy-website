@@ -78,6 +78,7 @@ class SignupEntityController extends EntityAPIController {
    * Populates timestamp and uid automatically.
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
+    global $user;
     if (isset($entity->is_new)) {
       if (!isset($entity->timestamp)) {
         $entity->timestamp = REQUEST_TIME;
@@ -85,6 +86,22 @@ class SignupEntityController extends EntityAPIController {
       if (!isset($entity->uid)) {
         global $user;
         $entity->uid = $user->uid;
+      }
+    }
+    // Make sure a uid exists.
+    if (!isset($entity->uid)) {
+      return FALSE;
+    }
+    // If the entity uid doesnt belong to current user:
+    if ($entity->uid != $user->uid) {
+      // And current user can't edit any reportback:
+      if (!user_access('edit any signup')) {
+        watchdog('dosomething_signup', "Attempted uid override for @entity by User @uid", 
+          array(
+            '@entity' => json_encode($entity),
+            '@uid' => $user->uid,
+          ), WATCHDOG_WARNING);
+        return FALSE;
       }
     }
     parent::save($entity, $transaction);
