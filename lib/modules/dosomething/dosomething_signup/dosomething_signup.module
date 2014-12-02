@@ -85,6 +85,10 @@ function dosomething_signup_permission() {
       'title' => t('Administer Third Party Communications'),
       'description' => t('Manage Mobile Commons/MailChimp Opt-in IDs.'),
     ),
+    'edit any signup' =>  array(
+      'title' => t('Edit any signup'),
+      'description' => t('Edit any signup.'),
+    ),
     'view any signup' =>  array(
       'title' => t('View any signup'),
       'description' => t('View any signup.'),
