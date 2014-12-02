@@ -15,6 +15,7 @@ FIELD_FIRST_NAME = 'field_first_name[und][0][value]'
 FIELD_LAST_NAME  = 'field_last_name[und][0][value]'
 FIELD_BIRTHDATE  = 'field_birthdate[und][0][value][date]'
 FIELD_POSTCODE   = 'field_address[und][0][postal_code]'
+FIELD_PHONE      = 'field_mobile[und][0][value]'
 
 USER_COUNTRY = 'UK'
 
@@ -67,7 +68,7 @@ casper.test.begin "Test the registration form", 3, (test) ->
 # ------------------------------------------------------------------------
 # Test the user created
 
-casper.test.begin "Test the registred user", 6, (test) ->
+casper.test.begin "Test the registred user", 7, (test) ->
   casper.start url
   login test
   user_profile test
@@ -86,6 +87,8 @@ casper.test.begin "Test the user created from new login", 7, (test) ->
     # Delete user account.
     @logAction "Remove the user to test login using remote account only:"
     @deleteUser uid
+    # Reset phone number since API doesn't expose it.
+    delete user.phone
 
   # Check user profile.
   login test
@@ -109,6 +112,8 @@ casper.test.begin "Test that the user created can login again", 1, (test) ->
 fillSignupForm = (user) ->
   # Override generated postcode with British.
   user.postcode = "CF10 5AN"
+  # Hardcode vInspired contact phone number for testing purposes.
+  user.phone = "02079 607 000"
 
   # Prepare user data.
   data = {}
@@ -119,6 +124,7 @@ fillSignupForm = (user) ->
   data[FIELD_LAST_NAME]  = user.last_name
   data[FIELD_BIRTHDATE]  = user.dob.format "DD/MM/YYYY"
   data[FIELD_POSTCODE]   = user.postcode
+  data[FIELD_PHONE]      = user.phone
 
   # Fill in the registration form.
   casper.fill FORM, data
@@ -148,7 +154,7 @@ login = (test) ->
     return
   return
 
-# Performs 5 tests to check user's profile.
+# Performs 5 or 6 (depends on the phone nuber) tests to check user's profile.
 user_profile = (test) ->
 
   # Test user's profile.
@@ -169,6 +175,10 @@ user_profile = (test) ->
 
     test.assertField FIELD_POSTCODE, user.postcode,
       "Test if user has correct postcode."
+
+    if user.phone?
+      test.assertField FIELD_PHONE, user.phone,
+        "Test if user has correct phone number."
 
     test.assertExists "div.addressfield-container-inline.country-#{USER_COUNTRY}",
       "Test if user has correct country."
