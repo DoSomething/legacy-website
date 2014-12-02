@@ -220,7 +220,7 @@ public static function signup(DosomethingUkSsoUser $sso_user) {
   public function createRemoteUser(DosomethingUkSsoUser $sso_user)
   {
     $sso_user = $this->createRemote(
-      self::ENDPOINT_USER_CREATE, $sso_user->toFormFields()
+      self::ENDPOINT_USER_CREATE, $sso_user->toRemotePostFieldsArray()
     );
     return $sso_user;
   }

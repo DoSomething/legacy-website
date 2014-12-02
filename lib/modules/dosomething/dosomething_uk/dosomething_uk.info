@@ -18,7 +18,6 @@ dependencies[] = oauth_common
 
 ; Custom
 dependencies[] = dosomething_user
-dependencies[] = dosomething_settings
 
 files[] = includes/dosomething_uk_sso_controller.inc
 files[] = includes/dosomething_uk_sso_impersonator.inc
