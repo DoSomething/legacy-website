@@ -341,6 +341,7 @@ class ReportbackEntityController extends EntityAPIController {
    * Populates created and uid automatically.
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
+    global $user;
     $now = REQUEST_TIME;
     $op = 'update';
     if (isset($entity->is_new)) {
@@ -351,7 +352,26 @@ class ReportbackEntityController extends EntityAPIController {
     if (DOSOMETHING_REPORTBACK_LOG) {
       watchdog('dosomething_reportback', 'save:' . json_encode($entity));
     }
+
+    // Make sure a uid exists.
+    if (!isset($entity->uid)) {
+      return FALSE;
+    }
+    // If the entity uid doesnt belong to current user:
+    if ($entity->uid != $user->uid) {
+      // And current user can't edit any reportback:
+      if (!user_access('edit any reportback')) {
+        watchdog('dosomething_reportback', "Attempted uid override for @reportback by User @uid", 
+          array(
+            '@reportback' => json_encode($entity),
+            '@uid' => $user->uid,
+          ), WATCHDOG_WARNING);
+        return FALSE;
+      }
+    }
+
     parent::save($entity, $transaction);
+
     // If a file fid exists:
     if (isset($entity->fid)) {
       // Add it into the reportback files.
