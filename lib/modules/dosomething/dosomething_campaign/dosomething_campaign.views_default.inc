@@ -48,6 +48,10 @@ function dosomething_campaign_views_default_views() {
   $handler->display->display_options['sorts']['field_staff_pick_value']['table'] = 'field_data_field_staff_pick';
   $handler->display->display_options['sorts']['field_staff_pick_value']['field'] = 'field_staff_pick_value';
   $handler->display->display_options['sorts']['field_staff_pick_value']['order'] = 'DESC';
+  /* Sort criterion: Content: Campaign Status (field_campaign_status) */
+  $handler->display->display_options['sorts']['field_campaign_status_value']['id'] = 'field_campaign_status_value';
+  $handler->display->display_options['sorts']['field_campaign_status_value']['table'] = 'field_data_field_campaign_status';
+  $handler->display->display_options['sorts']['field_campaign_status_value']['field'] = 'field_campaign_status_value';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
