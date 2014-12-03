@@ -156,7 +156,7 @@ function dosomething_reportback_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('edit any reportback'),
     'type' => MENU_LOCAL_TASK,
     'weight' => 100,
   );
@@ -434,8 +434,11 @@ function dosomething_reportback_save($values) {
     dosomething_reportback_set_files($entity, $values);
     // Save the entity.
     $entity->save();
-    // Return reportback rbid.
-    return $entity->rbid;
+    if (isset($entity->rbid)) {
+      // Return reportback rbid.
+      return $entity->rbid;
+    }
+    return FALSE;
   }
   catch (Exception $e) {
     watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
