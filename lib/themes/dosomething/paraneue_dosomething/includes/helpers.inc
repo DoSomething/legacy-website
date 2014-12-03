@@ -303,6 +303,7 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
+        'url' => base_path() . $value['path_alias'],
       );
       array_push($gallery_items, paraneue_dosomething_get_gallery_item($item, 'figure'));
     }
