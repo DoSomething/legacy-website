@@ -129,7 +129,7 @@ class DosomethingUkLoginController implements ExternalAuthLoginController {
       'first_name'               => $this->remote_account->getFirstName(),
       'last_name'                => $this->remote_account->getLastName(),
       'postal_code'              => $this->remote_account->getPostcode(),
-      'country'                  => $this->remote_account->getCountry(),
+      'country'                  => dosomething_settings_get_affiliate_country_code(),
       'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
     );
     dosomething_user_set_fields($edit, $fields);

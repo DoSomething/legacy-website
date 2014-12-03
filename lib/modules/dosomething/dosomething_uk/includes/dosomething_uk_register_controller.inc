@@ -74,7 +74,7 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
     }
 
     // Create SSO user.
-    $this->remote_account = DosomethingUkSsoUser::fromArray($user_data);
+    $this->remote_account = new DosomethingUkSsoUser($user_data);
     return $this;
   }
 
