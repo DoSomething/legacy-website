@@ -140,6 +140,7 @@ function paraneue_dosomething_get_search_vars($results) {
   // Preprocess each result and store the information we need.
   foreach ($results as $delta => $value) {
     switch ($value['bundle']) {
+      case 'campaign_group':
       case 'campaign':
         $result_node = node_load($value['node']->entity_id);
         // Get the image field from the campaign node.
