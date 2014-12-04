@@ -43,7 +43,7 @@ function dosomething_uk_test_register() {
     'postcode'   => 'CF10 5AN',
     'dob'        => new DateTime('1990-05-28T0000Z'),
   );
-  $sso_user = DosomethingUkSsoUser::fromArray($user_data);
+  $sso_user = new DosomethingUkSsoUser($user_data);
 
   // Register remotely.
   $sso = DosomethingUkSsoController::signup($sso_user);

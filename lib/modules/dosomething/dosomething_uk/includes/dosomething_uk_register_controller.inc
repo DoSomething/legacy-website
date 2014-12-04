@@ -42,14 +42,8 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
       'last_name'  => $values['field_last_name'][LANGUAGE_NONE][0]['value'],
       'postcode'   => $values['field_address'][LANGUAGE_NONE][0]['postal_code'],
     );
-    $this->remote_account = DosomethingUkSsoUser::fromArray($user_data);
 
     // -- Optional user data. --
-    // Determines whether the user agreed to receive e-mail newsletter.
-    if (!empty($values['field_opt_in_email'][LANGUAGE_NONE][0]['value'])) {
-      $this->remote_account->setContactable(TRUE);
-    }
-
     // Use unpreprocessed cell number.
     // Actual value is unset during validation of the number format,
     // @see dosomething_user_register_validate().
@@ -63,7 +57,7 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
     // @todo: use normal value when the international phone validator is ready.
     if (!empty($form_state['input']['field_mobile'][LANGUAGE_NONE][0]['value'])) {
       $phone = $form_state['input']['field_mobile'][LANGUAGE_NONE][0]['value'];
-      $this->remote_account->setPhoneNumber($phone);
+      $user_data['phone_number'] = $phone;
 
       // Save the phone number as is to the local DB only
       // when it passed the remote validation.
@@ -74,6 +68,13 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
       );
     }
 
+    // Determines whether the user agreed to receive e-mail newsletter.
+    if (!empty($values['field_opt_in_email'][LANGUAGE_NONE][0]['value'])) {
+      $user_data['contactable'] = TRUE;
+    }
+
+    // Create SSO user.
+    $this->remote_account = new DosomethingUkSsoUser($user_data);
     return $this;
   }
 

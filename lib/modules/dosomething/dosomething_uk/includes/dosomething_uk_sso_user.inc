@@ -3,14 +3,14 @@
 /**
  * Represents UK SSO user.
  */
-class DosomethingUkSsoUser {
+class DosomethingUkSsoUser extends DosomethingUserRemote {
 
   // ---------------------------------------------------------------------
   // Class constants
 
   // Remote user.
-  const SIGNUP_FORM_CONTAINER        = 'user';
-  const SIGNUP_FORM_BIRTHDATE_FORMAT = 'd/m/Y';
+  const SIGNUP_CONTAINER        = 'user';
+  const SIGNUP_BIRTHDATE_FORMAT = 'd/m/Y';
 
 
   // Local drupal user.
@@ -32,20 +32,6 @@ class DosomethingUkSsoUser {
    * @var string
    */
   private $last_name;
-
-  /**
-   * The email.
-   *
-   * @var string
-   */
-  private $email;
-
-  /**
-   * The password.
-   *
-   * @var string
-   */
-  private $password;
 
   /**
    * The postcode.
@@ -94,102 +80,57 @@ class DosomethingUkSsoUser {
   private $contactable;
 
   // ---------------------------------------------------------------------
-  // Constructor and factories
-
-  /**
-   * Constructs a DosomethingUkSsoUser object.
-   *
-   * @param string $first_name
-   *   The first name of the user.
-   * @param string $last_name
-   *   The last name of the user.
-   * @param string $email
-   *   The email of the user.
-   * @param string $password
-   *   The password of the user.
-   * @param string $postcode
-   *   The postcode of the user.
-   * @param DateTime $dob
-   *   A DateTime object representing user's birthdate.
-   */
-  public function __construct($first_name, $last_name, $email, $password,
-                              $postcode, DateTime $dob)
-  {
-    // Required fields.
-    $this->first_name = $first_name;
-    $this->last_name  = $last_name;
-    $this->password   = $password;
-    $this->postcode   = $postcode;
-    $this->email      = $email;
-    $this->dob        = $dob;
-
-    // Defaults for optional fields.
-    $this->contactable = FALSE;
-    $this->phone_number = FALSE;
-
-    // Figured from reals generated screen names on UK SSO.
-    $this->screen_name = strtolower($this->first_name) . time();
-  }
+  // Constructor
 
   /**
    * Builds UK SSO user using an associative array.
    *
    * @param array $data
    *   An associative array containing:
+   *   - email: The postcode of the user.
+   *   - password: The email of the user.
    *   - first_name: The first name of the user.
    *   - last_name: The last name of the user.
-   *   - password: The email of the user.
    *   - postcode: The password of the user.
-   *   - email: The postcode of the user.
    *   - dob: A DateTime object or DateTime-complaint string representing
    *     user's birthdate.
-   *
-   * @return static
+   *   - phone_number: (optional) The phone number consistent with
+   *     UK phone number format.
+   *   - contactable: (optional) A boolean determines whether the user agreed to
+   *     receive e-mail newsletter.
    */
-  public static function fromArray($data) {
+  public function __construct($data)
+  {
+    parent::__construct($data['email'], $data['password']);
+
     if (is_string($data['dob'])) {
       $data['dob'] = new DateObject($data['dob']);
     }
+    // Set UK-specific fields.
+    $this->first_name = $data['first_name'];
+    $this->last_name  = $data['last_name'];
+    $this->postcode   = $data['postcode'];
+    $this->dob        = $data['dob'];
+    $this->screen_name = strtolower($this->getFirstName()) . time();
 
-    $instance = new self(
-      $data['first_name'],
-      $data['last_name'],
-      $data['email'],
-      $data['password'],
-      $data['postcode'],
-      $data['dob']
-    );
-    return $instance;
+    // Optional fields.
+    $this->phone_number = FALSE;
+    if (isset($data['phone_number'])) {
+      $this->phone_number = $data['phone_number'];
+    }
+
+    $this->contactable = FALSE;
+    if (isset($data['contactable']) && is_bool($data['contactable'])) {
+      $this->contactable = $data['contactable'];
+    }
   }
 
   // ---------------------------------------------------------------------
   // Public: methods
 
-  public function toFormFields()
+  public function toRemotePostFieldsArray()
   {
-    // -- Required user data. --
-    $fields = array(
-      'first_name'  => $this->first_name,
-      'last_name'   => $this->last_name,
-      'dob'         => $this->dob->format(self::SIGNUP_FORM_BIRTHDATE_FORMAT),
-      'postcode'    => $this->postcode,
-      'email'       => $this->email,
-      'screen_name' => $this->screen_name,
-      'password'    => $this->password,
-    );
-
-    // Must be the same as user's password.
-    $fields['password_confirmation'] = $this->password;
-
-    // -- Optional user data. --
-    // User's agreement to the email newsletter.
-    if ($this->contactable) {
-      $fields['contactable'] = 1;
-    }
-    // User's mobile phone number.
-    if ($this->phone_number) {
-      $fields['phone_number'] = $this->phone_number;
-    }
+    $fields = $this->toArray();
 
     // Must be 1 to indicate acceptance of the terms & conditions of vInspired.
     // You should make sure to present these terms to the user.
@@ -199,10 +140,44 @@ class DosomethingUkSsoUser {
     // Must be like that due to the OAuth library limitations.
     $result = array();
     foreach ($fields as $key => $value) {
-      $fixed_key = self::SIGNUP_FORM_CONTAINER . '[' . $key . ']';
+      $fixed_key = self::SIGNUP_CONTAINER . '[' . $key . ']';
       $result[$fixed_key] = $value;
     }
     return $result;
+  }
+
+  /**
+   * Converts object to a compatible array.
+   *
+   * @see __construct()
+   *
+   * @return array
+   */
+  public function toArray() {
+    // -- Required user data. --
+    $data = array(
+      'first_name'  => $this->getFirstName(),
+      'last_name'   => $this->getLastName(),
+      'dob'         => $this->getDob()->format(self::SIGNUP_BIRTHDATE_FORMAT),
+      'postcode'    => $this->getPostcode(),
+      'email'       => $this->getEmail(),
+      'screen_name' => $this->getScreenName(),
+      'password'    => $this->getPassword(),
+    );
+
+    // Must be the same as user's password.
+    $data['password_confirmation'] = $this->getPassword();
+
+    // -- Optional user data. --
+    // User's agreement to the email newsletter.
+    if ($this->isContactable()) {
+      $data['contactable'] = 1;
+    }
+    // User's mobile phone number.
+    if ($this->getPhoneNumber()) {
+      $data['phone_number'] = $this->getPhoneNumber();
+    }
+    return $data;
   }
 
   // ---------------------------------------------------------------------
@@ -229,26 +204,6 @@ class DosomethingUkSsoUser {
   }
 
   /**
-   * Returns the email.
-   *
-   * @return string
-   */
-  public function getEmail()
-  {
-    return $this->email;
-  }
-
-  /**
-   * Returns the postcode.
-   *
-   * @return string
-   */
-  public function getPostcode()
-  {
-    return $this->postcode;
-  }
-
-  /**
    * Returns DateTime object of the user's date of birth.
    *
    * @return DateTime
@@ -259,23 +214,13 @@ class DosomethingUkSsoUser {
   }
 
   /**
-   * Returns the string representaion of the user's date of birth.
+   * Returns the 'Y-m-d' string representaion of the user's date of birth.
    *
    * @return string
    */
   public function getDobString()
   {
     return $this->dob->format(DATE_FORMAT_DATE);
-  }
-
-  /**
-   * Returns the screen name.
-   *
-   * @return string
-   */
-  public function getScreenName()
-  {
-    return $this->screen_name;
   }
 
   /**
@@ -300,14 +245,23 @@ class DosomethingUkSsoUser {
   }
 
   /**
-   * Gets the user's country.
+   * Returns the postcode.
    *
-   * @return string.
-   *   Always returns DosomethingUkSsoUser::COUNTRY.
+   * @return string
    */
-  public function getCountry()
+  public function getPostcode()
   {
-    return dosomething_settings_get_affiliate_country_code();
+    return $this->postcode;
+  }
+
+  /**
+   * Returns the screen name.
+   *
+   * @return string
+   */
+  public function getScreenName()
+  {
+    return $this->screen_name;
   }
 
   /**
@@ -320,37 +274,6 @@ class DosomethingUkSsoUser {
   public function isContactable()
   {
     return $this->contactable;
-  }
-
-  // ---------------------------------------------------------------------
-  // Public: field mutators
-
-  /**
-   * Sets the mobile phone number.
-   *
-   * @param string
-   *   $phone_number The phone number consistent with UK phone number format.
-   *
-   * @return $this
-   */
-  public function setPhoneNumber($phone_number)
-  {
-    $this->phone_number = $phone_number;
-    return $this;
-  }
-
-  /**
-   * Sets user's agreement for newsletter e-mails.
-   *
-   * @param boolean
-   *   $contactable A boolean correspondent to the user's agreement.
-   *
-   * @return $this
-   */
-  public function setContactable($contactable)
-  {
-    $this->contactable = $contactable;
-    return $this;
   }
 
   // ---------------------------------------------------------------------
