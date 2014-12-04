@@ -10,6 +10,7 @@ FIELD_PASS       = 'pass[pass1]'
 FIELD_PASS_2     = 'pass[pass2]'
 FIELD_FIRST_NAME = 'field_first_name[und][0][value]'
 FIELD_BIRTHDATE  = 'field_birthdate[und][0][value][date]'
+FIELD_PHONE      = 'field_mobile[und][0][value]'
 
 USER_COUNTRY = 'CA'
 
@@ -54,7 +55,7 @@ casper.test.begin "Test the registration form", 2, (test) ->
 # ------------------------------------------------------------------------
 # Test the user created
 
-casper.test.begin "Test the registred user", 4, (test) ->
+casper.test.begin "Test the registred user", 5, (test) ->
   casper.start url
   login test
   user_profile test
@@ -64,7 +65,7 @@ casper.test.begin "Test the registred user", 4, (test) ->
 # ------------------------------------------------------------------------
 # Test user created from new login
 
-casper.test.begin "Test the user created from new login", 5, (test) ->
+casper.test.begin "Test the user created from new login", 6, (test) ->
   # Test the nid is present so we can remove it.
   test.assertTruthy uid, "User id from the signup test found."
 
@@ -94,6 +95,9 @@ casper.test.begin "Test that the user created can login again", 1, (test) ->
 # Utilities
 
 fillSignupForm = (user) ->
+  # Hardcode TakingItGlobal contact phone number for testing purposes.
+  user.phone = "4169779363"
+
   # Prepare user data.
   data = {}
   data[FIELD_MAIL]       = user.email
@@ -101,6 +105,7 @@ fillSignupForm = (user) ->
   data[FIELD_PASS_2]     = user.password
   data[FIELD_FIRST_NAME] = user.first_name
   data[FIELD_BIRTHDATE]  = user.dob.format "MM/DD/YYYY"
+  data[FIELD_PHONE]      = user.phone
 
   # Fill in the registration form.
   casper.fill FORM, data
@@ -136,6 +141,9 @@ user_profile = (test) ->
 
     test.assertField FIELD_BIRTHDATE, user.dob.format("MM/DD/YYYY"),
       "Test if user has correct birthdate."
+
+    test.assertField FIELD_PHONE, user.phone,
+      "Test if user has correct phone number."
 
     test.assertExists "div.addressfield-container-inline.country-#{USER_COUNTRY}",
       "Test if user has correct country."
