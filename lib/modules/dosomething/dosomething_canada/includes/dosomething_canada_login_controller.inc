@@ -120,6 +120,11 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       'country'                  => dosomething_settings_get_affiliate_country_code(),
       'user_registration_source' => DOSOMETHING_CANADA_USER_SOURCE,
     );
+
+    if (!empty($this->remote_account->Phone)) {
+      $fields['mobile'] = $this->remote_account->Phone;
+    }
+
     dosomething_user_set_fields($edit, $fields);
 
     try {
