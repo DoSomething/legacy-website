@@ -1,16 +1,108 @@
 .media {
 
-  &.-framed { 
+  &.-framed {
     background-color: #fff;
-    padding: 5px; 
+    padding: 5px;
+
+    @include media($desktop) {
+      padding: 10px;
+    }
+
+    img {
+      width: 100%;
+    }
 
     .__copy {
-      font-size: $font-small;  
+      font-size: $font-small;
+      line-height: 1.2;
+    }
+  }
+
+}
+
+
+
+
+// Main Reportback container
+.reportback {
+  background-color: #f0f;
+  overflow: hidden;
+
+  @include media($tablet) {
+    .gallery--reportback {
+      @include span-columns(3 of 12);
+      @include omega();
+      float: right;
+    }
+
+    form {
+      @include span-columns(9 of 12);
+    }
+  }
+
+  @include media($desktop) {
+    .gallery--reportback {
+      @include span-columns(6 of 12);
+      @include omega();
+      float: right;
+    }
+
+    form {
+      @include span-columns(6 of 12);
     }
   }
 }
 
-.reportback {
-  background-color: #f0f;
+
+
+
+.gallery--reportback {
+  background: #ff0;
+  overflow: hidden;
+
+  > li {
+    @include span-columns(6 of 12);
+    @include omega(2n);  // @TODO: need IE8 fallback!
+    margin-bottom: flex-gutter(12);
+
+    @include media($tablet) {
+      margin-right: 0;
+      width: 100%;
+      margin-bottom: flex-gutter(3);
+    }
+
+    @include media($desktop) {
+      @include span-columns(6 of 12);
+      @include omega(2n);  // @TODO: need IE8 fallback!
+      margin-bottom: flex-gutter(6);
+    }
+
+    &:nth-child(n+5) {
+      display: none;
+
+      @include media($desktop) {
+        display: block;
+      }
+    }
+  }
+}
+
+
+
+
+
+.reportback form {
+  background-color: #fff;
   padding: 15px;
+}
+
+
+// @TOTD: Only temp; change class name!
+.gigantor {
+  background-color: #eee;
+  border: 0;
+
+  > .wrapper {
+    top: 0;
+  }
 }
