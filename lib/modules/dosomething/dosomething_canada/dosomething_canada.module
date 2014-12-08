@@ -51,37 +51,4 @@ function dosomething_canada_get_sso() {
   return $sso;
 }
 
-/**
- * Construct a well-formed user object that the API integration library
- * can accept.
- *
- * @param $email
- * @param $pass
- * @param $account
- * @return stdClass
- */
-function dosomething_canada_create_sso_user($email, $pass, $account) {
-  $user = new stdClass();
-  $user->email = $email;
-  $user->password = $pass;
-
-  if (!empty($account->field_birthdate['und'][0])) {
-    $user->dob = date('Y-m-d', strtotime($account->field_birthdate['und'][0]['value']));
-  }
-
-  if (!empty($account->field_mobile['und'][0])) {
-    $user->mobile = $account->field_mobile['und'][0]['value'];
-  }
-
-  if (!empty($account->field_first_name['und'][0])) {
-    $user->firstName = $account->field_first_name['und'][0]['value'];
-  }
-
-  if (!empty($account->field_last_name['und'][0])) {
-    $user->lastName = $account->field_last_name['und'][0]['value'];
-  }
-
-  return $user;
-}
-
 // -----------------------------------------------------------------------
