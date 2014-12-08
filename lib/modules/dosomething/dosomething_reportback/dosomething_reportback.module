@@ -117,40 +117,21 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
-  $items['admin/users/rb'] = array(
-    'title' => 'Reportbacks',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_reportback.admin.inc',
+
+  // Add Reportback menu items for admin/users.
+  $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
+  $items = array_merge($items, $users_rb);
+
+  // Add Reportback menu items for taxonomy_term and node entities:
+  $rb_paths = array(
+    'taxonomy/term/%taxonomy_term' => 2,
+    'node/%node' => 1,
   );
-  $items['admin/users/rb/inbox'] = array(
-    'title' => 'Inbox',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_reportback.admin.inc',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => 10,
-  );
-  // Loop through status options.
-  $status_options = dosomething_reportback_get_file_status_options();
-  $weight = 20;
-  foreach ($status_options as $status => $title) {
-    $items['admin/users/rb/' . $status] = array(
-      'title' => $title,
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('dosomething_reportback_files_form', $status),
-      'access callback' => 'user_access',
-      'access arguments' => array('administer modules'),
-      'file' => 'dosomething_reportback.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => $weight,
-    );
-    $weight++;
+  foreach ($rb_paths as $rb_path => $arg_index) {
+    $rb_items = dosomething_reportback_get_review_menu_items($rb_path, $arg_index);
+    $items = array_merge($items, $rb_items);
   }
+
   $items['admin/users/reportbacks/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
@@ -188,6 +169,52 @@ function dosomething_reportback_menu() {
     'weight' => 200,
     'file' => 'dosomething_reportback.forms.inc',
   );
+  return $items;
+}
+
+/**
+ * Returns array of menu items for given $prefix.
+ */
+function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
+  // Append /rb path to the given $prefix.
+  $prefix .= '/rb';
+  // Creates the parent tab.
+  $items[$prefix] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 900,
+  );
+  $items[$prefix . '/inbox'] = array(
+    'title' => 'Inbox',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 10,
+  );
+  // Loop through status options.
+  $status_options = dosomething_reportback_get_file_status_options();
+  $weight = 20;
+  foreach ($status_options as $status => $title) {
+    $items[$prefix . '/' . $status] = array(
+      'title' => $title,
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('dosomething_reportback_files_form', $status, $arg_index),
+      'access callback' => 'user_access',
+      'access arguments' => array('administer modules'),
+      'file' => 'dosomething_reportback.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => $weight,
+    );
+    $weight++;
+  }
   return $items;
 }
 
@@ -267,9 +294,11 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
 function dosomething_reportback_admin_paths() {
   $paths = array(
     'node/*/reportbacks' => TRUE,
+    'node/*/rb*' => TRUE,
     'node/*/gallery' => TRUE,
     'flag/confirm/*/*/*' => TRUE,
     'reportback/*' => TRUE,
+    'taxonomy/term/*/rb*' => TRUE,
   );
   return $paths;
 }
@@ -938,6 +967,10 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+  if (isset($params['tid'])) {
+    $query->join('taxonomy_index', 't', 't.nid = n.nid');
+    $query->condition('t.tid', $params['tid']);
+  }
   if (isset($params['status'])) {
     $query->condition('rbf.status', $params['status']);
   }

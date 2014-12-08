@@ -32,7 +32,7 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
  * @param string $status
  *   (optional) The Reportback File status to filter by.
  */
-function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
+function dosomething_reportback_files_form($form, &$form_state, $status = NULL, $entity = NULL) {
   // Identify that the elements in 'rb_files' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
@@ -41,6 +41,13 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
   $params = array(
     'status' => $status,
   );
+  if (isset($entity->nid)) {
+    $params['nid'] = $entity->nid;
+  }
+  elseif (isset($entity->tid)) {
+    $params['tid'] = $entity->tid;
+  }
+  watchdog('dosomething_reportback', json_encode($params));
   $result = dosomething_reportback_get_reportback_files_query(0, $params, 25);
 
   foreach ($result as $record) {
@@ -57,7 +64,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#markup' => $record->quantity,
       ),
       'node' => array(
-        '#markup' => $record->title,
+        '#markup' => l($record->title, 'node/'. $record->nid),
       ),
       'fid' => array(
         '#type' => 'hidden',
