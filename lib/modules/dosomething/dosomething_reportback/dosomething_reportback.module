@@ -996,6 +996,7 @@ function dosomething_reportback_preprocess_page(&$vars) {
  *   - nid: A node nid to filter by.
  *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
  *   - status: The RB File status.
+ *   - random: If set, randomly sort the results.
  * @param int $page_size
  *   Number of results to display on a page.
  *
@@ -1023,7 +1024,12 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
-  $query->orderBy('rb.updated', 'DESC');
+  if (isset($params['random'])) {
+    $query->orderRandom();
+  }
+  else {
+    $query->orderBy('rb.updated', 'DESC');
+  }
   $query->range($page * $page_size, $page_size);
   $result = $query->execute();
   return $result;
