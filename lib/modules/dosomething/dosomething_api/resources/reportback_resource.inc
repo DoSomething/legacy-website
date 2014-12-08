@@ -62,24 +62,36 @@ function _reportback_resource_defintion() {
 function _reportback_file_resource_index($page, $parameters, $page_size) {
   // Load Services module to use its index_query functions.
   module_load_include('inc', 'services', 'services.module');
+  module_load_include('inc', 'services', 'includes/services.runtime');
 
   // Needs to be aliased as t for services_resource_build_index_query to work.
   $query = db_select('dosomething_reportback_file', 't');
+  $query->join('dosomething_reportback', 'rb', 'rb.rbid = t.rbid');
+  //$query->join('node', 'n', 'rb.nid = n.nid');
   if (isset($parameters['nid'])) {
-    $query->join('dosomething_reportback', 'rb', 'rb.rbid = t.rbid');
     $query->condition('nid', $parameters['nid']);
   }
   // @todo Add condition to only display approved Reportback Files.
   // Show most recent first.
   $query->orderBy('fid', 'DESC');
-  // Fields to return.
-  $fields = "'rbid', 'fid', 'fid_processed', 'caption'";
-  services_resource_build_index_query($query, $page, $fields, $parameters, $page_size, 'reportbacks');
+
+  // The fields on t alias to return.
+  $rb_file_fields = "'rbid', 'fid', fid_processed', 'caption', 'status'";
+  services_resource_build_index_query($query, $page, $rb_file_fields, $parameters, $page_size, 'reportbacks');
+
+  // Add fields from other tables.
+  $query->fields('rb', array('nid', 'quantity'));
 
   $results = services_resource_execute_index_query($query);
 
+  $int_properties = array('rbid', 'fid', 'fid_processed', 'nid', 'quantity');
+
   $result = services_resource_build_index_list($results, 'reportbacks', 'rbid');
   foreach ($result as &$record) {
+    // Convert string output to integers were appropriate.
+    foreach ($int_properties as $property) {
+      $record->{$property} = (int) $record->{$property};
+    }
     // We'll eventually want to use the fid_processed here.
     // And also probably won't need to apply an image style, since it
     // will already be cropped.
