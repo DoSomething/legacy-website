@@ -929,28 +929,29 @@ function dosomething_reportback_preprocess_page(&$vars) {
 /**
  * Returns Reportback Gallery data.
  */
-function dosomething_reportback_get_gallery_results($status = NULL) {
-  $limit = 25;
+function dosomething_reportback_get_reportback_files_query($page = 0, $params = array(), $page_size = 25) {
   if (isset($_GET['pagesize'])) {
-    $limit = $_GET['pagesize'];
-    if (!is_numeric($limit) || $limit > 100) {
-      $limit = 25;
-    }
+    $page_size = $_GET['pagesize'];
   }
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
-  if ($status) {
-    $query->condition('rbf.status', $status);
+  $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+  if (isset($params['status'])) {
+    $query->condition('rbf.status', $params['status']);
+  }
+  if (isset($params['nid'])) {
+    $query->condition('rb.nid', $params['nid']);
   }
   $query->fields('rbf');
-  $query->fields('rb');
+  $query->fields('rb', array('quantity', 'why_participated'));
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
+  $query->fields('f', array('timestamp'));
   $query->orderBy('rb.updated', 'DESC');
-  $query->range(0, $limit);
-  $result = $query->execute()->fetchAll();
+  $query->range($page * $page_size, $page_size);
+  $result = $query->execute();
   return $result;
 }
 

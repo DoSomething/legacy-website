@@ -38,7 +38,11 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
   $form['rb_files']['#tree'] = TRUE;
   $options = dosomething_reportback_get_file_status_options();
 
-  $result = dosomething_reportback_get_gallery_results($status);
+  $params = array(
+    'status' => $status,
+  );
+  $result = dosomething_reportback_get_reportback_files_query(0, $params, 25);
+
   foreach ($result as $record) {
     $preview = dosomething_reportback_file_preview($record);
     $rb_path = 'reportback/' . $record->rbid;
@@ -47,7 +51,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#markup' => $preview,
       ),
       'date' => array(
-        '#markup' => l(format_date($record->updated, 'short'), $rb_path),
+        '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
       ),
       'quantity' => array(
         '#markup' => $record->quantity,
