@@ -174,6 +174,13 @@ function dosomething_reportback_menu() {
 
 /**
  * Returns array of menu items for given $prefix.
+ *
+ * @param string $prefix
+ *   The URL prefix to use for this set of Review menu items.
+ * @param int $arg_index
+ *   The index of the argument of the loaded entity.
+ *
+ * @return array
  */
 function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
   // Append /rb path to the given $prefix.
@@ -220,6 +227,11 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
 
 /**
  * Access callback for entity reportback review page.
+ *
+ * @param object $entity
+ *   Loaded entity to inspect whether or not to display the RB Review page for.
+ *
+ * @return bool
  */
 function dosomething_reportback_review_page_access($entity) {
   if (!user_access('view any reportback')) {
@@ -234,6 +246,7 @@ function dosomething_reportback_review_page_access($entity) {
   elseif (isset($entity->tid)) {
     return TRUE;
   }
+  return FALSE;
 }
 
 /**
@@ -974,12 +987,22 @@ function dosomething_reportback_preprocess_page(&$vars) {
 }
 
 /**
- * Returns Reportback Gallery data.
+ * Returns Reportback Files query to loop through.
+ *
+ * @param int $page
+ *   The results page to start from.
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - nid: A node nid to filter by.
+ *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - status: The RB File status.
+ * @param int $page_size
+ *   Number of results to display on a page.
+ *
+ * @return
+ *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportback_files_query($page = 0, $params = array(), $page_size = 25) {
-  if (isset($_GET['pagesize'])) {
-    $page_size = $_GET['pagesize'];
-  }
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');

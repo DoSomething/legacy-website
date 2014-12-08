@@ -47,8 +47,14 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
   }
-  watchdog('dosomething_reportback', json_encode($params));
-  $result = dosomething_reportback_get_reportback_files_query(0, $params, 25);
+  $page_size = 25;
+  if (isset($_GET['pagesize'])) {
+    $limit = $_GET['pagesize'];
+    if (is_numeric($limit) || $limit < 100) {
+      $page_size = $limit;
+    }
+  }
+  $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
 
   foreach ($result as $record) {
     $preview = dosomething_reportback_file_preview($record);
