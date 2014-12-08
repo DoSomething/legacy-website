@@ -1,3 +1,5 @@
+$flex-gutter: flex-gutter(12);
+
 .media {
 
   &.-framed {
@@ -14,6 +16,7 @@
 
     .__copy {
       font-size: $font-small;
+      height: 50px;
       line-height: 1.2;
     }
   }
@@ -25,30 +28,53 @@
 
 // Main Reportback container
 .reportback {
-  background-color: #f0f;
-  overflow: hidden;
+  > .wrapper {
+    overflow: hidden;
+
+    @include media($tablet) {
+      display: table;
+      direction: rtl;
+
+      // &:after {
+      //   background-color: #f00;
+      //   content: "";
+      //   display: table-cell;
+      //   width: flex-gutter(12);
+      // }
+    }
+  }
 
   @include media($tablet) {
     .gallery--reportback {
-      @include span-columns(3 of 12);
-      @include omega();
-      float: right;
+      display: table-cell;
+      direction: ltr;
+      width: 25%;
     }
 
     form {
-      @include span-columns(9 of 12);
+      width: (75% - flex-gutter(12));
+      direction: ltr;
+      display: table-cell;
+      // position: relative;
+      // right: flex-gutter(12);
+      vertical-align: top;
+    }
+
+    .spacer {
+      background: #f00;
+      display: table-cell;
+      width: $flex-gutter;
     }
   }
 
   @include media($desktop) {
     .gallery--reportback {
-      @include span-columns(6 of 12);
-      @include omega();
-      float: right;
+      width: (50% - ($flex-gutter / 2));
     }
 
     form {
-      @include span-columns(6 of 12);
+      // width: (50% - ((flex-gutter(12)) / 2);
+      width: (50% - ($flex-gutter / 2));
     }
   }
 }
@@ -57,24 +83,28 @@
 
 
 .gallery--reportback {
-  background: #ff0;
-  overflow: hidden;
+  // background: #ff0;
+  // overflow: hidden;
 
   > li {
-    @include span-columns(6 of 12);
-    @include omega(2n);  // @TODO: need IE8 fallback!
-    margin-bottom: flex-gutter(12);
+  //   @include span-columns(6 of 12);
+  //   @include omega(2n);  // @TODO: need IE8 fallback!
+  //   margin-bottom: flex-gutter(12);
 
     @include media($tablet) {
       margin-right: 0;
       width: 100%;
-      margin-bottom: flex-gutter(3);
+      margin-top: flex-gutter(3);
+
+      &:first-child { margin-top: 0; }
     }
 
     @include media($desktop) {
-      @include span-columns(6 of 12);
+      @include span-columns(3 of 6);
       @include omega(2n);  // @TODO: need IE8 fallback!
-      margin-bottom: flex-gutter(6);
+      margin-top: flex-gutter(6);
+
+      &:nth-child(2) { margin-top: 0; }
     }
 
     &:nth-child(n+5) {
@@ -92,7 +122,7 @@
 
 
 .reportback form {
-  background-color: #fff;
+  background-color: #eee;
   padding: 15px;
 }
 
@@ -106,7 +136,7 @@
   padding: 0 0 0 100%;
   position: relative;
 
-  > .wrapper {
+  > .wrapper { display: none;
     height: 100%;
     left: 0;
     position: absolute;
