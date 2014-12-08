@@ -183,8 +183,8 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
     'title' => 'Reportbacks',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access callback' => 'dosomething_reportback_review_page_access',
+    'access arguments' => array($arg_index),
     'file' => 'dosomething_reportback.admin.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 900,
@@ -193,8 +193,8 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
     'title' => 'Inbox',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access callback' => 'dosomething_reportback_review_page_access',
+    'access arguments' => array($arg_index),
     'file' => 'dosomething_reportback.admin.inc',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 10,
@@ -207,8 +207,8 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
       'title' => $title,
       'page callback' => 'drupal_get_form',
       'page arguments' => array('dosomething_reportback_files_form', $status, $arg_index),
-      'access callback' => 'user_access',
-      'access arguments' => array('administer modules'),
+      'access callback' => 'dosomething_reportback_review_page_access',
+      'access arguments' => array($arg_index),
       'file' => 'dosomething_reportback.admin.inc',
       'type' => MENU_LOCAL_TASK,
       'weight' => $weight,
@@ -216,6 +216,24 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
     $weight++;
   }
   return $items;
+}
+
+/**
+ * Access callback for entity reportback review page.
+ */
+function dosomething_reportback_review_page_access($entity) {
+  if (!user_access('view any reportback')) {
+    return FALSE;
+  }
+  if (isset($entity->nid)) {
+    if ($entity->type == 'campaign') {
+      return dosomething_campaign_get_campaign_type($entity) == 'campaign';
+    }
+    return FALSE;
+  }
+  elseif (isset($entity->tid)) {
+    return TRUE;
+  }
 }
 
 /**
