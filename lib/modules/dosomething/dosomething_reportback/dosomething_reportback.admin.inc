@@ -36,7 +36,13 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   // Identify that the elements in 'rb_files' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
-  $options = dosomething_reportback_get_file_status_options();
+  $status_options = dosomething_reportback_get_file_status_options();
+  $flagged_options = array(
+    'irrelevant' => t('Irrelevant'),
+    'inappropriate' => t('Inappropriate'),
+    'unrealistic' => t('Unrealistic quantity'),
+    'delete' => t('Delete this image'),
+  );
 
   $params = array(
     'status' => $status,
@@ -80,8 +86,12 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#type' => 'radios',
         '#title' => t('Status'),
         '#required' => TRUE,
-        '#options' => $options,
+        '#options' => $status_options,
         '#default_value' => $record->status,
+      ),
+      'flagged_reason' => array(
+        '#type' => 'checkboxes',
+        '#options' => $flagged_options,
       ),
     );
   }
@@ -116,7 +126,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 function theme_dosomething_reportback_files_form($variables) {
   $form = $variables['form'];
   $rb_files = element_children($form['rb_files']);
-
+  $path = drupal_get_path('module', 'dosomething_reportback');
+  drupal_add_js ($path . "/js/reportback_review_form.js");
   // If no results, just return form.
   if (empty($rb_files)) {
     return t("No results found.");
@@ -132,7 +143,7 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($form['rb_files'][$id]['preview']),
         drupal_render($form['rb_files'][$id]['quantity']),
         drupal_render($form['rb_files'][$id]['node']),
-        drupal_render($form['rb_files'][$id]['status']),
+        drupal_render($form['rb_files'][$id]['status']) . '<div class="flag-form"><hr />' . drupal_render($form['rb_files'][$id]['flagged_reason']) . '</div>',
       ),
     );
   }
