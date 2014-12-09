@@ -26,6 +26,20 @@ function dosomething_reportback_entity_info() {
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
   );
+  $info['reportback_file'] = array(
+    'label' => t('Reportback File'),
+    'base table' => 'dosomething_reportback_file',
+    'entity keys' => array(
+      'id' => 'fid',
+      'label' => 'fid',
+    ),
+    'entity class' => 'ReportbackFileEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ReportbackFileEntityController',
+    'module' => 'dosomething_reportback',
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+
   return $info;
 }
 
@@ -237,15 +251,22 @@ function dosomething_reportback_review_page_access($entity) {
   if (!user_access('view any reportback')) {
     return FALSE;
   }
+  // If no entity was passed, that's fine -- we'll display all reportbacks.
+  if ($entity == NULL) {
+    return TRUE;
+  }
+  // Is this a node?
   if (isset($entity->nid)) {
     if ($entity->type == 'campaign') {
       return dosomething_campaign_get_campaign_type($entity) == 'campaign';
     }
     return FALSE;
   }
+  // Is it a taxonomy term?
   elseif (isset($entity->tid)) {
     return TRUE;
   }
+  // Don't display reportback tabs for other entities that may call this.
   return FALSE;
 }
 
@@ -395,6 +416,14 @@ function dosomething_reportback_permission() {
 function reportback_load($id) {
   $reportback = entity_load('reportback', array($id));
   return array_pop($reportback);
+}
+
+/**
+ * Menu autoloader for /reportback.
+ */
+function reportback_file_load($id) {
+  $reportback_file = entity_load('reportback_file', array($id));
+  return array_pop($reportback_file);
 }
 
 /**
