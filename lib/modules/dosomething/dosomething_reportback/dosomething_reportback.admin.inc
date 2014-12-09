@@ -32,13 +32,30 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
  * @param string $status
  *   (optional) The Reportback File status to filter by.
  */
-function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
+function dosomething_reportback_files_form($form, &$form_state, $status = NULL, $entity = NULL) {
   // Identify that the elements in 'rb_files' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
   $options = dosomething_reportback_get_file_status_options();
 
-  $result = dosomething_reportback_get_gallery_results($status);
+  $params = array(
+    'status' => $status,
+  );
+  if (isset($entity->nid)) {
+    $params['nid'] = $entity->nid;
+  }
+  elseif (isset($entity->tid)) {
+    $params['tid'] = $entity->tid;
+  }
+  $page_size = 25;
+  if (isset($_GET['pagesize'])) {
+    $limit = $_GET['pagesize'];
+    if (is_numeric($limit) || $limit < 100) {
+      $page_size = $limit;
+    }
+  }
+  $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
+
   foreach ($result as $record) {
     $preview = dosomething_reportback_file_preview($record);
     $rb_path = 'reportback/' . $record->rbid;
@@ -47,13 +64,13 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#markup' => $preview,
       ),
       'date' => array(
-        '#markup' => l(format_date($record->updated, 'short'), $rb_path),
+        '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
       ),
       'quantity' => array(
         '#markup' => $record->quantity,
       ),
       'node' => array(
-        '#markup' => $record->title,
+        '#markup' => l($record->title, 'node/'. $record->nid),
       ),
       'fid' => array(
         '#type' => 'hidden',
