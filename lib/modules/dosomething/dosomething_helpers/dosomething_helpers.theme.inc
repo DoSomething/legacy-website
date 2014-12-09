@@ -83,6 +83,9 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
     return;
   }
   // Returns partners, sponsors, and partner_info arrays.
+  if (empty($vars['field_partners'])) {
+    return;
+  }
   $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners']);
   // Gather any returned arrays.
   foreach ($partners_vars as $key => $values) {
