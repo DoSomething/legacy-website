@@ -26,6 +26,20 @@ function dosomething_reportback_entity_info() {
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
   );
+  $info['reportback_file'] = array(
+    'label' => t('Reportback File'),
+    'base table' => 'dosomething_reportback_file',
+    'entity keys' => array(
+      'id' => 'fid',
+      'label' => 'fid',
+    ),
+    'entity class' => 'ReportbackFileEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ReportbackFileEntityController',
+    'module' => 'dosomething_reportback',
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+
   return $info;
 }
 
@@ -395,6 +409,14 @@ function dosomething_reportback_permission() {
 function reportback_load($id) {
   $reportback = entity_load('reportback', array($id));
   return array_pop($reportback);
+}
+
+/**
+ * Menu autoloader for /reportback.
+ */
+function reportback_file_load($id) {
+  $reportback_file = entity_load('reportback_file', array($id));
+  return array_pop($reportback_file);
 }
 
 /**
