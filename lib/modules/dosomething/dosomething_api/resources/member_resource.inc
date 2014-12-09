@@ -89,6 +89,7 @@ function _member_resource_create($account) {
     'birthdate',
     'first_name',
     'last_name',
+    'mobile',
     'user_registration_source',
   );
   // Loop through each property:
