@@ -25,22 +25,16 @@ $flex-gutter: flex-gutter(12);
 
 
 
-
 // Main Reportback container
 .reportback {
   > .wrapper {
     overflow: hidden;
+    width: 100%;
 
     @include media($tablet) {
       display: table;
       direction: rtl;
-
-      // &:after {
-      //   background-color: #f00;
-      //   content: "";
-      //   display: table-cell;
-      //   width: flex-gutter(12);
-      // }
+      table-layout: fixed;
     }
   }
 
@@ -52,16 +46,14 @@ $flex-gutter: flex-gutter(12);
     }
 
     form {
-      width: (75% - flex-gutter(12));
+      width: (75% - $flex-gutter);
       direction: ltr;
       display: table-cell;
-      // position: relative;
-      // right: flex-gutter(12);
       vertical-align: top;
     }
 
     .spacer {
-      background: #f00;
+      background: transparent;
       display: table-cell;
       width: $flex-gutter;
     }
@@ -73,7 +65,6 @@ $flex-gutter: flex-gutter(12);
     }
 
     form {
-      // width: (50% - ((flex-gutter(12)) / 2);
       width: (50% - ($flex-gutter / 2));
     }
   }
@@ -81,27 +72,25 @@ $flex-gutter: flex-gutter(12);
 
 
 
-
 .gallery--reportback {
-  // background: #ff0;
-  // overflow: hidden;
+  overflow: hidden;
 
   > li {
-  //   @include span-columns(6 of 12);
-  //   @include omega(2n);  // @TODO: need IE8 fallback!
-  //   margin-bottom: flex-gutter(12);
+    @include span-columns(6 of 12);
+    @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
+    margin-top: $flex-gutter;
 
     @include media($tablet) {
       margin-right: 0;
-      width: 100%;
       margin-top: flex-gutter(3);
+      width: 100%;
 
       &:first-child { margin-top: 0; }
     }
 
     @include media($desktop) {
       @include span-columns(3 of 6);
-      @include omega(2n);  // @TODO: need IE8 fallback!
+      @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
       margin-top: flex-gutter(6);
 
       &:nth-child(2) { margin-top: 0; }
@@ -118,16 +107,18 @@ $flex-gutter: flex-gutter(12);
 }
 
 
-
-
-
 .reportback form {
-  background-color: #eee;
+  background-color: #fff;
+  margin-top: $flex-gutter;
   padding: 15px;
+
+  @include media($tablet) {
+    margin-top: 0;
+  }
 }
 
 
-// @TOTD: Only temp; change class name!
+// @TODO: Only temp; change class name!
 .gigantor {
   background-color: #eee;
   border: 0;
