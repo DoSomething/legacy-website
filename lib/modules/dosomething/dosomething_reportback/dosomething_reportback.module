@@ -251,15 +251,22 @@ function dosomething_reportback_review_page_access($entity) {
   if (!user_access('view any reportback')) {
     return FALSE;
   }
+  // If no entity was passed, that's fine -- we'll display all reportbacks.
+  if ($entity == NULL) {
+    return TRUE;
+  }
+  // Is this a node?
   if (isset($entity->nid)) {
     if ($entity->type == 'campaign') {
       return dosomething_campaign_get_campaign_type($entity) == 'campaign';
     }
     return FALSE;
   }
+  // Is it a taxonomy term?
   elseif (isset($entity->tid)) {
     return TRUE;
   }
+  // Don't display reportback tabs for other entities that may call this.
   return FALSE;
 }
 
