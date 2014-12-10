@@ -32,13 +32,36 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
  * @param string $status
  *   (optional) The Reportback File status to filter by.
  */
-function dosomething_reportback_files_form($form, &$form_state, $status = NULL) {
+function dosomething_reportback_files_form($form, &$form_state, $status = NULL, $entity = NULL) {
   // Identify that the elements in 'rb_files' are a collection, to
   // prevent Form API from flattening the array when submitted.
   $form['rb_files']['#tree'] = TRUE;
-  $options = dosomething_reportback_get_file_status_options();
+  $status_options = dosomething_reportback_get_file_status_options();
+  $flagged_options = array(
+    'irrelevant' => t('Irrelevant'),
+    'inappropriate' => t('Inappropriate'),
+    'unrealistic' => t('Unrealistic quantity'),
+    'delete' => t('Delete this image'),
+  );
 
-  $result = dosomething_reportback_get_gallery_results($status);
+  $params = array(
+    'status' => $status,
+  );
+  if (isset($entity->nid)) {
+    $params['nid'] = $entity->nid;
+  }
+  elseif (isset($entity->tid)) {
+    $params['tid'] = $entity->tid;
+  }
+  $page_size = 25;
+  if (isset($_GET['pagesize'])) {
+    $limit = $_GET['pagesize'];
+    if (is_numeric($limit) || $limit < 100) {
+      $page_size = $limit;
+    }
+  }
+  $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
+
   foreach ($result as $record) {
     $preview = dosomething_reportback_file_preview($record);
     $rb_path = 'reportback/' . $record->rbid;
@@ -47,13 +70,13 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#markup' => $preview,
       ),
       'date' => array(
-        '#markup' => l(format_date($record->updated, 'short'), $rb_path),
+        '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
       ),
       'quantity' => array(
         '#markup' => $record->quantity,
       ),
       'node' => array(
-        '#markup' => $record->title,
+        '#markup' => l($record->title, 'node/'. $record->nid),
       ),
       'fid' => array(
         '#type' => 'hidden',
@@ -63,8 +86,12 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL) 
         '#type' => 'radios',
         '#title' => t('Status'),
         '#required' => TRUE,
-        '#options' => $options,
+        '#options' => $status_options,
         '#default_value' => $record->status,
+      ),
+      'flagged_reason' => array(
+        '#type' => 'checkboxes',
+        '#options' => $flagged_options,
       ),
     );
   }
@@ -99,7 +126,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 function theme_dosomething_reportback_files_form($variables) {
   $form = $variables['form'];
   $rb_files = element_children($form['rb_files']);
-
+  $path = drupal_get_path('module', 'dosomething_reportback');
+  drupal_add_js ($path . "/js/reportback_review_form.js");
   // If no results, just return form.
   if (empty($rb_files)) {
     return t("No results found.");
@@ -115,7 +143,7 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($form['rb_files'][$id]['preview']),
         drupal_render($form['rb_files'][$id]['quantity']),
         drupal_render($form['rb_files'][$id]['node']),
-        drupal_render($form['rb_files'][$id]['status']),
+        drupal_render($form['rb_files'][$id]['status']) . '<div class="flag-form"><hr />' . drupal_render($form['rb_files'][$id]['flagged_reason']) . '</div>',
       ),
     );
   }

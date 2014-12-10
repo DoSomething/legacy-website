@@ -1,28 +1,52 @@
 <?php
 
 /**
- * https://github.com/DoSomething/dosomething/issues/3404
+ * https://github.com/DoSomething/dosomething/issues/3409
  *
  * Based on a redirect CSV formatted like this:
  *
+ * https://gist.github.com/mshmsh5000/d7e00a8c70946c4431d5
+ *
+ * And a reference CSV (created for issue #3404) formatted like this:
+ *
  * https://gist.github.com/mshmsh5000/23f284dc3a2b3d2565eb
  *
- * 1. Create a redirect from column A (legacy alias) to column D (beta canonical).
- * 2. Create a redirect from column B (legacy canonical) to column D (beta canonical).
- * 3. Using Drupal redirect calls, write these to the database.
+ * 1. Check the redirect target URL against the reference CSV to make sure
+ *    we're not creating double-redirects. In those cases, change the
+ *    target URL to its final destination as specific in the reference CSV.
+ *
+ * 2. Check that the final redirect URL is valid in the target Drupal app.
+ *
+ * 3. Import the redirect into the target Drupal app.
+ *
+ * 4. Export a list of all created redirects to $OUTPUT_FILE.
  *
  *
  * REQUIREMENTS:
  *
  * 1. $DATA_FILE needs to point to your CSV. Path is relative to docroot.
  *
- * 2. Execute like this:
+ * 2. $REDIRECT_REFERENCE_FILE needs to point to the CSV created by the script
+ *    for #3404.
  *
- *    drush --script-path=../scripts/ php-script 3404-create-redirects.php
+ * 3. Execute like this:
+ *
+ *    drush --script-path=../scripts/ php-script 3409-import-legacy-redirects.php
  */
 
-$DATA_FILE = '../scripts/redirects.processed.csv';
+$DATA_FILE = '../scripts/redirects.legacy.csv';
 $HAS_COLUMN_HEADERS = true; // If true, skip the first row.
+
+// Full reference redirect file from issue 3414.
+$REDIRECT_REFERENCE_FILE = '../scripts/redirects.processed.csv';
+
+$reference_redirects = RedirectHelper3409::readReferenceCSV($REDIRECT_REFERENCE_FILE);
+
+if (empty($reference_redirects)) {
+  die(sprintf("Couldn't open '%s' for reading!", $REDIRECT_REFERENCE_FILE));
+}
+
+$OUTPUT_FILE = '../scripts/redirects.legacy.processed.csv';
 
 $REDIRECT_BASE_URL = 'https://www.dosomething.org/';
 
@@ -50,8 +74,8 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
 
     // We need this column, because it contains the beta canonical.
-    if (empty($row[2])) {
-      echo sprintf("Line %d: Skipping: no beta path", $count), PHP_EOL;
+    if (empty($row[1])) {
+      echo sprintf("Line %d: Skipping: no target redirect path", $count), PHP_EOL;
       continue;
     }
 
@@ -60,46 +84,62 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
       $elm = trim($elm);
     });
 
-    // Redirect target, before any modifications.
-    $target = $row[2];
-
-    // Handle redirect targets that are complete URLs.
-    $url_prepend = '';
-    if (isset($REDIRECT_BASE_URL) && !preg_match('/^http/', $target)) {
-      $url_prepend = $REDIRECT_BASE_URL;
-    }
-    else {
-      // Handle redirect targets that refer to beta.dosomething.org.
-      $target = preg_replace('/beta.dosomething.org/', 'www.dosomething.org', $target);
-
-      printf("***** Handled full URL: %s", $target); echo PHP_EOL;
-    }
+    printf("%d: %s", $count, $row[0]); echo PHP_EOL;
 
     // Use the Drupal core redirect functions to make proper redirect objects.
     // Big ups to https://www.drupal.org/project/path_redirect_import from
     // which I done stole the logic.
-    for ($i = 0; $i <= 1; $i++) {
-      if (!empty($row[$i])) {
+    if (!empty($row[0])) {
 
-        $source_parts = RedirectHelper3404::parseUrl($row[$i]);
+      // If the redirect target is itself getting redirected in the
+      // $REDIRECT_REFERENCE_FILE, use that final redirect destination
+      // instead. This will be the "beta canonical path".
+      if ($alternate_path = RedirectHelper3409::locateRedirectTarget($row[1], $reference_redirects)) {
+        printf("***** Alternate for %s => %s", $row[1], $alternate_path); echo PHP_EOL;
+      }
 
-        $data = array(
-          'line_no' => $count,
-          'source' => $source_parts['url'],
-          'redirect' => $url_prepend . $target,
-          'status_code' => 301,
-          'language' => LANGUAGE_NONE,
-        );
+      $target = (!empty($alternate_path)) ? $alternate_path : $row[1];
 
-        $insert_results = RedirectHelper3404::saveRedirect($data);
-        $processed[] = $data;
+      $source_parts = RedirectHelper3409::parseUrl($row[0]);
 
-        if (!$insert_results['success']) {
-          $messages[] = $insert_results['message'];
-        }
-        else {
-          $count++;
-        }
+      $break = false;
+
+      // Handle redirect targets that are complete URLs.
+      $url_prepend = '';
+      if (isset($REDIRECT_BASE_URL) && !preg_match('/^http/', $target)) {
+        $url_prepend = $REDIRECT_BASE_URL;
+      }
+      else {
+          // Handle redirect targets that refer to beta.dosomething.org.
+          $target = preg_replace('/beta.dosomething.org/', 'www.dosomething.org', $target);
+
+          printf("***** Handled full URL: %s", $target); echo PHP_EOL;
+      }
+
+      // Now, if the path exists in the beta app, consider this redirect valid.
+      $redirect = '';
+      if (drupal_valid_path($target)) {
+        $redirect = $url_prepend . $target;
+      } else {
+        continue;
+      }
+
+      $data = array(
+        'line_no' => $count,
+        'source' => $source_parts['url'],
+        'redirect' => $redirect,
+        'status_code' => 301,
+        'language' => LANGUAGE_NONE,
+      );
+
+      $insert_results = RedirectHelper3409::saveRedirect($data);
+      $processed[] = $data;
+
+      if (!$insert_results['success']) {
+        $messages[] = $insert_results['message'];
+      }
+      else {
+        $count++;
       }
     }
   }
@@ -122,13 +162,33 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 fclose($fh);
 
 
+// STEP 3: Write final array to new CSV at $OUTPUT_FILE.
+
+if (FALSE === ($fh = fopen($OUTPUT_FILE, 'w+'))) {
+  die(sprintf("EPIC FAIL: Can't open '%s' for writing", $OUTPUT_FILE));
+}
+
+if (!flock($fh, LOCK_EX)) {
+  die(sprintf("EPIC FAIL: Can't lock '%s' for writing", $OUTPUT_FILE));
+}
+
+foreach ($processed as $row) {
+  fputcsv($fh, $row);
+}
+
+flock($fh, LOCK_UN);
+fclose($fh);
+
+echo sprintf("Finished: %d rows written to '%s'", count($processed), $OUTPUT_FILE), PHP_EOL;
+
+
 
 /**
  * Helper class for this script.
  *
- * @class RedirectHelper3404
+ * @class RedirectHelper3409
  */
-class RedirectHelper3404 {
+class RedirectHelper3409 {
 
   /**
    * Normalize aliases / paths for comparison and storage.
@@ -204,6 +264,67 @@ class RedirectHelper3404 {
       redirect_save($redirect);
     }
     return array('success' => TRUE);
+  }
+
+  /**
+   * Given a path and a reference array, find any redirect target, if it
+   * exists, for the path. Return the redirect target if found or a blank
+   * string if not.
+   *
+   * @param string $path
+   * @param array $reference
+   * @return string
+   */
+  static public function locateRedirectTarget($path, $reference) {
+    $needle = trim($path);
+
+    foreach ($reference as $row) {
+
+      // Continue for missing beta canonical paths.
+      if (empty($row[3])) {
+        continue;
+      }
+
+      if ($row[0] == $needle || $row[1] == $needle) {
+        return $row[3];
+      }
+
+    }
+
+    return '';
+  }
+
+  /**
+   * Given a path to a CSV as defined in issue 3414, read in to an associative
+   * array and return.
+   *
+   * @param string $path
+   * @return array
+   */
+  static public function readReferenceCSV($path) {
+    $parsed = array();
+
+    $col_headers = true;
+
+    if (FALSE !== ($fh = fopen($path, 'r'))) {
+
+      if (!flock($fh, LOCK_SH)) {
+        die(sprintf("Couldn't lock '%s' for reading!", $path));
+      }
+
+      while ($row = fgetcsv($fh)) {
+
+        // Skip column headers (first row).
+        if ($col_headers) {
+          $col_headers = false;
+          continue;
+        }
+
+        $parsed[] = $row;
+      }
+    }
+
+    return $parsed;
   }
 
   /**

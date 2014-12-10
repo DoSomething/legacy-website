@@ -94,9 +94,10 @@ class CanadaSSOClient {
    * Submit to login endpoint. If successful, loads user data
    * into CanadaSSOClient::user.
    *
-   * @param $email
-   * @param $password
-   * @return array
+   * @param string $email
+   * @param string $password
+   *
+   * @return DosomethingCanadaSsoUser
    */
   public function login($email, $password)
   {
@@ -114,14 +115,13 @@ class CanadaSSOClient {
    *
    * @param string $email
    * @param string $password
-   * @param stdClass $user
-   * @return boolean
+   * @param DosomethingCanadaSsoUser $sso_user
+   *
+   * @return bool
    */
-  public function propagateLocalUser($user)
+  public function signup(DosomethingCanadaSsoUser $sso_user)
   {
-    $params = get_object_vars($user);
-    $this->post(self::ENDPOINT_USERS, $params);
-    return $this->getUser();
+    return $this->post(self::ENDPOINT_USERS, $sso_user->toArray());
   }
 
   // ---------------------------------------------------------------------
@@ -151,7 +151,6 @@ class CanadaSSOClient {
    * @param string $uri Request URI, not including the base URL.
    * @param string $method HTTP request type; defaults to GET.
    * @param array $data Request data as an associative array.
-   * @throws Exception
    * @return bool
    */
   private function execute($uri, $method = 'GET', $data)
@@ -221,7 +220,7 @@ class CanadaSSOClient {
   /**
    * Convenience method decode user recieved in the last request.
    *
-   * @return array
+   * @return DosomethingCanadaSsoUser
    *  The user decoded.
    */
   private function getUser()
@@ -230,12 +229,24 @@ class CanadaSSOClient {
       return FALSE;
     }
 
-    $user = json_decode($this->last_result->data);
-    if (!$user) {
+    $remote_user_data = json_decode($this->last_result->data);
+    if (!$remote_user_data) {
       return FALSE;
     }
 
-    return $user;
+    $user_data = array(
+      'email'     => $remote_user_data->Email,
+      'firstName' => $remote_user_data->Name,
+      'dob'       => $remote_user_data->DOB,
+    );
+
+    // -- Optional user data. --
+    if (!empty($remote_user_data->Phone)) {
+      $user_data['mobile'] = $remote_user_data->Phone;
+    }
+
+    $remote_user = new DosomethingCanadaSsoUser($user_data);
+    return $remote_user;
   }
 
   /**

@@ -26,6 +26,20 @@ function dosomething_reportback_entity_info() {
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
   );
+  $info['reportback_file'] = array(
+    'label' => t('Reportback File'),
+    'base table' => 'dosomething_reportback_file',
+    'entity keys' => array(
+      'id' => 'fid',
+      'label' => 'fid',
+    ),
+    'entity class' => 'ReportbackFileEntity',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'ReportbackFileEntityController',
+    'module' => 'dosomething_reportback',
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+
   return $info;
 }
 
@@ -117,40 +131,21 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
-  $items['admin/users/rb'] = array(
-    'title' => 'Reportbacks',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_reportback.admin.inc',
+
+  // Add Reportback menu items for admin/users.
+  $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
+  $items = array_merge($items, $users_rb);
+
+  // Add Reportback menu items for taxonomy_term and node entities:
+  $rb_paths = array(
+    'taxonomy/term/%taxonomy_term' => 2,
+    'node/%node' => 1,
   );
-  $items['admin/users/rb/inbox'] = array(
-    'title' => 'Inbox',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_files_form', 'pending'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_reportback.admin.inc',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => 10,
-  );
-  // Loop through status options.
-  $status_options = dosomething_reportback_get_file_status_options();
-  $weight = 20;
-  foreach ($status_options as $status => $title) {
-    $items['admin/users/rb/' . $status] = array(
-      'title' => $title,
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('dosomething_reportback_files_form', $status),
-      'access callback' => 'user_access',
-      'access arguments' => array('administer modules'),
-      'file' => 'dosomething_reportback.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => $weight,
-    );
-    $weight++;
+  foreach ($rb_paths as $rb_path => $arg_index) {
+    $rb_items = dosomething_reportback_get_review_menu_items($rb_path, $arg_index);
+    $items = array_merge($items, $rb_items);
   }
+
   $items['admin/users/reportbacks/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
@@ -189,6 +184,90 @@ function dosomething_reportback_menu() {
     'file' => 'dosomething_reportback.forms.inc',
   );
   return $items;
+}
+
+/**
+ * Returns array of menu items for given $prefix.
+ *
+ * @param string $prefix
+ *   The URL prefix to use for this set of Review menu items.
+ * @param int $arg_index
+ *   The index of the argument of the loaded entity.
+ *
+ * @return array
+ */
+function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
+  // Append /rb path to the given $prefix.
+  $prefix .= '/rb';
+  // Creates the parent tab.
+  $items[$prefix] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
+    'access callback' => 'dosomething_reportback_review_page_access',
+    'access arguments' => array($arg_index),
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 900,
+  );
+  $items[$prefix . '/inbox'] = array(
+    'title' => 'Inbox',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_reportback_files_form', 'pending', $arg_index),
+    'access callback' => 'dosomething_reportback_review_page_access',
+    'access arguments' => array($arg_index),
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 10,
+  );
+  // Loop through status options.
+  $status_options = dosomething_reportback_get_file_status_options();
+  $weight = 20;
+  foreach ($status_options as $status => $title) {
+    $items[$prefix . '/' . $status] = array(
+      'title' => $title,
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('dosomething_reportback_files_form', $status, $arg_index),
+      'access callback' => 'dosomething_reportback_review_page_access',
+      'access arguments' => array($arg_index),
+      'file' => 'dosomething_reportback.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => $weight,
+    );
+    $weight++;
+  }
+  return $items;
+}
+
+/**
+ * Access callback for entity reportback review page.
+ *
+ * @param object $entity
+ *   Loaded entity to inspect whether or not to display the RB Review page for.
+ *
+ * @return bool
+ */
+function dosomething_reportback_review_page_access($entity) {
+  if (!user_access('view any reportback')) {
+    return FALSE;
+  }
+  // If no entity was passed, that's fine -- we'll display all reportbacks.
+  if ($entity == NULL) {
+    return TRUE;
+  }
+  // Is this a node?
+  if (isset($entity->nid)) {
+    if ($entity->type == 'campaign') {
+      return dosomething_campaign_get_campaign_type($entity) == 'campaign';
+    }
+    return FALSE;
+  }
+  // Is it a taxonomy term?
+  elseif (isset($entity->tid)) {
+    return TRUE;
+  }
+  // Don't display reportback tabs for other entities that may call this.
+  return FALSE;
 }
 
 /**
@@ -267,9 +346,11 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
 function dosomething_reportback_admin_paths() {
   $paths = array(
     'node/*/reportbacks' => TRUE,
+    'node/*/rb*' => TRUE,
     'node/*/gallery' => TRUE,
     'flag/confirm/*/*/*' => TRUE,
     'reportback/*' => TRUE,
+    'taxonomy/term/*/rb*' => TRUE,
   );
   return $paths;
 }
@@ -335,6 +416,14 @@ function dosomething_reportback_permission() {
 function reportback_load($id) {
   $reportback = entity_load('reportback', array($id));
   return array_pop($reportback);
+}
+
+/**
+ * Menu autoloader for /reportback.
+ */
+function reportback_file_load($id) {
+  $reportback_file = entity_load('reportback_file', array($id));
+  return array_pop($reportback_file);
 }
 
 /**
@@ -927,30 +1016,51 @@ function dosomething_reportback_preprocess_page(&$vars) {
 }
 
 /**
- * Returns Reportback Gallery data.
+ * Returns Reportback Files query to loop through.
+ *
+ * @param int $page
+ *   The results page to start from.
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - nid: A node nid to filter by.
+ *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - status: The RB File status.
+ *   - random: If set, randomly sort the results.
+ * @param int $page_size
+ *   Number of results to display on a page.
+ *
+ * @return
+ *   An executed database query object to iterate through.
  */
-function dosomething_reportback_get_gallery_results($status = NULL) {
-  $limit = 25;
-  if (isset($_GET['pagesize'])) {
-    $limit = $_GET['pagesize'];
-    if (!is_numeric($limit) || $limit > 100) {
-      $limit = 25;
-    }
-  }
+function dosomething_reportback_get_reportback_files_query($page = 0, $params = array(), $page_size = 25) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
-  if ($status) {
-    $query->condition('rbf.status', $status);
+  $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+  if (isset($params['tid'])) {
+    $query->join('taxonomy_index', 't', 't.nid = n.nid');
+    $query->condition('t.tid', $params['tid']);
+  }
+  if (isset($params['status'])) {
+    $query->condition('rbf.status', $params['status']);
+  }
+  if (isset($params['nid'])) {
+    $query->condition('rb.nid', $params['nid']);
   }
   $query->fields('rbf');
-  $query->fields('rb');
+  $query->fields('rb', array('quantity', 'why_participated'));
   $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
-  $query->orderBy('rb.updated', 'DESC');
-  $query->range(0, $limit);
-  $result = $query->execute()->fetchAll();
+  $query->fields('f', array('timestamp'));
+  if (isset($params['random'])) {
+    $query->orderRandom();
+  }
+  else {
+    $query->orderBy('rb.updated', 'DESC');
+  }
+  $query->range($page * $page_size, $page_size);
+  $result = $query->execute();
   return $result;
 }
 
