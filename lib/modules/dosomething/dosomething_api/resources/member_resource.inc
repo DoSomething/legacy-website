@@ -56,6 +56,7 @@ function _member_resource_defintion() {
         ),
         'callback' => '_member_resource_get_member_count',
         'access callback' => '_member_resource_access',
+        'access arguments' => array('get_member_count'),
       ),
     ),
   );
@@ -66,11 +67,11 @@ function _member_resource_defintion() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  if ($op == 'create') {
+  if ($op == 'create' || $op == 'get_member_count') {
     return TRUE;
   }
   global $user;
-  // For now, only admins can access any reportback resources.
+  // For now, only admins can access any other User resources.
   return in_array('administrator', $user->roles);
 }
 
