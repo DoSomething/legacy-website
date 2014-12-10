@@ -111,9 +111,10 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   if (empty($rb_files) || !is_array($rb_files)) {
     return;
   }
-  foreach ($rb_files as $id => $item) {
-    $status = dosomething_reportback_update_reportback_file_status($item['fid'], $item['status']);
-    if (!$status) {
+  foreach ($rb_files as $fid => $item) {
+    $rbf = reportback_file_load($fid);
+    $save = $rbf->review($item['status']);
+    if (!$save) {
       form_set_error(t("An error has occurred."));
     }
   }
@@ -135,15 +136,15 @@ function theme_dosomething_reportback_files_form($variables) {
 
   // Initialize the variable which will store our table rows.
   $rows = array();
-  foreach ($rb_files as $id) {
+  foreach ($rb_files as $fid) {
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
-        drupal_render($form['rb_files'][$id]['date']),
-        drupal_render($form['rb_files'][$id]['preview']),
-        drupal_render($form['rb_files'][$id]['quantity']),
-        drupal_render($form['rb_files'][$id]['node']),
-        drupal_render($form['rb_files'][$id]['status']) . '<div class="flag-form"><hr />' . drupal_render($form['rb_files'][$id]['flagged_reason']) . '</div>',
+        drupal_render($form['rb_files'][$fid]['date']),
+        drupal_render($form['rb_files'][$fid]['preview']),
+        drupal_render($form['rb_files'][$fid]['quantity']),
+        drupal_render($form['rb_files'][$fid]['node']),
+        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . drupal_render($form['rb_files'][$fid]['flagged_reason']) . '</div>',
       ),
     );
   }

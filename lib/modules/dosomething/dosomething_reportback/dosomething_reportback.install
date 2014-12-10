@@ -186,6 +186,24 @@ function dosomething_reportback_schema() {
         'not null' => FALSE,
         'default' => 'pending',
       ),
+      'reviewed' => array(
+        'description' => 'Reviewed timestamp',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => NULL,
+      ),
+      'reviewer' => array(
+        'description' => 'Reviewer uid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => NULL,
+      ),
+      'review_source' => array(
+        'description' => 'Source URL which review was submitted from.',
+        'type' => 'varchar',
+        'length' => 128,
+        'default' => NULL,
+      ),
     ),
     'primary key' => array('rbid', 'fid'),
   );
@@ -366,5 +384,20 @@ function dosomething_reportback_update_7014(&$sandbox) {
   $fld_name = 'fid';
   if (!db_index_exists($tbl_name, $fld_name)) {
     db_add_index($tbl_name, $fld_name, array($fld_name));
+  }
+}
+
+/**
+ * Adds review columns to the dosomething_reportback_file table.
+ */
+function dosomething_reportback_update_7015(&$sandbox) {
+  $tbl_name = 'dosomething_reportback_file';
+  $fields = array('reviewed', 'reviewer', 'review_source');
+  $schema = dosomething_reportback_schema();
+  foreach ($fields as $fld_name) {
+    if (!db_field_exists($tbl_name, $fld_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
+    }
   }
 }
