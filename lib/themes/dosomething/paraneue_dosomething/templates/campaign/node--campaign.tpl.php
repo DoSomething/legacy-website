@@ -338,9 +338,11 @@
                     <div class="wrapper">
                       <div class="message-callout -below">
                         <div class="__copy">
-                          <p>Be the first! Add your photo here!</p>
+                          <p>Be the first!<br/> Add your photo here!</p>
                         </div>
                       </div>
+                      <img src="data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP////Ly8gAAACwAAAAACgAKAAACCJSPqcvtD2MrADs=" alt="">
+                      <!-- <img src="http://placeimg.com/300/300/animals" alt=""> -->
                     </div>
                   </button>
 
@@ -378,6 +380,57 @@
                 </div>
               </form>
             </div>
+
+            <ul class="gallery gallery--extended -quartet">
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/tech" alt="tech" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/arch" alt="architecture" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/nature" alt="nature" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/people" alt="people" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
+                  </figure>
+                </li>
+                <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/tech" alt="tech" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
+                  </figure>
+                </li>
+                 <li>
+                  <figure class="media -stacked -framed">
+                    <img src="http://placeimg.com/300/300/arch" alt="architecture" />
+                    <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
+                  </figure>
+                </li>
+              </ul>
           </div>
 
 

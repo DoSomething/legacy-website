@@ -16,7 +16,7 @@ $flex-gutter: flex-gutter(12);
 
     .__copy {
       font-size: $font-small;
-      height: 50px;
+      height: 60px;
       line-height: 1.2;
     }
   }
@@ -42,11 +42,11 @@ $flex-gutter: flex-gutter(12);
     .gallery--reportback {
       display: table-cell;
       direction: ltr;
-      width: 25%;
+      width: (25% - $flex-gutter);
     }
 
     form {
-      width: (75% - $flex-gutter);
+      width: 75%;
       direction: ltr;
       display: table-cell;
       vertical-align: top;
@@ -107,6 +107,7 @@ $flex-gutter: flex-gutter(12);
 }
 
 
+
 .reportback form {
   background-color: #fff;
   margin-top: $flex-gutter;
@@ -118,20 +119,43 @@ $flex-gutter: flex-gutter(12);
 }
 
 
+
 // @TODO: Only temp; change class name!
 .gigantor {
-  background-color: #eee;
+  background-color: #f00;
   border: 0;
   display: block;
-  height: 0;
-  padding: 0 0 0 100%;
-  position: relative;
+  padding: 0;
+  width: 100%;
 
-  > .wrapper { display: none;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
+  img {
+    display: block;
     width: 100%;
+    // z-index: 1;
+  }
+
+  .message-callout { display: none; }
+}
+
+
+
+.gallery {
+  &.-quartet {
+    li {
+      @include span-columns(6 of 12);
+      margin-top: $flex-gutter;
+
+      &:nth-child(2n) { margin-right: 0; }
+    }
+
+    @include media($tablet) {
+
+      li {
+        @include span-columns(3 of 12);
+
+        &:nth-child(2n) { margin-right: $flex-gutter; }
+        &:nth-child(4n) { margin-right: 0; }
+      }
+    }
   }
 }
