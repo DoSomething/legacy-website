@@ -82,6 +82,11 @@ function dosomething_api_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
+      'targeted_actions' => array(
+        'review' => array(
+          'enabled' => '1',
+        ),
+      ),
     ),
     'system' => array(
       'actions' => array(
