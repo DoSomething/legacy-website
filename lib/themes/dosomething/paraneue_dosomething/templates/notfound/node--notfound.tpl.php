@@ -18,7 +18,7 @@
       <?php print $subtitle ?>
     </div>
     <?php if (isset($video)): ?>
-      <video src=<?php print $video ?> autoplay="" loop="" poster=<?php print $video_poster ?> ></video>
+      <video src=<?php print $video ?> autoplay="" loop="" poster=<?php if(isset($video_poster)){ print $video_poster; } ?> ></video>
     <?php endif; ?>
   </header>
 
