@@ -421,8 +421,8 @@ function reportback_load($id) {
 /**
  * Menu autoloader for /reportback.
  */
-function reportback_file_load($id) {
-  $reportback_file = entity_load('reportback_file', array($id));
+function reportback_file_load($fid) {
+  $reportback_file = entity_load('reportback_file', array($fid));
   return array_pop($reportback_file);
 }
 
@@ -1079,14 +1079,4 @@ function dosomething_reportback_get_file_status_options() {
     $options[$name] = t(ucfirst($name));
   }
   return $options;
-}
-
-/**
- * Updates a given Reportback File $fid's Reportback File status.
- */
-function dosomething_reportback_update_reportback_file_status($fid, $status) {
-  return db_update('dosomething_reportback_file')
-    ->fields(array('status' => $status))
-    ->condition('fid', $fid)
-    ->execute();
 }
