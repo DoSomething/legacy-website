@@ -29,11 +29,12 @@
       z-index: 1;
       top: 10px;
       left: 10px;
-      width: 100px;
-      height: 100px;
-      border: 1px dashed #fff;
-      background-color: #fff;
-      opacity: 0.5;
+      border: 1px dashed $blue;
+      background-color: rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        cursor: move;
+      }
     }
 
     .resize-handle-wrapper {
@@ -48,17 +49,21 @@
       bottom: 0;
       width: 40px;
       height: 40px;
+
+      &:hover {
+        cursor: se-resize;
+      }
     }
 
     .resize-triangle {
       width: 0;
       height: 0;
-      bottom: 0;
-      right: 0;
-      border-style: solid;
-      border-width: 0 0 40px 40px;
-      border-color: transparent transparent $blue;
+      top: 35px;
+      left: 35px;
       position: absolute;
+      background: $blue;
+      width: 10px;
+      height: 10px;
     }
   }
 
