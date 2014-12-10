@@ -107,15 +107,20 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   }
 
   $invalid_chars = array("/", "-", "_"); // request_path() shouldn't return a string with question marks and other chars we don't need
+
+  // Remove invalid characters & build array from remaining url parts
   $formatted_terms = explode(" ", str_replace($invalid_chars, " ", $raw_url));
+
+  // Remove duplicate results
+  $search_terms = array_values(array_unique($formatted_terms));
 
   // Get a list of terms that we don't want to search by.
   $filter_words = explode(",", variable_get('dosomething_notfound_search_filter'));
   $query_string = "";
-  $total = count($formatted_terms);
+  $total = count($search_terms);
   // Create the query string.
   for ($i = 0; $i < $total; $i++) {
-    $term = $formatted_terms[$i];
+    $term = $search_terms[$i];
     if (!in_array($term, $filter_words)) {
       $query_string .= $term . " ";
     }
