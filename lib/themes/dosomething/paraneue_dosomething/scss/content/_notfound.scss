@@ -1,8 +1,8 @@
-.page-notfound {
-  header.notfound p {
-    color: #fff;
-  }
+header.notfound p {
+  color: #fff;
+}
 
+.page-notfound {
   .search-form {
     @include media($tablet) {
       width: 75%;
