@@ -22,6 +22,28 @@ function _member_resource_defintion() {
             ),
           ),
         'access callback' => '_member_resource_access',
+        'access arguments' => array('create'),
+      ),
+      'index' => array(
+        'help' => 'List of all users.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member_reource',
+        ),
+        'callback' => '_member_resource_index',
+        'access callback' => '_member_resource_access',
+        'access arguments' => array('index'),
+        'args' => array(
+          array(
+            'name' => 'parameters',
+            'optional' => FALSE,
+            'type' => 'array',
+            'description' => 'Parameters',
+            'default value' => array(),
+            'source' => array('param' => 'parameters'),
+          ),
+        ),
       ),
     ),
     'actions' => array(
@@ -43,16 +65,17 @@ function _member_resource_defintion() {
 /**
  * Access callback for User resources.
  */
-function _member_resource_access() {
-  // Return TRUE for development.
-  return TRUE;
+function _member_resource_access($op) {
+  if ($op == 'create') {
+    return TRUE;
+  }
   global $user;
   // For now, only admins can access any reportback resources.
   return in_array('administrator', $user->roles);
 }
 
 /**
- * Callback for Reportback resource create.
+ * Callback for User create.
  *
  * @param obj $account
  *   Array passed to the endpoint. Possible keys:
@@ -61,6 +84,7 @@ function _member_resource_access() {
  *   - birthdate (datestring).
  *   - first_name (string).
  *   - last_name (string).
+ *   - mobile (string).
  *   - user_registration_source (string).
  *
  * @return mixed
@@ -127,4 +151,34 @@ function _member_resource_get_member_count() {
     'formatted' => dosomething_user_get_member_count(),
     'readable' => dosomething_user_get_member_count($readable = TRUE),
   );
+}
+
+/**
+ * Callback for Users index.
+ *
+ * @param array $parameters
+ *   Array passed within query string. Possible keys:
+ *   - email (string)..
+ *   - mobile (string).
+ *
+ * @return mixed
+ *   Object of the newly created user if successful. String if errors.
+ */
+function _member_resource_index($parameters) {
+  // Initialize output.
+  $index = array();
+
+  $query = db_select('users', 'u');
+  // We only need uid for now, as we're just checking for user existence.
+  $query->fields('u', array('uid'));
+  if (isset($parameters['email'])) {
+    $query->condition('mail', $parameters['email']);
+  }
+  if (isset($parameters['mobile'])) {
+    $query->join('field_data_field_mobile', 'm', 'u.uid = m.entity_id');
+    $query->condition('field_mobile_value', $parameters['mobile']);
+  }
+  // Return max of ten records.
+  $query->range(0, 10);
+  return $query->execute()->fetchAll();
 }
