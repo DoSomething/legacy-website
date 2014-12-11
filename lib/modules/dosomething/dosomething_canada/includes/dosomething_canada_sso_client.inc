@@ -234,19 +234,8 @@ class CanadaSSOClient {
       return FALSE;
     }
 
-    $user_data = array(
-      'email'     => $remote_user_data->Email,
-      'firstName' => $remote_user_data->Name,
-      'dob'       => $remote_user_data->DOB,
-    );
-
-    // -- Optional user data. --
-    if (!empty($remote_user_data->Phone)) {
-      $user_data['mobile'] = $remote_user_data->Phone;
-    }
-
-    $remote_user = new DosomethingCanadaSsoUser($user_data);
-    return $remote_user;
+    $user_factory = new DosomethingCanadaSsoUserFactory();
+    return $user_factory->fromRemoteData($remote_user_data);
   }
 
   /**
