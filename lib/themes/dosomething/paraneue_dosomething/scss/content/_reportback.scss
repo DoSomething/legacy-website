@@ -1,3 +1,6 @@
+// @TODO: Patternize and move/merge into Neue!
+
+
 $flex-gutter: flex-gutter(12);
 
 .media {
@@ -131,7 +134,6 @@ $flex-gutter: flex-gutter(12);
   img {
     display: block;
     width: 100%;
-    // z-index: 1;
   }
 
   .message-callout { display: none; }
