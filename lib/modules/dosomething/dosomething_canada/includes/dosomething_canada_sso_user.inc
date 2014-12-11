@@ -1,6 +1,81 @@
 <?php
 
 /**
+* Constructs DosomethingCanadaSsoUser from different sources.
+*/
+class DosomethingCanadaSsoUserFactory implements DosomethingUserRemoteFactory {
+
+  /**
+   * Construct DosomethingCanadaSsoUser from local form values.
+   *
+   * @return DosomethingCanadaSsoUser
+   */
+  public function fromFormValues(Array $form, Array &$form_state)
+  {
+    // -- Required user data. --
+    $values = &$form_state['values'];
+    $user_data = array(
+      'email'     => $values['mail'],
+      'password'  => $values['pass'],
+      'firstName' => $values['field_first_name'][LANGUAGE_NONE][0]['value'],
+      'dob'       => $values['field_birthdate'][LANGUAGE_NONE][0]['value'],
+    );
+
+    // -- Optional user data. --
+    if (!empty($values['field_mobile']['und'][0])) {
+      $user_data['mobile'] = $values['field_mobile']['und'][0]['value'];
+    }
+    return new DosomethingCanadaSsoUser($user_data);
+  }
+
+  /**
+   * Construct DosomethingCanadaSsoUser from local user.
+   *
+   * @return DosomethingCanadaSsoUser
+   */
+  public function fromLocalUser($local_account, $password = NULL)
+  {
+    $user_data = array(
+      'email'     => $local_account->mail,
+      'firstName' => $local_account->field_first_name['und'][0]['value'],
+      'dob'       => $local_account->field_birthdate['und'][0]['value'],
+    );
+
+    if (!empty($password)) {
+      $user_data['password'] = $password;
+    }
+
+    if (!empty($local_account->field_mobile['und'][0]['value'])) {
+      $user_data['mobile'] = $local_account->field_mobile['und'][0]['value'];
+    }
+
+    return new DosomethingCanadaSsoUser($user_data);
+  }
+
+  /**
+   * Construct DosomethingCanadaSsoUser from remote user data.
+   *
+   * @return DosomethingCanadaSsoUser
+   */
+  public function fromRemoteData($remote_user_data)
+  {
+    $user_data = array(
+      'email'     => $remote_user_data->Email,
+      'firstName' => $remote_user_data->Name,
+      'dob'       => $remote_user_data->DOB,
+    );
+
+    // -- Optional user data. --
+    if (!empty($remote_user_data->Phone)) {
+      $user_data['mobile'] = $remote_user_data->Phone;
+    }
+
+    return new DosomethingCanadaSsoUser($user_data);
+  }
+
+}
+
+/**
  * Represents Canada SSO user.
  */
 class DosomethingCanadaSsoUser extends DosomethingUserRemote {

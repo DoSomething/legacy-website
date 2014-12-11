@@ -1,5 +1,38 @@
 <?php
 
+interface DosomethingUserRemoteFactory {
+
+  /**
+   * Construct DosomethingUserRemote from local form values.
+   *
+   * @param  array  $form
+   * @param  array  &$form_state
+   *
+   * @return DosomethingUserRemote
+   */
+  public function fromFormValues(Array $form, Array &$form_state);
+
+  /**
+   * Construct DosomethingUserRemote from local user.
+   *
+   * @param  object  $local_account
+   * @param  string $password
+   *   (Optional) User password.
+   *
+   * @return DosomethingUserRemote
+   */
+  public function fromLocalUser($local_account, $password = NULL);
+
+  /**
+   * Construct DosomethingUserRemote from remote user data.
+   *
+   * @param  object  $remote_user_data
+   *
+   * @return DosomethingUserRemote
+   */
+  public function fromRemoteData($remote_user_data);
+}
+
 /**
  * Minimal set of user fields required to fulfill by
  * a remote user implementation.

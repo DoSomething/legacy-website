@@ -78,19 +78,13 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       }
 
       if (dosomething_user_is_staff($this->local_account)) {
-        $user_data = array(
-          'email'     => $this->email,
-          'password'  => $this->password,
-          'firstName' => $this->local_account->field_first_name['und'][0]['value'],
-          'dob'       => $this->local_account->field_birthdate['und'][0]['value'],
+        // Create SSO user.
+        $user_factory = new DosomethingCanadaSsoUserFactory();
+        $remote_account = $user_factory->fromLocalUser(
+          $this->local_account,
+          $this->password
         );
 
-        if (!empty($this->local_account->field_mobile['und'][0]['value'])) {
-          $user_data['mobile'] = $this->local_account->field_mobile['und'][0]['value'];
-        }
-
-        // Create SSO user.
-        $remote_account = new DosomethingCanadaSsoUser($user_data);
         if ($this->sso->signup($remote_account)) {
           $this->remote_account = $remote_account;
         }
