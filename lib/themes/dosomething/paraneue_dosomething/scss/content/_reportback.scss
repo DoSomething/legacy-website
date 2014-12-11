@@ -1,0 +1,162 @@
+// @TODO: Patternize and move/merge into Neue!
+
+
+$flex-gutter: flex-gutter(12);
+
+.media {
+
+  &.-framed {
+    background-color: #fff;
+    padding: 5px;
+
+    @include media($desktop) {
+      padding: 10px;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .__copy {
+      font-size: $font-small;
+      height: 60px;
+      line-height: 1.2;
+    }
+  }
+
+}
+
+
+
+// Main Reportback container
+.reportback {
+  > .wrapper {
+    overflow: hidden;
+    width: 100%;
+
+    @include media($tablet) {
+      display: table;
+      direction: rtl;
+      table-layout: fixed;
+    }
+  }
+
+  @include media($tablet) {
+    .gallery--reportback {
+      display: table-cell;
+      direction: ltr;
+      width: (25% - $flex-gutter);
+    }
+
+    form {
+      width: 75%;
+      direction: ltr;
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .spacer {
+      background: transparent;
+      display: table-cell;
+      width: $flex-gutter;
+    }
+  }
+
+  @include media($desktop) {
+    .gallery--reportback {
+      width: (50% - ($flex-gutter / 2));
+    }
+
+    form {
+      width: (50% - ($flex-gutter / 2));
+    }
+  }
+}
+
+
+
+.gallery--reportback {
+  overflow: hidden;
+
+  > li {
+    @include span-columns(6 of 12);
+    @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
+    margin-top: $flex-gutter;
+
+    @include media($tablet) {
+      margin-right: 0;
+      margin-top: flex-gutter(3);
+      width: 100%;
+
+      &:first-child { margin-top: 0; }
+    }
+
+    @include media($desktop) {
+      @include span-columns(3 of 6);
+      @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
+      margin-top: flex-gutter(6);
+
+      &:nth-child(2) { margin-top: 0; }
+    }
+
+    &:nth-child(n+5) {
+      display: none;
+
+      @include media($desktop) {
+        display: block;
+      }
+    }
+  }
+}
+
+
+
+.reportback form {
+  background-color: #fff;
+  margin-top: $flex-gutter;
+  padding: 15px;
+
+  @include media($tablet) {
+    margin-top: 0;
+  }
+}
+
+
+
+// @TODO: Only temp; change class name!
+.gigantor {
+  border: 0;
+  display: block;
+  padding: 0;
+  width: 100%;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+
+  .message-callout { display: none; }
+}
+
+
+
+.gallery {
+  &.-quartet {
+    li {
+      @include span-columns(6 of 12);
+      margin-top: $flex-gutter;
+
+      &:nth-child(2n) { margin-right: 0; }
+    }
+
+    @include media($tablet) {
+
+      li {
+        @include span-columns(3 of 12);
+
+        &:nth-child(2n) { margin-right: $flex-gutter; }
+        &:nth-child(4n) { margin-right: 0; }
+      }
+    }
+  }
+}
