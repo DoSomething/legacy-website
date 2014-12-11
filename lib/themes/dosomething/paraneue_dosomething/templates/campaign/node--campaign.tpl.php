@@ -334,7 +334,7 @@
               <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
                 <div>
 
-                  <button class="gigantor -square">
+                  <div class="gigantor -square">
                     <div class="wrapper">
                       <div class="message-callout -below">
                         <div class="__copy">
@@ -343,8 +343,9 @@
                       </div>
                       <img src="data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP////Ly8gAAACwAAAAACgAKAAACCJSPqcvtD2MrADs=" alt="">
                       <!-- <img src="http://placeimg.com/300/300/animals" alt=""> -->
+                      <input class="js-image-upload form-file" type="file" id="edit-reportback-file" name="files[reportback_file]" size="60">
                     </div>
-                  </button>
+                  </div>
 
                   <div class="form-item form-type-textfield form-item-caption-new">
                     <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
@@ -379,6 +380,13 @@
 
                 </div>
               </form>
+
+              <div data-modal id="modal--image-crop" role="dialog">
+                <h2 class="banner">Example Content</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, officia impedit eius velit consectetur provident ullam! Incidunt, rem, maxime sit non natus praesentium nobis voluptas enim repudiandae. Commodi, eum, accusamus. Let us take a look at.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, officia impedit eius velit consectetur provident ullam! Incidunt, rem, maxime sit non natus praesentium nobis voluptas enim repudiandae. Commodi, eum, accusamus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, officia impedit eius velit consectetur provident ullam! Incidunt, rem, maxime sit non natus praesentium nobis voluptas enim repudiandae. Commodi, eum, accusamus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, officia impedit eius velit consectetur provident ullam! Incidunt, rem, maxime sit non natus praesentium nobis voluptas enim repudiandae. Commodi, eum, accusamus.</p>
+              </div>
             </div>
 
             <ul class="gallery gallery--extended -quartet">
