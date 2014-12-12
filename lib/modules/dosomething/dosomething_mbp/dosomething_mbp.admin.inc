@@ -21,7 +21,19 @@ function dosomething_mbp_config_form($form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('Transactional Templates')
   );
-  
+
+  if (variable_get('message_broker_producer_application_id', '') == '') {
+    $current_application_markup = t('WARNING: The current application ID is
+      undefined. Typically this would be the country code for the affiliate
+      site or "US" for the United States. Update the value on the ');
+  }
+  else {
+    $current_application_markup = t('Current Application ID: ') . variable_get('message_broker_producer_application_id', '');
+  }
+  $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
+    '#markup' => $current_application_markup,
+  );
+
   $user_registration_template = variable_get('dosomething_mbp_user_registration_template', '');
   $form['dosomething_mbp_templates']['dosomething_mbp_template_selection'] = array(
     '#type' => 'select',
@@ -32,8 +44,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#weight' => 60,
   );
-  
-  
+
   return system_settings_form($form);
 }
 
@@ -47,10 +58,10 @@ function dosomething_mbp_config_form($form, &$form_state) {
  *   Array of the state of the form elements.
  */
 function _get_mb_templates($target_label) {
-  
+
   // https://mandrillapp.com/api/docs/templates.JSON.html#method=list
   // https://mandrillapp.com/api/1.0/templates/list.json
   // "label": "example-label"
-  
+
   return $templates;
 }
