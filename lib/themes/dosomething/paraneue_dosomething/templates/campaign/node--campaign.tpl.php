@@ -301,7 +301,7 @@
               <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
                 <div>
 
-                  <button class="gigantor -square">
+                  <div class="gigantor -square">
                     <div class="wrapper">
                       <div class="message-callout -below">
                         <div class="__copy">
@@ -310,8 +310,9 @@
                       </div>
                       <img src="data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP////Ly8gAAACwAAAAACgAKAAACCJSPqcvtD2MrADs=" alt="">
                       <!-- <img src="http://placeimg.com/300/300/animals" alt=""> -->
+                      <input class="js-image-upload-beta" type="file" name="files[reportback_file]" size="60">
                     </div>
-                  </button>
+                  </div>
 
                   <div class="form-item form-type-textfield form-item-caption-new">
                     <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
@@ -346,6 +347,18 @@
 
                 </div>
               </form>
+
+              <div data-modal id="modal--crop" class="modal--crop" role="dialog">
+                <h2 class="banner">Edit your photo</h2>
+                <div class="image-wrapper">
+                  <img src="http://placeimg.com/300/300/animals" alt="aminals" />
+                </div>
+                <div class="image-crop-options">
+                  <a href="#">Rotate</a>
+                  <a href="#">Change photo</a>
+                  <button>done</button>
+                </div>
+              </div>
             </div>
             <?php
             /* Magic ajax gallery to go here.
