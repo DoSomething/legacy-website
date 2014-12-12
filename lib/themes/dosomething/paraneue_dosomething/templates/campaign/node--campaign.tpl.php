@@ -353,9 +353,7 @@
 
               <div data-modal id="modal--crop" class="modal--crop" role="dialog">
                 <h2 class="banner">Edit your photo</h2>
-                <div class="image-wrapper">
-                  <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                </div>
+                <div class="image-wrapper"><!-- Preview image inserted with js --></div>
                 <div class="image-crop-options">
                   <a href="#">Rotate</a>
                   <a href="#">Change photo</a>
