@@ -375,6 +375,51 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '", skipForm: "' . $skipForm . '"}); });';
     drupal_add_js($js, 'inline');
   }
+
+  // If this is not the pitch page:
+  if (!isset($vars['is_pitch_page'])) {
+    // Set the number of files to display.
+    $vars['num_reportback_files'] = 6;
+    // Adds themed Reportback Files.
+    paraneue_dosomething_preprocess_reportback_files($vars);
+  }
+
+}
+
+/**
+ * Adds $gallery_items array of themed Reportback Files for given node preprocess $vars.
+ */
+function paraneue_dosomething_preprocess_reportback_files(&$vars) {
+  if (!isset($vars['num_reportback_files'])) {
+    $vars['num_reportback_files'] = 6;
+  }
+  $num_items = $vars['num_reportback_files'];
+  $vars['reportback_files'] = array();
+   // Set params to retrieve random promoted Reportback Files for this nid.
+  $params = array();
+  $params['nid'] = $vars['nid'];
+  $params['status'] = 'promoted';
+  $params['random'] = TRUE;
+  $promoted_results = dosomething_reportback_get_reportback_files_query(0, $params, $num_items);
+  foreach ($promoted_results as $rb_file) {
+    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
+    $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
+  }
+  // Do we have enough promoted items?
+  $current_count = count($vars['reportback_files']);
+  if ($current_count < $num_items) {
+    // Find out how many approved files to grab.
+    $approved_count = $num_items - $current_count;
+  }
+  // Set params to retrieve approved Reportback Files for this nid.
+  $params['status'] = 'approved';
+  unset($params['random']);
+  $approved_results  = dosomething_reportback_get_reportback_files_query(0, $params, $approved_count);
+  foreach ($approved_results as $rb_file) {
+    // @todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
+    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
+    $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
+  }
 }
 
 /**

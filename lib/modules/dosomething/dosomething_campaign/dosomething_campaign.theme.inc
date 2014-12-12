@@ -31,6 +31,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   $pitch_path = 'node/' . $node->nid . '/pitch';
   if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
     // Gather vars for pitch page.
+    $vars['is_pitch_page'] = TRUE;
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     return;
   }

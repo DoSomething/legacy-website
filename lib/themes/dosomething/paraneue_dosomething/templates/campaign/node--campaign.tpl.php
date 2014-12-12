@@ -291,42 +291,9 @@
           <div class="reportback">
             <div class="wrapper">
               <ul class="gallery gallery--reportback">
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/tech" alt="tech" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/arch" alt="architecture" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/nature" alt="nature" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/people" alt="people" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
+                <?php for ($i = 0; $i <= count($reportback_files); $i++): ?>
+                  <li><?php print $reportback_files[$i]; ?></li>
+                <?php endfor; ?>
               </ul>
 
               <div class="spacer"></div>
@@ -380,57 +347,14 @@
                 </div>
               </form>
             </div>
-
+            <?php
+            /* Magic ajax gallery to go here.
             <ul class="gallery gallery--extended -quartet">
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/tech" alt="tech" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/arch" alt="architecture" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/nature" alt="nature" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/people" alt="people" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur.</figcaption>
-                  </figure>
-                </li>
-                <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/tech" alt="tech" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit amet, consectetur adipisicing.</figcaption>
-                  </figure>
-                </li>
-                 <li>
-                  <figure class="media -stacked -framed">
-                    <img src="http://placeimg.com/300/300/arch" alt="architecture" />
-                    <figcaption class="__copy">Lorem ipsum dolor sit.</figcaption>
-                  </figure>
-                </li>
-              </ul>
+              <?php for ($i = $num_reportback_files; $i <= 15; $i++): ?>
+                <li><?php print $gallery_items[$i]; ?></li>
+              <?php endfor; ?>
+            </ul>
+            */ ?>
           </div>
 
 
