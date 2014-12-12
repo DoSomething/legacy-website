@@ -136,22 +136,6 @@ $flex-gutter: flex-gutter(12);
   }
 
   .message-callout { display: none; }
-
-  .image-upload-container {
-    position: relative;
-    width: 300px;
-    overflow: hidden;
-
-    input[type="file"] {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 200px;
-      opacity: 0;
-      cursor: pointer;
-    }
-  }
-
 }
 
 
