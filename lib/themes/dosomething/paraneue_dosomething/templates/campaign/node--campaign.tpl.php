@@ -288,7 +288,7 @@
             <p class="copy"><?php print $reportback_copy; ?></p>
           <?php endif; ?>
 
-          <div class="reportback">
+          <div id="reportback" class="reportback">
             <div class="wrapper">
               <ul class="gallery gallery--reportback">
                 <?php for ($i = 0; $i <= count($reportback_files); $i++): ?>
@@ -298,7 +298,7 @@
 
               <div class="spacer"></div>
 
-              <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
+              <!-- <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
                 <div>
 
                   <div class="gigantor -square">
@@ -309,11 +309,10 @@
                         </div>
                       </div>
                       <img src="data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP////Ly8gAAACwAAAAACgAKAAACCJSPqcvtD2MrADs=" alt="">
-                      <!-- <img src="http://placeimg.com/300/300/animals" alt=""> -->
                       <input class="js-image-upload-beta" type="file" name="files[reportback_file]" size="60">
                     </div>
                   </div>
-
+                  <p>POOP!</p>
                   <div class="form-item form-type-textfield form-item-caption-new">
                     <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
                     <input data-validate-required="" placeholder="Write something..." type="text" id="edit-caption" name="caption" value="" size="60" maxlength="128" class="form-text required">
@@ -346,7 +345,11 @@
                 </div>
 
                 </div>
-              </form>
+              </form> -->
+
+              <?php if (isset($reportback_form)): ?>
+                <?php print render($reportback_form); ?>
+              <?php endif; ?>
 
               <div data-modal id="modal--crop" class="modal--crop" role="dialog">
                 <h2 class="banner">Edit your photo</h2>
