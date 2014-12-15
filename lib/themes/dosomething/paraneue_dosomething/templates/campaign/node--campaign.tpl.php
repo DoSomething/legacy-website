@@ -354,15 +354,22 @@
               <div data-modal id="modal--crop" class="modal--crop" role="dialog">
                 <h2 class="banner">Edit your photo</h2>
                 <div class="image-wrapper"><!-- Preview image inserted with js --></div>
-                <div class="image-crop-options">
-                  <a href="#" class="btn tertiary -rotate">rotate photo</a>
-                  <div class="btn tertiary -change">
-                    <span>change photo</span>
-                    <input type="file" class="js-image-upload-beta" />
+                <div class="image-edit-wrapper">
+                  <div class="image-edit-buttons">
+                    <a href="#" class="-rotate">rotate photo</a>
+                    <div class="-change">
+                      <a href="#">change photo</a>
+                      <input type="file" class="js-image-upload-beta" />
+                    </div>
                   </div>
-                  <!--<input class="js-image-upload-beta form-file" type="file" id="edit-reportback-file" name="files[reportback_file]" size="60">
-                  <input href="#" class="btn tertiary -change js-image-upload-beta">change photo</a>-->
-                  <button class="btn secondary">done</button>
+                  <!-- This is a purely frontend form that will grab crop options and a caption
+                  And then when the user submits the form, it will populate the drupal form with these values. -->
+                  <form id="dosomething-reportback-image-form" accept-charset="UTF-8">
+                    <!-- Hidden form elements to go here -->
+                    <label for="caption">Caption</label>
+                    <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
+                    <input type="submit" value="done" class="btn secondary" />
+                  </form>
                 </div>
               </div>
             </div>
