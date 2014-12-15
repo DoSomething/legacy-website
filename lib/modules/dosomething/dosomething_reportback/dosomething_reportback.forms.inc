@@ -85,7 +85,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#type' => 'file',
     '#title' => t('Upload a pic'),
     '#attributes' => array(
-      'class' => array('js-image-upload'),
+      'class' => array('js-image-upload-beta'),
     ),
   );
   // Hidden fields to collect cropping information.

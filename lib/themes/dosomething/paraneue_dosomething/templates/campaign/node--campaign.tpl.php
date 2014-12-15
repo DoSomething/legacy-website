@@ -312,7 +312,7 @@
                       <input class="js-image-upload-beta" type="file" name="files[reportback_file]" size="60">
                     </div>
                   </div>
-                  <p>POOP!</p>
+                  <p>PLACEHOLDER</p>
                   <div class="form-item form-type-textfield form-item-caption-new">
                     <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
                     <input data-validate-required="" placeholder="Write something..." type="text" id="edit-caption" name="caption" value="" size="60" maxlength="128" class="form-text required">

@@ -1,0 +1,18 @@
+.modal--crop {
+
+  h2.banner {
+    margin: -36px -27px 0;
+  }
+
+  .image-wrapper {
+    margin: 0 -27px;
+    text-align: center;
+    background: #000;
+    line-height: 0;
+
+    img {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+}
