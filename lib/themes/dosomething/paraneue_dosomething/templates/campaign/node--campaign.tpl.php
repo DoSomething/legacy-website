@@ -355,9 +355,14 @@
                 <h2 class="banner">Edit your photo</h2>
                 <div class="image-wrapper"><!-- Preview image inserted with js --></div>
                 <div class="image-crop-options">
-                  <a href="#">Rotate</a>
-                  <a href="#">Change photo</a>
-                  <button>done</button>
+                  <a href="#" class="btn tertiary -rotate">rotate photo</a>
+                  <div class="btn tertiary -change">
+                    <span>change photo</span>
+                    <input type="file" class="js-image-upload-beta" />
+                  </div>
+                  <!--<input class="js-image-upload-beta form-file" type="file" id="edit-reportback-file" name="files[reportback_file]" size="60">
+                  <input href="#" class="btn tertiary -change js-image-upload-beta">change photo</a>-->
+                  <button class="btn secondary">done</button>
                 </div>
               </div>
             </div>

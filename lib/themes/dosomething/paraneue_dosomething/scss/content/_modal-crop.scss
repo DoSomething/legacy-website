@@ -4,6 +4,37 @@
     margin: -36px -27px 0;
   }
 
+  .btn {
+    &.secondary {
+      background: $blue;
+      display: table;
+      margin: 0 auto;
+    }
+
+    &.tertiary {
+      &.-rotate {
+        float: left;
+        clear: left;
+      }
+
+      &.-change {
+        float: right;
+        clear: right;
+        position: relative;
+        overflow: hidden;
+
+        input[type="file"] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 200px;
+          opacity: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .image-wrapper {
     margin: 0 -27px;
     text-align: center;
