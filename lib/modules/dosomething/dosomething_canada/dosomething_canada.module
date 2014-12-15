@@ -22,10 +22,11 @@ define('DOSOMETHING_CANADA_MSG_FAILED_LOGIN', "Sorry, we don't recognize that em
 function dosomething_canada_external_auth_method() {
   $items = array();
   $items[] = array(
-    'title'               => 'DoSomething Canada',
-    'description'         => 'Authenticates using TGI API.',
-    'login controller'    => 'DosomethingCanadaLoginController',
-    'register controller' => 'DosomethingCanadaRegisterController',
+    'title'                   => 'DoSomething Canada',
+    'description'             => 'Authenticates using TGI API.',
+    'login controller'        => 'DosomethingCanadaLoginController',
+    'register controller'     => 'DosomethingCanadaRegisterController',
+    'profile sync controller' => 'DosomethingCanadaProfileSyncController',
    );
   return $items;
 }

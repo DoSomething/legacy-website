@@ -40,10 +40,11 @@ function dosomething_uk_preprocess_page(&$vars) {
 function dosomething_uk_external_auth_method() {
   $items = array();
   $items[] = array(
-    'title'               => 'DoSomething UK',
-    'description'         => 'Authenticates using vInspired API.',
-    'login controller'    => 'DosomethingUkLoginController',
-    'register controller' => 'DosomethingUkRegisterController',
+    'title'                   => 'DoSomething UK',
+    'description'             => 'Authenticates using vInspired API.',
+    'login controller'        => 'DosomethingUkLoginController',
+    'register controller'     => 'DosomethingUkRegisterController',
+    'profile sync controller' => 'DosomethingUkProfileSyncController',
    );
   return $items;
 }
