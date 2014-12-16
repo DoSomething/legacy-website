@@ -35,7 +35,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
   }
   else {
 
-    if (($mandrill_templates = dosomething_mbp_templates(variable_get('message_broker_producer_application_id', -1))) == -1) {
+    if (($mandrill_templates = dosomething_mbp_get_mandrill_template_options(variable_get('message_broker_producer_application_id', -1))) == -1) {
       drupal_set_message('Templates assigned to the "' . variable_get('message_broker_producer_application_id') .
         '" country code in Mandrill were not found. Create templates for each of
         the transaction types (User Registration, Password Rest, Campaign Signup
@@ -62,18 +62,18 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_user_register_template'] = array(
         '#type' => 'select',
         '#title' => t('User Registration'),
+        '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
         '#default_value' => $user_register_template,
         '#description' => 'The Mandrill template to use for User Registration transactional messages.',
         '#required' => TRUE,
         '#weight' => 70,
       );
-      $user_password_template = variable_get('dosomething_mbp_user_password_template', '');
       $form['dosomething_mbp_templates']['dosomething_mbp_user_password_template'] = array(
         '#type' => 'select',
         '#title' => t('Password Reset'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => $user_password_template,
+        '#default_value' => variable_get('dosomething_mbp_user_password_template', ''),
         '#description' => 'The Mandrill template to use for Password Reset transactional messages.',
         '#required' => TRUE,
         '#weight' => 80,
@@ -82,6 +82,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Signup'),
+        '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
         '#default_value' => $campaign_signup_template,
         '#description' => 'The Mandrill template to use for Campaign Signup transactional messages.',
@@ -92,6 +93,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_group_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Group Signup'),
+        '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
         '#default_value' => $campaign_group_signup_template,
         '#description' => 'The Mandrill template to use for Campaign Group Signup transactional messages.',
@@ -102,6 +104,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_reportback_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Reportback'),
+        '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
         '#default_value' => $campaign_reportback_template,
         '#description' => 'The Mandrill template to use for Campaign Reportback transactional messages.',
@@ -118,13 +121,12 @@ function dosomething_mbp_config_form($form, &$form_state) {
 /**
  * Format template data for presentation based on returned values from Mandrill.
  *
- * @parm string $application_ID
+ * @parm string $application_id
  *   Defined in message_broker_producer, a unique identifier of the site.
  */
-function dosomething_mbp_templates($application_ID) {
+function dosomething_mbp_get_mandrill_template_options($application_id) {
 
-  $mandrill_templates['select'][0] = '-- Select Mandrill Template --';
-  $template_data = dosomething_mbp_get_template_data($application_ID);
+  $template_data = dosomething_mbp_get_template_data($application_id);
 
   if (count($template_data) > 0) {
     foreach ($template_data as $template_slug => $template_details) {
@@ -142,10 +144,10 @@ function dosomething_mbp_templates($application_ID) {
  * Gather Mandrill template details with the label specific to the affiliate
  * (target_ID).
  *
- * @parm string $application_ID
+ * @parm string $application_id
  *   Defined in message_broker_producer, a unique identifier of the site.
  */
-function dosomething_mbp_get_template_data($application_ID) {
+function dosomething_mbp_get_template_data($application_id) {
 
   $templates = array();
 
@@ -154,7 +156,7 @@ function dosomething_mbp_get_template_data($application_ID) {
   // "label": "example-label"
 
   // @todo: Include "US" in the message-broker-affiliate-<US> labeled templates
-  $params = array('label' => "message-broker-affiliate-{$application_ID}");
+  $params = array('label' => "message-broker-affiliate-{$application_id}");
 
   $mandill_templates = dosomething_mbp_mandrill_curl('/templates/list', $params);
 
@@ -170,7 +172,7 @@ function dosomething_mbp_get_template_data($application_ID) {
     }
   }
   else {
-    drupal_set_message('dosomething_mbp_get_template_data - No Mandrell templates found.', 'error');
+    drupal_set_message('dosomething_mbp_get_template_data - Mandrill templates not found.', 'error');
   }
 
   return $templates;
@@ -178,7 +180,7 @@ function dosomething_mbp_get_template_data($application_ID) {
 
 /**
  * Gather existing Mandrill templates and format results to be used in Drupal
- * seleciton form element.
+ * selection form element.
  *
  * @parm array $form
  *   Array of form elements.
@@ -187,6 +189,7 @@ function dosomething_mbp_get_template_data($application_ID) {
  */
 function dosomething_mbp_mandrill_curl($api_endpoint, $params) {
 
+  $decode = array();
   $base_mandrill_url = 'http://mandrillapp.com/api/1.0';
   // Define return format
   $api_endpoint .= '.json';
