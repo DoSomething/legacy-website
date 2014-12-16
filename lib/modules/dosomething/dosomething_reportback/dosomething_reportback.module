@@ -146,6 +146,14 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'status',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $info['reportback_file']['properties']['reviewed'] = array(
+    'label' => t('Reviewed'),
+    'description' => t('Time reviewed.'),
+    'type' => 'date',
+    'required' => TRUE,
+    'schema field' => 'status',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
   return $info;
 }
 
@@ -175,7 +183,7 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
-  $items['rbf/%reportback_file'] = array(
+  $items['rb/%reportback_file'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_file_view_entity',
     'page arguments' => array(1),
@@ -204,7 +212,7 @@ function dosomething_reportback_menu() {
     $items = array_merge($items, $rb_items);
   }
 
-  $items['admin/users/reportbacks/add'] = array(
+  $items['admin/users/rb/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_form'),

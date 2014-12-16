@@ -14,7 +14,7 @@ class ReportbackFileEntity extends Entity {
    * Override this in order to implement a custom default URI.
    */
   protected function defaultUri() {
-    return array('path' => 'rbf/' . $this->identifier());
+    return array('path' => 'rb/' . $this->identifier());
   }
 
   /**
