@@ -37,7 +37,6 @@ function dosomething_reportback_entity_info() {
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackFileEntityController',
     'module' => 'dosomething_reportback',
-    'views controller class' => 'EntityDefaultViewsController',
   );
 
   return $info;
@@ -135,6 +134,13 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
+  $items['rbf/%reportback_file'] = array(
+    'title' => 'Reportback',
+    'page callback' => 'dosomething_reportback_file_view_entity',
+    'page arguments' => array(1),
+    //'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('administer modules'),
+  );
   $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
@@ -445,6 +451,13 @@ function dosomething_reportback_view_entity($entity) {
 }
 
 /**
+ * Callback for /rbf/FID page.
+ */
+function dosomething_reportback_file_view_entity($entity) {
+  return entity_view('reportback_file', array($entity->rbid => $entity), 'full');
+}
+
+/**
  * Process variables for entity.tpl.php.
  *
  * @see template_preprocess_entity in Entity API module.
@@ -698,11 +711,11 @@ function dosomething_reportback_mbp_request($entity) {
  * Implements hook_views_data().
  */
 function dosomething_reportback_views_data() {
-  $data['dosomething_reportback_file']['table']['group'] = t('Reportbacks');
+  $data['dosomething_reportback_file']['table']['group'] = t('Reportback File');
   $data['dosomething_reportback_file']['table']['base'] = array(
     'field' => 'rbid', // This is the identifier field for the view.
-    'title' => t('Reportback images'),
-    'help' => t('Image uploads for reportbacks.'),
+    'title' => t('Reportback File'),
+    'help' => t('File uploads for reportbacks.'),
     'weight' => -10,
   );
   $data['dosomething_reportback_file']['table']['join'] = array(

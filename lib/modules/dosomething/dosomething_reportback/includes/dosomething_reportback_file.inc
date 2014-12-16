@@ -18,6 +18,17 @@ class ReportbackFileEntity extends Entity {
   }
 
   /**
+   * Override construct to set calculated properties.
+   */
+  public function __construct(array $values = array(), $entityType = NULL) {
+    parent::__construct($values, $entityType);
+  }
+
+  public function getImage() {
+    return dosomething_image_get_themed_image_by_fid($this->fid, '300x300');
+  }
+
+  /**
    * Sets the Reportback File status column and Reviewer details.
    */
   public function review($status, $source = NULL) {
@@ -41,5 +52,30 @@ class ReportbackFileEntity extends Entity {
  * Our custom controller for the dosomething_reportback type.
  */
 class ReportbackFileEntityController extends EntityAPIController {
+  /**
+   * Overrides buildContent() method.
+   *
+   * Adds Reportback properties into Reportback entity's render.
+   */
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    global $user;
+    $reportback = reportback_load($entity->rbid);
+   // Make Description and Status themed like default fields.
+
+    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
+    $build['username'] = array(
+      '#prefix' => '<p>',
+      '#markup' => 'User: ' . l($reportback->uid, 'user/' . $reportback->uid),
+      '#suffix' => '</p>',
+    );
+    $build['image'] = array(
+      '#markup' => $entity->getImage(),
+    );
+    $build['node'] = array(
+      '#markup' => $reportback->node_title,
+    );
+    return $build;
+  }
 
 }
