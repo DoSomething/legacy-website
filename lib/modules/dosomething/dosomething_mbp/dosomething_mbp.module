@@ -105,6 +105,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   // Payload specific to each transaction type.
   switch ($origin) {
     case 'user_register':
+      $payload['template'] = variable_get('dosomething_mbp_user_register_template');
       $payload['birthdate'] = $params['birthdate'];
       $payload['subscribed'] = 1;
       if (isset($params['mobile'])) {
@@ -116,6 +117,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       break;
 
     case 'user_password':
+      $payload['template'] = variable_get('dosomething_mbp_user_password_template');
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['merge_vars']['USERNAME'] = $params['username'];
       $payload['merge_vars']['RESET_LINK'] = $params['reset_link'];
@@ -125,6 +127,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 
     case 'campaign_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
+      $payload['template'] = variable_get('dosomething_mbp_campaign_signup_template');
       $payload['merge_vars']['CALL_TO_ACTION'] = $params['call_to_action'];
       $payload['merge_vars']['STEP_ONE'] = $params['step_one'];
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
@@ -135,12 +138,14 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
+      $payload['template'] = variable_get('dosomething_mbp_campaign_group_signup_template');
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
       $payload['email_template'] = 'mb-group-campaign-signup';
       $payload['email_tags'][] = 'drupal_campaign_group_signup';
       break;
 
     case 'campaign_reportback':
+      $payload['template'] = variable_get('dosomething_mbp_campaign_reportback_template');
       $payload['event_id'] = $params['event_id'];
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
