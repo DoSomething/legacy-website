@@ -35,7 +35,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
   }
   else {
 
-    if (($templates = dosomething_mbp_templates(variable_get('message_broker_producer_application_id', -1))) == -1) {
+    if (($mandrill_templates = dosomething_mbp_templates(variable_get('message_broker_producer_application_id', -1))) == -1) {
       drupal_set_message('Templates assigned to the "' . variable_get('message_broker_producer_application_id') .
         '" country code in Mandrill were not found. Create templates for each of
         the transaction types (User Registration, Password Rest, Campaign Signup
@@ -44,7 +44,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
     }
     else {
 
-      $form['dosomething_mbp_log'] = array(
+      $form['configuration']['dosomething_mbp_log'] = array(
         '#type' => 'checkbox',
         '#title' => t('Log Message Broker Producer requests.'),
         '#default_value' => variable_get('dosomething_mbp_log', FALSE),
@@ -59,10 +59,10 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#markup' => $current_application_markup,
       );
       $user_registration_template = variable_get('dosomething_mbp_user_registration_template', '');
-      $form['dosomething_mbp_templates']['dosomething_mbp_template_selection'] = array(
+      $form['dosomething_mbp_templates']['dosomething_mbp_user_registration_template'] = array(
         '#type' => 'select',
         '#title' => t('User Registration'),
-        '#options' => $templates['select'],
+        '#options' => $mandrill_templates['select'],
         '#default_value' => $user_registration_template,
         '#description' => 'The Mandrill template to use for User Registration.',
         '#required' => TRUE,
@@ -84,14 +84,19 @@ function dosomething_mbp_config_form($form, &$form_state) {
  */
 function dosomething_mbp_templates($application_ID) {
 
-  $templates = -1;
+  $mandrill_templates['select'][0] = '-- Select Mandrill Template --';
   $template_data = dosomething_mbp_get_template_data($application_ID);
 
-  foreach ($template_data as $template_slug => $template_details) {
-    $templates['select'][$template_slug] = $template_details['name'];
+  if (count($template_data) > 0) {
+    foreach ($template_data as $template_slug => $template_details) {
+      $mandrill_templates['select'][$template_slug] = $template_details['name'];
+    }
+  }
+  else {
+    $mandrill_templates = -1;
   }
 
-  return $templates;
+  return $mandrill_templates;
 }
 
 /**
