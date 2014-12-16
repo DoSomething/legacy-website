@@ -22,6 +22,7 @@ class ReportbackFileEntity extends Entity {
    */
   public function __construct(array $values = array(), $entityType = NULL) {
     parent::__construct($values, $entityType);
+    $this->caption = check_plain($this->caption);
   }
 
   public function getImage() {
@@ -60,7 +61,6 @@ class ReportbackFileEntityController extends EntityAPIController {
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     global $user;
     $reportback = reportback_load($entity->rbid);
-   // Make Description and Status themed like default fields.
 
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
@@ -72,9 +72,33 @@ class ReportbackFileEntityController extends EntityAPIController {
     $build['image'] = array(
       '#markup' => $entity->getImage(),
     );
-    $build['node'] = array(
-      '#markup' => $reportback->node_title,
+    $build['caption'] = array(
+      '#prefix' => '<p><strong>Caption: </strong>',
+      '#markup' => $entity->caption,
+      '#suffix' => '</p>',
     );
+    $build['quantity'] = array(
+      '#prefix' => '<p><strong>Impact: </strong>',
+      '#markup' => $reportback->quantity . ' ' . $reportback->quantity_label,
+      '#suffix' => '</p>',
+    );
+    $build['why'] = array(
+      '#prefix' => '<p><strong>Why participated: </strong> ',
+      '#markup' => $reportback->why_participated,
+      '#suffix' => '</p>',
+    );
+    if (!empty($entity->reviewed)) {
+      $build['reviewer'] = array(
+        '#prefix' => '<p><strong>Reviewer: </strong> ',
+        '#markup' => $entity->reviewer,
+        '#suffix' => '</p>',
+      );
+      $build['reviewed'] = array(
+        '#prefix' => '<p><strong>Reviewed: </strong> ',
+        '#markup' => format_date($entity->reviewed, 'short'),
+        '#suffix' => '</p>',
+      );
+    }
     return $build;
   }
 

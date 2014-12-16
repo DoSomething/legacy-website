@@ -29,12 +29,14 @@ class ReportbackEntity extends Entity {
     if (isset($this->rbid)) {
       $this->fids = $this->getFids();
     }
+    $this->why_participated = check_plain($this->why_participated);
     // If a reportback nid exists:
     if (isset($this->nid)) {
       // Set properties found on the reportback's node nid.
       $this->node_title = $this->getNodeTitle();
       $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
       $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+      $this->quantity_label = $this->noun . ' ' . $this->verb;
     }
   }
 

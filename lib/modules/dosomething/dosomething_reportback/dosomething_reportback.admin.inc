@@ -185,7 +185,7 @@ function theme_dosomething_reportback_files_form($variables) {
   drupal_add_js ($path . "/js/reportback_review_form.js");
   // If no results, just return form.
   if (empty($rb_files)) {
-    return t("No results found.");
+    return t("Inbox zero! There are no Reportbacks to review.");
   }
 
   // Initialize the variable which will store our table rows.
