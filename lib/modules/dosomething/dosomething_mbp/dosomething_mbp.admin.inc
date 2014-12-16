@@ -58,13 +58,12 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
         '#markup' => $current_application_markup,
       );
-      $user_register_template = variable_get('dosomething_mbp_user_register_template', '');
       $form['dosomething_mbp_templates']['dosomething_mbp_user_register_template'] = array(
         '#type' => 'select',
         '#title' => t('User Registration'),
         '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => $user_register_template,
+        '#default_value' => variable_get('dosomething_mbp_user_register_template') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for User Registration transactional messages.',
         '#required' => TRUE,
         '#weight' => 70,
@@ -73,40 +72,37 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#type' => 'select',
         '#title' => t('Password Reset'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => variable_get('dosomething_mbp_user_password_template', ''),
+        '#default_value' => variable_get('dosomething_mbp_user_password_template_', '') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for Password Reset transactional messages.',
         '#required' => TRUE,
         '#weight' => 80,
       );
-      $campaign_signup_template = variable_get('dosomething_mbp_campaign_signup_template', '');
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Signup'),
         '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => $campaign_signup_template,
+        '#default_value' => variable_get('dosomething_mbp_campaign_signup_template') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for Campaign Signup transactional messages.',
         '#required' => TRUE,
         '#weight' => 90,
       );
-      $campaign_group_signup_template = variable_get('dosomething_mbp_campaign_group_signup_template', '');
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_group_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Group Signup'),
         '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => $campaign_group_signup_template,
+        '#default_value' => variable_get('dosomething_mbp_campaign_group_signup_template', '') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for Campaign Group Signup transactional messages.',
         '#required' => TRUE,
         '#weight' => 90,
       );
-      $campaign_reportback_template = variable_get('dosomething_mbp_campaign_reportback_template', '');
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_reportback_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Reportback'),
         '#empty_option' =>t('-- Select Mandrill Template --'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => $campaign_reportback_template,
+        '#default_value' => variable_get('dosomething_mbp_campaign_reportback_template') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for Campaign Reportback transactional messages.',
         '#required' => TRUE,
         '#weight' => 100,
