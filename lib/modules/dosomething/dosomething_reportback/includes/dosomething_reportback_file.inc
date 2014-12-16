@@ -63,39 +63,35 @@ class ReportbackFileEntityController extends EntityAPIController {
     $reportback = reportback_load($entity->rbid);
 
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-
-    $build['username'] = array(
-      '#prefix' => '<p>',
-      '#markup' => 'User: ' . l($reportback->uid, 'user/' . $reportback->uid),
-      '#suffix' => '</p>',
-    );
+    $author = user_load($reportback->uid);
     $build['image'] = array(
       '#markup' => $entity->getImage(),
     );
     $build['caption'] = array(
-      '#prefix' => '<p><strong>Caption: </strong>',
+      '#prefix' => '<p><strong>',
       '#markup' => $entity->caption,
+      '#suffix' => '</strong></p>',
+    );
+    $build['username'] = array(
+      '#prefix' => '<p>',
+      '#markup' => l($author->mail, 'user/' . $author->uid),
       '#suffix' => '</p>',
     );
     $build['quantity'] = array(
-      '#prefix' => '<p><strong>Impact: </strong>',
+      '#prefix' => '<p>',
       '#markup' => $reportback->quantity . ' ' . $reportback->quantity_label,
       '#suffix' => '</p>',
     );
     $build['why'] = array(
-      '#prefix' => '<p><strong>Why participated: </strong> ',
+      '#prefix' => '<p>',
       '#markup' => $reportback->why_participated,
       '#suffix' => '</p>',
     );
     if (!empty($entity->reviewed)) {
-      $build['reviewer'] = array(
-        '#prefix' => '<p><strong>Reviewer: </strong> ',
-        '#markup' => $entity->reviewer,
-        '#suffix' => '</p>',
-      );
+      $reviewer = user_load($entity->reviewer);
       $build['reviewed'] = array(
-        '#prefix' => '<p><strong>Reviewed: </strong> ',
-        '#markup' => format_date($entity->reviewed, 'short'),
+        '#prefix' => '<p>',
+        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short') .' by ' . $reviewer->mail,
         '#suffix' => '</p>',
       );
     }
