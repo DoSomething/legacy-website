@@ -64,11 +64,40 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#title' => t('User Registration'),
         '#options' => $mandrill_templates['select'],
         '#default_value' => $user_registration_template,
-        '#description' => 'The Mandrill template to use for User Registration.',
+        '#description' => 'The Mandrill template to use for User Registration transactional messages.',
         '#required' => TRUE,
-        '#weight' => 60,
+        '#weight' => 70,
       );
-
+      $password_reset_template = variable_get('dosomething_mbp_password_reset_template', '');
+      $form['dosomething_mbp_templates']['dosomething_mbp_password_reset_template'] = array(
+        '#type' => 'select',
+        '#title' => t('Password Reset'),
+        '#options' => $mandrill_templates['select'],
+        '#default_value' => $password_reset_template,
+        '#description' => 'The Mandrill template to use for Password Reset transactional messages.',
+        '#required' => TRUE,
+        '#weight' => 80,
+      );
+      $campaign_signup_template = variable_get('dosomething_mbp_campaign_signup_template', '');
+      $form['dosomething_mbp_templates']['dosomething_mbp_campaign_signup_template'] = array(
+        '#type' => 'select',
+        '#title' => t('Campaign Signup'),
+        '#options' => $mandrill_templates['select'],
+        '#default_value' => $campaign_signup_template,
+        '#description' => 'The Mandrill template to use for Campaign Signup transactional messages.',
+        '#required' => TRUE,
+        '#weight' => 90,
+      );
+      $campaign_reportback_template = variable_get('dosomething_mbp_campaign_reportback_template', '');
+      $form['dosomething_mbp_templates']['dosomething_mbp_campaign_reportback_template'] = array(
+        '#type' => 'select',
+        '#title' => t('Campaign Reportback'),
+        '#options' => $mandrill_templates['select'],
+        '#default_value' => $campaign_reportback_template,
+        '#description' => 'The Mandrill template to use for Campaign Reportback transactional messages.',
+        '#required' => TRUE,
+        '#weight' => 100,
+      );
     }
 
   }
