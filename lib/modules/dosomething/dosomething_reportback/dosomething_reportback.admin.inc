@@ -16,7 +16,12 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_reportback_is_crop_enabled', FALSE),
     '#description' => t("Allows users to crop their own Reportback images."),
   );
-
+  $form['dosomething_reportback_is_generate_enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Dummy Reportback Generation.'),
+    '#default_value' => variable_get('dosomething_reportback_is_generate_enabled', FALSE),
+    '#description' => t("Allows admins to generate Lorem ipsum Reportbacks."),
+  );
   $form['dosomething_reportback_log'] = array(
     '#type' => 'checkbox',
     '#title' => t('Log Reportbacks.'),
@@ -24,6 +29,55 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#description' => t("Logs Reportback activity. This should be disabled on production."),
   );
   return system_settings_form($form);
+}
+
+/**
+ * Form constructor for generating dummy Reportbacks.
+ *
+ * @see dosomething_reportback_menu()
+ */
+function dosomething_reportback_admin_generate_form($form, &$form_state) {
+  $form['help'] = array(
+    '#markup' => t("Submitting this form will generate Lorem ipsum Reportbacks for your account."),
+  );
+  $form['nid'] = array(
+    '#type' => 'entity_autocomplete',
+    '#title' => t('Campaign'),
+    '#description' => t("Select the campaign to generate reportbacks for."),
+    '#entity_type' => 'node',
+    '#bundles' => array('campaign'),
+    '#required' => TRUE,
+  );
+   $form['num'] = array(
+     '#type' => 'select',
+     '#title' => t('Number of reportbacks'),
+     '#required' => TRUE,
+     '#options' => array(
+        5 => t('5'),
+        10 => t('10'),
+        15 => t('15'),
+        20 => t('20'),
+        25 => t('25'),
+     ),
+     '#default_value' => 15,
+   );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Submit"),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Form submit callback for dosomething_reportback_admin_generate_form.
+ */
+function dosomething_reportback_admin_generate_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  dosomething_reportback_generate($values['nid'], $values['num']);
+  drupal_set_message(t("Generated %num dummy reportbacks.", array('%num' => $values['num'])));
 }
 
 /**
