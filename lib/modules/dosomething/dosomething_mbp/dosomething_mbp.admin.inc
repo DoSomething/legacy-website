@@ -54,7 +54,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#type' => 'fieldset',
         '#title' => t('Transactional Templates')
       );
-      $current_application_markup = t('Current Application ID: ') . variable_get('message_broker_producer_application_id', '') . t(' as defined in the message_broker_producer') . l(t('Producer Configuration settings.'), 'admin/config/services/message-broker-producer/mq-settings') . t(' Producer Configuration settings.');
+      $current_application_markup = t('Current Application ID: "') . variable_get('message_broker_producer_application_id', '') . t('" as defined in the message_broker_producer') . l(t('Producer Configuration settings.'), 'admin/config/services/message-broker-producer/mq-settings') . t(' Producer Configuration settings or above in the configuration settings.');
       $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
         '#markup' => $current_application_markup,
       );
@@ -85,6 +85,16 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#options' => $mandrill_templates['select'],
         '#default_value' => $campaign_signup_template,
         '#description' => 'The Mandrill template to use for Campaign Signup transactional messages.',
+        '#required' => TRUE,
+        '#weight' => 90,
+      );
+      $campaign_group_signup_template = variable_get('dosomething_mbp_campaign_group_signup_template', '');
+      $form['dosomething_mbp_templates']['dosomething_mbp_campaign_group_signup_template'] = array(
+        '#type' => 'select',
+        '#title' => t('Campaign Group Signup'),
+        '#options' => $mandrill_templates['select'],
+        '#default_value' => $campaign_group_signup_template,
+        '#description' => 'The Mandrill template to use for Campaign Group Signup transactional messages.',
         '#required' => TRUE,
         '#weight' => 90,
       );
