@@ -10,40 +10,66 @@
  */
 function dosomething_mbp_config_form($form, &$form_state) {
 
-  if ($templates = dosomething_mbp_templates(varable_get('message_broker_producer_application_id', '')) == '') {
-    drupal_set_message('WARNING: The current application ID is
-      undefined. Typically this would be the country code for the affiliate
-      site or "US" for the United States. Update the value on the ', 'error');
+  $form['configuration'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Producer Configuration')
+  );
+  $form['configuration']['message_broker_producer_application_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Application ID'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('message_broker_producer_application_id', -1),
+  );
+  $form['configuration']['dosomething_mbp_mandrill_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Mandrill Key'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_mbp_mandrill_key', ''),
+  );
+
+  if (variable_get('message_broker_producer_application_id', -1) == -1) {
+    drupal_set_message('The current application ID is undefined. Typically this
+      would be the country code for the affiliate site or "US" for the United
+      States. Update the value on the ' . l('message_broker_producer', 'admin/config/services/message-broker-producer/mq-settings') .
+      ' module or below.', 'error');
   }
   else {
 
-    $form['dosomething_mbp_log'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Log Message Broker Producer requests.'),
-      '#default_value' => variable_get('dosomething_mbp_log', FALSE),
-      '#description' => t("This should be disabled on production."),
-    );
+    if (($templates = dosomething_mbp_templates(variable_get('message_broker_producer_application_id', -1))) == -1) {
+      drupal_set_message('Templates assigned to the "' . variable_get('message_broker_producer_application_id') .
+        '" country code in Mandrill were not found. Create templates for each of
+        the transaction types (User Registration, Password Rest, Campaign Signup
+        and Campaign Reportback.',
+        'error');
+    }
+    else {
 
-    $form['dosomething_mbp_templates'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Transactional Templates')
-    );
+      $form['dosomething_mbp_log'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Log Message Broker Producer requests.'),
+        '#default_value' => variable_get('dosomething_mbp_log', FALSE),
+        '#description' => t("This should be disabled on production."),
+      );
+      $form['dosomething_mbp_templates'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Transactional Templates')
+      );
+      $current_application_markup = t('Current Application ID: ') . variable_get('message_broker_producer_application_id', '') . t(' as defined in the message_broker_producer') . l(t('Producer Configuration settings.'), 'admin/config/services/message-broker-producer/mq-settings') . t(' Producer Configuration settings.');
+      $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
+        '#markup' => $current_application_markup,
+      );
+      $user_registration_template = variable_get('dosomething_mbp_user_registration_template', '');
+      $form['dosomething_mbp_templates']['dosomething_mbp_template_selection'] = array(
+        '#type' => 'select',
+        '#title' => t('User Registration'),
+        '#options' => $templates['select'],
+        '#default_value' => $user_registration_template,
+        '#description' => 'The Mandrill template to use for User Registration.',
+        '#required' => TRUE,
+        '#weight' => 60,
+      );
 
-    $current_application_markup = t('Current Application ID: ') . variable_get('message_broker_producer_application_id', '') . t(' as defined in the message_broker_producer') . l(t('Producer Configuration settings.'), 'admin/config/services/message-broker-producer/mq-settings') . t(' Producer Configuration settings.');
-    $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
-      '#markup' => $current_application_markup,
-    );
-
-    $user_registration_template = variable_get('dosomething_mbp_user_registration_template', '');
-    $form['dosomething_mbp_templates']['dosomething_mbp_template_selection'] = array(
-      '#type' => 'select',
-      '#title' => t('User Registration'),
-      '#options' => $templates['select'],
-      '#default_value' => $user_registration_template,
-      '#description' => 'The Mandrill template to use for User Registration.',
-      '#required' => TRUE,
-      '#weight' => 60,
-    );
+    }
 
   }
 
@@ -58,6 +84,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
  */
 function dosomething_mbp_templates($application_ID) {
 
+  $templates = -1;
   $template_data = dosomething_mbp_get_template_data($application_ID);
 
   foreach ($template_data as $template_slug => $template_details) {
@@ -84,16 +111,22 @@ function dosomething_mbp_get_template_data($application_ID) {
 
   // @todo: Include "US" in the message-broker-affiliate-<US> labeled templates
   $params = array('label' => "message-broker-affiliate-{$application_ID}");
+
   $mandill_templates = dosomething_mbp_mandrill_curl('/templates/list', $params);
 
-  foreach ($mandill_templates as $mandill_template) {
-    $templates[$mandill_template->slug] = array(
-      'name' => $mandill_template->name,
-      'subject' => $mandill_template->subject,
-      'from_email' => $mandill_template->from_email,
-      'from_name' => $mandill_template->from_name,
-      'updated_at' => $mandill_template->updated_at,
-    );
+  if (count($mandill_templates) > 0) {
+    foreach ($mandill_templates as $mandill_template) {
+      $templates[$mandill_template->slug] = array(
+        'name' => $mandill_template->name,
+        'subject' => $mandill_template->subject,
+        'from_email' => $mandill_template->from_email,
+        'from_name' => $mandill_template->from_name,
+        'updated_at' => $mandill_template->updated_at,
+      );
+    }
+  }
+  else {
+    drupal_set_message('dosomething_mbp_get_template_data - No Mandrell templates found.', 'error');
   }
 
   return $templates;
@@ -112,8 +145,9 @@ function dosomething_mbp_mandrill_curl($api_endpoint, $params) {
 
   $base_mandrill_url = 'http://mandrillapp.com/api/1.0';
   // Define return format
-  $api_endpoint .= 'json';
-  if ($key = get_variable('dosomething_mbp_mandrill_key', '') != '') {
+  $api_endpoint .= '.json';
+
+  if (($key = variable_get('dosomething_mbp_mandrill_key', '')) != '') {
 
     $params = array_merge($params, array('key' => $key));
     $json = json_encode($params);
@@ -124,16 +158,14 @@ function dosomething_mbp_mandrill_curl($api_endpoint, $params) {
     curl_setopt($ch,CURLOPT_POST, count($params));
     curl_setopt($ch,CURLOPT_POSTFIELDS, $json);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($json)));
     $result = curl_exec($ch);
     curl_close($ch);
     $decoded = json_decode($result);
-
   }
   else {
-    drupal_set_message('Mandrill key not set.', 'error');
+    drupal_set_message('dosomething_mbp_mandrill_curl - Mandrill key not set.', 'error');
   }
 
   return $decoded;
