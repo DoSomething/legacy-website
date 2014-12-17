@@ -226,6 +226,18 @@ class ReportbackEntity extends Entity {
       ->condition('rbid', $this->rbid)
       ->execute();
   }
+
+  /**
+   * Flags the reportback with the given $reason string.
+   *
+   * @param string $reason
+   *   Text to store in the flagged_reason property.
+   */
+  public function flag($reason) {
+    $this->flagged = 1;
+    $this->flagged_reason = $reason;
+    return entity_save('reportback_file', $this);
+  }
 }
 
 /**

@@ -165,13 +165,30 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   if (empty($rb_files) || !is_array($rb_files)) {
     return;
   }
-  foreach ($rb_files as $fid => $item) {
+
+  foreach ($rb_files as $fid => $values) {
+
     $rbf = reportback_file_load($fid);
-    $save = $rbf->review($item['status']);
+
+    // Loop through the flagged_reason values:
+    foreach ($values['flagged_reason'] as $reason_key => $reason_value) {
+      // Form sends unchecked as a 0.
+      if (!is_string($reason_value)) {
+        unset($values['flagged_reason'][$reason_key]);
+      }
+    }
+
+    // Overwrite flagged reason with the new concatenated string.
+    $values['flagged_reason'] = implode(', ', $values['flagged_reason']);
+
+    // Write the review data.
+    $save = $rbf->review($values);
     if (!$save) {
       form_set_error(t("An error has occurred."));
     }
+
   }
+
   drupal_set_message(t("Updated."));
 }
 
