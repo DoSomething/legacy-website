@@ -38,9 +38,7 @@
         <?php endif; ?>
         <li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
         <?php else: ?>
-        <?php if( theme_get_setting('show_profile_link') ): ?>
         <li class="account"><?php print l($user_identifier, 'user/'. $user->uid); ?></li>
-        <?php endif; ?>
         <li class="login"><a id="link--logout" href="<?php print $front_page; ?>user/logout" class="secondary-nav-item"><?php print t('Log Out'); ?></a></li>
         <?php endif; ?>
       </ul>
