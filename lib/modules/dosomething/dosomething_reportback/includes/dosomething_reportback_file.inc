@@ -32,17 +32,24 @@ class ReportbackFileEntity extends Entity {
   /**
    * Sets the Reportback File status column and Reviewer details.
    */
-  public function review($status, $source = NULL) {
+  public function review($values) {
     global $user;
-    $this->status = $status;
+    if (!isset($values['status'])) {
+      return FALSE;
+    }
+    $this->status = $values['status'];
     $this->reviewer = $user->uid;
     $this->reviewed = REQUEST_TIME;
     // Default source as the current URL path of page being viewed.
     $this->review_source = current_path();
     // If source was passed:
-    if ($source) {
+    if (isset($values['source'])) {
       // Store that instead.
       $this->review_source = check_plain($source);
+    }
+    if ($this->status === 'flagged') {
+      $reportback = reportback_load($this->rbid);
+      $reportback->flag($values['flagged_reason']);
     }
     // Save the reviewed properties.
     return entity_save('reportback_file', $this);
