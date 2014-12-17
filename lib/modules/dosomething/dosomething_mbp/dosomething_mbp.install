@@ -4,14 +4,14 @@
  * Installation and schema hooks for dosomething_mbp.module.
  */
  
- /**
+/**
  * Deletes dosomething_mbp_send_campaign_api system variable
  */
 function dosomething_mbp_update_7001(&$sandbox) {
   variable_del('dosomething_mbp_send_campaign_api');
 }
 
- /**
+/**
  * Creates default production entries in message_broker_producer
  */
 function dosomething_mbp_update_7002(&$sandbox) {
@@ -86,7 +86,7 @@ function dosomething_mbp_update_7002(&$sandbox) {
 
 }
 
- /**
+/**
  * Creates production entry in message_broker_producer for user profile updates
  */
 function dosomething_mbp_update_7003(&$sandbox) {
@@ -108,3 +108,65 @@ function dosomething_mbp_update_7003(&$sandbox) {
   }
 
 }
+
+/**
+ * Creates production entry in message_broker_producer for user profile updates
+ */
+ function dosomething_mbp_update_7004(&$sandbox) {
+
+   variable_set('message_broker_producer_application_id', 'US');
+
+   variable_set('dosomething_mbp_user_register_template_US', 'mb-general-signup-us');
+   variable_set('dosomething_mbp_user_password_template_US', 'mb-password-reset-us');
+   variable_set('dosomething_mbp_campaign_signup_template_US', 'mb-campaign-signup-us');
+   variable_set('dosomething_mbp_campaign_reportback_template_US', 'mb-campaign-report-back-us');
+   variable_set('dosomething_mbp_campaign_group_signup_template_US', 'mb-group-campaign-signup-us');
+
+   variable_set('dosomething_mbp_user_register_template_UK', 'mb-general-signup-affiliate-uk');
+   variable_set('dosomething_mbp_user_password_template_UK', 'mb-password-reset-affiliate-uk');
+   variable_set('dosomething_mbp_campaign_signup_template_UK', 'mb-campaign-signup-affiliate-uk');
+   variable_set('dosomething_mbp_campaign_reportback_template_UK', 'mb-campaign-report-back-affiliate-uk');
+   variable_set('dosomething_mbp_campaign_group_signup_template_UK', 'mb-group-campaign-signup-uk');
+   
+   variable_set('dosomething_mbp_user_register_template_CA', 'mb-general-signup-affiliate-ca');
+   variable_set('dosomething_mbp_user_password_template_CA', 'mb-password-reset-affiliate-ca');
+   variable_set('dosomething_mbp_campaign_signup_template_CA', 'mb-campaign-signup-affiliate-ca');
+   variable_set('dosomething_mbp_campaign_reportback_template_CA', 'mb-campaign-report-back-affiliate-ca');
+   variable_set('dosomething_mbp_campaign_group_signup_template_CA', 'mb-group-campaign-signup-ca');
+
+   variable_set('dosomething_mbp_user_register_template_ID', 'mb-general-signup-affiliate-id');
+   variable_set('dosomething_mbp_user_password_template_ID', 'mb-password-reset-affiliate-id');
+   variable_set('dosomething_mbp_campaign_signup_template_ID', 'mb-campaign-signup-affiliate-id');
+   variable_set('dosomething_mbp_campaign_reportback_template_ID', 'mb-campaign-report-back-affiliate-id');
+   variable_set('dosomething_mbp_campaign_group_signup_template_ID', 'mb-group-campaign-signup-id');
+
+   variable_set('dosomething_mbp_user_register_template_BW', 'mb-general-signup-affiliate-bw');
+   variable_set('dosomething_mbp_user_password_template_BW', 'mb-password-reset-affiliate-bw');
+   variable_set('dosomething_mbp_campaign_signup_template_BW', 'mb-campaign-signup-affiliate-bw');
+   variable_set('dosomething_mbp_campaign_reportback_template_BW', 'mb-campaign-report-back-affiliate-bw');
+   variable_set('dosomething_mbp_campaign_group_signup_template_BW', 'mb-group-campaign-signup-bw');
+
+   variable_set('dosomething_mbp_user_register_template_KE', 'mb-general-signup-affiliate-ke');
+   variable_set('dosomething_mbp_user_password_template_KE', 'mb-password-reset-affiliate-ke');
+   variable_set('dosomething_mbp_campaign_signup_template_KE', 'mb-campaign-signup-affiliate-ke');
+   variable_set('dosomething_mbp_campaign_reportback_template_KE', 'mb-campaign-report-back-affiliate-ke');
+   variable_set('dosomething_mbp_campaign_group_signup_template_KE', 'mb-group-campaign-signup-ke');
+
+   variable_set('dosomething_mbp_user_register_template_GH', 'mb-general-signup-affiliate-gh');
+   variable_set('dosomething_mbp_user_password_template_GH', 'mb-password-reset-affiliate-gh');
+   variable_set('dosomething_mbp_campaign_signup_template_GH', 'mb-campaign-signup-affiliate-gh');
+   variable_set('dosomething_mbp_campaign_reportback_template_GH', 'mb-campaign-report-back-affiliate-gh');
+   variable_set('dosomething_mbp_campaign_group_signup_template_GH', 'mb-group-campaign-signup-gh');
+
+   variable_set('dosomething_mbp_user_register_template_NG', 'mb-general-signup-affiliate-ng');
+   variable_set('dosomething_mbp_user_password_template_NG', 'mb-password-reset-affiliate-ng');
+   variable_set('dosomething_mbp_campaign_signup_template_NG', 'mb-campaign-signup-affiliate-ng');
+   variable_set('dosomething_mbp_campaign_reportback_template_NG', 'mb-campaign-report-back-affiliate-ng');
+   variable_set('dosomething_mbp_campaign_group_signup_template_NG', 'mb-group-campaign-signup-ng');
+
+   variable_set('dosomething_mbp_user_register_template_CD', 'mb-general-signup-affiliate-cd');
+   variable_set('dosomething_mbp_user_password_template_CD', 'mb-password-reset-affiliate-cd');
+   variable_set('dosomething_mbp_campaign_signup_template_CD', 'mb-campaign-signup-affiliate-cd');
+   variable_set('dosomething_mbp_campaign_reportback_template_CD', 'mb-campaign-report-back-affiliate-cd');
+   variable_set('dosomething_mbp_campaign_group_signup_template_CD', 'mb-group-campaign-signup-cd');
+ }
