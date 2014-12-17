@@ -140,9 +140,17 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['sorts']['fid']['field'] = 'fid';
   $handler->display->display_options['sorts']['fid']['order'] = 'DESC';
   /* Filter criterion: Reportback file: Status */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'dosomething_reportback_file';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['operator'] = '!=';
+  $handler->display->display_options['filters']['status_1']['value'] = 'pending';
+  $handler->display->display_options['filters']['status_1']['group'] = 1;
+  /* Filter criterion: Reportback file: Status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['exposed'] = TRUE;
   $handler->display->display_options['filters']['status']['expose']['operator_id'] = 'status_op';
   $handler->display->display_options['filters']['status']['expose']['label'] = 'Status';
@@ -184,11 +192,6 @@ function dosomething_reportback_views_default_views() {
       'value' => 'flagged',
     ),
   );
-  /* Filter criterion: Reportback file: Reviewed */
-  $handler->display->display_options['filters']['reviewed']['id'] = 'reviewed';
-  $handler->display->display_options['filters']['reviewed']['table'] = 'dosomething_reportback_file';
-  $handler->display->display_options['filters']['reviewed']['field'] = 'reviewed';
-  $handler->display->display_options['filters']['reviewed']['operator'] = 'not empty';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
