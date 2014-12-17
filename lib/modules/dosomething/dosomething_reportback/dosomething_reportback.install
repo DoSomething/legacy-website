@@ -58,6 +58,17 @@ function dosomething_reportback_schema() {
         'description' => 'The number of participants, if applicable.',
         'type' => 'int',
       ),
+      'flagged' => array(
+        'description' => 'Whether the Reportback has been flagged.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'flagged_reason' => array(
+        'description' => 'Reason why reportback was flagged.',
+        'type' => 'varchar',
+        'length' => '255',
+      ),
     ),
     'primary key' => array('rbid'),
     'indexes' => array(
@@ -393,6 +404,22 @@ function dosomething_reportback_update_7014(&$sandbox) {
 function dosomething_reportback_update_7015(&$sandbox) {
   $tbl_name = 'dosomething_reportback_file';
   $fields = array('reviewed', 'reviewer', 'review_source');
+  $schema = dosomething_reportback_schema();
+  foreach ($fields as $fld_name) {
+    if (!db_field_exists($tbl_name, $fld_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
+    }
+  }
+}
+
+
+/**
+ * Adds flagged columns to the dosomething_reportback table.
+ */
+function dosomething_reportback_update_7016(&$sandbox) {
+  $tbl_name = 'dosomething_reportback';
+  $fields = array('flagged', 'flagged_reason');
   $schema = dosomething_reportback_schema();
   foreach ($fields as $fld_name) {
     if (!db_field_exists($tbl_name, $fld_name)) {
