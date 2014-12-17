@@ -27,7 +27,7 @@ function dosomething_reportback_entity_info() {
     'views controller class' => 'EntityDefaultViewsController',
   );
   $info['reportback_file'] = array(
-    'label' => t('Reportback File'),
+    'label' => t('Reportback file'),
     'base table' => 'dosomething_reportback_file',
     'entity keys' => array(
       'id' => 'fid',
@@ -38,6 +38,12 @@ function dosomething_reportback_entity_info() {
     'controller class' => 'ReportbackFileEntityController',
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full'),
+        'custom settings' =>  FALSE,
+      ),
+    )
   );
 
   return $info;
@@ -48,15 +54,16 @@ function dosomething_reportback_entity_info() {
  */
 function dosomething_reportback_entity_property_info() {
   $info = array();
-  $properties = &$info['reportback']['properties'];
-  $properties['rbid'] = array(
+
+  // Set Reportback properties.
+  $info['reportback']['properties']['rbid'] = array(
     'label' => t('Reportback rbid'),
     'description' => t('The unique ID of the reportback.'),
     'type' => 'integer',
     'schema field' => 'rbid',
     'entity views field' => TRUE,
   );
-  $properties['nid'] = array(
+  $info['reportback']['properties']['nid'] = array(
     'label' => t('Node nid'),
     'description' => t('The node nid of the reportback.'),
     'type' => 'node',
@@ -65,7 +72,7 @@ function dosomething_reportback_entity_property_info() {
     'entity views field' => TRUE,
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['uid'] = array(
+  $info['reportback']['properties']['uid'] = array(
     'label' => t('User uid'),
     'description' => t('The user uid of the reportback.'),
     'type' => 'user',
@@ -74,7 +81,7 @@ function dosomething_reportback_entity_property_info() {
     'entity views field' => TRUE,
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['created'] = array(
+  $info['reportback']['properties']['created'] = array(
     'label' => t('Created Date'),
     'description' => t('Date the reportback was created.'),
     'type' => 'date',
@@ -82,7 +89,7 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'created',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['updated'] = array(
+  $info['reportback']['properties']['updated'] = array(
     'label' => t('Last Updated'),
     'description' => t('Date the reportback was last updated.'),
     'type' => 'date',
@@ -90,7 +97,7 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'updated',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['quantity'] = array(
+  $info['reportback']['properties']['quantity'] = array(
     'label' => t('Quantity'),
     'description' => t('The number of reportback_nouns reportback_verbed.'),
     'type' => 'integer',
@@ -98,12 +105,53 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'quantity',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $properties['why_participated'] = array(
+  $info['reportback']['properties']['why_participated'] = array(
     'label' => t('Why Participated'),
     'description' => t('Why the user participated.'),
     'type' => 'text',
     'required' => TRUE,
     'schema field' => 'why_participated',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+
+  // Set Reportback File properties.
+  $info['reportback_file']['properties']['rbid'] = array(
+    'label' => t('Reportback File rbid'),
+    'description' => t('The Reportback rbid the File belongs to.'),
+    'type' => 'reportback',
+    'schema field' => 'rbid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
+  );
+  $info['reportback_file']['properties']['fid'] = array(
+    'label' => t('Reportback file fid'),
+    'description' => t('Unique file fid of the Reportback File.'),
+    'type' => 'integer',
+    'schema field' => 'fid',
+    'entity views field' => TRUE,
+  );
+  $info['reportback_file']['properties']['caption'] = array(
+    'label' => t('Caption'),
+    'description' => t('File caption.'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'caption',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['reportback_file']['properties']['status'] = array(
+    'label' => t('Status'),
+    'description' => t('Review status.'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'status',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['reportback_file']['properties']['reviewed'] = array(
+    'label' => t('Reviewed'),
+    'description' => t('Time reviewed.'),
+    'type' => 'date',
+    'required' => TRUE,
+    'schema field' => 'status',
     'setter callback' => 'entity_property_verbatim_set',
   );
   return $info;
@@ -135,6 +183,13 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
+  $items['rb/%reportback_file'] = array(
+    'title' => 'Reportback',
+    'page callback' => 'dosomething_reportback_file_view_entity',
+    'page arguments' => array(1),
+    //'access callback' => 'dosomething_reportback_access',
+    'access arguments' => array('administer modules'),
+  );
   $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
@@ -157,7 +212,7 @@ function dosomething_reportback_menu() {
     $items = array_merge($items, $rb_items);
   }
 
-  $items['admin/users/reportbacks/add'] = array(
+  $items['admin/users/rb/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_reportback_form'),
@@ -231,22 +286,6 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 10,
   );
-  // Loop through status options.
-  $status_options = dosomething_reportback_get_file_status_options();
-  $weight = 20;
-  foreach ($status_options as $status => $title) {
-    $items[$prefix . '/' . $status] = array(
-      'title' => $title,
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('dosomething_reportback_files_form', $status, $arg_index),
-      'access callback' => 'dosomething_reportback_review_page_access',
-      'access arguments' => array($arg_index),
-      'file' => 'dosomething_reportback.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => $weight,
-    );
-    $weight++;
-  }
   return $items;
 }
 
@@ -442,6 +481,13 @@ function reportback_file_load($fid) {
  */
 function dosomething_reportback_view_entity($entity) {
   return entity_view('reportback', array($entity->rbid => $entity), 'full');
+}
+
+/**
+ * Callback for /rbf/FID page.
+ */
+function dosomething_reportback_file_view_entity($entity) {
+  return entity_view('reportback_file', array($entity->rbid => $entity), 'full');
 }
 
 /**
@@ -692,72 +738,6 @@ function dosomething_reportback_mbp_request($entity) {
       dosomething_mbp_request('campaign_reportback', $params);
     }
   }
-}
-
-/**
- * Implements hook_views_data().
- */
-function dosomething_reportback_views_data() {
-  $data['dosomething_reportback_file']['table']['group'] = t('Reportbacks');
-  $data['dosomething_reportback_file']['table']['base'] = array(
-    'field' => 'rbid', // This is the identifier field for the view.
-    'title' => t('Reportback images'),
-    'help' => t('Image uploads for reportbacks.'),
-    'weight' => -10,
-  );
-  $data['dosomething_reportback_file']['table']['join'] = array(
-    'dosomething_reportback' => array(
-      'left_field' => 'rbid',
-      'field' => 'rbid',
-    ),
-    'file_managed' => array(
-      'left_field' => 'fid',
-      'field' => 'fid',
-    ),
-  );
-  $data['dosomething_reportback_file']['rbid'] = array(
-    'title' => t('Reportback file rbid'),
-    'help' => t('Reportback file rid that references a reportback.'),
-    'relationship' => array(
-      'base' => 'dosomething_reportback',
-      'base field' => 'rbid',
-      'handler' => 'views_handler_relationship',
-      'label' => t('Reportback rbid'),
-      'title' => t('Reportback rbid'),
-      'help' => t('The Reportback rbid the File belongs to.'),
-    ),
-  );
-  $data['dosomething_reportback_file']['fid'] = array(
-    'title' => t('Reportback image fid'),
-    'help' => t('The fid of the Reportback image file.'),
-    'field' => array(
-      'handler' => 'views_handler_field_file',
-      'click sortable' => TRUE,
-    ),
-    'relationship' => array(
-      'base' => 'file_managed',
-      'handler' => 'views_handler_relationship',
-      'label' => t('Reportback image'),
-    ),
-  );
-  $data['dosomething_reportback_file']['remote_addr'] = array(
-    'title' => t('Remote address'),
-    'help' => t('IP address which submitted the reportback file.'),
-    'field' => array(
-      'handler' => 'views_handler_field',
-      'click sortable' => TRUE,
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'argument' => array(
-      'handler' => 'views_handler_argument_string',
-    ),
-  );
-  return $data;
 }
 
 /**
