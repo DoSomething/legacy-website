@@ -72,7 +72,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#type' => 'select',
         '#title' => t('Password Reset'),
         '#options' => $mandrill_templates['select'],
-        '#default_value' => variable_get('dosomething_mbp_user_password_template_', '') . '_' . variable_get('message_broker_producer_application_id'),
+        '#default_value' => variable_get('dosomething_mbp_user_password_template', '') . '_' . variable_get('message_broker_producer_application_id'),
         '#description' => 'The Mandrill template to use for Password Reset transactional messages.',
         '#required' => TRUE,
         '#weight' => 80,
