@@ -11,14 +11,14 @@
 class ReportbackFileEntity extends Entity {
 
   /**
-   * Override this in order to implement a custom default URI.
+   * Overrides to implement a custom default URI.
    */
   protected function defaultUri() {
     return array('path' => 'rb/' . $this->identifier());
   }
 
   /**
-   * Override construct to set calculated properties.
+   * Overrides construct to set calculated properties.
    */
   public function __construct(array $values = array(), $entityType = NULL) {
     parent::__construct($values, $entityType);

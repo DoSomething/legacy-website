@@ -20,7 +20,7 @@ class ReportbackEntity extends Entity {
   }
 
   /**
-   * Override construct to set calculated properties.
+   * Overrides construct to set calculated properties.
    */
   public function __construct(array $values = array(), $entityType = NULL) {
     parent::__construct($values, $entityType);
