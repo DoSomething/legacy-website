@@ -31,8 +31,6 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
   // Public: interface implementation
 
   public function setup(Array $form, Array &$form_state) {
-    $this->sso = DosomethingUkSsoController::signup($this->remote_account);
-
     // -- Required user data. --
     $values = &$form_state['values'];
     $user_data = array(
@@ -80,6 +78,11 @@ class DosomethingUkRegisterController implements ExternalAuthRegisterController 
   }
 
   public function signup() {
+    if (!$this->remote_account) {
+      return FALSE;
+    }
+
+    $this->sso = DosomethingUkSsoController::signup($this->remote_account);
     $this->signup_result = $this->sso->getLastResult();
     return (bool) $this->signup_result;
   }
