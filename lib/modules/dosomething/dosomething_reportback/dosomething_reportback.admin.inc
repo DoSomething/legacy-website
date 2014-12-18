@@ -105,7 +105,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $view_mode = 'full';
 
   // If we are viewing a reportback entity:
-  if (isset($entity->rbid) && arg(0) == 'reportback') {
+  if (isset($entity->rbid) && arg(0) === 'reportback') {
     $params['rbid'] =$entity->rbid;
     // If viewing a Reportback, don't repeat the Reportback details in each file.
     $view_mode = 'teaser';
