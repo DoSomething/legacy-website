@@ -542,6 +542,7 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
  * Themes the doing, reportback galleries.
  */
 function paraneue_dosomething_preprocess_user_profile(&$vars) {
+  global $base_url;
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
@@ -549,12 +550,13 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
+        'url' => $base_url . '/' . $value['path_alias'] . '#prove',
+        'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
     }
     $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad');
   }
-  global $base_url;
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
   if (!empty($reportbacks)) {

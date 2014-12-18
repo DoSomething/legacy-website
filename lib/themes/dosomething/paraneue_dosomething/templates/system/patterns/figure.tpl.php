@@ -20,4 +20,7 @@
       <?php print $content['description']; ?>
     </div>
   <?php endif; ?>
+  <?php if (!empty($content['url']) && !empty($content['button_text'])): ?>
+    <a class="btn" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>  
+  <?php endif; ?>
 </div>
