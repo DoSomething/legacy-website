@@ -43,6 +43,10 @@ function dosomething_reportback_entity_info() {
         'label' => t('Full'),
         'custom settings' =>  FALSE,
       ),
+      'teaser' => array(
+        'label' => t('Teaser'),
+        'custom settings' =>  FALSE,
+      ),
     )
   );
 

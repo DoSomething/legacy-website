@@ -52,28 +52,6 @@ class ReportbackEntity extends Entity {
   }
 
   /**
-   * Return all data for reportback files and their promoted flags (if they exist).
-   */
-  public function getReportbackFileData() {
-    $file_data = array();
-
-    // Query for all reportback file records.
-    $result = db_select($this->files_table, 'f')
-      ->fields('f')
-      ->condition('rbid', $this->rbid)
-      ->execute()
-      ->fetchAll();
-
-    // Loop through $result to add any promoted flaggings:
-    foreach ($result as $delta => $record) {
-      $file_data[$delta] = $record;
-      $file_data[$delta]->promoted = $this->getPromotedFlagging($record->fid);
-    }
-
-    return $file_data;
-  }
-
-  /**
    * Return all data from dosomething_reportback_log table for this entity.
    */
   public function getReportbackLog() {
@@ -288,46 +266,15 @@ class ReportbackEntityController extends EntityAPIController {
       '#markup' => 'Why participated:<br />' . check_plain($entity->why_participated),
       '#suffix' => '</p>',
     );
-    // Output Reportback Files.
-    $rows = array();
-    $header = array(
-      t('Fid'),
-      t('Image'),
-      t('Caption'),
-      t('IP'),
-      t('Created'),
-      NULL,
-    );
-    foreach ($entity->getReportbackFileData() as $delta => $record) {
-      $fid = $record->fid;
-      $image = dosomething_image_get_themed_image_by_fid($fid, 'thumbnail');
-      $file = file_load($fid);
-      $file_url = file_create_url($file->uri);
-      $file_link = l($fid, $file_url);
-      $image = l($image, $file_url, array('html' => TRUE));
-      $created = format_date($file->timestamp, 'short');
-      $promoted = NULL;
-      // If file has been promoted:
-      if ($flagging = $record->promoted) {
-        $caption = $flagging->field_image_description[LANGUAGE_NONE][0]['safe_value'];
-        $promoted = "Promoted on " . format_date($flagging->timestamp, 'short');
-        $promoted .= $caption;
-      }
-      $rows[] = array(
-        $file_link,
-        $image,
-        $record->caption,
-        $record->remote_addr,
-        $created,
-        $promoted,
+
+    foreach ($entity->fids as $delta => $fid) {
+      $rbf = reportback_file_load($fid);
+      $teaser = entity_view('reportback_file', array($entity->fid => $rbf), 'teaser');
+      $build['rb_file_' . $delta] = array(
+        '#markup' => drupal_render($teaser),
       );
     }
-    $build['reportback_files'] = array(
-      '#theme' => 'table',
-      '#prefix' => '<h3>Files</h3>',
-      '#header' => $header,
-      '#rows' => $rows,
-    );
+
     // Output Reportback Log.
     $rows = array();
     $header = array('Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated');
