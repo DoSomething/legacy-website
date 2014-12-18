@@ -58,7 +58,7 @@ class ReportbackFileEntity extends Entity {
     if ($this->status === 'flagged') {
       $reportback = reportback_load($this->rbid);
       $reportback->flag($values['flagged_reason']);
-      if ($values['delete'] == 1) {
+      if ($values['delete']) {
         $this->deleteFile();
       }
     }
