@@ -71,7 +71,9 @@ class ReportbackFileEntity extends Entity {
    */
   public function deleteFile() {
     $file = file_load($this->fid);
-    return file_delete($file);
+    if ($file) {
+      return file_delete($file);
+    }
   }
 }
 
@@ -124,4 +126,15 @@ class ReportbackFileEntityController extends EntityAPIController {
     return $build;
   }
 
+  /**
+   * Overrides delete() method.
+   */
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    // Delete the related Files.
+    foreach ($ids as $fid) {
+      $rbf = reportback_file_load($fid);
+      $rbf->deleteFile();
+    }
+    parent::delete($ids, $transaction);
+  }
 }

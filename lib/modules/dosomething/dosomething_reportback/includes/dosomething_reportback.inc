@@ -218,13 +218,9 @@ class ReportbackEntity extends Entity {
   public function deleteFiles() {
     // Loop through the reportback files:
     foreach ($this->getFids() as $fid) {
-      $file = file_load($fid);
-      file_delete($file);
+      $rbf = reportback_file_load($fid);
+      $rbf->delete();
     }
-    // Delete the files table rows.
-    db_delete($this->files_table)
-      ->condition('rbid', $this->rbid)
-      ->execute();
   }
 
   /**
@@ -413,9 +409,10 @@ class ReportbackEntityController extends EntityAPIController {
    */
   public function delete($ids, DatabaseTransaction $transaction = NULL) {
     // Log deletions.
-    foreach ($ids as $id) {
-      $rb = reportback_load($id);
+    foreach ($ids as $rbid) {
+      $rb = reportback_load($rbid);
       $rb->insertLog('delete');
+      $rb->deleteFiles();
     }
     parent::delete($ids, $transaction);
   }
