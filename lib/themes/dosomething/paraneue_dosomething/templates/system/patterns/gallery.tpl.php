@@ -9,11 +9,12 @@
  * - $items: An array of items to display. Each $item in $items contains:
  *   - $item['class']: The class to apply to the li (string).
  *   - $item['content']: Themed item content (string).
+ * - $roles: Data roles to be applied (string).
  *
  * @see paraneue_dosomething_get_gallery()
  */
 ?>
-<ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>">
+<ul class="gallery -<?php print $layout; ?> <?php print $classes; ?> <?php print $roles ?>">
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
       <li <?php if (!empty($item['class'])): print 'class="' . $item['class'] . '"'; endif; ?>>
