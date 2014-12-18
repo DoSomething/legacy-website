@@ -52,7 +52,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
  *
  * @return string
  */
-function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = array()) {
+function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = array(), $show_more = false) {
   if (empty($content)) {
     return '';
   }
