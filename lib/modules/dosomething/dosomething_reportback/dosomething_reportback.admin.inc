@@ -116,12 +116,8 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
 
   foreach ($result as $record) {
-    $preview = dosomething_reportback_file_preview($record);
     $rb_path = 'reportback/' . $record->rbid;
     $form['rb_files'][$record->fid] = array(
-      'preview' => array(
-        '#markup' => $preview,
-      ),
       'date' => array(
         '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
       ),
@@ -211,13 +207,15 @@ function theme_dosomething_reportback_files_form($variables) {
   // Initialize the variable which will store our table rows.
   $rows = array();
   foreach ($rb_files as $fid) {
+    $rbf = reportback_file_load($fid);
+    $view = entity_view('reportback_file', array($rbf->fid => $rbf), 'full');
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
         drupal_render($form['rb_files'][$fid]['date']),
-        drupal_render($form['rb_files'][$fid]['preview']),
+        drupal_render($view),
         drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
         drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>',
@@ -239,17 +237,4 @@ function theme_dosomething_reportback_files_form($variables) {
   // And then render any remaining form elements (such as our submit button).
   $output .= drupal_render_children($form);
   return $output;
-}
-
-/**
- * Returns markup for a Reportback File preview.
- *
- * @todo Move this into a tpl file.
- */
-function dosomething_reportback_file_preview($record) {
-  $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
-  $info = $img . '<p><strong>' . check_plain($record->caption) . '</strong></p>';
-  $info .= l($record->mail, 'user/' . $record->uid);
-  $info .= '<hr />' . check_plain($record->why_participated);
-  return $info;
 }
