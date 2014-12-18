@@ -227,6 +227,10 @@ class ReportbackEntityController extends EntityAPIController {
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
+    // Load review form for the Reportback.
+    module_load_include('inc', 'dosomething_reportback', 'dosomething_reportback.admin');
+    $review_form = drupal_get_form('dosomething_reportback_files_form', NULL, $entity);
+
     // If this reportback has been flagged:
     if ($entity->flagged) {
       $flagged_copy = 'Flagged as ' . $entity->flagged_reason . '.';
@@ -264,13 +268,9 @@ class ReportbackEntityController extends EntityAPIController {
       '#suffix' => '</p>',
     );
 
-    foreach ($entity->fids as $delta => $fid) {
-      $rbf = reportback_file_load($fid);
-      $teaser = entity_view('reportback_file', array($entity->fid => $rbf), 'teaser');
-      $build['rb_file_' . $delta] = array(
-        '#markup' => drupal_render($teaser),
-      );
-    }
+    $build['reportback_files'] = array(
+      '#markup' => drupal_render($review_form),
+    );
 
     // Output Reportback Log.
     $rows = array();

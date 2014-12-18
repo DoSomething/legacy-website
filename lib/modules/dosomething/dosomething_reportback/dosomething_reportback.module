@@ -1046,6 +1046,9 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
   if (isset($params['nid'])) {
     $query->condition('rb.nid', $params['nid']);
   }
+  elseif (isset($params['rbid'])) {
+    $query->condition('rb.rbid', $params['rbid']);
+  }
   $query->fields('rbf');
   $query->fields('rb', array('quantity', 'why_participated'));
   $query->fields('u', array('uid', 'mail'));

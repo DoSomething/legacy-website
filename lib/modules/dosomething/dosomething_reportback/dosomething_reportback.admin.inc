@@ -100,12 +100,17 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $params = array(
     'status' => $status,
   );
-  if (isset($entity->nid)) {
+
+  if (isset($entity->rbid)) {
+    $params['rbid'] =$entity->rbid;
+  }
+  elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
   }
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
   }
+
   $page_size = 25;
   if (isset($_GET['pagesize'])) {
     $limit = $_GET['pagesize'];
