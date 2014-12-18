@@ -92,7 +92,6 @@ class ReportbackFileEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     global $user;
-
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
     $build['image'] = array(

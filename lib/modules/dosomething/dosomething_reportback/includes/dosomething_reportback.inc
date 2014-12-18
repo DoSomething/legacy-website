@@ -227,12 +227,13 @@ class ReportbackEntityController extends EntityAPIController {
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
+    // Load review form for the Reportback.
+    module_load_include('inc', 'dosomething_reportback', 'dosomething_reportback.admin');
+    $review_form = drupal_get_form('dosomething_reportback_files_form', NULL, $entity);
+
     // If this reportback has been flagged:
-    if ($flagging = $entity->getFlaggedFlagging()) {
-      $wrapper = entity_metadata_wrapper('flagging', $flagging);
-      $flagged_time = format_date($flagging->timestamp, 'short');
-      $flagged_reason = implode(', ', $wrapper->field_flagged_reason->value());
-      $flagged_copy = 'Flagged on ' . $flagged_time . ' as ' . $flagged_reason . '.';
+    if ($entity->flagged) {
+      $flagged_copy = 'Flagged as ' . $entity->flagged_reason . '.';
       drupal_set_message($flagged_copy, 'warning');
     }
 
@@ -240,12 +241,12 @@ class ReportbackEntityController extends EntityAPIController {
     $account = user_load($entity->uid);
     $build['username'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
+      '#markup' => l($account->mail, 'user/' . $account->uid),
       '#suffix' => '</p>',
     );
     $build['node_title'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid . '/reportbacks'),
+      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
       '#suffix' => '</p>',
     );
     $quantity_label = $entity->noun . ' ' . $entity->verb;
@@ -267,13 +268,9 @@ class ReportbackEntityController extends EntityAPIController {
       '#suffix' => '</p>',
     );
 
-    foreach ($entity->fids as $delta => $fid) {
-      $rbf = reportback_file_load($fid);
-      $teaser = entity_view('reportback_file', array($entity->fid => $rbf), 'teaser');
-      $build['rb_file_' . $delta] = array(
-        '#markup' => drupal_render($teaser),
-      );
-    }
+    $build['reportback_files'] = array(
+      '#markup' => drupal_render($review_form),
+    );
 
     // Output Reportback Log.
     $rows = array();

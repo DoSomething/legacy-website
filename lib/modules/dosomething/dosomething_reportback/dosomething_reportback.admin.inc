@@ -100,12 +100,28 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $params = array(
     'status' => $status,
   );
-  if (isset($entity->nid)) {
+
+  // Display mode for rendering each Reportback File.
+  $view_mode = 'full';
+
+  // If we are viewing a reportback entity:
+  if (isset($entity->rbid) && arg(0) === 'reportback') {
+    $params['rbid'] =$entity->rbid;
+    // If viewing a Reportback, don't repeat the Reportback details in each file.
+    $view_mode = 'teaser';
+  }
+  elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
   }
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
   }
+
+  $form['view_mode'] = array(
+    '#type' => 'hidden',
+    '#value' => $view_mode,
+  );
+
   $page_size = 25;
   if (isset($_GET['pagesize'])) {
     $limit = $_GET['pagesize'];
@@ -116,12 +132,8 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
 
   foreach ($result as $record) {
-    $preview = dosomething_reportback_file_preview($record);
     $rb_path = 'reportback/' . $record->rbid;
     $form['rb_files'][$record->fid] = array(
-      'preview' => array(
-        '#markup' => $preview,
-      ),
       'date' => array(
         '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
       ),
@@ -200,6 +212,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
  */
 function theme_dosomething_reportback_files_form($variables) {
   $form = $variables['form'];
+  $view_mode = $form['view_mode']['#value'];
+
   $rb_files = element_children($form['rb_files']);
   $path = drupal_get_path('module', 'dosomething_reportback');
   drupal_add_js ($path . "/js/reportback_review_form.js");
@@ -211,13 +225,15 @@ function theme_dosomething_reportback_files_form($variables) {
   // Initialize the variable which will store our table rows.
   $rows = array();
   foreach ($rb_files as $fid) {
+    $rbf = reportback_file_load($fid);
+    $view = entity_view('reportback_file', array($rbf->fid => $rbf), $view_mode);
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
         drupal_render($form['rb_files'][$fid]['date']),
-        drupal_render($form['rb_files'][$fid]['preview']),
+        drupal_render($view),
         drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
         drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>',
@@ -239,17 +255,4 @@ function theme_dosomething_reportback_files_form($variables) {
   // And then render any remaining form elements (such as our submit button).
   $output .= drupal_render_children($form);
   return $output;
-}
-
-/**
- * Returns markup for a Reportback File preview.
- *
- * @todo Move this into a tpl file.
- */
-function dosomething_reportback_file_preview($record) {
-  $img = dosomething_image_get_themed_image_by_fid($record->fid, '300x300');
-  $info = $img . '<p><strong>' . check_plain($record->caption) . '</strong></p>';
-  $info .= l($record->mail, 'user/' . $record->uid);
-  $info .= '<hr />' . check_plain($record->why_participated);
-  return $info;
 }
