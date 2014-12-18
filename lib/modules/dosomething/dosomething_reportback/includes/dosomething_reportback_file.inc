@@ -30,7 +30,15 @@ class ReportbackFileEntity extends Entity {
   }
 
   /**
-   * Sets the Reportback File status column and Reviewer details.
+   * Sets the Reportback File status and Reviewer details.
+   *
+   * @param array $values
+   *   An associative array containing:
+   *   - status (string).  Required.
+   *   - source (string). The page or device the Review has been submitted from.
+   *   - flagged_reason (string).
+   *   - delete (integer).  If set to 1, delete the corresponding File entity.
+   *
    */
   public function review($values) {
     global $user;
@@ -50,9 +58,20 @@ class ReportbackFileEntity extends Entity {
     if ($this->status === 'flagged') {
       $reportback = reportback_load($this->rbid);
       $reportback->flag($values['flagged_reason']);
+      if ($values['delete'] == 1) {
+        $this->deleteFile();
+      }
     }
     // Save the reviewed properties.
     return entity_save('reportback_file', $this);
+  }
+
+  /**
+   * Deletes the File associated with this Reportback File.
+   */
+  public function deleteFile() {
+    $file = file_load($this->fid);
+    return file_delete($file);
   }
 }
 
