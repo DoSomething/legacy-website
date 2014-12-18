@@ -95,7 +95,6 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     'irrelevant' => t('Irrelevant'),
     'inappropriate' => t('Inappropriate'),
     'unrealistic' => t('Unrealistic quantity'),
-    'delete' => t('Delete this image'),
   );
 
   $params = array(
@@ -146,6 +145,10 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       'flagged_reason' => array(
         '#type' => 'checkboxes',
         '#options' => $flagged_options,
+      ),
+      'delete' => array(
+        '#type' => 'checkbox',
+        '#title' => t("Delete this image"),
       ),
     );
   }
@@ -208,6 +211,8 @@ function theme_dosomething_reportback_files_form($variables) {
   // Initialize the variable which will store our table rows.
   $rows = array();
   foreach ($rb_files as $fid) {
+    $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
+    $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
@@ -215,7 +220,7 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($form['rb_files'][$fid]['preview']),
         drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
-        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . drupal_render($form['rb_files'][$fid]['flagged_reason']) . '</div>',
+        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>',
       ),
     );
   }
