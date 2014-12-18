@@ -228,11 +228,8 @@ class ReportbackEntityController extends EntityAPIController {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
     // If this reportback has been flagged:
-    if ($flagging = $entity->getFlaggedFlagging()) {
-      $wrapper = entity_metadata_wrapper('flagging', $flagging);
-      $flagged_time = format_date($flagging->timestamp, 'short');
-      $flagged_reason = implode(', ', $wrapper->field_flagged_reason->value());
-      $flagged_copy = 'Flagged on ' . $flagged_time . ' as ' . $flagged_reason . '.';
+    if ($entity->flagged) {
+      $flagged_copy = 'Flagged as ' . $entity->flagged_reason . '.';
       drupal_set_message($flagged_copy, 'warning');
     }
 
@@ -240,12 +237,12 @@ class ReportbackEntityController extends EntityAPIController {
     $account = user_load($entity->uid);
     $build['username'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'User: ' . l($account->name, 'user/' . $account->uid),
+      '#markup' => l($account->mail, 'user/' . $account->uid),
       '#suffix' => '</p>',
     );
     $build['node_title'] = array(
       '#prefix' => '<p>',
-      '#markup' => 'Node: ' . l($entity->node_title, 'node/' . $entity->nid . '/reportbacks'),
+      '#markup' => l($entity->node_title, 'node/' . $entity->nid),
       '#suffix' => '</p>',
     );
     $quantity_label = $entity->noun . ' ' . $entity->verb;
