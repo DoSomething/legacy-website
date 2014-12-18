@@ -101,8 +101,13 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     'status' => $status,
   );
 
+  // Display mode for rendering each Reportback File.
+  $view_mode = 'full';
+
   if (isset($entity->rbid)) {
     $params['rbid'] =$entity->rbid;
+    // If viewing a Reportback, don't repeat the Reportback details in each file.
+    $view_mode = 'teaser';
   }
   elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
@@ -110,6 +115,11 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
   }
+
+  $form['view_mode'] = array(
+    '#type' => 'hidden',
+    '#value' => $view_mode,
+  );
 
   $page_size = 25;
   if (isset($_GET['pagesize'])) {
@@ -213,7 +223,7 @@ function theme_dosomething_reportback_files_form($variables) {
   $rows = array();
   foreach ($rb_files as $fid) {
     $rbf = reportback_file_load($fid);
-    $view = entity_view('reportback_file', array($rbf->fid => $rbf), 'full');
+    $view = entity_view('reportback_file', array($rbf->fid => $rbf), $form['view_mode']);
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
