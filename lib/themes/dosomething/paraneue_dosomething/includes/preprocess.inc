@@ -550,7 +550,8 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'link' => $base_url . '/' . $value['path_alias'],
+        'url' => $base_url . '/' . $value['path_alias'] . '#prove',
+        'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
     }
