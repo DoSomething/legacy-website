@@ -26,7 +26,11 @@ class ReportbackFileEntity extends Entity {
   }
 
   public function getImage() {
-    return dosomething_image_get_themed_image_by_fid($this->fid, '300x300');
+    $image = dosomething_image_get_themed_image_by_fid($this->fid, '300x300');
+    if (!$image) {
+      return t("File removed.");
+    }
+    return $image;
   }
 
   /**
@@ -88,10 +92,9 @@ class ReportbackFileEntityController extends EntityAPIController {
    */
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     global $user;
-    $reportback = reportback_load($entity->rbid);
 
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-    $author = user_load($reportback->uid);
+
     $build['image'] = array(
       '#markup' => $entity->getImage(),
     );
@@ -100,21 +103,27 @@ class ReportbackFileEntityController extends EntityAPIController {
       '#markup' => $entity->caption,
       '#suffix' => '</strong></p>',
     );
-    $build['username'] = array(
-      '#prefix' => '<p>',
-      '#markup' => l($author->mail, 'user/' . $author->uid),
-      '#suffix' => '</p>',
-    );
-    $build['quantity'] = array(
-      '#prefix' => '<p>',
-      '#markup' => $reportback->quantity . ' ' . $reportback->quantity_label,
-      '#suffix' => '</p>',
-    );
-    $build['why'] = array(
-      '#prefix' => '<p>',
-      '#markup' => $reportback->why_participated,
-      '#suffix' => '</p>',
-    );
+
+    if ($view_mode == 'full') {
+      $reportback = reportback_load($entity->rbid);
+      $author = user_load($reportback->uid);
+      $build['username'] = array(
+        '#prefix' => '<p>',
+        '#markup' => l($author->mail, 'user/' . $author->uid),
+        '#suffix' => '</p>',
+      );
+      $build['quantity'] = array(
+        '#prefix' => '<p>',
+        '#markup' => $reportback->quantity . ' ' . $reportback->quantity_label,
+        '#suffix' => '</p>',
+      );
+      $build['why'] = array(
+        '#prefix' => '<p>',
+        '#markup' => $reportback->why_participated,
+        '#suffix' => '</p>',
+      );
+    }
+
     if (!empty($entity->reviewed)) {
       $reviewer = user_load($entity->reviewer);
       $build['reviewed'] = array(

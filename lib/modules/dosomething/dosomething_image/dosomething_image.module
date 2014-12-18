@@ -135,6 +135,9 @@ function dosomething_image_node_view($node, $view_mode, $langcode) {
  */
 function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   $file = file_load($fid);
+  if (!$file) {
+    return NULL;
+  }
   $image = image_load($file->uri);
   $content = array(
     'file' => array(
@@ -156,11 +159,14 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
  *  The image style preset/size to return the image.
  *
  * @return string
- *  URL of the image source.
+ *  URL of the image source, or NULL if file doesn't exist.
  */
 function dosomething_image_get_themed_image_url_by_fid($fid, $style) {
   $file = file_load($fid);
-  return image_style_url($style, $file->uri);
+  if ($file) {
+    return image_style_url($style, $file->uri);
+  }
+  return NULL;
 }
 
 /**
