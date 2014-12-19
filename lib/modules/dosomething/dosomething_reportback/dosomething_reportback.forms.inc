@@ -81,6 +81,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#access' => FALSE,
     );
   }
+  // @TODO - Remove this switch once we get rid of the old experience.
   $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
   $form['reportback_file'] = array(
     '#type' => 'file',
