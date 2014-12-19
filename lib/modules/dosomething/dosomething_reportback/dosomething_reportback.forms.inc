@@ -81,11 +81,12 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#access' => FALSE,
     );
   }
+  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
   $form['reportback_file'] = array(
     '#type' => 'file',
     '#title' => t('Upload a pic'),
     '#attributes' => array(
-      'class' => array('js-image-upload-beta'),
+      'class' => array($reportback_file_class),
     ),
   );
   // Hidden fields to collect cropping information.
