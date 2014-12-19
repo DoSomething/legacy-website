@@ -119,6 +119,11 @@ class ReportbackFileEntityController extends EntityAPIController {
     if ($view_mode == 'full') {
       $reportback = reportback_load($entity->rbid);
       $author = user_load($reportback->uid);
+      $files_count = count($reportback->fids);
+      $total_files = t("@count files uploaded", array(
+        '@count' => $files_count,
+      ));
+
       $build['username'] = array(
         '#prefix' => '<p>',
         '#markup' => l($author->mail, 'user/' . $author->uid),
@@ -129,6 +134,14 @@ class ReportbackFileEntityController extends EntityAPIController {
         '#markup' => '<strong>' . $reportback->quantity . '</strong> ' . $reportback->quantity_label,
         '#suffix' => '</p>',
       );
+      if ($files_count > 1) {
+        $build['num_files'] = array(
+          '#prefix' => '<p>',
+          '#markup' => l($total_files, 'reportback/'. $entity->rbid),
+          '#suffix' => '</p>',
+        );
+      }
+
       $build['why'] = array(
         '#prefix' => '<p>',
         '#markup' => $reportback->why_participated,

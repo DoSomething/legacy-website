@@ -263,7 +263,12 @@ function theme_dosomething_reportback_files_form($variables) {
     t('Campaign'),
     t('Op'),
   );
-  $output = drupal_render($form['count']);
+
+  $output = '';
+  if (arg(0) != 'reportback') {
+    $output = drupal_render($form['count']);
+  }
+
   // We can render our tabledrag table for output.
   $output .= theme('table', array(
     'header' => $header,
