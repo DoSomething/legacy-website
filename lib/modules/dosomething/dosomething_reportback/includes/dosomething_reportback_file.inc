@@ -94,13 +94,22 @@ class ReportbackFileEntityController extends EntityAPIController {
     global $user;
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
+
     $build['image'] = array(
       '#markup' => $entity->getImage(),
     );
+
     $build['caption'] = array(
       '#prefix' => '<p><strong>',
       '#markup' => $entity->caption,
       '#suffix' => '</strong></p>',
+    );
+
+    $file = file_load($entity->fid);
+    $build['file_url'] = array(
+      '#prefix' => '<p>',
+      '#markup' => l(t("(View original upload)"), file_create_url($file->uri)),
+      '#suffix' => '</p>',
     );
 
     if ($view_mode == 'full') {
@@ -113,7 +122,7 @@ class ReportbackFileEntityController extends EntityAPIController {
       );
       $build['quantity'] = array(
         '#prefix' => '<p>',
-        '#markup' => $reportback->quantity . ' ' . $reportback->quantity_label,
+        '#markup' => '<strong>' . $reportback->quantity . '</strong> ' . $reportback->quantity_label,
         '#suffix' => '</p>',
       );
       $build['why'] = array(
