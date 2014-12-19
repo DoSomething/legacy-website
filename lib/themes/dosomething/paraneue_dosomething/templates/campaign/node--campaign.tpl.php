@@ -312,7 +312,7 @@
                       <input class="js-image-upload-beta" type="file" name="files[reportback_file]" size="60">
                     </div>
                   </div>
-                  <p>POOP!</p>
+                  <p>PLACEHOLDER</p>
                   <div class="form-item form-type-textfield form-item-caption-new">
                     <label for="edit-caption">Caption <span class="form-required" title="This field is required.">*</span></label>
                     <input data-validate-required="" placeholder="Write something..." type="text" id="edit-caption" name="caption" value="" size="60" maxlength="128" class="form-text required">
@@ -353,13 +353,24 @@
 
               <div data-modal id="modal--crop" class="modal--crop" role="dialog">
                 <h2 class="banner">Edit your photo</h2>
-                <div class="image-wrapper">
-                  <img src="http://placeimg.com/300/300/animals" alt="aminals" />
-                </div>
-                <div class="image-crop-options">
-                  <a href="#">Rotate</a>
-                  <a href="#">Change photo</a>
-                  <button>done</button>
+                <div class="image-preview"><!-- Preview image inserted with js --></div>
+                <div class="image-editor">
+                  <div class="__buttons">
+                    <!-- @TODO update these to be tertiary neue buttons with modifiers -->
+                    <a href="#" class="-rotate">rotate photo</a>
+                    <div class="-change">
+                      <a href="#">change photo</a>
+                      <input type="file" class="js-image-upload-beta" />
+                    </div>
+                  </div>
+                  <!-- This is a purely frontend form that will grab crop options and a caption
+                  And then when the user submits the form, it will populate the drupal form with these values. -->
+                  <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8">
+                    <!-- Hidden form elements to go here -->
+                    <label for="caption">Caption</label>
+                    <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
+                    <input type="submit" value="done" class="btn secondary" />
+                  </form>
                 </div>
               </div>
             </div>

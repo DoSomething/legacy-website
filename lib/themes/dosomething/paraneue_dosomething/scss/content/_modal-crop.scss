@@ -1,0 +1,58 @@
+.modal--crop {
+
+  h2.banner {
+    margin: -36px -27px 0;
+  }
+
+  .image-editor {
+    padding-top: 10px;
+
+    a {
+      color: $off-black;
+      text-decoration: underline;
+    }
+
+    .__buttons {
+      text-align: right;
+
+      .-rotate {
+        display: inline-block;
+        color: $blue;
+      }
+
+      .-change {
+        position: relative;
+        display: inline-block;
+        margin-left: 10px;
+
+        input[type="file"] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .btn {
+    &.secondary {
+      background: $blue;
+      display: table;
+      margin: 0 auto;
+    }
+  }
+
+  .image-preview {
+    margin: 0 -27px;
+    text-align: center;
+    background: #000;
+    line-height: 0;
+
+    img {
+      width: auto;
+      max-width: 100%;
+    }
+  }
+}
