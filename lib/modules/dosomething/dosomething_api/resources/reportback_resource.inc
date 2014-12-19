@@ -127,6 +127,6 @@ function _reportback_resource_review($fid, $values) {
   if (!$rbf) {
     return NULL;
   }
-  $rbf->review($values['status'], $values['source']);
+  $rbf->review($values);
   return $rbf;
 }
