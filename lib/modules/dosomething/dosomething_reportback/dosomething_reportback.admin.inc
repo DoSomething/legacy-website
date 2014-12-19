@@ -129,7 +129,23 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       $page_size = $limit;
     }
   }
+  // Get the DatabaseQuery to loop through.
   $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
+  // Get the total number of results.
+  $total = dosomething_reportback_get_reportback_files_query_count($params);
+  $page_size_copy = '';
+  if ($total > $page_size) {
+    $page_size_copy = '<p>' . t("Displaying the most recent @num", array(
+      '@num' => $page_size,
+    )) . '</p>';
+  }
+
+  $form['count'] = array(
+    '#markup' => t("Inbox: @total Reportback Images", array(
+      '@num' => $page_size,
+      '@total' => $total,
+    )) . $page_size_copy,
+  );
 
   foreach ($result as $record) {
     $rb_path = 'reportback/' . $record->rbid;
@@ -247,8 +263,9 @@ function theme_dosomething_reportback_files_form($variables) {
     t('Campaign'),
     t('Op'),
   );
+  $output = drupal_render($form['count']);
   // We can render our tabledrag table for output.
-  $output = theme('table', array(
+  $output .= theme('table', array(
     'header' => $header,
     'rows' => $rows,
   ));
