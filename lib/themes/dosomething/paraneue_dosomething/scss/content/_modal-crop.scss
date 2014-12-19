@@ -4,9 +4,7 @@
     margin: -36px -27px 0;
   }
 
-  .image-edit-buttons {
-    text-align: right;
-    font-weight: 600;
+  .image-editor {
     padding-top: 10px;
 
     a {
@@ -14,22 +12,26 @@
       text-decoration: underline;
     }
 
-    .-rotate {
-      display: inline-block;
-      color: $blue;
-    }
+    .__buttons {
+      text-align: right;
 
-    .-change {
-      position: relative;
-      display: inline-block;
-      margin-left: 10px;
+      .-rotate {
+        display: inline-block;
+        color: $blue;
+      }
 
-      input[type="file"] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        opacity: 0;
-        cursor: pointer;
+      .-change {
+        position: relative;
+        display: inline-block;
+        margin-left: 10px;
+
+        input[type="file"] {
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: 0;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -42,7 +44,7 @@
     }
   }
 
-  .image-wrapper {
+  .image-preview {
     margin: 0 -27px;
     text-align: center;
     background: #000;

@@ -353,9 +353,10 @@
 
               <div data-modal id="modal--crop" class="modal--crop" role="dialog">
                 <h2 class="banner">Edit your photo</h2>
-                <div class="image-wrapper"><!-- Preview image inserted with js --></div>
-                <div class="image-edit-wrapper">
-                  <div class="image-edit-buttons">
+                <div class="image-preview"><!-- Preview image inserted with js --></div>
+                <div class="image-editor">
+                  <div class="__buttons">
+                    <!-- @TODO update these to be tertiary neue buttons with modifiers -->
                     <a href="#" class="-rotate">rotate photo</a>
                     <div class="-change">
                       <a href="#">change photo</a>
