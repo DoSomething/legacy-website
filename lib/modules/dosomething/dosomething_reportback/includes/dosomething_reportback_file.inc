@@ -57,12 +57,16 @@ class ReportbackFileEntity extends Entity {
     // If source was passed:
     if (isset($values['source'])) {
       // Store that instead.
-      $this->review_source = check_plain($source);
+      $this->review_source = $values['source'];
     }
     if ($this->status === 'flagged') {
       $reportback = reportback_load($this->rbid);
-      $reportback->flag($values['flagged_reason']);
-      if ($values['delete']) {
+      $reason = NULL;
+      if (isset($values['flagged_reason'])) {
+        $reason = $values['flagged_reason'];
+      }
+      $reportback->flag($reason);
+      if (isset($values['delete'])) {
         $this->deleteFile();
       }
     }
