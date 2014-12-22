@@ -366,7 +366,6 @@
                   <!-- This is a purely frontend form that will grab crop options and a caption
                   And then when the user submits the form, it will populate the drupal form with these values. -->
                   <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8">
-                    <!-- Hidden form elements to go here -->
                     <label for="caption">Caption</label>
                     <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
                     <input type="submit" value="done" class="btn secondary" />
