@@ -42,6 +42,7 @@ dependencies[] = l10n_update
 dependencies[] = link
 dependencies[] = markdown
 dependencies[] = module_filter
+dependencies[] = new_relic_rpm
 dependencies[] = pathauto
 dependencies[] = redirect
 dependencies[] = redis
