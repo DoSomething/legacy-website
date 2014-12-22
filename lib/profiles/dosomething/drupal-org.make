@@ -119,6 +119,10 @@ projects[mobilecommons][subdir] = "contrib"
 projects[module_filter][version] = "2.0-alpha2"
 projects[module_filter][subdir] = "contrib"
 
+; New Relic
+projects[new_relic_rpm][version] = "1.0-alpha2"
+projects[new_relic_rpm][subdir] = "contrib"
+
 ; OAuth
 projects[oauth][version] = "3.2"
 projects[oauth][subdir] = "contrib"
