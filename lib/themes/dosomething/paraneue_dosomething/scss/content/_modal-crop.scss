@@ -59,6 +59,7 @@
   // Styles for cropping.
   .image-crop-container {
     position: relative;
+    display: inline-block;
 
     .crop-box {
       position: absolute;
