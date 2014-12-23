@@ -429,10 +429,11 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   if (isset($params['random'])) {
     unset($params['random']);
   }
-
-  // dpm($params);
-  // $vars['approved_reportback_total'] = dosomething_reportback_get_reportback_files_query(0, $params);
-  // dpm($vars['approved_reportback_total']);
+  $page_size = 30;
+  $total = dosomething_reportback_get_reportback_files_query_count($params);
+  $vars['approved_reportback_page_size'] = $page_size;
+  // Use floor() since pages are 0 indexed.
+  $vars['approved_reportback_pages'] = floor($total / $page_size);
 }
 
 /**

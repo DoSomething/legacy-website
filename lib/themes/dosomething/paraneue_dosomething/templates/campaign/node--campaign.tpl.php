@@ -289,7 +289,7 @@
             <p class="copy"><?php print $reportback_copy; ?></p>
           <?php endif; ?>
 
-          <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-offset="<?php print $approved_reportback_offset; ?>">
+          <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-offset="<?php print $approved_reportback_offset; ?>" data-page-size="<?php print $approved_reportback_page_size; ?>" data-pages-total="<?php print $approved_reportback_pages; ?>">
             <div class="wrapper">
               <ul class="gallery gallery--reportback">
                 <?php for ($i = 0; $i <= count($reportback_files); $i++): ?>
