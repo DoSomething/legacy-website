@@ -410,6 +410,7 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   if ($current_count < $num_items) {
     // Find out how many approved files to grab.
     $approved_count = $num_items - $current_count;
+    $vars['approved_reportback_offset'] = $approved_count;
     // Set params to retrieve approved Reportback Files for this nid.
     $params['status'] = 'approved';
     unset($params['random']);
@@ -419,7 +420,19 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
       $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
       $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
     }
+  } else {
+    $vars['approved_reportback_offset'] = 0;
   }
+
+  // Get the total number of approved reportbacks.
+  $params['status'] = 'approved';
+  if (isset($params['random'])) {
+    unset($params['random']);
+  }
+
+  // dpm($params);
+  // $vars['approved_reportback_total'] = dosomething_reportback_get_reportback_files_query(0, $params);
+  // dpm($vars['approved_reportback_total']);
 }
 
 /**

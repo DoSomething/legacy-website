@@ -281,6 +281,7 @@
       <div class="wrapper">
         <?php if( $show_new_reportback ): ?>
 
+          <?php //dpm($variables); ?>
 
           <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
@@ -288,7 +289,7 @@
             <p class="copy"><?php print $reportback_copy; ?></p>
           <?php endif; ?>
 
-          <div id="reportback" class="reportback">
+          <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-offset="<?php print $approved_reportback_offset; ?>">
             <div class="wrapper">
               <ul class="gallery gallery--reportback">
                 <?php for ($i = 0; $i <= count($reportback_files); $i++): ?>
