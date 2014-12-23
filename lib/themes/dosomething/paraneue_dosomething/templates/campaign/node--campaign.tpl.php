@@ -298,7 +298,8 @@
 
               <div class="spacer"></div>
 
-              <!-- <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
+              <?php /*
+              <form enctype="multipart/form-data" action="#" method="post" id="dosomething-reportback-form" accept-charset="UTF-8">
                 <div>
 
                   <div class="gigantor -square">
@@ -345,7 +346,8 @@
                 </div>
 
                 </div>
-              </form> -->
+              </form>
+              */?>
 
               <?php if (isset($reportback_form)): ?>
                 <?php print render($reportback_form); ?>
