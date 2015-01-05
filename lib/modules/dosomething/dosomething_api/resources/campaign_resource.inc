@@ -39,12 +39,18 @@ function _campaign_resource_defintion() {
             'description' => 'The nid of the node whose gallery we are getting',
           ),
           array(
-            'name' => 'is_promoted',
-            'type' => 'int',
-            'description'  => t('To return promoted or not.'),
-            'source' => array('path' => 2),
-            'optional' => TRUE,
-            'default value' => TRUE,
+            'name'         => 'count',
+            'type'         => 'int',
+            'description'  => t('Number of Reportback Files to load.'),
+            'source'       => array('param' => 'count'),
+            'optional'     => TRUE,
+          ),
+          array(
+            'name'         => 'offset',
+            'type'         => 'int',
+            'description'  => t('If count is set to non-zero value, you can pass also non-zero value for start. For example to get Reportback Files from 5 to 15, pass count=10 and start=5.'),
+            'source'       => array('param' => 'offset'),
+            'optional'     => TRUE,
           ),
         ),
       ),
@@ -247,13 +253,29 @@ function _campaign_resource_reportback($nid, $values) {
   return dosomething_reportback_save($values);
 }
 
-function _campaign_resource_load_gallery($nid) {
+/**
+ * Returns the Reportback Gallery of a specified node.
+ *
+ * @param $nid
+ *   Unique identifier for the node.
+ * @param $count
+ *   Number of Reporback Files to return.
+ * @param $start
+ *   Which RB File to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause to select RB Files. This could be used to do paging.
+ *
+ * @return
+ *   An array of Reportback File objects.
+ */
+function _campaign_resource_load_gallery($nid, $count = 25, $start = 0) {
   // Load Services module to use its index_query functions.
   module_load_include('inc', 'services', 'services.module');
   $int_properties = array('rbid', 'fid', 'fid_processed');
   $params = array(
     'nid' => $nid,
     'status' => 'approved',
+    'count' => $count,
+    'start' => $start,
   );
   $results = dosomething_reportback_get_reportback_files_query(0, $params);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');

@@ -975,7 +975,12 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
     $result = $query->execute();
     return $result->rowCount();
   }
-  $query->range($page * $page_size, $page_size);
+  if (!isset($params['count'])) {
+    $query->range($page * $page_size, $page_size);
+  }
+  else {
+    $query->range($params['start'], $params['count']);
+  }
   $result = $query->execute();
   return $result;
 }
