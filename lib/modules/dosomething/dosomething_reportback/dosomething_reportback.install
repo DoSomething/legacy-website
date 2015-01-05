@@ -467,7 +467,7 @@ function dosomething_reportback_update_7017(&$sandbox) {
     else {
       $status = 'Error promoting';
     }
-    $output .= $status . ' file ' . $record['entity_id'] . ' with caption ' .$record['field_image_description_value'] . '. ';
+    $output .= $status . ' file ' . $record['entity_id'] . ' with caption ' . $record['field_image_description_value'] . '. ';
   }
   return $output;
 }
