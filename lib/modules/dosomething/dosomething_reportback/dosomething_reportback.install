@@ -428,3 +428,46 @@ function dosomething_reportback_update_7016(&$sandbox) {
     }
   }
 }
+
+/**
+ * Updates status for reportback_files corresponding to promoted flaggings.
+ */
+function dosomething_reportback_update_7017(&$sandbox) {
+  if (!module_exists('flag')) {
+    return;
+  }
+  $flag = flag_get_flag('promoted');
+  if (!$flag) {
+    return;
+  }
+  $output = '';
+  $query = db_select('flagging', 'f');
+  $query->join('field_data_field_image_description', 'd', "f.flagging_id = d.entity_id AND d.bundle = 'promoted'");
+  // Get the promoted File's entity_id.
+  $query->fields('f', array('entity_id'));
+  // And its editorial caption.
+  $query->fields('d', array('field_image_description_value'));
+  // Filter by promoted flag fid.
+  $query->condition('fid', $flag->fid)
+    ->condition('f.entity_type', 'file');
+  $result = $query->execute();
+
+  while($record = $result->fetchAssoc()) {
+    $import = db_update('dosomething_reportback_file')
+      ->fields(array(
+        'status' => 'promoted',
+        'caption' => $record['field_image_description_value'],
+      ))
+      ->condition('fid', $record['entity_id'])
+      ->execute();
+
+    if ($import) {
+      $status = 'Promoted';
+    }
+    else {
+      $status = 'Error promoting';
+    }
+    $output .= $status . ' file ' . $record['entity_id'] . ' with caption ' . $record['field_image_description_value'] . '. ';
+  }
+  return $output;
+}

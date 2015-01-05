@@ -33,7 +33,7 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
       $vars['presignup_callout'] = variable_get('dosomething_campaign_presignup_callout_copy');
     }
     // Preprocess the campaign reportback gallery.
-    dosomething_campaign_preprocess_reportback_gallery($vars, '300x300', 3);
+    dosomething_campaign_preprocess_closed_reportback_gallery($vars, '300x300', 3);
   }
 
   // Conditions for totals text display

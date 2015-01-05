@@ -376,20 +376,29 @@ function dosomething_campaign_preprocess_sms_game(&$vars, &$wrapper) {
  *   Optional. The number of reportback files to return.
  *   If not set, will return variables for all promoted files.
  */
-function dosomething_campaign_preprocess_reportback_gallery(&$vars, $style = '300x300', $num_items = NULL) {
-  $items = dosomething_reportback_get_gallery_vars($vars['nid'], $style, $num_items);
+function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $style = '300x300', $num_items = 3) {
+
+  if (!isset($vars['nid'])) {
+    return;
+  }
+
+  $params = array(
+    'nid' => $vars['nid'],
+    'status' => 'promoted',
+  );
+  $result = dosomething_reportback_get_reportback_files_query(0, $params, $num_items);
+
   // Loop through gallery_vars to only output what we need for theming:
-  foreach ($items as $delta => $item) {
-    $vars['reportback_gallery'][$delta]['image'] = $item['image'];
+  foreach ($result as $delta => $item) {
+    $vars['reportback_gallery'][$delta]['image'] = dosomething_image_get_themed_image_by_fid($item->fid, $style);
     
     if (function_exists('paraneue_dosomething_get_gallery_item_order_class')) {
       $vars['reportback_gallery'][$delta]['order_class'] = paraneue_dosomething_get_gallery_item_order_class($delta);
     }
-    if (isset($item['caption'])) {
-      $vars['reportback_gallery'][$delta]['caption'] = $item['caption']['safe_value'];
+    if (isset($item->caption)) {
+      $vars['reportback_gallery'][$delta]['caption'] = check_plain($item->caption);
     }
-    if (isset($item['first_name'])) {
-      $vars['reportback_gallery'][$delta]['first_name'] = $item['first_name'];
-    }
+    $account = user_load($item->uid);
+    $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);;
   }
 }
