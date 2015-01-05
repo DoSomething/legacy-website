@@ -52,16 +52,26 @@
     <div class="wrapper">
       <h2><?php print t('Account Info'); ?></h2>
       <dl class="__user-info">
+
         <dt><?php print t('Name'); ?>:</dt>
-        <dd><?php print $first_name; ?> <?php if (!empty($last_name)): ?><?php print $last_name; ?><?php endif; ?></dd>
+        <dd>
+          <?php print check_plain($first_name); ?>
+          <?php if (!empty($last_name)): ?>
+            <?php print check_plain($last_name); ?>
+          <?php endif; ?>
+        </dd>
+
         <dt><?php print t('Password'); ?>:</dt>
         <dd>*******</dd>
+
         <dt><?php print t('Email'); ?>:</dt>
-        <dd><?php print $email; ?></dd>
+        <dd><?php print check_plain($email); ?></dd>
+
         <?php if (!empty($mobile)): ?>
           <dt><?php print t('Cell'); ?>:</dt>
-          <dd><?php print $mobile; ?></dd>
+          <dd><?php print check_plain($mobile); ?></dd>
         <?php endif; ?>
+
       </dl>
       <a class="secondary" href="/<?php print $edit_link; ?>">
         <?php print t('Update my profile'); ?>
