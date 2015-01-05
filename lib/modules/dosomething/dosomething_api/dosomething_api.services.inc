@@ -59,6 +59,11 @@ function dosomething_api_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
+      'relationships' => array(
+        'gallery' => array(
+          'enabled' => '1',
+        ),
+      ),
       'targeted_actions' => array(
         'signup' => array(
           'enabled' => '1',
