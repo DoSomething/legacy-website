@@ -243,16 +243,6 @@ function dosomething_reportback_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 30,
   );
-  $items['node/%node/gallery'] = array(
-    'title' => 'Gallery',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_reportback_gallery_form', 1),
-    'access callback' => 'dosomething_reportback_gallery_form_access',
-    'access arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 200,
-    'file' => 'dosomething_reportback.forms.inc',
-  );
   return $items;
 }
 
@@ -764,42 +754,6 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     ->execute()
     ->fetchCol(0);
 }
-
-/**
- * Returns flagging_id, fids, rbid's for given $nid ordered by field_weight.
- *
- * @param int $nid
- *   The node $nid to gather gallery id's for.
- * @param int $num_items
- *   Optional. The number of promoted files to return.
- *   If not set, will return all promoted files.
- *
- * @return array
- */
-function dosomething_reportback_get_gallery_item_ids($nid, $num_items = NULL) {
-  // Load promoted flag.
-  $flag = flag_get_flag('promoted');
-  // If it doesn't exist, return empty array.
-  if (!$flag) { return array(); }
-  // Set the flag fid to query for.
-  $flag_id = $flag->fid;
-
-  $sql = "SELECT flagging_id, flagging.fid as 'flag_id', rbf.fid, rbf.rbid, rb.uid, field_weight_value
-    FROM flagging
-    JOIN dosomething_reportback_file rbf ON flagging.entity_id = rbf.fid
-    JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
-    JOIN file_managed file ON file.fid = rbf.fid
-    LEFT OUTER JOIN field_data_field_weight weight
-      ON weight.entity_id = flagging_id AND weight.entity_type = 'flagging'
-    WHERE nid = :nid AND flagging.fid = :fid
-    ORDER BY field_weight_value";
-  if ($num_items) {
-    $sql .= " LIMIT 0, " . $num_items;
-  }
-  return db_query($sql, array(':nid' => $nid, ':fid' => $flag_id))->fetchAll();
-}
-
-
 
 /**
  * Returns reportback total for a given node $nid.
