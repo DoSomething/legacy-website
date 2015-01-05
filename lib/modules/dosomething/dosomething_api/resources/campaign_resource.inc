@@ -22,6 +22,33 @@ function _campaign_resource_defintion() {
         ),
       ),
     ),
+    'relationships' => array(
+      'gallery' => array(
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'help'   => 'Returns Reportback Gallery. GET from campaigns/123/gallery',
+        'access callback' => '_node_resource_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'callback' => '_campaign_resource_load_gallery',
+        'args'     => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the node whose gallery we are getting',
+          ),
+          array(
+            'name' => 'is_promoted',
+            'type' => 'int',
+            'description'  => t('To return promoted or not.'),
+            'source' => array('path' => 2),
+            'optional' => TRUE,
+            'default value' => TRUE,
+          ),
+        ),
+      ),
+    ),
     'targeted_actions' => array(
       'signup' => array(
         'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
@@ -218,4 +245,29 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
   return dosomething_reportback_save($values);
+}
+
+function _campaign_resource_load_gallery($nid) {
+  // Load Services module to use its index_query functions.
+  module_load_include('inc', 'services', 'services.module');
+  $int_properties = array('rbid', 'fid', 'fid_processed');
+  $params = array('nid' => $nid);
+  $results = dosomething_reportback_get_reportback_files_query(0, $params);
+  $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
+
+  foreach ($result as &$record) {
+    // Convert string output to integers were appropriate.
+    foreach ($int_properties as $property) {
+      $record->{$property} = (int) $record->{$property};
+    }
+    // We'll eventually want to use the fid_processed here.
+    // And also probably won't need to apply an image style, since it
+    // will already be cropped.
+    $record->src = dosomething_image_get_themed_image_url_by_fid($record->fid, '300x300');
+  }
+  // @see http://php.net/manual/en/control-structures.foreach.php:
+  // Reference of a $value and the last array element remain even after
+  // the foreach loop. It is recommended to destroy it by unset().
+  unset($record);
+  return $result;
 }
