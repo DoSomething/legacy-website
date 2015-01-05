@@ -130,10 +130,11 @@ function paraneue_dosomething_pass_submit($form, &$form_state) {
  * @see https://www.owasp.org/index.php/Authentication_Cheat_Sheet#Authentication_and_Error_Messages
  */
 function paraneue_dosomething_pass_set_message() {
-  $msg = t(
+  $default_msg = t(
     'If your email address exists in our database, you will receive ' .
     'a password recovery link at your email address in a few minutes.'
   );
+  $msg = variable_get('dosomething_user_reset_password_copy', $default_msg);
   drupal_set_message($msg);
 }
 
