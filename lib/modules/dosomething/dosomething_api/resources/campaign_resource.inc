@@ -251,7 +251,10 @@ function _campaign_resource_load_gallery($nid) {
   // Load Services module to use its index_query functions.
   module_load_include('inc', 'services', 'services.module');
   $int_properties = array('rbid', 'fid', 'fid_processed');
-  $params = array('nid' => $nid);
+  $params = array(
+    'nid' => $nid,
+    'status' => 'approved',
+  );
   $results = dosomething_reportback_get_reportback_files_query(0, $params);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 
