@@ -69,6 +69,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     // After build form changes.
     $form['#after_build'][] = 'paraneue_dosomething_pass_reset_after_build';
     $form['#submit'][] = 'paraneue_dosomething_pass_submit';
+    $form['#validate'][] = 'paraneue_dosomething_pass_validate';
    }
 }
 
@@ -89,20 +90,51 @@ function paraneue_dosomething_pass_reset_after_build($form, &$form_state) {
 }
 
 /**
- * Custom submit handler on password reset form.
+ * Custom validation handler on the password reset form.
  *
- * Sets a message after form submission.
+ * Sets the neutral message when user is not found.
  *
- * @param array - $form
- *  A drupal form array.
- * @param array - $form_state
- *  A drupal form_state array.
+ * @see paraneue_dosomething_pass_set_message()
+ */
+function paraneue_dosomething_pass_validate($form, &$form_state) {
+  if (!empty($form_state['values']['name']) && form_get_error($form['name'])) {
+    // Hide previous errors.
+    form_clear_error();
+    drupal_get_messages('error');
+
+    // Set the neutral message.
+    paraneue_dosomething_pass_set_message();
+
+    // Behave same as in the submit callback.
+    drupal_goto('user');
+  }
+}
+
+/**
+ * Custom submit handler on the password reset form.
+ *
+ * Sets the neutral message after the form submission.
+ *
+ * @see paraneue_dosomething_pass_set_message()
  */
 function paraneue_dosomething_pass_submit($form, &$form_state) {
-  $email = $form_state['values']['name'];
-  $msg = t('An email has been sent to @email to reset your password.', array(
-    '@email' => check_plain($email),
-  ));
+  paraneue_dosomething_pass_set_message();
+}
+
+/**
+ * Helper function for the password reset form.
+ *
+ * Designed to set the neutral message that would not expose whether the
+ * email is registered in our DB.
+ *
+ * @see https://www.owasp.org/index.php/Authentication_Cheat_Sheet#Authentication_and_Error_Messages
+ */
+function paraneue_dosomething_pass_set_message() {
+  $default_msg = t(
+    'If your email address exists in our database, you will receive ' .
+    'a password recovery link at your email address in a few minutes.'
+  );
+  $msg = variable_get('dosomething_user_reset_password_copy', $default_msg);
   drupal_set_message($msg);
 }
 

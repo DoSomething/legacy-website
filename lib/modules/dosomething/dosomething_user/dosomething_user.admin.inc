@@ -78,6 +78,16 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#description' => t("If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."),
   );
 
+  // Login form copy.
+  $var_name = 'dosomething_user_reset_password_copy';
+  $form['login'][$var_name] = array(
+    '#type' => 'textarea',
+    '#rows' => 2,
+    '#title' => t('Forgot Password copy'),
+    '#description' => t('Password reset neutral copy displayed both on fail and success.'),
+    '#default_value' => variable_get($var_name),
+  );
+
   // Registration form settings.
   $form['reg'] = array(
     '#type' => 'fieldset',
