@@ -953,7 +953,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
     $query->condition('rb.rbid', $params['rbid']);
   }
   $query->fields('rbf', array('fid', 'caption', 'rbid'));
-  $query->fields('rb', array('quantity', 'why_participated'));
+  $query->fields('rb', array('quantity', 'why_participated', 'uid'));
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
   if (isset($params['random'])) {
