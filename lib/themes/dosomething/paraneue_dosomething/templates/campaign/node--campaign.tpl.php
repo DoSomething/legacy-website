@@ -356,10 +356,9 @@
                 <div class="image-preview"><!-- Preview image inserted with js --></div>
                 <div class="image-editor">
                   <div class="__buttons">
-                    <!-- @TODO update these to be tertiary neue buttons with modifiers -->
-                    <a href="#" class="-rotate">rotate photo</a>
+                    <a href="#" class="btn tertiary -rotate">rotate photo</a>
                     <div class="-change">
-                      <a href="#">change photo</a>
+                      <a href="#" class="btn tertiary">change photo</a>
                       <input type="file" class="js-image-upload-beta" />
                     </div>
                   </div>

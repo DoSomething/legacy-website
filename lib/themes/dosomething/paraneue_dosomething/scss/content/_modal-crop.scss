@@ -7,17 +7,15 @@
   .image-editor {
     padding-top: 10px;
 
-    a {
-      color: $off-black;
-      text-decoration: underline;
-    }
-
     .__buttons {
       text-align: right;
 
+      .btn {
+        padding: 0;
+      }
+
       .-rotate {
         display: inline-block;
-        color: $blue;
       }
 
       .-change {
@@ -31,6 +29,7 @@
           right: 0;
           opacity: 0;
           cursor: pointer;
+          width: 100%;
         }
       }
     }
