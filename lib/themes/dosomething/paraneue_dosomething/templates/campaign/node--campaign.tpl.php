@@ -367,7 +367,7 @@
                   <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8">
                     <label for="caption">Caption</label>
                     <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
-                    <input type="submit" value="done" class="btn secondary" />
+                    <input type="submit" value="done" class="btn" />
                   </form>
                 </div>
               </div>

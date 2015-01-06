@@ -10,17 +10,16 @@
     .__buttons {
       text-align: right;
 
+      * {
+        display: inline-block;
+      }
+
       .btn {
         padding: 0;
       }
 
-      .-rotate {
-        display: inline-block;
-      }
-
       .-change {
         position: relative;
-        display: inline-block;
         margin-left: 10px;
 
         input[type="file"] {
@@ -36,11 +35,8 @@
   }
 
   .btn {
-    &.secondary {
-      background: $blue;
-      display: table;
-      margin: 0 auto;
-    }
+    display: table;
+    margin: 0 auto;
   }
 
   .image-preview {
