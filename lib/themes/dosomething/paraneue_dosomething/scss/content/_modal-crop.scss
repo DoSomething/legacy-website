@@ -10,15 +10,16 @@
     .__buttons {
       text-align: right;
 
-      * {
-        display: inline-block;
-      }
-
       .btn {
         padding: 0;
       }
 
+      .-rotate {
+        display: inline-block;
+      }
+
       .-change {
+        display: inline-block;
         position: relative;
         margin-left: 10px;
 
@@ -32,11 +33,11 @@
         }
       }
     }
-  }
 
-  .btn {
-    display: table;
-    margin: 0 auto;
+    .-done {
+      display: table;
+      margin: 0 auto;
+    }
   }
 
   .image-preview {
