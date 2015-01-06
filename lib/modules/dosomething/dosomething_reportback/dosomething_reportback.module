@@ -924,25 +924,16 @@ function dosomething_reportback_preprocess_page(&$vars) {
 }
 
 /**
- * Returns Reportback Files query to loop through.
+ * Returns a SelectQuery object of Reportback Files with given $params.
  *
- * @param int $page
- *   The results page to start from.
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
  *   - nid: A node nid to filter by.
  *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
  *   - status: The RB File status.
  *   - random: If set, randomly sort the results.
- * @param int $page_size
- *   Number of results to display on a page.
- * @param bool $count_query
- *   Whether to return the total count (instead of returning the records).
- *
- * @return
- *   An executed database query object to iterate through.
  */
-function dosomething_reportback_get_reportback_files_query($page = 0, $params = array(), $page_size = 25, $count_query = FALSE) {
+function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
   $query->join('users', 'u', 'rb.uid = u.uid');
@@ -961,9 +952,8 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
   elseif (isset($params['rbid'])) {
     $query->condition('rb.rbid', $params['rbid']);
   }
-  $query->fields('rbf');
+  $query->fields('rbf', array('fid', 'caption', 'rbid'));
   $query->fields('rb', array('quantity', 'why_participated'));
-  $query->fields('u', array('uid', 'mail'));
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
   if (isset($params['random'])) {
@@ -972,11 +962,29 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
   else {
     $query->orderBy('rb.updated', 'DESC');
   }
-  if ($count_query) {
-    $result = $query->execute();
-    return $result->rowCount();
+  return $query;
+}
+
+/**
+ * Returns Reportback Files query result to loop through.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by.
+ *   @see dosomething_reportback_get_reportback_files_query()
+ * @param int $count
+ *   Number of Reportback Files to return.
+ * @param int $start
+ *   Which RB File to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause for selecting RB Files. This could be used to do paging.
+ *
+ * @return
+ *   An executed database query object to iterate through.
+ */
+function dosomething_reportback_get_reportback_files_query_result($params = array(), $count = 25, $start = 0) {
+  $query = dosomething_reportback_get_reportback_files_query($params);
+  if ($count) {
+    $query->range($start, $count);
   }
-  $query->range($page * $page_size, $page_size);
   $result = $query->execute();
   return $result;
 }
@@ -992,7 +1000,9 @@ function dosomething_reportback_get_reportback_files_query($page = 0, $params = 
  * @return int
  */
 function dosomething_reportback_get_reportback_files_query_count($params) {
-  return dosomething_reportback_get_reportback_files_query(0, $params, NULL, TRUE);
+  $query = dosomething_reportback_get_reportback_files_query($params);
+  $result = $query->execute();
+  return $result->rowCount();
 }
 
 /**

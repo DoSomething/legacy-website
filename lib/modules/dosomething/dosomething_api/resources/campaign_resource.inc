@@ -22,6 +22,39 @@ function _campaign_resource_defintion() {
         ),
       ),
     ),
+    'relationships' => array(
+      'gallery' => array(
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'help'   => 'Returns Reportback Gallery. GET from campaigns/123/gallery',
+        'access callback' => '_node_resource_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
+        'callback' => '_campaign_resource_load_gallery',
+        'args'     => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the node whose gallery we are getting',
+          ),
+          array(
+            'name' => 'count',
+            'type' => 'int',
+            'description' => t('Number of Reportback Files to load.'),
+            'source' => array('param' => 'count'),
+            'optional' => TRUE,
+          ),
+          array(
+            'name' => 'offset',
+            'type' => 'int',
+            'description' => t('If count is set to non-zero value, you can pass also non-zero value for start. For example to get Reportback Files from 5 to 15, pass count=10 and start=5.'),
+            'source' => array('param' => 'offset'),
+            'optional' => TRUE,
+          ),
+        ),
+      ),
+    ),
     'targeted_actions' => array(
       'signup' => array(
         'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
@@ -218,4 +251,48 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
   return dosomething_reportback_save($values);
+}
+
+/**
+ * Returns the Reportback Gallery of a specified node.
+ *
+ * @param int $nid
+ *   Unique identifier for the node.
+ * @param int $count
+ *   Number of Reporback Files to return.
+ * @param int $start
+ *   Which RB File to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause to select RB Files. This could be used to do paging.
+ *
+ * @return
+ *   An array of Reportback File objects.
+ */
+function _campaign_resource_load_gallery($nid, $count = 25, $start = 0) {
+  // Load Services module to use its index_query functions.
+  module_load_include('inc', 'services', 'services.module');
+  $int_properties = array('rbid', 'fid', 'fid_processed');
+  $params = array(
+    'nid' => $nid,
+    'status' => 'approved',
+    'count' => $count,
+    'start' => $start,
+  );
+  $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
+  $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
+
+  foreach ($result as &$record) {
+    // Convert string output to integers were appropriate.
+    foreach ($int_properties as $property) {
+      $record->{$property} = (int) $record->{$property};
+    }
+    // We'll eventually want to use the fid_processed here.
+    // And also probably won't need to apply an image style, since it
+    // will already be cropped.
+    $record->src = dosomething_image_get_themed_image_url_by_fid($record->fid, '300x300');
+  }
+  // @see http://php.net/manual/en/control-structures.foreach.php:
+  // Reference of a $value and the last array element remain even after
+  // the foreach loop. It is recommended to destroy it by unset().
+  unset($record);
+  return $result;
 }
