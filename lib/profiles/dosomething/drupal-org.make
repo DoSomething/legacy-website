@@ -149,6 +149,10 @@ projects[redirect][subdir] = "contrib"
 projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
+; Security Kit
+projects[seckit][subdir] = "contrib"
+projects[seckit][version] = "1.9"
+
 ; Services
 projects[services][version] = "3.10"
 projects[services][subdir] = "contrib"
