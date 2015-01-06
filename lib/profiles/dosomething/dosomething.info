@@ -47,6 +47,7 @@ dependencies[] = pathauto
 dependencies[] = redirect
 dependencies[] = redis
 dependencies[] = search
+dependencies[] = seckit
 dependencies[] = services
 dependencies[] = stringoverrides
 dependencies[] = strongarm
