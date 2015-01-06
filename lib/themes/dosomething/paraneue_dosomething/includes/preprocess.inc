@@ -400,7 +400,7 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   $params['nid'] = $vars['nid'];
   $params['status'] = 'promoted';
   $params['random'] = TRUE;
-  $promoted_results = dosomething_reportback_get_reportback_files_query(0, $params, $num_items);
+  $promoted_results = dosomething_reportback_get_reportback_files_query($params, $num_items);
   foreach ($promoted_results as $rb_file) {
     $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
     $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
@@ -413,7 +413,7 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
     // Set params to retrieve approved Reportback Files for this nid.
     $params['status'] = 'approved';
     unset($params['random']);
-    $approved_results  = dosomething_reportback_get_reportback_files_query(0, $params, $approved_count);
+    $approved_results  = dosomething_reportback_get_reportback_files_query($params, $approved_count);
     foreach ($approved_results as $rb_file) {
       // @todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
       $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');

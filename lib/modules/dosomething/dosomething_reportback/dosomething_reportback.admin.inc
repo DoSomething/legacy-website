@@ -130,7 +130,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     }
   }
   // Get the DatabaseQuery to loop through.
-  $result = dosomething_reportback_get_reportback_files_query(0, $params, $page_size);
+  $result = dosomething_reportback_get_reportback_files_query($params, $page_size);
   // Get the total number of results.
   $total = dosomething_reportback_get_reportback_files_query_count($params);
   $page_size_copy = '';

@@ -82,11 +82,6 @@ function dosomething_api_default_services_endpoint() {
       ),
     ),
     'reportback_files' => array(
-      'operations' => array(
-        'index' => array(
-          'enabled' => '1',
-        ),
-      ),
       'targeted_actions' => array(
         'review' => array(
           'enabled' => '1',
