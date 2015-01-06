@@ -256,11 +256,11 @@ function _campaign_resource_reportback($nid, $values) {
 /**
  * Returns the Reportback Gallery of a specified node.
  *
- * @param $nid
+ * @param int $nid
  *   Unique identifier for the node.
- * @param $count
+ * @param int $count
  *   Number of Reporback Files to return.
- * @param $start
+ * @param int $start
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause to select RB Files. This could be used to do paging.
  *

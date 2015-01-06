@@ -971,9 +971,9 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  * @param array $params
  *   An associative array of conditions to filter by.
  *   @see dosomething_reportback_get_reportback_files_query()
- * @param $count
+ * @param int $count
  *   Number of Reportback Files to return.
- * @param $start
+ * @param int $start
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause for selecting RB Files. This could be used to do paging.
  *
