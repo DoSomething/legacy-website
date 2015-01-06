@@ -587,7 +587,7 @@ function dosomething_signup_set_signup_message($title = NULL) {
  */
 function dosomething_signup_set_presignup_message($title) {
   $link = l(t('find a campaign'), 'campaigns');
-  $message = t("Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now.", array(
+  $message = t("Sweet, we'll send you an email as soon as @title opens. In the meantime, !link you can do right now.", array(
     '@title' => $title,
     '!link' => $link,
   ));
