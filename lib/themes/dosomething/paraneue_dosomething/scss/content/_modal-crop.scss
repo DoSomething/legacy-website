@@ -7,22 +7,20 @@
   .image-editor {
     padding-top: 10px;
 
-    a {
-      color: $off-black;
-      text-decoration: underline;
-    }
-
     .__buttons {
       text-align: right;
 
+      .btn {
+        padding: 0;
+      }
+
       .-rotate {
         display: inline-block;
-        color: $blue;
       }
 
       .-change {
-        position: relative;
         display: inline-block;
+        position: relative;
         margin-left: 10px;
 
         input[type="file"] {
@@ -31,14 +29,12 @@
           right: 0;
           opacity: 0;
           cursor: pointer;
+          width: 100%;
         }
       }
     }
-  }
 
-  .btn {
-    &.secondary {
-      background: $blue;
+    .-done {
       display: table;
       margin: 0 auto;
     }
