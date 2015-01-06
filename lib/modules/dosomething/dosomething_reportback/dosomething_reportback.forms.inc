@@ -104,6 +104,9 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $form['crop_height'] = array(
       '#type' => 'hidden',
     );
+    $form['crop_rotate'] = array(
+      '#type' => 'hidden',
+    );
   }
   $caption = NULL;
   if (isset($entity->caption)) {
