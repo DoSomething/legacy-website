@@ -42,3 +42,42 @@ function dosomething_api_services_resources() {
   $resources = array_merge_recursive($resources, _reportback_resource_defintion());
   return $resources;
 }
+
+/**
+ * Returns the Reportback Gallery of a specified node.
+ *
+ * @param array $params
+ *   Parameters to pass to the Reportback Files query.
+ *   @see dosomething_reportback_get_reportback_files_query_result().
+ * @param int $count
+ *   Number of Reporback Files to return.
+ * @param int $start
+ *   Which RB File to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause to select RB Files. This could be used to do paging.
+ *
+ * @return
+ *   An array of Reportback File objects.
+ */
+function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) {
+  // Load Services module to use its index_query functions.
+  module_load_include('inc', 'services', 'services.module');
+  $int_properties = array('rbid', 'fid', 'fid_processed');
+  $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
+  $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
+
+  foreach ($result as &$record) {
+    // Convert string output to integers were appropriate.
+    foreach ($int_properties as $property) {
+      $record->{$property} = (int) $record->{$property};
+    }
+    // We'll eventually want to use the fid_processed here.
+    // And also probably won't need to apply an image style, since it
+    // will already be cropped.
+    $record->src = dosomething_image_get_themed_image_url_by_fid($record->fid, '300x300');
+  }
+  // @see http://php.net/manual/en/control-structures.foreach.php:
+  // Reference of a $value and the last array element remain even after
+  // the foreach loop. It is recommended to destroy it by unset().
+  unset($record);
+  return $result;
+}

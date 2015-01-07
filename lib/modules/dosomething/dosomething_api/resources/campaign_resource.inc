@@ -268,31 +268,9 @@ function _campaign_resource_reportback($nid, $values) {
  *   An array of Reportback File objects.
  */
 function _campaign_resource_load_gallery($nid, $count = 25, $start = 0) {
-  // Load Services module to use its index_query functions.
-  module_load_include('inc', 'services', 'services.module');
-  $int_properties = array('rbid', 'fid', 'fid_processed');
   $params = array(
     'nid' => $nid,
     'status' => 'approved',
-    'count' => $count,
-    'start' => $start,
   );
-  $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
-  $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
-
-  foreach ($result as &$record) {
-    // Convert string output to integers were appropriate.
-    foreach ($int_properties as $property) {
-      $record->{$property} = (int) $record->{$property};
-    }
-    // We'll eventually want to use the fid_processed here.
-    // And also probably won't need to apply an image style, since it
-    // will already be cropped.
-    $record->src = dosomething_image_get_themed_image_url_by_fid($record->fid, '300x300');
-  }
-  // @see http://php.net/manual/en/control-structures.foreach.php:
-  // Reference of a $value and the last array element remain even after
-  // the foreach loop. It is recommended to destroy it by unset().
-  unset($record);
-  return $result;
+  return dosomething_api_get_reportback_files($params, $count, $start);
 }
