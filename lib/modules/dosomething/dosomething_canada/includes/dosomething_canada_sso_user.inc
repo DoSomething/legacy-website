@@ -60,6 +60,7 @@ class DosomethingCanadaSsoUserFactory implements DosomethingUserRemoteFactory {
   public function fromRemoteData($remote_user_data)
   {
     $user_data = array(
+      'id'        => $remote_user_data->UserID,
       'email'     => $remote_user_data->Email,
       'firstName' => $remote_user_data->Name,
       'dob'       => $remote_user_data->DOB,
@@ -91,6 +92,13 @@ class DosomethingCanadaSsoUser extends DosomethingUserRemote {
 
   // ---------------------------------------------------------------------
   // Instance variables
+
+  /**
+   * Remote ID.
+   *
+   * @var int
+   */
+  private $id;
 
   /**
    * The full name.
@@ -168,6 +176,11 @@ class DosomethingCanadaSsoUser extends DosomethingUserRemote {
     if (isset($data['username'])) {
       $this->username = $data['username'];
     }
+
+    $this->id = FALSE;
+    if (isset($data['id'])) {
+      $this->id = $data['id'];
+    }
   }
 
   // ---------------------------------------------------------------------
@@ -190,10 +203,14 @@ class DosomethingCanadaSsoUser extends DosomethingUserRemote {
     // -- Required user data. --
     $data = array(
       'email'       => $this->getEmail(),
-      'password'    => $this->getPassword(),
       'firstName'   => $this->getFirstName(),
       'dob'         => $this->getDob()->format(self::SIGNUP_BIRTHDATE_FORMAT),
     );
+
+    $password = $this->getPassword();
+    if ($password) {
+      $data['password'] = $password;
+    }
 
     // User's mobile phone number.
     if ($this->getMobile()) {
@@ -204,6 +221,16 @@ class DosomethingCanadaSsoUser extends DosomethingUserRemote {
 
   // ---------------------------------------------------------------------
   // Public: field accessors
+
+  /**
+   * Returns the remote id.
+   *
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
   /**
    * Returns the first name.

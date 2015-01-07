@@ -113,8 +113,6 @@ class CanadaSSOClient {
   /**
    * Use a local, existing user to register a user via the API.
    *
-   * @param string $email
-   * @param string $password
    * @param DosomethingCanadaSsoUser $sso_user
    *
    * @return bool
@@ -122,6 +120,20 @@ class CanadaSSOClient {
   public function signup(DosomethingCanadaSsoUser $sso_user)
   {
     return $this->post(self::ENDPOINT_USERS, $sso_user->toArray());
+  }
+
+
+  /**
+   * Use a local, existing user to update a user via the API.
+   *
+   * @param DosomethingCanadaSsoUser $sso_user
+   *
+   * @return bool
+   */
+  public function update(DosomethingCanadaSsoUser $sso_user)
+  {
+    $update_endpoint = self::ENDPOINT_USERS . '/' . $sso_user->getEmail();
+    return $this->put($update_endpoint, $sso_user->toArray());
   }
 
   // ---------------------------------------------------------------------
@@ -164,7 +176,7 @@ class CanadaSSOClient {
     $url  = $this->getBaseURL() . $uri;
     $options = $this->defaults(array('method' => $method));
 
-    if ($method === 'POST') {
+    if ($method === 'POST' || $method === 'PUT') {
       // Adjustments for POST.
       $options['headers']['Content-Type'] = self::POST_CONTENT_TYPE;
       $options['data'] = $data;
@@ -215,6 +227,18 @@ class CanadaSSOClient {
   private function post($uri, $data)
   {
     return $this->execute($uri, 'POST', $data);
+  }
+
+  /**
+   * Convenience method to execute a PUT request.
+   *
+   * @param string $uri
+   * @param array $data
+   * @return bool
+   */
+  private function put($uri, $data)
+  {
+    return $this->execute($uri, 'PUT', $data);
   }
 
   /**

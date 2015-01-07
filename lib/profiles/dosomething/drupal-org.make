@@ -215,7 +215,7 @@ projects[xmlsitemap][subdir] = "contrib"
 projects[external_auth][type] = "module"
 projects[external_auth][download][type] = "git"
 projects[external_auth][download][url] = "https://github.com/DoSomething/drupal-external-auth.git"
-projects[external_auth][download][revision] = "a1d7786"
+projects[external_auth][download][revision] = "5230277"
 projects[external_auth][subdir] = "contrib"
 
 ; Conductor

@@ -2,10 +2,8 @@
 
 /**
  * Canada Registration Controller.
- *
- * @todo: Implement registration.
  */
-class DosomethingCanadaRegisterController implements ExternalAuthRegisterController {
+class DosomethingCanadaProfileSyncController implements ExternalAuthProfileSyncController {
 
   // ---------------------------------------------------------------------
   // Instance variables
@@ -19,6 +17,8 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
 
   /**
    * The SSO controller.
+   *
+   * @var CanadaSSOClient
    */
   private $sso;
 
@@ -30,12 +30,22 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
 
     // Create SSO user.
     $user_factory = new DosomethingCanadaSsoUserFactory();
+
+    // Disable email change to prevent account hijacking on the remote server.
+    $values = &$form_state['values'];
+    if ($form_state['user']->mail !== $values['mail']) {
+      form_set_error('mail', t('Email change is disabled.'));
+      return FALSE;
+    }
+
     $this->remote_account = $user_factory->fromFormValues($form, $form_state);
-    return $this;
   }
 
-  public function signup() {
-    return $this->sso->signup($this->remote_account);
+  public function sync() {
+    if (!$this->remote_account) {
+      return FALSE;
+    }
+    return $this->sso->update($this->remote_account);
   }
 
   /**
@@ -43,7 +53,7 @@ class DosomethingCanadaRegisterController implements ExternalAuthRegisterControl
    *
    * @todo Map and assign fields.
    */
-  public function processSignupErrors(Array $form) {
+  public function processRemoteErrors(Array $form) {
     if ($error_messages = $this->sso->getErrorMessages()) {
       foreach ($error_messages as $field_name => $field_errors) {
           foreach ($field_errors as $error) {

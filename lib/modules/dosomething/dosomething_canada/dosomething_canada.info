@@ -21,4 +21,5 @@ files[] = includes/dosomething_canada_sso_client.inc
 files[] = includes/dosomething_canada_sso_user.inc
 
 files[] = includes/dosomething_canada_login_controller.inc
+files[] = includes/dosomething_canada_profile_sync_controller.inc
 files[] = includes/dosomething_canada_register_controller.inc
