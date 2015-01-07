@@ -1,0 +1,89 @@
+<?php
+
+function _term_resource_defintion() {
+  $resource = array();
+  $resource['terms'] = array(
+    'operations' => array(
+      'index' => array(
+        'help' => 'List relevant taxonomy terms.',
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/term_resource'),
+        'callback' => '_term_resource_index',
+        'access arguments' => array('access content'),
+        'args' => array(
+          array(
+            'name' => 'parameters',
+            'optional' => TRUE,
+            'type' => 'array',
+            'description' => 'Parameters',
+            'default value' => array(),
+            'source' => array('param' => 'parameters'),
+          ),
+        ),
+      ),
+    ),
+    'relationships' => array(
+      'pending' => array(
+        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/term_resource'),
+        'help'   => 'Returns Reportback Inbox for a term. GET from terms/123/pending',
+        'access arguments' => array('view any reportback'),
+        'callback' => '_term_resource_load_pending',
+        'args'     => array(
+          array(
+            'name' => 'tid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The tid of the term whose gallery we are getting',
+          ),
+          array(
+            'name' => 'count',
+            'type' => 'int',
+            'description' => t('Number of Reportback Files to load.'),
+            'source' => array('param' => 'count'),
+            'optional' => TRUE,
+          ),
+          array(
+            'name' => 'offset',
+            'type' => 'int',
+            'description' => t('If count is set to non-zero value, you can pass also non-zero value for start. For example to get Reportback Files from 5 to 15, pass count=10 and start=5.'),
+            'source' => array('param' => 'offset'),
+            'optional' => TRUE,
+          ),
+        ),
+      ),
+    ),
+  );
+  return $resource;
+}
+
+/**
+ * Callback for Terms index.
+ */
+function _term_resource_index($parameters) {
+  // @todo: Write real code.
+  $index = array();
+  return $index;
+}
+
+
+/**
+ * Returns the Reportback Inbox of a specified term.
+ *
+ * @param int $nid
+ *   Unique identifier for the node.
+ * @param int $count
+ *   Number of Reporback Files to return.
+ * @param int $start
+ *   Which RB File to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause to select RB Files. This could be used to do paging.
+ *
+ * @return
+ *   An array of Reportback File objects.
+ */
+function _term_resource_load_pending($tid, $count = 25, $start = 0) {
+  $params = array(
+    'tid' => $tid,
+    'status' => 'pending',
+  );
+  return dosomething_api_get_reportback_files($params, $count, $start);
+}
