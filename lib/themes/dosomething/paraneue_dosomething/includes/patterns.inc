@@ -71,7 +71,7 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
   }
   $data_roles = NULL;
   if ($show_more){
-    $data_roles = 'role="show_more"';
+    $data_roles = 'data-role="show_more"';
   }
   // Prepare variables to send to gallery theme functions.
   $variables = array(
