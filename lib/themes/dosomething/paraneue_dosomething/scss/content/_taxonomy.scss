@@ -1,17 +1,18 @@
 .taxonomy-term {
-  .container__title,
-  .sources {
-    @include compacted();
-  }
-
-  .container__body,
-  .additional-text {
-    p,
-    ul,
-    ol {
-      @include compacted();
-    }
-  }
+//  .container__title,
+//  .sources {
+//    @include compacted();
+//  }
+//
+//  .container__body,
+//  .additional-text {
+//    p,
+//    ul,
+//    ol {
+//      @include compacted();
+//    }
+//  }
+  // @TODO ^ What was this?
 
   .container__body {
     .-columned {

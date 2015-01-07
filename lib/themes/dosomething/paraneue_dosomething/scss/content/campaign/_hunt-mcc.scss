@@ -45,8 +45,8 @@
 
   .ss-form {
     @include media($tablet) {
-      @include span-columns(8 of 12);
-      @include shift(2);
+      @include span(8 of 12);
+      @include push(2);
     }
   }
 
@@ -95,8 +95,7 @@
       width: 30%;
 
       @include media($tablet) {
-        @include span-columns(2 of 8);
-        @include omega(3n);
+        @include span(2 of 8);
       }
     }
 

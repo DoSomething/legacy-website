@@ -36,37 +36,3 @@
   }
 }
 
-
-// @TODO: Temporary Styles until the Modals are refactored (2014.06.24)
-.modal {
-  .sources {
-    padding-bottom: 18px;
-    padding-top: 0;
-  }
-}
-
-
-// @TODO: Temporary Styles until Campaign markup is refactored to use Container Module:
-.sources-wrapper {
-
-  @include media($tablet) {
-    margin-bottom: 18px;
-  }
-
-  .sources {
-    padding: 0 0 27px;
-
-    @include media($tablet) {
-      padding-bottom: 0;
-    }
-
-    h3 {
-      color: $med-gray;
-      cursor: pointer;
-      font-size: $font-regular;
-      font-weight: $weight-normal;
-      margin: 0;
-      text-decoration: underline;
-    }
-  }
-}

@@ -13,11 +13,8 @@
 $neue-path: "../bower_components/neue/dist/assets/";
 $asset-path: "";
 
-// Import Bourbon, grid-settings, Neat, and Neue
-@import "../bower_components/bourbon/dist/bourbon";
-@import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
-@import "../bower_components/neue/scss/_utilities/grid-settings";
-@import "../bower_components/neat/app/assets/stylesheets/neat";
+// Import Susy and Neue
+@import "../bower_components/susy/sass/susy";
 @import "../bower_components/neue/scss/neue";
 
 // Import our local variables and helpers
@@ -26,8 +23,12 @@ $asset-path: "";
 // Drupal styles
 @import "overrides/drupal";
 
+// Local patterns
+@import "content/waypoints"; // @TODO: Move to Neue!
+@import "content/tabbed"; // @TODO: Move to Neue!
+@import "content/statistic"; // @TODO: Move to Neue!
+
 // Content styles by section
-@import "content/heading"; // @TODO: Move to Neue!
 @import "content/auth";
 @import "content/home";
 @import "content/campaign";
@@ -47,8 +48,6 @@ $asset-path: "";
 @import "content/explore-campaigns";
 @import "content/finder";
 @import "content/user";
-@import "content/waypoints"; // @TODO: Move to Neue!
-@import "content/tabbed"; // @TODO: Move to Neue!
 @import "content/affiliate";
 @import "content/notfound";
 @import "content/donate";

@@ -21,7 +21,7 @@
         padding-right: 0;
 
         > span {
-          @include shift(2 of 16);
+          @include push(2 of 16);
         }
       }
     }
@@ -33,8 +33,8 @@
         padding-left: 0;
         padding-right: 0;
 
-        @include span-columns(12);
-        @include shift(2);
+        @include span(12);
+        @include push(2);
         float: none;
       }
     }
@@ -64,11 +64,10 @@
   dl {
     padding-right: 18px;
 
-    @include clearfix();
+    @include clearfix;
 
-    @include media(930px) {
-      @include span-columns(6 of 12);
-      @include omega();
+    @include media("(min-width: 930px)") {
+      @include span(6 of 12);
     }
 
     margin-bottom: 18px;

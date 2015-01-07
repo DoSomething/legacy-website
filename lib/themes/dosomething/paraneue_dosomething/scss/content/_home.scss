@@ -4,8 +4,6 @@
 }
 
 .home--hero {
-  @include row;
-  @include header-gradient;
   background-size: cover;
   padding: 100px 0 36px;
 
@@ -15,15 +13,10 @@
 
   .header {
     margin-bottom: 18px;
-    @include row;
-    // TODO: Possibly rethink the mobile grid to allow for thinner gutters.
-    @include span-columns(7);
-    @include shift(0.5);
-    @include omega();
 
     @include media($tablet) {
-      @include span-columns(14);
-      @include shift(1);
+      @include span(14);
+      @include push(1);
     }
 
     .title {
@@ -71,8 +64,8 @@
   padding: 36px 0;
 
   @include media($tablet) {
-    @include span-columns(12);
-    @include shift(2);
+    @include span(12);
+    @include push(2);
   }
 
   h4 {

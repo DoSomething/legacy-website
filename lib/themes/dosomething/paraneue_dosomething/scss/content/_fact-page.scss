@@ -42,7 +42,7 @@
   [role="banner"] {
     .__title {
       @include media($tablet) {
-        font-size: $font-largest;  // Slightly smaller font-size, since 11 Facts titles are title-case.
+        font-size: $font-hero;  // @TODO Slightly smaller font-size, since 11 Facts titles are title-case.
         margin: 27px 0;
       }
     }
@@ -55,7 +55,7 @@
 
     .intro-content {
       @include media($tablet) {
-        @include span-columns(8 of 12);
+        @include span(8 of 12);
       }
     }
   }

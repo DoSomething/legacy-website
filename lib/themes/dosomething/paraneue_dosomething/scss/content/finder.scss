@@ -18,7 +18,7 @@
     padding: 14px 9px;
     position: relative;
     cursor: pointer;
-    @include transition(left .1s linear);
+    transition: left .1s linear;
 
     @include media($tablet) {
       padding-bottom: 4px;
@@ -42,17 +42,17 @@
     @include media($tablet) {
       margin-bottom: 0;
       min-height: 72px;
-      @include span-columns(5 of 14);
+      @include span(5 of 14);
     }
 
     // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
-    @include media(860px) {
+    @include media("(min-width: 860px)") {
       min-height: 100%;
     }
 
     &.small {
       @include media($tablet) {
-        @include span-columns(4 of 14);
+        @include span(4 of 14);
       }
     }
 
@@ -65,7 +65,8 @@
       display: block;
       overflow: hidden;
       position: relative;
-      @include prefixer(column-break-inside, avoid, webkit moz spec);
+      // @TODO Add me back in.
+      // break-inside: avoid;
 
       &.checked label {
         background-color: $yellow;
@@ -90,15 +91,14 @@
       padding: 0 0 4px 27px;
 
       &:before {
+        @include icomoon-icon;
         position: absolute;
         z-index: 1; // fixes display issue with css3 columns in below container
         left: -4px;
         top: -9px;
         content: "\e609";
         font-size: 32px;
-        @include icomoon-icon;
-        @include transform(rotate(-90deg));
-        @include transition(transform 0.25s);
+        transform: rotate(-90deg), transform 0.25s;
       }
     }
 
@@ -123,7 +123,7 @@
     // Dropdown open.
     &.open {
       .__title:before {
-        @include transform(rotate(0));
+        transform: rotate(0);
       }
 
       .dropdown-menu {
@@ -135,13 +135,13 @@
   .two-col {
     padding-left: 18px;
 
-    @include media(550px) {
+    @include media("(min-width: 550px)") {
       -moz-column-count: 2;
       -webkit-column-count: 2;
       column-count: 2;
     }
 
-    @include media(min-width 768px max-width 1000px) {
+    @include media("(min-width: 768px) and (max-width: 1000px)") {
       -moz-column-count: 1;
       -webkit-column-count: 1;
       column-count: 1;
@@ -186,7 +186,7 @@
       width: 100%;
       height: 100%;
       z-index: 100;
-      @include animation(fadeIn);
+      animation: fadeIn;
     }
 
     .spinner {
@@ -207,8 +207,7 @@
   }
 
   .no-result {
-    background: $off-black asset-url("images/placeholder.png");
-    background-position: center center;
+    background: $off-black asset-url("images/placeholder.png") center center;
     background-size: cover;
     text-align: center;
     min-height: 300px;
@@ -216,8 +215,8 @@
 
     > .wrapper {
       padding: 36px 18px;
-      @include span-columns(7);
-      @include shift(0.5);
+      @include span(12);
+      @include push(2);
     }
 
     p {
@@ -237,21 +236,20 @@
   }
 
   .campaign-result {
-    @include transition(background-image .5s ease-in-out);
+    transition: background-image .5s ease-in-out;
 
     img {
       // lazy-load animation
       opacity: 0;
-      @include transition(opacity 0.5s ease-in);
+      transition: opacity 0.5s ease-in;
     }
   }
 
   .pagination-link {
     clear: both;
+    width: 100%;
     background: #fff;
     text-align: center;
     padding: 18px;
-
-    @include row;
   }
 }

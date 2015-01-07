@@ -1,20 +1,4 @@
-.auth--login {
-  .form-actions {
-    text-align: center;
-    margin: 18px 0;
-  }
-}
-
 .auth--register {
-  .field-label-optional {
-    color: $light-gray;
-  }
-
-  .form-actions {
-    text-align: center;
-    margin: 18px 0;
-  }
-
   .auth--twocol {
     @include media($tablet) {
       float: left;
