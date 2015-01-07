@@ -271,7 +271,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
 /**
  * Returns a themed mosaic gallery with campaign tiles for given $nids.
  */
-function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
+function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $sh) {
   $items = array();
   foreach ($nids as $delta => $nid) {
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
