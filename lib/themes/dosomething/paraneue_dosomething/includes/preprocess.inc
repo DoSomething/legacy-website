@@ -92,6 +92,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'campaign_group',
     'fact_page',
     'notfound',
+    'home',
   );
   if (isset($vars['node']->type) && in_array($vars['node']->type, $full_width_types)) {
     $full_width = TRUE;
