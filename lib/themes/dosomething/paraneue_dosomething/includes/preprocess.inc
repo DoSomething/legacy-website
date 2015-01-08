@@ -41,9 +41,9 @@ function paraneue_dosomething_preprocess_page(&$vars) {
    * Global Main Navigation
    */
 
-  $modifier_classes = 'white floating';
+  $modifier_classes = '-white -floating';
   if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
-    $modifier_classes = 'black floating';
+    $modifier_classes = '-floating';
   }
 
   // Override with environment-specific logo if on staging or local dev:
