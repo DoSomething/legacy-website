@@ -30,20 +30,6 @@
   }
 }
 
-// @TODO update this in neue
-.message-callout {
-  @include media($tablet) {
-    transform: rotate(-3deg);
-  }
-
-  &.-dynamic-right {
-    .__copy {
-      padding-bottom: 3px;
-      padding-top: 3px;
-    }
-  }
-}
-
 .campaign--pitch,
 .campaign--grouped,
 .campaign--action .container--prove {
@@ -204,13 +190,6 @@
       @include media($tablet) {
         bottom: 0;
       }
-    }
-  }
-
-  // @TODO: find a better way to address the variations in gray; sass lists? (2014.06.24)
-  .disclaimer {
-    p, a {
-      color: darken($med-gray, 10%);
     }
   }
 }

@@ -1,4 +1,8 @@
 .disclaimer {
   clear: both;
   padding-top: 36px;
+
+  p, a {
+    color: darken($med-gray, 10%);
+  }
 }

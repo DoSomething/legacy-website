@@ -1,5 +1,5 @@
 .waypoints {
-  @include clearfix();
+  @include clearfix;
 
   .__menu {
     list-style-type: none;
@@ -11,6 +11,7 @@
       float: left;
       line-height: 1;
       position: relative;
+      margin: 0;
     }
 
     a {
