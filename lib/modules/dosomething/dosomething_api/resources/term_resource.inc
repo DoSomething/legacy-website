@@ -74,8 +74,8 @@ function _term_resource_index($parameters) {
 /**
  * Returns the Reportback Inbox of a specified term.
  *
- * @param int $nid
- *   Unique identifier for the node.
+ * @param int $tid
+ *   Unique identifier for the taxonomy term.
  * @param int $count
  *   Number of Reporback Files to return.
  * @param int $start
