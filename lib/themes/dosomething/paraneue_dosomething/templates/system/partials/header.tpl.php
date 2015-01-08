@@ -9,7 +9,7 @@
   <div class="wrapper">
     <h1 class="__title"><?php print $title; ?></h1>
     <?php if (isset($subtitle)): ?>
-    <h2 class="__subtitle"><?php if (isset($subtitle)): print $subtitle; endif; ?></h2>
+    <p class="__subtitle"><?php if (isset($subtitle)): print $subtitle; endif; ?></p>
     <?php endif; ?>
 
     <?php if (isset($sponsors)): ?>
