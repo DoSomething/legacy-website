@@ -38,14 +38,21 @@
   <?php print $head; ?>
 </head>
 
-<body class="<?php print $classes; ?><?php if ($variables['is_affiliate']): ?> -affiliate <?php endif; ?>" <?php print $attributes;?>>
+<body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
   <div class="chrome">
-    <!--[if lt IE 8 ]> <div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div>  <![endif]-->
+    <!--[if lt IE 8 ]><div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div><![endif]-->
+
+    <?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
+    <?php print $messages; ?>
+
     <?php print $page_top; ?>
-    <?php print $page; ?>
+    <div class="wrapper">
+      <?php print $page; ?>
+    </div>
   </div>
 
   <?php print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
+
 </html>
