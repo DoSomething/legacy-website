@@ -434,7 +434,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#value' => t('Submit'),
     '#attributes' => array(
       'class' => array(
-        'btn',
+        'button',
       ),
     ),
   );
@@ -507,8 +507,8 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
     '#value' => t('Skip'),
     '#attributes' => array(
       'class' => array(
-        'btn',
-        'tertiary',
+        'button',
+        '-tertiary',
       ),
     ),
   );

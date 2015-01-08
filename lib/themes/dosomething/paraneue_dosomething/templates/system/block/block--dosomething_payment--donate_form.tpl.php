@@ -19,7 +19,7 @@
     <?php // Else: display Donate Form into modal, and a link to it. ?>
     <?php else: ?>
 
-      <a href="#" data-modal-href="#modal--donate-form" class="btn">
+      <a href="#" data-modal-href="#modal--donate-form" class="button">
         <?php print t("Donate"); ?>
       </a>
       <div data-modal id="modal--donate-form" role="dialog" class="donate--payment">

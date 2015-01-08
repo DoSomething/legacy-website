@@ -32,6 +32,6 @@
 <div class="cta">
   <div class="wrapper">
     <h2 class="__message"><?php print t('Sign up for #ImABoss to boost your friends’ self-esteem.'); ?></h2>
-    <a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="btn medium"><?php print t('Sign Up'); ?></a>
+    <a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button medium"><?php print t('Sign Up'); ?></a>
   </div>
 </div>

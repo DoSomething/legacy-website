@@ -43,7 +43,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     // Set button to link to /campaigns.
     $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', array(
       'attributes' => array('class' =>
-        array('btn')
+        array('button')
       ))
     );
     if (module_exists('dosomething_reward')) {

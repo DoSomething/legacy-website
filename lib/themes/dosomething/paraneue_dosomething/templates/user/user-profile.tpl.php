@@ -30,7 +30,7 @@
     <?php if (empty($doing)): ?>
       <h2 class="__message"><?php print $no_signups_header; ?></h2>
       <p><?php print $no_signups_copy; ?></p>
-      <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
+      <a href="/campaigns" class="button"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
       <?php print $doing_gallery; ?>
     <?php endif; ?>

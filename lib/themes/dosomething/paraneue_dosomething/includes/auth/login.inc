@@ -57,7 +57,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
       '#weight' => 500,
     );
 
-    $form['actions']['submit']['#attributes']['class'] = array('btn');
+    $form['actions']['submit']['#attributes']['class'] = array('button');
 
     unset($form['links']);
 

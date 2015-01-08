@@ -31,7 +31,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => -199,
     );
 
-    $form['actions']['submit']['#attributes']['class'] = array('btn', 'large');
+    $form['actions']['submit']['#attributes']['class'] = array('button');
 
     $copy = t("Log in to an existing account");
     $form['create-account-link'] = array(

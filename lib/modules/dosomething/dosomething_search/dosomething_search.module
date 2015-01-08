@@ -53,7 +53,7 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
   elseif ($form_id == 'search_form' || $form_id == 'apachesolr_search_custom_page_search_form') {
     unset($form['basic']['keys']['#title']);
     $form['basic']['keys']['#theme'] = 'dosomething_search_field';
-    $form['basic']['submit']['#attributes'] = array('class' => array('btn','secondary'));
+    $form['basic']['submit']['#attributes'] = array('class' => array('button','-secondary'));
     $form['#action'] = url('search/apachesolr_search');
     $form['#submit'] = array('dosomething_search_form_submit');
   }
