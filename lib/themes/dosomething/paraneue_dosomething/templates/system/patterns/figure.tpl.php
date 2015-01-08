@@ -1,6 +1,6 @@
-<div class="tile tile--figure">
+<div class="figure">
   <?php if (!empty($content['image'])): ?>
-    <div class="__media">
+    <div class="figure__media">
       <?php if (!empty($content['url'])): ?>
         <a href="<?php print $content['url']; ?>">
           <?php print $content['image']; ?>
@@ -11,16 +11,16 @@
     </div>
   <?php endif; ?>
   <?php if (!empty($content['title'])): ?>
-    <h3 class="__title">
+    <h3 class="figure__title">
       <?php print $content['title']; ?>
     </h3>
   <?php endif; ?>
   <?php if (!empty($content['description'])): ?>
-    <div class="__description">
+    <div class="figure__description">
       <?php print $content['description']; ?>
     </div>
   <?php endif; ?>
   <?php if (!empty($content['url']) && !empty($content['button_text'])): ?>
-    <a class="btn" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>  
+    <a class="button" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>
   <?php endif; ?>
 </div>

@@ -26,12 +26,12 @@
   <?php endif; ?>
 
     <?php if ($content['is_staff_pick']): ?>
-      <div class="__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
+      <div class="tile__flag -staff-pick"><?php print t('Staff Pick'); ?></div>
     <?php endif; ?>
 
-    <div class="tile--meta">
-      <h1 class="__title"><?php print $content['title']; ?></h1>
-      <p class="__tagline"><?php print $content['tagline']; ?></p>
+    <div class="tile__meta">
+      <h1 class="tile__title"><?php print $content['title']; ?></h1>
+      <p class="tile__tagline"><?php print $content['tagline']; ?></p>
     </div>
 
     <?php print $content['image']; ?>
