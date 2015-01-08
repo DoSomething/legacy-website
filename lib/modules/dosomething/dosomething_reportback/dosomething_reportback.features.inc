@@ -81,6 +81,7 @@ function dosomething_reportback_flag_default_flags() {
       0 => 'name',
     ),
     'api_version' => 3,
+    'status' => FALSE,
   );
   return $flags;
 

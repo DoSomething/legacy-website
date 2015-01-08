@@ -75,56 +75,11 @@ function dosomething_reportback_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'flagging-promoted-field_weight'
-  $field_instances['flagging-promoted-field_weight'] = array(
-    'bundle' => 'promoted',
-    'default_value' => array(
-      0 => array(
-        'value' => 100,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => ' ',
-        ),
-        'type' => 'number_integer',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'flagging',
-    'field_name' => 'field_weight',
-    'label' => 'Weight',
-    'required' => 1,
-    'settings' => array(
-      'max' => '',
-      'min' => '',
-      'prefix' => '',
-      'suffix' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 3,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Editorial Caption');
   t('Please select at least one.');
   t('Reasons');
-  t('Weight');
 
   return $field_instances;
 }
