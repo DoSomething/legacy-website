@@ -22,11 +22,11 @@ function _term_resource_defintion() {
       ),
     ),
     'relationships' => array(
-      'pending' => array(
+      'inbox' => array(
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/term_resource'),
-        'help'   => 'Returns Reportback Inbox for a term. GET from terms/123/pending',
+        'help'   => 'Returns Reportback Inbox for a term. GET from terms/123/inbox',
         'access arguments' => array('view any reportback'),
-        'callback' => '_term_resource_load_pending',
+        'callback' => '_term_resource_load_inbox',
         'args'     => array(
           array(
             'name' => 'tid',
@@ -85,7 +85,7 @@ function _term_resource_index($parameters) {
  * @return
  *   An array of Reportback File objects.
  */
-function _term_resource_load_pending($tid, $count = 25, $start = 0) {
+function _term_resource_load_inbox($tid, $count = 25, $start = 0) {
   $params = array(
     'tid' => $tid,
     'status' => 'pending',
