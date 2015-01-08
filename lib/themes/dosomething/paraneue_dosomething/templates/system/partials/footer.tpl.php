@@ -8,29 +8,28 @@
   $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
-<footer class="chrome--footer<?php if ($is_affiliate): ?> -affiliate <?php endif; ?>">
+<footer class="footer<?php if ($is_affiliate): ?> -affiliate <?php endif; ?>">
 
   <?php if (isset($affiliate_logo)): ?>
-  <div class="col branding">
+  <div class="footer__column -branding">
     <h4><?php print $affiliate_logo['text'] ?></h4>
-    <?php 
+    <?php
       print theme_image(array(
         'path'  => $affiliate_logo['file'],
         'title' => $affiliate_logo['text'],
         'alt'   => $affiliate_logo['text'],
-      )); 
+      ));
     ?>
   </div>
   <?php endif; ?>
 
-  <?php print theme('social-networks', array(
-    'social' => $social,
-    'container_classes' => 'tablet',
-  )); ?>
+  <div class="footer__column -social">
+    <?php print theme('social-networks', array('social' => $social)); ?>
+  </div>
 
   <?php foreach($links as $column): ?>
-  <div class="col <?php print $column['class']; ?> js-footer-col">
-    <h4><?php print $column['heading']; ?></h4>
+  <div class="footer__column -links">
+    <h4 class="js-toggle-collapsed"><?php print $column['heading']; ?></h4>
     <?php if (!empty($column['links'])): ?>
     <ul>
       <?php foreach($column['links'] as $link): ?>
@@ -41,13 +40,8 @@
   </div>
   <?php endforeach; ?>
 
-  <?php print theme('social-networks', array(
-    'social' => $social,
-    'container_classes' => 'mobile',
-  )); ?>
-
-  <div class="subfooter">
-    <ul class="utility">
+  <div class="footer__subfooter">
+    <ul>
       <li><?php print $terms; ?></li>
       <li><?php print $privacy; ?></li>
     </ul>
