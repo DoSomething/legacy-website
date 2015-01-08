@@ -58,11 +58,16 @@ function _term_resource_defintion() {
 
 /**
  * Callback for Terms index.
+ *
+ * For now, only return Cause terms (only needed vocabulary for this endpoint).
  */
 function _term_resource_index($parameters) {
-  // @todo: Write real code.
-  $index = array();
-  return $index;
+  $terms = array();
+  $cause = taxonomy_vocabulary_machine_name_load('cause');
+  if ($cause) {
+    $terms = taxonomy_get_tree($cause->vid);
+  }
+  return $terms;
 }
 
 
