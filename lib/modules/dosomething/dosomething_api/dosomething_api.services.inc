@@ -98,6 +98,18 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'terms' => array(
+      'operations' => array(
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'relationships' => array(
+        'inbox' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'users' => array(
       'operations' => array(
         'create' => array(
