@@ -42,6 +42,10 @@ $flex-gutter: flex-gutter(12);
     }
   }
 
+  .view-more {
+    @include clearfix();
+  }
+
   @include media($tablet) {
     .gallery--reportback {
       display: table-cell;
@@ -73,14 +77,13 @@ $flex-gutter: flex-gutter(12);
     }
   }
 
-  .btn--view-more { 
-    background-color: #ff0;
-    
-    @include media($tablet) {
-      position: absolute;
-      right: 0;
-      text-transform: lowercase;
-      top: 100%;
+  .btn--view-more {
+    color: #000;
+    float: right;
+    text-transform: lowercase;
+
+    &:focus {
+      box-shadow: none;
     }
   }
 }

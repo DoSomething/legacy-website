@@ -18,7 +18,9 @@
 
 .campaign--action .container--prove,
 .campaign--sms .container--do {
-  background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
+  // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
+  // background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
+  background-color: $yellow;
   padding-bottom: 126px;
 
   @include media($tablet) {
@@ -134,13 +136,17 @@
     }
 
     h3 {
-      color: #fff;
+      // @TODO: confirm for v2 Reportbacks.
+      // color: #fff;
+      color: $purple;
       font-size: $font-large;
       margin-bottom: 27px;
     }
 
     p, a {
-      color: #fff;
+      // @TODO: confirm for v2 Reportbacks.
+      // color: #fff;
+      color: #000;
     }
 
     .message-callout {

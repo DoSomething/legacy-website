@@ -378,8 +378,8 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
-    // Set the number of files to display.
-    $vars['num_reportback_files'] = 6;
+    // Set the number of files to display in initial gallery.
+    $vars['reportbacks']['initial_count'] = 6;
     // Adds themed Reportback Files.
     paraneue_dosomething_preprocess_reportback_files($vars);
   }
@@ -390,27 +390,31 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
  * Adds $gallery_items array of themed Reportback Files for given node preprocess $vars.
  */
 function paraneue_dosomething_preprocess_reportback_files(&$vars) {
-  if (!isset($vars['num_reportback_files'])) {
-    $vars['num_reportback_files'] = 6;
+  $reportbacks_gallery = &$vars['reportbacks_gallery'];
+
+  if (!isset($reportbacks_gallery['initial_count'])) {
+    $reportbacks_gallery['initial_count'] = 6;
   }
-  $num_items = $vars['num_reportback_files'];
-  $vars['reportback_files'] = array();
+  $initial_count = $reportbacks_gallery['initial_count'];
+
+  $reportbacks_gallery['items'] = array();
    // Set params to retrieve random promoted Reportback Files for this nid.
   $params = array();
   $params['nid'] = $vars['nid'];
   $params['status'] = 'promoted';
   $params['random'] = TRUE;
-  $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $num_items);
+  $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $initial_count);
   foreach ($promoted_results as $rb_file) {
     $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
-    $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
+    $reportbacks_gallery['items'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
   }
+
   // Do we have enough promoted items?
-  $current_count = count($vars['reportback_files']);
-  if ($current_count < $num_items) {
-    // Find out how many approved files to grab.
-    $approved_count = $num_items - $current_count;
-    $vars['approved_reportback_offset'] = $approved_count;
+  $current_count = count($reportbacks_gallery['items']);
+  if ($current_count < $initial_count) {
+    // Find out how many additonal approved Reportback items to grab to fulfill the initial count.
+    $approved_count = $initial_count - $current_count;
+    $reportbacks_gallery['prefetched'] = $approved_count;
     // Set params to retrieve approved Reportback Files for this nid.
     $params['status'] = 'approved';
     unset($params['random']);
@@ -418,10 +422,10 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
     foreach ($approved_results as $rb_file) {
       // @todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
       $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
-      $vars['reportback_files'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
+      $reportbacks_gallery['items'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
     }
   } else {
-    $vars['approved_reportback_offset'] = 0;
+    $reportbacks_gallery['prefetched'] = 0;
   }
 
   // Get the total number of approved reportbacks.
@@ -429,11 +433,13 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   if (isset($params['random'])) {
     unset($params['random']);
   }
-  $page_size = 30;
-  $total = dosomething_reportback_get_reportback_files_query_count($params);
-  $vars['approved_reportback_page_size'] = $page_size;
+
+  $reportbacks_gallery['total'] = dosomething_reportback_get_reportback_files_query_count($params);
+
+  // $page_size = 30;
+  // $reportbacks_gallery['page_size'] = $page_size;
   // Use floor() since pages are 0 indexed.
-  $vars['approved_reportback_pages'] = floor($total / $page_size);
+  // $reportbacks_gallery['pages'] = floor($total / $page_size);
 }
 
 /**
