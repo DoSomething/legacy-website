@@ -435,11 +435,6 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   }
 
   $reportbacks_gallery['total'] = dosomething_reportback_get_reportback_files_query_count($params);
-
-  // $page_size = 30;
-  // $reportbacks_gallery['page_size'] = $page_size;
-  // Use floor() since pages are 0 indexed.
-  // $reportbacks_gallery['pages'] = floor($total / $page_size);
 }
 
 /**
