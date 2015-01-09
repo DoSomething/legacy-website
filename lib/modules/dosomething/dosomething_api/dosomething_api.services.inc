@@ -30,9 +30,9 @@ function dosomething_api_default_services_endpoint() {
     ),
     'parsers' => array(
       'application/json' => TRUE,
+      'application/x-www-form-urlencoded' => TRUE,
       'application/xml' => TRUE,
       'application/vnd.php.serialized' => FALSE,
-      'application/x-www-form-urlencoded' => FALSE,
       'application/x-yaml' => FALSE,
       'multipart/form-data' => FALSE,
       'text/xml' => FALSE,
