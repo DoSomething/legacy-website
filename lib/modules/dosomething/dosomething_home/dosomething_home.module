@@ -52,6 +52,7 @@ function dosomething_home_preprocess_node(&$vars) {
         $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
       }
 
+      $tiles['status'] = TRUE;
       $tiles['image'] = '<img src="' . $tiles['image_url'] . '">';
       $tiles['link'] = drupal_get_path_alias('node/' . $nid) . $source;
 
