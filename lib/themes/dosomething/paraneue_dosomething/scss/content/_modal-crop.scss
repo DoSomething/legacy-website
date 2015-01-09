@@ -16,6 +16,10 @@
 
       .-rotate {
         display: inline-block;
+
+        &:focus {
+          box-shadow: none;
+        }
       }
 
       .-change {
