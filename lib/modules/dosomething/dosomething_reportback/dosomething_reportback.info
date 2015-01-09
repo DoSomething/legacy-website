@@ -14,7 +14,6 @@ features[field_base][] = field_flagged_reason
 features[field_instance][] = flagging-flagged_reportback-field_flagged_reason
 features[field_instance][] = flagging-promoted-field_image_description
 features[flag][] = flagged_reportback
-features[flag][] = promoted
 features[user_permission][] = delete any reportback
 features[user_permission][] = delete own reportback
 features[user_permission][] = edit any reportback

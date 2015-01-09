@@ -530,7 +530,7 @@ function dosomething_reportback_update_7019(&$sandbox) {
     return;
   }
   // Load Flag module to use its cache clearing functions.
-  module_load_include('inc', 'flag', 'flag.admin');
+  module_load_include('inc', 'flag', 'includes/flag.admin');
   $flag = flag_get_flag('promoted');
   if (!$flag) {
     return;
@@ -544,13 +544,12 @@ function dosomething_reportback_update_7019(&$sandbox) {
     field_delete_instance($instance);
   }
 
-  // Remove all flagging entities.
+  // Remove all flagging entities for this flag.
   flag_reset_flag($flag);
   // Delete the flag.
   // @see flag_delete_confirm_submit()
   $flag->delete();
   $flag->disable();
-  // @todo: This throws Error: Call to undefined function _flag_clear_cache() 
   _flag_clear_cache($flag->entity_type, TRUE);
 }
 
