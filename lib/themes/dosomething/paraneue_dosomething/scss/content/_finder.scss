@@ -1,70 +1,36 @@
 .finder--form {
-  input[type="checkbox"] {
-    left: -40px;
-    position: absolute;
-    top: 0;
-  }
-
-  label {
-    clear: none;
-    float: none;
-    display: block;
-    height: auto;
-    font-size: 14px;
-    font-weight: $weight-normal;
-    left: 0;
-    line-height: 1.2;
-    margin: 0;
-    padding: 14px 9px;
-    position: relative;
-    cursor: pointer;
-    transition: left .1s linear;
-
-    @include media($tablet) {
-      padding-bottom: 4px;
-      padding-top: 4px;
-    }
-  }
-
-  label:hover {
-    left: 3px;
-  }
-
-  .disabled label:hover,
-  .checked label:hover {
-    left: 0;
-  }
 
   .dropdown {
-    background: #fff;
-    margin-bottom: 18px;
+    margin-bottom: gutter();
 
     @include media($tablet) {
+      float: left;
+      width: span(5 of 14);
       margin-bottom: 0;
-      min-height: 72px;
-      @include span(5 of 14);
-    }
-
-    // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
-    @include media("(min-width: 860px)") {
-      min-height: 100%;
     }
 
     &.small {
       @include media($tablet) {
-        @include span(4 of 14);
+        width: span(4 of 14);
       }
     }
 
-    // no :nth-of-type support in IE 8... :(
-    &.last {
-      margin-right: 0;
+    > .wrapper {
+      background: #fff;
+      min-height: 72px;
+      margin: gutter();
+
+      // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
+      @include media("(min-width: 860px)") {
+        min-height: 100%;
+      }
     }
 
     li {
       display: block;
       overflow: hidden;
       position: relative;
+      margin: 0;
       // @TODO Add me back in.
       // break-inside: avoid;
 
@@ -96,7 +62,7 @@
         z-index: 1; // fixes display issue with css3 columns in below container
         left: -4px;
         top: -9px;
-        content: "\e609";
+        content: "\e607";
         font-size: 32px;
         transform: rotate(-90deg), transform 0.25s;
       }
@@ -104,7 +70,7 @@
 
     .__question {
       color: $med-gray;
-      font-size: $font-small;
+      font-size: $font-smaller;
       line-height: 1;
       padding-left: 27px;
       margin: 0;
@@ -161,6 +127,42 @@
     clear: both;
     // margin-top: 18px;
   }
+
+  input[type="checkbox"] {
+    left: -40px;
+    position: absolute;
+    top: 0;
+  }
+
+  label {
+    clear: none;
+    float: none;
+    display: block;
+    height: auto;
+    font-size: 14px;
+    font-weight: $weight-normal;
+    left: 0;
+    line-height: 1.2;
+    margin: 0;
+    padding: 14px 9px;
+    position: relative;
+    cursor: pointer;
+    transition: left .1s linear;
+
+    @include media($tablet) {
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+  }
+}
+
+label:hover {
+  left: 3px;
+}
+
+.disabled label:hover,
+.checked label:hover {
+  left: 0;
 }
 
 
