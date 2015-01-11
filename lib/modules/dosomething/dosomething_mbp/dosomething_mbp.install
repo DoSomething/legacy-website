@@ -114,7 +114,7 @@ function dosomething_mbp_update_7003(&$sandbox) {
  */
  function dosomething_mbp_update_7004(&$sandbox) {
 
-   $affiliate = variable_get('message_broker_producer_application_id', 'US');
+   $affiliate = dosomething_settings_get_affiliate_country_code();
    $affiliate_lc = strtolower($affiliate);
 
    if ($affiliate == 'US') {
@@ -130,6 +130,11 @@ function dosomething_mbp_update_7003(&$sandbox) {
      variable_set("dosomething_mbp_campaign_signup_template_{$affiliate}", "mb-campaign-signup-affiliate-{$affiliate_lc}");
      variable_set("dosomething_mbp_campaign_reportback_template_{$affiliate}", "mb-campaign-report-back-affiliate-{$affiliate_lc}");
      variable_set("dosomething_mbp_campaign_group_signup_template_{$affiliate}", "mb-group-campaign-signup-{$affiliate_lc}");
+   }
+
+   // Identify sending appication to Message Broker by country code
+   if (module_exists('message_broker_producer')) {
+     variable_set('message_broker_producer_application_id', $affiliate);
    }
 
  }
