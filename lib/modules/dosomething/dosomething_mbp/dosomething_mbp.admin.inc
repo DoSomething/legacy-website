@@ -58,7 +58,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
       $form['dosomething_mbp_templates']['dosomething_mbp_current_application'] = array(
         '#markup' => $current_application_markup,
       );
-      $template_var = 'dosomething_mbp_user_register_template_' . variable_get('message_broker_producer_application_id');
+      $template_var = 'dosomething_mbp_user_register_template';
       $form['dosomething_mbp_templates']['dosomething_mbp_user_register_template'] = array(
         '#type' => 'select',
         '#title' => t('User Registration'),
@@ -69,7 +69,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#required' => TRUE,
         '#weight' => 70,
       );
-      $template_var = 'dosomething_mbp_user_password_template_' . variable_get('message_broker_producer_application_id');
+      $template_var = 'dosomething_mbp_user_password_template';
       $form['dosomething_mbp_templates']['dosomething_mbp_user_password_template'] = array(
         '#type' => 'select',
         '#title' => t('Password Reset'),
@@ -79,7 +79,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#required' => TRUE,
         '#weight' => 80,
       );
-      $template_var = 'dosomething_mbp_campaign_signup_template_' . variable_get('message_broker_producer_application_id');
+      $template_var = 'dosomething_mbp_campaign_signup_template';
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Signup'),
@@ -90,7 +90,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#required' => TRUE,
         '#weight' => 90,
       );
-      $template_var = 'dosomething_mbp_campaign_group_signup_template_' . variable_get('message_broker_producer_application_id');
+      $template_var = 'dosomething_mbp_campaign_group_signup_template';
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_group_signup_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Group Signup'),
@@ -101,7 +101,7 @@ function dosomething_mbp_config_form($form, &$form_state) {
         '#required' => TRUE,
         '#weight' => 90,
       );
-      $template_var = 'dosomething_mbp_campaign_reportback_template_' . variable_get('message_broker_producer_application_id');
+      $template_var = 'dosomething_mbp_campaign_reportback_template';
       $form['dosomething_mbp_templates']['dosomething_mbp_campaign_reportback_template'] = array(
         '#type' => 'select',
         '#title' => t('Campaign Reportback'),
