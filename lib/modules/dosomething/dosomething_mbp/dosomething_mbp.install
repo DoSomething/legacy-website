@@ -118,18 +118,18 @@ function dosomething_mbp_update_7003(&$sandbox) {
    $affiliate_lc = strtolower($affiliate);
 
    if ($affiliate == 'US') {
-     variable_set('dosomething_mbp_user_register_template_US', 'mb-general-signup-us');
-     variable_set('dosomething_mbp_user_password_template_US', 'mb-password-reset-us');
-     variable_set('dosomething_mbp_campaign_signup_template_US', 'mb-campaign-signup-us');
-     variable_set('dosomething_mbp_campaign_reportback_template_US', 'mb-campaign-report-back-us');
-     variable_set('dosomething_mbp_campaign_group_signup_template_US', 'mb-group-campaign-signup-us');
+     variable_set('dosomething_mbp_user_register_template', 'mb-general-signup-us');
+     variable_set('dosomething_mbp_user_password_template', 'mb-password-reset-us');
+     variable_set('dosomething_mbp_campaign_signup_template', 'mb-campaign-signup-us');
+     variable_set('dosomething_mbp_campaign_reportback_template', 'mb-campaign-report-back-us');
+     variable_set('dosomething_mbp_campaign_group_signup_template', 'mb-group-campaign-signup-us');
    }
    else {
-     variable_set("dosomething_mbp_user_register_template_{$affiliate}", "mb-general-signup-affiliate-{$affiliate_lc}");
-     variable_set("dosomething_mbp_user_password_template_{$affiliate}", "mb-password-reset-affiliate-{$affiliate_lc}");
-     variable_set("dosomething_mbp_campaign_signup_template_{$affiliate}", "mb-campaign-signup-affiliate-{$affiliate_lc}");
-     variable_set("dosomething_mbp_campaign_reportback_template_{$affiliate}", "mb-campaign-report-back-affiliate-{$affiliate_lc}");
-     variable_set("dosomething_mbp_campaign_group_signup_template_{$affiliate}", "mb-group-campaign-signup-{$affiliate_lc}");
+     variable_set("dosomething_mbp_user_register_template", "mb-general-signup-affiliate-{$affiliate_lc}");
+     variable_set("dosomething_mbp_user_password_template", "mb-password-reset-affiliate-{$affiliate_lc}");
+     variable_set("dosomething_mbp_campaign_signup_template", "mb-campaign-signup-affiliate-{$affiliate_lc}");
+     variable_set("dosomething_mbp_campaign_reportback_template", "mb-campaign-report-back-affiliate-{$affiliate_lc}");
+     variable_set("dosomething_mbp_campaign_group_signup_template", "mb-group-campaign-signup-{$affiliate_lc}");
    }
 
    // Identify sending appication to Message Broker by country code
