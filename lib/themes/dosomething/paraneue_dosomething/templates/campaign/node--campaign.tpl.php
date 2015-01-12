@@ -281,8 +281,6 @@
       <div class="wrapper">
         <?php if( $show_new_reportback ): ?>
 
-          <?php //dpm($variables); ?>
-
           <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
           <?php if (isset($reportback_copy)): ?>
@@ -325,17 +323,7 @@
                 </div>
               </div>
             </div>
-            <?php
-            /* Magic ajax gallery to go here.
-            <ul class="gallery gallery--extended -quartet">
-              <?php for ($i = $num_reportback_files; $i <= 15; $i++): ?>
-                <li><?php print $gallery_items[$i]; ?></li>
-              <?php endfor; ?>
-            </ul>
-            */ ?>
           </div>
-
-
 
         <?php else: ?>
           <div class="container__body">
