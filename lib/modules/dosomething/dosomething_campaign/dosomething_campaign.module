@@ -829,7 +829,7 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
   // Variable name which holds a comma separated list of default File fid's.
   $var_name = 'dosomething_campaign_default_gallery_fids';
   // Extract the fid's.
-  $fids = explode(',', variable_get($var_name, array()));
+  $fids = explode(',', variable_get($var_name, ''));
   // Loop through each one:
   foreach ($fids as $fid) {
     // Make sure an image exists:
