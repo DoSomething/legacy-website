@@ -42,7 +42,7 @@
     .__segment {
       padding-bottom: 0;
 
-      &+ .__segment {
+      + .__segment {
         > .wrapper {
           padding-top: 0;
         }
