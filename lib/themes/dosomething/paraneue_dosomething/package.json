@@ -19,7 +19,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-modernizr": "^0.5.2",
     "grunt-contrib-sass": "~0.8.1",
-    "grunt-scss-lint": "^0.1.11",
+    "grunt-scss-lint": "^0.3.4",
     "grunt-shell": "~0.6.1",
     "jshint-stylish": "~0.1.4",
     "load-grunt-config": "^0.8.0",
