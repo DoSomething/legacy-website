@@ -540,6 +540,8 @@ function dosomething_reportback_update_7019(&$sandbox) {
   field_delete_field('field_weight');
 
   // Delete the Image Descirption instance from the Promoted Flag.
+  // This is an error, it should have been flagging.
+  // This is what stopped the promoted flag from deleting.
   if ($instance = field_info_instance('flag', 'field_image_description', 'promoted')) {
     field_delete_instance($instance);
   }
@@ -553,3 +555,33 @@ function dosomething_reportback_update_7019(&$sandbox) {
   _flag_clear_cache($flag->entity_type, TRUE);
 }
 
+/**
+ * Deletes the promoted Flag for real this time. (without errors) 
+ */
+function dosomething_reportback_update_7020(&$sandbox) {
+  if (!module_exists('flag')) {
+    return;
+  }
+  // Load Flag module to use its cache clearing functions.
+  module_load_include('inc', 'flag', 'includes/flag.admin');
+  $flag = flag_get_flag('promoted');
+  if (!$flag) {
+    return;
+  }
+
+  // Delete the Weight field (only used by Promoted Flag).
+  field_delete_field('field_weight');
+
+  // Delete the Image Descirption instance from the Promoted Flag.
+  if ($instance = field_info_instance('flagging', 'field_image_description', 'promoted')) {
+    field_delete_instance($instance);
+  }
+
+  // Remove all flagging entities for this flag.
+  flag_reset_flag($flag);
+  // Delete the flag.
+  // @see flag_delete_confirm_submit()
+  $flag->delete();
+  $flag->disable();
+  _flag_clear_cache($flag->entity_type, TRUE);
+}
