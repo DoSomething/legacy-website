@@ -774,12 +774,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
   $query = db_select('dosomething_reportback', 'rb')->condition('nid', $nid);
 
   if ($filter_flagged) {
-    // Find reportback rbid's that have been flagged for given $nid.
-    $flagged = dosomething_reportback_get_flagged_rbids($nid);
-    if ($flagged) {
-      // Filter them out.
-      $query->condition('rbid', $flagged, 'NOT IN');
-    }
+    $query->condition('flagged', 0);
   }
 
   if ($type == 'quantity') {
@@ -814,25 +809,6 @@ function dosomething_reportback_get_count_by_uid($uid = NULL) {
     ->fields('rb', array('rbid'))
     ->condition('uid', $uid);
   return $query->execute()->rowCount();
-}
-
-/**
- * Returns array of Reportback rbid's which have been flagged.
- *
- * @param int $nid
- *   Node $nid.
- *
- * @return array
- */
-function dosomething_reportback_get_flagged_rbids($nid) {
-  $query = db_select('flagging', 'f');
-  $query->join('dosomething_reportback', 'rb', 'rb.rbid = f.entity_id');
-  $query->fields('f', array('entity_id'));
-  // Filter flagging records for reportbacks only.
-  $query->condition('entity_type', 'reportback');
-  // Filter for the given $nid.
-  $query->condition('rb.nid', $nid);
-  return $query->execute()->fetchCol();
 }
 
 /**
