@@ -10,17 +10,18 @@
   $is_affiliate = dosomething_settings_is_affiliate();
 ?>
 
-<div class="home--wrapper">
-  <div class="finder--form">
-    <div class="home--hero">
-      <div class="header">
-        <h1 class="title"><?php print $title; ?></h1>
-        <h2 class="subtitle"><?php print $subtitle; ?></h2>
-      </div>
-      <?php if( $show_campaign_finder ): ?>
-      <div class="js-finder-form header">
-        <h3 class="visually-hidden"><?php print t('Start by finding a campaign below'); ?></h3>
-        <div class="dropdown large">
+<div class="finder--form">
+  <div class="home-banner">
+    <div class="header">
+      <h1 class="title"><?php print $title; ?></h1>
+      <h2 class="subtitle"><?php print $subtitle; ?></h2>
+    </div>
+
+    <?php if( $show_campaign_finder ): ?>
+    <div class="js-finder-form header">
+      <h3 class="visually-hidden"><?php print t('Start by finding a campaign below'); ?></h3>
+      <div class="dropdown large">
+        <div class="wrapper">
           <div class="caret-toggle facet-field" data-toggle="dropdown">
             <h4 class="__title"><?php print t('Cause'); ?></h4>
             <p class="__question"><?php print t('What are you passionate about?'); ?></p>
@@ -39,8 +40,10 @@
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="dropdown small">
+      <div class="dropdown small">
+        <div class="wrapper">
           <div class="caret-toggle facet-field" data-toggle="dropdown">
             <h4 class="__title"><?php print t('Time'); ?></h4>
             <p class="__question"><?php print t('How long do you have?'); ?></p>
@@ -53,53 +56,54 @@
             </ul>
           </div>
         </div>
-
-        <div class="dropdown large last">
-          <div class="caret-toggle facet-field" data-toggle="dropdown">
-            <h4 class="__title"><?php print t('Type'); ?></h4>
-            <p class="__question"><?php print t('What would you like to do?'); ?></p>
-          </div>
-          <div class="dropdown-menu">
-            <ul class="two-col">
-              <li><input id="action-donate-something" name="action-type" type="checkbox" value="7" /><label for="action-donate-something"><?php print t('Donate Something'); ?></label></li>
-              <li><input id="action-face-to-face" name="action-type" type="checkbox" value="3" /><label for="action-face-to-face"><?php print t('Face to Face'); ?></label></li>
-              <li><input id="action-host-event" name="action-type" type="checkbox" value="11" /><label for="action-host-event"><?php print t('Host an Event'); ?></label></li>
-              <li><input id="action-improve-space" name="action-type" type="checkbox" value="8" /><label for="action-improve-space"><?php print t('Improve a Space'); ?></label></li>
-              <li><input id="action-make-something" name="action-type" type="checkbox" value="9" /><label for="action-make-something"><?php print t('Make Something'); ?></label></li>
-              <li><input id="action-share-something" name="action-type" type="checkbox" value="18" /><label for="action-share-something"><?php print t('Share Something'); ?></label></li>
-              <li><input id="action-start-something" name="action-type" type="checkbox" value="10" /><label for="action-start-something"><?php print t('Start Something'); ?></label></li>
-              <li><input id="action-take-stand" name="action-type" type="checkbox" value="20" /><label for="action-take-stand"><?php print t('Take a Stand'); ?></label></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="campaign-search">
-          <button class="btn"><?php print t('Find a Campaign'); ?></button>
-        </div>
       </div>
-      <?php endif; ?>
+
+      <div class="dropdown large last">
+        <div class="wrapper">
+            <div class="caret-toggle facet-field" data-toggle="dropdown">
+              <h4 class="__title"><?php print t('Type'); ?></h4>
+              <p class="__question"><?php print t('What would you like to do?'); ?></p>
+            </div>
+            <div class="dropdown-menu">
+              <ul class="two-col">
+                <li><input id="action-donate-something" name="action-type" type="checkbox" value="7" /><label for="action-donate-something"><?php print t('Donate Something'); ?></label></li>
+                <li><input id="action-face-to-face" name="action-type" type="checkbox" value="3" /><label for="action-face-to-face"><?php print t('Face to Face'); ?></label></li>
+                <li><input id="action-host-event" name="action-type" type="checkbox" value="11" /><label for="action-host-event"><?php print t('Host an Event'); ?></label></li>
+                <li><input id="action-improve-space" name="action-type" type="checkbox" value="8" /><label for="action-improve-space"><?php print t('Improve a Space'); ?></label></li>
+                <li><input id="action-make-something" name="action-type" type="checkbox" value="9" /><label for="action-make-something"><?php print t('Make Something'); ?></label></li>
+                <li><input id="action-share-something" name="action-type" type="checkbox" value="18" /><label for="action-share-something"><?php print t('Share Something'); ?></label></li>
+                <li><input id="action-start-something" name="action-type" type="checkbox" value="10" /><label for="action-start-something"><?php print t('Start Something'); ?></label></li>
+                <li><input id="action-take-stand" name="action-type" type="checkbox" value="20" /><label for="action-take-stand"><?php print t('Take a Stand'); ?></label></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      <div class="campaign-search">
+        <button class="button"><?php print t('Find a Campaign'); ?></button>
+      </div>
     </div>
+    <?php endif; ?>
   </div>
+</div>
 
+<section class="container finder--results -blankslate js-campaign-blankslate">
+  <ul class="gallery -featured">
+  <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
+  </ul>
+</section>
 
+<?php if( $show_campaign_finder ): ?>
+<section class="container finder--results js-campaign-results"></section>
+<?php endif; ?>
 
-  <div class="finder--results -blankslate js-campaign-blankslate">
-    <ul class="gallery -mosaic -featured">
-    <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
-    </ul>
-  </div>
-
-  <?php if( $show_campaign_finder ): ?>
-  <div class="finder--results js-campaign-results"></div>
-  <?php endif; ?>
-
-  <?php if( $show_sponsors && !$is_affiliate ) : ?>
-  <div class="home--sponsors">
+<?php if( $show_sponsors && !$is_affiliate ) : ?>
+<section class="container -sponsors">
+  <div class="wrapper">
     <h4><?php print t('Sponsors'); ?></h4>
     <ul>
       <?php foreach($partners as $partner) { print '<li><img src="' . $partner['logo']['path'] . '" title="' . $partner['name'] . '"></li>'; } ?>
     </ul>
   </div>
-  <?php endif; ?>
-
-</div>
+</section>
+<?php endif; ?>

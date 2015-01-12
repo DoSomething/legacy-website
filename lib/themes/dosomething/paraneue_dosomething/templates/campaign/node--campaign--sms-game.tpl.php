@@ -22,53 +22,49 @@
   <div class="wrapper">
 
     <section id="know" class="container know">
-      <h2 class="container__title banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
+      <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
 
-      <div class="wrapper">
+      <div class="wrapper -half">
+        <?php if (isset($campaign->fact_problem)): ?>
+        <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
+        <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
+        <?php endif; ?>
 
-        <div class="container__body">
-          <div class="-columned">
-            <?php if (isset($campaign->fact_problem)): ?>
-            <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
-            <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
-            <?php endif; ?>
+        <?php if (isset($psa)): ?>
+          <aside <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+            <?php print $psa; ?>
+          </aside>
+        <?php else: ?>
+          <?php if (isset($modals)): ?>
+            <?php print $modals; ?>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
 
-            <?php if (isset($psa)): ?>
-              <aside <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
-                <?php print $psa; ?>
-              </aside>
-            <?php else: ?>
-              <?php if (isset($modals)): ?>
-                <?php print $modals; ?>
-              <?php endif; ?>
-            <?php endif; ?>
-          </div>
+      <div class="wrapper -half">
+        <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
+            <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
 
-          <div class="-columned -col-last">
-            <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-                <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
+          <?php if (isset($campaign->fact_solution)): ?>
+            <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
+          <?php elseif (isset($campaign->solution_copy)): ?>
+            <?php print $campaign->solution_copy; ?>
+          <?php endif; ?>
 
-              <?php if (isset($campaign->fact_solution)): ?>
-                <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
-              <?php elseif (isset($campaign->solution_copy)): ?>
-                <?php print $campaign->solution_copy; ?>
-              <?php endif; ?>
+          <?php if (isset($campaign->solution_support)): ?>
+            <?php print $campaign->solution_support; ?>
+          <?php endif; ?>
 
-              <?php if (isset($campaign->solution_support)): ?>
-                <?php print $campaign->solution_support; ?>
-              <?php endif; ?>
+        <?php endif; ?>
 
-            <?php endif; ?>
+        <?php if (isset($psa)): ?>
+          <?php if (isset($modals)): ?>
+            <?php print $modals; ?>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
 
-            <?php if (isset($psa)): ?>
-              <?php if (isset($modals)): ?>
-                <?php print $modals; ?>
-              <?php endif; ?>
-            <?php endif; ?>
-          </div>
-        </div>
-
-
+      <div class="wrapper -narrow">
         <?php if (isset($campaign->fact_sources)): ?>
         <section class="sources">
           <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
@@ -84,37 +80,37 @@
 
 
     <section id="do" class="container container--do inline--alt-bg">
-      <h2 class="container__title banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
+      <h2 class="heading -banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
 
-      <div class="wrapper">
-        <div class="container__body">
-          <?php if (isset($starter_header)) : ?>
-            <h3 class="inline--alt-color"><?php print $starter_header; ?></h3>
-          <?php endif; ?>
-          <?php if (isset($starter)) : ?>
-            <div><?php print $starter['safe_value']; ?></div>
-          <?php endif; ?>
+      <div class="wrapper -narrow">
+        <?php if (isset($starter_header)) : ?>
+          <h3 class="inline--alt-color"><?php print $starter_header; ?></h3>
+        <?php endif; ?>
+        <?php if (isset($starter)) : ?>
+          <div><?php print $starter['safe_value']; ?></div>
+        <?php endif; ?>
 
-          <?php if (isset($signup_form)) : ?>
-            <?php print render($signup_form); ?>
-          <?php endif; ?>
+        <?php if (isset($signup_form)) : ?>
+          <?php print render($signup_form); ?>
+        <?php endif; ?>
 
-          <?php print $campaign_scholarship; ?>
-        </div>
+        <?php print $campaign_scholarship; ?>
 
         <div class="disclaimer legal">
           <p>
             <?php
-              print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
+            print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
               array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
           </p>
         </div>
       </div>
+
+      <?php if ($info_bar): ?>
+        <?php print $info_bar; ?>
+      <?php endif; ?>
+
     </section>
 
-    <?php if ($info_bar): ?>
-      <?php print $info_bar; ?>
-    <?php endif; ?>
 
   </div>
 

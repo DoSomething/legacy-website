@@ -12,7 +12,7 @@
  */
 ?>
 <article>
-  <header role="banner" class="-centered notfound">
+  <header role="banner" class="-centered header-notfound">
     <div class="wrapper">
       <h1 class="__title"><?php print $title ?></h1>
       <?php print $subtitle ?>
