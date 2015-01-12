@@ -19,6 +19,18 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  // Comma separated list of default Gallery File fid's.
+  $var_name = 'dosomething_campaign_default_gallery_fids';
+  $form['campaign'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Placeholder Gallery Files'),
+    '#description' => t("A comma separated list of !link to use for the Gallery if not enough Reportbacks exist.  Do not use spaces.<p>e.g. 3123,234,8929,100112", array(
+      '!link' => l("File fid's", 'admin/content/files'),
+    )),
+    '#required' => TRUE,
+    '#default_value' => variable_get($var_name),
+  );
+
   // Reportback variables.
   $form['campaign']['reportback'] = array(
     '#type' => 'fieldset',
