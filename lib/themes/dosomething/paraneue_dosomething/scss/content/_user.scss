@@ -3,53 +3,6 @@
 // ----------------
 
 .profile {
-
-  h1, h2, h3, h4, h5, h6 {  // @TODO: remove from here and place globally.
-    margin-top: 0;
-  }
-
-
-  section {
-    padding-bottom: 0;  // @TODO: Ideally these sections would have some bottom padding globally, but on profile needs to be 0.
-
-    .banner {
-      font-size: $font-medium;
-      margin-bottom: 0;
-
-      @include media($tablet) {
-        padding-left: 0;
-        padding-right: 0;
-
-        > span {
-          @include push(2 of 16);
-        }
-      }
-    }
-
-    > .wrapper {
-      padding: 27px 18px;
-
-      @include media($tablet) {
-        padding-left: 0;
-        padding-right: 0;
-
-        @include span(12);
-        @include push(2);
-        float: none;
-      }
-    }
-
-    .__segment {
-      padding-bottom: 0;
-
-      + .__segment {
-        > .wrapper {
-          padding-top: 0;
-        }
-      }
-    }
-  }
-
   .tile {
     .__tagline { display: none; }
   }
@@ -57,10 +10,6 @@
 
 // Profile Settings
 .profile--settings {
-  > .wrapper {
-    @include clearfix();
-  }
-
   dl {
     padding-right: 18px;
 
