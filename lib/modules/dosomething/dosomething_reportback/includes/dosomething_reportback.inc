@@ -124,12 +124,19 @@ class ReportbackEntity extends Entity {
     if (!isset($values->caption)) {
       $values->caption = NULL;
     }
+    // Default status should be pending:
+    $status = 'pending';
+    // If this reportback has been flagged already:
+    if ($this->flagged) {
+      $status = 'flagged';
+    }
     return db_insert($this->files_table)
       ->fields(array(
           'rbid' => $this->rbid,
           'fid' => $values->fid,
           'caption' => $values->caption,
           'remote_addr' => dosomething_helpers_ip_address(),
+          'status' => $status,
         ))
       ->execute();
   }
