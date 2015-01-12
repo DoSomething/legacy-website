@@ -1,21 +1,18 @@
-.home--wrapper {
-  background: #fff;
+.home-banner {
+  background: $purple;
+  padding: 100px 0 $base-spacing;
   overflow: hidden;
-}
-
-.home--hero {
-  background-size: cover;
-  padding: 100px 0 36px;
 
   @include media($tablet) {
     padding-top: 126px;
   }
 
   .header {
+    @include clearfix;
     margin-bottom: 18px;
 
     @include media($tablet) {
-      @include span(14);
+      width: span(14);
       @include push(1);
     }
 
@@ -55,22 +52,11 @@
 }
 
 
-.home--sponsors {
-  clear: both;
-  width: 100%;
-  background: #fff;
+.container.-sponsors {
   text-align: center;
-  overflow: hidden;
-  padding: 36px 0;
-
-  @include media($tablet) {
-    @include span(12);
-    @include push(2);
-  }
 
   h4 {
     color: $light-gray;
-    margin-top: 0;
   }
 
   ul {

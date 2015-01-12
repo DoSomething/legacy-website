@@ -31,8 +31,7 @@
       overflow: hidden;
       position: relative;
       margin: 0;
-      // @TODO Add me back in.
-      // break-inside: avoid;
+      break-inside: avoid;
 
       &.checked label {
         background-color: $yellow;
@@ -46,7 +45,7 @@
     .caret-toggle {
       color: $purple;
       cursor: pointer;
-      padding: 10px 18px;
+      padding: ($base-spacing / 2) 18px;
     }
 
     .__title {
@@ -54,17 +53,18 @@
       font-weight: $weight-bold;
       line-height: 1;
       margin: 0;
-      padding: 0 0 4px 27px;
+      padding: 0 0 4px $base-spacing;
 
       &:before {
         @include icomoon-icon;
         position: absolute;
         z-index: 1; // fixes display issue with css3 columns in below container
-        left: -4px;
-        top: -9px;
+        left: -8px;
+        top: -8px;
         content: "\e607";
         font-size: 32px;
-        transform: rotate(-90deg), transform 0.25s;
+        transform: rotate(0deg);
+        transition: transform 0.25s;
       }
     }
 
@@ -72,44 +72,43 @@
       color: $med-gray;
       font-size: $font-smaller;
       line-height: 1;
-      padding-left: 27px;
+      padding-left: $base-spacing;
       margin: 0;
     }
 
     .dropdown-menu {
-      display: none;
-      padding: 0 18px 10px;
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 $base-spacing;
+      transition: max-height 0.25s, padding 0.25s;
 
       ul {
-        overflow: hidden;
-        padding-left: 18px;
+        padding-left: 10px;
       }
     }
 
     // Dropdown open.
     &.open {
       .__title:before {
-        transform: rotate(0);
+        transform: rotate(90deg);
       }
 
       .dropdown-menu {
-        display: block;
+        max-height: 500px;
+        padding-bottom: $base-spacing;
       }
     }
   }
 
   .two-col {
-    padding-left: 18px;
+    padding-left: $base-spacing;
 
     @include media("(min-width: 550px)") {
-      -moz-column-count: 2;
-      -webkit-column-count: 2;
       column-count: 2;
     }
 
     @include media("(min-width: 768px) and (max-width: 1000px)") {
-      -moz-column-count: 1;
-      -webkit-column-count: 1;
       column-count: 1;
     }
   }
@@ -147,7 +146,7 @@
     padding: 14px 9px;
     position: relative;
     cursor: pointer;
-    transition: left .1s linear;
+    transition: left 0.1s linear;
 
     @include media($tablet) {
       padding-bottom: 4px;
@@ -238,8 +237,6 @@ label:hover {
   }
 
   .campaign-result {
-    transition: background-image .5s ease-in-out;
-
     img {
       // lazy-load animation
       opacity: 0;
