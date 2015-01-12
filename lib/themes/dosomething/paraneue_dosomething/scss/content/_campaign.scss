@@ -93,7 +93,7 @@
     }
   }
 
-  .container.-do {
+  .container--do {
     .polaroid {
       @include media($mobile) {
         margin-bottom: $base-spacing;
@@ -107,7 +107,7 @@
     }
   }
 
-  .container.-prove {
+  .container--prove {
     > .wrapper {
       text-align: center;
 

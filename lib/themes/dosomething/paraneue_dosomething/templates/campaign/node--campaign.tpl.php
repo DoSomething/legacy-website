@@ -185,7 +185,7 @@
 
 
   <?php // DO IT ////////////////////////////////////////////////////// ?>
-  <section id="do" class="container -do">
+  <section id="do" class="container container--do">
     <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
         <?php foreach ($do as $key => $content): ?>
           <div class="wrapper -narrow">
@@ -247,7 +247,7 @@
 
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
-  <section id="prove" class="container -prove -patterned inline--alt-bg <?php if($show_new_reportback) print 'reportback-beta'; ?>">
+  <section id="prove" class="container -patterned container--prove inline--alt-bg <?php if($show_new_reportback) print 'reportback-beta'; ?>">
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <?php if( $show_new_reportback ): ?>
