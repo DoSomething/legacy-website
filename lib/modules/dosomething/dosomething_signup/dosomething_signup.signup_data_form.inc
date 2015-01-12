@@ -289,7 +289,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#access' => FALSE,
   );
   $form['header'] = array(
-    '#prefix' => '<h2 class="banner">',
+    '#prefix' => '<h2 class="heading -banner">',
     '#markup' => $config['form_header'],
     '#suffix' => '</h2>',
   );

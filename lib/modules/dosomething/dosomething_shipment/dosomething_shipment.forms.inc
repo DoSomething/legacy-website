@@ -34,7 +34,7 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     '#access' => FALSE,
   );
   $form['header'] = array(
-    '#prefix' => '<h2 class="banner">',
+    '#prefix' => '<h2 class="heading -banner">',
     '#markup' => $config['shipment_form_header'],
     '#suffix' => '</h2>',
   );
