@@ -815,3 +815,27 @@ function dosomething_campaign_form_campaign_node_form_after_build($form, &$form_
   drupal_add_js ($path . "/js/campaign_node_form.js");
   return $form;
 }
+
+/**
+ * Returns array of Image URL's for the default placeholder images in a Campaign Gallery.
+ *
+ * @param string $size
+ *   The preset to theme the image with.
+ *
+ * @return array
+ */
+function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') {
+  $urls = array();
+  // Variable name which holds a comma separated list of default File fid's.
+  $var_name = 'dosomething_campaign_default_gallery_fids';
+  // Extract the fid's.
+  $fids = explode(',', variable_get($var_name, array()));
+  // Loop through each one:
+  foreach ($fids as $fid) {
+    // Make sure an image exists:
+    if ($url = dosomething_image_get_themed_image_url_by_fid((int) $fid, $size)) {
+      $urls[] = $url;
+    }
+  }
+  return $urls;
+}
