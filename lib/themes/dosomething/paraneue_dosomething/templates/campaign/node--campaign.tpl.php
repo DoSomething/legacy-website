@@ -275,7 +275,7 @@
 
 
     <?php // PROVE IT ////////////////////////////////////////////////////// ?>
-    <section id="prove" class="container container--prove inline--alt-bg">
+    <section id="prove" class="container container--prove inline--alt-bg <?php if( $show_new_reportback ) print 'reportback-beta'; ?>">
       <h2 class="container__title banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
       <div class="wrapper">

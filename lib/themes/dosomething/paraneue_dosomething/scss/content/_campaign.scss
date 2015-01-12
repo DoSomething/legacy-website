@@ -18,10 +18,13 @@
 
 .campaign--action .container--prove,
 .campaign--sms .container--do {
-  // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
-  // background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
-  background-color: $yellow;
+  background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
   padding-bottom: 126px;
+  
+  // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
+  &.reportback-beta {
+    background: $yellow;
+  }
 
   @include media($tablet) {
     padding-bottom: 90px;
@@ -134,19 +137,26 @@
         text-align: left;
       }
     }
-
+    
     h3 {
-      // @TODO: confirm for v2 Reportbacks.
-      // color: #fff;
-      color: $purple;
+      color: #fff;
       font-size: $font-large;
       margin-bottom: 27px;
     }
 
     p, a {
-      // @TODO: confirm for v2 Reportbacks.
-      // color: #fff;
-      color: #000;
+      color: #fff;
+    }
+
+    // @TODO: v2 Reportbacks temporary addition.
+    &.reportback-beta {
+      h3 {
+        color: $purple;
+      }
+
+      p, a {
+        color: #000;
+      }
     }
 
     .message-callout {
