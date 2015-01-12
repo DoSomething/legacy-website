@@ -14,28 +14,26 @@
 
   <?php if (isset($intro)): ?>
     <section class="container container--intro">
-      <div class="wrapper">
-        <?php if (isset($intro_title)): ?>
-          <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
-        <?php endif; ?>
-        <div class="wrapper <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
-          <?php print $intro; ?>
-          <?php if (isset($modals)): ?>
-            <?php print $modals; ?>
-          <?php endif; ?>
-        </div>
-        <?php if (isset($intro_image) || isset($intro_video)): ?>
-        <div class="wrapper -half">
-          <?php if (isset($intro_video)): ?>
-            <div class="media-video">
-              <?php print $intro_video; ?>
-            </div>
-          <?php elseif (isset($intro_image)): ?>
-            <?php print $intro_image; ?>
-          <?php endif; ?>
-        </div>
+      <?php if (isset($intro_title)): ?>
+        <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
+      <?php endif; ?>
+      <div class="wrapper <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
+        <?php print $intro; ?>
+        <?php if (isset($modals)): ?>
+          <?php print $modals; ?>
         <?php endif; ?>
       </div>
+      <?php if (isset($intro_image) || isset($intro_video)): ?>
+      <div class="wrapper -half">
+        <?php if (isset($intro_video)): ?>
+          <div class="media-video">
+            <?php print $intro_video; ?>
+          </div>
+        <?php elseif (isset($intro_image)): ?>
+          <?php print $intro_image; ?>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
     </section>
   <?php endif; ?>
 
