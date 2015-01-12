@@ -27,6 +27,7 @@ $asset-path: "";
 @import "content/waypoints"; // @TODO: Move to Neue!
 @import "content/tabbed"; // @TODO: Move to Neue!
 @import "content/statistic"; // @TODO: Move to Neue!
+@import "patterns/list-compacted";
 
 // Content styles by section
 @import "content/auth";
