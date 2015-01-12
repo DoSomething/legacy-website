@@ -31,7 +31,8 @@ $flex-gutter: flex-gutter(12);
 // Main Reportback container
 .reportback {
   > .wrapper {
-    overflow: hidden;
+    @include clearfix();
+    position: relative;
     width: 100%;
 
     @include media($tablet) {
@@ -39,6 +40,10 @@ $flex-gutter: flex-gutter(12);
       direction: rtl;
       table-layout: fixed;
     }
+  }
+
+  .view-more {
+    @include clearfix();
   }
 
   @include media($tablet) {
@@ -69,6 +74,16 @@ $flex-gutter: flex-gutter(12);
 
     form {
       width: (50% - ($flex-gutter / 2));
+    }
+  }
+
+  .btn--view-more {
+    color: #000;
+    float: right;
+    text-transform: lowercase;
+
+    &:focus {
+      box-shadow: none;
     }
   }
 }
