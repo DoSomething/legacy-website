@@ -19,7 +19,7 @@
 .campaign--sms .container--do {
   background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
   padding-bottom: 126px;
-  
+
   // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
   &.reportback-beta {
     background: $yellow;
@@ -93,40 +93,31 @@
     }
   }
 
-  .container--do {
+  .container.-do {
     .polaroid {
-      @include media($tablet) {
-        left: 104%;
-        position: absolute;
-        top: 117px;
+      @include media($mobile) {
+        margin-bottom: $base-spacing;
       }
 
-      // @TODO: might have to replace neue pattern for
-      // .polaroid + p definition with the following
-      & + h3 {
-        margin-top: 27px;
-
-        @include media($tablet) {
-          margin-top: 0;
-        }
+      @include media($tablet) {
+        position: absolute;
+        top: -150px;
+        left: 104%;
       }
     }
   }
 
-  .container--prove {
-
-    .container__body {
+  .container.-prove {
+    > .wrapper {
       text-align: center;
 
       @include media($tablet) {
         text-align: left;
       }
     }
-    
+
     h3 {
       color: #fff;
-      font-size: $font-large;
-      margin-bottom: 27px;
     }
 
     p, a {
@@ -152,6 +143,12 @@
         }
       }
     }
+
+    .carousel {
+      @include media($tablet) {
+        float: right;
+      }
+    }
   }
 }
 
@@ -169,9 +166,10 @@
         width: 215px;
 
         @include media($tablet) {
-          margin: 0;
-          right: 20px;
           position: absolute;
+          top: 0;
+          right: 20px;
+          margin: 0;
         }
 
         .__copy {

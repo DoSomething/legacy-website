@@ -1,4 +1,4 @@
-<ul class="modal-links">
+<ul class="list-compacted">
   <?php if (isset($modals['faq'])): ?>
     <li><a href="#" data-modal-href="#modal-faq"><?php print t('Check out our FAQs'); ?></a></li>
   <?php endif; ?>
