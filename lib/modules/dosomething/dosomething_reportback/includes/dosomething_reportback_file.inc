@@ -66,7 +66,7 @@ class ReportbackFileEntity extends Entity {
         $reason = $values['flagged_reason'];
       }
       $reportback->flag($reason);
-      if (isset($values['delete']) && $values['delete']) {
+      if (!empty($values['delete'])) {
         $this->deleteFile();
       }
     }
