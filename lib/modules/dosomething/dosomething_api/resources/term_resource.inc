@@ -63,10 +63,18 @@ function _term_resource_defintion() {
  */
 function _term_resource_index($parameters) {
   $terms = array();
+  $int_properties = array('tid', 'vid');
   $cause = taxonomy_vocabulary_machine_name_load('cause');
   if ($cause) {
     $terms = taxonomy_get_tree($cause->vid);
   }
+  foreach ($terms as &$term) {
+    // Convert string output to integers where appropriate.
+    foreach ($int_properties as $property) {
+      $term->{$property} = (int) $term->{$property};
+    }
+  }
+  unset($term);
   return $terms;
 }
 
