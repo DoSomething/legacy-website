@@ -53,7 +53,7 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
     '#value' => $label,
     '#attributes' => array(
       'class' => array(
-        'btn',
+        'button',
       ),
     ),
   );
@@ -99,8 +99,7 @@ function dosomething_signup_presignup_form($form, &$form_state, $nid, $label) {
     '#value' => $label,
     '#attributes' => array(
       'class' => array(
-        'btn',
-        'medium',
+        'button',
       ),
     ),
   );

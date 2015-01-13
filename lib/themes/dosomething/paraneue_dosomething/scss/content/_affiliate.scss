@@ -30,12 +30,11 @@ body.-affiliate {
       }
 
       img {
-        @include fluid-image();
         margin: 0 auto;
       }
 
       @include media($tablet) {
-        @include span-columns(2);
+        @include span(2);
 
         h4 {
           font-size: $font-small;
@@ -47,7 +46,7 @@ body.-affiliate {
 
     .social {
       @include media($tablet) {
-        @include span-columns(5);
+        @include span(5);
       }
 
       &.mobile {

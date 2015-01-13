@@ -1,16 +1,17 @@
 .waypoints {
-  @include clearfix();
+  @include clearfix;
 
   .__menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    @include clearfix();
+    @include clearfix;
 
     li {
       float: left;
       line-height: 1;
       position: relative;
+      margin: 0;
     }
 
     a {

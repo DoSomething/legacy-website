@@ -13,11 +13,8 @@
 $neue-path: "../bower_components/neue/dist/assets/";
 $asset-path: "";
 
-// Import Bourbon, grid-settings, Neat, and Neue
-@import "../bower_components/bourbon/dist/bourbon";
-@import "../bower_components/neat/app/assets/stylesheets/neat-helpers";
-@import "../bower_components/neue/scss/_utilities/grid-settings";
-@import "../bower_components/neat/app/assets/stylesheets/neat";
+// Import Susy and Neue
+@import "../bower_components/susy/sass/susy";
 @import "../bower_components/neue/scss/neue";
 
 // Import our local variables and helpers
@@ -26,34 +23,39 @@ $asset-path: "";
 // Drupal styles
 @import "overrides/drupal";
 
+// Local patterns
+@import "patterns/container";
+@import "patterns/disclaimer";
+@import "patterns/list-compacted";
+@import "patterns/message-callout"; // @TODO: Move to Neue!
+@import "patterns/promotion"; // @TODO: Move to Neue!
+@import "patterns/sources"; // @TODO: Move to Neue!
+@import "patterns/statistic"; // @TODO: Move to Neue!
+@import "patterns/tabbed"; // @TODO: Move to Neue!
+@import "patterns/waypoints"; // @TODO: Move to Neue!
+
 // Content styles by section
-@import "content/heading"; // @TODO: Move to Neue!
+@import "content/affiliate";
 @import "content/auth";
-@import "content/home";
 @import "content/campaign";
 @import "content/campaign-closed";
-@import "content/promotion";
-@import "content/sources";
-@import "content/disclaimer";
 @import "content/confirmation";
+@import "content/donate";
+@import "content/explore-campaigns";
+@import "content/fact-page";
+@import "content/finder";
+@import "content/home";
 @import "content/modal-address";
-@import "content/modal-reportback";
-@import "content/modal-schoolfinder";
 @import "content/modal-creator";
 @import "content/modal-crop";
-@import "content/static";
-@import "content/fact-page";
-@import "content/search";
-@import "content/explore-campaigns";
-@import "content/finder";
-@import "content/user";
-@import "content/waypoints"; // @TODO: Move to Neue!
-@import "content/tabbed"; // @TODO: Move to Neue!
-@import "content/affiliate";
+@import "content/modal-reportback";
+@import "content/modal-schoolfinder";
 @import "content/notfound";
-@import "content/donate";
-@import "content/taxonomy";
 @import "content/reportback";
+@import "content/search";
+@import "content/static";
+@import "content/taxonomy";
+@import "content/user";
 
 // One-off pages
 @import "content/campaign/hunt-mcc";

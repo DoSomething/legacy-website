@@ -57,15 +57,19 @@
     .legal {
       color: rgba(255, 255, 255, 0.6);
       font-weight: $weight-bold;
+      margin-bottom: $base-spacing;
     }
 
     img {
+      float: left;
+      margin: $base-spacing / 2;
       max-width: 250px;
       max-height: 300px;
       width: auto;
       height: auto;
       background: $light-gray;
       border: 6px solid #fff;
+      box-shadow: $box-shadow;
     }
   }
 

@@ -32,6 +32,6 @@
 <div class="cta">
   <div class="wrapper">
     <h2 class="__message"><?php print t('Sign up for Pineapple Push-Ups to speak out against sexist comments.'); ?></h2>
-    <a href="#" class="btn"><?php print t('Sign Up'); ?></a>
+    <a href="#" class="button"><?php print t('Sign Up'); ?></a>
   </div>
 </div>

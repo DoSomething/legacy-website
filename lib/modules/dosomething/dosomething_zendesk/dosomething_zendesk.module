@@ -152,7 +152,7 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
     '#value' => t('Submit'),
     '#prefix' => '<div class="form-actions">',
     '#suffix' => '</div>',
-    '#attributes' => array('class' => array('btn')),
+    '#attributes' => array('class' => array('button')),
   );
 
   return $form;

@@ -1,4 +1,4 @@
-<ul class="modal-links">
+<ul class="list-compacted">
   <?php if (isset($modals['faq'])): ?>
     <li><a href="#" data-modal-href="#modal-faq"><?php print t('Check out our FAQs'); ?></a></li>
   <?php endif; ?>
@@ -19,7 +19,7 @@
 
 <?php if (isset($modals['faq'])): ?>
 <div data-modal id="modal-faq" role="dialog">
-  <h2 class="banner"><?php print t('FAQs'); ?></h2>
+  <h2 class="heading -banner"><?php print t('FAQs'); ?></h2>
   <?php foreach ($modals['faq'] as $item): ?>
     <h4 class="faq-header"><?php print $item['header']; ?></h4>
     <div class="faq-copy"><?php print $item['copy'] ?></div>
@@ -30,7 +30,7 @@
 
 <?php if (isset($modals['more_facts'])): ?>
 <div data-modal id="modal-facts" role="dialog">
-  <h2 class="banner"><?php print t('Facts'); ?></h2>
+  <h2 class="heading -banner"><?php print t('Facts'); ?></h2>
   <ul>
   <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
     <li><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></li>
@@ -52,7 +52,7 @@
 <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
     <div data-modal id="modal-partner-<?php print $delta; ?>" role="dialog">
-      <h2 class="banner"><?php print t('We &lt;3 @partner', array('@partner' => $partner['name'])); ?></h2>
+      <h2 class="heading -banner"><?php print t('We &lt;3 @partner', array('@partner' => $partner['name'])); ?></h2>
       <?php print $partner['copy']; ?>
       <?php if (isset($partner['video'])): print $partner['video']; ?>
       <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>

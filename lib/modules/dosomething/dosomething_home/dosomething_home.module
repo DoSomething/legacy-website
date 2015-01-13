@@ -39,25 +39,24 @@ function dosomething_home_preprocess_node(&$vars) {
       // Grab all tiles attributes.
       $tiles = array();
       $tiles['nid'] = $nid;
-      $tiles['staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+      $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
       $tiles['title'] = $node->title;
-      $tiles['cta'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
+      $tiles['tagline'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
 
       // Get the campaign cover image.
       $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
       if ($key == 0) {
         $tiles['modifier_classes'] = "big";
-        $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+        $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
+      } else {
+        $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
       }
-      else {
-        $tiles['image'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
-      }
 
+      $tiles['status'] = TRUE;
+      $tiles['image'] = '<img src="' . $tiles['image_url'] . '">';
+      $tiles['link'] = drupal_get_path_alias('node/' . $nid) . $source;
 
-      $tiles['path'] = 'node/' . $nid;
-      $tiles['pretty_path'] = drupal_get_path_alias($tiles['path']) . $source;
-
-      $thumbnails[$nid] = theme('thumbnail', $tiles);
+      $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
   }
 

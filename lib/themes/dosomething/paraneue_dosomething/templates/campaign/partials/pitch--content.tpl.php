@@ -32,6 +32,6 @@
 <div class="cta">
   <div class="wrapper">
     <h2 class="__message">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h2>
-    <a href="#" class="btn"><?php print t('Sign Up'); ?></a>
+    <a href="#" class="button"><?php print t('Sign Up'); ?></a>
   </div>
 </div>

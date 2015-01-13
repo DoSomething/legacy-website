@@ -75,7 +75,7 @@
       position: absolute;
       top: 1px;
       right: 6px;
-      @include transform(rotate(0));
+      transform: rotate(0deg);
     }
   }
 }

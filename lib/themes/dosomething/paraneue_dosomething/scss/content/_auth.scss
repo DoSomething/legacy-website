@@ -1,45 +1,23 @@
-.auth--login {
-  .form-actions {
-    text-align: center;
-    margin: 18px 0;
-  }
-}
+.auth-twocol {
+  @include media($tablet) {
+    float: left;
+    width: 50%;
+    padding-right: ($base-spacing / 2);
 
-.auth--register {
-  .field-label-optional {
-    color: $light-gray;
-  }
-
-  .form-actions {
-    text-align: center;
-    margin: 18px 0;
-  }
-
-  .auth--twocol {
-    @include media($tablet) {
-      float: left;
-      width: 50%;
-      padding-right: 9px;
+    + .auth-twocol {
+      padding-right: 0;
+      padding-left: ($base-spacing / 2);
     }
   }
 }
 
-.auth--header {
-  text-align: center;
-  padding: 0 18px;
-  color: $purple;
 
-  @include media($tablet) {
-    padding: 0 54px;
-  }
+.auth-heading {
+  text-align: center;
+  margin: $base-spacing;
 }
 
-.auth--subheader {
+.auth-toggle-link {
   text-align: center;
-  color: $med-gray;
-}
-
-.auth--toggle-link {
-  text-align: center;
-  margin: 18px 0;
+  margin: $base-spacing 0;
 }

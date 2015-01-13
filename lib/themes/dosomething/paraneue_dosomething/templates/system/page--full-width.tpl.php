@@ -7,16 +7,12 @@
 
 ?>
 
-<?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
-<?php print $messages; ?>
+<?php print $variables['navigation']; ?>
+<?php print $variables['header']; ?>
 
-<div class="chrome--wrapper">
-  <?php print $variables['navigation']; ?>
+<main role="main">
+  <?php print render($page['content']); ?>
+</main>
 
-  <main role="main">
-    <?php print render($page['content']); ?>
-  </main>
-
-  <?php print $variables['footer']; ?>
-</div>
+<?php print $variables['footer']; ?>
 

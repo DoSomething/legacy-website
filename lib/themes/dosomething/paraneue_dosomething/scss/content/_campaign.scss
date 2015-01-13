@@ -1,47 +1,16 @@
 .campaign {
-  > .wrapper {
-    position: relative;
-  }
+  position: relative;
 }
-
 
 
 // Page Specific Components
-.campaign--action,
-.campaign--sms {
-  .info-bar {
-    bottom: 0;
-    position: absolute;
-    width: 100%;
-  }
-}
-
 .campaign--action .container--prove,
 .campaign--sms .container--do {
   background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
-  padding-bottom: 126px;
-  
+
   // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
   &.reportback-beta {
     background: $yellow;
-  }
-
-  @include media($tablet) {
-    padding-bottom: 90px;
-  }
-}
-
-// @TODO update this in neue
-.message-callout {
-  @include media($tablet) {
-    @include transform(rotate(-3deg));
-  }
-
-  &.-dynamic-right {
-    .__copy {
-      padding-bottom: 3px;
-      padding-top: 3px;
-    }
   }
 }
 
@@ -110,38 +79,29 @@
 
   .container--do {
     .polaroid {
-      @include media($tablet) {
-        left: 104%;
-        position: absolute;
-        top: 117px;
+      @include media($mobile) {
+        margin-bottom: $base-spacing;
       }
 
-      // @TODO: might have to replace neue pattern for
-      // .polaroid + p definition with the following
-      & + h3 {
-        margin-top: 27px;
-
-        @include media($tablet) {
-          margin-top: 0;
-        }
+      @include media($tablet) {
+        position: absolute;
+        top: -150px;
+        left: 104%;
       }
     }
   }
 
   .container--prove {
-
-    .container__body {
+    > .wrapper {
       text-align: center;
 
       @include media($tablet) {
         text-align: left;
       }
     }
-    
+
     h3 {
       color: #fff;
-      font-size: $font-large;
-      margin-bottom: 27px;
     }
 
     p, a {
@@ -167,20 +127,14 @@
         }
       }
     }
-  }
-}
 
-
-// Campaign Pitch Page
-.campaign--pitch {
-  // Remove additional top padding if tagline is first container item on Pitch page.
-  .container--tagline {
-    > .wrapper {
-      padding-top: 9px;
+    .carousel {
+      @include media($tablet) {
+        float: right;
+      }
     }
   }
 }
-
 
 // Campaign SMS Game Page
 .campaign--sms {
@@ -196,9 +150,10 @@
         width: 215px;
 
         @include media($tablet) {
-          margin: 0;
-          right: 20px;
           position: absolute;
+          top: 0;
+          right: 20px;
+          margin: 0;
         }
 
         .__copy {
@@ -219,96 +174,5 @@
       }
     }
   }
-
-  // @TODO: find a better way to address the variations in gray; sass lists? (2014.06.24)
-  .disclaimer {
-    p, a {
-      color: darken($med-gray, 10%);
-    }
-  }
 }
 
-
-// @TODO: update in Neue: _forms.scss
-.-media-options {
-  @include clearfix();
-
-  .form-item {
-    @include span-columns(4);
-    position: relative;
-
-    label {
-      height: auto;
-      margin-top: 0;
-      max-width: 150px;
-      position: relative;
-
-      .inner-label {
-        top: 0;
-      }
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-      @include visually-hidden();
-    }
-
-    img {
-      cursor: pointer;
-      border: 2px solid $med-gray;
-      border-radius: $sm-border-radius;
-      max-width: 100px;
-
-      @include media($tablet) {
-        max-width: none;
-      }
-
-      &:hover {
-        border-color: $blue;
-      }
-    }
-
-    // Last-child not supported in IE8; using class as fallback.
-    &.-second {
-      margin-right: 0;
-    }
-
-    &:before {
-      font-size: $font-regular;
-      font-weight: $weight-sbold;
-      height: 30px;
-      left: -50%;
-      margin: -15px 0 0 23px;
-      position: absolute;
-      text-align: center;
-      text-transform: uppercase;
-      top: 50%;
-      width: 40px;
-
-      @include media($tablet) {
-        font-size: $font-medium;
-        margin-left: 45px;
-        margin-top: -25px;
-      }
-    }
-
-    &.form-type-radio {
-      &:before {
-        content: "or";
-      }
-    }
-
-    &:first-child {
-      &:before {
-        content: "";
-      }
-    }
-
-    &.selected {
-      img {
-        border-color: $blue;
-        border-width: 4px;
-      }
-    }
-  }
-}

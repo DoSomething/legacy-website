@@ -1,4 +1,6 @@
-exclude: 'scss/vendor/**'
+exclude:
+  - 'scss/vendor/**'
+  - 'scss/overrides/_drupal.scss'
 
 linters:
   BorderZero:
@@ -17,13 +19,13 @@ linters:
     enabled: true
 
   DeclarationOrder:
-    enabled: true
+    enabled: false
 
   DeclaredName:
     enabled: true
 
   DuplicateProperty:
-    enabled: true
+    enabled: false
 
   EmptyLineBetweenBlocks:
     enabled: true
@@ -31,10 +33,18 @@ linters:
   EmptyRule:
     enabled: true
 
-  HexFormat:
+  HexLength:
+    enabled: true
+    style: short
+
+  HexNotation:
+    enabled: true
+    style: lowercase
+
+  IdSelector:
     enabled: true
 
-  IdWithExtraneousSelector:
+  ImportPath:
     enabled: true
 
   Indentation:
@@ -42,9 +52,13 @@ linters:
     width: 2
 
   LeadingZero:
-    enabled: false
+    enabled: true
+    style: include_zero
 
   MergeableSelector:
+    enabled: false
+
+  NestingDepth:
     enabled: false
 
   PlaceholderInExtend:
@@ -52,7 +66,11 @@ linters:
 
   PropertySpelling:
     enabled: true
-    extra_properties: []
+    extra_properties:
+      - break-inside
+
+  QualifyingElement:
+    enabled: false
 
   SelectorDepth:
     enabled: false
@@ -74,6 +92,9 @@ linters:
   UrlQuotes:
     enabled: true
 
+  SelectorFormat:
+    enabled: false
+
   SpaceAfterComma:
     enabled: true
 
@@ -90,10 +111,19 @@ linters:
     enabled: true
     spaces: 0
 
-  TrailingSemicolonAfterPropertyValue:
+  TrailingSemicolon:
+    enabled: true
+
+  TrailingZero:
+    enabled: true
+
+  UnnecessaryMantissa:
     enabled: true
 
   UsageName:
+    enabled: true
+
+  VendorPrefixes:
     enabled: true
 
   ZeroUnit:

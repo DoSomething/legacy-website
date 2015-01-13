@@ -22,12 +22,10 @@ function paraneue_dosomething_page_alter_login(&$page) {
  */
 function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
   if( $form_id == "user_login_block" || $form_id == 'user_login' ) {
-    $form['#attributes']['class'] = 'auth--login';
-
     $header = t("Log in to get started!");
     $form['header'] = array(
       '#type' => 'item',
-      '#markup' => '<h2 class="auth--header">' . $header . '</h2>',
+      '#markup' => '<h2 class="auth-heading">' . $header . '</h2>',
       '#weight' => -199,
     );
 
@@ -36,7 +34,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     if (!empty($subheader)) {
       $form['subheader'] = array(
         '#type' => 'item',
-        '#markup' => '<p class="auth--subheader">' . $subheader . '</p>',
+        '#markup' => '<p class="auth-heading">' . $subheader . '</p>',
         '#weight' => -189,
       );
     }
@@ -53,11 +51,11 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     }
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link">' . $link_create . $link_forgot . '</p>',
+      '#markup' => '<p class="auth-toggle-link">' . $link_create . $link_forgot . '</p>',
       '#weight' => 500,
     );
 
-    $form['actions']['submit']['#attributes']['class'] = array('btn');
+    $form['actions']['submit']['#attributes']['class'] = array('button');
 
     unset($form['links']);
 

@@ -1,5 +1,5 @@
-$btw-mobile-and-tablet: 860px;
-$btw-tablet-and-desktop: 960px;
+$btw-mobile-and-tablet: "(min-width: 860px)";
+$btw-tablet-and-desktop: "(min-width: 960px)";
 
 // Temp to be moved to the module in Neue!
 [role="banner"] .promotions {

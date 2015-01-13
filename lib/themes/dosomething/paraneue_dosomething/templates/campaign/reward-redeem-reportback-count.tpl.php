@@ -28,7 +28,7 @@
 
   <section class="container container--intro">
     <div class="wrapper">
-      
+
       <div class="container__body">
         <div class="-columned">
 
@@ -36,7 +36,7 @@
           <h2 class="container__title inline--alt-color"><?php print $page_header; ?></h2>
           <?php endif; ?>
           <p><?php print $page_copy; ?></p>
-          <a href="#" data-modal-href="#modal-redeem-form" class="btn medium"><?php print $form_link; ?></a>
+          <a href="#" data-modal-href="#modal-redeem-form" class="button"><?php print $form_link; ?></a>
         </div>
         <?php if (isset($page_image)): ?>
           <aside class="-columned -col-last">
@@ -49,7 +49,7 @@
           <h2 class="banner"><?php print ($form_header); ?></h2>
           <?php print $form_copy; ?>
           <?php print render($form); ?>
-        </div>       
+        </div>
       </div>
     </div>
   </section>

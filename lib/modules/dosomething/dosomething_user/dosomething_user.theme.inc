@@ -12,8 +12,8 @@
  * @param string $class
  *   A class to apply to the button.
  */
-function dosomething_user_get_login_modal_link_markup($label, $class = 'medium') {
-  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="btn ' . $class . '">' . $label . '</a>';
+function dosomething_user_get_login_modal_link_markup($label, $class = '') {
+  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button ' . $class . '">' . $label . '</a>';
 }
 
 /**

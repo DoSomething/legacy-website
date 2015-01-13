@@ -345,7 +345,7 @@
 
     <input type="hidden" name="draftResponse" value="[,,&quot;-2455914862412393102&quot;] "> <input type="hidden" name="pageHistory" value="0"> <input type="hidden" name="fbzx" value="-2455914862412393102">
 
-    <input type="submit" name="submit" value="<?php print t('Submit'); ?>" id="ss-submit" class="btn">
+    <input type="submit" name="submit" value="<?php print t('Submit'); ?>" id="ss-submit" class="button">
   </form>
 
 </section>

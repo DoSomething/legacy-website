@@ -1,8 +1,4 @@
 // @TODO: Patternize and move/merge into Neue!
-
-
-$flex-gutter: flex-gutter(12);
-
 .photo {
 
   &.-framed {
@@ -50,7 +46,7 @@ $flex-gutter: flex-gutter(12);
     .gallery--reportback {
       display: table-cell;
       direction: ltr;
-      width: (25% - $flex-gutter);
+      width: 25%;
     }
 
     form {
@@ -63,17 +59,17 @@ $flex-gutter: flex-gutter(12);
     .spacer {
       background: transparent;
       display: table-cell;
-      width: $flex-gutter;
+      width: $base-spacing;
     }
   }
 
   @include media($desktop) {
     .gallery--reportback {
-      width: (50% - ($flex-gutter / 2));
+      width: 50%;
     }
 
     form {
-      width: (50% - ($flex-gutter / 2));
+      width: 50%;
     }
   }
 
@@ -94,22 +90,20 @@ $flex-gutter: flex-gutter(12);
   overflow: hidden;
 
   > li {
-    @include span-columns(6 of 12);
-    @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
-    margin-top: $flex-gutter;
+    @include span(6 of 12);
+    margin-top: $base-spacing;
 
     @include media($tablet) {
       margin-right: 0;
-      margin-top: flex-gutter(3);
+      margin-top: $base-spacing;
       width: 100%;
 
       &:first-child { margin-top: 0; }
     }
 
     @include media($desktop) {
-      @include span-columns(3 of 6);
-      @include omega(2n);  // @TODO: need IE8 fallback; likely via PHP outputted classes!
-      margin-top: flex-gutter(6);
+      @include span(3 of 6);
+      margin-top: $base-spacing;
 
       &:nth-child(2) { margin-top: 0; }
     }
@@ -128,15 +122,13 @@ $flex-gutter: flex-gutter(12);
 
 .reportback form {
   background-color: #fff;
-  margin-top: $flex-gutter;
+  margin-top: $base-spacing;
   padding: 15px;
 
   @include media($tablet) {
     margin-top: 0;
   }
 }
-
-
 
 // @TODO: Only temp; change class name!
 .gigantor {
@@ -153,25 +145,3 @@ $flex-gutter: flex-gutter(12);
   .message-callout { display: none; }
 }
 
-
-
-.gallery {
-  &.-quartet {
-    li {
-      @include span-columns(6 of 12);
-      margin-top: $flex-gutter;
-
-      &:nth-child(2n) { margin-right: 0; }
-    }
-
-    @include media($tablet) {
-
-      li {
-        @include span-columns(3 of 12);
-
-        &:nth-child(2n) { margin-right: $flex-gutter; }
-        &:nth-child(4n) { margin-right: 0; }
-      }
-    }
-  }
-}

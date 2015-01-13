@@ -35,6 +35,15 @@
 // Form action styling
 .form-actions {
   text-align: center;
+  margin: $base-spacing 0;
+}
+
+.field-label-optional {
+  color: $light-gray;
+}
+
+#admin-menu ul {
+  font-size: 11px;
 }
 
 // Make the admin tabs look pretty.

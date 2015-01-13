@@ -1,4 +1,132 @@
 .finder--form {
+
+  .dropdown {
+    margin-bottom: gutter();
+
+    @include media($tablet) {
+      float: left;
+      width: span(5 of 14);
+      margin-bottom: 0;
+    }
+
+    &.small {
+      @include media($tablet) {
+        width: span(4 of 14);
+      }
+    }
+
+    > .wrapper {
+      background: #fff;
+      min-height: 72px;
+      margin: gutter();
+
+      // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
+      @include media("(min-width: 860px)") {
+        min-height: 100%;
+      }
+    }
+
+    li {
+      display: block;
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+      break-inside: avoid;
+
+      &.checked label {
+        background-color: $yellow;
+      }
+
+      &.disabled {
+        color: $light-gray;
+      }
+    }
+
+    .caret-toggle {
+      color: $purple;
+      cursor: pointer;
+      padding: ($base-spacing / 2) 18px;
+    }
+
+    .__title {
+      position: relative;
+      font-weight: $weight-bold;
+      line-height: 1;
+      margin: 0;
+      padding: 0 0 4px $base-spacing;
+
+      &:before {
+        @include icomoon-icon;
+        position: absolute;
+        z-index: 1; // fixes display issue with css3 columns in below container
+        left: -8px;
+        top: -8px;
+        content: "\e607";
+        font-size: 32px;
+        transform: rotate(0deg);
+        transition: transform 0.25s;
+      }
+    }
+
+    .__question {
+      color: $med-gray;
+      font-size: $font-smaller;
+      line-height: 1;
+      padding-left: $base-spacing;
+      margin: 0;
+    }
+
+    .dropdown-menu {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 $base-spacing;
+      transition: max-height 0.25s, padding 0.25s;
+
+      ul {
+        padding-left: 10px;
+      }
+    }
+
+    // Dropdown open.
+    &.open {
+      .__title:before {
+        transform: rotate(90deg);
+      }
+
+      .dropdown-menu {
+        max-height: 500px;
+        padding-bottom: $base-spacing;
+      }
+    }
+  }
+
+  .two-col {
+    padding-left: $base-spacing;
+
+    @include media("(min-width: 550px)") {
+      column-count: 2;
+    }
+
+    @include media("(min-width: 768px) and (max-width: 1000px)") {
+      column-count: 1;
+    }
+  }
+
+  .campaign-search {
+    text-align: center;
+    margin-top: 27px;
+
+    @include media($tablet) {
+      display: none;
+    }
+  }
+
+  .error {
+    clear: both;
+    // margin-top: 18px;
+  }
+
   input[type="checkbox"] {
     left: -40px;
     position: absolute;
@@ -18,149 +146,22 @@
     padding: 14px 9px;
     position: relative;
     cursor: pointer;
-    @include transition(left .1s linear);
+    transition: left 0.1s linear;
 
     @include media($tablet) {
       padding-bottom: 4px;
       padding-top: 4px;
     }
   }
+}
 
-  label:hover {
-    left: 3px;
-  }
+label:hover {
+  left: 3px;
+}
 
-  .disabled label:hover,
-  .checked label:hover {
-    left: 0;
-  }
-
-  .dropdown {
-    background: #fff;
-    margin-bottom: 18px;
-
-    @include media($tablet) {
-      margin-bottom: 0;
-      min-height: 72px;
-      @include span-columns(5 of 14);
-    }
-
-    // TODO: Change to variable of breakpoint once new inbetween breakpoints determined.
-    @include media(860px) {
-      min-height: 100%;
-    }
-
-    &.small {
-      @include media($tablet) {
-        @include span-columns(4 of 14);
-      }
-    }
-
-    // no :nth-of-type support in IE 8... :(
-    &.last {
-      margin-right: 0;
-    }
-
-    li {
-      display: block;
-      overflow: hidden;
-      position: relative;
-      @include prefixer(column-break-inside, avoid, webkit moz spec);
-
-      &.checked label {
-        background-color: $yellow;
-      }
-
-      &.disabled {
-        color: $light-gray;
-      }
-    }
-
-    .caret-toggle {
-      color: $purple;
-      cursor: pointer;
-      padding: 10px 18px;
-    }
-
-    .__title {
-      position: relative;
-      font-weight: $weight-bold;
-      line-height: 1;
-      margin: 0;
-      padding: 0 0 4px 27px;
-
-      &:before {
-        position: absolute;
-        z-index: 1; // fixes display issue with css3 columns in below container
-        left: -4px;
-        top: -9px;
-        content: "\e609";
-        font-size: 32px;
-        @include icomoon-icon;
-        @include transform(rotate(-90deg));
-        @include transition(transform 0.25s);
-      }
-    }
-
-    .__question {
-      color: $med-gray;
-      font-size: $font-small;
-      line-height: 1;
-      padding-left: 27px;
-      margin: 0;
-    }
-
-    .dropdown-menu {
-      display: none;
-      padding: 0 18px 10px;
-
-      ul {
-        overflow: hidden;
-        padding-left: 18px;
-      }
-    }
-
-    // Dropdown open.
-    &.open {
-      .__title:before {
-        @include transform(rotate(0));
-      }
-
-      .dropdown-menu {
-        display: block;
-      }
-    }
-  }
-
-  .two-col {
-    padding-left: 18px;
-
-    @include media(550px) {
-      -moz-column-count: 2;
-      -webkit-column-count: 2;
-      column-count: 2;
-    }
-
-    @include media(min-width 768px max-width 1000px) {
-      -moz-column-count: 1;
-      -webkit-column-count: 1;
-      column-count: 1;
-    }
-  }
-
-  .campaign-search {
-    text-align: center;
-    margin-top: 27px;
-
-    @include media($tablet) {
-      display: none;
-    }
-  }
-
-  .error {
-    clear: both;
-    // margin-top: 18px;
-  }
+.disabled label:hover,
+.checked label:hover {
+  left: 0;
 }
 
 
@@ -186,7 +187,7 @@
       width: 100%;
       height: 100%;
       z-index: 100;
-      @include animation(fadeIn);
+      animation: fadeIn;
     }
 
     .spinner {
@@ -207,8 +208,7 @@
   }
 
   .no-result {
-    background: $off-black asset-url("images/placeholder.png");
-    background-position: center center;
+    background: $off-black asset-url("images/placeholder.png") center center;
     background-size: cover;
     text-align: center;
     min-height: 300px;
@@ -216,8 +216,8 @@
 
     > .wrapper {
       padding: 36px 18px;
-      @include span-columns(7);
-      @include shift(0.5);
+      @include span(12);
+      @include push(2);
     }
 
     p {
@@ -237,21 +237,18 @@
   }
 
   .campaign-result {
-    @include transition(background-image .5s ease-in-out);
-
     img {
       // lazy-load animation
       opacity: 0;
-      @include transition(opacity 0.5s ease-in);
+      transition: opacity 0.5s ease-in;
     }
   }
 
   .pagination-link {
     clear: both;
+    width: 100%;
     background: #fff;
     text-align: center;
     padding: 18px;
-
-    @include row;
   }
 }

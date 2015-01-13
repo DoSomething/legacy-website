@@ -19,18 +19,18 @@
     <div class="wrapper">
       <h1 class="__title"><?php print $title; ?></h1>
       <?php if (!empty($subtitle)): ?>
-        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+        <p class="__subtitle"><?php print $subtitle; ?></p>
       <?php endif; ?>
     </div>
   </header>
 
-  <section class="profile--campaigns">
-    <h1 class="banner"><span><?php print t("You're Doing"); ?></span></h1>
+  <section class="container profile--campaigns">
+    <h1 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h1>
     <div class="wrapper">
     <?php if (empty($doing)): ?>
       <h2 class="__message"><?php print $no_signups_header; ?></h2>
       <p><?php print $no_signups_copy; ?></p>
-      <a href="/campaigns" class="btn"><?php print t('Explore Campaigns'); ?></a>
+      <a href="/campaigns" class="button"><?php print t('Explore Campaigns'); ?></a>
     <?php else: ?>
       <?php print $doing_gallery; ?>
     <?php endif; ?>
@@ -38,16 +38,16 @@
   </section>
 
   <?php if (!empty($reportbacks)): ?>
-    <section class="profile--reportbacks">
-      <h1 class="banner"><span><?php print t("You Did"); ?></span></h1>
+    <section class="container profile--reportbacks">
+      <h1 class="heading -banner"><span><?php print t("You Did"); ?></span></h1>
       <div class="wrapper">
         <?php print $reportback_gallery; ?>
       </div>
     </section>
   <?php endif; ?>
 
-  <section class="profile--settings">
-    <h1 class="banner"><span><?php print t('Your Info'); ?></span></h1>
+  <section class="container profile--settings">
+    <h1 class="heading -banner"><span><?php print t('Your Info'); ?></span></h1>
 
     <div class="wrapper">
       <h2><?php print t('Account Info'); ?></h2>

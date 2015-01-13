@@ -1,0 +1,6 @@
+.container {
+  // Patterned background (such as the "Prove It" section on action page)
+  &.-patterned {
+    background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
+  }
+}

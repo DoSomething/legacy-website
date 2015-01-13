@@ -7,10 +7,7 @@
 
 ?>
 
-<?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
-<?php print $messages; ?>
-
-<div class="chrome--wrapper">
+<div class="wrapper">
   <?php print $variables['navigation']; ?>
   <?php print $variables['header']; ?>
 

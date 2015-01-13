@@ -16,8 +16,8 @@
   </a>
 
   <div data-modal id="modal--creator" class="modal--creator" role="dialog">
-    <a href="#" class="js-close-modal modal-close-button white">×</a>
-    <h2 class="banner">The Creator</h2>
+    <a href="#" class="js-close-modal modal-close-button">×</a>
+    <h2 class="heading -banner">The Creator</h2>
     <div class="wrapper">
       <div class="__member">
         <img src="<?php print $picture['src_square']; ?>" />

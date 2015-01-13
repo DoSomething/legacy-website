@@ -9,107 +9,21 @@
 //  \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|  \_______/  \______/
 //
 
+// Vertically align content
+// @TODO: move to neue
+//
+// Examples:
+// @include vertical-align(150px, container_body, middle);
+//
+@mixin vertical-align($height, $selector, $align: middle) {
+  // Height of the parent
+  display: table;
+  height: $height;
 
-// @TODO: Temporary mixin for homepage sprites (from old world)
-@mixin responsive-sprite($pos-x, $pos-y) {
-  background-position: $pos-x/2 $pos-y/2;
-
-  @include media($tablet) {
-    background-position: $pos-x $pos-y;
-  };
-}
-
-// Apply header gradient as a mixin since header styles not abstracted yet.
-// @TODO: May want to unify styles across and use modifier classes.
-@mixin header-gradient() {
-  @include linear-gradient($purple 35%, rgba(#000, .60) 100%);
-}
-
-// Apply header typography as a mixin to style both static and campaign content.
-// @TODO: Same as above; would be best to unify header styles.
-@mixin header-typography() {
-  .title {
-    color: #fff;
-    font-size: 36px;
-    line-height: 1;
-    text-align: center;
-    margin: 0 0 9px;
-
-    @include media($tablet) {
-      font-size: $font-hero;
-      text-align: left;
-      margin: 0 0 9px;
-    }
-  }
-
-  .subtitle {
-    color: #fff;
-    font-size: $font-regular;
-    font-weight: normal;
-    line-height: 1.5;
-    margin: 0 0 9px;
-    text-align: center;
-
-
-    @include media($tablet) {
-      font-size: $font-medium;
-      margin-bottom: 27px;
-      text-align: left;
-    }
-  }
-
-  .title, .subtitle {
-    text-shadow: 0 1px 3px rgba(#000, 0.3);
+  // Content to be aligned
+  .#{$selector} {
+    display: table-cell;
+    vertical-align: $align;
   }
 }
 
-
-// CTA styles that apply to static and facts pages.
-// @TODO: Need to abstract out and unify these across.
-// @CTA
-@mixin cta() {
-  background-color: lighten($light-gray, 10%);
-  border-bottom: 2px solid $light-gray;
-  border-top: 2px solid $light-gray;
-  padding: 18px;
-  @include row;
-  @include media($tablet) {
-    padding: 0;
-  }
-
-  .cta {
-    text-align: center;
-    padding: 36px 0;
-
-    h3 {
-      color: $copy-color;
-      font-size: $font-medium;
-      font-weight: $weight-sbold;
-      margin: 0 0 9px;
-    }
-
-    @include media($tablet) {
-      @include span-columns(12);
-      @include shift(2);
-    }
-  }
-}
-
-
-
-// @TODO: Should be moved to Neue
-@mixin fluid-image() {
-  display: block;
-  height: auto;
-  max-width: 100%;
-  width: auto;
-}
-
-// @TODO: Should be moved to Neue
-@mixin compacted() {
-  @include media($tablet) {
-    @include span-columns(9 of 12);
-    float: none;
-    margin-right: 0;
-  }
-}

@@ -43,8 +43,7 @@
 
       @include media($tablet) {
         // @TODO: Something's messed up here
-        @include span-columns(5);
-        @include omega(3n);
+        @include span(5);
       }
 
       .gallery-description, h3 {
