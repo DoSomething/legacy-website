@@ -494,6 +494,9 @@ function dosomething_reportback_update_7018(&$sandbox) {
   while($record = $result->fetchAssoc()) {
     $rbid = $record['entity_id'];
     // Query the flagged_reason field to store the flagged reason on the entity.
+    // NOTE: This didn't work because we should have been querying for
+    // the flagging_id, not the reportback rbid.
+    // @see dosomething_reportback_update_7021()
     $reasons = array();
     $flagged_reason_result = db_select('field_data_field_flagged_reason', 'r')
       ->fields('r')
