@@ -266,7 +266,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
 /**
  * Returns a themed mosaic gallery with campaign tiles for given $nids.
  */
-function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
+function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_more = FALSE) {
   $items = array();
   foreach ($nids as $delta => $nid) {
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
@@ -277,7 +277,7 @@ function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL) {
   if (count($items) > 4) {
     $gallery_classes = array('-featured');
   }
-  return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes);
+  return paraneue_dosomething_get_gallery($items, 'mosaic', $gallery_classes, $show_more);
 }
 
 /**

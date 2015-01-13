@@ -535,7 +535,7 @@ function paraneue_dosomething_preprocess_field_partners(&$vars) {
 function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
   // Source to append to Campaign Gallery links.
   $source = 'taxonomy/term/' . $vars['tid'];
-  $vars['campaign_gallery'] = paraneue_dosomething_get_campaign_gallery($vars['campaigns'], $source);
+  $vars['campaign_gallery'] = paraneue_dosomething_get_campaign_gallery($vars['campaigns'], $source, TRUE);
 
   // Adds sponsor logos.
   paraneue_dosomething_preprocess_field_partners($vars);
@@ -571,7 +571,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
     }
-    $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad');
+    $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad', array(), TRUE);
   }
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
@@ -597,7 +597,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
-  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo');
+  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', array(), TRUE);
 }
 
 /**
