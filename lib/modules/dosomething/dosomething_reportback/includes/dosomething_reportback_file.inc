@@ -145,7 +145,19 @@ class ReportbackFileEntityController extends EntityAPIController {
       $reviewer = user_load($entity->reviewer);
       $build['reviewed'] = array(
         '#prefix' => '<p>',
-        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short') .' by ' . $reviewer->mail,
+        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short'),
+        '#suffix' => '</p>',
+      );
+      if ($reviewer->uid > 0) {
+        $build['reviewer'] = array(
+          '#prefix' => '<p>',
+          '#markup' => $reviewer->mail,
+          '#suffix' => '</p>',
+        );
+      }
+      $build['review_source'] = array(
+        '#prefix' => '<p>',
+        '#markup' => t("Source") . ': ' . $entity->review_source,
         '#suffix' => '</p>',
       );
     }
