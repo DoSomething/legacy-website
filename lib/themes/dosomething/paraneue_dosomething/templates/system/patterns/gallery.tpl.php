@@ -14,7 +14,7 @@
  * @see paraneue_dosomething_get_gallery()
  */
 ?>
-<ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>" <?php if (isset($roles)) { print $roles; } a?>>
+<ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>" <?php if (isset($roles)) { print $roles; } ?>>
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
       <li <?php if (!empty($item['class'])): print 'class="' . $item['class'] . '"'; endif; ?>>
