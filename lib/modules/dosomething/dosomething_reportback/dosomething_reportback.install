@@ -585,3 +585,56 @@ function dosomething_reportback_update_7020(&$sandbox) {
   $flag->disable();
   _flag_clear_cache($flag->entity_type, TRUE);
 }
+
+/**
+ * Fixes bug in flagged reason import from update 7018.
+ */
+function dosomething_reportback_update_7021(&$sandbox) {
+  if (!module_exists('flag')) {
+    return;
+  }
+  $flag = flag_get_flag('flagged_reportback');
+  if (!$flag) {
+    return;
+  }
+  $output = '';
+
+  // Query Flagging table for all Flagged Reportback flaggings.
+  $query = db_select('flagging', 'f');
+  $query->fields('f');
+  $query->condition('fid', $flag->fid)
+    ->condition('f.entity_type', 'reportback');
+  $result = $query->execute();
+
+  while($record = $result->fetchAssoc()) {
+    $rbid = $record['entity_id'];
+    $reasons = array();
+
+    // Query the flagged_reason field to store the flagging's flagged reasons.
+    $flagged_reason_result = db_select('field_data_field_flagged_reason', 'r')
+      ->fields('r')
+      ->condition('entity_id', $record['flagging_id'])
+      ->execute()
+      ->fetchAll();
+
+    // Loop through each flagged reason field value:
+    foreach ($flagged_reason_result as $record) {
+      $reasons[] = $record->field_flagged_reason_value;
+    }
+    // Implode reasons into a single string to set on the reportback entity.
+    $flagged_reason = implode(', ', $reasons);
+
+    // Update the Reportback.
+    $import = db_update('dosomething_reportback')
+      ->fields(array(
+        'flagged_reason' => $flagged_reason,
+        ))
+      ->condition('rbid', $rbid)
+      ->condition('flagged', 1)
+      ->execute();
+
+    $output .= "Imported Flag Reason for Reportback " . $rbid . ". ";
+  }
+
+  return $output;
+}
