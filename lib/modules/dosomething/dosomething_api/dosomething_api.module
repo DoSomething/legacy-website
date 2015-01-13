@@ -64,7 +64,14 @@ function dosomething_api_services_resources() {
 function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) {
   // Load Services module to use its index_query functions.
   module_load_include('inc', 'services', 'services.module');
-  $int_properties = array('rbid', 'fid');
+  $int_properties = array(
+    'fid',
+    'nid',
+    'quantity',
+    'rbid',
+    'timestamp',
+    'uid',
+  );
   $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 
@@ -73,6 +80,8 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
     foreach ($int_properties as $property) {
       $record->{$property} = (int) $record->{$property};
     }
+    $reportback = reportback_load($record->rbid);
+    $record->quantity_label = $reportback->quantity_label;
     // We'll eventually want to use the fid_processed here.
     // And also probably won't need to apply an image style, since it
     // will already be cropped.
