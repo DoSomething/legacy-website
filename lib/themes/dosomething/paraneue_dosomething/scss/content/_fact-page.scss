@@ -3,77 +3,8 @@
 //  FACT PAGE
 // -----------
 
-// @TODO: Sync naming between SCSS files and tpl.php
-
-.node-type-fact {
-  // @TODO: Sync with Dave/Maxwell on all 18px base font size for static content
-  p {
-    font-size: 18px;
-  }
-}
-
-// Styles for Facts Listing page
-.container--facts-list {
-  h3 {
-    margin-bottom: 9px;
-  }
-}
-
-.fact-page {
-  background: #fff;
-
-  h2, h3, h4 {
-    color: $purple;
-  }
-
-  ol {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  li {
-    margin-bottom: 27px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  [role="banner"] {
-    .__title {
-      @include media($tablet) {
-        font-size: $font-hero;  // @TODO Slightly smaller font-size, since 11 Facts titles are title-case.
-        margin: 27px 0;
-      }
-    }
-  }
-
-  .intro {
-    // @TODO: ಠ_ಠ
-    margin-top: 20px;
-    margin-bottom: 55px;
-
-    .intro-content {
-      @include media($tablet) {
-        @include span(8 of 12);
-      }
-    }
-  }
-
-  .sources {
-    margin-bottom: 27px;
-  }
-
-  .container--fact {
-    > .wrapper {
-      padding-bottom: 0;
-    }
-
-    // When number of facts > 5, call to action is placed within the 5th <li>
-    .cta {
-      margin-top: 27px;
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
+.fact-aside {
+  float: right;
+  max-width: span(7);
+  @include gutters();
 }

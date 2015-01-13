@@ -28,26 +28,28 @@
 
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">
-      <div class="wrapper -half">
-        <h3><?php print t('The Problem'); ?></h3>
-        <p><?php print $campaign->fact_problem['fact']; ?></p>
+      <div class="wrapper">
+        <div class="container__body -half">
+          <h3><?php print t('The Problem'); ?></h3>
+          <p><?php print $campaign->fact_problem['fact']; ?></p>
 
-        <h3><?php print t('The Solution'); ?></h3>
-        <?php // @TODO: DRY this logic with action page via $campaign ?>
-        <?php if (isset($campaign->fact_solution)): ?>
-          <p><?php print $campaign->fact_solution['fact']; ?></p>
-        <?php elseif (isset($campaign->solution_copy)): ?>
-          <?php print $campaign->solution_copy; ?>
-        <?php endif; ?>
+          <h3><?php print t('The Solution'); ?></h3>
+          <?php // @TODO: DRY this logic with action page via $campaign ?>
+          <?php if (isset($campaign->fact_solution)): ?>
+            <p><?php print $campaign->fact_solution['fact']; ?></p>
+          <?php elseif (isset($campaign->solution_copy)): ?>
+            <?php print $campaign->solution_copy; ?>
+          <?php endif; ?>
 
-        <?php if (isset($campaign->solution_support)): ?>
-          <?php print $campaign->solution_support; ?>
-        <?php endif; ?>
-      </div>
+          <?php if (isset($campaign->solution_support)): ?>
+            <?php print $campaign->solution_support; ?>
+          <?php endif; ?>
+        </div>
 
-      <div class="wrapper -half">
-        <h3><?php print t('What You Get'); ?></h3>
-        <p><?php print $campaign->value_proposition; ?></p>
+        <div class="container__body -half">
+          <h3><?php print t('What You Get'); ?></h3>
+          <p><?php print $campaign->value_proposition; ?></p>
+        </div>
       </div>
     </div>
   <?php endif; ?>
