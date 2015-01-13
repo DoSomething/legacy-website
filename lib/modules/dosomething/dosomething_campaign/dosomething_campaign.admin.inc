@@ -308,3 +308,54 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
   dosomething_helpers_set_variable($node, $var_name, $values[$var_name]);
   drupal_set_message("Updated.");
 }
+
+/**
+ * Form constructor for archiving Campaign activity to a Campaign Run.
+ *
+ * @param object $node
+ *   A loaded campaign node.
+ *
+ * @ingroup forms
+ */
+function dosomething_campaign_archive_activity_form($form, &$form_state, $node) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign_run')
+    ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $campaign_run_nids = array_keys($result['node']);
+    $campaign_run_nodes = entity_load('node', $campaign_run_nids);
+  }
+  $options = array();
+  foreach ($campaign_run_nodes as $run) {
+    $options[$run->nid] = $run->title;
+  }
+  $form['source_nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $node->nid,
+  );
+  $form['target_nid'] = array(
+    '#type' => 'radios',
+    '#required' => TRUE,
+    '#title' => t("Archive all current Signups and Reportbacks to:"),
+    '#options' => $options,
+    '#description' => t("Warning! This cannot be undone.  Do not do this unless you really, really mean it."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Archive"),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_campaign_reportback_config_form().
+ */
+function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state) {
+  // @todo Update all signups and reportbacks to nid = target_nid where nid = source_nid
+}
