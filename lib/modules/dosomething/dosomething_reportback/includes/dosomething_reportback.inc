@@ -29,7 +29,6 @@ class ReportbackEntity extends Entity {
     if (isset($this->rbid)) {
       $this->fids = $this->getFids();
     }
-    $this->why_participated = check_plain($this->why_participated);
     // If a reportback nid exists:
     if (isset($this->nid)) {
       // Set properties found on the reportback's node nid.

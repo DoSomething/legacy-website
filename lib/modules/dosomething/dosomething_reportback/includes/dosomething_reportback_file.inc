@@ -17,14 +17,6 @@ class ReportbackFileEntity extends Entity {
     return array('path' => 'rb/' . $this->identifier());
   }
 
-  /**
-   * Overrides construct to set calculated properties.
-   */
-  public function __construct(array $values = array(), $entityType = NULL) {
-    parent::__construct($values, $entityType);
-    $this->caption = check_plain($this->caption);
-  }
-
   public function getImage() {
     $image = dosomething_image_get_themed_image_by_fid($this->fid, '300x300');
     if (!$image) {
@@ -105,7 +97,7 @@ class ReportbackFileEntityController extends EntityAPIController {
 
     $build['caption'] = array(
       '#prefix' => '<p><strong>',
-      '#markup' => $entity->caption,
+      '#markup' => check_plain($entity->caption),
       '#suffix' => '</strong></p>',
     );
 
@@ -144,7 +136,7 @@ class ReportbackFileEntityController extends EntityAPIController {
 
       $build['why'] = array(
         '#prefix' => '<p>',
-        '#markup' => $reportback->why_participated,
+        '#markup' => check_plain($reportback->why_participated),
         '#suffix' => '</p>',
       );
     }

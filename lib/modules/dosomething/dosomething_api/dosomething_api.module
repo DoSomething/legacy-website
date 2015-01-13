@@ -72,6 +72,8 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
     'timestamp',
     'uid',
   );
+  $user_input = array('caption', 'why_participated');
+
   $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 
@@ -79,6 +81,10 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
     // Convert string output to integers were appropriate.
     foreach ($int_properties as $property) {
       $record->{$property} = (int) $record->{$property};
+    }
+    // Encode user inputted properties.
+    foreach ($user_input as $property) {
+      $record->{$property} = check_plain($record->{$property});
     }
     $reportback = reportback_load($record->rbid);
     $record->quantity_label = $reportback->quantity_label;
