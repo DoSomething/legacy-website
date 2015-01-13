@@ -145,3 +145,29 @@
   .message-callout { display: none; }
 }
 
+
+.gallery--extended {
+  .photo {
+    img {
+      opacity: 0;
+      transition: opacity .3s ease-in;
+    }
+  }
+
+  li {
+    @include span-columns(6 of 12);
+    margin-top: $flex-gutter;
+
+    &:nth-child(2n) { margin-right: 0; }
+  }
+
+  @include media($tablet) {
+
+    li {
+      @include span-columns(3 of 12);
+
+      &:nth-child(2n) { margin-right: $flex-gutter; }
+      &:nth-child(4n) { margin-right: 0; }
+    }
+  }
+}

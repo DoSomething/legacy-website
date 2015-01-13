@@ -261,7 +261,7 @@
           <div class="wrapper">
 
             <ul class="gallery gallery--reportback">
-              <?php for ($i = 0; $i <= count($reportbacks_gallery['items']); $i++): ?>
+              <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
                 <li><?php print $reportbacks_gallery['items'][$i]; ?></li>
               <?php endfor; ?>
             </ul>
