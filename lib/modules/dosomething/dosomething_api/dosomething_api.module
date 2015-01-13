@@ -86,6 +86,8 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
     foreach ($user_input as $property) {
       $record->{$property} = check_plain($record->{$property});
     }
+    $reportback = reportback_load($record->rbid);
+    $record->quantity_label = $reportback->quantity_label;
     // We'll eventually want to use the fid_processed here.
     // And also probably won't need to apply an image style, since it
     // will already be cropped.
