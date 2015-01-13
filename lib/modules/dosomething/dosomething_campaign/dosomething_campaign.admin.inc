@@ -357,5 +357,26 @@ function dosomething_campaign_archive_activity_form($form, &$form_state, $node) 
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
 function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state) {
-  // @todo Update all signups and reportbacks to nid = target_nid where nid = source_nid
+  $source_nid = $form_state['values']['source_nid'];
+  $target_nid = $form_state['values']['target_nid'];
+  // Update signups.
+  $num_signups = db_update('dosomething_signup')
+    ->fields(array(
+      'nid' => $target_nid,
+    ))
+    ->condition('nid', $source_nid)
+    ->execute();
+  // Update reportbacks.
+  $num_reportbacks = db_update('dosomething_reportback')
+    ->fields(array(
+      'nid' => $target_nid,
+    ))
+    ->condition('nid', $source_nid)
+    ->execute();
+  drupal_set_message(t("Archived @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
+    '@signups' => $num_signups,
+    '@reportbacks' => $num_reportbacks,
+    '@source' => $source_nid,
+    '@target' => $target_nid,
+  )));
 }
