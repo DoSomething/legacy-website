@@ -2,15 +2,22 @@
   @include media($tablet) {
     float: left;
     width: 50%;
-    padding-right: 9px;
+    padding-right: ($base-spacing / 2);
+
+    + .auth-twocol {
+      padding-right: 0;
+      padding-left: ($base-spacing / 2);
+    }
   }
 }
 
+
 .auth-heading {
   text-align: center;
+  margin: $base-spacing;
 }
 
 .auth-toggle-link {
   text-align: center;
-  margin: 18px 0;
+  margin: $base-spacing 0;
 }
