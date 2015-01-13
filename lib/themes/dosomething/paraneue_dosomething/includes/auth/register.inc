@@ -22,12 +22,10 @@ function paraneue_dosomething_page_alter_register(&$page) {
  */
 function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id) {
   if ( $form_id == "user_register_form" ) {
-    $form['#attributes']['class'] = 'auth--register';
-
     $copy = t("Create a DoSomething.org account to get started!");
     $form['message'] = array(
       '#type' => 'item',
-      '#markup' => '<h2 class="auth--header">' . $copy . '</h2>',
+      '#markup' => '<h2 class="auth-heading">' . $copy . '</h2>',
       '#weight' => -199,
     );
 
@@ -36,7 +34,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $copy = t("Log in to an existing account");
     $form['create-account-link'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="auth--toggle-link"><a href="/user/login" data-modal-href="#modal--login">' . $copy . '</a></p>',
+      '#markup' => '<p class="auth-toggle-link"><a href="/user/login" data-modal-href="#modal--login">' . $copy . '</a></p>',
       '#weight' => 500,
     );
 
@@ -52,7 +50,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
 
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
-    $form['field_first_name']['#attributes']['class'] = array('auth--twocol');
+    $form['field_first_name']['#attributes']['class'] = array('auth-twocol');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What do we call you?');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
@@ -110,7 +108,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
  */
 function paraneue_dosomething_register_after_build($form, &$form_state) {
   $form['field_birthdate']['#weight'] = '-18';
-  $form['field_birthdate']['#attributes']['class'] = array('auth--twocol');
+  $form['field_birthdate']['#attributes']['class'] = array('auth-twocol');
   $form['field_birthdate'][LANGUAGE_NONE][0]['#theme_wrappers'] = array('form_element');
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
   $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['class'] = array('js-validate');

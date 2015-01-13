@@ -1,29 +1,16 @@
-.auth--register {
-  .auth--twocol {
-    @include media($tablet) {
-      float: left;
-      width: 50%;
-      padding-right: 9px;
-    }
-  }
-}
-
-.auth--header {
-  text-align: center;
-  padding: 0 18px;
-  color: $purple;
-
+.auth-twocol {
   @include media($tablet) {
-    padding: 0 54px;
+    float: left;
+    width: 50%;
+    padding-right: 9px;
   }
 }
 
-.auth--subheader {
+.auth-heading {
   text-align: center;
-  color: $med-gray;
 }
 
-.auth--toggle-link {
+.auth-toggle-link {
   text-align: center;
   margin: 18px 0;
 }
