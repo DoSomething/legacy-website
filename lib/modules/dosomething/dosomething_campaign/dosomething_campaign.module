@@ -98,6 +98,17 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
     'file' => 'dosomething_campaign.pages.inc',
   );
+  // Archive Activity form.
+  $items['node/%node/archive'] = array(
+    'title' => 'Archive Activity',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_campaign_archive_activity_form', 1),
+    'access callback' => 'dosomething_campaign_archive_activity_form_access',
+    'access arguments' => array(1),
+    'file' => 'dosomething_campaign.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 900,
+  );
   return $items;
 }
 
@@ -214,6 +225,7 @@ function dosomething_campaign_get_scholarships() {
  */
 function dosomething_campaign_admin_paths() {
   $paths = array(
+    'node/*/archive' => TRUE,
     'node/*/custom-settings' => TRUE,
   );
   return $paths;
@@ -838,4 +850,50 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
     }
   }
   return $urls;
+}
+
+/**
+ * Access callback for the Archive Activity page callback.
+ *
+ * @param object $node
+ *   Loaded campaign node to check if access to Archive Activity.
+ *
+ * @return bool
+ */
+function dosomething_campaign_archive_activity_form_access($node) {
+  if (!user_access('administer modules')) {
+    return FALSE;
+  }
+  if ($node->type === 'campaign') {
+    $runs = dosomething_campaign_get_campaign_runs($node);
+    return (!empty($runs));
+  }
+  return FALSE;
+}
+
+/**
+ * Returns array of Campaign Run nodes for a given $node.
+ *
+ * @param object $node
+ *   Loaded campaign node to check if access to Archive Activity.
+ *
+ * @return array
+ */
+function dosomething_campaign_get_campaign_runs($node) {
+  $campaign_runs = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign_run')
+    ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $campaign_run_nids = array_keys($result['node']);
+    $campaign_run_nodes = entity_load('node', $campaign_run_nids);
+    foreach ($campaign_run_nodes as $run) {
+      $campaign_runs[$run->nid] = $run->title;
+    }
+  }
+
+  return $campaign_runs;
 }

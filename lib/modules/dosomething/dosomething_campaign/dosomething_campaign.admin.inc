@@ -308,3 +308,74 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
   dosomething_helpers_set_variable($node, $var_name, $values[$var_name]);
   drupal_set_message("Updated.");
 }
+
+/**
+ * Form constructor for archiving Campaign activity to a Campaign Run.
+ *
+ * @param object $node
+ *   A loaded campaign node.
+ *
+ * @ingroup forms
+ */
+function dosomething_campaign_archive_activity_form($form, &$form_state, $node) {
+  $campaign_runs = dosomething_campaign_get_campaign_runs($node);
+  // Should't happen, but just in case:
+  if (empty($campaign_runs)) {
+    $form['markup'] = array(
+      '#markup' => t("There are no Campaign Run nodes associated with this campaign."),
+    );
+    return $form;
+  }
+
+  $form['source_nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $node->nid,
+  );
+  $form['target_nid'] = array(
+    '#type' => 'radios',
+    '#required' => TRUE,
+    '#title' => t("Archive all current Signups and Reportbacks to:"),
+    '#options' => $campaign_runs,
+    '#description' => t("Warning! This cannot be undone.  Do not do this unless you really, really mean it."),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Archive"),
+    ),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_campaign_reportback_config_form().
+ */
+function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state) {
+  $source_nid = $form_state['values']['source_nid'];
+  $target_nid = $form_state['values']['target_nid'];
+
+  //@todo Add batch processing for cases where there are large numbers of signups.
+
+  // Update signups.
+  $num_signups = db_update('dosomething_signup')
+    ->fields(array(
+      'nid' => $target_nid,
+    ))
+    ->condition('nid', $source_nid)
+    ->execute();
+  // Update reportbacks.
+  $num_reportbacks = db_update('dosomething_reportback')
+    ->fields(array(
+      'nid' => $target_nid,
+    ))
+    ->condition('nid', $source_nid)
+    ->execute();
+
+  drupal_set_message(t("Archived @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
+    '@signups' => $num_signups,
+    '@reportbacks' => $num_reportbacks,
+    '@source' => $source_nid,
+    '@target' => $target_nid,
+  )));
+}
