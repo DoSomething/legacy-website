@@ -301,6 +301,9 @@ function dosomething_reportback_review_page_access($entity) {
   }
   // Is this a node?
   if (isset($entity->nid)) {
+    if ($entity->type == 'campaign_run') {
+      return TRUE;
+    }
     if ($entity->type == 'campaign') {
       return dosomething_campaign_get_campaign_type($entity) == 'campaign';
     }

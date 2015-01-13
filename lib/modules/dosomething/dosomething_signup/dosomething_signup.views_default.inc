@@ -125,6 +125,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
     'campaign' => 'campaign',
     'campaign_group' => 'campaign_group',
+    'campaign_run' => 'campaign_run',
   );
   $handler->display->display_options['arguments']['nid']['validate_options']['access_op'] = 'update';
   /* Filter criterion: Signups: Uid */
