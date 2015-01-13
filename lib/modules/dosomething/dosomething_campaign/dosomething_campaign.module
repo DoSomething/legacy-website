@@ -852,6 +852,48 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
   return $urls;
 }
 
+/**
+ * Access callback for the Archive Activity page callback.
+ *
+ * @param object $node
+ *   Loaded campaign node to check if access to Archive Activity.
+ *
+ * @return bool
+ */
 function dosomething_campaign_archive_activity_form_access($node) {
-  return ($node->type == 'campaign');
+  if (!user_access('administer modules')) {
+    return FALSE;
+  }
+  if ($node->type === 'campaign') {
+    $runs = dosomething_campaign_get_campaign_runs($node);
+    return (!empty($runs));
+  }
+  return FALSE;
+}
+
+/**
+ * Returns array of Campaign Run nodes for a given $node.
+ *
+ * @param object $node
+ *   Loaded campaign node to check if access to Archive Activity.
+ *
+ * @return array
+ */
+function dosomething_campaign_get_campaign_runs($node) {
+  $campaign_runs = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign_run')
+    ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $campaign_run_nids = array_keys($result['node']);
+    $campaign_run_nodes = entity_load('node', $campaign_run_nids);
+    foreach ($campaign_run_nodes as $run) {
+      $campaign_runs[$run->nid] = $run->title;
+    }
+  }
+
+  return $campaign_runs;
 }

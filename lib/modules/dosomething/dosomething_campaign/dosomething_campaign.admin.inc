@@ -318,20 +318,15 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
  * @ingroup forms
  */
 function dosomething_campaign_archive_activity_form($form, &$form_state, $node) {
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'campaign_run')
-    ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
-  $result = $query->execute();
+  $campaign_runs = dosomething_campaign_get_campaign_runs($node);
+  // Should't happen, but just in case:
+  if (empty($campaign_runs)) {
+    $form['markup'] = array(
+      '#markup' => t("There are no Campaign Run nodes associated with this campaign."),
+    );
+    return $form;
+  }
 
-  if (isset($result['node'])) {
-    $campaign_run_nids = array_keys($result['node']);
-    $campaign_run_nodes = entity_load('node', $campaign_run_nids);
-  }
-  $options = array();
-  foreach ($campaign_run_nodes as $run) {
-    $options[$run->nid] = $run->title;
-  }
   $form['source_nid'] = array(
     '#type' => 'hidden',
     '#default_value' => $node->nid,
@@ -340,7 +335,7 @@ function dosomething_campaign_archive_activity_form($form, &$form_state, $node) 
     '#type' => 'radios',
     '#required' => TRUE,
     '#title' => t("Archive all current Signups and Reportbacks to:"),
-    '#options' => $options,
+    '#options' => $campaign_runs,
     '#description' => t("Warning! This cannot be undone.  Do not do this unless you really, really mean it."),
   );
   $form['actions'] = array(
@@ -359,6 +354,9 @@ function dosomething_campaign_archive_activity_form($form, &$form_state, $node) 
 function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state) {
   $source_nid = $form_state['values']['source_nid'];
   $target_nid = $form_state['values']['target_nid'];
+
+  //@todo Add batch processing for cases where there are large numbers of signups.
+
   // Update signups.
   $num_signups = db_update('dosomething_signup')
     ->fields(array(
@@ -373,6 +371,7 @@ function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state)
     ))
     ->condition('nid', $source_nid)
     ->execute();
+
   drupal_set_message(t("Archived @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
     '@signups' => $num_signups,
     '@reportbacks' => $num_reportbacks,
