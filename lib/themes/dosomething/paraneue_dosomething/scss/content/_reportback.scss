@@ -130,8 +130,6 @@
   }
 }
 
-
-
 // @TODO: Only temp; change class name!
 .gigantor {
   border: 0;
@@ -147,25 +145,3 @@
   .message-callout { display: none; }
 }
 
-
-
-.gallery {
-  &.-quartet {
-    li {
-      @include span(6 of 12);
-      margin-top: $base-spacing;
-
-      &:nth-child(2n) { margin-right: 0; }
-    }
-
-    @include media($tablet) {
-
-      li {
-        @include span(3 of 12);
-
-        &:nth-child(2n) { margin-right: $base-spacing; }
-        &:nth-child(4n) { margin-right: 0; }
-      }
-    }
-  }
-}
