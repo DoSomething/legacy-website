@@ -167,7 +167,7 @@
                 <li class="<?php print $gallery_item['order_class']; ?>">
                   <div class="media">
                     <?php if (isset($gallery_item['image'])): ?>
-                    <div class="wrapper">
+                    <div class="media__image">
                       <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
                         <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
                       <?php else: ?>
