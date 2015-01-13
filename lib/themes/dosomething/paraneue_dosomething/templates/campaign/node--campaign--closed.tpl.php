@@ -46,8 +46,8 @@
 
     <?php // Campaign statistics ?>
 
-
     <div class="wrapper">
+      <div class="container__body">
       <?php if (isset($total_participants)): ?>
 
         <?php // Number of members  participated ?>
@@ -93,18 +93,18 @@
         <?php endif; ?>
 
       <?php endif; ?>
-    </div>
+      </div>
 
     <?php // Intro copy ?>
     <?php if (isset($intro)): ?>
-      <div class="wrapper">
+      <div class="container__body">
         <?php print $intro['safe_value']; ?>
       </div>
     <?php endif; ?>
 
     <?php // Reportback gallery ?>
     <?php if (isset($reportback_gallery)): ?>
-      <div class="wrapper">
+      <div class="container__body">
         <ul class="gallery -triad">
           <?php foreach ($reportback_gallery as $key => $reportback_gallery_item) :?>
 
@@ -126,6 +126,8 @@
         </ul>
       </div>
     <?php endif; ?>
+
+    </div>
   </section>
 
   <?php if ($display_buzz_section): ?>
@@ -133,83 +135,86 @@
     <section class="container container--celebs">
       <h2 class="heading -banner"><span><?php print t('The Buzz'); ?></span></h2>
 
-      <div class="wrapper <?php if (isset($psa)): print '-half'; else: print '-narrow'; endif; ?>">
-        <?php if (isset($additional_text_title)): ?>
-        <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
-        <?php endif; ?>
-
-        <?php if (isset($additional_text)): ?>
-        <div><?php print $additional_text['safe_value']; ?></div>
-        <?php endif; ?>
-      </div>
-
-      <?php if (isset($psa)): ?>
-        <div class="wrapper -half">
-          <aside class="media-video">
-            <?php print $psa; ?>
-          </aside>
-        </div>
-      <?php endif; ?>
-
-      <?php foreach ($klout_gallery as $key => $klout_gallery_item) :?>
       <div class="wrapper">
-        <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
 
-        <?php // The klout galleries ?>
-        <ul class="gallery <?php print $klout_gallery_item['style']; ?>">
-          <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
+        <div class="container__body <?php if (isset($psa)): print '-half'; else: print '-narrow'; endif; ?>">
+          <?php if (isset($additional_text_title)): ?>
+          <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
+          <?php endif; ?>
 
-            <?php if ($klout_gallery_item['type'] === 'mention') : ?>
-              <li class="<?php print $gallery_item['order_class']; ?>">
-                <div class="media">
-                  <?php if (isset($gallery_item['image'])): ?>
-                  <div class="wrapper">
-                    <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
-                      <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
-                    <?php else: ?>
-                      <?php print $gallery_item['image']; ?>
-                    <?php endif; ?>
-                  </div>
-                  <?php endif; ?>
+          <?php if (isset($additional_text)): ?>
+          <div><?php print $additional_text['safe_value']; ?></div>
+          <?php endif; ?>
+        </div>
 
-                  <div class="media__body">
-                    <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
-                      <h3 class="media__title"><?php print $gallery_item['title']; ?></h3>
-                    <?php endif; ?>
-                    <?php if (isset($gallery_item['desc'])): ?>
-                      <div class="media__description"><?php print $gallery_item['desc']; ?></div>
-                    <?php endif; ?>
-                  </div>
-                </div>
-              </li>
-            <?php else: ?>
-              <li class="<?php print $gallery_item['order_class']; ?>">
-                <div class="figure">
-                  <?php if (isset($gallery_item['image'])): ?>
-                    <div class="figure__media">
+        <?php if (isset($psa)): ?>
+          <div class="container__body -half">
+            <aside class="media-video">
+              <?php print $psa; ?>
+            </aside>
+          </div>
+        <?php endif; ?>
+
+        <?php foreach ($klout_gallery as $key => $klout_gallery_item) :?>
+        <div class="container__body">
+          <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
+
+          <?php // The klout galleries ?>
+          <ul class="gallery <?php print $klout_gallery_item['style']; ?>">
+            <?php foreach ($klout_gallery_item['items'] as $key => $gallery_item) :?>
+
+              <?php if ($klout_gallery_item['type'] === 'mention') : ?>
+                <li class="<?php print $gallery_item['order_class']; ?>">
+                  <div class="media">
+                    <?php if (isset($gallery_item['image'])): ?>
+                    <div class="wrapper">
                       <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
                         <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
                       <?php else: ?>
                         <?php print $gallery_item['image']; ?>
                       <?php endif; ?>
                     </div>
-                  <?php endif; ?>
-                  <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
-                    <h3 class="figure__title"><?php print $gallery_item['title']; ?></h3>
-                  <?php endif; ?>
-                  <?php if (isset($gallery_item['desc'])): ?>
-                    <div class="figure__description"><?php print $gallery_item['desc']; ?></div>
-                  <?php endif; ?>
-                </div>
-              </li>
-            <?php endif; ?>
+                    <?php endif; ?>
 
-          <?php endforeach; ?>
-        </ul>
+                    <div class="media__body">
+                      <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
+                        <h3 class="media__title"><?php print $gallery_item['title']; ?></h3>
+                      <?php endif; ?>
+                      <?php if (isset($gallery_item['desc'])): ?>
+                        <div class="media__description"><?php print $gallery_item['desc']; ?></div>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                </li>
+              <?php else: ?>
+                <li class="<?php print $gallery_item['order_class']; ?>">
+                  <div class="figure">
+                    <?php if (isset($gallery_item['image'])): ?>
+                      <div class="figure__media">
+                        <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
+                          <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
+                        <?php else: ?>
+                          <?php print $gallery_item['image']; ?>
+                        <?php endif; ?>
+                      </div>
+                    <?php endif; ?>
+                    <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
+                      <h3 class="figure__title"><?php print $gallery_item['title']; ?></h3>
+                    <?php endif; ?>
+                    <?php if (isset($gallery_item['desc'])): ?>
+                      <div class="figure__description"><?php print $gallery_item['desc']; ?></div>
+                    <?php endif; ?>
+                  </div>
+                </li>
+              <?php endif; ?>
+
+            <?php endforeach; ?>
+          </ul>
+
+        </div>
+        <?php endforeach; ?>
 
       </div>
-      <?php endforeach; ?>
-
     </section>
   <?php endif; ?>
 
@@ -219,40 +224,46 @@
   <section class="container container--congrats">
     <h2 class="heading -banner"><span><?php print t('Congrats to&hellip;'); ?></span></h2>
 
-    <?php // If winners have been picked, display as a gallery ?>
-    <?php if (isset($winners)): ?>
-      <?php foreach ($winners as $key => $winner) :?>
-        <div class="wrapper <?php if (isset($winner['image'])): print '-half'; else: print '-narrow'; endif; ?>">
-          <?php if (isset($winner['fname'])): ?>
-            <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
-          <?php endif; ?>
+    <div class="wrapper">
+      <?php // If winners have been picked, display as a gallery ?>
+      <?php if (isset($winners)): ?>
+        <?php foreach ($winners as $key => $winner) :?>
+          <div class="container__row">
+            <div class="container__body <?php if (isset($winner['image'])): print '-half'; else: print '-narrow'; endif; ?>">
+              <?php if (isset($winner['fname'])): ?>
+                <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
+              <?php endif; ?>
 
-          <?php if (isset($winner['field_winner_type'])): ?>
-            <h4><?php print t("@field_winner_type winner", array("@field_winner_type" => $winner['field_winner_type'])); ?></h4>
-          <?php endif; ?>
+              <?php if (isset($winner['field_winner_type'])): ?>
+                <h4><?php print t("@field_winner_type winner", array("@field_winner_type" => $winner['field_winner_type'])); ?></h4>
+              <?php endif; ?>
 
 
-          <?php if (isset($winner['field_winner_description'])): ?>
-            <p><?php print $winner['field_winner_description']; ?></p>
-          <?php endif; ?>
+              <?php if (isset($winner['field_winner_description'])): ?>
+                <p><?php print $winner['field_winner_description']; ?></p>
+              <?php endif; ?>
 
-          <?php if (isset($winner['field_winner_quote'])): ?>
-            <p>"<?php print $winner['field_winner_quote']; ?>"</p>
-          <?php endif; ?>
-        </div>
+              <?php if (isset($winner['field_winner_quote'])): ?>
+                <p>"<?php print $winner['field_winner_quote']; ?>"</p>
+              <?php endif; ?>
+            </div>
 
-        <?php if (isset($winner['image'])): ?>
-          <div class="wrapper -half">
-            <?php print $winner['image']; ?>
+            <?php if (isset($winner['image'])): ?>
+              <div class="container__body -half">
+                <?php print $winner['image']; ?>
+              </div>
+            <?php endif; ?>
           </div>
-        <?php endif; ?>
-      <?php endforeach; ?>
-    <?php // Else display the default placeholder copy while winners are being chosen ?>
-    <?php elseif (isset($default_winners)) : ?>
-      <div class="placeholder">
-        <p><?php print $default_winners; ?></p>
-      </div>
-    <?php endif; ?>
+        <?php endforeach; ?>
+      <?php // Else display the default placeholder copy while winners are being chosen ?>
+      <?php elseif (isset($default_winners)) : ?>
+        <div class="container__body">
+          <div class="placeholder">
+            <p><?php print $default_winners; ?></p>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
   </section>
   <?php endif; ?>
 

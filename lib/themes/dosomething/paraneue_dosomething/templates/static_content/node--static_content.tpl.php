@@ -16,9 +16,10 @@
 
   <?php if (isset($intro)): ?>
     <section class="container">
+      <div class="wrapper">
       <?php if(isset($intro_image) || isset($intro_video)): ?>
         <?php /** There's an image, so show two columns. */ ?>
-        <div class="wrapper -half">
+        <div class="container__body -half">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -26,7 +27,7 @@
           <?php print $intro; ?>
         </div>
 
-        <div class="wrapper -half">
+        <div class="container__body -half">
           <?php if (isset($intro_video)): ?>
             <div class="media-video">
               <?php print $intro_video; ?>
@@ -38,7 +39,7 @@
 
       <?php else: ?>
         <?php /** No image, so show three-quarters width intro block. */ ?>
-        <div class="wrapper -narrow">
+        <div class="container__body -narrow">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -46,6 +47,7 @@
           <?php print $intro; ?>
         </div>
       <?php endif ?>
+      </div>
     </section>
   <?php endif; ?>
 
@@ -68,36 +70,38 @@
     <?php foreach ($galleries as $gallery): ?>
     <section class="container">
       <div class="wrapper">
-      <?php if (isset($gallery['title'])): ?>
-        <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
-      <?php endif; ?>
+        <?php if (isset($gallery['title'])): ?>
+        <div class="container__body -narrow">
+          <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
+        </div>
+        <?php endif; ?>
 
-      <ul class="gallery <?php print $gallery['class']; ?>">
-        <?php foreach ($gallery['items'] as $gallery_item): ?>
-          <li>
-            <div class="figure">
-              <?php if (isset($gallery_item['image'])): ?>
-                <div class="figure__media">
-                  <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
-                    <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
-                  <?php else : ?>
-                    <?php print $gallery_item['image']; ?>
+        <ul class="gallery <?php print $gallery['class']; ?>">
+          <?php foreach ($gallery['items'] as $gallery_item): ?>
+            <li>
+              <div class="figure">
+                <?php if (isset($gallery_item['image'])): ?>
+                  <div class="figure__media">
+                    <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
+                      <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
+                    <?php else : ?>
+                      <?php print $gallery_item['image']; ?>
+                    <?php endif; ?>
+                  </div>
+                <?php endif; ?>
+
+                <div class="figure__body">
+                  <?php if (isset($gallery_item['image_title'])): ?>
+                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                  <?php endif; ?>
+                  <?php if (isset($gallery_item['image_description'])): ?>
+                    <div class="__description"><?php print $gallery_item['image_description']; ?></div>
                   <?php endif; ?>
                 </div>
-              <?php endif; ?>
-
-              <div class="figure__body">
-                <?php if (isset($gallery_item['image_title'])): ?>
-                  <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($gallery_item['image_description'])): ?>
-                  <div class="__description"><?php print $gallery_item['image_description']; ?></div>
-                <?php endif; ?>
               </div>
-            </div>
-          </li>
-        <?php endforeach; ?>
-      </ul>
+            </li>
+          <?php endforeach; ?>
+        </ul>
 
       </div>
     </section>
@@ -107,27 +111,29 @@
 
   <?php if (!empty($additional_text)): ?>
   <section class="container">
-    <?php if(isset($additional_text_image)): ?>
-      <div class="wrapper -half">
-        <?php if (isset($additional_text_title)): ?>
-          <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
-        <?php endif; ?>
+    <div class="wrapper">
+      <?php if(isset($additional_text_image)): ?>
+        <div class="container__body -half">
+          <?php if (isset($additional_text_title)): ?>
+            <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+          <?php endif; ?>
 
-        <?php print $additional_text; ?>
-      </div>
+          <?php print $additional_text; ?>
+        </div>
 
-      <aside class="wrapper -half">
-        <?php print $additional_text_image; ?>
-      </aside>
-    <?php else: ?>
-      <div class="wrapper -narrow">
-        <?php if (isset($additional_text_title)): ?>
-          <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
-        <?php endif; ?>
+        <aside class="container__body -half">
+          <?php print $additional_text_image; ?>
+        </aside>
+      <?php else: ?>
+        <div class="container__body -narrow">
+          <?php if (isset($additional_text_title)): ?>
+            <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+          <?php endif; ?>
 
-        <?php print $additional_text; ?>
-      </div>
-    <?php endif; ?>
+          <?php print $additional_text; ?>
+        </div>
+      <?php endif; ?>
+    </div>
   </section>
   <?php endif; ?>
 

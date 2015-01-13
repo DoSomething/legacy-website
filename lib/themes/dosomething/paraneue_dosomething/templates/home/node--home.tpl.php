@@ -88,9 +88,11 @@
 </div>
 
 <section class="container finder--results -blankslate js-campaign-blankslate">
-  <ul class="gallery -featured">
-  <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
-  </ul>
+  <div class="container__body">
+    <ul class="gallery -featured">
+      <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
+    </ul>
+  </div>
 </section>
 
 <?php if( $show_campaign_finder ): ?>
@@ -100,10 +102,12 @@
 <?php if( $show_sponsors && !$is_affiliate ) : ?>
 <section class="container -sponsors">
   <div class="wrapper">
-    <h4><?php print t('Sponsors'); ?></h4>
-    <ul>
-      <?php foreach($partners as $partner) { print '<li><img src="' . $partner['logo']['path'] . '" title="' . $partner['name'] . '"></li>'; } ?>
-    </ul>
+    <div class="container__body">
+      <h4><?php print t('Sponsors'); ?></h4>
+      <ul>
+        <?php foreach($partners as $partner) { print '<li><img src="' . $partner['logo']['path'] . '" title="' . $partner['name'] . '"></li>'; } ?>
+      </ul>
+    </div>
   </div>
 </section>
 <?php endif; ?>

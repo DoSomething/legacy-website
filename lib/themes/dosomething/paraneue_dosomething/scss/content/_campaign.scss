@@ -1,32 +1,16 @@
 .campaign {
-  > .wrapper {
-    position: relative;
-  }
+  position: relative;
 }
 
 
 // Page Specific Components
-.campaign--action,
-.campaign--sms {
-  .info-bar {
-    bottom: 0;
-    position: absolute;
-    width: 100%;
-  }
-}
-
 .campaign--action .container--prove,
 .campaign--sms .container--do {
   background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
-  padding-bottom: 126px;
 
   // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
   &.reportback-beta {
     background: $yellow;
-  }
-
-  @include media($tablet) {
-    padding-bottom: 90px;
   }
 }
 
