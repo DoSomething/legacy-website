@@ -43,9 +43,7 @@
 
   <?php if (!empty($campaign_gallery)): ?>
     <section id="gallery" class="container">
-      <div class="container__body">
-        <?php print $campaign_gallery; ?>
-      </div>
+      <?php print $campaign_gallery; ?>
     </section>
   <?php endif; ?>
 
