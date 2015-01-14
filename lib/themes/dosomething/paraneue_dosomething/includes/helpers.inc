@@ -272,9 +272,10 @@ function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
     $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE);
   }
+  $gallery_classes = array('-mosaic');
   // If 5 items or more, the tiles should appear with a featured tile.
   if (count($items) > 4) {
-    $gallery_classes = array('-featured');
+    $gallery_classes = array('-featured -mosaic');
   }
   return paraneue_dosomething_get_gallery($items, 'quartet', $gallery_classes, $show_more);
 }

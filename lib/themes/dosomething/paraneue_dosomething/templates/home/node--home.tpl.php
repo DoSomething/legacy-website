@@ -88,11 +88,9 @@
 </div>
 
 <section class="container finder--results -blankslate js-campaign-blankslate">
-  <div class="container__body">
-    <ul class="gallery -quartet -featured">
-      <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
-    </ul>
-  </div>
+  <ul class="gallery -quartet -featured -mosaic">
+    <?php foreach($thumbnails as $thumbnail) { print '<li>' . $thumbnail . '</li>'; } ?>
+  </ul>
 </section>
 
 <?php if( $show_campaign_finder ): ?>
