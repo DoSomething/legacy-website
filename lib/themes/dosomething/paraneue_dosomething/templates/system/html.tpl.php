@@ -40,15 +40,8 @@
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
   <div class="chrome">
-    <!--[if lt IE 8 ]><div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div><![endif]-->
-
-    <?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
-    <?php print $messages; ?>
-
     <?php print $page_top; ?>
-    <div class="wrapper">
-      <?php print $page; ?>
-    </div>
+    <?php print $page; ?>
   </div>
 
   <?php print $scripts; ?>
