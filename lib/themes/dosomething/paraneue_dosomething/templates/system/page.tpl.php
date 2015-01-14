@@ -7,13 +7,20 @@
 
 ?>
 
-<?php print $variables['navigation']; ?>
-<?php print $variables['header']; ?>
+<!--[if lt IE 8 ]><div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div><![endif]-->
 
-<main role="main" class="container">
-  <div class="wrapper">
-    <?php print render($page['content']); ?>
-  </div>
-</main>
+<?php if (!empty($tabs['#primary'])): ?><nav class="admin-tabs"><?php print render($tabs); ?></nav><?php endif; ?>
+<?php print $messages; ?>
 
-<?php print $variables['footer']; ?>
+<div class="wrapper">
+  <?php print $variables['navigation']; ?>
+  <?php print $variables['header']; ?>
+
+  <main role="main" class="container">
+    <div class="wrapper">
+      <?php print render($page['content']); ?>
+    </div>
+  </main>
+
+  <?php print $variables['footer']; ?>
+</div>

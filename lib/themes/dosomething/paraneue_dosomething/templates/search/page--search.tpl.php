@@ -6,10 +6,12 @@
 
 ?>
 
-<?php if (!empty($tabs['#primary'])): ?><nav class="admin--tabs"><?php print render($tabs); ?></nav><?php endif; ?>
+<!--[if lt IE 8 ]><div class="messages error">You're using an unsupported browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to make sure everything works nicely!</div><![endif]-->
+
+<?php if (!empty($tabs['#primary'])): ?><nav class="admin-tabs"><?php print render($tabs); ?></nav><?php endif; ?>
 <?php print $messages; ?>
 
-<div class="chrome--wrapper">
+<div class="wrapper">
   <?php print $variables['navigation']; ?>
   <?php print $variables['header']; ?>
 
@@ -27,4 +29,3 @@
 
   <?php print $variables['footer']; ?>
 </div>
-
