@@ -3,9 +3,21 @@
 // ----------------
 
 .profile {
+  
   .tile {
     .__tagline { display: none; }
   }
+  
+  .figure__title,  .figure__description{
+    min-height: 2em;
+  }
+  
+  .figure {
+    .button {
+      margin-top: 1em;
+    }
+  }
+
 }
 
 // Profile Settings
