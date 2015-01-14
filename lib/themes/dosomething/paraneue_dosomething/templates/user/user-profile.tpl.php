@@ -27,13 +27,15 @@
   <section class="container profile--campaigns">
     <h1 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h1>
     <div class="wrapper">
-    <?php if (empty($doing)): ?>
-      <h2 class="__message"><?php print $no_signups_header; ?></h2>
-      <p><?php print $no_signups_copy; ?></p>
-      <a href="/campaigns" class="button"><?php print t('Explore Campaigns'); ?></a>
-    <?php else: ?>
-      <?php print $doing_gallery; ?>
-    <?php endif; ?>
+      <?php if (empty($doing)): ?>
+        <div class="container__body">
+          <h2 class="__message"><?php print $no_signups_header; ?></h2>
+          <p><?php print $no_signups_copy; ?></p>
+          <a href="/campaigns" class="button"><?php print t('Explore Campaigns'); ?></a>
+        </div>
+      <?php else: ?>
+        <?php print $doing_gallery; ?>
+      <?php endif; ?>
     </div>
   </section>
 
@@ -41,7 +43,9 @@
     <section class="container profile--reportbacks">
       <h1 class="heading -banner"><span><?php print t("You Did"); ?></span></h1>
       <div class="wrapper">
-        <?php print $reportback_gallery; ?>
+        <div class="container__body">
+          <?php print $reportback_gallery; ?>
+        </div>
       </div>
     </section>
   <?php endif; ?>
@@ -50,7 +54,10 @@
     <h1 class="heading -banner"><span><?php print t('Your Info'); ?></span></h1>
 
     <div class="wrapper">
-      <h2><?php print t('Account Info'); ?></h2>
+      <div class="container__body">
+        <h2><?php print t('Account Info'); ?></h2>
+      </div>
+
       <dl class="__user-info">
 
         <dt><?php print t('Name'); ?>:</dt>

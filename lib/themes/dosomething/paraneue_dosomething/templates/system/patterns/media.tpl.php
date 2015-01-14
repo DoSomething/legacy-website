@@ -15,15 +15,15 @@
  */
 ?>
 <article class="media">
-  <div class="wrapper">
+  <div class="media__image">
     <?php if (!empty($content['image'])): ?>
       <?php print $content['image']; ?>
     <?php endif; ?>
   </div>
 
-  <div class="__body">
+  <div class="media__body">
     <?php if (!empty($content['title'])): ?>
-      <h3 class="__title">
+      <h3 class="media__title">
         <?php if (!empty($content['link'])): ?>
           <a href="<?php print $content['link']; ?>">
             <?php print $content['title']; ?>
@@ -33,7 +33,7 @@
         <?php endif; ?>
       </h3>
     <?php endif; ?>
-    <div class="__description">
+    <div class="media__description">
       <?php if (!empty($content['impact'])): ?>
         <p><?php print t('My impact:'); ?>
         <p><?php print $content['impact']; ?></p>
