@@ -13,71 +13,80 @@
   </header>
 
   <?php if (isset($intro)): ?>
-    <section class="container container--intro">
-      <?php if (isset($intro_title)): ?>
-        <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
-      <?php endif; ?>
-      <div class="wrapper <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
-        <?php print $intro; ?>
-        <?php if (isset($modals)): ?>
-          <?php print $modals; ?>
+    <section class="container">
+      <div class="wrapper">
+        <div class="container__body <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
+          <?php if (isset($intro_title)): ?>
+            <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
+          <?php endif; ?>
+
+          <?php print $intro; ?>
+          <?php if (isset($modals)): ?>
+            <?php print $modals; ?>
+          <?php endif; ?>
+        </div>
+        <?php if (isset($intro_image) || isset($intro_video)): ?>
+        <div class="container__body -half">
+          <?php if (isset($intro_video)): ?>
+            <div class="media-video">
+              <?php print $intro_video; ?>
+            </div>
+          <?php elseif (isset($intro_image)): ?>
+            <?php print $intro_image; ?>
+          <?php endif; ?>
+        </div>
         <?php endif; ?>
       </div>
-      <?php if (isset($intro_image) || isset($intro_video)): ?>
-      <div class="wrapper -half">
-        <?php if (isset($intro_video)): ?>
-          <div class="media-video">
-            <?php print $intro_video; ?>
-          </div>
-        <?php elseif (isset($intro_image)): ?>
-          <?php print $intro_image; ?>
-        <?php endif; ?>
-      </div>
-      <?php endif; ?>
     </section>
   <?php endif; ?>
 
 
   <?php if (!empty($campaign_gallery)): ?>
-    <section id="gallery" class="container container--campaigns">
-      <?php print $campaign_gallery; ?>
+    <section id="gallery" class="container">
+      <div class="container__body">
+        <?php print $campaign_gallery; ?>
+      </div>
     </section>
   <?php endif; ?>
 
   <section class="container additional-text">
-    <div class="wrapper -narrow">
-      <?php if (!empty($facts)): ?>
-        <h2 class="inline--alt-color"><?php print $facts_header; ?></h2>
-        <ul>
-          <?php foreach ($facts['facts'] as $fact): ?>
-            <li><?php print $fact['fact']; ?> <sup><?php print $fact['footnotes']; ?></sup></li>
-          <?php endforeach; ?>
-        </ul>
-
-        <section class="sources">
-          <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
-          <ul class="__body legal">
-            <?php foreach ($facts['sources'] as $key => $source): ?>
-              <li><sup><?php print $key + 1; ?></sup> <?php print $source; ?></li>
+    <div class="wrapper">
+      <div class="container__body -narrow">
+        <?php if (!empty($facts)): ?>
+          <h2 class="inline--alt-color"><?php print $facts_header; ?></h2>
+          <ul>
+            <?php foreach ($facts['facts'] as $fact): ?>
+              <li><?php print $fact['fact']; ?> <sup><?php print $fact['footnotes']; ?></sup></li>
             <?php endforeach; ?>
           </ul>
-        </section>
-      <?php endif; ?>
 
-      <?php if (isset($global_copy['campaign_value_proposition'])): ?>
-        <h2 class="inline--alt-color"><?php print t('What You Get'); ?></h2>
-        <?php print $global_copy['campaign_value_proposition']; ?>
-      <?php endif; ?>
+          <section class="sources">
+            <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
+            <ul class="__body legal">
+              <?php foreach ($facts['sources'] as $key => $source): ?>
+                <li><sup><?php print $key + 1; ?></sup> <?php print $source; ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </section>
+        <?php endif; ?>
+      </div>
 
-      <?php if (isset($global_copy['scholarships'])): ?>
-        <h2 class="inline--alt-color"><?php print t('Scholarships and Contests'); ?></h2>
-        <?php print $global_copy['scholarships']; ?>
-      <?php endif; ?>
+      <div class="container__body -narrow">
+          <?php if (isset($global_copy['campaign_value_proposition'])): ?>
+            <h2 class="inline--alt-color"><?php print t('What You Get'); ?></h2>
+            <?php print $global_copy['campaign_value_proposition']; ?>
+          <?php endif; ?>
 
-      <?php if (isset($global_copy['about_ds'])): ?>
-        <h2 class="inline--alt-color"><?php print t('About DoSomething.org'); ?></h2>
-        <?php print $global_copy['about_ds']; ?>
-      <?php endif; ?>
+          <?php if (isset($global_copy['scholarships'])): ?>
+            <h2 class="inline--alt-color"><?php print t('Scholarships and Contests'); ?></h2>
+            <?php print $global_copy['scholarships']; ?>
+          <?php endif; ?>
+
+          <?php if (isset($global_copy['about_ds'])): ?>
+            <h2 class="inline--alt-color"><?php print t('About DoSomething.org'); ?></h2>
+            <?php print $global_copy['about_ds']; ?>
+          <?php endif; ?>
+      </div>
     </div>
   </section>
 
