@@ -82,6 +82,18 @@
       box-shadow: none;
     }
   }
+
+  .view-more {
+    position: relative;
+  }
+
+  .spinner {
+    left: 50%;
+    margin-left: -16px;
+    opacity: 0.8;
+    position: absolute;
+    bottom: -16px;
+  }
 }
 
 
@@ -148,10 +160,8 @@
 
 .gallery--extended {
   .photo {
-    img {
-      opacity: 0;
-      transition: opacity .3s ease-in;
-    }
+    opacity: 0;
+    transition: opacity .3s ease-in;
   }
 
   li {
