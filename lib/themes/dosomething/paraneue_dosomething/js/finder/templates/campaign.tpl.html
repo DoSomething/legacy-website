@@ -1,10 +1,10 @@
 <li>
-<article class="tile tile--campaign campaign-result<% if(featured) { %> big<% } %>">
+<article class="tile">
   <a class="wrapper" href="<%= url %>">
     <% if(staffPick) {  %><div class="__flag -staff-pick"><%= Drupal.t("Staff Pick") %></div><% } %>
-    <div class="tile--meta">
-      <h1 class="__title"><%= title %></h1>
-      <p class="__tagline"><%= description %></p>
+    <div class="tile__meta">
+      <h1 class="tile__title"><%= title %></h1>
+      <p class="tile__tagline"><%= description %></p>
     </div>
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="<%= image %>">
   </a>
