@@ -8,7 +8,11 @@
     .__tagline { display: none; }
   }
   
-  .figure__title,  .figure__description{
+  .figure__title {  
+    min-height: 1em;
+  }
+
+  .figure__description {
     min-height: 2em;
   }
   
