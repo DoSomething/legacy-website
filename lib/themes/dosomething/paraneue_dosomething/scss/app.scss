@@ -25,6 +25,7 @@ $asset-path: "";
 
 // Local patterns
 @import "patterns/container";
+@import "patterns/tile";
 @import "patterns/disclaimer";
 @import "patterns/list-compacted";
 @import "patterns/message-callout"; // @TODO: Move to Neue!
