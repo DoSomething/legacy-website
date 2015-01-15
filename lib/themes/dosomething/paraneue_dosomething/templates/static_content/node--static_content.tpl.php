@@ -110,7 +110,7 @@
 
 
   <?php if (!empty($additional_text)): ?>
-  <section class="container">
+  <section class="container -padded">
     <div class="wrapper">
       <?php if(isset($additional_text_image)): ?>
         <div class="container__body -half">

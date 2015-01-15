@@ -47,7 +47,7 @@
     </section>
   <?php endif; ?>
 
-  <section class="container additional-text">
+  <section class="container -padded">
     <div class="wrapper">
       <div class="container__body -narrow">
         <?php if (!empty($facts)): ?>

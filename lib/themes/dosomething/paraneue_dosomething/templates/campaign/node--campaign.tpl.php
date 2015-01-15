@@ -94,7 +94,7 @@
 
 
   <?php // PLAN IT ////////////////////////////////////////////////////// ?>
-  <section id="plan" class="container">
+  <section id="plan" class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Step 2: Plan It'); ?></span></h2>
     <div class="wrapper">
       <div class="container__body -narrow">
@@ -182,7 +182,7 @@
 
 
   <?php // DO IT ////////////////////////////////////////////////////// ?>
-  <section id="do" class="container container--do">
+  <section id="do" class="container -padded container--do">
     <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
     <div class="wrapper">
       <?php foreach ($do as $key => $content): ?>
