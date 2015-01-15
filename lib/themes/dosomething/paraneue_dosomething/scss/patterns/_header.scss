@@ -1,0 +1,8 @@
+
+header[role="banner"] {
+  // We need to override to force <p> tags to appear with white text,
+  // since we're using markdown to set the subtitle contents.
+  p {
+    color: #fff;
+  }
+}

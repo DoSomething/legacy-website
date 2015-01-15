@@ -25,14 +25,15 @@ $asset-path: "";
 
 // Local patterns
 @import "patterns/container";
-@import "patterns/tile";
 @import "patterns/disclaimer";
+@import "patterns/header";
 @import "patterns/list-compacted";
 @import "patterns/message-callout"; // @TODO: Move to Neue!
 @import "patterns/promotion"; // @TODO: Move to Neue!
 @import "patterns/sources"; // @TODO: Move to Neue!
 @import "patterns/statistic"; // @TODO: Move to Neue!
 @import "patterns/tabbed"; // @TODO: Move to Neue!
+@import "patterns/tile";
 @import "patterns/waypoints"; // @TODO: Move to Neue!
 
 // Content styles by section
@@ -51,7 +52,6 @@ $asset-path: "";
 @import "content/modal-crop";
 @import "content/modal-reportback";
 @import "content/modal-schoolfinder";
-@import "content/notfound";
 @import "content/reportback";
 @import "content/search";
 @import "content/static";
