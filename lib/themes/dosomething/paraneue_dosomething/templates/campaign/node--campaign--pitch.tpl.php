@@ -65,12 +65,10 @@
     </div>
   <?php endif; ?>
 
-  <div class="container container--tagline">
+  <div class="info-bar -dark">
     <div class="wrapper">
-      <p class="__tagline">
-        <?php print $tagline; ?>
-        <em><?php print t('*mic drop'); ?></em>
-      </p>
+      <?php print $tagline; ?>
+      <em><?php print t('*mic drop'); ?></em>
     </div>
   </div>
 
