@@ -1,4 +1,6 @@
 // @TODO: Patternize and move/merge into Neue!
+// Potentially rework into being part of the 
+// .media pattern.
 .photo {
 
   &.-framed {
@@ -24,6 +26,7 @@
 
 
 
+
 // Main Reportback container
 .reportback {
   > .wrapper {
@@ -35,6 +38,15 @@
       display: table;
       direction: rtl;
       table-layout: fixed;
+    }
+  }
+
+  form {
+    @include span(12 of 12);
+    padding-top: gutter();
+  
+    > div {
+      background-color: #fff;
     }
   }
 
@@ -50,9 +62,10 @@
     }
 
     form {
-      width: 75%;
+      // width: 75%;
       direction: ltr;
       display: table-cell;
+      float: none;
       vertical-align: top;
     }
 
@@ -68,12 +81,13 @@
       width: 50%;
     }
 
-    form {
-      width: 50%;
-    }
+    // form {
+    //   width: 50%;
+
+    // }
   }
 
-  .btn--view-more {
+  .button--view-more {
     color: #000;
     float: right;
     text-transform: lowercase;
@@ -99,25 +113,24 @@
 
 
 .gallery--reportback {
-  overflow: hidden;
+  // overflow: hidden;
 
   > li {
     @include span(6 of 12);
-    margin-top: $base-spacing;
 
     @include media($tablet) {
-      margin-right: 0;
-      margin-top: $base-spacing;
+  //     margin-right: 0;
+  //     margin-top: $base-spacing;
       width: 100%;
 
-      &:first-child { margin-top: 0; }
+  //     &:first-child { margin-top: 0; }
     }
 
     @include media($desktop) {
       @include span(3 of 6);
-      margin-top: $base-spacing;
+  //     margin-top: $base-spacing;
 
-      &:nth-child(2) { margin-top: 0; }
+  //     &:nth-child(2) { margin-top: 0; }
     }
 
     &:nth-child(n+5) {
@@ -130,17 +143,6 @@
   }
 }
 
-
-
-.reportback form {
-  background-color: #fff;
-  margin-top: $base-spacing;
-  padding: 15px;
-
-  @include media($tablet) {
-    margin-top: 0;
-  }
-}
 
 // @TODO: Only temp; change class name!
 .gigantor {
@@ -165,8 +167,8 @@
   }
 
   li {
-    @include span-columns(6 of 12);
-    margin-top: $flex-gutter;
+    @include span(6 of 12);
+    margin-top: gutter();
 
     &:nth-child(2n) { margin-right: 0; }
   }
@@ -174,9 +176,9 @@
   @include media($tablet) {
 
     li {
-      @include span-columns(3 of 12);
+      @include span(3 of 12);
 
-      &:nth-child(2n) { margin-right: $flex-gutter; }
+      &:nth-child(2n) { margin-right: gutter(); }
       &:nth-child(4n) { margin-right: 0; }
     }
   }

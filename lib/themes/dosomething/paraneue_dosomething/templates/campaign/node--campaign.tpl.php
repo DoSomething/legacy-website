@@ -267,7 +267,7 @@
                 <?php endfor; ?>
               </ul>
 
-              <div class="spacer"></div>
+              <!-- <div class="spacer"></div> -->
 
               <?php if (isset($reportback_form)): ?>
                 <?php print render($reportback_form); ?>
