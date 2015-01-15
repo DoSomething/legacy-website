@@ -4,59 +4,28 @@
 // -------------------
 
 .view-explore-campaigns {
-  background: #fff;
+  margin-top: $base-spacing;
 
-  // Set gutters on mobile
-  .content-wrapper {
-    padding: 0 18px;
-  }
-
-  // @TODO: Default content page headers -- same as campaign template -- abstract this
-  .view-header {
+  // A sad re-implementation of the figure pattern.
+  .search-result {
     text-align: center;
+    margin-bottom: $base-spacing;
 
     @include media($tablet) {
-      text-align: left;
-    }
+      @include span(4 of 12);
 
-    h1 {
-      color: #fff;
-
-      @include media($tablet) {
-        font-size: $font-larger;
+      &:nth-of-type(3n + 1) {
+        clear: both;
       }
     }
 
-    h3 {
-      color: #fff;
-      font-weight: $weight-normal;
-      margin-top: -25px;
+    img {
+      max-width: 100%;
+      margin: 0 auto;
     }
-  }
 
-  .view-content {
-    margin: 36px auto;
-
-    .search-result {
-      text-align: center;
-      margin-bottom: 54px;
-
-      @include media($tablet) {
-        // @TODO: Something's messed up here
-        @include span(5);
-      }
-
-      .gallery-description, h3 {
-        text-align: center;
-      }
-
-      h3 {
-        margin-bottom: 5px;
-      }
-
-      img {
-        max-width: 100%;
-      }
+    .views-field-label {
+      margin-top: $base-spacing;
     }
   }
 }
