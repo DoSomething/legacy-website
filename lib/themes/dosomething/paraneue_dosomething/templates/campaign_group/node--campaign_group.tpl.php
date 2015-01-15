@@ -14,7 +14,7 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="campaign campaign--grouped <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article id="node-<?php print $node->nid; ?>" class="campaign campaign--grouped <?php print $classes; ?>"<?php print $attributes; ?>>
 
   <header role="banner" class="-hero">
     <div class="wrapper">
@@ -47,56 +47,64 @@
 
   <?php if (isset($intro)): ?>
     <section class="container">
-      <?php if (isset($intro_image) || isset($intro_video)): ?>
-      <div class="wrapper <?php if (isset($intro_image) || isset($intro_video)): print '-half"'; else: print '-narrow'; endif; ?>">
-        <?php if (isset($intro_title)): ?>
-          <h2 class="container__title inline--alt-color"><?php print $intro_title; ?></h2>
-        <?php endif; ?>
+      <div class="wrapper">
 
-        <?php print $intro; ?>
+        <?php if (isset($intro_image) || isset($intro_video)): ?>
+          <div class="container__body <?php if (isset($intro_image) || isset($intro_video)): print '-half"'; else: print '-narrow'; endif; ?>">
+            <?php if (isset($intro_title)): ?>
+              <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
+            <?php endif; ?>
 
-        <?php if (isset($modals)): ?>
-          <?php print $modals; ?>
-        <?php endif; ?>
-      </div>
+            <?php print $intro; ?>
+
+            <?php if (isset($modals)): ?>
+              <?php print $modals; ?>
+            <?php endif; ?>
+          </div>
 
 
-      <?php if (isset($intro_image) || isset($intro_video)): ?>
-      <div class="wrapper -half">
-          <?php if (isset($intro_video)): ?>
-            <div class="media-video">
-              <?php print $intro_video; ?>
-            </div>
-          <?php elseif (isset($intro_image)): ?>
-            <?php print $intro_image; ?>
+          <?php if (isset($intro_image) || isset($intro_video)): ?>
+            <div class="container__body -half">
+            <?php if (isset($intro_video)): ?>
+              <div class="media-video">
+                <?php print $intro_video; ?>
+              </div>
+            <?php elseif (isset($intro_image)): ?>
+              <?php print $intro_image; ?>
+            <?php endif; ?>
           <?php endif; ?>
+          </div>
         <?php endif; ?>
+
       </div>
-      <?php endif; ?>
     </section>
   <?php endif; ?>
 
   <?php if (isset($post_signup_copy)): ?>
-    <section class="container post-signup">
-      <div class="wrapper -narrow">
-        <?php if (isset($post_signup_title)): ?>
-          <h2 class="inline--alt-color"><?php print $post_signup_title; ?></h2>
-        <?php endif; ?>
+    <section class="container">
+      <div class="wrapper">
+        <div class="container__body -narrow">
+          <?php if (isset($post_signup_title)): ?>
+            <h2 class="inline--alt-color"><?php print $post_signup_title; ?></h2>
+          <?php endif; ?>
 
-        <?php print $post_signup_copy; ?>
+          <?php print $post_signup_copy; ?>
+        </div>
       </div>
     </section>
   <?php endif; ?>
 
 
   <?php if (isset($pre_launch_copy)): ?>
-    <section class="container pre-launch">
-      <div class="wrapper -narrow">
-        <?php if (isset($pre_launch_title)): ?>
-          <h2 class="inline--alt-color"><?php print $pre_launch_title; ?></h2>
-        <?php endif; ?>
+    <section class="container">
+      <div class="wrapper">
+        <div class="container__body -narrow">
+          <?php if (isset($pre_launch_title)): ?>
+            <h2 class="inline--alt-color"><?php print $pre_launch_title; ?></h2>
+          <?php endif; ?>
 
-        <?php print $pre_launch_copy; ?>
+          <?php print $pre_launch_copy; ?>
+        </div>
       </div>
     </section>
   <?php endif; ?>
@@ -104,32 +112,36 @@
   <?php if (!empty($campaign_gallery)): print $campaign_gallery; endif; ?>
 
   <?php if (!empty($additional_text)): ?>
-  <section class="container additional-text">
-    <div class="wrapper <?php if (isset($additional_text_image)): print '-half"'; else: print '-narrow'; endif; ?>">
-      <?php if (isset($additional_text_title)): ?>
-        <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+  <section class="container">
+    <div class="wrapper">
+      <div class="container__body <?php if (isset($additional_text_image)): print '-half"'; else: print '-narrow'; endif; ?>">
+        <?php if (isset($additional_text_title)): ?>
+          <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+        <?php endif; ?>
+
+        <?php print $additional_text; ?>
+      </div>
+
+      <?php if (isset($additional_text_image)): ?>
+        <div class="container__body -half">
+          <aside>
+            <?php print $additional_text_image; ?>
+          </aside>
+        </div>
       <?php endif; ?>
-
-      <?php print $additional_text; ?>
     </div>
-
-    <?php if (isset($additional_text_image)): ?>
-    <div class="wrapper -half">
-        <aside class="-columned -col-last">
-          <?php print $additional_text_image; ?>
-        </aside>
-    </div>
-    <?php endif; ?>
   </section>
   <?php endif; ?>
 
 
   <?php if (!empty($galleries)): ?>
-    <section class="container">
-      <div class="wrapper">
-        <?php foreach ($galleries as $gallery): ?>
+    <section class="container -padded">
+      <?php foreach ($galleries as $gallery): ?>
+        <div class="wrapper">
           <?php if (isset($gallery['title'])): ?>
-            <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
+            <div class="container__body">
+              <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
+            </div>
           <?php endif; ?>
 
           <ul class="gallery -triad">
@@ -150,8 +162,8 @@
               </li>
             <?php endforeach; ?>
           </ul>
-        <?php endforeach; ?>
-      </div>
+        </div>
+      <?php endforeach; ?>
     </section>
   <?php endif; ?>
 
