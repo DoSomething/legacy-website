@@ -257,44 +257,44 @@
           <?php if (isset($reportback_copy)): ?>
             <p class="copy"><?php print $reportback_copy; ?></p>
           <?php endif; ?>
+        </div>
 
-          <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total']; ?>">
-            <div class="wrapper">
+        <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total']; ?>">
+          <div class="wrapper">
 
-              <ul class="gallery gallery--reportback">
-                <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
-                  <li><?php print $reportbacks_gallery['items'][$i]; ?></li>
-                <?php endfor; ?>
-              </ul>
+            <ul class="gallery gallery--reportback">
+              <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
+                <li><?php print $reportbacks_gallery['items'][$i]; ?></li>
+              <?php endfor; ?>
+            </ul>
 
-              <!-- <div class="spacer"></div> -->
+            <div class="spacer"></div>
 
-              <?php if (isset($reportback_form)): ?>
-                <?php print render($reportback_form); ?>
-              <?php endif; ?>
+            <?php if (isset($reportback_form)): ?>
+              <?php print render($reportback_form); ?>
+            <?php endif; ?>
 
-              <div data-modal id="modal--crop" class="modal--crop" role="dialog">
-                <h2 class="banner">Edit your photo</h2>
-                <div class="image-preview"><!-- Preview image inserted with js --></div>
-                <div class="image-editor">
-                  <div class="__buttons">
-                    <a href="#" class="button -tertiary -rotate">rotate photo</a>
-                    <div class="-change">
-                      <a href="#" class="button -tertiary">change photo</a>
-                      <input type="file" class="js-image-upload-beta" />
-                    </div>
+            <div data-modal id="modal--crop" class="modal--crop" role="dialog">
+              <h2 class="banner">Edit your photo</h2>
+              <div class="image-preview"><!-- Preview image inserted with js --></div>
+              <div class="image-editor">
+                <div class="__buttons">
+                  <a href="#" class="button -tertiary -rotate">rotate photo</a>
+                  <div class="-change">
+                    <a href="#" class="button -tertiary">change photo</a>
+                    <input type="file" class="js-image-upload-beta" />
                   </div>
-                  <!-- This is a purely frontend form that will grab crop options and a caption
-                  And then when the user submits the form, it will populate the drupal form with these values. -->
-                  <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8">
-                    <label for="caption">Caption</label>
-                    <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
-                    <input type="submit" value="done" class="button -done" />
-                  </form>
                 </div>
+                <!-- This is a purely frontend form that will grab crop options and a caption
+                And then when the user submits the form, it will populate the drupal form with these values. -->
+                <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8">
+                  <label for="caption">Caption</label>
+                  <input placeholder="Write something..." type="text" id="caption" name="caption" value="" size="60" maxlength="128">
+                  <input type="submit" value="done" class="button -done" />
+                </form>
               </div>
-
             </div>
+
           </div>
         </div>
       </div>

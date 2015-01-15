@@ -7,7 +7,7 @@
     background-color: #fff;
     padding: 5px;
 
-    @include media($desktop) {
+    @include media($larger) {
       padding: 10px;
     }
 
@@ -26,160 +26,85 @@
 
 
 
+.reportback { background-color: #f0f;
 
-// Main Reportback container
-.reportback {
   > .wrapper {
-    @include clearfix();
-    position: relative;
-    width: 100%;
 
-    @include media($tablet) {
-      display: table;
+    @include media($medium) {
       direction: rtl;
+      display: table;
       table-layout: fixed;
     }
   }
-
-  form {
-    @include span(12 of 12);
-    padding-top: gutter();
   
-    > div {
-      background-color: #fff;
+  .gallery--reportback {
+    @include span(12 of 12);
+
+    @include media($medium) {
+      @include span(4 of 12);
+      float: none;
+      direction: ltr;
+      display: table-cell;
     }
   }
+
+  .spacer {
+    background-color: transparent;
+    display: table-cell;
+    width: ($base-spacing / 2);
+  }
+
+  form {
+    @include gutters;
+    background-color: #fff;
+    padding-top: gutter();
+
+    @include media($medium) {
+      // @include span(8 of 12);
+      float: none;
+      direction: ltr;
+      display: table-cell;
+      // padding-left: 0;
+      vertical-align: top;
+    }
+  }
+
 
   .view-more {
     @include clearfix();
-  }
-
-  @include media($tablet) {
-    .gallery--reportback {
-      display: table-cell;
-      direction: ltr;
-      width: 25%;
-    }
-
-    form {
-      // width: 75%;
-      direction: ltr;
-      display: table-cell;
-      float: none;
-      vertical-align: top;
-    }
-
-    .spacer {
-      background: transparent;
-      display: table-cell;
-      width: $base-spacing;
-    }
-  }
-
-  @include media($desktop) {
-    .gallery--reportback {
-      width: 50%;
-    }
-
-    // form {
-    //   width: 50%;
-
-    // }
   }
 
   .button--view-more {
     color: #000;
-    float: right;
-    text-transform: lowercase;
-
-    &:focus {
-      box-shadow: none;
-    }
   }
 
-  .view-more {
-    position: relative;
-  }
-
-  .spinner {
-    left: 50%;
-    margin-left: -16px;
-    opacity: 0.8;
-    position: absolute;
-    bottom: -16px;
-  }
 }
-
 
 
 .gallery--reportback {
-  // overflow: hidden;
 
   > li {
-    @include span(6 of 12);
-
-    @include media($tablet) {
-  //     margin-right: 0;
-  //     margin-top: $base-spacing;
-      width: 100%;
-
-  //     &:first-child { margin-top: 0; }
-    }
-
-    @include media($desktop) {
-      @include span(3 of 6);
-  //     margin-top: $base-spacing;
-
-  //     &:nth-child(2) { margin-top: 0; }
-    }
 
     &:nth-child(n+5) {
       display: none;
-
-      @include media($desktop) {
-        display: block;
-      }
     }
   }
-}
 
-
-// @TODO: Only temp; change class name!
-.gigantor {
-  border: 0;
-  display: block;
-  padding: 0;
-  width: 100%;
-
-  img {
-    display: block;
-    width: 100%;
-  }
-
-  .message-callout { display: none; }
 }
 
 
 .gallery--extended {
-  .photo {
-    opacity: 0;
-    transition: opacity .3s ease-in;
-  }
 
-  li {
+  > li {
     @include span(6 of 12);
-    margin-top: gutter();
 
-    &:nth-child(2n) { margin-right: 0; }
-  }
+    @include media($medium) {
+      @include span(4 of 12);
+    }
 
-  @include media($tablet) {
-
-    li {
+    @include media($larger) {
       @include span(3 of 12);
-
-      &:nth-child(2n) { margin-right: gutter(); }
-      &:nth-child(4n) { margin-right: 0; }
     }
   }
+
 }
