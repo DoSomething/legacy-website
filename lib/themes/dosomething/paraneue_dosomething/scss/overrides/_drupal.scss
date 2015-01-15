@@ -91,6 +91,8 @@ html {
 
   @include media($desktop) {
     display: block;
+    max-width: $max-width;
+    margin: 0 auto;
   }
 }
 
