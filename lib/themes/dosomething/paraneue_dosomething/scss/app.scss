@@ -26,16 +26,15 @@ $asset-path: "";
 // Local patterns
 @import "patterns/container";
 @import "patterns/disclaimer";
-@import "patterns/header";
 @import "patterns/info-bar"; // @TODO: Move to Neue!
 @import "patterns/list-compacted";
-@import "patterns/message-callout"; // @TODO: Move to Neue!
 @import "patterns/promotion"; // @TODO: Move to Neue!
 @import "patterns/sources"; // @TODO: Move to Neue!
 @import "patterns/statistic"; // @TODO: Move to Neue!
 @import "patterns/tabbed"; // @TODO: Move to Neue!
 @import "patterns/tile";
 @import "patterns/waypoints"; // @TODO: Move to Neue!
+
 
 // Content styles by section
 @import "content/affiliate";
