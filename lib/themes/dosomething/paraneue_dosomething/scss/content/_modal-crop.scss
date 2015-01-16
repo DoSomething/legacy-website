@@ -53,7 +53,9 @@
 
     img {
       width: auto;
-      max-width: 100%;
+      max-width: 600px;
+      position: absolute;
+      left: 0;
     }
   }
 
@@ -61,6 +63,7 @@
   .crop-bounding-box {
     position: relative;
     display: inline-block;
+    max-width: 600px;
 
     .cropbox {
       position: absolute;
