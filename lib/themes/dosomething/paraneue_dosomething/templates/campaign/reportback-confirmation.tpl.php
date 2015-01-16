@@ -30,30 +30,41 @@
     <div class="wrapper">
       <h1 class="__title"><?php print $page_title; ?></h1>
       <?php if (isset($copy)): ?>
-        <h2 class="__subtitle"><?php print $copy; ?></h2>
+        <p class="__subtitle"><?php print $copy; ?></p>
       <?php endif; ?>
     </div>
   </header>
 
   <?php if (isset($recommended)): ?>
-    <div class="gallery-wrapper">
-      <h2 class="gallery-title"><?php print t('Keep it up! Find your next campaign.'); ?></h2>
-      <div class="gallery">
-        <?php foreach ($recommended as $rec): ?>
-          <div class="gallery-item">
-            <?php if (isset($rec['image'])): ?>
-              <a href="/<?php print $rec['path_alias']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
-            <?php endif; ?>
+    <div class="container -padded">
+      <div class="wrapper">
+       <div class="container__body">
+         <h2><?php print t('Keep it up! Find your next campaign.'); ?></h2>
+       </div>
 
-            <?php if (isset($rec['title'])): ?>
-              <h3 class="title"><?php print l($rec['title'], $rec['path_alias']); ?></h3>
-            <?php endif; ?>
+        <div class="gallery -triad">
+          <?php foreach ($recommended as $rec): ?>
+            <li>
+            <div class="figure">
+              <?php if (isset($rec['image'])): ?>
+                <div class="figure__media">
+                  <a href="/<?php print $rec['path_alias']; ?>"><img src="<?php print $rec['image']; ?>"/></a>
+                </div>
+              <?php endif; ?>
 
-            <?php if (isset($rec['call_to_action'])): ?>
-              <div class="gallery-description"><?php print $rec['call_to_action']; ?></div>
-            <?php endif; ?>
-          </div>
-        <?php endforeach; ?>
+              <div class="figure__description">
+                <?php if (isset($rec['title'])): ?>
+                  <h3><?php print l($rec['title'], $rec['path_alias']); ?></h3>
+                <?php endif; ?>
+
+                <?php if (isset($rec['call_to_action'])): ?>
+                  <p><?php print $rec['call_to_action']; ?></p>
+                <?php endif; ?>
+              </div>
+            </div>
+            </li>
+          <?php endforeach; ?>
+        </div>
       </div>
     </div>
   <?php endif; ?>
@@ -65,9 +76,8 @@
         <h2 class="__message"><?php print $call_to_action; ?></h2>
         <?php endif; ?>
 
-        <?php //@TODO: Address styles for this slightly different CTA content. ?>
-        <div class="cta-more-campaigns"><?php print $more_campaigns_link; ?></div>
-        <div class="cta-back-to-campaign"><?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?></div>
+        <p><?php print $more_campaigns_link; ?></p>
+        <p><?php if (isset($back_to_campaign_link)): ?><?php print $back_to_campaign_link; ?><?php endif; ?></p>
       </div>
     </div>
   <?php endif; ?>

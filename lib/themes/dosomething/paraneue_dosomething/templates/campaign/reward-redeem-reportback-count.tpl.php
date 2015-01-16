@@ -21,35 +21,34 @@
     <div class="wrapper">
       <h1 class="__title"><?php print $page_title; ?></h1>
       <?php if (isset($page_subtitle)): ?>
-      <h2 class="__subtitle"><?php print $page_subtitle; ?></h2>
+      <p class="__subtitle"><?php print $page_subtitle; ?></p>
       <?php endif; ?>
     </div>
   </header>
 
-  <section class="container container--intro">
+  <section class="container -padded">
     <div class="wrapper">
+      <div class="container__body <?php if (isset($page_image)): print '-half'; else: print '-narrow'; endif; ?>">
+        <?php if (isset($page_header) && !empty($page_header)): ?>
+        <h2 class="inline--alt-color"><?php print $page_header; ?></h2>
+        <?php endif; ?>
+        <p><?php print $page_copy; ?></p>
+        <a href="#" data-modal-href="#modal-redeem-form" class="button"><?php print $form_link; ?></a>
+      </div>
 
-      <div class="container__body">
-        <div class="-columned">
-
-          <?php if (isset($page_header) && !empty($page_header)): ?>
-          <h2 class="container__title inline--alt-color"><?php print $page_header; ?></h2>
-          <?php endif; ?>
-          <p><?php print $page_copy; ?></p>
-          <a href="#" data-modal-href="#modal-redeem-form" class="button"><?php print $form_link; ?></a>
-        </div>
-        <?php if (isset($page_image)): ?>
-          <aside class="-columned -col-last">
+      <?php if (isset($page_image)): ?>
+        <div class="container__body -half">
+          <aside>
             <?php print $page_image; ?>
           </aside>
-        <?php endif; ?>
-
-        <?php // "Free T-shirts" Modals ?>
-        <div data-modal id="modal-redeem-form" role="dialog">
-          <h2 class="banner"><?php print ($form_header); ?></h2>
-          <?php print $form_copy; ?>
-          <?php print render($form); ?>
         </div>
+      <?php endif; ?>
+
+      <?php // "Free T-shirts" Modals ?>
+      <div data-modal id="modal-redeem-form" role="dialog">
+        <h2 class="heading -banner"><?php print ($form_header); ?></h2>
+        <?php print $form_copy; ?>
+        <?php print render($form); ?>
       </div>
     </div>
   </section>

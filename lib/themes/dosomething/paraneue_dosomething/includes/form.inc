@@ -48,25 +48,29 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
     }
   }
   $form['item_header']['#markup'] = '<h4>' . t('Your Shirt') . '</h4>';
-  // Class to be applied to the Shirt Style options.
-  $shirt_style_class = 'js-media-options';
   // Attributes to be applied to the Shirt Size options.
   $shirt_size_attributes = array(
     'data-validate' => 'shirt_size',
     'data-validate-required' => '',
   );
-  $form['item']['#attributes']['class'][] = $shirt_style_class;
-  $shirt_style_prefix = '<div data-validate="shirt_style" data-validate-required>';
+  foreach ($form['item']['#options'] as $key => $option) {
+    $form['item'][$key]['#prefix'] = '<div class="media-options__item -radio">';
+    $form['item'][$key]['#suffix'] = '</div>';
+  }
+  $shirt_style_prefix = '<div data-validate="shirt_style" data-validate-required class="js-media-options">';
   $shirt_style_suffix = '</div>';
   $form['item']['#prefix'] = $shirt_style_prefix;
   $form['item']['#suffix'] = $shirt_style_suffix;
   $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
   $form['item_option']['#attributes'] = $shirt_size_attributes;
   if (isset($form['item_additional'])) {
+    foreach ($form['item_additional']['#options'] as $key => $option) {
+      $form['item_additional'][$key]['#prefix'] = '<div class="media-options__item -radio">';
+      $form['item_additional'][$key]['#suffix'] = '</div>';
+    }
     $form['item_additional_header']['#markup'] = '<h4>' . t("Your Friend's Shirt") . '</h4>';
-    $form['item_additional']['#attributes']['class'][] = $shirt_style_class;
-    $form['item_additional']['#prefix'] = $style_prefix;
-    $form['item_additional']['#suffix'] = $style_suffix;
+    $form['item_additional']['#prefix'] = $shirt_style_prefix;
+    $form['item_additional']['#suffix'] = $shirt_style_suffix;
     $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>';
     $form['item_additional_option']['#attributes'] = $shirt_size_attributes;
   }

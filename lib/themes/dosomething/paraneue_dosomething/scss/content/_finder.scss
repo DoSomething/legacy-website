@@ -153,11 +153,12 @@
       padding-top: 4px;
     }
   }
+
+  label:hover {
+    left: 3px;
+  }
 }
 
-label:hover {
-  left: 3px;
-}
 
 .disabled label:hover,
 .checked label:hover {
