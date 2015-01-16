@@ -49,25 +49,26 @@
 
   <section class="container -padded">
     <div class="wrapper">
-      <div class="container__body -narrow">
-        <?php if (!empty($facts)): ?>
+      <?php if (!empty($facts)): ?>
+        <div class="container__body -narrow">
           <h2 class="inline--alt-color"><?php print $facts_header; ?></h2>
           <ul>
             <?php foreach ($facts['facts'] as $fact): ?>
               <li><?php print $fact['fact']; ?> <sup><?php print $fact['footnotes']; ?></sup></li>
             <?php endforeach; ?>
           </ul>
-
-          <section class="sources">
+        </div>
+        <div class="container__body -narrow">
+          <div class="sources">
             <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
             <ul class="__body legal">
               <?php foreach ($facts['sources'] as $key => $source): ?>
                 <li><sup><?php print $key + 1; ?></sup> <?php print $source; ?></li>
               <?php endforeach; ?>
             </ul>
-          </section>
-        <?php endif; ?>
-      </div>
+          </div>
+        </div>
+      <?php endif; ?>
 
       <div class="container__body -narrow">
           <?php if (isset($global_copy['campaign_value_proposition'])): ?>
