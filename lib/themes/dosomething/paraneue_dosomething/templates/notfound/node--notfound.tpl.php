@@ -23,7 +23,7 @@
   </header>
 
   <?php if ($disable_results == FALSE): ?>
-    <div class="container">
+    <div class="container -padded">
       <div class="wrapper">
         <div class="container__body -narrow">
           <?php if (isset($results_copy) && !empty($is_path_specific_page)): ?>
@@ -31,6 +31,7 @@
           <?php elseif (isset($results_copy)): ?>
             <h3><?php print $results_copy; ?></h3>
           <?php endif; ?>
+
           <?php if (!empty($search_form)): ?>
             <?php print $search_form; ?>
           <?php endif; ?>
@@ -45,5 +46,4 @@
       </div>
     </div>
   <?php endif; ?>
-
 </article>
