@@ -8,24 +8,27 @@
       padding: 0 18px 0 0;
     }
   }
+
+  .search-form {
+    @include gutters();
+  }
+
+  .spelling-suggestions {
+    @include gutters();
+  }
 }
 
 // Search Form.
 .search-form {
-  margin-bottom: 2em;
-
-  .container-inline {
-    @include clearfix();
-  }
+  @include clearfix;
+  margin: $base-spacing 0;
 
   .form-type-textfield {
-    display: inline-block;
-    float: left;
-    width: 100%;
-    margin-right: 10px;
-
     @include media($tablet) {
-      width: 80%;
+      display: inline-block;
+      float: left;
+      width: span(6 of 9);
+      padding-right: gutter();
     }
   }
 
@@ -34,5 +37,9 @@
     clear: right;
     background: $blue;
     margin: 0;
+
+    @include media($tablet) {
+      margin-left: gutter();
+    }
   }
 }

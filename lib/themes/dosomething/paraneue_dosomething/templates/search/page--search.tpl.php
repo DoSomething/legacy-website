@@ -15,10 +15,12 @@
   <?php print $variables['navigation']; ?>
   <?php print $variables['header']; ?>
 
-  <main role="main" class="container">
+  <main role="main" class="container -padded">
     <div class="wrapper">
       <?php if (!empty($noresults_copy)): ?>
-        <h3><?php print $noresults_copy; ?></h3>
+        <div class="container__body">
+          <h3><?php print $noresults_copy; ?></h3>
+        </div>
       <?php endif; ?>
       <?php print render($page['content']); ?>
       <?php if (!empty($recommended_campaigns_gallery)): ?>
