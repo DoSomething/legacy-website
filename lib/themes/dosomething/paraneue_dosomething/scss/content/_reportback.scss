@@ -1,3 +1,5 @@
+#nav.waypoints--action-menu { display: none; }
+
 // @TODO: Patternize and move/merge into Neue!
 // Potentially rework into being part of the 
 // .media pattern.
@@ -26,56 +28,66 @@
 
 
 
-.reportback { background-color: #f0f;
+.reportback {
+  padding-bottom: $base-spacing;
 
   > .wrapper {
-
     @include media($medium) {
       direction: rtl;
       display: table;
       table-layout: fixed;
-    }
-  }
-  
-  .gallery--reportback {
-    @include span(12 of 12);
-
-    @include media($medium) {
-      @include span(4 of 12);
-      float: none;
-      direction: ltr;
-      display: table-cell;
+      width: 100%;
     }
   }
 
   .spacer {
     background-color: transparent;
-    display: table-cell;
+    display: none;
     width: ($base-spacing / 2);
+  
+    @include media($medium) {
+      display: table-cell;
+    }
   }
 
   form {
-    @include gutters;
     background-color: #fff;
-    padding-top: gutter();
+    height: 100%;
+    margin: 0 ($base-spacing / 2);
+
+    > div {
+      padding: gutters();
+    }
 
     @include media($medium) {
-      // @include span(8 of 12);
-      float: none;
       direction: ltr;
       display: table-cell;
-      // padding-left: 0;
+      margin: 0;
       vertical-align: top;
     }
   }
 
-
   .view-more {
-    @include clearfix();
+    overflow: hidden;
+    position: relative;
+  }
+
+  .spinner {
+    bottom: 0;
+    left: 50%;
+    margin-left: -16px;
+    opacity: 0.8;
+    position: absolute;
   }
 
   .button--view-more {
     color: #000;
+    float: right;
+    text-transform: lowercase;
+
+    &:focus {
+      box-shadow: none;
+    }
   }
 
 }
@@ -83,10 +95,45 @@
 
 .gallery--reportback {
 
-  > li {
+  @include media($medium) {
+    direction: ltr;
+    display: table-cell;
+    width: span(4 of 12);
+  }
 
+  @include media($larger) {
+    width: span(3 of 12);
+  }
+
+  @include media($larger) {
+    width: span(6 of 12);
+  }
+
+  > li {
+    @include span(50%);
+    margin: $base-spacing 0 0;
+    &:first-child { margin-top: 0; }
+    &:nth-child(2) { margin-top: 0; }
+    
+    @include media($medium) {
+      @include span(100%);
+      float: none;
+
+      &:nth-child(2) { margin-top: $base-spacing; }
+    }
+
+    @include media($larger) {
+      @include span(50%);
+
+      &:nth-child(2) { margin-top: 0; }
+    }
+    
     &:nth-child(n+5) {
       display: none;
+
+      @include media($larger) {
+        display: block;
+      }
     }
   }
 
@@ -96,6 +143,7 @@
 .gallery--extended {
 
   > li {
+    margin: $base-spacing 0 0;
     @include span(6 of 12);
 
     @include media($medium) {
