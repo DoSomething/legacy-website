@@ -13,7 +13,7 @@
     <div class="help">
       <?php print t('Questions?'); ?> <a href="#" data-modal-href="#modal-contact-form"><?php print t('Contact Us'); ?></a>
       <div data-modal id="modal-contact-form" class="modal--contact" role="dialog">
-        <h2 class="banner"><?php print t('Contact Us'); ?></h2>
+        <h2 class="heading -banner"><?php print t('Contact Us'); ?></h2>
         <p><?php print $zendesk_form_header; ?></p>
         <?php print render($zendesk_form); ?>
       </div>
