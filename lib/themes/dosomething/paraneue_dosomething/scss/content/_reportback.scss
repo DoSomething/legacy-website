@@ -27,7 +27,6 @@
 }
 
 
-
 .reportback {
   padding-bottom: $base-spacing;
 
@@ -40,7 +39,7 @@
     }
   }
 
-  .spacer {
+  .reportback__spacer {
     background-color: transparent;
     display: none;
     width: ($base-spacing / 2);
@@ -67,7 +66,7 @@
     }
   }
 
-  .view-more {
+  .reportback__view-more {
     overflow: hidden;
     position: relative;
   }

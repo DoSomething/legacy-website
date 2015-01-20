@@ -268,13 +268,13 @@
               <?php endfor; ?>
             </ul>
 
-            <div class="spacer"></div>
+            <div class="reportback__spacer"></div>
 
             <?php if (isset($reportback_form)): ?>
               <?php print render($reportback_form); ?>
             <?php endif; ?>
 
-            <div class="spacer"></div>
+            <div class="reportback__spacer"></div>
 
             <div data-modal id="modal--crop" class="modal--crop" role="dialog">
               <h2 class="banner">Edit your photo</h2>
