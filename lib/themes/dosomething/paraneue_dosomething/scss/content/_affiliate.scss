@@ -1,5 +1,5 @@
 body.-affiliate {
-  .home--hero {
+  .home-banner {
     .header {
       .title {
         @include visually-restored();
@@ -16,17 +16,11 @@ body.-affiliate {
   }
 }
 
-.chrome--footer {
+.footer {
   &.-affiliate {
-    .branding {
+    .footer__column.-branding {
       h4 {
-        cursor: text;
-        margin-bottom: 10px;
         text-align: center;
-
-        &:after {
-          content: "";
-        }
       }
 
       img {
@@ -44,15 +38,9 @@ body.-affiliate {
       }
     }
 
-    .social {
+    .footer__column.-social {
       @include media($tablet) {
         @include span(5);
-      }
-
-      &.mobile {
-        @include media($tablet) {
-          display: none;
-        }
       }
     }
   }
