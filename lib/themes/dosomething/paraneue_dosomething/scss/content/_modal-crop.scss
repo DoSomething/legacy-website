@@ -1,7 +1,7 @@
 .modal--crop {
 
-  h2.banner {
-    margin: -36px -27px 0;
+  .heading.-banner {
+    margin: (-$base-spacing) (-$base-spacing) 0px;
   }
 
   .image-editor {
@@ -45,7 +45,7 @@
   }
 
   .image-preview {
-    margin: 0 -27px;
+    margin: 0 (-$base-spacing);
     text-align: center;
     background: #000;
     line-height: 0;

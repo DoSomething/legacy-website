@@ -277,7 +277,7 @@
             <div class="reportback__spacer"></div>
 
             <div data-modal id="modal--crop" class="modal--crop" role="dialog">
-              <h2 class="banner">Edit your photo</h2>
+              <h2 class="heading -banner">Edit your photo</h2>
               <div class="image-preview"><!-- Preview image inserted with js --></div>
               <div class="image-editor">
                 <div class="__buttons">
