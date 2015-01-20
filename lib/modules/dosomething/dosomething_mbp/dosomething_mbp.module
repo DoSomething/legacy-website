@@ -148,6 +148,9 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['email_tags'][] = 'drupal_campaign_reportback';
       break;
 
+    default:
+      watchdog('dosomething_mbp', 'Invslid dosomething_mbp_get_transactional_payload() $origin value: ' . $origin, WATCHDOG_ERROR);
+
   }
 
   return $payload;
