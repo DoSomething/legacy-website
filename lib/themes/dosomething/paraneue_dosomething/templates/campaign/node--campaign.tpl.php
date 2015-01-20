@@ -20,7 +20,7 @@
   </div>
 </header>
 
-<article class="campaign campaign--action action"><?php // @TODO: need to deal w/ "action" class. ?>
+<article class="campaign campaign--action action">
   <nav id="nav" class="waypoints waypoints--action-menu js-sticky">
     <ul class="__menu js-scroll-indicator">
       <li><a class="js-jump-scroll" href="#know"><?php print t('Know'); ?></a></li>
@@ -251,26 +251,30 @@
 
     <?php if( $show_new_reportback ): ?>
       <div class="wrapper">
-        <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
+        <div class="container__body">
+          <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
-        <?php if (isset($reportback_copy)): ?>
-          <p class="copy"><?php print $reportback_copy; ?></p>
-        <?php endif; ?>
+          <?php if (isset($reportback_copy)): ?>
+            <p class="copy"><?php print $reportback_copy; ?></p>
+          <?php endif; ?>
+        </div>
 
         <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total']; ?>">
           <div class="wrapper">
 
             <ul class="gallery gallery--reportback">
-              <?php for ($i = 0; $i <= count($reportbacks_gallery['items']); $i++): ?>
+              <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
                 <li><?php print $reportbacks_gallery['items'][$i]; ?></li>
               <?php endfor; ?>
             </ul>
 
-            <div class="spacer"></div>
+            <div class="reportback__spacer"></div>
 
             <?php if (isset($reportback_form)): ?>
               <?php print render($reportback_form); ?>
             <?php endif; ?>
+
+            <div class="reportback__spacer"></div>
 
             <div data-modal id="modal--crop" class="modal--crop" role="dialog">
               <h2 class="banner">Edit your photo</h2>
@@ -295,61 +299,59 @@
 
           </div>
         </div>
-
       </div>
+    <?php else: ?>
+      <div class="wrapper">
+        <div class="container__body -half">
+          <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
-      <?php else: ?>
-        <div class="wrapper">
-          <div class="container__body -half">
-            <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
-
-            <?php if (isset($reportback_copy)): ?>
-              <p class="copy"><?php print $reportback_copy; ?></p>
-            <?php endif; ?>
-
-            <?php if (isset($reportback_link)): ?>
-              <p><a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="button"><?php print $reportback_link['label']; ?></a></p>
-            <?php endif; ?>
-
-            <?php print $prove_scholarship; ?>
-
-            <?php if (isset($reportback_form)): ?>
-              <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
-                <h2 class="heading -banner"><?php print t('Prove It'); ?></h2>
-                <?php print render($reportback_form); ?>
-              </div>
-            <?php endif; ?>
-          </div>
-
-          <div class="container__body -half">
-            <aside class="carousel">
-              <?php if (isset($reportback_image)): ?>
-                <div id="prev" class="carousel__control -previous">
-                  <span>Previous Slide</span>
-                </div>
-
-                <div class="slides">
-                  <?php foreach ($reportback_image as $key=>$image): ?>
-                  <img id="slide<?php print $key ?>" class="carousel__slide bordered" src="<?php print $image ?>" />
-                  <?php endforeach; ?>
-                </div>
-
-                <div id="next" class="carousel__control -next">
-                  <span>Next Slide</span>
-                </div>
-              <?php else: ?>
-                <?php print $reportback_placeholder; ?>
-              <?php endif; ?>
-            </aside>
+          <?php if (isset($reportback_copy)): ?>
+            <p class="copy"><?php print $reportback_copy; ?></p>
           <?php endif; ?>
 
-          <?php if (isset($official_rules)): ?>
-            <div class="disclaimer">
-              <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+          <?php if (isset($reportback_link)): ?>
+            <p><a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="button"><?php print $reportback_link['label']; ?></a></p>
+          <?php endif; ?>
+
+          <?php print $prove_scholarship; ?>
+
+          <?php if (isset($reportback_form)): ?>
+            <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
+              <h2 class="heading -banner"><?php print t('Prove It'); ?></h2>
+              <?php print render($reportback_form); ?>
             </div>
           <?php endif; ?>
+        </div>
+
+        <div class="container__body -half">
+          <aside class="carousel">
+            <?php if (isset($reportback_image)): ?>
+              <div id="prev" class="carousel__control -previous">
+                <span>Previous Slide</span>
+              </div>
+
+              <div class="slides">
+                <?php foreach ($reportback_image as $key=>$image): ?>
+                <img id="slide<?php print $key ?>" class="carousel__slide bordered" src="<?php print $image ?>" />
+                <?php endforeach; ?>
+              </div>
+
+              <div id="next" class="carousel__control -next">
+                <span>Next Slide</span>
+              </div>
+            <?php else: ?>
+              <?php print $reportback_placeholder; ?>
+            <?php endif; ?>
+          </aside>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
+
+    <?php if (isset($official_rules)): ?>
+      <div class="disclaimer">
+        <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+      </div>
+    <?php endif; ?>
 
     <?php if ($info_bar): ?>
       <?php print $info_bar; ?>
