@@ -110,9 +110,21 @@ function dosomething_mbp_update_7003(&$sandbox) {
 }
 
 /**
- * Creates production entry in message_broker_producer for user profile updates
+ * Switch affiliate sites to use Message Broker for transactional email messages.
  */
  function dosomething_mbp_update_7004(&$sandbox) {
+
+   $modules = array(
+     'message_broker_producer',
+     'dosomething_mbp'
+   );
+   module_enable($modules);
+
+   // Default Message Broker RabbitMQ connection settings
+   variable_set('message_broker_producer_rabbitmq_host', '10.241.0.14');
+   variable_set('message_broker_producer_rabbitmq_port', '5672');
+   variable_set('message_broker_producer_rabbitmq_username', 'dosomething');
+   variable_set('message_broker_producer_rabbitmq_vhost', 'dosomething');
 
    $affiliate = dosomething_settings_get_affiliate_country_code();
    $affiliate_lc = strtolower($affiliate);
@@ -132,7 +144,7 @@ function dosomething_mbp_update_7003(&$sandbox) {
      variable_set("dosomething_mbp_campaign_group_signup_template", "mb-group-campaign-signup-{$affiliate_lc}");
    }
 
-   // Identify sending appication to Message Broker by country code
+   // Identify sending application to Message Broker by country code
    if (module_exists('message_broker_producer')) {
      variable_set('message_broker_producer_application_id', $affiliate);
    }
