@@ -97,6 +97,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'activity' => $origin,
     'email' => $params['email'],
     'uid' => $params['uid'],
+    'email_template' => dosomething_mbp_get_template_name($origin),
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
@@ -111,7 +112,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         $payload['mobile'] = $params['mobile'];
       }
       $payload['merge_vars']['FNAME'] = $params['first_name'];
-      $payload['email_template'] = 'mb-general-signup';
       $payload['email_tags'][] = 'drupal_user_register';
       break;
 
@@ -119,7 +119,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['merge_vars']['USERNAME'] = $params['username'];
       $payload['merge_vars']['RESET_LINK'] = $params['reset_link'];
-      $payload['email_template'] = 'mb-password-reset';
       $payload['email_tags'][] = 'drupal_user_password';
       break;
 
@@ -129,14 +128,12 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_ONE'] = $params['step_one'];
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
-      $payload['email_template'] = 'mb-campaign-signup';
       $payload['email_tags'][] = 'drupal_campaign_signup';
       break;
 
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
-      $payload['email_template'] = 'mb-group-campaign-signup';
       $payload['email_tags'][] = 'drupal_campaign_group_signup';
       break;
 
@@ -148,7 +145,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['IMPACT_NUMBER'] = $params['impact_number'];
       $payload['merge_vars']['IMPACT_NOUN'] = $params['impact_noun'];
       $payload['merge_vars']['REPORTBACK_IMAGE_MARKUP'] = $params['image_markup'];
-      $payload['email_template'] = 'mb-campaign-report-back';
       $payload['email_tags'][] = 'drupal_campaign_reportback';
       break;
 
