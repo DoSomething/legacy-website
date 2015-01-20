@@ -184,3 +184,20 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
   $payload['merge_vars']['CAMPAIGN_LINK'] = $params['campaign_link'];
 }
+
+/**
+ * Define template name to use for transaction based on the event and the
+ * affiliate code.
+ *
+ * @param string $event_name
+ *   NamExample: "campaign_signup", "password_reset", etc
+ *
+ * @return string
+ *   Name of Mandrill template to use for transactional message.
+ */
+function dosomething_mbp_get_template_name($event_name) {
+  $country_code = dosomething_settings_get_affiliate_country_code();
+  // Convert from "_" to "-" for template name
+  $event_name = str_replace('_', '-', $event_name);
+  return 'mb-' . $event_name . '-' . $country_code;
+}
