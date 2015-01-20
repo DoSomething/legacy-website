@@ -1,7 +1,7 @@
 {
   "name": "ds-paraneue",
   "version": "0.0.1",
-  "description": "The sub-theme of Paraneue, Do Something's Drupal 7 theme that imports the Neue Pattern Library",
+  "description": "DoSomething.org app-specific styles and presentation logic.",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoSomething/dosomething.git"
@@ -9,23 +9,17 @@
   "devDependencies": {
     "autoprefixer-core": "^4.0.2",
     "css-mqpacker": "^2.0.0",
-    "grunt": "~0.4.1",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-coffee": "~0.7.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.7.0",
-    "grunt-contrib-imagemin": "~0.5.0",
-    "grunt-contrib-jshint": "~0.7.1",
-    "grunt-contrib-requirejs": "^0.4.3",
-    "node-sass": "~2.0.0-beta",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-modernizr": "^0.5.2",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-jshint": "^0.7.1",
+    "grunt-contrib-requirejs": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-modernizr": "^0.6.0",
     "grunt-postcss": "^0.2.0",
     "grunt-scss-lint": "^0.3.4",
-    "grunt-shell": "~0.6.1",
-    "jshint-stylish": "~0.1.4",
-    "load-grunt-config": "^0.8.0",
-    "time-grunt": "^0.3.1"
+    "jshint-stylish": "^1.0.0",
+    "load-grunt-config": "^0.16.0",
+    "node-sass": "^2.0.0-beta",
+    "time-grunt": "^1.0.0"
   }
 }
