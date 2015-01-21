@@ -185,7 +185,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
         $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'wmax-300-hmax-75');
       }
       else if ($klout_gallery[$i]['type'] == 'mention') {
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '100x100');
+        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '300x300');
       }
       // @TODO: link this link?
       if (!empty($gallery_items[$gallery_item_entity_id]->field_image_title)) {
@@ -198,6 +198,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
       $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
     }
   }
+
   $vars['klout_gallery'] = $klout_gallery;
 }
 

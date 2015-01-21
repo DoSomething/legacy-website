@@ -406,7 +406,7 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   $params['random'] = TRUE;
   $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $initial_count);
   foreach ($promoted_results as $rb_file) {
-    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
+    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '400x400');
     $reportbacks_gallery['items'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
   }
 
@@ -561,7 +561,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   global $base_url;
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
-      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
       $item = array(
         'title' => $value['link'],
         'image' => $image,
@@ -584,7 +584,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         // Link to the full reportback entity view.
         $impact = l($impact, 'reportback/' . $rbid);
       }
-      $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '100x100');
+      $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
       // Media gallery template expects a full URL.
       $url = $base_url . '/' . drupal_get_path_alias('node/' . $reportback->nid);
       $content = array(
