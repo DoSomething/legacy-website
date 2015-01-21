@@ -56,27 +56,27 @@
 
 
 // Campaign Action Page
-.campaign--action {
-  [role="banner"] {
-    @include media($tablet) {
-      .message-callout {
-        @include visually-hidden();
+.banner--action {
+  &.has-promotions {
+    > .wrapper {
+      @include media($tablet) {
+        padding-bottom: 12px;
       }
-    }
 
-    &.has-promotions {
-      > .wrapper {
-        @include media($tablet) {
-          padding-bottom: 12px;
-        }
-
-        @include media($desktop) {
-          padding-bottom: 0;
-        }
+      @include media($desktop) {
+        padding-bottom: 0;
       }
     }
   }
 
+  @include media($tablet) {
+    .message-callout {
+      @include visually-hidden();
+    }
+  }
+}
+
+.campaign--action {
   .container--do {
     .polaroid {
       @include media($mobile) {
