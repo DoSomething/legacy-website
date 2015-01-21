@@ -133,7 +133,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
       $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
       foreach($text_fields as $text_field) {
-        $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+        $winners[$i][$text_field] = ucfirst($winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value']);
       }
     }
     $vars['winners'] = $winners;
