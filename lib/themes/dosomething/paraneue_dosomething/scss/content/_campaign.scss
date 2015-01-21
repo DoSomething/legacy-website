@@ -136,43 +136,4 @@
   }
 }
 
-// Campaign SMS Game Page
-.campaign--sms {
-  .form-actions {
-    text-align: left;
-  }
-
-  .container--do {
-    form {
-      .message-callout {
-        margin: 0 auto;
-        text-align: center;
-        width: 215px;
-
-        @include media($tablet) {
-          position: absolute;
-          top: 0;
-          right: 20px;
-          margin: 0;
-        }
-
-        .__copy {
-          &:before {
-            right: -10px;
-          }
-        }
-      }
-    }
-
-    .message-callout.-right {
-      position: absolute;
-      left: 144px;
-      bottom: -15px;
-
-      @include media($tablet) {
-        bottom: 0;
-      }
-    }
-  }
-}
 
