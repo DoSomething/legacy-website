@@ -5,6 +5,36 @@
  */
  
 /**
+ * Implements hook_install().
+ */
+function dosomething_mbp_install() {
+
+   // Default Message Broker RabbitMQ connection settings
+   variable_set('message_broker_producer_rabbitmq_host', getenv('DS_MB_RABBITMQ_HOST'));
+   variable_set('message_broker_producer_rabbitmq_port', getenv('DS_MB_RABBITMQ_PORT'));
+   variable_set('message_broker_producer_rabbitmq_username', getenv('DS_MB_RABBITMQ_USERNAME'));
+   variable_set('message_broker_producer_rabbitmq_password', getenv('DS_MB_RABBITMQ_PASSWORD'));
+   variable_set('message_broker_producer_rabbitmq_vhost', getenv('DS_MB_RABBITMQ_VHOST'));
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_canada_uninstall() {
+  $vars = array(
+    'message_broker_producer_rabbitmq_host',
+    'message_broker_producer_rabbitmq_port',
+    'message_broker_producer_rabbitmq_username',
+    'message_broker_producer_rabbitmq_password',
+    'message_broker_producer_rabbitmq_vhost',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
+
+/**
  * Deletes dosomething_mbp_send_campaign_api system variable
  */
 function dosomething_mbp_update_7001(&$sandbox) {
@@ -108,16 +138,3 @@ function dosomething_mbp_update_7003(&$sandbox) {
   }
 
 }
-
-/**
- * Switch affiliate sites to use Message Broker for transactional email messages.
- */
- function dosomething_mbp_update_7004(&$sandbox) {
-
-   // Default Message Broker RabbitMQ connection settings
-   variable_set('message_broker_producer_rabbitmq_host', '10.241.0.14');
-   variable_set('message_broker_producer_rabbitmq_port', '5672');
-   variable_set('message_broker_producer_rabbitmq_username', 'dosomething');
-   variable_set('message_broker_producer_rabbitmq_vhost', 'dosomething');
-
- }
