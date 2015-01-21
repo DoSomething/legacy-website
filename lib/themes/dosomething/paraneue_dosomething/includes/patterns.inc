@@ -23,22 +23,18 @@
  *
  * @return string
  */
-function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_default = TRUE, $classes_array = array()) {
+function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_default = TRUE, $classes_array = array('-medium')) {
   // If no image is provided and we want to use a default, then set the default image here.
   if (empty($content['image']) && $use_default) {
     $content['image'] = theme('image', array(
-      'path' => path_to_theme() . '/bower_components/neue/dist/assets/images/apple-touch-icon-precomposed.png',
-      'width' => 100,
-      'height' => 100
+      'path' => path_to_theme() . '/bower_components/neue/dist/assets/images/apple-touch-icon-precomposed.png'
     ));
   }
 
   $variables = array(
     'content' => $content,
+    'classes' => implode(' ', $classes_array)
   );
-  if (isset($classes_array)) {
-    $variables['classes'] = implode(' ', $classes_array);
-  }
 
   $tpl = 'paraneue_' . $type;
   return theme($tpl, $variables);
