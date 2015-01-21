@@ -57,6 +57,9 @@ function dosomething_mbp_request($origin, $params = NULL) {
       $production = 'transactional_campaign_reportback';
       break;
 
+    default:
+      watchdog('dosomething_mbp', 'Undefined origin: %origin sent to dosomething_mbp_request()', array('%origin' => $origin), WATCHDOG_ERROR);
+
   }
   $payload = dosomething_mbp_get_transactional_payload($origin, $params);
   if (variable_get('dosomething_mbp_log')) {
@@ -148,9 +151,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['email_tags'][] = 'drupal_campaign_reportback';
       break;
 
-    default:
-      watchdog('dosomething_mbp', 'Invslid dosomething_mbp_get_transactional_payload() $origin value: ' . $origin, WATCHDOG_ERROR);
-
   }
 
   return $payload;
@@ -189,7 +189,7 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
  * affiliate code.
  *
  * @param string $event_name
- *   NamExample: "campaign_signup", "password_reset", etc
+ *   Example: "campaign_signup", "password_reset", etc
  *
  * @return string
  *   Name of Mandrill template to use for transactional message.
