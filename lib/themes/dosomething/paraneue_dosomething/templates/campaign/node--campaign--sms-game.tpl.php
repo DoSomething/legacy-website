@@ -92,20 +92,20 @@
           <?php if (isset($starter)) : ?>
             <div><?php print $starter['safe_value']; ?></div>
           <?php endif; ?>
+        </div>
 
-          <?php if (isset($signup_form)) : ?>
-            <?php print render($signup_form); ?>
-          <?php endif; ?>
+        <?php if (isset($signup_form)) : ?>
+          <?php print render($signup_form); ?>
+        <?php endif; ?>
 
-          <?php print $campaign_scholarship; ?>
+        <?php print $campaign_scholarship; ?>
 
-          <div class="disclaimer legal">
-            <p>
-              <?php
-              print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
-                array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
-            </p>
-          </div>
+        <div class="container__body -narrow">
+          <p class="legal">
+            <?php
+            print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
+              array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
+          </p>
         </div>
 
       </div>
