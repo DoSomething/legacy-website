@@ -33,7 +33,7 @@
         <h2 class="inline--alt-color"><?php print $page_header; ?></h2>
         <?php endif; ?>
         <p><?php print $page_copy; ?></p>
-        <a href="#" data-modal-href="#modal-redeem-form" class="button"><?php print $form_link; ?></a>
+        <p><a href="#" data-modal-href="#modal-redeem-form" class="button"><?php print $form_link; ?></a></p>
       </div>
 
       <?php if (isset($page_image)): ?>
