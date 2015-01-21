@@ -13,7 +13,6 @@ function dosomething_mbp_install() {
   variable_set('message_broker_producer_rabbitmq_host', getenv('DS_MB_RABBITMQ_HOST'));
   variable_set('message_broker_producer_rabbitmq_port', getenv('DS_MB_RABBITMQ_PORT'));
   variable_set('message_broker_producer_rabbitmq_username', getenv('DS_MB_RABBITMQ_USERNAME'));
-  variable_set('message_broker_producer_rabbitmq_password', getenv('DS_MB_RABBITMQ_PASSWORD'));
   variable_set('message_broker_producer_rabbitmq_vhost', getenv('DS_MB_RABBITMQ_VHOST'));
 
   // Define the Message Broker application_id as the affiliate country code
