@@ -65,8 +65,13 @@
   }
 
   .reportback__view-more {
+    margin-bottom: $base-spacing;
     overflow: hidden;
     position: relative;
+
+    @include media($medium) {
+      margin-bottom: 0;
+    }
   }
 
   .spinner {
