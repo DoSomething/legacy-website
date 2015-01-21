@@ -13,7 +13,7 @@
 		<div class="container__body">
 			<?php foreach ($links as $cause => $fact_pages): ?>
 			  <h3 class="inline--alt-color"><?php print $cause; ?></h3>
-			  <ul>
+			  <ul class="list-compacted">
 			    <?php foreach ($fact_pages as $link): ?>
 			    <li><?php print $link; ?></li>
 			    <?php endforeach ; ?>
