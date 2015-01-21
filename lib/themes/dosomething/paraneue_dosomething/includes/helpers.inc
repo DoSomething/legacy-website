@@ -142,7 +142,7 @@ function paraneue_dosomething_get_search_vars($results) {
         $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
-          $value['display_image'] = dosomething_image_get_themed_image($image['und'][0]['target_id'], 'square', '100x100');
+          $value['display_image'] = dosomething_image_get_themed_image($image['und'][0]['target_id'], 'square', '300x300');
         }
         else {
           $value['display_image'] = '';
@@ -294,7 +294,7 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
   if (isset($rec_vars)) {
     $gallery_items = array();
     foreach ($rec_vars as $delta => $value) {
-      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '300x300');
+      $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
       $item = array(
         'title' => $value['link'],
         'image' => $image,

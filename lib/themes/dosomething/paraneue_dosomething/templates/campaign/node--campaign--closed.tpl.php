@@ -165,7 +165,7 @@
 
               <?php if ($klout_gallery_item['type'] === 'mention') : ?>
                 <li class="<?php print $gallery_item['order_class']; ?>">
-                  <div class="media">
+                  <div class="media -medium">
                     <?php if (isset($gallery_item['image'])): ?>
                     <div class="media__image">
                       <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
