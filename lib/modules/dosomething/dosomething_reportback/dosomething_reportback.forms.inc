@@ -297,7 +297,7 @@ function dosomething_reportback_form_save_file(&$form_state) {
 /**
  * Rotate and crops an image based on user input.
  */
-function dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate) {
+function dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate = NULL) {
   // Rotate the image and then crop it if rotation was successful.
   if ($rotate) {
     image_rotate($image, $rotate);
