@@ -12,7 +12,21 @@ function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_shirt_options($form, $form_state, $form_id);
 }
 
-
+/**
+ * Implements theme_file().
+ */
+function paraneue_dosomething_file($variables) {
+  $element = $variables['element'];
+  $id = NULL;
+  if (isset($element['#id'])) {
+    $id = $element['#id'];
+  }
+  $element['#attributes']['type'] = 'file';
+  element_set_attributes($element, array('id', 'name', 'size'));
+  _form_set_class($element, array('form-file'));
+  // Need to include the <input> within <label> to support IE8/9. 
+  return '<label id="' . $id .'">' . t('Upload a pic') . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
+}
 
 /**
  * Checks if given $form needs Shirt Styles applied based on its $form_id.
