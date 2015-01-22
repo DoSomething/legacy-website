@@ -96,7 +96,7 @@ function dosomething_static_content_preprocess_gallery_vars(&$vars) {
     $style = 'default';
     // Defaults to use the Image node square field.
     $image_ratio = 'square';
-    $image_style = '300x300';
+    $image_style = '400x400';
 
     $vars['galleries'][$i] = array();
     $collection_item = reset($content['field_gallery'][$i]['entity']['field_collection_item']);

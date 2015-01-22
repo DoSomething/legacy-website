@@ -165,7 +165,7 @@
 
               <?php if ($klout_gallery_item['type'] === 'mention') : ?>
                 <li class="<?php print $gallery_item['order_class']; ?>">
-                  <div class="media">
+                  <div class="media -medium">
                     <?php if (isset($gallery_item['image'])): ?>
                     <div class="media__image">
                       <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
@@ -235,7 +235,7 @@
               <?php endif; ?>
 
               <?php if (isset($winner['field_winner_type'])): ?>
-                <h4><?php print t("@field_winner_type winner", array("@field_winner_type" => $winner['field_winner_type'])); ?></h4>
+                <h4><?php print t("@field_winner_type Winner", array("@field_winner_type" => $winner['field_winner_type'])); ?></h4>
               <?php endif; ?>
 
 

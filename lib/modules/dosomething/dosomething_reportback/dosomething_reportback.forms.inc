@@ -85,7 +85,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
   $form['reportback_file'] = array(
     '#type' => 'file',
-    '#title' => t('Upload a pic'),
     '#attributes' => array(
       'class' => array($reportback_file_class),
     ),

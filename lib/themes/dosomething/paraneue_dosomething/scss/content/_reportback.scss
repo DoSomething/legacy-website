@@ -1,5 +1,3 @@
-#nav.waypoints--action-menu { display: none; }
-
 // @TODO: Patternize and move/merge into Neue!
 // Potentially rework into being part of the 
 // .media pattern.
@@ -67,8 +65,13 @@
   }
 
   .reportback__view-more {
+    margin-bottom: $base-spacing;
     overflow: hidden;
     position: relative;
+
+    @include media($medium) {
+      margin-bottom: 0;
+    }
   }
 
   .spinner {

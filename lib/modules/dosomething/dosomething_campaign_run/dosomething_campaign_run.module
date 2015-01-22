@@ -133,7 +133,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
       $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
       foreach($text_fields as $text_field) {
-        $winners[$i][$text_field] = $winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value'];
+        $winners[$i][$text_field] = ucfirst($winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value']);
       }
     }
     $vars['winners'] = $winners;
@@ -185,7 +185,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
         $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'wmax-300-hmax-75');
       }
       else if ($klout_gallery[$i]['type'] == 'mention') {
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '100x100');
+        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '300x300');
       }
       // @TODO: link this link?
       if (!empty($gallery_items[$gallery_item_entity_id]->field_image_title)) {
@@ -198,6 +198,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
       $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
     }
   }
+
   $vars['klout_gallery'] = $klout_gallery;
 }
 

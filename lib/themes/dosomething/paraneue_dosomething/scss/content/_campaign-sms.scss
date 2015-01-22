@@ -1,0 +1,66 @@
+// Campaign SMS Game Page
+.campaign--sms {
+  .container--do {
+    form {
+      position: relative;
+      clear: both;
+      overflow: hidden;
+
+      .message-callout {
+        margin: 0 auto;
+        text-align: center;
+        width: 215px;
+
+        @include media($tablet) {
+          position: absolute;
+          top: 0;
+          right: 20px;
+          margin: 0;
+        }
+
+        .__copy {
+          &:before {
+            right: -10px;
+          }
+        }
+      }
+    }
+
+    .form-item-alpha-first-name {
+      @include span(100%);
+
+      @include media($medium) {
+        @include span(50%);
+      }
+    }
+
+    .form-wrapper.-columned {
+      @include span(100%);
+
+      @include media($medium) {
+        @include span(50%);
+      }
+
+      &:first-of-type {
+        clear: both;
+      }
+    }
+
+    .form-actions {
+      @include span(100%);
+      clear: both;
+      text-align: left;
+    }
+
+    .message-callout.-right {
+      position: absolute;
+      left: 144px;
+      bottom: -15px;
+
+      @include media($tablet) {
+        bottom: 0;
+      }
+    }
+  }
+}
+

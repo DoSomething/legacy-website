@@ -14,7 +14,7 @@
  * @see paraneue_dosomething_get_gallery_item()
  */
 ?>
-<article class="media">
+<article class="media <?php print $classes; ?>">
   <div class="media__image">
     <?php if (!empty($content['image'])): ?>
       <?php print $content['image']; ?>
