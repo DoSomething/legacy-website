@@ -374,19 +374,27 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
   }
 
   $first_name = FALSE;
+  $profile = NULL;
   // Check to see if user exists with this email.
   if ($account = user_load_by_mail($email)) {
     // Check for first name.
     $first_name = dosomething_user_get_field('field_first_name', $account);
+    $profile = $account->uid;
   }
   
   // Use the email address as the name if there's no first name available.
   if (!$first_name) {
     $first_name = $email;
   }
+
+  //profile isnt being set, add null check to profile
+
   $new_user = array(
     'email' => $email,
     'name' => $first_name,
+    'user_fields' => array(
+      'profile' => $base_url + '/user/' + $profile,
+    ),
   );
   if (DOSOMETHING_ZENDESK_LOG) {
     watchdog('dosomething_zendesk', json_encode($new_user));
