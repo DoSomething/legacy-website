@@ -143,9 +143,13 @@ class ReportbackFileEntityController extends EntityAPIController {
 
     if (!empty($entity->reviewed)) {
       $reviewer = user_load($entity->reviewer);
+      $reason = NULL;
+      if (!empty($reportback->flagged_reason)) {
+        $reason = ' ' . t("as") . ' ' . $reportback->flagged_reason;
+      }
       $build['reviewed'] = array(
         '#prefix' => '<p>',
-        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short'),
+        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short') . $reason,
         '#suffix' => '</p>',
       );
       if ($reviewer->uid > 0) {
