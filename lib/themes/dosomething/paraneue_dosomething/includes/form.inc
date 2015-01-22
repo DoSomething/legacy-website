@@ -22,10 +22,12 @@ function paraneue_dosomething_file($variables) {
     $id = $element['#id'];
   }
   $element['#attributes']['type'] = 'file';
+  $element['#attributes']['aria-label'] = 'file browser';
   element_set_attributes($element, array('id', 'name', 'size'));
   _form_set_class($element, array('form-file'));
-  // Need to include the <input> within <label> to support IE8/9. 
-  return '<label id="' . $id .'">' . t('Upload a pic') . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
+
+  // Need to include the <input> within <label> to universalize style for file input.
+  return '<label class="button button--file" id="' . $id . '"><span>' . t('Upload a pic') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
 }
 
 /**
