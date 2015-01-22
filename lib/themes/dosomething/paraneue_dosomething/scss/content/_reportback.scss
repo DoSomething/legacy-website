@@ -116,18 +116,21 @@
     margin: $base-spacing 0 0;
     &:first-child { margin-top: 0; }
     &:nth-child(2) { margin-top: 0; }
+    &.-second { margin-top: 0; }  // IE8fix
     
     @include media($medium) {
       @include span(100%);
       float: none;
 
       &:nth-child(2) { margin-top: $base-spacing; }
+      &.-second { margin-top: $base-spacing; }  // IE8fix
     }
 
     @include media($larger) {
       @include span(50%);
 
       &:nth-child(2) { margin-top: 0; }
+      &.-second { margin-top: 0; }  // IE8fix
     }
     
     &:nth-child(n+5) {
@@ -158,3 +161,24 @@
   }
 
 }
+
+
+
+// @TODO: move to proper locations
+// Temporary additions to work through fix for upload button issues.
+.reportback {
+  input[type="file"] {
+    @include visually-hidden();
+  }
+
+  .button--file {
+    height: auto;
+    width: auto;
+  }
+}
+
+.gigantor {
+  background-color: #f0f;
+}
+
+

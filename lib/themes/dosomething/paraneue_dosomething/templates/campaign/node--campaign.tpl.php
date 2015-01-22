@@ -246,13 +246,13 @@
 
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
-  <section id="prove" class="container container--prove inline--alt-bg <?php if($show_new_reportback) print 'reportback-beta'; ?>">
+  <section id="prove" class="container container--prove inline--alt-bg <?php if($show_new_reportback): print 'reportback-beta'; else: print 'reportback-classic'; endif; ?>">
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <?php if( $show_new_reportback ): ?>
       <div class="wrapper">
         <div class="container__body">
-          <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
+          <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
           <?php if (isset($reportback_copy)): ?>
             <p class="copy"><?php print $reportback_copy; ?></p>
@@ -264,7 +264,9 @@
 
             <ul class="gallery gallery--reportback">
               <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
-                <li><?php print $reportbacks_gallery['items'][$i]; ?></li>
+                <li <?php if ($i === 1) print ' class="-second"'; ?>>
+                  <?php print $reportbacks_gallery['items'][$i]; ?>
+                </li>
               <?php endfor; ?>
             </ul>
 
