@@ -27,7 +27,7 @@ function paraneue_dosomething_file($variables) {
   _form_set_class($element, array('form-file'));
 
   // Need to include the <input> within <label> to universalize style for file input.
-  return '<label class="button button--file" id="' . $id . '"><span>' . t('Upload a pic') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
+  return '<label class="button button--file -secondary" id="' . $id . '"><span>' . t('Upload a pic') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
 }
 
 /**

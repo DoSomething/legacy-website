@@ -166,13 +166,15 @@
 
 // @TODO: move to proper locations
 // Temporary additions to work through fix for upload button issues.
-input[type="file"] {
-  @include visually-hidden();
-}
+.reportback {
+  input[type="file"] {
+    @include visually-hidden();
+  }
 
-.button--file {
-  height: auto;
-  width: auto;
+  .button--file {
+    height: auto;
+    width: auto;
+  }
 }
 
 .gigantor {
