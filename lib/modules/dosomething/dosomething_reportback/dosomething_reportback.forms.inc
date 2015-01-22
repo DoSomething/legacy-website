@@ -103,6 +103,9 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $form['crop_height'] = array(
       '#type' => 'hidden',
     );
+    $form['crop_rotate'] = array(
+      '#type' => 'hidden',
+    );
   }
   $caption = NULL;
   if (isset($entity->caption)) {
@@ -282,18 +285,26 @@ function dosomething_reportback_form_save_file(&$form_state) {
     $y = $form_state['values']['crop_y'];
     $width = $form_state['values']['crop_width'];
     $height = $form_state['values']['crop_height'];
+    $rotate = $form_state['values']['crop_rotate'];
     // Load the image.
     $image = image_load($file->uri);
-    // Crop the image.
-    dosomething_reportback_image_crop($image, $x, $y, $width, $height);
+    // Apply user crop and rotation to the image.
+    dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate);
   }
   return $file;
 }
 
-// Function to crop image.
-function dosomething_reportback_image_crop($image, $x, $y, $width, $height) {
-  // Crop the image.
+/**
+ * Rotate and crops an image based on user input.
+ */
+function dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate = NULL) {
+  // Rotate the image and then crop it if rotation was successful.
+  if ($rotate) {
+    image_rotate($image, $rotate);
+  }
+
   $result = image_crop($image, $x, $y, $width, $height);
+
   // Save the image, if result is successful;
   // @TODO - this saves the new cropped image over the original one. Eventually we want to save it as a separate image.
   if ($result) {

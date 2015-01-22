@@ -1,7 +1,7 @@
 .modal--crop {
 
-  h2.banner {
-    margin: -36px -27px 0;
+  .heading.-banner {
+    margin: (-$base-spacing) (-$base-spacing) 0px;
   }
 
   .image-editor {
@@ -16,6 +16,10 @@
 
       .-rotate {
         display: inline-block;
+
+        &:focus {
+          box-shadow: none;
+        }
       }
 
       .-change {
@@ -41,14 +45,17 @@
   }
 
   .image-preview {
-    margin: 0 -27px;
+    margin: 0 (-$base-spacing);
     text-align: center;
     background: #000;
     line-height: 0;
+    overflow: hidden;
 
     img {
       width: auto;
-      max-width: 100%;
+      max-width: 600px;
+      position: absolute;
+      left: 0;
     }
   }
 
@@ -56,6 +63,7 @@
   .crop-bounding-box {
     position: relative;
     display: inline-block;
+    max-width: 600px;
 
     .cropbox {
       position: absolute;
