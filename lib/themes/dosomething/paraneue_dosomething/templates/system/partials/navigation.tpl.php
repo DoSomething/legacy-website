@@ -28,20 +28,67 @@
 
     <ul class="navigation__secondary">
       <li>
-        <?php print $search_box; ?>
+	<?php print $search_box; ?>
       </li>
       <?php if(!$logged_in): ?>
-      <?php // Will change 'Sign Up' to 'Create Account' once we refactor nav and can fit longer text! ?>
-      <?php if( theme_get_setting('show_profile_link') ): ?>
-      <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register"><?php print t('Register'); ?></a></li>
-      <?php endif; ?>
-      <li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
+	<?php // Will change 'Sign Up' to 'Create Account' once we refactor nav and can fit longer text! ?>
+	<?php if( theme_get_setting('show_profile_link') ): ?>
+	  <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register"><?php print t('Create an account'); ?></a></li>
+	<?php endif; ?>
+	<li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
       <?php else: ?>
-      <?php if( theme_get_setting('show_profile_link') ): ?>
-      <li><?php print l($user_identifier, 'user/'. $user->uid); ?></li>
-      <?php endif; ?>
-      <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
+
+	<li class="navigation__dropdown clicked"><?php print l($user_identifier, 'user/'. $user->uid); ?> 
+	  <ul>
+	    <li><p>thing 1</p></li>
+	    <li><p>thing 2</p></li>
+	  </ul>
+	</li>          
+
+	<!--
+	<?php if( theme_get_setting('show_profile_link') ): ?>
+	  <li><?php print l($user_identifier, 'user/'. $user->uid); ?></li>
+	<?php endif; ?>
+	<li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
+	-->
       <?php endif; ?>
     </ul>
   </div>
 </nav>
+
+<style type="text/css">
+  .navigation__dropdown ul {
+    visibility: hidden;
+  }
+
+  .navigation__dropdown.clicked {
+    background-color: #fff;
+    padding-top: 0;
+    padding-bottom: 0; 
+    margin-left: 36px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+    margin-top: 12px;
+    margin-right: 8px;
+    min-width: 180px;
+  }
+
+  .navigation__dropdown.clicked a, ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .navigation__dropdown.clicked a {
+    color: #4e2b63;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .navigation__dropdown.clicked li {
+    visibility: visible;
+    display: block;
+    float: none;
+    padding-top: 0;
+    padding-bottom: 0;   
+  }
+</style>
