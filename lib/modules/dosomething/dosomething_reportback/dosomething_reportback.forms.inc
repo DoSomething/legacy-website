@@ -301,17 +301,10 @@ function dosomething_reportback_form_save_file(&$form_state) {
 function dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate) {
   // Rotate the image and then crop it if rotation was successful.
   if ($rotate) {
-    $result = image_rotate($image, $rotate);
+    image_rotate($image, $rotate);
+  }
 
-    // Crop the image.
-    if ($result) {
-      $result = image_crop($image, $x, $y, $width, $height);
-    }
-  }
-  // If rotation not defined, just crop the image.
-  else {
-    $result = image_crop($image, $x, $y, $width, $height);
-  }
+  $result = image_crop($image, $x, $y, $width, $height);
 
   // Save the image, if result is successful;
   // @TODO - this saves the new cropped image over the original one. Eventually we want to save it as a separate image.
