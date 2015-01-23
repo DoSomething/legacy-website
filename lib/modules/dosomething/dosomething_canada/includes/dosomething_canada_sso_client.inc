@@ -91,13 +91,13 @@ class CanadaSSOClient {
   // Public: remote API calls
 
   /**
-   * Submit to login endpoint. If successful, loads user data
-   * into CanadaSSOClient::user.
+   * Submit to login endpoint.
    *
    * @param string $email
    * @param string $password
    *
-   * @return DosomethingCanadaSsoUser
+   * @return DosomethingCanadaSsoUser|FALSE
+   *   User object if login successful, otherwise FALSE.
    */
   public function login($email, $password)
   {
@@ -113,6 +113,20 @@ class CanadaSSOClient {
     }
     $account->setPassword($password);
     return $account;
+  }
+
+  /**
+   * Seeks remote user by its email.
+   *
+   * @param string $email
+   *
+   * @return DosomethingCanadaSsoUser|FALSE
+   *   User object if found, otherwise FALSE.
+   */
+  public function getUserByEmail($email)
+  {
+    $this->get(self::ENDPOINT_USERS . '/' . $email);
+    return $this->getUser();
   }
 
   /**
@@ -217,7 +231,7 @@ class CanadaSSOClient {
  * @param array $data
  * @return bool
  */
-  private function get($uri, $data)
+  private function get($uri, $data = array())
   {
     return $this->execute($uri, 'GET', $data);
   }
@@ -229,7 +243,7 @@ class CanadaSSOClient {
    * @param array $data
    * @return bool
    */
-  private function post($uri, $data)
+  private function post($uri, $data = array())
   {
     return $this->execute($uri, 'POST', $data);
   }

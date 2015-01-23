@@ -27,3 +27,4 @@ files[] = includes/dosomething_uk_sso_user.inc
 files[] = includes/dosomething_uk_login_controller.inc
 files[] = includes/dosomething_uk_profile_sync_controller.inc
 files[] = includes/dosomething_uk_register_controller.inc
+files[] = includes/dosomething_uk_user_pass_controller.inc
