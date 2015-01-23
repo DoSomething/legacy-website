@@ -4,19 +4,101 @@
  * Installation and schema hooks for dosomething_mbp.module.
  */
  
- /**
+/**
+ * Implements hook_install().
+ */
+function dosomething_mbp_install() {
+
+  // Default Message Broker RabbitMQ connection settings
+  variable_set('message_broker_producer_rabbitmq_host', getenv('DS_MB_RABBITMQ_HOST'));
+  variable_set('message_broker_producer_rabbitmq_port', getenv('DS_MB_RABBITMQ_PORT'));
+  variable_set('message_broker_producer_rabbitmq_username', getenv('DS_MB_RABBITMQ_USERNAME'));
+  variable_set('message_broker_producer_rabbitmq_vhost', getenv('DS_MB_RABBITMQ_VHOST'));
+
+  // Define the Message Broker application_id as the affiliate country code
+  $affiliate = strtoupper(dosomething_settings_get_affiliate_country_code());
+  variable_set('message_broker_producer_application_id', $affiliate);
+
+  // Install the DoSomething production settings in message_broker_producer
+  // 7002
+  dosomething_mbp_install_productions();
+
+  // 7003
+  $productions[0]['machine_name'] = 'transactional_user_profile_update';
+  $productions[0]['exchange'] = 'transactionalExchange';
+  $productions[0]['queues'][] = 'userAPIProfileQueue';
+  $productions[0]['queues'][] = 'userProfileMailchimpQueue';
+  $productions[0]['routing_key'] = 'user.profile.update';
+  $productions[0]['status'] = 1;
+
+  foreach($productions as $production) {
+    message_broker_producer_production_create($production);
+  }
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dosomething_canada_uninstall() {
+  $vars = array(
+    'message_broker_producer_rabbitmq_host',
+    'message_broker_producer_rabbitmq_port',
+    'message_broker_producer_rabbitmq_username',
+    'message_broker_producer_rabbitmq_password',
+    'message_broker_producer_rabbitmq_vhost',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
+
+/**
  * Deletes dosomething_mbp_send_campaign_api system variable
  */
 function dosomething_mbp_update_7001(&$sandbox) {
   variable_del('dosomething_mbp_send_campaign_api');
 }
 
- /**
+/**
  * Creates default production entries in message_broker_producer
  */
 function dosomething_mbp_update_7002(&$sandbox) {
+
+  dosomething_mbp_install_productions();
+
+}
+
+/**
+ * Creates production entry in message_broker_producer for user profile updates
+ */
+function dosomething_mbp_update_7003(&$sandbox) {
   // Only run this if Message Broker Producer is enabled.
   if (!module_exists('message_broker_producer')) {
+    return;
+  }
+
+  $productions[0]['machine_name'] = 'transactional_user_profile_update';
+  $productions[0]['exchange'] = 'transactionalExchange';
+  $productions[0]['queues'][] = 'userAPIProfileQueue';
+  $productions[0]['queues'][] = 'userProfileMailchimpQueue';
+  $productions[0]['routing_key'] = 'user.profile.update';
+  $productions[0]['status'] = 1;
+
+  foreach($productions as $production) {
+    message_broker_producer_production_create($production);
+  }
+
+}
+
+/**
+ * Common function for install and update of related DoSomething specific
+ * message_broker_producer produciton settings.
+ */
+function dosomething_mbp_install_productions() {
+
+  if (!module_exists('message_broker_producer')) {
+    drupal_set_message('message_broker_producer() module not enabled, skip installing DoSomething production settings.', 'error');
     return;
   }
 
@@ -79,29 +161,6 @@ function dosomething_mbp_update_7002(&$sandbox) {
   $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[4]['routing_key'] = 'campaign.report_back.transactional';
   $productions[4]['status'] = 1;
-
-  foreach($productions as $production) {
-    message_broker_producer_production_create($production);
-  }
-
-}
-
- /**
- * Creates production entry in message_broker_producer for user profile updates
- */
-function dosomething_mbp_update_7003(&$sandbox) {
-  // Only run this if Message Broker Producer is enabled.
-  if (!module_exists('message_broker_producer')) {
-    return;
-  }
-
-  $productions[0]['machine_name'] = 'transactional_user_profile_update';
-  $productions[0]['exchange'] = 'transactionalExchange';
-  $productions[0]['queues'][] = 'userAPIProfileQueue';
-  $productions[0]['queues'][] = 'userProfileMailchimpQueue';
-  $productions[0]['routing_key'] = 'user.profile.update';
-  $productions[0]['status'] = 1;
-
 
   foreach($productions as $production) {
     message_broker_producer_production_create($production);

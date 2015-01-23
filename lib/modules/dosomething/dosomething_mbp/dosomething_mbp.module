@@ -57,6 +57,9 @@ function dosomething_mbp_request($origin, $params = NULL) {
       $production = 'transactional_campaign_reportback';
       break;
 
+    default:
+      watchdog('dosomething_mbp', 'Undefined origin: %origin sent to dosomething_mbp_request()', array('%origin' => $origin), WATCHDOG_ERROR);
+
   }
   $payload = dosomething_mbp_get_transactional_payload($origin, $params);
   if (variable_get('dosomething_mbp_log')) {
@@ -97,6 +100,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'activity' => $origin,
     'email' => $params['email'],
     'uid' => $params['uid'],
+    'email_template' => dosomething_mbp_get_template_name($origin),
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
@@ -111,7 +115,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         $payload['mobile'] = $params['mobile'];
       }
       $payload['merge_vars']['FNAME'] = $params['first_name'];
-      $payload['email_template'] = 'mb-general-signup';
       $payload['email_tags'][] = 'drupal_user_register';
       break;
 
@@ -119,7 +122,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['merge_vars']['USERNAME'] = $params['username'];
       $payload['merge_vars']['RESET_LINK'] = $params['reset_link'];
-      $payload['email_template'] = 'mb-password-reset';
       $payload['email_tags'][] = 'drupal_user_password';
       break;
 
@@ -129,14 +131,12 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_ONE'] = $params['step_one'];
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
-      $payload['email_template'] = 'mb-campaign-signup';
       $payload['email_tags'][] = 'drupal_campaign_signup';
       break;
 
     case 'campaign_group_signup':
       dosomething_mbp_get_common_campaign_payload($payload, $params);
       $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
-      $payload['email_template'] = 'mb-group-campaign-signup';
       $payload['email_tags'][] = 'drupal_campaign_group_signup';
       break;
 
@@ -148,7 +148,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['IMPACT_NUMBER'] = $params['impact_number'];
       $payload['merge_vars']['IMPACT_NOUN'] = $params['impact_noun'];
       $payload['merge_vars']['REPORTBACK_IMAGE_MARKUP'] = $params['image_markup'];
-      $payload['email_template'] = 'mb-campaign-report-back';
       $payload['email_tags'][] = 'drupal_campaign_reportback';
       break;
 
@@ -183,4 +182,21 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['merge_vars']['FNAME'] = $params['first_name'];
   $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
   $payload['merge_vars']['CAMPAIGN_LINK'] = $params['campaign_link'];
+}
+
+/**
+ * Define template name to use for transaction based on the event and the
+ * affiliate code.
+ *
+ * @param string $event_name
+ *   Example: "campaign_signup", "password_reset", etc
+ *
+ * @return string
+ *   Name of Mandrill template to use for transactional message.
+ */
+function dosomething_mbp_get_template_name($event_name) {
+  $country_code = dosomething_settings_get_affiliate_country_code();
+  // Convert from $origin use of "_" to "-" for template name
+  $event_name = str_replace('_', '-', $event_name);
+  return 'mb-' . $event_name . '-' . $country_code;
 }
