@@ -25,7 +25,8 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'why_participated' => NULL,
     ));
   }
-    // Admin form elements:
+
+  // Admin form elements:
   $paths = array('reportback', 'admin');
   if (user_access('edit any reportback') && in_array(arg(0), $paths)) {
     $form['nid'] = array(
@@ -53,6 +54,12 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#default_value' => $username,
     );
   }
+
+  $form['reportback_submissions'] = array(
+    '#type' => 'container',
+    '#id' => 'lol',
+  );
+
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
@@ -60,19 +67,43 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
   // Else, it's update form.
   else {
-    // Output reportback images with date last updated.
-    $form['header']['#markup'] =theme('reportback_form_images', array(
-      'updated' => format_date($entity->updated, 'short'),
-      'images' => $entity->getThemedImages('300x300'),
-    ));
-    $submit_label = t("Update submission");
+    $form['reportback_submissions']['reportback_prior_submissions'] = array(
+      '#markup' => theme('reportback_form_images', array(
+        'updated' => format_date($entity->updated, 'short'),
+        'images' => $entity->getThemedImages('300x300'),
+      )),
+    );
   }
+
+  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
+  $form['reportback_submissions']['reportback_file_input'] = array(
+    '#type' => 'file',
+    '#attributes' => array(
+      'class' => array($reportback_file_class),
+    ),
+  );
+  //   $reportback_prior_submissions = drupal_render($reportback_prior_submissions);
+  //   $submit_label = t("Update submission");
+  // }
+
+  // // @TODO - Remove this switch once we get rid of the old experience.
+  // $reportback_file_input = array(
+  //   '#type' => 'file',
+  //   '#attributes' => array(
+  //     'class' => array($reportback_file_class),
+  //   ),
+  // );
+  // $reportback_file_input = drupal_render($reportback_file_input);
+
+
+
   $form['rbid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->rbid,
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
+
   if (!isset($form['nid'])) {
     $form['nid'] = array(
       '#type' => 'hidden',
@@ -81,14 +112,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#access' => FALSE,
     );
   }
-  // @TODO - Remove this switch once we get rid of the old experience.
-  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
-  $form['reportback_file'] = array(
-    '#type' => 'file',
-    '#attributes' => array(
-      'class' => array($reportback_file_class),
-    ),
-  );
+
   // Hidden fields to collect cropping information.
   if (DOSOMETHING_CROP_ENABLED) {
     $form['crop_x'] = array(
@@ -182,6 +206,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#value' => $submit_label,
     ),
   );
+  dpm($form);
   return $form;
 }
 
