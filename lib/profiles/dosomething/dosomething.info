@@ -77,6 +77,7 @@ dependencies[] = dosomething_campaign_run
 dependencies[] = dosomething_fact
 dependencies[] = dosomething_fact_page
 dependencies[] = dosomething_image
+dependencies[] = dosomething_mbp
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_home
 dependencies[] = dosomething_reportback
