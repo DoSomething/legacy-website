@@ -40,7 +40,7 @@ function dosomething_mbp_install() {
 /**
  * Implements hook_uninstall().
  */
-function dosomething_canada_uninstall() {
+function dosomething_mbp_uninstall() {
   $vars = array(
     'message_broker_producer_rabbitmq_host',
     'message_broker_producer_rabbitmq_port',
