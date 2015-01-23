@@ -234,8 +234,8 @@ projects[conductor_sms][subdir] = "contrib"
 projects[message_broker_producer][type] = "module"
 projects[message_broker_producer][download][type] = "git"
 projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
+projects[message_broker_producer][download][tag] = "0.2.4"
 projects[message_broker_producer][subdir] = "contrib"
-
 
 ; DEVELOPMENT
 
