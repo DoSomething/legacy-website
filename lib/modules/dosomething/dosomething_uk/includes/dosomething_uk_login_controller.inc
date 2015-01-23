@@ -106,6 +106,7 @@ class DosomethingUkLoginController implements ExternalAuthLoginController {
       throw new Exception('Unexpected login error: request token.');
     }
     $this->remote_account = $sso_user;
+    $this->remote_account->setPassword($this->password);
     return $this->remote_account;
   }
 
@@ -116,35 +117,13 @@ class DosomethingUkLoginController implements ExternalAuthLoginController {
    *   A fully-loaded $user object upon successful save or FALSE.
    */
   public function createFromRemote() {
-    $edit = array(
-      'mail'    => $this->email,
-      'name'    => $this->email,
-      'pass'    => $this->password,
-      'status'  => 1,
-      'created' => REQUEST_TIME,
-    );
-
-    $fields = array(
-      'birthdate'                => $this->remote_account->getDobString(),
-      'first_name'               => $this->remote_account->getFirstName(),
-      'last_name'                => $this->remote_account->getLastName(),
-      'postal_code'              => $this->remote_account->getPostcode(),
-      'country'                  => dosomething_settings_get_affiliate_country_code(),
-      'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
-    );
-    dosomething_user_set_fields($edit, $fields);
-
-    try {
-      $account = user_save('', $edit);
-    }
-    catch (Exception $e) {
-      watchdog_exception(DOSOMETHING_UK_WATCHDOG, $e);
-      return FALSE;
+    $account = $this->remote_account->saveAsLocal();
+    if (!$account) {
+      return;
     }
 
     $this->local_account = $account;
     $this->sso->authorizeUserAccess($this->local_account->uid);
-
     return $this->local_account;
   }
 

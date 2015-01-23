@@ -149,6 +149,37 @@ class DosomethingUkSsoUser extends DosomethingUserRemote {
     return $result;
   }
 
+  public function saveAsLocal() {
+    $edit = array(
+      'mail'    => $this->getEmail(),
+      'name'    => $this->getPassword(),
+      'pass'    => $this->getPassword(),
+      'status'  => 1,
+      'created' => REQUEST_TIME,
+    );
+
+    $fields = array(
+      'birthdate'                => $this->getDobString(),
+      'first_name'               => $this->getFirstName(),
+      'last_name'                => $this->getLastName(),
+      'postal_code'              => $this->getPostcode(),
+      'country'                  => dosomething_settings_get_affiliate_country_code(),
+      'user_registration_source' => DosomethingUkSsoUser::REGISTRATION_SOURCE,
+    );
+
+    dosomething_user_set_fields($edit, $fields);
+
+    try {
+      $account = user_save('', $edit);
+    }
+    catch (Exception $e) {
+      watchdog_exception(DOSOMETHING_UK_WATCHDOG, $e);
+      return FALSE;
+    }
+
+    return $account;
+  }
+
   /**
    * Converts object to a compatible array.
    *

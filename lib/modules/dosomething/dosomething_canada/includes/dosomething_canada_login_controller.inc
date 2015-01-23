@@ -80,10 +80,8 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
       if (dosomething_user_is_staff($this->local_account)) {
         // Create SSO user.
         $user_factory = new DosomethingCanadaSsoUserFactory();
-        $remote_account = $user_factory->fromLocalUser(
-          $this->local_account,
-          $this->password
-        );
+        $remote_account = $user_factory->fromLocalUser($this->local_account)
+                                       ->setPassword($this->password);
 
         if ($this->sso->signup($remote_account)) {
           $this->remote_account = $remote_account;
@@ -109,38 +107,7 @@ class DosomethingCanadaLoginController implements ExternalAuthLoginController {
    *   A fully-loaded $user object upon successful save or FALSE.
    */
   public function createFromRemote() {
-    $edit = array(
-      'mail'    => $this->email,
-      'name'    => $this->email,
-      'pass'    => $this->password,
-      'status'  => 1,
-      'created' => REQUEST_TIME,
-    );
-
-    $fields = array(
-      'birthdate'                => $this->remote_account->getDobString(),
-      'first_name'               => $this->remote_account->getFirstName(),
-      'country'                  => dosomething_settings_get_affiliate_country_code(),
-      'user_registration_source' => DosomethingCanadaSsoUser::REGISTRATION_SOURCE,
-    );
-
-    $mobile = $this->remote_account->getMobile();
-    if (!empty($mobile)) {
-      $fields['mobile'] = $this->remote_account->getMobile();
-    }
-
-    dosomething_user_set_fields($edit, $fields);
-
-    try {
-      $account = user_save('', $edit);
-    }
-    catch (Exception $e) {
-      watchdog_exception(DOSOMETHING_CANADA_WATCHDOG, $e);
-      return FALSE;
-    }
-
-    $this->local_account = $account;
-    return $this->local_account;
+    return $this->local_account = $this->remote_account->saveAsLocal();
   }
 
   // ---------------------------------------------------------------------
