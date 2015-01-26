@@ -28,7 +28,7 @@
 
           <?php if (isset($presignup_callout)): ?>
           <div class="message-callout -below -white -dynamic-right">
-            <div class="__copy">
+            <div class="message-callout__copy">
               <p><?php print $presignup_callout; ?></p>
             </div>
           </div>

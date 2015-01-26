@@ -18,7 +18,7 @@
 .campaign--grouped,
 .campaign--action .container--prove {
   .message-callout {
-    .__copy {
+    .message-callout__copy {
       left: 12px;
     }
   }
@@ -28,7 +28,7 @@
 .campaign--grouped {
   [role="banner"] {
     .message-callout {
-      .__copy {
+      .message-callout__copy {
         &:before {
           right: 35px;
           top: -25px;
@@ -41,7 +41,7 @@
         bottom: 0;
         width: 180px;
 
-        .__copy {
+        .message-callout__copy {
           text-align: center;
 
           &:before {
@@ -163,7 +163,7 @@
 
     .message-callout {
       @include media($desktop) {
-        .__copy {
+        .message-callout__copy {
           left: 75px;
           top: -10px;
         }
