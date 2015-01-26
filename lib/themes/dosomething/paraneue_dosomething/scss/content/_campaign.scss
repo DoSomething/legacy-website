@@ -90,12 +90,20 @@
   }
 }
 
-.waypoints--action {
+.waypoints.waypoints--action {
+  text-align: center;
+  padding: gutter() 0;
+
+  li {
+    margin: 0 gutter();
+  }
+
   @include media($medium) {
     position: absolute;
     top: 62px;
     max-width: span(2);
     margin: $base-spacing 0;
+    text-align: left;
 
     li {
       display: block;
