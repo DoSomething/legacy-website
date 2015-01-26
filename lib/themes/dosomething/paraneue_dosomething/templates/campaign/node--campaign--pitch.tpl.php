@@ -57,7 +57,7 @@
   <?php if (isset($campaign->secondary_call_to_action)): ?>
     <div class="cta">
       <div class="wrapper">
-        <h2 class="__message"><?php print $campaign->secondary_call_to_action; ?></h2>
+        <h2 class="cta__message"><?php print $campaign->secondary_call_to_action; ?></h2>
         <?php if (isset($signup_button_secondary)): ?>
           <?php print render($signup_button_secondary); ?>
         <?php endif; ?>

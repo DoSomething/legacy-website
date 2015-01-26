@@ -73,7 +73,7 @@
     <div class="cta">
       <div class="wrapper">
         <?php if (isset($call_to_action)): ?>
-        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php endif; ?>
 
         <p><?php print $more_campaigns_link; ?></p>
