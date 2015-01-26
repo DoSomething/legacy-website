@@ -41,6 +41,7 @@ dependencies[] = libraries
 dependencies[] = l10n_update
 dependencies[] = link
 dependencies[] = markdown
+dependencies[] = message_broker_producer
 dependencies[] = module_filter
 dependencies[] = new_relic_rpm
 dependencies[] = pathauto
