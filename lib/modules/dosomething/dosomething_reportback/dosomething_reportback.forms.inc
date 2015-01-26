@@ -55,9 +55,15 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     );
   }
 
+  // Reportback Submissions container
   $form['reportback_submissions'] = array(
     '#type' => 'container',
-    '#id' => 'lol',
+    '#id' => 'reportback__submissions',
+    '#attributes' => array(
+      'class' => array(
+        'reportback__submissions',
+      ),
+    ),
   );
 
   // If rbid doesn't exist, this is a create form.
