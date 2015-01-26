@@ -31,7 +31,6 @@
 	<?php print $search_box; ?>
       </li>
       <?php if(!$logged_in): ?>
-	<?php // Will change 'Sign Up' to 'Create Account' once we refactor nav and can fit longer text! ?>
 	<?php if( theme_get_setting('show_profile_link') ): ?>
 	  <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register"><?php print t('Create an account'); ?></a></li>
 	<?php endif; ?>
@@ -47,48 +46,3 @@
     </ul>
   </div>
 </nav>
-
-<style type="text/css">
-  .navigation__dropdown ul {
-    visibility: hidden;
-  }
-
-  .navigation__dropdown.clicked {
-    background-color: #fff;
-    padding-top: 0;
-    padding-bottom: 0; 
-    margin-left: 36px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border-radius: 4px;
-    margin-top: 12px;
-    margin-right: 8px;
-    min-width: 180px;
-  }
-
-  .navigation__dropdown.clicked a, ul {
-    color: #222;
-    font-weight: normal;
-    text-shadow: none; 
-    margin-left: 0;
-    padding-left: 0;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-right: 0px;
-  }
-
-  .clicked a.navigation__dropdown--toggle {
-    color: #4e2b63;
-    font-weight: bold;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 1px;
-  }
-
-  .navigation__dropdown.clicked li {
-    visibility: visible;
-    display: block;
-    float: none;
-    padding-top: 0;
-    padding-bottom: 0;  
-  }
-</style>
