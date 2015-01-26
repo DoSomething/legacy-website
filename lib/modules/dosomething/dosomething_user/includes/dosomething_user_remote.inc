@@ -16,12 +16,10 @@ interface DosomethingUserRemoteFactory {
    * Construct DosomethingUserRemote from local user.
    *
    * @param  object  $local_account
-   * @param  string $password
-   *   (Optional) User password.
    *
    * @return DosomethingUserRemote
    */
-  public function fromLocalUser($local_account, $password = NULL);
+  public function fromLocalUser($local_account);
 
   /**
    * Construct DosomethingUserRemote from remote user data.
@@ -31,6 +29,7 @@ interface DosomethingUserRemoteFactory {
    * @return DosomethingUserRemote
    */
   public function fromRemoteData($remote_user_data);
+
 }
 
 /**
@@ -88,6 +87,17 @@ abstract class DosomethingUserRemote {
    */
   abstract public function toRemotePostFieldsArray();
 
+
+  /**
+   * Saves remote user as local.
+   *
+   * @param  string  $password
+   *   Set use
+   *
+   * @return bool
+   */
+  abstract public function saveAsLocal();
+
   // ---------------------------------------------------------------------
   // Public: field accessors
 
@@ -100,6 +110,24 @@ abstract class DosomethingUserRemote {
   {
     return $this->email;
   }
+
+  // ---------------------------------------------------------------------
+  // Public: field mutators
+
+  /**
+   * Sets the password.
+   *
+   * @param string $password
+   *   The user password.
+   *
+   * @return static
+   */
+  public function setPassword($password)
+  {
+    $this->password = $password;
+    return $this;
+  }
+
 
   // ---------------------------------------------------------------------
   // Protected: field accessors

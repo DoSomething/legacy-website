@@ -107,7 +107,12 @@ class CanadaSSOClient {
       self::LOGIN_FIELD_AUTH_PASSWORD => $password,
     );
     $this->get(self::ENDPOINT_LOGIN, $params);
-    return $this->getUser();
+    $account = $this->getUser();
+    if (!$account) {
+      return FALSE;
+    }
+    $account->setPassword($password);
+    return $account;
   }
 
   /**
