@@ -20,7 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "neue": "DoSomething/neue#6.0.0-beta2",
+    "neue": "DoSomething/neue#6.0.0-beta3",
     "jquery": "1.8.3",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",
@@ -31,6 +31,7 @@
     "jquery-once": "~1.2.6",
     "respond": "~1.4.2",
     "almond": "~0.2.9",
-    "jquery.iecors": "*"
+    "jquery.iecors": "*",
+    "filament-sticky": "~0.1.4"
   }
 }

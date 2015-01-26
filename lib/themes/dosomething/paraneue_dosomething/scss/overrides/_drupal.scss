@@ -47,11 +47,12 @@
 }
 
 // Make the admin tabs look pretty.
-.admin-tabs .tabs {
+.admin-tabs .waypoints {
   background: $light-gray;
   background-image: asset-url("images/admin-panel.png");
-  padding: $base-spacing 0;
+  padding: $base-spacing;
   max-width: $max-width;
+  text-align: center;
   margin: 0 auto;
 }
 

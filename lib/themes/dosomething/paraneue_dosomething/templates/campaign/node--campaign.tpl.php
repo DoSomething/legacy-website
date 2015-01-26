@@ -20,13 +20,13 @@
   </div>
 </header>
 
-<article class="campaign campaign--action action">
-  <nav id="nav" class="waypoints waypoints--action-menu js-sticky">
-    <ul class="__menu js-scroll-indicator">
+<article class="campaign campaign--action">
+  <nav class="campaign-nav js-fixedsticky">
+    <ul class="waypoints -primary waypoints--action js-scroll-indicator">
       <li><a class="js-jump-scroll" href="#know"><?php print t('Know'); ?></a></li>
       <li><a class="js-jump-scroll" href="#plan"><?php print t('Plan'); ?></a></li>
       <li><a class="js-jump-scroll" href="#do"><?php print t('Do'); ?></a></li>
-      <li><a class="primary js-jump-scroll" href="#prove"><?php print t('Prove It'); ?></a></li>
+      <li><a class="waypoints__primary-link js-jump-scroll" href="#prove"><?php print t('Prove It'); ?></a></li>
     </ul>
   </nav>
 
@@ -203,12 +203,12 @@
           <?php endif; ?>
 
           <?php if (isset($content['tips'])): ?>
-            <section id="<?php print 'tips-' . $key ?>" class="tabbed js-tabs">
+            <section id="<?php print 'tips-' . $key ?>" class="tabs tabs--campaign js-tabs">
               <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle"><?php print t('View Tips'); ?></a>
               <h4 class="visually-hidden"><?php print t('Tips'); ?></h4>
               <div class="wrapper">
-                <nav class="tabs__menu waypoints">
-                  <ul class="__menu">
+                <nav class="tabs__menu">
+                  <ul class="waypoints">
                     <?php foreach ($content['tips'] as $delta => $tip): ?>
                       <?php $delta++; ?>
                       <li class="<?php if ($delta === 1) print ' is-active'?>">
@@ -221,8 +221,8 @@
                 <ul class="tabs__body">
                   <?php foreach ($content['tips'] as $delta => $tip): ?>
                     <?php $delta++; ?>
-                    <li id="tip-<?php print $delta; ?>" class="tab">
-                      <h5 class="__title"><?php print $tip['header']; ?></h5>
+                    <li id="tip-<?php print $delta; ?>" class="tabs__tab">
+                      <h5 class="tabs__title"><?php print $tip['header']; ?></h5>
                       <?php print $tip['copy']; ?>
                     </li>
                   <?php endforeach; ?>

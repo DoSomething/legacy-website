@@ -76,6 +76,35 @@
   }
 }
 
+.campaign-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  // Fallback for position:sticky, through Filament Group's fixed-sticky
+  &.fixedsticky-on {
+    position: fixed;
+    width: 100%;
+    max-width: 1440px;
+    padding: 0;
+  }
+}
+
+.waypoints--action {
+  @include media($medium) {
+    position: absolute;
+    top: 62px;
+    max-width: span(2);
+    margin: $base-spacing 0;
+
+    li {
+      display: block;
+      margin-left: gutter();
+      margin-bottom: ($base-spacing / 4);
+    }
+  }
+}
+
 .campaign--action {
   .container--do {
     .polaroid {
@@ -89,6 +118,10 @@
         left: 80%;
       }
     }
+  }
+
+  .tabs--campaign {
+    margin-top: $base-spacing;
   }
 
   .container--prove {
