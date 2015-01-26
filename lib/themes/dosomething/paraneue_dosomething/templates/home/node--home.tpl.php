@@ -98,7 +98,7 @@
 <?php endif; ?>
 
 <?php if( $show_sponsors && !$is_affiliate ) : ?>
-<section class="container -sponsors">
+<section class="container container--sponsors">
   <div class="wrapper">
     <div class="container__body">
       <h4><?php print t('Sponsors'); ?></h4>

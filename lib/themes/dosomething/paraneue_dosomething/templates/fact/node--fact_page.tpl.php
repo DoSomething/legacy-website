@@ -76,7 +76,7 @@
       <?php if (isset($call_to_action) && $is_first): ?>
       <div class="cta">
         <div class="wrapper">
-          <h2 class="__message"><?php print $call_to_action; ?></h2>
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
           <?php print $cta_link; ?>
         </div>
       </div>
@@ -88,7 +88,7 @@
   <?php if (isset($call_to_action)): ?>
     <div class="cta">
       <div class="wrapper">
-        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
       </div>
     </div>

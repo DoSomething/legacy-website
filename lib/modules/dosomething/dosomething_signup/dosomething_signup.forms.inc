@@ -148,7 +148,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
   // Load "all participants" copy.
   $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
   $form['all_participants_copy'] = array(
-    '#prefix' => '<div class="message-callout -above"><div class="__copy"><p>',
+    '#prefix' => '<div class="message-callout -above"><div class="message-callout__copy"><p>',
     '#markup' => $all_participants_copy,
     '#suffix' => '</p></div></div>',
   );

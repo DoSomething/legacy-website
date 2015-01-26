@@ -30,7 +30,7 @@
           <?php print render($signup_button_primary); ?>
           <?php if (isset($scholarship)): ?>
             <div class="message-callout -below -white -dynamic-right">
-              <div class="__copy">
+              <div class="message-callout__copy">
                 <p><?php print $scholarship; ?></p>
               </div>
             </div>
@@ -170,7 +170,7 @@
   <?php if (isset($signup_button_secondary)): ?>
     <div class="cta">
       <div class="wrapper">
-        <h2 class="__message"><?php print $call_to_action; ?></h2>
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php if (isset($signup_button_secondary)): ?>
           <?php print render($signup_button_secondary); ?>
         <?php endif; ?>
