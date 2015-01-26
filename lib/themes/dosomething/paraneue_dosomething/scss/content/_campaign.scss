@@ -103,6 +103,7 @@
     top: 62px;
     max-width: span(2);
     margin: $base-spacing 0;
+    padding: gutter();
     text-align: left;
 
     li {
