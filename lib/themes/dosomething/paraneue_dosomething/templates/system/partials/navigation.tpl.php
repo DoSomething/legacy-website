@@ -37,20 +37,12 @@
 	<?php endif; ?>
 	<li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
       <?php else: ?>
-
-	<li class="navigation__dropdown clicked"><?php print l($user_identifier, 'user/'. $user->uid); ?> 
+	<li class="navigation__dropdown clicked"><a href="<?php print 'user/' . $user->uid; ?>" class="navigation__dropdown--toggle"><?php print $user_identifier ?></a>
 	  <ul>
-	    <li><p>thing 1</p></li>
-	    <li><p>thing 2</p></li>
+	    <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
+	    <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
 	  </ul>
 	</li>          
-
-	<!--
-	<?php if( theme_get_setting('show_profile_link') ): ?>
-	  <li><?php print l($user_identifier, 'user/'. $user->uid); ?></li>
-	<?php endif; ?>
-	<li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
-	-->
       <?php endif; ?>
     </ul>
   </div>
@@ -66,8 +58,8 @@
     padding-top: 0;
     padding-bottom: 0; 
     margin-left: 36px;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
     border-radius: 4px;
     margin-top: 12px;
     margin-right: 8px;
@@ -75,13 +67,21 @@
   }
 
   .navigation__dropdown.clicked a, ul {
+    color: #222;
+    font-weight: normal;
+    text-shadow: none; 
     margin-left: 0;
     padding-left: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 0px;
   }
 
-  .navigation__dropdown.clicked a {
+  .clicked a.navigation__dropdown--toggle {
     color: #4e2b63;
+    font-weight: bold;
     border-bottom: 1px solid #ddd;
+    padding-bottom: 1px;
   }
 
   .navigation__dropdown.clicked li {
@@ -89,6 +89,6 @@
     display: block;
     float: none;
     padding-top: 0;
-    padding-bottom: 0;   
+    padding-bottom: 0;  
   }
 </style>

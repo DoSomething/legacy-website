@@ -62,7 +62,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'front_page'       => $vars['front_page'],
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
-    'user_identifier'  => dosomething_helpers_text_truncate($vars['user_identifier'], 8),
+    'user_identifier'  => $vars['user_identifier'],
     'who_we_are'       => array(
       'text' => theme_get_setting('header_who_we_are_text'),
       'subtext' => theme_get_setting('header_who_we_are_subtext'),
