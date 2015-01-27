@@ -1,5 +1,7 @@
 <figure class="reportback__submission-latest">
-  <?php print $image; ?>
+  <?php print $reportback->image; ?>
 
-  <figcaption></figcaption>
+  <?php if ($reportback->caption): ?>
+    <figcaption><?php print $reportback->caption; ?></figcaption>
+  <?php endif; ?>
 </figure>
