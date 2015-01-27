@@ -68,11 +68,20 @@ function _term_resource_index($parameters) {
   if ($cause) {
     $terms = taxonomy_get_tree($cause->vid);
   }
+  $display_totals = user_access('view any reportback');
   foreach ($terms as &$term) {
     // Convert string output to integers where appropriate.
     foreach ($int_properties as $property) {
       $term->{$property} = (int) $term->{$property};
     }
+    $params = array(
+      'tid' => $term->tid,
+      'status' => 'pending',
+    );
+    if ($display_totals) {
+      $term->inbox = dosomething_reportback_get_reportback_files_query_count($params);
+    }
+
   }
   unset($term);
   return $terms;
