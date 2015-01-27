@@ -18,16 +18,23 @@ function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
 function paraneue_dosomething_file($variables) {
   $element = $variables['element'];
   $id = NULL;
+
   if (isset($element['#id'])) {
     $id = $element['#id'];
   }
+
   $element['#attributes']['type'] = 'file';
   $element['#attributes']['aria-label'] = 'file browser';
   element_set_attributes($element, array('id', 'name', 'size'));
   _form_set_class($element, array('form-file'));
 
   // Need to include the <input> within <label> to universalize style for file input.
-  return '<label class="button button--file -secondary" id="' . $id . '"><span>' . t('Upload a pic') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
+  if ($element['#attributes']['is_supersized']) {
+    return '<label class="gigantor" id="' . $id . '"><span>' . t('Upload a pic') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
+  }
+  else {
+    return '<label class="button button--file -tertiary" id="' . $id . '"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
+  }
 }
 
 /**

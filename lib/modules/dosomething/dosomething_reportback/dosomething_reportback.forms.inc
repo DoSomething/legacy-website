@@ -25,7 +25,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'why_participated' => NULL,
     ));
   }
-
+  
   // Admin form elements:
   $paths = array('reportback', 'admin');
   if (user_access('edit any reportback') && in_array(arg(0), $paths)) {
@@ -55,10 +55,11 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     );
   }
 
-  // Reportback Submissions container
+
+  // Reportback Submissions container.
   $form['reportback_submissions'] = array(
     '#type' => 'container',
-    '#id' => 'reportback__submissions',
+    '#id' => 'reportback-submissions',
     '#attributes' => array(
       'class' => array(
         'reportback__submissions',
@@ -66,43 +67,56 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
   );
 
+  // @TODO - Remove this switch once we get rid of the old experience.
+  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
+  $form['reportback_submissions']['reportback_file'] = array(
+    '#weight' => 5,
+    '#type' => 'file',
+    '#theme_wrappers' => array(),
+    '#attributes' => array(
+      'class' => array(
+        $reportback_file_class
+      ),
+    ),
+  );
+
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
+
+    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = TRUE;
+
     $submit_label = t("Submit your pic");
   }
-  // Else, it's update form.
+
+  // Else, it's update an form.
   else {
-    $form['reportback_submissions']['reportback_prior_submissions'] = array(
-      '#markup' => theme('reportback_form_images', array(
-        'updated' => format_date($entity->updated, 'short'),
-        'images' => $entity->getThemedImages('300x300'),
+    // Output reportback images with date last updated.
+
+    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
+
+    $reportback_prior_images = array_reverse($entity->getThemedImages('300x300'));
+    $reportback_latest_image = array_shift($reportback_prior_images);
+
+    $form['reportback_submissions']['reportback_latest_submission'] = array(
+      '#weight' => 0,
+      '#markup' => theme('reportback_latest_submission', array(
+        'image' => $reportback_latest_image,
       )),
     );
+
+    $form['reportback_submissions']['reportback_prior_submissions'] = array(
+      '#weight' => 10,
+      '#markup' => theme('reportback_prior_submissions', array(
+        'updated' => format_date($entity->updated, 'short'),
+        'images' => $reportback_prior_images,
+      )),
+    );
+
+    $submit_label = t("Update submission");
   }
 
-  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
-  $form['reportback_submissions']['reportback_file_input'] = array(
-    '#type' => 'file',
-    '#attributes' => array(
-      'class' => array($reportback_file_class),
-    ),
-  );
-  //   $reportback_prior_submissions = drupal_render($reportback_prior_submissions);
-  //   $submit_label = t("Update submission");
-  // }
-
-  // // @TODO - Remove this switch once we get rid of the old experience.
-  // $reportback_file_input = array(
-  //   '#type' => 'file',
-  //   '#attributes' => array(
-  //     'class' => array($reportback_file_class),
-  //   ),
-  // );
-  // $reportback_file_input = drupal_render($reportback_file_input);
-
-
-
+  
   $form['rbid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->rbid,
@@ -212,7 +226,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#value' => $submit_label,
     ),
   );
-  dpm($form);
   return $form;
 }
 
