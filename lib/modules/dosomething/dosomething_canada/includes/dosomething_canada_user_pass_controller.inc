@@ -12,6 +12,12 @@ class DosomethingCanadaUserPassController implements ExternalAuthUserPassControl
     if (empty($form_state['values']['name'])) {
       return FALSE;
     }
+
+    // Create only missing local accounts.
+    if (dosomething_user_get_user_by_email($form_state['values']['name'])) {
+      return TRUE;
+    }
+
     $this->sso = dosomething_canada_get_sso();
     $remote_account = $this->sso->getUserByEmail($form_state['values']['name']);
 
