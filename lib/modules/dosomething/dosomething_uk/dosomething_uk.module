@@ -45,6 +45,7 @@ function dosomething_uk_external_auth_method() {
     'login controller'        => 'DosomethingUkLoginController',
     'register controller'     => 'DosomethingUkRegisterController',
     'profile sync controller' => 'DosomethingUkProfileSyncController',
+    'user pass controller'    => 'DosomethingUkUserPassController',
    );
   return $items;
 }

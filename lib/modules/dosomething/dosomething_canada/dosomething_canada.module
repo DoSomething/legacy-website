@@ -27,6 +27,7 @@ function dosomething_canada_external_auth_method() {
     'login controller'        => 'DosomethingCanadaLoginController',
     'register controller'     => 'DosomethingCanadaRegisterController',
     'profile sync controller' => 'DosomethingCanadaProfileSyncController',
+    'user pass controller'    => 'DosomethingCanadaUserPassController',
    );
   return $items;
 }
