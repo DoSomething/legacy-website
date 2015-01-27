@@ -14,4 +14,4 @@ DoSomething.org makes the world suck less. The largest org for young people and 
 Documentation for how to get started can be found in the [wiki](https://github.com/DoSomething/dosomething/wiki).
 
 # License
-&copy;2014 DoSomething.org. Dosomething is free software, and may be redistributed under the terms specified in the [LICENSE](https://github.com/DoSomething/dosomething/blob/dev/LICENSE) file. The name and logo for DoSomething.org are trademarks of Do Something, Inc and may not be used without permission.
+&copy;2015 DoSomething.org. Dosomething is free software, and may be redistributed under the terms specified in the [LICENSE](https://github.com/DoSomething/dosomething/blob/dev/LICENSE) file. The name and logo for DoSomething.org are trademarks of Do Something, Inc and may not be used without permission.
