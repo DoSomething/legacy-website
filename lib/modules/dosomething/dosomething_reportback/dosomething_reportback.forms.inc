@@ -89,7 +89,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $submit_label = t("Submit your pic");
   }
 
-  // Else, it's update an form.
+  // Else, it's an update form.
   else {
     // Output reportback images with date last updated.
 
