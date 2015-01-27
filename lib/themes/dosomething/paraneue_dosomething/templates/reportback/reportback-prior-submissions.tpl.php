@@ -1,5 +1,5 @@
 <ul class="reportback__submissions-list gallery">
-<?php foreach ($images as $image): ?>
-  <li><?php print $image; ?></li>
+<?php foreach ($reportbacks as $reportback): ?>
+  <li><?php print $reportback->image; ?></li>
 <?php endforeach; ?>
 </ul>

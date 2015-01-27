@@ -98,13 +98,23 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       // Output reportback images with date last updated.
       $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
 
-      $reportback_prior_images = array_reverse($entity->getThemedImages('300x300'));
-      $reportback_latest_image = array_shift($reportback_prior_images);
+      $reportback_submissions_data = array();
+      // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
+      $reportback__submissions_count = 5;
+
+      foreach ($entity->fids as $index => $fid) {
+        $reportback_submissions_data[$index] = reportback_file_load($fid);
+        $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300'); 
+      }
+
+      $reportback_prior_submissions = array_reverse($reportback_submissions_data);
+      $reportback_prior_submissions = array_slice($reportback_prior_submissions, 0, $reportback__submissions_count);
+      $reportback_latest_submission = array_shift($reportback_prior_submissions);
 
       $form['reportback_submissions']['reportback_latest_submission'] = array(
         '#weight' => 0,
         '#markup' => theme('reportback_latest_submission', array(
-          'image' => $reportback_latest_image,
+          'reportback' => $reportback_latest_submission,
         )),
       );
 
@@ -112,7 +122,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
         '#weight' => 10,
         '#markup' => theme('reportback_prior_submissions', array(
           'updated' => format_date($entity->updated, 'short'),
-          'images' => $reportback_prior_images,
+          'reportbacks' => $reportback_prior_submissions,
         )),
       );
 
