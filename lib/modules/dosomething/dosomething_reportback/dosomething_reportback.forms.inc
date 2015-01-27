@@ -5,6 +5,7 @@
  * Provides form constructors for the DoSomething Reportback module.
  */
 
+// @TODO_RBv2: temporary constant to add feature flag logix. Remove once Reportback v2 launched to Prod.
 DEFINE('DOSOMETHING_CROP_ENABLED', variable_get('dosomething_reportback_is_crop_enabled') ? TRUE : FALSE);
 
 /**
@@ -25,7 +26,8 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'why_participated' => NULL,
     ));
   }
-    // Admin form elements:
+  
+  // Admin form elements:
   $paths = array('reportback', 'admin');
   if (user_access('edit any reportback') && in_array(arg(0), $paths)) {
     $form['nid'] = array(
@@ -53,26 +55,124 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#default_value' => $username,
     );
   }
-  // If rbid doesn't exist, this is a create form.
-  if (!isset($entity->rbid)) {
-    $entity->rbid = 0;
-    $submit_label = t("Submit your pic");
+
+
+
+  // ============================================================================
+  // @TODO_RBv2 - Feature flagged code when flag is ON. Cleanup post RBv2 launch.
+  // ============================================================================
+  if (theme_get_setting('show_new_reportback')) {
+    // Reportback Submissions container.
+    $form['reportback_submissions'] = array(
+      '#type' => 'container',
+      '#id' => 'reportback-submissions',
+      '#attributes' => array(
+        'class' => array(
+          'reportback__submissions',
+        ),
+      ),
+    );
+
+    $form['reportback_submissions']['reportback_file'] = array(
+      '#weight' => 5,
+      '#type' => 'file',
+      '#theme_wrappers' => array(),
+      '#attributes' => array(
+        'class' => array(
+          'js-image-upload-beta'  // @TODO_RBv2 - Rename once launched to Prod.
+        ),
+      ),
+    );
+    
+    // If rbid doesn't exist, this is a create form.
+    if (!isset($entity->rbid)) {
+      $entity->rbid = 0;
+
+      $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = TRUE;
+
+      $submit_label = t("Submit your pic");
+    }
+
+    // Else, it's an update form.
+    else {
+      // Output reportback images with date last updated.
+      $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
+
+      $reportback_prior_images = array_reverse($entity->getThemedImages('300x300'));
+      $reportback_latest_image = array_shift($reportback_prior_images);
+
+      $form['reportback_submissions']['reportback_latest_submission'] = array(
+        '#weight' => 0,
+        '#markup' => theme('reportback_latest_submission', array(
+          'image' => $reportback_latest_image,
+        )),
+      );
+
+      $form['reportback_submissions']['reportback_prior_submissions'] = array(
+        '#weight' => 10,
+        '#markup' => theme('reportback_prior_submissions', array(
+          'updated' => format_date($entity->updated, 'short'),
+          'images' => $reportback_prior_images,
+        )),
+      );
+
+      $submit_label = t("Update submission");
+    }
   }
-  // Else, it's update form.
+
+  // @TODO_RBv2 - Feature flagged code when flag is OFF. Cleanup post RBv2 launch.
+  // ============================================================================
   else {
-    // Output reportback images with date last updated.
-    $form['header']['#markup'] =theme('reportback_form_images', array(
-      'updated' => format_date($entity->updated, 'short'),
-      'images' => $entity->getThemedImages('300x300'),
-    ));
-    $submit_label = t("Update submission");
+    // If rbid doesn't exist, this is a create form.
+    if (!isset($entity->rbid)) {
+      $entity->rbid = 0;
+      $submit_label = t("Submit your pic");
+    }
+    // Else, it's update form.
+    else {
+      // Output reportback images with date last updated.
+      $form['header']['#markup'] = theme('old_reportback_submitted_images', array(
+        'updated' => format_date($entity->updated, 'short'),
+        'images' => $entity->getThemedImages('300x300'),
+      ));
+      $submit_label = t("Update submission");
+    }
+    $form['rbid'] = array(
+      '#type' => 'hidden',
+      '#default_value' => $entity->rbid,
+      // Prevent this element from rendering in the browser.
+      '#access' => FALSE,
+    );
+    if (!isset($form['nid'])) {
+      $form['nid'] = array(
+        '#type' => 'hidden',
+        '#default_value' => $entity->nid,
+        // Prevent this element from rendering in the browser.
+        '#access' => FALSE,
+      );
+    }
+    // @TODO - Remove this switch once we get rid of the old experience.
+    $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
+    $form['reportback_file'] = array(
+      '#type' => 'file',
+      '#title' => t('Upload a pic'),
+      '#attributes' => array(
+        'class' => array($reportback_file_class),
+      ),
+    );
   }
+  // ============================================================================
+  // ============================================================================
+
+
+  
   $form['rbid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->rbid,
     // Prevent this element from rendering in the browser.
     '#access' => FALSE,
   );
+
   if (!isset($form['nid'])) {
     $form['nid'] = array(
       '#type' => 'hidden',
@@ -81,14 +181,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#access' => FALSE,
     );
   }
-  // @TODO - Remove this switch once we get rid of the old experience.
-  $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
-  $form['reportback_file'] = array(
-    '#type' => 'file',
-    '#attributes' => array(
-      'class' => array($reportback_file_class),
-    ),
-  );
+
   // Hidden fields to collect cropping information.
   if (DOSOMETHING_CROP_ENABLED) {
     $form['crop_x'] = array(

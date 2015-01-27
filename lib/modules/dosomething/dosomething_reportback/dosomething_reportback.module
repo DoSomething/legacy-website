@@ -368,12 +368,28 @@ function dosomething_reportback_form_alter(&$form, &$form_state) {
  */
 function dosomething_reportback_theme($existing, $type, $theme, $path) {
   return array(
-    'reportback_form_images' => array(
-      'template' => 'reportback-form-images',
+    // @TODO_RBv2 - temp theme function; remove when RBv2 launched to Prod.
+    'old_reportback_submitted_images' => array(
+      'template' => 'old-reportback-submitted-images',
       'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
       'variables' => array(
         'updated' => NULL,
         'images' => NULL,
+      ),
+    ),
+    'reportback_prior_submissions' => array(
+      'template' => 'reportback-prior-submissions',
+      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
+      'variables' => array(
+        'updated' => NULL,
+        'images' => NULL,
+      ),
+    ),
+    'reportback_latest_submission' => array(
+      'template' => 'reportback-latest-submission',
+      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
+      'variables' => array(
+        'image' => NULL,
       ),
     ),
     'dosomething_reportback_gallery_form' => array(

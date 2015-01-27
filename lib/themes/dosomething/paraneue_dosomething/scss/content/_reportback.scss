@@ -166,7 +166,11 @@
 
 // @TODO: move to proper locations
 // Temporary additions to work through fix for upload button issues.
-.reportback {
+.reportback__submissions {
+  figure {
+    img { width: 100%; }
+  }
+
   input[type="file"] {
     @include visually-hidden();
   }
@@ -177,8 +181,40 @@
   }
 }
 
+.reportback__submissions-list {
+  @include list_reset();
+
+  > li { 
+    float: left;
+    width: span(25%); 
+  }
+}
+
 .gigantor {
-  background-color: #f0f;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  height: 300px;
+
+  &:before {
+    background-color: #23b6fa;
+    content: "";
+    display: block;
+    height: 70px;
+    left: 50%;
+    margin: -35px 0 0 -35px;
+    position: absolute;
+    top: 50%;
+    width: 70px;
+  }
+
+  > span {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
 }
 
 
