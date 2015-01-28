@@ -50,21 +50,26 @@ function dosomething_home_preprocess_node(&$vars) {
         $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');
 
         // Get the campaign video for the "featured" tile
-        $tiles['video'] = theme('html_tag', array(
-          'element' => array(
-            '#tag' => 'video',
-            '#attributes' => array(
-              'src' => dosomething_image_get_themed_image_url($image_nid, 'video'),
-              'poster' => dosomething_image_get_themed_image_url($image_nid, 'video_poster'),
-              'autoplay' => 'autoplay',
-              'loop' => 'loop'
-            ),
-            '#value' => theme('image', array(
-              'path' => $tiles['image_url'],
-              'alt' => $tiles['title']
-            )),
-          ),
-        ));
+        $video_url = dosomething_image_get_themed_image_url($image_nid, 'video');
+        $video_poster = dosomething_image_get_themed_image_url($image_nid, 'video_poster');
+
+        if(isset($video_url) && isset($video_poster)) {
+          $tiles['video'] = theme('html_tag', array(
+              'element' => array(
+                  '#tag' => 'video',
+                  '#attributes' => array(
+                      'src' => $video_url,
+                      'poster' => $video_poster,
+                      'autoplay' => 'autoplay',
+                      'loop' => 'loop'
+                  ),
+                  '#value' => theme('image', array(
+                      'path' => $tiles['image_url'],
+                      'alt' => $tiles['title']
+                  )),
+              ),
+          ));
+        }
       }
       else {
         $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '400x400');
