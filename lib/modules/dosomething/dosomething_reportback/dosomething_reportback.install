@@ -646,7 +646,7 @@ function dosomething_reportback_update_7021(&$sandbox) {
  * Deletes deprecated flagged_reportback flag and flagged_reason field.
  */
 function dosomething_reportback_update_7022(&$sandbox) {
-  // Delete the Weight field (only used by Promoted Flag).
+  // Delete the Flagged Reason field (only used by flagged_reportback Flag).
   field_delete_field('field_flagged_reason');
 
   if (!module_exists('flag')) {
