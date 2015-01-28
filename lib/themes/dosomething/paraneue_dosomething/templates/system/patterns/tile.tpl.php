@@ -34,7 +34,14 @@
       <p class="tile__tagline"><?php print $content['tagline']; ?></p>
     </div>
 
-    <?php print $content['image']; ?>
+    <?php
+      if($content['video']) {
+        print $content['video'];
+      }
+      else if($content['image']) {
+        print $content['image'];
+      }
+    ?>
 
   <?php if ($content['status']): ?>
   </a>
