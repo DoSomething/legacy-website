@@ -81,11 +81,13 @@ function dosomething_image_get_image_url($nid, $ratio) {
  *  The image node id.
  * @param string $ratio
  *  The image field to pull from the desired image ratio (vert, horiz, sq).
+ * @param string $style
+ *  The image dimensions (see Image Styles).
  *
- * @return string
- *  A sized image url.
+ * @return string A sized image url.
+ * A sized image url.
  */
-function dosomething_image_get_themed_image_url($nid, $ratio, $style) {
+function dosomething_image_get_themed_image_url($nid, $ratio, $style = NULL) {
   $base_path = dosomething_image_get_image_url($nid, $ratio);
 
   // If the image doesn't have the appropriate crop don't return a url.
