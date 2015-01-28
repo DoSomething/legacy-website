@@ -14,7 +14,7 @@
 
 <div class="wrapper">
   <?php print $variables['navigation']; ?>
-  <?php print $variables['header']; ?>
+  <?php if(isset($variables['header'])) print $variables['header']; ?>
 
   <main role="main">
     <?php print render($page['content']); ?>
