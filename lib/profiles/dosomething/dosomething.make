@@ -121,12 +121,6 @@ projects[dosomething_signup][download][type] = local
 projects[dosomething_signup][download][source] = './lib/modules/dosomething/dosomething_signup'
 projects[dosomething_signup][subdir] = "dosomething"
 
-; Dosomething SMS
-projects[dosomething_sms][type] = "module"
-projects[dosomething_sms][download][type] = local
-projects[dosomething_sms][download][source] = './lib/modules/dosomething/dosomething_sms'
-projects[dosomething_sms][subdir] = "dosomething"
-
 ; Dosomething Static Content
 projects[dosomething_static_content][type] = "module"
 projects[dosomething_static_content][download][type] = local

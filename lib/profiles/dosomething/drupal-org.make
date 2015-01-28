@@ -218,18 +218,6 @@ projects[external_auth][download][url] = "https://github.com/DoSomething/drupal-
 projects[external_auth][download][revision] = "c6bda54"
 projects[external_auth][subdir] = "contrib"
 
-; Conductor
-projects[conductor][type] = "module"
-projects[conductor][download][type] = "git"
-projects[conductor][download][url] = "https://github.com/DoSomething/Conductor.git"
-projects[conductor][subdir] = "contrib"
-
-; Conductor SMS
-projects[conductor_sms][type] = "module"
-projects[conductor_sms][download][type] = "git"
-projects[conductor_sms][download][url] = "https://github.com/DoSomething/conductor_sms.git"
-projects[conductor_sms][subdir] = "contrib"
-
 ; Message Broker Producer
 projects[message_broker_producer][type] = "module"
 projects[message_broker_producer][download][type] = "git"
