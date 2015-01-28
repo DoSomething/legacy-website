@@ -346,10 +346,6 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
         'image' => NULL,
       ),
     ),
-    'dosomething_reportback_gallery_form' => array(
-      'render element' => 'form',
-      'file' => 'dosomething_reportback.forms.inc',
-    ),
     'dosomething_reportback_files_form' => array(
       'render element' => 'form',
       'file' => 'dosomething_reportback.admin.inc',
@@ -362,10 +358,7 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
  */
 function dosomething_reportback_admin_paths() {
   $paths = array(
-    'node/*/reportbacks' => TRUE,
     'node/*/rb*' => TRUE,
-    'node/*/gallery' => TRUE,
-    'flag/confirm/*/*/*' => TRUE,
     'reportback/*' => TRUE,
     'taxonomy/term/*/rb*' => TRUE,
   );
@@ -387,18 +380,6 @@ function dosomething_reportback_access($op, $entity, $account = NULL) {
   }
   // Check that user has access to $op own, and is the author.
   return user_access($perm_own, $account) && $account->uid == $entity->uid;
-}
-
-/**
- * Access callback for a campaign reportback gallery form.
- */
-function dosomething_reportback_gallery_form_access($node) {
-  // If viewing a campaign-campaign:
-  if (dosomething_campaign_get_campaign_type($node) == 'campaign') {
-    // Able to edit the gallery if able to promote images to it.
-    return (user_access('flag promoted'));
-  }
-  return FALSE;
 }
 
 /**
