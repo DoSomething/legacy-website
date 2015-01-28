@@ -351,6 +351,20 @@ function dosomething_zendesk_verify_zendesk_user($email, $client = NULL) {
       // Create a zendesk user.
       return dosomething_zendesk_create_zendesk_user($email, $client);
     }
+    // Update user with profile fields if missing.
+    if (!isset($search->results[0]->user_fields->profile_url)) {
+      $uid = user_load_by_mail($email)->uid;
+      $profile_fields = dosomething_zendesk_get_profile_fields($uid);
+      $id = $search->results[0]->id;
+      $updated_user = array(
+        'id' => $id,
+        'user_fields' => array(
+          'profile_url' => $profile_fields['profile_url'],
+          'profile_uid' => $profile_fields['profile_uid'],        
+        ),
+      );
+    }
+    $client->users()->update($updated_user);
     return $search->results;
   }
   catch (Exception $e) {
@@ -374,19 +388,29 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
   }
 
   $first_name = FALSE;
+  $uid = NULL;
   // Check to see if user exists with this email.
   if ($account = user_load_by_mail($email)) {
     // Check for first name.
     $first_name = dosomething_user_get_field('field_first_name', $account);
+    $uid = $account->uid;
   }
   
   // Use the email address as the name if there's no first name available.
   if (!$first_name) {
     $first_name = $email;
   }
+
+  // Get profile fields 
+  $profile_fields = dosomething_zendesk_get_profile_fields($uid);
+
   $new_user = array(
     'email' => $email,
     'name' => $first_name,
+    'user_fields' => array(
+      'profile_url' => $profile_fields['profile_url'],
+      'profile_uid' => $profile_fields['profile_uid'],
+    ),
   );
   if (DOSOMETHING_ZENDESK_LOG) {
     watchdog('dosomething_zendesk', json_encode($new_user));
@@ -399,6 +423,24 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
     watchdog('dosomething_zendesk', $e, array(), WATCHDOG_ERROR);
     return FALSE;
   }
+}
+
+/**
+ * Creates profile fields from given UID
+ * 
+ * @return array
+ *  Array containing profile_uid and profile_url
+ */
+function dosomething_zendesk_get_profile_fields($uid = NULL){
+  global $base_url;
+  $profile_url = "";
+  $profile_uid = "";
+  $fields = array('profile_url' => $profile_url, 'profile_uid' => $profile_uid);
+  if ($uid != NULL){
+    $fields['profile_url'] = $base_url . '/user/' . $uid;
+    $fields['profile_uid'] = $uid;
+  }
+  return $fields;
 }
 
 /**
