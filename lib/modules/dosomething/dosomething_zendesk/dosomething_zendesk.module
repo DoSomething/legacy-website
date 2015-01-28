@@ -352,7 +352,7 @@ function dosomething_zendesk_verify_zendesk_user($email, $client = NULL) {
       return dosomething_zendesk_create_zendesk_user($email, $client);
     }
     // Update user with profile fields if missing.
-    if (!$search->results[0]->user_fields->profile_url) {
+    if (!isset($search->results[0]->user_fields->profile_url)) {
       $uid = user_load_by_mail($email)->uid;
       $profile_fields = dosomething_zendesk_get_profile_fields($uid);
       $id = $search->results[0]->id;
