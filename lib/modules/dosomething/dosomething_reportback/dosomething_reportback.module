@@ -872,12 +872,17 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   elseif (isset($params['rbid'])) {
     $query->condition('rb.rbid', $params['rbid']);
   }
-  $query->fields('rbf', array('fid', 'caption', 'rbid'));
+
+  // Public API properties to expose:
+  $rbf_fields = array('fid', 'caption', 'rbid');
   $rb_fields = array('quantity');
+  // Staff-only properties to add:
   if (user_access('view any reportback')) {
+    $rbf_fields[] = 'status';
     $rb_fields[] = 'uid';
     $rb_fields[] = 'why_participated';
   }
+  $query->fields('rbf', $rbf_fields);
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
