@@ -318,52 +318,6 @@ function dosomething_reportback_review_page_access($entity) {
 }
 
 /**
- * Implements hook_form_alter().
- */
-function dosomething_reportback_form_alter(&$form, &$form_state) {
-  // Only alter the flag_confirm form, provided by Flag module.
-  if ($form['#form_id'] != 'flag_confirm') { return; }
-
-  // The flag we're confirming:
-  $flag_name = $form['#flag']->name;
-  // The entity_id of whatever we're flagging.
-  $entity_id = $form['entity_id']['#value'];
-
-  switch ($flag_name) {
-
-    case 'promoted':
-      // Displays the image to be promoted/unpromoted.
-      $form['image'] = array(
-        '#markup' => dosomething_image_get_themed_image_by_fid($entity_id, '300x300'),
-      );
-      break;
-
-    case 'flagged_reportback':
-      // If action is to create the flag:
-      if ($form['action']['#value'] == 'flag') {
-        // Add a checkbox to delete the reportback files.
-        $form['delete_files'] = array(
-          '#type' => 'checkbox',
-          '#title' => t('Delete reportback files'),
-          '#description' => t('If checked, the submitted reportback files will permanently be deleted.') . ' <strong>' . t('This cannot be undone.') . '</strong>',
-          '#weight' => 30,
-        );
-      }
-      $reportback = reportback_load($entity_id);
-      // Displays the reportback to confirm flag/unflag.
-      $form['reportback'] = array(
-        '#prefix' => '<hr />',
-        '#markup' => render(dosomething_reportback_view_entity($reportback)),
-        '#weight' => 500,
-      );
-      // Add additional submit handler.
-      $form['#submit'][] = 'dosomething_reportback_flag_confirm_submit';
-      break;
-
-  }
-}
-
-/**
  * Implements hook_theme().
  */
 function dosomething_reportback_theme($existing, $type, $theme, $path) {
@@ -878,16 +832,6 @@ function dosomething_reportback_services_resources() {
     ),
   );
   return $resources;
-}
-
-/**
- * Implements hook_flag_flag().
- */
-function dosomething_reportback_flag_flag($flag, $entity_id, $account, $flagging) {
-  if ($flag->name == 'promoted') {
-    dosomething_reportback_cache_clear_all();
-  }
-
 }
 
 /**

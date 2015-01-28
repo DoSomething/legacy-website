@@ -462,23 +462,3 @@ function dosomething_reportback_delete_form_submit($form, &$form_state) {
   // Else, there was some rat fuckery.
   drupal_set_message(t("There was an error processing your request."));
 }
-
-/**
- * Additional submit callback for the flag_confirm form for Reportbacks.
- *
- * Deletes the reportback's files if delete_files was checked.
- */
-function dosomething_reportback_flag_confirm_submit($form, &$form_state) {
-  $reportback = reportback_load($form_state['values']['entity_id']);
-  // Value is either flag or unflag.
-  $op = $form['action']['#value'];
-  // Sets value as "flagged" or "unflagged".
-  $op .= 'ged';
-  // If the "Delete files" element is checked:
-  if (isset($form_state['values']['delete_files']) && $form_state['values']['delete_files'] === 1) {
-    $reportback->deleteFiles();
-    $op = 'flagged_delete_files';
-  }
-  // Log the flag operation.
-  $reportback->insertLog($op);
-}
