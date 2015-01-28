@@ -249,8 +249,8 @@
   <section id="prove" class="container container--prove inline--alt-bg <?php if($show_new_reportback): print 'reportback-beta'; else: print 'reportback-classic'; endif; ?>">
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
-    <?php if( $show_new_reportback ): ?>
-      <div class="wrapper">
+    <div class="wrapper">
+      <?php if( $show_new_reportback ): ?>
         <div class="container__body">
           <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
@@ -301,9 +301,7 @@
 
           </div>
         </div>
-      </div>
-    <?php else: ?>
-      <div class="wrapper">
+      <?php else: ?>
         <div class="container__body -half">
           <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
@@ -346,14 +344,16 @@
             <?php endif; ?>
           </aside>
         </div>
-      </div>
-    <?php endif; ?>
+      <?php endif; ?>
 
-    <?php if (isset($official_rules)): ?>
-      <div class="disclaimer">
-        <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
-      </div>
-    <?php endif; ?>
+      <?php if (isset($official_rules)): ?>
+        <div class="container__body -narrow">
+          <div class="disclaimer">
+            <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
 
     <?php if ($info_bar): ?>
       <?php print $info_bar; ?>
