@@ -93,27 +93,6 @@ class ReportbackEntity extends Entity {
   }
 
   /**
-   * Returns reportback's "flagged_reportback" Flagging entity if exists.
-   */
-  public function getFlaggedFlagging() {
-    // If a flagged_reportback flagging entity exists for this reportback:
-    if ($result = flag_get_entity_flags('reportback', $this->rbid, 'flagged_reportback')) {
-      return flagging_load($result[0]->flagging_id);
-    }
-    return NULL;
-  }
-
-  /**
-   * Returns "promoted" Flagging entity for given $fid if exists.
-   */
-  public function getPromotedFlagging($fid) {
-    if ($result = flag_get_entity_flags('file', $fid, 'promoted')) {
-      return flagging_load($result[0]->flagging_id);
-    }
-    return NULL;
-  }
-
-  /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
    *
    * @param object $values
