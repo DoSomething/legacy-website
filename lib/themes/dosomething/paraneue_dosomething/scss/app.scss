@@ -24,6 +24,7 @@ $asset-path: "";
 @import "overrides/drupal";
 
 // Local patterns
+@import "patterns/carousel";
 @import "patterns/container";
 @import "patterns/disclaimer";
 @import "patterns/list-compacted";
