@@ -400,8 +400,9 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
 
   $reportbacks_gallery['items'] = array();
 
+
   // Promoted Reportbacks:
-  // =====================
+  // ========================================================================
   // Set params to retrieve random Promoted Reportbacks for this nid.
   $params = array();
   $params['nid'] = $vars['nid'];
@@ -415,38 +416,30 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   }
 
   // Total number of Promoted Reportbacks obtained.
-  // $reportbacks_gallery['items'] = array(); // Testing!
-  // $reportbacks_gallery['items'][] = '<figure>Sample</figure>';
-  // $reportbacks_gallery['items'][] = '<figure>Sample</figure>';
   $reportbacks_gallery['total_promoted'] = count($reportbacks_gallery['items']);
-  dpm($reportbacks_gallery['total_promoted'], 'Total Promoted');
 
 
   // Approved Reportbacks:
-  // =====================
+  // ========================================================================
   // Set params to get the total number of Approved Reportbacks for this nid.
   $params['status'] = 'approved';
   if (isset($params['random'])) {
     unset($params['random']);
   }
   $reportbacks_gallery['total_approved'] = dosomething_reportback_get_reportback_files_query_count($params);
-  // $reportbacks_gallery['total_approved'] = 0;
-  dpm($reportbacks_gallery['total_approved'], 'Total Approved');
 
 
-
+  // Build Reportback Gallery based on Promoted & Approved Reportback counts.
+  // ========================================================================
   // Total Promoted Reportbacks less than required initial count.
   if ($reportbacks_gallery['total_promoted'] < $initial_count) {
-    dpm('None or less than 6 Promoted Reportbacks.');
-
     $fill_count = $initial_count - $reportbacks_gallery['total_promoted'];
-    dpm($fill_count, 'Number of fill items required:');
 
     // Absolutely no Approved Reportbacks to fulfill the fill count needed.
     if ($reportbacks_gallery['total_approved'] === 0) {
-      dpm('No Approved Reportbacks, resort to Placeholders.');
       $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
       $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $placeholders);
+      $reportbacks_gallery['prefetched'] = 0;
     }
 
     // Some but not enough Approved Reportbacks to fulfill the fill count needed.
@@ -454,48 +447,21 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
       $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $reportbacks_gallery['total_approved']);
       $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks_gallery['total_approved']);
       $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks, $placeholders);
+      $reportbacks_gallery['prefetched'] = $reportbacks_gallery['total_approved'];
     }
 
     // There are enough Approved Reportbacks to fulfill the fill count needed.
     else {
-      dpm('We have enough Approved Reportbacks!');
       $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $fill_count);
       $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks);
       $reportbacks_gallery['prefetched'] = $fill_count;
     }
-
   }
+
   // Enough Total Promoted Reportbacks to fulfill the required initial count.
   else {
-    dpm('We have enough Promoted Reportbacks!');
     $reportbacks_gallery['prefetched'] = 0;
-    // $reportback_placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks(3);
-    // dpm($reportback_placeholders, 'Placeholder Reportbacks');
   }
-
-  // // Do we have enough promoted items?
-  // $current_count = count($reportbacks_gallery['items']);
-  // if ($current_count < $initial_count) {
-  //   // Find out how many additonal approved Reportback items to grab to fulfill the initial count.
-  //   $approved_count = $initial_count - $current_count;
-  //   // Set params to retrieve approved Reportback Files for this nid.
-  //   $params['status'] = 'approved';
-  //   unset($params['random']);
-  //   $approved_results = dosomething_reportback_get_reportback_files_query_result($params, $approved_count);
-
-  //   foreach ($approved_results as $rb_file) {
-  //     // @Todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
-  //     $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '300x300');
-  //     $reportbacks_gallery['items'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
-  //   }
-  //   // Set how many images have been prefetched.
-  //   (count($reportbacks_gallery['items']) > 0) ? $reportbacks_gallery['prefetched'] = $approved_count : $reportbacks_gallery['prefetched'] = 0;
-  // } else {
-  //   $reportbacks_gallery['prefetched'] = 0;
-  // }
-
-  // Approved Reportbacks or Placeholders: why not both?
-  dpm($reportbacks_gallery, 'Gallery Data');
 }
 
 
