@@ -28,21 +28,21 @@
 
     <ul class="navigation__secondary">
       <li>
-	<?php print $search_box; ?>
+	       <?php print $search_box; ?>
       </li>
       <?php if(!$logged_in): ?>
-	<?php if( theme_get_setting('show_profile_link') ): ?>
-	  <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register"><?php print t('Create an account'); ?></a></li>
-	<?php endif; ?>
-	<li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
-      <?php else: ?>
-	<li class="navigation__dropdown"><p class="navigation__dropdown--toggle"><?php print $user_identifier ?></p>
-	  <ul>
-	    <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
-	    <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
-	  </ul>
-	</li>          
+        <?php if( theme_get_setting('show_profile_link') ): ?>
+      <li class="account"><a id="link--register" class="secondary-nav-item" href="<?php print $front_page; ?>user/register" data-modal-href="#modal--register"><?php print t('Create an account'); ?></a></li>
       <?php endif; ?>
+      <li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
+      <?php else: ?> 
+      <li class="navigation__dropdown"><p class="navigation__dropdown--toggle"><?php print $user_identifier ?></p>
+        <ul>
+          <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
+          <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
+        </ul>
+      </li>          
+    <?php endif; ?>
     </ul>
   </div>
 </nav>
