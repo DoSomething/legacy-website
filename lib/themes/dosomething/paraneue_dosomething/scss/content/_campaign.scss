@@ -141,15 +141,20 @@
         text-align: left;
       }
     }
-    
+
     // @TODO: v2 Reportbacks temporary addition for classic version.
     &.reportback-classic {
-      h3 {
+      h3, p {
         color: #fff;
       }
 
-      p, a {
+      a {
         color: #fff;
+        text-decoration: underline;
+      }
+
+      .button {
+        text-decoration: none;
       }
     }
 

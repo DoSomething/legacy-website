@@ -9,12 +9,12 @@ function paraneue_dosomething_menu_local_tasks(&$variables) {
   $output = '';
 
   if (!empty($variables['primary'])) {
-    $variables['primary']['#prefix'] .= '<ul class="waypoints">';
+    $variables['primary']['#prefix'] = '<ul class="waypoints">';
     $variables['primary']['#suffix'] = '</ul>';
     $output .= drupal_render($variables['primary']);
   }
   if (!empty($variables['secondary'])) {
-    $variables['secondary']['#prefix'] .= '<ul class="waypoints">';
+    $variables['secondary']['#prefix'] = '<ul class="waypoints">';
     $variables['secondary']['#suffix'] = '</ul>';
     $output .= drupal_render($variables['secondary']);
   }
@@ -155,6 +155,11 @@ function paraneue_dosomething_theme() {
 
     'paraneue_photo' => array(
       'template' => 'photo',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
+    'paraneue_placeholder' => array(
+      'template' => 'placeholder',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
     ),
 

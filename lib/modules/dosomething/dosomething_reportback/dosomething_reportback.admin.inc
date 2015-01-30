@@ -149,6 +149,10 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
 
   foreach ($result as $record) {
     $rb_path = 'reportback/' . $record->rbid;
+    $status = 'approved';
+    if (isset($record->status) && $record->status != 'pending') {
+      $status = $record->status;
+    }
     $form['rb_files'][$record->fid] = array(
       'date' => array(
         '#markup' => l(format_date($record->timestamp, 'short'), $rb_path),
@@ -168,7 +172,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#title' => t('Status'),
         '#required' => TRUE,
         '#options' => $status_options,
-        '#default_value' => $record->status,
+        '#default_value' => $status,
       ),
       'flagged_reason' => array(
         '#type' => 'checkboxes',

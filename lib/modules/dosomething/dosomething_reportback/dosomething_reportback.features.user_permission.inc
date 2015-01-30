@@ -42,26 +42,6 @@ function dosomething_reportback_user_default_permissions() {
     'module' => 'dosomething_reportback',
   );
 
-  // Exported permission: 'flag flagged_reportback'.
-  $permissions['flag flagged_reportback'] = array(
-    'name' => 'flag flagged_reportback',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag flagged_reportback'.
-  $permissions['unflag flagged_reportback'] = array(
-    'name' => 'unflag flagged_reportback',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'editor' => 'editor',
-    ),
-    'module' => 'flag',
-  );
-
   // Exported permission: 'view any reportback'.
   $permissions['view any reportback'] = array(
     'name' => 'view any reportback',

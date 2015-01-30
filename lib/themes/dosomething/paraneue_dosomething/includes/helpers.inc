@@ -306,3 +306,42 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
     return paraneue_dosomething_get_gallery($gallery_items, 'triad');
   }
 }
+
+/**
+ * Returns specified number of themed Approved Reportbacks.
+ *
+ * @param  integer $count  Number of reportbacks to prepare.
+ * @return array           Array of the specified number of Approved Reportbacks.
+ */
+function paraneue_dosomething_get_themed_approved_reportbacks($nid, $count = 6) {
+  // Set params to retrieve Approved Reportback for this nid.
+  $params['nid'] = $nid;
+  $params['status'] = 'approved';
+  $reportbacks = array();
+  $approved_reportbacks = dosomething_reportback_get_reportback_files_query_result($params, $count);
+
+  foreach ($approved_reportbacks as $reportback) {
+    // @Todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
+    $reportback->image = dosomething_image_get_themed_image_url_by_fid($reportback->fid, '300x300');
+    $reportbacks[] = paraneue_dosomething_get_gallery_item((array) $reportback, 'photo');
+  }
+
+  return $reportbacks;
+}
+
+/**
+ * Returns specified number of themed Placeholder Reportbacks.
+ *
+ * @param  integer $count  Number of placeholders to prepare.
+ * @return array           Array of the specified number of Placeholders Reportback.
+ */
+function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
+  $placeholder_urls = dosomething_campaign_get_default_gallery_image_urls();
+  $placeholders = array();
+
+  for ($i = 0; $i < $count; $i++) {
+    $placeholders[] = paraneue_dosomething_get_gallery_item(array('image' => $placeholder_urls[$i]), 'placeholder');
+  }
+
+  return $placeholders;
+}

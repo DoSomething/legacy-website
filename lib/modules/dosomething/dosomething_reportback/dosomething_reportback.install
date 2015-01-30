@@ -641,3 +641,28 @@ function dosomething_reportback_update_7021(&$sandbox) {
 
   return $output;
 }
+
+/**
+ * Deletes deprecated flagged_reportback flag and flagged_reason field.
+ */
+function dosomething_reportback_update_7022(&$sandbox) {
+  // Delete the Flagged Reason field (only used by flagged_reportback Flag).
+  field_delete_field('field_flagged_reason');
+
+  if (!module_exists('flag')) {
+    return;
+  }
+  // Load Flag module to use its cache clearing functions.
+  module_load_include('inc', 'flag', 'includes/flag.admin');
+  $flag = flag_get_flag('flagged_reportback');
+  if (!$flag) {
+    return;
+  }
+  // Remove all flagging entities for this flag.
+  flag_reset_flag($flag);
+  // Delete the flag.
+  // @see flag_delete_confirm_submit()
+  $flag->delete();
+  $flag->disable();
+  _flag_clear_cache($flag->entity_type, TRUE);
+}

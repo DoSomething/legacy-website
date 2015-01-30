@@ -35,10 +35,10 @@
     </div>
 
     <?php
-      if ($content['video']) {
+      if (isset($content['video'])) {
         print $content['video'];
       }
-      elseif ($content['image']) {
+      elseif (isset($content['image'])) {
         print $content['image'];
       }
     ?>
