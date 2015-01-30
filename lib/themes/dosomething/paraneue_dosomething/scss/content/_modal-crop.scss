@@ -100,3 +100,17 @@
     }
   }
 }
+
+.crop_preview {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background-color: #ABA5ED;
+  overflow: hidden;
+
+  .preview {
+    width: initial;
+    max-width: none;
+    position: absolute;
+  }
+}
