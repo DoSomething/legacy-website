@@ -5,7 +5,7 @@
 
   &.-framed {
     background-color: #fff;
-    padding: 5px;
+    padding: ($base-spacing / 4);
 
     @include media($larger) {
       padding: 10px;
@@ -16,9 +16,14 @@
     }
 
     .__copy {
-      font-size: $font-small;
-      height: 60px;
-      line-height: 1.2;
+      font-size: $font-smaller;
+      height: 65px;
+      line-height: 1.1;
+      padding-top: ($base-spacing / 2);
+
+      @include media($large) {
+        font-size: $font-small;
+      }
     }
   }
 
@@ -50,7 +55,7 @@
   form {
     background-color: #fff;
     height: 100%;
-    margin: 0 ($base-spacing / 2);
+    margin: $base-spacing ($base-spacing / 2) 0;
 
     > div {
       padding: gutters();
@@ -181,8 +186,23 @@
   }
 }
 
+.reportback__submissions-latest {
+  background-color: #fff;  // remove
+}
+
+.reportback__submission__copy {
+  font-size: $font-smaller;
+  line-height: 1.1;
+  padding-top: ($base-spacing / 2);
+
+  @include media($large) {
+    font-size: $font-small;
+  }
+}
+
 .reportback__submissions-list {
   @include list_reset();
+  margin: 0 (-($base-spacing / 2));
 
   > li { 
     float: left;

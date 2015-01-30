@@ -134,13 +134,6 @@
   }
 
   .container--prove {
-    > .wrapper {
-      text-align: center;
-
-      @include media($tablet) {
-        text-align: left;
-      }
-    }
 
     // @TODO: v2 Reportbacks temporary addition for classic version.
     &.reportback-classic {

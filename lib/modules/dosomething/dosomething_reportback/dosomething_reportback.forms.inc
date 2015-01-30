@@ -118,13 +118,15 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
         )),
       );
 
-      $form['reportback_submissions']['reportback_prior_submissions'] = array(
-        '#weight' => 10,
-        '#markup' => theme('reportback_prior_submissions', array(
-          'updated' => format_date($entity->updated, 'short'),
-          'reportbacks' => $reportback_prior_submissions,
-        )),
-      );
+      if ($reportback_prior_submissions) {
+        $form['reportback_submissions']['reportback_prior_submissions'] = array(
+          '#weight' => 10,
+          '#markup' => theme('reportback_prior_submissions', array(
+            'updated' => format_date($entity->updated, 'short'),
+            'reportbacks' => $reportback_prior_submissions,
+          )),
+        );
+      }
 
       $submit_label = t("Update submission");
     }
