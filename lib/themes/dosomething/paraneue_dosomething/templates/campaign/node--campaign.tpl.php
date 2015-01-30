@@ -259,7 +259,7 @@
           <?php endif; ?>
         </div>
 
-        <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total']; ?>">
+        <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total_approved']; ?>">
           <div class="wrapper">
 
             <ul class="gallery gallery--reportback">

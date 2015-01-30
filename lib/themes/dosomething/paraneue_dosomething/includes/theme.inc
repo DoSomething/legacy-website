@@ -158,6 +158,11 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
     ),
 
+    'paraneue_placeholder' => array(
+      'template' => 'placeholder',
+      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+    ),
+
     'paraneue_tile' => array(
       'template' => 'tile',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
