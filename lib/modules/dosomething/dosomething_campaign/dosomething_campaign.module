@@ -279,11 +279,7 @@ function _dosomething_campaign_closed_page_access($node) {
  * Determines whether a user has access to the active page callback.
  */
 function _dosomething_campaign_active_page_access($node) {
-  global $user;
-  // Grant access if you're  staff OR you're an org friend:
-  $has_access = dosomething_user_is_staff() || in_array('org friend', $user->roles);
-  if (!$has_access) {
-    // No active page for you.
+  if (!user_access('view any unpublished content')) {
     return FALSE;
   }
 
