@@ -13,6 +13,96 @@ function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements theme_form_element().
+ */
+function paraneue_dosomething_form_element($variables) {
+  $element = &$variables['element'];
+  $output = theme_form_element($variables);
+
+  // If rendering a checkbox, create rendered element for label
+  if($element['#type'] == 'radio') {
+    $variables['rendered_element'] = ' ' . $prefix . $element['#children'] . '<span class="option__indicator"></span>' . $suffix . "\n";
+    $output = theme('form_element_label', $variables);
+  }
+
+  // If rendering a checkbox, create rendered element for label
+  if($element['#type'] == 'checkbox') {
+    $variables['rendered_element'] = ' ' . $prefix . $element['#children'] . '<span class="option__indicator"></span>' . $suffix . "\n";
+    $output = theme('form_element_label', $variables);
+  }
+
+  return $output;
+}
+
+/**
+ * Implements theme_form_element_label().
+ */
+function paraneue_dosomething_form_element_label($variables) {
+  $element = $variables['element'];
+  // This is also used in the installer, pre-database setup.
+  $t = get_t();
+
+  // If title and required marker are both empty, output no label.
+  if ((!isset($element['#title']) || $element['#title'] === '') && empty($element['#required'])) {
+    return '';
+  }
+
+  // If the element is required, a required marker is appended to the label.
+  $required = !empty($element['#required']) ? theme('form_required_marker', array('element' => $element)) : '';
+
+  $title = filter_xss_admin($element['#title']);
+
+  $attributes = array();
+
+  // Style the label as class option to display inline with the element.
+  if ($element['#title_display'] == 'after') {
+    $attributes['class'] = 'element-label-after';
+  }
+  // Show label only to screen readers to avoid disruption in visual flows.
+  elseif ($element['#title_display'] == 'invisible') {
+    $attributes['class'] = 'element-invisible';
+  }
+
+  // Use `.option` class if returning the label for a checkbox.
+  if ($element['#type'] == 'checkbox') {
+    $attributes['class'] = 'option -checkbox';
+  }
+
+  if ($element['#type'] == 'radio') {
+    $attributes['class'] = 'option -radio';
+  }
+
+  if (!empty($element['#id'])) {
+    $attributes['for'] = $element['#id'];
+  }
+
+  // Return with rendered element if it exists
+  if (!empty($variables['rendered_element'])) {
+    return ' <label' . drupal_attributes($attributes) . '>' . $variables['rendered_element'] . $t('!title !required', array('!title' => $title, '!required' => $required)) . "</label>\n";
+  }
+  else {
+    // The leading whitespace helps visually separate fields from inline labels.
+    return ' <label' . drupal_attributes($attributes) . '>' . $t('!title !required', array('!title' => $title, '!required' => $required)) . "</label>\n";
+  }
+}
+
+/**
+ * Implements theme_textfield().
+ */
+function paraneue_dosomething_textfield($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['type'] = 'text';
+  element_set_attributes($element, array('id', 'name', 'value', 'size', 'maxlength'));
+  _form_set_class($element, array('text-field'));
+
+  $extra = '';
+
+  $output = '<input ' . drupal_attributes($element['#attributes']) . ' />';
+
+  return $output . $extra;
+}
+
+/**
  * Implements theme_file().
  */
 function paraneue_dosomething_file($variables) {
