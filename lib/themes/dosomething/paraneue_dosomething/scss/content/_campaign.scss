@@ -17,10 +17,8 @@
 .campaign--pitch,
 .campaign--grouped,
 .campaign--action .container--prove {
-  .message-callout {
-    .message-callout__copy {
-      left: 12px;
-    }
+  .message-callout__copy {
+    left: 12px;
   }
 }
 
@@ -115,6 +113,9 @@
 }
 
 .campaign--action {
+  // @TODO: Need to create separate classes for SMS vs Regular Campaign
+  // .container--do elements, instead of wrapping within the .campaign--action
+  // parent class.
   .container--do {
     .polaroid {
       @include media($mobile) {
@@ -133,37 +134,36 @@
     margin-top: $base-spacing;
   }
 
-  .container--prove {
+}
 
-    // @TODO: v2 Reportbacks temporary addition for classic version.
-    &.reportback-classic {
-      h3, p {
-        color: #fff;
-      }
+.container--prove {
 
-      a {
-        color: #fff;
-        text-decoration: underline;
-      }
-
-      .button {
-        text-decoration: none;
-      }
+  // @TODO: v2 Reportbacks temporary addition for classic version.
+  &.reportback-classic {
+    h3, p {
+      color: #fff;
     }
 
-    .message-callout {
-      @include media($desktop) {
-        .message-callout__copy {
-          left: 75px;
-          top: -10px;
-        }
-      }
+    a {
+      color: #fff;
+      text-decoration: underline;
     }
 
-    .carousel {
-      @include media($tablet) {
-        float: right;
-      }
+    .button {
+      text-decoration: none;
+    }
+  }
+
+  .message-callout__copy {
+    @include media($larger) {
+      left: 75px;
+      top: -10px;
+    }
+  }
+
+  .carousel {
+    @include media($medium) {
+      float: right;
     }
   }
 }

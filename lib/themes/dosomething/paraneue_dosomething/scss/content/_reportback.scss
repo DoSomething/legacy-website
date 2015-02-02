@@ -8,7 +8,7 @@
     padding: ($base-spacing / 4);
 
     @include media($larger) {
-      padding: 10px;
+      padding: ($base-spacing / 2);
     }
 
     img {
@@ -17,7 +17,7 @@
 
     .__copy {
       font-size: $font-smaller;
-      height: 65px;
+      height: 75px;
       line-height: 1.1;
       padding-top: ($base-spacing / 2);
 
@@ -168,7 +168,6 @@
 }
 
 
-
 // @TODO: move to proper locations
 // Temporary additions to work through fix for upload button issues.
 .reportback__submissions {
@@ -181,7 +180,11 @@
   }
 
   .button--file {
+    font-weight: $weight-bold;
     height: auto;
+    margin: ($base-spacing / 2) 0 0;
+    padding: 0;
+    text-transform: lowercase;
     width: auto;
   }
 }
@@ -210,30 +213,63 @@
   }
 }
 
+
 .gigantor {
   background-color: #f2f2f2;
   cursor: pointer;
+  height: 270px;
+  margin: 0;
   position: relative;
-  text-align: center;
-  height: 300px;
+  
+  @include media($medium) {
+    height: 0;
+    padding-bottom: 100%;
+  }
+
 
   &:before {
-    background-color: #23b6fa;
-    content: "";
+    background-color: $blue;
+    border-radius: 100%;
+    color: $white;
+    content: "+";
     display: block;
+    font-size: 80px;
+    font-weight: $weight-normal;
     height: 70px;
     left: 50%;
+    line-height: 0.95;
     margin: -35px 0 0 -35px;
     position: absolute;
+    text-align: center;
     top: 50%;
     width: 70px;
   }
 
-  > span {
+  &:hover:before {
+    background-color: lighten($blue, $color-tint);
+  }
+  
+  > .message-callout {
     bottom: 0;
-    left: 0;
+    left: 50%;
+    margin-left: -130px;
     position: absolute;
-    width: 100%;
+    width: 240px;
+
+    @include media($medium) {
+      bottom: 30px;
+    }
+
+    @include media($larger) {
+      bottom: 40px;
+    }
+  }
+
+  .message-callout__copy {
+    @include media($larger) {
+      left: 0;
+      top: 0;
+    }
   }
 }
 
