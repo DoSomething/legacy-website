@@ -29,9 +29,8 @@
  * @see template_preprocess_search_block_form()
  */
 ?>
-<div class="container-inline">
-  <?php if (empty($variables['form']['#block']->subject)): ?>
-  <?php endif; ?>
-  <?php print $search['search_block_form']; ?>
-  <?php print $search['hidden']; ?>
-</div>
+
+<?php if (empty($variables['form']['#block']->subject)): ?>
+<?php endif; ?>
+<?php print $search['search_block_form']; ?>
+<?php print $search['hidden']; ?>
