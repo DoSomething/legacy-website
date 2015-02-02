@@ -103,6 +103,16 @@ function paraneue_dosomething_textfield($variables) {
 }
 
 /**
+ * Implements theme_select().
+ */
+function paraneue_dosomething_select($variables) {
+  $element = $variables['element'];
+  element_set_attributes($element, array('id', 'name', 'size'));
+
+  return '<div class="select"><select' . drupal_attributes($element['#attributes']) . '>' . form_select_options($element) . '</select></div>';
+}
+
+/**
  * Implements theme_file().
  */
 function paraneue_dosomething_file($variables) {
