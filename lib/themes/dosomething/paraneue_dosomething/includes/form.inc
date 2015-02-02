@@ -54,22 +54,25 @@ function paraneue_dosomething_form_element_label($variables) {
 
   $attributes = array();
 
-  // Style the label as class option to display inline with the element.
-  if ($element['#title_display'] == 'after') {
-    $attributes['class'] = 'element-label-after';
-  }
-  // Show label only to screen readers to avoid disruption in visual flows.
-  elseif ($element['#title_display'] == 'invisible') {
-    $attributes['class'] = 'element-invisible';
-  }
-
   // Use `.option` class if returning the label for a checkbox.
   if ($element['#type'] == 'checkbox') {
     $attributes['class'] = 'option -checkbox';
   }
-
-  if ($element['#type'] == 'radio') {
+  elseif ($element['#type'] == 'radio') {
     $attributes['class'] = 'option -radio';
+  }
+  else {
+    // Style the label as class option to display inline with the element.
+    if ($element['#title_display'] == 'after') {
+      $attributes['class'] = 'element-label-after';
+    }
+    // Show label only to screen readers to avoid disruption in visual flows.
+    elseif ($element['#title_display'] == 'invisible') {
+      $attributes['class'] = 'element-invisible';
+    }
+    else {
+      $attributes['class'] = 'field-label';
+    }
   }
 
   if (!empty($element['#id'])) {
