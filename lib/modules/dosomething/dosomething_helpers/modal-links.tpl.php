@@ -21,10 +21,12 @@
 <div data-modal id="modal-faq" role="dialog">
   <h2 class="heading -banner"><?php print t('FAQs'); ?></h2>
   <?php foreach ($modals['faq'] as $item): ?>
-    <h4 class="faq-header"><?php print $item['header']; ?></h4>
-    <div class="faq-copy"><?php print $item['copy'] ?></div>
+    <h4><?php print $item['header']; ?></h4>
+    <?php print $item['copy'] ?>
   <?php endforeach; ?>
-  <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  <div class="form-actions">
+    <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -45,7 +47,9 @@
     <?php endforeach; ?>
     </ul>
   </section>
-  <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  <div class="form-actions">
+    <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -56,7 +60,9 @@
       <?php print $partner['copy']; ?>
       <?php if (isset($partner['video'])): print $partner['video']; ?>
       <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
-      <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+      <div class="form-actions">
+        <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+      </div>
     </div>
   <?php endforeach; ?>
 <?php endif; ?>

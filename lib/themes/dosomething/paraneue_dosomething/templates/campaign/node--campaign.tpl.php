@@ -151,7 +151,11 @@
             <?php print $location_finder['copy']; ?>
           <?php endif; ?>
 
-          <a class="button -secondary" href="<?php print $location_finder['url']; ?>" target="_blank"><?php print t('Locate'); ?></a>
+          <div>
+            <ul class="form-actions -inline">
+              <li><a class="button -secondary" href="<?php print $location_finder['url']; ?>" target="_blank"><?php print t('Locate'); ?></a></li>
+            </ul>
+          </div>
         </div>
       <?php endif; ?>
 
