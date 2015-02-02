@@ -338,9 +338,17 @@ function paraneue_dosomething_get_themed_approved_reportbacks($nid, $count = 6) 
 function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   $placeholder_urls = dosomething_campaign_get_default_gallery_image_urls();
   $placeholders = array();
+  $placeholder_captions = array(
+    'Integer posuere erat a ante venenatis dapibus posue aliquet.',
+    'Praesent commodo cursus magna, vel scelerisque et.',
+    'Donec id elit non mi porta gravida at eget.',
+    'Integer posuere erat a ante venenatis dapibus posuere.',
+    'Donec ullamcorper nulla non metus auctor fringilla.',
+    'Vivamus sagittis lacus vel augue.'
+  );
 
   for ($i = 0; $i < $count; $i++) {
-    $placeholders[] = paraneue_dosomething_get_gallery_item(array('image' => $placeholder_urls[$i]), 'placeholder');
+    $placeholders[] = paraneue_dosomething_get_gallery_item(array('image' => $placeholder_urls[$i], 'caption' => $placeholder_captions[$i]), 'photo');
   }
 
   return $placeholders;
