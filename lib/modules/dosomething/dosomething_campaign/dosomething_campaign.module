@@ -279,9 +279,11 @@ function _dosomething_campaign_closed_page_access($node) {
  * Determines whether a user has access to the active page callback.
  */
 function _dosomething_campaign_active_page_access($node) {
-  // Staff only.
-  if (!dosomething_user_is_staff()) { return FALSE; }
+  if (!user_access('view any unpublished content')) {
+    return FALSE;
+  }
 
+  // Active tab should only be displayed if the campaign has been closed.
   return dosomething_campaign_is_closed($node);
 }
 
