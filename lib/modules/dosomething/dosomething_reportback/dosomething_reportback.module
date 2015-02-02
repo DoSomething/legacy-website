@@ -860,8 +860,9 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
   if (isset($params['tid'])) {
-    $query->join('taxonomy_index', 't', 't.nid = n.nid');
-    $query->condition('t.tid', $params['tid']);
+    $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
+    $query->condition('t.field_primary_cause_tid', $params['tid']);
+    $query->condition('t.entity_type', 'node');
   }
   if (isset($params['status'])) {
     $query->condition('rbf.status', $params['status']);
