@@ -405,6 +405,6 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
       $vars['reportback_gallery'][$delta]['caption'] = check_plain($item->caption);
     }
     $account = user_load($item->uid);
-    $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);;
+    $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
   }
 }

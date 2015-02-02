@@ -2,6 +2,6 @@
   <?php print $reportback->image; ?>
 
   <?php if ($reportback->caption): ?>
-    <figcaption><?php print $reportback->caption; ?></figcaption>
+    <figcaption class="reportback__submission__copy"><?php print $reportback->caption; ?></figcaption>
   <?php endif; ?>
 </figure>
