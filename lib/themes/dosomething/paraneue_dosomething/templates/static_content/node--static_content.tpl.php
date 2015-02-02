@@ -19,7 +19,7 @@
       <div class="wrapper">
       <?php if(isset($intro_image) || isset($intro_video)): ?>
         <?php /** There's an image, so show two columns. */ ?>
-        <div class="container__block -half">
+        <div class="container__block -half with-lists">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -39,7 +39,7 @@
 
       <?php else: ?>
         <?php /** No image, so show three-quarters width intro block. */ ?>
-        <div class="container__block -narrow">
+        <div class="container__block -narrow with-lists">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -113,7 +113,7 @@
   <section class="container -padded">
     <div class="wrapper">
       <?php if(isset($additional_text_image)): ?>
-        <div class="container__block -half">
+        <div class="container__block -half with-lists">
           <?php if (isset($additional_text_title)): ?>
             <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
           <?php endif; ?>
@@ -125,7 +125,7 @@
           <?php print $additional_text_image; ?>
         </aside>
       <?php else: ?>
-        <div class="container__block -narrow">
+        <div class="container__block -narrow with-lists">
           <?php if (isset($additional_text_title)): ?>
             <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
           <?php endif; ?>

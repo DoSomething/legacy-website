@@ -52,7 +52,7 @@
               </aside>
             <?php endif; ?>
 
-            <ol start="<?php print $start_value; ?>">
+            <ol class="list" start="<?php print $start_value; ?>">
               <?php foreach ($fact_chunk as $key => $fact): ?>
                 <li><?php print $fact['fact']; ?></li>
               <?php endforeach; ?>

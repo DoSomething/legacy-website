@@ -107,35 +107,37 @@
       <?php if (isset($plan)): ?>
       <?php foreach ($plan as $index => $content): ?>
         <?php if($index % 2 === 0) : ?> <div class="container__row"> <?php endif; ?>
-          <div class="container__block -half list-compacted-wrapper">
+          <div class="container__block -half">
             <h3 class="inline--alt-color"><?php print $content['title']; ?></h3>
-            <?php print $content['content']; ?>
+            <div class="with-lists -compacted -concatenated">
+              <?php print $content['content']; ?>
 
-            <?php // Start: Content specifically for Materials content section. ?>
-            <?php if ($content['category'] === 'materials'): ?>
-              <ul>
-                <?php if(isset($action_guides)): ?>
-                  <?php  foreach ($action_guides as $delta => $action_guide): ?>
-                    <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
-                  <?php endforeach; ?>
-                <?php endif; ?>
+              <?php // Start: Content specifically for Materials content section. ?>
+              <?php if ($content['category'] === 'materials'): ?>
+                <ul>
+                  <?php if(isset($action_guides)): ?>
+                    <?php  foreach ($action_guides as $delta => $action_guide): ?>
+                      <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
 
-                <?php if (!empty($campaign->downloads)): ?>
-                  <?php foreach ($campaign->downloads as $link): ?>
-                    <li><?php print l($link['description'], $link['url']); ?></li>
-                  <?php endforeach; ?>
-                <?php endif; ?>
+                  <?php if (!empty($campaign->downloads)): ?>
+                    <?php foreach ($campaign->downloads as $link): ?>
+                      <li><?php print l($link['description'], $link['url']); ?></li>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
 
-                <?php if (isset($signup_data_form_link)): ?>
-                  <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
-                <?php endif; ?>
+                  <?php if (isset($signup_data_form_link)): ?>
+                    <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
+                  <?php endif; ?>
 
-                <?php if (isset($shipment_form_link)): ?>
-                  <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
-                <?php endif; ?>
-              </ul>
-            <?php endif; ?>
-            <?php  // End: Materials content section. ?>
+                  <?php if (isset($shipment_form_link)): ?>
+                    <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
+                  <?php endif; ?>
+                </ul>
+              <?php endif; ?>
+              <?php  // End: Materials content section. ?>
+            </div>
           </div>
         <?php if($index % 2 === 1 || $index + 1 === $plan_count) : ?> </div> <?php endif; ?>
       <?php endforeach; ?>

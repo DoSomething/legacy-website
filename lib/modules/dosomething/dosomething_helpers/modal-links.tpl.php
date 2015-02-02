@@ -1,4 +1,4 @@
-<ul class="list-compacted">
+<ul class="list -compacted">
   <?php if (isset($modals['faq'])): ?>
     <li><a href="#" data-modal-href="#modal-faq"><?php print t('Check out our FAQs'); ?></a></li>
   <?php endif; ?>
@@ -31,7 +31,7 @@
 <?php if (isset($modals['more_facts'])): ?>
 <div data-modal id="modal-facts" role="dialog">
   <h2 class="heading -banner"><?php print t('Facts'); ?></h2>
-  <ul>
+  <ul class="list">
   <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
     <li><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></li>
   <?php endforeach; ?>
