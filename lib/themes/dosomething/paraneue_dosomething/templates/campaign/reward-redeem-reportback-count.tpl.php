@@ -28,7 +28,7 @@
 
   <section class="container -padded">
     <div class="wrapper">
-      <div class="container__body <?php if (isset($page_image)): print '-half'; else: print '-narrow'; endif; ?>">
+      <div class="container__block <?php if (isset($page_image)): print '-half'; else: print '-narrow'; endif; ?>">
         <?php if (isset($page_header) && !empty($page_header)): ?>
         <h2 class="inline--alt-color"><?php print $page_header; ?></h2>
         <?php endif; ?>
@@ -37,7 +37,7 @@
       </div>
 
       <?php if (isset($page_image)): ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <aside>
             <?php print $page_image; ?>
           </aside>

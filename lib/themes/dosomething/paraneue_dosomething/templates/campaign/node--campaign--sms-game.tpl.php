@@ -25,7 +25,7 @@
       <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
       <div class="wrapper">
 
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
@@ -42,7 +42,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
               <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
 
@@ -65,7 +65,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($campaign->fact_sources)): ?>
           <section class="sources">
             <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
@@ -85,7 +85,7 @@
       <h2 class="heading -banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
       <div class="wrapper">
 
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($starter_header)) : ?>
             <h3 class="inline--alt-color"><?php print $starter_header; ?></h3>
           <?php endif; ?>
@@ -100,7 +100,7 @@
 
         <?php print $campaign_scholarship; ?>
 
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <p class="legal">
             <?php
             print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",

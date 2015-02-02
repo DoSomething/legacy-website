@@ -38,7 +38,7 @@
   <?php if (isset($recommended)): ?>
     <div class="container -padded">
       <div class="wrapper">
-       <div class="container__body">
+       <div class="container__block">
          <h2><?php print t('Keep it up! Find your next campaign.'); ?></h2>
        </div>
 

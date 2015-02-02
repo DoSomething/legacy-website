@@ -29,7 +29,7 @@
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">
       <div class="wrapper">
-        <div class="container__body -half">
+        <div class="container__block -half">
           <h3><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?></p>
 
@@ -46,7 +46,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="container__body -half">
+        <div class="container__block -half">
           <h3><?php print t('What You Get'); ?></h3>
           <p><?php print $campaign->value_proposition; ?></p>
         </div>

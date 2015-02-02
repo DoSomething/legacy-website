@@ -50,7 +50,7 @@
       <div class="wrapper">
 
         <?php if (isset($intro_image) || isset($intro_video)): ?>
-          <div class="container__body <?php if (isset($intro_image) || isset($intro_video)): print '-half"'; else: print '-narrow'; endif; ?>">
+          <div class="container__block <?php if (isset($intro_image) || isset($intro_video)): print '-half"'; else: print '-narrow'; endif; ?>">
             <?php if (isset($intro_title)): ?>
               <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
             <?php endif; ?>
@@ -64,7 +64,7 @@
 
 
           <?php if (isset($intro_image) || isset($intro_video)): ?>
-            <div class="container__body -half">
+            <div class="container__block -half">
             <?php if (isset($intro_video)): ?>
               <div class="media-video">
                 <?php print $intro_video; ?>
@@ -83,7 +83,7 @@
   <?php if (isset($post_signup_copy)): ?>
     <section class="container">
       <div class="wrapper">
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($post_signup_title)): ?>
             <h2 class="inline--alt-color"><?php print $post_signup_title; ?></h2>
           <?php endif; ?>
@@ -98,7 +98,7 @@
   <?php if (isset($pre_launch_copy)): ?>
     <section class="container">
       <div class="wrapper">
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($pre_launch_title)): ?>
             <h2 class="inline--alt-color"><?php print $pre_launch_title; ?></h2>
           <?php endif; ?>
@@ -114,7 +114,7 @@
   <?php if (!empty($additional_text)): ?>
   <section class="container">
     <div class="wrapper">
-      <div class="container__body <?php if (isset($additional_text_image)): print '-half"'; else: print '-narrow'; endif; ?>">
+      <div class="container__block <?php if (isset($additional_text_image)): print '-half"'; else: print '-narrow'; endif; ?>">
         <?php if (isset($additional_text_title)): ?>
           <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
         <?php endif; ?>
@@ -123,7 +123,7 @@
       </div>
 
       <?php if (isset($additional_text_image)): ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <aside>
             <?php print $additional_text_image; ?>
           </aside>
@@ -139,7 +139,7 @@
       <?php foreach ($galleries as $gallery): ?>
         <div class="wrapper">
           <?php if (isset($gallery['title'])): ?>
-            <div class="container__body">
+            <div class="container__block">
               <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
             </div>
           <?php endif; ?>

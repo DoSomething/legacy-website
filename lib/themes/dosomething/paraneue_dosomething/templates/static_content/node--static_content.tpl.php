@@ -19,7 +19,7 @@
       <div class="wrapper">
       <?php if(isset($intro_image) || isset($intro_video)): ?>
         <?php /** There's an image, so show two columns. */ ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -27,7 +27,7 @@
           <?php print $intro; ?>
         </div>
 
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($intro_video)): ?>
             <div class="media-video">
               <?php print $intro_video; ?>
@@ -39,7 +39,7 @@
 
       <?php else: ?>
         <?php /** No image, so show three-quarters width intro block. */ ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($intro_title)): ?>
             <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
           <?php endif; ?>
@@ -71,7 +71,7 @@
     <section class="container">
       <div class="wrapper">
         <?php if (isset($gallery['title'])): ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
         </div>
         <?php endif; ?>
@@ -113,7 +113,7 @@
   <section class="container -padded">
     <div class="wrapper">
       <?php if(isset($additional_text_image)): ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($additional_text_title)): ?>
             <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
           <?php endif; ?>
@@ -121,11 +121,11 @@
           <?php print $additional_text; ?>
         </div>
 
-        <aside class="container__body -half">
+        <aside class="container__block -half">
           <?php print $additional_text_image; ?>
         </aside>
       <?php else: ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($additional_text_title)): ?>
             <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
           <?php endif; ?>
