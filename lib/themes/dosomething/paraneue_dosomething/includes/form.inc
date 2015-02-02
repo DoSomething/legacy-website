@@ -118,6 +118,17 @@ function paraneue_dosomething_password($variables) {
 }
 
 /**
+ * Implements theme_textarea().
+ */
+function paraneue_dosomething_textarea($variables) {
+  $element = $variables['element'];
+  element_set_attributes($element, array('id', 'name', 'cols', 'rows'));
+  _form_set_class($element, array('text-field'));
+
+  return '<textarea' . drupal_attributes($element['#attributes']) . '>' . check_plain($element['#value']) . '</textarea>';
+}
+
+/**
  * Implements theme_select().
  */
 function paraneue_dosomething_select($variables) {
