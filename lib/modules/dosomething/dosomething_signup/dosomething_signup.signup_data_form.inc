@@ -362,7 +362,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       // Used for front-end autocomplete.
       '#type' => 'markup',
       '#title' => t("School Name"),
-      '#markup' => '<input type="search" placeholder="' . t('Find your school by name...') . '" class="js-schoolfinder-search"><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
+      '#markup' => '<div class="form-item"><input type="search" class="text-field -search js-schoolfinder-search" placeholder="' . t('Find your school by name...') . '"></div><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
     $school_help_text = variable_get('dosomething_user_school_finder_help_text');
     if ($school_help_text) {
