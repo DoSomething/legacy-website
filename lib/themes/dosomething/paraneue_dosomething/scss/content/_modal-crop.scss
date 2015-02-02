@@ -105,11 +105,9 @@
 .reportback__submission-cropped {
   position: relative;
   width: 100%;
-  background-color: #ABA5ED;
   overflow: hidden;
 
   img {
-    width: initial;
     max-width: none;
     position: absolute;
   }
