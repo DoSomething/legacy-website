@@ -283,6 +283,9 @@ function theme_dosomething_reportback_files_form($variables) {
   return $output;
 }
 
+/**
+ * Page callback which displays all Reportback Count variables.
+ */
 function dosomething_reportback_count_page() {
   // Reset all Reportback Totals for terms in the Cause vocabulary.
   $header = array(
@@ -309,8 +312,32 @@ function dosomething_reportback_count_page() {
       );
     }
   }
-  return theme('table', array(
+  $output .= '<h2>' . t("Cause") . '</h2>';
+  $output .= theme('table', array(
     'header' => $header,
     'rows' => $rows,
-  ));;
+  ));
+  $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
+  $output .= render($reset_form);
+  return $output;
+}
+
+/**
+ * Form to reset all Reportback Count variables.
+ */
+function dosomething_reportback_reset_count_form() {
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Refresh Totals'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for dosomething_reportback_reset_count_form().
+ */
+function dosomething_reportback_reset_count_form_submit($form, &$form_state) {
+  dosomething_reportback_reset_all('taxonomy_term');
+  drupal_set_message(t("Totals have been refreshed."));
 }

@@ -930,6 +930,9 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
  *
  * @param array $params
  *   Associative array of query parameters.
+ * @param bool $reset
+ *   If TRUE, run SQL count query.
+ *   If FALSE, use the Helper count variable if exists.
  *
  * @see dosomething_reportback_get_reportback_files_query().
  *
@@ -976,6 +979,9 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   return $count;
 }
 
+/**
+ * Resets Reportback Count variables for given entity type and entity_id.
+ */
 function dosomething_reportback_reset_count($entity_type, $entity_id) {
   $params = array();
   if ($entity_type == 'node') {
@@ -991,6 +997,9 @@ function dosomething_reportback_reset_count($entity_type, $entity_id) {
   }
 }
 
+/**
+ * Resets all Reportback Count variables for given entity type $entity_type.
+ */
 function dosomething_reportback_reset_all($entity_type) {
   if ($entity_type == 'node') {
     // @todo: Loop through campaigns.
@@ -1007,7 +1016,9 @@ function dosomething_reportback_reset_all($entity_type) {
   }
 }
 
-
+/**
+ * Returns array of all valid values for a Reportback File's status.
+ */
 function dosomething_reportback_get_file_status_values() {
   return array(
     'pending',
@@ -1019,7 +1030,7 @@ function dosomething_reportback_get_file_status_values() {
 }
 
 /**
- * Returns list of valid options a Reportback File can be set to.
+ * Returns list of valid form options a Reportback File can be set to.
  */
 function dosomething_reportback_get_file_status_options() {
   $keys = dosomething_reportback_get_file_status_values();
