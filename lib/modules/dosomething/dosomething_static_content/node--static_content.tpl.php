@@ -35,7 +35,7 @@
         <p><?php print $gallery['image_description']; ?></p>
       <?php endif; ?>
     <?php endforeach; ?>
-  <? endif; ?>
+  <?php endif; ?>
   
   <?php if (isset($additional_text_title)): ?>
     <h2><?php print $additional_text_title; ?></h2>
