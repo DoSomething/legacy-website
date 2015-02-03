@@ -100,3 +100,15 @@
     }
   }
 }
+
+// Crop preview.
+.reportback__submission-cropped {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    max-width: none;
+    position: absolute;
+  }
+}
