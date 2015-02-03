@@ -245,7 +245,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   );
 
   // Load helpers variables for the nid this reportback is for.
-  $config = dosomething_helpers_get_variables($entity->nid);
+  $config = dosomething_helpers_get_variables('node', $entity->nid);
   // If we are collecting num_participants for this node:
   if ($config['collect_num_participants']) {
     // Set default label for num_participants form element.

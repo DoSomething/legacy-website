@@ -298,7 +298,7 @@ function dosomething_reportback_count_page() {
   if ($cause) {
     $terms = taxonomy_get_tree($cause->vid);
     foreach ($terms as $term) {
-      $vars = dosomething_helpers_get_variables($term->tid, 'taxonomy_term');
+      $vars = dosomething_helpers_get_variables('taxonomy_term', $term->tid);
       $rows[] = array(
         $term->name,
         $vars['count_pending'],

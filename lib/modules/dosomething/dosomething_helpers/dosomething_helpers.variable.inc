@@ -6,7 +6,7 @@
  */
 
 function dosomething_helpers_variable_form($form, &$form_state, $node) {
-  $vars = dosomething_helpers_get_variables($node->nid);
+  $vars = dosomething_helpers_get_variables('node', $node->nid);
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $node->nid,

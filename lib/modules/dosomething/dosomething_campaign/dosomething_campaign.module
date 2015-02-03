@@ -565,7 +565,7 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
  * Preprocesses a Shipment Form for the $node, if configured.
  */
 function dosomething_campaign_add_shipment_form_vars($node) {
-  $config = dosomething_helpers_get_variables($node->nid);
+  $config = dosomething_helpers_get_variables('node', $node->nid);
   if (!empty($config['shipment_item'])) {
     // Pass the user signup path as the entity to store on the Shipment.
     $config['entity_type'] = 'signup';

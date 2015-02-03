@@ -228,7 +228,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
  *   The node $nid to check configuration values for.
  */
 function dosomething_signup_sms_game_form_config(&$form, $nid) {
-  $vars = dosomething_helpers_get_variables($nid);
+  $vars = dosomething_helpers_get_variables('node', $nid);
 
   $sms_game_type = NULL;
 
