@@ -20,13 +20,13 @@ function paraneue_dosomething_form_element($variables) {
   $output = theme_form_element($variables);
 
   // If rendering a radio button, create rendered element for label
-  if($element['#type'] == 'radio') {
+  if($element['#type'] === 'radio') {
     $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
     $output = theme('form_element_label', $variables);
   }
 
   // If rendering a checkbox, create rendered element for label
-  if($element['#type'] == 'checkbox') {
+  if($element['#type'] === 'checkbox') {
     $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
     $output = theme('form_element_label', $variables);
   }
@@ -55,20 +55,20 @@ function paraneue_dosomething_form_element_label($variables) {
   $attributes = array();
 
   // Use `.option` class if returning the label for a checkbox.
-  if ($element['#type'] == 'checkbox' && $element['#title_display'] != 'attribute') {
+  if ($element['#type'] === 'checkbox' && $element['#title_display'] !== 'attribute') {
     $attributes['class'] = 'option -checkbox';
   }
-  elseif ($element['#type'] == 'radio' && $element['#title_display'] != 'attribute') {
+  elseif ($element['#type'] === 'radio' && $element['#title_display'] !== 'attribute') {
     dpm($element);
     $attributes['class'] = 'option -radio';
   }
   else {
     // Style the label as class option to display inline with the element.
-    if ($element['#title_display'] == 'after') {
+    if ($element['#title_display'] === 'after') {
       $attributes['class'] = 'element-label-after';
     }
     // Show label only to screen readers to avoid disruption in visual flows.
-    elseif ($element['#title_display'] == 'invisible') {
+    elseif ($element['#title_display'] === 'invisible') {
       $attributes['class'] = 'element-invisible';
     }
     else {
@@ -187,7 +187,7 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
     return;
   }
   // If this is the User Signup Data Form:
-  if ($form_id == 'dosomething_signup_user_signup_data_form') {
+  if ($form_id === 'dosomething_signup_user_signup_data_form') {
     // If we aren't collecting shipment info:
     // @see dosomething_signup_user_signup_data_form().
     if (!isset($form['shipment_item'])) {
