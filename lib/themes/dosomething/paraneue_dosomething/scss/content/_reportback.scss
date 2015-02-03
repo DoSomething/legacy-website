@@ -171,6 +171,8 @@
 // @TODO: move to proper locations
 // Temporary additions to work through fix for upload button issues.
 .reportback__submissions {
+  margin-bottom: ($base-spacing / 2);
+  
   figure {
     img { width: 100%; }
   }
@@ -217,6 +219,7 @@
 .gigantor {
   background-color: #f2f2f2;
   cursor: pointer;
+  display: block;
   height: 270px;
   margin: 0;
   position: relative;
