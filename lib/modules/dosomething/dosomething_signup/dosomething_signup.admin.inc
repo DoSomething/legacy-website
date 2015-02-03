@@ -126,7 +126,7 @@ function dosomething_signup_opt_in_config_form_add_elements(&$form, $node_vars, 
     $form[$nid][$nid . '_' . $name] = array(
       '#type' => 'textfield',
       '#title' => $name,
-      '#default_value' => dosomething_helpers_get_variable($nid, $name),
+      '#default_value' => dosomething_helpers_get_variable('node', $nid, $name),
       '#description' => $description,
     );
   }

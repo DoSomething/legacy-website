@@ -187,7 +187,7 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
     }
   }
   elseif (isset($vars['nid'])) {
-    $custom_vars = dosomething_helpers_get_variables($vars['nid']);
+    $custom_vars = dosomething_helpers_get_variables('node', $vars['nid']);
      if ($custom_vars['alt_color']) {
       $alt_color = $custom_vars['alt_color'];
     }

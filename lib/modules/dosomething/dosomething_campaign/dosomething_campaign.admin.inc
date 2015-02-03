@@ -270,7 +270,7 @@ function dosomething_campaign_admin_status_call_to_action_query($char_count = 65
  */
 function dosomething_campaign_reportback_config_form($form, &$form_state, $node) {
   // Load the node's helpers variables.
-  $vars = dosomething_helpers_get_variables($node->nid);
+  $vars = dosomething_helpers_get_variables('node', $node->nid);
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $node->nid,

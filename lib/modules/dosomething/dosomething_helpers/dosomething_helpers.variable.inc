@@ -6,7 +6,7 @@
  */
 
 function dosomething_helpers_variable_form($form, &$form_state, $node) {
-  $vars = dosomething_helpers_get_variables($node->nid);
+  $vars = dosomething_helpers_get_variables('node', $node->nid);
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $node->nid,
@@ -152,6 +152,11 @@ function dosomething_helpers_get_variable_names() {
     'alt_color',
     'alt_image_campaign_cover_nid',
     'collect_num_participants',
+    'count_approved',
+    'count_excluded',
+    'count_flagged',
+    'count_pending',
+    'count_promoted',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
     'shipment_form_confirm_msg',
@@ -175,7 +180,7 @@ function dosomething_helpers_get_variable_names() {
  * @return array
  *   Keyed by the variable name.
  */
-function dosomething_helpers_get_variables($nid) {
+function dosomething_helpers_get_variables($entity_type, $entity_id) {
   // Initialize array with NULL defaults.
   foreach (dosomething_helpers_get_variable_names() as $name) {
     $vars[$name] = NULL;
@@ -183,8 +188,8 @@ function dosomething_helpers_get_variables($nid) {
   // Query for variable records for given $node.
   $result = db_select('dosomething_helpers_variable', 'v')
     ->fields('v')
-    ->condition('entity_id', $nid)
-    ->condition('entity_type', 'node')
+    ->condition('entity_id', $entity_id)
+    ->condition('entity_type', $entity_type)
     ->execute()
     ->fetchAll();
   foreach ($result as $record) {
@@ -196,15 +201,15 @@ function dosomething_helpers_get_variables($nid) {
 /**
  * Returns value of given $nid's $name variable.
  *
- * @return string
- *   All variable values are stored as strings.
+ * @return
+ *   String if variable exists, FALSE if not.
  */
-function dosomething_helpers_get_variable($nid, $name) {
+function dosomething_helpers_get_variable($entity_type, $entity_id, $var_name) {
   return db_select('dosomething_helpers_variable', 'v')
     ->fields('v', array('value'))
-    ->condition('entity_id', $nid)
-    ->condition('entity_type', 'node')
-    ->condition('name', $name)
+    ->condition('entity_id', $entity_id)
+    ->condition('entity_type', $entity_type)
+    ->condition('name', $var_name)
     ->execute()
     ->fetchField(0);
 }
@@ -212,26 +217,39 @@ function dosomething_helpers_get_variable($nid, $name) {
 /**
  * Sets a given dosomething_helper variable $name to $value for given $node.
  */
-function dosomething_helpers_set_variable($node, $name, $value) {
+function dosomething_helpers_set_variable($entity, $var_name, $value) {
+  if (isset($entity->nid)) {
+    $entity_type = 'node';
+    $entity_id = $entity->nid;
+  }
+  elseif (isset($entity->tid)) {
+    $entity_type = 'taxonomy_term';
+    $entity_id = $entity->tid;
+    $entity->type = $entity->vocabulary_machine_name;
+  }
   // If a value is present:
-  if (!empty($value)) {
+  if (!empty($value) || $value === 0) {
     db_merge('dosomething_helpers_variable')
-        ->key(array('entity_type' => 'node', 'entity_id' => $node->nid, 'name' => $name))
+        ->key(array(
+            'entity_type' => $entity_type,
+            'entity_id' => $entity_id,
+            'name' => $var_name,
+          ))
         ->fields(array(
-            'entity_type' => 'node',
-            'bundle' => $node->type,
-            'entity_id' => $node->nid,
-            'name' => $name,
+            'entity_type' => $entity_type,
+            'bundle' => $entity->type,
+            'entity_id' => $entity_id,
+            'name' => $var_name,
             'value' => $value,
-        ))
+           ))
         ->execute();
   }
   // Else delete the value, to prevent storing an empty value.
   else {
     db_delete('dosomething_helpers_variable')
-      ->condition('entity_id', $node->nid)
-      ->condition('entity_type', 'node')
-      ->condition('name', $name)
+      ->condition('entity_id', $entity_id)
+      ->condition('entity_type', $entity_type)
+      ->condition('name', $var_name)
       ->execute();
   }
 }
@@ -250,14 +268,14 @@ function dosomething_helpers_third_party_variable_form($form, &$form_state, $nod
   );
   // SMS Games have different variables.
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_opt_in_path');
     $form['optins']['mobilecommons'] = array(
       '#type' => 'textfield',
       '#title' => t('Mobilecommons Alpha Opt-in Path'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_friends_opt_in_path');
     $form['optins']['mobilecommons_friends'] = array(
       '#type' => 'textfield',
       '#title' => t('Mobilecommons Beta Opt-in Path'),
@@ -266,21 +284,21 @@ function dosomething_helpers_third_party_variable_form($form, &$form_state, $nod
     );
   }
   else {
-    $value = dosomething_helpers_get_variable($nid, 'mailchimp_grouping_id');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
     $form['optins']['mailchimp_grouping_id'] = array(
       '#type' => 'textfield',
       '#title' => t('MailChimp Grouping ID'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mailchimp_group_name');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
     $form['optins']['mailchimp_group_name'] = array(
       '#type' => 'textfield',
       '#title' => t('MailChimp Group Name'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_opt_in_path');
     $form['optins']['mobilecommons'] = array(
       '#type' => 'textfield',
       '#title' => t('MobileCommons Opt-in Path'),

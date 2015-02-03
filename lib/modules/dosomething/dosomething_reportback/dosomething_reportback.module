@@ -203,9 +203,15 @@ function dosomething_reportback_menu() {
   );
 
   // Add Reportback menu items for admin/users.
-  $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
-  $items = array_merge($items, $users_rb);
-
+  // $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
+  // $items = array_merge($items, $users_rb);
+  $items['admin/users/rb'] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'dosomething_reportback_count_page',
+    'access arguments' => array('view any reportback'),
+    'file' => 'dosomething_reportback.admin.inc',
+    'weight' => 900,
+  );
   // Add Reportback menu items for taxonomy_term and node entities:
   $rb_paths = array(
     'taxonomy/term/%taxonomy_term' => 2,
@@ -924,31 +930,120 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
  *
  * @param array $params
  *   Associative array of query parameters.
+ * @param bool $reset
+ *   If TRUE, run SQL count query.
+ *   If FALSE, use the Helper count variable if exists.
  *
  * @see dosomething_reportback_get_reportback_files_query().
  *
  * @return int
  */
-function dosomething_reportback_get_reportback_files_query_count($params) {
+function dosomething_reportback_get_reportback_files_query_count($params, $reset = FALSE) {
+
+  // Name of helper variable which stores count for this status.
+  $var_name = 'count_' . $params['status'];
+  if (isset($params['nid'])) {
+    $entity_type = 'node';
+    $entity_id = $params['nid'];
+  }
+  elseif (isset($params['tid'])) {
+    $entity_type = 'taxonomy_term';
+    $entity_id = $params['tid'];
+  }
+
+  if (!$reset) {
+    // Check if we have the count stored already.
+    $count = dosomething_helpers_get_variable($entity_type, $entity_id, $var_name);
+    if ($count === FALSE) {
+      $reset = TRUE;
+    }
+    else {
+      return $count;
+    }
+  }
+
   $query = dosomething_reportback_get_reportback_files_query($params);
   $result = $query->execute();
-  return $result->rowCount();
+  $count = $result->rowCount();
+
+  if ($reset) {
+    if ($entity_type == 'node') {
+      $entity = node_load($entity_id);
+    }
+    elseif ($entity_type == 'taxonomy_term') {
+      $entity = taxonomy_term_load($entity_id);
+    }
+    dosomething_helpers_set_variable($entity, $var_name, $count);
+  }
+
+  return $count;
 }
 
 /**
- * Returns list of valid options a Reportback File can be set to.
+ * Resets Reportback Count variables for given entity type and entity_id.
  */
-function dosomething_reportback_get_file_status_options() {
-  $keys = array(
+function dosomething_reportback_reset_count($entity_type, $entity_id) {
+  $params = array();
+  if ($entity_type == 'node') {
+    $params['nid'] = $entity_id;
+  }
+  elseif ($entity_type == 'taxonomy_term') {
+    $params['tid'] = $entity_id;
+  }
+  $status_values = dosomething_reportback_get_file_status_values();
+  foreach ($status_values as $status) {
+    $params['status'] = $status;
+    dosomething_reportback_get_reportback_files_query_count($params, TRUE);
+  }
+}
+
+/**
+ * Resets all Reportback Count variables for given entity type $entity_type.
+ */
+function dosomething_reportback_reset_all($entity_type) {
+  if ($entity_type == 'node') {
+    // @todo: Loop through campaigns.
+  }
+  elseif ($entity_type == 'taxonomy_term') {
+    // Reset all Reportback Totals for terms in the Cause vocabulary.
+    $cause = taxonomy_vocabulary_machine_name_load('cause');
+    if ($cause) {
+      $terms = taxonomy_get_tree($cause->vid);
+      foreach ($terms as $term) {
+        dosomething_reportback_reset_count($entity_type, $term->tid);
+      }
+    }
+  }
+}
+
+/**
+ * Returns array of all valid values for a Reportback File's status.
+ */
+function dosomething_reportback_get_file_status_values() {
+  return array(
+    'pending',
     'approved',
     'promoted',
     'excluded',
     'flagged',
   );
+}
+
+/**
+ * Returns list of valid form options a Reportback File can be set to.
+ */
+function dosomething_reportback_get_file_status_options() {
+  $keys = dosomething_reportback_get_file_status_values();
   $options = array();
   foreach ($keys as $name) {
     $options[$name] = t(ucfirst($name));
   }
+
+  // Don't allow Pending as a form value.
+  if (isset($options['pending'])) {
+    unset($options['pending']);
+  }
+
   return $options;
 }
 

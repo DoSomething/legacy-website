@@ -112,7 +112,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         $label = NULL;
         if (module_exists('dosomething_helpers')) {
           // Check if a Signup Form Submit Label has been set.
-          $label = dosomething_helpers_get_variable($node->nid, 'signup_form_submit_label');
+          $label = dosomething_helpers_get_variable('node', $node->nid, 'signup_form_submit_label');
         }
         // Adds signup_button_primary and signup_button_secondary vars.
         $ids = array('primary', 'secondary');

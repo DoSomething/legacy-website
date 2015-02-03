@@ -282,3 +282,62 @@ function theme_dosomething_reportback_files_form($variables) {
   $output .= drupal_render_children($form);
   return $output;
 }
+
+/**
+ * Page callback which displays all Reportback Count variables.
+ */
+function dosomething_reportback_count_page() {
+  // Reset all Reportback Totals for terms in the Cause vocabulary.
+  $header = array(
+    t('Title'),
+    t('Pending'),
+    t('Approved'),
+    t('Promoted'),
+    t('Excluded'),
+    t('Flagged'),
+  );
+  $rows = array();
+  $cause = taxonomy_vocabulary_machine_name_load('cause');
+  if ($cause) {
+    $terms = taxonomy_get_tree($cause->vid);
+    foreach ($terms as $term) {
+      $vars = dosomething_helpers_get_variables('taxonomy_term', $term->tid);
+      $rows[] = array(
+        $term->name,
+        $vars['count_pending'],
+        $vars['count_approved'],
+        $vars['count_promoted'],
+        $vars['count_excluded'],
+        $vars['count_flagged'],
+      );
+    }
+  }
+  $output .= '<h2>' . t("Cause") . '</h2>';
+  $output .= theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+  ));
+  $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
+  $output .= render($reset_form);
+  return $output;
+}
+
+/**
+ * Form to reset all Reportback Count variables.
+ */
+function dosomething_reportback_reset_count_form() {
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Refresh Totals'),
+  );
+  return $form;
+}
+
+/**
+ * Submit handler for dosomething_reportback_reset_count_form().
+ */
+function dosomething_reportback_reset_count_form_submit($form, &$form_state) {
+  dosomething_reportback_reset_all('taxonomy_term');
+  drupal_set_message(t("Totals have been refreshed."));
+}
