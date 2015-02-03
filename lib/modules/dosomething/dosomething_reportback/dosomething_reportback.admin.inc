@@ -333,13 +333,19 @@ function dosomething_reportback_count_page() {
       // Loop through status values and set links for each.
       $i = 0;
       foreach ($status_values as $status) {
+        $count = (int) $vars['count_' . $status];
         $url = 'taxonomy/term/' . $term->tid . '/rb';
         $options = array();
         if ($i > 0) {
           $url = 'taxonomy/term/' . $term->tid . '/rb/reviewed';
           $options = array('query' => array('status' => $i));
         }
-        $row_values[] = l($vars['count_' . $status], $url, $options);
+        if ($count > 0) {
+          $row_values[] = l($count, $url, $options);
+        }
+        else {
+          $row_values[] = $count;
+        }
         $i++;
       }
       $rows[] = $row_values;
