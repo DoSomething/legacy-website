@@ -985,8 +985,9 @@ function dosomething_reportback_reset_count($entity_type, $entity_id) {
   }
 }
 
+
 function dosomething_reportback_get_file_status_values() {
-  return  array(
+  return array(
     'pending',
     'approved',
     'promoted',
@@ -999,16 +1000,17 @@ function dosomething_reportback_get_file_status_values() {
  * Returns list of valid options a Reportback File can be set to.
  */
 function dosomething_reportback_get_file_status_options() {
-  $keys = array(
-    'approved',
-    'promoted',
-    'excluded',
-    'flagged',
-  );
+  $keys = dosomething_reportback_get_file_status_values();
   $options = array();
   foreach ($keys as $name) {
     $options[$name] = t(ucfirst($name));
   }
+
+  // Don't allow Pending as a form value.
+  if (isset($options['pending'])) {
+    unset($options['pending']);
+  }
+
   return $options;
 }
 
