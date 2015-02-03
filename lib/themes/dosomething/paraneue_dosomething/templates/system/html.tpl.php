@@ -6,9 +6,9 @@
 ?>
 
 <!DOCTYPE html>
-<!--[if lte IE 8 ]> <html dir="ltr" lang="en-US" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]> <html dir="ltr" lang="en-US" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
+<!--[if lte IE 8 ]> <html dir="ltr" lang="en-US" class="modernizr-no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html dir="ltr" lang="en-US" class="modernizr-no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html class="modernizr-no-js"><!--<![endif]-->
 
 <!-- DoSomething.org Platform <?php print $variables['ds_version'] ?> -->
 
