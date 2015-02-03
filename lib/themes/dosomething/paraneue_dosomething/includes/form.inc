@@ -19,7 +19,7 @@ function paraneue_dosomething_form_element($variables) {
   $element = &$variables['element'];
   $output = theme_form_element($variables);
 
-  // If rendering a checkbox, create rendered element for label
+  // If rendering a radio button, create rendered element for label
   if($element['#type'] == 'radio') {
     $variables['rendered_element'] = ' ' . $prefix . $element['#children'] . '<span class="option__indicator"></span>' . $suffix . "\n";
     $output = theme('form_element_label', $variables);
@@ -55,10 +55,11 @@ function paraneue_dosomething_form_element_label($variables) {
   $attributes = array();
 
   // Use `.option` class if returning the label for a checkbox.
-  if ($element['#type'] == 'checkbox') {
+  if ($element['#type'] == 'checkbox' && $element['#title_display'] != 'attribute') {
     $attributes['class'] = 'option -checkbox';
   }
-  elseif ($element['#type'] == 'radio') {
+  elseif ($element['#type'] == 'radio' && $element['#title_display'] != 'attribute') {
+    dpm($element);
     $attributes['class'] = 'option -radio';
   }
   else {
@@ -213,22 +214,24 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   foreach ($form['item']['#options'] as $key => $option) {
     $form['item'][$key]['#prefix'] = '<div class="media-options__item -radio">';
     $form['item'][$key]['#suffix'] = '</div>';
+    $form['item'][$key]['#title_display'] = 'attribute';
   }
   $shirt_style_prefix = '<div data-validate="shirt_style" data-validate-required class="js-media-options">';
   $shirt_style_suffix = '</div>';
   $form['item']['#prefix'] = $shirt_style_prefix;
   $form['item']['#suffix'] = $shirt_style_suffix;
-  $form['item']['#title'] = '<div class="label">' . t("Your Shirt Style") . '</div>';
+  $form['item']['#title'] = t("Your Shirt Style");
   $form['item_option']['#attributes'] = $shirt_size_attributes;
   if (isset($form['item_additional'])) {
     foreach ($form['item_additional']['#options'] as $key => $option) {
       $form['item_additional'][$key]['#prefix'] = '<div class="media-options__item -radio">';
       $form['item_additional'][$key]['#suffix'] = '</div>';
+      $form['item_additional'][$key]['#title_display'] = 'attribute';
     }
     $form['item_additional_header']['#markup'] = '<h4>' . t("Your Friend's Shirt") . '</h4>';
     $form['item_additional']['#prefix'] = $shirt_style_prefix;
     $form['item_additional']['#suffix'] = $shirt_style_suffix;
-    $form['item_additional']['#title'] = '<div class="label">' . t("Your Friend's Shirt Style") . '</div>';
+    $form['item_additional']['#title'] = t("Your Friend's Shirt Style");
     $form['item_additional_option']['#attributes'] = $shirt_size_attributes;
   }
 }
