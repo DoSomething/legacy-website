@@ -21,13 +21,13 @@ function paraneue_dosomething_form_element($variables) {
 
   // If rendering a radio button, create rendered element for label
   if($element['#type'] == 'radio') {
-    $variables['rendered_element'] = ' ' . $prefix . $element['#children'] . '<span class="option__indicator"></span>' . $suffix . "\n";
+    $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
     $output = theme('form_element_label', $variables);
   }
 
   // If rendering a checkbox, create rendered element for label
   if($element['#type'] == 'checkbox') {
-    $variables['rendered_element'] = ' ' . $prefix . $element['#children'] . '<span class="option__indicator"></span>' . $suffix . "\n";
+    $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
     $output = theme('form_element_label', $variables);
   }
 
