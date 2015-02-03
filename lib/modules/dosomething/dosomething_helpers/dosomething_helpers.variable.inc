@@ -204,12 +204,12 @@ function dosomething_helpers_get_variables($nid) {
  * @return string
  *   All variable values are stored as strings.
  */
-function dosomething_helpers_get_variable($nid, $name) {
+function dosomething_helpers_get_variable($entity_type, $entity_id, $var_name) {
   return db_select('dosomething_helpers_variable', 'v')
     ->fields('v', array('value'))
-    ->condition('entity_id', $nid)
-    ->condition('entity_type', 'node')
-    ->condition('name', $name)
+    ->condition('entity_id', $entity_id)
+    ->condition('entity_type', $entity_type)
+    ->condition('name', $var_name)
     ->execute()
     ->fetchField(0);
 }
@@ -267,14 +267,14 @@ function dosomething_helpers_third_party_variable_form($form, &$form_state, $nod
   );
   // SMS Games have different variables.
   if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_opt_in_path');
     $form['optins']['mobilecommons'] = array(
       '#type' => 'textfield',
       '#title' => t('Mobilecommons Alpha Opt-in Path'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_friends_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_friends_opt_in_path');
     $form['optins']['mobilecommons_friends'] = array(
       '#type' => 'textfield',
       '#title' => t('Mobilecommons Beta Opt-in Path'),
@@ -283,21 +283,21 @@ function dosomething_helpers_third_party_variable_form($form, &$form_state, $nod
     );
   }
   else {
-    $value = dosomething_helpers_get_variable($nid, 'mailchimp_grouping_id');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
     $form['optins']['mailchimp_grouping_id'] = array(
       '#type' => 'textfield',
       '#title' => t('MailChimp Grouping ID'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mailchimp_group_name');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
     $form['optins']['mailchimp_group_name'] = array(
       '#type' => 'textfield',
       '#title' => t('MailChimp Group Name'),
       '#default_value' => $value,
       '#disabled' => TRUE,
     );
-    $value = dosomething_helpers_get_variable($nid, 'mobilecommons_opt_in_path');
+    $value = dosomething_helpers_get_variable('node', $nid, 'mobilecommons_opt_in_path');
     $form['optins']['mobilecommons'] = array(
       '#type' => 'textfield',
       '#title' => t('MobileCommons Opt-in Path'),

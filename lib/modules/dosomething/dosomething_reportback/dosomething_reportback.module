@@ -934,10 +934,17 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   // Name of helper variable which stores count for this status.
   $var_name = 'count_' . $params['status'];
 
-  if ( !$reset && isset($params['nid']) ) {
+  if (!$reset) {
+    if (isset($params['nid'])) {
+      $entity_type = 'node';
+      $entity_id = $params['nid'];
+    }
+    elseif (isset($params['tid'])) {
+      $entity_type = 'taxonomy_term';
+      $entity_id = $params['tid'];
+    }
     // Check if we have the count stored already.
-    $var_name = 'count_' . $params['status'];
-    if ($count = dosomething_helpers_get_variable($params['nid'], $var_name)) {
+    if ($count = dosomething_helpers_get_variable('node', $entity_type, $entity_id, $var_name)) {
       return $count;
     }
     // We don't have a count, so set one.

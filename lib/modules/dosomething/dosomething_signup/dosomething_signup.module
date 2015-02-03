@@ -397,7 +397,7 @@ function dosomething_signup_entity_insert($entity, $type) {
 function dosomething_signup_third_party_subscribe($account, $node) {
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
-  $opt_in = dosomething_helpers_get_variable($node->nid, $var_name);
+  $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
   // If not:
   if (!$opt_in) {
     // Use general opt_in_path.
@@ -550,8 +550,8 @@ function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
  */
 function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
   $nid = $node->nid;
-  $grouping_id = dosomething_helpers_get_variable($nid, 'mailchimp_grouping_id');
-  $group_name = dosomething_helpers_get_variable($nid, 'mailchimp_group_name');
+  $grouping_id = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
+  $group_name = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
   // If a value is present for Mailchimp groups:
   if (isset($grouping_id) && isset($group_name)) {
     // Add it into the mbp_request params.
