@@ -100,7 +100,7 @@
 <?php if( $show_sponsors && !$is_affiliate ) : ?>
 <section class="container container--sponsors">
   <div class="wrapper">
-    <div class="container__body">
+    <div class="container__block">
       <h4><?php print t('Sponsors'); ?></h4>
       <ul>
         <?php foreach($partners as $partner) { print '<li><img src="' . $partner['logo']['path'] . '" title="' . $partner['name'] . '"></li>'; } ?>

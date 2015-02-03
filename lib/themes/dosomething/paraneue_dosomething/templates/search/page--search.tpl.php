@@ -18,7 +18,7 @@
   <main role="main" class="container -padded">
     <div class="wrapper">
       <?php if (!empty($noresults_copy)): ?>
-        <div class="container__body">
+        <div class="container__block">
           <h3><?php print $noresults_copy; ?></h3>
         </div>
       <?php endif; ?>

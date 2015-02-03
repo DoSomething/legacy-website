@@ -35,7 +35,7 @@
   <section id="know" class="container">
     <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
     <div class="wrapper">
-      <div class="container__body -half">
+      <div class="container__block -half">
         <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
@@ -53,7 +53,7 @@
         <?php endif; ?>
       </div>
 
-      <div class="container__body -half">
+      <div class="container__block -half">
         <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
           <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
 
@@ -77,7 +77,7 @@
         <?php endif; ?>
       </div>
 
-      <div class="container__body -narrow">
+      <div class="container__block -narrow">
         <?php if (isset($campaign->fact_sources)): ?>
           <section class="sources">
             <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
@@ -97,7 +97,7 @@
   <section id="plan" class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Step 2: Plan It'); ?></span></h2>
     <div class="wrapper">
-      <div class="container__body -narrow">
+      <div class="container__block -narrow">
         <?php if (isset($starter)) : ?>
           <?php print $starter['safe_value']; ?>
         <?php endif; ?>
@@ -107,35 +107,37 @@
       <?php if (isset($plan)): ?>
       <?php foreach ($plan as $index => $content): ?>
         <?php if($index % 2 === 0) : ?> <div class="container__row"> <?php endif; ?>
-          <div class="container__body -half list-compacted-wrapper">
+          <div class="container__block -half">
             <h3 class="inline--alt-color"><?php print $content['title']; ?></h3>
-            <?php print $content['content']; ?>
+            <div class="with-lists -compacted -concatenated">
+              <?php print $content['content']; ?>
 
-            <?php // Start: Content specifically for Materials content section. ?>
-            <?php if ($content['category'] === 'materials'): ?>
-              <ul>
-                <?php if(isset($action_guides)): ?>
-                  <?php  foreach ($action_guides as $delta => $action_guide): ?>
-                    <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
-                  <?php endforeach; ?>
-                <?php endif; ?>
+              <?php // Start: Content specifically for Materials content section. ?>
+              <?php if ($content['category'] === 'materials'): ?>
+                <ul>
+                  <?php if(isset($action_guides)): ?>
+                    <?php  foreach ($action_guides as $delta => $action_guide): ?>
+                      <li><a href="#" data-modal-href="#modal-action-guide-<?php print $delta; ?>"><?php print $action_guide['desc']; ?></a></li>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
 
-                <?php if (!empty($campaign->downloads)): ?>
-                  <?php foreach ($campaign->downloads as $link): ?>
-                    <li><?php print l($link['description'], $link['url']); ?></li>
-                  <?php endforeach; ?>
-                <?php endif; ?>
+                  <?php if (!empty($campaign->downloads)): ?>
+                    <?php foreach ($campaign->downloads as $link): ?>
+                      <li><?php print l($link['description'], $link['url']); ?></li>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
 
-                <?php if (isset($signup_data_form_link)): ?>
-                  <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
-                <?php endif; ?>
+                  <?php if (isset($signup_data_form_link)): ?>
+                    <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
+                  <?php endif; ?>
 
-                <?php if (isset($shipment_form_link)): ?>
-                  <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
-                <?php endif; ?>
-              </ul>
-            <?php endif; ?>
-            <?php  // End: Materials content section. ?>
+                  <?php if (isset($shipment_form_link)): ?>
+                    <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
+                  <?php endif; ?>
+                </ul>
+              <?php endif; ?>
+              <?php  // End: Materials content section. ?>
+            </div>
           </div>
         <?php if($index % 2 === 1 || $index + 1 === $plan_count) : ?> </div> <?php endif; ?>
       <?php endforeach; ?>
@@ -143,13 +145,17 @@
 
 
       <?php if (isset($location_finder['url'])) : ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <h3 class="inline--alt-color"><?php print t('Find a Location'); ?></h3>
           <?php if (isset($location_finder['copy'])) : ?>
             <?php print $location_finder['copy']; ?>
           <?php endif; ?>
 
-          <a class="button -secondary" href="<?php print $location_finder['url']; ?>" target="_blank"><?php print t('Locate'); ?></a>
+          <div>
+            <ul class="form-actions -inline">
+              <li><a class="button -secondary" href="<?php print $location_finder['url']; ?>" target="_blank"><?php print t('Locate'); ?></a></li>
+            </ul>
+          </div>
         </div>
       <?php endif; ?>
 
@@ -186,7 +192,7 @@
     <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
     <div class="wrapper">
       <?php foreach ($do as $key => $content): ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
 
           <?php if (isset($content['image'])): ?>
             <figure class="polaroid">
@@ -251,7 +257,7 @@
 
     <div class="wrapper">
       <?php if( $show_new_reportback ): ?>
-        <div class="container__body">
+        <div class="container__block">
           <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
           <?php if (isset($reportback_copy)): ?>
@@ -302,7 +308,7 @@
           </div>
         </div>
       <?php else: ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
           <?php if (isset($reportback_copy)): ?>
@@ -323,7 +329,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="container__body -half">
+        <div class="container__block -half">
           <aside class="carousel">
             <?php if (isset($reportback_image)): ?>
               <div id="prev" class="carousel__control -previous">
@@ -347,7 +353,7 @@
       <?php endif; ?>
 
       <?php if (isset($official_rules)): ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <div class="disclaimer">
             <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
           </div>

@@ -1,4 +1,4 @@
-<ul class="list-compacted">
+<ul class="list -compacted">
   <?php if (isset($modals['faq'])): ?>
     <li><a href="#" data-modal-href="#modal-faq"><?php print t('Check out our FAQs'); ?></a></li>
   <?php endif; ?>
@@ -21,17 +21,19 @@
 <div data-modal id="modal-faq" role="dialog">
   <h2 class="heading -banner"><?php print t('FAQs'); ?></h2>
   <?php foreach ($modals['faq'] as $item): ?>
-    <h4 class="faq-header"><?php print $item['header']; ?></h4>
-    <div class="faq-copy"><?php print $item['copy'] ?></div>
+    <h4><?php print $item['header']; ?></h4>
+    <?php print $item['copy'] ?>
   <?php endforeach; ?>
-  <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  <div class="form-actions">
+    <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  </div>
 </div>
 <?php endif; ?>
 
 <?php if (isset($modals['more_facts'])): ?>
 <div data-modal id="modal-facts" role="dialog">
   <h2 class="heading -banner"><?php print t('Facts'); ?></h2>
-  <ul>
+  <ul class="list">
   <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
     <li><?php print $fact['fact']; ?><sup><?php print $fact['footnotes']; ?></sup></li>
   <?php endforeach; ?>
@@ -45,7 +47,9 @@
     <?php endforeach; ?>
     </ul>
   </section>
-  <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  <div class="form-actions">
+    <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -56,7 +60,9 @@
       <?php print $partner['copy']; ?>
       <?php if (isset($partner['video'])): print $partner['video']; ?>
       <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
-      <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+      <div class="form-actions">
+        <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+      </div>
     </div>
   <?php endforeach; ?>
 <?php endif; ?>

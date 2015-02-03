@@ -234,7 +234,7 @@ function theme_dosomething_search_field($variables) {
   $element = $variables['element'];
   $element['#attributes']['type'] = 'search';
   element_set_attributes($element, array('id', 'name', 'value', 'size', 'maxlength'));
-  _form_set_class($element, array('form-text'));
+  _form_set_class($element, array('text-field', '-search'));
 
   $extra = '';
   if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {

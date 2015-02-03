@@ -15,7 +15,7 @@
   <?php if (isset($intro)): ?>
     <section class="container">
       <div class="wrapper">
-        <div class="container__body <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
+        <div class="container__block <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
           <?php if (isset($intro_title)): ?>
             <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
           <?php endif; ?>
@@ -26,7 +26,7 @@
           <?php endif; ?>
         </div>
         <?php if (isset($intro_image) || isset($intro_video)): ?>
-        <div class="container__body -half">
+        <div class="container__block -half">
           <?php if (isset($intro_video)): ?>
             <div class="media-video">
               <?php print $intro_video; ?>
@@ -50,7 +50,7 @@
   <section class="container -padded">
     <div class="wrapper">
       <?php if (!empty($facts)): ?>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <h2 class="inline--alt-color"><?php print $facts_header; ?></h2>
           <ul>
             <?php foreach ($facts['facts'] as $fact): ?>
@@ -58,7 +58,7 @@
             <?php endforeach; ?>
           </ul>
         </div>
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <div class="sources">
             <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
             <ul class="__body legal">
@@ -70,7 +70,7 @@
         </div>
       <?php endif; ?>
 
-      <div class="container__body -narrow">
+      <div class="container__block -narrow">
           <?php if (isset($global_copy['campaign_value_proposition'])): ?>
             <h2 class="inline--alt-color"><?php print t('What You Get'); ?></h2>
             <?php print $global_copy['campaign_value_proposition']; ?>

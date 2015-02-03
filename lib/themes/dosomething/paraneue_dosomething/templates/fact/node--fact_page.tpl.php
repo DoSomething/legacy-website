@@ -27,7 +27,7 @@
   <?php if (isset($intro)): ?>
     <section class="container">
       <div class="wrapper">
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php print $intro; ?>
         </div>
       </div>
@@ -44,7 +44,7 @@
 
       <section class="container container--fact">
         <div class="wrapper">
-          <div class="container__body">
+          <div class="container__block">
 
             <?php if (isset($intro_image) && $is_first): ?>
               <aside class="fact-aside">
@@ -52,7 +52,7 @@
               </aside>
             <?php endif; ?>
 
-            <ol start="<?php print $start_value; ?>">
+            <ol class="list" start="<?php print $start_value; ?>">
               <?php foreach ($fact_chunk as $key => $fact): ?>
                 <li><?php print $fact['fact']; ?></li>
               <?php endforeach; ?>

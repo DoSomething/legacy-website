@@ -47,7 +47,7 @@
     <?php // Campaign statistics ?>
 
     <div class="wrapper">
-      <div class="container__body">
+      <div class="container__block">
       <?php if (isset($total_participants)): ?>
 
         <?php // Number of members  participated ?>
@@ -97,14 +97,14 @@
 
     <?php // Intro copy ?>
     <?php if (isset($intro)): ?>
-      <div class="container__body">
+      <div class="container__block">
         <?php print $intro['safe_value']; ?>
       </div>
     <?php endif; ?>
 
     <?php // Reportback gallery ?>
     <?php if (isset($reportback_gallery)): ?>
-      <div class="container__body">
+      <div class="container__block">
         <ul class="gallery -triad">
           <?php foreach ($reportback_gallery as $key => $reportback_gallery_item) :?>
 
@@ -137,7 +137,7 @@
 
       <div class="wrapper">
 
-        <div class="container__body <?php if (isset($psa)): print '-half'; else: print '-narrow'; endif; ?>">
+        <div class="container__block <?php if (isset($psa)): print '-half'; else: print '-narrow'; endif; ?>">
           <?php if (isset($additional_text_title)): ?>
           <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
           <?php endif; ?>
@@ -148,7 +148,7 @@
         </div>
 
         <?php if (isset($psa)): ?>
-          <div class="container__body -half">
+          <div class="container__block -half">
             <aside class="media-video">
               <?php print $psa; ?>
             </aside>
@@ -156,7 +156,7 @@
         <?php endif; ?>
 
         <?php foreach ($klout_gallery as $key => $klout_gallery_item) :?>
-        <div class="container__body">
+        <div class="container__block">
           <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
 
           <?php // The klout galleries ?>
@@ -229,7 +229,7 @@
       <?php if (isset($winners)): ?>
         <?php foreach ($winners as $key => $winner) :?>
           <div class="container__row">
-            <div class="container__body <?php if (isset($winner['image'])): print '-half'; else: print '-narrow'; endif; ?>">
+            <div class="container__block <?php if (isset($winner['image'])): print '-half'; else: print '-narrow'; endif; ?>">
               <?php if (isset($winner['fname'])): ?>
                 <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
               <?php endif; ?>
@@ -249,7 +249,7 @@
             </div>
 
             <?php if (isset($winner['image'])): ?>
-              <div class="container__body -half">
+              <div class="container__block -half">
                 <?php print $winner['image']; ?>
               </div>
             <?php endif; ?>
@@ -257,7 +257,7 @@
         <?php endforeach; ?>
       <?php // Else display the default placeholder copy while winners are being chosen ?>
       <?php elseif (isset($default_winners)) : ?>
-        <div class="container__body">
+        <div class="container__block">
           <div class="placeholder">
             <p><?php print $default_winners; ?></p>
           </div>

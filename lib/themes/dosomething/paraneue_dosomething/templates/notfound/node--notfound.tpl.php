@@ -25,7 +25,7 @@
   <?php if ($disable_results == FALSE): ?>
     <div class="container -padded">
       <div class="wrapper">
-        <div class="container__body -narrow">
+        <div class="container__block -narrow">
           <?php if (isset($results_copy) && !empty($is_path_specific_page)): ?>
             <?php print $results_copy; ?>
           <?php elseif (isset($results_copy)): ?>
