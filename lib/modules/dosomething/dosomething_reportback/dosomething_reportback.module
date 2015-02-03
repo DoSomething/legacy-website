@@ -931,12 +931,16 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
  */
 function dosomething_reportback_get_reportback_files_query_count($params, $reset = FALSE) {
 
-  if ( isset($params['nid']) && isset($params['status']) ) {
+  // Name of helper variable which stores count for this status.
+  $var_name = 'count_' . $params['status'];
+
+  if ( !$reset && isset($params['nid']) ) {
     // Check if we have the count stored already.
     $var_name = 'count_' . $params['status'];
     if ($count = dosomething_helpers_get_variable($params['nid'], $var_name)) {
       return $count;
     }
+    // We don't have a count, so set one.
     $reset = TRUE;
   }
 

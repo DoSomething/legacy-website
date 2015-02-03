@@ -217,26 +217,38 @@ function dosomething_helpers_get_variable($nid, $name) {
 /**
  * Sets a given dosomething_helper variable $name to $value for given $node.
  */
-function dosomething_helpers_set_variable($node, $name, $value) {
+function dosomething_helpers_set_variable($entity, $var_name, $value) {
+  if (isset($entity->nid)) {
+    $entity_type = 'node';
+    $entity_id = $entity->nid;
+  }
+  elseif (isset($entity->tid)) {
+    $entity_type = 'taxonomy_term';
+    $entity_id = $entity->tid;
+  }
   // If a value is present:
   if (!empty($value) || $value === 0) {
     db_merge('dosomething_helpers_variable')
-        ->key(array('entity_type' => 'node', 'entity_id' => $node->nid, 'name' => $name))
+        ->key(array(
+            'entity_type' => $entity_type,
+            'entity_id' => $entity_id,
+            'name' => $var_name,
+          ))
         ->fields(array(
-            'entity_type' => 'node',
-            'bundle' => $node->type,
-            'entity_id' => $node->nid,
-            'name' => $name,
+            'entity_type' => $entity_type,
+            'bundle' => $entity->type,
+            'entity_id' => $entity_id,
+            'name' => $var_name,
             'value' => $value,
-        ))
+           ))
         ->execute();
   }
   // Else delete the value, to prevent storing an empty value.
   else {
     db_delete('dosomething_helpers_variable')
-      ->condition('entity_id', $node->nid)
-      ->condition('entity_type', 'node')
-      ->condition('name', $name)
+      ->condition('entity_id', $entity_id)
+      ->condition('entity_type', $entity_type)
+      ->condition('name', $var_name)
       ->execute();
   }
 }
