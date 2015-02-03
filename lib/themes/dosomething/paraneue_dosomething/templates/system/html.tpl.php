@@ -19,7 +19,7 @@
   <meta name="crowdcurity-site-verification" content="voJ0lyI8JXV5Ab1XAYMaoQj7WsoScgkfk9TLG0dA">
 
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="<?php print NEUE_ASSET_PATH; ?>/dist/modernizr-neue.js"></script>
+  <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>
 
   <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
   <?php print $styles; ?>
