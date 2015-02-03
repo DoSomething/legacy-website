@@ -929,10 +929,45 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
  *
  * @return int
  */
-function dosomething_reportback_get_reportback_files_query_count($params) {
+function dosomething_reportback_get_reportback_files_query_count($params, $reset = FALSE) {
+
+  if ( isset($params['nid']) && isset($params['status']) ) {
+    // Check if we have the count stored already.
+    $var_name = 'count_' . $params['status'];
+    if ($count = dosomething_helpers_get_variable($params['nid'], $var_name)) {
+      return $count;
+    }
+    $reset = TRUE;
+  }
+
   $query = dosomething_reportback_get_reportback_files_query($params);
   $result = $query->execute();
-  return $result->rowCount();
+  $count = $result->rowCount();
+
+  if ($reset) {
+    $node = node_load($params['nid']);
+    dosomething_helpers_set_variable($node, $var_name, $count);
+  }
+
+}
+
+function dosomething_reportback_reset_count($nid) {
+  $params['nid'] = $nid;
+  $status_values = dosomething_reportback_get_file_status_values();
+  foreach ($status_values as $status) {
+    $params['status'] = $status;
+    dosomething_reportback_get_reportback_files_query_count($params, TRUE);
+  }
+}
+
+function dosomething_reportback_get_file_status_values() {
+  return  array(
+    'pending',
+    'approved',
+    'promoted',
+    'excluded',
+    'flagged',
+  );
 }
 
 /**

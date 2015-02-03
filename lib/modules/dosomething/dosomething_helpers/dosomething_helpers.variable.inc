@@ -152,6 +152,11 @@ function dosomething_helpers_get_variable_names() {
     'alt_color',
     'alt_image_campaign_cover_nid',
     'collect_num_participants',
+    'count_approved',
+    'count_excluded',
+    'count_flagged',
+    'count_pending',
+    'count_promoted',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
     'shipment_form_confirm_msg',
@@ -214,7 +219,7 @@ function dosomething_helpers_get_variable($nid, $name) {
  */
 function dosomething_helpers_set_variable($node, $name, $value) {
   // If a value is present:
-  if (!empty($value)) {
+  if (!empty($value) || $value === 0) {
     db_merge('dosomething_helpers_variable')
         ->key(array('entity_type' => 'node', 'entity_id' => $node->nid, 'name' => $name))
         ->fields(array(
