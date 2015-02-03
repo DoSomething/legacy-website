@@ -180,7 +180,7 @@ function dosomething_helpers_get_variable_names() {
  * @return array
  *   Keyed by the variable name.
  */
-function dosomething_helpers_get_variables($nid) {
+function dosomething_helpers_get_variables($entity_type, $entity_id) {
   // Initialize array with NULL defaults.
   foreach (dosomething_helpers_get_variable_names() as $name) {
     $vars[$name] = NULL;
@@ -188,8 +188,8 @@ function dosomething_helpers_get_variables($nid) {
   // Query for variable records for given $node.
   $result = db_select('dosomething_helpers_variable', 'v')
     ->fields('v')
-    ->condition('entity_id', $nid)
-    ->condition('entity_type', 'node')
+    ->condition('entity_id', $entity_id)
+    ->condition('entity_type', $entity_type)
     ->execute()
     ->fetchAll();
   foreach ($result as $record) {

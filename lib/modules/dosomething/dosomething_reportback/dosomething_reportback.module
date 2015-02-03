@@ -205,7 +205,13 @@ function dosomething_reportback_menu() {
   // Add Reportback menu items for admin/users.
   // $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
   // $items = array_merge($items, $users_rb);
-
+  $items['admin/users/rb'] = array(
+    'title' => 'Reportbacks',
+    'page callback' => 'dosomething_reportback_count_page',
+    'access arguments' => array('view any reportback'),
+    'file' => 'dosomething_reportback.admin.inc',
+    'weight' => 900,
+  );
   // Add Reportback menu items for taxonomy_term and node entities:
   $rb_paths = array(
     'taxonomy/term/%taxonomy_term' => 2,
@@ -982,6 +988,22 @@ function dosomething_reportback_reset_count($entity_type, $entity_id) {
   foreach ($status_values as $status) {
     $params['status'] = $status;
     dosomething_reportback_get_reportback_files_query_count($params, TRUE);
+  }
+}
+
+function dosomething_reportback_reset_all($entity_type) {
+  if ($entity_type == 'node') {
+    // @todo: Loop through campaigns.
+  }
+  elseif ($entity_type == 'taxonomy_term') {
+    // Reset all Reportback Totals for terms in the Cause vocabulary.
+    $cause = taxonomy_vocabulary_machine_name_load('cause');
+    if ($cause) {
+      $terms = taxonomy_get_tree($cause->vid);
+      foreach ($terms as $term) {
+        dosomething_reportback_reset_count($entity_type, $term->tid);
+      }
+    }
   }
 }
 

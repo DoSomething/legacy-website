@@ -282,3 +282,35 @@ function theme_dosomething_reportback_files_form($variables) {
   $output .= drupal_render_children($form);
   return $output;
 }
+
+function dosomething_reportback_count_page() {
+  // Reset all Reportback Totals for terms in the Cause vocabulary.
+  $header = array(
+    t('Title'),
+    t('Pending'),
+    t('Approved'),
+    t('Promoted'),
+    t('Excluded'),
+    t('Flagged'),
+  );
+  $rows = array();
+  $cause = taxonomy_vocabulary_machine_name_load('cause');
+  if ($cause) {
+    $terms = taxonomy_get_tree($cause->vid);
+    foreach ($terms as $term) {
+      $vars = dosomething_helpers_get_variables($term->tid, 'taxonomy_term');
+      $rows[] = array(
+        $term->name,
+        $vars['count_pending'],
+        $vars['count_approved'],
+        $vars['count_promoted'],
+        $vars['count_excluded'],
+        $vars['count_flagged'],
+      );
+    }
+  }
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+  ));;
+}
