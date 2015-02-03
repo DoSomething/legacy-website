@@ -425,27 +425,36 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
  * Sign user up for emails/texts.
  */
 function dosomething_user_new_user($form, &$form_state) {
+  if (!module_exists('dosomething_mbp')) {
+    return;
+  }
+
   // Should we sign this kid up for messages?
-  if (!dosomething_user_is_under_thirteen()) {
-    global $user;
-    $account = $user;
-    // Send external message request
-    $params = array(
-      'email' => $account->mail,
-      'uid' => $account->uid,
-      'first_name' => dosomething_user_get_field('field_first_name', $account),
-      'birthdate' => dosomething_user_get_field('field_birthdate', $account),
-    );
-    if (module_exists('dosomething_mbp')) {
-      dosomething_mbp_request('user_register', $params);
-    }
-    // Sign user up for mobile commons
-    if (module_exists('dosomething_signup')) {
-      $var_name = 'dosomething_mobilecommons_opt_in_path_user_register';
-      $opt_in = variable_get($var_name);
-      dosomething_signup_mobilecommons_opt_in($account, $opt_in);
+  if (dosomething_user_is_under_thirteen()) {
+    return;
+  }
+
+  global $user;
+  $account = $user;
+
+  // Send external message request.
+  $params = array(
+    'email'      => $account->mail,
+    'uid'        => $account->uid,
+    'first_name' => dosomething_user_get_field('field_first_name', $account),
+    'birthdate'  => dosomething_user_get_field('field_birthdate', $account),
+  );
+
+  if (module_exists('dosomething_signup')) {
+    $mobile = dosomething_user_get_field('field_mobile', $account);
+    $opt_in = variable_get('dosomething_mobilecommons_opt_in_path_user_register');
+    if (!empty($opt_in) && !empty($mobile)) {
+      $params['mobile'] = $mobile;
+      $params['mc_opt_in_path_id'] = $opt_in;
     }
   }
+
+  dosomething_mbp_request('user_register', $params);
 }
 
 /**
