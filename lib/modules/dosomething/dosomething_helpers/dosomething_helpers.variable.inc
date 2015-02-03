@@ -225,6 +225,7 @@ function dosomething_helpers_set_variable($entity, $var_name, $value) {
   elseif (isset($entity->tid)) {
     $entity_type = 'taxonomy_term';
     $entity_id = $entity->tid;
+    $entity->type = $entity->vocabulary_machine_name;
   }
   // If a value is present:
   if (!empty($value) || $value === 0) {

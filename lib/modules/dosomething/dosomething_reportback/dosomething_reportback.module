@@ -203,8 +203,8 @@ function dosomething_reportback_menu() {
   );
 
   // Add Reportback menu items for admin/users.
-  $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
-  $items = array_merge($items, $users_rb);
+  // $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
+  // $items = array_merge($items, $users_rb);
 
   // Add Reportback menu items for taxonomy_term and node entities:
   $rb_paths = array(
@@ -933,18 +933,19 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
 
   // Name of helper variable which stores count for this status.
   $var_name = 'count_' . $params['status'];
+  if (isset($params['nid'])) {
+    $entity_type = 'node';
+    $entity_id = $params['nid'];
+  }
+  elseif (isset($params['tid'])) {
+    $entity_type = 'taxonomy_term';
+    $entity_id = $params['tid'];
+  }
 
   if (!$reset) {
-    if (isset($params['nid'])) {
-      $entity_type = 'node';
-      $entity_id = $params['nid'];
-    }
-    elseif (isset($params['tid'])) {
-      $entity_type = 'taxonomy_term';
-      $entity_id = $params['tid'];
-    }
     // Check if we have the count stored already.
-    if ($count = dosomething_helpers_get_variable('node', $entity_type, $entity_id, $var_name)) {
+    $count = dosomething_helpers_get_variable($entity_type, $entity_id, $var_name);
+    if (isset($count)) {
       return $count;
     }
     // We don't have a count, so set one.
@@ -956,14 +957,26 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   $count = $result->rowCount();
 
   if ($reset) {
-    $node = node_load($params['nid']);
-    dosomething_helpers_set_variable($node, $var_name, $count);
+    if ($entity_type == 'node') {
+      $entity = node_load($entity_id);
+    }
+    elseif ($entity_type == 'taxonomy_term') {
+      $entity = taxonomy_term_load($entity_id);
+    }
+    dosomething_helpers_set_variable($entity, $var_name, $count);
   }
 
+  return $count;
 }
 
-function dosomething_reportback_reset_count($nid) {
-  $params['nid'] = $nid;
+function dosomething_reportback_reset_count($entity_type, $entity_id) {
+  $params = array();
+  if ($entity_type == 'node') {
+    $params['nid'] = $entity_id;
+  }
+  elseif ($entity_type == 'taxonomy_term') {
+    $params['tid'] = $entity_id;
+  }
   $status_values = dosomething_reportback_get_file_status_values();
   foreach ($status_values as $status) {
     $params['status'] = $status;
