@@ -945,11 +945,12 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   if (!$reset) {
     // Check if we have the count stored already.
     $count = dosomething_helpers_get_variable($entity_type, $entity_id, $var_name);
-    if (isset($count)) {
+    if ($count === FALSE) {
+      $reset = TRUE;
+    }
+    else {
       return $count;
     }
-    // We don't have a count, so set one.
-    $reset = TRUE;
   }
 
   $query = dosomething_reportback_get_reportback_files_query($params);

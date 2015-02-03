@@ -201,8 +201,8 @@ function dosomething_helpers_get_variables($nid) {
 /**
  * Returns value of given $nid's $name variable.
  *
- * @return string
- *   All variable values are stored as strings.
+ * @return
+ *   String if variable exists, FALSE if not.
  */
 function dosomething_helpers_get_variable($entity_type, $entity_id, $var_name) {
   return db_select('dosomething_helpers_variable', 'v')
