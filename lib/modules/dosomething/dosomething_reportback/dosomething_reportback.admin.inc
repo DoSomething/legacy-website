@@ -321,23 +321,59 @@ function dosomething_reportback_count_page() {
     $header[] = t($status);
   }
 
-  $rows = array();
-  $url = 'taxonomy/term/';
+  $tables = array();
+  $tables['node']['title'] = t("Campaigns");
+  $tables['node']['url'] = 'node/';
+  $tables['node']['results'] = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_campaign_type', 'value', 'campaign', '=')
+    ->propertyOrderBy('title', 'ASC');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    foreach ($nids as $nid) {
+      $node = node_load($nid);
+      $tables['node']['results'][] = array(
+        'id' => $nid,
+        'title' => $node->title,
+      );
+    }
+  }
+
+  $tables['taxonomy_term']['title'] = t("Cause");
+  $tables['taxonomy_term']['url'] = 'taxonomy/term/';
+  $tables['taxonomy_term']['results'] = array();
   $cause = taxonomy_vocabulary_machine_name_load('cause');
   if ($cause) {
     $terms = taxonomy_get_tree($cause->vid);
     foreach ($terms as $term) {
-      $vars = dosomething_helpers_get_variables('taxonomy_term', $term->tid);
+      $tables['taxonomy_term']['results'][] = array(
+        'id' => $term->tid,
+        'title' => $term->name,
+      );
+    }
+  }
+
+  foreach ($tables as $entity_type => $table) {
+    $rows = array();
+    foreach ($table['results'] as $record) {
+      $id = $record['id'];
+      $vars = dosomething_helpers_get_variables($entity_type, $id);
       ;
-      $row_values = array($term->name);
+      // First column is a link to the entity.
+      $row_values = array(l($record['title'], $table['url'] . $id));
       // Loop through status values and set links for each.
       $i = 0;
       foreach ($status_values as $status) {
         $count = (int) $vars['count_' . $status];
-        $url = 'taxonomy/term/' . $term->tid . '/rb';
+        $url = $table['url'] . $id . '/rb';
         $options = array();
         if ($i > 0) {
-          $url = 'taxonomy/term/' . $term->tid . '/rb/reviewed';
+          $url = $table['url'] . $id . '/rb/reviewed';
           $options = array('query' => array('status' => $i));
         }
         if ($count > 0) {
@@ -350,12 +386,12 @@ function dosomething_reportback_count_page() {
       }
       $rows[] = $row_values;
     }
+    $output .= '<h2>' . $table['title'] . '</h2>';
+    $output .= theme('table', array(
+      'header' => $header,
+      'rows' => $rows,
+    ));
   }
-  $output .= '<h2>' . t("Cause") . '</h2>';
-  $output .= theme('table', array(
-    'header' => $header,
-    'rows' => $rows,
-  ));
 
   if (user_access('administer modules')) {
     $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
