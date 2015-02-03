@@ -201,10 +201,6 @@ function dosomething_reportback_menu() {
     'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view', 1),
   );
-
-  // Add Reportback menu items for admin/users.
-  // $users_rb = dosomething_reportback_get_review_menu_items('admin/users', NULL);
-  // $items = array_merge($items, $users_rb);
   $items['admin/users/rb'] = array(
     'title' => 'Reportbacks',
     'page callback' => 'dosomething_reportback_count_page',

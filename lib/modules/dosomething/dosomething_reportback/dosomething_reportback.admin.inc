@@ -356,8 +356,12 @@ function dosomething_reportback_count_page() {
     'header' => $header,
     'rows' => $rows,
   ));
-  $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
-  $output .= render($reset_form);
+
+  if (user_access('administer modules')) {
+    $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
+    $output .= render($reset_form);
+  }
+
   return $output;
 }
 
