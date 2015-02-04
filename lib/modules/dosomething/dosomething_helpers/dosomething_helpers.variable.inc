@@ -134,11 +134,11 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
   $nid = $values['nid'];
   // Remove from values.
   unset($values['nid']);
-  $node = node_load($nid);
+
   // Loop through all remaining values:
   foreach ($values as $name => $value) {
     // Save to the variable table.
-    dosomething_helpers_set_variable($node, $name, $value);
+    dosomething_helpers_set_variable('node', $nid, $name, $value);
   }
   drupal_set_message("Updated.");
 }
@@ -216,17 +216,17 @@ function dosomething_helpers_get_variable($entity_type, $entity_id, $var_name) {
 
 /**
  * Sets a given dosomething_helper variable $name to $value for given $node.
+ *
+ * @param string $entity_type
+ *   The type of entity to store a value for, e.g. "node", "taxonomy_term"
+ * @param int $entity_id
+ *   The primary identifier of the entity.
+ * @param string $var_name
+ *   The name of the variable to store for the entity.
+ * @param mixed $value
+ *   The value to save for the variable. Will be stored as a string.
  */
-function dosomething_helpers_set_variable($entity, $var_name, $value) {
-  if (isset($entity->nid)) {
-    $entity_type = 'node';
-    $entity_id = $entity->nid;
-  }
-  elseif (isset($entity->tid)) {
-    $entity_type = 'taxonomy_term';
-    $entity_id = $entity->tid;
-    $entity->type = $entity->vocabulary_machine_name;
-  }
+function dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $value) {
   // If a value is present:
   if (!empty($value) || $value === 0) {
     db_merge('dosomething_helpers_variable')
@@ -237,7 +237,6 @@ function dosomething_helpers_set_variable($entity, $var_name, $value) {
           ))
         ->fields(array(
             'entity_type' => $entity_type,
-            'bundle' => $entity->type,
             'entity_id' => $entity_id,
             'name' => $var_name,
             'value' => $value,

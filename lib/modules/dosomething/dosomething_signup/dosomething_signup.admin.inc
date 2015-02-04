@@ -90,7 +90,7 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
         // Get the form input value for this node helpers variable.
         $value = $values[$nid . '_' . $name];
         // Save it as a helpers variable.
-        dosomething_helpers_set_variable($node, $name, $value);
+        dosomething_helpers_set_variable('node', $node->nid, $name, $value);
       }
     }
   }

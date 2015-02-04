@@ -963,13 +963,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   $count = $result->rowCount();
 
   if ($reset) {
-    if ($entity_type == 'node') {
-      $entity = node_load($entity_id);
-    }
-    elseif ($entity_type == 'taxonomy_term') {
-      $entity = taxonomy_term_load($entity_id);
-    }
-    dosomething_helpers_set_variable($entity, $var_name, $count);
+    dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $count);
   }
 
   return $count;

@@ -305,7 +305,7 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
   $var_name = 'collect_num_participants';
   $values = $form_state['values'];
   $node = node_load($values['nid']);
-  dosomething_helpers_set_variable($node, $var_name, $values[$var_name]);
+  dosomething_helpers_set_variable('node', $node->nid, $var_name, $values[$var_name]);
   drupal_set_message("Updated.");
 }
 
