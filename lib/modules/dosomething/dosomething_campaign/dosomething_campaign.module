@@ -57,7 +57,7 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 60,
   );
-  // Internal active page for staff.
+  // Enables preview of campaign's active state.
   $items['node/%node/active'] = array(
     'title' => 'Active',
     'page callback' => 'node_page_view',
@@ -67,7 +67,7 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 70,
   );
-  // Internal closed page for staff.
+  // Enables preview of campaign's closed state.
   $items['node/%node/closed'] = array(
     'title' => 'Closed',
     'page callback' => 'node_page_view',
@@ -263,8 +263,9 @@ function _dosomething_campaign_pitch_page_access($node) {
  * Determines whether a user has access to the closed page callback.
  */
 function _dosomething_campaign_closed_page_access($node) {
-  // Staff only.
-  if (!dosomething_user_is_staff()) { return FALSE; }
+  if (!_dosomething_campaign_can_preview()) {
+    return FALSE;
+  }
 
   // Only display closed page link if a campaign run exists for node.
   $run_nid = dosomething_campaign_run_get_closed_run_nid($node->nid);
@@ -279,12 +280,19 @@ function _dosomething_campaign_closed_page_access($node) {
  * Determines whether a user has access to the active page callback.
  */
 function _dosomething_campaign_active_page_access($node) {
-  if (!user_access('view any unpublished content')) {
+  if (!_dosomething_campaign_can_preview()) {
     return FALSE;
   }
 
   // Active tab should only be displayed if the campaign has been closed.
   return dosomething_campaign_is_closed($node);
+}
+
+/**
+ * Determines whether or not user should have access to preview campaigns.
+ */
+function _dosomething_campaign_can_preview() {
+  return user_access('view any unpublished content') || user_access('administer nodes');
 }
 
 /**
