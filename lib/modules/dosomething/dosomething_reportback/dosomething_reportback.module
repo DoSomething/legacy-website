@@ -991,10 +991,13 @@ function dosomething_reportback_reset_count($entity_type, $entity_id) {
  * Resets all Reportback Count variables for given entity type $entity_type.
  */
 function dosomething_reportback_reset_all($entity_type) {
-  if ($entity_type == 'node') {
-    // @todo: Loop through campaigns.
+  if ($entity_type === 'node') {
+    $campaigns = dosomething_campaign_get_campaigns();
+    foreach ($campaigns as $campaign) {
+      dosomething_reportback_reset_count($entity_type, $campaign->nid);
+    }
   }
-  elseif ($entity_type == 'taxonomy_term') {
+  elseif ($entity_type === 'taxonomy_term') {
     // Reset all Reportback Totals for terms in the Cause vocabulary.
     $cause = taxonomy_vocabulary_machine_name_load('cause');
     if ($cause) {
