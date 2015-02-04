@@ -292,7 +292,6 @@
                   <a href="#" class="button -tertiary -rotate">rotate photo</a>
                   <div class="-change">
                     <a href="#" class="button -tertiary">change photo</a>
-                    <input type="file" class="js-image-upload-beta" />
                   </div>
                 </div>
                 <!-- This is a purely frontend form that will grab crop options and a caption
