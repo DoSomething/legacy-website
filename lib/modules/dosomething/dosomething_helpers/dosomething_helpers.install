@@ -84,7 +84,7 @@ function dosomething_helpers_update_7002() {
       $value = variable_get($name);
       // Save it to the dosomething_helpers_variable table for the node.
       $node = node_load($nid);
-      dosomething_helpers_set_variable($node, $variable, $value);
+      dosomething_helpers_set_variable('node', $node->nid, $variable, $value);
       // Delete the old variable.
       variable_del($name);
     }
@@ -121,7 +121,7 @@ function dosomething_helpers_update_7003() {
         $variable = 'mobilecommons_opt_in_path';
       }
       // Save it to the dosomething_helpers_variable table.
-      dosomething_helpers_set_variable($node, $variable, $value);
+      dosomething_helpers_set_variable('node', $node->nid, $variable, $value);
       // Delete the old variable.
       variable_del($name);
     }
@@ -138,5 +138,17 @@ function dosomething_helpers_update_7003() {
   foreach ($result as $record) {
     $name = $record->name;
     variable_del($name);
+  }
+}
+
+
+/**
+ * Deletes unused bundle column from Helpers Variable table.
+ */
+function dosomething_helpers_update_7004() {
+  $table = 'dosomething_helpers_variable';
+  $field = 'bundle';
+  if (db_field_exists($table, $field)) {
+    db_drop_field($table, $field);
   }
 }
