@@ -400,6 +400,7 @@ function dosomething_reportback_reset_count_form() {
  * Submit handler for dosomething_reportback_reset_count_form().
  */
 function dosomething_reportback_reset_count_form_submit($form, &$form_state) {
+  dosomething_reportback_reset_all('node');
   dosomething_reportback_reset_all('taxonomy_term');
   drupal_set_message(t("Totals have been refreshed."));
 }
