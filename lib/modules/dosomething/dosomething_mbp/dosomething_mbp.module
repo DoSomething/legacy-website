@@ -111,9 +111,13 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     case 'user_register':
       $payload['birthdate'] = $params['birthdate'];
       $payload['subscribed'] = 1;
-      if (isset($params['mobile'])) {
+      if (!empty($params['mobile'])) {
         $payload['mobile'] = $params['mobile'];
       }
+      if (!empty($params['mc_opt_in_path_id'])) {
+        $payload['mc_opt_in_path_id'] = $params['mc_opt_in_path_id'];
+      }
+
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['email_tags'][] = 'drupal_user_register';
       break;
