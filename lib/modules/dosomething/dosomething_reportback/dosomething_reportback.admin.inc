@@ -104,23 +104,43 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   // Display mode for rendering each Reportback File.
   $view_mode = 'full';
 
+  $entity_type = NULL;
+  $entity_id = NULL;
+
   // If we are viewing a reportback entity:
   if (isset($entity->rbid) && arg(0) === 'reportback') {
-    $params['rbid'] =$entity->rbid;
+    $params['rbid'] = $entity->rbid;
     // If viewing a Reportback, don't repeat the Reportback details in each file.
     $view_mode = 'teaser';
+    $entity_id = $entity->rbid;
+    $entity_type = 'reportback';
   }
   elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
+    $entity_id = $entity->nid;
+    $entity_type = 'node';
   }
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
+    $entity_id = $entity->tid;
+    $entity_type = 'taxonomy_term';
   }
 
   $form['view_mode'] = array(
     '#type' => 'hidden',
     '#value' => $view_mode,
   );
+
+  if (isset($entity_type)) {
+    $form['entity_type'] = array(
+      '#type' => 'hidden',
+      '#value' => $entity_type,
+    );
+    $form['entity_id'] = array(
+      '#type' => 'hidden',
+      '#value' => $entity_id,
+    );
+  }
 
   $page_size = 25;
   if (isset($_GET['pagesize'])) {
@@ -133,6 +153,10 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   $result = dosomething_reportback_get_reportback_files_query_result($params, $page_size);
   // Get the total number of results.
   $total = dosomething_reportback_get_reportback_files_query_count($params);
+  // If it's zero, reset the count variables.
+  if (!$total) {
+    $total = dosomething_reportback_get_reportback_files_query_count($params, $reset = TRUE);
+  }
   $page_size_copy = '';
   if ($total > $page_size) {
     $page_size_copy = '<p>' . t("Displaying the most recent @num", array(
@@ -223,6 +247,9 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     }
 
   }
+  if (isset($form_state['values']['entity_type'])) {
+    dosomething_reportback_reset_count($form_state['values']['entity_type'], $form_state['values']['entity_id']);
+  }
 
   drupal_set_message(t("Updated."));
 }
@@ -287,38 +314,90 @@ function theme_dosomething_reportback_files_form($variables) {
  * Page callback which displays all Reportback Count variables.
  */
 function dosomething_reportback_count_page() {
-  // Reset all Reportback Totals for terms in the Cause vocabulary.
-  $header = array(
-    t('Title'),
-    t('Pending'),
-    t('Approved'),
-    t('Promoted'),
-    t('Excluded'),
-    t('Flagged'),
-  );
-  $rows = array();
+  $status_values = dosomething_reportback_get_file_status_values();
+
+  $header = array(t('Title'));
+  foreach ($status_values as $status) {
+    $header[] = t($status);
+  }
+
+  $tables = array();
+  $tables['node']['title'] = t("Campaigns");
+  $tables['node']['url'] = 'node/';
+  $tables['node']['results'] = array();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_campaign_type', 'value', 'campaign', '=')
+    ->propertyOrderBy('title', 'ASC');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    foreach ($nids as $nid) {
+      $node = node_load($nid);
+      $tables['node']['results'][] = array(
+        'id' => $nid,
+        'title' => $node->title,
+      );
+    }
+  }
+
+  $tables['taxonomy_term']['title'] = t("Cause");
+  $tables['taxonomy_term']['url'] = 'taxonomy/term/';
+  $tables['taxonomy_term']['results'] = array();
   $cause = taxonomy_vocabulary_machine_name_load('cause');
   if ($cause) {
     $terms = taxonomy_get_tree($cause->vid);
     foreach ($terms as $term) {
-      $vars = dosomething_helpers_get_variables('taxonomy_term', $term->tid);
-      $rows[] = array(
-        $term->name,
-        $vars['count_pending'],
-        $vars['count_approved'],
-        $vars['count_promoted'],
-        $vars['count_excluded'],
-        $vars['count_flagged'],
+      $tables['taxonomy_term']['results'][] = array(
+        'id' => $term->tid,
+        'title' => $term->name,
       );
     }
   }
-  $output .= '<h2>' . t("Cause") . '</h2>';
-  $output .= theme('table', array(
-    'header' => $header,
-    'rows' => $rows,
-  ));
-  $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
-  $output .= render($reset_form);
+
+  foreach ($tables as $entity_type => $table) {
+    $rows = array();
+    foreach ($table['results'] as $record) {
+      $id = $record['id'];
+      $vars = dosomething_helpers_get_variables($entity_type, $id);
+      ;
+      // First column is a link to the entity.
+      $row_values = array(l($record['title'], $table['url'] . $id));
+      // Loop through status values and set links for each.
+      $i = 0;
+      foreach ($status_values as $status) {
+        $count = (int) $vars['count_' . $status];
+        $url = $table['url'] . $id . '/rb';
+        $options = array();
+        if ($i > 0) {
+          $url = $table['url'] . $id . '/rb/reviewed';
+          $options = array('query' => array('status' => $i));
+        }
+        if ($count > 0) {
+          $row_values[] = l($count, $url, $options);
+        }
+        else {
+          $row_values[] = $count;
+        }
+        $i++;
+      }
+      $rows[] = $row_values;
+    }
+    $output .= '<h2>' . $table['title'] . '</h2>';
+    $output .= theme('table', array(
+      'header' => $header,
+      'rows' => $rows,
+    ));
+  }
+
+  if (user_access('administer modules')) {
+    $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
+    $output .= render($reset_form);
+  }
+
   return $output;
 }
 
