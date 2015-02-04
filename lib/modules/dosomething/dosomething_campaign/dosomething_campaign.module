@@ -345,6 +345,20 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
 }
 
 /**
+ * Returns array of published campaign nid and titles by campaign type $type.
+ */
+function dosomething_campaign_get_campaigns($type = 'campaign') {
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
+  $query->condition('status', 1);
+  $query->condition('t.field_campaign_type_value', $type);
+  $query->condition('type', 'campaign');
+  $query->fields('n', array('nid', 'title'));
+  $query->orderBy('title');
+  return $query->execute()->fetchAll();
+}
+
+/**
  * Returns an array of Campaign Node nid's the given user is doing.
  *
  * @param int $uid

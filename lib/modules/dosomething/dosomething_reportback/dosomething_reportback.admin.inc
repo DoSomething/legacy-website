@@ -324,48 +324,31 @@ function dosomething_reportback_count_page() {
   $tables = array();
   $tables['node']['title'] = t("Campaigns");
   $tables['node']['url'] = 'node/';
-  $tables['node']['results'] = array();
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'campaign')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_campaign_type', 'value', 'campaign', '=')
-    ->propertyOrderBy('title', 'ASC');
-  $result = $query->execute();
-
-  if (isset($result['node'])) {
-    $nids = array_keys($result['node']);
-    foreach ($nids as $nid) {
-      $node = node_load($nid);
-      $tables['node']['results'][] = array(
-        'id' => $nid,
-        'title' => $node->title,
-      );
-    }
-  }
+  $tables['node']['results'] = dosomething_campaign_get_campaigns();
 
   $tables['taxonomy_term']['title'] = t("Cause");
   $tables['taxonomy_term']['url'] = 'taxonomy/term/';
   $tables['taxonomy_term']['results'] = array();
   $cause = taxonomy_vocabulary_machine_name_load('cause');
   if ($cause) {
-    $terms = taxonomy_get_tree($cause->vid);
-    foreach ($terms as $term) {
-      $tables['taxonomy_term']['results'][] = array(
-        'id' => $term->tid,
-        'title' => $term->name,
-      );
-    }
+    $tables['taxonomy_term']['results'] = taxonomy_get_tree($cause->vid);
   }
 
   foreach ($tables as $entity_type => $table) {
     $rows = array();
     foreach ($table['results'] as $record) {
-      $id = $record['id'];
+      if ($entity_type === 'node') {
+        $id = $record->nid;
+        $title = $record->title;
+      }
+      else {
+        $id = $record->tid;
+        $title = $record->name;
+      }
       $vars = dosomething_helpers_get_variables($entity_type, $id);
       ;
       // First column is a link to the entity.
-      $row_values = array(l($record['title'], $table['url'] . $id));
+      $row_values = array(l($title, $table['url'] . $id));
       // Loop through status values and set links for each.
       $i = 0;
       foreach ($status_values as $status) {
