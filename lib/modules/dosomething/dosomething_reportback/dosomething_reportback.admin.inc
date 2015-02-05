@@ -112,8 +112,6 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     $params['rbid'] = $entity->rbid;
     // If viewing a Reportback, don't repeat the Reportback details in each file.
     $view_mode = 'teaser';
-    $entity_id = $entity->rbid;
-    $entity_type = 'reportback';
   }
   elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
@@ -165,7 +163,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   }
 
   $form['count'] = array(
-    '#markup' => t("Inbox: @total Reportback Images", array(
+    '#markup' => t("Total: @total Reportback Images", array(
       '@num' => $page_size,
       '@total' => $total,
     )) . $page_size_copy,
