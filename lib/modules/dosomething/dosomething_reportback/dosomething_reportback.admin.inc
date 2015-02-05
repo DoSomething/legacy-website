@@ -312,6 +312,7 @@ function theme_dosomething_reportback_files_form($variables) {
  * Page callback which displays all Reportback Count variables.
  */
 function dosomething_reportback_count_page() {
+  $output = '';
   $status_values = dosomething_reportback_get_file_status_values();
 
   $header = array(t('Title'));
