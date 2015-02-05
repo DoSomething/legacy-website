@@ -206,10 +206,11 @@ function dosomething_fact_page_get_fact_page_list_by_tid($tid) {
   $query->fields('n', array('nid', 'title'));
   $results = $query->execute();
 
-  foreach($results as $key => $result) {
+  $output = array();
+  foreach ($results as $key => $result) {
     $output[$key] = l($result->title, 'node/' . $result->nid);
   }
-  if ($output) {
+  if (!empty($output)) {
     return $output;
   }
   // If no results, return null.

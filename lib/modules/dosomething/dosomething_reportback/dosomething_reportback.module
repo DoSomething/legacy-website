@@ -935,6 +935,7 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
  * @return int
  */
 function dosomething_reportback_get_reportback_files_query_count($params, $reset = FALSE) {
+  $entity_type = NULL;
 
   // Name of helper variable which stores count for this status.
   $var_name = 'count_' . $params['status'];
@@ -947,7 +948,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
     $entity_id = $params['tid'];
   }
 
-  if (!$reset) {
+  if ($entity_type && !$reset) {
     // Check if we have the count stored already.
     $count = dosomething_helpers_get_variable($entity_type, $entity_id, $var_name);
     if ($count === FALSE) {
@@ -962,7 +963,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   $result = $query->execute();
   $count = $result->rowCount();
 
-  if ($reset) {
+  if ($entity_type && $reset) {
     dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $count);
   }
 
