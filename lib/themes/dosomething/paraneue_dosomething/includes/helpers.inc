@@ -339,12 +339,12 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   $placeholder_urls = dosomething_campaign_get_default_gallery_image_urls();
   $placeholders = array();
   $placeholder_captions = array(
-    'Integer posuere erat a ante venenatis dapibus posue aliquet.',
-    'Praesent commodo cursus magna, vel scelerisque et.',
-    'Donec id elit non mi porta gravida at eget.',
-    'Integer posuere erat a ante venenatis dapibus posuere.',
-    'Donec ullamcorper nulla non metus auctor fringilla.',
-    'Vivamus sagittis lacus vel augue.'
+    'DoSomething? Just did.',
+    'Doing good never looked so good.',
+    'Don’t let the smile fool you. I crushed it.',
+    'Making the world suck less, one photo at a time.',
+    'Pics or it didn’t happen? Oh, it happened.',
+    'I get action. Social action.',
   );
 
   for ($i = 0; $i < $count; $i++) {
