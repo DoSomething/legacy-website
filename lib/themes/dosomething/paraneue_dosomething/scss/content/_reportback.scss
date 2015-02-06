@@ -189,6 +189,16 @@
     text-transform: lowercase;
     width: auto;
   }
+
+  .field-file-name {
+    background-color: $light-gray;
+    font-size: $font-smaller;
+    padding: ($base-spacing / 2);
+
+    span {
+      font-style: italic;
+    }
+  }
 }
 
 .reportback__submissions-latest {
