@@ -220,6 +220,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
+      'data-validate' => 'caption',
       'data-validate-required' => '',
       'placeholder' => t("Write something..."),
     ),
