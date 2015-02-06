@@ -301,7 +301,7 @@
                 <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8" data-validation-passed="false">
                   <div class="form-item">
                     <label class="field-label" for="caption">Caption</label>
-                    <input class="text-field" placeholder="Write something..." type="text" id="caption" name="caption" data-validate="caption" data-validate-required maxlength="60" >
+                    <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="caption" name="caption" data-validate="caption" data-validate-required maxlength="60" >
                   </div>
                   <div class="form-actions">
                     <input type="submit" value="done" class="button -done" />
