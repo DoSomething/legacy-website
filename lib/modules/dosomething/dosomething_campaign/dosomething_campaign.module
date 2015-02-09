@@ -549,7 +549,9 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
   if (!$sid) {
     // Staff is viewing a campaign which they haven't signed up for.
     $node->content['signup_data_form'] = array(
+      '#prefix' => '<div class="modal__block">',
       '#markup' => "You haven't signed up for this campaign!",
+      '#suffix' => '</div>',
     );
     return;
   }

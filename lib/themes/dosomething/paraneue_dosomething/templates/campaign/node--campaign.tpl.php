@@ -329,7 +329,9 @@
           <?php if (isset($reportback_form)): ?>
             <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
               <h2 class="heading -banner"><?php print t('Prove It'); ?></h2>
-              <?php print render($reportback_form); ?>
+              <div class="modal__block">
+                <?php print render($reportback_form); ?>
+              </div>
             </div>
           <?php endif; ?>
         </div>

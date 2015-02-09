@@ -300,18 +300,18 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
     // Display the form submitted copy:
     $form['submitted_copy'] = array(
-      '#prefix' => '<p>',
+      '#prefix' => '<div class="modal__block"><p>',
       '#markup' => $copy,
-      '#suffix' => '</p>',
+      '#suffix' => '</p></div>',
     );
     // Return form as is (without a submit button).
     return $form;
   }
 
   $form['copy'] = array(
-    '#prefix' => '<p>',
+    '#prefix' => '<div class="modal__block"><p>',
     '#markup' => $config['form_copy'],
-    '#suffix' => '</p>',
+    '#suffix' => '</div></p>',
   );
 
   // If we are collecting User address:
@@ -334,6 +334,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   // If we are collecting User school:
   if ($config['collect_user_school']) {
     $form['school_finder'] = array(
+      '#prefix' => '<div class="modal__block">',
+      '#suffix' => '</div>',
       '#type' => 'fieldset',
       '#attributes' => array(
         'data-validate' => 'school_finder',
@@ -425,8 +427,8 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   $form['actions'] = array(
     '#type' => 'markup',
-    '#prefix' => '<div class="form-actions">',
-    '#suffix' => '</div>',
+    '#prefix' => '<div class="modal__block"><div class="form-actions">',
+    '#suffix' => '</div></div>',
   );
 
   $form['actions']['submit'] = array(

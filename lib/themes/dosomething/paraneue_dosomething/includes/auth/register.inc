@@ -8,8 +8,8 @@
 function paraneue_dosomething_page_alter_register(&$page) {
   if (!user_is_logged_in()){
     $page['page_bottom']['register'] = array(
-      '#prefix' => '<div data-modal id="modal--register" role="dialog" hidden>',
-      '#suffix' => '</div>',
+      '#prefix' => '<div data-modal id="modal--register" role="dialog" hidden><div class="modal__block">',
+      '#suffix' => '</div></div>',
       'register' => drupal_get_form('user_register_form')
     );
   }
