@@ -44,7 +44,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     ));
     $form['legal-text'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="legal">' . $copy . '</p>',
+      '#markup' => '<p class="footnote">' . $copy . '</p>',
       '#weight' => 501,
     );
 
