@@ -20,7 +20,9 @@
     "tests"
   ],
   "dependencies": {
-    "neue": "DoSomething/neue#6.0.0-beta4",
+    "neue": "DoSomething/neue#6.0.0-beta5",
+    "dosomething-validation": "DoSomething/validation#~0.1.0",
+    "dosomething-modal": "DoSomething/modal#~0.1.0",
     "jquery": "1.8.3",
     "mailcheck": "~1.0.3",
     "html5shiv": "~3.7.0",
