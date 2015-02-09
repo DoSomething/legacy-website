@@ -17,6 +17,9 @@ $asset-path: "";
 @import "../bower_components/susy/sass/susy";
 @import "../bower_components/neue/scss/neue";
 
+@import "../bower_components/dosomething-modal/scss/modal";
+@import "../bower_components/dosomething-validation/scss/validation";
+
 // Import our local variables and helpers
 @import "helpers/mixins";
 
@@ -25,7 +28,6 @@ $asset-path: "";
 
 // Local patterns
 @import "patterns/carousel";
-@import "patterns/footnote";
 @import "patterns/promotion"; // @TODO: Move to Neue!
 @import "patterns/statistic"; // @TODO: Move to Neue!
 @import "patterns/tile";
