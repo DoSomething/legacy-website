@@ -19,15 +19,16 @@ function paraneue_dosomething_form_element($variables) {
   $element = &$variables['element'];
   $output = theme_form_element($variables);
 
-  // If rendering a radio button, create rendered element for label
-  if($element['#type'] === 'radio') {
-    $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
-    $output = theme('form_element_label', $variables);
-  }
+  // If rendering a radio button or checkbox, create rendered element for label
+  if($element['#type'] === 'radio' || $element['#type'] === 'checkbox') {
+    // If not set to 'attribute' display setting, add an option indicator
+    if($element['#title_display'] !== 'attribute') {
+      $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
+    }
+    else {
+      $variables['rendered_element'] = $element['#children'] . "\n";
+    }
 
-  // If rendering a checkbox, create rendered element for label
-  if($element['#type'] === 'checkbox') {
-    $variables['rendered_element'] = $element['#children'] . '<span class="option__indicator"></span>' . "\n";
     $output = theme('form_element_label', $variables);
   }
 
@@ -59,12 +60,15 @@ function paraneue_dosomething_form_element_label($variables) {
     $attributes['class'] = 'option -checkbox';
   }
   elseif ($element['#type'] === 'radio' && $element['#title_display'] !== 'attribute') {
-    dpm($element);
     $attributes['class'] = 'option -radio';
   }
   else {
+    // If displaying with an attribute, use element's class
+    if ($element['#title_display'] === 'attribute' && !empty($element['#custom_label_class'])) {
+      $attributes['class'] = $element['#custom_label_class'];
+    }
     // Style the label as class option to display inline with the element.
-    if ($element['#title_display'] === 'after') {
+    elseif ($element['#title_display'] === 'after') {
       $attributes['class'] = 'element-label-after';
     }
     // Show label only to screen readers to avoid disruption in visual flows.
@@ -79,6 +83,7 @@ function paraneue_dosomething_form_element_label($variables) {
   if (!empty($element['#id'])) {
     $attributes['for'] = $element['#id'];
   }
+
 
   // Return with rendered element if it exists
   if (!empty($variables['rendered_element'])) {
@@ -213,9 +218,8 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
     'data-validate-required' => '',
   );
   foreach ($form['item']['#options'] as $key => $option) {
-    $form['item'][$key]['#prefix'] = '<div class="media-options__item -radio">';
-    $form['item'][$key]['#suffix'] = '</div>';
     $form['item'][$key]['#title_display'] = 'attribute';
+    $form['item'][$key]['#custom_label_class'] = array('media-option', '-radio');
   }
   $shirt_style_prefix = '<div data-validate="shirt_style" data-validate-required class="js-media-options">';
   $shirt_style_suffix = '</div>';
@@ -225,9 +229,8 @@ function paraneue_dosomething_form_alter_shirt_options(&$form, &$form_state, $fo
   $form['item_option']['#attributes'] = $shirt_size_attributes;
   if (isset($form['item_additional'])) {
     foreach ($form['item_additional']['#options'] as $key => $option) {
-      $form['item_additional'][$key]['#prefix'] = '<div class="media-options__item -radio">';
-      $form['item_additional'][$key]['#suffix'] = '</div>';
       $form['item_additional'][$key]['#title_display'] = 'attribute';
+      $form['item_additional'][$key]['#custom_label_class'] = array('media-option', '-radio');
     }
     $form['item_additional_header']['#markup'] = '<h4>' . t("Your Friend's Shirt") . '</h4>';
     $form['item_additional']['#prefix'] = $shirt_style_prefix;
