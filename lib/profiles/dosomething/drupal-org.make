@@ -192,9 +192,8 @@ projects[varnish][version] = "1.0-beta2"
 projects[varnish][subdir] = "contrib"
 
 ; View Unpublished
-projects[view_unpublished][version] = "1.1"
+projects[view_unpublished][version] = "1.2"
 projects[view_unpublished][subdir] = "contrib"
-projects[view_unpublished][patch][] = "https://drupal.org/files/view_unpublished_content_admin-1192074-60.patch"
 
 ; Views
 projects[views][version] = "3.8"
