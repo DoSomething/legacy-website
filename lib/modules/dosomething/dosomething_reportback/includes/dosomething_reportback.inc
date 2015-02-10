@@ -108,15 +108,14 @@ class ReportbackEntity extends Entity {
     if ($this->flagged) {
       $status = 'flagged';
     }
-    return db_insert($this->files_table)
-      ->fields(array(
-          'rbid' => $this->rbid,
-          'fid' => $values->fid,
-          'caption' => $values->caption,
-          'remote_addr' => dosomething_helpers_ip_address(),
-          'status' => $status,
-        ))
-      ->execute();
+    $reportback_file = entity_create('reportback_file', array(
+      'rbid' => $this->rbid,
+      'fid' => $values->fid,
+      'caption' => $values->caption,
+      'remote_addr' => dosomething_helpers_ip_address(),
+      'status' => $status,
+    ));
+    return $reportback_file->save();
   }
 
   /**
