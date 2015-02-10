@@ -363,8 +363,8 @@ function dosomething_zendesk_verify_zendesk_user($email, $client = NULL) {
           'profile_uid' => $profile_fields['profile_uid'],        
         ),
       );
+      $client->users()->update($updated_user);
     }
-    $client->users()->update($updated_user);
     return $search->results;
   }
   catch (Exception $e) {
