@@ -104,9 +104,6 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   // Display mode for rendering each Reportback File.
   $view_mode = 'full';
 
-  $entity_type = NULL;
-  $entity_id = NULL;
-
   // If we are viewing a reportback entity:
   if (isset($entity->rbid) && arg(0) === 'reportback') {
     $params['rbid'] = $entity->rbid;
@@ -115,30 +112,15 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   }
   elseif (isset($entity->nid)) {
     $params['nid'] = $entity->nid;
-    $entity_id = $entity->nid;
-    $entity_type = 'node';
   }
   elseif (isset($entity->tid)) {
     $params['tid'] = $entity->tid;
-    $entity_id = $entity->tid;
-    $entity_type = 'taxonomy_term';
   }
 
   $form['view_mode'] = array(
     '#type' => 'hidden',
     '#value' => $view_mode,
   );
-
-  if (isset($entity_type)) {
-    $form['entity_type'] = array(
-      '#type' => 'hidden',
-      '#value' => $entity_type,
-    );
-    $form['entity_id'] = array(
-      '#type' => 'hidden',
-      '#value' => $entity_id,
-    );
-  }
 
   $page_size = 25;
   if (isset($_GET['pagesize'])) {
@@ -244,9 +226,6 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       form_set_error(t("An error has occurred."));
     }
 
-  }
-  if (isset($form_state['values']['entity_type'])) {
-    dosomething_reportback_reset_count($form_state['values']['entity_type'], $form_state['values']['entity_id']);
   }
 
   drupal_set_message(t("Updated."));

@@ -169,6 +169,26 @@ class ReportbackFileEntityController extends EntityAPIController {
   }
 
   /**
+   * Overrides save() method.
+   *
+   * Updates count variables for corresponding nodes and taxonomy terms.
+   */
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    if (DOSOMETHING_REPORTBACK_LOG) {
+      watchdog('dosomething_reportback_file', 'save:' . json_encode($entity));
+    }
+    $status = NULL;
+    if (isset($entity->is_new)) {
+      $op = 'insert';
+      $status = 'pending';
+    }
+    parent::save($entity, $transaction);
+    // Update the pending count for the node reportback was saved for.
+    $reportback = reportback_load($entity->rbid);
+    dosomething_reportback_reset_count('node', $reportback->nid, $status);
+  }
+
+  /**
    * Overrides delete() method.
    */
   public function delete($ids, DatabaseTransaction $transaction = NULL) {

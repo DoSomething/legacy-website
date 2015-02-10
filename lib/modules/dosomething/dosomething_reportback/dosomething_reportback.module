@@ -973,7 +973,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
 /**
  * Resets Reportback Count variables for given entity type and entity_id.
  */
-function dosomething_reportback_reset_count($entity_type, $entity_id) {
+function dosomething_reportback_reset_count($entity_type, $entity_id, $status = NULL) {
   $params = array();
   if ($entity_type == 'node') {
     $params['nid'] = $entity_id;
@@ -981,6 +981,14 @@ function dosomething_reportback_reset_count($entity_type, $entity_id) {
   elseif ($entity_type == 'taxonomy_term') {
     $params['tid'] = $entity_id;
   }
+
+  // If a status is provided, reset its count.
+  if (isset($status)) {
+    $params['status'] = $status;
+    return dosomething_reportback_get_reportback_files_query_count($params, TRUE);
+  }
+
+  // Otherwise reset for all status counts.
   $status_values = dosomething_reportback_get_file_status_values();
   foreach ($status_values as $status) {
     $params['status'] = $status;
