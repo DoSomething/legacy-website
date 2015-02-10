@@ -404,10 +404,8 @@ function dosomething_signup_third_party_subscribe($account, $node) {
     $var_name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
     $opt_in = variable_get($var_name);
   }
-  // Opt-in to mobilecommons.
-  dosomething_signup_mobilecommons_opt_in($account, $opt_in, $node->title);
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node);
+  dosomething_signup_mbp_request($account, $node, $opt_in);
 }
 
 /**
@@ -456,12 +454,14 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  *   Details about the user account that made the signup.
  * @param object node
  *   Details about the node that the signup was made on.
+ * @param int $opt_in
+ *   The opt-in path to use for opt-in.
  */
-function dosomething_signup_mbp_request($account, $node) {
+function dosomething_signup_mbp_request($account, $node, $opt_in) {
   // Send MBP request.
   if (module_exists('dosomething_mbp')) {
     // Gather mbp params for the signup.
-    $params = dosomething_signup_get_mbp_params($account, $node);
+    $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
     // Send campaign mbp request.
     if ($node->type == 'campaign') {
       dosomething_mbp_request('campaign_signup', $params);
@@ -479,11 +479,13 @@ function dosomething_signup_mbp_request($account, $node) {
  *   Details about the user account that made the signup.
  * @param object $node
  *   Details about the node that the signup was made on.
+ * @param int $opt_in
+ *   The opt-in path to use for opt-in.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
     return FALSE;
   }
@@ -496,6 +498,10 @@ function dosomething_signup_get_mbp_params($account, $node) {
     'campaign_title' => $node->title,
     'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),
   );
+  if ($params['mobile'] && $opt_in) {
+    $params['mc_opt_in_path_id'] = $opt_in;
+  }
+
   // Add additional values to $params based on campaign / campaign_group
   dosomething_signup_get_mbp_params_campaign($params, $node);
   dosomething_signup_get_mbp_params_campaign_group($params, $node);

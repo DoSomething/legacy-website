@@ -95,6 +95,14 @@ function dosomething_mbp_update_7003(&$sandbox) {
 }
 
 /**
+ * Updates campaign / campaign collection productions.
+ */
+function dosomething_mbp_update_7004(&$sandbox) {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
@@ -141,6 +149,7 @@ function dosomething_mbp_install_productions() {
   $productions[2]['queues'][] = 'mailchimpCampaignSignupQueue';
   $productions[2]['queues'][] = 'userCampaignActivityQueue';
   $productions[2]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[2]['queues'][] = 'mobileCommonsQueue';
   $productions[2]['routing_key'] = 'campaign.signup.transactional';
   $productions[2]['status'] = 1;
 
@@ -152,6 +161,7 @@ function dosomething_mbp_install_productions() {
   $productions[3]['queues'][] = 'mailchimpCampaignSignupQueue';
   $productions[3]['queues'][] = 'userCampaignActivityQueue';
   $productions[3]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[3]['queues'][] = 'mobileCommonsQueue';
   $productions[3]['routing_key'] = 'campaign.signup.transactional';
   $productions[3]['status'] = 1;
 
