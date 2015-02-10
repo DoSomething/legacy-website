@@ -1000,28 +1000,6 @@ function dosomething_reportback_reset_count($entity_type, $entity_id, $status = 
 }
 
 /**
- * Resets all Reportback Count variables for given entity type $entity_type.
- */
-function dosomething_reportback_reset_all($entity_type) {
-  if ($entity_type === 'node') {
-    $campaigns = dosomething_campaign_get_campaigns();
-    foreach ($campaigns as $campaign) {
-      dosomething_reportback_reset_count($entity_type, $campaign->nid);
-    }
-  }
-  elseif ($entity_type === 'taxonomy_term') {
-    // Reset all Reportback Totals for terms in the Cause vocabulary.
-    $cause = taxonomy_vocabulary_machine_name_load('cause');
-    if ($cause) {
-      $terms = taxonomy_get_tree($cause->vid);
-      foreach ($terms as $term) {
-        dosomething_reportback_reset_count($entity_type, $term->tid);
-      }
-    }
-  }
-}
-
-/**
  * Returns array of all valid values for a Reportback File's status.
  */
 function dosomething_reportback_get_file_status_values() {
