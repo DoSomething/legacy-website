@@ -354,44 +354,7 @@ function dosomething_reportback_count_page() {
     ));
   }
 
-  if (user_access('administer modules')) {
-    $reset_form = drupal_get_form('dosomething_reportback_reset_count_form');
-    $output .= render($reset_form);
-  }
-
   return $output;
 }
 
-/**
- * Form to reset all Reportback Count variables.
- */
-function dosomething_reportback_reset_count_form() {
-  $form['reset'] = array(
-    '#type' => 'checkboxes',
-    '#required' => TRUE,
-    '#title' => t('Select totals to refresh'),
-    '#options' => drupal_map_assoc(array(t('node'), t('taxonomy_term'))),
-  );
-  $form['actions'] = array('#type' => 'actions');
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Refresh Totals'),
-  );
-  return $form;
-}
 
-/**
- * Submit handler for dosomething_reportback_reset_count_form().
- */
-function dosomething_reportback_reset_count_form_submit($form, &$form_state) {
-  $selected = array();
-  foreach ($form_state['values']['reset'] as $entity_type => $value) {
-    if ($value) {
-      dosomething_reportback_reset_all($entity_type);
-      $selected[] = $entity_type;
-    }
-  }
-  drupal_set_message(t("Totals have been refreshed for @entity.", array(
-    '@entity' => implode(', ', $selected),
-  )));
-}

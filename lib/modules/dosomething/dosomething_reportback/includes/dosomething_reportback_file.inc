@@ -186,6 +186,11 @@ class ReportbackFileEntityController extends EntityAPIController {
     // Update the pending count for the node reportback was saved for.
     $reportback = reportback_load($entity->rbid);
     dosomething_reportback_reset_count('node', $reportback->nid, $status);
+    if (module_exists('dosomething_campaign')) {
+      if ($tid = dosomething_campaign_get_primary_cause_tid($reportback->nid)) {
+        dosomething_reportback_reset_count('taxonomy_term', $tid, $status);
+      }
+    }
   }
 
   /**

@@ -189,6 +189,22 @@ function dosomething_campaign_get_confirmation_path($nid) {
 }
 
 /**
+ * Returns the primary cause term $tid for a given campaign $nid.
+ */
+function dosomething_campaign_get_primary_cause_tid($nid) {
+  $result = db_select('field_data_field_primary_cause', 'pc')
+    ->fields('pc', array('field_primary_cause_tid'))
+    ->condition('entity_id', $nid)
+    ->condition('entity_type', 'node')
+    ->execute()
+    ->fetchCol(0);
+    if ($result) {
+      return $result[0];
+    }
+    return NULL;
+}
+
+/**
  * Returns all published campaigns with a scholarship.
  */
 function dosomething_campaign_get_scholarships() {
