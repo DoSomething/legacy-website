@@ -527,6 +527,23 @@ function check_alias_param {
   fi
 }
 
+#=== FUNCTION ==================================================================
+# NAME: restart_php5_fpm
+# DESCRIPTION: Restarts php5-fpm on servers running php5.
+#===============================================================================
+function restart_php5_fpm {
+  PHP_FPM_STATUS="$(sudo service php5-fpm status)"
+  PHP_VERSION="$(php -v|grep --only-matching --perl-regexp "5\.\\d+\.\\d+")"
+
+  if [[ ${PHP_FPM_STATUS} == " * php5-fpm is running" ]] && $(echo ${PHP_VERSION} | grep --quiet "5.5")
+  then
+    echo "Restarting PHP-FPM now"
+    sudo service php5-fpm restart
+  else
+    echo "Either php5-fpm is not running or php -v < 5.5. Not restarting."
+  fi
+}
+
 # ==============================================================================
 # Commands
 # ==============================================================================
@@ -635,4 +652,12 @@ if [[ $1 == "test" ]]
 then
   shift
   $BASE_PATH/bin/test $@
+fi
+
+#----------------------------------------------------------------------
+# restart php5-fpm
+#----------------------------------------------------------------------
+if [[ $1 == "restart_php" ]]
+then
+  restart_php5_fpm
 fi
