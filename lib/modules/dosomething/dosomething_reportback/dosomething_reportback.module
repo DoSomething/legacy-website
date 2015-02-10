@@ -372,6 +372,9 @@ function dosomething_reportback_admin_paths() {
  */
 function dosomething_reportback_access($op, $entity, $account = NULL) {
   global $user;
+  if (empty($entity)) {
+    return FALSE;
+  }
   if (!isset($account)) {
     $account = $user;
   }
