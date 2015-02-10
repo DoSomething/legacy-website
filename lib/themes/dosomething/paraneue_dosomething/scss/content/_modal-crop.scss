@@ -1,13 +1,14 @@
 .modal--crop {
 
   .heading.-banner {
-    margin: (-$base-spacing) (-$base-spacing) 0px;
+    margin: 0;
   }
 
   .image-editor {
     padding-top: 10px;
 
     .__buttons {
+      padding: 0 $base-spacing;
       text-align: right;
 
       .button {
@@ -45,7 +46,6 @@
   }
 
   .image-preview {
-    margin: 0 (-$base-spacing);
     text-align: center;
     background: #000;
     line-height: 0;

@@ -373,7 +373,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
       $closeButton = 'skip';
     }
 
-    $js = 'require(["neue/modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '", skipForm: "' . $skipForm . '"}); });';
+    $js = 'require(["modal"], function(Modal) { Modal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '", skipForm: "' . $skipForm . '"}); });';
     drupal_add_js($js, 'inline');
   }
 

@@ -8,8 +8,8 @@
 function paraneue_dosomething_page_alter_register(&$page) {
   if (!user_is_logged_in()){
     $page['page_bottom']['register'] = array(
-      '#prefix' => '<div data-modal id="modal--register" role="dialog" hidden>',
-      '#suffix' => '</div>',
+      '#prefix' => '<div data-modal id="modal--register" role="dialog" hidden><div class="modal__block">',
+      '#suffix' => '</div></div>',
       'register' => drupal_get_form('user_register_form')
     );
   }
@@ -44,7 +44,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     ));
     $form['legal-text'] = array(
       '#type' => 'item',
-      '#markup' => '<p class="legal">' . $copy . '</p>',
+      '#markup' => '<p class="footnote">' . $copy . '</p>',
       '#weight' => 501,
     );
 

@@ -79,9 +79,9 @@
 
       <div class="container__block -narrow">
         <?php if (isset($campaign->fact_sources)): ?>
-          <section class="sources">
-            <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
-            <ul class="__body legal">
+          <section class="footnote">
+            <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
+            <ul class="js-footnote-hidden">
               <?php foreach ($campaign->fact_sources as $key => $source): ?>
                 <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
               <?php endforeach; ?>
@@ -298,15 +298,17 @@
                 This is a purely frontend form that will grab crop options and a caption
                 And then when the user submits the form, it will populate the drupal form with these values.
                 */?>
-                <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8" data-validation-passed="false">
-                  <div class="form-item">
-                    <label class="field-label" for="caption">Caption</label>
-                    <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="caption" name="caption" <?php //data-validate="caption-modal" data-validate-required ?> maxlength="60" >
-                  </div>
-                  <div class="form-actions">
-                    <input type="submit" value="done" class="button -done" />
-                  </div>
-                </form>
+                <div class="modal__block">
+                  <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8" data-validation-passed="false">
+                    <div class="form-item">
+                      <label class="field-label" for="caption">Caption</label>
+                      <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="caption" name="caption" <?php //data-validate="caption-modal" data-validate-required ?> maxlength="60" >
+                    </div>
+                    <div class="form-actions">
+                      <input type="submit" value="done" class="button -done" />
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
 
@@ -329,7 +331,9 @@
           <?php if (isset($reportback_form)): ?>
             <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
               <h2 class="heading -banner"><?php print t('Prove It'); ?></h2>
-              <?php print render($reportback_form); ?>
+              <div class="modal__block">
+                <?php print render($reportback_form); ?>
+              </div>
             </div>
           <?php endif; ?>
         </div>
@@ -359,7 +363,7 @@
 
       <?php if (isset($official_rules)): ?>
         <div class="container__block -narrow">
-          <div class="disclaimer">
+          <div class="footnote">
             <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
           </div>
         </div>
