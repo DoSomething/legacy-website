@@ -124,7 +124,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 
     case 'user_password':
       $payload['merge_vars']['FNAME'] = $params['first_name'];
-      $payload['merge_vars']['USERNAME'] = $params['username'];
       $payload['merge_vars']['RESET_LINK'] = $params['reset_link'];
       $payload['email_tags'][] = 'drupal_user_password';
       break;
