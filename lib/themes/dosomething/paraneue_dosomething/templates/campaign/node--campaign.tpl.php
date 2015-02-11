@@ -299,21 +299,10 @@
                 And then when the user submits the form, it will populate the drupal form with these values.
                 */?>
                 <div class="modal__block">
-                  <?php /*
-                  <form action="#" method="post" id="dosomething-reportback-image-form" accept-charset="UTF-8" data-validation-passed="false">
-                    <div class="form-item">
-                      <label class="field-label" for="caption">Caption</label>
-                      <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="caption" name="caption" <?php //data-validate="caption-modal" data-validate-required ?> maxlength="60" >
-                    </div>
-                    <div class="form-actions">
-                      <input type="submit" value="done" class="button -done" />
-                    </div>
-                  </form>
-                  */?>
                   <div id="dosomething-reportback-image-form" class="pseudo-form">
                     <div class="form-item">
-                      <label class="field-label" for="caption">Caption</label>
-                      <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="caption" name="caption" <?php //data-validate="caption-modal" data-validate-required ?> maxlength="60" >
+                      <label class="field-label" for="modal-caption">Caption</label>
+                      <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
                     </div>
                     <div class="form-action">
                       <button class="button -done">Crop</button>
