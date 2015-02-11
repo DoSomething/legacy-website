@@ -36,7 +36,7 @@
       <?php endif; ?>
       <li class="login"><a id="link--login" class="secondary-nav-item" href="<?php print $front_page; ?>user/login" data-modal-href="#modal--login"><?php print t('Log In'); ?></a></li>
       <?php else: ?> 
-      <li class="navigation__dropdown"><p class="navigation__dropdown-toggle"><?php print $user_identifier ?></p>
+      <li class="navigation__dropdown"><div class="navigation__dropdown-toggle"><i></i><p><?php print $user_identifier ?></p></div>
         <ul>
           <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
           <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
