@@ -23,5 +23,5 @@ function dosomething_image_update_7001(&$sandbox) {
  * Deletes field_video_id.
  */
 function dosomething_image_update_7002(&$sandbox) {
-  field_delete_field('field_video_id');
+  field_delete_instance('field_video_id');
 } 
