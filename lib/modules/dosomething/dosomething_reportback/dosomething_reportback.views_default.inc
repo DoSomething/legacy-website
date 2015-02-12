@@ -222,6 +222,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
   $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
     'campaign' => 'campaign',
+    'campaign_run' => 'campaign_run',
   );
   $handler->display->display_options['path'] = 'node/%/rb/reviewed';
   $handler->display->display_options['menu']['type'] = 'tab';
