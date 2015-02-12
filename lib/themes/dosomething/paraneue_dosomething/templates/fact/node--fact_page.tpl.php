@@ -59,9 +59,9 @@
             </ol>
 
             <?php if (isset($sources) && $is_last): ?>
-              <section class="sources">
-                <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
-                <ul class="__body legal">
+              <section class="footnote">
+                <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
+                <ul class="js-footnote-hidden">
                   <?php foreach ($sources as $key => $source): ?>
                     <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
                   <?php endforeach; ?>
