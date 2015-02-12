@@ -419,45 +419,6 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_video_id'
-  $field_instances['node-image-field_video_id'] = array(
-    'bundle' => 'image',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_video_id',
-    'label' => 'Video ID',
-    'required' => FALSE,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 14,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Cause');
@@ -469,7 +430,6 @@ function dosomething_image_field_default_field_instances() {
   t('Square Crop');
   t('Thumbnail');
   t('Video');
-  t('Video ID');
   t('Video Poster');
 
   return $field_instances;
