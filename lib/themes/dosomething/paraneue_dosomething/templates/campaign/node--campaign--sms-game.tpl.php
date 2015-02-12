@@ -67,9 +67,9 @@
 
         <div class="container__block -narrow">
           <?php if (isset($campaign->fact_sources)): ?>
-          <section class="sources">
-            <h3 class="__title js-toggle-sources"><?php print t('Sources'); ?></h3>
-            <ul class="__body legal">
+          <section class="footnote">
+            <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
+            <ul class="js-footnote-hidden">
               <?php foreach ($campaign->fact_sources as $key => $source): ?>
                 <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
               <?php endforeach; ?>
@@ -101,7 +101,7 @@
         <?php print $campaign_scholarship; ?>
 
         <div class="container__block -narrow">
-          <p class="legal">
+          <p class="footnote">
             <?php
             print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
               array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
