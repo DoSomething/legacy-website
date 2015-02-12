@@ -33,6 +33,15 @@ class ReportbackEntity extends Entity {
     if (isset($this->nid)) {
       // Set properties found on the reportback's node nid.
       $this->node_title = $this->getNodeTitle();
+
+      if (module_exists('dosomething_campaign_run')) {
+        // Check if this reportback is associated with Campaign Run node.
+        if ($parent_nid = dosomething_campaign_run_get_parent_nid($this->nid)) {
+          // Use the Campaign node nid instead of the Run nid.
+          $this->nid = $parent_nid;
+        }
+      }
+
       $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
       $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
       $this->quantity_label = $this->noun . ' ' . $this->verb;
