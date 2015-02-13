@@ -215,6 +215,12 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
       '#type' => 'submit',
       '#value' => $label,
     ),
+    'scholarship' => array(
+        '#markup' => theme('campaign_scholarship', array(
+          'amount' => 1000,
+          'classes' => array('-right'),
+        )),
+    ),
   );
   return $form;
 }

@@ -6,22 +6,17 @@
       clear: both;
       overflow: hidden;
 
-      .message-callout {
+      // Callout on the top right of the form
+      .message-callout.-above {
         margin: 0 auto;
         text-align: center;
-        width: 215px;
+        width: 250px;
 
         @include media($tablet) {
           position: absolute;
           top: 0;
           right: 20px;
           margin: 0;
-        }
-
-        .message-callout__copy {
-          &:before {
-            right: -10px;
-          }
         }
       }
     }
@@ -52,14 +47,14 @@
       text-align: left;
     }
 
+    // Callout by the submit button
     .message-callout.-right {
-      position: absolute;
-      left: 144px;
-      bottom: -15px;
-
-      @include media($tablet) {
-        bottom: 0;
-      }
+      display: inline-block;
+      position: relative;
+      width: 215px;
+      left: ($base-spacing / 2);
+      top: 10px;
+      text-align: left;
     }
   }
 }
