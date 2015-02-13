@@ -398,9 +398,6 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
   foreach ($result as $delta => $item) {
     $vars['reportback_gallery'][$delta]['image'] = dosomething_image_get_themed_image_by_fid($item->fid, $style);
     
-    if (function_exists('paraneue_dosomething_get_gallery_item_order_class')) {
-      $vars['reportback_gallery'][$delta]['order_class'] = paraneue_dosomething_get_gallery_item_order_class($delta);
-    }
     if (isset($item->caption)) {
       $vars['reportback_gallery'][$delta]['caption'] = check_plain($item->caption);
     }

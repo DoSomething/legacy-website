@@ -5,40 +5,6 @@
  */
 
 /**
- * Returns a css class name (either 'first', 'second', 'third') for a given $index.
- *
- * @param int $index
- *   An index of an array being iterated.
- *
- * @return string
- *   CSS class name
- */
-function paraneue_dosomething_get_gallery_item_order_class($index, $layout = 'triad') {
-  if ($layout == 'duo') {
-    if ($index % 2) {
-      return '-second';
-    }
-    return '-first';
-  }
-  elseif ($layout == 'triad') {
-    $index++;
-    switch ($index % 3) {
-      case 0:
-        return '-third';
-        break;
-      case 1:
-        return '-first';
-        break;
-      case 2:
-        return '-second';
-        break;
-      default:
-        return;
-    }
-  }
-}
-
-/**
  * Returns a gallery css class name for a given gallery cms $style
  *
  * @param string $style
@@ -150,7 +116,7 @@ function paraneue_dosomething_get_search_vars($results) {
         $value['subtitle'] = $value['fields']['sm_field_call_to_action'][0];
         $item = array(
           'title' => $value['title'],
-          'link' => $value['link'],
+          'url' => $value['link'],
           'image' => $value['display_image'],
           'description' => $value['subtitle'],
         );
@@ -201,7 +167,7 @@ function paraneue_dosomething_get_search_gallery($results) {
   // Theme each result with the media pattern.
   if ($results_variables) {
     foreach ($results_variables as $delta => $value) {
-      $result_items[$delta] = paraneue_dosomething_get_gallery_item($value, 'media', TRUE);
+      $result_items[$delta] = paraneue_dosomething_get_gallery_item($value, 'figure', TRUE, array('-left', '-medium'));
     }
   }
   // Theme the set of results as duo gallery.

@@ -59,11 +59,6 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
   $items = array();
   foreach ($content as $delta => $item) {
     $items[$delta]['content'] = $item;
-    // Get the class to apply to this <li>.
-    $class = paraneue_dosomething_get_gallery_item_order_class($delta, $layout);
-    if ($class) {
-      $items[$delta]['class'] = $class;
-    }
   }
   $classes = NULL;
   if (!empty($classes_array)) {
