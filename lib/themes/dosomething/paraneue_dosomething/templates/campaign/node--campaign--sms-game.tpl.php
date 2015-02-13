@@ -99,14 +99,20 @@
         <?php endif; ?>
 
         <div class="container__block -narrow">
+          <?php if (isset($official_rules)): ?>
+            <p class="footnote">
+              <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+            </p>
+          <?php endif; ?>
+
           <p class="footnote">
             <?php
             print t("Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.",
               array("!terms_link" => l(t('Terms of Service'), 'about/terms-service'))); ?>
           </p>
         </div>
-
       </div>
+
 
       <?php if ($info_bar): ?>
         <?php print $info_bar; ?>
