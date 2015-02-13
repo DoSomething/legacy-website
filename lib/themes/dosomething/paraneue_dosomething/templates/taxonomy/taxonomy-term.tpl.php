@@ -4,7 +4,7 @@
     <div class="wrapper">
       <h1 class="header__title"><?php print $title ?></h1>
       <?php if (isset($subtitle)): ?>
-        <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
+        <p class="header__subtitle"><?php print $subtitle; ?></p>
       <?php endif; ?>
     <?php if (!empty($sponsor_logos)): ?>
       <div class="promotions"><?php print $sponsor_logos; ?></div>
