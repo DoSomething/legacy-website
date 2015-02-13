@@ -26,11 +26,11 @@
 
 <section class="confirmation-wrapper">
 
-  <header role="banner" class="-basic">
+  <header role="banner" class="header">
     <div class="wrapper">
-      <h1 class="__title"><?php print $page_title; ?></h1>
+      <h1 class="header__title"><?php print $page_title; ?></h1>
       <?php if (isset($copy)): ?>
-        <p class="__subtitle"><?php print $copy; ?></p>
+        <p class="header__subtitle"><?php print $copy; ?></p>
       <?php endif; ?>
     </div>
   </header>
