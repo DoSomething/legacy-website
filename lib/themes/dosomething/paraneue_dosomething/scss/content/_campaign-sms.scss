@@ -7,10 +7,10 @@
       overflow: hidden;
 
       // Callout on the top right of the form
-      .message-callout {
+      .message-callout.-above {
         margin: 0 auto;
         text-align: center;
-        width: 215px;
+        width: 250px;
 
         @include media($tablet) {
           position: absolute;
@@ -51,6 +51,7 @@
     .message-callout.-right {
       display: inline-block;
       position: relative;
+      width: 215px;
       left: ($base-spacing / 2);
       top: 10px;
       text-align: left;
