@@ -93,3 +93,10 @@ function dosomething_campaign_update_7006() {
     }
   }
 }
+
+/**
+ * Deletes field_image_reportback_gallery.
+ */
+function dosomething_campaign_update_7007(&$sandbox) {
+  field_delete_field('field_image_reportback_gallery');
+}
