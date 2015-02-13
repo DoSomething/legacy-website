@@ -275,13 +275,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       ),
   ));
 
-  // Reportback gallery.
-  if ($reportback_gallery = $wrapper->field_image_reportback_gallery->value()) {
-    foreach ($reportback_gallery as $key => $rb_image) {
-      $vars['reportback_image'][$key] = dosomething_image_get_themed_image_url($rb_image->nid, 'landscape', '740x480');
-    }
-  }
-
   // Reportback form.
   $vars['reportback_link']['label'] = t("Submit Your Pic");
   // If logged in user's reportback exists for this node,

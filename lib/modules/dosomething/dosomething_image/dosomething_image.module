@@ -114,7 +114,6 @@ function dosomething_image_node_view($node, $view_mode, $langcode) {
       'field_hero_image',
       'field_image_campaign_cover',
       'field_image_psa_replacement',
-      'field_image_reportback_gallery',
       'field_image_step_gallery',
       'field_intro_image',
     );
