@@ -11,12 +11,12 @@
 
 <section class="campaign campaign--pitch pitch">
 
-  <header role="banner" class="-hero <?php print $classes; ?>">
+  <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
       <?php if (isset($signup_button_primary)): ?>
-        <div class="__signup">
+        <div class="header__signup">
           <?php print render($signup_button_primary); ?>
           <?php print $campaign_scholarship; ?>
         </div>
