@@ -1,0 +1,12 @@
+.footnote {
+  // Fix issue where superscript followed by Markdown content
+  // does not wrap correctly
+  li p {
+    display: inline;
+  }
+
+  // Add some spacing between source items in lists
+  li + li {
+    margin-top: ($base-spacing / 2);
+  }
+}
