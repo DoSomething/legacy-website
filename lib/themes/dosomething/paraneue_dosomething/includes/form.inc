@@ -255,3 +255,37 @@ function paraneue_dosomething_form_dosomething_payment_form_alter(&$form, &$form
   $form['amount']['#prefix'] = '<div class="donate__amount">';
   $form['amount']['#suffix'] = '</div>';
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Preprocesses the User Profile Form.
+ */
+function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  unset($form['timezone']);
+  $form['account']['mail']['#weight'] = -100;
+  $form['account']['mail']['#title'] = t("Email");
+  unset($form['account']['mail']['#description']);
+  $form['account']['current_pass']['#title'] = t("Current Password");
+
+  // Thanks to https://www.drupal.org/node/540340#comment-6576704.
+  $element_info = element_info('password_confirm');
+  $process = $element_info['#process'];
+  // Add our process function to the array:
+  $process[] = 'paraneue_dosomething_process_password_confirm';
+  $form['account']['pass']['#process'] = $process;
+}
+
+/**
+ * Preprocesses a given password_confrm form element.
+ *
+ * @see paraneue_dosomething_form_user_profile_form_alter.
+ */
+function paraneue_dosomething_process_password_confirm($element) {
+  unset($element['#description']);
+  $element['#prefix'] = '<h4>' . t('Change Password') . '</h4>';
+  $element['#suffix'] = '<hr />';
+  $element['pass1']['#title'] = t('New Password');
+  $element['pass2']['#title'] = t('Confirm Password');
+  return $element;
+}
