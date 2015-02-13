@@ -24,7 +24,7 @@
     </div>
   </header>
 
-  <section class="container profile--campaigns">
+  <section class="container -padded profile--campaigns">
     <h1 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h1>
     <div class="wrapper">
       <?php if (empty($doing)): ?>

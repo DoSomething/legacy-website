@@ -609,11 +609,12 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       // Media gallery template expects a full URL.
       $url = $base_url . '/' . drupal_get_path_alias('node/' . $reportback->nid);
       $content = array(
-        'link' => $url,
+        'url' => $url,
         'title' => $reportback->node_title,
         'image' => $img,
-        'impact' => $impact,
+        'description' => $impact,
       );
+
       $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, array('-left', '-medium'));
     }
   }

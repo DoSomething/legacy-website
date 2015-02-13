@@ -25,8 +25,9 @@
     <?php if (!empty($content['description'])): ?>
       <?php print $content['description']; ?>
     <?php endif; ?>
-    <?php if (!empty($content['url']) && !empty($content['button_text'])): ?>
-      <a class="button" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>
-    <?php endif; ?>
   </div>
+
+  <?php if (!empty($content['url']) && !empty($content['button_text'])): ?>
+    <a class="button" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>
+  <?php endif; ?>
 </div>
