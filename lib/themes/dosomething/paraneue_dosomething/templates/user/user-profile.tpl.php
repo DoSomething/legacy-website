@@ -15,11 +15,11 @@
 ?>
 <article class="user profile"<?php print $attributes; ?> id="user-<?php print $user->uid; ?>">
 
-  <header role="banner" class="-basic">
+  <header role="banner" class="header">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title; ?></h1>
+      <h1 class="header__title"><?php print $title; ?></h1>
       <?php if (!empty($subtitle)): ?>
-        <p class="__subtitle"><?php print $subtitle; ?></p>
+        <p class="header__subtitle"><?php print $subtitle; ?></p>
       <?php endif; ?>
     </div>
   </header>
