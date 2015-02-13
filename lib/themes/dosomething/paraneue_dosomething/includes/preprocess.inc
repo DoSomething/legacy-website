@@ -538,13 +538,6 @@ function paraneue_dosomething_preprocess_node_field_gallery(&$vars) {
     $gallery_class = paraneue_dosomething_get_gallery_style($gallery['style']);
     // Sets $vars['galleries'][$delta]['class'] to $gallery_class.
     $gallery['class'] = $gallery_class;
-    $items_count = count($gallery['items']);
-    // Preprocess the $gallery['items'] array.
-    for ($i = 0; $i <= $items_count; $i++) {
-      // Get class based on the gallery item's sequence.
-      $order_class = paraneue_dosomething_get_gallery_item_order_class($i);
-      $gallery['items'][$i]['order_class'] = $order_class;
-    }
   }
 
 }
@@ -621,7 +614,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'image' => $img,
         'impact' => $impact,
       );
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'media');
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, array('-left', '-medium'));
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.

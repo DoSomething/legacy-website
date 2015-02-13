@@ -192,9 +192,6 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
         $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
         $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
       }
-      if (function_exists('paraneue_dosomething_get_gallery_item_order_class')) {
-        $klout_gallery[$i]['items'][$a]['order_class'] = paraneue_dosomething_get_gallery_item_order_class($a);
-      }
       $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
     }
   }

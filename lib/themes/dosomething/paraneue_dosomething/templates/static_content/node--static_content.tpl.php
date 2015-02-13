@@ -92,10 +92,10 @@
 
                 <div class="figure__body">
                   <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                    <h3><?php print $gallery_item['image_title']; ?></h3>
                   <?php endif; ?>
                   <?php if (isset($gallery_item['image_description'])): ?>
-                    <div class="__description"><?php print $gallery_item['image_description']; ?></div>
+                    <?php print $gallery_item['image_description']; ?>
                   <?php endif; ?>
                 </div>
               </div>

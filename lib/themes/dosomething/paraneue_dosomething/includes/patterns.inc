@@ -23,7 +23,7 @@
  *
  * @return string
  */
-function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_default = TRUE, $classes_array = array('-medium')) {
+function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_default = TRUE, $classes_array = array()) {
   // If no image is provided and we want to use a default, then set the default image here.
   if (empty($content['image']) && $use_default) {
     $content['image'] = theme('image', array(
@@ -59,11 +59,6 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
   $items = array();
   foreach ($content as $delta => $item) {
     $items[$delta]['content'] = $item;
-    // Get the class to apply to this <li>.
-    $class = paraneue_dosomething_get_gallery_item_order_class($delta, $layout);
-    if ($class) {
-      $items[$delta]['class'] = $class;
-    }
   }
   $classes = NULL;
   if (!empty($classes_array)) {

@@ -11,7 +11,7 @@
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign--sms <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <header role="banner" class="-hero <?php print $classes; ?>">
+  <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 

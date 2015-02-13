@@ -1,10 +1,10 @@
 <div id="taxonomy-term-<?php print $term->tid; ?>" class="<?php print $classes; ?>">
 
-  <header role="banner" class="-hero <?php print $classes; ?>">
+  <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title ?></h1>
+      <h1 class="header__title"><?php print $title ?></h1>
       <?php if (isset($subtitle)): ?>
-        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+        <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
     <?php if (!empty($sponsor_logos)): ?>
       <div class="promotions"><?php print $sponsor_logos; ?></div>

@@ -18,12 +18,12 @@
 
 <article class="campaign campaign--closed closed">
 
-  <header role="banner" class="-hero <?php print $classes; ?>">
+  <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
       <?php if (isset($signup_button)): ?>
-        <div class="__signup">
+        <div class="header__signup">
           <?php print render($signup_button); ?>
 
           <?php if (isset($presignup_callout)): ?>
@@ -114,10 +114,10 @@
                   <?php print $reportback_gallery_item['image']; ?>
                 <?php endif; ?>
                 <?php if (isset($reportback_gallery_item['first_name'])): ?>
-                  <h3 class="figure__title"><?php print $reportback_gallery_item['first_name']; ?></h3>
+                  <h3><?php print $reportback_gallery_item['first_name']; ?></h3>
                 <?php endif; ?>
                 <?php if (isset($reportback_gallery_item['caption'])): ?>
-                  <div class="figure__description"><?php print $reportback_gallery_item['caption']; ?></div>
+                  <div class="figure__body"><?php print $reportback_gallery_item['caption']; ?></div>
                 <?php endif; ?>
               </div>
             </li>
@@ -165,9 +165,9 @@
 
               <?php if ($klout_gallery_item['type'] === 'mention') : ?>
                 <li class="<?php print $gallery_item['order_class']; ?>">
-                  <div class="media -medium">
+                  <div class="figure -left -medium">
                     <?php if (isset($gallery_item['image'])): ?>
-                    <div class="media__image">
+                    <div class="figure__media">
                       <?php if (isset($gallery_item['url']) && !empty($gallery_item['url'])): ?>
                         <a href="<?php print $gallery_item['url']; ?>"><?php print $gallery_item['image']; ?></a>
                       <?php else: ?>
@@ -176,12 +176,12 @@
                     </div>
                     <?php endif; ?>
 
-                    <div class="media__body">
+                    <div class="figure__body">
                       <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
-                        <h3 class="media__title"><?php print $gallery_item['title']; ?></h3>
+                        <h3><?php print $gallery_item['title']; ?></h3>
                       <?php endif; ?>
                       <?php if (isset($gallery_item['desc'])): ?>
-                        <div class="media__description"><?php print $gallery_item['desc']; ?></div>
+                        <?php print $gallery_item['desc']; ?>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -199,10 +199,10 @@
                       </div>
                     <?php endif; ?>
                     <?php if (isset($gallery_item['title']) && !empty($gallery_item['title'])): ?>
-                      <h3 class="figure__title"><?php print $gallery_item['title']; ?></h3>
+                      <h3><?php print $gallery_item['title']; ?></h3>
                     <?php endif; ?>
                     <?php if (isset($gallery_item['desc'])): ?>
-                      <div class="figure__description"><?php print $gallery_item['desc']; ?></div>
+                      <div class="figure__body"><?php print $gallery_item['desc']; ?></div>
                     <?php endif; ?>
                   </div>
                 </li>

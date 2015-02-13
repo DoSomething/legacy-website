@@ -10,7 +10,6 @@
   <div class="wrapper">
 
     <?php if (isset($zendesk_form)): ?>
-    <div class="help">
       <?php print t('Questions?'); ?> <a href="#" data-modal-href="#modal-contact-form"><?php print t('Contact Us'); ?></a>
       <div data-modal id="modal-contact-form" class="modal--contact" role="dialog">
         <h2 class="heading -banner"><?php print t('Contact Us'); ?></h2>
@@ -21,11 +20,10 @@
           <?php print render($zendesk_form); ?>
         </div>
       </div>
-    </div>
     <?php endif; ?>
 
     <?php if (isset($formatted_partners)): ?>
-      <div class="sponsor">
+      <div class="info-bar__secondary">
       <?php print t("In partnership with"); ?> <?php print $formatted_partners; ?>
       </div>
     <?php endif; ?>

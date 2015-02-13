@@ -3,19 +3,15 @@
 // ----------------
 
 .profile {
-  
+
   .tile {
     .__tagline { display: none; }
   }
-  
-  .figure__title {  
-    min-height: 1em;
-  }
 
-  .figure__description {
+  .figure__body {
     min-height: 2.5em;
   }
-  
+
   .figure {
     .button {
       margin-top: 1em;

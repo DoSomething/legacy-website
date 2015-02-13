@@ -16,17 +16,17 @@
 
 <article id="node-<?php print $node->nid; ?>" class="campaign campaign--grouped <?php print $classes; ?>"<?php print $attributes; ?>>
 
-  <header role="banner" class="-hero">
+  <header role="banner" class="header -hero">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title; ?></h1>
+      <h1 class="header__title"><?php print $title; ?></h1>
       <?php if (isset($call_to_action)): ?>
-      <p class="__subtitle"><?php print $call_to_action; ?></p>
+      <p class="header__subtitle"><?php print $call_to_action; ?></p>
       <?php endif; ?>
 
-      <?php if (isset($end_date)): ?><p class="__date"><?php print $end_date; ?></p><?php endif; ?>
+      <?php if (isset($end_date)): ?><p class="header__date"><?php print $end_date; ?></p><?php endif; ?>
 
       <?php if (isset($signup_button_primary)): ?>
-        <div class="__signup">
+        <div class="header__signup">
           <?php print render($signup_button_primary); ?>
           <?php if (isset($scholarship)): ?>
             <div class="message-callout -below -white -dynamic-right">
@@ -149,15 +149,19 @@
               <li class="<?php print $gallery_item['order_class']; ?>">
                 <div class="figure">
                   <?php if (isset($gallery_item['image'])): ?>
-                    <?php print $gallery_item['image']; ?>
+                    <div class="figure__media">
+                      <?php print $gallery_item['image']; ?>
+                    </div>
                   <?php endif; ?>
 
+                  <div class="figure__body">
                   <?php if (isset($gallery_item['image_title'])): ?>
-                      <h3 class="__title"><?php print $gallery_item['image_title']; ?></h3>
+                    <h3><?php print $gallery_item['image_title']; ?></h3>
                   <?php endif; ?>
                   <?php if (isset($gallery_item['image_description'])): ?>
-                    <div class="__description"><?php print $gallery_item['image_description']; ?></div>
+                    <?php print $gallery_item['image_description']; ?>
                   <?php endif; ?>
+                  </div>
                 </div>
               </li>
             <?php endforeach; ?>

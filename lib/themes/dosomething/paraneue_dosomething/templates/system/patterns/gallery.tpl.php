@@ -17,7 +17,7 @@
 <ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>" <?php if (isset($roles)) { print $roles; } ?>>
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
-      <li <?php if (!empty($item['class'])): print 'class="' . $item['class'] . '"'; endif; ?>>
+      <li>
         <?php print $item['content']; ?>
       </li>
     <?php endforeach; ?>
