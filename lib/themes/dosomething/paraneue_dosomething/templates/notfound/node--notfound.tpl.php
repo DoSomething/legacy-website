@@ -12,10 +12,10 @@
  */
 ?>
 <article>
-  <header role="banner" class="-centered header-notfound">
+  <header role="banner" class="header -centered header-notfound">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title ?></h1>
-      <div class="__subtitle"><?php print $subtitle ?></div>
+      <h1 class="header__title"><?php print $title ?></h1>
+      <div class="header__subtitle"><?php print $subtitle ?></div>
     </div>
     <?php if (isset($video)): ?>
       <video src=<?php print $video ?> autoplay loop <?php if(isset($video_poster)){ echo "poster='",  $video_poster, "'"; } ?> ></video>

@@ -5,20 +5,24 @@
  **/
 ?>
 
-<header role="banner" class="-basic<?php if (isset($sponsors)): print ' -sponsored'; endif; ?>">
+<header role="banner" class="header <?php if (isset($sponsors)): print ' -sponsored'; endif; ?>">
   <div class="wrapper">
-    <h1 class="__title"><?php print $title; ?></h1>
+    <h1 class="header__title"><?php print $title; ?></h1>
     <?php if (isset($subtitle)): ?>
-    <p class="__subtitle"><?php if (isset($subtitle)): print $subtitle; endif; ?></p>
+    <p class="header__subtitle"><?php if (isset($subtitle)): print $subtitle; endif; ?></p>
     <?php endif; ?>
 
     <?php if (isset($sponsors)): ?>
-    <div class="sponsor">
-      <p class="__copy"><?php print t('Powered by'); ?></p>
-      <?php foreach ($sponsors as $key => $sponsor) :?>
-        <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
-      <?php endforeach; ?>
-    </div>
+      <div class="promotion promotion--sponsor">
+        <div class="wrapper">
+          <p class="__copy"><?php print t('Powered by'); ?></p>
+          <?php foreach ($sponsors as $sponsor) :?>
+            <div class="__image">
+              <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
     <?php endif; ?>
   </div>
 </header>

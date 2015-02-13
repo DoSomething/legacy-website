@@ -621,7 +621,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'image' => $img,
         'impact' => $impact,
       );
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'media');
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, array('-left', '-medium'));
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
