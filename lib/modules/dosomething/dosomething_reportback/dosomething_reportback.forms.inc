@@ -215,13 +215,17 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $caption = NULL;
   if (isset($entity->caption)) {
     $caption = $entity->caption;
+  } 
+  else {
+    $caption = '&nbsp;';
   }
+  dpm($entity);
   $form['caption'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
-      // 'data-validate' => 'caption',
-      // 'data-validate-required' => '',
+      'data-validate' => 'caption',
+      'data-validate-required' => '',
       'placeholder' => t("Write something in 60 characters or less"),
       'maxlength' => '60',
     ),
