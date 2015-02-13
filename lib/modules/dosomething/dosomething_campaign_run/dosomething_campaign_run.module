@@ -226,6 +226,26 @@ function dosomething_campaign_run_get_closed_run_nid($nid) {
 }
 
 /**
+ * For given Campaign Run $nid, return its parent Campaign $nid.
+ *
+ * @param int $nid
+ *   A Campaign Run node nid.
+ *
+ * @return mixed
+ *   Returns the parent Campaign node $nid if exists, FALSE if not.
+ */
+function dosomething_campaign_run_get_parent_nid($nid) {
+   // Query field_data_field_campaigns for campaign_run node referencing $nid.
+   $result = db_select('field_data_field_campaigns', 'c')
+    ->fields('c', array('field_campaigns_target_id'))
+    ->condition('entity_id', $nid)
+    ->condition('bundle', 'campaign_run')
+    ->condition('entity_type', 'node')
+    ->execute();
+  return $result->fetchField(0);
+}
+
+/**
  * Given a campaign form and form state, check to see if there is a campgin run.
  * Adds the campaign run nid to the campaign form.
  *
