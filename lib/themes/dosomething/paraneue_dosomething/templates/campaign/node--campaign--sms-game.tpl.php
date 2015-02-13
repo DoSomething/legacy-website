@@ -98,8 +98,6 @@
           <?php print render($signup_form); ?>
         <?php endif; ?>
 
-        <?php print $campaign_scholarship; ?>
-
         <div class="container__block -narrow">
           <p class="footnote">
             <?php
