@@ -35,7 +35,6 @@ dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
 dependencies[] = file_entity
-dependencies[] = flag
 dependencies[] = i18n
 dependencies[] = libraries
 dependencies[] = l10n_update
