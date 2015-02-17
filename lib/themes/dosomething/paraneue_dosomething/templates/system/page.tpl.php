@@ -16,9 +16,11 @@
   <?php print $variables['navigation']; ?>
   <?php print $variables['header']; ?>
 
-  <main role="main" class="container">
+  <main role="main" class="container -padded">
     <div class="wrapper">
-      <?php print render($page['content']); ?>
+      <div class="container__block">
+        <?php print render($page['content']); ?>
+      </div>
     </div>
   </main>
 
