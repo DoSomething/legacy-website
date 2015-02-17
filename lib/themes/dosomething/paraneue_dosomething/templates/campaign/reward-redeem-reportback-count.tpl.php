@@ -17,11 +17,11 @@
 
 <article class="campaign campaign--action action">
 
-  <header role="banner" class="-basic">
+  <header role="banner" class="header">
     <div class="wrapper">
-      <h1 class="__title"><?php print $page_title; ?></h1>
+      <h1 class="header__title"><?php print $page_title; ?></h1>
       <?php if (isset($page_subtitle)): ?>
-      <p class="__subtitle"><?php print $page_subtitle; ?></p>
+      <p class="header__subtitle"><?php print $page_subtitle; ?></p>
       <?php endif; ?>
     </div>
   </header>
