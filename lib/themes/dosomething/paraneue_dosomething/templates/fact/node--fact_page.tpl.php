@@ -14,12 +14,12 @@
  */
 ?>
 
-<article id="node-<?php print $node->nid; ?>" class="fact fact-page <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <header role="banner" class="-basic">
+<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+  <header role="banner" class="header">
     <div class="wrapper">
-      <h1 class="__title"><?php print $title; ?></h1>
+      <h1 class="header__title"><?php print $title; ?></h1>
       <?php if (isset($subtitle)): ?>
-        <h2 class="__subtitle"><?php print $subtitle; ?></h2>
+        <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
     </div>
   </header>
@@ -34,55 +34,24 @@
     </section>
   <?php endif; ?>
 
-  <?php if (isset($facts_chunked)): ?>
-    <?php foreach ($facts_chunked as $key_chunk => $fact_chunk): ?>
-      <?php
-        $start_value = (($key_chunk * 5) + 1); // Start value for list of facts
-        $is_first = ($start_value === 1); // First set of facts
-        $is_last = ($key_chunk === (sizeof($facts_chunked) - 1)); // Last set of facts
-      ?>
+  <?php if (isset($first_fact_group)): ?>
+  <section class="container -padded">
+    <div class="wrapper">
+      <div class="container__block">
+        <?php if (isset($intro_image)): ?>
+          <aside class="fact-aside">
+            <?php print $intro_image; ?>
+          </aside>
+        <?php endif; ?>
 
-      <section class="container container--fact">
-        <div class="wrapper">
-          <div class="container__block">
-
-            <?php if (isset($intro_image) && $is_first): ?>
-              <aside class="fact-aside">
-                <?php print $intro_image; ?>
-              </aside>
-            <?php endif; ?>
-
-            <ol class="list" start="<?php print $start_value; ?>">
-              <?php foreach ($fact_chunk as $key => $fact): ?>
-                <li><?php print $fact['fact']; ?></li>
-              <?php endforeach; ?>
-            </ol>
-
-            <?php if (isset($sources) && $is_last): ?>
-              <section class="footnote">
-                <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
-                <ul class="js-footnote-hidden">
-                  <?php foreach ($sources as $key => $source): ?>
-                    <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
-                  <?php endforeach; ?>
-                </ul>
-              </section>
-            <?php endif; ?>
-
-          </div>
-        </div>
-      </section>
-
-      <?php if (isset($call_to_action) && $is_first): ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-          <?php print $cta_link; ?>
-        </div>
+        <ol class="list">
+          <?php foreach ($first_fact_group as $key => $fact): ?>
+            <li><?php print $fact['fact']; ?></li>
+          <?php endforeach; ?>
+        </ol>
       </div>
-      <?php endif; ?>
-
-    <?php endforeach; ?>
+    </div>
+  </section>
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
@@ -94,4 +63,39 @@
     </div>
   <?php endif; ?>
 
+  <section class="container">
+    <div class="wrapper">
+      <div class="container__block with-lists">
+        <?php if (isset($second_fact_group)): ?>
+          <ol class="list" start="6">
+            <?php foreach ($second_fact_group as $key => $fact): ?>
+              <li><?php print $fact['fact']; ?></li>
+            <?php endforeach; ?>
+          </ol>
+        <?php endif; ?>
+      </div>
+
+      <?php if (isset($sources)): ?>
+        <div class="container__block">
+          <section class="footnote">
+            <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
+            <ul class="js-footnote-hidden">
+              <?php foreach ($sources as $key => $source): ?>
+                <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </section>
+        </div>
+      <?php endif; ?>
+    </div>
+  </section>
+
+  <?php if (isset($call_to_action)): ?>
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+        <?php print $cta_link; ?>
+      </div>
+    </div>
+  <?php endif; ?>
 </article>
