@@ -239,9 +239,11 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       break;
 
     case "fact_page":
-      // Return facts as a chunked array.
-      // Allow cta's to be properly embedded in between.
-      $vars['facts_chunked'] = array_chunk($vars['facts'], 5);
+      // Return facts as two arrays.
+      // Allow CTAs to be properly embedded in between.
+      $vars['first_fact_group'] = array_slice($vars['facts'], 0, 5);
+      $vars['second_fact_group'] = array_slice($vars['facts'], 5);
+
       break;
 
     case "home":
