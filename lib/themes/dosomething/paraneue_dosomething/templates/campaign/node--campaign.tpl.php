@@ -97,7 +97,7 @@
   <section id="plan" class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Step 2: Plan It'); ?></span></h2>
     <div class="wrapper">
-      <div class="container__block -narrow">
+      <div class="container__block">
         <?php if (isset($starter)) : ?>
           <?php print $starter['safe_value']; ?>
         <?php endif; ?>
