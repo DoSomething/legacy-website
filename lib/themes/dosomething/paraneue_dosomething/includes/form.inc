@@ -267,6 +267,7 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   $form['account']['mail']['#title'] = t("Email");
   unset($form['account']['mail']['#description']);
   $form['account']['current_pass']['#title'] = t("Current Password");
+  unset($form['field_address'][LANGUAGE_NONE][0]['#title']);
 
   // Thanks to https://www.drupal.org/node/540340#comment-6576704.
   $element_info = element_info('password_confirm');
@@ -284,7 +285,6 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
 function paraneue_dosomething_process_password_confirm($element) {
   unset($element['#description']);
   $element['#prefix'] = '<h4>' . t('Change Password') . '</h4>';
-  $element['#suffix'] = '<hr />';
   $element['pass1']['#title'] = t('New Password');
   $element['pass2']['#title'] = t('Confirm Password');
   return $element;
