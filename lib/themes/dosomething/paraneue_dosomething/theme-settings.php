@@ -43,10 +43,6 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
       '#title' => t('Campaign Finder'),
       '#description' => t('Toggles campaign finder on homepage/expore campaigns page.')
     ),
-    'show_profile_link' => array(
-      '#title' => t('User Profile Link'),
-      '#description' => t('Toggles the user profile/create an account link in the main navigation.')
-    ),
     'show_sponsors' => array(
       '#title' => t('Show sponsors'),
       '#description' => t('Toggles the sponsors block on the home page when finder is enabled.')
