@@ -51,6 +51,8 @@ function paraneue_dosomething_css_alter(&$css) {
   unset($css[drupal_get_path('module', 'date') . '/date_api/date.css']);
   unset($css[drupal_get_path('module', 'ctools') . '/css/ctools.css']);
   unset($css[drupal_get_path('module', 'views') . '/css/views.css']);
+  unset($css[drupal_get_path('module', 'field_group') . '/field_group.field_ui.css']);
+  unset($css[drupal_get_path('module', 'addressfield') . '/addressfield.css']);
 }
 
 /**
@@ -92,6 +94,7 @@ function paraneue_dosomething_js_alter(&$js) {
 
   // Force removal of files that we can't seem to kill with exclude[js] array
   unset($js['profiles/dosomething/modules/contrib/devel/devel_krumo_path.js']);
+  unset($js['profiles/dosomething/modules/contrib/google_analytics/googleanalytics.js']);
 }
 
 

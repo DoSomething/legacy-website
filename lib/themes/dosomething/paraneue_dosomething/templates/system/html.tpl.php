@@ -16,10 +16,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="crowdcurity-site-verification" content="voJ0lyI8JXV5Ab1XAYMaoQj7WsoScgkfk9TLG0dA">
 
   <title><?php print $head_title; ?></title>
-  <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>
 
   <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
   <?php print $styles; ?>
@@ -36,6 +34,8 @@
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/apple-touch-icon-precomposed.png">
   <?php print $head; ?>
+
+  <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
