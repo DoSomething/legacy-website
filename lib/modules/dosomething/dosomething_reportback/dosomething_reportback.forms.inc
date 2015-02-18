@@ -225,7 +225,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#attributes' => array(
       'data-validate' => 'caption',
       'data-validate-required' => '',
-      'placeholder' => t('Write something in 60 characters or less'),
+      'placeholder' => t('60 characters or less'),
       'maxlength' => '60',
     ),
     '#title' => t("Caption"),

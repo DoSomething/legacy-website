@@ -302,7 +302,7 @@
                   <div id="dosomething-reportback-image-form" class="pseudo-form">
                     <div class="form-item">
                       <label class="field-label" for="modal-caption">Caption</label>
-                      <input class="text-field" placeholder="Write something in 60 characters or less" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
+                      <input class="text-field" placeholder="<?php print $reportback_form['caption']['#attributes']['placeholder'] ?>" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
                     </div>
                     <div class="form-action">
                       <button class="button -done">Crop</button>
