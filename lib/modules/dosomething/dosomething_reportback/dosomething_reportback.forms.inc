@@ -212,21 +212,20 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#type' => 'hidden',
     );
   }
+
   $caption = NULL;
-  if (isset($entity->caption)) {
-    $caption = $entity->caption;
-  } 
-  else {
-    $caption = '&nbsp;';
+
+  if ($reportback_latest_submission) {
+    $caption = isset($reportback_latest_submission->caption) ? $reportback_latest_submission->caption : t('DoSomething? Just did!');
   }
-  dpm($entity);
+
   $form['caption'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
       'data-validate' => 'caption',
       'data-validate-required' => '',
-      'placeholder' => t("Write something in 60 characters or less"),
+      'placeholder' => t('Write something in 60 characters or less'),
       'maxlength' => '60',
     ),
     '#title' => t("Caption"),
