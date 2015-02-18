@@ -181,7 +181,8 @@
     @include visually-hidden();
   }
 
-  .button--file {
+  .button--file,
+  .button--edit {
     font-weight: $weight-bold;
     height: auto;
     margin: ($base-spacing / 2) 0 0;
