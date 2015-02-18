@@ -94,6 +94,7 @@ function paraneue_dosomething_js_alter(&$js) {
 
   // Force removal of files that we can't seem to kill with exclude[js] array
   unset($js['profiles/dosomething/modules/contrib/devel/devel_krumo_path.js']);
+  unset($js['profiles/dosomething/modules/contrib/google_analytics/googleanalytics.js']);
 }
 
 
