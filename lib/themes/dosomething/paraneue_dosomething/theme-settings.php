@@ -46,10 +46,6 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
     'show_sponsors' => array(
       '#title' => t('Show sponsors'),
       '#description' => t('Toggles the sponsors block on the home page when finder is enabled.')
-    ),
-    'show_new_reportback' => array(
-      '#title' => t('Show New Reportback'),
-      '#description' => t('Toggles using the new Reportback user interface on the Action page.')
     )
   );
 

@@ -6,12 +6,7 @@
 // Page Specific Components
 .campaign--action .container--prove,
 .campaign--sms .container--do {
-  background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
-
-  // @TODO: See if this needs to be removed with v2 of Reportback Prove it section.
-  &.reportback-beta {
-    background: $yellow;
-  }
+  background: $yellow;
 }
 
 .campaign--pitch,
