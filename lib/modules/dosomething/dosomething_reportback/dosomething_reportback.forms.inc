@@ -160,7 +160,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
 
   $caption = NULL;
 
-  if ($reportback_latest_submission) {
+  if (isset($reportback_latest_submission)) {
     $caption = isset($reportback_latest_submission->caption) ? $reportback_latest_submission->caption : t('DoSomething? Just did!');
   }
 
