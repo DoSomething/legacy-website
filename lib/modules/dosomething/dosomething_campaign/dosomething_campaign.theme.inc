@@ -284,7 +284,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['reportback_form'] = $vars['content']['reportback_form'];
 
   // Add analytics custom event on action page.
-  $js = 'if(typeof(_gaq) !== "undefined" && _gaq !== null) { _gaq.push(["_trackEvent", "Action Page View", "' . $vars['title'] . '", null, null, true]); }';
+  $js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", "Action Page View", "' . $vars['title'] . '"); }';
   drupal_add_js($js, 'inline');
   
 }
