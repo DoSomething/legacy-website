@@ -267,7 +267,8 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   $form['account']['mail']['#title'] = t("Email");
   unset($form['account']['mail']['#description']);
   $form['account']['current_pass']['#title'] = t("Current Password");
-  unset($form['field_address'][LANGUAGE_NONE][0]['#title']);
+  unset($form['field_address'][LANGUAGE_NONE][0]['#title']); 
+  $form['field_birthdate'][LANGUAGE_NONE][0]['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
 
   // Thanks to https://www.drupal.org/node/540340#comment-6576704.
   $element_info = element_info('password_confirm');
@@ -275,6 +276,21 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   // Add our process function to the array:
   $process[] = 'paraneue_dosomething_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
+}
+
+function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
+  $form['#weight'] = '-18';
+  $form['#attributes']['class'] = array('auth-twocol');
+  $form['#theme_wrappers'] = array('form_element');
+  $form['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
+  $form['value']['date']['#attributes']['class'] = array('js-validate');
+  $form['value']['date']['#attributes']['data-validate'] = 'birthday';
+  $form['value']['date']['#attributes']['data-validate-required'] = '';
+  $form['value']['date']['#title_display'] = 'before';
+  $form['value']['date']['#title'] = '<h4>' . t('Birthday') . '</h4>';
+  unset($form['#title']);
+  unset($form['value']['date']['#description']);
+  return $form; 
 }
 
 /**
