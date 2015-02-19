@@ -256,110 +256,63 @@
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <div class="wrapper">
-      <?php if( $show_new_reportback ): ?>
-        <div class="container__block">
-          <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
+      <div class="container__block">
+        <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
 
-          <?php if (isset($reportback_copy)): ?>
-            <p class="copy"><?php print $reportback_copy; ?></p>
-          <?php endif; ?>
-        </div>
+        <?php if (isset($reportback_copy)): ?>
+          <p class="copy"><?php print $reportback_copy; ?></p>
+        <?php endif; ?>
+      </div>
 
-        <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total_approved']; ?>">
-          <div class="wrapper">
+      <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total_approved']; ?>">
+        <div class="wrapper">
 
-            <ul class="gallery gallery--reportback">
-              <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
-                <li <?php if ($i === 1) print ' class="-second"'; ?>>
-                  <?php print $reportbacks_gallery['items'][$i]; ?>
-                </li>
-              <?php endfor; ?>
-            </ul>
+          <ul class="gallery gallery--reportback">
+            <?php for ($i = 0; $i < count($reportbacks_gallery['items']); $i++): ?>
+              <li <?php if ($i === 1) print ' class="-second"'; ?>>
+                <?php print $reportbacks_gallery['items'][$i]; ?>
+              </li>
+            <?php endfor; ?>
+          </ul>
 
-            <div class="reportback__spacer"></div>
-
-            <?php if (isset($reportback_form)): ?>
-              <?php print render($reportback_form); ?>
-            <?php endif; ?>
-
-            <div class="reportback__spacer"></div>
-
-            <div data-modal id="modal--crop" class="modal--crop" role="dialog">
-              <h2 class="heading -banner">Edit your photo</h2>
-              <div class="image-preview"><!-- Preview image inserted with js --></div>
-              <div class="image-editor">
-                <div class="__buttons">
-                  <a href="#" class="button -tertiary -rotate">rotate photo</a>
-                  <div class="-change">
-                    <a href="#" class="button -tertiary">change photo</a>
-                  </div>
-                </div>
-                <?php /*
-                This is a purely frontend form that will grab crop options and a caption
-                And then when the user submits the form, it will populate the drupal form with these values.
-                */?>
-                <div class="modal__block">
-                  <div id="dosomething-reportback-image-form" class="pseudo-form">
-                    <div class="form-item">
-                      <label class="field-label" for="modal-caption">Caption</label>
-                      <input class="text-field" placeholder="<?php print $reportback_form['caption']['#attributes']['placeholder'] ?>" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
-                    </div>
-                    <div class="form-action">
-                      <button class="button -done">Crop</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      <?php else: ?>
-        <div class="container__block -half">
-          <h3><?php print t('Pics or It Didn’t Happen'); ?></h3>
-
-          <?php if (isset($reportback_copy)): ?>
-            <p class="copy"><?php print $reportback_copy; ?></p>
-          <?php endif; ?>
-
-          <?php if (isset($reportback_link)): ?>
-            <p><a href="#" data-modal-href="#modal-report-back" id="link--report-back" class="button"><?php print $reportback_link['label']; ?></a></p>
-          <?php endif; ?>
-
-          <?php print $prove_scholarship; ?>
+          <div class="reportback__spacer"></div>
 
           <?php if (isset($reportback_form)): ?>
-            <div data-modal id="modal-report-back" class="modal--reportback inline--alt-bg" role="dialog">
-              <h2 class="heading -banner"><?php print t('Prove It'); ?></h2>
+            <?php print render($reportback_form); ?>
+          <?php endif; ?>
+
+          <div class="reportback__spacer"></div>
+
+          <div data-modal id="modal--crop" class="modal--crop" role="dialog">
+            <h2 class="heading -banner">Edit your photo</h2>
+            <div class="image-preview"><!-- Preview image inserted with js --></div>
+            <div class="image-editor">
+              <div class="__buttons">
+                <a href="#" class="button -tertiary -rotate">rotate photo</a>
+                <div class="-change">
+                  <a href="#" class="button -tertiary">change photo</a>
+                </div>
+              </div>
+              <?php /*
+              This is a purely frontend form that will grab crop options and a caption
+              And then when the user submits the form, it will populate the drupal form with these values.
+              */?>
               <div class="modal__block">
-                <?php print render($reportback_form); ?>
+                <div id="dosomething-reportback-image-form" class="pseudo-form">
+                  <div class="form-item">
+                    <label class="field-label" for="modal-caption">Caption</label>
+                    <input class="text-field" placeholder="<?php print $reportback_form['caption']['#attributes']['placeholder'] ?>" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
+                  </div>
+                  <div class="form-action">
+                    <button class="button -done">Crop</button>
+                  </div>
+                </div>
               </div>
             </div>
-          <?php endif; ?>
+          </div>
+
         </div>
-
-        <div class="container__block -half">
-          <aside class="carousel">
-            <?php if (isset($reportback_image)): ?>
-              <div id="prev" class="carousel__control -previous">
-                <span>Previous Slide</span>
-              </div>
-
-              <div class="slides">
-                <?php foreach ($reportback_image as $key=>$image): ?>
-                <img id="slide<?php print $key ?>" class="carousel__slide bordered" src="<?php print $image ?>" />
-                <?php endforeach; ?>
-              </div>
-
-              <div id="next" class="carousel__control -next">
-                <span>Next Slide</span>
-              </div>
-            <?php else: ?>
-              <?php print $reportback_placeholder; ?>
-            <?php endif; ?>
-          </aside>
-        </div>
-      <?php endif; ?>
+      </div>
 
       <?php if (isset($official_rules)): ?>
         <div class="container__block -narrow">
