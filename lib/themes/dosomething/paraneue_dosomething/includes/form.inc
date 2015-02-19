@@ -281,7 +281,7 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
   $form['#weight'] = '-18';
   $form['#attributes']['class'] = array('auth-twocol');
-  $form['#theme_wrappers'] = array('form_element');
+  //$form['#theme_wrappers'] = array('form_element');
   $form['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
   $form['value']['date']['#attributes']['class'] = array('js-validate');
   $form['value']['date']['#attributes']['data-validate'] = 'birthday';
