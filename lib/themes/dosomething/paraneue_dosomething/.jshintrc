@@ -22,7 +22,7 @@
       "jQuery": false,
       "$": false,
       "Drupal": false,
-      "_gaq": false
+      "ga": false
     },
     "strict": true,
     "trailing": true,
