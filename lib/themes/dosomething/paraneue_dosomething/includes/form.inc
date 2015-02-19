@@ -148,33 +148,25 @@ function paraneue_dosomething_select($variables) {
  * Implements theme_file().
  */
 function paraneue_dosomething_file($variables) {
-  // @TODO_RBv2: temporary variable to add feature flag logix. Remove once Reportback v2 launched to Prod.
-  $show_new_reportback = theme_get_setting('show_new_reportback');
+  $element = $variables['element'];
+  $id = NULL;
 
-  if ($show_new_reportback) {
-    $element = $variables['element'];
-    $id = NULL;
+  if (isset($element['#id'])) {
+    $id = $element['#id'];
+  }
 
-    if (isset($element['#id'])) {
-      $id = $element['#id'];
-    }
+  $element['#attributes']['type'] = 'file';
+  $element['#attributes']['aria-label'] = 'file browser';
+  element_set_attributes($element, array('id', 'name', 'size'));
+  _form_set_class($element, array('form-file'));
 
-    $element['#attributes']['type'] = 'file';
-    $element['#attributes']['aria-label'] = 'file browser';
-    element_set_attributes($element, array('id', 'name', 'size'));
-    _form_set_class($element, array('form-file'));
-
-    // Need to include the <input> within <label> to universalize style for file input.
-    if ($element['#attributes']['is_supersized']) {
-      $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . t('Join the cool kids!<br/> Add your photo here!') . '</p></div></div>';
-      return '<label class="gigantor" id="' . $id . '">' . $message . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
-    }
-    else {
-      return '<label class="button button--file -tertiary" id="' . $id . '"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
-    }
+  // Need to include the <input> within <label> to universalize style for file input.
+  if ($element['#attributes']['is_supersized']) {
+    $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . t('Join the cool kids!<br/> Add your photo here!') . '</p></div></div>';
+    return '<label class="gigantor" id="' . $id . '">' . $message . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
   else {
-    return theme_file($variables);
+    return '<label class="button button--file -tertiary" id="' . $id . '"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
 }
 

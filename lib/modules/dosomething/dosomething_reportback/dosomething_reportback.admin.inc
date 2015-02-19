@@ -10,12 +10,6 @@
  * @see dosomething_reportback_menu()
  */
 function dosomething_reportback_admin_config_form($form, &$form_state) {
-  $form['dosomething_reportback_is_crop_enabled'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Reportback Cropping.'),
-    '#default_value' => variable_get('dosomething_reportback_is_crop_enabled', FALSE),
-    '#description' => t("Allows users to crop their own Reportback images."),
-  );
   $form['dosomething_reportback_is_generate_enabled'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable Dummy Reportback Generation.'),
