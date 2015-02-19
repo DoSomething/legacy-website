@@ -289,7 +289,9 @@
               <div class="__buttons">
                 <a href="#" class="button -tertiary -rotate">rotate photo</a>
                 <div class="-change">
-                  <a href="#" class="button -tertiary">change photo</a>
+                  <label class="button -tertiary" id="edit-reportback-file">
+                    <span>change photo</span>
+                  </label>
                 </div>
               </div>
               <?php /*

@@ -27,14 +27,16 @@
         display: inline-block;
         position: relative;
         margin-left: 10px;
+        cursor: pointer;
 
         input[type="file"] {
           position: absolute;
           top: 0;
           right: 0;
+          bottom: 0;
           opacity: 0;
-          cursor: pointer;
           width: 100%;
+          z-index: -1;
         }
       }
     }
