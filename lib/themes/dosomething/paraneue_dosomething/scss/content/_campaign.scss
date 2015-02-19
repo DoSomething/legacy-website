@@ -4,14 +4,10 @@
 
 
 // Page Specific Components
-.campaign--action .container--prove {
+.campaign--action .container--prove,
+.campaign--sms .container--do {
   background: $yellow;
 }
-
-.campaign--sms .container--do {
-  background: $purple asset-url("images/campaign-pattern-default.png") repeat center 63px;
-}
-
 
 .campaign--pitch,
 .campaign--grouped,
