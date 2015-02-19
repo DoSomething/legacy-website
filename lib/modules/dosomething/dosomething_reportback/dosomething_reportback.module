@@ -835,18 +835,6 @@ function dosomething_reportback_flush_caches() {
   return array('cache_dosomething_reportback');
 }
 
-/**
- * Implements hook_preprocess_page().
- */
-function dosomething_reportback_preprocess_page(&$vars) {
-  drupal_add_js(
-    array(
-      'dsReportback' => array(
-        'cropEnabled' => DOSOMETHING_CROP_ENABLED,
-      )
-    ),
-  'setting');
-}
 
 /**
  * Returns a SelectQuery object of Reportback Files with given $params.

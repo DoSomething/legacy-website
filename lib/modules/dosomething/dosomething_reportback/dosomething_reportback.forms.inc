@@ -5,8 +5,6 @@
  * Provides form constructors for the DoSomething Reportback module.
  */
 
-// @TODO_RBv2: temporary constant to add feature flag logix. Remove once Reportback v2 launched to Prod.
-DEFINE('DOSOMETHING_CROP_ENABLED', variable_get('dosomething_reportback_is_crop_enabled') ? TRUE : FALSE);
 
 /**
  * Form constructor for a reportback create/update form.
@@ -57,125 +55,74 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
 
 
-
-  // ============================================================================
-  // @TODO_RBv2 - Feature flagged code when flag is ON. Cleanup post RBv2 launch.
-  // ============================================================================
-  if (theme_get_setting('show_new_reportback')) {
-    // Reportback Submissions container.
-    $form['reportback_submissions'] = array(
-      '#type' => 'container',
-      '#id' => 'reportback-submissions',
-      '#attributes' => array(
-        'class' => array(
-          'reportback__submissions',
-        ),
+  // Reportback Submissions container.
+  $form['reportback_submissions'] = array(
+    '#type' => 'container',
+    '#id' => 'reportback-submissions',
+    '#attributes' => array(
+      'class' => array(
+        'reportback__submissions',
       ),
-    );
+    ),
+  );
 
-    $form['reportback_submissions']['reportback_file'] = array(
-      '#weight' => 5,
-      '#type' => 'file',
-      '#theme_wrappers' => array(),
-      '#attributes' => array(
-        'class' => array(
-          'js-image-upload-beta'  // @TODO_RBv2 - Rename once launched to Prod.
-        ),
+  $form['reportback_submissions']['reportback_file'] = array(
+    '#weight' => 5,
+    '#type' => 'file',
+    '#theme_wrappers' => array(),
+    '#attributes' => array(
+      'class' => array(
+        'js-image-upload-beta'  // @TODO_RBv2 - Rename once launched to Prod.
       ),
-    );
-    
-    // If rbid doesn't exist, this is a create form.
-    if (!isset($entity->rbid)) {
-      $entity->rbid = 0;
+    ),
+  );
+  
+  // If rbid doesn't exist, this is a create form.
+  if (!isset($entity->rbid)) {
+    $entity->rbid = 0;
 
-      $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = TRUE;
+    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = TRUE;
 
-      $submit_label = t("Submit your pic");
+    $submit_label = t("Submit your pic");
+  }
+
+  // Else, it's an update form.
+  else {
+    // Output reportback images with date last updated.
+    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
+
+    $reportback_submissions_data = array();
+    // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
+    $reportback__submissions_count = 5;
+
+    foreach ($entity->fids as $index => $fid) {
+      $reportback_submissions_data[$index] = reportback_file_load($fid);
+      $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300'); 
     }
 
-    // Else, it's an update form.
-    else {
-      // Output reportback images with date last updated.
-      $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
+    $reportback_prior_submissions = array_reverse($reportback_submissions_data);
+    $reportback_prior_submissions = array_slice($reportback_prior_submissions, 0, $reportback__submissions_count);
+    $reportback_latest_submission = array_shift($reportback_prior_submissions);
 
-      $reportback_submissions_data = array();
-      // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
-      $reportback__submissions_count = 5;
+    $form['reportback_submissions']['reportback_latest_submission'] = array(
+      '#weight' => 0,
+      '#markup' => theme('reportback_latest_submission', array(
+        'reportback' => $reportback_latest_submission,
+      )),
+    );
 
-      foreach ($entity->fids as $index => $fid) {
-        $reportback_submissions_data[$index] = reportback_file_load($fid);
-        $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300'); 
-      }
-
-      $reportback_prior_submissions = array_reverse($reportback_submissions_data);
-      $reportback_prior_submissions = array_slice($reportback_prior_submissions, 0, $reportback__submissions_count);
-      $reportback_latest_submission = array_shift($reportback_prior_submissions);
-
-      $form['reportback_submissions']['reportback_latest_submission'] = array(
-        '#weight' => 0,
-        '#markup' => theme('reportback_latest_submission', array(
-          'reportback' => $reportback_latest_submission,
+    if ($reportback_prior_submissions) {
+      $form['reportback_submissions']['reportback_prior_submissions'] = array(
+        '#weight' => 10,
+        '#markup' => theme('reportback_prior_submissions', array(
+          'updated' => format_date($entity->updated, 'short'),
+          'reportbacks' => $reportback_prior_submissions,
         )),
       );
-
-      if ($reportback_prior_submissions) {
-        $form['reportback_submissions']['reportback_prior_submissions'] = array(
-          '#weight' => 10,
-          '#markup' => theme('reportback_prior_submissions', array(
-            'updated' => format_date($entity->updated, 'short'),
-            'reportbacks' => $reportback_prior_submissions,
-          )),
-        );
-      }
-
-      $submit_label = t("Update submission");
     }
+
+    $submit_label = t("Update submission");
   }
-
-  // @TODO_RBv2 - Feature flagged code when flag is OFF. Cleanup post RBv2 launch.
-  // ============================================================================
-  else {
-    // If rbid doesn't exist, this is a create form.
-    if (!isset($entity->rbid)) {
-      $entity->rbid = 0;
-      $submit_label = t("Submit your pic");
-    }
-    // Else, it's update form.
-    else {
-      // Output reportback images with date last updated.
-      $form['header']['#markup'] = theme('old_reportback_submitted_images', array(
-        'updated' => format_date($entity->updated, 'short'),
-        'images' => $entity->getThemedImages('300x300'),
-      ));
-      $submit_label = t("Update submission");
-    }
-    $form['rbid'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $entity->rbid,
-      // Prevent this element from rendering in the browser.
-      '#access' => FALSE,
-    );
-    if (!isset($form['nid'])) {
-      $form['nid'] = array(
-        '#type' => 'hidden',
-        '#default_value' => $entity->nid,
-        // Prevent this element from rendering in the browser.
-        '#access' => FALSE,
-      );
-    }
-    // @TODO - Remove this switch once we get rid of the old experience.
-    $reportback_file_class = (theme_get_setting('show_new_reportback')) ? 'js-image-upload-beta' : 'js-image-upload';
-    $form['reportback_file'] = array(
-      '#type' => 'file',
-      '#title' => t('Upload a pic'),
-      '#attributes' => array(
-        'class' => array($reportback_file_class),
-      ),
-    );
-  }
-  // ============================================================================
-  // ============================================================================
-
 
   
   $form['rbid'] = array(
@@ -195,23 +142,21 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
 
   // Hidden fields to collect cropping information.
-  if (DOSOMETHING_CROP_ENABLED) {
-    $form['crop_x'] = array(
-      '#type' => 'hidden',
-    );
-    $form['crop_y'] = array(
-      '#type' => 'hidden',
-    );
-    $form['crop_width'] = array(
-      '#type' => 'hidden',
-    );
-    $form['crop_height'] = array(
-      '#type' => 'hidden',
-    );
-    $form['crop_rotate'] = array(
-      '#type' => 'hidden',
-    );
-  }
+  $form['crop_x'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_y'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_width'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_height'] = array(
+    '#type' => 'hidden',
+  );
+  $form['crop_rotate'] = array(
+    '#type' => 'hidden',
+  );
 
   $caption = NULL;
 
@@ -384,23 +329,27 @@ function dosomething_reportback_form_save_file(&$form_state) {
 
   // Retrieve file from storage.
   $file = $form_state['storage']['file'];
+
   // We are done with the file, remove it from storage.
   unset($form_state['storage']['file']);
+
   // Make the storage of the file permanent.
   $file->status = FILE_STATUS_PERMANENT;
   file_save($file);
-  // Crop the image if cropping is enabled.
-  if (DOSOMETHING_CROP_ENABLED) {
-    $x = $form_state['values']['crop_x'];
-    $y = $form_state['values']['crop_y'];
-    $width = $form_state['values']['crop_width'];
-    $height = $form_state['values']['crop_height'];
-    $rotate = $form_state['values']['crop_rotate'];
-    // Load the image.
-    $image = image_load($file->uri);
-    // Apply user crop and rotation to the image.
-    dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate);
-  }
+
+  // Crop the image.
+  $x = $form_state['values']['crop_x'];
+  $y = $form_state['values']['crop_y'];
+  $width = $form_state['values']['crop_width'];
+  $height = $form_state['values']['crop_height'];
+  $rotate = $form_state['values']['crop_rotate'];
+
+  // Load the image.
+  $image = image_load($file->uri);
+
+  // Apply user crop and rotation to the image.
+  dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate);
+
   return $file;
 }
 

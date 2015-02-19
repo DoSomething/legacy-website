@@ -258,7 +258,6 @@
     <div class="wrapper">
       <div class="container__block">
         <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
-
         <?php if (isset($reportback_copy)): ?>
           <p class="copy"><?php print $reportback_copy; ?></p>
         <?php endif; ?>
