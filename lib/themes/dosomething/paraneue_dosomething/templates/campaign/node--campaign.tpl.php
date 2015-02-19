@@ -292,7 +292,7 @@
                   <a href="#" class="button -tertiary -rotate">rotate photo</a>
                   <div class="-change">
                     <label class="button -tertiary" id="edit-reportback-file">
-                      <span>change</span>
+                      <span>change photo</span>
                     </label>
                   </div>
                 </div>
