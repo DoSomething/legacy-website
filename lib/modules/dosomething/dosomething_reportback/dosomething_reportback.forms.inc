@@ -72,7 +72,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#theme_wrappers' => array(),
     '#attributes' => array(
       'class' => array(
-        'js-image-upload-beta'  // @TODO_RBv2 - Rename once launched to Prod.
+        'js-image-upload'
       ),
     ),
   );

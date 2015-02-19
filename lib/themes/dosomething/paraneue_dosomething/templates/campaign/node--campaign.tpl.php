@@ -252,7 +252,7 @@
 
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
-  <section id="prove" class="container container--prove inline--alt-bg <?php if($show_new_reportback): print 'reportback-beta'; else: print 'reportback-classic'; endif; ?>">
+  <section id="prove" class="container container--prove inline--alt-bg">
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <div class="wrapper">
