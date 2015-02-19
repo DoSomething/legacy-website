@@ -107,17 +107,9 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
  *  Modified drupal form.
  */
 function paraneue_dosomething_register_after_build($form, &$form_state) {
+  $form['field_birthdate'][LANGUAGE_NONE][0] = paraneue_dosomething_form_user_profile_after_build($form['field_birthdate'][LANGUAGE_NONE][0], $form_state);
   $form['field_birthdate']['#weight'] = '-18';
-  $form['field_birthdate']['#attributes']['class'] = array('auth-twocol');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['#theme_wrappers'] = array('form_element');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['class'] = array('js-validate');
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate'] = 'birthday';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#attributes']['data-validate-required'] = '';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title_display'] = 'before';
-  $form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#title'] = t('Birthday');
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['#title']);
-  unset($form['field_birthdate'][LANGUAGE_NONE][0]['value']['date']['#description']);
+  $form['field_birthdate']['#theme_wrappers'] = array('form_element');
 
   // If last name is shown, make first name full width
   if (isset($form['field_last_name'])) {
