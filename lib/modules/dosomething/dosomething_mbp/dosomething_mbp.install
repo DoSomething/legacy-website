@@ -22,22 +22,8 @@ function dosomething_mbp_install() {
   $affiliate = strtoupper(dosomething_settings_get_affiliate_country_code());
   variable_set('message_broker_producer_application_id', $affiliate);
 
-  // Install the DoSomething production settings in message_broker_producer
-  // 7002
+  // Install the DoSomething production settings in message_broker_producer.
   dosomething_mbp_install_productions();
-
-  // 7003
-  $productions[0]['machine_name'] = 'transactional_user_profile_update';
-  $productions[0]['exchange'] = 'transactionalExchange';
-  $productions[0]['queues'][] = 'userAPIProfileQueue';
-  $productions[0]['queues'][] = 'userProfileMailchimpQueue';
-  $productions[0]['routing_key'] = 'user.profile.update';
-  $productions[0]['status'] = 1;
-
-  foreach($productions as $production) {
-    message_broker_producer_production_create($production);
-  }
-
 }
 
 /**
