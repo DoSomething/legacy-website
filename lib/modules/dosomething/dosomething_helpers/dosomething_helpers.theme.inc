@@ -179,8 +179,14 @@ function dosomething_helpers_preprocess_hero_images(&$vars) {
 function dosomething_helpers_preprocess_custom_vars(&$vars) {
   if (isset($vars['type']) && $vars['type'] == 'campaign') {
     $campaign = $vars['campaign'];
-    if ($campaign->variables['alt_color']) {
-      $alt_color = $campaign->variables['alt_color'];
+    if ($campaign->variables['sponsor_color']) {
+      $vars['sponsor_color'] = $campaign->variables['sponsor_color'];
+    }
+    if ($campaign->variables['alt_background_color']) {
+      $vars['alt_background_color'] = $campaign->variables['alt_background_color'];
+    }
+    if ($campaign->variables['alt_text_color']) {
+      $vars['alt_text_color'] = $campaign->variables['alt_text_color'];
     }
     if ($campaign->variables['alt_bg_fid']) {
       $fid = $campaign->variables['alt_bg_fid'];
@@ -188,15 +194,17 @@ function dosomething_helpers_preprocess_custom_vars(&$vars) {
   }
   elseif (isset($vars['nid'])) {
     $custom_vars = dosomething_helpers_get_variables('node', $vars['nid']);
-     if ($custom_vars['alt_color']) {
-      $alt_color = $custom_vars['alt_color'];
+    if ($custom_vars['sponsor_color']) {
+      $vars['sponsor_color'] = $custom_vars['sponsor_color'];
+    }
+    if ($custom_vars['alt_background_color']) {
+      $vars['alt_background_color'] = $custom_vars['alt_background_color'];
+    }
+    if ($custom_vars['alt_text_color']) {
+      $vars['alt_text_color'] = $custom_vars['alt_text_color'];
     }
   }
 
-  if (isset($alt_color)) {
-    // Sanitize value for sanity's sake.
-    $vars['alt_color'] = strip_tags($alt_color);
-  }
   // Check for alt background File fid.
   if (isset($fid)) {
     $file = file_load($fid);
@@ -214,21 +222,35 @@ function dosomething_helpers_add_inline_css(&$vars) {
   // Preprocess custom vars to see if any inline css needed.
   dosomething_helpers_preprocess_custom_vars($vars);
 
-  // Check for alt_color variable.
-  if (isset($vars['alt_color'])) {
-    $alt_color = 'color: #' .  $vars['alt_color'] . ' !important;';
-    $style_alt_color = '.inline--alt-color { ' . $alt_color . ' }';
-    drupal_add_css($style_alt_color, $option['type'] = 'inline');
+  // Check for sponsor_color variable.
+  if (isset($vars['sponsor_color'])) {
+    $sponsor_color = 'color: #' .  $vars['sponsor_color'] . ' !important;';
+    $style_sponsor_color = '.inline-sponsor-color { ' . $sponsor_color . ' }';
+    drupal_add_css($style_sponsor_color, $option['type'] = 'inline');
+  }
+
+  // Check for alt_background_color variable.
+  if (isset($vars['alt_background_color'])) {
+    $alt_background_color = 'background-color: #' .  $vars['alt_background_color'] . ' !important;';
+    $style_alt_background_color = '.inline-alt-background-color { ' . $alt_background_color . ' }';
+    drupal_add_css($style_alt_background_color, $option['type'] = 'inline');
+  }
+
+  // Check for alt_text_color variablesable.
+  if (isset($vars['alt_text_color'])) {
+    $alt_text_color = 'color: #' .  $vars['alt_text_color'] . ' !important;';
+    $style_alt_text_color = '.inline-alt-text-color { ' . $alt_text_color . ' }';
+    drupal_add_css($style_alt_text_color, $option['type'] = 'inline');
   }
 
   // Add hero background images if set
   if (isset($vars['hero_image']['mobile']) && isset($vars['hero_image']['desktop'])) {
-    $style_hero_image = '[role="banner"].-hero, [role="banner"].-centered {
+    $style_hero_image = '.header.-hero, .header.-centered {
         background-image: url("' . $vars['hero_image']['mobile'] . '");
       }
 
       @media only screen and (min-width: 768px) {
-        [role="banner"].-hero, [role="banner"].-centered {
+        .header.-hero, .header.-centered {
           background-image: url("' . $vars['hero_image']['desktop'] . '");
         }
       }';

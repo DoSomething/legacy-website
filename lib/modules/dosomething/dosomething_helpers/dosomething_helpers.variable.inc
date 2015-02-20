@@ -17,18 +17,43 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  $form['styles']['alt_color'] = array(
+  $form['styles']['sponsor_color'] = array(
     '#type' => 'textfield',
-    '#title' => t('Alt color'),
-    '#description' => t('Hex value to use for headlines.'),
-    '#default_value' => $vars['alt_color'],
+    '#title' => t('Sponsor color'),
+    '#description' => t('Hex color value for sponsor brand to apply to headings.'),
+    '#default_value' => $vars['sponsor_color'],
     '#field_prefix' => '#',
     '#size' => 6,
+    '#attributes' => array(
+      'maxlength' => '6',
+    ),
+  );
+  $form['styles']['alt_background_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alternate background color'),
+    '#description' => t('Hex color value to use as background color for <strong>Prove It</strong> section (or <strong>Do It</strong> section on SMS).'),
+    '#default_value' => $vars['alt_background_color'],
+    '#field_prefix' => '#',
+    '#size' => 6,
+    '#attributes' => array(
+      'maxlength' => '6',
+    ),
+  );
+  $form['styles']['alt_text_color'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alternate text color'),
+    '#description' => t('Hex color value to use as text color for <strong>Prove It</strong> section (or <strong>Do It</strong> section on SMS).'),
+    '#default_value' => $vars['alt_text_color'],
+    '#field_prefix' => '#',
+    '#size' => 6,
+    '#attributes' => array(
+      'maxlength' => '6',
+    ),
   );
   $form['styles']['alt_bg_fid'] = array(
     //@todo: File Fid autocomplete?
     '#type' => 'textfield',
-    '#title' => t('Alt BG File fid'),
+    '#title' => t('Alternate background file fid'),
     '#description' => t('File fid to display for BG pattern.'),
     '#default_value' => $vars['alt_bg_fid'],
     '#size' => 6,
@@ -36,14 +61,14 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
   $form['styles']['alt_image_campaign_cover_nid'] = array(
     //@todo: Node reference autocomplete.
     '#type' => 'textfield',
-    '#title' => t('Alt header Image nid'),
+    '#title' => t('Alternate header image nid'),
     '#description' => t('An Image Node nid to display in the page header.'),
     '#default_value' => $vars['alt_image_campaign_cover_nid'],
     '#size' => 6,
   );
   $form['styles']['signup_form_submit_label'] = array(
     '#type' => 'textfield',
-    '#title' => t('Signup Form Button Label'),
+    '#title' => t('Signup form button label'),
     '#description' => t('Overrides the label on the Signup Form button.'),
     '#default_value' => $vars['signup_form_submit_label'],
     '#size' => 20,
@@ -128,12 +153,25 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
 }
 
 function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
+  // List of fields that should be sanitized.
+  $fields_to_sanitize = array(
+    'sponsor_color',
+    'alt_background_color',
+    'alt_text_color',
+  );
+
   form_state_values_clean($form_state);
   $values = $form_state['values'];
   // Store hidden nid.
   $nid = $values['nid'];
   // Remove from values.
   unset($values['nid']);
+
+  foreach($fields_to_sanitize as $field) {
+    if (array_key_exists($field, $values)) {
+      strip_tags($values[$field]);
+    }
+  }
 
   // Loop through all remaining values:
   foreach ($values as $name => $value) {
@@ -149,7 +187,9 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
 function dosomething_helpers_get_variable_names() {
   return array(
     'alt_bg_fid',
-    'alt_color',
+    'sponsor_color',
+    'alt_background_color',
+    'alt_text_color',
     'alt_image_campaign_cover_nid',
     'collect_num_participants',
     'count_approved',

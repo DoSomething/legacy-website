@@ -54,7 +54,7 @@
         <div class="statistic<?php if ($participants_columned): ?> -columned -odd<?php endif; ?>">
           <div class="statistic__body">
             <p>
-              <strong class="inline--alt-color"><?php print $total_participants; ?></strong>
+              <strong class="inline-sponsor-color"><?php print $total_participants; ?></strong>
               <em><?php print t('Members Participated'); ?></em>
             </p>
           </div>
@@ -69,7 +69,7 @@
           <div class="statistic<?php if ($quantity_columned): ?> -columned -even -col-last<?php endif; ?>">
             <div class="statistic__body">
               <p>
-                <strong class="inline--alt-color"><?php print $total_quantity; ?></strong>
+                <strong class="inline-sponsor-color"><?php print $total_quantity; ?></strong>
                 <em><?php print $total_quantity_label; ?></em>
               </p>
             </div>
@@ -139,7 +139,7 @@
 
         <div class="container__block <?php if (isset($psa)): print '-half'; else: print '-narrow'; endif; ?>">
           <?php if (isset($additional_text_title)): ?>
-          <h3 class="inline--alt-color"><?php print $additional_text_title; ?></h3>
+          <h3 class="inline-sponsor-color"><?php print $additional_text_title; ?></h3>
           <?php endif; ?>
 
           <?php if (isset($additional_text)): ?>
@@ -157,7 +157,7 @@
 
         <?php foreach ($klout_gallery as $key => $klout_gallery_item) :?>
         <div class="container__block">
-          <h3 class="inline--alt-color"><?php print $klout_gallery_item['title']; ?></h3>
+          <h3 class="inline-sponsor-color"><?php print $klout_gallery_item['title']; ?></h3>
 
           <?php // The klout galleries ?>
           <ul class="gallery <?php print $klout_gallery_item['style']; ?>">
@@ -231,7 +231,7 @@
           <div class="container__row">
             <div class="container__block <?php if (isset($winner['image'])): print '-half'; else: print '-narrow'; endif; ?>">
               <?php if (isset($winner['fname'])): ?>
-                <h3 class="inline--alt-color"><?php print $winner['fname']; ?></h3>
+                <h3 class="inline-sponsor-color"><?php print $winner['fname']; ?></h3>
               <?php endif; ?>
 
               <?php if (isset($winner['field_winner_type'])): ?>

@@ -52,7 +52,7 @@
         <?php if (isset($intro_image) || isset($intro_video)): ?>
           <div class="container__block <?php if (isset($intro_image) || isset($intro_video)): print '-half"'; else: print '-narrow'; endif; ?>">
             <?php if (isset($intro_title)): ?>
-              <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
+              <h2 class="inline-sponsor-color"><?php print $intro_title; ?></h2>
             <?php endif; ?>
 
             <?php print $intro; ?>
@@ -85,7 +85,7 @@
       <div class="wrapper">
         <div class="container__block -narrow">
           <?php if (isset($post_signup_title)): ?>
-            <h2 class="inline--alt-color"><?php print $post_signup_title; ?></h2>
+            <h2 class="inline-sponsor-color"><?php print $post_signup_title; ?></h2>
           <?php endif; ?>
 
           <?php print $post_signup_copy; ?>
@@ -100,7 +100,7 @@
       <div class="wrapper">
         <div class="container__block -narrow">
           <?php if (isset($pre_launch_title)): ?>
-            <h2 class="inline--alt-color"><?php print $pre_launch_title; ?></h2>
+            <h2 class="inline-sponsor-color"><?php print $pre_launch_title; ?></h2>
           <?php endif; ?>
 
           <?php print $pre_launch_copy; ?>
@@ -116,7 +116,7 @@
     <div class="wrapper">
       <div class="container__block <?php if (isset($additional_text_image)): print '-half"'; else: print '-narrow'; endif; ?>">
         <?php if (isset($additional_text_title)): ?>
-          <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+          <h2 class="inline-sponsor-color"><?php print $additional_text_title; ?></h2>
         <?php endif; ?>
 
         <?php print $additional_text; ?>
@@ -140,7 +140,7 @@
         <div class="wrapper">
           <?php if (isset($gallery['title'])): ?>
             <div class="container__block">
-              <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
+              <h2 class="inline-sponsor-color"><?php print $gallery['title']; ?></h2>
             </div>
           <?php endif; ?>
 
