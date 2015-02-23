@@ -142,20 +142,40 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
 
   // Hidden fields to collect cropping information.
-  $form['crop_x'] = array(
+  $form['reportback_submissions']['crop_x'] = array(
+    '#weight' => 20,
     '#type' => 'hidden',
   );
-  $form['crop_y'] = array(
+  $form['reportback_submissions']['crop_y'] = array(
+    '#weight' => 21,
     '#type' => 'hidden',
   );
-  $form['crop_width'] = array(
+  $form['reportback_submissions']['crop_width'] = array(
+    '#weight' => 22,
     '#type' => 'hidden',
   );
-  $form['crop_height'] = array(
+  $form['reportback_submissions']['crop_height'] = array(
+    '#weight' => 23,
     '#type' => 'hidden',
   );
-  $form['crop_rotate'] = array(
+  $form['reportback_submissions']['crop_rotate'] = array(
+    '#weight' => 24,
     '#type' => 'hidden',
+  );
+
+  $form['divider'] = array(
+    '#markup' => '<hr class="divider inline-alt-background-color">',
+  );
+
+  // Reportback Inputs container.
+  $form['reportback_inputs'] = array(
+    '#type' => 'container',
+    '#id' => 'reportback-inputs',
+    '#attributes' => array(
+      'class' => array(
+        'reportback__inputs',
+      ),
+    ),
   );
 
   $caption = NULL;
@@ -164,7 +184,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $caption = isset($reportback_latest_submission->caption) ? $reportback_latest_submission->caption : t('DoSomething? Just did!');
   }
 
-  $form['caption'] = array(
+  $form['reportback_inputs']['caption'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
@@ -176,7 +196,8 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#title' => t("Caption"),
     '#default_value' => $caption,
   );
-  $form['quantity'] = array(
+
+  $form['reportback_inputs']['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
@@ -203,7 +224,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     // Check for the num_participants_label variable.
     $var_name = 'dosomething_reportback_num_participants_label';
     $label = variable_get($var_name, $label_default);
-    $form['num_participants'] = array(
+    $form['reportback_inputs']['num_participants'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#attributes' => array(
@@ -218,7 +239,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     );
   }
 
-  $form['why_participated'] = array(
+  $form['reportback_inputs']['why_participated'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
     '#attributes' => array(
@@ -230,13 +251,22 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#title' => t('Why is this important to you?'),
     '#default_value' => $entity->why_participated,
   );
-  $form['actions'] = array(
+
+  $form['reportback_inputs']['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
       '#value' => $submit_label,
+      // Unique scenario with container around the form-actions so need to set
+      // button class here specifically.
+      '#attributes' => array(
+        'class' => array(
+          'button form-submit'
+        ),
+      ),
     ),
   );
+
   return $form;
 }
 
