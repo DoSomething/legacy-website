@@ -37,7 +37,7 @@
     <div class="wrapper">
       <div class="container__block -half">
         <?php if (isset($campaign->fact_problem)): ?>
-          <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
+          <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
         <?php endif; ?>
 
@@ -55,7 +55,7 @@
 
       <div class="container__block -half">
         <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-          <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
+          <h3 class="inline-sponsor-color"><?php print t('The Solution'); ?></h3>
 
           <?php if (isset($campaign->fact_solution)): ?>
             <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
@@ -108,7 +108,7 @@
       <?php foreach ($plan as $index => $content): ?>
         <?php if($index % 2 === 0) : ?> <div class="container__row"> <?php endif; ?>
           <div class="container__block -half">
-            <h3 class="inline--alt-color"><?php print $content['title']; ?></h3>
+            <h3 class="inline-sponsor-color"><?php print $content['title']; ?></h3>
             <div class="with-lists -compacted -concatenated">
               <?php print $content['content']; ?>
 
@@ -146,7 +146,7 @@
 
       <?php if (isset($location_finder['url'])) : ?>
         <div class="container__block -narrow">
-          <h3 class="inline--alt-color"><?php print t('Find a Location'); ?></h3>
+          <h3 class="inline-sponsor-color"><?php print t('Find a Location'); ?></h3>
           <?php if (isset($location_finder['copy'])) : ?>
             <?php print $location_finder['copy']; ?>
           <?php endif; ?>
@@ -201,7 +201,7 @@
           <?php endif; ?>
 
           <?php if (isset($content['header'])): ?>
-            <h3 class="inline--alt-color"><?php print $content['header']; ?></h3>
+            <h3 class="inline-sponsor-color"><?php print $content['header']; ?></h3>
           <?php endif; ?>
 
           <?php if (isset($content['copy'])): ?>
@@ -239,7 +239,7 @@
             <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
               <h2 class="heading -banner">Tips</h2>
               <?php foreach ($content['tips'] as $delta => $tip): ?>
-                <h4 class="inline--alt-color"><?php print $tip['header']; ?></h4>
+                <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>
                 <?php print $tip['copy']; ?>
               <?php endforeach; ?>
               <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
@@ -252,14 +252,14 @@
 
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
-  <section id="prove" class="container container--prove inline--alt-bg">
+  <section id="prove" class="container container--prove inline-alt-background-color">
     <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <div class="wrapper">
       <div class="container__block">
-        <h3 class="heading -beta"><?php print t('Pics or It Didn’t Happen'); ?></h3>
+        <h3 class="heading -beta inline-alt-text-color"><?php print t('Pics or It Didn’t Happen'); ?></h3>
         <?php if (isset($reportback_copy)): ?>
-          <p class="copy"><?php print $reportback_copy; ?></p>
+          <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
         <?php endif; ?>
       </div>
 

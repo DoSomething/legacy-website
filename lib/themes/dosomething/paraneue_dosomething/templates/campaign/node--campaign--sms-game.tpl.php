@@ -27,7 +27,7 @@
 
         <div class="container__block -half">
           <?php if (isset($campaign->fact_problem)): ?>
-          <h3 class="inline--alt-color"><?php print t('The Problem'); ?></h3>
+          <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
           <?php endif; ?>
 
@@ -44,7 +44,7 @@
 
         <div class="container__block -half">
           <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-              <h3 class="inline--alt-color"><?php print t('The Solution'); ?></h3>
+              <h3 class="inline-sponsor-color"><?php print t('The Solution'); ?></h3>
 
             <?php if (isset($campaign->fact_solution)): ?>
               <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
@@ -81,13 +81,13 @@
     </section>
 
 
-    <section id="do" class="container container--do inline--alt-bg">
+    <section id="do" class="container container--do inline-alt-background-color">
       <h2 class="heading -banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
       <div class="wrapper">
 
         <div class="container__block -narrow">
           <?php if (isset($starter_header)) : ?>
-            <h3 class="inline--alt-color"><?php print $starter_header; ?></h3>
+            <h3 class="inline-alt-text-color"><?php print $starter_header; ?></h3>
           <?php endif; ?>
           <?php if (isset($starter)) : ?>
             <div><?php print $starter['safe_value']; ?></div>

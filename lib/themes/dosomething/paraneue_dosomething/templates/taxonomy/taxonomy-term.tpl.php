@@ -17,7 +17,7 @@
       <div class="wrapper">
         <div class="container__block <?php if (isset($intro_image) || isset($intro_video)): print '-half'; else: print '-narrow'; endif; ?>">
           <?php if (isset($intro_title)): ?>
-            <h2 class="inline--alt-color"><?php print $intro_title; ?></h2>
+            <h2 class="inline-sponsor-color"><?php print $intro_title; ?></h2>
           <?php endif; ?>
 
           <?php print $intro; ?>
@@ -51,7 +51,7 @@
     <div class="wrapper">
       <?php if (!empty($facts)): ?>
         <div class="container__block -narrow">
-          <h2 class="inline--alt-color"><?php print $facts_header; ?></h2>
+          <h2 class="inline-sponsor-color"><?php print $facts_header; ?></h2>
           <ul>
             <?php foreach ($facts['facts'] as $fact): ?>
               <li><?php print $fact['fact']; ?> <sup><?php print $fact['footnotes']; ?></sup></li>
@@ -72,17 +72,17 @@
 
       <div class="container__block -narrow">
           <?php if (isset($global_copy['campaign_value_proposition'])): ?>
-            <h2 class="inline--alt-color"><?php print t('What You Get'); ?></h2>
+            <h2 class="inline-sponsor-color"><?php print t('What You Get'); ?></h2>
             <?php print $global_copy['campaign_value_proposition']; ?>
           <?php endif; ?>
 
           <?php if (isset($global_copy['scholarships'])): ?>
-            <h2 class="inline--alt-color"><?php print t('Scholarships and Contests'); ?></h2>
+            <h2 class="inline-sponsor-color"><?php print t('Scholarships and Contests'); ?></h2>
             <?php print $global_copy['scholarships']; ?>
           <?php endif; ?>
 
           <?php if (isset($global_copy['about_ds'])): ?>
-            <h2 class="inline--alt-color"><?php print t('About DoSomething.org'); ?></h2>
+            <h2 class="inline-sponsor-color"><?php print t('About DoSomething.org'); ?></h2>
             <?php print $global_copy['about_ds']; ?>
           <?php endif; ?>
       </div>

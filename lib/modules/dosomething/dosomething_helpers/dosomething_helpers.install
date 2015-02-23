@@ -160,3 +160,16 @@ function dosomething_helpers_update_7005() {
   $fields = array('entity_type', 'entity_id');
   db_add_index($table, 'entity_type_entity_id', $fields);
 }
+
+/**
+ * Updates the alt_color variable and renames it to sponsor_color.
+ */
+function dosomething_helpers_update_7006() {
+  $table = 'dosomething_helpers_variable';
+  db_update($table)
+    ->fields(array(
+      'name' => 'sponsor_color'
+    ))
+    ->condition('name', 'alt_color', '=')
+    ->execute();
+}

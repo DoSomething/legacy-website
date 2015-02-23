@@ -21,7 +21,7 @@
         <?php /** There's an image, so show two columns. */ ?>
         <div class="container__block -half with-lists">
           <?php if (isset($intro_title)): ?>
-            <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
+            <h1><?php print $intro_title; ?></h1>
           <?php endif; ?>
 
           <?php print $intro; ?>
@@ -41,7 +41,7 @@
         <?php /** No image, so show three-quarters width intro block. */ ?>
         <div class="container__block -narrow with-lists">
           <?php if (isset($intro_title)): ?>
-            <h1 class="inline--alt-color"><?php print $intro_title; ?></h1>
+            <h1><?php print $intro_title; ?></h1>
           <?php endif; ?>
 
           <?php print $intro; ?>
@@ -72,7 +72,7 @@
       <div class="wrapper">
         <?php if (isset($gallery['title'])): ?>
         <div class="container__block -narrow">
-          <h2 class="inline--alt-color"><?php print $gallery['title']; ?></h2>
+          <h2><?php print $gallery['title']; ?></h2>
         </div>
         <?php endif; ?>
 
@@ -115,7 +115,7 @@
       <?php if(isset($additional_text_image)): ?>
         <div class="container__block -half with-lists">
           <?php if (isset($additional_text_title)): ?>
-            <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+            <h2><?php print $additional_text_title; ?></h2>
           <?php endif; ?>
 
           <?php print $additional_text; ?>
@@ -127,7 +127,7 @@
       <?php else: ?>
         <div class="container__block -narrow with-lists">
           <?php if (isset($additional_text_title)): ?>
-            <h2 class="inline--alt-color"><?php print $additional_text_title; ?></h2>
+            <h2><?php print $additional_text_title; ?></h2>
           <?php endif; ?>
 
           <?php print $additional_text; ?>
