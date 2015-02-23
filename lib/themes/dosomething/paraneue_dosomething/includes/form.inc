@@ -279,7 +279,7 @@ function paraneue_dosomething_form_user_profile_after_build($form, &$form_state)
   $form['value']['date']['#attributes']['data-validate-required'] = '';
   $form['value']['date']['#title_display'] = 'before';
   $form['value']['date']['#title'] = '<h4>' . t('Birthday') . '</h4>';
-  unset($form['#title']);
+  $form['#title'] = '';
   unset($form['value']['date']['#description']);
   return $form; 
 }
