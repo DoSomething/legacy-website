@@ -605,7 +605,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
       if (user_access('view any reportback')) {
         // Link to the full reportback entity view.
-        $impact = l($impact, 'reportback/' . $rbid);
+        $impact = l($impact, 'admin/reportback/' . $rbid);
       }
       $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
       // Media gallery template expects a full URL.
