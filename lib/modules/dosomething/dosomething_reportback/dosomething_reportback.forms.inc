@@ -292,7 +292,14 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $form_state['redirect'] = $redirect;
   }
   if ($display_permalink) {
-    $form_state['redirect'] = 'somelink';
+    $form_state['redirect'] = array(
+      'reportback/' . $values['rbid'],
+      array(
+        'query' => array(
+          'rbid' => $values['fid'],
+        ),
+      ),
+    );
   }
 }
 
