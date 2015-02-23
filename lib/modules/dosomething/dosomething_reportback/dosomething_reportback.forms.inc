@@ -296,7 +296,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       'reportback/' . $values['rbid'],
       array(
         'query' => array(
-          'rbid' => $values['fid'],
+          'fid' => $values['fid'],
         ),
       ),
     );
