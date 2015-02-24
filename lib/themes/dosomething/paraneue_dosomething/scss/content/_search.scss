@@ -17,29 +17,3 @@
     @include gutters();
   }
 }
-
-// Search Form.
-.search-form {
-  @include clearfix;
-  margin: $base-spacing 0;
-
-  .form-type-textfield {
-    @include media($tablet) {
-      display: inline-block;
-      float: left;
-      width: span(6 of 9);
-      padding-right: gutter();
-    }
-  }
-
-  .form-submit {
-    float: left;
-    clear: right;
-    background: $blue;
-    margin: 0;
-
-    @include media($tablet) {
-      margin-left: gutter();
-    }
-  }
-}
