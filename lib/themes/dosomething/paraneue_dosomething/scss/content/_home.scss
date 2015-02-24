@@ -1,52 +1,29 @@
-.home-banner {
-  background: $purple;
-  padding: 100px 0 $base-spacing;
-  overflow: hidden;
-
-  @include media($tablet) {
-    padding-top: 126px;
-  }
-
-  .home-banner__header {
-    @include clearfix;
-    margin-bottom: 18px;
-
+.header--home {
+  > .wrapper {
     @include media($tablet) {
-      width: span(14);
+      text-align: left;
+
+      @include span(14);
       @include push(1);
     }
+  }
 
-    .title {
-      color: #fff;
-      font-size: $font-larger;
-      font-weight: $weight-bold;
-      line-height: 1.1;
-      margin: 27px 0 9px;
-      text-align: center;
+  .header__title {
+    @include visually-hidden();
+    text-align: center;
 
-      @include visually-hidden();
-
-      @include media($tablet) {
-        @include visually-restored();
-        margin: 27px 0;
-      }
-
-      @include media($desktop) {
-        font-size: 54px;
-      }
+    @include media($tablet) {
+      @include visually-restored();
     }
+  }
 
-    .subtitle {
-      color: #fff;
-      font-size: 27px;
-      font-weight: normal;
-      line-height: 1.2;
-      margin: 0 0 10px;
-      text-align: center;
+  .header__subtitle {
+    font-size: $font-medium;
+    font-weight: $weight-normal;
+    text-align: center;
 
-      @include media($tablet) {
-        @include visually-hidden();
-      }
+    @include media($tablet) {
+      @include visually-hidden();
     }
   }
 }
