@@ -40,7 +40,11 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
     'reportback_permalink' => array(
       'template' => 'reportback-permalink',
       'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
-      'variables' => array('reportback' => NULL),
+      'variables' => array(
+        'rb_image' => NULL,
+        'reportback' => NULL,
+        'node' => NULL,
+        ),
       )
     );
 }
