@@ -151,11 +151,11 @@ function build {
     build_helper 'default' $1 $2
   fi
 
-  if [ ! -e "~/.bash_profile" ]
+  if [ ! -e "~/.bashrc" ]
   then
     echo 'Setting up PHP CodeSniffer...'
-    echo 'alias codercs="phpcs --standard=$WEB_PATH/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' >> ~/.bash_profile
-    source ~/.bash_profile
+    echo 'alias codercs="phpcs --standard=$WEB_PATH/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' >> ~/.bashrc
+    source ~/.bashrc
   fi
 
   echo 'Adding APC script at /apc.php...'
