@@ -1271,3 +1271,34 @@ function dosomething_user_tokens($type, $tokens, array $data = array(), array $o
   }
   return $replacements;
 }
+
+/**
+ * Returns a scaled down version of a user object.
+ *
+ * @param obj $user
+ *  (optional) The loaded user object.
+ * @return obj
+ *   Available properties:
+ *
+ *   - uid: (int)
+ *   - email: (int)
+ *   - mobile: (int)
+ *   - first_name: (string)
+ *   - last_name: (string)
+ *
+ */
+function dosomething_user_load($user = NULL) {
+  if (!$user) {
+    global $user;
+    $user = $user;
+  }
+  // Create a dummy object to return.
+  $nice_user = new stdClass();
+  $nice_user->uid = $user->uid;
+  $nice_user->first_name = dosomething_user_get_field('field_first_name', $user);
+  $nice_user->last_name = dosomething_user_get_field('field_last_name', $user);
+  $nice_user->mobile = dosomething_user_get_field('field_mobile', $user);
+  $nice_user->email = $user->mail;
+
+  return $nice_user;
+}
