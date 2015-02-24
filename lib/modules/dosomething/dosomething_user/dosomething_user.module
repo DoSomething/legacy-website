@@ -272,7 +272,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
       if ($is_validate_address_set) {
-        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
       }
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
@@ -610,7 +610,7 @@ function _dosomething_user_register_helper_text(&$form) {
  * @see dosomething_user_form_alter().
  *
  * @param array $form
- *  A Drupal Form API array, expected forms are User Register/Profile forms. 
+ *  A Drupal Form API array, expected forms are User Register/Profile forms.
  */
 function _dosomething_user_global_display_fields(&$form) {
   // List of fields to globally turn on/off.
@@ -1122,7 +1122,7 @@ function dosomething_user_get_records($tbl_name, $uid) {
     ->fields('t')
     ->condition('uid', $uid, '=')
     ->execute()
-    ->fetchAll();   
+    ->fetchAll();
   }
   else {
     watchdog('dosomething_user', 'Table %tbl_name', array('%tbl_name' => $tbl_name), WATCHDOG_WARNING);
