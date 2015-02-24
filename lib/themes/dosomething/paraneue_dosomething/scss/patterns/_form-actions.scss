@@ -1,0 +1,9 @@
+// Overrides to Form Actions pattern.
+.form-actions.-inline {
+  .button {
+    font-size: $font-regular;
+    padding-top: ($base-spacing / 2) + 2px;
+    padding-bottom: ($base-spacing / 2) - 2px;
+  }
+
+}
