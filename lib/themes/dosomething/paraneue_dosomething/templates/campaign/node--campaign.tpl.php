@@ -163,8 +163,14 @@
       <?php if (isset($action_guides)): ?>
         <?php foreach ($action_guides as $delta => $action_guide): ?>
         <div data-modal id="modal-action-guide-<?php print $delta; ?>" role="dialog">
-          <div><?php print $action_guide['content']; ?></div>
-          <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+          <div class="modal__block">
+            <div><?php print $action_guide['content']; ?></div>
+          </div>
+          <div class="modal__block">
+            <div class="form-actions">
+              <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+            </div>
+          </div>
         </div>
         <?php endforeach; ?>
       <?php endif; ?>
