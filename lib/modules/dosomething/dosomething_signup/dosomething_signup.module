@@ -498,7 +498,10 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'campaign_title' => $node->title,
     'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),
   );
-  if ($params['mobile'] && $opt_in) {
+
+  // Don't subscribe 26+ yo users for Mobile Commons.
+  $user_is_old = dosomething_user_is_old_person($account);
+  if ($params['mobile'] && $opt_in && !$user_is_old) {
     $params['mc_opt_in_path_id'] = $opt_in;
   }
 
