@@ -22,6 +22,12 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_reportback_log', FALSE),
     '#description' => t("Logs Reportback activity. This should be disabled on production."),
   );
+  $form['dosomething_reportback_display_permalink'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable permalink page.'),
+    '#default_value' => variable_get('dosomething_reportback_display_permalink', FALSE),
+    '#description' => t("Displays the permalink/confirmation page instead of the confirmation page after submitting a reportback."),
+  );
   return system_settings_form($form);
 }
 
@@ -184,7 +190,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
   }
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
-    '#type' => 'submit', 
+    '#type' => 'submit',
     '#value' => t('Save')
   );
   return $form;
