@@ -111,14 +111,18 @@
             <li class="<?php print $reportback_gallery_item['order_class']; ?>">
               <div class="figure">
                 <?php if (isset($reportback_gallery_item['image'])): ?>
-                  <?php print $reportback_gallery_item['image']; ?>
+                  <div class="figure__media">
+                    <?php print $reportback_gallery_item['image']; ?>
+                  </div>
                 <?php endif; ?>
-                <?php if (isset($reportback_gallery_item['first_name'])): ?>
-                  <h3><?php print $reportback_gallery_item['first_name']; ?></h3>
-                <?php endif; ?>
-                <?php if (isset($reportback_gallery_item['caption'])): ?>
-                  <div class="figure__body"><?php print $reportback_gallery_item['caption']; ?></div>
-                <?php endif; ?>
+                <div class="figure__body">
+                  <?php if (isset($reportback_gallery_item['first_name'])): ?>
+                    <h3><?php print $reportback_gallery_item['first_name']; ?></h3>
+                  <?php endif; ?>
+                  <?php if (isset($reportback_gallery_item['caption'])): ?>
+                    <?php print $reportback_gallery_item['caption']; ?>
+                  <?php endif; ?>
+                </div>
               </div>
             </li>
 
