@@ -7,6 +7,7 @@ define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') 
 
 include_once 'dosomething_reportback.features.inc';
 include_once 'dosomething_reportback.forms.inc';
+include_once 'dosomething_reportback.theme.inc';
 
 /**
  * Implements hook_entity_info().
@@ -187,9 +188,9 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
-  $items['rb/%reportback_file'] = array(
+  $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
-    'page callback' => 'dosomething_reportback_file_view_entity',
+    'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1),
     //'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('administer modules'),
@@ -319,41 +320,7 @@ function dosomething_reportback_review_page_access($entity) {
   return FALSE;
 }
 
-/**
- * Implements hook_theme().
- */
-function dosomething_reportback_theme($existing, $type, $theme, $path) {
-  return array(
-    // @TODO_RBv2 - temp theme function; remove when RBv2 launched to Prod.
-    'old_reportback_submitted_images' => array(
-      'template' => 'old-reportback-submitted-images',
-      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
-      'variables' => array(
-        'updated' => NULL,
-        'images' => NULL,
-      ),
-    ),
-    'reportback_prior_submissions' => array(
-      'template' => 'reportback-prior-submissions',
-      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
-      'variables' => array(
-        'updated' => NULL,
-        'images' => NULL,
-      ),
-    ),
-    'reportback_latest_submission' => array(
-      'template' => 'reportback-latest-submission',
-      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
-      'variables' => array(
-        'image' => NULL,
-      ),
-    ),
-    'dosomething_reportback_files_form' => array(
-      'render element' => 'form',
-      'file' => 'dosomething_reportback.admin.inc',
-    ),
-  );
-}
+
 
 /**
  * Implements hook_admin_paths().
@@ -439,8 +406,8 @@ function dosomething_reportback_admin_view_entity($entity) {
 /**
  * Callback for /rbf/FID page.
  */
-function dosomething_reportback_file_view_entity($entity) {
-  return entity_view('reportback_file', array($entity->rbid => $entity), 'full');
+function dosomething_reportback_view_entity($entity) {
+  return theme('reportback_permalink', array('reportback' => $entity));
 }
 
 /**
