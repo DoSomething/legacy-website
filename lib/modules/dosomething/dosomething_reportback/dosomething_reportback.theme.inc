@@ -44,6 +44,7 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
         'rb_image' => NULL,
         'reportback' => NULL,
         'node' => NULL,
+        'user' => NULL,
         ),
       )
     );

@@ -11,6 +11,7 @@
 <?php echo $rb_image ?>
 
 <?php echo $reportback->caption ?>
+<?php echo $user->first_name ?>
 
 <?php echo $reportback->why_participated ?>
 
