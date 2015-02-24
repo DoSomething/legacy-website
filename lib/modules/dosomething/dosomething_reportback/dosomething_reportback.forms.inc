@@ -24,7 +24,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'why_participated' => NULL,
     ));
   }
-  
+
   // Admin form elements:
   $paths = array('reportback', 'admin');
   if (user_access('edit any reportback') && in_array(arg(0), $paths)) {
@@ -76,7 +76,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       ),
     ),
   );
-  
+
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
@@ -97,7 +97,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
 
     foreach ($entity->fids as $index => $fid) {
       $reportback_submissions_data[$index] = reportback_file_load($fid);
-      $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300'); 
+      $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300');
     }
 
     $reportback_prior_submissions = array_reverse($reportback_submissions_data);
@@ -124,7 +124,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $submit_label = t("Update submission");
   }
 
-  
+
   $form['rbid'] = array(
     '#type' => 'hidden',
     '#default_value' => $entity->rbid,
@@ -316,8 +316,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   dosomething_reportback_save($values);
 
   // Redirect to confirmation.
-  $display_permalink = variable_get('dosomething_display_reportback_permalink');
-  if (!$is_admin_form && $display_permalink) {
+  $display_permalink = variable_get('dosomething_reportback_display_permalink');
+  if (!$is_admin_form && !$display_permalink) {
     $redirect = dosomething_campaign_get_confirmation_path($values['nid']);
     $form_state['redirect'] = $redirect;
   }
