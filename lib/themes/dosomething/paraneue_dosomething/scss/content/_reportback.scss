@@ -8,7 +8,6 @@
     padding: ($base-spacing / 4);
 
     @include media($larger) {
-      // min-height: 335px;
       padding: ($base-spacing / 2);
     }
 
