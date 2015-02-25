@@ -82,9 +82,10 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
     foreach ($int_properties as $property) {
       $record->{$property} = (int) $record->{$property};
     }
-    // Encode user inputted properties.
+    $allowed_tags = array();
+    // Filter HTML from user inputted properties.
     foreach ($user_input as $property) {
-      $record->{$property} = check_plain($record->{$property});
+      $record->{$property} = filter_xss($record->{$property}, $allowed_tags);
     }
     $reportback = reportback_load($record->rbid);
     $record->quantity_label = $reportback->quantity_label;
