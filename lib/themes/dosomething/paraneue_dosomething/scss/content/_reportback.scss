@@ -1,6 +1,6 @@
 // @TODO: Patternize and move/merge into Neue!
-// Potentially rework into being part of the
-// .media pattern.
+// ---------------------------------------------------------
+
 .photo {
 
   &.-framed {
@@ -8,7 +8,6 @@
     padding: ($base-spacing / 4);
 
     @include media($larger) {
-      min-height: 335px;
       padding: ($base-spacing / 2);
     }
 
@@ -18,14 +17,15 @@
 
     .__copy {
       font-size: $font-smaller;
-      height: 75px;
-      line-height: 1.1;
+      height: 60px;
+      line-height: 1.2;
       overflow: hidden;
       margin-top: ($base-spacing / 2);
       word-wrap: break-word;
 
       @include media($large) {
         font-size: $font-small;
+        height: 90px;
       }
     }
   }
@@ -71,6 +71,7 @@
   .reportback__view-more {
     margin-bottom: $base-spacing;
     overflow: hidden;
+    padding-bottom: ($base_spacing * 2);
     position: relative;
 
     @include media($medium) {
@@ -87,8 +88,11 @@
   }
 
   .button--view-more {
+    bottom: 0;
     color: #000;
     float: right;
+    position: absolute;
+    right: 0;
     text-transform: lowercase;
 
     &:focus {
