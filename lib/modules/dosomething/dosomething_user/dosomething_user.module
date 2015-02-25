@@ -272,7 +272,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
       if ($is_validate_address_set) {
-        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields'; 
+        $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
       }
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
@@ -614,7 +614,7 @@ function _dosomething_user_register_helper_text(&$form) {
  * @see dosomething_user_form_alter().
  *
  * @param array $form
- *  A Drupal Form API array, expected forms are User Register/Profile forms. 
+ *  A Drupal Form API array, expected forms are User Register/Profile forms.
  */
 function _dosomething_user_global_display_fields(&$form) {
   // List of fields to globally turn on/off.
@@ -1126,7 +1126,7 @@ function dosomething_user_get_records($tbl_name, $uid) {
     ->fields('t')
     ->condition('uid', $uid, '=')
     ->execute()
-    ->fetchAll();   
+    ->fetchAll();
   }
   else {
     watchdog('dosomething_user', 'Table %tbl_name', array('%tbl_name' => $tbl_name), WATCHDOG_WARNING);
@@ -1274,4 +1274,35 @@ function dosomething_user_tokens($type, $tokens, array $data = array(), array $o
      }
   }
   return $replacements;
+}
+
+/**
+ * Returns a scaled down version of a user object.
+ *
+ * @param obj $user
+ *  (optional) The loaded user object.
+ * @return obj
+ *   Available properties:
+ *
+ *   - uid: (int)
+ *   - email: (int)
+ *   - mobile: (int)
+ *   - first_name: (string)
+ *   - last_name: (string)
+ *
+ */
+function dosomething_user_load($user = NULL) {
+  if (!$user) {
+    global $user;
+    $user = $user;
+  }
+  // Create a dummy object to return.
+  $nice_user = new stdClass();
+  $nice_user->uid = $user->uid;
+  $nice_user->first_name = dosomething_user_get_field('field_first_name', $user);
+  $nice_user->last_name = dosomething_user_get_field('field_last_name', $user);
+  $nice_user->mobile = dosomething_user_get_field('field_mobile', $user);
+  $nice_user->email = $user->mail;
+
+  return $nice_user;
 }

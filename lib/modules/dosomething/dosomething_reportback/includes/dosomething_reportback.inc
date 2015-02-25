@@ -308,7 +308,7 @@ class ReportbackEntityController extends EntityAPIController {
     if ($entity->uid != $user->uid) {
       // And current user can't edit any reportback:
       if (!user_access('edit any reportback') && !drupal_is_cli()) {
-        watchdog('dosomething_reportback', "Attempted uid override for @reportback by User @uid", 
+        watchdog('dosomething_reportback', "Attempted uid override for @reportback by User @uid",
           array(
             '@reportback' => json_encode($entity),
             '@uid' => $user->uid,
