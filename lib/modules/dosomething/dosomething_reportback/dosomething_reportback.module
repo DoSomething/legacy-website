@@ -430,7 +430,7 @@ function dosomething_reportback_view_entity($entity) {
       )
     );
   }
-  return drupal_not_found();
+  drupal_not_found();
 }
 
 /**
