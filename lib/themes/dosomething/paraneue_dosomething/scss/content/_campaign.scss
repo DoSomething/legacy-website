@@ -19,7 +19,7 @@
 
 .campaign--pitch,
 .campaign--grouped {
-  [role="banner"] {
+  .header {
     .message-callout {
       .message-callout__copy {
         &:before {
@@ -49,7 +49,7 @@
 
 
 // Campaign Action Page
-.banner--action {
+.header--action {
   &.has-promotions {
     > .wrapper {
       @include media($tablet) {
