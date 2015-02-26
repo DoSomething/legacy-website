@@ -535,7 +535,7 @@ function restart_php5_fpm {
   PHP_FPM_STATUS="$(sudo service php5-fpm status)"
   PHP_VERSION="$(php -v|grep --only-matching --perl-regexp "5\.\\d+\.\\d+")"
 
-  if [[ ${PHP_FPM_STATUS} == " * php5-fpm is running" ]] && $(echo ${PHP_VERSION} | grep --quiet "5.5")
+  if $(echo ${PHP_FPM_STATUS} | grep --quiet "php5-fpm start/running") && $(echo ${PHP_VERSION} | grep --quiet "5.5")
   then
     echo "Restarting PHP-FPM now"
     sudo service php5-fpm restart
