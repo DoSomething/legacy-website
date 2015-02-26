@@ -459,16 +459,17 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  */
 function dosomething_signup_mbp_request($account, $node, $opt_in) {
   // Send MBP request.
-  if (module_exists('dosomething_mbp')) {
-    // Gather mbp params for the signup.
-    $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
-    // Send campaign mbp request.
-    if ($node->type == 'campaign') {
-      dosomething_mbp_request('campaign_signup', $params);
-    }
-    elseif ($node->type == 'campaign_group') {
-      dosomething_mbp_request('campaign_group_signup', $params);
-    }
+  if (!module_exists('dosomething_mbp')) {
+    return;
+  }
+  // Gather mbp params for the signup.
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
+  // Send campaign mbp request.
+  if ($node->type == 'campaign') {
+    dosomething_mbp_request('campaign_signup', $params);
+  }
+  elseif ($node->type == 'campaign_group') {
+    dosomething_mbp_request('campaign_group_signup', $params);
   }
 }
 
@@ -561,9 +562,12 @@ function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
   $nid = $node->nid;
   $grouping_id = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
   $group_name = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
+  // MailChimp List Id.
+  $mli = variable_get('dosomething_signup_mailchimp_general_list_id');
   // If a value is present for Mailchimp groups:
-  if (isset($grouping_id) && isset($group_name)) {
+  if (!empty($mli) && !empty($grouping_id) && !empty($group_name)) {
     // Add it into the mbp_request params.
+    $params['mailchimp_list_id'] = $mli;
     $params['mailchimp_grouping_id'] = $grouping_id;
     $params['mailchimp_group_name'] = $group_name;
   }
