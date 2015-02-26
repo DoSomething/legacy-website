@@ -1,16 +1,14 @@
 body.-affiliate {
-  .home-banner {
-    .header {
-      .title {
+  .header--home {
+    .header__title {
+      @include visually-restored();
+    }
+
+    .header__subtitle {
+      @include visually-hidden();
+
+      @include media($tablet) {
         @include visually-restored();
-      }
-
-      .subtitle {
-        @include visually-hidden();
-
-        @include media($tablet) {
-          @include visually-restored();
-        }
       }
     }
   }
