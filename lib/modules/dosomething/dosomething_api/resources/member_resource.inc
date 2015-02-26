@@ -52,13 +52,42 @@ function _member_resource_defintion() {
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
-          'name' => 'resources/member.resource',
+          'name' => 'resources/member_resource',
         ),
         'callback' => '_member_resource_get_member_count',
         'access callback' => '_member_resource_access',
         'access arguments' => array('get_member_count'),
       ),
     ),
+    'targeted_actions' => array(
+      'password_reset_url' => array(
+        'help' => 'Gets the user password reset URL.',
+        'file' => array('
+          type' => 'inc', 
+          'module' => 'dosomething_api', 
+          'name' => 'resources/member_resource'
+        ),
+        'callback' => 'stuff to do',
+        'access callback' => '_campaign_resource_access',
+        'access arguments' => array('password_reset_url'),
+        'access arguments append' => TRUE, // ? // everything past here needs updatin prob
+        'args' => array(
+          array(
+            'name' => 'nid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The nid of the Campaign node to signup for.',
+          ),
+          array(
+            'name' => 'values',
+            'optional' => FALSE,
+            'source' => 'data',
+            'description' => 'The Signup data',
+            'type' => 'array',
+          ),
+        ),
+      ),    
   );
   return $member_resource;
 }
