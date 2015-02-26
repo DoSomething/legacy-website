@@ -1291,7 +1291,7 @@ function dosomething_user_tokens($type, $tokens, array $data = array(), array $o
  *   - last_name: (string)
  *
  */
-function dosomething_user_load($user = NULL) {
+function dosomething_user_get_simple_user($user = NULL) {
   if (!$user) {
     global $user;
     $user = $user;
