@@ -407,7 +407,7 @@ function dosomething_reportback_admin_view_entity($entity) {
  * Callback for /rbf/FID page.
  */
 function dosomething_reportback_view_entity($entity) {
-  $rb_user = dosomething_user_load(user_load($entity->uid));
+  $rb_user = dosomething_utility_get_scaled_down_user(user_load($entity->uid));
   global $user;
   // For now, only display this page to the user, unless it's a staff member.
   if (($is_current = $user->uid == $rb_user->uid) || dosomething_user_is_staff($user)) {
