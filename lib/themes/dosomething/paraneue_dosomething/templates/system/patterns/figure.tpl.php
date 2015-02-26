@@ -28,6 +28,8 @@
   </div>
 
   <?php if (!empty($content['url']) && !empty($content['button_text'])): ?>
-    <a class="button" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>
+    <div class="form-actions">
+      <a class="button" href="<?php print $content['url'] ?>"><?php print $content['button_text'] ?></a>
+    </div>
   <?php endif; ?>
 </div>

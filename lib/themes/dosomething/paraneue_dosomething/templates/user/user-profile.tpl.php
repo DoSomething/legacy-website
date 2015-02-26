@@ -24,7 +24,7 @@
     </div>
   </header>
 
-  <section class="container -padded profile--campaigns">
+  <section class="container -padded">
     <h1 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h1>
     <div class="wrapper">
       <?php if (empty($doing)): ?>
@@ -40,7 +40,7 @@
   </section>
 
   <?php if (!empty($reportbacks)): ?>
-    <section class="container profile--reportbacks">
+    <section class="container">
       <h1 class="heading -banner"><span><?php print t("You Did"); ?></span></h1>
       <div class="wrapper">
         <div class="container__block">
@@ -50,7 +50,7 @@
     </section>
   <?php endif; ?>
 
-  <section class="container profile--settings">
+  <section class="container -padded">
     <h1 class="heading -banner"><span><?php print t('Your Info'); ?></span></h1>
 
     <div class="wrapper">
@@ -58,8 +58,7 @@
         <h2><?php print t('Account Info'); ?></h2>
       </div>
 
-      <dl class="__user-info">
-
+      <dl class="profile-settings">
         <dt><?php print t('Name'); ?>:</dt>
         <dd>
           <?php print check_plain($first_name); ?>
@@ -80,9 +79,11 @@
         <?php endif; ?>
 
       </dl>
-      <a class="secondary" href="/<?php print $edit_link; ?>">
-        <?php print t('Update my profile'); ?>
-      </a>
+      <div class="profile-actions">
+        <a class="secondary" href="/<?php print $edit_link; ?>">
+          <?php print t('Update my profile'); ?>
+        </a>
+      </div>
     </div>
   </section>
 

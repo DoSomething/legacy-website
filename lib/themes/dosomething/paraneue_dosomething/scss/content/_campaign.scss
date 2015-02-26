@@ -19,7 +19,7 @@
 
 .campaign--pitch,
 .campaign--grouped {
-  [role="banner"] {
+  .header {
     .message-callout {
       .message-callout__copy {
         &:before {
@@ -49,7 +49,7 @@
 
 
 // Campaign Action Page
-.banner--action {
+.header--action {
   &.has-promotions {
     > .wrapper {
       @include media($tablet) {
@@ -83,7 +83,7 @@
   }
 }
 
-.waypoints.waypoints--action {
+.waypoints--action {
   text-align: center;
   padding: gutter() 0;
 
@@ -130,37 +130,3 @@
   }
 
 }
-
-.container--prove {
-
-  // @TODO: v2 Reportbacks temporary addition for classic version.
-  &.reportback-classic {
-    h3, p {
-      color: #fff;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: underline;
-    }
-
-    .button {
-      text-decoration: none;
-    }
-  }
-
-  .message-callout__copy {
-    @include media($larger) {
-      left: 75px;
-      top: -10px;
-    }
-  }
-
-  .carousel {
-    @include media($medium) {
-      float: right;
-    }
-  }
-}
-
-

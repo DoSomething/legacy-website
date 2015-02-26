@@ -27,7 +27,6 @@ $asset-path: "";
 @import "overrides/drupal";
 
 // Local patterns
-@import "patterns/carousel";
 @import "patterns/form-actions"; // @TODO: Move to Neue!
 @import "patterns/promotion"; // @TODO: Move to Neue!
 @import "patterns/statistic"; // @TODO: Move to Neue!
@@ -49,11 +48,9 @@ $asset-path: "";
 @import "content/modal-address";
 @import "content/modal-creator";
 @import "content/modal-crop";
-@import "content/modal-reportback";
 @import "content/modal-schoolfinder";
 @import "content/reportback";
 @import "content/search";
-@import "content/taxonomy";
 @import "content/user";
 
 // One-off pages

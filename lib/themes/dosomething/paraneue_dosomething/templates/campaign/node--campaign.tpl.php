@@ -10,7 +10,7 @@
  */
 ?>
 
-<header role="banner" class="header -hero banner--action <?php print $classes; ?>">
+<header role="banner" class="header -hero header--action <?php print $classes; ?>">
   <div class="wrapper">
     <?php print $campaign_headings; ?>
 
