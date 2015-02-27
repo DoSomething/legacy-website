@@ -145,22 +145,27 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['reportback_submissions']['crop_x'] = array(
     '#weight' => 20,
     '#type' => 'hidden',
+    '#default_value' => 0,
   );
   $form['reportback_submissions']['crop_y'] = array(
     '#weight' => 21,
     '#type' => 'hidden',
+    '#default_value' => 0,
   );
   $form['reportback_submissions']['crop_width'] = array(
     '#weight' => 22,
     '#type' => 'hidden',
+    '#default_value' => 480,
   );
   $form['reportback_submissions']['crop_height'] = array(
     '#weight' => 23,
     '#type' => 'hidden',
+    '#default_value' => 480,
   );
   $form['reportback_submissions']['crop_rotate'] = array(
     '#weight' => 24,
     '#type' => 'hidden',
+    '#default_value' => 0,
   );
 
   $form['divider'] = array(
