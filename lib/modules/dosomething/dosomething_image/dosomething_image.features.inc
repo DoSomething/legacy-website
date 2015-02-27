@@ -69,6 +69,21 @@ function dosomething_image_image_default_styles() {
         ),
         'weight' => 1,
       ),
+      2 => array(
+        'label' => 'Change file format',
+        'help' => 'Choose to save the image as a different filetype.',
+        'effect callback' => 'coloractions_convert_effect',
+        'dimensions passthrough' => TRUE,
+        'form callback' => 'coloractions_convert_form',
+        'summary theme' => 'coloractions_convert_summary',
+        'module' => 'imagecache_coloractions',
+        'name' => 'coloractions_convert',
+        'data' => array(
+          'format' => 'image/jpeg',
+          'quality' => 55,
+        ),
+        'weight' => 2,
+      ),
     ),
   );
 
