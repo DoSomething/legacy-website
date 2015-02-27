@@ -161,7 +161,7 @@ function dosomething_image_image_default_styles() {
     'name' => '400x400',
     'label' => '400x400',
     'effects' => array(
-      2 => array(
+      3 => array(
         'label' => 'Scale and crop',
         'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
         'effect callback' => 'image_scale_and_crop_effect',
@@ -175,6 +175,21 @@ function dosomething_image_image_default_styles() {
           'height' => 400,
         ),
         'weight' => 1,
+      ),
+      4 => array(
+        'label' => 'Change file format',
+        'help' => 'Choose to save the image as a different filetype.',
+        'effect callback' => 'coloractions_convert_effect',
+        'dimensions passthrough' => TRUE,
+        'form callback' => 'coloractions_convert_form',
+        'summary theme' => 'coloractions_convert_summary',
+        'module' => 'imagecache_coloractions',
+        'name' => 'coloractions_convert',
+        'data' => array(
+          'format' => 'image/jpeg',
+          'quality' => 65,
+        ),
+        'weight' => 2,
       ),
     ),
   );
