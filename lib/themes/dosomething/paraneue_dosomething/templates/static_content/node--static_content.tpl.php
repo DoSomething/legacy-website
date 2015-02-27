@@ -72,7 +72,7 @@
       <div class="wrapper">
         <?php if (isset($gallery['title'])): ?>
         <div class="container__block -narrow">
-          <h2><?php print $gallery['title']; ?></h2>
+          <h1><?php print $gallery['title']; ?></h1>
         </div>
         <?php endif; ?>
 
@@ -115,7 +115,7 @@
       <?php if(isset($additional_text_image)): ?>
         <div class="container__block -half with-lists">
           <?php if (isset($additional_text_title)): ?>
-            <h2><?php print $additional_text_title; ?></h2>
+            <h1><?php print $additional_text_title; ?></h1>
           <?php endif; ?>
 
           <?php print $additional_text; ?>
@@ -127,7 +127,7 @@
       <?php else: ?>
         <div class="container__block -narrow with-lists">
           <?php if (isset($additional_text_title)): ?>
-            <h2><?php print $additional_text_title; ?></h2>
+            <h1><?php print $additional_text_title; ?></h1>
           <?php endif; ?>
 
           <?php print $additional_text; ?>
