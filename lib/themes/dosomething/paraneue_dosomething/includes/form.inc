@@ -166,7 +166,7 @@ function paraneue_dosomething_file($variables) {
     return '<label class="gigantor" id="' . $id . '">' . $message . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
   else {
-    return '<label class="button button--file -tertiary" id="' . $id . '"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
+    return '<label class="button button--file -tertiary"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
 }
 
