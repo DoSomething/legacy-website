@@ -87,6 +87,9 @@ projects[google_analytics][subdir] = "contrib"
 projects[http_client][version] = "2.4"
 projects[http_client][subdir] = "contrib"
 
+; ImageCache Actions
+projects[imagecache_actions][version] = "1.5"
+
 ; Internationalization (required for Sitemap, among others)
 projects[i18n][version] = "1.11"
 projects[i18n][subdir] = "contrib"
