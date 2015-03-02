@@ -18,7 +18,7 @@
 <?php if ($is_current): ?>
   <?php echo $copy_vars['owners_rb_subtitle'] ?>
   <?php echo $copy_vars['owners_rb_scholarship'] ?>
-  <?php echo $reportback->caption ?>
+  <?php echo check_plain($reportback->caption) ?>
   <?php echo $user->first_name ?>
 
   <h3>

@@ -120,7 +120,7 @@
                     <h3><?php print $reportback_gallery_item['first_name']; ?></h3>
                   <?php endif; ?>
                   <?php if (isset($reportback_gallery_item['caption'])): ?>
-                    <?php print $reportback_gallery_item['caption']; ?>
+                    <?php print check_plain($reportback_gallery_item['caption']); ?>
                   <?php endif; ?>
                 </div>
               </div>
