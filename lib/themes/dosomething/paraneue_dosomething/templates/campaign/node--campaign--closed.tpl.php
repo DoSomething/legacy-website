@@ -117,7 +117,7 @@
                 <?php endif; ?>
                 <div class="figure__body">
                   <?php if (isset($reportback_gallery_item['first_name'])): ?>
-                    <h3><?php print $reportback_gallery_item['first_name']; ?></h3>
+                    <h3><?php print check_plain($reportback_gallery_item['first_name']); ?></h3>
                   <?php endif; ?>
                   <?php if (isset($reportback_gallery_item['caption'])): ?>
                     <?php print check_plain($reportback_gallery_item['caption']); ?>
