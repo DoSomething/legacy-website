@@ -16,13 +16,18 @@
 
 <?php // Used to determine if the curernt logged in user is the user who submitted the rb. ?>
 <?php if ($is_current): ?>
-
+  <?php echo $copy_vars['owners_rb_subtitle'] ?>
+  <?php echo $copy_vars['owners_rb_scholarship'] ?>
   <?php echo $reportback->caption ?>
   <?php echo $user->first_name ?>
 
-  <h3> <?php t('In your words') ?> </h3>
+  <h3>
+  <?php echo $copy_vars['owners_rb_important'] ?>
+ </h3>
   <?php echo $reportback->why_participated ?>
 
   <?php echo $reportback->quantity ?> <?php echo $reportback->quantity_label ?>
+
+
 
 <?php endif ?>
