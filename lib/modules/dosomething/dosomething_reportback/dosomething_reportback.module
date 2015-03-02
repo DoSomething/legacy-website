@@ -420,6 +420,19 @@ function dosomething_reportback_view_entity($entity) {
     }
     $node = dosomething_campaign_load(node_load($entity->nid));
 
+    $copy_vars = array(
+      'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
+      'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
+      'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
+      'owners_rb_social_header' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header', ''),
+      'owners_rb_social_copy' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy', ''),
+      'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
+      'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
+      'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
+      'non_owners_' => variable_get('dosomething_campaign_permalink_nonowners_page_title', ''),
+
+    );
+
     //@TODO: cache_set this content.
     return theme('reportback_permalink', array(
       'rb_image' => $rb_image,
@@ -427,6 +440,7 @@ function dosomething_reportback_view_entity($entity) {
       'node' => $node,
       'user' => $rb_user,
       'is_current' => $is_current,
+      'copy_vars' => $copy_vars,
       )
     );
   }
