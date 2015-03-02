@@ -16,7 +16,7 @@ WEB_PATH=$BASE_PATH/$WEB_DIR
 # ==============================================================================
 # Functions
 
-for SITE in botswana canada congo ghana kenya indonesia nigeria training uk
+for SITE in botswana brazil canada congo ghana kenya indonesia nigeria training uk
 do
   echo -e "\e[38;5;071mRunning drush on \e[4m$SITE\e[24m...\e[0m"
   cd "$WEB_PATH/sites/$SITE" && drush "$@"

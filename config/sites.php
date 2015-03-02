@@ -2,6 +2,7 @@
 
 $countries = array(
   'botswana',
+  'brazil',
   'canada',
   'congo',
   'ghana',
