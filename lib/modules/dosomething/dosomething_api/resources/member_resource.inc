@@ -9,7 +9,7 @@ function _member_resource_defintion() {
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
-          'name' => 'resources/member.resource',
+          'name' => 'resources/member_resource',
         ),
         'callback' => '_member_resource_create',
           'args' => array(
@@ -62,32 +62,17 @@ function _member_resource_defintion() {
     'targeted_actions' => array(
       'password_reset_url' => array(
         'help' => 'Gets the user password reset URL.',
-        'file' => array('
-          type' => 'inc', 
+        'file' => array(
+          'type' => 'inc', 
           'module' => 'dosomething_api', 
-          'name' => 'resources/member_resource'
+          'name' => 'resources/member_resource',
         ),
-        'callback' => 'stuff to do',
-        'access callback' => '_campaign_resource_access',
+        'callback' => '_member_resource_reset',
+        'access callback' => '_member_resource_access',
         'access arguments' => array('password_reset_url'),
-        'access arguments append' => TRUE, // ? // everything past here needs updatin prob
-        'args' => array(
-          array(
-            'name' => 'nid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The nid of the Campaign node to signup for.',
-          ),
-          array(
-            'name' => 'values',
-            'optional' => FALSE,
-            'source' => 'data',
-            'description' => 'The Signup data',
-            'type' => 'array',
-          ),
-        ),
-      ),    
+        'access arguments append' => TRUE,
+      ), 
+    ),   
   );
   return $member_resource;
 }
@@ -96,7 +81,7 @@ function _member_resource_defintion() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  if ($op == 'create' || $op == 'get_member_count') {
+  if ($op == 'create' || $op == 'get_member_count' || $op == 'password_reset_url') {
     return TRUE;
   }
   global $user;
@@ -211,4 +196,19 @@ function _member_resource_index($parameters) {
   // Return max of ten records.
   $query->range(0, 10);
   return $query->execute()->fetchAll();
+}
+
+/**
+ * Callback for user password reset URL
+ *
+ * @param array $parameters
+ *   Array passed within query string.
+ *   - email (string)..
+ *
+ * @return string
+ *   String of the password reset URL or errors.
+ */
+function _member_resource_reset($nid, $parameters) {
+  watchdog('api', 'it was called');
+  return $nid . ' + ' . $parameters;
 }
