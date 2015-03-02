@@ -429,7 +429,7 @@ function dosomething_reportback_view_entity($entity) {
       'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
       'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
       'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
-      'non_owners_' =>variable_get('dosomething_campaign_permalink_nonowners_page_title', ''),
+      'non_owners_' => variable_get('dosomething_campaign_permalink_nonowners_page_title', ''),
 
     );
 
