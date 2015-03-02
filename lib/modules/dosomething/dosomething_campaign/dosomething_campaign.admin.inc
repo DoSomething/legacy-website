@@ -150,6 +150,97 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_run_no_winner_copy'),
   );
+  // Permalink page.
+  $form['permalink'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Permalink Page'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  // Permalink owners vars.
+  $form['permalink']['owners'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Owners Permalink',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['permalink']['owners']['confirmation'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Owners Permalink as confirmation page',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_page_subtitle'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink confirmation page subtitle'),
+    '#description' => t('Appears on the confirmation page above the reportbackback to the owner.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle'),
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_scholarship'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink confirmation page scholarship addition'),
+    '#description' => t('Displays scholarhship info if a campaign has it.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship'),
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_important_to_you'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink confirmation page important to you header'),
+    '#description' => t('Appears above the why is this important to you user copy.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you'),
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_header'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Social header on reportback permalink page.'),
+    '#description' => t('Appears above the social share on the reportback confirmation page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header'),
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Social copy on reportback permalink page.'),
+    '#description' => t('Appears above the social share on the reportback confirmation page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy'),
+  );
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_cta'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Social cta on reportback permalink page.'),
+    '#description' => t('Appears above the social share on the reportback confirmation page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta'),
+  );
+
+  $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink owners title'),
+    '#description' => t('Appears above the reportback if the owner user is viewing the permalink page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_owners_page_title'),
+  );
+  $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_subtitle'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink owners subtitle'),
+    '#description' => t('Appears above the reportback if the owner user is viewing the permalink page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_owners_page_subtitle'),
+  );
+    // Permalink owners vars.
+  $form['permalink']['nonowners'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Non-owners Permalink',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink non-owners page title'),
+    '#description' => t('Appears above the reportback if an anonymous user (or a non-owner) is viewing the permalink page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_page_title'),
+  );
   return system_settings_form($form);
 }
 
@@ -216,7 +307,7 @@ function dosomething_campaign_admin_status_page() {
  */
 function dosomething_campaign_admin_status_get_row_array($record) {
   return array(
-    $record->nid, 
+    $record->nid,
     l($record->title, 'node/' . $record->nid . '/edit', array(
       // Link back to admin status page for editor to verify char count is ok.
       'query' => array('destination' => 'admin/content/campaign-status'))
