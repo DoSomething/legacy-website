@@ -23,7 +23,7 @@
         <img src="<?php print $picture['src_square']; ?>" />
       </div>
       <div class="__body">
-        <h4 class="__title heading -delta"><?php print $first_name; ?> <?php print $last_initial; ?></h4>
+        <h4 class="__title heading -delta"><?php print checl_plain($first_name); ?> <?php print $last_initial; ?></h4>
         <p class="__location"><?php print $city; ?>, <?php print $state; ?></p>
         <div class="copy"><?php print $copy; ?></div>
         <div class="form-actions">

@@ -19,14 +19,15 @@
   <?php echo $copy_vars['owners_rb_subtitle'] ?>
   <?php echo $copy_vars['owners_rb_scholarship'] ?>
   <?php echo check_plain($reportback->caption) ?>
-  <?php echo $user->first_name ?>
+  <?php echo check_plain($user->first_name) ?>
 
   <h3>
   <?php echo $copy_vars['owners_rb_important'] ?>
  </h3>
-  <?php echo $reportback->why_participated ?>
+  <?php echo check_plain($reportback->why_participated) ?>
 
-  <?php echo $reportback->quantity ?> <?php echo $reportback->quantity_label ?>
+  <?php echo check_plain($reportback->quantity) ?>&nbsp;
+  <?php echo $reportback->quantity_label ?>
 
 
 
