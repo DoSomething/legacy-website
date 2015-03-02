@@ -45,6 +45,7 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
         'reportback' => NULL,
         'node' => NULL,
         'user' => NULL,
+        'copy_vars' => NULL,
         ),
       )
     );
