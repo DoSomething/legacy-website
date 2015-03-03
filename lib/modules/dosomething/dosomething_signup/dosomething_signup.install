@@ -519,5 +519,5 @@ function dosomething_signup_update_7016() {
  */
 function dosomething_signup_update_7017() {
   $name = 'dosomething_signup_mailchimp_general_list_id';
-  variable_get($name, getenv('DS_MB_MAILCHIMP_LIST_ID'));
+  variable_set($name, getenv('DS_MB_MAILCHIMP_LIST_ID'));
 }
