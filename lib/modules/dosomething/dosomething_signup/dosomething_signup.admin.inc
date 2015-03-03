@@ -11,22 +11,47 @@
 function dosomething_signup_opt_in_config_form($form, &$form_state) {
 
   // General Drupal variables.
-  $name = 'dosomething_mobilecommons_opt_in_path_user_register';
-  $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
-  $form[$name] = array(
+  $form['general'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('General'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $name = 'dosomething_signup_mailchimp_general_list_id';
+  $desc = t("String MailChimp List ID for registration and all signups.");
+  $form['general'][$name] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t('Mobilecommons Opt-In Path: User registration'),
+    '#title' => t('MailChimp General List ID'),
     '#default_value' => variable_get($name),
     '#size' => 10,
     '#description' => $desc,
   );
+
   $name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
   $desc = t("Numeric Mobilecommons opt-in path for general campaign signup.");
-  $form[$name] = array(
+  $form['general'][$name] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => t('Mobilecommons Opt-In Path: General campaign signup'),
+    '#default_value' => variable_get($name),
+    '#size' => 10,
+    '#description' => $desc,
+  );
+
+  // Registration.
+  $form['registration'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Registration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $name = 'dosomething_mobilecommons_opt_in_path_user_register';
+  $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
+  $form['registration'][$name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('Mobilecommons Opt-In Path: User registration'),
     '#default_value' => variable_get($name),
     '#size' => 10,
     '#description' => $desc,
@@ -66,8 +91,9 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
 
   // Save general Drupal variables.
   $config_variables = array(
-    'dosomething_mobilecommons_opt_in_path_user_register',
+    'dosomething_signup_mailchimp_general_list_id',
     'dosomething_mobilecommons_opt_in_path_general_campaign_signup',
+    'dosomething_mobilecommons_opt_in_path_user_register',
   );
   foreach ($config_variables as $var_name) {
     variable_set($var_name, $values[$var_name]);
