@@ -313,6 +313,14 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
     'I get action. Social action.',
   );
 
+  // If no placeholders added to site, let's fallback to locally stored ones.
+  if (!$placeholder_urls) {
+    $placeholder_urls = array();
+    for ($i = 1; $i <= $count; $i++) {
+      $placeholder_urls[] = DS_ASSET_PATH . '/dist/images/gallery-placeholder-' . $i . '.jpg';
+    }
+  }
+
   for ($i = 0; $i < $count; $i++) {
     $placeholders[] = paraneue_dosomething_get_gallery_item(array('image' => $placeholder_urls[$i], 'caption' => $placeholder_captions[$i]), 'photo');
   }
