@@ -1,0 +1,16 @@
+.page-reportback-900 {
+  main {
+    background: #4e2b63 no-repeat center center;
+
+    .region-content {
+      background: #FFFFFF no-repeat center center;
+      padding: $base-spacing;
+      @include clearfix;
+    }
+
+    .left-side, .right-side {
+      padding: gutter();
+      @include span(8);
+    }
+  }
+}
