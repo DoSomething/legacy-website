@@ -81,6 +81,7 @@ function _member_resource_defintion() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
+  watchdog('dosomething_api', $op);
   if ($op == 'create' || $op == 'get_member_count' || $op == 'password_reset_url') {
     return TRUE;
   }
@@ -209,6 +210,6 @@ function _member_resource_index($parameters) {
  *   String of the password reset URL or errors.
  */
 function _member_resource_reset($nid, $parameters) {
-  watchdog('api', 'it was called');
+  watchdog('dosomething_api', 'it was called');
   return $nid . ' + ' . $parameters;
 }
