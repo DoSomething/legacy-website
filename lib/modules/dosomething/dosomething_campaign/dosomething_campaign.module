@@ -899,7 +899,7 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
     return $urls;
   }
 
-  return false;
+  return FALSE;
 }
 
 /**
