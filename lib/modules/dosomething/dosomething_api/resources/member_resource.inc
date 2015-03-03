@@ -67,10 +67,18 @@ function _member_resource_defintion() {
           'module' => 'dosomething_api', 
           'name' => 'resources/member_resource',
         ),
+        'args' => array(
+          array(
+            'name' => 'uid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The uid of the user whose password reset url we are getting',
+          ),
+        ),        
         'callback' => '_member_resource_reset',
         'access callback' => '_member_resource_access',
         'access arguments' => array('password_reset_url'),
-        'access arguments append' => TRUE,
       ), 
     ),   
   );
@@ -209,7 +217,7 @@ function _member_resource_index($parameters) {
  * @return string
  *   String of the password reset URL or errors.
  */
-function _member_resource_reset($nid, $parameters) {
+function _member_resource_reset($uid) {
   watchdog('dosomething_api', 'it was called');
   return $nid . ' + ' . $parameters;
 }
