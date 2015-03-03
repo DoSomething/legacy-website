@@ -883,10 +883,7 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
   $var_name = 'dosomething_campaign_default_gallery_fids';
   $fids = variable_get($var_name);
 
-  if (is_null($fids)) {
-    return false;
-  }
-  else {
+  if (!is_null($fids)) {
     $urls = array();
 
     // Extract the fid's.
@@ -901,6 +898,8 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
     }
     return $urls;
   }
+
+  return false;
 }
 
 /**
