@@ -218,6 +218,9 @@ function _member_resource_index($parameters) {
  *   String of the password reset URL or errors.
  */
 function _member_resource_reset($uid) {
-  watchdog('dosomething_api', 'it was called');
-  return $nid . ' + ' . $parameters;
+  //Fix this http://dev.dosomething.org:8888/admin/reports/event/657554
+  $account = array('uid' => $uid);
+  $reset_url = user_pass_reset_url($account);
+  watchdog('dosomething_api', $reset_url);
+  return $uid;
 }
