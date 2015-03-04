@@ -89,7 +89,7 @@ function _member_resource_defintion() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  if ($op == 'create' || $op == 'get_member_count' || $op == 'password_reset_url') {
+  if ($op == 'create' || $op == 'get_member_count') {
     return TRUE;
   }
   global $user;
