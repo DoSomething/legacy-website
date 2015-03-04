@@ -9,7 +9,7 @@ function _member_resource_defintion() {
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
-          'name' => 'resources/member.resource',
+          'name' => 'resources/member_resource',
         ),
         'callback' => '_member_resource_create',
           'args' => array(
@@ -52,13 +52,35 @@ function _member_resource_defintion() {
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
-          'name' => 'resources/member.resource',
+          'name' => 'resources/member_resource',
         ),
         'callback' => '_member_resource_get_member_count',
         'access callback' => '_member_resource_access',
         'access arguments' => array('get_member_count'),
       ),
     ),
+    'targeted_actions' => array(
+      'password_reset_url' => array(
+        'help' => 'Gets the user password reset URL.',
+        'file' => array(
+          'type' => 'inc', 
+          'module' => 'dosomething_api', 
+          'name' => 'resources/member_resource',
+        ),
+        'args' => array(
+          array(
+            'name' => 'uid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The uid of the user whose password reset url we are getting',
+          ),
+        ),        
+        'callback' => '_member_resource_reset',
+        'access callback' => '_member_resource_access',
+        'access arguments' => array('password_reset_url'),
+      ), 
+    ),   
   );
   return $member_resource;
 }
@@ -182,4 +204,20 @@ function _member_resource_index($parameters) {
   // Return max of ten records.
   $query->range(0, 10);
   return $query->execute()->fetchAll();
+}
+
+/**
+ * Callback for user password reset URL
+ *
+ * @param array $parameters
+ *   Array passed within query string.
+ *   - email (string)..
+ *
+ * @return string
+ *   String of the password reset URL or errors.
+ */
+function _member_resource_reset($uid) {
+  $account = user_load($uid);
+  $reset_url = user_pass_reset_url($account);
+  return $reset_url;
 }

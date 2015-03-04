@@ -124,6 +124,11 @@ function dosomething_api_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
+      'targeted_actions' => array(
+        'password_reset_url' => array(
+          'enabled' => '1',
+        ),
+      ),
     ),
   );
   $endpoint->debug = 0;
