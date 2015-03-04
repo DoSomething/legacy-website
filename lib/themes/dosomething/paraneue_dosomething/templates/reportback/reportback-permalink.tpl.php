@@ -1,4 +1,3 @@
-
 <h2> <?php echo $node->title ?> </h2>
 
 <?php if (!$is_current): ?>
