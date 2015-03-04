@@ -33,8 +33,8 @@
     <div class="wrapper">
       <div class="container -white">
         <div class="container__block -half">
-          <?php print $rb_image ?>
-          <div class="caption"><?php print check_plain($reportback->caption) ?></div>
+          <?php print $rb['image']; ?>
+          <div class="caption"><?php print $rb['caption']; ?></div>
         </div>
         <div class="container__block -half -border">
           <h1><?php print $node->title ?></h1>
