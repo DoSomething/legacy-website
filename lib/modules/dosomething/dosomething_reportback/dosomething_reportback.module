@@ -417,7 +417,7 @@ function dosomething_reportback_view_entity($entity) {
     }
     // Additional reportback file specific data.
     $file = reportback_file_load($fid);
-    $rb['image'] = $file-> getImage();
+    $rb['image'] = $file->getImage();
     $rb['caption'] = $file->caption;
 
     $node = dosomething_campaign_load(node_load($entity->nid));
