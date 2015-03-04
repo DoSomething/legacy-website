@@ -217,7 +217,6 @@ function _member_resource_index($parameters) {
  *   String of the password reset URL or errors.
  */
 function _member_resource_reset($uid) {
-  //Fix this http://dev.dosomething.org:8888/admin/reports/event/657554
   $account = user_load($uid);
   $reset_url = user_pass_reset_url($account);
   return $reset_url;
