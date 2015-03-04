@@ -12,7 +12,8 @@
 
 <?php endif ?>
 
-<?php echo $rb_image ?>
+<?php echo $rb['image'] ?>
+<?php echo $rb['caption'] ?>
 
 <?php // Used to determine if the curernt logged in user is the user who submitted the rb. ?>
 <?php if ($is_current): ?>
