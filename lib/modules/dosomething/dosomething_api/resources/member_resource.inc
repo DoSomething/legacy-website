@@ -89,7 +89,6 @@ function _member_resource_defintion() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  watchdog('dosomething_api', $op);
   if ($op == 'create' || $op == 'get_member_count' || $op == 'password_reset_url') {
     return TRUE;
   }
@@ -219,8 +218,7 @@ function _member_resource_index($parameters) {
  */
 function _member_resource_reset($uid) {
   //Fix this http://dev.dosomething.org:8888/admin/reports/event/657554
-  $account = array('uid' => $uid);
+  $account = user_load($uid);
   $reset_url = user_pass_reset_url($account);
-  watchdog('dosomething_api', $reset_url);
-  return $uid;
+  return $reset_url;
 }
