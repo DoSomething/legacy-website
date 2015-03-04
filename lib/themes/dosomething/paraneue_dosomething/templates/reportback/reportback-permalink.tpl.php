@@ -18,7 +18,6 @@
  * - $reportback->quantity
  * - $reportback->quantity_label
  *
- * 
  * @see template_preprocess()
  * @see template_preprocess_block()
  * @see template_process()
@@ -27,19 +26,22 @@
  */
 ?>
 
-<div class="left-side">
-  <div><?php print $rb_image ?></div>
-  <!-- <div class="caption"><?php //print check_plain() ?></div> -->
-  <div class="caption">Squad up to stomp down bullying. -leah</div>
-</div>
-<div class="right-side">
-  <h2><?php print $node->title ?></h2>
-  <h3><?php print check_plain($reportback->quantity) ?><?php print $reportback->quantity_label ?></h3>
-  <h3><?php print t('In your words'); ?></h3>
-  <!-- <p><?php print $copy_vars['owners_rb_important'] ?></p> -->
-  <p><?php print t('This is very important to me because I would rather hang with the guys because they know how to joke around instaed of be a bully and judge every move you take. Buillying is something I have witnessed and even have been the pwerson being bullied.'); ?></p>
-  <h3><?php print t('Add your friends'); ?></h3>
-  <p><?php print t('Social change is better with friends or something, share your work and invite your friends to join Trash Scavenger Hunt'); ?></p>
+<div class="container">
+  <div class="container__block -half">
+    <div><?php print $rb_image ?></div>
+    <!-- <div class="caption"><?php print check_plain($reportback->caption) ?></div> -->
+    <div class="caption">Squad up to stomp down bullying - Leah</div>
+  </div>
+  <div class="container__block -half">
+    <div class="reportback-info-block">
+      <h1><?php print $node->title ?></h1>
+      <h3><?php print check_plain($reportback->quantity) ?> <?php print $reportback->quantity_label ?></h3>
+    </div>
+    <div class="reportback-info-block">
+      <h2><?php print $copy_vars['owners_rb_important'] ?></h2>
+      <p><?php print check_plain($reportback->why_participated) ?></p>
+    </div>
+  </div>
 </div>
 
 <!-- <h2> <?php echo $node->title ?> </h2>

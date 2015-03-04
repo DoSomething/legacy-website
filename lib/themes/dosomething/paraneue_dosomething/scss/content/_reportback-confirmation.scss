@@ -4,13 +4,22 @@
 
     .region-content {
       background: #FFFFFF no-repeat center center;
-      padding: $base-spacing;
       @include clearfix;
     }
+  }
 
-    .left-side, .right-side {
-      padding: gutter();
-      @include span(8);
-    }
+  .container > .wrapper  .region-content .container__block {
+    padding: $base-spacing / 2;
+  }
+
+  .caption {
+    font-family: $font-handwritten;
+    font-weight: $weight-normal;
+    padding-top: $base-spacing;
+    font-size: $font-medium;
+  }
+
+  .reportback-info-block {
+    padding-bottom: $base-spacing;
   }
 }

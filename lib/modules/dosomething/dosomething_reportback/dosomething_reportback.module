@@ -413,10 +413,10 @@ function dosomething_reportback_view_entity($entity) {
   if (($is_current = $user->uid == $rb_user->uid) || dosomething_user_is_staff($user)) {
     $fid = $_GET['fid'];
     if ($fid) {
-      $rb_image = dosomething_image_get_themed_image_by_fid($fid, '300x300');
+      $rb_image = dosomething_image_get_themed_image_by_fid($fid, 'large');
     }
     else {
-      $rb_image = dosomething_image_get_themed_image_by_fid($entity->fids[0], '300x300');
+      $rb_image = dosomething_image_get_themed_image_by_fid($entity->fids[0], 'large');
     }
     $node = dosomething_campaign_load(node_load($entity->nid));
 
