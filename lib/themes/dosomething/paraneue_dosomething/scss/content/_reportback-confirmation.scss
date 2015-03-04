@@ -1,4 +1,10 @@
 .reportback__permalink {
+  .header {
+    > .wrapper {
+      text-align: left;
+    }
+  }
+
   .container {
     &.-purple {
       background: $purple;
@@ -8,8 +14,21 @@
       background: $white;
     }
 
-    .container__block {
-      padding-top: $base-spacing / 2;
+    > .wrapper {
+      @include span(16);
+
+      @include media($tablet) {
+        @include span(12 no-gutters);
+        @include push(2);
+      }
+
+      .container__block.-half {
+        padding: $base-spacing;
+
+        &.-border {
+          border-right: 2px solid $light-gray;
+        }
+      }
     }
   }
 
@@ -18,9 +37,5 @@
     font-weight: $weight-normal;
     padding-top: $base-spacing;
     font-size: $font-medium;
-  }
-
-  .reportback-info-block {
-    padding-bottom: $base-spacing;
   }
 }
