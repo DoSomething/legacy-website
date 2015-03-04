@@ -103,6 +103,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   elseif ($vars['theme_hook_suggestions'][0] === 'page__taxonomy') {
     $full_width = TRUE;
   }
+  elseif ($vars['theme_hook_suggestions'][0] === 'page__reportback') {
+    $full_width = TRUE;
+  }
+
   // Check for User Profile:
   else {
     $is_profile = FALSE;

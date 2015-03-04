@@ -25,55 +25,29 @@
  * @ingroup themeable
  */
 ?>
-
-<div class="container">
-  <div class="container__block -half">
-    <div><?php print $rb_image ?></div>
-    <!-- <div class="caption"><?php print check_plain($reportback->caption) ?></div> -->
-    <div class="caption">Squad up to stomp down bullying - Leah</div>
-  </div>
-  <div class="container__block -half">
-    <div class="reportback-info-block">
-      <h1><?php print $node->title ?></h1>
-      <h3><?php print check_plain($reportback->quantity) ?> <?php print $reportback->quantity_label ?></h3>
+<article class="reportback__permalink">
+  <header role="banner" class="header ">
+    <div class="wrapper">
+      <h1 class="header__title"><?php print check_plain($copy_vars['owners_title']); ?></h1>
+      <p class="header__subtitle"><?php print check_plain($copy_vars['owners_rb_subtitle']); ?></p>
     </div>
-    <div class="reportback-info-block">
-      <h2><?php print $copy_vars['owners_rb_important'] ?></h2>
-      <p><?php print check_plain($reportback->why_participated) ?></p>
+  </header>
+
+  <div class="container -padded -purple">
+    <div class="wrapper">
+      <div class="container -white">
+        <div class="container__block -half">
+          <div><?php print $rb_image ?></div>
+          <!-- <div class="caption"><?php print check_plain($reportback->caption) ?></div> -->
+          <div class="caption">Squad up to stomp down bullying - Leah</div>
+        </div>
+        <div class="container__block -half">
+          <h1><?php print $node->title ?></h1>
+          <p class="heading -gamma"><?php print check_plain($reportback->quantity) ?> <?php print $reportback->quantity_label ?></p>
+          <h2><?php print $copy_vars['owners_rb_important'] ?></h2>
+          <p><?php print check_plain($reportback->why_participated) ?></p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- <h2> <?php echo $node->title ?> </h2>
-
-<?php if (!$is_current): ?>
-  <?php echo $node->call_to_action ?>
-
-  <h3> <?php t('The Problem') ?> </h3>
-  <?php echo $node->fact_problem['fact'] ?>
-
-  <h3> <?php t('The Solution') ?> </h3>
-  <?php echo $node->fact_solution['fact'] ?>
-
-<?php endif ?>
-
-<?php echo $rb_image ?>
-
-<?php // Used to determine if the curernt logged in user is the user who submitted the rb. ?>
-<?php if ($is_current): ?>
-  <?php echo $copy_vars['owners_rb_subtitle'] ?>
-  <?php echo $copy_vars['owners_rb_scholarship'] ?>
-  <?php echo check_plain($reportback->caption) ?>
-  <?php echo check_plain($user->first_name) ?>
-
-  <h3>
-  <?php echo $copy_vars['owners_rb_important'] ?>
- </h3>
-  <?php echo check_plain($reportback->why_participated) ?>
-
-  <?php echo check_plain($reportback->quantity) ?>&nbsp;
-  <?php echo $reportback->quantity_label ?>
-
-
-
-<?php endif ?> -->
+</article>

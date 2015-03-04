@@ -1,15 +1,16 @@
-.page-reportback-900 {
-  main {
-    background: #4e2b63 no-repeat center center;
-
-    .region-content {
-      background: #FFFFFF no-repeat center center;
-      @include clearfix;
+.reportback__permalink {
+  .container {
+    &.-purple {
+      background: $purple;
     }
-  }
 
-  .container > .wrapper  .region-content .container__block {
-    padding: $base-spacing / 2;
+    .-white {
+      background: $white;
+    }
+
+    .container__block {
+      padding-top: $base-spacing / 2;
+    }
   }
 
   .caption {
