@@ -318,7 +318,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   }
 
   // Save values into reportback.
-  dosomething_reportback_save($values);
+  $rid = dosomething_reportback_save($values);
 
   // Redirect to confirmation.
   $display_permalink = variable_get('dosomething_reportback_display_permalink');
@@ -328,7 +328,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   }
   if ($display_permalink) {
     $form_state['redirect'] = array(
-      'reportback/' . $values['rbid'],
+      'reportback/' . $rid,
       array(
         'query' => array(
           'fid' => $values['fid'],
