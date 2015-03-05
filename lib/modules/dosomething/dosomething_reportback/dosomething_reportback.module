@@ -193,7 +193,7 @@ function dosomething_reportback_menu() {
     'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1),
     //'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('view own reportback'),
   );
   $items['admin/reportback/%reportback'] = array(
     'title' => 'Reportback',
