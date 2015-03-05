@@ -38,7 +38,12 @@
         }
 
         &.-border {
-          border-left: 2px solid $light-gray;
+          border-top: 2px solid $light-gray;
+
+          @include media($tablet) {
+            border-left: 2px solid $light-gray;
+            border-top: none;
+          }
         }
       }
     }
