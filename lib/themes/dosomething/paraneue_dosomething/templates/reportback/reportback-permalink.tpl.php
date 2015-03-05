@@ -26,6 +26,9 @@
     <div class="wrapper">
       <h1 class="header__title"><?php print $copy_vars['owners_title']; ?></h1>
       <p class="header__subtitle"><?php print $copy_vars['owners_rb_subtitle']; ?></p>
+      <?php if ($node->scholarship): ?>
+        <p class="header__subtitle"><?php print $copy_vars['owners_rb_scholarship']; ?></p>
+      <?php endif ?>
     </div>
   </header>
 
