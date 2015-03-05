@@ -17,8 +17,8 @@ class ReportbackFileEntity extends Entity {
     return array('path' => 'rb/' . $this->identifier());
   }
 
-  public function getImage() {
-    $image = dosomething_image_get_themed_image_by_fid($this->fid, '300x300');
+  public function getImage($file_size = '300x300') {
+    $image = dosomething_image_get_themed_image_by_fid($this->fid, $file_size);
     if (!$image) {
       return t("File removed.");
     }
