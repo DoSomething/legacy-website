@@ -46,6 +46,36 @@ function _member_resource_defintion() {
         ),
       ),
     ),
+    'relationships' => array(
+      'activity' => array(
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member_resource',
+        ),
+        'help'   => 'Returns Current User Activity. GET from users/current/activity, users/23423/activity',
+        'access callback' => '_member_resource_access',
+        'access arguments' => array('activity'),
+        'access arguments append' => TRUE,
+        'callback' => '_member_resource_get_activity',
+        'args'     => array(
+          array(
+            'name' => 'uid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'string',
+            'description' => 'The uid of the user whose activity to retrieve. Use current for logged in user.',
+          ),
+          array(
+            'name' => 'nid',
+            'type' => 'int',
+            'description' => t('Node nid to filter by.'),
+            'source' => array('param' => 'nid'),
+            'optional' => FALSE,
+          ),
+        ),
+      ),
+    ),
     'actions' => array(
       'get_member_count' => array(
         'help' => 'Returns current member count.',
@@ -204,6 +234,35 @@ function _member_resource_index($parameters) {
   // Return max of ten records.
   $query->range(0, 10);
   return $query->execute()->fetchAll();
+}
+
+/**
+ * Returns User Activity for given $uid and $nid.
+ */
+function _member_resource_get_activity($uid, $nid) {
+  if ($uid === 'current') {
+    global $user;
+    $uid = $user->uid;
+  }
+  elseif (is_numeric($uid)) {
+    $uid = (int) $uid;
+  }
+  $result = new StdClass();
+  if ($sid = dosomething_signup_exists($nid, $uid)) {
+    $signup = signup_load($sid);
+    $result->sid = $signup->sid;
+    $result->signed_up = $signup->timestamp;
+    $result->source = $signup->source;
+    $result->rbid = NULL;
+  }
+  if ($rbid = dosomething_reportback_exists($nid, $uid)) {
+    $reportback = reportback_load($rbid);
+    $result = (object) array_merge((array) $result, (array) $reportback);
+    // Remove unneeded properties.
+    unset($result->uid);
+    unset($result->nid);
+  }
+  return $result;
 }
 
 /**
