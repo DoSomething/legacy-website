@@ -248,6 +248,15 @@ function dosomething_campaign_load($node, $public = FALSE) {
     unset($campaign->variables);
   }
 
+  // Return current user activity for this campaign:
+  $campaign->signup = NULL;
+  if ($sid = dosomething_signup_exists($campaign->nid)) {
+    $campaign->signup = signup_load($sid);
+  }
+  $campaign->reportback = NULL;
+  if ($rbid = dosomething_reportback_exists($campaign->nid)) {
+    $campaign->reportback = reportback_load($rbid);
+  }
   return $campaign;
 }
 
