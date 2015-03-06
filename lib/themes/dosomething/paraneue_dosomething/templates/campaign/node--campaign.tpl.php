@@ -8,8 +8,6 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_creator: HTML for the Campaign Creator link/modal.
  */
-
-dsm($variables);
 ?>
 
 <header role="banner" class="header -hero header--action <?php print $classes; ?>">
