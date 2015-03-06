@@ -37,8 +37,8 @@
 
   <div class="container -padded -purple">
     <div class="wrapper">
-      <div class="container -white">
-        <div class="container__block -half">
+      <div class="card">
+        <div class="card__column">
           <?php print $rb['image']; ?>
           <?php if ($rb['caption']): ?>
             <div class="caption">
@@ -46,7 +46,7 @@
             </div>
           <?php endif; ?>
         </div>
-        <div class="container__block -half -border">
+        <div class="card__column -border">
           <h1><?php print $node->title; ?></h1>
           <!--Show user the reportback confirmation page -->
           <?php if ($is_owner): ?>
