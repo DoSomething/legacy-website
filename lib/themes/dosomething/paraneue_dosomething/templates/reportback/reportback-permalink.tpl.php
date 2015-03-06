@@ -36,7 +36,11 @@
       <div class="container -white">
         <div class="container__block -half">
           <?php print $rb['image']; ?>
-          <div class="caption"><?php print $rb['caption']; ?> - <?php print $user->first_name; ?></div>
+          <?php if ($rb['caption']): ?>
+            <div class="caption">
+              <?php print $rb['caption']; ?> - <?php print $user->first_name; ?>
+            </div>
+          <?php endif; ?>
         </div>
         <div class="container__block -half -border">
           <h1><?php print $node->title; ?></h1>
