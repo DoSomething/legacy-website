@@ -6,7 +6,7 @@
  * Available variables:
  * - $rb_image                           : Reportback image.
  * - $node->title                        : Title of the campaign
- * - $is_current                         : Used to determine if the curernt logged in user is the user who submitted the rb.
+ * - $is_owner                           : Used to determine if the curernt logged in user is the user who submitted the rb.
  * - $copy_vars['owners_rb_subtitle']    : Title of the reportback confirmation page
  * - $copy_vars['owners_rb_scholarship'] : Subtitle of the reportback confirmation page.
  * - $copy_vars['owners_rb_important']   : Title of the why I participated section
@@ -24,10 +24,14 @@
 <article class="reportback__permalink">
   <header role="banner" class="header ">
     <div class="wrapper">
-      <h1 class="header__title"><?php print $copy_vars['owners_title']; ?></h1>
-      <p class="header__subtitle">
-        <?php print $copy_vars['owners_rb_subtitle']; ?>. <?php if ($node->scholarship) { print $copy_vars['owners_rb_scholarship']; } ?>
-      </p>
+      <?php if ($is_owner): ?>
+        <h1 class="header__title"><?php print $copy_vars['owners_title']; ?></h1>
+        <p class="header__subtitle">
+          <?php print $copy_vars['owners_rb_subtitle']; ?>. <?php if ($node->scholarship) { print $copy_vars['owners_rb_scholarship']; } ?>
+        </p>
+      <?php else: ?>
+        <h1 class="header__title"><?php print $copy_vars['non_owners_title']; ?></h1>
+      <?php endif ?>
     </div>
   </header>
 
@@ -45,7 +49,7 @@
         <div class="container__block -half -border">
           <h1><?php print $node->title; ?></h1>
           <!--Show user the reportback confirmation page -->
-          <?php if ($is_current): ?>
+          <?php if ($is_owner): ?>
             <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
             <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
             <p><?php print $reportback->why_participated; ?></p>
