@@ -31,13 +31,18 @@
       padding: $base-spacing;
     }
 
-    &.-border {
+    &.-right {
       border-top: 2px solid $light-gray;
+      padding: 0px;
 
       @include media($tablet) {
         border-left: 2px solid $light-gray;
         border-top: none;
       }
+    }
+
+    .card__copy {
+      padding: $base-spacing;
     }
   }
 
