@@ -25,10 +25,9 @@
   <header role="banner" class="header ">
     <div class="wrapper">
       <h1 class="header__title"><?php print $copy_vars['owners_title']; ?></h1>
-      <p class="header__subtitle"><?php print $copy_vars['owners_rb_subtitle']; ?></p>
-      <?php if ($node->scholarship): ?>
-        <p class="header__subtitle"><?php print $copy_vars['owners_rb_scholarship']; ?></p>
-      <?php endif ?>
+      <p class="header__subtitle">
+        <?php print $copy_vars['owners_rb_subtitle']; ?>. <?php if ($node->scholarship) { print $copy_vars['owners_rb_scholarship']; } ?>
+      </p>
     </div>
   </header>
 
@@ -37,7 +36,11 @@
       <div class="container -white">
         <div class="container__block -half">
           <?php print $rb['image']; ?>
-          <div class="caption"><?php print $rb['caption']; ?> - <?php print $user->first_name; ?></div>
+          <?php if ($rb['caption']): ?>
+            <div class="caption">
+              <?php print $rb['caption']; ?> - <?php print $user->first_name; ?>
+            </div>
+          <?php endif; ?>
         </div>
         <div class="container__block -half -border">
           <h1><?php print $node->title; ?></h1>
