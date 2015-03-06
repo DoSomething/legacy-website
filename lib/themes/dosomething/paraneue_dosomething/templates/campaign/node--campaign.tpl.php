@@ -8,6 +8,8 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_creator: HTML for the Campaign Creator link/modal.
  */
+
+dsm($variables);
 ?>
 
 <header role="banner" class="header -hero header--action <?php print $classes; ?>">
@@ -263,7 +265,7 @@
 
     <div class="wrapper">
       <div class="container__block">
-        <h3 class="heading -beta inline-alt-text-color"><?php print t('Pics or It Didn’t Happen'); ?></h3>
+        <h3 class="heading -beta inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
         <?php if (isset($reportback_copy)): ?>
           <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
         <?php endif; ?>
