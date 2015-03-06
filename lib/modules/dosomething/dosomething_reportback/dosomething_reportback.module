@@ -193,7 +193,7 @@ function dosomething_reportback_menu() {
     'page callback' => 'dosomething_reportback_view_entity',
     'page arguments' => array(1),
     //'access callback' => 'dosomething_reportback_access',
-    'access arguments' => array('view own reportback'),
+    'access arguments' => array('access content'),
   );
   $items['admin/reportback/%reportback'] = array(
     'title' => 'Reportback',
@@ -407,45 +407,42 @@ function dosomething_reportback_admin_view_entity($entity) {
  * Callback for /rbf/FID page.
  */
 function dosomething_reportback_view_entity($entity) {
-  $rb_user = dosomething_user_get_simple_user(user_load($entity->uid));
+  $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($entity->uid));
   global $user;
-  // For now, only display this page to the user, unless it's a staff member.
-  if (($is_current = $user->uid == $rb_user->uid) || dosomething_user_is_staff($user)) {
-    $fid = $_GET['fid'];
-    if (!$fid) {
-      $fid = $entity->fids[0];
-    }
-    // Additional reportback file specific data.
-    $file = reportback_file_load($fid);
-    $rb['image'] = $file->getImage('large');
-    $rb['caption'] = $file->caption;
-
-    $node = dosomething_campaign_load(node_load($entity->nid));
-
-    $copy_vars = array(
-      'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
-      'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
-      'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
-      'owners_rb_social_header' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header', ''),
-      'owners_rb_social_copy' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy', ''),
-      'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
-      'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
-      'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
-      'non_owners_' => variable_get('dosomething_campaign_permalink_nonowners_page_title', ''),
-
-    );
-    //@TODO: cache_set this content.
-    return theme('reportback_permalink', array(
-      'rb' => $rb,
-      'reportback' => $entity,
-      'node' => $node,
-      'user' => $rb_user,
-      'is_current' => $is_current,
-      'copy_vars' => $copy_vars,
-      )
-    );
+  $is_owner = $user->uid == $rb_simple_user->uid;
+  $fid = $_GET['fid'];
+  if (!$fid) {
+    $fid = $entity->fids[0];
   }
-  drupal_not_found();
+  // Additional reportback file specific data.
+  $file = reportback_file_load($fid);
+  $rb['image'] = $file->getImage('large');
+  $rb['caption'] = $file->caption;
+
+  $node = dosomething_campaign_load(node_load($entity->nid));
+
+  $copy_vars = array(
+    'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
+    'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
+    'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
+    'owners_rb_social_header' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header', ''),
+    'owners_rb_social_copy' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy', ''),
+    'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
+    'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
+    'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
+    'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $rb_user)),
+
+  );
+  //@TODO: cache_set this content.
+  return theme('reportback_permalink', array(
+    'rb' => $rb,
+    'reportback' => $entity,
+    'node' => $node,
+    'user' => $rb_simple_user,
+    'is_owner' => $is_owner,
+    'copy_vars' => $copy_vars,
+    )
+  );
 }
 
 /**
