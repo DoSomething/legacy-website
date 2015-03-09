@@ -47,13 +47,11 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       phantomcss.screenshot("#know", "step1");
       phantomcss.screenshot("#plan", "step2");
       phantomcss.screenshot("#do", "step3");
-      phantomcss.screenshot("#prove", "step4");
 
       phantomcss.compareExplicit([
         ROOT + '/tests/visual/step1.diff.png',
         ROOT + '/tests/visual/step2.diff.png',
         ROOT + '/tests/visual/step3.diff.png',
-        ROOT + '/tests/visual/step4.diff.png'
       ]);
     });
 
@@ -124,37 +122,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       });
     });
 
-    // ## Report Back
-    casper.then(function() {
-      casper.click(x('//*[text()="Submit Your Pic"]'));
-      this.waitUntilVisible("#modal-report-back", function() {
-        test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
-        
-        this.fill("#dosomething-reportback-form", {
-          "files[reportback_file]": ROOT + "/tests/fixtures/reportback-image.png",
-          "quantity": "10",
-          "why_participated": "Test response."
-        }, true);
-      });
-
-      casper.waitForUrl(/confirmation/, function() {
-        test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
-        test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
-
-        test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
-      });
-    });
-
-    // Check that reportback submitted successfully.
-    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
-      test.assertSelectorHasText("#link--report-back", "Update Submission", "Report back button changed to 'Update Submission'.");
-      casper.click("#link--report-back");
-      this.waitUntilVisible("[data-modal]", function() {
-        test.assertExists("#modal-report-back .submitted-image img", "Submitted report back image is shown.")
-        test.assertField("quantity", "10", "Submitted quantity is shown for editing.")
-        test.assertField("why_participated", "Test response.", "Submitted 'Why Participated?' is shown for editing.")
-      });
-    });
+    // @TODO Update reportback tests for Reportbacks v2!
 
     casper.run(function() {
       test.done();
