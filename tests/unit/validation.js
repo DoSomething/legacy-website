@@ -2,7 +2,7 @@ describe("Validation", function(){
   var Validations;
 
   beforeEach(function() {
-    Validations = NEUE.Validation.Validations;
+    Validations = DS.Validation.Validations;
   });
 
   describe("name", function(){
