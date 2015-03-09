@@ -9,43 +9,41 @@
     &.-purple {
       background: $purple;
     }
+  }
+}
 
-    .-white {
-      background: $white;
+//@TODO - move into /patterns/card.scss
+.card {
+  background: $white;
+  margin: 0 $base-spacing / 2;
+
+  @include media($tablet) {
+    display: table;
+  }
+
+  .card__column {
+    padding: $base-spacing;
+
+    @include media($tablet) {
+      @include span(6 of 12);
+      float: none;
+      display: table-cell;
+      vertical-align: top;
+      padding: $base-spacing;
     }
 
-    > .wrapper {
-      @include span(16);
+    + .card__column {
+      border-top: 2px solid $light-gray;
+      padding: 0px;
 
       @include media($tablet) {
-        @include span(12 no-gutters);
-        @include push(2);
+        border-left: 2px solid $light-gray;
+        border-top: none;
       }
+    }
 
-      .container {
-        @include media($tablet) {
-          display: table;
-        }
-      }
-
-      .container__block.-half {
-        padding: $base-spacing;
-
-        @include media($tablet) {
-          float: none;
-          display: table-cell;
-          vertical-align: top;
-        }
-
-        &.-border {
-          border-top: 2px solid $light-gray;
-
-          @include media($tablet) {
-            border-left: 2px solid $light-gray;
-            border-top: none;
-          }
-        }
-      }
+    .card__copy {
+      padding: $base-spacing;
     }
   }
 
