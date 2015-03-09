@@ -435,7 +435,7 @@ function dosomething_reportback_view_entity($entity) {
 
   $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
   $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
-  $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . ". " . $incentive : $node->call_to_action;
+  $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
   $link = '/' . drupal_get_path_alias('node/' . $node->nid);
 
   //@TODO: cache_set this content.
