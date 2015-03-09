@@ -2,6 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/drupal"
+  config.vm.box_version = "0.4.0"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
