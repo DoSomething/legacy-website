@@ -30,16 +30,16 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     // ## Header 
     casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       // We expect to see the title and subtitle of the CAMPAIGN
-      test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
-      test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
+      test.assertSelectorHasText("header[role='banner'].-hero .header__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
+      test.assertSelectorHasText("header[role='banner'].-hero .header__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
     });
 
     // ## Content
     casper.then(function() {
-      test.assertSelectorHasText("#know .container__title", "Step 1: Know It", "\"Know It\" banner exists.");
-      test.assertSelectorHasText("#plan .container__title", "Step 2: Plan It", "\"Plan It\" banner exists.");
-      test.assertSelectorHasText("#do .container__title", "Step 3: Do It", "\"Do It\" banner exists.");
-      test.assertSelectorHasText("#prove .container__title", "Step 4: Prove It", "\"Prove It\" banner exists.");
+      test.assertSelectorHasText("#know .heading.-banner", "Step 1: Know It", "\"Know It\" banner exists.");
+      test.assertSelectorHasText("#plan .heading.-banner", "Step 2: Plan It", "\"Plan It\" banner exists.");
+      test.assertSelectorHasText("#do .heading.-banner", "Step 3: Do It", "\"Do It\" banner exists.");
+      test.assertSelectorHasText("#prove .heading.-banner", "Step 4: Prove It", "\"Prove It\" banner exists.");
     });
 
     // ## Visual tests
@@ -110,7 +110,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     // ## Prove It
     casper.then(function() {
-      casper.click(".info-bar .help a");
+      casper.click(".info-bar .info-bar__secondary a");
       this.waitUntilVisible("#modal-contact-form", function() {
         test.assertSelectorHasText("#modal-contact-form", "Enter your question below.", "Zendesk modal displays on click.");
       });
