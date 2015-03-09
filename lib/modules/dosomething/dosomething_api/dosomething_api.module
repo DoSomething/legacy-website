@@ -53,12 +53,12 @@ function dosomething_api_services_resources() {
  *   Parameters to pass to the Reportback Files query.
  *   @see dosomething_reportback_get_reportback_files_query_result().
  * @param int $count
- *   Number of Reporback Files to return.
+ *   Number of Reportback Files to return.
  * @param int $start
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause to select RB Files. This could be used to do paging.
  *
- * @return
+ * @return array
  *   An array of Reportback File objects.
  */
 function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) {

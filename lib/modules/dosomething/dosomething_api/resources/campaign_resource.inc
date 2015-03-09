@@ -264,7 +264,7 @@ function _campaign_resource_reportback($nid, $values) {
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause to select RB Files. This could be used to do paging.
  *
- * @return
+ * @return array
  *   An array of Reportback File objects.
  */
 function _campaign_resource_load_gallery($nid, $count = 25, $start = 0) {

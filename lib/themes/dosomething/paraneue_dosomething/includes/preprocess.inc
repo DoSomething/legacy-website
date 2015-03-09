@@ -234,7 +234,6 @@ function paraneue_dosomething_preprocess_node(&$vars) {
 
     case "campaign":
       paraneue_dosomething_preprocess_node_campaign($vars);
-      $vars['show_new_reportback'] = theme_get_setting('show_new_reportback');
       break;
 
     case "campaign_group":
