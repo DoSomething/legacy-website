@@ -9,15 +9,6 @@
  */
 function dosomething_reportback_theme($existing, $type, $theme, $path) {
   return array(
-    // @TODO_RBv2 - temp theme function; remove when RBv2 launched to Prod.
-    'old_reportback_submitted_images' => array(
-      'template' => 'old-reportback-submitted-images',
-      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
-      'variables' => array(
-        'updated' => NULL,
-        'images' => NULL,
-      ),
-    ),
     'reportback_prior_submissions' => array(
       'template' => 'reportback-prior-submissions',
       'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
