@@ -36,6 +36,7 @@ dependencies[] = field_collection
 dependencies[] = field_group
 dependencies[] = file_entity
 dependencies[] = imagecache_actions
+dependencies[] = imagecache_coloractions
 dependencies[] = i18n
 dependencies[] = libraries
 dependencies[] = l10n_update
