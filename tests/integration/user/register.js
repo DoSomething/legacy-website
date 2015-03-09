@@ -3,7 +3,7 @@
  * Test that a user can create an account.
  */
 
-var REGISTER_SUCCESSFUL_MESSAGE = "You've created an account";
+var REGISTER_SUCCESSFUL_MESSAGE = "Registration successful";
 var testEmail, testPassword;
 
 casper.test.begin("Test that a user can create an account.", 4, {
@@ -40,8 +40,8 @@ casper.test.begin("Test that a user can create an account.", 4, {
         }, true);
 
         // We should see error messages for the fields that weren't correct.
-        test.assertExists("#edit-mail.error", "Email is marked with error if invalid");
-        test.assertExists("#edit-pass-pass2.error", "Confirm Password is marked with error if not matching");
+        test.assertExists("#edit-mail.has-error", "Email is marked with error if invalid");
+        test.assertExists("#edit-pass-pass2.has-error", "Confirm Password is marked with error if not matching");
       });
     });
 
