@@ -41,13 +41,13 @@
             </div>
           <?php endif; ?>
         </div>
-        <div class="card__column -right">
+        <div class="card__column">
           <!--Show user the reportback confirmation page -->
           <?php if ($is_owner): ?>
             <div class="card__copy">
               <h1><?php print $node->title; ?></h1>
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
-  
+
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
               <p><?php print $reportback->why_participated; ?></p>
             </div>

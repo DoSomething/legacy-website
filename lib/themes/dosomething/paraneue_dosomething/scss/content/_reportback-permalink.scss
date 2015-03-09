@@ -12,6 +12,7 @@
   }
 }
 
+//@TODO - move into /patterns/card.scss
 .card {
   background: $white;
   margin: 0 $base-spacing / 2;
@@ -31,7 +32,7 @@
       padding: $base-spacing;
     }
 
-    &.-right {
+    + .card__column {
       border-top: 2px solid $light-gray;
       padding: 0px;
 
