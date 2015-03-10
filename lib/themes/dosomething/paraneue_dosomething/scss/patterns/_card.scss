@@ -1,0 +1,41 @@
+.card {
+  background: $white;
+  margin: 0 $base-spacing / 2;
+
+  @include media($tablet) {
+    display: table;
+  }
+
+  .card__column {
+    padding: $base-spacing;
+
+    @include media($tablet) {
+      @include span(6 of 12);
+      float: none;
+      display: table-cell;
+      vertical-align: top;
+      padding: $base-spacing;
+    }
+
+    + .card__column {
+      border-top: 2px solid $light-gray;
+      padding: 0px;
+
+      @include media($tablet) {
+        border-left: 2px solid $light-gray;
+        border-top: none;
+      }
+    }
+
+    .card__copy {
+      padding: $base-spacing;
+    }
+  }
+
+  .caption {
+    font-family: $font-handwritten;
+    font-weight: $weight-normal;
+    padding-top: $base-spacing;
+    font-size: $font-medium;
+  }
+}
