@@ -10,47 +10,74 @@
       background: $purple;
     }
   }
-}
 
-//@TODO - move into /patterns/card.scss
-.card {
-  background: $white;
-  margin: 0 $base-spacing / 2;
-
-  @include media($tablet) {
+  .card__column > .wrapper {
     display: table;
+    border-collapse: collapse;
   }
 
-  .card__column {
-    padding: $base-spacing;
+  .cta.-share {
+    border-top: none;
 
     @include media($tablet) {
-      @include span(6 of 12);
-      float: none;
-      display: table-cell;
-      vertical-align: top;
-      padding: $base-spacing;
+      display: table-footer-group;
+      border-top: 2px solid $light-gray;
+      border-bottom: none;
     }
 
-    + .card__column {
-      border-top: 2px solid $light-gray;
-      padding: 0px;
+    > .wrapper {
+      display: none;
 
       @include media($tablet) {
-        border-left: 2px solid $light-gray;
-        border-top: none;
+        display: block;
       }
     }
 
-    .card__copy {
-      padding: $base-spacing;
+    .social-icon {
+      padding: $base-spacing / 2;
+
+      @include media($tablet) {
+        padding: $base-spacing;
+      }
     }
+
+  }
+}
+
+//@TODO - Move to Neue as a modifier for the cta pattern
+.cta.-share {
+  padding: 0px;
+
+  > .wrapper {
+    padding-bottom: 0px;
   }
 
-  .caption {
-    font-family: $font-handwritten;
-    font-weight: $weight-normal;
-    padding-top: $base-spacing;
-    font-size: $font-medium;
+  li {
+    float: left;
+    @include span(2 of 6);
+    text-align: center;
+
+    &:hover {
+      background: $blue;
+      cursor: pointer;
+
+      .social-icon {
+        color: $white;
+      }
+    }
+
+    .social-icon {
+      display: block;
+      color: $med-gray;
+      padding: $base-spacing;
+
+      &:hover {
+        color: $white;
+      }
+
+      &:after {
+        font-size: 36px;
+      }
+    }
   }
 }
