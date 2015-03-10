@@ -22,6 +22,7 @@
     @include media($tablet) {
       display: table-footer-group;
       border-top: 2px solid $light-gray;
+      border-bottom: none;
     }
 
     > .wrapper {
@@ -32,7 +33,7 @@
       }
     }
 
-    li {
+    .social-icon {
       padding: $base-spacing / 2;
 
       @include media($tablet) {
@@ -55,11 +56,10 @@
     float: left;
     @include span(2 of 6);
     text-align: center;
-    padding: $base-spacing;
 
     &:hover {
       background: $blue;
-      color: $white;
+      cursor: pointer;
 
       .social-icon {
         color: $white;
@@ -67,7 +67,9 @@
     }
 
     .social-icon {
+      display: block;
       color: $med-gray;
+      padding: $base-spacing;
 
       &:hover {
         color: $white;

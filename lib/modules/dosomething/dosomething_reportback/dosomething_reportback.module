@@ -438,6 +438,12 @@ function dosomething_reportback_view_entity($entity) {
   $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
   $link = '/' . drupal_get_path_alias('node/' . $node->nid);
 
+  // Share button links
+  //@TODO - Pass the correct link in.
+  $fb_link = paraneue_dosomething_facebook_intent("http://www.dosomething.org");
+  $twitter_link = paraneue_dosomething_twitter_intent("http://www.dosomething.org");
+  $tumblr_link = paraneue_dosomething_tumblr_intent("http://www.dosomething.org");
+
   //@TODO: cache_set this content.
   return theme('reportback_permalink', array(
     'rb' => $rb,
@@ -449,6 +455,9 @@ function dosomething_reportback_view_entity($entity) {
     'title' => $title,
     'subtitle' => $subtitle,
     'link' => $link,
+    'fb_link' => $fb_link,
+    'twitter_link' => $twitter_link,
+    'tumblr_link' => $tumblr_link,
     )
   );
 }
