@@ -35,6 +35,12 @@ function dosomething_metatag_preprocess_page(&$vars) {
   }
   // Add relevant image metatags.
   dosomething_metatag_add_metatag_image($node);
+
+  // Add special share info to the permalink page.
+  if (in_array('page__reportback', $vars['theme_hook_suggestions'])) {
+    dosomething_metatag_get_permalink_vars();
+
+  }
 }
 
 /**
@@ -106,4 +112,77 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
     );
     drupal_add_html_head($element, 'twitter_image');
   }
+}
+
+/**
+ * Adds twitter, facebook, tumblr share meta tags to permalink page.
+ */
+function dosomething_metatag_get_permalink_vars() {
+  $rbid = arg(1);
+  $fid = ($_GET['fid']);
+  if (!$fid) {
+    $fid = $entity->fids[0];
+  }
+  $rb_entity = reportback_load($rbid);
+  $file = reportback_file_load($fid);
+  $image = $file->getImageURL('large');
+  $node = dosomething_campaign_load(node_load($rb_entity->nid));
+  $share_copy = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy'), array('node' => $node));
+  $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:card",
+      "content" => 'summary_large_image',
+    ),
+  );
+  drupal_add_html_head($element, 'twitter:card');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:site",
+      "content" => '@dosomething',
+    ),
+  );
+  drupal_add_html_head($element, 'twitter:site');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:image:src",
+      "content" => $file->getImageURL('large'),
+    ),
+  );
+  drupal_add_html_head($element, 'twitter:image:src');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:title",
+      "content" => $node->title,
+    ),
+  );
+  drupal_add_html_head($element, 'twitter:title');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:description",
+      "content" => $share_copy,
+    ),
+  );
+
+  drupal_add_html_head($element, 'twitter:description');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "twitter:url",
+      "content" => $share_url,
+    ),
+  );
+  drupal_add_html_head($element, 'twitter:url');
+
 }
