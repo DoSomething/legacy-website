@@ -24,6 +24,13 @@ class ReportbackFileEntity extends Entity {
     }
     return $image;
   }
+  public function getImageURL($file_size = '300x300') {
+    $image = dosomething_image_get_themed_image_url_by_fid($this->fid, $file_size);
+    if (!$image) {
+      return t("File removed.");
+    }
+    return $image;
+  }
 
   /**
    * Sets the Reportback File status and Reviewer details.
