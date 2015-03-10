@@ -65,15 +65,16 @@ casper.test.begin('Test that a user can authenticate correctly.', 5, {
         }, true);
       });
 
-      this.waitUntilVisible("#link--logout", function() {
-        test.assertExists("#link--logout", "Logout link is shown for logged in users");
+      this.waitUntilVisible(".navigation__dropdown", function() {
+        test.assertExists(".navigation__dropdown", "User dropdown is shown for logged in users");
       });
     });
 
     casper.thenOpenWhenReady(url, function() {
       // Let's log out using the logout button.
+      this.click(".navigation__dropdown-toggle");
       this.click("#link--logout");
-      
+
       this.waitUntilVisible("#link--login", function() {
         test.assertExists("#link--login", "Login link is shown again after logging out");
       });

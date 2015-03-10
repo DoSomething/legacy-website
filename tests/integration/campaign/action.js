@@ -30,16 +30,16 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     // ## Header 
     casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       // We expect to see the title and subtitle of the CAMPAIGN
-      test.assertSelectorHasText("header[role='banner'].-hero .__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
-      test.assertSelectorHasText("header[role='banner'].-hero .__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
+      test.assertSelectorHasText("header[role='banner'].-hero .header__title", CAMPAIGN.data.title, "Title of campaign is printed in H1.");
+      test.assertSelectorHasText("header[role='banner'].-hero .header__subtitle", CAMPAIGN.data.call_to_action, "Subtitle of campaign is printed in H2.");
     });
 
     // ## Content
     casper.then(function() {
-      test.assertSelectorHasText("#know .container__title", "Step 1: Know It", "\"Know It\" banner exists.");
-      test.assertSelectorHasText("#plan .container__title", "Step 2: Plan It", "\"Plan It\" banner exists.");
-      test.assertSelectorHasText("#do .container__title", "Step 3: Do It", "\"Do It\" banner exists.");
-      test.assertSelectorHasText("#prove .container__title", "Step 4: Prove It", "\"Prove It\" banner exists.");
+      test.assertSelectorHasText("#know .heading.-banner", "Step 1: Know It", "\"Know It\" banner exists.");
+      test.assertSelectorHasText("#plan .heading.-banner", "Step 2: Plan It", "\"Plan It\" banner exists.");
+      test.assertSelectorHasText("#do .heading.-banner", "Step 3: Do It", "\"Do It\" banner exists.");
+      test.assertSelectorHasText("#prove .heading.-banner", "Step 4: Prove It", "\"Prove It\" banner exists.");
     });
 
     // ## Visual tests
@@ -47,13 +47,11 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       phantomcss.screenshot("#know", "step1");
       phantomcss.screenshot("#plan", "step2");
       phantomcss.screenshot("#do", "step3");
-      phantomcss.screenshot("#prove", "step4");
 
       phantomcss.compareExplicit([
         ROOT + '/tests/visual/step1.diff.png',
         ROOT + '/tests/visual/step2.diff.png',
         ROOT + '/tests/visual/step3.diff.png',
-        ROOT + '/tests/visual/step4.diff.png'
       ]);
     });
 
@@ -110,7 +108,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
 
     // ## Prove It
     casper.then(function() {
-      casper.click(".info-bar .help a");
+      casper.click(".info-bar .info-bar__secondary a");
       this.waitUntilVisible("#modal-contact-form", function() {
         test.assertSelectorHasText("#modal-contact-form", "Enter your question below.", "Zendesk modal displays on click.");
       });
@@ -124,37 +122,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
       });
     });
 
-    // ## Report Back
-    casper.then(function() {
-      casper.click(x('//*[text()="Submit Your Pic"]'));
-      this.waitUntilVisible("#modal-report-back", function() {
-        test.assertSelectorHasText("#modal-report-back", "Prove It", "Report Back modal displays on click.");
-        
-        this.fill("#dosomething-reportback-form", {
-          "files[reportback_file]": ROOT + "/tests/fixtures/reportback-image.png",
-          "quantity": "10",
-          "why_participated": "Test response."
-        }, true);
-      });
-
-      casper.waitForUrl(/confirmation/, function() {
-        test.assertSelectorHasText("header[role='banner'] .__title", "You did it!", "Confirmation page shown after report back.");
-        test.assertSelectorHasText("header[role='banner'] .__subtitle", CAMPAIGN.data.reportback_confirm_msg, "Campaign confirmation message is shown in subtitle.");
-
-        test.assertElementCount(".gallery .gallery-item", 3, "Three suggested campaigns are shown.");
-      });
-    });
-
-    // Check that reportback submitted successfully.
-    casper.thenOpenWhenReady(CAMPAIGN.url, function() {
-      test.assertSelectorHasText("#link--report-back", "Update Submission", "Report back button changed to 'Update Submission'.");
-      casper.click("#link--report-back");
-      this.waitUntilVisible("[data-modal]", function() {
-        test.assertExists("#modal-report-back .submitted-image img", "Submitted report back image is shown.")
-        test.assertField("quantity", "10", "Submitted quantity is shown for editing.")
-        test.assertField("why_participated", "Test response.", "Submitted 'Why Participated?' is shown for editing.")
-      });
-    });
+    // @TODO Update reportback tests for Reportbacks v2!
 
     casper.run(function() {
       test.done();

@@ -1,18 +1,18 @@
-var user;
+var testSignUpUser;
 
 casper.test.begin("Test that a logged-out user can log in & sign up for a campaign.", 1, {
   /*
    * Prepare campaign from fixture.
    */
   setUp: function() {
-    user = casper.createTestUser();
+    testSignUpUser = casper.createTestUser();
   },
 
   /*
    * Delete test nodes.
    */
   tearDown: function() {
-    casper.deleteUser(user.uid);
+    casper.deleteUser(testSignUpUser.uid);
     phantom.clearCookies();
   },
 
@@ -29,17 +29,17 @@ casper.test.begin("Test that a logged-out user can log in & sign up for a campai
 
     casper.then(function() {
       this.waitUntilVisible("[data-modal]", function() {
-        this.fill("form#user-login-form", {
-          name: user.email,
-          pass: user.password
+        this.fill("#user-login-form", {
+          name: testSignUpUser.email,
+          pass: testSignUpUser.password
         }, true);
       });
     });
 
     // Make sure the signup happened.
     casper.then(function() {
-      casper.waitForSelector('.messages.status', function() {
-        test.assertSelectorHasText('.messages.status', CAMPAIGN_SIGNUP_MESSAGE, 'User can log in and sign up for a campaign');
+      casper.waitForSelector('.messages', function() {
+        test.assertSelectorHasText('.messages', CAMPAIGN_SIGNUP_MESSAGE, 'User can log in and sign up for a campaign');
       });
     });
 

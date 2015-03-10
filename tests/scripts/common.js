@@ -142,7 +142,7 @@ casper.deleteUser = function(uid) {
  */
 casper.campaignSignup = function(nid, uid) {
   casper.logAction("Signing user '" + uid + "' up for campaign '" + nid + "'...");
-  casper.drush(["php-eval", "dosomething_signup_create(" + nid + ", " + uid + ");"]);
+  casper.drush(["php-eval", "\$form = array('uid' => " + uid + "); user_login_submit(array(), $form); dosomething_signup_create(" + nid + ", " + uid + ");"]);
 };
 
 /**
