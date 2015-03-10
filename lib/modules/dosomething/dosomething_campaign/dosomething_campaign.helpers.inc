@@ -139,6 +139,11 @@ function dosomething_campaign_load($node, $public = FALSE) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
   }
+  $campaign->issue = NULL;
+  if ($issue = $wrapper->field_issue->value()) {
+    $campaign->issue['tid'] = $primary_cause->tid;
+    $campaign->issue['name'] = $primary_cause->name;
+  }
 
   // Date fields.
   $campaign->high_season_start = NULL;

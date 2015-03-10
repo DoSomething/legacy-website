@@ -128,6 +128,7 @@ function dosomething_metatag_get_permalink_vars() {
   $image = $file->getImageURL('large');
   $node = dosomething_campaign_load(node_load($rb_entity->nid));
   $share_copy = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy'), array('node' => $node));
+  $share_copy = str_replace('[node:issue]', $node->issue['name'], $share_copy);
   $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
 
   $element = array(
