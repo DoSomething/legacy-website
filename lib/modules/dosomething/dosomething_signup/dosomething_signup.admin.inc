@@ -18,42 +18,67 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
   $name = 'dosomething_signup_mailchimp_general_list_id';
-  $desc = t("String MailChimp List ID for registration and all signups.");
+  $desc = t("General MailChimp List ID used in registrations and signups.");
   $form['general'][$name] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t('MailChimp General List ID'),
+    '#title' => 'MailChimp | mailchimp_list_id',
     '#default_value' => variable_get($name),
-    '#size' => 10,
     '#description' => $desc,
   );
 
   $name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
-  $desc = t("Numeric Mobilecommons opt-in path for general campaign signup.");
+  $desc = t("Numeric Mobile Commons opt-in path for general campaign signup.");
   $form['general'][$name] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t('Mobilecommons Opt-In Path: General campaign signup'),
+    '#title' => t('Mobile Commons | General campaign | mobilecommons_opt_in_path'),
     '#default_value' => variable_get($name),
-    '#size' => 10,
     '#description' => $desc,
   );
 
-  // Registration.
-  $form['registration'] = array(
+  $name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
+  $desc = t("Numeric Mobile Commons opt-in path when user registers for site.");
+  $form['general'][$name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('Mobile Commons | User registration | mobilecommons_opt_in_path'),
+    '#default_value' => variable_get($name),
+    '#description' => $desc,
+  );
+
+  // 26 Club.
+  $form['26plusclub'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Registration'),
+    '#title' => t('26+ Club'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
-  $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
-  $form['registration'][$name] = array(
+  $name = 'dosomething_signup_mailchimp_26plusclub_list_id';
+  $desc = t("Override MailChimp List ID for users older than 26.");
+  $form['26plusclub'][$name] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#title' => t('Mobilecommons Opt-In Path: User registration'),
+    '#title' => 'MailChimp | mailchimp_list_id',
     '#default_value' => variable_get($name),
-    '#size' => 10,
+    '#description' => $desc,
+  );
+  $name = 'dosomething_signup_mailchimp_26plusclub_grouping_id_register';
+  $desc = t("Override MailChimp Registration Grouping ID for users older than 26.");
+  $form['26plusclub'][$name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => 'MailChimp | User registration | mailchimp_grouping_id',
+    '#default_value' => variable_get($name),
+    '#description' => $desc,
+  );
+  $name = 'dosomething_signup_mailchimp_26plusclub_group_name_register';
+  $desc = t("Override MailChimp Registration Interest Group Name for users older than 26.");
+  $form['26plusclub'][$name] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => 'MailChimp | User registration | mailchimp_group_name',
+    '#default_value' => variable_get($name),
     '#description' => $desc,
   );
 
@@ -94,6 +119,9 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
     'dosomething_signup_mailchimp_general_list_id',
     'dosomething_signup_mobilecommons_opt_in_path_general_campaign',
     'dosomething_signup_mobilecommons_opt_in_path_user_register',
+    'dosomething_signup_mailchimp_26plusclub_list_id',
+    'dosomething_signup_mailchimp_26plusclub_grouping_id_register',
+    'dosomething_signup_mailchimp_26plusclub_group_name_register',
   );
   foreach ($config_variables as $var_name) {
     variable_set($var_name, $values[$var_name]);
