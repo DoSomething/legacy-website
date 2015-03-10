@@ -338,8 +338,8 @@ function dosomething_campaign_create_node_from_json($string) {
   $node = new stdClass();
 
   // We'll use this as a flag to find test nodes.
-  $node->created = '-1'; 
-  
+  $node->created = '-1';
+
   $node->type = $data->type;
   $node->title = $data->title;
 
