@@ -1823,7 +1823,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_post_step_copy',
     'label' => 'After Copy',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -1872,7 +1872,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_post_step_header',
     'label' => 'After Header',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -1921,7 +1921,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_pre_step_copy',
     'label' => 'During Copy',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -1970,7 +1970,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_pre_step_header',
     'label' => 'During Header',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
