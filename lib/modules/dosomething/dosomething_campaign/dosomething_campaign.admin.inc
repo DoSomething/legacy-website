@@ -212,7 +212,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta'),
   );
-
+  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_network_copy'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Social network copy.'),
+    '#description' => t('Appears after share on social network.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'),
+  );
   $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink owners title'),
