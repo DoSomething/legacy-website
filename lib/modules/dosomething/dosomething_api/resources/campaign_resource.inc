@@ -220,9 +220,10 @@ function _campaign_resource_signup($nid, $values) {
  * @param array $values
  *   The reportback data to post. Expected keys:
  *   - uid: The user uid (int).  Optional, uses global $user if not set.
- *   - file: Base 64 encoded file string to save.
+ *   - file: Base64 encoded file string to save.
  *   - filename: The filename of the file provided as file.
  *   - file_url: The URL of the reportback file to save (used if no file/filename exist).
+ *   - caption: The caption for the Reportback File if provided.
  *   - quantity (int).
  *   - why_participated (string).
  *   - num_participants (int).
@@ -238,7 +239,7 @@ function _campaign_resource_reportback($nid, $values) {
 
   $file = NULL;
 
-  if (isset($values['file']) && isset($values['filename'])) {
+  if (!empty($values['file']) && !empty($values['filename'])) {
     $values['filepath'] = dosomething_reportback_get_file_dest($values['filename'], $nid, $uid);
     // Use Services module's File Create resource to save the file.
     module_load_include('inc', 'services', 'resources/file_resource');
@@ -246,7 +247,7 @@ function _campaign_resource_reportback($nid, $values) {
     $file = file_load($result['fid']);
   }
   if (!$file) {
-    if (!isset($values['file_url'])) {
+    if (empty($values['file_url'])) {
       return services_error(t("Reportback file_url not found."), 500);
     }
     // Create a file from the $file_url.
