@@ -120,10 +120,10 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
 function dosomething_metatag_get_permalink_vars() {
   $rbid = arg(1);
   $fid = ($_GET['fid']);
-  if (!$fid) {
-    $fid = $entity->fids[0];
-  }
   $rb_entity = reportback_load($rbid);
+  if (!$fid) {
+    $fid = $rb_entity->fids[0];
+  }
   $file = reportback_file_load($fid);
   $image = $file->getImageURL('large');
   $node = dosomething_campaign_load(node_load($rb_entity->nid));
