@@ -21,6 +21,7 @@
  *
  */
 ?>
+
 <article class="reportback__permalink">
   <header role="banner" class="header ">
     <div class="wrapper">
@@ -41,43 +42,25 @@
           <?php endif; ?>
         </div>
         <div class="card__column">
-          <div class="wrapper">
           <!--Show user the reportback confirmation page -->
           <?php if ($is_owner): ?>
-            <div class="cta -share">
-              <div class="wrapper">
-                <p class="cta__message"><?php print $copy_vars['owners_rb_social_cta']; ?></p>
-              </div>
-              <ul>
-                <li><a class="social-icon -facebook js-share-link" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
-                <li><a class="social-icon -twitter js-share-link" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
-                <li><a class="social-icon -tumblr js-share-link" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
-              </ul>
-            </div>
             <div class="card__copy">
               <h1><?php print $node->title; ?></h1>
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
 
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
               <p><?php print $reportback->why_participated; ?></p>
-
-              <h3><?php print $copy_vars['owners_rb_social_header']; ?></h3>
-              <p><?php print $copy_vars['owners_rb_social_copy']; ?></p>
             </div>
           <!--Show non-owner the call to action page -->
           <?php else: ?>
             <div class="card__copy">
               <p class="heading -alpha"><?php print $node->title; ?></p>
 
-              <?php if ($node->fact_problem['fact']): ?>
-                <h3><?php print t('The Problem'); ?></h3>
-                <p><?php print $node->fact_problem['fact']; ?></p>
-              <?php endif; ?>
+              <h3><?php print t('The Problem'); ?></h3>
+              <p><?php print $node->fact_problem['fact']; ?></p>
 
-              <?php if ($node->fact_solution['fact']): ?>
-                <h3><?php print t('The Solution'); ?></h3>
-                <p><?php print $node->fact_solution['fact']; ?></p>
-              <?php endif; ?>
+              <h3><?php print t('The Solution'); ?></h3>
+              <p><?php print $node->fact_solution['fact']; ?></p>
             </div>
             <div class="cta">
               <div class="wrapper">
@@ -86,7 +69,6 @@
               </div>
             </div>
           <?php endif; ?>
-          </div>
         </div>
       </div>
     </div>
