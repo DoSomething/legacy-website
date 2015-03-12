@@ -185,4 +185,53 @@ function dosomething_metatag_get_permalink_vars() {
   );
   drupal_add_html_head($element, 'twitter:url');
 
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "fb:app_id",
+      "content" => variable_get('dosomething_settings_facebook_app_id', ''),
+    ),
+  );
+
+  drupal_add_html_head($element, 'fb:app_id');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:type",
+      "content" => "dosomething_facebook:campaign",
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:type');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:url",
+      "content" => $share_url,
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:url');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:title",
+      "content" => $node->title,
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:title');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:image",
+      "content" => $file->getImageURL('large'),
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:image');
 }
