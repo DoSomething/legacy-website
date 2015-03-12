@@ -330,7 +330,7 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
 
 // @TODO - NOT DONE YET - Just a first pass a creating these share URLs.
 function paraneue_dosomething_facebook_intent($link) {
-  $facebook_app_id = '1374507732873066';
+  $facebook_app_id = variable_get('dosomething_settings_facebook_app_id', '');
   $encoded_link = urlencode($link);
 
   // Creating this link is the more general share feature.
