@@ -22,11 +22,11 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_reportback_log', FALSE),
     '#description' => t("Logs Reportback activity. This should be disabled on production."),
   );
-  $form['dosomething_reportback_display_permalink'] = array(
+  $form['dosomething_reportback_display_permalink_share'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable permalink page.'),
-    '#default_value' => variable_get('dosomething_reportback_display_permalink', FALSE),
-    '#description' => t("Displays the permalink/confirmation page instead of the confirmation page after submitting a reportback."),
+    '#title' => t('Enable sharing on the permalink page.'),
+    '#default_value' => variable_get('dosomething_reportback_display_permalink_share', FALSE),
+    '#description' => t("Displays the permalink share form/copy"),
   );
   return system_settings_form($form);
 }

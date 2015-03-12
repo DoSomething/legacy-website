@@ -452,6 +452,7 @@ function dosomething_reportback_view_entity($entity) {
     $fb_link = paraneue_dosomething_facebook_intent("http://www.dosomething.org");
     $twitter_link = paraneue_dosomething_twitter_intent($twitter_text);
     $tumblr_link = paraneue_dosomething_tumblr_intent("http://www.dosomething.org");
+    $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
     $permalink = theme('reportback_permalink', array(
       'rb' => $rb,
