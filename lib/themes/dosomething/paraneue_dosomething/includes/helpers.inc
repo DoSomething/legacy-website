@@ -328,6 +328,12 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   return $placeholders;
 }
 
+/**
+ * Returns a facebook share url.
+ *
+ * @param  string $link The url to share.
+ * @return string       The facebook intent url.
+ */
 function paraneue_dosomething_facebook_intent($link) {
   $facebook_app_id = variable_get('dosomething_settings_facebook_app_id', '');
   $encoded_link = urlencode($link);
@@ -335,10 +341,25 @@ function paraneue_dosomething_facebook_intent($link) {
   return "https://www.facebook.com/dialog/share?app_id=" . $facebook_app_id . "&display=popup&href=". $encoded_link ."&redirect_uri=" . $encoded_link;
 }
 
+/**
+ * Returns a twitter share url.
+ *
+ * @param  string $tweet The text that should prepopulate the tweet (can include the url of the page to share).
+ * @return string        The twitter intent url.
+ */
 function paraneue_dosomething_twitter_intent($tweet) {
   return "https://twitter.com/home?status=" . urlencode($tweet);
 }
 
+/**
+ * Returns a tumblr share url.
+ *
+ * @param  array $options An array including:
+ *                            - source: url of the image to share.
+ *                            - caption: share language.
+ *                            - clickthru: url to share
+ * @return string        The tumblr intent url to share a photo.
+ */
 function paraneue_dosomething_tumblr_intent($options) {
   return url('https://www.tumblr.com/share/photo', array('query' => $options));
 }
