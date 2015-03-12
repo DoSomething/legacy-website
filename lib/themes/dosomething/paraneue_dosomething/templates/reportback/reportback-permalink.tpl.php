@@ -77,9 +77,15 @@
                 <p><?php print $node->fact_problem['fact']; ?></p>
               <?php endif; ?>
 
+              <h3><?php print t('The Solution'); ?></h3>
               <?php if ($node->fact_solution['fact']): ?>
-                <h3><?php print t('The Solution'); ?></h3>
                 <p><?php print $node->fact_solution['fact']; ?></p>
+              <?php elseif ($node->solution_copy): ?>
+                <?php print $node->solution_copy; ?>
+              <?php endif; ?>
+
+              <?php if ($node->solution_support): ?>
+                <?php print($node->solution_support); ?>
               <?php endif; ?>
             </div>
             <div class="cta">

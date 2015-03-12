@@ -22,7 +22,6 @@
     @include media($tablet) {
       display: table-footer-group;
       border-top: 2px solid $light-gray;
-      border-bottom: none;
     }
 
     > .wrapper {
