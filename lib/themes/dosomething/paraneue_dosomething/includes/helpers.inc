@@ -336,10 +336,10 @@ function paraneue_dosomething_facebook_intent($link) {
 }
 
 function paraneue_dosomething_twitter_intent($tweet) {
-  return "https://twitter.com/home?status=" . $tweet;
+  return "https://twitter.com/home?status=" . urlencode($tweet);
 }
 
-function paraneue_dosomething_tumblr_intent($link) {
-  return "http://www.tumblr.com/share/link?url=" . urlencode($link) . "&name={title}&description={desc}";
+function paraneue_dosomething_tumblr_intent($options) {
+  return url('https://www.tumblr.com/share/photo', array('query' => $options));
 }
 
