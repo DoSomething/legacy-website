@@ -340,8 +340,8 @@ function paraneue_dosomething_facebook_intent($link) {
   return "https://www.facebook.com/dialog/share?app_id=" . $facebook_app_id . "&display=popup&href=". $encoded_link ."&redirect_uri=https%3A%2F%2Fwww.dosomething.org";
 }
 
-function paraneue_dosomething_twitter_intent($link) {
-  return "https://twitter.com/home?status=" . urlencode($link);
+function paraneue_dosomething_twitter_intent($tweet) {
+  return "https://twitter.com/home?status=" . $tweet;
 }
 
 function paraneue_dosomething_tumblr_intent($link) {
