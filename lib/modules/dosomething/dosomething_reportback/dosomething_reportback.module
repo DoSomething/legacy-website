@@ -467,6 +467,7 @@ function dosomething_reportback_view_entity($entity) {
       'fb_link' => $fb_link,
       'twitter_link' => $twitter_link,
       'tumblr_link' => $tumblr_link,
+      'share_enabled' => $share_enabled,
       )
     );
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
