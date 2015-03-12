@@ -559,7 +559,7 @@ function dosomething_reportback_update_7019(&$sandbox) {
 }
 
 /**
- * Deletes the promoted Flag for real this time. (without errors) 
+ * Deletes the promoted Flag for real this time. (without errors)
  */
 function dosomething_reportback_update_7020(&$sandbox) {
   if (!module_exists('flag')) {
@@ -665,4 +665,11 @@ function dosomething_reportback_update_7022(&$sandbox) {
   $flag->delete();
   $flag->disable();
   _flag_clear_cache($flag->entity_type, TRUE);
+}
+
+/**
+ * Deletes deprecated permalink_display feature flag.
+ */
+function dosomething_reportback_update_7023(&$sandbox) {
+  variable_del('dosomething_reportback_display_permalink');
 }

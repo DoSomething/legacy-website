@@ -35,6 +35,18 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#title' => t('What You Get'),
     '#default_value' => variable_get($var_name),
   );
+   $form['share'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Share settings'),
+    '#collapsible' => TRUE,
+    '#description' => t("Contains settings for social share")
+  );
+  $var_name = 'dosomething_settings_facebook_app_id';
+  $form['share'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Facebook App Id'),
+    '#default_value' => variable_get($var_name),
+  );
 
   return system_settings_form($form);
 }
