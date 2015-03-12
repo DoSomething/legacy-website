@@ -443,13 +443,15 @@ function dosomething_reportback_view_entity($entity) {
     $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
     $link = '/' . drupal_get_path_alias('node/' . $node->nid);
 
+    $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
+
     // Set twitter text.
     $twitter_text = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'), array('node' => $node));
     $twitter_text = str_replace('[node:issue]', $node->issue['name'], $twitter_text);
-    $twitter_text .= " " . url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
+    $twitter_text .= " " . $reportback_url;
 
     // Share button links
-    $fb_link = paraneue_dosomething_facebook_intent("http://www.dosomething.org");
+    $fb_link = paraneue_dosomething_facebook_intent($reportback_url);
     $twitter_link = paraneue_dosomething_twitter_intent($twitter_text);
     $tumblr_link = paraneue_dosomething_tumblr_intent("http://www.dosomething.org");
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');

@@ -328,16 +328,11 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   return $placeholders;
 }
 
-// @TODO - NOT DONE YET - Just a first pass a creating these share URLs.
 function paraneue_dosomething_facebook_intent($link) {
   $facebook_app_id = variable_get('dosomething_settings_facebook_app_id', '');
   $encoded_link = urlencode($link);
 
-  // Creating this link is the more general share feature.
-  // return "https://www.facebook.com/sharer/sharer.php?u=" . $encoded_link;
-
-  // Creating this link allows us to do the more customized facbeook story.
-  return "https://www.facebook.com/dialog/share?app_id=" . $facebook_app_id . "&display=popup&href=". $encoded_link ."&redirect_uri=https%3A%2F%2Fwww.dosomething.org";
+  return "https://www.facebook.com/dialog/share?app_id=" . $facebook_app_id . "&display=popup&href=". $encoded_link ."&redirect_uri=" . $encoded_link;
 }
 
 function paraneue_dosomething_twitter_intent($tweet) {
