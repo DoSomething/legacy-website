@@ -141,8 +141,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
   }
   $campaign->issue = NULL;
   if ($issue = $wrapper->field_issue->value()) {
-    $campaign->issue['tid'] = $primary_cause->tid;
-    $campaign->issue['name'] = $primary_cause->name;
+    $campaign->issue['tid'] = $issue->tid;
+    $campaign->issue['name'] = $issue->name;
   }
 
   // Date fields.
