@@ -382,43 +382,118 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     drupal_add_js($js, 'inline');
   }
 
+  // Setup the reportback showcase.
+  paraneue_dosomething_preprocess_reportback_showcase($vars);
+
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     // Set the number of files to display in initial gallery.
-    $vars['reportbacks']['initial_count'] = 6;
+    $vars['reportbacks']['desired_count'] = 6;
     // Adds themed Reportback Files.
-    paraneue_dosomething_preprocess_reportback_files($vars);
+    paraneue_dosomething_preprocess_reportback_gallery($vars);
   }
 
 }
 
+
 /**
- * Adds $gallery_items array of themed Reportback Files for given node preprocess $vars.
+ * @param $nid
+ * @return int
  */
-function paraneue_dosomething_preprocess_reportback_files(&$vars) {
+function paraneue_dosomething_preprocess_approved_reportbacks_total($nid) {
+  // Set params to get the total number of Approved Reportbacks for this nid.
+  $params = array();
+  $params['nid'] = $nid;
+  $params['status'] = 'approved';
+
+  return dosomething_reportback_get_reportback_files_query_count($params);
+}
+
+
+/**
+ * @param $nid
+ * @param $count
+ * @return array
+ */
+function paraneue_dosomething_preprocess_promoted_reportbacks($nid, $count) {
+  $promoted_items = array();
+
+  // Set params to retrieve random Promoted Reportbacks for this nid.
+  $params = array();
+  $params['nid'] = $nid;
+  $params['status'] = 'promoted';
+  $params['random'] = TRUE;
+
+  $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $count);
+
+  foreach ($promoted_results as $rb_file) {
+    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '400x400');
+    $promoted_items[] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
+  }
+
+  return $promoted_items;
+}
+
+
+/**
+ *
+ */
+function paraneue_dosomething_preprocess_reportback_assimilation ($reportbacks, $desired_count, $use_placeholders = FALSE) {
+  dsm('PREPARE FOR ASSIMILATION');
+  dsm($desired_count);
+  dsm($use_placeholders);
+
+  $fill_count = $desired_count - $reportbacks['total_promoted'];
+
+
+  // Absolutely no Approved Reportbacks to fulfill the fill count needed.
+  if ($reportbacks['total_approved'] === 0) {
+    if ($use_placeholders) {
+      $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
+      $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $placeholders);
+      $reportbacks_gallery['prefetched'] = 0;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+  // Some but not enough Approved Reportbacks to fulfill the fill count needed.
+  elseif ($reportbacks_gallery['total_approved'] < $fill_count) {
+    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $reportbacks_gallery['total_approved']);
+    $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks_gallery['total_approved']);
+    $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks, $placeholders);
+    $reportbacks_gallery['prefetched'] = $reportbacks_gallery['total_approved'];
+  }
+
+  // There are enough Approved Reportbacks to fulfill the fill count needed.
+  else {
+    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $fill_count);
+    $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks);
+    $reportbacks_gallery['prefetched'] = $fill_count;
+  }
+
+  dsm($fill_count);
+}
+
+
+/**
+ * Exapnds $reportbacks_gallery array with themed Reportback items and data for given node preprocess $vars.
+ */
+function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
   $reportbacks_gallery = &$vars['reportbacks_gallery'];
 
-  if (!isset($reportbacks_gallery['initial_count'])) {
-    $reportbacks_gallery['initial_count'] = 6;
+  if (!isset($reportbacks_gallery['desired_count'])) {
+    $reportbacks_gallery['desired_count'] = 6;
   }
-  $initial_count = $reportbacks_gallery['initial_count'];
+  $desired_count = $reportbacks_gallery['desired_count'];
 
   $reportbacks_gallery['items'] = array();
 
 
   // Promoted Reportbacks:
   // ========================================================================
-  // Set params to retrieve random Promoted Reportbacks for this nid.
-  $params = array();
-  $params['nid'] = $vars['nid'];
-  $params['status'] = 'promoted';
-  $params['random'] = TRUE;
-  $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $initial_count);
-
-  foreach ($promoted_results as $rb_file) {
-    $rb_file->image = dosomething_image_get_themed_image_url_by_fid($rb_file->fid, '400x400');
-    $reportbacks_gallery['items'][] = paraneue_dosomething_get_gallery_item((array) $rb_file, 'photo');
-  }
+  $reportbacks_gallery['items'] = paraneue_dosomething_preprocess_promoted_reportbacks($vars['nid'], $desired_count);
 
   // Total number of Promoted Reportbacks obtained.
   $reportbacks_gallery['total_promoted'] = count($reportbacks_gallery['items']);
@@ -426,19 +501,14 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
 
   // Approved Reportbacks:
   // ========================================================================
-  // Set params to get the total number of Approved Reportbacks for this nid.
-  $params['status'] = 'approved';
-  if (isset($params['random'])) {
-    unset($params['random']);
-  }
-  $reportbacks_gallery['total_approved'] = dosomething_reportback_get_reportback_files_query_count($params);
+  $reportbacks_gallery['total_approved'] = paraneue_dosomething_preprocess_approved_reportbacks_total($vars['nid']);
 
 
   // Build Reportback Gallery based on Promoted & Approved Reportback counts.
   // ========================================================================
   // Total Promoted Reportbacks less than required initial count.
-  if ($reportbacks_gallery['total_promoted'] < $initial_count) {
-    $fill_count = $initial_count - $reportbacks_gallery['total_promoted'];
+  if ($reportbacks_gallery['total_promoted'] < $desired_count) {
+    $fill_count = $desired_count - $reportbacks_gallery['total_promoted'];
 
     // Absolutely no Approved Reportbacks to fulfill the fill count needed.
     if ($reportbacks_gallery['total_approved'] === 0) {
@@ -467,6 +537,35 @@ function paraneue_dosomething_preprocess_reportback_files(&$vars) {
   else {
     $reportbacks_gallery['prefetched'] = 0;
   }
+}
+
+
+/**
+ * Expands $reportbacks_showcase array with themed Reportback items and data for given node preprocess $vars.
+ */
+function paraneue_dosomething_preprocess_reportback_showcase(&$vars) {
+  $desired_count = 20;
+
+  // Promoted Reportbacks:
+  // ========================================================================
+  $reportbacks_showcase['items'] = paraneue_dosomething_preprocess_promoted_reportbacks($vars['nid'], $desired_count);
+
+  // Total number of Promoted Reportbacks obtained.
+  $reportbacks_showcase['total_promoted'] = count($reportbacks_showcase['items']);
+
+
+  // Approved Reportbacks:
+  // ========================================================================
+  $reportbacks_showcase['total_approved'] = paraneue_dosomething_preprocess_approved_reportbacks_total($vars['nid']);
+
+
+  if ($reportbacks_showcase['total_promoted'] < $desired_count) {
+    $reportbacks_showcase = paraneue_dosomething_preprocess_reportback_assimilation($reportbacks_showcase, $desired_count);
+  }
+
+  dsm($reportbacks_showcase);
+
+  $vars['showcase'] = 'Nulla vitae elit libero, a pharetra augue.';
 }
 
 
