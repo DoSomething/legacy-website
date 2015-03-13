@@ -234,4 +234,14 @@ function dosomething_metatag_get_permalink_vars() {
   );
 
   drupal_add_html_head($element, 'og:image');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:description",
+      "content" => $share_copy,
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:description');
 }
