@@ -83,10 +83,6 @@
               <?php elseif ($node->solution_copy): ?>
                 <?php print $node->solution_copy; ?>
               <?php endif; ?>
-
-              <?php if ($node->solution_support): ?>
-                <?php print($node->solution_support); ?>
-              <?php endif; ?>
             </div>
             <div class="cta">
               <div class="wrapper">
