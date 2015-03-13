@@ -86,7 +86,9 @@
             </div>
             <div class="cta">
               <div class="wrapper">
-                <p class="cta__message"><?php print $node->call_to_action; ?></p>
+                <?php if ($node->secondary_call_to_action): ?>
+                  <p class="cta__message"><?php print $node->secondary_call_to_action; ?></p>
+                <?php endif; ?>
                 <a href="<?php print $link ?>" class="button">do it</a>
               </div>
             </div>
