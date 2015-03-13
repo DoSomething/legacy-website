@@ -398,7 +398,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#markup' => $school_help_text . $contact_link,
       '#suffix' => '</div>',
     );
-    
+
     $label = $config['school_not_affiliated_label'];
     if (empty($label)) {
       $label = t("I am not affiliated with a school.");
@@ -551,7 +551,7 @@ function dosomething_signup_update_signup_data($values, $response = 1) {
     if ($response) {
       if (isset($values['why_signedup'])) {
         $entity->why_signedup = $values['why_signedup'];
-      } 
+      }
     }
     $entity->save();
     return TRUE;

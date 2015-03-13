@@ -167,7 +167,7 @@ function dosomething_campaign_scholarship_block_content() {
       unset($rows[$key]['data']['src']);
       $rows[$key]['data']['amount'] = '$' . $scholarship['amount'];
       $rows[$key]['data']['deadline'] = $scholarship['deadline'];
-      $rows[$key]['data']['image'] = "<img src=" . $rows[$key]['data']['image'] . "</img>"; 
+      $rows[$key]['data']['image'] = "<img src=" . $rows[$key]['data']['image'] . "</img>";
     }
 
     $vars['header'] = array('nid', 'title', 'cta', 'image', 'path', 'pretty path', 'staff pick', 'amount', 'deadline');

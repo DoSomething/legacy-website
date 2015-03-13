@@ -89,7 +89,7 @@
                 <?php if ($node->secondary_call_to_action): ?>
                   <p class="cta__message"><?php print $node->secondary_call_to_action; ?></p>
                 <?php endif; ?>
-                <a href="<?php print $link ?>" class="button">do it</a>
+                <?php print render($signup_button); ?>
               </div>
             </div>
           <?php endif; ?>
