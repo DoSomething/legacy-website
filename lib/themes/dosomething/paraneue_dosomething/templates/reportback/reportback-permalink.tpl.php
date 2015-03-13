@@ -36,7 +36,7 @@
           <?php print $rb['image']; ?>
           <?php if ($rb['caption']): ?>
             <div class="caption">
-              <?php print $rb['caption']; ?> - <?php print $user->first_name; ?>
+              <?php print check_plain($rb['caption']); ?> - <?php print check_plain($user->first_name); ?>
             </div>
           <?php endif; ?>
         </div>
@@ -61,7 +61,7 @@
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
 
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
-              <p><?php print $reportback->why_participated; ?></p>
+              <p><?php print check_plain($reportback->why_participated); ?></p>
               <?php if ($share_enabled): ?>
                 <h3><?php print $copy_vars['owners_rb_social_header']; ?></h3>
                 <p><?php print $copy_vars['owners_rb_social_copy']; ?></p>

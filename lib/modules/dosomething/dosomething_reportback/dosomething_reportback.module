@@ -608,8 +608,8 @@ function dosomething_reportback_set_properties(&$entity, $values) {
   foreach ($properties as $property) {
     // If we have a value set for this property.
     if (isset($values[$property])) {
-      // Set property value in wrapper.
-      $entity->{$property} = $values[$property];
+      // Set safe property value in wrapper.
+      $entity->{$property} = filter_xss($values[$property], array());
     }
   }
 }
@@ -626,7 +626,7 @@ function dosomething_reportback_set_files(&$entity, $values) {
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
     if (!empty($values['caption'])) {
-      $entity->caption = $values['caption'];
+      $entity->caption = filter_xss($values['caption'], array());
     }
   }
 }
