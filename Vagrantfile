@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/drupal"
-  config.vm.box_version = "1.0.0.alpha1"
+  config.vm.box_version = "1.0.0.alpha2"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Use custom created user to manage vagrant.
   config.ssh.username = 'dosomething'
-  
+
   # Since authorized keys were prepopulated, vagrant needs a path to your key.
   config.ssh.private_key_path = '~/.ssh/id_rsa'
 
