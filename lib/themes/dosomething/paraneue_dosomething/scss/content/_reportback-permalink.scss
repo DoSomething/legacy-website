@@ -36,11 +36,14 @@
   }
 
   .card__copy {
-    .-share {
-      display: none;
+    &.-share {
+      h3:last-of-type,
+      p:last-of-type {
+        display: none;
 
-      @include media($tablet) {
-        display: block;
+        @include media($tablet) {
+          display: block;
+        }
       }
     }
   }

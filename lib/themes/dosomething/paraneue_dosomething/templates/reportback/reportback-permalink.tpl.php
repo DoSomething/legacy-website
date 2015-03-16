@@ -56,15 +56,15 @@
                 </ul>
               </div>
             <?php endif; ?>
-            <div class="card__copy">
+            <div class="card__copy -share">
               <h1><?php print $node->title; ?></h1>
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
 
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
               <p><?php print check_plain($reportback->why_participated); ?></p>
               <?php if ($share_enabled): ?>
-                <h3 class="-share"><?php print $copy_vars['owners_rb_social_header']; ?></h3>
-                <p class="-share"><?php print $copy_vars['owners_rb_social_copy']; ?></p>
+                <h3><?php print $copy_vars['owners_rb_social_header']; ?></h3>
+                <p><?php print $copy_vars['owners_rb_social_copy']; ?></p>
               <?php endif; ?>
             </div>
           <!--Show non-owner the call to action page -->
