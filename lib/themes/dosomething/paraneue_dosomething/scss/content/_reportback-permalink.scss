@@ -12,8 +12,10 @@
   }
 
   .card__column > .wrapper {
-    display: table;
-    border-collapse: collapse;
+    @include media($tablet) {
+      display: table;
+      border-collapse: collapse;
+    }
   }
 
   .cta.-share {
