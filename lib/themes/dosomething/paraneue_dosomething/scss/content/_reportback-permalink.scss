@@ -26,14 +26,6 @@
       border-top: 2px solid $light-gray;
     }
 
-    > .wrapper {
-      display: none;
-
-      @include media($tablet) {
-        display: block;
-      }
-    }
-
     .social-icon {
       padding: $base-spacing / 2;
 
@@ -41,7 +33,16 @@
         padding: $base-spacing;
       }
     }
+  }
 
+  .card__copy {
+    .-share {
+      display: none;
+
+      @include media($tablet) {
+        display: block;
+      }
+    }
   }
 }
 
