@@ -418,6 +418,22 @@ function _dosomething_reportback_get_permalink_copy_vars($user, $node) {
     'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $user)),
   );
 }
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters the signup form that is attached to permalink pages.
+ */
+function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
+  // A signup form, on a reportback page.
+  if ($form_id == 'dosomething_signup_form' && drupal_match_path($path = current_path(), 'reportback/*')) {
+    $form['source'] = array(
+      '#type' => 'hidden',
+      '#value' => $path,
+      '#access' => FALSE,
+    );
+    $form['#submit'][] = 'dosomething_reportback_signup_submit';
+  }
+}
 
 /**
  * Callback for /rbf/FID page.
@@ -440,7 +456,6 @@ function dosomething_reportback_view_entity($entity) {
     $file = reportback_file_load($fid);
     $rb['image'] = $file->getImage('large');
     $rb['caption'] = $file->caption;
-
     $node = dosomething_campaign_load(node_load($entity->nid));
     $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user, $node);
 
@@ -491,6 +506,17 @@ function dosomething_reportback_view_entity($entity) {
     );
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
     return $permalink;
+  }
+}
+/**
+ * Custom submit handler for signup form.
+ * @see dosomething_reportback_form_alter().
+ */
+function dosomething_reportback_signup_submit($form, &$form_state) {
+  // Add a redirect to the campaign node.
+  if (isset($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
+    $form_state['redirect'] = 'node/' . $nid;
   }
 }
 
