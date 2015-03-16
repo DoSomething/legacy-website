@@ -416,10 +416,10 @@ function dosomething_reportback_view_entity($entity) {
     $fid = array_pop($entity->fids);
   }
   // Try to get the permalink from cache.
-  // if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {
-  //   return $cached_permalink->data;
-  // }
-  // else {
+  if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {
+    return $cached_permalink->data;
+  }
+  else {
     // Additional reportback file specific data.
     $file = reportback_file_load($fid);
     $rb['image'] = $file->getImage('large');
@@ -483,7 +483,7 @@ function dosomething_reportback_view_entity($entity) {
     );
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
     return $permalink;
-  // }
+  }
 }
 
 /**
