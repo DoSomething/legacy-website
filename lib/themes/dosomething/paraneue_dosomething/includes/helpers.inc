@@ -348,7 +348,7 @@ function paraneue_dosomething_facebook_intent($link) {
  * @return string        The twitter intent url.
  */
 function paraneue_dosomething_twitter_intent($tweet) {
-  return "https://twitter.com/home?status=" . urlencode($tweet);
+  return "https://twitter.com/intent/tweet?text=" . urlencode($tweet);
 }
 
 /**
