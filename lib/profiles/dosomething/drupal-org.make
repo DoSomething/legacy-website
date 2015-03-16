@@ -271,8 +271,7 @@ libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf
 libraries[stripe-php][download][type] = "git"
 libraries[stripe-php][download][url] = "https://github.com/stripe/stripe-php"
 ; Pin to v.1.18.0 release, which supports Client::setApiKey methods we Use
-libraries[stripe-php][download][revision] = "022c3f21ec1e4141b46738bd5e7ab730d04f78cc"
-
+libraries[stripe-php][download][tag] = "v1.18.0"
 
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
