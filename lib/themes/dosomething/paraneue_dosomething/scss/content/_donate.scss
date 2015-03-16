@@ -4,7 +4,7 @@
 // -------------------
 
 .donate--header {
-  padding: 0 30px;
+  margin: $base-spacing 0 0;
   text-align: center;
 }
 
@@ -14,14 +14,16 @@
   .donate__expyear {
     @include media($tablet) {
       @include span(3 of 12);
+      padding-left: 0;
     }
   }
 
-  .donate__amount,
-  .form-actions {
+  .donate__amount {
+    clear: both;
+
     @include media($tablet) {
       @include span(4 of 12);
-      display: inline-block;
+      padding-left: 0;
       float: none;
     }
   }
