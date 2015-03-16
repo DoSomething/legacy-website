@@ -23,8 +23,12 @@
         <?php print t("Donate"); ?>
       </a>
       <div data-modal id="modal--donate-form" role="dialog" class="donate--payment">
-        <h2 class="donate--header"><?php print $block->subject; ?></h2>
-        <?php print $content; ?>
+        <div class="modal__block">
+          <h2 class="donate--header"><?php print $block->subject; ?></h2>
+        </div>
+        <div class="modal__block">
+          <?php print $content; ?>
+        </div>
       </div>
 
     <?php endif; ?>
