@@ -112,6 +112,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
 
   // Plain text properties.
   $plain_text = dosomething_campaign_get_property_names_plain_text();
+
   foreach ($plain_text as $property) {
     $field_name = 'field_' . $property;
     if (isset($wrapper->{$field_name})) {
@@ -123,9 +124,15 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $filtered_text = dosomething_campaign_get_property_names_filtered_text();
   foreach ($filtered_text as $property) {
     $field_name = 'field_' . $property;
+
     if ($value = $wrapper->{$field_name}->value()) {
       // Store filtered text.
-      $campaign->{$property} = $value['safe_value'];
+      if (isset($value['safe_value'])) {
+        $campaign->{$property} = $value['safe_value'];
+      }
+      else {
+        $campaign->{$property} = $value;
+      }
     }
     else {
       $campaign->{$property} = NULL;
