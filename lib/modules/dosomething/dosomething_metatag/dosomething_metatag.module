@@ -121,10 +121,7 @@ function dosomething_metatag_get_permalink_vars() {
   $rbid = arg(1);
   $fid = ($_GET['fid']);
   $rb_entity = reportback_load($rbid);
-  if (!$fid && !empty($rb_entity->fids)) {
-    $fid = array_pop($rb_entity->fids);
-  }
-  else {
+  if (!$fid) {
     $fid = array_pop($rb_entity->getFids());
   }
   $file = reportback_file_load($fid);
