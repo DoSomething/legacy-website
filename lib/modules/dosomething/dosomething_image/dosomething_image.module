@@ -142,19 +142,20 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
 
   $image = image_load($file->uri);
   if (!$image) {
-    return NULL;
+    return '<img src="' . DS_ASSET_PATH .'/dist/images/no-image-found.jpg" title="No Image Found" />';
   }
+  else {
+    $content = array(
+      'file' => array(
+        '#theme' => 'image_style',
+        '#style_name' => $style,
+        '#path' => $image->source,
+        '#alt' => $alt,
+      ),
+    );
 
-  $content = array(
-    'file' => array(
-      '#theme' => 'image_style',
-      '#style_name' => $style,
-      '#path' => $image->source,
-      '#alt' => $alt,
-    ),
-  );
-
-  return drupal_render($content);
+    return drupal_render($content);
+  }
 }
 
 /**
