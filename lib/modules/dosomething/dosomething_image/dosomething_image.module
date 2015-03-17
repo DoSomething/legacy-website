@@ -139,16 +139,28 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   if (!$file) {
     return NULL;
   }
+
   $image = image_load($file->uri);
-  $content = array(
-    'file' => array(
-      '#theme' => 'image_style',
-      '#style_name' => $style,
-      '#path' => $image->source,
-      '#alt' => $alt,
-    ),
-  );
-  return drupal_render($content);
+  if (!$image) {
+    $args = array(
+      'path' => DS_ASSET_PATH .'/dist/images/no-image-found.png',
+      'alt' => 'No image found placeholder',
+      'title' => 'No Image Found',
+    );
+    return theme_image($args);
+  }
+  else {
+    $content = array(
+      'file' => array(
+        '#theme' => 'image_style',
+        '#style_name' => $style,
+        '#path' => $image->source,
+        '#alt' => $alt,
+      ),
+    );
+
+    return drupal_render($content);
+  }
 }
 
 /**
