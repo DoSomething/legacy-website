@@ -451,7 +451,7 @@ function dosomething_user_new_user($form, &$form_state) {
 
   if (module_exists('dosomething_signup')) {
     $mobile = dosomething_user_get_field('field_mobile', $account);
-    $opt_in = variable_get('dosomething_mobilecommons_opt_in_path_user_register');
+    $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
 
     if (!empty($opt_in) && !empty($mobile)) {
       // Don't subscribe 26+ yo users for Mobile Commons.
