@@ -41,9 +41,9 @@ function dosomething_shipment_form($form, &$form_state, $config) {
   // If old people can't submit form and logged user is an old person:
   if ($config['shipment_form_prevent_old_people_submit'] && dosomething_user_is_old_person()) {
     $form['copy'] = array(
-      '#prefix' => '<p>',
+      '#prefix' => '<div class="modal__block"><p>',
       '#markup' => $config['shipment_form_old_people_copy'],
-      '#suffix' => '</p>',
+      '#suffix' => '</p></div>',
     );
     // Return form without a submit button.
     return $form;
@@ -56,33 +56,46 @@ function dosomething_shipment_form($form, &$form_state, $config) {
     // Check for [submitted] token.
     $copy = dosomething_signup_filter_form_submitted_copy($copy, $shipment->created);
     $form['copy'] = array(
-      '#prefix' => '<p>',
+      '#prefix' => '<div class="modal__block"><p>',
       '#markup' => $copy,
-      '#suffix' => '</p>',
+      '#suffix' => '</p></div>',
     );
     // Return form without a submit button.
     return $form;
   }
   $form['copy'] = array(
-    '#prefix' => '<p>',
+    '#prefix' => '<div class="modal__block"><p>',
     '#markup' => $config['shipment_form_copy'],
-    '#suffix' => '</p>',
+    '#suffix' => '</p></div>',
   );
+
+  // Container for form elements
+  $form['elements'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('modal__block'),
+    ),
+  );
+
   // Add Address form fields.
-  dosomething_user_address_form_element($form, $form_state);
+  dosomething_user_address_form_element($form['elements'], $form_state);
 
   if ($config['shipment_item'] == 'shirt') {
     // Add Shirt form fields.
-    dosomething_shipment_shirt_form_element($form, $form_state);   
+    dosomething_shipment_shirt_form_element($form['elements'], $form_state);
   }
 
-  $form['actions'] = array(
+  $form['elements']['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
       '#value' => $config['shipment_form_submit_label'],
+      '#attributes' => array(
+        'class' => array('button'),
+      ),
     ),
   );
+
   return $form;
 }
 
