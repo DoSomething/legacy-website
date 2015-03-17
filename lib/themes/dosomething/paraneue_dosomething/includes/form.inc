@@ -7,7 +7,10 @@
  */
 function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
   // Add `.button` to all form submit buttons.
-  $form['actions']['submit']['#attributes']['class'][] = 'button';
+  if(isset($form['actions']['submit'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'button';
+  }
+
   // Check if this form needs Shirt Styles applied.
   paraneue_dosomething_form_alter_shirt_options($form, $form_state, $form_id);
 }
