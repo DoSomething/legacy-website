@@ -249,6 +249,7 @@ function dosomething_shipment_get_shipment_id_by_entity($type, $id) {
 function dosomething_shipment_get_item_options() {
   $options = array();
   $options['banner'] = t('Banner');
+  $options['coupon'] =  t('Coupon');
   $options['shirt'] = t('Shirt');
   $options['thumb_socks'] =  t('Thumb Socks');
   return $options;

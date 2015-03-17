@@ -122,7 +122,7 @@ function dosomething_metatag_get_permalink_vars() {
   $fid = ($_GET['fid']);
   $rb_entity = reportback_load($rbid);
   if (!$fid) {
-    $fid = $rb_entity->fids[0];
+    $fid = array_pop($rb_entity->getFids());
   }
   $file = reportback_file_load($fid);
   $image = $file->getImageURL('large');

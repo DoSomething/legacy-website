@@ -335,10 +335,8 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
  * @return string       The facebook intent url.
  */
 function paraneue_dosomething_facebook_intent($link) {
-  $facebook_app_id = variable_get('dosomething_settings_facebook_app_id', '');
   $encoded_link = urlencode($link);
-
-  return "https://www.facebook.com/dialog/share?app_id=" . $facebook_app_id . "&display=popup&href=". $encoded_link ."&redirect_uri=" . $encoded_link;
+  return "https://www.facebook.com/sharer/sharer.php?u=" . $encoded_link;
 }
 
 /**
