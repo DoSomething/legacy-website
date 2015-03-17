@@ -402,6 +402,34 @@ function reportback_file_load($fid) {
 function dosomething_reportback_admin_view_entity($entity) {
   return entity_view('reportback', array($entity->rbid => $entity), 'full');
 }
+/**
+ * Returns all copy variables set on the permalink page.
+ */
+function _dosomething_reportback_get_permalink_copy_vars($user, $node) {
+  return array(
+    'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
+    'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
+    'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
+    'owners_rb_social_header' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header', ''),
+    'owners_rb_social_copy' => token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy', ''), array('node' => $node)),
+    'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
+    'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
+    'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
+    'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $user)),
+  );
+}
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters the signup form that is attached to permalink pages.
+ */
+function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
+  // A signup/login/register form, on a reportback page.
+  $forms = array('dosomething_signup_form', 'user_register_form', 'user_login', 'user_login_block');
+  if (in_array($form_id, $forms) && drupal_match_path($path = current_path(), 'reportback/*')) {
+    $form['#submit'][] = 'dosomething_reportback_signup_submit';
+  }
+}
 
 /**
  * Callback for /rbf/FID page.
@@ -424,20 +452,11 @@ function dosomething_reportback_view_entity($entity) {
     $file = reportback_file_load($fid);
     $rb['image'] = $file->getImage('large');
     $rb['caption'] = $file->caption;
-
     $node = dosomething_campaign_load(node_load($entity->nid));
+    $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user, $node);
 
-    $copy_vars = array(
-      'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
-      'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
-      'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
-      'owners_rb_social_header' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header', ''),
-      'owners_rb_social_copy' => token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy', ''), array('node' => $node)),
-      'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
-      'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
-      'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
-      'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $rb_user)),
-    );
+    $signup = dosomething_signup_get_signup_button('Sign Up', $entity->nid, 'dosomething_signup_form');
+
 
     $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
     $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
@@ -474,7 +493,7 @@ function dosomething_reportback_view_entity($entity) {
       'copy_vars' => $copy_vars,
       'title' => $title,
       'subtitle' => $subtitle,
-      'link' => $link,
+      'signup_button' => $signup,
       'fb_link' => $fb_link,
       'twitter_link' => $twitter_link,
       'tumblr_link' => $tumblr_link,
@@ -483,6 +502,17 @@ function dosomething_reportback_view_entity($entity) {
     );
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
     return $permalink;
+  }
+}
+/**
+ * Custom submit handler for signup form.
+ * @see dosomething_reportback_form_alter().
+ */
+function dosomething_reportback_signup_submit(&$form, &$form_state) {
+  // Add a redirect to the campaign node.
+  if (isset($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
+    $form_state['redirect'] = drupal_get_path_alias('node/' . $nid);
   }
 }
 
@@ -1108,4 +1138,5 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
     watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
     dosomething_reportback_save($values);
   }
+
 }

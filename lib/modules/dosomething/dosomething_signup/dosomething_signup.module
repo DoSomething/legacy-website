@@ -128,6 +128,9 @@ function dosomething_signup_get_query_source() {
   if (isset($_GET['source'])) {
     return check_plain($_GET['source']);
   }
+  elseif (drupal_match_path($path = current_path(), 'reportback/*')) {
+    return $path;
+  }
   return NULL;
 }
 
@@ -670,6 +673,10 @@ function dosomething_signup_get_login_signup_nid() {
       default:
         return NULL;
     }
+  }
+  elseif (drupal_match_path($path = current_path(), 'reportback/*')) {
+    $reportback = reportback_load(arg(1));
+    return $reportback->nid;
   }
   return NULL;
 }

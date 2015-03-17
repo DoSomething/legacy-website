@@ -8,7 +8,7 @@
 /**
  * Preprocesses variables for a signup button.
  *
- * Adds a $signup_button variable into $vars, which is set to either a signup form, 
+ * Adds a $signup_button variable into $vars, which is set to either a signup form,
  * or a link to open the login/registration modal.
  *
  * @param array $vars
