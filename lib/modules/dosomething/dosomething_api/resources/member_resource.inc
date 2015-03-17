@@ -71,7 +71,7 @@ function _member_resource_defintion() {
             'type' => 'int',
             'description' => t('Node nid to filter by.'),
             'source' => array('param' => 'nid'),
-            'optional' => FALSE,
+            'optional' => TRUE,
           ),
         ),
       ),
@@ -237,9 +237,17 @@ function _member_resource_index($parameters) {
 }
 
 /**
- * Returns User Activity for given $uid and $nid.
+ * Returns User Activity for given $uid and optional $nid.
+ *
+ * @param mixed $uid
+ *   Numeric User uid or the string "current" for logged in user.
+ * @param int $nid
+ *   Optional node nid to query activity for.
+ *
+ * @return mixed
+ *   If $nid specified, an object, else an array.
  */
-function _member_resource_get_activity($uid, $nid) {
+function _member_resource_get_activity($uid, $nid = NULL) {
   if ($uid === 'current') {
     global $user;
     $uid = $user->uid;
@@ -247,20 +255,41 @@ function _member_resource_get_activity($uid, $nid) {
   elseif (is_numeric($uid)) {
     $uid = (int) $uid;
   }
+  else {
+    return services_error(t('Invalid uid value @uid.', array('@uid' => $uid)), 403);
+  }
+
+  // If nid is specified, we just want one Activity result for the nid.
+  if ($nid) {
+    return _member_resource_get_activity_result($uid, $nid);
+  }
+
+  $result = array();
+  $nids = dosomething_signup_get_signup_nids_by_uid($uid);
+  foreach ($nids as $nid) {
+    $result[] = _member_resource_get_activity_result($uid, $nid);
+  }
+  return $result;
+}
+
+/**
+ * Returns User Activity object for given $uid and $nid.
+ */
+function _member_resource_get_activity_result($uid, $nid) {
   $result = new StdClass();
   if ($sid = dosomething_signup_exists($nid, $uid)) {
     $signup = signup_load($sid);
     $result->sid = $signup->sid;
+    $result->nid = $signup->nid;
     $result->signed_up = $signup->timestamp;
     $result->source = $signup->source;
     $result->rbid = NULL;
-  }
-  if ($rbid = dosomething_reportback_exists($nid, $uid)) {
-    $reportback = reportback_load($rbid);
-    $result = (object) array_merge((array) $result, (array) $reportback);
-    // Remove unneeded properties.
-    unset($result->uid);
-    unset($result->nid);
+    if ($rbid = dosomething_reportback_exists($result->nid, $uid)) {
+      $reportback = reportback_load($rbid);
+      $result = (object) array_merge((array) $result, (array) $reportback);
+      // Remove unneeded properties.
+      unset($result->uid);
+    }
   }
   return $result;
 }
