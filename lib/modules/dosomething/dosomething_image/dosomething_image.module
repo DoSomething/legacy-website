@@ -139,7 +139,12 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   if (!$file) {
     return NULL;
   }
+
   $image = image_load($file->uri);
+  if (!$image) {
+    return NULL;
+  }
+
   $content = array(
     'file' => array(
       '#theme' => 'image_style',
@@ -148,6 +153,7 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
       '#alt' => $alt,
     ),
   );
+
   return drupal_render($content);
 }
 
