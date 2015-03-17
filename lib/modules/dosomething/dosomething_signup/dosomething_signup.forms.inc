@@ -167,13 +167,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
   $form['group1'] = array(
     '#type' => 'fieldset',
     '#attributes' => array(
-      'class' => array('-columned first-group'),
-    ),
-  );
-  $form['group2'] = array(
-    '#type' => 'fieldset',
-    '#attributes' => array(
-      'class' => array('-columned second-group'),
+      'class' => array('campaign-sms-numbers'),
     ),
   );
   $form['group1']['alpha_mobile'] = array(
@@ -189,13 +183,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
-    // Default to second fieldset.
-    $group = 'group2';
-    if ($i == 0) {
-      // Unless its the first beta.
-      $group = 'group1';
-    }
-    $form[$group]['beta_mobile_' .$i] = array(
+    $form['group1']['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => 'Friend\'s Cell Number',

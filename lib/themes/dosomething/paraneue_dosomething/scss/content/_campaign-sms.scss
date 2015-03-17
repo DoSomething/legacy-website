@@ -29,6 +29,19 @@
       }
     }
 
+    .campaign-sms-numbers {
+      clear: both;
+
+      .form-item {
+        @include span(100%);
+
+        @include media($medium) {
+          @include span(50%);
+        }
+      }
+
+    }
+
     .form-wrapper.-columned {
       @include span(100%);
 
