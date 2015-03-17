@@ -56,7 +56,7 @@
                 </ul>
               </div>
             <?php endif; ?>
-            <div class="card__copy -share">
+            <div class="card__copy">
               <h1><?php print $node->title; ?></h1>
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
 
