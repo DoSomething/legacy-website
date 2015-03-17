@@ -314,9 +314,17 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</p></div>',
   );
 
+  // Container for form elements
+  $form['elements'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('modal__block'),
+    ),
+  );
+
   // If we are collecting User address:
   if ($config['collect_user_address']) {
-    dosomething_user_address_form_element($form, $form_state);
+    dosomething_user_address_form_element($form['elements'], $form_state);
     if (isset($config['shipment_item'])) {
       // Store the shipment item to create.
       $form['shipment_item'] = array(
@@ -326,7 +334,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       );
       // If shipping shirts:
       if ($config['shipment_item'] == 'shirt') {
-        dosomething_shipment_shirt_form_element($form, $form_state);
+        dosomething_shipment_shirt_form_element($form['elements'], $form_state);
       }
     }
   }
