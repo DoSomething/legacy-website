@@ -7,7 +7,10 @@
  */
 function paraneue_dosomething_form_alter_base(&$form, &$form_state, $form_id) {
   // Add `.button` to all form submit buttons.
-  $form['actions']['submit']['#attributes']['class'][] = 'button';
+  if(isset($form['actions']['submit'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'button';
+  }
+
   // Check if this form needs Shirt Styles applied.
   paraneue_dosomething_form_alter_shirt_options($form, $form_state, $form_id);
 }
@@ -259,7 +262,7 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   $form['account']['mail']['#title'] = t("Email");
   unset($form['account']['mail']['#description']);
   $form['account']['current_pass']['#title'] = t("Current Password");
-  unset($form['field_address'][LANGUAGE_NONE][0]['#title']); 
+  unset($form['field_address'][LANGUAGE_NONE][0]['#title']);
   $form['field_birthdate'][LANGUAGE_NONE][0]['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
 
   // Thanks to https://www.drupal.org/node/540340#comment-6576704.
@@ -281,7 +284,7 @@ function paraneue_dosomething_form_user_profile_after_build($form, &$form_state)
   $form['value']['date']['#title'] = '<h4>' . t('Birthday') . '</h4>';
   $form['#title'] = '';
   unset($form['value']['date']['#description']);
-  return $form; 
+  return $form;
 }
 
 /**

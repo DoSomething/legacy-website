@@ -311,7 +311,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   $form['copy'] = array(
     '#prefix' => '<div class="modal__block"><p>',
     '#markup' => $config['form_copy'],
-    '#suffix' => '</div></p>',
+    '#suffix' => '</p></div>',
   );
 
   // If we are collecting User address:
