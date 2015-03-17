@@ -34,19 +34,6 @@
       }
     }
   }
-
-  .card__copy {
-    &.-share {
-      h3:last-of-type,
-      p:last-of-type {
-        display: none;
-
-        @include media($tablet) {
-          display: block;
-        }
-      }
-    }
-  }
 }
 
 //@TODO - Move to Neue as a modifier for the cta pattern

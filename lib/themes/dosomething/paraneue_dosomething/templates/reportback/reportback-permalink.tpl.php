@@ -63,8 +63,8 @@
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
               <p><?php print check_plain($reportback->why_participated); ?></p>
               <?php if ($share_enabled): ?>
-                <h3><?php print $copy_vars['owners_rb_social_header']; ?></h3>
-                <p><?php print $copy_vars['owners_rb_social_copy']; ?></p>
+                <h3 class="show-at-medium"><?php print $copy_vars['owners_rb_social_header']; ?></h3>
+                <p  class="show-at-medium"><?php print $copy_vars['owners_rb_social_copy']; ?></p>
               <?php endif; ?>
             </div>
           <!--Show non-owner the call to action page -->
