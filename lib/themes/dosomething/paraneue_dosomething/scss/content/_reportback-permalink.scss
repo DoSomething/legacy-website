@@ -11,10 +11,20 @@
     }
   }
 
-  .card__column > .wrapper {
-    @include media($tablet) {
-      display: table;
-      border-collapse: collapse;
+  .card {
+    height: 100%;
+  }
+
+  .card__column {
+    height: 100%;
+
+    > .wrapper {
+      height: 100%;
+
+      @include media($tablet) {
+        display: table;
+        border-collapse: collapse;
+      }
     }
   }
 
