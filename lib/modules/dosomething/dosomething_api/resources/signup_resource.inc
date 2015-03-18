@@ -65,16 +65,8 @@ function _signup_resource_create($data) {
   if (!isset($data['source'])) {
     return services_error("Source is required.");
   }
-  $nid = NULL;
-  $source_parts = explode('/', $data['source']);
-  // Check if this source is a signup.
-  if (!empty($source_parts)) {
-    if ($source_parts[0] == 'signup' && is_numeric($source_parts[1])) {
-      // Find the node the source signup is associated with.
-      $source_signup = signup_load((int) $source_parts[1]);
-      $nid = $source_signup->nid;
-    }
-  }
+  // Check if the given source has a target nid.
+  $nid = dosomething_signup_get_target_nid_for_source($data['source']);
   if (!$nid) {
     if (!isset($data['nid']) || !is_numeric($data['nid'])) {
       return services_error("Numeric nid is required.");
