@@ -28,7 +28,7 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#description' => $desc,
   );
 
-  $name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
+  $name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
   $desc = t("Numeric Mobilecommons opt-in path for general campaign signup.");
   $form['general'][$name] = array(
     '#type' => 'textfield',
@@ -46,7 +46,7 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $name = 'dosomething_mobilecommons_opt_in_path_user_register';
+  $name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
   $desc = t("Numeric Mobilecommons opt-in path when user registers for site.");
   $form['registration'][$name] = array(
     '#type' => 'textfield',
@@ -92,8 +92,8 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
   // Save general Drupal variables.
   $config_variables = array(
     'dosomething_signup_mailchimp_general_list_id',
-    'dosomething_mobilecommons_opt_in_path_general_campaign_signup',
-    'dosomething_mobilecommons_opt_in_path_user_register',
+    'dosomething_signup_mobilecommons_opt_in_path_general_campaign',
+    'dosomething_signup_mobilecommons_opt_in_path_user_register',
   );
   foreach ($config_variables as $var_name) {
     variable_set($var_name, $values[$var_name]);

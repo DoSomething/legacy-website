@@ -404,7 +404,7 @@ function dosomething_signup_third_party_subscribe($account, $node) {
   // If not:
   if (!$opt_in) {
     // Use general opt_in_path.
-    $var_name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
+    $var_name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
     $opt_in = variable_get($var_name);
   }
   // Send message broker request.

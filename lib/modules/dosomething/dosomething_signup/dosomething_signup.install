@@ -521,3 +521,18 @@ function dosomething_signup_update_7017() {
   $name = 'dosomething_signup_mailchimp_general_list_id';
   variable_set($name, getenv('DS_MB_MAILCHIMP_LIST_ID'));
 }
+
+/**
+ * Renames dosomething_mobilecommons_* variables.
+ */
+function dosomething_signup_update_7018() {
+  $old_name = 'dosomething_mobilecommons_opt_in_path_general_campaign_signup';
+  $new_name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
+  variable_set($new_name, variable_get($old_name));
+  variable_del($old_name);
+
+  $old_name = 'dosomething_mobilecommons_opt_in_path_user_register';
+  $new_name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
+  variable_set($new_name, variable_get($old_name));
+  variable_del($old_name);
+}
