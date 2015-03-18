@@ -44,7 +44,7 @@ projects[diff][version] = "3.2"
 projects[diff][subdir] = "contrib"
 
 ; Entity
-projects[entity][version] = "1.5"
+projects[entity][version] = "1.6"
 projects[entity][subdir] = "contrib"
 
 ; Entity Autocomplete
