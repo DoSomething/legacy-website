@@ -93,6 +93,9 @@ function dosomething_api_default_services_endpoint() {
         'create' => array(
           'enabled' => '1',
         ),
+        'index' => array(
+          'enabled' => '1',
+        ),
       ),
     ),
     'system' => array(

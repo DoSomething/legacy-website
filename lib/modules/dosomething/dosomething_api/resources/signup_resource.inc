@@ -91,3 +91,35 @@ function _signup_resource_create($data) {
     services_error($e);
   }
 }
+
+/**
+ * Callback for Signups index.
+ *
+ * @param array $parameters
+ *   Array passed within query string. Possible keys:
+ *   - source (string).
+ *   - nid (int).
+ *
+ * @return mixed
+ *   Object of the newly created user if successful. String if errors.
+ */
+function _signup_resource_index($parameters) {
+  // Initialize output.
+  $index = array();
+
+  $query = db_select('dosomething_signup', 's');
+  $query->fields('s');
+  if (isset($parameters['source'])) {
+    $query->condition('source', $parameters['source']);
+  }
+  if (isset($parameters['nid'])) {
+    $query->condition('nid', $parameters['nid']);
+  }
+
+  // @todo: We still need to figure out how to include the alpha.
+  // This is only returning the betas that used the alpha signup as source.
+
+  // Return max of 25 records for now.
+  $query->range(0, 25);
+  return $query->execute()->fetchAll();
+}
