@@ -97,21 +97,30 @@ function _signup_resource_create($data) {
  */
 function _signup_resource_index($parameters) {
   // Initialize output.
-  $index = array();
+  $result = array();
+  $alpha_sid = NULL;
 
   $query = db_select('dosomething_signup', 's');
-  $query->fields('s');
+  $query->fields('s', array('sid'));
   if (isset($parameters['source'])) {
     $query->condition('source', $parameters['source']);
+    // Check if the source is an invite code.
+    if ($nid = dosomething_signup_get_target_nid_for_source($parameters['source'])) {
+      // Strip out the sid.
+      $source_parts = explode('/', $parameters['source']);
+      // Add the alpha signup.
+      $result[] = signup_load((int)$source_parts[1]);
+    }
   }
   if (isset($parameters['nid'])) {
     $query->condition('nid', $parameters['nid']);
   }
 
-  // @todo: We still need to figure out how to include the alpha.
-  // This is only returning the betas that used the alpha signup as source.
-
   // Return max of 25 records for now.
   $query->range(0, 25);
-  return $query->execute()->fetchAll();
+  $query_results = $query->execute()->fetchAll();
+  foreach ($query_results as $record) {
+    $result[] = signup_load($record->sid);
+  }
+  return $result;
 }
