@@ -65,6 +65,14 @@
             </div>
           <!--Show non-owner the call to action page -->
           <?php else: ?>
+            <div class="cta">
+              <div class="wrapper">
+                <?php if ($node->secondary_call_to_action): ?>
+                  <p class="cta__message"><?php print $node->secondary_call_to_action; ?></p>
+                <?php endif; ?>
+                <?php print render($signup_button); ?>
+              </div>
+            </div>
             <div class="card__copy">
               <p class="heading -alpha"><?php print $node->title; ?></p>
 
@@ -79,14 +87,6 @@
               <?php elseif ($node->solution_copy): ?>
                 <?php print $node->solution_copy; ?>
               <?php endif; ?>
-            </div>
-            <div class="cta">
-              <div class="wrapper">
-                <?php if ($node->secondary_call_to_action): ?>
-                  <p class="cta__message"><?php print $node->secondary_call_to_action; ?></p>
-                <?php endif; ?>
-                <?php print render($signup_button); ?>
-              </div>
             </div>
           <?php endif; ?>
           </div>
