@@ -191,20 +191,6 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you'),
   );
-  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_header'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Social header on reportback permalink page.'),
-    '#description' => t('Appears above the social share on the reportback confirmation page.'),
-    '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_header'),
-  );
-  $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_copy'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Social copy on reportback permalink page.'),
-    '#description' => t('Appears above the social share on the reportback confirmation page.'),
-    '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_copy'),
-  );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_cta'] = array(
     '#type' => 'textfield',
     '#title' => t('Social cta on reportback permalink page.'),
