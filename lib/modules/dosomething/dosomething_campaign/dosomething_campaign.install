@@ -71,7 +71,7 @@ function dosomething_campaign_update_7006() {
   foreach ($result as $record) {
     $nid = $record->nid;
     $args = array(
-      '%nid' => $nid, 
+      '%nid' => $nid,
       '@format' => $format,
     );
     $node = node_load($nid);
@@ -99,4 +99,9 @@ function dosomething_campaign_update_7006() {
  */
 function dosomething_campaign_update_7007(&$sandbox) {
   field_delete_field('field_image_reportback_gallery');
+}
+
+function dosomething_campaign_update_7008(&$sandbox) {
+  variable_del('dosomething_campaign_permalink_confirmation_owners_social_header');
+  variable_del('dosomething_campaign_permalink_confirmation_owners_social_copy');
 }
