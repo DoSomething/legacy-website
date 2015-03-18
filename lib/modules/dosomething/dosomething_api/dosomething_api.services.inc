@@ -88,6 +88,13 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'signups' => array(
+      'operations' => array(
+        'create' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'system' => array(
       'actions' => array(
         'connect' => array(
