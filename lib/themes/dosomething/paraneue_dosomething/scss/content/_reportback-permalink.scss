@@ -20,6 +20,7 @@
 
     > .wrapper {
       height: 100%;
+      width: 100%;
 
       @include media($tablet) {
         display: table;
@@ -42,6 +43,15 @@
       @include media($tablet) {
         padding: $base-spacing;
       }
+    }
+  }
+
+  .participate {
+    display: none;
+
+    &.is-shown {
+      display: block;
+      margin-top: 0px;
     }
   }
 }
