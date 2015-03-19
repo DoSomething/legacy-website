@@ -422,7 +422,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   // If we are collecting why_signedup:
   if ($config['collect_why_signedup']) {
     // Add it as a form element.
-    $form['why_signedup'] = array(
+    $form['elements']['why_signedup'] = array(
       '#type' => 'textarea',
       '#required' => TRUE,
       '#title' => $config['why_signedup_label'],
