@@ -461,6 +461,10 @@ function dosomething_reportback_view_entity($entity) {
     $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
     $link = '/' . drupal_get_path_alias('node/' . $node->nid);
 
+    if (strlen($entity->why_participated) > 250) {
+      $why_participated_short = dosomething_helpers_text_truncate($entity->why_participated, 250, '...', FALSE, FALSE);
+    }
+
     $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
 
     $share_text = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'), array('node' => $node));
@@ -496,11 +500,12 @@ function dosomething_reportback_view_entity($entity) {
       'twitter_link' => $twitter_link,
       'tumblr_link' => $tumblr_link,
       'share_enabled' => $share_enabled,
+      'why_participated_short' => $why_participated_short,
       )
     );
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
     return $permalink;
-  }
+  // }
 }
 /**
  * Custom submit handler for signup form.

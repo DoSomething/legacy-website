@@ -61,7 +61,14 @@
               <p class="heading -gamma"><?php print $reportback->quantity; ?> <?php print $reportback->quantity_label; ?></p>
 
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
-              <p><?php print check_plain($reportback->why_participated); ?></p>
+
+              <?php if ($why_participated_short): ?>
+                <p class="participate is-shown"><?php print check_plain($why_participated_short); ?></p>
+                <p class="participate"><?php print check_plain($reportback->why_participated); ?></p>
+                <p><a href="#" class="js-permalink-show-more secondary">Show More</a></p>
+              <?php else: ?>
+                <p><?php print check_plain($reportback->why_participated); ?></p>
+              <?php endif; ?>
             </div>
           <!--Show non-owner the call to action page -->
           <?php else: ?>
