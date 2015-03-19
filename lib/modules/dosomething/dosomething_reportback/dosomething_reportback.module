@@ -478,7 +478,7 @@ function dosomething_reportback_view_entity($entity) {
 
     // Set tumblr options
     $tumblr_options = array(
-      'source' =>  $file->getImageURL('480x480'),
+      'source' =>  $rb['image'],
       'caption' => $share_text . " " . $reportback_url,
       'clickthru' => $reportback_url,
     );
