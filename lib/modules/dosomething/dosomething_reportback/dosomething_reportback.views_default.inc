@@ -105,7 +105,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['rbid_1']['field'] = 'rbid';
   $handler->display->display_options['fields']['rbid_1']['label'] = 'RBID';
   $handler->display->display_options['fields']['rbid_1']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['rbid_1']['alter']['path'] = 'reportback/[rbid_1]';
+  $handler->display->display_options['fields']['rbid_1']['alter']['path'] = 'admin/reportback/[rbid_1]';
   $handler->display->display_options['fields']['rbid_1']['separator'] = '';
   /* Field: Reportback: Node nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';

@@ -14,7 +14,7 @@ class ReportbackFileEntity extends Entity {
    * Overrides to implement a custom default URI.
    */
   protected function defaultUri() {
-    return array('path' => 'rb/' . $this->identifier());
+    return array('path' => 'reportback/' . $this->rbid . '?fid=' . $this->identifier());
   }
 
   public function getImage($file_size = '300x300') {
