@@ -125,7 +125,7 @@ function dosomething_metatag_get_permalink_vars() {
     $fid = array_pop($rb_entity->getFids());
   }
   $file = reportback_file_load($fid);
-  $image = $file->getImageURL('large');
+  $image = $file->getImageURL('480x480');
   $node = dosomething_campaign_load(node_load($rb_entity->nid));
   $share_copy = $node->call_to_action;
   $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
@@ -152,7 +152,7 @@ function dosomething_metatag_get_permalink_vars() {
     '#tag' => 'meta',
     '#attributes' => array(
       "property" => "twitter:image:src",
-      "content" => $file->getImageURL('large'),
+      "content" => $image,
     ),
   );
   drupal_add_html_head($element, 'twitter:image:src');
@@ -229,7 +229,7 @@ function dosomething_metatag_get_permalink_vars() {
     '#tag' => 'meta',
     '#attributes' => array(
       "property" => "og:image",
-      "content" => $file->getImageURL('large'),
+      "content" => $image,
     ),
   );
 
