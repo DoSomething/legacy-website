@@ -12,6 +12,15 @@ include_once 'resources/reportback_resource.inc';
 include_once 'resources/term_resource.inc';
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function dosomething_api_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'restful') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_services_request_postprocess_alter().
  */
 function dosomething_api_services_request_postprocess_alter($controller, $args, &$result) {
