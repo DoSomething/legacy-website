@@ -798,3 +798,27 @@ function dosomething_signup_sms_game_multi_player_signup_request($values) {
   }
   return $response;
 }
+
+/**
+ * For a given $source_string, find the target node to create the signup for.
+ *
+ * @param string $source_string
+ *   The string that will be used as the new Signup's source.
+ *
+ * @return
+ *   Integer if the $source_string refers to a target node, or NULL if not.
+ */
+function dosomething_signup_get_target_nid_for_source($source_string) {
+  // Current invite codes use an exciting "signup/:sid" format.
+  $source_parts = explode('/', $source_string);
+  // Check if this source is a signup.
+  if (!empty($source_parts)) {
+    if ($source_parts[0] == 'signup' && is_numeric($source_parts[1])) {
+      // Find the node the source signup is associated with.
+      if ($source_signup = signup_load((int) $source_parts[1])) {
+        return $source_signup->nid;
+      }
+    }
+  }
+  return NULL;
+}
