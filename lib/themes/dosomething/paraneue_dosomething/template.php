@@ -104,7 +104,7 @@ function paraneue_dosomething_js_alter(&$js) {
 function paraneue_dosomething_page_alter(&$page) {
   // Ensure we have a 'page_bottom' region
   if (!isset($page['page_bottom'])) {
-    $page['page_bottom'] = array('region' => 'page_bottom');
+    $page['page_bottom'] = array();
   }
 
   paraneue_dosomething_page_alter_login($page);
