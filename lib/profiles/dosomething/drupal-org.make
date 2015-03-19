@@ -153,6 +153,10 @@ projects[redirect][subdir] = "contrib"
 projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
+; Restful
+projects[restful][version] = "1.0-rc4"
+projects[restful][subdir] = "contrib"
+
 ; Security Kit
 projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
