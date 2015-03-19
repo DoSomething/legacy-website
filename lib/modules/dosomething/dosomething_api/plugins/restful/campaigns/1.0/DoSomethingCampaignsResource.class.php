@@ -11,12 +11,15 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
    */
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
+
     $public_fields['type'] = array(
       'property' => 'field_campaign_type',
     );
+
     $public_fields['status'] = array(
       'property' => 'field_campaign_status',
     );
+
     $public_fields['call_to_action'] = array(
       'property' => 'field_call_to_action',
     );
@@ -45,7 +48,12 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
           'tags' => 'terms',
         ),
     );
-      $public_fields['faq'] = array(
+
+    $public_fields['call_to_action'] = array(
+      'property' => 'field_call_to_action',
+    );
+
+    $public_fields['faq'] = array(
       'property' => 'field_faq',
     );
     return $public_fields;
