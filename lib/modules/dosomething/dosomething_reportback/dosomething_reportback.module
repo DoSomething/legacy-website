@@ -605,6 +605,7 @@ function dosomething_reportback_save($values) {
     // Save the entity.
     $entity->save();
     if (isset($entity->rbid)) {
+      cache_clear_all('ds_permalink_' .$entity->rbid, 'cache_dosomething_reportback', TRUE);
       // Return reportback rbid.
       return $entity->rbid;
     }
