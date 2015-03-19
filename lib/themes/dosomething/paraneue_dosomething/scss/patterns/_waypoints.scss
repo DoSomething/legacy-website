@@ -1,0 +1,10 @@
+// Overrides for Waypoints pattern
+.waypoints {
+  &.-primary {
+    padding: 12px 0;
+
+    li {
+      margin: 0 12px;
+    }
+  }
+}
