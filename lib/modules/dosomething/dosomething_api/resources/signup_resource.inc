@@ -66,7 +66,7 @@ function _signup_resource_create($data) {
     return services_error("Source is required.");
   }
   // Check if the given source has a target nid.
-  $nid = dosomething_signup_get_target_nid_for_source($data['source']);
+  $nid = dosomething_signup_get_target_nid_for_source(check_plain($data['source']));
   if (!$nid) {
     if (!isset($data['nid']) || !is_numeric($data['nid'])) {
       return services_error("Numeric nid is required.");
@@ -103,11 +103,12 @@ function _signup_resource_index($parameters) {
   $query = db_select('dosomething_signup', 's');
   $query->fields('s', array('sid'));
   if (isset($parameters['source'])) {
-    $query->condition('source', $parameters['source']);
+    $source = check_plain($parameters['source']);
+    $query->condition('source', $source);
     // Check if the source is an invite code.
-    if ($nid = dosomething_signup_get_target_nid_for_source($parameters['source'])) {
+    if ($nid = dosomething_signup_get_target_nid_for_source($source)) {
       // Strip out the sid.
-      $source_parts = explode('/', $parameters['source']);
+      $source_parts = explode('/', $source);
       // Add the alpha signup.
       $result[] = signup_load((int)$source_parts[1]);
     }
