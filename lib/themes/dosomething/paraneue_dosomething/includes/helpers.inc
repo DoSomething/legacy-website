@@ -274,25 +274,25 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
 }
 
 /**
- * Returns specified number of themed Approved Reportbacks.
- *
- * @param  integer $count  Number of reportbacks to prepare.
- * @return array           Array of the specified number of Approved Reportbacks.
+ * Return a specified number of themed Reportbacks by status type.
  */
-function paraneue_dosomething_get_themed_approved_reportbacks($nid, $count = 6) {
-  // Set params to retrieve Approved Reportback for this nid.
-  $params['nid'] = $nid;
-  $params['status'] = 'approved';
-  $reportbacks = array();
-  $approved_reportbacks = dosomething_reportback_get_reportback_files_query_result($params, $count);
+function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $status, $count, $random = NULL) {
+  $reportback_items = array();
 
-  foreach ($approved_reportbacks as $reportback) {
+  $params = array();
+  $params['nid'] = $campaign_id;
+  $params['status'] = $status;
+  $params['random'] = $random;
+
+  $reportback_results = dosomething_reportback_get_reportback_files_query_result($params, $count);
+
+  foreach ($reportback_results as $reportback) {
     // @Todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
-    $reportback->image = dosomething_image_get_themed_image_url_by_fid($reportback->fid, '300x300');
-    $reportbacks[] = paraneue_dosomething_get_gallery_item((array) $reportback, 'photo');
+    $reportback->image = dosomething_image_get_themed_image_url_by_fid($reportback->fid, '400x400');
+    $reportback_items[] = paraneue_dosomething_get_gallery_item((array) $reportback, 'photo');
   }
 
-  return $reportbacks;
+  return $reportback_items;
 }
 
 /**
@@ -326,6 +326,46 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   }
 
   return $placeholders;
+}
+
+/**
+ * Return an assimilated collection of Reportbacks based on Promoted & Approved Reportback counts.
+ *
+ * @param array $reportbacks
+ * @param bool $use_placeholders
+ * @return bool
+ */
+function paraneue_dosomething_build_reportbacks_gallery_collection ($reportbacks, $use_placeholders = FALSE) {
+  $fill_count = $reportbacks['desired_count'] - $reportbacks['total_promoted'];
+
+  // Absolutely no Approved Reportbacks to fulfill the fill count needed.
+  if ((int) $reportbacks['total_approved'] === 0) {
+    if ($use_placeholders) {
+      $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
+      $reportbacks['items'] = array_merge($reportbacks['items'], $placeholders);
+      $reportbacks['prefetched'] = 0;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+  // Some but not enough Approved Reportbacks to fulfill the fill count needed.
+  elseif ($reportbacks['total_approved'] < $fill_count) {
+    $approved_reportbacks = paraneue_dosomething_get_themed_reportbacks_by_status($reportbacks['campaign_id'], 'approved', $reportbacks['total_approved']);
+    $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks['total_approved']);
+    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks, $placeholders);
+    $reportbacks['prefetched'] = $reportbacks['total_approved'];
+  }
+
+  // There are enough Approved Reportbacks to fulfill the fill count needed.
+  else {
+    $approved_reportbacks = paraneue_dosomething_get_themed_reportbacks_by_status($reportbacks['campaign_id'], 'approved', $fill_count);
+    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks);
+    $reportbacks['prefetched'] = $fill_count;
+  }
+
+  return $reportbacks;
 }
 
 /**
