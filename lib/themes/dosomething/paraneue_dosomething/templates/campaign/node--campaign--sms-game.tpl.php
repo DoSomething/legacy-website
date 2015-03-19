@@ -103,7 +103,7 @@
         <!-- with the below snippet. This allows us to swap out form fields -->
         <!-- without losing CSRF tokens: -->
 
-        <!--  var $ = jQuery; var $form = $("#dosomething-signup-sms-game-form"); $form.css('padding-top', '100px'); $form.find(".form-item-alpha-first-name").remove(); $form.find("#edit-group1").html($("#ab-test-sms-names").html());  --->
+        <!--  var $ = jQuery; var $form = $("#dosomething-signup-sms-game-form"); $form.addClass('optimizely-sms-form'); $form.find(".form-item-alpha-first-name").remove(); $form.find("#edit-group1").html($("#ab-test-sms-names").html());  --->
 
         <div id="ab-test-sms-names" style="display: none;">
           <div class="fieldset-wrapper">
