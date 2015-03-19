@@ -26,6 +26,14 @@
     </div>
   </header>
 
+  <?php /* Temporarily hidden. Next step is the frontend!
+  <?php if (isset($reportbacks_showcase)): ?>
+    <div class="showcase">
+      <?php print $reportbacks_showcase; ?>
+    </div>
+  <?php endif; ?>
+ */?>
+
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">
       <div class="wrapper">

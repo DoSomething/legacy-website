@@ -97,7 +97,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
 
     foreach ($entity->fids as $index => $fid) {
       $reportback_submissions_data[$index] = reportback_file_load($fid);
-      $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '300x300');
+      $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '400x400');
     }
 
     $reportback_prior_submissions = array_reverse($reportback_submissions_data);

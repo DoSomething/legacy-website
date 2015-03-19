@@ -828,6 +828,23 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
 }
 
 /**
+ * Returns total number of Reportbacks by status (promoted, approved, etc).
+ *
+ * @param int $nid
+ *   Campaign node id.
+ * @param string $status
+ *   Reportback status (promoted, approved, etc).
+ * @return int
+ */
+function dosomething_reportback_get_reportback_total_by_status($nid, $status) {
+  $params = array();
+  $params['nid'] = $nid;
+  $params['status'] = $status;
+
+  return dosomething_reportback_get_reportback_files_query_count($params);
+}
+
+/**
  * Returns count of Reportbacks for a given node $uid.
  *
  * @param int $uid
