@@ -183,6 +183,11 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
+    $form['group1']['beta_first_name_' .$i] = array(
+      '#type' => 'hidden',
+      '#title' => 'Your Friend\'s Name',
+    );
+
     $form['group1']['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
