@@ -388,7 +388,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     // Set the number of files to display in initial gallery.
-    $vars['reportbacks']['desired_count'] = 6;
+    $vars['reportbacks_gallery']['desired_count'] = 6;
     // Adds themed Reportback Files.
     paraneue_dosomething_preprocess_reportback_gallery($vars);
   }
@@ -397,32 +397,35 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 
 
 /**
- * @param $nid
+ * Get total number of Reportbacks by status (promoted, approved, etc).
+ *
+ * @param $nid  Campaign node id.
+ * @param $status Reportback status (promoted, approved, etc).
  * @return int
  */
-function paraneue_dosomething_preprocess_approved_reportbacks_total($nid) {
-  // Set params to get the total number of Approved Reportbacks for this nid.
+function paraneue_dosomething_preprocess_reportbacks_total_by_status($nid, $status) {
   $params = array();
   $params['nid'] = $nid;
-  $params['status'] = 'approved';
+  $params['status'] = $status;
 
   return dosomething_reportback_get_reportback_files_query_count($params);
 }
 
 
 /**
- * @param $nid
- * @param $count
+ * Get a specified number of themed Promoted Reportbacks.
+ *
+ * @param $nid  Campaign node id.
+ * @param $count Number of Promoted Reportbacks to retrieve.
  * @return array
  */
-function paraneue_dosomething_preprocess_promoted_reportbacks($nid, $count) {
+function paraneue_dosomething_preprocess_themed_promoted_reportbacks($nid, $count, $random = FALSE) {
   $promoted_items = array();
 
-  // Set params to retrieve random Promoted Reportbacks for this nid.
   $params = array();
   $params['nid'] = $nid;
   $params['status'] = 'promoted';
-  $params['random'] = TRUE;
+  $params['random'] = $random;
 
   $promoted_results = dosomething_reportback_get_reportback_files_query_result($params, $count);
 
@@ -436,22 +439,23 @@ function paraneue_dosomething_preprocess_promoted_reportbacks($nid, $count) {
 
 
 /**
+ * Build Reportback collection based on Promoted & Approved Reportback counts.
  *
+ * @param $reportbacks
+ * @param $desired_count
+ * @param bool $use_placeholders
+ * @return bool
  */
-function paraneue_dosomething_preprocess_reportback_assimilation ($reportbacks, $desired_count, $use_placeholders = FALSE) {
-  dsm('PREPARE FOR ASSIMILATION');
-  dsm($desired_count);
-  dsm($use_placeholders);
+function paraneue_dosomething_preprocess_reportback_assimilation ($reportbacks, $use_placeholders = FALSE) {
 
-  $fill_count = $desired_count - $reportbacks['total_promoted'];
-
+  $fill_count = $reportbacks['desired_count'] - $reportbacks['total_promoted'];
 
   // Absolutely no Approved Reportbacks to fulfill the fill count needed.
   if ($reportbacks['total_approved'] === 0) {
     if ($use_placeholders) {
       $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
-      $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $placeholders);
-      $reportbacks_gallery['prefetched'] = 0;
+      $reportbacks['items'] = array_merge($reportbacks['items'], $placeholders);
+      $reportbacks['prefetched'] = 0;
     }
     else {
       return FALSE;
@@ -459,26 +463,26 @@ function paraneue_dosomething_preprocess_reportback_assimilation ($reportbacks, 
   }
 
   // Some but not enough Approved Reportbacks to fulfill the fill count needed.
-  elseif ($reportbacks_gallery['total_approved'] < $fill_count) {
-    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $reportbacks_gallery['total_approved']);
-    $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks_gallery['total_approved']);
-    $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks, $placeholders);
-    $reportbacks_gallery['prefetched'] = $reportbacks_gallery['total_approved'];
+  elseif ($reportbacks['total_approved'] < $fill_count) {
+    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($reportbacks['campaign_id'], $reportbacks['total_approved']);
+    $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks['total_approved']);
+    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks, $placeholders);
+    $reportbacks['prefetched'] = $reportbacks['total_approved'];
   }
 
   // There are enough Approved Reportbacks to fulfill the fill count needed.
   else {
-    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $fill_count);
-    $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks);
-    $reportbacks_gallery['prefetched'] = $fill_count;
+    $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($reportbacks['campaign_id'], $fill_count);
+    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks);
+    $reportbacks['prefetched'] = $fill_count;
   }
 
-  dsm($fill_count);
+  return $reportbacks;
 }
 
 
 /**
- * Exapnds $reportbacks_gallery array with themed Reportback items and data for given node preprocess $vars.
+ * Expands $reportbacks_gallery array with themed Reportback items and data for given node preprocess $vars.
  */
 function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
   $reportbacks_gallery = &$vars['reportbacks_gallery'];
@@ -488,49 +492,20 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
   }
   $desired_count = $reportbacks_gallery['desired_count'];
 
+  $reportbacks_gallery['campaign_id'] = $vars['nid'];
   $reportbacks_gallery['items'] = array();
 
 
   // Promoted Reportbacks:
-  // ========================================================================
-  $reportbacks_gallery['items'] = paraneue_dosomething_preprocess_promoted_reportbacks($vars['nid'], $desired_count);
-
-  // Total number of Promoted Reportbacks obtained.
+  $reportbacks_gallery['items'] = paraneue_dosomething_preprocess_themed_promoted_reportbacks($vars['nid'], $desired_count, TRUE);
   $reportbacks_gallery['total_promoted'] = count($reportbacks_gallery['items']);
 
-
   // Approved Reportbacks:
-  // ========================================================================
-  $reportbacks_gallery['total_approved'] = paraneue_dosomething_preprocess_approved_reportbacks_total($vars['nid']);
+  $reportbacks_gallery['total_approved'] = paraneue_dosomething_preprocess_reportbacks_total_by_status($vars['nid'], 'approved');
 
-
-  // Build Reportback Gallery based on Promoted & Approved Reportback counts.
-  // ========================================================================
-  // Total Promoted Reportbacks less than required initial count.
+  // Collect Reportbacks to fulfill desired amount.
   if ($reportbacks_gallery['total_promoted'] < $desired_count) {
-    $fill_count = $desired_count - $reportbacks_gallery['total_promoted'];
-
-    // Absolutely no Approved Reportbacks to fulfill the fill count needed.
-    if ($reportbacks_gallery['total_approved'] === 0) {
-      $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
-      $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $placeholders);
-      $reportbacks_gallery['prefetched'] = 0;
-    }
-
-    // Some but not enough Approved Reportbacks to fulfill the fill count needed.
-    elseif ($reportbacks_gallery['total_approved'] < $fill_count) {
-      $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $reportbacks_gallery['total_approved']);
-      $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks_gallery['total_approved']);
-      $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks, $placeholders);
-      $reportbacks_gallery['prefetched'] = $reportbacks_gallery['total_approved'];
-    }
-
-    // There are enough Approved Reportbacks to fulfill the fill count needed.
-    else {
-      $approved_reportbacks = paraneue_dosomething_get_themed_approved_reportbacks($vars['nid'], $fill_count);
-      $reportbacks_gallery['items'] = array_merge($reportbacks_gallery['items'], $approved_reportbacks);
-      $reportbacks_gallery['prefetched'] = $fill_count;
-    }
+    $reportbacks_gallery = paraneue_dosomething_preprocess_reportback_assimilation($reportbacks_gallery);
   }
 
   // Enough Total Promoted Reportbacks to fulfill the required initial count.
@@ -544,28 +519,29 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
  * Expands $reportbacks_showcase array with themed Reportback items and data for given node preprocess $vars.
  */
 function paraneue_dosomething_preprocess_reportback_showcase(&$vars) {
-  $desired_count = 20;
+  $reportbacks_showcase = &$vars['reportbacks_showcase'];
+
+  $reportbacks_showcase['desired_count'] = $desired_count = 4;
+  $reportbacks_showcase['campaign_id'] = $vars['nid'];
+  $reportbacks_showcase['items'] = array();
+
 
   // Promoted Reportbacks:
-  // ========================================================================
-  $reportbacks_showcase['items'] = paraneue_dosomething_preprocess_promoted_reportbacks($vars['nid'], $desired_count);
-
-  // Total number of Promoted Reportbacks obtained.
+  $reportbacks_showcase['items'] = paraneue_dosomething_preprocess_themed_promoted_reportbacks($vars['nid'], $desired_count, TRUE);
   $reportbacks_showcase['total_promoted'] = count($reportbacks_showcase['items']);
 
-
   // Approved Reportbacks:
-  // ========================================================================
-  $reportbacks_showcase['total_approved'] = paraneue_dosomething_preprocess_approved_reportbacks_total($vars['nid']);
+  $reportbacks_showcase['total_approved'] = paraneue_dosomething_preprocess_reportbacks_total_by_status($vars['nid'], 'approved');
 
-
+  // Collect Reportbacks to fulfill desired amount.
   if ($reportbacks_showcase['total_promoted'] < $desired_count) {
-    $reportbacks_showcase = paraneue_dosomething_preprocess_reportback_assimilation($reportbacks_showcase, $desired_count);
+    $reportbacks_showcase = paraneue_dosomething_preprocess_reportback_assimilation($reportbacks_showcase);
   }
 
-  dsm($reportbacks_showcase);
-
-  $vars['showcase'] = 'Nulla vitae elit libero, a pharetra augue.';
+  // Enough Total Promoted Reportbacks to fulfill the required initial count.
+  else {
+    $reportbacks_showcase['prefetched'] = 0;
+  }
 }
 
 

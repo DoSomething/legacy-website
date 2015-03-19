@@ -7,7 +7,6 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_scholarship: Scholarship amount (string).
  */
-dsm($variables);
 ?>
 
 <section class="campaign campaign--pitch pitch">
@@ -27,11 +26,13 @@ dsm($variables);
     </div>
   </header>
 
-  <?php if (isset($showcase)): ?>
+  <?php /* Temporarily hidden. Next step is the frontend!
+  <?php if (isset($reportbacks_showcase)): ?>
     <div class="showcase">
-      <?php print $showcase; ?>
+      <?php print $reportbacks_showcase; ?>
     </div>
   <?php endif; ?>
+ */?>
 
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">
