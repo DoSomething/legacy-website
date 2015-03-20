@@ -7,7 +7,7 @@
     background-color: #000;
 
     > .wrapper {
-      padding: $base-spacing 0;
+      padding: ($base-spacing / 2) 0;
     }
   }
 }
