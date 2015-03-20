@@ -15,7 +15,6 @@ function dosomething_signup_get_mobilecommons_friends_vars($values) {
   // Initialize arrays to send to the Mobilecommons API.
   $args = array();
   $friends = array();
-  $friend_names = array();
   $title = $values['title'];
 
   // If user is logged in already:
@@ -42,15 +41,11 @@ function dosomething_signup_get_mobilecommons_friends_vars($values) {
     if (!empty($values['beta_mobile_' . $i])) {
       $friends[] = $values['beta_mobile_' . $i];
     }
-
-    if (!empty($values['beta_first_name_' . $i])) {
-      $friend_names[] = $values['beta_first_name_' . $i];
-    }
   }
   if (!empty($friends)) {
     $args['friends_opt_in_path'] = $values['friends_opt_in_path'];
   }
-  return array('args' => $args, 'friends' => $friends, 'friend_names' => $friend_names);
+  return array('args' => $args, 'friends' => $friends);
 }
 
 /**
