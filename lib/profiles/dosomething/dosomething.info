@@ -51,6 +51,7 @@ dependencies[] = redis
 dependencies[] = search
 dependencies[] = seckit
 dependencies[] = services
+dependencies[] = stathat
 dependencies[] = stringoverrides
 dependencies[] = strongarm
 dependencies[] = taxonomy_access_fix

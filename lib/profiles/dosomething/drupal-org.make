@@ -163,6 +163,10 @@ projects[services][subdir] = "contrib"
 ; See https://www.drupal.org/node/2200269, https://github.com/DoSomething/dosomething/issues/3311
 projects[services][patch][] = "https://www.drupal.org/files/issues/services-2200269.patch"
 
+; Stathat
+projects[stathat][version] = "1.0"
+projects[stathat][subdir] = "contrib"
+
 ; String Overrides
 projects[stringoverrides][version] = "1.8"
 projects[stringoverrides][subdir] = "contrib"
