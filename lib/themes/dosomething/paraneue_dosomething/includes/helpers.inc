@@ -346,7 +346,7 @@ function paraneue_dosomething_build_reportbacks_gallery_collection ($reportbacks
       $reportbacks['prefetched'] = 0;
     }
     else {
-      return FALSE;
+      return NULL;
     }
   }
 

@@ -30,7 +30,7 @@
   </header>
 
   <?php if (isset($reportbacks_showcase)): ?>
-    <div class="container -showcase">
+    <div class="container -showcase -hidden">
       <div class="wrapper">
         <ul class="gallery -quartet -shuffle">
           <?php foreach ($reportbacks_showcase['items'] as $index => $reportback): ?>
