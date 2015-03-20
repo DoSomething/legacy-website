@@ -776,11 +776,16 @@ function dosomething_signup_sms_game_multi_player_signup_request($values) {
     'beta_mobile_0',
     'beta_mobile_1',
     'beta_mobile_2',
+    'beta_first_name_0',
+    'beta_first_name_1',
+    'beta_first_name_2',
     'story_id',
     'story_type',
   );
   foreach ($data_vars as $var) {
-    $data[$var] = $values[$var];
+    if(isset($values[$var])) {
+      $data[$var] = $values[$var];
+    }
   }
   $options = array(
     'method' => 'POST',
