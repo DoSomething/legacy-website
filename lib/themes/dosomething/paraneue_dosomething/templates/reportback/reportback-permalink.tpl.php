@@ -76,7 +76,7 @@
               <div class="wrapper">
                 <?php if ($node->secondary_call_to_action && $node->status == 'active'): ?>
                   <p class="cta__message"><?php print $node->secondary_call_to_action; ?></p>
-                <?php elseif($node->status == 'closed'): ?>
+                <?php elseif ($node->status == 'closed'): ?>
                   <p class="cta__message"><?php print $copy_vars['non_owners_closed_cta']; ?></p>
                 <?php endif; ?>
                 <?php print render($signup_button); ?>
