@@ -30,7 +30,6 @@ class DoSomethingSignupsResource extends RestfulEntityBase {
       ),
     );
 
-
     $public_fields['source'] = array(
       'property' => 'source',
     );
