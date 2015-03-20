@@ -444,10 +444,10 @@ function dosomething_reportback_view_entity($entity) {
     $fid = array_pop($entity->fids);
   }
   // Try to get the permalink from cache.
-  // if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {
-  //   return $cached_permalink->data;
-  // }
-  // else {
+  if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {
+    $permalink_vars = $cached_permalink->data;
+  }
+  else {
     // Additional reportback file specific data.
     $file = reportback_file_load($fid);
     $rb['image'] = $file->getImage('480x480');
@@ -455,13 +455,6 @@ function dosomething_reportback_view_entity($entity) {
     $node = dosomething_campaign_load(node_load($entity->nid));
 
     $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
-
-    if($node->status == 'closed') {
-      $signup = l($copy_vars['non_owners_closed_button'], 'campaigns', array('attributes' => array('class' => array('button'))));
-    }
-    else {
-      $signup = dosomething_signup_get_signup_button('Sign Up', $entity->nid, 'dosomething_signup_form');
-    }
 
     $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
     $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
@@ -496,7 +489,7 @@ function dosomething_reportback_view_entity($entity) {
     $tumblr_link = paraneue_dosomething_tumblr_intent($tumblr_options);
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
-    $permalink = theme('reportback_permalink', array(
+    $permalink_vars = array(
       'rb' => $rb,
       'reportback' => $entity,
       'node' => $node,
@@ -505,17 +498,25 @@ function dosomething_reportback_view_entity($entity) {
       'copy_vars' => $copy_vars,
       'title' => $title,
       'subtitle' => $subtitle,
-      'signup_button' => $signup,
       'fb_link' => $fb_link,
       'twitter_link' => $twitter_link,
       'tumblr_link' => $tumblr_link,
       'share_enabled' => $share_enabled,
       'why_participated_short' => $why_participated_short,
-      )
     );
-    cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink, 'cache_dosomething_reportback');
-    return $permalink;
-  // }
+
+    cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink_vars, 'cache_dosomething_reportback');
+  }
+  // Don't ever cache the signup button, as this changes/blocks submission.
+  if($node->status == 'closed') {
+    $signup = l($copy_vars['non_owners_closed_button'], 'campaigns', array('attributes' => array('class' => array('button'))));
+  }
+  else {
+    $signup = dosomething_signup_get_signup_button('Sign Up', $entity->nid, 'dosomething_signup_form');
+  }
+  $permalink_vars['signup_button'] = $signup;
+
+  return theme('reportback_permalink', $permalink_vars);
 }
 /**
  * Custom submit handler for signup form.
