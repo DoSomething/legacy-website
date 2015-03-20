@@ -154,8 +154,12 @@ projects[redis][version] = "2.6"
 projects[redis][subdir] = "contrib"
 
 ; Restful
-projects[restful][version] = "1.0-rc4"
+; projects[restful][version] = "1.0-rc4"
 projects[restful][subdir] = "contrib"
+;; LIVING ON THE EDGE
+projects[restful][download][type] = "git"
+projects[restful][download][url] = "https://github.com/RESTful-Drupal/restful.git"
+projects[restful][download][revision] = "e0b858cd27f0923618174c61e9afdc82bf3f877d"
 
 ; Security Kit
 projects[seckit][subdir] = "contrib"
