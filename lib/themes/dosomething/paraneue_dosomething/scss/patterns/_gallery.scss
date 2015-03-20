@@ -1,9 +1,28 @@
 .gallery {
 
   &.-shuffle {
+    &.-quartet {
+      @include media($medium) {
+        margin: 0 auto;
+        width: span(10 of 12);
+      }
+
+      @include media($large) {
+        width: span(12 of 12);
+      }
+
+      li {
+        @include span(5 of 10);
+
+        @include media($large) {
+          @include span(3 of 12);
+        }
+      }
+    }
+
     li {
-      margin: 0;
       position: relative;
+
 
       &:nth-child(odd) {
         top: 7px;
