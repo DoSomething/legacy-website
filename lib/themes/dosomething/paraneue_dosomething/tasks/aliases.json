@@ -1,5 +1,0 @@
-{
-  "default": ["lint", "build", "watch"],
-  "build": ["clean:dist", "copy:assets", "sass", "postcss", "requirejs", "modernizr"],
-  "lint": ["jshint", "scsslint"]
-}
