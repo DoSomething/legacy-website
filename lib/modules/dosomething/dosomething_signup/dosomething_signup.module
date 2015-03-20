@@ -77,6 +77,58 @@ function dosomething_signup_entity_info() {
 }
 
 /**
+ * Implements hook_entity_property_info().
+ */
+function dosomething_signup_entity_property_info() {
+  $info = array();
+
+  // Set Signup properties.
+  $info['signup']['properties']['sid'] = array(
+    'label' => t('Signup sid'),
+    'description' => t('The unique ID of the Signup.'),
+    'type' => 'integer',
+    'schema field' => 'sid',
+    'entity views field' => TRUE,
+  );
+  $info['signup']['properties']['nid'] = array(
+    'label' => t('Node nid'),
+    'description' => t('The node nid of the Signup.'),
+    'type' => 'node',
+    'schema field' => 'nid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['signup']['properties']['uid'] = array(
+    'label' => t('User uid'),
+    'description' => t('The User uid of the Signup.'),
+    'type' => 'user',
+    'schema field' => 'uid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['signup']['properties']['timestamp'] = array(
+    'label' => t('Created Date'),
+    'description' => t('Date the Signup was created.'),
+    'type' => 'date',
+    'required' => TRUE,
+    'schema field' => 'timestamp',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['signup']['properties']['source'] = array(
+    'label' => t('Source'),
+    'description' => t('Referring Signup source.'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'source',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+
+  return $info;
+}
+
+/**
  * Implements hook_permission().
  */
 function dosomething_signup_permission() {
