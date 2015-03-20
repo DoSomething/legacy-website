@@ -414,6 +414,8 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
     'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
     'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
     'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $user)),
+    'non_owners_closed_button' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy', ''),
+    'non_owners_closed_cta' => variable_get('dosomething_campaign_permalink_nonowners_closed_cta', ''),
   );
 }
 /**

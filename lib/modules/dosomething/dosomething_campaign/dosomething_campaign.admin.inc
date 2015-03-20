@@ -233,6 +233,20 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_page_title'),
   );
+  $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_closed_cta'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink non-owners campaign closed CTA'),
+    '#description' => t('Appears near the button that links to /campagins.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_cta'),
+  );
+  $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_closed_button_copy'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink non-owners closed button copy'),
+    '#description' => t('Appears in place of the sign up button when the campagin is closed.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy'),
+  );
   return system_settings_form($form);
 }
 
