@@ -1,0 +1,28 @@
+.gallery {
+
+  &.-shuffle {
+    li {
+      margin: 0;
+      position: relative;
+
+      &:nth-child(odd) {
+        top: 7px;
+        transform: rotate(-1deg);
+      }
+
+      &:nth-child(even) {
+        top: -5px;
+        transform: rotate(1deg);
+      }
+
+      &:nth-child(4n-1) {
+        transform: rotate(-3deg);
+      }
+
+      &:nth-child(5n-1) {
+        transform: rotate(3deg);
+      }
+    }
+  }
+
+}

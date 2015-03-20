@@ -20,6 +20,18 @@
   </div>
 </header>
 
+<?php if (isset($reportbacks_showcase)): ?>
+  <div class="container -showcase">
+    <div class="wrapper">
+      <ul class="gallery -quartet -shuffle">
+        <?php foreach ($reportbacks_showcase['items'] as $index => $reportback): ?>
+          <li><?php print $reportback; ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+<?php endif; ?>
+
 <article class="campaign campaign--action">
   <nav class="campaign-nav js-fixedsticky">
     <ul class="waypoints -primary waypoints--action js-scroll-indicator">

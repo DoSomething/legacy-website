@@ -7,6 +7,9 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_scholarship: Scholarship amount (string).
  */
+
+//dpm($variables);
+//dpm($reportbacks_showcase);
 ?>
 
 <section class="campaign campaign--pitch pitch">
@@ -26,13 +29,17 @@
     </div>
   </header>
 
-  <?php /* Temporarily hidden. Next step is the frontend!
   <?php if (isset($reportbacks_showcase)): ?>
-    <div class="showcase">
-      <?php print $reportbacks_showcase; ?>
+    <div class="container -showcase">
+      <div class="wrapper">
+        <ul class="gallery -quartet -shuffle">
+          <?php foreach ($reportbacks_showcase['items'] as $index => $reportback): ?>
+            <li><?php print $reportback; ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
     </div>
   <?php endif; ?>
- */?>
 
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">

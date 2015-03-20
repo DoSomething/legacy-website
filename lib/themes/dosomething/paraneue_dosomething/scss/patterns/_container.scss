@@ -1,0 +1,9 @@
+.container {
+  &.-showcase {
+    background-color: #000;
+
+    > .wrapper {
+      padding: $base-spacing 0;
+    }
+  }
+}
