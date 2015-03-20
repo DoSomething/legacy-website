@@ -26,13 +26,17 @@
     </div>
   </header>
 
-  <?php /* Temporarily hidden. Next step is the frontend!
   <?php if (isset($reportbacks_showcase)): ?>
-    <div class="showcase">
-      <?php print $reportbacks_showcase; ?>
+    <div class="container -showcase optimizely-hidden">
+      <div class="wrapper">
+        <ul class="gallery -quartet -shuffle">
+          <?php foreach ($reportbacks_showcase['items'] as $index => $reportback): ?>
+            <li><?php print $reportback; ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
     </div>
   <?php endif; ?>
- */?>
 
   <?php if (isset($campaign->value_proposition)): ?>
     <div class="container">

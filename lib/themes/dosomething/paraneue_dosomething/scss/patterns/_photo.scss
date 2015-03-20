@@ -1,0 +1,29 @@
+.photo {
+
+  &.-framed {
+    background-color: #fff;
+    padding: ($base-spacing / 4);
+
+    @include media($larger) {
+      padding: ($base-spacing / 2);
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .__copy {
+      font-size: $font-smaller;
+      height: 60px;
+      line-height: 1.2;
+      overflow: hidden;
+      margin-top: ($base-spacing / 2);
+      word-wrap: break-word;
+
+      @include media($large) {
+        font-size: $font-small;
+      }
+    }
+  }
+
+}

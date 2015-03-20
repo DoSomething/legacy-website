@@ -1,0 +1,13 @@
+.container {
+  &.optimizely-hidden {
+    display: none;
+  }
+
+  &.-showcase {
+    background-color: #000;
+
+    > .wrapper {
+      padding: $base-spacing 0;
+    }
+  }
+}
