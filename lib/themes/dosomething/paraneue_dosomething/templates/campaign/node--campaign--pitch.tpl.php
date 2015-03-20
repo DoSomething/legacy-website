@@ -7,9 +7,6 @@
  * - $classes: Additional classes passed for output (string).
  * - $campaign_scholarship: Scholarship amount (string).
  */
-
-//dpm($variables);
-//dpm($reportbacks_showcase);
 ?>
 
 <section class="campaign campaign--pitch pitch">
