@@ -2,29 +2,35 @@
 
 /**
  * @file
- * Contains \DoSomethingFilesResource.
+ * Contains DoSomethingAssetsResource.
  */
+class DoSomethingAssetsResource extends RestfulEntityBaseNode {
 
-class DoSomethingFilesResource extends RestfulEntityBase {
   /**
    * Overrides RestfulEntityBaseNode::publicFieldsInfo().
    */
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
-
-    $public_fields['created'] = array(
-      'property' => 'timestamp',
-    );
-    $public_fields['file'] = array(
-      'property' => 'fid',
+    $public_fields['landscape'] = array(
+      'property' => 'field_image_landscape',
       'process_callbacks' => array(
-        array($this, 'fileProcess'),
+        array($this, 'imageProcess'),
       ),
-      // // This will add 3 image variants in the output.
-      'image_styles' => array('100x100', '300x300'),
+      // This will add 3 image variants in the output.
+      // No idea what we need here
+      'image_styles' => array('100x100', '550x300', '720x310'),
+    );
+    $public_fields['square'] = array(
+      'property' => 'field_image_square',
+      'process_callbacks' => array(
+        array($this, 'imageProcess'),
+      ),
+      // This will add 3 image variants in the output.
+      'image_styles' => array('100x100', '300x300', '768x768'),
     );
     return $public_fields;
   }
+
   /**
    * Process callback, Remove Drupal specific items from the image array.
    *
@@ -44,6 +50,7 @@ class DoSomethingFilesResource extends RestfulEntityBase {
     }
     return array(
       'id' => $value['fid'],
+      // @todo This should direct to the new files resource.
       'self' => file_create_url($value['uri']),
       'filemime' => $value['filemime'],
       'filesize' => $value['filesize'],
@@ -52,19 +59,4 @@ class DoSomethingFilesResource extends RestfulEntityBase {
       'styles' => $value['image_styles'],
     );
   }
-
-  protected function fileProcess($value) {
-    // This feels wrong because you'd expect the file entity to be loaded already.
-    $value = (array) file_load($value);
-    return array(
-      'id' => $value['fid'],
-      'self' => file_create_url($value['uri']),
-      'filemime' => $value['filemime'],
-      'filesize' => $value['filesize'],
-      'width' => $value['width'],
-      'height' => $value['height'],
-      'styles' => $value['image_styles'],
-    );
-  }
-
 }
