@@ -1,0 +1,6 @@
+name = DoSomething Northstar
+description = Provides connection to our Norhtstar user database.
+core = 7.x
+package = DoSomething
+version = 7.x-0.3
+project = dosomething_northstar

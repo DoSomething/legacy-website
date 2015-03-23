@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Code for the dosomething_northstar module.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_northstar_libraries_info() {
+  $libraries['guzzle-php'] = array(
+    'name' => 'Guzzle',
+    'path' => 'lib',
+    'files' => array(
+      'php' => array(
+        'autoload.php',
+      ),
+    ),
+    'version' => 5.0,
+  );
+  return $libraries;
+}
