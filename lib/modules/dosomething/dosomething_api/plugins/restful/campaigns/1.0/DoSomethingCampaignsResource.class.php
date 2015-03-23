@@ -33,6 +33,7 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
         ),
     );
 
+    //@todo This isn't working! Returns NULL.
     $public_fields['primary_cause'] = array(
       'property' => 'field_primary_cause',
        'resource' => array(
@@ -46,6 +47,30 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
           'cause' => 'terms',
         ),
     );
+
+    // @todo This doesn't work either.
+    // It's not liking something about the single value taxonomy :(
+    $public_fields['primary_action_type'] = array(
+      'property' => 'field_primary_action_type',
+       'resource' => array(
+          'primary_action_type' => 'terms',
+        ),
+    );
+
+    $public_fields['action_type'] = array(
+      'property' => 'field_action_type',
+       'resource' => array(
+          'action_type' => 'terms',
+        ),
+    );
+
+    $public_fields['cause'] = array(
+      'property' => 'field_cause',
+       'resource' => array(
+          'cause' => 'terms',
+        ),
+    );
+
     $public_fields['issue'] = array(
       'property' => 'field_issue',
        'resource' => array(
