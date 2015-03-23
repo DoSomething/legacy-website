@@ -52,10 +52,10 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
       'id' => $value['fid'],
       // @todo This should direct to the new files resource.
       'self' => file_create_url($value['uri']),
-      'filemime' => $value['filemime'],
-      'filesize' => $value['filesize'],
-      'width' => $value['width'],
-      'height' => $value['height'],
+      // 'filemime' => $value['filemime'],
+      // 'filesize' => $value['filesize'],
+      // 'width' => $value['width'],
+      // 'height' => $value['height'],
       'styles' => $value['image_styles'],
     );
   }
