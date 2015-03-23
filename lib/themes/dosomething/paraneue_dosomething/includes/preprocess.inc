@@ -427,6 +427,9 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
   else {
     $reportbacks_gallery['prefetched'] = 0;
   }
+
+  // Pass admin access boolean for JS purposes.
+  $reportbacks_gallery['admin_access'] = user_access('view any reportback') ? 'true' : 'false';
 }
 
 
