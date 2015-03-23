@@ -286,8 +286,13 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
 
   $reportback_results = dosomething_reportback_get_reportback_files_query_result($params, $count);
 
+  $admin_access = user_access('view any reportback');
+
   foreach ($reportback_results as $reportback) {
     // @Todo: DRY. Potentially grab this data from the API endpoint to truly DRY?
+    if ($admin_access) {
+      $reportback->admin_link = '/admin/reportback/' . $reportback->rbid;
+    }
     $reportback->image = dosomething_image_get_themed_image_url_by_fid($reportback->fid, '400x400');
     $reportback_items[] = paraneue_dosomething_get_gallery_item((array) $reportback, 'photo');
   }
