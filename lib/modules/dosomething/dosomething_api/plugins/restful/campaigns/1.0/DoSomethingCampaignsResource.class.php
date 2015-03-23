@@ -23,6 +23,15 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
     $public_fields['call_to_action'] = array(
       'property' => 'field_call_to_action',
     );
+    // This is so wtf.
+    // If I name it as 'cover_image' it doesn't work.
+    // If I name it as just 'image' it works.
+    $public_fields['image'] = array(
+      'property' => 'field_image_campaign_cover',
+       'resource' => array(
+          'image' => 'assets',
+        ),
+    );
 
     $public_fields['primary_cause'] = array(
       'property' => 'field_primary_cause',
@@ -30,6 +39,7 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
           'primary_cause' => 'terms',
         ),
     );
+
     $public_fields['cause'] = array(
       'property' => 'field_cause',
        'resource' => array(
