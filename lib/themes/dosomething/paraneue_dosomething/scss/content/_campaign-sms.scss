@@ -2,9 +2,9 @@
 .campaign--sms {
   .container--do {
     form {
+      @include clearfix;
       position: relative;
       clear: both;
-      overflow: hidden;
 
       // Callout on the top right of the form
       .message-callout.-above {
@@ -21,12 +21,39 @@
       }
     }
 
+    // @EXPERIMENTAL: Used for Optimizely test for first names on SMS forms.
+    .optimizely-sms-form {
+      padding-top: $base-spacing;
+
+      .message-callout.-above {
+        @include media($tablet) {
+          position: absolute;
+          top: -60px;
+          right: 20px;
+          margin: 0;
+        }
+      }
+    }
+
     .form-item-alpha-first-name {
       @include span(100%);
 
       @include media($medium) {
         @include span(50%);
       }
+    }
+
+    .campaign-sms-numbers {
+      clear: both;
+
+      .form-item {
+        @include span(100%);
+
+        @include media($medium) {
+          @include span(50%);
+        }
+      }
+
     }
 
     .form-wrapper.-columned {
