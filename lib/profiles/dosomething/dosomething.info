@@ -48,7 +48,6 @@ dependencies[] = new_relic_rpm
 dependencies[] = pathauto
 dependencies[] = redirect
 dependencies[] = redis
-dependencies[] = restful
 dependencies[] = search
 dependencies[] = seckit
 dependencies[] = services
