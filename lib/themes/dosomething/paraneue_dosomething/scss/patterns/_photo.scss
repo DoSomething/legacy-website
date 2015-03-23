@@ -1,4 +1,15 @@
 .photo {
+  position: relative;
+
+  .admin-edit {
+    display: none;
+  }
+
+  &:hover {
+    .admin-edit {
+      display: block;
+    }
+  }
 
   &.-framed {
     background-color: #fff;
