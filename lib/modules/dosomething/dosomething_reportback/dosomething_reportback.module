@@ -136,9 +136,11 @@ function dosomething_reportback_entity_property_info() {
   $info['reportback_file']['properties']['fid'] = array(
     'label' => t('Reportback file fid'),
     'description' => t('Unique file fid of the Reportback File.'),
-    'type' => 'integer',
+    'type' => 'file',
     'schema field' => 'fid',
+    'required' => TRUE,
     'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
   );
   $info['reportback_file']['properties']['caption'] = array(
     'label' => t('Caption'),
