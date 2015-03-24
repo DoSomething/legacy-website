@@ -54,33 +54,49 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $name = 'dosomething_signup_mailchimp_26plusclub_list_id';
-  $desc = t("Override MailChimp List ID for users older than 26.");
+  $name = 'dosomething_signup_26plusclub_enabled';
   $form['26plusclub'][$name] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Enable 26+ Club Overrides',
+    '#default_value' => variable_get($name),
+  );
+  $form['26plusclub']['overrides'] = array(
+    '#type' => 'container',
+    '#states' => array(
+      'visible' => array(
+        ':input[name="' . $name . '"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form_26plusclub_overrides = &$form['26plusclub']['overrides'];
+
+  $name = 'dosomething_signup_26plusclub_mailchimp_list_id';
+  $desc = t("Override MailChimp List ID for users older than 26.");
+  $form_26plusclub_overrides[$name] = array(
     '#type' => 'textfield',
-    '#required' => TRUE,
     '#title' => 'MailChimp | mailchimp_list_id',
     '#default_value' => variable_get($name),
     '#description' => $desc,
   );
-  $name = 'dosomething_signup_mailchimp_26plusclub_grouping_id_register';
+
+  $name = 'dosomething_signup_26plusclub_mailchimp_grouping_id_register';
   $desc = t("Override MailChimp Registration Grouping ID for users older than 26.");
-  $form['26plusclub'][$name] = array(
+  $form_26plusclub_overrides[$name] = array(
     '#type' => 'textfield',
-    '#required' => TRUE,
     '#title' => 'MailChimp | User registration | mailchimp_grouping_id',
     '#default_value' => variable_get($name),
     '#description' => $desc,
   );
-  $name = 'dosomething_signup_mailchimp_26plusclub_group_name_register';
+
+  $name = 'dosomething_signup_26plusclub_mailchimp_group_name_register';
   $desc = t("Override MailChimp Registration Interest Group Name for users older than 26.");
-  $form['26plusclub'][$name] = array(
+  $form_26plusclub_overrides[$name] = array(
     '#type' => 'textfield',
-    '#required' => TRUE,
     '#title' => 'MailChimp | User registration | mailchimp_group_name',
     '#default_value' => variable_get($name),
     '#description' => $desc,
   );
+
 
   // Node helpers variables.
   $opt_in_helpers = dosomething_signup_get_opt_in_config_form_helpers_vars();
@@ -119,12 +135,25 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
     'dosomething_signup_mailchimp_general_list_id',
     'dosomething_signup_mobilecommons_opt_in_path_general_campaign',
     'dosomething_signup_mobilecommons_opt_in_path_user_register',
-    'dosomething_signup_mailchimp_26plusclub_list_id',
-    'dosomething_signup_mailchimp_26plusclub_grouping_id_register',
-    'dosomething_signup_mailchimp_26plusclub_group_name_register',
+    'dosomething_signup_26plusclub_enabled',
   );
   foreach ($config_variables as $var_name) {
     variable_set($var_name, $values[$var_name]);
+  }
+
+  // 26+ Club.
+  $club_enabled = !empty($values['dosomething_signup_26plusclub_enabled']);
+  $config_variables = array(
+    'dosomething_signup_26plusclub_mailchimp_list_id',
+    'dosomething_signup_26plusclub_mailchimp_grouping_id_register',
+    'dosomething_signup_26plusclub_mailchimp_group_name_register',
+  );
+  foreach ($config_variables as $var_name) {
+    if ($club_enabled) {
+      variable_set($var_name, $values[$var_name]);
+    } else {
+      variable_del($var_name);
+    }
   }
 
   // Save node helpers variables.
