@@ -590,14 +590,16 @@ function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
  *   MailChimp List id.
  */
 function dosomething_signup_get_mailchimp_list_id() {
-  $variable_name = 'dosomething_signup_mailchimp_general_list_id';
-
   // 26+ Club override.
   if (dosomething_user_is_old_person()) {
-    $variable_name = 'dosomething_signup_mailchimp_26plusclub_list_id';
+    // If `dosomething_signup_mailchimp_26plusclub_list_id` isn't set,
+    // fallback to `dosomething_signup_mailchimp_general_list_id`.
+    if ($mli = variable_get('dosomething_signup_mailchimp_26plusclub_list_id')) {
+      return $mli;
+    }
   }
 
-  return variable_get($variable_name);
+  return variable_get('dosomething_signup_mailchimp_general_list_id');
 }
 
 /**
