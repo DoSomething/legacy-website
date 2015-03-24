@@ -459,13 +459,13 @@ function dosomething_user_new_user($form, &$form_state) {
   }
 
   // Override MailChimp group data for 26+ Club.
-  if (dosomething_user_is_old_person($account)) {
-    $grouping_id = variable_get('dosomething_signup_mailchimp_26plusclub_grouping_id_register');
+  if (dosomething_signup_is_26plusclub_member($account)) {
+    $grouping_id = variable_get('dosomething_signup_26plusclub_mailchimp_grouping_id_register');
     if ($grouping_id) {
       $params['mailchimp_grouping_id'] = $grouping_id;
     }
 
-    $group_name = variable_get('dosomething_signup_mailchimp_26plusclub_group_name_register');
+    $group_name = variable_get('dosomething_signup_26plusclub_mailchimp_group_name_register');
     if ($group_name) {
       $params['mailchimp_group_name']  = $group_name;
     }
