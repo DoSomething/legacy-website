@@ -1,5 +1,5 @@
 name = DoSomething Northstar
-description = Provides connection to our Norhtstar user database.
+description = Provides connection to our Northstar user database.
 core = 7.x
 package = DoSomething
 version = 7.x-0.3

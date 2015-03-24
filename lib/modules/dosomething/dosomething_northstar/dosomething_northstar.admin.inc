@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Zendesk admin settings.
+ * Northstar admin settings.
  */
 
 /**
