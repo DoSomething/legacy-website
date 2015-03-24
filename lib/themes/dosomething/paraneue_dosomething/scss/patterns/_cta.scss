@@ -1,0 +1,23 @@
+.cta {
+  .cta__message {
+    &.with-count {
+      display: none;
+    }
+
+    &.without-count {
+      display: block;
+    }
+  }
+
+  &.optimizely-show-count {
+    .cta__message {
+      &.with-count {
+        display: block;
+      }
+
+      &.without-count {
+        display: none;
+      }
+    }
+  }
+}

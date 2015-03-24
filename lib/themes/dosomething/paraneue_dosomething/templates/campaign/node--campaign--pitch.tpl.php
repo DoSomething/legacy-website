@@ -10,7 +10,6 @@
 ?>
 
 <section class="campaign campaign--pitch pitch <?php if ($show_persistent_signup) { print 'optimizely-persistent'; } ?>">
-
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
@@ -82,7 +81,8 @@
   <?php if (isset($campaign->secondary_call_to_action)): ?>
     <div class="cta">
       <div class="wrapper">
-        <h2 class="cta__message"><?php print $campaign->secondary_call_to_action; ?></h2>
+        <h2 class="cta__message with-count"><?php print $signup_cta; ?></h2>
+        <h2 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h2>
         <?php if (isset($signup_button_secondary)): ?>
           <?php print render($signup_button_secondary); ?>
         <?php endif; ?>
