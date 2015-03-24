@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Code for the dosomething_northstar module.
+ */
+
+include_once('dosomething_northstar.admin.inc');
+
+
+/**
+ * Implements hook_menu().
+ */
+function dosomething_northstar_menu() {
+  $items = array();
+  $items['admin/config/services/northstar'] = array(
+    'title' => 'Northstar',
+    'description' => 'Manage Northstar connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_northstar_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_northstar.admin.inc',
+  );
+  return $items;
+}
+/**
+ * Implements hook_libraries_info().
+ */
+function dosomething_northstar_libraries_info() {
+  $libraries['guzzle-php'] = array(
+    'name' => 'Guzzle',
+    'path' => 'lib',
+    'files' => array(
+      'php' => array(
+        'autoload.php',
+      ),
+    ),
+    'version' => 5.0,
+  );
+  return $libraries;
+}
