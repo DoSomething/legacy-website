@@ -104,7 +104,7 @@ class ReportbackFileEntityController extends EntityAPIController {
 
     $build['caption'] = array(
       '#prefix' => '<p><strong>',
-      '#markup' => check_plain($entity->caption),
+      '#markup' => filter_xss($entity->caption),
       '#suffix' => '</strong></p>',
     );
 
@@ -143,7 +143,7 @@ class ReportbackFileEntityController extends EntityAPIController {
 
       $build['why'] = array(
         '#prefix' => '<p>',
-        '#markup' => check_plain($reportback->why_participated),
+        '#markup' => filter_xss($reportback->why_participated),
         '#suffix' => '</p>',
       );
     }

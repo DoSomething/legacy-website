@@ -36,7 +36,7 @@
           <?php print $rb['image']; ?>
           <?php if ($rb['caption']): ?>
             <div class="caption">
-              <?php print check_plain($rb['caption']); ?> - <?php print check_plain($user->first_name); ?>
+              <?php print filter_xss($rb['caption']); ?> - <?php print check_plain($user->first_name); ?>
             </div>
           <?php endif; ?>
         </div>
@@ -63,11 +63,11 @@
               <h3><?php print $copy_vars['owners_rb_important']; ?></h3>
 
               <?php if ($why_participated_short): ?>
-                <p class="participate is-shown"><?php print check_plain($why_participated_short); ?></p>
-                <p class="participate"><?php print check_plain($reportback->why_participated); ?></p>
+                <p class="participate is-shown"><?php print filter_xss($why_participated_short); ?></p>
+                <p class="participate"><?php print filter_xss($reportback->why_participated); ?></p>
                 <p><a href="#" class="js-permalink-show-more secondary">Show More</a></p>
               <?php else: ?>
-                <p><?php print check_plain($reportback->why_participated); ?></p>
+                <p><?php print filter_xss($reportback->why_participated); ?></p>
               <?php endif; ?>
             </div>
           <!--Show non-owner the call to action page -->
