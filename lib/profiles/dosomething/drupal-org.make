@@ -253,6 +253,10 @@ projects[stage_file_proxy][subdir] = "contrib"
 ;libraries[dsapi][download][type] = "git"
 ;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
 
+; Guzzle
+libraries[guzzle][download][type] = "git"
+libraries[guzzle][download][url] = "https://github.com/guzzle/guzzle.git"
+
 ; Message Broker PHP Library
 libraries[messagebroker-phplib][download][type] = "git"
 libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
