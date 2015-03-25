@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/drupal"
-  config.vm.box_version = "1.0.0.alpha2"
+  config.vm.box_version = "1.0.0.alpha3"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -37,8 +37,8 @@ Vagrant.configure("2") do |config|
   # With Varnish
   config.vm.network :forwarded_port, guest: 6081, host: 9999
 
-  # Tomcat with Jenkins and Solr
-  config.vm.network :forwarded_port, guest: 8080, host: 8080
+  # Solr.
+  config.vm.network :forwarded_port, guest: 8983, host: 8983
 
   config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
 end
