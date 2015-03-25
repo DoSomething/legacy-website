@@ -142,6 +142,30 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       ),
     );
   }
+  // Add goals/progress.
+  if (module_exists('dosomething_campaign')) {
+    $form['goals'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Goals Settings'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['goals']['goal'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Goal'),
+      '#required' => FALSE,
+      '#description' => 'The goal of total number of reportbacks',
+      '#default_value' => $vars['goal'],
+    );
+    $form['goals']['progress'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Progress'),
+      '#description' => t('The total number of approved reportback quantity.'),
+      '#required' => FALSE,
+      '#default_value' => $vars['progress'],
+    );
+  }
+
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -172,7 +196,6 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
       strip_tags($values[$field]);
     }
   }
-
   // Loop through all remaining values:
   foreach ($values as $name => $value) {
     // Save to the variable table.
@@ -197,8 +220,10 @@ function dosomething_helpers_get_variable_names() {
     'count_flagged',
     'count_pending',
     'count_promoted',
+    'goal',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
+    'progress',
     'shipment_form_confirm_msg',
     'shipment_form_copy',
     'shipment_form_header',

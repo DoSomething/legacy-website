@@ -9,7 +9,7 @@
  * System settings form for northstar config.
  */
 function dosomething_northstar_config_form($form, &$form_state) {
-   $form = array();
+  $form = array();
 
   $form['northstar'] = array(
     '#type' => 'fieldset',
