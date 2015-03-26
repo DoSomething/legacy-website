@@ -206,67 +206,69 @@
 
 
   <?php // DO IT ////////////////////////////////////////////////////// ?>
-  <section id="do" class="container -padded container--do">
-    <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
-    <div class="wrapper">
-      <?php foreach ($do as $key => $content): ?>
-        <div class="container__block -narrow">
+  <?php if (!empty($do)): ?>
+    <section id="do" class="container -padded container--do">
+      <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
+      <div class="wrapper">
+        <?php foreach ($do as $key => $content): ?>
+          <div class="container__block -narrow">
 
-          <?php if (isset($content['image'])): ?>
-            <figure class="polaroid">
-              <?php print $content['image']; ?>
-            </figure>
-          <?php endif; ?>
+            <?php if (isset($content['image'])): ?>
+              <figure class="polaroid">
+                <?php print $content['image']; ?>
+              </figure>
+            <?php endif; ?>
 
-          <?php if (isset($content['header'])): ?>
-            <h3 class="inline-sponsor-color"><?php print $content['header']; ?></h3>
-          <?php endif; ?>
+            <?php if (isset($content['header'])): ?>
+              <h3 class="inline-sponsor-color"><?php print $content['header']; ?></h3>
+            <?php endif; ?>
 
-          <?php if (isset($content['copy'])): ?>
-            <?php print $content['copy']; ?>
-          <?php endif; ?>
+            <?php if (isset($content['copy'])): ?>
+              <?php print $content['copy']; ?>
+            <?php endif; ?>
 
-          <?php if (isset($content['tips'])): ?>
-            <section id="<?php print 'tips-' . $key ?>" class="tabs tabs--campaign js-tabs">
-              <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle"><?php print t('View Tips'); ?></a>
-              <h4 class="visually-hidden"><?php print t('Tips'); ?></h4>
-              <div class="wrapper">
-                <nav class="tabs__menu">
-                  <ul class="waypoints">
+            <?php if (isset($content['tips'])): ?>
+              <section id="<?php print 'tips-' . $key ?>" class="tabs tabs--campaign js-tabs">
+                <a href="#" data-modal-href="#modal-tips-<?php print $key; ?>" class="tabs__modal-toggle"><?php print t('View Tips'); ?></a>
+                <h4 class="visually-hidden"><?php print t('Tips'); ?></h4>
+                <div class="wrapper">
+                  <nav class="tabs__menu">
+                    <ul class="waypoints">
+                      <?php foreach ($content['tips'] as $delta => $tip): ?>
+                        <?php $delta++; ?>
+                        <li class="<?php if ($delta === 1) print ' is-active'?>">
+                          <a href="#tip-<?php print $delta; ?>" data-tab="<?php print $delta; ?>"><?php print $tip['header']; ?></a>
+                        </li>
+                      <?php endforeach; ?>
+                    </ul>
+                  </nav>
+
+                  <ul class="tabs__body">
                     <?php foreach ($content['tips'] as $delta => $tip): ?>
                       <?php $delta++; ?>
-                      <li class="<?php if ($delta === 1) print ' is-active'?>">
-                        <a href="#tip-<?php print $delta; ?>" data-tab="<?php print $delta; ?>"><?php print $tip['header']; ?></a>
+                      <li id="tip-<?php print $delta; ?>" class="tabs__tab">
+                        <h5 class="tabs__title"><?php print $tip['header']; ?></h5>
+                        <?php print $tip['copy']; ?>
                       </li>
                     <?php endforeach; ?>
                   </ul>
-                </nav>
+                </div>
+              </section>
 
-                <ul class="tabs__body">
-                  <?php foreach ($content['tips'] as $delta => $tip): ?>
-                    <?php $delta++; ?>
-                    <li id="tip-<?php print $delta; ?>" class="tabs__tab">
-                      <h5 class="tabs__title"><?php print $tip['header']; ?></h5>
-                      <?php print $tip['copy']; ?>
-                    </li>
-                  <?php endforeach; ?>
-                </ul>
+              <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
+                <h2 class="heading -banner">Tips</h2>
+                <?php foreach ($content['tips'] as $delta => $tip): ?>
+                  <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>
+                  <?php print $tip['copy']; ?>
+                <?php endforeach; ?>
+                <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
               </div>
-            </section>
-
-            <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
-              <h2 class="heading -banner">Tips</h2>
-              <?php foreach ($content['tips'] as $delta => $tip): ?>
-                <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>
-                <?php print $tip['copy']; ?>
-              <?php endforeach; ?>
-              <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
-            </div>
-          <?php endif; ?>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </section>
+            <?php endif; ?>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
 
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
