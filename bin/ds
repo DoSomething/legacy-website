@@ -487,6 +487,9 @@ function pull_db {
       echo "Unsetting tagged version variable..."
       drush variable-delete ds_version -y
 
+      echo "Reindexing Solr..."
+      drush solr-mark-all && drush solr-index
+
     else
       echo "Pulling down the db from ${alias[1]} staging"
       drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
