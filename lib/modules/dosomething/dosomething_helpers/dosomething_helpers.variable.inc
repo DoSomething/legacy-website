@@ -153,7 +153,6 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     $form['goals']['goal'] = array(
       '#type' => 'textfield',
       '#title' => t('Goal'),
-      '#required' => FALSE,
       '#description' => 'The goal of total number of reportbacks',
       '#default_value' => $vars['goal'],
     );
@@ -161,7 +160,6 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#type' => 'textfield',
       '#title' => t('Progress'),
       '#description' => t('The total number of approved reportback quantity.'),
-      '#required' => FALSE,
       '#default_value' => $vars['progress'],
     );
   }
