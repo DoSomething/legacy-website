@@ -232,7 +232,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       $nid = $rb->nid;
       // First get the total quantity.
       $quantity = dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity');
-      //@TODO: remove the print_r().
+      //@TODO: remove the messages.
       // This is intentionally left in to show @fanitni how screwy this update stuff is.
       drupal_set_message('before file: ' . $rbf->fid . ' quanity: ' . $quantity);
       $quantity = $quantity + $rb->quantity;
