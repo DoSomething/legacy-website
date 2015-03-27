@@ -156,11 +156,23 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#description' => t('The goal of total number of reportbacks'),
       '#default_value' => $vars['goal'],
     );
+
+    // @TODO: move this into a function.
+    // If the progress set is higher than the var, save the var as higher.
+    // This allows for campaigns run with external partners to account for
+    // counts submitted directly to the third party, but haven't been
+    // reported back on our site
+    if ($vars['progress'] > $rb_progress) {
+      dosomething_helpers_set_variable('node', $node->nid, 'sum_rb_quanity', $vars['progress']);
+    }
+    // Get the progress from the set variable, else do a query for it.
+    $rb_progress = dosomething_helpers_get_variable('node', $node->nid, 'sum_rb_quanity') ?: dosomething_reportback_get_reportback_total_by_nid($node->nid);
+
     $form['goals']['progress'] = array(
       '#type' => 'textfield',
       '#title' => t('Progress'),
-      '#description' => t('The total number of approved reportback quantity.'),
-      '#default_value' => $vars['progress'],
+      '#description' => t('The total approved reportback quantity so far is: ' . $rb_progress),
+      '#default_value' => $vars['progress'] ?: $rb_progress,
     );
   }
 
