@@ -156,10 +156,12 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#description' => t('The goal of total number of reportbacks'),
       '#default_value' => $vars['goal'],
     );
+    $progress = dosomething_helpers_get_variable('node', $node->nid, 'sum_count') ?: dosomething_reportback_get_reportback_total_by_nid($node->nid);
+
     $form['goals']['progress'] = array(
       '#type' => 'textfield',
       '#title' => t('Progress'),
-      '#description' => t('The total number of approved reportback quantity.'),
+      '#description' => t('The total number of approved reportback quantity.' . $progress . ' so far'),
       '#default_value' => $vars['progress'],
     );
   }
