@@ -829,7 +829,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
     $query->addExpression('SUM(quantity)', 'quantity');
     $result = $query->execute()->fetchAll();
     $quantity = $result[0]->quantity;
-    dosomething_helpers_set_variable('node', $nid, 'sum_count', $quantity);
+    dosomething_helpers_set_variable('node', $nid, 'sum_rb_quanity', $quantity);
     return $quantity;
   }
   elseif ($type == 'count') {
