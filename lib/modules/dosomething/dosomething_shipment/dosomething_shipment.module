@@ -251,6 +251,7 @@ function dosomething_shipment_get_item_options() {
   $options['banner'] = t('Banner');
   $options['coupon'] =  t('Coupon');
   $options['shirt'] = t('Shirt');
+  $options['tattoo'] = t('Tattoo');
   $options['thumb_socks'] =  t('Thumb Socks');
   return $options;
 }
