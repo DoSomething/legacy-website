@@ -225,21 +225,6 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     if (!$save) {
       form_set_error(t("An error has occurred."));
     }
-    // If it's not a flagged reportback update the node quantity.
-    // @TODO: remove this code, this is just a test of updating rb_quanity.
-    if ($values['status'] != 'flagged') {
-      $rb = reportback_load($rbf->rbid);
-      $nid = $rb->nid;
-      // First get the total quantity.
-      $quantity = dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity');
-      //@TODO: remove the messages.
-      // This is intentionally left in to show @fanitni how screwy this update stuff is.
-      drupal_set_message('before file: ' . $rbf->fid . ' quanity: ' . $quantity);
-      $quantity = $quantity + $rb->quantity;
-      // Update the variable.
-      dosomething_helpers_set_variable('node', $nid, 'sum_rb_quanity', $quantity);
-      drupal_set_message('after file: ' . $rbf->fid . ' quanity: '. $quantity);
-    }
   }
 
   drupal_set_message(t("Updated."));
