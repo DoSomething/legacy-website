@@ -3,8 +3,12 @@
 # ==============================================================================
 # Globals
 
+# Absolute pathe of this script
+SCRIPT_PATH=`dirname "$0"`
+
 # The base project directory
-BASE_PATH=`pwd -P`
+# If DS_APP_ROOT is not provided, the script will use parent folder as base path
+BASE_PATH=${DS_APP_ROOT:-`dirname $SCRIPT_PATH`}
 
 # The webroot directory name for the dev environment
 WEB_DIR='html'
