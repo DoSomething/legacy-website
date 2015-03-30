@@ -32,9 +32,9 @@
           <?php endif; ?>
 
           <?php if (isset($psa)): ?>
-            <aside <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+            <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
               <?php print $psa; ?>
-            </aside>
+            </p>
           <?php else: ?>
             <?php if (isset($modals)): ?>
               <?php print $modals; ?>
