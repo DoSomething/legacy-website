@@ -174,6 +174,14 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#description' => t('The total approved reportback quantity so far is: ' . $rb_progress),
       '#default_value' => $vars['progress'] ?: $rb_progress,
     );
+
+    $signup_count = dosomething_helpers_get_variable('node', $node->nid, 'signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
+    $form['goals']['signup'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Signup Count'),
+      '#description'=> t('The total number of signups on the campaign. Currently this only supports web signups, but mobile signups can be added manually.'),
+      '#default_value' => $signup_count,
+    );
   }
 
   $form['actions'] = array(
