@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/drupal"
-  config.vm.box_version = "1.0.0.alpha3"
+  config.vm.box_version = "1.0.0.rc1"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -28,9 +28,9 @@ Vagrant.configure("2") do |config|
     config.sshfs.paths = { "/var/www/dev.dosomething.org" => "../dosomething-mount" }
   end
 
-  # Bare Apache httpd (http and https)
+  # Http and https.
   config.vm.network :forwarded_port, guest: 80, host: 8888
-  config.vm.network :forwarded_port, guest: 8889, host: 8889
+  config.vm.network :forwarded_port, guest: 443, host: 8889
 
   config.vm.host_name = "dev.dosomething.org"
 
