@@ -111,7 +111,7 @@ function dosomething_mbp_install_productions() {
   $productions[0]['queues'][] = 'transactionalQueue';
   $productions[0]['queues'][] = 'loggingQueue';
   $productions[0]['queues'][] = 'activityStatsQueue';
-  $productions[0]['queues'][] = 'mailchimpCampaignSignupQueue';
+  $productions[0]['queues'][] = 'userRegistrationQueue';
   $productions[0]['queues'][] = 'mobileCommonsQueue';
   $productions[0]['queues'][] = 'userAPIRegistrationQueue';
   $productions[0]['routing_key'] = 'user.registration.transactional';
