@@ -433,16 +433,12 @@ function dosomething_user_new_user($form, &$form_state) {
     return;
   }
 
-  // MailChimp List Id.
-  $mli = variable_get('dosomething_signup_mailchimp_general_list_id');
-
-
   global $user;
   $account = $user;
 
   // Send external message request.
   $params = array(
-    'mailchimp_list_id' => $mli,
+    'mailchimp_list_id' => dosomething_signup_get_mailchimp_list_id(),
     'email'             => $account->mail,
     'uid'               => $account->uid,
     'first_name'        => dosomething_user_get_field('field_first_name', $account),
@@ -461,6 +457,19 @@ function dosomething_user_new_user($form, &$form_state) {
       }
     }
   }
+
+  // Override MailChimp group data for 26+ Club.
+  if (dosomething_signup_is_26plusclub_member($account)) {
+    $grouping_id = variable_get('dosomething_signup_26plusclub_mailchimp_grouping_id_register');
+    if ($grouping_id) {
+      $params['mailchimp_grouping_id'] = $grouping_id;
+    }
+
+    $group_name = variable_get('dosomething_signup_26plusclub_mailchimp_group_name_register');
+    if ($group_name) {
+      $params['mailchimp_group_name']  = $group_name;
+    }
+   }
 
   dosomething_mbp_request('user_register', $params);
 }

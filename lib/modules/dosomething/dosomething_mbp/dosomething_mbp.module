@@ -120,6 +120,14 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
         }
       }
 
+      // Override MailChimp group data if specified explicitly.
+      if (!empty($params['mailchimp_grouping_id'])) {
+        $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
+      }
+      if (!empty($params['mailchimp_group_name'])) {
+        $payload['mailchimp_group_name'] = $params['mailchimp_group_name'];
+      }
+
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['email_tags'][] = 'drupal_user_register';
       break;

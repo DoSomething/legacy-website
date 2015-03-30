@@ -536,3 +536,17 @@ function dosomething_signup_update_7018() {
   variable_set($new_name, variable_get($old_name));
   variable_del($old_name);
 }
+
+/**
+ * Introduces new variables for 26+ Club.
+ */
+function dosomething_signup_update_7019() {
+  $name = 'dosomething_signup_26plusclub_mailchimp_list_id';
+  variable_set($name, getenv('DS_MB_MAILCHIMP_26PLUSCLUB_LIST_ID'));
+
+  $name = 'dosomething_signup_26plusclub_mailchimp_grouping_id_register';
+  variable_set($name, getenv('DS_MB_MAILCHIMP_26PLUSCLUB_GROUPING_ID_REGISTER'));
+
+  $name = 'dosomething_signup_26plusclub_mailchimp_group_name_register';
+  variable_set($name, getenv('DS_MB_MAILCHIMP_26PLUSCLUB_GROUP_NAME_REGISTER'));
+}
