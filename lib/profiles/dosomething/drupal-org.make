@@ -275,6 +275,10 @@ libraries[predis][download][url] = "https://github.com/nrk/predis.git"
 ; Pin to 0.8 release, which still has the lib directory.
 libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf6"
 
+; Stathat
+libraries[stathat][download][type] = "get"
+libraries[stathat][download][url] = "https://www.stathat.com/downloads/stathat.php"
+
 ; Stripe PHP
 libraries[stripe-php][download][type] = "git"
 libraries[stripe-php][download][url] = "https://github.com/stripe/stripe-php"
