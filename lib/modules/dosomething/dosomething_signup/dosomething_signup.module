@@ -12,6 +12,7 @@ include_once 'dosomething_signup.signup_data_form.inc';
 include_once 'dosomething_signup.theme.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
 include_once 'includes/dosomething_signup.variable.inc';
+include_once 'includes/dosomething_signup.cron.inc';
 
 /**
  * Implements hook_menu().
@@ -741,7 +742,9 @@ function dosomething_signup_get_signup_total_by_nid($nid) {
     ->fields('s', array('sid'))
     ->condition('nid', $nid)
     ->execute();
-  return $result->rowCount();
+  $signup_count = $result->rowCount();
+  dosomething_helpers_set_variable('node', $nid, 'signup_count', $signup_count);
+  return $signup_count;
 }
 
 /**
