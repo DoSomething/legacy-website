@@ -1,6 +1,6 @@
 <?php
 
-function _signup_resource_defintion() {
+function _signup_resource_definition() {
   $resource = array();
   $resource['signups'] = array(
     'operations' => array(

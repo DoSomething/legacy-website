@@ -1,6 +1,6 @@
 <?php
 
-function _term_resource_defintion() {
+function _term_resource_definition() {
   $resource = array();
   $resource['terms'] = array(
     'operations' => array(
