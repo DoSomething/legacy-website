@@ -21,7 +21,7 @@ if(theme_get_setting('use_minified_assets')) {
 }
 
 // Define asset directory paths
-define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/bower_components');
+define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/node_modules');
 define('NEUE_ASSET_PATH', VENDOR_ASSET_PATH . '/neue');
 
 // Theme includes
