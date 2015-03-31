@@ -168,7 +168,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     // Get the progress from the set variable, else do a query for it.
     $rb_progress = dosomething_helpers_get_variable('node', $node->nid, 'sum_rb_quanity') ?: dosomething_reportback_get_reportback_total_by_nid($node->nid);
 
-    $form['goals']['progress'] = array(
+    $form['goals']['sum_rb_quanity'] = array(
       '#type' => 'textfield',
       '#title' => t('Progress'),
       '#description' => t('The total approved reportback quantity so far is: ' . $rb_progress),
