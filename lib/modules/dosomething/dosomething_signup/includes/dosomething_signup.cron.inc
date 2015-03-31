@@ -23,3 +23,4 @@ function dosomething_signup_cron() {
     dosomething_helpers_set_variable('node', $result->nid, 'signup_count', $updated_signups);
   }
 }
+
