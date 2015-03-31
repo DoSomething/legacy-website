@@ -176,11 +176,16 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     );
 
     $signup_count = dosomething_helpers_get_variable('node', $node->nid, 'signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
-    $form['goals']['signup'] = array(
+
+    if ($vars['signup'] > $signup_count) {
+      $signup_count = dosomething_helpers_set_variable('node', $node->nid, 'signup_count', $vars['signup']);
+    }
+
+    $form['goals']['signup_count'] = array(
       '#type' => 'textfield',
       '#title' => t('Signup Count'),
       '#description'=> t('The total number of signups on the campaign. Currently this only supports web signups, but mobile signups can be added manually.'),
-      '#default_value' => $signup_count,
+      '#default_value' => $vars['signup'] ?: $signup_count,
     );
   }
 
@@ -251,6 +256,7 @@ function dosomething_helpers_get_variable_names() {
     'shipment_form_submit_label',
     'shipment_form_submitted_copy',
     'shipment_item',
+    'signup_count',
     'signup_form_submit_label',
     'sms_game_mp_story_id',
     'sms_game_mp_story_type',
