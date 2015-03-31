@@ -5,15 +5,17 @@
  */
 class Reportback {
 
-  public function index()
+  public function index($page)
   {
     return [
-      'data' => 'something'
+      'data' => 'something',
+      'page' => (int) $page,
     ];
   }
 
 
-  public function show($id) {
+  public function show($id)
+  {
     return [
       'data' => $id
     ];
