@@ -9,18 +9,18 @@
  */
 ?>
 
-<section class="campaign campaign--pitch -persistent pitch">
+<section class="campaign campaign--pitch pitch <?php if ($show_persistent_signup) { print '-persistent-beta'; } ?>">
 
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php /* if (isset($signup_button_primary)): ?>
+      <?php if (isset($signup_button_primary)): ?>
         <div class="header__signup">
           <?php print render($signup_button_primary); ?>
           <?php print $campaign_scholarship; ?>
         </div>
-      <?php endif; */?>
+      <?php endif; ?>
 
       <?php print $promotions; ?>
     </div>
@@ -38,13 +38,6 @@
       </div>
     </div>
   <?php endif; ?>
-<!-- 
-  <div class="cta -inline js-fixedsticky fixedsticky">
-    <div class="wrapper">
-      <p class="cta__message">You must pay homage to our future <em>kitten</em> overlords.</p>
-      <div class="cta__action"><a href="#" class="button">Do This</a></div>
-    </div>
-  </div> -->
 
   <?php if (isset($reportbacks_showcase)): ?>
     <div class="container -showcase optimizely-hidden">

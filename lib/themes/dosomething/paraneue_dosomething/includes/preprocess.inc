@@ -393,6 +393,9 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     paraneue_dosomething_preprocess_reportback_gallery($vars);
   }
 
+  if (isset($vars['is_pitch_page'])) {
+    $vars['show_persistent_signup'] = theme_get_setting('show_persistent_signup');
+  }
 }
 
 

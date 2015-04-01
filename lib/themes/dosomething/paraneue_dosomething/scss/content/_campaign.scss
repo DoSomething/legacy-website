@@ -131,66 +131,76 @@
 
 }
 
-.campaign--pitch.-persistent {
+.campaign--pitch {
   .cta.-persistent {
-    display: block;
-    background-color: $black;
-    border: none;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    // Fallback for position:sticky, through Filament Group's fixed-sticky
-    &.fixedsticky-on {
-      position: fixed;
-      width: 100%;
-      max-width: 1440px;
-    }
-
-    > .wrapper {
-      @include clearfix;
-      display: table;
-      padding: $base-spacing / 2 0px;
-    }
-
-    .cta__button {
-      display: table-cell;
-      @include span(5 of 12);
-      float: none;
-      padding: 0px;
-      text-align: left;
-
-      @include media($medium) {
-        width: auto;
-        float: left;
-        display: inline-block;
-      }
-    }
-
-    .cta__message {
-      display: table-cell;
-      @include span(7 of 12);
-      color: $white;
-      clear: none;
-      text-align: left;
-      margin-bottom: 0px;
-      font-size: $font-regular;
-      float: none;
-      vertical-align: middle;
-
-      @include media($medium) {
-        width: auto;
-        font-size: $font-medium;
-        float: left;
-        padding: 0px;
-        display: inline-block;
-        padding: ($base-spacing/2) 0px 0px ($base-spacing * 2.5);
-      }
-    }
+    display: none;
   }
 
-  .cta {
-    display: none;
+  &.-persistent-beta {
+    .cta {
+      display: none;
+    }
+
+    .header__signup {
+      display: none;
+    }
+
+    .cta.-persistent {
+      display: block;
+      background-color: $black;
+      border: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      // Fallback for position:sticky, through Filament Group's fixed-sticky
+      &.fixedsticky-on {
+        position: fixed;
+        width: 100%;
+        max-width: 1440px;
+      }
+
+      > .wrapper {
+        @include clearfix;
+        display: table;
+        padding: $base-spacing / 2 0px;
+      }
+
+      .cta__button {
+        display: table-cell;
+        @include span(5 of 12);
+        float: none;
+        padding: 0px;
+        text-align: left;
+
+        @include media($medium) {
+          width: auto;
+          float: left;
+          display: inline-block;
+        }
+      }
+
+      .cta__message {
+        display: table-cell;
+        @include span(7 of 12);
+        color: $white;
+        clear: none;
+        text-align: left;
+        margin-bottom: 0px;
+        font-size: $font-regular;
+        float: none;
+        vertical-align: middle;
+
+        @include media($medium) {
+          width: auto;
+          font-size: $font-medium;
+          float: left;
+          padding: 0px;
+          display: inline-block;
+          padding: ($base-spacing/2) 0px 0px ($base-spacing * 2.5);
+        }
+      }
+    }
   }
 
   // Need to hide this cloned element that is injected by the fixed-sticky js.
