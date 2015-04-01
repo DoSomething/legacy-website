@@ -136,7 +136,7 @@
     display: none;
   }
 
-  &.-persistent-beta {
+  &.optimizely-persistent {
     .cta {
       display: none;
     }
@@ -163,14 +163,14 @@
       > .wrapper {
         @include clearfix;
         display: table;
-        padding: $base-spacing / 2 0px;
+        padding: $base-spacing / 2 0;
       }
 
       .cta__button {
         display: table-cell;
         @include span(5 of 12);
         float: none;
-        padding: 0px;
+        padding: 0;
         text-align: left;
 
         @include media($medium) {
@@ -186,7 +186,7 @@
         color: $white;
         clear: none;
         text-align: left;
-        margin-bottom: 0px;
+        margin-bottom: 0;
         font-size: $font-regular;
         float: none;
         vertical-align: middle;
@@ -195,9 +195,9 @@
           width: auto;
           font-size: $font-medium;
           float: left;
-          padding: 0px;
+          padding: 0;
           display: inline-block;
-          padding: ($base-spacing/2) 0px 0px ($base-spacing * 2.5);
+          padding: ($base-spacing/2) 0 0 ($base-spacing * 2.5);
         }
       }
     }

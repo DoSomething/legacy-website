@@ -9,7 +9,7 @@
  */
 ?>
 
-<section class="campaign campaign--pitch pitch <?php if ($show_persistent_signup) { print '-persistent-beta'; } ?>">
+<section class="campaign campaign--pitch pitch <?php if ($show_persistent_signup) { print 'optimizely-persistent'; } ?>">
 
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
