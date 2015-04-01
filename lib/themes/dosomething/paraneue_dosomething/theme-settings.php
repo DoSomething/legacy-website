@@ -46,7 +46,11 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
     'show_sponsors' => array(
       '#title' => t('Show sponsors'),
       '#description' => t('Toggles the sponsors block on the home page when finder is enabled.')
-    )
+    ),
+    'show_persistent_signup' => array(
+      '#title' => t('Persistent Signup Nav'),
+      '#description' => t('Toggles the cta on the campaign pitch page to show as a persistent nav')
+    ),
   );
 
   foreach ($flags as $name => $flag) {
