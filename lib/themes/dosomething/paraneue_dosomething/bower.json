@@ -19,9 +19,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "almond": "~0.2.9",
-    "requirejs": "~2.1.11",
-    "requirejs-text": "requirejs/text#~2.0.12"
-  }
+  "dependencies": {}
 }

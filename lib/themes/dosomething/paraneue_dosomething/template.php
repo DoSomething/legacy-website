@@ -71,22 +71,37 @@ function paraneue_dosomething_js_alter(&$js) {
   //    b) DS_ASSET_PATH is not local. It is already a valid URL to CDN.
   $is_local_asset = DS_ASSET_PATH == LOCAL_ASSET_PATH;
   $js_dir = $is_local_asset ? PARANEUE_DS_PATH : DS_ASSET_PATH;
-  $js_subdir = theme_get_setting('use_minified_assets') ? '/dist/js' : '/dist/debug';
 
   // Add lib.js and app.js using Drupal API:
-  drupal_add_js($js_dir . $js_subdir . '/lib.js', array(
+  drupal_add_js($js_dir . '/dist/lib.js', array(
     'group'      => JS_LIBRARY,
     'weight'     => -200,
     'every_page' => TRUE,
     'preprocess' => FALSE,
   ));
 
-  drupal_add_js($js_dir . $js_subdir . '/app.js', array(
+  drupal_add_js($js_dir . '/dist/app.js', array(
     'group'      => JS_THEME,
     'weight'     => 999,
     'every_page' => TRUE,
     'preprocess' => FALSE,
   ));
+
+  // Force settings to be embedded after lib, before app scripts.
+  if(isset($js['settings'])) {
+    $inline_settings = array(
+        'type' => 'inline',
+        'group' => JS_LIBRARY,
+        'weight' => 999,
+        'data' => 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($js['settings']['data'])) . ");",
+        'every_page' => TRUE,
+      ) + drupal_js_defaults();
+
+    // No need for drupal_get_js() to do this again.
+    unset($js['settings']);
+
+    $js['inline_settings'] = $inline_settings;
+  }
 
   // Load excluded JS files from theme info file.
   $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'js');
