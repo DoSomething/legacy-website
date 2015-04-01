@@ -167,8 +167,8 @@
       }
 
       .cta__button {
-        display: table-cell;
         @include span(5 of 12);
+        display: table-cell;
         float: none;
         padding: 0;
         text-align: left;
@@ -181,8 +181,8 @@
       }
 
       .cta__message {
-        display: table-cell;
         @include span(7 of 12);
+        display: table-cell;
         color: $white;
         clear: none;
         text-align: left;
