@@ -9,7 +9,7 @@
  */
 ?>
 
-<section class="campaign campaign--pitch pitch -persistent-beta">
+<section class="campaign campaign--pitch -persistent pitch">
 
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
@@ -27,7 +27,7 @@
   </header>
 
   <?php if (isset($campaign->secondary_call_to_action)): ?>
-    <div class="cta js-fixedsticky fixedsticky">
+    <div class="cta -persistent js-fixedsticky fixedsticky">
       <div class="wrapper">
         <?php if (isset($signup_button_secondary)): ?>
           <div class="cta__button">
@@ -86,7 +86,7 @@
     </div>
   <?php endif; ?>
 
-  <?php /* if (isset($campaign->secondary_call_to_action)): ?>
+  <?php if (isset($campaign->secondary_call_to_action)): ?>
     <div class="cta">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $campaign->secondary_call_to_action; ?></h2>
@@ -95,7 +95,7 @@
         <?php endif; ?>
       </div>
     </div>
-  <?php endif; */?>
+  <?php endif; ?>
 
   <div class="info-bar -dark">
     <div class="wrapper">

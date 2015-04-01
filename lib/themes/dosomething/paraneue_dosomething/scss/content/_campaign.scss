@@ -131,8 +131,9 @@
 
 }
 
-.campaign--pitch.-persistent-beta {
-  .cta {
+.campaign--pitch.-persistent {
+  .cta.-persistent {
+    display: block;
     background-color: $black;
     border: none;
     position: sticky;
@@ -173,19 +174,23 @@
       clear: none;
       text-align: left;
       margin-bottom: 0px;
-      font-size: 18px;
+      font-size: $font-regular;
       float: none;
       vertical-align: middle;
 
       @include media($medium) {
         width: auto;
-        font-size: 24px;
+        font-size: $font-medium;
         float: left;
         padding: 0px;
         display: inline-block;
-        padding: 12px 0px 0px 60px;
+        padding: ($base-spacing/2) 0px 0px ($base-spacing * 2.5);
       }
     }
+  }
+
+  .cta {
+    display: none;
   }
 
   // Need to hide this cloned element that is injected by the fixed-sticky js.
