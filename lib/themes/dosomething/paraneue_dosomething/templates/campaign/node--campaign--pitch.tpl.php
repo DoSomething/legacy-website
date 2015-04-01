@@ -9,22 +9,42 @@
  */
 ?>
 
-<section class="campaign campaign--pitch pitch">
+<section class="campaign campaign--pitch pitch -persistent-beta">
 
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
 
-      <?php if (isset($signup_button_primary)): ?>
+      <?php /* if (isset($signup_button_primary)): ?>
         <div class="header__signup">
           <?php print render($signup_button_primary); ?>
           <?php print $campaign_scholarship; ?>
         </div>
-      <?php endif; ?>
+      <?php endif; */?>
 
       <?php print $promotions; ?>
     </div>
   </header>
+
+  <?php if (isset($campaign->secondary_call_to_action)): ?>
+    <div class="cta js-fixedsticky fixedsticky">
+      <div class="wrapper">
+        <?php if (isset($signup_button_secondary)): ?>
+          <div class="cta__button">
+            <?php print render($signup_button_secondary); ?>
+          </div>
+        <?php endif; ?>
+        <h4 class="cta__message"><?php print $campaign->secondary_call_to_action; ?></h4>
+      </div>
+    </div>
+  <?php endif; ?>
+<!-- 
+  <div class="cta -inline js-fixedsticky fixedsticky">
+    <div class="wrapper">
+      <p class="cta__message">You must pay homage to our future <em>kitten</em> overlords.</p>
+      <div class="cta__action"><a href="#" class="button">Do This</a></div>
+    </div>
+  </div> -->
 
   <?php if (isset($reportbacks_showcase)): ?>
     <div class="container -showcase optimizely-hidden">
@@ -66,7 +86,7 @@
     </div>
   <?php endif; ?>
 
-  <?php if (isset($campaign->secondary_call_to_action)): ?>
+  <?php /* if (isset($campaign->secondary_call_to_action)): ?>
     <div class="cta">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $campaign->secondary_call_to_action; ?></h2>
@@ -75,7 +95,7 @@
         <?php endif; ?>
       </div>
     </div>
-  <?php endif; ?>
+  <?php endif; */?>
 
   <div class="info-bar -dark">
     <div class="wrapper">
