@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/DoSomething/dosomething.git"
   },
+  "scripts": {
+    "postinstall": "find node_modules/ -name '*.info' -type f -delete"
+  },
   "dependencies": {
     "dosomething-modal": "~0.3.0",
     "dosomething-neue": "~6.4.1",
