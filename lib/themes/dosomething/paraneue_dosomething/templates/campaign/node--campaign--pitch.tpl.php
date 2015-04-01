@@ -27,7 +27,7 @@
   </header>
 
   <?php if (isset($campaign->secondary_call_to_action)): ?>
-    <div class="cta -persistent js-fixedsticky fixedsticky">
+    <div class="cta -persistent js-fixedsticky">
       <div class="wrapper">
         <?php if (isset($signup_button_secondary)): ?>
           <div class="cta__button">
