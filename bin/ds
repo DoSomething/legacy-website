@@ -142,6 +142,24 @@ function build {
   echo "Creating symlinks"
   symlinks
 
+  echo "Enabling git hooks"
+  if [[ -d "$BASE_PATH/.git/hooks/" ]]; then
+    # Pre-commit.
+
+    HOOK_PRE_COMMIT=$BASE_PATH/.git/hooks/pre-commit
+    if [[ ! -f $HOOK_PRE_COMMIT ]]; then
+      if [[ -L $HOOK_PRE_COMMIT ]]; then
+        # Symlink is broken.
+        rm $HOOK_PRE_COMMIT
+      fi
+    fi
+    # Setup symlink.
+    if [[ ! -L $HOOK_PRE_COMMIT ]]; then
+        ln -s ../../hooks/pre-commit $HOOK_PRE_COMMIT
+    fi
+
+  fi
+
   if [[ $1 == "--intl" ]]
   then
     for COUNTRY in botswana canada congo ghana kenya indonesia nigeria training uk
@@ -161,9 +179,6 @@ function build {
     echo 'alias codercs="phpcs --standard=$WEB_PATH/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' >> ~/.bashrc
     source ~/.bashrc
   fi
-
-  echo 'Adding APC script at /apc.php...'
-  ln -s /srv/salt/php5/apc.php $WEB_PATH/apc.php
 
   # Run grunt task to configure front-end environment
   # this will install Bower/NPM dependencies
