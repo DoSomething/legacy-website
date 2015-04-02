@@ -87,6 +87,11 @@
             <?php print $modals; ?>
           <?php endif; ?>
         <?php endif; ?>
+
+        <?php if(isset($campaign_progress)): ?>
+          <h3 class="inline-sponsor-color"><?php print t('Progress'); ?></h3>
+          <p><?php print number_format($campaign_progress, 0, '', ','); ?> did this so far.</p>
+        <?php endif; ?>
       </div>
 
       <div class="container__block -narrow">
