@@ -346,6 +346,10 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   }
   // Moar $tagline.
   $vars['tagline'] .= t('Any cause, anytime, anywhere.');
+  // Get sign up total and add it to cta
+  $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
+      '@signup_count' => $vars['campaign']->variables['signup_count'],
+    ));
 }
 
 /**
