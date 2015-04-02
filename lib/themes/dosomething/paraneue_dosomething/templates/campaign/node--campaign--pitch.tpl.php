@@ -26,7 +26,7 @@
   </header>
 
   <?php if (isset($campaign->secondary_call_to_action)): ?>
-    <div class="cta optimizely-hide-count -persistent js-fixedsticky">
+    <div class="cta -persistent optimizely-hide-count js-fixedsticky">
       <div class="wrapper">
         <?php if (isset($signup_button_secondary)): ?>
           <div class="cta__button">
