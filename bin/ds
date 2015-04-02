@@ -142,6 +142,31 @@ function build {
   echo "Creating symlinks"
   symlinks
 
+  echo "Enabling git hooks"
+
+  # Proceed when it's a valid git repo:
+  if [[ -d "$BASE_PATH/.git/hooks/" ]]; then
+    # Pre-commit.
+    HOOK_PRE_COMMIT=$BASE_PATH/.git/hooks/pre-commit
+
+    # When a symlink is not recognized as a file, this means
+    # the symlink is broken.
+    # Not a file:
+    if [[ ! -f $HOOK_PRE_COMMIT ]]; then
+      # Bust still a symlink:
+      if [[ -L $HOOK_PRE_COMMIT ]]; then
+        # Symlink is broken (isn't pointing to a valid file). Removing it,
+        # so it will be recreated in the next step.
+        rm $HOOK_PRE_COMMIT
+      fi
+    fi
+    # Setup symlink to the pre-commit hook provided with DS installation.
+    if [[ ! -L $HOOK_PRE_COMMIT ]]; then
+        ln -s ../../hooks/pre-commit $HOOK_PRE_COMMIT
+    fi
+
+  fi
+
   if [[ $1 == "--intl" ]]
   then
     for COUNTRY in botswana canada congo ghana kenya indonesia nigeria training uk
@@ -161,9 +186,6 @@ function build {
     echo 'alias codercs="phpcs --standard=$WEB_PATH/profiles/dosomething/modules/contrib/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,test,profile,theme"' >> ~/.bashrc
     source ~/.bashrc
   fi
-
-  echo 'Adding APC script at /apc.php...'
-  ln -s /srv/salt/php5/apc.php $WEB_PATH/apc.php
 
   # Run grunt task to configure front-end environment
   # this will install Bower/NPM dependencies
