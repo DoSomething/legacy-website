@@ -202,19 +202,26 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
   }
   // Check if varaible is set for the Friends Form submit button label.
   $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', t('Share'));
+
+  // Get scholarship amount.
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $amount = $wrapper->field_scholarship_amount->value();
+  $scholarship = array(
+    '#markup' => theme('campaign_scholarship', array(
+      'amount' => $amount,
+      'classes' => array('-right'),
+    )),
+  );
+
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
       '#value' => $label,
     ),
-    'scholarship' => array(
-        '#markup' => theme('campaign_scholarship', array(
-          'amount' => 1000,
-          'classes' => array('-right'),
-        )),
-    ),
+    'scholarship' => ($amount) ? $scholarship : NULL,
   );
+
   return $form;
 }
 
