@@ -143,17 +143,24 @@ function build {
   symlinks
 
   echo "Enabling git hooks"
+
+  # Proceed when it's a valid git repo:
   if [[ -d "$BASE_PATH/.git/hooks/" ]]; then
     # Pre-commit.
-
     HOOK_PRE_COMMIT=$BASE_PATH/.git/hooks/pre-commit
+
+    # When a symlink is not recognized as a file, this means
+    # the symlink is broken.
+    # Not a file:
     if [[ ! -f $HOOK_PRE_COMMIT ]]; then
+      # Bust still a symlink:
       if [[ -L $HOOK_PRE_COMMIT ]]; then
-        # Symlink is broken.
+        # Symlink is broken (isn't pointing to a valid file). Removing it,
+        # so it will be recreated in the next step.
         rm $HOOK_PRE_COMMIT
       fi
     fi
-    # Setup symlink.
+    # Setup symlink to the pre-commit hook provided with DS installation.
     if [[ ! -L $HOOK_PRE_COMMIT ]]; then
         ln -s ../../hooks/pre-commit $HOOK_PRE_COMMIT
     fi
