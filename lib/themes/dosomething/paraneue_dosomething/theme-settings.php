@@ -51,6 +51,10 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
       '#title' => t('Persistent Signup Nav'),
       '#description' => t('Toggles the cta on the campaign pitch page to show as a persistent nav')
     ),
+    'show_campaign_progress' => array(
+      '#title' => t('Show campaign progress'),
+      '#description' => t('Toggles the display of campaign progress on the action page')
+    ),
   );
 
   foreach ($flags as $name => $flag) {

@@ -147,6 +147,11 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $campaign = $vars['campaign'];
 
+  // Progress
+  if (theme_get_setting('show_campaign_progress')) {
+    $vars['campaign_progress'] = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
+  }
+
   // Plan.
 
   // 1) Materials
