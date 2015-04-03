@@ -25,10 +25,10 @@
   <!--[if lte IE 8]>
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
 
-      <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/respond/dest/respond.min.js"></script>
-      <link href="<?php print VENDOR_ASSET_PATH; ?>/respond/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
-      <link href="<?php print LOCAL_ASSET_PATH; ?>/bower_components/respond/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
-      <script type="text/javascript" src="<?php print LOCAL_ASSET_PATH; ?>/bower_components/respond/cross-domain/respond.proxy.js"></script>
+      <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/respond.js/dest/respond.min.js"></script>
+      <link href="<?php print VENDOR_ASSET_PATH; ?>/respond.js/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+      <link href="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+      <script type="text/javascript" src="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.js"></script>
   <![endif]-->
 
   <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/assets/images/favicon.ico">

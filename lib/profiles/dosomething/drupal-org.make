@@ -12,7 +12,7 @@ projects[addressfield][subdir] = "contrib"
 projects[addressfield][patch][] = https://drupal.org/files/addressfield-element_info-970048-71.patch
 
 ; Admin menu
-projects[admin_menu][version] = "3.0-rc4"
+projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
 
 ; Apachesolr

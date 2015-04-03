@@ -9,16 +9,14 @@
 //  \__|      \__|  \__|\__|  \__|\__|  \__|\__|  \__|\________| \______/ \________|  \_______/  \______/
 //
 
-// Set up our asset pipeline
-$neue-path: "../bower_components/neue/dist/assets/";
+// Set up asset pipeline for Neue
+$neue-path: "../node_modules/dosomething-neue/dist/assets/";
 $asset-path: "";
 
-// Import Susy and Neue
-@import "../bower_components/susy/sass/susy";
-@import "../bower_components/neue/scss/neue";
-
-@import "../bower_components/dosomething-modal/scss/modal";
-@import "../bower_components/dosomething-validation/scss/validation";
+// Import DoSomething.org modules
+@import "../node_modules/dosomething-neue/scss/neue";
+@import "../node_modules/dosomething-modal/src/modal";
+@import "../node_modules/dosomething-validation/src/validation";
 
 // Import our local variables and helpers
 @import "helpers/mixins";
