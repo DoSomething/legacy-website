@@ -84,7 +84,7 @@ ds composer
   Installs libraries via Composer within the Drupal libraries directory.
 
 ds grunt [--watch]
-  Installs Bower dependencies & compiles front-end assets (SCSS/JS) using Grunt.
+  Installs dependencies & compiles front-end assets (SCSS/JS) using Grunt.
 
   --watch
   Continues watching for changes and recompiles assets as necessary.
@@ -411,38 +411,11 @@ function composer {
   fi
 }
 
-
-#=== FUNCTION ==================================================================
-# NAME: bower
-# DESCRIPTION: Installs/Updates bower dependencies
-#===============================================================================
-function bower {
-  if hash bower 2>/dev/null;
-  then
-    cd $LIB_PATH/themes/dosomething/paraneue_dosomething
-
-    if [[ `ls -A bower_components/ | wc -l` -eq 0 ]]; then
-      echo -e "\n\e[4mInstalling bower dependencies for Paraneue_DoSomething...\e[0m"
-      eval "/usr/bin/bower install --config.interactive=false"
-    else
-      echo -e "\n\e[4mUpdating bower dependencies for Paraneue_DoSomething...\e[0m"
-      eval "/usr/bin/bower update --config.interactive=false"
-    fi
-
-    cd $BASE_PATH
-
-  fi
-}
-
-
 #=== FUNCTION ==================================================================
 # NAME: grunt
 # DESCRIPTION: Builds front-end assets (JS/SCSS) using Grunt
 #===============================================================================
 function grunt {
-  # make sure bower dependencies are up to date
-  bower
-
   cd $LIB_PATH/themes/dosomething/paraneue_dosomething
 
   if hash npm 2>/dev/null;
@@ -458,10 +431,6 @@ function grunt {
       echo -e "\n\e[4mBuilding SCSS/JS with Grunt, and watching for changes...\e[0m"
       echo -e "\e[30;43m(Press Ctrl-C to stop.)\e[0m\n"
       eval "/usr/bin/grunt"
-    elif [[ $1 == "--prod" ]]
-    then
-      echo -e "\n\e[4mBuilding minified SCSS/JS with Grunt...\e[0m"
-      eval "/usr/bin/grunt prod"
     else
       eval "/usr/bin/grunt build"
     fi
@@ -636,14 +605,6 @@ fi
 if [[ $1 == "composer" ]]
 then
   composer
-fi
-
-#----------------------------------------------------------------------
-# bower
-#----------------------------------------------------------------------
-if [[ $1 == "bower" ]]
-then
-  bower
 fi
 
 #----------------------------------------------------------------------
