@@ -22,7 +22,7 @@ if(theme_get_setting('use_minified_assets')) {
 
 // Define asset directory paths
 define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/node_modules');
-define('NEUE_ASSET_PATH', VENDOR_ASSET_PATH . '/neue');
+define('NEUE_ASSET_PATH', VENDOR_ASSET_PATH . '/dosomething-neue');
 
 // Theme includes
 require_once PARANEUE_DS_PATH . '/includes/bootstrap.inc';
