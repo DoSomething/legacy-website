@@ -25,19 +25,19 @@
     </div>
   </header>
 
-  <?php if (isset($campaign->secondary_call_to_action)): ?>
-    <div class="cta -persistent optimizely-hide-count js-fixedsticky">
-      <div class="wrapper">
-        <?php if (isset($signup_button_secondary)): ?>
-          <div class="cta__button">
-            <?php print render($signup_button_secondary); ?>
-          </div>
-        <?php endif; ?>
+  <div class="cta -persistent optimizely-hide-count js-fixedsticky">
+    <div class="wrapper">
+      <?php if (isset($signup_button_secondary)): ?>
+        <div class="cta__button">
+          <?php print render($signup_button_secondary); ?>
+        </div>
+      <?php endif; ?>
+      <?php if (isset($campaign->secondary_call_to_action)): ?>
         <h4 class="cta__message with-count"><?php print $signup_cta; ?></h4>
         <h4 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h4>
-      </div>
+      <?php endif; ?>
     </div>
-  <?php endif; ?>
+  </div>
 
   <?php if (isset($reportbacks_showcase)): ?>
     <div class="container -showcase optimizely-hidden">
