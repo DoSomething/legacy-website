@@ -404,6 +404,5 @@ function paraneue_dosomething_twitter_intent($tweet) {
  * @return string        The tumblr intent url to share a photo.
  */
 function paraneue_dosomething_tumblr_intent($options) {
-  return url('https://www.tumblr.com/share/photo', array('query' => $options));
+  return url('https://www.tumblr.com/widgets/share/tool', array('query' => $options));
 }
-
