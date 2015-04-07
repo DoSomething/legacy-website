@@ -433,16 +433,12 @@ function dosomething_user_new_user($form, &$form_state) {
     return;
   }
 
-  // MailChimp List Id.
-  $mli = variable_get('dosomething_signup_mailchimp_general_list_id');
-
-
   global $user;
   $account = $user;
 
   // Send external message request.
   $params = array(
-    'mailchimp_list_id' => $mli,
+    'mailchimp_list_id' => dosomething_signup_get_mailchimp_list_id(),
     'email'             => $account->mail,
     'uid'               => $account->uid,
     'first_name'        => dosomething_user_get_field('field_first_name', $account),
@@ -454,13 +450,26 @@ function dosomething_user_new_user($form, &$form_state) {
     $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
 
     if (!empty($opt_in) && !empty($mobile)) {
-      // Don't subscribe 26+ yo users for Mobile Commons.
-      if (!dosomething_user_is_old_person($account)) {
+      // Ignore 26+ Club is enabled and user is older than 26.
+      if (!dosomething_signup_is_26plusclub_member($account)) {
         $params['mobile'] = $mobile;
         $params['mc_opt_in_path_id'] = $opt_in;
       }
     }
   }
+
+  // Override MailChimp group data for 26+ Club.
+  if (dosomething_signup_is_26plusclub_member($account)) {
+    $grouping_id = variable_get('dosomething_signup_26plusclub_mailchimp_grouping_id_register');
+    if ($grouping_id) {
+      $params['mailchimp_grouping_id'] = $grouping_id;
+    }
+
+    $group_name = variable_get('dosomething_signup_26plusclub_mailchimp_group_name_register');
+    if ($group_name) {
+      $params['mailchimp_group_name']  = $group_name;
+    }
+   }
 
   dosomething_mbp_request('user_register', $params);
 }

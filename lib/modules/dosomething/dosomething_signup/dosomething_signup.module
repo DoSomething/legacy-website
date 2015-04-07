@@ -466,6 +466,12 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
   if (!module_exists('dosomething_mbp')) {
     return;
   }
+
+  // Exclude 26+ Club.
+  if (dosomething_signup_is_26plusclub_member($account)) {
+    return;
+  }
+
   // Gather mbp params for the signup.
   $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
   // Send campaign mbp request.
@@ -566,8 +572,9 @@ function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
   $nid = $node->nid;
   $grouping_id = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
   $group_name = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
+
   // MailChimp List Id.
-  $mli = variable_get('dosomething_signup_mailchimp_general_list_id');
+  $mli = dosomething_signup_get_mailchimp_list_id();
   // If a value is present for Mailchimp groups:
   if (!empty($mli) && !empty($grouping_id) && !empty($group_name)) {
     // Add it into the mbp_request params.
@@ -575,6 +582,43 @@ function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
     $params['mailchimp_grouping_id'] = $grouping_id;
     $params['mailchimp_group_name'] = $group_name;
   }
+}
+
+/**
+ * Returns MailChimp list id for current user.
+ *
+ * @return string
+ *   MailChimp List id.
+ */
+function dosomething_signup_get_mailchimp_list_id() {
+  // 26+ Club override.
+  if (dosomething_signup_is_26plusclub_member()) {
+    // If `dosomething_signup_26plusclub_mailchimp_list_id` isn't set,
+    // fallback to `dosomething_signup_mailchimp_general_list_id`.
+    if ($mli = variable_get('dosomething_signup_26plusclub_mailchimp_list_id')) {
+      return $mli;
+    }
+  }
+
+  return variable_get('dosomething_signup_mailchimp_general_list_id');
+}
+
+/**
+ * Checks if 26+ club is enabled and the user is a member of it.
+ *
+ * @param object $user
+ *   (optional) The loaded user object.
+ *   If omitted, falls back to the current user.
+ *
+ * @return bool
+ *   True if 26+ club is enabled and the user is a member of it.
+ */
+function dosomething_signup_is_26plusclub_member($user = NULL) {
+  if ($user === NULL) {
+    global $user;
+  }
+  $club_enabld = variable_get('dosomething_signup_26plusclub_enabled', FALSE);
+  return $club_enabld && dosomething_user_is_old_person($user);
 }
 
 /**
