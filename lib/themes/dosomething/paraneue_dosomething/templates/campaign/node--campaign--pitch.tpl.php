@@ -25,19 +25,21 @@
     </div>
   </header>
 
-  <div class="cta -persistent optimizely-hide-count js-fixedsticky">
-    <div class="wrapper">
-      <?php if (isset($signup_button_secondary)): ?>
-        <div class="cta__button">
-          <?php print render($signup_button_secondary); ?>
-        </div>
-      <?php endif; ?>
-      <?php if (isset($campaign->secondary_call_to_action)): ?>
-        <h4 class="cta__message with-count"><?php print $signup_cta; ?></h4>
-        <h4 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h4>
-      <?php endif; ?>
+  <?php if ($show_persistent_signup): ?>
+    <div class="cta -persistent optimizely-hide-count js-fixedsticky">
+      <div class="wrapper">
+        <?php if (isset($signup_button_secondary)): ?>
+          <div class="cta__button">
+            <?php print render($signup_button_secondary); ?>
+          </div>
+        <?php endif; ?>
+        <?php if (isset($campaign->secondary_call_to_action)): ?>
+          <h4 class="cta__message with-count"><?php print $signup_cta; ?></h4>
+          <h4 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h4>
+        <?php endif; ?>
+      </div>
     </div>
-  </div>
+  <?php endif; ?>
 
   <?php if (isset($reportbacks_showcase)): ?>
     <div class="container -showcase optimizely-hidden">
@@ -79,16 +81,18 @@
     </div>
   <?php endif; ?>
 
-  <?php if (isset($campaign->secondary_call_to_action)): ?>
-    <div class="cta optimizely-hide-count">
-      <div class="wrapper">
-        <h2 class="cta__message with-count"><?php print $signup_cta; ?></h2>
-        <h2 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h2>
-        <?php if (isset($signup_button_secondary)): ?>
-          <?php print render($signup_button_secondary); ?>
-        <?php endif; ?>
+  <?php if (!$show_persistent_signup): ?>
+    <?php if (isset($campaign->secondary_call_to_action)): ?>
+      <div class="cta optimizely-hide-count">
+        <div class="wrapper">
+          <h2 class="cta__message with-count"><?php print $signup_cta; ?></h2>
+          <h2 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h2>
+          <?php if (isset($signup_button_secondary)): ?>
+            <?php print render($signup_button_secondary); ?>
+          <?php endif; ?>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
   <?php endif; ?>
 
   <div class="info-bar -dark">
