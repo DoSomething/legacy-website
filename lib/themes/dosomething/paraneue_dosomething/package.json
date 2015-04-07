@@ -14,16 +14,16 @@
     "dosomething-modal": "~0.3.0",
     "dosomething-neue": "~6.4.1",
     "dosomething-validation": "~0.2.0",
-    "fixed-sticky": "DFurnes/fixed-sticky#master",
+    "fixed-sticky": "DFurnes/fixed-sticky#umd",
     "html5shiv": "~3.7.2",
     "jquery": "~1.11.0",
     "jquery-once": "~2.0.0",
-    "jquery.iecors": "DFurnes/jquery.iecors#master",
+    "jquery.iecors": "DFurnes/jquery.iecors#umd",
     "lodash": "~3.6.0",
     "mailcheck": "~1.1.0",
     "raf.js": "~0.0.4",
     "respond.js": "~1.4.2",
-    "unveil": "DFurnes/unveil.git#package-json"
+    "unveil": "DFurnes/unveil.git#umd"
   },
   "devDependencies": {
     "autoprefixer-core": "^4.0.2",
