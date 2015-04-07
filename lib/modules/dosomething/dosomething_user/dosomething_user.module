@@ -450,8 +450,8 @@ function dosomething_user_new_user($form, &$form_state) {
     $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
 
     if (!empty($opt_in) && !empty($mobile)) {
-      // Don't subscribe 26+ yo users for Mobile Commons.
-      if (!dosomething_user_is_old_person($account)) {
+      // Ignore 26+ Club is enabled and user is older than 26.
+      if (!dosomething_signup_is_26plusclub_member($account)) {
         $params['mobile'] = $mobile;
         $params['mc_opt_in_path_id'] = $opt_in;
       }

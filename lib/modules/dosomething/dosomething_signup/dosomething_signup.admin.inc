@@ -58,7 +58,8 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
   $name = 'dosomething_signup_26plusclub_enabled';
   $desc = t(
     "Makes possible to override settings for users older than 26. "
-     . "Automatically disables emails from MailChimp on campaign signups for them."
+     . "Automatically excludes them from MailChimp on campaign signups "
+     . "and MobileCommons on registrations."
   );
   $form['26plusclub'][$name] = array(
     '#type' => 'checkbox',
