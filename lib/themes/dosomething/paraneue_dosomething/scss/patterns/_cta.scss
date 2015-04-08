@@ -17,40 +17,64 @@
       @include clearfix;
       display: table;
       padding: $base-spacing / 2 0;
+
+      @include media($medium) {
+        @include span(12);
+        padding: $base-spacing / 2 0;
+      }
+
+      @include media($large) {
+        @include span(8);
+        padding: $base-spacing / 2 0;
+      }
     }
 
     .cta__button {
-      @include span(5 of 12);
+      @include span(6 of 12);
       display: table-cell;
       float: none;
       padding: 0;
-      text-align: left;
 
       @include media($medium) {
-        width: auto;
-        float: left;
-        display: inline-block;
+        @include span(4 of 12);
+        text-align: left;
+        float: none;
+        padding: 0px;
       }
     }
 
     .cta__message {
-      @include span(7 of 12);
+      @include span(6 of 12);
       display: table-cell;
-      color: $white;
-      clear: none;
-      text-align: left;
-      margin-bottom: 0;
-      font-size: $font-regular;
       float: none;
+      padding: 0px 0px 0px ($base-spacing / 2);
       vertical-align: middle;
+      color: $white;
+      text-align: left;
+      font-size: $font-regular;
 
       @include media($medium) {
-        width: auto;
+        @include span(8 of 12);
+        text-align: left;
+        float: none;
         font-size: $font-medium;
-        float: left;
-        padding: 0;
-        display: inline-block;
-        padding: ($base-spacing/2) 0 0 ($base-spacing * 2.5);
+        padding: 0px;
+      }
+    }
+
+    &.optimizely-hide-count {
+      .cta__message {
+        &.without-count {
+          display: table-cell;
+        }
+      }
+    }
+
+    &.optimizely-show-count {
+      .cta__message {
+        &.without-count {
+          display: table-cell;
+        }
       }
     }
   }
