@@ -4,13 +4,35 @@
  * Code for the dosomething_api feature.
  */
 
-include_once 'dosomething_api.features.inc';
-include_once 'resources/campaign_resource.inc';
-include_once 'resources/member_resource.inc';
-include_once 'resources/signup_resource.inc';
-include_once 'resources/reportback_resource.inc';
-include_once 'resources/reportback_file_resource.inc';
-include_once 'resources/term_resource.inc';
+module_load_include('inc', 'dosomething_api', 'dosomething_api.features');
+module_load_include('inc', 'dosomething_api', 'resources/campaign_resource');
+module_load_include('inc', 'dosomething_api', 'resources/member_resource');
+module_load_include('inc', 'dosomething_api', 'resources/reportback_resource');
+module_load_include('inc', 'dosomething_api', 'resources/reportback_item_resource');
+module_load_include('inc', 'dosomething_api', 'resources/reportback_file_resource');
+module_load_include('inc', 'dosomething_api', 'resources/signup_resource');
+module_load_include('inc', 'dosomething_api', 'resources/term_resource');
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function dosomething_api_services_resources() {
+
+  $resources = array();
+
+  $resources += _campaign_resource_definition();
+  $resources += _member_resource_definition();
+  $resources += _reportback_resource_definition();
+  $resources += _reportback_item_resource_definition();
+  $resources += _reportback_file_resource_definition();
+  $resources += _signup_resource_definition();
+  $resources += _term_resource_definition();
+
+  dpm($resources);
+  return $resources;
+}
+
 
 /**
  * Implements hook_services_request_postprocess_alter().
@@ -32,28 +54,6 @@ function dosomething_api_services_request_postprocess_alter($controller, $args, 
   }
 }
 
-/**
- * Implementation of hook_services_resources().
- */
-function dosomething_api_services_resources() {
-  $resources = array();
-  // Add Campaign resource.
-  $resources = array_merge_recursive($resources, _campaign_resource_definition());
-  // Add Member resource.
-  $resources = array_merge_recursive($resources, _member_resource_definition());
-  // Add Reportback resource.
-  $resources = array_merge_recursive($resources, _reportback_resource_definition());
-  // Add Reportback File resource.
-  $resources = array_merge_recursive($resources, _reportback_file_resource_definition());
-  // Add Signup resource.
-  $resources = array_merge_recursive($resources, _signup_resource_definition());
-  // Add Term resource.
-  $resources = array_merge_recursive($resources, _term_resource_definition());
-
-  dpm($resources);
-
-  return $resources;
-}
 
 /**
  * Returns the Reportback Gallery of a specified node.
@@ -83,6 +83,7 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
   );
   $user_input = array('caption', 'why_participated');
 
+//  return dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 

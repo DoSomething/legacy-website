@@ -7,6 +7,7 @@ define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') 
 
 include_once 'dosomething_reportback.features.inc';
 include_once 'dosomething_reportback.class.inc';
+include_once 'dosomething_reportback_item.class.inc';
 include_once 'dosomething_reportback.forms.inc';
 include_once 'dosomething_reportback.theme.inc';
 
@@ -899,36 +900,6 @@ function dosomething_reportback_get_noun_and_verb($nid) {
   return $results;
 }
 
-/**
- * Implementation of hook_services_resources().
- */
-function dosomething_reportback_services_resources() {
-  $resources = array();
-  $resources['reportbacks'] = array(
-    'operations' => array(
-      'retrieve' => array(
-        'help' => 'Retrieve a reportback.',
-        'file' => array(
-          'type' => 'inc',
-          'module' => 'dosomething_reportback',
-          'name' => 'resources/dosomething_reportback.resource',
-        ),
-        'callback' => '_dosomething_reportback_resource_retrieve',
-        'args' => array(
-          array(
-            'name' => 'rbid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The rbid of the reportback to retrieve.',
-          ),
-        ),
-        'access callback' => '_dosomething_reportback_resource_access',
-      ),
-    ),
-  );
-  return $resources;
-}
 
 /**
  * Clear cache on dosomething_reportback table.
@@ -946,6 +917,35 @@ function dosomething_reportback_flush_caches() {
 }
 
 
+function dosomething_reportback_get_reportbacks_query($params = array()) {
+  $query = db_select('dosomething_reportback', 'rb');
+//  $query->addExpression('GROUP_CONCAT(DISTINCT rb.rbid)', 'items');
+  $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
+  $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+//  $query->condition('rb.nid', '362');
+//  $query->groupBy('rb.rbid');
+  $query->fields('rb', array('rbid', 'quantity', 'uid'));
+  $query->fields('rbf', array('fid', 'caption'));
+
+  if (isset($params['random'])) {
+    $query->orderRandom();
+  }
+  else {
+    $query->orderBy('rb.updated', 'DESC');
+  }
+
+  return $query;
+}
+
+function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
+  $query = dosomething_reportback_get_reportbacks_query($params);
+  if ($count) {
+    $query->range($start, $count);
+  }
+  $result = $query->execute();
+  return $result;
+}
+
 /**
  * Returns a SelectQuery object of Reportback Files with given $params.
  *
@@ -955,6 +955,7 @@ function dosomething_reportback_flush_caches() {
  *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
  *   - status: The RB File status.
  *   - random: If set, randomly sort the results.
+ * @return query
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
@@ -962,39 +963,49 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
     $query->condition('t.field_primary_cause_tid', $params['tid']);
     $query->condition('t.entity_type', 'node');
   }
+
   if (isset($params['status'])) {
     $query->condition('rbf.status', $params['status']);
   }
+
   if (isset($params['nid'])) {
     $query->condition('rb.nid', $params['nid']);
   }
   elseif (isset($params['rbid'])) {
     $query->condition('rb.rbid', $params['rbid']);
   }
+  elseif (isset($params['fid'])) {
+    $query->condition('rbf.fid', $params['fid']);
+  }
 
   // Public API properties to expose:
   $rbf_fields = array('fid', 'caption', 'rbid');
   $rb_fields = array('quantity', 'uid');
+
   // Staff-only properties to add:
   if (user_access('view any reportback')) {
     $rbf_fields[] = 'status';
     $rb_fields[] = 'why_participated';
   }
+
   $query->fields('rbf', $rbf_fields);
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
+
   if (isset($params['random'])) {
     $query->orderRandom();
   }
   else {
     $query->orderBy('rb.updated', 'DESC');
   }
+
   return $query;
 }
 

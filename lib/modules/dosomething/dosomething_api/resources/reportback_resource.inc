@@ -1,75 +1,136 @@
 <?php
 
 function _reportback_resource_definition() {
-  $reportback_resource = [];
-  $reportback_resource['reportbacks'] = [
-    'operations' => [
+  $reportback_resource = array();
+  $reportback_resource['reportbacks'] = array(
+    'operations' => array(
 
-      'retrieve' => [
+      'retrieve' => array(
         'help' => 'Retrieve a specified reportback.',
-        'file' => [
+        'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/reportback_resource'
-        ],
+        ),
         'callback' => '_reportback_resource_retrieve',
-        'args' => [
-          [
+        'args' => array(
+          array(
             'name' => 'rbid',
+            'description' => 'The rbid of the reportback to retrieve.',
             'optional' => FALSE,
-            'source' => ['path' => 0],
             'type' => 'int',
-            'description' => 'The rbid of the reportback to retrieve.'
-          ],
-        ],
+            'source' => array('path' => 0),
+          ),
+        ),
         'access callback' => '_reportback_resource_access',
-      ],
+      ),
 
-      'index' => [
+      'index' => array(
         'help' => 'List all reportbacks.',
-        'file' => [
+        'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/reportback_resource'
-        ],
+        ),
         'callback' => '_reportback_resource_index',
-        'args' => [
-          [
-            'name' => 'page',
+        'args' => array(
+          array(
+            'name' => 'campaigns',
+            'description' => 'The ids of specified campaigns to get reportbacks.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => array('param' => 'campaigns'),
+            'default value' => NULL,
+          ),
+          array(
+            'name' => 'status',
+            'description' => 'Comma delimited list of reportback statuses to collect reportbacks for.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => array('param' => 'status'),
+            'default value' => 'approved',
+          ),
+          array(
+            'name' => 'count',
+            'description' => 'The number of reportbacks to retrieve.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => array('param' => 'count'),
+            'default value' => 25,
+          ),
+          array(
+            'name' => 'random',
+            'description' => 'Boolean to indicate whether to retrieve reportbacks in random order.',
             'optional' => TRUE,
             'type' => 'int',
-            'description' => 'The zero-based index of the page to get, defaults to 0.',
+            'source' => array('param' => 'random'),
             'default value' => 0,
-            'source' => ['param' => 'page'],
-          ],
-        ],
+          ),
+          array(
+            'name' => 'page',
+            'description' => 'The zero-based index of the page to get, defaults to 0.',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => array('param' => 'page'),
+            'default value' => 0,
+          ),
+        ),
         'access callback' => '_reportback_resource_access',
-      ],
+      ),
 
-    ],
-  ];
+    ),
+
+  );
 
   return $reportback_resource;
 }
 
 
-function _reportback_resource_index($page) {
-  $reportbacks = new Reportback;
-
-  return $reportbacks->index($page);
-}
-
-function _reportback_resource_retrieve($rbid) {
-
-  return [
-    'data' => $rbid
-  ];
-
-//  $reportbacks = new Reportback;
-//
-//  return $reportbacks->show($rbid);
-}
-
 function _reportback_resource_access() {
+  // Temp universal access for now.
   return TRUE;
 }
+
+
+function _reportback_resource_index($campaigns, $status, $count, $random, $page) {
+  $parameters =  array(
+    'campaigns' => $campaigns,
+    'status' => $status,
+    'count' => $count,
+    'random' => $random,
+    'page' => $page,
+  );
+
+  $reportbacks = new Reportback;
+  return $reportbacks->index($parameters);
+}
+
+
+function _reportback_resource_retrieve($rbid) {
+  $reportbacks = new Reportback;
+  return $reportbacks->show($rbid);
+}
+
+
+// From old dosomething_reportback/resources/dosomething_reportback.resource.inc no longer in use:
+
+///**
+// * Access callback for Reportback resources.
+// */
+//function _dosomething_reportback_resource_access() {
+//  global $user;
+//  // For now, only admins can access any reportback resources.
+//  return in_array('administrator', $user->roles);
+//}
+//
+///**
+// * Callback for Reportback resource retrieve.
+// */
+//function _dosomething_reportback_resource_retrieve($rbid) {
+//  if ($reportback = reportback_load($rbid)) {
+//    return get_object_vars($reportback);
+//  }
+//  else {
+//    return FALSE;
+//  }
+//}
