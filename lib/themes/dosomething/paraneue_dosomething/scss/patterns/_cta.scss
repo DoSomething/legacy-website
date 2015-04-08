@@ -23,8 +23,8 @@
         padding: $base-spacing / 2 0;
       }
 
-      @include media($large) {
-        @include span(8);
+      @include media($larger) {
+        @include span(6);
         padding: $base-spacing / 2 0;
       }
     }
