@@ -105,6 +105,16 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
   );
 
 
+  $name = 'dosomething_signup_26plusclub_mailchimp_template_name_register';
+  $desc = t("Override MailChimp Registration Template Name for users older than 26.");
+  $form_26plusclub_overrides[$name] = array(
+    '#type' => 'textfield',
+    '#title' => 'MailChimp | User registration | mailchimp_template_name',
+    '#default_value' => variable_get($name),
+    '#description' => $desc,
+  );
+
+
   // Node helpers variables.
   $opt_in_helpers = dosomething_signup_get_opt_in_config_form_helpers_vars();
   foreach ($opt_in_helpers as $key => $vars) {
@@ -154,6 +164,7 @@ function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
     'dosomething_signup_26plusclub_mailchimp_list_id',
     'dosomething_signup_26plusclub_mailchimp_grouping_id_register',
     'dosomething_signup_26plusclub_mailchimp_group_name_register',
+    'dosomething_signup_26plusclub_mailchimp_template_name_register',
   );
   foreach ($config_variables as $var_name) {
     if ($club_enabled) {
