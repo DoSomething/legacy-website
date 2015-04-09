@@ -554,6 +554,9 @@ function dosomething_signup_update_7019() {
 
     $name = 'dosomething_signup_26plusclub_mailchimp_group_name_register';
     variable_set($name, getenv('DS_MB_26PLUSCLUB_MAILCHIMP_GROUP_NAME_REGISTER'));
+
+    $name = 'dosomething_signup_26plusclub_mailchimp_template_name_register';
+    variable_set($name, getenv('DS_MB_26PLUSCLUB_MAILCHIMP_TEMPLATE_NAME_REGISTER'));
   }
 
 }

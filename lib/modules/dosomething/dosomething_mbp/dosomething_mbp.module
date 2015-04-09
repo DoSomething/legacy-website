@@ -100,11 +100,17 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'activity' => $origin,
     'email' => $params['email'],
     'uid' => $params['uid'],
-    'email_template' => dosomething_mbp_get_template_name($origin),
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
   );
+
+  // If email template wasn't set before, get standart template name.
+  if (!empty($params['email_template'])) {
+    $payload['email_template'] = $params['email_template'];
+  } else {
+    $payload['email_template'] = dosomething_mbp_get_template_name($origin);
+  }
 
   // Payload specific to each transaction type.
   switch ($origin) {

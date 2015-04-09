@@ -424,7 +424,7 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
  * Sign user up for emails/texts.
  */
 function dosomething_user_new_user($form, &$form_state) {
-  if (!module_exists('dosomething_mbp')) {
+  if (!module_exists('dosomething_mbp') || !module_exists('dosomething_signup')) {
     return;
   }
 
@@ -445,20 +445,18 @@ function dosomething_user_new_user($form, &$form_state) {
     'birthdate'         => dosomething_user_get_field('field_birthdate', $account),
   );
 
-  if (module_exists('dosomething_signup')) {
-    $mobile = dosomething_user_get_field('field_mobile', $account);
-    $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
-
-    if (!empty($opt_in) && !empty($mobile)) {
-      // Ignore 26+ Club is enabled and user is older than 26.
-      if (!dosomething_signup_is_26plusclub_member($account)) {
-        $params['mobile'] = $mobile;
-        $params['mc_opt_in_path_id'] = $opt_in;
-      }
+  // 26+ Club: Override Mobile Commons.
+  $mobile = dosomething_user_get_field('field_mobile', $account);
+  $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
+  if (!empty($opt_in) && !empty($mobile)) {
+    // Ignore 26+ Club is enabled and user is older than 26.
+    if (!dosomething_signup_is_26plusclub_member($account)) {
+      $params['mobile'] = $mobile;
+      $params['mc_opt_in_path_id'] = $opt_in;
     }
   }
 
-  // Override MailChimp group data for 26+ Club.
+  // 26+ Club: Override MailChimp.
   if (dosomething_signup_is_26plusclub_member($account)) {
     $grouping_id = variable_get('dosomething_signup_26plusclub_mailchimp_grouping_id_register');
     if ($grouping_id) {
@@ -467,7 +465,12 @@ function dosomething_user_new_user($form, &$form_state) {
 
     $group_name = variable_get('dosomething_signup_26plusclub_mailchimp_group_name_register');
     if ($group_name) {
-      $params['mailchimp_group_name']  = $group_name;
+      $params['mailchimp_group_name'] = $group_name;
+    }
+
+    $template_name = variable_get('dosomething_signup_26plusclub_mailchimp_template_name_register');
+    if ($template_name) {
+      $params['email_template'] = $template_name;
     }
    }
 
