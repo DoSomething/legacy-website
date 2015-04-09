@@ -917,15 +917,36 @@ function dosomething_reportback_flush_caches() {
 }
 
 
+/**
+ * Returns a SelectQuery object of Reportbacks with given $params.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - rbid: A reportback rbid to filter by.
+ *   - random: If set, randomly sort the results.
+ * @return SelectQuery object
+ */
 function dosomething_reportback_get_reportbacks_query($params = array()) {
   $query = db_select('dosomething_reportback', 'rb');
-//  $query->addExpression('GROUP_CONCAT(DISTINCT rb.rbid)', 'items');
+  $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
   $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
-  $query->join('file_managed', 'f', 'rbf.fid = f.fid');
-//  $query->condition('rb.nid', '362');
-//  $query->groupBy('rb.rbid');
-  $query->fields('rb', array('rbid', 'quantity', 'uid'));
-  $query->fields('rbf', array('fid', 'caption'));
+  $query->join('node', 'n', 'rb.nid = n.nid');
+
+  if (isset($params['rbid'])) {
+    $query->condition('rb.rbid', $params['rbid']);
+  }
+
+  // Public API properties to expose:
+  $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid');
+
+  // Staff-only properties to add:
+  if (user_access('view any reportback')) {
+    $rb_fields[] = 'why_participated';
+    $rb_fields[] = 'flagged';
+  }
+
+  $query->fields('rb', $rb_fields);
+  $query->fields('n', array('nid', 'title'));
 
   if (isset($params['random'])) {
     $query->orderRandom();
@@ -937,6 +958,22 @@ function dosomething_reportback_get_reportbacks_query($params = array()) {
   return $query;
 }
 
+
+/**
+ * Returns Reportbacks query result to loop through.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by.
+ *   @see dosomething_reportback_get_reportbacks_query()
+ * @param int $count
+ *   Number of Reportbacks to return.
+ * @param int $start
+ *   Which Reportbacks to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause for selecting Reportbacks. This could be used to do paging.
+ *
+ * @return object
+ *   An executed database query object to iterate through.
+ */
 function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
   $query = dosomething_reportback_get_reportbacks_query($params);
   if ($count) {
@@ -946,16 +983,19 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
   return $result;
 }
 
+
 /**
  * Returns a SelectQuery object of Reportback Files with given $params.
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
  *   - nid: A node nid to filter by.
+ *   - rbid: A reportback rbid to filter by.
  *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - fid: A reportback item fid to filter by.
  *   - status: The RB File status.
  *   - random: If set, randomly sort the results.
- * @return query
+ * @return SelectQuery object
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
@@ -975,13 +1015,21 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   }
 
   if (isset($params['nid'])) {
-    $query->condition('rb.nid', $params['nid']);
+    if (is_array($params['nid'])) {
+      $query->condition('rb.nid', $params['nid'], 'IN');
+    } else {
+      $query->condition('rb.nid', $params['nid']);
+    }
+  }
+  elseif (isset($params['fid'])) {
+    if (is_array($params['fid'])) {
+      $query->condition('rbf.fid', $params['fid'], 'IN');
+    } else {
+      $query->condition('rbf.fid', $params['fid']);
+    }
   }
   elseif (isset($params['rbid'])) {
     $query->condition('rb.rbid', $params['rbid']);
-  }
-  elseif (isset($params['fid'])) {
-    $query->condition('rbf.fid', $params['fid']);
   }
 
   // Public API properties to expose:
@@ -1021,7 +1069,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause for selecting RB Files. This could be used to do paging.
  *
- * @return
+ * @return object
  *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportback_files_query_result($params = array(), $count = 25, $start = 0) {

@@ -5,19 +5,23 @@
  */
 class ReportbackItem {
 
+  /**
+   * @param array $parameters Any parameters obtained from query string.
+   * @return array
+   */
   public function index($parameters) {
+    // Load Services module to use its index_query functions.
     module_load_include('inc', 'services', 'services.module');
 
     $filters = array(
-      'nid' => $parameters['campaigns'],
+      'nid' => $this->formatIds($parameters['campaigns']),
       'status' => $parameters['status'],
       'count' => $parameters['count'] ?: 25,
     );
     // @TODO: Logic update!
-    // Not ideal that this is NULL instead of FALSE but due to how logic happens in query function. Could be updated!
+    // Not ideal that this is NULL instead of FALSE but due to how logic happens in query function. But it could be updated!
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
-
 
     $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count']);
     $reportbackItems = services_resource_build_index_list($query, 'reportback-items', 'fid');
@@ -31,19 +35,23 @@ class ReportbackItem {
     }
 
     return array(
-      'total' => count($reportbackItems),
+      'total_retrieved' => count($reportbackItems),
       'data' => $this->transformCollection($reportbackItems),
     );
   }
 
 
+  /**
+   * @param string $id Resource id.
+   * @return array
+   */
   public function show($id) {
     $params = array();
     $params['fid'] = $id;
 
     $query = dosomething_reportback_get_reportback_files_query_result($params);
     $reportbackItem = services_resource_build_index_list($query, 'reportback-items', 'fid');
-    
+
     return array(
       'data' => $this->transform($reportbackItem[0]),
     );
@@ -51,7 +59,22 @@ class ReportbackItem {
 
 
   /**
-   * @param $items
+   * @param string $ids Single or multiple comma separated ids.
+   * @return string or array
+   */
+  protected function formatIds($ids) {
+    $idsArray = explode(',', $ids);
+
+    if (count($idsArray) > 1) {
+      return $idsArray;
+    }
+
+    return $ids;
+  }
+
+
+  /**
+   * @param array $items Collection of item objects retrieved data.
    * @return array
    */
   private function transformCollection($items) {
@@ -60,7 +83,7 @@ class ReportbackItem {
 
 
   /**
-   * @param $item
+   * @param object $item Single object of retrieved data.
    * @return array
    */
   private function transform($item) {
@@ -73,9 +96,11 @@ class ReportbackItem {
       'uri' => $item->uri,
       'media' => array(
         'uri' => dosomething_image_get_themed_image_url_by_fid($item->fid, '480x480'),
-        'type' => 'image'
+        'type' => 'image',
       ),
-      'timestamp' => $item->timestamp,
+      'review' => array(
+        'timestamp' => $item->timestamp,
+      ),
     );
 
     if ($item->status) {
@@ -88,7 +113,7 @@ class ReportbackItem {
       'reportback' => array(
         'id' => $item->rbid,
         'flagged' => (int) $item->flagged ? TRUE : FALSE,
-        'quantity' => $item->quantity,
+        'quantity' => (int) $item->quantity,
       ),
     );
 

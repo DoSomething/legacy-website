@@ -88,6 +88,7 @@ function _reportback_resource_definition() {
 
 function _reportback_resource_access() {
   // Temp universal access for now.
+  // Permissions are still in effect for certain fields returned.
   return TRUE;
 }
 
@@ -110,27 +111,3 @@ function _reportback_resource_retrieve($rbid) {
   $reportbacks = new Reportback;
   return $reportbacks->show($rbid);
 }
-
-
-// From old dosomething_reportback/resources/dosomething_reportback.resource.inc no longer in use:
-
-///**
-// * Access callback for Reportback resources.
-// */
-//function _dosomething_reportback_resource_access() {
-//  global $user;
-//  // For now, only admins can access any reportback resources.
-//  return in_array('administrator', $user->roles);
-//}
-//
-///**
-// * Callback for Reportback resource retrieve.
-// */
-//function _dosomething_reportback_resource_retrieve($rbid) {
-//  if ($reportback = reportback_load($rbid)) {
-//    return get_object_vars($reportback);
-//  }
-//  else {
-//    return FALSE;
-//  }
-//}
