@@ -1,6 +1,6 @@
 <?php
 
-function _campaign_resource_defintion() {
+function _campaign_resource_definition() {
   $campaign_resource = array();
   $campaign_resource['campaigns'] = array(
     'operations' => array(

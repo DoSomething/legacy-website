@@ -1,6 +1,6 @@
 <?php
 
-function _member_resource_defintion() {
+function _member_resource_definition() {
   $member_resource = array();
   $member_resource['users'] = array(
     'operations' => array(

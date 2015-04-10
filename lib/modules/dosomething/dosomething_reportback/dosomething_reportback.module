@@ -6,9 +6,13 @@
 define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') ? TRUE : FALSE);
 
 include_once 'dosomething_reportback.features.inc';
+include_once 'dosomething_reportback.reportback_transformer.inc';
+include_once 'dosomething_reportback.reportback.inc';
+include_once 'dosomething_reportback.reportback_item.inc';
 include_once 'dosomething_reportback.forms.inc';
 include_once 'dosomething_reportback.theme.inc';
 include_once 'dosomething_reportback.cron.inc';
+
 
 /**
  * Implements hook_entity_info().
@@ -897,36 +901,6 @@ function dosomething_reportback_get_noun_and_verb($nid) {
   return $results;
 }
 
-/**
- * Implementation of hook_services_resources().
- */
-function dosomething_reportback_services_resources() {
-  $resources = array();
-  $resources['reportbacks'] = array(
-    'operations' => array(
-      'retrieve' => array(
-        'help' => 'Retrieve a reportback.',
-        'file' => array(
-          'type' => 'inc',
-          'module' => 'dosomething_reportback',
-          'name' => 'resources/dosomething_reportback.resource',
-        ),
-        'callback' => '_dosomething_reportback_resource_retrieve',
-        'args' => array(
-          array(
-            'name' => 'rbid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The rbid of the reportback to retrieve.',
-          ),
-        ),
-        'access callback' => '_dosomething_reportback_resource_access',
-      ),
-    ),
-  );
-  return $resources;
-}
 
 /**
  * Clear cache on dosomething_reportback table.
@@ -945,14 +919,84 @@ function dosomething_reportback_flush_caches() {
 
 
 /**
+ * Returns a SelectQuery object of Reportbacks with given $params.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - rbid: A reportback rbid to filter by.
+ *   - random: If set, randomly sort the results.
+ * @return SelectQuery object
+ */
+function dosomething_reportback_get_reportbacks_query($params = array()) {
+  $query = db_select('dosomething_reportback', 'rb');
+  $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
+  $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
+  $query->join('node', 'n', 'rb.nid = n.nid');
+
+  if (isset($params['rbid'])) {
+    $query->condition('rb.rbid', $params['rbid']);
+  }
+
+  // Public API properties to expose:
+  $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid');
+
+  // Staff-only properties to add:
+  if (user_access('view any reportback')) {
+    $rb_fields[] = 'why_participated';
+    $rb_fields[] = 'flagged';
+  }
+
+  $query->fields('rb', $rb_fields);
+  $query->fields('n', array('nid', 'title'));
+
+  if (isset($params['random'])) {
+    $query->orderRandom();
+  }
+  else {
+    $query->orderBy('rb.updated', 'DESC');
+  }
+
+  return $query;
+}
+
+
+/**
+ * Returns Reportbacks query result to loop through.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by.
+ *   @see dosomething_reportback_get_reportbacks_query()
+ * @param int $count
+ *   Number of Reportbacks to return.
+ * @param int $start
+ *   Which Reportbacks to start with. If present, $start and $count are used together
+ *   to create a LIMIT clause for selecting Reportbacks. This could be used to do paging.
+ *
+ * @return object
+ *   An executed database query object to iterate through.
+ */
+function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
+  $query = dosomething_reportback_get_reportbacks_query($params);
+  if ($count) {
+    $query->range($start, $count);
+  }
+  $result = $query->execute();
+  return $result;
+}
+
+
+/**
  * Returns a SelectQuery object of Reportback Files with given $params.
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
  *   - nid: A node nid to filter by.
+ *   - rbid: A reportback rbid to filter by.
  *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - fid: A reportback item fid to filter by.
  *   - status: The RB File status.
  *   - random: If set, randomly sort the results.
+ * @return SelectQuery object
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
@@ -960,16 +1004,30 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
+
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
     $query->condition('t.field_primary_cause_tid', $params['tid']);
     $query->condition('t.entity_type', 'node');
   }
+
   if (isset($params['status'])) {
     $query->condition('rbf.status', $params['status']);
   }
+
   if (isset($params['nid'])) {
-    $query->condition('rb.nid', $params['nid']);
+    if (is_array($params['nid'])) {
+      $query->condition('rb.nid', $params['nid'], 'IN');
+    } else {
+      $query->condition('rb.nid', $params['nid']);
+    }
+  }
+  elseif (isset($params['fid'])) {
+    if (is_array($params['fid'])) {
+      $query->condition('rbf.fid', $params['fid'], 'IN');
+    } else {
+      $query->condition('rbf.fid', $params['fid']);
+    }
   }
   elseif (isset($params['rbid'])) {
     $query->condition('rb.rbid', $params['rbid']);
@@ -977,22 +1035,26 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
 
   // Public API properties to expose:
   $rbf_fields = array('fid', 'caption', 'rbid');
-  $rb_fields = array('quantity', 'uid');
+  $rb_fields = array('created', 'updated', 'quantity', 'uid');
+
   // Staff-only properties to add:
   if (user_access('view any reportback')) {
     $rbf_fields[] = 'status';
     $rb_fields[] = 'why_participated';
   }
+
   $query->fields('rbf', $rbf_fields);
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
+
   if (isset($params['random'])) {
     $query->orderRandom();
   }
   else {
     $query->orderBy('rb.updated', 'DESC');
   }
+
   return $query;
 }
 
@@ -1008,7 +1070,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause for selecting RB Files. This could be used to do paging.
  *
- * @return
+ * @return object
  *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportback_files_query_result($params = array(), $count = 25, $start = 0) {
