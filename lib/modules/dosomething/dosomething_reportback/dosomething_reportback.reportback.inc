@@ -69,6 +69,7 @@ class Reportback extends ReportbackTransformer {
    * @return array
    */
   protected function transform($reportback) {
+//    return $reportback;
     $data = array();
 
     // Main Reportback data

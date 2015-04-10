@@ -1041,6 +1041,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (user_access('view any reportback')) {
     $rbf_fields[] = 'status';
     $rb_fields[] = 'why_participated';
+    $rb_fields[] = 'flagged';
   }
 
   $query->fields('rbf', $rbf_fields);

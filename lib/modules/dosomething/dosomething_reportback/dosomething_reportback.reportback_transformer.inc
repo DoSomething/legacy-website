@@ -60,12 +60,15 @@ abstract class ReportbackTransformer {
       'id' => $data->rbid,
       'created_at' => $data->created,
       'updated_at' => $data->updated,
-      'flagged' => (int) $data->flagged ? TRUE : FALSE,
       'quantity' => (int) $data->quantity,
     );
 
-    if ($data->why_participated) {
+    if (isset($data->why_participated)) {
       $output['why_participated'] = $data->why_participated;
+    }
+
+    if (isset($data->flagged)) {
+      $output['flagged'] = (int) $data->flagged ? TRUE : FALSE;
     }
 
     return $output;
@@ -88,7 +91,7 @@ abstract class ReportbackTransformer {
       'created_at' => $data->timestamp,  // @TODO: Not sure if timestamp applies as created_at?
     );
 
-    if ($data->status) {
+    if (isset($data->status)) {
       $output['status'] = $data->status;
     }
 
