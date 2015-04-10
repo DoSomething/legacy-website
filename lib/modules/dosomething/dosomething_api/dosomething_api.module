@@ -29,7 +29,6 @@ function dosomething_api_services_resources() {
   $resources += _signup_resource_definition();
   $resources += _term_resource_definition();
 
-  dpm($resources);
   return $resources;
 }
 
@@ -83,7 +82,6 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
   );
   $user_input = array('caption', 'why_participated');
 
-//  return dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 
