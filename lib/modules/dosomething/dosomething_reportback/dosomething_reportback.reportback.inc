@@ -25,7 +25,7 @@ class Reportback extends ReportbackTransformer {
     // $reportbacks = services_resource_build_index_list($query, 'reportbacks', 'rbid');
     $reportbacks = null;
 
-    if (! $reportbacks) {
+    if (!$reportbacks) {
       return array(
         'error' => array(
           'message' => 'Temporarily unavailable... These are not the reportbacks you are looking for.',

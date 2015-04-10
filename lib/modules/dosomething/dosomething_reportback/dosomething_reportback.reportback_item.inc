@@ -26,7 +26,7 @@ class ReportbackItem extends ReportbackTransformer {
     $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count']);
     $reportbackItems = services_resource_build_index_list($query, 'reportback-items', 'fid');
 
-    if (! $reportbackItems) {
+    if (!$reportbackItems) {
       return array(
         'error' => array(
           'message' => 'These are not the reportback items you are looking for.',
