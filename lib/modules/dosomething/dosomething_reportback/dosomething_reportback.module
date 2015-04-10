@@ -12,7 +12,6 @@ include_once 'dosomething_reportback.reportback_item.inc';
 include_once 'dosomething_reportback.forms.inc';
 include_once 'dosomething_reportback.theme.inc';
 
-$test = new Reportback;
 
 /**
  * Implements hook_entity_info().
