@@ -4,14 +4,14 @@
  * Code for the dosomething_api feature.
  */
 
-module_load_include('inc', 'dosomething_api', 'dosomething_api.features');
-module_load_include('inc', 'dosomething_api', 'resources/campaign_resource');
-module_load_include('inc', 'dosomething_api', 'resources/member_resource');
-module_load_include('inc', 'dosomething_api', 'resources/reportback_resource');
-module_load_include('inc', 'dosomething_api', 'resources/reportback_item_resource');
-module_load_include('inc', 'dosomething_api', 'resources/reportback_file_resource');
-module_load_include('inc', 'dosomething_api', 'resources/signup_resource');
-module_load_include('inc', 'dosomething_api', 'resources/term_resource');
+include_once 'dosomething_api.features.inc';
+include_once 'resources/campaign_resource.inc';
+include_once 'resources/member_resource.inc';
+include_once 'resources/reportback_resource.inc';
+include_once 'resources/reportback_item_resource.inc';
+include_once 'resources/reportback_file_resource.inc';
+include_once 'resources/signup_resource.inc';
+include_once 'resources/term_resource.inc';
 
 
 /**
