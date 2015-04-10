@@ -339,6 +339,8 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Adds signup_button_primary and signup_button_secondary variables.
   $ids = array('primary', 'secondary');
   dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
+  // Render the form array now, so we can print it multiple times on the page.
+  $vars['signup_button_secondary'] = render($vars['signup_button_secondary']);
   // Begin $tagline variable:
   $vars['tagline'] = t('A DoSomething.org campaign.') . ' ';
   // If Member Count variable is set:
