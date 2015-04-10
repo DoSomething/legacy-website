@@ -10,6 +10,9 @@ class ReportbackItem extends ReportbackTransformer {
    * @return array
    */
   public function index($parameters) {
+    // @TODO: add validation method to Transformer
+    // Need to make sure that certain query parameters passed are
+    // validated to a specific data type (eg: nid needs to be an int)
     $filters = array(
       'nid' => $this->formatData($parameters['campaigns']),
       'status' => $parameters['status'],

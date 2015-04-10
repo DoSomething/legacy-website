@@ -87,7 +87,7 @@ function _reportback_resource_definition() {
 
 
 function _reportback_resource_access() {
-  // Temp universal access for now.
+  // @TODO: Temp universal access for now.
   // Permissions are still in effect for certain fields returned.
   return TRUE;
 }
