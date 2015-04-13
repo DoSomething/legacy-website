@@ -24,14 +24,13 @@ Vagrant.configure("2") do |config|
     config.vm.network :private_network, ip: "10.11.12.13"
     config.vm.synced_folder ".", "/var/www/dev.dosomething.org", type: "nfs"
 
-    # Allow `npm link`
-    if File.exists?(File.expand_path(File.join("/usr/local/lib/node_modules/dosomething-neue")))
+    # Allow `npm link` for Neue
+    if File.exists?("/usr/local/lib/node_modules/dosomething-neue")
       config.vm.synced_folder "/usr/local/lib/node_modules/dosomething-neue",
         "/usr/local/lib/node_modules/dosomething-neue",
         :owner => "www-data",
         :group => "www-data"
     end
-
   else
     # SSHFS -- reverse mount from within Vagrant box
     config.sshfs.paths = { "/var/www/dev.dosomething.org" => "../dosomething-mount" }
