@@ -641,6 +641,7 @@ fi
 if [[ $1 == "test" ]]
 then
   shift
+  cd $BASE_PATH
   $BASE_PATH/bin/test $@
 fi
 
