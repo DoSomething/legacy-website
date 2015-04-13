@@ -18,12 +18,12 @@ class DoSomethingSignupsResource extends RestfulEntityBase {
 
     $public_fields['campaign'] = array(
       'property' => 'nid',
-       'resource' => array(
-          'campaign' => array(
-            'name' => 'campaigns',
-            'full_view' => FALSE,
-          ),
+      'resource' => array(
+        'campaign' => array(
+          'name' => 'campaigns',
+          'full_view' => FALSE,
         ),
+      ),
     );
 
     $public_fields['user'] = array(

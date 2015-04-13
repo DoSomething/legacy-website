@@ -33,57 +33,57 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
     // If I name it as just 'image' it works.
     $public_fields['image'] = array(
       'property' => 'field_image_campaign_cover',
-       'resource' => array(
-          'image' => 'assets',
-        ),
+      'resource' => array(
+        'image' => 'assets',
+      ),
     );
 
     $public_fields['primary_cause'] = array(
       'property' => 'field_primary_cause',
-       'resource' => array(
-          'cause' => 'terms',
-        ),
+      'resource' => array(
+        'cause' => 'terms',
+      ),
     );
 
     $public_fields['cause'] = array(
       'property' => 'field_cause',
-       'resource' => array(
-          'cause' => 'terms',
-        ),
+      'resource' => array(
+        'cause' => 'terms',
+      ),
     );
 
     $public_fields['primary_action_type'] = array(
       'property' => 'field_primary_action_type',
-       'resource' => array(
-          'action_type' => 'terms',
-        ),
+      'resource' => array(
+        'action_type' => 'terms',
+      ),
     );
 
     $public_fields['action_type'] = array(
       'property' => 'field_action_type',
-       'resource' => array(
-          'action_type' => 'terms',
-        ),
+      'resource' => array(
+        'action_type' => 'terms',
+      ),
     );
 
     $public_fields['cause'] = array(
       'property' => 'field_cause',
-       'resource' => array(
-          'cause' => 'terms',
-        ),
+      'resource' => array(
+        'cause' => 'terms',
+      ),
     );
 
     $public_fields['issue'] = array(
       'property' => 'field_issue',
-       'resource' => array(
-          'issue' => 'terms',
-        ),
+      'resource' => array(
+        'issue' => 'terms',
+      ),
     );
     $public_fields['tags'] = array(
       'property' => 'field_tags',
-       'resource' => array(
-          'tags' => 'terms',
-        ),
+      'resource' => array(
+        'tags' => 'terms',
+      ),
     );
 
     $public_fields['call_to_action'] = array(
