@@ -82,7 +82,7 @@ abstract class ReportbackTransformer {
   protected function transformReportbackItemData($data) {
     $output = array(
       'id' => $data->fid,
-      'caption' => isset($data->caption) ? $data->caption : t('DoSomething? Just did!'),
+      'caption' => !empty($data->caption) ? $data->caption : t('DoSomething? Just did!'),
       'uri' => $data->uri,
       'media' => array(
         'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
