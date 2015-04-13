@@ -1012,7 +1012,11 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   }
 
   if (isset($params['status'])) {
-    $query->condition('rbf.status', $params['status']);
+    if (is_array($params['status'])) {
+      $query->condition('rbf.status', $params['status'], 'IN');
+    } else {
+      $query->condition('rbf.status', $params['status']);
+    }
   }
 
   if (isset($params['nid'])) {
