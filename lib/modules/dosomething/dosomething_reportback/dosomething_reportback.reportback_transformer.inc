@@ -7,6 +7,20 @@ abstract class ReportbackTransformer {
     module_load_include('inc', 'services', 'services.module');
   }
 
+
+  protected function countData($parameters) {
+    $total = 0;
+
+    foreach((array) $parameters['nid'] as $id) {
+      foreach((array) $parameters['status'] as $status) {
+        $total += (int) dosomething_reportback_get_reportback_total_by_status($id, $status);
+      }
+    }
+
+    return $total;
+  }
+
+
   /**
    * @param string $data Single or multiple comma separated data items.
    * @return string or array

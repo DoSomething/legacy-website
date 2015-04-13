@@ -35,7 +35,7 @@ class ReportbackItem extends ReportbackTransformer {
     }
 
     return array(
-      'total_retrieved' => count($reportbackItems),
+      'total' => $this->countData($filters),
       'data' => $this->transformCollection($reportbackItems),
     );
   }

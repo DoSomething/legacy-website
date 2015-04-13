@@ -1080,7 +1080,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  */
 function dosomething_reportback_get_reportback_files_query_result($params = array(), $count = 25, $start = 0) {
   $query = dosomething_reportback_get_reportback_files_query($params);
-  if ($count) {
+  if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
   $result = $query->execute();
