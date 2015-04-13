@@ -33,7 +33,7 @@ abstract class ReportbackTransformer {
    * @return array
    */
   protected function transformCollection($items) {
-    return array_map([$this, 'transform'], $items);
+    return array_map(array($this, 'transform'), $items);
   }
 
 
