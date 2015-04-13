@@ -8,7 +8,7 @@ abstract class ReportbackTransformer {
   }
 
 
-  protected function countData($parameters) {
+  protected function countItems($parameters) {
     $total = 0;
 
     foreach((array) $parameters['nid'] as $id) {
