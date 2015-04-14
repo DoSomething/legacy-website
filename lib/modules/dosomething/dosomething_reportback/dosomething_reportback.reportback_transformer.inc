@@ -8,6 +8,13 @@ abstract class ReportbackTransformer {
   }
 
 
+  /**
+   * Calculate total number of Reportback items for the specified campaigns by
+   * each status requested.
+   *
+   * @param array $parameters Query parameters.
+   * @return int Total number of reportback items.
+   */
   protected function countItems($parameters) {
     $total = 0;
 
