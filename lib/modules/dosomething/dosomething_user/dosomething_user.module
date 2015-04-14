@@ -23,19 +23,6 @@ function dosomething_user_preprocess_page(&$vars) {
     ),
     'setting'
   );
-
-  // Do not cache pages with reset token set.
-  if (!empty($_GET['pass-reset-token'])) {
-    $meta_robots = array(
-      '#tag' => 'meta',
-      '#attributes' => array(
-        'name' => 'robots',
-        'content' => 'noindex,nofollow',
-      )
-    );
-    drupal_add_html_head($meta_robots, 'meta_robots');
-  }
-
 }
 
 /**

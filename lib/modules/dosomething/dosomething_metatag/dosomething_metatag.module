@@ -8,16 +8,30 @@
  * Implements hook_preprocess_page().
  */
 function dosomething_metatag_preprocess_page(&$vars) {
-  // Prevent search engines from using DMOZ site descriptions.
-  $dmoz_meta_tag = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'name' => 'robots',
-      'content' => 'NOODP'
-    )
-  );
-  drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
+
+  if (!empty($_GET['pass-reset-token'])) {
+    // Do not cache pages with reset token set.
+    $robots_meta_tag = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'robots',
+        'content' => 'noindex,nofollow',
+      )
+    );
+    drupal_add_html_head($robots_meta_tag, 'robots_meta_tag');
+  } else {
+    // Prevent search engines from using DMOZ site descriptions.
+    $dmoz_meta_tag = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'robots',
+        'content' => 'NOODP'
+      )
+    );
+    drupal_add_html_head($dmoz_meta_tag, 'dmoz_meta_tag');
+  }
+
   // Verifies DS Pinterest account.
   $pinterest_verify_tag = array(
     '#type' => 'html_tag',
