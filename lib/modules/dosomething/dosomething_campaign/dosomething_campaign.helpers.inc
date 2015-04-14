@@ -596,3 +596,14 @@ function dosomething_campaign_get_sms_games() {
   // If no SMS Games, return null.
   return NULL;
 }
+
+/**
+ * Returns the amount of the scholarship tied to a campaign.
+ *
+ * @return int
+ *  Amount of the scholarship.
+ */
+function dosomething_campaign_get_scholarship($nid) {
+  $wrapper = entity_metadata_wrapper('node', $nid);
+  return $wrapper->field_scholarship_amount->value();
+}
