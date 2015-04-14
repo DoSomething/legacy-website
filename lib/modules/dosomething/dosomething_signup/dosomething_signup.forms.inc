@@ -204,14 +204,16 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
   $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', t('Share'));
 
   // Get scholarship amount.
-  $wrapper = entity_metadata_wrapper('node', $node);
-  $amount = $wrapper->field_scholarship_amount->value();
-  $scholarship = array(
-    '#markup' => theme('campaign_scholarship', array(
-      'amount' => $amount,
-      'classes' => array('-right'),
-    )),
-  );
+  $amount = dosomething_campaign_get_scholarship($node->nid);
+
+  if ($amount) {
+    $scholarship = array(
+      '#markup' => theme('campaign_scholarship', array(
+        'amount' => $amount,
+        'classes' => array('-right'),
+      )),
+    );
+  }
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -219,7 +221,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
       '#type' => 'submit',
       '#value' => $label,
     ),
-    'scholarship' => ($amount) ? $scholarship : NULL,
+    'scholarship' => (isset($scholarship)) ? $scholarship : NULL,
   );
 
   return $form;
