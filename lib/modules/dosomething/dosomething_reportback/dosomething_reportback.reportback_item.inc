@@ -15,7 +15,7 @@ class ReportbackItem extends ReportbackTransformer {
     // validated to a specific data type (eg: nid needs to be an int)
     $filters = array(
       'nid' => $this->formatData($parameters['campaigns']),
-      'status' => $parameters['status'],
+      'status' => $this->formatData($parameters['status']),
       'count' => $parameters['count'] ?: 25,
     );
     // @TODO: Logic update!
@@ -35,7 +35,7 @@ class ReportbackItem extends ReportbackTransformer {
     }
 
     return array(
-      'total_retrieved' => count($reportbackItems),
+      'total' => $this->countItems($filters),
       'data' => $this->transformCollection($reportbackItems),
     );
   }

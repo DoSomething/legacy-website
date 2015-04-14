@@ -84,7 +84,7 @@ class Reportback extends ReportbackTransformer {
       }
 
       $data['items'] = array(
-        'total_retrieved' => count($items),
+        'total' => count($items),
         'data' => $output,
       );
     }
@@ -112,7 +112,8 @@ class Reportback extends ReportbackTransformer {
       'fid' => $this->formatData($ids),
     );
 
-    $query = dosomething_reportback_get_reportback_files_query_result($filters);
+    // Obtaining all Reportback items.
+    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
 
     return services_resource_build_index_list($query, 'reportback-items', 'fid');
   }
