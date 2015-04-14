@@ -16,14 +16,18 @@ class ReportbackItem extends ReportbackTransformer {
     $filters = array(
       'nid' => $this->formatData($parameters['campaigns']),
       'status' => $this->formatData($parameters['status']),
-      'count' => $parameters['count'] ?: 25,
+      'count' => (int) $parameters['count'] ?: 25,
+      'page' => (int) $parameters['page'],
     );
+
+    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
     // @TODO: Logic update!
     // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
 
-    $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count']);
+    $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count'], $filters['offset']);
     $reportbackItems = services_resource_build_index_list($query, 'reportback-items', 'fid');
 
     if (!$reportbackItems) {
@@ -35,7 +39,7 @@ class ReportbackItem extends ReportbackTransformer {
     }
 
     return array(
-      'total' => $this->countItems($filters),
+      'pagination' => $this->paginate($filters, count($reportbackItems), 'reportback-items'),
       'data' => $this->transformCollection($reportbackItems),
     );
   }

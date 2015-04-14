@@ -9,6 +9,77 @@ abstract class ReportbackTransformer {
 
 
   /**
+   * Get the URI for the next page in the collection of data.
+   *
+   * @param $data
+   * @param $parameters
+   * @param $endpoint
+   * @return null|string
+   */
+  protected function getNextPageUri($data, $parameters, $endpoint) {
+    $uri = $this->getPathParameters($parameters, $endpoint);
+
+    $next = $data['current_page'] + 1;
+
+    if ($next <= $data['total_pages']) {
+      return $uri . '&page=' . $next;
+    }
+    else {
+      return NULL;
+    }
+  }
+
+
+  /**
+   * Get the URI for the previous page in the collection of data.
+   *
+   * @param $data
+   * @param $parameters
+   * @param $endpoint
+   * @return null|string
+   */
+  protected function getPrevPageUri($data, $parameters, $endpoint) {
+    $uri = $this->getPathParameters($parameters, $endpoint);
+
+    $prev = $data['current_page'] - 1;
+
+    if ($prev > 0) {
+      return $uri . '&page=' . $prev;
+    }
+    else {
+      return NULL;
+    }
+  }
+
+
+  /**
+   * Extract the path parameters passed and recreate the query string.
+   *
+   * @param $parameters
+   * @param $endpoint
+   * @return string
+   */
+  protected function getPathParameters($parameters, $endpoint) {
+    $path = services_resource_uri(array($endpoint));
+    $path .= '.json?';
+
+    if (isset($parameters['nid'])) {
+      $path .= '&campaigns=' . implode(',', (array) $parameters['nid']);
+    }
+
+    if (isset($parameters['status'])) {
+      $path .= '&status=' . implode(',', (array) $parameters['status']);
+    }
+
+    if (isset($parameters['count'])) {
+      $path .= '&count=' . implode(',', (array) $parameters['count']);
+    }
+
+    return $path;
+  }
+
+
+  /**
    * Calculate total number of Reportback items for the specified campaigns by
    * each status requested.
    *
@@ -40,6 +111,47 @@ abstract class ReportbackTransformer {
     }
 
     return $data;
+  }
+
+
+  /**
+   * Get metadata for pagination of response data.
+   *
+   * @param $parameters
+   * @param $count
+   * @param $endpoint
+   * @return array
+   */
+  protected function paginate($parameters, $count, $endpoint) {
+    $data = array();
+
+    $data['total'] = $this->countItems($parameters);
+    $data['count'] = $count;
+    $data['per_page'] = $parameters['count'];
+    $data['current_page'] = (isset($parameters['page']) && $parameters['page'] > 0) ? (int) $parameters['page'] : 1;
+    $data['total_pages'] = ceil($data['total'] / $data['per_page']);
+
+    $prevUri = $this->getPrevPageUri($data, $parameters, $endpoint);
+    $nextUri = $this->getNextPageUri($data, $parameters, $endpoint);
+
+    $data['prev_uri'] = $prevUri;
+    $data['next_uri'] = $nextUri;
+
+    return $data;
+  }
+
+
+  /**
+   * Get the offset for requests based on specified page number and count of items.
+   *
+   * @param $page
+   * @param $count
+   * @return int
+   */
+  protected function setOffset($page, $count) {
+    $page = ($page > 0) ? $page -= 1 : $page;
+
+    return $page * $count;
   }
 
 
