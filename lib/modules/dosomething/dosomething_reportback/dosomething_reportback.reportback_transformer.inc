@@ -155,7 +155,9 @@ abstract class ReportbackTransformer {
    * @return int
    */
   protected function setOffset($page, $count) {
-    $page = ($page > 0) ? $page -= 1 : $page;
+    if ($page > 0 ) {
+      $page -= 1;
+    }
 
     return $page * $count;
   }
