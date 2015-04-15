@@ -925,6 +925,7 @@ function dosomething_reportback_flush_caches() {
  *   An associative array of conditions to filter by. Possible keys:
  *   - rbid: A reportback rbid to filter by.
  *   - random: If set, randomly sort the results.
+ *
  * @return SelectQuery object
  */
 function dosomething_reportback_get_reportbacks_query($params = array()) {
@@ -996,6 +997,7 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
  *   - fid: A reportback item fid to filter by.
  *   - status: The RB File status.
  *   - random: If set, randomly sort the results.
+ *
  * @return SelectQuery object
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {

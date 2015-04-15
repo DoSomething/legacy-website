@@ -72,7 +72,7 @@ function _reportback_item_resource_definition() {
             'optional' => TRUE,
             'type' => 'int',
             'source' => array('param' => 'page'),
-            'default value' => 0,
+            'default value' => 1,
           ),
         ),
         'access callback' => '_reportback_item_resource_access',
@@ -99,6 +99,7 @@ function _reportback_item_resource_index($campaigns, $status, $count, $random, $
     'status' => $status,
     'count' => $count,
     'random' => $random,
+    'page' => $page,
   );
 
   $reportbackItems = new ReportbackItem;

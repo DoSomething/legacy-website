@@ -72,7 +72,7 @@ function _reportback_resource_definition() {
             'optional' => TRUE,
             'type' => 'int',
             'source' => array('param' => 'page'),
-            'default value' => 0,
+            'default value' => 1,
           ),
         ),
         'access callback' => '_reportback_resource_access',

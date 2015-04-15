@@ -7,6 +7,7 @@ class Reportback extends ReportbackTransformer {
 
   /**
    * @param array $parameters Any parameters obtained from query string.
+   *
    * @return array
    */
   public function index($parameters) {
@@ -41,6 +42,7 @@ class Reportback extends ReportbackTransformer {
 
   /**
    * @param string $id Resource id.
+   *
    * @return array
    */
   public function show($id) {
@@ -66,6 +68,7 @@ class Reportback extends ReportbackTransformer {
 
   /**
    * @param object $reportback Single object of retrieved data.
+   *
    * @return array
    */
   protected function transform($reportback) {
@@ -105,6 +108,7 @@ class Reportback extends ReportbackTransformer {
 
   /**
    * @param $ids
+   *
    * @return array
    */
   protected function getItems($ids) {
