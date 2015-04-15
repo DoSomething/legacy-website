@@ -158,10 +158,8 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.10"
+projects[services][version] = "3.12"
 projects[services][subdir] = "contrib"
-; See https://www.drupal.org/node/2200269, https://github.com/DoSomething/dosomething/issues/3311
-projects[services][patch][] = "https://www.drupal.org/files/issues/services-2200269.patch"
 
 ; Stathat
 projects[stathat][version] = "1.0"
