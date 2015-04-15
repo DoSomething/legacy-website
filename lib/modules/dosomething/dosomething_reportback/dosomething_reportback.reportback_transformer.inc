@@ -14,6 +14,7 @@ abstract class ReportbackTransformer {
    * @param $data
    * @param $parameters
    * @param $endpoint
+   *
    * @return null|string
    */
   protected function getNextPageUri($data, $parameters, $endpoint) {
@@ -36,6 +37,7 @@ abstract class ReportbackTransformer {
    * @param $data
    * @param $parameters
    * @param $endpoint
+   *
    * @return null|string
    */
   protected function getPrevPageUri($data, $parameters, $endpoint) {
@@ -57,6 +59,7 @@ abstract class ReportbackTransformer {
    *
    * @param $parameters
    * @param $endpoint
+   *
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {
@@ -84,6 +87,7 @@ abstract class ReportbackTransformer {
    * each status requested.
    *
    * @param array $parameters Query parameters.
+   *
    * @return int Total number of reportback items.
    */
   protected function countItems($parameters) {
@@ -101,6 +105,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param string $data Single or multiple comma separated data items.
+   *
    * @return string or array
    */
   protected function formatData($data) {
@@ -120,6 +125,7 @@ abstract class ReportbackTransformer {
    * @param $parameters
    * @param $count
    * @param $endpoint
+   *
    * @return array
    */
   protected function paginate($parameters, $endpoint) {
@@ -145,6 +151,7 @@ abstract class ReportbackTransformer {
    *
    * @param $page
    * @param $count
+   *
    * @return int
    */
   protected function setOffset($page, $count) {
@@ -162,6 +169,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param array $items Collection of item objects retrieved data.
+   *
    * @return array
    */
   protected function transformCollection($items) {
@@ -171,6 +179,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param object $data
+   *
    * @return array
    */
   protected function transformCampaignData($data) {
@@ -185,6 +194,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param object $data
+   *
    * @return array
    */
   protected function transformReportback($data) {
@@ -209,6 +219,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param object $data
+   *
    * @return array
    */
   protected function transformReportbackItemData($data) {
@@ -233,6 +244,7 @@ abstract class ReportbackTransformer {
 
   /**
    * @param object $data
+   *
    * @return array
    */
   protected function transformUserData($data) {
