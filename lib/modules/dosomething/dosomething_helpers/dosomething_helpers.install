@@ -173,3 +173,10 @@ function dosomething_helpers_update_7006() {
     ->condition('name', 'alt_color', '=')
     ->execute();
 }
+
+/**
+ * Deletes the 'alt_bg_fid' variable.
+ */
+function dosomething_helpers_update_7007() {
+  variable_del('alt_bg_fid');
+}
