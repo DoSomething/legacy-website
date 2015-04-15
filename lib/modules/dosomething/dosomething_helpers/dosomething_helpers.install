@@ -178,5 +178,8 @@ function dosomething_helpers_update_7006() {
  * Deletes the 'alt_bg_fid' variable.
  */
 function dosomething_helpers_update_7007() {
-  variable_del('alt_bg_fid');
+  db_delete('dosomething_helpers_variable')
+    ->condition('entity_type', 'node')
+    ->condition('name', 'alt_bg_fid')
+    ->execute();
 }
