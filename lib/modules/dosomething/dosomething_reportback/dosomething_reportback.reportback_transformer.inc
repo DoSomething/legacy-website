@@ -122,11 +122,10 @@ abstract class ReportbackTransformer {
    * @param $endpoint
    * @return array
    */
-  protected function paginate($parameters, $count, $endpoint) {
+  protected function paginate($parameters, $endpoint) {
     $data = array();
 
     $data['total'] = $this->countItems($parameters);
-    $data['count'] = $count;
     $data['per_page'] = $parameters['count'];
     $data['current_page'] = (isset($parameters['page']) && $parameters['page'] > 0) ? (int) $parameters['page'] : 1;
     $data['total_pages'] = ceil($data['total'] / $data['per_page']);

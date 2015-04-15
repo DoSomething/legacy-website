@@ -39,7 +39,8 @@ class ReportbackItem extends ReportbackTransformer {
     }
 
     return array(
-      'pagination' => $this->paginate($filters, count($reportbackItems), 'reportback-items'),
+      'pagination' => $this->paginate($filters, 'reportback-items'),
+      'retrieved_count' => count($reportbackItems),
       'data' => $this->transformCollection($reportbackItems),
     );
   }
