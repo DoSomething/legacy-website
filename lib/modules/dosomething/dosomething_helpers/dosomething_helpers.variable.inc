@@ -50,14 +50,6 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       'maxlength' => '6',
     ),
   );
-  $form['styles']['alt_bg_fid'] = array(
-    //@todo: File Fid autocomplete?
-    '#type' => 'textfield',
-    '#title' => t('Alternate background file fid'),
-    '#description' => t('File fid to display for BG pattern.'),
-    '#default_value' => $vars['alt_bg_fid'],
-    '#size' => 6,
-  );
   $form['styles']['alt_image_campaign_cover_nid'] = array(
     //@todo: Node reference autocomplete.
     '#type' => 'textfield',
