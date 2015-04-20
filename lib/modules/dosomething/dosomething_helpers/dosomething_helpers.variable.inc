@@ -165,6 +165,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#title' => t('Progress'),
       '#description' => t('The total approved reportback quantity so far is: ' . $rb_progress),
       '#default_value' => $vars['progress'] ?: $rb_progress,
+      '#disabled' => TRUE,
     );
 
     $signup_count = dosomething_helpers_get_variable('node', $node->nid, 'signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);

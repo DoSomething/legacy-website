@@ -16,6 +16,7 @@ function dosomething_reportback_cron() {
                        INNER JOIN dosomething_reportback rb on n.nid = rb.nid
                        WHERE n.type = 'campaign'
                        AND s.field_campaign_status_value = 'active'
+                       AND rb.flagged = 0
                        GROUP BY n.nid;");
 
   // Updated reportback counts accordingly.
