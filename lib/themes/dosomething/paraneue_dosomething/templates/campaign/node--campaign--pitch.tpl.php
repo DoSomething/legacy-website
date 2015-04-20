@@ -25,16 +25,21 @@
     </div>
   </header>
 
-  <div class="cta -persistent optimizely-hide-count js-fixedsticky">
+  <div class="cta -persistent optimizely-hide-count js-fixedsticky <?php if ($campaign_scholarship) { print 'with-scholarship'; } ?>">
     <div class="wrapper">
       <?php if (isset($signup_button_secondary)): ?>
         <div class="cta__button">
           <?php print $signup_button_secondary; ?>
+          <?php if ($campaign_scholarship): ?>
+            <?php print $campaign_scholarship; ?>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
       <?php if (isset($campaign->secondary_call_to_action)): ?>
-        <h4 class="cta__message with-count"><?php print $signup_cta; ?></h4>
-        <h4 class="cta__message without-count"><?php print $campaign->secondary_call_to_action; ?></h4>
+        <div class="cta__message">
+          <h4 class="with-count"><?php print $signup_cta; ?></h4>
+          <h4 class="without-count"><?php print $campaign->secondary_call_to_action; ?></h4>
+        </div>
       <?php endif; ?>
     </div>
   </div>

@@ -4,11 +4,11 @@
 @mixin optimizely-signup-count($display) {
   &.optimizely-hide-count {
     .cta__message {
-      &.with-count {
+      .with-count {
         display: none;
       }
 
-      &.without-count {
+      .without-count {
         display: $display;
       }
     }
@@ -16,11 +16,11 @@
 
   &.optimizely-show-count {
     .cta__message {
-      &.with-count {
+      .with-count {
         display: $display;
       }
 
-      &.without-count {
+      .without-count {
         display: none;
       }
     }
@@ -50,48 +50,103 @@
       @include clearfix;
       display: table;
       padding: $base-spacing / 2 0;
+    }
 
-      @include media($medium) {
-        @include span(12);
-        padding: $base-spacing / 2 0;
+    // Layout for for campaigns with a scholarship
+    &.with-scholarship {
+      .cta__button {
+        @include media($medium) {
+          width: auto;
+        }
+
+        @include media($larger) {
+          @include span(6 of 12 no-gutters);
+          float: none;
+        }
+
+        .button {
+          @include span(3 of 6 no-gutters);
+          display: table-cell;
+          float: none;
+          vertical-align: middle;
+
+          @include media($larger) {
+            width: auto;
+          }
+        }
       }
 
-      @include media($larger) {
-        @include span(6);
-        padding: $base-spacing / 2 0;
+      .cta__message {
+        display: none;
+
+        @include media($larger) {
+          display: table-cell;
+          @include span(6 of 12 no-gutters);
+          float: none;
+        }
       }
     }
 
+    // Default layout, campaigns with no scholarship.
     .cta__button {
-      @include span(6 of 12);
-      display: table-cell;
-      float: none;
-      padding: 0;
-
       @include media($medium) {
-        @include span(4 of 12);
+        display: table-cell;
+        width: 145px;
         text-align: left;
+      }
+
+      .button {
+        font-size: 21px;
+
+        @include media($medium) {
+          font-size: $font-medium;
+        }
+      }
+
+      .message-callout {
+        @include span(3 of 6 no-gutters);
+        display: table-cell;
         float: none;
-        padding: 0px;
+        vertical-align: middle;
+        padding-top: 0px;
+        width: 130px;
+
+        @include media($medium) {
+          transform: none;
+          padding-left: $base-spacing / 2;
+        }
+
+        .message-callout__copy {
+          padding: 0px;
+
+          &:before {
+            display: none;
+          }
+        }
       }
     }
+
 
     .cta__message {
-      @include span(6 of 12);
+      @include span(6 of 12 no-gutters);
       display: table-cell;
       float: none;
       padding: 0px 0px 0px ($base-spacing / 2);
       vertical-align: middle;
-      color: $white;
-      text-align: left;
-      font-size: $font-regular;
 
       @include media($medium) {
-        @include span(8 of 12);
+        margin: 0px;
+        width: auto;
+      }
+
+      h4 {
+        color: $white;
         text-align: left;
-        float: none;
-        font-size: $font-medium;
-        padding: 0px;
+        font-size: $font-regular;
+
+        @include media($medium) {
+          font-size: $font-medium;
+        }
       }
     }
   }
