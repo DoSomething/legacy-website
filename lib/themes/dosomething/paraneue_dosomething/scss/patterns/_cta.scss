@@ -52,19 +52,17 @@
       padding: $base-spacing / 2 0;
     }
 
-    // Layout for for campaigns with a scholarship
+    // Layout for campaigns with a scholarship.
     &.with-scholarship {
-      .cta__button {
-        @include media($medium) {
-          width: auto;
-        }
+      .cta__action {
+        width: auto;
 
         @include media($larger) {
           @include span(6 of 12 no-gutters);
           float: none;
         }
 
-        .button {
+        .cta__button {
           @include span(3 of 6 no-gutters);
           display: table-cell;
           float: none;
@@ -87,19 +85,21 @@
       }
     }
 
-    // Default layout, campaigns with no scholarship.
-    .cta__button {
+    // Layout for campaigns without a scholarship.
+    .cta__action {
       @include media($medium) {
         display: table-cell;
-        width: 145px;
         text-align: left;
+        width: 145px;
       }
 
-      .button {
-        font-size: 21px;
+      .cta__button {
+        .button {
+          font-size: 21px;
 
-        @include media($medium) {
-          font-size: $font-medium;
+          @include media($medium) {
+            font-size: $font-medium;
+          }
         }
       }
 
