@@ -90,11 +90,13 @@
       @include media($medium) {
         display: table-cell;
         text-align: left;
+        // Set explicit width so that button doesn't wrap to two lines.
         width: 145px;
       }
 
       .cta__button {
         .button {
+          // Set explicit font size so that button is smaller and doesn't wrap on mobile.
           font-size: 21px;
 
           @include media($medium) {
