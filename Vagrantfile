@@ -19,21 +19,21 @@ Vagrant.configure("2") do |config|
   # SSH Agent forwarding
   config.ssh.forward_agent = true
 
+  # Mount shared folders
   if ENV['DS_VAGRANT_MOUNT_NFS']
     # NFS
     config.vm.network :private_network, ip: "10.11.12.13"
     config.vm.synced_folder ".", "/var/www/dev.dosomething.org", type: "nfs"
-
-    # Allow `npm link` for Neue
-    if File.exists?("/usr/local/lib/node_modules/dosomething-neue")
-      config.vm.synced_folder "/usr/local/lib/node_modules/dosomething-neue",
-        "/usr/local/lib/node_modules/dosomething-neue",
-        :owner => "www-data",
-        :group => "www-data"
-    end
   else
     # SSHFS -- reverse mount from within Vagrant box
     config.sshfs.paths = { "/var/www/dev.dosomething.org" => "../dosomething-mount" }
+  end
+
+  # Allow `npm link` for Neue
+  if File.exists?("/usr/local/lib/node_modules/dosomething-neue")
+    config.vm.synced_folder "/usr/local/lib/node_modules/dosomething-neue",
+      "/usr/local/lib/node_modules/dosomething-neue",
+      owner: "www-data", group: "www-data"
   end
 
   # Http and https.
