@@ -24,6 +24,13 @@ function dosomething_mbp_install() {
 
   // Install the DoSomething production settings in message_broker_producer.
   dosomething_mbp_install_productions();
+
+  variable_set('user_mail_register_admin_created_notify', 0);
+  variable_set('user_mail_register_pending_approval_notify', 0);
+  variable_set('user_mail_register_no_approval_required_notify', 0);
+  variable_set('user_mail_password_reset_notify', 0);
+  variable_set('user_mail_cancel_confirm_notify', 0);
+
 }
 
 /**
@@ -36,6 +43,11 @@ function dosomething_mbp_uninstall() {
     'message_broker_producer_rabbitmq_username',
     'message_broker_producer_rabbitmq_password',
     'message_broker_producer_rabbitmq_vhost',
+    'user_mail_register_admin_created_notify',
+    'user_mail_register_pending_approval_notify',
+    'user_mail_register_no_approval_required_notify',
+    'user_mail_password_reset_notify',
+    'user_mail_cancel_confirm_notify',
   );
   foreach ($vars as $var) {
     variable_del($var);
@@ -94,6 +106,21 @@ function dosomething_mbp_update_7004(&$sandbox) {
 function dosomething_mbp_update_7005(&$sandbox) {
   db_drop_table('message_broker_producer_productions');
   dosomething_mbp_install_productions();
+}
+
+/**
+ * Disables Drupal core email messages. Message Broker powered transactionals replace Drupal core
+ * text based email functionality. Not disabling these messages results in duplicate message
+ * from Drupal core and Message Broker for each of the message events.
+ */
+function dosomething_mbp_update_7006(&$sandbox) {
+
+  variable_set('user_mail_register_admin_created_notify', 0);
+  variable_set('user_mail_register_pending_approval_notify', 0);
+  variable_set('user_mail_register_no_approval_required_notify', 0);
+  variable_set('user_mail_password_reset_notify', 0);
+  variable_set('user_mail_cancel_confirm_notify', 0);
+
 }
 
 /**
