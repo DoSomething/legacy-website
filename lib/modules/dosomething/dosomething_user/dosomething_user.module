@@ -556,6 +556,11 @@ function dosomething_user_login_submit($form, &$form_state) {
         dosomething_signup_user_signup($nid, NULL, $source);
       }
     }
+
+  }
+  // Send the user into northstar.
+  if (module_exists('dosomething_northstar')) {
+    dosomething_northstar_register_user($form_state);
   }
   // After all logins, except reportback pages redirect to page user was just on.
   if (isset($source) && stripos($source, 'reportback') > 0) {
