@@ -26,7 +26,7 @@ function dosomething_northstar_config_form($form, &$form_state) {
     '#title' => t('Northstar port'),
     '#description' => t('This is most likely only needed on dev sites'),
     '#required' => FALSE,
-    '#default_value' => variable_get('dosomething_northstar_port', '8888'),
+    '#default_value' => variable_get('dosomething_northstar_port', '8000'),
   );
   $form['northstar']['dosomething_northstar_version'] = array(
     '#type' => 'textfield',

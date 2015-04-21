@@ -7,6 +7,12 @@
 
 include_once('dosomething_northstar.admin.inc');
 
+// Config vars, if not set.
+define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev'));
+define('NORTHSTAR_PORT', variable_get('dosomething_northstar_port', '8000'));
+define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', '1'));
+define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', '456'));
+define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'abc4324'));
 
 /**
  * Implements hook_menu().
@@ -73,4 +79,31 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'addr_state'    => $user->field_address[LANGUAGE_NONE][0]['administrative_area'],
     'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
   );
+}
+
+class Northstar {
+
+  public $client;
+
+  public function __construct()
+  {
+    $base_url = NORTHSTAR_URL;
+    if (getenv('DS_ENVIRONMENT') === 'local') {
+      $base_url .=  ":" NORTHSTAR_PORT;
+    }
+    $version = NORTHSTAR_VERSION;
+    $client = new GuzzleHttp\Client([
+      'base_url' => [$base_url . '/{version}/', ['version' => $version]],
+      'defaults' => array(
+        'headers' => [
+          'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+          'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
+          ]
+        ),
+    ]);
+    $this->client = $client;
+  }
+
 }
