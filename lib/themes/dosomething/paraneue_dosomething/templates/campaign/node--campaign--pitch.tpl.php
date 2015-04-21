@@ -9,7 +9,7 @@
  */
 ?>
 
-<section class="campaign campaign--pitch pitch optimizely-persistent">
+<section class="campaign campaign--pitch pitch">
   <header role="banner" class="header -hero <?php print $classes; ?>">
     <div class="wrapper">
       <?php print $campaign_headings; ?>
