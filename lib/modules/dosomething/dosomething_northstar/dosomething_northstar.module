@@ -39,3 +39,38 @@ function dosomething_northstar_libraries_info() {
   );
   return $libraries;
 }
+
+function dosomething_northstar_register_user($form_state) {
+  global $user;
+  // Build a user that Northstar expects.
+  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+
+  // Send that to NS.
+
+
+}
+
+/**
+ * Build a user json object, that's accepted by Northstar.
+ *
+ * @param obj $user
+ *  Drupal user object
+ *
+ */
+function dosomething_northstar_build_ns_user($user, $form_state) {
+  return $ns_user = array(
+    'email'         => $user->mail,
+    'mobile'        => $user->field_mobile[LANGUAGE_NONE][0]['value'],
+    'first_name'    => $user->field_first_name[LANGUAGE_NONE][0]['value'],
+    'birthdate'     => $user->field_birthdate[LANGUAGE_NONE][0]['value'],
+    'drupal_id'     => $user->uid,
+    'password'      => $form_state['values']['pass'],
+    // Address
+    'country'       => $user->field_address[LANGUAGE_NONE][0]['country'],
+    'addr_street1'  => $user->field_address[LANGUAGE_NONE][0]['thoroughfare'],
+    'addr_street2'  => $user->field_address[LANGUAGE_NONE][0]['premise'],
+    'addr_city'     => $user->field_address[LANGUAGE_NONE][0]['locality'],
+    'addr_state'    => $user->field_address[LANGUAGE_NONE][0]['administrative_area'],
+    'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
+  );
+}
