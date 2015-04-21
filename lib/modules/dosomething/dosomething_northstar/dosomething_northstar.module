@@ -50,10 +50,9 @@ function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-
   // Send that to NS.
-
-
+  $northstar = new Northstar();
+  $northstar->register($ns_user);
 }
 
 /**
@@ -89,21 +88,27 @@ class Northstar {
   {
     $base_url = NORTHSTAR_URL;
     if (getenv('DS_ENVIRONMENT') === 'local') {
-      $base_url .=  ":" NORTHSTAR_PORT;
+      $base_url .=  ":" . NORTHSTAR_PORT;
     }
     $version = NORTHSTAR_VERSION;
-    $client = new GuzzleHttp\Client([
-      'base_url' => [$base_url . '/{version}/', ['version' => $version]],
+    $client = new GuzzleHttp\Client(array(
+      'base_url' => array($base_url . '/{version}/', array('version' => $version)),
       'defaults' => array(
-        'headers' => [
+        'headers' => array(
           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
           'Content-Type' => 'application/json',
           'Accept' => 'application/json'
-          ]
+          ),
         ),
-    ]);
+    ));
     $this->client = $client;
+  }
+
+  public function register($user) {
+    $client->post('users', array(
+      'body' => json_encode($user),
+      ));
   }
 
 }
