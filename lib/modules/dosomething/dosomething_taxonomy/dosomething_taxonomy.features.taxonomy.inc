@@ -41,6 +41,14 @@ function dosomething_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'kudos' => array(
+      'name' => 'Kudos',
+      'machine_name' => 'kudos',
+      'description' => 'Terms for adding social interaction on reportback photos.',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'partners' => array(
       'name' => 'Partners',
       'machine_name' => 'partners',
