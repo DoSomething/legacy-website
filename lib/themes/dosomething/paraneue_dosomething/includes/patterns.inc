@@ -27,7 +27,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
   // If no image is provided and we want to use a default, then set the default image here.
   if (empty($content['image']) && $use_default) {
     $content['image'] = theme('image', array(
-      'path' => path_to_theme() . '/bower_components/neue/dist/assets/images/apple-touch-icon-precomposed.png'
+      'path' => NEUE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png'
     ));
   }
 
