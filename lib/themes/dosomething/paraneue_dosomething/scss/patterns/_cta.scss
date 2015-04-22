@@ -3,26 +3,22 @@
 // solution is in place.
 @mixin optimizely-signup-count($display) {
   &.optimizely-hide-count {
-    .cta__message {
-      .with-count {
-        display: none;
-      }
+    .with-count {
+      display: none;
+    }
 
-      .without-count {
-        display: $display;
-      }
+    .without-count {
+      display: $display;
     }
   }
 
   &.optimizely-show-count {
-    .cta__message {
-      .with-count {
-        display: $display;
-      }
+    .with-count {
+      display: $display;
+    }
 
-      .without-count {
-        display: none;
-      }
+    .without-count {
+      display: none;
     }
   }
 }
