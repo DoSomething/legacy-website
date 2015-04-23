@@ -161,29 +161,27 @@ function _member_resource_create($account) {
   if (isset($account['password'])) {
     $edit['pass'] = $account['password'];
   }
+
   // List of available properties to save:
-  $properties = array(
-    'birthdate',
-    'first_name',
-    'last_name',
-    'mobile',
-    'user_registration_source',
+  $fields = array(
+    'birthdate'  => $account['birthdate'],
+    'first_name' => $account['first_name'],
+    'country'    => dosomething_settings_get_affiliate_country_code(),
   );
-  // Loop through each property:
-  foreach ($properties as $property) {
-    if (isset($account[$property])) {
-      // Get its relevant field name.
-      $field_name = 'field_' . $property;
-      // Set the expected field value arrays.
-      $edit[$field_name] = array(
-        LANGUAGE_NONE => array(
-          0 => array(
-            'value' => $account[$property],
-          ),
-        ),
-      );
-    }
+
+  // Optional fields:
+  if (!empty($account['last_name'])) {
+    $fields['last_name'] = $account['last_name'];
   }
+  if (!empty($account['mobile'])) {
+    $fields['mobile'] = $account['mobile'];
+  }
+  if (!empty($account['user_registration_source'])) {
+    $fields['user_registration_source'] = $account['user_registration_source'];
+  }
+
+  dosomething_user_set_fields($edit, $fields);
+
   try {
     $account = user_save('', $edit);
     return $account;
