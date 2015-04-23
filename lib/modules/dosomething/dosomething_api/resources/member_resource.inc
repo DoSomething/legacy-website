@@ -164,21 +164,13 @@ function _member_resource_create($account) {
 
   // List of available properties to save:
   $fields = array(
-    'birthdate'  => $account['birthdate'],
+    'birthdate' => $account['birthdate'],
     'first_name' => $account['first_name'],
-    'country'    => dosomething_settings_get_affiliate_country_code(),
+    'country' => dosomething_settings_get_affiliate_country_code(),
+    'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
+    'mobile' => !empty($account['mobile']) ? $account['mobile'] : NULL,
+    'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
   );
-
-  // Optional fields:
-  if (!empty($account['last_name'])) {
-    $fields['last_name'] = $account['last_name'];
-  }
-  if (!empty($account['mobile'])) {
-    $fields['mobile'] = $account['mobile'];
-  }
-  if (!empty($account['user_registration_source'])) {
-    $fields['user_registration_source'] = $account['user_registration_source'];
-  }
 
   dosomething_user_set_fields($edit, $fields);
 
