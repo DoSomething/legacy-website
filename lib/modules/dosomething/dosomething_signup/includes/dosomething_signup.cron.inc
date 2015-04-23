@@ -18,9 +18,9 @@ function dosomething_signup_cron() {
 
   // Updated reportback counts accordingly.
   foreach ($results as $result) {
-    $previous_signups = dosomething_helpers_get_variable('node', $result->nid, 'signup_count');
+    $previous_signups = dosomething_helpers_get_variable('node', $result->nid, 'web_signup_count');
     $updated_signups = (int) $previous_signups + (int) $result->total_signups;
-    dosomething_helpers_set_variable('node', $result->nid, 'signup_count', $updated_signups);
+    dosomething_helpers_set_variable('node', $result->nid, 'web_signup_count', $updated_signups);
   }
 }
 

@@ -161,7 +161,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $materials['content'] = $campaign->items_needed;
     $vars['plan'][] = $materials;
   }
- 
+
   // 2) Time
   if (isset($campaign->time_and_place)) {
     $time['category'] = 'time';
@@ -196,7 +196,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (!empty($location_copy)) {
     $vars['location_finder']['copy'] = $location_copy['safe_value'];
   }
-  
+
   $location_url = $wrapper->field_location_finder_url->value();
   if (!empty($location_url)) {
     $vars['location_finder']['url'] = $location_url['url'];
@@ -291,7 +291,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Add analytics custom event on action page.
   $js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", "Action Page View", "' . $vars['title'] . '"); }';
   drupal_add_js($js, 'inline');
-  
+
 }
 
 /**
@@ -356,8 +356,9 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
 
   // Get sign up total and add it to cta
   $campaign_progress = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
+  $signup_count = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'web_signup_count') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'mobile_signup_count');
   $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
-      '@signup_count' => number_format($campaign_progress, 0, '', ','),
+      '@signup_count' => number_format($signup_count, 0, '', ','),
     ));
 }
 
@@ -403,7 +404,7 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
   // Loop through gallery_vars to only output what we need for theming:
   foreach ($result as $delta => $item) {
     $vars['reportback_gallery'][$delta]['image'] = dosomething_image_get_themed_image_by_fid($item->fid, $style);
-    
+
     if (isset($item->caption)) {
       $vars['reportback_gallery'][$delta]['caption'] = check_plain($item->caption);
     }
