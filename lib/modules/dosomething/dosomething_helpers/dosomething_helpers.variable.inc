@@ -169,7 +169,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     );
 
     $web_signup_count = dosomething_helpers_get_variable('node', $node->nid, 'web_signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
-
+    dosomething_helpers_set_variable('node', $node->nid, 'web_signup_count', $web_signup_count);
     $form['goals']['mobile_signup_count'] = array(
       '#type' => 'textfield',
       '#title' => t('Mobile Count'),
