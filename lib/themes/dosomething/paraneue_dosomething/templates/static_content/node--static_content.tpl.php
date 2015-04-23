@@ -79,7 +79,7 @@
         <ul class="gallery <?php print $gallery['class']; ?>">
           <?php foreach ($gallery['items'] as $gallery_item): ?>
             <li>
-              <div class="figure">
+              <div class="figure <?php if ($gallery['class'] == '-duo'): print '-left'; endif; ?>">
                 <?php if (isset($gallery_item['image'])): ?>
                   <div class="figure__media">
                     <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
