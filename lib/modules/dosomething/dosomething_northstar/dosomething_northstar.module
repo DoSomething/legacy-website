@@ -34,11 +34,11 @@ function dosomething_northstar_menu() {
  */
 function dosomething_northstar_libraries_info() {
   $libraries['guzzle-php'] = array(
-    'name' => 'Guzzle',
-    'path' => 'lib',
+    'name' => 'guzzle',
+    'path' => 'vendor',
     'files' => array(
       'php' => array(
-        'autoload.php',
+        'autoload.php'
       ),
     ),
     'version' => 5.0,
@@ -52,7 +52,8 @@ function dosomething_northstar_register_user($form_state) {
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
   // Send that to NS.
   $northstar = new Northstar();
-  $northstar->register($ns_user);
+
+  // $northstar->register($ns_user);
 }
 
 /**
@@ -86,11 +87,16 @@ class Northstar {
 
   public function __construct()
   {
+
+    $this->client = $library;
     $base_url = NORTHSTAR_URL;
     if (getenv('DS_ENVIRONMENT') === 'local') {
       $base_url .=  ":" . NORTHSTAR_PORT;
     }
     $version = NORTHSTAR_VERSION;
+
+    $library = libraries_load('guzzle-php');
+    //@TODO: this throws an error, because the above call doesn't load the guzzle.
     $client = new GuzzleHttp\Client(array(
       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
       'defaults' => array(
