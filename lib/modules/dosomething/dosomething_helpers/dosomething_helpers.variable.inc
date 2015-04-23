@@ -168,17 +168,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#disabled' => TRUE,
     );
 
-    $signup_count = dosomething_helpers_get_variable('node', $node->nid, 'signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
+    $web_signup_count = dosomething_helpers_get_variable('node', $node->nid, 'web_signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
 
-    if ($vars['signup'] > $signup_count) {
-      $signup_count = dosomething_helpers_set_variable('node', $node->nid, 'signup_count', $vars['signup']);
-    }
-
-    $form['goals']['signup_count'] = array(
+    $form['goals']['mobile_signup_count'] = array(
       '#type' => 'textfield',
-      '#title' => t('Signup Count'),
-      '#description'=> t('The total number of signups on the campaign. Currently this only supports web signups, but mobile signups can be added manually.'),
-      '#default_value' => $vars['signup'] ?: $signup_count,
+      '#title' => t('Mobile Count'),
+      '#description'=> t('The total number of signups from mobile, will be added to total web signups: '  . $web_signup_count),
+      '#default_value' => $vars['mobile_signup_count'],
     );
   }
 
