@@ -148,7 +148,7 @@ function dosomething_metatag_get_permalink_vars() {
     '#tag' => 'meta',
     '#attributes' => array(
       "property" => "twitter:card",
-      "content" => 'summary_large_image',
+      "content" => 'photo',
     ),
   );
   drupal_add_html_head($element, 'twitter:card');
@@ -165,11 +165,11 @@ function dosomething_metatag_get_permalink_vars() {
   $element = array(
     '#tag' => 'meta',
     '#attributes' => array(
-      "property" => "twitter:image:src",
+      "property" => "twitter:image",
       "content" => $image,
     ),
   );
-  drupal_add_html_head($element, 'twitter:image:src');
+  drupal_add_html_head($element, 'twitter:image');
 
   $element = array(
     '#tag' => 'meta',
@@ -179,16 +179,6 @@ function dosomething_metatag_get_permalink_vars() {
     ),
   );
   drupal_add_html_head($element, 'twitter:title');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:description",
-      "content" => $share_copy,
-    ),
-  );
-
-  drupal_add_html_head($element, 'twitter:description');
 
   $element = array(
     '#tag' => 'meta',
