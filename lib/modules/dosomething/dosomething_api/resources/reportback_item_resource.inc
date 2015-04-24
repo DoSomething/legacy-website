@@ -83,7 +83,7 @@ function _reportback_item_resource_definition() {
     'targeted_actions' => array(
 
       'kudos' => array(
-        'help' => '',
+        'help' => 'Register a kudos action being applied to a reportback item.',
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
