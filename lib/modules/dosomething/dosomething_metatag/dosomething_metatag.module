@@ -165,11 +165,11 @@ function dosomething_metatag_get_permalink_vars() {
   $element = array(
     '#tag' => 'meta',
     '#attributes' => array(
-      "property" => "twitter:image",
+      "property" => "twitter:image:src",
       "content" => $image,
     ),
   );
-  drupal_add_html_head($element, 'twitter:image');
+  drupal_add_html_head($element, 'twitter:image:src');
 
   $element = array(
     '#tag' => 'meta',
