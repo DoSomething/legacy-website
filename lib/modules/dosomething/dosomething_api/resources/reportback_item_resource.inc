@@ -10,7 +10,7 @@ function _reportback_item_resource_definition() {
         'file' => array(
           'type' => 'inc',
           'module' => 'dosomething_api',
-          'name' => 'resources/reportback_item_resource'
+          'name' => 'resources/reportback_item_resource',
         ),
         'callback' => '_reportback_item_resource_retrieve',
         'args' => array(
@@ -80,6 +80,50 @@ function _reportback_item_resource_definition() {
 
     ),
 
+    'targeted_actions' => array(
+
+      'kudos' => array(
+        'help' => 'Register a kudos action being applied to a reportback item.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/reportback_item_resource',
+        ),
+        'callback' => '_reportback_item_resource_kudos',
+        'args' => array(
+          array(
+            'name' => 'fid',
+            'description' => 'The reportback item file ID.',
+            'optional' => FALSE,
+            'type' => 'int',
+            'source' => array(
+              'path' => 0
+            ),
+          ),
+          array(
+            'name' => 'user_id',
+            'description' => 'The ID of the user executing a kudos.',
+            'optional' => FALSE,
+            'type' => 'int',
+            'source' => array(
+              'data' => 'user_id',
+            ),
+          ),
+          array(
+            'name' => 'term_ids',
+            'description' => 'An array of kudos term IDs.',
+            'optional' => FALSE,
+            'type' => 'array',
+            'source' => array(
+              'data' => 'term_ids',
+            ),
+          ),
+        ),
+        'access callback' => '_reportback_item_resource_access',
+      ),
+
+    ),
+
   );
 
   return $reportback_item_resource;
@@ -110,4 +154,16 @@ function _reportback_item_resource_index($campaigns, $status, $count, $random, $
 function _reportback_item_resource_retrieve($fid) {
   $reportbackItems = new ReportbackItem;
   return $reportbackItems->show($fid);
+}
+
+
+function _reportback_item_resource_kudos($fid, $user_id, $term_ids) {
+  $parameters = array(
+    'fid' => $fid,
+    'uid' => $user_id,
+    'tids' => $term_ids,
+  );
+
+  // @TODO: temporarily returning back the header body data for testing.
+  return $parameters;
 }
