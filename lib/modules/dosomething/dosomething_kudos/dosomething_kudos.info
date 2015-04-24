@@ -1,0 +1,5 @@
+name = DoSomething Kudos
+description = Functionality for adding social interaction on reportback photos.
+core = 7.x
+package = DoSomething
+version = 7.x-0.3

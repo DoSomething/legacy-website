@@ -1,0 +1,53 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_kudos.module
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_kudos_schema() {
+  $schema = array();
+  $schema['dosomething_kudos'] = array(
+    'description' => 'Table of kudos interactions on reportback items.',
+    'fields' => array(
+      'kid' => array(
+        'description' => 'The primary identifier for a kudos record.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'fid' => array(
+        'description' => 'The {reportback_file}.fid that this kudos applies to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that applied the kudos.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'tid' => array(
+        'description' => 'The {taxonomy_term}.tid that this kudos belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('kid'),
+    'indexes' => array(
+      'fid' => array('fid'),
+      'uid' => array('uid'),
+      'tid' => array('tid'),
+    ),
+  );
+
+  return $schema;
+}
+

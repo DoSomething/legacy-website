@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Module file for DoSomething Kudos functionality.
+ */
+
+//function dosomething_kudos_init() {
+//  drupal_set_message('Kudos are live!');
+//}
+
+
+function dosomething_kudos_save($fid, $uid, $tid) {
+  $values = array(
+    'fid' => $fid,
+    'uid' => $uid,
+    'tid' => $tid,
+  );
+
+  $record = db_insert('dosomething_kudos')->fields($values)->execute();
+
+  dpm($record);
+}
+
