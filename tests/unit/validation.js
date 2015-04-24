@@ -2,7 +2,7 @@ describe("Validation", function(){
   var Validations;
 
   beforeEach(function() {
-    Validations = DS.Validation.Validations;
+    Validations = DSValidation.Validations;
   });
 
   describe("name", function(){
