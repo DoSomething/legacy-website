@@ -80,6 +80,30 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
   );
 }
+
+/**
+ * Build the drupal_http_request object for nothstar calls.
+ * This will be depricated once guzzle is introduced.
+ */
+function _dosomething_northstar_build_http_client() {
+  $base_url = NORTHSTAR_URL;
+  if (getenv('DS_ENVIRONMENT') === 'local') {
+      $base_url .=  ":" . NORTHSTAR_PORT;
+    }
+  $base_url .= '/' . NORTHSTAR_VERSION;
+
+  $client = array(
+    'base_url' => $base_url,
+    'headers' => array(
+      'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+      ),
+    );
+
+  return $client;
+}
 //@TODO: use this once we can use guzzle.
 // class Northstar {
 
