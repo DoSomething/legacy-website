@@ -51,9 +51,12 @@ function dosomething_northstar_register_user($form_state) {
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
   // Send that to NS.
-  $northstar = new Northstar();
-
-  // $northstar->register($ns_user);
+  $client = _dosomething_northstar_build_http_client();
+  $response = drupal_http_request($client['base_url'] . '/users', array(
+    'headers' => $client['headers'],
+    'method' => 'POST',
+    'data' => json_encode($ns_user),
+    ));
 }
 
 /**
