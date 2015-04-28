@@ -165,5 +165,5 @@ function _reportback_item_resource_kudos($fid, $user_id, $term_ids) {
   );
 
   // @TODO: temporarily returning back the header body data for testing.
-  return $parameters;
+  return dosomething_kudos_create($parameters);
 }

@@ -123,7 +123,6 @@ abstract class ReportbackTransformer {
    * Get metadata for pagination of response data.
    *
    * @param $parameters
-   * @param $count
    * @param $endpoint
    *
    * @return array
