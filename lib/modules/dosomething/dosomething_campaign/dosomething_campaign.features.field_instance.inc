@@ -1685,6 +1685,55 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_on_mobile_app'
+  $field_instances['node-campaign-field_on_mobile_app'] = array(
+    'bundle' => 'campaign',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Check this for the campaign to appear on the mobile apps.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 73,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_on_mobile_app',
+    'label' => 'On Mobile App',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_partners'
   $field_instances['node-campaign-field_partners'] = array(
     'bundle' => 'campaign',
@@ -3030,6 +3079,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Campaign Status');
   t('Campaign type');
   t('Cause');
+  t('Check this for the campaign to appear on the mobile apps.');
   t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
 <br/>
 <strong> Limit: 135 characters </strong>');
@@ -3084,6 +3134,7 @@ function dosomething_campaign_field_default_field_instances() {
 <br/>
 <strong> Limit 25 characters. </strong>');
   t('Official Rules');
+  t('On Mobile App');
   t('Primary Action Type');
   t('Primary Cause');
   t('Problem Fact');
