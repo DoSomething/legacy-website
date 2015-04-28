@@ -28,10 +28,7 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
       'property' => 'field_on_mobile_app',
     );
 
-    // This is so wtf.
-    // If I name it as 'cover_image' it doesn't work.
-    // If I name it as just 'image' it works.
-    $public_fields['image'] = array(
+    $public_fields['cover_image'] = array(
       'property' => 'field_image_campaign_cover',
       'resource' => array(
         'image' => 'assets',
