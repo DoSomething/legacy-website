@@ -24,6 +24,8 @@
 
   <!--[if lte IE 8]>
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
+      <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/es5-shim/es5-shim.min.js"></script>
+      <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/es5-shim/es5-sham.min.js"></script>
 
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/respond.js/dest/respond.min.js"></script>
       <link href="<?php print VENDOR_ASSET_PATH; ?>/respond.js/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
