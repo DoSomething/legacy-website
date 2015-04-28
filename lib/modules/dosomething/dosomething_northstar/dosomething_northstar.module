@@ -80,41 +80,41 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
   );
 }
+//@TODO: use this once we can use guzzle.
+// class Northstar {
 
-class Northstar {
+//   public $client;
 
-  public $client;
+//   public function __construct()
+//   {
 
-  public function __construct()
-  {
+//     $this->client = $library;
+//     $base_url = NORTHSTAR_URL;
+//     if (getenv('DS_ENVIRONMENT') === 'local') {
+//       $base_url .=  ":" . NORTHSTAR_PORT;
+//     }
+//     $version = NORTHSTAR_VERSION;
 
-    $this->client = $library;
-    $base_url = NORTHSTAR_URL;
-    if (getenv('DS_ENVIRONMENT') === 'local') {
-      $base_url .=  ":" . NORTHSTAR_PORT;
-    }
-    $version = NORTHSTAR_VERSION;
+//     $library = libraries_load('guzzle-php');
+//     //@TODO: this throws an error, because the above call doesn't load the guzzle.
+//     $client = new GuzzleHttp\Client(array(
+//       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
+//       'defaults' => array(
+//         'headers' => array(
+//           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+//           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+//           'Content-Type' => 'application/json',
+//           'Accept' => 'application/json'
+//           ),
+//         ),
+//     ));
+//     $this->client = $client;
+//   }
 
-    $library = libraries_load('guzzle-php');
-    //@TODO: this throws an error, because the above call doesn't load the guzzle.
-    $client = new GuzzleHttp\Client(array(
-      'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-      'defaults' => array(
-        'headers' => array(
-          'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-          'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json'
-          ),
-        ),
-    ));
-    $this->client = $client;
-  }
+//   public function register($user) {
+//     $client->post('users', array(
+//       'body' => json_encode($user),
+//       ));
+//   }
 
-  public function register($user) {
-    $client->post('users', array(
-      'body' => json_encode($user),
-      ));
-  }
-
-}
+// }
