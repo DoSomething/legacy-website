@@ -20,7 +20,7 @@
 <?php if (isset($modals['faq'])): ?>
 <div data-modal id="modal-faq" role="dialog">
   <h2 class="heading -banner"><?php print t('FAQs'); ?></h2>
-  <div class="modal__block">
+  <div class="modal__block with-lists">
     <?php foreach ($modals['faq'] as $item): ?>
       <h4><?php print $item['header']; ?></h4>
       <?php print $item['copy'] ?>
