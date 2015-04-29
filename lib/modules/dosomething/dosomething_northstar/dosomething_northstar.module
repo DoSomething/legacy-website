@@ -7,6 +7,12 @@
 
 include_once('dosomething_northstar.admin.inc');
 
+// Config vars, if not set.
+define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev'));
+define('NORTHSTAR_PORT', variable_get('dosomething_northstar_port', '8000'));
+define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', 'v1'));
+define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', '456'));
+define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'abc4324'));
 
 /**
  * Implements hook_menu().
@@ -28,14 +34,117 @@ function dosomething_northstar_menu() {
  */
 function dosomething_northstar_libraries_info() {
   $libraries['guzzle-php'] = array(
-    'name' => 'Guzzle',
-    'path' => 'lib',
+    'name' => 'guzzle',
+    'path' => 'vendor',
     'files' => array(
       'php' => array(
-        'autoload.php',
+        'autoload.php'
       ),
     ),
     'version' => 5.0,
   );
   return $libraries;
 }
+
+function dosomething_northstar_register_user($form_state) {
+  global $user;
+  // Build a user that Northstar expects.
+  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+  // Send that to NS.
+  $client = _dosomething_northstar_build_http_client();
+  $response = drupal_http_request($client['base_url'] . '/users', array(
+    'headers' => $client['headers'],
+    'method' => 'POST',
+    'data' => json_encode($ns_user),
+    ));
+  if ($response->code == '200' && module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
+  }
+}
+
+/**
+ * Build a user json object, that's accepted by Northstar.
+ *
+ * @param obj $user
+ *  Drupal user object
+ *
+ */
+function dosomething_northstar_build_ns_user($user, $form_state) {
+  return $ns_user = array(
+    'email'         => $user->mail,
+    'mobile'        => $user->field_mobile[LANGUAGE_NONE][0]['value'],
+    'first_name'    => $user->field_first_name[LANGUAGE_NONE][0]['value'],
+    'birthdate'     => $user->field_birthdate[LANGUAGE_NONE][0]['value'],
+    'drupal_id'     => $user->uid,
+    'password'      => $form_state['values']['pass'],
+    // Address
+    'country'       => $user->field_address[LANGUAGE_NONE][0]['country'],
+    'addr_street1'  => $user->field_address[LANGUAGE_NONE][0]['thoroughfare'],
+    'addr_street2'  => $user->field_address[LANGUAGE_NONE][0]['premise'],
+    'addr_city'     => $user->field_address[LANGUAGE_NONE][0]['locality'],
+    'addr_state'    => $user->field_address[LANGUAGE_NONE][0]['administrative_area'],
+    'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
+  );
+}
+
+/**
+ * Build the drupal_http_request object for nothstar calls.
+ * This will be depricated once guzzle is introduced.
+ */
+function _dosomething_northstar_build_http_client() {
+  $base_url = NORTHSTAR_URL;
+  if (getenv('DS_ENVIRONMENT') === 'local') {
+      $base_url .=  ":" . NORTHSTAR_PORT;
+    }
+  $base_url .= '/' . NORTHSTAR_VERSION;
+
+  $client = array(
+    'base_url' => $base_url,
+    'headers' => array(
+      'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+      ),
+    );
+
+  return $client;
+}
+//@TODO: use this once we can use guzzle.
+// class Northstar {
+
+//   public $client;
+
+//   public function __construct()
+//   {
+
+//     $this->client = $library;
+//     $base_url = NORTHSTAR_URL;
+//     if (getenv('DS_ENVIRONMENT') === 'local') {
+//       $base_url .=  ":" . NORTHSTAR_PORT;
+//     }
+//     $version = NORTHSTAR_VERSION;
+
+//     $library = libraries_load('guzzle-php');
+//     //@TODO: this throws an error, because the above call doesn't load the guzzle.
+//     $client = new GuzzleHttp\Client(array(
+//       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
+//       'defaults' => array(
+//         'headers' => array(
+//           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+//           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+//           'Content-Type' => 'application/json',
+//           'Accept' => 'application/json'
+//           ),
+//         ),
+//     ));
+//     $this->client = $client;
+//   }
+
+//   public function register($user) {
+//     $client->post('users', array(
+//       'body' => json_encode($user),
+//       ));
+//   }
+
+// }
