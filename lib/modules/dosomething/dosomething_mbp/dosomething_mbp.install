@@ -121,6 +121,21 @@ function dosomething_mbp_update_7006(&$sandbox) {
 }
 
 /**
+ * Updates user_register production to:
+ * - include imageProcessingQueue
+ * - remove userCampaignActivityQueue
+ * from transactional_campaign_reportback production.
+ *
+ * Note: For non-multipass updates, the signature can simply be;
+ * function hook_update_N()
+ * https://api.drupal.org/api/drupal/modules%21system%21system.api.php/function/hook_update_N/7
+ */
+function dosomething_mbp_update_7007() {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
@@ -188,8 +203,8 @@ function dosomething_mbp_install_productions() {
   $productions[4]['queues'][] = 'transactionalQueue';
   $productions[4]['queues'][] = 'loggingQueue';
   $productions[4]['queues'][] = 'activityStatsQueue';
-  $productions[4]['queues'][] = 'userCampaignActivityQueue';
   $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[4]['queues'][] = 'imageProcessingQueue';
   $productions[4]['routing_key'] = 'campaign.report_back.transactional';
   $productions[4]['status'] = 1;
 
