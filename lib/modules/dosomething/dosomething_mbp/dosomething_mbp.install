@@ -121,6 +121,17 @@ function dosomething_mbp_update_7006(&$sandbox) {
 }
 
 /**
+ * Updates user_register production to:
+ * - include imageProcessingQueue
+ * - remove userCampaignActivityQueue
+ * from transactional_campaign_reportback production.
+ */
+function dosomething_mbp_update_7007(&$sandbox) {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
