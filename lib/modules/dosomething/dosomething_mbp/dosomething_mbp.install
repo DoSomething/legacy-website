@@ -125,8 +125,12 @@ function dosomething_mbp_update_7006(&$sandbox) {
  * - include imageProcessingQueue
  * - remove userCampaignActivityQueue
  * from transactional_campaign_reportback production.
+ *
+ * Note: For non-multipass updates, the signature can simply be;
+ * function hook_update_N()
+ * https://api.drupal.org/api/drupal/modules%21system%21system.api.php/function/hook_update_N/7
  */
-function dosomething_mbp_update_7007(&$sandbox) {
+function dosomething_mbp_update_7007() {
   db_drop_table('message_broker_producer_productions');
   dosomething_mbp_install_productions();
 }
