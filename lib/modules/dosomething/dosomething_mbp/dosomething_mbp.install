@@ -188,8 +188,8 @@ function dosomething_mbp_install_productions() {
   $productions[4]['queues'][] = 'transactionalQueue';
   $productions[4]['queues'][] = 'loggingQueue';
   $productions[4]['queues'][] = 'activityStatsQueue';
-  $productions[4]['queues'][] = 'userCampaignActivityQueue';
   $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
+  $productions[4]['queues'][] = 'imageProcessingQueue';
   $productions[4]['routing_key'] = 'campaign.report_back.transactional';
   $productions[4]['status'] = 1;
 
