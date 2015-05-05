@@ -413,6 +413,9 @@ function dosomething_reportback_admin_view_entity($entity) {
  * Returns all copy variables set on the permalink page.
  */
 function _dosomething_reportback_get_permalink_copy_vars($user) {
+  if (!$user->field_first_name ) {
+    $user->field_first_name[LANGUAGE_NONE][0]['value'] = t('your friend');
+  }
   return array(
     'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
     'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
