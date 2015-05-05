@@ -673,3 +673,22 @@ function dosomething_reportback_update_7022(&$sandbox) {
 function dosomething_reportback_update_7023(&$sandbox) {
   variable_del('dosomething_reportback_display_permalink');
 }
+
+/**
+ * Updates default 'flagged' to null, fixes current 0->null
+ */
+function dosomething_reportback_update_7024(&$sandbox) {
+  db_change_field('dosomething_reportback', 'flagged', 'flagged', array(
+    'type' => 'int',
+    'length' => 11,
+    'not null' => FALSE,
+    'default' => NULL,
+    )
+  );
+  //db_update` any records where status = pending and flagged = 0
+  $query = db_query("UPDATE dosomething_reportback as rb
+                     INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
+                     SET rb.flagged = NULL
+                     WHERE rbf.status = 'pending';");
+
+}
