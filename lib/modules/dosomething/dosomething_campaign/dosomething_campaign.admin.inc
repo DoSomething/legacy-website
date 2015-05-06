@@ -247,6 +247,49 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy'),
   );
+  // Goal Animations.
+  $form['goal_animation_files'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Goal Animation Files'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_1'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 1'),
+    '#description' => t("This animation will be played when goal progress is between 0 and 20%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_1'),
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_2'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 2'),
+    '#description' => t("This animation will be played when goal progress is between 21% and 40%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_2'),
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_3'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 3'),
+    '#description' => t("This animation will be played when goal progress is between 41% and 60%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_3'),
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_4'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 4'),
+    '#description' => t("This animation will be played when goal progress is between 61% and 80%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_4'),
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_5'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 5'),
+    '#description' => t("This animation will be played when goal progress is between 81% and 99%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_5'),
+  );
+  $form['goal_animation_files']['dosomething_campaign_animation_6'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Animation 6'),
+    '#description' => t("This animation will be played when goal has been met 100%"),
+    '#default_value' => variable_get('dosomething_campaign_animation_6'),
+  );
   return system_settings_form($form);
 }
 
