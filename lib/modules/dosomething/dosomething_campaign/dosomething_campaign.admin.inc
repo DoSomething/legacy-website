@@ -251,6 +251,9 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   $form['goal_animation_files'] = array(
     '#type' => 'fieldset',
     '#title' => t('Goal Animation Files'),
+    '#description' => t("Insert the !link to use for each goal animation", array(
+      '!link' => l("file fid", 'admin/content/files'),
+    )),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -259,8 +262,8 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
 
   foreach ($goal_description_ranges as $key => $range) {
     $form['goal_animation_files']['dosomething_campaign_animation_' . $key] = array(
-      '#type' => 'managed_file',
-      '#title' => t('Animation ' . $range),
+      '#type' => 'textfield',
+      '#title' => t('FID for Animation ' . $range),
       '#description' => t("This animation will be played when goal progress is " . $range),
       '#default_value' => variable_get('dosomething_campaign_animation_' . $key),
     );
