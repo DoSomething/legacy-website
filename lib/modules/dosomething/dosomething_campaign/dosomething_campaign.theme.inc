@@ -354,8 +354,8 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Moar $tagline.
   $vars['tagline'] .= t('Any cause, anytime, anywhere.');
 
-  // Get sign up total and add it to cta
   $campaign_progress = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quantity_override') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
+  // Get sign up total and add it to cta
   $signup_count = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'web_signup_count') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'mobile_signup_count');
   $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
       '@signup_count' => number_format($signup_count, 0, '', ','),
