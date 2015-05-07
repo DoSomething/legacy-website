@@ -12,12 +12,26 @@ function _campaign_resource_definition() {
         'access arguments' => array('index'),
         'args' => array(
           array(
-            'name' => 'parameters',
+            'name' => 'is_staff_pick',
             'optional' => TRUE,
-            'type' => 'array',
-            'description' => 'Parameters',
-            'default value' => array(),
-            'source' => array('param' => 'parameters'),
+            'type' => 'int',
+            'source' => array('param' => 'is_staff_pick'),
+            'default value' => NULL,
+          ),
+          array(
+            'name' => 'on_mobile_app',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => array('param' => 'on_mobile_app'),
+            'default value' => NULL,
+          ),
+          array(
+            'name' => 'term_ids',
+            'description' => 'Taxonomy term ids to filter by.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => array('param' => 'term_ids'),
+            'default value' => NULL,
           ),
         ),
       ),
@@ -153,36 +167,19 @@ function _campaign_resource_access($op = 'view', $args = array()) {
 /**
  * Callback for Campaigns index.
  */
-function _campaign_resource_index($parameters) {
-  // Initialize output.
-  $index = array();
-
-  // Get the results of the explore_campaigns view.
-  $view = views_get_view('explore_campaigns');
-  $view->execute();
-
-  $filter_staff_pick = FALSE;
-  if (isset($parameters['is_staff_pick']) && $parameters['is_staff_pick']) {
-    $filter_staff_pick = TRUE;
+function _campaign_resource_index($is_staff_pick = NULL, $on_mobile_app = NULL, $term_ids = NULL) {
+  $params = array();
+  if (isset($is_staff_pick)) {
+    $params['is_staff_pick'] = (int) $is_staff_pick;
   }
-
-  foreach ($view->result as $result) {
-    $campaign = new StdClass();
-    $campaign->title = $result->label;
-    $campaign->nid = $result->entity_id;
-    $campaign->is_staff_pick = $result->bm_field_staff_pick[0];
-    // If not filtering by staff pick:
-    if (!$filter_staff_pick) {
-      // Add this campaign to the result.
-      $index[] = $campaign;
-    }
-    // Else check if it's a staff pick:
-    if ($campaign->is_staff_pick) {
-      $index[] = $campaign;
-    }
+  if (isset($on_mobile_app)) {
+    $params['on_mobile_app'] = (int) $on_mobile_app;
   }
-
-  return $index;
+  if (isset($term_ids)) {
+    $term_ids = implode(',', $term_ids);
+    $params['term_ids'] = $term_ids;
+  }
+  return dosomething_campaign_get_campaigns_query_result($params);
 }
 
 /**
@@ -207,7 +204,7 @@ function _campaign_resource_signup($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
   }
   // @todo: Pass parameter into signup_create whether or not to send SMS.
-  // Since SMS campaign signups would hit this endpoint, would not want 
+  // Since SMS campaign signups would hit this endpoint, would not want
   // to send an additional "You've signed up text".
   return dosomething_signup_create($nid, $values['uid'], $values['source']);
 }
