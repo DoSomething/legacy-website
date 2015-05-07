@@ -363,15 +363,31 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
 /**
  * Returns array of published campaign nid and titles by campaign type $type.
  */
-function dosomething_campaign_get_campaigns($type = 'campaign') {
+function dosomething_campaign_get_campaigns() {
+  $query = dosomething_campaign_get_campaigns_query();
+  return $query->execute()->fetchAll();
+}
+
+/**
+ * Returns a SelectQuery object of published standard Campaigns with given $params.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - is_staff_pick: (int)
+ *   - on_mobile_app: (int)
+ *   - term: (string) Term tid(s) to filter by.
+ *
+ * @return SelectQuery object
+ */
+function dosomething_campaign_get_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
   $query->condition('status', 1);
-  $query->condition('t.field_campaign_type_value', $type);
+  $query->condition('t.field_campaign_type_value', 'campaign');
   $query->condition('type', 'campaign');
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('title');
-  return $query->execute()->fetchAll();
+  return $query;
 }
 
 /**
