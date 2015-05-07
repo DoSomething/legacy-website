@@ -301,7 +301,7 @@ function dosomething_reportback_count_page() {
   $tables = array();
   $tables['node']['title'] = t("Campaigns");
   $tables['node']['url'] = 'node/';
-  $tables['node']['results'] = dosomething_campaign_get_campaigns();
+  $tables['node']['results'] = dosomething_campaign_get_campaigns_query_result();
 
   $tables['taxonomy_term']['title'] = t("Cause");
   $tables['taxonomy_term']['url'] = 'taxonomy/term/';

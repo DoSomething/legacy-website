@@ -363,8 +363,8 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
 /**
  * Returns array of published campaign nid and titles by campaign type $type.
  */
-function dosomething_campaign_get_campaigns() {
-  $query = dosomething_campaign_get_campaigns_query();
+function dosomething_campaign_get_campaigns_query_result($params = array()) {
+  $query = dosomething_campaign_get_campaigns_query($params);
   return $query->execute()->fetchAll();
 }
 
@@ -388,6 +388,10 @@ function dosomething_campaign_get_campaigns_query($params = array()) {
   if (isset($params['is_staff_pick'])) {
     $query->join('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
     $query->condition('sp.field_staff_pick_value', (int) $params['is_staff_pick']);
+  }
+  if (isset($params['on_mobile_app'])) {
+    $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
+    $query->condition('m.field_on_mobile_app_value', (int) $params['on_mobile_app']);
   }
   if (isset($params['term_id'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
