@@ -385,6 +385,10 @@ function dosomething_campaign_get_campaigns_query($params = array()) {
   $query->condition('status', 1);
   $query->condition('t.field_campaign_type_value', 'campaign');
   $query->condition('type', 'campaign');
+  if (isset($params['is_staff_pick'])) {
+    $query->join('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
+    $query->condition('sp.field_staff_pick_value', (int) $params['is_staff_pick']);
+  }
   if (isset($params['term_id'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
     $query->condition('terms.tid', $params['term_id']);
