@@ -247,6 +247,24 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy'),
   );
+  // Goal Animations.
+  $form['goal_animation_files'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Goal Animation Files'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $goal_description_ranges = array('between 0 and 20%', 'between 21% and 40%', 'between 41% and 60%', 'between 61% and 80%', 'between 81% and 99%', 'at 100%');
+
+  foreach ($goal_description_ranges as $key => $range) {
+    $form['goal_animation_files']['dosomething_campaign_animation_' . $key] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Animation ' . $range),
+      '#description' => t("This animation will be played when goal progress is " . $range),
+      '#default_value' => variable_get('dosomething_campaign_animation_' . $key),
+    );
+  }
   return system_settings_form($form);
 }
 
