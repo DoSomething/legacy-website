@@ -375,7 +375,7 @@ function dosomething_campaign_get_campaigns_query_result($params = array()) {
  *   An associative array of conditions to filter by. Possible keys:
  *   - is_staff_pick: (int)
  *   - on_mobile_app: (int)
- *   - term_id: (string) Term tid(s) to filter by.
+ *   - term_ids: (array) Taxonomy term tids to filter by.
  *
  * @return SelectQuery object
  */
@@ -393,9 +393,9 @@ function dosomething_campaign_get_campaigns_query($params = array()) {
     $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
     $query->condition('m.field_on_mobile_app_value', (int) $params['on_mobile_app']);
   }
-  if (isset($params['term_id'])) {
+  if (isset($params['term_ids']) && is_array($params['term_ids'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
-    $query->condition('terms.tid', $params['term_id']);
+    $query->condition('terms.tid', $params['term_ids'], 'IN');
   }
   $query->fields('n', array('nid', 'title'));
   $query->orderBy('title');
