@@ -255,7 +255,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
-  $goal_description_ranges = ['between 0 and 20%', 'between 21% and 40%', 'between 41% and 60%', 'between 61% and 80%', 'between 81% and 99%', 'at 100%'];
+  $goal_description_ranges = array('between 0 and 20%', 'between 21% and 40%', 'between 41% and 60%', 'between 61% and 80%', 'between 81% and 99%', 'at 100%');
 
   foreach ($goal_description_ranges as $key => $range) {
     $form['goal_animation_files']['dosomething_campaign_animation_' . $key] = array(
