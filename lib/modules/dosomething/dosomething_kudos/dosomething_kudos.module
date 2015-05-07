@@ -8,25 +8,14 @@ include_once 'dosomething_kudos.kudos.inc';
 
 
 /**
- * @param $parameters
- * @return array  IDs of newly created records.
+ * Create a Kudos record.
+ *
+ * @param $values array Associated array of database column name and value pairs.
+ * @return DatabaseStatementInterface|int
  * @throws Exception
  */
-function dosomething_kudos_create($parameters) {
-  $records = array();
-
-  $values = array(
-    'fid' => $parameters['fid'],
-    'uid' => $parameters['uid'],
-  );
-
-  foreach($parameters['tids'] as $id) {
-    $values['tid'] = $id;
-
-    $records[] = db_insert('dosomething_kudos')->fields($values)->execute();
-  }
-
-  return $records;
+function dosomething_kudos_create($values) {
+  return db_insert('dosomething_kudos')->fields($values)->execute();
 }
 
 
@@ -36,6 +25,6 @@ function dosomething_kudos_create($parameters) {
  * @param $kid
  * @return DatabaseStatementInterface
  */
-function dosomething_kudos_delete($kid) {
+function dosomething_kudos_destroy($kid) {
   return db_delete('dosomething_kudos')->condition('kid', $kid)->execute();
 }
