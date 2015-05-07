@@ -67,6 +67,12 @@ projects[dosomething_image][download][type] = local
 projects[dosomething_image][download][source] = './lib/modules/dosomething/dosomething_image'
 projects[dosomething_image][subdir] = "dosomething"
 
+; Dosomething Kudos
+projects[dosomething_kudos][type] = "module"
+projects[dosomething_kudos][download][type] = local
+projects[dosomething_kudos][download][source] = './lib/modules/dosomething/dosomething_kudos'
+projects[dosomething_kudos][subdir] = "dosomething"
+
 ; Dosomething MBP (Message Broker Producer)
 projects[dosomething_mbp][type] = "module"
 projects[dosomething_mbp][download][type] = local

@@ -5,11 +5,13 @@
  */
 
 include_once 'dosomething_api.features.inc';
+include_once 'dosomething_api.transformer.inc';
 include_once 'resources/campaign_resource.inc';
 include_once 'resources/member_resource.inc';
 include_once 'resources/reportback_resource.inc';
 include_once 'resources/reportback_item_resource.inc';
 include_once 'resources/reportback_file_resource.inc';
+include_once 'resources/kudos_resource.inc';
 include_once 'resources/signup_resource.inc';
 include_once 'resources/term_resource.inc';
 
@@ -26,6 +28,7 @@ function dosomething_api_services_resources() {
   $resources += _reportback_resource_definition();
   $resources += _reportback_item_resource_definition();
   $resources += _reportback_file_resource_definition();
+  $resources += _kudos_resource_definition();
   $resources += _signup_resource_definition();
   $resources += _term_resource_definition();
 
