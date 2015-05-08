@@ -360,6 +360,9 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
       '@signup_count' => number_format($signup_count, 0, '', ','),
     ));
+
+  // @TODO: format this, based on % of goal left. refs #4444
+  $time_left = $vars['campaign']->high_season_end;
 }
 
 /**
