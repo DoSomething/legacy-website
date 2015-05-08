@@ -622,6 +622,8 @@ function dosomething_campaign_get_animation($nid) {
   $var_name = 'dosomething_campaign_animation_' . $range;
   $fid = variable_get($var_name);
 
+  // @TODO - The file should be an animated gif image, but we might
+  // need to change the file size once designs are locked down.
   if (!is_null($fid)) {
     $animation = dosomething_image_get_themed_image_by_fid((int) $fid, '300x300');
   }
