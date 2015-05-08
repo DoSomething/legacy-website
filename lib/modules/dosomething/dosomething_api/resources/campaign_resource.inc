@@ -176,7 +176,7 @@ function _campaign_resource_index($is_staff_pick = NULL, $on_mobile_app = NULL, 
     $params['on_mobile_app'] = (int) $on_mobile_app;
   }
   if (isset($term_ids)) {
-    $term_ids = implode(',', $term_ids);
+    $term_ids = explode(',', $term_ids);
     $params['term_ids'] = $term_ids;
   }
   return dosomething_campaign_get_campaigns_query_result($params);
