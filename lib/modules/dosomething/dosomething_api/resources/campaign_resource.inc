@@ -14,14 +14,14 @@ function _campaign_resource_definition() {
           array(
             'name' => 'is_staff_pick',
             'optional' => TRUE,
-            'type' => 'int',
+            'type' => 'boolean',
             'source' => array('param' => 'is_staff_pick'),
             'default value' => NULL,
           ),
           array(
             'name' => 'on_mobile_app',
             'optional' => TRUE,
-            'type' => 'int',
+            'type' => 'boolean',
             'source' => array('param' => 'on_mobile_app'),
             'default value' => NULL,
           ),
@@ -170,10 +170,10 @@ function _campaign_resource_access($op = 'view', $args = array()) {
 function _campaign_resource_index($is_staff_pick = NULL, $on_mobile_app = NULL, $term_ids = NULL) {
   $params = array();
   if (isset($is_staff_pick)) {
-    $params['is_staff_pick'] = (int) $is_staff_pick;
+    $params['is_staff_pick'] = (bool) $is_staff_pick;
   }
   if (isset($on_mobile_app)) {
-    $params['on_mobile_app'] = (int) $on_mobile_app;
+    $params['on_mobile_app'] = (bool) $on_mobile_app;
   }
   if (isset($term_ids)) {
     $term_ids = explode(',', $term_ids);
