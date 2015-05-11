@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Reportback Item
+ * Class Reportback Item Transformer
  */
-class ReportbackItem extends ReportbackTransformer {
+class ReportbackItemTransformer extends ReportbackTransformer {
 
   /**
    * @param array $parameters Any parameters obtained from query string.
@@ -30,6 +30,7 @@ class ReportbackItem extends ReportbackTransformer {
 
     $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count'], $filters['offset']);
     $reportbackItems = services_resource_build_index_list($query, 'reportback-items', 'fid');
+    $total = $this->getTotalCount($filters);
 
     if (!$reportbackItems) {
       return array(
@@ -40,7 +41,7 @@ class ReportbackItem extends ReportbackTransformer {
     }
 
     return array(
-      'pagination' => $this->paginate($filters, 'reportback-items'),
+      'pagination' => $this->paginate($total, $filters, 'reportback-items'),
       'retrieved_count' => count($reportbackItems),
       'data' => $this->transformCollection($reportbackItems),
     );
@@ -53,6 +54,7 @@ class ReportbackItem extends ReportbackTransformer {
    * @return array
    */
   public function show($id) {
+
     $params = array();
     $params['fid'] = $id;
 
@@ -74,7 +76,7 @@ class ReportbackItem extends ReportbackTransformer {
     $data = array();
 
     // Main Reportback Item data
-    $data += $this->transformReportbackItemData($item);
+    $data += $this->transformReportbackItem($item);
 
     // Reportback Parent Data
     $data['reportback'] = $this->transformReportback($item);

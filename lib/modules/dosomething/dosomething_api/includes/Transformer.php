@@ -1,10 +1,26 @@
 <?php
 
-abstract class ReportbackTransformer {
+abstract class Transformer {
 
   public function __construct() {
     // Load Services module to use its index_query functions in subclass methods.
     module_load_include('inc', 'services', 'services.module');
+  }
+
+
+  /**
+   * @param string $data Single or multiple comma separated data items.
+   *
+   * @return string or array
+   */
+  protected function formatData($data) {
+    $array = explode(',', $data);
+
+    if (count($array) > 1) {
+      return $array;
+    }
+
+    return $data;
   }
 
 
@@ -83,39 +99,19 @@ abstract class ReportbackTransformer {
 
 
   /**
-   * Calculate total number of Reportback items for the specified campaigns by
-   * each status requested.
+   * @param $ids
    *
-   * @param array $parameters Query parameters.
-   *
-   * @return int Total number of reportback items.
+   * @return array
    */
-  protected function countItems($parameters) {
-    $total = 0;
+  protected function getReportbackItems($ids) {
+    $filters = array(
+      'fid' => $this->formatData($ids),
+    );
 
-    foreach((array) $parameters['nid'] as $id) {
-      foreach((array) $parameters['status'] as $status) {
-        $total += (int) dosomething_reportback_get_reportback_total_by_status($id, $status);
-      }
-    }
+    // Obtaining all Reportback items.
+    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
 
-    return $total;
-  }
-
-
-  /**
-   * @param string $data Single or multiple comma separated data items.
-   *
-   * @return string or array
-   */
-  protected function formatData($data) {
-    $array = explode(',', $data);
-
-    if (count($array) > 1) {
-      return $array;
-    }
-
-    return $data;
+    return services_resource_build_index_list($query, 'reportback-items', 'fid');
   }
 
 
@@ -127,10 +123,10 @@ abstract class ReportbackTransformer {
    *
    * @return array
    */
-  protected function paginate($parameters, $endpoint) {
+  protected function paginate($total, $parameters, $endpoint) {
     $data = array();
 
-    $data['total'] = $this->countItems($parameters);
+    $data['total'] = $total;
     $data['per_page'] = $parameters['count'];
     $data['current_page'] = (isset($parameters['page']) && $parameters['page'] > 0) ? (int) $parameters['page'] : 1;
     $data['total_pages'] = ceil($data['total'] / $data['per_page']);
@@ -170,11 +166,12 @@ abstract class ReportbackTransformer {
 
   /**
    * @param array $items Collection of item objects retrieved data.
+   * @param string $method Name of method to use on each array item.
    *
    * @return array
    */
-  protected function transformCollection($items) {
-    return array_map(array($this, 'transform'), $items);
+  protected function transformCollection($items, $method = 'transform') {
+    return array_map(array($this, $method), $items);
   }
 
 
@@ -214,6 +211,16 @@ abstract class ReportbackTransformer {
       $output['flagged'] = (int) $data->flagged ? TRUE : FALSE;
     }
 
+    // Reportback Child Item data
+    if ($data->items) {
+      $items = $this->getReportbackItems($data->items);
+
+      $output['items'] = array(
+        'total' => count($items),
+        'data' => $this->transformCollection($items, 'transformReportbackItem'),
+      );
+    }
+
     return $output;
   }
 
@@ -223,7 +230,7 @@ abstract class ReportbackTransformer {
    *
    * @return array
    */
-  protected function transformReportbackItemData($data) {
+  protected function transformReportbackItem($data) {
     $output = array(
       'id' => $data->fid,
       'caption' => !empty($data->caption) ? $data->caption : t('DoSomething? Just did!'),

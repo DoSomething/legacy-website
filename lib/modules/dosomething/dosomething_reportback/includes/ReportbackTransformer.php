@@ -3,7 +3,28 @@
 /**
  * Class Reportback
  */
-class Reportback extends ReportbackTransformer {
+class ReportbackTransformer extends Transformer {
+
+  /**
+   * Calculate total number of Reportback items for the specified campaigns by
+   * each status requested.
+   *
+   * @param array $parameters Query parameters.
+   *
+   * @return int Total number of reportback items.
+   */
+  protected function getTotalCount($parameters) {
+    $total = 0;
+
+    foreach((array) $parameters['nid'] as $id) {
+      foreach((array) $parameters['status'] as $status) {
+        $total += (int) dosomething_reportback_get_reportback_total_by_status($id, $status);
+      }
+    }
+
+    return $total;
+  }
+
 
   /**
    * @param array $parameters Any parameters obtained from query string.
@@ -16,6 +37,7 @@ class Reportback extends ReportbackTransformer {
       'status' => $parameters['status'],
       'count' => $parameters['count'] ?: 25,
     );
+
     // @TODO: Logic update!
     // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
@@ -46,11 +68,13 @@ class Reportback extends ReportbackTransformer {
    * @return array
    */
   public function show($id) {
+
     $params = array();
     $params['rbid'] = $id;
 
     $query = dosomething_reportback_get_reportbacks_query_result($params);
     $reportback = services_resource_build_index_list($query, 'reportback', 'rbid');
+    // @TODO: Above returns object with null properties if no results, should return null or false.
 
     if (! $reportback) {
       return array(
@@ -77,21 +101,6 @@ class Reportback extends ReportbackTransformer {
     // Main Reportback data
     $data += $this->transformReportback($reportback);
 
-    // Reportback Child Item data
-    if ($reportback->items) {
-      $output = array();
-      $items = $this->getItems($reportback->items);
-
-      foreach($items as $item) {
-        $output[] = $this->transformReportbackItemData($item);
-      }
-
-      $data['items'] = array(
-        'total' => count($items),
-        'data' => $output,
-      );
-    }
-
     // Campaign Data
     $data += $this->transformCampaignData($reportback);
 
@@ -105,20 +114,4 @@ class Reportback extends ReportbackTransformer {
     return $data;
   }
 
-
-  /**
-   * @param $ids
-   *
-   * @return array
-   */
-  protected function getItems($ids) {
-    $filters = array(
-      'fid' => $this->formatData($ids),
-    );
-
-    // Obtaining all Reportback items.
-    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
-
-    return services_resource_build_index_list($query, 'reportback-items', 'fid');
-  }
 }
