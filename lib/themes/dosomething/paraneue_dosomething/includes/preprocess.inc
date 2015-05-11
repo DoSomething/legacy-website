@@ -9,6 +9,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
 
   // Checks if current site is an international affiliate
   $vars['is_affiliate'] = dosomething_settings_is_affiliate();
+  $vars['head_title'] = token_replace($vars['head_title'], array($tokens['site']['member-count-readable']));
 }
 
 /**
