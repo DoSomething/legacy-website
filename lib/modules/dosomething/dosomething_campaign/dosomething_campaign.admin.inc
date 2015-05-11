@@ -68,6 +68,20 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_confirmation_page_button_text'),
   );
 
+  // Action page:
+  $form['campaign']['action_page'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Action Page'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['campaign']['action_page']['dosomething_campaign_problem_share_prompt'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Problem Fact Share Prompt'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_campaign_problem_share_prompt'),
+  );
+
   // SMS Game variables.
   $form['sms_game'] = array(
     '#type' => 'fieldset',
