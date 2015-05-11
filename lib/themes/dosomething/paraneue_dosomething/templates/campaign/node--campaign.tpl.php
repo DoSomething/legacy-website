@@ -51,6 +51,16 @@
         <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
+          <div class="message-callout -share">
+            <div class="message-callout__copy">
+              <p><?php print $problem_share_prompt; ?></p>
+            </div>
+          </div>
+          <div class="social-share-bar">
+            <a class="social-icon -facebook"><span>Text Fallback</span></a>
+            <a class="social-icon -twitter"><span>Text Fallback</span></a>
+            <a class="social-icon -tumblr"><span>Text Fallback</span></a>
+          </div>
         <?php endif; ?>
 
         <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
