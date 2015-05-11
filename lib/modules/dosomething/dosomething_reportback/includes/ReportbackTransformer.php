@@ -9,7 +9,10 @@ class ReportbackTransformer extends Transformer {
    * Calculate total number of Reportback items for the specified campaigns by
    * each status requested.
    *
-   * @param array $parameters Query parameters.
+   * @param array $parameters
+   *   An associative array of query parameters:
+   *   - nid: (array) Campaign ids.
+   *   - status: (array) Reportback statuses to retrieve.
    *
    * @return int Total number of reportback items.
    */
@@ -102,10 +105,10 @@ class ReportbackTransformer extends Transformer {
     $data += $this->transformReportback($reportback);
 
     // Campaign Data
-    $data += $this->transformCampaignData($reportback);
+    $data += $this->transformCampaign($reportback);
 
     // User data
-    $data += $this->transformUserData($reportback);
+    $data += $this->transformUser($reportback);
 
     // @TODO: http://php.net/manual/en/control-structures.foreach.php
     // Referenced in other code, would be good to potentially address

@@ -9,6 +9,9 @@ abstract class Transformer {
 
 
   /**
+   * Format a string of comma separated data items into an array, or
+   * if a single item, return it without formatting.
+   *
    * @param string $data Single or multiple comma separated data items.
    *
    * @return string or array
@@ -27,9 +30,14 @@ abstract class Transformer {
   /**
    * Get the URI for the next page in the collection of data.
    *
-   * @param $data
-   * @param $parameters
-   * @param $endpoint
+   * @param array $data
+   *   An associative array of pagination parameters:
+   *   - total: (int) Complete total number of available data items found.
+   *   - per_page: (int) Total number of data items to show per page.
+   *   - current_page: (int) Current page number.
+   *   - total_pages: (int) Total number of pages available.
+   * @param array $parameters
+   * @param string $endpoint Endpoint for building URI.
    *
    * @return null|string
    */
@@ -50,9 +58,14 @@ abstract class Transformer {
   /**
    * Get the URI for the previous page in the collection of data.
    *
-   * @param $data
-   * @param $parameters
-   * @param $endpoint
+   * @param array $data
+   *   An associative array of pagination parameters:
+   *   - total: (int) Complete total number of available data items found.
+   *   - per_page: (int) Total number of data items to show per page.
+   *   - current_page: (int) Current page number.
+   *   - total_pages: (int) Total number of pages available.
+   * @param array $parameters An associative array of current location parameters.
+   * @param string $endpoint Endpoint for building URI.
    *
    * @return null|string
    */
@@ -73,8 +86,15 @@ abstract class Transformer {
   /**
    * Extract the path parameters passed and recreate the query string.
    *
-   * @param $parameters
-   * @param $endpoint
+   * @param array $parameters
+   *   An associative array of query parameters and values for building URI:
+   *   - nid: (array) Campaign ids.
+   *   - status: (array) Reportback statuses to retrieve.
+   *   - count: (int) Number of items to show per page.
+   *   - page: (int) Current page number.
+   *   - offset: (int) Number of items displayed from prior pages.
+   *   - random: (boolean) Whether to retrieve a random assortment of data items.
+   * @param string $endpoint Endpoint for building URI.
    *
    * @return string
    */
@@ -99,7 +119,9 @@ abstract class Transformer {
 
 
   /**
-   * @param $ids
+   * Retrieve Reportback Items by the specified id(s).
+   *
+   * @param string $ids Comma separated list of Reportback Item ids.
    *
    * @return array
    */
@@ -118,8 +140,16 @@ abstract class Transformer {
   /**
    * Get metadata for pagination of response data.
    *
-   * @param $parameters
-   * @param $endpoint
+   * @param int $total Complete total number of items found.
+   * @param array $parameters
+   *   An associative array of query parameters and values:
+   *   - nid: (array) Campaign ids.
+   *   - status: (array) Reportback statuses to retrieve.
+   *   - count: (int) Number of items to show per page.
+   *   - page: (int) Current page number.
+   *   - offset: (int) Number of items displayed from prior pages.
+   *   - random: (boolean) Whether to retrieve a random assortment of data items.
+   * @param string $endpoint
    *
    * @return array
    */
@@ -144,8 +174,8 @@ abstract class Transformer {
   /**
    * Get the offset for requests based on specified page number and count of items.
    *
-   * @param $page
-   * @param $count
+   * @param int $page Current page number.
+   * @param int $count Number of items per page.
    *
    * @return int
    */
@@ -159,12 +189,17 @@ abstract class Transformer {
 
 
   /**
+   * Transform data and prepare for API response.
+   *
    * @param object $object Single object of retrieved data.
    */
   abstract protected function transform($object);
 
 
   /**
+   * For collection of data to transform, run each item in collection
+   * through a specified method.
+   *
    * @param array $items Collection of item objects retrieved data.
    * @param string $method Name of method to use on each array item.
    *
@@ -176,11 +211,16 @@ abstract class Transformer {
 
 
   /**
+   * Transform Campaign data and prepare for API response.
+   *
    * @param object $data
+   *   An object containing properties of Campaign data:
+   *   - nid: (string) Campaign id.
+   *   - title: (string) Campaign title.
    *
    * @return array
    */
-  protected function transformCampaignData($data) {
+  protected function transformCampaign($data) {
     return array(
       'campaign' => array(
         'id' => $data->nid,
@@ -191,7 +231,21 @@ abstract class Transformer {
 
 
   /**
+   * Transform Reportback data and prepare for API response.
+   *
    * @param object $data
+   *   An object containing properties of Reportback data:
+   *   - rbid: (string) The Reportback id.
+   *   - created: (string) Date Reportback was created.
+   *   - updated: (string) Date Reportback was updated.
+   *   - quantity: (int) Quantity declared for Reportback.
+   *   - uid: (string) User id.
+   *   - why_participated: (string) Reason for participating.
+   *   - flagged: (int) Status whether Reportback has been flagged.
+   *   - nid: (string) Campaign id.
+   *   - title: (string) Campaign title.
+   *   - items: (string) Comma separated list of Reportback Item ids for specified Reportback.
+   *   - uri: (string) API URI for Reportback data.
    *
    * @return array
    */
@@ -226,7 +280,15 @@ abstract class Transformer {
 
 
   /**
+   * Transform Reportback Item data and prepare for API response.
+   *
    * @param object $data
+   *   An object containing properties of Reportback Item data:
+   *   - fid: (string) Reportback Item id.
+   *   - caption: (string) Reportback Item caption.
+   *   - uri: (string) API URI for Reportback Item data.
+   *   - created_at: (string) Date Reportback Item was created.
+   *   - status: (string) Reportback Item status.
    *
    * @return array
    */
@@ -251,11 +313,15 @@ abstract class Transformer {
 
 
   /**
+   * Transform user data and prepare for API response.
+   *
    * @param object $data
+   *   An object containing properties of User data:
+   *   - uid: (int) User id.
    *
    * @return array
    */
-  protected function transformUserData($data) {
+  protected function transformUser($data) {
     return array(
       'user' => array(
         'id' => $data->uid,
