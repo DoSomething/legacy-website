@@ -102,12 +102,12 @@ function _reportback_item_resource_index($campaigns, $status, $count, $random, $
     'page' => $page,
   );
 
-  $reportbackItems = new ReportbackItem;
+  $reportbackItems = new ReportbackItemTransformer;
   return $reportbackItems->index($parameters);
 }
 
 
 function _reportback_item_resource_retrieve($fid) {
-  $reportbackItems = new ReportbackItem;
+  $reportbackItems = new ReportbackItemTransformer;
   return $reportbackItems->show($fid);
 }

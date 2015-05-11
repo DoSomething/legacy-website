@@ -26,7 +26,7 @@ class Kudos extends Transformer {
   }
 
 
-  public function transform() {
+  protected function transform($object) {
     return 'autobots transform!';
   }
 

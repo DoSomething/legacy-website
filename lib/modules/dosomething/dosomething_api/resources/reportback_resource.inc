@@ -102,12 +102,12 @@ function _reportback_resource_index($campaigns, $status, $count, $random, $page)
     'page' => $page,
   );
 
-  $reportbacks = new Reportback;
+  $reportbacks = new ReportbackTransformer;
   return $reportbacks->index($parameters);
 }
 
 
 function _reportback_resource_retrieve($rbid) {
-  $reportbacks = new Reportback;
+  $reportbacks = new ReportbackTransformer;
   return $reportbacks->show($rbid);
 }
