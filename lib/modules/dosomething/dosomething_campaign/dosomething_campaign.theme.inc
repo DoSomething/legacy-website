@@ -152,6 +152,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['campaign_progress'] = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
   }
 
+  // Progress animation
+  if (dosomething_campaign_get_animation($vars['nid'])) {
+    $vars['goal_animation'] = dosomething_campaign_get_animation($vars['nid']);
+  }
+
   // Plan.
 
   // 1) Materials

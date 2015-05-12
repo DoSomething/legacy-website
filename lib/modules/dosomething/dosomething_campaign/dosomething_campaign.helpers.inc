@@ -607,3 +607,72 @@ function dosomething_campaign_get_scholarship($nid) {
   $wrapper = entity_metadata_wrapper('node', $nid);
   return $wrapper->field_scholarship_amount->value();
 }
+
+/**
+ * Returns the animation file to use based on goal progress.
+ *
+ * @return Image.
+ *  The animation image (gif).
+ */
+function dosomething_campaign_get_animation($nid) {
+  // Get progress range.
+  $range = dosomething_campaign_get_progress_range($nid);
+
+  // Get the fid of the correct animation.
+  $var_name = 'dosomething_campaign_animation_' . $range;
+  $fid = variable_get($var_name);
+
+  // @TODO - The file should be an animated gif image, but we might
+  // need to change the file size once designs are locked down.
+  if (!is_null($fid)) {
+    $animation = dosomething_image_get_themed_image_by_fid((int) $fid, '300x300');
+  }
+
+  return $animation;
+}
+
+/**
+ * Checks if a goal is complete, otherwise breaks goal progress into 5 ranges,
+ * and returns where the current progress lands.
+ * Used to determine which goal animation file to use.
+ *
+ * 0 - Between 0 and 20%
+ * 1 - Between 20% and 40%
+ * 2 - Between 40% and 60%
+ * 3 - Between 60% and 80%
+ * 4 - Between 80% and 100%
+ * 5 - Progress is 100% or over, goal is complete.
+ *
+ * @return int
+ *  An integer repersenting a goal progress range.
+ */
+function dosomething_campaign_get_progress_range($nid) {
+  // Get current progress and goal.
+  $campaign_progress = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity');
+  $campaign_goal = (int) dosomething_helpers_get_variable('node', $nid, 'goal');
+
+  // Calculate current progress in relation to the goal.
+  $progress_percentage = floor(($campaign_progress / $campaign_goal) * 100);
+
+  // Set initial loop values.
+  $num_ranges = 5;
+  $interval = 100 / $num_ranges;
+  $range_start = 0;
+  $range_end = $interval;
+
+  // Loop through each of the ranges and check where the progress lands.
+  for ($range = 0; $range <= $num_ranges; $range++) {
+    // If progress, is at 100% or over, goal is complete.
+    if ($range_start == 100 && $progress_percentage >= $range_start) {
+      return $range;
+    }
+    // Otherwise, check if current progress lands in this range.
+    else if ($progress_percentage >= $range_start && $progress_percentage < $range_end) {
+      return $range;
+    }
+
+    // Iterate to the next range.
+    $range_start = $range_end;
+    $range_end = $range_end + $interval;
+  }
+}
