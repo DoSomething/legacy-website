@@ -200,9 +200,14 @@ class ReportbackEntity extends Entity {
    * @param string $reason
    *   Text to store in the flagged_reason property.
    */
-  public function flag($reason) {
-    $this->flagged = 1;
-    $this->flagged_reason = $reason;
+  public function flag($reason = NULL) {
+    if (is_null($reason)) {
+      $this->flagged = 0;
+    }
+    else {
+      $this->flagged = 1;
+      $this->flagged_reason = $reason;
+    }
     return entity_save('reportback_file', $this);
   }
 }

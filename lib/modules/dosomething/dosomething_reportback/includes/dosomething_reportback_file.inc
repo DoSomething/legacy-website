@@ -58,17 +58,16 @@ class ReportbackFileEntity extends Entity {
       // Store that instead.
       $this->review_source = $values['source'];
     }
-    if ($this->status === 'flagged') {
-      $reportback = reportback_load($this->rbid);
-      $reason = NULL;
-      if (isset($values['flagged_reason'])) {
-        $reason = $values['flagged_reason'];
-      }
-      $reportback->flag($reason);
-      if (!empty($values['delete'])) {
-        $this->deleteFile();
-      }
+    $reportback = reportback_load($this->rbid);
+    $reason = NULL;
+    if (isset($values['flagged_reason'])) {
+      $reason = $values['flagged_reason'];
     }
+    $reportback->flag($reason);
+    if (!empty($values['delete'])) {
+      $this->deleteFile();
+    }
+
     // Save the reviewed properties.
     return entity_save('reportback_file', $this);
   }
