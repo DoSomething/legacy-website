@@ -55,23 +55,19 @@
             <div class="message-callout__copy">
               <p><?php print $problem_share_prompt; ?></p>
             </div>
-          </div>
-          <div class="social-share-bar">
-            <a class="social-icon -facebook"><span>Text Fallback</span></a>
-            <a class="social-icon -twitter"><span>Text Fallback</span></a>
-            <a class="social-icon -tumblr"><span>Text Fallback</span></a>
+            <div class="social-share-bar">
+              <a class="social-icon -facebook"><span>Text Fallback</span></a>
+              <a class="social-icon -twitter"><span>Text Fallback</span></a>
+              <a class="social-icon -tumblr"><span>Text Fallback</span></a>
+            </div>
           </div>
         <?php endif; ?>
 
-        <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
+        <?php // If there's a PSA image or video, output it in this column. ?>
         <?php if (isset($psa)): ?>
           <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
             <?php print $psa; ?>
           </p>
-        <?php else: ?>
-          <?php if (isset($modals)): ?>
-            <?php print $modals; ?>
-          <?php endif; ?>
         <?php endif; ?>
       </div>
 
@@ -91,11 +87,9 @@
 
         <?php endif; ?>
 
-        <?php // If there's a PSA image or video, then it was output in the first column above and thus need to output the modals in this second column instead. ?>
-        <?php if (isset($psa)): ?>
-          <?php if (isset($modals)): ?>
-            <?php print $modals; ?>
-          <?php endif; ?>
+        <?php // Alway output modals in the second column. ?>
+        <?php if (isset($modals)): ?>
+          <?php print $modals; ?>
         <?php endif; ?>
 
         <?php if(isset($campaign_progress)): ?>

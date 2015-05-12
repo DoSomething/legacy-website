@@ -132,6 +132,7 @@
   .message-callout {
     &.-share {
       transform: none;
+      margin-bottom: 18px;
 
       .message-callout__copy {
         padding: 18px 0px;
@@ -154,6 +155,10 @@
 
   .social-share-bar {
     padding-left: 35px;
+
+    .social-icon {
+      padding: 0 9px;
+    }
   }
 }
 
