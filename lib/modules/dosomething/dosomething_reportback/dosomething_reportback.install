@@ -692,3 +692,17 @@ function dosomething_reportback_update_7024(&$sandbox) {
                      WHERE rbf.status = 'pending';");
 
 }
+
+/**
+ * Fixes those reportbacks that are stuck in null state
+ */
+function dosomething_reportback_update_7025(&$sandbox) {
+  //db_update` any records where status is not pending or flagged and update the flagged value to 0.
+  $query = db_query("UPDATE dosomething_reportback as rb
+                     INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
+                     SET rb.flagged = 0
+                     WHERE rbf.status != 'pending'
+                     AND rbf.status != 'flagged'
+                     AND rb.flagged is null;");
+
+}
