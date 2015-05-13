@@ -28,7 +28,7 @@ composite \
   -gravity northwest \
   -geometry +20+50 \
   $TEMP_FILE_1 \
-  $FINAL_FILE #TODO - should be the name of the file with node id.
+  $FINAL_FILE
 
 rm $TEMP_FILE_1
 rm $TEMP_FILE_2
