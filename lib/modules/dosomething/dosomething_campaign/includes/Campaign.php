@@ -14,6 +14,8 @@ class Campaign {
       $this->created = $this->node->created;
       $this->updated = $this->node->changed;
       $this->status = $this->getStatus();
+      $this->type = $this->getType();
+      $this->scholarship = $this->getScholarship();
     }
     else {
       throw new Exception('Campaign does not exist!');
@@ -21,9 +23,35 @@ class Campaign {
   }
 
 
-  protected function getStatus() {
-    // @TODO: consider repurposing code from below called function and using inside this method.
-    return dosomething_campaign_get_campaign_status($this->node);
+  protected function getTagline() {
+
   }
 
+  protected function getScholarship() {
+    return $this->extractValue($this->node->field_scholarship_amount);
+  }
+
+
+  protected function getStatus() {
+    return $this->extractValue($this->node->field_campaign_status);
+  }
+
+
+  protected function getType() {
+    return $this->extractValue($this->node->field_campaign_type);
+  }
+
+
+  protected function extractValue($field) {
+    $field = $field[LANGUAGE_NONE][0];
+
+    if ($field['value']) {
+      if (isset($field['safe_value'])) {
+        return $field['safe_value'];
+      }
+      return $field['value'];
+    }
+
+    return NULL;
+  }
 }
