@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Reportback
+ * Reportback Transformer Class
  */
 class ReportbackTransformer extends Transformer {
 
@@ -71,7 +71,6 @@ class ReportbackTransformer extends Transformer {
    * @return array
    */
   public function show($id) {
-
     $params = array();
     $params['rbid'] = $id;
 
