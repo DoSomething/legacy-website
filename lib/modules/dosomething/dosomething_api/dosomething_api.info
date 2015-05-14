@@ -4,7 +4,6 @@ package = DoSomething
 dependencies[] = ctools
 dependencies[] = services
 dependencies[] = dosomething_image
-dependencies[] = dosomething_reportback
 features[ctools][] = services:services:3
 features[features_api][] = api:2
 features[services_endpoint][] = drupalapi

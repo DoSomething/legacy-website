@@ -3,6 +3,7 @@ description = Provides Reportback entity and functionality.
 core = 7.x
 package = DoSomething
 version = 7.x-1.0
+dependencies[] = dosomething_api
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_static_content
 dependencies[] = features
