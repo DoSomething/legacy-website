@@ -200,22 +200,6 @@ function dosomething_user_views_default_views() {
     9 => 0,
     10 => 0,
   );
-  /* Filter criterion: Content: Has new content */
-  $handler->display->display_options['filters']['timestamp']['id'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['table'] = 'history';
-  $handler->display->display_options['filters']['timestamp']['field'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['group'] = 1;
-  $handler->display->display_options['filters']['timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['timestamp']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['timestamp']['expose']['label'] = 'Has new content';
-  $handler->display->display_options['filters']['timestamp']['expose']['operator'] = 'timestamp_op';
-  $handler->display->display_options['filters']['timestamp']['expose']['identifier'] = 'timestamp';
-  $handler->display->display_options['filters']['timestamp']['expose']['remember_roles'] = array(
-    2 => 0,
-    3 => '3',
-    4 => '4',
-    1 => 0,
-  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -250,7 +234,6 @@ function dosomething_user_views_default_views() {
     t('Updated date'),
     t('Published'),
     t('Cause (field_cause)'),
-    t('Has new content'),
     t('Page'),
   );
   $export['content_search'] = $view;
