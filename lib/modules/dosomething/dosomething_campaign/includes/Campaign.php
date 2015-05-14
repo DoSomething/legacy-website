@@ -4,17 +4,23 @@ class Campaign {
 
   public $nid;
   protected $node;
+  protected $variables;
 
   public function __construct($id) {
     $this->nid = $id;
     $this->node = node_load($id);
 
     if ($this->node->type === 'campaign') {
+      $this->variables = dosomething_helpers_get_variables('node', $this->nid);
       $this->title = $this->node->title;
+      $this->tagline = $this->getTagline();
       $this->created = $this->node->created;
       $this->updated = $this->node->changed;
       $this->status = $this->getStatus();
       $this->type = $this->getType();
+      $this->active_hours = $this->getActiveHours();
+      $this->cover_image = $this->getCoverImage();
+      $this->cover_image_alt = $this->getCoverImageAlt();
       $this->scholarship = $this->getScholarship();
     }
     else {
@@ -23,8 +29,68 @@ class Campaign {
   }
 
 
-  protected function getTagline() {
+  /**
+   * @return string
+   */
+  protected function getActiveHours() {
+    // @TODO: Suggestion to potential rename this field from "active_hours" to "time_commitment".
+    return $this->extractValue($this->node->field_active_hours);
+  }
 
+
+  protected function getCoverImage($id = NULL) {
+    if ($id) {
+      $image_id = $id;
+    }
+    else {
+      $image_id = $this->extractValue($this->node->field_image_campaign_cover);
+    }
+
+    // @TODO: This could potentially be turned into an Image class, and load the data by including and then instantiating the class $image = new Image($id);
+    // This would help cleanup some of the code, and keep things DRYer.
+    if ($image_id) {
+      $image = node_load($image_id);
+    }
+    else {
+      return NULL;
+    }
+
+    $data = array();
+
+    $data['nid'] = $image->nid;
+    $data['type'] = $image->type;
+    $data['title'] = $image->title;
+    $data['created'] = $image->created;
+    $data['updated'] = $image->changed;
+    $data['is_dark'] = (bool) $this->extractValue($image->field_dark_image);
+
+    // @TODO: consider reworking following function to return data instead of assigning it by reference to variable. Kind of confusing.
+    dosomething_campaign_load_image_url($data['sizes'], $image);
+    if ($data['sizes']['landscape']) {
+      $data['sizes']['landscape']['uri'] = dosomething_image_get_themed_image_url($image->nid, 'landscape', '1440x810');
+    }
+
+    if ($data['sizes']['square']) {
+      $data['sizes']['square']['uri'] = dosomething_image_get_themed_image_url($image->nid, 'square', '300x300');
+    }
+
+    return $data;
+  }
+
+
+  protected function getCoverImageAlt() {
+    $image_id = $this->variables['alt_image_campaign_cover_nid'];
+
+    if ($image_id) {
+      return $this->getCoverImage($image_id);
+    }
+    else {
+      return NULL;
+    }
+  }
+
+  protected function getTagline() {
+    return $this->extractValue($this->node->field_call_to_action);
   }
 
   protected function getScholarship() {
@@ -50,6 +116,10 @@ class Campaign {
         return $field['safe_value'];
       }
       return $field['value'];
+    }
+
+    if ($field['target_id']) {
+      return $field['target_id'];
     }
 
     return NULL;
