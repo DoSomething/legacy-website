@@ -158,6 +158,15 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['problem_share_prompt'] = $problem_share_prompt;
   }
 
+  $campaign_path = 'http://www.dosomething.org'  . url(current_path());
+
+  if (isset($campaign->fact_problem)) {
+    $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
+  }
+  // $vars['fb_link'] = paraneue_dosomething_facebook_intent($reportback_url);
+  $vars['twitter_link'] = paraneue_dosomething_twitter_intent($tweet);
+  // $vars['tumblr_link'] = paraneue_dosomething_tumblr_intent($tumblr_options);
+
   // Plan.
 
   // 1) Materials

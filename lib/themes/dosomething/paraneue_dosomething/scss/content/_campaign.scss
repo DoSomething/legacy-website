@@ -129,32 +129,12 @@
     margin-top: $base-spacing;
   }
 
-  .message-callout {
-    &.-share {
-      transform: none;
-      margin-bottom: 18px;
-
-      .message-callout__copy {
-        padding: 18px 0px;
-
-        &:before {
-          background: url("../node_modules/dosomething-neue/dist/assets/images/callout/arrow-up-black.png") 50% 50%/25px no-repeat transparent;
-          height: 38px;
-          //right: -20px;
-          bottom: -25px;
-          width: 30px;
-          transform: scaleY(-1) scaleX(-1);
-        }
-
-        p {
-          color: $blue;
-        }
-      }
-    }
-  }
-
   .social-share-bar {
-    padding-left: 35px;
+    padding: 0px 0px 18px 35px;
+
+    li {
+      display: inline;
+    }
 
     .social-icon {
       padding: 0 9px;

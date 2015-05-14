@@ -51,16 +51,16 @@
         <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
-          <div class="message-callout -share">
+          <div class="message-callout -above-horizontal -blue">
             <div class="message-callout__copy">
               <p><?php print $problem_share_prompt; ?></p>
             </div>
-            <div class="social-share-bar">
-              <a class="social-icon -facebook"><span>Text Fallback</span></a>
-              <a class="social-icon -twitter"><span>Text Fallback</span></a>
-              <a class="social-icon -tumblr"><span>Text Fallback</span></a>
-            </div>
           </div>
+          <ul class="social-share-bar">
+            <li><a class="social-icon -facebook js-share-link js-analytics-fb-share" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
+            <li><a class="social-icon -twitter js-share-link js-analytics-tw-share" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
+            <li><a class="social-icon -tumblr js-share-link js-analytics-tm-share" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
+          </ul>
         <?php endif; ?>
 
         <?php // If there's a PSA image or video, output it in this column. ?>
