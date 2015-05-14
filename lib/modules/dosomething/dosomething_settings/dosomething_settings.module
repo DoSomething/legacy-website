@@ -42,7 +42,6 @@ function dosomething_settings_is_affiliate() {
  *   One of the list:
  *   - botswana
  *   - canada
- *   - congo
  *   - default
  *   - ghana
  *   - indonesia
@@ -77,7 +76,6 @@ function dosomething_settings_get_affiliate_country_code() {
     $mapping = array(
       'botswana'  => 'BW',
       'canada'    => 'CA',
-      'congo'     => 'CD',
       'ghana'     => 'GH',
       'indonesia' => 'ID',
       'kenya'     => 'KE',
