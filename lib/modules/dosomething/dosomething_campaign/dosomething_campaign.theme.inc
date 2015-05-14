@@ -158,7 +158,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['problem_share_prompt'] = $problem_share_prompt;
   }
 
-  $campaign_path = 'http://www.dosomething.org'  . url(current_path());
+  $base_url = url(base_path(), array('absolute'=> TRUE));
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+  $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.jpg';
 
   if (isset($campaign->fact_problem)) {
     $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
@@ -166,14 +169,14 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   $fb_options = array(
     // @TODO - Use problem image path.
-    'picture' => $campaign->image_header['src'],
+    'picture' => $problem_share_image,
   );
 
   $tumblr_options = array(
     'posttype' => 'photo',
     // @TODO - Use problem image path.
-    'content' => $campaign->image_header['src'],
-    'caption' => "This is REAL, do something about this with me: " . $reportback_url,
+    'content' => $problem_share_image,
+    'caption' => "This is REAL, do something about this with me: " . $campaign_path,
   );
 
   $vars['fb_link'] = paraneue_dosomething_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
