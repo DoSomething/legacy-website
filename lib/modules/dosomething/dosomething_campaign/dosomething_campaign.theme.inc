@@ -163,9 +163,22 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (isset($campaign->fact_problem)) {
     $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
   }
-  // $vars['fb_link'] = paraneue_dosomething_facebook_intent($reportback_url);
+
+  $fb_options = array(
+    // @TODO - Use problem image path.
+    'picture' => $campaign->image_header['src'],
+  );
+
+  $tumblr_options = array(
+    'posttype' => 'photo',
+    // @TODO - Use problem image path.
+    'content' => $campaign->image_header['src'],
+    'caption' => "This is REAL, do something about this with me: " . $reportback_url,
+  );
+
+  $vars['fb_link'] = paraneue_dosomething_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
   $vars['twitter_link'] = paraneue_dosomething_twitter_intent($tweet);
-  // $vars['tumblr_link'] = paraneue_dosomething_tumblr_intent($tumblr_options);
+  $vars['tumblr_link'] = paraneue_dosomething_tumblr_intent($tumblr_options);
 
   // Plan.
 
