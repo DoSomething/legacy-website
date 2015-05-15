@@ -157,38 +157,42 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Problem shares.
 
   // Share prompt.
-  $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
-  if ($problem_share_prompt) {
-    $vars['problem_share_prompt'] = $problem_share_prompt;
+  $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
+
+  if ($vars['show_problem_shares']) {
+    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
+    if ($problem_share_prompt) {
+      $vars['problem_share_prompt'] = $problem_share_prompt;
+    }
+
+    $base_url = url(base_path(), array('absolute'=> TRUE));
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+    // Create the image path to the problem fact statement image generated for the node.
+    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.jpg';
+
+    // Create the tweet for twitter.
+    if (isset($campaign->fact_problem)) {
+      $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
+    }
+
+    // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
+    $fb_options = array(
+      'picture' => $problem_share_image,
+    );
+
+    // Tumblr share parameters.
+    $tumblr_options = array(
+      'posttype' => 'photo',
+      'content' => $problem_share_image,
+      'caption' => "This is REAL, do something about this with me: " . $campaign_path,
+    );
+
+    // Create the intent links
+    $vars['fb_link'] = paraneue_dosomething_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
+    $vars['twitter_link'] = paraneue_dosomething_twitter_intent($tweet);
+    $vars['tumblr_link'] = paraneue_dosomething_tumblr_intent($tumblr_options);
   }
-
-  $base_url = url(base_path(), array('absolute'=> TRUE));
-  $campaign_path = url(current_path(), array('absolute' => TRUE));
-
-  // Create the image path to the problem fact statement image generated for the node.
-  $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.jpg';
-
-  // Create the tweet for twitter.
-  if (isset($campaign->fact_problem)) {
-    $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
-  }
-
-  // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
-  $fb_options = array(
-    'picture' => $problem_share_image,
-  );
-
-  // Tumblr share parameters.
-  $tumblr_options = array(
-    'posttype' => 'photo',
-    'content' => $problem_share_image,
-    'caption' => "This is REAL, do something about this with me: " . $campaign_path,
-  );
-
-  // Create the intent links
-  $vars['fb_link'] = paraneue_dosomething_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-  $vars['twitter_link'] = paraneue_dosomething_twitter_intent($tweet);
-  $vars['tumblr_link'] = paraneue_dosomething_tumblr_intent($tumblr_options);
 
   // Plan.
 

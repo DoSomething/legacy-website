@@ -51,6 +51,10 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
       '#title' => t('Show campaign progress'),
       '#description' => t('Toggles the display of campaign progress on the action page')
     ),
+    'show_problem_shares' => array(
+      '#title' => t('Show problem statement share buttons'),
+      '#description' => t('Toggles the display of problem statement share buttons on the action page.')
+    ),
   );
 
   foreach ($flags as $name => $flag) {
