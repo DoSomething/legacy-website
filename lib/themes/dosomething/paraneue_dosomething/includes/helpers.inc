@@ -377,11 +377,39 @@ function paraneue_dosomething_build_reportbacks_gallery_collection ($reportbacks
  * Returns a facebook share url.
  *
  * @param  string $link The url to share.
- * @return string       The facebook intent url.
+ * @param  string $type
+ *  The type of facebook share intent link to use.
+ *    - 'feed_dialog': Allows for customized stories, outside of what is set in the metatags.
+ * @param Array $custom_options
+ *    An array of customized options for the type of share being used.
+ *
+ * @return string   The facebook intent url.
  */
-function paraneue_dosomething_facebook_intent($link) {
-  $encoded_link = urlencode($link);
-  return "https://www.facebook.com/sharer/sharer.php?u=" . $encoded_link;
+function paraneue_dosomething_facebook_intent($link, $type = NULL, $custom_options = NULL) {
+  switch ($type) {
+    // Used to create a facebook share link that uses a custom image,
+    // different from what is set in the metatags.
+    case 'feed_dialog':
+      $facebook_app_id = variable_get('dosomething_settings_facebook_app_id');
+      $standard_options = array(
+          'app_id' => $facebook_app_id,
+          'display' => 'popup',
+          'link'   => $link,
+          'redirect_uri' => $link,
+        );
+
+      if ($custom_options) {
+        $standard_options = array_merge($standard_options, $custom_options);
+      }
+
+      $fb_share_url = url('https://www.facebook.com/dialog/feed', array('query' => $standard_options));
+      break;
+    // Standard facebook share, just sharing a link and all other data is scraped from the page.
+    default:
+      $fb_share_url = "https://www.facebook.com/sharer/sharer.php?u=" . urlencode($link);
+  }
+
+  return $fb_share_url;
 }
 
 /**

@@ -18,6 +18,5 @@ Gemfile.lock
 lib/themes/dosomething/paraneue_dosomething/dist/
 lib/themes/dosomething/paraneue_dosomething/bower_components/
 lib/themes/dosomething/paraneue_dosomething/vendor/
-lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/
 tmp/
 .sass-cache
