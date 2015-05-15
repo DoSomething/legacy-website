@@ -34,10 +34,48 @@ class Campaign {
 
       $this->primary_cause = $this->getPrimaryCause();
       $this->issue = $this->getIssue();
+      $this->tags = $this->getTags();
     }
     else {
       throw new Exception('Campaign does not exist!');
     }
+  }
+
+
+  // @TODO: potentially move this function to dosomething_helpers module for access in other modules.
+  protected function extractValue($field) {
+    $data = $field[LANGUAGE_NONE];
+
+    if (count($data) === 1) {
+      $data = $data[0];
+
+      if ($data['value']) {
+        if (isset($data['safe_value'])) {
+          return $data['safe_value'];
+        }
+        return $data['value'];
+      }
+
+      if ($data['target_id']) {
+        return $data['target_id'];
+      }
+
+      if ($data['tid']) {
+        return $data['tid'];
+      }
+    }
+    elseif (count($data) > 1) {
+      $values = array();
+
+      foreach ($data as $item => $array) {
+        $keys = array_keys($array);
+        $values[] = $array[$keys[0]];
+      }
+
+      return $values;
+    }
+
+    return NULL;
   }
 
 
@@ -118,26 +156,51 @@ class Campaign {
 
 
   protected function getIssue() {
+    $issue_id = $this->extractValue($this->node->field_issue);
+
+    if ($issue_id) {
+      $issue = $this->getTaxonomy($issue_id);
+
+      return $issue;
+    }
+
+    return NULL;
+  }
+
+
+  protected function getPrimaryCause() {
+    $cause_id = $this->extractValue($this->node->field_primary_cause);
+
+    if ($cause_id) {
+      $cause = $this->getTaxonomy($cause_id);
+
+      return $cause;
+    }
+
+    return NULL;
+  }
+
+
+  protected function getTags() {
     $data = array();
 
-    $issue_id = $this->extractValue($this->node->field_issue);
-    $issue = taxonomy_term_load($issue_id);
+    $tag_ids = $this->extractValue($this->node->field_tags);
 
-    $data['tid'] = $issue->tid;
-    $data['name'] = strtolower($issue->name);
+    foreach ($tag_ids as $tid) {
+      $data[] = $this->getTaxonomy($tid);
+    }
 
     return $data;
   }
 
 
-  protected function getPrimaryCause() {
+  protected function getTaxonomy($tid) {
     $data = array();
 
-    $cause_id = $this->extractValue($this->node->field_primary_cause);
-    $cause = taxonomy_term_load($cause_id);
+    $taxonomy = taxonomy_term_load($tid);
 
-    $data['tid'] = $cause->tid;
-    $data['name'] = strtolower($cause->name);
+    $data['tid'] = $taxonomy->tid;
+    $data['name'] = strtolower($taxonomy->name);
 
     return $data;
   }
@@ -175,25 +238,4 @@ class Campaign {
     return $this->extractValue($this->node->field_campaign_type);
   }
 
-
-  protected function extractValue($field) {
-    $field = $field[LANGUAGE_NONE][0];
-
-    if ($field['value']) {
-      if (isset($field['safe_value'])) {
-        return $field['safe_value'];
-      }
-      return $field['value'];
-    }
-
-    if ($field['target_id']) {
-      return $field['target_id'];
-    }
-
-    if ($field['tid']) {
-      return $field['tid'];
-    }
-
-    return NULL;
-  }
 }
