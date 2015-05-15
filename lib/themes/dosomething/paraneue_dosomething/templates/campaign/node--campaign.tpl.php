@@ -56,7 +56,7 @@
               <p><?php print $problem_share_prompt; ?></p>
             </div>
           </div>
-          <ul class="social-share-bar">
+          <ul class="social-share-bar -with-callout">
             <li><a class="social-icon -facebook js-share-link js-analytics-fb-share" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
             <li><a class="social-icon -twitter js-share-link js-analytics-tw-share" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
             <li><a class="social-icon -tumblr js-share-link js-analytics-tm-share" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
