@@ -1334,3 +1334,13 @@ function dosomething_user_get_simple_user($user = NULL) {
 
   return $nice_user;
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function dosomething_user_views_pre_render(&$view) {
+  // If user search has a result, redirect to that user.
+  if ($view->name == 'user_search' && count($view->result) == 1) {
+    drupal_goto('user/' . $view->result[0]->uid);
+  }
+}
