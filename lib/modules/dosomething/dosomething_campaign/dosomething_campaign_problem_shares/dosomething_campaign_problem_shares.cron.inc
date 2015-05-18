@@ -27,7 +27,8 @@ function dosomething_campaign_problem_shares_cron() {
     $nid = escapeshellarg($result->nid);
     $problem = escapeshellarg($problem);
     // Call shell script to create the image.
-    shell_exec("/bin/bash /var/www/dev.dosomething.org/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/create-images.sh $nid $problem");
+    $module_path = shell_exec("/usr/bin/find /var/www -type d -name dosomething_campaign_problem_shares");
+    shell_exec("cd $module_path /bin/bash create-images.sh $nid $problem");
   }
 
 }
