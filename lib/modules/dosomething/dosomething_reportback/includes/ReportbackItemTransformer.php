@@ -78,14 +78,11 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     // Main Reportback Item data
     $data += $this->transformReportbackItem($item);
 
-    // Reportback Parent Data
     $data['reportback'] = $this->transformReportback($item);
 
-    // Campaign data
-    $data += $this->transformCampaign($item);
+    $data['campaign'] = $this->transformCampaign($item);
 
-    // User data
-    $data += $this->transformUser($item);
+    $data['user'] = $this->transformUser($item);
 
     return $data;
   }

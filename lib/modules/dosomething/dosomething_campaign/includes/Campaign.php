@@ -10,7 +10,7 @@ class Campaign {
     $this->nid = $id;
     $this->node = node_load($id);
 
-    if ($this->node->type === 'campaign') {
+    if ($this->node && $this->node->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->nid);
       $this->title = $this->node->title;
       $this->tagline = $this->getTagline();
@@ -32,7 +32,14 @@ class Campaign {
       $solution_data = $this->getSolutionData();
       $this->solution = $solution_data;
 
-      $this->primary_cause = $this->getPrimaryCause();
+      $cause_data = $this->getCauses();
+      $this->primary_cause = $cause_data['primary'];
+      $this->secondary_causes = $cause_data['secondary'];
+
+      $action_types_data = $this->getActionTypes();
+      $this->primary_action_type = $action_types_data['primary'];
+      $this->secondary_action_types = $action_types_data['secondary'];
+
       $this->issue = $this->getIssue();
       $this->tags = $this->getTags();
     }
@@ -44,38 +51,68 @@ class Campaign {
 
   // @TODO: potentially move this function to dosomething_helpers module for access in other modules.
   protected function extractValue($field) {
-    $data = $field[LANGUAGE_NONE];
+    if (isset($field) && !empty($field)) {
+      // @TODO: start by checking for existence of a key.
+      $data = $field[LANGUAGE_NONE];
 
-    if (count($data) === 1) {
-      $data = $data[0];
+      if (count($data) === 1) {
+        $data = $data[0];
 
-      if ($data['value']) {
-        if (isset($data['safe_value'])) {
-          return $data['safe_value'];
+        if (isset($data['value'])) {
+          if (isset($data['safe_value'])) {
+            return $data['safe_value'];
+          }
+          return $data['value'];
         }
-        return $data['value'];
-      }
 
-      if ($data['target_id']) {
-        return $data['target_id'];
-      }
+        // @TODO: potentially use an array_keys() solution here like below, so don't need to specify exact key name.
+        if (isset($data['target_id'])) {
+          return $data['target_id'];
+        }
 
-      if ($data['tid']) {
-        return $data['tid'];
-      }
-    }
-    elseif (count($data) > 1) {
-      $values = array();
+        if (isset($data['tid'])) {
+          return $data['tid'];
+        }
+      } elseif (count($data) > 1) {
+        $values = array();
 
-      foreach ($data as $item => $array) {
-        $keys = array_keys($array);
-        $values[] = $array[$keys[0]];
-      }
+        foreach ($data as $item => $array) {
+          $keys = array_keys($array);
+          $values[] = $array[$keys[0]];
+        }
 
-      return $values;
+        return $values;
+      }
     }
 
     return NULL;
+  }
+
+
+  // @TODO: Potentially combine this with getCauses() to DRY up code.
+  protected function getActionTypes() {
+    $data = array();
+    $data['primary'] = NULL;
+    $data['secondary'] = NULL;
+
+    $primary_action_type_id = $this->extractValue($this->node->field_primary_action_type);
+    $secondary_action_type_ids = $this->extractValue($this->node->field_action_type);
+
+    if ($primary_action_type_id) {
+      $data['primary'] = $this->getTaxonomyTerm($primary_action_type_id);
+    }
+
+    if ($secondary_action_type_ids) {
+      $secondary_action_types = array();
+
+      foreach($secondary_action_type_ids as $tid) {
+        $secondary_action_types[] = $this->getTaxonomyTerm($tid);
+      }
+
+      $data['secondary'] = $secondary_action_types;
+    }
+
+    return $data;
   }
 
 
@@ -85,6 +122,33 @@ class Campaign {
   protected function getActiveHours() {
     // @TODO: Suggestion to potential rename this field from "active_hours" to "time_commitment".
     return $this->extractValue($this->node->field_active_hours);
+  }
+
+
+  // @TODO: Potentially combine this with getActionTypes() to DRY up code.
+  protected function getCauses() {
+    $data = array();
+    $data['primary'] = NULL;
+    $data['secondary'] = NULL;
+
+    $primary_cause_id = $this->extractValue($this->node->field_primary_cause);
+    $secondary_cause_ids = $this->extractValue($this->node->field_cause);
+
+    if ($primary_cause_id) {
+      $data['primary'] = $this->getTaxonomyTerm($primary_cause_id);
+    }
+
+    if ($secondary_cause_ids) {
+      $secondary_causes = array();
+
+      foreach($secondary_cause_ids as $tid) {
+        $secondary_causes[] = $this->getTaxonomyTerm($tid);
+      }
+
+      $data['secondary'] = $secondary_causes;
+    }
+
+    return $data;
   }
 
 
@@ -145,10 +209,11 @@ class Campaign {
 
     $fact_fields = array('field_fact_problem', 'field_fact_solution');
     $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($this->node, $fact_fields);
+
     if (!empty($fact_vars)) {
-      $data['fact_problem'] = $fact_vars['facts']['field_fact_problem'] ?: NULL;
-      $data['fact_solution'] = $fact_vars['facts']['field_fact_solution'] ?: NULL;
-      $data['sources'] = $fact_vars['sources'] ?: NULL;
+      $data['fact_problem'] = dosomething_helpers_issetor($fact_vars['facts']['field_fact_problem']);
+      $data['fact_solution'] = dosomething_helpers_issetor($fact_vars['facts']['field_fact_solution']);
+      $data['sources'] = dosomething_helpers_issetor($fact_vars['sources']);
     }
 
     return $data;
@@ -156,10 +221,11 @@ class Campaign {
 
 
   protected function getIssue() {
+    // @TODO: Need to find out if this is allowed to be a field with multiple values...?
     $issue_id = $this->extractValue($this->node->field_issue);
 
     if ($issue_id) {
-      $issue = $this->getTaxonomy($issue_id);
+      $issue = $this->getTaxonomyTerm($issue_id);
 
       return $issue;
     }
@@ -172,7 +238,7 @@ class Campaign {
     $cause_id = $this->extractValue($this->node->field_primary_cause);
 
     if ($cause_id) {
-      $cause = $this->getTaxonomy($cause_id);
+      $cause = $this->getTaxonomyTerm($cause_id);
 
       return $cause;
     }
@@ -187,14 +253,14 @@ class Campaign {
     $tag_ids = $this->extractValue($this->node->field_tags);
 
     foreach ($tag_ids as $tid) {
-      $data[] = $this->getTaxonomy($tid);
+      $data[] = $this->getTaxonomyTerm($tid);
     }
 
     return $data;
   }
 
 
-  protected function getTaxonomy($tid) {
+  protected function getTaxonomyTerm($tid) {
     $data = array();
 
     $taxonomy = taxonomy_term_load($tid);

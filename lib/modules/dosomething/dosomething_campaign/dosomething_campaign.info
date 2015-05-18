@@ -5,6 +5,7 @@ package = DoSomething
 version = 7.x-1.0
 project = dosomething_campaign
 dependencies[] = date
+dependencies[] = dosomething_helpers
 dependencies[] = dosomething_image
 dependencies[] = dosomething_signup
 dependencies[] = dosomething_taxonomy

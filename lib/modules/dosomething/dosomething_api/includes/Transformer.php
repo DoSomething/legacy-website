@@ -221,12 +221,68 @@ abstract class Transformer {
    * @return array
    */
   protected function transformCampaign($data) {
-    return array(
-      'campaign' => array(
-        'id' => $data->nid,
-        'title' => $data->title,
-      ),
+    $output = array(
+      'id' => $data->nid,
+      'title' => $data->title,
     );
+
+    if ($data instanceof Campaign) {
+      $output['tagline'] = $data->tagline;
+      $output['created_at'] = $data->created;
+      $output['updated_at'] = $data->updated;
+      $output['status'] = $data->status;
+      $output['active_hours'] = (float) $data->active_hours;
+
+      if ($data->cover_image) {
+        $output['cover_image']['default']['uri'] = $data->cover_image['type'];
+        $output['cover_image']['default']['type'] = $data->cover_image['type'];
+        $output['cover_image']['default']['is_dark'] = $data->cover_image['is_dark'];
+      }
+
+      if ($data->cover_image_alt) {
+        $output['cover_image']['alternate']['uri'] = $data->cover_image_alt['type'];
+        $output['cover_image']['alternate']['type'] = $data->cover_image_alt['type'];
+        $output['cover_image']['alternate']['is_dark'] = $data->cover_image_alt['is_dark'];
+      }
+
+      $output['facts']['problem'] = $data->fact_problem['fact'];
+      $output['facts']['solution'] = $data->fact_solution['fact'];
+      $output['facts']['sources'] = $data->fact_sources;
+
+      $output['solution']['copy'] = $data->solution['copy'];
+      $output['solution']['support_copy'] = $data->solution['support_copy'];
+
+      $output['causes']['primary']['id'] = $data->primary_cause['tid'];
+      $output['causes']['primary']['name'] = $data->primary_cause['name'];
+      foreach($data->secondary_causes as $index => $cause) {
+        $output['causes']['secondary'][$index]['id'] = $cause['tid'];
+        $output['causes']['secondary'][$index]['name'] = $cause['name'];
+      }
+
+      $output['action_types']['primary']['id'] = $data->primary_action_type['tid'];
+      $output['action_types']['primary']['name'] = $data->primary_action_type['name'];
+      foreach($data->secondary_action_types as $index => $action_type) {
+        $output['action_types']['secondary'][$index]['id'] = $action_type['tid'];
+        $output['action_types']['secondary'][$index]['name'] = $action_type['name'];
+      }
+
+      $output['issue']['id'] = $data->issue['tid'];
+      $output['issue']['name'] = $data->issue['name'];
+
+      foreach($data->tags as $index => $tag) {
+        $output['tags']['id'] = $tag['tid'];
+        $output['tags']['name'] = $tag['name'];
+      }
+
+    }
+
+    return $output;
+  }
+
+
+
+  protected function transformMedia() {
+
   }
 
 
@@ -323,9 +379,7 @@ abstract class Transformer {
    */
   protected function transformUser($data) {
     return array(
-      'user' => array(
-        'id' => $data->uid,
-      ),
+      'id' => $data->uid,
     );
   }
 

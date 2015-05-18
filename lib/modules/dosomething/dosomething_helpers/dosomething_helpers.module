@@ -10,6 +10,21 @@ include_once('dosomething_helpers.theme.inc');
 include_once('dosomething_helpers.strongarm.inc');
 include_once('dosomething_helpers.variable.inc');
 
+
+/**
+ * Utility function to check if a variable is set, and return it
+ * if it is, otherwise return a default value.
+ *
+ * @param $var
+ * @param null $default
+ *
+ * @return array|object|string|integer|null
+ */
+function dosomething_helpers_issetor(&$var, $default = NULL) {
+  return isset($var) ? $var : $default;
+}
+
+
 /**
  * Implements hook_menu().
  */

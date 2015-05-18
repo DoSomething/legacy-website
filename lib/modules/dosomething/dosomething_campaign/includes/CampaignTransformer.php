@@ -16,7 +16,6 @@ class CampaignTransformer extends Transformer {
 
     try {
       $campaign = new Campaign($id);
-      return $campaign;
     }
     catch (Exception $error) {
       return array(
@@ -26,26 +25,23 @@ class CampaignTransformer extends Transformer {
       );
     }
 
-
-
-//    $campaign->load();
-
-//    $query = dosomething_campaign_get_campaigns_query_result($params);
-
-//    return $id;
-//    return $query;
-//    return node_load($id);
-//    return (new Campaign($id))->getSomething();
-//    return Campaign::getTags();
-
+    return array(
+      'data' => $this->transform($campaign),
+    );
   }
 
 
   /**
    * @param object $campaign
+   *
+   * @return array
    */
   protected function transform($campaign) {
-    //
+    $data = array();
+
+    $data += $this->transformCampaign($campaign);
+
+    return $data;
   }
 
 }
