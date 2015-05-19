@@ -146,11 +146,13 @@ function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
   );
 
   // Returns ID of newly added kudos record in database table.
-  return dosomething_kudos_create($parameters);
+  $kudos = new Kudos;
+  return $kudos->create($parameters);
 }
 
 
 function _kudos_resource_delete($kudos_id) {
   // Returns number of rows affected.
-  return dosomething_kudos_delete($kudos_id);
+  $kudos = new Kudos;
+  return $kudos->destroy($kudos_id);
 }
