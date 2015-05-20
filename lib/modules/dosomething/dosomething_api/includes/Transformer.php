@@ -217,6 +217,20 @@ abstract class Transformer {
    *   An object containing properties of Campaign data:
    *   - nid: (string) Campaign id.
    *   - title: (string) Campaign title.
+   *   - tagline: (string) Campaign tagline.
+   *   - created: (string) Timestamp when campaign created.
+   *   - update: (string) Timestamp of most recent update to campaign.
+   *   - active_hours: (string) Average number of hours campaign takes to complete.
+   *   - cover_image:
+   *   - cover_image_alt:
+   *   - scholarship:
+   *   - is_staff_pick:
+   *   - fact_problem:
+   *   - fact_solution:
+   *   - fact_sources:
+   *   - solution:
+   *   - primary_cause:
+   *   - secondary_cause:
    *
    * @return array
    */
@@ -230,8 +244,13 @@ abstract class Transformer {
       $output['tagline'] = $data->tagline;
       $output['created_at'] = $data->created;
       $output['updated_at'] = $data->updated;
-      $output['status'] = $data->status;
-      $output['active_hours'] = (float) $data->active_hours;
+      $output['active_hours'] = $data->active_hours;
+      // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
+
+      if ($data->status) {
+        // @TODO: Should the status default to "active"?
+        $output['status'] = $data->status;
+      }
 
       if ($data->cover_image) {
         $output['cover_image']['default']['uri'] = $data->cover_image['type'];
@@ -245,16 +264,24 @@ abstract class Transformer {
         $output['cover_image']['alternate']['is_dark'] = $data->cover_image_alt['is_dark'];
       }
 
-      $output['facts']['problem'] = $data->fact_problem['fact'];
-      $output['facts']['solution'] = $data->fact_solution['fact'];
-      $output['facts']['sources'] = $data->fact_sources;
+      if ($data->fact_problem['fact']) {
+        $output['facts']['problem'] = $data->fact_problem['fact'];
+      }
+
+      if ($data->fact_solution['fact']) {
+        $output['facts']['solution'] = $data->fact_solution['fact'];
+      }
+
+      if ($data->fact_sources) {
+        $output['facts']['sources'] = $data->fact_sources;
+      }
 
       if ($data->solution['copy']) {
-        $output['solution']['copy'] = $data->solution['copy'];
+        $output['solutions']['copy'] = $data->solution['copy'];
       }
 
       if ($data->solution['support_copy']) {
-        $output['solution']['support_copy'] = $data->solution['support_copy'];
+        $output['solutions']['support_copy'] = $data->solution['support_copy'];
       }
 
       if ($data->primary_cause) {
@@ -281,12 +308,16 @@ abstract class Transformer {
         }
       }
 
-      $output['issue']['id'] = $data->issue['tid'];
-      $output['issue']['name'] = $data->issue['name'];
+      if ($data->issue) {
+        $output['issue']['id'] = $data->issue['tid'];
+        $output['issue']['name'] = $data->issue['name'];
+      }
 
-      foreach($data->tags as $index => $tag) {
-        $output['tags'][$index]['id'] = $tag['tid'];
-        $output['tags'][$index]['name'] = $tag['name'];
+      if ($data->tags) {
+        foreach($data->tags as $index => $tag) {
+          $output['tags'][$index]['id'] = $tag['tid'];
+          $output['tags'][$index]['name'] = $tag['name'];
+        }
       }
 
     }

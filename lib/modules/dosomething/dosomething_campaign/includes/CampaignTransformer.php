@@ -16,7 +16,6 @@ class CampaignTransformer extends Transformer {
 
     try {
       $campaign = new Campaign($id);
-//      return $campaign;
     }
     catch (Exception $error) {
       return array(
