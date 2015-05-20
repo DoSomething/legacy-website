@@ -17,6 +17,14 @@ function dosomething_campaign_problem_shares_cron() {
                        WHERE n.type ='campaign'
                        AND s.field_campaign_status_value = 'active'
                        GROUP BY n.nid;");
+
+  // Get the right path
+  $working_directory = shell_exec("pwd");
+  $working_directory  = explode("/", $working_directory);
+  array_pop($working_directory);
+  $working_directory  = implode('/', $working_directory );
+  $path = $working_directory . "/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares";
+
   // Each active campaign, call shell script to create problem share images.
   foreach($results as $result) {
     $problem = $result->problem;
@@ -27,8 +35,7 @@ function dosomething_campaign_problem_shares_cron() {
     $nid = escapeshellarg($result->nid);
     $problem = escapeshellarg($problem);
     // Call shell script to create the image.
-    $module_path = shell_exec("/usr/bin/find /var/www -type d -name dosomething_campaign_problem_shares");
-    shell_exec("cd $module_path /bin/bash create-images.sh $nid $problem");
+    shell_exec("/bin/bash $path/create-images.sh $path $nid $problem");
   }
 
 }
