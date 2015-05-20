@@ -249,29 +249,44 @@ abstract class Transformer {
       $output['facts']['solution'] = $data->fact_solution['fact'];
       $output['facts']['sources'] = $data->fact_sources;
 
-      $output['solution']['copy'] = $data->solution['copy'];
-      $output['solution']['support_copy'] = $data->solution['support_copy'];
-
-      $output['causes']['primary']['id'] = $data->primary_cause['tid'];
-      $output['causes']['primary']['name'] = $data->primary_cause['name'];
-      foreach($data->secondary_causes as $index => $cause) {
-        $output['causes']['secondary'][$index]['id'] = $cause['tid'];
-        $output['causes']['secondary'][$index]['name'] = $cause['name'];
+      if ($data->solution['copy']) {
+        $output['solution']['copy'] = $data->solution['copy'];
       }
 
-      $output['action_types']['primary']['id'] = $data->primary_action_type['tid'];
-      $output['action_types']['primary']['name'] = $data->primary_action_type['name'];
-      foreach($data->secondary_action_types as $index => $action_type) {
-        $output['action_types']['secondary'][$index]['id'] = $action_type['tid'];
-        $output['action_types']['secondary'][$index]['name'] = $action_type['name'];
+      if ($data->solution['support_copy']) {
+        $output['solution']['support_copy'] = $data->solution['support_copy'];
+      }
+
+      if ($data->primary_cause) {
+        $output['causes']['primary']['id'] = $data->primary_cause['tid'];
+        $output['causes']['primary']['name'] = $data->primary_cause['name'];
+      }
+
+      if ($data->secondary_causes) {
+        foreach($data->secondary_causes as $index => $cause) {
+          $output['causes']['secondary'][$index]['id'] = $cause['tid'];
+          $output['causes']['secondary'][$index]['name'] = $cause['name'];
+        }
+      }
+
+      if ($data->primary_action_type) {
+        $output['action_types']['primary']['id'] = $data->primary_action_type['tid'];
+        $output['action_types']['primary']['name'] = $data->primary_action_type['name'];
+      }
+
+      if ($data->secondary_action_types) {
+        foreach($data->secondary_action_types as $index => $action_type) {
+          $output['action_types']['secondary'][$index]['id'] = $action_type['tid'];
+          $output['action_types']['secondary'][$index]['name'] = $action_type['name'];
+        }
       }
 
       $output['issue']['id'] = $data->issue['tid'];
       $output['issue']['name'] = $data->issue['name'];
 
       foreach($data->tags as $index => $tag) {
-        $output['tags']['id'] = $tag['tid'];
-        $output['tags']['name'] = $tag['name'];
+        $output['tags'][$index]['id'] = $tag['tid'];
+        $output['tags'][$index]['name'] = $tag['name'];
       }
 
     }

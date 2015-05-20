@@ -62,6 +62,62 @@ function dosomething_helpers_delete_test_nodes() {
 
 
 /**
+ * Utility function to extract content data from fields, while accounting
+ * for language selection.
+ *
+ * @param array $field Nested array of field data.
+ * @param string $language Language selection, defaults to Drupal constant for "undefined".
+ *
+ * @return array|null
+ */
+function dosomething_helpers_extract_data($field, $language = LANGUAGE_NONE) {
+  if (isset($field) && !empty($field)) {
+
+    $data = $field[$language];
+
+    $values = array();
+
+    foreach ($data as $item => $content) {
+      $keys = array_keys($content);
+
+      if ($keys[0] === 'value') {
+        $values[] = dosomething_helpers_extract_value($content);
+      }
+      else {
+        $values[] = $content[$keys[0]];
+      }
+    }
+
+    if (count($values) > 1) {
+      return $values;
+    }
+
+    return $values[0];
+  }
+
+  return NULL;
+}
+
+
+function dosomething_helpers_extract_value($data) {
+
+  if (isset($data['safe_value'])) {
+    if (is_null($data['format'])) {
+      return $data['value'];
+    }
+    else {
+      return array(
+        'raw' => $data['value'],
+        'formatted' => $data['safe_value'],
+      );
+    }
+  }
+
+  return $data['value'];
+}
+
+
+/**
  * Wrapper function for Drupal's ip_address function.
  *
  * Because varnish only likes to expose its own IP, and 
