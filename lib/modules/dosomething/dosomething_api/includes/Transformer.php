@@ -244,7 +244,7 @@ abstract class Transformer {
       $output['tagline'] = $data->tagline;
       $output['created_at'] = $data->created_at;
       $output['updated_at'] = $data->updated_at;
-      $output['active_hours'] = $data->time_commitment;
+      $output['time_commitment'] = $data->time_commitment;
       // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
 
       if ($data->status) {
