@@ -215,22 +215,20 @@ abstract class Transformer {
    *
    * @param object $data
    *   An object containing properties of Campaign data:
-   *   - nid: (string) Campaign id.
-   *   - title: (string) Campaign title.
-   *   - tagline: (string) Campaign tagline.
-   *   - created: (string) Timestamp when campaign created.
-   *   - update: (string) Timestamp of most recent update to campaign.
-   *   - active_hours: (string) Average number of hours campaign takes to complete.
-   *   - cover_image:
-   *   - cover_image_alt:
-   *   - scholarship:
-   *   - is_staff_pick:
-   *   - fact_problem:
-   *   - fact_solution:
-   *   - fact_sources:
-   *   - solution:
-   *   - primary_cause:
-   *   - secondary_cause:
+   *   - id: (string)
+   *   - title: (string)
+   *   - tagline: (string)
+   *   - created_at: (string)
+   *   - update_at: (string)
+   *   - time_commitment: (float)
+   *   - cover_image: (array)
+   *   - staff_pick: (bool)
+   *   - facts: (array)
+   *   - solutions: (array)
+   *   - causes: (array)
+   *   - action_types: (array)
+   *   - issue: (string)
+   *   - tags: (array)
    *
    * @return array
    */
@@ -259,6 +257,8 @@ abstract class Transformer {
           }
         }
       }
+
+      $output['staff_pick'] = $data->staff_pick;
 
       if ($data->facts['problem']) {
         $output['facts']['problem'] = $data->facts['problem']['fact'];
@@ -310,7 +310,13 @@ abstract class Transformer {
   }
 
 
-
+  /**
+   * Transform Media data and prepare for API response.
+   *
+   * @param array $data
+   * @param string|null $aspect_ratio
+   * @return array|null
+   */
   protected function transformMedia($data, $aspect_ratio = NULL) {
     if ($data['type'] === 'image') {
       $output = array();
