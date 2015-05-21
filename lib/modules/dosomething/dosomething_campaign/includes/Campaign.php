@@ -49,6 +49,11 @@ class Campaign {
   }
 
 
+  /**
+   * Get both primary and secondary Action Types for campaign if available.
+   *
+   * @return array
+   */
   protected function getActionTypes() {
     // @TODO: Potentially (or very likely can) combine this with getCauses() to DRY up code.
     $data = array();
@@ -76,7 +81,11 @@ class Campaign {
   }
 
 
-
+  /**
+   * Get both primary and secondary Causes for campaign if available.
+   *
+   * @return array
+   */
   protected function getCauses() {
     // @TODO: Potentially combine this with getActionTypes() to DRY up code.
     $data = array();
@@ -109,6 +118,12 @@ class Campaign {
   }
 
 
+  /**
+   * Get the cover image data for campaign if available.
+   *
+   * @param string|null $id Image node id.
+   * @return array|null
+   */
   protected function getCoverImage($id = NULL) {
     if (is_null($id)) {
       $id = dosomething_helpers_extract_field_data($this->node->field_image_campaign_cover);
@@ -146,6 +161,11 @@ class Campaign {
   }
 
 
+  /**
+   * Get alternative cover image for campaign if available.
+   *
+   * @return array|null
+   */
   protected function getCoverImageAlt() {
     $image_id = $this->variables['alt_image_campaign_cover_nid'];
 
@@ -158,6 +178,12 @@ class Campaign {
   }
 
 
+  /**
+   * Get Facts data for campaign if available; collects both fact problem
+   * and fact solution as well as the sources for both.
+   *
+   * @return array|null
+   */
   protected function getFactData() {
     $data = array();
 
@@ -188,6 +214,11 @@ class Campaign {
   }
 
 
+  /**
+   * Get the Issue for campaign if available.
+   *
+   * @return array|null
+   */
   protected function getIssue() {
     // @TODO: Need to find out if this is allowed to be a field with multiple values...?
     $issue_id = dosomething_helpers_extract_field_data($this->node->field_issue);
@@ -202,27 +233,19 @@ class Campaign {
   }
 
 
-  protected function getPrimaryCause() {
-    $cause_id = dosomething_helpers_extract_field_data($this->node->field_primary_cause);
-
-    if ($cause_id) {
-      $cause = $this->getTaxonomyTerm($cause_id);
-
-      return $cause;
-    }
-
-    return NULL;
-  }
-
-
+  /**
+   * Get Tags assigned to campaign if available.
+   *
+   * @return array|null
+   */
   protected function getTags() {
     $data = array();
 
     $tag_ids = dosomething_helpers_extract_field_data($this->node->field_tags);
 
     if ($tag_ids) {
-      foreach ($tag_ids as $tid) {
-        $data[] = $this->getTaxonomyTerm($tid);
+      foreach ($tag_ids as $id) {
+        $data[] = $this->getTaxonomyTerm($id);
       }
 
       return $data;
@@ -232,10 +255,16 @@ class Campaign {
   }
 
 
-  protected function getTaxonomyTerm($tid) {
+  /**
+   * Get taxonomy term node data from provided id.
+   *
+   * @param $id
+   * @return array
+   */
+  protected function getTaxonomyTerm($id) {
     $data = array();
 
-    $taxonomy = taxonomy_term_load($tid);
+    $taxonomy = taxonomy_term_load($id);
 
     $data['id'] = $taxonomy->tid;
     $data['name'] = strtolower($taxonomy->name);
@@ -244,13 +273,20 @@ class Campaign {
   }
 
 
+  /**
+   * Get the Tagline for campaign.
+   *
+   * @return array|null
+   */
   protected function getTagline() {
     return dosomething_helpers_extract_field_data($this->node->field_call_to_action);
   }
 
 
   /**
-   * @return string
+   * Get the specified Time Commitment for campaign.
+   *
+   * @return float
    */
   protected function getTimeCommitment() {
     // @TODO: I've renamed "active_hours" to "time_commitment" because it sounds more straightforward; but appreciate feedback.
@@ -258,11 +294,21 @@ class Campaign {
   }
 
 
+  /**
+   * Get the Scholarship amount for campaign if available.
+   * @return array|null
+   */
   protected function getScholarship() {
     return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
   }
 
 
+  /**
+   * Get the Solutions data for campaign if available; collects both the main solution copy
+   * and the solution support copy.
+   *
+   * @return array
+   */
   protected function getSolutionData() {
     $data['copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_copy);
     $data['support_copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_support);
@@ -271,16 +317,31 @@ class Campaign {
   }
 
 
+  /**
+   * Get status whether this campaign is a Staff Pick or not.
+   *
+   * @return bool
+   */
   protected function getStaffPickStatus() {
     return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
   }
 
 
+  /**
+   * Get Status of campaign.
+   *
+   * @return string|null
+   */
   protected function getStatus() {
     return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
 
 
+  /**
+   * Get Type of campaign.
+   *
+   * @return string|null
+   */
   protected function getType() {
     return dosomething_helpers_extract_field_data($this->node->field_campaign_type);
   }
