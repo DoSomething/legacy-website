@@ -254,20 +254,19 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
-      // This field should always be hidden from users.
-      unset($form['field_under_thirteen']);
-
       // Hide specific fields from non-staff.
       if (!dosomething_user_is_staff()) {
         unset($form['field_partner']);
         unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
         unset($form['picture']);
+        unset($form['field_under_thirteen']);
       }
       // else if staff:
       else {
         // Registration Source should always be read-only.
         $form['field_user_registration_source']['#disabled'] = TRUE;
+        $form['field_under_thirteen']['#disabled'] = TRUE;
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
