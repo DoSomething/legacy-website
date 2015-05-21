@@ -5,6 +5,8 @@
  */
 define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') ? TRUE : FALSE);
 
+module_load_include('inc', 'dosomething_api', 'dosomething_api.module');
+
 include_once 'dosomething_reportback.features.inc';
 include_once 'includes/ReportbackTransformer.php';
 include_once 'includes/ReportbackItemTransformer.php';
@@ -985,7 +987,7 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
   if ($count) {
     $query->range($start, $count);
   }
-  $result = $query->execute();
+  $result = $query->execute()->fetchAll();
   return $result;
 }
 
@@ -995,12 +997,12 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: A node nid to filter by.
- *   - rbid: A reportback rbid to filter by.
- *   - tid: A taxonomy term tid, filters RB Files for all nodes tagged tid.
- *   - fid: A reportback item fid to filter by.
- *   - status: The RB File status.
- *   - random: If set, randomly sort the results.
+ *   - nid: (int) A node nid to filter by.
+ *   - rbid: (int) A reportback rbid to filter by.
+ *   - tid: (int) A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - fid: (int) A reportback item fid to filter by.
+ *   - status: (string) The RB File status.
+ *   - random: (boolean) If set, randomly sort the results.
  *
  * @return SelectQuery object
  */

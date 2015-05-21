@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Reportback
+ * Reportback Transformer Class
  */
 class ReportbackTransformer extends Transformer {
 
@@ -71,7 +71,6 @@ class ReportbackTransformer extends Transformer {
    * @return array
    */
   public function show($id) {
-
     $params = array();
     $params['rbid'] = $id;
 
@@ -101,14 +100,11 @@ class ReportbackTransformer extends Transformer {
   protected function transform($reportback) {
     $data = array();
 
-    // Main Reportback data
     $data += $this->transformReportback($reportback);
 
-    // Campaign Data
-    $data += $this->transformCampaign($reportback);
+    $data['campaign'] = $this->transformCampaign($reportback);
 
-    // User data
-    $data += $this->transformUser($reportback);
+    $data['user'] = $this->transformUser($reportback);
 
     // @TODO: http://php.net/manual/en/control-structures.foreach.php
     // Referenced in other code, would be good to potentially address

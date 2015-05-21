@@ -6,6 +6,8 @@
 
 include_once 'dosomething_campaign.features.inc';
 include_once 'dosomething_campaign.helpers.inc';
+include_once 'includes/Campaign.php';
+include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
@@ -365,6 +367,7 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  */
 function dosomething_campaign_get_campaigns_query_result($params = array()) {
   $query = dosomething_campaign_get_campaigns_query($params);
+
   return $query->execute()->fetchAll();
 }
 
@@ -373,6 +376,8 @@ function dosomething_campaign_get_campaigns_query_result($params = array()) {
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
+ *   - random: (boolean)
+ *   - format: (string) Specify a view format (teaser, full, etc).
  *   - is_staff_pick: (int)
  *   - on_mobile_app: (int)
  *   - term_ids: (array) Taxonomy term tids to filter by.
@@ -382,23 +387,46 @@ function dosomething_campaign_get_campaigns_query_result($params = array()) {
 function dosomething_campaign_get_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
-  $query->condition('status', 1);
+  $query->join('field_data_field_call_to_action', 'c', 'c.entity_id = n.nid');
+  $query->join('field_data_field_active_hours', 'h', 'h.entity_id = n.nid');
+  $query->join('field_data_field_image_campaign_cover', 'cc', 'cc.entity_id = n.nid');
+
+  $query->condition('n.status', 1);
   $query->condition('t.field_campaign_type_value', 'campaign');
-  $query->condition('type', 'campaign');
+  $query->condition('n.type', 'campaign');
+
+  if (isset($params['nid'])) {
+    $query->condition('n.nid', $params['nid']);
+  }
+
   if (isset($params['is_staff_pick'])) {
     $query->join('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
     $query->condition('sp.field_staff_pick_value', (int) $params['is_staff_pick']);
   }
+
   if (isset($params['on_mobile_app'])) {
     $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
     $query->condition('m.field_on_mobile_app_value', (int) $params['on_mobile_app']);
   }
+
   if (isset($params['term_ids']) && is_array($params['term_ids'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
     $query->condition('terms.tid', $params['term_ids'], 'IN');
   }
-  $query->fields('n', array('nid', 'title'));
-  $query->orderBy('title');
+
+  // Select fields
+  $query->fields('n', array('nid', 'title', 'created', 'changed'));
+  $query->addfield('c', 'field_call_to_action_value', 'tagline');
+  $query->addfield('h', 'field_active_hours_value', 'active_hours');
+  $query->addField('cc', 'field_image_campaign_cover_target_id', 'cover_image_id');
+
+  if (isset($params['random'])) {
+    $query->orderRandom();
+  }
+  else {
+    $query->orderBy('title');
+  }
+
   return $query;
 }
 

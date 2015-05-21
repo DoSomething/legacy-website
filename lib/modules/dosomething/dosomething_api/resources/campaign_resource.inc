@@ -4,6 +4,7 @@ function _campaign_resource_definition() {
   $campaign_resource = array();
   $campaign_resource['campaigns'] = array(
     'operations' => array(
+
       'index' => array(
         'help' => 'List all active campaigns.',
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
@@ -35,7 +36,29 @@ function _campaign_resource_definition() {
           ),
         ),
       ),
+
+      'retrieve' => array(
+        'help' => 'Retrieve a specified campaign.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/campaign_resource',
+        ),
+        'callback' => '_campaign_resource_retrieve',
+        'args' => array(
+          array(
+            'name' => 'nid',
+            'description' => 'The nid of the campaign to retrieve.',
+            'optional' => FALSE,
+            'type' => 'int',
+            'source' => array('path' => 0),
+          ),
+        ),
+        'access callback' => '_campaign_resource_alt_access',
+      ),
+
     ),
+
     'relationships' => array(
       'gallery' => array(
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
@@ -163,6 +186,25 @@ function _campaign_resource_access($op = 'view', $args = array()) {
 
   return services_error(t('Campaign node @nid is not active.', array('@nid' => $node->nid)), 403);
 }
+
+
+function _campaign_resource_alt_access() {
+  // @TODO: Temp universal access for now.
+  // Need to rethink how access happens within these callbacks
+  // for new approach.
+  return TRUE;
+}
+
+
+/**
+ * @param $nid
+ *
+ * @return mixed
+ */
+function _campaign_resource_retrieve($nid) {
+  return (new CampaignTransformer)->show($nid);
+}
+
 
 /**
  * Callback for Campaigns index.

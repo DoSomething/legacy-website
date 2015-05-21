@@ -217,16 +217,123 @@ abstract class Transformer {
    *   An object containing properties of Campaign data:
    *   - nid: (string) Campaign id.
    *   - title: (string) Campaign title.
+   *   - tagline: (string) Campaign tagline.
+   *   - created: (string) Timestamp when campaign created.
+   *   - update: (string) Timestamp of most recent update to campaign.
+   *   - active_hours: (string) Average number of hours campaign takes to complete.
+   *   - cover_image:
+   *   - cover_image_alt:
+   *   - scholarship:
+   *   - is_staff_pick:
+   *   - fact_problem:
+   *   - fact_solution:
+   *   - fact_sources:
+   *   - solution:
+   *   - primary_cause:
+   *   - secondary_cause:
    *
    * @return array
    */
   protected function transformCampaign($data) {
-    return array(
-      'campaign' => array(
-        'id' => $data->nid,
-        'title' => $data->title,
-      ),
+    $output = array(
+      'id' => $data->id,
+      'title' => $data->title,
     );
+
+    if ($data instanceof Campaign) {
+      $output['tagline'] = $data->tagline;
+      $output['created_at'] = $data->created_at;
+      $output['updated_at'] = $data->updated_at;
+      $output['time_commitment'] = $data->time_commitment;
+      // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
+
+      if ($data->status) {
+        // @TODO: Should the status default to "active"?
+        $output['status'] = $data->status;
+      }
+
+      if ($data->cover_image) {
+        foreach ($data->cover_image as $key => $image) {
+          if (!is_null($image)) {
+            $output['cover_image'][$key] = $this->transformMedia($image, 'square');
+          }
+        }
+      }
+
+      if ($data->facts['problem']) {
+        $output['facts']['problem'] = $data->facts['problem']['fact'];
+      }
+
+      if ($data->facts['solution']) {
+        $output['facts']['solution'] = $data->facts['solution']['fact'];
+      }
+
+      if ($data->facts['sources']) {
+        $output['facts']['sources'] = $data->facts['sources'];
+      }
+
+      if ($data->solutions['copy']) {
+        $output['solutions']['copy'] = $data->solutions['copy'];
+      }
+
+      if ($data->solutions['support_copy']) {
+        $output['solutions']['support_copy'] = $data->solutions['support_copy'];
+      }
+
+      if ($data->causes['primary']) {
+        $output['causes']['primary'] = $data->causes['primary'];
+      }
+
+      if ($data->causes['secondary']) {
+        $output['causes']['secondary'] = $data->causes['secondary'];
+      }
+
+      if ($data->action_types['primary']) {
+        $output['action_types']['primary'] = $data->action_types['primary'];
+      }
+
+      if ($data->action_types['secondary']) {
+        $output['action_types']['secondary'] = $data->action_types['secondary'];
+      }
+
+      if ($data->issue) {
+        $output['issue'] = $data->issue;
+      }
+
+      if ($data->tags) {
+        $output['tags'] = $data->tags;
+      }
+
+    }
+
+    return $output;
+  }
+
+
+
+  protected function transformMedia($data, $aspect_ratio = NULL) {
+    if ($data['type'] === 'image') {
+      $output = array();
+
+      $output['uri'] = $data['sizes'][$aspect_ratio]['uri'];
+
+      foreach ($data['sizes'] as $key => $size) {
+        if (isset($size['uri'])) {
+          $output['sizes'][$key]['uri'] = $size['uri'];
+        }
+      }
+
+      $output['type'] = $data['type'];
+      $output['dark_background'] = $data['dark_background'];
+
+      return $output;
+    }
+
+    if ($data['type'] === 'video') {
+      // @TODO: include video transformation code here!
+    }
+
+    return NULL;
   }
 
 
@@ -323,9 +430,7 @@ abstract class Transformer {
    */
   protected function transformUser($data) {
     return array(
-      'user' => array(
-        'id' => $data->uid,
-      ),
+      'id' => $data->uid,
     );
   }
 
