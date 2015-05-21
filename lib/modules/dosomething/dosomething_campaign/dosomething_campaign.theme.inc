@@ -169,7 +169,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
     // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.jpg';
+    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.png';
 
     // Create the tweet for twitter.
     if (isset($campaign->fact_problem)) {
