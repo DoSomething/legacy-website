@@ -367,9 +367,7 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
  */
 function dosomething_campaign_get_campaigns_query_result($params = array()) {
   $query = dosomething_campaign_get_campaigns_query($params);
-
-//  exit(print_r($query->execute()->queryString));
-
+  
   return $query->execute()->fetchAll();
 }
 
