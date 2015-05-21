@@ -4,7 +4,7 @@ TEMP_FILE_1=tmp1.png
 TEMP_FILE_2=tmp2.png
 BOLD_FONT_PATH="$1/fonts/ProximaNova-Bold.otf"
 REG_FONT_PATH="$1/fonts/ProximaNova-Reg.otf"
-FINAL_FILE=$1/images/$2.jpg
+FINAL_FILE=$1/images/$2.png
 
 convert \
   -size 471x248 \
