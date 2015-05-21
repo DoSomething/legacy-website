@@ -168,14 +168,17 @@ class Campaign {
       foreach ($fact_vars['facts'] as $index => $fact_data) {
         $index = str_replace('field_', '', $index);
 
-        $data[$index]['fact'] = dosomething_helpers_issetor($fact_data['fact']);
-        $data[$index]['id'] = dosomething_helpers_issetor($fact_data['nid']);
-        $data[$index]['footnote'] = (int) dosomething_helpers_issetor($fact_data['footnotes']);
-        $data[$index]['source'] = dosomething_helpers_issetor($fact_data['sources']);
+        $data[$index]['fact'] = dosomething_helpers_isset($fact_data['fact']);
+        $data[$index]['id'] = dosomething_helpers_isset($fact_data['nid']);
+        $data[$index]['footnote'] = (int) dosomething_helpers_isset($fact_data['footnotes']);
+        $data[$index]['source'] = dosomething_helpers_isset($fact_data['sources']);
 
       }
 
-      $data['sources'] = dosomething_helpers_issetor($fact_vars['sources']);
+      $sources = dosomething_helpers_isset($fact_vars['sources']);
+      foreach ($sources as $index => $source) {
+        $data['sources'][$index]['formatted'] = $source;
+      }
 
       return $data;
     }

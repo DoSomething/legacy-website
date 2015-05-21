@@ -20,7 +20,7 @@ include_once('dosomething_helpers.variable.inc');
  *
  * @return array|object|string|integer|null
  */
-function dosomething_helpers_issetor(&$var, $default = NULL) {
+function dosomething_helpers_isset($var, $default = NULL) {
   return isset($var) ? $var : $default;
 }
 
@@ -130,7 +130,7 @@ function dosomething_helpers_extract_field_text($data) {
 /**
  * Wrapper function for Drupal's ip_address function.
  *
- * Because varnish only likes to expose its own IP, and 
+ * Because varnish only likes to expose its own IP, and
  * apache and nginx will give different results as well.
  *
  * @return string
@@ -307,14 +307,14 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
         if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
             return $text;
         }
-       
+
         // splits all html-tags to scanable lines
         preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
 
         $total_length = strlen($ending);
         $open_tags = array();
         $truncate = '';
-       
+
         foreach ($lines as $line_matchings) {
             // if there is any html-tag in this line, handle it and add it (uncounted) to the output
             if (!empty($line_matchings[1])) {
@@ -336,7 +336,7 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
                 // add html-tag to $truncate'd text
                 $truncate .= $line_matchings[1];
             }
-           
+
             // calculate the length of the plain text part of the line; handle entities as one character
             $content_length = strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
             if ($total_length+$content_length> $length) {
@@ -363,7 +363,7 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
                 $truncate .= $line_matchings[2];
                 $total_length += $content_length;
             }
-           
+
             // if the maximum length is reached, get off the loop
             if($total_length>= $length) {
                 break;
@@ -376,7 +376,7 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
             $truncate = substr($text, 0, $length - strlen($ending));
         }
     }
-   
+
     // if the words shouldn't be cut in the middle...
     if (!$exact) {
         // ...search the last occurance of a space...
@@ -386,19 +386,19 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
             $truncate = substr($truncate, 0, $spacepos);
         }
     }
-   
+
     // add the defined ending to the text
     $truncate .= $ending;
-   
+
     if($considerHtml) {
         // close all unclosed html-tags
         foreach ($open_tags as $tag) {
             $truncate .= '</' . $tag . '>';
         }
     }
-   
+
     return $truncate;
-   
+
 }
 
 /**
