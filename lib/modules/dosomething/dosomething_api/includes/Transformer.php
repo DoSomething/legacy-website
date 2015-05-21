@@ -252,25 +252,13 @@ abstract class Transformer {
         $output['status'] = $data->status;
       }
 
-
       if ($data->cover_image) {
-
-
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {
             $output['cover_image'][$key] = $this->transformMedia($image, 'square');
           }
         }
-
-//        $output['cover_image']['default']['uri'] = $data->cover_image['sizes']['square']['uri'];
-//        $output['cover_image']['default']['type'] = $data->cover_image['type'];
-//        $output['cover_image']['default']['dark_background'] = $data->cover_image['dark_background'];
-//        $output['cover_image']['default']['sizes']['landscape']['uri'] = $data->cover_image['sizes']['landscape']['uri'];
-//        $output['cover_image']['default']['sizes']['square']['uri'] = $data->cover_image['sizes']['square']['uri'];
-//        $output['cover_image']['default']['sizes']['portrait']['uri'] = $data->cover_image['sizes']['portrait']['uri'];
-//        $output['cover_image']['default']['sizes']['thumbnail']['uri'] = $data->cover_image['sizes']['thumbnail']['uri'];
       }
-
 
       if ($data->facts['problem']) {
         $output['facts']['problem'] = $data->facts['problem']['fact'];
