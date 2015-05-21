@@ -236,15 +236,15 @@ abstract class Transformer {
    */
   protected function transformCampaign($data) {
     $output = array(
-      'id' => $data->nid,
+      'id' => $data->id,
       'title' => $data->title,
     );
 
     if ($data instanceof Campaign) {
       $output['tagline'] = $data->tagline;
-      $output['created_at'] = $data->created;
-      $output['updated_at'] = $data->updated;
-      $output['active_hours'] = $data->active_hours;
+      $output['created_at'] = $data->created_at;
+      $output['updated_at'] = $data->updated_at;
+      $output['active_hours'] = $data->time_commitment;
       // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
 
       if ($data->status) {
@@ -252,72 +252,68 @@ abstract class Transformer {
         $output['status'] = $data->status;
       }
 
+
       if ($data->cover_image) {
-        $output['cover_image']['default']['uri'] = $data->cover_image['type'];
-        $output['cover_image']['default']['type'] = $data->cover_image['type'];
-        $output['cover_image']['default']['is_dark'] = $data->cover_image['is_dark'];
-      }
 
-      if ($data->cover_image_alt) {
-        $output['cover_image']['alternate']['uri'] = $data->cover_image_alt['type'];
-        $output['cover_image']['alternate']['type'] = $data->cover_image_alt['type'];
-        $output['cover_image']['alternate']['is_dark'] = $data->cover_image_alt['is_dark'];
-      }
 
-      if ($data->fact_problem['fact']) {
-        $output['facts']['problem'] = $data->fact_problem['fact'];
-      }
-
-      if ($data->fact_solution['fact']) {
-        $output['facts']['solution'] = $data->fact_solution['fact'];
-      }
-
-      if ($data->fact_sources) {
-        $output['facts']['sources'] = $data->fact_sources;
-      }
-
-      if ($data->solution['copy']) {
-        $output['solutions']['copy'] = $data->solution['copy'];
-      }
-
-      if ($data->solution['support_copy']) {
-        $output['solutions']['support_copy'] = $data->solution['support_copy'];
-      }
-
-      if ($data->primary_cause) {
-        $output['causes']['primary']['id'] = $data->primary_cause['tid'];
-        $output['causes']['primary']['name'] = $data->primary_cause['name'];
-      }
-
-      if ($data->secondary_causes) {
-        foreach($data->secondary_causes as $index => $cause) {
-          $output['causes']['secondary'][$index]['id'] = $cause['tid'];
-          $output['causes']['secondary'][$index]['name'] = $cause['name'];
+        foreach ($data->cover_image as $key => $image) {
+          if (!is_null($image)) {
+            $output['cover_image'][$key] = $this->transformMedia($image, 'square');
+          }
         }
+
+//        $output['cover_image']['default']['uri'] = $data->cover_image['sizes']['square']['uri'];
+//        $output['cover_image']['default']['type'] = $data->cover_image['type'];
+//        $output['cover_image']['default']['dark_background'] = $data->cover_image['dark_background'];
+//        $output['cover_image']['default']['sizes']['landscape']['uri'] = $data->cover_image['sizes']['landscape']['uri'];
+//        $output['cover_image']['default']['sizes']['square']['uri'] = $data->cover_image['sizes']['square']['uri'];
+//        $output['cover_image']['default']['sizes']['portrait']['uri'] = $data->cover_image['sizes']['portrait']['uri'];
+//        $output['cover_image']['default']['sizes']['thumbnail']['uri'] = $data->cover_image['sizes']['thumbnail']['uri'];
       }
 
-      if ($data->primary_action_type) {
-        $output['action_types']['primary']['id'] = $data->primary_action_type['tid'];
-        $output['action_types']['primary']['name'] = $data->primary_action_type['name'];
+
+      if ($data->facts['problem']) {
+        $output['facts']['problem'] = $data->facts['problem']['fact'];
       }
 
-      if ($data->secondary_action_types) {
-        foreach($data->secondary_action_types as $index => $action_type) {
-          $output['action_types']['secondary'][$index]['id'] = $action_type['tid'];
-          $output['action_types']['secondary'][$index]['name'] = $action_type['name'];
-        }
+      if ($data->facts['solution']) {
+        $output['facts']['solution'] = $data->facts['solution']['fact'];
+      }
+
+      if ($data->facts['sources']) {
+        $output['facts']['sources'] = $data->facts['sources'];
+      }
+
+      if ($data->solutions['copy']) {
+        $output['solutions']['copy'] = $data->solutions['copy'];
+      }
+
+      if ($data->solutions['support_copy']) {
+        $output['solutions']['support_copy'] = $data->solutions['support_copy'];
+      }
+
+      if ($data->causes['primary']) {
+        $output['causes']['primary'] = $data->causes['primary'];
+      }
+
+      if ($data->causes['secondary']) {
+        $output['causes']['secondary'] = $data->causes['secondary'];
+      }
+
+      if ($data->action_types['primary']) {
+        $output['action_types']['primary'] = $data->action_types['primary'];
+      }
+
+      if ($data->action_types['secondary']) {
+        $output['action_types']['secondary'] = $data->action_types['secondary'];
       }
 
       if ($data->issue) {
-        $output['issue']['id'] = $data->issue['tid'];
-        $output['issue']['name'] = $data->issue['name'];
+        $output['issue'] = $data->issue;
       }
 
       if ($data->tags) {
-        foreach($data->tags as $index => $tag) {
-          $output['tags'][$index]['id'] = $tag['tid'];
-          $output['tags'][$index]['name'] = $tag['name'];
-        }
+        $output['tags'] = $data->tags;
       }
 
     }
@@ -327,8 +323,29 @@ abstract class Transformer {
 
 
 
-  protected function transformMedia() {
+  protected function transformMedia($data, $aspect_ratio = NULL) {
+    if ($data['type'] === 'image') {
+      $output = array();
 
+      $output['uri'] = $data['sizes'][$aspect_ratio]['uri'];
+
+      foreach ($data['sizes'] as $key => $size) {
+        if (isset($size['uri'])) {
+          $output['sizes'][$key]['uri'] = $size['uri'];
+        }
+      }
+
+      $output['type'] = $data['type'];
+      $output['dark_background'] = $data['dark_background'];
+
+      return $output;
+    }
+
+    if ($data['type'] === 'video') {
+      // @TODO: include video transformation code here!
+    }
+
+    return NULL;
   }
 
 

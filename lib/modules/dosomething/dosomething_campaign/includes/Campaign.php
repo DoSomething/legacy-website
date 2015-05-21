@@ -19,8 +19,8 @@ class Campaign {
       $this->status = $this->getStatus();
       $this->type = $this->getType();
       $this->time_commitment = $this->getTimeCommitment();
-      $this->cover_image = $this->getCoverImage();
-      $this->cover_image_alt = $this->getCoverImageAlt();
+      $this->cover_image['default'] = $this->getCoverImage();
+      $this->cover_image['alternate'] = $this->getCoverImageAlt();
       $this->scholarship = $this->getScholarship();
       $this->staff_pick = $this->getStaffPickStatus();
 
@@ -49,8 +49,8 @@ class Campaign {
   }
 
 
-  // @TODO: Potentially (or very likely can) combine this with getCauses() to DRY up code.
   protected function getActionTypes() {
+    // @TODO: Potentially (or very likely can) combine this with getCauses() to DRY up code.
     $data = array();
     $data['primary'] = NULL;
     $data['secondary'] = NULL;
@@ -76,8 +76,9 @@ class Campaign {
   }
 
 
-  // @TODO: Potentially combine this with getActionTypes() to DRY up code.
+
   protected function getCauses() {
+    // @TODO: Potentially combine this with getActionTypes() to DRY up code.
     $data = array();
     $data['primary'] = NULL;
     $data['secondary'] = NULL;
@@ -109,17 +110,14 @@ class Campaign {
 
 
   protected function getCoverImage($id = NULL) {
-    if ($id) {
-      $image_id = $id;
-    }
-    else {
-      $image_id = dosomething_helpers_extract_field_data($this->node->field_image_campaign_cover);
+    if (is_null($id)) {
+      $id = dosomething_helpers_extract_field_data($this->node->field_image_campaign_cover);
     }
 
     // @TODO: This could potentially be turned into an Image class, and load the data by including and then instantiating the class $image = new Image($id);
     // This would help cleanup some of the code, and keep things DRYer.
-    if ($image_id) {
-      $image = node_load($image_id);
+    if ($id) {
+      $image = node_load($id);
     }
     else {
       return NULL;
