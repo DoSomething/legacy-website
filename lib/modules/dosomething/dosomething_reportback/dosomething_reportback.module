@@ -124,6 +124,14 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'why_participated',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $info['reportback']['properties']['flagged_reason'] = array(
+    'label' => t('Flagged Reason'),
+    'description' => t('Why was the file flagged?'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'flagged_reason',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
 
   // Set Reportback File properties.
   $info['reportback_file']['properties']['rbid'] = array(
