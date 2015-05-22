@@ -23,6 +23,7 @@ function _reportback_item_resource_definition() {
           ),
         ),
         'access callback' => '_reportback_item_resource_access',
+        'access arguments' => array('view'),
       ),
 
       'index' => array(
@@ -76,6 +77,7 @@ function _reportback_item_resource_definition() {
           ),
         ),
         'access callback' => '_reportback_item_resource_access',
+        'access arguments' => array('index'),
       ),
 
     ),
@@ -86,10 +88,23 @@ function _reportback_item_resource_definition() {
 }
 
 
-function _reportback_item_resource_access() {
-  // @TODO: Temp universal access for now.
-  // Permissions are still in effect for certain fields returned.
-  return TRUE;
+/**
+ * Determine whether the current user can access campaign resource.
+ *
+ * @param string $op
+ *
+ * @return bool
+ */
+function _reportback_item_resource_access($op) {
+  if ($op === 'view') {
+    return TRUE;
+  }
+
+  if ($op === 'index') {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 

@@ -186,6 +186,9 @@ class Campaign {
    */
   protected function getFactData() {
     $data = array();
+    $data['fact_problem'] = NULL;
+    $data['fact_solution'] = NULL;
+    $data['sources'] = NULL;
 
     $fact_fields = array('field_fact_problem', 'field_fact_solution');
     $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($this->node, $fact_fields);
@@ -205,6 +208,8 @@ class Campaign {
       foreach ($sources as $index => $source) {
         $data['sources'][$index]['formatted'] = $source;
       }
+
+
 
       return $data;
     }
