@@ -193,6 +193,36 @@ function dosomething_reportback_views_default_views() {
       'value' => 'flagged',
     ),
   );
+  /* Filter criterion: Reportback: Flagged Reason */
+  $handler->display->display_options['filters']['flagged_reason']['id'] = 'flagged_reason';
+  $handler->display->display_options['filters']['flagged_reason']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['filters']['flagged_reason']['field'] = 'flagged_reason';
+  $handler->display->display_options['filters']['flagged_reason']['relationship'] = 'rbid';
+  $handler->display->display_options['filters']['flagged_reason']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['flagged_reason']['expose']['operator_id'] = 'flagged_reason_op';
+  $handler->display->display_options['filters']['flagged_reason']['expose']['label'] = 'Flagged Reason';
+  $handler->display->display_options['filters']['flagged_reason']['expose']['operator'] = 'flagged_reason_op';
+  $handler->display->display_options['filters']['flagged_reason']['expose']['identifier'] = 'flagged_reason';
+  $handler->display->display_options['filters']['flagged_reason']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['flagged_reason']['group_info']['label'] = 'Flagged Reason';
+  $handler->display->display_options['filters']['flagged_reason']['group_info']['identifier'] = 'flagged_reason';
+  $handler->display->display_options['filters']['flagged_reason']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'inappropriate',
+      'operator' => '=',
+      'value' => 'inappropriate',
+    ),
+    2 => array(
+      'title' => 'irrelevant',
+      'operator' => '=',
+      'value' => 'irrelevant',
+    ),
+    3 => array(
+      'title' => 'unrealistic quantity',
+      'operator' => '=',
+      'value' => 'unrealistic',
+    ),
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -277,13 +307,14 @@ function dosomething_reportback_views_default_views() {
     t('Reportback'),
     t('Content'),
     t('Reportback file fid'),
-    t('.'),
     t('RBID'),
+    t('.'),
     t('Campaign'),
     t('Image'),
     t('Status'),
     t('Quantity'),
     t(','),
+    t('Flagged Reason'),
     t('Page'),
     t('All'),
   );
