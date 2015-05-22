@@ -234,7 +234,7 @@ abstract class Transformer {
    */
   protected function transformCampaign($data) {
     $output = array(
-      'id' => $data->id,
+      'id' => $data->id ?: $data->nid,
       'title' => $data->title,
     );
 
