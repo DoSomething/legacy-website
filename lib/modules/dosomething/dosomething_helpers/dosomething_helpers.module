@@ -38,6 +38,14 @@ function dosomething_helpers_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
+  // A redirect page for facebook shares that require it.
+  $items['ds-share-complete'] = array(
+    'title' => 'Thank you for sharing',
+    'page callback' => 'dosomething_helpers_share_redirect',
+    'access arguments' => array('access content'),
+    'file' => 'dosomething_helpers.share.inc',
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 

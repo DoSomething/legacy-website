@@ -5,6 +5,15 @@
  */
 
 /**
+ * Returns an empty page with javascript that closes the current window.
+ * Used as the redirect page for facebook shares that require a redirect uri.
+ * Allows us to close the share popup window when the user has finished sharing.
+ */
+function dosomething_helpers_share_redirect() {
+  return "<script>(function(){ window.close(); })();</script>";
+}
+
+/**
  * Returns a facebook share url.
  *
  * @param  string $link The url to share.
@@ -21,12 +30,17 @@ function dosomething_helpers_facebook_intent($link, $type = NULL, $custom_option
     // Used to create a facebook share link that uses a custom image,
     // different from what is set in the metatags.
     case 'feed_dialog':
+      // Build the redirect url.
+      $base_path = url(base_path(), array('absolute' => TRUE));
+      $redirect_path = url(base_path(), array('absolute' => TRUE)) . 'ds-share-complete';
+
+      // Pass in all the feed dialog parameters
       $facebook_app_id = variable_get('dosomething_settings_facebook_app_id');
       $standard_options = array(
           'app_id' => $facebook_app_id,
           'display' => 'popup',
           'link'   => $link,
-          'redirect_uri' => $link,
+          'redirect_uri' => $redirect_path,
         );
 
       if ($custom_options) {
