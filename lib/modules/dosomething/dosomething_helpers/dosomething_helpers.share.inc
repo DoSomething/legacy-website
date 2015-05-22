@@ -16,12 +16,13 @@ function dosomething_helpers_share_redirect() {
 /**
  * Returns a facebook share url.
  *
- * @param  string $link The url to share.
+ * @param  string $link
+ *   The url to share.
  * @param  string $type
- *  The type of facebook share intent link to use.
- *    - 'feed_dialog': Allows for customized stories, outside of what is set in the metatags.
+ *   The type of facebook share intent link to use.
+ *   - 'feed_dialog': Allows for customized stories, outside of what is set in the metatags.
  * @param Array $custom_options
- *    An array of customized options for the type of share being used.
+ *   An array of customized options for the type of share being used.
  *
  * @return string   The facebook intent url.
  */
@@ -60,8 +61,10 @@ function dosomething_helpers_get_facebook_intent($link, $type = NULL, $custom_op
 /**
  * Returns a twitter share url.
  *
- * @param  string $tweet The text that should prepopulate the tweet (can include the url of the page to share).
- * @return string        The twitter intent url.
+ * @param  string $tweet
+ *   The text that should prepopulate the tweet (can include the url of the page to share).
+ * @return string
+ *   The twitter intent url.
  */
 function dosomething_helpers_get_twitter_intent($tweet) {
   return "https://twitter.com/intent/tweet?text=" . urlencode($tweet);
@@ -70,11 +73,12 @@ function dosomething_helpers_get_twitter_intent($tweet) {
 /**
  * Returns a tumblr share url.
  *
- * @param  array $options An array including:
- *                            - source: url of the image to share.
- *                            - caption: share language.
- *                            - clickthru: url to share
- * @return string        The tumblr intent url to share a photo.
+ * @param  array $options
+ *   - source: url of the image to share.
+ *   - caption: share language.
+ *   - clickthru: url to share
+ * @return string
+ *   The tumblr intent url to share a photo.
  */
 function dosomething_helpers_get_tumblr_intent($options) {
   return url('https://www.tumblr.com/widgets/share/tool', array('query' => $options));
