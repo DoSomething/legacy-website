@@ -55,6 +55,7 @@ function _campaign_resource_definition() {
           ),
         ),
         'access callback' => '_campaign_resource_alt_access',
+        'access arguments' => array('view'),
       ),
 
     ),
@@ -188,18 +189,33 @@ function _campaign_resource_access($op = 'view', $args = array()) {
 }
 
 
-function _campaign_resource_alt_access() {
-  // @TODO: Temp universal access for now.
-  // Need to rethink how access happens within these callbacks
-  // for new approach.
-  return TRUE;
+/**
+ * Determine whether the current user can access campaign resource.
+ *
+ * @param string $op
+ *
+ * @return bool
+ */
+function _campaign_resource_alt_access($op) {
+  // @TODO: replace _campaign_resource_access() with this method once full endpoint switcheroo happens and this method is fleshed out.
+  if ($op === 'view') {
+    return TRUE;
+  }
+
+  if ($op === 'index') {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 
 /**
- * @param $nid
+ * Retrieve and show response for campaign request.
  *
- * @return mixed
+ * @param string $nid
+ *
+ * @return object
  */
 function _campaign_resource_retrieve($nid) {
   return (new CampaignTransformer)->show($nid);
