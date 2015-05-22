@@ -189,9 +189,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     );
 
     // Create the intent links
-    $vars['fb_link'] = dosomething_helpers_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-    $vars['twitter_link'] = dosomething_helpers_twitter_intent($tweet);
-    $vars['tumblr_link'] = dosomething_helpers_tumblr_intent($tumblr_options);
+    $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
+    $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
+    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
   }
 
   // Plan.

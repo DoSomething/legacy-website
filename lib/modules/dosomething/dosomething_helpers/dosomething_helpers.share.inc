@@ -25,7 +25,7 @@ function dosomething_helpers_share_redirect() {
  *
  * @return string   The facebook intent url.
  */
-function dosomething_helpers_facebook_intent($link, $type = NULL, $custom_options = NULL) {
+function dosomething_helpers_get_facebook_intent($link, $type = NULL, $custom_options = NULL) {
   switch ($type) {
     // Used to create a facebook share link that uses a custom image,
     // different from what is set in the metatags.
@@ -63,7 +63,7 @@ function dosomething_helpers_facebook_intent($link, $type = NULL, $custom_option
  * @param  string $tweet The text that should prepopulate the tweet (can include the url of the page to share).
  * @return string        The twitter intent url.
  */
-function dosomething_helpers_twitter_intent($tweet) {
+function dosomething_helpers_get_twitter_intent($tweet) {
   return "https://twitter.com/intent/tweet?text=" . urlencode($tweet);
 }
 
@@ -76,6 +76,6 @@ function dosomething_helpers_twitter_intent($tweet) {
  *                            - clickthru: url to share
  * @return string        The tumblr intent url to share a photo.
  */
-function dosomething_helpers_tumblr_intent($options) {
+function dosomething_helpers_get_tumblr_intent($options) {
   return url('https://www.tumblr.com/widgets/share/tool', array('query' => $options));
 }
