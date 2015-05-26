@@ -147,13 +147,12 @@ function _kudos_resource_index($reportbackitems) {
     'fid' => $reportbackitems,
   );
 
-  $kudos = new Kudos;
-  return $kudos->index($parameters);
+  return (new KudosTransformer)->index($parameters);
 }
 
 
 function _kudos_resource_retrieve($kid) {
-  return 'retrieving specific request';
+  return (new KudosTransformer)->show($kid);
 }
 
 
