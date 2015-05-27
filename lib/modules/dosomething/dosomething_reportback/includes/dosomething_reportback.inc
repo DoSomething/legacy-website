@@ -207,7 +207,7 @@ class ReportbackEntity extends Entity {
       $this->flagged = 1;
       $this->flagged_reason = $values['flagged_reason'] ?: NULL;
     }
-    else if ($status === 'promoted') {
+    elseif ($status === 'promoted') {
       $this->promoted = 1;
       $this->promoted_reason = $values['promoted_reason'] ?: NULL;
     }
@@ -317,7 +317,7 @@ class ReportbackEntityController extends EntityAPIController {
     if (!isset($entity->uid)) {
       return FALSE;
     }
-    // If the entity uid doesnt belong to current user:
+    // If the entity uid doesn't belong to current user:
     if ($entity->uid != $user->uid) {
       // And current user can't edit any reportback:
       if (!user_access('edit any reportback') && !drupal_is_cli()) {

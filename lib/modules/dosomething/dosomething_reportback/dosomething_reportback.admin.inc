@@ -223,7 +223,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     if ($values['status'] == 'promoted') {
       dosomething_reportback_set_promte_flag_reasons($values, 'promoted_reason');
     }
-    else if ($values['status'] == 'flagged') {
+    elseif ($values['status'] == 'flagged') {
       dosomething_reportback_set_promte_flag_reasons($values, 'flagged_reason');
     }
 
@@ -288,7 +288,7 @@ function theme_dosomething_reportback_files_form($variables) {
         // Add the columns defined in the form.
         drupal_render($form['rb_files'][$fid]['date']),
         drupal_render($view),
-        drupal_render($fidorm['rb_files'][$fid]['quantity']),
+        drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
         drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>' .  drupal_render($form['rb_files'][$fid]['status']) . '<div class="promote-form"><hr />' . $promote_form . '</div>',
 
