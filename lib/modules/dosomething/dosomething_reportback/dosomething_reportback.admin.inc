@@ -230,6 +230,17 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     // Overwrite flagged reason with the new concatenated string.
     $values['flagged_reason'] = implode(', ', $values['flagged_reason']);
 
+    // Loop through the flagged_reason values:
+    foreach ($values['promoted_reason'] as $reason_key => $reason_value) {
+      // Form sends unchecked as a 0.
+      if (!is_string($reason_value)) {
+        unset($values['promoted_reason'][$reason_key]);
+      }
+    }
+
+    // Overwrite flagged reason with the new concatenated string.
+    $values['promoted_reason'] = implode(', ', $values['promoted_reason']);
+
     // Write the review data.
     $save = $rbf->review($values);
     if (!$save) {

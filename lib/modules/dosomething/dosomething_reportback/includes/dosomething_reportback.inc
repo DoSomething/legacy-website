@@ -212,6 +212,18 @@ class ReportbackEntity extends Entity {
     }
     return entity_save('reportback_file', $this);
   }
+
+  public function setPromoted($status = NULL, $reason = NULL) {
+    if ($status === 'promoted') {
+      $this->promoted = 1;
+      $this->promoted_reason = $reason;
+    }
+    else {
+      $this->promoted = 0;
+    }
+    return entity_save('reportback_file', $this);
+  }
+
 }
 
 /**
@@ -311,7 +323,7 @@ class ReportbackEntityController extends EntityAPIController {
     if (!isset($entity->uid)) {
       return FALSE;
     }
-    // If the entity uid doesn't belong to current user:
+    // If the entity uid doesnt belong to current user:
     if ($entity->uid != $user->uid) {
       // And current user can't edit any reportback:
       if (!user_access('edit any reportback') && !drupal_is_cli()) {
