@@ -199,26 +199,20 @@ class ReportbackEntity extends Entity {
    *
    * @param string $status
    *   The status of the reprotback file (approved, flagged, excluded, promoted)
-   * @param string $reason
-   *   Text to store in the flagged_reason property.
+   * @param array $values
+   *   Array storing values for flagged/promoted reasons.
    */
-  public function setFlagged($status = NULL, $reason = NULL) {
+  public function setFlagged($status = NULL, $values = NULL) {
     if ($status === 'flagged') {
       $this->flagged = 1;
-      $this->flagged_reason = $reason;
+      $this->flagged_reason = $values['flagged_reason'] ?: NULL;
+    }
+    else if ($status === 'promoted') {
+      $this->promoted = 1;
+      $this->promoted_reason = $values['promoted_reason'] ?: NULL;
     }
     else {
       $this->flagged = 0;
-    }
-    return entity_save('reportback_file', $this);
-  }
-
-  public function setPromoted($status = NULL, $reason = NULL) {
-    if ($status === 'promoted') {
-      $this->promoted = 1;
-      $this->promoted_reason = $reason;
-    }
-    else {
       $this->promoted = 0;
     }
     return entity_save('reportback_file', $this);
