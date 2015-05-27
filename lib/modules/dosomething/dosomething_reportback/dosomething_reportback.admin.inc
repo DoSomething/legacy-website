@@ -220,11 +220,11 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     $rbf = reportback_file_load($fid);
 
     // Set flagged or promoted reasons.
-    if ($values['status'] == 'promoted') {
-      dosomething_reportback_set_promte_flag_reasons($values, 'promoted_reason');
+    if ($values['status'] === 'promoted') {
+      dosomething_reportback_set_promote_flag_reasons($values, 'promoted_reason');
     }
-    elseif ($values['status'] == 'flagged') {
-      dosomething_reportback_set_promte_flag_reasons($values, 'flagged_reason');
+    elseif ($values['status'] === 'flagged') {
+      dosomething_reportback_set_promote_flag_reasons($values, 'flagged_reason');
     }
 
     // Write the review data.
@@ -244,7 +244,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
  * @param string $reason_type
  *  Either flagged_reason or promoted_reason
  */
-function dosomething_reportback_set_promte_flag_reasons(&$values, $reason_type) {
+function dosomething_reportback_set_promote_flag_reasons(&$values, $reason_type) {
     // Loop through the reason values:
     foreach ($values[$reason_type] as $reason_key => $reason_value) {
       // Form sends unchecked as a 0.
