@@ -96,6 +96,12 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     'inappropriate' => t('Inappropriate'),
     'unrealistic' => t('Unrealistic quantity'),
   );
+  $promoted_options = array(
+    'photo' => t('Good photo'),
+    'quote' => t('Good quote'),
+    'sponsored' => t('Good for sponsor'),
+    'impact' => t('High impact')
+  );
 
   $params = array(
     'status' => $status,
@@ -178,6 +184,10 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#options' => $status_options,
         '#default_value' => $status,
       ),
+      'promoted_reason' => array(
+        '#type' => 'checkboxes',
+        '#options' => $promoted_options,
+      ),
       'flagged_reason' => array(
         '#type' => 'checkboxes',
         '#options' => $flagged_options,
@@ -209,16 +219,13 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     $rbf = reportback_file_load($fid);
 
-    // Loop through the flagged_reason values:
-    foreach ($values['flagged_reason'] as $reason_key => $reason_value) {
-      // Form sends unchecked as a 0.
-      if (!is_string($reason_value)) {
-        unset($values['flagged_reason'][$reason_key]);
-      }
+    // Set flagged or promoted reasons.
+    if ($values['status'] === 'promoted') {
+      dosomething_reportback_set_promote_flag_reasons($values, 'promoted_reason');
     }
-
-    // Overwrite flagged reason with the new concatenated string.
-    $values['flagged_reason'] = implode(', ', $values['flagged_reason']);
+    elseif ($values['status'] === 'flagged') {
+      dosomething_reportback_set_promote_flag_reasons($values, 'flagged_reason');
+    }
 
     // Write the review data.
     $save = $rbf->review($values);
@@ -231,10 +238,33 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 }
 
 /**
+ * Set flagged and promoted reasons.
+ * @param array values
+ *   Form values submission array
+ * @param string $reason_type
+ *  Either flagged_reason or promoted_reason
+ */
+function dosomething_reportback_set_promote_flag_reasons(&$values, $reason_type) {
+    // Loop through the reason values:
+    foreach ($values[$reason_type] as $reason_key => $reason_value) {
+      // Form sends unchecked as a 0.
+      if (!is_string($reason_value)) {
+        unset($values[$reason_type][$reason_key]);
+      }
+    }
+
+    // Overwrite reasons with the new concatenated string.
+    $values[$reason_type] = implode(', ', $values[$reason_type]);
+}
+
+
+
+/**
  * Themes the dosomething_reportback_files_form constructor.
  */
 function theme_dosomething_reportback_files_form($variables) {
   $form = $variables['form'];
+
   $view_mode = $form['view_mode']['#value'];
 
   $rb_files = element_children($form['rb_files']);
@@ -250,6 +280,7 @@ function theme_dosomething_reportback_files_form($variables) {
   foreach ($rb_files as $fid) {
     $rbf = reportback_file_load($fid);
     $view = entity_view('reportback_file', array($rbf->fid => $rbf), $view_mode);
+    $promote_form = drupal_render($form['rb_files'][$fid]['promoted_reason']);
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
@@ -259,7 +290,8 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($view),
         drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
-        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>',
+        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>' .  drupal_render($form['rb_files'][$fid]['status']) . '<div class="promote-form"><hr />' . $promote_form . '</div>',
+
       ),
     );
   }

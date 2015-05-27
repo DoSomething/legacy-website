@@ -69,6 +69,16 @@ function dosomething_reportback_schema() {
         'type' => 'varchar',
         'length' => '255',
       ),
+      'promoted' => array(
+        'description' => 'Whether the Reportback has been promoted.',
+        'type' => 'int',
+        'default' => NULL,
+      ),
+      'promoted_reason' => array(
+        'description' => 'Reason why reportback was promoted.',
+        'type' => 'varchar',
+        'length' => '255',
+      ),
     ),
     'primary key' => array('rbid'),
     'indexes' => array(
@@ -705,4 +715,19 @@ function dosomething_reportback_update_7025(&$sandbox) {
                      AND rbf.status != 'flagged'
                      AND rb.flagged is null;");
 
+}
+
+/**
+ * Create promoted/promoted reason columns.
+ */
+function dosomething_reportback_update_7026(&$sandbox) {
+  $tbl_name = 'dosomething_reportback';
+  $fields = array('promoted', 'promoted_reason');
+  $schema = dosomething_reportback_schema();
+  foreach ($fields as $fld_name) {
+    if (!db_field_exists($tbl_name, $fld_name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
+    }
+  }
 }
