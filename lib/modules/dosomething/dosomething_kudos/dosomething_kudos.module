@@ -43,3 +43,22 @@ include_once 'includes/KudosTransformer.php';
 //function dosomething_kudos_delete($kid) {
 //  return db_delete('dosomething_kudos')->condition('kid', $kid)->execute();
 //}
+
+
+function dosomething_kudos_entity_info() {
+  $info = [];
+  $info['kudos'] = [
+    'label' => t('Kudos'),
+    'base table' => 'dosomething_kudos',
+    'entity keys' => [
+      'id' => 'kid',
+      'label' => 'kid',
+    ],
+    'entity class' => 'Kudos',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'KudosController',
+    'module' => 'dosomething_kudos',
+  ];
+
+  return $info;
+}
