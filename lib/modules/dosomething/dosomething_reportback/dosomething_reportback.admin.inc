@@ -219,27 +219,13 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     $rbf = reportback_file_load($fid);
 
-    // Loop through the flagged_reason values:
-    foreach ($values['flagged_reason'] as $reason_key => $reason_value) {
-      // Form sends unchecked as a 0.
-      if (!is_string($reason_value)) {
-        unset($values['flagged_reason'][$reason_key]);
-      }
+    // Set flagged or promoted reasons.
+    if ($values['status'] == 'promoted') {
+      dosomething_reportback_set_promte_flag_reasons($values, 'promoted_reason');
     }
-
-    // Overwrite flagged reason with the new concatenated string.
-    $values['flagged_reason'] = implode(', ', $values['flagged_reason']);
-
-    // Loop through the flagged_reason values:
-    foreach ($values['promoted_reason'] as $reason_key => $reason_value) {
-      // Form sends unchecked as a 0.
-      if (!is_string($reason_value)) {
-        unset($values['promoted_reason'][$reason_key]);
-      }
+    else if ($values['status'] == 'flagged') {
+      dosomething_reportback_set_promte_flag_reasons($values, 'flagged_reason');
     }
-
-    // Overwrite flagged reason with the new concatenated string.
-    $values['promoted_reason'] = implode(', ', $values['promoted_reason']);
 
     // Write the review data.
     $save = $rbf->review($values);
@@ -249,6 +235,26 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   }
 
   drupal_set_message(t("Updated."));
+}
+
+/**
+ * Set flagged and promoted reasons.
+ * @param array values
+ *   Form values submission array
+ * @param string $reason_type
+ *  Either flagged_reason or promoted_reason
+ */
+function dosomething_reportback_set_promte_flag_reasons(&$values, $reason_type) {
+    // Loop through the reason values:
+    foreach ($values[$reason_type] as $reason_key => $reason_value) {
+      // Form sends unchecked as a 0.
+      if (!is_string($reason_value)) {
+        unset($values[$reason_type][$reason_key]);
+      }
+    }
+
+    // Overwrite reasons with the new concatenated string.
+    $values[$reason_type] = implode(', ', $values[$reason_type]);
 }
 
 
