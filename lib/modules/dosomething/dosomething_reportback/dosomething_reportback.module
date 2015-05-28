@@ -696,7 +696,8 @@ function dosomething_reportback_set_files(&$entity, $values) {
   }
 }
 function dosomething_reportback_views_pre_render(&$view) {
-  if ($view->name === 'reportback_files') {
+  // Scope this to the reportback files node view.
+  if ($view->name === 'reportback_files' && arg(0) === 'node') {
     $nid = $view->args[0];
     $quantity = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity') + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity_override');
     // Add total quantity to view.
