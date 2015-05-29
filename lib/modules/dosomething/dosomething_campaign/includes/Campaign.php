@@ -2,11 +2,30 @@
 
 class Campaign {
 
-  public $id;
   protected $node;
   protected $variables;
+  public $id;
 
-  public function __construct($id) {
+
+  /**
+   * @param $id
+   * @return static
+   * @throws Exception
+   */
+  public static function get($id) {
+    $campaign = new static();
+    $campaign->load($id);
+
+    return $campaign;
+  }
+
+
+  /**
+   * @param $id
+   * @throws Exception
+   */
+  public function load($id)
+  {
     $this->id = $id;
     $this->node = node_load($id);
 
@@ -19,26 +38,36 @@ class Campaign {
       $this->status = $this->getStatus();
       $this->type = $this->getType();
       $this->time_commitment = $this->getTimeCommitment();
-      $this->cover_image['default'] = $this->getCoverImage();
-      $this->cover_image['alternate'] = $this->getCoverImageAlt();
+
+      $this->cover_image = [
+        'default' => $this->getCoverImage(),
+        'alternate' => $this->getCoverImageAlt(),
+      ];
+
       $this->scholarship = $this->getScholarship();
       $this->staff_pick = $this->getStaffPickStatus();
 
       $fact_data = $this->getFactData();
-      $this->facts['problem'] = $fact_data['fact_problem'];
-      $this->facts['solution'] = $fact_data['fact_solution'];
-      $this->facts['sources'] = $fact_data['sources'];
+      $this->facts = [
+        'problem' => $fact_data['fact_problem'],
+        'solution' => $fact_data['fact_solution'],
+        'sources' => $fact_data['sources'],
+      ];
 
       $solution_data = $this->getSolutionData();
       $this->solutions = $solution_data;
 
       $cause_data = $this->getCauses();
-      $this->causes['primary'] = $cause_data['primary'];
-      $this->causes['secondary'] = $cause_data['secondary'];
+      $this->causes = [
+        'primary' => $cause_data['primary'],
+        'secondary' => $cause_data['secondary'],
+      ];
 
       $action_types_data = $this->getActionTypes();
-      $this->action_types['primary'] = $action_types_data['primary'];
-      $this->action_types['secondary'] = $action_types_data['secondary'];
+      $this->action_types = [
+        'primary' => $action_types_data['primary'],
+        'secondary' => $action_types_data['secondary'],
+      ];
 
       $this->issue = $this->getIssue();
       $this->tags = $this->getTags();

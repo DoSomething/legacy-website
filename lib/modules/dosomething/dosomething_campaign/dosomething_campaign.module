@@ -7,6 +7,7 @@
 include_once 'dosomething_campaign.features.inc';
 include_once 'dosomething_campaign.helpers.inc';
 include_once 'includes/Campaign.php';
+include_once 'includes/CampaignController.php';
 include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
@@ -190,6 +191,23 @@ function dosomething_campaign_get_confirmation_path($nid) {
   return 'campaigns/' . $nid . '/confirmation';
 }
 
+
+/**
+ * Returns the total number of results from the specified Campaign query.
+ *
+ * @param $params
+ *   Associative array of query parameters.
+ * @return int
+ */
+function dosomething_campaign_get_campaign_query_count($params) {
+  // @TODO: May want to somehow store query count results in dosomething_helpers_variable table at a later date.
+  // @see dosomething_reportback_get_reportback_files_query_count() as an example with caching the count data.
+  $query = dosomething_campaign_get_campaigns_query($params);
+  $count = $query->execute()->rowCount();
+
+  return $count;
+}
+
 /**
  * Returns the primary cause term $tid for a given campaign $nid.
  */
@@ -362,65 +380,76 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
   return FALSE;
 }
 
+
 /**
  * Returns array of published campaign nid and titles by campaign type $type.
  */
-function dosomething_campaign_get_campaigns_query_result($params = array()) {
+function dosomething_campaign_get_campaigns_query_result($params = array(), $count = 25, $start = 0) {
   $query = dosomething_campaign_get_campaigns_query($params);
+
+  if ($count && $count !== 'all') {
+    $query->range($start, $count);
+  }
 
   return $query->execute()->fetchAll();
 }
+
 
 /**
  * Returns a SelectQuery object of published standard Campaigns with given $params.
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
+ *   - nid: (array|string) Node id(s) to filter by.
+ *   - staff_pick: (bool)
+ *   - mobile_app: (bool)
+ *   - term_id: (array|string) Taxonomy term tids to filter by.
  *   - random: (boolean)
- *   - format: (string) Specify a view format (teaser, full, etc).
- *   - is_staff_pick: (int)
- *   - on_mobile_app: (int)
- *   - term_ids: (array) Taxonomy term tids to filter by.
  *
  * @return SelectQuery object
  */
 function dosomething_campaign_get_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
-  $query->join('field_data_field_call_to_action', 'c', 'c.entity_id = n.nid');
-  $query->join('field_data_field_active_hours', 'h', 'h.entity_id = n.nid');
-  $query->join('field_data_field_image_campaign_cover', 'cc', 'cc.entity_id = n.nid');
 
   $query->condition('n.status', 1);
-  $query->condition('t.field_campaign_type_value', 'campaign');
-  $query->condition('n.type', 'campaign');
+
+  $query->condition('t.field_campaign_type_value', $params['type']);
+  $query->condition('n.type', $params['type']);
 
   if (isset($params['nid'])) {
-    $query->condition('n.nid', $params['nid']);
+    if (is_array($params['nid'])) {
+      $query->condition('n.nid', $params['nid'], 'IN');
+    }
+    else {
+      $query->condition('n.nid', $params['nid']);
+    }
   }
 
-  if (isset($params['is_staff_pick'])) {
+  if ($params['staff_pick']) {
     $query->join('field_data_field_staff_pick', 'sp', 'sp.entity_id = n.nid');
-    $query->condition('sp.field_staff_pick_value', (int) $params['is_staff_pick']);
+    $query->condition('sp.field_staff_pick_value', 1);
   }
 
-  if (isset($params['on_mobile_app'])) {
+  if ($params['mobile_app']) {
     $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
-    $query->condition('m.field_on_mobile_app_value', (int) $params['on_mobile_app']);
+    $query->condition('m.field_on_mobile_app_value', 1);
   }
 
-  if (isset($params['term_ids']) && is_array($params['term_ids'])) {
+  if (isset($params['term_id'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
-    $query->condition('terms.tid', $params['term_ids'], 'IN');
+    if (is_array($params['term_id'])) {
+      $query->condition('terms.tid', $params['term_id'], 'IN');
+    }
+    else {
+      $query->condition('terms.tid', $params['term_id']);
+    }
   }
 
   // Select fields
-  $query->fields('n', array('nid', 'title', 'created', 'changed'));
-  $query->addfield('c', 'field_call_to_action_value', 'tagline');
-  $query->addfield('h', 'field_active_hours_value', 'active_hours');
-  $query->addField('cc', 'field_image_campaign_cover_target_id', 'cover_image_id');
+  $query->fields('n', array('nid', 'title'));
 
-  if (isset($params['random'])) {
+  if ($params['random']) {
     $query->orderRandom();
   }
   else {

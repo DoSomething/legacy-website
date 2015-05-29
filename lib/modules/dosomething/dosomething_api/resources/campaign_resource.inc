@@ -15,11 +15,11 @@ function _campaign_resource_definition() {
         'callback' => '_campaign_resource_index',
         'args' => [
           [
-            'name' => 'ids',
-            'description' => 'Retrieve campaigns based on specific ids.',
+            'name' => 'nids',
+            'description' => 'Retrieve campaigns based on specific node ids.',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => ['param' => 'ids'],
+            'source' => ['param' => 'nids'],
             'default value' => NULL,
           ],
           [
@@ -28,7 +28,7 @@ function _campaign_resource_definition() {
             'optional' => TRUE,
             'type' => 'boolean',
             'source' => ['param' => 'staff_pick'],
-            'default value' => NULL,
+            'default value' => FALSE,
           ],
           [
             'name' => 'mobile_app',
@@ -36,7 +36,7 @@ function _campaign_resource_definition() {
             'optional' => TRUE,
             'type' => 'boolean',
             'source' => ['param' => 'mobile_app'],
-            'default value' => NULL,
+            'default value' => FALSE,
           ],
           [
             'name' => 'term_ids',
@@ -275,9 +275,9 @@ function _campaign_resource_retrieve($nid) {
  *
  * @return object
  */
-function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
+function _campaign_resource_index($nids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
   $parameters = [
-    'ids' => $ids,
+    'nids' => $nids,
     'staff_pick' => $staff_pick,
     'mobile_app' => $mobile_app,
     'term_ids' => $term_ids,
@@ -286,7 +286,7 @@ function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $co
     'page' => $page,
   ];
 
-  return $parameters;
+  return (new CampaignTransformer)->index($parameters);
 }
 
 
@@ -307,6 +307,8 @@ function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $co
 //  }
 //  return dosomething_campaign_get_campaigns_query_result($params);
 //}
+
+
 
 /**
  * Callback for Campaigns Signup targeted action.
