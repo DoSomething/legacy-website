@@ -187,6 +187,7 @@ function _campaign_resource_definition() {
   return $campaign_resource;
 }
 
+
 /**
  * Determine whether the current user can access a node resource.
  *
@@ -290,26 +291,6 @@ function _campaign_resource_index($nids, $staff_pick, $mobile_app, $term_ids, $c
 }
 
 
-///**
-// * Callback for Campaigns index.
-// */
-//function _campaign_resource_index($is_staff_pick = NULL, $on_mobile_app = NULL, $term_ids = NULL) {
-//  $params = array();
-//  if (isset($is_staff_pick)) {
-//    $params['is_staff_pick'] = (bool) $is_staff_pick;
-//  }
-//  if (isset($on_mobile_app)) {
-//    $params['on_mobile_app'] = (bool) $on_mobile_app;
-//  }
-//  if (isset($term_ids)) {
-//    $term_ids = explode(',', $term_ids);
-//    $params['term_ids'] = $term_ids;
-//  }
-//  return dosomething_campaign_get_campaigns_query_result($params);
-//}
-
-
-
 /**
  * Callback for Campaigns Signup targeted action.
  *
@@ -336,6 +317,7 @@ function _campaign_resource_signup($nid, $values) {
   // to send an additional "You've signed up text".
   return dosomething_signup_create($nid, $values['uid'], $values['source']);
 }
+
 
 /**
  * Callback for Campaigns Reportback targeted action.
@@ -394,6 +376,7 @@ function _campaign_resource_reportback($nid, $values) {
   }
   return dosomething_reportback_save($values);
 }
+
 
 /**
  * Returns the Reportback Gallery of a specified node.
