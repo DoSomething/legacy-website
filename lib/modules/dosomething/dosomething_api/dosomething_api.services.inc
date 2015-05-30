@@ -44,9 +44,19 @@ function dosomething_api_default_services_endpoint() {
       'actions' => array(
         'login' => array(
           'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
         ),
         'logout' => array(
           'enabled' => '1',
+          'settings' => array(
+            'services' => array(
+              'resource_api_version' => '1.0',
+            ),
+          ),
         ),
         'token' => array(
           'enabled' => '1',
@@ -56,6 +66,9 @@ function dosomething_api_default_services_endpoint() {
     'campaigns' => array(
       'operations' => array(
         'index' => array(
+          'enabled' => '1',
+        ),
+        'retrieve' => array(
           'enabled' => '1',
         ),
       ),
@@ -77,6 +90,22 @@ function dosomething_api_default_services_endpoint() {
       'alias' => 'content',
       'operations' => array(
         'retrieve' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
+    'kudos' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+        'create' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
           'enabled' => '1',
         ),
       ),
