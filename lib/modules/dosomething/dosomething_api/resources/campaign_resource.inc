@@ -15,11 +15,11 @@ function _campaign_resource_definition() {
         'callback' => '_campaign_resource_index',
         'args' => [
           [
-            'name' => 'nids',
+            'name' => 'ids',
             'description' => 'Retrieve campaigns based on specific node ids.',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => ['param' => 'nids'],
+            'source' => ['param' => 'ids'],
             'default value' => NULL,
           ],
           [
@@ -276,9 +276,9 @@ function _campaign_resource_retrieve($nid) {
  *
  * @return object
  */
-function _campaign_resource_index($nids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
+function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
   $parameters = [
-    'nids' => $nids,
+    'ids' => $ids,
     'staff_pick' => $staff_pick,
     'mobile_app' => $mobile_app,
     'term_ids' => $term_ids,

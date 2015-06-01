@@ -12,8 +12,8 @@ class CampaignTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = [
-      'nid' => $this->formatData($parameters['nids']),
-      // @TODO: 'type' allows for use to later consider potential to select from regular or SMS campaigns
+      'nid' => $this->formatData($parameters['ids']),
+      // @TODO: 'type' allows for us to later consider potential to select from regular or SMS campaigns
       'type' => 'campaign',
       'staff_pick' => $parameters['staff_pick'],
       'mobile_app' => $parameters['mobile_app'],
