@@ -1,6 +1,6 @@
 <ul class="list -compacted">
   <?php if (isset($modals['faq'])): ?>
-    <li><a href="#" data-modal-href="#modal-faq"><?php print t('Check out our FAQs'); ?></a></li>
+    <li><a href="#" data-modal-href="#modal-faq"><?php print t('FAQs'); ?></a></li>
   <?php endif; ?>
 
   <?php if (isset($modals['more_facts'])): ?>

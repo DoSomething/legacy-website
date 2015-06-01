@@ -59,7 +59,7 @@ casper.test.begin("Test action page is rendered and functions correctly", {
     casper.thenOpenWhenReady(CAMPAIGN.url, function() {
       test.assertNotVisible("[data-modal]", "Modals are hidden on page load.");
 
-      this.click(x('//*[text()="Check out our FAQs"]'));
+      this.click(x('//*[text()="FAQs"]'));
 
       this.waitUntilVisible("#modal-faq", function() {
         test.assertSelectorHasText("#modal-faq", CAMPAIGN.data.faq[0].header, "FAQ displays in modal on click.");
