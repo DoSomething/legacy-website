@@ -324,6 +324,7 @@ function theme_dosomething_reportback_files_form($variables) {
 function dosomething_reportback_count_page() {
   $output = '';
   $status_values = dosomething_reportback_get_file_status_values();
+  $params = ['type' => 'campaign'];
 
   $header = array(t('Title'));
   foreach ($status_values as $status) {
@@ -333,7 +334,7 @@ function dosomething_reportback_count_page() {
   $tables = array();
   $tables['node']['title'] = t("Campaigns");
   $tables['node']['url'] = 'node/';
-  $tables['node']['results'] = dosomething_campaign_get_campaigns_query_result();
+  $tables['node']['results'] = dosomething_campaign_get_campaigns_query_result($params, 'all');
 
   $tables['taxonomy_term']['title'] = t("Cause");
   $tables['taxonomy_term']['url'] = 'taxonomy/term/';
