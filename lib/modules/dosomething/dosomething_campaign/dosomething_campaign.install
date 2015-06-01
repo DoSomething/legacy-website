@@ -105,3 +105,24 @@ function dosomething_campaign_update_7008(&$sandbox) {
   variable_del('dosomething_campaign_permalink_confirmation_owners_social_header');
   variable_del('dosomething_campaign_permalink_confirmation_owners_social_copy');
 }
+
+/**
+ * Update campaign status on campaigns with no status.
+ * The field_campaign_status is not set on most campaigns, this fixes that.
+ */
+function dosomething_campaign_update_7009(&$sandbox) {
+  // Find all campaigns where there is no status.
+  $results = db_query("SELECT n.nid, n.title, s.field_campaign_status_value
+                       FROM node n
+                       LEFT JOIN field_data_field_campaign_status s on s.entity_id = n.nid
+                       WHERE n.type = 'campaign'
+                       AND s.field_campaign_status_value is null");
+
+  // For each one, set the value to active, then save the node.
+  foreach($results as $result) {
+    $node = node_load($result->nid);
+    $node->field_campaign_status[LANGUAGE_NONE][0]['value'] = 'active';
+    node_save($node);
+  }
+
+}
