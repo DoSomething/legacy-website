@@ -1014,10 +1014,10 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: (int) A node nid to filter by.
- *   - rbid: (int) A reportback rbid to filter by.
- *   - tid: (int) A taxonomy term tid, filters RB Files for all nodes tagged tid.
- *   - fid: (int) A reportback item fid to filter by.
+ *   - nid: (string) A node nid to filter by.
+ *   - rbid: (string) A reportback rbid to filter by.
+ *   - tid: (string) A taxonomy term tid, filters RB Files for all nodes tagged tid.
+ *   - fid: (string) A reportback item fid to filter by.
  *   - status: (string) The RB File status.
  *   - random: (boolean) If set, randomly sort the results.
  *

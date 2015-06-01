@@ -1,65 +1,105 @@
 <?php
 
 function _campaign_resource_definition() {
-  $campaign_resource = array();
-  $campaign_resource['campaigns'] = array(
-    'operations' => array(
+  $campaign_resource = [];
+  $campaign_resource['campaigns'] = [
+    'operations' => [
 
-      'index' => array(
+      'index' => [
         'help' => 'List all active campaigns.',
-        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
+        'file' => [
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/campaign_resource'
+        ],
         'callback' => '_campaign_resource_index',
-        'access callback' => '_campaign_resource_access',
-        'access arguments' => array('index'),
-        'args' => array(
-          array(
-            'name' => 'is_staff_pick',
+        'args' => [
+          [
+            'name' => 'ids',
+            'description' => 'Retrieve campaigns based on specific node ids.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'ids'],
+            'default value' => NULL,
+          ],
+          [
+            'name' => 'staff_pick',
+            'description' => 'Retrieve campaigns that are staff picks.',
             'optional' => TRUE,
             'type' => 'boolean',
-            'source' => array('param' => 'is_staff_pick'),
-            'default value' => NULL,
-          ),
-          array(
-            'name' => 'on_mobile_app',
+            'source' => ['param' => 'staff_pick'],
+            'default value' => FALSE,
+          ],
+          [
+            'name' => 'mobile_app',
+            'description' => 'Flag to indicate request was made from the mobile app.',
             'optional' => TRUE,
             'type' => 'boolean',
-            'source' => array('param' => 'on_mobile_app'),
-            'default value' => NULL,
-          ),
-          array(
+            'source' => ['param' => 'mobile_app'],
+            'default value' => FALSE,
+          ],
+          [
             'name' => 'term_ids',
             'description' => 'Taxonomy term ids to filter by.',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => array('param' => 'term_ids'),
+            'source' => ['param' => 'term_ids'],
             'default value' => NULL,
-          ),
-        ),
-      ),
+          ],
+          [
+            'name' => 'count',
+            'description' => 'The number of campaigns to retrieve.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'count'],
+            'default value' => 25,
+          ],
+          [
+            'name' => 'random',
+            'description' => 'Boolean to indicate whether to retrieve campaigns in random order.',
+            'optional' => TRUE,
+            'type' => 'boolean',
+            'source' => ['param' => 'random'],
+            'default value' => FALSE,
+          ],
+          [
+            'name' => 'page',
+            'description' => 'The zero-based index of the page to get, defaults to 0.',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => array('param' => 'page'),
+            'default value' => 1,
+          ],
+        ],
+        'access callback' => '_campaign_resource_access_alt',
+        'access arguments' => ['index'],
+      ],
 
-      'retrieve' => array(
+      'retrieve' => [
         'help' => 'Retrieve a specified campaign.',
-        'file' => array(
+        'file' => [
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/campaign_resource',
-        ),
+        ],
         'callback' => '_campaign_resource_retrieve',
-        'args' => array(
-          array(
+        'args' => [
+          [
             'name' => 'nid',
             'description' => 'The nid of the campaign to retrieve.',
             'optional' => FALSE,
             'type' => 'int',
-            'source' => array('path' => 0),
-          ),
-        ),
-        'access callback' => '_campaign_resource_alt_access',
-        'access arguments' => array('view'),
-      ),
+            'source' => ['path' => 0],
+          ],
+        ],
+        'access callback' => '_campaign_resource_access',
+        'access arguments' => ['view'],
+      ],
 
-    ),
+    ],
 
+
+    // @TODO: The following relationships will be deprecated in the near future.
     'relationships' => array(
       'gallery' => array(
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
@@ -98,7 +138,7 @@ function _campaign_resource_definition() {
         'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
         'callback' => '_campaign_resource_signup',
-        'access callback' => '_campaign_resource_access',
+        'access callback' => '_campaign_resource_access_alt',
         'access arguments' => array('signup'),
         'access arguments append' => TRUE,
         'args' => array(
@@ -122,7 +162,7 @@ function _campaign_resource_definition() {
         'help' => 'Post a user reportback for a campaign: campaigns/123/reportback',
         'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
         'callback' => '_campaign_resource_reportback',
-        'access callback' => '_campaign_resource_access',
+        'access callback' => '_campaign_resource_access_alt',
         'access arguments' => array('reportback'),
         'access arguments append' => TRUE,
         'args' => array(
@@ -143,9 +183,10 @@ function _campaign_resource_definition() {
         ),
       ),
     ),
-  );
+  ];
   return $campaign_resource;
 }
+
 
 /**
  * Determine whether the current user can access a node resource.
@@ -158,9 +199,10 @@ function _campaign_resource_definition() {
  *
  * @see node_access()
  */
-function _campaign_resource_access($op = 'view', $args = array()) {
+// @TODO: Function will be deprecated and currently only used in soon to be deprecated targeted actions.
+function _campaign_resource_access_alt($op = 'view', $args = array()) {
   if (DOSOMETHING_REPORTBACK_LOG) {
-    watchdog('dosomething_api', '_campaign_resource_access args:' . json_encode($args));
+    watchdog('dosomething_api', '_campaign_resource_access_alt args:' . json_encode($args));
   }
 
   if ($op == 'index') {
@@ -196,8 +238,7 @@ function _campaign_resource_access($op = 'view', $args = array()) {
  *
  * @return bool
  */
-function _campaign_resource_alt_access($op) {
-  // @TODO: replace _campaign_resource_access() with this method once full endpoint switcheroo happens and this method is fleshed out.
+function _campaign_resource_access($op) {
   if ($op === 'view') {
     return TRUE;
   }
@@ -223,22 +264,32 @@ function _campaign_resource_retrieve($nid) {
 
 
 /**
- * Callback for Campaigns index.
+ * Retrieve and show index list response of campaigns requested.
+ *
+ * @param string $ids
+ * @param bool $staff_pick
+ * @param bool $mobile_app
+ * @param string $term_ids
+ * @param int $count
+ * @param bool $random
+ * @param int $page
+ *
+ * @return object
  */
-function _campaign_resource_index($is_staff_pick = NULL, $on_mobile_app = NULL, $term_ids = NULL) {
-  $params = array();
-  if (isset($is_staff_pick)) {
-    $params['is_staff_pick'] = (bool) $is_staff_pick;
-  }
-  if (isset($on_mobile_app)) {
-    $params['on_mobile_app'] = (bool) $on_mobile_app;
-  }
-  if (isset($term_ids)) {
-    $term_ids = explode(',', $term_ids);
-    $params['term_ids'] = $term_ids;
-  }
-  return dosomething_campaign_get_campaigns_query_result($params);
+function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
+  $parameters = [
+    'ids' => $ids,
+    'staff_pick' => $staff_pick,
+    'mobile_app' => $mobile_app,
+    'term_ids' => $term_ids,
+    'count' => $count,
+    'random' => $random,
+    'page' => $page,
+  ];
+
+  return (new CampaignTransformer)->index($parameters);
 }
+
 
 /**
  * Callback for Campaigns Signup targeted action.
@@ -266,6 +317,7 @@ function _campaign_resource_signup($nid, $values) {
   // to send an additional "You've signed up text".
   return dosomething_signup_create($nid, $values['uid'], $values['source']);
 }
+
 
 /**
  * Callback for Campaigns Reportback targeted action.
@@ -324,6 +376,7 @@ function _campaign_resource_reportback($nid, $values) {
   }
   return dosomething_reportback_save($values);
 }
+
 
 /**
  * Returns the Reportback Gallery of a specified node.
