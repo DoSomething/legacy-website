@@ -1,12 +1,39 @@
 <?php
 
-/**
- * Class Kudos
- */
 class KudosTransformer extends Transformer {
 
+  /**
+   * @param $parameters
+   * @return array
+   */
   public function index($parameters) {
-    return $parameters;
+    $filters = [
+      'reportbackitem_id' => $this->formatData($parameters['reportbackitem_ids']),
+      'count' => (int) $parameters['count'],
+    ];
+
+    $results = dosomething_kudos_get_kudos_query($filters, $filters['count']);
+
+    if (!$results) {
+      return [
+        'error' => [
+          'message' => 'No kudos for you. Move along.',
+        ]
+      ];
+    }
+
+    $entity = entity_load('kudos', ['1']);
+
+    return $entity;
+
+//    $kudos = [];
+//    foreach ($results as $item) {
+//      $kudos[] = Kudos::get($item);
+//    }
+//
+//    return [
+//      'data' => $kudos,
+//    ];
   }
 
 
