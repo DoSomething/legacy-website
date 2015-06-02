@@ -524,6 +524,11 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
     return;
   }
 
+  // Don't sign users under 13 up for messaging
+  if (dosomething_user_is_under_thirteen($account)) {
+    return;
+  }
+
   // Gather mbp params for the signup.
   $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
   // Send campaign mbp request.
