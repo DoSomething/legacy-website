@@ -97,7 +97,6 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['fid']['id'] = 'fid';
   $handler->display->display_options['fields']['fid']['table'] = 'views_entity_reportback_file';
   $handler->display->display_options['fields']['fid']['field'] = 'fid';
-  $handler->display->display_options['fields']['fid']['separator'] = '';
   $handler->display->display_options['fields']['fid']['link_to_entity'] = 0;
   /* Field: Reportback file: Reportback File rbid */
   $handler->display->display_options['fields']['rbid_1']['id'] = 'rbid_1';
@@ -209,18 +208,53 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['filters']['flagged_reason']['group_info']['group_items'] = array(
     1 => array(
       'title' => 'inappropriate',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'inappropriate',
     ),
     2 => array(
       'title' => 'irrelevant',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'irrelevant',
     ),
     3 => array(
       'title' => 'unrealistic quantity',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'unrealistic',
+    ),
+  );
+  /* Filter criterion: Reportback: Promoted Reason */
+  $handler->display->display_options['filters']['promoted_reason']['id'] = 'promoted_reason';
+  $handler->display->display_options['filters']['promoted_reason']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['filters']['promoted_reason']['field'] = 'promoted_reason';
+  $handler->display->display_options['filters']['promoted_reason']['relationship'] = 'rbid';
+  $handler->display->display_options['filters']['promoted_reason']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['promoted_reason']['expose']['operator_id'] = 'promoted_reason_op';
+  $handler->display->display_options['filters']['promoted_reason']['expose']['label'] = 'Promoted Reason';
+  $handler->display->display_options['filters']['promoted_reason']['expose']['operator'] = 'promoted_reason_op';
+  $handler->display->display_options['filters']['promoted_reason']['expose']['identifier'] = 'promoted_reason';
+  $handler->display->display_options['filters']['promoted_reason']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['promoted_reason']['group_info']['label'] = 'Promoted Reason';
+  $handler->display->display_options['filters']['promoted_reason']['group_info']['identifier'] = 'promoted_reason';
+  $handler->display->display_options['filters']['promoted_reason']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'Good Photo',
+      'operator' => 'contains',
+      'value' => 'photo',
+    ),
+    2 => array(
+      'title' => 'Good Quote',
+      'operator' => 'contains',
+      'value' => 'quote',
+    ),
+    3 => array(
+      'title' => 'Good for Sponsor',
+      'operator' => 'contains',
+      'value' => 'sponsor',
+    ),
+    4 => array(
+      'title' => 'High Impact',
+      'operator' => 'contains',
+      'value' => 'impact',
     ),
   );
 
@@ -315,6 +349,7 @@ function dosomething_reportback_views_default_views() {
     t('Quantity'),
     t(','),
     t('Flagged Reason'),
+    t('Promoted Reason'),
     t('Page'),
     t('All'),
   );
