@@ -208,17 +208,17 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['filters']['flagged_reason']['group_info']['group_items'] = array(
     1 => array(
       'title' => 'inappropriate',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'inappropriate',
     ),
     2 => array(
       'title' => 'irrelevant',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'irrelevant',
     ),
     3 => array(
       'title' => 'unrealistic quantity',
-      'operator' => '=',
+      'operator' => 'contains',
       'value' => 'unrealistic',
     ),
   );
