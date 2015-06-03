@@ -207,6 +207,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       // Provide an option to rotate the image.
       'rotate' => array(
         '#type' => 'radios',
+        '#title' => t('Rotate (CW)'),
         '#options' => $rotate_options,
       )
     );
@@ -246,13 +247,17 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       form_set_error(t("An error has occurred."));
     }
 
-    // Rotate the original image if a rotation option was selected.
+    // Rotate the original image, if a rotation option was selected.
     if ($values['rotate']) {
+      // Load the file.
       $file = file_load($fid);
+      // Create an image object.
       $image = image_load($file->uri);
+      // Rotate the image.
       image_rotate($image, $values['rotate'], 0xffffff);
+      // Save.
       image_save($image);
-      // Flush the image style cache for this image.
+      // Flush the image style cache for this image so they update with the new image.
       image_path_flush($image->source);
     }
   }
