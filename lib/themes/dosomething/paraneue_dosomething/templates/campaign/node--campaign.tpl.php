@@ -294,11 +294,17 @@
 
               <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
                 <h2 class="heading -banner">Tips</h2>
-                <?php foreach ($content['tips'] as $delta => $tip): ?>
-                  <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>
-                  <?php print $tip['copy']; ?>
-                <?php endforeach; ?>
-                <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+                <div class="modal__block">
+                  <?php foreach ($content['tips'] as $delta => $tip): ?>
+                    <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>
+                    <?php print $tip['copy']; ?>
+                  <?php endforeach; ?>
+                </div>
+                <div class="modal__block">
+                  <div class="form-actions">
+                    <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
+                  </div>
+                </div>
               </div>
             <?php endif; ?>
           </div>
