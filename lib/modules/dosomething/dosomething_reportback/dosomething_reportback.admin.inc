@@ -103,6 +103,14 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
     'impact' => t('High impact')
   );
 
+  // Provide options to update the rotation of the image.
+  $rotate_options = array(
+    '90' => 90,
+    '180' => 180,
+    '270' => 270,
+    '360' => 360,
+  );
+
   $params = array(
     'status' => $status,
   );
@@ -196,6 +204,11 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#type' => 'checkbox',
         '#title' => t("Delete this image"),
       ),
+      // Provide an option to rotate the image.
+      'rotate' => array(
+        '#type' => 'radios',
+        '#options' => $rotate_options,
+      )
     );
   }
   $form['actions'] = array('#type' => 'actions');
@@ -231,6 +244,16 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     $save = $rbf->review($values);
     if (!$save) {
       form_set_error(t("An error has occurred."));
+    }
+
+    // Rotate the original image if a rotation option was selected.
+    if ($values['rotate']) {
+      $file = file_load($fid);
+      $image = image_load($file->uri);
+      image_rotate($image, $values['rotate'], 0xffffff);
+      image_save($image);
+      // Flush the image style cache for this image.
+      image_path_flush($image->source);
     }
   }
 
@@ -291,6 +314,7 @@ function theme_dosomething_reportback_files_form($variables) {
         drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
         drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>' .  drupal_render($form['rb_files'][$fid]['status']) . '<div class="promote-form"><hr />' . $promote_form . '</div>',
+        drupal_render($form['rb_files'][$fid]['rotate']),
 
       ),
     );
@@ -301,6 +325,7 @@ function theme_dosomething_reportback_files_form($variables) {
     t('Quantity'),
     t('Campaign'),
     t('Op'),
+    t('Rotate (CW)'),
   );
 
   $output = '';
