@@ -382,7 +382,7 @@ abstract class Transformer {
     if ($data->items) {
       $items = $this->getReportbackItems($data->items);
 
-      $output['items'] = array(
+      $output['reportback_items'] = array(
         'total' => count($items),
         'data' => $this->transformCollection($items, 'transformReportbackItem'),
       );
