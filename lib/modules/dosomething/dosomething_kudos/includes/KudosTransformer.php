@@ -22,18 +22,21 @@ class KudosTransformer extends Transformer {
       ];
     }
 
-    $entity = entity_load('kudos', ['1']);
+//    $entity = entity_load('kudos', ['1']);
+//    return $entity;
 
-    return $entity;
+//    $entity = Kudos::get('1');
+//    return $entity;
 
-//    $kudos = [];
-//    foreach ($results as $item) {
-//      $kudos[] = Kudos::get($item);
-//    }
-//
-//    return [
+    $kudos = [];
+    foreach ($results as $id) {
+      $kudos[] = Kudos::get($id);
+    }
+
+    return [
 //      'data' => $kudos,
-//    ];
+      'data' => $this->transformCollection($kudos),
+    ];
   }
 
 
@@ -52,8 +55,17 @@ class KudosTransformer extends Transformer {
   }
 
 
-  protected function transform($object) {
-    return 'autobots transform!';
+  /**
+   * @param object $kudos
+   *
+   * @return array
+   */
+  protected function transform($kudos) {
+    $data = [];
+
+    $data['user'] = $this->transformUser($kudos->user);
+
+    return $data;
   }
 
 }

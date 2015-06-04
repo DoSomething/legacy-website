@@ -2,19 +2,19 @@
 
 class KudosController extends EntityAPIController {
 
-  public function create(array $values = []) {
-
-  }
-
-
-  public function delete($ids) {
-
-  }
-
-
-  public function save($entity) {
-
-  }
+//  public function create(array $values = []) {
+//
+//  }
+//
+//
+//  public function delete($ids) {
+//
+//  }
+//
+//
+//  public function save($entity) {
+//
+//  }
 
 }
 

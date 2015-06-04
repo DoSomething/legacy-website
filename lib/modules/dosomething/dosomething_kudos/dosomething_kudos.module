@@ -9,6 +9,9 @@ include_once 'includes/KudosController.php';
 include_once 'includes/KudosTransformer.php';
 
 
+/**
+ * @return array
+ */
 function dosomething_kudos_entity_info() {
   $info = [];
   $info['kudos'] = [
@@ -28,7 +31,13 @@ function dosomething_kudos_entity_info() {
 }
 
 
+/**
+ * @param $params
+ *
+ * @return EntityFieldQuery
+ */
 function dosomething_kudos_build_kudos_query($params) {
+  // $params use
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'kudos');
@@ -37,6 +46,13 @@ function dosomething_kudos_build_kudos_query($params) {
 }
 
 
+/**
+ * @param array $params
+ * @param null $count
+ * @param int $start
+ *
+ * @return array
+ */
 function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start = 0) {
   $query = dosomething_kudos_build_kudos_query($params);
 

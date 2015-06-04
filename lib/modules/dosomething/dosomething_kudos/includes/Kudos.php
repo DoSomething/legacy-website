@@ -3,13 +3,13 @@
 class Kudos extends Entity {
 
   public $id;
-  public $entity;
+  protected $entity;
 
-//  protected function defaultUri() {
-//    return [
-//      'path' => 'kudos/' . $this->identifier(),
-//    ];
-//  }
+  protected function defaultUri() {
+    return [
+      'path' => 'kudos/' . $this->identifier(),
+    ];
+  }
 
   public function __construct(array $values = array()) {
     parent::__construct($values, 'kudos');
@@ -24,8 +24,16 @@ class Kudos extends Entity {
 
 
   public function load($id) {
-    $this->id = $id;
-    $this->entity = entity_load('kudos', [$id]);
+    $entity = entity_load('kudos', [$id]);
+    $keys = array_keys($entity);
+
+    $this->entity = $entity[$keys[0]];
+    $this->id = $this->entity->kid;
+    $this->term_id = $this->entity->tid;
+    $this->reportbackitem_id = $this->entity->fid;
+
+    $user = ['id' => $this->entity->uid];
+    $this->user = (object) $user;
   }
 
 }
