@@ -81,7 +81,7 @@ function dosomething_payment_block_view($delta = '') {
  * Form constructor for creating a Payment.
  */
 function dosomething_payment_form($form, &$form_state, $config = array()) {
-  // This JS is needed to create a Stripe token, which is used for API posts. 
+  // This JS is needed to create a Stripe token, which is used for API posts.
   drupal_add_js('https://js.stripe.com/v2/');
   // Add the API publish key to JS settings.
   $api_publish = variable_get('dosomething_payment_stripe_api_key_publish');
@@ -167,6 +167,11 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-validate-required' => '',
       'data-stripe' => 'amount',
     ),
+  );
+  $form['notes'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Notes'),
+    '#required' => FALSE,
   );
   // Gets set by the JS request to Stripe API.
   $form['token'] = array(
@@ -273,6 +278,11 @@ function dosomething_payment_post_payment_stripe($values) {
   }
 
   try {
+
+    // Pass the "Notes" field, if non-empty, as Stripe metadata attached to
+    // the charge.
+    $notes = !empty(trim($values['notes'])) ? array('Notes' => $values['notes']) : array();
+
     // Charge the customer.
     // @see https://stripe.com/docs/tutorials/charges
     $charge = Stripe_Charge::create(array(
@@ -280,8 +290,10 @@ function dosomething_payment_post_payment_stripe($values) {
       'amount' => $values['amount'],
       'currency' => 'usd',
       'receipt_email' => $values['email'],
-      'description' => "Donation for DoSomething.org"
+      'description' => "Donation for DoSomething.org",
+      'metadata' => $notes,
     ));
+
     // Log the values we're sending to create the charge.
     watchdog('dosomething_payment', 'Create charge %amount to Customer %id', array(
       '%amount' => $values['amount'],
