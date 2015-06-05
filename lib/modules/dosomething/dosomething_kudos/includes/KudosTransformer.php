@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 class KudosTransformer extends Transformer {
 
@@ -24,7 +24,6 @@ class KudosTransformer extends Transformer {
 
 //    $entity = entity_load('kudos', ['1']);
 //    return $entity;
-
 //    $entity = Kudos::get('1');
 //    return $entity;
 
@@ -34,24 +33,59 @@ class KudosTransformer extends Transformer {
     }
 
     return [
-//      'data' => $kudos,
       'data' => $this->transformCollection($kudos),
     ];
   }
 
 
   public function show($id) {
-    return 'class show item';
+    try {
+      $kudos = Kudos::get($id);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
+    }
+
+    return [
+      'data' => $this->transform($kudos),
+    ];
   }
 
 
-  public function create() {
-    return 'class create item';
-  }
+  /**
+   * @param $parameters
+   *
+   * @return array
+   */
+  public function create($parameters) {
+    // Retain record of successfully created or failed records to report back to client.
+    $records = [
+      'created' => 0,
+      'failed' => 0,
+    ];
 
+    $values = [
+      'fid' => $parameters['fid'],
+      'uid' => $parameters['uid'],
+    ];
 
-  public function delete() {
-    return 'class delete item';
+    foreach($parameters['tids'] as $id) {
+      $values['tid'] = $id;
+
+      $record = (new KudosController)->create($values);
+
+      if ($record) {
+        $records['created'] += 1;
+      } else {
+        $records['failed'] += 1;
+      }
+    }
+
+    return $records;
   }
 
 
@@ -62,6 +96,8 @@ class KudosTransformer extends Transformer {
    */
   protected function transform($kudos) {
     $data = [];
+
+    $data['reportback_item'] = $kudos->reportback_item;
 
     $data['user'] = $this->transformUser($kudos->user);
 

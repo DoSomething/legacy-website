@@ -2,22 +2,33 @@
 
 class KudosController extends EntityAPIController {
 
-//  public function create(array $values = []) {
-//
-//  }
-//
-//
-//  public function delete($ids) {
-//
-//  }
-//
-//
-//  public function save($entity) {
-//
-//  }
+  public function __construct() {
+    parent::__construct('kudos');
+  }
+
+  /**
+   * Overrides create() method in EntityAPIController
+   *
+   * @param array $values
+   * @return bool
+   *
+   * @throws Exception
+   */
+  public function create(array $values = []) {
+    $values += ['is_new' => TRUE];
+
+    $kudos = new Kudos($values);
+
+    $record = $this->save($kudos);
+
+    if ($record) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
 
 }
-
 
 
 // SCRAPS

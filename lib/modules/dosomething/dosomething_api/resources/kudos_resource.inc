@@ -23,7 +23,7 @@ function _kudos_resource_definition() {
           ],
         ],
         'access callback' => '_kudos_resource_access',
-        'access arguments' => array('view'),
+        'access arguments' => ['view'],
       ],
 
       'index' => [
@@ -145,6 +145,9 @@ function _kudos_resource_access($op) {
   }
 
   // @TODO add create & delete and check access with user_access().
+  if ($op === 'create') {
+    return TRUE;
+  }
 
   return FALSE;
 }
@@ -187,8 +190,7 @@ function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
     'tids' => $term_ids,
   ];
 
-  // Returns ID of newly added kudos record in database table.
-//  return dosomething_kudos_create($parameters);
+  return (new KudosTransformer)->create($parameters);
 }
 
 
