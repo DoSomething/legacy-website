@@ -7,9 +7,8 @@ class KudosController extends EntityAPIController {
   }
 
   /**
-   * Overrides create() method in EntityAPIController
-   * Helps with avoiding a false positive result when trying to create a
-   * record by providing a boolean response if record successfully created.
+   * Overrides create() method in EntityAPIController.
+   * Allows for custom return of boolean values.
    *
    * @param array $values
    * @return bool
@@ -17,9 +16,7 @@ class KudosController extends EntityAPIController {
    * @throws Exception
    */
   public function create(array $values = []) {
-    $values += ['is_new' => TRUE];
-
-    $kudos = new Kudos($values);
+    $kudos = parent::create($values);
 
     $record = $this->save($kudos);
 
