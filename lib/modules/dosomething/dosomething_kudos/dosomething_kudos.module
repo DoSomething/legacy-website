@@ -37,7 +37,9 @@ function dosomething_kudos_entity_info() {
  * @return EntityFieldQuery
  */
 function dosomething_kudos_build_kudos_query($params) {
-  // $params use
+  // @TODO: implement use of $params for custom queries.
+  // @see dosomething_campaign_get_campaigns_query() as an example.
+
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'kudos');

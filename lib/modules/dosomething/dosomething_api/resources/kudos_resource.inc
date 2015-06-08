@@ -145,7 +145,7 @@ function _kudos_resource_access($op) {
   }
 
   if ($op === 'create' || $op === 'delete') {
-    if (user_is_anonymous()) {
+    if (!user_is_anonymous()) {
       return TRUE;
     }
   }
