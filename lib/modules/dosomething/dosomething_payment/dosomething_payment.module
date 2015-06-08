@@ -170,7 +170,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
   );
   $form['notes'] = array(
     '#type' => 'textfield',
-    '#title' => t('Notes'),
+    '#title' => t('Message (optional)'),
     '#required' => FALSE,
   );
   // Gets set by the JS request to Stripe API.
