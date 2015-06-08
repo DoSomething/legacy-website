@@ -18,7 +18,7 @@ class KudosTransformer extends Transformer {
     if (!$results) {
       return [
         'error' => [
-          'message' => 'No kudos for you. Move along.',
+          'message' => 'No kudos results found.',
         ]
       ];
     }
@@ -109,7 +109,7 @@ class KudosTransformer extends Transformer {
 
     if ($record) {
       return [
-        'status' => [
+        'success' => [
           'message' => 'Kudos record successfully deleted.',
         ]
       ];

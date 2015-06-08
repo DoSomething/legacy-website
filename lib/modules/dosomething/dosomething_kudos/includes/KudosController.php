@@ -8,6 +8,8 @@ class KudosController extends EntityAPIController {
 
   /**
    * Overrides create() method in EntityAPIController
+   * Helps with avoiding a false positive result when trying to create a
+   * record by providing a boolean response if record successfully created.
    *
    * @param array $values
    * @return bool

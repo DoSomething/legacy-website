@@ -68,10 +68,10 @@ function _kudos_resource_definition() {
         'callback' => '_kudos_resource_create',
         'args' => [
           [
-            'name' => 'reportback_item_id',
+            'name' => 'reportbackitem_ids',
             'description' => 'The id of reportback item to create kudos record.',
             'optional' => FALSE,
-            'type' => 'int',
+            'type' => 'string',
             'source' => [
               'data' => 'reportback_item_id',
             ],
@@ -80,7 +80,7 @@ function _kudos_resource_definition() {
             'name' => 'user_id',
             'description' => 'The ID of the user executing a kudos.',
             'optional' => FALSE,
-            'type' => 'int',
+            'type' => 'string',
             'source' => [
               'data' => 'user_id',
             ],
