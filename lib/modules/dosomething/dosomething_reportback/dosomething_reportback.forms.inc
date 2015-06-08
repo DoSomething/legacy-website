@@ -399,7 +399,7 @@ function dosomething_reportback_form_save_file(&$form_state) {
 function dosomething_reportback_image_edit($image, $x, $y, $width, $height, $rotate = NULL) {
   // Rotate the image and then crop it if rotation was successful.
   if ($rotate) {
-    image_rotate($image, $rotate);
+    $rotate_worked = image_rotate($image, $rotate, 0xffffff);
   }
 
   $result = image_crop($image, $x, $y, $width, $height);
