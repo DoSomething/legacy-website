@@ -2,7 +2,6 @@
 
 class Kudos extends Entity {
 
-//  public $id;
   protected $entity;
 
   public function __construct(array $values = array()) {

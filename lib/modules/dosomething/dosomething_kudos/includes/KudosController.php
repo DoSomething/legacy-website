@@ -28,39 +28,52 @@ class KudosController extends EntityAPIController {
     return FALSE;
   }
 
+
+  /**
+   * Overrides delete() method in EntityAPIController.
+   * Provides better feedback for API.
+   *
+   * @param $ids
+   * @param DatabaseTransaction $transaction
+   *
+   * @return string
+   * @throws Exception
+   */
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    $entities = $ids ? $this->load($ids) : FALSE;
+
+    if (!$entities) {
+      return FALSE;
+    }
+    $transaction = isset($transaction) ? $transaction : db_transaction();
+
+    try {
+      $ids = array_keys($entities);
+
+      db_delete($this->entityInfo['base table'])
+        ->condition($this->idKey, $ids, 'IN')
+        ->execute();
+
+      if (isset($this->revisionTable)) {
+        db_delete($this->revisionTable)
+          ->condition($this->idKey, $ids, 'IN')
+          ->execute();
+      }
+      // Reset the cache as soon as the changes have been applied.
+      $this->resetCache($ids);
+
+      foreach ($entities as $id => $entity) {
+        $this->invoke('delete', $entity);
+      }
+      // Ignore slave server temporarily.
+      db_ignore_slave();
+    }
+    catch (Exception $e) {
+      $transaction->rollback();
+      watchdog_exception($this->entityType, $e);
+      throw $e;
+    }
+
+    return TRUE;
+  }
 }
-
-
-// SCRAPS
-///**
-// * @param $parameters
-// * @return array  IDs of newly created records.
-// * @throws Exception
-// */
-//function dosomething_kudos_create($parameters) {
-//  $records = array();
-//
-//  $values = array(
-//    'fid' => $parameters['fid'],
-//    'uid' => $parameters['uid'],
-//  );
-//
-//  foreach($parameters['tids'] as $id) {
-//    $values['tid'] = $id;
-//
-//    $records[] = db_insert('dosomething_kudos')->fields($values)->execute();
-//  }
-//
-//  return $records;
-//}
-//
-//
-///**
-// * Delete a specified Kudos record.
-// *
-// * @param $kid
-// * @return DatabaseStatementInterface
-// */
-//function dosomething_kudos_delete($kid) {
-//  return db_delete('dosomething_kudos')->condition('kid', $kid)->execute();
-//}

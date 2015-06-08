@@ -144,9 +144,10 @@ function _kudos_resource_access($op) {
     return TRUE;
   }
 
-  // @TODO add create & delete and check access with user_access().
-  if ($op === 'create') {
-    return TRUE;
+  if ($op === 'create' || $op === 'delete') {
+    if (user_is_anonymous()) {
+      return TRUE;
+    }
   }
 
   return FALSE;
@@ -154,6 +155,19 @@ function _kudos_resource_access($op) {
 
 
 /**
+ * Retrieve and show response for kudos request.
+ *
+ * @param $id
+ *
+ * @return string
+ */
+function _kudos_resource_retrieve($id) {
+  return (new KudosTransformer)->show($id);
+}
+
+
+/**
+ * Retrieve and show index list response of kudos requested.
  * @param $reportbackitems
  *
  * @return mixed
@@ -169,16 +183,8 @@ function _kudos_resource_index($reportbackitems, $count) {
 
 
 /**
- * @param $id
+ * Create a new kudos record.
  *
- * @return string
- */
-function _kudos_resource_retrieve($id) {
-  return (new KudosTransformer)->show($id);
-}
-
-
-/**
  * @param $reportback_item_id
  * @param $user_id
  * @param $term_ids
@@ -194,7 +200,13 @@ function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
 }
 
 
+/**
+ * Delete the specified kudos record.
+ *
+ * @param $kudos_id
+ *
+ * @return string
+ */
 function _kudos_resource_delete($kudos_id) {
-  // Returns number of rows affected.
-//  return dosomething_kudos_delete($kudos_id);
+  return (new KudosTransformer)->delete($kudos_id);
 }

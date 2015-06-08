@@ -4,6 +4,7 @@ class KudosTransformer extends Transformer {
 
   /**
    * @param $parameters
+   *
    * @return array
    */
   public function index($parameters) {
@@ -22,11 +23,6 @@ class KudosTransformer extends Transformer {
       ];
     }
 
-//    $entity = entity_load('kudos', ['1']);
-//    return $entity;
-//    $entity = Kudos::get('1');
-//    return $entity;
-
     $kudos = [];
     foreach ($results as $id) {
       $kudos[] = Kudos::get($id);
@@ -38,6 +34,11 @@ class KudosTransformer extends Transformer {
   }
 
 
+  /**
+   * @param $id
+   *
+   * @return array
+   */
   public function show($id) {
     try {
       $kudos = Kudos::get($id);
@@ -86,6 +87,39 @@ class KudosTransformer extends Transformer {
     }
 
     return $records;
+  }
+
+
+  /**
+   * @param $id
+   *
+   * @return array
+   */
+  public function delete($id) {
+    try {
+      $record = (new KudosController)->delete([$id]);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => 'There was an error deleting the specified kudos record.',
+        ],
+      ];
+    }
+
+    if ($record) {
+      return [
+        'status' => [
+          'message' => 'Kudos record successfully deleted.',
+        ]
+      ];
+    }
+
+    return [
+      'error' => [
+        'message' => 'The specified kudos record id is not valid.',
+      ],
+    ];
   }
 
 
