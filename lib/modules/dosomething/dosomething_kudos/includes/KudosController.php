@@ -8,6 +8,7 @@ class KudosController extends EntityAPIController {
 
   /**
    * Overrides create() method in EntityAPIController.
+   *
    * Allows for custom return of boolean values.
    *
    * @param array $values
@@ -30,7 +31,13 @@ class KudosController extends EntityAPIController {
 
   /**
    * Overrides delete() method in EntityAPIController.
-   * Provides better feedback for API.
+   *
+   * The parent delete() method does not provide suitable return values to allow
+   * for logic for API response and knowing whether delete failed or succeeded.
+   * Provides better feedback for API by returning values in either of the returns:
+   * - Returns FALSE if invalid $ids provided or not found when
+   * load() attempted.
+   * - Returns TRUE if record successfully deleted.
    *
    * @param $ids
    * @param DatabaseTransaction $transaction
