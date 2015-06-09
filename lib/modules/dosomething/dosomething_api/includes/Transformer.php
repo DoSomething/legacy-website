@@ -436,7 +436,7 @@ abstract class Transformer {
    */
   protected function transformUser($data) {
     return array(
-      'id' => $data->uid,
+      'id' => isset($data->id) ? $data->id : $data->uid,
     );
   }
 

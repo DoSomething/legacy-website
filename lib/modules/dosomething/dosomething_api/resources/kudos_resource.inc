@@ -1,120 +1,128 @@
 <?php
 
 function _kudos_resource_definition() {
-  $kudos_resource = array();
-  $kudos_resource['kudos'] = array(
-    'operations' => array(
+  $kudos_resource = [];
+  $kudos_resource['kudos'] = [
+    'operations' => [
 
-      'retrieve' => array(
+      'retrieve' => [
         'help' => 'Retrieve a specified kudos record on a reportback item.',
-        'file' => array(
+        'file' => [
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/kudos_resource',
-        ),
+        ],
         'callback' => '_kudos_resource_retrieve',
-        'args' => array(
-          array(
-            'name' => 'kid',
+        'args' => [
+          [
+            'name' => 'id',
             'description' => 'The kid of the kudos record to retrieve.',
             'optional' => FALSE,
             'type' => 'int',
-            'source' => array('path' => 0),
-          ),
-        ),
+            'source' => ['path' => 0],
+          ],
+        ],
         'access callback' => '_kudos_resource_access',
-        'access arguments' => array('view'),
-      ),
+        'access arguments' => ['view'],
+      ],
 
-      'index' => array(
+      'index' => [
         'help' => 'List all kudos.',
-        'file' => array(
+        'file' => [
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/kudos_resource',
-        ),
+        ],
         'callback' => '_kudos_resource_index',
-        'args' => array(
-          array(
+        'args' => [
+          [
             'name' => 'reportbackitems',
             'description' => 'The ids of specified reportbacks to get kudos.',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => array(
+            'source' => [
               'param' => 'reportbackitems'
-            ),
+            ],
             'default value' => NULL,
-          ),
-        ),
+          ],
+          [
+            'name' => 'count',
+            'description' => 'The number of kudos to retrieve.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'count'],
+            'default value' => 25,
+          ],
+        ],
         'access callback' => '_kudos_resource_access',
-        'access arguments' => array('index'),
-      ),
+        'access arguments' => ['index'],
+      ],
 
-      'create' => array(
+      'create' => [
         'help' => 'Create a new kudos record.',
-        'file' => array(
+        'file' => [
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/kudos_resource',
-        ),
+        ],
         'callback' => '_kudos_resource_create',
-        'args' => array(
-          array(
-            'name' => 'reportback_item_id',
+        'args' => [
+          [
+            'name' => 'reportbackitem_ids',
             'description' => 'The id of reportback item to create kudos record.',
             'optional' => FALSE,
-            'type' => 'int',
-            'source' => array(
+            'type' => 'string',
+            'source' => [
               'data' => 'reportback_item_id',
-            ),
-          ),
-          array(
+            ],
+          ],
+          [
             'name' => 'user_id',
             'description' => 'The ID of the user executing a kudos.',
             'optional' => FALSE,
-            'type' => 'int',
-            'source' => array(
+            'type' => 'string',
+            'source' => [
               'data' => 'user_id',
-            ),
-          ),
-          array(
+            ],
+          ],
+          [
             'name' => 'term_ids',
             'description' => 'An array of kudos term IDs.',
             'optional' => FALSE,
             'type' => 'array',
-            'source' => array(
+            'source' => [
               'data' => 'term_ids',
-            ),
-          ),
-        ),
+            ],
+          ],
+        ],
         'access callback' => '_kudos_resource_access',
-        'access arguments' => array('create'),
-      ),
+        'access arguments' => ['create'],
+      ],
 
-      'delete' => array(
+      'delete' => [
         'help' => 'Delete a kudos record.',
-        'file' => array(
+        'file' => [
           'type' => 'inc',
           'module' => 'dosomething_api',
           'name' => 'resources/kudos_resource',
-        ),
+        ],
         'callback' => '_kudos_resource_delete',
-        'args' => array(
-          array(
+        'args' => [
+          [
             'name' => 'kudos_id',
             'optional' => FALSE,
             'type' => 'int',
-            'source' => array(
+            'source' => [
               'path' => 0,
-            )
-          ),
-        ),
+            ],
+          ],
+        ],
         'access callback' => '_kudos_resource_access',
-        'access arguments' => array('delete'),
-      ),
-    ),
+        'access arguments' => ['delete'],
+      ],
+    ],
 
-  );
+  ];
 
   return $kudos_resource;
 }
@@ -136,40 +144,69 @@ function _kudos_resource_access($op) {
     return TRUE;
   }
 
-  // @TODO add create & delete and check access with user_access().
+  if ($op === 'create' || $op === 'delete') {
+    if (!user_is_anonymous()) {
+      return TRUE;
+    }
+  }
 
   return FALSE;
 }
 
 
-function _kudos_resource_index($reportbackitems) {
-  $parameters = array(
-    'fid' => $reportbackitems,
-  );
-
-  $kudos = new Kudos;
-  return $kudos->index($parameters);
+/**
+ * Retrieve and show response for kudos request.
+ *
+ * @param $id
+ *
+ * @return string
+ */
+function _kudos_resource_retrieve($id) {
+  return (new KudosTransformer)->show($id);
 }
 
 
-function _kudos_resource_retrieve($kid) {
-  return 'retrieving specific request';
+/**
+ * Retrieve and show index list response of kudos requested.
+ * @param $reportbackitems
+ *
+ * @return mixed
+ */
+function _kudos_resource_index($reportbackitems, $count) {
+  $parameters = [
+    'reportbackitem_ids' => $reportbackitems,
+    'count' => $count,
+  ];
+
+  return (new KudosTransformer)->index($parameters);
 }
 
 
+/**
+ * Create a new kudos record.
+ *
+ * @param $reportback_item_id
+ * @param $user_id
+ * @param $term_ids
+ */
 function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
-  $parameters = array(
+  $parameters = [
     'fid' => $reportback_item_id,
     'uid' => $user_id,
     'tids' => $term_ids,
-  );
+  ];
 
-  // Returns ID of newly added kudos record in database table.
-  return dosomething_kudos_create($parameters);
+  return (new KudosTransformer)->create($parameters);
 }
 
 
+/**
+ * Delete the specified kudos record.
+ *
+ * @param $kudos_id
+ *
+ * @return string
+ */
 function _kudos_resource_delete($kudos_id) {
-  // Returns number of rows affected.
-  return dosomething_kudos_delete($kudos_id);
+  return (new KudosTransformer)->delete($kudos_id);
 }

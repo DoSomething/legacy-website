@@ -24,8 +24,7 @@ class Campaign {
    * @param $id
    * @throws Exception
    */
-  public function load($id)
-  {
+  public function load($id) {
     $this->id = $id;
     $this->node = node_load($id);
 

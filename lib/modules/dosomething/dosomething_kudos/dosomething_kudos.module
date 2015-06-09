@@ -4,38 +4,64 @@
  * Module file for DoSomething Kudos functionality.
  */
 
-include_once 'dosomething_kudos.kudos.inc';
+include_once 'includes/Kudos.php';
+include_once 'includes/KudosController.php';
+include_once 'includes/KudosTransformer.php';
 
 
 /**
- * @param $parameters
- * @return array  IDs of newly created records.
- * @throws Exception
+ * @return array
  */
-function dosomething_kudos_create($parameters) {
-  $records = array();
+function dosomething_kudos_entity_info() {
+  $info = [];
+  $info['kudos'] = [
+    'label' => t('Kudos'),
+    'base table' => 'dosomething_kudos',
+    'entity keys' => [
+      'id' => 'kid',
+      'label' => 'kid',
+    ],
+    'entity class' => 'Kudos',
+    'uri callback' => 'entity_class_uri',
+    'controller class' => 'KudosController',
+    'module' => 'dosomething_kudos',
+  ];
 
-  $values = array(
-    'fid' => $parameters['fid'],
-    'uid' => $parameters['uid'],
-  );
-
-  foreach($parameters['tids'] as $id) {
-    $values['tid'] = $id;
-
-    $records[] = db_insert('dosomething_kudos')->fields($values)->execute();
-  }
-
-  return $records;
+  return $info;
 }
 
 
 /**
- * Delete a specified Kudos record.
+ * @param $params
  *
- * @param $kid
- * @return DatabaseStatementInterface
+ * @return EntityFieldQuery
  */
-function dosomething_kudos_delete($kid) {
-  return db_delete('dosomething_kudos')->condition('kid', $kid)->execute();
+function dosomething_kudos_build_kudos_query($params) {
+  // @TODO: implement use of $params for custom queries.
+  // @see dosomething_campaign_get_campaigns_query() as an example.
+
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'kudos');
+
+  return $query;
+}
+
+
+/**
+ * @param array $params
+ * @param null $count
+ * @param int $start
+ *
+ * @return array
+ */
+function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start = 0) {
+  $query = dosomething_kudos_build_kudos_query($params);
+
+  if ($count && is_int($count)) {
+    $query->range($start, $count);
+  }
+
+  $result = $query->execute();
+  return array_keys($result['kudos']);
 }
