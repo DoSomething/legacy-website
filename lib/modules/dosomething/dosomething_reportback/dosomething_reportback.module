@@ -1097,7 +1097,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
-  // Will be empty/false/null? if no kudos on reportback item
+  // @NOTE: Will be empty/false/null? if no kudos on reportback item.
   $query->fields('k', array('kid'));
 
   if (isset($params['random'])) {
@@ -1130,7 +1130,7 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
   if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
-  $result = $query->execute()->fetchAll();
+  $result = $query->execute();
   return $result;
 }
 
