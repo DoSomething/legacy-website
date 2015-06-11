@@ -451,7 +451,7 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
     $vars['reportback_gallery'][$delta]['image'] = dosomething_image_get_themed_image_by_fid($item->fid, $style);
 
     if (isset($item->caption)) {
-      $vars['reportback_gallery'][$delta]['caption'] = check_plain($item->caption);
+      $vars['reportback_gallery'][$delta]['caption'] = filter_xss($item->caption, array());
     }
     $account = user_load($item->uid);
     $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
