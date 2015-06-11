@@ -135,7 +135,7 @@ function build {
 
   # Do the build
   echo 'Running drush make...'
-  drush make --prepare-install --no-gitinfofile --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
+  drush make --prepare-install --no-gitinfofile --shallow-clone --no-cache "$BUILD_MAKEFILE" "$WEB_DIR"
   set +e
 
   # Create symlinks
