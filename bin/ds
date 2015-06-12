@@ -399,6 +399,10 @@ function composer {
     echo -e "\e[4mInstalling composer dependencies for Stripe PHP Library...\e[0m"
     eval "/usr/local/bin/composer install"
 
+    cd $WEB_PATH/profiles/dosomething/libraries/guzzle
+    echo -e "\e[4mInstalling composer dependencies for Guzzle PHP Library...\e[0m"
+    eval "/usr/local/bin/composer install"
+
     cd $BASE_PATH
 
   fi

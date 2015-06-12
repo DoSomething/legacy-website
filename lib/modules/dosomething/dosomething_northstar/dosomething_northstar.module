@@ -29,18 +29,15 @@ function dosomething_northstar_menu() {
   );
   return $items;
 }
+
 /**
  * Implements hook_libraries_info().
  */
 function dosomething_northstar_libraries_info() {
-  $libraries['guzzle-php'] = array(
+  $libraries['guzzle'] = array(
     'name' => 'guzzle',
     'path' => 'vendor',
-    'files' => array(
-      'php' => array(
-        'autoload.php'
-      ),
-    ),
+    'files' => ['php' => ['autoload.php']],
     'version' => 5.0,
   );
   return $libraries;
@@ -125,7 +122,7 @@ function _dosomething_northstar_build_http_client() {
 //     }
 //     $version = NORTHSTAR_VERSION;
 
-//     $library = libraries_load('guzzle-php');
+//     $library = libraries_load('guzzle');
 //     //@TODO: this throws an error, because the above call doesn't load the guzzle.
 //     $client = new GuzzleHttp\Client(array(
 //       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
