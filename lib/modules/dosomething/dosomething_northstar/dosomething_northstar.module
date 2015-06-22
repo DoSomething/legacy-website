@@ -58,6 +58,10 @@ function dosomething_northstar_register_user($form_state) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
   }
 }
+function dosomething_northstar_update_user($form_state) {
+  $user = $form_state['user'];
+  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+}
 
 /**
  * Build a user json object, that's accepted by Northstar.
@@ -73,7 +77,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'first_name'    => $user->field_first_name[LANGUAGE_NONE][0]['value'],
     'birthdate'     => $user->field_birthdate[LANGUAGE_NONE][0]['value'],
     'drupal_id'     => $user->uid,
-    'password'      => $form_state['values']['pass'],
+    'password'      => $form_state['values']['pass'] ?: NULL,
     // Address
     'country'       => $user->field_address[LANGUAGE_NONE][0]['country'],
     'addr_street1'  => $user->field_address[LANGUAGE_NONE][0]['thoroughfare'],
