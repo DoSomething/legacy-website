@@ -43,6 +43,9 @@ function dosomething_northstar_libraries_info() {
   return $libraries;
 }
 
+/**
+ * Send user registration events to northstar.
+ */
 function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
@@ -58,9 +61,16 @@ function dosomething_northstar_register_user($form_state) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
   }
 }
+
+/**
+ * Send user profile updates to northstar.
+ */
 function dosomething_northstar_update_user($form_state) {
   $user = $form_state['user'];
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+
+  $northstar = new Northstar();
+  $northstar->update($ns_user);
 }
 
 /**
@@ -111,36 +121,33 @@ function _dosomething_northstar_build_http_client() {
 
   return $client;
 }
-//@TODO: use this once we can use guzzle.
-// class Northstar {
+class Northstar {
 
-//   public $client;
+  protected $client;
 
-//   public function __construct()
-//   {
+  public function __construct() {
+    $this->client = $library;
+    $base_url = NORTHSTAR_URL;
+    if (getenv('DS_ENVIRONMENT') === 'local') {
+      $base_url .=  ":" . NORTHSTAR_PORT;
+    }
+    $version = NORTHSTAR_VERSION;
 
-//     $this->client = $library;
-//     $base_url = NORTHSTAR_URL;
-//     if (getenv('DS_ENVIRONMENT') === 'local') {
-//       $base_url .=  ":" . NORTHSTAR_PORT;
-//     }
-//     $version = NORTHSTAR_VERSION;
+    $library = libraries_load('guzzle');
 
-//     $library = libraries_load('guzzle');
-//     //@TODO: this throws an error, because the above call doesn't load the guzzle.
-//     $client = new GuzzleHttp\Client(array(
-//       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-//       'defaults' => array(
-//         'headers' => array(
-//           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-//           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-//           'Content-Type' => 'application/json',
-//           'Accept' => 'application/json'
-//           ),
-//         ),
-//     ));
-//     $this->client = $client;
-//   }
+    $client = new GuzzleHttp\Client(array(
+      'base_url' => array($base_url . '/{version}/', array('version' => $version)),
+      'defaults' => array(
+        'headers' => array(
+          'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+          'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
+          ),
+        ),
+    ));
+    $this->client = $client;
+  }
 
 //   public function register($user) {
 //     $client->post('users', array(
@@ -148,4 +155,10 @@ function _dosomething_northstar_build_http_client() {
 //       ));
 //   }
 
-// }
+  public function update($user) {
+    $this->client->post('users', array(
+      'body' => json_encode($user),
+      ));
+  }
+
+}
