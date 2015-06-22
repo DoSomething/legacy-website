@@ -51,6 +51,7 @@ function dosomething_northstar_register_user($form_state) {
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
   // Send that to NS.
+  // @TODO: change this to guzzle.
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
@@ -81,6 +82,7 @@ function dosomething_northstar_update_user($form_state) {
  *
  */
 function dosomething_northstar_build_ns_user($user, $form_state) {
+  // @TODO: only send values if they are there, don't send null values.
   return $ns_user = array(
     'email'         => $user->mail,
     'mobile'        => $user->field_mobile[LANGUAGE_NONE][0]['value'],
