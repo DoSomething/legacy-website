@@ -2,7 +2,7 @@
 
 class Campaign {
 
-  public $node;
+  protected $node;
   protected $variables;
   public $id;
 
@@ -35,48 +35,51 @@ class Campaign {
     if ($this->node && $this->node->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $this->node->title;
-      $this->tagline = $this->getTagline();
-      $this->created_at = $this->node->created;
-      $this->updated_at = $this->node->changed;
-      $this->status = $this->getStatus();
-      $this->type = $this->getType();
-      $this->time_commitment = $this->getTimeCommitment();
 
-      $this->cover_image = [
-        'default' => $this->getCoverImage(),
-        'alternate' => $this->getCoverImageAlt(),
-      ];
+      if ($display === 'full') {
+        $this->tagline = $this->getTagline();
+        $this->created_at = $this->node->created;
+        $this->updated_at = $this->node->changed;
+        $this->status = $this->getStatus();
+        $this->type = $this->getType();
+        $this->time_commitment = $this->getTimeCommitment();
 
-      $this->scholarship = $this->getScholarship();
-      $this->staff_pick = $this->getStaffPickStatus();
+        $this->cover_image = [
+          'default' => $this->getCoverImage(),
+          'alternate' => $this->getCoverImageAlt(),
+        ];
 
-      $fact_data = $this->getFactData();
-      $this->facts = [
-        'problem' => $fact_data['fact_problem'],
-        'solution' => $fact_data['fact_solution'],
-        'sources' => $fact_data['sources'],
-      ];
+        $this->scholarship = $this->getScholarship();
+        $this->staff_pick = $this->getStaffPickStatus();
 
-      $solution_data = $this->getSolutionData();
-      $this->solutions = $solution_data;
+        $fact_data = $this->getFactData();
+        $this->facts = [
+          'problem' => $fact_data['fact_problem'],
+          'solution' => $fact_data['fact_solution'],
+          'sources' => $fact_data['sources'],
+        ];
 
-      $cause_data = $this->getCauses();
-      $this->causes = [
-        'primary' => $cause_data['primary'],
-        'secondary' => $cause_data['secondary'],
-      ];
+        $solution_data = $this->getSolutionData();
+        $this->solutions = $solution_data;
 
-      $action_types_data = $this->getActionTypes();
-      $this->action_types = [
-        'primary' => $action_types_data['primary'],
-        'secondary' => $action_types_data['secondary'],
-      ];
+        $cause_data = $this->getCauses();
+        $this->causes = [
+          'primary' => $cause_data['primary'],
+          'secondary' => $cause_data['secondary'],
+        ];
 
-      $this->issue = $this->getIssue();
-      $this->tags = $this->getTags();
+        $action_types_data = $this->getActionTypes();
+        $this->action_types = [
+          'primary' => $action_types_data['primary'],
+          'secondary' => $action_types_data['secondary'],
+        ];
 
-      $timing = $this->getTiming();
-      $this->timing = $timing;
+        $this->issue = $this->getIssue();
+        $this->tags = $this->getTags();
+
+        $timing = $this->getTiming();
+        $this->timing = $timing;
+      }
 
       $reportback_info = $this->getReportbackInfo();
       $this->reportback_info = [
