@@ -51,14 +51,9 @@ function dosomething_northstar_register_user($form_state) {
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
   // Send that to NS.
-  // @TODO: change this to guzzle.
-  $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users', array(
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($ns_user),
-    ));
-  if ($response->code == '200' && module_exists('stathat')) {
+  $northstar = new Northstar();
+  $response = $northstar->updateUser($ns_user);
+  if ($response->getStatusCode() == '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
   }
 }
@@ -71,7 +66,7 @@ function dosomething_northstar_update_user($form_state) {
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
 
   $northstar = new Northstar();
-  $response = $northstar->update($ns_user);
+  $response = $northstar->updateUser($ns_user);
   if ($response->getStatusCode() == '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
@@ -181,13 +176,7 @@ class Northstar {
     $this->client = $client;
   }
 
-//   public function register($user) {
-//     $client->post('users', array(
-//       'body' => json_encode($user),
-//       ));
-//   }
-
-  public function update($user) {
+  public function updateUser($user) {
     $response = $this->client->post('users', array(
       'body' => json_encode($user),
       ));
