@@ -9,12 +9,14 @@ class Campaign {
 
   /**
    * @param $id
+   * @param $display
+   *
    * @return static
    * @throws Exception
    */
-  public static function get($id) {
+  public static function get($id, $display = 'teaser') {
     $campaign = new static();
-    $campaign->load($id);
+    $campaign->load($id, $display);
 
     return $campaign;
   }
@@ -22,9 +24,11 @@ class Campaign {
 
   /**
    * @param $id
+   * @param $display
+   *
    * @throws Exception
    */
-  public function load($id) {
+  public function load($id, $display = 'teaser') {
     $this->id = $id;
     $this->node = node_load($id);
 
@@ -109,7 +113,7 @@ class Campaign {
     if ($secondary_action_type_ids) {
       $secondary_action_types = array();
 
-      foreach($secondary_action_type_ids as $tid) {
+      foreach((array) $secondary_action_type_ids as $tid) {
         $secondary_action_types[] = $this->getTaxonomyTerm($tid);
       }
 
