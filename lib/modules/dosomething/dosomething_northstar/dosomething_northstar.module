@@ -43,19 +43,32 @@ function dosomething_northstar_libraries_info() {
   return $libraries;
 }
 
+/**
+ * Send user registration events to northstar.
+ */
 function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
   // Send that to NS.
-  $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users', array(
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($ns_user),
-    ));
-  if ($response->code == '200' && module_exists('stathat')) {
+  $northstar = new Northstar();
+  $response = $northstar->updateUser($ns_user);
+  if ($response->getStatusCode() == '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
+  }
+}
+
+/**
+ * Send user profile updates to northstar.
+ */
+function dosomething_northstar_update_user($form_state) {
+  $user = $form_state['user'];
+  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+
+  $northstar = new Northstar();
+  $response = $northstar->updateUser($ns_user);
+  if ($response->getStatusCode() == '200' && module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
 }
 
@@ -67,81 +80,85 @@ function dosomething_northstar_register_user($form_state) {
  *
  */
 function dosomething_northstar_build_ns_user($user, $form_state) {
-  return $ns_user = array(
+  // Optional fields
+  $optional = [
+    'mobile' => 'field_mobile',
+    'birthdate' => 'field_birthdate',
+    'first_name' => 'field_first_name',
+  ];
+
+  // Address fields
+  $address = [
+    'country' => 'country',
+    'addr_street1' => 'thoroughfare',
+    'addr_street2' => 'premise',
+    'addr_city' => 'locality',
+    'addr_state' => 'administrative_area',
+    'addr_zip' => 'postal_code',
+  ];
+
+  $ns_user = [
     'email'         => $user->mail,
-    'mobile'        => $user->field_mobile[LANGUAGE_NONE][0]['value'],
-    'first_name'    => $user->field_first_name[LANGUAGE_NONE][0]['value'],
-    'birthdate'     => $user->field_birthdate[LANGUAGE_NONE][0]['value'],
     'drupal_id'     => $user->uid,
-    'password'      => $form_state['values']['pass'],
-    // Address
-    'country'       => $user->field_address[LANGUAGE_NONE][0]['country'],
-    'addr_street1'  => $user->field_address[LANGUAGE_NONE][0]['thoroughfare'],
-    'addr_street2'  => $user->field_address[LANGUAGE_NONE][0]['premise'],
-    'addr_city'     => $user->field_address[LANGUAGE_NONE][0]['locality'],
-    'addr_state'    => $user->field_address[LANGUAGE_NONE][0]['administrative_area'],
-    'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
-  );
+  ];
+
+  // Set values in ns_user if they are set.
+  foreach ($optional as $ns_key => $drupal_key) {
+   $field = $user->$drupal_key;
+    if (isset($field[LANGUAGE_NONE][0]['value'])) {
+      $ns_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  foreach ($address as $ns_key => $drupal_key) {
+    $field = $user->field_address[LANGUAGE_NONE][0];
+    if (isset($field[$drupal_key]['value'])) {
+      $ns_user[$ns_key] = $field[$drupal_key]['value'];
+    }
+  }
+
+  // Don't send blank passwords from the user update screen.
+  if (!empty($form_state['values']['pass'])) {
+    $ns_user['password'] = $form_state['values']['pass'];
+  }
+
+  // Return fully built northstar user object.
+  return $ns_user;
 }
 
-/**
- * Build the drupal_http_request object for nothstar calls.
- * This will be depricated once guzzle is introduced.
- */
-function _dosomething_northstar_build_http_client() {
-  $base_url = NORTHSTAR_URL;
-  if (getenv('DS_ENVIRONMENT') === 'local') {
+
+class Northstar {
+
+  protected $client;
+
+  public function __construct() {
+
+    $base_url = NORTHSTAR_URL;
+    if (getenv('DS_ENVIRONMENT') === 'local') {
       $base_url .=  ":" . NORTHSTAR_PORT;
     }
-  $base_url .= '/' . NORTHSTAR_VERSION;
+    $version = NORTHSTAR_VERSION;
 
-  $client = array(
-    'base_url' => $base_url,
-    'headers' => array(
-      'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
-      ),
-    );
+    if (libraries_load('guzzle') == TRUE) {
+      $client = new GuzzleHttp\Client(array(
+        'base_url' => array($base_url . '/{version}/', array('version' => $version)),
+        'defaults' => array(
+          'headers' => array(
+            'X-DS-Application-Id' => NORTHSTAR_APP_ID,
+            'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+            ),
+          ),
+      ));
+      $this->client = $client;
+    }
+  }
 
-  return $client;
+  public function updateUser($user) {
+    $response = $this->client->post('users', array(
+      'body' => json_encode($user),
+      ));
+    return $response;
+  }
+
 }
-//@TODO: use this once we can use guzzle.
-// class Northstar {
-
-//   public $client;
-
-//   public function __construct()
-//   {
-
-//     $this->client = $library;
-//     $base_url = NORTHSTAR_URL;
-//     if (getenv('DS_ENVIRONMENT') === 'local') {
-//       $base_url .=  ":" . NORTHSTAR_PORT;
-//     }
-//     $version = NORTHSTAR_VERSION;
-
-//     $library = libraries_load('guzzle');
-//     //@TODO: this throws an error, because the above call doesn't load the guzzle.
-//     $client = new GuzzleHttp\Client(array(
-//       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-//       'defaults' => array(
-//         'headers' => array(
-//           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-//           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-//           'Content-Type' => 'application/json',
-//           'Accept' => 'application/json'
-//           ),
-//         ),
-//     ));
-//     $this->client = $client;
-//   }
-
-//   public function register($user) {
-//     $client->post('users', array(
-//       'body' => json_encode($user),
-//       ));
-//   }
-
-// }

@@ -247,6 +247,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         // Add campaign data, if needed.
         _dosomething_user_add_signup_data($form);
       }
+      else {
+        $form['#submit'][] = 'dosomething_user_update_user';
+      }
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
@@ -414,6 +417,15 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
       }
     }
   }
+}
+
+/**
+ *
+ */
+function dosomething_user_update_user($form, &$form_state) {
+  if (!module_exists('dosomething_northstar')) { return; }
+  // Forward user updates into Northstar.
+  dosomething_northstar_update_user($form_state);
 }
 
 /**
