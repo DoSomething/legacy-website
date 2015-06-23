@@ -9,12 +9,14 @@ class Campaign {
 
   /**
    * @param $id
+   * @param $display
+   *
    * @return static
    * @throws Exception
    */
-  public static function get($id) {
+  public static function get($id, $display = 'teaser') {
     $campaign = new static();
-    $campaign->load($id);
+    $campaign->load($id, $display);
 
     return $campaign;
   }
@@ -22,54 +24,56 @@ class Campaign {
 
   /**
    * @param $id
+   * @param $display
+   *
    * @throws Exception
    */
-  public function load($id) {
+  public function load($id, $display = 'teaser') {
     $this->id = $id;
     $this->node = node_load($id);
 
     if ($this->node && $this->node->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $this->node->title;
-      $this->tagline = $this->getTagline();
-      $this->created_at = $this->node->created;
-      $this->updated_at = $this->node->changed;
-      $this->status = $this->getStatus();
-      $this->type = $this->getType();
-      $this->time_commitment = $this->getTimeCommitment();
 
-      $this->cover_image = [
-        'default' => $this->getCoverImage(),
-        'alternate' => $this->getCoverImageAlt(),
-      ];
+      if ($display === 'full') {
+        $this->tagline = $this->getTagline();
+        $this->created_at = $this->node->created;
+        $this->updated_at = $this->node->changed;
+        $this->status = $this->getStatus();
+        $this->type = $this->getType();
+        $this->time_commitment = $this->getTimeCommitment();
 
-      $this->scholarship = $this->getScholarship();
-      $this->staff_pick = $this->getStaffPickStatus();
+        $this->cover_image = [
+          'default' => $this->getCoverImage(),
+          'alternate' => $this->getCoverImageAlt(),
+        ];
 
-      $fact_data = $this->getFactData();
-      $this->facts = [
-        'problem' => $fact_data['fact_problem'],
-        'solution' => $fact_data['fact_solution'],
-        'sources' => $fact_data['sources'],
-      ];
+        $this->scholarship = $this->getScholarship();
+        $this->staff_pick = $this->getStaffPickStatus();
 
-      $solution_data = $this->getSolutionData();
-      $this->solutions = $solution_data;
+        $fact_data = $this->getFactData();
+        $this->facts = [
+          'problem' => $fact_data['fact_problem'],
+          'solution' => $fact_data['fact_solution'],
+          'sources' => $fact_data['sources'],
+        ];
 
-      $cause_data = $this->getCauses();
-      $this->causes = [
-        'primary' => $cause_data['primary'],
-        'secondary' => $cause_data['secondary'],
-      ];
+        $solution_data = $this->getSolutionData();
+        $this->solutions = $solution_data;
 
-      $action_types_data = $this->getActionTypes();
-      $this->action_types = [
-        'primary' => $action_types_data['primary'],
-        'secondary' => $action_types_data['secondary'],
-      ];
+        $this->causes = $this->getCauses();
 
-      $this->issue = $this->getIssue();
-      $this->tags = $this->getTags();
+        $this->action_types = $this->getActionTypes();
+
+        $this->issue = $this->getIssue();
+        $this->tags = $this->getTags();
+
+        $timing = $this->getTiming();
+        $this->timing = $timing;
+      }
+
+      $this->reportback_info = $this->getReportbackInfo();
     }
     else {
       throw new Exception('Campaign does not exist!');
@@ -98,7 +102,7 @@ class Campaign {
     if ($secondary_action_type_ids) {
       $secondary_action_types = array();
 
-      foreach($secondary_action_type_ids as $tid) {
+      foreach((array) $secondary_action_type_ids as $tid) {
         $secondary_action_types[] = $this->getTaxonomyTerm($tid);
       }
 
@@ -237,8 +241,6 @@ class Campaign {
         $data['sources'][$index]['formatted'] = $source;
       }
 
-
-
       return $data;
     }
 
@@ -263,6 +265,43 @@ class Campaign {
     }
 
     return NULL;
+  }
+
+
+  /**
+   * Get Reportback content info used in the campaign.
+   *
+   * @ return array
+   */
+  protected function getReportbackInfo() {
+    $data = [];
+    $data['copy'] = NULL;
+    $data['confirmation_message'] = NULL;
+    $data['noun'] = NULL;
+    $data['verb'] = NULL;
+
+    $copy = dosomething_helpers_extract_field_data($this->node->field_reportback_copy);
+    $confirmation_message = dosomething_helpers_extract_field_data($this->node->field_reportback_confirm_msg);
+    $noun = dosomething_helpers_extract_field_data($this->node->field_reportback_noun);
+    $verb = dosomething_helpers_extract_field_data($this->node->field_reportback_verb);
+
+    if ($copy) {
+      $data['copy'] = $copy;
+    }
+
+    if ($confirmation_message) {
+      $data['confirmation_message'] = $confirmation_message;
+    }
+
+    if ($noun) {
+      $data['noun'] = $noun;
+    }
+
+    if ($verb) {
+      $data['verb'] = $verb;
+    }
+
+    return $data;
   }
 
 
@@ -324,6 +363,32 @@ class Campaign {
   protected function getTimeCommitment() {
     // @TODO: I've renamed "active_hours" to "time_commitment" because it sounds more straightforward; but appreciate feedback.
     return (float) dosomething_helpers_extract_field_data($this->node->field_active_hours);
+  }
+
+
+  /**
+   * Get the timing for high and low seasons for campaign if available.
+   * Dates formatted as ISO-8601 datetime.
+   *
+   * @return array
+   */
+  protected function getTiming() {
+    $timezone = new DateTimeZone('UTC');
+
+    $timing = [];
+    $timing['high_season'] = dosomething_helpers_extract_field_data($this->node->field_high_season);
+    $timing['low_season'] = dosomething_helpers_extract_field_data($this->node->field_low_season);
+
+    foreach ($timing as $season => $dates) {
+      if ($timing[$season]) {
+        foreach ($timing[$season] as $key => $date) {
+          $date = new DateTime($date, $timezone);
+          $timing[$season][$key] = $date->format(DateTime::ISO8601);
+        }
+      }
+    }
+
+    return $timing;
   }
 
 

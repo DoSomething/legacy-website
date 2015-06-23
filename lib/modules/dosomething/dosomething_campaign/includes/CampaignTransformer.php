@@ -37,7 +37,7 @@ class CampaignTransformer extends Transformer {
 
     $campaigns = [];
     foreach ($query as $item) {
-      $campaigns[] = Campaign::get($item->nid);
+      $campaigns[] = Campaign::get($item->nid, 'full');
     }
     $campaigns = services_resource_build_index_list($campaigns, 'campaigns', 'id');
     $total = dosomething_campaign_get_campaign_query_count($filters);
@@ -60,7 +60,7 @@ class CampaignTransformer extends Transformer {
     $params['nid'] = $id;
 
     try {
-      $campaign = Campaign::get($id);
+      $campaign = Campaign::get($id, 'full');
     }
     catch (Exception $error) {
       return array(
