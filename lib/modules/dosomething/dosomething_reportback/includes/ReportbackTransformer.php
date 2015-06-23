@@ -102,7 +102,7 @@ class ReportbackTransformer extends Transformer {
 
     $data += $this->transformReportback($reportback);
 
-    $data['campaign'] = $this->transformCampaign($reportback);
+    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
 
     $data['user'] = $this->transformUser($reportback);
 

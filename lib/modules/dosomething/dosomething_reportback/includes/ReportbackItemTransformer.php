@@ -80,7 +80,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
     $data['reportback'] = $this->transformReportback($item);
 
-    $data['campaign'] = $this->transformCampaign($item);
+    $data['campaign'] = $this->transformCampaign(Campaign::get($item->nid));
 
     $data['user'] = $this->transformUser($item);
 

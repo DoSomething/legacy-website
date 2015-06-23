@@ -2,7 +2,7 @@
 
 class Campaign {
 
-  protected $node;
+  public $node;
   protected $variables;
   public $id;
 
@@ -70,6 +70,17 @@ class Campaign {
 
       $this->issue = $this->getIssue();
       $this->tags = $this->getTags();
+
+      $timing = $this->getTiming();
+      $this->timing = $timing;
+
+      $reportback_info = $this->getReportbackInfo();
+      $this->reportback_info = [
+        'copy' => $reportback_info['copy'],
+        'confirmation_message' => $reportback_info['confirmation_message'],
+        'noun' => $reportback_info['noun'],
+        'verb' => $reportback_info['verb'],
+      ];
     }
     else {
       throw new Exception('Campaign does not exist!');
@@ -267,6 +278,43 @@ class Campaign {
 
 
   /**
+   * Get Reportback content info used in the campaign.
+   *
+   * @ return array
+   */
+  protected function getReportbackInfo() {
+    $data = [];
+    $data['copy'] = NULL;
+    $data['confirmation_message'] = NULL;
+    $data['noun'] = NULL;
+    $data['verb'] = NULL;
+
+    $copy = dosomething_helpers_extract_field_data($this->node->field_reportback_copy);
+    $confirmation_message = dosomething_helpers_extract_field_data($this->node->field_reportback_confirm_msg);
+    $noun = dosomething_helpers_extract_field_data($this->node->field_reportback_noun);
+    $verb = dosomething_helpers_extract_field_data($this->node->field_reportback_verb);
+
+    if ($copy) {
+      $data['copy'] = $copy;
+    }
+
+    if ($confirmation_message) {
+      $data['confirmation_message'] = $confirmation_message;
+    }
+
+    if ($noun) {
+      $data['noun'] = $noun;
+    }
+
+    if ($verb) {
+      $data['verb'] = $verb;
+    }
+
+    return $data;
+  }
+
+
+  /**
    * Get Tags assigned to campaign if available.
    *
    * @return array|null
@@ -324,6 +372,32 @@ class Campaign {
   protected function getTimeCommitment() {
     // @TODO: I've renamed "active_hours" to "time_commitment" because it sounds more straightforward; but appreciate feedback.
     return (float) dosomething_helpers_extract_field_data($this->node->field_active_hours);
+  }
+
+
+  /**
+   * Get the timing for high and low seasons for campaign if available.
+   * Dates formatted as ISO-8601 datetime.
+   *
+   * @return array
+   */
+  protected function getTiming() {
+    $timezone = new DateTimeZone('UTC');
+
+    $timing = [];
+    $timing['high_season'] = dosomething_helpers_extract_field_data($this->node->field_high_season);
+    $timing['low_season'] = dosomething_helpers_extract_field_data($this->node->field_low_season);
+
+    foreach ($timing as $season => $dates) {
+      if ($timing[$season]) {
+        foreach ($timing[$season] as $key => $date) {
+          $date = new DateTime($date, $timezone);
+          $timing[$season][$key] = $date->format(DateTime::ISO8601);
+        }
+      }
+    }
+
+    return $timing;
   }
 
 
