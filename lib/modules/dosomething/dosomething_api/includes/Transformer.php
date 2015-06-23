@@ -238,7 +238,8 @@ abstract class Transformer {
       'title' => $data->title,
     );
 
-
+    // If an instance of Campaign class, then there is much
+    // more information that can be obtained.
     if ($data instanceof Campaign) {
 
       if (isset($data->tagline)) {
