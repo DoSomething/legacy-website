@@ -82,22 +82,45 @@ function dosomething_northstar_update_user($form_state) {
  *
  */
 function dosomething_northstar_build_ns_user($user, $form_state) {
-  // @TODO: only send values if they are there, don't send null values.
-  return $ns_user = array(
+  // Optional fields
+  $optional = [
+    'mobile' => 'field_mobile',
+    'birthdate' => 'field_birthdate',
+    'first_name' => 'field_first_name',
+  ];
+
+  // Address fields
+  $address = [
+    'country' => 'country',
+    'addr_street1' => 'thoroughfare',
+    'addr_street2' => 'premise',
+    'addr_city' => 'locality',
+    'addr_state' => 'administrative_area',
+    'addr_zip' => 'postal_code',
+  ];
+
+  $ns_user = [
     'email'         => $user->mail,
-    'mobile'        => $user->field_mobile[LANGUAGE_NONE][0]['value'],
-    'first_name'    => $user->field_first_name[LANGUAGE_NONE][0]['value'],
-    'birthdate'     => $user->field_birthdate[LANGUAGE_NONE][0]['value'],
     'drupal_id'     => $user->uid,
     'password'      => $form_state['values']['pass'] ?: NULL,
-    // Address
-    'country'       => $user->field_address[LANGUAGE_NONE][0]['country'],
-    'addr_street1'  => $user->field_address[LANGUAGE_NONE][0]['thoroughfare'],
-    'addr_street2'  => $user->field_address[LANGUAGE_NONE][0]['premise'],
-    'addr_city'     => $user->field_address[LANGUAGE_NONE][0]['locality'],
-    'addr_state'    => $user->field_address[LANGUAGE_NONE][0]['administrative_area'],
-    'addr_zip'      => $user->field_address[LANGUAGE_NONE][0]['postal_code'],
-  );
+  ];
+
+  // Set values in ns_user if they are set.
+  foreach ($optional as $ns_key => $drupal_key) {
+   $field = $user->$drupal_key;
+    if (isset($field[LANGUAGE_NONE][0]['value'])) {
+      $ns_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  foreach ($address as $ns_key => $drupal_key) {
+    $field = $user->field_address[LANGUAGE_NONE][0];
+    if (isset($field[$drupal_key]['value'])) {
+      $ns_user[$ns_key] = $field[$drupal_key]['value'];
+    }
+  }
+
+  // Return fully built northstar user object.
+  return $ns_user;
 }
 
 /**
