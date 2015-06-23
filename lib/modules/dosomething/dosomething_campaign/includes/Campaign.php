@@ -62,17 +62,9 @@ class Campaign {
         $solution_data = $this->getSolutionData();
         $this->solutions = $solution_data;
 
-        $cause_data = $this->getCauses();
-        $this->causes = [
-          'primary' => $cause_data['primary'],
-          'secondary' => $cause_data['secondary'],
-        ];
+        $this->causes = $this->getCauses();
 
-        $action_types_data = $this->getActionTypes();
-        $this->action_types = [
-          'primary' => $action_types_data['primary'],
-          'secondary' => $action_types_data['secondary'],
-        ];
+        $this->action_types = $this->getActionTypes();
 
         $this->issue = $this->getIssue();
         $this->tags = $this->getTags();
@@ -81,13 +73,7 @@ class Campaign {
         $this->timing = $timing;
       }
 
-      $reportback_info = $this->getReportbackInfo();
-      $this->reportback_info = [
-        'copy' => $reportback_info['copy'],
-        'confirmation_message' => $reportback_info['confirmation_message'],
-        'noun' => $reportback_info['noun'],
-        'verb' => $reportback_info['verb'],
-      ];
+      $this->reportback_info = $this->getReportbackInfo();
     }
     else {
       throw new Exception('Campaign does not exist!');
@@ -254,8 +240,6 @@ class Campaign {
       foreach ($sources as $index => $source) {
         $data['sources'][$index]['formatted'] = $source;
       }
-
-
 
       return $data;
     }
