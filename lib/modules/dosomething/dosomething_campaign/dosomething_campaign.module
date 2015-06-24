@@ -4,6 +4,8 @@
  * Code for the dosomething_campaign feature.
  */
 
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 include_once 'dosomething_campaign.features.inc';
 include_once 'dosomething_campaign.helpers.inc';
 include_once 'includes/Campaign.php';
