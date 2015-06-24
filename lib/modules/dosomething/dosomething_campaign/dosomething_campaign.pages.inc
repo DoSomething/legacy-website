@@ -18,7 +18,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   $clc = dosomething_helpers_get_current_language_content_code();
 
   // Initialize $vars to pass to the reportback_confirmation theme function.
-  $vars = array(
+  $vars = [
     'back_to_campaign_link' => NULL,
     'call_to_action' => NULL,
     'copy' => $node->field_reportback_confirm_msg[$clc][0]['value'],
@@ -26,7 +26,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     'page_title' => NULL,
     'recommended' => NULL,
     'redeem_form' => NULL,
-  );
+  ];
   // Image size to pass to campaign block.
   $image_size = '740x480';
   // Signup source to pass to campaign block.
@@ -43,10 +43,10 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   else {
     $button_text = t(variable_get('dosomething_campaign_confirmation_page_button_text'));
     // Set button to link to /campaigns.
-    $vars['more_campaigns_link'] = l($button_text, 'campaigns', array(
-      'attributes' => array('class' =>
-        array('button')
-      ))
+    $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', [
+      'attributes' => ['class' =>
+        ['button']
+      ]]
     );
     if (module_exists('dosomething_reward')) {
       // If a reportback count reward exists:
@@ -63,15 +63,15 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   }
 
   // Link back to current node.
-  $campaign_link_title = t('Back to @title', array('@title' => $node->title));
-  $vars['back_to_campaign_link'] = l($campaign_link_title, 'node/' . $node->nid, array('html' => TRUE));
+  $campaign_link_title = t('Back to @title', ['@title' => $node->title]);
+  $vars['back_to_campaign_link'] = l($campaign_link_title, 'node/' . $node->nid, ['html' => TRUE]);
 
   // Store current node's primary cause tid.
   $tid = $wrapper->field_primary_cause->getIdentifier();
   // Get 4 recommended campaign nids for term $tid and current user.
   $rec_nids = dosomething_campaign_get_recommended_campaign_nids($tid, NULL, 4);
   // Initalize array to store reccomended campaign vars.
-  $rec_vars = array();
+  $rec_vars = [];
   // Loop through rec_nids to load relevant variables.
   foreach ($rec_nids as $nid) {
     // Make sure $nid returned isn't the current $node's $nid.
@@ -90,4 +90,40 @@ function dosomething_campaign_reportback_confirmation_page($node) {
 
   // Returned themed reportback confirmation page.
   return theme('reportback_confirmation', $vars);
+}
+
+
+
+/**
+ * Page callback for the user reportback confirmation page.
+ *
+ * @param object $node
+ *   The loaded campaign node.
+ *
+ * @return string
+ *   Rendered HTML.
+ */
+function dosomething_campaign_gallery_page($node) {
+  $campaign = Campaign::get($node->nid, 'full');
+
+  $vars = [
+    'page_title' => drupal_get_title(),
+    'campaign' => $campaign,
+    'nid' => $campaign->id,
+    'title' => $campaign->title,
+    'tagline' => $campaign->tagline,
+    'cover_image' => $campaign->cover_image['default']['sizes']['landscape']['uri']
+  ];
+
+  // Set the number of files to display in initial gallery.
+  $vars['reportbacks_gallery']['desired_count'] = 6;
+
+  // Adds themed Reportback Files.
+  paraneue_dosomething_preprocess_reportback_gallery($vars);
+
+  // Back to campaign
+  $campaign_link_title = t('Back to @title', ['@title' => $node->title]);
+  $vars['back_to_campaign_link'] = l($campaign_link_title, 'node/' . $node->nid, ['html' => TRUE]);
+
+  return theme('campaign_gallery', $vars);
 }

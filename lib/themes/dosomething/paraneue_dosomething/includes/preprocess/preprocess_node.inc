@@ -212,7 +212,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
 
 
   // Promoted Reportbacks:
-  $reportbacks_gallery['items'] = paraneue_dosomething_get_themed_reportbacks_by_status($vars['nid'], 'promoted', $desired_count, TRUE);
+  $reportbacks_gallery['items'] = paraneue_dosomething_get_themed_reportbacks_by_status($vars['nid'], 'promoted', $desired_count);
   $reportbacks_gallery['total_promoted'] = count($reportbacks_gallery['items']);
 
   // Approved Reportbacks:
