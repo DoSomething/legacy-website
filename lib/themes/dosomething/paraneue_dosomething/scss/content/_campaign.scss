@@ -2,6 +2,17 @@
   position: relative;
 }
 
+.container--campaign-gallery {
+  background: $yellow;
+
+  .gallery--extended > li {
+    width: 50%;
+  }
+
+  .photo .__copy {
+    height: 90px;
+  }
+}
 
 // Page Specific Components
 .campaign--action .container--prove,

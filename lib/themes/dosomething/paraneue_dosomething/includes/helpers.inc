@@ -331,7 +331,7 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
 
   $reportback_results = dosomething_reportback_get_reportback_items_query($params);
 
-  $admin_access = user_access('view any reportback');
+  $admin_access = false;
 
   foreach ($reportback_results as $reportback) {
     // @Todo: DRY. Potentially grab this data from the API endpoint to truly DRY?

@@ -228,7 +228,6 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   // # Approved Reportbacks:
   $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'approved']);
 
-
   // # Build the full initial gallery:
 
   // Collect Reportbacks to fulfill desired amount.

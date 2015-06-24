@@ -96,6 +96,15 @@ function dosomething_campaign_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 60,
   );
+  // Gallery page.
+  $items['node/%node/gallery'] = array(
+    'title' => 'Gallery',
+    'page callback' => 'dosomething_campaign_gallery_page',
+    'file' => 'dosomething_campaign.pages.inc',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'weight' => 60,
+  );
   // Enables preview of campaign's active state.
   $items['node/%node/active'] = array(
     'title' => 'Active',
@@ -631,6 +640,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
   return array(
     'reportback_confirmation' => array(
       'template' => 'reportback-confirmation',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+    ),
+    'campaign_gallery' => array(
+      'template' => 'campaign-gallery',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
     ),
     'campaign_block' => array(
