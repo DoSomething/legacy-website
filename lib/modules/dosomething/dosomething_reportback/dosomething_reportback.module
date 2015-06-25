@@ -1130,7 +1130,7 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
   if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
-  $result = $query->execute();
+  $result = $query->execute()->fetchAll();
   return $result;
 }
 
