@@ -32,7 +32,7 @@ function dosomething_northstar_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Northstar API version number'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_northstar_version', '1'),
+    '#default_value' => variable_get('dosomething_northstar_version', 'v1'),
   );
   $form['northstar']['dosomething_northstar_app_id'] = array(
     '#type' => 'textfield',
