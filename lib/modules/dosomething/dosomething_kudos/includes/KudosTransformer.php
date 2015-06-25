@@ -28,6 +28,8 @@ class KudosTransformer extends Transformer {
       $kudos[] = Kudos::get($id);
     }
 
+//    die(print_r($kudos));
+
     return [
       'data' => $this->transformCollection($kudos),
     ];
@@ -129,13 +131,7 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   protected function transform($kudos) {
-    $data = [];
-
-    $data['reportback_item'] = $kudos->reportback_item;
-
-    $data['user'] = $this->transformUser($kudos->user);
-
-    return $data;
+    return $kudos;
   }
 
 }
