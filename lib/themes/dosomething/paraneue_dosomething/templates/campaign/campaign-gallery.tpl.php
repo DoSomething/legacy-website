@@ -2,7 +2,7 @@
   <div class="wrapper">
     <h1 class="header__title"><?php print $title ?></h1>
     <p class="header__subtitle"><?php print $tagline ?></p>
-    <p class="header__actions"><a class="button" href="#">Sign Up</a></p>
+    <p class="header__actions"><a class="button" href="#" data-modal-href="#modal--register">Sign Up</a></p>
   </div>
 </header>
 
@@ -34,6 +34,6 @@
       <h2 class="cta__message"><?php print $tagline; ?></h2>
     <?php endif; ?>
 
-    <p><span class="button">Sign Up</span></p>
+    <p><a class="button" href="#" data-modal-href="#modal--register">Sign Up</a></p>
   </div>
 </div>

@@ -36,6 +36,14 @@
         font-size: $font-medium;
       }
 
+      .footnote {
+        font-size: $font-small;
+      }
+
+      .form-actions {
+        margin-top: 6px;
+      }
+
       @include media($large) {
         font-size: $font-small;
       }

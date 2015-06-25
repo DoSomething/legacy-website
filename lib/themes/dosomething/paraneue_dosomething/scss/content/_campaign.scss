@@ -5,12 +5,30 @@
 .container--campaign-gallery {
   background: $yellow;
 
+  .gallery--reportback > li {
+    width: 100% !important;
+    margin-bottom: $base-spacing;
+
+    @include media($medium) {
+      width: 50% !important;
+      margin-bottom: 0;
+    }
+  }
+
   .gallery--extended > li {
-    width: 50%;
+    width: 100% !important;
+
+    @include media($medium) {
+      width: 50% !important;
+    }
   }
 
   .photo .__copy {
-    height: 90px;
+    height: auto;
+
+    @include media($medium) {
+      height: 60px;
+    }
   }
 }
 

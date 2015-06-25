@@ -104,7 +104,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
  *   Rendered HTML.
  */
 function dosomething_campaign_gallery_page($node) {
-  $campaign = Campaign::get($node->nid, 'full');
+  $campaign = Campaign::get($node->nid, 'full')[0];
 
   $vars = [
     'page_title' => drupal_get_title(),

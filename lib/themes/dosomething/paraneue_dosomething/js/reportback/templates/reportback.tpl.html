@@ -9,13 +9,15 @@
   <figcaption class="__copy">
     <p class="photo__caption"><%= caption %></p>
     <div class="footnote">Masuk High School</div>
-    <div class="form-actions -inline">
-      <li><a class="button -mini js-kudos-like-button">Eat it!</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
-      <li><a class="button -mini js-kudos-trash-button">Toss it!</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
+  </figcaption>
+  <div class="form-actions -inline photo--actions">
+    <li><a class="button -mini js-kudos-like-button">Eat it!</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
+    <li><a class="button -mini js-kudos-trash-button">Toss it!</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
+    <ul class="photo--shares">
       <li><a class="social-icon -facebook -secondary"><span>Facebook</span></a></li>
       <li><a class="social-icon -twitter -secondary"><span>Twitter</span></a></li>
       <li><a class="social-icon -tumblr -secondary"><span>Tumblr</span></a></li>
-    </div>
-  </figcaption>
+    </ul>
+  </div>
 </figure>
 <% if (isListItem) { %></li><% } %>
