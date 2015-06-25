@@ -129,13 +129,7 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   protected function transform($kudos) {
-    $data = [];
-
-    $data['reportback_item'] = $kudos->reportback_item;
-
-    $data['user'] = $this->transformUser($kudos->user);
-
-    return $data;
+    return $kudos;
   }
 
 }
