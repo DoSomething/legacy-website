@@ -64,7 +64,7 @@ function dosomething_user_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -149,6 +149,40 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_job_title'
+  $field_instances['user-user-field_job_title'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_job_title',
+    'label' => 'Job Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_last_name'
   $field_instances['user-user-field_last_name'] = array(
     'bundle' => 'user',
@@ -213,7 +247,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -250,7 +284,7 @@ function dosomething_user_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 41,
+      'weight' => 16,
     ),
   );
 
@@ -287,7 +321,7 @@ function dosomething_user_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 42,
+      'weight' => 17,
     ),
   );
 
@@ -326,7 +360,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -360,7 +394,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 18,
     ),
   );
 
@@ -397,7 +431,7 @@ function dosomething_user_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -431,7 +465,7 @@ function dosomething_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -441,6 +475,7 @@ function dosomething_user_field_default_field_instances() {
   t('Birthday');
   t('Cell #');
   t('First Name');
+  t('Job Title');
   t('Last Name');
   t('Partner / Sponsor');
   t('School ID');
