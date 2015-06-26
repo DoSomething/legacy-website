@@ -264,6 +264,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_user_registration_source']);
         unset($form['picture']);
         unset($form['field_under_thirteen']);
+        unset($form['field_job_title']);
       }
       // else if staff:
       else {
