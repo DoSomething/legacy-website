@@ -48,6 +48,7 @@
     <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
     <div class="wrapper">
       <div class="container__block -half">
+        <canvas id="myChart" width="300" height="200"></canvas>
         <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
