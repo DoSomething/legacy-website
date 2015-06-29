@@ -231,6 +231,12 @@ function dosomething_reportback_schema() {
   $schema['dosomething_reportback_progress_log'] = array(
     'description' => 'Log table of the total quantity of campaign nodes over time.',
     'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
       'nid' => array(
         'description' => 'The {node}.nid of the campaign.',
         'type' => 'int',
@@ -249,7 +255,7 @@ function dosomething_reportback_schema() {
         'default' => 0,
       ),
     ),
-    'primary key' => array('nid'),
+    'primary key' => array('id', 'nid'),
   );
   // Add a custom cache table.
   $schema['cache_dosomething_reportback'] = drupal_get_schema_unprocessed('system', 'cache');
