@@ -64,6 +64,7 @@ function build_northstar_user($user) {
     'email'            => $user->mail,
     'drupal_id'        => $user->uid,
     'drupal_password'  => $user->pass,
+    'created_at'       => $user->created,
   ];
 
   // Set values in ns_user if they are set.
