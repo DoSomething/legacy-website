@@ -99,6 +99,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
+
 }
 
 /**
@@ -193,6 +194,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
     $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
   }
+
+  $vars['hot_module_enabled'] = variable_get('dosomething_campaign_enable_hot_module', FALSE);
+
+  $vars['goal'] = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
 
   // Plan.
 
