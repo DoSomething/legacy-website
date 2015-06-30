@@ -156,7 +156,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#type' => 'textfield',
       '#title' => t('Progress Update'),
       '#description' => t('Total approved qnty is: '.  $rb_progress . '. <br/> Subtract this # from the # our partner provided, and enter the difference here. I.e. if partner said 1,000 and the total approved qnty is 100, enter 900'),
-      '#default_value' => $vars['sum_rb_quanity_override'],
+      '#default_value' => $vars['sum_rb_quantity_override'],
     );
 
     $web_signup_count = dosomething_helpers_get_variable('node', $node->nid, 'web_signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
