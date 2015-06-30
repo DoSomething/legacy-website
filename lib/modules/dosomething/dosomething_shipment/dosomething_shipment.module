@@ -253,6 +253,7 @@ function dosomething_shipment_get_item_options() {
   $options['shirt'] = t('Shirt');
   $options['tattoo'] = t('Tattoo');
   $options['thumb_socks'] =  t('Thumb Socks');
+  $options['action_kit'] =  t('Action Kit');
   return $options;
 }
 
