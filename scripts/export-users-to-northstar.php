@@ -46,6 +46,7 @@ function build_northstar_user($user) {
     'mobile'       => 'field_mobile',
     'birthdate'    => 'field_birthdate',
     'first_name'   => 'field_first_name',
+    'last_name'    => 'field_last_name',
     'source'       => 'field_user_registration_source',
     'school_id'    => 'field_school_id',
   ];
