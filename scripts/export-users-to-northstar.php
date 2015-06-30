@@ -8,18 +8,33 @@
 
 include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_northstar.module');
 
-// Get all the users, with all the things!
-$users = db_query('SELECT u.uid
-                   FROM users u
-                   LIMIT 3 OFFSET 1');
+$last_saved = variable_get('dosomething_northstar_last_user_migrated', NULL);
+if ($last_saved) {
+  $users = db_query("SELECT u.uid
+            FROM users u
+            WHERE uid > $last_saved");
+}
+else {
+  // Get all the users!
+  $users = db_query('SELECT u.uid
+                   FROM users u');
+}
 
 foreach ($users as $whatever) {
   // Create json object
   $user = user_load($whatever->uid);
   $ns_user = build_northstar_user($user);
-  print_r($ns_user);
-  $ns = new Northstar();
-  $response = $ns->updateUser($ns_user);
+
+  // Use old drupal_http_request method.
+  $client = _dosomething_northstar_build_http_client();
+  $response = drupal_http_request($client['base_url'] . '/users', array(
+    'headers' => $client['headers'],
+    'method' => 'POST',
+    'data' => json_encode($ns_user),
+    ));
+
+  // If the script fails, we can use this to start the script from a previous person.
+  variable_set('dosomething_northstar_last_user_migrated', $whatever->uid);
 }
 
 /**
