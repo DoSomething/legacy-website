@@ -1,0 +1,48 @@
+$dark-blue: #0081BC;
+
+.stat-card {
+
+  @include media($medium) {
+    @include span(6 of 6);
+  }
+
+  @include media($large) {
+    @include span(4 of 6);
+  }
+  .totals {
+    background: $blue;
+    color: $white;
+    padding: $base-spacing / 2;
+
+    .verbs {
+      text-transform: uppercase;
+      color: $dark-blue;
+      font-size: $font-regular;
+    }
+
+    .progress {
+      font-size: $font-hero;
+      font-weight: $weight-bold;
+      line-height: 1;
+    }
+
+    .goal {
+      margin-top: 0px;
+      text-transform: uppercase;
+      font-size: $font-regular;
+    }
+  }
+
+  .timing {
+    background: $dark-blue;
+    padding: $base-spacing / 2;
+    color: $white;
+    text-transform: uppercase;
+    font-weight: $weight-bold;
+  }
+
+  .chart {
+    border: solid 2px $light-gray;
+    border-top: none;
+  }
+}
