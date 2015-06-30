@@ -42,15 +42,36 @@
     </ul>
   </nav>
 
+  <?php // HOT MODULE PROTOTYPE ////////////////////////////// ?>
+  <?php if ($hot_module_enabled): ?>
+    <section id="hot-module" class="container">
+      <div class="wrapper">
+        <div class="container__block -half">
+          <div class="stat-card">
+            <div class="totals">
+              <?php if(isset($campaign_progress)): ?>
+                <h4 class="verbs">Cheeks swabbed</h4>
+                <p class="progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
+                <p class="goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
+              <?php endif; ?>
+            </div>
+            <div class="timing">
+              <p class="time-left">4 Days Left</p>
+            </div>
+            <div class="chart">
+              <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal ?>"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <?php endif; ?>
 
   <?php // KNOW IT ////////////////////////////////////////////////////// ?>
   <section id="know" class="container">
     <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
     <div class="wrapper">
       <div class="container__block -half">
-        <?php if ($hot_module_enabled): ?>
-          <canvas class="js-progress-chart" width="300" height="200" data-goal="<?php print $goal ?>"></canvas>
-        <?php endif; ?>
         <?php if (isset($campaign->fact_problem)): ?>
           <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
@@ -119,12 +140,6 @@
               <?php print $modals; ?>
             <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
-
-
-        <?php if(isset($campaign_progress)): ?>
-          <h3 class="inline-sponsor-color"><?php print t('Progress'); ?></h3>
-          <p><?php print number_format($campaign_progress, 0, '', ','); ?> did this so far.</p>
         <?php endif; ?>
       </div>
 
