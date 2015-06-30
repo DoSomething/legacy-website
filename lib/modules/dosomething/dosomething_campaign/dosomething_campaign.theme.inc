@@ -143,6 +143,15 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 }
 
 /**
+ * Preprocess variables for hot module.
+ */
+function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
+  // time left in the campaign
+  // json file of reportback quantity
+  // campaign author information
+}
+
+/**
  * Preprocesses variables for facts fields.
  */
 function dosomething_campaign_preprocess_facts_vars(&$vars, &$wrapper) {
