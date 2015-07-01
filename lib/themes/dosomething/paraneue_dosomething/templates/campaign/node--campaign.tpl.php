@@ -50,12 +50,13 @@
           <div class="stat-card">
             <div class="totals">
               <?php if(isset($campaign_progress)): ?>
-                <h4 class="verbs">Cheeks swabbed</h4>
+                <h4 class="verbs"><?php print $reportback_noun_verb ?></h4>
                 <p class="progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
                 <p class="goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
               <?php endif; ?>
             </div>
             <div class="timing">
+              <?php //@TODO - Placeholder until Issue #4444 is ready. ?>
               <p class="time-left">4 Days Left</p>
             </div>
             <div class="chart">
