@@ -1038,17 +1038,9 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
 
-  // @NOTE: So the below join will correctly grab Kudos id for a reportback item if there is one
-  // otherwise it's null or something.
-  // Only issue is that it should ideally grab all kudos ids for a given reportback item.
   $query->leftJoin('dosomething_kudos', 'k', 'k.fid = rbf.fid');
 
-  // @NOTE: One potential solution could be doing a Group Concat type thing, but need to figure out how
-  // to do it for each reportback item instead of what I see it doing now, and grabbing all and
-  // popping them into a single item... so maybe Group Concat won't work but something to try
-  // along these lines.
-  //
-  // $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'stuff');
+   $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
 
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
@@ -1097,8 +1089,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
-  // @NOTE: Will be empty/false/null? if no kudos on reportback item.
-  $query->fields('k', array('kid'));
+
+  $query->groupBy('rbf.fid');
 
   if (isset($params['random'])) {
     $query->orderRandom();

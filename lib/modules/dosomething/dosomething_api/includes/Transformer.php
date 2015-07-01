@@ -14,7 +14,7 @@ abstract class Transformer {
    *
    * @param string $data Single or multiple comma separated data items.
    *
-   * @return string or array
+   * @return string|array
    */
   protected function formatData($data) {
     $array = explode(',', $data);
@@ -24,6 +24,50 @@ abstract class Transformer {
     }
 
     return $data;
+  }
+
+
+  /**
+   * Get all kudos from specified array of ids.
+   *
+   * @param $ids array
+   *
+   * @return array|null
+   */
+  protected function getKudos($ids) {
+    if ((array) $ids) {
+      $kudos = [];
+
+      foreach((array) $ids as $id) {
+        $kudos[] = Kudos::get($id);
+      }
+
+      return $kudos;
+    }
+
+    return NULL;
+  }
+
+
+  /**
+   * Get all kudos for specified reportback item id.
+   *
+   * @param $reportback_item_id string
+   *
+   * @return array|null
+   */
+  protected function getKudosByReportbackItemId($reportback_item_id) {
+    $filters = [
+      'fid' => $reportback_item_id,
+    ];
+
+    $results = dosomething_kudos_get_kudos_query($filters);
+
+    if ($results) {
+      return $this->getKudos($results);
+    }
+
+    return NULL;
   }
 
 
@@ -457,6 +501,10 @@ abstract class Transformer {
       ),
       'created_at' => $data->timestamp,  // @TODO: Not sure if timestamp applies as created_at?
     );
+
+    // Get kudos data from comma separated values in data, if any.
+    $kudos = $this->getKudos($this->formatData($data->kids));
+    $output['kudos'] = $kudos ? ['data' => dosomething_kudos_sort($kudos)] : NULL;
 
     if (isset($data->status)) {
       $output['status'] = $data->status;
