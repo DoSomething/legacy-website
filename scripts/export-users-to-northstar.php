@@ -20,9 +20,9 @@ else {
                    FROM users u');
 }
 
-foreach ($users as $whatever) {
+foreach ($users as $user) {
   // Create json object
-  $user = user_load($whatever->uid);
+  $user = user_load($user->uid);
   $ns_user = build_northstar_user($user);
 
   // Use old drupal_http_request method.
