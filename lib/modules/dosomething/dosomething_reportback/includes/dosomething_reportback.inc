@@ -215,7 +215,7 @@ class ReportbackEntity extends Entity {
       $this->flagged = 0;
       $this->promoted = 0;
     }
-    return entity_save('reportback_file', $this);
+    return entity_save('reportback', $this);
   }
 
 }
