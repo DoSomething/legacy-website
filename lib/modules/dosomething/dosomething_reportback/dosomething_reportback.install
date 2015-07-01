@@ -255,7 +255,10 @@ function dosomething_reportback_schema() {
         'default' => 0,
       ),
     ),
-    'primary key' => array('id', 'nid'),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
   );
   // Add a custom cache table.
   $schema['cache_dosomething_reportback'] = drupal_get_schema_unprocessed('system', 'cache');
