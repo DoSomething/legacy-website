@@ -35,7 +35,7 @@ abstract class Transformer {
    * @return array|null
    */
   protected function getKudos($ids) {
-    if ((array) $ids) {
+    if ($ids) {
       $kudos = [];
 
       foreach((array) $ids as $id) {
@@ -61,6 +61,7 @@ abstract class Transformer {
       'fid' => $reportback_item_id,
     ];
 
+    // Get array of all kudos ids for specified reportback item.
     $results = dosomething_kudos_get_kudos_query($filters);
 
     if ($results) {
