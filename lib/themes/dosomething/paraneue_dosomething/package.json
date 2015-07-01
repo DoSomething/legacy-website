@@ -11,7 +11,7 @@
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "dependencies": {
-    "chart.js": "2.0.0-alpha3",
+    "chart.js": "~1.0.2",
     "dosomething-modal": "~0.3.0",
     "dosomething-neue": "~6.4.1",
     "dosomething-validation": "~0.2.0",
