@@ -152,6 +152,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (theme_get_setting('show_campaign_progress')) {
     $vars['campaign_progress'] = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
   }
+  // Hot Module - @TODO - Move to it's own preprocess function when this starts to use it's own template.
+  $vars['hot_module_enabled'] = variable_get('dosomething_campaign_enable_hot_module', FALSE);
+
+  $vars['goal'] = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
+
+  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
 
   // Know It.
 
