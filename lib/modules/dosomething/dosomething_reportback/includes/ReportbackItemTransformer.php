@@ -35,7 +35,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     if (!$reportbackItems) {
       return array(
         'error' => array(
-          'message' => 'These are not the reportback items you are looking for.',
+          'message' => 'There were no reportback items found.',
         ),
       );
     }
@@ -54,12 +54,19 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    * @return array
    */
   public function show($id) {
-
     $params = array();
     $params['fid'] = $id;
 
     $query = dosomething_reportback_get_reportback_files_query_result($params);
     $reportbackItem = services_resource_build_index_list($query, 'reportback-items', 'fid');
+
+    if (!$reportbackItem) {
+      return array(
+        'error' => array(
+          'message' => 'There was no reportback item found.',
+        ),
+      );
+    }
 
     return array(
       'data' => $this->transform($reportbackItem[0]),

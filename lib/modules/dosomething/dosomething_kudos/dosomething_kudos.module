@@ -78,7 +78,7 @@ function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start =
  *
  * @return array
  */
-function dosomething_kudos_sort($data) {
+function dosomething_kudos_sort($data, $display = 'teaser') {
   // The array containing collection of kudos items passed to this function
   // consists of individual kudos items. However, within this collection
   // there could be multiple kudos items that all fall within the same
@@ -88,7 +88,7 @@ function dosomething_kudos_sort($data) {
 
   usort($data, 'dosomething_kudos_sort_by_taxonomy_term');
 
-  $data = dosomething_kudos_group_by_taxonomy_term($data);
+  $data = dosomething_kudos_group_by_taxonomy_term($data, $display);
   $data = dosomething_kudos_get_totals_by_taxonomy_term($data);
   return $data;
 }
@@ -120,7 +120,7 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
  *
  * @return array
  */
-function dosomething_kudos_group_by_taxonomy_term($data) {
+function dosomething_kudos_group_by_taxonomy_term($data, $display = 'teaser') {
   $terms = [];
 
   foreach ($data as $item) {
@@ -130,11 +130,18 @@ function dosomething_kudos_group_by_taxonomy_term($data) {
       ];
     }
 
-    $terms[$item->term['id']]['kudos_items']['data'][] = [
+    $output = [
       'id' => $item->id,
       'user' => $item->user,
     ];
+
+    if ($display === 'full') {
+      $output['reportback_item'] = $item->reportback_item;
+    }
+
+    $terms[$item->term['id']]['kudos_items']['data'][] = $output;
   }
+
 
   return array_values($terms);
 }
