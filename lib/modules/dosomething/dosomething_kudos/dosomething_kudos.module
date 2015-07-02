@@ -32,7 +32,7 @@ function dosomething_kudos_entity_info() {
 
 
 /**
- * @param $params
+ * @param array $params
  *
  * @return EntityFieldQuery
  */
@@ -75,7 +75,7 @@ function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start =
  * Sort kudos collection based on taxonomy term and then
  * collect and group them by term.
  *
- * @param $data
+ * @param array $data
  *
  * @return array
  */
@@ -89,10 +89,10 @@ function dosomething_kudos_sort($data) {
 
 
 /**
- * Sort kudos collection by taxonomy term id.
+ * Sort kudos collection by taxonomy term id using a value comparison function.
  *
- * @param $a
- * @param $b
+ * @param mixed $a
+ * @param mixed $b
  *
  * @return mixed
  */
@@ -110,7 +110,7 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
 /**
  * Collect all kudos in collection and organize them by taxonomy term.
  *
- * @param $data
+ * @param array $data
  *
  * @return array
  */
@@ -137,7 +137,7 @@ function dosomething_kudos_collect_by_taxonomy_term($data) {
 /**
  * Calculate total kudos per taxonomy term for a collection of kudos.
  *
- * @param $data
+ * @param array $data
  *
  * @return array
  */
