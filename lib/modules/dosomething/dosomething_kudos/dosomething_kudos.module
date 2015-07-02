@@ -72,17 +72,23 @@ function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start =
 
 
 /**
- * Sort kudos collection based on taxonomy term and then
- * collect and group them by term.
+ * Sort kudos collection based on taxonomy term and then group them by term.
  *
- * @param array $data
+ * @param array $data Collection of individual kudos items.
  *
  * @return array
  */
 function dosomething_kudos_sort($data) {
+  // The array containing collection of kudos items passed to this function
+  // consists of individual kudos items. However, within this collection
+  // there could be multiple kudos items that all fall within the same
+  // taxonomy term. So the following series of functions sort and then
+  // group the kudos based on taxonomy term, along with providing a total
+  // count of kudos for each term.
+
   usort($data, 'dosomething_kudos_sort_by_taxonomy_term');
 
-  $data = dosomething_kudos_collect_by_taxonomy_term($data);
+  $data = dosomething_kudos_group_by_taxonomy_term($data);
   $data = dosomething_kudos_get_totals_by_taxonomy_term($data);
   return $data;
 }
@@ -91,8 +97,8 @@ function dosomething_kudos_sort($data) {
 /**
  * Sort kudos collection by taxonomy term id using a value comparison function.
  *
- * @param mixed $a
- * @param mixed $b
+ * @param array $a Single kudos object.
+ * @param array $b Single kudos object.
  *
  * @return mixed
  */
@@ -108,13 +114,13 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
 
 
 /**
- * Collect all kudos in collection and organize them by taxonomy term.
+ * Group all kudos in collection and organize them by taxonomy term.
  *
  * @param array $data
  *
  * @return array
  */
-function dosomething_kudos_collect_by_taxonomy_term($data) {
+function dosomething_kudos_group_by_taxonomy_term($data) {
   $terms = [];
 
   foreach ($data as $item) {
