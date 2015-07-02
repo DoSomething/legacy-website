@@ -276,6 +276,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("If set, hot module functionaliy will be turned on."),
   ];
 
+  $form['goals']['dosomething_campaign_share_copy'] = [
+    '#type' => 'textfield',
+    '#title' => t('Hot module share copy'),
+    '#default_value' => variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!'),
+    '#description' => t("Sets the hot module share copy"),
+  ];
+
   return system_settings_form($form);
 }
 
