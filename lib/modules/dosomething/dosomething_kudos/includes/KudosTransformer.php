@@ -29,7 +29,7 @@ class KudosTransformer extends Transformer {
     }
 
     $data = $this->transformCollection($kudos);
-    $data = dosomething_kudos_sort($data);
+    $data = dosomething_kudos_sort($data, 'full');
 
     return [
       'kudos' => [
