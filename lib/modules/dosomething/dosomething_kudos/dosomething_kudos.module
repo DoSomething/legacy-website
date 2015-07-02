@@ -97,8 +97,8 @@ function dosomething_kudos_sort($data) {
 /**
  * Sort kudos collection by taxonomy term id using a value comparison function.
  *
- * @param array $a Single kudos object.
- * @param array $b Single kudos object.
+ * @param array $a Instance of Kudos class object.
+ * @param array $b Instance of Kudos class object.
  *
  * @return mixed
  */
