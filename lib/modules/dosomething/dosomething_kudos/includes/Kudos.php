@@ -4,16 +4,38 @@ class Kudos extends Entity {
 
   protected $entity;
 
+  public $id;
+  public $reportback_item;
+  public $term;
+  public $user;
+
+
+  /**
+   * @param array $values
+   *
+   * @throws Exception
+   */
   public function __construct(array $values = array()) {
     parent::__construct($values, 'kudos');
   }
 
+
+  /**
+   * Override default Entity class method and specify custom URI.
+   *
+   * @return array
+   */
   protected function defaultUri() {
     return [
       'path' => 'kudos/' . $this->identifier(),
     ];
   }
 
+
+  /**
+   * @param $id
+   * @return static
+   */
   public static function get($id) {
     $kudos = new static();
     $kudos->load($id);
@@ -22,6 +44,9 @@ class Kudos extends Entity {
   }
 
 
+  /**
+   * @param $id
+   */
   public function load($id) {
     $entity = entity_load('kudos', [$id]);
     $keys = array_keys($entity);
@@ -32,13 +57,13 @@ class Kudos extends Entity {
     // Taxonomy Term
     $this->term = $this->getTaxonomyTerm($this->entity->tid);
 
-    // Reportback Item
-    $reportback_item = ['id' => $this->entity->fid];
-    $this->reportback_item = (object) $reportback_item;
-
     // User
     $user = ['id' => $this->entity->uid];
     $this->user = (object) $user;
+
+    // Reportback Item
+    $reportback_item = ['id' => $this->entity->fid];
+    $this->reportback_item = (object) $reportback_item;
   }
 
 

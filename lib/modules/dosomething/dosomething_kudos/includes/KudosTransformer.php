@@ -28,8 +28,13 @@ class KudosTransformer extends Transformer {
       $kudos[] = Kudos::get($id);
     }
 
+    $data = $this->transformCollection($kudos);
+    $data = dosomething_kudos_sort($data);
+
     return [
-      'data' => $this->transformCollection($kudos),
+      'kudos' => [
+        'data' => $data,
+      ]
     ];
   }
 

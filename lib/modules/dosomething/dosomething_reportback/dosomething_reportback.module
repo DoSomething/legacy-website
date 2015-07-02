@@ -1038,6 +1038,10 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
 
+  $query->leftJoin('dosomething_kudos', 'k', 'k.fid = rbf.fid');
+
+   $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
+
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
     $query->condition('t.field_primary_cause_tid', $params['tid']);
@@ -1086,6 +1090,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
 
+  $query->groupBy('rbf.fid');
+
   if (isset($params['random'])) {
     $query->orderRandom();
   }
@@ -1113,10 +1119,13 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  */
 function dosomething_reportback_get_reportback_files_query_result($params = array(), $count = 25, $start = 0) {
   $query = dosomething_reportback_get_reportback_files_query($params);
+
   if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
+
   $result = $query->execute()->fetchAll();
+
   return $result;
 }
 
