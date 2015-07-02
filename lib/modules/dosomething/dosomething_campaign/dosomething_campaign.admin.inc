@@ -273,7 +273,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Enable hot module feature'),
     '#default_value' => variable_get('dosomething_campaign_enable_hot_module', FALSE),
-    '#description' => t("If set, hot module functionaliy will be turned on."),
+    '#description' => t("If set, hot module functionality will be turned on."),
   ];
 
   $form['goals']['dosomething_campaign_share_copy'] = [

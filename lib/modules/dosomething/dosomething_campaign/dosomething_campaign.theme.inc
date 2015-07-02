@@ -202,7 +202,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   $vars['hot_module_enabled'] = variable_get('dosomething_campaign_enable_hot_module', FALSE);
-  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!');
+  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
   $vars['goal'] = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
 
