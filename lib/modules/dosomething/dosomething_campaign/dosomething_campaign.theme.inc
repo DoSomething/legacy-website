@@ -111,6 +111,23 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
  */
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
+  //Calculate days left
+  $today = new DateTime();
+  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
+  $difference = $today->diff($end_date, true);
+  $days_left = $difference->d;
+
+  if ($days_left >= 8) {
+    $vars['time_left'] = t('Ends ' . $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S'));
+  }
+  elseif ($days_left >= 3) {
+    $vars['time_left'] = t($end_date->format('j') . ' days left');
+  }
+  else {
+    $vars['time_left'] = t($difference->h . ' hours left');
+  }
+
+  //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
   $rb_percent = NULL;
   if ($goal) {
