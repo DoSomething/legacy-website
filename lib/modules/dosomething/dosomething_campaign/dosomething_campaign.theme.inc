@@ -148,6 +148,11 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   // time left in the campaign
   // json file of reportback quantity
+  $quantity_by_date = db_query("SELECT quantity, max(from_unixtime(timestamp))
+                               FROM dosomething_reportback_progress_log
+                               WHERE nid = :nid
+                               GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
+  $vars['quantity_by_date'] = $quantity_by_date;
   // campaign author information
   $author = user_load($vars['uid']);
   // Add this to vars array.
