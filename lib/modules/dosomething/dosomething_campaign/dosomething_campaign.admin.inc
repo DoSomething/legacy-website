@@ -283,6 +283,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("Sets the hot module share copy"),
   ];
 
+  $form['goals']['progress_copy']['dosomething_campaign_0_20_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 0-20% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_0_20_progress_copy', t('[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases.')),
+    '#description' => t('Sets the hot module progress copy between 0 and 20%'),
+  ];
+
   return system_settings_form($form);
 }
 
