@@ -152,9 +152,20 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
   foreach($quantity_by_date as $date) {
     $dates[] = $date->maxdate;
-    $quantity[] = $date->quantity;
+    $quantities[] = $date->quantity;
   }
-  // drupal_add_js('dates');
+
+  drupal_add_js(
+    array('dosomethingCampaign' =>
+      array(
+        'goals' => array(
+          'dates' => json_encode($dates),
+          'quantities' => json_encode($quantities),
+        ),
+      ),
+    ),
+    'setting'
+  );
   // campaign author information
   $author = user_load($vars['uid']);
   // Add this to vars array.
