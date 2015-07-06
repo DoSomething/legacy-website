@@ -149,6 +149,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   // time left in the campaign
   // json file of reportback quantity
   // campaign author information
+  $author = user_load($vars['uid']);
+  // Add this to vars array.
 }
 
 /**
