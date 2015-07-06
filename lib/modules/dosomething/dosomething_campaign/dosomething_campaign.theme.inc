@@ -122,19 +122,19 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $rb_percent = 0;
   }
 
-  if($rb_percent <= 20) {
+  if ($rb_percent <= 20) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
   }
-  else if($rb_percent <= 40) {
+  elseif ($rb_percent <= 40) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
   }
-  else if($rb_percent <= 60) {
+  elseif ($rb_percent <= 60) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
   }
-  else if($rb_percent <= 80) {
+  elseif ($rb_percent <= 80) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
   }
-  else if($rb_percent <= 99) {
+  elseif ($rb_percent <= 99) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
   }
   else {
@@ -143,6 +143,17 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
   $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
+
+
+  // json file of reportback quantity
+  $quantity_by_date = db_query("SELECT quantity, max(from_unixtime(timestamp))
+                               FROM dosomething_reportback_progress_log
+                               WHERE nid = :nid
+                               GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
+  $vars['quantity_by_date'] = $quantity_by_date;
+  // campaign author information
+  $author = user_load($vars['uid']);
+  // Add this to vars array.
 }
 
 /**
