@@ -115,27 +115,29 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
   $rb_percent = ($rb_progress / $goal) * 100;
 
-  if($rb_percent <= 20) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
-  }
-  else if($rb_percent <= 40) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
-  }
-  else if($rb_percent <= 60) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
-  }
-  else if($rb_percent <= 80) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
-  }
-  else if($rb_percent <= 99) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
-  }
-  else {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_100_progress_copy');
-  }
+  if($rb_percent) {
+    if($rb_percent <= 20) {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
+    }
+    else if($rb_percent <= 40) {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
+    }
+    else if($rb_percent <= 60) {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
+    }
+    else if($rb_percent <= 80) {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
+    }
+    else if($rb_percent <= 99) {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
+    }
+    else {
+      $vars['progress_copy'] = variable_get('dosomething_campaign_100_progress_copy');
+    }
 
-  $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
-  $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
+    $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
+    $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);        
+  }
 }
 
 /**
