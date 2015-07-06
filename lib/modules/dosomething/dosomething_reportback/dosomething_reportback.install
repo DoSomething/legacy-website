@@ -228,6 +228,38 @@ function dosomething_reportback_schema() {
     ),
     'primary key' => array('rbid', 'fid'),
   );
+  $schema['dosomething_reportback_progress_log'] = array(
+    'description' => 'Log table of the total quantity of campaign nodes over time.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'The {node}.nid of the campaign.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'quantity' => array(
+        'type' => 'int',
+        'description' => 'The total quantity of approved reportbacks at this time.',
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp of the time this quantity was stored.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+  );
   // Add a custom cache table.
   $schema['cache_dosomething_reportback'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
@@ -730,4 +762,13 @@ function dosomething_reportback_update_7026(&$sandbox) {
       db_add_field($tbl_name, $fld_name, $schema[$tbl_name]['fields'][$fld_name]);
     }
   }
+}
+
+/**
+ * Create a reportback progress log table.
+ */
+function dosomething_reportback_update_7027(&$sandbox) {
+  $table_name = 'dosomething_reportback_progress_log';
+  $schema = dosomething_reportback_schema();
+  db_create_table($table_name, $schema[$table_name]);
 }

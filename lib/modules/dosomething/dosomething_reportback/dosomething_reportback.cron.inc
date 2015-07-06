@@ -22,6 +22,15 @@ function dosomething_reportback_cron() {
   // Updated reportback counts accordingly.
   foreach ($results as $result) {
     dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_quanity', (int) $result->total);
+
+    // Add a row to the reportback progress log table.
+    db_insert('dosomething_reportback_progress_log')
+      ->fields(array(
+        'nid' => $result->nid,
+        'quantity' => $result->total,
+        'timestamp' => REQUEST_TIME,
+        ))
+      ->execute();
   }
 
 }
