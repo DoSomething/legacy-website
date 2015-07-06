@@ -245,6 +245,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
 
+  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
+
   // Know It.
 
   // Problem shares.
@@ -286,11 +288,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
     $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
   }
-
-  $vars['hot_module_enabled'] = variable_get('dosomething_campaign_enable_hot_module', FALSE);
-  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
-
-  $vars['goal'] = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
 
   // Plan.
 

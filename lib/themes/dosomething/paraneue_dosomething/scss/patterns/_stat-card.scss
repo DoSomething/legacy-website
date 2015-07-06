@@ -1,14 +1,10 @@
 $dark-blue: #0081BC;
 
 .stat-card {
-
-  @include media($medium) {
-    @include span(6 of 6);
-  }
-
   @include media($large) {
-    @include span(4 of 6);
+    @include span(4 of 12);
   }
+
   .totals {
     background: $blue;
     color: $white;

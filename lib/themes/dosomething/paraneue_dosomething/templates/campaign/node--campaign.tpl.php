@@ -46,7 +46,7 @@
   <?php if ($hot_module_enabled): ?>
     <section id="hot-module" class="container">
       <div class="wrapper">
-        <div class="container__block -half">
+        <div class="container__block">
           <div class="stat-card">
             <div class="totals">
               <?php if(isset($campaign_progress)): ?>
@@ -61,6 +61,17 @@
             <div class="chart">
               <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal ?>"></canvas>
             </div>
+          </div>
+
+          <div class="author-callout">
+            <div class="text">
+              The more people we get to sign up for Give A Spit About Cancer the sooner we'll reach our goal of 10,000 cheeks swabbed! Be a megaphone - get your friends involved!
+            </div>
+<!--             <div class="author">
+              <img src="http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/user/picture-1702694-1436211515.jpg?itok=hVW8d2Hv" />
+              <p>Shae Smith</p>
+              <p>Software Engineer</p>
+            </div> -->
           </div>
         </div>
       </div>
