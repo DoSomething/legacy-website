@@ -4,7 +4,27 @@ class Campaign {
 
   protected $node;
   protected $variables;
+
   public $id;
+  public $title;
+  public $display;
+  public $tagline;
+  public $created_at;
+  public $updated_at;
+  public $status;
+  public $type;
+  public $time_commitment;
+  public $cover_image;
+  public $scholarship;
+  public $staff_pick;
+  public $facts;
+  public $solutions;
+  public $causes;
+  public $action_types;
+  public $issue;
+  public $tags;
+  public $timing;
+  public $reportback_info;
 
 
   /**
@@ -35,6 +55,7 @@ class Campaign {
     if ($this->node && $this->node->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $this->node->title;
+      $this->display = $display;
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();

@@ -266,6 +266,7 @@ abstract class Transformer {
    *   - created_at: (string)
    *   - update_at: (string)
    *   - time_commitment: (float)
+   *   - status: (string)
    *   - cover_image: (array)
    *   - staff_pick: (bool)
    *   - facts: (array)
@@ -274,6 +275,8 @@ abstract class Transformer {
    *   - action_types: (array)
    *   - issue: (string)
    *   - tags: (array)
+   *   - timing: (array)
+   *   - reportback_info: (array)
    *
    * @return array
    */
@@ -287,108 +290,47 @@ abstract class Transformer {
     // more information that can be obtained.
     if ($data instanceof Campaign) {
 
-      if (isset($data->tagline)) {
+      // Show all properties for "full" display.
+      if ($data->display === 'full') {
         $output['tagline'] = $data->tagline;
-      }
 
-      if (isset($data->created_at)) {
         $output['created_at'] = $data->created_at;
-      }
 
-      if (isset($data->updated_at)) {
         $output['updated_at'] = $data->updated_at;
-      }
 
-      if (isset($data->time_commitment)) {
         $output['time_commitment'] = $data->time_commitment;
-      }
 
-      // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
+        // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
 
-      if (isset($data->status)) {
-        // @TODO: Should the status default to "active"?
-        $output['status'] = $data->status;
-      }
+        $output['status'] = $data->status ? $data->status : "active";
 
-      if (isset($data->cover_image)) {
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {
             $output['cover_image'][$key] = $this->transformMedia($image, 'square');
+          } else {
+            $output['cover_image'][$key] = NULL;
           }
         }
-      }
 
-      if (isset($data->staff_pick)) {
         $output['staff_pick'] = $data->staff_pick;
-      }
 
-      if (isset($data->facts['problem'])) {
-        $output['facts']['problem'] = $data->facts['problem']['fact'];
-      }
+        $output['facts'] = $data->facts;
 
-      if (isset($data->facts['solution'])) {
-        $output['facts']['solution'] = $data->facts['solution']['fact'];
-      }
+        $output['solutions'] = $data->solutions;
 
-      if (isset($data->facts['sources'])) {
-        $output['facts']['sources'] = $data->facts['sources'];
-      }
+        $output['causes'] = $data->causes;
 
-      if (isset($data->solutions['copy'])) {
-        $output['solutions']['copy'] = $data->solutions['copy'];
-      }
+        $output['action_types'] = $data->action_types;
 
-      if (isset($data->solutions['support_copy'])) {
-        $output['solutions']['support_copy'] = $data->solutions['support_copy'];
-      }
-
-      if (isset($data->causes['primary'])) {
-        $output['causes']['primary'] = $data->causes['primary'];
-      }
-
-      if (isset($data->causes['secondary'])) {
-        $output['causes']['secondary'] = $data->causes['secondary'];
-      }
-
-      if (isset($data->action_types['primary'])) {
-        $output['action_types']['primary'] = $data->action_types['primary'];
-      }
-
-      if (isset($data->action_types['secondary'])) {
-        $output['action_types']['secondary'] = $data->action_types['secondary'];
-      }
-
-      if (isset($data->issue)) {
         $output['issue'] = $data->issue;
-      }
 
-      if (isset($data->tags)) {
         $output['tags'] = $data->tags;
-      }
 
-      if (isset($data->timing['high_season'])) {
         $output['timing']['high_season'] = $data->timing['high_season'];
-      }
-
-      if (isset($data->timing['low_season'])) {
         $output['timing']['low_season'] = $data->timing['low_season'];
       }
 
-      if (isset($data->reportback_info['copy'])) {
-        $output['reportback_info']['copy'] = $data->reportback_info['copy'];
-      }
-
-      if (isset($data->reportback_info['confirmation_message'])) {
-        $output['reportback_info']['confirmation_message'] = $data->reportback_info['confirmation_message'];
-      }
-
-      if (isset($data->reportback_info['noun'])) {
-        $output['reportback_info']['noun'] = $data->reportback_info['noun'];
-      }
-
-      if (isset($data->reportback_info['verb'])) {
-        $output['reportback_info']['verb'] = $data->reportback_info['verb'];
-      }
+      $output['reportback_info'] = $data->reportback_info;
 
     }
 
