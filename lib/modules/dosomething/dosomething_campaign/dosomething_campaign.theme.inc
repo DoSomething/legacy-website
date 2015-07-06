@@ -30,6 +30,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // If the hot module is enabled and the high season is set on a campaign.
   if (dosomething_campaign_is_hot_module($vars)) {
+    $vars['hot_module_enabled'] = TRUE;
     dosomething_campaign_preprocess_hot_module($vars, $wrapper);
   }
 
@@ -129,6 +130,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
+  $vars['goal'] = $goal;
+
   $rb_percent = NULL;
   if ($goal) {
     $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
@@ -160,6 +163,10 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
   $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
+
+  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
+
+  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
 
   // json file of reportback quantity
@@ -238,14 +245,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (theme_get_setting('show_campaign_progress')) {
     $vars['campaign_progress'] = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
   }
-  // Hot Module - @TODO - Move to it's own preprocess function when this starts to use it's own template.
-  $vars['hot_module_enabled'] = variable_get('dosomething_campaign_enable_hot_module', FALSE);
-
-  $vars['goal'] = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
-
-  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
-
-  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
   // Know It.
 
