@@ -49,7 +49,7 @@ class CampaignTransformer extends Transformer {
     ];
   }
 
-  
+
   /**
    * @param $id
    *
