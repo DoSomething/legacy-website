@@ -56,8 +56,7 @@
               <?php endif; ?>
             </div>
             <div class="timing">
-              <?php //@TODO - Placeholder until Issue #4444 is ready. ?>
-              <p class="time-left">4 Days Left</p>
+              <p class="time-left"><?php print $time_left ?></p>
             </div>
             <div class="chart">
               <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal ?>"></canvas>
