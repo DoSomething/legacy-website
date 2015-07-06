@@ -112,10 +112,13 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
-  $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
-  $rb_percent = ($rb_progress / $goal) * 100;
+  $rb_percent = NULL;
+  if ($goal) {
+    $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
+    $rb_percent = ($rb_progress / $goal) * 100;
+  }
 
-  if(!$rb_percent) {
+  if (!$rb_percent) {
     $rb_percent = 0;
   }
 
