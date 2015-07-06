@@ -283,6 +283,48 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("Sets the hot module share copy"),
   ];
 
+  $form['goals']['progress_copy']['dosomething_campaign_0_20_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 0-20% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_0_20_progress_copy', t('[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases.')),
+    '#description' => t('Sets the hot module progress copy between 0 and 20%'),
+  ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_21_40_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 21-40% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_21_40_progress_copy', t('We’re gaining steam! Keep spreading the word to get more friends involved so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!')),
+    '#description' => t('Sets the hot module progress copy between 21 and 40%'),
+  ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_41_60_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 41-60% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_41_60_progress_copy', t('The more people we get to sign up for [node:title] the sooner we’ll reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Be a megaphone - get your friends involved by posting on social!')),
+    '#description' => t('Sets the hot module progress copy between 41 and 60%'),
+  ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_61_80_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 61-80% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_61_80_progress_copy', t('Keep those campaign updates coming! Don’t wait to the end to submit a photo of you in action! Submit your progress early and often so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can update your submission at any time.')),
+    '#description' => t('Sets the hot module progress copy between 61 and 80%'),
+  ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_81_99_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 81-99% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_81_99_progress_copy', t('We’re almost there! Keep showing off your work. You can add photos and update your submission throughout the campaign.')),
+    '#description' => t('Sets the hot module progress copy between 81 and 99%'),
+  ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_100_progress_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot module 100% progress copy'),
+    '#default_value' => variable_get('dosomething_campaign_100_progress_copy', t('Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
+    '#description' => t('Sets the hot module progress copy for 100%'),
+  ];
+
   return system_settings_form($form);
 }
 

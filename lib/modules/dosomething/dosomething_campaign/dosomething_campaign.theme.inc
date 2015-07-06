@@ -28,6 +28,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  // If the hot module is enabled and the high season is set on a campaign.
+  if (dosomething_campaign_is_hot_module($vars)) {
+    dosomething_campaign_preprocess_hot_module($vars, $wrapper);
+  }
+
   $pitch_path = 'node/' . $node->nid . '/pitch';
   if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
     // Gather vars for pitch page.
@@ -99,7 +104,42 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
+}
 
+/**
+ * Preprocess variables for hot module.
+ */
+function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
+  $node = node_load($vars['nid']);
+  $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
+  $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
+  $rb_percent = ($rb_progress / $goal) * 100;
+
+  if(!$rb_percent) {
+    $rb_percent = 0;
+  }
+
+  if($rb_percent <= 20) {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
+  }
+  else if($rb_percent <= 40) {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
+  }
+  else if($rb_percent <= 60) {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
+  }
+  else if($rb_percent <= 80) {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
+  }
+  else if($rb_percent <= 99) {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
+  }
+  else {
+    $vars['progress_copy'] = variable_get('dosomething_campaign_100_progress_copy');
+  }
+
+  $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
+  $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
 }
 
 /**

@@ -705,6 +705,21 @@ function dosomething_campaign_add_shipment_form_vars($node) {
 }
 
 /**
+ * For a given campaign node, determines if the hot module should be enabled.
+ *
+ * @param array $vars
+ *  Campaign node varaible array.
+ *
+ * @return bool
+ */
+function dosomething_campaign_is_hot_module($vars) {
+  if (variable_get('dosomething_campaign_enable_hot_module', NULL) == 1 && !empty($vars['field_high_season'])) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
  * For given campaign $node, determines if the pitch page should be displayed.
  *
  * @todo: Assumes the campaign is in a live state, for now.
