@@ -65,7 +65,7 @@
 
           <div class="author-callout">
             <div class="author-callout__copy">
-              The more people we get to sign up for Give A Spit About Cancer the sooner we'll reach our goal of 10,000 cheeks swabbed! Be a megaphone - get your friends involved!
+              <?php print $progress_copy; ?>
             </div>
 
             <article class="figure -left -center">
