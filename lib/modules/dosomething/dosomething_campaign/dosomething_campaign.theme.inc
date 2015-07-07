@@ -163,11 +163,26 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
 
   // json file of reportback quantity
-  $quantity_by_date = db_query("SELECT quantity, max(from_unixtime(timestamp))
+  $quantity_by_date = db_query("SELECT quantity, max(from_unixtime(timestamp)) as maxdate
                                FROM dosomething_reportback_progress_log
                                WHERE nid = :nid
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
-  $vars['quantity_by_date'] = $quantity_by_date;
+  foreach($quantity_by_date as $date) {
+    $dates[] = $date->maxdate;
+    $quantities[] = $date->quantity;
+  }
+
+  drupal_add_js(
+    array('dosomethingCampaign' =>
+      array(
+        'goals' => array(
+          'dates' => json_encode($dates),
+          'quantities' => json_encode($quantities),
+        ),
+      ),
+    ),
+    'setting'
+  );
   // campaign author information
   $author = user_load($vars['uid']);
   // Add this to vars array.
