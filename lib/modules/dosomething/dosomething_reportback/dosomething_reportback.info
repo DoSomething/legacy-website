@@ -19,6 +19,4 @@ features[user_permission][] = view any reportback
 features[user_permission][] = view own reportback
 features[views_view][] = reportback_files
 files[] = dosomething_reportback.test
-files[] = includes/dosomething_reportback.inc
-files[] = includes/dosomething_reportback_file.inc
 mtime = 1433255491

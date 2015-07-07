@@ -8,6 +8,10 @@ define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') 
 module_load_include('inc', 'dosomething_api', 'dosomething_api.module');
 
 include_once 'dosomething_reportback.features.inc';
+include_once 'includes/Reportback.php';
+include_once 'includes/ReportbackController.php';
+include_once 'includes/ReportbackItem.php';
+include_once 'includes/ReportbackItemController.php';
 include_once 'includes/ReportbackTransformer.php';
 include_once 'includes/ReportbackItemTransformer.php';
 include_once 'dosomething_reportback.forms.inc';
@@ -27,7 +31,7 @@ function dosomething_reportback_entity_info() {
       'id' => 'rbid',
       'label' => 'rbid',
     ),
-    'entity class' => 'ReportbackEntity',
+    'entity class' => 'Reportback',
     'uri callback' => 'entity_class_uri',
     'controller class' => 'ReportbackEntityController',
     'module' => 'dosomething_reportback',
@@ -794,7 +798,7 @@ function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
  */
 function dosomething_reportback_mbp_request($entity) {
   // This fid is the last file uploaded to the reportback.
-  // @see ReportbackEntity->save().
+  // @see Reportback->save().
   $inserted_fid = $entity->fid;
   $image_markup = dosomething_image_get_themed_image_by_fid($inserted_fid, '300x300');
 
