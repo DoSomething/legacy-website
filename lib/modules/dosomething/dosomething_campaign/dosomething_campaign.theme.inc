@@ -190,9 +190,15 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
     'setting'
   );
-  // campaign author information
+
+  // Campaign author information
   $author = user_load($vars['uid']);
-  // Add this to vars array.
+  $first_name = check_plain($wrapper->author->field_first_name->value());
+  $last_name = check_plain($wrapper->author->field_last_name->value());
+
+  $vars['author_name']  = $first_name . ' ' . $last_name;
+  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+  $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
 }
 
 /**

@@ -64,16 +64,24 @@
           </div>
 
           <div class="author-callout">
-            <div class="text">
+            <div class="author-callout__copy">
               The more people we get to sign up for Give A Spit About Cancer the sooner we'll reach our goal of 10,000 cheeks swabbed! Be a megaphone - get your friends involved!
             </div>
-<!--             <div class="author">
-              <img src="http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/user/picture-1702694-1436211515.jpg?itok=hVW8d2Hv" />
-              <p>Shae Smith</p>
-              <p>Software Engineer</p>
-            </div> -->
+
+            <article class="figure -left -center">
+              <div class="figure__media">
+                <div class="avatar">
+                  <?php print $author_image ?>
+                </div>
+              </div>
+              <div class="figure__body">
+                  <p class="author-callout__first-name"><?php print $author_name ?></p>
+                  <p class="author-callout__last-name"><?php print $author_title ?></p>
+              </div>
+            </article>
           </div>
         </div>
+
       </div>
     </section>
   <?php endif; ?>
