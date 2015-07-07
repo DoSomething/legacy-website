@@ -314,7 +314,9 @@ abstract class Transformer {
 
         $output['staff_pick'] = $data->staff_pick;
 
-        $output['facts'] = $data->facts;
+        $output['facts']['problem'] = $data->facts['problem'] ? $data->facts['problem']['fact'] : NULL;
+        $output['facts']['solution'] = $data->facts['solution'] ? $data->facts['solution']['fact'] : NULL;
+        $output['facts']['sources'] = $data->facts['sources'] ?: NULL;
 
         $output['solutions'] = $data->solutions;
 
