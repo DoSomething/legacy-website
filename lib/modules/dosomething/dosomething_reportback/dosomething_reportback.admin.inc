@@ -281,6 +281,22 @@ function dosomething_reportback_set_promote_flag_reasons(&$values, $reason_type)
       }
     }
 
+    // Clear existing reasons
+    $alternate_reason = '';
+    if ($reason_type == 'promoted_reason') {
+      $alternate_reason = 'flagged_reason';
+    }
+    else {
+      $alternate_reason = 'promoted_reason';
+    }
+
+    foreach ($values[$alternate_reason] as $reason_key => $reason_value) {
+      unset($values[$reason_type][$reason_key]);
+    }
+
+    dsm($alternate_reason);
+    dsm($values);
+
     // Overwrite reasons with the new concatenated string.
     $values[$reason_type] = implode(', ', $values[$reason_type]);
 }
@@ -418,5 +434,3 @@ function dosomething_reportback_count_page() {
 
   return $output;
 }
-
-
