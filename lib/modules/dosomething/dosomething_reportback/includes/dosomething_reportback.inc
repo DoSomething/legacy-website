@@ -206,10 +206,12 @@ class ReportbackEntity extends Entity {
     if ($status === 'flagged') {
       $this->flagged = 1;
       $this->flagged_reason = $values['flagged_reason'] ?: NULL;
+      $this->promoted = 0;
     }
     elseif ($status === 'promoted') {
       $this->promoted = 1;
       $this->promoted_reason = $values['promoted_reason'] ?: NULL;
+      $this->flagged = 0;
     }
     else {
       $this->flagged = 0;
