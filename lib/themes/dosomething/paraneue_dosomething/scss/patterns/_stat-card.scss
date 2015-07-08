@@ -1,39 +1,35 @@
 $dark-blue: #0081BC;
 
 .stat-card {
-
-  @include media($medium) {
-    @include span(6 of 6);
-  }
-
   @include media($large) {
-    @include span(4 of 6);
+    @include span(4 of 12);
   }
-  .totals {
+
+  .stat-card__totals {
     background: $blue;
     color: $white;
     padding: $base-spacing / 2;
 
-    .verbs {
+    .stat-card__verbs {
       text-transform: uppercase;
       color: $dark-blue;
       font-size: $font-regular;
     }
 
-    .progress {
+    .stat-card__progress {
       font-size: $font-hero;
       font-weight: $weight-bold;
       line-height: 1;
     }
 
-    .goal {
+    .stat-card__goal {
       margin-top: 0px;
       text-transform: uppercase;
       font-size: $font-regular;
     }
   }
 
-  .timing {
+  .stat-card__timing {
     background: $dark-blue;
     padding: $base-spacing / 2;
     color: $white;
@@ -41,7 +37,7 @@ $dark-blue: #0081BC;
     font-weight: $weight-bold;
   }
 
-  .chart {
+  .stat-card__chart {
     border: solid 2px $light-gray;
     border-top: none;
   }

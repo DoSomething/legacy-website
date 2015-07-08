@@ -46,23 +46,42 @@
   <?php if ($hot_module_enabled): ?>
     <section id="hot-module" class="container">
       <div class="wrapper">
-        <div class="container__block -half">
+        <div class="container__block">
           <div class="stat-card">
-            <div class="totals">
+            <div class="stat-card__totals">
               <?php if(isset($campaign_progress)): ?>
-                <h4 class="verbs"><?php print $reportback_noun_verb ?></h4>
-                <p class="progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
-                <p class="goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
+                <h4 class="stat-card__verbs"><?php print $reportback_noun_verb ?></h4>
+                <p class="stat-card__progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
+                <p class="stat-card__goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
               <?php endif; ?>
             </div>
-            <div class="timing">
-              <p class="time-left"><?php print $time_left ?></p>
+            <div class="stat-card__timing">
+              <p><?php print $time_left ?></p>
             </div>
-            <div class="chart">
+            <div class="stat-card__chart">
               <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal ?>"></canvas>
             </div>
           </div>
+
+          <div class="author-callout">
+            <div class="author-callout__copy">
+              <?php print $progress_copy; ?>
+            </div>
+
+            <article class="figure -left -center">
+              <div class="figure__media">
+                <div class="avatar">
+                  <?php print $author_image ?>
+                </div>
+              </div>
+              <div class="figure__body">
+                  <p class="author-callout__first-name"><?php print $author_name ?></p>
+                  <p class="author-callout__last-name"><?php print $author_title ?></p>
+              </div>
+            </article>
+          </div>
         </div>
+
       </div>
     </section>
   <?php endif; ?>
