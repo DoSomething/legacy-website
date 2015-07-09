@@ -59,7 +59,7 @@
               <p><?php print $time_left ?></p>
             </div>
             <div class="stat-card__chart">
-              <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal ?>"></canvas>
+              <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal; ?>"></canvas>
             </div>
           </div>
 

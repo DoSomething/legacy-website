@@ -185,6 +185,10 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
         'goals' => array(
           'dates' => json_encode($dates),
           'quantities' => json_encode($quantities),
+          'highSeason' => array(
+            'start' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']),
+            'end' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']),
+          )
         ),
       ),
     ),
