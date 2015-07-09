@@ -114,7 +114,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
   //Calculate days left
   $today = new DateTime();
-  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
+  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
 
