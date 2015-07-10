@@ -3,7 +3,7 @@
 /**
 * Our custom controller for the dosomething_reportback type.
 */
-class ReportbackEntityController extends EntityAPIController {
+class ReportbackController extends EntityAPIController {
 
 /**
 * Overrides buildContent() method.

@@ -74,21 +74,26 @@ class ReportbackTransformer extends Transformer {
     $params = array();
     $params['rbid'] = $id;
 
-    $query = dosomething_reportback_get_reportbacks_query_result($params);
-    $reportback = services_resource_build_index_list($query, 'reportback', 'rbid');
-    // @TODO: Above returns object with null properties if no results, should return null or false.
+    $reportback = Reportback::get($id);
 
-    if (! $reportback) {
-      return array(
-        'error' => array(
-          'message' => 'Reportback does not exist.',
-        ),
-      );
-    }
+
+//    $query = dosomething_reportback_get_reportbacks_query_result($params);
+//    $reportback = services_resource_build_index_list($query, 'reportback', 'rbid');
+//    // @TODO: Above returns object with null properties if no results, should return null or false.
+//
+//    if (! $reportback) {
+//      return array(
+//        'error' => array(
+//          'message' => 'Reportback does not exist.',
+//        ),
+//      );
+//    }
 
     return array(
-      'data' => $this->transform($reportback[0]),
+      'data' => $this->transform($reportback),
+//      'data' => $reportback,
     );
+
   }
 
 
@@ -102,7 +107,7 @@ class ReportbackTransformer extends Transformer {
 
     $data += $this->transformReportback($reportback);
 
-    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
+//    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
 
     $data['user'] = $this->transformUser($reportback);
 

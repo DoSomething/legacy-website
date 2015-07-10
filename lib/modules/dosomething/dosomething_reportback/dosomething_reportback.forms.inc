@@ -66,7 +66,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
   );
 
-  $form['reportback_submissions']['reportback_file'] = array(
+  $form['reportback_submissions']['reportback_item'] = array(
     '#weight' => 5,
     '#type' => 'file',
     '#theme_wrappers' => array(),
@@ -81,7 +81,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
 
-    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = TRUE;
+    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = TRUE;
 
     $submit_label = t("Submit your pic");
   }
@@ -89,7 +89,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   // Else, it's an update form.
   else {
     // Output reportback images with date last updated.
-    $form['reportback_submissions']['reportback_file']['#attributes']['is_supersized'] = FALSE;
+    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = FALSE;
 
     $reportback_submissions_data = array();
     // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
@@ -337,7 +337,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
  */
 function dosomething_reportback_form_validate_file($form, &$form_state) {
   // Validate upload.
-  $file = file_save_upload('reportback_file', array(
+  $file = file_save_upload('reportback_item', array(
     'file_validate_is_image' => array(),
     'file_validate_extensions' => array('png gif jpg jpeg'),
   ));
@@ -351,12 +351,12 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
       $form_state['storage']['file'] = $file;
     }
     else {
-      form_set_error('reportback_file', t('There was an error. Please try again.'));
+      form_set_error('reportback_item', t('There was an error. Please try again.'));
     }
   }
   // If this is a new reportback form, file is mandatory.
   elseif ($form_state['values']['rbid'] == 0) {
-    form_set_error('reportback_file', t('Please upload an image.'));
+    form_set_error('reportback_item', t('Please upload an image.'));
   }
 }
 

@@ -1,52 +1,114 @@
 <?php
 
-/**
- * @file
- * Provides classes for the Reportback Entity.
- */
-
-/**
- * Our Reportback entity class.
- */
 class Reportback extends Entity {
+
   protected $files_table = 'dosomething_reportback_file';
   protected $log_table = 'dosomething_reportback_log';
+  protected $entity;
+
+  public $id;
+  public $created_at;
+  public $updated_at;
+  public $quantity;
+  public $why_participated;
+  public $flagged;
+  public $noun;
+  public $verb;
+  public $reportback_items;
+  public $campaign;
+  public $user;
+
+  // @TODO: Properties to deprecate
+//  public $fids;
+
+
+  /**
+   * Overrides construct to set calculated properties.
+   */
+  public function __construct(array $values = array()) {
+    parent::__construct($values, 'reportback');
+
+//    die(print_r(debug_backtrace()));
+//    die(print_r($this));
+
+    // @TODO: currently setting the fids is required for action page prove it section to load properly
+//    $this->fids = array();
+//    // If this is a new entity, rbid may not be set.
+//    if (isset($this->rbid)) {
+//      $this->fids = $this->getFids();
+//    }
+
+//    // If a reportback nid exists:
+//    if (isset($this->nid)) {
+//      // Set properties found on the reportback's node nid.
+//      $this->node_title = $this->getNodeTitle();
+//
+//      if (module_exists('dosomething_campaign_run')) {
+//        // Check if this reportback is associated with Campaign Run node.
+//        if ($parent_nid = dosomething_campaign_run_get_parent_nid($this->nid)) {
+//          // Use the Campaign node nid instead of the Run nid.
+//          $this->nid = $parent_nid;
+//        }
+//      }
+//
+//      $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
+//      $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+//      $this->quantity_label = $this->noun . ' ' . $this->verb;
+//    }
+  }
+
 
   /**
    * Override this in order to implement a custom default URI.
    */
   protected function defaultUri() {
-    return array('path' => 'reportback/' . $this->identifier());
+    return [
+      'path' => 'reportback/' . $this->identifier()
+    ];
   }
+
 
   /**
-   * Overrides construct to set calculated properties.
+   * @param $id
+   * @return static
    */
-  public function __construct(array $values = array(), $entityType = NULL) {
-    parent::__construct($values, $entityType);
-    $this->fids = array();
-    // If this is a new entity, rbid may not be set.
-    if (isset($this->rbid)) {
-      $this->fids = $this->getFids();
-    }
-    // If a reportback nid exists:
-    if (isset($this->nid)) {
-      // Set properties found on the reportback's node nid.
-      $this->node_title = $this->getNodeTitle();
+  public static function get($id) {
+    $reportback = new static();
+    $reportback->load($id);
 
-      if (module_exists('dosomething_campaign_run')) {
-        // Check if this reportback is associated with Campaign Run node.
-        if ($parent_nid = dosomething_campaign_run_get_parent_nid($this->nid)) {
-          // Use the Campaign node nid instead of the Run nid.
-          $this->nid = $parent_nid;
-        }
-      }
-
-      $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
-      $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
-      $this->quantity_label = $this->noun . ' ' . $this->verb;
-    }
+    return $reportback;
   }
+
+
+  /**
+   * @param string|array $ids Single id or array of ids.
+   */
+  public function load($ids) {
+    if (!is_array($ids)) {
+      $ids = dosomething_helpers_format_data($ids);
+    }
+
+    $result = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
+    $result = array_pop($result);
+
+    $this->id = $result->rbid;
+    $this->created_at = $result->created;
+    $this->updated_at = $result->updated;
+    $this->quantity = (int) $result->quantity;
+    $this->why_participated = $result->why_participated;
+    $this->flagged = $result->flagged;
+    $this->noun = $result->noun;
+    $this->verb = $result->verb;
+    $this->reportback_items = dosomething_helpers_format_data($result->items); //$this->getReportbackItems();
+    $this->campaign = [
+      'id' => $result->nid,
+      'title' => $result->title,
+    ];
+    $this->user = [
+      'id' => $result->uid,
+    ];
+  }
+
 
   /**
    * Return all fids from dosomething_reportback_files table for this entity.
@@ -59,6 +121,7 @@ class Reportback extends Entity {
       ->fetchCol();
   }
 
+
   /**
    * Return all data from dosomething_reportback_log table for this entity.
    */
@@ -69,6 +132,7 @@ class Reportback extends Entity {
       ->execute()
       ->fetchAll();
   }
+
 
   /**
    * Returns the node title of the $entity->nid.
@@ -84,6 +148,7 @@ class Reportback extends Entity {
     }
     return NULL;
   }
+
 
   /**
    * Returns a single text value for a given $field_name for the $entity->nid.
@@ -101,6 +166,7 @@ class Reportback extends Entity {
     return NULL;
   }
 
+
   /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
    *
@@ -117,7 +183,7 @@ class Reportback extends Entity {
     if ($this->flagged) {
       $status = 'flagged';
     }
-    $reportback_file = entity_create('reportback_file', array(
+    $reportback_file = entity_create('reportback_item', array(
       'rbid' => $this->rbid,
       'fid' => $values->fid,
       'caption' => $values->caption,
@@ -126,6 +192,7 @@ class Reportback extends Entity {
     ));
     return $reportback_file->save();
   }
+
 
   /**
    * Logs current entity values with given $op string.
@@ -170,18 +237,22 @@ class Reportback extends Entity {
     }
   }
 
+
   /**
    * Returns array of themed images for this Reportback.
+   *
+   * @return array
    */
   public function getThemedImages($style) {
     $images = array();
-    if (!module_exists('dosomething_image')) return $images();
+    if (!module_exists('dosomething_image')) return $images;
 
     foreach ($this->fids as $fid) {
       $images[] = dosomething_image_get_themed_image_by_fid($fid, $style);
     }
     return $images;
   }
+
 
   /**
    * Deletes the Reportback files.
@@ -193,6 +264,7 @@ class Reportback extends Entity {
       $rbf->delete();
     }
   }
+
 
   /**
    * Flags or promotes the reportback, and adds reasons.

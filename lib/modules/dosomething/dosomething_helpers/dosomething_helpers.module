@@ -156,6 +156,24 @@ function dosomething_helpers_extract_field_text($data) {
 
 
 /**
+ * Format a string of comma separated data items into an array, or
+ * if a single item, return it without formatting.
+ *
+ * @param string $data Single or multiple comma separated data items.
+ * @return string|array
+ */
+function dosomething_helpers_format_data($data) {
+  $array = explode(',', $data);
+
+  if (count($array) > 1) {
+    return $array;
+  }
+
+  return $data;
+}
+
+
+/**
  * Wrapper function for Drupal's ip_address function.
  *
  * Because varnish only likes to expose its own IP, and

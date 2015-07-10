@@ -6,6 +6,7 @@ version = 7.x-1.0
 dependencies[] = dosomething_api
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_static_content
+dependencies[] = dosomething_campaign
 dependencies[] = features
 dependencies[] = number
 dependencies[] = views

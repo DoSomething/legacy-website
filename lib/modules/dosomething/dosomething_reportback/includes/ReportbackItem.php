@@ -1,14 +1,6 @@
 <?php
 
-/**
- * @file
- * Provides classes for the Reportback File Entity.
- */
-
-/**
- * Our Reportback File entity class.
- */
-class ReportbackFileEntity extends Entity {
+class ReportbackItem extends Entity {
 
   /**
    * Overrides to implement a custom default URI.
@@ -74,7 +66,7 @@ class ReportbackFileEntity extends Entity {
     }
 
     // Save the reviewed properties.
-    return entity_save('reportback_file', $this);
+    return entity_save('reportback_item', $this);
   }
 
   /**

@@ -394,10 +394,10 @@ abstract class Transformer {
    */
   protected function transformReportback($data) {
     $output = array(
-      'id' => $data->rbid,
-      'created_at' => $data->created,
-      'updated_at' => $data->updated,
-      'quantity' => (int) $data->quantity,
+      'id' => $data->id,
+      'created_at' => $data->created_at,
+      'updated_at' => $data->updated_at,
+      'quantity' => $data->quantity,
     );
 
     if (isset($data->why_participated)) {
@@ -409,8 +409,8 @@ abstract class Transformer {
     }
 
     // Reportback Child Item data
-    if (isset($data->items)) {
-      $items = $this->getReportbackItems($data->items);
+    if (isset($data->reportback_items)) {
+      $items = $this->getReportbackItems($data->reportback_items); // @TODO: update with new approach
 
       $output['reportback_items'] = array(
         'total' => count($items),
