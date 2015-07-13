@@ -864,7 +864,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
     $query->fields('rb', array('quantity'));
     $query->addExpression('SUM(quantity)', 'quantity');
     $result = $query->execute()->fetchAll();
-    $quantity = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override') + (int) $result[0]->quantity;
+    $quantity = $result[0]->quantity;
     dosomething_helpers_set_variable('node', $nid, 'sum_rb_quanity', $quantity);
     return $quantity;
   }

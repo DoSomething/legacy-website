@@ -134,7 +134,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $rb_percent = NULL;
   if ($goal) {
-    $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
+    $rb_progress = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override') + (int) dosomething_reportback_get_reportback_total_by_nid($node->nid);
     $rb_percent = ($rb_progress / $goal) * 100;
   }
 
