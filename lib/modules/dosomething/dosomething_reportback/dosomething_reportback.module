@@ -1037,8 +1037,6 @@ function dosomething_reportback_get_reportbacks_query($params = array()) {
   $query->fields('n', array('nid', 'title'));
   $query->addField('fn', 'field_reportback_noun_value', 'noun');
   $query->addField('fv', 'field_reportback_verb_value', 'verb');
-//  $query->fields('fn', array('field_reportback_noun_value'));
-//  $query->fields('fv', array('field_reportback_verb_value'));
 
   if (isset($params['random'])) {
     $query->orderRandom();
@@ -1072,7 +1070,9 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
     $query->range($start, $count);
   }
   $result = $query->execute()->fetchAll();
-//  die(print_r($result));
+//  print_r($result);
+//  die();
+
   return $result;
 }
 

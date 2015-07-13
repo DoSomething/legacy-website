@@ -378,45 +378,45 @@ abstract class Transformer {
    *
    * @param object $data
    *   An object containing properties of Reportback data:
-   *   - rbid: (string) The Reportback id.
-   *   - created: (string) Date Reportback was created.
-   *   - updated: (string) Date Reportback was updated.
+   *   - id: (string) The Reportback id.
+   *   - created_at: (string) Date Reportback was created.
+   *   - updated_at: (string) Date Reportback was updated.
+   *   - noun: (string) Noun associated with Campaign Reportback.
+   *   - verb: (string) Verb associated with Campaign Reportback.
    *   - quantity: (int) Quantity declared for Reportback.
-   *   - uid: (string) User id.
    *   - why_participated: (string) Reason for participating.
    *   - flagged: (int) Status whether Reportback has been flagged.
-   *   - nid: (string) Campaign id.
-   *   - title: (string) Campaign title.
-   *   - items: (string) Comma separated list of Reportback Item ids for specified Reportback.
-   *   - uri: (string) API URI for Reportback data.
-   *
+   *   - reportback_items: (string) Comma separated list of Reportback Item ids for specified Reportback.
+   *   - campaign: (array) Campaign array related to Reportback.
+   *   - user: (array) User array related to Reportback.
    * @return array
    */
   protected function transformReportback($data) {
+    $items = [];
     $output = array(
       'id' => $data->id,
       'created_at' => $data->created_at,
       'updated_at' => $data->updated_at,
+      'noun' => $data->noun,
+      'verb' => $data->verb,
       'quantity' => $data->quantity,
+      'why_participated' => $data->why_participated,
+      'flagged' => (int) $data->flagged ? TRUE : FALSE,
     );
 
-    if (isset($data->why_participated)) {
-      $output['why_participated'] = $data->why_participated;
-    }
-
-    if (isset($data->flagged)) {
-      $output['flagged'] = (int) $data->flagged ? TRUE : FALSE;
-    }
-
-    // Reportback Child Item data
+    // Reportback Item child data
     if (isset($data->reportback_items)) {
       $items = $this->getReportbackItems($data->reportback_items); // @TODO: update with new approach
-
-      $output['reportback_items'] = array(
-        'total' => count($items),
-        'data' => $this->transformCollection($items, 'transformReportbackItem'),
-      );
     }
+
+    if ($items) {
+      $items = $this->transformCollection($items, 'transformReportbackItem');
+    }
+
+    $output['reportback_items'] = array(
+      'total' => count($items),
+      'data' => $items,
+    );
 
     return $output;
   }

@@ -71,27 +71,19 @@ class ReportbackTransformer extends Transformer {
    * @return array
    */
   public function show($id) {
-    $params = array();
-    $params['rbid'] = $id;
-
-    $reportback = Reportback::get($id);
-
-
-//    $query = dosomething_reportback_get_reportbacks_query_result($params);
-//    $reportback = services_resource_build_index_list($query, 'reportback', 'rbid');
-//    // @TODO: Above returns object with null properties if no results, should return null or false.
-//
-//    if (! $reportback) {
-//      return array(
-//        'error' => array(
-//          'message' => 'Reportback does not exist.',
-//        ),
-//      );
-//    }
+    try {
+      $reportback = Reportback::get($id);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
+    }
 
     return array(
       'data' => $this->transform($reportback),
-//      'data' => $reportback,
     );
 
   }

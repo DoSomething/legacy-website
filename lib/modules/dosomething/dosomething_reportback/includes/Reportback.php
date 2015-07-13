@@ -87,9 +87,13 @@ class Reportback extends Entity {
     if (!is_array($ids)) {
       $ids = dosomething_helpers_format_data($ids);
     }
-
     $result = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
     $result = array_pop($result);
+    // @TODO: Above returns object with null properties if no results, should return null or false.
+
+    if (!$result->rbid) {
+      throw new Exception('No reportback data found.');
+    }
 
     $this->id = $result->rbid;
     $this->created_at = $result->created;
