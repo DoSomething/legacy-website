@@ -188,10 +188,9 @@ class ReportbackFileEntityController extends EntityAPIController {
     if (DOSOMETHING_REPORTBACK_LOG) {
       watchdog('dosomething_reportback_file', 'save:' . json_encode($entity));
     }
-    $status = NULL;
+    $status = 'pending';
     if (isset($entity->is_new)) {
       $op = 'insert';
-      $status = 'pending';
     }
     parent::save($entity, $transaction);
     // Update the pending count for the node reportback was saved for.
