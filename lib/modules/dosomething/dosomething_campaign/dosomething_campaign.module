@@ -715,9 +715,12 @@ function dosomething_campaign_add_shipment_form_vars($node) {
 function dosomething_campaign_is_hot_module($vars) {
   $first_day_of_month = mktime(0,0,0,date('n'),1,date('Y'));
   $last_day_of_month = mktime(23,59,59,date('n'),date('t'),date('Y'));
-  $highSeasonStartDate = explode("-", $vars['field_high_season'][0]['value']);
-  $comp_date = mktime(0,0,0,$highSeasonStartDate[1],$highSeasonStartDate[2],$highSeasonStartDate[0]);
+  $high_season_start_date = explode("-", $vars['field_high_season'][0]['value']);
+  $comp_date = mktime(0,0,0,$high_season_start_date [1],$high_season_start_date [2],$high_season_start_date [0]);
 
+  // Hot module is enabled feature is only enabled when high season dates exist and start in the current month.
+  // @todo: Assumes that high season starts and ends in the same month.
+  // This logic will need to change if end of high season is in a different month than when it starts.
   if (variable_get('dosomething_campaign_enable_hot_module', NULL) == 1 && !empty($vars['field_high_season']) && (($comp_date >= $first_day_of_month) && ($comp_date <= $last_day_of_month))) {
     return TRUE;
   }
