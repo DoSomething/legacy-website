@@ -333,7 +333,6 @@ class ReportbackEntityController extends EntityAPIController {
     }
 
     parent::save($entity, $transaction);
-
     // If a file fid exists:
     if (isset($entity->fid)) {
       // Add it into the reportback files.

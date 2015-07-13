@@ -875,6 +875,20 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
 }
 
 /**
+ * Returns the total number of reportbacks with the override added to it.
+ *
+ * @param int $nid
+*   A node nid.
+ *
+ * @return int $total
+ *  Sum of all reportback quantities plus the override.
+ */
+ function dosomething_reportback_get_reportback_total_plus_override($nid) {
+   return dosomething_reportback_get_reportback_total_by_nid($nid) + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override');
+ }
+
+
+/**
  * Returns total number of Reportbacks by status (promoted, approved, etc).
  *
  * @param int $nid
