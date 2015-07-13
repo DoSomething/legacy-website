@@ -884,15 +884,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
  *  Sum of all reportback quantities plus the override.
  */
  function dosomething_reportback_get_reportback_total_plus_override($nid) {
-   // Select all reportbacks for given $nid.
-   $query = db_select('dosomething_reportback', 'rb')->condition('nid', $nid);
-   // Get quantity of all reportbacks
-   $query->fields('rb', array('quantity'));
-   $query->addExpression('SUM(quantity)', 'quantity');
-   $result = $query->execute()->fetchAll();
-   $quantity = $result[0]->quantity;
-   dosomething_helpers_set_variable('node', $nid, 'sum_rb_quanity', $quantity);
-   return $quantity + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override');
+   return dosomething_reportback_get_reportback_total_by_nid($nid) + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override');
  }
 
 
