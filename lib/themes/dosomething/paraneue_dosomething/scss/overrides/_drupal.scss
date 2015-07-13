@@ -2,15 +2,13 @@
 // Styles to make sense of Drupal's stock markup:
 // ----------------------------------------------
 
-// Quick and dirty fix for "Remove Signup" form being hidden
-// behind nav. @TODO Remove me when we fix "non-themed" template
-#dosomething-signup-node-unsignup-form {
+// Quick and dirty fix for "Remove Signup" form being hidden behind nav.
+#dosomething-signup-node-unsignup-form, #dosomething-reportback-delete-form {
   padding-top: 144px;
   padding-bottom: 36px;
   max-width: 600px;
   margin: 0 auto;
 }
-
 
 // Make Krumo look okay when it's in the ".messages" module
 .messages .krumo-root {
