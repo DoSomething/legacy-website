@@ -845,9 +845,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
-<br/>
-<strong> Limit: 135 characters </strong>',
+    'description' => 'Limit: 117 characters (for the purposes of sharing this fact via social, this MUST be under 117 characters.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -3080,9 +3078,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Campaign type');
   t('Cause');
   t('Check this for the campaign to appear on the mobile apps.');
-  t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
-<br/>
-<strong> Limit: 135 characters </strong>');
   t('Copy');
   t('Cover Image');
   t('Created By');
@@ -3124,6 +3119,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Issue');
   t('Know It Image');
   t('Latest News');
+  t('Limit: 117 characters (for the purposes of sharing this fact via social, this MUST be under 117 characters.');
   t('Limit: 2 per campaign.');
   t('Location Finder Copy');
   t('Low Season');
