@@ -441,3 +441,23 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
 function dosomething_helpers_floor_decimal($value, $decimals = 1) {
   return floor($value * pow(10, $decimals)) / pow(10, $decimals);
 }
+
+/**
+ * Adds custom GA event to page
+ *
+ * @param String category The category of the event
+ * @param String action The action being performed
+ * @param String label The event label (Optional)
+ * @param String value The value to be sent (Optional)
+ */
+function dosomething_helpers_add_analytics_event($category, $action, $label, $value) {
+  $event_string = '"' . $category . '"' . ', ' . '"' . $action . '"';
+  if ($label) {
+    $event_string = $event_string . ', ' . $label;
+  }
+  if ($value) {
+    $event_string = $event_string  . ',' . $value;
+  }
+  $google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", ' . $event_string . '); }';
+  drupal_add_js($google_analytics_js, 'inline');
+}

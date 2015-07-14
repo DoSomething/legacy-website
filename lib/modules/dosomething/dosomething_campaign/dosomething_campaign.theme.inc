@@ -435,8 +435,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['reportback_form'] = $vars['content']['reportback_form'];
 
   // Add analytics custom event on action page.
-  $google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", "Action Page View", "' . $vars['title'] . '"); }';
-  drupal_add_js($google_analytics_js, 'inline');
+  //$google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", "Action Page View", "' . $vars['title'] . '"); }';
+  //drupal_add_js($google_analytics_js, 'inline');
+  dosomething_helpers_add_analytics_event("Action Page View", $vars['title']);
 
   $optimizely_js = 'window["optimizely"] = window["optimizely"] || []; window.optimizely.push(["trackEvent", "Action Page View"]);';
   drupal_add_js($optimizely_js, 'inline');
