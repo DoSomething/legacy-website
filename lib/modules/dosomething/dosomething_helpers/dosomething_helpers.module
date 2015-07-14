@@ -450,7 +450,7 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
  * @param String label The event label (Optional)
  * @param String value The value to be sent (Optional)
  */
-function dosomething_helpers_add_analytics_event($category, $action, $label, $value) {
+function dosomething_helpers_add_analytics_event($category, $action, $label = NULL, $value = NULL) {
   $event_string = '"' . $category . '"' . ', ' . '"' . $action . '"';
   if ($label) {
     $event_string = $event_string . ', ' . $label;
