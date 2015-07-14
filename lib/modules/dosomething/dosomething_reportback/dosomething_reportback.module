@@ -707,7 +707,7 @@ function dosomething_reportback_views_pre_render(&$view) {
   // Scope this to the reportback files node view.
   if ($view->name === 'reportback_files' && arg(0) === 'node') {
     $nid = $view->args[0];
-    $quantity = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity') + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quanity_override');
+    $quantity = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity') + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override');
     // Add total quantity to view.
     $view->attachment_before = '<h2> Total reportback quantity: ' . $quantity . '</h2>';
   }
@@ -865,7 +865,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
     $query->addExpression('SUM(quantity)', 'quantity');
     $result = $query->execute()->fetchAll();
     $quantity = $result[0]->quantity;
-    dosomething_helpers_set_variable('node', $nid, 'sum_rb_quanity', $quantity);
+    dosomething_helpers_set_variable('node', $nid, 'sum_rb_quantity', $quantity);
     return $quantity;
   }
   elseif ($type == 'count') {

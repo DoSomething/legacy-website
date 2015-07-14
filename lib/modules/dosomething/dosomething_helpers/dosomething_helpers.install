@@ -183,3 +183,13 @@ function dosomething_helpers_update_7007() {
     ->condition('name', 'alt_bg_fid')
     ->execute();
 }
+
+function dosomething_helpers_update_7008() {
+  $table = 'dosomething_helpers_variable';
+  db_update($table)
+    ->fields(array(
+      'name' => 'sum_rb_quantity'
+    ))
+    ->condition('name', 'sum_rb_quanity', '=')
+    ->execute();
+}
