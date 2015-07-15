@@ -718,7 +718,7 @@ function dosomething_campaign_is_hot_module($vars) {
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
 
-  // Hot module is only enabled when variable ise set, high season dates exist and there is still days left.
+  // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
   if (variable_get('dosomething_campaign_enable_hot_module', NULL) == 1 && !empty($vars['field_high_season']) && $days_left > 0) {
     return TRUE;
   }
