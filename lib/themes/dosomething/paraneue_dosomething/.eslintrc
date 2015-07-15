@@ -1,12 +1,20 @@
 {
   "parser": "babel-eslint",          // https://github.com/babel/babel-eslint
+
   "plugins": [
     "react"                          // https://github.com/yannickcr/eslint-plugin-react
   ],
+
   "env": {                           // http://eslint.org/docs/user-guide/configuring.html#specifying-environments
     "browser": true,                 // browser global variables
     "node": true                     // Node.js global variables and Node.js-specific rules
   },
+
+  "globals": {
+    "Drupal": true,                  // Drupal global object (Drupal.js)
+    "ga": true                       // Google Analytics
+  },
+
   "ecmaFeatures": {
     "arrowFunctions": true,
     "blockBindings": true,
@@ -25,22 +33,23 @@
     "templateStrings": true,
     "jsx": true
   },
+
   "rules": {
-/**
- * Strict mode
- */
+    /**
+     * Strict mode
+     */
     // babel inserts "use strict"; for us
     "strict": [2, "never"],          // http://eslint.org/docs/rules/strict
 
-/**
- * ES6
- */
+    /**
+     * ES6
+     */
     "no-var": 1,                     // http://eslint.org/docs/rules/no-var
     "prefer-const": 1,               // http://eslint.org/docs/rules/prefer-const
 
-/**
- * Variables
- */
+    /**
+     * Variables
+     */
     "no-shadow": 2,                  // http://eslint.org/docs/rules/no-shadow
     "no-shadow-restricted-names": 2, // http://eslint.org/docs/rules/no-shadow-restricted-names
     "no-unused-vars": [2, {          // http://eslint.org/docs/rules/no-unused-vars
@@ -49,9 +58,9 @@
     }],
     "no-use-before-define": 2,       // http://eslint.org/docs/rules/no-use-before-define
 
-/**
- * Possible errors
- */
+    /**
+     * Possible errors
+     */
     "comma-dangle": [2, "always-multiline"],    // http://eslint.org/docs/rules/comma-dangle
     "no-cond-assign": [2, "always"], // http://eslint.org/docs/rules/no-cond-assign
     "no-console": 1,                 // http://eslint.org/docs/rules/no-console
@@ -75,9 +84,9 @@
     "use-isnan": 2,                  // http://eslint.org/docs/rules/use-isnan
     "block-scoped-var": 2,           // http://eslint.org/docs/rules/block-scoped-var
 
-/**
- * Best practices
- */
+    /**
+     * Best practices
+     */
     "consistent-return": 2,          // http://eslint.org/docs/rules/consistent-return
     "curly": [2, "multi-line"],      // http://eslint.org/docs/rules/curly
     "default-case": 2,               // http://eslint.org/docs/rules/default-case
@@ -118,14 +127,14 @@
     "wrap-iife": [2, "any"],         // http://eslint.org/docs/rules/wrap-iife
     "yoda": 2,                       // http://eslint.org/docs/rules/yoda
 
-/**
- * Style
- */
+    /**
+     * Style
+     */
     "indent": [2, 2],                // http://eslint.org/docs/rules/indent
     "brace-style": [2,               // http://eslint.org/docs/rules/brace-style
       "1tbs", {
-      "allowSingleLine": true
-    }],
+        "allowSingleLine": true
+      }],
     "quotes": [
       1, "single", "avoid-escape"    // http://eslint.org/docs/rules/quotes
     ],
@@ -138,10 +147,10 @@
     }],
     "comma-style": [2, "last"],      // http://eslint.org/docs/rules/comma-style
     "eol-last": 2,                   // http://eslint.org/docs/rules/eol-last
-    "func-names": 1,                 // http://eslint.org/docs/rules/func-names
+    "func-names": 0,                 // http://eslint.org/docs/rules/func-names
     "key-spacing": [2, {             // http://eslint.org/docs/rules/key-spacing
-        "beforeColon": false,
-        "afterColon": true
+      "beforeColon": false,
+      "afterColon": true
     }],
     "new-cap": [2, {                 // http://eslint.org/docs/rules/new-cap
       "newIsCap": true
@@ -168,10 +177,13 @@
     "space-infix-ops": 2,            // http://eslint.org/docs/rules/space-infix-ops
     "space-return-throw-case": 2,    // http://eslint.org/docs/rules/space-return-throw-case
     "spaced-line-comment": 2,        // http://eslint.org/docs/rules/spaced-line-comment
+    "valid-jsdoc": [1, {             // http://eslint.org/docs/rules/valid-jsdoc.html
+      "requireReturn": false
+    }],
 
-/**
- * JSX style
- */
+    /**
+     * JSX style
+     */
     "react/display-name": 0,         // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
     "react/jsx-boolean-value": 2,    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
     "react/jsx-quotes": [2, "double"], // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-quotes.md
