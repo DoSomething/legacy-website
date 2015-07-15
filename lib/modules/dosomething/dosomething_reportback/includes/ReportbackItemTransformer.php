@@ -1,25 +1,18 @@
 <?php
 
-/**
- * Class Reportback Item Transformer
- */
 class ReportbackItemTransformer extends ReportbackTransformer {
 
   /**
    * @param array $parameters Any parameters obtained from query string.
-   *
    * @return array
    */
   public function index($parameters) {
-    // @TODO: add validation method to Transformer
-    // Need to make sure that certain query parameters passed are
-    // validated to a specific data type (eg: nid needs to be an int)
-    $filters = array(
-      'nid' => $this->formatData($parameters['campaigns']),
-      'status' => $this->formatData($parameters['status']),
+    $filters = [
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
-    );
+    ];
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
@@ -28,68 +21,66 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
 
-    $query = dosomething_reportback_get_reportback_files_query_result($filters, $filters['count'], $filters['offset']);
-    $reportbackItems = services_resource_build_index_list($query, 'reportback-items', 'fid');
-    $total = $this->getTotalCount($filters);
-
-    if (!$reportbackItems) {
-      return array(
-        'error' => array(
-          'message' => 'There were no reportback items found.',
-        ),
-      );
+    try {
+      $reportbackItems = ReportbackItem::find($filters);
+      $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'fid');
+      $total = $this->getTotalCount($filters);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
     }
 
-    return array(
+    return [
       'pagination' => $this->paginate($total, $filters, 'reportback-items'),
       'retrieved_count' => count($reportbackItems),
       'data' => $this->transformCollection($reportbackItems),
-    );
+    ];
   }
 
 
   /**
    * @param string $id Resource id.
-   *
    * @return array
    */
   public function show($id) {
-    $params = array();
-    $params['fid'] = $id;
-
-    $query = dosomething_reportback_get_reportback_files_query_result($params);
-    $reportbackItem = services_resource_build_index_list($query, 'reportback-items', 'fid');
-
-    if (!$reportbackItem) {
-      return array(
-        'error' => array(
-          'message' => 'There was no reportback item found.',
-        ),
-      );
+    try {
+      $reportbackItem = ReportbackItem::get($id);
+      $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'fid');
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
     }
 
     return array(
-      'data' => $this->transform($reportbackItem[0]),
+      'data' => $this->transform(array_pop($reportbackItem)),
     );
   }
 
 
   /**
    * @param object $item Single object of retrieved data.
-   *
    * @return array
    */
   protected function transform($item) {
-    $data = array();
+    $data = [];
+
 
     // Main Reportback Item data
     $data += $this->transformReportbackItem($item);
 
-    $data['reportback'] = $this->transformReportback($item);
+//    $data['reportback'] = $this->transformReportback($item->reportback);
 
-    $data['campaign'] = $this->transformCampaign(Campaign::get($item->nid));
+    $data['campaign'] = $this->transformCampaign(Campaign::get($item->campaign['id']));
 
-    $data['user'] = $this->transformUser($item);
+    $data['user'] = $this->transformUser($item->user);
 
     return $data;
   }

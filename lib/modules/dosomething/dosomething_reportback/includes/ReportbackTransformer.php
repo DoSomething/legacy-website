@@ -31,7 +31,6 @@ class ReportbackTransformer extends Transformer {
 
   /**
    * @param array $parameters Any parameters obtained from query string.
-   *
    * @return array
    */
   public function index($parameters) {
@@ -66,13 +65,15 @@ class ReportbackTransformer extends Transformer {
 
 
   /**
-   * @param string $id Resource id.
+   * Display the specified resource.
    *
+   * @param string $id Resource id.
    * @return array
    */
   public function show($id) {
     try {
       $reportback = Reportback::get($id);
+//      $reportback = Reportback::get(['1000', '650']);
     }
     catch (Exception $error) {
       return [
@@ -83,15 +84,14 @@ class ReportbackTransformer extends Transformer {
     }
 
     return array(
-      'data' => $this->transform($reportback),
+//      'data' => $this->transform($reportback),
+      'data' => $reportback,
     );
-
   }
 
 
   /**
    * @param object $reportback Single object of retrieved data.
-   *
    * @return array
    */
   protected function transform($reportback) {
@@ -102,10 +102,6 @@ class ReportbackTransformer extends Transformer {
 //    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
 
     $data['user'] = $this->transformUser($reportback);
-
-    // @TODO: http://php.net/manual/en/control-structures.foreach.php
-    // Referenced in other code, would be good to potentially address
-    // with use of foreach above.
 
     return $data;
   }

@@ -7,6 +7,7 @@ dependencies[] = dosomething_api
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_static_content
 dependencies[] = dosomething_campaign
+dependencies[] = dosomething_kudos
 dependencies[] = features
 dependencies[] = number
 dependencies[] = views

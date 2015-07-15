@@ -2,12 +2,120 @@
 
 class ReportbackItem extends Entity {
 
+  public $id;
+  public $status;
+  public $caption;
+  public $created_at;
+  public $media;
+  public $kudos;
+  public $reportback;
+  public $campaign;
+  public $user;
+
+
+  /**
+   * Overrides construct for parent Entity class.
+   *
+   * @param array $values
+   * @throws Exception
+   */
+  public function __construct(array $values = []) {
+    parent::__construct($values, 'reportback_item');
+  }
+
+
   /**
    * Overrides to implement a custom default URI.
    */
   protected function defaultUri() {
     return array('path' => 'reportback/' . $this->rbid . '?fid=' . $this->identifier());
   }
+
+
+  /**
+   * Convenience method to retrieve a single or multiple reportback-items from supplied id(s).
+   *
+   * @param $ids
+   * @return array
+   * @throws Exception
+   */
+  public static function get($ids) {
+    $reportbackItems = [];
+
+    $results = dosomething_reportback_get_reportback_files_query_result(['fid' => $ids]);
+
+    if (!$results) {
+      throw new Exception('No reportback items data found.');
+    }
+
+    foreach($results as $item) {
+      $reportbackItem = new static();
+      $reportbackItem->build($item);
+
+      $reportbackItems[] = $reportbackItem;
+    }
+
+    return $reportbackItems;
+  }
+
+
+  /**
+   * Convenience method to retrieve reportback-items based on supplied filters.
+   *
+   * @param array $filters
+   * @return array
+   * @throws Exception
+   */
+  public static function find(array $filters = []) {
+    $reportbackItems = [];
+
+    $results = dosomething_reportback_get_reportback_items_query($filters);
+
+    if (!$results) {
+      throw new Exception('No reportback items data found.');
+    }
+
+    foreach($results as $item) {
+      $reportbackItem = new static;
+      $reportbackItem->build($item);
+
+      $reportbackItems[] = $reportbackItem;
+    }
+
+    return $reportbackItems;
+  }
+
+
+  /**
+   * Build out the instantiated Reportback Item class object with supplied data.
+   *
+   * @param $data
+   */
+  private function build($data) {
+    $this->id = $data->fid;
+    $this->status = $data->status;
+    $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
+    $this->created_at = $data->timestamp;
+    $this->media = [
+      'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
+      'type' => 'image',
+    ];
+    $this->kudos = dosomething_helpers_format_data($data->kids);
+    $this->reportback = [
+      'id' => $data->rbid,
+      'created_at' => $data->created,
+      'updated_at' => $data->updated,
+      'quantity' => (int) $data->quantity,
+    ];
+    $this->campaign = [
+      'id' => $data->nid,
+    ];
+    $this->user = [
+      'id' => $data->uid,
+    ];
+  }
+
+
 
   public function getImage($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_by_fid($this->fid, $file_size);
@@ -16,6 +124,7 @@ class ReportbackItem extends Entity {
     }
     return $image;
   }
+
   public function getImageURL($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_url_by_fid($this->fid, $file_size);
     if (!$image) {

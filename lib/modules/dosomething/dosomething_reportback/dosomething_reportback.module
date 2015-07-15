@@ -1066,12 +1066,12 @@ function dosomething_reportback_get_reportbacks_query($params = array()) {
  */
 function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
   $query = dosomething_reportback_get_reportbacks_query($params);
+
   if ($count) {
     $query->range($start, $count);
   }
+
   $result = $query->execute()->fetchAll();
-//  print_r($result);
-//  die();
 
   return $result;
 }
@@ -1100,7 +1100,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
 
   $query->leftJoin('dosomething_kudos', 'k', 'k.fid = rbf.fid');
 
-   $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
+  $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
 
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
@@ -1188,6 +1188,18 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
   $result = $query->execute()->fetchAll();
 
   return $result;
+}
+
+
+/**
+ * Function to replace dosomething_reportback_get_reportback_files_query_result(),
+ * but for now acting as a go between.
+ *
+ * @param array $params
+ * @return object
+ */
+function dosomething_reportback_get_reportback_items_query($params) {
+  return dosomething_reportback_get_reportback_files_query_result($params, $params['count'], $params['offset']);
 }
 
 

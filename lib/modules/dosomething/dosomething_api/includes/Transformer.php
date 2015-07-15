@@ -163,23 +163,23 @@ abstract class Transformer {
   }
 
 
-  /**
-   * Retrieve Reportback Items by the specified id(s).
-   *
-   * @param string $ids Comma separated list of Reportback Item ids.
-   *
-   * @return array
-   */
-  protected function getReportbackItems($ids) {
-    $filters = array(
-      'fid' => $this->formatData($ids),
-    );
-
-    // Obtaining all Reportback items.
-    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
-
-    return services_resource_build_index_list($query, 'reportback-items', 'fid');
-  }
+//  /**
+//   * Retrieve Reportback Items by the specified id(s).
+//   *
+//   * @param string $ids Comma separated list of Reportback Item ids.
+//   *
+//   * @return array
+//   */
+//  protected function getReportbackItems($ids) {
+//    $filters = array(
+//      'fid' => $this->formatData($ids),
+//    );
+//
+//    // Obtaining all Reportback items.
+//    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
+//
+//    return services_resource_build_index_list($query, 'reportback-items', 'fid');
+//  }
 
 
   /**
@@ -426,34 +426,35 @@ abstract class Transformer {
    * Transform Reportback Item data and prepare for API response.
    *
    * @param object $data
-   *   An object containing properties of Reportback Item data:
-   *   - fid: (string) Reportback Item id.
+   *   A Reportback Item object containing following properties:
+   *   - id: (string) Reportback Item id.
+   *   - status: (string) Reportback Item status.
    *   - caption: (string) Reportback Item caption.
    *   - uri: (string) API URI for Reportback Item data.
+   *   - media: (array) Reportback Item media.
    *   - created_at: (string) Date Reportback Item was created.
-   *   - status: (string) Reportback Item status.
-   *
+   *   - kudos: (array) Ids of kudos for Reportback Item.
    * @return array
    */
   protected function transformReportbackItem($data) {
-    $output = array(
-      'id' => $data->fid,
-      'caption' => !empty($data->caption) ? $data->caption : t('DoSomething? Just did!'),
+    $output = [
+      'id' => $data->id,
+      'status' => $data->status,
+      'caption' => $data->caption,
       'uri' => $data->uri,
-      'media' => array(
-        'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
-        'type' => 'image',
-      ),
-      'created_at' => $data->timestamp,  // @TODO: Not sure if timestamp applies as created_at?
-    );
+      'media' => $data->media,
+      'created_at' => $data->created_at,
+    ];
 
     // Get kudos data from comma separated values in data, if any.
-    $kudos = $this->getKudos($this->formatData($data->kids));
-    $output['kudos'] = $kudos ? ['data' => dosomething_kudos_sort($kudos)] : NULL;
-
-    if (isset($data->status)) {
-      $output['status'] = $data->status;
+    // @TODO: Implement new method of retrieving Kudos
+    if ($data->kudos) {
+      $kudos = $this->getKudos($data->kudos);
     }
+    else {
+      $kudos = NULL;
+    }
+    $output['kudos'] = $kudos ? ['data' => dosomething_kudos_sort($kudos)] : NULL;
 
     return $output;
   }
@@ -470,7 +471,7 @@ abstract class Transformer {
    */
   protected function transformUser($data) {
     return array(
-      'id' => isset($data->id) ? $data->id : $data->uid,
+      'id' => $data['id'], //isset($data->id) ? $data->id : $data->uid,
     );
   }
 
