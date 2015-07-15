@@ -1094,6 +1094,8 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
+  $query->join('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
+  $query->join('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
@@ -1149,6 +1151,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
+  $query->addField('fn', 'field_reportback_noun_value', 'noun');
+  $query->addField('fv', 'field_reportback_verb_value', 'verb');
 
   $query->groupBy('rbf.fid');
 

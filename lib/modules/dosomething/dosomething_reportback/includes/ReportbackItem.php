@@ -35,7 +35,7 @@ class ReportbackItem extends Entity {
   /**
    * Convenience method to retrieve a single or multiple reportback-items from supplied id(s).
    *
-   * @param $ids
+   * @param string|array $ids Single id or array of ids of Reportback Items to load.
    * @return array
    * @throws Exception
    */
@@ -109,6 +109,11 @@ class ReportbackItem extends Entity {
     ];
     $this->campaign = [
       'id' => $data->nid,
+      'title' => $data->title,
+      'reportback_info' => [
+        'noun' => $data->noun,
+        'verb' => $data->verb,
+      ],
     ];
     $this->user = [
       'id' => $data->uid,
@@ -116,7 +121,10 @@ class ReportbackItem extends Entity {
   }
 
 
-
+  /**
+   * @param string $file_size
+   * @return array|null|string
+   */
   public function getImage($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_by_fid($this->fid, $file_size);
     if (!$image) {
@@ -125,6 +133,11 @@ class ReportbackItem extends Entity {
     return $image;
   }
 
+
+  /**
+   * @param string $file_size
+   * @return null|string
+   */
   public function getImageURL($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_url_by_fid($this->fid, $file_size);
     if (!$image) {
@@ -132,6 +145,7 @@ class ReportbackItem extends Entity {
     }
     return $image;
   }
+
 
   /**
    * Sets the Reportback File status and Reviewer details.
@@ -142,7 +156,7 @@ class ReportbackItem extends Entity {
    *   - source (string). The page or device the Review has been submitted from.
    *   - flagged_reason (string).
    *   - delete (integer).  If set to 1, delete the corresponding File entity.
-   *
+   * @return bool
    */
   public function review($values) {
     global $user;
@@ -178,6 +192,7 @@ class ReportbackItem extends Entity {
     return entity_save('reportback_item', $this);
   }
 
+
   /**
    * Deletes the File associated with this Reportback File.
    */
@@ -188,4 +203,3 @@ class ReportbackItem extends Entity {
     }
   }
 }
-

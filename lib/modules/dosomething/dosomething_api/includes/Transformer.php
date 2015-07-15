@@ -13,7 +13,6 @@ abstract class Transformer {
    * if a single item, return it without formatting.
    *
    * @param string $data Single or multiple comma separated data items.
-   *
    * @return string|array
    */
   protected function formatData($data) {
@@ -31,8 +30,8 @@ abstract class Transformer {
    * Get all kudos from specified array of ids.
    *
    * @param $ids array
-   *
    * @return array|null
+   * @TODO: To be deprecated.
    */
   protected function getKudos($ids) {
     if ($ids) {
@@ -53,7 +52,6 @@ abstract class Transformer {
    * Get all kudos for specified reportback item id.
    *
    * @param $reportback_item_id string
-   *
    * @return array|null
    */
   protected function getKudosByReportbackItemId($reportback_item_id) {
@@ -83,7 +81,6 @@ abstract class Transformer {
    *   - total_pages: (int) Total number of pages available.
    * @param array $parameters
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return null|string
    */
   protected function getNextPageUri($data, $parameters, $endpoint) {
@@ -111,7 +108,6 @@ abstract class Transformer {
    *   - total_pages: (int) Total number of pages available.
    * @param array $parameters An associative array of current location parameters.
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return null|string
    */
   protected function getPrevPageUri($data, $parameters, $endpoint) {
@@ -140,7 +136,6 @@ abstract class Transformer {
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {
@@ -163,23 +158,23 @@ abstract class Transformer {
   }
 
 
-//  /**
-//   * Retrieve Reportback Items by the specified id(s).
-//   *
-//   * @param string $ids Comma separated list of Reportback Item ids.
-//   *
-//   * @return array
-//   */
-//  protected function getReportbackItems($ids) {
-//    $filters = array(
-//      'fid' => $this->formatData($ids),
-//    );
-//
-//    // Obtaining all Reportback items.
-//    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
-//
-//    return services_resource_build_index_list($query, 'reportback-items', 'fid');
-//  }
+  /**
+   * Retrieve Reportback Items by the specified id(s).
+   *
+   * @param string $ids Comma separated list of Reportback Item ids.
+   * @return array
+   * @TODO: To be deprecated.
+   */
+  protected function getReportbackItems($ids) {
+    $filters = array(
+      'fid' => $this->formatData($ids),
+    );
+
+    // Obtaining all Reportback items.
+    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
+
+    return services_resource_build_index_list($query, 'reportback-items', 'fid');
+  }
 
 
   /**
@@ -195,7 +190,6 @@ abstract class Transformer {
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
    * @param string $endpoint
-   *
    * @return array
    */
   protected function paginate($total, $parameters, $endpoint) {
@@ -221,7 +215,6 @@ abstract class Transformer {
    *
    * @param int $page Current page number.
    * @param int $count Number of items per page.
-   *
    * @return int
    */
   protected function setOffset($page, $count) {
@@ -247,7 +240,6 @@ abstract class Transformer {
    *
    * @param array $items Collection of item objects retrieved data.
    * @param string $method Name of method to use on each array item.
-   *
    * @return array
    */
   protected function transformCollection($items, $method = 'transform') {
@@ -277,13 +269,13 @@ abstract class Transformer {
    *   - tags: (array)
    *   - timing: (array)
    *   - reportback_info: (array)
-   *
    * @return array
    */
   protected function transformCampaign($data) {
     $output = array(
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
+      'reportback_info' => $data->reportback_info,
     );
 
     // If an instance of Campaign class, then there is much
@@ -332,8 +324,6 @@ abstract class Transformer {
         $output['timing']['low_season'] = $data->timing['low_season'];
       }
 
-      $output['reportback_info'] = $data->reportback_info;
-
     }
 
     return $output;
@@ -381,8 +371,6 @@ abstract class Transformer {
    *   - id: (string) The Reportback id.
    *   - created_at: (string) Date Reportback was created.
    *   - updated_at: (string) Date Reportback was updated.
-   *   - noun: (string) Noun associated with Campaign Reportback.
-   *   - verb: (string) Verb associated with Campaign Reportback.
    *   - quantity: (int) Quantity declared for Reportback.
    *   - why_participated: (string) Reason for participating.
    *   - flagged: (int) Status whether Reportback has been flagged.
@@ -392,31 +380,33 @@ abstract class Transformer {
    * @return array
    */
   protected function transformReportback($data) {
-    $items = [];
-    $output = array(
+    $output = [
       'id' => $data->id,
       'created_at' => $data->created_at,
       'updated_at' => $data->updated_at,
-      'noun' => $data->noun,
-      'verb' => $data->verb,
       'quantity' => $data->quantity,
-      'why_participated' => $data->why_participated,
-      'flagged' => (int) $data->flagged ? TRUE : FALSE,
-    );
+    ];
 
-    // Reportback Item child data
-    if (isset($data->reportback_items)) {
-      $items = $this->getReportbackItems($data->reportback_items); // @TODO: update with new approach
+    if ($data instanceof Reportback) {
+      $items = [];
+
+      $output['why_participated'] = $data->why_participated;
+      $output['flagged'] = $data->flagged;
     }
 
-    if ($items) {
-      $items = $this->transformCollection($items, 'transformReportbackItem');
-    }
-
-    $output['reportback_items'] = array(
-      'total' => count($items),
-      'data' => $items,
-    );
+//    // Reportback Item child data
+//    if (isset($data->reportback_items)) {
+//      $items = $this->getReportbackItems($data->reportback_items); // @TODO: update with new approach
+//    }
+//
+//    if ($items) {
+//      $items = $this->transformCollection($items, 'transformReportbackItem');
+//    }
+//
+//    $output['reportback_items'] = array(
+//      'total' => count($items),
+//      'data' => $items,
+//    );
 
     return $output;
   }
@@ -447,14 +437,9 @@ abstract class Transformer {
     ];
 
     // Get kudos data from comma separated values in data, if any.
-    // @TODO: Implement new method of retrieving Kudos
-    if ($data->kudos) {
-      $kudos = $this->getKudos($data->kudos);
-    }
-    else {
-      $kudos = NULL;
-    }
-    $output['kudos'] = $kudos ? ['data' => dosomething_kudos_sort($kudos)] : NULL;
+    // @TODO: Implement new method of retrieving Kudos; Kudos::get([$ids])
+    $kudos = $this->getKudos($data->kudos);
+    $output['kudos']['data'] = $kudos ? dosomething_kudos_sort($kudos) : [];
 
     return $output;
   }
@@ -466,12 +451,11 @@ abstract class Transformer {
    * @param object $data
    *   An object containing properties of User data:
    *   - uid: (int) User id.
-   *
    * @return array
    */
   protected function transformUser($data) {
     return array(
-      'id' => $data['id'], //isset($data->id) ? $data->id : $data->uid,
+      'id' => $data->id, //isset($data->id) ? $data->id : $data->uid,
     );
   }
 

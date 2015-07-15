@@ -72,15 +72,13 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   protected function transform($item) {
     $data = [];
 
-
-    // Main Reportback Item data
     $data += $this->transformReportbackItem($item);
 
-//    $data['reportback'] = $this->transformReportback($item->reportback);
+    $data['reportback'] = $this->transformReportback((object) $item->reportback);
 
-    $data['campaign'] = $this->transformCampaign(Campaign::get($item->campaign['id']));
+    $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
-    $data['user'] = $this->transformUser($item->user);
+    $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
   }
