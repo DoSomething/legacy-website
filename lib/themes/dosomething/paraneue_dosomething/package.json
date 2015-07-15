@@ -18,7 +18,7 @@
     "dotty": "0.0.2",
     "es5-shim": "^4.1.1",
     "fixed-sticky": "DFurnes/fixed-sticky#umd",
-    "html5shiv": "~3.7.2",
+    "html5shiv": "aFarkas/html5shiv.git#3.7.2",
     "jquery": "~1.11.0",
     "jquery-once": "~2.0.0",
     "jquery.iecors": "DFurnes/jquery.iecors#umd",
