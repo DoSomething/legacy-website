@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Our custom controller for the dosomething_reportback type.
- */
 class ReportbackItemController extends EntityAPIController {
   /**
    * Overrides buildContent() method.

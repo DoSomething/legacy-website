@@ -35,7 +35,7 @@ class ReportbackTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = array(
-      'nid' => $this->formatData($parameters['campaigns']),
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => $parameters['status'],
       'count' => $parameters['count'] ?: 25,
     );
@@ -48,14 +48,17 @@ class ReportbackTransformer extends Transformer {
     // @TODO: Need to flesh this out. Temporarily disabled.
     // $query = dosomething_reportback_get_reportbacks_query_result($filters, $filters['count']);
     // $reportbacks = services_resource_build_index_list($query, 'reportbacks', 'rbid');
-    $reportbacks = null;
+    //$reportbacks = null;
 
-    if (!$reportbacks) {
-      return array(
-        'error' => array(
-          'message' => 'Temporarily unavailable... These are not the reportbacks you are looking for.',
-        ),
-      );
+    try {
+      $reportbacks = Reportback::find($filters);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
     }
 
     return array(

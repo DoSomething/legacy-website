@@ -101,6 +101,33 @@ class Reportback extends Entity {
 
 
   /**
+   * Convenience method to retrieve reportbacks based on supplied filters.
+   *
+   * @param array $filters
+   * @return array
+   * @throws Exception
+   */
+  public static function find(array $filters = []) {
+    $reportbacks = [];
+
+    $results = dosomething_reportback_get_reportbacks_query($filters);
+
+    if (!$results) {
+      throw new Exception('No reportback data found.');
+    }
+
+    foreach($results as $item) {
+      $reportback = new static;
+      $reportback->build($item);
+
+      $reportbacks[] = $reportback;
+    }
+
+    return $reportbacks;
+  }
+
+
+  /**
    * Build out the instantiated Reportback class object with supplied entity data.
    *
    * @param string|array $ids Single id or array of ids.
