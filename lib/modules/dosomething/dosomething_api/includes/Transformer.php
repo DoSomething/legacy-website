@@ -31,7 +31,8 @@ abstract class Transformer {
    *
    * @param $ids array
    * @return array|null
-   * @TODO: To be deprecated.
+   * @deprecated since version... because I said so!
+   * @TODO: Remove once method no longer in use.
    */
   protected function getKudos($ids) {
     if ($ids) {
@@ -163,7 +164,8 @@ abstract class Transformer {
    *
    * @param string $ids Comma separated list of Reportback Item ids.
    * @return array
-   * @TODO: To be deprecated.
+   * * @deprecated since version... because I said so!
+   * @TODO: Remove.
    */
   protected function getReportbackItems($ids) {
     $filters = array(
@@ -375,8 +377,6 @@ abstract class Transformer {
    *   - why_participated: (string) Reason for participating.
    *   - flagged: (int) Status whether Reportback has been flagged.
    *   - reportback_items: (string) Comma separated list of Reportback Item ids for specified Reportback.
-   *   - campaign: (array) Campaign array related to Reportback.
-   *   - user: (array) User array related to Reportback.
    * @return array
    */
   protected function transformReportback($data) {

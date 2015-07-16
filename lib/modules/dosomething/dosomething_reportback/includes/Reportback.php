@@ -21,7 +21,7 @@ class Reportback extends Entity {
   // public $promoted;
   // public $promoted_reason; // Should be nested in promoted property?
 
-  // @TODO: Properties to deprecate
+  // @TODO: Properties to potentially deprecate
   // public $fids;
 
 
@@ -34,33 +34,35 @@ class Reportback extends Entity {
   public function __construct(array $values = []) {
     parent::__construct($values, 'reportback');
 
-//    die(print_r(debug_backtrace()));
-//    die(print_r($this));
+    // @TODO: Temporary hack to avoid above code executing on new class instance.
+    if (!isset($values['ignore'])) {
+      // It allows the Reportback form and prior submitted data to load properly.
+      $this->fids = array();
+      // If this is a new entity, rbid may not be set.
+      if (isset($this->rbid)) {
+        $this->fids = $this->getFids();
+      }
 
-    // @TODO: currently setting the fids is required for action page prove it section to load properly
-//    $this->fids = array();
-//    // If this is a new entity, rbid may not be set.
-//    if (isset($this->rbid)) {
-//      $this->fids = $this->getFids();
-//    }
+      // If a reportback nid exists:
+      if (isset($this->nid)) {
+        // Set properties found on the reportback's node nid.
+        $this->node_title = $this->getNodeTitle();
 
-//    // If a reportback nid exists:
-//    if (isset($this->nid)) {
-//      // Set properties found on the reportback's node nid.
-//      $this->node_title = $this->getNodeTitle();
-//
-//      if (module_exists('dosomething_campaign_run')) {
-//        // Check if this reportback is associated with Campaign Run node.
-//        if ($parent_nid = dosomething_campaign_run_get_parent_nid($this->nid)) {
-//          // Use the Campaign node nid instead of the Run nid.
-//          $this->nid = $parent_nid;
-//        }
-//      }
-//
-//      $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
-//      $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
-//      $this->quantity_label = $this->noun . ' ' . $this->verb;
-//    }
+        if (module_exists('dosomething_campaign_run')) {
+          // Check if this reportback is associated with Campaign Run node.
+          if ($parent_nid = dosomething_campaign_run_get_parent_nid($this->nid)) {
+            // Use the Campaign node nid instead of the Run nid.
+            $this->nid = $parent_nid;
+          }
+        }
+
+        $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
+        $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+        $this->quantity_label = $this->noun . ' ' . $this->verb;
+      }
+    }
+
+    unset($values['ignore']);
   }
 
 
@@ -90,7 +92,8 @@ class Reportback extends Entity {
     }
 
     foreach($results as $item) {
-      $reportback = new static();
+      // @TODO: remove need for passing variable for constructor check.
+      $reportback = new static(['ignore' => TRUE]);
       $reportback->build($item);
 
       $reportbacks[] = $reportback;
@@ -117,7 +120,8 @@ class Reportback extends Entity {
     }
 
     foreach($results as $item) {
-      $reportback = new static;
+      // @TODO: remove need for passing variable for constructor check.
+      $reportback = new static(['ignore' => TRUE]);
       $reportback->build($item);
 
       $reportbacks[] = $reportback;
