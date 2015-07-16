@@ -89,7 +89,7 @@ class ReportbackItem extends Entity {
   /**
    * Build out the instantiated Reportback Item class object with supplied data.
    *
-   * @param $data
+   * @param object $data
    */
   private function build($data) {
     $this->id = $data->fid;

@@ -1022,14 +1022,29 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
 
   if (isset($params['rbid'])) {
-    $query->condition('rb.rbid', $params['rbid']);
+    if (is_array($params['rbid'])) {
+      $query->condition('rb.rbid', $params['rbid'], 'IN');
+    }
+    else {
+      $query->condition('rb.rbid', $params['rbid']);
+    }
   }
 
   if (isset($params['nid'])) {
     if (is_array($params['nid'])) {
       $query->condition('rb.nid', $params['nid'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rb.nid', $params['nid']);
+    }
+  }
+
+  if (isset($params['status'])) {
+    if (is_array($params['status'])) {
+      $query->condition('rbf.status', $params['status'], 'IN');
+    }
+    else {
+      $query->condition('rbf.status', $params['status']);
     }
   }
 
@@ -1136,7 +1151,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (isset($params['status'])) {
     if (is_array($params['status'])) {
       $query->condition('rbf.status', $params['status'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rbf.status', $params['status']);
     }
   }
@@ -1144,14 +1160,16 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (isset($params['nid'])) {
     if (is_array($params['nid'])) {
       $query->condition('rb.nid', $params['nid'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rb.nid', $params['nid']);
     }
   }
   elseif (isset($params['fid'])) {
     if (is_array($params['fid'])) {
       $query->condition('rbf.fid', $params['fid'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rbf.fid', $params['fid']);
     }
   }

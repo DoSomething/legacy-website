@@ -366,7 +366,7 @@ abstract class Transformer {
   /**
    * Transform Reportback data and prepare for API response.
    *
-   * @param object $data
+   * @param object $data Standard object or Reportback object.
    *   An object containing properties of Reportback data:
    *   - id: (string) The Reportback id.
    *   - created_at: (string) Date Reportback was created.
@@ -388,25 +388,24 @@ abstract class Transformer {
     ];
 
     if ($data instanceof Reportback) {
-      $items = [];
-
       $output['why_participated'] = $data->why_participated;
       $output['flagged'] = $data->flagged;
-    }
 
-//    // Reportback Item child data
-//    if (isset($data->reportback_items)) {
-//      $items = $this->getReportbackItems($data->reportback_items); // @TODO: update with new approach
-//    }
-//
-//    if ($items) {
-//      $items = $this->transformCollection($items, 'transformReportbackItem');
-//    }
-//
-//    $output['reportback_items'] = array(
-//      'total' => count($items),
-//      'data' => $items,
-//    );
+      try {
+        $items = ReportbackItem::get($data->reportback_items);
+        $items = services_resource_build_index_list($items, 'reportback-items', 'id');
+      }
+      catch (Exception $error) {
+        $items = [];
+      }
+
+      $items = $this->transformCollection($items, 'transformReportbackItem');
+
+      $output['reportback_items'] = [
+        'total' => count($items),
+        'data' => $items,
+      ];
+    }
 
     return $output;
   }
@@ -431,7 +430,7 @@ abstract class Transformer {
       'id' => $data->id,
       'status' => $data->status,
       'caption' => $data->caption,
-      'uri' => $data->uri,
+      'uri' => $data->uri . '.json',
       'media' => $data->media,
       'created_at' => $data->created_at,
     ];

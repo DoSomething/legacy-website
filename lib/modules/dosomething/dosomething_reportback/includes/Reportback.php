@@ -11,15 +11,12 @@ class Reportback extends Entity {
   public $updated_at;
   public $quantity;
   public $why_participated;
-  public $total_participants;
   public $flagged;
   public $reportback_items;
   public $campaign;
   public $user;
 
   // @TODO: add the following?
-  // public $noun;
-  // public $verb;
   // public $flagged_reason; // Should be nested in flagged property?
   // public $promoted;
   // public $promoted_reason; // Should be nested in promoted property?
@@ -30,6 +27,9 @@ class Reportback extends Entity {
 
   /**
    * Overrides construct to set calculated properties.
+   *
+   * @param array $values
+   * @throws Exception
    */
   public function __construct(array $values = []) {
     parent::__construct($values, 'reportback');
@@ -79,19 +79,19 @@ class Reportback extends Entity {
    *
    * @param string|array $ids Single id or array of ids of Reportbacks to load.
    * @return array
+   * @throws Exception
    */
   public static function get($ids) {
     $reportbacks = [];
+    $results = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
 
-    if (!is_array($ids)) {
-      $ids = [$ids];
+    if (!$results) {
+      throw new Exception('No reportback data found.');
     }
 
-    $entities = entity_load('reportback', $ids);
-
-    foreach($entities as $entity) {
+    foreach($results as $item) {
       $reportback = new static();
-      $reportback->build($entity);
+      $reportback->build($item);
 
       $reportbacks[] = $reportback;
     }
@@ -130,57 +130,27 @@ class Reportback extends Entity {
   /**
    * Build out the instantiated Reportback class object with supplied entity data.
    *
-   * @param string|array $ids Single id or array of ids.
+   * @param object $data
    */
-  public function build($entity) {
-    $method = 'beta';  // beta
-
-//    if ($method === 'alpha') {
-//      if (!is_array($ids)) {
-//        $ids = dosomething_helpers_format_data($ids);
-//      }
-//      $result = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
-//      $result = array_pop($result);
-//      // @TODO: Above returns object with null properties if no results, should return null or false.
-//
-//      if (!$result->rbid) {
-//        throw new Exception('No reportback data found.');
-//      }
-//
-//      $this->id = $result->rbid;
-//      $this->created_at = $result->created;
-//      $this->updated_at = $result->updated;
-//      $this->quantity = (int)$result->quantity;
-//      $this->why_participated = $result->why_participated;
-//      $this->flagged = $result->flagged;
-//      $this->noun = $result->noun;
-//      $this->verb = $result->verb;
-//      $this->reportback_items = dosomething_helpers_format_data($result->items); //$this->getReportbackItems();
-//      $this->campaign = [
-//        'id' => $result->nid,
-//        'title' => $result->title,
-//      ];
-//      $this->user = [
-//        'id' => $result->uid,
-//      ];
-//    }
-
-    if ($method === 'beta') {
-      $this->id = $entity->rbid;
-      $this->created_at = $entity->created;
-      $this->updated_at = $entity->updated;
-      $this->quantity = (int) $entity->quantity;
-      $this->why_participated = $entity->why_participated;
-      $this->total_participants = (int) $entity->num_participants;
-      $this->flagged = (bool) $entity->flagged;
-//      $this->reportback_items = ReportbackItem::get($this->id);
-      $this->campaign = [
-        'id' => $entity->nid,
-      ];
-      $this->user = [
-        'id' => $entity->uid,
-      ];
-    }
+  public function build($data) {
+    $this->id = $data->rbid;
+    $this->created_at = $data->created;
+    $this->updated_at = $data->updated;
+    $this->quantity = (int) $data->quantity;
+    $this->why_participated = $data->why_participated;
+    $this->flagged = (bool) $data->flagged;
+    $this->reportback_items = dosomething_helpers_format_data($data->items);
+    $this->campaign = [
+      'id' => $data->nid,
+      'title' => $data->title,
+      'reportback_info' => [
+        'noun' => $data->noun,
+        'verb' => $data->verb,
+      ],
+    ];
+    $this->user = [
+      'id' => $data->uid,
+    ];
   }
 
 

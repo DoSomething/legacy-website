@@ -13,7 +13,6 @@ class ReportbackTransformer extends Transformer {
    *   An associative array of query parameters:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
-   *
    * @return int Total number of reportback items.
    */
   protected function getTotalCount($parameters) {
@@ -36,7 +35,7 @@ class ReportbackTransformer extends Transformer {
   public function index($parameters) {
     $filters = array(
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'status' => $parameters['status'],
+      'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => $parameters['count'] ?: 25,
     );
 
@@ -76,7 +75,6 @@ class ReportbackTransformer extends Transformer {
   public function show($id) {
     try {
       $reportback = Reportback::get($id);
-//      $reportback = Reportback::get(['1000', '650']);
     }
     catch (Exception $error) {
       return [
@@ -87,24 +85,25 @@ class ReportbackTransformer extends Transformer {
     }
 
     return array(
-//      'data' => $this->transform($reportback),
-      'data' => $reportback,
+      'data' => $this->transform(array_pop($reportback)),
     );
   }
 
 
   /**
+   * Transform data and build out response.
+   *
    * @param object $reportback Single object of retrieved data.
    * @return array
    */
-  protected function transform($reportback) {
-    $data = array();
+  protected function transform($item) {
+    $data = [];
 
-    $data += $this->transformReportback($reportback);
+    $data += $this->transformReportback($item);
 
-//    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
+    $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
-    $data['user'] = $this->transformUser($reportback);
+    $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
   }

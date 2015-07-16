@@ -43,6 +43,8 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
 
   /**
+   * Display the specified resource.
+   *
    * @param string $id Resource id.
    * @return array
    */
@@ -66,6 +68,8 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
 
   /**
+   * Transform data and build out response.
+   *
    * @param object $item Single object of retrieved data.
    * @return array
    */
