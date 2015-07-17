@@ -34,7 +34,6 @@ class Kudos extends Entity {
 
   /**
    * @param $id
-   *
    * @return static
    */
   public static function get($id) {

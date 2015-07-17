@@ -34,7 +34,7 @@ class Reportback extends Entity {
   public function __construct(array $values = []) {
     parent::__construct($values, 'reportback');
 
-    // @TODO: Temporary hack to avoid above code executing on new class instance.
+    // @TODO: Temporary hack to avoid code below executing on new class instance in specific scenarios.
     if (!isset($values['ignore'])) {
       // It allows the Reportback form and prior submitted data to load properly.
       $this->fids = array();
@@ -132,7 +132,7 @@ class Reportback extends Entity {
 
 
   /**
-   * Build out the instantiated Reportback class object with supplied entity data.
+   * Build out the instantiated Reportback class object with supplied data.
    *
    * @param object $data
    */
