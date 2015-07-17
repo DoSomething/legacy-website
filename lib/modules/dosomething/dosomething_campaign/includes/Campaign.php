@@ -335,9 +335,9 @@ class Campaign {
     $data = array();
 
     $tag_ids = dosomething_helpers_extract_field_data($this->node->field_tags);
-
+    
     if ($tag_ids) {
-      foreach ($tag_ids as $id) {
+      foreach ((array) $tag_ids as $id) {
         $data[] = $this->getTaxonomyTerm($id);
       }
 
