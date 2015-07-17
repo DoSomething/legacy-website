@@ -44,11 +44,6 @@ class ReportbackTransformer extends Transformer {
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
 
-    // @TODO: Need to flesh this out. Temporarily disabled.
-    // $query = dosomething_reportback_get_reportbacks_query_result($filters, $filters['count']);
-    // $reportbacks = services_resource_build_index_list($query, 'reportbacks', 'rbid');
-    //$reportbacks = null;
-
     try {
       $reportbacks = Reportback::find($filters);
     }
