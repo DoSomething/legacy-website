@@ -10,10 +10,13 @@ include_once 'includes/KudosTransformer.php';
 
 
 /**
+ * Implements hook_entity_info().
+ *
  * @return array
  */
 function dosomething_kudos_entity_info() {
   $info = [];
+
   $info['kudos'] = [
     'label' => t('Kudos'),
     'base table' => 'dosomething_kudos',

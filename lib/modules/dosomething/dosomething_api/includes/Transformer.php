@@ -13,7 +13,6 @@ abstract class Transformer {
    * if a single item, return it without formatting.
    *
    * @param string $data Single or multiple comma separated data items.
-   *
    * @return string|array
    */
   protected function formatData($data) {
@@ -31,8 +30,9 @@ abstract class Transformer {
    * Get all kudos from specified array of ids.
    *
    * @param $ids array
-   *
    * @return array|null
+   * @deprecated since version... because I said so!
+   * @TODO: Remove once method no longer in use.
    */
   protected function getKudos($ids) {
     if ($ids) {
@@ -53,7 +53,6 @@ abstract class Transformer {
    * Get all kudos for specified reportback item id.
    *
    * @param $reportback_item_id string
-   *
    * @return array|null
    */
   protected function getKudosByReportbackItemId($reportback_item_id) {
@@ -83,7 +82,6 @@ abstract class Transformer {
    *   - total_pages: (int) Total number of pages available.
    * @param array $parameters
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return null|string
    */
   protected function getNextPageUri($data, $parameters, $endpoint) {
@@ -111,7 +109,6 @@ abstract class Transformer {
    *   - total_pages: (int) Total number of pages available.
    * @param array $parameters An associative array of current location parameters.
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return null|string
    */
   protected function getPrevPageUri($data, $parameters, $endpoint) {
@@ -140,7 +137,6 @@ abstract class Transformer {
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
    * @param string $endpoint Endpoint for building URI.
-   *
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {
@@ -167,8 +163,9 @@ abstract class Transformer {
    * Retrieve Reportback Items by the specified id(s).
    *
    * @param string $ids Comma separated list of Reportback Item ids.
-   *
    * @return array
+   * * @deprecated since version... because I said so!
+   * @TODO: Remove.
    */
   protected function getReportbackItems($ids) {
     $filters = array(
@@ -195,7 +192,6 @@ abstract class Transformer {
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
    * @param string $endpoint
-   *
    * @return array
    */
   protected function paginate($total, $parameters, $endpoint) {
@@ -221,7 +217,6 @@ abstract class Transformer {
    *
    * @param int $page Current page number.
    * @param int $count Number of items per page.
-   *
    * @return int
    */
   protected function setOffset($page, $count) {
@@ -247,7 +242,6 @@ abstract class Transformer {
    *
    * @param array $items Collection of item objects retrieved data.
    * @param string $method Name of method to use on each array item.
-   *
    * @return array
    */
   protected function transformCollection($items, $method = 'transform') {
@@ -277,13 +271,13 @@ abstract class Transformer {
    *   - tags: (array)
    *   - timing: (array)
    *   - reportback_info: (array)
-   *
    * @return array
    */
   protected function transformCampaign($data) {
     $output = array(
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
+      'reportback_info' => $data->reportback_info,
     );
 
     // If an instance of Campaign class, then there is much
@@ -332,8 +326,6 @@ abstract class Transformer {
         $output['timing']['low_season'] = $data->timing['low_season'];
       }
 
-      $output['reportback_info'] = $data->reportback_info;
-
     }
 
     return $output;
@@ -376,46 +368,43 @@ abstract class Transformer {
   /**
    * Transform Reportback data and prepare for API response.
    *
-   * @param object $data
+   * @param object $data Standard object or Reportback object.
    *   An object containing properties of Reportback data:
-   *   - rbid: (string) The Reportback id.
-   *   - created: (string) Date Reportback was created.
-   *   - updated: (string) Date Reportback was updated.
+   *   - id: (string) The Reportback id.
+   *   - created_at: (string) Date Reportback was created.
+   *   - updated_at: (string) Date Reportback was updated.
    *   - quantity: (int) Quantity declared for Reportback.
-   *   - uid: (string) User id.
    *   - why_participated: (string) Reason for participating.
    *   - flagged: (int) Status whether Reportback has been flagged.
-   *   - nid: (string) Campaign id.
-   *   - title: (string) Campaign title.
-   *   - items: (string) Comma separated list of Reportback Item ids for specified Reportback.
-   *   - uri: (string) API URI for Reportback data.
-   *
+   *   - reportback_items: (string) Comma separated list of Reportback Item ids for specified Reportback.
    * @return array
    */
   protected function transformReportback($data) {
-    $output = array(
-      'id' => $data->rbid,
-      'created_at' => $data->created,
-      'updated_at' => $data->updated,
-      'quantity' => (int) $data->quantity,
-    );
+    $output = [
+      'id' => $data->id,
+      'created_at' => $data->created_at,
+      'updated_at' => $data->updated_at,
+      'quantity' => $data->quantity,
+    ];
 
-    if (isset($data->why_participated)) {
+    if ($data instanceof Reportback) {
       $output['why_participated'] = $data->why_participated;
-    }
+      $output['flagged'] = $data->flagged;
 
-    if (isset($data->flagged)) {
-      $output['flagged'] = (int) $data->flagged ? TRUE : FALSE;
-    }
+      try {
+        $items = ReportbackItem::get($data->reportback_items);
+        $items = services_resource_build_index_list($items, 'reportback-items', 'id');
+      }
+      catch (Exception $error) {
+        $items = [];
+      }
 
-    // Reportback Child Item data
-    if (isset($data->items)) {
-      $items = $this->getReportbackItems($data->items);
+      $items = $this->transformCollection($items, 'transformReportbackItem');
 
-      $output['reportback_items'] = array(
+      $output['reportback_items'] = [
         'total' => count($items),
-        'data' => $this->transformCollection($items, 'transformReportbackItem'),
-      );
+        'data' => $items,
+      ];
     }
 
     return $output;
@@ -426,34 +415,30 @@ abstract class Transformer {
    * Transform Reportback Item data and prepare for API response.
    *
    * @param object $data
-   *   An object containing properties of Reportback Item data:
-   *   - fid: (string) Reportback Item id.
+   *   A Reportback Item object containing following properties:
+   *   - id: (string) Reportback Item id.
+   *   - status: (string) Reportback Item status.
    *   - caption: (string) Reportback Item caption.
    *   - uri: (string) API URI for Reportback Item data.
+   *   - media: (array) Reportback Item media.
    *   - created_at: (string) Date Reportback Item was created.
-   *   - status: (string) Reportback Item status.
-   *
+   *   - kudos: (array) Ids of kudos for Reportback Item.
    * @return array
    */
   protected function transformReportbackItem($data) {
-    $output = array(
-      'id' => $data->fid,
-      'caption' => !empty($data->caption) ? $data->caption : t('DoSomething? Just did!'),
-      'uri' => $data->uri,
-      'media' => array(
-        'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
-        'type' => 'image',
-      ),
-      'created_at' => $data->timestamp,  // @TODO: Not sure if timestamp applies as created_at?
-    );
+    $output = [
+      'id' => $data->id,
+      'status' => $data->status,
+      'caption' => $data->caption,
+      'uri' => $data->uri . '.json',
+      'media' => $data->media,
+      'created_at' => $data->created_at,
+    ];
 
     // Get kudos data from comma separated values in data, if any.
-    $kudos = $this->getKudos($this->formatData($data->kids));
-    $output['kudos'] = $kudos ? ['data' => dosomething_kudos_sort($kudos)] : NULL;
-
-    if (isset($data->status)) {
-      $output['status'] = $data->status;
-    }
+    // @TODO: Implement new method of retrieving Kudos; Kudos::get([$ids])
+    $kudos = $this->getKudos($data->kudos);
+    $output['kudos']['data'] = $kudos ? dosomething_kudos_sort($kudos) : [];
 
     return $output;
   }
@@ -465,12 +450,11 @@ abstract class Transformer {
    * @param object $data
    *   An object containing properties of User data:
    *   - uid: (int) User id.
-   *
    * @return array
    */
   protected function transformUser($data) {
     return array(
-      'id' => isset($data->id) ? $data->id : $data->uid,
+      'id' => $data->id,
     );
   }
 

@@ -13,7 +13,6 @@ class ReportbackTransformer extends Transformer {
    *   An associative array of query parameters:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
-   *
    * @return int Total number of reportback items.
    */
   protected function getTotalCount($parameters) {
@@ -31,13 +30,12 @@ class ReportbackTransformer extends Transformer {
 
   /**
    * @param array $parameters Any parameters obtained from query string.
-   *
    * @return array
    */
   public function index($parameters) {
     $filters = array(
-      'nid' => $this->formatData($parameters['campaigns']),
-      'status' => $parameters['status'],
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => $parameters['count'] ?: 25,
     );
 
@@ -46,17 +44,15 @@ class ReportbackTransformer extends Transformer {
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
 
-    // @TODO: Need to flesh this out. Temporarily disabled.
-    // $query = dosomething_reportback_get_reportbacks_query_result($filters, $filters['count']);
-    // $reportbacks = services_resource_build_index_list($query, 'reportbacks', 'rbid');
-    $reportbacks = null;
-
-    if (!$reportbacks) {
-      return array(
-        'error' => array(
-          'message' => 'Temporarily unavailable... These are not the reportbacks you are looking for.',
-        ),
-      );
+    try {
+      $reportbacks = Reportback::find($filters);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
     }
 
     return array(
@@ -66,49 +62,43 @@ class ReportbackTransformer extends Transformer {
 
 
   /**
-   * @param string $id Resource id.
+   * Display the specified resource.
    *
+   * @param string $id Resource id.
    * @return array
    */
   public function show($id) {
-    $params = array();
-    $params['rbid'] = $id;
-
-    $query = dosomething_reportback_get_reportbacks_query_result($params);
-    $reportback = services_resource_build_index_list($query, 'reportback', 'rbid');
-    // @TODO: Above returns object with null properties if no results, should return null or false.
-
-    if (! $reportback) {
-      return array(
-        'error' => array(
-          'message' => 'Reportback does not exist.',
-        ),
-      );
+    try {
+      $reportback = Reportback::get($id);
+    }
+    catch (Exception $error) {
+      return [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
     }
 
     return array(
-      'data' => $this->transform($reportback[0]),
+      'data' => $this->transform(array_pop($reportback)),
     );
   }
 
 
   /**
-   * @param object $reportback Single object of retrieved data.
+   * Transform data and build out response.
    *
+   * @param object $reportback Single object of retrieved data.
    * @return array
    */
-  protected function transform($reportback) {
-    $data = array();
+  protected function transform($item) {
+    $data = [];
 
-    $data += $this->transformReportback($reportback);
+    $data += $this->transformReportback($item);
 
-    $data['campaign'] = $this->transformCampaign(Campaign::get($reportback->nid));
+    $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
-    $data['user'] = $this->transformUser($reportback);
-
-    // @TODO: http://php.net/manual/en/control-structures.foreach.php
-    // Referenced in other code, would be good to potentially address
-    // with use of foreach above.
+    $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
   }

@@ -8,7 +8,11 @@ define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') 
 module_load_include('inc', 'dosomething_api', 'dosomething_api.module');
 
 include_once 'dosomething_reportback.features.inc';
+include_once 'includes/Reportback.php';
+include_once 'includes/ReportbackController.php';
 include_once 'includes/ReportbackTransformer.php';
+include_once 'includes/ReportbackItem.php';
+include_once 'includes/ReportbackItemController.php';
 include_once 'includes/ReportbackItemTransformer.php';
 include_once 'dosomething_reportback.forms.inc';
 include_once 'dosomething_reportback.theme.inc';
@@ -17,48 +21,53 @@ include_once 'dosomething_reportback.cron.inc';
 
 /**
  * Implements hook_entity_info().
+ *
+ * @return array
  */
 function dosomething_reportback_entity_info() {
-  $info = array();
-  $info['reportback'] = array(
+  $info = [];
+
+  $info['reportback'] = [
     'label' => t('Reportback'),
     'base table' => 'dosomething_reportback',
-    'entity keys' => array(
+    'entity keys' => [
       'id' => 'rbid',
       'label' => 'rbid',
-    ),
-    'entity class' => 'ReportbackEntity',
+    ],
+    'entity class' => 'Reportback',
     'uri callback' => 'entity_class_uri',
-    'controller class' => 'ReportbackEntityController',
+    'controller class' => 'ReportbackController',
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
-  );
-  $info['reportback_file'] = array(
-    'label' => t('Reportback file'),
+  ];
+
+  $info['reportback_item'] = [
+    'label' => t('Reportback Item'),
     'base table' => 'dosomething_reportback_file',
-    'entity keys' => array(
+    'entity keys' => [
       'id' => 'fid',
       'label' => 'fid',
-    ),
-    'entity class' => 'ReportbackFileEntity',
+    ],
+    'entity class' => 'ReportbackItem',
     'uri callback' => 'entity_class_uri',
-    'controller class' => 'ReportbackFileEntityController',
+    'controller class' => 'ReportbackItemController',
     'module' => 'dosomething_reportback',
     'views controller class' => 'EntityDefaultViewsController',
-    'view modes' => array(
-      'full' => array(
+    'view modes' => [
+      'full' => [
         'label' => t('Full'),
         'custom settings' =>  FALSE,
-      ),
-      'teaser' => array(
+      ],
+      'teaser' => [
         'label' => t('Teaser'),
         'custom settings' =>  FALSE,
-      ),
-    )
-  );
+      ],
+    ]
+  ];
 
   return $info;
 }
+
 
 /**
  * Implements hook_entity_property_info().
@@ -142,7 +151,7 @@ function dosomething_reportback_entity_property_info() {
   );
 
   // Set Reportback File properties.
-  $info['reportback_file']['properties']['rbid'] = array(
+  $info['reportback_item']['properties']['rbid'] = array(
     'label' => t('Reportback File rbid'),
     'description' => t('The Reportback rbid the File belongs to.'),
     'type' => 'reportback',
@@ -150,7 +159,7 @@ function dosomething_reportback_entity_property_info() {
     'required' => TRUE,
     'entity views field' => TRUE,
   );
-  $info['reportback_file']['properties']['fid'] = array(
+  $info['reportback_item']['properties']['fid'] = array(
     'label' => t('Reportback file fid'),
     'description' => t('Unique file fid of the Reportback File.'),
     'type' => 'file',
@@ -159,7 +168,7 @@ function dosomething_reportback_entity_property_info() {
     'entity views field' => TRUE,
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $info['reportback_file']['properties']['caption'] = array(
+  $info['reportback_item']['properties']['caption'] = array(
     'label' => t('Caption'),
     'description' => t('File caption.'),
     'type' => 'text',
@@ -167,7 +176,7 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'caption',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $info['reportback_file']['properties']['status'] = array(
+  $info['reportback_item']['properties']['status'] = array(
     'label' => t('Status'),
     'description' => t('Review status.'),
     'type' => 'text',
@@ -175,7 +184,7 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'status',
     'setter callback' => 'entity_property_verbatim_set',
   );
-  $info['reportback_file']['properties']['reviewed'] = array(
+  $info['reportback_item']['properties']['reviewed'] = array(
     'label' => t('Reviewed'),
     'description' => t('Time reviewed.'),
     'type' => 'date',
@@ -185,6 +194,7 @@ function dosomething_reportback_entity_property_info() {
   );
   return $info;
 }
+
 
 /**
  * Implements hook_menu().
@@ -273,6 +283,7 @@ function dosomething_reportback_menu() {
   return $items;
 }
 
+
 /**
  * Returns array of menu items for given $prefix.
  *
@@ -310,6 +321,7 @@ function dosomething_reportback_get_review_menu_items($prefix, $arg_index) {
   return $items;
 }
 
+
 /**
  * Access callback for entity reportback review page.
  *
@@ -345,7 +357,6 @@ function dosomething_reportback_review_page_access($entity) {
 }
 
 
-
 /**
  * Implements hook_admin_paths().
  */
@@ -357,6 +368,7 @@ function dosomething_reportback_admin_paths() {
   );
   return $paths;
 }
+
 
 /**
  * Access callback for reportback entity operations.
@@ -377,6 +389,7 @@ function dosomething_reportback_access($op, $entity, $account = NULL) {
   // Check that user has access to $op own, and is the author.
   return user_access($perm_own, $account) && $account->uid == $entity->uid;
 }
+
 
 /**
  * Implements hook_permission().
@@ -404,21 +417,25 @@ function dosomething_reportback_permission() {
   );
 }
 
+
 /**
  * Menu autoloader for /reportback.
+ *
  */
 function reportback_load($id) {
   $reportback = entity_load('reportback', array($id));
   return array_pop($reportback);
 }
 
+
 /**
  * Menu autoloader for /reportback.
  */
 function reportback_file_load($fid) {
-  $reportback_file = entity_load('reportback_file', array($fid));
+  $reportback_file = entity_load('reportback_item', array($fid));
   return array_pop($reportback_file);
 }
+
 
 /**
  * Callback for /reportback/ID page.
@@ -426,6 +443,8 @@ function reportback_file_load($fid) {
 function dosomething_reportback_admin_view_entity($entity) {
   return entity_view('reportback', array($entity->rbid => $entity), 'full');
 }
+
+
 /**
  * Returns all copy variables set on the permalink page.
  */
@@ -445,6 +464,8 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
     'non_owners_closed_cta' => variable_get('dosomething_campaign_permalink_nonowners_closed_cta', ''),
   );
 }
+
+
 /**
  * Implements hook_form_alter().
  *
@@ -457,6 +478,7 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
     $form['#submit'][] = 'dosomething_reportback_signup_submit';
   }
 }
+
 
 /**
  * Callback for /rbf/FID page.
@@ -545,6 +567,8 @@ function dosomething_reportback_view_entity($entity) {
 
   return theme('reportback_permalink', $permalink_vars);
 }
+
+
 /**
  * Custom submit handler for signup form.
  * @see dosomething_reportback_form_alter().
@@ -556,6 +580,7 @@ function dosomething_reportback_signup_submit(&$form, &$form_state) {
     $form_state['redirect'] = drupal_get_path_alias('node/' . $nid);
   }
 }
+
 
 /**
  * Process variables for entity.tpl.php.
@@ -570,12 +595,14 @@ function dosomething_reportback_preprocess_entity(&$variables) {
   }
 }
 
+
 /**
  * Callback for /reportback/ID/edit page.
  */
 function dosomething_reportback_edit_entity($entity) {
   return drupal_get_form('dosomething_reportback_form', $entity);
 }
+
 
 /**
  * Deletes a reportback entity.
@@ -589,6 +616,7 @@ function dosomething_reportback_edit_entity($entity) {
 function dosomething_reportback_delete_reportback($rbid) {
   return entity_delete('reportback', $rbid);
 }
+
 
 /**
  * Checks if a reportback exists for given $nid and $uid.
@@ -620,6 +648,7 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
   // Otherwise return FALSE.
   return FALSE;
 }
+
 
 /**
  * Saves a reportback entity with given values.
@@ -660,6 +689,7 @@ function dosomething_reportback_save($values) {
   }
 }
 
+
 /**
  * Sets a reportback entity's properties.
  *
@@ -687,6 +717,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
   }
 }
 
+
 /**
  * Sets a reportback entity's file and caption.
  *
@@ -712,6 +743,7 @@ function dosomething_reportback_views_pre_render(&$view) {
     $view->attachment_before = '<h2> Total reportback quantity: ' . $quantity . '</h2>';
   }
 }
+
 
 /**
  * Saves a reportback file for a given $uid and $nid from file $url.
@@ -747,6 +779,7 @@ function dosomething_reportback_save_file_from_url($nid, $uid, $url) {
   }
   return $file;
 }
+
 
 /**
  * Returns the file destination for a new reportback file for given node $nid.
@@ -789,12 +822,13 @@ function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
   return $dir . '/' . $filename;
 }
 
+
 /**
  * Sends mbp request for a reportback.
  */
 function dosomething_reportback_mbp_request($entity) {
   // This fid is the last file uploaded to the reportback.
-  // @see ReportbackEntity->save().
+  // @see Reportback->save().
   $inserted_fid = $entity->fid;
   $image_markup = dosomething_image_get_themed_image_by_fid($inserted_fid, '300x300');
 
@@ -817,6 +851,7 @@ function dosomething_reportback_mbp_request($entity) {
   }
 }
 
+
 /**
  * Returns array of Reportback rbid's for a given User $uid.
  *
@@ -837,6 +872,7 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     ->execute()
     ->fetchCol(0);
 }
+
 
 /**
  * Returns reportback total for a given node $nid.
@@ -874,6 +910,7 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
   }
 }
 
+
 /**
  * Returns the total number of reportbacks with the override added to it.
  *
@@ -905,6 +942,7 @@ function dosomething_reportback_get_reportback_total_by_status($nid, $status) {
   return dosomething_reportback_get_reportback_files_query_count($params);
 }
 
+
 /**
  * Returns count of Reportbacks for a given node $uid.
  *
@@ -926,6 +964,7 @@ function dosomething_reportback_get_count_by_uid($uid = NULL) {
     ->condition('uid', $uid);
   return $query->execute()->rowCount();
 }
+
 
 /**
  * Return the reportback noun & verb for a campaign.
@@ -968,19 +1007,45 @@ function dosomething_reportback_flush_caches() {
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - rbid: A reportback rbid to filter by.
- *   - random: If set, randomly sort the results.
- *
+ *   - nid: (string) A campaign node nid to filter by.
+ *   - rbid: (string) A reportback rbid to filter by.
+ *   - random: (boolean) If set, randomly sort the results.
  * @return SelectQuery object
  */
-function dosomething_reportback_get_reportbacks_query($params = array()) {
+function dosomething_reportback_build_reportbacks_query($params = array()) {
   $query = db_select('dosomething_reportback', 'rb');
-  $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
   $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
+  $query->join('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
+  $query->join('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
   $query->join('node', 'n', 'rb.nid = n.nid');
 
+  $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
+
   if (isset($params['rbid'])) {
-    $query->condition('rb.rbid', $params['rbid']);
+    if (is_array($params['rbid'])) {
+      $query->condition('rb.rbid', $params['rbid'], 'IN');
+    }
+    else {
+      $query->condition('rb.rbid', $params['rbid']);
+    }
+  }
+
+  if (isset($params['nid'])) {
+    if (is_array($params['nid'])) {
+      $query->condition('rb.nid', $params['nid'], 'IN');
+    }
+    else {
+      $query->condition('rb.nid', $params['nid']);
+    }
+  }
+
+  if (isset($params['status'])) {
+    if (is_array($params['status'])) {
+      $query->condition('rbf.status', $params['status'], 'IN');
+    }
+    else {
+      $query->condition('rbf.status', $params['status']);
+    }
   }
 
   // Public API properties to expose:
@@ -994,6 +1059,10 @@ function dosomething_reportback_get_reportbacks_query($params = array()) {
 
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
+  $query->addField('fn', 'field_reportback_noun_value', 'noun');
+  $query->addField('fv', 'field_reportback_verb_value', 'verb');
+
+  $query->groupBy('rb.rbid');
 
   if (isset($params['random'])) {
     $query->orderRandom();
@@ -1011,23 +1080,39 @@ function dosomething_reportback_get_reportbacks_query($params = array()) {
  *
  * @param array $params
  *   An associative array of conditions to filter by.
- *   @see dosomething_reportback_get_reportbacks_query()
+ *   @see dosomething_reportback_build_reportbacks_query()
  * @param int $count
  *   Number of Reportbacks to return.
  * @param int $start
  *   Which Reportbacks to start with. If present, $start and $count are used together
  *   to create a LIMIT clause for selecting Reportbacks. This could be used to do paging.
- *
  * @return object
  *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
-  $query = dosomething_reportback_get_reportbacks_query($params);
-  if ($count) {
+  $query = dosomething_reportback_build_reportbacks_query($params);
+
+  if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
+
   $result = $query->execute()->fetchAll();
+
   return $result;
+}
+
+
+/**
+ * Function to replace dosomething_reportback_get_reportbacks_query_result()
+ * to reduce number of parameters and keep them with single $params array, but for
+ * now acting as a go between.
+ *
+ * @param array $params
+ * @return object
+ * @TODO: replace dosomething_reportback_get_reportbacks_query_result()
+ */
+function dosomething_reportback_get_reportbacks_query($params) {
+  return dosomething_reportback_get_reportbacks_query_result($params, $params['count']);
 }
 
 
@@ -1036,25 +1121,26 @@ function dosomething_reportback_get_reportbacks_query_result($params = array(), 
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: (string) A node nid to filter by.
+ *   - nid: (string) A campaign node nid to filter by.
  *   - rbid: (string) A reportback rbid to filter by.
  *   - tid: (string) A taxonomy term tid, filters RB Files for all nodes tagged tid.
  *   - fid: (string) A reportback item fid to filter by.
  *   - status: (string) The RB File status.
  *   - random: (boolean) If set, randomly sort the results.
- *
  * @return SelectQuery object
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
-  $query->join('dosomething_reportback', 'rb', 'rb.rbid = rbf.rbid');
+  $query->join('dosomething_reportback', 'rb', 'rbf.rbid = rb.rbid');
+  $query->join('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
+  $query->join('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
 
   $query->leftJoin('dosomething_kudos', 'k', 'k.fid = rbf.fid');
 
-   $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
+  $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
 
   if (isset($params['tid'])) {
     $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
@@ -1065,7 +1151,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (isset($params['status'])) {
     if (is_array($params['status'])) {
       $query->condition('rbf.status', $params['status'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rbf.status', $params['status']);
     }
   }
@@ -1073,14 +1160,16 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (isset($params['nid'])) {
     if (is_array($params['nid'])) {
       $query->condition('rb.nid', $params['nid'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rb.nid', $params['nid']);
     }
   }
   elseif (isset($params['fid'])) {
     if (is_array($params['fid'])) {
       $query->condition('rbf.fid', $params['fid'], 'IN');
-    } else {
+    }
+    else {
       $query->condition('rbf.fid', $params['fid']);
     }
   }
@@ -1103,6 +1192,8 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query->fields('rb', $rb_fields);
   $query->fields('n', array('nid', 'title'));
   $query->fields('f', array('timestamp'));
+  $query->addField('fn', 'field_reportback_noun_value', 'noun');
+  $query->addField('fv', 'field_reportback_verb_value', 'verb');
 
   $query->groupBy('rbf.fid');
 
@@ -1115,6 +1206,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
 
   return $query;
 }
+
 
 /**
  * Returns Reportback Files query result to loop through.
@@ -1142,6 +1234,21 @@ function dosomething_reportback_get_reportback_files_query_result($params = arra
 
   return $result;
 }
+
+
+/**
+ * Function to replace dosomething_reportback_get_reportback_files_query_result()
+ * to reduce number of parameters and keep them with single $params array, but for
+ * now acting as a go between.
+ *
+ * @param array $params
+ * @return object
+ * @TODO: replace dosomething_reportback_get_reportback_files_query_result()
+ */
+function dosomething_reportback_get_reportback_items_query($params) {
+  return dosomething_reportback_get_reportback_files_query_result($params, $params['count'], $params['offset']);
+}
+
 
 /**
  * Returns total number of results from a given RB Files query.
@@ -1192,6 +1299,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   return $count;
 }
 
+
 /**
  * Resets Reportback Count variables for given entity type and entity_id.
  */
@@ -1218,6 +1326,7 @@ function dosomething_reportback_reset_count($entity_type, $entity_id, $status = 
   }
 }
 
+
 /**
  * Returns array of all valid values for a Reportback File's status.
  */
@@ -1230,6 +1339,7 @@ function dosomething_reportback_get_file_status_values() {
     'flagged',
   );
 }
+
 
 /**
  * Returns list of valid form options a Reportback File can be set to.
@@ -1248,6 +1358,7 @@ function dosomething_reportback_get_file_status_options() {
 
   return $options;
 }
+
 
 /**
  * Generates a new Reportback with Placekitten and Lorem ipsum.

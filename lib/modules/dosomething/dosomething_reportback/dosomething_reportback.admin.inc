@@ -307,7 +307,7 @@ function theme_dosomething_reportback_files_form($variables) {
   $rows = array();
   foreach ($rb_files as $fid) {
     $rbf = reportback_file_load($fid);
-    $view = entity_view('reportback_file', array($rbf->fid => $rbf), $view_mode);
+    $view = entity_view('reportback_item', array($rbf->fid => $rbf), $view_mode);
     $promote_form = drupal_render($form['rb_files'][$fid]['promoted_reason']);
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
