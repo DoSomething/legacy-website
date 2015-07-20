@@ -117,9 +117,10 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
+  $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
 
   if ($days_left >= 8) {
-    $vars['time_left'] = t('Ends ' . $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S'));
+    $vars['time_left'] = t('Ends ' . $readable_end_date);
   }
   elseif ($days_left >= 3) {
     $vars['time_left'] = t($end_date->format('j') . ' days left');
@@ -205,6 +206,28 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   if($author->picture) {
       $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300'); 
   }
+
+  // Share links
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+  $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
+
+  $fb_options = array(
+    'picture' => $vars['hero_image']['desktop'],
+    'caption' => $goal_copy . "? Let's make it happen!",
+  );
+  $vars['hot_module_fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
+
+  $tweet = "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! " . $campaign_path;
+  $vars['hot_module_tw_link'] = dosomething_helpers_get_twitter_intent($tweet);
+
+  // Tumblr share parameters.
+  $tumblr_options = array(
+    'posttype' => 'photo',
+    'content' => $vars['hero_image']['desktop'],
+    'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: " . $campaign_path,
+  );
+
+  $vars['hot_module_tm_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
 }
 
 /**
