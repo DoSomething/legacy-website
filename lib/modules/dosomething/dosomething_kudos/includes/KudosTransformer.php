@@ -3,29 +3,26 @@
 class KudosTransformer extends Transformer {
 
   /**
-   * @param $parameters
+   * Display collection of the specified resource.
    *
+   * @param array $parameters Filter parameters to limit collection based on specific criteria.
    * @return array
    */
   public function index($parameters) {
     $filters = [
-      'reportbackitem_id' => $this->formatData($parameters['reportbackitem_ids']),
+      'fid' => $this->formatData($parameters['reportbackitem_ids']),
       'count' => (int) $parameters['count'],
     ];
 
-    $results = dosomething_kudos_get_kudos_query($filters, $filters['count']);
-
-    if (!$results) {
+    try {
+      $kudos = Kudos::find($filters);
+    }
+    catch (Exception $error) {
       return [
         'error' => [
-          'message' => 'No kudos results found.',
-        ]
+          'message' => $error->getMessage(),
+        ],
       ];
-    }
-
-    $kudos = [];
-    foreach ($results as $id) {
-      $kudos[] = Kudos::get($id);
     }
 
     $data = $this->transformCollection($kudos);
@@ -40,8 +37,9 @@ class KudosTransformer extends Transformer {
 
 
   /**
-   * @param $id
+   * Display the specified resource.
    *
+   * @param string $id Kudos id.
    * @return array
    */
   public function show($id) {
@@ -57,14 +55,13 @@ class KudosTransformer extends Transformer {
     }
 
     return [
-      'data' => $this->transform($kudos),
+      'data' => $this->transform(array_pop($kudos)),
     ];
   }
 
 
   /**
    * @param $parameters
-   *
    * @return array
    */
   public function create($parameters) {
@@ -97,7 +94,6 @@ class KudosTransformer extends Transformer {
 
   /**
    * @param $id
-   *
    * @return array
    */
   public function delete($id) {
@@ -130,7 +126,6 @@ class KudosTransformer extends Transformer {
 
   /**
    * @param object $kudos
-   *
    * @return array
    */
   protected function transform($kudos) {

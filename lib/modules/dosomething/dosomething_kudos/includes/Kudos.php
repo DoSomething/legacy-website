@@ -5,14 +5,13 @@ class Kudos extends Entity {
   protected $entity;
 
   public $id;
-  public $reportback_item;
   public $term;
+  public $reportback_item;
   public $user;
 
 
   /**
    * @param array $values
-   *
    * @throws Exception
    */
   public function __construct(array $values = array()) {
@@ -33,37 +32,78 @@ class Kudos extends Entity {
 
 
   /**
-   * @param $id
-   * @return static
+   * Convenience method to retrieve a single or multiple kudos from supplied id(s).
+   *
+   * @param string|array $ids Single id or array of ids of Kudos to load.
+   * @return array
+   * @throws Exception
    */
-  public static function get($id) {
-    $kudos = new static();
-    $kudos->load($id);
+  public static function get($ids) {
+    $kudosItems = [];
 
-    return $kudos;
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+
+    $results = entity_load('kudos', $ids);
+
+    if (!$results) {
+      throw new Exception('No kudos data found.');
+    }
+
+    foreach($results as $items) {
+      $kudos = new static;
+      $kudos->build($items);
+
+      $kudosItems[] = $kudos;
+    }
+
+    return $kudosItems;
   }
 
 
   /**
-   * @param $id
+   * Convenience method to retrieve kudos based on supplied filters.
+   *
+   * @param array $filters
+   * @return array
+   * @throws Exception
    */
-  public function load($id) {
-    $entity = entity_load('kudos', [$id]);
-    $keys = array_keys($entity);
+  public static function find(array $filters = []) {
+    $kudosItems = [];
 
-    $this->entity = $entity[$keys[0]];
-    $this->id = $this->entity->kid;
+    $results = dosomething_kudos_get_kudos_query($filters);
+    $results = entity_load('kudos', $results);
 
-    // Taxonomy Term
-    $this->term = $this->getTaxonomyTerm($this->entity->tid);
+    if (!$results) {
+      throw new Exception('No kudos data found.');
+    }
 
-    // User
-    $user = ['id' => $this->entity->uid];
-    $this->user = (object) $user;
+    foreach($results as $item) {
+      $kudos = new static;
+      $kudos->build($item);
 
-    // Reportback Item
-    $reportback_item = ['id' => $this->entity->fid];
-    $this->reportback_item = (object) $reportback_item;
+      $kudosItems[] = $kudos;
+    }
+
+    return $kudosItems;
+  }
+
+
+  /**
+   * Build out the instantiated Kudos class object with supplied data.
+   *
+   * @param $data
+   */
+  private function build($data) {
+    $this->id = $data->kid;
+    $this->term = $this->getTaxonomyTerm($data->tid);
+    $this->user = [
+      'id' => $data->uid
+    ];
+    $this->reportback_item = [
+      'id' => $data->fid  
+    ];
   }
 
 

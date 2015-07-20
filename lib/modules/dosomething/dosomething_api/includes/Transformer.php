@@ -27,51 +27,6 @@ abstract class Transformer {
 
 
   /**
-   * Get all kudos from specified array of ids.
-   *
-   * @param $ids array
-   * @return array|null
-   * @deprecated since version... because I said so!
-   * @TODO: Remove once method no longer in use.
-   */
-  protected function getKudos($ids) {
-    if ($ids) {
-      $kudos = [];
-
-      foreach((array) $ids as $id) {
-        $kudos[] = Kudos::get($id);
-      }
-
-      return $kudos;
-    }
-
-    return NULL;
-  }
-
-
-  /**
-   * Get all kudos for specified reportback item id.
-   *
-   * @param $reportback_item_id string
-   * @return array|null
-   */
-  protected function getKudosByReportbackItemId($reportback_item_id) {
-    $filters = [
-      'fid' => $reportback_item_id,
-    ];
-
-    // Get array of all kudos ids for specified reportback item.
-    $results = dosomething_kudos_get_kudos_query($filters);
-
-    if ($results) {
-      return $this->getKudos($results);
-    }
-
-    return NULL;
-  }
-
-
-  /**
    * Get the URI for the next page in the collection of data.
    *
    * @param array $data
@@ -435,10 +390,15 @@ abstract class Transformer {
       'created_at' => $data->created_at,
     ];
 
-    // Get kudos data from comma separated values in data, if any.
-    // @TODO: Implement new method of retrieving Kudos; Kudos::get([$ids])
-    $kudos = $this->getKudos($data->kudos);
-    $output['kudos']['data'] = $kudos ? dosomething_kudos_sort($kudos) : [];
+    try {
+      $kudos = Kudos::get($data->kudos);
+      $kudos = dosomething_kudos_sort($kudos);
+    }
+    catch (Exception $error) {
+      $kudos = [];
+    }
+
+    $output['kudos']['data'] = $kudos;
 
     return $output;
   }

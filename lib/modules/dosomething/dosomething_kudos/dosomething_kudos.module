@@ -36,7 +36,6 @@ function dosomething_kudos_entity_info() {
 
 /**
  * @param array $params
- *
  * @return EntityFieldQuery
  */
 function dosomething_kudos_build_kudos_query($params) {
@@ -57,15 +56,15 @@ function dosomething_kudos_build_kudos_query($params) {
 
 /**
  * @param array $params
- * @param null $count
- * @param int $start
- *
  * @return array
  */
-function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start = 0) {
+function dosomething_kudos_get_kudos_query($params = []) {
+  $count = isset($params['count']) ? $params['count'] : NULL;
+  $start = isset($params['start']) ? $params['start'] : 0;
+
   $query = dosomething_kudos_build_kudos_query($params);
 
-  if ($count && is_int($count)) {
+  if ($count && is_int($count) & $count !== 'all') {
     $query->range($start, $count);
   }
 
@@ -79,6 +78,7 @@ function dosomething_kudos_get_kudos_query($params = [], $count = NULL, $start =
  *
  * @param array $data Collection of individual kudos items.
  *
+ * @param string $display
  * @return array
  */
 function dosomething_kudos_sort($data, $display = 'teaser') {
