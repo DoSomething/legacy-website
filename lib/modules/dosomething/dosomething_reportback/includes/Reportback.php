@@ -136,7 +136,7 @@ class Reportback extends Entity {
    *
    * @param object $data
    */
-  public function build($data) {
+  private function build($data) {
     $this->id = $data->rbid;
     $this->created_at = $data->created;
     $this->updated_at = $data->updated;
