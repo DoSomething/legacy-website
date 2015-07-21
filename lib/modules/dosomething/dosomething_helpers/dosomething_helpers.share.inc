@@ -26,7 +26,7 @@ function dosomething_helpers_share_redirect() {
  *
  * @return string   The facebook intent url.
  */
-function dosomething_helpers_get_facebook_intent($type = NULL, $link, $custom_options = NULL) {
+function dosomething_helpers_get_facebook_intent($link, $type = NULL, $custom_options = NULL) {
   switch ($type) {
     // Used to create a facebook share link that uses a custom image,
     // different from what is set in the metatags.

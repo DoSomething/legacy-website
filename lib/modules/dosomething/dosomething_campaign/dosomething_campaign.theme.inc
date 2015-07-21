@@ -221,7 +221,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     'picture' => $vars['hero_image']['desktop'],
     'caption' => $goal_copy . "? Let's make it happen!",
   );
-  $vars['hot_module_fb_link'] = dosomething_helpers_get_facebook_intent('feed_dialog', $share_paths['facebook'], $fb_options);
+  $vars['hot_module_fb_link'] = dosomething_helpers_get_facebook_intent($share_paths['facebook'], 'feed_dialog', $fb_options);
 
   // Twitter
   $tweet = "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! " . $share_paths['twitter'];
