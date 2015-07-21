@@ -76,7 +76,7 @@ class Campaign {
       throw new Exception('No campaign data found.');
     }
 
-    $results = array_map('dosomething_helpers_extract_ids', $results);
+    $results = array_map('dosomething_helpers_extract_id', $results);
     $results = node_load_multiple($results);
 
     foreach($results as $item) {

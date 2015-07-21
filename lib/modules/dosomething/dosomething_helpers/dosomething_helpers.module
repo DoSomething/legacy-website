@@ -162,7 +162,7 @@ function dosomething_helpers_extract_field_text($data) {
  * @param string $property
  * @return string
  */
-function dosomething_helpers_extract_ids($data, $property = 'nid') {
+function dosomething_helpers_extract_id($data, $property = 'nid') {
   $data = (object) $data;
 
   return $data->$property;
