@@ -204,7 +204,7 @@ function dosomething_campaign_get_confirmation_path($nid) {
 function dosomething_campaign_get_campaign_query_count($params) {
   // @TODO: May want to somehow store query count results in dosomething_helpers_variable table at a later date.
   // @see dosomething_reportback_get_reportback_files_query_count() as an example with caching the count data.
-  $query = dosomething_campaign_get_campaigns_query($params);
+  $query = dosomething_campaign_build_campaigns_query($params);
   $count = $query->execute()->rowCount();
 
   return $count;
@@ -385,15 +385,30 @@ function dosomething_campaign_reportback_confirmation_page_access($node) {
 
 /**
  * Returns array of published campaign nid and titles by campaign type $type.
+ *
  */
 function dosomething_campaign_get_campaigns_query_result($params = array(), $count = 25, $start = 0) {
-  $query = dosomething_campaign_get_campaigns_query($params);
+  $query = dosomething_campaign_build_campaigns_query($params);
 
   if ($count && $count !== 'all') {
     $query->range($start, $count);
   }
 
   return $query->execute()->fetchAll();
+}
+
+
+/**
+ * Function to replace dosomething_campaign_get_campaigns_query_result()
+ * to reduce number of parameters and keep them with single $params array, but for
+ * now acting as a go between.
+ *
+ * @param $params
+ * @return mixed
+ * @TODO: replace dosomething_campaign_get_campaigns_query_result()
+ */
+function dosomething_campaign_get_campaigns_query($params) {
+  return dosomething_campaign_get_campaigns_query_result($params, $params['count'], $params['offset']);
 }
 
 
@@ -410,7 +425,7 @@ function dosomething_campaign_get_campaigns_query_result($params = array(), $cou
  *
  * @return SelectQuery object
  */
-function dosomething_campaign_get_campaigns_query($params = array()) {
+function dosomething_campaign_build_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
 

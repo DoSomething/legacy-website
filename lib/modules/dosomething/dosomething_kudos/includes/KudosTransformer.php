@@ -6,6 +6,8 @@ class KudosTransformer extends Transformer {
    * Display collection of the specified resource.
    *
    * @param array $parameters Filter parameters to limit collection based on specific criteria.
+   *  - fid (string|array)
+   *  - count (int)
    * @return array
    */
   public function index($parameters) {
