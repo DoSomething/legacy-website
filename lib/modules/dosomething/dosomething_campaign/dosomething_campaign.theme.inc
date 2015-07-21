@@ -114,6 +114,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
   //Calculate days left
   $today = new DateTime();
+  $start_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
@@ -176,7 +177,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
                                WHERE nid = :nid
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
   foreach($quantity_by_date as $date) {
-    $dates[] = $date->maxdate;
+    $maxdate = new DateTime($date->maxdate);
+    $dates[] = $maxdate->format('m/d/Y');
     $quantities[] = $date->quantity;
   }
 
@@ -187,8 +189,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
           'dates' => json_encode($dates),
           'quantities' => json_encode($quantities),
           'highSeason' => array(
-            'start' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']),
-            'end' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']),
+            'start' => $start_date->format('m/d/Y'),
+            'end' => $end_date->format('m/d/Y')
           )
         ),
       ),
