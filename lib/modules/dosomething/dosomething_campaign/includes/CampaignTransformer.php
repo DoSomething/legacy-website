@@ -48,27 +48,16 @@ class CampaignTransformer extends Transformer {
       'retrieved_count' => count($campaigns),
       'data' => $this->transformCollection($campaigns),
     ];
-
-
-//    $campaigns = [];
-//    foreach ($query as $item) {
-//      $campaigns[] = Campaign::get($item->nid, 'full');
-//    }
-//    $campaigns = services_resource_build_index_list($campaigns, 'campaigns', 'id');
-//    $total = dosomething_campaign_get_campaign_query_count($filters);
-//
   }
 
 
   /**
-   * @param $id
+   * Display the specified resource.
    *
+   * @param string $id Campaign id.
    * @return array
    */
   public function show($id) {
-    $params = array();
-    $params['nid'] = $id;
-
     try {
       $campaign = Campaign::get($id, 'full');
     }
@@ -81,14 +70,13 @@ class CampaignTransformer extends Transformer {
     }
 
     return array(
-      'data' => $this->transform($campaign),
+      'data' => $this->transform(array_pop($campaign)),
     );
   }
 
 
   /**
    * @param object $campaign
-   *
    * @return array
    */
   protected function transform($campaign) {

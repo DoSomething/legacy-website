@@ -30,16 +30,32 @@ class Campaign {
   /**
    * Convenience method to retrieve a single campaign from supplied id.
    *
-   * @param $id
-   * @param $display
+   * @param string|array $ids Single id or array of ids of Campaigns to retrieve.
+   * @param string $display
    * @return static
    * @throws Exception
    */
-  public static function get($id, $display = 'teaser') {
-    $campaign = new static();
-    $campaign->load($id, $display);
+  public static function get($ids, $display = 'teaser') {
+    $campaigns = [];
 
-    return $campaign;
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+
+    $results = node_load_multiple($ids);
+
+    if (!$results) {
+      throw new Exception('No campaign data found.');
+    }
+
+    foreach($results as $item) {
+      $campaign = new static();
+      $campaign->build($item, $display);
+
+      $campaigns[] = $campaign;
+    }
+
+    return $campaigns;
   }
 
 
@@ -47,6 +63,7 @@ class Campaign {
    * Convenience method to retrieve campaigns based on supplied filters.
    *
    * @param array $filters
+   * @param string $display
    * @return array
    * @throws Exception
    */
