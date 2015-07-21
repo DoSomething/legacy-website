@@ -341,25 +341,15 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   // If we are collecting User school:
   if ($config['collect_user_school']) {
+    $administrative_area = dosomething_user_get_address_administrative_area_options();
+
     $form['school_finder'] = array(
       '#prefix' => '<div class="modal__block">',
       '#suffix' => '</div>',
       '#type' => 'fieldset',
       '#attributes' => array(
-        'data-validate' => 'school_finder',
-        'data-validate-required' => 'true',
-      ),
-    );
-    $administrative_area = dosomething_user_get_address_administrative_area_options();
-
-    $form['school_finder']['school_administrative_area'] = array(
-      '#type' => 'select',
-      '#options' => $administrative_area['options'],
-      '#title' => t("Select @label", array(
-        '@label' => $administrative_area['title'],
-      )),
-      '#attributes' => array(
-        'data-validate' => 'state',
+        'data-administrative-areas' => json_encode($administrative_area['options']),
+        'data-administative-area-label' => $administrative_area['title'],
       ),
     );
 
@@ -368,12 +358,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t("School ID"),
     );
 
-    $form['school_finder']['school_name'] = array(
-      // Used for front-end autocomplete.
-      '#type' => 'markup',
-      '#title' => t("School Name"),
-      '#markup' => '<div class="form-item"><input type="search" class="text-field -search js-schoolfinder-search" placeholder="' . t('Find your school by name...') . '"></div><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
-    );
     $school_help_text = t(variable_get('dosomething_user_school_finder_help_text'));
     if ($school_help_text) {
       $school_help_text = check_markup($school_help_text, 'markdown');
