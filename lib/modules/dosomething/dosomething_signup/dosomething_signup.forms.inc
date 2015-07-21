@@ -192,7 +192,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
         '#attributes' => array(
           'data-validate' => 'friend_name',
           'data-validate-required' => '',
-          'placeholder' => t('(555) 555-5555'),
+          'placeholder' => t('Friend\'s Name'),
           'autocomplete' => 'off',
         ),
       );
