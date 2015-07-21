@@ -35,6 +35,8 @@ function dosomething_kudos_entity_info() {
 
 
 /**
+ * Build out query to collect Kudos based on supplied filter parameters.
+ *
  * @param array $params An associative array of conditions to filter by:
  *  - fid: (string|array) Single string or array of multiple Reportback Item ids.
  * @return EntityFieldQuery
@@ -57,7 +59,12 @@ function dosomething_kudos_build_kudos_query($params) {
 
 
 /**
- * @param array $params
+ * Execute query to collect Kudos based on supplied filter parameters.
+ *
+ * @param array $params An associative array of conditions to filter by:
+ *  - fid: (string|array) Single string or array of multiple Reportback Item ids.
+ *  - count: (int) Number of Kudos items to return; will default to NULL.
+ *  - start: (int) Which Kudos to start with in collection; predominantly used for pagination.
  * @return array
  */
 function dosomething_kudos_get_kudos_query($params = []) {
