@@ -145,6 +145,13 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#default_value' => $num_friends,
     '#access' => FALSE,
   );
+  $form['#attributes'] = array(
+    'class' => ['sms-campaign-form'],
+  );
+  // If this is a multiplayer game, add style overrides.
+  if ($form['sms_game_type']['#default_value'] === 'multi_player') {
+    $form['#attributes']['class'][] = 'sms-campaign-form--multiplayer';
+  }
   // Load "all participants" copy.
   $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
   $form['all_participants_copy'] = array(
@@ -163,14 +170,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
       'placeholder' => t('First Name'),
     ),
   );
-  // Add fieldsets to wrappers to various mobile form elements.
-  $form['group1'] = array(
-    '#type' => 'fieldset',
-    '#attributes' => array(
-      'class' => array('campaign-sms-numbers'),
-    ),
-  );
-  $form['group1']['alpha_mobile'] = array(
+  $form['alpha_mobile'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
@@ -183,12 +183,22 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
-    $form['group1']['beta_first_name_' .$i] = array(
-      '#type' => 'hidden',
-      '#title' => 'Your Friend\'s Name',
-    );
+    // If this is a multiplayer game, add first name fields.
+    if ($form['sms_game_type']['#default_value'] === 'multi_player') {
+      $form['beta_first_name_' .$i] = array(
+        '#type' => 'textfield',
+        '#title' => 'Your Friend\'s Name',
+        '#required' => TRUE,
+        '#attributes' => array(
+          'data-validate' => 'friend_name',
+          'data-validate-required' => '',
+          'placeholder' => t('(555) 555-5555'),
+          'autocomplete' => 'off',
+        ),
+      );
+    }
 
-    $form['group1']['beta_mobile_' .$i] = array(
+    $form['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => 'Friend\'s Cell Number',

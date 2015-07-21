@@ -98,58 +98,6 @@
           <?php print render($signup_form); ?>
         <?php endif; ?>
 
-        <!-- ########## A/B Test For SMS First Names ##########  -->
-        <!-- We find the fieldset "edit-group1" in the form above, and replace  -->
-        <!-- with the below snippet. This allows us to swap out form fields -->
-        <!-- without losing CSRF tokens: -->
-
-        <!--  var $ = jQuery; var $form = $("#dosomething-signup-sms-game-form"); $form.addClass('optimizely-sms-form'); $form.find(".form-item-alpha-first-name").remove(); $form.find("#edit-group1").html($("#ab-test-sms-names").html());  -->
-
-        <div id="ab-test-sms-names" style="display: none;">
-          <div class="fieldset-wrapper">
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-alpha-first-name">Your First Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="fname" data-validate-required="" placeholder="First Name" type="text" id="edit-alpha-first-name" name="alpha_first_name" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-alpha-mobile">Your Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-alpha-mobile" name="alpha_mobile" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-beta-first-name-0">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-0" name="beta_first_name_0" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-0">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-0" name="beta_mobile_0" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield ">
-              <label class="field-label" for="edit-beta-first-name-1">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-1" name="beta_first_name_1" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-1">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-1" name="beta_mobile_1" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-beta-first-name-2">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-2" name="beta_first_name_2" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-2">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-2" name="beta_mobile_2" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-          </div>
-        </div>
-        <!-- ########## END A/B Test For SMS First Names ########## -->
-
         <div class="container__block -narrow">
           <?php if (isset($official_rules)): ?>
             <p class="footnote">
