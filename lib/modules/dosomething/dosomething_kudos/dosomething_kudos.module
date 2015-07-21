@@ -35,19 +35,21 @@ function dosomething_kudos_entity_info() {
 
 
 /**
- * @param array $params
+ * @param array $params An associative array of conditions to filter by:
+ *  - fid: (string|array) Single string or array of multiple Reportback Item ids.
  * @return EntityFieldQuery
  */
 function dosomething_kudos_build_kudos_query($params) {
-  // @TODO: implement use of $params for custom queries.
-  // @see dosomething_campaign_get_campaigns_query() as an example.
-
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'kudos');
 
   if (isset($params['fid'])) {
-    $query->propertyCondition('fid', $params['fid'], '=');
+    if (is_array($params['fid'])) {
+      $query->propertyCondition('fid', $params['fid'], 'IN');
+    } else {
+      $query->propertyCondition('fid', $params['fid'], '=');
+    }
   }
 
   return $query;

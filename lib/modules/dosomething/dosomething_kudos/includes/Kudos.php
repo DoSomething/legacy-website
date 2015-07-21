@@ -99,10 +99,10 @@ class Kudos extends Entity {
     $this->id = $data->kid;
     $this->term = $this->getTaxonomyTerm($data->tid);
     $this->user = [
-      'id' => $data->uid
+      'id' => $data->uid,
     ];
     $this->reportback_item = [
-      'id' => $data->fid  
+      'id' => $data->fid,
     ];
   }
 
