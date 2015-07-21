@@ -56,7 +56,9 @@
               <?php endif; ?>
             </div>
             <div class="stat-card__timing">
-              <p><?php print $time_left ?></p>
+              <?php if(isset($time_left)): ?>
+                <p><?php print $time_left ?></p>
+              <?php endif; ?>
             </div>
             <div class="stat-card__chart">
               <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal; ?>"></canvas>
@@ -65,13 +67,17 @@
 
           <div class="author-callout">
             <div class="author-callout__copy">
-              <?php print $progress_copy; ?>
+              <?php if(isset($progress_copy)): ?>
+                <?php print $progress_copy; ?>
+              <?php endif; ?>
             </div>
 
             <article class="figure -left -center">
               <div class="figure__media">
                 <div class="avatar">
-                  <?php print $author_image ?>
+                  <?php if(isset($author_image)): ?>
+                    <?php print $author_image ?>
+                  <?php endif; ?>
                 </div>
               </div>
               <div class="figure__body">
@@ -79,6 +85,16 @@
                   <p class="author-callout__last-name"><?php print $author_title ?></p>
               </div>
             </article>
+            <div class="message-callout -above-horizontal -blue">
+              <div class="message-callout__copy">
+                <p><?php print $hot_module_share_copy; ?></p>
+              </div>
+            </div>
+            <ul class="social-share-bar -with-callout">
+              <li><a class="social-icon -facebook js-share-link" href="<?php print $hot_module_fb_link; ?>"><span>Facebook</span></a></li>
+              <li><a class="social-icon -twitter js-share-link" href="<?php print $hot_module_tw_link; ?>"><span>Twitter</span></a></li>
+              <li><a class="social-icon -tumblr js-share-link" href="<?php print $hot_module_tm_link; ?>"><span>Tumblr</span></a></li>
+            </ul>
           </div>
         </div>
 

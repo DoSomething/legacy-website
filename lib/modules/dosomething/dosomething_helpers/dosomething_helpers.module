@@ -479,3 +479,22 @@ function dosomething_helpers_add_analytics_event($category, $action, $label = NU
   $google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", ' . $event_string . '); }';
   drupal_add_js($google_analytics_js, 'inline');
 }
+
+/**
+ * Creates a simple query encoded string with basic or customized UTM params
+ * that can be added to any url.
+ * @param  $nid
+ * @param  array $options - custom utm values to use.
+ */
+function dosomething_helpers_utm_parameters($nid, $options = NULL) {
+  // Use the node id for 'utm_campaign', if it is given, otherwise use the custom value in $options
+  $utm_campaign = ($nid) ? $nid : ($options['utm_campaign']) ? $options['utm_campaign'] : NULL;
+
+  $utm_params = array(
+    'utm_source' => ($options['utm_source']) ? $options['utm_source'] : 'dosomething',
+    'utm_medium' => ($options['utm_medium']) ? $options['utm_medium'] : 'site',
+    'utm_campaign' => $utm_campaign,
+  );
+
+  return '?' . http_build_query($utm_params, '', '&');
+}

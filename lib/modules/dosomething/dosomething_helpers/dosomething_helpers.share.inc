@@ -83,3 +83,31 @@ function dosomething_helpers_get_twitter_intent($tweet) {
 function dosomething_helpers_get_tumblr_intent($options) {
   return url('https://www.tumblr.com/widgets/share/tool', array('query' => $options));
 }
+
+/**
+ * Returns an array of paths to share on each social network with the
+ * correct utm parameters attached.
+ *
+ * @param  array $share_types
+ *   - array of social networks to create paths for.
+ *     i.e ['facebook', 'twitter', 'tumblr']
+ * @param string $path
+ *   The absolute path of the page being shared.
+ * @param string $utm_campaign
+ *   A custom value to use for 'utm_campaign'.
+ * @return
+ *   An array of paths, indexed by type.
+ */
+function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign) {
+  foreach ($share_types as $type) {
+    $utm_params = dosomething_helpers_utm_parameters(NULL,
+      array(
+        'utm_medium' => $type,
+        'utm_campaign' => $utm_campaign,
+      )
+    );
+    $share_paths[$type] = $path . $utm_params;
+  }
+
+  return $share_paths;
+}

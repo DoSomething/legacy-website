@@ -117,9 +117,10 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
+  $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
 
   if ($days_left >= 8) {
-    $vars['time_left'] = t('Ends ' . $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S'));
+    $vars['time_left'] = t('Ends ' . $readable_end_date);
   }
   elseif ($days_left >= 3) {
     $vars['time_left'] = t($end_date->format('j') . ' days left');
@@ -203,8 +204,37 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $vars['author_name']  = $first_name . ' ' . $last_name;
   $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
   if($author->picture) {
-      $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300'); 
+    $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
   }
+
+  // Share links
+  // @TODO - Possible refactor: Create a function that creates a 'share bar', programatically creating
+  // the markup and links for facebook, twitter, and tumblr buttons for us.
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+  $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
+
+  $share_types = array('facebook', 'twitter', 'tumblr');
+  $share_paths = dosomething_helpers_utm_share_paths($share_types, $campaign_path, 'hot_share');
+
+  $fb_options = array(
+    'picture' => $vars['hero_image']['desktop'],
+    'caption' => $goal_copy . "? Let's make it happen!",
+  );
+  $vars['hot_module_fb_link'] = dosomething_helpers_get_facebook_intent($share_paths['facebook'], 'feed_dialog', $fb_options);
+
+  // Twitter
+  $tweet = "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! " . $share_paths['twitter'];
+  $vars['hot_module_tw_link'] = dosomething_helpers_get_twitter_intent($tweet);
+
+  // Tumblr
+  $tumblr_options = array(
+    'posttype' => 'photo',
+    'content' => $vars['hero_image']['desktop'],
+    'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: " . $share_paths['tumblr'],
+  );
+
+  $vars['hot_module_tm_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
 }
 
 /**
