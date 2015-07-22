@@ -33,4 +33,17 @@ function dosomething_reportback_cron() {
       ->execute();
   }
 
+
+  /**
+   * Search for reportback item that have been flagged, but the reportback was not flagged.
+   * @see https://github.com/DoSomething/dosomething/issues/4713
+   * @see https://github.com/DoSomething/dosomething/issues/4529
+   */
+
+  $results = db_query("UPDATE dosomething_reportback as rb
+                       INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
+                       SET rb.flagged = 1
+                       WHERE rbf.status = 'flagged'
+                       AND (rb.flagged = 0 or rb.flagged is null);");
+
 }
