@@ -125,10 +125,10 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $vars['time_left'] = t('Ends ' . $readable_end_date);
   }
   elseif ($days_left >= 3) {
-    $vars['time_left'] = t($end_date->format('j') . ' days left');
+    $vars['time_left'] = t($difference->d . ' days left');
   }
   else {
-    $vars['time_left'] = t($difference->h . ' hours left');
+    $vars['time_left'] = t(($difference->h + ($days_left * 24)). ' hours left');
   }
 
   //Calculate progress goal & copy
