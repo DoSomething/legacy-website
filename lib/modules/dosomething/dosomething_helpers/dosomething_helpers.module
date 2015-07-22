@@ -156,6 +156,20 @@ function dosomething_helpers_extract_field_text($data) {
 
 
 /**
+ * Utility function to extract ID from object or array with other items.
+ *
+ * @param object|array $data
+ * @param string $property
+ * @return string
+ */
+function dosomething_helpers_extract_id($data, $property = 'nid') {
+  $data = (object) $data;
+
+  return $data->$property;
+}
+
+
+/**
  * Format a string of comma separated data items into an array, or
  * if a single item, return it without formatting.
  *

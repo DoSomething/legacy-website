@@ -34,7 +34,7 @@ class Kudos extends Entity {
   /**
    * Convenience method to retrieve a single or multiple kudos from supplied id(s).
    *
-   * @param string|array $ids Single id or array of ids of Kudos to load.
+   * @param string|array $ids Single id or array of ids of Kudos to retrieve.
    * @return array
    * @throws Exception
    */
@@ -51,9 +51,9 @@ class Kudos extends Entity {
       throw new Exception('No kudos data found.');
     }
 
-    foreach($results as $items) {
+    foreach($results as $item) {
       $kudos = new static;
-      $kudos->build($items);
+      $kudos->build($item);
 
       $kudosItems[] = $kudos;
     }

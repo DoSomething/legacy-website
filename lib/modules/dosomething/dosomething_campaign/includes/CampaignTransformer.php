@@ -1,19 +1,24 @@
 <?php
 
-/**
- * Campaign Transformer Class
- */
 class CampaignTransformer extends Transformer {
 
   /**
-   * @param $parameters
+   * Display collection of the specified resource.
    *
+   * @param array $parameters Filter parameters to limit collection based on specific criteria.
+   *  - nid (string|array)
+   *  - type (string)
+   *  - staff_pick (boolean)
+   *  - mobile_app (boolean)
+   *  - term_id (string|array)
+   *  - count (int)
+   *  - random (boolean)
+   *  - page (int)
    * @return array
    */
   public function index($parameters) {
     $filters = [
       'nid' => $this->formatData($parameters['ids']),
-      // @TODO: 'type' allows for us to later consider potential to select from regular or SMS campaigns
       'type' => 'campaign',
       'staff_pick' => $parameters['staff_pick'],
       'mobile_app' => $parameters['mobile_app'],
@@ -25,22 +30,18 @@ class CampaignTransformer extends Transformer {
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
-    $query = dosomething_campaign_get_campaigns_query_result($filters, $filters['count'], $filters['offset']);
-
-    if (!$query) {
+    try {
+      $campaigns = Campaign::find($filters, 'full');
+      $campaigns = services_resource_build_index_list($campaigns, 'campaigns', 'id');
+      $total = dosomething_campaign_get_campaign_query_count($filters);
+    }
+    catch (Exception $error) {
       return [
         'error' => [
-          'message' => 'These are not the campaigns you are looking for.',
-        ]
+          'message' => $error->getMessage(),
+        ],
       ];
     }
-
-    $campaigns = [];
-    foreach ($query as $item) {
-      $campaigns[] = Campaign::get($item->nid, 'full');
-    }
-    $campaigns = services_resource_build_index_list($campaigns, 'campaigns', 'id');
-    $total = dosomething_campaign_get_campaign_query_count($filters);
 
     return [
       'pagination' => $this->paginate($total, $filters, 'campaigns'),
@@ -51,14 +52,12 @@ class CampaignTransformer extends Transformer {
 
 
   /**
-   * @param $id
+   * Display the specified resource.
    *
+   * @param string $id Campaign id.
    * @return array
    */
   public function show($id) {
-    $params = array();
-    $params['nid'] = $id;
-
     try {
       $campaign = Campaign::get($id, 'full');
     }
@@ -71,14 +70,13 @@ class CampaignTransformer extends Transformer {
     }
 
     return array(
-      'data' => $this->transform($campaign),
+      'data' => $this->transform(array_pop($campaign)),
     );
   }
 
 
   /**
    * @param object $campaign
-   *
    * @return array
    */
   protected function transform($campaign) {

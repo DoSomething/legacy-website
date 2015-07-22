@@ -30,39 +30,86 @@ class Campaign {
   /**
    * Convenience method to retrieve a single campaign from supplied id.
    *
-   * @param $id
-   * @param $display
+   * @param string|array $ids Single id or array of ids of Campaigns to retrieve.
+   * @param string $display
    * @return static
    * @throws Exception
    */
-  public static function get($id, $display = 'teaser') {
-    $campaign = new static();
-    $campaign->load($id, $display);
+  public static function get($ids, $display = 'teaser') {
+    $campaigns = [];
 
-    return $campaign;
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+
+    $results = node_load_multiple($ids);
+
+    if (!$results) {
+      throw new Exception('No campaign data found.');
+    }
+
+    foreach($results as $item) {
+      $campaign = new static();
+      $campaign->build($item, $display);
+
+      $campaigns[] = $campaign;
+    }
+
+    return $campaigns;
+  }
+
+
+  /**
+   * Convenience method to retrieve campaigns based on supplied filters.
+   *
+   * @param array $filters
+   * @param string $display
+   * @return array
+   * @throws Exception
+   */
+  public static function find(array $filters = [], $display = 'teaser') {
+    $campaigns = [];
+
+    $results = dosomething_campaign_get_campaigns_query($filters);
+
+    if (!$results) {
+      throw new Exception('No campaign data found.');
+    }
+
+    $results = array_map('dosomething_helpers_extract_id', $results);
+    $results = node_load_multiple($results);
+
+    foreach($results as $item) {
+      $campaign = new static;
+      $campaign->build($item, $display);
+
+      $campaigns[] = $campaign;
+    }
+
+    return $campaigns;
   }
 
 
   /**
    * Build out the instantiated Campaign class object with supplied data.
    *
-   * @param $id
+   * @param $data
    * @param $display
    * @throws Exception
    */
-  public function load($id, $display = 'teaser') {
-    $this->id = $id;
-    $this->node = node_load($id);
+  private function build($data, $display = 'teaser') {
+    $this->node = $data;
+    $this->id = $data->nid;
 
-    if ($this->node && $this->node->type === 'campaign') {
+    if ($data->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
-      $this->title = $this->node->title;
+      $this->title = $data->title;
       $this->display = $display;
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();
-        $this->created_at = $this->node->created;
-        $this->updated_at = $this->node->changed;
+        $this->created_at = $data->created;
+        $this->updated_at = $data->changed;
         $this->status = $this->getStatus();
         $this->type = $this->getType();
         $this->time_commitment = $this->getTimeCommitment();
@@ -97,9 +144,6 @@ class Campaign {
       }
 
       $this->reportback_info = $this->getReportbackInfo();
-    }
-    else {
-      throw new Exception('Campaign does not exist!');
     }
   }
 
@@ -294,7 +338,7 @@ class Campaign {
   /**
    * Get Reportback content info used in the campaign.
    *
-   * @ return array
+   * @return array
    */
   protected function getReportbackInfo() {
     $data = [];
