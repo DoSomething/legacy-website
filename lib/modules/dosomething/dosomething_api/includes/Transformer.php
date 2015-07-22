@@ -232,7 +232,6 @@ abstract class Transformer {
     $output = array(
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
-      'reportback_info' => $data->reportback_info,
     );
 
     // If an instance of Campaign class, then there is much
@@ -279,6 +278,12 @@ abstract class Transformer {
 
         $output['timing']['high_season'] = $data->timing['high_season'];
         $output['timing']['low_season'] = $data->timing['low_season'];
+      }
+
+      $output['reportback_info'] = $data->reportback_info;
+
+      if ($data->uri) {
+        $output['uri'] = $data->uri . '.json';
       }
 
     }
