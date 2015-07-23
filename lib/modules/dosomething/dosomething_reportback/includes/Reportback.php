@@ -277,7 +277,7 @@ class Reportback extends Entity {
           'files' => implode(',', $fids),
           'num_files' => count($fids),
           'remote_addr' => dosomething_helpers_ip_address(),
-          'reason' => 'test',
+          'reason' => $this->flagged_reason == NULL ? $this->promoted_reason : $this->flagged_reason,
         ))
         ->execute();
     }
@@ -337,6 +337,8 @@ class Reportback extends Entity {
     else {
       $this->flagged = 0;
       $this->promoted = 0;
+      $this->promoted_reason = NULL;
+      $this->flagged_reason = NULL;
     }
     return entity_save('reportback', $this);
   }
