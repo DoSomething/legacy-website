@@ -18,6 +18,7 @@ class KudosTransformer extends Transformer {
 
     try {
       $kudos = Kudos::find($filters);
+      $kudos = services_resource_build_index_list($kudos, 'kudos', 'id');
     }
     catch (Exception $error) {
       return [
@@ -47,6 +48,7 @@ class KudosTransformer extends Transformer {
   public function show($id) {
     try {
       $kudos = Kudos::get($id);
+      $kudos = services_resource_build_index_list($kudos, 'kudos', 'id');
     }
     catch (Exception $error) {
       return [
@@ -127,11 +129,17 @@ class KudosTransformer extends Transformer {
 
 
   /**
-   * @param object $kudos
+   * Transform data and build out response.
+   *
+   * @param object $item Single Kudos object of retrieved data.
    * @return array
    */
-  protected function transform($kudos) {
-    return $kudos;
+  protected function transform($item) {
+    $data = [];
+
+    $data += $this->transformKudos($item);
+
+    return $data;
   }
 
 }

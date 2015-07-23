@@ -86,7 +86,6 @@ function dosomething_kudos_get_kudos_query($params = []) {
  * Sort kudos collection based on taxonomy term and then group them by term.
  *
  * @param array $data Collection of individual kudos items.
- *
  * @param string $display
  * @return array
  */
@@ -109,12 +108,14 @@ function dosomething_kudos_sort($data, $display = 'teaser') {
 /**
  * Sort kudos collection by taxonomy term id using a value comparison function.
  *
- * @param array $a Instance of Kudos class object.
- * @param array $b Instance of Kudos class object.
- *
+ * @param array|object $a Array of Kudos data or instance of Kudos class object.
+ * @param array|object $b Array of Kudos data or instance of Kudos class object.
  * @return mixed
  */
 function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
+  $a = (object) $a;
+  $b = (object) $b;
+
   // Sort by taxonomy term id.
   $result = $a->term['id'] - $b->term['id'];
 
@@ -128,14 +129,17 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
 /**
  * Group all kudos in collection and organize them by taxonomy term.
  *
- * @param array $data
- *
+ * @param array $data Array containing Kudos items.
  * @return array
  */
 function dosomething_kudos_group_by_taxonomy_term($data, $display = 'teaser') {
   $terms = [];
 
   foreach ($data as $item) {
+    if (!($item instanceof Kudos)) {
+      $item = (object) $item;
+    }
+
     if (!array_key_exists($item->term['id'], $terms)) {
       $terms[$item->term['id']] = [
         'term' => $item->term,
@@ -151,6 +155,10 @@ function dosomething_kudos_group_by_taxonomy_term($data, $display = 'teaser') {
       $output['reportback_item'] = $item->reportback_item;
     }
 
+    if ($item->uri) {
+      $output['uri'] = $item->uri;
+    }
+
     $terms[$item->term['id']]['kudos_items']['data'][] = $output;
   }
 
@@ -163,7 +171,6 @@ function dosomething_kudos_group_by_taxonomy_term($data, $display = 'teaser') {
  * Calculate total kudos per taxonomy term for a collection of kudos.
  *
  * @param array $data
- *
  * @return array
  */
 function dosomething_kudos_get_totals_by_taxonomy_term($data) {

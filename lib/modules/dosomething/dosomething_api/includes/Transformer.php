@@ -293,6 +293,30 @@ abstract class Transformer {
 
 
   /**
+   * Transform Kudos data and prepare for API response.
+   *
+   * @param object $data A Kudos object containing the following properties:
+   *  - id: (string)
+   *  - term: (array)
+   *  - reportback_item: (array)
+   *  - user: (array)
+   *  - uri: (string)
+   * @return array
+   */
+  protected function transformKudos($data) {
+    $output = [
+      'id' => $data->id,
+      'term' => $data->term,
+      'reportback_item' => $data->reportback_item,
+      'user' => $data->user,
+      'uri' => $data->uri . '.json',
+    ];
+
+    return $output;
+  }
+
+
+  /**
    * Transform Media data and prepare for API response.
    *
    * @param array $data
@@ -345,6 +369,7 @@ abstract class Transformer {
       'created_at' => $data->created_at,
       'updated_at' => $data->updated_at,
       'quantity' => $data->quantity,
+      'uri' => $data->uri . '.json',
     ];
 
     if ($data instanceof Reportback) {
