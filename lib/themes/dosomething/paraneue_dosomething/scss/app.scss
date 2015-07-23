@@ -10,11 +10,11 @@
 //
 
 // Set up asset pipeline for Neue
-$neue-path: "../node_modules/dosomething-neue/dist/assets/";
+$forge-path: "../node_modules/@dosomething/forge/dist/assets/";
 $asset-path: "";
 
 // Import DoSomething.org modules
-@import "../node_modules/dosomething-neue/scss/neue";
+@import "../node_modules/@dosomething/forge/scss/forge";
 @import "../node_modules/dosomething-modal/src/modal";
 @import "../node_modules/dosomething-validation/src/validation";
 

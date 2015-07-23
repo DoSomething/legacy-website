@@ -33,8 +33,8 @@
       <script type="text/javascript" src="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.js"></script>
   <![endif]-->
 
-  <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/dist/assets/images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/dist/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/apple-touch-icon-precomposed.png">
   <?php print $head; ?>
 
   <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>

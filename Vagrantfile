@@ -30,9 +30,9 @@ Vagrant.configure("2") do |config|
   end
 
   # Allow `npm link` for Neue
-  if File.exists?("/usr/local/lib/node_modules/dosomething-neue")
-    config.vm.synced_folder "/usr/local/lib/node_modules/dosomething-neue",
-      "/usr/local/lib/node_modules/dosomething-neue",
+  if File.exists?("/usr/local/lib/node_modules/@dosomething/forge")
+    config.vm.synced_folder "/usr/local/lib/node_modules/@dosomething/forge",
+      "/usr/local/lib/node_modules/@dosomething/forge",
       owner: "www-data", group: "www-data"
   end
 
