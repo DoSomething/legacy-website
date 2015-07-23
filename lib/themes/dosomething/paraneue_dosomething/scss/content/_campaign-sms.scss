@@ -21,9 +21,22 @@
       }
     }
 
-    // @EXPERIMENTAL: Used for Optimizely test for first names on SMS forms.
-    .optimizely-sms-form {
+    .sms-campaign-form {
+      .form-item {
+        @include span(100%);
+
+        @include media($medium) {
+          @include span(50%);
+        }
+      }
+    }
+
+    .sms-campaign-form--multiplayer {
       padding-top: $base-spacing;
+
+      .form-item-alpha-mobile {
+        clear: none;
+      }
 
       .message-callout.-above {
         @include media($tablet) {
@@ -43,17 +56,8 @@
       }
     }
 
-    .campaign-sms-numbers {
+    .form-item-alpha-mobile {
       clear: both;
-
-      .form-item {
-        @include span(100%);
-
-        @include media($medium) {
-          @include span(50%);
-        }
-      }
-
     }
 
     .form-wrapper.-columned {
