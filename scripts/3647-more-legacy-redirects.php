@@ -1,7 +1,7 @@
 <?php
 
 /**
- * https://github.com/DoSomething/dosomething/issues/3647
+ * https://github.com/DoSomething/phoenix/issues/3647
  *
  * Based on a redirect CSV with the source in the second column and the
  * target URL in the third column, and a reference CSV (created for

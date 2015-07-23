@@ -5,7 +5,7 @@ Filter, File Entity, and Services.
 
 ## Services
 
-See https://github.com/DoSomething/dosomething/wiki/API for usage.
+See https://github.com/DoSomething/phoenix/wiki/API for usage.
 
 The API is provided by the `drupalapi` Services endpoint, defined at `api/v1`.
 

@@ -359,7 +359,7 @@ function dosomething_signup_sms_game_form_submit($form, &$form_state) {
     // Create a signup.
     dosomething_signup_create($nid);
     // @todo: Save mobile and first name to user if not set.
-    // @see https://github.com/DoSomething/dosomething/issues/2274.
+    // @see https://github.com/DoSomething/phoenix/issues/2274.
   }
 
   // Check if an account exists for the given alpha mobile.
