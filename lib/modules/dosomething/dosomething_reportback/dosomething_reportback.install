@@ -155,6 +155,12 @@ function dosomething_reportback_schema() {
         'length' => '2048',
         'not null' => FALSE,
       ),
+      'reason' => array(
+        'description' => 'The reason the reoportback item was flagged/promoted',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('id'),
   );
@@ -771,4 +777,14 @@ function dosomething_reportback_update_7027(&$sandbox) {
   $table_name = 'dosomething_reportback_progress_log';
   $schema = dosomething_reportback_schema();
   db_create_table($table_name, $schema[$table_name]);
+}
+
+/**
+ * Adds the operation reason to the reportback log table
+ */
+function dosomething_reportback_update_7028(&$sandbox) {
+  $table_name = 'dosomething_reportback_log';
+  $schema = dosomething_reportback_schema();
+  $field_name = "reason";
+  db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
 }

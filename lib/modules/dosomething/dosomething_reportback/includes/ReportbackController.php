@@ -81,56 +81,62 @@ return $build;
 * Populates created and uid automatically.
 */
 public function save($entity, DatabaseTransaction $transaction = NULL) {
-global $user;
-$now = REQUEST_TIME;
-$op = 'update';
-if (isset($entity->is_new)) {
-$entity->created = $now;
-$op = 'insert';
-}
-$entity->updated = $now;
-if (DOSOMETHING_REPORTBACK_LOG) {
-watchdog('dosomething_reportback', 'save:' . json_encode($entity));
-}
+  global $user;
+  $now = REQUEST_TIME;
+  $op = 'update';
+  if (isset($entity->is_new)) {
+    $entity->created = $now;
+    $op = 'insert';
+  }
+  if ($entity->promoted) {
+    $op = 'promoted';
+  }
+  elseif ($entity->flagged) {
+    $op = 'flagged';
+  }
+  $entity->updated = $now;
+  if (DOSOMETHING_REPORTBACK_LOG) {
+    watchdog('dosomething_reportback', 'save:' . json_encode($entity));
+  }
 
-// Make sure a uid exists.
-if (!isset($entity->uid)) {
-return FALSE;
-}
-// If the entity uid doesn't belong to current user:
-if ($entity->uid != $user->uid) {
-// And current user can't edit any reportback:
-if (!user_access('edit any reportback') && !drupal_is_cli()) {
-watchdog('dosomething_reportback', "Attempted uid override for @reportback by User @uid",
-array(
-'@reportback' => json_encode($entity),
-'@uid' => $user->uid,
-), WATCHDOG_WARNING);
-return FALSE;
-}
-}
+  // Make sure a uid exists.
+  if (!isset($entity->uid)) {
+    return FALSE;
+  }
+  // If the entity uid doesn't belong to current user:
+  if ($entity->uid != $user->uid) {
+    // And current user can't edit any reportback:
+    if (!user_access('edit any reportback') && !drupal_is_cli()) {
+      watchdog('dosomething_reportback', "Attempted uid override for @reportback by User @uid",
+      array(
+      '@reportback' => json_encode($entity),
+      '@uid' => $user->uid,
+      ), WATCHDOG_WARNING);
+      return FALSE;
+    }
+  }
 
-parent::save($entity, $transaction);
+  parent::save($entity, $transaction);
 
-// If a file fid exists:
-if (isset($entity->fid)) {
-// Add it into the reportback files.
-$entity->createReportbackFile($entity);
-}
-// Log the write operation.
-$entity->insertLog($op);
+  // If a file fid exists:
+  if (isset($entity->fid)) {
+    // Add it into the reportback files.
+    $entity->createReportbackFile($entity);
+  }
+  // Log the write operation.
+  $entity->insertLog($op);
 
-// If this was an insert:
-if ($op == 'insert') {
-// Send Message Broker request.
-if (module_exists('dosomething_mbp')) {
-dosomething_reportback_mbp_request($entity);
-}
-if (module_exists('dosomething_reward')) {
-// Check for Reportback Count Reward.
-dosomething_reward_reportback_count($entity);
-}
-}
+  // If this was an insert:
+  if ($op == 'insert') {
+    // Send Message Broker request.
+    if (module_exists('dosomething_mbp')) {
+      dosomething_reportback_mbp_request($entity);
+    }
+    if (module_exists('dosomething_reward')) {
+      // Check for Reportback Count Reward.
+      dosomething_reward_reportback_count($entity);
+    }
+  }
 
 }
 
