@@ -47,7 +47,7 @@ function dosomething_campaign_update_7004(&$sandbox) {
 /**
  * Deletes the field_variables field collection and related fields.
  *
- * See https://github.com/DoSomething/dosomething/issues/2726.
+ * See https://github.com/DoSomething/phoenix/issues/2726.
  */
 function dosomething_campaign_update_7005(&$sandbox) {
   field_delete_field('field_variable_name');

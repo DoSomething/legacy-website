@@ -1,7 +1,7 @@
 <?php
 
 /**
- * https://github.com/DoSomething/dosomething/issues/3414
+ * https://github.com/DoSomething/phoenix/issues/3414
  *
  * Based on a redirect CSV formatted like this:
  *

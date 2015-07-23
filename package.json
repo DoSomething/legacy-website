@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/DoSomething/dosomething.git"
+    "url": "git://github.com/DoSomething/phoenix.git"
   },
   "author": "DoSomething.org <developers@dosomething.org",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DoSomething/dosomething/issues"
+    "url": "https://github.com/DoSomething/phoenix/issues"
   },
-  "homepage": "https://github.com/DoSomething/dosomething",
+  "homepage": "https://github.com/DoSomething/phoenix",
   "devDependencies": {
     "chai": "~1.7.0",
     "commander": "^2.3.0",

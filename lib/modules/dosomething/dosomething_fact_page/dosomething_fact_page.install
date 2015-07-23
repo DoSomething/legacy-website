@@ -30,7 +30,7 @@ function dosomething_fact_page_update_7003(&$sandbox) {
   $import_status = FALSE;
   if ($is_imported == FALSE) {
     // This function has been removed from the codebase.
-    // @see https://github.com/DoSomething/dosomething/pull/2797.
+    // @see https://github.com/DoSomething/phoenix/pull/2797.
     // $import_status = dosomething_fact_page_import_fact_collections();
   }
   // If the import was successful, drop the field_facts:

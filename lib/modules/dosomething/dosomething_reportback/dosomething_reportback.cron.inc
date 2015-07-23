@@ -36,8 +36,8 @@ function dosomething_reportback_cron() {
 
   /**
    * Search for reportback item that have been flagged, but the reportback was not flagged.
-   * @see https://github.com/DoSomething/dosomething/issues/4713
-   * @see https://github.com/DoSomething/dosomething/issues/4529
+   * @see https://github.com/DoSomething/phoenix/issues/4713
+   * @see https://github.com/DoSomething/phoenix/issues/4529
    */
 
   db_query("UPDATE dosomething_reportback as rb
