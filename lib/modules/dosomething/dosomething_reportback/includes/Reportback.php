@@ -277,6 +277,7 @@ class Reportback extends Entity {
           'files' => implode(',', $fids),
           'num_files' => count($fids),
           'remote_addr' => dosomething_helpers_ip_address(),
+          'reason' => 'test',
         ))
         ->execute();
     }
