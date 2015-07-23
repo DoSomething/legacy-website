@@ -88,6 +88,12 @@ public function save($entity, DatabaseTransaction $transaction = NULL) {
     $entity->created = $now;
     $op = 'insert';
   }
+  if ($entity->promoted) {
+    $op = 'promoted';
+  }
+  elseif ($entity->flagged) {
+    $op = 'flagged';
+  }
   $entity->updated = $now;
   if (DOSOMETHING_REPORTBACK_LOG) {
     watchdog('dosomething_reportback', 'save:' . json_encode($entity));
