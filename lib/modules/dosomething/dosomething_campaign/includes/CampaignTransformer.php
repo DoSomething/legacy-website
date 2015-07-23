@@ -60,6 +60,7 @@ class CampaignTransformer extends Transformer {
   public function show($id) {
     try {
       $campaign = Campaign::get($id, 'full');
+      $campaign = services_resource_build_index_list($campaign, 'campaigns', 'id');
     }
     catch (Exception $error) {
       return array(
@@ -76,13 +77,15 @@ class CampaignTransformer extends Transformer {
 
 
   /**
-   * @param object $campaign
+   * Transform data and build out response.
+   *
+   * @param object $item Single Campaign object of retrieved data.
    * @return array
    */
-  protected function transform($campaign) {
+  protected function transform($item) {
     $data = array();
 
-    $data += $this->transformCampaign($campaign);
+    $data += $this->transformCampaign($item);
 
     return $data;
   }

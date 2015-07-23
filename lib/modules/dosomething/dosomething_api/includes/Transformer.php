@@ -232,7 +232,6 @@ abstract class Transformer {
     $output = array(
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
-      'reportback_info' => $data->reportback_info,
     );
 
     // If an instance of Campaign class, then there is much
@@ -281,7 +280,37 @@ abstract class Transformer {
         $output['timing']['low_season'] = $data->timing['low_season'];
       }
 
+      $output['reportback_info'] = $data->reportback_info;
+
+      if ($data->uri) {
+        $output['uri'] = $data->uri . '.json';
+      }
+
     }
+
+    return $output;
+  }
+
+
+  /**
+   * Transform Kudos data and prepare for API response.
+   *
+   * @param object $data A Kudos object containing the following properties:
+   *  - id: (string)
+   *  - term: (array)
+   *  - reportback_item: (array)
+   *  - user: (array)
+   *  - uri: (string)
+   * @return array
+   */
+  protected function transformKudos($data) {
+    $output = [
+      'id' => $data->id,
+      'term' => $data->term,
+      'reportback_item' => $data->reportback_item,
+      'user' => $data->user,
+      'uri' => $data->uri . '.json',
+    ];
 
     return $output;
   }
@@ -340,6 +369,7 @@ abstract class Transformer {
       'created_at' => $data->created_at,
       'updated_at' => $data->updated_at,
       'quantity' => $data->quantity,
+      'uri' => $data->uri . '.json',
     ];
 
     if ($data instanceof Reportback) {

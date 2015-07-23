@@ -46,6 +46,7 @@ class ReportbackTransformer extends Transformer {
 
     try {
       $reportbacks = Reportback::find($filters);
+      $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');
     }
     catch (Exception $error) {
       return [
@@ -70,6 +71,7 @@ class ReportbackTransformer extends Transformer {
   public function show($id) {
     try {
       $reportback = Reportback::get($id);
+      $reportback = services_resource_build_index_list($reportback, 'reportbacks', 'id');
     }
     catch (Exception $error) {
       return [

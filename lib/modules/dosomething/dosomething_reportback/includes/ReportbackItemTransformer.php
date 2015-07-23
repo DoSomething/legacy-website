@@ -23,7 +23,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
     try {
       $reportbackItems = ReportbackItem::find($filters);
-      $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'fid');
+      $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'id');
       $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
@@ -51,7 +51,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   public function show($id) {
     try {
       $reportbackItem = ReportbackItem::get($id);
-      $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'fid');
+      $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
       return [
