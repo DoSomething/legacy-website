@@ -418,5 +418,3 @@ function dosomething_reportback_count_page() {
 
   return $output;
 }
-
-
