@@ -274,12 +274,13 @@ function dosomething_campaign_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Mobile App',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-mobile-app field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-mobile-app field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $export['group_mobile_app|node|campaign|form'] = $field_group;
