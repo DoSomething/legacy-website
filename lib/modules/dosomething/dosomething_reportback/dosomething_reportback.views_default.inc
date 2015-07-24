@@ -352,4 +352,9 @@ function dosomething_reportback_views_default_views() {
     t('Flagged Reason'),
     t('Promoted Reason'),
     t('Page'),
-    t('All')
+    t('All'),
+  );
+  $export['reportback_files'] = $view;
+
+  return $export;
+}
