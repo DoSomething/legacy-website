@@ -53,7 +53,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Info',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_latest_news_copy',
     ),
@@ -259,6 +259,35 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_mobile_app|node|campaign|form';
+  $field_group->group_name = 'group_mobile_app';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Mobile App',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_on_mobile_app',
+      1 => 'field_mobile_app_date',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Mobile App',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-mobile-app field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_mobile_app|node|campaign|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_partners|node|campaign|form';
   $field_group->group_name = 'group_partners';
   $field_group->entity_type = 'node';
@@ -297,8 +326,8 @@ function dosomething_campaign_field_group_info() {
     'label' => 'Pitch Page Additional Info',
     'weight' => '1',
     'children' => array(
-      0 => 'field_value_proposition',
-      1 => 'field_secondary_call_to_action',
+      0 => 'field_secondary_call_to_action',
+      1 => 'field_value_proposition',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -360,10 +389,9 @@ function dosomething_campaign_field_group_info() {
     'label' => 'Prove It',
     'weight' => '7',
     'children' => array(
-      0 => 'field_image_reportback_gallery',
-      1 => 'field_reportback_copy',
-      2 => 'field_reportback_noun',
-      3 => 'field_reportback_verb',
+      0 => 'field_reportback_copy',
+      1 => 'field_reportback_noun',
+      2 => 'field_reportback_verb',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -428,7 +456,6 @@ function dosomething_campaign_field_group_info() {
       5 => 'field_primary_cause',
       6 => 'field_staff_pick',
       7 => 'field_tags',
-      8 => 'field_on_mobile_app',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

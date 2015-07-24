@@ -1415,7 +1415,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 54,
     ),
   );
 
@@ -1635,6 +1635,65 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_mobile_app_date'
+  $field_instances['node-campaign-field_mobile_app_date'] = array(
+    'bundle' => 'campaign',
+    'deleted' => 0,
+    'description' => 'This date helps dictate timelines for campaigns displayed on the mobile app. ',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 74,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_mobile_app_date',
+    'label' => 'Mobile App Date',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'blank',
+      'default_value2' => 'blank',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'custom',
+        'input_format_custom' => 'M-d-Y',
+        'label_position' => 'within',
+        'text_parts' => array(),
+        'year_range' => '-0:+1',
+      ),
+      'type' => 'date_select',
+      'weight' => 51,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_official_rules'
   $field_instances['node-campaign-field_official_rules'] = array(
     'bundle' => 'campaign',
@@ -1728,7 +1787,7 @@ function dosomething_campaign_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 16,
+      'weight' => 52,
     ),
   );
 
@@ -3123,6 +3182,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Limit: 2 per campaign.');
   t('Location Finder Copy');
   t('Low Season');
+  t('Mobile App Date');
   t('Must start with a verb. Must end with a !. Encompass what the user needs to do before taking a picture i.e. Run Your Drive!, Hand Out Condoms!, Hide The Pills!"
 <br/>
 <strong> Limit 25 characters. </strong>');
@@ -3159,6 +3219,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
 <br/>
 <strong> Limit: 135 characters </strong>');
+  t('This date helps dictate timelines for campaigns displayed on the mobile app. ');
   t('This describes the action the user must take after they take a picture. I.e. "Drop off the food you collected at your local food bank at the time you decided. Then pat yourself on the back like the boss you are."; "Check in with the senior center two weeks later. See if they’ve been acting safer with the tip sheets and condoms - no details needed.".
 <br/>
 <strong> Limit 135 characters. </strong>');
