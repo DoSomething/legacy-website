@@ -121,6 +121,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_reportback_item';
   $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
+  $handler->display->display_options['fields']['rendered_entity']['label'] = 'Image';
   $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['rendered_entity']['display'] = 'view';
   $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'full';
@@ -351,9 +352,4 @@ function dosomething_reportback_views_default_views() {
     t('Flagged Reason'),
     t('Promoted Reason'),
     t('Page'),
-    t('All'),
-  );
-  $export['reportback_files'] = $view;
-
-  return $export;
-}
+    t('All')
