@@ -344,7 +344,7 @@ function dosomething_reportback_views_default_views() {
     t('RBID'),
     t('.'),
     t('Campaign'),
-    t('Rendered Reportback Item'),
+    t('Image'),
     t('Status'),
     t('Quantity'),
     t(','),
