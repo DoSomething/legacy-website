@@ -740,7 +740,7 @@ function dosomething_reportback_views_pre_render(&$view) {
     $nid = $view->args[0];
     $quantity = (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity') + (int) dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity_override');
     // Add total quantity to view.
-    $view->attachment_before = '<h2> Total reportback quantity: ' . $quantity . '</h2>';
+    $view->attachment_before = '<h2> Total reportback quantity TEST: ' . $quantity . '</h2>';
   }
 }
 
