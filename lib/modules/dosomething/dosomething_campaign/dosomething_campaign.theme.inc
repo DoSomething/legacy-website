@@ -232,13 +232,12 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   // Tumblr
   $tumblr_options = array(
-    'canonicalUrl' => $share_paths['tumblr'],
     'posttype' => 'photo',
     'content' => $vars['hero_image']['desktop'],
     'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: " . $share_paths['tumblr'],
   );
 
-  $vars['hot_module_tm_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
+  $vars['hot_module_tm_link'] = dosomething_helpers_get_tumblr_intent($share_paths['tumblr'], $tumblr_options);
 }
 
 /**
@@ -323,7 +322,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
     // Tumblr share parameters.
     $tumblr_options = array(
-      'canonicalUrl' => $campaign_path,
       'posttype' => 'photo',
       'content' => $problem_share_image,
       'caption' => "This is REAL, do something about this with me: " . $campaign_path,
@@ -332,7 +330,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     // Create the intent links
     $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
     $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
-    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
+    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($campaign_path, $tumblr_options);
   }
 
   // Plan.

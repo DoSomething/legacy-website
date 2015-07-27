@@ -73,6 +73,7 @@ function dosomething_helpers_get_twitter_intent($tweet) {
 /**
  * Returns a tumblr share url.
  *
+ * @param string $path - the canonical URL being shared (required)
  * @param  array $options
  *   - source: url of the image to share.
  *   - caption: share language.
@@ -80,7 +81,8 @@ function dosomething_helpers_get_twitter_intent($tweet) {
  * @return string
  *   The tumblr intent url to share a photo.
  */
-function dosomething_helpers_get_tumblr_intent($options) {
+function dosomething_helpers_get_tumblr_intent($path, $options) {
+  $options['canonicalUrl'] = $path;
   return url('https://www.tumblr.com/widgets/share/tool', array('query' => $options));
 }
 

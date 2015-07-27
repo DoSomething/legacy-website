@@ -527,7 +527,6 @@ function dosomething_reportback_view_entity($entity) {
 
     // Set tumblr options
     $tumblr_options = array(
-      'canonicalUrl' => $reportback_url,
       'posttype' => 'photo',
       'content' => $file->getImageURL('480x480'),
       'caption' => $share_text . " " . $reportback_url,
@@ -536,7 +535,7 @@ function dosomething_reportback_view_entity($entity) {
     // Create share button links
     $fb_link = dosomething_helpers_get_facebook_intent($reportback_url);
     $twitter_link = dosomething_helpers_get_twitter_intent($twitter_text);
-    $tumblr_link = dosomething_helpers_get_tumblr_intent($tumblr_options);
+    $tumblr_link = dosomething_helpers_get_tumblr_intent($reportback_url, $tumblr_options);
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
     $permalink_vars = array(
