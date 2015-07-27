@@ -25,6 +25,7 @@ class Campaign {
   public $tags;
   public $timing;
   public $reportback_info;
+  public $services;
 
 
   /**
@@ -141,6 +142,8 @@ class Campaign {
 
         $timing = $this->getTiming();
         $this->timing = $timing;
+
+        $this->services = $this->getServices();
       }
 
       $this->reportback_info = $this->getReportbackInfo();
@@ -336,6 +339,31 @@ class Campaign {
 
 
   /**
+   * Get MailChimp data.
+   *
+   * @return array
+   */
+  protected function getMailChimpData() {
+    return [
+      'grouping_id' => $this->variables['mailchimp_grouping_id'],
+      'group_name' => $this->variables['mailchimp_group_name'],
+    ];
+  }
+
+
+  /**
+   * Get Mobile Commons data.
+   * @return array
+   */
+  protected function getMobileCommonsData() {
+    return [
+      'opt_in_path_id' => $this->variables['mobilecommons_opt_in_path'],
+      'friends_opt_in_path_id' => $this->variables['mobilecommons_friends_opt_in_path'],
+    ];
+  }
+
+
+  /**
    * Get Reportback content info used in the campaign.
    *
    * @return array
@@ -369,6 +397,63 @@ class Campaign {
     }
 
     return $data;
+  }
+
+
+  /**
+   * Collect data for third party services.
+   *
+   * @return array
+   */
+  protected function getServices() {
+    return [
+      'mobile_commons' => $this->getMobileCommonsData(),
+      'mailchimp' => $this->getMailChimpData(),
+    ];
+  }
+
+
+  /**
+   * Get the Scholarship amount for campaign if available.
+   *
+   * @return array|null
+   */
+  protected function getScholarship() {
+    return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
+  }
+
+
+  /**
+   * Get the Solutions data for campaign if available; collects both the main solution copy
+   * and the solution support copy.
+   *
+   * @return array
+   */
+  protected function getSolutionData() {
+    $data['copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_copy);
+    $data['support_copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_support);
+
+    return $data;
+  }
+
+
+  /**
+   * Get status whether this campaign is a Staff Pick or not.
+   *
+   * @return bool
+   */
+  protected function getStaffPickStatus() {
+    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
+  }
+
+
+  /**
+   * Get Status of campaign.
+   *
+   * @return string|null
+   */
+  protected function getStatus() {
+    return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
 
 
@@ -456,50 +541,6 @@ class Campaign {
     }
 
     return $timing;
-  }
-
-
-  /**
-   * Get the Scholarship amount for campaign if available.
-   *
-   * @return array|null
-   */
-  protected function getScholarship() {
-    return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
-  }
-
-
-  /**
-   * Get the Solutions data for campaign if available; collects both the main solution copy
-   * and the solution support copy.
-   *
-   * @return array
-   */
-  protected function getSolutionData() {
-    $data['copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_copy);
-    $data['support_copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_support);
-
-    return $data;
-  }
-
-
-  /**
-   * Get status whether this campaign is a Staff Pick or not.
-   *
-   * @return bool
-   */
-  protected function getStaffPickStatus() {
-    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
-  }
-
-
-  /**
-   * Get Status of campaign.
-   *
-   * @return string|null
-   */
-  protected function getStatus() {
-    return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
 
 
