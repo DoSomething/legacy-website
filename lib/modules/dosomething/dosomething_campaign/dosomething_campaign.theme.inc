@@ -173,7 +173,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
 
   // json file of reportback quantity
-  $quantity_by_date = db_query("SELECT max(quantity), max(from_unixtime(timestamp)) as maxdate
+  $quantity_by_date = db_query("SELECT max(quantity) as quantity, max(from_unixtime(timestamp)) as maxdate
                                FROM dosomething_reportback_progress_log
                                WHERE nid = :nid
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
