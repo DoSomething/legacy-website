@@ -185,6 +185,10 @@ projects[strongarm][subdir] = "contrib"
 projects[taxonomy_access_fix][version] = "2.1"
 projects[taxonomy_access_fix][subdir] = "contrib"
 
+; Title
+projects[title][version] = "1.0-alpha7"
+projects[title][subdir] = "contrib"
+
 ; Token
 projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
