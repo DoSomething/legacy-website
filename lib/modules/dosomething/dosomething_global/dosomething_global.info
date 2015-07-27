@@ -4,6 +4,7 @@ core = 7.x
 package = DoSomething
 version = 7.x-1.0
 project = dosomething_global
+dependencies[] = entity_translation
 dependencies[] = features
 dependencies[] = locale
 features[features_api][] = api:2
