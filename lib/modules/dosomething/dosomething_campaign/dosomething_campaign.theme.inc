@@ -119,16 +119,17 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
+  $hours_left = $difference->h + ($days_left * 24);
   $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
 
   if ($days_left >= 8) {
     $vars['time_left'] = t('Ends ' . $readable_end_date);
   }
-  elseif ($days_left >= 3) {
+  elseif ($hours_left > 48) {
     $vars['time_left'] = t($difference->d . ' days left');
   }
   else {
-    $vars['time_left'] = t(($difference->h + ($days_left * 24)). ' hours left');
+    $vars['time_left'] = t($hours_left . ' hours left');
   }
 
   //Calculate progress goal & copy
