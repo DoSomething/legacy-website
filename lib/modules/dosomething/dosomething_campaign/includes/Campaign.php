@@ -145,8 +145,7 @@ class Campaign {
 
         $this->services = $this->getServices();
 
-        $mobile_app = $this->getMobileAppDate();
-        $this->mobile_app = $mobile_app;
+        $this->mobile_app = $this->getMobileAppDate();
       }
 
       $this->reportback_info = $this->getReportbackInfo();
