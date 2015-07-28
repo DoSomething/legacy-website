@@ -50,6 +50,20 @@ function dosomething_helpers_menu() {
 }
 
 /**
+ * Utility function to convert dates to ISO-8601 datetime.
+ */
+function dosomething_helpers_convert_date($timing) {
+  foreach ($timing as $season => $dates) {
+    if ($timing[$season]) {
+      foreach ($timing[$season] as $key => $date) {
+        $date = new DateTime($date, $timezone);
+        $timing[$season][$key] = $date->format(DateTime::ISO8601);
+      }
+    }
+  }
+}
+
+/**
  * Utility function to delete automated test data.
  */
 function dosomething_helpers_delete_test_nodes() {

@@ -26,7 +26,7 @@ class Campaign {
   public $timing;
   public $reportback_info;
   public $services;
-
+  public $mobile_app;
 
   /**
    * Convenience method to retrieve a single campaign from supplied id.
@@ -144,6 +144,9 @@ class Campaign {
         $this->timing = $timing;
 
         $this->services = $this->getServices();
+
+        $mobile_app = $this->getMobileAppDate();
+        $this->mobile_app = $mobile_app;
       }
 
       $this->reportback_info = $this->getReportbackInfo();
@@ -363,6 +366,25 @@ class Campaign {
   }
 
 
+   /**
+   * Get the start and end dates for when campaign will be displayed on the mobile app if available.
+   * Dates formatted as ISO-8601 datetime.
+   *
+   * @return array
+   */
+
+    protected function getMobileAppDate() {
+      $timezone = new DateTimeZone('UTC');
+
+      $timing = [];
+      $timing['dates'] = (dosomething_helpers_extract_field_data($this->node->field_mobile_app_date));
+
+      dosomething_helpers_convert_date($timing);
+
+      return $timing;
+  }
+
+
   /**
    * Get Reportback content info used in the campaign.
    *
@@ -531,14 +553,7 @@ class Campaign {
     $timing['high_season'] = dosomething_helpers_extract_field_data($this->node->field_high_season);
     $timing['low_season'] = dosomething_helpers_extract_field_data($this->node->field_low_season);
 
-    foreach ($timing as $season => $dates) {
-      if ($timing[$season]) {
-        foreach ($timing[$season] as $key => $date) {
-          $date = new DateTime($date, $timezone);
-          $timing[$season][$key] = $date->format(DateTime::ISO8601);
-        }
-      }
-    }
+    dosomething_helpers_convert_date($timing);
 
     return $timing;
   }
