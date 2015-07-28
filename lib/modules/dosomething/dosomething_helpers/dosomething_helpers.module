@@ -50,16 +50,14 @@ function dosomething_helpers_menu() {
 }
 
 /**
- * Utility function to convert dates to ISO-8601 datetime.
+ * Utility function to convert dates, defaults to ISO-8601 datetime.
  */
-function dosomething_helpers_convert_date($timing) {
-  foreach ($timing as $season => $dates) {
-    if ($timing[$season]) {
-      foreach ($timing[$season] as $key => $date) {
-        $date = new DateTime($date, $timezone);
-        $timing[$season][$key] = $date->format(DateTime::ISO8601);
-      }
-    }
+function dosomething_helpers_convert_date($date, $format = 'ISO-8601') {
+  $timezone = new DateTimeZone('UTC');
+  $datetime = new DateTime($date, $timezone);
+
+  if ($format === 'ISO-8601') {
+    return $datetime->format(DateTime::ISO8601);
   }
 }
 

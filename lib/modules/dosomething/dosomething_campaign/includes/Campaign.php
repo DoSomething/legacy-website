@@ -374,12 +374,12 @@ class Campaign {
    */
 
     protected function getMobileAppDate() {
-      $timezone = new DateTimeZone('UTC');
-
       $timing = [];
       $timing['dates'] = (dosomething_helpers_extract_field_data($this->node->field_mobile_app_date));
 
-      dosomething_helpers_convert_date($timing);
+      foreach ($timing['dates'] as $key => $date) {
+        $timing['dates'][$key] = dosomething_helpers_convert_date($date);
+      }
 
       return $timing;
   }
@@ -547,13 +547,17 @@ class Campaign {
    * @return array
    */
   protected function getTiming() {
-    $timezone = new DateTimeZone('UTC');
-
     $timing = [];
     $timing['high_season'] = dosomething_helpers_extract_field_data($this->node->field_high_season);
     $timing['low_season'] = dosomething_helpers_extract_field_data($this->node->field_low_season);
 
-    dosomething_helpers_convert_date($timing);
+    foreach ($timing as $season => $dates) {
+      if ($timing[$season]) {
+        foreach ($timing[$season] as $key => $date) {
+          $timing[$season][$key] = dosomething_helpers_convert_date($date);
+        }
+      }
+    }
 
     return $timing;
   }
