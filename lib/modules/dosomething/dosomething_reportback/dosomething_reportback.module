@@ -738,7 +738,7 @@ function dosomething_reportback_views_pre_render(&$view) {
   // Scope this to the reportback files node view.
   if ($view->name === 'reportback_files' && arg(0) === 'node') {
     $nid = $view->args[0];
-    $quantity = dosomething_reportback_get_reportback_total_plus_override($nid);//1
+    $quantity = dosomething_reportback_get_reportback_total_plus_override($nid);
     // Add total quantity to view.
     $view->attachment_before = '<h2> Total reportback quantity: ' . $quantity . '</h2>';
   }
@@ -891,7 +891,8 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
 
   // Select all reportbacks for given $nid.
   $query = db_select('dosomething_reportback', 'rb')->condition('nid', $nid);
-  $query->condition('promoted', 0); // Prevents non-reviewed RB's from being added to total
+  // Prevents non-reviewed RB's from being added to total
+  $query->isNotNull('promoted');
 
   if ($filter_flagged) {
     $query->condition('flagged', 0);
