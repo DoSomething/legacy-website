@@ -83,7 +83,7 @@ class CampaignTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    $data = array();
+    $data = [];
 
     $data += $this->transformCampaign($item);
 

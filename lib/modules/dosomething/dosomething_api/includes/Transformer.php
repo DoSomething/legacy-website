@@ -225,6 +225,7 @@ abstract class Transformer {
    *   - issue: (string)
    *   - tags: (array)
    *   - timing: (array)
+   *   - services: (array)
    *   - reportback_info: (array)
    * @return array
    */
@@ -278,6 +279,8 @@ abstract class Transformer {
 
         $output['timing']['high_season'] = $data->timing['high_season'];
         $output['timing']['low_season'] = $data->timing['low_season'];
+
+        $output['services'] = $data->services;
       }
 
       $output['reportback_info'] = $data->reportback_info;
