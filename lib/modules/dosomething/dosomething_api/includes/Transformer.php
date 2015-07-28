@@ -227,6 +227,7 @@ abstract class Transformer {
    *   - timing: (array)
    *   - services: (array)
    *   - reportback_info: (array)
+   *   - mobile_app: (array)
    * @return array
    */
   protected function transformCampaign($data) {
@@ -281,6 +282,8 @@ abstract class Transformer {
         $output['timing']['low_season'] = $data->timing['low_season'];
 
         $output['services'] = $data->services;
+
+        $output['mobile_app']['dates'] = $data->mobile_app['dates'];
       }
 
       $output['reportback_info'] = $data->reportback_info;
