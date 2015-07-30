@@ -376,8 +376,12 @@ class Campaign {
       $timing = [];
       $timing['dates'] = (dosomething_helpers_extract_field_data($this->node->field_mobile_app_date));
 
-      foreach ($timing['dates'] as $key => $date) {
-        $timing['dates'][$key] = dosomething_helpers_convert_date($date);
+      if ($timing['dates'] != null) {
+        foreach ($timing['dates'] as $key => $date) {
+          $timing['dates'][$key] = dosomething_helpers_convert_date($date);
+        }
+      } else {
+        $timing['dates'] === null;
       }
 
       return $timing;
