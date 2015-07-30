@@ -347,8 +347,8 @@ class Campaign {
    */
   protected function getMailChimpData() {
     return [
-      'grouping_id' => $this->variables['mailchimp_grouping_id'],
-      'group_name' => $this->variables['mailchimp_group_name'],
+      'grouping_id' => dosomething_helpers_isset($this->variables, 'mailchimp_grouping_id'),
+      'group_name' => dosomething_helpers_isset($this->variables, 'mailchimp_group_name'),
     ];
   }
 
@@ -359,8 +359,8 @@ class Campaign {
    */
   protected function getMobileCommonsData() {
     return [
-      'opt_in_path_id' => $this->variables['mobilecommons_opt_in_path'],
-      'friends_opt_in_path_id' => $this->variables['mobilecommons_friends_opt_in_path'],
+      'opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
+      'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
     ];
   }
 
