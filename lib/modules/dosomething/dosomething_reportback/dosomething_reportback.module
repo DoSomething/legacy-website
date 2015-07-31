@@ -523,7 +523,7 @@ function dosomething_reportback_view_entity($entity) {
     $share_text = str_replace('[node:issue]', strtolower($node->issue['name']), $share_text);
 
     // Set twitter text.
-    $twitter_text = $share_text . " " . $reportback_url;
+    $twitter_text = htmlspecialchars_decode($share_text, ENT_QUOTES) . " " . $reportback_url;
 
     // Set tumblr options
     $tumblr_options = array(
