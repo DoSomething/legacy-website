@@ -899,11 +899,13 @@ function dosomething_reportback_get_reportback_total_by_nid($nid, $type = 'quant
   }
 
   if ($type == 'quantity') {
-    $query->fields('rb', array('quantity'));
+    //@TODO: temporary hotfix to get hotmodule out, need to debug why this query is broken.
+    return dosomething_helpers_get_variable('node', $nid, 'sum_rb_quantity');
+
     $query->addExpression('SUM(quantity)', 'quantity');
     $result = $query->execute()->fetchAll();
     $quantity = $result[0]->quantity;
-    dosomething_helpers_set_variable('node', $nid, 'sum_rb_quantity', $quantity);
+    // dosomething_helpers_set_variable('node', $nid, 'sum_rb_quantity', $quantity);
     return $quantity;
   }
   elseif ($type == 'count') {
