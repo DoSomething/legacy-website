@@ -51,9 +51,6 @@ function enable {
 
   # Enables global module.
   drush -y en dosomething_global
-
-  # Revert features.
-  drush -y fra
 }
 
 # ==============================================================================

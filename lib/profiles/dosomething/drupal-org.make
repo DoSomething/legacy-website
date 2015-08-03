@@ -51,10 +51,6 @@ projects[entity][subdir] = "contrib"
 projects[entity_autocomplete][version] = "1.0-beta3"
 projects[entity_autocomplete][subdir] = "contrib"
 
-; Entity Translation
-projects[entity_translation][version] = "1.0-beta4"
-projects[entity_translation][subdir] = "contrib"
-
 ; Entity Connect
 projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
@@ -184,10 +180,6 @@ projects[strongarm][subdir] = "contrib"
 ; Taxonomy Access Fix
 projects[taxonomy_access_fix][version] = "2.1"
 projects[taxonomy_access_fix][subdir] = "contrib"
-
-; Title
-projects[title][version] = "1.0-alpha7"
-projects[title][subdir] = "contrib"
 
 ; Token
 projects[token][version] = "1.5"
