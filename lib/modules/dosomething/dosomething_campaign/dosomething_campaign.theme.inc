@@ -288,9 +288,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $campaign = $vars['campaign'];
 
   // Progress
-  if (theme_get_setting('show_campaign_progress')) {
-    $vars['campaign_progress'] = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
-  }
+  $vars['campaign_progress'] = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
 
   // Know It.
 
