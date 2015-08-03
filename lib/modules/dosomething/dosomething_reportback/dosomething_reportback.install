@@ -61,8 +61,13 @@ function dosomething_reportback_schema() {
       'flagged' => array(
         'description' => 'Whether the Reportback has been flagged.',
         'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
+        // The following field settings were edited specifically to set 'not null' to FALSE and 'default' to NULL.
+        // While dosomething_reportback_update_7024() already updates this, the drupal_get_schema() function
+        // seems to pull from this original schema instead of the updated one and this was causing problems with
+        // Reportback flagging status.
+        // @see https://github.com/DoSomething/phoenix/issues/4756
+        'not null' => FALSE,
+        'default' => NULL,
       ),
       'flagged_reason' => array(
         'description' => 'Reason why reportback was flagged.',
