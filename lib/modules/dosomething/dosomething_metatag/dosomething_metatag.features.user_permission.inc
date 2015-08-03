@@ -23,7 +23,9 @@ function dosomething_metatag_user_default_permissions() {
   $permissions['edit meta tags'] = array(
     'name' => 'edit meta tags',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'metatag',
   );

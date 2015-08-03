@@ -45,7 +45,9 @@ function dosomething_settings_user_default_permissions() {
     'name' => 'use text format markdown',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'filter',
   );

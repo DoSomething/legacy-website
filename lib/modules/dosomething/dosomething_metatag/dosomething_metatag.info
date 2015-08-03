@@ -7,3 +7,4 @@ dependencies[] = metatag
 features[features_api][] = api:2
 features[user_permission][] = administer meta tags
 features[user_permission][] = edit meta tags
+mtime = 1428597800

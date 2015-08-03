@@ -14,7 +14,9 @@ function dosomething_image_user_default_permissions() {
   $permissions['create image content'] = array(
     'name' => 'create image content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -46,7 +48,9 @@ function dosomething_image_user_default_permissions() {
   $permissions['edit own image content'] = array(
     'name' => 'edit own image content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
