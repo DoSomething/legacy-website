@@ -23,7 +23,7 @@
 
       @include media($tablet) {
         border-left: 2px solid $light-gray;
-        border-top: none;
+        border-top: 0;
       }
     }
 

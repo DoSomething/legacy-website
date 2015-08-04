@@ -30,7 +30,7 @@
   }
 
   .cta {
-    border-top: none;
+    border-top: 0;
 
     @include media($tablet) {
       display: table-footer-group;
