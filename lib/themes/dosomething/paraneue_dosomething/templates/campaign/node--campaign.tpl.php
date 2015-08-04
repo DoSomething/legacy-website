@@ -49,11 +49,9 @@
         <div class="container__block">
           <div class="stat-card">
             <div class="stat-card__totals">
-              <?php if(isset($campaign_progress)): ?>
-                <h4 class="stat-card__verbs"><?php print $reportback_noun_verb ?></h4>
-                <p class="stat-card__progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
-                <p class="stat-card__goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
-              <?php endif; ?>
+              <h4 class="stat-card__verbs"><?php print $reportback_noun_verb ?></h4>
+              <p class="stat-card__progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
+              <p class="stat-card__goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
             </div>
             <div class="stat-card__timing">
               <?php if(isset($time_left)): ?>
