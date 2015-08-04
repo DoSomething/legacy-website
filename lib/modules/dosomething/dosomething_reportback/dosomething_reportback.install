@@ -136,6 +136,12 @@ function dosomething_reportback_schema() {
         'length' => '2048',
         'not null' => FALSE,
       ),
+      'reason' => array(
+        'description' => 'The reason the reoportback item was flagged/promoted',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ),
       'files' => array(
         'description' => 'Comma separated list of file fids attached to reportback.',
         'type' => 'varchar',
@@ -156,12 +162,6 @@ function dosomething_reportback_schema() {
       ),
       'field_data' => array(
         'description' => 'Any values stored in dosomething_reportback_field_data.',
-        'type' => 'text',
-        'length' => '2048',
-        'not null' => FALSE,
-      ),
-      'reason' => array(
-        'description' => 'The reason the reoportback item was flagged/promoted',
         'type' => 'text',
         'length' => '2048',
         'not null' => FALSE,
@@ -239,6 +239,7 @@ function dosomething_reportback_schema() {
     ),
     'primary key' => array('rbid', 'fid'),
   );
+  // Progress log.
   $schema['dosomething_reportback_progress_log'] = array(
     'description' => 'Log table of the total quantity of campaign nodes over time.',
     'fields' => array(
@@ -258,6 +259,7 @@ function dosomething_reportback_schema() {
         'type' => 'int',
         'description' => 'The total quantity of approved reportbacks at this time.',
         'not null' => TRUE,
+        'default' => 0,
       ),
       'timestamp' => array(
         'description' => 'The Unix timestamp of the time this quantity was stored.',
@@ -792,4 +794,13 @@ function dosomething_reportback_update_7028(&$sandbox) {
   $schema = dosomething_reportback_schema();
   $field_name = "reason";
   db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
+}
+
+function dosomething_reportback_update_7029(&$sandbox) {
+  $table_name = 'dosomething_reportback_log';
+  $schema = dosomething_reportback_schema();
+  $field_name = "reason";
+  if (!db_field_exists($table_name, $field_name)) {
+    db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
+  }
 }
