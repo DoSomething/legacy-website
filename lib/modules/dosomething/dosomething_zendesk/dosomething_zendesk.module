@@ -233,7 +233,9 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
     $msg_type = 'status';
   }
   else {
-    $msg = t("Sorry, there was an error with your request. Please try again.");
+    $msg = t('Sorry, there was an error with your request, please email !email and we\'ll get your question sorted out!', [
+      '!email' => l(t('help@dosomething.org'), 'mailto:help@dosomething.org')
+    ]);
     $msg_type = 'warning';
   }
   drupal_set_message($msg, $msg_type);
