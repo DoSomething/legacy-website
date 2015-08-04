@@ -186,7 +186,9 @@ projects[taxonomy_access_fix][version] = "2.1"
 projects[taxonomy_access_fix][subdir] = "contrib"
 
 ; Title
-projects[title][version] = "1.0-alpha7"
+; Dev branch used: 2015-Mar-23
+; Fixes a bug with table layout on content type manage fields page.
+projects[title][version] = "1.x-dev"
 projects[title][subdir] = "contrib"
 
 ; Token
