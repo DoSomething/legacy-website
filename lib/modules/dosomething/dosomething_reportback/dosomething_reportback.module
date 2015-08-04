@@ -133,6 +133,14 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'why_participated',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $info['reportback']['properties']['flagged'] = array(
+    'label' => t('Flagged status'),
+    'description' => t('The boolean on the reportback, to show if entire rb is flagged'),
+    'type' => 'text',
+    'required' => TRUE,
+    'schema field' => 'flagged',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
   $info['reportback']['properties']['flagged_reason'] = array(
     'label' => t('Flagged Reason'),
     'description' => t('Why was the file flagged?'),
