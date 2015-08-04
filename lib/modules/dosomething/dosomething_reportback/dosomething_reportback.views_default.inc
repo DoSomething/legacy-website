@@ -130,6 +130,13 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'Item Status';
+  /* Field: Reportback: Flagged status */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'rbid';
+  $handler->display->display_options['fields']['flagged']['label'] = 'Reportback flagged status';
   /* Field: Reportback: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
@@ -346,9 +353,11 @@ function dosomething_reportback_views_default_views() {
     t('.'),
     t('Campaign'),
     t('Image'),
-    t('Status'),
+    t('Item Status'),
+    t('Reportback flagged status'),
     t('Quantity'),
     t(','),
+    t('Status'),
     t('Flagged Reason'),
     t('Promoted Reason'),
     t('Page'),
