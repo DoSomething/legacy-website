@@ -117,9 +117,10 @@
               </div>
             </div>
             <ul class="social-share-bar -with-callout">
-              <li><a class="social-icon -facebook js-share-link js-analytics-problem-fb" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
-              <li><a class="social-icon -twitter js-share-link js-analytics-problem-tw" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
-              <li><a class="social-icon -tumblr js-share-link js-analytics-problem-tm" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
+              <?php print $share_bar; ?>
+              <!-- <li><a class="social-icon -facebook js-share-link js-analytics-problem-fb" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li> -->
+              <!-- <li><a class="social-icon -twitter js-share-link js-analytics-problem-tw" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li> -->
+              <!-- <li><a class="social-icon -tumblr js-share-link js-analytics-problem-tm" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li> -->
             </ul>
           <?php endif; ?>
         <?php endif; ?>

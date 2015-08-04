@@ -311,25 +311,58 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
     // Create the tweet for twitter.
     if (isset($campaign->fact_problem)) {
-      $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
+      $tweet = $campaign->fact_problem['fact'];
     }
 
-    // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
-    $fb_options = array(
-      'picture' => $problem_share_image,
-    );
+    // // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
+    // $fb_options = array(
+    //   'picture' => $problem_share_image,
+    // );
 
-    // Tumblr share parameters.
-    $tumblr_options = array(
-      'posttype' => 'photo',
-      'content' => $problem_share_image,
-      'caption' => "This is REAL, do something about this with me: " . $campaign_path,
+    // // Tumblr share parameters.
+    // $tumblr_options = array(
+    //   'posttype' => 'photo',
+    //   'content' => $problem_share_image,
+    //   'caption' => "This is REAL, do something about this with me: " . $campaign_path,
+    // );
+
+    // $fb_options = array(
+    //   'type' => 'feed_dialog',
+    //   'options' => array(
+    //     'picture' => $problem_share_image,
+    //   ),
+    // );
+
+    // $tumblr_options = array(
+    //   'posttype' => 'photo',
+    //   'content' => $problem_share_image,
+    //   'caption' => "This is REAL, do something about this with me: ",
+    // );
+
+    $share_options = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'options' => array(
+          'picture' => $problem_share_image,
+        ),
+      ),
+      'twitter' => array(
+        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $problem_share_image,
+        'caption' => "This is REAL, do something about this with me: ",
+      ),
     );
 
     // Create the intent links
-    $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-    $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
-    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($campaign_path, $tumblr_options);
+    // $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
+    // $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
+    // $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($campaign_path, $tumblr_options);
+
+    // $vars['share_bar'] = dosomething_helpers_share_links($campaign_path, 'problem_shares', $tweet, $tumblr_options, $fb_options);
+    $vars['share_bar'] = dosomething_helpers_share_links($campaign_path, $share_options, 'problem_shares');
   }
 
   // Plan.

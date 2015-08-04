@@ -101,7 +101,7 @@ function dosomething_helpers_get_tumblr_intent($path, $options) {
  *   An array of paths, indexed by type.
  */
 function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign) {
-  foreach ($share_types as $type) {
+  foreach ($share_types as $type => $options) {
     $utm_params = dosomething_helpers_utm_parameters(NULL,
       array(
         'utm_medium' => $type,
@@ -112,4 +112,31 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
   }
 
   return $share_paths;
+}
+
+function dosomething_helpers_share_links($path, $share_types, $share_description) {
+  $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description);
+  $share_bar = '';
+  $share_intents = [];
+
+  foreach ($share_types as $type => $options) {
+    switch ($type) {
+      case 'facebook':
+        $share_intents['facebook'] = dosomething_helpers_get_facebook_intent($share_utm_paths['facebook'], $options['type'], $options['options']);
+        break;
+      case 'twitter':
+        $share_intents['twitter'] = dosomething_helpers_get_twitter_intent($options['tweet'] . ' ' . $share_utm_paths['twitter']);
+        break;
+      case 'tumblr':
+        $options['caption'] = $options['caption'] . $share_utm_paths['tumblr'];
+        $share_intents['tumblr'] = dosomething_helpers_get_tumblr_intent($share_utm_paths['tumblr'], $options);
+      default:
+        break;
+    }
+    if ($share_intents[$type]) {
+      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link js-analytics" href="' . $share_intents[$type] . '"><span>'. $type . '</span></a></li>';
+    }
+  }
+
+  return $share_bar;
 }
