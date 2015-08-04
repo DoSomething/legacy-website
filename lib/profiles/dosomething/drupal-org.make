@@ -51,6 +51,10 @@ projects[entity][subdir] = "contrib"
 projects[entity_autocomplete][version] = "1.0-beta3"
 projects[entity_autocomplete][subdir] = "contrib"
 
+; Entity Translation
+projects[entity_translation][version] = "1.0-beta4"
+projects[entity_translation][subdir] = "contrib"
+
 ; Entity Connect
 projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
@@ -180,6 +184,12 @@ projects[strongarm][subdir] = "contrib"
 ; Taxonomy Access Fix
 projects[taxonomy_access_fix][version] = "2.1"
 projects[taxonomy_access_fix][subdir] = "contrib"
+
+; Title
+; Dev branch used: 2015-Mar-23
+; Fixes a bug with table layout on content type manage fields page.
+projects[title][version] = "1.x-dev"
+projects[title][subdir] = "contrib"
 
 ; Token
 projects[token][version] = "1.5"
