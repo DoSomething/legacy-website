@@ -88,9 +88,7 @@
                 <p><?php print $hot_module_share_copy; ?></p>
               </div>
             </div>
-            <ul class="social-share-bar -with-callout">
-              <?php print $hot_module_share_bar; ?>
-            </ul>
+            <?php print $hot_module_share_bar; ?>
           </div>
         </div>
 
@@ -114,9 +112,7 @@
                 <p><?php print $problem_share_prompt; ?></p>
               </div>
             </div>
-            <ul class="social-share-bar -with-callout">
-              <?php print $share_bar; ?>
-            </ul>
+            <?php print $share_bar; ?>
           <?php endif; ?>
         <?php endif; ?>
 

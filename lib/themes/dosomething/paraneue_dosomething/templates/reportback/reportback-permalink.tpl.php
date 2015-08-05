@@ -49,11 +49,7 @@
                 <div class="wrapper">
                   <p class="cta__message"><?php print $copy_vars['owners_rb_social_cta']; ?></p>
                 </div>
-                <ul>
-                  <li><a class="social-icon -facebook js-share-link js-analytics-fb-share" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
-                  <li><a class="social-icon -twitter js-share-link js-analytics-tw-share" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
-                  <li><a class="social-icon -tumblr js-share-link js-analytics-tm-share" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
-                </ul>
+                <?php print $share_bar; ?>
               </div>
             <?php endif; ?>
             <div class="card__copy">

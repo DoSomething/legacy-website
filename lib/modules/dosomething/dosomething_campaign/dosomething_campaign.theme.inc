@@ -236,7 +236,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
   );
 
-  $vars['hot_module_share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot');
+  $vars['hot_module_share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot', 'social-share-bar -with-callout');
 }
 
 /**
@@ -324,7 +324,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       ),
     );
 
-    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem');
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
 
   // Plan.

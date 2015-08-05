@@ -522,20 +522,23 @@ function dosomething_reportback_view_entity($entity) {
     $share_text = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'), array('node' => $node));
     $share_text = str_replace('[node:issue]', strtolower($node->issue['name']), $share_text);
 
-    // Set twitter text.
-    $twitter_text = htmlspecialchars_decode($share_text, ENT_QUOTES) . " " . $reportback_url;
 
-    // Set tumblr options
-    $tumblr_options = array(
-      'posttype' => 'photo',
-      'content' => $file->getImageURL('480x480'),
-      'caption' => $share_text . " " . $reportback_url,
+    $share_types = array(
+      'facebook' => array(
+        'type' => 'default',
+      ),
+      'twitter' => array(
+        'tweet' => htmlspecialchars_decode($share_text, ENT_QUOTES) . " ",
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $file->getImageURL('480x480'),
+        'caption' => $share_text . " ",
+      ),
     );
 
-    // Create share button links
-    $fb_link = dosomething_helpers_get_facebook_intent($reportback_url);
-    $twitter_link = dosomething_helpers_get_twitter_intent($twitter_text);
-    $tumblr_link = dosomething_helpers_get_tumblr_intent($reportback_url, $tumblr_options);
+    $share_bar = dosomething_helpers_share_bar($reportback_url, $share_types, 'confirmation_page_share', 'js-analytics-permalink');
+
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
     $permalink_vars = array(
@@ -547,9 +550,7 @@ function dosomething_reportback_view_entity($entity) {
       'copy_vars' => $copy_vars,
       'title' => $title,
       'subtitle' => $subtitle,
-      'fb_link' => $fb_link,
-      'twitter_link' => $twitter_link,
-      'tumblr_link' => $tumblr_link,
+      'share_bar' => $share_bar,
       'share_enabled' => $share_enabled,
       'why_participated_short' => $why_participated_short,
     );

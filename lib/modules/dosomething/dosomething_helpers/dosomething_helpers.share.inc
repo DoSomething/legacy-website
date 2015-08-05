@@ -130,9 +130,9 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
  * @return
  *   Share bar markup.
  */
-function dosomething_helpers_share_bar($path, $share_types, $share_description, $analytics_class = NULL) {
+function dosomething_helpers_share_bar($path, $share_types, $share_description, $analytics_class = NULL, $classes = NULL) {
   $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description);
-  $share_bar = '';
+  $share_bar = '<ul class="' . $classes . '">';
   $share_intents = [];
 
   foreach ($share_types as $type => $options) {
@@ -158,5 +158,5 @@ function dosomething_helpers_share_bar($path, $share_types, $share_description, 
     }
   }
 
-  return $share_bar;
+  return $share_bar . "</ul>";
 }
