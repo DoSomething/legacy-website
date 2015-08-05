@@ -314,35 +314,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $tweet = $campaign->fact_problem['fact'];
     }
 
-    // // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
-    // $fb_options = array(
-    //   'picture' => $problem_share_image,
-    // );
-
-    // // Tumblr share parameters.
-    // $tumblr_options = array(
-    //   'posttype' => 'photo',
-    //   'content' => $problem_share_image,
-    //   'caption' => "This is REAL, do something about this with me: " . $campaign_path,
-    // );
-
-    // $fb_options = array(
-    //   'type' => 'feed_dialog',
-    //   'options' => array(
-    //     'picture' => $problem_share_image,
-    //   ),
-    // );
-
-    // $tumblr_options = array(
-    //   'posttype' => 'photo',
-    //   'content' => $problem_share_image,
-    //   'caption' => "This is REAL, do something about this with me: ",
-    // );
-
-    $share_options = array(
+    $share_types = array(
       'facebook' => array(
         'type' => 'feed_dialog',
-        'options' => array(
+        'parameters' => array(
           'picture' => $problem_share_image,
         ),
       ),
@@ -356,13 +331,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       ),
     );
 
-    // Create the intent links
-    // $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-    // $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
-    // $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($campaign_path, $tumblr_options);
-
-    // $vars['share_bar'] = dosomething_helpers_share_links($campaign_path, 'problem_shares', $tweet, $tumblr_options, $fb_options);
-    $vars['share_bar'] = dosomething_helpers_share_links($campaign_path, $share_options, 'problem_shares');
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem');
   }
 
   // Plan.

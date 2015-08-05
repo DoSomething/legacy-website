@@ -114,7 +114,23 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
   return $share_paths;
 }
 
-function dosomething_helpers_share_links($path, $share_types, $share_description) {
+/**
+ * Return the markup for share button.
+ *
+ * @param string $path
+ *   The absolute path of the page being shared.
+ * @param  array $share_types
+ *   - array of social networks to create paths for.
+ *     including the relevant parameters needed to create the custom intents.
+ * @param string $share_description
+ *   A custom value to use for 'utm_campaign'.
+ * @param string $analytics_class
+ *   A base class to use for Google Analytics tracking. @TODO - This implementation is temporary. We will be refactoring
+ *   how google analtyics tracking is implemented. Discussion happening in issue #4793
+ * @return
+ *   Share bar markup.
+ */
+function dosomething_helpers_share_bar($path, $share_types, $share_description, $analytics_class = NULL) {
   $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description);
   $share_bar = '';
   $share_intents = [];
@@ -122,19 +138,23 @@ function dosomething_helpers_share_links($path, $share_types, $share_description
   foreach ($share_types as $type => $options) {
     switch ($type) {
       case 'facebook':
-        $share_intents['facebook'] = dosomething_helpers_get_facebook_intent($share_utm_paths['facebook'], $options['type'], $options['options']);
+        $share_intents['facebook'] = dosomething_helpers_get_facebook_intent($share_utm_paths['facebook'], $options['type'], $options['parameters']);
+        $tracking = $analytics_class . '-fb';
         break;
       case 'twitter':
         $share_intents['twitter'] = dosomething_helpers_get_twitter_intent($options['tweet'] . ' ' . $share_utm_paths['twitter']);
+        $tracking = $analytics_class . '-tw';
         break;
       case 'tumblr':
         $options['caption'] = $options['caption'] . $share_utm_paths['tumblr'];
         $share_intents['tumblr'] = dosomething_helpers_get_tumblr_intent($share_utm_paths['tumblr'], $options);
+        $tracking = $analytics_class . '-tm';
       default:
         break;
     }
+
     if ($share_intents[$type]) {
-      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link js-analytics" href="' . $share_intents[$type] . '"><span>'. $type . '</span></a></li>';
+      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link ' . $tracking . '" href="' . $share_intents[$type] . '"><span>'. $type . '</span></a></li>';
     }
   }
 
