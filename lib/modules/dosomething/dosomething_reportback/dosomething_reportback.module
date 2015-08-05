@@ -1028,8 +1028,8 @@ function dosomething_reportback_flush_caches() {
 function dosomething_reportback_build_reportbacks_query($params = array()) {
   $query = db_select('dosomething_reportback', 'rb');
   $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
-  $query->join('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
-  $query->join('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
+  $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
+  $query->leftJoin('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
   $query->join('node', 'n', 'rb.nid = n.nid');
 
   $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
@@ -1145,8 +1145,8 @@ function dosomething_reportback_get_reportbacks_query($params) {
 function dosomething_reportback_get_reportback_files_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rbf.rbid = rb.rbid');
-  $query->join('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
-  $query->join('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
+  $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
+  $query->leftJoin('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
   $query->join('users', 'u', 'rb.uid = u.uid');
   $query->join('node', 'n', 'rb.nid = n.nid');
   $query->join('file_managed', 'f', 'rbf.fid = f.fid');
