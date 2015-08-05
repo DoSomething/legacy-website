@@ -314,6 +314,7 @@ function theme_dosomething_reportback_files_form($variables) {
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
+        $rbf->rbid . ": " . $fid ,
         drupal_render($form['rb_files'][$fid]['date']),
         drupal_render($view),
         drupal_render($form['rb_files'][$fid]['quantity']),
@@ -325,6 +326,7 @@ function theme_dosomething_reportback_files_form($variables) {
     );
   }
   $header = array(
+    t('RBID: fid'),
     t('Submitted'),
     NULL,
     t('Quantity'),
