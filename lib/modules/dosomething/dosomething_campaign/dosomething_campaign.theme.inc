@@ -105,6 +105,43 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
+
+  // Problem shares
+  $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
+  $campaign = $vars['campaign'];
+
+  if ($vars['show_problem_shares']) {
+    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
+    if ($problem_share_prompt) {
+      $vars['problem_share_prompt'] = $problem_share_prompt;
+    }
+
+    $base_url = url(base_path(), array('absolute'=> TRUE));
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+    // Create the image path to the problem fact statement image generated for the node.
+    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.png';
+
+    $share_types = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'parameters' => array(
+          'picture' => $problem_share_image,
+        ),
+      ),
+      'twitter' => array(
+        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $problem_share_image,
+        'caption' => "This is REAL, do something about this with me: ",
+      ),
+    );
+
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
+  }
+
 }
 
 /**
@@ -289,43 +326,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['campaign_progress'] = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
 
   // Know It.
-
-  // Problem shares.
-
-  // Share prompt.
-  $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
-
-  if ($vars['show_problem_shares']) {
-    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
-    if ($problem_share_prompt) {
-      $vars['problem_share_prompt'] = $problem_share_prompt;
-    }
-
-    $base_url = url(base_path(), array('absolute'=> TRUE));
-    $campaign_path = url(current_path(), array('absolute' => TRUE));
-
-    // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.png';
-
-    $share_types = array(
-      'facebook' => array(
-        'type' => 'feed_dialog',
-        'parameters' => array(
-          'picture' => $problem_share_image,
-        ),
-      ),
-      'twitter' => array(
-        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
-      ),
-      'tumblr' => array(
-        'posttype' => 'photo',
-        'content' => $problem_share_image,
-        'caption' => "This is REAL, do something about this with me: ",
-      ),
-    );
-
-    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
-  }
 
   // Plan.
 
