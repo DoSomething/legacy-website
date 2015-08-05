@@ -14,7 +14,9 @@ function dosomething_fact_user_default_permissions() {
   $permissions['create fact content'] = array(
     'name' => 'create fact content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -46,7 +48,9 @@ function dosomething_fact_user_default_permissions() {
   $permissions['edit own fact content'] = array(
     'name' => 'edit own fact content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

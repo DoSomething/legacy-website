@@ -34,8 +34,10 @@ function dosomething_signup_user_default_permissions() {
     'name' => 'view any signup',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'dosomething_signup',
   );
