@@ -1140,6 +1140,7 @@ function dosomething_reportback_get_reportbacks_query($params) {
  *   - fid: (string) A reportback item fid to filter by.
  *   - status: (string) The RB File status.
  *   - random: (boolean) If set, randomly sort the results.
+ *   - order: (string) If set, return results in asc/desc order.
  * @return SelectQuery object
  */
 function dosomething_reportback_get_reportback_files_query($params = array()) {
@@ -1213,6 +1214,10 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
   if (isset($params['random'])) {
     $query->orderRandom();
   }
+  elseif (isset($params['order'])) {
+    $query->orderBy('rb.updated', $params['order']);
+  }
+
   else {
     $query->orderBy('rb.updated', 'DESC');
   }

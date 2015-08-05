@@ -143,6 +143,8 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       $page_size = $limit;
     }
   }
+  // Display reportback forms in asc order.
+  $params['order'] = 'asc';
   // Get the DatabaseQuery to loop through.
   $result = dosomething_reportback_get_reportback_files_query_result($params, $page_size);
   // Get the total number of results.
@@ -302,7 +304,6 @@ function theme_dosomething_reportback_files_form($variables) {
   if (empty($rb_files)) {
     return t("Inbox zero! There are no Reportbacks to review.");
   }
-
   // Initialize the variable which will store our table rows.
   $rows = array();
   foreach ($rb_files as $fid) {
