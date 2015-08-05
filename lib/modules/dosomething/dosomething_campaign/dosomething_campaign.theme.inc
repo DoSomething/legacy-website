@@ -218,27 +218,25 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
 
-  $share_types = array('facebook', 'twitter', 'tumblr');
-  $share_paths = dosomething_helpers_utm_share_paths($share_types, $campaign_path, 'hot_share');
-
-  $fb_options = array(
-    'picture' => $vars['hero_image']['desktop'],
-    'caption' => $goal_copy . "? Let's make it happen!",
-  );
-  $vars['hot_module_fb_link'] = dosomething_helpers_get_facebook_intent($share_paths['facebook'], 'feed_dialog', $fb_options);
-
-  // Twitter
-  $tweet = "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! " . $share_paths['twitter'];
-  $vars['hot_module_tw_link'] = dosomething_helpers_get_twitter_intent($tweet);
-
-  // Tumblr
-  $tumblr_options = array(
-    'posttype' => 'photo',
-    'content' => $vars['hero_image']['desktop'],
-    'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: " . $share_paths['tumblr'],
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $vars['hero_image']['desktop'],
+        'caption' => $goal_copy . "? Let's make it happen!",
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! ",
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $vars['hero_image']['desktop'],
+      'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
+    ),
   );
 
-  $vars['hot_module_tm_link'] = dosomething_helpers_get_tumblr_intent($share_paths['tumblr'], $tumblr_options);
+  $vars['hot_module_share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot', 'social-share-bar -with-callout');
 }
 
 /**
@@ -309,27 +307,24 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     // Create the image path to the problem fact statement image generated for the node.
     $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.png';
 
-    // Create the tweet for twitter.
-    if (isset($campaign->fact_problem)) {
-      $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
-    }
-
-    // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
-    $fb_options = array(
-      'picture' => $problem_share_image,
+    $share_types = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'parameters' => array(
+          'picture' => $problem_share_image,
+        ),
+      ),
+      'twitter' => array(
+        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $problem_share_image,
+        'caption' => "This is REAL, do something about this with me: ",
+      ),
     );
 
-    // Tumblr share parameters.
-    $tumblr_options = array(
-      'posttype' => 'photo',
-      'content' => $problem_share_image,
-      'caption' => "This is REAL, do something about this with me: " . $campaign_path,
-    );
-
-    // Create the intent links
-    $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-    $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
-    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($campaign_path, $tumblr_options);
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
 
   // Plan.

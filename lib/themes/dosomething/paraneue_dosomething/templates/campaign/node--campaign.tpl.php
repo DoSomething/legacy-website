@@ -88,11 +88,7 @@
                 <p><?php print $hot_module_share_copy; ?></p>
               </div>
             </div>
-            <ul class="social-share-bar -with-callout">
-              <li><a class="social-icon -facebook js-share-link js-analytics-hot-fb" href="<?php print $hot_module_fb_link; ?>"><span>Facebook</span></a></li>
-              <li><a class="social-icon -twitter js-share-link js-analytics-hot-tw" href="<?php print $hot_module_tw_link; ?>"><span>Twitter</span></a></li>
-              <li><a class="social-icon -tumblr js-share-link js-analytics-hot-tm" href="<?php print $hot_module_tm_link; ?>"><span>Tumblr</span></a></li>
-            </ul>
+            <?php print $hot_module_share_bar; ?>
           </div>
         </div>
 
@@ -116,11 +112,7 @@
                 <p><?php print $problem_share_prompt; ?></p>
               </div>
             </div>
-            <ul class="social-share-bar -with-callout">
-              <li><a class="social-icon -facebook js-share-link js-analytics-problem-fb" href="<?php print $fb_link; ?>"><span>Facebook</span></a></li>
-              <li><a class="social-icon -twitter js-share-link js-analytics-problem-tw" href="<?php print $twitter_link; ?>"><span>Twitter</span></a></li>
-              <li><a class="social-icon -tumblr js-share-link js-analytics-problem-tm" href="<?php print $tumblr_link; ?>"><span>Tumblr</span></a></li>
-            </ul>
+            <?php print $share_bar; ?>
           <?php endif; ?>
         <?php endif; ?>
 
