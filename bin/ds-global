@@ -54,6 +54,9 @@ function enable {
 
   # Revert features.
   drush -y fra
+
+  # Run fixes.
+  drush ds-global-titles-fix campaign
 }
 
 # ==============================================================================
