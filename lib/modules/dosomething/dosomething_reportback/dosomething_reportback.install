@@ -804,3 +804,39 @@ function dosomething_reportback_update_7029(&$sandbox) {
     db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
   }
 }
+
+/**
+ * This searches for all reportbacks that are pending
+ * and have a flagged status of 0 and updates it to NULL
+ * Refs #4777 and #4756
+ */
+function _dosomething_reportback_retroactive_rb_fix_flagged() {
+  db_query("UPDATE dosomething_reportback as rb
+            INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
+            SET rb.flagged = NULL
+            WHERE rbf.status = 'pending'
+            AND rb.flagged = 0;");
+}
+/**
+ * This searches for reportback items that have been flagged, but the reportback has not.
+ * Refs #4529
+ */
+
+function _dosomething_reportback_retroactive_rb_fix_pending() {
+  db_query("UPDATE dosomething_reportback as rb
+            INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
+            SET rb.flagged = 1
+            WHERE rbf.status = 'flagged'
+            AND (rb.flagged = 0 or rb.flagged is null);");
+}
+
+
+/**
+ * This does some data cleanup on reportbacks that have the wrong flagged status
+ * Refs #4779
+ */
+function dosomething_reportback_update_7030(&$sandbox) {
+  // Run the two functions from above.
+  _dosomething_reportback_retroactive_rb_fix_flagged();
+  _dosomething_reportback_retroactive_rb_fix_pending();
+}
