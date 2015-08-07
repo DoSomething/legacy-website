@@ -83,6 +83,7 @@
       </div>
     </div>
   </section>
+
   <?php if ($hot_module_enabled): ?>
     <section id="hot-module" class="container">
       <div class="wrapper">

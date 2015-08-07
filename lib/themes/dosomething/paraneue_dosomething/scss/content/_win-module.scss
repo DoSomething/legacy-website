@@ -1,3 +1,30 @@
-#win-module {
-  background: red;
+.win-module {
+  .win-module__background {
+    background-image: url(https://placeimg.com/1440/810/grayscale);
+    margin-bottom: $base-spacing;
+
+    .wrapper {
+      height: 620px;
+      display: table;
+      width: 100%;
+      margin-left: 0px;
+
+      .win-module__progress {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+    h2 {
+      color: $white;
+      font-size: 124px;
+    }
+
+    h4 {
+      color: $white;
+      font-size: $font-larger;
+      font-weight: $weight-normal;
+      text-transform: uppercase;
+    }
+  }
 }
