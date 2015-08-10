@@ -17,7 +17,7 @@ FIELD_BIRTHDATE  = 'field_birthdate[und][0][value][date]'
 FIELD_POSTCODE   = 'field_address[und][0][postal_code]'
 FIELD_PHONE      = 'field_mobile[und][0][value]'
 
-USER_COUNTRY = 'UK'
+USER_COUNTRY = 'GB'
 
 # Generate user.
 user = casper.getRandomUser()
