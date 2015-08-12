@@ -340,7 +340,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   $form['win']['dosomething_campaign_win_share_copy'] = [
     '#type' => 'textfield',
     '#title' => t('Win module share copy'),
-    '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'Rally your friends to crush this goal!'),
+    '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'show the world what we did!'),
     '#description' => t("Sets the hot module share copy"),
   ];
 
