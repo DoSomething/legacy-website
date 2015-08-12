@@ -341,7 +341,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Win module share copy'),
     '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'show the world what we did!'),
-    '#description' => t("Sets the hot module share copy"),
+    '#description' => t("Sets the win module share copy"),
+  ];
+  $form['win']['dosomething_campaign_win_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Win module copy'),
+    '#default_value' => variable_get('dosomething_campaign_win_copy', t('[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the prove it section below.')),
+    '#description' => t("Sets the win module copy"),
   ];
 
   return system_settings_form($form);
