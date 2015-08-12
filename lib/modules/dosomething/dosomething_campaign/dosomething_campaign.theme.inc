@@ -154,7 +154,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
  * Preprocess variables for win module.
  */
 function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
-
+  $vars['share_copy'] = variable_get('dosomething_campaign_win_share_copy', '');
 }
 
 /**

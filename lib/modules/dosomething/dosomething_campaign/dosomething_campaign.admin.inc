@@ -337,6 +337,12 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_enable_win_module', FALSE),
     '#description' => t("If set, win module functionality will be turned on."),
   ];
+  $form['win']['dosomething_campaign_win_share_copy'] = [
+    '#type' => 'textfield',
+    '#title' => t('Win module share copy'),
+    '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'Rally your friends to crush this goal!'),
+    '#description' => t("Sets the hot module share copy"),
+  ];
 
   return system_settings_form($form);
 }
