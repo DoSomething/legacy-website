@@ -806,6 +806,26 @@ function dosomething_campaign_is_active($node) {
 }
 
 /**
+  * For a given campaign node, determine if the win module should be enabled
+  *
+  * @param array $vars
+  *  Campaign node varaible array.
+  *
+  * @return bool
+  */
+ function dosomething_campaign_is_win_module($vars) {
+   $today = new DateTime();
+   $end_date = new DateTime($vars['field_high_season'][0]['value2']);
+   $win_module_end = date_modify(clone $end_date, '+30 days');
+
+   // Win module is only enabled when variable is set, high season dates exist and there is still days left.
+   if (variable_get('dosomething_campaign_enable_win_module', NULL) == 1 && !empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
+     return TRUE;
+   }
+   return FALSE;
+ }
+
+/**
  * Returns array of nid's of recommended campaigns for $uid.
  *
  * First finds published staff pick campaigns that user has not signed up for.
