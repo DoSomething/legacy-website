@@ -819,7 +819,7 @@ function dosomething_campaign_is_active($node) {
    $win_module_end = date_modify(clone $end_date, '+30 days');
 
    // Win module is only enabled when variable is set, high season dates exist and there is still days left.
-   if (variable_get('dosomething_campaign_enable_hot_module', NULL) == 1 && !empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
+   if (variable_get('dosomething_campaign_enable_win_module', NULL) == 1 && !empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
      return TRUE;
    }
    return FALSE;

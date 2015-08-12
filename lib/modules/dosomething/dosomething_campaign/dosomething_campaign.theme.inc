@@ -27,7 +27,12 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
-  dosomething_campaign_is_win_module($vars);
+
+  // If the win module is enabled
+  if (dosomething_campaign_is_win_module($vars)) {
+    $vars['win_module_enabled'] = true;
+    dosomething_campaign_preprocess_win_module($vars, $wrapper);
+  }
 
   // If the hot module is enabled and the high season is set on a campaign.
   if (dosomething_campaign_is_hot_module($vars)) {
@@ -142,6 +147,13 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 
     $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
+
+}
+
+/**
+ * Preprocess variables for win module.
+ */
+function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
 
 }
 
