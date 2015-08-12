@@ -27,6 +27,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
+  dosomething_campaign_is_win_module($vars);
 
   // If the hot module is enabled and the high season is set on a campaign.
   if (dosomething_campaign_is_hot_module($vars)) {
