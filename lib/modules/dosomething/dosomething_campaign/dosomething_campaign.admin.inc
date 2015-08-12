@@ -324,6 +324,19 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_100_progress_copy', t('Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
     '#description' => t('Sets the hot module progress copy for 100%'),
   ];
+  // Win module
+  $form['win'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Win module'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['win']['dosomething_campaign_enable_win_module'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable win module feature'),
+    '#default_value' => variable_get('dosomething_campaign_enable_win_module', FALSE),
+    '#description' => t("If set, win module functionality will be turned on."),
+  ];
 
   return system_settings_form($form);
 }
