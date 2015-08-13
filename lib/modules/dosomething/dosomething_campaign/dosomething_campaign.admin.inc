@@ -317,6 +317,14 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_100_progress_copy', t('Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
     '#description' => t('Sets the hot module progress copy for 100%'),
   ];
+
+  $form['goals']['progress_copy']['dosomething_campaign_progress_copy_override'] = [
+    '#type' => 'textarea',
+    '#title' => t('Hot Module progress override copy'),
+    '#default_value' => variable_get('dosomething_campaign_progress_copy_override'),
+    '#description' => t('Add copy here if you’d like to override the default progress copy in the hot module. Note: The default copy changes as progress increases. Override copy is static. If you create override copy, you’ll need to either delete the copy or change it yourself for this text to update.'),
+  ];
+
   // Win module
   $form['win'] = array(
     '#type' => 'fieldset',
