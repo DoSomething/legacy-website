@@ -327,7 +327,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
 
   $form['goals']['progress_copy']['dosomething_campaign_progress_copy_override'] = [
     '#type' => 'textarea',
-    '#title' => t(''),
+    '#title' => t('Hot Module progress override copy'),
     '#default_value' => variable_get('dosomething_campaign_progress_copy_override'),
     '#description' => t('Add copy here if you’d like to override the default progress copy in the hot module. Note: The default copy changes as progress increases. Override copy is static. If you create override copy, you’ll need to either delete the copy or change it yourself for this text to update.'),
   ];
