@@ -733,7 +733,7 @@ function dosomething_campaign_is_hot_module($vars) {
   $end_date = new DateTime($vars['field_high_season'][0]['value2']);
 
   // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
-  if (variable_get('dosomething_campaign_enable_hot_module', NULL) == 1 && !empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
+  if (!empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
     return TRUE;
   }
   return FALSE;
