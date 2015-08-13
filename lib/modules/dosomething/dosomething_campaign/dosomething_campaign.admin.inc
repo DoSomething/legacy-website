@@ -354,7 +354,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Win module background image'),
     '#default_value' => variable_get('dosomething_campaign_win_background_image'),
     '#description' => t('Sets the win module background image'),
-    '#upload_location' => file_default_scheme() . '://win_module/',
+    '#upload_location' => file_default_scheme() . '://theme/win_module/',
     '#upload_validators' => array(
       'file_validate_extensions' => array('png'),
     ),
