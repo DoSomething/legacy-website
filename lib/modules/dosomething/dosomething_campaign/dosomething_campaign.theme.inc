@@ -204,7 +204,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   if (isset($override_copy)) {
     $vars['progress_copy'] = $override_copy;
   }
-  else if ($rb_percent <= 20) {
+  elseif ($rb_percent <= 20) {
     $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
   }
   elseif ($rb_percent <= 40) {
