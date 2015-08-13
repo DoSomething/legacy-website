@@ -16,6 +16,21 @@ function dosomething_global_drush_command() {
         'bundle' => 'The content type to fix.',
       ],
       'required-arguments' => TRUE,
+      'examples' => [
+        'drush ds-global-titles-fix campaign'
+          => 'Fixes Campaign\'s title.',
+      ],
+    ],
+    'ds-global-field-fix' => [
+      'description' => 'Fixes translatable field values.',
+      'arguments' => [
+        'field' => 'Field name to fix.',
+      ],
+      'required-arguments' => TRUE,
+      'examples' => [
+        'drush ds-global-field-fix field_call_to_action'
+          => 'Fixes Call to Action field.',
+      ],
     ],
   ];
 }
@@ -42,4 +57,27 @@ function drush_dosomething_global_ds_global_titles_fix($bundle) {
   drush_backend_batch_process();
 
   return t('Done') . '.';
+}
+
+/**
+ * Callback for ds-global-field-fix command.
+ *
+ * Fixes translatable field values.
+ *
+ * @see entity_translation_translatable_form_submit();
+ */
+function drush_dosomething_global_ds_global_field_fix($field) {
+  print t('Replacing field values for !field.', [
+    '!field'  => $field,
+  ]) . PHP_EOL;
+
+  $batch = [
+    'title' => t('Enabling translation for the @field field', ['@field' => $field]),
+    'operations' => [['entity_translation_translatable_batch', [TRUE, $field, TRUE]]],
+    'finished' => 'entity_translation_translatable_batch_done',
+    'file' => drupal_get_path('module', 'entity_translation') . '/entity_translation.admin.inc',
+    'progressive' => FALSE
+  ];
+  batch_set($batch);
+  drush_backend_batch_process();
 }

@@ -56,7 +56,11 @@ function enable {
   drush -y fra
 
   # Run fixes.
+  # Fix Campaign translatable title values.
   drush ds-global-titles-fix campaign
+
+  # Fix fields.
+  drush ds-global-field-fix field_call_to_action
 }
 
 # ==============================================================================
