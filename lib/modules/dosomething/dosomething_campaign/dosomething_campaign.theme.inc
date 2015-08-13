@@ -154,7 +154,11 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
  * Preprocess variables for win module.
  */
 function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
+  $node = node_load($vars['nid']);
   $vars['share_copy'] = variable_get('dosomething_campaign_win_share_copy');
+  $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
+  $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
+  $vars['win_copy'] = str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced);
 }
 
 /**
