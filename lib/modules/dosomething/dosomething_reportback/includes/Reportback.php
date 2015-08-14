@@ -263,6 +263,15 @@ class Reportback extends Entity {
       $timestamp = $this->updated;
     }
     try {
+      $reasons = '';
+      $flagged_reason = $this->flagged_reason;
+      $promoted_reason = $this->promoted_reason;
+      if (isset($flagged_reason)) {
+        $reasons .= $flagged_reason . ', ';
+      }
+      if (isset($promoted_reason)) {
+        $reasons .= $promoted_reason;
+      }
       // Grab file fids to keep as a record.
       $fids = $this->getFids();
       // Log the entity values into the log table.
@@ -277,7 +286,7 @@ class Reportback extends Entity {
           'files' => implode(',', $fids),
           'num_files' => count($fids),
           'remote_addr' => dosomething_helpers_ip_address(),
-          'reason' => $this->flagged_reason == NULL ? $this->promoted_reason : $this->flagged_reason,
+          'reason' => $reasons,
         ))
         ->execute();
     }

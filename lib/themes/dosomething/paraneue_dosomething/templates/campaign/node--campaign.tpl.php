@@ -43,7 +43,7 @@
   </nav>
 
   <?php // HOT MODULE PROTOTYPE ////////////////////////////// ?>
-  <?php if ($hot_module_enabled): ?>
+  <?php if (isset($hot_module_enabled)): ?>
     <section id="hot-module" class="container">
       <div class="wrapper">
         <div class="container__block">
