@@ -528,8 +528,8 @@ function dosomething_helpers_utm_parameters($nid, $options = NULL) {
   $utm_campaign = ($nid) ? $nid : ($options['utm_campaign']) ? $options['utm_campaign'] : NULL;
 
   $utm_params = array(
-    'utm_source' => ($options['utm_source']) ? $options['utm_source'] : 'dosomething',
-    'utm_medium' => ($options['utm_medium']) ? $options['utm_medium'] : 'site',
+    'utm_source' => (isset($options['utm_source'])) ? $options['utm_source'] : 'dosomething',
+    'utm_medium' => (isset($options['utm_medium'])) ? $options['utm_medium'] : 'site',
     'utm_campaign' => $utm_campaign,
   );
 
