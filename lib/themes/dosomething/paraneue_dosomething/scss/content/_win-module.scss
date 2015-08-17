@@ -1,5 +1,5 @@
 .win-module {
-  .win-module__background {
+  .win-module__progress {
     margin-bottom: $base-spacing;
 
     .wrapper {
@@ -8,12 +8,13 @@
       width: 100%;
       margin-left: 0px;
 
-      .win-module__progress {
+      .win-module__titles {
         display: table-cell;
         vertical-align: middle;
         text-align: center;
       }
     }
+
     h2 {
       color: $black;
       font-size: 124px;
@@ -25,5 +26,16 @@
       font-weight: $weight-normal;
       text-transform: uppercase;
     }
+  }
+
+  .author-callout {
+    @include media($large) {
+      @include span(8 of 12);
+    }
+  }
+
+  .win-module__share-bar {
+    float: left;
+    padding-left: $base-spacing;
   }
 }

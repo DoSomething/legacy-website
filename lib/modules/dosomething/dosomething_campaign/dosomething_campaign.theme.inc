@@ -176,12 +176,12 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
   $file = file_load($background_fid);
   $background_image_uri = file_create_url($file->uri);
 
-  $win_module_image = '.win-module__background  {
+  $win_module_image = '.win-module__progress {
       background-image: url("' . $background_image_uri . '");
     }
 
     @media only screen and (min-width: 768px) {
-      .win-module__background {
+      .win-module__progress {
         background-image: url("' . $background_image_uri . '");
       }
     }';
