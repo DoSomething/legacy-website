@@ -41,48 +41,8 @@
       <li><a class="waypoints__primary-link js-jump-scroll" href="#prove"><?php print t('Prove It'); ?></a></li>
     </ul>
   </nav>
-  <section class="container win-module">
-    <div class="container win-module__background">
-      <div class="wrapper">
-        <div class="win-module__progress">
-          <h2>12,357</h2>
-          <h4>Cheeks Swabbed</h4>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="wrapper">
-        <div class="author-callout">
-          <div class="author-callout__copy">
-            This is text copy.
-            <?php if(isset($progress_copy)): ?>
-              <?php print $progress_copy; ?>
-            <?php endif; ?>
-          </div>
 
-          <article class="figure -left -center">
-            <div class="figure__media">
-              <div class="avatar">
-                <?php if(isset($author_image)): ?>
-                  <?php print $author_image ?>
-                <?php endif; ?>
-              </div>
-            </div>
-            <div class="figure__body">
-                <p class="author-callout__first-name"><?php print $author_name ?></p>
-                <p class="author-callout__last-name"><?php print $author_title ?></p>
-            </div>
-          </article>
-          <div class="message-callout -above-horizontal -blue">
-            <div class="message-callout__copy">
-              <p><?php print $hot_module_share_copy; ?></p>
-            </div>
-          </div>
-          <?php print $hot_module_share_bar; ?>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php print theme('win_module', $variables); ?>
 
   <?php if ($hot_module_enabled): ?>
     <section id="hot-module" class="container">
