@@ -28,9 +28,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  // Preprocess common vars between all campaign types for non-pitch templates.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
   // If the win module is enabled
   if (dosomething_campaign_is_win_module($vars)) {
-    // $vars['win_module_enabled'] = true;
     $vars['win_module_markup'] = dosomething_campaign_get_win_module($vars, $wrapper);
   }
 
@@ -47,9 +49,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     return;
   }
-
-  // Preprocess common vars between all campaign types for non-pitch templates.
-  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   // Check if current path is active path.
   // @see dosomething_campaign_menu().
@@ -148,6 +147,18 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
 
+  // Campaign Author Information
+  // @TODO - Check for hot or win module enabled
+  $author = user_load($vars['uid']);
+  $first_name = check_plain($wrapper->author->field_first_name->value());
+  $last_name = check_plain($wrapper->author->field_last_name->value());
+
+  $vars['author_name']  = $first_name . ' ' . $last_name;
+  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+  if($author->picture) {
+    $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+  }
+
 }
 
 /**
@@ -159,11 +170,35 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
   $background_fid = variable_get('dosomething_campaign_win_background_image');
 
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $vars['hero_image']['desktop'],
+        'caption' => $goal_copy . "? Let's make it happen!",
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! ",
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $vars['hero_image']['desktop'],
+      'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
+    ),
+  );
+
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'win_share', 'js-analytics-win', 'social-share-bar -with-callout');
+
   $variables = array(
     'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
-    'win_copy' => str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced),
+    'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
     'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
     'reportback_noun_verb' => $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value(),
+    'author_name' => $vars['author_name'],
+    'author_title' => $vars['author_title'],
+    'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
+    'share_bar' => $share_bar,
   );
 
   return theme('win_module', $variables);
@@ -208,8 +243,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $rb_percent = 0;
   }
 
-  $override_copy = variable_get('dosomething_campaign_progress_copy_override');
-  if (isset($override_copy)) {
+  $override_copy = variable_get('dosomething_campaign_progress_copy_override', NULL);
+  if ($override_copy) {
     $vars['progress_copy'] = $override_copy;
   }
   elseif ($rb_percent <= 20) {
@@ -265,17 +300,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
     'setting'
   );
-
-  // Campaign author information
-  $author = user_load($vars['uid']);
-  $first_name = check_plain($wrapper->author->field_first_name->value());
-  $last_name = check_plain($wrapper->author->field_last_name->value());
-
-  $vars['author_name']  = $first_name . ' ' . $last_name;
-  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
-  if($author->picture) {
-    $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
-  }
 
   // Share links
   // @TODO - Possible refactor: Create a function that creates a 'share bar', programatically creating
