@@ -159,6 +159,8 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
   }
 
+  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
+
 }
 
 /**
@@ -194,7 +196,7 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
     'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
     'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
     'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
-    'reportback_noun_verb' => $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value(),
+    'reportback_noun_verb' => $vars['reportback_noun_verb'],
     'author_name' => $vars['author_name'],
     'author_title' => $vars['author_title'],
     'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
@@ -268,8 +270,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
   $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
-
-  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
 
   $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
