@@ -3,10 +3,14 @@
     margin-bottom: $base-spacing;
 
     .wrapper {
-      height: 620px;
+      height: 320px;
       display: table;
       width: 100%;
       margin-left: 0px;
+
+      @include media($large) {
+        height: 620px;
+      }
 
       .win-module__titles {
         display: table-cell;
@@ -17,25 +21,43 @@
 
     h2 {
       color: $black;
-      font-size: 124px;
+      font-size: 76px;
+
+      @include media($large) {
+        font-size: 124px;
+      }
     }
 
     h4 {
       color: $black;
-      font-size: $font-larger;
+      font-size: $font-medium;
       font-weight: $weight-normal;
       text-transform: uppercase;
+
+      @include media($large) {
+        font-size: $font-larger;
+      }
     }
   }
 
-  .author-callout {
-    @include media($large) {
-      @include span(8 of 12);
-    }
-  }
+  .win-module__copy {
+    .wrapper {
+      padding: 0px $base-spacing;
 
-  .win-module__share-bar {
-    float: left;
-    padding-left: $base-spacing;
+      @include media($large) {
+        padding: 0px;
+      }
+    }
+
+    .author-callout {
+      @include media($large) {
+        @include span(8 of 12);
+      }
+    }
+
+    .win-module__share-bar {
+      float: left;
+      padding-left: $base-spacing;
+    }
   }
 }
