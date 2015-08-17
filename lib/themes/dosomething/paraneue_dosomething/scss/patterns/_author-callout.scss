@@ -2,7 +2,6 @@
   margin-top: $base-spacing;
 
   @include media($large) {
-    @include push(1);
     @include span(7 of 12);
     margin-top: 0px;
   }

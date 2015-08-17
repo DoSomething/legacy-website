@@ -47,7 +47,7 @@
   <?php endif; ?>
 
   <?php if (isset($hot_module_enabled)): ?>
-    <section id="hot-module" class="container">
+    <section class="container hot-module">
       <div class="wrapper">
         <div class="container__block">
           <div class="stat-card">
