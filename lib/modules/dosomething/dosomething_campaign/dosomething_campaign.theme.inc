@@ -172,22 +172,23 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
   $background_fid = variable_get('dosomething_campaign_win_background_image');
 
+  // @TODO - Copy is placeholder
   $share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
         'picture' => $vars['hero_image']['desktop'],
-        'caption' => $goal_copy . "? Let's make it happen!",
+        'caption' => "We rocked it. Let’s keep it up!",
       ),
     ),
     'twitter' => array(
-      'tweet' => "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! ",
+      'tweet' => "We rocked it. Let’s keep it up!",
     ),
     'tumblr' => array(
       'posttype' => 'photo',
       'content' => $vars['hero_image']['desktop'],
-      'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
-    ),
+      'caption' => "We rocked it. Let’s keep it up!",
+    )
   );
 
   $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'win_share', 'js-analytics-win', 'social-share-bar -with-callout');
