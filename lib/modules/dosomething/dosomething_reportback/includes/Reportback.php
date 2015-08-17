@@ -344,10 +344,15 @@ class Reportback extends Entity {
       $this->flagged = 0;
     }
     else {
-      $this->flagged = 0;
-      $this->promoted = 0;
-      $this->promoted_reason = NULL;
-      $this->flagged_reason = NULL;
+      // These extra if statments verify that we're not overriding existing values
+      if ($this->flagged == NULL) {
+        $this->flagged = 0;
+        $this->promoted_reason = NULL;
+      }
+      if ($this->promoted == NULL) {
+        $this->promoted = 0;
+        $this->flagged_reason = NULL;
+      }
     }
     return entity_save('reportback', $this);
   }
