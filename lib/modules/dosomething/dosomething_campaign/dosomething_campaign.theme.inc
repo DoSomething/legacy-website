@@ -147,20 +147,20 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
 
-  // Campaign Author Information
-  // @TODO - Check for hot or win module enabled
-  $author = user_load($vars['uid']);
-  $first_name = check_plain($wrapper->author->field_first_name->value());
-  $last_name = check_plain($wrapper->author->field_last_name->value());
+  // Hot and win module variables.
+  if (dosomething_campaign_is_win_module($vars) || dosomething_campaign_is_hot_module($vars)) {
+    $author = user_load($vars['uid']);
+    $first_name = check_plain($wrapper->author->field_first_name->value());
+    $last_name = check_plain($wrapper->author->field_last_name->value());
 
-  $vars['author_name']  = $first_name . ' ' . $last_name;
-  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
-  if($author->picture) {
-    $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+    $vars['author_name']  = $first_name . ' ' . $last_name;
+    $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+    if($author->picture) {
+      $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+    }
+
+    $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
   }
-
-  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
-
 }
 
 /**
