@@ -344,8 +344,12 @@ class Reportback extends Entity {
       $this->flagged = 0;
     }
     else {
-      $this->flagged = 0;
-      $this->promoted = 0;
+      if ($this->flagged == NULL) {
+        $this->flagged = 0;
+      }
+      if ($this->promoted == NULL) {
+        $this->promoted = 0;
+      }
       $this->promoted_reason = NULL;
       $this->flagged_reason = NULL;
     }

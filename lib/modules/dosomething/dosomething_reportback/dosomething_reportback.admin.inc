@@ -237,7 +237,6 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     $rbf = reportback_file_load($fid);
 
-    // Set flagged or promoted reasons.
     if ($values['status'] === 'promoted') {
       dosomething_reportback_set_promote_flag_reasons($values, 'promoted_reason');
     }
@@ -247,6 +246,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     // Write the review data.
     $save = $rbf->review($values);
+
     if (!$save) {
       form_set_error(t("An error has occurred."));
     }
