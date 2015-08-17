@@ -344,6 +344,7 @@ class Reportback extends Entity {
       $this->flagged = 0;
     }
     else {
+      // These extra if statments verify that we're not overriding existing values
       if ($this->flagged == NULL) {
         $this->flagged = 0;
         $this->promoted_reason = NULL;
