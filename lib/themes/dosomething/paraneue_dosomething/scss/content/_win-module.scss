@@ -1,6 +1,5 @@
 .win-module {
   .win-module__background {
-    background-image: url(https://placeimg.com/1440/810/grayscale);
     margin-bottom: $base-spacing;
 
     .wrapper {
@@ -16,12 +15,12 @@
       }
     }
     h2 {
-      color: $white;
+      color: $black;
       font-size: 124px;
     }
 
     h4 {
-      color: $white;
+      color: $black;
       font-size: $font-larger;
       font-weight: $weight-normal;
       text-transform: uppercase;

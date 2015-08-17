@@ -170,8 +170,24 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
   $node = node_load($vars['nid']);
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
-  $background_fid = variable_get('dosomething_campaign_win_background_image');
 
+  // Set background image with inline CSS.
+  $background_fid = variable_get('dosomething_campaign_win_background_image');
+  $file = file_load($background_fid);
+  $background_image_uri = file_create_url($file->uri);
+
+  $win_module_image = '.win-module__background  {
+      background-image: url("' . $background_image_uri . '");
+    }
+
+    @media only screen and (min-width: 768px) {
+      .win-module__background {
+        background-image: url("' . $background_image_uri . '");
+      }
+    }';
+  drupal_add_css($win_module_image, $option['type'] = 'inline');
+
+  // Share bar
   // @TODO - Copy is placeholder
   $share_types = array(
     'facebook' => array(
