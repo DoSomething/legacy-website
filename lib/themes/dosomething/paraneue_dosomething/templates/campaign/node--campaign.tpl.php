@@ -42,9 +42,11 @@
     </ul>
   </nav>
 
-  <?php print theme('win_module', $variables); ?>
+  <?php if (isset($win_module_markup)): ?>
+    <?php print $win_module_markup; ?>
+  <?php endif; ?>
 
-  <?php if ($hot_module_enabled): ?>
+  <?php if (isset($hot_module_enabled)): ?>
     <section id="hot-module" class="container">
       <div class="wrapper">
         <div class="container__block">

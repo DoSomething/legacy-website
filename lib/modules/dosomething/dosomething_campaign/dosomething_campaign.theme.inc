@@ -30,8 +30,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // If the win module is enabled
   if (dosomething_campaign_is_win_module($vars)) {
-    $vars['win_module_enabled'] = true;
-    dosomething_campaign_preprocess_win_module($vars, $wrapper);
+    // $vars['win_module_enabled'] = true;
+    $vars['win_module_markup'] = dosomething_campaign_get_win_module($vars, $wrapper);
   }
 
   // If the hot module is enabled and the high season is set on a campaign.
@@ -151,15 +151,22 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 }
 
 /**
- * Preprocess variables for win module.
+ * Create the markup for the win module.
  */
-function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
+function dosomething_campaign_get_win_module($vars, $wrapper) {
   $node = node_load($vars['nid']);
-  $vars['share_copy'] = variable_get('dosomething_campaign_win_share_copy');
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
-  $vars['win_copy'] = str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced);
   $background_fid = variable_get('dosomething_campaign_win_background_image');
+
+  $variables = array(
+    'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
+    'win_copy' => str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced),
+    'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
+    'reportback_noun_verb' => $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value(),
+  );
+
+  return theme('win_module', $variables);
 }
 
 /**
