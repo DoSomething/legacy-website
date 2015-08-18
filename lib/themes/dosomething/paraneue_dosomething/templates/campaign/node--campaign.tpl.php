@@ -42,9 +42,12 @@
     </ul>
   </nav>
 
-  <?php // HOT MODULE PROTOTYPE ////////////////////////////// ?>
+  <?php if (isset($win_module)): ?>
+    <?php print $win_module; ?>
+  <?php endif; ?>
+
   <?php if (isset($hot_module_enabled)): ?>
-    <section id="hot-module" class="container">
+    <section class="container hot-module">
       <div class="wrapper">
         <div class="container__block">
           <div class="stat-card">

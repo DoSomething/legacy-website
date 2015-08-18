@@ -28,9 +28,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
+  // Preprocess common vars between all campaign types for non-pitch templates.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
+
   // If the win module is enabled
   if (dosomething_campaign_is_win_module($vars)) {
-    $vars['win_module_enabled'] = true;
     dosomething_campaign_preprocess_win_module($vars, $wrapper);
   }
 
@@ -47,9 +49,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     return;
   }
-
-  // Preprocess common vars between all campaign types for non-pitch templates.
-  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   // Check if current path is active path.
   // @see dosomething_campaign_menu().
@@ -148,20 +147,79 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
   }
 
+  // Hot and win module variables.
+  if (dosomething_campaign_is_win_module($vars) || dosomething_campaign_is_hot_module($vars)) {
+    $author = user_load($vars['uid']);
+    $first_name = check_plain($wrapper->author->field_first_name->value());
+    $last_name = check_plain($wrapper->author->field_last_name->value());
+
+    $vars['author_name']  = $first_name . ' ' . $last_name;
+    $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+    if ($author->picture) {
+      $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+    }
+
+    $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
+  }
 }
 
 /**
- * Preprocess variables for win module.
+ * Create the markup for the win module.
  */
-function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
+function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $node = node_load($vars['nid']);
-  $vars['share_copy'] = variable_get('dosomething_campaign_win_share_copy');
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
-  $vars['win_copy'] = str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced);
+
   $background_nid = (int) variable_get('dosomething_campaign_win_background_image');
-  $vars['background_landscape_url'] = dosomething_image_get_image_url($background_nid, 'landscape');
-  $vars['background_square_url'] = dosomething_image_get_image_url($background_nid, 'square');
+  $background_landscape_url = dosomething_image_get_themed_image_url($background_nid, 'landscape', '1440x810');
+  $background_square_url = dosomething_image_get_themed_image_url($background_nid, 'square', '768x768');
+
+  $win_module_image = '.win-module__progress {
+      background-image: url("' . $background_square_url . '");
+    }
+
+    @media only screen and (min-width: 768px) {
+      .win-module__progress {
+        background-image: url("' . $background_landscape_url . '");
+      }
+    }';
+  drupal_add_css($win_module_image, $option['type'] = 'inline');
+
+  // Share bar
+  // @TODO - Copy is placeholder
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $vars['hero_image']['desktop'],
+        'caption' => "We rocked it. Let’s keep it up!",
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => "We rocked it. Let’s keep it up!",
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $vars['hero_image']['desktop'],
+      'caption' => "We rocked it. Let’s keep it up!",
+    )
+  );
+
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'win_share', 'js-analytics-win', 'social-share-bar -with-callout');
+
+  $win_module_variables = array(
+    'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
+    'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
+    'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
+    'reportback_noun_verb' => $vars['reportback_noun_verb'],
+    'author_name' => $vars['author_name'],
+    'author_title' => $vars['author_title'],
+    'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
+    'share_bar' => $share_bar,
+  );
+
+  $vars['win_module'] = theme('win_module_block', $win_module_variables);
 }
 
 /**
@@ -203,8 +261,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $rb_percent = 0;
   }
 
-  $override_copy = variable_get('dosomething_campaign_progress_copy_override');
-  if (isset($override_copy)) {
+  $override_copy = variable_get('dosomething_campaign_progress_copy_override', NULL);
+  if ($override_copy) {
     $vars['progress_copy'] = $override_copy;
   }
   elseif ($rb_percent <= 20) {
@@ -228,8 +286,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
   $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
-
-  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
 
   $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
@@ -260,17 +316,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
     'setting'
   );
-
-  // Campaign author information
-  $author = user_load($vars['uid']);
-  $first_name = check_plain($wrapper->author->field_first_name->value());
-  $last_name = check_plain($wrapper->author->field_last_name->value());
-
-  $vars['author_name']  = $first_name . ' ' . $last_name;
-  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
-  if($author->picture) {
-    $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
-  }
 
   // Share links
   // @TODO - Possible refactor: Create a function that creates a 'share bar', programatically creating

@@ -594,6 +594,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
     'submit_campaign_idea' => array(
       'template' => 'submit-campaign-idea',
     ),
+    'win_module_block' => array(
+      'template' => 'win-module',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+    ),
   );
 }
 

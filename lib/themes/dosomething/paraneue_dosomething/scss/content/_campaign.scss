@@ -154,3 +154,11 @@
     display: none;
   }
 }
+
+.hot-module {
+  .author-callout {
+    @include media($large) {
+      @include push(1);
+    }
+  }
+}
