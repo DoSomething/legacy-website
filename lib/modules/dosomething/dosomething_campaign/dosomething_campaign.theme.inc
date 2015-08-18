@@ -175,6 +175,15 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $background_landscape_url = dosomething_image_get_themed_image_url($background_nid, 'landscape', '1440x810');
   $background_square_url = dosomething_image_get_themed_image_url($background_nid, 'square', '768x768');
 
+  // Get random promoted image
+  $parameters = array(
+    'campaigns' => $vars['nid'],
+    'status' => 'promoted',
+    'count' => '1',
+    'random' => true,
+  );
+  $promoted_image = ReportbackItem::find($parameters);
+
   $win_module_image = '.win-module__progress {
       background-image: url("' . $background_square_url . '");
     }
@@ -217,6 +226,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
     'author_title' => $vars['author_title'],
     'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
     'share_bar' => $share_bar,
+    'promoted_image' => $promoted_image,
   );
 
   $vars['win_module'] = theme('win_module_block', $win_module_variables);
