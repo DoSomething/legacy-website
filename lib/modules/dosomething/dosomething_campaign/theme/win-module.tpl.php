@@ -2,8 +2,8 @@
   <div class="container win-module__progress">
     <div class="wrapper">
       <div class="win-module__titles">
-        <h2>12,357</h2>
-        <h4>Cheeks Swabbed</h4>
+        <h2><?php print number_format($campaign_progress, 0, '', ',') ?></h2>
+        <h4><?php print $reportback_noun_verb ?></h4>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
         <article class="figure -left -center">
           <div class="figure__media">
             <div class="avatar">
-              <?php if(isset($author_image)): ?>
+              <?php if ($author_image): ?>
                 <?php print $author_image ?>
               <?php endif; ?>
             </div>
