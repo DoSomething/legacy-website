@@ -351,14 +351,10 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#description' => t("Sets the win module copy"),
   ];
   $form['win']['dosomething_campaign_win_background_image'] = [
-    '#type' => 'managed_file',
+    '#type' => 'textfield',
     '#title' => t('Win module background image'),
     '#default_value' => variable_get('dosomething_campaign_win_background_image'),
-    '#description' => t('Sets the win module background image'),
-    '#upload_location' => file_default_scheme() . '://theme/win_module/',
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('png'),
-    ),
+    '#description' => t('An image node nid to display as the win module background image'),
   ];
 
   return system_settings_form($form);
