@@ -126,3 +126,7 @@ function dosomething_campaign_update_7009(&$sandbox) {
   }
 
 }
+
+function dosomething_campaign_update_7010(&$sandbox) {
+  variable_del('dosomething_campaign_enable_hot_module');
+}
