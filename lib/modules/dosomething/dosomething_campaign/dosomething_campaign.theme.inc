@@ -161,6 +161,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
   $vars['win_copy'] = str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced);
   $background_nid = (int) variable_get('dosomething_campaign_win_background_image');
   $vars['background_landscape_url'] = dosomething_image_get_image_url($background_nid, 'landscape');
+  $vars['background_square_url'] = dosomething_image_get_image_url($background_nid, 'square');
 }
 
 /**
