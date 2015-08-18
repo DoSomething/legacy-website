@@ -42,8 +42,8 @@
     </ul>
   </nav>
 
-  <?php if (isset($win_module_markup)): ?>
-    <?php print $win_module_markup; ?>
+  <?php if (isset($win_module)): ?>
+    <?php print $win_module; ?>
   <?php endif; ?>
 
   <?php if (isset($hot_module_enabled)): ?>

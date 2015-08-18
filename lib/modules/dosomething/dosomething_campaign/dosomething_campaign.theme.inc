@@ -33,7 +33,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // If the win module is enabled
   if (dosomething_campaign_is_win_module($vars)) {
-    $vars['win_module_markup'] = dosomething_campaign_get_win_module($vars, $wrapper);
+    dosomething_campaign_preprocess_win_module($vars, $wrapper);
   }
 
   // If the hot module is enabled and the high season is set on a campaign.
@@ -166,7 +166,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 /**
  * Create the markup for the win module.
  */
-function dosomething_campaign_get_win_module($vars, $wrapper) {
+function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $node = node_load($vars['nid']);
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
@@ -209,7 +209,7 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
 
   $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'win_share', 'js-analytics-win', 'social-share-bar -with-callout');
 
-  $variables = array(
+  $win_module_variables = array(
     'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
     'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
     'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
@@ -220,7 +220,7 @@ function dosomething_campaign_get_win_module($vars, $wrapper) {
     'share_bar' => $share_bar,
   );
 
-  return theme('win_module', $variables);
+  $vars['win_module'] = theme('win_module_block', $win_module_variables);
 }
 
 /**
