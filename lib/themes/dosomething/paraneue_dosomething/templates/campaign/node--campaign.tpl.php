@@ -109,7 +109,7 @@
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
 
           <?php // Show problem social share buttons if feature flag is turned on. ?>
-          <?php if ($show_problem_shares && !$hot_module_enabled): ?>
+          <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
             <div class="message-callout -above-horizontal -blue">
               <div class="message-callout__copy">
                 <p><?php print $problem_share_prompt; ?></p>
@@ -119,7 +119,7 @@
           <?php endif; ?>
         <?php endif; ?>
 
-        <?php if ($show_problem_shares && !$hot_module_enabled): ?>
+        <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
           <?php // If there's a PSA image or video, output it in this column. ?>
           <?php if (isset($psa)): ?>
             <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
@@ -156,7 +156,7 @@
 
         <?php endif; ?>
 
-        <?php if ($show_problem_shares && !$hot_module_enabled): ?>
+        <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
           <?php // Alway output modals in the second column. ?>
           <?php if (isset($modals)): ?>
            <?php print $modals; ?>
