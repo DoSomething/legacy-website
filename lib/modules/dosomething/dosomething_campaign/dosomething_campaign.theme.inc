@@ -182,7 +182,10 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
     'count' => '1',
     'random' => true,
   );
-  $promoted_image = ReportbackItem::find($parameters);
+  $random_image = ReportbackItem::find($parameters)[0];
+  if (isset($random_image)) {
+    $promoted_image = $random_image->media['uri'];
+  }
 
   $win_module_image = '.win-module__progress {
       background-image: url("' . $background_square_url . '");
