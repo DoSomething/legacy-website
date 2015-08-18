@@ -194,7 +194,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#title' => t('Status'),
         '#required' => TRUE,
         '#options' => $status_options,
-        '#default_value' => $status,
+        // '#default_value' => $status,
       ),
       'promoted_reason' => array(
         '#type' => 'checkboxes',
