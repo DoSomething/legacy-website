@@ -159,7 +159,8 @@ function dosomething_campaign_preprocess_win_module(&$vars, &$wrapper) {
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
   $vars['win_copy'] = str_replace('[campaign_progress]', $rb_progress, $copy_token_replaced);
-  $background_fid = variable_get('dosomething_campaign_win_background_image');
+  $background_nid = (int) variable_get('dosomething_campaign_win_background_image');
+  $vars['background_landscape_url'] = dosomething_image_get_image_url($background_nid, 'landscape');
 }
 
 /**
