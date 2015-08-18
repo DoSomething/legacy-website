@@ -57,11 +57,11 @@ class ReportbackController extends EntityAPIController {
 
     // Output Reportback Log.
     $rows = array();
-    $header = array('Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated');
+    $header = array('Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated', 'Reasons');
     foreach ($entity->getReportbackLog() as $delta => $record) {
       $submitted = format_date($record->timestamp, 'short');
       $why = check_plain($record->why_participated);
-      $rows[] = array($submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why);
+      $rows[] = array($submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why, $record->reason);
     }
     $build['reportback_log'] = array(
       '#theme' => 'table',

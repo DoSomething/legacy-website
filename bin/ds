@@ -467,6 +467,12 @@ function pull_db {
       echo "Pulling down db from staging"
       drush -y sql-sync @ds.staging @self
 
+      echo "Reverting features..."
+      drush -y fra
+
+      echo "Clearing cache..."
+      drush cc all
+
       echo "Enabling Stage File Proxy..."
       drush -y en stage_file_proxy
 

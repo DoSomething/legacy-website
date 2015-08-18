@@ -171,18 +171,17 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
   $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
 
-  // Set background image with inline CSS.
-  $background_fid = variable_get('dosomething_campaign_win_background_image');
-  $file = file_load($background_fid);
-  $background_image_uri = file_create_url($file->uri);
+  $background_nid = (int) variable_get('dosomething_campaign_win_background_image');
+  $background_landscape_url = dosomething_image_get_themed_image_url($background_nid, 'landscape', '1440x810');
+  $background_square_url = dosomething_image_get_themed_image_url($background_nid, 'square', '768x768');
 
   $win_module_image = '.win-module__progress {
-      background-image: url("' . $background_image_uri . '");
+      background-image: url("' . $background_square_url . '");
     }
 
     @media only screen and (min-width: 768px) {
       .win-module__progress {
-        background-image: url("' . $background_image_uri . '");
+        background-image: url("' . $background_landscape_url . '");
       }
     }';
   drupal_add_css($win_module_image, $option['type'] = 'inline');
