@@ -36,6 +36,9 @@
           <?php print $share_bar; ?>
         </div>
       </div>
+      <div class="win-module__reportback show-at-large">
+        <img src="<?php print $promoted_image ?>" />
+      </div>
     </div>
   </div>
 </section>
