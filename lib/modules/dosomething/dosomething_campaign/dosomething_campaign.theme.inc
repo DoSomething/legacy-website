@@ -175,18 +175,6 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $background_landscape_url = dosomething_image_get_themed_image_url($background_nid, 'landscape', '1440x810');
   $background_square_url = dosomething_image_get_themed_image_url($background_nid, 'square', '768x768');
 
-  // Get random promoted image
-  $parameters = array(
-    'campaigns' => $vars['nid'],
-    'status' => 'promoted',
-    'count' => '1',
-    'random' => true,
-  );
-  $random_image = ReportbackItem::find($parameters)[0];
-  if (isset($random_image)) {
-    $promoted_image = $random_image->media['uri'];
-  }
-
   $win_module_image = '.win-module__progress {
       background-image: url("' . $background_square_url . '");
     }
@@ -197,6 +185,18 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
       }
     }';
   drupal_add_css($win_module_image, $option['type'] = 'inline');
+
+  // Get random promoted reportback image
+  $parameters = array(
+    'campaigns' => $vars['nid'],
+    'status' => 'promoted',
+    'count' => '1',
+    'random' => true,
+  );
+  $random_image = ReportbackItem::find($parameters)[0];
+  if (isset($random_image)) {
+    $promoted_image = $random_image->media['uri'];
+  }
 
   // Share bar
   // @TODO - Copy is placeholder

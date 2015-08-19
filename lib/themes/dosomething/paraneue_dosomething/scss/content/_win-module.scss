@@ -60,4 +60,11 @@
       padding-left: $base-spacing;
     }
   }
+
+  .win-module__reportback {
+    @include media($large) {
+      @include span(5);
+      margin-bottom: $base-spacing;
+    }
+  }
 }
