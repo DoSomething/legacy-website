@@ -27,7 +27,7 @@
         <article class="figure -left -center">
           <div class="figure__media">
             <div class="avatar">
-              <?php if(isset($author_image)): ?>
+              <?php if ($author_image): ?>
                 <?php print $author_image ?>
               <?php endif; ?>
             </div>
@@ -39,10 +39,10 @@
         </article>
         <div class="message-callout -above-horizontal -blue">
           <div class="message-callout__copy">
-            <p><?php print $hot_module_share_copy; ?></p>
+            <p><?php print $share_copy; ?></p>
           </div>
         </div>
-        <?php print $hot_module_share_bar; ?>
+        <?php print $share_bar; ?>
       </div>
     </div>
 

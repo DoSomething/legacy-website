@@ -250,18 +250,18 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
 
   if ($days_left >= 8) {
-    $vars['time_left'] = t('Ends ' . $readable_end_date);
+    $time_left = t('Ends ' . $readable_end_date);
   }
   elseif ($hours_left > 48) {
-    $vars['time_left'] = t($difference->d . ' days left');
+    $time_left = t($difference->d . ' days left');
   }
   else {
-    $vars['time_left'] = t($hours_left . ' hours left');
+    $time_left = t($hours_left . ' hours left');
   }
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
-  $vars['goal'] = $goal;
+  // $vars['goal'] = $goal;
 
   $rb_percent = NULL;
   if ($goal) {
@@ -275,31 +275,31 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $override_copy = variable_get('dosomething_campaign_progress_copy_override', NULL);
   if ($override_copy) {
-    $vars['progress_copy'] = $override_copy;
+    $progress_copy = $override_copy;
   }
   elseif ($rb_percent <= 20) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_0_20_progress_copy');
   }
   elseif ($rb_percent <= 40) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_21_40_progress_copy');
   }
   elseif ($rb_percent <= 60) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_41_60_progress_copy');
   }
   elseif ($rb_percent <= 80) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_61_80_progress_copy');
   }
   elseif ($rb_percent <= 99) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_81_99_progress_copy');
   }
   else {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_100_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_100_progress_copy');
   }
 
-  $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
-  $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
+  $progress_copy = token_replace($progress_copy, array('node' => $node));
+  $progress_copy = str_replace('[campaign_goal]', number_format($goal, 0, '', ','), $progress_copy);
 
-  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
+  $share_copy = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
 
   // json file of reportback quantity
@@ -354,9 +354,22 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
   );
 
-  $vars['hot_module_share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot', 'social-share-bar -with-callout');
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot', 'social-share-bar -with-callout');
 
-  $vars['hot_module'] = theme('hot_module_block', $vars);
+  $hot_module_variables = array(
+    'goal' => $goal,
+    'progress_copy' => $progress_copy,
+    'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
+    'time_left' => $time_left,
+    'reportback_noun_verb' => $vars['reportback_noun_verb'],
+    'author_name' => $vars['author_name'],
+    'author_title' => $vars['author_title'],
+    'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
+    'share_copy' => $share_copy,
+    'share_bar' => $share_bar,
+  );
+
+  $vars['hot_module'] = theme('hot_module_block', $hot_module_variables);
 }
 
 /**
