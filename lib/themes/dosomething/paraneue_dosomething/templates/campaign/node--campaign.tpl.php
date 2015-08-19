@@ -42,6 +42,7 @@
     </ul>
   </nav>
 
+  <?php // FOMO SUITE MODULES ////////////////////////////////////////////////////// ?>
   <?php if (isset($win_module)): ?>
     <?php print $win_module; ?>
   <?php endif; ?>
