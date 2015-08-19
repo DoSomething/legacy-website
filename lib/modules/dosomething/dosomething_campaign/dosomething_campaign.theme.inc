@@ -38,7 +38,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   // If the hot module is enabled and the high season is set on a campaign.
   if (dosomething_campaign_is_hot_module($vars)) {
-    $vars['hot_module_enabled'] = TRUE;
     dosomething_campaign_preprocess_hot_module($vars, $wrapper);
   }
 
@@ -356,6 +355,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   );
 
   $vars['hot_module_share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'hot_share', 'js-analytics-hot', 'social-share-bar -with-callout');
+
+  $vars['hot_module'] = theme('hot_module_block', $vars);
 }
 
 /**
