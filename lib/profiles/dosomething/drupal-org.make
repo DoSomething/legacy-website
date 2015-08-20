@@ -32,7 +32,7 @@ projects[cdn][version] = "2.6"
 projects[cdn][subdir] = "contrib"
 
 ; Ctools
-projects[ctools][version] = "1.7"
+projects[ctools][version] = "1.8"
 projects[ctools][subdir] = "contrib"
 
 ; Date
