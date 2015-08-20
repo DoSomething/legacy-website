@@ -9,5 +9,6 @@ dependencies[] = features
 dependencies[] = locale
 dependencies[] = title
 features[features_api][] = api:2
+features[language][] = es-mx
 features[language][] = pt-br
-mtime = 1437672499
+mtime = 1439840465
