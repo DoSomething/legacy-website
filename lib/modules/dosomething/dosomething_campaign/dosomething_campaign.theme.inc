@@ -199,22 +199,24 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   }
 
   // Share bar
-  // @TODO - Copy is placeholder
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+  $share_language = number_format($rb_progress, 0, '', ',') . ' ' . $vars['reportback_noun_verb'] . '! ' . 'Thanks to everyone for rocking this campaign with @dosomething. Let’s keep it up.';
+
   $share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
         'picture' => $vars['hero_image']['desktop'],
-        'caption' => "We rocked it. Let’s keep it up!",
+        'caption' => $share_language,
       ),
     ),
     'twitter' => array(
-      'tweet' => "We rocked it. Let’s keep it up!",
+      'tweet' => $share_language,
     ),
     'tumblr' => array(
       'posttype' => 'photo',
       'content' => $vars['hero_image']['desktop'],
-      'caption' => "We rocked it. Let’s keep it up!",
+      'caption' => $share_language,
     )
   );
 
@@ -223,7 +225,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $win_module_variables = array(
     'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
     'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
-    'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
+    'campaign_progress' => $rb_progress,
     'reportback_noun_verb' => $vars['reportback_noun_verb'],
     'author_name' => $vars['author_name'],
     'author_title' => $vars['author_title'],
