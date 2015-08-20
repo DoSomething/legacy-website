@@ -13,7 +13,7 @@ function dosomething_global_locale_default_languages() {
   // Exported language: es-mx.
   $languages['es-mx'] = array(
     'language' => 'es-mx',
-    'name' => 'Mexican Spanish',
+    'name' => 'Spanish, Mexico',
     'native' => 'Español Mexicano',
     'direction' => 0,
     'enabled' => 1,
@@ -27,7 +27,7 @@ function dosomething_global_locale_default_languages() {
   $languages['pt-br'] = array(
     'language' => 'pt-br',
     'name' => 'Portuguese, Brazil',
-    'native' => 'Português',
+    'native' => 'Português Brasileiro',
     'direction' => 0,
     'enabled' => 1,
     'plurals' => 2,
