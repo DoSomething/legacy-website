@@ -840,3 +840,12 @@ function dosomething_reportback_update_7030(&$sandbox) {
   _dosomething_reportback_retroactive_rb_fix_flagged();
   _dosomething_reportback_retroactive_rb_fix_pending();
 }
+
+
+/**
+ * This does some data cleanup on reportbacks that have the wrong flagged status
+ * Refs #4779
+ */
+function dosomething_reportback_update_7031(&$sandbox) {
+  _dosomething_reportback_retroactive_rb_fix_flagged();
+}
