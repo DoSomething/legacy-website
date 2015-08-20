@@ -261,7 +261,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
-  // $vars['goal'] = $goal;
 
   $rb_percent = NULL;
   if ($goal) {
