@@ -598,6 +598,10 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'win-module',
       'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
     ),
+    'hot_module_block' => array(
+      'template' => 'hot-module',
+      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
+    ),
   );
 }
 

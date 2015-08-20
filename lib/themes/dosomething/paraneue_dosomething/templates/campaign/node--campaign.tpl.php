@@ -42,61 +42,13 @@
     </ul>
   </nav>
 
+  <?php // FOMO SUITE MODULES ////////////////////////////////////////////////////// ?>
   <?php if (isset($win_module)): ?>
     <?php print $win_module; ?>
   <?php endif; ?>
 
-  <?php if (isset($hot_module_enabled)): ?>
-    <section class="container hot-module">
-      <div class="wrapper">
-        <div class="container__block">
-          <div class="stat-card">
-            <div class="stat-card__totals">
-              <h4 class="stat-card__verbs"><?php print $reportback_noun_verb ?></h4>
-              <p class="stat-card__progress"><?php print number_format($campaign_progress, 0, '', ','); ?></p>
-              <p class="stat-card__goal">Out of <?php print number_format($goal, 0, '', ','); ?></p>
-            </div>
-            <div class="stat-card__timing">
-              <?php if(isset($time_left)): ?>
-                <p><?php print $time_left ?></p>
-              <?php endif; ?>
-            </div>
-            <div class="stat-card__chart">
-              <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal; ?>"></canvas>
-            </div>
-          </div>
-
-          <div class="author-callout">
-            <div class="author-callout__copy">
-              <?php if(isset($progress_copy)): ?>
-                <?php print $progress_copy; ?>
-              <?php endif; ?>
-            </div>
-
-            <article class="figure -left -center">
-              <div class="figure__media">
-                <div class="avatar">
-                  <?php if(isset($author_image)): ?>
-                    <?php print $author_image ?>
-                  <?php endif; ?>
-                </div>
-              </div>
-              <div class="figure__body">
-                  <p class="author-callout__first-name"><?php print $author_name ?></p>
-                  <p class="author-callout__last-name"><?php print $author_title ?></p>
-              </div>
-            </article>
-            <div class="message-callout -above-horizontal -blue">
-              <div class="message-callout__copy">
-                <p><?php print $hot_module_share_copy; ?></p>
-              </div>
-            </div>
-            <?php print $hot_module_share_bar; ?>
-          </div>
-        </div>
-
-      </div>
-    </section>
+  <?php if (isset($hot_module)): ?>
+    <?php print $hot_module; ?>
   <?php endif; ?>
 
   <?php // KNOW IT ////////////////////////////////////////////////////// ?>
@@ -109,7 +61,7 @@
           <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
 
           <?php // Show problem social share buttons if feature flag is turned on. ?>
-          <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
+          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
             <div class="message-callout -above-horizontal -blue">
               <div class="message-callout__copy">
                 <p><?php print $problem_share_prompt; ?></p>
@@ -119,7 +71,7 @@
           <?php endif; ?>
         <?php endif; ?>
 
-        <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
+        <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
           <?php // If there's a PSA image or video, output it in this column. ?>
           <?php if (isset($psa)): ?>
             <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
@@ -156,7 +108,7 @@
 
         <?php endif; ?>
 
-        <?php if ($show_problem_shares && !isset($hot_module_enabled) && !isset($win_module)): ?>
+        <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
           <?php // Alway output modals in the second column. ?>
           <?php if (isset($modals)): ?>
            <?php print $modals; ?>
