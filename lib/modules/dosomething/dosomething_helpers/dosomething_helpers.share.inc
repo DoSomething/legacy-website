@@ -139,22 +139,22 @@ function dosomething_helpers_share_bar($path, $share_types, $share_description, 
     switch ($type) {
       case 'facebook':
         $share_intents['facebook'] = dosomething_helpers_get_facebook_intent($share_utm_paths['facebook'], $options['type'], $options['parameters']);
-        $tracking = $analytics_class . '-fb';
+        // $tracking = $analytics_class . '-fb';
         break;
       case 'twitter':
         $share_intents['twitter'] = dosomething_helpers_get_twitter_intent($options['tweet'] . ' ' . $share_utm_paths['twitter']);
-        $tracking = $analytics_class . '-tw';
+        // $tracking = $analytics_class . '-tw';
         break;
       case 'tumblr':
         $options['caption'] = $options['caption'] . $share_utm_paths['tumblr'];
         $share_intents['tumblr'] = dosomething_helpers_get_tumblr_intent($share_utm_paths['tumblr'], $options);
-        $tracking = $analytics_class . '-tm';
+        // $tracking = $analytics_class . '-tm';
       default:
         break;
     }
 
     if ($share_intents[$type]) {
-      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link ' . $tracking . '" href="' . $share_intents[$type] . '"><span>'. $type . '</span></a></li>';
+      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link ga-click" href="' . $share_intents[$type] . '" data-category="Share" data-label="' . $type .'" data-action="' . $share_description .'"><span>'. $type . '</span></a></li>';
     }
   }
 
