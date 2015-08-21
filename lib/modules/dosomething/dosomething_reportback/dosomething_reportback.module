@@ -545,7 +545,7 @@ function dosomething_reportback_view_entity($entity) {
       ),
     );
 
-    $share_bar = dosomething_helpers_share_bar($reportback_url, $share_types, 'confirmation_page_share', 'js-analytics-permalink');
+    $share_bar = dosomething_helpers_share_bar($reportback_url, $share_types, 'Confirmation Page');
 
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
