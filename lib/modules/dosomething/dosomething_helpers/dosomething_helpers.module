@@ -535,3 +535,34 @@ function dosomething_helpers_utm_parameters($nid, $options = NULL) {
 
   return '?' . http_build_query($utm_params, '', '&');
 }
+
+/**
+ * Returns a property wrapper for the given node.
+ *
+ * @param $data
+ *   The node to wrap.
+ * @param  boolean
+ *   Return langiage-neutral wrapper.
+ *
+ * @return EntityMetadataWrapper
+ *   Dependend on the passed data the right wrapper is returned.
+ */
+function dosomething_helpers_node_metadata_wrapper($node, $ignore_language = FALSE) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if (!$ignore_language) {
+    global $language;
+    $wrapper->language($language->language);
+  }
+  return $wrapper;
+}
+
+/**
+ * Returns current language code.
+ *
+ * @return string
+ *   ISO-code of current language
+ */
+function dosomething_helpers_get_current_language_code() {
+  global $language;
+  return $language->language;
+}
