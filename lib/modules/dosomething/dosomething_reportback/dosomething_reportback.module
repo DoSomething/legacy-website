@@ -1425,5 +1425,59 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
     watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
     dosomething_reportback_save($values);
   }
+}
 
+
+function dosomething_reportback_fix_null_values($nid = NULL) {
+  if ($nid) {
+    $results = dosomething_reportback_fix_null_values_per_nid_query($nid);
+  }
+  else {
+    $results = dosomething_reportback_fix_all_null_values_query();
+  }
+  foreach ($results as $result) {
+    $rb = reportback_load($result->rbid);
+    // flagged reportback item
+    if (in_array('flagged', explode(',', $result->stati))) {
+      echo $result->rbid . ' has something flagged' .  "\n";
+      $rb->flagged = 1;
+      $rb->promoted = 0;
+      $rb->save();
+    }
+    // promoted reportback item
+    else if (in_array('promoted', explode(',', $result->stati))) {
+      echo $result->rbid . ' has something with promotion' .  "\n";
+      $rb->promoted = 1;
+      $rb->flagged = 0;
+      $rb->save();
+    }
+    // neither flagged or promoted
+    else {
+      $rb->promoted = 0;
+      $rb->flagged = 0;
+      $rb->save();
+      echo $result->rbid . ' has nothing' .  "\n";
+    }
+  }
+}
+
+function dosomething_reportback_fix_null_values_per_nid_query($nid = NULL) {
+  $results = db_query("SELECT rb.rbid, group_concat(rbf.fid) as fids, rb.flagged, rb.promoted, group_concat(rbf.status) as stati
+                       FROM dosomething_reportback rb
+                       INNER JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
+                       WHERE rbf.status != 'pending'
+                       AND rb.nid = $nid
+                       AND rb.flagged is null
+                       GROUP BY rb.rbid;");
+  return $results;
+}
+
+function dosomething_reportback_fix_all_null_values_query() {
+  $results = db_query("SELECT rb.rbid, group_concat(rbf.fid) as fids, rb.flagged, rb.promoted, group_concat(rbf.status) as stati
+                       FROM dosomething_reportback rb
+                       INNER JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
+                       WHERE rbf.status != 'pending'
+                       AND rb.flagged is null
+                       GROUP BY rb.rbid;");
+  return $results;
 }
