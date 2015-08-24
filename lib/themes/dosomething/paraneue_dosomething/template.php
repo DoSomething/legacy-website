@@ -15,9 +15,9 @@ if(theme_get_setting('asset_path')) {
 
 // Determine whether to use minified stylesheets or not.
 if(theme_get_setting('use_minified_assets')) {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.min.css');
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.min.css?' . variable_get('ds_version', 'latest'));
 } else {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.css');
+  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.css?' . variable_get('ds_version', 'latest'));
 }
 
 // Define asset directory paths
