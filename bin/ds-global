@@ -56,6 +56,9 @@ function enable {
   drush -y fra
 
   # Run fixes.
+  # Changes languge-neutral campaings into English.
+  drush ds-replace-neutral-with-english campaign
+
   # Fix Campaign translatable title values.
   drush ds-global-titles-fix campaign
 

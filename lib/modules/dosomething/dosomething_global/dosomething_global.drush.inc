@@ -32,6 +32,17 @@ function dosomething_global_drush_command() {
           => 'Fixes Call to Action field.',
       ],
     ],
+    'ds-replace-neutral-with-english' => [
+      'description' => 'Changes languge-neutral nodes into English.',
+      'arguments' => [
+        'bundle' => 'The content type to fix.',
+      ],
+      'required-arguments' => TRUE,
+      'examples' => [
+        'drush ds-replace-neutral-with-english campaign'
+          => 'Fixes Campaign\'s languge-neutral nodes.',
+      ],
+    ],
   ];
 }
 
@@ -80,4 +91,35 @@ function drush_dosomething_global_ds_global_field_fix($field) {
   ];
   batch_set($batch);
   drush_backend_batch_process();
+}
+
+/**
+ * Callback for ds-replace-neutral-with-english command.
+ */
+function drush_dosomething_global_ds_replace_neutral_with_english($bundle) {
+  // Check if bundle exists.
+  $node_def = entity_get_info('node');
+  if (empty($node_def['bundles']) || empty($node_def['bundles'][$bundle])) {
+    return 'Wrong bundle provided.';
+  }
+
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', $bundle)
+    ->propertyCondition('language', LANGUAGE_NONE)
+    ->addMetaData('account', user_load(1));
+  $result = $query->execute();
+
+  if (empty($result['node'])) {
+    return 'No language neutral nodes left.';
+
+  }
+  $nids = array_keys($result['node']);
+  $nodes = entity_load('node', $nids);
+  foreach ($nodes as $node) {
+    $node->language = 'en';
+    node_save($node);
+  }
+  return 'Processed ' . count($nids) . ' nodes.';
 }
