@@ -93,6 +93,8 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
     ),
     'setting'
   );
+  $hide_honeypot_style = '.form-item-email { display: none }';
+  drupal_add_css($hide_honeypot_style, $option['type'] = inline);
   $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
@@ -103,7 +105,18 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-stripe' => 'name',
     ),
   );
+  // Honeypot. Upon submitting the form this field is removed from $form to avoid
+  // confusion in the payment processing.
   $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => FALSE,
+    '#attributes' => array(
+      'data-stripe' => 'email',
+    ),
+  );
+  // Actual email field.
+  $form['email_confirmation'] = array(
     '#type' => 'textfield',
     '#title' => t('Email'),
     '#required' => TRUE,
@@ -294,7 +307,7 @@ function dosomething_payment_post_payment_stripe($values) {
       'customer' => $customer->id,
       'amount' => $values['amount'],
       'currency' => 'usd',
-      'receipt_email' => $values['email'],
+      'receipt_email' => $values['confirmation_email'],
       'description' => "Donation for DoSomething.org",
       'metadata' => $notes,
     ));
