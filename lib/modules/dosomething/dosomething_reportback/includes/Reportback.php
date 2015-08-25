@@ -333,6 +333,33 @@ class Reportback extends Entity {
    *   Array storing values for flagged/promoted reasons.
    */
   public function setFlaggedPromoted($status = NULL, $values = NULL) {
+    $items = ReportbackItem::get($this->getFids());
+
+    // Seperate multiple file logic from single file logic
+    if (count($items) > 1) {
+      // Determine all of the reportback statuses
+      $flaggedReportbacks = false;
+      $promotedReportbacks = false;
+
+      foreach ($items as $item) {
+        if ($item->status === "flagged") {
+          $flaggedReportbacks = TRUE;
+        }
+        else if($item->status === "promoted") {
+          $promotedReportbacks = TRUE;
+        }
+      }
+
+      // The optional conditional verifies that flagged always overrides promoted
+      // regardless if its a new or existing reportback status
+      if ($flaggedReportbacks || $status === "flagged") {
+        $status = "flagged";
+      }
+      else if($promotedReportbacks) {
+        $status = "promoted";
+      }
+    }
+
     if ($status === 'flagged') {
       $this->flagged = 1;
       $this->flagged_reason = $values['flagged_reason'] ?: NULL;
@@ -344,16 +371,12 @@ class Reportback extends Entity {
       $this->flagged = 0;
     }
     else {
-      // These extra if statments verify that we're not overriding existing values
-      if ($this->flagged == NULL) {
-        $this->flagged = 0;
-        $this->promoted_reason = NULL;
-      }
-      if ($this->promoted == NULL) {
-        $this->promoted = 0;
-        $this->flagged_reason = NULL;
-      }
+      $this->flagged = 0;
+      $this->promoted = 0;
+      $this->flagged_reason = NULL;
+      $this->promoted_reason = NULL;
     }
+
     return entity_save('reportback', $this);
   }
 
