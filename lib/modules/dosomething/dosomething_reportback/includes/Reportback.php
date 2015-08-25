@@ -344,14 +344,16 @@ class Reportback extends Entity {
       foreach ($items as $item) {
         if ($item->status === "flagged") {
           $flaggedReportbacks = TRUE;
+
         }
         else if($item->status === "promoted") {
           $promotedReportbacks = TRUE;
+
         }
       }
 
-      // The optional conditional verifies that flagged always overrides promoted
-      // regardless if its a new or existing reportback status
+      // Verifies that reportbacks get the correct status and boolean
+      // regardless of the order they are reviewed or how many there is
       if ($flaggedReportbacks || $status === "flagged") {
         $status = "flagged";
       }
@@ -360,15 +362,28 @@ class Reportback extends Entity {
       }
     }
 
+    // Based on the logic decided above, modify the review values
     if ($status === 'flagged') {
       $this->flagged = 1;
-      $this->flagged_reason = $values['flagged_reason'] ?: NULL;
       $this->promoted = 0;
+      if (is_string($values['flagged_reason'])) {
+        if (empty($values['flagged_reason'])) {
+          $values['flagged_reason'] = $this->flagged_reason;
+        }
+        $this->flagged_reason = $values['flagged_reason'];
+      }
+      $this->promoted_reason = NULL;
     }
     elseif ($status === 'promoted') {
       $this->promoted = 1;
-      $this->promoted_reason = $values['promoted_reason'] ?: NULL;
       $this->flagged = 0;
+      if (is_string($values['promoted_reason'])) {
+        if (empty($values['promoted_reason'])) {
+          $values['promoted_reason'] = $this->promoted_reason;
+        }
+        $this->promoted_reason = $values['promoted_reason'];
+      }
+      $this->flagged_reason = NULL;
     }
     else {
       $this->flagged = 0;
