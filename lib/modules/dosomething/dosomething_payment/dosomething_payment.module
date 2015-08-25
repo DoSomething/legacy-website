@@ -245,6 +245,12 @@ function dosomething_payment_form_submit($form, &$form_state) {
       );
     }
   }
+  else {
+    // Send stathat info.
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Donate - honeypot', 1);
+    }
+  }
 }
 
 /**
