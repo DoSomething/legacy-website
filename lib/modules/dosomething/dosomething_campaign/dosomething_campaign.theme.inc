@@ -143,7 +143,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       ),
     );
 
-    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'js-analytics-problem', 'social-share-bar -with-callout');
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-share-bar -with-callout');
   }
 
   // Hot and win module variables.
