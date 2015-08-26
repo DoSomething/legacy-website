@@ -105,6 +105,19 @@ function dosomething_helpers_delete_test_nodes() {
 function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NONE) {
   if (isset($field) && !empty($field)) {
 
+    // ---
+    // Temporary fix for translatable fields.
+    // If no specific language requested, attempt to return English value first.
+    //
+    // In future the API will be extended with functionally that controls
+    // output language with a URL parameter.
+    if ($language === LANGUAGE_NONE) {
+      if (!empty($field['en'])) {
+        $language = 'en';
+      }
+    }
+    // ---
+
     $data = $field[$language];
 
     $values = array();
