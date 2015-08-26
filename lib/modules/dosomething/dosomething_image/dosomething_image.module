@@ -167,6 +167,8 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
  *   Img tag of no-image-found.png
  */
 function dosomething_image_get_themed_no_image() {
+  // The function output is always the same, so static caching used.
+  // See drupal_static() documentation.
   $img = &drupal_static(__FUNCTION__);
   if (!isset($img)) {
     $args = [
