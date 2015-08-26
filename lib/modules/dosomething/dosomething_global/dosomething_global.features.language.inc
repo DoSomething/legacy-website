@@ -10,6 +10,19 @@
 function dosomething_global_locale_default_languages() {
   $languages = array();
 
+  // Exported language: en-global.
+  $languages['en-global'] = array(
+    'language' => 'en-global',
+    'name' => 'English, Global',
+    'native' => 'English, Global',
+    'direction' => 0,
+    'enabled' => 1,
+    'plurals' => 0,
+    'formula' => '',
+    'domain' => '',
+    'prefix' => 'en-global',
+    'weight' => 0,
+  );
   // Exported language: es-mx.
   $languages['es-mx'] = array(
     'language' => 'es-mx',
