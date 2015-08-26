@@ -92,7 +92,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $image_src_style = '300x300';
 
   // Load the entity metadata wrapper for easy value getting.
-  $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $campaign = new stdClass();
   $campaign->nid = $node->nid;
@@ -604,6 +604,6 @@ function dosomething_campaign_get_sms_games() {
  *  Amount of the scholarship.
  */
 function dosomething_campaign_get_scholarship($nid) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($nid);
   return $wrapper->field_scholarship_amount->value();
 }

@@ -54,6 +54,68 @@ function enable {
 
   # Revert features.
   drush -y fra
+
+  # Run fixes.
+  # Changes languge-neutral campaings into English.
+  drush ds-replace-neutral-with-english campaign
+
+  # Fix Campaign translatable title values.
+  drush ds-global-titles-fix campaign
+
+  # Fix fields.
+  # Basic Info
+  drush ds-global-field-fix field_call_to_action
+  drush ds-global-field-fix field_image_campaign_cover
+
+  # Pitch Page Additional Info
+  drush ds-global-field-fix field_value_proposition
+  drush ds-global-field-fix field_secondary_call_to_action
+
+  # Know It
+  drush ds-global-field-fix field_fact_problem
+  drush ds-global-field-fix field_fact_solution
+  drush ds-global-field-fix field_solution_copy
+  drush ds-global-field-fix field_solution_support
+  drush ds-global-field-fix field_facts
+  # drush ds-global-field-fix field_faq
+  # drush ds-global-field-fix field_video
+  drush ds-global-field-fix field_image_psa_replacement
+
+  # Starter Statement
+  drush ds-global-field-fix field_starter_statement
+
+  # Plan It
+  drush ds-global-field-fix field_items_needed
+  drush ds-global-field-fix field_time_and_place
+  drush ds-global-field-fix field_vips
+  drush ds-global-field-fix field_promoting_tips
+
+  # Do It
+  drush ds-global-field-fix field_pre_step_header
+  drush ds-global-field-fix field_pre_step_copy
+  # drush ds-global-field-fix field_step_pre
+  drush ds-global-field-fix field_photo_step
+  drush ds-global-field-fix field_post_step_header
+  drush ds-global-field-fix field_post_step_copy
+  # drush ds-global-field-fix field_step_post
+  drush ds-global-field-fix field_image_step_gallery
+
+  # Prove it
+  drush ds-global-field-fix field_reportback_noun
+  drush ds-global-field-fix field_reportback_verb
+  drush ds-global-field-fix field_reportback_copy
+
+  # Confirmation
+  drush ds-global-field-fix field_reportback_confirm_msg
+
+  # Taxonomy and Discovery
+  drush ds-global-field-fix field_issue
+
+  # Sponsors and Partners
+  # drush ds-global-field-fix field_partners
+
+  # Creater Info
+  drush ds-global-field-fix field_created_copy
 }
 
 # ==============================================================================

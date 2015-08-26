@@ -37,14 +37,17 @@ function dosomething_home_preprocess_node(&$vars) {
       $node = node_load($nid);
 
       // Grab all tiles attributes.
+      global $language;
+      $lang_code = $language->language;
+
       $tiles = array();
       $tiles['nid'] = $nid;
-      $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+      $tiles['is_staff_pick'] = $node->field_staff_pick[$lang_code][0]['value'];
       $tiles['title'] = $node->title;
-      $tiles['tagline'] = $node->field_call_to_action[LANGUAGE_NONE][0]['safe_value'];
+      $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
 
       // Get the campaign cover image.
-      $image_nid = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+      $image_nid = $node->field_image_campaign_cover[$lang_code][0]['target_id'];
       if ($key == 0) {
         $tiles['modifier_classes'] = "big";
         $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');

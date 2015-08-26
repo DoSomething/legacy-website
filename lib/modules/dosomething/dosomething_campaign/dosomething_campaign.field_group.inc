@@ -21,14 +21,13 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Basic Info',
-    'weight' => '0',
+    'weight' => '2',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_confirmation_doc',
       2 => 'field_image_campaign_cover',
       3 => 'field_campaign_type',
       4 => 'field_campaign_status',
-      5 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,7 +52,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Info',
-    'weight' => '14',
+    'weight' => '16',
     'children' => array(
       0 => 'field_latest_news_copy',
     ),
@@ -81,7 +80,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Confirmation',
-    'weight' => '8',
+    'weight' => '10',
     'children' => array(
       0 => 'field_reportback_confirm_msg',
     ),
@@ -109,7 +108,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Creator Info',
-    'weight' => '12',
+    'weight' => '14',
     'children' => array(
       0 => 'field_created_by',
       1 => 'field_created_copy',
@@ -138,7 +137,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Do It',
-    'weight' => '6',
+    'weight' => '8',
     'children' => array(
       0 => 'field_image_step_gallery',
       1 => 'field_photo_step',
@@ -173,7 +172,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Incentives',
-    'weight' => '9',
+    'weight' => '11',
     'children' => array(
       0 => 'field_official_rules',
       1 => 'field_scholarship_amount',
@@ -202,7 +201,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Know It',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_fact_problem',
       1 => 'field_fact_solution',
@@ -267,7 +266,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Mobile App',
-    'weight' => '13',
+    'weight' => '15',
     'children' => array(
       0 => 'field_on_mobile_app',
       1 => 'field_mobile_app_date',
@@ -296,7 +295,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Sponsors and Partners',
-    'weight' => '11',
+    'weight' => '13',
     'children' => array(
       0 => 'field_partners',
     ),
@@ -324,7 +323,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Pitch Page Additional Info',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_secondary_call_to_action',
       1 => 'field_value_proposition',
@@ -353,7 +352,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Plan It',
-    'weight' => '5',
+    'weight' => '7',
     'children' => array(
       0 => 'field_items_needed',
       1 => 'field_promoting_tips',
@@ -387,7 +386,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prove It',
-    'weight' => '7',
+    'weight' => '9',
     'children' => array(
       0 => 'field_reportback_copy',
       1 => 'field_reportback_noun',
@@ -417,7 +416,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Starter Statement',
-    'weight' => '4',
+    'weight' => '6',
     'children' => array(
       0 => 'field_starter_statement',
       1 => 'field_starter_statement_header',
@@ -446,7 +445,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Taxonomy and Discovery',
-    'weight' => '10',
+    'weight' => '12',
     'children' => array(
       0 => 'field_action_type',
       1 => 'field_active_hours',
@@ -481,7 +480,7 @@ function dosomething_campaign_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Timing',
-    'weight' => '2',
+    'weight' => '4',
     'children' => array(
       0 => 'field_display_end_date',
       1 => 'field_high_season',
