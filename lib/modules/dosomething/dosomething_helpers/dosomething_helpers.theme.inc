@@ -107,6 +107,10 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
       if (!empty($image_node->field_image_landscape)) {
         $img = dosomething_image_get_themed_image($image_node->nid, 'landscape', '550x300');
         $vars['partner_info'][$delta]['image'] = $img;
+      } else {
+        // Must be overridden: partner image is unrendered object by default,
+        // but rendered string is expected in the template.
+        $vars['partner_info'][$delta]['image'] = dosomething_image_get_themed_no_image();
       }
     }
   }
