@@ -183,7 +183,7 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
   );
   $form['zipcode'] = array(
     '#type' => 'textfield',
-    '#title' => t('Zipcode'),
+    '#title' => t('ZIP or Postal code'),
     '#required' => TRUE,
     '#attributes' => array(
       'data-validate' => 'zipcode_intl',
@@ -394,6 +394,7 @@ function dosomething_payment_stripe_create_customer($values) {
   if (!$client) {
     return;
   }
+
   try {
     $customer = Stripe_Customer::create(array(
       'email' => $values['email'],
