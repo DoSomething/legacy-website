@@ -42,7 +42,7 @@ function dosomething_home_preprocess_node(&$vars) {
 
       $tiles = array();
       $tiles['nid'] = $nid;
-      $tiles['is_staff_pick'] = $node->field_staff_pick[$lang_code][0]['value'];
+      $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
       $tiles['title'] = $node->title;
       $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
 
