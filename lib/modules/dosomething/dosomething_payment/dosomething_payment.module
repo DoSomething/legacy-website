@@ -181,6 +181,16 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-stripe' => 'amount',
     ),
   );
+  $form['zipcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Zipcode'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'zipcode', //TODO
+      'data-validate-required' => '',
+      'data-stripe' => 'amount',
+    ),
+  );
   $form['notes'] = array(
     '#type' => 'textfield',
     '#title' => t('Message (optional)'),
