@@ -199,6 +199,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   }
 
   $image = NULL;
+  $clc = dosomething_helpers_get_current_language_code();
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.
@@ -206,7 +207,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
     $default = '400x400';
     $large = '768x768';
     // Get the Cover Image node nid.
-    $nid_image = $node->field_image_campaign_cover[LANGUAGE_NONE][0]['target_id'];
+    $nid_image = $node->field_image_campaign_cover[$clc][0]['target_id'];
     // Get its high-res URL.
     $large_url = dosomething_image_get_themed_image_url($nid_image, $ratio, $large);
     // Set attributes to pass to the themed image.
@@ -219,7 +220,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   $content = array(
     'link' => $link,
     'title' => $title,
-    'tagline' => $node->field_call_to_action[LANGUAGE_NONE][0]['value'],
+    'tagline' => $node->field_call_to_action[$clc][0]['value'],
     'status' => $node->status,
     'image' => $image,
     'is_staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
