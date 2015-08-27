@@ -335,54 +335,61 @@ class Reportback extends Entity {
   public function setFlaggedPromoted($status = NULL, $values = NULL) {
     $items = ReportbackItem::get($this->getFids());
 
-    // Seperate multiple file logic from single file logic
-    if (count($items) > 1) {
-      // Determine all of the reportback statuses
-      $flaggedReportbacks = false;
-      $promotedReportbacks = false;
+    // Determine all of the reportback statuses
+    $flaggedReportbacks = false;
+    $promotedReportbacks = false;
 
-      foreach ($items as $item) {
-        if ($item->status === "flagged") {
-          $flaggedReportbacks = TRUE;
+    foreach ($items as $item) {
+      if ($item->status === "flagged") {
+        $flaggedReportbacks = TRUE;
 
-        }
-        else if($item->status === "promoted") {
-          $promotedReportbacks = TRUE;
-
-        }
       }
+      else if($item->status === "promoted") {
+        $promotedReportbacks = TRUE;
+      }
+    }
 
-      // Verifies that reportbacks get the correct status and boolean
-      // regardless of the order they are reviewed or how many there is
-      if ($flaggedReportbacks || $status === "flagged") {
-        $status = "flagged";
-      }
-      else if($promotedReportbacks) {
-        $status = "promoted";
-      }
+    // Verifies that reportbacks get the correct status and boolean
+    // regardless of the order they are reviewed or how many there is
+    if ($flaggedReportbacks || $status === "flagged") {
+      $status = "flagged";
+    }
+    // Promoted must be after flagged as it has second priority
+    else if($promotedReportbacks || $status === "promoted") {
+      $status = "promoted";
     }
 
     // Based on the logic decided above, modify the review values
     if ($status === 'flagged') {
       $this->flagged = 1;
       $this->promoted = 0;
+
+      // Make sure the reason is correct
       if (is_string($values['flagged_reason'])) {
         if (empty($values['flagged_reason'])) {
           $values['flagged_reason'] = $this->flagged_reason;
         }
         $this->flagged_reason = $values['flagged_reason'];
       }
-      $this->promoted_reason = NULL;
+
+      // Set the other status reason to NULL if there isn't any left
+      if (!$promotedReportbacks) {
+        $this->promoted_reason = NULL;
+      }
     }
     elseif ($status === 'promoted') {
       $this->promoted = 1;
       $this->flagged = 0;
+
+      // Make sure the reason is correct
       if (is_string($values['promoted_reason'])) {
         if (empty($values['promoted_reason'])) {
           $values['promoted_reason'] = $this->promoted_reason;
         }
         $this->promoted_reason = $values['promoted_reason'];
       }
+
+      // There should never be a flagged reason when promoted is the reportback status
       $this->flagged_reason = NULL;
     }
     else {
