@@ -43,6 +43,13 @@ function dosomething_global_drush_command() {
           => 'Fixes Campaign\'s languge-neutral nodes.',
       ],
     ],
+    'ds-fields-resque' => [
+      'description' => 'Fixes fields lost during enabling translation.',
+      'arguments' => [
+        'bundle' => 'The content type to fix.',
+      ],
+      'required-arguments' => TRUE,
+    ],
   ];
 }
 
@@ -122,4 +129,81 @@ function drush_dosomething_global_ds_replace_neutral_with_english($bundle) {
     node_save($node);
   }
   return 'Processed ' . count($nids) . ' nodes.';
+}
+
+/**
+ * Callback for ds-fields-resque command.
+ */
+function drush_dosomething_global_ds_fields_resque($bundle) {
+  // Check if bundle exists.
+  $node_def = entity_get_info('node');
+  if (empty($node_def['bundles']) || empty($node_def['bundles'][$bundle])) {
+    return 'Wrong bundle provided.';
+  }
+
+  // Get translatable fields.
+  $fields = array_keys(field_info_instances('node', $bundle));
+  $translatable_fields = [];
+  foreach ($fields as $field) {
+    $field_info = field_info_field($field);
+    if ($field_info['translatable']) {
+      $translatable_fields[] = $field;
+    }
+  }
+
+  // Get all the nodes.
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', $bundle)
+    ->addMetaData('account', user_load(1));
+  $result = $query->execute();
+  if (empty($result['node'])) {
+    return 'No nodes found.';
+  }
+  $nids = array_keys($result['node']);
+  $nodes = entity_load('node', $nids, [], FALSE);
+  foreach ($nodes as $node) {
+    $changed = FALSE;
+    foreach ($translatable_fields as $field) {
+      // Check if the info is missing from data table.
+      $data_table_name = 'field_data_' . $field;
+      $result = db_select($data_table_name)
+      ->condition('entity_id', $node->nid)
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+      if ($result) {
+        continue;
+      }
+
+      // Look for the info in the last revision of revisions table.
+      $revision_table = 'field_revision_' . $field;
+      $field_revision = db_select($revision_table, 'r')
+      ->fields('r', ['revision_id'])
+      ->orderBy('r.revision_id', 'DESC')
+      ->condition('entity_id', $node->nid)
+      ->execute()
+      ->fetchField();
+      if (!$field_revision) {
+        continue;
+      }
+
+      // Load the particular revision of the node.
+      $last_node = node_load($node->nid, $field_revision);
+      if (empty($last_node) || empty($last_node->{$field})) {
+        continue;
+      }
+
+      // Override existing field with the old one.
+      $old_value = reset($last_node->{$field});
+      $node->{$field}['en'] = $old_value;
+      $changed = TRUE;
+      drush_log('Fixing node #' . $node->nid . ': ' . $field . '.', 'status');
+    }
+    if ($changed) {
+      node_save($node);
+      drush_log('Saving node #' . $node->nid . '.', 'ok');
+    }
+  }
 }
