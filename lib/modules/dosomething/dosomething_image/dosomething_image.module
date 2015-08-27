@@ -143,7 +143,7 @@ function dosomething_image_get_themed_image_by_fid($fid, $style, $alt = '') {
   $image = image_load($file->uri);
   if (!$image) {
     $args = array(
-      'path' => DS_ASSET_PATH .'/dist/images/no-image-found.png',
+      'path' => DS_ASSET_PATH .'/images/no-image-found.png',
       'alt' => 'No image found placeholder',
       'title' => 'No Image Found',
       'attributes' => NULL,
