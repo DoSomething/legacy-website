@@ -2,6 +2,8 @@
   "private": true,
   "scripts": {
     "start": "grunt",
+    "build": "grunt build",
+    "test": "grunt test",
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "dependencies": {
@@ -23,14 +25,17 @@
     "unveil": "DFurnes/unveil.git#umd"
   },
   "devDependencies": {
-    "autoprefixer-core": "^4.0.2",
+    "autoprefixer-core": "^5.2.0",
     "babel": "^5.0.0",
     "babel-core": "^5.0.0",
     "babel-eslint": "^3.1.23",
     "babel-loader": "^5.0.0",
-    "css-mqpacker": "^2.0.0",
+    "css-loader": "^0.16.0",
+    "css-mqpacker": "^3.1.0",
     "eslint": "^0.24.1",
     "eslint-plugin-react": "^2.7.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "file-loader": "^0.8.4",
     "grunt": "^0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.7.0",
@@ -38,13 +43,16 @@
     "grunt-eslint": "^16.0.0",
     "grunt-modernizr": "metaloha/grunt-modernizr#d6657bf302bd9288e25a513197fb0e30c64ce677",
     "grunt-postcss": "^0.2.0",
-    "grunt-sass": "^0.18.0",
     "grunt-sasslint": "0.0.5",
     "grunt-webpack": "^1.0.8",
     "load-grunt-tasks": "^3.1.0",
+    "node-sass": "^3.2.0",
+    "postcss-loader": "^0.6.0",
     "raw-loader": "^0.5.1",
+    "sass-loader": "^2.0.1",
     "time-grunt": "^1.0.0",
-    "webpack": "^1.4.5",
-    "webpack-dev-server": "^1.8.0"
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "^1.9.0"
   }
 }
