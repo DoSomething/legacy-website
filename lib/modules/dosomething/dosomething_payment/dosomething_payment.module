@@ -186,9 +186,9 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
     '#title' => t('Zipcode'),
     '#required' => TRUE,
     '#attributes' => array(
-      'data-validate' => 'zipcode', //TODO
+      'data-validate' => 'zipcode_intl',
       'data-validate-required' => '',
-      'data-stripe' => 'amount',
+      'data-stripe' => 'address_zip',
     ),
   );
   $form['notes'] = array(
