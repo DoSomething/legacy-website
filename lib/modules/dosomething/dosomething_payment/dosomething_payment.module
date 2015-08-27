@@ -181,6 +181,16 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-stripe' => 'amount',
     ),
   );
+  $form['zipcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('ZIP or Postal code'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'zipcode_intl',
+      'data-validate-required' => '',
+      'data-stripe' => 'address_zip',
+    ),
+  );
   $form['notes'] = array(
     '#type' => 'textfield',
     '#title' => t('Message (optional)'),
@@ -384,6 +394,7 @@ function dosomething_payment_stripe_create_customer($values) {
   if (!$client) {
     return;
   }
+
   try {
     $customer = Stripe_Customer::create(array(
       'email' => $values['email'],
