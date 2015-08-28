@@ -839,6 +839,22 @@ function dosomething_campaign_is_active($node) {
    return FALSE;
  }
 
+ /**
+   * Set the given DateTime to America/New_York and end of day
+   *
+   * @param DateTime $date
+   *  DateTime to edit
+   * @param boolean $end_of_day;
+   *  Optional - set the date to end of day
+   *
+   * @return DateTime
+   *  Updated time
+   */
+function dosomething_campaign_format_time($date, $end_of_day = FALSE) {
+  $date->setTimezone(new DateTimeZone('America/New_York'));
+  return $date;
+}
+
 /**
  * Returns array of nid's of recommended campaigns for $uid.
  *
