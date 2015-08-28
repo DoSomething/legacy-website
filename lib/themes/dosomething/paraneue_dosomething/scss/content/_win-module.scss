@@ -63,6 +63,10 @@
       @include media($large) {
         @include span(8 of 12);
       }
+
+      .figure {
+        float: left;
+      }
     }
 
     .win-module__share-bar {
