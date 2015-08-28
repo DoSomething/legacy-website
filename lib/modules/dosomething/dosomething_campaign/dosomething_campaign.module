@@ -737,7 +737,7 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  * @return bool
  */
 function dosomething_campaign_is_hot_module($vars) {
-  $today = new DateTime();
+  $today = dosomething_campaign_set_est_timezone(new DateTime());
   $today->setTimezone(new DateTimeZone('America/New_York'));
   $start_date = new DateTime($vars['field_high_season'][0]['value']);
   $end_date = new DateTime($vars['field_high_season'][0]['value2']);
@@ -825,8 +825,7 @@ function dosomething_campaign_is_active($node) {
   * @return bool
   */
  function dosomething_campaign_is_win_module($vars) {
-   $today = new DateTime();
-   $today->setTimezone(new DateTimeZone('America/New_York'));
+   $today = dosomething_campaign_set_est_timezone(new DateTime());
    $end_date = new DateTime($vars['field_high_season'][0]['value2']);
    $end_date->setTime(23, 59, 59);
    $win_module_end = date_modify(clone $end_date, '+30 days');
@@ -850,7 +849,7 @@ function dosomething_campaign_is_active($node) {
    * @return DateTime
    *  Updated time
    */
-function dosomething_campaign_format_time($date, $end_of_day = FALSE) {
+function dosomething_campaign_set_est_timezone($date) {
   $date->setTimezone(new DateTimeZone('America/New_York'));
   return $date;
 }
