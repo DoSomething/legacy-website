@@ -19,12 +19,18 @@
       }
     }
 
+    // Font sizes here are hard coded because they are
+    // outlier to our regular font system. Specific to the win module.
     h2 {
       color: $black;
       font-size: 76px;
 
+      @include media($medium) {
+        font-size: 120px;
+      }
+
       @include media($large) {
-        font-size: 124px;
+        font-size: 200px;
       }
     }
 
@@ -34,8 +40,12 @@
       font-weight: $weight-normal;
       text-transform: uppercase;
 
-      @include media($large) {
+      @include media($medium) {
         font-size: $font-larger;
+      }
+
+      @include media($large) {
+        font-size: $font-medium * 2;
       }
     }
   }

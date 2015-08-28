@@ -176,11 +176,15 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
 
   $win_module_image = '.win-module__progress {
       background-image: url("' . $background_square_url . '");
+      background-size: contain;
+      background-position: center;
     }
 
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 560px) {
       .win-module__progress {
         background-image: url("' . $background_landscape_url . '");
+        background-size: contain;
+        background-position: center;
       }
     }';
   drupal_add_css($win_module_image, $option['type'] = 'inline');
