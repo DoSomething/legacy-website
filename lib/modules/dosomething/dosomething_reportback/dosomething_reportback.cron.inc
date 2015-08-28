@@ -21,7 +21,9 @@ function dosomething_reportback_cron() {
 
   // Updated reportback counts accordingly.
   foreach ($results as $result) {
-    dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_quantity', (int) $result->total);
+    $override = dosomething_helplers_get_variable('node', $result->nid, 'sum_rb_quantity_override');
+    $total = (int) $override + (int) $result->total;
+    dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_quantity', $total);
 
     // Add a row to the reportback progress log table.
     db_insert('dosomething_reportback_progress_log')
