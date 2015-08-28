@@ -50,6 +50,8 @@ function dosomething_campaign_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'creative team' => 'creative team',
+      'editor' => 'editor',
+      'site admin' => 'site admin',
     ),
     'module' => 'dosomething_campaign',
   );
