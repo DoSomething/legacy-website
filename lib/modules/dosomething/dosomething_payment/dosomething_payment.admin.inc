@@ -28,6 +28,13 @@ function dosomething_payment_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_payment_donate_confirm_msg'),
   );
+  $form['donate']['dosomething_payment_donate_error_copy'] = array(
+    '#type' => 'textarea',
+    '#rows' => 2,
+    '#title' => t('Error copy'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('dosomething_payment_donate_error_copy', t("Having problems with donating? Please try again or email donate@dosomething.org.")),
+  );
   $form['stripe'] = array(
     '#type' => 'fieldset',
     '#title' => t('Stripe'),
