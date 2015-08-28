@@ -32,28 +32,4 @@ function dosomething_reportback_cron() {
         ))
       ->execute();
   }
-
-
-  /**
-   * Search for reportback item that have been flagged, but the reportback was not flagged.
-   * @see https://github.com/DoSomething/phoenix/issues/4713
-   * @see https://github.com/DoSomething/phoenix/issues/4529
-   */
-
-  db_query("UPDATE dosomething_reportback as rb
-                       INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
-                       INNER JOIN dosomething_reportback_log as rbl on rb.rbid = rbl.rbid
-                       SET rb.flagged = 1, rb.flagged_reason = rbl.reason
-                       WHERE rbf.status = 'flagged'
-                       AND rbl.op = 'flagged'
-                       AND (rb.flagged = 0 or rb.flagged is null);");
-
-  db_query("UPDATE dosomething_reportback as rb
-                      INNER JOIN dosomething_reportback_file as rbf on rb.rbid = rbf.rbid
-                      INNER JOIN dosomething_reportback_log as rbl on rb.rbid = rbl.rbid
-                      SET rb.promoted = 1, rb.promoted_reason = rbl.reason
-                      WHERE rbf.status = 'promoted'
-                      AND rbl.op = 'promoted'
-                      AND (rb.promoted = 0 or rb.promoted is null);");
-
 }
