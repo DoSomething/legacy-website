@@ -19,7 +19,7 @@ function dosomething_campaign_problem_shares_cron() {
                        GROUP BY n.nid;");
 
   // Get the relevant paths
-  $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_hot_shares');
+  $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares');
   $font_path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/fonts');
   $image_location = dosomething_helpers_application_path('/html/sites/default/files');
 
@@ -35,5 +35,4 @@ function dosomething_campaign_problem_shares_cron() {
     // Call shell script to create the image.
     shell_exec("/bin/bash $path/create-images.sh $font_path $image_location $nid $problem");
   }
-
 }
