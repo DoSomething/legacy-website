@@ -278,7 +278,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $rb_percent = 0;
   }
 
-  $override_copy = variable_get('dosomething_campaign_progress_copy_override', NULL);
+  $override_copy = dosomething_helpers_get_variable('node', $vars['nid'], 'progress_copy_override');
   if ($override_copy) {
     $progress_copy = $override_copy;
   }
