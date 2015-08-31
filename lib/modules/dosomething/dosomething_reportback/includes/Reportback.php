@@ -336,8 +336,8 @@ class Reportback extends Entity {
     $items = ReportbackItem::get($this->getFids());
 
     // Determine all of the reportback statuses
-    $flagged_reportbacks = false;
-    $promoted_reportbacks = false;
+    $flagged_reportbacks = FALSE;
+    $promoted_reportbacks = FALSE;
 
     foreach ($items as $item) {
       if ($item->status === "flagged") {
