@@ -182,6 +182,10 @@ class ReportbackItem extends Entity {
     if (isset($values['promoted_reason'])) {
       $promoted_reason = $values['promoted_reason'];
     }
+
+    // Must be saved before calling setFlaggedPromoted
+    $updated_reportback_item = entity_save('reportback_item', $this);
+
     $reportback->setFlaggedPromoted($this->status, $values);
 
     if (!empty($values['delete'])) {
@@ -189,7 +193,7 @@ class ReportbackItem extends Entity {
     }
 
     // Save the reviewed properties.
-    return entity_save('reportback_item', $this);
+    return $updated_reportback_item;
   }
 
 
