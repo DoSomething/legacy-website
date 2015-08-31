@@ -9,7 +9,12 @@
  * Implements hook_cron().
  */
 function dosomething_campaign_hot_shares_cron() {
-  $results = db_query("SELECT nid FROM node WHERE type ='campaign'");
+
+  $results = db_query("SELECT n.nid FROM node n
+                       INNER JOIN field_data_field_campaign_status s on n.nid = s.entity_id
+                       WHERE n.type ='campaign'
+                       AND s.field_campaign_status_value = 'active'
+             ");
 
   // Get the relevant paths
   $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_hot_shares');
