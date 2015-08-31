@@ -184,7 +184,7 @@ class ReportbackItem extends Entity {
     }
 
     // Must be saved before calling setFlaggedPromoted
-    $updatedReportbackItem = entity_save('reportback_item', $this);
+    $updated_reportback_item = entity_save('reportback_item', $this);
 
     $reportback->setFlaggedPromoted($this->status, $values);
 
@@ -193,7 +193,7 @@ class ReportbackItem extends Entity {
     }
 
     // Save the reviewed properties.
-    return $updatedReportbackItem;
+    return $updated_reportback_item;
   }
 
 
