@@ -124,7 +124,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
     // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'sites/default/files/images/' . $vars['nid'] . '.png';
+    $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '.png';
 
     $share_types = array(
       'facebook' => array(
@@ -245,25 +245,13 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
  */
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
-  //Calculate days left
   $date_format = 'm/d/Y';
-  $today = new DateTime();
+
   $start_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
-  $difference = $today->diff($end_date, true);
-  $days_left = $difference->d;
-  $hours_left = $difference->h + ($days_left * 24);
   $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
+  $time_left = dosomething_campaign_get_hot_time_left($node);
 
-  if ($days_left >= 8) {
-    $time_left = t('Ends ' . $readable_end_date);
-  }
-  elseif ($hours_left > 48) {
-    $time_left = t($difference->d . ' days left');
-  }
-  else {
-    $time_left = t($hours_left . ' hours left');
-  }
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
@@ -339,11 +327,15 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
 
+  // Create the image path to the hot module share image generated for the node.
+  $base_url = url(base_path(), array('absolute'=> TRUE));
+  $hot_share_image = $base_url . 'sites/default/files/images/hot-' . $vars['nid'] . '.png';
+
   $share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
-        'picture' => $vars['hero_image']['desktop'],
+        'picture' => $hot_share_image,
         'caption' => $goal_copy . "? Let's make it happen!",
       ),
     ),
@@ -352,7 +344,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
     'tumblr' => array(
       'posttype' => 'photo',
-      'content' => $vars['hero_image']['desktop'],
+      'content' => $hot_share_image,
       'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
     ),
   );

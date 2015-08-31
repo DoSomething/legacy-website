@@ -579,3 +579,16 @@ function dosomething_helpers_get_current_language_code() {
   global $language;
   return $language->language;
 }
+
+/**
+ * Get the filesystem path relative to the application root.
+ *
+ * @param $path
+ *  Optional subdirectory to get the path of.
+ *
+ * @return string
+ *  Filesystem path
+ */
+function dosomething_helpers_application_path($path = '') {
+  return realpath(DRUPAL_ROOT . '/../' . $path);
+}
