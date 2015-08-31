@@ -245,25 +245,13 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
  */
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
-  //Calculate days left
   $date_format = 'm/d/Y';
-  $today = new DateTime();
+
   $start_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
   $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
-  $difference = $today->diff($end_date, true);
-  $days_left = $difference->d;
-  $hours_left = $difference->h + ($days_left * 24);
   $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
+  $time_left = dosomething_campaign_get_hot_time_left($node);
 
-  if ($days_left >= 8) {
-    $time_left = t('Ends ' . $readable_end_date);
-  }
-  elseif ($hours_left > 48) {
-    $time_left = t($difference->d . ' days left');
-  }
-  else {
-    $time_left = t($hours_left . ' hours left');
-  }
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
