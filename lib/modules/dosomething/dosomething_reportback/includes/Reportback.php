@@ -336,26 +336,26 @@ class Reportback extends Entity {
     $items = ReportbackItem::get($this->getFids());
 
     // Determine all of the reportback statuses
-    $flaggedReportbacks = false;
-    $promotedReportbacks = false;
+    $flagged_reportbacks = false;
+    $promoted_reportbacks = false;
 
     foreach ($items as $item) {
       if ($item->status === "flagged") {
-        $flaggedReportbacks = TRUE;
+        $flagged_reportbacks = TRUE;
 
       }
       else if($item->status === "promoted") {
-        $promotedReportbacks = TRUE;
+        $promoted_reportbacks = TRUE;
       }
     }
 
     // Verifies that reportbacks get the correct status and boolean
     // regardless of the order they are reviewed or how many there is
-    if ($flaggedReportbacks || $status === "flagged") {
+    if ($flagged_reportbacks || $status === "flagged") {
       $status = "flagged";
     }
     // Promoted must be after flagged as it has second priority
-    else if($promotedReportbacks || $status === "promoted") {
+    else if($promoted_reportbacks || $status === "promoted") {
       $status = "promoted";
     }
 
@@ -376,7 +376,7 @@ class Reportback extends Entity {
       }
 
       // Set the other status reason to NULL if there isn't any left
-      if (!$promotedReportbacks) {
+      if (!$promoted_reportbacks) {
         $this->promoted_reason = NULL;
       }
     }
