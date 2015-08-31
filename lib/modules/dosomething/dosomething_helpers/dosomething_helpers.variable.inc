@@ -168,10 +168,10 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#default_value' => $vars['mobile_signup_count'],
     );
 
-    $form['goals']['progress_copy'] = [
+    $form['goals']['progress_copy_override'] = [
       '#type' => 'textarea',
       '#title' => t('Hot Module progress override copy'),
-      '#default_value' => variable_get('progress_copy'),
+      '#default_value' => variable_get('progress_copy_override'),
       '#description' => t('Add copy here if you’d like to override the default progress copy in the hot module. Note: The default copy changes as progress increases. Override copy is static. If you create override copy, you’ll need to either delete the copy or change it yourself for this text to update.'),
     ];
   }
