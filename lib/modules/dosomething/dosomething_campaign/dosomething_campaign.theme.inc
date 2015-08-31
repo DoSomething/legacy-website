@@ -327,11 +327,15 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
 
+  // Create the image path to the hot module share image generated for the node.
+  $base_url = url(base_path(), array('absolute'=> TRUE));
+  $hot_share_image = $base_url . 'sites/default/files/images/hot-' . $vars['nid'] . '.png';
+
   $share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
-        'picture' => $vars['hero_image']['desktop'],
+        'picture' => $hot_share_image,
         'caption' => $goal_copy . "? Let's make it happen!",
       ),
     ),
@@ -340,7 +344,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
     'tumblr' => array(
       'posttype' => 'photo',
-      'content' => $vars['hero_image']['desktop'],
+      'content' => $hot_share_image,
       'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
     ),
   );
