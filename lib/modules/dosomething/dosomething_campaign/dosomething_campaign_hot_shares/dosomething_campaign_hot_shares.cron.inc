@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Provides cron job command for dosomething_campaign_problem_shares.module.
+ * Provides cron job command for dosomething_campaign_hot_shares.module.
  */
 
 /**
