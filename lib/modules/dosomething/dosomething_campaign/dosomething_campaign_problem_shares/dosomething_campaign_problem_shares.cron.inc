@@ -20,6 +20,7 @@ function dosomething_campaign_problem_shares_cron() {
 
   // Get the relevant paths
   $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_hot_shares');
+  $font_path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/fonts');
   $image_location = dosomething_helpers_application_path('/html/sites/default/files');
 
   // Each active campaign, call shell script to create problem share images.
@@ -32,7 +33,7 @@ function dosomething_campaign_problem_shares_cron() {
     $nid = escapeshellarg($result->nid);
     $problem = escapeshellarg($problem);
     // Call shell script to create the image.
-    shell_exec("/bin/bash $path/create-images.sh $path $image_location $nid $problem");
+    shell_exec("/bin/bash $path/create-images.sh $font_path $image_location $nid $problem");
   }
 
 }
