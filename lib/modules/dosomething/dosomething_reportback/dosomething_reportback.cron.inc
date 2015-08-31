@@ -21,7 +21,7 @@ function dosomething_reportback_cron() {
 
   // Updated reportback counts accordingly.
   foreach ($results as $result) {
-    $override = dosomething_helplers_get_variable('node', $result->nid, 'sum_rb_quantity_override');
+    $override = dosomething_helpers_get_variable('node', $result->nid, 'sum_rb_quantity_override');
     $total = (int) $override + (int) $result->total;
     dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_quantity', $total);
 
