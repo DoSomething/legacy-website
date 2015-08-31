@@ -333,27 +333,78 @@ class Reportback extends Entity {
    *   Array storing values for flagged/promoted reasons.
    */
   public function setFlaggedPromoted($status = NULL, $values = NULL) {
+    $items = ReportbackItem::get($this->getFids());
+
+    // Determine all of the reportback statuses
+    $flagged_reportbacks = FALSE;
+    $promoted_reportbacks = FALSE;
+
+    foreach ($items as $item) {
+      if ($item->status === "flagged") {
+        $flagged_reportbacks = TRUE;
+
+      }
+      else if($item->status === "promoted") {
+        $promoted_reportbacks = TRUE;
+      }
+    }
+
+    // Verifies that reportbacks get the correct status and boolean
+    // regardless of the order they are reviewed or how many there is
+    if ($flagged_reportbacks || $status === "flagged") {
+      $status = "flagged";
+    }
+    // Promoted must be after flagged as it has second priority
+    else if($promoted_reportbacks || $status === "promoted") {
+      $status = "promoted";
+    }
+
+    // Based on the logic decided above, modify the review values
     if ($status === 'flagged') {
       $this->flagged = 1;
-      $this->flagged_reason = $values['flagged_reason'] ?: NULL;
       $this->promoted = 0;
+
+      // If the user doesn't select a reason for a reportback item,
+      // an array is sent instead of a string.
+      if (is_string($values['flagged_reason'])) {
+        // Ensure that the string isn't empty (Occurs when you press save without changing anything)
+        if (empty($values['flagged_reason'])) {
+          // If the string is empty use the existing reason
+          $values['flagged_reason'] = $this->flagged_reason;
+        }
+        $this->flagged_reason = $values['flagged_reason'];
+      }
+
+      // Set the other status reason to NULL if there isn't any left
+      if (!$promoted_reportbacks) {
+        $this->promoted_reason = NULL;
+      }
     }
     elseif ($status === 'promoted') {
       $this->promoted = 1;
-      $this->promoted_reason = $values['promoted_reason'] ?: NULL;
       $this->flagged = 0;
+
+      // If the user doesn't select a reason for a reportback item,
+      // an array is sent instead of a string.
+      if (is_string($values['promoted_reason'])) {
+        // Ensure that the string isn't empty (Occurs when you press save without changing anything)
+        if (empty($values['promoted_reason'])) {
+          // If the string is empty use the existing reason
+          $values['promoted_reason'] = $this->promoted_reason;
+        }
+        $this->promoted_reason = $values['promoted_reason'];
+      }
+
+      // There should never be a flagged reason when promoted is the reportback status
+      $this->flagged_reason = NULL;
     }
     else {
-      // These extra if statments verify that we're not overriding existing values
-      if ($this->flagged == NULL) {
-        $this->flagged = 0;
-        $this->promoted_reason = NULL;
-      }
-      if ($this->promoted == NULL) {
-        $this->promoted = 0;
-        $this->flagged_reason = NULL;
-      }
+      $this->flagged = 0;
+      $this->promoted = 0;
+      $this->flagged_reason = NULL;
+      $this->promoted_reason = NULL;
     }
+
     return entity_save('reportback', $this);
   }
 
