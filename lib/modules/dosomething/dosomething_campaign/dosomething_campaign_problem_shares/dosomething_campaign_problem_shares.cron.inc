@@ -18,13 +18,9 @@ function dosomething_campaign_problem_shares_cron() {
                        AND s.field_campaign_status_value = 'active'
                        GROUP BY n.nid;");
 
-  // Get the right path
-  $working_directory = shell_exec("pwd");
-  $working_directory  = explode("/", $working_directory);
-  array_pop($working_directory);
-  $working_directory  = implode('/', $working_directory );
-  $path = $working_directory . "/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares";
-  $image_location = $working_directory . "/html/sites/default/files";
+  // Get the relevant paths
+  $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_hot_shares');
+  $image_location = dosomething_helpers_application_path('/html/sites/default/files');
 
   // Each active campaign, call shell script to create problem share images.
   foreach($results as $result) {
