@@ -364,9 +364,12 @@ class Reportback extends Entity {
       $this->flagged = 1;
       $this->promoted = 0;
 
-      // Make sure the reason is correct
+      // If the user doesn't select a reason for a reportback item,
+      // an array is sent instead of a string.
       if (is_string($values['flagged_reason'])) {
+        // Ensure that the string isn't empty (Occurs when you press save without changing anything)
         if (empty($values['flagged_reason'])) {
+          // If the string is empty use the existing reason
           $values['flagged_reason'] = $this->flagged_reason;
         }
         $this->flagged_reason = $values['flagged_reason'];
@@ -381,9 +384,12 @@ class Reportback extends Entity {
       $this->promoted = 1;
       $this->flagged = 0;
 
-      // Make sure the reason is correct
+      // If the user doesn't select a reason for a reportback item,
+      // an array is sent instead of a string.
       if (is_string($values['promoted_reason'])) {
+        // Ensure that the string isn't empty (Occurs when you press save without changing anything)
         if (empty($values['promoted_reason'])) {
+          // If the string is empty use the existing reason
           $values['promoted_reason'] = $this->promoted_reason;
         }
         $this->promoted_reason = $values['promoted_reason'];
