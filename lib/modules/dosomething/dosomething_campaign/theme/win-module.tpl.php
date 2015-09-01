@@ -37,7 +37,9 @@
         </div>
       </div>
       <div class="win-module__reportback show-at-large">
-        <img src="<?php print $promoted_image ?>" />
+        <?php if ($promoted_image): ?>
+          <img src="<?php print $promoted_image ?>" />
+        <?php endif; ?>
       </div>
     </div>
   </div>
