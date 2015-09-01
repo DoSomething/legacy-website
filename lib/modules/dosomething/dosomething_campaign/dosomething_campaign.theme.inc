@@ -191,7 +191,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
 
   // Get random promoted reportback image
   $parameters = array(
-    'campaigns' => $vars['nid'],
+    'nid' => $vars['nid'],
     'status' => 'promoted',
     'count' => '1',
     'random' => true,
