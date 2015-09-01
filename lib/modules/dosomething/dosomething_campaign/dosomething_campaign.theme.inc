@@ -196,9 +196,20 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
     'count' => '1',
     'random' => true,
   );
-  $random_image = ReportbackItem::find($parameters)[0];
-  if (isset($random_image)) {
-    $promoted_image = $random_image->media['uri'];
+  $promoted_image = NULL;
+  try {
+    // First try and retrieve a promoted reportback
+    $promoted_image = ReportbackItem::find($parameters)[0]->media['uri'];
+  }
+  catch (Exception $error) {
+    // If that fails try and find just an approved ReportbackItem
+    try {
+      $parameters['status'] = 'approved';
+      $promoted_image = ReportbackItem::find($parameters)[0]->media['uri'];
+    }
+    catch (Exception $error) {
+      // Do nothing, the template has a null check
+    }
   }
 
   // Share bar
