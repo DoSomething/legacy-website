@@ -618,8 +618,8 @@ function dosomething_campaign_get_scholarship($nid) {
  *  Formatted time (e.g. "4 days left")
  */
 function dosomething_campaign_get_hot_time_left($node) {
-  $today = new DateTime();
-  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
+  $today = dosomething_campaign_set_est_timezone(new DateTime());
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']), TRUE, TRUE);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
   $hours_left = $difference->h + ($days_left * 24);

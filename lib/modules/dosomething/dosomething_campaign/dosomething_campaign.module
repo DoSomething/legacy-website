@@ -738,10 +738,8 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  */
 function dosomething_campaign_is_hot_module($vars) {
   $today = dosomething_campaign_set_est_timezone(new DateTime());
-  $today->setTimezone(new DateTimeZone('America/New_York'));
-  $start_date = new DateTime($vars['field_high_season'][0]['value']);
-  $end_date = new DateTime($vars['field_high_season'][0]['value2']);
-  $end_date->setTime(23, 59, 59);
+  $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
 
   // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
   if (!empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
@@ -826,10 +824,8 @@ function dosomething_campaign_is_active($node) {
   */
  function dosomething_campaign_is_win_module($vars) {
    $today = dosomething_campaign_set_est_timezone(new DateTime());
-   $end_date = new DateTime($vars['field_high_season'][0]['value2']);
-   $end_date->setTime(23, 59, 59);
-   $win_module_end = date_modify(clone $end_date, '+30 days');
-   $win_module_end->setTime(23, 59, 59);
+   $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
+   $win_module_end = dosomething_campaign_set_est_timezone(date_modify(clone $end_date, '+30 days'), TRUE, TRUE);
 
    // Win module is only enabled when variable is set, high season dates exist and there is still days left.
    if (variable_get('dosomething_campaign_enable_win_module', NULL) == 1 && !empty($vars['field_high_season']) && (($end_date < $today)  && ($today < $win_module_end))) {
@@ -843,14 +839,22 @@ function dosomething_campaign_is_active($node) {
    *
    * @param DateTime $date
    *  DateTime to edit
+   * @param boolean $add_four
+   *  Optional - prevents default EST datetime conversion from becoming previous day
    * @param boolean $end_of_day;
    *  Optional - set the date to end of day
    *
    * @return DateTime
    *  Updated time
    */
-function dosomething_campaign_set_est_timezone($date) {
+function dosomething_campaign_set_est_timezone($date, $add_four = FALSE, $end_of_day = FALSE) {
+  if ($add_four) {
+    $date->add(new DateInterval('PT4H'));
+  }
   $date->setTimezone(new DateTimeZone('America/New_York'));
+  if ($end_of_day) {
+    $date->setTime(23, 59, 59);
+  }
   return $date;
 }
 
