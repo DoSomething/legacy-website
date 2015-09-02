@@ -10,17 +10,32 @@ include_once 'dosomething_global.features.inc';
  * Implements hook_form_alter().
  */
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-  global $user;
   // Check if the user is a mexico or brazil admin
-  if (in_array('brazil admin', $user->roles) || in_array('mexico admin', $user->roles)) {
+  if (dosomething_global_is_regional_admin()) {
     // Get translatable fields.
     $fields = $form_state['field'];
     foreach ($fields as $field) {
-      $translatable = $field['en']['field']['translatable'];
-      // If the field is not translatable disable access 
-      if (!$translatable) {
-        $form[$field[LANGUAGE_NONE]['field']['field_name']]['#access'] = FALSE;
+      $field_name = $field[LANGUAGE_NONE]['field']['field_name'];
+      $field_info = field_info_field($field_name);
+      // If the field is not translatable disable access
+      if (!$field_info['translatable']) {
+        $form[$field_name]['#access'] = FALSE;
       }
     }
   }
+}
+
+/**
+ * Returns if the user is a regional admin
+ *
+ * @param Object $user
+ *   Optional - A specified user to check
+ *
+ * @return SelectQuery object
+ */
+function dosomething_global_is_regional_admin($user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+  return (in_array('brazil admin', $user->roles) || in_array('mexico admin', $user->roles));
 }
