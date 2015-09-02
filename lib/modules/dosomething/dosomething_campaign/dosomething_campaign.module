@@ -738,8 +738,8 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  */
 function dosomething_campaign_is_hot_module($vars) {
   $today = dosomething_campaign_set_est_timezone(new DateTime());
-  $start_date = new DateTime($vars['field_high_season'][0]['value']);
-  $end_date = new DateTime($vars['field_high_season'][0]['value2']);
+  $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
   $end_date->setTime(23, 59, 59);
 
   // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
@@ -825,7 +825,7 @@ function dosomething_campaign_is_active($node) {
   */
  function dosomething_campaign_is_win_module($vars) {
    $today = dosomething_campaign_set_est_timezone(new DateTime());
-   $end_date = dosomething_campaign_set_est_timezone(new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']), TRUE, TRUE);
+   $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
    $win_module_end = dosomething_campaign_set_est_timezone(date_modify(clone $end_date, '+30 days'), TRUE, TRUE);
 
    // Win module is only enabled when variable is set, high season dates exist and there is still days left.
