@@ -258,8 +258,11 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
   $mp_story_id = $vars['sms_game_mp_story_id'];
   $mp_story_type = $vars['sms_game_mp_story_type'];
 
+  $has_single_player_config = $opt_in_path && $friends_opt_in_path;
+  $has_multiplayer_config = $mp_story_id && $mp_story_type;
+
   // Check for single-player variables:
-  if ($opt_in_path && $friends_opt_in_path) {
+  if ($has_single_player_config && !$has_multiplayer_config) {
     $sms_game_type = 'single_player';
     $form['opt_in_path'] = array(
       '#type' => 'hidden',
@@ -271,7 +274,7 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
     );
   }
   // Else check for multi-player variables:
-  elseif ($mp_story_id && $mp_story_type) {
+  elseif ($has_multiplayer_config && !$has_single_player_config) {
     $sms_game_type = 'multi_player';
     $form['story_id'] = array(
       '#type' => 'hidden',
