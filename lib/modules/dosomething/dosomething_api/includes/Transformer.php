@@ -370,13 +370,21 @@ abstract class Transformer {
    * @return array
    */
   protected function transformReportback($data) {
+
+
     $output = [
       'id' => $data->id,
       'created_at' => $data->created_at,
       'updated_at' => $data->updated_at,
       'quantity' => $data->quantity,
-      'uri' => $data->uri . '.json',
     ];
+
+    if (!isset($data->uri)) {
+      $output['uri'] = services_resource_uri(['reportback', $data->id]) . '.json';
+    }
+    else {
+      $output['uri'] = $data->uri . '.json';
+    }
 
     if ($data instanceof Reportback) {
       $output['why_participated'] = $data->why_participated;
