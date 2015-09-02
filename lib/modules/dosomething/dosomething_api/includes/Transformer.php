@@ -370,8 +370,6 @@ abstract class Transformer {
    * @return array
    */
   protected function transformReportback($data) {
-
-
     $output = [
       'id' => $data->id,
       'created_at' => $data->created_at,
