@@ -37,6 +37,7 @@ function dosomething_global_is_regional_admin($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
+<<<<<<< HEAD
   $regional_roles = explode(",", GLOBAL_ADMIN_ROLES);
   foreach ($user->roles as $role) {
     if (in_array($role, $regional_roles)) {
@@ -44,4 +45,7 @@ function dosomething_global_is_regional_admin($user = NULL) {
     }
   }
   return FALSE;
+=======
+  return (in_array('brazil admin', $user->roles) || in_array('mexico admin', $user->roles));
+>>>>>>> Updates logic to use field info
 }
