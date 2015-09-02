@@ -3,15 +3,10 @@
 ## [v1.1.12](https://github.com/dosomething/phoenix/tree/v1.1.12) (2015-09-01)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.1.11...v1.1.12)
 
-**Fixed bugs:**
-
-- win module reportback image [\#4976](https://github.com/DoSomething/phoenix/issues/4976)
-
 **Merged pull requests:**
 
 - Enable the hot module share module. [\#4979](https://github.com/DoSomething/phoenix/pull/4979) ([DFurnes](https://github.com/DFurnes))
 - Switches campaigns to nid [\#4978](https://github.com/DoSomething/phoenix/pull/4978) ([deadlybutter](https://github.com/deadlybutter))
-- Hot module share [\#4974](https://github.com/DoSomething/phoenix/pull/4974) ([DFurnes](https://github.com/DFurnes))
 
 ## [v1.1.11](https://github.com/dosomething/phoenix/tree/v1.1.11) (2015-08-31)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.1.10...v1.1.11)
@@ -29,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Hot module share [\#4974](https://github.com/DoSomething/phoenix/pull/4974) ([DFurnes](https://github.com/DFurnes))
 - Moves entity save to before review call [\#4971](https://github.com/DoSomething/phoenix/pull/4971) ([deadlybutter](https://github.com/deadlybutter))
 
 ## [v1.1.10](https://github.com/dosomething/phoenix/tree/v1.1.10) (2015-08-31)
@@ -176,7 +172,6 @@
 **Merged pull requests:**
 
 - Fixes \#4894: campaign images on search results. [\#4919](https://github.com/DoSomething/phoenix/pull/4919) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Makes campaigns translatable [\#4803](https://github.com/DoSomething/phoenix/pull/4803) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 
 ## [v1.1.0](https://github.com/dosomething/phoenix/tree/v1.1.0) (2015-08-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.0.37...v1.1.0)
@@ -192,6 +187,10 @@
 
 - Admin: Move campaing language selection dropdown to the top [\#4907](https://github.com/DoSomething/phoenix/issues/4907)
 - Thor "Explore Campaigns" Page Doesn't Populate with Anything [\#4895](https://github.com/DoSomething/phoenix/issues/4895)
+
+**Merged pull requests:**
+
+- Makes campaigns translatable [\#4803](https://github.com/DoSomething/phoenix/pull/4803) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 
 ## [v1.0.37](https://github.com/dosomething/phoenix/tree/v1.0.37) (2015-08-25)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.0.36...v1.0.37)
@@ -535,7 +534,6 @@
 **Merged pull requests:**
 
 - Custom GA events for hot module shares [\#4781](https://github.com/DoSomething/phoenix/pull/4781) ([sbsmith86](https://github.com/sbsmith86))
-- Fix bug in how drupal reads the schema for RB table. [\#4777](https://github.com/DoSomething/phoenix/pull/4777) ([weerd](https://github.com/weerd))
 
 ## [v1.0.11](https://github.com/dosomething/phoenix/tree/v1.0.11) (2015-08-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.0.10...v1.0.11)
@@ -543,6 +541,10 @@
 **Fixed bugs:**
 
 - Flagged status should be null by default [\#4756](https://github.com/DoSomething/phoenix/issues/4756)
+
+**Merged pull requests:**
+
+- Fix bug in how drupal reads the schema for RB table. [\#4777](https://github.com/DoSomething/phoenix/pull/4777) ([weerd](https://github.com/weerd))
 
 ## [v1.0.10](https://github.com/dosomething/phoenix/tree/v1.0.10) (2015-08-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v1.0.9...v1.0.10)
@@ -698,7 +700,6 @@
 - Update Neue references to point to Forge. [\#4729](https://github.com/DoSomething/phoenix/pull/4729) ([DFurnes](https://github.com/DFurnes))
 - DoSomething Global module. [\#4726](https://github.com/DoSomething/phoenix/pull/4726) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Adds promoted/flagged reasons to the reportback log [\#4722](https://github.com/DoSomething/phoenix/pull/4722) ([deadlybutter](https://github.com/deadlybutter))
-- Fixes old typo that caused user var not to get set. [\#4721](https://github.com/DoSomething/phoenix/pull/4721) ([angaither](https://github.com/angaither))
 
 ## [v0.5.25](https://github.com/dosomething/phoenix/tree/v0.5.25) (2015-07-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.5.24...v0.5.25)
@@ -714,12 +715,12 @@
 
 **Merged pull requests:**
 
+- Fixes old typo that caused user var not to get set. [\#4721](https://github.com/DoSomething/phoenix/pull/4721) ([angaither](https://github.com/angaither))
 - Added update query to set flagged status to 1 [\#4719](https://github.com/DoSomething/phoenix/pull/4719) ([angaither](https://github.com/angaither))
 - Remove scale steps from graph [\#4718](https://github.com/DoSomething/phoenix/pull/4718) ([sbsmith86](https://github.com/sbsmith86))
 - Fixes minor time left bugs [\#4717](https://github.com/DoSomething/phoenix/pull/4717) ([deadlybutter](https://github.com/deadlybutter))
 - Hot module cross browser [\#4716](https://github.com/DoSomething/phoenix/pull/4716) ([sbsmith86](https://github.com/sbsmith86))
 - Campaign class update [\#4715](https://github.com/DoSomething/phoenix/pull/4715) ([weerd](https://github.com/weerd))
-- Hot Module: Social Stuff [\#4712](https://github.com/DoSomething/phoenix/pull/4712) ([sbsmith86](https://github.com/sbsmith86))
 - Form updates for multiplayer SMS games [\#4710](https://github.com/DoSomething/phoenix/pull/4710) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.5.24](https://github.com/dosomething/phoenix/tree/v0.5.24) (2015-07-21)
@@ -731,6 +732,7 @@
 
 **Merged pull requests:**
 
+- Hot Module: Social Stuff [\#4712](https://github.com/DoSomething/phoenix/pull/4712) ([sbsmith86](https://github.com/sbsmith86))
 - fix date bug [\#4711](https://github.com/DoSomething/phoenix/pull/4711) ([chloealee](https://github.com/chloealee))
 
 ## [v0.5.23](https://github.com/dosomething/phoenix/tree/v0.5.23) (2015-07-21)
@@ -775,7 +777,6 @@
 - High season end date not outputting correctly [\#4673](https://github.com/DoSomething/phoenix/issues/4673)
 - Campaign Thumbnails Not Appearing on Affiliate /campaigns [\#4630](https://github.com/DoSomething/phoenix/issues/4630)
 - admin fields no longer hidden when campaign\_type = SMS game [\#4319](https://github.com/DoSomething/phoenix/issues/4319)
-- Password Reset status page formatting [\#2384](https://github.com/DoSomething/phoenix/issues/2384)
 
 **Closed issues:**
 
@@ -921,7 +922,6 @@
 **Merged pull requests:**
 
 - Fly away little droops users [\#4640](https://github.com/DoSomething/phoenix/pull/4640) ([angaither](https://github.com/angaither))
-- Add action kit as an option for shipment [\#4636](https://github.com/DoSomething/phoenix/pull/4636) ([angaither](https://github.com/angaither))
 - Fix typo that caused override to appear not to save. [\#4635](https://github.com/DoSomething/phoenix/pull/4635) ([angaither](https://github.com/angaither))
 
 ## [v0.5.11](https://github.com/dosomething/phoenix/tree/v0.5.11) (2015-06-30)
@@ -938,6 +938,7 @@
 
 **Merged pull requests:**
 
+- Add action kit as an option for shipment [\#4636](https://github.com/DoSomething/phoenix/pull/4636) ([angaither](https://github.com/angaither))
 - Hot Module Graph [\#4627](https://github.com/DoSomething/phoenix/pull/4627) ([sbsmith86](https://github.com/sbsmith86))
 - Add user job title field [\#4622](https://github.com/DoSomething/phoenix/pull/4622) ([angaither](https://github.com/angaither))
 - Wrap northstar user migrations in try/catch [\#4620](https://github.com/DoSomething/phoenix/pull/4620) ([angaither](https://github.com/angaither))
@@ -966,7 +967,6 @@
 **Merged pull requests:**
 
 - Fixes PHP Fatal error: Class 'Transformer' not found during ds install [\#4613](https://github.com/DoSomething/phoenix/pull/4613) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Campaign api update [\#4609](https://github.com/DoSomething/phoenix/pull/4609) ([weerd](https://github.com/weerd))
 
 ## [v0.5.8](https://github.com/dosomething/phoenix/tree/v0.5.8) (2015-06-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.5.7...v0.5.8)
@@ -988,6 +988,7 @@
 
 **Merged pull requests:**
 
+- Campaign api update [\#4609](https://github.com/DoSomething/phoenix/pull/4609) ([weerd](https://github.com/weerd))
 - Send user updates to aurora [\#4600](https://github.com/DoSomething/phoenix/pull/4600) ([angaither](https://github.com/angaither))
 
 ## [v0.5.7](https://github.com/dosomething/phoenix/tree/v0.5.7) (2015-06-22)
@@ -1072,7 +1073,6 @@
 - Forward user updates to northstar [\#4569](https://github.com/DoSomething/phoenix/issues/4569)
 - Tips Modal Spacing Off on Mobile [\#4517](https://github.com/DoSomething/phoenix/issues/4517)
 - Notify Northstar when a kudos is received [\#4472](https://github.com/DoSomething/phoenix/issues/4472)
-- \[Signup Data Form\] - "In order to receive" left blank error state inconsistent [\#2167](https://github.com/DoSomething/phoenix/issues/2167)
 
 **Merged pull requests:**
 
@@ -1234,17 +1234,23 @@
 
 **Closed issues:**
 
-- Feature flag problem shares on action page [\#4503](https://github.com/DoSomething/phoenix/issues/4503)
 - problem facts on social [\#4476](https://github.com/DoSomething/phoenix/issues/4476)
 - sharing problem fact on action page [\#4475](https://github.com/DoSomething/phoenix/issues/4475)
 
 **Merged pull requests:**
 
 - Programatically finding full path to font files [\#4508](https://github.com/DoSomething/phoenix/pull/4508) ([sbsmith86](https://github.com/sbsmith86))
-- Problem sharing functionality on campaign action page [\#4501](https://github.com/DoSomething/phoenix/pull/4501) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.4.112](https://github.com/dosomething/phoenix/tree/v0.4.112) (2015-05-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.111...v0.4.112)
+
+**Closed issues:**
+
+- Feature flag problem shares on action page [\#4503](https://github.com/DoSomething/phoenix/issues/4503)
+
+**Merged pull requests:**
+
+- Problem sharing functionality on campaign action page [\#4501](https://github.com/DoSomething/phoenix/pull/4501) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.4.111](https://github.com/dosomething/phoenix/tree/v0.4.111) (2015-05-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.110...v0.4.111)
@@ -1325,7 +1331,6 @@
 **Closed issues:**
 
 - Reportback count override [\#4453](https://github.com/DoSomething/phoenix/issues/4453)
-- Views security update [\#4452](https://github.com/DoSomething/phoenix/issues/4452)
 - User registration API endpoint [\#4232](https://github.com/DoSomething/phoenix/issues/4232)
 - API Login by email \(not username\) [\#4046](https://github.com/DoSomething/phoenix/issues/4046)
 
@@ -1338,13 +1343,10 @@
 ## [v0.4.104](https://github.com/dosomething/phoenix/tree/v0.4.104) (2015-05-07)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.103...v0.4.104)
 
-**Fixed bugs:**
-
-- ds script doesn't check .bash\_profile before appending aliases [\#1488](https://github.com/DoSomething/phoenix/issues/1488)
-
 **Closed issues:**
 
 - non-owner permalink title if user first name does not exist [\#4455](https://github.com/DoSomething/phoenix/issues/4455)
+- Views security update [\#4452](https://github.com/DoSomething/phoenix/issues/4452)
 - Add goal animation fields [\#4443](https://github.com/DoSomething/phoenix/issues/4443)
 - Add Kudos API resource for full CRUD capabilities [\#4431](https://github.com/DoSomething/phoenix/issues/4431)
 
@@ -1523,17 +1525,19 @@
 - Make all of the Tip fields required on the campaign template [\#4147](https://github.com/DoSomething/phoenix/issues/4147)
 - Remove the Alt BG File fid field. [\#4026](https://github.com/DoSomething/phoenix/issues/4026)
 - Safari photo upload crashes the tab in iOS 8.0.2 [\#3971](https://github.com/DoSomething/phoenix/issues/3971)
-- Update Campaign Module vars to match classes in template [\#1561](https://github.com/DoSomething/phoenix/issues/1561)
 
 **Merged pull requests:**
 
 - Persistent nav updates [\#4399](https://github.com/DoSomething/phoenix/pull/4399) ([sbsmith86](https://github.com/sbsmith86))
 - Update reportback totals on cron [\#4396](https://github.com/DoSomething/phoenix/pull/4396) ([angaither](https://github.com/angaither))
 - Format progress number. [\#4391](https://github.com/DoSomething/phoenix/pull/4391) ([sbsmith86](https://github.com/sbsmith86))
-- Remove Alternate BG FID Field on campaigns [\#4382](https://github.com/DoSomething/phoenix/pull/4382) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.4.88](https://github.com/dosomething/phoenix/tree/v0.4.88) (2015-04-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.87...v0.4.88)
+
+**Merged pull requests:**
+
+- Remove Alternate BG FID Field on campaigns [\#4382](https://github.com/DoSomething/phoenix/pull/4382) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.4.87](https://github.com/dosomething/phoenix/tree/v0.4.87) (2015-04-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.86...v0.4.87)
@@ -1573,7 +1577,6 @@
 **Closed issues:**
 
 - Create `get\_scholarship` helper function [\#4333](https://github.com/DoSomething/phoenix/issues/4333)
-- MariaDB [\#601](https://github.com/DoSomething/phoenix/issues/601)
 
 **Merged pull requests:**
 
@@ -2077,7 +2080,6 @@
 **Closed issues:**
 
 - IE8 share bug [\#4216](https://github.com/DoSomething/phoenix/issues/4216)
-- add coupons as a shipment item on the campaign signup data form [\#4195](https://github.com/DoSomething/phoenix/issues/4195)
 
 **Merged pull requests:**
 
@@ -2106,6 +2108,7 @@
 
 - Update twitter link on permalink share [\#4204](https://github.com/DoSomething/phoenix/issues/4204)
 - share cta region runs over on mobile [\#4196](https://github.com/DoSomething/phoenix/issues/4196)
+- add coupons as a shipment item on the campaign signup data form [\#4195](https://github.com/DoSomething/phoenix/issues/4195)
 
 **Merged pull requests:**
 
@@ -2173,10 +2176,6 @@
 ## [v0.4.35](https://github.com/dosomething/phoenix/tree/v0.4.35) (2015-03-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.34...v0.4.35)
 
-**Closed issues:**
-
-- add feature flag for share language and CTA on confirmation page [\#4162](https://github.com/DoSomething/phoenix/issues/4162)
-
 **Merged pull requests:**
 
 - sending share\_enabled to the template [\#4170](https://github.com/DoSomething/phoenix/pull/4170) ([sbsmith86](https://github.com/sbsmith86))
@@ -2186,6 +2185,7 @@
 
 **Closed issues:**
 
+- add feature flag for share language and CTA on confirmation page [\#4162](https://github.com/DoSomething/phoenix/issues/4162)
 - Social share copy [\#4161](https://github.com/DoSomething/phoenix/issues/4161)
 - Reportback API must support uploading files [\#4151](https://github.com/DoSomething/phoenix/issues/4151)
 
@@ -2194,7 +2194,6 @@
 - Permalink sharing take two [\#4169](https://github.com/DoSomething/phoenix/pull/4169) ([angaither](https://github.com/angaither))
 - Removed redirect to old confirmation page. [\#4166](https://github.com/DoSomething/phoenix/pull/4166) ([angaither](https://github.com/angaither))
 - Created new variable on settings page for social share copy. [\#4165](https://github.com/DoSomething/phoenix/pull/4165) ([angaither](https://github.com/angaither))
-- Upload files via Reportback endpoint [\#4164](https://github.com/DoSomething/phoenix/pull/4164) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.4.33](https://github.com/dosomething/phoenix/tree/v0.4.33) (2015-03-11)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.32...v0.4.33)
@@ -2208,6 +2207,7 @@
 
 **Merged pull requests:**
 
+- Upload files via Reportback endpoint [\#4164](https://github.com/DoSomething/phoenix/pull/4164) ([aaronschachter](https://github.com/aaronschachter))
 - Revert "⚠ Permalink sharing" [\#4163](https://github.com/DoSomething/phoenix/pull/4163) ([angaither](https://github.com/angaither))
 
 ## [v0.4.32](https://github.com/dosomething/phoenix/tree/v0.4.32) (2015-03-11)
@@ -2434,8 +2434,6 @@
 
 **Closed issues:**
 
-- Permalink page is only visible to the user who created the reportback [\#4052](https://github.com/DoSomething/phoenix/issues/4052)
-- API should not strip characters from Reportback fields [\#4047](https://github.com/DoSomething/phoenix/issues/4047)
 - After reportbacking back, redirect user to RB confirmation [\#4004](https://github.com/DoSomething/phoenix/issues/4004)
 - View more link persists when there’s no more images to view [\#3908](https://github.com/DoSomething/phoenix/issues/3908)
 - Reportback Permalink page \(bender\) [\#3540](https://github.com/DoSomething/phoenix/issues/3540)
@@ -2455,6 +2453,8 @@
 
 **Closed issues:**
 
+- Permalink page is only visible to the user who created the reportback [\#4052](https://github.com/DoSomething/phoenix/issues/4052)
+- API should not strip characters from Reportback fields [\#4047](https://github.com/DoSomething/phoenix/issues/4047)
 - Standalone Subscription Interface [\#3522](https://github.com/DoSomething/phoenix/issues/3522)
 
 **Merged pull requests:**
@@ -2653,15 +2653,9 @@
 - Fix issues with fact page layout. [\#3986](https://github.com/DoSomething/phoenix/pull/3986) ([DFurnes](https://github.com/DFurnes))
 - Fixes \#3857. [\#3984](https://github.com/DoSomething/phoenix/pull/3984) ([DFurnes](https://github.com/DFurnes))
 - Fixes \#3384. [\#3983](https://github.com/DoSomething/phoenix/pull/3983) ([DFurnes](https://github.com/DFurnes))
-- Adds dropdown menu to nav [\#3944](https://github.com/DoSomething/phoenix/pull/3944) ([deadlybutter](https://github.com/deadlybutter))
 
 ## [v0.4.3](https://github.com/dosomething/phoenix/tree/v0.4.3) (2015-02-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.2...v0.4.3)
-
-**Fixed bugs:**
-
-- \[Nav\] all sorts of whack on iOS [\#2166](https://github.com/DoSomething/phoenix/issues/2166)
-- action page \(prove it\) - don't display arrows if only one image [\#1120](https://github.com/DoSomething/phoenix/issues/1120)
 
 **Closed issues:**
 
@@ -2672,23 +2666,12 @@
 - Send password reset transactionals via MB [\#3432](https://github.com/DoSomething/phoenix/issues/3432)
 - Send all new user transactionals via MB [\#3430](https://github.com/DoSomething/phoenix/issues/3430)
 - User Email Opt-in preferences [\#3365](https://github.com/DoSomething/phoenix/issues/3365)
-- \[Campaign Template\] - clean up spacing in Prove It section [\#2526](https://github.com/DoSomething/phoenix/issues/2526)
-- \[Grouped Campaigns\] text wrap intro text area [\#2280](https://github.com/DoSomething/phoenix/issues/2280)
-- Fix homepage tile lazy loading when Finder is disabled [\#2268](https://github.com/DoSomething/phoenix/issues/2268)
-- \[Refactor\] Add more media queries and rename to be more generic for sizes and not device specific. [\#1902](https://github.com/DoSomething/phoenix/issues/1902)
-- \[Refactor\] Reconsider the Bourbon Neat layout grid for mobile. [\#1901](https://github.com/DoSomething/phoenix/issues/1901)
-- Update logo placeholder image on homepage while loading. [\#1868](https://github.com/DoSomething/phoenix/issues/1868)
-- \[User Profile\] Update top nav to link to profile [\#1861](https://github.com/DoSomething/phoenix/issues/1861)
-- Move down campaign name and tagline on mobile action page [\#1770](https://github.com/DoSomething/phoenix/issues/1770)
-- campaign – refactor column classes [\#1627](https://github.com/DoSomething/phoenix/issues/1627)
-- action page \(nav\) - glitches when I scroll to the top on mobile [\#1313](https://github.com/DoSomething/phoenix/issues/1313)
-- galleries - refactor to make them consistent [\#1302](https://github.com/DoSomething/phoenix/issues/1302)
-- action page \(prove it\) - move official rules below the photo in mobile [\#1201](https://github.com/DoSomething/phoenix/issues/1201)
 
 **Merged pull requests:**
 
 - Update header markup on Confirmation page. [\#3982](https://github.com/DoSomething/phoenix/pull/3982) ([DFurnes](https://github.com/DFurnes))
 - Update to selection year options and adding some basic styles. [\#3981](https://github.com/DoSomething/phoenix/pull/3981) ([weerd](https://github.com/weerd))
+- Adds dropdown menu to nav [\#3944](https://github.com/DoSomething/phoenix/pull/3944) ([deadlybutter](https://github.com/deadlybutter))
 
 ## [v0.4.2](https://github.com/dosomething/phoenix/tree/v0.4.2) (2015-02-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.4.1...v0.4.2)
@@ -2697,8 +2680,6 @@
 
 - Job Skills taxonomy [\#3925](https://github.com/DoSomething/phoenix/issues/3925)
 - Scholarship text not aligned on mobile [\#3795](https://github.com/DoSomething/phoenix/issues/3795)
-- Admin menu environment indicator [\#1889](https://github.com/DoSomething/phoenix/issues/1889)
-- campaign \(action guides\) – "banner" font sizes on mobile [\#1643](https://github.com/DoSomething/phoenix/issues/1643)
 
 **Merged pull requests:**
 
@@ -2756,7 +2737,6 @@
 - User Profile: Campaign Status bender [\#3374](https://github.com/DoSomething/phoenix/issues/3374)
 - User Profile: Redeem T-Shirt Form [\#3373](https://github.com/DoSomething/phoenix/issues/3373)
 - International sites need to be able to customize phone number format placeholder [\#3183](https://github.com/DoSomething/phoenix/issues/3183)
-- Cron funkyness [\#2544](https://github.com/DoSomething/phoenix/issues/2544)
 
 **Merged pull requests:**
 
@@ -2830,7 +2810,6 @@
 **Fixed bugs:**
 
 - contact us modal styling is off [\#3933](https://github.com/DoSomething/phoenix/issues/3933)
-- ZenDesk submission error [\#3931](https://github.com/DoSomething/phoenix/issues/3931)
 - "File upload error. Could not move uploaded file." on node 4044 [\#3926](https://github.com/DoSomething/phoenix/issues/3926)
 - Squishy preview image on mobile [\#3909](https://github.com/DoSomething/phoenix/issues/3909)
 
@@ -2847,6 +2826,10 @@
 
 ## [v0.3.223](https://github.com/dosomething/phoenix/tree/v0.3.223) (2015-02-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.222...v0.3.223)
+
+**Fixed bugs:**
+
+- ZenDesk submission error [\#3931](https://github.com/DoSomething/phoenix/issues/3931)
 
 **Merged pull requests:**
 
@@ -2866,10 +2849,6 @@
 ## [v0.3.221](https://github.com/dosomething/phoenix/tree/v0.3.221) (2015-02-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.220...v0.3.221)
 
-**Fixed bugs:**
-
-- Reportback admin form/view - check if rbid exists [\#1535](https://github.com/DoSomething/phoenix/issues/1535)
-
 **Closed issues:**
 
 - Reportback Upload IE Support [\#3699](https://github.com/DoSomething/phoenix/issues/3699)
@@ -2878,7 +2857,6 @@
 
 - Reportback Access fix [\#3929](https://github.com/DoSomething/phoenix/pull/3929) ([aaronschachter](https://github.com/aaronschachter))
 - Update Campaign RB Totals upon Reportback File Save  [\#3928](https://github.com/DoSomething/phoenix/pull/3928) ([aaronschachter](https://github.com/aaronschachter))
-- Reportback ie behavior [\#3927](https://github.com/DoSomething/phoenix/pull/3927) ([weerd](https://github.com/weerd))
 - Adding ds function to restart php5-fpm [\#3863](https://github.com/DoSomething/phoenix/pull/3863) ([blisteringherb](https://github.com/blisteringherb))
 
 ## [v0.3.220](https://github.com/dosomething/phoenix/tree/v0.3.220) (2015-02-10)
@@ -2890,23 +2868,20 @@
 - Ability to edit crop after you see crop preview [\#3915](https://github.com/DoSomething/phoenix/issues/3915)
 - A preview image and caption should only be shown if the user clicks done button. [\#3891](https://github.com/DoSomething/phoenix/issues/3891)
 
+**Merged pull requests:**
+
+- Reportback ie behavior [\#3927](https://github.com/DoSomething/phoenix/pull/3927) ([weerd](https://github.com/weerd))
+
 ## [v0.3.219](https://github.com/dosomething/phoenix/tree/v0.3.219) (2015-02-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.218...v0.3.219)
 
 ## [v0.3.218](https://github.com/dosomething/phoenix/tree/v0.3.218) (2015-02-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.217...v0.3.218)
 
-**Fixed bugs:**
-
-- Welcome Home campaign listed twice on /Campaigns [\#2171](https://github.com/DoSomething/phoenix/issues/2171)
-
 **Closed issues:**
 
 - Multilingual site prototype [\#3720](https://github.com/DoSomething/phoenix/issues/3720)
 - Canada: implement profile synchronization [\#3595](https://github.com/DoSomething/phoenix/issues/3595)
-- Vanity URL - Legacy redirects [\#2230](https://github.com/DoSomething/phoenix/issues/2230)
-- Redirect FAQ page [\#1766](https://github.com/DoSomething/phoenix/issues/1766)
-- Reportback post-delete functions [\#1753](https://github.com/DoSomething/phoenix/issues/1753)
 
 **Merged pull requests:**
 
@@ -2919,7 +2894,6 @@
 **Merged pull requests:**
 
 - Temporary fix for video tiles on Mobile Safari. [\#3918](https://github.com/DoSomething/phoenix/pull/3918) ([DFurnes](https://github.com/DFurnes))
-- Updates view\_unpublished contrib module [\#3917](https://github.com/DoSomething/phoenix/pull/3917) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.216](https://github.com/dosomething/phoenix/tree/v0.3.216) (2015-02-09)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.215...v0.3.216)
@@ -2936,6 +2910,7 @@
 
 **Merged pull requests:**
 
+- Updates view\_unpublished contrib module [\#3917](https://github.com/DoSomething/phoenix/pull/3917) ([aaronschachter](https://github.com/aaronschachter))
 - Show preview image of correct image file [\#3907](https://github.com/DoSomething/phoenix/pull/3907) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.3.215](https://github.com/dosomething/phoenix/tree/v0.3.215) (2015-02-06)
@@ -3077,10 +3052,6 @@
 ## [v0.3.204](https://github.com/dosomething/phoenix/tree/v0.3.204) (2015-02-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.203...v0.3.204)
 
-**Fixed bugs:**
-
-- need more space between paragraph text and inline buttons [\#3764](https://github.com/DoSomething/phoenix/issues/3764)
-
 **Merged pull requests:**
 
 - Neue 6.0 beta4 [\#3859](https://github.com/DoSomething/phoenix/pull/3859) ([DFurnes](https://github.com/DFurnes))
@@ -3098,7 +3069,6 @@
 
 - Gets rid of the last PHP short tag. [\#3869](https://github.com/DoSomething/phoenix/pull/3869) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Replaces PHP short-tag in Action Guide template which caused E\_PARSE on PHP 5.9 [\#3868](https://github.com/DoSomething/phoenix/pull/3868) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Reportback preview image [\#3862](https://github.com/DoSomething/phoenix/pull/3862) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.3.202](https://github.com/dosomething/phoenix/tree/v0.3.202) (2015-02-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.201...v0.3.202)
@@ -3106,6 +3076,7 @@
 **Fixed bugs:**
 
 - users' names not showing up on closed campaign What You Did gallery for logged out users [\#3851](https://github.com/DoSomething/phoenix/issues/3851)
+- need more space between paragraph text and inline buttons [\#3764](https://github.com/DoSomething/phoenix/issues/3764)
 
 **Closed issues:**
 
@@ -3114,6 +3085,7 @@
 
 **Merged pull requests:**
 
+- Reportback preview image [\#3862](https://github.com/DoSomething/phoenix/pull/3862) ([sbsmith86](https://github.com/sbsmith86))
 - Reportback updates part 1 [\#3861](https://github.com/DoSomething/phoenix/pull/3861) ([weerd](https://github.com/weerd))
 - Closed Gallery fix [\#3860](https://github.com/DoSomething/phoenix/pull/3860) ([aaronschachter](https://github.com/aaronschachter))
 - Grants org friend access to the active page callback [\#3858](https://github.com/DoSomething/phoenix/pull/3858) ([aaronschachter](https://github.com/aaronschachter))
@@ -3131,7 +3103,6 @@
 - change closed campaign notification message [\#3853](https://github.com/DoSomething/phoenix/issues/3853)
 - Neue issues on canada.dosomething.org [\#3834](https://github.com/DoSomething/phoenix/issues/3834)
 - Canada: Sync pre-SSO registered users via API [\#3792](https://github.com/DoSomething/phoenix/issues/3792)
-- Zendesk API kill switch [\#2066](https://github.com/DoSomething/phoenix/issues/2066)
 
 **Merged pull requests:**
 
@@ -3228,13 +3199,13 @@
 **Merged pull requests:**
 
 - Cleanup SMS Reportback functionality modules. [\#3820](https://github.com/DoSomething/phoenix/pull/3820) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- DS Terms API: Inbox count [\#3818](https://github.com/DoSomething/phoenix/pull/3818) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.193](https://github.com/dosomething/phoenix/tree/v0.3.193) (2015-01-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.192...v0.3.193)
 
 **Merged pull requests:**
 
+- DS Terms API: Inbox count [\#3818](https://github.com/DoSomething/phoenix/pull/3818) ([aaronschachter](https://github.com/aaronschachter))
 - Updates to grab full reportback data, such as captions and limiting number of prior reportbacks to show [\#3817](https://github.com/DoSomething/phoenix/pull/3817) ([weerd](https://github.com/weerd))
 
 ## [v0.3.192](https://github.com/dosomething/phoenix/tree/v0.3.192) (2015-01-27)
@@ -3351,10 +3322,6 @@
 
 - links in campaign footer should be white [\#3760](https://github.com/DoSomething/phoenix/issues/3760)
 
-**Closed issues:**
-
-- Display Flagged reason in Reportback File teaser [\#3784](https://github.com/DoSomething/phoenix/issues/3784)
-
 **Merged pull requests:**
 
 - restrict cropbox to never be smaller than 480px [\#3789](https://github.com/DoSomething/phoenix/pull/3789) ([sbsmith86](https://github.com/sbsmith86))
@@ -3368,6 +3335,10 @@
 
 - 2 column layout on SMS Games Step 2 is off [\#3768](https://github.com/DoSomething/phoenix/issues/3768)
 - scholarship winner and grant winner text should be capitalized in closed state [\#3765](https://github.com/DoSomething/phoenix/issues/3765)
+
+**Closed issues:**
+
+- Display Flagged reason in Reportback File teaser [\#3784](https://github.com/DoSomething/phoenix/issues/3784)
 
 **Merged pull requests:**
 
@@ -3385,15 +3356,11 @@
 - persistent nav missing on mobile [\#3769](https://github.com/DoSomething/phoenix/issues/3769)
 - duo gallery should be 150 x 150 [\#3758](https://github.com/DoSomething/phoenix/issues/3758)
 - Scholarship text doesn't need to show up on desktop widths [\#3727](https://github.com/DoSomething/phoenix/issues/3727)
-- \[SMS Game\] Don't display Reportbacks tab [\#2503](https://github.com/DoSomething/phoenix/issues/2503)
-- Clean tags in user submission [\#2314](https://github.com/DoSomething/phoenix/issues/2314)
 
 **Closed issues:**
 
 - Remove unused image styles in CMS. [\#3775](https://github.com/DoSomething/phoenix/issues/3775)
 - Facts page should use compacted list [\#3772](https://github.com/DoSomething/phoenix/issues/3772)
-- \[Campaign template\] Display promoted reportbacks [\#2509](https://github.com/DoSomething/phoenix/issues/2509)
-- Refactor: Use db\_select in dosomething\_reportback\_get\_gallery\_item\_ids [\#2504](https://github.com/DoSomething/phoenix/issues/2504)
 
 **Merged pull requests:**
 
@@ -3549,11 +3516,6 @@
 **Fixed bugs:**
 
 - Reportback Flagging is deleting images no matter what [\#3705](https://github.com/DoSomething/phoenix/issues/3705)
-- API Gallery: PHP Notice [\#3697](https://github.com/DoSomething/phoenix/issues/3697)
-
-**Closed issues:**
-
-- Autoflagging subsequent images [\#3654](https://github.com/DoSomething/phoenix/issues/3654)
 
 **Merged pull requests:**
 
@@ -3562,9 +3524,13 @@
 ## [v0.3.169](https://github.com/dosomething/phoenix/tree/v0.3.169) (2015-01-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.168...v0.3.169)
 
+**Fixed bugs:**
+
+- API Gallery: PHP Notice [\#3697](https://github.com/DoSomething/phoenix/issues/3697)
+
 **Closed issues:**
 
-- Variable to store Placeholder Image fid's [\#3694](https://github.com/DoSomething/phoenix/issues/3694)
+- Autoflagging subsequent images [\#3654](https://github.com/DoSomething/phoenix/issues/3654)
 
 **Merged pull requests:**
 
@@ -3575,6 +3541,7 @@
 
 **Closed issues:**
 
+- Variable to store Placeholder Image fid's [\#3694](https://github.com/DoSomething/phoenix/issues/3694)
 - SMS Reportback Caption [\#3484](https://github.com/DoSomething/phoenix/issues/3484)
 
 **Merged pull requests:**
@@ -3672,11 +3639,6 @@
 - A minimum image size should be enforced when cropping [\#3631](https://github.com/DoSomething/phoenix/issues/3631)
 - DS API: Reportback Files PUT endpoint [\#3598](https://github.com/DoSomething/phoenix/issues/3598)
 - Rollback International Affilates Databases [\#3546](https://github.com/DoSomething/phoenix/issues/3546)
-- Report back photos should become squares [\#1916](https://github.com/DoSomething/phoenix/issues/1916)
-- Reportback Field: Dynamic radio options [\#1710](https://github.com/DoSomething/phoenix/issues/1710)
-- Reportback Form: Custom field validation [\#1701](https://github.com/DoSomething/phoenix/issues/1701)
-- Add Drupal New Relic module [\#1635](https://github.com/DoSomething/phoenix/issues/1635)
-- Path based legacy redirects [\#1392](https://github.com/DoSomething/phoenix/issues/1392)
 
 **Merged pull requests:**
 
@@ -3706,10 +3668,6 @@
 ## [v0.3.155](https://github.com/dosomething/phoenix/tree/v0.3.155) (2014-12-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.154...v0.3.155)
 
-**Closed issues:**
-
-- Reportback View - additional link to raw file [\#3666](https://github.com/DoSomething/phoenix/issues/3666)
-
 **Merged pull requests:**
 
 - Fixes bug in Reportback Files review endpoint [\#3669](https://github.com/DoSomething/phoenix/pull/3669) ([aaronschachter](https://github.com/aaronschachter))
@@ -3720,6 +3678,7 @@
 
 **Closed issues:**
 
+- Reportback View - additional link to raw file [\#3666](https://github.com/DoSomething/phoenix/issues/3666)
 - display total count on reportbacks inbox [\#3655](https://github.com/DoSomething/phoenix/issues/3655)
 
 **Merged pull requests:**
@@ -3744,8 +3703,6 @@
 
 **Closed issues:**
 
-- Delete Reportback Files on entity delete [\#3646](https://github.com/DoSomething/phoenix/issues/3646)
-- warning on reportback deletion [\#3644](https://github.com/DoSomething/phoenix/issues/3644)
 - Reportback Flag form [\#3564](https://github.com/DoSomething/phoenix/issues/3564)
 - User Profile: I'm Doing buttons [\#3376](https://github.com/DoSomething/phoenix/issues/3376)
 
@@ -3757,6 +3714,11 @@
 
 ## [v0.3.151](https://github.com/dosomething/phoenix/tree/v0.3.151) (2014-12-18)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.150...v0.3.151)
+
+**Closed issues:**
+
+- Delete Reportback Files on entity delete [\#3646](https://github.com/DoSomething/phoenix/issues/3646)
+- warning on reportback deletion [\#3644](https://github.com/DoSomething/phoenix/issues/3644)
 
 **Merged pull requests:**
 
@@ -3773,13 +3735,13 @@
 
 - Flagged and flagged\_reason columns [\#3651](https://github.com/DoSomething/phoenix/pull/3651) ([aaronschachter](https://github.com/aaronschachter))
 - Change RB Reviewed filter [\#3648](https://github.com/DoSomething/phoenix/pull/3648) ([aaronschachter](https://github.com/aaronschachter))
-- Reviewed Reportbacks view [\#3645](https://github.com/DoSomething/phoenix/pull/3645) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.149](https://github.com/dosomething/phoenix/tree/v0.3.149) (2014-12-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.148...v0.3.149)
 
 **Merged pull requests:**
 
+- Reviewed Reportbacks view [\#3645](https://github.com/DoSomething/phoenix/pull/3645) ([aaronschachter](https://github.com/aaronschachter))
 - Removed second video poster print [\#3643](https://github.com/DoSomething/phoenix/pull/3643) ([deadlybutter](https://github.com/deadlybutter))
 
 ## [v0.3.148](https://github.com/dosomething/phoenix/tree/v0.3.148) (2014-12-16)
@@ -3847,11 +3809,17 @@
 
 - Reportback File Reviewer [\#3623](https://github.com/DoSomething/phoenix/pull/3623) ([aaronschachter](https://github.com/aaronschachter))
 - Reportback cropping updates [\#3622](https://github.com/DoSomething/phoenix/pull/3622) ([sbsmith86](https://github.com/sbsmith86))
-- Member index [\#3620](https://github.com/DoSomething/phoenix/pull/3620) ([aaronschachter](https://github.com/aaronschachter))
 - Rescoping header CSS on not found pages [\#3587](https://github.com/DoSomething/phoenix/pull/3587) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.3.144](https://github.com/dosomething/phoenix/tree/v0.3.144) (2014-12-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.143...v0.3.144)
+
+**Merged pull requests:**
+
+- Member index [\#3620](https://github.com/DoSomething/phoenix/pull/3620) ([aaronschachter](https://github.com/aaronschachter))
+
+## [v0.3.143](https://github.com/dosomething/phoenix/tree/v0.3.143) (2014-12-09)
+[Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.142...v0.3.143)
 
 **Closed issues:**
 
@@ -3860,9 +3828,6 @@
 **Merged pull requests:**
 
 - Set User field\_mobile value in DS API [\#3616](https://github.com/DoSomething/phoenix/pull/3616) ([aaronschachter](https://github.com/aaronschachter))
-
-## [v0.3.143](https://github.com/dosomething/phoenix/tree/v0.3.143) (2014-12-09)
-[Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.142...v0.3.143)
 
 ## [v0.3.142](https://github.com/dosomething/phoenix/tree/v0.3.142) (2014-12-09)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.141...v0.3.142)
@@ -3882,10 +3847,6 @@
 
 - taxonomy collections show blank in partnership with for logged in users [\#3607](https://github.com/DoSomething/phoenix/issues/3607)
 
-**Closed issues:**
-
-- Reportback Gallery View [\#3285](https://github.com/DoSomething/phoenix/issues/3285)
-
 **Merged pull requests:**
 
 - Partners footer bug fix [\#3609](https://github.com/DoSomething/phoenix/pull/3609) ([aaronschachter](https://github.com/aaronschachter))
@@ -3899,6 +3860,7 @@
 - Rerun US users cleanup script [\#3552](https://github.com/DoSomething/phoenix/issues/3552)
 - Import existing Legacy redirects into Beta [\#3409](https://github.com/DoSomething/phoenix/issues/3409)
 - Approved Reportback File flag + Bulk Approval [\#3389](https://github.com/DoSomething/phoenix/issues/3389)
+- Reportback Gallery View [\#3285](https://github.com/DoSomething/phoenix/issues/3285)
 
 **Merged pull requests:**
 
@@ -3943,10 +3905,6 @@
 ## [v0.3.137](https://github.com/dosomething/phoenix/tree/v0.3.137) (2014-12-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.136...v0.3.137)
 
-**Fixed bugs:**
-
-- Bug in Profile Doing links [\#3574](https://github.com/DoSomething/phoenix/issues/3574)
-
 **Closed issues:**
 
 - don't display campaigns on taxonomy collections if status=closed [\#3583](https://github.com/DoSomething/phoenix/issues/3583)
@@ -3962,12 +3920,12 @@
 
 **Fixed bugs:**
 
+- Bug in Profile Doing links [\#3574](https://github.com/DoSomething/phoenix/issues/3574)
 - Reportback API: Uid restrictions [\#3572](https://github.com/DoSomething/phoenix/issues/3572)
 - Scrolling disabled when cropping is turned on  [\#3571](https://github.com/DoSomething/phoenix/issues/3571)
 
 **Closed issues:**
 
-- Remove deprecated dosomething\_reportback\_set\_field\_values functions [\#3567](https://github.com/DoSomething/phoenix/issues/3567)
 - Ability to specify Signup uid in API endpoint [\#3530](https://github.com/DoSomething/phoenix/issues/3530)
 
 **Merged pull requests:**
@@ -3982,6 +3940,7 @@
 
 **Closed issues:**
 
+- Remove deprecated dosomething\_reportback\_set\_field\_values functions [\#3567](https://github.com/DoSomething/phoenix/issues/3567)
 - Enable Reportback API endpoint [\#3528](https://github.com/DoSomething/phoenix/issues/3528)
 
 **Merged pull requests:**
@@ -4020,10 +3979,6 @@
 ## [v0.3.132](https://github.com/dosomething/phoenix/tree/v0.3.132) (2014-11-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.131...v0.3.132)
 
-**Closed issues:**
-
-- need script that retrieves url aliases from machine paths and vice versa [\#3414](https://github.com/DoSomething/phoenix/issues/3414)
-
 **Merged pull requests:**
 
 - Canada: allow response code 302. [\#3555](https://github.com/DoSomething/phoenix/pull/3555) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
@@ -4054,6 +4009,7 @@
 
 - Stop users cleanup cron and cleanup the code [\#3524](https://github.com/DoSomething/phoenix/issues/3524)
 - Canada: Handle user validation errors  [\#3480](https://github.com/DoSomething/phoenix/issues/3480)
+- need script that retrieves url aliases from machine paths and vice versa [\#3414](https://github.com/DoSomething/phoenix/issues/3414)
 
 **Merged pull requests:**
 
@@ -4090,7 +4046,6 @@
 - Video poster [\#3533](https://github.com/DoSomething/phoenix/pull/3533) ([deadlybutter](https://github.com/deadlybutter))
 - fixed regex to allow four digits [\#3532](https://github.com/DoSomething/phoenix/pull/3532) ([tjrosario](https://github.com/tjrosario))
 - Dup search results bug [\#3531](https://github.com/DoSomething/phoenix/pull/3531) ([sbsmith86](https://github.com/sbsmith86))
-- Allow admins to create dummy reportbacks for Close Gallery [\#3525](https://github.com/DoSomething/phoenix/pull/3525) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.127](https://github.com/dosomething/phoenix/tree/v0.3.127) (2014-11-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.126...v0.3.127)
@@ -4105,6 +4060,7 @@
 
 **Merged pull requests:**
 
+- Allow admins to create dummy reportbacks for Close Gallery [\#3525](https://github.com/DoSomething/phoenix/pull/3525) ([aaronschachter](https://github.com/aaronschachter))
 - Update to remove styles now placed in Neue. [\#3521](https://github.com/DoSomething/phoenix/pull/3521) ([weerd](https://github.com/weerd))
 - Update to allow stepwise show more functionality. [\#3520](https://github.com/DoSomething/phoenix/pull/3520) ([weerd](https://github.com/weerd))
 - Add tag as array [\#3508](https://github.com/DoSomething/phoenix/pull/3508) ([DeeZone](https://github.com/DeeZone))
@@ -4114,7 +4070,6 @@
 
 **Closed issues:**
 
-- PHP Warning in Paraneue Gallery [\#3515](https://github.com/DoSomething/phoenix/issues/3515)
 - Setup cron to run drush command to cleanup US users on affiliates [\#3339](https://github.com/DoSomething/phoenix/issues/3339)
 
 **Merged pull requests:**
@@ -4133,7 +4088,7 @@
 
 **Closed issues:**
 
-- Responsive featured mosaic image \(reasons you won't believe\) [\#3474](https://github.com/DoSomething/phoenix/issues/3474)
+- PHP Warning in Paraneue Gallery [\#3515](https://github.com/DoSomething/phoenix/issues/3515)
 
 **Merged pull requests:**
 
@@ -4143,12 +4098,9 @@
 ## [v0.3.123](https://github.com/dosomething/phoenix/tree/v0.3.123) (2014-11-21)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.122...v0.3.123)
 
-**Fixed bugs:**
-
-- Duplicate reportback records [\#1528](https://github.com/DoSomething/phoenix/issues/1528)
-
 **Closed issues:**
 
+- Responsive featured mosaic image \(reasons you won't believe\) [\#3474](https://github.com/DoSomething/phoenix/issues/3474)
 - Donate Page: New UI Requirements [\#3312](https://github.com/DoSomething/phoenix/issues/3312)
 - update results not found copy on search [\#3304](https://github.com/DoSomething/phoenix/issues/3304)
 
@@ -4174,9 +4126,7 @@
 
 **Closed issues:**
 
-- pull in query string into the search bar on 404 page with no results [\#3496](https://github.com/DoSomething/phoenix/issues/3496)
 - path specific copy on 404 page should not be bold [\#3487](https://github.com/DoSomething/phoenix/issues/3487)
-- remove recommended campaigns header copy for 404 page [\#3486](https://github.com/DoSomething/phoenix/issues/3486)
 - all paragraph/bulleted list text should be 3/4 length [\#3370](https://github.com/DoSomething/phoenix/issues/3370)
 
 **Merged pull requests:**
@@ -4189,6 +4139,8 @@
 
 **Closed issues:**
 
+- pull in query string into the search bar on 404 page with no results [\#3496](https://github.com/DoSomething/phoenix/issues/3496)
+- remove recommended campaigns header copy for 404 page [\#3486](https://github.com/DoSomething/phoenix/issues/3486)
 - Fix Canada User Registration [\#3221](https://github.com/DoSomething/phoenix/issues/3221)
 
 **Merged pull requests:**
@@ -4212,7 +4164,6 @@
 - Stripe form double bind [\#3492](https://github.com/DoSomething/phoenix/pull/3492) ([tjrosario](https://github.com/tjrosario))
 - Drupal core security update [\#3490](https://github.com/DoSomething/phoenix/pull/3490) ([aaronschachter](https://github.com/aaronschachter))
 - Paraneue Tile pattern template [\#3485](https://github.com/DoSomething/phoenix/pull/3485) ([aaronschachter](https://github.com/aaronschachter))
-- Canada: Fixes PHP notices, handles form unknown errors. [\#3483](https://github.com/DoSomething/phoenix/pull/3483) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 
 ## [v0.3.118](https://github.com/dosomething/phoenix/tree/v0.3.118) (2014-11-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.117...v0.3.118)
@@ -4225,6 +4176,7 @@
 
 **Merged pull requests:**
 
+- Canada: Fixes PHP notices, handles form unknown errors. [\#3483](https://github.com/DoSomething/phoenix/pull/3483) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Exported call to action in taxonomy [\#3482](https://github.com/DoSomething/phoenix/pull/3482) ([deadlybutter](https://github.com/deadlybutter))
 - fixed spacing between sources and headlines on collections [\#3481](https://github.com/DoSomething/phoenix/pull/3481) ([tjrosario](https://github.com/tjrosario))
 - Added facts header in preprocessing [\#3479](https://github.com/DoSomething/phoenix/pull/3479) ([deadlybutter](https://github.com/deadlybutter))
@@ -4294,15 +4246,17 @@
 
 - Expose hidden SMS Game signup form fields [\#3457](https://github.com/DoSomething/phoenix/pull/3457) ([aaronschachter](https://github.com/aaronschachter))
 - force a leading zero on exp month if value is less than 10 [\#3455](https://github.com/DoSomething/phoenix/pull/3455) ([tjrosario](https://github.com/tjrosario))
-- Reportback Image caption [\#3454](https://github.com/DoSomething/phoenix/pull/3454) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.113](https://github.com/dosomething/phoenix/tree/v0.3.113) (2014-11-18)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.112...v0.3.113)
 
 **Closed issues:**
 
-- Handle Stripe errors [\#3437](https://github.com/DoSomething/phoenix/issues/3437)
 - Add Reportback Caption field [\#3284](https://github.com/DoSomething/phoenix/issues/3284)
+
+**Merged pull requests:**
+
+- Reportback Image caption [\#3454](https://github.com/DoSomething/phoenix/pull/3454) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.112](https://github.com/dosomething/phoenix/tree/v0.3.112) (2014-11-18)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.111...v0.3.112)
@@ -4314,6 +4268,7 @@
 **Closed issues:**
 
 - Set up Feature Flag for new Reportback User Interface \(Step 4\) [\#3445](https://github.com/DoSomething/phoenix/issues/3445)
+- Handle Stripe errors [\#3437](https://github.com/DoSomething/phoenix/issues/3437)
 - path specific copy should be 3/4 length [\#3427](https://github.com/DoSomething/phoenix/issues/3427)
 - 404 page header size reduction [\#3421](https://github.com/DoSomething/phoenix/issues/3421)
 - need code for optimizely test for padding in tiled campaigns view [\#3392](https://github.com/DoSomething/phoenix/issues/3392)
@@ -4357,10 +4312,6 @@
 ## [v0.3.108](https://github.com/dosomething/phoenix/tree/v0.3.108) (2014-11-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.107...v0.3.108)
 
-**Fixed bugs:**
-
-- Homepage images are broken [\#3422](https://github.com/DoSomething/phoenix/issues/3422)
-
 **Closed issues:**
 
 - change display of search results [\#3319](https://github.com/DoSomething/phoenix/issues/3319)
@@ -4368,22 +4319,29 @@
 **Merged pull requests:**
 
 - Donate Form: Allows Stripe CVC check to pass [\#3436](https://github.com/DoSomething/phoenix/pull/3436) ([aaronschachter](https://github.com/aaronschachter))
-- Fixes JS error [\#3435](https://github.com/DoSomething/phoenix/pull/3435) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.107](https://github.com/dosomething/phoenix/tree/v0.3.107) (2014-11-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.106...v0.3.107)
 
+**Fixed bugs:**
+
+- Homepage images are broken [\#3422](https://github.com/DoSomething/phoenix/issues/3422)
+
 **Closed issues:**
 
-- Donate Form: Variable for Stripe Publish Key  [\#3413](https://github.com/DoSomething/phoenix/issues/3413)
 - Donate Form confirmation message [\#3410](https://github.com/DoSomething/phoenix/issues/3410)
 
 **Merged pull requests:**
 
+- Fixes JS error [\#3435](https://github.com/DoSomething/phoenix/pull/3435) ([aaronschachter](https://github.com/aaronschachter))
 - Donate Form: Display confirmation within block content [\#3420](https://github.com/DoSomething/phoenix/pull/3420) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.106](https://github.com/dosomething/phoenix/tree/v0.3.106) (2014-11-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.105...v0.3.106)
+
+**Closed issues:**
+
+- Donate Form: Variable for Stripe Publish Key  [\#3413](https://github.com/DoSomething/phoenix/issues/3413)
 
 **Merged pull requests:**
 
@@ -4464,10 +4422,6 @@
 ## [v0.3.100](https://github.com/dosomething/phoenix/tree/v0.3.100) (2014-11-11)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.99...v0.3.100)
 
-**Fixed bugs:**
-
-- Fix Signup page access [\#3382](https://github.com/DoSomething/phoenix/issues/3382)
-
 **Closed issues:**
 
 - Render Image video in header if Image video field exists [\#3333](https://github.com/DoSomething/phoenix/issues/3333)
@@ -4481,12 +4435,12 @@
 
 **Fixed bugs:**
 
+- Fix Signup page access [\#3382](https://github.com/DoSomething/phoenix/issues/3382)
 - PHP Warning in Paraneue Gallery [\#3378](https://github.com/DoSomething/phoenix/issues/3378)
 
 **Closed issues:**
 
 - Profile template v1.0 [\#3261](https://github.com/DoSomething/phoenix/issues/3261)
-- Environment variable for Drupal hash salt [\#1882](https://github.com/DoSomething/phoenix/issues/1882)
 
 **Merged pull requests:**
 
@@ -4500,7 +4454,6 @@
 **Closed issues:**
 
 - Zendesk admin form tweaks [\#3330](https://github.com/DoSomething/phoenix/issues/3330)
-- Update "still having issues?" language on school finder [\#3321](https://github.com/DoSomething/phoenix/issues/3321)
 - User Profile: Theme "I'm Doing" items as different tile [\#3299](https://github.com/DoSomething/phoenix/issues/3299)
 
 **Merged pull requests:**
@@ -4514,6 +4467,7 @@
 **Closed issues:**
 
 - Allow staff to reset a user's Signup Data Form submission [\#3337](https://github.com/DoSomething/phoenix/issues/3337)
+- Update "still having issues?" language on school finder [\#3321](https://github.com/DoSomething/phoenix/issues/3321)
 - Paraneue Gallery theme functions [\#3283](https://github.com/DoSomething/phoenix/issues/3283)
 
 **Merged pull requests:**
@@ -4535,7 +4489,6 @@
 **Closed issues:**
 
 - turn off address validation on canadian site [\#3344](https://github.com/DoSomething/phoenix/issues/3344)
-- Track Action Page views vs Pitch Page views [\#3308](https://github.com/DoSomething/phoenix/issues/3308)
 
 **Merged pull requests:**
 
@@ -4544,6 +4497,10 @@
 
 ## [v0.3.94](https://github.com/dosomething/phoenix/tree/v0.3.94) (2014-11-07)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.93...v0.3.94)
+
+**Closed issues:**
+
+- Track Action Page views vs Pitch Page views [\#3308](https://github.com/DoSomething/phoenix/issues/3308)
 
 **Merged pull requests:**
 
@@ -4569,10 +4526,13 @@
 - Fixes IE8 and IE9 CORS issues with School Finder. [\#3358](https://github.com/DoSomething/phoenix/pull/3358) ([DFurnes](https://github.com/DFurnes))
 - Fixes image uploader thumbnail not showing. [\#3356](https://github.com/DoSomething/phoenix/pull/3356) ([DFurnes](https://github.com/DFurnes))
 - Added video field to image feature [\#3355](https://github.com/DoSomething/phoenix/pull/3355) ([deadlybutter](https://github.com/deadlybutter))
-- Paraneue gallery theme functions [\#3348](https://github.com/DoSomething/phoenix/pull/3348) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.3.92](https://github.com/dosomething/phoenix/tree/v0.3.92) (2014-11-06)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.91...v0.3.92)
+
+**Merged pull requests:**
+
+- Paraneue gallery theme functions [\#3348](https://github.com/DoSomething/phoenix/pull/3348) ([sbsmith86](https://github.com/sbsmith86))
 
 ## [v0.3.91](https://github.com/dosomething/phoenix/tree/v0.3.91) (2014-11-06)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.90...v0.3.91)
@@ -4580,7 +4540,6 @@
 **Merged pull requests:**
 
 - Fixes lock being set on premature returns. [\#3357](https://github.com/DoSomething/phoenix/pull/3357) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Provides bin script that runs drush on each affiliate. [\#3352](https://github.com/DoSomething/phoenix/pull/3352) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Fixed css to apply style to the header instead of div [\#3350](https://github.com/DoSomething/phoenix/pull/3350) ([deadlybutter](https://github.com/deadlybutter))
 
 ## [v0.3.90](https://github.com/dosomething/phoenix/tree/v0.3.90) (2014-11-06)
@@ -4592,6 +4551,7 @@
 
 **Merged pull requests:**
 
+- Provides bin script that runs drush on each affiliate. [\#3352](https://github.com/DoSomething/phoenix/pull/3352) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Enables affiliate access to Zendesk [\#3351](https://github.com/DoSomething/phoenix/pull/3351) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.89](https://github.com/dosomething/phoenix/tree/v0.3.89) (2014-11-06)
@@ -4650,7 +4610,6 @@
 
 - MBP 7002 update never completes [\#3323](https://github.com/DoSomething/phoenix/issues/3323)
 - can't select a state in the school finder [\#3316](https://github.com/DoSomething/phoenix/issues/3316)
-- DS Build is broken [\#3311](https://github.com/DoSomething/phoenix/issues/3311)
 - Canada Users are still created with US address [\#3307](https://github.com/DoSomething/phoenix/issues/3307)
 
 **Closed issues:**
@@ -4670,6 +4629,10 @@
 ## [v0.3.84](https://github.com/dosomething/phoenix/tree/v0.3.84) (2014-11-04)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.83...v0.3.84)
 
+**Fixed bugs:**
+
+- DS Build is broken [\#3311](https://github.com/DoSomething/phoenix/issues/3311)
+
 **Merged pull requests:**
 
 - Restores peace and happiness to DS build [\#3314](https://github.com/DoSomething/phoenix/pull/3314) ([aaronschachter](https://github.com/aaronschachter))
@@ -4687,10 +4650,18 @@
 **Merged pull requests:**
 
 - Bug fix to resolve sending transactional requests to MB [\#3309](https://github.com/DoSomething/phoenix/pull/3309) ([DeeZone](https://github.com/DeeZone))
-- User reportbacks [\#3301](https://github.com/DoSomething/phoenix/pull/3301) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.81](https://github.com/dosomething/phoenix/tree/v0.3.81) (2014-11-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.80...v0.3.81)
+
+**Merged pull requests:**
+
+- Fact Page intro variable [\#3306](https://github.com/DoSomething/phoenix/pull/3306) ([aaronschachter](https://github.com/aaronschachter))
+- Displays actual User data on profile [\#3302](https://github.com/DoSomething/phoenix/pull/3302) ([aaronschachter](https://github.com/aaronschachter))
+- User reportbacks [\#3301](https://github.com/DoSomething/phoenix/pull/3301) ([aaronschachter](https://github.com/aaronschachter))
+
+## [v0.3.80](https://github.com/dosomething/phoenix/tree/v0.3.80) (2014-11-03)
+[Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.79...v0.3.80)
 
 **Fixed bugs:**
 
@@ -4699,17 +4670,6 @@
 **Closed issues:**
 
 - add copy as intro to all 11 facts pages [\#3297](https://github.com/DoSomething/phoenix/issues/3297)
-
-**Merged pull requests:**
-
-- Fact Page intro variable [\#3306](https://github.com/DoSomething/phoenix/pull/3306) ([aaronschachter](https://github.com/aaronschachter))
-- Displays actual User data on profile [\#3302](https://github.com/DoSomething/phoenix/pull/3302) ([aaronschachter](https://github.com/aaronschachter))
-
-## [v0.3.80](https://github.com/dosomething/phoenix/tree/v0.3.80) (2014-11-03)
-[Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.79...v0.3.80)
-
-**Closed issues:**
-
 - Canada State label [\#3248](https://github.com/DoSomething/phoenix/issues/3248)
 
 **Merged pull requests:**
@@ -4723,11 +4683,9 @@
 **Closed issues:**
 
 - Integrate message\_broker\_producer update [\#3239](https://github.com/DoSomething/phoenix/issues/3239)
-- Move DS specific message template setting logic [\#2051](https://github.com/DoSomething/phoenix/issues/2051)
 
 **Merged pull requests:**
 
-- Don't build US on international deploys. [\#3296](https://github.com/DoSomething/phoenix/pull/3296) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Update message\_broker\_producer module [\#3240](https://github.com/DoSomething/phoenix/pull/3240) ([DeeZone](https://github.com/DeeZone))
 
 ## [v0.3.78](https://github.com/dosomething/phoenix/tree/v0.3.78) (2014-10-31)
@@ -4739,6 +4697,7 @@
 
 **Merged pull requests:**
 
+- Don't build US on international deploys. [\#3296](https://github.com/DoSomething/phoenix/pull/3296) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Adding proximity boost to enable search phrases [\#3295](https://github.com/DoSomething/phoenix/pull/3295) ([blisteringherb](https://github.com/blisteringherb))
 
 ## [v0.3.77](https://github.com/dosomething/phoenix/tree/v0.3.77) (2014-10-30)
@@ -4774,10 +4733,6 @@
 ## [v0.3.74](https://github.com/dosomething/phoenix/tree/v0.3.74) (2014-10-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.73...v0.3.74)
 
-**Fixed bugs:**
-
-- Campaign Confirmation page links don't work [\#3280](https://github.com/DoSomething/phoenix/issues/3280)
-
 **Closed issues:**
 
 - International build - features not reverting [\#3211](https://github.com/DoSomething/phoenix/issues/3211)
@@ -4791,7 +4746,7 @@
 
 **Fixed bugs:**
 
-- editors and admins should see action page on campaign pages even if not signed up [\#3273](https://github.com/DoSomething/phoenix/issues/3273)
+- Campaign Confirmation page links don't work [\#3280](https://github.com/DoSomething/phoenix/issues/3280)
 
 **Closed issues:**
 
@@ -4807,6 +4762,7 @@
 
 **Fixed bugs:**
 
+- editors and admins should see action page on campaign pages even if not signed up [\#3273](https://github.com/DoSomething/phoenix/issues/3273)
 - Broken page layout for User Password Reset [\#3270](https://github.com/DoSomething/phoenix/issues/3270)
 
 **Merged pull requests:**
@@ -4861,17 +4817,10 @@
 ## [v0.3.67](https://github.com/dosomething/phoenix/tree/v0.3.67) (2014-10-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.66...v0.3.67)
 
-**Fixed bugs:**
-
-- Thumb Wars \[Reporting Back Bug\]  [\#2439](https://github.com/DoSomething/phoenix/issues/2439)
-
 **Closed issues:**
 
 - Wipe User activity upon User delete [\#3245](https://github.com/DoSomething/phoenix/issues/3245)
 - School Finder can show submission errors multiple times  [\#3243](https://github.com/DoSomething/phoenix/issues/3243)
-- Group Campaign signup - missing CAMPAIGN\_COPY [\#2264](https://github.com/DoSomething/phoenix/issues/2264)
-- SMS Reportback: Reportback extra data for Thumb Wars [\#2210](https://github.com/DoSomething/phoenix/issues/2210)
-- Metatag: Twitter Cards [\#1678](https://github.com/DoSomething/phoenix/issues/1678)
 
 **Merged pull requests:**
 
@@ -4894,11 +4843,6 @@
 
 ## [v0.3.65](https://github.com/dosomething/phoenix/tree/v0.3.65) (2014-10-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.64...v0.3.65)
-
-**Closed issues:**
-
-- Taxonomy Term view: Zendesk form [\#3194](https://github.com/DoSomething/phoenix/issues/3194)
-- Vocabulary fields [\#3162](https://github.com/DoSomething/phoenix/issues/3162)
 
 **Merged pull requests:**
 
@@ -4934,7 +4878,8 @@
 
 **Closed issues:**
 
-- Address Form API form element needs dynamic country code [\#3212](https://github.com/DoSomething/phoenix/issues/3212)
+- Taxonomy Term view: Zendesk form [\#3194](https://github.com/DoSomething/phoenix/issues/3194)
+- Vocabulary fields [\#3162](https://github.com/DoSomething/phoenix/issues/3162)
 - 3M logo needs to be added to the homepage [\#3157](https://github.com/DoSomething/phoenix/issues/3157)
 
 **Merged pull requests:**
@@ -4950,7 +4895,7 @@
 **Closed issues:**
 
 - Grant communications team view unpublished access [\#3214](https://github.com/DoSomething/phoenix/issues/3214)
-- Add signup time into dosomething\_campaign\_get\_block\_vars [\#1876](https://github.com/DoSomething/phoenix/issues/1876)
+- Address Form API form element needs dynamic country code [\#3212](https://github.com/DoSomething/phoenix/issues/3212)
 
 **Merged pull requests:**
 
@@ -4968,15 +4913,9 @@
 ## [v0.3.60](https://github.com/dosomething/phoenix/tree/v0.3.60) (2014-10-21)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.59...v0.3.60)
 
-**Fixed bugs:**
-
-- \[Campaign Close\] Search Bug  [\#2800](https://github.com/DoSomething/phoenix/issues/2800)
-- \[search\] - searching on a page on the legacy app just takes you to /search/site\# [\#2121](https://github.com/DoSomething/phoenix/issues/2121)
-
 **Closed issues:**
 
 - New vocabularies [\#3161](https://github.com/DoSomething/phoenix/issues/3161)
-- \[Campaign Group\] Checkbox to determine parent signup [\#1980](https://github.com/DoSomething/phoenix/issues/1980)
 
 **Merged pull requests:**
 
@@ -5008,7 +4947,6 @@
 
 - Taxonomy Term partners [\#3201](https://github.com/DoSomething/phoenix/pull/3201) ([aaronschachter](https://github.com/aaronschachter))
 - Enable DS Shipment for Canada [\#3198](https://github.com/DoSomething/phoenix/pull/3198) ([aaronschachter](https://github.com/aaronschachter))
-- Term video [\#3196](https://github.com/DoSomething/phoenix/pull/3196) ([aaronschachter](https://github.com/aaronschachter))
 - Canada SSO: adapt login to common flow provided in external\_auth. [\#3176](https://github.com/DoSomething/phoenix/pull/3176) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 
 ## [v0.3.56](https://github.com/dosomething/phoenix/tree/v0.3.56) (2014-10-20)
@@ -5021,6 +4959,7 @@
 
 **Merged pull requests:**
 
+- Term video [\#3196](https://github.com/DoSomething/phoenix/pull/3196) ([aaronschachter](https://github.com/aaronschachter))
 - Taxonomy Terms admin list [\#3195](https://github.com/DoSomething/phoenix/pull/3195) ([aaronschachter](https://github.com/aaronschachter))
 - Refs \#3189 - staff need access too [\#3192](https://github.com/DoSomething/phoenix/pull/3192) ([aaronschachter](https://github.com/aaronschachter))
 
@@ -5187,7 +5126,6 @@
 
 - Grant communications team clear cache access [\#3140](https://github.com/DoSomething/phoenix/issues/3140)
 - Add revision setting to .make for message\_broker\_producer [\#3126](https://github.com/DoSomething/phoenix/issues/3126)
-- Test that drush aliases don't work if key not setup [\#1936](https://github.com/DoSomething/phoenix/issues/1936)
 
 **Merged pull requests:**
 
@@ -5236,10 +5174,6 @@
 **Fixed bugs:**
 
 - Search Bug: HTML encoding not recognized in search results [\#3000](https://github.com/DoSomething/phoenix/issues/3000)
-
-**Closed issues:**
-
-- DoSomething Search documentation / installation steps [\#2096](https://github.com/DoSomething/phoenix/issues/2096)
 
 **Merged pull requests:**
 
@@ -5299,45 +5233,44 @@
 
 **Merged pull requests:**
 
-- Pitch Page updates [\#3109](https://github.com/DoSomething/phoenix/pull/3109) ([aaronschachter](https://github.com/aaronschachter))
 - DS-384 - Drops data column from dosomething\_signup table [\#3105](https://github.com/DoSomething/phoenix/pull/3105) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.26](https://github.com/dosomething/phoenix/tree/v0.3.26) (2014-09-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.25...v0.3.26)
 
+**Merged pull requests:**
+
+- Pitch Page updates [\#3109](https://github.com/DoSomething/phoenix/pull/3109) ([aaronschachter](https://github.com/aaronschachter))
+
 ## [v0.3.25](https://github.com/dosomething/phoenix/tree/v0.3.25) (2014-09-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.24...v0.3.25)
-
-**Closed issues:**
-
-- Features cleanup: Move permissions into dosomething\_settings [\#1739](https://github.com/DoSomething/phoenix/issues/1739)
 
 **Merged pull requests:**
 
 - Test docs and phantomcss bug [\#3108](https://github.com/DoSomething/phoenix/pull/3108) ([DFurnes](https://github.com/DFurnes))
-- Make sure to wait for confirmation page to appear. [\#3106](https://github.com/DoSomething/phoenix/pull/3106) ([DFurnes](https://github.com/DFurnes))
 - DS User: Remove mobilecommons permission and dependency [\#3103](https://github.com/DoSomething/phoenix/pull/3103) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.3.24](https://github.com/dosomething/phoenix/tree/v0.3.24) (2014-09-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.23...v0.3.24)
 
+**Merged pull requests:**
+
+- Make sure to wait for confirmation page to appear. [\#3106](https://github.com/DoSomething/phoenix/pull/3106) ([DFurnes](https://github.com/DFurnes))
+
 ## [v0.3.23](https://github.com/dosomething/phoenix/tree/v0.3.23) (2014-09-25)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.22...v0.3.23)
-
-**Closed issues:**
-
-- Facts: Refactor Sources copy field into separate fields [\#2791](https://github.com/DoSomething/phoenix/issues/2791)
-- API - Reportback endpoint [\#2774](https://github.com/DoSomething/phoenix/issues/2774)
-- Action page prove it section gallery arrows should always be black [\#1788](https://github.com/DoSomething/phoenix/issues/1788)
 
 **Merged pull requests:**
 
 - Fix failing tests [\#3104](https://github.com/DoSomething/phoenix/pull/3104) ([DFurnes](https://github.com/DFurnes))
 - User delete quiet [\#3101](https://github.com/DoSomething/phoenix/pull/3101) ([DFurnes](https://github.com/DFurnes))
-- Casper fail screenshots [\#3100](https://github.com/DoSomething/phoenix/pull/3100) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.3.22](https://github.com/dosomething/phoenix/tree/v0.3.22) (2014-09-25)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.21...v0.3.22)
+
+**Merged pull requests:**
+
+- Casper fail screenshots [\#3100](https://github.com/DoSomething/phoenix/pull/3100) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.3.21](https://github.com/dosomething/phoenix/tree/v0.3.21) (2014-09-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.20...v0.3.21)
@@ -5349,12 +5282,6 @@
 ## [v0.3.20](https://github.com/dosomething/phoenix/tree/v0.3.20) (2014-09-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.19...v0.3.20)
 
-**Closed issues:**
-
-- \[campaign close\] - too much space in Buzz section [\#2808](https://github.com/DoSomething/phoenix/issues/2808)
-- Campaign Close - Funky arrow in header [\#2729](https://github.com/DoSomething/phoenix/issues/2729)
-- Make CTIA text lighter than help text [\#1688](https://github.com/DoSomething/phoenix/issues/1688)
-
 **Merged pull requests:**
 
 - Fixes passing override arguments to the test runner. [\#3098](https://github.com/DoSomething/phoenix/pull/3098) ([DFurnes](https://github.com/DFurnes))
@@ -5365,29 +5292,19 @@
 ## [v0.3.18](https://github.com/dosomething/phoenix/tree/v0.3.18) (2014-09-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.17...v0.3.18)
 
-**Fixed bugs:**
-
-- Action Page - Styling Error [\#2744](https://github.com/DoSomething/phoenix/issues/2744)
-- SMS Games Page - Floating Arrow [\#2738](https://github.com/DoSomething/phoenix/issues/2738)
-- Prove It gallery is not displaying one of the photos [\#2372](https://github.com/DoSomething/phoenix/issues/2372)
-
-**Closed issues:**
-
-- action page \(button\) - need to rework font size [\#1540](https://github.com/DoSomething/phoenix/issues/1540)
-
 **Merged pull requests:**
 
 - narrowed msg callout width [\#3097](https://github.com/DoSomething/phoenix/pull/3097) ([tjrosario](https://github.com/tjrosario))
 - Test redux [\#3096](https://github.com/DoSomething/phoenix/pull/3096) ([DFurnes](https://github.com/DFurnes))
 - Provide UK-specific integration tests. [\#3093](https://github.com/DoSomething/phoenix/pull/3093) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Override logo based on dev/staging environment. [\#3092](https://github.com/DoSomething/phoenix/pull/3092) ([DFurnes](https://github.com/DFurnes))
-- Uk form order [\#3091](https://github.com/DoSomething/phoenix/pull/3091) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.3.17](https://github.com/dosomething/phoenix/tree/v0.3.17) (2014-09-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.16...v0.3.17)
 
 **Merged pull requests:**
 
+- Uk form order [\#3091](https://github.com/DoSomething/phoenix/pull/3091) ([DFurnes](https://github.com/DFurnes))
 - removing kik api script [\#3090](https://github.com/DoSomething/phoenix/pull/3090) ([tjrosario](https://github.com/tjrosario))
 
 ## [v0.3.16](https://github.com/dosomething/phoenix/tree/v0.3.16) (2014-09-18)
@@ -5400,14 +5317,9 @@
 ## [v0.3.15](https://github.com/dosomething/phoenix/tree/v0.3.15) (2014-09-18)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.14...v0.3.15)
 
-**Fixed bugs:**
-
-- The Hunt - Unreadable arrows [\#2739](https://github.com/DoSomething/phoenix/issues/2739)
-
 **Closed issues:**
 
 - An awesome new readme for this repository [\#3075](https://github.com/DoSomething/phoenix/issues/3075)
-- Sources line spacing [\#1790](https://github.com/DoSomething/phoenix/issues/1790)
 
 **Merged pull requests:**
 
@@ -5433,18 +5345,6 @@
 ## [v0.3.11](https://github.com/dosomething/phoenix/tree/v0.3.11) (2014-09-16)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.10...v0.3.11)
 
-**Fixed bugs:**
-
-- pitch page - photo shifts when modal appears [\#1667](https://github.com/DoSomething/phoenix/issues/1667)
-
-**Closed issues:**
-
-- Create Active Campaigns Endpoint [\#2772](https://github.com/DoSomething/phoenix/issues/2772)
-- Remove DS MBP Campaign Cache functionality [\#2712](https://github.com/DoSomething/phoenix/issues/2712)
-- Core + Contrib updates [\#2466](https://github.com/DoSomething/phoenix/issues/2466)
-- \[FIX ASAP\]  [\#2442](https://github.com/DoSomething/phoenix/issues/2442)
-- New field on campaign page - for email [\#2362](https://github.com/DoSomething/phoenix/issues/2362)
-
 **Merged pull requests:**
 
 - DS-401: CrowdCurity [\#3083](https://github.com/DoSomething/phoenix/pull/3083) ([mshmsh5000](https://github.com/mshmsh5000))
@@ -5455,19 +5355,9 @@
 ## [v0.3.10](https://github.com/dosomething/phoenix/tree/v0.3.10) (2014-09-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.3.9...v0.3.10)
 
-**Fixed bugs:**
-
-- auth - able to create new account even with invalid phone number [\#1847](https://github.com/DoSomething/phoenix/issues/1847)
-
-**Closed issues:**
-
-- Campaign Finder - Automate removal of closed campaigns from finder [\#2587](https://github.com/DoSomething/phoenix/issues/2587)
-- admin view - update so that admin bar drops other content lower [\#1814](https://github.com/DoSomething/phoenix/issues/1814)
-
 **Merged pull requests:**
 
 - DS-389 Adds signup source to reportback confirmation links [\#3078](https://github.com/DoSomething/phoenix/pull/3078) ([aaronschachter](https://github.com/aaronschachter))
-- Adds Source to signups view [\#3077](https://github.com/DoSomething/phoenix/pull/3077) ([aaronschachter](https://github.com/aaronschachter))
 - Adds MIT license [\#3074](https://github.com/DoSomething/phoenix/pull/3074) ([mshmsh5000](https://github.com/mshmsh5000))
 - Neue 5.x [\#3072](https://github.com/DoSomething/phoenix/pull/3072) ([DFurnes](https://github.com/DFurnes))
 
@@ -5476,6 +5366,7 @@
 
 **Merged pull requests:**
 
+- Adds Source to signups view [\#3077](https://github.com/DoSomething/phoenix/pull/3077) ([aaronschachter](https://github.com/aaronschachter))
 - Signup source [\#3076](https://github.com/DoSomething/phoenix/pull/3076) ([aaronschachter](https://github.com/aaronschachter))
 - DS-71: Removes all Salt provisioning code [\#3067](https://github.com/DoSomething/phoenix/pull/3067) ([mshmsh5000](https://github.com/mshmsh5000))
 
@@ -5577,7 +5468,6 @@
 
 - Clear Asset Path theme setting after pulling from stage. [\#3041](https://github.com/DoSomething/phoenix/pull/3041) ([DFurnes](https://github.com/DFurnes))
 - added feature modifier to the mosiac galleries in campaign grouped template [\#3039](https://github.com/DoSomething/phoenix/pull/3039) ([tjrosario](https://github.com/tjrosario))
-- DS-303 Update validation to accept any country code & spacing. [\#3037](https://github.com/DoSomething/phoenix/pull/3037) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.235](https://github.com/dosomething/phoenix/tree/v0.2.235) (2014-09-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.234...v0.2.235)
@@ -5585,6 +5475,7 @@
 **Merged pull requests:**
 
 - United Kingdom: Push new user registrations to vInspired SSO. [\#3040](https://github.com/DoSomething/phoenix/pull/3040) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
+- DS-303 Update validation to accept any country code & spacing. [\#3037](https://github.com/DoSomething/phoenix/pull/3037) ([DFurnes](https://github.com/DFurnes))
 - Users endpoint - Check for existing email [\#3034](https://github.com/DoSomething/phoenix/pull/3034) ([aaronschachter](https://github.com/aaronschachter))
 - DS-291 Canada user API integration [\#3032](https://github.com/DoSomething/phoenix/pull/3032) ([mshmsh5000](https://github.com/mshmsh5000))
 
@@ -5774,10 +5665,6 @@
 ## [v0.2.211](https://github.com/dosomething/phoenix/tree/v0.2.211) (2014-08-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.210...v0.2.211)
 
-**Fixed bugs:**
-
-- Reportback delete form - bugs [\#1537](https://github.com/DoSomething/phoenix/issues/1537)
-
 **Merged pull requests:**
 
 - Fixes Reward Form address validation [\#2986](https://github.com/DoSomething/phoenix/pull/2986) ([aaronschachter](https://github.com/aaronschachter))
@@ -5811,10 +5698,6 @@
 
 ## [v0.2.206](https://github.com/dosomething/phoenix/tree/v0.2.206) (2014-08-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.205...v0.2.206)
-
-**Closed issues:**
-
-- Static Content gallery: Theme based on Gallery Style field value [\#2749](https://github.com/DoSomething/phoenix/issues/2749)
 
 **Merged pull requests:**
 
@@ -5900,17 +5783,13 @@
 
 - Reward Delete form [\#2959](https://github.com/DoSomething/phoenix/pull/2959) ([aaronschachter](https://github.com/aaronschachter))
 - DS User Address Form element [\#2958](https://github.com/DoSomething/phoenix/pull/2958) ([aaronschachter](https://github.com/aaronschachter))
-- DoSomething Shipment [\#2956](https://github.com/DoSomething/phoenix/pull/2956) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.195](https://github.com/dosomething/phoenix/tree/v0.2.195) (2014-08-08)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.194...v0.2.195)
 
-**Closed issues:**
-
-- Remove DS User email variables [\#2218](https://github.com/DoSomething/phoenix/issues/2218)
-
 **Merged pull requests:**
 
+- DoSomething Shipment [\#2956](https://github.com/DoSomething/phoenix/pull/2956) ([aaronschachter](https://github.com/aaronschachter))
 - Reward Redeem Form [\#2955](https://github.com/DoSomething/phoenix/pull/2955) ([aaronschachter](https://github.com/aaronschachter))
 - Rewards admin view [\#2954](https://github.com/DoSomething/phoenix/pull/2954) ([aaronschachter](https://github.com/aaronschachter))
 
@@ -6003,16 +5882,11 @@
 ## [v0.2.182](https://github.com/dosomething/phoenix/tree/v0.2.182) (2014-08-05)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.181...v0.2.182)
 
-**Closed issues:**
-
-- Add Stage File Proxy, enable in QA/Vagrant environments [\#1575](https://github.com/DoSomething/phoenix/issues/1575)
-
 **Merged pull requests:**
 
 - File proxy update [\#2939](https://github.com/DoSomething/phoenix/pull/2939) ([aaronschachter](https://github.com/aaronschachter))
 - DoSomething modules i18n: wrap hardcoded strings into t\(\). [\#2938](https://github.com/DoSomething/phoenix/pull/2938) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Vagrant solr [\#2895](https://github.com/DoSomething/phoenix/pull/2895) ([blisteringherb](https://github.com/blisteringherb))
-- Stage file proxy [\#2760](https://github.com/DoSomething/phoenix/pull/2760) ([blisteringherb](https://github.com/blisteringherb))
 
 ## [v0.2.181](https://github.com/dosomething/phoenix/tree/v0.2.181) (2014-08-04)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.180...v0.2.181)
@@ -6282,10 +6156,6 @@
 
 - PHP Notice: Paraneue DS Preprocess page [\#2858](https://github.com/DoSomething/phoenix/issues/2858)
 
-**Closed issues:**
-
-- \[Campaign template\] Campaign header and footer templates [\#2375](https://github.com/DoSomething/phoenix/issues/2375)
-
 **Merged pull requests:**
 
 - Sponsor logos template [\#2873](https://github.com/DoSomething/phoenix/pull/2873) ([aaronschachter](https://github.com/aaronschachter))
@@ -6306,10 +6176,6 @@
 
 ## [v0.2.147](https://github.com/dosomething/phoenix/tree/v0.2.147) (2014-07-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.146...v0.2.147)
-
-**Closed issues:**
-
-- Deployments not always reverting features [\#1986](https://github.com/DoSomething/phoenix/issues/1986)
 
 **Merged pull requests:**
 
@@ -6374,13 +6240,6 @@
 
 - Reportback mbp image markup missing [\#2838](https://github.com/DoSomething/phoenix/issues/2838)
 
-**Closed issues:**
-
-- Pinterest metatag [\#2822](https://github.com/DoSomething/phoenix/issues/2822)
-- Testing: Create a campaign node from json file [\#2793](https://github.com/DoSomething/phoenix/issues/2793)
-- Move dosomething\_helpers\_preprocess\_html to dosomething\_metags  [\#2779](https://github.com/DoSomething/phoenix/issues/2779)
-- Add 2 column thumbnail gallery to static content pages [\#2646](https://github.com/DoSomething/phoenix/issues/2646)
-
 **Merged pull requests:**
 
 - Reportback API endpoint [\#2844](https://github.com/DoSomething/phoenix/pull/2844) ([aaronschachter](https://github.com/aaronschachter))
@@ -6397,8 +6256,7 @@
 
 **Closed issues:**
 
-- Homepage - Update \<title\> and description meta tag for better SEO [\#2343](https://github.com/DoSomething/phoenix/issues/2343)
-- Metatag: Twitter Card Image [\#2193](https://github.com/DoSomething/phoenix/issues/2193)
+- Pinterest metatag [\#2822](https://github.com/DoSomething/phoenix/issues/2822)
 
 **Merged pull requests:**
 
@@ -6409,24 +6267,20 @@
 - Campaign  pitch seo update [\#2828](https://github.com/DoSomething/phoenix/pull/2828) ([weerd](https://github.com/weerd))
 - Intl: Allow overriding header logo. [\#2824](https://github.com/DoSomething/phoenix/pull/2824) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 - Metatag defaults for abstract/description [\#2823](https://github.com/DoSomething/phoenix/pull/2823) ([aaronschachter](https://github.com/aaronschachter))
-- Twitter Image [\#2821](https://github.com/DoSomething/phoenix/pull/2821) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.139](https://github.com/dosomething/phoenix/tree/v0.2.139) (2014-07-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.138...v0.2.139)
 
-**Fixed bugs:**
+**Merged pull requests:**
 
-- PHP Undefined index in paraneue\_dosomething\_preprocess\_node [\#2816](https://github.com/DoSomething/phoenix/issues/2816)
+- Twitter Image [\#2821](https://github.com/DoSomething/phoenix/pull/2821) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.138](https://github.com/dosomething/phoenix/tree/v0.2.138) (2014-07-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.137...v0.2.138)
 
-**Closed issues:**
+**Fixed bugs:**
 
-- \[SMS game\] - don't make alpha and beta opt-in required [\#2792](https://github.com/DoSomething/phoenix/issues/2792)
-- \[Campaign Template\] - update text on Contact Us modal [\#2431](https://github.com/DoSomething/phoenix/issues/2431)
-- Zendesk form abstraction [\#2169](https://github.com/DoSomething/phoenix/issues/2169)
-- \[Campaign\] Try and align sponsor with button on Pitch page [\#2104](https://github.com/DoSomething/phoenix/issues/2104)
+- PHP Undefined index in paraneue\_dosomething\_preprocess\_node [\#2816](https://github.com/DoSomething/phoenix/issues/2816)
 
 **Merged pull requests:**
 
@@ -6436,16 +6290,6 @@
 
 ## [v0.2.137](https://github.com/dosomething/phoenix/tree/v0.2.137) (2014-07-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.136...v0.2.137)
-
-**Fixed bugs:**
-
-- \[IE Bug\] Add background fallback for modal lightbox. [\#1673](https://github.com/DoSomething/phoenix/issues/1673)
-
-**Closed issues:**
-
-- \[Campaign Close\] Sign Up Overlapping Text [\#2649](https://github.com/DoSomething/phoenix/issues/2649)
-- \[Misc\] Remove margins on old CTA styles to fix spacing gap issue [\#2043](https://github.com/DoSomething/phoenix/issues/2043)
-- modals - refine modal experience on iOS [\#1078](https://github.com/DoSomething/phoenix/issues/1078)
 
 **Merged pull requests:**
 
@@ -6457,138 +6301,34 @@
 **Closed issues:**
 
 - \[Global\] Cleanup variables [\#2810](https://github.com/DoSomething/phoenix/issues/2810)
-- \[Global\] Abstracting Info-Bar pattern markup into a template theme. [\#2806](https://github.com/DoSomething/phoenix/issues/2806)
 
 **Merged pull requests:**
 
 - Updates to cleanup variables and fix a Zendesk bug introduced in previou... [\#2811](https://github.com/DoSomething/phoenix/pull/2811) ([weerd](https://github.com/weerd))
-- Page  footer templatization [\#2807](https://github.com/DoSomething/phoenix/pull/2807) ([weerd](https://github.com/weerd))
-- I18N: Make "What is DoSomething.org?" editable. [\#2805](https://github.com/DoSomething/phoenix/pull/2805) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Remove deprecated Fact Page import variables and functions [\#2803](https://github.com/DoSomething/phoenix/pull/2803) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.135](https://github.com/dosomething/phoenix/tree/v0.2.135) (2014-07-09)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.134...v0.2.135)
 
-**Closed issues:**
-
-- Partners: Editors Need Ability to Add [\#877](https://github.com/DoSomething/phoenix/issues/877)
-
-**Merged pull requests:**
-
-- Editor permissions to add Partners terms [\#2804](https://github.com/DoSomething/phoenix/pull/2804) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.134](https://github.com/dosomething/phoenix/tree/v0.2.134) (2014-07-09)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.133...v0.2.134)
-
-**Closed issues:**
-
-- Fact Page: Facts field collection [\#2674](https://github.com/DoSomething/phoenix/issues/2674)
-
-**Merged pull requests:**
-
-- Import field\_facts into field\_fact\_collection [\#2802](https://github.com/DoSomething/phoenix/pull/2802) ([aaronschachter](https://github.com/aaronschachter))
-- Salt: upgrade drush from 6.2.0 to 6.3.0. [\#2799](https://github.com/DoSomething/phoenix/pull/2799) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
 
 ## [v0.2.133](https://github.com/dosomething/phoenix/tree/v0.2.133) (2014-07-08)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.132...v0.2.133)
 
-**Fixed bugs:**
-
-- \[campaign template\] - Do It image in wrong location on mobile/tablet [\#2790](https://github.com/DoSomething/phoenix/issues/2790)
-
-**Closed issues:**
-
-- Add reportback image path to mbp payload [\#2718](https://github.com/DoSomething/phoenix/issues/2718)
-- Salt: drush config files are not moved into place [\#2616](https://github.com/DoSomething/phoenix/issues/2616)
-
-**Merged pull requests:**
-
-- Issue2718 add reportback image url to mbp payload [\#2798](https://github.com/DoSomething/phoenix/pull/2798) ([DeeZone](https://github.com/DeeZone))
-- Hotfix to get Fact pages back [\#2797](https://github.com/DoSomething/phoenix/pull/2797) ([aaronschachter](https://github.com/aaronschachter))
-- Salt: improve drush provisioning. Fixes \#2616. [\#2796](https://github.com/DoSomething/phoenix/pull/2796) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-
 ## [v0.2.132](https://github.com/dosomething/phoenix/tree/v0.2.132) (2014-07-08)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.131...v0.2.132)
-
-**Fixed bugs:**
-
-- \[Static Content\] Outputting empty gallery container if no galleries present [\#2794](https://github.com/DoSomething/phoenix/issues/2794)
-- Campaign type and status not set [\#2776](https://github.com/DoSomething/phoenix/issues/2776)
-- Search results show file names within preview [\#2388](https://github.com/DoSomething/phoenix/issues/2388)
-
-**Closed issues:**
-
-- \[Refactor\] Move Scholarship Callout out into Neue [\#2298](https://github.com/DoSomething/phoenix/issues/2298)
-- \[campaign template\] handwritten font whack on ie 11 in prove it section [\#2296](https://github.com/DoSomething/phoenix/issues/2296)
-- Bullet points turn to squares [\#1786](https://github.com/DoSomething/phoenix/issues/1786)
-
-**Merged pull requests:**
-
-- repositioned polaroid images to appear above 'snap a pic' headline [\#2795](https://github.com/DoSomething/phoenix/pull/2795) ([tjrosario](https://github.com/tjrosario))
-- Fact collection field collection [\#2789](https://github.com/DoSomething/phoenix/pull/2789) ([aaronschachter](https://github.com/aaronschachter))
-- Add campaign signup tests [\#2787](https://github.com/DoSomething/phoenix/pull/2787) ([DFurnes](https://github.com/DFurnes))
-- Removing styles no longer used for static pages now that they've been re... [\#2785](https://github.com/DoSomething/phoenix/pull/2785) ([weerd](https://github.com/weerd))
-- Updating the search index display mode for indexed type [\#2766](https://github.com/DoSomething/phoenix/pull/2766) ([blisteringherb](https://github.com/blisteringherb))
 
 ## [v0.2.131](https://github.com/dosomething/phoenix/tree/v0.2.131) (2014-07-07)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.130...v0.2.131)
 
-**Closed issues:**
-
-- DS Helper migration cleanup [\#2781](https://github.com/DoSomething/phoenix/issues/2781)
-
-**Merged pull requests:**
-
-- Opt-in variable cleanup [\#2784](https://github.com/DoSomething/phoenix/pull/2784) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.130](https://github.com/dosomething/phoenix/tree/v0.2.130) (2014-07-07)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.129...v0.2.130)
-
-**Fixed bugs:**
-
-- \[campaign template\] - Do It image not showing up on mobile [\#2765](https://github.com/DoSomething/phoenix/issues/2765)
-
-**Closed issues:**
-
-- Signups: Refactor existing Signup variables [\#2258](https://github.com/DoSomething/phoenix/issues/2258)
-- local development environment – old git [\#1427](https://github.com/DoSomething/phoenix/issues/1427)
-
-**Merged pull requests:**
-
-- added tablet media query for polaroid positioning [\#2782](https://github.com/DoSomething/phoenix/pull/2782) ([tjrosario](https://github.com/tjrosario))
-- Move third-party signup variables into DS Helpers variables [\#2780](https://github.com/DoSomething/phoenix/pull/2780) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.129](https://github.com/dosomething/phoenix/tree/v0.2.129) (2014-07-07)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.128...v0.2.129)
 
-**Closed issues:**
-
-- Reportback fid not accessible after insert [\#2775](https://github.com/DoSomething/phoenix/issues/2775)
-
-**Merged pull requests:**
-
-- Salt: provision latest stable git. Fixes \#1427. [\#2778](https://github.com/DoSomething/phoenix/pull/2778) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-- Expose reportback fid after insert [\#2777](https://github.com/DoSomething/phoenix/pull/2777) ([aaronschachter](https://github.com/aaronschachter))
-- SMS Game Helpers variables [\#2770](https://github.com/DoSomething/phoenix/pull/2770) ([aaronschachter](https://github.com/aaronschachter))
-- Tests are great [\#2769](https://github.com/DoSomething/phoenix/pull/2769) ([DFurnes](https://github.com/DFurnes))
-- SMS report back for \#ImABoss [\#2768](https://github.com/DoSomething/phoenix/pull/2768) ([jonuy](https://github.com/jonuy))
-
 ## [v0.2.128](https://github.com/dosomething/phoenix/tree/v0.2.128) (2014-07-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.127...v0.2.128)
-
-**Fixed bugs:**
-
-- Search - Photos are coming up as results [\#2741](https://github.com/DoSomething/phoenix/issues/2741)
-
-**Closed issues:**
-
-- Gallery display issue [\#2764](https://github.com/DoSomething/phoenix/issues/2764)
-- \[campaign template\] - add markdown to field\_solution\_support [\#2758](https://github.com/DoSomething/phoenix/issues/2758)
-- \[Campaign\] Create module hook to update all campaign DO IT post copy fields. [\#2562](https://github.com/DoSomething/phoenix/issues/2562)
-
-**Merged pull requests:**
-
-- Changing Campaign fields to markdown [\#2767](https://github.com/DoSomething/phoenix/pull/2767) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.127](https://github.com/dosomething/phoenix/tree/v0.2.127) (2014-07-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.126...v0.2.127)
@@ -6596,127 +6336,20 @@
 ## [v0.2.126](https://github.com/dosomething/phoenix/tree/v0.2.126) (2014-07-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.125...v0.2.126)
 
-**Closed issues:**
-
-- Subtitle is missing on pitch page [\#2762](https://github.com/DoSomething/phoenix/issues/2762)
-- Scholarships - Updated Language [\#2750](https://github.com/DoSomething/phoenix/issues/2750)
-- EntityReference: Prevent delete if referenced [\#303](https://github.com/DoSomething/phoenix/issues/303)
-
-**Merged pull requests:**
-
-- Fix missing subtitle on pitch page. [\#2763](https://github.com/DoSomething/phoenix/pull/2763) ([DFurnes](https://github.com/DFurnes))
-- Message callouts [\#2759](https://github.com/DoSomething/phoenix/pull/2759) ([tjrosario](https://github.com/tjrosario))
-
 ## [v0.2.125](https://github.com/dosomething/phoenix/tree/v0.2.125) (2014-07-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.124...v0.2.125)
-
-**Closed issues:**
-
-- Static Content gallery: Gallery Style field [\#2748](https://github.com/DoSomething/phoenix/issues/2748)
-
-**Merged pull requests:**
-
-- Adds a Gallery Style field to Gallery field collection [\#2756](https://github.com/DoSomething/phoenix/pull/2756) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.124](https://github.com/dosomething/phoenix/tree/v0.2.124) (2014-07-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.123...v0.2.124)
 
-**Fixed bugs:**
-
-- DS Pull Stage errors [\#1783](https://github.com/DoSomething/phoenix/issues/1783)
-- Field Collection index error on features-revert [\#1517](https://github.com/DoSomething/phoenix/issues/1517)
-- Logins do not persist across domains [\#1509](https://github.com/DoSomething/phoenix/issues/1509)
-
-**Closed issues:**
-
-- Campaign: Refactor signup form button text  [\#2746](https://github.com/DoSomething/phoenix/issues/2746)
-- Closed Campaign - Center participants [\#2731](https://github.com/DoSomething/phoenix/issues/2731)
-- Campaign: Refactor custom vars [\#2726](https://github.com/DoSomething/phoenix/issues/2726)
-- Redirect users when visiting file/\[fid\] [\#2673](https://github.com/DoSomething/phoenix/issues/2673)
-- Fix misconfigured helper/home modules in make file [\#2221](https://github.com/DoSomething/phoenix/issues/2221)
-- Move custom forms into custom-settings page [\#2209](https://github.com/DoSomething/phoenix/issues/2209)
-- \[Finder\] Server-side blank slate [\#1711](https://github.com/DoSomething/phoenix/issues/1711)
-- Deployment should build from a master branch and tag things [\#1573](https://github.com/DoSomething/phoenix/issues/1573)
-- File field directories [\#1061](https://github.com/DoSomething/phoenix/issues/1061)
-
-**Merged pull requests:**
-
-- Helpers variable for Signup Form Submit label [\#2754](https://github.com/DoSomething/phoenix/pull/2754) ([aaronschachter](https://github.com/aaronschachter))
-- Signup Form copy text variable [\#2752](https://github.com/DoSomething/phoenix/pull/2752) ([aaronschachter](https://github.com/aaronschachter))
-- added vertical alignment mixin to center participants [\#2751](https://github.com/DoSomething/phoenix/pull/2751) ([tjrosario](https://github.com/tjrosario))
-- Migrate custom variables into dosomething\_helpers\_variables [\#2745](https://github.com/DoSomething/phoenix/pull/2745) ([aaronschachter](https://github.com/aaronschachter))
-- Deny access to file/\[fid\] paths [\#2736](https://github.com/DoSomething/phoenix/pull/2736) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.123](https://github.com/dosomething/phoenix/tree/v0.2.123) (2014-07-02)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.122...v0.2.123)
-
-**Fixed bugs:**
-
-- \[Campaigns\] Redirect Loop Error [\#2583](https://github.com/DoSomething/phoenix/issues/2583)
-
-**Closed issues:**
-
-- Add campaign class properties [\#2734](https://github.com/DoSomething/phoenix/issues/2734)
-- Campaign Close - Duo Gallery Padding [\#2733](https://github.com/DoSomething/phoenix/issues/2733)
-- Campaign Alternate Header Image [\#2676](https://github.com/DoSomething/phoenix/issues/2676)
-- Remove old button size classes from markup [\#2445](https://github.com/DoSomething/phoenix/issues/2445)
-- Vagrant: Add browscap.ini [\#2306](https://github.com/DoSomething/phoenix/issues/2306)
-- Action page - prototype horizontal campaign navigation [\#1448](https://github.com/DoSomething/phoenix/issues/1448)
-
-**Merged pull requests:**
-
-- removed deprecated button size classes [\#2743](https://github.com/DoSomething/phoenix/pull/2743) ([tjrosario](https://github.com/tjrosario))
-- Setting and fetching tier.  Capistrano doesn't automatically provide it [\#2742](https://github.com/DoSomething/phoenix/pull/2742) ([blisteringherb](https://github.com/blisteringherb))
-- DS Helpers Variable table [\#2740](https://github.com/DoSomething/phoenix/pull/2740) ([aaronschachter](https://github.com/aaronschachter))
-- widened body column on duo galleries [\#2737](https://github.com/DoSomething/phoenix/pull/2737) ([tjrosario](https://github.com/tjrosario))
-- More campaign class work [\#2735](https://github.com/DoSomething/phoenix/pull/2735) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.122](https://github.com/dosomething/phoenix/tree/v0.2.122) (2014-07-01)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.121...v0.2.122)
 
-**Fixed bugs:**
-
-- Homepage still shows cached old version for logged-out users [\#2730](https://github.com/DoSomething/phoenix/issues/2730)
-
-**Closed issues:**
-
-- Creative team role [\#2727](https://github.com/DoSomething/phoenix/issues/2727)
-- Install and configure Services module [\#2711](https://github.com/DoSomething/phoenix/issues/2711)
-- dosomething\_campaign\_preprocess\_page PHP notices, warnings [\#2579](https://github.com/DoSomething/phoenix/issues/2579)
-
-**Merged pull requests:**
-
-- Campaign content endpoint [\#2732](https://github.com/DoSomething/phoenix/pull/2732) ([aaronschachter](https://github.com/aaronschachter))
-- Creative team role [\#2728](https://github.com/DoSomething/phoenix/pull/2728) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.121](https://github.com/dosomething/phoenix/tree/v0.2.121) (2014-07-01)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.120...v0.2.121)
-
-**Fixed bugs:**
-
-- Button size consistancy [\#2266](https://github.com/DoSomething/phoenix/issues/2266)
-- mobile number in new MailChimp accounts [\#1480](https://github.com/DoSomething/phoenix/issues/1480)
-
-**Closed issues:**
-
-- Drush aliases syntax error [\#2721](https://github.com/DoSomething/phoenix/issues/2721)
-- \[campaign template\] - submit button on contact us in massive [\#2429](https://github.com/DoSomething/phoenix/issues/2429)
-- Remove .large button size across the site [\#1862](https://github.com/DoSomething/phoenix/issues/1862)
-- Search bar standardization [\#1784](https://github.com/DoSomething/phoenix/issues/1784)
-- Darken footer text color [\#1769](https://github.com/DoSomething/phoenix/issues/1769)
-- Figure out why we need to specify block display on HTML5 main and nav tag elements. [\#1376](https://github.com/DoSomething/phoenix/issues/1376)
-- action page \(plan it\) - PDFs should download automatically [\#1372](https://github.com/DoSomething/phoenix/issues/1372)
-- email - spacing off in all email templates [\#1364](https://github.com/DoSomething/phoenix/issues/1364)
-- Error message after deleting nodes, entities: Warning: array\_flip\(\): Can only flip STRING and INTEGER  [\#1356](https://github.com/DoSomething/phoenix/issues/1356)
-- action page \(know it\) - move links to modals below The Solution on mobile [\#1195](https://github.com/DoSomething/phoenix/issues/1195)
-- campaign admin - view that shows which campaigns have used which fields [\#1083](https://github.com/DoSomething/phoenix/issues/1083)
-
-**Merged pull requests:**
-
-- Campaign header image [\#2725](https://github.com/DoSomething/phoenix/pull/2725) ([aaronschachter](https://github.com/aaronschachter))
-- A field\_variables field [\#2723](https://github.com/DoSomething/phoenix/pull/2723) ([aaronschachter](https://github.com/aaronschachter))
-- Fix drush aliases syntax error [\#2722](https://github.com/DoSomething/phoenix/pull/2722) ([aaronschachter](https://github.com/aaronschachter))
-- Moar campaign class [\#2720](https://github.com/DoSomething/phoenix/pull/2720) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.120](https://github.com/dosomething/phoenix/tree/v0.2.120) (2014-06-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.119...v0.2.120)
@@ -6727,1187 +6360,230 @@
 ## [v0.2.118](https://github.com/dosomething/phoenix/tree/v0.2.118) (2014-06-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.117...v0.2.118)
 
-**Merged pull requests:**
-
-- Fix polaroid position. [\#2719](https://github.com/DoSomething/phoenix/pull/2719) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.117](https://github.com/dosomething/phoenix/tree/v0.2.117) (2014-06-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.116...v0.2.117)
-
-**Fixed bugs:**
-
-- Reportback Gallery bug [\#2706](https://github.com/DoSomething/phoenix/issues/2706)
-- iPad report back confirmation page is not loading [\#2173](https://github.com/DoSomething/phoenix/issues/2173)
-
-**Closed issues:**
-
-- Refactor facts listing to return chunked arrays [\#2703](https://github.com/DoSomething/phoenix/issues/2703)
-
-**Merged pull requests:**
-
-- Removes rainbow logo after Pride weekend. [\#2717](https://github.com/DoSomething/phoenix/pull/2717) ([DFurnes](https://github.com/DFurnes))
-- Fix for Reportback Gallery [\#2716](https://github.com/DoSomething/phoenix/pull/2716) ([aaronschachter](https://github.com/aaronschachter))
-- Neue 4.2 [\#2715](https://github.com/DoSomething/phoenix/pull/2715) ([DFurnes](https://github.com/DFurnes))
-- refactored facts list to be returned in chunks for support for cta's emb... [\#2709](https://github.com/DoSomething/phoenix/pull/2709) ([tjrosario](https://github.com/tjrosario))
 
 ## [v0.2.116](https://github.com/dosomething/phoenix/tree/v0.2.116) (2014-06-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.115...v0.2.116)
 
-**Fixed bugs:**
-
-- \[campaign close\] - incorrect behavior for scholarship winner names [\#2708](https://github.com/DoSomething/phoenix/issues/2708)
-- \[campaign runs\] - error when trying to access run edit view [\#2707](https://github.com/DoSomething/phoenix/issues/2707)
-- Invalid campaign signup nids [\#2705](https://github.com/DoSomething/phoenix/issues/2705)
-- \[SMS Game\] Overlapping Elements [\#2678](https://github.com/DoSomething/phoenix/issues/2678)
-- \[Campaign Close\] Overlapping Text [\#2648](https://github.com/DoSomething/phoenix/issues/2648)
-
-**Merged pull requests:**
-
-- Fix parameters for winner names [\#2713](https://github.com/DoSomething/phoenix/pull/2713) ([aaronschachter](https://github.com/aaronschachter))
-- Fix funky first names on winners & broken edit pages. [\#2710](https://github.com/DoSomething/phoenix/pull/2710) ([angaither](https://github.com/angaither))
-- Get out of here old mixin [\#2699](https://github.com/DoSomething/phoenix/pull/2699) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.115](https://github.com/dosomething/phoenix/tree/v0.2.115) (2014-06-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.114...v0.2.115)
-
-**Closed issues:**
-
-- \[User Profile\] Style 'staff pick' flag [\#2697](https://github.com/DoSomething/phoenix/issues/2697)
-- \[Static Content\] Refactor template to use .container module [\#2694](https://github.com/DoSomething/phoenix/issues/2694)
-- User URL pattern [\#2531](https://github.com/DoSomething/phoenix/issues/2531)
-- Signup table: Entity type and ID [\#1887](https://github.com/DoSomething/phoenix/issues/1887)
-- Footer Menu [\#1321](https://github.com/DoSomething/phoenix/issues/1321)
-- Password Reset - Bugs [\#1287](https://github.com/DoSomething/phoenix/issues/1287)
-- General User Reg Email - Active Campaigns Merge Tag Needed [\#1286](https://github.com/DoSomething/phoenix/issues/1286)
-- Production: Keep UI modules disabled [\#1190](https://github.com/DoSomething/phoenix/issues/1190)
-- User Partners field: Check "display on user registration form". [\#1180](https://github.com/DoSomething/phoenix/issues/1180)
-- campaign \(all\) – break out pitch/action template into partials [\#1127](https://github.com/DoSomething/phoenix/issues/1127)
-- Reportback form client-side validation [\#1088](https://github.com/DoSomething/phoenix/issues/1088)
-- pw reset - notification that email was sent is needed [\#1005](https://github.com/DoSomething/phoenix/issues/1005)
-- pw reset - remove username in field title [\#1004](https://github.com/DoSomething/phoenix/issues/1004)
-
-**Merged pull requests:**
-
-- Account creation for Partner / Sponsors [\#2702](https://github.com/DoSomething/phoenix/pull/2702) ([aaronschachter](https://github.com/aaronschachter))
-- More campaign class [\#2701](https://github.com/DoSomething/phoenix/pull/2701) ([aaronschachter](https://github.com/aaronschachter))
-- Updates to preprocess to fix header in default pages. [\#2700](https://github.com/DoSomething/phoenix/pull/2700) ([weerd](https://github.com/weerd))
-- Removing comment line. [\#2698](https://github.com/DoSomething/phoenix/pull/2698) ([weerd](https://github.com/weerd))
-- Rem no more [\#2696](https://github.com/DoSomething/phoenix/pull/2696) ([DFurnes](https://github.com/DFurnes))
-- Static  container refactorization [\#2695](https://github.com/DoSomething/phoenix/pull/2695) ([weerd](https://github.com/weerd))
-- cleaned up some jshint errors [\#2693](https://github.com/DoSomething/phoenix/pull/2693) ([tjrosario](https://github.com/tjrosario))
-- Added password reset customization. [\#2691](https://github.com/DoSomething/phoenix/pull/2691) ([angaither](https://github.com/angaither))
-- Refactoring Capistrano to work with multistage international [\#2589](https://github.com/DoSomething/phoenix/pull/2589) ([blisteringherb](https://github.com/blisteringherb))
-- Some staff picks are staff picks! [\#2126](https://github.com/DoSomething/phoenix/pull/2126) ([angaither](https://github.com/angaither))
 
 ## [v0.2.114](https://github.com/dosomething/phoenix/tree/v0.2.114) (2014-06-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.113...v0.2.114)
 
-**Merged pull requests:**
-
-- Pride! :rainbow: [\#2692](https://github.com/DoSomething/phoenix/pull/2692) ([DFurnes](https://github.com/DFurnes))
-- A campaign class [\#2690](https://github.com/DoSomething/phoenix/pull/2690) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.113](https://github.com/dosomething/phoenix/tree/v0.2.113) (2014-06-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.112...v0.2.113)
-
-**Closed issues:**
-
-- Grey bar behind CTA on 11-facts [\#2645](https://github.com/DoSomething/phoenix/issues/2645)
-
-**Merged pull requests:**
-
-- removed background and border overrides on cta [\#2689](https://github.com/DoSomething/phoenix/pull/2689) ([tjrosario](https://github.com/tjrosario))
 
 ## [v0.2.112](https://github.com/dosomething/phoenix/tree/v0.2.112) (2014-06-26)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.111...v0.2.112)
 
-**Fixed bugs:**
-
-- Fact Page Intro not displayed in template [\#2661](https://github.com/DoSomething/phoenix/issues/2661)
-- \[SMS game\] - weird right bumper of awkward space on Android [\#2461](https://github.com/DoSomething/phoenix/issues/2461)
-- Bug: Comeback Clothes confirmation page is viewable to anon users [\#2163](https://github.com/DoSomething/phoenix/issues/2163)
-
-**Closed issues:**
-
-- \[member created campaigns\] - unpublish the form for now [\#2685](https://github.com/DoSomething/phoenix/issues/2685)
-- Fact page: Remove additional text [\#2681](https://github.com/DoSomething/phoenix/issues/2681)
-- Fact Page: Intro should be markdown [\#2671](https://github.com/DoSomething/phoenix/issues/2671)
-- Export flagged\_reportback permissions [\#2670](https://github.com/DoSomething/phoenix/issues/2670)
-- \[SMS game\] - remember anon user's name when creating an account post-share [\#2656](https://github.com/DoSomething/phoenix/issues/2656)
-- \[contact us\] - remember anon user's email address if 2 questions in same session [\#2652](https://github.com/DoSomething/phoenix/issues/2652)
-- SMS Template: Sources in modal formatting is off [\#2643](https://github.com/DoSomething/phoenix/issues/2643)
-- SMS Template: Kick down help text to a darker gray [\#2642](https://github.com/DoSomething/phoenix/issues/2642)
-- Reportback: Update quantity count to exclude flagged [\#2639](https://github.com/DoSomething/phoenix/issues/2639)
-- Reportback: Display flag info [\#2636](https://github.com/DoSomething/phoenix/issues/2636)
-- Update mbp admin path [\#2537](https://github.com/DoSomething/phoenix/issues/2537)
-- \[Grouped Campaigns\] - help text needed on Campaigns entity reference [\#2371](https://github.com/DoSomething/phoenix/issues/2371)
-- \[Grouped Campaign\] Display node\_signups view [\#2357](https://github.com/DoSomething/phoenix/issues/2357)
-- Signups cleanup: Delete user\_signups view [\#1875](https://github.com/DoSomething/phoenix/issues/1875)
-- Cleanup: Move reportback forms into forms.inc [\#1809](https://github.com/DoSomething/phoenix/issues/1809)
-- Reportback views: Theme reportback images  [\#1076](https://github.com/DoSomething/phoenix/issues/1076)
-- Action Page - links to external sites [\#597](https://github.com/DoSomething/phoenix/issues/597)
-- Campaign form: Primary Cause, Issue autocheck  [\#578](https://github.com/DoSomething/phoenix/issues/578)
-
-**Merged pull requests:**
-
-- Reportback / signup forms housekeeping [\#2688](https://github.com/DoSomething/phoenix/pull/2688) ([aaronschachter](https://github.com/aaronschachter))
-- Move Submit Campaign form into a block [\#2687](https://github.com/DoSomething/phoenix/pull/2687) ([aaronschachter](https://github.com/aaronschachter))
-- Grouped Campaign help text [\#2684](https://github.com/DoSomething/phoenix/pull/2684) ([aaronschachter](https://github.com/aaronschachter))
-- Remove user\_signups view \(no longer used\) [\#2683](https://github.com/DoSomething/phoenix/pull/2683) ([aaronschachter](https://github.com/aaronschachter))
-- Remove unnecessary pathauto defaults  [\#2682](https://github.com/DoSomething/phoenix/pull/2682) ([aaronschachter](https://github.com/aaronschachter))
-- Fact page intro [\#2680](https://github.com/DoSomething/phoenix/pull/2680) ([aaronschachter](https://github.com/aaronschachter))
-- Update MBP admin path to admin/config/dosomething [\#2679](https://github.com/DoSomething/phoenix/pull/2679) ([aaronschachter](https://github.com/aaronschachter))
-- Display Flagged / Promoted information in admin reportback view [\#2677](https://github.com/DoSomething/phoenix/pull/2677) ([aaronschachter](https://github.com/aaronschachter))
-- Filter flagged reportbacks in totals [\#2675](https://github.com/DoSomething/phoenix/pull/2675) ([aaronschachter](https://github.com/aaronschachter))
-- Reportback Flag permissions [\#2672](https://github.com/DoSomething/phoenix/pull/2672) ([aaronschachter](https://github.com/aaronschachter))
-- Sms  disclaimer color [\#2669](https://github.com/DoSomething/phoenix/pull/2669) ([weerd](https://github.com/weerd))
-- Updaing campaign modal lists and sources. [\#2667](https://github.com/DoSomething/phoenix/pull/2667) ([weerd](https://github.com/weerd))
-
 ## [v0.2.111](https://github.com/dosomething/phoenix/tree/v0.2.111) (2014-06-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.110...v0.2.111)
-
-**Fixed bugs:**
-
-- \[Thumb Wars\] Sign In Error Message.  [\#2666](https://github.com/DoSomething/phoenix/issues/2666)
-- \[SMS game\] - anon user no texts sent and confirmation page incorrect [\#2653](https://github.com/DoSomething/phoenix/issues/2653)
-
-**Closed issues:**
-
-- Move order item helper to theme helpers [\#2664](https://github.com/DoSomething/phoenix/issues/2664)
-- \[SMS game\] - accept iPhone default phone number structure [\#2657](https://github.com/DoSomething/phoenix/issues/2657)
-
-**Merged pull requests:**
-
-- Set default=NULL in user\_birthdate function [\#2668](https://github.com/DoSomething/phoenix/pull/2668) ([angaither](https://github.com/angaither))
-- ported item order class to theme helpers [\#2665](https://github.com/DoSomething/phoenix/pull/2665) ([tjrosario](https://github.com/tjrosario))
 
 ## [v0.2.110](https://github.com/dosomething/phoenix/tree/v0.2.110) (2014-06-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.109...v0.2.110)
 
-**Closed issues:**
-
-- \[campaign close\] - links in gallery [\#2658](https://github.com/DoSomething/phoenix/issues/2658)
-
-**Merged pull requests:**
-
-- Support iPhone copy/paste contact numbers [\#2662](https://github.com/DoSomething/phoenix/pull/2662) ([aaronschachter](https://github.com/aaronschachter))
-- linked up gallery images if url is set [\#2660](https://github.com/DoSomething/phoenix/pull/2660) ([tjrosario](https://github.com/tjrosario))
-- Cross browser mods [\#2647](https://github.com/DoSomething/phoenix/pull/2647) ([tjrosario](https://github.com/tjrosario))
-
 ## [v0.2.109](https://github.com/dosomething/phoenix/tree/v0.2.109) (2014-06-24)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.108...v0.2.109)
-
-**Fixed bugs:**
-
-- \[SMS game\] - form submits with invalid number [\#2654](https://github.com/DoSomething/phoenix/issues/2654)
-
-**Closed issues:**
-
-- \[SMS game\] - make all friend fields required [\#2655](https://github.com/DoSomething/phoenix/issues/2655)
-- Refactor Scholarships page [\#2363](https://github.com/DoSomething/phoenix/issues/2363)
-- action page \(facts modal\) - bulleted list and updated sources treatment [\#1664](https://github.com/DoSomething/phoenix/issues/1664)
-
-**Merged pull requests:**
-
-- Make all beta numbers required [\#2659](https://github.com/DoSomething/phoenix/pull/2659) ([aaronschachter](https://github.com/aaronschachter))
-- Refactor scholarships page as a block. [\#2651](https://github.com/DoSomething/phoenix/pull/2651) ([angaither](https://github.com/angaither))
-- Update to grouped campaign template to add in updated callout. [\#2650](https://github.com/DoSomething/phoenix/pull/2650) ([weerd](https://github.com/weerd))
 
 ## [v0.2.108](https://github.com/dosomething/phoenix/tree/v0.2.108) (2014-06-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.107...v0.2.108)
 
-**Fixed bugs:**
-
-- User Profile PageTitle [\#2502](https://github.com/DoSomething/phoenix/issues/2502)
-
-**Closed issues:**
-
-- User: Get First Name function [\#2606](https://github.com/DoSomething/phoenix/issues/2606)
-- Reportback: Delete file upon flagged as inappropriate [\#2517](https://github.com/DoSomething/phoenix/issues/2517)
-- Reportback: Flag as invalid [\#2395](https://github.com/DoSomething/phoenix/issues/2395)
-
-**Merged pull requests:**
-
-- Reportback flag fields [\#2644](https://github.com/DoSomething/phoenix/pull/2644) ([aaronschachter](https://github.com/aaronschachter))
-- Use the field\_first\_name token instead of $account-\>name [\#2641](https://github.com/DoSomething/phoenix/pull/2641) ([angaither](https://github.com/angaither))
-- Refactor get user field [\#2638](https://github.com/DoSomething/phoenix/pull/2638) ([angaither](https://github.com/angaither))
-- Salt Provisioning: fix apache2/php.ini provisioning. [\#2501](https://github.com/DoSomething/phoenix/pull/2501) ([sergii-tkachenko](https://github.com/sergii-tkachenko))
-
 ## [v0.2.107](https://github.com/dosomething/phoenix/tree/v0.2.107) (2014-06-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.106...v0.2.107)
-
-**Closed issues:**
-
-- \[SMS game\] - if field\_solution\_support has copy it should be output [\#2634](https://github.com/DoSomething/phoenix/issues/2634)
-- Reportback: Flagged filter [\#2515](https://github.com/DoSomething/phoenix/issues/2515)
-
-**Merged pull requests:**
-
-- Updates to Solution text and updating Closed template with new callout s... [\#2640](https://github.com/DoSomething/phoenix/pull/2640) ([weerd](https://github.com/weerd))
-- Flagged reportback [\#2637](https://github.com/DoSomething/phoenix/pull/2637) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.106](https://github.com/dosomething/phoenix/tree/v0.2.106) (2014-06-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.105...v0.2.106)
 
-**Closed issues:**
-
-- Message Broker - Send campaign details in payload [\#2622](https://github.com/DoSomething/phoenix/issues/2622)
-- \[SMS Game\] Theme All Participants copy [\#2556](https://github.com/DoSomething/phoenix/issues/2556)
-- Disable, uninstall, and remove DoSomething Legacy module [\#2518](https://github.com/DoSomething/phoenix/issues/2518)
-- Reportback: Add file details to the entity display [\#2511](https://github.com/DoSomething/phoenix/issues/2511)
-- \[SMS game\] - scholarship callout should be in the form section [\#2453](https://github.com/DoSomething/phoenix/issues/2453)
-- \[SMS game\] - add mobile fields [\#2359](https://github.com/DoSomething/phoenix/issues/2359)
-- Refactor production.rb [\#1935](https://github.com/DoSomething/phoenix/issues/1935)
-- Make varnish control key private [\#1884](https://github.com/DoSomething/phoenix/issues/1884)
-
-**Merged pull requests:**
-
-- Sms campaign  scholarship callout [\#2635](https://github.com/DoSomething/phoenix/pull/2635) ([weerd](https://github.com/weerd))
-- Kills DoSomething Legacy module [\#2633](https://github.com/DoSomething/phoenix/pull/2633) ([aaronschachter](https://github.com/aaronschachter))
-- added bottom margin to media wrapper [\#2631](https://github.com/DoSomething/phoenix/pull/2631) ([tjrosario](https://github.com/tjrosario))
-- Add more fields to campaign cache payload [\#2623](https://github.com/DoSomething/phoenix/pull/2623) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.105](https://github.com/dosomething/phoenix/tree/v0.2.105) (2014-06-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.104...v0.2.105)
-
-**Fixed bugs:**
-
-- Cross-domain issues with Proxima Nova webfonts in Firefox [\#2626](https://github.com/DoSomething/phoenix/issues/2626)
-
-**Closed issues:**
-
-- 11-facts - add additional conversion point [\#2451](https://github.com/DoSomething/phoenix/issues/2451)
-
-**Merged pull requests:**
-
-- Updated image style to match [\#2630](https://github.com/DoSomething/phoenix/pull/2630) ([angaither](https://github.com/angaither))
-- 11 facts  conversion point [\#2629](https://github.com/DoSomething/phoenix/pull/2629) ([weerd](https://github.com/weerd))
 
 ## [v0.2.104](https://github.com/dosomething/phoenix/tree/v0.2.104) (2014-06-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.103...v0.2.104)
 
-**Closed issues:**
-
-- Krumo message colors [\#2625](https://github.com/DoSomething/phoenix/issues/2625)
-- \[campaign close\] - celeb mention thumbnails super pixelated [\#2621](https://github.com/DoSomething/phoenix/issues/2621)
-
-**Merged pull requests:**
-
-- Real CSS. [\#2628](https://github.com/DoSomething/phoenix/pull/2628) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.103](https://github.com/dosomething/phoenix/tree/v0.2.103) (2014-06-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.102...v0.2.103)
-
-**Closed issues:**
-
-- \[campaign close\] images are being constrained [\#2620](https://github.com/DoSomething/phoenix/issues/2620)
-- \[campaign close\] - create new image crop [\#2596](https://github.com/DoSomething/phoenix/issues/2596)
-- \[SMS game\] - remove auto-filling in phone number info [\#2460](https://github.com/DoSomething/phoenix/issues/2460)
-
-**Merged pull requests:**
-
-- fixed image dimension constraints on press and mention galleries [\#2627](https://github.com/DoSomething/phoenix/pull/2627) ([tjrosario](https://github.com/tjrosario))
-- Attempt to disbale autocomplete. [\#2624](https://github.com/DoSomething/phoenix/pull/2624) ([weerd](https://github.com/weerd))
 
 ## [v0.2.102](https://github.com/dosomething/phoenix/tree/v0.2.102) (2014-06-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.101...v0.2.102)
 
-**Fixed bugs:**
-
-- Unsupported operand types in... flag\_flag.inc [\#2607](https://github.com/DoSomething/phoenix/issues/2607)
-
-**Closed issues:**
-
-- Congratulations to: Update to hard coded language.  [\#2613](https://github.com/DoSomething/phoenix/issues/2613)
-
-**Merged pull requests:**
-
-- Update image styles again [\#2619](https://github.com/DoSomething/phoenix/pull/2619) ([angaither](https://github.com/angaither))
-- fixed video dimensions from spanning too tall [\#2618](https://github.com/DoSomething/phoenix/pull/2618) ([tjrosario](https://github.com/tjrosario))
-
 ## [v0.2.101](https://github.com/dosomething/phoenix/tree/v0.2.101) (2014-06-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.100...v0.2.101)
-
-**Fixed bugs:**
-
-- \[campaign close\] - if a report back is missing the thumbnail image in the view you can't promote it [\#2604](https://github.com/DoSomething/phoenix/issues/2604)
-
-**Closed issues:**
-
-- Header: Arrow is overlapping handwritten text [\#2612](https://github.com/DoSomething/phoenix/issues/2612)
-- The Buzz: Double column design should act responsively  [\#2611](https://github.com/DoSomething/phoenix/issues/2611)
-- What You Did: Spacing is too big before and after the text section [\#2610](https://github.com/DoSomething/phoenix/issues/2610)
-- What You Did: Spacing is tight between number and caption text.  [\#2609](https://github.com/DoSomething/phoenix/issues/2609)
-- \[campaign close\] - update members participated label [\#2602](https://github.com/DoSomething/phoenix/issues/2602)
-- \[campaign close\] - video is running over edge on mobile [\#2600](https://github.com/DoSomething/phoenix/issues/2600)
-- \[campaign close\] - totals running over on mobile [\#2599](https://github.com/DoSomething/phoenix/issues/2599)
-- \[campaign close\] - change "CONGRATULATIONS TO..." to "CONGRATS TO..." [\#2598](https://github.com/DoSomething/phoenix/issues/2598)
-- \[Campaign Close\] Tweets Field Collection [\#2380](https://github.com/DoSomething/phoenix/issues/2380)
-
-**Merged pull requests:**
-
-- Added hmax 75 imagecache preset. [\#2617](https://github.com/DoSomething/phoenix/pull/2617) ([angaither](https://github.com/angaither))
-- Design qa [\#2615](https://github.com/DoSomething/phoenix/pull/2615) ([tjrosario](https://github.com/tjrosario))
-- Closed Campaign admin form fix / move [\#2614](https://github.com/DoSomething/phoenix/pull/2614) ([aaronschachter](https://github.com/aaronschachter))
-- Added FC dev updates to features to fix overriden things. [\#2608](https://github.com/DoSomething/phoenix/pull/2608) ([angaither](https://github.com/angaither))
-- Added a `field\_image\_thumb` type. [\#2605](https://github.com/DoSomething/phoenix/pull/2605) ([angaither](https://github.com/angaither))
-- Update things to uppercase first letter. [\#2603](https://github.com/DoSomething/phoenix/pull/2603) ([angaither](https://github.com/angaither))
 
 ## [v0.2.100](https://github.com/dosomething/phoenix/tree/v0.2.100) (2014-06-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.99...v0.2.100)
 
-**Closed issues:**
-
-- \[campaign close\] - if no custom alt color is set, impact numbers should be purple [\#2597](https://github.com/DoSomething/phoenix/issues/2597)
-- \[SMS Campaign\] Update output location and markup for new callout. [\#2592](https://github.com/DoSomething/phoenix/issues/2592)
-- \[SMS Campaign\] Overlay the info bar on the last container with background. [\#2582](https://github.com/DoSomething/phoenix/issues/2582)
-- \[campaign close\] - Additional Text header needs consistent treatment [\#2569](https://github.com/DoSomething/phoenix/issues/2569)
-- \[campaign close\] - positioning of members participated if that's the only number [\#2564](https://github.com/DoSomething/phoenix/issues/2564)
-- \[campaign close\] - text treatment for default text if waiting for output results [\#2563](https://github.com/DoSomething/phoenix/issues/2563)
-- Field Collection index error [\#2561](https://github.com/DoSomething/phoenix/issues/2561)
-- \[SMS game\] - prompt user to create account/log in on confirmation page [\#2541](https://github.com/DoSomething/phoenix/issues/2541)
-- \[campaign close\] - changing the subheader colors [\#2494](https://github.com/DoSomething/phoenix/issues/2494)
-- PHP undefined index: 329195 in user\_node\_load [\#2279](https://github.com/DoSomething/phoenix/issues/2279)
-- \[SMS Game\] Filter current campaign from confirmation page results [\#2273](https://github.com/DoSomething/phoenix/issues/2273)
-
-**Merged pull requests:**
-
-- truncated 'congrats' headline and added default purple text to totals copy [\#2601](https://github.com/DoSomething/phoenix/pull/2601) ([tjrosario](https://github.com/tjrosario))
-- removed capitalization from winners text and fixed vertical centering on tablet [\#2595](https://github.com/DoSomething/phoenix/pull/2595) ([tjrosario](https://github.com/tjrosario))
-- SMS Game form markup [\#2593](https://github.com/DoSomething/phoenix/pull/2593) ([aaronschachter](https://github.com/aaronschachter))
-- SMS Confirmation Page: Login/register modal [\#2591](https://github.com/DoSomething/phoenix/pull/2591) ([aaronschachter](https://github.com/aaronschachter))
-- Tablet mods [\#2590](https://github.com/DoSomething/phoenix/pull/2590) ([tjrosario](https://github.com/tjrosario))
-- Filter current campaign from confirmation results [\#2588](https://github.com/DoSomething/phoenix/pull/2588) ([aaronschachter](https://github.com/aaronschachter))
-- Campaign closed mods [\#2586](https://github.com/DoSomething/phoenix/pull/2586) ([tjrosario](https://github.com/tjrosario))
-- Sms campaign  info bar [\#2585](https://github.com/DoSomething/phoenix/pull/2585) ([weerd](https://github.com/weerd))
-- Totals display logic [\#2581](https://github.com/DoSomething/phoenix/pull/2581) ([tjrosario](https://github.com/tjrosario))
-
 ## [v0.2.99](https://github.com/dosomething/phoenix/tree/v0.2.99) (2014-06-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.98...v0.2.99)
-
-**Fixed bugs:**
-
-- \[campaign close\] - winner section subheader, not pulling in type of winner [\#2568](https://github.com/DoSomething/phoenix/issues/2568)
-- \[campaign close\] - notify me doesn't provide notification message and button remains [\#2566](https://github.com/DoSomething/phoenix/issues/2566)
-
-**Closed issues:**
-
-- \[SMS Campaign\] Add capacity for showing uploaded background pattern. [\#2577](https://github.com/DoSomething/phoenix/issues/2577)
-- \[Campaign Close\] Remove "Ends June 20" date [\#2571](https://github.com/DoSomething/phoenix/issues/2571)
-- \[campaign close\] - add commas to signup and output numbers [\#2570](https://github.com/DoSomething/phoenix/issues/2570)
-- \[campaign close\] - prevent auth/anon users from visiting the campaign run node directly [\#2560](https://github.com/DoSomething/phoenix/issues/2560)
-- \[campaign close\] - remove scholarship amount from header [\#2558](https://github.com/DoSomething/phoenix/issues/2558)
-- \[campaign close\] - don't display THE BUZZ section header if no content exists in that section [\#2492](https://github.com/DoSomething/phoenix/issues/2492)
-- \[campaign close\] - update LOVE FROM CELEBS section header copy [\#2491](https://github.com/DoSomething/phoenix/issues/2491)
-- \[campaign close\] - rules for displaying info in winner section [\#2490](https://github.com/DoSomething/phoenix/issues/2490)
-- \[Campaign Close\] Winners field collection [\#2378](https://github.com/DoSomething/phoenix/issues/2378)
-- Increase readability top nav on campaign pages [\#1776](https://github.com/DoSomething/phoenix/issues/1776)
-
-**Merged pull requests:**
-
-- Adding class to allow for background pattern on sms campaign template. [\#2578](https://github.com/DoSomething/phoenix/pull/2578) ([weerd](https://github.com/weerd))
-- User presignup tweaks [\#2576](https://github.com/DoSomething/phoenix/pull/2576) ([aaronschachter](https://github.com/aaronschachter))
-- Added campaign\_run to staff only content type array. [\#2575](https://github.com/DoSomething/phoenix/pull/2575) ([angaither](https://github.com/angaither))
-- Confirmation page nav color [\#2574](https://github.com/DoSomething/phoenix/pull/2574) ([DFurnes](https://github.com/DFurnes))
-- added winner subheaders [\#2573](https://github.com/DoSomething/phoenix/pull/2573) ([tjrosario](https://github.com/tjrosario))
-- Campaign closed remove enddate [\#2572](https://github.com/DoSomething/phoenix/pull/2572) ([tjrosario](https://github.com/tjrosario))
-- Field Collection s. show [\#2567](https://github.com/DoSomething/phoenix/pull/2567) ([aaronschachter](https://github.com/aaronschachter))
-- Campaign closed mods [\#2565](https://github.com/DoSomething/phoenix/pull/2565) ([tjrosario](https://github.com/tjrosario))
 
 ## [v0.2.98](https://github.com/dosomething/phoenix/tree/v0.2.98) (2014-06-17)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.97...v0.2.98)
 
-**Fixed bugs:**
-
-- \[Campaign\] Allow markdown in "After Copy" field [\#2474](https://github.com/DoSomething/phoenix/issues/2474)
-
-**Closed issues:**
-
-- \[SMS game\] - need to add custom settings to sms games [\#2552](https://github.com/DoSomething/phoenix/issues/2552)
-- Reportback View tweaks [\#2549](https://github.com/DoSomething/phoenix/issues/2549)
-- \[SMS game\] - need to display copy indicating \# of ppl who have participated in SMS Games [\#2538](https://github.com/DoSomething/phoenix/issues/2538)
-- \[SMS game\] - Starter Statement Header field needed [\#2536](https://github.com/DoSomething/phoenix/issues/2536)
-- \[SMS game\] - Know It Image Needed [\#2533](https://github.com/DoSomething/phoenix/issues/2533)
-- \[campaign close\] - rules for displaying totals text [\#2489](https://github.com/DoSomething/phoenix/issues/2489)
-- campaign run: calculated totals help text in node form [\#2480](https://github.com/DoSomething/phoenix/issues/2480)
-- \[campaign close\] - signed up but didn't report back should drop off profile [\#2427](https://github.com/DoSomething/phoenix/issues/2427)
-- \[Campaign Close\] Dynamic Reportback gallery [\#2394](https://github.com/DoSomething/phoenix/issues/2394)
-- \[Campaign Close\] Press Field Collection [\#2379](https://github.com/DoSomething/phoenix/issues/2379)
-
-**Merged pull requests:**
-
-- Updating DO IT field feature to use markdown based on Sharon Actor's exc... [\#2559](https://github.com/DoSomething/phoenix/pull/2559) ([weerd](https://github.com/weerd))
-- Sms Game Fields [\#2557](https://github.com/DoSomething/phoenix/pull/2557) ([aaronschachter](https://github.com/aaronschachter))
-- Sms gaming [\#2555](https://github.com/DoSomething/phoenix/pull/2555) ([aaronschachter](https://github.com/aaronschachter))
-- Don't add campaigns to a profile that are closed, with no reportback. [\#2554](https://github.com/DoSomething/phoenix/pull/2554) ([angaither](https://github.com/angaither))
-- Fixing the pitch page content. [\#2553](https://github.com/DoSomething/phoenix/pull/2553) ([weerd](https://github.com/weerd))
-- Reportback view fixes [\#2551](https://github.com/DoSomething/phoenix/pull/2551) ([aaronschachter](https://github.com/aaronschachter))
-- Add campaign totals to help text [\#2550](https://github.com/DoSomething/phoenix/pull/2550) ([angaither](https://github.com/angaither))
-- Quick fix to banner alignment in campaign header. [\#2548](https://github.com/DoSomething/phoenix/pull/2548) ([weerd](https://github.com/weerd))
-
 ## [v0.2.97](https://github.com/dosomething/phoenix/tree/v0.2.97) (2014-06-16)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.96...v0.2.97)
-
-**Closed issues:**
-
-- \[Campaign\] Remove all unused styles, now that "container" module implemented. [\#2539](https://github.com/DoSomething/phoenix/issues/2539)
-- \[Campaign Close\] Celebs Field Collection [\#2382](https://github.com/DoSomething/phoenix/issues/2382)
-- Reportback view page enhancements [\#1560](https://github.com/DoSomething/phoenix/issues/1560)
-
-**Merged pull requests:**
-
-- Reportback view [\#2547](https://github.com/DoSomething/phoenix/pull/2547) ([aaronschachter](https://github.com/aaronschachter))
-- Fixes some indentation and formatting issues. [\#2546](https://github.com/DoSomething/phoenix/pull/2546) ([DFurnes](https://github.com/DFurnes))
-- campaign closed css file missed from previous PR [\#2545](https://github.com/DoSomething/phoenix/pull/2545) ([tjrosario](https://github.com/tjrosario))
-- new campaign closed redesign [\#2543](https://github.com/DoSomething/phoenix/pull/2543) ([tjrosario](https://github.com/tjrosario))
-- Campaign  styles cleanup [\#2540](https://github.com/DoSomething/phoenix/pull/2540) ([weerd](https://github.com/weerd))
 
 ## [v0.2.96](https://github.com/dosomething/phoenix/tree/v0.2.96) (2014-06-16)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.95...v0.2.96)
 
-**Fixed bugs:**
-
-- \[Campaign\] Toyota background image needs to be resaved and imported [\#2525](https://github.com/DoSomething/phoenix/issues/2525)
-- Campaigns page layout is broken on production [\#2506](https://github.com/DoSomething/phoenix/issues/2506)
-- Helpers: Test bug -- fix getInfo\(\) group [\#570](https://github.com/DoSomething/phoenix/issues/570)
-
-**Closed issues:**
-
-- Remove Simpletest dependency from DS User [\#2532](https://github.com/DoSomething/phoenix/issues/2532)
-- Add .fuse\_hidden files to .gitignore [\#2521](https://github.com/DoSomething/phoenix/issues/2521)
-- \[campaign close\] - change button text [\#2481](https://github.com/DoSomething/phoenix/issues/2481)
-- dosomething.info - Add field\_group to dependencies [\#2455](https://github.com/DoSomething/phoenix/issues/2455)
-- Reportback Form: Check for logged in user upon submit [\#2443](https://github.com/DoSomething/phoenix/issues/2443)
-- \[SMS game\] - h2 needs to be purple [\#2440](https://github.com/DoSomething/phoenix/issues/2440)
-- \[campaign close\] "Results coming soon" state [\#2402](https://github.com/DoSomething/phoenix/issues/2402)
-- Add campaign details to dosomething\_mbp\_campaign\_request\(\) [\#2237](https://github.com/DoSomething/phoenix/issues/2237)
-- Action page prove it section contact us should have sec link treatment [\#1791](https://github.com/DoSomething/phoenix/issues/1791)
-
-**Merged pull requests:**
-
-- Profile/testing cleanup [\#2534](https://github.com/DoSomething/phoenix/pull/2534) ([aaronschachter](https://github.com/aaronschachter))
-- Neue 4.0 [\#2530](https://github.com/DoSomething/phoenix/pull/2530) ([DFurnes](https://github.com/DFurnes))
-- Check for logged in user before submitting reportback form [\#2529](https://github.com/DoSomething/phoenix/pull/2529) ([aaronschachter](https://github.com/aaronschachter))
-- Updating heading color. [\#2528](https://github.com/DoSomething/phoenix/pull/2528) ([weerd](https://github.com/weerd))
-- DoSomething config admin menu group [\#2527](https://github.com/DoSomething/phoenix/pull/2527) ([aaronschachter](https://github.com/aaronschachter))
-- Ignore fuse files in git [\#2524](https://github.com/DoSomething/phoenix/pull/2524) ([angaither](https://github.com/angaither))
-- Added an admin form to administer run default copy. [\#2522](https://github.com/DoSomething/phoenix/pull/2522) ([angaither](https://github.com/angaither))
-- Adds additional fields to send to campaign cache MBP transactions [\#2508](https://github.com/DoSomething/phoenix/pull/2508) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.95](https://github.com/dosomething/phoenix/tree/v0.2.95) (2014-06-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.94...v0.2.95)
-
-**Fixed bugs:**
-
-- Action page prove it section gallery arrows are non-navigable [\#2307](https://github.com/DoSomething/phoenix/issues/2307)
-- \[Campaign template\] Yucky vertical spacing in Step 2 when no modals [\#2293](https://github.com/DoSomething/phoenix/issues/2293)
-- \[Campaign Template\] - Plan It section vertical spacing [\#2028](https://github.com/DoSomething/phoenix/issues/2028)
-- action page \(prove it\) - arrows should be centered on photo [\#1177](https://github.com/DoSomething/phoenix/issues/1177)
-
-**Closed issues:**
-
-- \[Campaign\] Refactor the template to use the new .container module. [\#2425](https://github.com/DoSomething/phoenix/issues/2425)
-- Refactor / remove Pitch custom Entity view mode [\#2383](https://github.com/DoSomething/phoenix/issues/2383)
-- action page \(plan it\) - rework layout of plan it section [\#1206](https://github.com/DoSomething/phoenix/issues/1206)
-
-**Merged pull requests:**
-
-- Move MOMM redirect into dosomething\_legacy [\#2520](https://github.com/DoSomething/phoenix/pull/2520) ([aaronschachter](https://github.com/aaronschachter))
-- Campaign  full template refactor [\#2519](https://github.com/DoSomething/phoenix/pull/2519) ([weerd](https://github.com/weerd))
 
 ## [v0.2.94](https://github.com/dosomething/phoenix/tree/v0.2.94) (2014-06-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.93...v0.2.94)
 
-**Closed issues:**
-
-- Make Drupal run faster on Vagrant  - Workflow? [\#2444](https://github.com/DoSomething/phoenix/issues/2444)
-- \[Campaign template\] Hide campaign from Finder [\#2377](https://github.com/DoSomething/phoenix/issues/2377)
-
-**Merged pull requests:**
-
-- Campaign status solr [\#2516](https://github.com/DoSomething/phoenix/pull/2516) ([blisteringherb](https://github.com/blisteringherb))
-
 ## [v0.2.93](https://github.com/dosomething/phoenix/tree/v0.2.93) (2014-06-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v.0.2.92...v0.2.93)
-
-**Merged pull requests:**
-
-- Revert previous deletion. [\#2514](https://github.com/DoSomething/phoenix/pull/2514) ([DFurnes](https://github.com/DFurnes))
-- Fix extra header on user profile page. [\#2512](https://github.com/DoSomething/phoenix/pull/2512) ([DFurnes](https://github.com/DFurnes))
 
 ## [v.0.2.92](https://github.com/dosomething/phoenix/tree/v.0.2.92) (2014-06-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.91...v.0.2.92)
 
-**Closed issues:**
-
-- Reportback Gallery: Message if no files have been promoted [\#2510](https://github.com/DoSomething/phoenix/issues/2510)
-- \[campaign close\] - update help text on admin view [\#2482](https://github.com/DoSomething/phoenix/issues/2482)
-- \[campaign close\] - hide "Add another item" and "Remove" buttons in the gallery field set [\#2457](https://github.com/DoSomething/phoenix/issues/2457)
-- Reportback: Promote a Reportback File [\#2356](https://github.com/DoSomething/phoenix/issues/2356)
-- \[Campaign Close\] Reportback File - Editorial Caption [\#2354](https://github.com/DoSomething/phoenix/issues/2354)
-
-**Merged pull requests:**
-
-- Reportback Gallery preprocess [\#2507](https://github.com/DoSomething/phoenix/pull/2507) ([aaronschachter](https://github.com/aaronschachter))
-- Hide confusing add another/remove buttons. [\#2505](https://github.com/DoSomething/phoenix/pull/2505) ([angaither](https://github.com/angaither))
-- Campaign run help text updates. [\#2496](https://github.com/DoSomething/phoenix/pull/2496) ([angaither](https://github.com/angaither))
-
 ## [v0.2.91](https://github.com/dosomething/phoenix/tree/v0.2.91) (2014-06-12)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.90...v0.2.91)
-
-**Fixed bugs:**
-
-- Campaign closed Pitch Page displaying [\#2486](https://github.com/DoSomething/phoenix/issues/2486)
-
-**Closed issues:**
-
-- Cap deploys to public production and staging IPs  [\#2497](https://github.com/DoSomething/phoenix/issues/2497)
-
-**Merged pull requests:**
-
-- Add page override for fact page. [\#2500](https://github.com/DoSomething/phoenix/pull/2500) ([DFurnes](https://github.com/DFurnes))
-- Campaign Reportback gallery [\#2499](https://github.com/DoSomething/phoenix/pull/2499) ([aaronschachter](https://github.com/aaronschachter))
-- Fixes \#2497: Uses private subnet IPs for stage/prod deploy [\#2498](https://github.com/DoSomething/phoenix/pull/2498) ([mshmsh5000](https://github.com/mshmsh5000))
-- Fixes tiny campaign thumbnails on "Explore Campaigns" page. [\#2495](https://github.com/DoSomething/phoenix/pull/2495) ([DFurnes](https://github.com/DFurnes))
-- Check for `is\_closed` before `is\_pitch` [\#2488](https://github.com/DoSomething/phoenix/pull/2488) ([angaither](https://github.com/angaither))
 
 ## [v0.2.90](https://github.com/dosomething/phoenix/tree/v0.2.90) (2014-06-11)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.89...v0.2.90)
 
-**Fixed bugs:**
-
-- Reset password: Styling [\#2198](https://github.com/DoSomething/phoenix/issues/2198)
-- Content sits behind navigation bar [\#1949](https://github.com/DoSomething/phoenix/issues/1949)
-
-**Closed issues:**
-
-- \[Campaign Close\] Cleanup dosomething\_campaign\_is\_closed function [\#2475](https://github.com/DoSomething/phoenix/issues/2475)
-- \[Campaign Close\] Presignup on user login/register [\#2472](https://github.com/DoSomething/phoenix/issues/2472)
-- /User page styling [\#2197](https://github.com/DoSomething/phoenix/issues/2197)
-- Style the Beta access denied page [\#2164](https://github.com/DoSomething/phoenix/issues/2164)
-
-**Merged pull requests:**
-
-- Page layouts [\#2493](https://github.com/DoSomething/phoenix/pull/2493) ([DFurnes](https://github.com/DFurnes))
-- On login submit, sign the user up for the correct campaign state. [\#2487](https://github.com/DoSomething/phoenix/pull/2487) ([angaither](https://github.com/angaither))
-- Default page layout [\#2484](https://github.com/DoSomething/phoenix/pull/2484) ([DFurnes](https://github.com/DFurnes))
-- Cleanup dosomething\_campaign\_is\_closed function [\#2478](https://github.com/DoSomething/phoenix/pull/2478) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.89](https://github.com/dosomething/phoenix/tree/v0.2.89) (2014-06-11)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.88...v0.2.89)
-
-**Fixed bugs:**
-
-- \[footer\] - social buttons are missing in IE on prod [\#2336](https://github.com/DoSomething/phoenix/issues/2336)
-- \[Global\] Styling for default pages within the site. [\#1706](https://github.com/DoSomething/phoenix/issues/1706)
-
-**Closed issues:**
-
-- \[campaign close\] - update what people are saying field group name [\#2479](https://github.com/DoSomething/phoenix/issues/2479)
-- Include $payload\['subscribed'\] = 1 in mbp requests [\#2476](https://github.com/DoSomething/phoenix/issues/2476)
-- Add npm-debug.log to .gitignore [\#2447](https://github.com/DoSomething/phoenix/issues/2447)
-- \[Campaign Template\] - closed campaign state fields needed [\#2348](https://github.com/DoSomething/phoenix/issues/2348)
-- \[Campaign Template\] - Unable to upload report back photon on Android 4.4.2 KitKat [\#2165](https://github.com/DoSomething/phoenix/issues/2165)
-
-**Merged pull requests:**
-
-- Changed the preprocess to match the actual field name. [\#2485](https://github.com/DoSomething/phoenix/pull/2485) ([angaither](https://github.com/angaither))
-- Update field group name. [\#2483](https://github.com/DoSomething/phoenix/pull/2483) ([angaither](https://github.com/angaither))
-- Subscribe enabled setting for registration, campaign and group campaign ... [\#2477](https://github.com/DoSomething/phoenix/pull/2477) ([DeeZone](https://github.com/DeeZone))
-- Add npm-debug.log to gitignore. Fixes \#2447. [\#2462](https://github.com/DoSomething/phoenix/pull/2462) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.88](https://github.com/dosomething/phoenix/tree/v0.2.88) (2014-06-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.87...v0.2.88)
 
-**Closed issues:**
-
-- \[campaign close\] - add User First Name field to Winner field collection [\#2465](https://github.com/DoSomething/phoenix/issues/2465)
-
-**Merged pull requests:**
-
-- Presignup form [\#2473](https://github.com/DoSomething/phoenix/pull/2473) ([aaronschachter](https://github.com/aaronschachter))
-- Campaign Run node updates [\#2471](https://github.com/DoSomething/phoenix/pull/2471) ([angaither](https://github.com/angaither))
-
 ## [v0.2.87](https://github.com/dosomething/phoenix/tree/v0.2.87) (2014-06-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.86...v0.2.87)
-
-**Closed issues:**
-
-- Refactor Fact sources markup [\#2468](https://github.com/DoSomething/phoenix/issues/2468)
-- Campaign Close - Presignup table [\#2463](https://github.com/DoSomething/phoenix/issues/2463)
-- 11-facts - sources [\#2452](https://github.com/DoSomething/phoenix/issues/2452)
-- \[Campaign Close\] Entity reference on campaign node [\#2450](https://github.com/DoSomething/phoenix/issues/2450)
-
-**Merged pull requests:**
-
-- Campaign status field [\#2470](https://github.com/DoSomething/phoenix/pull/2470) ([angaither](https://github.com/angaither))
-- updated fact page module to returns sources as an array and updated markup on the front-end to match the current sources pattern [\#2469](https://github.com/DoSomething/phoenix/pull/2469) ([tjrosario](https://github.com/tjrosario))
-- Presignup table [\#2467](https://github.com/DoSomething/phoenix/pull/2467) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.86](https://github.com/dosomething/phoenix/tree/v0.2.86) (2014-06-10)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.85...v0.2.86)
 
-**Closed issues:**
-
-- Static Content - Gallery \(link photos\) [\#2454](https://github.com/DoSomething/phoenix/issues/2454)
-- \[Campaign Close\] Reportback File Field [\#2393](https://github.com/DoSomething/phoenix/issues/2393)
-- \[SMS Game\] Create signup for mobile if user exists [\#2341](https://github.com/DoSomething/phoenix/issues/2341)
-- Button padding [\#1789](https://github.com/DoSomething/phoenix/issues/1789)
-
-**Merged pull requests:**
-
-- Updated source toggle js to accomodate fact page source markup [\#2464](https://github.com/DoSomething/phoenix/pull/2464) ([tjrosario](https://github.com/tjrosario))
-- linked gallery item image [\#2459](https://github.com/DoSomething/phoenix/pull/2459) ([tjrosario](https://github.com/tjrosario))
-- File Entity + Editorial Caption [\#2458](https://github.com/DoSomething/phoenix/pull/2458) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.85](https://github.com/dosomething/phoenix/tree/v0.2.85) (2014-06-09)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.84...v0.2.85)
-
-**Fixed bugs:**
-
-- Search results show "hunt" but not "the hunt" [\#2387](https://github.com/DoSomething/phoenix/issues/2387)
-
-**Closed issues:**
-
-- Update fact view template to use new container markup system [\#2435](https://github.com/DoSomething/phoenix/issues/2435)
-- \[Campaign Close\] Display parent Campaign Video [\#2396](https://github.com/DoSomething/phoenix/issues/2396)
-- Knock the size down on the boiler plate. [\#1866](https://github.com/DoSomething/phoenix/issues/1866)
-
-**Merged pull requests:**
-
-- Polyfill fixes [\#2448](https://github.com/DoSomething/phoenix/pull/2448) ([DFurnes](https://github.com/DFurnes))
-- Added missing bracket. [\#2446](https://github.com/DoSomething/phoenix/pull/2446) ([DFurnes](https://github.com/DFurnes))
-- Updated fact page markup to use new refactored markup / css system [\#2441](https://github.com/DoSomething/phoenix/pull/2441) ([tjrosario](https://github.com/tjrosario))
-- Fixes SCSS linting task. [\#2438](https://github.com/DoSomething/phoenix/pull/2438) ([DFurnes](https://github.com/DFurnes))
-- Closed page images video [\#2437](https://github.com/DoSomething/phoenix/pull/2437) ([angaither](https://github.com/angaither))
 
 ## [v0.2.84](https://github.com/dosomething/phoenix/tree/v0.2.84) (2014-06-05)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.83...v0.2.84)
 
-**Fixed bugs:**
-
-- Campaign Template - Can't submit report backs in IE10 / Windows 8 [\#2423](https://github.com/DoSomething/phoenix/issues/2423)
-
-**Closed issues:**
-
-- \[Signup Data Form\] - add Guam back to list of state options [\#2413](https://github.com/DoSomething/phoenix/issues/2413)
-
-**Merged pull requests:**
-
-- Image upload fix [\#2436](https://github.com/DoSomething/phoenix/pull/2436) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.83](https://github.com/dosomething/phoenix/tree/v0.2.83) (2014-06-05)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.82...v0.2.83)
-
-**Fixed bugs:**
-
-- \[Mind On My Money\] - redirect no longer working [\#2433](https://github.com/DoSomething/phoenix/issues/2433)
-
-**Merged pull requests:**
-
-- Fixes redirect for momm by sending a node object in to check [\#2434](https://github.com/DoSomething/phoenix/pull/2434) ([angaither](https://github.com/angaither))
 
 ## [v0.2.82](https://github.com/dosomething/phoenix/tree/v0.2.82) (2014-06-05)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.81...v0.2.82)
 
-**Closed issues:**
-
-- \[Fact Page\] Styles for Fact Page List [\#2369](https://github.com/DoSomething/phoenix/issues/2369)
-
-**Merged pull requests:**
-
-- Fact page styles [\#2432](https://github.com/DoSomething/phoenix/pull/2432) ([tjrosario](https://github.com/tjrosario))
-- Campaign close preprocess [\#2428](https://github.com/DoSomething/phoenix/pull/2428) ([angaither](https://github.com/angaither))
-
 ## [v0.2.81](https://github.com/dosomething/phoenix/tree/v0.2.81) (2014-06-04)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.80...v0.2.81)
-
-**Merged pull requests:**
-
-- Fixes borked reference to helpers module [\#2430](https://github.com/DoSomething/phoenix/pull/2430) ([desmondmorris](https://github.com/desmondmorris))
 
 ## [v0.2.80](https://github.com/dosomething/phoenix/tree/v0.2.80) (2014-06-04)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.79...v0.2.80)
 
-**Closed issues:**
-
-- \[campaign template\] do we want this space on confirmation page right above the footer? [\#2299](https://github.com/DoSomething/phoenix/issues/2299)
-- Update boilerplate [\#2135](https://github.com/DoSomething/phoenix/issues/2135)
-- \[Grouped Campaigns\] needs to show up in finder results [\#2095](https://github.com/DoSomething/phoenix/issues/2095)
-
-**Merged pull requests:**
-
-- Adding campaign group to finder [\#2426](https://github.com/DoSomething/phoenix/pull/2426) ([blisteringherb](https://github.com/blisteringherb))
-- Dropped font size of boilerplate text down to 0.9rem and italicized the ... [\#2424](https://github.com/DoSomething/phoenix/pull/2424) ([tjrosario](https://github.com/tjrosario))
-- Lint that lint [\#2422](https://github.com/DoSomething/phoenix/pull/2422) ([DFurnes](https://github.com/DFurnes))
-- Make two links on Hunt MCC form open in new tab. [\#2421](https://github.com/DoSomething/phoenix/pull/2421) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.79](https://github.com/dosomething/phoenix/tree/v0.2.79) (2014-06-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.78...v0.2.79)
-
-**Merged pull requests:**
-
-- Exclude the right JS file. [\#2420](https://github.com/DoSomething/phoenix/pull/2420) ([DFurnes](https://github.com/DFurnes))
-- Exclude forms.js because it was exploding. And seemingly useless. [\#2419](https://github.com/DoSomething/phoenix/pull/2419) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.78](https://github.com/dosomething/phoenix/tree/v0.2.78) (2014-06-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.77...v0.2.78)
 
-**Fixed bugs:**
-
-- rem polyfill error breaks DS.org in IE8 [\#2347](https://github.com/DoSomething/phoenix/issues/2347)
-- \[Campaign Finder\] Subpixel rendering issue with campaign boxes [\#1801](https://github.com/DoSomething/phoenix/issues/1801)
-
-**Merged pull requests:**
-
-- Fixes for IE8 polyfill issues with CDN assets [\#2417](https://github.com/DoSomething/phoenix/pull/2417) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.77](https://github.com/dosomething/phoenix/tree/v0.2.77) (2014-06-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.76...v0.2.77)
-
-**Closed issues:**
-
-- \[SMS Campaign\] Add wrapping \<div\>s for input fields in sign up form. [\#2411](https://github.com/DoSomething/phoenix/issues/2411)
-- \[SMS game\] - add CTIA messaging [\#2408](https://github.com/DoSomething/phoenix/issues/2408)
-- \[SMS game\] - no texts sent + error message received [\#2406](https://github.com/DoSomething/phoenix/issues/2406)
-- \[SMS game\] - need to get optimizely up on staging for Bully Text [\#2404](https://github.com/DoSomething/phoenix/issues/2404)
-- \[SMS Game\] Step 1, Step 2 Headers need padding [\#2374](https://github.com/DoSomething/phoenix/issues/2374)
-- SMS Game: Step 2 styles [\#2178](https://github.com/DoSomething/phoenix/issues/2178)
-
-**Merged pull requests:**
-
-- Sms campaign  signup form [\#2418](https://github.com/DoSomething/phoenix/pull/2418) ([weerd](https://github.com/weerd))
-- Sms campaign  optimizely script [\#2416](https://github.com/DoSomething/phoenix/pull/2416) ([weerd](https://github.com/weerd))
-- Fix SMS Game for auth user with no mobile [\#2415](https://github.com/DoSomething/phoenix/pull/2415) ([aaronschachter](https://github.com/aaronschachter))
-- Removing press field [\#2414](https://github.com/DoSomething/phoenix/pull/2414) ([angaither](https://github.com/angaither))
-- Friends form markup [\#2412](https://github.com/DoSomething/phoenix/pull/2412) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.76](https://github.com/dosomething/phoenix/tree/v0.2.76) (2014-06-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.75...v0.2.76)
 
-**Closed issues:**
-
-- new user role needed to view all unpublished content [\#2398](https://github.com/DoSomething/phoenix/issues/2398)
-- \[Campaign Close\] Campaign closed template [\#2367](https://github.com/DoSomething/phoenix/issues/2367)
-- \[Campaign Close\] Display Campaign Run node within Campaign [\#2352](https://github.com/DoSomething/phoenix/issues/2352)
-- \[Campaign Close\] New tab for Campaign Closed [\#2351](https://github.com/DoSomething/phoenix/issues/2351)
-- \[Fact Page\] Group Fact list by selective Cause terms [\#2342](https://github.com/DoSomething/phoenix/issues/2342)
-
-**Merged pull requests:**
-
-- Adds the easy text fields to winner field group. [\#2410](https://github.com/DoSomething/phoenix/pull/2410) ([angaither](https://github.com/angaither))
-- Add press field group to campaign run. [\#2409](https://github.com/DoSomething/phoenix/pull/2409) ([angaither](https://github.com/angaither))
-- Add org friend role [\#2407](https://github.com/DoSomething/phoenix/pull/2407) ([angaither](https://github.com/angaither))
-- Sms campaign  styles [\#2405](https://github.com/DoSomething/phoenix/pull/2405) ([weerd](https://github.com/weerd))
-- Campaign closed template setup [\#2392](https://github.com/DoSomething/phoenix/pull/2392) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.75](https://github.com/dosomething/phoenix/tree/v0.2.75) (2014-06-03)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.74...v0.2.75)
-
-**Closed issues:**
-
-- \[SMS game\] - weird redirect for campaigns/bully-text-0 on staging [\#2401](https://github.com/DoSomething/phoenix/issues/2401)
-- Salt: Move Vagrant dir internal & adjust apache2 config [\#2389](https://github.com/DoSomething/phoenix/issues/2389)
-
-**Merged pull requests:**
-
-- Source maps for SCSS, optional un-minified builds on production [\#2403](https://github.com/DoSomething/phoenix/pull/2403) ([DFurnes](https://github.com/DFurnes))
-- Fixes \#2389: Updates Salt config to copy Vagrant shared dir internally [\#2390](https://github.com/DoSomething/phoenix/pull/2390) ([mshmsh5000](https://github.com/mshmsh5000))
 
 ## [v0.2.74](https://github.com/dosomething/phoenix/tree/v0.2.74) (2014-06-02)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.73...v0.2.74)
 
-**Fixed bugs:**
-
-- Auth - using email address we suggest on wrong, but close cases doesn't work [\#1820](https://github.com/DoSomething/phoenix/issues/1820)
-
-**Closed issues:**
-
-- Julie would like an emoticon for hipchat [\#2386](https://github.com/DoSomething/phoenix/issues/2386)
-- Facts modal: These are tough to read due to a lack of spacing between the facts [\#2332](https://github.com/DoSomething/phoenix/issues/2332)
-- Make footer links customizable [\#2092](https://github.com/DoSomething/phoenix/issues/2092)
-
-**Merged pull requests:**
-
-- Bundle em up [\#2400](https://github.com/DoSomething/phoenix/pull/2400) ([DFurnes](https://github.com/DFurnes))
-- Changed list of legal items within facts modal to an unordered list [\#2399](https://github.com/DoSomething/phoenix/pull/2399) ([tjrosario](https://github.com/tjrosario))
-- Campaign Run: Total Fields [\#2391](https://github.com/DoSomething/phoenix/pull/2391) ([aaronschachter](https://github.com/aaronschachter))
-- Make footer links editable [\#2261](https://github.com/DoSomething/phoenix/pull/2261) ([desmondmorris](https://github.com/desmondmorris))
-
 ## [v0.2.73](https://github.com/dosomething/phoenix/tree/v0.2.73) (2014-05-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.72...v0.2.73)
-
-**Merged pull requests:**
-
-- Adds dosomething\_campaign\_is\_pitch\_page [\#2385](https://github.com/DoSomething/phoenix/pull/2385) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.72](https://github.com/dosomething/phoenix/tree/v0.2.72) (2014-05-30)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.71...v0.2.72)
 
-**Fixed bugs:**
-
-- \[SMS Game\]  header image doesn't display [\#2349](https://github.com/DoSomething/phoenix/issues/2349)
-
-**Merged pull requests:**
-
-- Removes SMS Game view mode [\#2381](https://github.com/DoSomething/phoenix/pull/2381) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.71](https://github.com/dosomething/phoenix/tree/v0.2.71) (2014-05-29)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.70...v0.2.71)
-
-**Closed issues:**
-
-- \[SMS Campaign\] Cover image not being output via internal stylesheet [\#2368](https://github.com/DoSomething/phoenix/issues/2368)
-- \[Campaign Close\] New content type [\#2350](https://github.com/DoSomething/phoenix/issues/2350)
-
-**Merged pull requests:**
-
-- Introducing campaign runs [\#2370](https://github.com/DoSomething/phoenix/pull/2370) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.70](https://github.com/dosomething/phoenix/tree/v0.2.70) (2014-05-29)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.69...v0.2.70)
 
-**Closed issues:**
-
-- \[SMS Campaign\] Add initial structural markup [\#2364](https://github.com/DoSomething/phoenix/issues/2364)
-- Light color drop on nav [\#2282](https://github.com/DoSomething/phoenix/issues/2282)
-
-**Merged pull requests:**
-
-- Group Fact Pages by Primary Cause [\#2366](https://github.com/DoSomething/phoenix/pull/2366) ([aaronschachter](https://github.com/aaronschachter))
-- Configuring initial structural markup. [\#2365](https://github.com/DoSomething/phoenix/pull/2365) ([weerd](https://github.com/weerd))
-
 ## [v0.2.69](https://github.com/dosomething/phoenix/tree/v0.2.69) (2014-05-29)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.68...v0.2.69)
-
-**Closed issues:**
-
-- \[Static content\] Blockreference field [\#2331](https://github.com/DoSomething/phoenix/issues/2331)
-- \[Fact Page\] Landing page [\#2322](https://github.com/DoSomething/phoenix/issues/2322)
-
-**Merged pull requests:**
-
-- Blocks in Static Content [\#2361](https://github.com/DoSomething/phoenix/pull/2361) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.68](https://github.com/dosomething/phoenix/tree/v0.2.68) (2014-05-29)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.67...v0.2.68)
 
-**Fixed bugs:**
-
-- Fonts not loading in Firefox [\#2344](https://github.com/DoSomething/phoenix/issues/2344)
-
-**Closed issues:**
-
-- action guides - remove subtitle field [\#1440](https://github.com/DoSomething/phoenix/issues/1440)
-
-**Merged pull requests:**
-
-- Temp fix to help make nav more legible. [\#2360](https://github.com/DoSomething/phoenix/pull/2360) ([weerd](https://github.com/weerd))
-
 ## [v0.2.67](https://github.com/dosomething/phoenix/tree/v0.2.67) (2014-05-28)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.66...v0.2.67)
-
-**Merged pull requests:**
-
-- Readding requirejs settings changed when bug fixing. [\#2358](https://github.com/DoSomething/phoenix/pull/2358) ([weerd](https://github.com/weerd))
 
 ## [v0.2.66](https://github.com/dosomething/phoenix/tree/v0.2.66) (2014-05-28)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.65...v0.2.66)
 
-**Fixed bugs:**
-
-- \[Grouped Campaigns\] Contact Us not showing up on prod [\#2346](https://github.com/DoSomething/phoenix/issues/2346)
-
-**Closed issues:**
-
-- \[SMS Game\] No transactionals upon signup [\#2315](https://github.com/DoSomething/phoenix/issues/2315)
-
-**Merged pull requests:**
-
-- Attempting fix for IE8 rem polyfill bug, and quick fix for info-bar in t... [\#2355](https://github.com/DoSomething/phoenix/pull/2355) ([weerd](https://github.com/weerd))
-- Sms Game tweaks [\#2345](https://github.com/DoSomething/phoenix/pull/2345) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.65](https://github.com/dosomething/phoenix/tree/v0.2.65) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.64...v0.2.65)
-
-**Merged pull requests:**
-
-- Fixing form multiple choice bug. [\#2340](https://github.com/DoSomething/phoenix/pull/2340) ([weerd](https://github.com/weerd))
 
 ## [v0.2.64](https://github.com/dosomething/phoenix/tree/v0.2.64) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.63...v0.2.64)
 
-**Closed issues:**
-
-- \[MCC Form\] - low priority fixes [\#2337](https://github.com/DoSomething/phoenix/issues/2337)
-
-**Merged pull requests:**
-
-- Random mini fixes. [\#2338](https://github.com/DoSomething/phoenix/pull/2338) ([weerd](https://github.com/weerd))
-
 ## [v0.2.63](https://github.com/dosomething/phoenix/tree/v0.2.63) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.62...v0.2.63)
-
-**Closed issues:**
-
-- MCC Form \(The Hunt\) - Updates from Nancy's review [\#2327](https://github.com/DoSomething/phoenix/issues/2327)
-
-**Merged pull requests:**
-
-- Mcc form updates part thrice [\#2335](https://github.com/DoSomething/phoenix/pull/2335) ([weerd](https://github.com/weerd))
 
 ## [v0.2.62](https://github.com/dosomething/phoenix/tree/v0.2.62) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.61...v0.2.62)
 
-**Closed issues:**
-
-- Wrap text in static content introduction [\#2328](https://github.com/DoSomething/phoenix/issues/2328)
-- \[Fact Page\] Add Primary Cause field [\#2323](https://github.com/DoSomething/phoenix/issues/2323)
-
-**Merged pull requests:**
-
-- Updates to the mcc form. [\#2334](https://github.com/DoSomething/phoenix/pull/2334) ([weerd](https://github.com/weerd))
-
 ## [v0.2.61](https://github.com/dosomething/phoenix/tree/v0.2.61) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.60...v0.2.61)
-
-**Merged pull requests:**
-
-- Adds "Primary Cause" to Fact Page content type [\#2329](https://github.com/DoSomething/phoenix/pull/2329) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.60](https://github.com/dosomething/phoenix/tree/v0.2.60) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.59...v0.2.60)
 
-**Merged pull requests:**
-
-- Updates to MCC form. [\#2326](https://github.com/DoSomething/phoenix/pull/2326) ([weerd](https://github.com/weerd))
-
 ## [v0.2.59](https://github.com/dosomething/phoenix/tree/v0.2.59) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.58...v0.2.59)
-
-**Fixed bugs:**
-
-- \[Grouped Campaigns\] IE8 bug causing gallery and aside items to not float properly. [\#2324](https://github.com/DoSomething/phoenix/issues/2324)
-
-**Closed issues:**
-
-- \[Grouped Campaign\] Output gallery classes for IE8 [\#2320](https://github.com/DoSomething/phoenix/issues/2320)
-- \[SMS Game\] Don't display Custom Settings tab [\#2312](https://github.com/DoSomething/phoenix/issues/2312)
-- \[Grouped Campaigns\] Pathauto pattern [\#2232](https://github.com/DoSomething/phoenix/issues/2232)
-
-**Merged pull requests:**
-
-- Updates to fix some IE8 issues that cropped up. [\#2325](https://github.com/DoSomething/phoenix/pull/2325) ([weerd](https://github.com/weerd))
-- Gallery classes [\#2321](https://github.com/DoSomething/phoenix/pull/2321) ([aaronschachter](https://github.com/aaronschachter))
-- Grouped Campaign URL pattern [\#2316](https://github.com/DoSomething/phoenix/pull/2316) ([aaronschachter](https://github.com/aaronschachter))
-- Don't display Custom Settings page on SMS Game [\#2313](https://github.com/DoSomething/phoenix/pull/2313) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.58](https://github.com/dosomething/phoenix/tree/v0.2.58) (2014-05-27)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.57...v0.2.58)
 
-**Fixed bugs:**
-
-- \[grouped campaigns\] call to action [\#2318](https://github.com/DoSomething/phoenix/issues/2318)
-- Error if anonymous user submits Zendesk form [\#2309](https://github.com/DoSomething/phoenix/issues/2309)
-
-**Closed issues:**
-
-- Campaign Finder feature flag should only toggle Finder UI [\#2224](https://github.com/DoSomething/phoenix/issues/2224)
-
-**Merged pull requests:**
-
-- Fixing CTA bug [\#2319](https://github.com/DoSomething/phoenix/pull/2319) ([weerd](https://github.com/weerd))
-- Deprecates static homepage.  Conditionally restricts finder [\#2251](https://github.com/DoSomething/phoenix/pull/2251) ([desmondmorris](https://github.com/desmondmorris))
-
 ## [v0.2.57](https://github.com/dosomething/phoenix/tree/v0.2.57) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.56...v0.2.57)
-
-**Fixed bugs:**
-
-- \[Campaign\] Remove bottom margin on CTA on confirmation page [\#2294](https://github.com/DoSomething/phoenix/issues/2294)
-
-**Closed issues:**
-
-- \[Campaign Template\] - allow more than three photos in the gallery [\#2004](https://github.com/DoSomething/phoenix/issues/2004)
-
-**Merged pull requests:**
-
-- Zendesk for all [\#2311](https://github.com/DoSomething/phoenix/pull/2311) ([aaronschachter](https://github.com/aaronschachter))
-- Update to address bug in CTA on confirmation page. [\#2310](https://github.com/DoSomething/phoenix/pull/2310) ([weerd](https://github.com/weerd))
 
 ## [v0.2.56](https://github.com/dosomething/phoenix/tree/v0.2.56) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.55...v0.2.56)
 
-**Closed issues:**
-
-- ZenDesk system info [\#2254](https://github.com/DoSomething/phoenix/issues/2254)
-
-**Merged pull requests:**
-
-- Zendesk custom fields [\#2308](https://github.com/DoSomething/phoenix/pull/2308) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.55](https://github.com/dosomething/phoenix/tree/v0.2.55) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.54...v0.2.55)
-
-**Closed issues:**
-
-- \[SMS Game\] Alter login/register signup NID logic [\#2184](https://github.com/DoSomething/phoenix/issues/2184)
-- \[Campaign\] Adjust  "Submit" button size on Pitch page [\#2105](https://github.com/DoSomething/phoenix/issues/2105)
-
-**Merged pull requests:**
-
-- Update to use medium sized button for signups and some style adjustments... [\#2305](https://github.com/DoSomething/phoenix/pull/2305) ([weerd](https://github.com/weerd))
 
 ## [v0.2.54](https://github.com/dosomething/phoenix/tree/v0.2.54) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.53...v0.2.54)
 
-**Merged pull requests:**
-
-- SMS Game Tweaks [\#2304](https://github.com/DoSomething/phoenix/pull/2304) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.53](https://github.com/dosomething/phoenix/tree/v0.2.53) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.52...v0.2.53)
-
-**Fixed bugs:**
-
-- \[campaign template\] can't remove signup as admin [\#2201](https://github.com/DoSomething/phoenix/issues/2201)
-
-**Closed issues:**
-
-- Grouped Campaign Page: Photos not scaling responsively [\#2263](https://github.com/DoSomething/phoenix/issues/2263)
-- \[Grouped Campaigns\] Double check heading & paragraph margins. [\#2235](https://github.com/DoSomething/phoenix/issues/2235)
-- \[SMS Game\] Alpha/Beta Opt-in Request [\#2176](https://github.com/DoSomething/phoenix/issues/2176)
-- Campaign Sponsor modal: Preprocess video field [\#1086](https://github.com/DoSomething/phoenix/issues/1086)
-
-**Merged pull requests:**
-
-- Minor fixes to grouped campaign images and template cleanup. [\#2303](https://github.com/DoSomething/phoenix/pull/2303) ([weerd](https://github.com/weerd))
-- Partner modal videos [\#2302](https://github.com/DoSomething/phoenix/pull/2302) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.52](https://github.com/dosomething/phoenix/tree/v0.2.52) (2014-05-23)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.51...v0.2.52)
 
-**Closed issues:**
-
-- \[Grouped Campaign\] Error when indexing on stage [\#2267](https://github.com/DoSomething/phoenix/issues/2267)
-
-**Merged pull requests:**
-
-- Fixing broken indexing because of missing low\_season field [\#2297](https://github.com/DoSomething/phoenix/pull/2297) ([blisteringherb](https://github.com/blisteringherb))
-
 ## [v0.2.51](https://github.com/dosomething/phoenix/tree/v0.2.51) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.50...v0.2.51)
-
-**Fixed bugs:**
-
-- \[campaign template\] - image upload on report back looks whack on ie11 [\#2295](https://github.com/DoSomething/phoenix/issues/2295)
-
-**Merged pull requests:**
-
-- Fixes nav on "volunteer" pages. [\#2301](https://github.com/DoSomething/phoenix/pull/2301) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.50](https://github.com/dosomething/phoenix/tree/v0.2.50) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.49...v0.2.50)
 
-**Closed issues:**
-
-- The Hunt URL path change [\#2291](https://github.com/DoSomething/phoenix/issues/2291)
-
-**Merged pull requests:**
-
-- Proper IE8 IE9 feature check usage. [\#2300](https://github.com/DoSomething/phoenix/pull/2300) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.49](https://github.com/dosomething/phoenix/tree/v0.2.49) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.48...v0.2.49)
-
-**Merged pull requests:**
-
-- VOLUNTEER [\#2292](https://github.com/DoSomething/phoenix/pull/2292) ([aaronschachter](https://github.com/aaronschachter))
-- Fix path capitalization so it doesn't fail compiling on Jenkins. [\#2290](https://github.com/DoSomething/phoenix/pull/2290) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.48](https://github.com/dosomething/phoenix/tree/v0.2.48) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.47...v0.2.48)
 
-**Closed issues:**
-
-- \[campaign tempalte\] on W7/IE9 images cannot be uploaded in report back modal [\#2183](https://github.com/DoSomething/phoenix/issues/2183)
-- Custom form for The Hunt MGC [\#2144](https://github.com/DoSomething/phoenix/issues/2144)
-- \[Grouped Campaigns\] alt color custom style field needed [\#2041](https://github.com/DoSomething/phoenix/issues/2041)
-
-**Merged pull requests:**
-
-- Grouped Campaign Alt Color [\#2289](https://github.com/DoSomething/phoenix/pull/2289) ([aaronschachter](https://github.com/aaronschachter))
-- Don't use fancy image upload button on IE9. [\#2288](https://github.com/DoSomething/phoenix/pull/2288) ([DFurnes](https://github.com/DFurnes))
-- Fixes issue with modal lists and adding some margins at bottom of lists ... [\#2287](https://github.com/DoSomething/phoenix/pull/2287) ([weerd](https://github.com/weerd))
-- Update campaign confirmation message per SPG's request. [\#2286](https://github.com/DoSomething/phoenix/pull/2286) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.47](https://github.com/dosomething/phoenix/tree/v0.2.47) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.46...v0.2.47)
-
-**Fixed bugs:**
-
-- Campaign custom vars don't save [\#2284](https://github.com/DoSomething/phoenix/issues/2284)
-
-**Closed issues:**
-
-- ds build dies on Git predis clone [\#2256](https://github.com/DoSomething/phoenix/issues/2256)
-- \[Grouped Campaigns\] Modal Links container showing when no modal links [\#2236](https://github.com/DoSomething/phoenix/issues/2236)
-- \[Grouped Campaign\] Add End Date output in header [\#2234](https://github.com/DoSomething/phoenix/issues/2234)
-- \[SMS Game\] Alpha/Beta Signup form [\#2146](https://github.com/DoSomething/phoenix/issues/2146)
-
-**Merged pull requests:**
-
-- Fixes saving custom variables [\#2285](https://github.com/DoSomething/phoenix/pull/2285) ([aaronschachter](https://github.com/aaronschachter))
-- Adding in date and functionality for alt text. [\#2283](https://github.com/DoSomething/phoenix/pull/2283) ([weerd](https://github.com/weerd))
-- Checking for field existence before getting value [\#2281](https://github.com/DoSomething/phoenix/pull/2281) ([blisteringherb](https://github.com/blisteringherb))
-- SMS Game Signup Form [\#2278](https://github.com/DoSomething/phoenix/pull/2278) ([aaronschachter](https://github.com/aaronschachter))
-- Hunt mcc google form [\#2275](https://github.com/DoSomething/phoenix/pull/2275) ([DFurnes](https://github.com/DFurnes))
-- Fixes \#2256: ds build dies on Predis library clone [\#2271](https://github.com/DoSomething/phoenix/pull/2271) ([mshmsh5000](https://github.com/mshmsh5000))
 
 ## [v0.2.46](https://github.com/dosomething/phoenix/tree/v0.2.46) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.45...v0.2.46)
 
-**Closed issues:**
-
-- \[Grouped Campaigns\] transactional email no honoring line breaks [\#2276](https://github.com/DoSomething/phoenix/issues/2276)
-
-**Merged pull requests:**
-
-- Adds nl2br [\#2277](https://github.com/DoSomething/phoenix/pull/2277) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.45](https://github.com/dosomething/phoenix/tree/v0.2.45) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.44...v0.2.45)
-
-**Closed issues:**
-
-- \[Static content\] need the ability to add a partner to static content [\#1960](https://github.com/DoSomething/phoenix/issues/1960)
-
-**Merged pull requests:**
-
-- Grouped campaigns  empty modal list [\#2272](https://github.com/DoSomething/phoenix/pull/2272) ([weerd](https://github.com/weerd))
-- Load in jQuery using proper require function.ink hover [\#2265](https://github.com/DoSomething/phoenix/pull/2265) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.44](https://github.com/dosomething/phoenix/tree/v0.2.44) (2014-05-22)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.43...v0.2.44)
 
-**Fixed bugs:**
-
-- $params\[transactional\_email\_copy\] bug [\#2269](https://github.com/DoSomething/phoenix/issues/2269)
-
-**Merged pull requests:**
-
-- Removed index lookup in field\_transactional\_email\_copy value [\#2270](https://github.com/DoSomething/phoenix/pull/2270) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.43](https://github.com/dosomething/phoenix/tree/v0.2.43) (2014-05-21)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.42...v0.2.43)
-
-**Closed issues:**
-
-- Signups: table to store third-party subscription values [\#2175](https://github.com/DoSomething/phoenix/issues/2175)
-
-**Merged pull requests:**
-
-- Signup variable table [\#2260](https://github.com/DoSomething/phoenix/pull/2260) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.42](https://github.com/dosomething/phoenix/tree/v0.2.42) (2014-05-21)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.41...v0.2.42)
@@ -7915,266 +6591,50 @@
 ## [v0.2.41](https://github.com/dosomething/phoenix/tree/v0.2.41) (2014-05-21)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.40...v0.2.41)
 
-**Fixed bugs:**
-
-- \[Grouped Campaigns\] flip campaigns view and additional text [\#2239](https://github.com/DoSomething/phoenix/issues/2239)
-- DoSomething Signup view won't revert [\#2238](https://github.com/DoSomething/phoenix/issues/2238)
-
-**Closed issues:**
-
-- Unable to delete campaign signup [\#2257](https://github.com/DoSomething/phoenix/issues/2257)
-- Add SMS Group view mode to DS Campaign Group feature [\#2245](https://github.com/DoSomething/phoenix/issues/2245)
-- null out 1969-12-31 birthdays [\#2242](https://github.com/DoSomething/phoenix/issues/2242)
-- Signups view: Link to signup entity [\#2228](https://github.com/DoSomething/phoenix/issues/2228)
-- Homepage campaigns: allowed content types [\#2137](https://github.com/DoSomething/phoenix/issues/2137)
-- Version front-end assets along with tagged releases [\#2099](https://github.com/DoSomething/phoenix/issues/2099)
-- email Banner Image field [\#2055](https://github.com/DoSomething/phoenix/issues/2055)
-
-**Merged pull requests:**
-
-- Uglify and sourcemap-ify with RequireJS. [\#2259](https://github.com/DoSomething/phoenix/pull/2259) ([DFurnes](https://github.com/DFurnes))
-- Fixes "Remove Signup" form being hidden behind nav. [\#2255](https://github.com/DoSomething/phoenix/pull/2255) ([DFurnes](https://github.com/DFurnes))
-- Fixes issue with address field validation in IE. [\#2253](https://github.com/DoSomething/phoenix/pull/2253) ([DFurnes](https://github.com/DFurnes))
-- Added script to null out default birthday [\#2252](https://github.com/DoSomething/phoenix/pull/2252) ([angaither](https://github.com/angaither))
-- Node signups fix [\#2250](https://github.com/DoSomething/phoenix/pull/2250) ([aaronschachter](https://github.com/aaronschachter))
-- Fixing hierarchy and some styles. [\#2249](https://github.com/DoSomething/phoenix/pull/2249) ([weerd](https://github.com/weerd))
-- Allow field\_campaigns to ref Grouped campaigns [\#2248](https://github.com/DoSomething/phoenix/pull/2248) ([blisteringherb](https://github.com/blisteringherb))
-- Adds "SMS Game" view mode to DS Campaign Group to make features happy [\#2247](https://github.com/DoSomething/phoenix/pull/2247) ([aaronschachter](https://github.com/aaronschachter))
-- Adding grouped campaigns to search [\#2246](https://github.com/DoSomething/phoenix/pull/2246) ([blisteringherb](https://github.com/blisteringherb))
-- Not using an nonexistant default setting. [\#2243](https://github.com/DoSomething/phoenix/pull/2243) ([DFurnes](https://github.com/DFurnes))
-- Fixes padding on campaign banners to inherit properly. [\#2227](https://github.com/DoSomething/phoenix/pull/2227) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.40](https://github.com/dosomething/phoenix/tree/v0.2.40) (2014-05-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.39...v0.2.40)
-
-**Fixed bugs:**
-
-- Version paths for static assets + long expire times [\#1841](https://github.com/DoSomething/phoenix/issues/1841)
-
-**Merged pull requests:**
-
-- Theme setting to toggle CDN assets on or off. [\#2240](https://github.com/DoSomething/phoenix/pull/2240) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.39](https://github.com/dosomething/phoenix/tree/v0.2.39) (2014-05-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.38...v0.2.39)
 
-**Merged pull requests:**
-
-- Prepare dist package for asset versioning. [\#2229](https://github.com/DoSomething/phoenix/pull/2229) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.38](https://github.com/dosomething/phoenix/tree/v0.2.38) (2014-05-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.37...v0.2.38)
-
-**Fixed bugs:**
-
-- Headings in banners can overlap "x" or "skip" button [\#2217](https://github.com/DoSomething/phoenix/issues/2217)
-
-**Closed issues:**
-
-- Home: Dynamic headline, subtitle [\#2225](https://github.com/DoSomething/phoenix/issues/2225)
-- \[signup data\] don't ask user to confirm SUPER nit picky issues [\#2203](https://github.com/DoSomething/phoenix/issues/2203)
-
-**Merged pull requests:**
-
-- Allow editors to view signup entities [\#2233](https://github.com/DoSomething/phoenix/pull/2233) ([aaronschachter](https://github.com/aaronschachter))
-- Use the homepage vars to set the title/subtitle. [\#2231](https://github.com/DoSomething/phoenix/pull/2231) ([angaither](https://github.com/angaither))
-- Adds logic to OTHER sponsors block in home template [\#2223](https://github.com/DoSomething/phoenix/pull/2223) ([desmondmorris](https://github.com/desmondmorris))
-- Toggle sponsors block from theme settings [\#2222](https://github.com/DoSomething/phoenix/pull/2222) ([desmondmorris](https://github.com/desmondmorris))
 
 ## [v0.2.37](https://github.com/dosomething/phoenix/tree/v0.2.37) (2014-05-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.36...v0.2.37)
 
-**Closed issues:**
-
-- Upgrade Drupal core for security release [\#1839](https://github.com/DoSomething/phoenix/issues/1839)
-
-**Merged pull requests:**
-
-- Upgrade the drupal version for safety. [\#2220](https://github.com/DoSomething/phoenix/pull/2220) ([angaither](https://github.com/angaither))
-
 ## [v0.2.36](https://github.com/dosomething/phoenix/tree/v0.2.36) (2014-05-20)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.35...v0.2.36)
-
-**Fixed bugs:**
-
-- \[grouped campaigns\] invalid argument [\#2214](https://github.com/DoSomething/phoenix/issues/2214)
-
-**Closed issues:**
-
-- \[Grouped Campaigns\] Lower opacity on unpublished campaigns [\#2190](https://github.com/DoSomething/phoenix/issues/2190)
-
-**Merged pull requests:**
-
-- Fixes Grouped Campaign error [\#2215](https://github.com/DoSomething/phoenix/pull/2215) ([aaronschachter](https://github.com/aaronschachter))
-- Move Signup Data Form configuration to Custom Settings page [\#2213](https://github.com/DoSomething/phoenix/pull/2213) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.35](https://github.com/dosomething/phoenix/tree/v0.2.35) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.34...v0.2.35)
 
-**Closed issues:**
-
-- DS MBP setting for campaign cache [\#2085](https://github.com/DoSomething/phoenix/issues/2085)
-- Address validation errors [\#1824](https://github.com/DoSomething/phoenix/issues/1824)
-
-**Merged pull requests:**
-
-- Quick and dirty fix for caching issues pre-Thumb-Wars launch. [\#2212](https://github.com/DoSomething/phoenix/pull/2212) ([DFurnes](https://github.com/DFurnes))
-- Updates to fix some wonky stuff. [\#2211](https://github.com/DoSomething/phoenix/pull/2211) ([weerd](https://github.com/weerd))
-- Adds admin switch for sending campaign values to Message Broker [\#2194](https://github.com/DoSomething/phoenix/pull/2194) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.34](https://github.com/dosomething/phoenix/tree/v0.2.34) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.33...v0.2.34)
-
-**Closed issues:**
-
-- \[Signup Data Form\] - Old Person Modal Inconsistency  [\#2159](https://github.com/DoSomething/phoenix/issues/2159)
-
-**Merged pull requests:**
-
-- Report back workflow for Thumb Wars SMS [\#2208](https://github.com/DoSomething/phoenix/pull/2208) ([jonuy](https://github.com/jonuy))
 
 ## [v0.2.33](https://github.com/dosomething/phoenix/tree/v0.2.33) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.32...v0.2.33)
 
-**Fixed bugs:**
-
-- Reportback Field config form not saving [\#2186](https://github.com/DoSomething/phoenix/issues/2186)
-- \[Campaign Template\] - on mobile, the Sprint link results in error page [\#2161](https://github.com/DoSomething/phoenix/issues/2161)
-
-**Closed issues:**
-
-- \[signup data\] can't submit form [\#2206](https://github.com/DoSomething/phoenix/issues/2206)
-- \[Campaign Template\] - new report back question for TW [\#2153](https://github.com/DoSomething/phoenix/issues/2153)
-
-**Merged pull requests:**
-
-- Revert to using \<input\> rather than HTML5 \<button\>. Sad Drupal. [\#2207](https://github.com/DoSomething/phoenix/pull/2207) ([DFurnes](https://github.com/DFurnes))
-- Campaign Custom Settings tab [\#2205](https://github.com/DoSomething/phoenix/pull/2205) ([aaronschachter](https://github.com/aaronschachter))
-- Update error messaging for "why did you care" field. [\#2204](https://github.com/DoSomething/phoenix/pull/2204) ([DFurnes](https://github.com/DFurnes))
-
 ## [v0.2.32](https://github.com/dosomething/phoenix/tree/v0.2.32) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.31...v0.2.32)
-
-**Closed issues:**
-
-- \[Grouped Campaigns\] For unpublished campaigns wrap them in a div instead of an anchor link. [\#2191](https://github.com/DoSomething/phoenix/issues/2191)
-
-**Merged pull requests:**
-
-- Updates to clean up grouped campaigns, style footer info, add sponsor pa... [\#2202](https://github.com/DoSomething/phoenix/pull/2202) ([weerd](https://github.com/weerd))
 
 ## [v0.2.31](https://github.com/dosomething/phoenix/tree/v0.2.31) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.30...v0.2.31)
 
-**Fixed bugs:**
-
-- DS Build: drupal-org.make doesn't respect version numbers [\#1854](https://github.com/DoSomething/phoenix/issues/1854)
-
-**Merged pull requests:**
-
-- Update ds make file [\#2196](https://github.com/DoSomething/phoenix/pull/2196) ([angaither](https://github.com/angaither))
-
 ## [v0.2.30](https://github.com/dosomething/phoenix/tree/v0.2.30) (2014-05-19)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.29...v0.2.30)
-
-**Fixed bugs:**
-
-- \[Campaign\] Special characters in reportback confirmation page links [\#1938](https://github.com/DoSomething/phoenix/issues/1938)
-- Duplicate users [\#1907](https://github.com/DoSomething/phoenix/issues/1907)
-
-**Closed issues:**
-
-- dosomething\_mbp - Add dosomething\_mbp\_campaign\_caching system setting [\#2180](https://github.com/DoSomething/phoenix/issues/2180)
-- \[SMS Game\] Preprocess + output fields [\#2156](https://github.com/DoSomething/phoenix/issues/2156)
-- SMS Game: View Mode Documentation [\#2143](https://github.com/DoSomething/phoenix/issues/2143)
-- Unset "/node" view [\#2097](https://github.com/DoSomething/phoenix/issues/2097)
-- \[Signup Data Form\] wrong but close addresses [\#1956](https://github.com/DoSomething/phoenix/issues/1956)
-
-**Merged pull requests:**
-
-- Bumps Neue to 3.14.x for form validation improvements. [\#2195](https://github.com/DoSomething/phoenix/pull/2195) ([DFurnes](https://github.com/DFurnes))
-- UPS client-side address validation/suggestions [\#2192](https://github.com/DoSomething/phoenix/pull/2192) ([DFurnes](https://github.com/DFurnes))
-- Twitter cards [\#2189](https://github.com/DoSomething/phoenix/pull/2189) ([angaither](https://github.com/angaither))
-- Allow special chars in rb backto link [\#2188](https://github.com/DoSomething/phoenix/pull/2188) ([angaither](https://github.com/angaither))
-- Unset /node view [\#2187](https://github.com/DoSomething/phoenix/pull/2187) ([angaither](https://github.com/angaither))
-- Campaign modal preprocessing [\#2185](https://github.com/DoSomething/phoenix/pull/2185) ([aaronschachter](https://github.com/aaronschachter))
-- Campaign Type documentation [\#2182](https://github.com/DoSomething/phoenix/pull/2182) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.29](https://github.com/dosomething/phoenix/tree/v0.2.29) (2014-05-16)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.28...v0.2.29)
 
-**Closed issues:**
-
-- \[SMS Game\] Confirmation page title [\#2174](https://github.com/DoSomething/phoenix/issues/2174)
-- \[SMS Game\] Form validation - unique numbers [\#2170](https://github.com/DoSomething/phoenix/issues/2170)
-- \[Campaign Template\] - on form create new group for Confirmation Page [\#2162](https://github.com/DoSomething/phoenix/issues/2162)
-- \[SMS Game\] Reportback confirmation page [\#2147](https://github.com/DoSomething/phoenix/issues/2147)
-- \[Grouped Campaigns\] Markup and style general gallery [\#2130](https://github.com/DoSomething/phoenix/issues/2130)
-- \[Grouped Campaigns\] Link / modalize Zendesk form [\#2034](https://github.com/DoSomething/phoenix/issues/2034)
-
-**Merged pull requests:**
-
-- Confirmation page tweaks [\#2177](https://github.com/DoSomething/phoenix/pull/2177) ([aaronschachter](https://github.com/aaronschachter))
-- SMS Game Signup form [\#2168](https://github.com/DoSomething/phoenix/pull/2168) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.28](https://github.com/dosomething/phoenix/tree/v0.2.28) (2014-05-16)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.27...v0.2.28)
-
-**Fixed bugs:**
-
-- \[Campaign Template\] - move campaign specific starter statement on the solution in the form [\#2152](https://github.com/DoSomething/phoenix/issues/2152)
-- dosomething\_mbp campaign\_group\_signup typo [\#2150](https://github.com/DoSomething/phoenix/issues/2150)
-- Can't X out of report back modals [\#2148](https://github.com/DoSomething/phoenix/issues/2148)
-
-**Closed issues:**
-
-- Create a custom node for the MGC - The Hunt form [\#2142](https://github.com/DoSomething/phoenix/issues/2142)
-- Rearrange campaign node form [\#2141](https://github.com/DoSomething/phoenix/issues/2141)
-- Unsignup link appears for staff on all nodes [\#2138](https://github.com/DoSomething/phoenix/issues/2138)
-
-**Merged pull requests:**
-
-- Fixed zip code regex. [\#2160](https://github.com/DoSomething/phoenix/pull/2160) ([DFurnes](https://github.com/DFurnes))
-- Campaign Starter Statement field group [\#2158](https://github.com/DoSomething/phoenix/pull/2158) ([aaronschachter](https://github.com/aaronschachter))
-- Page callback for Campaign Idea Form [\#2154](https://github.com/DoSomething/phoenix/pull/2154) ([aaronschachter](https://github.com/aaronschachter))
-- Fixed var value [\#2151](https://github.com/DoSomething/phoenix/pull/2151) ([DeeZone](https://github.com/DeeZone))
-- Unsignup access [\#2149](https://github.com/DoSomething/phoenix/pull/2149) ([aaronschachter](https://github.com/aaronschachter))
 
 ## [v0.2.27](https://github.com/dosomething/phoenix/tree/v0.2.27) (2014-05-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.26...v0.2.27)
 
-**Closed issues:**
-
-- Campaign cleanup: Remove group\_sponsors [\#967](https://github.com/DoSomething/phoenix/issues/967)
-
-**Merged pull requests:**
-
-- Campaign node form tweaks [\#2145](https://github.com/DoSomething/phoenix/pull/2145) ([aaronschachter](https://github.com/aaronschachter))
-- Remove the needs review reverts. [\#2140](https://github.com/DoSomething/phoenix/pull/2140) ([angaither](https://github.com/angaither))
-- Updating all features with a node type to have the sms display mode. [\#2139](https://github.com/DoSomething/phoenix/pull/2139) ([angaither](https://github.com/angaither))
-
 ## [v0.2.26](https://github.com/dosomething/phoenix/tree/v0.2.26) (2014-05-15)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.25...v0.2.26)
-
-**Fixed bugs:**
-
-- Message Broker - dosomething\_mbp add nid [\#2116](https://github.com/DoSomething/phoenix/issues/2116)
-- \[Grouped Campaign\] Is Staff Pick is not labelled in node edit form [\#2114](https://github.com/DoSomething/phoenix/issues/2114)
-
-**Closed issues:**
-
-- \[Grouped Campaign\] Display end date is not labelled in node edit form [\#2115](https://github.com/DoSomething/phoenix/issues/2115)
-- Dosomething MBP: Not defining user permissions properly [\#2012](https://github.com/DoSomething/phoenix/issues/2012)
-
-**Merged pull requests:**
-
-- MBP Feature cleanup - round 2 [\#2134](https://github.com/DoSomething/phoenix/pull/2134) ([DeeZone](https://github.com/DeeZone))
-- Adds VERSION marker and drupal variable [\#2132](https://github.com/DoSomething/phoenix/pull/2132) ([desmondmorris](https://github.com/desmondmorris))
-- Updating the triad gallery with new markup and styles. [\#2131](https://github.com/DoSomething/phoenix/pull/2131) ([weerd](https://github.com/weerd))
-- Sms Game [\#2129](https://github.com/DoSomething/phoenix/pull/2129) ([aaronschachter](https://github.com/aaronschachter))
-- Grouped campaigns  campaign mosaic [\#2128](https://github.com/DoSomething/phoenix/pull/2128) ([weerd](https://github.com/weerd))
-- Display labels on campaign groups. [\#2122](https://github.com/DoSomething/phoenix/pull/2122) ([angaither](https://github.com/angaither))
-- Issue2116 add nid to payload [\#2117](https://github.com/DoSomething/phoenix/pull/2117) ([DeeZone](https://github.com/DeeZone))
 
 ## [v0.2.25](https://github.com/dosomething/phoenix/tree/v0.2.25) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.24...v0.2.25)
@@ -8182,21 +6642,8 @@
 ## [v0.2.24](https://github.com/dosomething/phoenix/tree/v0.2.24) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.23...v0.2.24)
 
-**Fixed bugs:**
-
-- \[Signup Data Form\] - changes to Old People Copy doesn't work [\#2125](https://github.com/DoSomething/phoenix/issues/2125)
-
 ## [v0.2.23](https://github.com/dosomething/phoenix/tree/v0.2.23) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.22...v0.2.23)
-
-**Closed issues:**
-
-- Add bowerrc file to root of paraneue\_dosomething [\#2123](https://github.com/DoSomething/phoenix/issues/2123)
-
-**Merged pull requests:**
-
-- Fixes Old People Copy bug in Signup Data Form [\#2127](https://github.com/DoSomething/phoenix/pull/2127) ([aaronschachter](https://github.com/aaronschachter))
-- Fixes \#2123. [\#2124](https://github.com/DoSomething/phoenix/pull/2124) ([DFurnes](https://github.com/DFurnes))
 
 ## [v0.2.22](https://github.com/dosomething/phoenix/tree/v0.2.22) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.21...v0.2.22)
@@ -8204,88 +6651,22 @@
 ## [v0.2.21](https://github.com/dosomething/phoenix/tree/v0.2.21) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.20...v0.2.21)
 
-**Closed issues:**
-
-- Update remaining FAQ modals to use new modal code [\#2109](https://github.com/DoSomething/phoenix/issues/2109)
-
-**Merged pull requests:**
-
-- Grouped campaigns  sections [\#2120](https://github.com/DoSomething/phoenix/pull/2120) ([weerd](https://github.com/weerd))
-
 ## [v0.2.20](https://github.com/dosomething/phoenix/tree/v0.2.20) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.19...v0.2.20)
-
-**Fixed bugs:**
-
-- \[Grouped Campaigns\] Preprocess image fields [\#2111](https://github.com/DoSomething/phoenix/issues/2111)
-
-**Closed issues:**
-
-- Signup Data - User feedback for each field when filling out the form [\#2091](https://github.com/DoSomething/phoenix/issues/2091)
-- \[Signup Data Form\] error messages for leaving required fields blank [\#1957](https://github.com/DoSomething/phoenix/issues/1957)
-- Signup Data Form: why\_signedup JS validation [\#1917](https://github.com/DoSomething/phoenix/issues/1917)
-
-**Merged pull requests:**
-
-- Basic required field client-side validation. [\#2119](https://github.com/DoSomething/phoenix/pull/2119) ([DFurnes](https://github.com/DFurnes))
-- Updates the revert script. [\#2118](https://github.com/DoSomething/phoenix/pull/2118) ([angaither](https://github.com/angaither))
 
 ## [v0.2.19](https://github.com/dosomething/phoenix/tree/v0.2.19) (2014-05-14)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.18...v0.2.19)
 
-**Fixed bugs:**
-
-- \[Grouped Campaigns\] FAQ display [\#2110](https://github.com/DoSomething/phoenix/issues/2110)
-- Sign Up transactional emails don't receive the needed merge\_vars [\#2081](https://github.com/DoSomething/phoenix/issues/2081)
-- profile issue \(staging\) - Fatal error [\#1662](https://github.com/DoSomething/phoenix/issues/1662)
-
-**Closed issues:**
-
-- \[Campaign Group\] Rename field\_post\_signup\_body [\#2113](https://github.com/DoSomething/phoenix/issues/2113)
-- Reportback form filename color [\#2101](https://github.com/DoSomething/phoenix/issues/2101)
-- \[Grouped Campaigns\] Content output does not match user signup status [\#2100](https://github.com/DoSomething/phoenix/issues/2100)
-- \[Grouped Campaigns\] Add Additional Text fields in the backend [\#2094](https://github.com/DoSomething/phoenix/issues/2094)
-
-**Merged pull requests:**
-
-- Fixes Grouped Campaigns preprocessing [\#2112](https://github.com/DoSomething/phoenix/pull/2112) ([aaronschachter](https://github.com/aaronschachter))
-- Modal new api [\#2108](https://github.com/DoSomething/phoenix/pull/2108) ([DFurnes](https://github.com/DFurnes))
-- Fixes lost merge\_var values bug [\#2088](https://github.com/DoSomething/phoenix/pull/2088) ([DeeZone](https://github.com/DeeZone))
-
 ## [v0.2.18](https://github.com/dosomething/phoenix/tree/v0.2.18) (2014-05-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.17...v0.2.18)
-
-**Closed issues:**
-
-- \[Signup Data Form\] Auto-skip when clicking Close button [\#1985](https://github.com/DoSomething/phoenix/issues/1985)
-- \[Signup Data Form\] Close button logic for required forms [\#1930](https://github.com/DoSomething/phoenix/issues/1930)
 
 ## [v0.2.17](https://github.com/dosomething/phoenix/tree/v0.2.17) (2014-05-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.16...v0.2.17)
 
-**Fixed bugs:**
-
-- Can't submit reportback form [\#2107](https://github.com/DoSomething/phoenix/issues/2107)
-- \[Campaign Template\] - no text in sign up button on pitch page \(and super small\) [\#2102](https://github.com/DoSomething/phoenix/issues/2102)
-
-**Merged pull requests:**
-
-- Fixes campaign signup button [\#2106](https://github.com/DoSomething/phoenix/pull/2106) ([aaronschachter](https://github.com/aaronschachter))
-- Pre Launch fields for Grouped campaigns [\#2103](https://github.com/DoSomething/phoenix/pull/2103) ([aaronschachter](https://github.com/aaronschachter))
-
 ## [v0.2.16](https://github.com/dosomething/phoenix/tree/v0.2.16) (2014-05-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.15...v0.2.16)
 
-**Fixed bugs:**
-
-- \[Campaign Template\] - sponsor logo runs over CTA text [\#2093](https://github.com/DoSomething/phoenix/issues/2093)
-- \[Campaign Template\] - scholarship callout in wrong place when logged out [\#2080](https://github.com/DoSomething/phoenix/issues/2080)
-- \[Campaign Template\] - sprint logo is super small and off center [\#2071](https://github.com/DoSomething/phoenix/issues/2071)
-- Campaign Confirmations go to 404 [\#1939](https://github.com/DoSomething/phoenix/issues/1939)
-
-**Closed issues:**
-
-- Staging homepage redirect [\#2089](https://github.com/DoSomething/phoenix/issues/2089)
+# Change Log
 
 ## [v0.2.15](https://github.com/dosomething/phoenix/tree/v0.2.15) (2014-05-13)
 [Full Changelog](https://github.com/dosomething/phoenix/compare/v0.2.14...v0.2.15)
@@ -8302,6 +6683,7 @@
 
 **Closed issues:**
 
+- Staging homepage redirect [\#2089](https://github.com/DoSomething/phoenix/issues/2089)
 - Set up AJAX validation for fields/field sets [\#2017](https://github.com/DoSomething/phoenix/issues/2017)
 - Field set validation [\#2016](https://github.com/DoSomething/phoenix/issues/2016)
 - \[Signup Data Form\] positive confirmation message [\#1948](https://github.com/DoSomething/phoenix/issues/1948)
@@ -8454,7 +6836,6 @@
 
 **Closed issues:**
 
-- \[campaign template\] - need ability to link to partner sites in "In partnership with" [\#1959](https://github.com/DoSomething/phoenix/issues/1959)
 - Image Search [\#799](https://github.com/DoSomething/phoenix/issues/799)
 
 **Merged pull requests:**
@@ -8469,6 +6850,7 @@
 **Closed issues:**
 
 - \[Campaign Group\] FAQ content does not appear in modal [\#2000](https://github.com/DoSomething/phoenix/issues/2000)
+- \[campaign template\] - need ability to link to partner sites in "In partnership with" [\#1959](https://github.com/DoSomething/phoenix/issues/1959)
 
 **Merged pull requests:**
 
@@ -8482,8 +6864,6 @@
 **Closed issues:**
 
 - Home entityreference \(homepage\) [\#1996](https://github.com/DoSomething/phoenix/issues/1996)
-- \[Campaign Group\] Display confirmation message after signup [\#1991](https://github.com/DoSomething/phoenix/issues/1991)
-- \[Campaign Group\] Modify \_dosomething\_user\_add\_campaign\_data [\#1931](https://github.com/DoSomething/phoenix/issues/1931)
 
 **Merged pull requests:**
 
@@ -8554,6 +6934,7 @@
 
 **Closed issues:**
 
+- \[Campaign Group\] Display confirmation message after signup [\#1991](https://github.com/DoSomething/phoenix/issues/1991)
 - \[Campaign Group\] Remove duplicate CTA section from template [\#1989](https://github.com/DoSomething/phoenix/issues/1989)
 - \[Campaign Group\] Signup Button preprocess function [\#1988](https://github.com/DoSomething/phoenix/issues/1988)
 - \[Grouped Campaigns\] transactional email copy field [\#1973](https://github.com/DoSomething/phoenix/issues/1973)
@@ -8566,6 +6947,7 @@
 - Campaign Group: Add additional fields [\#1943](https://github.com/DoSomething/phoenix/issues/1943)
 - \[Campaign Group\] Helper function to determine child campaigns are published [\#1933](https://github.com/DoSomething/phoenix/issues/1933)
 - \[Campaign Group\] 3rd party subscription variables [\#1932](https://github.com/DoSomething/phoenix/issues/1932)
+- \[Campaign Group\] Modify \_dosomething\_user\_add\_campaign\_data [\#1931](https://github.com/DoSomething/phoenix/issues/1931)
 - \[User Profile\] Style cta for when no signups showing. [\#1929](https://github.com/DoSomething/phoenix/issues/1929)
 - Signups: Data Form Response column [\#1924](https://github.com/DoSomething/phoenix/issues/1924)
 - Signup Data Form: Need ability to skip form [\#1920](https://github.com/DoSomething/phoenix/issues/1920)
@@ -8663,8 +7045,6 @@
 - Signup: Security / hidden nid [\#480](https://github.com/DoSomething/phoenix/issues/480)
 - Signup: Devel function [\#466](https://github.com/DoSomething/phoenix/issues/466)
 - Reportback: Devel function [\#465](https://github.com/DoSomething/phoenix/issues/465)
-- Valid Address API [\#74](https://github.com/DoSomething/phoenix/issues/74)
-- Stub feature for metatag settings [\#47](https://github.com/DoSomething/phoenix/issues/47)
 
 **Merged pull requests:**
 
@@ -8902,7 +7282,6 @@
 - DS build --install errors:  xmlsitemap [\#787](https://github.com/DoSomething/phoenix/issues/787)
 - Drush error:  Cannot change an existing field's type [\#785](https://github.com/DoSomething/phoenix/issues/785)
 - DS Build --install error: blocked\_ips not found [\#784](https://github.com/DoSomething/phoenix/issues/784)
-- DS build --install error - Missing Xmlsitemap\_18n [\#783](https://github.com/DoSomething/phoenix/issues/783)
 - DS Profile: Enable mobilecommons  [\#778](https://github.com/DoSomething/phoenix/issues/778)
 - Preprocess JS - User.js [\#764](https://github.com/DoSomething/phoenix/issues/764)
 - Reportback: Error if you upload same image [\#756](https://github.com/DoSomething/phoenix/issues/756)
@@ -8924,9 +7303,17 @@
 - DS build: Securepages not working [\#689](https://github.com/DoSomething/phoenix/issues/689)
 - JavaScript - "Drupal is not defined" [\#670](https://github.com/DoSomething/phoenix/issues/670)
 - ds script assumes sandbox environment [\#564](https://github.com/DoSomething/phoenix/issues/564)
+- Vagrant: apache doesn't automatically start [\#390](https://github.com/DoSomething/phoenix/issues/390)
 - Vagrant: SSH key goes missing. [\#293](https://github.com/DoSomething/phoenix/issues/293)
 - Contrib module subdirectory [\#181](https://github.com/DoSomething/phoenix/issues/181)
 - Adding additional boost to campaign type to improve ranking [\#1451](https://github.com/DoSomething/phoenix/pull/1451) ([blisteringherb](https://github.com/blisteringherb))
+- Adding a check to make sure faqs on campaigns are an array [\#1269](https://github.com/DoSomething/phoenix/pull/1269) ([blisteringherb](https://github.com/blisteringherb))
+- Adding admin search permissions to administrator role [\#1268](https://github.com/DoSomething/phoenix/pull/1268) ([blisteringherb](https://github.com/blisteringherb))
+- Rewriting label output and image to link to campaign [\#1228](https://github.com/DoSomething/phoenix/pull/1228) ([blisteringherb](https://github.com/blisteringherb))
+- Adding more campaigns to the view to prevent pagination [\#1188](https://github.com/DoSomething/phoenix/pull/1188) ([blisteringherb](https://github.com/blisteringherb))
+- Adding admin perms for Entity Connect and moving to ds\_helpers [\#1140](https://github.com/DoSomething/phoenix/pull/1140) ([blisteringherb](https://github.com/blisteringherb))
+- Added missing quote in image tag [\#1048](https://github.com/DoSomething/phoenix/pull/1048) ([angaither](https://github.com/angaither))
+- Deeper checking for the presence of a YouTube video [\#1040](https://github.com/DoSomething/phoenix/pull/1040) ([blisteringherb](https://github.com/blisteringherb))
 
 **Closed issues:**
 
@@ -9225,6 +7612,9 @@
 - search results – style [\#493](https://github.com/DoSomething/phoenix/issues/493)
 - Present search results [\#492](https://github.com/DoSomething/phoenix/issues/492)
 - Reportback: Security [\#479](https://github.com/DoSomething/phoenix/issues/479)
+- Implement neue login/registration workflow [\#420](https://github.com/DoSomething/phoenix/issues/420)
+- Campaign: JS for Reportback form [\#419](https://github.com/DoSomething/phoenix/issues/419)
+- Pantheon deployment from ds CLI [\#349](https://github.com/DoSomething/phoenix/issues/349)
 - Vagrant: Create environment variable for Varnish secret key [\#291](https://github.com/DoSomething/phoenix/issues/291)
 - Play nice with Pantheon [\#277](https://github.com/DoSomething/phoenix/issues/277)
 - Client-side auth flow [\#224](https://github.com/DoSomething/phoenix/issues/224)
@@ -9352,6 +7742,7 @@
 - Bower non-interactive flag [\#1459](https://github.com/DoSomething/phoenix/pull/1459) ([DFurnes](https://github.com/DFurnes))
 - Rename dosomething\_user\_init correctly [\#1458](https://github.com/DoSomething/phoenix/pull/1458) ([aaronschachter](https://github.com/aaronschachter))
 - Updated banner class for DoSomething/ds-neue\#204. [\#1439](https://github.com/DoSomething/phoenix/pull/1439) ([DFurnes](https://github.com/DFurnes))
+- Placeholder Images [\#1435](https://github.com/DoSomething/phoenix/pull/1435) ([mmwtsn](https://github.com/mmwtsn))
 - High Priority Backlog [\#1434](https://github.com/DoSomething/phoenix/pull/1434) ([mmwtsn](https://github.com/mmwtsn))
 - Fender Code Quality [\#1433](https://github.com/DoSomething/phoenix/pull/1433) ([mmwtsn](https://github.com/mmwtsn))
 - Home content type perms [\#1432](https://github.com/DoSomething/phoenix/pull/1432) ([aaronschachter](https://github.com/aaronschachter))
@@ -9360,6 +7751,7 @@
 - Clear dosomething\_image cache table on image updates. [\#1425](https://github.com/DoSomething/phoenix/pull/1425) ([angaither](https://github.com/angaither))
 - dosomething\_metatag module [\#1423](https://github.com/DoSomething/phoenix/pull/1423) ([aaronschachter](https://github.com/aaronschachter))
 - Added script to grab first name and birthday data. [\#1422](https://github.com/DoSomething/phoenix/pull/1422) ([angaither](https://github.com/angaither))
+- Update action paths post login on campaigns [\#1418](https://github.com/DoSomething/phoenix/pull/1418) ([angaither](https://github.com/angaither))
 - Tip Fix [\#1416](https://github.com/DoSomething/phoenix/pull/1416) ([mmwtsn](https://github.com/mmwtsn))
 - Wrap the http referer in url alias call. [\#1415](https://github.com/DoSomething/phoenix/pull/1415) ([angaither](https://github.com/angaither))
 - Added script to import mobile info from temp tables. [\#1414](https://github.com/DoSomething/phoenix/pull/1414) ([angaither](https://github.com/angaither))
@@ -9371,6 +7763,9 @@
 - PEANUT BUTTER EVERYWHERE [\#1393](https://github.com/DoSomething/phoenix/pull/1393) ([DFurnes](https://github.com/DFurnes))
 - Fixes minor visual issues on homepage. [\#1387](https://github.com/DoSomething/phoenix/pull/1387) ([DFurnes](https://github.com/DFurnes))
 - Fixes bug where IE showed black BG on homepage. [\#1385](https://github.com/DoSomething/phoenix/pull/1385) ([DFurnes](https://github.com/DFurnes))
+- wrap it up [\#1384](https://github.com/DoSomething/phoenix/pull/1384) ([DFurnes](https://github.com/DFurnes))
+- PAINTS IT WHITE [\#1383](https://github.com/DoSomething/phoenix/pull/1383) ([DFurnes](https://github.com/DFurnes))
+- Hacks homepage in page--front for now. [\#1382](https://github.com/DoSomething/phoenix/pull/1382) ([DFurnes](https://github.com/DFurnes))
 - don't display a sponsored by on the pitch page [\#1381](https://github.com/DoSomething/phoenix/pull/1381) ([barryclark](https://github.com/barryclark))
 - Fuck it all [\#1380](https://github.com/DoSomething/phoenix/pull/1380) ([aaronschachter](https://github.com/aaronschachter))
 - Fixed nav color selector. [\#1379](https://github.com/DoSomething/phoenix/pull/1379) ([DFurnes](https://github.com/DFurnes))
@@ -9384,15 +7779,238 @@
 - Restyle of the confirmation page [\#1365](https://github.com/DoSomething/phoenix/pull/1365) ([barryclark](https://github.com/barryclark))
 - Getting the link for the campaign from the nid [\#1363](https://github.com/DoSomething/phoenix/pull/1363) ([blisteringherb](https://github.com/blisteringherb))
 - Adds check to HTTP\_X\_FORWARDED\_FOR for valid mobilecommons IP addresses [\#1362](https://github.com/DoSomething/phoenix/pull/1362) ([desmondmorris](https://github.com/desmondmorris))
+- Fixing error when creating ZenDesk ticket [\#1359](https://github.com/DoSomething/phoenix/pull/1359) ([blisteringherb](https://github.com/blisteringherb))
 - Added stub dosomething\_home module/node type. [\#1358](https://github.com/DoSomething/phoenix/pull/1358) ([angaither](https://github.com/angaither))
 - Hack together homepage in new app. [\#1355](https://github.com/DoSomething/phoenix/pull/1355) ([DFurnes](https://github.com/DFurnes))
 - Tells user password must be 6+ characters long. [\#1351](https://github.com/DoSomething/phoenix/pull/1351) ([DFurnes](https://github.com/DFurnes))
 - Makes admin interface look a bit nicer. [\#1350](https://github.com/DoSomething/phoenix/pull/1350) ([DFurnes](https://github.com/DFurnes))
 - Auth tweaks [\#1348](https://github.com/DoSomething/phoenix/pull/1348) ([DFurnes](https://github.com/DFurnes))
+- Updating /campaigns subtitle [\#1346](https://github.com/DoSomething/phoenix/pull/1346) ([blisteringherb](https://github.com/blisteringherb))
+- Campaign tips fix [\#1344](https://github.com/DoSomething/phoenix/pull/1344) ([barryclark](https://github.com/barryclark))
+- Contact us plz [\#1343](https://github.com/DoSomething/phoenix/pull/1343) ([DFurnes](https://github.com/DFurnes))
+- Search & Explore Campaigns header overlap fixes [\#1341](https://github.com/DoSomething/phoenix/pull/1341) ([barryclark](https://github.com/barryclark))
+- Campaign: fix footer boilerplate copy [\#1339](https://github.com/DoSomething/phoenix/pull/1339) ([barryclark](https://github.com/barryclark))
+- Updates client-side validation attributes with new IDs [\#1338](https://github.com/DoSomething/phoenix/pull/1338) ([DFurnes](https://github.com/DFurnes))
+- Updated ds\_user permissions file. [\#1337](https://github.com/DoSomething/phoenix/pull/1337) ([angaither](https://github.com/angaither))
+- Adding mobile support for post action tips [\#1336](https://github.com/DoSomething/phoenix/pull/1336) ([blisteringherb](https://github.com/blisteringherb))
+- Sponsor logo fallback [\#1335](https://github.com/DoSomething/phoenix/pull/1335) ([aaronschachter](https://github.com/aaronschachter))
+- Adding post tips to action page [\#1334](https://github.com/DoSomething/phoenix/pull/1334) ([blisteringherb](https://github.com/blisteringherb))
+- Added post step to the campaign template. [\#1333](https://github.com/DoSomething/phoenix/pull/1333) ([angaither](https://github.com/angaither))
+- Adding 'q' param for apachesolr views to enable elevate queries [\#1331](https://github.com/DoSomething/phoenix/pull/1331) ([blisteringherb](https://github.com/blisteringherb))
+- Mailchimp MBP vars [\#1330](https://github.com/DoSomething/phoenix/pull/1330) ([aaronschachter](https://github.com/aaronschachter))
+- Issue1322-Add\_mailchimp\_group\_id [\#1327](https://github.com/DoSomething/phoenix/pull/1327) ([DeeZone](https://github.com/DeeZone))
+- Issue \#1323 - add birthday to MBP payload for user\_register [\#1326](https://github.com/DoSomething/phoenix/pull/1326) ([DeeZone](https://github.com/DeeZone))
+- Updated static content auto-alias to about/\[node:title\] [\#1324](https://github.com/DoSomething/phoenix/pull/1324) ([angaither](https://github.com/angaither))
+- Added a variable to set the last user saved. [\#1320](https://github.com/DoSomething/phoenix/pull/1320) ([angaither](https://github.com/angaither))
+- Adding install file to update vars to replace reg. success msg [\#1318](https://github.com/DoSomething/phoenix/pull/1318) ([blisteringherb](https://github.com/blisteringherb))
+- Theme cleanup [\#1317](https://github.com/DoSomething/phoenix/pull/1317) ([DFurnes](https://github.com/DFurnes))
+- Fixes Issue 1304, missing CAMPAIGN\_LINK merge\_var in campaign\_signup [\#1316](https://github.com/DoSomething/phoenix/pull/1316) ([DeeZone](https://github.com/DeeZone))
+- Adds neue image mixin. [\#1309](https://github.com/DoSomething/phoenix/pull/1309) ([DFurnes](https://github.com/DFurnes))
+- Action guide modals [\#1300](https://github.com/DoSomething/phoenix/pull/1300) ([aaronschachter](https://github.com/aaronschachter))
+- Fixes padding for static content and 11 Facts pages. [\#1299](https://github.com/DoSomething/phoenix/pull/1299) ([DFurnes](https://github.com/DFurnes))
+- 3 misc static content tweaks [\#1298](https://github.com/DoSomething/phoenix/pull/1298) ([barryclark](https://github.com/barryclark))
+- Wmax image style [\#1296](https://github.com/DoSomething/phoenix/pull/1296) ([angaither](https://github.com/angaither))
+- remove margin-top on the solution [\#1295](https://github.com/DoSomething/phoenix/pull/1295) ([barryclark](https://github.com/barryclark))
+- Static content gallery [\#1294](https://github.com/DoSomething/phoenix/pull/1294) ([barryclark](https://github.com/barryclark))
+- Static content grid layout + misc styles [\#1293](https://github.com/DoSomething/phoenix/pull/1293) ([barryclark](https://github.com/barryclark))
+- Printing gallery title and fixing printing mult galleries [\#1292](https://github.com/DoSomething/phoenix/pull/1292) ([blisteringherb](https://github.com/blisteringherb))
+- Explore campaigns page [\#1290](https://github.com/DoSomething/phoenix/pull/1290) ([barryclark](https://github.com/barryclark))
+- Fixes some display issues I inadvertently caused. [\#1285](https://github.com/DoSomething/phoenix/pull/1285) ([DFurnes](https://github.com/DFurnes))
+- Adds font mimetypes to vhost config in VM [\#1284](https://github.com/DoSomething/phoenix/pull/1284) ([desmondmorris](https://github.com/desmondmorris))
+- Set the mind on my money nids in the settings file. [\#1283](https://github.com/DoSomething/phoenix/pull/1283) ([angaither](https://github.com/angaither))
+- We do not need the old world join page. [\#1279](https://github.com/DoSomething/phoenix/pull/1279) ([angaither](https://github.com/angaither))
+- This Could Be You! [\#1277](https://github.com/DoSomething/phoenix/pull/1277) ([mmwtsn](https://github.com/mmwtsn))
+- Add signup data [\#1271](https://github.com/DoSomething/phoenix/pull/1271) ([angaither](https://github.com/angaither))
+- Added support for legacy campaign redirects. [\#1270](https://github.com/DoSomething/phoenix/pull/1270) ([angaither](https://github.com/angaither))
+- Pitch Page Footer Updates [\#1267](https://github.com/DoSomething/phoenix/pull/1267) ([mmwtsn](https://github.com/mmwtsn))
+- Action Page Style Tweaks [\#1263](https://github.com/DoSomething/phoenix/pull/1263) ([mmwtsn](https://github.com/mmwtsn))
+- Headless Horseman Crop Fix [\#1258](https://github.com/DoSomething/phoenix/pull/1258) ([mmwtsn](https://github.com/mmwtsn))
+- Ie8 snafu [\#1257](https://github.com/DoSomething/phoenix/pull/1257) ([DFurnes](https://github.com/DFurnes))
+- Show Error Messages [\#1256](https://github.com/DoSomething/phoenix/pull/1256) ([mmwtsn](https://github.com/mmwtsn))
+- Official Rules Fix [\#1255](https://github.com/DoSomething/phoenix/pull/1255) ([mmwtsn](https://github.com/mmwtsn))
+- Signup admin views / unsignup form [\#1250](https://github.com/DoSomething/phoenix/pull/1250) ([aaronschachter](https://github.com/aaronschachter))
+- Signup error [\#1247](https://github.com/DoSomething/phoenix/pull/1247) ([aaronschachter](https://github.com/aaronschachter))
+- SMS special campaign opt-ins [\#1245](https://github.com/DoSomething/phoenix/pull/1245) ([angaither](https://github.com/angaither))
+- More cleanup [\#1243](https://github.com/DoSomething/phoenix/pull/1243) ([aaronschachter](https://github.com/aaronschachter))
+- Sets base url protocol dynamically [\#1242](https://github.com/DoSomething/phoenix/pull/1242) ([desmondmorris](https://github.com/desmondmorris))
+- Rb cleanup [\#1241](https://github.com/DoSomething/phoenix/pull/1241) ([aaronschachter](https://github.com/aaronschachter))
+- Fixing missing keys on front page search box [\#1240](https://github.com/DoSomething/phoenix/pull/1240) ([blisteringherb](https://github.com/blisteringherb))
+- Polaroid Style Fix [\#1238](https://github.com/DoSomething/phoenix/pull/1238) ([mmwtsn](https://github.com/mmwtsn))
+- Installing redirect module [\#1237](https://github.com/DoSomething/phoenix/pull/1237) ([blisteringherb](https://github.com/blisteringherb))
+- MBP Request variables [\#1236](https://github.com/DoSomething/phoenix/pull/1236) ([aaronschachter](https://github.com/aaronschachter))
+- Script to import signup data to the new world. [\#1235](https://github.com/DoSomething/phoenix/pull/1235) ([angaither](https://github.com/angaither))
+- Search boxes didn't have the correct form action [\#1230](https://github.com/DoSomething/phoenix/pull/1230) ([blisteringherb](https://github.com/blisteringherb))
+- Reportback helper functions [\#1227](https://github.com/DoSomething/phoenix/pull/1227) ([aaronschachter](https://github.com/aaronschachter))
+- Fixes YouTube embed z-index issues in some browsers. [\#1224](https://github.com/DoSomething/phoenix/pull/1224) ([DFurnes](https://github.com/DFurnes))
+- Nav layering boo boo [\#1223](https://github.com/DoSomething/phoenix/pull/1223) ([DFurnes](https://github.com/DFurnes))
+- Mobile Tips Modals [\#1222](https://github.com/DoSomething/phoenix/pull/1222) ([mmwtsn](https://github.com/mmwtsn))
+- Search Page Styles [\#1220](https://github.com/DoSomething/phoenix/pull/1220) ([mmwtsn](https://github.com/mmwtsn))
+- Removes H&M Hero Override [\#1214](https://github.com/DoSomething/phoenix/pull/1214) ([mmwtsn](https://github.com/mmwtsn))
+- Allows JavaScript to Compile on Stage [\#1212](https://github.com/DoSomething/phoenix/pull/1212) ([mmwtsn](https://github.com/mmwtsn))
+- Updated image masks. [\#1210](https://github.com/DoSomething/phoenix/pull/1210) ([angaither](https://github.com/angaither))
+- Staff-only content types [\#1192](https://github.com/DoSomething/phoenix/pull/1192) ([aaronschachter](https://github.com/aaronschachter))
+- Minor cleanup and restructure changes [\#1191](https://github.com/DoSomething/phoenix/pull/1191) ([DeeZone](https://github.com/DeeZone))
+- Updating SMS transition gate with correct IDs [\#1189](https://github.com/DoSomething/phoenix/pull/1189) ([jonuy](https://github.com/jonuy))
+- Implement hook\_flush\_cache for ds\_image cache [\#1186](https://github.com/DoSomething/phoenix/pull/1186) ([angaither](https://github.com/angaither))
+- Zero downtime deploy & cleanup [\#1185](https://github.com/DoSomething/phoenix/pull/1185) ([desmondmorris](https://github.com/desmondmorris))
+- Tweaks [\#1183](https://github.com/DoSomething/phoenix/pull/1183) ([DFurnes](https://github.com/DFurnes))
+- Revert features that are overridden [\#1181](https://github.com/DoSomething/phoenix/pull/1181) ([angaither](https://github.com/angaither))
+- Copy Edit [\#1175](https://github.com/DoSomething/phoenix/pull/1175) ([mmwtsn](https://github.com/mmwtsn))
+- Polaroid Styles Fix [\#1174](https://github.com/DoSomething/phoenix/pull/1174) ([mmwtsn](https://github.com/mmwtsn))
+- Modal sponsor bg [\#1173](https://github.com/DoSomething/phoenix/pull/1173) ([DFurnes](https://github.com/DFurnes))
+- Pitch Page Button Fix [\#1170](https://github.com/DoSomething/phoenix/pull/1170) ([mmwtsn](https://github.com/mmwtsn))
+- Image field directory [\#1168](https://github.com/DoSomething/phoenix/pull/1168) ([aaronschachter](https://github.com/aaronschachter))
+- Reportback file directories [\#1167](https://github.com/DoSomething/phoenix/pull/1167) ([aaronschachter](https://github.com/aaronschachter))
+- Renaming methods that use 'cell' to use 'mobile' [\#1166](https://github.com/DoSomething/phoenix/pull/1166) ([jonuy](https://github.com/jonuy))
+- Comeback Clothes SMS Tips [\#1165](https://github.com/DoSomething/phoenix/pull/1165) ([jonuy](https://github.com/jonuy))
+- Image mask patch [\#1163](https://github.com/DoSomething/phoenix/pull/1163) ([mmwtsn](https://github.com/mmwtsn))
+- action page updates [\#1162](https://github.com/DoSomething/phoenix/pull/1162) ([mmwtsn](https://github.com/mmwtsn))
+- Campaign form - Alt BG field fix [\#1161](https://github.com/DoSomething/phoenix/pull/1161) ([aaronschachter](https://github.com/aaronschachter))
+- Pitch Revisions [\#1160](https://github.com/DoSomething/phoenix/pull/1160) ([mmwtsn](https://github.com/mmwtsn))
+- Report back modals [\#1157](https://github.com/DoSomething/phoenix/pull/1157) ([DFurnes](https://github.com/DFurnes))
+- Boosting queries to improve search results [\#1156](https://github.com/DoSomething/phoenix/pull/1156) ([blisteringherb](https://github.com/blisteringherb))
+- Modals [\#1154](https://github.com/DoSomething/phoenix/pull/1154) ([DFurnes](https://github.com/DFurnes))
+- Comeback Clothes SMS report backs [\#1152](https://github.com/DoSomething/phoenix/pull/1152) ([jonuy](https://github.com/jonuy))
+- Changes "have a question?" footer text to gray [\#1151](https://github.com/DoSomething/phoenix/pull/1151) ([barryclark](https://github.com/barryclark))
+- Prove It image fix [\#1150](https://github.com/DoSomething/phoenix/pull/1150) ([aaronschachter](https://github.com/aaronschachter))
+- Static content style updates [\#1142](https://github.com/DoSomething/phoenix/pull/1142) ([barryclark](https://github.com/barryclark))
+- Pitch \[sign up\] Fix [\#1141](https://github.com/DoSomething/phoenix/pull/1141) ([mmwtsn](https://github.com/mmwtsn))
+- Fixed nav order. Fixes \#1130. [\#1138](https://github.com/DoSomething/phoenix/pull/1138) ([DFurnes](https://github.com/DFurnes))
+- Location finder style [\#1137](https://github.com/DoSomething/phoenix/pull/1137) ([DFurnes](https://github.com/DFurnes))
+- Adding proper theming and functionality for search boxes [\#1136](https://github.com/DoSomething/phoenix/pull/1136) ([blisteringherb](https://github.com/blisteringherb))
+- Campaign Opt-in info. [\#1132](https://github.com/DoSomething/phoenix/pull/1132) ([angaither](https://github.com/angaither))
+- Fixes \#1094 [\#1108](https://github.com/DoSomething/phoenix/pull/1108) ([aaronschachter](https://github.com/aaronschachter))
+- Campaign Footer Styles [\#1106](https://github.com/DoSomething/phoenix/pull/1106) ([mmwtsn](https://github.com/mmwtsn))
+- SEMICOLON STUFF [\#1100](https://github.com/DoSomething/phoenix/pull/1100) ([angaither](https://github.com/angaither))
+- Updated campaign hero images. [\#1098](https://github.com/DoSomething/phoenix/pull/1098) ([angaither](https://github.com/angaither))
+- Reportback form validation [\#1097](https://github.com/DoSomething/phoenix/pull/1097) ([aaronschachter](https://github.com/aaronschachter))
+- Action Page Sponsor Updates [\#1096](https://github.com/DoSomething/phoenix/pull/1096) ([mmwtsn](https://github.com/mmwtsn))
+- Updating fact page edit form [\#1093](https://github.com/DoSomething/phoenix/pull/1093) ([blisteringherb](https://github.com/blisteringherb))
+- Campaign Pathauto [\#1089](https://github.com/DoSomething/phoenix/pull/1089) ([angaither](https://github.com/angaither))
+- Added cache clear for dosomething\_image [\#1084](https://github.com/DoSomething/phoenix/pull/1084) ([angaither](https://github.com/angaither))
+- Changing row styles for /campaigns [\#1082](https://github.com/DoSomething/phoenix/pull/1082) ([blisteringherb](https://github.com/blisteringherb))
+- Adding a tpl file for theming /campaigns view [\#1075](https://github.com/DoSomething/phoenix/pull/1075) ([blisteringherb](https://github.com/blisteringherb))
+- View reportback images [\#1074](https://github.com/DoSomething/phoenix/pull/1074) ([aaronschachter](https://github.com/aaronschachter))
+- Fixes \#1069 - Move to mbp naming convention [\#1070](https://github.com/DoSomething/phoenix/pull/1070) ([DeeZone](https://github.com/DeeZone))
+- Fixes \#1064 - missing email value in payload [\#1067](https://github.com/DoSomething/phoenix/pull/1067) ([DeeZone](https://github.com/DeeZone))
+- Hotfix for reportback upload directory [\#1066](https://github.com/DoSomething/phoenix/pull/1066) ([aaronschachter](https://github.com/aaronschachter))
+- Campaign custom variables [\#1065](https://github.com/DoSomething/phoenix/pull/1065) ([aaronschachter](https://github.com/aaronschachter))
+- 11 Facts Theming [\#1063](https://github.com/DoSomething/phoenix/pull/1063) ([barryclark](https://github.com/barryclark))
+- Adds ds pull command [\#1062](https://github.com/DoSomething/phoenix/pull/1062) ([aaronschachter](https://github.com/aaronschachter))
+- Fixed menu callback, only print picks if they are there [\#1059](https://github.com/DoSomething/phoenix/pull/1059) ([angaither](https://github.com/angaither))
+- Fixes \#939 [\#1056](https://github.com/DoSomething/phoenix/pull/1056) ([aaronschachter](https://github.com/aaronschachter))
+- Updating type biasing [\#1053](https://github.com/DoSomething/phoenix/pull/1053) ([blisteringherb](https://github.com/blisteringherb))
+- Adding a new view and neccessary fields for /campaigns [\#1051](https://github.com/DoSomething/phoenix/pull/1051) ([blisteringherb](https://github.com/blisteringherb))
+- Sponsor modal images [\#1049](https://github.com/DoSomething/phoenix/pull/1049) ([aaronschachter](https://github.com/aaronschachter))
+- Import user data [\#1047](https://github.com/DoSomething/phoenix/pull/1047) ([angaither](https://github.com/angaither))
+- Redis ground work [\#1045](https://github.com/DoSomething/phoenix/pull/1045) ([desmondmorris](https://github.com/desmondmorris))
+- Sponsor logos [\#1044](https://github.com/DoSomething/phoenix/pull/1044) ([aaronschachter](https://github.com/aaronschachter))
+- Added dosomething\_sms to the info and make files [\#1038](https://github.com/DoSomething/phoenix/pull/1038) ([jonuy](https://github.com/jonuy))
+- Reportback form images [\#1035](https://github.com/DoSomething/phoenix/pull/1035) ([aaronschachter](https://github.com/aaronschachter))
+- Make first name & bday required on signup [\#1032](https://github.com/DoSomething/phoenix/pull/1032) ([angaither](https://github.com/angaither))
+- Redirect to referer after login. [\#1030](https://github.com/DoSomething/phoenix/pull/1030) ([angaither](https://github.com/angaither))
+- Fact Styles and Markup Updates [\#1029](https://github.com/DoSomething/phoenix/pull/1029) ([mmwtsn](https://github.com/mmwtsn))
+- Hides asterisks on required form fields. [\#1028](https://github.com/DoSomething/phoenix/pull/1028) ([DFurnes](https://github.com/DFurnes))
+- Reportback File upload [\#1027](https://github.com/DoSomething/phoenix/pull/1027) ([aaronschachter](https://github.com/aaronschachter))
+- Correctly applies login form styling. [\#1022](https://github.com/DoSomething/phoenix/pull/1022) ([DFurnes](https://github.com/DFurnes))
+- Static content style updates [\#1017](https://github.com/DoSomething/phoenix/pull/1017) ([barryclark](https://github.com/barryclark))
+- Fixes form styling error caused by \#999. [\#1013](https://github.com/DoSomething/phoenix/pull/1013) ([DFurnes](https://github.com/DFurnes))
+- Replaces robots.txt during staging deployment [\#1009](https://github.com/DoSomething/phoenix/pull/1009) ([desmondmorris](https://github.com/desmondmorris))
+- Kill reportback field [\#1008](https://github.com/DoSomething/phoenix/pull/1008) ([aaronschachter](https://github.com/aaronschachter))
+- Remove image field from Reportback form [\#1002](https://github.com/DoSomething/phoenix/pull/1002) ([aaronschachter](https://github.com/aaronschachter))
+- Auth warning common [\#999](https://github.com/DoSomething/phoenix/pull/999) ([angaither](https://github.com/angaither))
+- Removes secure pages module from info file & code. [\#996](https://github.com/DoSomething/phoenix/pull/996) ([angaither](https://github.com/angaither))
+- Updating Solr biases [\#995](https://github.com/DoSomething/phoenix/pull/995) ([blisteringherb](https://github.com/blisteringherb))
+- Adds subtitle and add'l fields [\#993](https://github.com/DoSomething/phoenix/pull/993) ([blisteringherb](https://github.com/blisteringherb))
+- Signup message [\#992](https://github.com/DoSomething/phoenix/pull/992) ([aaronschachter](https://github.com/aaronschachter))
+- Campaign footnotes [\#990](https://github.com/DoSomething/phoenix/pull/990) ([aaronschachter](https://github.com/aaronschachter))
+- User Partners/Sponsors field [\#989](https://github.com/DoSomething/phoenix/pull/989) ([aaronschachter](https://github.com/aaronschachter))
+- Port to Neue [\#987](https://github.com/DoSomething/phoenix/pull/987) ([mmwtsn](https://github.com/mmwtsn))
+- Mobilecommons update [\#986](https://github.com/DoSomething/phoenix/pull/986) ([aaronschachter](https://github.com/aaronschachter))
+- Enable modules in dosomething.info on ds build. [\#984](https://github.com/DoSomething/phoenix/pull/984) ([angaither](https://github.com/angaither))
+- Initial pass at dosomething\_sms module [\#981](https://github.com/DoSomething/phoenix/pull/981) ([jonuy](https://github.com/jonuy))
+- Image folder [\#979](https://github.com/DoSomething/phoenix/pull/979) ([DFurnes](https://github.com/DFurnes))
+- Broken Markup Patch [\#978](https://github.com/DoSomething/phoenix/pull/978) ([mmwtsn](https://github.com/mmwtsn))
+- Changes ds cli shell to bash instead of sh.  This will make it play nice... [\#977](https://github.com/DoSomething/phoenix/pull/977) ([desmondmorris](https://github.com/desmondmorris))
+- Tag fixes [\#976](https://github.com/DoSomething/phoenix/pull/976) ([DFurnes](https://github.com/DFurnes))
+- Updated get\_themed\_image function. [\#975](https://github.com/DoSomething/phoenix/pull/975) ([angaither](https://github.com/angaither))
+- Campaign Template Checks [\#973](https://github.com/DoSomething/phoenix/pull/973) ([mmwtsn](https://github.com/mmwtsn))
+- Fact Footnotes [\#972](https://github.com/DoSomething/phoenix/pull/972) ([aaronschachter](https://github.com/aaronschachter))
+- Set mobile-commons title opt in to null [\#966](https://github.com/DoSomething/phoenix/pull/966) ([angaither](https://github.com/angaither))
+- Fixin small bugs [\#965](https://github.com/DoSomething/phoenix/pull/965) ([aaronschachter](https://github.com/aaronschachter))
+- Add under 13 bool [\#964](https://github.com/DoSomething/phoenix/pull/964) ([angaither](https://github.com/angaither))
+- Partners field collection fix [\#953](https://github.com/DoSomething/phoenix/pull/953) ([aaronschachter](https://github.com/aaronschachter))
+- Added function to check if user is under 13. [\#952](https://github.com/DoSomething/phoenix/pull/952) ([angaither](https://github.com/angaither))
+- Add modules to info file. [\#946](https://github.com/DoSomething/phoenix/pull/946) ([angaither](https://github.com/angaither))
+- Campaign hotfix [\#940](https://github.com/DoSomething/phoenix/pull/940) ([aaronschachter](https://github.com/aaronschachter))
+- Misc. Campaign Style Updates [\#926](https://github.com/DoSomething/phoenix/pull/926) ([mmwtsn](https://github.com/mmwtsn))
+- is\_empty is not empty FML [\#924](https://github.com/DoSomething/phoenix/pull/924) ([aaronschachter](https://github.com/aaronschachter))
+- Broken campaigns [\#923](https://github.com/DoSomething/phoenix/pull/923) ([aaronschachter](https://github.com/aaronschachter))
+- Update Admin Perms [\#922](https://github.com/DoSomething/phoenix/pull/922) ([angaither](https://github.com/angaither))
+- Updates directory name lol [\#920](https://github.com/DoSomething/phoenix/pull/920) ([DFurnes](https://github.com/DFurnes))
+- Sponsors vars - Part 2 [\#916](https://github.com/DoSomething/phoenix/pull/916) ([aaronschachter](https://github.com/aaronschachter))
+- Added imagemagick rule to process images. [\#913](https://github.com/DoSomething/phoenix/pull/913) ([angaither](https://github.com/angaither))
+- Authy-auth-auth. [\#911](https://github.com/DoSomething/phoenix/pull/911) ([DFurnes](https://github.com/DFurnes))
+- Added fieldgroup permissions [\#910](https://github.com/DoSomething/phoenix/pull/910) ([angaither](https://github.com/angaither))
+- Campaign Partials [\#909](https://github.com/DoSomething/phoenix/pull/909) ([mmwtsn](https://github.com/mmwtsn))
+- Campaign Fender Updates [\#907](https://github.com/DoSomething/phoenix/pull/907) ([mmwtsn](https://github.com/mmwtsn))
+- Issue716 message broker install [\#903](https://github.com/DoSomething/phoenix/pull/903) ([DeeZone](https://github.com/DeeZone))
+- Adding a tpl file to facilitate theming search results [\#902](https://github.com/DoSomething/phoenix/pull/902) ([blisteringherb](https://github.com/blisteringherb))
+- Added an admin form for mailchimp & mobile commons list ids. [\#901](https://github.com/DoSomething/phoenix/pull/901) ([angaither](https://github.com/angaither))
+- Updating default solr settings [\#900](https://github.com/DoSomething/phoenix/pull/900) ([blisteringherb](https://github.com/blisteringherb))
+- Fixes incorrect auth link on pitch page. [\#899](https://github.com/DoSomething/phoenix/pull/899) ([DFurnes](https://github.com/DFurnes))
+- Hero Images [\#896](https://github.com/DoSomething/phoenix/pull/896) ([mmwtsn](https://github.com/mmwtsn))
+- Fixes everything [\#890](https://github.com/DoSomething/phoenix/pull/890) ([angaither](https://github.com/angaither))
+- Vocabulary permissions [\#889](https://github.com/DoSomething/phoenix/pull/889) ([aaronschachter](https://github.com/aaronschachter))
+- Zendesk Test fix + additional tests [\#888](https://github.com/DoSomething/phoenix/pull/888) ([aaronschachter](https://github.com/aaronschachter))
+- Signup mobile commons [\#886](https://github.com/DoSomething/phoenix/pull/886) ([angaither](https://github.com/angaither))
+- Zendesk lib [\#885](https://github.com/DoSomething/phoenix/pull/885) ([aaronschachter](https://github.com/aaronschachter))
+- Confirmation Page [\#880](https://github.com/DoSomething/phoenix/pull/880) ([mmwtsn](https://github.com/mmwtsn))
+- It's not purple time :\( [\#878](https://github.com/DoSomething/phoenix/pull/878) ([barryclark](https://github.com/barryclark))
+- Hooked in validation classes; cleaned up gross datetime formatting. [\#876](https://github.com/DoSomething/phoenix/pull/876) ([DFurnes](https://github.com/DFurnes))
+- drush aliases, ssh configs and ds binary update commands [\#872](https://github.com/DoSomething/phoenix/pull/872) ([desmondmorris](https://github.com/desmondmorris))
+- First pass over static content markup and styles [\#871](https://github.com/DoSomething/phoenix/pull/871) ([barryclark](https://github.com/barryclark))
+- Removes files symlink before creating new symlink.  Removes unused steps [\#870](https://github.com/DoSomething/phoenix/pull/870) ([desmondmorris](https://github.com/desmondmorris))
+- Added 'form action' to add campaign data funciton. [\#868](https://github.com/DoSomething/phoenix/pull/868) ([angaither](https://github.com/angaither))
+- Changes ssh user and app paths.  Also does staging specific symlinking [\#867](https://github.com/DoSomething/phoenix/pull/867) ([desmondmorris](https://github.com/desmondmorris))
+- Output modal links for FAQ and Facts [\#866](https://github.com/DoSomething/phoenix/pull/866) ([aaronschachter](https://github.com/aaronschachter))
+- Action Fact Updates [\#864](https://github.com/DoSomething/phoenix/pull/864) ([mmwtsn](https://github.com/mmwtsn))
+- Fixes \#822: Updates ctools to latest \(7.x-1.4\) [\#861](https://github.com/DoSomething/phoenix/pull/861) ([mshmsh5000](https://github.com/mshmsh5000))
+- Environment aware settings [\#860](https://github.com/DoSomething/phoenix/pull/860) ([desmondmorris](https://github.com/desmondmorris))
+- Making updates to static content for better usability [\#854](https://github.com/DoSomething/phoenix/pull/854) ([blisteringherb](https://github.com/blisteringherb))
+- Fixing intro and hero image for static content [\#852](https://github.com/DoSomething/phoenix/pull/852) ([blisteringherb](https://github.com/blisteringherb))
+- Checking for video id before generating video markup [\#851](https://github.com/DoSomething/phoenix/pull/851) ([blisteringherb](https://github.com/blisteringherb))
+- Partners vocabulary [\#849](https://github.com/DoSomething/phoenix/pull/849) ([aaronschachter](https://github.com/aaronschachter))
+- Fixing generation of gallery img on static content [\#847](https://github.com/DoSomething/phoenix/pull/847) ([blisteringherb](https://github.com/blisteringherb))
+- Typo [\#846](https://github.com/DoSomething/phoenix/pull/846) ([mmwtsn](https://github.com/mmwtsn))
+- NPM Warnings! [\#845](https://github.com/DoSomething/phoenix/pull/845) ([mmwtsn](https://github.com/mmwtsn))
+- Only staff members can see term pages. [\#843](https://github.com/DoSomething/phoenix/pull/843) ([angaither](https://github.com/angaither))
+- Removed 'field\_image\_sponsor\_logo' from node\_view [\#838](https://github.com/DoSomething/phoenix/pull/838) ([angaither](https://github.com/angaither))
+- action \(prove it\) – gallery updates [\#834](https://github.com/DoSomething/phoenix/pull/834) ([mmwtsn](https://github.com/mmwtsn))
+- Condintionally Prints Scholarship Variable [\#825](https://github.com/DoSomething/phoenix/pull/825) ([mmwtsn](https://github.com/mmwtsn))
+- Mobilecommons tweaks [\#823](https://github.com/DoSomething/phoenix/pull/823) ([aaronschachter](https://github.com/aaronschachter))
+- Smart settings and cap deploy to pc staging server [\#821](https://github.com/DoSomething/phoenix/pull/821) ([desmondmorris](https://github.com/desmondmorris))
+- Fixes JSHint Errors [\#820](https://github.com/DoSomething/phoenix/pull/820) ([mmwtsn](https://github.com/mmwtsn))
+- Adds a .jshintrc and syncs with Neue [\#819](https://github.com/DoSomething/phoenix/pull/819) ([mmwtsn](https://github.com/mmwtsn))
+- Adds html5shiv for IE8. [\#817](https://github.com/DoSomething/phoenix/pull/817) ([DFurnes](https://github.com/DFurnes))
+- Tip Functionality & Styles [\#816](https://github.com/DoSomething/phoenix/pull/816) ([mmwtsn](https://github.com/mmwtsn))
+- Drupal invisibles [\#813](https://github.com/DoSomething/phoenix/pull/813) ([DFurnes](https://github.com/DFurnes))
+- Browserify on grunt:watch! [\#811](https://github.com/DoSomething/phoenix/pull/811) ([mmwtsn](https://github.com/mmwtsn))
+- Administrator role [\#809](https://github.com/DoSomething/phoenix/pull/809) ([aaronschachter](https://github.com/aaronschachter))
+- Action Template Updates [\#806](https://github.com/DoSomething/phoenix/pull/806) ([mmwtsn](https://github.com/mmwtsn))
+- Added image terms. [\#804](https://github.com/DoSomething/phoenix/pull/804) ([angaither](https://github.com/angaither))
+- Print do it copy. [\#802](https://github.com/DoSomething/phoenix/pull/802) ([angaither](https://github.com/angaither))
+- Set image & cause tags in image search to 'and' not 'or' [\#800](https://github.com/DoSomething/phoenix/pull/800) ([angaither](https://github.com/angaither))
+- dosomething\_zendesk [\#798](https://github.com/DoSomething/phoenix/pull/798) ([aaronschachter](https://github.com/aaronschachter))
+- Fixes \#787 by properly configuring xmlsitemap in dosomething.install [\#795](https://github.com/DoSomething/phoenix/pull/795) ([mshmsh5000](https://github.com/mshmsh5000))
+- Staff Username [\#793](https://github.com/DoSomething/phoenix/pull/793) ([angaither](https://github.com/angaither))
+- Moving causes down [\#790](https://github.com/DoSomething/phoenix/pull/790) ([blisteringherb](https://github.com/blisteringherb))
+- Message broker call update1 [\#775](https://github.com/DoSomething/phoenix/pull/775) ([DeeZone](https://github.com/DeeZone))
 
 ## [v0.2.0](https://github.com/dosomething/phoenix/tree/v0.2.0) (2014-02-22)
 **Fixed bugs:**
 
+- DS build --install error - Missing Xmlsitemap\_18n [\#783](https://github.com/DoSomething/phoenix/issues/783)
 - Campaign End Date error [\#754](https://github.com/DoSomething/phoenix/issues/754)
 - Campaign: automatic revisions [\#744](https://github.com/DoSomething/phoenix/issues/744)
 - Reportback: PHP Notice [\#721](https://github.com/DoSomething/phoenix/issues/721)
@@ -9415,6 +8033,15 @@
 - DS build: User permissions not set [\#446](https://github.com/DoSomething/phoenix/issues/446)
 - Fact: PHP Notice [\#441](https://github.com/DoSomething/phoenix/issues/441)
 - Taxonomy: Sponsor image field instance missing [\#440](https://github.com/DoSomething/phoenix/issues/440)
+- User: Is Staff PHP notice [\#422](https://github.com/DoSomething/phoenix/issues/422)
+- Devel generage image - PHP Warning [\#399](https://github.com/DoSomething/phoenix/issues/399)
+- Devel generate campaign - PHP Notice [\#398](https://github.com/DoSomething/phoenix/issues/398)
+- Campaign: Pitch tab [\#388](https://github.com/DoSomething/phoenix/issues/388)
+- Fact Search: Admin toolbar [\#384](https://github.com/DoSomething/phoenix/issues/384)
+- Fact Search: Format updated column [\#383](https://github.com/DoSomething/phoenix/issues/383)
+- Campaign: Double field -- text formats [\#369](https://github.com/DoSomething/phoenix/issues/369)
+- Vagrant: SimpleTest execution timeout [\#365](https://github.com/DoSomething/phoenix/issues/365)
+- Fact Devel: Notice messages when creating Facts [\#351](https://github.com/DoSomething/phoenix/issues/351)
 - QA broken: Fatal error -- varnish.cache.inc [\#307](https://github.com/DoSomething/phoenix/issues/307)
 - Devel Generate - PHP Strict warning [\#297](https://github.com/DoSomething/phoenix/issues/297)
 - Campaign / double\_field: PHP Notice [\#286](https://github.com/DoSomething/phoenix/issues/286)
@@ -9434,7 +8061,7 @@
 - DS User WebTest fails for "administer mailsystem" [\#131](https://github.com/DoSomething/phoenix/issues/131)
 - Installation error with build.sh [\#60](https://github.com/DoSomething/phoenix/issues/60)
 - CKEditor could not be detected. [\#55](https://github.com/DoSomething/phoenix/issues/55)
-- Salt steps not running [\#52](https://github.com/DoSomething/phoenix/issues/52)
+- Moving ds\_search module to the new lib directory [\#604](https://github.com/DoSomething/phoenix/pull/604) ([blisteringherb](https://github.com/blisteringherb))
 
 **Closed issues:**
 
@@ -9568,6 +8195,43 @@
 - Youtube Link [\#433](https://github.com/DoSomething/phoenix/issues/433)
 - Reportback: Save reportback function [\#432](https://github.com/DoSomething/phoenix/issues/432)
 - Coder misconfigured? Possible work around with drush [\#431](https://github.com/DoSomething/phoenix/issues/431)
+- Campaign: Preprocess fact vars [\#430](https://github.com/DoSomething/phoenix/issues/430)
+- Fact: View fact\_search access [\#428](https://github.com/DoSomething/phoenix/issues/428)
+- Fact: Test user access to Facts [\#427](https://github.com/DoSomething/phoenix/issues/427)
+- On ds build 'admin' user does not have the admin role applied to the account [\#425](https://github.com/DoSomething/phoenix/issues/425)
+- Campaign: Preprocess vars [\#424](https://github.com/DoSomething/phoenix/issues/424)
+- Campaign: Auth user display [\#418](https://github.com/DoSomething/phoenix/issues/418)
+- Campaign: Anon user display [\#417](https://github.com/DoSomething/phoenix/issues/417)
+- Reportback: permissions [\#415](https://github.com/DoSomething/phoenix/issues/415)
+- Signup: Expose to views [\#414](https://github.com/DoSomething/phoenix/issues/414)
+- Reportback: access callback [\#413](https://github.com/DoSomething/phoenix/issues/413)
+- Reportback: Expose to views [\#411](https://github.com/DoSomething/phoenix/issues/411)
+- Web test for dosomething\_user\_is\_staff\(\) [\#407](https://github.com/DoSomething/phoenix/issues/407)
+- Reportback: Form arguments [\#406](https://github.com/DoSomething/phoenix/issues/406)
+- Reportback:User images field [\#405](https://github.com/DoSomething/phoenix/issues/405)
+- Reportback: Use entity module [\#404](https://github.com/DoSomething/phoenix/issues/404)
+- Core Make: Upgrade to 7.26 [\#403](https://github.com/DoSomething/phoenix/issues/403)
+- Reportback: Base table and module [\#392](https://github.com/DoSomething/phoenix/issues/392)
+- Fact Search: Link to fact page [\#382](https://github.com/DoSomething/phoenix/issues/382)
+- Update fact search roles [\#380](https://github.com/DoSomething/phoenix/issues/380)
+- Taxonomy: Permissions [\#376](https://github.com/DoSomething/phoenix/issues/376)
+- Fact: Expose facts to views [\#375](https://github.com/DoSomething/phoenix/issues/375)
+- Admin Content Search [\#374](https://github.com/DoSomething/phoenix/issues/374)
+- DS script: Rebuild permissions [\#362](https://github.com/DoSomething/phoenix/issues/362)
+- Signup: Add dosomething\_signup into dosomething.info [\#361](https://github.com/DoSomething/phoenix/issues/361)
+- Settings: Add dosomething\_settings to dosomething.info [\#360](https://github.com/DoSomething/phoenix/issues/360)
+- Settings: Markdown access [\#359](https://github.com/DoSomething/phoenix/issues/359)
+- Settings: Markdown allowed tags [\#358](https://github.com/DoSomething/phoenix/issues/358)
+- Signup: Tests [\#355](https://github.com/DoSomething/phoenix/issues/355)
+- Campaign: Template Preprocess text vars [\#354](https://github.com/DoSomething/phoenix/issues/354)
+- User: Test for editor role [\#352](https://github.com/DoSomething/phoenix/issues/352)
+- Signup: insert, check, delete signup functions [\#346](https://github.com/DoSomething/phoenix/issues/346)
+- Signup: Form API functions [\#345](https://github.com/DoSomething/phoenix/issues/345)
+- Signup: Create dosomething\_signup module and schema [\#344](https://github.com/DoSomething/phoenix/issues/344)
+- Editor: Permissions for revisions [\#342](https://github.com/DoSomething/phoenix/issues/342)
+- Add and enable Diff module [\#338](https://github.com/DoSomething/phoenix/issues/338)
+- Campaign form: Alter internal google doc field weight [\#333](https://github.com/DoSomething/phoenix/issues/333)
+- Campaign: Pitch view mode [\#332](https://github.com/DoSomething/phoenix/issues/332)
 - Campaign: Collapse field groups on node form [\#331](https://github.com/DoSomething/phoenix/issues/331)
 - Campaign: Rename and kill modules [\#330](https://github.com/DoSomething/phoenix/issues/330)
 - Campaign: Move fact modal into campaign node form [\#329](https://github.com/DoSomething/phoenix/issues/329)
@@ -9681,45 +8345,199 @@
 - QA: Vagrant implicit pool routing [\#83](https://github.com/DoSomething/phoenix/issues/83)
 - dosomething\_page: user permissions [\#82](https://github.com/DoSomething/phoenix/issues/82)
 - Automatic deploy to QA upon push to dev [\#81](https://github.com/DoSomething/phoenix/issues/81)
-- QA environment [\#78](https://github.com/DoSomething/phoenix/issues/78)
-- Deployments using the installation profile [\#77](https://github.com/DoSomething/phoenix/issues/77)
 - Documentation for the DoSomething profile [\#76](https://github.com/DoSomething/phoenix/issues/76)
 - Dev / QA configuration variables [\#75](https://github.com/DoSomething/phoenix/issues/75)
-- Client side validation library [\#73](https://github.com/DoSomething/phoenix/issues/73)
 - Dev: Reject pull request if any DoSomething SimpleTests fail [\#72](https://github.com/DoSomething/phoenix/issues/72)
 - QA: Tests should run in a separate DB [\#70](https://github.com/DoSomething/phoenix/issues/70)
 - Vagrant: Configure php.ini to show all notices, errors [\#69](https://github.com/DoSomething/phoenix/issues/69)
-- Update varnish config to use file storage [\#68](https://github.com/DoSomething/phoenix/issues/68)
 - Behat [\#66](https://github.com/DoSomething/phoenix/issues/66)
-- Search feature [\#65](https://github.com/DoSomething/phoenix/issues/65)
 - Automated coder review upon pull request [\#63](https://github.com/DoSomething/phoenix/issues/63)
-- Build basic site-wide functions [\#57](https://github.com/DoSomething/phoenix/issues/57)
 - dosomething\_user feature: administrator role [\#48](https://github.com/DoSomething/phoenix/issues/48)
 - Build Script [\#46](https://github.com/DoSomething/phoenix/issues/46)
-- Unable to unzip ckeditor [\#44](https://github.com/DoSomething/phoenix/issues/44)
 - Set paraneue base theme as default [\#43](https://github.com/DoSomething/phoenix/issues/43)
 - Create "dosomething" subdir in the themes directory [\#41](https://github.com/DoSomething/phoenix/issues/41)
 - Setup SSH Agent forwarding in Vagrant [\#36](https://github.com/DoSomething/phoenix/issues/36)
 - Create build job on cerebro jenkins [\#35](https://github.com/DoSomething/phoenix/issues/35)
-- Update Salt scripts to install site [\#34](https://github.com/DoSomething/phoenix/issues/34)
-- Campaign: Stub module [\#31](https://github.com/DoSomething/phoenix/issues/31)
 - Start documentation for working within the Vagrant enviornment [\#30](https://github.com/DoSomething/phoenix/issues/30)
-- dosomething\_page: content type [\#29](https://github.com/DoSomething/phoenix/issues/29)
-- Use include notation in build make for core make [\#28](https://github.com/DoSomething/phoenix/issues/28)
 - Filtered HTML input filter [\#24](https://github.com/DoSomething/phoenix/issues/24)
 - DS profile should set Admin theme to Seven [\#23](https://github.com/DoSomething/phoenix/issues/23)
-- Setup drupal-org.make - first pass at contrib module usual suspects [\#18](https://github.com/DoSomething/phoenix/issues/18)
-- DSAPI PHP Library [\#17](https://github.com/DoSomething/phoenix/issues/17)
 - Provide stub scaffold for project specific themes and modules [\#15](https://github.com/DoSomething/phoenix/issues/15)
-- Install Profile - Stub [\#14](https://github.com/DoSomething/phoenix/issues/14)
 - Prepare wercker file for unit testing [\#12](https://github.com/DoSomething/phoenix/issues/12)
 - Create a basic drupal-core-org.make file [\#8](https://github.com/DoSomething/phoenix/issues/8)
-- Create a wercker manifest & project for unit testing [\#6](https://github.com/DoSomething/phoenix/issues/6)
-- Create baseline Vagrantfile [\#5](https://github.com/DoSomething/phoenix/issues/5)
-- Adds development env requirements [\#4](https://github.com/DoSomething/phoenix/issues/4)
 - Add contribution instructions to the readme [\#3](https://github.com/DoSomething/phoenix/issues/3)
 - Add a better description in readme [\#1](https://github.com/DoSomething/phoenix/issues/1)
 
+**Merged pull requests:**
 
+- Fixes \#783; typo in dosomething.info [\#786](https://github.com/DoSomething/phoenix/pull/786) ([mshmsh5000](https://github.com/mshmsh5000))
+- Action guide preprocess / template file [\#782](https://github.com/DoSomething/phoenix/pull/782) ([aaronschachter](https://github.com/aaronschachter))
+- Exported taxonomy perms. [\#779](https://github.com/DoSomething/phoenix/pull/779) ([angaither](https://github.com/angaither))
+- Sponsor image field. [\#777](https://github.com/DoSomething/phoenix/pull/777) ([angaither](https://github.com/angaither))
+- Default youtube value. [\#776](https://github.com/DoSomething/phoenix/pull/776) ([angaither](https://github.com/angaither))
+- Allow editors publish/unpublish [\#773](https://github.com/DoSomething/phoenix/pull/773) ([aaronschachter](https://github.com/aaronschachter))
+- Help text changes [\#771](https://github.com/DoSomething/phoenix/pull/771) ([aaronschachter](https://github.com/aaronschachter))
+- Fixes \#763 -- Installs XML Sitemap and related projects [\#769](https://github.com/DoSomething/phoenix/pull/769) ([mshmsh5000](https://github.com/mshmsh5000))
+- Campagin end date not set. [\#767](https://github.com/DoSomething/phoenix/pull/767) ([angaither](https://github.com/angaither))
+- Mobilecommons bday [\#766](https://github.com/DoSomething/phoenix/pull/766) ([aaronschachter](https://github.com/aaronschachter))
+- Web Tests for login via email/cell [\#765](https://github.com/DoSomething/phoenix/pull/765) ([angaither](https://github.com/angaither))
+- Campaign automatic revisions [\#758](https://github.com/DoSomething/phoenix/pull/758) ([aaronschachter](https://github.com/aaronschachter))
+- Readding disapparing intro field [\#751](https://github.com/DoSomething/phoenix/pull/751) ([blisteringherb](https://github.com/blisteringherb))
+- Mobilecommons signup [\#750](https://github.com/DoSomething/phoenix/pull/750) ([aaronschachter](https://github.com/aaronschachter))
+- Added production Grunt build task. [\#749](https://github.com/DoSomething/phoenix/pull/749) ([DFurnes](https://github.com/DFurnes))
+- Remove hero image from action guide [\#747](https://github.com/DoSomething/phoenix/pull/747) ([aaronschachter](https://github.com/aaronschachter))
+- Image field mins [\#746](https://github.com/DoSomething/phoenix/pull/746) ([angaither](https://github.com/angaither))
+- Switching to using apachesolr module instead of Search API [\#742](https://github.com/DoSomething/phoenix/pull/742) ([blisteringherb](https://github.com/blisteringherb))
+- Confirmation Page content [\#741](https://github.com/DoSomething/phoenix/pull/741) ([aaronschachter](https://github.com/aaronschachter))
+- Image style name updates [\#740](https://github.com/DoSomething/phoenix/pull/740) ([angaither](https://github.com/angaither))
+- Image Terms [\#739](https://github.com/DoSomething/phoenix/pull/739) ([angaither](https://github.com/angaither))
+- Image Search By [\#738](https://github.com/DoSomething/phoenix/pull/738) ([angaither](https://github.com/angaither))
+- Campaign date preprocess. [\#737](https://github.com/DoSomething/phoenix/pull/737) ([angaither](https://github.com/angaither))
+- Update Profile/Add Users [\#733](https://github.com/DoSomething/phoenix/pull/733) ([angaither](https://github.com/angaither))
+- Report back modal classes [\#732](https://github.com/DoSomething/phoenix/pull/732) ([mmwtsn](https://github.com/mmwtsn))
+- Action Page Updates [\#727](https://github.com/DoSomething/phoenix/pull/727) ([mmwtsn](https://github.com/mmwtsn))
+- Blank Mobile Number Fix [\#725](https://github.com/DoSomething/phoenix/pull/725) ([angaither](https://github.com/angaither))
+- Pitch Page Modals [\#724](https://github.com/DoSomething/phoenix/pull/724) ([mmwtsn](https://github.com/mmwtsn))
+- Reportback fix [\#723](https://github.com/DoSomething/phoenix/pull/723) ([aaronschachter](https://github.com/aaronschachter))
+- User bugs galore [\#722](https://github.com/DoSomething/phoenix/pull/722) ([angaither](https://github.com/angaither))
+- Campaign confirmation template [\#718](https://github.com/DoSomething/phoenix/pull/718) ([aaronschachter](https://github.com/aaronschachter))
+- Fix pitch page button [\#688](https://github.com/DoSomething/phoenix/pull/688) ([aaronschachter](https://github.com/aaronschachter))
+- Changes drush install method. Fixes \#682 [\#684](https://github.com/DoSomething/phoenix/pull/684) ([desmondmorris](https://github.com/desmondmorris))
+- Adding Markdown support to static content [\#681](https://github.com/DoSomething/phoenix/pull/681) ([blisteringherb](https://github.com/blisteringherb))
+- Static content [\#673](https://github.com/DoSomething/phoenix/pull/673) ([barryclark](https://github.com/barryclark))
+- Registration login fancy [\#672](https://github.com/DoSomething/phoenix/pull/672) ([angaither](https://github.com/angaither))
+- Edit ui image node fancify. [\#668](https://github.com/DoSomething/phoenix/pull/668) ([angaither](https://github.com/angaither))
+- Force secure login/registration on modal. [\#666](https://github.com/DoSomething/phoenix/pull/666) ([angaither](https://github.com/angaither))
+- Update all image fields to use a view to return entity results. [\#664](https://github.com/DoSomething/phoenix/pull/664) ([angaither](https://github.com/angaither))
+- Capistranos return [\#663](https://github.com/DoSomething/phoenix/pull/663) ([desmondmorris](https://github.com/desmondmorris))
+- Include custom modules & themes via make [\#662](https://github.com/DoSomething/phoenix/pull/662) ([desmondmorris](https://github.com/desmondmorris))
+- Action Page [\#661](https://github.com/DoSomething/phoenix/pull/661) ([mmwtsn](https://github.com/mmwtsn))
+- Image node fields views and everything [\#660](https://github.com/DoSomething/phoenix/pull/660) ([angaither](https://github.com/angaither))
+- Mobilecommons Opt-In [\#659](https://github.com/DoSomething/phoenix/pull/659) ([aaronschachter](https://github.com/aaronschachter))
+- Adding entity connect perms for editors [\#655](https://github.com/DoSomething/phoenix/pull/655) ([blisteringherb](https://github.com/blisteringherb))
+- User has unique mobile number. [\#653](https://github.com/DoSomething/phoenix/pull/653) ([angaither](https://github.com/angaither))
+- Pathauto vars [\#651](https://github.com/DoSomething/phoenix/pull/651) ([aaronschachter](https://github.com/aaronschachter))
+- Theming for 11 facts page [\#643](https://github.com/DoSomething/phoenix/pull/643) ([blisteringherb](https://github.com/blisteringherb))
+- Campaign action guide [\#642](https://github.com/DoSomething/phoenix/pull/642) ([aaronschachter](https://github.com/aaronschachter))
+- No default birthdate [\#639](https://github.com/DoSomething/phoenix/pull/639) ([angaither](https://github.com/angaither))
+- Replace panteon drupal core with d.o core [\#637](https://github.com/DoSomething/phoenix/pull/637) ([angaither](https://github.com/angaither))
+- Form tweaks [\#634](https://github.com/DoSomething/phoenix/pull/634) ([aaronschachter](https://github.com/aaronschachter))
+- User login updates [\#632](https://github.com/DoSomething/phoenix/pull/632) ([angaither](https://github.com/angaither))
+- Campaign Action Page [\#631](https://github.com/DoSomething/phoenix/pull/631) ([mmwtsn](https://github.com/mmwtsn))
+- Adds helper functions to display entityref parents [\#630](https://github.com/DoSomething/phoenix/pull/630) ([aaronschachter](https://github.com/aaronschachter))
+- Action Guide content type [\#629](https://github.com/DoSomething/phoenix/pull/629) ([aaronschachter](https://github.com/aaronschachter))
+- Facts of life [\#628](https://github.com/DoSomething/phoenix/pull/628) ([aaronschachter](https://github.com/aaronschachter))
+- Static Content: Fixing PHP notices [\#627](https://github.com/DoSomething/phoenix/pull/627) ([blisteringherb](https://github.com/blisteringherb))
+- Adding editor permissions for static content [\#622](https://github.com/DoSomething/phoenix/pull/622) ([blisteringherb](https://github.com/blisteringherb))
+- Fact Cleanup [\#621](https://github.com/DoSomething/phoenix/pull/621) ([aaronschachter](https://github.com/aaronschachter))
+- Static content: Adding links for gallery items [\#617](https://github.com/DoSomething/phoenix/pull/617) ([blisteringherb](https://github.com/blisteringherb))
+- Fact Content Type [\#612](https://github.com/DoSomething/phoenix/pull/612) ([aaronschachter](https://github.com/aaronschachter))
+- 11 Facts Permissions [\#611](https://github.com/DoSomething/phoenix/pull/611) ([blisteringherb](https://github.com/blisteringherb))
+- Adding Cause taxonomy to Fact Page [\#610](https://github.com/DoSomething/phoenix/pull/610) ([blisteringherb](https://github.com/blisteringherb))
+- Removing ds\_search from make file to prevent build breakage [\#605](https://github.com/DoSomething/phoenix/pull/605) ([blisteringherb](https://github.com/blisteringherb))
+- Neue config [\#603](https://github.com/DoSomething/phoenix/pull/603) ([DFurnes](https://github.com/DFurnes))
+- Proposed: Codebase re-org [\#599](https://github.com/DoSomething/phoenix/pull/599) ([desmondmorris](https://github.com/desmondmorris))
+- Solr - Basic setup for indexing nodes [\#593](https://github.com/DoSomething/phoenix/pull/593) ([blisteringherb](https://github.com/blisteringherb))
+- Set up 11 Facts \(Fact Page\) Content Type [\#592](https://github.com/DoSomething/phoenix/pull/592) ([blisteringherb](https://github.com/blisteringherb))
+- Reportback Tests [\#591](https://github.com/DoSomething/phoenix/pull/591) ([aaronschachter](https://github.com/aaronschachter))
+- Static content issets [\#590](https://github.com/DoSomething/phoenix/pull/590) ([blisteringherb](https://github.com/blisteringherb))
+- Disable automatic drupal emails to users [\#589](https://github.com/DoSomething/phoenix/pull/589) ([angaither](https://github.com/angaither))
+- Resolves merge conflicts from PR 574 \(local Drupal settings\) [\#587](https://github.com/DoSomething/phoenix/pull/587) ([mshmsh5000](https://github.com/mshmsh5000))
+- Campaign tweaks [\#586](https://github.com/DoSomething/phoenix/pull/586) ([aaronschachter](https://github.com/aaronschachter))
+- Remove unused text format module/libs [\#585](https://github.com/DoSomething/phoenix/pull/585) ([angaither](https://github.com/angaither))
+- Added char count to fact text area. [\#583](https://github.com/DoSomething/phoenix/pull/583) ([angaither](https://github.com/angaither))
+- Image Module Updates [\#582](https://github.com/DoSomething/phoenix/pull/582) ([mmwtsn](https://github.com/mmwtsn))
+- Local Drupal settings FTW [\#574](https://github.com/DoSomething/phoenix/pull/574) ([mshmsh5000](https://github.com/mshmsh5000))
+- Reportback Schema Test [\#572](https://github.com/DoSomething/phoenix/pull/572) ([aaronschachter](https://github.com/aaronschachter))
+- Pitch Page [\#568](https://github.com/DoSomething/phoenix/pull/568) ([mmwtsn](https://github.com/mmwtsn))
+- Fact Search View tweaks [\#567](https://github.com/DoSomething/phoenix/pull/567) ([aaronschachter](https://github.com/aaronschachter))
+- Added permissions to create/edit image nodes for editors. [\#565](https://github.com/DoSomething/phoenix/pull/565) ([angaither](https://github.com/angaither))
+- Campaign: Editor permissions [\#562](https://github.com/DoSomething/phoenix/pull/562) ([aaronschachter](https://github.com/aaronschachter))
+- Bower stuff [\#560](https://github.com/DoSomething/phoenix/pull/560) ([DFurnes](https://github.com/DFurnes))
+- Reportback: No more num\_participants [\#559](https://github.com/DoSomething/phoenix/pull/559) ([aaronschachter](https://github.com/aaronschachter))
+- Admin form fender stuff. [\#556](https://github.com/DoSomething/phoenix/pull/556) ([angaither](https://github.com/angaither))
+- Campaign field labels [\#554](https://github.com/DoSomething/phoenix/pull/554) ([aaronschachter](https://github.com/aaronschachter))
+- Static content cta link [\#551](https://github.com/DoSomething/phoenix/pull/551) ([blisteringherb](https://github.com/blisteringherb))
+- Static content video [\#550](https://github.com/DoSomething/phoenix/pull/550) ([blisteringherb](https://github.com/blisteringherb))
+- Pitch page for anon user [\#543](https://github.com/DoSomething/phoenix/pull/543) ([aaronschachter](https://github.com/aaronschachter))
+- Tax action type updates [\#542](https://github.com/DoSomething/phoenix/pull/542) ([angaither](https://github.com/angaither))
+- Added new fields to campaign form. [\#540](https://github.com/DoSomething/phoenix/pull/540) ([angaither](https://github.com/angaither))
+- Remove ƒfield from file. [\#538](https://github.com/DoSomething/phoenix/pull/538) ([angaither](https://github.com/angaither))
+- Installs make\_local drush plugin to werkcer env [\#536](https://github.com/DoSomething/phoenix/pull/536) ([desmondmorris](https://github.com/desmondmorris))
+- Campaign help text copy updates. [\#535](https://github.com/DoSomething/phoenix/pull/535) ([angaither](https://github.com/angaither))
+- Signup login [\#534](https://github.com/DoSomething/phoenix/pull/534) ([aaronschachter](https://github.com/aaronschachter))
+- Browserify [\#529](https://github.com/DoSomething/phoenix/pull/529) ([DFurnes](https://github.com/DFurnes))
+- Dosomething\_image module updates. [\#527](https://github.com/DoSomething/phoenix/pull/527) ([angaither](https://github.com/angaither))
+- Rename Image Fields. [\#524](https://github.com/DoSomething/phoenix/pull/524) ([angaither](https://github.com/angaither))
+- Temporary fix to include neue for early theming [\#522](https://github.com/DoSomething/phoenix/pull/522) ([mmwtsn](https://github.com/mmwtsn))
+- Reportback Activity log [\#521](https://github.com/DoSomething/phoenix/pull/521) ([aaronschachter](https://github.com/aaronschachter))
+- Add fields to user object/login [\#519](https://github.com/DoSomething/phoenix/pull/519) ([angaither](https://github.com/angaither))
+- Metatag on [\#517](https://github.com/DoSomething/phoenix/pull/517) ([aaronschachter](https://github.com/aaronschachter))
+- Paraneue working copy  [\#514](https://github.com/DoSomething/phoenix/pull/514) ([desmondmorris](https://github.com/desmondmorris))
+- Adds bower install command to ds cli tool.   [\#503](https://github.com/DoSomething/phoenix/pull/503) ([desmondmorris](https://github.com/desmondmorris))
+- Installs node, bower & grunt for dosomething-paraneue build. Fixes \#498 [\#502](https://github.com/DoSomething/phoenix/pull/502) ([desmondmorris](https://github.com/desmondmorris))
+- Cache themed image tags. [\#499](https://github.com/DoSomething/phoenix/pull/499) ([angaither](https://github.com/angaither))
+- Static content [\#495](https://github.com/DoSomething/phoenix/pull/495) ([blisteringherb](https://github.com/blisteringherb))
+- Frontenders [\#491](https://github.com/DoSomething/phoenix/pull/491) ([DFurnes](https://github.com/DFurnes))
+- Save Reportback sub-functions + documentation [\#489](https://github.com/DoSomething/phoenix/pull/489) ([aaronschachter](https://github.com/aaronschachter))
+- Reportback Form fix [\#488](https://github.com/DoSomething/phoenix/pull/488) ([aaronschachter](https://github.com/aaronschachter))
+- Display the pitch page to all users if not signed up for the campaign [\#486](https://github.com/DoSomething/phoenix/pull/486) ([angaither](https://github.com/angaither))
+- Campaign sponsor term errors. [\#485](https://github.com/DoSomething/phoenix/pull/485) ([angaither](https://github.com/angaither))
+- Reportback new properties [\#483](https://github.com/DoSomething/phoenix/pull/483) ([aaronschachter](https://github.com/aaronschachter))
+- Campaign - Update Reportback form [\#476](https://github.com/DoSomething/phoenix/pull/476) ([aaronschachter](https://github.com/aaronschachter))
+- Delete Reportback Form [\#474](https://github.com/DoSomething/phoenix/pull/474) ([aaronschachter](https://github.com/aaronschachter))
+- Sponsor images [\#473](https://github.com/DoSomething/phoenix/pull/473) ([angaither](https://github.com/angaither))
+- Check if images are set. [\#471](https://github.com/DoSomething/phoenix/pull/471) ([angaither](https://github.com/angaither))
+- Reportback template file [\#470](https://github.com/DoSomething/phoenix/pull/470) ([aaronschachter](https://github.com/aaronschachter))
+- DS Build tweaks [\#464](https://github.com/DoSomething/phoenix/pull/464) ([aaronschachter](https://github.com/aaronschachter))
+- Image return [\#463](https://github.com/DoSomething/phoenix/pull/463) ([angaither](https://github.com/angaither))
+- Reportback: Insert / update functions  [\#455](https://github.com/DoSomething/phoenix/pull/455) ([aaronschachter](https://github.com/aaronschachter))
+- Sponsor logo-image field. [\#454](https://github.com/DoSomething/phoenix/pull/454) ([angaither](https://github.com/angaither))
+- Reportback access callback [\#453](https://github.com/DoSomething/phoenix/pull/453) ([aaronschachter](https://github.com/aaronschachter))
+- Campaign tpl - check if field collections vars are set [\#449](https://github.com/DoSomething/phoenix/pull/449) ([aaronschachter](https://github.com/aaronschachter))
+- dosomething\_fact\_access cleanup [\#447](https://github.com/DoSomething/phoenix/pull/447) ([aaronschachter](https://github.com/aaronschachter))
+- Action page preprocess [\#445](https://github.com/DoSomething/phoenix/pull/445) ([angaither](https://github.com/angaither))
+- Preprocess multi-value fact fields [\#439](https://github.com/DoSomething/phoenix/pull/439) ([aaronschachter](https://github.com/aaronschachter))
+- Automatically generate content on site install. [\#438](https://github.com/DoSomething/phoenix/pull/438) ([angaither](https://github.com/angaither))
+- Fixes \#425 [\#437](https://github.com/DoSomething/phoenix/pull/437) ([angaither](https://github.com/angaither))
+- Fixes \#433 [\#436](https://github.com/DoSomething/phoenix/pull/436) ([angaither](https://github.com/angaither))
+- Preprocess Facts [\#434](https://github.com/DoSomething/phoenix/pull/434) ([aaronschachter](https://github.com/aaronschachter))
+- Added GLOBAL lookup for dosomething\_fact\_access\(\) if not set [\#429](https://github.com/DoSomething/phoenix/pull/429) ([DeeZone](https://github.com/DeeZone))
+- Preprocess vars for the pitch page. [\#426](https://github.com/DoSomething/phoenix/pull/426) ([angaither](https://github.com/angaither))
+- Fixes php non-object notice. [\#423](https://github.com/DoSomething/phoenix/pull/423) ([angaither](https://github.com/angaither))
+- Issue: \#316 - Adds views to list related campaigns for fact [\#421](https://github.com/DoSomething/phoenix/pull/421) ([DeeZone](https://github.com/DeeZone))
+- Signup views [\#416](https://github.com/DoSomething/phoenix/pull/416) ([aaronschachter](https://github.com/aaronschachter))
+- Rebuild of Campaigns by Fact view to avoid merge conflict [\#412](https://github.com/DoSomething/phoenix/pull/412) ([DeeZone](https://github.com/DeeZone))
+- Reportback entity [\#410](https://github.com/DoSomething/phoenix/pull/410) ([aaronschachter](https://github.com/aaronschachter))
+- Created a test to check if a user is a ds staff member. [\#409](https://github.com/DoSomething/phoenix/pull/409) ([angaither](https://github.com/angaither))
+- Updated post-install message to reference Wiki documentation. [\#408](https://github.com/DoSomething/phoenix/pull/408) ([DFurnes](https://github.com/DFurnes))
+- Campaign update all the things. [\#401](https://github.com/DoSomething/phoenix/pull/401) ([angaither](https://github.com/angaither))
+- Add view/edit links to fact admin search. [\#400](https://github.com/DoSomething/phoenix/pull/400) ([angaither](https://github.com/angaither))
+- Fact view date time [\#397](https://github.com/DoSomething/phoenix/pull/397) ([angaither](https://github.com/angaither))
+- Only display 'pitch' link on campaign nodes. [\#396](https://github.com/DoSomething/phoenix/pull/396) ([angaither](https://github.com/angaither))
+- Signup form [\#395](https://github.com/DoSomething/phoenix/pull/395) ([aaronschachter](https://github.com/aaronschachter))
+- Editor test [\#394](https://github.com/DoSomething/phoenix/pull/394) ([aaronschachter](https://github.com/aaronschachter))
+- dosomething\_reportback [\#393](https://github.com/DoSomething/phoenix/pull/393) ([aaronschachter](https://github.com/aaronschachter))
+- Add 'facts' tab to the admin toolbar [\#391](https://github.com/DoSomething/phoenix/pull/391) ([angaither](https://github.com/angaither))
+- Field collection FTW [\#389](https://github.com/DoSomething/phoenix/pull/389) ([aaronschachter](https://github.com/aaronschachter))
+- Reverts back to git download type for profile [\#387](https://github.com/DoSomething/phoenix/pull/387) ([desmondmorris](https://github.com/desmondmorris))
+- Initial pass at pantheon deploy script [\#386](https://github.com/DoSomething/phoenix/pull/386) ([desmondmorris](https://github.com/desmondmorris))
+- chowns local drush directory to vagrant user [\#385](https://github.com/DoSomething/phoenix/pull/385) ([desmondmorris](https://github.com/desmondmorris))
+- Updated content search view roles. [\#381](https://github.com/DoSomething/phoenix/pull/381) ([angaither](https://github.com/angaither))
+- Created an admin node search tool. [\#379](https://github.com/DoSomething/phoenix/pull/379) ([angaither](https://github.com/angaither))
+- Added views support to facts. [\#378](https://github.com/DoSomething/phoenix/pull/378) ([angaither](https://github.com/angaither))
+- Double Field module patch [\#377](https://github.com/DoSomething/phoenix/pull/377) ([aaronschachter](https://github.com/aaronschachter))
+- Installs composer and terminus cli tool [\#373](https://github.com/DoSomething/phoenix/pull/373) ([desmondmorris](https://github.com/desmondmorris))
+- Issue \#351 - Fact devel PHP notice messages [\#371](https://github.com/DoSomething/phoenix/pull/371) ([DeeZone](https://github.com/DeeZone))
+- Signup test [\#370](https://github.com/DoSomething/phoenix/pull/370) ([aaronschachter](https://github.com/aaronschachter))
+- Enable text filter on all text area campaign fields. [\#368](https://github.com/DoSomething/phoenix/pull/368) ([angaither](https://github.com/angaither))
+- Markdown filter perms [\#367](https://github.com/DoSomething/phoenix/pull/367) ([angaither](https://github.com/angaither))
+- DS CLI clean up [\#366](https://github.com/DoSomething/phoenix/pull/366) ([desmondmorris](https://github.com/desmondmorris))
+- Updated dosomething.info file. [\#364](https://github.com/DoSomething/phoenix/pull/364) ([angaither](https://github.com/angaither))
+- Moves ds cli tool to bin directory [\#363](https://github.com/DoSomething/phoenix/pull/363) ([desmondmorris](https://github.com/desmondmorris))
+- Markdown [\#357](https://github.com/DoSomething/phoenix/pull/357) ([angaither](https://github.com/angaither))
+
+
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
 
 \* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
