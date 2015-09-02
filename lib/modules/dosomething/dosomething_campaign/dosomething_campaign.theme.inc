@@ -139,7 +139,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       'tumblr' => array(
         'posttype' => 'photo',
         'content' => $problem_share_image,
-        'caption' => "This is REAL, do something about this with me: ",
+        'caption' => t("This is REAL, do something about this with me: "),
       ),
     );
 
@@ -214,7 +214,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
 
   // Share bar
   $campaign_path = url(current_path(), array('absolute' => TRUE));
-  $share_language = number_format($rb_progress, 0, '', ',') . ' ' . $vars['reportback_noun_verb'] . '! ' . 'Thanks to everyone for rocking this campaign with @dosomething. Let’s keep it up.';
+  $share_language = t('@progress @noun_verb! Thanks to everyone for rocking this campaign with @dosomething. Let\'s keep it up. ', array('@progress' => number_format($rb_progress, 0, '', ','), '@noun_verb' => $vars['reportback_noun_verb']));
 
   $share_types = array(
     'facebook' => array(
@@ -347,16 +347,16 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
       'type' => 'feed_dialog',
       'parameters' => array(
         'picture' => $hot_share_image,
-        'caption' => $goal_copy . "? Let's make it happen!",
+        'caption' => t('@goal? Let\'s make it happen', array('@goal' => $goal_copy))
       ),
     ),
     'twitter' => array(
-      'tweet' => "Be a part of @dosomething reaching " . $goal_copy . "- who's ready to rumble?! ",
+      'tweet' => t('Be a part of @dosomething reaching @goal- who\'s ready to rumble?! ', array('@goal' => $goal_copy)),
     ),
     'tumblr' => array(
       'posttype' => 'photo',
       'content' => $hot_share_image,
-      'caption' => "Think you can make @dosomething reach " . $goal_copy . "? Prove it: ",
+      'caption' => t('Think you can make @dosomething reach @goal? Prove it: ', array('@goal' => $goal_copy)),
     ),
   );
 
