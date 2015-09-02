@@ -10,13 +10,17 @@ include_once 'dosomething_global.features.inc';
  * Implements hook_form_alter().
  */
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-  // Get translatable fields.
-  $fields = $form_state['field'];
-  $tfields = array();
-  foreach ($fields as $field) {
-    $translatable = $field['en']['field']['translatable'];
-    if ($translatable) {
-      $form[$field['en']['field']['field_name']]['#access'] = FALSE;
+  global $user;
+  // Check if the user is a mexico or brazil admin
+  if (in_array('brazil admin', $user->roles) || in_array('mexico admin', $user->roles)) {
+    // Get translatable fields.
+    $fields = $form_state['field'];
+    foreach ($fields as $field) {
+      $translatable = $field['en']['field']['translatable'];
+      // If the field is not translatable disable access 
+      if (!$translatable) {
+        $form[$field[LANGUAGE_NONE]['field']['field_name']]['#access'] = FALSE;
+      }
     }
   }
 }
