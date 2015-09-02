@@ -12,10 +12,11 @@ include_once 'dosomething_global.features.inc';
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   // Get translatable fields.
   $fields = $form_state['field'];
+  $tfields = array();
   foreach ($fields as $field) {
-    $translatable = $field[LANGUAGE_NONE]['field']['translatable']);
-    if ($field[LANGUAGE_NONE]['field']['translatable']) {
-      $translatable_fields[] = $field;
+    $translatable = $field['en']['field']['translatable'];
+    if ($translatable) {
+      $form[$field['en']['field']['field_name']]['#access'] = FALSE;
     }
   }
 }
