@@ -258,8 +258,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
   $date_format = 'm/d/Y';
 
-  $start_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
-  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
+  $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
   $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
   $time_left = dosomething_campaign_get_hot_time_left($node);
 
