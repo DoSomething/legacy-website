@@ -36,6 +36,7 @@ function dosomething_signup_user_default_permissions() {
       'administrator' => 'administrator',
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),
