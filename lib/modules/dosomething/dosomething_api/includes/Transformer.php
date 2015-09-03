@@ -432,8 +432,9 @@ abstract class Transformer {
       'created_at' => $data->created_at,
     ];
 
+    $kudos = $data->kudos ?: [];
     try {
-      $kudos = Kudos::get($data->kudos);
+      $kudos = Kudos::get($kudos);
       $kudos = dosomething_kudos_sort($kudos);
     }
     catch (Exception $error) {

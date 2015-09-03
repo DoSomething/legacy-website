@@ -155,7 +155,7 @@ function dosomething_kudos_group_by_taxonomy_term($data, $display = 'teaser') {
       $output['reportback_item'] = $item->reportback_item;
     }
 
-    if ($item->uri) {
+    if (isset($item->uri)) {
       $output['uri'] = $item->uri;
     }
 
