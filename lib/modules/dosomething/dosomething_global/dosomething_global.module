@@ -5,7 +5,7 @@
  */
 
 include_once 'dosomething_global.features.inc';
-define('GLOBAL_ADMIN_ROLES', 'mexio admin,brazil admin');
+define('GLOBAL_ADMIN_ROLES', 'mexico admin,brazil admin');
 
 /**
  * Implements hook_form_alter().
