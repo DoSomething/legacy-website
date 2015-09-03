@@ -65,13 +65,21 @@
       }
 
       .figure {
-        float: left;
+        width: 100%;
+
+        @include media($larger) {
+          @include span(6 of 12);
+        }
       }
     }
 
     .win-module__share-bar {
-      float: left;
+      width: 100%;
       padding-left: $base-spacing;
+
+      @include media($larger) {
+        @include span(6 of 12);
+      }
     }
   }
 
