@@ -37,6 +37,11 @@ function dosomething_global_is_regional_admin($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-  $roles = explode(",", GLOBAL_ADMIN_ROLES);
-  return in_array('brazil admin', $roles);
+  $regional_roles = explode(",", GLOBAL_ADMIN_ROLES);
+  foreach ($user->roles as $role) {
+    if (in_array($role, $regional_roles)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
 }
