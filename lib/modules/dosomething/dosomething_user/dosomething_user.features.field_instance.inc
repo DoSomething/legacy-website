@@ -45,6 +45,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Address',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -97,6 +98,7 @@ function dosomething_user_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -135,6 +137,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'First Name',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -169,6 +172,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Job Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 0,
     ),
@@ -203,6 +207,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Last Name',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -237,6 +242,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Cell #',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -275,6 +281,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Subscribe to our email newsletter',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -312,6 +319,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Subscribe to SMS updates',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -349,6 +357,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Partner / Sponsor',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -384,6 +393,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'School ID',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 0,
     ),
@@ -422,6 +432,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'Under Thirteen',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -455,6 +466,7 @@ function dosomething_user_field_default_field_instances() {
     'label' => 'User Registration Source',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 0,
     ),

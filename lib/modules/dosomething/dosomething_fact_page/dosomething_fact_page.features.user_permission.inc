@@ -15,6 +15,7 @@ function dosomething_fact_page_user_default_permissions() {
     'name' => 'create fact_page content',
     'roles' => array(
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'node',
   );
@@ -38,6 +39,7 @@ function dosomething_fact_page_user_default_permissions() {
     'name' => 'edit any fact_page content',
     'roles' => array(
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'node',
   );
@@ -47,6 +49,7 @@ function dosomething_fact_page_user_default_permissions() {
     'name' => 'edit own fact_page content',
     'roles' => array(
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'node',
   );

@@ -21,7 +21,9 @@ function dosomething_user_field_default_field_bases() {
     'indexes' => array(),
     'locked' => 0,
     'module' => 'addressfield',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'addressfield',
   );
@@ -40,6 +42,7 @@ function dosomething_user_field_default_field_bases() {
     'settings' => array(
       'cache_count' => 4,
       'cache_enabled' => 0,
+      'entity_translation_sync' => FALSE,
       'granularity' => array(
         'day' => 'day',
         'hour' => 0,
@@ -79,6 +82,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -108,6 +112,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -137,6 +142,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -166,6 +172,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -193,6 +200,7 @@ function dosomething_user_field_default_field_bases() {
         1 => '',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -219,6 +227,7 @@ function dosomething_user_field_default_field_bases() {
         1 => '',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -247,6 +256,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -274,6 +284,7 @@ function dosomething_user_field_default_field_bases() {
         1 => '',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -302,6 +313,7 @@ function dosomething_user_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,

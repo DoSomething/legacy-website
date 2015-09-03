@@ -18,6 +18,7 @@ function dosomething_user_user_default_permissions() {
       'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),
@@ -32,6 +33,7 @@ function dosomething_user_user_default_permissions() {
       'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),
@@ -64,6 +66,7 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -94,6 +97,7 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),
@@ -177,6 +181,7 @@ function dosomething_user_user_default_permissions() {
     'name' => 'administer languages',
     'roles' => array(
       'administrator' => 'administrator',
+      'global admin' => 'global admin',
     ),
     'module' => 'locale',
   );
@@ -205,6 +210,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'node',
   );
@@ -242,6 +248,8 @@ function dosomething_user_user_default_permissions() {
     'name' => 'administer site configuration',
     'roles' => array(
       'administrator' => 'administrator',
+      'global admin' => 'global admin',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'system',
   );
@@ -346,6 +354,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'dosomething_user',
   );
@@ -384,6 +393,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -396,6 +406,7 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'locale',
@@ -408,6 +419,7 @@ function dosomething_user_user_default_permissions() {
       'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
       'org friend' => 'org friend',
     ),
@@ -420,6 +432,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -431,6 +444,7 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -444,6 +458,7 @@ function dosomething_user_user_default_permissions() {
       'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),

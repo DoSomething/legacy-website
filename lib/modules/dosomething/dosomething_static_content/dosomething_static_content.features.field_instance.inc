@@ -49,6 +49,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Gallery Item',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -91,6 +92,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Gallery Style',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -129,6 +131,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Gallery Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -173,6 +176,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Gallery Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -215,6 +219,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Image Description',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -267,6 +272,7 @@ function dosomething_static_content_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'optional',
       'title_maxlength' => 128,
@@ -314,6 +320,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Provider',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -351,6 +358,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Video ID',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -398,6 +406,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Additional Text',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -445,6 +454,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Additional Text Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -491,6 +501,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Blocks',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -535,6 +546,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Call to Action',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -592,6 +604,7 @@ function dosomething_static_content_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'required',
       'title_maxlength' => 128,
@@ -654,6 +667,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Gallery',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -701,6 +715,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Hero Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -749,6 +764,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -799,6 +815,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Intro Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -847,6 +864,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Intro Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -905,6 +923,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Sponsors and Partners',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -948,6 +967,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1000,6 +1020,7 @@ function dosomething_static_content_field_default_field_instances() {
     'label' => 'Video',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

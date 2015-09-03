@@ -36,6 +36,7 @@ function dosomething_image_field_default_field_instances() {
     'label' => 'Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -77,6 +78,7 @@ function dosomething_image_field_default_field_instances() {
     'label' => 'Dark Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -120,6 +122,7 @@ function dosomething_image_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'images',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -170,6 +173,7 @@ function dosomething_image_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'images',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -220,6 +224,7 @@ function dosomething_image_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'images',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -266,6 +271,7 @@ function dosomething_image_field_default_field_instances() {
     'label' => 'Image Tags',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -307,6 +313,7 @@ function dosomething_image_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -353,6 +360,7 @@ function dosomething_image_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'mp4',
       'max_filesize' => '',
@@ -399,6 +407,7 @@ function dosomething_image_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
