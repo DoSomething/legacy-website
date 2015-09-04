@@ -72,6 +72,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_win_module($vars, $wrapper);
   }
 
+
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);
 }
