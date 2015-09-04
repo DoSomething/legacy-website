@@ -22,6 +22,7 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
         $form[$field_name]['#access'] = FALSE;
       }
     }
+    $form['revision_information']['#access'] = FALSE;
   }
 }
 
