@@ -62,14 +62,18 @@ function dosomething_campaign_preprocess_node(&$vars) {
     return;
   }
 
-  // If the hot module is enabled and the high season is set on a campaign.
-  if (dosomething_campaign_is_hot_module($vars)) {
-    dosomething_campaign_preprocess_hot_module($vars, $wrapper);
-  }
 
-  // If the win module is enabled
-  if (dosomething_campaign_is_win_module($vars)) {
-    dosomething_campaign_preprocess_win_module($vars, $wrapper);
+  // If there are dates set, check hot/win states.
+  if (isset($vars['field_high_season'][0])) {
+    // If the hot module is enabled and the high season is set on a campaign.
+    if (dosomething_campaign_is_hot_module($vars)) {
+      dosomething_campaign_preprocess_hot_module($vars, $wrapper);
+    }
+
+    // If the win module is enabled
+    if (dosomething_campaign_is_win_module($vars)) {
+      dosomething_campaign_preprocess_win_module($vars, $wrapper);
+    }
   }
 
   // Preprocess the vars for the campaign action page.
@@ -147,18 +151,20 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   }
 
   // Hot and win module variables.
-  if (dosomething_campaign_is_win_module($vars) || dosomething_campaign_is_hot_module($vars)) {
-    $author = user_load($vars['uid']);
-    $first_name = check_plain($wrapper->author->field_first_name->value());
-    $last_name = check_plain($wrapper->author->field_last_name->value());
+  if (isset($vars['field_high_season'][0])) {
+    if (dosomething_campaign_is_win_module($vars) || dosomething_campaign_is_hot_module($vars)) {
+      $author = user_load($vars['uid']);
+      $first_name = check_plain($wrapper->author->field_first_name->value());
+      $last_name = check_plain($wrapper->author->field_last_name->value());
 
-    $vars['author_name']  = $first_name . ' ' . $last_name;
-    $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
-    if ($author->picture) {
-      $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+      $vars['author_name']  = $first_name . ' ' . $last_name;
+      $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+      if ($author->picture) {
+        $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+      }
+
+      $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
     }
-
-    $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
   }
 }
 
