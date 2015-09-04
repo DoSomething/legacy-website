@@ -62,19 +62,16 @@ function dosomething_campaign_preprocess_node(&$vars) {
     return;
   }
 
-
-  // If there are dates set, check hot/win states.
-  if (isset($vars['field_high_season'][0])) {
-    // If the hot module is enabled and the high season is set on a campaign.
-    if (dosomething_campaign_is_hot_module($vars)) {
-      dosomething_campaign_preprocess_hot_module($vars, $wrapper);
-    }
-
-    // If the win module is enabled
-    if (dosomething_campaign_is_win_module($vars)) {
-      dosomething_campaign_preprocess_win_module($vars, $wrapper);
-    }
+  // If the hot module is enabled and the high season is set on a campaign.
+  if (dosomething_campaign_is_hot_module($vars)) {
+    dosomething_campaign_preprocess_hot_module($vars, $wrapper);
   }
+
+  // If the win module is enabled
+  if (dosomething_campaign_is_win_module($vars)) {
+    dosomething_campaign_preprocess_win_module($vars, $wrapper);
+  }
+
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);
