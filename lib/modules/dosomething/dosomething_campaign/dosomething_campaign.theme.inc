@@ -312,6 +312,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
                                FROM dosomething_reportback_progress_log
                                WHERE nid = :nid
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
+
   foreach($quantity_by_date as $date) {
     $maxdate = new DateTime($date->maxdate);
     $dates[] = $maxdate->format($date_format);
@@ -322,8 +323,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     array('dosomethingCampaign' =>
       array(
         'goals' => array(
-          'dates' => json_encode($dates),
-          'quantities' => json_encode($quantities),
+          'dates' => (isset($dates)) ? $dates : null,
+          'quantities' => (isset($quantities)) ? $quantities : null,
           'highSeason' => array(
             'start' => $start_date->format($date_format),
             'end' => $end_date->format($date_format)
