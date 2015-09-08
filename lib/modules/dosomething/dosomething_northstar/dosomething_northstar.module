@@ -125,6 +125,17 @@ function dosomething_northstar_update_user($form_state) {
 }
 
 /**
+ *Get user data from northstar.
+ */
+// function dosomething_northstar_get_northstar_user($id) {
+//   $client = _dosomething_northstar_build_http_client();
+//   $request_method = 'GET';
+//   $request_retry = 3;
+
+//   $response = drupal_http_request($client['base_url'] . '/users/_id/' . $id, $request_method, $request_retry);
+// }
+
+/**
  * Build a user json object, that's accepted by Northstar.
  *
  * @param obj $user

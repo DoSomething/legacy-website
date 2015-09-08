@@ -115,8 +115,17 @@ class ReportbackItem extends Entity {
         'verb' => $data->verb,
       ],
     ];
+    // call northstar dosomething_helpers_get_northstar_user();
+    // $northstar_user = dosomething_helpers_get_northstar_user();
+
+    // call northstar dosomething_northstar_get_northstar_user();
+    $northstar_user = dosomething_northstar_get_northstar_user($data->fid);
+
     $this->user = [
       'id' => $data->uid,
+      // 'first_name' => $northstar_user->first_name,
+      // 'last_name' => $northstar_user->last_name,
+      // 'country' =>$northstar_user->country,
     ];
   }
 
