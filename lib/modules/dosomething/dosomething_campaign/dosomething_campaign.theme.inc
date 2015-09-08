@@ -322,8 +322,8 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     array('dosomethingCampaign' =>
       array(
         'goals' => array(
-          'dates' => (isset($dates)) ? json_encode($dates) : null,
-          'quantities' => (isset($quantities)) ? json_encode($quantities) : null,
+          'dates' => (isset($dates)) ? $dates : null,
+          'quantities' => (isset($quantities)) ? $quantities : null,
           'highSeason' => array(
             'start' => $start_date->format($date_format),
             'end' => $end_date->format($date_format)
