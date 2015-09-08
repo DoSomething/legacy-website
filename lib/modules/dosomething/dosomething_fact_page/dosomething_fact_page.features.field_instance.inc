@@ -38,6 +38,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -82,6 +83,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Fact',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -127,6 +129,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Campaign',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -175,6 +178,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Call to Action',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -222,6 +226,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -279,6 +284,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'optional',
       'title_maxlength' => 128,
@@ -334,6 +340,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Facts',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -381,6 +388,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Facts Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -429,6 +437,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Primary Cause',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -473,6 +482,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
