@@ -404,6 +404,56 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
+  // Exported field_instance: 'node-fact_page-field_partners'
+  $field_instances['node-fact_page-field_partners'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 16,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partners',
+    'label' => 'Sponsors and Partners',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'node-fact_page-field_primary_cause'
   $field_instances['node-fact_page-field_primary_cause'] = array(
     'bundle' => 'fact_page',
@@ -513,6 +563,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
 You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>');
   t('Primary Cause');
   t('Select the Fact to display.');
+  t('Sponsors and Partners');
   t('Subtitle');
   t('Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  
 
