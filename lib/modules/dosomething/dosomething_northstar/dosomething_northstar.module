@@ -134,7 +134,7 @@ function dosomething_northstar_get_northstar_user($id) {
 
   if (empty($northstar_user_info)) {
     $client = _dosomething_northstar_build_http_client();
-    $id = '55916765bffebcff078b4568';
+    // $id = '55916765bffebcff078b4568';
 
     $northstar_user_info = drupal_http_request($client['base_url'] . '/users/_id/' . $id, array(
       'headers' => $client['headers'],
