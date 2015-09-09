@@ -139,6 +139,8 @@ function dosomething_northstar_get_northstar_user($id) {
     'method' => 'GET',
     ));
 
+  cache_set('northstar_user_info', $response, 'cache', REQUEST_TIME + 60*60*24);
+
   return $response;
 }
 
