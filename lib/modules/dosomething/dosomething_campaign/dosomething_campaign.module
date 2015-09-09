@@ -289,7 +289,7 @@ function _dosomething_campaign_pitch_page_access($node) {
     if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
       return FALSE;
     }
-    // Is the user a DS admin, regional admin or editor?
+    // Is the user a DS staff or regional admin
     if (dosomething_user_is_staff() || dosomething_global_is_regional_admin()) {
       return TRUE;
     }
