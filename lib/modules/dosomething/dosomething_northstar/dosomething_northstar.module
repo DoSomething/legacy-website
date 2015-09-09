@@ -84,7 +84,8 @@ function dosomething_northstar_register_user($form_state) {
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
   if (getenv('DS_ENVIRONMENT') === 'local') {
-      $base_url .=  ":" . NORTHSTAR_PORT;
+      // $base_url .=  ":" . NORTHSTAR_PORT;
+    $base_url = 'http://northstar.dev:' . NORTHSTAR_PORT;
     }
   $base_url .= '/' . NORTHSTAR_VERSION;
 
@@ -99,6 +100,7 @@ function _dosomething_northstar_build_http_client() {
     );
 
   return $client;
+
 }
 
 /**
@@ -127,13 +129,18 @@ function dosomething_northstar_update_user($form_state) {
 /**
  *Get user data from northstar.
  */
-// function dosomething_northstar_get_northstar_user($id) {
-//   $client = _dosomething_northstar_build_http_client();
-//   $request_method = 'GET';
-//   $request_retry = 3;
+function dosomething_northstar_get_northstar_user($id) {
+  $client = _dosomething_northstar_build_http_client();
+  $id = '55916765bffebcff078b4568';
+  // print_r($client['base_url'] . '/users/_id/' . $id);
+  // die();
+  $response = drupal_http_request($client['base_url'] . '/users/_id/' . $id, array(
+    'headers' => $client['headers'],
+    'method' => 'GET',
+    ));
 
-//   $response = drupal_http_request($client['base_url'] . '/users/_id/' . $id, $request_method, $request_retry);
-// }
+  return $response;
+}
 
 /**
  * Build a user json object, that's accepted by Northstar.

@@ -451,9 +451,10 @@ abstract class Transformer {
   protected function transformUser($data) {
     return array(
       'id' => $data->id,
-      // 'first_name' => $data->first_name,
-      // 'last_name' => $data->last_name,
-      // 'country' => $data->country,
+      'first_name' => $data->first_name,
+      'last_name' => $data->last_name,
+      'photo' => $data->photo,
+      'country' => $data->country,
     );
   }
 
