@@ -6,6 +6,19 @@
 
 include_once 'dosomething_global.features.inc';
 define('GLOBAL_ADMIN_ROLES', 'mexico admin,brazil admin');
+define('GLOBAL_ADMIN_LANGUANGES', serialize(['es-mx' => 'mexico admin', 'pt-br' => 'brazil admin']));
+
+/**
+ * Implements hook_node_presave().
+ */
+function dosomething_global_node_presave($node) {
+  $user = user_load($node->uid);
+  // If we are saving a campaign and the user is a global admin.
+  if ($node->type == 'campaign' && dosomething_global_is_regional_admin($user)) {
+    // Set the node language to the author's lang.
+    $node->language = dosomething_global_get_user_language($user);
+  }
+}
 
 /**
  * Implements hook_form_alter().
@@ -45,4 +58,28 @@ function dosomething_global_is_regional_admin($user = NULL) {
     }
   }
   return FALSE;
+}
+
+/**
+ * Returns the user's langauge based on the role.
+ *
+ * @param Object $user
+ *   Optional - A specified user to check
+ *
+ * @return string
+ *   The language key.
+ */
+function dosomething_global_get_user_language($user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+  $lang_map = unserialize(GLOBAL_ADMIN_LANGUANGES);
+  foreach ($user->roles as $role) {
+    // If the array search returns a lang key, return that.
+    if (is_string($key = array_search($role, $lang_map))) {
+      return $key;
+    }
+  }
+  // If we didn't find a user role return english default.
+  return 'en';
 }
