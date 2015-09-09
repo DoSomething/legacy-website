@@ -289,8 +289,8 @@ function _dosomething_campaign_pitch_page_access($node) {
     if (dosomething_campaign_get_campaign_type($node) == 'sms_game') {
       return FALSE;
     }
-    // Is the user a DS admin or editor?
-    if (dosomething_user_is_staff()) {
+    // Is the user a DS admin, regional admin or editor?
+    if (dosomething_user_is_staff() || dosomething_global_is_regional_admin()) {
       return TRUE;
     }
   }
@@ -782,7 +782,7 @@ function dosomething_campaign_is_pitch_page($node) {
     return TRUE;
   }
   // Staff can always bypass pitch page to view full action page.
-  elseif (dosomething_user_is_staff()) {
+  elseif (dosomething_user_is_staff() || dosomething_global_is_regional_admin()) {
     return FALSE;
   }
   // The $node is a pitch page if you haven't signed up yet.

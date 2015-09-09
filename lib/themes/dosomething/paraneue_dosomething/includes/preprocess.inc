@@ -80,7 +80,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
   // Only display tabs for Staff.
-  if (isset($vars['tabs']) && !dosomething_user_is_staff()) {
+  if (isset($vars['tabs']) && !dosomething_user_is_staff() && !dosomething_global_is_regional_admin()) {
     unset($vars['tabs']);
   }
 
