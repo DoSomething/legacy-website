@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="768px" height="768px" viewBox="0 0 768 768" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>WinBackgroundS</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Front-Runners" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="WinBackgroundS" sketch:type="MSArtboardGroup" stroke-width="3">
+            <g id="Circles-+-Triangles-+-Squiggle" sketch:type="MSLayerGroup" transform="translate(-410.000000, 13.589670)">
+                <g id="Circles" transform="translate(0.000000, 11.154439)" stroke="#4E2B63" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                    <path d="M539.04935,600.429265 C548.782781,600.429265 556.673286,592.53876 556.673286,582.805329 C556.673286,573.071898 548.782781,565.181393 539.04935,565.181393 C529.315919,565.181393 521.425415,573.071898 521.425415,582.805329 C521.425415,592.53876 529.315919,600.429265 539.04935,600.429265 Z" id="Oval-41"></path>
+                    <path d="M518.386805,70.4957437 C528.120236,70.4957437 536.010741,62.6052388 536.010741,52.8718078 C536.010741,43.1383767 528.120236,35.2478718 518.386805,35.2478718 C508.653374,35.2478718 500.762869,43.1383767 500.762869,52.8718078 C500.762869,62.6052388 508.653374,70.4957437 518.386805,70.4957437 Z" id="Oval-41"></path>
+                    <path d="M786.999897,89.9428454 C796.733328,89.9428454 804.623833,82.0523405 804.623833,72.3189095 C804.623833,62.5854784 796.733328,54.6949736 786.999897,54.6949736 C777.266466,54.6949736 769.375961,62.5854784 769.375961,72.3189095 C769.375961,82.0523405 777.266466,89.9428454 786.999897,89.9428454 Z" id="Oval-41"></path>
+                </g>
+                <g id="Triangles" transform="translate(65.633968, 46.000000)" stroke="#23B7FB" fill="#FFFFFF" sketch:type="MSShapeGroup">
+                    <path d="M1035.45232,14.9876367 L1093.89947,80.621605 L991.802187,80.621605 L1035.45232,14.9876367 Z" id="Path-166" transform="translate(1042.850829, 47.804621) rotate(198.000000) translate(-1042.850829, -47.804621) "></path>
+                    <path d="M417.787542,309.739765 L476.234697,375.373733 L374.137413,375.373733 L417.787542,309.739765 Z" id="Path-166" transform="translate(425.186055, 342.556749) rotate(42.000000) translate(-425.186055, -342.556749) "></path>
+                    <path d="M792.363544,541.274827 L850.8107,606.908795 L748.713416,606.908795 L792.363544,541.274827 Z" id="Path-166" transform="translate(799.762058, 574.091811) rotate(284.000000) translate(-799.762058, -574.091811) "></path>
+                </g>
+                <g id="Squiggle" transform="translate(211.487231, 0.215444)" stroke="#FCD116" sketch:type="MSShapeGroup">
+                    <path d="M897.329914,538.441629 L925.930827,569.07936 L897.329914,593.07488 L925.930827,622.169568 L897.329914,648.971054" id="Path-171"></path>
+                    <path d="M729.551184,2.4902083 L758.152097,33.1279396 L729.551184,57.1234601 L758.152097,86.2181474 L729.551184,113.019634" id="Path-171" transform="translate(743.851640, 57.754921) rotate(199.000000) translate(-743.851640, -57.754921) "></path>
+                </g>
+            </g>
+            <path d="M341.947467,652.654741 L339.776391,694.511273 L302.647595,690.606187 L301.586492,731.39083 L262.439252,729.434932" id="Path-171" stroke="#FCD116" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

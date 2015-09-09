@@ -1,6 +1,15 @@
 .win-module {
   .win-module__progress {
     margin-bottom: $base-spacing;
+    background-image: asset-url("images/WinBackgroundS.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: repeat-x;
+
+    @include media($medium) {
+      background-image: asset-url("images/WinBackgroundL.svg");
+      background-size: cover;
+    }
 
     .wrapper {
       height: 320px;
@@ -9,7 +18,7 @@
       margin-left: 0px;
 
       @include media($large) {
-        height: 620px;
+        height: 600px;
       }
 
       .win-module__titles {
@@ -30,7 +39,8 @@
       }
 
       @include media($large) {
-        font-size: 200px;
+        font-size: 180px;
+        line-height: 1;
       }
     }
 
