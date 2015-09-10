@@ -29,8 +29,7 @@
     }
 
     li {
-      display: block;
-      overflow: hidden;
+      display: inline;
       position: relative;
       margin: 0;
       break-inside: avoid;
@@ -130,9 +129,11 @@
   }
 
   input[type="checkbox"] {
-    left: -40px;
     position: absolute;
     top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: -1;
   }
 
   label {
