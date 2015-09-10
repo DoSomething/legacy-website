@@ -16,7 +16,7 @@ define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
 function dosomething_campaign_init() {
   // Verify we're dealing with a node edit with no translation specification in the URL
-  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && !isset(arg(3))) {
+  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null !== arg(3)) {
     // Load the page node and user
     $nid = arg(1);
     $node = node_load($nid);
