@@ -658,11 +658,9 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
   // Output sponser, if it exists.
   if ($vars['sponsor_logos']) {
-    $classes = NULL;
-
     $vars['promotions'] = $vars['sponsor_logos'];
 
-    $vars['promotions'] = '<div class="promotions' . $classes . '">' . $vars['promotions'] . '</div>';
+    $vars['promotions'] = '<div class="promotions">' . $vars['promotions'] . '</div>';
   }
 
   // Add class to header if promotions will be included in display.
