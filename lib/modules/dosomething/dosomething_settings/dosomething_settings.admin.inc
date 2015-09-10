@@ -19,21 +19,21 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
   $form['copy'][$var_name] = array(
     '#type' => 'textarea',
     '#title' => t('About DoSomething'),
-    '#default_value' => variable_get($var_name),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   $var_name = 'dosomething_settings_copy_scholarships';
   $form['copy'][$var_name] = array(
     '#type' => 'textarea',
     '#title' => t('Scholarships'),
-    '#default_value' => variable_get($var_name),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   $var_name = 'dosomething_settings_copy_campaign_value_proposition';
   $form['copy'][$var_name] = array(
     '#type' => 'textarea',
     '#title' => t('What You Get'),
-    '#default_value' => variable_get($var_name),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
    $form['share'] = array(
     '#type' => 'fieldset',
