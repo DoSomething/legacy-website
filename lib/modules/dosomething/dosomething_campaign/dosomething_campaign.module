@@ -24,7 +24,7 @@ function dosomething_campaign_init() {
 
     // Load the languages being used
     $src_language = $node->language;
-    $user_language = $user->language;
+    $user_language = $user->language ?: 'en';
 
     // If we're not working on a translation, no need to re-direct.
     if ($src_language != $user_language) {
