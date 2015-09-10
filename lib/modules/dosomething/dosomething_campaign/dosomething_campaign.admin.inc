@@ -343,12 +343,6 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_win_copy', t('[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the prove it section below.')),
     '#description' => t("Sets the win module copy"),
   ];
-  $form['win']['dosomething_campaign_win_background_image'] = [
-    '#type' => 'textfield',
-    '#title' => t('Win module background image'),
-    '#default_value' => variable_get('dosomething_campaign_win_background_image'),
-    '#description' => t('An image node nid to display as the win module background image'),
-  ];
 
   return system_settings_form($form);
 }
