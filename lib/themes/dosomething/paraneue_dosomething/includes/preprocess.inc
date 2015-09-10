@@ -248,7 +248,8 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       // Allow CTAs to be properly embedded in between.
       $vars['first_fact_group'] = array_slice($vars['facts'], 0, 5);
       $vars['second_fact_group'] = array_slice($vars['facts'], 5);
-
+      paraneue_dosomething_preprocess_field_partners($vars);
+      paraneue_dosomething_preprocess_fact_page($vars);
       break;
 
     case "home":
@@ -650,3 +651,23 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
   }
 }
+
+/**
+ * Preprocess variables for the fact page.
+ */
+function paraneue_dosomething_preprocess_fact_page(&$vars) {
+  // Output sponser, if it exists.
+  if ($vars['sponsor_logos']) {
+    $classes = NULL;
+
+    $vars['promotions'] = $vars['sponsor_logos'];
+
+    $vars['promotions'] = '<div class="promotions' . $classes . '">' . $vars['promotions'] . '</div>';
+  }
+
+  // Add class to header if promotions will be included in display.
+  if ($vars['promotions']) {
+    $vars['classes_array'][] = 'has-promotions';
+  }
+}
+
