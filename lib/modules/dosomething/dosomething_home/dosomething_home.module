@@ -46,8 +46,9 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['title'] = $node->title;
       $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
 
-      // Get the campaign cover image.
-      $image_nid = $node->field_image_campaign_cover[$lang_code][0]['target_id'];
+      // Get the campaign cover image. If there is no image for the user's language,
+      // use the image for the default language.
+      $image_nid = $node->field_image_campaign_cover[$lang_code][0]['target_id'] ?: $node->field_image_campaign_cover[language_default()->language][0]['target_id'];
       if ($key == 0) {
         $tiles['modifier_classes'] = "big";
         $tiles['image_url'] = dosomething_image_get_themed_image_url($image_nid, 'square', '720x720');

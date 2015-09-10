@@ -7,11 +7,23 @@
 
 /**
  * @file dosomething_auto_translate.module
- * TODO: This doesn't scale.
+ *
  */
-function dosomething_auto_translate_campaigns() {
-  $nodes = node_load_multiple(array(), array('type' => 'campaign'));
+function dosomething_auto_translate_campaigns($start = NULL, $limit = 10) {
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->range($start, $limit);
+
+  $result = $query->execute();
+
+  $nids = array_keys($result['node']);
+
+  $nodes = node_load_multiple($nids, array());
   foreach($nodes as $campaign) {
+    //Set values and overwrite any existing translations.
     dosomething_auto_translate_set_values($campaign);
   }
 }
@@ -21,9 +33,10 @@ function dosomething_auto_translate_campaigns() {
  */
 function dosomething_auto_translate_set_values($node) {
   $handler  = entity_translation_get_handler('node', $node, TRUE);
-  $translations = $handler->getTranslations();
-  foreach (array('pt-br', 'es-mx') as $lang) {
-    if ($lang !== $node->language && !isset($translations->data[$lang])) {
+
+  $languages = array_keys(variable_get('dosomething_global_language_map'));
+  foreach ($languages as $lang) {
+    if ($lang !== $node->language) {
       $translation_node = $node;
       $values = array();
       // Change translatable fields languages to trasnlation language.
@@ -34,12 +47,13 @@ function dosomething_auto_translate_set_values($node) {
           foreach ($translation_node->$field_name as $lang_key => $field) {
             if ($lang_key == $node->language) {
               if (isset($field[0]['value'])) {
-                $values[$field_name][$lang]['0']['value'] = dosomething_auto_translate_get_translation($field[0]['value'], $lang);
+                $values[$field_name][$lang][0]['value'] = dosomething_auto_translate_get_translation($field[0]['value'], $lang);
               }
             }
           }
         }
       }
+
 
       // Create a translation.
       $translation = array(
