@@ -84,7 +84,8 @@ function dosomething_northstar_register_user($form_state) {
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
   if (getenv('DS_ENVIRONMENT') === 'local') {
-      $base_url .=  ":" . NORTHSTAR_PORT;
+      // $base_url .=  ":" . NORTHSTAR_PORT; this prints http://northstar-qa.dosomething.org:8000
+    $base_url = 'http://northstar.dev:' . NORTHSTAR_PORT;
     }
   $base_url .= '/' . NORTHSTAR_VERSION;
 
@@ -97,8 +98,8 @@ function _dosomething_northstar_build_http_client() {
       'Accept' => 'application/json',
       ),
     );
-  return $client;
 
+  return $client;
 }
 
 /**
@@ -128,9 +129,9 @@ function dosomething_northstar_update_user($form_state) {
  *Get user data from northstar.
  */
 function dosomething_northstar_get_northstar_user($id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache');
-
-  if (empty($northstar_user_info)) {
+  if (!empty($northstar_user_info)) {
+    $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache');
+  } else {
     $client = _dosomething_northstar_build_http_client();
 
     $northstar_user_info = drupal_http_request($client['base_url'] . '/users/_id/' . $id, array(
