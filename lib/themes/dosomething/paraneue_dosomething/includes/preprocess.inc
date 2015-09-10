@@ -664,7 +664,7 @@ function paraneue_dosomething_preprocess_fact_page(&$vars) {
   }
 
   // Add class to header if promotions will be included in display.
-  if ($vars['promotions']) {
+  if (isset($vars['promotions'])) {
     $vars['classes_array'][] = 'has-promotions';
   }
 }
