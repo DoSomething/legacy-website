@@ -66,7 +66,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#rows' => 2,
     '#title' => t('Login Form copy'),
     '#description' => t("Copy displayed below the Login Form header. Optional."),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // Display Forgot Password.
@@ -85,7 +85,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#rows' => 2,
     '#title' => t('Forgot Password copy'),
     '#description' => t('Password reset neutral copy displayed both on fail and success.'),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // Registration form settings.
@@ -144,7 +144,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#title' => t('Subtitle'),
     '#required' => TRUE,
     '#description' => t("Displayed below the Profile main page title."),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // No Signups header.
@@ -152,7 +152,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   $form['profile'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('No Signups Header'),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // No Signups copy.
@@ -160,7 +160,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   $form['profile'][$var_name] = array(
     '#type' => 'textarea',
     '#title' => t('No Signups Copy'),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // School settings.
@@ -187,7 +187,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('School Finder Help Text'),
     '#description' => t("Text displayed if User needs help finding school.  Markdown supported."),
-    '#default_value' => t(variable_get($var_name)),
+    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
   );
 
   // Development settings.
