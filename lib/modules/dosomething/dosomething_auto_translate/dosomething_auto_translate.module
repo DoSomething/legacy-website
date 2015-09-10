@@ -9,7 +9,7 @@
  * @file dosomething_auto_translate.module
  *
  */
-function dosomething_auto_translate_campaigns($start = NULL, $limit = NULL) {
+function dosomething_auto_translate_campaigns($start = NULL, $limit = 10) {
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
