@@ -14,33 +14,6 @@ include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
-function dosomething_campaign_init() {
-  // Verify we're dealing with a node edit with no translation specification in the URL
-  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
-    // Load the page node and user
-    $nid = arg(1);
-    $node = node_load($nid);
-    global $user;
-
-    // Load the languages being used
-    $src_language = $node->language;
-    $user_language = $user->language ?: 'en';
-
-    // If we're not working on a translation, no need to re-direct.
-    if ($src_language != $user_language) {
-      // Determines if the url needs the /add/source/ component
-      $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
-
-      // Append the user language
-      $lang_append = $new_translation_prefix . $user_language;
-
-      // Build complete URL and redirect
-      $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
-      drupal_goto($new_url);
-    }
-  }
-}
-
 /**
  * Implements hook_form_alter().
  */
