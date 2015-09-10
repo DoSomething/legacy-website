@@ -125,6 +125,26 @@ function dosomething_northstar_update_user($form_state) {
 }
 
 /**
+ *Get user data from northstar.
+ */
+function dosomething_northstar_get_northstar_user($id) {
+  if (!empty($northstar_user_info)) {
+    $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
+  } else {
+    $client = _dosomething_northstar_build_http_client();
+
+    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/_id/' . $id, array(
+      'headers' => $client['headers'],
+      'method' => 'GET',
+      ));
+
+    cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
+  }
+
+  return $northstar_user_info;
+}
+
+/**
  * Build a user json object, that's accepted by Northstar.
  *
  * @param obj $user
