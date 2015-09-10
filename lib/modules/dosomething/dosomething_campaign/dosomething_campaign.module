@@ -14,18 +14,6 @@ include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
-/**
- * Implements hook_form_alter().
- */
-function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-  unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
-  $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
-  // Add in campaign close info.
-  dosomething_campaign_run_add_campaign_run_info($form, $form_state);
-  // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
-  $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
-}
-
 function dosomething_campaign_init() {
   // Get the URL and split it up
   $current_path = current_path();
@@ -55,6 +43,18 @@ function dosomething_campaign_init() {
       drupal_goto($new_url);
     }
   }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
+  unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
+  $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
+  // Add in campaign close info.
+  dosomething_campaign_run_add_campaign_run_info($form, $form_state);
+  // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
+  $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 }
 
 /**
