@@ -45,8 +45,8 @@
           <!--Show user the reportback confirmation page -->
           <?php if ($is_owner): ?>
             <?php if ($share_enabled): ?>
-              <div class="cta -share">
-                <div class="wrapper">
+              <div class="cta">
+                <div class="cta__block">
                   <p class="cta__message"><?php print $copy_vars['owners_rb_social_cta']; ?></p>
                 </div>
                 <?php print $share_bar; ?>
