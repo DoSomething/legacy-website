@@ -21,6 +21,8 @@
       <?php if (isset($subtitle)): ?>
         <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
+
+      <?php print $promotions; ?>
     </div>
   </header>
 
