@@ -236,6 +236,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
  */
 function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_more = FALSE) {
   $items = array();
+
   foreach ($nids as $delta => $nid) {
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
     $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE);

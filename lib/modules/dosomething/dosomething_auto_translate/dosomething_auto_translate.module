@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file dosomething_auto_translate.module
+ * This module uses the Google Translate API to translate campaign nodes.
+ */
+
+/**
+ * @file dosomething_auto_translate.module
+ *
+ */
+function dosomething_auto_translate_campaigns($start = NULL, $limit = NULL) {
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'campaign')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->range($start, $limit);
+
+  $result = $query->execute();
+
+  $nids = array_keys($result['node']);
+
+  $nodes = node_load_multiple($nids, array());
+  foreach($nodes as $campaign) {
+    //Set values and overwrite any existing translations.
+    dosomething_auto_translate_set_values($campaign);
+  }
+}
+
+/**
+ * Add translated values to node and save
+ */
+function dosomething_auto_translate_set_values($node) {
+  $handler  = entity_translation_get_handler('node', $node, TRUE);
+
+  $languages = array_keys(variable_get('dosomething_global_language_map'));
+  foreach ($languages as $lang) {
+    if ($lang !== $node->language) {
+      $translation_node = $node;
+      $values = array();
+      // Change translatable fields languages to trasnlation language.
+      foreach(field_info_instances('node', $node->type) as $instance) {
+        $field_name = $instance['field_name'];
+        $field = field_info_field($field_name);
+        if ($field['translatable'] && isset($translation_node->$field_name)) {
+          foreach ($translation_node->$field_name as $lang_key => $field) {
+            if ($lang_key == $node->language) {
+              if (isset($field[0]['value'])) {
+                $values[$field_name][$lang][0]['value'] = dosomething_auto_translate_get_translation($field[0]['value'], $lang);
+              }
+            }
+          }
+        }
+      }
+
+
+      // Create a translation.
+      $translation = array(
+        'translate' => 0,
+        'status' => 1,
+        'language' => $lang,
+        'source' => $node->language,
+      );
+      $handler->setTranslation($translation, $values);
+      node_save($translation_node);
+    }
+  }
+}
+
+/**
+ * Call the Google Translate API to get field translations.
+ */
+function dosomething_auto_translate_get_translation($string, $target_lang) {
+  $options = array(
+    'method' => 'GET',
+  );
+
+  $target_lang = explode('-', $target_lang);
+  $target_lang = $target_lang['0'];
+
+  $url = 'https://www.googleapis.com/language/translate/v2?key=' . variable_get('dosomething_global_google_translate_api_key') . '&source=en&target=' . $target_lang;
+
+  $result = drupal_http_request($url . '&q=' . urlencode($string), $options);
+  $data = drupal_json_decode($result->data);
+
+  return $data['data']['translations']['0']['translatedText'];
+}

@@ -15,6 +15,7 @@ features[features_api][] = api:2
 features[language][] = en-global
 features[language][] = es-mx
 features[language][] = pt-br
+features[variable][] = dosomething_global_language_map
 features[variable][] = language_negotiation_language
 features[variable][] = language_negotiation_language_content
 mtime = 1440615612
