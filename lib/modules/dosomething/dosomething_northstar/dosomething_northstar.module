@@ -84,8 +84,7 @@ function dosomething_northstar_register_user($form_state) {
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
   if (getenv('DS_ENVIRONMENT') === 'local') {
-      // $base_url .=  ":" . NORTHSTAR_PORT; this prints http://northstar-qa.dosomething.org:8000
-    $base_url = 'http://northstar.dev:' . NORTHSTAR_PORT;
+      $base_url .=  ":" . NORTHSTAR_PORT;
     }
   $base_url .= '/' . NORTHSTAR_VERSION;
 
