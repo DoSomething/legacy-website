@@ -18,7 +18,7 @@
       </div>
 
       <div class="author-callout">
-        <div class="author-callout__copy">
+        <div class="chat-bubble">
           <?php if(isset($progress_copy)): ?>
             <?php print $progress_copy; ?>
           <?php endif; ?>
@@ -33,8 +33,8 @@
             </div>
           </div>
           <div class="figure__body">
-              <p class="author-callout__first-name"><?php print $author_name ?></p>
-              <p class="author-callout__last-name"><?php print $author_title ?></p>
+              <h3><?php print $author_name ?></h3>
+              <p><?php print $author_title ?></p>
           </div>
         </article>
         <div class="message-callout -above-horizontal -blue">

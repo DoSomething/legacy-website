@@ -10,7 +10,7 @@
   <div class="container win-module__copy">
     <div class="wrapper">
       <div class="author-callout">
-        <div class="author-callout__copy">
+        <div class="chat-bubble">
           <?php print $win_copy; ?>
         </div>
 
@@ -23,8 +23,8 @@
             </div>
           </div>
           <div class="figure__body">
-              <p class="author-callout__first-name"><?php print $author_name ?></p>
-              <p class="author-callout__last-name"><?php print $author_title ?></p>
+              <h3><?php print $author_name ?></h3>
+              <p><?php print $author_title ?></p>
           </div>
         </article>
         <div class="win-module__share-bar">

@@ -29,7 +29,7 @@
     </div>
   </header>
 
-  <div class="container -padded -purple">
+  <div class="container -padded -dark">
     <div class="wrapper">
       <div class="card">
         <div class="card__column">
