@@ -15,14 +15,10 @@ include_once 'dosomething_campaign.theme.inc';
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', 'Snap a Pic');
 
 function dosomething_campaign_init() {
-  // Get the URL and split it up
-  $current_path = current_path();
-  $path_items = explode('/', $current_path);
-
   // Verify we're dealing with a node edit with no translation specification in the URL
-  if ($path_items[0] == "node" && is_numeric($path_items[1]) && count($path_items) == 3) {
+  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && !isset(arg(3))) {
     // Load the page node and user
-    $nid = $path_items[1];
+    $nid = arg(1);
     $node = node_load($nid);
     global $user;
 
