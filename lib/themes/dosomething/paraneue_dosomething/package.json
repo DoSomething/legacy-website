@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "start": "grunt",
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "dependencies": {
