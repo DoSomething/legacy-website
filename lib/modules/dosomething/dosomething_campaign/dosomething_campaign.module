@@ -26,6 +26,37 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 }
 
+function dosomething_campaign_init() {
+  // Get the URL and split it up
+  $current_path = current_path();
+  $path_items = explode('/', $current_path);
+
+  // Verify we're dealing with a node edit with no translation specification in the URL
+  if ($path_items[0] == "node" && is_numeric($path_items[1]) && count($path_items) == 3) {
+    // Load the page node and user
+    $nid = $path_items[1];
+    $node = node_load($nid);
+    global $user;
+
+    // Load the languages being used
+    $src_language = $node->language;
+    $user_language = $user->language;
+
+    // If we're not working on a translation, no need to re-direct.
+    if ($src_language != $user_language) {
+      // Determines if the url needs the /add/source/ component
+      $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
+
+      // Append the user language
+      $lang_append = $new_translation_prefix . $user_language;
+
+      // Build complete URL and redirect
+      $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
+      drupal_goto($new_url);
+    }
+  }
+}
+
 /**
  * Implements hook_menu().
  */
