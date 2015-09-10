@@ -118,13 +118,14 @@ class ReportbackItem extends Entity {
 
     $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
     $northstar_user = json_decode($northstar_user->data, true);
+    $northstar_user = (object) $northstar_user['data'][0];
 
     $this->user = [
       'id' => $data->uid,
-      'first_name' => $northstar_user['data'][0]['first_name'],
-      'last_name' => $northstar_user['data'][0]['last_name'],
-      'photo' => $northstar_user['data'][0]['photo'],
-      'country' => $northstar_user['data'][0]['country'],
+      'first_name' => $northstar_user->first_name,
+      'last_name' => $northstar_user->last_name,
+      'photo' => $northstar_user->photo,
+      'country' => $northstar_user->country,
     ];
   }
 
