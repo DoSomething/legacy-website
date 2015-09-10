@@ -11,7 +11,7 @@ define('GLOBAL_ADMIN_LANGUANGES', serialize(['es-mx' => 'mexico admin', 'pt-br' 
 /*
  * Implements hook_init().
  */
-function dosomething_campaign_init() {
+function dosomething_global_init() {
   // Verify we're dealing with a node edit with no translation specification in the URL
   if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
     // Load the page node and user
