@@ -100,4 +100,8 @@
       </div>
     </div>
   <?php endif; ?>
+
+  <?php if ($info_bar): ?>
+    <?php print $info_bar; ?>
+  <?php endif; ?>
 </article>

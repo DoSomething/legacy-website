@@ -685,5 +685,7 @@ function paraneue_dosomething_preprocess_fact_page(&$vars) {
   if (isset($vars['promotions'])) {
     $vars['classes_array'][] = 'has-promotions';
   }
+
+  dosomething_helpers_preprocess_partners_vars($vars);
 }
 
