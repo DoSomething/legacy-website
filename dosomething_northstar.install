@@ -12,10 +12,3 @@ function dosomething_northstar_user_info_schema() {
   return $schema;
 }
 
-/**
- * Caches northstar user data.
- */
-// function dosomething_northstar_user_info_update_7001(&$sandbox) {
-// }
-
-
