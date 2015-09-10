@@ -656,7 +656,7 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
  * Preprocess variables for the fact page.
  */
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  // Output sponser, if it exists.
+  // Output sponsor, if it exists.
   if ($vars['sponsor_logos']) {
     $vars['promotions'] = $vars['sponsor_logos'];
 
