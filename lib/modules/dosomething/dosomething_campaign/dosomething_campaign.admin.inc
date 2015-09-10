@@ -38,14 +38,14 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  // Label for Number of particpiants form field.
+  // Label for Number of participants form field.
   $var_name = 'dosomething_reportback_num_participants_label';
   $form['campaign']['reportback'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Number of Participants Form Label'),
     '#description' => t("If a Campaign is set to collect number of participants in the Reportback form, this label is displayed."),
     '#required' => TRUE,
-    '#default_value' => variable_get($var_name),
+    '#default_value' => t(variable_get($var_name)),
   );
 
   // Confirmation page:
@@ -59,13 +59,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Confirmation Page Title'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_confirmation_page_title'),
+    '#default_value' => t(variable_get('dosomething_campaign_confirmation_page_title')),
   );
   $form['campaign']['confirmation_page']['dosomething_campaign_confirmation_page_button_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Confirmation Page Button Text'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_confirmation_page_button_text'),
+    '#default_value' => t(variable_get('dosomething_campaign_confirmation_page_button_text')),
   );
 
   // Action page:
@@ -79,7 +79,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Problem Fact Share Prompt'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_problem_share_prompt'),
+    '#default_value' => t(variable_get('dosomething_campaign_problem_share_prompt')),
   );
 
   // SMS Game variables.
@@ -92,15 +92,15 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   $form['sms_game']['dosomething_campaign_sms_game_signup_friends_form_button_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Signup Friends Form Button Label'),
-    '#description' => t("Text displayed on the Signup Friends Form.  Defaults to <em>Share</em> if not set."),
-    '#default_value' => variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy'),
+    '#description' => t("Text displayed on the Signup Friends Form. Defaults to <em>Share</em> if not set."),
+    '#default_value' => t(variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy')),
   );
   $form['sms_game']['dosomething_campaign_sms_game_all_participants_copy'] = array(
     '#type' => 'textarea',
     '#required' => TRUE,
     '#title' => t('Total participants in all SMS Games copy'),
     '#description' => t("This copy is displayed in every SMS Game. e.g. <em>Join 250,000 people who have played since 2012!</em>"),
-    '#default_value' => variable_get('dosomething_campaign_sms_game_all_participants_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_sms_game_all_participants_copy')),
   );
   $form['sms_game']['confirmation_page'] = array(
     '#type' => 'fieldset',
@@ -112,21 +112,21 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Confirmation Page Title'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_sms_game_confirmation_page_title'),
+    '#default_value' => t(variable_get('dosomething_campaign_sms_game_confirmation_page_title')),
   );
   $form['sms_game']['confirmation_page']['dosomething_campaign_confirmation_page_anon_button_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Anon User: Button Text'),
     '#description' => t('Button label if an anonymous user is viewing the confirmation page -- links to the login/register modal.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_confirmation_page_anon_button_text'),
+    '#default_value' => t(variable_get('dosomething_campaign_confirmation_page_anon_button_text')),
   );
   $form['sms_game']['confirmation_page']['dosomething_campaign_confirmation_page_anon_cta_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Anon User: Call to Action'),
     '#description' => t('Appears above the button if an anonymous user is viewing the confirmation page.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_confirmation_page_anon_cta_text'),
+    '#default_value' => t(variable_get('dosomething_campaign_confirmation_page_anon_cta_text')),
   );
   // Closed variables.
   $form['closed'] = array(
@@ -140,14 +140,14 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Presignup Form Callout Copy'),
     '#required' => TRUE,
     '#description' => t("Callout text displayed for the Presignup Form."),
-    '#default_value' => variable_get('dosomething_campaign_presignup_callout_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_presignup_callout_copy')),
   );
   // The pre-signup button text.
   $form['closed']['dosomething_campaign_run_signup_button_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Presignup Form Button Text'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_run_signup_button_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_run_signup_button_copy')),
   );
   // If there are no total number of X collected.
   $form['closed']['dosomething_campaign_run_no_total_copy'] = array(
@@ -155,14 +155,14 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Waiting for total copy'),
     '#description' => t('Place [label] where you would like the label to be replaced.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_run_no_total_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_run_no_total_copy')),
   );
    // No winners yet copy.
   $form['closed']['dosomething_campaign_run_no_winner_copy'] = array(
     '#type' => 'textarea',
     '#title' => t('Waiting for Winner Copy'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_run_no_winner_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_run_no_winner_copy')),
   );
   // Permalink page.
   $form['permalink'] = array(
@@ -174,69 +174,69 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   // Permalink owners vars.
   $form['permalink']['owners'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Owners Permalink',
+    '#title' => t('Owners Permalink'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
   $form['permalink']['owners']['confirmation'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Owners Permalink as confirmation page',
+    '#title' => t('Owners Permalink as confirmation page'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_page_subtitle'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink confirmation page subtitle'),
-    '#description' => t('Appears on the confirmation page above the reportbackback to the owner.'),
+    '#description' => t('Appears on the confirmation page above the reportback of the owner.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle')),
   );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_scholarship'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink confirmation page scholarship addition'),
     '#description' => t('Displays scholarhship info if a campaign has it.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship')),
   );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_important_to_you'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink confirmation page important to you header'),
     '#description' => t('Appears above the why is this important to you user copy.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you')),
   );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_cta'] = array(
     '#type' => 'textfield',
     '#title' => t('Social cta on reportback permalink page.'),
     '#description' => t('Appears above the social share on the reportback confirmation page.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta')),
   );
   $form['permalink']['owners']['confirmation']['dosomething_campaign_permalink_confirmation_owners_social_network_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Social network copy.'),
     '#description' => t('Appears after share on social network.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')),
   );
   $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink owners title'),
     '#description' => t('Appears above the reportback if the owner user is viewing the permalink page.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_owners_page_title'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_owners_page_title')),
   );
   $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_subtitle'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink owners subtitle'),
     '#description' => t('Appears above the reportback if the owner user is viewing the permalink page.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_owners_page_subtitle'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_owners_page_subtitle')),
   );
     // Permalink owners vars.
   $form['permalink']['nonowners'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Non-owners Permalink',
+    '#title' => t('Non-owners Permalink'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -245,26 +245,26 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Permalink non-owners page title'),
     '#description' => t('Appears above the reportback if an anonymous user (or a non-owner) is viewing the permalink page.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_page_title'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_nonowners_page_title')),
   );
   $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_closed_cta'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink non-owners campaign closed CTA'),
     '#description' => t('Appears near the button that links to /campagins.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_cta'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_cta')),
   );
   $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_closed_button_copy'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink non-owners closed button copy'),
     '#description' => t('Appears in place of the sign up button when the campagin is closed.'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy'),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy')),
   );
   // Goal Animations.
   $form['goals'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Goals and hotmodule'),
+    '#title' => t('Goals and Hot Module'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
@@ -272,76 +272,76 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   $form['goals']['dosomething_campaign_share_copy'] = [
     '#type' => 'textfield',
     '#title' => t('Hot module share copy'),
-    '#default_value' => variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!'),
     '#description' => t("Sets the hot module share copy"),
+    '#default_value' => t(variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_0_20_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 0-20% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_0_20_progress_copy', t('[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases.')),
     '#description' => t('Sets the hot module progress copy between 0 and 20%'),
+    '#default_value' => t(variable_get('dosomething_campaign_0_20_progress_copy', '[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases.')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_21_40_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 21-40% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_21_40_progress_copy', t('We’re gaining steam! Keep spreading the word to get more friends involved so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!')),
     '#description' => t('Sets the hot module progress copy between 21 and 40%'),
+    '#default_value' => t(variable_get('dosomething_campaign_21_40_progress_copy', 'We’re gaining steam! Keep spreading the word to get more friends involved so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_41_60_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 41-60% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_41_60_progress_copy', t('The more people we get to sign up for [node:title] the sooner we’ll reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Be a megaphone - get your friends involved by posting on social!')),
     '#description' => t('Sets the hot module progress copy between 41 and 60%'),
+    '#default_value' => t(variable_get('dosomething_campaign_41_60_progress_copy', 'The more people we get to sign up for [node:title] the sooner we’ll reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Be a megaphone - get your friends involved by posting on social!')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_61_80_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 61-80% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_61_80_progress_copy', t('Keep those campaign updates coming! Don’t wait to the end to submit a photo of you in action! Submit your progress early and often so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can update your submission at any time.')),
     '#description' => t('Sets the hot module progress copy between 61 and 80%'),
+    '#default_value' => t(variable_get('dosomething_campaign_61_80_progress_copy', 'Keep those campaign updates coming! Don’t wait to the end to submit a photo of you in action! Submit your progress early and often so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can update your submission at any time.')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_81_99_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 81-99% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_81_99_progress_copy', t('We’re almost there! Keep showing off your work. You can add photos and update your submission throughout the campaign.')),
     '#description' => t('Sets the hot module progress copy between 81 and 99%'),
+    '#default_value' => t(variable_get('dosomething_campaign_81_99_progress_copy', 'We’re almost there! Keep showing off your work. You can add photos and update your submission throughout the campaign.')),
   ];
 
   $form['goals']['progress_copy']['dosomething_campaign_100_progress_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Hot module 100% progress copy'),
-    '#default_value' => variable_get('dosomething_campaign_100_progress_copy', t('Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
     '#description' => t('Sets the hot module progress copy for 100%'),
+    '#default_value' => t(variable_get('dosomething_campaign_100_progress_copy', 'Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
   ];
 
   // Win module
   $form['win'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Win module'),
+    '#title' => t('Win Module'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
   $form['win']['dosomething_campaign_enable_win_module'] = [
     '#type' => 'checkbox',
     '#title' => t('Enable win module feature'),
-    '#default_value' => variable_get('dosomething_campaign_enable_win_module', FALSE),
     '#description' => t("If set, win module functionality will be turned on."),
+    '#default_value' => variable_get('dosomething_campaign_enable_win_module', FALSE),
   ];
   $form['win']['dosomething_campaign_win_share_copy'] = [
     '#type' => 'textfield',
     '#title' => t('Win module share copy'),
-    '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'show the world what we did!'),
     '#description' => t("Sets the win module share copy"),
+    '#default_value' => t(variable_get('dosomething_campaign_win_share_copy', 'show the world what we did!')),
   ];
   $form['win']['dosomething_campaign_win_copy'] = [
     '#type' => 'textarea',
     '#title' => t('Win module copy'),
-    '#default_value' => variable_get('dosomething_campaign_win_copy', t('[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the prove it section below.')),
     '#description' => t("Sets the win module copy"),
+    '#default_value' => t(variable_get('dosomething_campaign_win_copy', '[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the prove it section below.')),
   ];
 
   return system_settings_form($form);
