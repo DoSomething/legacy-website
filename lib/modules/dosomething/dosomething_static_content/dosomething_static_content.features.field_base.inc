@@ -32,7 +32,9 @@ function dosomething_static_content_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
@@ -60,6 +62,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -89,6 +92,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'blockreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'referenceable_modules' => array(
         'apachesolr_search' => 0,
         'block' => 0,
@@ -144,6 +148,7 @@ function dosomething_static_content_field_default_field_bases() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'title' => 'optional',
       'title_maxlength' => 128,
       'title_value' => '',
@@ -169,6 +174,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
     ),
@@ -199,6 +205,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
@@ -235,6 +242,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
     ),
@@ -263,6 +271,7 @@ function dosomething_static_content_field_default_field_bases() {
         '3col_short' => '3 column (short)',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_text',
@@ -291,6 +300,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -320,6 +330,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
@@ -361,7 +372,9 @@ function dosomething_static_content_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
@@ -387,6 +400,7 @@ function dosomething_static_content_field_default_field_bases() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'title' => 'optional',
       'title_maxlength' => 128,
       'title_value' => '',
@@ -418,7 +432,9 @@ function dosomething_static_content_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
@@ -446,6 +462,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
@@ -488,6 +505,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -514,6 +532,7 @@ function dosomething_static_content_field_default_field_bases() {
         'youtube' => 'YouTube.com',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_text',
@@ -542,6 +561,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -564,6 +584,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
     ),
@@ -594,6 +615,7 @@ function dosomething_static_content_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
