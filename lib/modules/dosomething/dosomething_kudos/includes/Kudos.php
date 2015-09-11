@@ -99,7 +99,12 @@ class Kudos extends Entity {
     $this->id = $data->kid;
     $this->term = $this->getTaxonomyTerm($data->tid);
     $this->user = [
-      'id' => $data->uid,
+      'drupal_id' => $data->uid,
+      'id' => $northstar_user->_id,
+      'first_name' => $northstar_user->first_name,
+      'last_name' => $northstar_user->last_name,
+      'photo' => $northstar_user->photo,
+      'country' => $northstar_user->country,
     ];
     $this->reportback_item = [
       'id' => $data->fid,
