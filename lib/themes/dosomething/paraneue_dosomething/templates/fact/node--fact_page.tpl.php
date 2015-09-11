@@ -21,6 +21,8 @@
       <?php if (isset($subtitle)): ?>
         <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
+
+      <?php if (isset($promotions)) { print $promotions; } ?>
     </div>
   </header>
 
@@ -97,5 +99,9 @@
         <?php print $cta_link; ?>
       </div>
     </div>
+  <?php endif; ?>
+
+  <?php if ($info_bar): ?>
+    <?php print $info_bar; ?>
   <?php endif; ?>
 </article>
