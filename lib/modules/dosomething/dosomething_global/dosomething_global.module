@@ -90,6 +90,12 @@ function dosomething_global_is_regional_admin($user = NULL) {
   return FALSE;
 }
 
+/**
+ * Get the roles that are defined as regional admins.
+ *
+ * @return - array
+ *  The roles that are regional admins.
+ */
 function _dosomething_global_get_regional_roles() {
   $languages = variable_get('dosomething_global_language_map', '');
   foreach ($languages as $language) {
