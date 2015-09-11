@@ -81,13 +81,23 @@ function dosomething_global_is_regional_admin($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-  $regional_roles = explode(",", GLOBAL_ADMIN_ROLES);
+  $regional_roles = _dosomething_global_get_regional_roles();
   foreach ($user->roles as $role) {
     if (in_array($role, $regional_roles)) {
       return TRUE;
     }
   }
   return FALSE;
+}
+
+function _dosomething_global_get_regional_roles() {
+  $languages = variable_get('dosomething_global_language_map', '');
+  foreach ($languages as $language) {
+    if (isset($language['default_roles'][0])) {
+      $roles[] = $language['default_roles'][0];
+    }
+  }
+  return $roles;
 }
 
 /**
