@@ -15,7 +15,9 @@ function dosomething_helpers_user_default_permissions() {
     'name' => 'entityconnect add button',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'entityconnect',
   );
@@ -25,7 +27,9 @@ function dosomething_helpers_user_default_permissions() {
     'name' => 'entityconnect edit button',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'entityconnect',
   );
