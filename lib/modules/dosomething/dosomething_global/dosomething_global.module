@@ -5,3 +5,111 @@
  */
 
 include_once 'dosomething_global.features.inc';
+define('GLOBAL_ADMIN_ROLES', 'mexico admin,brazil admin');
+define('GLOBAL_ADMIN_LANGUANGES', serialize(['es-mx' => 'mexico admin', 'pt-br' => 'brazil admin']));
+
+/*
+ * Implements hook_init().
+ */
+function dosomething_global_init() {
+  // Verify we're dealing with a node edit with no translation specification in the URL
+  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
+    // Load the page node and user
+    $nid = arg(1);
+    $node = node_load($nid);
+    global $user;
+
+    // Load the languages being used
+    $src_language = $node->language;
+    $user_language = $user->language ?: 'en';
+
+    // If we're not working on a translation, no need to re-direct.
+    if ($src_language != $user_language) {
+      // Determines if the url needs the /add/source/ component
+      $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
+
+      // Append the user language
+      $lang_append = $new_translation_prefix . $user_language;
+
+      // Build complete URL and redirect
+      $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
+      drupal_goto($new_url);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function dosomething_global_node_presave($node) {
+  $user = user_load($node->uid);
+  // If we are saving a campaign and the user is a global admin.
+  if ($node->type == 'campaign' && dosomething_global_is_regional_admin($user)) {
+    // Set the node language to the author's lang.
+    $node->language = dosomething_global_get_user_language($user);
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
+  // Check if the user is a mexico or brazil admin
+  if (dosomething_global_is_regional_admin()) {
+    // Get translatable fields.
+    $fields = $form_state['field'];
+    foreach ($fields as $field_name => $field) {
+      $field_info = field_info_field($field_name);
+      // If the field is not translatable disable access
+      if (!$field_info['translatable']) {
+        $form[$field_name]['#access'] = FALSE;
+      }
+    }
+    $form['revision_information']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Returns if the user is a regional admin
+ *
+ * @param Object $user
+ *   Optional - A specified user to check
+ *
+ * @return SelectQuery object
+ */
+function dosomething_global_is_regional_admin($user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+  $regional_roles = explode(",", GLOBAL_ADMIN_ROLES);
+  foreach ($user->roles as $role) {
+    if (in_array($role, $regional_roles)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Returns the user's langauge based on the role.
+ *
+ * @param Object $user
+ *   Optional - A specified user to check
+ *
+ * @return string
+ *   The language key.
+ */
+function dosomething_global_get_user_language($user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+  $lang_map = unserialize(GLOBAL_ADMIN_LANGUANGES);
+  foreach ($user->roles as $role) {
+    // If the array search returns a lang key, return that.
+    if (is_string($key = array_search($role, $lang_map))) {
+      return $key;
+    }
+  }
+  // If we didn't find a user role return english default.
+  return 'en';
+}

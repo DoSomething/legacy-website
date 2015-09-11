@@ -19,6 +19,14 @@ projects[admin_menu][subdir] = "contrib"
 projects[apachesolr][version] = "1.6"
 projects[apachesolr][subdir] = "contrib"
 
+; Apachesolr Configen
+projects[apachesolr_confgen][version] = "1.1"
+projects[apachesolr_confgen][subdir] = "contrib"
+
+; Apachesolr Multilingual
+projects[apachesolr_multilingual][version] = "1.3"
+projects[apachesolr_multilingual][subdir] = "contrib"
+
 ; Apachesolr Views
 projects[apachesolr_views][version] = "1.0-beta2"
 projects[apachesolr_views][subdir] = "contrib"

@@ -15,7 +15,7 @@ function dosomething_campaign_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'entity_translation_settings_node__campaign';
   $strongarm->value = array(
-    'default_language' => 'xx-et-author',
+    'default_language' => 'xx-et-default',
     'hide_language_selector' => 1,
     'exclude_language_none' => 1,
     'lock_language' => 0,

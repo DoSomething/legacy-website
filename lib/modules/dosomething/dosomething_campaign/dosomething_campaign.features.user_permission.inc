@@ -39,7 +39,9 @@ function dosomething_campaign_user_default_permissions() {
   $permissions['edit any campaign content'] = array(
     'name' => 'edit any campaign content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
