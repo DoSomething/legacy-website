@@ -132,8 +132,6 @@ function dosomething_northstar_get_northstar_user($id) {
     $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
   } else {
     $client = _dosomething_northstar_build_http_client();
-    print_r($client['base_url'] . '/users/drupal_id/' . $id);
-    die();
 
     $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
       'headers' => $client['headers'],
