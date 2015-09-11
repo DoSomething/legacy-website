@@ -216,8 +216,9 @@
 }
 
 .reportback__submissions-list {
-  @include list_reset();
+  list-style-type: none;
   margin: 0 (-($base-spacing / 2));
+  padding: 0;
 
   > li {
     float: left;

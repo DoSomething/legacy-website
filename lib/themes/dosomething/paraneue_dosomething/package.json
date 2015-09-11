@@ -1,11 +1,12 @@
 {
   "private": true,
   "scripts": {
+    "start": "grunt",
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "dependencies": {
     "chart.js": "~1.0.2",
-    "@dosomething/forge": "~6.5.0",
+    "@dosomething/forge": "~6.6.0",
     "dosomething-modal": "~0.3.0",
     "dosomething-validation": "~0.2.0",
     "dotty": "0.0.2",
