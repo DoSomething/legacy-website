@@ -5,8 +5,6 @@
  */
 
 include_once 'dosomething_global.features.inc';
-define('GLOBAL_ADMIN_ROLES', 'mexico admin,brazil admin');
-define('GLOBAL_ADMIN_LANGUANGES', serialize(['es-mx' => 'mexico admin', 'pt-br' => 'brazil admin']));
 
 /*
  * Implements hook_init().
@@ -81,13 +79,29 @@ function dosomething_global_is_regional_admin($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-  $regional_roles = explode(",", GLOBAL_ADMIN_ROLES);
+  $regional_roles = _dosomething_global_get_regional_roles();
   foreach ($user->roles as $role) {
     if (in_array($role, $regional_roles)) {
       return TRUE;
     }
   }
   return FALSE;
+}
+
+/**
+ * Get the roles that are defined as regional admins.
+ *
+ * @return - array
+ *  The roles that are regional admins.
+ */
+function _dosomething_global_get_regional_roles() {
+  $languages = variable_get('dosomething_global_language_map', '');
+  foreach ($languages as $language) {
+    if (isset($language['default_roles'][0])) {
+      $roles[] = $language['default_roles'][0];
+    }
+  }
+  return $roles;
 }
 
 /**
@@ -103,12 +117,19 @@ function dosomething_global_get_user_language($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-  $lang_map = unserialize(GLOBAL_ADMIN_LANGUANGES);
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  foreach ($lang_map as $lang_key => $lang) {
+    // If we have a role with the language.
+    if (isset($lang['default_roles'][0])) {
+      $role_to_lang[$lang_key] = $lang['default_roles'][0];
+    }
+  }
   foreach ($user->roles as $role) {
     // If the array search returns a lang key, return that.
-    if (is_string($key = array_search($role, $lang_map))) {
+    if (is_string($key = array_search($role, $role_to_lang))) {
       return $key;
     }
+
   }
   // If we didn't find a user role return english default.
   return 'en';
