@@ -47,7 +47,7 @@ function dosomething_campaign_update_7004(&$sandbox) {
 /**
  * Deletes the field_variables field collection and related fields.
  *
- * See https://github.com/DoSomething/dosomething/issues/2726.
+ * See https://github.com/DoSomething/phoenix/issues/2726.
  */
 function dosomething_campaign_update_7005(&$sandbox) {
   field_delete_field('field_variable_name');
@@ -125,4 +125,12 @@ function dosomething_campaign_update_7009(&$sandbox) {
     node_save($node);
   }
 
+}
+
+function dosomething_campaign_update_7010(&$sandbox) {
+  variable_del('dosomething_campaign_enable_hot_module');
+}
+
+function dosomething_campaign_update_7011(&$sandbox) {
+  variable_del('dosomething_campaign_win_background_image');
 }

@@ -25,42 +25,92 @@ class Campaign {
   public $tags;
   public $timing;
   public $reportback_info;
-
+  public $services;
+  public $mobile_app;
 
   /**
-   * @param $id
-   * @param $display
+   * Convenience method to retrieve a single campaign from supplied id.
    *
+   * @param string|array $ids Single id or array of ids of Campaigns to retrieve.
+   * @param string $display
    * @return static
    * @throws Exception
    */
-  public static function get($id, $display = 'teaser') {
-    $campaign = new static();
-    $campaign->load($id, $display);
+  public static function get($ids, $display = 'teaser') {
+    $campaigns = [];
 
-    return $campaign;
+    if (!is_array($ids)) {
+      $ids = [$ids];
+    }
+
+    $results = node_load_multiple($ids);
+
+    if (!$results) {
+      throw new Exception('No campaign data found.');
+    }
+
+    foreach($results as $item) {
+      $campaign = new static();
+      $campaign->build($item, $display);
+
+      $campaigns[] = $campaign;
+    }
+
+    return $campaigns;
   }
 
 
   /**
-   * @param $id
-   * @param $display
+   * Convenience method to retrieve campaigns based on supplied filters.
    *
+   * @param array $filters
+   * @param string $display
+   * @return array
    * @throws Exception
    */
-  public function load($id, $display = 'teaser') {
-    $this->id = $id;
-    $this->node = node_load($id);
+  public static function find(array $filters = [], $display = 'teaser') {
+    $campaigns = [];
 
-    if ($this->node && $this->node->type === 'campaign') {
+    $results = dosomething_campaign_get_campaigns_query($filters);
+
+    if (!$results) {
+      throw new Exception('No campaign data found.');
+    }
+
+    $results = array_map('dosomething_helpers_extract_id', $results);
+    $results = node_load_multiple($results);
+
+    foreach($results as $item) {
+      $campaign = new static;
+      $campaign->build($item, $display);
+
+      $campaigns[] = $campaign;
+    }
+
+    return $campaigns;
+  }
+
+
+  /**
+   * Build out the instantiated Campaign class object with supplied data.
+   *
+   * @param $data
+   * @param $display
+   * @throws Exception
+   */
+  private function build($data, $display = 'teaser') {
+    $this->node = $data;
+    $this->id = $data->nid;
+
+    if ($data->type === 'campaign') {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
-      $this->title = $this->node->title;
+      $this->title = $data->title;
       $this->display = $display;
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();
-        $this->created_at = $this->node->created;
-        $this->updated_at = $this->node->changed;
+        $this->created_at = $data->created;
+        $this->updated_at = $data->changed;
         $this->status = $this->getStatus();
         $this->type = $this->getType();
         $this->time_commitment = $this->getTimeCommitment();
@@ -92,12 +142,13 @@ class Campaign {
 
         $timing = $this->getTiming();
         $this->timing = $timing;
+
+        $this->services = $this->getServices();
+
+        $this->mobile_app = $this->getMobileAppDate();
       }
 
       $this->reportback_info = $this->getReportbackInfo();
-    }
-    else {
-      throw new Exception('Campaign does not exist!');
     }
   }
 
@@ -290,9 +341,55 @@ class Campaign {
 
 
   /**
+   * Get MailChimp data.
+   *
+   * @return array
+   */
+  protected function getMailChimpData() {
+    return [
+      'grouping_id' => dosomething_helpers_isset($this->variables, 'mailchimp_grouping_id'),
+      'group_name' => dosomething_helpers_isset($this->variables, 'mailchimp_group_name'),
+    ];
+  }
+
+
+  /**
+   * Get Mobile Commons data.
+   * @return array
+   */
+  protected function getMobileCommonsData() {
+    return [
+      'opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
+      'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
+    ];
+  }
+
+
+   /**
+   * Get the start and end dates for when campaign will be displayed on the mobile app if available.
+   * Dates formatted as ISO-8601 datetime.
+   *
+   * @return array
+   */
+
+    protected function getMobileAppDate() {
+      $timing = [];
+      $timing['dates'] = (dosomething_helpers_extract_field_data($this->node->field_mobile_app_date));
+
+      if (isset($timing['dates'])) {
+        foreach ($timing['dates'] as $key => $date) {
+          $timing['dates'][$key] = dosomething_helpers_convert_date($date);
+        }
+      }
+
+      return $timing;
+  }
+
+
+  /**
    * Get Reportback content info used in the campaign.
    *
-   * @ return array
+   * @return array
    */
   protected function getReportbackInfo() {
     $data = [];
@@ -327,6 +424,63 @@ class Campaign {
 
 
   /**
+   * Collect data for third party services.
+   *
+   * @return array
+   */
+  protected function getServices() {
+    return [
+      'mobile_commons' => $this->getMobileCommonsData(),
+      'mailchimp' => $this->getMailChimpData(),
+    ];
+  }
+
+
+  /**
+   * Get the Scholarship amount for campaign if available.
+   *
+   * @return array|null
+   */
+  protected function getScholarship() {
+    return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
+  }
+
+
+  /**
+   * Get the Solutions data for campaign if available; collects both the main solution copy
+   * and the solution support copy.
+   *
+   * @return array
+   */
+  protected function getSolutionData() {
+    $data['copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_copy);
+    $data['support_copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_support);
+
+    return $data;
+  }
+
+
+  /**
+   * Get status whether this campaign is a Staff Pick or not.
+   *
+   * @return bool
+   */
+  protected function getStaffPickStatus() {
+    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
+  }
+
+
+  /**
+   * Get Status of campaign.
+   *
+   * @return string|null
+   */
+  protected function getStatus() {
+    return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
+  }
+
+
+  /**
    * Get Tags assigned to campaign if available.
    *
    * @return array|null
@@ -337,7 +491,7 @@ class Campaign {
     $tag_ids = dosomething_helpers_extract_field_data($this->node->field_tags);
 
     if ($tag_ids) {
-      foreach ($tag_ids as $id) {
+      foreach ((array) $tag_ids as $id) {
         $data[] = $this->getTaxonomyTerm($id);
       }
 
@@ -394,8 +548,6 @@ class Campaign {
    * @return array
    */
   protected function getTiming() {
-    $timezone = new DateTimeZone('UTC');
-
     $timing = [];
     $timing['high_season'] = dosomething_helpers_extract_field_data($this->node->field_high_season);
     $timing['low_season'] = dosomething_helpers_extract_field_data($this->node->field_low_season);
@@ -403,56 +555,12 @@ class Campaign {
     foreach ($timing as $season => $dates) {
       if ($timing[$season]) {
         foreach ($timing[$season] as $key => $date) {
-          $date = new DateTime($date, $timezone);
-          $timing[$season][$key] = $date->format(DateTime::ISO8601);
+          $timing[$season][$key] = dosomething_helpers_convert_date($date);
         }
       }
     }
 
     return $timing;
-  }
-
-
-  /**
-   * Get the Scholarship amount for campaign if available.
-   * @return array|null
-   */
-  protected function getScholarship() {
-    return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
-  }
-
-
-  /**
-   * Get the Solutions data for campaign if available; collects both the main solution copy
-   * and the solution support copy.
-   *
-   * @return array
-   */
-  protected function getSolutionData() {
-    $data['copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_copy);
-    $data['support_copy'] = dosomething_helpers_extract_field_data($this->node->field_solution_support);
-
-    return $data;
-  }
-
-
-  /**
-   * Get status whether this campaign is a Staff Pick or not.
-   *
-   * @return bool
-   */
-  protected function getStaffPickStatus() {
-    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
-  }
-
-
-  /**
-   * Get Status of campaign.
-   *
-   * @return string|null
-   */
-  protected function getStatus() {
-    return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
 
 

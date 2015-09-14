@@ -93,6 +93,8 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
     ),
     'setting'
   );
+  $hide_honeypot_style = '.form-item-email { display: none }';
+  drupal_add_css($hide_honeypot_style, $option['type'] = inline);
   $form['full_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name on Card'),
@@ -103,7 +105,18 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-stripe' => 'name',
     ),
   );
+  // Honeypot. Upon submitting the form this field is removed from $form to avoid
+  // confusion in the payment processing.
   $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => FALSE,
+    '#attributes' => array(
+      'data-stripe' => 'email',
+    ),
+  );
+  // Actual email field.
+  $form['email_confirmation'] = array(
     '#type' => 'textfield',
     '#title' => t('Email'),
     '#required' => TRUE,
@@ -168,6 +181,16 @@ function dosomething_payment_form($form, &$form_state, $config = array()) {
       'data-stripe' => 'amount',
     ),
   );
+  $form['zipcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('ZIP or Postal code'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'data-validate' => 'zipcode_intl',
+      'data-validate-required' => '',
+      'data-stripe' => 'address_zip',
+    ),
+  );
   $form['notes'] = array(
     '#type' => 'textfield',
     '#title' => t('Message (optional)'),
@@ -213,20 +236,30 @@ function dosomething_payment_form_submit($form, &$form_state) {
   $dollars = $values['amount'];
   // Expected amount to charge to Stripe should be in cents.
   $values['amount'] = $values['amount'] * 100;
-  // Send Payment request to Stripe API.
-  if (dosomething_payment_post_payment_stripe($values)) {
+
+  // Check the honey pot for honey
+  if (empty($values['email'])) {
+    // Send Payment request to Stripe API.
+    if (dosomething_payment_post_payment_stripe($values)) {
+      // Send stathat info.
+      if (module_exists('stathat')) {
+        stathat_send_ez_count('drupal - Donate - count', 1);
+        stathat_send_ez_value('drupal - Donate - value', $dollars);
+      }
+      // Redirect to current page with query string.
+      $form_state['redirect'] = array(
+        drupal_get_path_alias(),
+        array(
+          'query' => array('donated' => 1),
+        ),
+      );
+    }
+  }
+  else {
     // Send stathat info.
     if (module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Donate - count', 1);
-      stathat_send_ez_value('drupal - Donate - value', $dollars);
+      stathat_send_ez_count('drupal - Donate - honeypot', 1);
     }
-    // Redirect to current page with query string.
-    $form_state['redirect'] = array(
-      drupal_get_path_alias(),
-      array(
-        'query' => array('donated' => 1),
-      ),
-    );
   }
 }
 
@@ -294,7 +327,7 @@ function dosomething_payment_post_payment_stripe($values) {
       'customer' => $customer->id,
       'amount' => $values['amount'],
       'currency' => 'usd',
-      'receipt_email' => $values['email'],
+      'receipt_email' => $values['confirmation_email'],
       'description' => "Donation for DoSomething.org",
       'metadata' => $notes,
     ));
@@ -361,6 +394,7 @@ function dosomething_payment_stripe_create_customer($values) {
   if (!$client) {
     return;
   }
+
   try {
     $customer = Stripe_Customer::create(array(
       'email' => $values['email'],
@@ -378,7 +412,7 @@ function dosomething_payment_stripe_create_customer($values) {
   }
   catch (Exception $e) {
     $error = $e->getMessage();
-    drupal_set_message($error, 'error');
+    drupal_set_message($error . ' ' . variable_get('dosomething_payment_donate_error_copy'), 'error');
     watchdog('dosomething_payment', $e->getMessage(), NULL, WATCHDOG_ERROR);
     return FALSE;
   }

@@ -36,6 +36,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Answer',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -76,6 +77,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Question',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -118,6 +120,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -160,6 +163,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -202,6 +206,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -244,6 +249,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -294,6 +300,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Action Guide',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -342,6 +349,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Action Type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -386,6 +394,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Active Hours',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -432,6 +441,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Call to Action',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -483,6 +493,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Campaign Status',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -531,6 +542,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Campaign type',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -575,6 +587,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -629,6 +642,7 @@ function dosomething_campaign_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'none',
       'title_maxlength' => 128,
@@ -682,6 +696,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Created By',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -729,6 +744,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Created Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -779,6 +795,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Show End Date on Pitch & Action Page',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -824,6 +841,7 @@ function dosomething_campaign_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 1,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'downloads',
       'file_extensions' => 'pdf jpg png',
       'max_filesize' => '',
@@ -845,9 +863,7 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
-<br/>
-<strong> Limit: 135 characters </strong>',
+    'description' => 'Limit: 117 characters (for the purposes of sharing this fact via social, this MUST be under 117 characters.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -882,6 +898,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Problem Fact',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -937,6 +954,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Solution Fact',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -992,6 +1010,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Facts',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1052,6 +1071,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'FAQ',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1104,6 +1124,7 @@ function dosomething_campaign_field_default_field_instances() {
       'default_value2' => 'blank',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1156,6 +1177,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Cover Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1207,6 +1229,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Know It Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1256,6 +1279,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Do It Gallery',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1304,6 +1328,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Issue',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1359,6 +1384,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Stuff You Need',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1407,6 +1433,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Latest News',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1417,7 +1444,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 54,
     ),
   );
 
@@ -1457,6 +1484,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Internal Location Finder Needed',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1504,6 +1532,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Location Finder Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1561,6 +1590,7 @@ function dosomething_campaign_field_default_field_instances() {
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'none',
       'title_maxlength' => 128,
@@ -1619,6 +1649,7 @@ function dosomething_campaign_field_default_field_instances() {
       'default_value2' => 'blank',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1634,6 +1665,66 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'type' => 'date_select',
       'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-field_mobile_app_date'
+  $field_instances['node-campaign-field_mobile_app_date'] = array(
+    'bundle' => 'campaign',
+    'deleted' => 0,
+    'description' => 'This date helps dictate timelines for campaigns displayed on the mobile app. ',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 74,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_mobile_app_date',
+    'label' => 'Mobile App Date',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'blank',
+      'default_value2' => 'blank',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'custom',
+        'input_format_custom' => 'M-d-Y',
+        'label_position' => 'within',
+        'text_parts' => array(),
+        'year_range' => '-0:+1',
+      ),
+      'type' => 'date_select',
+      'weight' => 51,
     ),
   );
 
@@ -1669,6 +1760,7 @@ function dosomething_campaign_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => 'offical-rules',
       'file_extensions' => 'txt pdf',
       'max_filesize' => '',
@@ -1721,6 +1813,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'On Mobile App',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1730,7 +1823,7 @@ function dosomething_campaign_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 16,
+      'weight' => 52,
     ),
   );
 
@@ -1779,6 +1872,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Sponsors and Partners',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1825,6 +1919,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Snap a Pic',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1874,6 +1969,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'After Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1923,6 +2019,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'After Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1972,6 +2069,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'During Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2021,6 +2119,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'During Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2068,6 +2167,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Primary Action Type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2112,6 +2212,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Primary Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2158,6 +2259,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Hype',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2207,6 +2309,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Report Back Confirmation Sentence',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2254,6 +2357,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Report Back Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2300,6 +2404,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Report Back Noun',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2346,6 +2451,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Report Back Verb',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2403,6 +2509,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Scholarship Amount',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => '',
       'prefix' => '$',
@@ -2452,6 +2559,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Secondary Call to Action',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2501,6 +2609,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Solution Statement',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2551,6 +2660,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Supporting Statement on the Solution',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2602,6 +2712,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Is Staff Pick',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2650,6 +2761,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Campaign Specific Starter Statement',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2696,6 +2808,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Starter Statement Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2755,6 +2868,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'After Tips',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2811,6 +2925,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'During Tips',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2857,6 +2972,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Tags',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2906,6 +3022,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Time and Place',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2952,6 +3069,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'What You Get',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -3003,6 +3121,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'Video',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3048,6 +3167,7 @@ function dosomething_campaign_field_default_field_instances() {
     'label' => 'VIPs',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -3059,6 +3179,55 @@ function dosomething_campaign_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign-title_field'
+  $field_instances['node-campaign-title_field'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 75,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Title',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -3080,9 +3249,6 @@ function dosomething_campaign_field_default_field_instances() {
   t('Campaign type');
   t('Cause');
   t('Check this for the campaign to appear on the mobile apps.');
-  t('Compels people to care about the issue. i.e. <i>1 in 3 homeless people are under the age of 18.</i>
-<br/>
-<strong> Limit: 135 characters </strong>');
   t('Copy');
   t('Cover Image');
   t('Created By');
@@ -3124,9 +3290,11 @@ function dosomething_campaign_field_default_field_instances() {
   t('Issue');
   t('Know It Image');
   t('Latest News');
+  t('Limit: 117 characters (for the purposes of sharing this fact via social, this MUST be under 117 characters.');
   t('Limit: 2 per campaign.');
   t('Location Finder Copy');
   t('Low Season');
+  t('Mobile App Date');
   t('Must start with a verb. Must end with a !. Encompass what the user needs to do before taking a picture i.e. Run Your Drive!, Hand Out Condoms!, Hide The Pills!"
 <br/>
 <strong> Limit 25 characters. </strong>');
@@ -3163,6 +3331,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('The first thing they need to know. Could be general advice "start planning two weeks in advance" or pointing out the most important thing to do "as you plan, don\'t forget to get permission!".
 <br/>
 <strong> Limit: 135 characters </strong>');
+  t('This date helps dictate timelines for campaigns displayed on the mobile app. ');
   t('This describes the action the user must take after they take a picture. I.e. "Drop off the food you collected at your local food bank at the time you decided. Then pat yourself on the back like the boss you are."; "Check in with the senior center two weeks later. See if they’ve been acting safer with the tip sheets and condoms - no details needed.".
 <br/>
 <strong> Limit 135 characters. </strong>');
@@ -3200,6 +3369,7 @@ function dosomething_campaign_field_default_field_instances() {
 <strong> Limit: 135 characters </strong>');
   t('This will open up as a separate modal. Only fill this out if you have 3+ stats you want the user to learn about.');
   t('Time and Place');
+  t('Title');
   t('Use active verbs.
 </br>
 <strong> Limit 20 characters. </strong>');

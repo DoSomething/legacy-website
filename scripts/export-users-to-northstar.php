@@ -34,7 +34,7 @@ foreach ($users as $user) {
     ));
 
   // If the script fails, we can use this to start the script from a previous person.
-  variable_set('dosomething_northstar_last_user_migrated', $whatever->uid);
+  variable_set('dosomething_northstar_last_user_migrated', $user->uid);
 }
 
 /**

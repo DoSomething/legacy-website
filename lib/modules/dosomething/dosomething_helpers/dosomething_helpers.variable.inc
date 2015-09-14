@@ -150,7 +150,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     );
 
     // Get the progress from the set variable, else do a query for it.
-    $rb_progress = dosomething_helpers_get_variable('node', $node->nid, 'sum_rb_quanity') ?: dosomething_reportback_get_reportback_total_by_nid($node->nid);
+    $rb_progress = dosomething_helpers_get_variable('node', $node->nid, 'sum_rb_quantity') ?: dosomething_reportback_get_reportback_total_by_nid($node->nid);
 
     $form['goals']['sum_rb_quantity_override'] = array(
       '#type' => 'textfield',
@@ -167,6 +167,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#description'=> t('The total number of signups from mobile, will be added to total web signups: '  . $web_signup_count),
       '#default_value' => $vars['mobile_signup_count'],
     );
+
+    $form['goals']['progress_copy_override'] = [
+      '#type' => 'textarea',
+      '#title' => t('Hot Module progress override copy'),
+      '#default_value' => variable_get('progress_copy_override'),
+      '#description' => t('Add copy here if you’d like to override the default progress copy in the hot module. Note: The default copy changes as progress increases. Override copy is static. If you create override copy, you’ll need to either delete the copy or change it yourself for this text to update.'),
+    ];
   }
 
   $form['actions'] = array(

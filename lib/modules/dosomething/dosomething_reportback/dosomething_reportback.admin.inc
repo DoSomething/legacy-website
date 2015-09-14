@@ -143,6 +143,8 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       $page_size = $limit;
     }
   }
+  // Display reportback forms in asc order.
+  $params['order'] = 'asc';
   // Get the DatabaseQuery to loop through.
   $result = dosomething_reportback_get_reportback_files_query_result($params, $page_size);
   // Get the total number of results.
@@ -167,7 +169,9 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
 
   foreach ($result as $record) {
     $rb_path = 'admin/reportback/' . $record->rbid;
-    $status = 'approved';
+    // @TODO: temporarily disable pre-approved to unblock campaigns team from reviewing reportbacks.
+    // Refs #4797
+    // $status = 'approved';
     if (isset($record->status) && $record->status != 'pending') {
       $status = $record->status;
     }
@@ -190,7 +194,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
         '#title' => t('Status'),
         '#required' => TRUE,
         '#options' => $status_options,
-        '#default_value' => $status,
+        '#default_value' => $status ?: '',
       ),
       'promoted_reason' => array(
         '#type' => 'checkboxes',
@@ -233,7 +237,6 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     $rbf = reportback_file_load($fid);
 
-    // Set flagged or promoted reasons.
     if ($values['status'] === 'promoted') {
       dosomething_reportback_set_promote_flag_reasons($values, 'promoted_reason');
     }
@@ -243,6 +246,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     // Write the review data.
     $save = $rbf->review($values);
+
     if (!$save) {
       form_set_error(t("An error has occurred."));
     }
@@ -302,18 +306,18 @@ function theme_dosomething_reportback_files_form($variables) {
   if (empty($rb_files)) {
     return t("Inbox zero! There are no Reportbacks to review.");
   }
-
   // Initialize the variable which will store our table rows.
   $rows = array();
   foreach ($rb_files as $fid) {
     $rbf = reportback_file_load($fid);
-    $view = entity_view('reportback_file', array($rbf->fid => $rbf), $view_mode);
+    $view = entity_view('reportback_item', array($rbf->fid => $rbf), $view_mode);
     $promote_form = drupal_render($form['rb_files'][$fid]['promoted_reason']);
     $flag_form = drupal_render($form['rb_files'][$fid]['flagged_reason']);
     $flag_form .= drupal_render($form['rb_files'][$fid]['delete']);
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
+        $rbf->rbid . ": " . $fid ,
         drupal_render($form['rb_files'][$fid]['date']),
         drupal_render($view),
         drupal_render($form['rb_files'][$fid]['quantity']),
@@ -325,6 +329,7 @@ function theme_dosomething_reportback_files_form($variables) {
     );
   }
   $header = array(
+    t('RBID: fid'),
     t('Submitted'),
     NULL,
     t('Quantity'),
@@ -418,5 +423,3 @@ function dosomething_reportback_count_page() {
 
   return $output;
 }
-
-

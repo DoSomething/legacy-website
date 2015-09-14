@@ -27,17 +27,36 @@
 
         <div class="container__block -half">
           <?php if (isset($campaign->fact_problem)): ?>
-          <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
-          <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
+            <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
+            <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
+
+            <?php if ($show_problem_shares): ?>
+              <div class="message-callout -above-horizontal -blue">
+                <div class="message-callout__copy">
+                  <p><?php print $problem_share_prompt; ?></p>
+                </div>
+              </div>
+              <?php print $share_bar; ?>
+            <?php endif; ?>
           <?php endif; ?>
 
-          <?php if (isset($psa)): ?>
-            <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
-              <?php print $psa; ?>
-            </p>
+          <?php if ($show_problem_shares): ?>
+            <?php // If there's a PSA image or video, output it in this column. ?>
+            <?php if (isset($psa)): ?>
+              <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+                <?php print $psa; ?>
+              </p>
+            <?php endif; ?>
           <?php else: ?>
-            <?php if (isset($modals)): ?>
-              <?php print $modals; ?>
+            <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
+            <?php if (isset($psa)): ?>
+              <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+                <?php print $psa; ?>
+              </p>
+            <?php else: ?>
+              <?php if (isset($modals)): ?>
+                <?php print $modals; ?>
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
         </div>
@@ -58,9 +77,17 @@
 
           <?php endif; ?>
 
-          <?php if (isset($psa)): ?>
+          <?php if ($show_problem_shares): ?>
+            <?php // Alway output modals in the second column. ?>
             <?php if (isset($modals)): ?>
-              <?php print $modals; ?>
+             <?php print $modals; ?>
+            <?php endif; ?>
+          <?php else: ?>
+            <?php // If there's a PSA image or video, then it was output in the first column above and thus need to output the modals in this second column instead. ?>
+            <?php if (isset($psa)): ?>
+              <?php if (isset($modals)): ?>
+                <?php print $modals; ?>
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
         </div>
@@ -97,58 +124,6 @@
         <?php if (isset($signup_form)) : ?>
           <?php print render($signup_form); ?>
         <?php endif; ?>
-
-        <!-- ########## A/B Test For SMS First Names ##########  -->
-        <!-- We find the fieldset "edit-group1" in the form above, and replace  -->
-        <!-- with the below snippet. This allows us to swap out form fields -->
-        <!-- without losing CSRF tokens: -->
-
-        <!--  var $ = jQuery; var $form = $("#dosomething-signup-sms-game-form"); $form.addClass('optimizely-sms-form'); $form.find(".form-item-alpha-first-name").remove(); $form.find("#edit-group1").html($("#ab-test-sms-names").html());  -->
-
-        <div id="ab-test-sms-names" style="display: none;">
-          <div class="fieldset-wrapper">
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-alpha-first-name">Your First Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="fname" data-validate-required="" placeholder="First Name" type="text" id="edit-alpha-first-name" name="alpha_first_name" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-alpha-mobile">Your Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-alpha-mobile" name="alpha_mobile" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-beta-first-name-0">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-0" name="beta_first_name_0" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-0">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-0" name="beta_mobile_0" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield ">
-              <label class="field-label" for="edit-beta-first-name-1">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-1" name="beta_first_name_1" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-1">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-1" name="beta_mobile_1" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-
-            <div class="form-item form-type-textfield">
-              <label class="field-label" for="edit-beta-first-name-2">Your Friend's Name <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="friend_name" data-validate-required="" placeholder="Friend's Name" type="text" id="edit-beta-first-name-2" name="beta_first_name_2" value="" size="60" maxlength="128" class="text-field required has-success">
-            </div>
-
-            <div class="form-item form-type-textfield form-item-alpha-mobile">
-              <label class="field-label" for="edit-beta-mobile-2">Friend's Cell Number <span class="form-required" title="This field is required.">*</span></label>
-              <input data-validate="phone" data-validate-required="" placeholder="(555) 555-5555" autocomplete="off" type="text" id="edit-beta-mobile-2" name="beta_mobile_2" value="" size="60" maxlength="128" class="text-field required">
-            </div>
-          </div>
-        </div>
-        <!-- ########## END A/B Test For SMS First Names ########## -->
 
         <div class="container__block -narrow">
           <?php if (isset($official_rules)): ?>

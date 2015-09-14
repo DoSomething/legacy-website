@@ -18,8 +18,9 @@
     }
   }
 
-  .donate__amount {
+  .donate__amount, .form-item-zipcode {
     clear: both;
+    display: inline-block;
 
     @include media($tablet) {
       @include span(4 of 12);

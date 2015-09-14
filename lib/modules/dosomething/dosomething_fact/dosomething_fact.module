@@ -13,7 +13,7 @@ include_once 'dosomething_fact.helpers.inc';
 function dosomething_fact_form_fact_node_form_alter(&$form, &$form_state, $form_id) {
   // Change title #type from text to textarea.
   $form['title']['#type'] = 'textarea';
-  $form['title']['#description'] = t('Use numerals for all numbers. i.e. <em>"1 in 3"</em> or <em>"1/4"</em> <strong>NOT</strong> <em>"one in three"</em> or <em>"one-fourths"</em>. <p>Also for percentages always use %, never spell out "percent".</p>');
+  $form['title']['#description'] = t('<p>If using for problem share this must be 117 characters or less otherwise it will break problem shares.</p> Use numerals for all numbers. i.e. <em>"1 in 3"</em> or <em>"1/4"</em> <strong>NOT</strong> <em>"one in three"</em> or <em>"one-fourths"</em>. <p>Also for percentages always use %, never spell out "percent".</p>');
 }
 
 /**

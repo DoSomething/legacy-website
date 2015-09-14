@@ -12,17 +12,6 @@
     <p class="header__subtitle"><?php if (isset($subtitle)): print $subtitle; endif; ?></p>
     <?php endif; ?>
 
-    <?php if (isset($sponsors)): ?>
-      <div class="promotion promotion--sponsor">
-        <div class="wrapper">
-          <p class="__copy"><?php print t('Powered by'); ?></p>
-          <?php foreach ($sponsors as $sponsor) :?>
-            <div class="__image">
-              <?php if (isset($sponsor['display'])): print $sponsor['display']; endif; ?>
-            </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-    <?php endif; ?>
+    <?php if (isset($promotions)) { print $promotions; } ?>
   </div>
 </header>

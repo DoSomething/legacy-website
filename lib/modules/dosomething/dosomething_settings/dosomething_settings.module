@@ -80,7 +80,7 @@ function dosomething_settings_get_affiliate_country_code() {
       'indonesia' => 'ID',
       'kenya'     => 'KE',
       'nigeria'   => 'NG',
-      'uk'        => 'UK',
+      'uk'        => 'GB',
     );
     $code = strtolower(dosomething_settings_get_affiliate_code());
     $country_code = isset($mapping[$code]) ? $mapping[$code] : 'US';

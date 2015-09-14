@@ -15,9 +15,11 @@ function dosomething_user_user_default_permissions() {
     'name' => 'access administration menu',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'admin_menu',
   );
@@ -27,9 +29,11 @@ function dosomething_user_user_default_permissions() {
     'name' => 'access administration pages',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'system',
   );
@@ -58,7 +62,9 @@ function dosomething_user_user_default_permissions() {
     'name' => 'access content overview',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -86,8 +92,10 @@ function dosomething_user_user_default_permissions() {
     'name' => 'access user profiles',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'user',
   );
@@ -374,7 +382,9 @@ function dosomething_user_user_default_permissions() {
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -384,7 +394,9 @@ function dosomething_user_user_default_permissions() {
     'name' => 'translate interface',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'locale',
   );
@@ -393,8 +405,10 @@ function dosomething_user_user_default_permissions() {
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
       'org friend' => 'org friend',
     ),
     'module' => 'view_unpublished',
@@ -404,7 +418,9 @@ function dosomething_user_user_default_permissions() {
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -413,7 +429,9 @@ function dosomething_user_user_default_permissions() {
   $permissions['view revisions'] = array(
     'name' => 'view revisions',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -423,9 +441,11 @@ function dosomething_user_user_default_permissions() {
     'name' => 'view the administration theme',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'system',
   );

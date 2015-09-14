@@ -3,7 +3,7 @@
 /**
  * Override theme_menu_local_tasks().
  *
- * Use Neue waypoints pattern for admin menu.
+ * Use Forge waypoints pattern for admin menu.
  */
 function paraneue_dosomething_menu_local_tasks(&$variables) {
   $output = '';
@@ -25,7 +25,7 @@ function paraneue_dosomething_menu_local_tasks(&$variables) {
 /**
  * Override theme_menu_local_task().
  *
- * Use Neue waypoints pattern for admin menu.
+ * Use Forge waypoints pattern for admin menu.
  */
 function paraneue_dosomething_menu_local_task($variables) {
   $link = $variables['element']['#link'];
@@ -139,7 +139,7 @@ function paraneue_dosomething_theme() {
       'path' => PARANEUE_DS_PATH . '/templates/home/partials',
     ),
 
-    // Register theme functions for the Neue library.
+    // Register theme functions for Forge patterns.
     'paraneue_figure' => array(
       'template' => 'figure',
       'path' => PARANEUE_DS_PATH . '/templates/system/patterns',

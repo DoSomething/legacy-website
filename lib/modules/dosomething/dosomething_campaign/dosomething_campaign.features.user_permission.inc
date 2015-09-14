@@ -14,7 +14,9 @@ function dosomething_campaign_user_default_permissions() {
   $permissions['create campaign content'] = array(
     'name' => 'create campaign content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -48,6 +50,8 @@ function dosomething_campaign_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'creative team' => 'creative team',
+      'editor' => 'editor',
+      'site admin' => 'site admin',
     ),
     'module' => 'dosomething_campaign',
   );
@@ -56,7 +60,9 @@ function dosomething_campaign_user_default_permissions() {
   $permissions['edit own campaign content'] = array(
     'name' => 'edit own campaign content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

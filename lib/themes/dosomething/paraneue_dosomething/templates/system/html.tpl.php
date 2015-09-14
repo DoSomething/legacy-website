@@ -6,9 +6,9 @@
 ?>
 
 <!DOCTYPE html>
-<!--[if lte IE 8 ]> <html dir="ltr" lang="en-US" class="modernizr-no-js ie8"> <![endif]-->
-<!--[if IE 9 ]> <html dir="ltr" lang="en-US" class="modernizr-no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html class="modernizr-no-js"><!--<![endif]-->
+<!--[if lte IE 8 ]> <html dir="<?php print $language->dir ?>" lang="<?php print $language->language ?>" class="modernizr-no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html dir="<?php print $language->dir ?>" lang="<?php print $language->language ?>" class="modernizr-no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html dir="<?php print $language->dir ?>" lang="<?php print $language->language ?>" class="modernizr-no-js"><!--<![endif]-->
 
 <!-- DoSomething.org Platform <?php print $variables['ds_version'] ?> -->
 
@@ -33,8 +33,8 @@
       <script type="text/javascript" src="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.js"></script>
   <![endif]-->
 
-  <link rel="shortcut icon" href="<?php print NEUE_ASSET_PATH; ?>/dist/assets/images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" href="<?php print NEUE_ASSET_PATH; ?>/dist/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/apple-touch-icon-precomposed.png">
   <?php print $head; ?>
 
   <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>

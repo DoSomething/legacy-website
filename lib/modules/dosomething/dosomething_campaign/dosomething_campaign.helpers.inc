@@ -92,7 +92,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $image_src_style = '300x300';
 
   // Load the entity metadata wrapper for easy value getting.
-  $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $campaign = new stdClass();
   $campaign->nid = $node->nid;
@@ -604,6 +604,36 @@ function dosomething_campaign_get_sms_games() {
  *  Amount of the scholarship.
  */
 function dosomething_campaign_get_scholarship($nid) {
-  $wrapper = entity_metadata_wrapper('node', $nid);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($nid);
   return $wrapper->field_scholarship_amount->value();
+}
+
+/**
+ * Returns the human-readable time left during a campaign's hot phase.
+ *
+ * @param node
+ *  A loaded campaign node
+ *
+ * @return string
+ *  Formatted time (e.g. "4 days left")
+ */
+function dosomething_campaign_get_hot_time_left($node) {
+  $today = dosomething_campaign_set_est_timezone(new DateTime());
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']), TRUE, TRUE);
+  $difference = $today->diff($end_date, true);
+  $days_left = $difference->d;
+  $hours_left = $difference->h + ($days_left * 24);
+
+  if ($days_left >= 8) {
+    $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
+    $time_left = t('Ends ' . $readable_end_date);
+  }
+  elseif ($hours_left > 48) {
+    $time_left = t($difference->d . ' days left');
+  }
+  else {
+    $time_left = t($hours_left . ' hours left');
+  }
+
+  return $time_left;
 }

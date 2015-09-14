@@ -14,12 +14,14 @@
  *   Rendered HTML.
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
-  $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($node);
+  $clc = dosomething_helpers_get_current_language_code();
+
   // Initialize $vars to pass to the reportback_confirmation theme function.
   $vars = array(
     'back_to_campaign_link' => NULL,
     'call_to_action' => NULL,
-    'copy' => $node->field_reportback_confirm_msg[LANGUAGE_NONE][0]['value'],
+    'copy' => $node->field_reportback_confirm_msg[$clc][0]['value'],
     'more_campaigns_link' => NULL,
     'page_title' => NULL,
     'recommended' => NULL,

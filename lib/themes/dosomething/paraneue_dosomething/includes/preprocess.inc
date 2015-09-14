@@ -142,7 +142,25 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     if (isset($vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'])) {
       $header_vars['subtitle'] = $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
     }
-     // Add global header.
+
+    if (isset($vars['node']->field_partners[LANGUAGE_NONE])) {
+      $vars['partners'] = dosomething_taxonomy_get_partners_data($vars['node']->field_partners[LANGUAGE_NONE]);
+      $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($vars['partners']);
+
+      // Output sponsor, if it exists.
+      if ($vars['sponsor_logos']) {
+        $header_vars['promotions'] = $vars['sponsor_logos'];
+
+        $header_vars['promotions'] = '<div class="promotions">' . $header_vars['promotions'] . '</div>';
+      }
+
+      // Add class to header if promotions will be included in display.
+      if (isset($vars['promotions'])) {
+        $vars['classes_array'][] = 'has-promotions';
+      }
+    }
+
+    // Add global header.
     $vars['header'] = theme('header', $header_vars);
   }
 
@@ -248,7 +266,8 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       // Allow CTAs to be properly embedded in between.
       $vars['first_fact_group'] = array_slice($vars['facts'], 0, 5);
       $vars['second_fact_group'] = array_slice($vars['facts'], 5);
-
+      paraneue_dosomething_preprocess_field_partners($vars);
+      paraneue_dosomething_preprocess_fact_page($vars);
       break;
 
     case "home":
@@ -650,3 +669,23 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
   }
 }
+
+/**
+ * Preprocess variables for the fact page.
+ */
+function paraneue_dosomething_preprocess_fact_page(&$vars) {
+  // Output sponsor, if it exists.
+  if ($vars['sponsor_logos']) {
+    $vars['promotions'] = $vars['sponsor_logos'];
+
+    $vars['promotions'] = '<div class="promotions">' . $vars['promotions'] . '</div>';
+  }
+
+  // Add class to header if promotions will be included in display.
+  if (isset($vars['promotions'])) {
+    $vars['classes_array'][] = 'has-promotions';
+  }
+
+  dosomething_helpers_preprocess_partners_vars($vars);
+}
+

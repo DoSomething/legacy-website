@@ -14,15 +14,26 @@ include_once('dosomething_helpers.share.inc');
 
 /**
  * Utility function to check if a variable is set, and return it
- * if it is, otherwise return a default value.
+ * if it is, otherwise return a default value. If the variable is
+ * an array or object, then a $key is passed to select the specific
+ * variable that may or may not exist.
  *
- * @param $var
- * @param null $default
+ * @param string|array|object $var  Variable to check.
+ * @param string $key  If $var is an array or object, key to check.
+ * @param null $value  Set a default value to assign if $var not set.
  *
  * @return array|object|string|integer|null
  */
-function dosomething_helpers_isset($var, $default = NULL) {
-  return isset($var) ? $var : $default;
+function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
+  if (is_array($var) && $key) {
+    return isset($var[$key]) ? $var[$key] : $value;
+  }
+
+  if (is_object($var) && $key) {
+    return isset($var->$key) ? $var->$key : $value;
+  }
+
+  return isset($var) ? $var : $value;
 }
 
 
@@ -47,6 +58,18 @@ function dosomething_helpers_menu() {
     'type' => MENU_CALLBACK,
   );
   return $items;
+}
+
+/**
+ * Utility function to convert dates, defaults to ISO-8601 datetime.
+ */
+function dosomething_helpers_convert_date($date, $format = 'ISO-8601') {
+  $timezone = new DateTimeZone('UTC');
+  $datetime = new DateTime($date, $timezone);
+
+  if ($format === 'ISO-8601') {
+    return $datetime->format(DateTime::ISO8601);
+  }
 }
 
 /**
@@ -81,6 +104,19 @@ function dosomething_helpers_delete_test_nodes() {
  */
 function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NONE) {
   if (isset($field) && !empty($field)) {
+
+    // ---
+    // Temporary fix for translatable fields.
+    // If no specific language requested, attempt to return English value first.
+    //
+    // In future the API will be extended with functionally that controls
+    // output language with a URL parameter.
+    if ($language === LANGUAGE_NONE) {
+      if (!empty($field['en'])) {
+        $language = 'en';
+      }
+    }
+    // ---
 
     $data = $field[$language];
 
@@ -152,6 +188,38 @@ function dosomething_helpers_extract_field_text($data) {
   }
 
   return $data['value'];
+}
+
+
+/**
+ * Utility function to extract ID from object or array with other items.
+ *
+ * @param object|array $data
+ * @param string $property
+ * @return string
+ */
+function dosomething_helpers_extract_id($data, $property = 'nid') {
+  $data = (object) $data;
+
+  return $data->$property;
+}
+
+
+/**
+ * Format a string of comma separated data items into an array, or
+ * if a single item, return it without formatting.
+ *
+ * @param string $data Single or multiple comma separated data items.
+ * @return string|array
+ */
+function dosomething_helpers_format_data($data) {
+  $array = explode(',', $data);
+
+  if (count($array) > 1) {
+    return $array;
+  }
+
+  return $data;
 }
 
 
@@ -440,4 +508,87 @@ function dosomething_helpers_text_truncate($text, $length = 100, $ending = '...'
  */
 function dosomething_helpers_floor_decimal($value, $decimals = 1) {
   return floor($value * pow(10, $decimals)) / pow(10, $decimals);
+}
+
+/**
+ * Adds custom GA event to page
+ *
+ * @param String category The category of the event
+ * @param String action The action being performed
+ * @param String label The event label (Optional)
+ * @param String value The value to be sent (Optional)
+ */
+function dosomething_helpers_add_analytics_event($category, $action, $label = NULL, $value = NULL) {
+  $event_string = '"' . $category . '"' . ', ' . '"' . $action . '"';
+  if ($label) {
+    $event_string = $event_string . ', ' . $label;
+  }
+  if ($value) {
+    $event_string = $event_string  . ',' . $value;
+  }
+  $google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", ' . $event_string . '); }';
+  drupal_add_js($google_analytics_js, 'inline');
+}
+
+/**
+ * Creates a simple query encoded string with basic or customized UTM params
+ * that can be added to any url.
+ * @param  $nid
+ * @param  array $options - custom utm values to use.
+ */
+function dosomething_helpers_utm_parameters($nid, $options = NULL) {
+  // Use the node id for 'utm_campaign', if it is given, otherwise use the custom value in $options
+  $utm_campaign = ($nid) ? $nid : ($options['utm_campaign']) ? $options['utm_campaign'] : NULL;
+
+  $utm_params = array(
+    'utm_source' => (isset($options['utm_source'])) ? $options['utm_source'] : 'dosomething',
+    'utm_medium' => (isset($options['utm_medium'])) ? $options['utm_medium'] : 'site',
+    'utm_campaign' => $utm_campaign,
+  );
+
+  return '?' . http_build_query($utm_params, '', '&');
+}
+
+/**
+ * Returns a property wrapper for the given node.
+ *
+ * @param $data
+ *   The node to wrap.
+ * @param  boolean
+ *   Return langiage-neutral wrapper.
+ *
+ * @return EntityMetadataWrapper
+ *   Dependend on the passed data the right wrapper is returned.
+ */
+function dosomething_helpers_node_metadata_wrapper($node, $ignore_language = FALSE) {
+  $wrapper = entity_metadata_wrapper('node', $node);
+  if (!$ignore_language) {
+    global $language;
+    $wrapper->language($language->language);
+  }
+  return $wrapper;
+}
+
+/**
+ * Returns current language code.
+ *
+ * @return string
+ *   ISO-code of current language
+ */
+function dosomething_helpers_get_current_language_code() {
+  global $language;
+  return $language->language;
+}
+
+/**
+ * Get the filesystem path relative to the application root.
+ *
+ * @param $path
+ *  Optional subdirectory to get the path of.
+ *
+ * @return string
+ *  Filesystem path
+ */
+function dosomething_helpers_application_path($path = '') {
+  return realpath(DRUPAL_ROOT . '/../' . $path);
 }

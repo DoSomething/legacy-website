@@ -88,6 +88,225 @@ function dosomething_search_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['metatags'] = array(
+    'und' => array(
+      'title' => array(
+        'value' => 'Social Change Volunteer Opportunities with DoSomething.org',
+        'default' => '[view:title] | [site:name]',
+      ),
+      'description' => array(
+        'value' => 'Over 200 social change volunteer and community service opportunities.',
+        'default' => '[view:description]',
+      ),
+      'abstract' => array(
+        'value' => 'Over 200 social change volunteer and community service opportunities.',
+        'default' => 'Largest organization for social change volunteers and community service, with [site:member-count] members and counting.',
+      ),
+      'keywords' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'robots' => array(
+        'value' => array(
+          'index' => 0,
+          'follow' => 0,
+          'noindex' => 0,
+          'nofollow' => 0,
+          'noarchive' => 0,
+          'nosnippet' => 0,
+          'noodp' => 0,
+          'noydir' => 0,
+          'noimageindex' => 0,
+          'notranslate' => 0,
+        ),
+        'default' => array(
+          'index' => 0,
+          'follow' => 0,
+          'noindex' => 0,
+          'nofollow' => 0,
+          'noarchive' => 0,
+          'nosnippet' => 0,
+          'noodp' => 0,
+          'noydir' => 0,
+          'noimageindex' => 0,
+          'notranslate' => 0,
+        ),
+      ),
+      'news_keywords' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'standout' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'rights' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'image_src' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'canonical' => array(
+        'value' => '[view:url]',
+        'default' => '[view:url]',
+      ),
+      'shortlink' => array(
+        'value' => '[current-page:url:unaliased]',
+        'default' => '[current-page:url:unaliased]',
+      ),
+      'publisher' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'author' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'original-source' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'revisit-after' => array(
+        'value' => '',
+        'period' => '',
+        'default' => '',
+      ),
+      'content-language' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:card' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:creator' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:creator:id' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:url' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:title' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:description' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image:src' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image:width' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image:height' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image0' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image1' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image2' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:image3' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:player' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:player:width' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:player:height' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:player:stream' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:player:stream:content_type' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:country' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:name:iphone' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:id:iphone' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:url:iphone' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:name:ipad' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:id:ipad' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:url:ipad' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:name:googleplay' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:id:googleplay' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:app:url:googleplay' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:label1' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:data1' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:label2' => array(
+        'value' => '',
+        'default' => '',
+      ),
+      'twitter:data2' => array(
+        'value' => '',
+        'default' => '',
+      ),
+    ),
+  );
   $handler->display->display_options['path'] = 'campaigns';
   $translatables['explore_campaigns'] = array(
     t('Master'),

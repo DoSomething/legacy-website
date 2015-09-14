@@ -2,9 +2,9 @@
 
 TEMP_FILE_1=tmp1.png
 TEMP_FILE_2=tmp2.png
-BOLD_FONT_PATH="$1/fonts/ProximaNova-Bold.otf"
-REG_FONT_PATH="$1/fonts/ProximaNova-Reg.otf"
-FINAL_FILE=$1/images/$2.png
+BOLD_FONT_PATH="$1/ProximaNova-Bold.otf"
+REG_FONT_PATH="$1/ProximaNova-Reg.otf"
+FINAL_FILE=$2/images/problem-$3.png
 
 convert \
   -size 471x248 \
@@ -21,7 +21,7 @@ convert \
   -fill white \
   -font $REG_FONT_PATH \
   -pointsize 24 \
-  caption:"$3" \
+  caption:"$4" \
   $TEMP_FILE_2 \
 
 composite \

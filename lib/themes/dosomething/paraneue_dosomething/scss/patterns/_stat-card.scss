@@ -39,6 +39,6 @@ $dark-blue: #0081BC;
 
   .stat-card__chart {
     border: solid 2px $light-gray;
-    border-top: none;
+    border-top: 0;
   }
 }

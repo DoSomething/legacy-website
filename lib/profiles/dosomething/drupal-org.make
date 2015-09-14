@@ -32,7 +32,7 @@ projects[cdn][version] = "2.6"
 projects[cdn][subdir] = "contrib"
 
 ; Ctools
-projects[ctools][version] = "1.7"
+projects[ctools][version] = "1.8"
 projects[ctools][subdir] = "contrib"
 
 ; Date
@@ -50,6 +50,10 @@ projects[entity][subdir] = "contrib"
 ; Entity Autocomplete
 projects[entity_autocomplete][version] = "1.0-beta3"
 projects[entity_autocomplete][subdir] = "contrib"
+
+; Entity Translation
+projects[entity_translation][version] = "1.0-beta4"
+projects[entity_translation][subdir] = "contrib"
 
 ; Entity Connect
 projects[entityconnect][version] = "1.0-rc1"
@@ -181,6 +185,12 @@ projects[strongarm][subdir] = "contrib"
 projects[taxonomy_access_fix][version] = "2.1"
 projects[taxonomy_access_fix][subdir] = "contrib"
 
+; Title
+; Dev branch used: 2015-Mar-23
+; Fixes a bug with table layout on content type manage fields page.
+projects[title][version] = "1.x-dev"
+projects[title][subdir] = "contrib"
+
 ; Token
 projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
@@ -290,5 +300,5 @@ libraries[stripe-php][download][tag] = "v1.18.0"
 ; Zendesk PHP
 libraries[zendesk][download][type] = "git"
 libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
-; Use last working commit. See https://github.com/DoSomething/dosomething/issues/2064
+; Use last working commit. See https://github.com/DoSomething/phoenix/issues/2064
 libraries[zendesk][download][revision] = "6aa9662fb1ed45b6bcc93ef9e1e4ab14685e80ac"

@@ -52,9 +52,8 @@ function dosomething_fact_page_field_group_info() {
     'label' => 'Facts',
     'weight' => '2',
     'children' => array(
-      0 => 'field_facts',
-      1 => 'field_intro_image',
-      2 => 'field_fact_collection',
+      0 => 'field_intro_image',
+      1 => 'field_fact_collection',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

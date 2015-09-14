@@ -269,13 +269,6 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
-  $form['goals']['dosomething_campaign_enable_hot_module'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Enable hot module feature'),
-    '#default_value' => variable_get('dosomething_campaign_enable_hot_module', FALSE),
-    '#description' => t("If set, hot module functionality will be turned on."),
-  ];
-
   $form['goals']['dosomething_campaign_share_copy'] = [
     '#type' => 'textfield',
     '#title' => t('Hot module share copy'),
@@ -323,6 +316,32 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Hot module 100% progress copy'),
     '#default_value' => variable_get('dosomething_campaign_100_progress_copy', t('Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time.')),
     '#description' => t('Sets the hot module progress copy for 100%'),
+  ];
+
+  // Win module
+  $form['win'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Win module'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['win']['dosomething_campaign_enable_win_module'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable win module feature'),
+    '#default_value' => variable_get('dosomething_campaign_enable_win_module', FALSE),
+    '#description' => t("If set, win module functionality will be turned on."),
+  ];
+  $form['win']['dosomething_campaign_win_share_copy'] = [
+    '#type' => 'textfield',
+    '#title' => t('Win module share copy'),
+    '#default_value' => variable_get('dosomething_campaign_win_share_copy', 'show the world what we did!'),
+    '#description' => t("Sets the win module share copy"),
+  ];
+  $form['win']['dosomething_campaign_win_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Win module copy'),
+    '#default_value' => variable_get('dosomething_campaign_win_copy', t('[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the prove it section below.')),
+    '#description' => t("Sets the win module copy"),
   ];
 
   return system_settings_form($form);

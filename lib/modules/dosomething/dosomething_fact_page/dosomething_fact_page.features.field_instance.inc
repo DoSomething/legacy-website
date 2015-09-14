@@ -26,12 +26,19 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'type' => 'text_default',
         'weight' => 1,
       ),
+      'dosomething_search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_compound_text_copy',
     'label' => 'Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -62,6 +69,12 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'type' => 'entityreference_label',
         'weight' => 0,
       ),
+      'dosomething_search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'field_collection_item',
     'entityconnect_unload_add' => 0,
@@ -70,6 +83,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Fact',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -101,6 +115,12 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'type' => 'entityreference_label',
         'weight' => 2,
       ),
+      'dosomething_search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
     ),
     'entity_type' => 'field_collection_item',
     'entityconnect_unload_add' => 1,
@@ -109,6 +129,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Campaign',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -157,6 +178,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Call to Action',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -204,6 +226,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -261,6 +284,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'optional',
       'title_maxlength' => 128,
@@ -316,6 +340,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Facts',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -363,6 +388,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Facts Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -375,6 +401,56 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-fact_page-field_partners'
+  $field_instances['node-fact_page-field_partners'] = array(
+    'bundle' => 'fact_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 16,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partners',
+    'label' => 'Sponsors and Partners',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 12,
     ),
   );
 
@@ -411,6 +487,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Primary Cause',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -455,6 +532,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -485,6 +563,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
 You can use [link] to link to the Campaign selected in the Campaign field, e.g. <em>Want to find out more? Sign up for [link] today!</em>');
   t('Primary Cause');
   t('Select the Fact to display.');
+  t('Sponsors and Partners');
   t('Subtitle');
   t('Use an internal URL such as <em>node/711</em> or <em>campaigns</em>.  
 

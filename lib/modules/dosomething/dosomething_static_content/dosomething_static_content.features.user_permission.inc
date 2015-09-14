@@ -14,7 +14,9 @@ function dosomething_static_content_user_default_permissions() {
   $permissions['create static_content content'] = array(
     'name' => 'create static_content content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -46,7 +48,9 @@ function dosomething_static_content_user_default_permissions() {
   $permissions['edit own static_content content'] = array(
     'name' => 'edit own static_content content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

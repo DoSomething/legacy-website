@@ -127,7 +127,7 @@ function dosomething_helpers_update_7003() {
     }
   }
   // Last, cleanup unused 'mailchimp_id' variables that were never deleted.
-  // @see https://github.com/DoSomething/dosomething/issues/1476
+  // @see https://github.com/DoSomething/phoenix/issues/1476
   // Grab all mailchimp_id variables.
   $result = db_select('variable', 'v')
     ->fields('v')
@@ -181,5 +181,15 @@ function dosomething_helpers_update_7007() {
   db_delete('dosomething_helpers_variable')
     ->condition('entity_type', 'node')
     ->condition('name', 'alt_bg_fid')
+    ->execute();
+}
+
+function dosomething_helpers_update_7008() {
+  $table = 'dosomething_helpers_variable';
+  db_update($table)
+    ->fields(array(
+      'name' => 'sum_rb_quantity'
+    ))
+    ->condition('name', 'sum_rb_quanity', '=')
     ->execute();
 }

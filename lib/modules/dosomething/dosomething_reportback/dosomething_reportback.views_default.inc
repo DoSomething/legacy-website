@@ -82,7 +82,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['header']['result']['field'] = 'result';
   $handler->display->display_options['header']['result']['empty'] = TRUE;
   $handler->display->display_options['header']['result']['content'] = 'Displaying @start - @end of @total Reportback Images';
-  /* Relationship: Reportback file: Reportback File rbid */
+  /* Relationship: Reportback Item: Reportback File rbid */
   $handler->display->display_options['relationships']['rbid']['id'] = 'rbid';
   $handler->display->display_options['relationships']['rbid']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['relationships']['rbid']['field'] = 'rbid';
@@ -93,12 +93,14 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['relationship'] = 'rbid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Field: Reportback file: Reportback file fid */
+  /* Field: Reportback Item: Reportback file fid */
   $handler->display->display_options['fields']['fid']['id'] = 'fid';
-  $handler->display->display_options['fields']['fid']['table'] = 'views_entity_reportback_file';
+  $handler->display->display_options['fields']['fid']['table'] = 'views_entity_reportback_item';
   $handler->display->display_options['fields']['fid']['field'] = 'fid';
-  $handler->display->display_options['fields']['fid']['link_to_entity'] = 0;
-  /* Field: Reportback file: Reportback File rbid */
+  $handler->display->display_options['fields']['fid']['link_to_entity'] = 1;
+  $handler->display->display_options['fields']['fid']['view_mode'] = 'teaser';
+  $handler->display->display_options['fields']['fid']['bypass_access'] = 0;
+  /* Field: Reportback Item: Reportback File rbid */
   $handler->display->display_options['fields']['rbid_1']['id'] = 'rbid_1';
   $handler->display->display_options['fields']['rbid_1']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['fields']['rbid_1']['field'] = 'rbid';
@@ -115,38 +117,44 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['nid']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['nid']['view_mode'] = 'full';
   $handler->display->display_options['fields']['nid']['bypass_access'] = 0;
-  /* Field: Reportback file: Rendered Reportback file */
+  /* Field: Reportback Item: Rendered Reportback Item */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
-  $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_reportback_file';
+  $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_reportback_item';
   $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['label'] = 'Image';
-  $handler->display->display_options['fields']['rendered_entity']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['rendered_entity']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['rendered_entity']['display'] = 'view';
   $handler->display->display_options['fields']['rendered_entity']['view_mode'] = 'full';
   $handler->display->display_options['fields']['rendered_entity']['bypass_access'] = 1;
-  /* Field: Reportback file: Status */
+  /* Field: Reportback Item: Status */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'Item Status';
+  /* Field: Reportback: Flagged status */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'rbid';
+  $handler->display->display_options['fields']['flagged']['label'] = 'Reportback flagged status';
   /* Field: Reportback: Quantity */
   $handler->display->display_options['fields']['quantity']['id'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
   $handler->display->display_options['fields']['quantity']['field'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['relationship'] = 'rbid';
-  /* Sort criterion: Reportback file: Reportback file fid */
+  /* Sort criterion: Reportback Item: Reportback file fid */
   $handler->display->display_options['sorts']['fid']['id'] = 'fid';
   $handler->display->display_options['sorts']['fid']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['sorts']['fid']['field'] = 'fid';
   $handler->display->display_options['sorts']['fid']['order'] = 'DESC';
-  /* Filter criterion: Reportback file: Status */
+  /* Filter criterion: Reportback Item: Status */
   $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
   $handler->display->display_options['filters']['status_1']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['filters']['status_1']['field'] = 'status';
   $handler->display->display_options['filters']['status_1']['operator'] = '!=';
   $handler->display->display_options['filters']['status_1']['value'] = 'pending';
   $handler->display->display_options['filters']['status_1']['group'] = 1;
-  /* Filter criterion: Reportback file: Status */
+  /* Filter criterion: Reportback Item: Status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'dosomething_reportback_file';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -345,9 +353,11 @@ function dosomething_reportback_views_default_views() {
     t('.'),
     t('Campaign'),
     t('Image'),
-    t('Status'),
+    t('Item Status'),
+    t('Reportback flagged status'),
     t('Quantity'),
     t(','),
+    t('Status'),
     t('Flagged Reason'),
     t('Promoted Reason'),
     t('Page'),

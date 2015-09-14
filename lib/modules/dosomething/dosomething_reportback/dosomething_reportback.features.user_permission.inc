@@ -31,6 +31,9 @@ function dosomething_reportback_user_default_permissions() {
     'name' => 'edit any reportback',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
+      'member support' => 'member support',
+      'site admin' => 'site admin',
     ),
     'module' => 'dosomething_reportback',
   );
@@ -47,9 +50,11 @@ function dosomething_reportback_user_default_permissions() {
     'name' => 'view any reportback',
     'roles' => array(
       'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
       'member support' => 'member support',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'dosomething_reportback',
   );

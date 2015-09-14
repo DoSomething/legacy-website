@@ -14,7 +14,9 @@ function dosomething_campaign_run_user_default_permissions() {
   $permissions['create campaign_run content'] = array(
     'name' => 'create campaign_run content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -46,7 +48,9 @@ function dosomething_campaign_run_user_default_permissions() {
   $permissions['edit own campaign_run content'] = array(
     'name' => 'edit own campaign_run content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

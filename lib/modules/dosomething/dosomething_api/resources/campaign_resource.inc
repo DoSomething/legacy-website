@@ -196,7 +196,6 @@ function _campaign_resource_definition() {
  * @param array $args
  *   Resource arguments passed through from the original request.
  * @return bool
- *
  * @see node_access()
  */
 // @TODO: Function will be deprecated and currently only used in soon to be deprecated targeted actions.
@@ -235,7 +234,6 @@ function _campaign_resource_access_alt($op = 'view', $args = array()) {
  * Determine whether the current user can access campaign resource.
  *
  * @param string $op
- *
  * @return bool
  */
 function _campaign_resource_access($op) {
@@ -255,7 +253,6 @@ function _campaign_resource_access($op) {
  * Retrieve and show response for campaign request.
  *
  * @param string $nid
- *
  * @return object
  */
 function _campaign_resource_retrieve($nid) {
@@ -273,7 +270,6 @@ function _campaign_resource_retrieve($nid) {
  * @param int $count
  * @param bool $random
  * @param int $page
- *
  * @return object
  */
 function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
@@ -388,7 +384,6 @@ function _campaign_resource_reportback($nid, $values) {
  * @param int $start
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause to select RB Files. This could be used to do paging.
- *
  * @return array
  *   An array of Reportback File objects.
  */

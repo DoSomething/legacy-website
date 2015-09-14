@@ -145,6 +145,13 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#default_value' => $num_friends,
     '#access' => FALSE,
   );
+  $form['#attributes'] = array(
+    'class' => ['sms-campaign-form'],
+  );
+  // If this is a multiplayer game, add style overrides.
+  if ($form['sms_game_type']['#default_value'] === 'multi_player') {
+    $form['#attributes']['class'][] = 'sms-campaign-form--multiplayer';
+  }
   // Load "all participants" copy.
   $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
   $form['all_participants_copy'] = array(
@@ -163,14 +170,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
       'placeholder' => t('First Name'),
     ),
   );
-  // Add fieldsets to wrappers to various mobile form elements.
-  $form['group1'] = array(
-    '#type' => 'fieldset',
-    '#attributes' => array(
-      'class' => array('campaign-sms-numbers'),
-    ),
-  );
-  $form['group1']['alpha_mobile'] = array(
+  $form['alpha_mobile'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
@@ -183,12 +183,22 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
-    $form['group1']['beta_first_name_' .$i] = array(
-      '#type' => 'hidden',
-      '#title' => 'Your Friend\'s Name',
-    );
+    // If this is a multiplayer game, add first name fields.
+    if ($form['sms_game_type']['#default_value'] === 'multi_player') {
+      $form['beta_first_name_' .$i] = array(
+        '#type' => 'textfield',
+        '#title' => 'Your Friend\'s Name',
+        '#required' => TRUE,
+        '#attributes' => array(
+          'data-validate' => 'friend_name',
+          'data-validate-required' => '',
+          'placeholder' => t('Friend\'s Name'),
+          'autocomplete' => 'off',
+        ),
+      );
+    }
 
-    $form['group1']['beta_mobile_' .$i] = array(
+    $form['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => 'Friend\'s Cell Number',
@@ -248,8 +258,11 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
   $mp_story_id = $vars['sms_game_mp_story_id'];
   $mp_story_type = $vars['sms_game_mp_story_type'];
 
+  $has_single_player_config = $opt_in_path && $friends_opt_in_path;
+  $has_multiplayer_config = $mp_story_id && $mp_story_type;
+
   // Check for single-player variables:
-  if ($opt_in_path && $friends_opt_in_path) {
+  if ($has_single_player_config && !$has_multiplayer_config) {
     $sms_game_type = 'single_player';
     $form['opt_in_path'] = array(
       '#type' => 'hidden',
@@ -261,7 +274,7 @@ function dosomething_signup_sms_game_form_config(&$form, $nid) {
     );
   }
   // Else check for multi-player variables:
-  elseif ($mp_story_id && $mp_story_type) {
+  elseif ($has_multiplayer_config && !$has_single_player_config) {
     $sms_game_type = 'multi_player';
     $form['story_id'] = array(
       '#type' => 'hidden',
@@ -349,7 +362,7 @@ function dosomething_signup_sms_game_form_submit($form, &$form_state) {
     // Create a signup.
     dosomething_signup_create($nid);
     // @todo: Save mobile and first name to user if not set.
-    // @see https://github.com/DoSomething/dosomething/issues/2274.
+    // @see https://github.com/DoSomething/phoenix/issues/2274.
   }
 
   // Check if an account exists for the given alpha mobile.

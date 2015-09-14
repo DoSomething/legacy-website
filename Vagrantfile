@@ -1,8 +1,8 @@
 Vagrant.configure("2") do |config|
 
   ## Choose your base box
-  config.vm.box = "dosomething/drupal"
-  config.vm.box_version = "1.0.3"
+  config.vm.box = "dosomething/phoenix"
+  config.vm.box_version = "1.0.4"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -30,9 +30,9 @@ Vagrant.configure("2") do |config|
   end
 
   # Allow `npm link` for Neue
-  if File.exists?("/usr/local/lib/node_modules/dosomething-neue")
-    config.vm.synced_folder "/usr/local/lib/node_modules/dosomething-neue",
-      "/usr/local/lib/node_modules/dosomething-neue",
+  if File.exists?("/usr/local/lib/node_modules/@dosomething/forge")
+    config.vm.synced_folder "/usr/local/lib/node_modules/@dosomething/forge",
+      "/usr/local/lib/node_modules/@dosomething/forge",
       owner: "www-data", group: "www-data"
   end
 

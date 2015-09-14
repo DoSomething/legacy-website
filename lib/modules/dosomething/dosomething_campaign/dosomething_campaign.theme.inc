@@ -13,7 +13,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
-  $wrapper = entity_metadata_wrapper('node', $node);
+  $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $current_path = current_path();
 
@@ -28,11 +28,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
-  // If the hot module is enabled and the high season is set on a campaign.
-  if (dosomething_campaign_is_hot_module($vars)) {
-    $vars['hot_module_enabled'] = TRUE;
-    dosomething_campaign_preprocess_hot_module($vars, $wrapper);
-  }
+  // Preprocess common vars between all campaign types for non-pitch templates.
+  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   $pitch_path = 'node/' . $node->nid . '/pitch';
   if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
@@ -41,9 +38,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     return;
   }
-
-  // Preprocess common vars between all campaign types for non-pitch templates.
-  dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   // Check if current path is active path.
   // @see dosomething_campaign_menu().
@@ -67,6 +61,17 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_sms_game($vars, $wrapper);
     return;
   }
+
+  // If the hot module is enabled and the high season is set on a campaign.
+  if (dosomething_campaign_is_hot_module($vars)) {
+    dosomething_campaign_preprocess_hot_module($vars, $wrapper);
+  }
+
+  // If the win module is enabled
+  if (dosomething_campaign_is_win_module($vars)) {
+    dosomething_campaign_preprocess_win_module($vars, $wrapper);
+  }
+
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);
@@ -105,6 +110,127 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   if (isset($vars['content']['zendesk_form'])) {
     $vars['zendesk_form'] = $vars['content']['zendesk_form'];
   }
+
+  // Problem shares
+  $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
+  $campaign = $vars['campaign'];
+
+  if ($vars['show_problem_shares']) {
+    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
+    if ($problem_share_prompt) {
+      $vars['problem_share_prompt'] = $problem_share_prompt;
+    }
+
+    $base_url = url(base_path(), array('absolute'=> TRUE));
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+    // Create the image path to the problem fact statement image generated for the node.
+    $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '.png';
+
+    $share_types = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'parameters' => array(
+          'picture' => $problem_share_image,
+        ),
+      ),
+      'twitter' => array(
+        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $problem_share_image,
+        'caption' => t("This is REAL, do something about this with me: "),
+      ),
+    );
+
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-menu -with-callout');
+  }
+
+  // Hot and win module variables.
+  if (dosomething_campaign_is_win_module($vars) || dosomething_campaign_is_hot_module($vars)) {
+    $author = user_load($vars['uid']);
+    $first_name = check_plain($wrapper->author->field_first_name->value());
+    $last_name = check_plain($wrapper->author->field_last_name->value());
+
+    $vars['author_name']  = $first_name . ' ' . $last_name;
+    $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
+    if ($author->picture) {
+      $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+    }
+
+    $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
+  }
+}
+
+/**
+ * Create the markup for the win module.
+ */
+function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
+  $node = node_load($vars['nid']);
+  $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
+  $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
+
+  // Get random promoted reportback image
+  $parameters = array(
+    'nid' => $vars['nid'],
+    'status' => 'promoted',
+    'count' => '1',
+    'random' => true,
+  );
+  $promoted_image = NULL;
+  try {
+    // First try and retrieve a promoted reportback
+    $promoted_image = ReportbackItem::find($parameters)[0]->media['uri'];
+  }
+  catch (Exception $error) {
+    // If that fails try and find just an approved ReportbackItem
+    try {
+      $parameters['status'] = 'approved';
+      $promoted_image = ReportbackItem::find($parameters)[0]->media['uri'];
+    }
+    catch (Exception $error) {
+      // Do nothing, the template has a null check
+    }
+  }
+
+  // Share bar
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+  $share_language = t('@progress @noun_verb! Thanks to everyone for rocking this campaign with @dosomething. Let\'s keep it up. ', array('@progress' => number_format($rb_progress, 0, '', ','), '@noun_verb' => $vars['reportback_noun_verb']));
+
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $vars['hero_image']['desktop'],
+        'caption' => $share_language,
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => $share_language,
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $vars['hero_image']['desktop'],
+      'caption' => $share_language,
+    )
+  );
+
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Win Share', 'social-menu -with-callout');
+
+  $win_module_variables = array(
+    'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
+    'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
+    'campaign_progress' => $rb_progress,
+    'reportback_noun_verb' => $vars['reportback_noun_verb'],
+    'author_name' => $vars['author_name'],
+    'author_title' => $vars['author_title'],
+    'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
+    'share_bar' => $share_bar,
+    'promoted_image' => $promoted_image,
+  );
+
+  $vars['win_module'] = theme('win_module_block', $win_module_variables);
 }
 
 /**
@@ -112,29 +238,20 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
  */
 function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $node = node_load($vars['nid']);
-  //Calculate days left
-  $today = new DateTime();
-  $end_date = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']);
-  $difference = $today->diff($end_date, true);
-  $days_left = $difference->d;
+  $date_format = 'm/d/Y';
 
-  if ($days_left >= 8) {
-    $vars['time_left'] = t('Ends ' . $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S'));
-  }
-  elseif ($days_left >= 3) {
-    $vars['time_left'] = t($end_date->format('j') . ' days left');
-  }
-  else {
-    $vars['time_left'] = t($difference->h . ' hours left');
-  }
+  $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
+  $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
+  $readable_end_date = $end_date->format('F') . ' ' . $end_date->format('j') . $end_date->format('S');
+  $time_left = dosomething_campaign_get_hot_time_left($node);
+
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
-  $vars['goal'] = $goal;
 
   $rb_percent = NULL;
   if ($goal) {
-    $rb_progress = dosomething_reportback_get_reportback_total_by_nid($node->nid);
+    $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
     $rb_percent = ($rb_progress / $goal) * 100;
   }
 
@@ -142,40 +259,44 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $rb_percent = 0;
   }
 
-  if ($rb_percent <= 20) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_0_20_progress_copy');
+  $override_copy = dosomething_helpers_get_variable('node', $vars['nid'], 'progress_copy_override');
+  if ($override_copy) {
+    $progress_copy = $override_copy;
+  }
+  elseif ($rb_percent <= 20) {
+    $progress_copy = variable_get('dosomething_campaign_0_20_progress_copy');
   }
   elseif ($rb_percent <= 40) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_21_40_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_21_40_progress_copy');
   }
   elseif ($rb_percent <= 60) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_41_60_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_41_60_progress_copy');
   }
   elseif ($rb_percent <= 80) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_61_80_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_61_80_progress_copy');
   }
   elseif ($rb_percent <= 99) {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_81_99_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_81_99_progress_copy');
   }
   else {
-    $vars['progress_copy'] = variable_get('dosomething_campaign_100_progress_copy');
+    $progress_copy = variable_get('dosomething_campaign_100_progress_copy');
   }
 
-  $vars['progress_copy'] = token_replace($vars['progress_copy'], array('node' => $node));
-  $vars['progress_copy'] = str_replace('[campaign_goal]', $goal, $vars['progress_copy']);
+  $progress_copy = token_replace($progress_copy, array('node' => $node));
+  $progress_copy = str_replace('[campaign_goal]', number_format($goal, 0, '', ','), $progress_copy);
 
-  $vars['reportback_noun_verb'] = $wrapper->field_reportback_noun->value() . " " . $wrapper->field_reportback_verb->value();
-
-  $vars['hot_module_share_copy'] = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
+  $share_copy = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
 
 
   // json file of reportback quantity
-  $quantity_by_date = db_query("SELECT quantity, max(from_unixtime(timestamp)) as maxdate
+  $quantity_by_date = db_query("SELECT max(quantity) as quantity, max(from_unixtime(timestamp)) as maxdate
                                FROM dosomething_reportback_progress_log
                                WHERE nid = :nid
                                GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
+
   foreach($quantity_by_date as $date) {
-    $dates[] = $date->maxdate;
+    $maxdate = new DateTime($date->maxdate);
+    $dates[] = $maxdate->format($date_format);
     $quantities[] = $date->quantity;
   }
 
@@ -183,11 +304,11 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     array('dosomethingCampaign' =>
       array(
         'goals' => array(
-          'dates' => json_encode($dates),
-          'quantities' => json_encode($quantities),
+          'dates' => (isset($dates)) ? $dates : null,
+          'quantities' => (isset($quantities)) ? $quantities : null,
           'highSeason' => array(
-            'start' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value']),
-            'end' => new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']),
+            'start' => $start_date->format($date_format),
+            'end' => $end_date->format($date_format)
           )
         ),
       ),
@@ -195,14 +316,49 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     'setting'
   );
 
-  // Campaign author information
-  $author = user_load($vars['uid']);
-  $first_name = check_plain($wrapper->author->field_first_name->value());
-  $last_name = check_plain($wrapper->author->field_last_name->value());
+  // Share links
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
 
-  $vars['author_name']  = $first_name . ' ' . $last_name;
-  $vars['author_title'] = check_plain($wrapper->author->field_job_title->value());
-  $vars['author_image'] = dosomething_image_get_themed_image_by_fid($author->picture->fid, '300x300');
+  $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
+
+  // Create the image path to the hot module share image generated for the node.
+  $base_url = url(base_path(), array('absolute'=> TRUE));
+  $hot_share_image = $base_url . 'sites/default/files/images/hot-' . $vars['nid'] . '.png';
+
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $hot_share_image,
+        'caption' => t('@goal? Let\'s make it happen', array('@goal' => $goal_copy))
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => t('Be a part of @dosomething reaching @goal- who\'s ready to rumble?! ', array('@goal' => $goal_copy)),
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $hot_share_image,
+      'caption' => t('Think you can make @dosomething reach @goal? Prove it: ', array('@goal' => $goal_copy)),
+    ),
+  );
+
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Hot Share', 'social-menu -with-callout');
+
+  $hot_module_variables = array(
+    'goal' => $goal,
+    'progress_copy' => $progress_copy,
+    'campaign_progress' => dosomething_reportback_get_reportback_total_plus_override($vars['nid']),
+    'time_left' => $time_left,
+    'reportback_noun_verb' => $vars['reportback_noun_verb'],
+    'author_name' => $vars['author_name'],
+    'author_title' => $vars['author_title'],
+    'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
+    'share_copy' => $share_copy,
+    'share_bar' => $share_bar,
+  );
+
+  $vars['hot_module'] = theme('hot_module_block', $hot_module_variables);
 }
 
 /**
@@ -252,51 +408,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $campaign = $vars['campaign'];
 
   // Progress
-  if (theme_get_setting('show_campaign_progress')) {
-    $vars['campaign_progress'] = dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
-  }
+  $vars['campaign_progress'] = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
 
   // Know It.
-
-  // Problem shares.
-
-  // Share prompt.
-  $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
-
-  if ($vars['show_problem_shares']) {
-    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
-    if ($problem_share_prompt) {
-      $vars['problem_share_prompt'] = $problem_share_prompt;
-    }
-
-    $base_url = url(base_path(), array('absolute'=> TRUE));
-    $campaign_path = url(current_path(), array('absolute' => TRUE));
-
-    // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'profiles/dosomething/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares/images/' . $vars['nid'] . '.png';
-
-    // Create the tweet for twitter.
-    if (isset($campaign->fact_problem)) {
-      $tweet = $campaign->fact_problem['fact'] . " " . $campaign_path;
-    }
-
-    // Facebook feed dialog parameters, using the problem share image instead of the image set in the metatag.
-    $fb_options = array(
-      'picture' => $problem_share_image,
-    );
-
-    // Tumblr share parameters.
-    $tumblr_options = array(
-      'posttype' => 'photo',
-      'content' => $problem_share_image,
-      'caption' => "This is REAL, do something about this with me: " . $campaign_path,
-    );
-
-    // Create the intent links
-    $vars['fb_link'] = dosomething_helpers_get_facebook_intent($campaign_path, 'feed_dialog', $fb_options);
-    $vars['twitter_link'] = dosomething_helpers_get_twitter_intent($tweet);
-    $vars['tumblr_link'] = dosomething_helpers_get_tumblr_intent($tumblr_options);
-  }
 
   // Plan.
 
@@ -435,8 +549,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['reportback_form'] = $vars['content']['reportback_form'];
 
   // Add analytics custom event on action page.
-  $js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", "Action Page View", "' . $vars['title'] . '"); }';
-  drupal_add_js($js, 'inline');
+  dosomething_helpers_add_analytics_event("Action Page View", $vars['title']);
+
+  $optimizely_js = 'window["optimizely"] = window["optimizely"] || []; window.optimizely.push(["trackEvent", "Action Page View"]);';
+  drupal_add_js($optimizely_js, 'inline');
 
 }
 
@@ -500,7 +616,7 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Moar $tagline.
   $vars['tagline'] .= t('Any cause, anytime, anywhere.');
 
-  $campaign_progress = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quantity_override') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'sum_rb_quanity');
+  $campaign_progress = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
   // Get sign up total and add it to cta
   $signup_count = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'web_signup_count') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'mobile_signup_count');
   $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
