@@ -425,7 +425,6 @@ abstract class Transformer {
   protected function transformReportbackItem($data) {
     $output = [
       'id' => $data->id,
-      'drupal_id' => $data->drupal_id,
       'status' => $data->status,
       'caption' => $data->caption,
       'uri' => $data->uri . '.json',
@@ -459,6 +458,7 @@ abstract class Transformer {
   protected function transformUser($data) {
     return array(
       'id' => $data->id,
+      'drupal_id' => $data->drupal_id,
       'first_name' => $data->first_name,
       'last_name' => $data->last_name,
       'photo' => $data->photo,
