@@ -59,7 +59,7 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
     foreach ($fields as $field_name => $field) {
       $field_info = field_info_field($field_name);
       // If the field is not translatable disable access
-      if (!$field_info['translatable']) {
+      if (!$field_info['translatable'] && strpos($field_name, '#') === FALSE) {
         $form[$field_name]['#access'] = FALSE;
       }
     }
