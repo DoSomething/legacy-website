@@ -31,10 +31,13 @@
 
     &.-columned {
       @include span(6 of 12);
-      @include vertical-align(138px, statistic__body, middle);
+      display: table;
+      height: 138px;
       margin-right: 0;
 
       .statistic__body {
+        display: table-cell;
+        vertical-align: middle;
         padding: 0 36px;
       }
     }

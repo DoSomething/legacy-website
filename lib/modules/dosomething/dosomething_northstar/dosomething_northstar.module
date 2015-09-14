@@ -133,7 +133,7 @@ function dosomething_northstar_get_northstar_user($id) {
   } else {
     $client = _dosomething_northstar_build_http_client();
 
-    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/_id/' . $id, array(
+    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
       'headers' => $client['headers'],
       'method' => 'GET',
       ));

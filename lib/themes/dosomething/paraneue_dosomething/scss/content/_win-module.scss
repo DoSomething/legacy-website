@@ -70,13 +70,13 @@
     }
 
     .author-callout {
+      margin-bottom: $base-spacing;
+
       @include media($large) {
         @include span(8 of 12);
       }
 
       .figure {
-        width: 100%;
-
         @include media($larger) {
           @include span(6 of 12);
         }

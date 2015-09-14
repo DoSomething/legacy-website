@@ -5,12 +5,6 @@
     }
   }
 
-  .container {
-    &.-purple {
-      background: $purple;
-    }
-  }
-
   .card {
     height: 100%;
   }
@@ -30,19 +24,11 @@
   }
 
   .cta {
-    border-top: 0;
+    border: 0;
 
     @include media($tablet) {
       display: table-footer-group;
       border-top: 2px solid $light-gray;
-    }
-
-    .social-icon {
-      padding: $base-spacing / 2;
-
-      @include media($tablet) {
-        padding: $base-spacing;
-      }
     }
   }
 
@@ -52,44 +38,6 @@
     &.is-shown {
       display: block;
       margin-top: 0px;
-    }
-  }
-}
-
-//@TODO - Move to Neue as a modifier for the cta pattern
-.cta.-share {
-  padding: 0px;
-
-  > .wrapper {
-    padding-bottom: 0px;
-  }
-
-  li {
-    float: left;
-    @include span(2 of 6);
-    text-align: center;
-
-    &:hover {
-      background: $blue;
-      cursor: pointer;
-
-      .social-icon {
-        color: $white;
-      }
-    }
-
-    .social-icon {
-      display: block;
-      color: $med-gray;
-      padding: $base-spacing;
-
-      &:hover {
-        color: $white;
-      }
-
-      &:after {
-        font-size: 36px;
-      }
     }
   }
 }

@@ -144,7 +144,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       ),
     );
 
-    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-share-bar -with-callout');
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-menu -with-callout');
   }
 
   // Hot and win module variables.
@@ -216,7 +216,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
     )
   );
 
-  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Win Share', 'social-share-bar -with-callout');
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Win Share', 'social-menu -with-callout');
 
   $win_module_variables = array(
     'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
@@ -343,7 +343,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     ),
   );
 
-  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Hot Share', 'social-share-bar -with-callout');
+  $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Hot Share', 'social-menu -with-callout');
 
   $hot_module_variables = array(
     'goal' => $goal,

@@ -124,10 +124,7 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
  *     including the relevant parameters needed to create the custom intents.
  * @param string $share_description
  *   A custom value to use for 'utm_campaign'.
- * @param string $analytics_class
- *   A base class to use for Google Analytics tracking. @TODO - This implementation is temporary. We will be refactoring
- *   how google analtyics tracking is implemented. Discussion happening in issue #4793
- * @return
+ * @return string
  *   Share bar markup.
  */
 function dosomething_helpers_share_bar($path, $share_types, $share_description, $classes = NULL) {

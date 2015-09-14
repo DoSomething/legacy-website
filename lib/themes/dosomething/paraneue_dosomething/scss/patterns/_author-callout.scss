@@ -3,42 +3,10 @@
 
   @include media($large) {
     @include span(7 of 12);
-    margin-top: 0px;
-  }
-
-  .author-callout__copy {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    background-color: $light-gray;
-    border-radius: 10px;
-    padding: $base-spacing;
-    text-align: left;
-    font-size: $font-small;
-    margin-bottom: $base-spacing * 2;
-
-    &:before {
-      position: absolute;
-      content: '';
-      width: 0;
-      height: 0;
-      left: 15%;
-      top: 100%;
-      border: 10px solid;
-      border-color: $light-gray transparent transparent $light-gray;
-    }
+    margin-top: 0;
   }
 
   .figure {
     margin-bottom: $base-spacing;
-  }
-
-  .author-callout__first-name {
-    font-size: $font-medium;
-    font-weight: $weight-sbold;
-  }
-
-  .author-callout__last-name {
-    margin-top: 0px;
   }
 }

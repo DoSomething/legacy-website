@@ -152,8 +152,18 @@ class Reportback extends Entity {
         'verb' => $data->verb,
       ],
     ];
+
+    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
+    $northstar_user = json_decode($northstar_user->data, true);
+    $northstar_user = (object) $northstar_user['data'][0];
+
     $this->user = [
-      'id' => $data->uid,
+      'drupal_id' => $data->uid,
+      'id' => $northstar_user->_id,
+      'first_name' => $northstar_user->first_name,
+      'last_name' => $northstar_user->last_name,
+      'photo' => $northstar_user->photo,
+      'country' => $northstar_user->country,
     ];
   }
 
