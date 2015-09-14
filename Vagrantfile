@@ -37,16 +37,16 @@ Vagrant.configure("2") do |config|
   end
 
   # Http and https.
-  config.vm.network :forwarded_port, guest: 80, host: 8888
-  config.vm.network :forwarded_port, guest: 443, host: 8889
+  config.vm.network :forwarded_port, guest: 80, host: 1111
+  config.vm.network :forwarded_port, guest: 443, host: 5555
 
   config.vm.host_name = "dev.dosomething.org"
 
   # With Varnish
-  config.vm.network :forwarded_port, guest: 6081, host: 9999
+  config.vm.network :forwarded_port, guest: 6081, host: 3333
 
   # Solr.
-  config.vm.network :forwarded_port, guest: 8983, host: 8983
+  config.vm.network :forwarded_port, guest: 8983, host: 4444
 
   config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
 end

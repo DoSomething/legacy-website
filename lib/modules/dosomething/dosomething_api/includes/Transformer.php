@@ -425,6 +425,7 @@ abstract class Transformer {
   protected function transformReportbackItem($data) {
     $output = [
       'id' => $data->id,
+      'drupal_id' => $data->drupal_id,
       'status' => $data->status,
       'caption' => $data->caption,
       'uri' => $data->uri . '.json',
