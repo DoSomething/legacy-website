@@ -39,7 +39,9 @@ function dosomething_static_content_user_default_permissions() {
   $permissions['edit any static_content content'] = array(
     'name' => 'edit any static_content content',
     'roles' => array(
+      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

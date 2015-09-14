@@ -13,6 +13,33 @@ function dosomething_global_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'dosomething_global_language_map';
+  $strongarm->value = array(
+    'es-mx' => array(
+      'display_name' => 'Spanish, Mexico',
+      'default_roles' => array('mexico admin'),
+      'country' => 'MX',
+    ),
+    'pt-br' => array(
+      'display_name' => 'Portuguese, Brazil',
+      'default_roles' => array('brazil admin'),
+      'country' => 'BR',
+    ),
+    'en' => array(
+      'display_name' => 'English',
+      'default_roles' => array(),
+      'country' => 'US'
+    ),
+    'en-global' => array(
+      'display_name' => 'English, Global',
+      'default_roles' => array(),
+    ),
+  );
+  $export['dosomething_global_language_map'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'language_negotiation_language';
   $strongarm->value = array(
     'locale-session' => array(
