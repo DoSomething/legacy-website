@@ -17,35 +17,48 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  $name = 'dosomething_signup_mailchimp_general_list_id';
-  $desc = t("General MailChimp List ID used in registrations and signups.");
-  $form['general'][$name] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#title' => 'MailChimp | mailchimp_list_id',
-    '#default_value' => variable_get($name),
-    '#description' => $desc,
-  );
 
-  $name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
-  $desc = t("Numeric Mobile Commons opt-in path for general campaign signup.");
-  $form['general'][$name] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#title' => t('Mobile Commons | General campaign | mobilecommons_opt_in_path'),
-    '#default_value' => variable_get($name),
-    '#description' => $desc,
-  );
+  $countries = dosomething_global_get_countries();
+  foreach ($countries as $country) {
+    $country_form = $form['general']['dosomething_signup'][$country] = array(
+      '#type' => 'fieldset',
+      '#title' => $country,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
 
-  $name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
-  $desc = t("Numeric Mobile Commons opt-in path when user registers for site.");
-  $form['general'][$name] = array(
-    '#type' => 'textfield',
-    '#required' => TRUE,
-    '#title' => t('Mobile Commons | User registration | mobilecommons_opt_in_path'),
-    '#default_value' => variable_get($name),
-    '#description' => $desc,
-  );
+    $country_form = $form['general']['dosomething_signup'][$country]['mail_list_id'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => 'Mail List ID',
+      '#default_value' => variable_get('mail_list_id'),
+      '#description' => "General MailChimp List ID used in registrations and signups.",
+    );
+
+    //TEMPORARY -- Remove the IF statement to fix #5121
+    if ($country == "US") {
+      $name = 'mobile_opt_in_campaign';
+      $country_form = $form['general']['dosomething_signup'][$country][$name] = array(
+        '#type' => 'textfield',
+        '#required' => TRUE,
+        '#title' => 'Mobile Opt-In path for Campaigns',
+        '#default_value' => variable_get($name),
+        '#description' => 'Numeric Mobile Commons opt-in path for general campaign signup.',
+      );
+
+      $name = 'mobile_opt_in_path_user_register';
+      $country_form = $form['general']['dosomething_signup'][$country][$name] = array(
+        '#type' => 'textfield',
+        '#required' => TRUE,
+        '#title' => 'Mobile Opt-In path for User Registration',
+        '#default_value' => variable_get($name),
+        '#description' => 'Numeric Mobile Commons opt-in path when user registers for site.',
+      );
+    }
+  }
+
+  //OLD START
+  //OLD END
 
   // 26 Club.
   $form['26plusclub'] = array(
@@ -316,4 +329,3 @@ function dosomething_signup_admin_config_form($form, &$form_state) {
   );
   return system_settings_form($form);
 }
-
