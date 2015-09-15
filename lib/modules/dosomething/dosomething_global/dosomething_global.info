@@ -18,4 +18,6 @@ features[language][] = pt-br
 features[variable][] = dosomething_global_language_map
 features[variable][] = language_negotiation_language
 features[variable][] = language_negotiation_language_content
-mtime = 1440615612
+features[variable][] = locale_language_providers_weight_language
+features[variable][] = locale_language_providers_weight_language_content
+mtime = 1442243431
