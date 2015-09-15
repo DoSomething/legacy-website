@@ -28,13 +28,16 @@ function dosomething_search_menu() {
 }
 
 function dosomething_search_preprocess_page(&$vars) {
+  global $language;
+
   $solrURL = variable_get('dosomething_search_finder_url', 'https://search.dosomething.org');
   $collection = variable_get('dosomething_search_finder_collection', 'collection1');
   drupal_add_js(
     array('dosomethingSearch' =>
       array(
         'solrURL' => $solrURL,
-        'collection' => $collection
+        'collection' => $collection,
+        'language' => $language->language
       )
     ),
     'setting'

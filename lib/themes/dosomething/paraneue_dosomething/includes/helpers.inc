@@ -109,7 +109,14 @@ function paraneue_dosomething_get_search_vars($results) {
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
           $clc = dosomething_helpers_get_current_language_code();
-          $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
+          if ($image[$clc][0]['target_id']) {
+            $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
+          }
+          //If the current language doesn't have an image, use the node's default langauge image.
+          else {
+            $default_language = $result_node->language;
+           $value['display_image'] = dosomething_image_get_themed_image($image[$default_language][0]['target_id'], 'square', '300x300');
+          }
         }
         else {
           $value['display_image'] = '';
@@ -236,6 +243,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
  */
 function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_more = FALSE) {
   $items = array();
+
   foreach ($nids as $delta => $nid) {
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
     $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE);
