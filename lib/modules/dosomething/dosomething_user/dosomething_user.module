@@ -261,6 +261,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
+
       // Hide specific fields from non-staff.
       if (!dosomething_user_is_staff()) {
         unset($form['field_partner']);
@@ -269,6 +270,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['picture']);
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
+        // Add an after build to remove the language switcher.
+        $form['#after_build'][] = 'dosomething_user_remove_language_switcher';
       }
       // else if staff:
       else {
@@ -292,6 +295,15 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
   }
+}
+
+/**
+ * After build to remove language switcher.
+ *
+ */
+function dosomething_user_remove_language_switcher($form, &$form_state) {
+  unset($form['locale']);
+  return $form;
 }
 /**
  * After build to alter the address field options.
