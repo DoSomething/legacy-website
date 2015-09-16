@@ -18,6 +18,7 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  $field_prefix = "dosomething_signup_";
   $countries = dosomething_global_get_countries();
   foreach ($countries as $country) {
     $country_form = $form['general']['dosomething_signup'][$country] = array(
@@ -27,38 +28,35 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
       '#collapsed' => TRUE,
     );
 
-    $country_form = $form['general']['dosomething_signup'][$country]['mail_list_id'] = array(
+    $form['general']['dosomething_signup'][$country][$field_prefix . 'mail_list_id'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => 'Mail List ID',
-      '#default_value' => variable_get('mail_list_id'),
+      '#default_value' => variable_get('mail_list_id_' . $country),
       '#description' => "General MailChimp List ID used in registrations and signups.",
     );
 
     //TEMPORARY -- Remove the IF statement to fix #5121
     if ($country == "US") {
-      $name = 'mobile_opt_in_campaign';
-      $country_form = $form['general']['dosomething_signup'][$country][$name] = array(
+      $name = $field_prefix . 'mobile_opt_in_campaign';
+      $form['general']['dosomething_signup'][$country][$name] = array(
         '#type' => 'textfield',
         '#required' => TRUE,
         '#title' => 'Mobile Opt-In path for Campaigns',
-        '#default_value' => variable_get($name),
+        '#default_value' => variable_get($name . '_' . $country),
         '#description' => 'Numeric Mobile Commons opt-in path for general campaign signup.',
       );
 
-      $name = 'mobile_opt_in_path_user_register';
-      $country_form = $form['general']['dosomething_signup'][$country][$name] = array(
+      $name = $field_prefix . 'mobile_opt_in_path_user_register';
+      $form['general']['dosomething_signup'][$country][$name] = array(
         '#type' => 'textfield',
         '#required' => TRUE,
         '#title' => 'Mobile Opt-In path for User Registration',
-        '#default_value' => variable_get($name),
+        '#default_value' => variable_get($name . '_' . $country),
         '#description' => 'Numeric Mobile Commons opt-in path when user registers for site.',
       );
     }
   }
-
-  //OLD START
-  //OLD END
 
   // 26 Club.
   $form['26plusclub'] = array(

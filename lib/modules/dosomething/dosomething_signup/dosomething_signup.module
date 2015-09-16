@@ -657,7 +657,7 @@ function dosomething_signup_get_mailchimp_list_id() {
       return $mli;
     }
   }
-
+  
   return variable_get('dosomething_signup_mailchimp_general_list_id');
 }
 
