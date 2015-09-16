@@ -1,5 +1,6 @@
 .card {
   background: $white;
+  color: $base-font-color;
   margin: 0 $base-spacing / 2;
 
   @include media($tablet) {

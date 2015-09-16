@@ -67,11 +67,15 @@
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
     <div data-modal id="modal-partner-<?php print $delta; ?>" role="dialog">
       <h2 class="heading -banner"><?php print t('We &lt;3 @partner', array('@partner' => $partner['name'])); ?></h2>
-      <div class="modal__block">
+      <div class="modal__block with-lists">
         <?php print $partner['copy']; ?>
-        <?php if (isset($partner['video'])): print $partner['video']; ?>
-        <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
       </div>
+      <?php if (isset($partner['video']) || isset($partner['image'])): ?>
+        <div class="modal__block">
+          <?php if (isset($partner['video'])): print $partner['video']; ?>
+          <?php elseif (isset($partner['image'])): print $partner['image']; endif; ?>
+        </div>
+      <?php endif; ?>
       <div class="modal__block">
         <div class="form-actions">
           <a href="#" class="js-close-modal"><?php print t('Back to main page'); ?></a>
