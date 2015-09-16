@@ -301,3 +301,15 @@ function dosomething_search_apachesolr_search_page_alter(&$variables) {
   }
 }
 
+/**
+ * Implements hook_node_view_alter().
+ * The translation module adds links to the node which need to be removed when
+ * the node is indexed so that snippets are built properly.
+ */
+function dosomething_search_node_view_alter(&$build) {
+  if ($build['#view_mode'] == 'search_index') {
+    //Remove lanugage links from search snippets
+    unset($build['links']['translation']['#links']);
+  }
+}
+
