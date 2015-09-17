@@ -560,3 +560,23 @@ function dosomething_signup_update_7019() {
   }
 
 }
+
+/**
+ * Moves old mailchimp variables into global variables.
+ */
+function dosomething_signup_update_7020() {
+  $old_name = 'dosomething_signup_mailchimp_general_list_id';
+  $new_name = 'dosomething_signup_us_mail_list_id';
+  variable_set($new_name, variable_get($old_name));
+  variable_del($old_name);
+
+  $old_name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
+  $new_name = 'dosomething_signup_us_mobile_opt_in_campaign';
+  variable_set($new_name, variable_get($old_name));
+  variable_del($old_name);
+
+  $old_name = 'dosomething_signup_mobilecommons_opt_in_path_user_register';
+  $new_name = 'dosomething_signup_us_mobile_opt_in_path_user_register';
+  variable_set($new_name, variable_get($old_name));
+  variable_del($old_name);
+}
