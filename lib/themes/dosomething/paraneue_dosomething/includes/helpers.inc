@@ -109,13 +109,13 @@ function paraneue_dosomething_get_search_vars($results) {
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
           $clc = dosomething_helpers_get_current_language_code();
-          if ($image[$clc][0]['target_id']) {
+          if ($image[$clc]) {
             $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
           }
           //If the current language doesn't have an image, use the node's default langauge image.
           else {
             $default_language = $result_node->language;
-           $value['display_image'] = dosomething_image_get_themed_image($image[$default_language][0]['target_id'], 'square', '300x300');
+            $value['display_image'] = dosomething_image_get_themed_image($image[$default_language][0]['target_id'], 'square', '300x300');
           }
         }
         else {
