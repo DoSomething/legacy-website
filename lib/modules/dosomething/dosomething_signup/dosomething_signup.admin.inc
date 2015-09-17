@@ -21,38 +21,40 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
   $field_prefix = "dosomething_signup_";
   $countries = dosomething_global_get_countries();
   foreach ($countries as $country) {
-    $country_form = $form['general']['dosomething_signup'][$country] = array(
+    $country = strtolower($country);
+    $form['general']['dosomething_signup'][$country] = array(
       '#type' => 'fieldset',
       '#title' => $country,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
 
-    $form['general']['dosomething_signup'][$country][$field_prefix . 'mail_list_id'] = array(
+    $name = $field_prefix . $country . '_mail_list_id';
+    $form['general']['dosomething_signup'][$country][$name] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
       '#title' => 'Mail List ID',
-      '#default_value' => variable_get('mail_list_id_' . $country),
+      '#default_value' => variable_get($name),
       '#description' => "General MailChimp List ID used in registrations and signups.",
     );
 
     //TEMPORARY -- Remove the IF statement to fix #5121
-    if ($country == "US") {
-      $name = $field_prefix . 'mobile_opt_in_campaign';
+    if ($country == "us") {
+      $name = $field_prefix . $country . '_mobile_opt_in_campaign';
       $form['general']['dosomething_signup'][$country][$name] = array(
         '#type' => 'textfield',
         '#required' => TRUE,
         '#title' => 'Mobile Opt-In path for Campaigns',
-        '#default_value' => variable_get($name . '_' . $country),
+        '#default_value' => variable_get($name),
         '#description' => 'Numeric Mobile Commons opt-in path for general campaign signup.',
       );
 
-      $name = $field_prefix . 'mobile_opt_in_path_user_register';
+      $name = $field_prefix . $country . '_mobile_opt_in_path_user_register';
       $form['general']['dosomething_signup'][$country][$name] = array(
         '#type' => 'textfield',
         '#required' => TRUE,
         '#title' => 'Mobile Opt-In path for User Registration',
-        '#default_value' => variable_get($name . '_' . $country),
+        '#default_value' => variable_get($name),
         '#description' => 'Numeric Mobile Commons opt-in path when user registers for site.',
       );
     }
@@ -158,15 +160,30 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
 function dosomething_signup_opt_in_config_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
-  // Save general Drupal variables.
-  $config_variables = array(
-    'dosomething_signup_mailchimp_general_list_id',
-    'dosomething_signup_mobilecommons_opt_in_path_general_campaign',
-    'dosomething_signup_mobilecommons_opt_in_path_user_register',
-    'dosomething_signup_26plusclub_enabled',
-  );
-  foreach ($config_variables as $var_name) {
-    variable_set($var_name, $values[$var_name]);
+  // Grabs all country fieldsets within dosomething_signup
+  foreach ($form['general']['dosomething_signup'] as $field_name => $field) {
+
+    // Get a list of all the countries we support
+    $countries = dosomething_global_get_countries();
+    foreach ($countries as $country) {
+      $country = strtolower($country);
+
+      // Verify the field name is a country and not something like #parents
+      if ($field_name == $country) {
+
+        // Go through each field within the country fieldset
+        foreach ($field as $sub_field_name => $sub_field) {
+
+          // Verify the field contains dosomething_signup
+          if (strpos($sub_field_name, 'dosomething_signup') !== FALSE) {
+
+            // Set the field in the DB
+            variable_set($sub_field_name, $values[$sub_field_name]);
+          }
+        }
+        break;
+      }
+    }
   }
 
   // 26+ Club.
