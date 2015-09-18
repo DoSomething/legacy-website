@@ -50,6 +50,7 @@ dependencies[] = metatag_views
 dependencies[] = module_filter
 dependencies[] = new_relic_rpm
 dependencies[] = pathauto
+dependencies[] = pathauto_i18n
 dependencies[] = redirect
 dependencies[] = redis
 dependencies[] = search
