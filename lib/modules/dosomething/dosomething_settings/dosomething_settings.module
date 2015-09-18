@@ -71,6 +71,12 @@ function dosomething_settings_get_affiliate_code() {
  *   otherwise default: US.
  */
 function dosomething_settings_get_affiliate_country_code() {
+  // Fastly header takes priority over old affiliate logic
+  $country_code = dosomething_settings_get_geo_country_code();
+  if (isset($country_code)) {
+    return $country_code;
+  }
+
   $country_code = &drupal_static(__FUNCTION__);
   if (!isset($country_code)) {
     $mapping = array(
