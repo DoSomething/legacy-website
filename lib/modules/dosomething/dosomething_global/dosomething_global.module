@@ -134,3 +134,29 @@ function dosomething_global_get_user_language($user = NULL) {
   // If we didn't find a user role return english default.
   return 'en';
 }
+
+/*
+ * Returns a list of all the countries defined in the strongarm
+ *
+ * @return array
+ *  All of the supported countries
+ */
+ function dosomething_global_get_countries() {
+   $lang_map = variable_get('dosomething_global_language_map', '');
+   $countries = array();
+   foreach ($lang_map as $lang) {
+     $country = $lang['country'];
+
+     // Prevents global english from slipping through
+     if ($country != NULL) {
+       array_push($countries, $country);
+     }
+   }
+   array_push($countries, "global");
+   return $countries;
+ }
+
+function dosomething_global_convert_language_to_country($language) {
+    $lang_map = variable_get('dosomething_global_language_map', '');
+    return $lang_map[$language]['country'];
+}

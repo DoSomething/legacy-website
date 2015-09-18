@@ -657,8 +657,11 @@ function dosomething_signup_get_mailchimp_list_id() {
       return $mli;
     }
   }
-
-  return variable_get('dosomething_signup_mailchimp_general_list_id');
+  global $user;
+  $user_language = $user->language;
+  $country_code = dosomething_global_convert_language_to_country($user_language);
+  $field_name = "dosomething_signup_" . strtolower($country_code) . '_mail_list_id';
+  return variable_get($field_name);
 }
 
 /**
