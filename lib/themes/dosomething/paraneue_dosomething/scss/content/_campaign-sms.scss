@@ -31,23 +31,6 @@
       }
     }
 
-    .sms-campaign-form--multiplayer {
-      padding-top: $base-spacing;
-
-      .form-item-alpha-mobile {
-        clear: none;
-      }
-
-      .message-callout.-above {
-        @include media($tablet) {
-          position: absolute;
-          top: -60px;
-          right: 20px;
-          margin: 0;
-        }
-      }
-    }
-
     .form-item-alpha-first-name {
       @include span(100%);
 

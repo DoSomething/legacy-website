@@ -148,10 +148,6 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
   $form['#attributes'] = array(
     'class' => ['sms-campaign-form'],
   );
-  // If this is a multiplayer game, add style overrides.
-  if ($form['sms_game_type']['#default_value'] === 'multi_player') {
-    $form['#attributes']['class'][] = 'sms-campaign-form--multiplayer';
-  }
   // Load "all participants" copy.
   $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
   $form['all_participants_copy'] = array(
@@ -183,21 +179,6 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     ),
   );
   for ($i = 0; $i < $num_friends; $i++) {
-    // If this is a multiplayer game, add first name fields.
-    if ($form['sms_game_type']['#default_value'] === 'multi_player') {
-      $form['beta_first_name_' .$i] = array(
-        '#type' => 'textfield',
-        '#title' => 'Your Friend\'s Name',
-        '#required' => TRUE,
-        '#attributes' => array(
-          'data-validate' => 'friend_name',
-          'data-validate-required' => '',
-          'placeholder' => t('Friend\'s Name'),
-          'autocomplete' => 'off',
-        ),
-      );
-    }
-
     $form['beta_mobile_' .$i] = array(
       '#type' => 'textfield',
       '#required' => TRUE,
