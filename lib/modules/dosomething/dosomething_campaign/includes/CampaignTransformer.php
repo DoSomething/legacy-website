@@ -10,6 +10,7 @@ class CampaignTransformer extends Transformer {
    *  - type (string)
    *  - staff_pick (boolean)
    *  - mobile_app (boolean)
+   *  - mobile_app_date (string|array)
    *  - term_id (string|array)
    *  - count (int)
    *  - random (boolean)
@@ -22,12 +23,15 @@ class CampaignTransformer extends Transformer {
       'type' => 'campaign',
       'staff_pick' => $parameters['staff_pick'],
       'mobile_app' => $parameters['mobile_app'],
+      'mobile_app_date' => $parameters['mobile_app_date'],
       'term_id' => $this->formatData($parameters['term_ids']),
       'count' => (int) $parameters['count'] ?: 25,
       'random' => $parameters['random'],
       'page' => (int) $parameters['page'],
     ];
 
+    // print_r($filters);
+    // die();
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
     try {

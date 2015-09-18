@@ -420,6 +420,7 @@ function dosomething_campaign_get_campaigns_query($params) {
  *   - nid: (array|string) Node id(s) to filter by.
  *   - staff_pick: (bool)
  *   - mobile_app: (bool)
+ *   - mobile_app_date: (array|string) Date to filter mobile app campaigns by.
  *   - term_id: (array|string) Taxonomy term tids to filter by.
  *   - random: (boolean)
  *
@@ -453,12 +454,18 @@ function dosomething_campaign_build_campaigns_query($params = array()) {
     $query->condition('m.field_on_mobile_app_value', 1);
   }
 
-  // if (isset($params['available_in_mobile_app_date'])) {
-  //   $query->join('field_date_in_mobile_app', 'm', 'm.entity_id = n.nid');
-  //   if (is_array($params['available_in_mobile_app_date'])) {
-  //     $query->condition
-  //   }
-  // }
+  if (isset($params['mobile_app_date'])) {
+//     $query_date = dosomething_campaign_set_est_timezone(new DateTime($_GET['mobile_app_date']), TRUE);
+//     $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['mobile_app'][0]['value']), TRUE);
+//     $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['mobile_app'][0]['value2']), TRUE);
+    die('hi');
+    // $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
+    // if (is_array($params['mobile_app_date'])) {
+    //   $query->condition('select $query_date, TotalAllowance from Calculation where EmployeeId = 1 and $query_date >= $start_date and $query_date <= $end_date');
+    // } else {
+    //   $query->condition('field_on_mobile_app_value', $param['mobile_app_date']);
+    // }
+  }
 
   if (isset($params['term_id'])) {
     $query->join('taxonomy_index', 'terms', 'terms.nid = n.nid');
@@ -752,22 +759,6 @@ function dosomething_campaign_is_hot_module($vars) {
 
     // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
     if (!empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
-      return TRUE;
-    }
-  }
-  return FALSE;
-}
-
-/**
-* Returns mobile campaigns for a given date.
-*/
-function dosomething_campaign_show_mobile_campaign($vars) {
-  if (isset($vars['mobile_app']['dates'])) {
-    $query_date = dosomething_campaign_set_est_timezone(new DateTime($_GET['available_in_mobile_app_date']), TRUE);
-    $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['mobile_app'][0]['value']), TRUE);
-    $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['mobile_app'][0]['value2']), TRUE);
-
-    if (!empty($vars['mobile_app']['dates']) && (($query_date > $start_date) && ($query_date < $end_date))) {
       return TRUE;
     }
   }
