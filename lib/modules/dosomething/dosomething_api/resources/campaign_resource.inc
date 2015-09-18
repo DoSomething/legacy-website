@@ -293,9 +293,6 @@ function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_da
     'page' => $page,
   ];
 
-    print_r($parameters);
-    die();
-
   return (new CampaignTransformer)->index($parameters);
 }
 

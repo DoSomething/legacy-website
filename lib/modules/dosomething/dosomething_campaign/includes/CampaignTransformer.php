@@ -30,8 +30,6 @@ class CampaignTransformer extends Transformer {
       'page' => (int) $parameters['page'],
     ];
 
-    // print_r($filters);
-    // die();
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
     try {
