@@ -107,18 +107,38 @@ function dosomething_settings_get_sitewide_copy() {
   return $copy;
 }
 
+/**
+ * Returns the Fastly header specifying country code
+ *
+ * @return string
+ */
 function dosomething_settings_get_geo_country_code() {
   return $_SERVER['HTTP_X_FASTLY_COUNTRY_CODE'];
 }
 
+/**
+ * Returns the Fastly header specifying city
+ *
+ * @return string
+ */
 function dosomething_settings_get_geo_city() {
   return $_SERVER['HTTP_X_FASTLY_CITY'];
 }
 
+/**
+ * Returns the Fastly header specifying country name
+ *
+ * @return string
+ */
 function dosomething_settings_get_geo_country_name() {
   return $_SERVER['HTTP_X_FASTLY_COUNTRY_NAME'];
 }
 
+/**
+ * Returns the Fastly header specifying lat & long
+ *
+ * @return array
+ */
 function dosomething_settings_get_geo_latlong() {
   return array(
     'lat' => $_SERVER['HTTP_X_FASTLY_LATITUDE'],
@@ -126,6 +146,11 @@ function dosomething_settings_get_geo_latlong() {
   );
 }
 
+/**
+ * Returns the Fastly header specifying region
+ *
+ * @return string
+ */
 function dosomething_settings_get_geo_region() {
   return $_SERVER['HTTP_X_FASTLY_REGION'];
 }
