@@ -71,6 +71,12 @@ function dosomething_settings_get_affiliate_code() {
  *   otherwise default: US.
  */
 function dosomething_settings_get_affiliate_country_code() {
+  // Fastly header takes priority over old affiliate logic
+  $country_code = dosomething_settings_get_geo_country_code();
+  if (isset($country_code)) {
+    return $country_code;
+  }
+
   $country_code = &drupal_static(__FUNCTION__);
   if (!isset($country_code)) {
     $mapping = array(
@@ -105,4 +111,73 @@ function dosomething_settings_get_sitewide_copy() {
     $copy[$var] = check_markup(variable_get($var_name), 'markdown');
   }
   return $copy;
+}
+
+/**
+ * Returns the Fastly header specifying country code
+ *
+ * @return string
+ */
+function dosomething_settings_get_geo_country_code() {
+  $name = 'HTTP_X_FASTLY_COUNTRY_CODE';
+  if (isset($_SERVER[$name])) {
+    return $_SERVER[$name];
+  }
+  return NULL;
+}
+
+/**
+ * Returns the Fastly header specifying city
+ *
+ * @return string
+ */
+function dosomething_settings_get_geo_city() {
+  $name = 'HTTP_X_FASTLY_CITY';
+  if (isset($_SERVER[$name])) {
+    return $_SERVER[$name];
+  }
+  return NULL;
+}
+
+/**
+ * Returns the Fastly header specifying country name
+ *
+ * @return string
+ */
+function dosomething_settings_get_geo_country_name() {
+  $name = 'HTTP_X_FASTLY_COUNTRY_NAME';
+  if (isset($_SERVER[$name])) {
+    return $_SERVER[$name];
+  }
+  return NULL;
+}
+
+/**
+ * Returns the Fastly header specifying lat & long
+ *
+ * @return array
+ */
+function dosomething_settings_get_geo_latlong() {
+  $lat_name = 'HTTP_X_FASTLY_LATITUDE';
+  $long_name = 'HTTP_X_FASTLY_LONGITUDE';
+  if (isset($lat_name) && isset($long_name)) {
+    return array(
+      'lat' => $_SERVER[$lat_name],
+      'long' => $_SERVER[$long_name],
+    );
+  }
+  return NULL;
+}
+
+/**
+ * Returns the Fastly header specifying region
+ *
+ * @return string
+ */
+function dosomething_settings_get_geo_region() {
+  $name = 'HTTP_X_FASTLY_REGION';
+  if (isset($_SERVER[$name])) {
+    return $_SERVER[$name];
+  }
+  return NULL;
 }
