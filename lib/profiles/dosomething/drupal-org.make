@@ -154,8 +154,8 @@ projects[pathauto][version] = "1.2"
 projects[pathauto][subdir] = "contrib"
 
 ; Pathauto i18n
-projects[pathauto][version] = "1.4"
-projects[pathauto][subdir] = "contrib"
+projects[pathauto_i18n][version] = "1.4"
+projects[pathauto_i18n][subdir] = "contrib"
 
 ; POTX (Translation template extractor)
 projects[potx][version] = "1.0"
