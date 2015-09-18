@@ -106,3 +106,26 @@ function dosomething_settings_get_sitewide_copy() {
   }
   return $copy;
 }
+
+function dosomething_settings_get_geo_country_code() {
+  return $_SERVER['HTTP_X_FASTLY_COUNTRY_CODE'];
+}
+
+function dosomething_settings_get_geo_city() {
+  return $_SERVER['HTTP_X_FASTLY_CITY'];
+}
+
+function dosomething_settings_get_geo_country_name() {
+  return $_SERVER['HTTP_X_FASTLY_COUNTRY_NAME'];
+}
+
+function dosomething_settings_get_geo_latlong() {
+  return array(
+    'lat' => $_SERVER['HTTP_X_FASTLY_LATITUDE'],
+    'long' => $_SERVER['HTTP_X_FASTLY_LONGITUDE'],
+  );
+}
+
+function dosomething_settings_get_geo_region() {
+  return $_SERVER['HTTP_X_FASTLY_REGION'];
+}
