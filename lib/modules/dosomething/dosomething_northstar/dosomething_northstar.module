@@ -108,6 +108,7 @@ function dosomething_northstar_update_user($form_state) {
   $user = $form_state['user'];
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
 
+  $northstar = new Northstar();
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
