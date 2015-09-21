@@ -37,11 +37,11 @@ function dosomething_global_init() {
 }
 
 /**
- * Implements hook_node_presave().
+ * Implements hook_node_insert().
  */
-function dosomething_global_node_presave($node) {
+function dosomething_global_node_insert($node) {
   $user = user_load($node->uid);
-  // If we are saving a campaign and the user is a global admin.
+  // If we are saving a new campaign and the user is a regional admin.
   if ($node->type == 'campaign' && dosomething_global_is_regional_admin($user)) {
     // Set the node language to the author's lang.
     $node->language = dosomething_global_get_user_language($user);
