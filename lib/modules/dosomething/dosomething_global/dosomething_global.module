@@ -64,6 +64,9 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
       }
     }
     $form['revision_information']['#access'] = FALSE;
+
+    $hide_tabs_style = 'ul.tabs.secondary { display: none }';
+    drupal_add_css($hide_tabs_style, $option['type'] = inline);
   }
 }
 
