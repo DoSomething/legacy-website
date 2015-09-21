@@ -457,11 +457,6 @@ function dosomething_user_new_user($form, &$form_state) {
     return;
   }
 
-  // Should we sign this kid up for messages?
-  if (dosomething_user_is_under_thirteen()) {
-    return;
-  }
-
   global $user;
   $account = $user;
 
@@ -470,6 +465,11 @@ function dosomething_user_new_user($form, &$form_state) {
     $user_country_code = dosomething_settings_get_geo_country_code();
     $language = dosomething_global_convert_country_to_language($user_country_code);
     user_save($account, ['language' => $language]);
+  }
+
+  // Should we sign this kid up for messages?
+  if (dosomething_user_is_under_thirteen()) {
+    return;
   }
 
   // Send external message request.
