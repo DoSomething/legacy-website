@@ -116,7 +116,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $campaign = $vars['campaign'];
 
   if ($vars['show_problem_shares']) {
-    $problem_share_prompt = variable_get('dosomething_campaign_problem_share_prompt');
+    $problem_share_prompt = t(variable_get('dosomething_campaign_problem_share_prompt'));
     if ($problem_share_prompt) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
