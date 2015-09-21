@@ -461,15 +461,15 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
     $user->field_first_name[LANGUAGE_NONE][0]['value'] = t('your friend');
   }
   return array(
-    'owners_rb_subtitle' => variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', ''),
-    'owners_rb_scholarship' => variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', ''),
-    'owners_rb_important' => variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', ''),
-    'owners_rb_social_cta' => variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', ''),
-    'owners_title' => variable_get('dosomething_campaign_permalink_owners_page_title', ''),
-    'owners_subtitle' => variable_get('dosomething_campaign_permalink_owners_page_subtitle', ''),
-    'non_owners_title' => token_replace(variable_get('dosomething_campaign_permalink_nonowners_page_title', ''), array('user' => $user)),
-    'non_owners_closed_button' => variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy', ''),
-    'non_owners_closed_cta' => variable_get('dosomething_campaign_permalink_nonowners_closed_cta', ''),
+    'owners_rb_subtitle' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', '')),
+    'owners_rb_scholarship' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', '')),
+    'owners_rb_important' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_important_to_you', '')),
+    'owners_rb_social_cta' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', '')),
+    'owners_title' => t(variable_get('dosomething_campaign_permalink_owners_page_title', '')),
+    'owners_subtitle' => t(variable_get('dosomething_campaign_permalink_owners_page_subtitle', '')),
+    'non_owners_title' => token_replace(t(variable_get('dosomething_campaign_permalink_nonowners_page_title', '')), array('user' => $user)),
+    'non_owners_closed_cta' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_cta', '')),
+    'non_owners_closed_button' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy', '')),
   );
 }
 
@@ -527,7 +527,7 @@ function dosomething_reportback_view_entity($entity) {
 
     $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
 
-    $share_text = token_replace(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy'), array('node' => $node));
+    $share_text = token_replace(t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')), array('node' => $node));
     $share_text = str_replace('[node:issue]', strtolower($node->issue['name']), $share_text);
 
 
