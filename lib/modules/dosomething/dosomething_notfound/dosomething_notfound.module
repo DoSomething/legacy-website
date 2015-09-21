@@ -71,7 +71,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // Add hero video
   if (isset($vars['hero_image']['video'])) {
     $vars['video'] = $vars['hero_image']['video'];
-    
+
     // Add video poster.
     if (isset($vars['hero_image']['poster'])) {
       $vars['video_poster'] = $vars['hero_image']['poster'];
@@ -91,10 +91,10 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $copy = NULL; // Temp variable.
 
   if (strpos($raw_url, "grants") === 0) {
-    $copy = variable_get('dosomething_notfound_copy_grants');
+    $copy = t(variable_get('dosomething_notfound_copy_grants'));
   }
   elseif (strpos($raw_url, "project") === 0) {
-    $copy = variable_get('dosomething_notfound_copy_projects');
+    $copy = t(variable_get('dosomething_notfound_copy_projects'));
   }
 
   // For path specific results.
