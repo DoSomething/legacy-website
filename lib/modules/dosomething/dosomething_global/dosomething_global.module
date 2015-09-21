@@ -6,7 +6,7 @@
 
 include_once 'dosomething_global.features.inc';
 
-/*
+/**
  * Implements hook_init().
  */
 function dosomething_global_init() {
@@ -135,7 +135,7 @@ function dosomething_global_get_user_language($user = NULL) {
   return 'en';
 }
 
-/*
+/**
  * Returns a list of all the countries defined in the strongarm
  *
  * @return array
@@ -155,7 +155,15 @@ function dosomething_global_get_user_language($user = NULL) {
    array_push($countries, "global");
    return $countries;
  }
-
+/**
+ * Gets the country from a given language.
+ *
+ * @param string language
+ *  A two letter language code.
+ *
+ * @return string language
+ *  The country that maps to the language passed in.
+ */
 function dosomething_global_convert_language_to_country($language) {
     $lang_map = variable_get('dosomething_global_language_map', '');
     return $lang_map[$language]['country'];
