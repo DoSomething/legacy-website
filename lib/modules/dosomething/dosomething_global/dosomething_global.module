@@ -6,7 +6,7 @@
 
 include_once 'dosomething_global.features.inc';
 
-/*
+/**
  * Implements hook_init().
  */
 function dosomething_global_init() {
@@ -37,11 +37,11 @@ function dosomething_global_init() {
 }
 
 /**
- * Implements hook_node_presave().
+ * Implements hook_node_insert().
  */
-function dosomething_global_node_presave($node) {
+function dosomething_global_node_insert($node) {
   $user = user_load($node->uid);
-  // If we are saving a campaign and the user is a global admin.
+  // If we are saving a new campaign and the user is a regional admin.
   if ($node->type == 'campaign' && dosomething_global_is_regional_admin($user)) {
     // Set the node language to the author's lang.
     $node->language = dosomething_global_get_user_language($user);
@@ -135,7 +135,7 @@ function dosomething_global_get_user_language($user = NULL) {
   return 'en';
 }
 
-/*
+/**
  * Returns a list of all the countries defined in the strongarm
  *
  * @return array
@@ -155,7 +155,15 @@ function dosomething_global_get_user_language($user = NULL) {
    array_push($countries, "global");
    return $countries;
  }
-
+/**
+ * Gets the country from a given language.
+ *
+ * @param string language
+ *  A two letter language code.
+ *
+ * @return string language
+ *  The country that maps to the language passed in.
+ */
 function dosomething_global_convert_language_to_country($language) {
     $lang_map = variable_get('dosomething_global_language_map', '');
     return $lang_map[$language]['country'];
