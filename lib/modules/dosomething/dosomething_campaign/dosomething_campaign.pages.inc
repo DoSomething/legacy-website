@@ -34,16 +34,16 @@ function dosomething_campaign_reportback_confirmation_page($node) {
 
   // Set variables for anonymous user:
   if (!user_is_logged_in()) {
-    $button_text = variable_get('dosomething_campaign_confirmation_page_anon_button_text');
-    $vars['call_to_action'] = variable_get('dosomething_campaign_confirmation_page_anon_cta_text');
+    $button_text = t(variable_get('dosomething_campaign_confirmation_page_anon_button_text'));
+    $vars['call_to_action'] = t(variable_get('dosomething_campaign_confirmation_page_anon_cta_text'));
     // The button should open the login/register form.
     $vars['more_campaigns_link'] = dosomething_user_get_login_modal_link_markup($button_text, 'large');
   }
   // Else set variables for authenticated user:
   else {
-    $button_text = variable_get('dosomething_campaign_confirmation_page_button_text');
+    $button_text = t(variable_get('dosomething_campaign_confirmation_page_button_text'));
     // Set button to link to /campaigns.
-    $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', array(
+    $vars['more_campaigns_link'] = l($button_text, 'campaigns', array(
       'attributes' => array('class' =>
         array('button')
       ))
