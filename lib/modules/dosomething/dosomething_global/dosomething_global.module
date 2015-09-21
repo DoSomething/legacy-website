@@ -155,6 +155,7 @@ function dosomething_global_get_user_language($user = NULL) {
    array_push($countries, "global");
    return $countries;
  }
+
 /**
  * Gets the country from a given language.
  *
@@ -165,6 +166,25 @@ function dosomething_global_get_user_language($user = NULL) {
  *  The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
-    $lang_map = variable_get('dosomething_global_language_map', '');
-    return $lang_map[$language]['country'];
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  return $lang_map[$language]['country'];
+}
+
+/**
+ * Converts the given country into its assigned language
+ *
+ * @param string country
+ *  The country Code
+ *
+ * @return
+ *  The language mapped to this country
+ */
+function dosomething_global_convert_country_to_language($country) {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  foreach ($lang_map as $lang_key => $lang) {
+    if ($lang['country'] == $country) {
+      return $lang_key;
+    }
+  }
+  return 'en';
 }
