@@ -57,7 +57,7 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
   $translatable_types = explode(',', TRANSLATABLE_TYPES);
   if (!(in_array($form['type']['#value'], $translatable_types))) {
     return;
-  }.
+  }
   // Don't autopublish tranlsations.
   $form['translation']['status']['#default_value'] = FALSE;
   // Check if the user is a mexico or brazil admin
