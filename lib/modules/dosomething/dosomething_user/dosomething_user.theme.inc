@@ -55,6 +55,6 @@ function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect User Reportbacks.
   $variables['reportbacks'] = dosomething_reportback_get_reportbacks($uid);
 
-  $variables['title'] = t("Hey, @name!", array("@name" => $variables['first_name'])); 
-  $variables['subtitle'] = variable_get('dosomething_user_profile_subtitle', NULL);
+  $variables['title'] = t("Hey, @name!", array("@name" => $variables['first_name']));
+  $variables['subtitle'] = t(variable_get('dosomething_user_profile_subtitle', NULL));
 }
