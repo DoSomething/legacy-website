@@ -480,6 +480,7 @@ function dosomething_user_new_user($form, &$form_state) {
     'first_name'        => dosomething_user_get_field('field_first_name', $account),
     'birthdate'         => dosomething_user_get_field('field_birthdate', $account),
     'user_language'     => $account->language,
+    'user_country'      => isset($user_country_code) ? $user_country_code : 'US'
   );
 
   // 26+ Club: Override Mobile Commons.
