@@ -68,6 +68,21 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
 }
 
 /**
+ * Implements hook_meny_local_tasks_alter
+ */
+function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
+  // Verify we're operating on a node edit page
+  if ($route_name['path'] != 'node/%/edit') {
+      return;
+  }
+  // Only perform this for regional admins
+  if (dosomething_global_is_regional_admin()) {
+    // Remove tabs from the edit page
+    unset($data['tabs'][1]['output']);
+  }
+}
+
+/**
  * Returns if the user is a regional admin
  *
  * @param Object $user
