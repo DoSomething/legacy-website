@@ -19,11 +19,14 @@ function dosomething_user_preprocess_page(&$vars) {
     dosomething_helpers_add_analytics_event("login", $_SESSION['dosomething_user_log_login']);
     unset($_SESSION['dosomething_user_log_login']);
   }
+
+  $date_format = (dosomething_settings_get_geo_country_code() === 'US') ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
   drupal_add_js(
     array('dosomethingUser' =>
       array(
         'schoolFinderAPIEndpoint' => $school_api_endpoint,
-      )
+      ),
+      'dsValidation' => array('dateFormat' => $date_format)
     ),
     'setting'
   );

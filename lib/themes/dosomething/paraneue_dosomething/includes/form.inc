@@ -276,7 +276,8 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
   $form['#weight'] = '-18';
   $form['#attributes']['class'] = array('auth-twocol');
-  $form['value']['date']['#attributes']['placeholder'] = t('MM/DD/YYYY');
+  $date_format = (dosomething_settings_get_geo_country_code() === 'US') ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
+  $form['value']['date']['#attributes']['placeholder'] = $date_format;
   $form['value']['date']['#attributes']['class'] = array('js-validate');
   $form['value']['date']['#attributes']['data-validate'] = 'birthday';
   $form['value']['date']['#attributes']['data-validate-required'] = '';
