@@ -20,7 +20,7 @@ function dosomething_global_locale_default_languages() {
     'plurals' => 0,
     'formula' => '',
     'domain' => '',
-    'prefix' => 'en-global',
+    'prefix' => '',
     'weight' => 0,
   );
   // Exported language: es-mx.
@@ -33,7 +33,7 @@ function dosomething_global_locale_default_languages() {
     'plurals' => 0,
     'formula' => '',
     'domain' => '',
-    'prefix' => 'es-mx',
+    'prefix' => 'mx',
     'weight' => 0,
   );
   // Exported language: pt-br.
@@ -46,7 +46,7 @@ function dosomething_global_locale_default_languages() {
     'plurals' => 2,
     'formula' => '($n!=1)',
     'domain' => '',
-    'prefix' => 'pt-br',
+    'prefix' => 'br',
     'weight' => 0,
   );
   return $languages;
