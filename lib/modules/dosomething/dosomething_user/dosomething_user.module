@@ -479,6 +479,7 @@ function dosomething_user_new_user($form, &$form_state) {
     'uid'               => $account->uid,
     'first_name'        => dosomething_user_get_field('field_first_name', $account),
     'birthdate'         => dosomething_user_get_field('field_birthdate', $account),
+    'user_language'     => $account->language,
   );
 
   // 26+ Club: Override Mobile Commons.
@@ -948,7 +949,7 @@ function dosomething_user_get_field_first_name($field_value, $format = 'ucwords'
 }
 
 /**
- * Returns a user's first name.
+ * Returns a user's last name.
  *
  * @param object $account
  *   The account to return value for.
