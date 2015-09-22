@@ -592,3 +592,38 @@ function dosomething_helpers_get_current_language_code() {
 function dosomething_helpers_application_path($path = '') {
   return realpath(DRUPAL_ROOT . '/../' . $path);
 }
+
+/**
+ * Get the appropriate language for the application.
+ *
+ * @param $account
+ *   The user's account
+ * @param  $node
+ *   Optional node.
+ *
+ */
+
+function dosomething_helpers_get_language($account, stdClass $node = NULL) {
+  if ($node = $options['node']) {
+    // If there is a published translation for the node in the user's language, use it.
+    if ($node->translations->data['$account->language']['status']) {
+      $language = $account->language;
+    }
+    // If there's no published translation in their language try 'en-global'.
+    elseif ($node->translations->data['en-global']['status']) {
+      $language = 'en-global';
+    }
+    // Default to node language if there's no translation in their language and no 'en-global'.
+    else {
+      $language = $node->language;
+    }
+  }
+  elseif ($language = $account->language) {
+    return $language;
+  }
+  else {
+    $language = dosomething_global_get_user_language($account);
+  }
+
+  return $language;
+}
