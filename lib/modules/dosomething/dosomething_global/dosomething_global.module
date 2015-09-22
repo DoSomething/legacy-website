@@ -59,6 +59,9 @@ function dosomething_global_node_insert($node) {
  */
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
 
+  // Don't auto-publish translations.
+  $form['translation']['status']['#default_value'] = FALSE;
+
   // Check if the user is a regional (e.g., Mexico, Brazil) admin.
   if (dosomething_global_is_regional_admin()) {
 
@@ -72,7 +75,27 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
         $form[$field_name]['#access'] = FALSE;
       }
     }
+    // Hide some extra things from the form.
+    $form['translation']['#access'] = FALSE;
     $form['revision_information']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * @param array $data
+ * @param array $route_name
+ */
+function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
+  // Verify we're operating on a node edit page
+  if ($route_name['path'] != 'node/%/edit') {
+    return;
+  }
+  // Only perform this for regional admins
+  if (dosomething_global_is_regional_admin()) {
+    // Remove tabs from the edit page
+    unset($data['tabs'][1]['output']);
   }
 }
 

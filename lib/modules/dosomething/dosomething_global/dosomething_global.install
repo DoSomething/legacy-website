@@ -3,3 +3,21 @@
  * @file
  * Installation and updates for dosomething_global.module.
  */
+
+ /**
+  * Update module weight to be greater than entity translation
+  */
+ function dosomething_global_update_7001(&$sandbox) {
+   // Get the weight of the module we want to compare against
+   $weight = db_select('system', 's')
+               ->fields('s', array('weight'))
+               ->condition('name', 'entity_translation', '=')
+               ->execute()
+               ->fetchField();
+
+   // Set our module to a weight 1 heavier, so ours moves lower in execution order
+   db_update('system')
+     ->fields(array('weight' => $weight + 1))
+     ->condition('name', 'dosomething_global', '=')
+     ->execute();
+ }
