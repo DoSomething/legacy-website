@@ -85,7 +85,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#rows' => 2,
     '#title' => t('Forgot Password copy'),
     '#description' => t('Password reset neutral copy displayed both on fail and success.'),
-    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
+    '#default_value' => t(variable_get($var_name)),
   );
 
   // Registration form settings.
