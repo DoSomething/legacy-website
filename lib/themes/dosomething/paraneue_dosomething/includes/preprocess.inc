@@ -236,7 +236,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       // If there are no results.
       if (empty($vars['page']['content']['system_main']['search_results']['search_results']['#results'])) {
         // Set copy.
-        $vars['noresults_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
+        $vars['noresults_copy'] = t(variable_get('dosomething_search_copy_no_results', 'No results found'));
         // Recommended campaigns.
         $vars['recommended_campaigns_gallery'] = paraneue_dosomething_get_recommended_campaign_gallery(NULL, NULL, 3);
       }
