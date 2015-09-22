@@ -43,6 +43,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Action Type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -86,6 +87,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Active Hours',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -130,6 +132,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Additional Text Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -180,6 +183,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Additional Text Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -228,6 +232,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Additional Text Header',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -278,6 +283,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Automatic Parent Signup',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -324,6 +330,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Call to Action',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -378,6 +385,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Campaigns',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -426,6 +434,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Cause',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -473,6 +482,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Show End Date',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -522,6 +532,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Display Signup Form?',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -579,6 +590,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'FAQ',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -626,6 +638,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Gallery',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -677,6 +690,7 @@ function dosomething_campaign_group_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -731,6 +745,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Cover Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -779,6 +794,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -829,6 +845,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Intro Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -877,6 +894,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Intro Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -935,6 +953,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Sponsors and Partners',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -978,6 +997,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Post Signup Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1024,6 +1044,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Post Signup Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1071,6 +1092,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Pre Launch Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1118,6 +1140,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Pre Launch Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1175,6 +1198,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Scholarship Amount',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => '',
       'prefix' => '$',
@@ -1222,6 +1246,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Signup Confirmation Message',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1273,6 +1298,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Is Staff Pick',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1319,6 +1345,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Tags',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1365,6 +1392,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Transactional Email Copy',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1416,6 +1444,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     'label' => 'Video',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

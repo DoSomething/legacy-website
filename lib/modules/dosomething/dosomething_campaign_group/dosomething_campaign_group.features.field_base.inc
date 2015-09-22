@@ -33,6 +33,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
@@ -74,6 +75,7 @@ function dosomething_campaign_group_field_default_field_bases() {
         1 => '',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -102,6 +104,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
@@ -119,7 +122,7 @@ function dosomething_campaign_group_field_default_field_bases() {
       ),
       'target_type' => 'node',
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'entityreference',
   );
 
@@ -144,6 +147,7 @@ function dosomething_campaign_group_field_default_field_bases() {
         1 => 'display',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -171,7 +175,9 @@ function dosomething_campaign_group_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
@@ -199,6 +205,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -227,7 +234,9 @@ function dosomething_campaign_group_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
@@ -255,6 +264,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -284,6 +294,7 @@ function dosomething_campaign_group_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -312,7 +323,9 @@ function dosomething_campaign_group_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
