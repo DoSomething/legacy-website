@@ -40,6 +40,7 @@ function dosomething_home_field_default_field_instances() {
     'label' => 'Campaigns',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -90,6 +91,7 @@ function dosomething_home_field_default_field_instances() {
           'status' => TRUE,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -131,6 +133,7 @@ function dosomething_home_field_default_field_instances() {
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
