@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the DoSomething Global feature.
+ *   Code for the DoSomething Global feature.
  */
 
 include_once 'dosomething_global.features.inc';
@@ -38,6 +38,8 @@ function dosomething_global_init() {
 
 /**
  * Implements hook_node_insert().
+ *
+ * @param StdClass $node
  */
 function dosomething_global_node_insert($node) {
   $user = user_load($node->uid);
@@ -50,15 +52,22 @@ function dosomething_global_node_insert($node) {
 
 /**
  * Implements hook_form_alter().
+ *
+ * @param array $form
+ * @param array $form_state
+ * @param string $form_id
  */
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
-  // Check if the user is a mexico or brazil admin
+
+  // Check if the user is a regional (e.g., Mexico, Brazil) admin.
   if (dosomething_global_is_regional_admin()) {
+
     // Get translatable fields.
     $fields = $form_state['field'];
     foreach ($fields as $field_name => $field) {
       $field_info = field_info_field($field_name);
-      // If the field is not translatable disable access
+
+      // If the field is not translatable, disable access.
       if (!$field_info['translatable'] && strpos($field_name, '#') === FALSE) {
         $form[$field_name]['#access'] = FALSE;
       }
@@ -68,12 +77,12 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
 }
 
 /**
- * Returns if the user is a regional admin
+ * Returns a boolean indicating whether the user is a regional admin.
  *
  * @param Object $user
  *   Optional - A specified user to check
  *
- * @return SelectQuery object
+ * @return boolean
  */
 function dosomething_global_is_regional_admin($user = NULL) {
   if (!isset($user)) {
@@ -91,10 +100,11 @@ function dosomething_global_is_regional_admin($user = NULL) {
 /**
  * Get the roles that are defined as regional admins.
  *
- * @return - array
- *  The roles that are regional admins.
+ * @return array
+ *   The roles that are regional admins.
  */
 function _dosomething_global_get_regional_roles() {
+  $roles = array();
   $languages = variable_get('dosomething_global_language_map', '');
   foreach ($languages as $language) {
     if (isset($language['default_roles'][0])) {
@@ -105,7 +115,7 @@ function _dosomething_global_get_regional_roles() {
 }
 
 /**
- * Returns the user's langauge based on the role.
+ * Returns the user's language based on the role.
  *
  * @param Object $user
  *   Optional - A specified user to check
@@ -117,7 +127,10 @@ function dosomething_global_get_user_language($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
+
   $lang_map = variable_get('dosomething_global_language_map', '');
+  $role_to_lang = array();
+
   foreach ($lang_map as $lang_key => $lang) {
     // If we have a role with the language.
     if (isset($lang['default_roles'][0])) {
@@ -131,15 +144,16 @@ function dosomething_global_get_user_language($user = NULL) {
     }
 
   }
-  // If we didn't find a user role return english default.
+
+  // If we didn't find a user role, return english default.
   return 'en';
 }
 
 /**
- * Returns a list of all the countries defined in the strongarm
+ * Returns a list of all the countries defined in Strongarm.
  *
  * @return array
- *  All of the supported countries
+ *   All of the supported countries
  */
  function dosomething_global_get_countries() {
    $lang_map = variable_get('dosomething_global_language_map', '');
@@ -159,11 +173,11 @@ function dosomething_global_get_user_language($user = NULL) {
 /**
  * Gets the country from a given language.
  *
- * @param string language
- *  A two letter language code.
+ * @param string $language
+ *   A two letter language code.
  *
  * @return string language
- *  The country that maps to the language passed in.
+ *   The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
   $lang_map = variable_get('dosomething_global_language_map', '');
@@ -173,11 +187,11 @@ function dosomething_global_convert_language_to_country($language) {
 /**
  * Converts the given country into its assigned language
  *
- * @param string country
- *  The country Code
+ * @param string $country
+ *   The country Code
  *
- * @return
- *  The language mapped to this country
+ * @return int|string
+ *   The language mapped to this country
  */
 function dosomething_global_convert_country_to_language($country) {
   $lang_map = variable_get('dosomething_global_language_map', '');
