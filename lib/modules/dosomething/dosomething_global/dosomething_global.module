@@ -52,6 +52,8 @@ function dosomething_global_node_insert($node) {
  * Implements hook_form_alter().
  */
 function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
+  // Don't autopublish tranlsations.
+  $form['translation']['status']['#default_value'] = FALSE;
   // Check if the user is a mexico or brazil admin
   if (dosomething_global_is_regional_admin()) {
     // Get translatable fields.
@@ -63,6 +65,8 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
         $form[$field_name]['#access'] = FALSE;
       }
     }
+    // Hide some extra things from the form.
+    $form['translation']['#access'] = FALSE;
     $form['revision_information']['#access'] = FALSE;
   }
 }
