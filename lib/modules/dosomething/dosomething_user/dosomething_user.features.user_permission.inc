@@ -401,6 +401,21 @@ function dosomething_user_user_default_permissions() {
     'module' => 'locale',
   );
 
+  // Exported permission: 'translate node entities'.
+  $permissions['translate node entities'] = array(
+    'name' => 'translate node entities',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'brazil admin' => 'brazil admin',
+      'creative team' => 'creative team',
+      'editor' => 'editor',
+      'global admin' => 'global admin',
+      'mexico admin' => 'mexico admin',
+      'site admin' => 'site admin',
+    ),
+    'module' => 'entity_translation',
+  );
+
   // Exported permission: 'view any unpublished content'.
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',
