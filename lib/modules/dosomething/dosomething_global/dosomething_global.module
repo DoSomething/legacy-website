@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_global.features.inc';
+define("TRANSLATABLE_TYPES", 'static_content,campaign,home');
 
 /**
  * Implements hook_init().
@@ -51,7 +52,12 @@ function dosomething_global_node_insert($node) {
 /**
  * Implements hook_form_alter().
  */
-function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
+function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Only run this form alter on translatable types.
+  $translatable_types = explode(',', TRANSLATABLE_TYPES);
+  if (!(in_array($form['type']['#value'], $translatable_types))) {
+    return;
+  }.
   // Don't autopublish tranlsations.
   $form['translation']['status']['#default_value'] = FALSE;
   // Check if the user is a mexico or brazil admin
