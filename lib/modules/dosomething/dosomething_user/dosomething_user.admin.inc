@@ -144,7 +144,7 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#title' => t('Subtitle'),
     '#required' => TRUE,
     '#description' => t("Displayed below the Profile main page title."),
-    '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
+    '#default_value' => t(variable_get($var_name)),
   );
 
   // No Signups header.
