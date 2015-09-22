@@ -67,6 +67,15 @@ function dosomething_global_form_campaign_node_form_alter(&$form, &$form_state, 
   }
 }
 
+function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
+  if ($route_name['path'] != 'node/%/edit') {
+      return;
+  }
+  if (dosomething_global_is_regional_admin()) {
+    unset($data['tabs'][1]['output']);
+  }
+}
+
 /**
  * Returns if the user is a regional admin
  *
