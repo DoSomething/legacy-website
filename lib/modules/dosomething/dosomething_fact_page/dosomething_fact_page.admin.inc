@@ -13,7 +13,7 @@ function dosomething_fact_page_admin_config_form($form, &$form_state) {
     '#type' => 'textarea',
     '#title' => t('Intro copy'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_fact_page_copy_intro'),
+    '#default_value' => t(variable_get('dosomething_fact_page_copy_intro')),
     '#description' => t("Displayed as intro for each Fact Page."),
   );
 

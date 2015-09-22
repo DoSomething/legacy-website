@@ -63,7 +63,7 @@ function dosomething_fact_page_theme($existing, $type, $theme, $path) {
       'template' => 'fact-page-list',
       'path' => drupal_get_path('module', 'dosomething_fact_page') . '/theme',
       'variables' => array(
-        'links' => NULL, 
+        'links' => NULL,
       ),
     ),
   );
@@ -112,7 +112,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     $values = dosomething_fact_page_get_fact_collection_vars($vars['node']);
     $vars['facts'] = $values['facts'];
     $vars['sources'] = $values['sources'];
-    if ($intro_copy = variable_get('dosomething_fact_page_copy_intro')) {
+    if ($intro_copy = t(variable_get('dosomething_fact_page_copy_intro'))) {
       $vars['intro'] = check_markup($intro_copy, 'markdown');
     }
   }
@@ -166,7 +166,7 @@ function dosomething_fact_page_get_fact_collection_vars($node) {
  */
 function dosomething_fact_page_get_fact_collection_copy($fc_item, $fact_page_nid) {
   // If copy has not been set, nothing to do.
-  if (!isset($fc_item->field_compound_text_copy[LANGUAGE_NONE][0])) { 
+  if (!isset($fc_item->field_compound_text_copy[LANGUAGE_NONE][0])) {
     return NULL;
   }
   // Store the copy safe_value.
@@ -221,7 +221,7 @@ function dosomething_fact_page_get_fact_page_list_by_tid($tid) {
  * Returns multi-dimensional array of published fact_page nodes.
  *
  * @return array
- *   Array of arrays of links, keyed by Primary Cause name. 
+ *   Array of arrays of links, keyed by Primary Cause name.
  */
 function dosomething_fact_page_get_fact_page_list_links() {
   $vocab = taxonomy_vocabulary_machine_name_load('cause');

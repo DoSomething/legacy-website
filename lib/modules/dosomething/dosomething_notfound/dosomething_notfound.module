@@ -71,7 +71,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   // Add hero video
   if (isset($vars['hero_image']['video'])) {
     $vars['video'] = $vars['hero_image']['video'];
-    
+
     // Add video poster.
     if (isset($vars['hero_image']['poster'])) {
       $vars['video_poster'] = $vars['hero_image']['poster'];
@@ -91,10 +91,10 @@ function dosomething_notfound_preprocess_node(&$vars)  {
   $copy = NULL; // Temp variable.
 
   if (strpos($raw_url, "grants") === 0) {
-    $copy = variable_get('dosomething_notfound_copy_grants');
+    $copy = t(variable_get('dosomething_notfound_copy_grants'));
   }
   elseif (strpos($raw_url, "project") === 0) {
-    $copy = variable_get('dosomething_notfound_copy_projects');
+    $copy = t(variable_get('dosomething_notfound_copy_projects'));
   }
 
   // For path specific results.
@@ -139,12 +139,12 @@ function dosomething_notfound_preprocess_node(&$vars)  {
       ),
     );
     $search_form = drupal_build_form('search_form', $form_state);
-    // Make the search form availabe to the page.
+    // Make the search form available to the page.
     $vars['search_form'] = drupal_render($search_form);
-    // If there are search results set the appropiate copy and exit.
+    // If there are search results set the appropriate copy and exit.
     if (count($vars['raw_search_results']) != 0) {
       // Search header text.
-      $vars['results_copy'] = variable_get('dosomething_notfound_copy_search_results');
+      $vars['results_copy'] = t(variable_get('dosomething_notfound_copy_search_results'));
       return;
     }
   }
@@ -157,7 +157,7 @@ function dosomething_notfound_preprocess_node(&$vars)  {
     $vars['search_form'] = drupal_render($search_form);
   }
   // Set the default copy.
-  $vars['results_copy'] = variable_get('dosomething_search_copy_no_results', 'No results found');
+  $vars['results_copy'] = t(variable_get('dosomething_search_copy_no_results', 'No results found'));
 }
 
 /**
