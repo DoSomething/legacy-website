@@ -1,0 +1,667 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_signup.admin.inc: n/a
+#  dosomething_signup.forms.inc: n/a
+#  dosomething_signup.views_default.inc: n/a
+#  dosomething_signup.signup_data_form.inc: n/a
+#  dosomething_signup.module: n/a
+#  dosomething_signup.info: n/a
+#  includes/dosomething_signup.variable.inc: n/a
+#  includes/dosomething_signup.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-23 18:13+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_signup.admin.inc:16
+msgid "General"
+msgstr ""
+
+#: dosomething_signup.admin.inc:21
+msgid "General MailChimp List ID used in registrations and signups."
+msgstr ""
+
+#: dosomething_signup.admin.inc:31
+msgid "Numeric Mobile Commons opt-in path for general campaign signup."
+msgstr ""
+
+#: dosomething_signup.admin.inc:35
+msgid "Mobile Commons | General campaign | mobilecommons_opt_in_path"
+msgstr ""
+
+#: dosomething_signup.admin.inc:41
+msgid "Numeric Mobile Commons opt-in path when user registers for site."
+msgstr ""
+
+#: dosomething_signup.admin.inc:45
+msgid "Mobile Commons | User registration | mobilecommons_opt_in_path"
+msgstr ""
+
+#: dosomething_signup.admin.inc:53
+msgid "26+ Club"
+msgstr ""
+
+#: dosomething_signup.admin.inc:81
+msgid "Override MailChimp List ID for users older than 26."
+msgstr ""
+
+#: dosomething_signup.admin.inc:90
+msgid "Override MailChimp Registration Grouping ID for users older than 26."
+msgstr ""
+
+#: dosomething_signup.admin.inc:99
+msgid "Override MailChimp Registration Interest Group Name for users older than 26."
+msgstr ""
+
+#: dosomething_signup.admin.inc:109
+msgid "Override MailChimp Registration Template Name for users older than 26."
+msgstr ""
+
+#: dosomething_signup.admin.inc:139
+msgid "Save"
+msgstr ""
+
+#: dosomething_signup.admin.inc:199
+msgid "Configuration saved."
+msgstr ""
+
+#: dosomething_signup.admin.inc:216
+msgid "Undefined"
+msgstr ""
+
+#: dosomething_signup.admin.inc:245
+msgid "The numeric Grouping ID for the Group Name."
+msgstr ""
+
+#: dosomething_signup.admin.inc:246
+msgid "The alphanumeric Interest Group Name."
+msgstr ""
+
+#: dosomething_signup.admin.inc:247
+msgid "The numeric Mobilecommons opt-in path."
+msgstr ""
+
+#: dosomething_signup.admin.inc:250
+msgid "Single-player: Mobile Commons Alpha Opt-In Path"
+msgstr ""
+
+#: dosomething_signup.admin.inc:251
+msgid "Single-player: Mobile Commons Beta Opt-In Path"
+msgstr ""
+
+#: dosomething_signup.admin.inc:252
+msgid "Multi-player: Story Id"
+msgstr ""
+
+#: dosomething_signup.admin.inc:253
+msgid "Multi-player: Story Type"
+msgstr ""
+
+#: dosomething_signup.admin.inc:267
+msgid "Staff Picks"
+msgstr ""
+
+#: dosomething_signup.admin.inc:272
+msgid "Campaign Collections"
+msgstr ""
+
+#: dosomething_signup.admin.inc:278
+msgid "SMS Games"
+msgstr ""
+
+#: dosomething_signup.admin.inc:291
+msgid "SMS Game"
+msgstr ""
+
+#: dosomething_signup.admin.inc:297
+msgid "SMS Multi-player Game Endpoint"
+msgstr ""
+
+#: dosomething_signup.admin.inc:298
+msgid "URL to post a multi-player SMS Game request, e.g. <em>http://ds-heroku.biz/sms-multiplayer-game/create</em>"
+msgstr ""
+
+#: dosomething_signup.admin.inc:303
+msgid "Logging"
+msgstr ""
+
+#: dosomething_signup.admin.inc:307
+msgid "Log Signups."
+msgstr ""
+
+#: dosomething_signup.admin.inc:309
+msgid "Logs Signup entity activity. This should be disabled on production."
+msgstr ""
+
+#: dosomething_signup.admin.inc:313
+msgid "Log Mobile Commons requests."
+msgstr ""
+
+#: dosomething_signup.admin.inc:315
+msgid "This should be disabled on production."
+msgstr ""
+
+#: dosomething_signup.forms.inc:170
+msgid "First Name"
+msgstr ""
+
+#: dosomething_signup.forms.inc:181;208
+msgid "(555) 555-5555"
+msgstr ""
+
+#: dosomething_signup.forms.inc:195
+msgid "Friend's Name"
+msgstr ""
+
+#: dosomething_signup.forms.inc:290
+msgid "This SMS Game is not properly configured."
+msgstr ""
+
+#: dosomething_signup.forms.inc:310
+msgid "Please provide a valid telephone number."
+msgstr ""
+
+#: dosomething_signup.forms.inc:339
+msgid "Hey, you entered this number already!"
+msgstr ""
+
+#: dosomething_signup.forms.inc:399
+msgid "Are you sure you want to remove this signup?  This cannot be undone."
+msgstr ""
+
+#: dosomething_signup.forms.inc:405
+msgid "Delete"
+msgstr ""
+
+#: dosomething_signup.forms.inc:440
+msgid "Reset Signup Data Form"
+msgstr ""
+
+#: dosomething_signup.forms.inc:443
+msgid "Submitting this form will allow the user to submit their Signup Data Form again."
+msgstr ""
+
+#: dosomething_signup.forms.inc:447 dosomething_signup.views_default.inc:198
+msgid "Reset"
+msgstr ""
+
+#: dosomething_signup.forms.inc:461
+msgid "The Signup data form has been reset."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:42
+msgid "Signup Data Form"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:49
+msgid "Collect additional signup data"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:54
+msgid "Configuration"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:67
+msgid "Prompt after signup"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:69
+msgid "If checked, the form modal will be displayed after the user first signs up."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:73
+msgid "Allow skip"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:75
+msgid "If checked, the form modal will provide a Skip button when the user is first prompted."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:85
+msgid "Prevent Old People from submitting"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:87
+msgid "If checked, Old People will be unable to submit the form."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:91
+msgid "Old People copy"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:93
+msgid "The copy displayed in the modal form for Old People."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:103
+msgid "Link text"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:105
+msgid "This is label of the link in \"Stuff You Need\" which opens the form modal."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:109
+msgid "Form header"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:111
+msgid "This is the headline that appears in the form modal."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:115
+msgid "Form copy"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:117
+msgid "This is the copy that appears above the form elements."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:122
+msgid "Form Elements"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:128
+msgid "Collect User address"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:130
+msgid "If checked, collect the User address and save to profile."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:138
+msgid "Select Shipment Item"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:141
+msgid "When the User submits the form, a User Shipment will be created for this Item."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:151
+msgid "Collect User school"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:153
+msgid "If checked, collect the User school and save to profile."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:157
+msgid "Not Affiliated Label"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:159
+msgid "Checkbox label for if a user is not affiliated with a school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:169
+msgid "Not Affiliated Confirmation Message"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:171
+msgid "Confirmation message if a user selects not affiliated with school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:181
+msgid "Collect Signup reason"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:183
+msgid "If checked, collect the reason why the User signed up for the campaign."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:187
+msgid "Signup Reason Label"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:189
+msgid "This is the label for the field which collects the signup reason. e.g. <em>Tell us why you would like to receive Thumb Socks for Thumb Wars</em>."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:199
+msgid "Confirmation message"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:201
+msgid "This is the message displayed after the user submits the form."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:205
+msgid "Form submitted copy"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:213;444
+msgid "Submit"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:230
+msgid "Signup Data Form Link text is mandatory."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:235
+msgid "Signup Data Form Confirmation message is mandatory."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:358
+msgid "Select @label"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:368
+msgid "School ID"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:374
+msgid "School Name"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:375
+msgid "Find your school by name..."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:388
+msgid "Need help locating your school?"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:391
+msgid "Still having issues? !contact with your school name and @state."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:392
+msgid "Contact us"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:404
+msgid "I am not affiliated with a school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:498
+msgid "Please select a school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:517
+msgid "Skip"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:195
+msgid "Master"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:196
+msgid "more"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:197
+msgid "Apply"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:199
+msgid "Sort by"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:200
+msgid "Asc"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:201
+msgid "Desc"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:202
+msgid "Items per page"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:203
+msgid "- All -"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:204
+msgid "Offset"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:205
+msgid "« first"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:206
+msgid "‹ previous"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:207
+msgid "next ›"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:208
+msgid "last »"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:209
+msgid "Displaying @start - @end of @total"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:210
+msgid "Node"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:211
+msgid "User"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:212 dosomething_signup.module:88;328
+msgid "Signup sid"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:213
+msgid "."
+msgstr ""
+
+#: dosomething_signup.views_default.inc:214
+msgid "Submitted"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:215 dosomething_signup.module:366
+msgid "Uid"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:216
+msgid "E-mail"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:217 dosomething_signup.module:121
+msgid "Source"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:218
+msgid "All"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:219
+msgid "Signups: %1"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:220 dosomething_signup.module:309;312
+msgid "Signups"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:221
+msgid "Page"
+msgstr ""
+
+#: dosomething_signup.module:24
+msgid "Third Party Opt-Ins"
+msgstr ""
+
+#: dosomething_signup.module:33 dosomething_signup.info:0
+msgid "DoSomething Signup"
+msgstr ""
+
+#: dosomething_signup.module:34
+msgid "Admin configuration form for DoSomething Signup."
+msgstr ""
+
+#: dosomething_signup.module:66;51
+msgid "Signup"
+msgstr ""
+
+#: dosomething_signup.module:89
+msgid "The unique ID of the Signup."
+msgstr ""
+
+#: dosomething_signup.module:95
+msgid "Node nid"
+msgstr ""
+
+#: dosomething_signup.module:96
+msgid "The node nid of the Signup."
+msgstr ""
+
+#: dosomething_signup.module:104
+msgid "User uid"
+msgstr ""
+
+#: dosomething_signup.module:105
+msgid "The User uid of the Signup."
+msgstr ""
+
+#: dosomething_signup.module:113
+msgid "Created Date"
+msgstr ""
+
+#: dosomething_signup.module:114
+msgid "Date the Signup was created."
+msgstr ""
+
+#: dosomething_signup.module:122
+msgid "Referring Signup source."
+msgstr ""
+
+#: dosomething_signup.module:138
+msgid "Administer Third Party Communications"
+msgstr ""
+
+#: dosomething_signup.module:139
+msgid "Manage Mobile Commons/MailChimp Opt-in IDs."
+msgstr ""
+
+#: dosomething_signup.module:142
+msgid "Edit any signup"
+msgstr ""
+
+#: dosomething_signup.module:143
+msgid "Edit any signup."
+msgstr ""
+
+#: dosomething_signup.module:146
+msgid "View any signup"
+msgstr ""
+
+#: dosomething_signup.module:147
+msgid "View any signup."
+msgstr ""
+
+#: dosomething_signup.module:237 includes/dosomething_signup.variable.inc:49
+msgid "There was an error processing your request."
+msgstr ""
+
+#: dosomething_signup.module:313
+msgid "Dosomething Signups table."
+msgstr ""
+
+#: dosomething_signup.module:329
+msgid "Signup sid that references a signup."
+msgstr ""
+
+#: dosomething_signup.module:343
+msgid "Signup Sid"
+msgstr ""
+
+#: dosomething_signup.module:347
+msgid "Nid"
+msgstr ""
+
+#: dosomething_signup.module:348
+msgid "Signup node nid."
+msgstr ""
+
+#: dosomething_signup.module:362
+msgid "Signup Node Nid"
+msgstr ""
+
+#: dosomething_signup.module:367
+msgid "User id."
+msgstr ""
+
+#: dosomething_signup.module:381
+msgid "Signup User"
+msgstr ""
+
+#: dosomething_signup.module:385
+msgid "Date submitted"
+msgstr ""
+
+#: dosomething_signup.module:386
+msgid "Date submitted."
+msgstr ""
+
+#: dosomething_signup.module:399
+msgid "Signup source"
+msgstr ""
+
+#: dosomething_signup.module:400
+msgid "Referring source for the signup."
+msgstr ""
+
+#: dosomething_signup.module:692
+msgid "for"
+msgstr ""
+
+#: dosomething_signup.module:694
+msgid "You're signed up"
+msgstr ""
+
+#: dosomething_signup.module:695
+msgid "Get started below."
+msgstr ""
+
+#: dosomething_signup.module:708
+msgid "find a campaign"
+msgstr ""
+
+#: dosomething_signup.module:709
+msgid "Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now."
+msgstr ""
+
+#: dosomething_signup.module:25
+msgid "Admin form to manage custom opt-ins"
+msgstr ""
+
+#: dosomething_signup.module:42
+msgid "Remove signup"
+msgstr ""
+
+#: dosomething_signup.info:0
+msgid "Provides Signup table and functionality."
+msgstr ""
+
+#: dosomething_signup.info:0
+msgid "DoSomething"
+msgstr ""
+
+#: includes/dosomething_signup.inc:99
+msgid "dosomething_signup"
+msgstr ""
+
+#: includes/dosomething_signup.inc:99
+msgid "Attempted uid override for @entity by User @uid"
+msgstr ""
+
