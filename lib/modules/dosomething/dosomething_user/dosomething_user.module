@@ -424,6 +424,11 @@ function dosomething_user_set_address_values($form, &$form_state, $address) {
 function dosomething_user_user_pass_submit($form, &$form_state) {
   if (isset($form_state['input']['name'])) {
     $account = user_load_by_mail($form_state['input']['name']);
+    if (module_exists('dosomething_global')) {
+      // Adjust language based on location
+      $user_country_code = dosomething_settings_get_geo_country_code();
+      $language = dosomething_global_convert_country_to_language($user_country_code);
+    }
     if (isset($account->mail)) {
       // Send external message request
       $params = array(
@@ -431,7 +436,10 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
         'uid' => $account->uid,
         'first_name' => dosomething_user_get_field('field_first_name', $account),
         'reset_link' => user_pass_reset_url($account),
+        'user_language'     => $account->language,
+        'user_country'      => isset($user_country_code) ? $user_country_code : 'US'
       );
+
       if (module_exists('dosomething_mbp')) {
         dosomething_mbp_request('user_password', $params);
       }
