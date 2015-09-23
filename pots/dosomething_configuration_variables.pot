@@ -1,0 +1,250 @@
+# LANGUAGE translation of DoSomething.org Phoenix
+# Copyright (c) 2015 <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-22 16:34+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_campaign_0_20_progress_copy
+msgid "[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work below early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases."
+msgstr ""
+
+#: dosomething_campaign_100_progress_copy
+msgid "Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time."
+msgstr ""
+
+#: dosomething_campaign_21_40_progress_copy
+msgid "We’re gaining steam! Keep spreading the word to get more friends involved so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!"
+msgstr ""
+
+#: dosomething_campaign_41_60_progress_copy
+msgid "The more people we get to sign up for [node:title] the sooner we’ll reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Be a megaphone - get your friends involved by posting on social!"
+msgstr ""
+
+#: dosomething_campaign_61_80_progress_copy
+msgid "Keep those campaign updates coming! Don’t wait to the end to submit a photo of you in action! Submit your progress early and often so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can update your submission at any time below."
+msgstr ""
+
+#: dosomething_campaign_81_99_progress_copy
+msgid "We’re almost there! Keep showing off your work. You can add photos and update your submission below throughout the campaign."
+msgstr ""
+
+#: dosomething_campaign_confirmation_page_anon_button_text
+msgid "Join us"
+msgstr ""
+
+#: dosomething_campaign_confirmation_page_anon_cta_text
+msgid "Create an account to keep track of your campaigns!"
+msgstr ""
+
+#: dosomething_campaign_confirmation_page_button_text
+msgid "Find more campaigns"
+msgstr ""
+
+#: dosomething_campaign_confirmation_page_title
+msgid "You did it!"
+msgstr ""
+
+#: dosomething_campaign_nid_2366_pitch_page_label
+msgid "Pass It Along"
+msgstr ""
+
+#: dosomething_campaign_permalink_confirmation_owners_important_to_you
+msgid "In your words"
+msgstr ""
+
+#: dosomething_campaign_permalink_confirmation_owners_page_subtitle
+msgid "We got your pics!"
+msgstr ""
+
+#: dosomething_campaign_permalink_confirmation_owners_scholarship
+msgid "(And you've entered to win the scholarship!)"
+msgstr ""
+
+#: dosomething_campaign_permalink_confirmation_owners_social_cta
+msgid "Share your photo and impact with friends!"
+msgstr ""
+
+#: dosomething_campaign_permalink_confirmation_owners_social_network_copy
+msgid "I made an ACTUAL difference about [node:issue] and you can too. Sign up for [node:title] now:"
+msgstr ""
+
+#: dosomething_campaign_permalink_nonowners_closed_button_copy
+msgid "Explore Campaigns"
+msgstr ""
+
+#: dosomething_campaign_permalink_nonowners_closed_cta
+msgid "Tackle a campaign to make the world suck less."
+msgstr ""
+
+#: dosomething_campaign_permalink_nonowners_page_title
+msgid "Join [user:field_first_name] and DoSomething.org"
+msgstr ""
+
+#: dosomething_campaign_permalink_owners_page_subtitle
+msgid "And here is your sweet pic to prove it."
+msgstr ""
+
+#: dosomething_campaign_permalink_owners_page_title
+msgid "You rocked this campaign!"
+msgstr ""
+
+#: dosomething_campaign_presignup_callout_copy
+msgid "We'll hit you up when it re-opens"
+msgstr ""
+
+#: dosomething_campaign_problem_share_prompt
+msgid "F that, spread the word"
+msgstr ""
+
+#: dosomething_campaign_run_no_total_copy
+msgid "We’re still tallying the [label]. The bigger the number, the longer it takes...so stay tuned!"
+msgstr ""
+
+#: dosomething_campaign_run_no_winner_copy
+msgid "Hold on! We’re still sifting through the (amazing) submissions you sent to choose a winner. We’ll email you and post his or her name here soon!"
+msgstr ""
+
+#: dosomething_campaign_run_signup_button_copy
+msgid "Notify Me"
+msgstr ""
+
+#: dosomething_campaign_share_copy
+msgid "Rally your friends to crush this goal!"
+msgstr ""
+
+#: dosomething_campaign_sms_game_all_participants_copy
+msgid "Over 1.4 million games played since 2012!"
+msgstr ""
+
+#: dosomething_campaign_sms_game_confirmation_page_title
+msgid "Thanks for sharing!"
+msgstr ""
+
+#: dosomething_campaign_sms_game_signup_friends_form_button_copy
+msgid "Start"
+msgstr ""
+
+#: dosomething_campaign_win_copy
+msgid "[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the Prove It section below."
+msgstr ""
+
+#: dosomething_campaign_win_share_copy
+msgid "show the world what we did!"
+msgstr ""
+
+#: dosomething_fact_page_copy_intro
+msgid "Welcome to DoSomething.org, one of the largest orgs for young people and social change! After you've browsed the 11 facts (with citations at the bottom), take action and volunteer with our millions of members. Sign up for a [campaign](/campaigns) and make the world suck less."
+msgstr ""
+
+#: dosomething_notfound_copy_grants
+msgid "DoSomething.org doesn’t offer grants anymore! Here’s why: Instead of giving grant money to a few individual projects, we’ve invested in creating more national cause campaigns ANYONE can do. That means more young people (that’s you!) making more impact. Ready? Check out our [campaign finder](/campaigns) or join one of these:"
+msgstr ""
+
+#: dosomething_notfound_copy_projects
+msgid "DoSomething.org doesn’t host projects anymore! We want young people to be able to rock any cause, anytime, anywhere. That’s why we’ve turned some of the best projects (out of 40,000 ideas!) into national cause campaigns EVERYONE can tackle. Ready? Check out our [campaign finder](/campaigns) or join one of these:"
+msgstr ""
+
+#: dosomething_notfound_copy_search_results
+msgid "But we did a quick search, and here is some similar content that we do have."
+msgstr ""
+
+#: dosomething_payment_donate_confirm_msg
+msgid "Thanks for your donation!"
+msgstr ""
+
+#: dosomething_payment_donate_form_header
+msgid "Your $$$ fires up young people to make an impact. A big one."
+msgstr ""
+
+#: dosomething_reportback_num_participants_label
+msgid "How many people did you do this with?"
+msgstr ""
+
+#: dosomething_reward_redeem_form_button_text
+msgid "SUBMIT"
+msgstr ""
+
+#: dosomething_reward_redeem_form_confirm_msg
+msgid "Sweet thanks! You'll receive your t-shirts within 2-3 weeks. We'll email you once they've been shipped so you can track the package. Keep up the awesome work."
+msgstr ""
+
+#: dosomething_reward_redeem_form_copy
+msgid "Complete this form, and we’ll mail you your shirts!"
+msgstr ""
+
+#: dosomething_reward_redeem_form_header
+msgid "Free T-Shirts"
+msgstr ""
+
+#: dosomething_reward_redeem_form_link
+msgid "GET YOUR SHIRTS"
+msgstr ""
+
+#: dosomething_reward_redeem_page_copy
+msgid "Congratulations! You tackled two or more DoSomething.org campaigns in the last 12 months. To say thanks, we want to send you two (free!) T-shirts. Keep one and rock it with pride. Then give the other to a friend who you want to take action with DoSomething.org."
+msgstr ""
+
+#: dosomething_reward_redeem_page_subtitle
+msgid "You’ve earned a (free!) DoSomething.org T-shirt!"
+msgstr ""
+
+#: dosomething_reward_redeem_page_title
+msgid "Oh, snap!"
+msgstr ""
+
+#: dosomething_search_copy_no_results
+msgid "We searched our site, but couldn't find what you were looking for. Try a new search or check out one of our campaigns below."
+msgstr ""
+
+#: dosomething_settings_copy_about_ds
+msgid "DoSomething.org makes the world suck less. One of the largest orgs for young people and social change, our millions of members tackle campaigns that impact every cause, from poverty to violence to the environment to literally everything else. Any cause, anytime, anywhere. *mic drop*"
+msgstr ""
+
+#: dosomething_settings_copy_campaign_value_proposition
+msgid "Psh, what DON’T you get? Each campaign offers the key facts, pro tips, and four easy action steps you need to rock the campaign and make an impact.- Step 1, Know It: You get stats on the problem and how you’re going to solve it.- Step 2, Plan It: You’ll learn the stuff you need, how to recruit others to take action with you, and how to prep to take action.- Step 3, Do It: You’ll learn how to actually do the darn thing and make the biggest impact possible.- Step 4, Prove It: Snap a pic of you in action and upload it! Each campaign counts as volunteer experience for your resume. And you can enter to win scholarships! Speaking of…"
+msgstr ""
+
+#: dosomething_settings_copy_scholarships
+msgid "You make the world suck less for others. Great! So what’s in it for you? Money. Lots and lots of money. (For school.) Complete any campaign on the site, send a pic in the Prove It section, and you’ll enter to win a $10,000 scholarship! We award one of these seasonal scholarships four times a year. And, lots of other campaigns offer their own scholarship opps. Mad chances to win mad money."
+msgstr ""
+
+#: dosomething_user_profile_subtitle
+msgid "Rock your campaigns and send pics to prove it."
+msgstr ""
+
+#: dosomething_user_reset_password_copy
+msgid "If we have an account with that email address, we'll send you a password recovery link in a few minutes."
+msgstr ""
+
+#: dosomething_user_school_finder_help_text
+msgid "Here are some tricks to help you find your school:1. Try typing only the first word or two of your school name (instead of the whole thing at once) and wait to see if a match appears in the results.2. Try abbreviating or unabbreviating. If \"St. Mary's\" doesn't work, try \"Saint Mary's\" or vice versa. Same with JFK vs. John F. Kennedy.3. Make sure you are searching for a specific school, not a whole district.4. Use “&” instead of “and” and vice versa. You can also try taking out or adding in periods, sometimes “J. F. Kennedy Jr. Middle School” won’t work, but “J F Kennedy Middle School will.5. Try removing a name or initial. For example, “Robert E. Lee High School” might not show up, but “Lee High School” will.6. Try taking out or adding words like “High”, “Middle”, and “Senior”. “William S. Hart Senior High School” might not work, but “Hart High School” will and vice versa.7. If your school is in a U.S. territory, please click the “Contact Us” link below and send us your school’s name and location to sign up."
+msgstr ""
+
+#: dosomething_zendesk_form_body_label
+msgid "Your Question"
+msgstr ""
+
+#: dosomething_zendesk_form_header
+msgid "Enter your question below. Please be as specific as possible. If you are having a technical issue, please make sure to provide detailed steps (click by click) on how you encountered the problem, so our developers can re-create the issue."
+msgstr ""
+
+#: node 1144 shipment_form_confirm_msg
+msgid "Thanks for submitting your address! Your kit will arrive in about one week."
+msgstr ""
+
+#: node 1144 shipment_form_copy
+msgid "Enter your mailing address to receive a free Teens for Jeans kit to promote your drive! It includes a poster, instructions, and Aéropostale gift cards to pay it forward! Your kit should arrive in one week."
+msgstr ""
+
+#: node 1144 shipment_form_submitted_copy
+msgid "You already requested a kit on [submitted] and we're working on getting it to you! It should arrive about one week from the day you ordered it."
+msgstr ""

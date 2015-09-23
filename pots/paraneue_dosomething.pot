@@ -1,0 +1,1112 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  theme-settings.php: n/a
+#  templates/user/user-profile.tpl.php: n/a
+#  paraneue_dosomething.info: n/a
+#  dist/app.js: n/a
+#  js/finder/ResultsView.js: n/a
+#  js/utilities/Revealer.js: n/a
+#  js/validators/auth.js: n/a
+#  js/validators/donate.js: n/a
+#  js/validators/address.js: n/a
+#  js/validators/reportback.js: n/a
+#  js/finder/FormView.js: n/a
+#  templates/campaign/campaign-block.tpl.php: n/a
+#  templates/system/patterns/tile.tpl.php: n/a
+#  includes/form.inc: n/a
+#  includes/auth/register.inc: n/a
+#  templates/campaign/submit-campaign-idea.tpl.php: n/a
+#  includes/helpers.inc: n/a
+#  includes/preprocess.inc: n/a
+#  templates/campaign/node--campaign.tpl.php: n/a
+#  includes/theme.inc: n/a
+#  includes/auth/login.inc: n/a
+#  templates/campaign/node--campaign--closed.tpl.php: n/a
+#  templates/campaign/node--campaign--pitch.tpl.php: n/a
+#  templates/campaign/node--campaign--sms-game.tpl.php: n/a
+#  templates/reportback/reportback-permalink.tpl.php: n/a
+#  templates/taxonomy/taxonomy-term.tpl.php: n/a
+#  templates/fact/node--fact_page.tpl.php: n/a
+#  templates/campaign/reportback-confirmation.tpl.php: n/a
+#  templates/campaign/partials/campaign-creator.tpl.php: n/a
+#  templates/campaign/partials/campaign-headings.tpl.php: n/a
+#  templates/campaign/partials/campaign-scholarship.tpl.php: n/a
+#  templates/fact_page/fact-page-list.tpl.php: n/a
+#  templates/home/node--home.tpl.php: n/a
+#  templates/search/search-results.tpl.php: n/a
+#  templates/system/block/block--dosomething_payment--donate_form.tpl.php: n/a
+#  templates/system/partials/info-bar.tpl.php: n/a
+#  templates/system/partials/navigation.tpl.php: n/a
+#  templates/system/partials/sponsor-logos.tpl.php: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-14 21:09+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: theme-settings.php:12
+msgid "Theme Settings"
+msgstr ""
+
+#: theme-settings.php:20
+msgid "Asset Path"
+msgstr ""
+
+#: theme-settings.php:21
+msgid "Path to load assets from. The <code>{ds_version}</code> string can be used to include the current <code>ds_version</code> value, or \"latest\" if not set. If left blank, assets will be loaded from the local theme folder."
+msgstr ""
+
+#: theme-settings.php:27
+msgid "Minify Assets"
+msgstr ""
+
+#: theme-settings.php:28
+msgid "Will use minified assets. Uncheck this if debugging in a browser without source maps. <strong>(Unminified assets are only created in production builds.)</strong>"
+msgstr ""
+
+#: theme-settings.php:34
+msgid "Feature Flags"
+msgstr ""
+
+#: theme-settings.php:35
+msgid "Allows features to be toggled on or off in different environments."
+msgstr ""
+
+#: theme-settings.php:43
+msgid "Campaign Finder"
+msgstr ""
+
+#: theme-settings.php:44
+msgid "Toggles campaign finder on homepage/expore campaigns page."
+msgstr ""
+
+#: theme-settings.php:47
+msgid "Show sponsors"
+msgstr ""
+
+#: theme-settings.php:48
+msgid "Toggles the sponsors block on the home page when finder is enabled."
+msgstr ""
+
+#: theme-settings.php:51
+msgid "Show problem statement share buttons"
+msgstr ""
+
+#: theme-settings.php:52
+msgid "Toggles the display of problem statement share buttons on the action page."
+msgstr ""
+
+#: theme-settings.php:125
+msgid "Header"
+msgstr ""
+
+#: theme-settings.php:130
+msgid "Who We Are?"
+msgstr ""
+
+#: theme-settings.php:156 templates/user/user-profile.tpl.php:34
+msgid "Explore Campaigns"
+msgstr ""
+
+#: theme-settings.php:183
+msgid "Footer"
+msgstr ""
+
+#: theme-settings.php:190
+msgid "Affiliate logo"
+msgstr ""
+
+#: theme-settings.php:195
+msgid "Enable affiliate logo"
+msgstr ""
+
+#: theme-settings.php:209
+msgid "Text"
+msgstr ""
+
+#: theme-settings.php:214
+msgid "File"
+msgstr ""
+
+#: theme-settings.php:226
+msgid "Social"
+msgstr ""
+
+#: theme-settings.php:239
+msgid "On"
+msgstr ""
+
+#: theme-settings.php:239
+msgid "Off"
+msgstr ""
+
+#: theme-settings.php:248
+msgid "Enabled"
+msgstr ""
+
+#: theme-settings.php:264
+msgid "URL"
+msgstr ""
+
+#: theme-settings.php:269
+msgid "Title Text"
+msgstr ""
+
+#: theme-settings.php:270
+msgid "Optional"
+msgstr ""
+
+#: theme-settings.php:271
+msgid "Title text is displayed when the image is hovered"
+msgstr ""
+
+#: theme-settings.php:281
+msgid "Manage the links in each column of the footer"
+msgstr ""
+
+#: theme-settings.php:312
+msgid "Advanced options"
+msgstr ""
+
+#: theme-settings.php:330
+msgid "User"
+msgstr ""
+
+#: theme-settings.php:337
+msgid "JS Validations"
+msgstr ""
+
+#: theme-settings.php:343
+msgid "Validate Post Code"
+msgstr ""
+
+#: paraneue_dosomething.info:0
+msgid "Paraneue DoSomething"
+msgstr ""
+
+#: paraneue_dosomething.info:0
+msgid "A Paraneue subtheme for DoSomething.org"
+msgstr ""
+
+#: dist/app.js:0;0 js/finder/ResultsView.js:0 js/utilities/Revealer.js:0
+msgid "Show More"
+msgstr ""
+
+#: dist/app.js:0;0 js/validators/auth.js:0 js/validators/donate.js:0
+msgid "Hey, @name!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your first name."
+msgstr ""
+
+#: dist/app.js:0;0;0 js/validators/address.js:0 js/validators/auth.js:0;0
+msgid "Got it!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your friend's name."
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Got it, @name!"
+msgstr ""
+
+#: dist/app.js:0;0 js/validators/address.js:0 js/validators/auth.js:0
+msgid "We need your last name."
+msgstr ""
+
+#: dist/app.js:0;0;0 js/validators/auth.js:0;0;0
+msgid "That doesn't seem right."
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Are you a time traveller?"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Wow, happy birthday!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Wow, you're @age!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Cool, @age!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your birthday."
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Great, thanks!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need a valid email."
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Keep it secret, keep it safe!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Must be 6+ characters."
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Thanks!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Enter a valid telephone number."
+msgstr ""
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "That's great!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Enter a valid number!"
+msgstr ""
+
+#: dist/app.js:0;0 js/validators/address.js:0 js/validators/reportback.js:0
+msgid "Thanks for caring!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Tell us why you cared!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Sounds great!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Tell us about your photo in 60 characters or less!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Oh hey, @fname!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your name. We’re on a first-name basis, right?"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "The @lname-inator! People call you that, right?"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your street name and number."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Got that too!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Sweet, thanks!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your city."
+msgstr ""
+
+#: dist/app.js:0
+msgid "I ❤ @state"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your state."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Almost done!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your zip code."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Oops! Can't leave this one blank."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We couldn't find that address."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Double check for typos and try submitting again."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We're having trouble submitting the form, are you sure your internet connection is working? Email us if you continue having problems."
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "It'll fit great!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need a shirt size!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need a shirt style!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "We need your full name."
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "number looks good!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid credit card number."
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "CVV looks good!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid CVV."
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Good Month!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Month."
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Good Year!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Year."
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "So Generous!"
+msgstr ""
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Amount."
+msgstr ""
+
+#: dist/app.js:0 js/finder/FormView.js:0
+msgid "Error: FormView is not initialized."
+msgstr ""
+
+#: dist/app.js:0 js/finder/ResultsView.js:0
+msgid "Error: ResultsView is not initialized."
+msgstr ""
+
+#: dist/app.js:0
+msgid "Ooof! We're not sure what's up? Maybe it's us, or it could be your internet connection. Want to try again in a few minutes?"
+msgstr ""
+
+#: dist/app.js:0
+msgid "Oh snap! We'll work on that."
+msgstr ""
+
+#: dist/app.js:0
+msgid "Want to try another combo?"
+msgstr ""
+
+#: dist/app.js:0 templates/campaign/campaign-block.tpl.php:28 templates/system/patterns/tile.tpl.php:29
+msgid "Staff Pick"
+msgstr ""
+
+#: includes/form.inc:168
+msgid "Join the cool kids!<br/> Add your photo here!"
+msgstr ""
+
+#: includes/form.inc:172
+msgid "Add another photo"
+msgstr ""
+
+#: includes/form.inc:209
+msgid "Your Shirt"
+msgstr ""
+
+#: includes/form.inc:223
+msgid "Your Shirt Style"
+msgstr ""
+
+#: includes/form.inc:230
+msgid "Your Friend's Shirt"
+msgstr ""
+
+#: includes/form.inc:233
+msgid "Your Friend's Shirt Style"
+msgstr ""
+
+#: includes/form.inc:262 includes/auth/register.inc:75 templates/user/user-profile.tpl.php:73
+msgid "Email"
+msgstr ""
+
+#: includes/form.inc:264
+msgid "Current Password"
+msgstr ""
+
+#: includes/form.inc:279
+msgid "MM/DD/YYYY"
+msgstr ""
+
+#: includes/form.inc:284 templates/campaign/submit-campaign-idea.tpl.php:70
+msgid "Birthday"
+msgstr ""
+
+#: includes/form.inc:297
+msgid "Change Password"
+msgstr ""
+
+#: includes/form.inc:298
+msgid "New Password"
+msgstr ""
+
+#: includes/form.inc:299
+msgid "Confirm Password"
+msgstr ""
+
+#: (duplicate) includes/form.inc:93 ;97
+msgid "!title !required"
+msgstr ""
+
+#: includes/helpers.inc:40
+msgid "Facebook"
+msgstr ""
+
+#: includes/helpers.inc:44
+msgid "Twitter"
+msgstr ""
+
+#: includes/helpers.inc:48
+msgid "Tumblr"
+msgstr ""
+
+#: includes/helpers.inc:52
+msgid "Instagram"
+msgstr ""
+
+#: includes/helpers.inc:56
+msgid "Youtube"
+msgstr ""
+
+#: includes/helpers.inc:197
+msgid "Stay Tuned"
+msgstr ""
+
+#: includes/preprocess.inc:129
+msgid "Edit Profile"
+msgstr ""
+
+#: includes/preprocess.inc:613 templates/campaign/node--campaign.tpl.php:41
+msgid "Prove It"
+msgstr ""
+
+#: includes/theme.inc:36
+msgid "(active tab)"
+msgstr ""
+
+#: includes/theme.inc:44
+msgid "!local-task-title!active"
+msgstr ""
+
+#: includes/auth/login.inc:25
+msgid "Log in to get started!"
+msgstr ""
+
+#: includes/auth/login.inc:42
+msgid "Create a DoSomething.org account"
+msgstr ""
+
+#: includes/auth/login.inc:49
+msgid "Forgot password?"
+msgstr ""
+
+#: includes/auth/login.inc:86
+msgid "Email address"
+msgstr ""
+
+#: includes/auth/login.inc:152
+msgid "Email address or cell number"
+msgstr ""
+
+#: includes/auth/register.inc:25
+msgid "Create a DoSomething.org account to get started!"
+msgstr ""
+
+#: includes/auth/register.inc:34
+msgid "Log in to an existing account"
+msgstr ""
+
+#: includes/auth/register.inc:41
+msgid "Creating an account means you agree to our !terms & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help"
+msgstr ""
+
+#: includes/auth/register.inc:54
+msgid "What do we call you?"
+msgstr ""
+
+#: includes/auth/register.inc:68
+msgid "What's your P.E. teacher call you?"
+msgstr ""
+
+#: includes/auth/register.inc:76
+msgid "your_email@example.com"
+msgstr ""
+
+#: includes/auth/register.inc:86
+msgid "Cell Number"
+msgstr ""
+
+#: includes/auth/register.inc:86
+msgid "(optional)"
+msgstr ""
+
+#: includes/auth/register.inc:87
+msgid "(555) 555-5555"
+msgstr ""
+
+#: includes/auth/register.inc:119
+msgid "6+ characters... make it tricky!"
+msgstr ""
+
+#: includes/auth/register.inc:125
+msgid "Just double checking!"
+msgstr ""
+
+#: js/validators/address.js:0
+msgid "I u2764 @state"
+msgstr ""
+
+#: js/validators/donate.js:0
+msgid "Good zipcode!"
+msgstr ""
+
+#: js/validators/donate.js:0
+msgid "Invalid zipcode"
+msgstr ""
+
+#: templates/campaign/node--campaign--closed.tpl.php:45
+msgid "What You Did"
+msgstr ""
+
+#: templates/campaign/node--campaign--closed.tpl.php:58
+msgid "Members Participated"
+msgstr ""
+
+#: templates/campaign/node--campaign--closed.tpl.php:140
+msgid "The Buzz"
+msgstr ""
+
+#: templates/campaign/node--campaign--closed.tpl.php:229
+msgid "Congrats to&hellip;"
+msgstr ""
+
+#: templates/campaign/node--campaign--closed.tpl.php:242
+msgid "@field_winner_type Winner"
+msgstr ""
+
+#: templates/campaign/node--campaign--pitch.tpl.php:65 templates/campaign/node--campaign--sms-game.tpl.php:30 templates/campaign/node--campaign.tpl.php:60 templates/reportback/reportback-permalink.tpl.php:85
+msgid "The Problem"
+msgstr ""
+
+#: templates/campaign/node--campaign--pitch.tpl.php:68 templates/campaign/node--campaign--sms-game.tpl.php:66 templates/campaign/node--campaign.tpl.php:97 templates/reportback/reportback-permalink.tpl.php:89
+msgid "The Solution"
+msgstr ""
+
+#: templates/campaign/node--campaign--pitch.tpl.php:82 templates/taxonomy/taxonomy-term.tpl.php:75
+msgid "What You Get"
+msgstr ""
+
+#: templates/campaign/node--campaign--pitch.tpl.php:104
+msgid "*mic drop"
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:25 templates/campaign/node--campaign.tpl.php:56
+msgid "Step 1: Know It"
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:98 templates/campaign/node--campaign.tpl.php:129 templates/fact/node--fact_page.tpl.php:83 templates/taxonomy/taxonomy-term.tpl.php:63
+msgid "Sources"
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:112
+msgid "Step 2: Do It"
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:131 templates/campaign/node--campaign.tpl.php:382
+msgid "Official Rules"
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:137
+msgid "Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help."
+msgstr ""
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:138
+msgid "Terms of Service"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:38
+msgid "Know"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:39
+msgid "Plan"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:40
+msgid "Do"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:144
+msgid "Step 2: Plan It"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:195
+msgid "Find a Location"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:202
+msgid "Locate"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:218;303
+msgid "Back to main page"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:246
+msgid "Step 3: Do It"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:267
+msgid "View Tips"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:268
+msgid "Tips"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:317
+msgid "Step 4: Prove It"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:321
+msgid "Pics or It Didn&rsquo;t Happen"
+msgstr ""
+
+#: templates/campaign/reportback-confirmation.tpl.php:42
+msgid "Keep it up! Find your next campaign."
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:73
+msgid "You must be ages 13 to 25 (sorry 26-and-up-year-olds)."
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:77;78
+msgid "Month"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:79
+msgid "January"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:80
+msgid "February"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:81
+msgid "March"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:82
+msgid "April"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:83
+msgid "May"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:84
+msgid "June"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:85
+msgid "July"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:86
+msgid "August"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:87
+msgid "September"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:88
+msgid "October"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:89
+msgid "November"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:90
+msgid "December"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:93
+msgid "Day of month"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:94
+msgid "Day"
+msgstr ""
+
+#: templates/campaign/submit-campaign-idea.tpl.php:349
+msgid "Submit"
+msgstr ""
+
+#: templates/campaign/partials/campaign-creator.tpl.php:12
+msgid "Created by"
+msgstr ""
+
+#: templates/campaign/partials/campaign-headings.tpl.php:6
+msgid "Ends @end_date"
+msgstr ""
+
+#: templates/campaign/partials/campaign-scholarship.tpl.php:4
+msgid "Win a $@amount Scholarship"
+msgstr ""
+
+#: templates/fact_page/fact-page-list.tpl.php:12
+msgid "List of All Facts"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:20
+msgid "Start by finding a campaign below"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:24
+msgid "Cause"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:25
+msgid "What are you passionate about?"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:29
+msgid "Animals"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:30
+msgid "Bullying + Violence"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:31
+msgid "Disasters"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:32
+msgid "Discrimination"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:33
+msgid "Education"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:34
+msgid "Environment"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:35
+msgid "Health"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:36
+msgid "Homelessness + Poverty"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:37
+msgid "Sex + Relationships"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:46
+msgid "Time"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:47
+msgid "How long do you have?"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:51
+msgid "1 hour or less"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:52
+msgid "2-5 hours"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:53
+msgid "5+ hours"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:62
+msgid "Type"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:63
+msgid "What would you like to do?"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:67
+msgid "Donate Something"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:68
+msgid "Face to Face"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:69
+msgid "Host an Event"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:70
+msgid "Improve a Space"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:71
+msgid "Make Something"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:72
+msgid "Share Something"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:73
+msgid "Start Something"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:74
+msgid "Take a Stand"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:81
+msgid "Find a Campaign"
+msgstr ""
+
+#: templates/home/node--home.tpl.php:102
+msgid "Sponsors"
+msgstr ""
+
+#: templates/search/search-results.tpl.php:30
+msgid "Your search yielded no results"
+msgstr ""
+
+#: templates/system/block/block--dosomething_payment--donate_form.tpl.php:23
+msgid "Donate"
+msgstr ""
+
+#: templates/system/partials/info-bar.tpl.php:12
+msgid "In partnership with"
+msgstr ""
+
+#: templates/system/partials/info-bar.tpl.php:17
+msgid "Questions?"
+msgstr ""
+
+#: templates/system/partials/info-bar.tpl.php:17;19
+msgid "Contact Us"
+msgstr ""
+
+#: templates/system/partials/navigation.tpl.php:38
+msgid "Log Out"
+msgstr ""
+
+#: templates/system/partials/navigation.tpl.php:42
+msgid "Log In"
+msgstr ""
+
+#: templates/system/partials/sponsor-logos.tpl.php:12
+msgid "Powered by"
+msgstr ""
+
+#: templates/taxonomy/taxonomy-term.tpl.php:80
+msgid "Scholarships and Contests"
+msgstr ""
+
+#: templates/taxonomy/taxonomy-term.tpl.php:85
+msgid "About DoSomething.org"
+msgstr ""
+
+#: templates/taxonomy/taxonomy-term.tpl.php:97
+msgid "Do it"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:28
+msgid "You're Doing"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:44
+msgid "You Did"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:54
+msgid "Your Info"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:58
+msgid "Account Info"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:62
+msgid "Name"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:70
+msgid "Password"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:77
+msgid "Cell"
+msgstr ""
+
+#: templates/user/user-profile.tpl.php:84
+msgid "Update my profile"
+msgstr ""
+
+#: paraneue_dosomething.info
+msgid "What is DoSomething.org?"
+msgstr ""
+
+#: paraneue_dosomething.info
+msgid "Young people + Social change"
+msgstr ""
+
+#: paraneue_dosomething.info
+msgid "Explore Campaigns"
+msgstr ""
+
+#: paraneue_dosomething.info
+msgid "Any cause, anytime, anywhere."
+msgstr ""
+
+#: templates/system/partials/navigation.tpl.php
+msgid "My Account"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Who We Are"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "What is DoSomething.org?"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Our Team"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "International"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Sexy Financials"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "XYZ Factor"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Blog"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Our Friends"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "TMI Agency"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Partners"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Old People"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Crisis Hotlines"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Get Involved"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Scholarships"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Jobs"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Internships"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "Donate"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "FAQs"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "dosomething on Facebook"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Twitter"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Tumblr"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Instagram"
+msgstr ""
+
+#: appearance->settings->paraneue_dosomething
+msgid "dosomething1 on YouTube"
+msgstr ""
