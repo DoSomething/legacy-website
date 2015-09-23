@@ -1026,6 +1026,8 @@ function dosomething_reportback_flush_caches() {
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
+  global $language;
+
   $query = db_select('dosomething_reportback', 'rb');
   $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
   $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
@@ -1044,6 +1046,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   if (isset($params['nid'])) {
+    $query->condition('fn.language', $language->language);
+    $query->condition('fv.language', $language->language);
     if (is_array($params['nid'])) {
       $query->condition('rb.nid', $params['nid'], 'IN');
     }

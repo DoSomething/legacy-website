@@ -32,6 +32,8 @@ class Reportback extends Entity {
    * @throws Exception
    */
   public function __construct(array $values = []) {
+    global $language;
+
     parent::__construct($values, 'reportback');
 
     // @TODO: Temporary hack to avoid code below executing on new class instance in specific scenarios.
@@ -46,7 +48,7 @@ class Reportback extends Entity {
       // If a reportback nid exists:
       if (isset($this->nid)) {
         // Set properties found on the reportback's node nid.
-        $this->node_title = $this->getNodeTitle();
+        $this->node_title = $this->getNodeSingleTextValue('title_field', $language);
 
         if (module_exists('dosomething_campaign_run')) {
           // Check if this reportback is associated with Campaign Run node.
@@ -56,8 +58,8 @@ class Reportback extends Entity {
           }
         }
 
-        $this->noun = $this->getNodeSingleTextValue('field_reportback_noun');
-        $this->verb = $this->getNodeSingleTextValue('field_reportback_verb');
+        $this->noun = $this->getNodeSingleTextValue('field_reportback_noun', $language);
+        $this->verb = $this->getNodeSingleTextValue('field_reportback_verb', $language);
         $this->quantity_label = $this->noun . ' ' . $this->verb;
       }
     }
@@ -137,6 +139,8 @@ class Reportback extends Entity {
    * @param object $data
    */
   private function build($data) {
+    global $user;
+
     $this->id = $data->rbid;
     $this->created_at = $data->created;
     $this->updated_at = $data->updated;
@@ -144,6 +148,7 @@ class Reportback extends Entity {
     $this->why_participated = $data->why_participated;
     $this->flagged = (bool) $data->flagged;
     $this->reportback_items = dosomething_helpers_format_data($data->items);
+    $this->language = $user->language;
     $this->campaign = [
       'id' => $data->nid,
       'title' => $data->title,
@@ -191,31 +196,15 @@ class Reportback extends Entity {
       ->fetchAll();
   }
 
-
-  /**
-   * Returns the node title of the $entity->nid.
-   */
-  public function getNodeTitle() {
-    $result = db_select('node', 'n')
-      ->fields('n', array('title'))
-      ->condition('nid', $this->nid)
-      ->execute()
-      ->fetchCol();
-    if ($result) {
-      return $result[0];
-    }
-    return NULL;
-  }
-
-
   /**
    * Returns a single text value for a given $field_name for the $entity->nid.
    */
-  public function getNodeSingleTextValue($field_name) {
+  public function getNodeSingleTextValue($field_name, $language) {
     $result = db_select('field_data_' . $field_name, 'f')
       ->fields('f', array($field_name . '_value'))
       ->condition('entity_id', $this->nid)
       ->condition('entity_type', 'node')
+      ->condition('language', $language->language)
       ->execute()
       ->fetchCol();
     if ($result) {
