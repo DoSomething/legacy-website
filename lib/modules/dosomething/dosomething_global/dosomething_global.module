@@ -78,7 +78,16 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
 }
 
 /**
- * Implements hook_meny_local_tasks_alter
+ * Implements hook_menu_alter().
+ */
+function dosomething_global_menu_alter(&$items) {
+  // Hide the translate tab for people not on staff.
+  $items['node/%node/translate']['access callback'] = 'user_access';
+  $items['node/%node/translate']['access arguments'] = array('translate any entity');
+}
+
+/**
+ * Implements hook_meny_local_tasks_alter().
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
   // Verify we're operating on a node edit page
