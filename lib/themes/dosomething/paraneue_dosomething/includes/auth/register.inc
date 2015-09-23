@@ -79,14 +79,20 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['account']['mail']['#attributes']['data-validate-required'] = '';
     unset($form['account']['mail']['#description']);
 
-    $form['account']['field_mobile'] = $form['field_mobile'];
-    $form['field_mobile']['#access'] = FALSE;
+    $country_codes = array('BR', 'CA', 'GB', 'MX', 'US');
+    if (!in_array(dosomething_settings_get_geo_country_code(), $country_codes)) {
+      $form['field_mobile']['#access'] = FALSE;
+    } else {
+      $form['account']['field_mobile'] = $form['field_mobile'];
+      $form['field_mobile']['#access'] = FALSE;
 
-    $form['account']['field_mobile']['#weight'] = 20;
-    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = t('Cell Number') . ' <span class="field-label-optional">' . t("(optional)") . '</span>';
-    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
-    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
-    $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
+      $form['account']['field_mobile']['#weight'] = 20;
+      $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = t('Cell Number') . ' <span class="field-label-optional">' . t("(optional)") . '</span>';
+      $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
+      $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
+      $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
+
+    }
 
     $form['account']['pass']['#weight'] = 30;
 
