@@ -1,0 +1,487 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_user.address.inc: n/a
+#  dosomething_user.features.field_instance.inc: n/a
+#  dosomething_user.views_default.inc: n/a
+#  dosomething_user.module: n/a
+#  dosomething_user.admin.inc: n/a
+#  dosomething_user.theme.inc: n/a
+#  dosomething_user_valid_address.inc: n/a
+#  dosomething_user.info: n/a
+#  plugins/format/dosomething-affiliate-country.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-23 14:51+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_user.address.inc:24 dosomething_user.features.field_instance.inc:477 dosomething_user.views_default.inc:422
+msgid "First Name"
+msgstr ""
+
+#: dosomething_user.address.inc:34 dosomething_user.features.field_instance.inc:479 dosomething_user.views_default.inc:423
+msgid "Last Name"
+msgstr ""
+
+#: dosomething_user.address.inc:75 dosomething_user.module:366
+msgid "Hmmm, we couldn’t find that address. Please try again."
+msgstr ""
+
+#: dosomething_user.address.inc:80
+msgid "Hmmm, we couldn’t find that address. Did you mean:"
+msgstr ""
+
+#: dosomething_user.admin.inc:16
+msgid "Terms of Service"
+msgstr ""
+
+#: dosomething_user.admin.inc:19
+msgid "Select the node which provides site Terms of Service."
+msgstr ""
+
+#: dosomething_user.admin.inc:28
+msgid "Privacy Policy"
+msgstr ""
+
+#: dosomething_user.admin.inc:31
+msgid "Select the node which provides site Privacy Policy."
+msgstr ""
+
+#: dosomething_user.admin.inc:40 dosomething_user.module:1294
+msgid "Member Count"
+msgstr ""
+
+#: dosomething_user.admin.inc:41
+msgid "Number of members, which is displayed around the site. Don't change this unless you know what you're doing."
+msgstr ""
+
+#: dosomething_user.admin.inc:49
+msgid "Validate Address Field"
+msgstr ""
+
+#: dosomething_user.admin.inc:51
+msgid "If set, the user's field_address values will be validated against a geolocator API."
+msgstr ""
+
+#: dosomething_user.admin.inc:57
+msgid "Login"
+msgstr ""
+
+#: dosomething_user.admin.inc:67
+msgid "Login Form copy"
+msgstr ""
+
+#: dosomething_user.admin.inc:68
+msgid "Copy displayed below the Login Form header. Optional."
+msgstr ""
+
+#: dosomething_user.admin.inc:69;88;147;155;163;190
+msgid "@value"
+msgstr ""
+
+#: dosomething_user.admin.inc:76
+msgid "Display \"Forgot Password\" link"
+msgstr ""
+
+#: dosomething_user.admin.inc:78
+msgid "If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."
+msgstr ""
+
+#: dosomething_user.admin.inc:86
+msgid "Forgot Password copy"
+msgstr ""
+
+#: dosomething_user.admin.inc:87
+msgid "Password reset neutral copy displayed both on fail and success."
+msgstr ""
+
+#: dosomething_user.admin.inc:94
+msgid "Registration"
+msgstr ""
+
+#: dosomething_user.admin.inc:103
+msgid "Collect Last Name"
+msgstr ""
+
+#: dosomething_user.admin.inc:111
+msgid "Collect Opt-in Email"
+msgstr ""
+
+#: dosomething_user.admin.inc:119
+msgid "Collect Opt-In SMS"
+msgstr ""
+
+#: dosomething_user.admin.inc:127
+msgid "Collect Postal Code"
+msgstr ""
+
+#: dosomething_user.admin.inc:134
+msgid "Profile"
+msgstr ""
+
+#: dosomething_user.admin.inc:144
+msgid "Subtitle"
+msgstr ""
+
+#: dosomething_user.admin.inc:146
+msgid "Displayed below the Profile main page title."
+msgstr ""
+
+#: dosomething_user.admin.inc:154
+msgid "No Signups Header"
+msgstr ""
+
+#: dosomething_user.admin.inc:162
+msgid "No Signups Copy"
+msgstr ""
+
+#: dosomething_user.admin.inc:169
+msgid "School"
+msgstr ""
+
+#: dosomething_user.admin.inc:179
+msgid "School API Endpoint"
+msgstr ""
+
+#: dosomething_user.admin.inc:180
+msgid "URL to request school data, e.g. <em>http://lofischools.herokuapp.com/search</em>."
+msgstr ""
+
+#: dosomething_user.admin.inc:188
+msgid "School Finder Help Text"
+msgstr ""
+
+#: dosomething_user.admin.inc:189
+msgid "Text displayed if User needs help finding school.  Markdown supported."
+msgstr ""
+
+#: dosomething_user.admin.inc:196
+msgid "Development"
+msgstr ""
+
+#: dosomething_user.admin.inc:205
+msgid "Enable Clean Slate Form."
+msgstr ""
+
+#: dosomething_user.admin.inc:207
+msgid "Allows staff user access to delete all activity for their account. This should be disabled on production."
+msgstr ""
+
+#: dosomething_user.admin.inc:223
+msgid "Clean Slate has been disabled."
+msgstr ""
+
+#: dosomething_user.admin.inc:235
+msgid "Clean Slate Me"
+msgstr ""
+
+#: dosomething_user.admin.inc:246
+msgid "Clean Slate form submitted for User %uid"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:474
+msgid "Address"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:475 dosomething_user.views_default.inc:424
+msgid "Birthday"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:476
+msgid "Cell #"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:478
+msgid "Job Title"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:480
+msgid "Partner / Sponsor"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:481
+msgid "School ID"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:482
+msgid "Subscribe to SMS updates"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:483
+msgid "Subscribe to our email newsletter"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:484
+msgid "This field may be set if a User has been programatically created."
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:485
+msgid "Under Thirteen"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:486
+msgid "User Registration Source"
+msgstr ""
+
+#: dosomething_user.theme.inc:41
+msgid "There's nothing here!"
+msgstr ""
+
+#: dosomething_user.theme.inc:46
+msgid "(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag."
+msgstr ""
+
+#: dosomething_user.theme.inc:58
+msgid "Hey, @name!"
+msgstr ""
+
+#: dosomething_user.views_default.inc:214;404
+msgid "Master"
+msgstr ""
+
+#: dosomething_user.views_default.inc:215
+msgid "Content Search"
+msgstr ""
+
+#: dosomething_user.views_default.inc:216;406
+msgid "more"
+msgstr ""
+
+#: dosomething_user.views_default.inc:217;407
+msgid "Apply"
+msgstr ""
+
+#: dosomething_user.views_default.inc:218;408
+msgid "Reset"
+msgstr ""
+
+#: dosomething_user.views_default.inc:219;409
+msgid "Sort by"
+msgstr ""
+
+#: dosomething_user.views_default.inc:220;410
+msgid "Asc"
+msgstr ""
+
+#: dosomething_user.views_default.inc:221;411
+msgid "Desc"
+msgstr ""
+
+#: dosomething_user.views_default.inc:222;412
+msgid "Items per page"
+msgstr ""
+
+#: dosomething_user.views_default.inc:223;413
+msgid "- All -"
+msgstr ""
+
+#: dosomething_user.views_default.inc:224;414
+msgid "Offset"
+msgstr ""
+
+#: dosomething_user.views_default.inc:225;415
+msgid "« first"
+msgstr ""
+
+#: dosomething_user.views_default.inc:226;416
+msgid "‹ previous"
+msgstr ""
+
+#: dosomething_user.views_default.inc:227;417
+msgid "next ›"
+msgstr ""
+
+#: dosomething_user.views_default.inc:228;418
+msgid "last »"
+msgstr ""
+
+#: dosomething_user.views_default.inc:229
+msgid "Displaying @start - @end of @total"
+msgstr ""
+
+#: dosomething_user.views_default.inc:230
+msgid "Title"
+msgstr ""
+
+#: dosomething_user.views_default.inc:231
+msgid "Edit link"
+msgstr ""
+
+#: dosomething_user.views_default.inc:232
+msgid "Type"
+msgstr ""
+
+#: dosomething_user.views_default.inc:233
+msgid "Cause"
+msgstr ""
+
+#: dosomething_user.views_default.inc:234
+msgid "Updated date"
+msgstr ""
+
+#: dosomething_user.views_default.inc:235
+msgid "Published"
+msgstr ""
+
+#: dosomething_user.views_default.inc:236
+msgid "Cause (field_cause)"
+msgstr ""
+
+#: dosomething_user.views_default.inc:237;426
+msgid "Page"
+msgstr ""
+
+#: dosomething_user.views_default.inc:405
+msgid "Search users"
+msgstr ""
+
+#: dosomething_user.views_default.inc:419
+msgid "Uid"
+msgstr ""
+
+#: dosomething_user.views_default.inc:420
+msgid "Email"
+msgstr ""
+
+#: dosomething_user.views_default.inc:421
+msgid "Mobile"
+msgstr ""
+
+#: dosomething_user.views_default.inc:425
+msgid "Last login"
+msgstr ""
+
+#: dosomething_user_valid_address.inc:10
+msgid "Development integration?"
+msgstr ""
+
+#: dosomething_user_valid_address.inc:11
+msgid "Check if NOT on a production environment"
+msgstr ""
+
+#: dosomething_user_valid_address.inc:17
+msgid "UPS access license number"
+msgstr ""
+
+#: dosomething_user_valid_address.inc:23
+msgid "UPS username"
+msgstr ""
+
+#: dosomething_user_valid_address.inc:29
+msgid "UPS password"
+msgstr ""
+
+#: dosomething_user.module:83
+msgid "UPS API Configuration"
+msgstr ""
+
+#: dosomething_user.module:84
+msgid "UPS integration that provices address validation"
+msgstr ""
+
+#: dosomething_user.module:117
+msgid "Edit user information"
+msgstr ""
+
+#: dosomething_user.module:118
+msgid "Can edit any user info form."
+msgstr ""
+
+#: dosomething_user.module:371
+msgid "Hmmm, we couldn’t find that address. Did you mean: "
+msgstr ""
+
+#: dosomething_user.module:1052
+msgid "Info"
+msgstr ""
+
+#: dosomething_user.module:1086
+msgid "The two letter state code."
+msgstr ""
+
+#: dosomething_user.module:1090
+msgid "Picture"
+msgstr ""
+
+#: dosomething_user.module:1098
+msgid "Upload a picture"
+msgstr ""
+
+#: dosomething_user.module:1105
+msgid "Submit"
+msgstr ""
+
+#: dosomething_user.module:1218
+msgid "@type @identifier @id deleted."
+msgstr ""
+
+#: dosomething_user.module:1280
+msgid "million"
+msgstr ""
+
+#: dosomething_user.module:1284
+msgid "thousand"
+msgstr ""
+
+#: dosomething_user.module:1295
+msgid "Number of site members."
+msgstr ""
+
+#: dosomething_user.module:1298
+msgid "Member Count - Readable"
+msgstr ""
+
+#: dosomething_user.module:1299
+msgid "Number of site members, formatted as \"3.2 million\"."
+msgstr ""
+
+#: dosomething_user.module:1177
+msgid "dosomething_user"
+msgstr ""
+
+#: dosomething_user.module:1177
+msgid "Table %tbl_name"
+msgstr ""
+
+#: dosomething_user.module:67
+msgid "address"
+msgstr ""
+
+#: dosomething_user.module:74 dosomething_user.info:0
+msgid "DoSomething User"
+msgstr ""
+
+#: dosomething_user.module:75
+msgid "Admin configuration form for DoSomething User."
+msgstr ""
+
+#: dosomething_user.module:91
+msgid "Edit info"
+msgstr ""
+
+#: dosomething_user.module:99
+msgid "Clean Slate"
+msgstr ""
+
+#: dosomething_user.info:0
+msgid "Functionality for users on DoSomething."
+msgstr ""
+
+#: dosomething_user.info:0
+msgid "DoSomething"
+msgstr ""
+
+#: plugins/format/dosomething-affiliate-country.inc:9
+msgid "Dosomething Affiliate Country"
+msgstr ""
