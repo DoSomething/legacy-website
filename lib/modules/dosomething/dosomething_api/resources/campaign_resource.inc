@@ -39,6 +39,14 @@ function _campaign_resource_definition() {
             'default value' => FALSE,
           ],
           [
+            'name' => 'mobile_app_date',
+            'description' => 'Mobile app date to filter by.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'mobile_app_date'],
+            'default value' => NULL,
+          ],
+          [
             'name' => 'term_ids',
             'description' => 'Taxonomy term ids to filter by.',
             'optional' => TRUE,
@@ -266,17 +274,19 @@ function _campaign_resource_retrieve($nid) {
  * @param string $ids
  * @param bool $staff_pick
  * @param bool $mobile_app
+ * @param string $mobile_app_date
  * @param string $term_ids
  * @param int $count
  * @param bool $random
  * @param int $page
  * @return object
  */
-function _campaign_resource_index($ids, $staff_pick, $mobile_app, $term_ids, $count, $random, $page) {
+function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_date, $term_ids, $count, $random, $page) {
   $parameters = [
     'ids' => $ids,
     'staff_pick' => $staff_pick,
     'mobile_app' => $mobile_app,
+    'mobile_app_date' => $mobile_app_date,
     'term_ids' => $term_ids,
     'count' => $count,
     'random' => $random,

@@ -420,6 +420,7 @@ function dosomething_campaign_get_campaigns_query($params) {
  *   - nid: (array|string) Node id(s) to filter by.
  *   - staff_pick: (bool)
  *   - mobile_app: (bool)
+ *   - mobile_app_date: (array|string) Date to filter mobile app campaigns by.
  *   - term_id: (array|string) Taxonomy term tids to filter by.
  *   - random: (boolean)
  *
@@ -454,6 +455,13 @@ function dosomething_campaign_build_campaigns_query($params = array()) {
   if ($params['mobile_app']) {
     $query->join('field_data_field_on_mobile_app', 'm', 'm.entity_id = n.nid');
     $query->condition('m.field_on_mobile_app_value', 1);
+  }
+
+  if (isset($params['mobile_app_date'])) {
+    $query->join('field_data_field_mobile_app_date', 'm', 'm.entity_id = n.nid');
+    $query
+      ->condition('m.field_mobile_app_date_value', dosomething_helpers_convert_date($params['mobile_app_date']), '<=')
+      ->condition('m.field_mobile_app_date_value2', dosomething_helpers_convert_date($params['mobile_app_date']), '>=');
   }
 
   if (isset($params['term_id'])) {
