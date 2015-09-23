@@ -1,0 +1,247 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_user.address.inc: n/a
+#  dosomething_user.features.field_instance.inc: n/a
+#  dosomething_user.views_default.inc: n/a
+#  dosomething_user.module: n/a
+#  dosomething_user.admin.inc: n/a
+#  dosomething_user.theme.inc: n/a
+#  dosomething_user_valid_address.inc: n/a
+#  dosomething_user.info: n/a
+#  plugins/format/dosomething-affiliate-country.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-23 14:51+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_user.address.inc:24 dosomething_user.features.field_instance.inc:477 dosomething_user.views_default.inc:422
+msgid "First Name"
+msgstr ""
+
+#: dosomething_user.address.inc:34 dosomething_user.features.field_instance.inc:479 dosomething_user.views_default.inc:423
+msgid "Last Name"
+msgstr ""
+
+#: dosomething_user.address.inc:75 dosomething_user.module:366
+msgid "Hmmm, we couldn’t find that address. Please try again."
+msgstr ""
+
+#: dosomething_user.address.inc:80
+msgid "Hmmm, we couldn’t find that address. Did you mean:"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:474
+msgid "Address"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:475 dosomething_user.views_default.inc:424
+msgid "Birthday"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:476
+msgid "Cell #"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:478
+msgid "Job Title"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:480
+msgid "Partner / Sponsor"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:481
+msgid "School ID"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:482
+msgid "Subscribe to SMS updates"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:483
+msgid "Subscribe to our email newsletter"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:485
+msgid "Under Thirteen"
+msgstr ""
+
+#: dosomething_user.features.field_instance.inc:486
+msgid "User Registration Source"
+msgstr ""
+
+#: dosomething_user.theme.inc:41
+msgid "There's nothing here!"
+msgstr ""
+
+#: dosomething_user.theme.inc:46
+msgid "(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag."
+msgstr ""
+
+#: dosomething_user.theme.inc:58
+msgid "Hey, @name!"
+msgstr ""
+
+#: dosomething_user.views_default.inc:214;404
+msgid "Master"
+msgstr ""
+
+#: dosomething_user.views_default.inc:215
+msgid "Content Search"
+msgstr ""
+
+#: dosomething_user.views_default.inc:216;406
+msgid "more"
+msgstr ""
+
+#: dosomething_user.views_default.inc:217;407
+msgid "Apply"
+msgstr ""
+
+#: dosomething_user.views_default.inc:218;408
+msgid "Reset"
+msgstr ""
+
+#: dosomething_user.views_default.inc:219;409
+msgid "Sort by"
+msgstr ""
+
+#: dosomething_user.views_default.inc:220;410
+msgid "Asc"
+msgstr ""
+
+#: dosomething_user.views_default.inc:221;411
+msgid "Desc"
+msgstr ""
+
+#: dosomething_user.views_default.inc:222;412
+msgid "Items per page"
+msgstr ""
+
+#: dosomething_user.views_default.inc:223;413
+msgid "- All -"
+msgstr ""
+
+#: dosomething_user.views_default.inc:224;414
+msgid "Offset"
+msgstr ""
+
+#: dosomething_user.views_default.inc:225;415
+msgid "« first"
+msgstr ""
+
+#: dosomething_user.views_default.inc:226;416
+msgid "‹ previous"
+msgstr ""
+
+#: dosomething_user.views_default.inc:227;417
+msgid "next ›"
+msgstr ""
+
+#: dosomething_user.views_default.inc:228;418
+msgid "last »"
+msgstr ""
+
+#: dosomething_user.views_default.inc:229
+msgid "Displaying @start - @end of @total"
+msgstr ""
+
+#: dosomething_user.views_default.inc:230
+msgid "Title"
+msgstr ""
+
+#: dosomething_user.views_default.inc:231
+msgid "Edit link"
+msgstr ""
+
+#: dosomething_user.views_default.inc:232
+msgid "Type"
+msgstr ""
+
+#: dosomething_user.views_default.inc:233
+msgid "Cause"
+msgstr ""
+
+#: dosomething_user.views_default.inc:234
+msgid "Updated date"
+msgstr ""
+
+#: dosomething_user.views_default.inc:235
+msgid "Published"
+msgstr ""
+
+#: dosomething_user.views_default.inc:236
+msgid "Cause (field_cause)"
+msgstr ""
+
+#: dosomething_user.views_default.inc:237;426
+msgid "Page"
+msgstr ""
+
+#: dosomething_user.views_default.inc:405
+msgid "Search users"
+msgstr ""
+
+#: dosomething_user.views_default.inc:420
+msgid "Email"
+msgstr ""
+
+#: dosomething_user.views_default.inc:421
+msgid "Mobile"
+msgstr ""
+
+#: dosomething_user.views_default.inc:425
+msgid "Last login"
+msgstr ""
+
+#: dosomething_user.module:371
+msgid "Hmmm, we couldn’t find that address. Did you mean: "
+msgstr ""
+
+#: dosomething_user.module:1052
+msgid "Info"
+msgstr ""
+
+#: dosomething_user.module:1086
+msgid "The two letter state code."
+msgstr ""
+
+#: dosomething_user.module:1090
+msgid "Picture"
+msgstr ""
+
+#: dosomething_user.module:1098
+msgid "Upload a picture"
+msgstr ""
+
+#: dosomething_user.module:1105
+msgid "Submit"
+msgstr ""
+
+#: dosomething_user.module:1218
+msgid "@type @identifier @id deleted."
+msgstr ""
+
+#: dosomething_user.module:1280
+msgid "million"
+msgstr ""
+
+#: dosomething_user.module:1284
+msgid "thousand"
+msgstr ""
+
+#: plugins/format/dosomething-affiliate-country.inc:9
+msgid "Dosomething Affiliate Country"
+msgstr ""
