@@ -42,154 +42,6 @@ msgstr ""
 msgid "Hmmm, we couldn’t find that address. Did you mean:"
 msgstr ""
 
-#: dosomething_user.admin.inc:16
-msgid "Terms of Service"
-msgstr ""
-
-#: dosomething_user.admin.inc:19
-msgid "Select the node which provides site Terms of Service."
-msgstr ""
-
-#: dosomething_user.admin.inc:28
-msgid "Privacy Policy"
-msgstr ""
-
-#: dosomething_user.admin.inc:31
-msgid "Select the node which provides site Privacy Policy."
-msgstr ""
-
-#: dosomething_user.admin.inc:40 dosomething_user.module:1294
-msgid "Member Count"
-msgstr ""
-
-#: dosomething_user.admin.inc:41
-msgid "Number of members, which is displayed around the site. Don't change this unless you know what you're doing."
-msgstr ""
-
-#: dosomething_user.admin.inc:49
-msgid "Validate Address Field"
-msgstr ""
-
-#: dosomething_user.admin.inc:51
-msgid "If set, the user's field_address values will be validated against a geolocator API."
-msgstr ""
-
-#: dosomething_user.admin.inc:57
-msgid "Login"
-msgstr ""
-
-#: dosomething_user.admin.inc:67
-msgid "Login Form copy"
-msgstr ""
-
-#: dosomething_user.admin.inc:68
-msgid "Copy displayed below the Login Form header. Optional."
-msgstr ""
-
-#: dosomething_user.admin.inc:69;88;147;155;163;190
-msgid "@value"
-msgstr ""
-
-#: dosomething_user.admin.inc:76
-msgid "Display \"Forgot Password\" link"
-msgstr ""
-
-#: dosomething_user.admin.inc:78
-msgid "If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."
-msgstr ""
-
-#: dosomething_user.admin.inc:86
-msgid "Forgot Password copy"
-msgstr ""
-
-#: dosomething_user.admin.inc:87
-msgid "Password reset neutral copy displayed both on fail and success."
-msgstr ""
-
-#: dosomething_user.admin.inc:94
-msgid "Registration"
-msgstr ""
-
-#: dosomething_user.admin.inc:103
-msgid "Collect Last Name"
-msgstr ""
-
-#: dosomething_user.admin.inc:111
-msgid "Collect Opt-in Email"
-msgstr ""
-
-#: dosomething_user.admin.inc:119
-msgid "Collect Opt-In SMS"
-msgstr ""
-
-#: dosomething_user.admin.inc:127
-msgid "Collect Postal Code"
-msgstr ""
-
-#: dosomething_user.admin.inc:134
-msgid "Profile"
-msgstr ""
-
-#: dosomething_user.admin.inc:144
-msgid "Subtitle"
-msgstr ""
-
-#: dosomething_user.admin.inc:146
-msgid "Displayed below the Profile main page title."
-msgstr ""
-
-#: dosomething_user.admin.inc:154
-msgid "No Signups Header"
-msgstr ""
-
-#: dosomething_user.admin.inc:162
-msgid "No Signups Copy"
-msgstr ""
-
-#: dosomething_user.admin.inc:169
-msgid "School"
-msgstr ""
-
-#: dosomething_user.admin.inc:179
-msgid "School API Endpoint"
-msgstr ""
-
-#: dosomething_user.admin.inc:180
-msgid "URL to request school data, e.g. <em>http://lofischools.herokuapp.com/search</em>."
-msgstr ""
-
-#: dosomething_user.admin.inc:188
-msgid "School Finder Help Text"
-msgstr ""
-
-#: dosomething_user.admin.inc:189
-msgid "Text displayed if User needs help finding school.  Markdown supported."
-msgstr ""
-
-#: dosomething_user.admin.inc:196
-msgid "Development"
-msgstr ""
-
-#: dosomething_user.admin.inc:205
-msgid "Enable Clean Slate Form."
-msgstr ""
-
-#: dosomething_user.admin.inc:207
-msgid "Allows staff user access to delete all activity for their account. This should be disabled on production."
-msgstr ""
-
-#: dosomething_user.admin.inc:223
-msgid "Clean Slate has been disabled."
-msgstr ""
-
-#: dosomething_user.admin.inc:235
-msgid "Clean Slate Me"
-msgstr ""
-
-#: dosomething_user.admin.inc:246
-msgid "Clean Slate form submitted for User %uid"
-msgstr ""
-
 #: dosomething_user.features.field_instance.inc:474
 msgid "Address"
 msgstr ""
@@ -220,10 +72,6 @@ msgstr ""
 
 #: dosomething_user.features.field_instance.inc:483
 msgid "Subscribe to our email newsletter"
-msgstr ""
-
-#: dosomething_user.features.field_instance.inc:484
-msgid "This field may be set if a User has been programatically created."
 msgstr ""
 
 #: dosomething_user.features.field_instance.inc:485
@@ -346,10 +194,6 @@ msgstr ""
 msgid "Search users"
 msgstr ""
 
-#: dosomething_user.views_default.inc:419
-msgid "Uid"
-msgstr ""
-
 #: dosomething_user.views_default.inc:420
 msgid "Email"
 msgstr ""
@@ -360,42 +204,6 @@ msgstr ""
 
 #: dosomething_user.views_default.inc:425
 msgid "Last login"
-msgstr ""
-
-#: dosomething_user_valid_address.inc:10
-msgid "Development integration?"
-msgstr ""
-
-#: dosomething_user_valid_address.inc:11
-msgid "Check if NOT on a production environment"
-msgstr ""
-
-#: dosomething_user_valid_address.inc:17
-msgid "UPS access license number"
-msgstr ""
-
-#: dosomething_user_valid_address.inc:23
-msgid "UPS username"
-msgstr ""
-
-#: dosomething_user_valid_address.inc:29
-msgid "UPS password"
-msgstr ""
-
-#: dosomething_user.module:83
-msgid "UPS API Configuration"
-msgstr ""
-
-#: dosomething_user.module:84
-msgid "UPS integration that provices address validation"
-msgstr ""
-
-#: dosomething_user.module:117
-msgid "Edit user information"
-msgstr ""
-
-#: dosomething_user.module:118
-msgid "Can edit any user info form."
 msgstr ""
 
 #: dosomething_user.module:371
@@ -432,54 +240,6 @@ msgstr ""
 
 #: dosomething_user.module:1284
 msgid "thousand"
-msgstr ""
-
-#: dosomething_user.module:1295
-msgid "Number of site members."
-msgstr ""
-
-#: dosomething_user.module:1298
-msgid "Member Count - Readable"
-msgstr ""
-
-#: dosomething_user.module:1299
-msgid "Number of site members, formatted as \"3.2 million\"."
-msgstr ""
-
-#: dosomething_user.module:1177
-msgid "dosomething_user"
-msgstr ""
-
-#: dosomething_user.module:1177
-msgid "Table %tbl_name"
-msgstr ""
-
-#: dosomething_user.module:67
-msgid "address"
-msgstr ""
-
-#: dosomething_user.module:74 dosomething_user.info:0
-msgid "DoSomething User"
-msgstr ""
-
-#: dosomething_user.module:75
-msgid "Admin configuration form for DoSomething User."
-msgstr ""
-
-#: dosomething_user.module:91
-msgid "Edit info"
-msgstr ""
-
-#: dosomething_user.module:99
-msgid "Clean Slate"
-msgstr ""
-
-#: dosomething_user.info:0
-msgid "Functionality for users on DoSomething."
-msgstr ""
-
-#: dosomething_user.info:0
-msgid "DoSomething"
 msgstr ""
 
 #: plugins/format/dosomething-affiliate-country.inc:9
