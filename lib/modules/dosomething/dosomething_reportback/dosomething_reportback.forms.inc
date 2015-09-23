@@ -228,7 +228,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $label_default = t("Total # of people participated");
     // Check for the num_participants_label variable.
     $var_name = 'dosomething_reportback_num_participants_label';
-    $label = variable_get($var_name, $label_default);
+    $label = t(variable_get($var_name, $label_default));
     $form['reportback_inputs']['num_participants'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,

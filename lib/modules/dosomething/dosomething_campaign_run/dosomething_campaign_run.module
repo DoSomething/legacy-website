@@ -28,9 +28,9 @@ function dosomething_campaign_run_preprocess_closed(&$vars) {
     // If user has not presigned up:
     if (!dosomething_signup_presignup_exists($vars['nid'])) {
        // Preprocess the presignup form.
-      $label = variable_get('dosomething_campaign_run_signup_button_copy');
+      $label = t(variable_get('dosomething_campaign_run_signup_button_copy'));
       dosomething_signup_preprocess_signup_button($vars, $label, $presignup = TRUE);
-      $vars['presignup_callout'] = variable_get('dosomething_campaign_presignup_callout_copy');
+      $vars['presignup_callout'] = t(variable_get('dosomething_campaign_presignup_callout_copy'));
     }
     // Preprocess the campaign reportback gallery.
     dosomething_campaign_preprocess_closed_reportback_gallery($vars, '300x300', 3);
@@ -77,7 +77,7 @@ function dosomething_campaign_run_preprocess_text_vars(&$vars, $wrapper) {
   }
   // If there is no total yet, send default text.
   if (!isset($vars['total_quantity'])) {
-    $placeholder_copy = variable_get('dosomething_campaign_run_no_total_copy');
+    $placeholder_copy = t(variable_get('dosomething_campaign_run_no_total_copy'));
     // Replace the ['label'] section with the actual label (eg clothes or tacos).
     $copy = str_replace('[label]', $vars['total_quantity_label'], $placeholder_copy);
     $vars['total_quantity_placeholder'] = $copy;
@@ -109,7 +109,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
   $winner_count =  count($closed_node->field_winners[LANGUAGE_NONE]);
   // If there are no winners, send default text.
   if ($winner_count == 0) {
-    $vars['default_winners'] = variable_get('dosomething_campaign_run_no_winner_copy');
+    $vars['default_winners'] = t(variable_get('dosomething_campaign_run_no_winner_copy')) ;
   }
   else {
     $winners = array();

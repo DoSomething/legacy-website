@@ -149,7 +149,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     'class' => ['sms-campaign-form'],
   );
   // Load "all participants" copy.
-  $all_participants_copy = variable_get('dosomething_campaign_sms_game_all_participants_copy');
+  $all_participants_copy = t(variable_get('dosomething_campaign_sms_game_all_participants_copy'));
   $form['all_participants_copy'] = array(
     '#prefix' => '<div class="message-callout -above"><div class="message-callout__copy"><p>',
     '#markup' => $all_participants_copy,
@@ -191,8 +191,8 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
       ),
     );
   }
-  // Check if varaible is set for the Friends Form submit button label.
-  $label = variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', t('Share'));
+  // Check if variable is set for the Friends Form submit button label.
+  $label = t(variable_get('dosomething_campaign_sms_game_signup_friends_form_button_copy', 'Share'));
 
   // Get scholarship amount.
   $amount = dosomething_campaign_get_scholarship($node->nid);
