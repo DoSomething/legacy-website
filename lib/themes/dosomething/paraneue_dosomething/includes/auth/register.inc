@@ -82,7 +82,8 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
 
     if (!in_array(dosomething_settings_get_geo_country_code(), dosomething_global_get_countries())) {
       $form['field_mobile']['#access'] = FALSE;
-    } else {
+    }
+    else {
       $form['account']['field_mobile'] = $form['field_mobile'];
       $form['account']['field_mobile']['#weight'] = 20;
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = t('Cell Number') . ' <span class="field-label-optional">' . t("(optional)") . '</span>';
