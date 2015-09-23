@@ -79,8 +79,8 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     $form['account']['mail']['#attributes']['data-validate-required'] = '';
     unset($form['account']['mail']['#description']);
 
-    $country_codes = array('BR', 'CA', 'GB', 'MX', 'US');
-    if (!in_array(dosomething_settings_get_geo_country_code(), $country_codes)) {
+
+    if (!in_array(dosomething_settings_get_geo_country_code(), dosomething_global_get_countries())) {
       $form['field_mobile']['#access'] = FALSE;
     } else {
       $form['account']['field_mobile'] = $form['field_mobile'];
