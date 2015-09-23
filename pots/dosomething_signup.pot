@@ -1,0 +1,138 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_signup.admin.inc: n/a
+#  dosomething_signup.forms.inc: n/a
+#  dosomething_signup.views_default.inc: n/a
+#  dosomething_signup.signup_data_form.inc: n/a
+#  dosomething_signup.module: n/a
+#  dosomething_signup.info: n/a
+#  includes/dosomething_signup.variable.inc: n/a
+#  includes/dosomething_signup.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-23 18:13+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_signup.forms.inc:170
+msgid "First Name"
+msgstr ""
+
+#: dosomething_signup.forms.inc:181;208
+msgid "(555) 555-5555"
+msgstr ""
+
+#: dosomething_signup.forms.inc:195
+msgid "Friend's Name"
+msgstr ""
+
+#: dosomething_signup.forms.inc:290
+msgid "This SMS Game is not properly configured."
+msgstr ""
+
+#: dosomething_signup.forms.inc:310
+msgid "Please provide a valid telephone number."
+msgstr ""
+
+#: dosomething_signup.forms.inc:339
+msgid "Hey, you entered this number already!"
+msgstr ""
+
+#: dosomething_signup.forms.inc:399
+msgid "Are you sure you want to remove this signup?  This cannot be undone."
+msgstr ""
+
+#: dosomething_signup.forms.inc:405
+msgid "Delete"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:358
+msgid "Select @label"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:368
+msgid "School ID"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:374
+msgid "School Name"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:375
+msgid "Find your school by name..."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:388
+msgid "Need help locating your school?"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:391
+msgid "Still having issues? !contact with your school name and @state."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:392
+msgid "Contact us"
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:404
+msgid "I am not affiliated with a school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:498
+msgid "Please select a school."
+msgstr ""
+
+#: dosomething_signup.signup_data_form.inc:517
+msgid "Skip"
+msgstr ""
+
+#: dosomething_signup.views_default.inc:220 dosomething_signup.module:309;312
+msgid "Signups"
+msgstr ""
+
+#: dosomething_signup.module:66;51
+msgid "Signup"
+msgstr ""
+
+#: dosomething_signup.module:237 includes/dosomething_signup.variable.inc:49
+msgid "There was an error processing your request."
+msgstr ""
+
+#: dosomething_signup.module:692
+msgid "for"
+msgstr ""
+
+#: dosomething_signup.module:694
+msgid "You're signed up"
+msgstr ""
+
+#: dosomething_signup.module:695
+msgid "Get started below."
+msgstr ""
+
+#: dosomething_signup.module:708
+msgid "find a campaign"
+msgstr ""
+
+#: dosomething_signup.module:709
+msgid "Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now."
+msgstr ""
+
+#: dosomething_signup.module:42
+msgid "Remove signup"
+msgstr ""
+
+#: dosomething_signup.info:0
+msgid "DoSomething"
+msgstr ""
