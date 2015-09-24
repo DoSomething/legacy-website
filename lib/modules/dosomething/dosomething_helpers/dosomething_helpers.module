@@ -592,3 +592,13 @@ function dosomething_helpers_get_current_language_code() {
 function dosomething_helpers_application_path($path = '') {
   return realpath(DRUPAL_ROOT . '/../' . $path);
 }
+
+/**
+ * Implements hook_form_node_admin_content_alter().
+ */
+function dosomething_global_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
+  // Remove destination?=admin/content from edit button
+  foreach ($form['admin']['nodes']['#options'] as $nid => $node) {
+    unset($form['admin']['nodes']['#options'][$nid]['operations']['data']['#links']['edit']['query']['destination']);
+  }
+}

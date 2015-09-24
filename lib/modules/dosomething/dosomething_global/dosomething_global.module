@@ -87,16 +87,6 @@ function dosomething_global_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_form_node_admin_content_alter().
- */
-function dosomething_global_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
-  // Remove destination?=admin/content from edit button
-  foreach ($form['admin']['nodes']['#options'] as $nid => $node) {
-    unset($form['admin']['nodes']['#options'][$nid]['operations']['data']['#links']['edit']['query']['destination']);
-  }
-}
-
-/**
  * Implements hook_menu_local_tasks_alter().
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
