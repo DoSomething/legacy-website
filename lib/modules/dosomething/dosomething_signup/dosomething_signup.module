@@ -558,7 +558,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     return FALSE;
   }
   $wrapper = entity_metadata_wrapper('node', $node);
-  $language = dosomething_helpers_get_language($account, $node);
+  $language = dosomething_global_get_language($account, $node);
 
   $params = array(
     'email' => $account->mail,
@@ -568,7 +568,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'event_id' => $node->nid,
     'campaign_title' => $wrapper->language($language)->title_field->value(),
     'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid, $language), array('absolute' => TRUE)),
-    'language' => $language,
+    'user_language' => $language,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
@@ -595,7 +595,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
  */
 function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
   if ($wrapper->type->value() == 'campaign') {
-    $content = $wrapper->language($params['language']);
+    $content = $wrapper->language($params['user_language']);
     $params['call_to_action'] = $content->field_call_to_action->value();
     $params['step_one'] = $content->field_pre_step_header->value();
     $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
@@ -614,8 +614,8 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
 function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
   if ($node->type == 'campaign_group') {
     $copy = '';
-    if (isset($node->field_transactional_email_copy[$params['language']][0]['safe_value'])) {
-      $copy = $node->field_transactional_email_copy[$params['language']][0]['safe_value'];
+    if (isset($node->field_transactional_email_copy[$params['user_language']][0]['safe_value'])) {
+      $copy = $node->field_transactional_email_copy[$params['user_language']][0]['safe_value'];
     }
     $params['transactional_email_copy'] = $copy;
   }
