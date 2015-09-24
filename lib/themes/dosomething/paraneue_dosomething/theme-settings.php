@@ -51,6 +51,10 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
       '#title' => t('Show problem statement share buttons'),
       '#description' => t('Toggles the display of problem statement share buttons on the action page.')
     ),
+    'show_yahoo_prototype' => array(
+      '#title' => t('Turn on yahoo 11 facts prototype'),
+      '#description' => t('Toggles the display of a CTA prototype on node 176 for the Yahoo partnership')
+    ),
   );
 
   foreach ($flags as $name => $flag) {
