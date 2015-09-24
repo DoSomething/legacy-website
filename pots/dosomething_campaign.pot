@@ -1,0 +1,105 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_campaign.admin.inc: n/a
+#  dosomething_campaign.features.field_instance.inc: n/a
+#  dosomething_campaign.features.inc: n/a
+#  dosomething_campaign.views_default.inc: n/a
+#  dosomething_campaign.pages.inc: n/a
+#  dosomething_campaign.theme.inc: n/a
+#  dosomething_campaign.module: n/a
+#  dosomething_campaign.info: n/a
+#  dosomething_campaign_hot_shares/dosomething_campaign_hot_shares.info: n/a
+#  dosomething_campaign_problem_shares/dosomething_campaign_problem_shares.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-24 16:39+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_campaign.pages.inc:66
+msgid "Back to @title"
+msgstr ""
+
+#: dosomething_campaign.theme.inc:143
+msgid "This is REAL, do something about this with me: "
+msgstr ""
+
+#: dosomething_campaign.theme.inc:199
+msgid "@progress @noun_verb! Thanks to everyone for rocking this campaign with @dosomething. Let's keep it up. "
+msgstr ""
+
+#: dosomething_campaign.theme.inc:288
+msgid "Rally your friends to crush this goal!"
+msgstr ""
+
+#: dosomething_campaign.theme.inc:333
+msgid "@goal? Let's make it happen"
+msgstr ""
+
+#: dosomething_campaign.theme.inc:337
+msgid "Be a part of @dosomething reaching @goal- who's ready to rumble?! "
+msgstr ""
+
+#: dosomething_campaign.theme.inc:342
+msgid "Think you can make @dosomething reach @goal? Prove it: "
+msgstr ""
+
+#: dosomething_campaign.theme.inc:544
+msgid "Submit Your Pic"
+msgstr ""
+
+#: dosomething_campaign.theme.inc:547
+msgid "Update Submission"
+msgstr ""
+
+#: dosomething_campaign.theme.inc:607
+msgid "A DoSomething.org campaign."
+msgstr ""
+
+#: dosomething_campaign.theme.inc:611
+msgid "Join over @count members taking action."
+msgstr ""
+
+#: dosomething_campaign.theme.inc:617
+msgid "Any cause, anytime, anywhere."
+msgstr ""
+
+#: dosomething_campaign.theme.inc:622
+msgid "Join @signup_count people doing this."
+msgstr ""
+
+#: dosomething_campaign.module:46
+msgid "Campaign status"
+msgstr ""
+
+#: dosomething_campaign.module:126
+msgid "Edit campaign overrides"
+msgstr ""
+
+#: dosomething_campaign.module:137
+msgid "DS Scholarships"
+msgstr ""
+
+#: dosomething_campaign.module:142
+msgid "DS Submit Campaign Idea"
+msgstr ""
+
+#: dosomething_campaign.module:184
+msgid "No active scholarships right now, check back!"
+msgstr ""
+
+#: dosomething_campaign.module:36
+msgid "DoSomething Campaign"
+msgstr ""
+
