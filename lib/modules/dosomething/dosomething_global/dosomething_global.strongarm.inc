@@ -100,6 +100,14 @@ function dosomething_global_strongarm() {
       ),
       'file' => 'includes/locale.inc',
     ),
+    'locale-session' => array(
+      'callbacks' => array(
+        'language' => 'locale_language_from_url',
+        'switcher' => 'locale_language_switcher_url',
+        'url_rewrite' => 'locale_language_url_rewrite_url',
+      ),
+      'file' => 'includes/locale.inc',
+    ),
     'language-default' => array(
       'callbacks' => array(
         'language' => 'language_from_default',
@@ -114,6 +122,14 @@ function dosomething_global_strongarm() {
   $strongarm->name = 'language_negotiation_language_content';
   $strongarm->value = array(
     'locale-url' => array(
+      'callbacks' => array(
+        'language' => 'locale_language_from_url',
+        'switcher' => 'locale_language_switcher_url',
+        'url_rewrite' => 'locale_language_url_rewrite_url',
+      ),
+      'file' => 'includes/locale.inc',
+    ),
+    'locale-user' => array(
       'callbacks' => array(
         'language' => 'locale_language_from_url',
         'switcher' => 'locale_language_switcher_url',
@@ -194,28 +210,28 @@ function dosomething_global_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_campaign_en-global_pattern';
-  $strongarm->value = '';
+  $strongarm->value = 'campaigns/[node:title]';
   $export['pathauto_node_campaign_en-global_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_campaign_en_pattern';
-  $strongarm->value = '';
+  $strongarm->value = 'campaigns/[node:title]';
   $export['pathauto_node_campaign_en_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_campaign_es-mx_pattern';
-  $strongarm->value = 'voluntario/[node:title]';
+  $strongarm->value = 'campanas/[node:title]';
   $export['pathauto_node_campaign_es-mx_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_campaign_pt-br_pattern';
-  $strongarm->value = 'voluntario/[node:title]';
+  $strongarm->value = 'campanhas/[node:title]';
   $export['pathauto_node_campaign_pt-br_pattern'] = $strongarm;
 
   return $export;
