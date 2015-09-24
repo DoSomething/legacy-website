@@ -13,7 +13,7 @@
  * - $cta_link: Call To Action link of fact page (string).
  */
 ?>
-
+<?php $yahoo_prototype = ($nid == 176 && theme_get_setting('show_yahoo_prototype')) ? TRUE : FALSE; ?>
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <header role="banner" class="header">
     <div class="wrapper">
@@ -57,7 +57,7 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta show-at-medium">
+    <div class="cta <?php if ($yahoo_prototype) { print 'show-at-medium'; } ?>">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
@@ -65,7 +65,7 @@
     </div>
 
     <?php // Yahoo prototype ?>
-    <?php if ($nid == 176): ?>
+    <?php if ($yahoo_prototype): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
           <h2 class="cta__message">Want to learn more about volcanoes?</h2>
@@ -103,7 +103,7 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta show-at-medium">
+    <div class="cta <?php if ($yahoo_prototype) { print 'show-at-medium'; } ?>">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
@@ -111,7 +111,7 @@
     </div>
 
     <?php // Yahoo prototype ?>
-    <?php if ($nid == 176): ?>
+    <?php if ($yahoo_prototype): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
           <h2 class="cta__message">Want to learn more about volcanoes?</h2>
