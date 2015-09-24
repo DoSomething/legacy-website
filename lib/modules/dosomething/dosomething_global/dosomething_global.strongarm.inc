@@ -38,6 +38,27 @@ function dosomething_global_strongarm() {
       'display_name' => 'English, Global',
       'default_roles' => array(),
     ),
+    'en-gb' => array(
+      'display_name' => 'English, UK',
+      'default_roles' => array(
+        0 => 'UK admin',
+      ),
+      'country' => 'GB',
+    ),
+    'en-ca' => array(
+      'display_name' => 'English, Canada',
+      'default_roles' => array(
+        0 => 'canada admin',
+      ),
+      'country' => 'CA',
+    ),
+    'fr-ca' => array(
+      'display_name' => 'French, Canada',
+      'default_roles' => array(
+        0 => 'canada admin',
+      ),
+      'country' => 'CA',
+    ),
   );
   $export['dosomething_global_language_map'] = $strongarm;
 
