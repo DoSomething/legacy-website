@@ -489,10 +489,8 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
   if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
     $node = node_load($nid);
 
-    // Check if a field_signup_confirm_msg field is set.
-    if (isset($node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'])) {
-      // Store that message.
-      $msg = $node->field_signup_confirm_msg[LANGUAGE_NONE][0]['value'];
+    // Check if a field_signup_confirm_msg field is set and store the msg.
+    if ($msg = $node->field_signup_confirm_msg[$account->language][0]['value']) {
       // Display that message.
       drupal_set_message($msg);
       // Exit out of function.
@@ -532,6 +530,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
 
   // Gather mbp params for the signup.
   $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
+
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
     dosomething_mbp_request('campaign_signup', $params);
@@ -558,14 +557,18 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
     return FALSE;
   }
+  $wrapper = entity_metadata_wrapper('node', $node);
+  $language = dosomething_global_get_language($account, $node);
+
   $params = array(
     'email' => $account->mail,
     'uid' => $account->uid,
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
-    'campaign_title' => $node->title,
-    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid), array('absolute' => TRUE)),
+    'campaign_title' => $wrapper->language($language)->title_field->value(),
+    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid, $language), array('absolute' => TRUE)),
+    'user_language' => $language,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
@@ -575,8 +578,8 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   }
 
   // Add additional values to $params based on campaign / campaign_group
-  dosomething_signup_get_mbp_params_campaign($params, $node);
-  dosomething_signup_get_mbp_params_campaign_group($params, $node);
+  dosomething_signup_get_mbp_params_campaign($params, $wrapper);
+  dosomething_signup_get_mbp_params_campaign_group($params, $wrapper);
   // Add any mailchimp params if needed.
   dosomething_signup_get_mbp_params_mailchimp($params, $node);
   return $params;
@@ -590,13 +593,13 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
  * @param object $node
  *   Details about the node that the signup was made on.
  */
-function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
-  if ($node->type == 'campaign') {
-    $wrapper = entity_metadata_wrapper('node', $node);
-    $params['call_to_action'] = $wrapper->field_call_to_action->value();
-    $params['step_one'] = $wrapper->field_pre_step_header->value();
+function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
+  if ($wrapper->type->value() == 'campaign') {
+    $content = $wrapper->language($params['user_language']);
+    $params['call_to_action'] = $content->field_call_to_action->value();
+    $params['step_one'] = $content->field_pre_step_header->value();
     $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
-    $params['step_three'] = $wrapper->field_post_step_header->value();
+    $params['step_three'] = $content->field_post_step_header->value();
   }
 }
 
@@ -611,8 +614,8 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $node) {
 function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
   if ($node->type == 'campaign_group') {
     $copy = '';
-    if (isset($node->field_transactional_email_copy[LANGUAGE_NONE][0]['safe_value'])) {
-      $copy = $node->field_transactional_email_copy[LANGUAGE_NONE][0]['safe_value'];
+    if (isset($node->field_transactional_email_copy[$params['user_language']][0]['safe_value'])) {
+      $copy = $node->field_transactional_email_copy[$params['user_language']][0]['safe_value'];
     }
     $params['transactional_email_copy'] = $copy;
   }
