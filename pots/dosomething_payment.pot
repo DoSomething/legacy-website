@@ -1,0 +1,78 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_payment.admin.inc: n/a
+#  dosomething_payment.module: n/a
+#  dosomething_payment.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-24 20:46+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_payment.admin.inc:13 dosomething_payment.module:61
+msgid "Donate"
+msgstr ""
+
+#: dosomething_payment.admin.inc:36
+msgid "Having problems with donating? Please try again or email donate@dosomething.org."
+msgstr ""
+
+#: dosomething_payment.module:100
+msgid "Name on Card"
+msgstr ""
+
+#: dosomething_payment.module:112;121
+msgid "Email"
+msgstr ""
+
+#: dosomething_payment.module:131
+msgid "Card Number"
+msgstr ""
+
+#: dosomething_payment.module:142
+msgid "CVV"
+msgstr ""
+
+#: dosomething_payment.module:153
+msgid "MM"
+msgstr ""
+
+#: dosomething_payment.module:164
+msgid "YYYY"
+msgstr ""
+
+#: dosomething_payment.module:175
+msgid "Amount"
+msgstr ""
+
+#: dosomething_payment.module:176
+msgid "$"
+msgstr ""
+
+#: dosomething_payment.module:186
+msgid "ZIP or Postal code"
+msgstr ""
+
+#: dosomething_payment.module:196
+msgid "Message (optional)"
+msgstr ""
+
+#: dosomething_payment.module:205
+msgid "Submit"
+msgstr ""
+
+#: dosomething_payment.module:308
+msgid "Stripe configuration error."
+msgstr ""
+
