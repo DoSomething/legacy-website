@@ -57,12 +57,22 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta">
+    <div class="cta show-at-medium">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
       </div>
     </div>
+
+    <?php // Yahoo prototype ?>
+    <?php if ($nid == 176): ?>
+      <div class="cta show-only-small">
+        <div class="wrapper">
+          <h2 class="cta__message">Want to learn more about volcanoes?</h2>
+          <a href="https://search.yahoo.com/search;_ylt=A0LEV1PdFwNW2ukAuyel87UF;_ylc=X1MDOTU4MTA0NjkEX3IDMgRmcgMEZ3ByaWQDMHVnUmhsV0lSMi5WWFZ1NWhWQVE2QQRuX3JzbHQDMARuX3N1Z2cDOQRvcmlnaW4Dc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM3BHF1ZXJ5A3ZvbGNhbm8EdF9zdG1wAzE0NDMwNDMyOTg-?p=volcano&fr=sfp&fr2=sb-top-search&iscqry=" class="button">Find out</a>
+        </div>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 
   <section class="container">
@@ -93,12 +103,22 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta">
+    <div class="cta show-at-medium">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
       </div>
     </div>
+
+    <?php // Yahoo prototype ?>
+    <?php if ($nid == 176): ?>
+      <div class="cta show-only-small">
+        <div class="wrapper">
+          <h2 class="cta__message">Want to learn more about volcanoes?</h2>
+          <a href="https://search.yahoo.com/search;_ylt=A0LEV1PdFwNW2ukAuyel87UF;_ylc=X1MDOTU4MTA0NjkEX3IDMgRmcgMEZ3ByaWQDMHVnUmhsV0lSMi5WWFZ1NWhWQVE2QQRuX3JzbHQDMARuX3N1Z2cDOQRvcmlnaW4Dc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM3BHF1ZXJ5A3ZvbGNhbm8EdF9zdG1wAzE0NDMwNDMyOTg-?p=volcano&fr=sfp&fr2=sb-top-search&iscqry=" class="button">Find out</a>
+        </div>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 
   <?php if ($info_bar): ?>
