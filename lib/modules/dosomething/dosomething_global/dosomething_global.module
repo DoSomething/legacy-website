@@ -87,7 +87,7 @@ function dosomething_global_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_meny_local_tasks_alter().
+ * Implements hook_menu_local_tasks_alter().
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
   // Verify we're operating on a node edit page
