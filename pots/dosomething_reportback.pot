@@ -1,0 +1,98 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_reportback.admin.inc: n/a
+#  dosomething_reportback.views_default.inc: n/a
+#  dosomething_reportback.module: n/a
+#  dosomething_reportback.forms.inc: n/a
+#  includes/ReportbackItem.php: n/a
+#  dosomething_reportback.info: n/a
+#  includes/ReportbackController.php: n/a
+#  includes/ReportbackItemController.php: n/a
+#  js/reportback_review_form.js: n/a
+#  theme/reportback-prior-submissions.tpl.php: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-24 14:52+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_reportback.admin.inc:45;336 dosomething_reportback.views_default.inc:354
+msgid "Campaign"
+msgstr ""
+
+#: dosomething_reportback.admin.inc:194 dosomething_reportback.views_default.inc:360 dosomething_reportback.module:188
+msgid "Status"
+msgstr ""
+
+#: dosomething_reportback.admin.inc:335 dosomething_reportback.views_default.inc:358 dosomething_reportback.module:121
+msgid "Quantity"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:86
+msgid "Submit your pic"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:124
+msgid "Update submission"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:189 includes/ReportbackItem.php:97
+msgid "DoSomething? Just did!"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:198
+msgid "60 characters or less"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:201 dosomething_reportback.module:180
+msgid "Caption"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:209;236
+msgid "Enter # here"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:215
+msgid "Total # of @noun @verb"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:228
+msgid "Total # of people participated"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:251
+msgid "Write something..."
+msgstr ""
+
+#: dosomething_reportback.forms.inc:256
+msgid "Why is this campaign important to you?"
+msgstr ""
+
+#: dosomething_reportback.forms.inc:285
+msgid "You are no longer logged in. Please log in."
+msgstr ""
+
+#: dosomething_reportback.forms.inc:354
+msgid "There was an error. Please try again."
+msgstr ""
+
+#: dosomething_reportback.forms.inc:359
+msgid "Please upload an image."
+msgstr ""
+
+#: dosomething_reportback.module:461
+msgid "your friend"
+msgstr ""
+
+
