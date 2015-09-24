@@ -221,6 +221,7 @@ function dosomething_global_convert_country_to_language($country) {
     }
   }
   return 'en';
+}
 
 /*
  * Get the appropriate language for the application.
