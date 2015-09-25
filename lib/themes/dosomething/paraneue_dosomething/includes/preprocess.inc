@@ -674,6 +674,8 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
  * Preprocess variables for the fact page.
  */
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  $vars['yahoo_logo']= DS_ASSET_PATH .'/dist/images/yahoo_white.png';
+  if (theme_get_setting('show_yahoo_partnership')) {
+    $vars['yahoo_logo']= DS_ASSET_PATH .'/dist/images/yahoo_white.png';
+  }
 }
 
