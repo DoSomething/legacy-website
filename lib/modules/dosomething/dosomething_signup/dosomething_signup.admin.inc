@@ -20,6 +20,7 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
 
   $field_prefix = "dosomething_signup_";
   $countries = dosomething_global_get_countries();
+  $mailchimp_excluded_countries = ['ca', 'gb'];
   foreach ($countries as $country) {
     $country = strtolower($country);
     $form['general']['dosomething_signup'][$country] = array(
@@ -32,7 +33,7 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
     $name = $field_prefix . $country . '_mail_list_id';
     $form['general']['dosomething_signup'][$country][$name] = array(
       '#type' => 'textfield',
-      '#required' => TRUE,
+      '#required' => !in_array($country, $mailchimp_excluded_countries),
       '#title' => 'Mail List ID',
       '#default_value' => variable_get($name),
       '#description' => "General MailChimp List ID used in registrations and signups.",
