@@ -988,8 +988,11 @@ function dosomething_reportback_get_count_by_uid($uid = NULL) {
  *   An object containing reportback noun & verb
  */
 function dosomething_reportback_get_noun_and_verb($nid) {
+  global $language;
+
   $query = db_select('field_data_field_reportback_noun', 'noun')
-    ->condition('noun.entity_id', $nid);
+    ->condition('noun.entity_id', $nid)
+    ->condition('noun.language', $language);
   $query->addField('noun', 'field_reportback_noun_value', 'noun');
   $query->addField('verb', 'field_reportback_verb_value', 'verb');
   $query->join('field_data_field_reportback_verb', 'verb', 'noun.entity_id = verb.entity_id');
