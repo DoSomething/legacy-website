@@ -674,18 +674,6 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
  * Preprocess variables for the fact page.
  */
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  // Output sponsor, if it exists.
-  if ($vars['sponsor_logos']) {
-    $vars['promotions'] = $vars['sponsor_logos'];
-
-    $vars['promotions'] = '<div class="promotions">' . $vars['promotions'] . '</div>';
-  }
-
-  // Add class to header if promotions will be included in display.
-  if (isset($vars['promotions'])) {
-    $vars['classes_array'][] = 'has-promotions';
-  }
-
-  dosomething_helpers_preprocess_partners_vars($vars);
+  $vars['yahoo_logo']= DS_ASSET_PATH .'/dist/images/yahoo_white.png';
 }
 

@@ -22,7 +22,16 @@
         <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
 
-      <?php if (isset($promotions)) { print $promotions; } ?>
+      <div class="promotions">
+        <div class="promotion promotion--sponsor">
+          <div class="wrapper">
+            <p class="__copy">Powered by</p>
+            <div class="__image">
+              <img src="<?php print $yahoo_logo; ?>" alt="Yahoo">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
