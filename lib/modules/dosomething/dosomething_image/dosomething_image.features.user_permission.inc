@@ -16,6 +16,7 @@ function dosomething_image_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -40,6 +41,7 @@ function dosomething_image_user_default_permissions() {
     'name' => 'edit any image content',
     'roles' => array(
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'node',
   );
@@ -50,6 +52,7 @@ function dosomething_image_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
