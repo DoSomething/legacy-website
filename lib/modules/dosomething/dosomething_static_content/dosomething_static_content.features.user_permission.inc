@@ -16,6 +16,7 @@ function dosomething_static_content_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -41,6 +42,7 @@ function dosomething_static_content_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -52,6 +54,7 @@ function dosomething_static_content_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',

@@ -1,0 +1,29 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_reward.admin.inc: n/a
+#  dosomething_reward.forms.inc: n/a
+#  dosomething_reward.views_default.inc: n/a
+#  dosomething_reward.module: n/a
+#  dosomething_reward.info: n/a
+#  includes/dosomething_reward.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-24 20:45+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_reward.forms.inc:50
+msgid "You are no longer logged in. Please log in."
+msgstr ""
+

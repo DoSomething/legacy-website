@@ -263,6 +263,12 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   unset($form['account']['mail']['#description']);
   $form['account']['current_pass']['#title'] = t("Current Password");
   unset($form['field_address'][LANGUAGE_NONE][0]['#title']);
+
+  // Hides address fields for non-us users.
+  if (dosomething_settings_get_geo_country_code() !== 'US') {
+    $form['field_address']['#access'] = FALSE;
+  }
+
   $form['field_birthdate'][LANGUAGE_NONE][0]['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
 
   // Thanks to https://www.drupal.org/node/540340#comment-6576704.

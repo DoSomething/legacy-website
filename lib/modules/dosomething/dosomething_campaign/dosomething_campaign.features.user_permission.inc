@@ -16,6 +16,7 @@ function dosomething_campaign_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -41,6 +42,7 @@ function dosomething_campaign_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
@@ -53,6 +55,7 @@ function dosomething_campaign_user_default_permissions() {
       'administrator' => 'administrator',
       'creative team' => 'creative team',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'site admin' => 'site admin',
     ),
     'module' => 'dosomething_campaign',
@@ -64,6 +67,7 @@ function dosomething_campaign_user_default_permissions() {
     'roles' => array(
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
+      'global admin' => 'global admin',
       'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',

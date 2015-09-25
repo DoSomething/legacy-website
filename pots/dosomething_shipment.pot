@@ -1,0 +1,77 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  dosomething_shipment.admin.inc: n/a
+#  dosomething_shipment.forms.inc: n/a
+#  dosomething_shipment.views_default.inc: n/a
+#  dosomething_shipment.module: n/a
+#  dosomething_shipment.info: n/a
+#  includes/dosomething_shipment.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-09-24 20:15+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: dosomething_shipment.forms.inc:110
+msgid "You are no longer logged in. Please log in."
+msgstr ""
+
+#: dosomething_shipment.module:251
+msgid "Banner"
+msgstr ""
+
+#: dosomething_shipment.module:252
+msgid "Coupon"
+msgstr ""
+
+#: dosomething_shipment.module:253
+msgid "Shirt"
+msgstr ""
+
+#: dosomething_shipment.module:254
+msgid "Tattoo"
+msgstr ""
+
+#: dosomething_shipment.module:255
+msgid "Thumb Socks"
+msgstr ""
+
+#: dosomething_shipment.module:256
+msgid "Action Kit"
+msgstr ""
+
+#: dosomething_shipment.module:276;281
+msgid "Your Shirt"
+msgstr ""
+
+#: dosomething_shipment.module:288
+msgid "Your Shirt Size"
+msgstr ""
+
+#: dosomething_shipment.module:293;298
+msgid "Your Friend's Shirt"
+msgstr ""
+
+#: dosomething_shipment.module:305
+msgid "Your Friend's Shirt Size"
+msgstr ""
+
+#: dosomething_shipment.module:315
+msgid "Dope shirt"
+msgstr ""
+
+#: dosomething_shipment.module:323
+msgid "Social action shirt"
+msgstr ""
+
