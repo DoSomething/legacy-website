@@ -30,16 +30,14 @@ function dosomething_signup_opt_in_config_form($form, &$form_state) {
       '#collapsed' => TRUE,
     );
 
-    if (!in_array($country, $mailchimp_excluded_countries)) {
-      $name = $field_prefix . $country . '_mail_list_id';
-      $form['general']['dosomething_signup'][$country][$name] = array(
-        '#type' => 'textfield',
-        '#required' => TRUE,
-        '#title' => 'Mail List ID',
-        '#default_value' => variable_get($name),
-        '#description' => "General MailChimp List ID used in registrations and signups.",
-      );
-    }
+    $name = $field_prefix . $country . '_mail_list_id';
+    $form['general']['dosomething_signup'][$country][$name] = array(
+      '#type' => 'textfield',
+      '#required' => !in_array($country, $mailchimp_excluded_countries),
+      '#title' => 'Mail List ID',
+      '#default_value' => variable_get($name),
+      '#description' => "General MailChimp List ID used in registrations and signups.",
+    );
 
     //TEMPORARY -- Remove the IF statement to fix #5121
     if ($country == "us") {
