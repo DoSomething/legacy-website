@@ -24,6 +24,7 @@ function dosomething_metatag_user_default_permissions() {
     'name' => 'edit meta tags',
     'roles' => array(
       'editor' => 'editor',
+      'global admin' => 'global admin',
     ),
     'module' => 'metatag',
   );

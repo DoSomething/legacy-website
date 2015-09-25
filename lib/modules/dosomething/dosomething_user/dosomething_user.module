@@ -205,6 +205,7 @@ function dosomething_user_is_staff($user = NULL) {
   // Create an array of staff role ids.
   $staff_roles = array(
     user_role_load_by_name('administrator')->rid,
+    user_role_load_by_name('global admin')->rid,
     user_role_load_by_name('editor')->rid,
     user_role_load_by_name('communications team')->rid,
     user_role_load_by_name('member support')->rid,
