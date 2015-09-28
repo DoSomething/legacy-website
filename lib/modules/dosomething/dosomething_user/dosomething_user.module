@@ -467,10 +467,15 @@ function dosomething_user_new_user($form, &$form_state) {
   if (module_exists('dosomething_global')) {
     // Adjust language based on location
     $user_country_code = dosomething_settings_get_geo_country_code();
-    $language = dosomething_global_convert_country_to_language($user_country_code);
+    $coverted_language = dosomething_global_convert_country_to_language($user_country_code);
     $system_languages = language_list();
-    if (!in_array($langauge, $system_languages)) {
-      $language = 'en-global';
+    $language = 'en-global';
+    
+    foreach ($system_languages as $lang_key => $system_lang) {
+      if ($coverted_language == $lang_key) {
+        $language = $coverted_language;
+        break;
+      }
     }
     user_save($account, ['language' => $language]);
   }
