@@ -234,6 +234,9 @@ function dosomething_mbp_get_template_name($event_name, $user_language = NULL) {
 
   if (isset($user_langauge)) {
     $country_code = dosomething_global_convert_language_to_country($user_language);
+    if ($country_code == NULL) {
+      $country_code = 'US';
+    }
   }
   else {
     $country_code = dosomething_settings_get_affiliate_country_code();
