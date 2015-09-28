@@ -539,6 +539,7 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
       $language = 'en';
     }
   }
+  // If the language wasn't specified in the function call, determine the user language
   if ($language == NULL) {
     $converted_language = dosomething_global_convert_country_to_language($country_code);
     $language = 'en-global';

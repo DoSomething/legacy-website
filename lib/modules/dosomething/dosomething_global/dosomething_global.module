@@ -205,7 +205,7 @@ function dosomething_global_convert_language_to_country($language) {
 }
 
 /**
- * Converts the given country into its assigned language
+ * Converts the given country into its assigned language.
  *
  * @param string country
  *  The country Code
@@ -220,6 +220,7 @@ function dosomething_global_convert_country_to_language($country) {
       return $lang_key;
     }
   }
+  // It is not the job of this function to determine a default language
   return NULL;
 }
 
