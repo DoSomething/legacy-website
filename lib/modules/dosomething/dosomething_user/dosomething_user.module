@@ -250,6 +250,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = '/user/register';
         $form['#submit'][] = 'dosomething_user_new_user';
+        if (module_exists('dosomething_global')) {
+          $form['#submit'][] = 'dosomething_user_new_user_attributes';
+        }
         // Unsets relevant register form fields based on configuration variables.
         _dosomething_user_register_display_fields($form);
         // Add campaign data, if needed.
@@ -464,10 +467,6 @@ function dosomething_user_new_user($form, &$form_state) {
   global $user;
   $account = $user;
 
-  if (module_exists('dosomething_global')) {
-    dosomething_user_set_global_attributes();
-  }
-
   // Should we sign this kid up for messages?
   if (dosomething_user_is_under_thirteen()) {
     return;
@@ -516,6 +515,10 @@ function dosomething_user_new_user($form, &$form_state) {
   dosomething_mbp_request('user_register', $params);
 }
 
+function dosomething_user_new_user_attributes($form, &$form_state) {
+  dosomething_user_set_global_attributes();
+}
+
 /**
  * Sets the user global attributes and sends them to Northstar.
  *
@@ -531,6 +534,7 @@ function dosomething_user_new_user($form, &$form_state) {
 function dosomething_user_set_global_attributes($user = NULL, $country_code = NULL, $language = NULL) {
   if ($user == NULL) {
     global $user;
+    $account = $user;
   }
   if ($country_code == NULL) {
     $country_code = dosomething_settings_get_geo_country_code();
@@ -557,8 +561,7 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
       }
     }
   }
-
-  user_save($user, ['language' => $language]);
+  user_save($account, ['language' => $language]);
   //TODO: (#5263) Send $language and $country_code to NorthStar
 }
 
