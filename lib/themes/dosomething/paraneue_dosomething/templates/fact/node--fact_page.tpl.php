@@ -69,7 +69,7 @@
       <div class="cta show-only-small">
         <div class="wrapper">
           <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
-          <a href="<?php print $yahoo_cta_url; ?>" class="button">Find out</a>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
         </div>
       </div>
     <?php endif; ?>
@@ -115,7 +115,7 @@
       <div class="cta show-only-small">
         <div class="wrapper">
           <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
-          <a href="<?php print $yahoo_cta_url; ?>" class="button">Find out</a>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
         </div>
       </div>
     <?php endif; ?>
