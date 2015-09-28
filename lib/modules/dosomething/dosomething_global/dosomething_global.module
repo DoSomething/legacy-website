@@ -211,7 +211,7 @@ function dosomething_global_convert_language_to_country($language) {
  *  The country Code
  *
  * @return
- *  The language mapped to this country
+ *  The language mapped to this country or NULL
  */
 function dosomething_global_convert_country_to_language($country) {
   $lang_map = variable_get('dosomething_global_language_map', '');
@@ -220,7 +220,7 @@ function dosomething_global_convert_country_to_language($country) {
       return $lang_key;
     }
   }
-  return 'en';
+  return NULL;
 }
 
 /*

@@ -526,7 +526,7 @@ function dosomething_user_new_user($form, &$form_state) {
  *   the headers in current request.
  * @param string $language
  *   The new language to set on the user. If NULL, gets the matching
- *   language or defaults to global-en. 
+ *   language or defaults.
  */
 function dosomething_user_set_global_attributes($user = NULL, $country_code = NULL, $language = NULL) {
   if ($user == NULL) {
@@ -534,23 +534,30 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
   }
   if ($country_code == NULL) {
     $country_code = dosomething_settings_get_geo_country_code();
+    // If no Fastly headers set, use US EN
+    if ($country_code == NULL) {
+      $language = 'en';
+    }
   }
   if ($language == NULL) {
-    $coverted_language = dosomething_global_convert_country_to_language($country_code);
+    $converted_language = dosomething_global_convert_country_to_language($country_code);
     $language = 'en-global';
-    $system_languages = language_list();
 
-    // Verify the language is installed on the system,
-    // if not default to global en
-    foreach ($system_languages as $lang_key => $system_lang) {
-      if ($coverted_language == $lang_key) {
-        $language = $coverted_language;
-        break;
+    // If the country in the headers matched to a language in our strongarm
+    if ($converted_language != NULL) {
+
+      // Verify the language is installed on the system,
+      $system_languages = language_list();
+      foreach ($system_languages as $lang_key => $system_lang) {
+        if ($converted_language == $lang_key) {
+          $language = $converted_language;
+          break;
+        }
       }
     }
   }
 
-  user_save($account, ['language' => $language]);
+  user_save($user, ['language' => $language]);
   //TODO: (#5263) Send $language and $country_code to NorthStar
 }
 
