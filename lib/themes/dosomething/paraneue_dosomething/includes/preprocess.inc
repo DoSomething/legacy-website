@@ -249,6 +249,14 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  * Implements theme_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
+  $regional_url_data = paraneue_dosomething_get_regional_url_data($vars['node']);
+
+  if ($regional_url_data) {
+    foreach ($regional_url_data as $language => $url) {
+      drupal_add_html_head_link(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+    }
+  }
+
 
   switch($vars['node']->type) {
 
