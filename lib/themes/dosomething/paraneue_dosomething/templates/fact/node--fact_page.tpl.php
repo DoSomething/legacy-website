@@ -13,7 +13,7 @@
  * - $cta_link: Call To Action link of fact page (string).
  */
 ?>
-<?php $yahoo_prototype = ($nid == 176 && theme_get_setting('show_yahoo_prototype')) ? TRUE : FALSE; ?>
+
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <header role="banner" class="header">
     <div class="wrapper">
@@ -57,19 +57,19 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta <?php if ($yahoo_prototype) { print 'show-at-medium'; } ?>">
+    <div class="cta <?php if ($yahoo_partnership) { print 'show-at-medium'; } ?>">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
       </div>
     </div>
 
-    <?php // Yahoo prototype ?>
-    <?php if ($yahoo_prototype): ?>
+    <?php // For the yahoo partnership only ?>
+    <?php if ($yahoo_partnership): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
-          <h2 class="cta__message">Want to learn more about volcanoes?</h2>
-          <a href="https://search.yahoo.com/search;_ylt=A0LEV1PdFwNW2ukAuyel87UF;_ylc=X1MDOTU4MTA0NjkEX3IDMgRmcgMEZ3ByaWQDMHVnUmhsV0lSMi5WWFZ1NWhWQVE2QQRuX3JzbHQDMARuX3N1Z2cDOQRvcmlnaW4Dc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM3BHF1ZXJ5A3ZvbGNhbm8EdF9zdG1wAzE0NDMwNDMyOTg-?p=volcano&fr=sfp&fr2=sb-top-search&iscqry=" class="button">Find out</a>
+          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
         </div>
       </div>
     <?php endif; ?>
@@ -103,19 +103,19 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta <?php if ($yahoo_prototype) { print 'show-at-medium'; } ?>">
+    <div class="cta <?php if ($yahoo_partnership) { print 'show-at-medium'; } ?>">
       <div class="wrapper">
         <h2 class="cta__message"><?php print $call_to_action; ?></h2>
         <?php print $cta_link; ?>
       </div>
     </div>
 
-    <?php // Yahoo prototype ?>
-    <?php if ($yahoo_prototype): ?>
+    <?php // For the yahoo partnership only ?>
+    <?php if ($yahoo_partnership): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
-          <h2 class="cta__message">Want to learn more about volcanoes?</h2>
-          <a href="https://search.yahoo.com/search;_ylt=A0LEV1PdFwNW2ukAuyel87UF;_ylc=X1MDOTU4MTA0NjkEX3IDMgRmcgMEZ3ByaWQDMHVnUmhsV0lSMi5WWFZ1NWhWQVE2QQRuX3JzbHQDMARuX3N1Z2cDOQRvcmlnaW4Dc2VhcmNoLnlhaG9vLmNvbQRwb3MDMARwcXN0cgMEcHFzdHJsAwRxc3RybAM3BHF1ZXJ5A3ZvbGNhbm8EdF9zdG1wAzE0NDMwNDMyOTg-?p=volcano&fr=sfp&fr2=sb-top-search&iscqry=" class="button">Find out</a>
+          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
         </div>
       </div>
     <?php endif; ?>
