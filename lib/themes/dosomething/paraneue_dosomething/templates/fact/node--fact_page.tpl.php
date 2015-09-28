@@ -68,8 +68,8 @@
     <?php if ($yahoo_partnership): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
-          <h2 class="cta__message"><?php print $yahoo_cta['title']; ?></h2>
-          <a href="<?php print $yahoo_cta['url']; ?>" class="button">Find out</a>
+          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button">Find out</a>
         </div>
       </div>
     <?php endif; ?>
@@ -114,8 +114,8 @@
     <?php if ($yahoo_partnership): ?>
       <div class="cta show-only-small">
         <div class="wrapper">
-          <h2 class="cta__message"><?php print $yahoo_cta['title']; ?></h2>
-          <a href="<?php print $yahoo_cta['url']; ?>" class="button">Find out</a>
+          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
+          <a href="<?php print $yahoo_cta_url; ?>" class="button">Find out</a>
         </div>
       </div>
     <?php endif; ?>
