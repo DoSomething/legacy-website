@@ -202,6 +202,9 @@ projects[taxonomy_access_fix][subdir] = "contrib"
 ; Fixes a bug with table layout on content type manage fields page.
 projects[title][version] = "1.x-dev"
 projects[title][subdir] = "contrib"
+; Fixes #4973: title translation overwrites original title.
+; See https://www.drupal.org/node/1991988.
+projects[title][patch][] = https://www.drupal.org/files/title_1991988-10.patch
 
 ; Token
 projects[token][version] = "1.5"

@@ -36,15 +36,15 @@ function dosomething_home_preprocess_node(&$vars) {
       }
       $node = node_load($nid);
 
-      // Grab all tiles attributes.
       global $language;
       $lang_code = $language->language;
 
+      // Grab all tiles attributes.
       $tiles = array();
       $tiles['nid'] = $nid;
       $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
       $tiles['title'] = $node->title;
-      $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
+      $tiles['tagline'] = $node->field_call_to_action[$node->language][0]['safe_value'];
 
       // Get the campaign cover image. If there is no image for the user's language,
       // use the image from the node's language.
