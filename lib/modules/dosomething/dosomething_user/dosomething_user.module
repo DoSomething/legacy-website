@@ -465,19 +465,7 @@ function dosomething_user_new_user($form, &$form_state) {
   $account = $user;
 
   if (module_exists('dosomething_global')) {
-    // Adjust language based on location
-    $user_country_code = dosomething_settings_get_geo_country_code();
-    $coverted_language = dosomething_global_convert_country_to_language($user_country_code);
-    $system_languages = language_list();
-    $language = 'en-global';
-    
-    foreach ($system_languages as $lang_key => $system_lang) {
-      if ($coverted_language == $lang_key) {
-        $language = $coverted_language;
-        break;
-      }
-    }
-    user_save($account, ['language' => $language]);
+    dosomething_user_set_global_attributes();
   }
 
   // Should we sign this kid up for messages?
@@ -526,6 +514,44 @@ function dosomething_user_new_user($form, &$form_state) {
    }
 
   dosomething_mbp_request('user_register', $params);
+}
+
+/**
+ * Sets the user global attributes and sends them to Northstar.
+ *
+ * @param object $account
+ *   The account to return value for. If NULL, uses global $user.
+ * @param string $country_code
+ *   The country code where the user currently resides. If NULL, uses
+ *   the headers in current request.
+ * @param string $language
+ *   The new language to set on the user. If NULL, gets the matching
+ *   language or defaults to global-en. 
+ */
+function dosomething_user_set_global_attributes($user = NULL, $country_code = NULL, $language = NULL) {
+  if ($user == NULL) {
+    global $user;
+  }
+  if ($country_code == NULL) {
+    $country_code = dosomething_settings_get_geo_country_code();
+  }
+  if ($language == NULL) {
+    $coverted_language = dosomething_global_convert_country_to_language($country_code);
+    $language = 'en-global';
+    $system_languages = language_list();
+
+    // Verify the language is installed on the system,
+    // if not default to global en
+    foreach ($system_languages as $lang_key => $system_lang) {
+      if ($coverted_language == $lang_key) {
+        $language = $coverted_language;
+        break;
+      }
+    }
+  }
+
+  user_save($account, ['language' => $language]);
+  //TODO: (#5263) Send $language and $country_code to NorthStar
 }
 
 /**
