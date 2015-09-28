@@ -101,6 +101,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'email' => $params['email'],
     'uid' => $params['uid'],
     'user_language' =>  $params['user_language'],
+    'user_country' => $params['user_country'],
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
@@ -233,6 +234,9 @@ function dosomething_mbp_get_template_name($event_name, $user_language = NULL) {
 
   if (isset($user_langauge)) {
     $country_code = dosomething_global_convert_language_to_country($user_language);
+    if ($country_code == NULL) {
+      $country_code = 'US';
+    }
   }
   else {
     $country_code = dosomething_settings_get_affiliate_country_code();
