@@ -426,12 +426,17 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
   if (isset($form_state['input']['name'])) {
     $account = user_load_by_mail($form_state['input']['name']);
     if (isset($account->mail)) {
+      if (module_exists('dosomething_global')) {
+        $user_country_code = dosomething_global_convert_language_to_country($account->language);
+      }
       // Send external message request
       $params = array(
         'email' => $account->mail,
         'uid' => $account->uid,
         'first_name' => dosomething_user_get_field('field_first_name', $account),
         'reset_link' => user_pass_reset_url($account),
+        'user_language'     => $account->language,
+        'user_country'      => isset($user_country_code) ? $user_country_code : 'US'
       );
       if (module_exists('dosomething_mbp')) {
         dosomething_mbp_request('user_password', $params);
