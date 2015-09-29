@@ -20,7 +20,7 @@ function dosomething_global_locale_default_languages() {
     'plurals' => 0,
     'formula' => '',
     'domain' => '',
-    'prefix' => 'en-global',
+    'prefix' => '',
     'weight' => 0,
   );
   // Exported language: es-mx.
