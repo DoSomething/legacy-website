@@ -359,7 +359,11 @@ function paraneue_dosomething_get_regional_url_data($node) {
     return NULL;
   }
 
-  $supported_languages = variable_get('dosomething_global_language_map');
+  $supported_languages = language_list();
+  foreach ($supported_languages as $language) {
+    $language->country = dosomething_global_convert_language_to_country($language->language);
+  }
+
   $regional_url_data = [];
 
   foreach ($available_translations as $language_key => $translation) {
@@ -369,7 +373,7 @@ function paraneue_dosomething_get_regional_url_data($node) {
     }
 
     if (array_key_exists($language_key, $supported_languages) && $language_key !== $language_url->language) {
-      $country = strtolower($supported_languages[$language_key]['country']);
+      $country = strtolower($supported_languages[$language_key]->country);
       $regional_url_data[$language_key] = $base_url . '/' . $country . '/' . drupal_get_path_alias('node/' . $node->nid, $language_key);
     }
   }
