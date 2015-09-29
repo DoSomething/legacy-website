@@ -30,10 +30,6 @@
   display: none;
 }
 
-#admin-menu ul {
-  font-size: 11px;
-}
-
 // Make the admin tabs look pretty.
 .admin-tabs .waypoints {
   background: $light-gray;
@@ -66,20 +62,12 @@
   margin-bottom: 0;
 }
 
-
-// Hide Drupal Admin Menu on mobile and show it on desktop.
-html {
-  body.html.admin-menu { // @TODO: yes, I know this is ugly :(
-    margin-top: 0 !important;
-  }
-
-  @include media($desktop) {
-    body.html.admin-menu { // @TODO: yes, I know this is ugly :(
-      margin-top: 29px !important;
-    }
-  }
+// Adjustments to make Drupal's built-in admin menu a bit nicer.
+#admin-menu ul {
+  font-size: 11px;
 }
 
+// Hide Drupal Admin Menu on mobile and show it on desktop.
 #admin-menu {
   display: none;
 
@@ -88,3 +76,11 @@ html {
   }
 }
 
+// Remove added body margin when admin menu is hidden.
+body.html.admin-menu {
+  margin-top: 0 !important;
+
+  @include media($desktop) {
+    margin-top: 29px !important;
+  }
+}
