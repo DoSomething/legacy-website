@@ -91,13 +91,12 @@ function dosomething_global_menu_alter(&$items) {
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
   // Verify we're operating on a node edit page
-  if ($route_name['path'] != 'node/%/edit' || $route_name != 'node/%/edit/add/%/%') {
-      return;
-  }
-  // Only perform this for regional admins
-  if (dosomething_global_is_regional_admin()) {
-    // Remove tabs from the edit page
-    unset($data['tabs'][1]['output']);
+  if ($route_name['path'] === 'node/%/edit' || $route_name['path'] === 'node/%/edit/add/%/%') {
+    // Only perform this for regional admins
+    if (dosomething_global_is_regional_admin()) {
+      // Remove tabs from the edit page
+      unset($data['tabs'][1]['output']);
+    }
   }
 }
 
