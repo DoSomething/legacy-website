@@ -44,7 +44,7 @@ function dosomething_global_init() {
   // they request bare (Global English) URLs.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && '' == arg(2) &&
+  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) &&
       !dosomething_global_is_translation_request() &&
       empty($_GET['noredirect'])) {
 
@@ -312,13 +312,15 @@ function dosomething_global_is_translation_request() {
   $matches = array();
 
   if (preg_match('/([^\/]+)\//', request_path(), $matches)) {
-    foreach ($languages as $sys_lang) {
+    if (!empty($matches[1])) {
+      foreach ($languages as $sys_lang) {
 
-      // If the prefix matches a language prefix besides that of Global
-      // English:
-      if ($matches[1] == $sys_lang->prefix && $sys_lang->language != 'en-global') {
+        // If the prefix matches a language prefix besides that of Global
+        // English:
+        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != 'en-global') {
 
-        return TRUE;
+          return TRUE;
+        }
       }
     }
   }
@@ -356,10 +358,9 @@ function dosomething_global_redirect_node_auth() {
       array('%lang' => $global_lang_code), WATCHDOG_ERROR);
     return;
   }
-  $language_global = $languages[$global_lang_code];
 
   // Don't redirect for Global English speakers.
-  if ($user_lang_code == $language_global->language) {
+  if ($user_lang_code == $global_lang_code) {
     return;
   }
 
