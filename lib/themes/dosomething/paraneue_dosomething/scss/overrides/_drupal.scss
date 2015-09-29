@@ -43,25 +43,6 @@
   margin: 0 auto;
 }
 
-// @TODO: Remove date.css to override this more cleanly
-.container-inline-date .date-padding {
-  padding: 0 !important;
-}
-
-.container-inline-date .form-item, .container-inline-date .form-item input {
-  width: 100% !important;
-}
-
-
-.container-inline-date .form-item input, .container-inline-date .form-item select, .container-inline-date .form-item option {
-  margin-right: 0 !important;
-}
-
-.container-inline-date > .form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-}
-
 // Adjustments to make Drupal's built-in admin menu a bit nicer.
 #admin-menu ul {
   font-size: 11px;
