@@ -19,10 +19,10 @@
   }
 }
 
-// Drupal likes to label things with "hidden" headers, let's
-// hide them for real.
+// Drupal labels things with "hidden" headers for accessibility.
+// We'll hide them visually, but allow screen readers to see them.
 .element-invisible {
-  display: none;
+  @include visually-hidden;
 }
 
 // Hide asterisks on required form fields.
