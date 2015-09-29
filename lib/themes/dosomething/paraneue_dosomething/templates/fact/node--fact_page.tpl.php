@@ -15,7 +15,7 @@
 ?>
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <header role="banner" class="header">
+  <header role="banner" class="header <?php if (isset($yahoo_logo)) { print 'yahoo-partnership'; } ?>">
     <div class="wrapper">
       <h1 class="header__title"><?php print $title; ?></h1>
       <?php if (isset($subtitle)): ?>
@@ -28,7 +28,8 @@
             <div class="wrapper">
               <p class="__copy">Powered by</p>
               <div class="__image">
-                <img src="<?php print $yahoo_logo; ?>" alt="Yahoo">
+                <a class="show-only-small" href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
+                <a class="show-at-medium" href="http://search.yahoo.com/?fr=do_dspc&.tsrc=do-dspc"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
               </div>
             </div>
           </div>
