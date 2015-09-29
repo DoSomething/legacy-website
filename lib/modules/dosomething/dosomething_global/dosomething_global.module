@@ -91,7 +91,7 @@ function dosomething_global_menu_alter(&$items) {
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
   // Verify we're operating on a node edit page
-  if ($route_name['path'] != 'node/%/edit') {
+  if ($route_name['path'] != 'node/%/edit' || $route_name != 'node/%/edit/add/%/%') {
       return;
   }
   // Only perform this for regional admins
