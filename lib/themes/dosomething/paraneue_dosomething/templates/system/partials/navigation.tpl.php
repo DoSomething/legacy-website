@@ -35,11 +35,11 @@
           <a href="#" class="navigation__dropdown-toggle"><?php print $user_identifier ?></a>
           <ul>
             <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
-            <li><a id="link--logout" href="<?php print $GLOBALS['base_url'] ?>/user/logout"><?php print t('Log Out'); ?></a></li>
+            <li><?php print l(t('Log Out'), 'user/logout', array('attributes' => array('class' => array('secondary-nav-item')))) ?></li>
           </ul>
         </li>
       <?php else: ?>
-        <li class="login"><?php print l(t('Log In'), 'user/login', array('attributes' => array('class' => array('secondary-nav-item'), 'data-modal-href' => '#modal--login', 'id' => 'link--login'))) ?></li>
+        <li class="login"><?php print l(t('Log In'), 'user/login', array('attributes' => array('class' => array('secondary-nav-item'), 'data-modal-href' => '#modal--login'))) ?></li>
       <?php endif; ?>
     </ul>
   </div>
