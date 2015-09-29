@@ -44,7 +44,7 @@ function dosomething_global_init() {
   // they request bare (Global English) URLs.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) &&
+  if (arg(0) == 'node' && is_numeric(arg(1)) && '' == arg(2) &&
       !dosomething_global_is_translation_request() &&
       empty($_GET['noredirect'])) {
 
@@ -312,15 +312,13 @@ function dosomething_global_is_translation_request() {
   $matches = array();
 
   if (preg_match('/([^\/]+)\//', request_path(), $matches)) {
-    if (!empty($matches[1])) {
-      foreach ($languages as $sys_lang) {
+    foreach ($languages as $sys_lang) {
 
-        // If the prefix matches a language prefix besides that of Global
-        // English:
-        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+      // If the prefix matches a language prefix besides that of Global
+      // English:
+      if ($matches[1] == $sys_lang->prefix && $sys_lang->language != 'en-global') {
 
-          return TRUE;
-        }
+        return TRUE;
       }
     }
   }
@@ -351,16 +349,17 @@ function dosomething_global_redirect_node_auth() {
   // All languages, as an array of objects.
   $languages = language_list();
 
-  $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  $global_lang_code = 'en-global';
 
   if (empty($languages[$global_lang_code])) {
     watchdog('dosomething_global', "Can't load %lang language",
       array('%lang' => $global_lang_code), WATCHDOG_ERROR);
     return;
   }
+  $language_global = $languages[$global_lang_code];
 
   // Don't redirect for Global English speakers.
-  if ($user_lang_code == $global_lang_code) {
+  if ($user_lang_code == $language_global->language) {
     return;
   }
 
@@ -386,7 +385,7 @@ function dosomething_global_redirect_node_anon() {
 
   // Map GeoIP country to a system language. Default to 'en-global'.
   $user_country_code = dosomething_settings_get_geo_country_code();
-  $target_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  $target_lang_code = 'en-global';
 
   $lang_map = variable_get('dosomething_global_language_map', '');
   foreach ($lang_map as $lang_key => $lang) {
@@ -397,7 +396,7 @@ function dosomething_global_redirect_node_anon() {
   }
 
   // If we're actually supposed to show the en-global version:
-  if ($target_lang_code == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+  if ('en-global' == $target_lang_code) {
     return;
   }
 
