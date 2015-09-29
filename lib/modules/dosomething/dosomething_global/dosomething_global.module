@@ -317,7 +317,7 @@ function dosomething_global_is_translation_request() {
 
         // If the prefix matches a language prefix besides that of Global
         // English:
-        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != 'en-global') {
+        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
 
           return TRUE;
         }
@@ -351,7 +351,7 @@ function dosomething_global_redirect_node_auth() {
   // All languages, as an array of objects.
   $languages = language_list();
 
-  $global_lang_code = 'en-global';
+  $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
 
   if (empty($languages[$global_lang_code])) {
     watchdog('dosomething_global', "Can't load %lang language",
@@ -386,7 +386,7 @@ function dosomething_global_redirect_node_anon() {
 
   // Map GeoIP country to a system language. Default to 'en-global'.
   $user_country_code = dosomething_settings_get_geo_country_code();
-  $target_lang_code = 'en-global';
+  $target_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
 
   $lang_map = variable_get('dosomething_global_language_map', '');
   foreach ($lang_map as $lang_key => $lang) {
@@ -397,7 +397,7 @@ function dosomething_global_redirect_node_anon() {
   }
 
   // If we're actually supposed to show the en-global version:
-  if ('en-global' == $target_lang_code) {
+  if ($target_lang_code == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
     return;
   }
 
