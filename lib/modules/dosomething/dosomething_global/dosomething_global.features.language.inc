@@ -10,6 +10,19 @@
 function dosomething_global_locale_default_languages() {
   $languages = array();
 
+  // Exported language: en.
+  $languages['en'] = array(
+    'language' => 'en',
+    'name' => 'English',
+    'native' => 'English',
+    'direction' => 0,
+    'enabled' => 1,
+    'plurals' => 0,
+    'formula' => '',
+    'domain' => '',
+    'prefix' => 'us',
+    'weight' => 0,
+  );
   // Exported language: en-global.
   $languages['en-global'] = array(
     'language' => 'en-global',
@@ -20,7 +33,7 @@ function dosomething_global_locale_default_languages() {
     'plurals' => 0,
     'formula' => '',
     'domain' => '',
-    'prefix' => 'en-global',
+    'prefix' => '',
     'weight' => 0,
   );
   // Exported language: es-mx.
