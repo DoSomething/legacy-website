@@ -41,7 +41,10 @@
 // Make the admin tabs look pretty.
 .admin-tabs .waypoints {
   background: $light-gray;
-  background-image: asset-url("images/admin-panel.png");
+  background-image: repeating-linear-gradient(135deg,
+    lighten($light-gray, 2%), lighten($light-gray, 2%) 12px, // 12px lighter stripe
+    $light-gray 0, $light-gray 24px // 12px dark gray stripe
+  );
   padding: $base-spacing;
   max-width: $max-width;
   text-align: center;
