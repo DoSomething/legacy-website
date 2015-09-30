@@ -20,7 +20,7 @@
 <article class="tile <?php print $classes; ?>">
 
   <?php if ($content['status']): ?>
-  <a class="wrapper" href="/<?php print $content['link']; ?>">
+  <a class="wrapper" href="<?php print $content['link']; ?>">
   <?php else: ?>
   <div class="wrapper">
   <?php endif; ?>
