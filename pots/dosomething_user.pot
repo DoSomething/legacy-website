@@ -122,6 +122,10 @@ msgstr ""
 msgid "@type @identifier @id deleted."
 msgstr ""
 
+#: dosomething_user.module:1230
+msgid "User information saved."
+msgstr ""
+
 #: dosomething_user.module:1280
 msgid "million"
 msgstr ""
@@ -133,3 +137,4 @@ msgstr ""
 #: plugins/format/dosomething-affiliate-country.inc:9
 msgid "Dosomething Affiliate Country"
 msgstr ""
+

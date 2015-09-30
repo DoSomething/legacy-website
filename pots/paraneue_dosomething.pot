@@ -1110,3 +1110,7 @@ msgstr ""
 #: appearance->settings->paraneue_dosomething
 msgid "dosomething1 on YouTube"
 msgstr ""
+
+#: includes/auth/login.inc
+msgid "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+msgstr ""

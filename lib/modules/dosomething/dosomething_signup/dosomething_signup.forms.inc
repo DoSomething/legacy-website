@@ -68,7 +68,7 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
 function dosomething_signup_form_submit($form, &$form_state) {
   // Shouldn't be able to submit form as anonymous user, but check.
   if (!user_is_logged_in()) {
-    drupal_set_message("Please sign in first.");
+    drupal_set_message(t("Please sign in first."));
     return;
   }
   $nid = $form_state['values']['nid'];

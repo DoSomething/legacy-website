@@ -25,6 +25,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: dosomething_signup.forms.inc:71
+msgid "Please sign in first."
+msgstr ""
+
 #: dosomething_signup.forms.inc:170
 msgid "First Name"
 msgstr ""
@@ -136,3 +140,4 @@ msgstr ""
 #: dosomething_signup.info:0
 msgid "DoSomething"
 msgstr ""
+
