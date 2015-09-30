@@ -118,8 +118,8 @@ function dosomething_fact_page_preprocess_node(&$vars) {
 
     if (theme_get_setting('show_yahoo_partnership')) {
       $vars['yahoo_partnership'] = FALSE;
-      $request = drupal_http_request('https://rawgit.com/sbsmith86/f62cd7644f36df0e1be5/raw/yahoo_partnership.json');
-      $yahoo_cta_links = drupal_json_decode($request->data);
+      $yahoo_cta_json = drupal_get_path('module', 'dosomething_fact_page') . '/js/yahoo_partnership.json';
+      $yahoo_cta_links = drupal_json_decode(file_get_contents($yahoo_cta_json));
 
       foreach ($yahoo_cta_links as $node_id => $cta) {
         // Check if this node is included in the partnership.
