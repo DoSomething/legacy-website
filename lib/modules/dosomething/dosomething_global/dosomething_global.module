@@ -37,14 +37,6 @@ function dosomething_global_init() {
   }
 }
 
-function dosomething_global_translation_status_access() {
-  global $user;
-  if (in_array('administrator', $user->roles) || in_array('global admin', $user->roles)) {
-    return TRUE;
-  }
-  return FALSE;
-}
-
 /**
  * Implements hook_node_insert().
  */
