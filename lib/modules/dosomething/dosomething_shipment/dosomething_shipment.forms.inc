@@ -125,5 +125,5 @@ function dosomething_shipment_form_submit($form, &$form_state) {
   // @todo: If Shipment Item is shirt, add option / additional item values.
   $shipment->save();
 
-  drupal_set_message($values['confirm_msg']);
+  drupal_set_message(t($values['confirm_msg']));
 }

@@ -93,6 +93,10 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
 
   // Check if the user is a mexico or brazil admin
   if (dosomething_global_is_regional_admin()) {
+    // Hide language selector if it's shown.
+    if (!empty($form['language']['#access'])) {
+      $form['language']['#access'] = FALSE;
+    }
     // Get translatable fields.
     $fields = $form_state['field'];
     foreach ($fields as $field_name => $field) {
@@ -122,13 +126,14 @@ function dosomething_global_menu_alter(&$items) {
  */
 function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
   // Verify we're operating on a node edit page
-  if ($route_name['path'] != 'node/%/edit') {
-      return;
-  }
-  // Only perform this for regional admins
-  if (dosomething_global_is_regional_admin()) {
-    // Remove tabs from the edit page
-    unset($data['tabs'][1]['output']);
+  if ($route_name['path'] === 'node/%/edit' || $route_name['path'] === 'node/%/edit/add/%/%') {
+    // Only perform this for regional admins
+    if (dosomething_global_is_regional_admin()) {
+      // Remove tabs from the edit page
+      if (isset($data['tabs'][1]['output'])) {
+        unset($data['tabs'][1]['output']);
+      }
+    }
   }
 }
 
@@ -267,7 +272,7 @@ function dosomething_global_convert_country_to_language($country) {
 function dosomething_global_get_language($account, stdClass $node = NULL) {
   if ($node) {
     // If there is a published translation for the node in the user's language, use it.
-    if ($node->translations->data['$account->language']['status']) {
+    if ($node->translations->data{$account->language}['status']) {
       $language = $account->language;
     }
     // If there's no published translation in their language try 'en-global'.

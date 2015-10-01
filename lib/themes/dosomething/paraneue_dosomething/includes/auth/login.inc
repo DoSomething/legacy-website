@@ -131,7 +131,6 @@ function paraneue_dosomething_pass_set_message() {
   $default_msg = 'If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.';
   $msg = variable_get('dosomething_user_reset_password_copy', $default_msg);
 
-  // @TODO: #Global; translation substitution doesn't seem to work correctly with this. Not sure why...?
   drupal_set_message(t($msg));
 }
 

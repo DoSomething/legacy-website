@@ -96,6 +96,7 @@ function dosomething_mbp_request($origin, $params = NULL) {
 function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   // Payload items common to all transactional messages.
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
+  $params['user_country'] = isset($params['user_country']) ? $params['user_country'] : dosomething_settings_get_geo_country_code();
   $payload = array(
     'activity' => $origin,
     'email' => $params['email'],
@@ -231,7 +232,6 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
  *   Name of Mandrill template to use for transactional message.
  */
 function dosomething_mbp_get_template_name($event_name, $user_language = NULL) {
-
   if (isset($user_langauge)) {
     $country_code = dosomething_global_convert_language_to_country($user_language);
     if ($country_code == NULL) {

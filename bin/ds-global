@@ -118,6 +118,26 @@ function enable {
   drush ds-global-field-fix field_created_copy
 }
 
+#=== FUNCTION ==================================================================
+# NAME: enable
+# DESCRIPTION: Enables global.
+#===============================================================================
+function make_home_translatable {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Run fixes.
+  # Fix Home translatable title values.
+  drush ds-global-titles-fix home
+
+  # Fix fields.
+  drush ds-global-field-fix field_subtitle
+  drush ds-global-field-fix field_campaigns
+}
+
 # ==============================================================================
 
 # ==============================================================================
@@ -125,6 +145,7 @@ function enable {
 # ==============================================================================
 
 #----------------------------------------------------------------------
-# enable
+# run
 #----------------------------------------------------------------------
-enable
+# enable
+make_home_translatable
