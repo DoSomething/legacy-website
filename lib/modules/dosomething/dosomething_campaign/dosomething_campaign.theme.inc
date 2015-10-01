@@ -169,7 +169,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $node = node_load($vars['nid']);
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
-  $copy_token_replaced = token_replace(variable_get('dosomething_campaign_win_copy'), array('node' => $node));
+  $copy_token_replaced = token_replace(t(variable_get('dosomething_campaign_win_copy'), array('node' => $node)));
 
   // Get random promoted reportback image
   $parameters = array(
@@ -219,7 +219,7 @@ function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $share_bar = dosomething_helpers_share_bar($campaign_path, $share_types, 'Win Share', 'social-menu -with-callout');
 
   $win_module_variables = array(
-    'share_copy' => variable_get('dosomething_campaign_win_share_copy'),
+    'share_copy' => t(variable_get('dosomething_campaign_win_share_copy')),
     'win_copy' => str_replace('[campaign_progress]', number_format($rb_progress, 0, '', ','), $copy_token_replaced),
     'campaign_progress' => $rb_progress,
     'reportback_noun_verb' => $vars['reportback_noun_verb'],
@@ -264,28 +264,28 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     $progress_copy = $override_copy;
   }
   elseif ($rb_percent <= 20) {
-    $progress_copy = variable_get('dosomething_campaign_0_20_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_0_20_progress_copy'));
   }
   elseif ($rb_percent <= 40) {
-    $progress_copy = variable_get('dosomething_campaign_21_40_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_21_40_progress_copy'));
   }
   elseif ($rb_percent <= 60) {
-    $progress_copy = variable_get('dosomething_campaign_41_60_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_41_60_progress_copy'));
   }
   elseif ($rb_percent <= 80) {
-    $progress_copy = variable_get('dosomething_campaign_61_80_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_61_80_progress_copy'));
   }
   elseif ($rb_percent <= 99) {
-    $progress_copy = variable_get('dosomething_campaign_81_99_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_81_99_progress_copy'));
   }
   else {
-    $progress_copy = variable_get('dosomething_campaign_100_progress_copy');
+    $progress_copy = t(variable_get('dosomething_campaign_100_progress_copy'));
   }
 
   $progress_copy = token_replace($progress_copy, array('node' => $node));
   $progress_copy = str_replace('[campaign_goal]', number_format($goal, 0, '', ','), $progress_copy);
 
-  $share_copy = variable_get('dosomething_campaign_share_copy', t('Rally your friends to crush this goal!'));
+  $share_copy = t(variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!'));
 
 
   // json file of reportback quantity
