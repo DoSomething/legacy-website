@@ -522,6 +522,7 @@ function dosomething_user_new_user($form, &$form_state) {
 
 function dosomething_user_new_user_attributes($form, &$form_state) {
   dosomething_user_set_global_attributes();
+  dosomething_northstar_register_user($form_state);
 }
 
 /**
@@ -567,7 +568,7 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
     }
   }
   user_save($account, ['language' => $language]);
-  //TODO: (#5263) Send $language and $country_code to NorthStar
+  user_save($account, ['country_code' => $country_code]);
 }
 
 /**
