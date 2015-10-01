@@ -62,10 +62,10 @@ function dosomething_payment_block_view($delta = '') {
       );
       // This is a bit of a hack to get two different variables.
       // Use the block's subject as the form header.
-      $block['subject'] = variable_get('dosomething_payment_donate_form_header');
+      $block['subject'] = t(variable_get('dosomething_payment_donate_form_header'));
       // Check for confirmation query string:
       if (isset($_GET['donated'])) {
-        $msg = variable_get('dosomething_payment_donate_confirm_msg');
+        $msg = t(variable_get('dosomething_payment_donate_confirm_msg'));
         $block['content'] = $msg;
       }
       // Else render the Payment Form.
@@ -412,7 +412,7 @@ function dosomething_payment_stripe_create_customer($values) {
   }
   catch (Exception $e) {
     $error = $e->getMessage();
-    drupal_set_message($error . ' ' . variable_get('dosomething_payment_donate_error_copy'), 'error');
+    drupal_set_message($error . ' ' . t(variable_get('dosomething_payment_donate_error_copy')), 'error');
     watchdog('dosomething_payment', $e->getMessage(), NULL, WATCHDOG_ERROR);
     return FALSE;
   }
