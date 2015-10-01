@@ -559,6 +559,14 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   }
   $wrapper = entity_metadata_wrapper('node', $node);
   $language = dosomething_global_get_language($account, $node);
+  $url_options = array(
+    'language' => $language,
+    'absolute' => TRUE,
+    'prefix' => strtolower(dosomething_global_convert_language_to_country($language)) . '/',
+    'query' => array(
+      'source' => 'node/' . $node->nid,
+    ),
+  );
 
   $params = array(
     'email' => $account->mail,
@@ -567,7 +575,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
     'campaign_title' => $wrapper->language($language)->title_field->value(),
-    'campaign_link' => url(drupal_get_path_alias('node/' . $node->nid, $language), array('absolute' => TRUE)),
+    'campaign_link' => url('node/' . $nid, $url_options),
     'user_language' => $language,
   );
 

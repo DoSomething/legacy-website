@@ -248,7 +248,7 @@ function dosomething_global_convert_country_to_language($country) {
 function dosomething_global_get_language($account, stdClass $node = NULL) {
   if ($node) {
     // If there is a published translation for the node in the user's language, use it.
-    if ($node->translations->data['$account->language']['status']) {
+    if ($node->translations->data{$account->language}['status']) {
       $language = $account->language;
     }
     // If there's no published translation in their language try 'en-global'.
