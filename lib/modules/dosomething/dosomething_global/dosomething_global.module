@@ -95,7 +95,9 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
     // Only perform this for regional admins
     if (dosomething_global_is_regional_admin()) {
       // Remove tabs from the edit page
-      unset($data['tabs'][1]['output']);
+      if (isset($data['tabs'][1]['output'])) {
+        unset($data['tabs'][1]['output']);
+      }
     }
   }
 }
