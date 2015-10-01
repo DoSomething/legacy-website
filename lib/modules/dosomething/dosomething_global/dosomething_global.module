@@ -73,6 +73,10 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
 
   // Check if the user is a mexico or brazil admin
   if (dosomething_global_is_regional_admin()) {
+    // Hide language selector if it's shown.
+    if (!empty($form['language']['#access'])) {
+      $form['language']['#access'] = FALSE;
+    }
     // Get translatable fields.
     $fields = $form_state['field'];
     foreach ($fields as $field_name => $field) {
