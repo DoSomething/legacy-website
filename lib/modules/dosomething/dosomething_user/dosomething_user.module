@@ -224,8 +224,8 @@ function dosomething_user_is_staff($user = NULL) {
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
   global $user;
   $account = $user;
-  // Check if we should be validating addresses.
-  $is_validate_address_set = variable_get('dosomething_user_validate_address');
+  // If UPS is set to validate, and the user is from the US, validate address.
+  $validate_address = (variable_get('dosomething_user_validate_address') && dosomething_settings_get_geo_country_code() === 'US');
 
   switch ($form_id) {
     case 'user_login_block':
@@ -264,7 +264,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
-      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $is_validate_address_set) {
+      if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $validate_address) {
         $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
