@@ -30,7 +30,7 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     );
 
     // Check if the Login Form copy variable has been set.
-    $subheader = variable_get('dosomething_user_login_form_copy', '');
+    $subheader = t(variable_get('dosomething_user_login_form_copy', ''));
     if (!empty($subheader)) {
       $form['subheader'] = array(
         '#type' => 'item',
