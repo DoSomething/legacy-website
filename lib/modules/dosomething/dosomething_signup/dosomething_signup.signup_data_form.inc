@@ -374,7 +374,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t("School Name"),
       '#markup' => '<div class="form-item"><input type="search" class="text-field -search js-schoolfinder-search" placeholder="' . t('Find your school by name...') . '"></div><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
-    $school_help_text = variable_get('dosomething_user_school_finder_help_text');
+    $school_help_text = t(variable_get('dosomething_user_school_finder_help_text'));
     if ($school_help_text) {
       $school_help_text = check_markup($school_help_text, 'markdown');
     }
