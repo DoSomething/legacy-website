@@ -18,9 +18,6 @@ function dosomething_home_preprocess_node(&$vars) {
   // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
 
-  // Store this node as the signup source.
-  $source = '?source=node/' . $vars['nid'];
-
   // Prepare campaign thumbnails for homepage
   $campaigns = array();
   if(isset($vars['field_campaigns'])) {
@@ -44,7 +41,7 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['nid'] = $nid;
       $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
       $tiles['title'] = $node->title;
-      $tiles['tagline'] = $node->field_call_to_action[$node->language][0]['safe_value'];
+      $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
 
       // Get the campaign cover image. If there is no image for the user's language,
       // use the image from the node's language.
@@ -82,7 +79,17 @@ function dosomething_home_preprocess_node(&$vars) {
 
       $tiles['status'] = TRUE;
       $tiles['image'] = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="' . $tiles['image_url'] . '">';
-      $tiles['link'] = drupal_get_path_alias('node/' . $nid) . $source;
+
+      $url_options = array(
+        'language' => $lang_code,
+        'query' => array(
+          'source' => 'node/' . $vars['nid'],
+        ),
+      );
+      if ($country = strtolower(dosomething_global_convert_language_to_country($lang_code))) {
+        $url_options['prefix'] = $country . '/';
+      }
+      $tiles['link'] = url('node/' . $nid, $url_options);
 
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
