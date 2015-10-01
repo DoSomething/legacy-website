@@ -1227,7 +1227,7 @@ function dosomething_user_info_form_submit($form, &$form_state) {
     // Track usage for the new file.
     file_usage_add($file, 'user', 'user', $account->uid);
   }
-  drupal_set_message("User information saved.");
+  drupal_set_message(t("User information saved."));
 }
 
 /**
