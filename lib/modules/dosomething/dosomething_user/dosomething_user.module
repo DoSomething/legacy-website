@@ -292,8 +292,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
       }
 
+      // Change date format for non-us users.
       if (dosomething_settings_get_geo_country_code() !== 'US') {
-        $form['#after_build'][] = 'dosomething_user_birthdate_settings';
+        $form['#after_build'][] = 'dosomething_user_birthdate_format';
       }
 
       // Custom validation & submission handlers.
@@ -313,7 +314,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
  * After build to change date format of birthdate field for non-us users
  * so it passes date validation
  */
-function dosomething_user_birthdate_settings($form, &$form_state) {
+function dosomething_user_birthdate_format($form, &$form_state) {
   $form_state['field']['field_birthdate']['und']['instance']['widget']['settings']['input_format'] = 'd/m/Y - H:i:s';
   return $form;
 }

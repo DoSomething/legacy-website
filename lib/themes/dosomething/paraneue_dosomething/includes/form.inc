@@ -282,7 +282,17 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
   $form['#weight'] = '-18';
   $form['#attributes']['class'] = array('auth-twocol');
-  $date_format = (dosomething_settings_get_geo_country_code() === 'US') ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
+
+  $date_format = 'MM/DD/YYYY';
+
+  // Update the format of the default value of the birthdate field for non-US users.
+  if (dosomething_settings_get_geo_country_code() !== 'US') {
+    $date_format = 'DD/MM/YYYY';
+    if ($form['value']['date']['#value'] && dosomething_user_get_field('field_birthdate')) {
+      $form['value']['date']['#value'] = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate'), 'd/m/Y');
+    }
+  }
+
   $form['value']['date']['#attributes']['placeholder'] = $date_format;
   $form['value']['date']['#attributes']['class'] = array('js-validate');
   $form['value']['date']['#attributes']['data-validate'] = 'birthday';
