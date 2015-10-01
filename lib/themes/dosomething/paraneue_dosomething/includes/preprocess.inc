@@ -249,6 +249,14 @@ function paraneue_dosomething_preprocess_page(&$vars) {
  * Implements theme_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
+  $regional_url_data = paraneue_dosomething_get_regional_url_data($vars['node']);
+
+  if ($regional_url_data) {
+    foreach ($regional_url_data as $language => $url) {
+      drupal_add_html_head_link(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+    }
+  }
+
 
   switch($vars['node']->type) {
 
@@ -674,18 +682,8 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
  * Preprocess variables for the fact page.
  */
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  // Output sponsor, if it exists.
-  if ($vars['sponsor_logos']) {
-    $vars['promotions'] = $vars['sponsor_logos'];
-
-    $vars['promotions'] = '<div class="promotions">' . $vars['promotions'] . '</div>';
+  if (theme_get_setting('show_yahoo_partnership')) {
+    $vars['yahoo_logo']= DS_ASSET_PATH .'/dist/images/yahoo_white.png';
   }
-
-  // Add class to header if promotions will be included in display.
-  if (isset($vars['promotions'])) {
-    $vars['classes_array'][] = 'has-promotions';
-  }
-
-  dosomething_helpers_preprocess_partners_vars($vars);
 }
 

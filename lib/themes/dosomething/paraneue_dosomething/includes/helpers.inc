@@ -344,6 +344,44 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
 }
 
 /**
+ * Get regional url data for specified node if it has translated content available.
+ *
+ * @param object $node  Specified Node object for which to add regional urls.
+ * @return array|null
+ */
+function paraneue_dosomething_get_regional_url_data($node) {
+  global $language_url;
+  global $base_url;
+
+  $available_translations = dosomething_helpers_isset($node->translations->data);
+
+  if (!$available_translations) {
+    return NULL;
+  }
+
+  $supported_languages = language_list();
+  foreach ($supported_languages as $language) {
+    $language->country = dosomething_global_convert_language_to_country($language->language);
+  }
+
+  $regional_url_data = [];
+
+  foreach ($available_translations as $language_key => $translation) {
+    // Skip creating regional url for global english.
+    if ($language_key === 'en-global') {
+      continue;
+    }
+
+    if (array_key_exists($language_key, $supported_languages) && $language_key !== $language_url->language) {
+      $country = strtolower($supported_languages[$language_key]->country);
+      $regional_url_data[$language_key] = $base_url . '/' . $country . '/' . drupal_get_path_alias('node/' . $node->nid, $language_key);
+    }
+  }
+
+  return $regional_url_data;
+}
+
+/**
  * Return an assimilated collection of Reportbacks based on Promoted & Approved Reportback counts.
  *
  * @param array $reportbacks

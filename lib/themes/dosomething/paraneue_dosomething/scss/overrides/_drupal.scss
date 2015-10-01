@@ -19,10 +19,10 @@
   }
 }
 
-// Drupal likes to label things with "hidden" headers, let's
-// hide them for real.
+// Drupal labels things with "hidden" headers for accessibility.
+// We'll hide them visually, but allow screen readers to see them.
 .element-invisible {
-  display: none;
+  @include visually-hidden;
 }
 
 // Hide asterisks on required form fields.
@@ -30,57 +30,25 @@
   display: none;
 }
 
-.field-label-optional {
-  color: $light-gray;
-}
-
-#admin-menu ul {
-  font-size: 11px;
-}
-
 // Make the admin tabs look pretty.
 .admin-tabs .waypoints {
   background: $light-gray;
-  background-image: asset-url("images/admin-panel.png");
+  background-image: repeating-linear-gradient(135deg,
+    lighten($light-gray, 2%), lighten($light-gray, 2%) 12px, // 12px lighter stripe
+    $light-gray 0, $light-gray 24px // 12px dark gray stripe
+  );
   padding: $base-spacing;
   max-width: $max-width;
   text-align: center;
   margin: 0 auto;
 }
 
-// @TODO: Remove date.css to override this more cleanly
-.container-inline-date .date-padding {
-  padding: 0 !important;
+// Adjustments to make Drupal's built-in admin menu a bit nicer.
+#admin-menu ul {
+  font-size: 11px;
 }
-
-.container-inline-date .form-item, .container-inline-date .form-item input {
-  width: 100% !important;
-}
-
-
-.container-inline-date .form-item input, .container-inline-date .form-item select, .container-inline-date .form-item option {
-  margin-right: 0 !important;
-}
-
-.container-inline-date > .form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-}
-
 
 // Hide Drupal Admin Menu on mobile and show it on desktop.
-html {
-  body.html.admin-menu { // @TODO: yes, I know this is ugly :(
-    margin-top: 0 !important;
-  }
-
-  @include media($desktop) {
-    body.html.admin-menu { // @TODO: yes, I know this is ugly :(
-      margin-top: 29px !important;
-    }
-  }
-}
-
 #admin-menu {
   display: none;
 
@@ -89,3 +57,11 @@ html {
   }
 }
 
+// Remove added body margin when admin menu is hidden.
+body.html.admin-menu {
+  margin-top: 0 !important;
+
+  @include media($desktop) {
+    margin-top: 29px !important;
+  }
+}
