@@ -86,17 +86,17 @@ function dosomething_global_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'language_negotiation_language';
   $strongarm->value = array(
-    'locale-user' => array(
-      'callbacks' => array(
-        'language' => 'locale_language_from_user',
-      ),
-      'file' => 'includes/locale.inc',
-    ),
     'locale-url' => array(
       'callbacks' => array(
         'language' => 'locale_language_from_url',
         'switcher' => 'locale_language_switcher_url',
         'url_rewrite' => 'locale_language_url_rewrite_url',
+      ),
+      'file' => 'includes/locale.inc',
+    ),
+    'locale-user' => array(
+      'callbacks' => array(
+        'language' => 'locale_language_from_user',
       ),
       'file' => 'includes/locale.inc',
     ),
@@ -118,20 +118,6 @@ function dosomething_global_strongarm() {
         'language' => 'locale_language_from_url',
         'switcher' => 'locale_language_switcher_url',
         'url_rewrite' => 'locale_language_url_rewrite_url',
-      ),
-      'file' => 'includes/locale.inc',
-    ),
-    'locale-user' => array(
-      'callbacks' => array(
-        'language' => 'locale_language_from_url',
-        'switcher' => 'locale_language_switcher_url',
-        'url_rewrite' => 'locale_language_url_rewrite_url',
-      ),
-      'file' => 'includes/locale.inc',
-    ),
-    'locale-interface' => array(
-      'callbacks' => array(
-        'language' => 'locale_language_from_interface',
       ),
       'file' => 'includes/locale.inc',
     ),
@@ -170,8 +156,8 @@ function dosomething_global_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'locale_language_providers_weight_language';
   $strongarm->value = array(
-    'locale-user' => '-10',
-    'locale-url' => '-9',
+    'locale-user' => '-9',
+    'locale-url' => '-10',
     'locale-session' => '-8',
     'locale-browser' => '-7',
     'language-default' => '-6',
