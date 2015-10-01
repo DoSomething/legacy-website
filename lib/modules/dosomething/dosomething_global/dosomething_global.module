@@ -37,21 +37,6 @@ function dosomething_global_init() {
   }
 }
 
-/**
- * Implements hook_menu().
- */
-function dosomething_global_menu() {
-  $items = array();
-  $items['admin/global/translations'] = array(
-    'title' => 'Translation Status',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_global_translation_status_form'),
-    'access callback' => 'dosomething_global_translation_status_access',
-    'file' => 'dosomething_global.admin.inc',
-  );
-  return $items;
-}
-
 function dosomething_global_translation_status_access() {
   global $user;
   if (in_array('administrator', $user->roles) || in_array('global admin', $user->roles)) {
