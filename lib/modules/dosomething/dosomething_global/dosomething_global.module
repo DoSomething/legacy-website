@@ -217,7 +217,7 @@ function dosomething_global_get_user_language($user = NULL) {
  *  A two letter language code.
  *
  * @return string language
- \*  The country that maps to the language passed in.
+ *  The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
   $lang_map = variable_get('dosomething_global_language_map', '');
