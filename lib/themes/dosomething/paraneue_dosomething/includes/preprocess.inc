@@ -305,7 +305,7 @@ function paraneue_dosomething_preprocess_node(&$vars) {
  * @see paraneue_dosomething_preprocess_node().
  */
 function paraneue_dosomething_add_info_bar(&$vars) {
-  // Initialize info_bar_vars with avariable that will always be set:
+  // Initialize info_bar_vars with a variable that will always be set:
   if (isset($vars['formatted_partners'])) {
     $info_bar_vars = array(
       'formatted_partners' => $vars['formatted_partners'],
