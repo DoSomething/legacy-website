@@ -113,6 +113,10 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
       if (isset($data['tabs'][1]['output'])) {
         unset($data['tabs'][1]['output']);
       }
+
+      // Remove the translate tab in CMS side for regional admins
+      $remove_trasnlate_tab_script = "jQuery(document).ready(function () { var tabMenu = jQuery('ul.tabs.primary'); var tab = tabMenu.find('li > a:contains(\"Translate\")').parent().remove(); });";
+      drupal_add_js($remove_trasnlate_tab_script, 'inline');
     }
   }
 }
@@ -213,7 +217,7 @@ function dosomething_global_get_user_language($user = NULL) {
  *  A two letter language code.
  *
  * @return string language
- *  The country that maps to the language passed in.
+ \*  The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
   $lang_map = variable_get('dosomething_global_language_map', '');
