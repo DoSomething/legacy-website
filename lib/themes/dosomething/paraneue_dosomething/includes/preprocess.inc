@@ -305,23 +305,30 @@ function paraneue_dosomething_preprocess_node(&$vars) {
  * @see paraneue_dosomething_preprocess_node().
  */
 function paraneue_dosomething_add_info_bar(&$vars) {
-  // Initialize info_bar_vars with variable that will always be set:
-  $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
-  $info_bar_vars = array(
-    'zendesk_form_header' => $zendesk_form_header,
+
+  if (isset($vars['formatted_partners'])) {
+    $info_bar_vars = array(
+      'formatted_partners' => $vars['formatted_partners'],
+    );
+  }
+
+  $country_code = dosomething_settings_get_geo_country_code();
+
+  $country_contact_emails = array(
+    'BR' => 'ajuda@dosomething.org',
+    'MX' => 'ayuda@dosomething.org',
   );
-  // List $vars variable names to pass to info bar:
-  $info_var_names = array(
-    'formatted_partners',
-    'zendesk_form',
-  );
-  // Loop through the variable names:
-  foreach ($info_var_names as $variable) {
-    $info_bar_vars[$variable] = NULL;
-    // If the vars is set for this variable name:
-    if (isset($vars[$variable])) {
-      // Store its value.
-      $info_bar_vars[$variable] = $vars[$variable];
+
+  // For specific countries, us a contact email address instead of zendesk form.
+  if (array_key_exists($country_code, $country_contact_emails)) {
+    $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_code] .'">'. $country_contact_emails[$country_code] . '</a>';
+  } else {
+    // Initialize info_bar_vars with variable that will always be set:
+    $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
+    $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
+
+    if (isset($vars['zendesk_form'])) {
+      $info_bar_vars['zendesk_form'] = $vars['zendesk_form'];
     }
   }
 
