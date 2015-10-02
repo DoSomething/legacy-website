@@ -68,7 +68,6 @@ function dosomething_northstar_register_user($form_state) {
     'method' => 'POST',
     'data' => json_encode($ns_user),
     ));
-
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
   }
@@ -170,7 +169,6 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'addr_zip' => 'postal_code',
   ];
 
-
   $ns_user = [
     'email'         => $user->mail,
     'drupal_id'     => $user->uid,
@@ -193,10 +191,10 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
   // Don't send blank passwords from the user update screen.
   if (!empty($form_state['values']['pass'])) {
     $ns_user['password'] = $form_state['values']['pass'];
+  }
 
   // Return fully built northstar user object.
   return $ns_user;
-  }
 }
 
 
