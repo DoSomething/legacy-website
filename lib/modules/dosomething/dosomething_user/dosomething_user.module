@@ -522,7 +522,9 @@ function dosomething_user_new_user($form, &$form_state) {
 
 function dosomething_user_new_user_attributes($form, &$form_state) {
   dosomething_user_set_global_attributes();
-  dosomething_northstar_update_user($form_state);
+  if (module_exists('dosomething_northstar')){
+    dosomething_northstar_update_user($form_state);
+  }
 }
 
 /**
