@@ -115,8 +115,8 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
       }
 
       // Remove the translate tab in CMS side for regional admins
-      $remove_trasnlate_tab_script = "jQuery(document).ready(function () { var tabMenu = jQuery('ul.tabs.primary'); var tab = tabMenu.find('li > a:contains(\"Translate\")').parent().remove(); });";
-      drupal_add_js($remove_trasnlate_tab_script, 'inline');
+      $remove_translate_tab_script = "jQuery(document).ready(function () { var tabMenu = jQuery('ul.tabs.primary'); var tab = tabMenu.find('li > a:contains(\"Translate\")').parent().remove(); });";
+      drupal_add_js($remove_translate_tab_script, 'inline');
     }
   }
 }
