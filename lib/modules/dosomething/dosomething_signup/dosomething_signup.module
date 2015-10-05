@@ -562,11 +562,14 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   $url_options = array(
     'language' => $language,
     'absolute' => TRUE,
-    'prefix' => strtolower(dosomething_global_convert_language_to_country($language)) . '/',
     'query' => array(
       'source' => 'node/' . $node->nid,
     ),
   );
+
+  if ($country = strtolower(dosomething_global_convert_language_to_country($language))) {
+    $url_options['prefix'] = $country . '/';
+  }
 
   $params = array(
     'email' => $account->mail,
