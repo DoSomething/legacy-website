@@ -305,11 +305,10 @@ function paraneue_dosomething_preprocess_node(&$vars) {
  * @see paraneue_dosomething_preprocess_node().
  */
 function paraneue_dosomething_add_info_bar(&$vars) {
-  // Initialize info_bar_vars with a variable that will always be set:
+  $info_bar_vars = array();
+
   if (isset($vars['formatted_partners'])) {
-    $info_bar_vars = array(
-      'formatted_partners' => $vars['formatted_partners'],
-    );
+    $info_bar_vars['formatted_partners'] = $vars['formatted_partners'];
   }
 
   $country_code = dosomething_settings_get_geo_country_code();
