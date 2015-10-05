@@ -32,7 +32,6 @@ function dosomething_reportback_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
-      'global admin' => 'global admin',
       'member support' => 'member support',
       'site admin' => 'site admin',
     ),
