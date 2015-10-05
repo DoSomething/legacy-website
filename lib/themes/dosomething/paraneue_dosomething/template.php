@@ -13,12 +13,6 @@ if(theme_get_setting('asset_path')) {
   define('DS_ASSET_PATH', LOCAL_ASSET_PATH);
 }
 
-// Determine whether to use minified stylesheets or not.
-if(theme_get_setting('use_minified_assets')) {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.min.css?' . variable_get('ds_version', 'latest'));
-} else {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.css?' . variable_get('ds_version', 'latest'));
-}
 
 // Define asset directory paths
 define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/node_modules');

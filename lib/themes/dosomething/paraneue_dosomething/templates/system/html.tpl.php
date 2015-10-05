@@ -19,7 +19,6 @@
 
   <title><?php print $head_title; ?></title>
 
-  <link rel="stylesheet" href="<?php print DS_STYLE_PATH; ?>" type="text/css" />
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
