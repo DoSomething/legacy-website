@@ -97,7 +97,6 @@ function dosomething_user_user_default_permissions() {
       'administrator' => 'administrator',
       'brazil admin' => 'brazil admin',
       'editor' => 'editor',
-      'global admin' => 'global admin',
       'member support' => 'member support',
       'mexico admin' => 'mexico admin',
     ),
@@ -351,7 +350,6 @@ function dosomething_user_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
-      'global admin' => 'global admin',
     ),
     'module' => 'dosomething_user',
   );
