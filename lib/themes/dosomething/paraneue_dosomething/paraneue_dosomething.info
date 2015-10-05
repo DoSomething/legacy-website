@@ -13,9 +13,6 @@ features[] = main_menu
 features[] = secondary_menu
 
 ; ### Settings.
-; Assets
-settings[asset_path] = ''
-settings[use_minified_assets] = 1
 ; Blocks
 settings[show_campaign_finder] = 0
 settings[show_sponsors] = 1

@@ -2,26 +2,9 @@
 
 // Define theme directory path
 define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
-define('LOCAL_ASSET_PATH', '/' . PARANEUE_DS_PATH);
-
-// If ds_version is set, use CDN assets
-if(theme_get_setting('asset_path')) {
-  $cdn_path = theme_get_setting('asset_path');
-  $cdn_path = str_replace('{ds_version}', variable_get('ds_version', 'latest'), $cdn_path);
-  define('DS_ASSET_PATH', $cdn_path);
-} else {
-  define('DS_ASSET_PATH', LOCAL_ASSET_PATH);
-}
-
-// Determine whether to use minified stylesheets or not.
-if(theme_get_setting('use_minified_assets')) {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.min.css?' . variable_get('ds_version', 'latest'));
-} else {
-  define('DS_STYLE_PATH', DS_ASSET_PATH . '/dist/app.css?' . variable_get('ds_version', 'latest'));
-}
 
 // Define asset directory paths
-define('VENDOR_ASSET_PATH', DS_ASSET_PATH . '/node_modules');
+define('VENDOR_ASSET_PATH', PARANEUE_DS_PATH . '/node_modules');
 define('FORGE_ASSET_PATH', VENDOR_ASSET_PATH . '/@dosomething/forge');
 
 // Theme includes
@@ -42,6 +25,9 @@ require_once PARANEUE_DS_PATH . '/includes/auth/register.inc';
  * Implements hook_css_alter().
  */
 function paraneue_dosomething_css_alter(&$css) {
+  // We add `app.css` in `paraneue_dosomething_preprocess_html`.
+  // @see: includes/preprocess.inc
+
   // Load excluded CSS files from theme.
   $excludes = _paraneue_dosomething_alter(paraneue_dosomething_theme_get_info('exclude'), 'css');
   $css = array_diff_key($css, $excludes);
@@ -53,6 +39,7 @@ function paraneue_dosomething_css_alter(&$css) {
   unset($css[drupal_get_path('module', 'views') . '/css/views.css']);
   unset($css[drupal_get_path('module', 'field_group') . '/field_group.field_ui.css']);
   unset($css[drupal_get_path('module', 'addressfield') . '/addressfield.css']);
+  unset($css[drupal_get_path('module', 'locale') . '/locale.css']);
 }
 
 /**
@@ -62,30 +49,20 @@ function paraneue_dosomething_css_alter(&$css) {
  * Implements hook_js_alter().
  */
 function paraneue_dosomething_js_alter(&$js) {
-  // Get $js_dir path:
-  //    a) DS_ASSET_PATH is local. Path must be built with drupal_get_path()
-  //       function (already assigned to PARANEUE_DS_PATH).
-  //       Using DS_ASSET_PATH in this case is wrong: it starts
-  //       with '/' so Drupal can't open js file for parsing.
-  //       @see drupal_add_js().
-  //    b) DS_ASSET_PATH is not local. It is already a valid URL to CDN.
-  $is_local_asset = DS_ASSET_PATH == LOCAL_ASSET_PATH;
-  $js_dir = $is_local_asset ? PARANEUE_DS_PATH : DS_ASSET_PATH;
-
   // Add lib.js and app.js using Drupal API:
-  drupal_add_js($js_dir . '/dist/lib.js', array(
+  drupal_add_js(PARANEUE_DS_PATH . '/dist/lib.js', [
     'group'      => JS_LIBRARY,
     'weight'     => -200,
     'every_page' => TRUE,
     'preprocess' => FALSE,
-  ));
+  ]);
 
-  drupal_add_js($js_dir . '/dist/app.js', array(
+  drupal_add_js(PARANEUE_DS_PATH . '/dist/app.js', [
     'group'      => JS_THEME,
     'weight'     => 999,
     'every_page' => TRUE,
     'preprocess' => FALSE,
-  ));
+  ]);
 
   // Force settings to be embedded after lib, before app scripts.
   if(isset($js['settings'])) {

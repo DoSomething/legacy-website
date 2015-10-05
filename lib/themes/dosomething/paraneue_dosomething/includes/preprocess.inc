@@ -4,6 +4,14 @@
  * Implements theme_preprocess_html().
  */
 function paraneue_dosomething_preprocess_html(&$vars) {
+  // Add theme stylesheet
+  drupal_add_css(PARANEUE_DS_PATH. '/dist/app.css', [
+    'group' => CSS_THEME,
+    'weight' => 0,
+    'every_page' => TRUE,
+    'preprocess' => FALSE
+  ]);
+
   // Used to print current tagged version in page source
   $vars['ds_version'] = variable_get('ds_version', '[dev]');
 
