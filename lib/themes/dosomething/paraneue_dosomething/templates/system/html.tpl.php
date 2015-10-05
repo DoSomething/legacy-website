@@ -25,18 +25,14 @@
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/html5shiv/dist/html5shiv.min.js"></script>
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/es5-shim/es5-shim.min.js"></script>
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/es5-shim/es5-sham.min.js"></script>
-
       <script type="text/javascript" src="<?php print VENDOR_ASSET_PATH; ?>/respond.js/dest/respond.min.js"></script>
-      <link href="<?php print VENDOR_ASSET_PATH; ?>/respond.js/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
-      <link href="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
-      <script type="text/javascript" src="<?php print LOCAL_ASSET_PATH; ?>/node_modules/respond.js/cross-domain/respond.proxy.js"></script>
   <![endif]-->
 
   <link rel="shortcut icon" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="<?php print FORGE_ASSET_PATH; ?>/dist/assets/images/apple-touch-icon-precomposed.png">
   <?php print $head; ?>
 
-  <script type="text/javascript" src="<?php print DS_ASSET_PATH; ?>/dist/modernizr.js"></script>
+  <script type="text/javascript" src="<?php print PARANEUE_DS_PATH; ?>/dist/modernizr.js"></script>
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
