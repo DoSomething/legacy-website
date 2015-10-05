@@ -5,6 +5,31 @@
  */
 
 /**
+ * Returns admin tabs edited for regional admins.
+ *
+ * @param mixed  $tabs
+ * @return mixed mixed
+ */
+function paraneue_dosomething_edit_regional_admin_tabs($tabs) {
+  $removeable_tabs = [
+    'Devel',
+    'Translate',
+  ];
+  $primary_tabs = $tabs['#primary'];
+
+  foreach($primary_tabs as $index => $tab) {
+    if (in_array($tab['#link']['title'], $removeable_tabs)) {
+      unset($primary_tabs[$index]);
+    }
+  }
+
+  // Reset array indexes
+  $tabs['#primary'] = array_values($primary_tabs);
+
+  return $tabs;
+}
+
+/**
  * Returns a gallery css class name for a given gallery cms $style
  *
  * @param string $style

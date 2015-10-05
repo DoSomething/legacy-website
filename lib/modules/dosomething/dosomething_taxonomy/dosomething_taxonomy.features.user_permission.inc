@@ -16,7 +16,6 @@ function dosomething_taxonomy_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'editor' => 'editor',
-      'global admin' => 'global admin',
     ),
     'module' => 'taxonomy_access_fix',
   );
@@ -105,7 +104,6 @@ function dosomething_taxonomy_user_default_permissions() {
     'name' => 'edit terms in partners',
     'roles' => array(
       'editor' => 'editor',
-      'global admin' => 'global admin',
     ),
     'module' => 'taxonomy',
   );

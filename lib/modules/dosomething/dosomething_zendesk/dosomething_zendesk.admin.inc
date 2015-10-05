@@ -58,14 +58,14 @@ function dosomething_zendesk_config_form($form, &$form_state)  {
     '#title' => t('Form Header'),
     '#description' => t("Copy displayed in the form header."),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_zendesk_form_header'),
+    '#default_value' => t(variable_get('dosomething_zendesk_form_header')),
   );
   $form['copy']['dosomething_zendesk_form_body_label'] = array(
     '#type' => 'textfield',
     '#title' => t('Textarea Label'),
     '#description' => t("Label displayed above the textarea."),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_zendesk_form_body_label'),
+    '#default_value' => t(variable_get('dosomething_zendesk_form_body_label')),
   );
   $form['log'] = array(
     '#type' => 'fieldset',

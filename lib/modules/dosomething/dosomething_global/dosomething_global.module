@@ -7,20 +7,16 @@
 include_once 'dosomething_global.features.inc';
 define("TRANSLATABLE_TYPES", 'static_content,campaign,home');
 
-// Default language: Global English
-define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
-
 /**
  * Implements hook_init().
  */
 function dosomething_global_init() {
-  global $user;
-
   // Verify we're dealing with a node edit with no translation specification in the URL
   if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
     // Load the page node and user
     $nid = arg(1);
     $node = node_load($nid);
+    global $user;
 
     // Load the languages being used
     $src_language = $node->language;
@@ -39,22 +35,6 @@ function dosomething_global_init() {
       drupal_goto($new_url);
     }
   }
-
-  // Handle translation redirects for authenticated and anonymous users when
-  // they request bare (Global English) URLs.
-  //
-  // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) &&
-      !dosomething_global_is_translation_request() &&
-      empty($_GET['noredirect'])) {
-
-    if ($user->uid) {
-      dosomething_global_redirect_node_auth();
-    } else {
-      dosomething_global_redirect_node_anon();
-    }
-  }
-
 }
 
 /**
@@ -133,6 +113,10 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
       if (isset($data['tabs'][1]['output'])) {
         unset($data['tabs'][1]['output']);
       }
+
+      // Remove the translate tab in CMS side for regional admins
+      $remove_translate_tab_script = "jQuery(document).ready(function () { var tabMenu = jQuery('ul.tabs.primary'); var tab = tabMenu.find('li > a:contains(\"Translate\")').parent().remove(); });";
+      drupal_add_js($remove_translate_tab_script, 'inline');
     }
   }
 }
@@ -276,8 +260,8 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
       $language = $account->language;
     }
     // If there's no published translation in their language try 'en-global'.
-    elseif ($node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]['status']) {
-      $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+    elseif ($node->translations->data['en-global']['status']) {
+      $language = 'en-global';
     }
     // Default to node language if there's no translation in their language and no 'en-global'.
     else {
@@ -292,145 +276,4 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
   }
 
   return $language;
-}
-
-/**
- * Detect from the original request path whether the current request is for
- * translated (non-Global English) content.
- *
- * This assumes that Global English is mapped to a blank ('') URL prefix.
- *
- * @return bool
- */
-function dosomething_global_is_translation_request() {
-
-  $languages = language_list();
-  $matches = array();
-
-  if (preg_match('/([^\/]+)\//', request_path(), $matches)) {
-    if (!empty($matches[1])) {
-      foreach ($languages as $sys_lang) {
-
-        // If the prefix matches a language prefix besides that of Global
-        // English:
-        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
-
-          return TRUE;
-        }
-      }
-    }
-  }
-  return FALSE;
-}
-
-/**
- * Handle redirects to translated content for authenticated users. In this
- * case:
- *
- * - If my profile includes a language preference,
- * - and I'm not a privileged user (admin, editor, etc.),
- * - and I request a bare URL (e.g., /campaigns/sample),
- * - and there is a translation available (e.g., /voluntario/ejemplo),
- * - then issue a 302 redirect to the translation's URL.
- */
-function dosomething_global_redirect_node_auth() {
-  global $user;
-
-  // Don't do redirects for privileged users.
-  if (user_access('access administration menu')) {
-    return;
-  }
-
-  // User language.
-  $user_lang_code = $user->language ?: 'en';
-
-  // All languages, as an array of objects.
-  $languages = language_list();
-
-  $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-  if (empty($languages[$global_lang_code])) {
-    watchdog('dosomething_global', "Can't load %lang language",
-      array('%lang' => $global_lang_code), WATCHDOG_ERROR);
-    return;
-  }
-
-  // Don't redirect for Global English speakers.
-  if ($user_lang_code == $global_lang_code) {
-    return;
-  }
-
-  $node = node_load(arg(1));
-
-  if ($languages[$user_lang_code]) {
-    dosomething_global_redirect_node_language($node, $user_lang_code, 302);
-  }
-}
-
-/**
- * Handle redirects to translated content for anonymous users. In this
- * case:
- *
- * - If I request a bare URL (e.g., /campaigns/sample),
- * - and there is a translation available (e.g., /voluntario/ejemplo),
- * - then issue a 301 redirect to the translation's URL.
- */
-function dosomething_global_redirect_node_anon() {
-
-  // All languages, as an array of objects.
-  $languages = language_list();
-
-  // Map GeoIP country to a system language. Default to 'en-global'.
-  $user_country_code = dosomething_settings_get_geo_country_code();
-  $target_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-  $lang_map = variable_get('dosomething_global_language_map', '');
-  foreach ($lang_map as $lang_key => $lang) {
-    if ($lang['country'] == $user_country_code) {
-      $target_lang_code = $lang_key;
-      break;
-    }
-  }
-
-  // If we're actually supposed to show the en-global version:
-  if ($target_lang_code == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
-    return;
-  }
-
-  if (empty($languages[$target_lang_code])) {
-    watchdog('dosomething_global', "Can't load %lang language",
-      array('%lang' => $target_lang_code), WATCHDOG_ERROR);
-    return;
-  }
-
-  $node = node_load(arg(1));
-
-  dosomething_global_redirect_node_language($node, $target_lang_code, 301);
-}
-
-/**
- * Given a node object, a language code (e.g., "en", "en-global", "es-mx"),
- * and a redirect status, redirect the request to the desired translation's
- * URL.
- *
- * @param $node
- * @param $language_code
- * @param int $redirect_status
- */
-function dosomething_global_redirect_node_language($node, $language_code, $redirect_status = 302) {
-
-  $languages = language_list();
-
-  // Can only redirect to an published, translated version.
-  if (!empty($node->translations->data[$language_code]) && (bool)$node->translations->data[$language_code]['status']) {
-
-    $target_node = $node->translations->data[$language_code];
-
-    // Might be overly formal: We could pull 'node/nid' from the current
-    // request. This is in case of the unlikely (impossible?) event that
-    // a translated version of this node has a different entity ID.
-    $target_path = sprintf('node/%s', $target_node['entity_id']);
-
-    drupal_goto(url($target_path, array('language' => $languages[$language_code])), array(), $redirect_status);
-  }
 }
