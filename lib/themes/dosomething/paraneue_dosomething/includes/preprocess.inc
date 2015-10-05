@@ -17,7 +17,6 @@ function paraneue_dosomething_preprocess_html(&$vars) {
  * Implements theme_preprocess_page().
  */
 function paraneue_dosomething_preprocess_page(&$vars) {
-
   // Add theme suggestion for page template based on node.
   if (isset($vars['node']->type)) {
     // If the content type's machine name is "my_machine_name" the file
@@ -82,6 +81,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   // Only display tabs for Staff and regional admins.
   if (isset($vars['tabs']) && !dosomething_user_is_staff() && !dosomething_global_is_regional_admin()) {
     unset($vars['tabs']);
+  }
+
+  // Display edited admin tabs for regional admins.
+  if (dosomething_global_is_regional_admin()) {
+    $vars['tabs'] = paraneue_dosomething_edit_regional_admin_tabs($vars['tabs']);
   }
 
   /**
