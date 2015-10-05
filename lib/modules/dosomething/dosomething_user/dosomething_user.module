@@ -1456,6 +1456,6 @@ function dosomething_user_views_pre_render(&$view) {
   if ($view->name == 'content_search') {
     // Remove grouping labels
     $table_style = 'table caption { display: none }';
-    drupal_add_css($table_style, $option['type'] = inline);
+    drupal_add_css($table_style, ['type' => 'inline']);
   }
 }
