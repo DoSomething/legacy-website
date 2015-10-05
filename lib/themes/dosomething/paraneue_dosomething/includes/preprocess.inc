@@ -79,14 +79,17 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
   // Only display tabs for Staff and regional admins.
-  if (isset($vars['tabs']) && !dosomething_user_is_staff() && !dosomething_global_is_regional_admin()) {
-    unset($vars['tabs']);
+  if (isset($vars['tabs'])) {
+    if (!dosomething_user_is_staff() && !dosomething_global_is_regional_admin()) {
+      unset($vars['tabs']);
+    }
+    // Display edited admin tabs for regional admins.
+    else if (dosomething_global_is_regional_admin()) {
+      $vars['tabs'] = paraneue_dosomething_edit_regional_admin_tabs($vars['tabs']);
+    }
   }
 
-  // Display edited admin tabs for regional admins.
-  if (dosomething_global_is_regional_admin()) {
-    $vars['tabs'] = paraneue_dosomething_edit_regional_admin_tabs($vars['tabs']);
-  }
+
 
   /**
    * Determine Page template.
