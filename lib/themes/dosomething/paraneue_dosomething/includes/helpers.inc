@@ -11,11 +11,16 @@
  * @return mixed mixed
  */
 function paraneue_dosomething_edit_regional_admin_tabs($tabs) {
+  $primary_tabs = $tabs['#primary'];
+
+  if (!$primary_tabs) {
+    return $tabs;
+  }
+
   $removeable_tabs = [
     'Devel',
     'Translate',
   ];
-  $primary_tabs = $tabs['#primary'];
 
   foreach($primary_tabs as $index => $tab) {
     if (in_array($tab['#link']['title'], $removeable_tabs)) {
