@@ -1,21 +1,21 @@
 <?php
 
 // Define theme directory path
-define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+define('PARANEUE_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
 
 // Define asset directory paths
 define('VENDOR_ASSET_PATH', PARANEUE_DS_PATH . '/node_modules');
 define('FORGE_ASSET_PATH', VENDOR_ASSET_PATH . '/@dosomething/forge');
 
 // Theme includes
-require_once PARANEUE_DS_PATH . '/includes/bootstrap.inc';
-require_once PARANEUE_DS_PATH . '/includes/theme.inc';
-require_once PARANEUE_DS_PATH . '/includes/preprocess.inc';
-require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
-require_once PARANEUE_DS_PATH . '/includes/patterns.inc';
-require_once PARANEUE_DS_PATH . '/includes/form.inc';
-require_once PARANEUE_DS_PATH . '/includes/auth/login.inc';
-require_once PARANEUE_DS_PATH . '/includes/auth/register.inc';
+require_once PARANEUE_PATH . '/includes/bootstrap.inc';
+require_once PARANEUE_PATH . '/includes/theme.inc';
+require_once PARANEUE_PATH . '/includes/preprocess.inc';
+require_once PARANEUE_PATH . '/includes/helpers.inc';
+require_once PARANEUE_PATH . '/includes/patterns.inc';
+require_once PARANEUE_PATH . '/includes/form.inc';
+require_once PARANEUE_PATH . '/includes/auth/login.inc';
+require_once PARANEUE_PATH . '/includes/auth/register.inc';
 
 
 /**
