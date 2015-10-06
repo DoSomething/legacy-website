@@ -161,7 +161,6 @@ class Reportback extends Entity {
     // $this->user = ['drupal_id' => $data->uid];
     // If we do not hit northstar for more data, what user data do we want to display?
 
-
     if ($shallowLoad) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_user = json_decode($northstar_user->data, true);
