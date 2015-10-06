@@ -77,7 +77,7 @@ class ReportbackItem extends Entity {
 
     foreach($results as $item) {
       $reportbackItem = new static;
-      $reportbackItem->build($item);
+      $reportbackItem->build($item, false);
 
       $reportbackItems[] = $reportbackItem;
     }
@@ -90,8 +90,9 @@ class ReportbackItem extends Entity {
    * Build out the instantiated Reportback Item class object with supplied data.
    *
    * @param object $data
+   * @param bool  $full Boolean to decide whether to fetch full data.
    */
-  private function build($data, $shallowLoad = true) {
+  private function build($data, $full = true) {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
@@ -116,10 +117,7 @@ class ReportbackItem extends Entity {
       ],
     ];
 
-    // $this->user = ['drupal_id' => $data->uid];
-    // If we do not hit northstar for more data, what user data do we want to display?
-
-    if ($shallowLoad) {
+    if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_user = json_decode($northstar_user->data, true);
       $northstar_user = (object) $northstar_user['data'][0];

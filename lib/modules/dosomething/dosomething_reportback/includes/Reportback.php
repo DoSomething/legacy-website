@@ -124,7 +124,7 @@ class Reportback extends Entity {
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
       $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item);
+      $reportback->build($item, false);
 
       $reportbacks[] = $reportback;
     }
@@ -137,8 +137,9 @@ class Reportback extends Entity {
    * Build out the instantiated Reportback class object with supplied data.
    *
    * @param object $data
+   * @param bool  $full Boolean to decide whether to fetch full data.
    */
-  private function build($data, $shallowLoad = true) {
+  private function build($data, $full = true) {
     global $user;
 
     $this->id = $data->rbid;
@@ -158,10 +159,7 @@ class Reportback extends Entity {
       ],
     ];
 
-    // $this->user = ['drupal_id' => $data->uid];
-    // If we do not hit northstar for more data, what user data do we want to display?
-
-    if ($shallowLoad) {
+    if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_user = json_decode($northstar_user->data, true);
       $northstar_user = (object) $northstar_user['data'][0];
