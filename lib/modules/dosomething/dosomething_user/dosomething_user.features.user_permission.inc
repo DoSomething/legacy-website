@@ -95,10 +95,8 @@ function dosomething_user_user_default_permissions() {
     'name' => 'access user profiles',
     'roles' => array(
       'administrator' => 'administrator',
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
       'member support' => 'member support',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'user',
   );
@@ -399,10 +397,8 @@ function dosomething_user_user_default_permissions() {
     'name' => 'translate interface',
     'roles' => array(
       'administrator' => 'administrator',
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
       'global admin' => 'global admin',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'locale',
   );

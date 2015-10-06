@@ -305,11 +305,11 @@ function dosomething_user_views_default_views() {
   $handler->display->display_options['fields']['status']['table'] = 'node';
   $handler->display->display_options['fields']['status']['field'] = 'status';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Entity translation: Source */
-  $handler->display->display_options['fields']['source']['id'] = 'source';
-  $handler->display->display_options['fields']['source']['table'] = 'entity_translation';
-  $handler->display->display_options['fields']['source']['field'] = 'source';
-  $handler->display->display_options['fields']['source']['relationship'] = 'entity_translations';
+  /* Field: Content: Language */
+  $handler->display->display_options['fields']['language_1']['id'] = 'language_1';
+  $handler->display->display_options['fields']['language_1']['table'] = 'node';
+  $handler->display->display_options['fields']['language_1']['field'] = 'language';
+  $handler->display->display_options['fields']['language_1']['label'] = 'Source Language';
   /* Field: Entity translation: Language */
   $handler->display->display_options['fields']['language']['id'] = 'language';
   $handler->display->display_options['fields']['language']['table'] = 'entity_translation';
@@ -421,7 +421,7 @@ function dosomething_user_views_default_views() {
     t('Translations'),
     t('Nid'),
     t('Translate link'),
-    t('Source'),
+    t('Source Language'),
     t('Translation'),
   );
   $export['content_search'] = $view;
