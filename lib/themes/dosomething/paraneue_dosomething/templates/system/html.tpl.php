@@ -22,17 +22,17 @@
   <?php print $styles; ?>
 
   <!--[if lte IE 8]>
-      <script type="text/javascript" src="<?php print url(VENDOR_ASSET_PATH . '/html5shiv/dist/html5shiv.min.js'); ?>"></script>
-      <script type="text/javascript" src="<?php print url(VENDOR_ASSET_PATH . '/es5-shim/es5-shim.min.js'); ?>"></script>
-      <script type="text/javascript" src="<?php print url(VENDOR_ASSET_PATH . '/es5-shim/es5-sham.min.js'); ?>"></script>
-      <script type="text/javascript" src="<?php print url(VENDOR_ASSET_PATH . '/respond.js/dest/respond.min.js'); ?>"></script>
+      <script type="text/javascript" src="<?php print '/' . VENDOR_ASSET_PATH . '/html5shiv/dist/html5shiv.min.js' ?>"></script>
+      <script type="text/javascript" src="<?php print '/' . VENDOR_ASSET_PATH . '/es5-shim/es5-shim.min.js' ?>"></script>
+      <script type="text/javascript" src="<?php print '/' . VENDOR_ASSET_PATH . '/es5-shim/es5-sham.min.js' ?>"></script>
+      <script type="text/javascript" src="<?php print '/' . VENDOR_ASSET_PATH . '/respond.js/dest/respond.min.js' ?>"></script>
   <![endif]-->
 
-  <link rel="shortcut icon" href="<?php print url(FORGE_ASSET_PATH . '/dist/assets/images/favicon.ico'); ?>">
-  <link rel="apple-touch-icon-precomposed" href="<?php print url(FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png'); ?>">
+  <link rel="shortcut icon" href="<?php print '/' . FORGE_ASSET_PATH . '/dist/assets/images/favicon.ico' ?>">
+  <link rel="apple-touch-icon-precomposed" href="<?php print '/' . FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png' ?>">
   <?php print $head; ?>
 
-  <script type="text/javascript" src="<?php print url(PARANEUE_PATH . '/dist/modernizr.js') ?>"></script>
+  <script type="text/javascript" src="<?php print '/' . PARANEUE_PATH . '/dist/modernizr.js' ?>"></script>
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
