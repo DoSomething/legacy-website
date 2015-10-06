@@ -91,7 +91,7 @@ class ReportbackItem extends Entity {
    *
    * @param object $data
    */
-  private function build($data) {
+  private function build($data, $shallowLoad = true) {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
@@ -116,18 +116,22 @@ class ReportbackItem extends Entity {
       ],
     ];
 
-    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-    $northstar_user = json_decode($northstar_user->data, true);
-    $northstar_user = (object) $northstar_user['data'][0];
+    // $this->user = ['drupal_id' => $data->uid];
 
-    $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => $northstar_user->_id,
-      'first_name' => $northstar_user->first_name,
-      'last_name' => $northstar_user->last_name,
-      'photo' => $northstar_user->photo,
-      'country' => $northstar_user->country,
-    ];
+    if ($shallowLoad) {
+      $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
+      $northstar_user = json_decode($northstar_user->data, true);
+      $northstar_user = (object) $northstar_user['data'][0];
+
+      $this->user = [
+        'drupal_id' => $data->uid,
+        'id' => $northstar_user->_id,
+        'first_name' => $northstar_user->first_name,
+        'last_name' => $northstar_user->last_name,
+        'photo' => $northstar_user->photo,
+        'country' => $northstar_user->country,
+      ];
+    }
   }
 
 
