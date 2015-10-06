@@ -81,17 +81,17 @@ function paraneue_dosomething_theme() {
 
     'campaign_creator' => array(
       'template' => 'campaign-creator',
-      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+      'path' => PARANEUE_PATH . '/templates/campaign/partials',
     ),
 
     'campaign_headings' => array(
       'template' => 'campaign-headings',
-      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+      'path' => PARANEUE_PATH . '/templates/campaign/partials',
     ),
 
     'campaign_scholarship' => array(
       'template' => 'campaign-scholarship',
-      'path' => PARANEUE_DS_PATH . '/templates/campaign/partials',
+      'path' => PARANEUE_PATH . '/templates/campaign/partials',
       'variables' => array(
         'amount' => NULL,
         'classes' => NULL,
@@ -100,12 +100,12 @@ function paraneue_dosomething_theme() {
 
     'footer' => array(
       'template' => 'footer',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
     ),
 
     'social-networks' => array(
       'template' => 'social-networks',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
       'variables' => array(
         'container_classes' => '',
       )
@@ -113,22 +113,22 @@ function paraneue_dosomething_theme() {
 
     'header' => array(
       'template' => 'header',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
     ),
 
     'info_bar' => array(
       'template' => 'info-bar',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
     ),
 
     'navigation' => array(
       'template' => 'navigation',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
     ),
 
     'sponsor_logos' => array(
       'template' => 'sponsor-logos',
-      'path' => PARANEUE_DS_PATH . '/templates/system/partials',
+      'path' => PARANEUE_PATH . '/templates/system/partials',
       'variables' => array(
         'sponsors' => NULL,
       ),
@@ -136,18 +136,18 @@ function paraneue_dosomething_theme() {
 
     'thumbnail' => array(
       'template' => 'thumbnail',
-      'path' => PARANEUE_DS_PATH . '/templates/home/partials',
+      'path' => PARANEUE_PATH . '/templates/home/partials',
     ),
 
     // Register theme functions for Forge patterns.
     'paraneue_figure' => array(
       'template' => 'figure',
-      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'path' => PARANEUE_PATH . '/templates/system/patterns',
     ),
 
     'paraneue_media' => array(
       'template' => 'media',
-      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'path' => PARANEUE_PATH . '/templates/system/patterns',
       'variables' => array(
         'content' => NULL,
       ),
@@ -155,17 +155,17 @@ function paraneue_dosomething_theme() {
 
     'paraneue_photo' => array(
       'template' => 'photo',
-      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'path' => PARANEUE_PATH . '/templates/system/patterns',
     ),
 
     'paraneue_tile' => array(
       'template' => 'tile',
-      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'path' => PARANEUE_PATH . '/templates/system/patterns',
     ),
 
     'paraneue_gallery' => array(
       'template' => 'gallery',
-      'path' => PARANEUE_DS_PATH . '/templates/system/patterns',
+      'path' => PARANEUE_PATH . '/templates/system/patterns',
     ),
   );
 }

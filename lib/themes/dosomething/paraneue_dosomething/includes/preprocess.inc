@@ -5,7 +5,7 @@
  */
 function paraneue_dosomething_preprocess_html(&$vars) {
   // Add theme stylesheet
-  drupal_add_css(PARANEUE_DS_PATH. '/dist/app.css', [
+  drupal_add_css(PARANEUE_PATH . '/dist/app.css', [
     'group' => CSS_THEME,
     'weight' => 0,
     'every_page' => TRUE,

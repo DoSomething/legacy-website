@@ -1,10 +1,10 @@
 <?php
 
 // Include helpers.
-if (!defined('PARANEUE_DS_PATH')) {
-  define('PARANEUE_DS_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+if (!defined('PARANEUE_PATH')) {
+  define('PARANEUE_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
 }
-require_once PARANEUE_DS_PATH . '/includes/helpers.inc';
+require_once PARANEUE_PATH . '/includes/helpers.inc';
 
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
   $form['theme_settings'] = array(
