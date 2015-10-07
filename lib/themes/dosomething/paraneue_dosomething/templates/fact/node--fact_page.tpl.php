@@ -28,8 +28,7 @@
             <div class="wrapper">
               <p class="__copy">Powered by</p>
               <div class="__image">
-                <a class="show-only-small" href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
-                <a class="show-at-medium" href="http://search.yahoo.com/?fr=do_dspc&.tsrc=do-dspc"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
+                <a href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
               </div>
             </div>
           </div>
