@@ -203,6 +203,8 @@ function dosomething_user_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Content Search';
   $handler->display->display_options['path'] = 'admin/content/search';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Search content';
@@ -418,6 +420,7 @@ function dosomething_user_views_default_views() {
     t('Published'),
     t('Cause (field_cause)'),
     t('Page'),
+    t('Content Search'),
     t('Translations'),
     t('Nid'),
     t('Translate link'),
