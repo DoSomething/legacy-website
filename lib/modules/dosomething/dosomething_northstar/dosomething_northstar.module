@@ -183,8 +183,8 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
   }
   foreach ($address as $ns_key => $drupal_key) {
     $field = $user->field_address[LANGUAGE_NONE][0];
-    if (isset($field[$drupal_key]['value'])) {
-      $ns_user[$ns_key] = $field[$drupal_key]['value'];
+    if (isset($field[$drupal_key])) {
+      $ns_user[$ns_key] = $field[$drupal_key];
     }
   }
 
