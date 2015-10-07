@@ -100,10 +100,6 @@ function dosomething_global_menu_alter(&$items) {
   $items['node/%node/translate']['access callback'] = 'user_access';
   $items['node/%node/translate']['access arguments'] = array('translate any entity');
 
-  // Hide default content tab from regional admins
-  $items['admin/content']['access callback'] = 'user_access';
-  $items['admin/content']['access arguments'] = array('translate any entity');
-
   // // Make sure all admins can see this
   $items['admin/content/search']['access callback'] = 'user_access';
   $items['admin/content/search']['access arguments'] = array('access administration menu');
