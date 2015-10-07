@@ -90,7 +90,7 @@ class ReportbackItem extends Entity {
    * Build out the instantiated Reportback Item class object with supplied data.
    *
    * @param object $data
-   * @param bool  $full Boolean to decide whether to fetch full data.
+   * @param bool  $full Boolean to decide whether to fetch full user data.
    */
   private function build($data, $full = true) {
     $this->id = $data->fid;
