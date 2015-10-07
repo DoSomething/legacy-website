@@ -567,7 +567,8 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     ),
   );
 
-  if ($country = strtolower(dosomething_global_convert_language_to_country($language))) {
+  $country = strtolower(dosomething_global_convert_language_to_country($language);
+  if (!empty($country))) {
     $url_options['prefix'] = $country . '/';
   }
 
