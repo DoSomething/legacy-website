@@ -119,8 +119,8 @@ function enable {
 }
 
 #=== FUNCTION ==================================================================
-# NAME: enable
-# DESCRIPTION: Enables global.
+# NAME: make_home_translatable
+# DESCRIPTION: Makes Home bundle translatable.
 #===============================================================================
 function make_home_translatable {
   # Display ascii art
@@ -138,6 +138,24 @@ function make_home_translatable {
   drush ds-global-field-fix field_campaigns
 }
 
+
+#=== FUNCTION ==================================================================
+# NAME: enable_campaign_field_collections
+# DESCRIPTION: Runs fixes for campaign field collections.
+#===============================================================================
+function enable_campaign_field_collections {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Run fixes.
+  drush ds-global-field-fix field_faq
+  drush ds-global-field-fix field_step_pre
+  drush ds-global-field-fix field_step_post
+}
+
 # ==============================================================================
 
 # ==============================================================================
@@ -148,4 +166,11 @@ function make_home_translatable {
 # run
 #----------------------------------------------------------------------
 # enable
-make_home_translatable
+
+if [[ $1 == "make-home-translatable" ]]; then
+  make_home_translatable
+elif [[ $1 == "enable-campaign-field-collections" ]]; then
+  enable_campaign_field_collections
+elif [[ -z $1 ]]; then
+  echo "Error: no arguments." >&2
+fi
