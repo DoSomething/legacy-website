@@ -244,7 +244,7 @@ function dosomething_global_convert_country_to_language($country) {
   return NULL;
 }
 
-/*
+/**
  * Get the appropriate language for the application.
  *
  * @param $account
@@ -254,16 +254,27 @@ function dosomething_global_convert_country_to_language($country) {
  *
  */
 function dosomething_global_get_language($account, stdClass $node = NULL) {
-  if ($node) {
+  // Respect the URL first.
+  $request_path = explode('/', request_path());
+  if (!empty($request_path[0])) {
+    $languages = language_list();
+    foreach ($languages as $langcode => $lang_data) {
+      if ($lang_data->prefix == $request_path[0]) {
+        return $langcode;
+      }
+    }
+  }
+
+  if (is_object($node)) {
     // If there is a published translation for the node in the user's language, use it.
     if ($node->translations->data{$account->language}['status']) {
       $language = $account->language;
     }
-    // If there's no published translation in their language try 'en-global'.
-    elseif ($node->translations->data['en-global']['status']) {
-      $language = 'en-global';
+    // If there's no published translation in their language try the default language.
+    elseif ($node->translations->data[language_default('language')]['status']) {
+      $language = language_default('language');
     }
-    // Default to node language if there's no translation in their language and no 'en-global'.
+    // Default to node language if there's no translation in their language and no translation in the system default language.
     else {
       $language = $node->language;
     }
@@ -276,4 +287,32 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
   }
 
   return $language;
+}
+
+
+/**
+ * Build a URL that appropriately adds the prefix.
+ *
+ * @param string $path
+ *   The path to pass to url()
+ * @param  $options
+ *   Optional options array to be passed to url()
+ *
+ */
+function dosomething_global_url($path, $options = NULL) {
+  global $language;
+  $languages = language_list();
+
+  if (!isset($options['language'])) {
+    if (isset($language)) {
+      $options['language'] = $language->language;
+    }
+    else {
+      $options['language'] = language_default('language');
+    }
+  }
+  if (!isset($options['prefix']) && !empty($languages[$options['language']]->prefix)) {
+    $options['prefix'] = $languages[$options['language']]->prefix . '/';
+  }
+  return url($path, $options);
 }
