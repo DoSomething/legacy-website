@@ -58,10 +58,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   // Override with environment-specific logo if on staging or local dev:
   $host = $_SERVER['HTTP_HOST'];
   if(strpos($host, 'staging.') !== FALSE) {
-    $vars['logo'] = DS_ASSET_PATH . '/images/logo-staging.png';
+    $vars['logo'] = '/' . PARANEUE_PATH . '/images/logo-staging.png';
   }
   else if(strpos($host, 'dev.') !== FALSE) {
-    $vars['logo'] = DS_ASSET_PATH . '/images/logo-dev.png';
+    $vars['logo'] = '/' . PARANEUE_PATH . '/images/logo-dev.png';
   }
 
   $navigation_vars = array(
@@ -702,7 +702,7 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
  */
 function paraneue_dosomething_preprocess_fact_page(&$vars) {
   if (theme_get_setting('show_yahoo_partnership')) {
-    $vars['yahoo_logo']= DS_ASSET_PATH .'/dist/images/yahoo_white.png';
+    $vars['yahoo_logo']= '/' . PARANEUE_PATH .'/dist/images/yahoo_white.png';
   }
 }
 
