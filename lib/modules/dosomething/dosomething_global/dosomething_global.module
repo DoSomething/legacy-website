@@ -159,7 +159,7 @@ function _dosomething_global_get_regional_roles() {
 }
 
 /**
- * Returns the user's langauge based on the role.
+ * Returns the user's language based on the role.
  *
  * @param Object $user
  *   Optional - A specified user to check

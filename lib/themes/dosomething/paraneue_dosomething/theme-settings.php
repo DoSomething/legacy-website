@@ -307,7 +307,7 @@ function _paraneue_dosomething_theme_settings_user(&$form, $form_state) {
   );
   $form_user = &$form['user'];
 
-  // Validaions.
+  // Validations.
   $form_user['validations'] = array(
     '#type'        => 'fieldset',
     '#title'       => t('JS Validations'),
