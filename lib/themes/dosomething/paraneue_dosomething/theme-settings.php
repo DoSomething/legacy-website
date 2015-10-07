@@ -296,20 +296,6 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       '#title' => t(ucwords($column) . ' Column Links'),
       '#default_value' => theme_get_setting('footer_links_' . $column . '_column_links')
     );
-
-    $link_column[$prefix. '_advanced'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Advanced options'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE
-    );
-
-    $link_column[$prefix . '_advanced'][$prefix . '_column_class'] = array(
-      '#type' => 'textfield',
-      '#title' => t(ucwords($column) . ' Column Class'),
-      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_class')
-    );
-
   }
 
 }
