@@ -598,9 +598,9 @@ function dosomething_helpers_application_path($path = '') {
  */
 function dosomething_helpers_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
   // Remove destination?=admin/content from edit button
-  foreach ($form['admin']['nodes']['#rows'] as $nid => $node) {
-    if (!empty($form['admin']['nodes']['#rows'][$nid]['operations'])) {
-      unset($form['admin']['nodes']['#rows'][$nid]['operations']['data']['#options']['query']['destination']);
+  foreach ($form['admin']['nodes']['#options'] as $nid => $node) {
+    if (!empty($form['admin']['nodes']['#options'][$nid]['operations'])) {
+      unset($form['admin']['nodes']['#options'][$nid]['operations']['data']['#links']['edit']['query']['destination']);
     }
   }
 }
