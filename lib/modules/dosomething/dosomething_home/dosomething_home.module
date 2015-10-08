@@ -10,6 +10,7 @@ include_once 'dosomething_home.features.inc';
  * Implements hook_preprocess_node();
  */
 function dosomething_home_preprocess_node(&$vars) {
+  global $user;
   if ($vars['type'] != 'home') { return; }
 
   // Replaces any global/site tokens in the title.
@@ -32,16 +33,16 @@ function dosomething_home_preprocess_node(&$vars) {
         $nid = $campaign;
       }
       $node = node_load($nid);
-
-      global $language;
-      $lang_code = $language->language;
+      $lang_code = dosomething_global_get_language($user, $node);
 
       // Grab all tiles attributes.
       $tiles = array();
       $tiles['nid'] = $nid;
       $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
-      $tiles['title'] = $node->title;
-      $tiles['tagline'] = $node->field_call_to_action[$node->language][0]['safe_value'];
+      // node_load() doesn't allow language to be passed in and using dosomething_global_get_language()
+      // will go through the proper chain to pull the correct language.
+      $tiles['title'] = $node->title_field[$lang_code][0]['safe_value'];
+      $tiles['tagline'] = $node->field_call_to_action[$lang_code][0]['safe_value'];
 
       // Get the campaign cover image. If there is no image for the user's language,
       // use the image from the node's language.
@@ -86,10 +87,8 @@ function dosomething_home_preprocess_node(&$vars) {
           'source' => 'node/' . $vars['nid'],
         ),
       );
-      if ($country = strtolower(dosomething_global_convert_language_to_country($lang_code))) {
-        $url_options['prefix'] = $country . '/';
-      }
-      $tiles['link'] = url('node/' . $nid, $url_options);
+
+      $tiles['link'] = dosomething_global_url('node/' . $nid, $url_options);
 
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
