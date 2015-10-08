@@ -28,8 +28,7 @@
             <div class="wrapper">
               <p class="__copy">Powered by</p>
               <div class="__image">
-                <a class="show-only-small" href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
-                <a class="show-at-medium" href="http://search.yahoo.com/?fr=do_dspc&.tsrc=do-dspc"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
+                <a href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
               </div>
             </div>
           </div>
@@ -69,19 +68,19 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta <?php if ($yahoo_partnership) { print 'show-at-medium'; } ?>">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php print $cta_link; ?>
-      </div>
-    </div>
-
     <?php // For the yahoo partnership only ?>
     <?php if ($yahoo_partnership): ?>
-      <div class="cta show-only-small">
+      <div class="cta">
         <div class="wrapper">
           <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
           <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
+        </div>
+      </div>
+    <?php else: ?>
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
         </div>
       </div>
     <?php endif; ?>
@@ -115,19 +114,19 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta <?php if ($yahoo_partnership) { print 'show-at-medium'; } ?>">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php print $cta_link; ?>
-      </div>
-    </div>
-
     <?php // For the yahoo partnership only ?>
     <?php if ($yahoo_partnership): ?>
-      <div class="cta show-only-small">
+      <div class="cta">
         <div class="wrapper">
           <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
           <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
+        </div>
+      </div>
+    <?php else: ?>
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
         </div>
       </div>
     <?php endif; ?>

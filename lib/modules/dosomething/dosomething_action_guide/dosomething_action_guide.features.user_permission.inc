@@ -14,7 +14,6 @@ function dosomething_action_guide_user_default_permissions() {
   $permissions['create action_guide content'] = array(
     'name' => 'create action_guide content',
     'roles' => array(
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
       'mexico admin' => 'mexico admin',
     ),
@@ -48,9 +47,7 @@ function dosomething_action_guide_user_default_permissions() {
   $permissions['edit own action_guide content'] = array(
     'name' => 'edit own action_guide content',
     'roles' => array(
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );

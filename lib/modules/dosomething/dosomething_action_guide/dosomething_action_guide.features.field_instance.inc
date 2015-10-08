@@ -36,6 +36,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Additional Text',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -76,6 +77,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Additional Text Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -117,6 +119,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Description',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -163,6 +166,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Gallery',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -200,6 +204,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -244,6 +249,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Intro Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -285,6 +291,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Intro Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -325,6 +332,7 @@ function dosomething_action_guide_field_default_field_instances() {
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),

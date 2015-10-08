@@ -13,21 +13,7 @@
 .yahoo-partnership {
   .header__title {
     @include media($medium) {
-      width: 80%;
-    }
-  }
-
-  .show-only-small {
-    @include media($medium) {
-      display: none;
-    }
-  }
-
-  .show-at-medium {
-    display: none;
-
-    @include media($medium) {
-      display: block;
+      width: 75%;
     }
   }
 }
