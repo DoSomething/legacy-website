@@ -452,7 +452,6 @@ function dosomething_global_redirect_node_language($node, $language_code, $redir
 
     drupal_goto(url($target_path, array('language' => $languages[$language_code])), array(), $redirect_status);
   }
-=======
 
 /**
  * Build a URL that appropriately adds the prefix.
