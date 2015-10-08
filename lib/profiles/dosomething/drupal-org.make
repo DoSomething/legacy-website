@@ -60,7 +60,9 @@ projects[entity_autocomplete][version] = "1.0-beta3"
 projects[entity_autocomplete][subdir] = "contrib"
 
 ; Entity Translation
-projects[entity_translation][version] = "1.0-beta4"
+; Updated to dev to be compatible with latest field_collection patch.
+; Dev branch used: 2015-Aug-16
+projects[entity_translation][version] = "1.x-dev"
 projects[entity_translation][subdir] = "contrib"
 
 ; Entity Connect
@@ -76,8 +78,13 @@ projects[features][version] = "2.2"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-projects[field_collection][version] = "1.0-beta8"
+; Updated to dev to be compatible with latest field_collection patch.
+; Dev branch used: 2015-Mar-26
+; !! Users are cautioned that data loss has been reported – please test carefully !!
+projects[field_collection][version] = "1.x-dev"
 projects[field_collection][subdir] = "contrib"
+; See https://www.drupal.org/node/1344672?page=1#comment-10320327
+projects[field_collection][patch][] = "https://www.drupal.org/files/issues/field_collection-add_entity_translation_support-1344672-459.patch"
 
 ; Field Group
 projects[field_group][version] = "1.4"
