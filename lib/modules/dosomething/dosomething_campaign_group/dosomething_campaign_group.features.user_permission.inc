@@ -14,9 +14,7 @@ function dosomething_campaign_group_user_default_permissions() {
   $permissions['create campaign_group content'] = array(
     'name' => 'create campaign_group content',
     'roles' => array(
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
@@ -48,9 +46,7 @@ function dosomething_campaign_group_user_default_permissions() {
   $permissions['edit own campaign_group content'] = array(
     'name' => 'edit own campaign_group content',
     'roles' => array(
-      'brazil admin' => 'brazil admin',
       'editor' => 'editor',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'node',
   );
