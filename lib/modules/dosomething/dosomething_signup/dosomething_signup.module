@@ -562,11 +562,11 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   $url_options = array(
     'language' => $language,
     'absolute' => TRUE,
-    'prefix' => strtolower(dosomething_global_convert_language_to_country($language)) . '/',
     'query' => array(
       'source' => 'node/' . $node->nid,
     ),
   );
+  $campaign_link = dosomething_global_url('node/' . $nid, $url_options);
 
   $params = array(
     'email' => $account->mail,
@@ -575,7 +575,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
     'campaign_title' => $wrapper->language($language)->title_field->value(),
-    'campaign_link' => url('node/' . $nid, $url_options),
+    'campaign_link' => $campaign_link,
     'user_language' => $language,
   );
 
