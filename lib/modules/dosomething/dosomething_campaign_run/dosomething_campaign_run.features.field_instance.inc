@@ -41,6 +41,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Gallery',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -77,6 +78,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -118,6 +120,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Gallery Image',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -163,6 +166,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'User',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -204,6 +208,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Winner Description',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -244,6 +249,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'User First Name',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -284,6 +290,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Winner Quote',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -324,6 +331,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Winner Type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -361,6 +369,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Additional Text',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -401,6 +410,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Additional Text Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -445,6 +455,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Campaign',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -492,6 +503,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Klout Gallery',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -529,6 +541,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Intro',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -569,6 +582,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Total Participants',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -609,6 +623,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Total Quantity',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -649,6 +664,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Total Quantity Label',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -695,6 +711,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'label' => 'Winners',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
