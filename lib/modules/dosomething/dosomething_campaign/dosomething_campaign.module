@@ -541,11 +541,13 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
 function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480', $source = NULL) {
   $node = node_load($nid);
   $clc = dosomething_helpers_get_current_language_code();
+
   $path_alias = drupal_get_path_alias('node/' . $nid);
   if ($source) {
     $path_alias .= '?source=' . $source;
   }
   $image = NULL;
+  $image_nid = NULL;
   if (!empty($node->field_image_campaign_cover)) {
     $image_nid = $node->field_image_campaign_cover[$clc][0]['target_id'];
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
@@ -554,10 +556,12 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
   if (!empty($node->field_call_to_action)) {
     $cta = $node->field_call_to_action[$clc][0]['value'];
   }
+  $title = $node->title_field[$clc][0]['safe_value'];
+
   return array(
     'nid' => $nid,
-    'title' => $node->title,
-    'link' => l($node->title, 'node/' . $nid),
+    'title' => $title,
+    'link' => l($title, 'node/' . $nid),
     'call_to_action' => $cta,
     'image' => $image,
     'nid_image' => $image_nid,
