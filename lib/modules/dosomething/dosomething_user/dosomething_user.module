@@ -33,37 +33,6 @@ function dosomething_user_preprocess_page(&$vars) {
     'setting'
   );
 
-  // If a user requests the raw "/user/uid" path but has another language
-  // preference, bounce to that language prefix.
-  //
-  // @see dosomething_global_redirect_node_auth()
-  if (arg(0) == 'user' && module_exists('dosomething_global')) {
-
-    if (!dosomething_global_is_translation_request()) {
-      // User language.
-      $user_lang_code = $user->language ?: 'en';
-
-      // All languages, as an array of objects.
-      $languages = language_list();
-
-      $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-      if (empty($languages[$global_lang_code])) {
-        watchdog('dosomething_global', "Can't load %lang language",
-          array('%lang' => $global_lang_code), WATCHDOG_ERROR);
-        return;
-      }
-
-      // Don't redirect for Global English speakers.
-      if ($user_lang_code != $global_lang_code && !empty($languages[$user_lang_code])) {
-
-        $link = sprintf('%s/%s', $languages[$user_lang_code]->prefix, request_path());
-
-        drupal_goto(url($link));
-      }
-    }
-  }
-
 }
 
 /**
