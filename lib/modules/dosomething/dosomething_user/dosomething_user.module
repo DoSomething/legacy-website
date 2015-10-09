@@ -14,8 +14,6 @@ include_once 'dosomething_user.theme.inc';
  * Implements hook_preprocess_page.
  */
 function dosomething_user_preprocess_page(&$vars) {
-  global $user;
-
   $school_api_endpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
   if (isset($_SESSION['dosomething_user_log_login'])) {
     dosomething_helpers_add_analytics_event("login", $_SESSION['dosomething_user_log_login']);
