@@ -64,8 +64,7 @@ function dosomething_global_init() {
 
   $request_method = strtolower($_SERVER['REQUEST_METHOD']);
 
-  if (arg(0) == 'user' && module_exists('dosomething_global') && 'post' !== $request_method &&
-    empty($_GET['noredirect'])) {
+  if (arg(0) == 'user' && 'post' !== $request_method && empty($_GET['noredirect'])) {
 
     if (!dosomething_global_is_translation_request()) {
       // User language.
