@@ -30,6 +30,7 @@ function dosomething_user_preprocess_page(&$vars) {
     ),
     'setting'
   );
+
 }
 
 /**
