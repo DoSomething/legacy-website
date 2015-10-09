@@ -58,9 +58,14 @@ function dosomething_global_init() {
   // Handle translation redirects for authenticated users when they request
   // bare (Global English) URLs to user pages (user profile, edit, etc.).
   //
+  // Don't redirect POSTs.
+  //
   // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'user' && module_exists('dosomething_global') &&
-      empty($_GET['noredirect'])) {
+
+  $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+
+  if (arg(0) == 'user' && module_exists('dosomething_global') && 'post' !== $request_method &&
+    empty($_GET['noredirect'])) {
 
     if (!dosomething_global_is_translation_request()) {
       // User language.
