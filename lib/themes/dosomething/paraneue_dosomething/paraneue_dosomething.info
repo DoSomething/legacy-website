@@ -47,12 +47,10 @@ settings[footer_links_first_column_heading] = 'Help'
 settings[footer_links_first_column_links] = 'Contact Us|node/516
 Hotlines|node/518
 FAQs|node/1052'
-settings[footer_links_first_column_class] = 'help'
 settings[footer_links_second_column_heading] = 'Get to Know Us'
 settings[footer_links_second_column_links] = 'Partners|node/532
 Donate|node/539
 TMI Agency|http://www.tmiagency.org'
-settings[footer_links_second_column_class] = 'knowus'
 settings[footer_links_third_column_heading] = 'About'
 settings[footer_links_third_column_links] = 'What is DoSomething.org?|node/538
 Our Team|node/1044
@@ -61,7 +59,6 @@ Internships|node/940
 Old People|node/329
 Sexy Financials|node/540
 International|node/523'
-settings[footer_links_third_column_class] = 'about'
 
 ; User
 settings[user_validate_js_postcode] = 1

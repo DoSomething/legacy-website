@@ -163,7 +163,7 @@ function _dosomething_global_get_regional_roles() {
 }
 
 /**
- * Returns the user's langauge based on the role.
+ * Returns the user's language based on the role.
  *
  * @param Object $user
  *   Optional - A specified user to check
@@ -213,6 +213,19 @@ function dosomething_global_get_user_language($user = NULL) {
    array_push($countries, "global");
    return $countries;
  }
+
+/**
+ * Returns the session's country code, or `global` if it's not
+ * one of our whitelisted global countries.
+ */
+function dosomething_global_get_country() {
+  $country_code = dosomething_settings_get_geo_country_code();
+  if (in_array($country_code, dosomething_global_get_countries())) {
+    return $country_code;
+  }
+
+  return 'global';
+}
 
 /**
  * Gets the country from a given language.
