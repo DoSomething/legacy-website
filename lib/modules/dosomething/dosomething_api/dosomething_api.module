@@ -64,6 +64,8 @@ function dosomething_api_services_request_postprocess_alter($controller, $args, 
     }
   }
 }
+
+
 /**
  * Returns the Reportback Gallery of a specified node.
  *
