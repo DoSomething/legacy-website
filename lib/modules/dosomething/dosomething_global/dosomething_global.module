@@ -211,6 +211,19 @@ function dosomething_global_get_user_language($user = NULL) {
  }
 
 /**
+ * Returns the session's country code, or `global` if it's not
+ * one of our whitelisted global countries.
+ */
+function dosomething_global_get_country() {
+  $country_code = dosomething_settings_get_geo_country_code();
+  if (in_array($country_code, dosomething_global_get_countries())) {
+    return $country_code;
+  }
+
+  return 'global';
+}
+
+/**
  * Gets the country from a given language.
  *
  * @param string language
