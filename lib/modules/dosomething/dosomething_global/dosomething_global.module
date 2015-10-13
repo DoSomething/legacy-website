@@ -16,16 +16,17 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
 function dosomething_global_init() {
   global $user;
 
-  // Redirect people hitting the homepage to there local version
-  if (drupal_is_front_page() && is_numeric(arg(1))) {
-
+  // Redirect people hitting the homepage or explore campaigns to there local version
+  $path = request_path();
+  if ((drupal_is_front_page() && is_numeric(arg(1))) || $path == 'campaigns') {
     // Cannot use arg() as it doesn't return path prefixes
-    $path = request_path();
     $args = explode('/', $path);
 
-    // Only apply logic to Global homepage.
-    if (!empty($path) && $args[0] != 'node') {
-      return;
+    // Only apply logic to Global homepage
+    if (drupal_is_front_page()) {
+      if (!empty($path) && $args[0] != 'node') {
+        return;
+      }
     }
 
     $country_code = dosomething_settings_get_geo_country_code();
