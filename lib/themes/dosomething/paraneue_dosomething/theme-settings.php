@@ -272,32 +272,55 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
   );
 
   $links = &$form['footer']['links'];
-  $columns = array('first', 'second', 'third');
-  foreach ($columns as $column) {
-    $prefix = 'footer_links_' . $column;
 
-    $links[$prefix] = array(
+  // Set up theme settings for each country's footer
+  $countries = dosomething_global_get_countries();
+  foreach($countries as $country) {
+    $links[$country. '_links'] = [
       '#type' => 'fieldset',
-      '#title' => t(ucwords($column) .' column'),
+      '#title' => t('@country Links', ['@country' => $country]),
       '#collapsible' => TRUE,
-      '#collapsed' => TRUE
-    );
+      '#collapsed' => TRUE,
+    ];
 
-    $link_column = &$links[$prefix];
+    // Set up theme settings for each of the three columns
+    $columns = ['first', 'second', 'third'];
+    foreach ($columns as $column) {
+      $prefix = 'footer_links_' . $country . '_' . $column;
 
-    $link_column[$prefix . '_column_heading'] = array(
-      '#type' => 'textfield',
-      '#title' => t(ucwords($column) . ' Column Heading'),
-      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_heading')
-    );
+      $links[$country. '_links'][$prefix] = [
+        '#type' => 'fieldset',
+        '#title' => t(ucwords($column) .' column'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      ];
 
-    $link_column[$prefix . '_column_links'] = array(
-      '#type' => 'textarea',
-      '#title' => t(ucwords($column) . ' Column Links'),
-      '#default_value' => theme_get_setting('footer_links_' . $column . '_column_links')
-    );
+      $link_column = &$links[$country. '_links'][$prefix];
+
+      $heading_default = theme_get_setting('footer_links_' . $country . '_' . $column . '_column_heading');
+      if(!$heading_default === NULL) {
+        $heading_default = theme_get_setting('footer_links_' . $column . '_column_heading');
+      }
+
+      $link_column[$prefix . '_column_heading'] = [
+        '#type' => 'textfield',
+        '#title' => t(ucwords($country) . ' ' . ucwords($column) . ' Column Heading'),
+        '#default_value' => $heading_default,
+      ];
+
+      $links_default = theme_get_setting('footer_links_' . $country . '_' . $column . '_column_links');
+      if(!$links_default === NULL) {
+        $links_default = theme_get_setting('footer_links_' . $column . '_column_links');
+      }
+
+      $link_column[$prefix . '_column_links'] = [
+        '#type' => 'textarea',
+        '#title' => t(ucwords($country) . ' ' . ucwords($column) . ' Column Links'),
+        '#default_value' => $links_default,
+      ];
+    }
+
   }
-
 }
 
 function _paraneue_dosomething_theme_settings_user(&$form, $form_state) {
