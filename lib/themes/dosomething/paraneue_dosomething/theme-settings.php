@@ -7,14 +7,6 @@ if (!defined('PARANEUE_PATH')) {
 require_once PARANEUE_PATH . '/includes/helpers.inc';
 
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
-  $form['theme_settings'] = array(
-      '#type'        => 'fieldset',
-      '#title'       => t('Theme Settings'),
-      '#collapsible' => FALSE,
-      '#collapsed'   => FALSE,
-      '#weight'      => -19
-  );
-
   $form['feature_flags'] = array(
       '#type'        => 'fieldset',
       '#title'       => t('Feature Flags'),
