@@ -5,6 +5,7 @@ package = DoSomething
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = dosomething_campaign
+dependencies[] = dosomething_helpers
 dependencies[] = dosomething_static_content
 dependencies[] = dosomething_taxonomy
 dependencies[] = entityreference
