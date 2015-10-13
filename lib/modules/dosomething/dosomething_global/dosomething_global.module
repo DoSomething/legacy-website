@@ -16,6 +16,35 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
 function dosomething_global_init() {
   global $user;
 
+  // Redirect people hitting the homepage to there local version
+  if (drupal_is_front_page() && is_numeric(arg(1))) {
+
+    // Cannot use arg() as it doesn't return path prefixes
+    $path = request_path();
+    $args = explode('/', $path);
+
+    // Only apply logic to Global homepage.
+    if (!empty($path) && $args[0] != 'node') {
+      return;
+    }
+
+    $country_code = dosomething_settings_get_geo_country_code();
+    $language = dosomething_global_convert_country_to_language($country_code);
+    // No matching language, serve the global page
+    if ($language == NULL) {
+      return;
+    }
+
+    // Get users local path prefix and verify we support it
+    $path_prefix = dosomething_global_get_prefix_for_language($language);
+    if ($path_prefix == NULL) {
+      return;
+    }
+
+    // Redirect user
+    drupal_goto($path_prefix . '/' . current_path());
+  }
+
   // Verify we're dealing with a node edit with no translation specification in the URL
   if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
     // Load the page node and user
@@ -266,6 +295,15 @@ function dosomething_global_convert_country_to_language($country) {
   }
   // It is not the job of this function to determine a default language
   return NULL;
+}
+
+function dosomething_global_get_prefix_for_language($language) {
+  $result = db_select('languages', 'l')
+    ->fields('l')
+    ->condition('language', $language, '=')
+    ->execute()
+    ->fetchAssoc();
+  return $result['prefix'];
 }
 
 /**
