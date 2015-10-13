@@ -307,12 +307,8 @@ function dosomething_global_convert_country_to_language($country) {
  *  The URL prefix mapped to this language
  */
 function dosomething_global_get_prefix_for_language($language) {
-  $result = db_select('languages', 'l')
-    ->fields('l')
-    ->condition('language', $language, '=')
-    ->execute()
-    ->fetchAssoc();
-  return $result['prefix'];
+  $languages = language_list();
+  return $languages[$language]->prefix;
 }
 
 /**
