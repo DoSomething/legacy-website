@@ -297,6 +297,15 @@ function dosomething_global_convert_country_to_language($country) {
   return NULL;
 }
 
+/**
+ * Converts the given language into its assigned URL prefix.
+ *
+ * @param string language
+ *  The language to get the prefix for (eg: 'en', 'mx')
+ *
+ * @return
+ *  The URL prefix mapped to this language
+ */
 function dosomething_global_get_prefix_for_language($language) {
   $result = db_select('languages', 'l')
     ->fields('l')
