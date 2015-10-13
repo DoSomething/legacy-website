@@ -40,7 +40,7 @@ function dosomething_shipment_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_shipment_admin_config_form'),
     'access callback' => 'user_access',
-    'access arguments' => array('administer modules'),
+    'access arguments' => array('edit campaign overrides'),
     'file' => 'dosomething_shipment.admin.inc',
   );
   return $items;

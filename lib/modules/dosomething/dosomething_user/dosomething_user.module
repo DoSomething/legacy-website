@@ -101,7 +101,7 @@ function dosomething_user_menu() {
   $items['admin/users/clean-slate'] = array(
     'title' => 'Clean Slate',
     'access callback' => 'user_access',
-    'access arguments' => array('access administration menu'),
+    'access arguments' => array('edit campaign overrides'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_user_clean_slate_form'),
     'file' => 'dosomething_user.admin.inc',
