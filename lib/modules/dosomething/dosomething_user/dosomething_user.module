@@ -446,7 +446,8 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
     $account = user_load_by_mail($form_state['input']['name']);
     if (isset($account->mail)) {
       if (module_exists('dosomething_global')) {
-        $user_country_code = dosomething_global_convert_language_to_country($account->language);
+        $user_language = dosomething_global_get_user_language($account);
+        $user_country_code = dosomething_global_convert_language_to_country($user_language);
       }
       // Send external message request
       $params = array(
@@ -454,8 +455,8 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
         'uid' => $account->uid,
         'first_name' => dosomething_user_get_field('field_first_name', $account),
         'reset_link' => user_pass_reset_url($account),
-        'user_language'     => $account->language,
-        'user_country'      => isset($user_country_code) ? $user_country_code : 'US'
+        'user_language'     => isset($user_language) ? $user_language : 'en',
+        'user_country'      => isset($user_country_code) ? $user_country_code : 'US',
       );
       if (module_exists('dosomething_mbp')) {
         dosomething_mbp_request('user_password', $params);
@@ -485,12 +486,16 @@ function dosomething_user_new_user($form, &$form_state) {
     return;
   }
 
-  global $user;
-  $account = $user;
-
   // Should we sign this kid up for messages?
   if (dosomething_user_is_under_thirteen()) {
     return;
+  }
+
+  global $user;
+  $account = $user;
+  if (module_exists('dosomething_global')) {
+    $user_language = dosomething_global_get_user_language($account);
+    $user_country_code = dosomething_global_convert_language_to_country($user_language);
   }
 
   // Send external message request.
@@ -500,8 +505,8 @@ function dosomething_user_new_user($form, &$form_state) {
     'uid'               => $account->uid,
     'first_name'        => dosomething_user_get_field('field_first_name', $account),
     'birthdate'         => dosomething_user_get_field('field_birthdate', $account),
-    'user_language'     => $account->language,
-    'user_country'      => isset($user_country_code) ? $user_country_code : 'US'
+    'user_language'     => isset($user_language) ? $user_language : 'en',
+    'user_country'      => isset($user_country_code) ? $user_country_code : 'US',
   );
 
   // 26+ Club: Override Mobile Commons.
