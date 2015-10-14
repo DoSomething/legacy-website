@@ -7,14 +7,6 @@ if (!defined('PARANEUE_PATH')) {
 require_once PARANEUE_PATH . '/includes/helpers.inc';
 
 function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_state) {
-  $form['theme_settings'] = array(
-      '#type'        => 'fieldset',
-      '#title'       => t('Theme Settings'),
-      '#collapsible' => FALSE,
-      '#collapsed'   => FALSE,
-      '#weight'      => -19
-  );
-
   $form['feature_flags'] = array(
       '#type'        => 'fieldset',
       '#title'       => t('Feature Flags'),
@@ -300,7 +292,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       // Get new country code setting if it exists, if not fallback to old setting.
       // @TODO: Remove this after we've updated theme settings everywhere.
       $heading_default = theme_get_setting('footer_links_' . $country . '_' . $column . '_column_heading');
-      if(!$heading_default === NULL) {
+      if($heading_default === NULL) {
         $heading_default = theme_get_setting('footer_links_' . $column . '_column_heading');
       }
 
@@ -313,7 +305,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       // Get new country code setting if it exists, if not fallback to old setting.
       // @TODO: Remove this after we've updated theme settings everywhere.
       $links_default = theme_get_setting('footer_links_' . $country . '_' . $column . '_column_links');
-      if(!$links_default === NULL) {
+      if($links_default === NULL) {
         $links_default = theme_get_setting('footer_links_' . $column . '_column_links');
       }
 

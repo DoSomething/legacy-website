@@ -192,7 +192,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     // Get new country code setting if it exists, if not fallback to old setting.
     // @TODO: Remove this after we've updated theme settings everywhere.
     $heading_setting = theme_get_setting($prefix . 'heading');
-    if(!$heading_setting === NULL) {
+    if($heading_setting === NULL) {
       $heading_setting = theme_get_setting('footer_links_' . $column . '_column_heading');
     }
     $footer_links[$column]['heading'] = $heading_setting;
@@ -200,7 +200,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     // Get new country code setting if it exists, if not fallback to old setting.
     // @TODO: Remove this after we've updated theme settings everywhere.
     $links_setting = theme_get_setting($prefix . 'links');
-    if(!$links_setting === NULL) {
+    if($links_setting === NULL) {
       $links_setting = theme_get_setting('footer_links_' . $column . '_column_links');
     }
     $links = explode("\n", trim($links_setting));
