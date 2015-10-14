@@ -491,10 +491,6 @@ msgstr ""
 msgid "Confirm Password"
 msgstr ""
 
-#: (duplicate) includes/form.inc:93 ;97
-msgid "!title !required"
-msgstr ""
-
 #: includes/helpers.inc:40
 msgid "Facebook"
 msgstr ""
