@@ -222,8 +222,6 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
-  global $user;
-  $account = $user;
   // If UPS is set to validate, and the user is from the US, validate address.
   $validate_address = (variable_get('dosomething_user_validate_address') && dosomething_settings_get_geo_country_code() === 'US');
 
