@@ -75,11 +75,20 @@ class ReportbackItem extends Entity {
       throw new Exception('No reportback items data found.');
     }
 
-    foreach($results as $item) {
-      $reportbackItem = new static;
-      $reportbackItem->build($item, false);
+    if (isset($reportbackItems['load_user_data'])) {
+      foreach($results as $item) {
+        $reportbackItem = new static;
+        $reportbackItem->build($item, TRUE);
 
-      $reportbackItems[] = $reportbackItem;
+        $reportbackItems[] = $reportbackItem;
+      }
+    } else {
+        foreach($results as $item) {
+        $reportbackItem = new static;
+        $reportbackItem->build($item, FALSE);
+
+        $reportbackItems[] = $reportbackItem;
+      }
     }
 
     return $reportbackItems;
@@ -92,7 +101,7 @@ class ReportbackItem extends Entity {
    * @param object $data
    * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data, $full = true) {
+  private function build($data, $full = TRUE) {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');

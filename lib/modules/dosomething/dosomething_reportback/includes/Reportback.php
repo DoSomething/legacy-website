@@ -121,12 +121,21 @@ class Reportback extends Entity {
       throw new Exception('No reportback data found.');
     }
 
-    foreach($results as $item) {
+    if (isset($reportbacks['load_user_data'])) {
+      foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
       $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item, false);
+      $reportback->build($item, TRUE);
 
       $reportbacks[] = $reportback;
+    } else {
+      foreach($results as $item) {
+        // @TODO: remove need for passing variable for constructor check.
+        $reportback = new static(['ignore' => TRUE]);
+        $reportback->build($item, FALSE);
+
+        $reportbacks[] = $reportback;
+      }
     }
 
     return $reportbacks;
@@ -139,7 +148,7 @@ class Reportback extends Entity {
    * @param object $data
    * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data, $full = true) {
+  private function build($data, $full = TRUE) {
     global $user;
 
     $this->id = $data->rbid;
