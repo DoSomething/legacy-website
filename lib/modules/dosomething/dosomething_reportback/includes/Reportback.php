@@ -128,6 +128,7 @@ class Reportback extends Entity {
       $reportback->build($item, TRUE);
 
       $reportbacks[] = $reportback;
+      }
     } else {
       foreach($results as $item) {
         // @TODO: remove need for passing variable for constructor check.
