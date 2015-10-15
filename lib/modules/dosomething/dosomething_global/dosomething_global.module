@@ -74,10 +74,7 @@ function dosomething_global_init() {
   // they request bare (Global English) URLs to nodes.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) &&
-      !dosomething_global_is_translation_request() &&
-      empty($_GET['noredirect'])) {
-
+  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) && empty($_GET['noredirect'])) {
     if ($user->uid) {
       dosomething_global_redirect_node_auth();
     } else {
@@ -426,7 +423,6 @@ function dosomething_global_is_translation_request() {
         // If the prefix matches a language prefix besides that of Global
         // English:
         if ($matches[1] == $sys_lang->prefix && $sys_lang->language != DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
-
           return TRUE;
         }
       }
@@ -530,12 +526,10 @@ function dosomething_global_redirect_node_anon() {
  * @param int $redirect_status
  */
 function dosomething_global_redirect_node_language($node, $language_code, $redirect_status = 302) {
-
   $languages = language_list();
 
   // Can only redirect to an published, translated version.
-  if (!empty($node->translations->data[$language_code]) && (bool)$node->translations->data[$language_code]['status']) {
-
+  if (!empty($node->translations->data[$language_code]) && $node->translations->data[$language_code]['status']) {
     $target_node = $node->translations->data[$language_code];
 
     // Might be overly formal: We could pull 'node/nid' from the current
@@ -545,6 +539,11 @@ function dosomething_global_redirect_node_language($node, $language_code, $redir
 
     drupal_goto(url($target_path, array('language' => $languages[$language_code])), array(), $redirect_status);
   }
+  else {
+    drupal_not_found();
+    drupal_exit();
+  }
+
 }
 
 /**
