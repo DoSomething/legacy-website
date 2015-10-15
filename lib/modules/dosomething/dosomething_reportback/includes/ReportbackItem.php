@@ -68,9 +68,6 @@ class ReportbackItem extends Entity {
    */
   public static function find(array $filters = []) {
     $reportbackItems = [];
-    // print_r($filters);
-    // die();
-
 
     $results = dosomething_reportback_get_reportback_items_query($filters);
 
