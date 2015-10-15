@@ -16,6 +16,11 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
 function dosomething_global_init() {
   global $user;
 
+  // We don't need to redirect cli request, such as drush.
+  if (drupal_is_cli()) {
+    return;
+  }
+
   // Redirect people hitting the homepage or explore campaigns to their local version
   $path = request_path();
   if ((drupal_is_front_page() && is_numeric(arg(1))) || $path == 'campaigns') {
