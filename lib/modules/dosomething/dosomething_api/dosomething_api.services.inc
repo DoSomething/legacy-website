@@ -157,6 +157,30 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'taxonomy_term' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'create' => array(
+          'enabled' => '1',
+        ),
+        'update' => array(
+          'enabled' => '1',
+        ),
+        'delete' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+      'actions' => array(
+        'selectNodes' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'terms' => array(
       'operations' => array(
         'index' => array(
