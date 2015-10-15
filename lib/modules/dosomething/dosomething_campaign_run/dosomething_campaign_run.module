@@ -282,4 +282,4 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   }
 
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
-  }
+}
