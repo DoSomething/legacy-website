@@ -529,12 +529,7 @@ function dosomething_global_redirect_node_language($node, $language_code, $redir
   $languages = language_list();
 
   // Can only redirect to an published, translated version.
-  if (!empty($node->translations->data[$language_code])) {
-    if (!$node->translations->data[$language_code]['status']) {
-      drupal_not_found();
-      drupal_exit();
-      return;
-    }
+  if (!empty($node->translations->data[$language_code]) && $node->translations->data[$language_code]['status']) {
     $target_node = $node->translations->data[$language_code];
 
     // Might be overly formal: We could pull 'node/nid' from the current
@@ -543,6 +538,9 @@ function dosomething_global_redirect_node_language($node, $language_code, $redir
     $target_path = sprintf('node/%s', $target_node['entity_id']);
 
     drupal_goto(url($target_path, array('language' => $languages[$language_code])), array(), $redirect_status);
+  } else {
+    drupal_not_found();
+    drupal_exit();
   }
 
 }
