@@ -75,20 +75,12 @@ class ReportbackItem extends Entity {
       throw new Exception('No reportback items data found.');
     }
 
-    if (isset($filters['load_user_data'])) {
-      foreach($results as $item) {
-        $reportbackItem = new static;
-        $reportbackItem->build($item, true);
+    foreach($results as $item) {
+      $load_user_data = dosomething_helpers_isset($filters['load_user_data'], NULL, FALSE);
+      $reportbackItem = new static(['ignore' => true]);
+      $reportbackItem->build($item, $load_user_data);
 
-        $reportbackItems[] = $reportbackItem;
-      }
-    } else {
-        foreach($results as $item) {
-        $reportbackItem = new static;
-        $reportbackItem->build($item, false);
-
-        $reportbackItems[] = $reportbackItem;
-      }
+      $reportbacks[] = $reportback;
     }
 
     return $reportbackItems;
@@ -101,7 +93,7 @@ class ReportbackItem extends Entity {
    * @param object $data
    * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data, $full = true) {
+  private function build($data, $full = false) {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
