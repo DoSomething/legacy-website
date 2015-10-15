@@ -15,11 +15,6 @@ include_once 'dosomething_user.theme.inc';
  */
 function dosomething_user_preprocess_page(&$vars) {
   $school_api_endpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
-  if (isset($_SESSION['dosomething_user_log_login'])) {
-    dosomething_helpers_add_analytics_event("login", $_SESSION['dosomething_user_log_login']);
-    unset($_SESSION['dosomething_user_log_login']);
-  }
-
   $date_format = (dosomething_settings_get_geo_country_code() === 'US') ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
   drupal_add_js(
     array('dosomethingUser' =>
@@ -222,8 +217,6 @@ function dosomething_user_is_staff($user = NULL) {
  * Implements hook_form_alter().
  */
 function dosomething_user_form_alter(&$form, $form_state, $form_id) {
-  global $user;
-  $account = $user;
   // If UPS is set to validate, and the user is from the US, validate address.
   $validate_address = (variable_get('dosomething_user_validate_address') && dosomething_settings_get_geo_country_code() === 'US');
 
@@ -236,7 +229,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Helper text & additional data.
       _dosomething_user_add_signup_data($form);
       $form['#submit'][] = 'dosomething_user_login_submit';
-      $_SESSION['dosomething_user_log_login'] = "login";
     break;
 
     case 'user_profile_form':
@@ -480,8 +472,24 @@ function dosomething_user_update_user($form, &$form_state) {
  * Does actions after a new user has registered via the web.
  * Sign user up for emails/texts.
  */
-function dosomething_user_new_user($form, &$form_state) {
-  $_SESSION['dosomething_user_log_login'] = "register";
+function dosomething_user_new_user($form, &$form_state)
+{
+  // Trigger an analytics event on registration
+  // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
+  // since registered users are subsequently logged in to their new accounts.
+  dosomething_helpers_add_analytics_event('Authentication', 'Register');
+
+  // Sign the user up for transactional messaging
+  _dosomething_user_send_to_message_broker();
+}
+
+/**
+ * Sign the authenticated user up for transactional messaging through Message Broker
+ * if the required modules are enabled and the user meets relevant criteria.
+ *
+ * @see dosomething_user_new_user
+ */
+function _dosomething_user_send_to_message_broker() {
   if (!module_exists('dosomething_mbp') || !module_exists('dosomething_signup')) {
     return;
   }
@@ -686,6 +694,16 @@ function dosomething_user_login_submit($form, &$form_state) {
     // Redirect to campaign node on reportback permalink pages.
     $form_state['redirect'] = drupal_get_path_alias('node/' . $nid);
   }
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function dosomething_user_user_login(&$edit, $account) {
+  // Trigger an analytics event on login
+  // @NOTE: This will *also* be triggered on registration, since registered
+  // users are subsequently logged in to their new accounts.
+  dosomething_helpers_add_analytics_event('Authentication', 'Login');
 }
 
 /**
