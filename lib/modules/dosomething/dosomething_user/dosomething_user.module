@@ -725,12 +725,18 @@ function _dosomething_user_add_signup_data(&$form) {
         '#access' => FALSE,
       );
     }
-    $form['#action'] = '/' . drupal_get_path_alias('node/' . $nid);
-    // Source needs to be added into query string into form action,
-    // in order to be found later in form submit states.
-    if ($source) {
-      $form['#action'] = $form['#action'] . '?source=' . $source;
-    }
+
+    // Use the global url as the form action so the user gets redirected to the right page.
+    $lang_code = dosomething_global_get_language($user, $node);
+
+    $url_options = array(
+      'language' => $lang_code,
+      'query' => array(
+        'source' => $source,
+      ),
+    );
+
+    $form['#action'] = dosomething_global_url('/' . drupal_get_path_alias('node/' . $nid), $url_options);
   }
 }
 
