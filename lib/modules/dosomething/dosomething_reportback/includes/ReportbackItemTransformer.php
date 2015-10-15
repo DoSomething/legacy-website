@@ -20,6 +20,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
     // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
     $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
+    $filters['load_user_data'] = $parameters['load_user_data'] === 'true' ? TRUE : NULL;
 
     try {
       $reportbackItems = ReportbackItem::find($filters);

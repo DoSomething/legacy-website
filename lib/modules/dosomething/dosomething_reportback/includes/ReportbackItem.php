@@ -68,6 +68,9 @@ class ReportbackItem extends Entity {
    */
   public static function find(array $filters = []) {
     $reportbackItems = [];
+    // print_r($filters);
+    // die();
+
 
     $results = dosomething_reportback_get_reportback_items_query($filters);
 
@@ -75,7 +78,9 @@ class ReportbackItem extends Entity {
       throw new Exception('No reportback items data found.');
     }
 
-    if (isset($reportbackItems['load_user_data'])) {
+    if (isset($filters['load_user_data'])) {
+      print_r('hi');
+      die();
       foreach($results as $item) {
         $reportbackItem = new static;
         $reportbackItem->build($item, TRUE);
@@ -128,7 +133,7 @@ class ReportbackItem extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user->data, true);
+      $northstar_user = json_decode($northstar_user->data, TRUE);
       $northstar_user = (object) $northstar_user['data'][0];
 
       $this->user = [
