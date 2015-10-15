@@ -114,8 +114,6 @@ class Reportback extends Entity {
    */
   public static function find(array $filters = []) {
     $reportbacks = [];
-    // print_r($filters);
-    // die();
 
     $results = dosomething_reportback_get_reportbacks_query($filters);
 
@@ -124,22 +122,18 @@ class Reportback extends Entity {
     }
 
     if (isset($filters['load_user_data'])) {
-      print_r('hi');
-      die();
-      foreach($results as $item) {
-      // @TODO: remove need for passing variable for constructor check.
-      $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item, TRUE);
-
-      $reportbacks[] = $reportback;
-      }
-    } else {
-      print_r('bye');
-      die();
       foreach($results as $item) {
         // @TODO: remove need for passing variable for constructor check.
-        $reportback = new static(['ignore' => TRUE]);
-        $reportback->build($item, FALSE);
+        $reportback = new static(['ignore' => true]);
+        $reportback->build($item, true);
+
+        $reportbacks[] = $reportback;
+      }
+    } else {
+      foreach($results as $item) {
+        // @TODO: remove need for passing variable for constructor check.
+        $reportback = new static(['ignore' => true]);
+        $reportback->build($item, false);
 
         $reportbacks[] = $reportback;
       }
@@ -155,7 +149,7 @@ class Reportback extends Entity {
    * @param object $data
    * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data, $full = TRUE) {
+  private function build($data, $full = true) {
     global $user;
 
     $this->id = $data->rbid;
@@ -177,7 +171,7 @@ class Reportback extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user->data, TRUE);
+      $northstar_user = json_decode($northstar_user->data, true);
       $northstar_user = (object) $northstar_user['data'][0];
 
       $this->user = [

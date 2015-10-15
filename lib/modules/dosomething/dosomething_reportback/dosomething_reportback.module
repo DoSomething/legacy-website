@@ -1091,12 +1091,6 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
     $query->orderBy('rb.updated', 'DESC');
   }
 
-  if (isset($params['load_user_data'])) {
-    print_r('yo');
-    die();
-    $query == TRUE;
-  }
-
   return $query;
 }
 
