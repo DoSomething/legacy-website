@@ -269,7 +269,7 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
 
   // If the campaign nid is set let's add some help text!
   // This will break when we create MX & BR (and etc) campaign runs. the helpers extract only checks for 'en'
-  $campaign_nid = $form['#node']->field_campaigns[dosomething_helpers_extract_field_data($form['#node']->field_campaigns)][0]['target_id'];
+  $campaign_nid = dosomething_helpers_extract_field_data($form['#node']->field_campaigns)[0]['target_id'];
   if (isset($campaign_nid)) {
     // Get totals & language from the campaign.
     $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
