@@ -169,8 +169,9 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_win_module(&$vars, $wrapper) {
   $node = node_load($vars['nid']);
   $rb_progress = dosomething_reportback_get_reportback_total_plus_override($node->nid);
-  $copy_token_replaced = token_replace(t(variable_get('dosomething_campaign_win_copy'), array('node' => $node)));
-
+  $copy = t(variable_get('dosomething_campaign_win_copy'));
+  $copy_token_replaced = token_replace($copy, array('node' => $node));
+  
   // Get random promoted reportback image
   $parameters = array(
     'nid' => $vars['nid'],

@@ -183,9 +183,13 @@ function dosomething_global_menu_alter(&$items) {
   $items['node/%node/translate']['access callback'] = 'user_access';
   $items['node/%node/translate']['access arguments'] = array('translate any entity');
 
-  // // Make sure all admins can see this
+  // Make sure all admins can see this
   $items['admin/content/search']['access callback'] = 'user_access';
   $items['admin/content/search']['access arguments'] = array('access administration menu');
+
+  // Remove regional admin access
+  $items['admin/config/regional/translate']['access callback'] = 'user_access';
+  $items['admin/config/regional/translate']['access arguments'] = array('translate any entity');
 }
 
 /**
