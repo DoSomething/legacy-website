@@ -96,11 +96,7 @@ function dosomething_global_get_url_variables() {
   $path = request_path();
   $request_method = strtolower($_SERVER['REQUEST_METHOD']);
   $homepage = (drupal_is_front_page() && is_numeric(arg(1)));
-  $url_path_prefix = dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE);
-  $possible_prefix = explode('/', $path)[0];
-  if (dosomething_global_is_path_prefix($possible_prefix)) {
-    $url_path_prefix = $possible_prefix;
-  }
+  $url_path_prefix = dosomething_global_get_current_prefix());
   return array(
     'path' => $path,
     'request_method' => $request_method,
@@ -576,5 +572,5 @@ function dosomething_global_get_current_prefix() {
     }
   }
 
-  return NULL;
+  return $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix;
 }
