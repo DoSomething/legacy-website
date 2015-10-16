@@ -87,10 +87,10 @@ function dosomething_global_init() {
  * to be used in dosomething_global_init().
  *
  * @return array
- *      path - Entire path of the URL, prefix included
- *      request_method - The type of request (Get, Post, etc)
- *      is_homepage - Is this the homepage?
- *      url_path_prefix - The path prefix specified in the URL. Default is global.
+ *      path (String) - Entire path of the URL, prefix included
+ *      request_method (String) - The type of request (Get, Post, etc)
+ *      is_homepage (bool) - Is this the homepage?
+ *      url_path_prefix (String) - The path prefix specified in the URL. Default is global.
  */
 function dosomething_global_get_url_variables() {
   $path = request_path();
@@ -114,10 +114,10 @@ function dosomething_global_get_url_variables() {
  * to be used in dosomething_global_init().
  *
  * @return array
- *      header_country_code - Country code specified in the headers
- *      user_language - Matching language, or NULL for no matching installed language
- *      user_path_prefix - The prefix which matches the users language
- *      is_user_page - Is this the user profile page?
+ *      header_country_code (String) - Country code specified in the headers
+ *      user_language (String) - Matching language, or NULL for no matching installed language
+ *      user_path_prefix (String) - The prefix which matches the users language
+ *      is_user_page (bool) - Is this the user profile page?
  */
 function dosomething_global_get_user_variables() {
   $header_country_code = dosomething_settings_get_geo_country_code();
@@ -137,12 +137,12 @@ function dosomething_global_get_user_variables() {
  * to be used in dosomething_global_init().
  *
  * @return array
- *      node_no_redirect - Should we skip redirecting the node?
- *      is_node - Is this page a node?
- *      is_node_edit - Is this a node edit page?
- *      nid - If this is a node, the NID
- *      node - If this is a node, the loaded node
- *      node_edit_language - If this is a node edit, the specified edit language
+ *      node_no_redirect (bool) - Should we skip redirecting the node?
+ *      is_node (bool) - Is this page a node?
+ *      is_node_edit (bool) - Is this a node edit page?
+ *      nid (String) - If this is a node, the NID
+ *      node (Object) - If this is a node, the loaded node
+ *      node_edit_language (String) - If this is a node edit, the specified edit language
  */
 function dosomething_global_get_node_variables() {
   $node_no_redirect = !empty($_GET['noredirect']);
