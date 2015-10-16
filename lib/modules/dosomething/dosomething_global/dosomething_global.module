@@ -581,3 +581,20 @@ function dosomething_global_url($path, $options = NULL) {
   }
   return url($path, $options);
 }
+
+/**
+ * Return the current country prefix being used.
+ *
+ */
+function dosomething_global_get_current_prefix() {
+  $request_path = explode('/', request_path());
+  if (!empty($request_path[0])) {
+    $languages = language_list();
+
+    foreach ($languages as $langcode => $lang_data) {
+      if ($lang_data->prefix == $request_path[0]) {
+        return $lang_data->prefix;
+      }
+    }
+  }
+}
