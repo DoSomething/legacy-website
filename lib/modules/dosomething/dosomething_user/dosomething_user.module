@@ -271,7 +271,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
         // Add an after build to remove the language switcher.
-        $form['#after_build'][] = 'dosomething_user_remove_language_switcher';
+        $form['#after_build'][] = 'dosomething_user_remove_language_and_country_switcher';
       }
       // else if staff:
       else {
@@ -316,7 +316,8 @@ function dosomething_user_non_us_birthday_format($form, &$form_state) {
  * After build to remove language switcher.
  *
  */
-function dosomething_user_remove_language_switcher($form, &$form_state) {
+function dosomething_user_remove_language_and_country_switcher($form, &$form_state) {
+  $form['field_address'][LANGUAGE_NONE][0]['address']['country']['#access'] = FALSE;
   unset($form['locale']);
   return $form;
 }
