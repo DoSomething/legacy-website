@@ -351,7 +351,8 @@ function paraneue_dosomething_add_info_bar(&$vars) {
       if (array_key_exists($country_prefix, $country_contact_emails)) {
         $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_prefix] .'">'. $country_contact_emails[$country_prefix] . '</a>';
       // All other countries get the zendesk form.
-      } else {
+      }
+      else {
         $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
         $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
 
