@@ -36,14 +36,13 @@ function dosomething_global_init() {
     dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
     return;
   }
-
   // If we already have a path prefix,
   // or the user is a global english speaker,
   // all logic after this statement should not run.
   if ($url_variables['url_path_prefix'] != dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE)) {
     return;
   }
-  else if($user_variables['user_language'] == NULL) {
+  else if($user_variables['user_language'] == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
     return;
   }
 
@@ -461,6 +460,14 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
   return $language;
 }
 
+/**
+ * Handles redirecting the node edit page to proper translation
+ *
+ * @param $node
+ *   The node to redirect
+ * @param $user_language
+ *   The users language
+ */
 function dosomething_global_redirect_node_edit($node, $user_language) {
   // Load the languages being used
   $src_language = $node->language;
@@ -474,20 +481,27 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
     $lang_append = $new_translation_prefix . $user_language;
 
     // Build complete URL and redirect
-    $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
+    $new_url = str_replace(' ', '', '/node/' . $node->nid . '/edit/' . $lang_append);
     drupal_goto($new_url);
   }
 }
 
 /**
- * Handle redirects to translated content for authenticated users. In this
- * case:
+ * Handle redirects to translated content
  *
- * - If my profile includes a language preference,
- * - and I'm not a privileged user (admin, editor, etc.),
- * - and I request a bare URL (e.g., /campaigns/sample),
- * - and there is a translation available (e.g., /voluntario/ejemplo),
- * - then issue a 302 redirect to the translation's URL.
+ * @param $user_lang
+ *   The users language
+ * @param $node
+ *   The specified node to redirect too
+ * @param $redirect_status
+ *   The status to redirect with. 301 for anonymous, 302 for authenticated
+ *
+ * If the user is an administrator or global english speaker
+ *  - Do not redirect
+ * If the node has a translation available for the specified language
+ *  - Redirect them to the translation
+ * Else
+ *  - 404 the user
  */
 function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
 
@@ -499,7 +513,7 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
   }
 
   // Don't redirect for Global English speakers.
-  if ($user_lang == NULL) {
+  if ($user_lang == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
     return;
   }
 
