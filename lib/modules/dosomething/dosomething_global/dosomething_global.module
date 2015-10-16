@@ -64,9 +64,9 @@ function dosomething_global_init() {
   // Passing 'noredirect=1' will defeat the redirect.
   if ($node_variables['is_node'] && !$node_variables['is_node_edit'] && !$node_variables['node_no_redirect']) {
     if ($user_variables['user']->uid) {
-      dosomething_global_redirect_node_auth();
+      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 302);
     } else {
-      dosomething_global_redirect_node_anon();
+      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 301);
     }
     return;
   }
@@ -457,109 +457,34 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  * - and there is a translation available (e.g., /voluntario/ejemplo),
  * - then issue a 302 redirect to the translation's URL.
  */
-function dosomething_global_redirect_node_auth() {
-  global $user;
+function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
 
   // Don't do redirects for privileged users.
-  if (user_access('access administration menu')) {
-    return;
-  }
-
-  // User language.
-  $user_lang_code = $user->language ?: 'en';
-
-  // All languages, as an array of objects.
-  $languages = language_list();
-
-  $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-  if (empty($languages[$global_lang_code])) {
-    watchdog('dosomething_global', "Can't load %lang language",
-      array('%lang' => $global_lang_code), WATCHDOG_ERROR);
-    return;
-  }
-
-  // Don't redirect for Global English speakers.
-  if ($user_lang_code == $global_lang_code) {
-    return;
-  }
-
-  $node = node_load(arg(1));
-
-  if ($languages[$user_lang_code]) {
-    dosomething_global_redirect_node_language($node, $user_lang_code, 302);
-  }
-}
-
-/**
- * Handle redirects to translated content for anonymous users. In this
- * case:
- *
- * - If I request a bare URL (e.g., /campaigns/sample),
- * - and there is a translation available (e.g., /voluntario/ejemplo),
- * - then issue a 301 redirect to the translation's URL.
- */
-function dosomething_global_redirect_node_anon() {
-
-  // All languages, as an array of objects.
-  $languages = language_list();
-
-  // Map GeoIP country to a system language. Default to 'en-global'.
-  $user_country_code = dosomething_settings_get_geo_country_code();
-  $target_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-  $lang_map = variable_get('dosomething_global_language_map', '');
-  foreach ($lang_map as $lang_key => $lang) {
-    if ($lang['country'] == $user_country_code) {
-      $target_lang_code = $lang_key;
-      break;
+  if ($redirect_status == 302) {
+    if (user_access('access administration menu')) {
+      return;
     }
   }
 
-  // If we're actually supposed to show the en-global version:
-  if ($target_lang_code == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+  // Don't redirect for Global English speakers.
+  if ($user_lang == NULL) {
     return;
   }
 
-  if (empty($languages[$target_lang_code])) {
-    watchdog('dosomething_global', "Can't load %lang language",
-      array('%lang' => $target_lang_code), WATCHDOG_ERROR);
-    return;
-  }
-
-  $node = node_load(arg(1));
-
-  dosomething_global_redirect_node_language($node, $target_lang_code, 301);
-}
-
-/**
- * Given a node object, a language code (e.g., "en", "en-global", "es-mx"),
- * and a redirect status, redirect the request to the desired translation's
- * URL.
- *
- * @param $node
- * @param $language_code
- * @param int $redirect_status
- */
-function dosomething_global_redirect_node_language($node, $language_code, $redirect_status = 302) {
-  $languages = language_list();
-
-  // Can only redirect to an published, translated version.
-  if (!empty($node->translations->data[$language_code]) && $node->translations->data[$language_code]['status']) {
-    $target_node = $node->translations->data[$language_code];
+  if (!empty($node->translations->data[$user_lang]) && $node->translations->data[$user_lang]['status']) {
+    $target_node = $node->translations->data[$user_lang];
 
     // Might be overly formal: We could pull 'node/nid' from the current
     // request. This is in case of the unlikely (impossible?) event that
     // a translated version of this node has a different entity ID.
     $target_path = sprintf('node/%s', $target_node['entity_id']);
 
-    drupal_goto(url($target_path, array('language' => $languages[$language_code])), array(), $redirect_status);
+    drupal_goto(url($target_path, array('language' => $languages[$user_lang])), array(), $redirect_status);
   }
   else {
     drupal_not_found();
     drupal_exit();
   }
-
 }
 
 /**
