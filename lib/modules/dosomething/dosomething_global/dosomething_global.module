@@ -14,77 +14,61 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
  * Implements hook_init().
  */
 function dosomething_global_init() {
-  global $user;
-
   // We don't need to redirect cli request, such as drush.
   if (drupal_is_cli()) {
     return;
   }
 
-  // Redirect people hitting the homepage or explore campaigns to their local version
-  $path = request_path();
-  if ((drupal_is_front_page() && is_numeric(arg(1))) || $path == 'campaigns') {
-    // Cannot use arg() as it doesn't return path prefixes
-    $args = explode('/', $path);
-
-    // Only apply logic to Global homepage
-    if (drupal_is_front_page()) {
-      if (!empty($path) && $args[0] != 'node') {
-        return;
-      }
-    }
-
-    $country_code = dosomething_settings_get_geo_country_code();
-    $language = dosomething_global_convert_country_to_language($country_code);
-    // No matching language, serve the global page
-    if ($language == NULL) {
-      return;
-    }
-
-    // Get users local path prefix and verify we support it
-    $path_prefix = dosomething_global_get_prefix_for_language($language);
-    if ($path_prefix == NULL) {
-      return;
-    }
-
-    // Redirect user
-    drupal_goto($path_prefix . '/' . current_path());
+  $languages = language_list();
+  if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
+    watchdog('dosomething_global', "Can't load %lang language",
+      array('%lang' => $global_lang_code), WATCHDOG_ERROR);
+    return;
   }
 
+  global $user;
+  $url_variables = dosomething_global_get_url_variables();
+  $user_variables = dosomething_global_get_user_variables();
+  $node_variables = dosomething_global_get_node_variables();
+
   // Verify we're dealing with a node edit with no translation specification in the URL
-  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
-    // Load the page node and user
-    $nid = arg(1);
-    $node = node_load($nid);
+  if ($node_variables['is_node'] && $node_variables['is_node_edit'] && $node_variables['node_edit_language'] == NULL) {
+    dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
+    return;
+  }
 
-    // Load the languages being used
-    $src_language = $node->language;
-    $user_language = $user->language ?: 'en';
+  // If we already have a path prefix,
+  // or the user is a global english speaker,
+  // all logic after this statement should not run.
+  if ($url_variables['url_path_prefix'] != dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE)) {
+    return;
+  }
+  else if($user_variables['user_language'] == NULL) {
+    return;
+  }
 
-    // If we're not working on a translation, no need to re-direct.
-    if ($src_language != $user_language) {
-      // Determines if the url needs the /add/source/ component
-      $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
+  // Configure the correct path prefix
+  $url_variables['url_path_prefix'] = dosomething_global_get_prefix_for_language($user_variables['user_language']);
 
-      // Append the user language
-      $lang_append = $new_translation_prefix . $user_language;
-
-      // Build complete URL and redirect
-      $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
-      drupal_goto($new_url);
-    }
+  // Redirect people hitting the homepage
+  // or explore campaigns to their local version.
+  if ($url_variables['is_homepage'] || $path == 'campaigns') {
+    // Redirect user to /country_code page.
+    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    return;
   }
 
   // Handle translation redirects for authenticated and anonymous users when
   // they request bare (Global English) URLs to nodes.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if (arg(0) == 'node' && is_numeric(arg(1)) && empty(arg(2)) && empty($_GET['noredirect'])) {
-    if ($user->uid) {
+  if ($node_variables['is_node'] && !$node_variables['is_node_edit'] && !$node_variables['node_no_redirect']) {
+    if ($user_variables['user']->uid) {
       dosomething_global_redirect_node_auth();
     } else {
       dosomething_global_redirect_node_anon();
     }
+    return;
   }
 
   // Handle translation redirects for authenticated users when they request
@@ -93,36 +77,59 @@ function dosomething_global_init() {
   // Don't redirect POSTs.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-
-  $request_method = strtolower($_SERVER['REQUEST_METHOD']);
-
-  if (arg(0) == 'user' && 'post' !== $request_method && empty($_GET['noredirect'])) {
-
-    if (!dosomething_global_is_translation_request()) {
-      // User language.
-      $user_lang_code = $user->language ?: 'en';
-
-      // All languages, as an array of objects.
-      $languages = language_list();
-
-      $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-
-      if (empty($languages[$global_lang_code])) {
-        watchdog('dosomething_global', "Can't load %lang language",
-          array('%lang' => $global_lang_code), WATCHDOG_ERROR);
-        return;
-      }
-
-      // Don't redirect for Global English speakers.
-      if ($user_lang_code != $global_lang_code && !empty($languages[$user_lang_code])) {
-
-        $link = sprintf('%s/%s', $languages[$user_lang_code]->prefix, request_path());
-
-        drupal_goto(url($link));
-      }
-    }
+  if ($user_variables['is_user_page'] && $url_variables['request_method'] !== 'post' && !$node_variables['node_no_redirect']) {
+    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    return;
   }
+}
 
+function dosomething_global_get_url_variables() {
+  $path = request_path();
+  $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+  $homepage = (drupal_is_front_page() && is_numeric(arg(1)));
+  $url_path_prefix = dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE);
+  $possible_prefix = explode('/', $path)[0];
+  if (dosomething_global_is_path_prefix($possible_prefix)) {
+    $url_path_prefix = $possible_prefix;
+  }
+  return array(
+    'path' => $path,
+    'request_method' => $request_method,
+    'is_homepage' => $homepage,
+    'url_path_prefix' => $url_path_prefix
+  );
+}
+
+function dosomething_global_get_user_variables() {
+  $header_country_code = dosomething_settings_get_geo_country_code();
+  $user_language = dosomething_global_convert_country_to_language($header_country_code);
+  $user_path_prefix = dosomething_global_get_prefix_for_language($user_language);
+  $is_user_page = arg(0) == 'user';
+  return array(
+    'header_country_code' => $header_country_code,
+    'user_language' => $user_language,
+    'user_path_prefix' => $user_path_prefix,
+    'is_user_page' => $is_user_page
+  );
+}
+
+function dosomething_global_get_node_variables() {
+  $node_no_redirect = !empty($_GET['noredirect']);
+  $is_node = (arg(0) == "node" && is_numeric(arg(1)));
+  $is_node_edit = (arg(2) == "edit");
+  $vars = array(
+    'node_no_redirect' => $node_no_redirect,
+    'is_node' => $is_node,
+    'is_node_edit' => $is_node_edit
+  );
+  if ($is_node) {
+    $vars['nid'] = arg(1);
+    $vars['node'] = node_load($nid);
+  }
+  if ($is_node_edit) {
+    $vars['node_edit_language'] = arg(3);
+  }
+  return $vars;
 }
 
 /**
@@ -367,6 +374,16 @@ function dosomething_global_get_prefix_for_language($language) {
   return $languages[$language]->prefix;
 }
 
+function dosomething_global_is_path_prefix($prefix) {
+  $languages = language_list();
+  foreach ($languages as $lang) {
+    if ($lang->prefix == $prefix) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
 /**
  * Get the appropriate language for the application.
  *
@@ -412,32 +429,22 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
   return $language;
 }
 
-/**
- * Detect from the original request path whether the current request is for
- * translated (non-Global English) content.
- *
- * This assumes that Global English is mapped to a blank ('') URL prefix.
- *
- * @return bool
- */
-function dosomething_global_is_translation_request() {
+function dosomething_global_redirect_node_edit($node, $user_language) {
+  // Load the languages being used
+  $src_language = $node->language;
 
-  $languages = language_list();
-  $matches = array();
+  // If we're not working on a translation, no need to re-direct.
+  if ($src_language != $user_language) {
+    // Determines if the url needs the /add/source/ component
+    $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
 
-  if (preg_match('/([^\/]+)\//', request_path(), $matches)) {
-    if (!empty($matches[1])) {
-      foreach ($languages as $sys_lang) {
+    // Append the user language
+    $lang_append = $new_translation_prefix . $user_language;
 
-        // If the prefix matches a language prefix besides that of Global
-        // English:
-        if ($matches[1] == $sys_lang->prefix && $sys_lang->language != DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
-          return TRUE;
-        }
-      }
-    }
+    // Build complete URL and redirect
+    $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
+    drupal_goto($new_url);
   }
-  return FALSE;
 }
 
 /**
