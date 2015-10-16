@@ -124,7 +124,7 @@ function dosomething_global_get_node_variables() {
   );
   if ($is_node) {
     $vars['nid'] = arg(1);
-    $vars['node'] = node_load($nid);
+    $vars['node'] = node_load($vars['nid']);
   }
   if ($is_node_edit) {
     $vars['node_edit_language'] = arg(3);
