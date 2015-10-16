@@ -83,6 +83,16 @@ function dosomething_global_init() {
   }
 }
 
+/**
+ * Extract relevant URL variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      path - Entire path of the URL, prefix included
+ *      request_method - The type of request (Get, Post, etc)
+ *      is_homepage - Is this the homepage?
+ *      url_path_prefix - The path prefix specified in the URL. Default is global.
+ */
 function dosomething_global_get_url_variables() {
   $path = request_path();
   $request_method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -100,6 +110,16 @@ function dosomething_global_get_url_variables() {
   );
 }
 
+/**
+ * Extract relevant user variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      header_country_code - Country code specified in the headers
+ *      user_language - Matching language, or NULL for no matching installed language
+ *      user_path_prefix - The prefix which matches the users language
+ *      is_user_page - Is this the user profile page?
+ */
 function dosomething_global_get_user_variables() {
   $header_country_code = dosomething_settings_get_geo_country_code();
   $user_language = dosomething_global_convert_country_to_language($header_country_code);
@@ -113,6 +133,18 @@ function dosomething_global_get_user_variables() {
   );
 }
 
+/**
+ * Extract relevant node variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      node_no_redirect - Should we skip redirecting the node?
+ *      is_node - Is this page a node?
+ *      is_node_edit - Is this a node edit page?
+ *      nid - If this is a node, the NID
+ *      node - If this is a node, the loaded node
+ *      node_edit_language - If this is a node edit, the specified edit language
+ */
 function dosomething_global_get_node_variables() {
   $node_no_redirect = !empty($_GET['noredirect']);
   $is_node = (arg(0) == "node" && is_numeric(arg(1)));
