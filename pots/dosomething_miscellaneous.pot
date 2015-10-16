@@ -24,3 +24,67 @@ msgstr ""
 msgid "The changes have been saved."
 msgstr ""
 
+#: Account registration successful message.
+msgid "Registration successful. You are now logged in."
+msgstr ""
+
+#: User profile page title.
+msgid "User account"
+msgstr ""
+
+#: Legal copy.
+msgid "Privacy Policy"
+msgstr ""
+
+#: Month of the year.
+msgid "January"
+msgstr ""
+
+#: Month of the year.
+msgid "February"
+msgstr ""
+
+#: Month of the year.
+msgid "March"
+msgstr ""
+
+#: Month of the year.
+msgid "April"
+msgstr ""
+
+#: Month of the year.
+msgid "May"
+msgstr ""
+
+#: Month of the year.
+msgid "June"
+msgstr ""
+
+#: Month of the year.
+msgid "July"
+msgstr ""
+
+#: Month of the year.
+msgid "August"
+msgstr ""
+
+#: Month of the year.
+msgid "September"
+msgstr ""
+
+#: Month of the year.
+msgid "October"
+msgstr ""
+
+#: Month of the year.
+msgid "November"
+msgstr ""
+
+#: Month of the year.
+msgid "December"
+msgstr ""
+
+#: Preposition used with calendar deadline date.
+msgid "by"
+msgstr ""
+
