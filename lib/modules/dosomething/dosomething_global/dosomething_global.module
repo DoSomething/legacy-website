@@ -52,7 +52,7 @@ function dosomething_global_init() {
 
   // Redirect people hitting the homepage
   // or explore campaigns to their local version.
-  if ($url_variables['is_homepage'] || $path == 'campaigns') {
+  if ($url_variables['is_homepage'] || $url_variables['path'] == 'campaigns') {
     // Redirect user to /country_code page.
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
