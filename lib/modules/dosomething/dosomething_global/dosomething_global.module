@@ -96,7 +96,7 @@ function dosomething_global_get_url_variables() {
   $path = request_path();
   $request_method = strtolower($_SERVER['REQUEST_METHOD']);
   $homepage = (drupal_is_front_page() && is_numeric(arg(1)));
-  $url_path_prefix = dosomething_global_get_current_prefix());
+  $url_path_prefix = dosomething_global_get_current_prefix();
   return array(
     'path' => $path,
     'request_method' => $request_method,
