@@ -597,4 +597,6 @@ function dosomething_global_get_current_prefix() {
       }
     }
   }
+
+  return NULL;
 }
