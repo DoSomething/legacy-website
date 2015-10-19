@@ -502,6 +502,7 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  *  - 404 the user
  */
 function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
+  $languages = language_list();
 
   // Don't do redirects for privileged users.
   if ($redirect_status == 302) {
