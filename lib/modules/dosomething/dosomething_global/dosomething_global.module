@@ -386,8 +386,7 @@ function dosomething_global_convert_country_to_language($country) {
       return $lang_key;
     }
   }
-  // It is not the job of this function to determine a default language
-  return NULL;
+  return DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
 }
 
 /**
