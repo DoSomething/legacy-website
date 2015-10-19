@@ -50,12 +50,10 @@ function dosomething_reportback_user_default_permissions() {
     'name' => 'view any reportback',
     'roles' => array(
       'administrator' => 'administrator',
-      'brazil admin' => 'brazil admin',
       'communications team' => 'communications team',
       'editor' => 'editor',
       'global admin' => 'global admin',
       'member support' => 'member support',
-      'mexico admin' => 'mexico admin',
     ),
     'module' => 'dosomething_reportback',
   );
