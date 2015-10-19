@@ -140,6 +140,24 @@ function make_home_translatable {
 
 
 #=== FUNCTION ==================================================================
+# NAME: make_home_translatable
+# DESCRIPTION: Makes Home bundle translatable.
+#===============================================================================
+function make_static_content_translatable {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Run fixes.
+  # Fix Home translatable title values.
+  drush ds-global-titles-fix static_content
+
+  # Fix fields.
+}
+
+#=== FUNCTION ==================================================================
 # NAME: enable_campaign_field_collections
 # DESCRIPTION: Runs fixes for campaign field collections.
 #===============================================================================
@@ -165,12 +183,12 @@ function enable_campaign_field_collections {
 #----------------------------------------------------------------------
 # run
 #----------------------------------------------------------------------
-# enable
-
 if [[ $1 == "make-home-translatable" ]]; then
   make_home_translatable
 elif [[ $1 == "enable-campaign-field-collections" ]]; then
   enable_campaign_field_collections
+elif [[ $1 == "make-static-content-translatable" ]]; then
+  make_static_content_translatable
 elif [[ -z $1 ]]; then
   echo "Error: no arguments." >&2
 fi
