@@ -52,6 +52,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
     $form['field_first_name']['#attributes']['class'] = array('auth-twocol');
+    $form['field_first_name'][LANGUAGE_NONE][0]['value']['#title'] = t('First Name');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What do we call you?');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
@@ -66,6 +67,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     // @see _dosomething_user_register_display_fields().
     if (isset($form['field_last_name'])) {
       $form['field_last_name']['#weight'] = '-19';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#title'] = t('Last Name');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What\'s your P.E. teacher call you?');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'last_name';
