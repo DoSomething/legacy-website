@@ -53,7 +53,10 @@ function dosomething_global_init() {
   // or explore campaigns to their local version.
   if ($url_variables['is_homepage'] || $url_variables['path'] == 'campaigns') {
     // Redirect user to /country_code page.
-    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    if (isset($url_variables['url_path_prefix'])) {
+      // Only add a path prefix to the current path if one exists.
+      drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    }
     return;
   }
 
