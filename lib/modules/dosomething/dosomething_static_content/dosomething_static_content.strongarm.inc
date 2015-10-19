@@ -60,16 +60,19 @@ function dosomething_static_content_strongarm() {
           'weight' => '9',
         ),
         'path' => array(
-          'weight' => '0',
+          'weight' => '2',
         ),
         'metatags' => array(
-          'weight' => '8',
+          'weight' => '10',
         ),
         'redirect' => array(
-          'weight' => '9',
+          'weight' => '11',
         ),
         'xmlsitemap' => array(
-          'weight' => '10',
+          'weight' => '12',
+        ),
+        'language' => array(
+          'weight' => '1',
         ),
       ),
       'display' => array(),
