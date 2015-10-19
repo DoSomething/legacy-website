@@ -155,6 +155,24 @@ function make_static_content_translatable {
   drush ds-global-titles-fix static_content
 
   # Fix fields.
+  # Don't need: field_hero_image
+  # Done: field_subtitle
+  drush ds-global-field-fix field_intro_title
+  # Don't need: field_video
+  # Done: field_call_to_action
+  drush ds-global-field-fix field_cta_link
+  # Don't need: field_blocks
+  drush ds-global-field-fix field_additional_text_title
+  drush ds-global-field-fix field_additional_text
+
+  # Error:
+  # Unable to save a field collection item without a valid reference to a host entity
+  # drush ds-global-field-fix field_gallery
+
+  # Defined in other places, to do:
+  # drush ds-global-field-fix field_intro
+  # drush ds-global-field-fix field_intro_image
+  # drush ds-global-field-fix field_partners
 }
 
 #=== FUNCTION ==================================================================
