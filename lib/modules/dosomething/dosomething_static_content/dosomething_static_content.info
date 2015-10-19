@@ -71,6 +71,7 @@ features[user_permission][] = delete any static_content content
 features[user_permission][] = delete own static_content content
 features[user_permission][] = edit any static_content content
 features[user_permission][] = edit own static_content content
+features[variable][] = entity_translation_settings_node__static_content
 features[variable][] = field_bundle_settings_node__static_content
 features[variable][] = language_content_type_static_content
 features[variable][] = menu_options_static_content
