@@ -30,6 +30,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     );
 
     $form['actions']['submit']['#attributes']['class'] = array('button');
+    $form['actions']['submit']['#value'] = t('Create new account');
 
     $copy = t("Log in to an existing account");
     $form['create-account-link'] = array(

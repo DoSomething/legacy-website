@@ -141,3 +141,7 @@ msgstr ""
 msgid "DoSomething"
 msgstr ""
 
+#: dosomething_signup.theme.inc dosomething_signup.forms.inc
+msgid "Sign Up"
+msgstr ""
+
