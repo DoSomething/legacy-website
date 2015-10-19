@@ -107,43 +107,17 @@ function _dosomething_northstar_build_http_client() {
 function dosomething_northstar_update_user($form_state) {
   $user = $form_state['user'];
   $id = $user->uid;
-
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
 
   $northstar = new Northstar();
   $client = _dosomething_northstar_build_http_client();
 
-  // $northstar_user_info = dosomething_northstar_get_northstar_user($id);
-  // $northstar_user_info = json_decode($northstar_user_info->data, TRUE);
-  // $northstar_user_info = (object) $northstar_user_info['data'][0];
-  // $ns_id = $northstar_user_info->_id;
-
-  $response = drupal_http_request($client['base_url'] . '/users/drupal_id' . $id, array(
+  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
     'headers' => $client['headers'],
     'method' => 'PUT',
     'data' => json_encode($ns_user),
     ));
 
-  if ($response->code === '200' && module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
-  }
-  elseif ($response->code !== '200') {
-    watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
-  }
-
-}
-
-function dosomething_northstar_update_user($form_state) {
-  $user = $form_state['user'];
-  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-
-  $northstar = new Northstar();
-  $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users', array(
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($ns_user),
-    ));
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
