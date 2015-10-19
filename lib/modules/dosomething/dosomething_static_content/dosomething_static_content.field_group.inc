@@ -21,7 +21,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Additional Text',
-    'weight' => '6',
+    'weight' => '8',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -49,7 +49,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Call to Action',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_call_to_action',
       1 => 'field_cta_link',
@@ -77,11 +77,10 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Lead in',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_hero_image',
       1 => 'field_subtitle',
-      2 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -106,7 +105,7 @@ function dosomething_static_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Intro',
-    'weight' => '2',
+    'weight' => '4',
     'children' => array(
       0 => 'field_intro',
       1 => 'field_intro_image',
