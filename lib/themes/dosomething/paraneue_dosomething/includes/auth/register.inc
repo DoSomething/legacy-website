@@ -80,14 +80,24 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     unset($form['account']['mail']['#description']);
 
 
+    $country_code = dosomething_settings_get_geo_country_code();
+    $show_help_text = FALSE;
 
-    if (in_array(dosomething_settings_get_geo_country_code(), dosomething_global_get_countries())) {
+    if (in_array($country_code, dosomething_global_get_countries())) {
+      if ($country_code == 'BR' || $country_code == 'MX') {
+        $show_help_text = TRUE;
+        $country_name = dosomething_global_get_country_name($country_code);
+      }
+
       $form['account']['field_mobile'] = $form['field_mobile'];
       $form['account']['field_mobile']['#weight'] = 20;
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#title'] = t('Cell Number') . ' <em>' . t("(optional)") . '</em>';
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('(555) 555-5555');
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
+      if ($show_help_text) {
+        $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#description'] = t("Get volunteer opportunities on your phone! Texting available in @country soon", array('@country' => $country_name));
+      }
     }
 
     $form['field_mobile']['#access'] = FALSE;
@@ -136,4 +146,3 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
 
   return $form;
 }
-
