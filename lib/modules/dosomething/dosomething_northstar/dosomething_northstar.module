@@ -113,12 +113,12 @@ function dosomething_northstar_update_user($form_state) {
   $northstar = new Northstar();
   $client = _dosomething_northstar_build_http_client();
 
-  $northstar_user_info = dosomething_northstar_get_northstar_user($id);
-  $northstar_user_info = json_decode($northstar_user_info->data, TRUE);
-  $northstar_user_info = (object) $northstar_user_info['data'][0];
-  $ns_id = $northstar_user_info->_id;
+  // $northstar_user_info = dosomething_northstar_get_northstar_user($id);
+  // $northstar_user_info = json_decode($northstar_user_info->data, TRUE);
+  // $northstar_user_info = (object) $northstar_user_info['data'][0];
+  // $ns_id = $northstar_user_info->_id;
 
-  $response = drupal_http_request($client['base_url'] . '/users/' . $ns_id, array(
+  $response = drupal_http_request($client['base_url'] . '/users/drupal_id' . $id, array(
     'headers' => $client['headers'],
     'method' => 'PUT',
     'data' => json_encode($ns_user),
