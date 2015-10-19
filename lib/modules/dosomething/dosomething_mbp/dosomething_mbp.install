@@ -26,7 +26,7 @@ function dosomething_mbp_install() {
   dosomething_mbp_install_productions();
 
   // Disable Drupal core user event email messages
-  dosomething_mbp_update_7006(NULL);
+  dosomething_mbp_update_7006();
 
 }
 
@@ -110,7 +110,7 @@ function dosomething_mbp_update_7005(&$sandbox) {
  * text based email functionality. Not disabling these messages results in duplicate message
  * from Drupal core and Message Broker for each of the message events.
  */
-function dosomething_mbp_update_7006(&$sandbox) {
+function dosomething_mbp_update_7006() {
 
   variable_set('user_mail_register_admin_created_notify', 0);
   variable_set('user_mail_register_pending_approval_notify', 0);
