@@ -655,7 +655,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => $base_url . '/' . $value['path_alias'] . '#prove',
+        'url' => dosomething_global_url($value['path_alias'] . '#prove'),
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
@@ -678,7 +678,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       }
       $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
       // Media gallery template expects a full URL.
-      $url = $base_url . '/' . drupal_get_path_alias('node/' . $reportback->nid);
+      $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
         'url' => $url,
         'title' => $reportback->node_title,
