@@ -50,7 +50,7 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
   }
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => $label,
+    '#value' => t($label),
     '#attributes' => array(
       'class' => array(
         'button',
