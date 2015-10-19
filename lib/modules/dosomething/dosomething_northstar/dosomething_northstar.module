@@ -189,9 +189,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
 
     if ($drupal_key == 'country') {
       $ns_user[$ns_key] = $field[$drupal_key];
-    }
-
-    if (isset($field[$drupal_key]['value'])) {
+    } else if (isset($field[$drupal_key]['value'])) {
       $ns_user[$ns_key] = $field[$drupal_key]['value'];
     }
   }
