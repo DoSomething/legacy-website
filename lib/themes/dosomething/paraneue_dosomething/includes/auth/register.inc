@@ -38,10 +38,11 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => 500,
     );
 
-    $copy = t("Creating an account means you agree to our !terms & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", array(
-      '!terms' => dosomething_user_get_link_privacy_policy(),
-      '!privacy' => dosomething_user_get_link_terms_service(),
-    ));
+    $copy = t("Creating an account means you agree to our !terms & !privacy and to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", [
+      '!terms' => dosomething_user_get_link_terms_service(),
+      '!privacy' => dosomething_user_get_link_privacy_policy(),
+    ]);
+
     $form['legal-text'] = array(
       '#type' => 'item',
       '#markup' => '<p class="footnote">' . $copy . '</p>',

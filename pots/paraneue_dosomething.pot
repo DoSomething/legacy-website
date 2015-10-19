@@ -560,7 +560,7 @@ msgid "Log in to an existing account"
 msgstr ""
 
 #: includes/auth/register.inc:41
-msgid "Creating an account means you agree to our !terms & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help"
+msgid "Creating an account means you agree to our !terms & !privacy and to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help"
 msgstr ""
 
 #: includes/auth/register.inc:54
