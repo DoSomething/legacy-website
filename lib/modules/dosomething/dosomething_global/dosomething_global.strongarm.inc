@@ -21,6 +21,7 @@ function dosomething_global_strongarm() {
         0 => 'mexico admin',
       ),
       'country' => 'MX',
+      'country_name' => 'Mexico'
     ),
     'pt-br' => array(
       'display_name' => 'Portuguese, Brazil',
@@ -28,11 +29,13 @@ function dosomething_global_strongarm() {
         0 => 'brazil admin',
       ),
       'country' => 'BR',
+      'country_name' => 'Brazil'
     ),
     'en' => array(
       'display_name' => 'English',
       'default_roles' => array(),
       'country' => 'US',
+      'country_name' => 'United States',
     ),
     'en-global' => array(
       'display_name' => 'English, Global',
@@ -44,6 +47,7 @@ function dosomething_global_strongarm() {
         0 => 'UK admin',
       ),
       'country' => 'GB',
+      'country_name' => 'United Kingdom',
     ),
     'en-ca' => array(
       'display_name' => 'English, Canada',
@@ -51,6 +55,7 @@ function dosomething_global_strongarm() {
         0 => 'canada admin',
       ),
       'country' => 'CA',
+      'country_name' => 'Canada',
     ),
     'fr-ca' => array(
       'display_name' => 'French, Canada',
@@ -58,6 +63,7 @@ function dosomething_global_strongarm() {
         0 => 'canada admin',
       ),
       'country' => 'CA',
+      'country_name' => 'Canada',
     ),
   );
   $export['dosomething_global_language_map'] = $strongarm;

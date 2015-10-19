@@ -574,3 +574,18 @@ function dosomething_global_get_current_prefix() {
 
   return $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix;
 }
+
+/**
+ * Return the full country name
+ */
+function dosomething_global_get_country_name($country_code) {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+
+  foreach ($lang_map as $lang_key => $lang) {
+    if ($lang['country'] == $country_code) {
+      return $lang['country_name'];
+    }
+  }
+
+  return NULL;
+}
