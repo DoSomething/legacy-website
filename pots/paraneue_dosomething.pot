@@ -1115,3 +1115,7 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
+#: includes/auth/register.inc
+msgid "Create new account"
+msgstr ""
+
