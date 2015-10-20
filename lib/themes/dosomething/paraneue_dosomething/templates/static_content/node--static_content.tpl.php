@@ -68,43 +68,11 @@
 
   <?php if (!empty($galleries)): ?>
     <?php foreach ($galleries as $gallery): ?>
-    <section class="container">
+    <section class="container -padded">
       <div class="wrapper">
-        <?php if (isset($gallery['title'])): ?>
-        <div class="container__block -narrow">
-          <h1><?php print $gallery['title']; ?></h1>
-        </div>
+        <?php if (isset($gallery['markup'])): ?>
+          <?php print $gallery['markup'] ?>
         <?php endif; ?>
-
-        <?php if (isset($gallery['items'])): ?>
-          <ul class="gallery <?php print $gallery['class']; ?>">
-            <?php foreach ($gallery['items'] as $gallery_item): ?>
-              <li>
-                <div class="figure <?php if ($gallery['class'] == '-duo'): print '-left'; endif; ?>">
-                  <?php if (isset($gallery_item['image'])): ?>
-                    <div class="figure__media">
-                      <?php if (isset($gallery_item['image_title']) AND $gallery_item['image_url'] !== '') : ?>
-                        <a href="<?php print $gallery_item['image_url']; ?>"><?php print $gallery_item['image']; ?></a>
-                      <?php else : ?>
-                        <?php print $gallery_item['image']; ?>
-                      <?php endif; ?>
-                    </div>
-                  <?php endif; ?>
-
-                  <div class="figure__body">
-                    <?php if (isset($gallery_item['image_title'])): ?>
-                      <h3><?php print $gallery_item['image_title']; ?></h3>
-                    <?php endif; ?>
-                    <?php if (isset($gallery_item['image_description'])): ?>
-                      <?php print $gallery_item['image_description']; ?>
-                    <?php endif; ?>
-                  </div>
-                </div>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        <?php endif; ?>
-
       </div>
     </section>
     <?php endforeach; ?>
