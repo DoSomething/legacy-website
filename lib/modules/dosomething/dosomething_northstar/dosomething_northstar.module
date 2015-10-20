@@ -131,9 +131,12 @@ function dosomething_northstar_update_user($form_state) {
  * @return object
  */
 function dosomething_northstar_get_northstar_user($id) {
-  if (!empty($northstar_user_info)) {
-    $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
-  } else {
+  $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
+  // $northstar_user_info = (string) $northstar_user_info;
+  // die(gettype($northstar_user_info)); returns an object
+  // die($northstar_user_info); returns error "Object of class stdClass could not be converted to string"
+
+  if (empty($northstar_user_info)) {
     $client = _dosomething_northstar_build_http_client();
 
     $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
@@ -148,8 +151,10 @@ function dosomething_northstar_get_northstar_user($id) {
         cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
       }
   }
-
-  return $northstar_user_info;
+  // die($northstar_user_info->data); returns user object
+  // die(gettype($northstar_user_info->data)); returns a string
+  // die(gettype($northstar_user_info)); returns an cubrid_fetch_object(result)
+  return $northstar_user_info->data;
 }
 
 /**

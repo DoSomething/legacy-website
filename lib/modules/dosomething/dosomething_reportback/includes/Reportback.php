@@ -162,7 +162,11 @@ class Reportback extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user->data, true);
+      // die(gettype($northstar_user)); returns an object
+      // die(gettype($northstar_user->data)); returns a string when makes call to ns
+      // die(gettype($northstar_user->data)); returns an object when gets info from cache_get
+      // die(gettype($northstar_user));
+      $northstar_user = json_decode($northstar_user, true);
       $northstar_user = (object) $northstar_user['data'][0];
 
       $this->user = [
