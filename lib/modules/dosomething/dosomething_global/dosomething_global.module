@@ -46,8 +46,13 @@ function dosomething_global_init() {
     return;
   }
 
+  $correct_perfix = dosomething_global_get_prefix_for_language($user_variables['user_language']);
+  if ($correct_perfix == NULL) {
+    return;
+  }
+
   // Configure the correct path prefix
-  $url_variables['url_path_prefix'] = dosomething_global_get_prefix_for_language($user_variables['user_language']);
+  $url_variables['url_path_prefix'] = $correct_perfix;
 
   // Redirect people hitting the homepage
   // or explore campaigns to their local version.
