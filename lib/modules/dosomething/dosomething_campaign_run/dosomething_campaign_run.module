@@ -268,7 +268,8 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   $form['title']['#description'] = t('The title is not user facing, it just helps when searching for content. Suggestion: Use campaign name and year campaign ended (i.e. Comeback Clothes 2014).');
 
   // If the campaign nid is set let's add some help text!
-  $campaign_nid = $form['#node']->field_campaigns[LANGUAGE_NONE][0]['target_id'];
+  // This will break when we create MX & BR (and etc) campaign runs. the helpers extract only checks for 'en'
+  $campaign_nid = dosomething_helpers_extract_field_data($form['#node']->field_campaigns);
   if (isset($campaign_nid)) {
     // Get totals & language from the campaign.
     $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
@@ -282,4 +283,4 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   }
 
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
-  }
+}
