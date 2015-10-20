@@ -65,7 +65,7 @@ function dosomething_static_content_preprocess_node(&$vars) {
     }
 
     // Preprocess gallery variables.
-    dosomething_static_content_preprocess_gallery_vars($vars);
+    dosomething_static_content_preprocess_galleries($vars);
 
     // If values present in the field_partners collection:
     if (!empty($vars['field_partners'])) {
@@ -83,59 +83,68 @@ function dosomething_static_content_preprocess_node(&$vars) {
  *
  * @see dosomething_static_content_preprocess_node().
  */
-function dosomething_static_content_preprocess_gallery_vars(&$vars) {
+function dosomething_static_content_preprocess_galleries(&$vars) {
   $content = $vars['content'];
   $gallery_count = count($content['field_gallery']['#items']);
 
-  $vars['galleries'] = array();
+  $vars['galleries'] = [];
 
   // Loop through the galleries.
   for ($i = 0; $i < $gallery_count; $i++) {
 
     // Set Gallery style default variables:
-    $style = 'default';
+    $gallery_style = 'triad';
+    $classes = [];
+
     // Defaults to use the Image node square field.
     $image_ratio = 'square';
     $image_style = '400x400';
 
-    $vars['galleries'][$i] = array();
+    $vars['galleries'][$i] = [];
     $collection_item = reset($content['field_gallery'][$i]['entity']['field_collection_item']);
-    $vars['galleries'][$i]['title'] = $collection_item['field_gallery_title'][0]['#markup'];
 
     // Check for a Gallery Style field value:
+    $item_style = [];
     if (isset($collection_item['field_gallery_style'][0])) {
       // Store the Gallery Style key.
-      $style = $collection_item['field_gallery_style']['#items'][0]['value'];
+      $chosen_style = $collection_item['field_gallery_style']['#items'][0]['value'];
+
       // If a key exists and it's not the default:
-      if ($style && $style != 'default') {
+      if ($chosen_style && $chosen_style == '2col') {
+        $gallery_style = 'duo';
         $image_ratio = 'thumb';
-        if ($style == '3col_short') {
-          $image_style = 'wmax-300-hmax-75';
-        }
-        else {
-          // Set to use the thumbnail field on the Image node instead.
-          $image_style = '100x100';
-        }
+        $image_style = '100x100';
+        $item_style[] = '-left';
+      }
+      else if ($chosen_style == '3col_short') {
+        $image_style = 'wmax-300-hmax-75';
+        $item_style[] = '-aligned';
       }
     }
-    // Set Style variable for theme layer.
-    $vars['galleries'][$i]['style'] = $style;
 
+    $title = $collection_item['field_gallery_title'][0]['#markup'];
+    $vars['galleries'][$i]['layout'] = $gallery_style;
+    $vars['galleries'][$i]['classes'] = $classes;
+
+    // Prepare & theme the gallery items.
+    $items = [];
     $collection_item = $collection_item['field_gallery_item'];
     $gallery_item_count = count($collection_item['#items']);
-
-    // Loop through the gallery items.
     for ($a = 0; $a < $gallery_item_count; $a++) {
-      $gallery_item = reset($collection_item[$a]['entity']['field_collection_item']);
-      $vars['galleries'][$i]['items'][$a]['image'] = dosomething_image_get_themed_image($gallery_item['field_gallery_image']['#items'][0]['target_id'], $image_ratio, $image_style);
+      $field_item = reset($collection_item[$a]['entity']['field_collection_item']);
 
-      $link_field = $gallery_item['field_image_title'][0]['#element'];
+      $link_field = $field_item['field_image_title'][0]['#element'];
+      $gallery_item = [
+        'title' => $link_field['url'] ? l(t($link_field['title']), $link_field['url'], ['target' => '_blank']) : $link_field['title'],
+        'description' => $field_item['field_image_description'][0]['#markup'],
+        'image' => dosomething_image_get_themed_image($field_item['field_gallery_image']['#items'][0]['target_id'], $image_ratio, $image_style),
+        'url' => $link_field['url'],
+      ];
 
-      $vars['galleries'][$i]['items'][$a]['image_title'] = $link_field['url'] ? l(t($link_field['title']), $link_field['url'], array('target' => '_blank')) : $link_field['title'];
-      $vars['galleries'][$i]['items'][$a]['image_url'] = $link_field['url'];
-      $vars['galleries'][$i]['items'][$a]['image_description'] = $gallery_item['field_image_description'][0]['#markup'];
+      $items[$a] = paraneue_dosomething_get_gallery_item($gallery_item, 'figure', TRUE, $item_style);
     }
 
+    $vars['galleries'][$i]['markup'] = paraneue_dosomething_get_gallery($items, $gallery_style, $classes, FALSE, $title);
   }
 }
 
