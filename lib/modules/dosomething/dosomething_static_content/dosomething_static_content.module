@@ -76,7 +76,7 @@ function dosomething_static_content_preprocess_node(&$vars) {
 }
 
 /**
- * Preprocesses variables for the field_gallery field collection.
+ * Preprocess variables for the field_gallery field collection.
  *
  * @param array $vars
  *   Variable array as passed from a hook_preprocess_node.
