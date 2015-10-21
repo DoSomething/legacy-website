@@ -440,8 +440,8 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
     $account = user_load_by_mail($form_state['input']['name']);
     if (isset($account->mail)) {
       if (module_exists('dosomething_global')) {
-        $user_language = dosomething_global_get_user_language($account);
-        $user_country_code = dosomething_global_convert_language_to_country($user_language);
+        $user_language = dosomething_global_get_language($account);
+        $user_country_code = dosomething_global_get_country();
       }
       // Send external message request
       $params = array(
@@ -504,8 +504,8 @@ function _dosomething_user_send_to_message_broker() {
   global $user;
   $account = $user;
   if (module_exists('dosomething_global')) {
-    $user_language = dosomething_global_get_user_language($account);
-    $user_country_code = dosomething_global_convert_language_to_country($user_language);
+    $user_language = dosomething_global_get_language($account);
+    $user_country_code = dosomething_global_get_country();
   }
 
   // Send external message request.
