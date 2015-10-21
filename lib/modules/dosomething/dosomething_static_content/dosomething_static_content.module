@@ -57,6 +57,8 @@ function dosomething_static_content_preprocess_node(&$vars) {
       }
     }
 
+    // Todo: get language specific value when video field is translatable.
+    // @see dosomething_helpers_node_metadata_wrapper()
     $node = entity_metadata_wrapper('node', $vars['node']);
     if (!empty($vars['node']->field_video)) {
       if ($node->field_video->value()->field_video_id) {
@@ -150,6 +152,9 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
 
 /**
  * Implements hook_field_collection_is_empty_alter().
+ *
+ * @todo get language specific value when video field is translatable
+ * @see  dosomething_helpers_get_current_language_code()
  */
 function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, $item) {
   // If this is the field_video field_collection:
