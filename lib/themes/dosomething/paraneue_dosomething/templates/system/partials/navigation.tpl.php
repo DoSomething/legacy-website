@@ -34,7 +34,7 @@
         <li class="navigation__dropdown">
           <a href="#" class="navigation__dropdown-toggle"><?php print $user_identifier ?></a>
           <ul>
-            <li><?php print l("My Account", 'user/'. $user->uid); ?></li>
+            <li><?php print l(t("My Account"), 'user/'. $user->uid); ?></li>
             <li><a id="link--logout" href="<?php print $front_page; ?>user/logout"><?php print t('Log Out'); ?></a></li>
           </ul>
         </li>

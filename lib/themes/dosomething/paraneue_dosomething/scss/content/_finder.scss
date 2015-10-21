@@ -29,7 +29,9 @@
     }
 
     li {
-      display: inline;
+      float: left;
+      clear: both;
+      display: inline-block;
       position: relative;
       margin: 0;
       break-inside: avoid;
@@ -125,7 +127,6 @@
 
   .error {
     clear: both;
-    // margin-top: 18px;
   }
 
   input[type="checkbox"] {
@@ -139,7 +140,7 @@
   label {
     clear: none;
     float: none;
-    display: block;
+    display: inline-block;
     height: auto;
     font-size: 14px;
     font-weight: $weight-normal;
@@ -152,8 +153,8 @@
     transition: left 0.1s linear;
 
     @include media($tablet) {
-      padding-bottom: 4px;
-      padding-top: 4px;
+      padding-bottom: 2px;
+      padding-top: 2px;
     }
   }
 

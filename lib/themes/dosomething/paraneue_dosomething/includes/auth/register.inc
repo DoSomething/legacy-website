@@ -30,6 +30,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     );
 
     $form['actions']['submit']['#attributes']['class'] = array('button');
+    $form['actions']['submit']['#value'] = t('Create new account');
 
     $copy = t("Log in to an existing account");
     $form['create-account-link'] = array(
@@ -38,10 +39,11 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       '#weight' => 500,
     );
 
-    $copy = t("Creating an account means you agree to our !terms & to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", array(
-      '!terms' => dosomething_user_get_link_privacy_policy(),
-      '!privacy' => dosomething_user_get_link_terms_service(),
-    ));
+    $copy = t("Creating an account means you agree to our !terms & !privacy and to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help", [
+      '!terms' => dosomething_user_get_link_terms_service(),
+      '!privacy' => dosomething_user_get_link_privacy_policy(),
+    ]);
+
     $form['legal-text'] = array(
       '#type' => 'item',
       '#markup' => '<p class="footnote">' . $copy . '</p>',
@@ -51,6 +53,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     // Customize field elements.
     $form['field_first_name']['#weight'] = '-20';
     $form['field_first_name']['#attributes']['class'] = array('auth-twocol');
+    $form['field_first_name'][LANGUAGE_NONE][0]['value']['#title'] = t('First Name');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What do we call you?');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
     $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'name';
@@ -65,6 +68,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
     // @see _dosomething_user_register_display_fields().
     if (isset($form['field_last_name'])) {
       $form['field_last_name']['#weight'] = '-19';
+      $form['field_last_name'][LANGUAGE_NONE][0]['value']['#title'] = t('Last Name');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('What\'s your P.E. teacher call you?');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
       $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'last_name';
