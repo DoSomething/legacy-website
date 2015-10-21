@@ -85,6 +85,9 @@ function dosomething_global_init() {
   }
 }
 
+/**
+ * Implements hook_node_access.
+ */
 function dosomething_global_node_access($node, $op, $account) {
   // Allow access for privledged members.
   if (user_access('access administration menu')) {
