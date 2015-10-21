@@ -60,6 +60,11 @@ function dosomething_global_init() {
     return;
   }
 
+  // If the node isn't translatable, don't do any redirection.
+  if (!$node_variables['node']->translate) {
+    return;
+  }
+
   // Handle translation redirects for authenticated and anonymous users when
   // they request bare (Global English) URLs to nodes.
   //
