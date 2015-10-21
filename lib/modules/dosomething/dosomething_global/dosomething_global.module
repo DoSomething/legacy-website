@@ -85,6 +85,24 @@ function dosomething_global_init() {
   }
 }
 
+function dosomething_global_node_access($node, $op, $account) {
+  // Allow access for privledged members.
+  if (user_access('access administration menu')) {
+    return NODE_ACCESS_ALLOW;
+  }
+
+  $current_prefix = strtoupper(dosomething_global_get_current_prefix());
+
+  // If on a translation page, make sure it's published before allowing access.
+  if (in_array($current_prefix, dosomething_global_get_countries())) {
+    $current_lang = dosomething_global_convert_country_to_language($current_prefix);
+    if ($node->translations->data[$current_lang]['status'] == 0) {
+       return NODE_ACCESS_DENY;
+    }
+  }
+  return NODE_ACCESS_ALLOW;
+}
+
 /**
  * Extract relevant URL variables from the current request
  * to be used in dosomething_global_init().
