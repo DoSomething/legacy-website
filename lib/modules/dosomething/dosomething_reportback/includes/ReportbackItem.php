@@ -120,7 +120,7 @@ class ReportbackItem extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user->data, true);
+      $northstar_user = json_decode($northstar_user, true);
       $northstar_user = (object) $northstar_user['data'][0];
 
       $this->user = [

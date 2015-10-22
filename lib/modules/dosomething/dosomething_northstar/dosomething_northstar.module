@@ -132,9 +132,7 @@ function dosomething_northstar_update_user($form_state) {
  */
 function dosomething_northstar_get_northstar_user($id) {
   $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
-  // $northstar_user_info = (string) $northstar_user_info;
-  // die(gettype($northstar_user_info)); returns an object
-  // die($northstar_user_info); returns error "Object of class stdClass could not be converted to string"
+  $northstar_user_info = $northstar_user_info->data;
 
   if (empty($northstar_user_info)) {
     $client = _dosomething_northstar_build_http_client();
@@ -144,17 +142,18 @@ function dosomething_northstar_get_northstar_user($id) {
        'method' => 'GET',
        ));
 
+    $northstar_user_info = $northstar_user_info->data;
+
       if (!empty($northstar_user_info->error)) {
         $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
         watchdog_exception('northstar', new Exception($error));
       } else {
+        // die($northstar_user_info);
         cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
       }
   }
-  // die($northstar_user_info->data); returns user object
-  // die(gettype($northstar_user_info->data)); returns a string
-  // die(gettype($northstar_user_info)); returns an cubrid_fetch_object(result)
-  return $northstar_user_info->data;
+
+  return $northstar_user_info;
 }
 
 /**
