@@ -344,14 +344,14 @@
           <div class="reportback__spacer"></div>
 
           <div data-modal id="modal--crop" class="modal--crop" role="dialog">
-            <h2 class="heading -banner">Edit your photo</h2>
+            <h2 class="heading -banner"><?php print t('Edit your photo'); ?></h2>
             <div class="image-preview"><!-- Preview image inserted with js --></div>
             <div class="image-editor">
               <div class="__buttons">
-                <a href="#" class="button -tertiary -rotate">rotate photo</a>
+                <a href="#" class="button -tertiary -rotate"><?php print t('rotate photo'); ?></a>
                 <div class="-change">
                   <label class="button -tertiary" id="edit-reportback-file">
-                    <span>change photo</span>
+                    <span><?php print t('change photo'); ?></span>
                   </label>
                 </div>
               </div>
@@ -362,11 +362,11 @@
               <div class="modal__block">
                 <div id="dosomething-reportback-image-form" class="pseudo-form">
                   <div class="form-item">
-                    <label class="field-label" for="modal-caption">Caption</label>
+                    <label class="field-label" for="modal-caption"><?php print t('Caption'); ?></label>
                     <input class="text-field" placeholder="<?php print $reportback_form['reportback_inputs']['caption']['#attributes']['placeholder'] ?>" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
                   </div>
                   <div class="form-action">
-                    <button class="button -done">Crop</button>
+                    <button class="button -done"><?php print t('Crop'); ?></button>
                   </div>
                 </div>
               </div>
