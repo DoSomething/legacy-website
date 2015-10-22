@@ -602,6 +602,30 @@ function dosomething_global_get_current_prefix() {
   }
 
   return $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix;
+
+  /*
+   *  Lookup global related details about a user:
+   *  - language
+   *  - country_code
+   *
+   *  @param object $account
+   *    Drupal user object based on an existing user account.
+   *
+   *  @return array
+   *    Details about the user account:
+   *      - language
+   *      - country_code
+   */
+  function dosomething_global_user_details($account = NULL) {
+
+    if (!isset($account)) {
+      global $account;
+    }
+    $language = dosomething_global_get_language($account);
+    $country_code = dosomething_global_get_country();
+
+    return array($language, $country_code);
+  }
 }
 
 /**
