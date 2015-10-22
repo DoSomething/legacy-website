@@ -148,7 +148,6 @@ function dosomething_northstar_get_northstar_user($id) {
         $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
         watchdog_exception('northstar', new Exception($error));
       } else {
-        // die($northstar_user_info);
         cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
       }
   }
