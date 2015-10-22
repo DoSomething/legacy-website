@@ -1119,3 +1119,18 @@ msgstr ""
 msgid "Create new account"
 msgstr ""
 
+#: templates/campaign/node--campaign.tpl.php:347
+msgid "Edit your photo"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:351
+msgid "rotate photo"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:354
+msgid "change photo"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php:369
+msgid "Crop"
+msgstr ""
