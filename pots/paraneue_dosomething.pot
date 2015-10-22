@@ -1134,3 +1134,7 @@ msgstr ""
 #: templates/campaign/node--campaign.tpl.php:369
 msgid "Crop"
 msgstr ""
+
+#: js/reportback/Reportback.js:167
+msgid "View more"
+msgstr ""
