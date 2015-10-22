@@ -123,9 +123,9 @@ class Reportback extends Entity {
 
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
-      $load_user_data = dosomething_helpers_isset($filters['load_user_data'], NULL, FALSE);
+      $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
       $reportback = new static(['ignore' => true]);
-      $reportback->build($item, $load_user_data);
+      $reportback->build($item, $load_user);
 
       $reportbacks[] = $reportback;
     }
