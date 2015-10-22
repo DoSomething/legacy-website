@@ -366,7 +366,7 @@
                     <input class="text-field" placeholder="<?php print $reportback_form['reportback_inputs']['caption']['#attributes']['placeholder'] ?>" type="text" id="modal-caption" name="modal-caption" data-validate="caption" data-validate-required maxlength="60" >
                   </div>
                   <div class="form-action">
-                    <button class="button -done"><?php t('Crop'); ?></button>
+                    <button class="button -done"><?php print t('Crop'); ?></button>
                   </div>
                 </div>
               </div>
