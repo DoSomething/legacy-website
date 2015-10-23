@@ -309,6 +309,7 @@ function dosomething_global_is_regional_admin($user = NULL) {
  */
 function _dosomething_global_get_regional_roles() {
   $languages = variable_get('dosomething_global_language_map', '');
+  $roles = [];
   foreach ($languages as $language) {
     if (isset($language['default_roles'][0])) {
       $roles[] = $language['default_roles'][0];
