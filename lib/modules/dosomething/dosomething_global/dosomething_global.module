@@ -5,7 +5,7 @@
  */
 
 include_once 'dosomething_global.features.inc';
-define("TRANSLATABLE_TYPES", 'static_content,campaign,home');
+define('TRANSLATABLE_TYPES', 'static_content,campaign,home');
 
 // Default language: Global English
 define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
@@ -94,7 +94,7 @@ function dosomething_global_init() {
  * Implements hook_node_access.
  */
 function dosomething_global_node_access($node, $op, $account) {
-  // Allow access for privledged members.
+  // Allow access for privileged members.
   if (user_access('access administration menu')) {
     return NODE_ACCESS_ALLOW;
   }
@@ -304,11 +304,12 @@ function dosomething_global_is_regional_admin($user = NULL) {
 /**
  * Get the roles that are defined as regional admins.
  *
- * @return - array
+ * @return array
  *  The roles that are regional admins.
  */
 function _dosomething_global_get_regional_roles() {
   $languages = variable_get('dosomething_global_language_map', '');
+  $roles = [];
   foreach ($languages as $language) {
     if (isset($language['default_roles'][0])) {
       $roles[] = $language['default_roles'][0];
@@ -365,13 +366,16 @@ function dosomething_global_get_user_language($user = NULL) {
        array_push($countries, $country);
      }
    }
-   array_push($countries, "global");
+   array_push($countries, 'global');
    return $countries;
  }
 
 /**
  * Returns the session's country code, or `global` if it's not
  * one of our whitelisted global countries.
+ *
+ * @return string
+ *   country code, or 'global'
  */
 function dosomething_global_get_country() {
   $country_code = dosomething_settings_get_geo_country_code();
@@ -385,10 +389,10 @@ function dosomething_global_get_country() {
 /**
  * Gets the country from a given language.
  *
- * @param string language
+ * @param string $language
  *  A two letter language code.
  *
- * @return string language
+ * @return string
  *  The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
@@ -399,16 +403,16 @@ function dosomething_global_convert_language_to_country($language) {
 /**
  * Converts the given country into its assigned language.
  *
- * @param string country
+ * @param string $country
  *  The country Code
  *
- * @return
+ * @return string|null
  *  The language mapped to this country or NULL
  */
 function dosomething_global_convert_country_to_language($country) {
   $lang_map = variable_get('dosomething_global_language_map', '');
   foreach ($lang_map as $lang_key => $lang) {
-    if ($lang['country'] == $country) {
+    if (isset($lang['country']) && $lang['country'] == $country) {
       return $lang_key;
     }
   }
@@ -418,7 +422,7 @@ function dosomething_global_convert_country_to_language($country) {
 /**
  * Converts the given language into its assigned URL prefix.
  *
- * @param string language
+ * @param string $language
  *  The language to get the prefix for (eg: 'en', 'mx')
  *
  * @return
@@ -447,6 +451,7 @@ function dosomething_global_is_path_prefix($prefix) {
  * @param  $node
  *   Optional node.
  *
+ * @return string
  */
 function dosomething_global_get_language($account, stdClass $node = NULL) {
   // Respect the URL first.
@@ -566,6 +571,8 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
  * @param  $options
  *   Optional options array to be passed to url()
  *
+ * @return string
+ *   The URL with country prefix
  */
 function dosomething_global_url($path, $options = NULL) {
   global $language;
@@ -588,12 +595,14 @@ function dosomething_global_url($path, $options = NULL) {
 /**
  * Return the current country prefix being used.
  *
+ * @return string
+ *   Country prefix of currently page (e.g. 'us', 'mx'...)
+ *
  */
 function dosomething_global_get_current_prefix() {
   $request_path = explode('/', request_path());
+  $languages = language_list();
   if (!empty($request_path[0])) {
-    $languages = language_list();
-
     foreach ($languages as $langcode => $lang_data) {
       if ($lang_data->prefix == $request_path[0]) {
         return $lang_data->prefix;
@@ -605,7 +614,12 @@ function dosomething_global_get_current_prefix() {
 }
 
 /**
- * Return the full country name
+ * Return the full country name.
+ *
+ * @param $country_code
+ *   Two letter country code
+ * @return string|null
+ *   Full country name
  */
 function dosomething_global_get_country_name($country_code) {
   $lang_map = variable_get('dosomething_global_language_map', '');
@@ -619,7 +633,7 @@ function dosomething_global_get_country_name($country_code) {
   return NULL;
 }
 
-/*
+/**
  *  Lookup global related details about a user:
  *  - language
  *  - country_code
@@ -633,10 +647,10 @@ function dosomething_global_get_country_name($country_code) {
  *      - country_code
  */
 function dosomething_global_user_details($account = NULL) {
-
   if (!isset($account)) {
     global $account;
   }
+
   $language = dosomething_global_get_language($account);
   $country_code = dosomething_global_get_country();
 
