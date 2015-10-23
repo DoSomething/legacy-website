@@ -411,7 +411,7 @@ function dosomething_global_convert_language_to_country($language) {
 function dosomething_global_convert_country_to_language($country) {
   $lang_map = variable_get('dosomething_global_language_map', '');
   foreach ($lang_map as $lang_key => $lang) {
-    if ($lang['country'] == $country) {
+    if (isset($lang['country']) && $lang['country'] == $country) {
       return $lang_key;
     }
   }
