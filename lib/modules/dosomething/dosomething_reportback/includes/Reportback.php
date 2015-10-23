@@ -123,8 +123,9 @@ class Reportback extends Entity {
 
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
-      $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item);
+      $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
+      $reportback = new static(['ignore' => true]);
+      $reportback->build($item, $load_user);
 
       $reportbacks[] = $reportback;
     }
@@ -137,8 +138,9 @@ class Reportback extends Entity {
    * Build out the instantiated Reportback class object with supplied data.
    *
    * @param object $data
+   * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data) {
+  private function build($data, $full = false) {
     global $user;
 
     $this->id = $data->rbid;
@@ -158,17 +160,22 @@ class Reportback extends Entity {
       ],
     ];
 
-    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-    $northstar_user = json_decode($northstar_user->data, true);
-    $northstar_user = (object) $northstar_user['data'][0];
+    if ($full) {
+      $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
+
+      if (!empty($northstar_user)) {
+        $northstar_user = json_decode($northstar_user, true);
+        $northstar_user = (object) @$northstar_user['data'][0];
+      }
+    }
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => $northstar_user->_id,
-      'first_name' => $northstar_user->first_name,
-      'last_name' => $northstar_user->last_name,
-      'photo' => $northstar_user->photo,
-      'country' => $northstar_user->country,
+      'id' => (empty($northstar_user->_id)) ? NULL : $northstar_user->_id,
+      'first_name' => (empty($northstar_user->first_name)) ? NULL : $northstar_user->first_name,
+      'last_name' => (empty($northstar_user->last_name)) ? NULL : $northstar_user->last_name,
+      'photo' => (empty($northstar_user->photo)) ? NULL : $northstar_user->photo,
+      'country' => (empty($northstar_user->country)) ? NULL : $northstar_user->country,
     ];
   }
 
