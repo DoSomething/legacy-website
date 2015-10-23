@@ -76,11 +76,10 @@ class ReportbackItem extends Entity {
     }
 
     foreach($results as $item) {
-      $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
-      $reportbackItem = new static(['ignore' => true]);
-      $reportbackItem->build($item, $load_user);
+      $reportbackItem = new static;
+      $reportbackItem->build($item);
 
-      $reportbacks[] = $reportback;
+      $reportbackItems[] = $reportbackItem;
     }
 
     return $reportbackItems;
@@ -91,9 +90,8 @@ class ReportbackItem extends Entity {
    * Build out the instantiated Reportback Item class object with supplied data.
    *
    * @param object $data
-   * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data, $full = false) {
+  private function build($data) {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
@@ -118,20 +116,18 @@ class ReportbackItem extends Entity {
       ],
     ];
 
-    if ($full) {
-      $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user->data, true);
-      $northstar_user = (object) $northstar_user['data'][0];
+    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
+    $northstar_user = json_decode($northstar_user->data, true);
+    $northstar_user = (object) $northstar_user['data'][0];
 
-      $this->user = [
-        'drupal_id' => $data->uid,
-        'id' => $northstar_user->_id,
-        'first_name' => $northstar_user->first_name,
-        'last_name' => $northstar_user->last_name,
-        'photo' => $northstar_user->photo,
-        'country' => $northstar_user->country,
-      ];
-    }
+    $this->user = [
+      'drupal_id' => $data->uid,
+      'id' => $northstar_user->_id,
+      'first_name' => $northstar_user->first_name,
+      'last_name' => $northstar_user->last_name,
+      'photo' => $northstar_user->photo,
+      'country' => $northstar_user->country,
+    ];
   }
 
 
