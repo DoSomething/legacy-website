@@ -365,7 +365,7 @@ function dosomething_global_get_user_language($user = NULL) {
        array_push($countries, $country);
      }
    }
-   array_push($countries, "global");
+   array_push($countries, 'global');
    return $countries;
  }
 
