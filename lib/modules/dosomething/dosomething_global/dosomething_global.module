@@ -600,9 +600,8 @@ function dosomething_global_url($path, $options = NULL) {
  */
 function dosomething_global_get_current_prefix() {
   $request_path = explode('/', request_path());
+  $languages = language_list();
   if (!empty($request_path[0])) {
-    $languages = language_list();
-
     foreach ($languages as $langcode => $lang_data) {
       if ($lang_data->prefix == $request_path[0]) {
         return $lang_data->prefix;
