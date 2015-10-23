@@ -162,8 +162,11 @@ class Reportback extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_user = json_decode($northstar_user, true);
-      $northstar_user = (object) $northstar_user['data'][0];
+
+      if (!is_null($northstar_user)){
+        $northstar_user = json_decode($northstar_user, true);
+        $northstar_user = (object) $northstar_user['data'][0];
+      }
 
       $this->user = [
         'drupal_id' => $data->uid,
