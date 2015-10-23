@@ -25,6 +25,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -38,6 +39,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'dosomething_search_index',
         ),
         'type' => 'field_collection_view',
@@ -509,7 +511,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
@@ -637,6 +639,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -650,6 +653,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'dosomething_search_index',
         ),
         'type' => 'field_collection_view',
@@ -675,7 +679,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -893,6 +897,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -906,6 +911,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -930,7 +936,7 @@ function dosomething_static_content_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -997,6 +1003,7 @@ function dosomething_static_content_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -1032,6 +1039,55 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-static_content-title_field'
+  $field_instances['node-static_content-title_field'] = array(
+    'bundle' => 'static_content',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 18,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Title',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('<ul>
@@ -1060,6 +1116,7 @@ function dosomething_static_content_field_default_field_instances() {
   t('Sponsors and Partners');
   t('Subtitle');
   t('The ID of the Youtube video <strong> (comes after the ?v=) </strong>');
+  t('Title');
   t('Video');
   t('Video ID');
 

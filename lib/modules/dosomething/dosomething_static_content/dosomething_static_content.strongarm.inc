@@ -13,6 +13,19 @@ function dosomething_static_content_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'entity_translation_settings_node__static_content';
+  $strongarm->value = array(
+    'default_language' => 'xx-et-author',
+    'hide_language_selector' => 0,
+    'exclude_language_none' => 1,
+    'lock_language' => 0,
+    'shared_fields_original_only' => 0,
+  );
+  $export['entity_translation_settings_node__static_content'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__static_content';
   $strongarm->value = array(
     'view_modes' => array(
@@ -47,16 +60,19 @@ function dosomething_static_content_strongarm() {
           'weight' => '9',
         ),
         'path' => array(
-          'weight' => '0',
+          'weight' => '2',
         ),
         'metatags' => array(
-          'weight' => '8',
+          'weight' => '10',
         ),
         'redirect' => array(
-          'weight' => '9',
+          'weight' => '11',
         ),
         'xmlsitemap' => array(
-          'weight' => '10',
+          'weight' => '12',
+        ),
+        'language' => array(
+          'weight' => '1',
         ),
       ),
       'display' => array(),
@@ -68,7 +84,7 @@ function dosomething_static_content_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_static_content';
-  $strongarm->value = '0';
+  $strongarm->value = '4';
   $export['language_content_type_static_content'] = $strongarm;
 
   $strongarm = new stdClass();
