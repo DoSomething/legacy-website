@@ -586,7 +586,7 @@ function paraneue_dosomething_preprocess_node_campaign_scholarship(&$vars) {
 /**
  * Preprocesses the $vars['galleries'] if exists.
  *
- * @see dosomething_static_content_preprocess_gallery_vars().
+ * @see dosomething_static_content_preprocess_galleries().
  *
  * @param array $vars
  *   Vars passed from a hook_preprocess_node().
