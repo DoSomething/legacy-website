@@ -151,8 +151,17 @@ function enable_campaign_field_collections {
   cd $WEB_PATH
 
   # Run fixes.
+  # Replace language-neutral field values with english language.
+  drush sqlq "update field_data_field_faq set language='en'"       && echo "Fixed language for field_faq."
+  drush sqlq "update field_data_field_step_pre set language='en'"  && echo "Fixed language for field_step_pre."
+  drush sqlq "update field_data_field_step_post set language='en'" && echo "Fixed language for field_step_post."
+
+  # Clear cache after every fix.
+  drush cc all
   drush ds-global-field-fix field_faq
+  drush cc all
   drush ds-global-field-fix field_step_pre
+  drush cc all
   drush ds-global-field-fix field_step_post
 }
 
