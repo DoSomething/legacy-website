@@ -158,6 +158,8 @@ function make_static_content_translatable {
   # Don't need: field_hero_image
   # Done: field_subtitle
   drush ds-global-field-fix field_intro_title
+  drush ds-global-field-fix field_intro
+  drush ds-global-field-fix field_intro_image
   # Don't need: field_video
   # Done: field_call_to_action
   drush ds-global-field-fix field_cta_link
@@ -170,8 +172,6 @@ function make_static_content_translatable {
   # drush ds-global-field-fix field_gallery
 
   # Defined in other places, to do:
-  # drush ds-global-field-fix field_intro
-  # drush ds-global-field-fix field_intro_image
   # drush ds-global-field-fix field_partners
 }
 
