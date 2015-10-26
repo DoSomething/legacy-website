@@ -181,7 +181,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
    * Global Page Footer
    */
 
-  $country = dosomething_global_get_country();
+  $country = dosomething_global_get_current_country_code();
   $columns = array('first', 'second', 'third');
   $footer_links = array();
 

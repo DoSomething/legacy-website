@@ -355,35 +355,19 @@ function dosomething_global_get_user_language($user = NULL) {
  * @return array
  *  All of the supported countries
  */
- function dosomething_global_get_countries() {
-   $lang_map = variable_get('dosomething_global_language_map', '');
-   $countries = array();
-   foreach ($lang_map as $lang) {
-     $country = $lang['country'];
+function dosomething_global_get_countries() {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  $countries = array();
+  foreach ($lang_map as $lang) {
+    $country = $lang['country'];
 
-     // Prevents global english from slipping through
-     if ($country != NULL) {
-       array_push($countries, $country);
-     }
-   }
-   array_push($countries, 'global');
-   return $countries;
- }
-
-/**
- * Returns the session's country code, or `global` if it's not
- * one of our whitelisted global countries.
- *
- * @return string
- *   country code, or 'global'
- */
-function dosomething_global_get_country() {
-  $country_code = dosomething_settings_get_geo_country_code();
-  if (in_array($country_code, dosomething_global_get_countries())) {
-    return $country_code;
+    // Prevents global english from slipping through
+    if ($country != NULL) {
+      array_push($countries, $country);
+    }
   }
-
-  return 'global';
+  array_push($countries, 'global');
+  return $countries;
 }
 
 /**
@@ -433,6 +417,14 @@ function dosomething_global_get_prefix_for_language($language) {
   return $languages[$language]->prefix;
 }
 
+/**
+ * Check if the given URL prefix matches one of our countries.
+ *
+ * @param string $prefix
+ *   The URL prefix to check
+ *
+ * @return bool
+ */
 function dosomething_global_is_path_prefix($prefix) {
   $languages = language_list();
   foreach ($languages as $lang) {
@@ -613,6 +605,22 @@ function dosomething_global_get_current_prefix() {
 }
 
 /**
+ * Get the country code of the current page (based on the prefix
+ * that is set in the URL), or 'global' if none set.
+ *
+ * @return string
+ */
+function dosomething_global_get_current_country_code() {
+  // Get the prefix, and make uppercase for matching against country array
+  $prefix = strtoupper(dosomething_global_get_current_prefix());
+  if (in_array($prefix, dosomething_global_get_countries())) {
+    return $prefix;
+  }
+
+  return 'global';
+}
+
+/**
  * Return the full country name.
  *
  * @param $country_code
@@ -651,7 +659,7 @@ function dosomething_global_user_details($account = NULL) {
   }
 
   $language = dosomething_global_get_language($account);
-  $country_code = dosomething_global_get_country();
+  $country_code = dosomething_settings_get_geo_country_code();
 
   return array($language, $country_code);
 }
