@@ -622,6 +622,22 @@ function dosomething_global_get_current_prefix() {
 }
 
 /**
+ * Get the country code of the current page (based on the prefix
+ * that is set in the URL), or 'global' if none set.
+ *
+ * @return string
+ */
+function dosomething_global_get_current_country_code() {
+  // Get the prefix, and make uppercase for matching against country array
+  $prefix = strtoupper(dosomething_global_get_current_prefix());
+  if (in_array($prefix, dosomething_global_get_countries())) {
+    return $prefix;
+  }
+
+  return 'global';
+}
+
+/**
  * Return the full country name.
  *
  * @param $country_code
