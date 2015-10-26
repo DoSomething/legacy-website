@@ -433,6 +433,14 @@ function dosomething_global_get_prefix_for_language($language) {
   return $languages[$language]->prefix;
 }
 
+/**
+ * Check if the given URL prefix matches one of our countries.
+ *
+ * @param string $prefix
+ *   The URL prefix to check
+ *
+ * @return bool
+ */
 function dosomething_global_is_path_prefix($prefix) {
   $languages = language_list();
   foreach ($languages as $lang) {
