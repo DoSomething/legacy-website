@@ -66,7 +66,7 @@ function dosomething_global_init() {
   }
 
   // If the node isn't translatable, don't do any redirection.
-  if (sizeof($node_variables['node']->translations->data) <= 1) {
+  if (count($node_variables['node']->translations->data) <= 1) {
     return;
   }
 
