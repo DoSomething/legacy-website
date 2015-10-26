@@ -61,7 +61,7 @@ function dosomething_global_init() {
   }
 
   // If the node isn't translatable, don't do any redirection.
-  if (!$node_variables['node']->translate) {
+  if (count($node_variables['node']->translations->data) <= 1) {
     return;
   }
 
@@ -541,7 +541,6 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
       return;
     }
   }
-
   // Don't redirect for Global English speakers.
   if ($user_lang == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
     return;
