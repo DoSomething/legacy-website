@@ -355,20 +355,20 @@ function dosomething_global_get_user_language($user = NULL) {
  * @return array
  *  All of the supported countries
  */
- function dosomething_global_get_countries() {
-   $lang_map = variable_get('dosomething_global_language_map', '');
-   $countries = array();
-   foreach ($lang_map as $lang) {
-     $country = $lang['country'];
+function dosomething_global_get_countries() {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  $countries = array();
+  foreach ($lang_map as $lang) {
+    $country = $lang['country'];
 
-     // Prevents global english from slipping through
-     if ($country != NULL) {
-       array_push($countries, $country);
-     }
-   }
-   array_push($countries, 'global');
-   return $countries;
- }
+    // Prevents global english from slipping through
+    if ($country != NULL) {
+      array_push($countries, $country);
+    }
+  }
+  array_push($countries, 'global');
+  return $countries;
+}
 
 /**
  * Returns the session's country code, or `global` if it's not
