@@ -676,7 +676,7 @@ function dosomething_global_user_details($account = NULL) {
   }
 
   $language = dosomething_global_get_language($account);
-  $country_code = dosomething_global_get_country();
+  $country_code = dosomething_settings_get_geo_country_code();
 
   return array($language, $country_code);
 }
