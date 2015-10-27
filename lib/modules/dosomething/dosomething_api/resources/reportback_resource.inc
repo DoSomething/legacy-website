@@ -75,6 +75,14 @@ function _reportback_resource_definition() {
             'source' => array('param' => 'page'),
             'default value' => 1,
           ),
+          array(
+            'name' => 'load_user',
+            'description' => 'Flag to indicate whether to make call to northstar to retrieve full user data.',
+            'optional' => TRUE,
+            'type' => 'boolean',
+            'source' => array('param' => 'load_user'),
+            'default value' => FALSE,
+          ),
         ),
         'access callback' => '_reportback_resource_access',
         'access arguments' => array('index'),
@@ -108,13 +116,14 @@ function _reportback_resource_access($op) {
 }
 
 
-function _reportback_resource_index($campaigns, $status, $count, $random, $page) {
+function _reportback_resource_index($campaigns, $status, $count, $random, $page, $load_user) {
   $parameters =  array(
     'campaigns' => $campaigns,
     'status' => $status,
     'count' => $count,
     'random' => $random,
     'page' => $page,
+    'load_user' => $load_user,
   );
 
   $reportbacks = new ReportbackTransformer;
