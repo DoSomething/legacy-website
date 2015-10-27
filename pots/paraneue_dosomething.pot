@@ -471,10 +471,6 @@ msgstr ""
 msgid "Current Password"
 msgstr ""
 
-#: includes/form.inc:279
-msgid "MM/DD/YYYY"
-msgstr ""
-
 #: includes/form.inc:284 templates/campaign/submit-campaign-idea.tpl.php:70
 msgid "Birthday"
 msgstr ""
@@ -1137,4 +1133,8 @@ msgstr ""
 
 #: js/reportback/Reportback.js:167
 msgid "View more"
+msgstr ""
+
+#: year date format
+msgid "YYYY"
 msgstr ""
