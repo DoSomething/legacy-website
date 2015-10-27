@@ -12,7 +12,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
 
   $node = $vars['node'];
-  $vars['campaign'] = dosomething_campaign_load($node);
+  $lang = dosomething_global_convert_country_to_language(dosomething_settings_get_geo_country_code());
+  $vars['campaign'] = dosomething_campaign_load($node, FALSE, $lang);
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $current_path = current_path();
