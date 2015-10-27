@@ -125,6 +125,7 @@ class ReportbackItem extends Entity {
         $northstar_user = json_decode($northstar_user, true);
         $northstar_user = (object) @$northstar_user['data'][0];
       }
+    }
 
     $this->user = [
       'drupal_id' => $data->uid,
