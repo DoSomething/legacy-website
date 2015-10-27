@@ -130,9 +130,23 @@ function dosomething_static_content_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_static_content_es-mx_pattern';
+  $strongarm->value = 'sobre/[node:title]';
+  $export['pathauto_node_static_content_es-mx_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_static_content_pattern';
   $strongarm->value = 'about/[node:title]';
   $export['pathauto_node_static_content_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_static_content_pt-br_pattern';
+  $strongarm->value = 'sobre/[node:title]';
+  $export['pathauto_node_static_content_pt-br_pattern'] = $strongarm;
 
   return $export;
 }
