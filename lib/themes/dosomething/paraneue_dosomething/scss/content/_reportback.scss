@@ -209,6 +209,7 @@
   font-size: $font-smaller;
   line-height: 1.1;
   padding-top: ($base-spacing / 2);
+  word-wrap: break-word;
 
   @include media($large) {
     font-size: $font-small;

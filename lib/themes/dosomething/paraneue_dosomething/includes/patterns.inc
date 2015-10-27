@@ -53,7 +53,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
  *
  * @return string
  */
-function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = array(), $show_more = FALSE) {
+function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_array = array(), $show_more = FALSE, $title = '') {
   if (empty($content)) {
     return '';
   }
@@ -72,6 +72,7 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
   // Prepare variables to send to gallery theme functions.
   $variables = array(
     'items' => $items,
+    'title' => $title,
     'layout' => $layout,
     'classes' => $classes,
     'roles' => $data_roles,

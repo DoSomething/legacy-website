@@ -88,3 +88,10 @@ msgstr ""
 msgid "by"
 msgstr ""
 
+#: Login error message
+msgid "Email address or cell number field is required."
+msgstr ""
+
+#: Login error message
+msgid "Password field is required."
+msgstr ""
