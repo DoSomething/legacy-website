@@ -125,13 +125,23 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#title'         => 'Subtext',
     '#default_value' => theme_get_setting('header_who_we_are_subtext'),
   );
-  $form['header']['who_we_are']['header_who_we_are_link'] = array(
-    '#type'          => 'entity_autocomplete',
-    '#title'         => 'Link to',
-    '#bundles'       => array('static_content'),
-    '#default_value' => theme_get_setting('header_who_we_are_link'),
-  );
 
+  $form['header']['who_we_are']['header_who_we_are_links'] = [
+    '#type'        => 'fieldset',
+    '#title'       => t('Country-Specific Links'),
+    '#collapsible' => TRUE,
+    '#collapsed'   => TRUE,
+  ];
+
+  $countries = dosomething_global_get_countries();
+  foreach($countries as $country) {
+    $form['header']['who_we_are']['header_who_we_are_links'][$country] = array(
+      '#type'          => 'entity_autocomplete',
+      '#title'         => 'Link (' . $country . ')',
+      '#bundles'       => ['static_content'],
+      '#default_value' => theme_get_setting('header_who_we_are_link_' . $country),
+    );
+  }
 
   $form['header']['explore_campaigns'] = array(
     '#type'        => 'fieldset',

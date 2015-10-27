@@ -74,7 +74,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'who_we_are'       => [
       'text' => t(theme_get_setting('header_who_we_are_text')),
       'subtext' => t(theme_get_setting('header_who_we_are_subtext')),
-      'link' => t(theme_get_setting('header_who_we_are_link')),
+      'link' => theme_get_setting('header_who_we_are_link_' . dosomething_global_get_current_country_code()),
     ],
     'explore_campaigns'=> [
       'text' => t(theme_get_setting('header_explore_campaigns_text')),
