@@ -1,5 +1,9 @@
 .gallery {
 
+  .gallery__heading {
+    margin-top: $base-spacing;
+  }
+
   &.-shuffle {
     &.-quartet {
       @include media($medium) {

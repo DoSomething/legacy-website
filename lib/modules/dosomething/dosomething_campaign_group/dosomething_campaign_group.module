@@ -104,7 +104,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     }
 
     // Preprocess gallery variables.
-    dosomething_static_content_preprocess_gallery_vars($vars);
+    dosomething_static_content_preprocess_galleries($vars);
 
     if (empty($sid)) {
       $vars['display_signup_form'] = $vars['field_display_signup_form'][0]['value'];
@@ -135,7 +135,7 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
     if (!empty($modal_items)) {
       $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
     }
-   
+
     // Include Zendesk Form
     $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
 

@@ -30,6 +30,7 @@ function dosomething_action_guide_preprocess_node(&$vars) {
       $vars['intro_image'] = dosomething_image_get_themed_image($intro_image, 'landscape', '550x330');
     }
     // Preprocess gallery variables.
-    dosomething_static_content_preprocess_gallery_vars($vars);
+    // @TODO: This function should be moved to the theme.
+    dosomething_static_content_preprocess_galleries($vars);
   }
 }
