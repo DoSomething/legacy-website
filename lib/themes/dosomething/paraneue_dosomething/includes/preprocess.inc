@@ -49,7 +49,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * Global Main Navigation
    */
-
   $modifier_classes = '-white -floating';
   if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
     $modifier_classes = '-floating';
@@ -64,7 +63,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['logo'] = '/' . PARANEUE_PATH . '/images/logo-dev.png';
   }
 
-  $navigation_vars = array(
+  $navigation_vars = [
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
     'logo'             => $vars['logo'],
@@ -72,17 +71,17 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
     'user_identifier'  => $vars['user_identifier'],
-    'who_we_are'       => array(
+    'who_we_are'       => [
       'text' => t(theme_get_setting('header_who_we_are_text')),
       'subtext' => t(theme_get_setting('header_who_we_are_subtext')),
       'link' => t(theme_get_setting('header_who_we_are_link')),
-    ),
-    'explore_campaigns'=> array(
+    ],
+    'explore_campaigns'=> [
       'text' => t(theme_get_setting('header_explore_campaigns_text')),
       'subtext' => t(theme_get_setting('header_explore_campaigns_subtext')),
       // 'link' => theme_get_setting('header_explore_campaigns_link'),
-    ),
-  );
+    ],
+  ];
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
@@ -180,7 +179,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * Global Page Footer
    */
-
   $country = dosomething_global_get_current_country_code();
   $columns = array('first', 'second', 'third');
   $footer_links = array();
