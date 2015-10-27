@@ -224,10 +224,11 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   $classes_array = [];
 
   $node = node_load($nid);
-  $link = drupal_get_path_alias('node/' . $nid);
+  $url_options = [];
   if ($source) {
-    $link .= '?source=' . $source;
+    $options['query']['source'] = $source;
   }
+  $link = url(drupal_get_path_alias('node/' . $nid), $url_options);
 
   $title = $node->title;
   if ($node->status == 0) {
