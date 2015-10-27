@@ -121,11 +121,12 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
 
-    $base_url = url(base_path(), array('absolute'=> TRUE));
+    $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
+
     // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '.png';
+    $problem_share_image = $base_url . '/sites/default/files/images/problem-' . $vars['nid'] . '.png';
 
     $share_types = array(
       'facebook' => array(
