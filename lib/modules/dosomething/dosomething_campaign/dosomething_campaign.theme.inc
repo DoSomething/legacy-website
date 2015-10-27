@@ -465,6 +465,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
 
   $action_guides = $vars['field_action_guide'];
+  // LANGUAGE_NONE is being added to action guide references with #global see #5585
+  if (array_key_exists(LANGUAGE_NONE, $action_guides)) {
+    $action_guides = $action_guides[LANGUAGE_NONE];
+  }
   if (!empty($action_guides)) {
     foreach ($action_guides as $delta => $target) {
       $action_guide = $target['entity'];
