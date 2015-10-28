@@ -209,7 +209,6 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
     return;
   }
 
-
   // Get the last item in the url, to get the edit/add node language.
   $node_lang = array_pop(explode('/', (parse_url(current_path(), PHP_URL_PATH))));
   if ($node_lang == 'edit') {
@@ -225,8 +224,6 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
     // Otherwise, don't autocheck that publish box.
     $form['translation']['status']['#default_value'] = FALSE;
   }
-
-
 
   // Check if the user is a mexico or brazil admin
   if (dosomething_global_is_regional_admin()) {
