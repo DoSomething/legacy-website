@@ -37,3 +37,17 @@ function dosomething_settings_update_7001() {
   variable_set('dosomething_settings_copy_scholarships', $copy);
 
 }
+
+/**
+ * Update theme settings for Global 1.0.
+ */
+function dosomething_settings_update_7002() {
+  $paraneue_settings = variable_get('theme_paraneue_dosomething_settings', []);
+
+  $countries = dosomething_global_get_countries();
+  foreach($countries as $country) {
+    $paraneue_settings['header_who_we_are_link_' . $country] = $paraneue_settings['header_who_we_are_link'];
+  }
+
+  variable_set('theme_paraneue_dosomething_settings', $paraneue_settings);
+}
