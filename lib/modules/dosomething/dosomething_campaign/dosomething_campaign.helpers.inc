@@ -179,7 +179,12 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->fact_sources = NULL;
   // Collect multiple fact fields values as fact and sources variables.
   $fact_fields = array('field_fact_problem', 'field_fact_solution');
+
+
   $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+
+  $fact_data = dosomething_fact_get_facts_data($node, $fact_fields);
+
   if (!empty($fact_vars)) {
     if (isset($fact_vars['facts']['field_fact_problem'])) {
       $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];
@@ -199,14 +204,14 @@ function dosomething_campaign_load($node, $public = FALSE) {
   }
 
   $campaign->downloads = NULL;
-  if (!empty($node->field_downloads)) {
-    foreach ($node->field_downloads[LANGUAGE_NONE] as $file) {
-      $campaign->downloads[] = array(
-        'url' => file_create_url($file['uri']),
-        'description' => $file['description'],
-      );
-    }
-  }
+//  if (!empty($node->field_downloads)) {
+//    foreach ($node->field_downloads[LANGUAGE_NONE] as $file) {
+//      $campaign->downloads[] = array(
+//        'url' => file_create_url($file['uri']),
+//        'description' => $file['description'],
+//      );
+//    }
+//  }
 
   // Store any dosomething_helpers variables.
   $campaign->variables = dosomething_helpers_get_variables('node', $campaign->nid);

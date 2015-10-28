@@ -77,6 +77,23 @@ function dosomething_fact_get_mutiple_fact_field_vars($node, $field_names) {
 }
 
 /**
+ * @TODO: Mediator function!
+ * @param $node
+ * @param $field_names
+ */
+function dosomething_fact_get_facts_data($node, $field_names) {
+  $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
+//  var_dump($language, 'LANGUAGE MOFO!');
+
+  foreach($field_names as $field_name) {
+    $field_data = $node->$field_name;
+//    var_dump(array_keys($field_data), 'KEYS');
+  }
+
+  return null;
+}
+
+/**
  * Returns array of values of a Fact entityreference field.
  *
  * @param object $fact_field_wrapper
