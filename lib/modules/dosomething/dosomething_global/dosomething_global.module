@@ -209,7 +209,8 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
     return;
   }
 
-  // Get the last item in the url, to get the edit/add node language.
+  // Get the last item in the url, and verify its the node edit language.
+  // If not set it to the source language
   $node_lang = array_pop(explode('/', (parse_url(current_path(), PHP_URL_PATH))));
   if ($node_lang == 'edit') {
     $node_lang = $form['#node']->language;
