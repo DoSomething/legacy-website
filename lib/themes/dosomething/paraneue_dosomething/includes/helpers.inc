@@ -226,7 +226,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   $node = node_load($nid);
   $url_options = [];
   if ($source) {
-    $options['query']['source'] = $source;
+    $url_options['query']['source'] = $source;
   }
   $link = url(drupal_get_path_alias('node/' . $nid), $url_options);
 
