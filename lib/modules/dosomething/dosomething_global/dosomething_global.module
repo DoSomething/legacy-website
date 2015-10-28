@@ -36,6 +36,16 @@ function dosomething_global_init() {
     dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
     return;
   }
+
+  // Verify we're dealing with an admin page that has a path prefix
+  // and if we are, redirect them to that page without a path prefix
+  if ($url_variables['is_admin_page'] && $url_variables['url_path_prefix'] != $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix) {
+    $original_path_without_prefix = str_replace($url_variables['url_path_prefix'], "", $url_variables['path']);
+    $original_path_without_prefix = ltrim($original_path_without_prefix, '/');
+    $redirect_path = url(base_path(), array('absolute' => TRUE, 'language' => 'en-global')) . $original_path_without_prefix;
+    drupal_goto($redirect_path);
+  }
+
   // If we already have a path prefix,
   // or the user is a global english speaker,
   // all logic after this statement should not run.
@@ -124,17 +134,20 @@ function dosomething_global_node_access($node, $op, $account) {
  *      request_method (String) - The type of request (Get, Post, etc)
  *      is_homepage (bool) - Is this the homepage?
  *      url_path_prefix (String) - The path prefix specified in the URL. Default is global.
+ *      is_admin_page (bool) - Is this a /admin page?
  */
 function dosomething_global_get_url_variables() {
   $path = request_path();
   $request_method = strtolower($_SERVER['REQUEST_METHOD']);
   $homepage = (drupal_is_front_page() && is_numeric(arg(1)));
   $url_path_prefix = dosomething_global_get_current_prefix();
+  $is_admin = (arg(0) == "admin");
   return array(
     'path' => $path,
     'request_method' => $request_method,
     'is_homepage' => $homepage,
-    'url_path_prefix' => $url_path_prefix
+    'url_path_prefix' => $url_path_prefix,
+    'is_admin_page' => $is_admin
   );
 }
 
