@@ -119,6 +119,7 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
         $item_style[] = '-left';
       }
       else if ($chosen_style == '3col_short') {
+        $image_ratio = 'thumb';
         $image_style = 'wmax-300-hmax-75';
         $item_style[] = '-aligned';
       }
