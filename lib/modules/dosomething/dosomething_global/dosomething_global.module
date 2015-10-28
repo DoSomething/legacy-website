@@ -55,7 +55,12 @@ function dosomething_global_init() {
     // Redirect user to /country_code page.
     if (isset($url_variables['url_path_prefix'])) {
       // Only add a path prefix to the current path if one exists.
-      drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+      $goto = $url_variables['url_path_prefix'];
+      // Only add current_path() if we are not on the homage. Fixes #5477
+      if ($url_variables['path'] === 'campaigns') {
+        $goto .= '/' . current_path();
+      }
+      drupal_goto($goto);
     }
     return;
   }
