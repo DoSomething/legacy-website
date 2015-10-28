@@ -84,7 +84,7 @@
  *   - vips (string). HTML.
  *
  */
-function dosomething_campaign_load($node, $public = FALSE) {
+function dosomething_campaign_load($node, $public = FALSE, $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
   if ($node->type != 'campaign') { return FALSE; }
 
   // Set the image src ratio and styles.
@@ -99,7 +99,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->title = $node->title;
   $campaign->status = dosomething_campaign_get_campaign_status($node);
   $campaign->type = dosomething_campaign_get_campaign_type($node);
-  $campaign->scholarship = $wrapper->field_scholarship_amount->value();
+  $campaign->scholarship = dosomething_helpers_extract_field_data($node->field_scholarship_amount, $language);
   if ($campaign->scholarship) {
     $campaign->scholarship = (int) $campaign->scholarship;
   }
@@ -112,11 +112,10 @@ function dosomething_campaign_load($node, $public = FALSE) {
 
   // Plain text properties.
   $plain_text = dosomething_campaign_get_property_names_plain_text();
-
   foreach ($plain_text as $property) {
     $field_name = 'field_' . $property;
     if (isset($wrapper->{$field_name})) {
-      $campaign->{$property} = $wrapper->{$field_name}->value();
+      $campaign->{$property} = dosomething_helpers_extract_field_data($node->{$field_name}, $language);
     }
   }
 
@@ -124,14 +123,14 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $filtered_text = dosomething_campaign_get_property_names_filtered_text();
   foreach ($filtered_text as $property) {
     $field_name = 'field_' . $property;
+    $value = dosomething_helpers_extract_field_data($node->{$field_name}, $language);
 
-    if ($value = $wrapper->{$field_name}->value()) {
-      // Store filtered text.
-      if (isset($value['safe_value'])) {
-        $campaign->{$property} = $value['safe_value'];
-      }
-      else {
+    if (isset($value)) {
+      if(!isset($value['formatted'])) {
         $campaign->{$property} = $value;
+      }
+      else{
+        $campaign->{$property} = $value['formatted'];
       }
     }
     else {
@@ -140,14 +139,16 @@ function dosomething_campaign_load($node, $public = FALSE) {
   }
 
   // Taxonomy fields.
-  $campaign->is_staff_pick = $wrapper->field_staff_pick->value();
+  $campaign->is_staff_pick = dosomething_helpers_extract_field_data($node->field_staff_pick, $language);
   $campaign->primary_cause = NULL;
-  if ($primary_cause = $wrapper->field_primary_cause->value()) {
+  $primary_cause = dosomething_helpers_extract_field_data($node->field_primary_cause, $language);
+  if (isset($primary_cause)) {
     $campaign->primary_cause['tid'] = $primary_cause->tid;
     $campaign->primary_cause['name'] = $primary_cause->name;
   }
   $campaign->issue = NULL;
-  if ($issue = $wrapper->field_issue->value()) {
+  $issue = dosomething_helpers_extract_field_data($node->field_issue, $language);
+  if (isset($campaign_issue)) {
     $campaign->issue['tid'] = $issue->tid;
     $campaign->issue['name'] = $issue->name;
   }
@@ -163,7 +164,8 @@ function dosomething_campaign_load($node, $public = FALSE) {
   );
   foreach ($fields_date as $property) {
     $field_name = 'field_' . $property;
-    if ($value = $wrapper->{$field_name}->value()) {
+    $value = dosomething_helpers_extract_field_data($node->{$field_name}, $language);
+    if (isset($value)) {
       $start_property = $property . '_start';
       $campaign->{$start_property} = $value['value'];
       $end_property = $property . '_end';
@@ -179,7 +181,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->fact_sources = NULL;
   // Collect multiple fact fields values as fact and sources variables.
   $fact_fields = array('field_fact_problem', 'field_fact_solution');
-  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($node->nid, $fact_fields);
   if (!empty($fact_vars)) {
     if (isset($fact_vars['facts']['field_fact_problem'])) {
       $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];
@@ -213,7 +215,9 @@ function dosomething_campaign_load($node, $public = FALSE) {
 
   // Set image_cover property.
   $campaign->image_cover = NULL;
-  if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
+  $image_cover_nid = dosomething_helpers_extract_field_data($node->field_image_campaign_cover, $language);
+  if (isset($image_cover_nid)) {
+    $image_cover = node_load($image_cover_nid);
     $campaign->image_cover['nid'] = (int) $image_cover->nid;
     // Initalize as FALSE.
     $campaign->image_cover['is_dark_image'] = FALSE;

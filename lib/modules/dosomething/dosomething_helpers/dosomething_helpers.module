@@ -120,6 +120,15 @@ function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NON
 
     $data = $field[$language];
 
+    if (!isset($data)) {
+      if (isset($field[LANGUAGE_NONE])) {
+        $data = $field[LANGUAGE_NONE];
+      }
+      else {
+        return NULL;
+      }
+    }
+
     $values = array();
 
     foreach ($data as $item => $content) {
