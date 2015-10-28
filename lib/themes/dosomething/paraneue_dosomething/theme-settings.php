@@ -135,12 +135,12 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
 
   $countries = dosomething_global_get_countries();
   foreach($countries as $country) {
-    $form['header']['who_we_are']['header_who_we_are_links'][$country] = array(
+    $form['header']['who_we_are']['header_who_we_are_links']['header_who_we_are_link_' . $country] = [
       '#type'          => 'entity_autocomplete',
       '#title'         => 'Link (' . $country . ')',
       '#bundles'       => ['static_content'],
       '#default_value' => theme_get_setting('header_who_we_are_link_' . $country),
-    );
+    ];
   }
 
   $form['header']['explore_campaigns'] = array(
