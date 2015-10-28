@@ -112,7 +112,7 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
       $chosen_style = $collection_item['field_gallery_style']['#items'][0]['value'];
 
       // If a key exists and it's not the default:
-      if ($chosen_style && $chosen_style == '2col') {
+      if ($chosen_style == '2col') {
         $gallery_style = 'duo';
         $image_ratio = 'thumb';
         $image_style = '100x100';
