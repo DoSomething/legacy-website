@@ -138,7 +138,7 @@ function paraneue_dosomething_get_search_vars($results) {
         $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
-          $clc = dosomething_helpers_get_current_language_code();
+          $clc = dosomething_helpers_get_current_language_content_code();
           if ($image[$clc]) {
             $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
           }
@@ -221,13 +221,14 @@ function paraneue_dosomething_get_search_gallery($results) {
  *   The source query string to append to the link.
  */
 function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
-  $classes_array = array();
+  $classes_array = [];
 
   $node = node_load($nid);
-  $link = drupal_get_path_alias('node/' . $nid);
+  $url_options = [];
   if ($source) {
-    $link .= '?source=' . $source;
+    $url_options['query']['source'] = $source;
   }
+  $link = url(drupal_get_path_alias('node/' . $nid), $url_options);
 
   $title = $node->title;
   if ($node->status == 0) {
@@ -236,7 +237,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   }
 
   $image = NULL;
-  $clc = dosomething_helpers_get_current_language_code();
+  $clc = dosomething_helpers_get_current_language_content_code();
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.
@@ -272,12 +273,13 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
  * Returns a themed mosaic gallery with campaign tiles for given $nids.
  */
 function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_more = FALSE) {
-  $items = array();
+  $items = [];
 
   foreach ($nids as $delta => $nid) {
     $item = paraneue_dosomething_get_node_gallery_item($nid, $source);
     $items[] = paraneue_dosomething_get_gallery_item($item['content'], 'tile', TRUE);
   }
+
   $gallery_classes = array('-mosaic');
   // If 5 items or more, the tiles should appear with a featured tile.
   if (count($items) > 4) {

@@ -112,6 +112,7 @@ function dosomething_global_strongarm() {
       ),
     ),
   );
+
   $export['language_negotiation_language'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -133,6 +134,7 @@ function dosomething_global_strongarm() {
       ),
     ),
   );
+
   $export['language_negotiation_language_content'] = $strongarm;
 
   $strongarm = new stdClass();

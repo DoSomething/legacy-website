@@ -112,13 +112,14 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
       $chosen_style = $collection_item['field_gallery_style']['#items'][0]['value'];
 
       // If a key exists and it's not the default:
-      if ($chosen_style && $chosen_style == '2col') {
+      if ($chosen_style == '2col') {
         $gallery_style = 'duo';
         $image_ratio = 'thumb';
         $image_style = '100x100';
         $item_style[] = '-left';
       }
       else if ($chosen_style == '3col_short') {
+        $image_ratio = 'thumb';
         $image_style = 'wmax-300-hmax-75';
         $item_style[] = '-aligned';
       }
@@ -154,7 +155,7 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
  * Implements hook_field_collection_is_empty_alter().
  *
  * @todo get language specific value when video field is translatable
- * @see  dosomething_helpers_get_current_language_code()
+ * @see  dosomething_helpers_get_current_language_content_code()
  */
 function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, $item) {
   // If this is the field_video field_collection:
