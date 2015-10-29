@@ -581,6 +581,17 @@ function dosomething_helpers_get_current_language_code() {
 }
 
 /**
+ * Returns current language_content code.
+ *
+ * @return string
+ *   ISO-code of current language
+ */
+function dosomething_helpers_get_current_language_content_code() {
+  global $language_content;
+  return $language_content->language;
+}
+
+/**
  * Get the filesystem path relative to the application root.
  *
  * @param $path

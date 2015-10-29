@@ -15,7 +15,7 @@
  */
 function dosomething_campaign_reportback_confirmation_page($node) {
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
-  $clc = dosomething_helpers_get_current_language_code();
+  $clc = dosomething_helpers_get_current_language_content_code();
 
   // Initialize $vars to pass to the reportback_confirmation theme function.
   $vars = array(
