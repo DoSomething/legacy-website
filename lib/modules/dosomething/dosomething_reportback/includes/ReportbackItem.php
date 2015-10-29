@@ -120,29 +120,24 @@ class ReportbackItem extends Entity {
 
     if ($full) {
       $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
+      $northstar_user = json_decode($northstar_user);
 
-      if (!empty($northstar_user)) {
-        $northstar_user = json_decode($northstar_user, true);
-        $northstar_user = (object) @$northstar_user['data'][0];
+      if (dosomething_helpers_isset($northstar_user->error)) {
+        $northstar_user = NULL;
       }
-    }
+      else {
+        $northstar_user = array_shift($northstar_user->data);
+      }
 
-    // $this->user = [
-    //   'drupal_id' => $data->uid,
-    //   'id' => dosomething_helpers_isset($northstar_user->_id),
-    //   'first_name' => dosomething_helpers_isset($northstar_user->first_name),
-    //   'last_name' => dosomething_helpers_isset($northstar_user->last_name),
-    //   'photo' => dosomething_helpers_isset($northstar_user->photo),
-    //   'country' => dosomething_helpers_isset($northstar_user->country),
-    // ];
+    }
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => (empty($northstar_user->_id)) ? NULL : $northstar_user->_id,
-      'first_name' => (empty($northstar_user->first_name)) ? NULL : $northstar_user->first_name,
-      'last_name' => (empty($northstar_user->last_name)) ? NULL : $northstar_user->last_name,
-      'photo' => (empty($northstar_user->photo)) ? NULL : $northstar_user->photo,
-      'country' => (empty($northstar_user->country)) ? NULL : $northstar_user->country,
+      'id' => dosomething_helpers_isset($northstar_user->_id),
+      'first_name' => dosomething_helpers_isset($northstar_user->first_name),
+      'last_name' => dosomething_helpers_isset($northstar_user->last_name),
+      'photo' => dosomething_helpers_isset($northstar_user->photo),
+      'country' => dosomething_helpers_isset($northstar_user->country),
     ];
   }
 
