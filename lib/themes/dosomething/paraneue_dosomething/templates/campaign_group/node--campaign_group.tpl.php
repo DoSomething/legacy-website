@@ -144,28 +144,30 @@
             </div>
           <?php endif; ?>
 
-          <ul class="gallery -triad">
-            <?php foreach ($gallery['items'] as $gallery_item): ?>
-              <li class="<?php print $gallery_item['order_class']; ?>">
-                <div class="figure">
-                  <?php if (isset($gallery_item['image'])): ?>
-                    <div class="figure__media">
-                      <?php print $gallery_item['image']; ?>
-                    </div>
-                  <?php endif; ?>
+          <?php if (!empty($gallery['items'])): ?>
+            <ul class="gallery -triad">
+              <?php foreach ($gallery['items'] as $gallery_item): ?>
+                <li class="<?php print $gallery_item['order_class']; ?>">
+                  <div class="figure">
+                    <?php if (isset($gallery_item['image'])): ?>
+                      <div class="figure__media">
+                        <?php print $gallery_item['image']; ?>
+                      </div>
+                    <?php endif; ?>
 
-                  <div class="figure__body">
-                  <?php if (isset($gallery_item['image_title'])): ?>
-                    <h3><?php print $gallery_item['image_title']; ?></h3>
-                  <?php endif; ?>
-                  <?php if (isset($gallery_item['image_description'])): ?>
-                    <?php print $gallery_item['image_description']; ?>
-                  <?php endif; ?>
+                    <div class="figure__body">
+                    <?php if (isset($gallery_item['image_title'])): ?>
+                      <h3><?php print $gallery_item['image_title']; ?></h3>
+                    <?php endif; ?>
+                    <?php if (isset($gallery_item['image_description'])): ?>
+                      <?php print $gallery_item['image_description']; ?>
+                    <?php endif; ?>
+                    </div>
                   </div>
-                </div>
-              </li>
-            <?php endforeach; ?>
-          </ul>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
         </div>
       <?php endforeach; ?>
     </section>

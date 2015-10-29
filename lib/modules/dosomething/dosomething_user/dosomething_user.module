@@ -146,7 +146,7 @@ function dosomething_user_ups_api_config_access() {
  * Returns an array of node types that only staff can view.
  */
 function dosomething_user_get_staff_only_types() {
-  return array('fact', 'image', 'campaign_run');
+  return array('fact', 'image', 'campaign_run', 'notfound', 'action_guide');
 }
 
  /**
