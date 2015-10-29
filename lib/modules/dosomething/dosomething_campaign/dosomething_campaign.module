@@ -580,14 +580,9 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
  * Implements hook_preprocess_page().
  */
 function dosomething_campaign_preprocess_page(&$vars) {
-//  var_dump(array_keys($vars), 'PREPROCESS PAGE &VARS');
-//  var_dump($vars['node'], 'PREPROCESS PAGE &VARS->Node');
-
   if (isset($vars['node']) && $vars['node']->type == 'campaign') {
 
     $campaign = dosomething_campaign_load($vars['node']);
-//    var_dump($campaign, 'PREPROCESS PAGE Campaign Loaded');
-
 
     $cover_image_dark_background = $campaign->image_header['is_dark_image'];
 
@@ -595,7 +590,7 @@ function dosomething_campaign_preprocess_page(&$vars) {
     // If image *doesn't* have a dark background, use black.
     $vars['use_black_navigation'] = ($cover_image_dark_background == 1) ? 0 : 1;
 
-    // On confirmation page, always use white text
+    // On confirmation page, always use white text.
     $is_confirmation_page = preg_match("/confirmation/", current_path());
     if( $is_confirmation_page ) {
       $vars['use_black_navigation'] = 0;

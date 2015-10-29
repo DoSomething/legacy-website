@@ -9,15 +9,10 @@
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
-//  var_dump(array_keys($vars), 'PREPROCESS NODE &VARS');
-//  var_dump($vars['node'], 'PREPROCESS NODE &VARS->Node');
-
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
 
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
-//  var_dump($vars['campaign'], 'PREPROCESS NODE Campaign Loaded');
-
 
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 

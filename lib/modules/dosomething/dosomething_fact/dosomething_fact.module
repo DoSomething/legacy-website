@@ -77,20 +77,86 @@ function dosomething_fact_get_mutiple_fact_field_vars($node, $field_names) {
 }
 
 /**
- * @TODO: Mediator function!
- * @param $node
- * @param $field_names
+ * Returns data for multiple specified fields.
+ *
+ * @param object $node The loaded node to collect field data from.
+ * @param array $field_names Array of field machine names to collect data from.
+ * @return array|null
  */
 function dosomething_fact_get_facts_data($node, $field_names) {
+  $entity = NULL;
+  $facts = [];
+  $sources = [];
   $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
-//  var_dump($language, 'LANGUAGE MOFO!');
 
   foreach($field_names as $field_name) {
     $field_data = $node->$field_name;
-//    var_dump(array_keys($field_data), 'KEYS');
+
+    if ($field_data) {
+      if (array_key_exists($language, $field_data)) {
+        $entity = $field_data[$language][0]['entity'];
+      }
+
+      if (isset($field_data[0]['entity']) && is_object($field_data[0]['entity'])) {
+        $entity = $field_data[0]['entity'];
+      }
+    }
+
+    if ($entity) {
+      $entity_data = dosomething_fact_get_entity_data($entity);
+
+      $facts[$field_name]['fact'] = $entity_data['title'];
+      $facts[$field_name]['nid'] = $entity_data['nid'];
+      $fact_sources = dosomething_helpers_extract_field_data($entity->field_source_copy);
+      $fact_sources = dosomething_fact_get_formatted_sources($fact_sources);
+      $facts[$field_name]['footnotes'] = '';
+      foreach ($fact_sources as $index => $source) {
+        $count = count($sources);
+        $facts[$field_name]['footnotes'][] = $count + 1;
+        $facts[$field_name]['sources'][$count] = $source;
+        $sources[] = $source;
+      }
+
+      $facts[$field_name]['footnotes'] = implode(' ', $facts[$field_name]['footnotes']);
+    }
   }
 
-  return null;
+  if ($facts) {
+    $data = [
+      'facts' => $facts,
+      'sources' => $sources,
+    ];
+
+    return $data;
+  }
+
+  return NULL;
+}
+
+/**
+ * @param $entity
+ * @return array
+ */
+function dosomething_fact_get_entity_data($entity) {
+  $data = [];
+
+  $data['title'] = $entity->title;
+  $data['nid'] = $entity->nid;
+
+  return $data;
+}
+
+function dosomething_fact_get_formatted_sources($sources) {
+  if (!is_array($sources[0])) {
+    $sources = [$sources];
+  }
+
+  $formatted_sources = [];
+  foreach ($sources as $source) {
+    $formatted_sources[] = $source['formatted'];
+  }
+
+  return $formatted_sources;
 }
 
 /**
