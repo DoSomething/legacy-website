@@ -164,6 +164,10 @@ projects[pathauto][subdir] = "contrib"
 projects[pathauto_i18n][version] = "1.4"
 projects[pathauto_i18n][subdir] = "contrib"
 
+; POEditor
+projects[poeditor][version] = "1.3"
+projects[poeditor][subdir] = "contrib"
+
 ; POTX (Translation template extractor)
 projects[potx][version] = "1.0"
 projects[potx][subdir] = "contrib"

@@ -4,6 +4,7 @@ core = 7.x
 package = DoSomething
 version = 7.x-1.0
 dependencies[] = ctools
+dependencies[] = dosomething_global
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = strongarm

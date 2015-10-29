@@ -25,6 +25,7 @@ function dosomething_user_preprocess_page(&$vars) {
     ),
     'setting'
   );
+
 }
 
 /**
@@ -271,7 +272,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
         // Add an after build to remove the language switcher.
-        $form['#after_build'][] = 'dosomething_user_remove_language_switcher';
+        $form['#after_build'][] = 'dosomething_user_remove_language_and_country_switcher';
       }
       // else if staff:
       else {
@@ -315,7 +316,8 @@ function dosomething_user_non_us_birthday_format($form, &$form_state) {
  * After build to remove language switcher.
  *
  */
-function dosomething_user_remove_language_switcher($form, &$form_state) {
+function dosomething_user_remove_language_and_country_switcher($form, &$form_state) {
+  $form['field_address'][LANGUAGE_NONE][0]['address']['country']['#access'] = FALSE;
   unset($form['locale']);
   return $form;
 }
@@ -438,17 +440,16 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
     $account = user_load_by_mail($form_state['input']['name']);
     if (isset($account->mail)) {
       if (module_exists('dosomething_global')) {
-        $user_language = dosomething_global_get_user_language($account);
-        $user_country_code = dosomething_global_convert_language_to_country($user_language);
+        list($user_language, $user_country_code) = dosomething_global_user_details($account);
       }
       // Send external message request
       $params = array(
-        'email' => $account->mail,
-        'uid' => $account->uid,
-        'first_name' => dosomething_user_get_field('field_first_name', $account),
-        'reset_link' => user_pass_reset_url($account),
-        'user_language'     => isset($user_language) ? $user_language : 'en',
-        'user_country'      => isset($user_country_code) ? $user_country_code : 'US',
+        'email'         => $account->mail,
+        'uid'           => $account->uid,
+        'first_name'    => dosomething_user_get_field('field_first_name', $account),
+        'reset_link'    => user_pass_reset_url($account),
+        'user_language' => isset($user_language) ? $user_language : 'en',
+        'user_country'  => isset($user_country_code) ? $user_country_code : 'US',
       );
       if (module_exists('dosomething_mbp')) {
         dosomething_mbp_request('user_password', $params);
@@ -502,8 +503,7 @@ function _dosomething_user_send_to_message_broker() {
   global $user;
   $account = $user;
   if (module_exists('dosomething_global')) {
-    $user_language = dosomething_global_get_user_language($account);
-    $user_country_code = dosomething_global_convert_language_to_country($user_language);
+    list($user_language, $user_country_code) = dosomething_global_user_details($account);
   }
 
   // Send external message request.
@@ -748,12 +748,18 @@ function _dosomething_user_add_signup_data(&$form) {
         '#access' => FALSE,
       );
     }
-    $form['#action'] = '/' . drupal_get_path_alias('node/' . $nid);
-    // Source needs to be added into query string into form action,
-    // in order to be found later in form submit states.
-    if ($source) {
-      $form['#action'] = $form['#action'] . '?source=' . $source;
-    }
+
+    // Use the global url as the form action so the user gets redirected to the right page.
+    $lang_code = dosomething_global_get_language($user, $node);
+
+    $url_options = array(
+      'language' => $lang_code,
+      'query' => array(
+        'source' => $source,
+      ),
+    );
+
+    $form['#action'] = dosomething_global_url('/' . drupal_get_path_alias('node/' . $nid), $url_options);
   }
 }
 

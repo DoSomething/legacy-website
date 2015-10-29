@@ -13,6 +13,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
+
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $current_path = current_path();
@@ -121,11 +122,12 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
 
-    $base_url = url(base_path(), array('absolute'=> TRUE));
+    $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
+
     // Create the image path to the problem fact statement image generated for the node.
-    $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '.png';
+    $problem_share_image = $base_url . '/sites/default/files/images/problem-' . $vars['nid'] . '.png';
 
     $share_types = array(
       'facebook' => array(
@@ -465,6 +467,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
 
   $action_guides = $vars['field_action_guide'];
+  // LANGUAGE_NONE is being added to action guide references with #global see #5585
+  if (array_key_exists(LANGUAGE_NONE, $action_guides)) {
+    $action_guides = $action_guides[LANGUAGE_NONE];
+  }
   if (!empty($action_guides)) {
     foreach ($action_guides as $delta => $target) {
       $action_guide = $target['entity'];

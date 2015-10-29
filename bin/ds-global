@@ -160,6 +160,7 @@ function make_static_content_translatable {
   drush ds-global-field-fix field_intro_title
   drush ds-global-field-fix field_intro
   drush ds-global-field-fix field_intro_image
+
   # Don't need: field_video
   # Done: field_call_to_action
   drush ds-global-field-fix field_cta_link
