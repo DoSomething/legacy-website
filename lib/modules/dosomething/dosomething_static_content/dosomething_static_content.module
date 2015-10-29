@@ -155,7 +155,7 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
  * Implements hook_field_collection_is_empty_alter().
  *
  * @todo get language specific value when video field is translatable
- * @see  dosomething_helpers_get_current_language_code()
+ * @see  dosomething_helpers_get_current_language_content_code()
  */
 function dosomething_static_content_field_collection_is_empty_alter(&$is_empty, $item) {
   // If this is the field_video field_collection:

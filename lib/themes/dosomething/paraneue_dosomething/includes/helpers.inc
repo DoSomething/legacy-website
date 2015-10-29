@@ -138,7 +138,7 @@ function paraneue_dosomething_get_search_vars($results) {
         $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
-          $clc = dosomething_helpers_get_current_language_code();
+          $clc = dosomething_helpers_get_current_language_content_code();
           if ($image[$clc]) {
             $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
           }
@@ -237,7 +237,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
   }
 
   $image = NULL;
-  $clc = dosomething_helpers_get_current_language_code();
+  $clc = dosomething_helpers_get_current_language_content_code();
   // If the node has a Cover Image:
   if (!empty($node->field_image_campaign_cover)) {
     // Presets for the node's Cover Image display.

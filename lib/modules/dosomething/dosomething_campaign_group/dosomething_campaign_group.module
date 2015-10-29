@@ -157,7 +157,7 @@ function dosomething_campaign_group_get_child_data($node) {
     'nids' => array(),
   );
   if (!empty($node->field_campaigns)) {
-    $clc = dosomething_helpers_get_current_language_code();
+    $clc = dosomething_helpers_get_current_language_content_code();
     foreach ($node->field_campaigns[$clc] as $delta => $value) {
       // Add the child nid to nid's array.
       $data['nids'][] = $value['entity']->nid;

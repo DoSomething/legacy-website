@@ -576,6 +576,17 @@ function dosomething_helpers_node_metadata_wrapper($node, $ignore_language = FAL
  *   ISO-code of current language
  */
 function dosomething_helpers_get_current_language_code() {
+  global $language;
+  return $language->language;
+}
+
+/**
+ * Returns current language_content code.
+ *
+ * @return string
+ *   ISO-code of current language
+ */
+function dosomething_helpers_get_current_language_content_code() {
   global $language_content;
   return $language_content->language;
 }
