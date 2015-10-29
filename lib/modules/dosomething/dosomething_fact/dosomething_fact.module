@@ -109,15 +109,19 @@ function dosomething_fact_get_facts_data($node, $field_names) {
       $facts[$field_name]['nid'] = $entity_data['nid'];
       $fact_sources = dosomething_helpers_extract_field_data($entity->field_source_copy);
       $fact_sources = dosomething_fact_get_formatted_sources($fact_sources);
-      $facts[$field_name]['footnotes'] = '';
-      foreach ($fact_sources as $index => $source) {
-        $count = count($sources);
-        $facts[$field_name]['footnotes'][] = $count + 1;
-        $facts[$field_name]['sources'][$count] = $source;
-        $sources[] = $source;
-      }
 
-      $facts[$field_name]['footnotes'] = implode(' ', $facts[$field_name]['footnotes']);
+      if ($fact_sources) {
+        $facts[$field_name]['footnotes'] = '';
+
+        foreach ($fact_sources as $index => $source) {
+          $count = count($sources);
+          $facts[$field_name]['footnotes'][] = $count + 1;
+          $facts[$field_name]['sources'][$count] = $source;
+          $sources[] = $source;
+        }
+
+        $facts[$field_name]['footnotes'] = implode(' ', $facts[$field_name]['footnotes']);
+      }
     }
   }
 
@@ -134,10 +138,16 @@ function dosomething_fact_get_facts_data($node, $field_names) {
 }
 
 /**
+ * Get specific data from the fact entity.
+ *
  * @param $entity
  * @return array
  */
 function dosomething_fact_get_entity_data($entity) {
+  if (!$entity && !is_object($entity)) {
+    return NULL;
+  }
+
   $data = [];
 
   $data['title'] = $entity->title;
@@ -146,7 +156,17 @@ function dosomething_fact_get_entity_data($entity) {
   return $data;
 }
 
+/**
+ * Return just the formatted sources copy.
+ *
+ * @param $sources
+ * @return array|null
+ */
 function dosomething_fact_get_formatted_sources($sources) {
+  if (!$sources) {
+    return NULL;
+  }
+
   if (!is_array($sources[0])) {
     $sources = [$sources];
   }
@@ -158,6 +178,7 @@ function dosomething_fact_get_formatted_sources($sources) {
 
   return $formatted_sources;
 }
+
 
 /**
  * Returns array of values of a Fact entityreference field.
