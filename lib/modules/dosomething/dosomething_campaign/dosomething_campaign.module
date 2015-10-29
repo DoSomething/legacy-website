@@ -12,6 +12,7 @@ include_once 'includes/Campaign.php';
 include_once 'includes/CampaignController.php';
 include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
+
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', t('Snap a Pic'));
 
 /**
@@ -578,13 +579,14 @@ function dosomething_campaign_preprocess_page(&$vars) {
   if (isset($vars['node']) && $vars['node']->type == 'campaign') {
 
     $campaign = dosomething_campaign_load($vars['node']);
+
     $cover_image_dark_background = $campaign->image_header['is_dark_image'];
 
     // The usual default for navigation is white.
     // If image *doesn't* have a dark background, use black.
     $vars['use_black_navigation'] = ($cover_image_dark_background == 1) ? 0 : 1;
 
-    // On confirmation page, always use white text
+    // On confirmation page, always use white text.
     $is_confirmation_page = preg_match("/confirmation/", current_path());
     if( $is_confirmation_page ) {
       $vars['use_black_navigation'] = 0;

@@ -13,6 +13,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
+
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
   $current_path = current_path();

@@ -11,6 +11,7 @@ dependencies[] = dosomething_helpers
 dependencies[] = dosomething_image
 dependencies[] = dosomething_signup
 dependencies[] = dosomething_taxonomy
+dependencies[] = dosomething_global
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_collection
