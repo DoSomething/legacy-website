@@ -135,9 +135,11 @@ function dosomething_northstar_update_user($form_state) {
  */
 function dosomething_northstar_get_northstar_user($id) {
   $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
-  $northstar_user_info = $northstar_user_info->data;
 
-  if (empty($northstar_user_info)) {
+  if ($northstar_user_info) {
+    $northstar_user_info = $northstar_user_info->data;
+  }
+  else {
     $client = _dosomething_northstar_build_http_client();
 
     $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
@@ -145,7 +147,7 @@ function dosomething_northstar_get_northstar_user($id) {
       'method' => 'GET',
       ));
 
-    $northstar_user_info = $northstar_user_info->data;
+      $northstar_user_info = $northstar_user_info->data;
 
       if (!empty($northstar_user_info->error)) {
         $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
@@ -154,7 +156,8 @@ function dosomething_northstar_get_northstar_user($id) {
         cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
       }
   }
-
+  print_r('poop');
+  die();
   return $northstar_user_info;
 }
 

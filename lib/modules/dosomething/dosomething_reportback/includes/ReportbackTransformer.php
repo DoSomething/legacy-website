@@ -58,7 +58,8 @@ class ReportbackTransformer extends Transformer {
     }
 
     return array(
-      'data' => $this->transformCollection($reportbacks),
+      // 'data' => $this->transformCollection($reportbacks),
+      'data' => $reportbacks,
     );
   }
 
