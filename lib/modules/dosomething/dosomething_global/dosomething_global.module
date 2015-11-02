@@ -78,8 +78,8 @@ function dosomething_global_init() {
     return;
   }
 
-  // If the node isn't translatable, don't do any redirection.
-  if (count($node_variables['node']->translations->data) <= 1) {
+  // If the node doesn't have translations, don't do any redirection.
+  if (empty($node_variables['node']->translations->data)) {
     return;
   }
 
