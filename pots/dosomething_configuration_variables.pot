@@ -248,3 +248,12 @@ msgstr ""
 #: node 1144 shipment_form_submitted_copy
 msgid "You already requested a kit on [submitted] and we're working on getting it to you! It should arrive about one week from the day you ordered it."
 msgstr ""
+
+#:
+msgid "Upload your photos!"
+msgstr ""
+
+#:
+msgid "Recent Campaigns We Crushed"
+msgstr ""
+
