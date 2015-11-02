@@ -311,7 +311,7 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
  * Implements hook_views_pre_render().
  */
 function dosomething_global_views_pre_render(&$view) {
-  if ($view->name == "content_search") {
+  if ($view->name == "content_search" && $view->current_display == "page_2") {
     foreach($view->result as $result) {
       $nid = $result->nid;
       $target_lang = $result->entity_translation_node_language;
