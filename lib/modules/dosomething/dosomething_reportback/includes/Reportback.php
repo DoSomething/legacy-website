@@ -161,36 +161,25 @@ class Reportback extends Entity {
     ];
 
     if ($full) {
-      $northstar_user = dosomething_northstar_get_northstar_user('100001');
+      $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_user = json_decode($northstar_user);
 
-      if (dosomething_helpers_isset($northstar_user->error)) {
+      if (isset($northstar_user->error)) {
         $northstar_user = NULL;
       }
       else {
         $northstar_user = array_shift($northstar_user->data);
-        // die($northstar_user->_id);
       }
-
     }
-    $this->user = [
-      // 'drupal_id' => $data->uid,
-      // 'id' => dosomething_helpers_isset($northstar_user->_id),
-      // 'first_name' => dosomething_helpers_isset($northstar_user->first_name),
-      // 'last_name' => dosomething_helpers_isset($northstar_user->last_name),
-      // 'photo' => dosomething_helpers_isset($northstar_user->photo),
-      // 'country' => dosomething_helpers_isset($northstar_user->country),
-      'northstar_user' => $northstar_user,
-    ];
 
-    //   $this->user = [
-    //   'drupal_id' => $data->uid,
-    //   'id' => (empty($northstar_user->_id)) ? NULL : $northstar_user->_id,
-    //   'first_name' => (empty($northstar_user->first_name)) ? NULL : $northstar_user->first_name,
-    //   'last_name' => (empty($northstar_user->last_name)) ? NULL : $northstar_user->last_name,
-    //   'photo' => (empty($northstar_user->photo)) ? NULL : $northstar_user->photo,
-    //   'country' => (empty($northstar_user->country)) ? NULL : $northstar_user->country,
-    // ];
+    $this->user = [
+      'drupal_id' => $data->uid,
+      'id' => isset($northstar_user->_id) ? $northstar_user->_id : NULL,
+      'first_name' => isset($northstar_user->first_name) ? $northstar_user->first_name : NULL ,
+      'last_name' => isset($northstar_user->last_name) ? $northstar_user->last_name : NULL,
+      'photo' => isset($northstar_user->photo) ? $northstar_user->photo : NULL,
+      'country' => isset($northstar_user->country) ? $northstar_user->country : NULL,
+    ];
   }
 
 

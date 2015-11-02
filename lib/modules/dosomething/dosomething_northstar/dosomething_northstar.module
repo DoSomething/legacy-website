@@ -156,8 +156,7 @@ function dosomething_northstar_get_northstar_user($id) {
         cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
       }
   }
-  print_r('poop');
-  die();
+
   return $northstar_user_info;
 }
 
