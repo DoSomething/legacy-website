@@ -308,6 +308,20 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
 }
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function dosomething_global_views_pre_render(&$view) {
+  if ($view->name == "content_search") {
+    foreach($view->result as $result) {
+      $nid = $result->nid;
+      $target_lang = $result->entity_translation_node_language;
+      $node = node_load($nid);
+      $result->node_status = $node->translations->data[$target_lang]['status'];
+    }
+  }
+}
+
+/**
  * Returns if the user is a regional admin
  *
  * @param Object $user
