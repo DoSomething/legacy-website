@@ -31,6 +31,11 @@ function dosomething_global_init() {
   $user_variables = dosomething_global_get_user_variables();
   $node_variables = dosomething_global_get_node_variables();
 
+  // Never redirect POST requests
+  if ($url_variables['request_method'] == 'post') {
+    return;
+  }
+
   // Verify we're dealing with a node edit with no translation specification in the URL
   if ($node_variables['is_node'] && $node_variables['is_node_edit'] && $node_variables['node_edit_language'] == NULL) {
     dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
@@ -97,7 +102,7 @@ function dosomething_global_init() {
   // Don't redirect POSTs.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if ($user_variables['is_user_page'] && $url_variables['request_method'] !== 'post' && !$node_variables['node_no_redirect']) {
+  if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
@@ -164,11 +169,13 @@ function dosomething_global_get_user_variables() {
   $user_language = dosomething_global_convert_country_to_language($header_country_code);
   $user_path_prefix = dosomething_global_get_prefix_for_language($user_language);
   $is_user_page = arg(0) == 'user';
+  $is_login = $is_user_page && (arg(1) == "login");
   return array(
     'header_country_code' => $header_country_code,
     'user_language' => $user_language,
     'user_path_prefix' => $user_path_prefix,
-    'is_user_page' => $is_user_page
+    'is_user_page' => $is_user_page,
+    'is_login_page' => $is_login
   );
 }
 
@@ -296,6 +303,20 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
       // Remove the translate tab in CMS side for regional admins
       $remove_translate_tab_script = "jQuery(document).ready(function () { var tabMenu = jQuery('ul.tabs.primary'); var tab = tabMenu.find('li > a:contains(\"Translate\")').parent().remove(); });";
       drupal_add_js($remove_translate_tab_script, 'inline');
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function dosomething_global_views_pre_render(&$view) {
+  if ($view->name == "content_search" && $view->current_display == "page_2") {
+    foreach($view->result as $result) {
+      $nid = $result->nid;
+      $target_lang = $result->entity_translation_node_language;
+      $node = node_load($nid);
+      $result->node_status = $node->translations->data[$target_lang]['status'];
     }
   }
 }
