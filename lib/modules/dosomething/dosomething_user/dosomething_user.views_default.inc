@@ -492,7 +492,13 @@ function dosomething_user_views_default_views() {
     9 => 0,
     10 => 0,
   );
-  $handler->display->display_options['path'] = 'admin/content/search/translation';
+  $handler->display->display_options['path'] = 'admin/content/translation';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Translation status';
+  $handler->display->display_options['menu']['description'] = 'translation statuses ';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['content_search'] = array(
     t('Master'),
     t('Translation Status'),
