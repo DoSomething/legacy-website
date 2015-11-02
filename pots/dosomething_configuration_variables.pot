@@ -249,11 +249,11 @@ msgstr ""
 msgid "You already requested a kit on [submitted] and we're working on getting it to you! It should arrive about one week from the day you ordered it."
 msgstr ""
 
-#:
+#: database
 msgid "Upload your photos!"
 msgstr ""
 
-#:
+#: database
 msgid "Recent Campaigns We Crushed"
 msgstr ""
 

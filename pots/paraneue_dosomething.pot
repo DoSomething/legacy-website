@@ -1139,15 +1139,15 @@ msgstr ""
 msgid "YYYY"
 msgstr ""
 
-#: site
+#: theme
 msgid "News"
 msgstr ""
 
-#: site
+#: theme
 msgid "Help"
 msgstr ""
 
-#: site
+#: theme
 msgid "Frequently Asked Questions"
 msgstr ""
 
