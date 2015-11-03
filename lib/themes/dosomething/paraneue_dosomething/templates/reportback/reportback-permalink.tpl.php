@@ -80,7 +80,6 @@
             </div>
             <div class="card__copy">
               <p class="heading -alpha"><?php print $node->title; ?></p>
-
               <?php if ($node->fact_problem['fact']): ?>
                 <h3><?php print t('The Problem'); ?></h3>
                 <p><?php print $node->fact_problem['fact']; ?></p>

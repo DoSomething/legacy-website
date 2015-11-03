@@ -95,7 +95,7 @@ function dosomething_fact_get_facts_data($node, $field_names) {
 
     if ($field_data) {
       if (array_key_exists($language, $field_data)) {
-        $entity = $field_data[$language][0]['entity'];
+        $entity = dosomething_fact_get_entity($field_data, $language);
       }
 
       if (isset($field_data[0]['entity']) && is_object($field_data[0]['entity'])) {
@@ -136,6 +136,23 @@ function dosomething_fact_get_facts_data($node, $field_names) {
   }
 
   return NULL;
+}
+
+/**
+ * Return the entity, whether it was already loaded in the field data,
+ * or if it needs to go and retrieve it.
+ *
+ * @param $data
+ * @param string $language
+ * @return mixed
+ */
+function dosomething_fact_get_entity($data, $language = LANGUAGE_NONE) {
+  if (isset($data[$language][0]['target_id'])) {
+    $entity = entity_load('node', [$data[$language][0]['target_id']]);
+    return $entity ? array_shift($entity) : NULL;
+  }
+
+  return $data[$language][0]['entity'];
 }
 
 /**
