@@ -21,3 +21,10 @@
      ->condition('name', 'dosomething_global', '=')
      ->execute();
  }
+
+ /**
+  * Presets variables.
+  */
+function dosomething_global_update_7002(&$sandbox) {
+  variable_set('dosomething_campaign_group_override_language', TRUE);
+}
