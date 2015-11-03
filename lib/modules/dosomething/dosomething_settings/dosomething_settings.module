@@ -152,8 +152,8 @@ function dosomething_settings_get_geo_latlong() {
   $lat_name = 'HTTP_X_FASTLY_LATITUDE';
   $long_name = 'HTTP_X_FASTLY_LONGITUDE';
   return array(
-    'lat' => return dosomething_settings_get_header($lat_name),
-    'long' => return dosomething_settings_get_header($long_name),
+    'lat' => dosomething_settings_get_header($lat_name),
+    'long' => dosomething_settings_get_header($long_name),
   );
 }
 
@@ -167,11 +167,34 @@ function dosomething_settings_get_geo_region() {
   return dosomething_settings_get_header($name);
 }
 
+/**
+ * Returns raw HTTP Accept Lang header.
+ * Note: You will probably want to use the format browser language
+ * function below in order to get something useful out.
+ *
+ * @return string
+ */
 function dosomething_settings_get_browser_language() {
   $name = 'HTTP_ACCEPT_LANGUAGE';
   return dosomething_settings_get_header($name);
 }
 
+/**
+ * Formats the output of dosomething_settings_get_browser_language()
+ *
+ * @return string
+ */
+function dosomething_settings_format_browser_language() {
+  
+}
+
+/**
+ * Grabs the specified header and checks if it exists first.
+ * This prevents the debug log from being spammed with errors
+ * if the header doesn't exist.
+ *
+ * @return string or NULL
+ */
 function dosomething_settings_get_header($name) {
   if (isset($_SERVER[$name])) {
     return $_SERVER[$name];

@@ -14,6 +14,8 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
  * Implements hook_init().
  */
 function dosomething_global_init() {
+  dosomething_settings_format_browser_language();
+
   // We don't need to redirect cli request, such as drush.
   if (drupal_is_cli()) {
     return;
