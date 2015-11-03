@@ -50,6 +50,15 @@ function dosomething_global_drush_command() {
       ],
       'required-arguments' => TRUE,
     ],
+    'ds-update-field-language' => [
+      'description' => 'Update field language.',
+      'arguments' => [
+        'field_name'    => 'Field name to update.',
+        'language_from' => '(optional) From language, defaults to "und".',
+        'language_to'   => '(optional) To language, defaults to "en".',
+      ],
+      'required-arguments' => 1,
+    ],
   ];
 }
 
@@ -206,4 +215,64 @@ function drush_dosomething_global_ds_fields_resque($bundle) {
       drush_log('Saving node #' . $node->nid . '.', 'ok');
     }
   }
+}
+
+
+/**
+ * Callback for ds-fields-resque command.
+ */
+function drush_dosomething_global_ds_update_field_language(
+                                                        $field_name,
+                                                        $language_from = 'und',
+                                                        $language_to   = 'en') {
+
+  // Get field info.
+  $field = field_info_field($field_name);
+  if (!$field) {
+    drush_log('No such field: ' . $field_name . '.', 'error');
+    return;
+  }
+
+  // Get DB table.
+  $table_name = @key($field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+  if (!$table_name) {
+    drush_log('Database table not found for: ' . $field_name . '.', 'error');
+    return;
+  }
+
+  drush_log('Updating ' . $field_name . ' from "' .
+            $language_from . '" to "' . $language_to . '".', 'status');
+
+  $query  = 'UPDATE IGNORE {' . $table_name . '} ';
+  $query .= 'SET   language = :language_to ';
+  $query .= 'WHERE language = :language_from';
+
+  $result = db_query($query, [
+    ':language_to'   => $language_to,
+    ':language_from' => $language_from
+  ]);
+
+  if (!$result) {
+    drush_log('Unexpected query error.', 'error');
+    return;
+  }
+
+  $updated_count = $result->rowCount();
+  if ($updated_count < 1) {
+    drush_log('Nothing to update.', 'ok');
+    return;
+  }
+  drush_log($updated_count . ' fields updated.', 'ok');
+
+  $left_count = (int) db_select($table_name)
+  ->condition('language', $language_from)
+  ->countQuery()
+  ->execute()
+  ->fetchField();
+
+  if ($left_count > 0) {
+    drush_log($left_count . ' fields left.', 'status');
+  }
+
+  return;
 }
