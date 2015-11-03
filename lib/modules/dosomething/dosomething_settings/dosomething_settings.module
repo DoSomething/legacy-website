@@ -185,7 +185,13 @@ function dosomething_settings_get_browser_language() {
  * @return string
  */
 function dosomething_settings_format_browser_language() {
-  
+  $raw = dosomething_settings_get_browser_language();
+  if ($raw == NULL) {
+    return DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  }
+  $split = explode('-', $raw);
+  $language = $split[0];
+  return $language;
 }
 
 /**
