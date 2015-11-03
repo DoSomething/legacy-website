@@ -140,7 +140,7 @@ function dosomething_static_content_preprocess_galleries(&$vars) {
       $gallery_item = [
         'title' => $link_field['url'] ? l(t($link_field['title']), $link_field['url'], ['target' => '_blank']) : $link_field['title'],
         'description' => $field_item['field_image_description'][0]['#markup'],
-        'image' => dosomething_image_get_themed_image($field_item['field_gallery_image']['#items'][0]['target_id'], $image_ratio, $image_style),
+        'image' => dosomething_image_get_themed_image($field_item['#entity']->field_gallery_image[LANGUAGE_NONE][0]['target_id'], $image_ratio, $image_style),
         'url' => $link_field['url'],
       ];
 
