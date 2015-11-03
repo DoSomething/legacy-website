@@ -142,7 +142,7 @@ function dosomething_fact_get_facts_data($node, $field_names) {
  * Return the entity, whether it was already loaded in the field data,
  * or if it needs to go and retrieve it.
  *
- * @param $data
+ * @param array $data Specific field item in loaded node data.
  * @param string $language
  * @return mixed
  */
