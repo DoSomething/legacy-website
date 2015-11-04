@@ -179,7 +179,14 @@ function dosomething_campaign_load($node, $public = FALSE) {
   $campaign->fact_sources = NULL;
   // Collect multiple fact fields values as fact and sources variables.
   $fact_fields = array('field_fact_problem', 'field_fact_solution');
-  $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+
+  // @TODO: Consider removing old function.
+  // For global translation work we had issues dealing with the entity_metadata_wrapper method and
+  // EntityDrupalWrapper retrieving appropriate content based on url language prefix, so this function
+  // is disabled for now in favor of the dosomething_fact_get_facts_data() function instead.
+  // $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+  $fact_vars = dosomething_fact_get_facts_data($node, $fact_fields);
+
   if (!empty($fact_vars)) {
     if (isset($fact_vars['facts']['field_fact_problem'])) {
       $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];

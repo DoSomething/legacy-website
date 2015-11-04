@@ -566,6 +566,15 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
       'source' => 'node/' . $node->nid,
     ),
   );
+  $campaign_link = dosomething_global_url('node/' . $nid, $url_options);
+
+  // Get node title, normal for collections, translatable for campaigns.
+  $title = '';
+  if (isset($node->title_field)) {
+    $title = $wrapper->language($language)->title_field->value();
+  } else {
+    $title = $node->title;
+  }
 
   $params = array(
     'email' => $account->mail,
@@ -573,8 +582,8 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
-    'campaign_title' => $wrapper->language($language)->title_field->value(),
-    'campaign_link' => url('node/' . $node->nid, $url_options),
+    'campaign_title' => $title,
+    'campaign_link' => dosomething_global_url('node/' . $node->nid, $url_options),
     'user_language' => $language,
   );
 
@@ -670,6 +679,11 @@ function dosomething_signup_get_mailchimp_list_id() {
   global $user;
   $user_language = $user->language;
   $country_code = dosomething_global_convert_language_to_country($user_language);
+  // Default to the global MailChimp list if a country is not found for the user language
+  // Most global users will have a language setting of en-global.
+  if (empty($country_code)) {
+    $country_code = 'global';
+  }
   $field_name = "dosomething_signup_" . strtolower($country_code) . '_mail_list_id';
   return variable_get($field_name);
 }

@@ -284,15 +284,6 @@ function dosomething_user_views_default_views() {
   $handler->display->display_options['filters']['language']['id'] = 'language';
   $handler->display->display_options['filters']['language']['table'] = 'node';
   $handler->display->display_options['filters']['language']['field'] = 'language';
-  $handler->display->display_options['filters']['language']['value'] = array(
-    '***CURRENT_LANGUAGE***' => '***CURRENT_LANGUAGE***',
-    '***DEFAULT_LANGUAGE***' => '***DEFAULT_LANGUAGE***',
-    'und' => 'und',
-    'en' => 'en',
-    'en-global' => 'en-global',
-    'pt-br' => 'pt-br',
-    'es-mx' => 'es-mx',
-  );
   $handler->display->display_options['filters']['language']['exposed'] = TRUE;
   $handler->display->display_options['filters']['language']['expose']['operator_id'] = 'language_op';
   $handler->display->display_options['filters']['language']['expose']['label'] = 'Language';
@@ -501,7 +492,13 @@ function dosomething_user_views_default_views() {
     9 => 0,
     10 => 0,
   );
-  $handler->display->display_options['path'] = 'admin/content/search/translation';
+  $handler->display->display_options['path'] = 'admin/content/translation';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Translation status';
+  $handler->display->display_options['menu']['description'] = 'translation statuses ';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $translatables['content_search'] = array(
     t('Master'),
     t('Translation Status'),

@@ -5,36 +5,210 @@
  */
 
 include_once 'dosomething_global.features.inc';
-define("TRANSLATABLE_TYPES", 'static_content,campaign,home');
+define('TRANSLATABLE_TYPES', 'static_content,campaign,home');
+
+// Default language: Global English
+define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
 
 /**
  * Implements hook_init().
  */
 function dosomething_global_init() {
+  // We don't need to redirect cli request, such as drush.
+  if (drupal_is_cli()) {
+    return;
+  }
+
+  $languages = language_list();
+  if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
+    watchdog('dosomething_global', "Can't load %lang language",
+      array('%lang' => $global_lang_code), WATCHDOG_ERROR);
+    return;
+  }
+
+  global $user;
+  $url_variables = dosomething_global_get_url_variables();
+  $user_variables = dosomething_global_get_user_variables();
+  $node_variables = dosomething_global_get_node_variables();
+
+  // Never redirect POST requests
+  if ($url_variables['request_method'] == 'post') {
+    return;
+  }
+
   // Verify we're dealing with a node edit with no translation specification in the URL
-  if (arg(0) == "node" && is_numeric(arg(1)) && arg(2) == "edit" && null == arg(3)) {
-    // Load the page node and user
-    $nid = arg(1);
-    $node = node_load($nid);
-    global $user;
+  if ($node_variables['is_node'] && $node_variables['is_node_edit'] && $node_variables['node_edit_language'] == NULL) {
+    dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
+    return;
+  }
 
-    // Load the languages being used
-    $src_language = $node->language;
-    $user_language = $user->language ?: 'en';
+  // Verify we're dealing with an admin page that has a path prefix
+  // and if we are, redirect them to that page without a path prefix
+  if ($url_variables['is_admin_page'] && $url_variables['url_path_prefix'] != $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix) {
+    $redirect_path = url(current_path(), array('absolute' => TRUE, 'language' => 'en-global'));
+    drupal_goto($redirect_path);
+  }
 
-    // If we're not working on a translation, no need to re-direct.
-    if ($src_language != $user_language) {
-      // Determines if the url needs the /add/source/ component
-      $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
+  // If we already have a path prefix,
+  // or the user is a global english speaker,
+  // all logic after this statement should not run.
+  if ($url_variables['url_path_prefix'] != dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE)) {
+    return;
+  }
+  else if($user_variables['user_language'] == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+    return;
+  }
 
-      // Append the user language
-      $lang_append = $new_translation_prefix . $user_language;
+  // Configure the correct path prefix
+  $url_variables['url_path_prefix'] = dosomething_global_get_prefix_for_language($user_variables['user_language']);
 
-      // Build complete URL and redirect
-      $new_url = str_replace(' ', '', '/node/' . $nid . '/edit/' . $lang_append);
-      drupal_goto($new_url);
+  // Redirect people hitting the homepage
+  // or explore campaigns to their local version.
+  if ($url_variables['is_homepage'] || $url_variables['path'] == 'campaigns') {
+    // Redirect user to /country_code page.
+    if (isset($url_variables['url_path_prefix'])) {
+      // Only add a path prefix to the current path if one exists.
+      $goto = $url_variables['url_path_prefix'];
+      // Only add current_path() if we are not on the homage. Fixes #5477
+      if ($url_variables['path'] === 'campaigns') {
+        $goto .= '/' . current_path();
+      }
+      drupal_goto($goto);
+    }
+    return;
+  }
+
+  // If the node doesn't have translations, don't do any redirection.
+  if (empty($node_variables['node']->translations->data)) {
+    return;
+  }
+
+  // Handle translation redirects for authenticated and anonymous users when
+  // they request bare (Global English) URLs to nodes.
+  //
+  // Passing 'noredirect=1' will defeat the redirect.
+  if ($node_variables['is_node'] && !$node_variables['is_node_edit'] && !$node_variables['node_no_redirect']) {
+    if ($user_variables['user']->uid) {
+      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 302);
+    } else {
+      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 301);
+    }
+    return;
+  }
+
+  // Handle translation redirects for authenticated users when they request
+  // bare (Global English) URLs to user pages (user profile, edit, etc.).
+  //
+  // Don't redirect POSTs.
+  //
+  // Passing 'noredirect=1' will defeat the redirect.
+  if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
+    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    return;
+  }
+}
+
+/**
+ * Implements hook_node_access.
+ */
+function dosomething_global_node_access($node, $op, $account) {
+  // Allow access for privileged members.
+  if (user_access('access administration menu')) {
+    return NODE_ACCESS_ALLOW;
+  }
+
+  $current_prefix = strtoupper(dosomething_global_get_current_prefix());
+
+  // If on a translation page, make sure it's published before allowing access.
+  if (in_array($current_prefix, dosomething_global_get_countries())) {
+    $current_lang = dosomething_global_convert_country_to_language($current_prefix);
+    // Note: this cannot be strict === because it will fail, even if the value is zero.
+    if ($node->translations->data[$current_lang]['status'] == 0) {
+       return NODE_ACCESS_DENY;
     }
   }
+}
+
+/**
+ * Extract relevant URL variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      path (String) - Entire path of the URL, prefix included
+ *      request_method (String) - The type of request (Get, Post, etc)
+ *      is_homepage (bool) - Is this the homepage?
+ *      url_path_prefix (String) - The path prefix specified in the URL. Default is global.
+ *      is_admin_page (bool) - Is this a /admin page?
+ */
+function dosomething_global_get_url_variables() {
+  $path = request_path();
+  $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+  $homepage = (drupal_is_front_page() && is_numeric(arg(1)));
+  $url_path_prefix = dosomething_global_get_current_prefix();
+  $is_admin = (arg(0) == "admin");
+  return array(
+    'path' => $path,
+    'request_method' => $request_method,
+    'is_homepage' => $homepage,
+    'url_path_prefix' => $url_path_prefix,
+    'is_admin_page' => $is_admin
+  );
+}
+
+/**
+ * Extract relevant user variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      header_country_code (String) - Country code specified in the headers
+ *      user_language (String) - Matching language, or NULL for no matching installed language
+ *      user_path_prefix (String) - The prefix which matches the users language
+ *      is_user_page (bool) - Is this the user profile page?
+ */
+function dosomething_global_get_user_variables() {
+  $header_country_code = dosomething_settings_get_geo_country_code();
+  $user_language = dosomething_global_convert_country_to_language($header_country_code);
+  $user_path_prefix = dosomething_global_get_prefix_for_language($user_language);
+  $is_user_page = arg(0) == 'user';
+  $is_login = $is_user_page && (arg(1) == "login");
+  return array(
+    'header_country_code' => $header_country_code,
+    'user_language' => $user_language,
+    'user_path_prefix' => $user_path_prefix,
+    'is_user_page' => $is_user_page,
+    'is_login_page' => $is_login
+  );
+}
+
+/**
+ * Extract relevant node variables from the current request
+ * to be used in dosomething_global_init().
+ *
+ * @return array
+ *      node_no_redirect (bool) - Should we skip redirecting the node?
+ *      is_node (bool) - Is this page a node?
+ *      is_node_edit (bool) - Is this a node edit page?
+ *      nid (String) - If this is a node, the NID
+ *      node (Object) - If this is a node, the loaded node
+ *      node_edit_language (String) - If this is a node edit, the specified edit language
+ */
+function dosomething_global_get_node_variables() {
+  $node_no_redirect = !empty($_GET['noredirect']);
+  $is_node = (arg(0) == "node" && is_numeric(arg(1)));
+  $is_node_edit = (arg(2) == "edit");
+  $vars = array(
+    'node_no_redirect' => $node_no_redirect,
+    'is_node' => $is_node,
+    'is_node_edit' => $is_node_edit
+  );
+  if ($is_node) {
+    $vars['nid'] = arg(1);
+    $vars['node'] = node_load($vars['nid']);
+  }
+  if ($is_node_edit) {
+    $vars['node_edit_language'] = arg(3);
+  }
+  return $vars;
 }
 
 /**
@@ -58,8 +232,13 @@ function dosomething_global_form_node_form_alter(&$form, &$form_state, $form_id)
   if (!(in_array($form['type']['#value'], $translatable_types))) {
     return;
   }
-  // Get the last item in the url, to get the edit/add node language.
+
+  // Get the last item in the url, and verify its the node edit language.
+  // If not set it to the source language
   $node_lang = array_pop(explode('/', (parse_url(current_path(), PHP_URL_PATH))));
+  if ($node_lang == 'edit') {
+    $node_lang = $form['#node']->language;
+  }
   $translations = $form['#node']->translations->data;
   // If we are on a node lang page, and a translation exists
   if (array_key_exists($node_lang, $translations)) {
@@ -130,6 +309,20 @@ function dosomething_global_menu_local_tasks_alter(&$data, $route_name) {
 }
 
 /**
+ * Implements hook_views_pre_render().
+ */
+function dosomething_global_views_pre_render(&$view) {
+  if ($view->name == "content_search" && $view->current_display == "page_2") {
+    foreach($view->result as $result) {
+      $nid = $result->nid;
+      $target_lang = $result->entity_translation_node_language;
+      $node = node_load($nid);
+      $result->node_status = $node->translations->data[$target_lang]['status'];
+    }
+  }
+}
+
+/**
  * Returns if the user is a regional admin
  *
  * @param Object $user
@@ -153,11 +346,12 @@ function dosomething_global_is_regional_admin($user = NULL) {
 /**
  * Get the roles that are defined as regional admins.
  *
- * @return - array
+ * @return array
  *  The roles that are regional admins.
  */
 function _dosomething_global_get_regional_roles() {
   $languages = variable_get('dosomething_global_language_map', '');
+  $roles = [];
   foreach ($languages as $language) {
     if (isset($language['default_roles'][0])) {
       $roles[] = $language['default_roles'][0];
@@ -203,41 +397,28 @@ function dosomething_global_get_user_language($user = NULL) {
  * @return array
  *  All of the supported countries
  */
- function dosomething_global_get_countries() {
-   $lang_map = variable_get('dosomething_global_language_map', '');
-   $countries = array();
-   foreach ($lang_map as $lang) {
-     $country = $lang['country'];
+function dosomething_global_get_countries() {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+  $countries = array();
+  foreach ($lang_map as $lang) {
+    $country = $lang['country'];
 
-     // Prevents global english from slipping through
-     if ($country != NULL) {
-       array_push($countries, $country);
-     }
-   }
-   array_push($countries, "global");
-   return $countries;
- }
-
-/**
- * Returns the session's country code, or `global` if it's not
- * one of our whitelisted global countries.
- */
-function dosomething_global_get_country() {
-  $country_code = dosomething_settings_get_geo_country_code();
-  if (in_array($country_code, dosomething_global_get_countries())) {
-    return $country_code;
+    // Prevents global english from slipping through
+    if ($country != NULL) {
+      array_push($countries, $country);
+    }
   }
-
-  return 'global';
+  array_push($countries, 'global');
+  return $countries;
 }
 
 /**
  * Gets the country from a given language.
  *
- * @param string language
+ * @param string $language
  *  A two letter language code.
  *
- * @return string language
+ * @return string
  *  The country that maps to the language passed in.
  */
 function dosomething_global_convert_language_to_country($language) {
@@ -248,21 +429,52 @@ function dosomething_global_convert_language_to_country($language) {
 /**
  * Converts the given country into its assigned language.
  *
- * @param string country
+ * @param string $country
  *  The country Code
  *
- * @return
+ * @return string|null
  *  The language mapped to this country or NULL
  */
 function dosomething_global_convert_country_to_language($country) {
   $lang_map = variable_get('dosomething_global_language_map', '');
   foreach ($lang_map as $lang_key => $lang) {
-    if ($lang['country'] == $country) {
+    if (isset($lang['country']) && $lang['country'] == strtoupper($country)) {
       return $lang_key;
     }
   }
-  // It is not the job of this function to determine a default language
-  return NULL;
+  return DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+}
+
+/**
+ * Converts the given language into its assigned URL prefix.
+ *
+ * @param string $language
+ *  The language to get the prefix for (eg: 'en', 'mx')
+ *
+ * @return
+ *  The URL prefix mapped to this language
+ */
+function dosomething_global_get_prefix_for_language($language) {
+  $languages = language_list();
+  return $languages[$language]->prefix;
+}
+
+/**
+ * Check if the given URL prefix matches one of our countries.
+ *
+ * @param string $prefix
+ *   The URL prefix to check
+ *
+ * @return bool
+ */
+function dosomething_global_is_path_prefix($prefix) {
+  $languages = language_list();
+  foreach ($languages as $lang) {
+    if ($lang->prefix == $prefix) {
+      return TRUE;
+    }
+  }
+  return FALSE;
 }
 
 /**
@@ -273,6 +485,7 @@ function dosomething_global_convert_country_to_language($country) {
  * @param  $node
  *   Optional node.
  *
+ * @return string
  */
 function dosomething_global_get_language($account, stdClass $node = NULL) {
   // Respect the URL first.
@@ -310,6 +523,78 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
   return $language;
 }
 
+/**
+ * Handles redirecting the node edit page to proper translation
+ *
+ * @param $node
+ *   The node to redirect
+ * @param $user_language
+ *   The users language
+ */
+function dosomething_global_redirect_node_edit($node, $user_language) {
+  // Load the languages being used
+  $src_language = $node->language;
+
+  // If we're not working on a translation, no need to re-direct.
+  if ($src_language != $user_language) {
+    // Determines if the url needs the /add/source/ component
+    $new_translation_prefix = isset($node->translations->data[$user_language]) ? '' : 'add/' . $src_language . '/';
+
+    // Append the user language
+    $lang_append = $new_translation_prefix . $user_language;
+
+    // Build complete URL and redirect
+    $new_url = str_replace(' ', '', '/node/' . $node->nid . '/edit/' . $lang_append);
+    drupal_goto($new_url);
+  }
+}
+
+/**
+ * Handle redirects to translated content
+ *
+ * @param $user_lang
+ *   The users language
+ * @param $node
+ *   The specified node to redirect too
+ * @param $redirect_status
+ *   The status to redirect with. 301 for anonymous, 302 for authenticated
+ *
+ * If the user is an administrator or global english speaker
+ *  - Do not redirect
+ * If the node has a translation available for the specified language
+ *  - Redirect them to the translation
+ * Else
+ *  - 404 the user
+ */
+function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
+  $languages = language_list();
+
+  // Don't do redirects for privileged users.
+  if ($redirect_status == 302) {
+    if (user_access('access administration menu')) {
+      return;
+    }
+  }
+  // Don't redirect for Global English speakers.
+  if ($user_lang == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+    return;
+  }
+
+  if (!empty($node->translations->data[$user_lang]) && $node->translations->data[$user_lang]['status']) {
+    $target_node = $node->translations->data[$user_lang];
+
+    // Might be overly formal: We could pull 'node/nid' from the current
+    // request. This is in case of the unlikely (impossible?) event that
+    // a translated version of this node has a different entity ID.
+    $target_path = sprintf('node/%s', $target_node['entity_id']);
+
+    drupal_goto(url($target_path, array('language' => $languages[$user_lang])), array(), $redirect_status);
+  }
+  else {
+    drupal_not_found();
+    drupal_exit();
+  }
+}
 
 /**
  * Build a URL that appropriately adds the prefix.
@@ -319,6 +604,8 @@ function dosomething_global_get_language($account, stdClass $node = NULL) {
  * @param  $options
  *   Optional options array to be passed to url()
  *
+ * @return string
+ *   The URL with country prefix
  */
 function dosomething_global_url($path, $options = NULL) {
   global $language;
@@ -336,4 +623,85 @@ function dosomething_global_url($path, $options = NULL) {
     $options['prefix'] = $languages[$options['language']]->prefix . '/';
   }
   return url($path, $options);
+}
+
+/**
+ * Return the current country prefix being used.
+ *
+ * @return string
+ *   Country prefix of currently page (e.g. 'us', 'mx'...)
+ *
+ */
+function dosomething_global_get_current_prefix() {
+  $request_path = explode('/', request_path());
+  $languages = language_list();
+  if (!empty($request_path[0])) {
+    foreach ($languages as $langcode => $lang_data) {
+      if ($lang_data->prefix == $request_path[0]) {
+        return $lang_data->prefix;
+      }
+    }
+  }
+
+  return $languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]->prefix;
+}
+
+/**
+ * Get the country code of the current page (based on the prefix
+ * that is set in the URL), or 'global' if none set.
+ *
+ * @return string
+ */
+function dosomething_global_get_current_country_code() {
+  // Get the prefix, and make uppercase for matching against country array
+  $prefix = strtoupper(dosomething_global_get_current_prefix());
+  if (in_array($prefix, dosomething_global_get_countries())) {
+    return $prefix;
+  }
+
+  return 'global';
+}
+
+/**
+ * Return the full country name.
+ *
+ * @param $country_code
+ *   Two letter country code
+ * @return string|null
+ *   Full country name
+ */
+function dosomething_global_get_country_name($country_code) {
+  $lang_map = variable_get('dosomething_global_language_map', '');
+
+  foreach ($lang_map as $lang_key => $lang) {
+    if ($lang['country'] == $country_code) {
+      return $lang['country_name'];
+    }
+  }
+
+  return NULL;
+}
+
+/**
+ *  Lookup global related details about a user:
+ *  - language
+ *  - country_code
+ *
+ *  @param object $account
+ *    Drupal user object based on an existing user account.
+ *
+ *  @return array
+ *    Details about the user account:
+ *      - language
+ *      - country_code
+ */
+function dosomething_global_user_details($account = NULL) {
+  if (!isset($account)) {
+    global $account;
+  }
+
+  $language = dosomething_global_get_language($account);
+  $country_code = dosomething_settings_get_geo_country_code();
+
+  return array($language, $country_code);
 }

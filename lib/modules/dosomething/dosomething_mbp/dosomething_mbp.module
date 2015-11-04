@@ -96,17 +96,23 @@ function dosomething_mbp_request($origin, $params = NULL) {
 function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   // Payload items common to all transactional messages.
   $params['first_name'] = isset($params['first_name']) ? $params['first_name'] : 'Doer';
-  $params['user_country'] = isset($params['user_country']) ? $params['user_country'] : dosomething_settings_get_geo_country_code();
   $payload = array(
     'activity' => $origin,
     'email' => $params['email'],
     'uid' => $params['uid'],
-    'user_language' =>  $params['user_language'],
-    'user_country' => $params['user_country'],
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
   );
+  if (isset($params['user_country'])) {
+    $payload['user_country'] = $params['user_country'];
+  }
+  else {
+    $payload['user_country'] = dosomething_settings_get_geo_country_code();
+  }
+  if (isset($params['user_language'])) {
+    $payload['user_language'] = $params['user_language'];
+  }
 
   // If email template wasn't set before, get standart template name.
   if (!empty($params['email_template'])) {
@@ -171,6 +177,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['IMPACT_NOUN'] = $params['impact_noun'];
       $payload['merge_vars']['REPORTBACK_IMAGE_MARKUP'] = $params['image_markup'];
       $payload['email_tags'][] = 'drupal_campaign_reportback';
+      $payload['campaign_language'] = isset($params['campaign_language']) ? $params['campaign_language'] : NULL;
       break;
 
   }
@@ -194,6 +201,10 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['subscribed']        = 1;
   $payload['event_id']          = $params['event_id'];
+
+  if (isset($params['campaign_language'])) {
+    $payload['campaign_language'] = $params['campaign_language'];
+  }
 
   $payload['email_tags'][] = $params['event_id'];
   // Check for Mailchimp grouping_id+group_name:

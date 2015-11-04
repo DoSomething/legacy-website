@@ -49,7 +49,6 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * Global Main Navigation
    */
-
   $modifier_classes = '-white -floating';
   if(isset($vars['use_black_navigation']) && $vars['use_black_navigation'] == 1) {
     $modifier_classes = '-floating';
@@ -64,7 +63,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['logo'] = '/' . PARANEUE_PATH . '/images/logo-dev.png';
   }
 
-  $navigation_vars = array(
+  $navigation_vars = [
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
     'logo'             => $vars['logo'],
@@ -72,17 +71,17 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
     'user_identifier'  => $vars['user_identifier'],
-    'who_we_are'       => array(
+    'who_we_are'       => [
       'text' => t(theme_get_setting('header_who_we_are_text')),
       'subtext' => t(theme_get_setting('header_who_we_are_subtext')),
-      'link' => t(theme_get_setting('header_who_we_are_link')),
-    ),
-    'explore_campaigns'=> array(
+      'link' => theme_get_setting('header_who_we_are_link_' . dosomething_global_get_current_country_code()),
+    ],
+    'explore_campaigns'=> [
       'text' => t(theme_get_setting('header_explore_campaigns_text')),
       'subtext' => t(theme_get_setting('header_explore_campaigns_subtext')),
       // 'link' => theme_get_setting('header_explore_campaigns_link'),
-    ),
-  );
+    ],
+  ];
 
   $vars['navigation'] = theme('navigation', $navigation_vars);
 
@@ -180,8 +179,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * Global Page Footer
    */
-
-  $country = dosomething_global_get_country();
+  $country = dosomething_global_get_current_country_code();
   $columns = array('first', 'second', 'third');
   $footer_links = array();
 
@@ -338,23 +336,28 @@ function paraneue_dosomething_add_info_bar(&$vars) {
     $info_bar_vars['formatted_partners'] = $vars['formatted_partners'];
   }
 
-  $country_code = dosomething_settings_get_geo_country_code();
+  if (module_exists('dosomething_global')) {
+    $country_prefix = dosomething_global_get_current_prefix();
 
-  $country_contact_emails = array(
-    'BR' => 'ajuda@dosomething.org',
-    'MX' => 'ayuda@dosomething.org',
-  );
+    if ($country_prefix) {
+      $country_contact_emails = array(
+        'br' => 'ajuda@dosomething.org',
+        'mx' => 'ayuda@dosomething.org',
+      );
 
-  // For the countries in $country_contact_emails, use a contact email address instead of zendesk form.
-  if (array_key_exists($country_code, $country_contact_emails)) {
-    $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_code] .'">'. $country_contact_emails[$country_code] . '</a>';
-  // All other countries get the zendesk form.
-  } else {
-    $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
-    $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
+      // For the countries in $country_contact_emails, use a contact email address instead of zendesk form.
+      if (array_key_exists($country_prefix, $country_contact_emails)) {
+        $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_prefix] .'">'. $country_contact_emails[$country_prefix] . '</a>';
+      // All other countries get the zendesk form.
+      }
+      else {
+        $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
+        $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
 
-    if (isset($vars['zendesk_form'])) {
-      $info_bar_vars['zendesk_form'] = $vars['zendesk_form'];
+        if (isset($vars['zendesk_form'])) {
+          $info_bar_vars['zendesk_form'] = $vars['zendesk_form'];
+        }
+      }
     }
   }
 
@@ -650,7 +653,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => $base_url . '/' . $value['path_alias'] . '#prove',
+        'url' => dosomething_global_url($value['path_alias'], ['fragment' => 'prove']),
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
@@ -673,7 +676,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       }
       $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
       // Media gallery template expects a full URL.
-      $url = $base_url . '/' . drupal_get_path_alias('node/' . $reportback->nid);
+      $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
         'url' => $url,
         'title' => $reportback->node_title,
