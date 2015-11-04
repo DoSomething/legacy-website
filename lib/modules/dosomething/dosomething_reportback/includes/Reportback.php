@@ -123,8 +123,9 @@ class Reportback extends Entity {
 
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
-      $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item);
+      $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
+      $reportback = new static(['ignore' => true]);
+      $reportback->build($item, $load_user);
 
       $reportbacks[] = $reportback;
     }
@@ -137,9 +138,11 @@ class Reportback extends Entity {
    * Build out the instantiated Reportback class object with supplied data.
    *
    * @param object $data
+   * @param bool  $full Boolean to decide whether to fetch full user data.
    */
-  private function build($data) {
+  private function build($data, $full = false) {
     global $user;
+    $northstar_user = (object) [];
 
     $this->id = $data->rbid;
     $this->created_at = $data->created;
@@ -158,17 +161,22 @@ class Reportback extends Entity {
       ],
     ];
 
-    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-    $northstar_user = json_decode($northstar_user->data, true);
-    $northstar_user = (object) $northstar_user['data'][0];
+    if ($full) {
+      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
+      $northstar_response = json_decode($northstar_response);
+
+      if ($northstar_response && !isset($northstar_response->error)) {
+        $northstar_user = array_shift($northstar_response->data);
+      }
+    }
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => $northstar_user->_id,
-      'first_name' => $northstar_user->first_name,
-      'last_name' => $northstar_user->last_name,
-      'photo' => $northstar_user->photo,
-      'country' => $northstar_user->country,
+      'id' => dosomething_helpers_isset($northstar_user, '_id'),
+      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
+      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
+      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
+      'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
   }
 
