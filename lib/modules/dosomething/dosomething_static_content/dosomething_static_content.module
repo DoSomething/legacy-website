@@ -11,55 +11,69 @@ include_once 'dosomething_static_content.features.inc';
  */
 function dosomething_static_content_preprocess_node(&$vars) {
   if ($vars['type'] == 'static_content') {
-    $content = $vars['content'];
-    $template_vars = array(
-      'text' => array(
+    $template_vars = [
+      'text' => [
         'subtitle',
         'intro_title',
-        'intro',
         'additional_text_title',
         'additional_text',
         'call_to_action',
-      ),
-      'image' => array(
+      ],
+      'text_formatted' => [
+        'intro',
+      ],
+      'image' => [
         'hero_image',
         'intro_image',
-      ),
-      'link' => array(
+      ],
+      'link' => [
         'cta_link'
-      ),
-    );
+      ],
+    ];
+
+
+    $node = dosomething_helpers_node_metadata_wrapper($vars['node']);
 
     foreach ($template_vars as $key => $labels) {
+
       foreach ($labels as $label) {
-        $field = "field_{$label}";
-          if (isset($content[$field])) {
-          switch ($key) {
-            case 'text':
-              $vars[$label] = $content[$field][0]['#markup'];
-              break;
-            case 'image':
-              if ($label == 'hero_image') {
-                $size = '800x300';
-              }
-              elseif ($label == 'intro_image') {
-                $size = '550x300';
-              }
-              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
+
+        $field_name = "field_{$label}";
+        if (!isset($node->{$field_name})) {
+          continue;
+        }
+        $field = $node->{$field_name};
+
+        switch ($key) {
+          case 'text':
+            $vars[$label] = $field->value(['sanitize' => TRUE]);
             break;
-            case 'link':
-              $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'button')));
+
+          case 'text_formatted':
+            $vars[$label] = $field->value->value();
             break;
-            default:
-              break;
-          }
+
+          case 'image':
+            if ($label == 'hero_image') {
+              $size = '800x300';
+            }
+            elseif ($label == 'intro_image') {
+              $size = '550x300';
+            }
+            $vars[$label] = dosomething_image_get_themed_image($field->value()->nid, 'landscape', $size);
+            break;
+
+          case 'link':
+            $link = $field->value();
+            $vars[$label] = l($link['title'], $link['url'], ['attributes' => ['class' => 'button']]);
+            break;
+
+          default:
+            break;
         }
       }
     }
 
-    // Todo: get language specific value when video field is translatable.
-    // @see dosomething_helpers_node_metadata_wrapper()
-    $node = entity_metadata_wrapper('node', $vars['node']);
     if (!empty($vars['node']->field_video)) {
       if ($node->field_video->value()->field_video_id) {
         $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $node->field_video->value()));
