@@ -77,7 +77,7 @@ class ReportbackItem extends Entity {
 
     foreach($results as $item) {
       $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
-      $reportbackItem = new static(['ignore' => true]);
+      $reportbackItem = new static();
       $reportbackItem->build($item, $load_user);
 
       $reportbackItems[] = $reportbackItem;
@@ -94,6 +94,8 @@ class ReportbackItem extends Entity {
    * @param bool  $full Boolean to decide whether to fetch full user data.
    */
   private function build($data, $full = false) {
+    $northstar_user = (object) [];
+
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
