@@ -96,7 +96,7 @@ class Reportback extends Entity {
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
       $reportback = new static(['ignore' => TRUE]);
-      $reportback->build($item);
+      $reportback->build($item, TRUE);
 
       $reportbacks[] = $reportback;
     }
