@@ -89,9 +89,6 @@ class Reportback extends Entity {
     $reportbacks = [];
     $results = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
 
-//    print_r($results);
-//    die();
-
     if (!$results) {
       throw new Exception('No reportback data found.');
     }
