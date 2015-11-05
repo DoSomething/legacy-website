@@ -57,9 +57,9 @@ class ReportbackTransformer extends Transformer {
       ];
     }
 
-    return array(
+    return [
       'data' => $this->transformCollection($reportbacks),
-    );
+    ];
   }
 
 
@@ -70,8 +70,10 @@ class ReportbackTransformer extends Transformer {
    * @return array
    */
   public function show($id) {
+    $filters['load_user'] = $parameters['load_user'] === 'true' ? TRUE : NULL;
+
     try {
-      $reportback = Reportback::get($id);
+      $reportback = Reportback::get($id, $filters);
       $reportback = services_resource_build_index_list($reportback, 'reportbacks', 'id');
     }
     catch (Exception $error) {
@@ -82,9 +84,9 @@ class ReportbackTransformer extends Transformer {
       ];
     }
 
-    return array(
+    return [
       'data' => $this->transform(array_pop($reportback)),
-    );
+    ];
   }
 
 

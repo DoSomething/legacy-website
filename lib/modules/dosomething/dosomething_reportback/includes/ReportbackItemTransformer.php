@@ -47,12 +47,16 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    * Display the specified resource.
    *
    * @param string $id Resource id.
+   * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
-  public function show($id) {
+  public function show($id, $parameters) {
+    $filters['load_user'] = $parameters['load_user'] === 'true' ? TRUE : NULL;
+
     try {
-      $reportbackItem = ReportbackItem::get($id);
+      $reportbackItem = ReportbackItem::get($id, $filters);
       $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
+      $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
       return [
@@ -62,9 +66,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       ];
     }
 
-    return array(
+    return [
+      'pagination' => $this->paginate($total, $filters, 'reportback-items'),
       'data' => $this->transform(array_pop($reportbackItem)),
-    );
+    ];
   }
 
 
