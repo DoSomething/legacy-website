@@ -594,10 +594,19 @@ function dosomething_helpers_get_current_language_content_code() {
   $override = variable_get('dosomething_campaign_group_override_language');
   // Only when turned on and language is GlobalEnglish.
   if ($override && $result === 'en-global') {
-    // And only for campaign groups.
+    // Override campaign groups.
     if (arg(0) === 'node' && is_numeric(arg(1))) {
       $node = node_load(arg(1));
       if ($node && $node->type === 'campaign_group') {
+        $result = 'en';
+      }
+    }
+
+    // And taxonomy terms.
+    // Override campaign groups.
+    if (arg(0) === 'taxonomy' && arg(1) === 'term' && is_numeric(arg(2))) {
+      $term = taxonomy_term_load(arg(2));
+      if ($term) {
         $result = 'en';
       }
     }
