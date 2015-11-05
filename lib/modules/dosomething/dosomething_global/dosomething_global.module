@@ -81,6 +81,17 @@ function dosomething_global_init() {
     return;
   }
 
+  // Handle translation redirects for authenticated users when they request
+  // bare (Global English) URLs to user pages (user profile, edit, etc.).
+  //
+  // Don't redirect POSTs.
+  //
+  // Passing 'noredirect=1' will defeat the redirect.
+  if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
+    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
+    return;
+  }
+    
   // If the node doesn't have translations, don't do any redirection.
   if (empty($node_variables['node']->translations->data)) {
     return;
@@ -99,16 +110,6 @@ function dosomething_global_init() {
     return;
   }
 
-  // Handle translation redirects for authenticated users when they request
-  // bare (Global English) URLs to user pages (user profile, edit, etc.).
-  //
-  // Don't redirect POSTs.
-  //
-  // Passing 'noredirect=1' will defeat the redirect.
-  if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
-    drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
-    return;
-  }
 }
 
 /**
