@@ -121,8 +121,10 @@ class ReportbackItem extends Entity {
     ];
 
     if ($full) {
-      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_response = json_decode($northstar_response);
+      // $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
+      $error_response = '{"error":{"code":404,"message":"The resource does not exist."},"debug":{"file":"\/home\/vagrant\/DoSomething.org\/northstar\/app\/Http\/Controllers\/UserController.php","line":146}}';
+      $success_response = '{"data":[{"_id":"5430e850dt8hbc541c37tt3d","email":"test@dosomething.org","mobile":"5555550100","drupal_id":"100001","addr_street1":"123","addr_street2":"456","addr_city":"Paris","addr_state":"Florida","addr_zip":"555555","country":"US","birthdate":"12/17/91","first_name":"First","last_name":"Last","updated_at":"2015-11-03 19:52:51","created_at":"2015-11-03 19:52:51","photo":null,"interests":null,"race":null,"religion":null,"school_id":null,"college_name":null,"degree_type":null,"major_name":null,"hs_gradyear":null,"hs_name":null,"sat_math":null,"sat_verbal":null,"sat_writing":null,"cgg_id":null,"agg_id":null,"source":null,"parse_installation_ids":null}]}';
+      $northstar_response = json_decode($success_response); //change back to $northstar_response
 
       if ($northstar_response && !isset($northstar_response->error)) {
         $northstar_user = array_shift($northstar_response->data);

@@ -141,9 +141,11 @@ function _reportback_resource_index($campaigns, $status, $count, $random, $page,
 
 function _reportback_resource_retrieve($rbid, $load_user) {
   $parameters = array(
+    'rbid' => $rbid,
     'load_user' => $load_user,
   );
 
   $reportbacks = new ReportbackTransformer;
-  return $reportbacks->show($rbid, $parameters);
+  // return $reportbacks->show($rbid, $parameters);
+  return $reportbacks->show($parameters);
 }

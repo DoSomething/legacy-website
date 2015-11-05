@@ -141,9 +141,10 @@ function _reportback_item_resource_index($campaigns, $status, $count, $random, $
 
 function _reportback_item_resource_retrieve($fid, $load_user) {
   $parameters = array(
+    'fid' => $fid,
     'load_user' => $load_user,
   );
 
   $reportbackItems = new ReportbackItemTransformer;
-  return $reportbackItems->show($fid, $parameters);
+  return $reportbackItems->show($parameters);
 }

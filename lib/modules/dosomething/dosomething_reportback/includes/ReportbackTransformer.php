@@ -33,11 +33,11 @@ class ReportbackTransformer extends Transformer {
    * @return array
    */
   public function index($parameters) {
-    $filters = array(
+    $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => $parameters['count'] ?: 25,
-    );
+    ];
 
     // @TODO: Logic update!
     // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
@@ -66,14 +66,19 @@ class ReportbackTransformer extends Transformer {
   /**
    * Display the specified resource.
    *
-   * @param string $id Resource id.
+   * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
-  public function show($id) {
+  public function show($parameters) {
+    $filters = array(
+      'rbid' => dosomething_helpers_format_data($parameters['rbid']),
+      'count' => 1,
+    );
+
     $filters['load_user'] = $parameters['load_user'] === 'true' ? TRUE : NULL;
 
     try {
-      $reportback = Reportback::get($id, $filters);
+      $reportback = Reportback::find($filters);
       $reportback = services_resource_build_index_list($reportback, 'reportbacks', 'id');
     }
     catch (Exception $error) {
