@@ -152,7 +152,13 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     );
     // If there's a subtitle field on this node, send it to the header
     global $user;
-    $language = $user->language;
+    if ($user->uid) {
+      $language = $user->language;
+    }
+    else {
+      $code = dosomething_global_get_current_country_code();
+      $language = dosomething_global_convert_country_to_language($code);
+    }
     $field_data = dosomething_helpers_extract_field_data($vars['node']->field_subtitle, $language);
     if (isset($field_data)) {
       $header_vars['subtitle'] = $field_data;
