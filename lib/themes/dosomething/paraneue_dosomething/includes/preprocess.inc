@@ -151,12 +151,16 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       'title' => drupal_get_title(),
     );
     // If there's a subtitle field on this node, send it to the header
-    if (isset($vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'])) {
-      $header_vars['subtitle'] = $vars['node']->field_subtitle[LANGUAGE_NONE][0]['safe_value'];
+    global $user;
+    $language = $user->language;
+    $field_data = dosomething_helpers_extract_field_data($vars['node']->field_subtitle, $language);
+    if (isset($field_data)) {
+      $header_vars['subtitle'] = $field_data;
     }
 
-    if (isset($vars['node']->field_partners[LANGUAGE_NONE])) {
-      $vars['partners'] = dosomething_taxonomy_get_partners_data($vars['node']->field_partners[LANGUAGE_NONE]);
+    $field_data = dosomething_helpers_extract_field_data($vars['node']->field_partners, $language);
+    if (isset($field_data)) {
+      $vars['partners'] = dosomething_taxonomy_get_partners_data($field_data);
       $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($vars['partners']);
 
       // Output sponsor, if it exists.
@@ -722,4 +726,3 @@ function paraneue_dosomething_preprocess_fact_page(&$vars) {
     $vars['yahoo_logo']= '/' . PARANEUE_PATH .'/dist/images/yahoo_white.png';
   }
 }
-
