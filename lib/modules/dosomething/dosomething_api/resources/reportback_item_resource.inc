@@ -21,14 +21,6 @@ function _reportback_item_resource_definition() {
             'type' => 'int',
             'source' => array('path' => 0),
           ),
-          array(
-            'name' => 'load_user',
-            'description' => 'Flag to indicate whether to make call to northstar to retrieve full user data.',
-            'optional' => TRUE,
-            'type' => 'boolean',
-            'source' => array('param' => 'load_user'),
-            'default value' => FALSE,
-          ),
         ),
         'access callback' => '_reportback_item_resource_access',
         'access arguments' => array('view'),
@@ -139,12 +131,7 @@ function _reportback_item_resource_index($campaigns, $status, $count, $random, $
 }
 
 
-function _reportback_item_resource_retrieve($fid, $load_user) {
-  $parameters = array(
-    'fid' => $fid,
-    'load_user' => $load_user,
-  );
-
+function _reportback_item_resource_retrieve($fid) {
   $reportbackItems = new ReportbackItemTransformer;
-  return $reportbackItems->show($parameters);
+  return $reportbackItems->show($fid);
 }
