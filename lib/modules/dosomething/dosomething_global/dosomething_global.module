@@ -32,7 +32,7 @@ function dosomething_global_init() {
   $node_variables = dosomething_global_get_node_variables();
 
   // Never redirect POST requests
-  if ($url_variables['request_method'] == 'post' && !$user_variables['is_login_page']) {
+  if ($url_variables['request_method'] == 'post') {
     return;
   }
 
@@ -79,7 +79,7 @@ function dosomething_global_init() {
   }
 
   // If the node doesn't have translations, don't do any redirection.
-  if ($node_variables['is_node'] && empty($node_variables['node']->translations->data)) {
+  if (empty($node_variables['node']->translations->data)) {
     return;
   }
 
@@ -102,7 +102,7 @@ function dosomething_global_init() {
   // Don't redirect POSTs.
   //
   // Passing 'noredirect=1' will defeat the redirect.
-  if ($user_variables['is_user_page'] && !$node_variables['node_no_redirect'] && $url_variables['request_method'] != 'post') {
+  if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
