@@ -38,7 +38,9 @@ function dosomething_global_init() {
 
   // Verify we're dealing with a node edit with no translation specification in the URL
   if ($node_variables['is_node'] && $node_variables['is_node_edit'] && $node_variables['node_edit_language'] == NULL) {
-    dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
+    if (dosomething_global_is_regional_admin()) {
+      dosomething_global_redirect_node_edit($node_variables['node'], $user_variables['user_language']);
+    }
     return;
   }
 
