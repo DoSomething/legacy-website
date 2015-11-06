@@ -420,7 +420,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 1) Materials
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
-    $materials['title'] = 'Stuff You Need';
+    $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
     $vars['plan'][] = $materials;
   }
@@ -428,7 +428,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 2) Time
   if (isset($campaign->time_and_place)) {
     $time['category'] = 'time';
-    $time['title'] = 'Time and Place';
+    $time['title'] = t('Time and Place');
     $time['content'] = $campaign->time_and_place;
     $vars['plan'][] = $time;
   }
@@ -436,7 +436,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 3) VIPs
   if (isset($campaign->vips)) {
     $vips['category'] = 'vips';
-    $vips['title'] = 'VIPs';
+    $vips['title'] = t('VIPs');
     $vips['content'] = $campaign->vips;
     $vars['plan'][] = $vips;
   }
@@ -444,7 +444,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 4) Hype
   if (isset($campaign->promoting_tips)) {
     $hype['category'] = 'hype';
-    $hype['title'] = 'Hype';
+    $hype['title'] = t('Hype');
     $hype['content'] = $campaign->promoting_tips;
     $vars['plan'][] = $hype;
   }

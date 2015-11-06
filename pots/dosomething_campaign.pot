@@ -103,3 +103,19 @@ msgstr ""
 msgid "DoSomething Campaign"
 msgstr ""
 
+#: dosomething_campaign.theme.inc:423
+msgid "Stuff You Need"
+msgstr ""
+
+#: dosomething_campaign.theme.inc
+msgid "Time and Place"
+msgstr ""
+
+#: dosomething_campaign.theme.inc
+msgid "VIPs"
+msgstr ""
+
+#: dosomething_campaign.theme.inc
+msgid "Hype"
+msgstr ""
+
