@@ -511,6 +511,30 @@ msgstr ""
 msgid "Stay Tuned"
 msgstr ""
 
+#: includes/helpers.inc:355
+msgid "DoSomething? Just did."
+msgstr ""
+
+#: includes/helpers.inc:356
+msgid "Doing good never looked so good."
+msgstr ""
+
+#: includes/helpers.inc:357
+msgid "Don’t let the smile fool you. I crushed it."
+msgstr ""
+
+#: includes/helpers.inc:358
+msgid "Making the world suck less, one photo at a time."
+msgstr ""
+
+#: includes/helpers.inc:359
+msgid "Pics or it didn’t happen? Oh, it happened."
+msgstr ""
+
+#: includes/helpers.inc:360
+msgid "I get action. Social action."
+msgstr ""
+
 #: includes/preprocess.inc:129
 msgid "Edit Profile"
 msgstr ""

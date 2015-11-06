@@ -352,12 +352,12 @@ function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
   $placeholder_urls = dosomething_campaign_get_default_gallery_image_urls();
   $placeholders = array();
   $placeholder_captions = array(
-    'DoSomething? Just did.',
-    'Doing good never looked so good.',
-    'Don’t let the smile fool you. I crushed it.',
-    'Making the world suck less, one photo at a time.',
-    'Pics or it didn’t happen? Oh, it happened.',
-    'I get action. Social action.',
+    t('DoSomething? Just did.'),
+    t('Doing good never looked so good.'),
+    t('Don’t let the smile fool you. I crushed it.'),
+    t('Making the world suck less, one photo at a time.'),
+    t('Pics or it didn’t happen? Oh, it happened.'),
+    t('I get action. Social action.'),
   );
 
   // If no placeholders added to site, let's fallback to locally stored ones.
