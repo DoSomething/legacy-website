@@ -21,19 +21,6 @@
       <?php if (isset($subtitle)): ?>
         <h2 class="header__subtitle"><?php print $subtitle; ?></h2>
       <?php endif; ?>
-
-      <?php if (isset($yahoo_logo)): ?>
-        <div class="promotions">
-          <div class="promotion promotion--sponsor">
-            <div class="wrapper">
-              <p class="__copy">Powered by</p>
-              <div class="__image">
-                <a href="http://do.yahoo.com/?fr=do_dslogo&.tsrc=do-dslogo"><img src="<?php print $yahoo_logo; ?>" alt="Yahoo"></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php endif; ?>
     </div>
   </header>
 
@@ -68,22 +55,12 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <?php // For the yahoo partnership only ?>
-    <?php if ($yahoo_partnership): ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
-          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
-        </div>
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+        <?php print $cta_link; ?>
       </div>
-    <?php else: ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-          <?php print $cta_link; ?>
-        </div>
-      </div>
-    <?php endif; ?>
+    </div>
   <?php endif; ?>
 
   <section class="container">
@@ -114,22 +91,12 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <?php // For the yahoo partnership only ?>
-    <?php if ($yahoo_partnership): ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="cta__message"><?php print $yahoo_cta_title; ?></h2>
-          <a href="<?php print $yahoo_cta_url; ?>" class="button"><?php print $yahoo_cta_button; ?></a>
-        </div>
+    <div class="cta">
+      <div class="wrapper">
+        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+        <?php print $cta_link; ?>
       </div>
-    <?php else: ?>
-      <div class="cta">
-        <div class="wrapper">
-          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-          <?php print $cta_link; ?>
-        </div>
-      </div>
-    <?php endif; ?>
+    </div>
   <?php endif; ?>
 
   <?php if ($info_bar): ?>
