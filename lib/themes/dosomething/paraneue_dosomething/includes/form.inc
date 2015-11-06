@@ -180,7 +180,7 @@ function paraneue_dosomething_file($variables) {
 
   // Need to include the <input> within <label> to universalize style for file input.
   if ($element['#attributes']['is_supersized']) {
-    $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . t('Join the cool kids!<br/> Add your photo here!') . '</p></div></div>';
+    $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . t("Join the cool kids! \r\nAdd your photo here!") . '</p></div></div>';
     return '<label class="gigantor" id="' . $id . '">' . $message . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
   else {

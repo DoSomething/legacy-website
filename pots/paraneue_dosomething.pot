@@ -1151,3 +1151,7 @@ msgstr ""
 msgid "Frequently Asked Questions"
 msgstr ""
 
+#: includes/form.inc:183
+msgid "Join the cool kids! \r\nAdd your photo here!"
+msgstr ""
+
