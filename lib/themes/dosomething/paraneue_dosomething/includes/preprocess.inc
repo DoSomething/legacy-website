@@ -726,12 +726,3 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
   }
 }
-
-/**
- * Preprocess variables for the fact page.
- */
-function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  if (theme_get_setting('show_yahoo_partnership')) {
-    $vars['yahoo_logo']= '/' . PARANEUE_PATH .'/dist/images/yahoo_white.png';
-  }
-}
