@@ -313,7 +313,6 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       $vars['first_fact_group'] = array_slice($vars['facts'], 0, 5);
       $vars['second_fact_group'] = array_slice($vars['facts'], 5);
       paraneue_dosomething_preprocess_field_partners($vars);
-      paraneue_dosomething_preprocess_fact_page($vars);
       break;
 
     case "home":
