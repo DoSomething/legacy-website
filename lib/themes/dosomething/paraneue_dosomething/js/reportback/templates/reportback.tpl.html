@@ -2,7 +2,7 @@
 <figure class="photo -stacked -framed">
   <% if (adminLink) { %>
   <div class="admin-edit">
-    <a class="button -secondary" href="<%= adminLink %>">Edit Status</a>
+    <a class="button -secondary" href="<%= adminLink %>"><%= Drupal.t("Edit Status") %></a>
   </div>
   <% } %>
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="<%= caption %>" data-src="<%= image %>" />

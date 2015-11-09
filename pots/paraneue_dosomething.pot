@@ -1179,3 +1179,7 @@ msgstr ""
 msgid "Join the cool kids! \r\nAdd your photo here!"
 msgstr ""
 
+#: templates/system/patterns/photo.tpl.php:4 js/reportback/templates/reportback.tpl.html:5
+msgid "Edit Status"
+msgstr ""
+
