@@ -119,3 +119,7 @@ msgstr ""
 msgid "Hype"
 msgstr ""
 
+#: dosomething_campaign.module:16
+msgid "Snap a Pic"
+msgstr ""
+
