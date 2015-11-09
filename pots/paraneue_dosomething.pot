@@ -1176,7 +1176,7 @@ msgid "Frequently Asked Questions"
 msgstr ""
 
 #: includes/form.inc:183
-msgid "Join the cool kids! \r\nAdd your photo here!"
+msgid "Add your photo here!"
 msgstr ""
 
 #: templates/system/patterns/photo.tpl.php:4 js/reportback/templates/reportback.tpl.html:5

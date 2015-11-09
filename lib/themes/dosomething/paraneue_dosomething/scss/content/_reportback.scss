@@ -277,11 +277,7 @@
     width: 240px;
 
     @include media($medium) {
-      bottom: 30px;
-    }
-
-    @include media($larger) {
-      bottom: 40px;
+      bottom: 50px;
     }
   }
 
