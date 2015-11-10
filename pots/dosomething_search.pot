@@ -24,3 +24,6 @@ msgstr ""
 msgid "Please enter some keywords."
 msgstr ""
 
+#: dosomething_search.module
+msgid "Search"
+msgstr ""
