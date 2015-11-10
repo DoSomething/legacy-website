@@ -1195,3 +1195,6 @@ msgstr ""
 msgid "Edit Status"
 msgstr ""
 
+#: js/images/ImageUpload.js
+msgid "edit photo"
+msgstr ""
