@@ -313,7 +313,6 @@ function paraneue_dosomething_preprocess_node(&$vars) {
       $vars['first_fact_group'] = array_slice($vars['facts'], 0, 5);
       $vars['second_fact_group'] = array_slice($vars['facts'], 5);
       paraneue_dosomething_preprocess_field_partners($vars);
-      paraneue_dosomething_preprocess_fact_page($vars);
       break;
 
     case "home":
@@ -724,14 +723,5 @@ function paraneue_dosomething_preprocess_search_results(&$vars) {
   if ($search_results = $vars['results']) {
     // Theme the set of results as duo gallery.
     $vars['search_results_gallery'] = paraneue_dosomething_get_search_gallery($search_results);
-  }
-}
-
-/**
- * Preprocess variables for the fact page.
- */
-function paraneue_dosomething_preprocess_fact_page(&$vars) {
-  if (theme_get_setting('show_yahoo_partnership')) {
-    $vars['yahoo_logo']= '/' . PARANEUE_PATH .'/dist/images/yahoo_white.png';
   }
 }

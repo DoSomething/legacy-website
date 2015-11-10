@@ -8,12 +8,3 @@
   max-width: span(7);
   @include gutters();
 }
-
-// @TODO - Limited time only. Remove when yahoo partnership is over.
-.yahoo-partnership {
-  .header__title {
-    @include media($medium) {
-      width: 75%;
-    }
-  }
-}

@@ -115,23 +115,6 @@ function dosomething_fact_page_preprocess_node(&$vars) {
     if ($intro_copy = t(variable_get('dosomething_fact_page_copy_intro'))) {
       $vars['intro'] = check_markup($intro_copy, 'markdown');
     }
-
-    if (theme_get_setting('show_yahoo_partnership')) {
-      $vars['yahoo_partnership'] = FALSE;
-      $yahoo_cta_json = drupal_get_path('module', 'dosomething_fact_page') . '/js/yahoo_partnership.json';
-      $yahoo_cta_links = drupal_json_decode(file_get_contents($yahoo_cta_json));
-
-      foreach ($yahoo_cta_links as $node_id => $cta) {
-        // Check if this node is included in the partnership.
-        if ($node_id == $vars['nid']) {
-          // Turn on the partnership logic.
-          $vars['yahoo_partnership'] = TRUE;
-          $vars['yahoo_cta_title'] = $cta['cta_title'];
-          $vars['yahoo_cta_url'] = $cta['cta_url'];
-          $vars['yahoo_cta_button'] = $cta['cta_button'];
-        }
-      }
-    }
   }
 }
 
