@@ -607,6 +607,10 @@ msgstr ""
 msgid "(555) 555-5555"
 msgstr ""
 
+#: includes/auth/register.inc
+msgid "Get volunteer opportunities on your phone! Texting available in @country soon."
+msgstr ""
+
 #: includes/auth/register.inc:119
 msgid "6+ characters... make it tricky!"
 msgstr ""

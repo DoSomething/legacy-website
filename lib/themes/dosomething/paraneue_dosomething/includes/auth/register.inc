@@ -100,7 +100,7 @@ function paraneue_dosomething_form_alter_register(&$form, &$form_state, $form_id
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['class'] = array('js-validate');
       $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#attributes']['data-validate'] = 'phone';
       if ($show_help_text) {
-        $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#description'] = t("Get volunteer opportunities on your phone! Texting available in @country soon", array('@country' => $country_name));
+        $form['account']['field_mobile'][LANGUAGE_NONE][0]['value']['#description'] = t("Get volunteer opportunities on your phone! Texting available in @country soon.", array('@country' => $country_name));
       }
     }
 
@@ -134,12 +134,14 @@ function paraneue_dosomething_register_after_build($form, &$form_state) {
     $form['field_birthdate']['#attributes']['class'] = array();
   }
 
+  $form['account']['pass']['pass1']['#title'] = t('Password');
   $form['account']['pass']['pass1']['#attributes']['placeholder'] = t('6+ characters... make it tricky!');
   $form['account']['pass']['pass1']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass1']['#attributes']['data-validate'] = 'password';
   $form['account']['pass']['pass1']['#attributes']['data-validate-required'] = '';
   $form['account']['pass']['pass1']['#attributes']['data-validate-trigger'] = '#edit-pass-pass2';
 
+  $form['account']['pass']['pass2']['#title'] = t('Confirm Password');
   $form['account']['pass']['pass2']['#attributes']['placeholder'] = t('Just double checking!');
   $form['account']['pass']['pass2']['#attributes']['class'] = array('js-validate');
   $form['account']['pass']['pass2']['#attributes']['data-validate'] = 'match';
