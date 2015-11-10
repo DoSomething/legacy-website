@@ -619,6 +619,14 @@ msgstr ""
 msgid "Just double checking!"
 msgstr ""
 
+#: includes/auth/register.inc
+msgid "Looks good!"
+msgstr ""
+
+#: includes/auth/register.inc
+msgid "That doesn't match."
+msgstr ""
+
 #: js/validators/address.js:0
 msgid "I u2764 @state"
 msgstr ""
