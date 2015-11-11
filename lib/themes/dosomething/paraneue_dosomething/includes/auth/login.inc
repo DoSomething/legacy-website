@@ -29,6 +29,8 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
       '#weight' => -199,
     );
 
+    $form['actions']['submit']['#value'] = t('Log In');
+
     // Check if the Login Form copy variable has been set.
     $subheader = t(variable_get('dosomething_user_login_form_copy', ''));
     if (!empty($subheader)) {
