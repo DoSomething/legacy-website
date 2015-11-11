@@ -14,7 +14,7 @@
 
     <?php if (isset($contact_us_email)): ?>
       <div class="info-bar__secondary">
-        <?php print t('Questions? Email: '); ?> <?php print $contact_us_email; ?>
+        <?php print t('Questions? Email:'); ?> <?php print $contact_us_email; ?>
       </div>
     <?php elseif (isset($zendesk_form)): ?>
       <div class="info-bar__secondary">

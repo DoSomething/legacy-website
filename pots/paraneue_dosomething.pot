@@ -439,10 +439,6 @@ msgstr ""
 msgid "Staff Pick"
 msgstr ""
 
-#: includes/form.inc:168
-msgid "Join the cool kids!<br/> Add your photo here!"
-msgstr ""
-
 #: includes/form.inc:172
 msgid "Add another photo"
 msgstr ""
@@ -1205,5 +1201,9 @@ msgstr ""
 
 #: js/validators/auth.js
 msgid "Enter your birthday MM/DD/YYYY!"
+msgstr ""
+
+#: templates/system/partials/info-bar.tpl.php
+msgid "Questions? Email:"
 msgstr ""
 
