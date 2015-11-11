@@ -16,10 +16,10 @@ function dosomething_static_content_preprocess_node(&$vars) {
         'subtitle',
         'intro_title',
         'additional_text_title',
-        'additional_text',
         'call_to_action',
       ],
       'text_formatted' => [
+        'additional_text',
         'intro',
       ],
       'image' => [
