@@ -1198,3 +1198,12 @@ msgstr ""
 #: js/images/ImageUpload.js
 msgid "edit photo"
 msgstr ""
+
+#: js/validators/auth.js
+msgid "Enter your birthday DD/MM/YYYY!"
+msgstr ""
+
+#: js/validators/auth.js
+msgid "Enter your birthday MM/DD/YYYY!"
+msgstr ""
+
