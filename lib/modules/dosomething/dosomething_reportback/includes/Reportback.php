@@ -175,6 +175,7 @@ class Reportback extends Entity {
       'drupal_id' => $data->uid,
       'id' => dosomething_helpers_isset($northstar_user, '_id'),
       'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
+      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
       'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
       'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
