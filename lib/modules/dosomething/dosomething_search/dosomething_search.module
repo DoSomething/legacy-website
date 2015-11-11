@@ -63,6 +63,7 @@ function dosomething_search_form_alter(&$form, &$form_state, $form_id) {
     $form['basic']['keys']['#theme_wrappers'] = array();
     unset($form['basic']['keys']['#title']);
 
+    $form['basic']['submit']['#value'] = t('Search');
     $form['basic']['submit']['#attributes'] = array('class' => array('button'));
     $form['basic']['submit']['#prefix'] = '<li>';
     $form['basic']['submit']['#suffix'] = '</li>';

@@ -607,12 +607,24 @@ msgstr ""
 msgid "(555) 555-5555"
 msgstr ""
 
+#: includes/auth/register.inc
+msgid "Get volunteer opportunities on your phone! Texting available in @country soon."
+msgstr ""
+
 #: includes/auth/register.inc:119
 msgid "6+ characters... make it tricky!"
 msgstr ""
 
 #: includes/auth/register.inc:125
 msgid "Just double checking!"
+msgstr ""
+
+#: includes/auth/register.inc
+msgid "Looks good!"
+msgstr ""
+
+#: includes/auth/register.inc
+msgid "That doesn't match."
 msgstr ""
 
 #: js/validators/address.js:0
@@ -1181,5 +1193,17 @@ msgstr ""
 
 #: templates/system/patterns/photo.tpl.php:4 js/reportback/templates/reportback.tpl.html:5
 msgid "Edit Status"
+msgstr ""
+
+#: js/images/ImageUpload.js
+msgid "edit photo"
+msgstr ""
+
+#: js/validators/auth.js
+msgid "Enter your birthday DD/MM/YYYY!"
+msgstr ""
+
+#: js/validators/auth.js
+msgid "Enter your birthday MM/DD/YYYY!"
 msgstr ""
 
