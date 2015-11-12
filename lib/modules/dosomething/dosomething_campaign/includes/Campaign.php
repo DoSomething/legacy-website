@@ -31,8 +31,8 @@ class Campaign {
   /**
    * Convenience method to retrieve a single campaign from supplied id.
    *
-   * @param string|array $ids Single id or array of ids of Campaigns to retrieve.
-   * @param string $display
+   * @param  string|array  $ids  Single id or array of ids of Campaigns to retrieve.
+   * @param  string        $display
    * @return static
    * @throws Exception
    */
@@ -63,8 +63,17 @@ class Campaign {
   /**
    * Convenience method to retrieve campaigns based on supplied filters.
    *
-   * @param array $filters
-   * @param string $display
+   * @param  array  $filters
+   * - nid (string|array)
+   * - type (string)
+   * - staff_pick (bool)
+   * - mobile_app (bool)
+   * - mobile_app_date (string)
+   * - term_id (string|array)
+   * - count (int)
+   * - random (bool)
+   * - page (int)
+   * @param  string  $display
    * @return array
    * @throws Exception
    */
@@ -94,8 +103,8 @@ class Campaign {
   /**
    * Build out the instantiated Campaign class object with supplied data.
    *
-   * @param $data
-   * @param $display
+   * @param  $data
+   * @param  $display
    * @throws Exception
    */
   private function build($data, $display = 'teaser') {
@@ -225,7 +234,7 @@ class Campaign {
   /**
    * Get the cover image data for campaign if available.
    *
-   * @param string|null $id Image node id.
+   * @param  string|null  $id Image node id.
    * @return array|null
    */
   protected function getCoverImage($id = NULL) {
@@ -355,6 +364,7 @@ class Campaign {
 
   /**
    * Get Mobile Commons data.
+   *
    * @return array
    */
   protected function getMobileCommonsData() {
@@ -505,7 +515,7 @@ class Campaign {
   /**
    * Get taxonomy term node data from provided id.
    *
-   * @param $id
+   * @param  $id
    * @return array
    */
   protected function getTaxonomyTerm($id) {
