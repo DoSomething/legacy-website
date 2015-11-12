@@ -31,5 +31,17 @@ function dosomething_settings_strongarm() {
   $strongarm->value = '';
   $export['pathauto_node_pattern'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'seckit_clickjacking';
+  $strongarm->value = array(
+    'x_frame' => '1',
+    'x_frame_allow_from' => '',
+    'js_css_noscript' => 0,
+    'noscript_message' => 'Sorry, you need to enable JavaScript to visit this website.',
+  );
+  $export['seckit_clickjacking'] = $strongarm;
+
   return $export;
 }
