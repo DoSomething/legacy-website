@@ -6,12 +6,11 @@ class CampaignTransformer extends Transformer {
    * Display collection of the specified resource.
    *
    * @param array $parameters Filter parameters to limit collection based on specific criteria.
-   *  - nid (string|array)
-   *  - type (string)
+   *  - ids (string)
    *  - staff_pick (boolean)
    *  - mobile_app (boolean)
-   *  - mobile_app_date (string|array)
-   *  - term_id (string|array)
+   *  - mobile_app_date (string)
+   *  - term_ids (string)
    *  - count (int)
    *  - random (boolean)
    *  - page (int)
@@ -21,8 +20,8 @@ class CampaignTransformer extends Transformer {
     $filters = [
       'nid' => $this->formatData($parameters['ids']),
       'type' => 'campaign',
-      'staff_pick' => $parameters['staff_pick'],
-      'mobile_app' => $parameters['mobile_app'],
+      'staff_pick' => (bool) $parameters['staff_pick'],
+      'mobile_app' => (bool) $parameters['mobile_app'],
       'mobile_app_date' => $parameters['mobile_app_date'],
       'term_id' => $this->formatData($parameters['term_ids']),
       'count' => (int) $parameters['count'] ?: 25,

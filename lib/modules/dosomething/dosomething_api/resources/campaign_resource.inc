@@ -58,7 +58,7 @@ function _campaign_resource_definition() {
             'name' => 'count',
             'description' => 'The number of campaigns to retrieve.',
             'optional' => TRUE,
-            'type' => 'string',
+            'type' => 'int',
             'source' => ['param' => 'count'],
             'default value' => 25,
           ],
