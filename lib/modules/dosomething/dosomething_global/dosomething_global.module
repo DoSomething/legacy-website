@@ -91,7 +91,7 @@ function dosomething_global_init() {
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
-    
+
   // If the node doesn't have translations, don't do any redirection.
   if (empty($node_variables['node']->translations->data)) {
     return;
