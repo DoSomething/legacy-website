@@ -50,7 +50,8 @@ function dosomething_static_content_preprocess_node(&$vars) {
             break;
 
           case 'text_formatted':
-            $vars[$label] = dosomething_helpers_extract_field_data($vars['node']->{$field_name}, $vars['node']->language);
+            $field = dosomething_helpers_extract_field_data($vars['node']->{$field_name}, $vars['node']->language);
+            $vars[$label] = $field['formatted'];
             break;
 
           case 'image':
