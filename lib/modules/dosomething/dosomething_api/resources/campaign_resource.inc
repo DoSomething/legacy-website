@@ -32,7 +32,7 @@ function _campaign_resource_definition() {
           ],
           [
             'name' => 'mobile_app',
-            'description' => 'Flag to indicate request was made from the mobile app.',
+            'description' => 'Flag to select campaigns available on the mobile app.',
             'optional' => TRUE,
             'type' => 'boolean',
             'source' => ['param' => 'mobile_app'],
