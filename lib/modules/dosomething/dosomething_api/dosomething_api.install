@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_api.module
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_api_schema() {
+  $schema['cache_dosomething_api'] = drupal_get_schema_unprocessed('system', 'cache');
+  return $schema;
+}
