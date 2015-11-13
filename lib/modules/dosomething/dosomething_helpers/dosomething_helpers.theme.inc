@@ -3,7 +3,7 @@
 /**
  * Implements hook_theme_registry_alter()
  *
- * Modules registered in dosomething_helpers_modules will 
+ * Modules registered in dosomething_helpers_modules will
  * have their paths added to the theme registry so that they
  * can store reference entity type templates within the module.
 **/

@@ -383,7 +383,8 @@ function dosomething_campaign_preprocess_facts_vars(&$vars, &$wrapper) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
-  if (!empty($vars['field_video'])) {
+  // Before printing the video, make sure the video field has a video id.
+  if (!empty($vars['field_video']) && !empty($wrapper->field_video->value()->field_video_id)) {
     $vars['psa'] = theme('dosomething_video_embed', array(
       'field' => $wrapper->field_video->value(),
       'width' => 550,
