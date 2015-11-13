@@ -50,7 +50,7 @@ function dosomething_settings_strongarm() {
   $strongarm->value = array(
     'csp' => array(
       'checkbox' => 1,
-      'report-only' => 0,
+      'report-only' => 1,
       'default-src' => '\'self\' *.dosomething.org',
       'script-src' => '\'self\' \'unsafe-inline\' \'unsafe-eval\' *.dosomething.org *.google-analytics.com',
       'object-src' => '',
