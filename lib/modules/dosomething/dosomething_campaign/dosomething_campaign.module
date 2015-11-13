@@ -5,6 +5,7 @@
  */
 
 module_load_include('php', 'dosomething_api', 'includes/Transformer');
+module_load_include('php', 'dosomething_api', 'includes/ApiCache');
 
 include_once 'dosomething_campaign.features.inc';
 include_once 'dosomething_campaign.helpers.inc';

@@ -17,6 +17,22 @@ class CampaignTransformer extends Transformer {
    * @return array
    */
   public function index($parameters) {
+    $cache = new ApiCache;
+    $campaigns = $cache->get('campaigns', $parameters);
+
+    if (!$campaigns) {
+      $something = $cache->set('campaigns', $parameters, 'poopie doopie doo');
+      print_r(gettype($something));
+    }
+
+//    $campaigns = $campaigns ? $campaigns : 'nay';
+
+    print_r($campaigns);
+    die();
+
+
+
+
     $filters = [
       'nid' => $this->formatData($parameters['ids']),
       'type' => 'campaign',
@@ -30,6 +46,16 @@ class CampaignTransformer extends Transformer {
     ];
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
+
+    print_r($parameters);
+    print_r($filters);
+    die();
+
+    //cache_set($cid, $data, $bin = 'cache', $expire = CACHE_PERMANENT)
+    //cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
+    // cache_get($cid, $bin = 'cache')
+    //$northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
 
     try {
       $campaigns = Campaign::find($filters, 'full');
