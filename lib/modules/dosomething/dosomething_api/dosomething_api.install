@@ -5,9 +5,10 @@
  */
 
 /**
- * Implements hook_schema().
+ * Create a new database table "cache_dosomething_api" for API request caching.
  */
-function dosomething_api_schema() {
+function dosomething_api_update_7001() {
   $schema['cache_dosomething_api'] = drupal_get_schema_unprocessed('system', 'cache');
-  return $schema;
+  db_create_table('cache_dosomething_api', $schema['cache_dosomething_api']);
 }
+
