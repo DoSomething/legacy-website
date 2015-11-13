@@ -542,7 +542,12 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
 function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480', $source = NULL) {
   $node = node_load($nid);
   $clc = dosomething_helpers_get_current_language_content_code();
-  $path_alias = drupal_get_path_alias('node/' . $nid);
+
+  global $user;
+  $language = dosomething_global_get_language($user, $node);
+  // Build a global URL and remove the first slash returned
+  $path_alias = preg_replace('/\//', '', dosomething_global_url('node/' . $nid, array('language' => $language)), 1);
+
   if ($source) {
     $path_alias .= '?source=' . $source;
   }
