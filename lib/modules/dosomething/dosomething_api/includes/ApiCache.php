@@ -2,18 +2,33 @@
 
 class ApiCache {
 
+  /**
+   * @param string  $endpoint
+   * @param array   $parameters
+   * @return mixed
+   */
   public function get($endpoint, $parameters) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    return cache_get($id, 'cache_dosomething_api');
+    $cache = cache_get($id, 'cache_dosomething_api');
+
+    if ($cache && $cache->expire < REQUEST_TIME) {
+      cache_clear_all($id, 'cache_dosomething_api');
+
+      return FALSE;
+    }
+
+    return $cache;
   }
 
 
   /**
-   * @param  $endpoint
-   * @param  $parameters
-   * @param  $data
+   * @param  string  $endpoint
+   * @param  array   $parameters
+   * @param  mixed   $data
    * @return bool
+   *
+   * @todo: not ideal that Drupal doesn't return anything concrete from the cache_set() function.
    */
   public function set($endpoint, $parameters, $data) {
     $id = $this->generate_id($endpoint, $parameters);

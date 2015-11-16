@@ -5,12 +5,13 @@ class CampaignTransformer extends Transformer {
   /**
    * Display collection of the specified resource.
    *
-   * @param array $parameters Filter parameters to limit collection based on specific criteria.
-   *  - ids (string)
-   *  - staff_pick (bool)
-   *  - mobile_app (bool)
-   *  - mobile_app_date (string)
-   *  - term_ids (string)
+   * @param  array  $parameters Filter parameters to limit collection based on specific criteria.
+   *  - nid (string|array)
+   *  - type (string)
+   *  - staff_pick (boolean)
+   *  - mobile_app (boolean)
+   *  - mobile_app_date (string|array)
+   *  - term_id (string|array)
    *  - count (int)
    *  - random (bool)
    *  - page (int)
@@ -21,14 +22,15 @@ class CampaignTransformer extends Transformer {
 
     $campaigns = $cache->get('campaigns', $parameters);
 
-//    if (!$campaigns) {
-      $something = $cache->set('campaigns', $parameters, 'poopie doopie goop');
+    if (!$campaigns) {
+      $something = $cache->set('campaigns', $parameters, 'poopie doopie goopie');
       print_r(gettype($something));
-//    }
+    }
 
-    $campaigns = $campaigns ? $campaigns : 'nay';
+//    $campaigns = $campaigns ? $campaigns : 'nay';
 
     print_r($campaigns);
+//    print_r(gettype($campaigns));
     die();
 
 
