@@ -12,7 +12,7 @@ abstract class Transformer {
    * Format a string of comma separated data items into an array, or
    * if a single item, return it without formatting.
    *
-   * @param string $data Single or multiple comma separated data items.
+   * @param  string  $data Single or multiple comma separated data items.
    * @return string|array
    */
   protected function formatData($data) {
@@ -29,14 +29,14 @@ abstract class Transformer {
   /**
    * Get the URI for the next page in the collection of data.
    *
-   * @param array $data
+   * @param  array $data
    *   An associative array of pagination parameters:
    *   - total: (int) Complete total number of available data items found.
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param array $parameters
-   * @param string $endpoint Endpoint for building URI.
+   * @param  array $parameters
+   * @param  string $endpoint Endpoint for building URI.
    * @return null|string
    */
   protected function getNextPageUri($data, $parameters, $endpoint) {
@@ -56,14 +56,14 @@ abstract class Transformer {
   /**
    * Get the URI for the previous page in the collection of data.
    *
-   * @param array $data
+   * @param  array $data
    *   An associative array of pagination parameters:
    *   - total: (int) Complete total number of available data items found.
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param array $parameters An associative array of current location parameters.
-   * @param string $endpoint Endpoint for building URI.
+   * @param  array $parameters An associative array of current location parameters.
+   * @param  string $endpoint Endpoint for building URI.
    * @return null|string
    */
   protected function getPrevPageUri($data, $parameters, $endpoint) {
@@ -83,7 +83,7 @@ abstract class Transformer {
   /**
    * Extract the path parameters passed and recreate the query string.
    *
-   * @param array $parameters
+   * @param  array $parameters
    *   An associative array of query parameters and values for building URI:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
@@ -91,7 +91,7 @@ abstract class Transformer {
    *   - page: (int) Current page number.
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
-   * @param string $endpoint Endpoint for building URI.
+   * @param  string $endpoint Endpoint for building URI.
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {

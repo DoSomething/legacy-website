@@ -32,7 +32,7 @@ function _campaign_resource_definition() {
           ],
           [
             'name' => 'mobile_app',
-            'description' => 'Flag to indicate request was made from the mobile app.',
+            'description' => 'Flag to select campaigns available on the mobile app.',
             'optional' => TRUE,
             'type' => 'boolean',
             'source' => ['param' => 'mobile_app'],
@@ -58,7 +58,7 @@ function _campaign_resource_definition() {
             'name' => 'count',
             'description' => 'The number of campaigns to retrieve.',
             'optional' => TRUE,
-            'type' => 'string',
+            'type' => 'int',
             'source' => ['param' => 'count'],
             'default value' => 25,
           ],
@@ -241,7 +241,7 @@ function _campaign_resource_access_alt($op = 'view', $args = array()) {
 /**
  * Determine whether the current user can access campaign resource.
  *
- * @param string $op
+ * @param  string  $op
  * @return bool
  */
 function _campaign_resource_access($op) {
@@ -260,7 +260,7 @@ function _campaign_resource_access($op) {
 /**
  * Retrieve and show response for campaign request.
  *
- * @param string $nid
+ * @param  string  $nid
  * @return object
  */
 function _campaign_resource_retrieve($nid) {
@@ -271,14 +271,14 @@ function _campaign_resource_retrieve($nid) {
 /**
  * Retrieve and show index list response of campaigns requested.
  *
- * @param string $ids
- * @param bool $staff_pick
- * @param bool $mobile_app
- * @param string $mobile_app_date
- * @param string $term_ids
- * @param int $count
- * @param bool $random
- * @param int $page
+ * @param  string  $ids
+ * @param  bool    $staff_pick
+ * @param  bool    $mobile_app
+ * @param  string  $mobile_app_date
+ * @param  string  $term_ids
+ * @param  int     $count
+ * @param  bool    $random
+ * @param  int     $page
  * @return object
  */
 function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_date, $term_ids, $count, $random, $page) {
