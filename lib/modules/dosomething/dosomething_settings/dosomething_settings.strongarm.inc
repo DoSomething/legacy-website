@@ -36,8 +36,8 @@ function dosomething_settings_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'seckit_clickjacking';
   $strongarm->value = array(
-    'x_frame' => '0',
-    'x_frame_allow_from' => '',
+    'x_frame' => '3',
+    'x_frame_allow_from' => 'http://optimizely.com',
     'js_css_noscript' => 0,
     'noscript_message' => 'Sorry, you need to enable JavaScript to visit this website.',
   );
