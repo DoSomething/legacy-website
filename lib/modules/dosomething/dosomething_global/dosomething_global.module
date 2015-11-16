@@ -584,20 +584,31 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     return;
   }
 
+  $target_node = NULL;
+  $language = NULL;
+
+  // First check if there is a local translation
   if (!empty($node->translations->data[$user_lang]) && $node->translations->data[$user_lang]['status']) {
     $target_node = $node->translations->data[$user_lang];
-
-    // Might be overly formal: We could pull 'node/nid' from the current
-    // request. This is in case of the unlikely (impossible?) event that
-    // a translated version of this node has a different entity ID.
-    $target_path = sprintf('node/%s', $target_node['entity_id']);
-
-    drupal_goto(url($target_path, array('language' => $languages[$user_lang])), array(), $redirect_status);
+    $language = $user_lang;
   }
+  // Then try to find global english translation
+  else if (!empty($node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]) && $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]['status']) {
+    $target_node = $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE];
+    $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  }
+  // If neither of these exist, 404 the user
   else {
     drupal_not_found();
     drupal_exit();
+    return;
   }
+
+  // Might be overly formal: We could pull 'node/nid' from the current
+  // request. This is in case of the unlikely (impossible?) event that
+  // a translated version of this node has a different entity ID.
+  $target_path = sprintf('node/%s', $target_node['entity_id']);
+  drupal_goto(url($target_path, array('language' => $languages[$language])), array(), $redirect_status);
 }
 
 /**
