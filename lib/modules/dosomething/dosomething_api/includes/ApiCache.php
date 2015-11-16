@@ -3,6 +3,8 @@
 class ApiCache {
 
   /**
+   * Get data from cache based on id from endpoint and URL parameters.
+   *
    * @param  string  $endpoint  Type of resource based on endpoint.
    * @param  array   $parameters  The URL parameters passed that define the request.
    * @return mixed
@@ -23,23 +25,25 @@ class ApiCache {
 
 
   /**
+   * Set data in cache with id based on endpoint and URL parameters.
+   *
    * @param  string  $endpoint
    * @param  array   $parameters
    * @param  mixed   $data
    * @return bool
-   *
-   * @todo: not ideal that Drupal doesn't return anything concrete from the cache_set() function.
    */
   public function set($endpoint, $parameters, $data) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + 60);
+    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 6));
 
     return TRUE;
   }
 
 
   /**
+   * Generate an id from resource endpoint type and URL parameters.
+   *
    * @param  string  $endpoint
    * @param  array   $parameters
    * @return string
@@ -50,6 +54,8 @@ class ApiCache {
 
 
   /**
+   * Create a concatenated string from URL parameters.
+   *
    * @param  array  $parameters
    * @return string
    * @todo: may want to allow passing nested array instead of one-dimensional array.

@@ -21,29 +21,16 @@ class CampaignTransformer extends Transformer {
 
     $campaigns = $cache->get('campaigns', $parameters);
 
-    if ($campaigns) {
-      $campaigns = $campaigns->data;
-    }
-
     try {
       if (!$campaigns) {
-        $filters = [
-          'nid' => $this->formatData($parameters['ids']),
-          'type' => 'campaign',
-          'staff_pick' => (bool) $parameters['staff_pick'],
-          'mobile_app' => (bool) $parameters['mobile_app'],
-          'mobile_app_date' => $parameters['mobile_app_date'],
-          'term_id' => $this->formatData($parameters['term_ids']),
-          'count' => (int) $parameters['count'] ?: 25,
-          'random' => $parameters['random'],
-          'page' => (int) $parameters['page'],
-        ];
-
-        $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+        $filters = $this->setFilters($parameters);
 
         $campaigns = Campaign::find($filters, 'full');
 
         $cache->set('campaigns', $parameters, $campaigns);
+      }
+      else {
+        $campaigns = $campaigns->data;
       }
 
       $campaigns = services_resource_build_index_list($campaigns, 'campaigns', 'id');
@@ -103,6 +90,29 @@ class CampaignTransformer extends Transformer {
     $data += $this->transformCampaign($item);
 
     return $data;
+  }
+
+
+  /**
+   * @param  array $parameters
+   * @return array
+   */
+  private function setFilters($parameters) {
+    $filters = [
+      'nid' => $this->formatData($parameters['ids']),
+      'type' => 'campaign',
+      'staff_pick' => (bool) $parameters['staff_pick'],
+      'mobile_app' => (bool) $parameters['mobile_app'],
+      'mobile_app_date' => $parameters['mobile_app_date'],
+      'term_id' => $this->formatData($parameters['term_ids']),
+      'count' => (int) $parameters['count'] ?: 25,
+      'random' => $parameters['random'],
+      'page' => (int) $parameters['page'],
+    ];
+
+    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
+    return $filters;
   }
 
 }
