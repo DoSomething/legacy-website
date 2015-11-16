@@ -5,14 +5,22 @@ class ApiCache {
   public function get($endpoint, $parameters) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    return cache_get($id, 'dosomething_api_cache');
+    return cache_get($id, 'cache_dosomething_api');
   }
 
 
+  /**
+   * @param  $endpoint
+   * @param  $parameters
+   * @param  $data
+   * @return bool
+   */
   public function set($endpoint, $parameters, $data) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    return cache_set($id, $data, 'dosomething_api_cache', REQUEST_TIME + 60);
+    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + 60);
+
+    return TRUE;
   }
 
 

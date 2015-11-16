@@ -18,14 +18,15 @@ class CampaignTransformer extends Transformer {
    */
   public function index($parameters) {
     $cache = new ApiCache;
+
     $campaigns = $cache->get('campaigns', $parameters);
 
-    if (!$campaigns) {
-      $something = $cache->set('campaigns', $parameters, 'poopie doopie doo');
+//    if (!$campaigns) {
+      $something = $cache->set('campaigns', $parameters, 'poopie doopie goop');
       print_r(gettype($something));
-    }
+//    }
 
-//    $campaigns = $campaigns ? $campaigns : 'nay';
+    $campaigns = $campaigns ? $campaigns : 'nay';
 
     print_r($campaigns);
     die();
