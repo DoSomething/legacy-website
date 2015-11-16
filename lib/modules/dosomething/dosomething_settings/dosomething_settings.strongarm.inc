@@ -43,5 +43,34 @@ function dosomething_settings_strongarm() {
   );
   $export['seckit_clickjacking'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'seckit_xss';
+  $strongarm->value = array(
+    'csp' => array(
+      'checkbox' => 1,
+      'report-only' => 1,
+      'default-src' => '\'self\' *.dosomething.org',
+      'script-src' => '\'self\' \'unsafe-inline\' \'unsafe-eval\' *.dosomething.org *.google-analytics.com',
+      'object-src' => '',
+      'style-src' => '\'self\' \'unsafe-inline\' *.dosomething.org',
+      'img-src' => '\'self\' \'unsafe-inline\' *.dosomething.org *.google-analytics.com data:',
+      'media-src' => '',
+      'frame-src' => '',
+      'font-src' => '',
+      'connect-src' => '',
+      'report-uri' => 'admin/config/system/seckit/csp-report',
+      'policy-uri' => '',
+    ),
+    'x_xss' => array(
+      'select' => '0',
+    ),
+    'x_content_type' => array(
+      'checkbox' => 1,
+    ),
+  );
+  $export['seckit_xss'] = $strongarm;
+
   return $export;
 }
