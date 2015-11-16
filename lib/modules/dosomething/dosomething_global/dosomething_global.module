@@ -19,6 +19,11 @@ function dosomething_global_init() {
     return;
   }
 
+  if ($_SESSION['dosomething_global_redirected']) {
+    $_SESSION['dosomething_global_redirected'] = FALSE;
+    return;
+  }
+
   $languages = language_list();
   if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
     watchdog('dosomething_global', "Can't load %lang language",
@@ -603,7 +608,7 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     drupal_exit();
     return;
   }
-
+  $_SESSION['dosomething_global_redirected'] = TRUE;
   // Might be overly formal: We could pull 'node/nid' from the current
   // request. This is in case of the unlikely (impossible?) event that
   // a translated version of this node has a different entity ID.
