@@ -3,8 +3,8 @@
 class ApiCache {
 
   /**
-   * @param string  $endpoint
-   * @param array   $parameters
+   * @param  string  $endpoint  Type of resource based on endpoint.
+   * @param  array   $parameters  The URL parameters passed that define the request.
    * @return mixed
    */
   public function get($endpoint, $parameters) {
