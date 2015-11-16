@@ -496,14 +496,17 @@ function dosomething_global_is_path_prefix($prefix) {
  *
  * @return string
  */
-function dosomething_global_get_language($account, stdClass $node = NULL) {
-  // Respect the URL first.
-  $request_path = explode('/', request_path());
-  if (!empty($request_path[0])) {
-    $languages = language_list();
-    foreach ($languages as $langcode => $lang_data) {
-      if ($lang_data->prefix == $request_path[0]) {
-        return $langcode;
+function dosomething_global_get_language($account, stdClass $node = NULL, $respect_url = TRUE) {
+
+  if ($respect_url) {
+    // Respect the URL first.
+    $request_path = explode('/', request_path());
+    if (!empty($request_path[0])) {
+      $languages = language_list();
+      foreach ($languages as $langcode => $lang_data) {
+        if ($lang_data->prefix == $request_path[0]) {
+          return $langcode;
+        }
       }
     }
   }
