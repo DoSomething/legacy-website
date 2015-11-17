@@ -19,6 +19,11 @@ function dosomething_global_init() {
     return;
   }
 
+  if ($_SESSION['dosomething_global_redirected']) {
+    $_SESSION['dosomething_global_redirected'] = FALSE;
+    return;
+  }
+
   $languages = language_list();
   if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
     watchdog('dosomething_global', "Can't load %lang language",
@@ -491,14 +496,17 @@ function dosomething_global_is_path_prefix($prefix) {
  *
  * @return string
  */
-function dosomething_global_get_language($account, stdClass $node = NULL) {
-  // Respect the URL first.
-  $request_path = explode('/', request_path());
-  if (!empty($request_path[0])) {
-    $languages = language_list();
-    foreach ($languages as $langcode => $lang_data) {
-      if ($lang_data->prefix == $request_path[0]) {
-        return $langcode;
+function dosomething_global_get_language($account, stdClass $node = NULL, $respect_url = TRUE) {
+
+  if ($respect_url) {
+    // Respect the URL first.
+    $request_path = explode('/', request_path());
+    if (!empty($request_path[0])) {
+      $languages = language_list();
+      foreach ($languages as $langcode => $lang_data) {
+        if ($lang_data->prefix == $request_path[0]) {
+          return $langcode;
+        }
       }
     }
   }
@@ -567,6 +575,8 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  *  - Do not redirect
  * If the node has a translation available for the specified language
  *  - Redirect them to the translation
+ * If the node has a global translation available
+ *  - Redirect them to the translation
  * Else
  *  - 404 the user
  */
@@ -584,20 +594,31 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     return;
   }
 
+  $target_node = NULL;
+  $language = NULL;
+
+  // First check if there is a local translation
   if (!empty($node->translations->data[$user_lang]) && $node->translations->data[$user_lang]['status']) {
     $target_node = $node->translations->data[$user_lang];
-
-    // Might be overly formal: We could pull 'node/nid' from the current
-    // request. This is in case of the unlikely (impossible?) event that
-    // a translated version of this node has a different entity ID.
-    $target_path = sprintf('node/%s', $target_node['entity_id']);
-
-    drupal_goto(url($target_path, array('language' => $languages[$user_lang])), array(), $redirect_status);
+    $language = $user_lang;
   }
+  // Then try to find global english translation
+  else if (!empty($node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]) && $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]['status']) {
+    $target_node = $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE];
+    $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  }
+  // If neither of these exist, 404 the user
   else {
     drupal_not_found();
     drupal_exit();
+    return;
   }
+  $_SESSION['dosomething_global_redirected'] = TRUE;
+  // Might be overly formal: We could pull 'node/nid' from the current
+  // request. This is in case of the unlikely (impossible?) event that
+  // a translated version of this node has a different entity ID.
+  $target_path = sprintf('node/%s', $target_node['entity_id']);
+  drupal_goto(url($target_path, array('language' => $languages[$language])), array(), $redirect_status);
 }
 
 /**

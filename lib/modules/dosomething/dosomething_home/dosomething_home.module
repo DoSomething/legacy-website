@@ -81,15 +81,8 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['status'] = TRUE;
       $tiles['image'] = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="' . $tiles['image_url'] . '">';
 
-      $url_options = array(
-        'language' => $lang_code,
-        'query' => array(
-          'source' => 'node/' . $vars['nid'],
-        ),
-      );
-
-      $tiles['link'] = dosomething_global_url('node/' . $nid, $url_options);
-
+      $link_language = dosomething_global_get_language($user, $node, FALSE);
+      $tiles['link'] = dosomething_global_get_prefix_for_language($link_language) . drupal_get_path_alias('node/' . $nid, $link_language);
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
   }
