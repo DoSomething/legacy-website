@@ -73,6 +73,16 @@ function dosomething_helpers_convert_date($date, $format = 'ISO-8601') {
 }
 
 /**
+ * Utility function to convert string value of true|false into actual boolean value.
+ *
+ * @param  $string
+ * @return mixed
+ */
+function dosomething_helpers_convert_string_to_boolean($string) {
+  return filter_var($string, FILTER_VALIDATE_BOOLEAN);
+}
+
+/**
  * Utility function to delete automated test data.
  */
 function dosomething_helpers_delete_test_nodes() {

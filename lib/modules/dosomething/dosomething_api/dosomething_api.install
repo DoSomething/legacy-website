@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_api.module
+ */
+
+/**
+ * Create a new database table "cache_dosomething_api" for API request caching.
+ * Implements hook_schema().
+ */
+function dosomething_api_schema() {
+  $schema['cache_dosomething_api'] = drupal_get_schema_unprocessed('system', 'cache');
+  return $schema;
+}
+
+
+/**
+ * Redundancy if module is already enabled and dosomething_api_schema won't run.
+ * Create a new database table "cache_dosomething_api" for API request caching.
+ */
+function dosomething_api_update_7001() {
+  if (!db_table_exists('cache_dosomething_api')) {
+    $schema['cache_dosomething_api'] = drupal_get_schema_unprocessed('system', 'cache');
+    db_create_table('cache_dosomething_api', $schema['cache_dosomething_api']);
+  }
+}
+

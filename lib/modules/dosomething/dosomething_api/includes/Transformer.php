@@ -12,8 +12,8 @@ abstract class Transformer {
    * Format a string of comma separated data items into an array, or
    * if a single item, return it without formatting.
    *
-   * @param string $data Single or multiple comma separated data items.
-   * @return string|array
+   * @param  string  $data Single or multiple comma separated data items.
+   * @return mixed
    */
   protected function formatData($data) {
     $array = explode(',', $data);
@@ -29,15 +29,15 @@ abstract class Transformer {
   /**
    * Get the URI for the next page in the collection of data.
    *
-   * @param array $data
+   * @param  array   $data
    *   An associative array of pagination parameters:
    *   - total: (int) Complete total number of available data items found.
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param array $parameters
-   * @param string $endpoint Endpoint for building URI.
-   * @return null|string
+   * @param  array   $parameters
+   * @param  string  $endpoint Endpoint for building URI.
+   * @return mixed
    */
   protected function getNextPageUri($data, $parameters, $endpoint) {
     $uri = $this->getPathParameters($parameters, $endpoint);
@@ -56,15 +56,15 @@ abstract class Transformer {
   /**
    * Get the URI for the previous page in the collection of data.
    *
-   * @param array $data
+   * @param  array   $data
    *   An associative array of pagination parameters:
    *   - total: (int) Complete total number of available data items found.
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param array $parameters An associative array of current location parameters.
-   * @param string $endpoint Endpoint for building URI.
-   * @return null|string
+   * @param  array   $parameters An associative array of current location parameters.
+   * @param  string  $endpoint Endpoint for building URI.
+   * @return mixed
    */
   protected function getPrevPageUri($data, $parameters, $endpoint) {
     $uri = $this->getPathParameters($parameters, $endpoint);
@@ -83,7 +83,7 @@ abstract class Transformer {
   /**
    * Extract the path parameters passed and recreate the query string.
    *
-   * @param array $parameters
+   * @param  array   $parameters
    *   An associative array of query parameters and values for building URI:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
@@ -91,7 +91,7 @@ abstract class Transformer {
    *   - page: (int) Current page number.
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
-   * @param string $endpoint Endpoint for building URI.
+   * @param  string  $endpoint Endpoint for building URI.
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {
@@ -117,9 +117,9 @@ abstract class Transformer {
   /**
    * Retrieve Reportback Items by the specified id(s).
    *
-   * @param string $ids Comma separated list of Reportback Item ids.
+   * @param  string  $ids Comma separated list of Reportback Item ids.
    * @return array
-   * * @deprecated since version... because I said so!
+   * @deprecated since version... because I said so!
    * @TODO: Remove.
    */
   protected function getReportbackItems($ids) {
@@ -137,8 +137,8 @@ abstract class Transformer {
   /**
    * Get metadata for pagination of response data.
    *
-   * @param int $total Complete total number of items found.
-   * @param array $parameters
+   * @param  int     $total Complete total number of items found.
+   * @param  array   $parameters
    *   An associative array of query parameters and values:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
@@ -146,7 +146,7 @@ abstract class Transformer {
    *   - page: (int) Current page number.
    *   - offset: (int) Number of items displayed from prior pages.
    *   - random: (boolean) Whether to retrieve a random assortment of data items.
-   * @param string $endpoint
+   * @param  string  $endpoint
    * @return array
    */
   protected function paginate($total, $parameters, $endpoint) {
@@ -170,8 +170,8 @@ abstract class Transformer {
   /**
    * Get the offset for requests based on specified page number and count of items.
    *
-   * @param int $page Current page number.
-   * @param int $count Number of items per page.
+   * @param  int  $page Current page number.
+   * @param  int  $count Number of items per page.
    * @return int
    */
   protected function setOffset($page, $count) {
@@ -186,7 +186,7 @@ abstract class Transformer {
   /**
    * Transform data and prepare for API response.
    *
-   * @param object $object Single object of retrieved data.
+   * @param object  $object Single object of retrieved data.
    */
   abstract protected function transform($object);
 
@@ -207,7 +207,7 @@ abstract class Transformer {
   /**
    * Transform Campaign data and prepare for API response.
    *
-   * @param object $data
+   * @param  object  $data
    *   An object containing properties of Campaign data:
    *   - id: (string)
    *   - title: (string)
@@ -301,7 +301,7 @@ abstract class Transformer {
   /**
    * Transform Kudos data and prepare for API response.
    *
-   * @param object $data A Kudos object containing the following properties:
+   * @param  object  $data A Kudos object containing the following properties:
    *  - id: (string)
    *  - term: (array)
    *  - reportback_item: (array)
@@ -325,9 +325,9 @@ abstract class Transformer {
   /**
    * Transform Media data and prepare for API response.
    *
-   * @param array $data
-   * @param string|null $aspect_ratio
-   * @return array|null
+   * @param  array  $data
+   * @param  mixed  $aspect_ratio
+   * @return mixed
    */
   protected function transformMedia($data, $aspect_ratio = NULL) {
     if ($data['type'] === 'image') {
@@ -358,7 +358,7 @@ abstract class Transformer {
   /**
    * Transform Reportback data and prepare for API response.
    *
-   * @param object $data Standard object or Reportback object.
+   * @param  object  $data Standard object or Reportback object.
    *   An object containing properties of Reportback data:
    *   - id: (string) The Reportback id.
    *   - created_at: (string) Date Reportback was created.
@@ -411,7 +411,7 @@ abstract class Transformer {
   /**
    * Transform Reportback Item data and prepare for API response.
    *
-   * @param object $data
+   * @param  object  $data
    *   A Reportback Item object containing following properties:
    *   - id: (string) Reportback Item id.
    *   - status: (string) Reportback Item status.
@@ -450,7 +450,7 @@ abstract class Transformer {
   /**
    * Transform user data and prepare for API response.
    *
-   * @param object $data
+   * @param  object  $data
    *   An object containing properties of User data:
    *   - uid: (int) User id.
    * @return array
