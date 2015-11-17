@@ -30,43 +30,36 @@ function dosomething_global_update_7002(&$sandbox) {
 }
 
  /**
-  * change US users' language from en-global to english
+  * change US users' language from en-global to english,
+  * change MX users' language from global english to mexican spanish, country from XX to MX, 
+  * change BR users' language from global english to pt-br, country from XR to BR 
   */
 function dosomething_global_update_7003(&$sandbox) {
+  //US
   $results = db_query("SELECT u.uid, u.mail, a.field_address_country, u.language
                         FROM users u
                         INNER JOIN field_data_field_address a on a.entity_id = u.uid
                         WHERE u.language = 'en-global'
                         AND a.field_address_country = 'US';");
 
-  foreach ($results as $result)
-  {
+  foreach ($results as $result) {
     $user = user_load($result->uid);
-    $user->language = 'english';
+    $user->language = 'en';
     user_save($user);
   }
-}
 
-/**
- * change MX users' language from global english to mexican spanish, country from XX to MX 
- */
-function dosomething_global_update_7004(&$sandbox) {
+  //MX
   $results = db_query("UPDATE users as u
                         INNER JOIN field_data_field_address a on a.entity_id = u.uid
-                        SET u.language = 'es-mx', a.field_address_country = 'MX', a.language = 'es-mx'
+                        SET u.language = 'es-mx', a.field_address_country = 'MX'
                         WHERE u.language = 'en-global'
                         AND a.field_address_country = 'XX';");
 
-}
 
-/**
- * change BR users' language from global english to pt-br, country from XR to BR 
- */
-function dosomething_global_update_7005(&$sandbox) {
+  //BR
   $results = db_query("UPDATE users as u
                         INNER JOIN field_data_field_address a on a.entity_id = u.uid
-                        SET u.language = 'pt-br', a.field_address_country = 'BR', a.language = 'pt-br'
+                        SET u.language = 'pt-br', a.field_address_country = 'BR'
                         WHERE u.language = 'en-global'
                         AND a.field_address_country = 'XR';");
-
 }
