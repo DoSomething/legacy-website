@@ -35,7 +35,7 @@ class ApiCache {
   public function set($endpoint, $parameters, $data) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 6));
+    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 1));
 
     return TRUE;
   }
@@ -71,3 +71,4 @@ class ApiCache {
     return $string;
   }
 }
+
