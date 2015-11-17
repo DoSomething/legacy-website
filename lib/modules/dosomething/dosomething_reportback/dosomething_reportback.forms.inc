@@ -211,7 +211,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'data-validate' => 'positiveInteger',
       'data-validate-required' => '',
     ),
-    '#element_validate' => array('element_validate_integer_positive'),
+    '#element_validate' => array('dosomething_reportback_validate_quantity'),
     '#title' => t("Total # of @noun @verb", array(
         '@noun' => $entity->noun,
         '@verb' => $entity->verb,
@@ -273,6 +273,20 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   );
 
   return $form;
+}
+
+/**
+ * Custom validation function for the quantity field so we can trim
+ * values of whitespace before validation is run.
+ */
+function dosomething_reportback_validate_quantity($element, &$form_state) {
+  // Remove whitespace.
+  $value = trim($element['#value']);
+
+  // Implementation of element_validate_integer_positive.
+  if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value <= 0)) {
+    form_error($element, t('%name must be a positive integer.', array('%name' => $element['#title'])));
+  }
 }
 
 /**
