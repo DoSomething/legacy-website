@@ -26,6 +26,7 @@ projects[apachesolr_confgen][subdir] = "contrib"
 ; Apachesolr Multilingual
 projects[apachesolr_multilingual][version] = "1.3"
 projects[apachesolr_multilingual][subdir] = "contrib"
+projects[apachesolr_multilingual][patch][] = https://www.drupal.org/files/issues/apachesolr_multilingual-unpub-translations-2616388-1.patch
 
 ; Apachesolr Views
 projects[apachesolr_views][version] = "1.0-beta2"
