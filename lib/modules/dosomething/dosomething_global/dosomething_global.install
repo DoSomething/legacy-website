@@ -33,7 +33,6 @@ function dosomething_global_update_7002(&$sandbox) {
   * change US users' language from en-global to english
   */
 function dosomething_global_update_7003(&$sandbox) {
-  //users located in the us, with global english, should have language updated to english
   $results = db_query("SELECT u.uid, u.mail, a.field_address_country, u.language
                         FROM users u
                         INNER JOIN field_data_field_address a on a.entity_id = u.uid
