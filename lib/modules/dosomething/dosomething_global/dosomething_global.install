@@ -28,3 +28,46 @@
 function dosomething_global_update_7002(&$sandbox) {
   variable_set('dosomething_campaign_group_override_language', TRUE);
 }
+
+ /**
+  * change US users' language from en-global to english
+  */
+function dosomething_global_update_7003(&$sandbox) {
+  //users located in the us, with global english, should have language updated to english
+  $results = db_query("SELECT u.uid, u.mail, a.field_address_country, u.language
+                        FROM users u
+                        INNER JOIN field_data_field_address a on a.entity_id = u.uid
+                        WHERE u.language = 'en-global'
+                        AND a.field_address_country = 'US';");
+
+  foreach ($results as $result)
+  {
+    $user = user_load($result->uid);
+    $user->language = 'english';
+    user_save($user);
+  }
+}
+
+/**
+ * change MX users' language from global english to mexican spanish, country from XX to MX 
+ */
+function dosomething_global_update_7004(&$sandbox) {
+  $results = db_query("UPDATE users as u
+                        INNER JOIN field_data_field_address a on a.entity_id = u.uid
+                        SET u.language = 'es-mx', a.field_address_country = 'MX', a.language = 'es-mx'
+                        WHERE u.language = 'en-global'
+                        AND a.field_address_country = 'XX';");
+
+}
+
+/**
+ * change BR users' language from global english to pt-br, country from XR to BR 
+ */
+function dosomething_global_update_7005(&$sandbox) {
+  $results = db_query("UPDATE users as u
+                        INNER JOIN field_data_field_address a on a.entity_id = u.uid
+                        SET u.language = 'pt-br', a.field_address_country = 'BR', a.language = 'pt-br'
+                        WHERE u.language = 'en-global'
+                        AND a.field_address_country = 'XR';");
+
+}
