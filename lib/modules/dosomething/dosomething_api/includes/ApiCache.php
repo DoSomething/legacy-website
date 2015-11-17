@@ -2,6 +2,8 @@
 
 class ApiCache {
 
+  public $hours_cached = 24;
+
   /**
    * Clear a specified item from cache.
    *
@@ -69,7 +71,7 @@ class ApiCache {
       return FALSE;
     }
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 24));
+    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * $this->hours_cached));
 
     return TRUE;
   }
