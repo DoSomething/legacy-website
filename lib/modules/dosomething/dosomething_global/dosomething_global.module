@@ -575,6 +575,8 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  *  - Do not redirect
  * If the node has a translation available for the specified language
  *  - Redirect them to the translation
+ * If the node has a global translation available
+ *  - Redirect them to the translation
  * Else
  *  - 404 the user
  */
