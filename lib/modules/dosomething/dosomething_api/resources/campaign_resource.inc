@@ -78,6 +78,14 @@ function _campaign_resource_definition() {
             'source' => array('param' => 'page'),
             'default value' => 1,
           ],
+          [
+            'name' => 'cache',
+            'description' => 'Boolean to indicate whether to cache data.',
+            'optional' => TRUE,
+            'type' => 'boolean',
+            'source' => ['param' => 'cache'],
+            'default value' => TRUE,
+          ],
         ],
         'access callback' => '_campaign_resource_access_alt',
         'access arguments' => ['index'],
@@ -279,9 +287,10 @@ function _campaign_resource_retrieve($nid) {
  * @param  int     $count
  * @param  bool    $random
  * @param  int     $page
+ * @param  bool    $cache
  * @return object
  */
-function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_date, $term_ids, $count, $random, $page) {
+function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_date, $term_ids, $count, $random, $page, $cache) {
   $parameters = [
     'ids' => $ids,
     'staff_pick' => $staff_pick,
@@ -291,6 +300,7 @@ function _campaign_resource_index($ids, $staff_pick, $mobile_app, $mobile_app_da
     'count' => $count,
     'random' => $random,
     'page' => $page,
+    'cache' => $cache,
   ];
 
   return (new CampaignTransformer)->index($parameters);

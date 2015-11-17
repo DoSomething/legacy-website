@@ -7,13 +7,14 @@ class CampaignTransformer extends Transformer {
    *
    * @param  array  $parameters Filter parameters to limit collection based on specific criteria.
    *  - ids (string)
-   *  - staff_pick (bool)
-   *  - mobile_app (bool)
+   *  - staff_pick (string|bool)
+   *  - mobile_app (string|bool)
    *  - mobile_app_date (string)
    *  - term_ids (string)
    *  - count (int)
-   *  - random (bool)
+   *  - random (string|bool)
    *  - page (int)
+   *  - cache (string|bool)
    * @return array
    */
   public function index($parameters) {

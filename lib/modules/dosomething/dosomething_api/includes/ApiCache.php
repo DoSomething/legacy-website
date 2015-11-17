@@ -3,6 +3,30 @@
 class ApiCache {
 
   /**
+   * Clear a specified item from cache.
+   *
+   * @param  mixed  $id
+   * @param  mixed  $endpoint
+   * @param  mixed  $parameters
+   * @return bool
+   */
+  function clear($id = NULL, $endpoint = NULL, $parameters = NULL) {
+    if (!$id) {
+      if ($endpoint && $parameters) {
+        $id = $this->generate_id($endpoint, $parameters);
+      }
+      else {
+        return FALSE;
+      }
+    }
+
+    cache_clear_all($id, 'cache_dosomething_api');
+
+    return TRUE;
+  }
+
+
+  /**
    * Get data from cache based on id from endpoint and URL parameters.
    *
    * @param  string  $endpoint  Type of resource based on endpoint.
@@ -12,10 +36,16 @@ class ApiCache {
   public function get($endpoint, $parameters) {
     $id = $this->generate_id($endpoint, $parameters);
 
+    if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+      $this->clear($id);
+
+      return FALSE;
+    }
+
     $cache = cache_get($id, 'cache_dosomething_api');
 
     if ($cache && $cache->expire < REQUEST_TIME) {
-      cache_clear_all($id, 'cache_dosomething_api');
+      $this->clear($id);
 
       return FALSE;
     }
@@ -25,7 +55,7 @@ class ApiCache {
 
 
   /**
-   * Set data in cache with id based on endpoint and URL parameters.
+   * Set data in cache for 24 hours with id based on endpoint and URL parameters.
    *
    * @param  string  $endpoint
    * @param  array   $parameters
@@ -35,7 +65,11 @@ class ApiCache {
   public function set($endpoint, $parameters, $data) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 1));
+    if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+      return FALSE;
+    }
+
+    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * 24));
 
     return TRUE;
   }
@@ -49,6 +83,8 @@ class ApiCache {
    * @return string
    */
   private function generate_id($endpoint, $parameters) {
+    unset($parameters['cache']);
+
     return $endpoint . '_api_request' . $this->stringify($parameters);
   }
 
