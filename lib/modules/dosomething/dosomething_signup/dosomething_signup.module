@@ -614,7 +614,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
  */
 function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
   if ($wrapper->type->value() == 'campaign') {
-    $content = $wrapper->language($params['user_language']);
+    $content = $wrapper->language($params['campaign_language']);
     $params['call_to_action'] = $content->field_call_to_action->value();
     $params['step_one'] = $content->field_pre_step_header->value();
     $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
