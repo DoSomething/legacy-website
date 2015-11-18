@@ -485,6 +485,9 @@ function pull_db {
       echo "Reindexing Solr..."
       drush solr-mark-all && drush solr-index
 
+      echo "Disabling Optimizely module on staging."
+      drush dis optimizely
+
     else
       echo "Pulling down the db from ${alias[1]} staging"
       drush -y sql-sync @ds.${alias[1]}.staging @ds.${alias[1]}.dev
