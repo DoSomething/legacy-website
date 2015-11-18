@@ -154,7 +154,7 @@ projects[oauth][subdir] = "contrib"
 projects[oauth][patch][] = "https://www.drupal.org/files/issues/oauth-OAuth-PHP-library-Authorization-Header-parameters-separator-2328685-1.patch"
 
 ; Optimizely
-projects[optimizely][version] = "2.14"
+projects[optimizely][version] = "2.18"
 projects[optimizely][subdir] = "contrib"
 
 ; Pathauto
