@@ -557,10 +557,11 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
     return FALSE;
   }
-  $wrapper = entity_metadata_wrapper('node', $node);
-  $user_language = dosomething_global_get_user_language();
-  // Note use of $respect_url = TRUE to use language of campaign signup
-  $campaign_language = dosomething_global_get_language($account, $node, TRUE);
+  if (module_exists('dosomething_global')) {
+    list($user_language, $user_country) = dosomething_global_user_details($account);
+    list($campaign_language, $campaign_country_code, $campaign_title) = dosomething_global_campaign_details($node);
+  }
+
   $url_options = array(
     'language' => $campaign_language,
     'absolute' => TRUE,
@@ -568,15 +569,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
       'source' => 'node/' . $node->nid,
     ),
   );
-  $campaign_link = dosomething_global_url('node/' . $nid, $url_options);
-
-  // Get node title, normal for collections, translatable for campaigns.
-  $title = '';
-  if (isset($node->title_field)) {
-    $title = $wrapper->language($campaign_language)->title_field->value();
-  } else {
-    $title = $node->title;
-  }
+  $campaign_link = dosomething_global_url('node/' . $node->nid, $url_options);
 
   $params = array(
     'email' => $account->mail,
@@ -584,10 +577,12 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'first_name' => dosomething_user_get_field('field_first_name', $account),
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
-    'campaign_title' => $title,
-    'campaign_link' => dosomething_global_url('node/' . $node->nid, $url_options),
+    'campaign_title' => $campaign_title,
+    'campaign_link' => $campaign_link,
     'user_language' => $user_language,
+    'user_country' => $user_country,
     'campaign_language' => $campaign_language,
+    'campaign_country' => $campaign_country_code,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
