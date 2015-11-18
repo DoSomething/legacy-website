@@ -558,9 +558,11 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     return FALSE;
   }
   $wrapper = entity_metadata_wrapper('node', $node);
-  $language = dosomething_global_get_language($account, $node);
+  $user_language = dosomething_global_get_user_language();
+  // Note use of $respect_url = TRUE to use language of campaign signup
+  $campaign_language = dosomething_global_get_language($account, $node, TRUE);
   $url_options = array(
-    'language' => $language,
+    'language' => $campaign_language,
     'absolute' => TRUE,
     'query' => array(
       'source' => 'node/' . $node->nid,
@@ -571,7 +573,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   // Get node title, normal for collections, translatable for campaigns.
   $title = '';
   if (isset($node->title_field)) {
-    $title = $wrapper->language($language)->title_field->value();
+    $title = $wrapper->language($campaign_language)->title_field->value();
   } else {
     $title = $node->title;
   }
@@ -584,7 +586,8 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'event_id' => $node->nid,
     'campaign_title' => $title,
     'campaign_link' => dosomething_global_url('node/' . $node->nid, $url_options),
-    'user_language' => $language,
+    'user_language' => $user_language,
+    'campaign_language' => $campaign_language,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
