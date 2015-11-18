@@ -730,21 +730,3 @@ function dosomething_global_user_details($account = NULL) {
 
   return array($language, $country_code);
 }
-
-/**
- *  Lookup global related details about a campaign:
- *  - language
- *  - country_code
- *
- *  @return array
- *    Details about the user account:
- *      - language
- *      - country_code
- */
-function dosomething_global_campaign_details($node) {
-
-  $language = $node->language;
-  $country_code = dosomething_global_convert_language_to_country($language);
-
-  return array($language, $country_code);
-}
