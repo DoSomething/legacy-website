@@ -740,20 +740,11 @@ function dosomething_global_user_details($account = NULL) {
  *    Details about the user account:
  *      - language
  *      - country_code
- *      - title
  */
 function dosomething_global_campaign_details($node) {
 
   $language = $node->language;
   $country_code = dosomething_global_convert_language_to_country($language);
 
-  // Get node title, normal for collections, translatable for campaigns.
-  $wrapper = entity_metadata_wrapper('node', $node);
-  if (isset($node->title_field)) {
-    $title = $wrapper->language($language)->title_field->value();
-  } else {
-    $title = $node->title;
-  }
-
-  return array($language, $country_code, $title);
+  return array($language, $country_code);
 }
