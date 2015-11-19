@@ -74,7 +74,7 @@ function dosomething_global_strongarm() {
   $strongarm->name = 'entity_translation_entity_types';
   $strongarm->value = array(
     'node' => 'node',
-    'taxonomy_term' => 0,
+    'taxonomy_term' => 'taxonomy_term',
     'field_collection_item' => 0,
     'file' => 0,
     'user' => 0,
