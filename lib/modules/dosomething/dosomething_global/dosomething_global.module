@@ -651,6 +651,24 @@ function dosomething_global_url($path, $options = NULL) {
 }
 
 /**
+ * Build a global node URL that adds the prefix and a fragment
+ *
+ * @param string $nid
+ *    The nid of the node
+ * @param string $language
+ *    The language of the URL
+ * @param string $fragment
+ *    Optional fragment to append
+ */
+function dosomething_global_node_url($nid, $language, $fragment = NULL) {
+  $raw_url = 'node/' . $nid;
+  if (isset($fragment)) {
+    $raw_url .= '#' . $fragment;
+  }
+  return $GLOBALS['base_url'] . '/' . dosomething_global_get_prefix_for_language($language) . '/' . drupal_get_path_alias($raw_url, $language);
+}
+
+/**
  * Return the current country prefix being used.
  *
  * @return string

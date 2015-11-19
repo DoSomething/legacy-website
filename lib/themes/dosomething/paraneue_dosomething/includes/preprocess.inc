@@ -658,6 +658,9 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
  */
 function paraneue_dosomething_preprocess_user_profile(&$vars) {
   global $base_url;
+  global $user;
+  $language = $user->language;
+
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
@@ -665,7 +668,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => dosomething_global_url($value['path_alias'], ['fragment' => 'prove']),
+        'url' => dosomething_global_node_url($value['nid'], $language, 'prove'),
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
