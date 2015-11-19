@@ -314,14 +314,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</p></div>',
   );
 
-  // Container for form elements
-  $form['elements'] = array(
-    '#type' => 'container',
-    '#attributes' => array(
-      'class' => array('modal__block'),
-    ),
-  );
-
   // If we are collecting User address:
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form['elements'], $form_state);
@@ -448,7 +440,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
-
+  
   return $form;
 }
 
