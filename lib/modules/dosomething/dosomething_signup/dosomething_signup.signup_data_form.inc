@@ -278,6 +278,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
   // Load signup data form config to determine what form elements we need.
   $config = dosomething_signup_get_signup_data_form_info($signup->nid);
+
   $form['sid'] = array(
     '#type' => 'hidden',
     '#value' => $signup->sid,
@@ -350,6 +351,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
         'data-validate-required' => 'true',
       ),
     );
+
     $administrative_area = dosomething_user_get_address_administrative_area_options();
 
     $form['school_finder']['school_administrative_area'] = array(
@@ -374,6 +376,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#title' => t("School Name"),
       '#markup' => '<div class="form-item"><input type="search" class="text-field -search js-schoolfinder-search" placeholder="' . t('Find your school by name...') . '"></div><ul class="schoolfinder-results js-schoolfinder-results"></ul>',
     );
+
     $school_help_text = t(variable_get('dosomething_user_school_finder_help_text'));
     if ($school_help_text) {
       $school_help_text = check_markup($school_help_text, 'markdown');
@@ -394,7 +397,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     ));
     $form['school_finder']['help_text'] = array(
       '#type' => 'markup',
-      '#prefix' => '<div class="schoolfinder-help js-schoolfinder-help-content" style="display: none;">',
+      '#prefix' => '<div class="schoolfinder-help with-lists js-schoolfinder-help-content" style="display: none;">',
       '#markup' => $school_help_text . $contact_link,
       '#suffix' => '</div>',
     );
@@ -454,7 +457,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   if (count($form['elements']) <= 10) {
     unset($form['elements']);
   }
-  
+
   return $form;
 }
 
