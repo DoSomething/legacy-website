@@ -660,7 +660,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   global $base_url;
   global $user;
   $language = $user->language;
-  
+
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
@@ -668,7 +668,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => $GLOBALS['base_url'] . '/' . dosomething_global_get_prefix_for_language($language) . '/' . drupal_get_path_alias('node/' . $value['nid'], $language),
+        'url' => dosomething_global_node_url($value['nid'], $language, 'prove'),
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
