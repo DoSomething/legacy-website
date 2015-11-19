@@ -22,18 +22,18 @@ function dosomething_api_default_services_endpoint() {
   $endpoint->server_settings = array(
     'formatters' => array(
       'json' => TRUE,
-      'xml' => TRUE,
       'bencode' => FALSE,
       'jsonp' => FALSE,
       'php' => FALSE,
+      'xml' => FALSE,
       'yaml' => FALSE,
     ),
     'parsers' => array(
       'application/json' => TRUE,
       'application/x-www-form-urlencoded' => TRUE,
-      'application/xml' => TRUE,
       'application/vnd.php.serialized' => FALSE,
       'application/x-yaml' => FALSE,
+      'application/xml' => FALSE,
       'multipart/form-data' => FALSE,
       'text/xml' => FALSE,
     ),
