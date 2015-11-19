@@ -470,6 +470,9 @@ function pull_db {
       echo "Reverting features..."
       drush -y fra
 
+      echo "Disabling Optimizely module on staging."
+      drush dis optimizely
+
       echo "Clearing cache..."
       drush cc all
 
@@ -484,9 +487,6 @@ function pull_db {
 
       echo "Reindexing Solr..."
       drush solr-mark-all && drush solr-index
-
-      echo "Disabling Optimizely module on staging."
-      drush dis optimizely
 
     else
       echo "Pulling down the db from ${alias[1]} staging"
