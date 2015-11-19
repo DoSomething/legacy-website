@@ -21,7 +21,7 @@ function dosomething_global_strongarm() {
         0 => 'mexico admin',
       ),
       'country' => 'MX',
-      'country_name' => 'Mexico'
+      'country_name' => 'Mexico',
     ),
     'pt-br' => array(
       'display_name' => 'Portuguese, Brazil',
@@ -29,7 +29,7 @@ function dosomething_global_strongarm() {
         0 => 'brazil admin',
       ),
       'country' => 'BR',
-      'country_name' => 'Brazil'
+      'country_name' => 'Brazil',
     ),
     'en' => array(
       'display_name' => 'English',
@@ -67,6 +67,19 @@ function dosomething_global_strongarm() {
     ),
   );
   $export['dosomething_global_language_map'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'entity_translation_entity_types';
+  $strongarm->value = array(
+    'node' => 'node',
+    'taxonomy_term' => 0,
+    'field_collection_item' => 0,
+    'file' => 0,
+    'user' => 0,
+  );
+  $export['entity_translation_entity_types'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -112,7 +125,6 @@ function dosomething_global_strongarm() {
       ),
     ),
   );
-
   $export['language_negotiation_language'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -134,7 +146,6 @@ function dosomething_global_strongarm() {
       ),
     ),
   );
-
   $export['language_negotiation_language_content'] = $strongarm;
 
   $strongarm = new stdClass();
