@@ -471,7 +471,7 @@ function pull_db {
       drush -y fra
 
       echo "Disabling Optimizely module on staging."
-      drush dis optimizely
+      drush dis optimizely -y
 
       echo "Clearing cache..."
       drush cc all
