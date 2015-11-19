@@ -377,7 +377,7 @@ function dosomething_global_get_user_language($user = NULL) {
   }
 
   $browser_lang = dosomething_settings_format_browser_language();
-  if (dosomething_global_get_prefix_for_language($browser_lang)) {
+  if (!dosomething_global_get_prefix_for_language($browser_lang)) {
     $browser_lang = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
   }
 
