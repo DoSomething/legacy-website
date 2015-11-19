@@ -314,6 +314,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</p></div>',
   );
 
+  // Container for form elements
+  $form['elements'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array('modal__block'),
+    ),
+  );
+
   // If we are collecting User address:
   if ($config['collect_user_address']) {
     dosomething_user_address_form_element($form['elements'], $form_state);
@@ -440,6 +448,12 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       ),
     ),
   );
+
+  // @todo Hacky solution to deal with form elements when no elements added and eliminate empty container added.
+  // @see https://github.com/DoSomething/phoenix/pull/5809
+  if (count($form['elements']) <= 10) {
+    unset($form['elements']);
+  }
   
   return $form;
 }
