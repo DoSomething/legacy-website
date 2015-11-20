@@ -134,7 +134,7 @@ function dosomething_northstar_update_user($form_state) {
  * @return object
  */
 function dosomething_northstar_get_northstar_user($id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_northstar_user_info');
+  $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_dosomething_northstar');
 
   if ($northstar_user_info) {
     $northstar_user_info = $northstar_user_info->data;
@@ -153,7 +153,7 @@ function dosomething_northstar_get_northstar_user($id) {
         $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
         watchdog_exception('northstar', new Exception($error));
       } else {
-        cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_northstar_user_info', REQUEST_TIME + 60*60*24);
+        cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
       }
   }
 
