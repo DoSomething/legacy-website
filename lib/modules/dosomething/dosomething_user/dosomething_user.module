@@ -691,7 +691,8 @@ function dosomething_user_authentication_submit($form, &$form_state) {
   }
   elseif (isset($nid)) {
     // Redirect to campaign node on reportback permalink pages.
-    $form_state['redirect'] = drupal_get_path_alias('node/' . $nid);
+    global $user;
+    $form_state['redirect'] = dosomething_global_node_url($nid, $user->language);
   }
 }
 
