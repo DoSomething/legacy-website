@@ -470,8 +470,8 @@ function pull_db {
       echo "Reverting features..."
       drush -y fra
 
-      echo "Disabling Optimizely module on staging."
-      drush dis optimizely
+      echo "Disabling Optimizely module locally."
+      drush -y dis optimizely
 
       echo "Clearing cache..."
       drush cc all
