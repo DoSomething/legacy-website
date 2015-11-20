@@ -615,6 +615,14 @@ msgstr ""
 msgid "Just double checking!"
 msgstr ""
 
+#: DoSomething/validation
+msgid "Did you mean"
+msgstr ""
+
+#: DoSomething/validation
+msgid "Fix it!"
+msgstr ""
+
 #: includes/auth/register.inc
 msgid "Looks good!"
 msgstr ""
