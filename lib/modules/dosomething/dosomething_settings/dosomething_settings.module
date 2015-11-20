@@ -23,6 +23,25 @@ function dosomething_settings_menu() {
   return $items;
 }
 
+function dosomething_settings_init() {
+  // We don't need to redirect cli request, such as drush.
+  if (drupal_is_cli()) {
+    return;
+  }
+
+  $update_url = variable_get('dosomething_settings_realtimefeed_update_url');
+  if (!empty($update_url)) {
+    $data = ['code' => dosomething_settings_get_geo_country_code()];
+    $response = drupal_http_request($update_url, array(
+       'method' => 'POST',
+       'data' => json_encode($data),
+       'max_redirects' => 0,
+       'headers' => array('Content-Type' => 'application/json', 'Accept' => 'application/json'))
+     );
+  }
+
+}
+
 /**
  * Determines whether current site is an international affiliate.
  *
