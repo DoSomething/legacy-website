@@ -93,6 +93,7 @@ function dosomething_global_init() {
   //
   // Passing 'noredirect=1' will defeat the redirect.
   if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
+    $_SESSION['dosomething_global_redirected'] = TRUE;
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
