@@ -24,7 +24,7 @@ function dosomething_settings_menu() {
 }
 
 function dosomething_settings_init() {
-  // We don't need to redirect cli request, such as drush.
+  // We don't need to track cli request, such as drush.
   if (drupal_is_cli()) {
     return;
   }
