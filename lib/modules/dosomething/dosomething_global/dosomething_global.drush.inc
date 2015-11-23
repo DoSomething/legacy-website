@@ -21,6 +21,18 @@ function dosomething_global_drush_command() {
           => 'Fixes Campaign\'s title.',
       ],
     ],
+    'ds-global-vocabulary-run-title-module-fixes' => [
+      'description' => 'Fixes translatable name values.',
+      'arguments' => [
+        'vocabulary' => 'The vocabulary to fix.',
+        'field' => 'Fields to fix: name or description.',
+      ],
+      'required-arguments' => TRUE,
+      'examples' => [
+        'ds-global-vocabulary-run-title-module-fixes cause name'
+          => 'Fixes Cause vocabulary name field values.',
+      ],
+    ],
     'ds-global-field-fix' => [
       'description' => 'Fixes translatable field values.',
       'arguments' => [
@@ -74,16 +86,57 @@ function drush_dosomething_global_ds_global_titles_fix($bundle) {
     return 'Wrong bundle provided.';
   }
 
-  $legacy_field = 'title';
-  print t('Replacing field values for !field in !bundle bundle.', [
+  return _drush_dosomething_global_title_module_barch_replace(
+    'node', $bundle, $legacy_field);
+}
+
+/**
+ * Callback for ds-global-vocabulary-run-title-module-fixes command.
+ *
+ * Fixes translatable title values.
+ */
+function drush_dosomething_global_ds_global_vocabulary_run_title_module_fixes($vocabulary, $field_name) {
+  // Check if the vocabulary exists.
+  $found = FALSE;
+  foreach (taxonomy_get_vocabularies() as $item) {
+    if ($item->machine_name === $vocabulary) {
+      $found = TRUE;
+    }
+  }
+  if (!$found) {
+    drush_log('Vocabulary "' . $vocabulary . '" not found for.', 'error');
+    return;
+  }
+
+  if (!in_array($field_name, ['name', 'description'])) {
+    drush_log('Only name and description fixes are supported.', 'error');
+    return;
+  }
+
+  _drush_dosomething_global_title_module_barch_replace(
+    'taxonomy_term', $vocabulary, $field_name);
+}
+
+/**
+ * Set a batch process to initialize replacing field values.
+ *
+ * @param $entity_type
+ *   The type of $entity.
+ * @param $bundle
+ *   The bundle the legacy field belongs to.
+ * @param $legacy_field
+ *   The name of the legacy field to be replaced.
+ */
+function _drush_dosomething_global_title_module_barch_replace($entity_type, $bundle, $legacy_field) {
+  print t('Replacing field values for !field in !bundle !entity_type.', [
     '!field'  => $legacy_field,
     '!bundle' => $bundle,
+    '!entity_type' => $entity_type,
   ]) . PHP_EOL;
 
-  title_field_replacement_batch_set('node', $bundle, $legacy_field);
+  title_field_replacement_batch_set($entity_type, $bundle, $legacy_field);
   drush_backend_batch_process();
-
-  return t('Done') . '.';
+  drush_log('Done.', 'ok');
 }
 
 /**
