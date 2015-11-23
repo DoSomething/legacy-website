@@ -324,9 +324,10 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
   $params = array();
   $params['nid'] = $campaign_id;
   $params['status'] = $status;
+  $params['count'] = $count;
   $params['random'] = $random;
 
-  $reportback_results = dosomething_reportback_get_reportback_files_query_result($params, $count);
+  $reportback_results = dosomething_reportback_get_reportback_items_query($params);
 
   $admin_access = user_access('view any reportback');
 
