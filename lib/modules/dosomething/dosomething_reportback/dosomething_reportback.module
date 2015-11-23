@@ -1100,6 +1100,7 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  *
  * @param  array  $params
  *   An associative array of conditions to filter by.
+ *  - rbid (string)
  *  - nid (string|array)
  *  - status (string|array)
  *  - count (int)
