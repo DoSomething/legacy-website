@@ -614,7 +614,7 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     drupal_exit();
     return;
   }
-  
+
   $_SESSION['dosomething_global_redirected'] = TRUE;
   drupal_goto(dosomething_global_node_url($node->nid, $user_lang));
 }
@@ -663,11 +663,11 @@ function dosomething_global_node_url($nid, $language, $fragment = NULL) {
   if (isset($fragment)) {
     $raw_url .= '#' . $fragment;
   }
-  $alias = dosomething_global_get_prefix_for_language($language);
-  if (!empty($alias)) {
-    $alias .= '/';
+  $prefix = dosomething_global_get_prefix_for_language($language);
+  if (!empty($prefix)) {
+    $prefix .= '/';
   }
-  return $GLOBALS['base_url'] . '/' . $alias . drupal_get_path_alias($raw_url, $language);
+  return $GLOBALS['base_url'] . '/' . $prefix . drupal_get_path_alias($raw_url, $language);
 }
 
 /**
