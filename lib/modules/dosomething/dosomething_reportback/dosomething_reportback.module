@@ -1098,41 +1098,30 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
 /**
  * Returns Reportbacks query result to loop through.
  *
- * @param array $params
+ * @param  array  $params
  *   An associative array of conditions to filter by.
- *   @see dosomething_reportback_build_reportbacks_query()
- * @param int $count
- *   Number of Reportbacks to return.
- * @param int $start
- *   Which Reportbacks to start with. If present, $start and $count are used together
- *   to create a LIMIT clause for selecting Reportbacks. This could be used to do paging.
+ *  - rbid (string)
+ *  - nid (string|array)
+ *  - status (string|array)
+ *  - count (int)
+ *  - offset (int)
+ *  - random (bool)
+ *  - load_user (bool)
  * @return object
  *   An executed database query object to iterate through.
  */
-function dosomething_reportback_get_reportbacks_query_result($params = array(), $count = 25, $start = 0) {
+function dosomething_reportback_get_reportbacks_query($params) {
   $query = dosomething_reportback_build_reportbacks_query($params);
+  $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
+  $count = dosomething_helpers_isset($params['count'], NULL, 25);
 
   if ($count && $count !== 'all') {
-    $query->range($start, $count);
+    $query->range($offset, $count);
   }
 
   $result = $query->execute()->fetchAll();
 
   return $result;
-}
-
-
-/**
- * Function to replace dosomething_reportback_get_reportbacks_query_result()
- * to reduce number of parameters and keep them with single $params array, but for
- * now acting as a go between.
- *
- * @param array $params
- * @return object
- * @TODO: replace dosomething_reportback_get_reportbacks_query_result()
- */
-function dosomething_reportback_get_reportbacks_query($params) {
-  return dosomething_reportback_get_reportbacks_query_result($params, $params['count']);
 }
 
 
