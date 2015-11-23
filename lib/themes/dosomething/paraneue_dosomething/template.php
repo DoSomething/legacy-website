@@ -70,7 +70,7 @@ function paraneue_dosomething_js_alter(&$js) {
         'type' => 'inline',
         'group' => JS_LIBRARY,
         'weight' => 999,
-        'data' => 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($js['settings']['data'])) . ");",
+        'data' => 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($js['settings']['data'])) . ');',
         'every_page' => TRUE,
       ) + drupal_js_defaults();
 

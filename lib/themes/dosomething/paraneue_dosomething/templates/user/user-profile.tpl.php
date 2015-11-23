@@ -41,7 +41,7 @@
 
   <?php if (!empty($reportbacks)): ?>
     <section class="container">
-      <h1 class="heading -banner"><span><?php print t("You Did"); ?></span></h1>
+      <h1 class="heading -banner"><span><?php print t('You Did'); ?></span></h1>
       <div class="wrapper">
         <div class="container__block">
           <?php print $reportback_gallery; ?>

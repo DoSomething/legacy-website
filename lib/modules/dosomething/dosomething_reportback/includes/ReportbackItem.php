@@ -148,7 +148,7 @@ class ReportbackItem extends Entity {
   public function getImage($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_by_fid($this->fid, $file_size);
     if (!$image) {
-      return t("File removed.");
+      return t('File removed.');
     }
     return $image;
   }
@@ -161,7 +161,7 @@ class ReportbackItem extends Entity {
   public function getImageURL($file_size = '300x300') {
     $image = dosomething_image_get_themed_image_url_by_fid($this->fid, $file_size);
     if (!$image) {
-      return t("File removed.");
+      return t('File removed.');
     }
     return $image;
   }

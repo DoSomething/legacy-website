@@ -73,7 +73,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
     // We need this column, because it contains the beta canonical.
     if (empty($row[1])) {
-      echo sprintf("Line %d: Skipping: no target redirect path", $count), PHP_EOL;
+      echo sprintf('Line %d: Skipping: no target redirect path', $count), PHP_EOL;
       continue;
     }
 
@@ -82,7 +82,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
       $elm = trim($elm);
     });
 
-    printf("%d: %s", $count, $row[1]); echo PHP_EOL;
+    printf('%d: %s', $count, $row[1]); echo PHP_EOL;
 
     // Use the Drupal core redirect functions to make proper redirect objects.
     // Big ups to https://www.drupal.org/project/path_redirect_import from
@@ -93,7 +93,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
       // $REDIRECT_REFERENCE_FILE, use that final redirect destination
       // instead. This will be the "beta canonical path".
       if ($alternate_path = RedirectHelper3409::locateRedirectTarget($row[2], $reference_redirects)) {
-        printf("***** Alternate for %s => %s", $row[2], $alternate_path); echo PHP_EOL;
+        printf('***** Alternate for %s => %s', $row[2], $alternate_path); echo PHP_EOL;
       }
 
       $target = (!empty($alternate_path)) ? $alternate_path : $row[2];
@@ -111,7 +111,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
           // Handle redirect targets that refer to beta.dosomething.org.
           $target = preg_replace('/beta.dosomething.org/', 'www.dosomething.org', $target);
 
-          printf("***** Handled full URL: %s", $target); echo PHP_EOL;
+          printf('***** Handled full URL: %s', $target); echo PHP_EOL;
       }
 
       // printf("***** Will redirect %s to %s *****", $row[1], $target); echo PHP_EOL;
@@ -151,7 +151,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
   print_r(array('success' => $success, 'message' => $messages));
 
-  echo sprintf("Complete: Processed %d rows", count($processed)), PHP_EOL;
+  echo sprintf('Complete: Processed %d rows', count($processed)), PHP_EOL;
 
   print_r($processed);
 
