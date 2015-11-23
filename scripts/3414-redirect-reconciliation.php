@@ -88,7 +88,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     $processed[] = $row;
   }
 
-  echo sprintf("Step 1 complete: Processed %d rows", count($processed)), PHP_EOL;
+  echo sprintf('Step 1 complete: Processed %d rows', count($processed)), PHP_EOL;
 
   // STEP 2: Look up all legacy aliases, create a row for each
   //
@@ -152,7 +152,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
   }
 
-  echo sprintf("Step 2 complete: %d new rows added", $rows_added), PHP_EOL;
+  echo sprintf('Step 2 complete: %d new rows added', $rows_added), PHP_EOL;
 
   // UN-RELEASE THE HOUNDS
   flock($fh, LOCK_UN);

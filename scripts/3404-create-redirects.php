@@ -51,7 +51,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
     // We need this column, because it contains the beta canonical.
     if (empty($row[2])) {
-      echo sprintf("Line %d: Skipping: no beta path", $count), PHP_EOL;
+      echo sprintf('Line %d: Skipping: no beta path', $count), PHP_EOL;
       continue;
     }
 
@@ -72,7 +72,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
       // Handle redirect targets that refer to beta.dosomething.org.
       $target = preg_replace('/beta.dosomething.org/', 'www.dosomething.org', $target);
 
-      printf("***** Handled full URL: %s", $target); echo PHP_EOL;
+      printf('***** Handled full URL: %s', $target); echo PHP_EOL;
     }
 
     // Use the Drupal core redirect functions to make proper redirect objects.
@@ -111,7 +111,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
   print_r(array('success' => $success, 'message' => $messages));
 
-  echo sprintf("Complete: Processed %d rows", count($processed)), PHP_EOL;
+  echo sprintf('Complete: Processed %d rows', count($processed)), PHP_EOL;
 
   // print_r($processed);
 

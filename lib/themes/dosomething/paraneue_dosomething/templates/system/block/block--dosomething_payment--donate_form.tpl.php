@@ -20,7 +20,7 @@
     <?php else: ?>
 
       <a href="#" data-modal-href="#modal--donate-form" class="button">
-        <?php print t("Donate"); ?>
+        <?php print t('Donate'); ?>
       </a>
       <div data-modal id="modal--donate-form" role="dialog" class="donate--payment">
         <div class="modal__block">

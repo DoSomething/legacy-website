@@ -232,7 +232,7 @@ abstract class Transformer {
 
         // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
 
-        $output['status'] = $data->status ? $data->status : "active";
+        $output['status'] = $data->status ? $data->status : 'active';
 
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {

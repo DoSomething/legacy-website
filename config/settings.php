@@ -26,7 +26,7 @@ $databases['default']['default'] = array(
  */
 $hostname = $_SERVER['HTTP_HOST'] ?: 'dev.dosomething.org';
 
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 
 $insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
@@ -123,6 +123,6 @@ $solr_path = $conf_path[1] == 'default' ? 'collection1' : $conf_path[1];
 $conf['apachesolr_path'] = "solr/{$solr_path}";
 
 // This is different from the apachesolr host because it's on the client side
-$conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: '//search.dosomething.org') . "/solr/";
+$conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: '//search.dosomething.org') . '/solr/';
 
 $conf['dosomething_search_finder_collection'] = $solr_path;
