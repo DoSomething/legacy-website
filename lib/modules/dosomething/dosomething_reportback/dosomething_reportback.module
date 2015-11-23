@@ -1139,7 +1139,7 @@ function dosomething_reportback_get_reportbacks_query($params) {
  *   - order: (string) If set, return results in asc/desc order.
  * @return SelectQuery object
  */
-function dosomething_reportback_get_reportback_files_query($params = array()) {
+function dosomething_reportback_build_reportback_items_query($params = array()) {
   $query = db_select('dosomething_reportback_file', 'rbf');
   $query->join('dosomething_reportback', 'rb', 'rbf.rbid = rb.rbid');
   $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
@@ -1239,7 +1239,7 @@ function dosomething_reportback_get_reportback_files_query($params = array()) {
  *    An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportback_items_query($params) {
-  $query = dosomething_reportback_get_reportback_files_query($params);
+  $query = dosomething_reportback_build_reportback_items_query($params);
   $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
   $count = dosomething_helpers_isset($params['count'], NULL, 25);
 
@@ -1288,7 +1288,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
     }
   }
 
-  $query = dosomething_reportback_get_reportback_files_query($params);
+  $query = dosomething_reportback_build_reportback_items_query($params);
   $result = $query->execute();
   $count = $result->rowCount();
 
