@@ -33,38 +33,38 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
   $query->addExpression('GROUP_CONCAT(DISTINCT k.kid)', 'kids');
 
   if (isset($params['tid'])) {
-  $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
-  $query->condition('t.field_primary_cause_tid', $params['tid']);
-  $query->condition('t.entity_type', 'node');
+    $query->join('field_data_field_primary_cause', 't', 't.entity_id = n.nid');
+    $query->condition('t.field_primary_cause_tid', $params['tid']);
+    $query->condition('t.entity_type', 'node');
   }
 
   if (isset($params['status'])) {
-  if (is_array($params['status'])) {
-  $query->condition('rbf.status', $params['status'], 'IN');
-  }
-  else {
-  $query->condition('rbf.status', $params['status']);
-  }
+    if (is_array($params['status'])) {
+      $query->condition('rbf.status', $params['status'], 'IN');
+    }
+    else {
+      $query->condition('rbf.status', $params['status']);
+    }
   }
 
   if (isset($params['nid'])) {
-  if (is_array($params['nid'])) {
-  $query->condition('rb.nid', $params['nid'], 'IN');
-  }
-  else {
-  $query->condition('rb.nid', $params['nid']);
-  }
+    if (is_array($params['nid'])) {
+      $query->condition('rb.nid', $params['nid'], 'IN');
+    }
+    else {
+      $query->condition('rb.nid', $params['nid']);
+    }
   }
   elseif (isset($params['fid'])) {
-  if (is_array($params['fid'])) {
-  $query->condition('rbf.fid', $params['fid'], 'IN');
-  }
-  else {
-  $query->condition('rbf.fid', $params['fid']);
-  }
+    if (is_array($params['fid'])) {
+      $query->condition('rbf.fid', $params['fid'], 'IN');
+    }
+    else {
+      $query->condition('rbf.fid', $params['fid']);
+    }
   }
   elseif (isset($params['rbid'])) {
-  $query->condition('rb.rbid', $params['rbid']);
+    $query->condition('rb.rbid', $params['rbid']);
   }
 
   // Public API properties to expose:
@@ -73,9 +73,9 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 
   // Staff-only properties to add:
   if (user_access('view any reportback')) {
-  $rbf_fields[] = 'status';
-  $rb_fields[] = 'why_participated';
-  $rb_fields[] = 'flagged';
+    $rbf_fields[] = 'status';
+    $rb_fields[] = 'why_participated';
+    $rb_fields[] = 'flagged';
   }
 
   $query->fields('rbf', $rbf_fields);
@@ -88,14 +88,13 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
   $query->groupBy('rbf.fid');
 
   if (isset($params['random'])) {
-  $query->orderRandom();
+    $query->orderRandom();
   }
   elseif (isset($params['order'])) {
-  $query->orderBy('rb.updated', $params['order']);
+    $query->orderBy('rb.updated', $params['order']);
   }
-
   else {
-  $query->orderBy('rb.updated', 'DESC');
+    $query->orderBy('rb.updated', 'DESC');
   }
 
   return $query;
@@ -124,7 +123,7 @@ function dosomething_reportback_get_reportback_items_query($params) {
   $count = dosomething_helpers_isset($params['count'], NULL, 25);
 
   if ($count && $count !== 'all') {
-  $query->range($offset, $count);
+    $query->range($offset, $count);
   }
 
   $result = $query->execute()->fetchAll();
