@@ -42,7 +42,7 @@ class ReportbackItem extends Entity {
   public static function get($ids) {
     $reportbackItems = [];
 
-    $results = dosomething_reportback_get_reportback_files_query_result(['fid' => $ids]);
+    $results = dosomething_reportback_get_reportback_items_query(['fid' => $ids]);
 
     if (!$results) {
       throw new Exception('No reportback items data found.');

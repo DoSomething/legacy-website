@@ -115,26 +115,6 @@ abstract class Transformer {
 
 
   /**
-   * Retrieve Reportback Items by the specified id(s).
-   *
-   * @param  string  $ids Comma separated list of Reportback Item ids.
-   * @return array
-   * @deprecated since version... because I said so!
-   * @TODO: Remove.
-   */
-  protected function getReportbackItems($ids) {
-    $filters = array(
-      'fid' => $this->formatData($ids),
-    );
-
-    // Obtaining all Reportback items.
-    $query = dosomething_reportback_get_reportback_files_query_result($filters, 'all');
-
-    return services_resource_build_index_list($query, 'reportback-items', 'fid');
-  }
-
-
-  /**
    * Get metadata for pagination of response data.
    *
    * @param  int     $total Complete total number of items found.

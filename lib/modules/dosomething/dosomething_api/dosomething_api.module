@@ -73,7 +73,6 @@ function dosomething_api_services_request_postprocess_alter($controller, $args, 
  *
  * @param array $params
  *   Parameters to pass to the Reportback Files query.
- *   @see dosomething_reportback_get_reportback_files_query_result().
  * @param int $count
  *   Number of Reportback Files to return.
  * @param int $start
@@ -96,7 +95,10 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
   );
   $user_input = array('caption', 'why_participated');
 
-  $results = dosomething_reportback_get_reportback_files_query_result($params, $count, $start);
+  $params['offset'] = $start;
+  $params['count'] = $count;
+
+  $results = dosomething_reportback_get_reportback_items_query($params);
   $result = services_resource_build_index_list($results, 'reportback_files', 'fid');
 
   foreach ($result as &$record) {

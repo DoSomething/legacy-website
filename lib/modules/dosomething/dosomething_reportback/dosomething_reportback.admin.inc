@@ -143,12 +143,16 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       $page_size = $limit;
     }
   }
-  // Display reportback forms in asc order.
+
   $params['order'] = 'asc';
+  $params['count'] = $page_size;
+
   // Get the DatabaseQuery to loop through.
-  $result = dosomething_reportback_get_reportback_files_query_result($params, $page_size);
+  $result = dosomething_reportback_get_reportback_items_query($params);
+
   // Get the total number of results.
   $total = dosomething_reportback_get_reportback_files_query_count($params);
+
   // If it's zero, reset the count variables.
   if (!$total) {
     $total = dosomething_reportback_get_reportback_files_query_count($params, $reset = TRUE);
