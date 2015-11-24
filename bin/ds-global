@@ -177,6 +177,42 @@ function make_static_content_translatable {
 }
 
 #=== FUNCTION ==================================================================
+# NAME: make_taxonomy_translatable
+# DESCRIPTION: Makes Home bundle translatable.
+#===============================================================================
+function make_taxonomy_translatable {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Run fixes.
+  # Fix name and description values.
+  drush ds-global-vocabulary-run-title-module-fixes action_type name
+  drush ds-global-vocabulary-run-title-module-fixes action_type description
+
+  drush ds-global-vocabulary-run-title-module-fixes cause name
+  drush ds-global-vocabulary-run-title-module-fixes cause description
+
+  drush ds-global-vocabulary-run-title-module-fixes image_tags name
+  drush ds-global-vocabulary-run-title-module-fixes image_tags description
+
+  drush ds-global-vocabulary-run-title-module-fixes issue name
+  drush ds-global-vocabulary-run-title-module-fixes issue description
+
+  drush ds-global-vocabulary-run-title-module-fixes kudos name
+  drush ds-global-vocabulary-run-title-module-fixes kudos description
+
+  drush ds-global-vocabulary-run-title-module-fixes partners name
+  drush ds-global-vocabulary-run-title-module-fixes partners description
+
+  drush ds-global-vocabulary-run-title-module-fixes tags name
+  drush ds-global-vocabulary-run-title-module-fixes tags description
+
+}
+
+#=== FUNCTION ==================================================================
 # NAME: enable_campaign_field_collections
 # DESCRIPTION: Runs fixes for campaign field collections.
 #===============================================================================
@@ -217,6 +253,8 @@ elif [[ $1 == "enable-campaign-field-collections" ]]; then
   enable_campaign_field_collections
 elif [[ $1 == "make-static-content-translatable" ]]; then
   make_static_content_translatable
+elif [[ $1 == "make-taxonomy-translatable" ]]; then
+  make_taxonomy_translatable
 elif [[ -z $1 ]]; then
   echo "Error: no arguments." >&2
 fi
