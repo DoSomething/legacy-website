@@ -210,6 +210,8 @@ function make_taxonomy_translatable {
   drush ds-global-vocabulary-run-title-module-fixes tags name
   drush ds-global-vocabulary-run-title-module-fixes tags description
 
+  # Fix fields.
+  drush ds-global-field-fix field_title
 }
 
 #=== FUNCTION ==================================================================
