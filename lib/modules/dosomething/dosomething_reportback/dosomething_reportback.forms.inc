@@ -370,9 +370,7 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
   }
   // If this is a new reportback form, file is mandatory.
   elseif ($form_state['values']['rbid'] == 0) {
-    $ga = new Elements_Tools_Serversideanalytics();
-    $ga->setEvent('send', 'event', 'Reportback', 'no image uploaded');
-    $ga->createEvent();
+    dosomething_helpers_add_analytics_event('Reportback', 'image file too large');
     form_set_error('reportback_item', t('Please upload an image.'));
   }
 }
