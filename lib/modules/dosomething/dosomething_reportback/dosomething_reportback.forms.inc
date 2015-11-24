@@ -368,9 +368,11 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
       form_set_error('reportback_item', t('There was an error. Please try again.'));
     }
   }
+
+
   // If this is a new reportback form, file is mandatory.
   elseif ($form_state['values']['rbid'] == 0) {
-    stathat_send_ez_count('drupal - Reportback - please upload an image', 1);
+    ga('send', 'event', 'Reportback', 'no image uploaded');
     form_set_error('reportback_item', t('Please upload an image.'));
   }
 }
