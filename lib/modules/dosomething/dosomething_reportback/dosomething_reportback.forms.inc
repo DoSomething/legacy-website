@@ -368,8 +368,6 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
       form_set_error('reportback_item', t('There was an error. Please try again.'));
     }
   }
-
-
   // If this is a new reportback form, file is mandatory.
   elseif ($form_state['values']['rbid'] == 0) {
     $ga = new Elements_Tools_Serversideanalytics();
