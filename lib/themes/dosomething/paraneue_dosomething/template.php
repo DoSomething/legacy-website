@@ -17,7 +17,6 @@ require_once PARANEUE_PATH . '/includes/form.inc';
 require_once PARANEUE_PATH . '/includes/auth/login.inc';
 require_once PARANEUE_PATH . '/includes/auth/register.inc';
 
-
 /**
  * We use our own asset pipeline (through Grunt), so we want to bypass most
  * of Drupal's included assets.
@@ -67,10 +66,10 @@ function paraneue_dosomething_js_alter(&$js) {
   // Force settings to be embedded after lib, before app scripts.
   if(isset($js['settings'])) {
     $inline_settings = array(
-        'type' => 'inline',
-        'group' => JS_LIBRARY,
-        'weight' => 999,
-        'data' => 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($js['settings']['data'])) . ');',
+        'type'       => 'inline',
+        'group'      => JS_LIBRARY,
+        'weight'     => 999,
+        'data'       => 'jQuery.extend(Drupal.settings, ' . drupal_json_encode(drupal_array_merge_deep_array($js['settings']['data'])) . ');',
         'every_page' => TRUE,
       ) + drupal_js_defaults();
 
@@ -88,7 +87,6 @@ function paraneue_dosomething_js_alter(&$js) {
   unset($js['profiles/dosomething/modules/contrib/devel/devel_krumo_path.js']);
   unset($js['profiles/dosomething/modules/contrib/google_analytics/googleanalytics.js']);
 }
-
 
 /**
  * Implements hook_page_alter().
@@ -111,7 +109,6 @@ function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
   paraneue_dosomething_form_alter_register($form, $form_state, $form_id);
 }
-
 
 /**
  * Implements hook_head_alter().

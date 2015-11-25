@@ -55,7 +55,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     // Clean up $row, which has two useless columns at 1 and 2.
     $row = array($row[0], $row[3], $row[4], $row[5]);
 
-    array_walk($row, function(&$elm) {
+    array_walk($row, function (&$elm) {
       $elm = trim($elm);
     });
 
@@ -178,7 +178,6 @@ flock($fh, LOCK_UN);
 fclose($fh);
 
 echo sprintf("Finished: %d rows written to '%s'", count($final), $OUTPUT_FILE), PHP_EOL;
-
 
 /**
  * Helper class for this script.

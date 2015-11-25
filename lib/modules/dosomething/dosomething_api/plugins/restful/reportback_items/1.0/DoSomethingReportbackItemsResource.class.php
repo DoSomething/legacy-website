@@ -19,7 +19,7 @@ class DoSomethingReportbackItemsResource extends RestfulEntityBase {
       // ),
      'resource' => array(
         'file' => array(
-          'name' => 'files',
+          'name'      => 'files',
           'full_view' => FALSE,
         ),
       ),
@@ -33,7 +33,6 @@ class DoSomethingReportbackItemsResource extends RestfulEntityBase {
         'reportback' => 'reportbacks',
       ),
     );
-
 
     return $public_fields;
   }

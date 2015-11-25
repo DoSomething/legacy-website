@@ -8,10 +8,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    */
   public function index($parameters) {
     $filters = [
-      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'nid'    => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
-      'count' => (int) $parameters['count'] ?: 25,
-      'page' => (int) $parameters['page'],
+      'count'  => (int) $parameters['count'] ?: 25,
+      'page'   => (int) $parameters['page'],
     ];
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
@@ -36,12 +36,11 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
 
     return [
-      'pagination' => $this->paginate($total, $filters, 'reportback-items'),
+      'pagination'      => $this->paginate($total, $filters, 'reportback-items'),
       'retrieved_count' => count($reportbackItems),
-      'data' => $this->transformCollection($reportbackItems),
+      'data'            => $this->transformCollection($reportbackItems),
     ];
   }
-
 
   /**
    * Display the specified resource.
@@ -66,7 +65,6 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       'data' => $this->transform(array_pop($reportbackItem)),
     );
   }
-
 
   /**
    * Transform data and build out response.

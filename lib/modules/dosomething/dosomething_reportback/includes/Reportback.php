@@ -24,7 +24,6 @@ class Reportback extends Entity {
   // @TODO: Properties to potentially deprecate
   // public $fids;
 
-
   /**
    * Overrides construct to set calculated properties.
    *
@@ -67,7 +66,6 @@ class Reportback extends Entity {
     unset($values['ignore']);
   }
 
-
   /**
    * Override this in order to implement a custom default URI.
    */
@@ -76,7 +74,6 @@ class Reportback extends Entity {
       'path' => 'reportback/' . $this->identifier()
     ];
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple reportbacks from supplied id(s).
@@ -103,7 +100,6 @@ class Reportback extends Entity {
 
     return $reportbacks;
   }
-
 
   /**
    * Convenience method to retrieve reportbacks based on supplied filters.
@@ -133,7 +129,6 @@ class Reportback extends Entity {
     return $reportbacks;
   }
 
-
   /**
    * Build out the instantiated Reportback class object with supplied data.
    *
@@ -154,8 +149,8 @@ class Reportback extends Entity {
     // @TODO: need to potentially remove this and include language from NS user object instead of global $user
     $this->language = dosomething_helpers_isset($user, 'language', 'en-global');
     $this->campaign = [
-      'id' => $data->nid,
-      'title' => $data->title,
+      'id'              => $data->nid,
+      'title'           => $data->title,
       'reportback_info' => [
         'noun' => $data->noun,
         'verb' => $data->verb,
@@ -172,15 +167,14 @@ class Reportback extends Entity {
     }
 
     $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, '_id'),
+      'drupal_id'  => $data->uid,
+      'id'         => dosomething_helpers_isset($northstar_user, '_id'),
       'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
-      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-      'country' => dosomething_helpers_isset($northstar_user, 'country'),
+      'last_name'  => dosomething_helpers_isset($northstar_user, 'last_name'),
+      'photo'      => dosomething_helpers_isset($northstar_user, 'photo'),
+      'country'    => dosomething_helpers_isset($northstar_user, 'country'),
     ];
   }
-
 
   /**
    * Return all fids from dosomething_reportback_files table for this entity.
@@ -192,7 +186,6 @@ class Reportback extends Entity {
       ->execute()
       ->fetchCol();
   }
-
 
   /**
    * Return all data from dosomething_reportback_log table for this entity.
@@ -222,7 +215,6 @@ class Reportback extends Entity {
     return NULL;
   }
 
-
   /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
    *
@@ -240,15 +232,14 @@ class Reportback extends Entity {
       $status = 'flagged';
     }
     $reportback_file = entity_create('reportback_item', array(
-      'rbid' => $this->rbid,
-      'fid' => $values->fid,
-      'caption' => $values->caption,
+      'rbid'        => $this->rbid,
+      'fid'         => $values->fid,
+      'caption'     => $values->caption,
       'remote_addr' => dosomething_helpers_ip_address(),
-      'status' => $status,
+      'status'      => $status,
     ));
     return $reportback_file->save();
   }
-
 
   /**
    * Logs current entity values with given $op string.
@@ -285,16 +276,16 @@ class Reportback extends Entity {
       // Log the entity values into the log table.
       $id = db_insert($this->log_table)
         ->fields(array(
-          'rbid' => $this->rbid,
-          'uid' => $uid,
-          'op' => $op,
-          'timestamp' => $timestamp,
-          'quantity' => $this->quantity,
+          'rbid'             => $this->rbid,
+          'uid'              => $uid,
+          'op'               => $op,
+          'timestamp'        => $timestamp,
+          'quantity'         => $this->quantity,
           'why_participated' => $this->why_participated,
-          'files' => implode(',', $fids),
-          'num_files' => count($fids),
-          'remote_addr' => dosomething_helpers_ip_address(),
-          'reason' => $reasons,
+          'files'            => implode(',', $fids),
+          'num_files'        => count($fids),
+          'remote_addr'      => dosomething_helpers_ip_address(),
+          'reason'           => $reasons,
         ))
         ->execute();
     }
@@ -302,7 +293,6 @@ class Reportback extends Entity {
       watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
     }
   }
-
 
   /**
    * Returns array of themed images for this Reportback.
@@ -319,7 +309,6 @@ class Reportback extends Entity {
     return $images;
   }
 
-
   /**
    * Deletes the Reportback files.
    */
@@ -330,7 +319,6 @@ class Reportback extends Entity {
       $rbf->delete();
     }
   }
-
 
   /**
    * Flags or promotes the reportback, and adds reasons.
@@ -352,7 +340,7 @@ class Reportback extends Entity {
         $flagged_reportbacks = TRUE;
 
       }
-      else if($item->status === 'promoted') {
+      elseif($item->status === 'promoted') {
         $promoted_reportbacks = TRUE;
       }
     }
@@ -363,7 +351,7 @@ class Reportback extends Entity {
       $status = 'flagged';
     }
     // Promoted must be after flagged as it has second priority
-    else if($promoted_reportbacks || $status === 'promoted') {
+    elseif($promoted_reportbacks || $status === 'promoted') {
       $status = 'promoted';
     }
 

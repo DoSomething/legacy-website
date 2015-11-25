@@ -80,7 +80,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
 
     // Clean up $row.
-    array_walk($row, function(&$elm) {
+    array_walk($row, function (&$elm) {
       $elm = trim($elm);
     });
 
@@ -125,11 +125,11 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
       }
 
       $data = array(
-        'line_no' => $count,
-        'source' => $source_parts['url'],
-        'redirect' => $redirect,
+        'line_no'     => $count,
+        'source'      => $source_parts['url'],
+        'redirect'    => $redirect,
         'status_code' => 301,
-        'language' => LANGUAGE_NONE,
+        'language'    => LANGUAGE_NONE,
       );
 
       $insert_results = RedirectHelper3409::saveRedirect($data);
@@ -161,7 +161,6 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
 fclose($fh);
 
-
 // STEP 3: Write final array to new CSV at $OUTPUT_FILE.
 
 if (FALSE === ($fh = fopen($OUTPUT_FILE, 'w+'))) {
@@ -180,8 +179,6 @@ flock($fh, LOCK_UN);
 fclose($fh);
 
 echo sprintf("Finished: %d rows written to '%s'", count($processed), $OUTPUT_FILE), PHP_EOL;
-
-
 
 /**
  * Helper class for this script.
@@ -247,7 +244,7 @@ class RedirectHelper3409 {
         'success' => FALSE,
         'message' => filter_xss(t('Line @line_no: The source "@source" is already being redirected.', array(
           '@line_no' => $data['line_no'],
-          '@source' => $data['source'],
+          '@source'  => $data['source'],
         ))),
       );
     }
@@ -256,7 +253,7 @@ class RedirectHelper3409 {
         'success' => FALSE,
         'message' => filter_xss(t('Line @line_no: The destination "@dest" URL/path does not exist.', array(
           '@line_no' => $data['line_no'],
-          '@dest' => $data['redirect'],
+          '@dest'    => $data['redirect'],
         ))),
       );
     }

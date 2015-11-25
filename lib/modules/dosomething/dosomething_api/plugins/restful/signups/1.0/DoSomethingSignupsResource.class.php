@@ -20,7 +20,7 @@ class DoSomethingSignupsResource extends RestfulEntityBase {
       'property' => 'nid',
       'resource' => array(
         'campaign' => array(
-          'name' => 'campaigns',
+          'name'      => 'campaigns',
           'full_view' => FALSE,
         ),
       ),
@@ -30,7 +30,7 @@ class DoSomethingSignupsResource extends RestfulEntityBase {
       'property' => 'uid',
       'resource' => array(
         'user' => array(
-          'name' => 'users',
+          'name'      => 'users',
           'full_view' => TRUE,
         ),
       ),

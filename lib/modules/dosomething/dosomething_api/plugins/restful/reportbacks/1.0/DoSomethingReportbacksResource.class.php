@@ -29,14 +29,14 @@ class DoSomethingReportbacksResource extends RestfulEntityBase {
     );
 
     $public_fields['campaign'] = array(
-      'property' => 'nid',
+      'property'  => 'nid',
        'resource' => array(
           'campaign' => 'campaigns',
         ),
     );
 
     $public_fields['user'] = array(
-      'property' => 'uid',
+      'property'  => 'uid',
        'resource' => array(
           'user' => 'users',
         ),

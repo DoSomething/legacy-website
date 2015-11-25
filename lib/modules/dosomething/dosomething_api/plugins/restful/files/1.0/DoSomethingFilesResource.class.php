@@ -16,7 +16,7 @@ class DoSomethingFilesResource extends RestfulEntityBase {
       'property' => 'timestamp',
     );
     $public_fields['file'] = array(
-      'property' => 'fid',
+      'property'          => 'fid',
       'process_callbacks' => array(
         array($this, 'fileProcess'),
       ),
@@ -43,13 +43,13 @@ class DoSomethingFilesResource extends RestfulEntityBase {
       return $output;
     }
     return array(
-      'id' => $value['fid'],
-      'self' => file_create_url($value['uri']),
+      'id'       => $value['fid'],
+      'self'     => file_create_url($value['uri']),
       'filemime' => $value['filemime'],
       'filesize' => $value['filesize'],
-      'width' => $value['width'],
-      'height' => $value['height'],
-      'styles' => $value['image_styles'],
+      'width'    => $value['width'],
+      'height'   => $value['height'],
+      'styles'   => $value['image_styles'],
     );
   }
 
@@ -57,13 +57,13 @@ class DoSomethingFilesResource extends RestfulEntityBase {
     // This feels wrong because you'd expect the file entity to be loaded already.
     $value = (array) file_load($value);
     return array(
-      'id' => $value['fid'],
-      'self' => file_create_url($value['uri']),
+      'id'       => $value['fid'],
+      'self'     => file_create_url($value['uri']),
       'filemime' => $value['filemime'],
       'filesize' => $value['filesize'],
-      'width' => $value['width'],
-      'height' => $value['height'],
-      'styles' => $value['image_styles'],
+      'width'    => $value['width'],
+      'height'   => $value['height'],
+      'styles'   => $value['image_styles'],
     );
   }
 

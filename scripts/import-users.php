@@ -36,7 +36,7 @@ foreach ($result as $user_row) {
      $user['created'] = $user_row->created;
      $user['access'] = $user_row->access;
      // Set the init value as the old world uid.
-     $user['init']= $user_row->init;
+     $user['init'] = $user_row->init;
      $user['status'] = $user_row->status;
      $account = user_save('', $user);
   }
@@ -79,4 +79,3 @@ foreach ($result as $user_row) {
   dosomething_user_is_under_thirteen($account);
 
 }
-

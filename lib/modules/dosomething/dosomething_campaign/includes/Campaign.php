@@ -59,7 +59,6 @@ class Campaign {
     return $campaigns;
   }
 
-
   /**
    * Convenience method to retrieve campaigns based on supplied filters.
    *
@@ -99,7 +98,6 @@ class Campaign {
     return $campaigns;
   }
 
-
   /**
    * Build out the instantiated Campaign class object with supplied data.
    *
@@ -125,7 +123,7 @@ class Campaign {
         $this->time_commitment = $this->getTimeCommitment();
 
         $this->cover_image = [
-          'default' => $this->getCoverImage(),
+          'default'   => $this->getCoverImage(),
           'alternate' => $this->getCoverImageAlt(),
         ];
 
@@ -134,9 +132,9 @@ class Campaign {
 
         $fact_data = $this->getFactData();
         $this->facts = [
-          'problem' => $fact_data['fact_problem'],
+          'problem'  => $fact_data['fact_problem'],
           'solution' => $fact_data['fact_solution'],
-          'sources' => $fact_data['sources'],
+          'sources'  => $fact_data['sources'],
         ];
 
         $solution_data = $this->getSolutionData();
@@ -160,7 +158,6 @@ class Campaign {
       $this->reportback_info = $this->getReportbackInfo();
     }
   }
-
 
   /**
    * Get both primary and secondary Action Types for campaign if available.
@@ -192,7 +189,6 @@ class Campaign {
 
     return $data;
   }
-
 
   /**
    * Get both primary and secondary Causes for campaign if available.
@@ -229,7 +225,6 @@ class Campaign {
 
     return $data;
   }
-
 
   /**
    * Get the cover image data for campaign if available.
@@ -273,7 +268,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get alternative cover image for campaign if available.
    *
@@ -289,7 +283,6 @@ class Campaign {
       return NULL;
     }
   }
-
 
   /**
    * Get Facts data for campaign if available; collects both fact problem
@@ -329,7 +322,6 @@ class Campaign {
 
   }
 
-
   /**
    * Get the Issue for campaign if available.
    *
@@ -348,7 +340,6 @@ class Campaign {
     return NULL;
   }
 
-
   /**
    * Get MailChimp data.
    *
@@ -357,10 +348,9 @@ class Campaign {
   protected function getMailChimpData() {
     return [
       'grouping_id' => dosomething_helpers_isset($this->variables, 'mailchimp_grouping_id'),
-      'group_name' => dosomething_helpers_isset($this->variables, 'mailchimp_group_name'),
+      'group_name'  => dosomething_helpers_isset($this->variables, 'mailchimp_group_name'),
     ];
   }
-
 
   /**
    * Get Mobile Commons data.
@@ -369,11 +359,10 @@ class Campaign {
    */
   protected function getMobileCommonsData() {
     return [
-      'opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
+      'opt_in_path_id'         => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
       'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
     ];
   }
-
 
    /**
    * Get the start and end dates for when campaign will be displayed on the mobile app if available.
@@ -394,7 +383,6 @@ class Campaign {
 
       return $timing;
   }
-
 
   /**
    * Get Reportback content info used in the campaign.
@@ -432,7 +420,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Collect data for third party services.
    *
@@ -441,10 +428,9 @@ class Campaign {
   protected function getServices() {
     return [
       'mobile_commons' => $this->getMobileCommonsData(),
-      'mailchimp' => $this->getMailChimpData(),
+      'mailchimp'      => $this->getMailChimpData(),
     ];
   }
-
 
   /**
    * Get the Scholarship amount for campaign if available.
@@ -454,7 +440,6 @@ class Campaign {
   protected function getScholarship() {
     return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
   }
-
 
   /**
    * Get the Solutions data for campaign if available; collects both the main solution copy
@@ -469,7 +454,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get status whether this campaign is a Staff Pick or not.
    *
@@ -479,7 +463,6 @@ class Campaign {
     return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
   }
 
-
   /**
    * Get Status of campaign.
    *
@@ -488,7 +471,6 @@ class Campaign {
   protected function getStatus() {
     return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
-
 
   /**
    * Get Tags assigned to campaign if available.
@@ -511,7 +493,6 @@ class Campaign {
     return NULL;
   }
 
-
   /**
    * Get taxonomy term node data from provided id.
    *
@@ -529,7 +510,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get the Tagline for campaign.
    *
@@ -538,7 +518,6 @@ class Campaign {
   protected function getTagline() {
     return dosomething_helpers_extract_field_data($this->node->field_call_to_action);
   }
-
 
   /**
    * Get the specified Time Commitment for campaign.
@@ -549,7 +528,6 @@ class Campaign {
     // @TODO: I've renamed "active_hours" to "time_commitment" because it sounds more straightforward; but appreciate feedback.
     return (float) dosomething_helpers_extract_field_data($this->node->field_active_hours);
   }
-
 
   /**
    * Get the timing for high and low seasons for campaign if available.
@@ -572,7 +550,6 @@ class Campaign {
 
     return $timing;
   }
-
 
   /**
    * Get Type of campaign.

@@ -9,7 +9,6 @@ class Kudos extends Entity {
   public $reportback_item;
   public $user;
 
-
   /**
    * @param array $values
    * @throws Exception
@@ -17,7 +16,6 @@ class Kudos extends Entity {
   public function __construct(array $values = array()) {
     parent::__construct($values, 'kudos');
   }
-
 
   /**
    * Override default Entity class method and specify custom URI.
@@ -29,7 +27,6 @@ class Kudos extends Entity {
       'path' => 'kudos/' . $this->identifier(),
     ];
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple kudos from supplied id(s).
@@ -61,7 +58,6 @@ class Kudos extends Entity {
     return $kudosItems;
   }
 
-
   /**
    * Convenience method to retrieve kudos based on supplied filters.
    *
@@ -89,7 +85,6 @@ class Kudos extends Entity {
     return $kudosItems;
   }
 
-
   /**
    * Build out the instantiated Kudos class object with supplied data.
    *
@@ -106,19 +101,18 @@ class Kudos extends Entity {
     $northstar_user = (object) $northstar_user['data'][0];
 
     $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => $northstar_user->_id,
+      'drupal_id'  => $data->uid,
+      'id'         => $northstar_user->_id,
       'first_name' => $northstar_user->first_name,
-      'last_name' => $northstar_user->last_name,
-      'photo' => $northstar_user->photo,
-      'country' => $northstar_user->country,
+      'last_name'  => $northstar_user->last_name,
+      'photo'      => $northstar_user->photo,
+      'country'    => $northstar_user->country,
     ];
 
     $this->reportback_item = [
       'id' => $data->fid,
     ];
   }
-
 
   /**
    * Get taxonomy term node data from provided id.

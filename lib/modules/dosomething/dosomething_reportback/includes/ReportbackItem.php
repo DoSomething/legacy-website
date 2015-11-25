@@ -12,7 +12,6 @@ class ReportbackItem extends Entity {
   public $campaign;
   public $user;
 
-
   /**
    * Overrides construct for parent Entity class.
    *
@@ -23,14 +22,12 @@ class ReportbackItem extends Entity {
     parent::__construct($values, 'reportback_item');
   }
 
-
   /**
    * Overrides to implement a custom default URI.
    */
   protected function defaultUri() {
     return array('path' => 'reportback/' . $this->rbid . '?fid=' . $this->identifier());
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple reportback-items from supplied id(s).
@@ -57,7 +54,6 @@ class ReportbackItem extends Entity {
 
     return $reportbackItems;
   }
-
 
   /**
    * Convenience method to retrieve reportback-items based on supplied filters.
@@ -86,7 +82,6 @@ class ReportbackItem extends Entity {
     return $reportbackItems;
   }
 
-
   /**
    * Build out the instantiated Reportback Item class object with supplied data.
    *
@@ -101,19 +96,19 @@ class ReportbackItem extends Entity {
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
     $this->created_at = $data->timestamp;
     $this->media = [
-      'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
+      'uri'  => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
       'type' => 'image',
     ];
     $this->kudos = dosomething_helpers_format_data($data->kids);
     $this->reportback = [
-      'id' => $data->rbid,
+      'id'         => $data->rbid,
       'created_at' => $data->created,
       'updated_at' => $data->updated,
-      'quantity' => (int) $data->quantity,
+      'quantity'   => (int) $data->quantity,
     ];
     $this->campaign = [
-      'id' => $data->nid,
-      'title' => $data->title,
+      'id'              => $data->nid,
+      'title'           => $data->title,
       'reportback_info' => [
         'noun' => $data->noun,
         'verb' => $data->verb,
@@ -131,15 +126,14 @@ class ReportbackItem extends Entity {
     }
 
     $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, '_id'),
+      'drupal_id'  => $data->uid,
+      'id'         => dosomething_helpers_isset($northstar_user, '_id'),
       'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
-      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-      'country' => dosomething_helpers_isset($northstar_user, 'country'),
+      'last_name'  => dosomething_helpers_isset($northstar_user, 'last_name'),
+      'photo'      => dosomething_helpers_isset($northstar_user, 'photo'),
+      'country'    => dosomething_helpers_isset($northstar_user, 'country'),
     ];
   }
-
 
   /**
    * @param string $file_size
@@ -153,7 +147,6 @@ class ReportbackItem extends Entity {
     return $image;
   }
 
-
   /**
    * @param string $file_size
    * @return null|string
@@ -165,7 +158,6 @@ class ReportbackItem extends Entity {
     }
     return $image;
   }
-
 
   /**
    * Sets the Reportback File status and Reviewer details.
@@ -215,7 +207,6 @@ class ReportbackItem extends Entity {
     // Save the reviewed properties.
     return $updated_reportback_item;
   }
-
 
   /**
    * Deletes the File associated with this Reportback File.

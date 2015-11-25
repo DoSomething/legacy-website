@@ -18,15 +18,15 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
 
   $flags = array(
     'show_campaign_finder' => array(
-      '#title' => t('Campaign Finder'),
+      '#title'       => t('Campaign Finder'),
       '#description' => t('Toggles campaign finder on homepage/expore campaigns page.')
     ),
     'show_sponsors' => array(
-      '#title' => t('Show sponsors'),
+      '#title'       => t('Show sponsors'),
       '#description' => t('Toggles the sponsors block on the home page when finder is enabled.')
     ),
     'show_problem_shares' => array(
-      '#title' => t('Show problem statement share buttons'),
+      '#title'       => t('Show problem statement share buttons'),
       '#description' => t('Toggles the display of problem statement share buttons on the action page.')
     ),
   );
@@ -167,7 +167,7 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
 
 function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
   $form['footer'] = array(
-    '#type' => 'fieldset',
+    '#type'  => 'fieldset',
     '#title' => t('Footer'),
   );
   $footer = &$form['footer'];
@@ -184,7 +184,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#default_value' => theme_get_setting('footer_affiliate_logo'),
   );
   $footer['logo']['settings'] = array(
-    '#type' => 'container',
+    '#type'   => 'container',
     '#states' => array(
       'invisible' => array(
         'input[name="footer_affiliate_logo"]' => array('checked' => FALSE),
@@ -237,7 +237,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       '#default_value' => theme_get_setting($setting_enabled),
     );
     $form_social[$setting_key . '_settings'] = array(
-      '#type' => 'container',
+      '#type'   => 'container',
       '#states' => array(
         'invisible' => array(
           'input[name="' . $setting_enabled  . '"]' => array('checked' => FALSE),
@@ -264,8 +264,8 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
   // Menu.
   // @todo: consider using drupal menu?
   $form['footer']['links'] = array(
-    '#type' => 'fieldset',
-    '#title' => 'Links',
+    '#type'        => 'fieldset',
+    '#title'       => 'Links',
     '#description' => t('Manage the links in each column of the footer')
   );
 
@@ -274,11 +274,11 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
   // Set up theme settings for each country's footer
   $countries = dosomething_global_get_countries();
   foreach($countries as $country) {
-    $links[$country. '_links'] = [
-      '#type' => 'fieldset',
-      '#title' => t('@country Links', ['@country' => $country]),
+    $links[$country . '_links'] = [
+      '#type'        => 'fieldset',
+      '#title'       => t('@country Links', ['@country' => $country]),
       '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#collapsed'   => TRUE,
     ];
 
     // Set up theme settings for each of the three columns
@@ -286,14 +286,14 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     foreach ($columns as $column) {
       $prefix = 'footer_links_' . $country . '_' . $column;
 
-      $links[$country. '_links'][$prefix] = [
-        '#type' => 'fieldset',
-        '#title' => t(ucwords($column) .' column'),
+      $links[$country . '_links'][$prefix] = [
+        '#type'        => 'fieldset',
+        '#title'       => t(ucwords($column) . ' column'),
         '#collapsible' => TRUE,
-        '#collapsed' => TRUE,
+        '#collapsed'   => TRUE,
       ];
 
-      $link_column = &$links[$country. '_links'][$prefix];
+      $link_column = &$links[$country . '_links'][$prefix];
 
       // Get new country code setting if it exists, if not fallback to old setting.
       // @TODO: Remove this after we've updated theme settings everywhere.
@@ -303,8 +303,8 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       }
 
       $link_column[$prefix . '_column_heading'] = [
-        '#type' => 'textfield',
-        '#title' => t(ucwords($country) . ' ' . ucwords($column) . ' Column Heading'),
+        '#type'          => 'textfield',
+        '#title'         => t(ucwords($country) . ' ' . ucwords($column) . ' Column Heading'),
         '#default_value' => $heading_default,
       ];
 
@@ -316,8 +316,8 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       }
 
       $link_column[$prefix . '_column_links'] = [
-        '#type' => 'textarea',
-        '#title' => t(ucwords($country) . ' ' . ucwords($column) . ' Column Links'),
+        '#type'          => 'textarea',
+        '#title'         => t(ucwords($country) . ' ' . ucwords($column) . ' Column Links'),
         '#default_value' => $links_default,
       ];
     }
@@ -327,7 +327,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
 
 function _paraneue_dosomething_theme_settings_user(&$form, $form_state) {
   $form['user'] = array(
-    '#type' => 'fieldset',
+    '#type'  => 'fieldset',
     '#title' => t('User'),
   );
   $form_user = &$form['user'];

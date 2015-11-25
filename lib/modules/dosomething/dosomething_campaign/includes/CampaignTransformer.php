@@ -47,12 +47,11 @@ class CampaignTransformer extends Transformer {
     }
 
     return [
-      'pagination' => $this->paginate($total, $filters, 'campaigns'),
+      'pagination'      => $this->paginate($total, $filters, 'campaigns'),
       'retrieved_count' => count($campaigns),
-      'data' => $this->transformCollection($campaigns),
+      'data'            => $this->transformCollection($campaigns),
     ];
   }
-
 
   /**
    * Display the specified resource.
@@ -78,7 +77,6 @@ class CampaignTransformer extends Transformer {
     );
   }
 
-
   /**
    * Transform data and build out response.
    *
@@ -93,22 +91,21 @@ class CampaignTransformer extends Transformer {
     return $data;
   }
 
-
   /**
    * @param  array $parameters
    * @return array
    */
   private function setFilters($parameters) {
     $filters = [
-      'nid' => $this->formatData($parameters['ids']),
-      'type' => 'campaign',
-      'staff_pick' => (bool) $parameters['staff_pick'],
-      'mobile_app' => (bool) $parameters['mobile_app'],
+      'nid'             => $this->formatData($parameters['ids']),
+      'type'            => 'campaign',
+      'staff_pick'      => (bool) $parameters['staff_pick'],
+      'mobile_app'      => (bool) $parameters['mobile_app'],
       'mobile_app_date' => $parameters['mobile_app_date'],
-      'term_id' => $this->formatData($parameters['term_ids']),
-      'count' => (int) $parameters['count'] ?: 25,
-      'random' => $parameters['random'],
-      'page' => (int) $parameters['page'],
+      'term_id'         => $this->formatData($parameters['term_ids']),
+      'count'           => (int) $parameters['count'] ?: 25,
+      'random'          => $parameters['random'],
+      'page'            => (int) $parameters['page'],
     ];
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
