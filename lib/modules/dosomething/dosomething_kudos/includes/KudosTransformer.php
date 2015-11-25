@@ -12,7 +12,7 @@ class KudosTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = [
-      'fid' => $this->formatData($parameters['reportbackitem_ids']),
+      'fid'   => $this->formatData($parameters['reportbackitem_ids']),
       'count' => (int) $parameters['count'],
     ];
 
@@ -38,7 +38,6 @@ class KudosTransformer extends Transformer {
     ];
   }
 
-
   /**
    * Display the specified resource.
    *
@@ -63,7 +62,6 @@ class KudosTransformer extends Transformer {
     ];
   }
 
-
   /**
    * @param $parameters
    * @return array
@@ -72,7 +70,7 @@ class KudosTransformer extends Transformer {
     // Retain record of successfully created or failed records to report back to client.
     $records = [
       'created' => 0,
-      'failed' => 0,
+      'failed'  => 0,
     ];
 
     $values = [
@@ -94,7 +92,6 @@ class KudosTransformer extends Transformer {
 
     return $records;
   }
-
 
   /**
    * @param $id
@@ -126,7 +123,6 @@ class KudosTransformer extends Transformer {
       ],
     ];
   }
-
 
   /**
    * Transform data and build out response.

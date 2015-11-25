@@ -12,7 +12,7 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
     $public_fields['landscape'] = array(
-      'property' => 'field_image_landscape',
+      'property'          => 'field_image_landscape',
       'process_callbacks' => array(
         array($this, 'imageProcess'),
       ),
@@ -21,7 +21,7 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
       'image_styles' => array('100x100', '550x300', '720x310'),
     );
     $public_fields['square'] = array(
-      'property' => 'field_image_square',
+      'property'          => 'field_image_square',
       'process_callbacks' => array(
         array($this, 'imageProcess'),
       ),

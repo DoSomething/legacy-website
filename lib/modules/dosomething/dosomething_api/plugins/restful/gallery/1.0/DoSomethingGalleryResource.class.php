@@ -23,7 +23,7 @@ class DoSomethingGalleryResource extends \RestfulDataProviderDbQuery implements 
     );
     // The campaign id is taken from a join query, as it exists on reportback table.
     $public_fields['campaign'] = array(
-      'property' => 'campaign',
+      'property'         => 'campaign',
       'column_for_query' => 'dosomething_reportback.nid',
     );
 

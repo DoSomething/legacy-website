@@ -13,18 +13,18 @@
  */
 
 // Database settings.
-$databases = array (
+$databases = array(
   'default' =>
-    array (
+    array(
       'default' =>
-        array (
+        array(
           'database' => 'dosomething',
           'username' => 'root',
           'password' => '',
-          'host' => 'localhost',
-          'port' => '',
-          'driver' => 'mysql',
-          'prefix' => '',
+          'host'     => 'localhost',
+          'port'     => '',
+          'driver'   => 'mysql',
+          'prefix'   => '',
         ),
     ),
 );

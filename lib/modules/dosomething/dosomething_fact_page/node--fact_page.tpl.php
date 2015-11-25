@@ -14,7 +14,7 @@
   <?php if (isset($facts)): ?>
     <?php foreach ($facts as $key => $fact): ?>
       <p>
-        <?php print ($key + 1) . '. ' . $fact['fact']; ?>
+        <?php print($key + 1) . '. ' . $fact['fact']; ?>
         <sup><?php print $fact['footnotes']; ?></sup>
       </p>
     <?php endforeach; ?>
@@ -23,7 +23,7 @@
   <?php if (isset($sources)): ?>
     <h4>Sources</h4>
     <?php foreach ($sources as $key => $source): ?>
-      <p><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></p>
+      <p><sup><?php print($key + 1); ?></sup> <?php print $source; ?></p>
     <?php endforeach; ?>
   <?php endif; ?>
 

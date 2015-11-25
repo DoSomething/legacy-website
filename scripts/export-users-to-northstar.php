@@ -29,8 +29,8 @@ foreach ($users as $user) {
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($ns_user),
+    'method'  => 'POST',
+    'data'    => json_encode($ns_user),
     ));
 
   // If the script fails, we can use this to start the script from a previous person.

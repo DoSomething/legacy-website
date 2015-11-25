@@ -63,5 +63,4 @@ foreach($results as $result) {
   }
 }
 
-
 echo 'Finished';

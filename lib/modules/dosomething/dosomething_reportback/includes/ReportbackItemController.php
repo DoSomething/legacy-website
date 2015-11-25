@@ -10,7 +10,6 @@ class ReportbackItemController extends EntityAPIController {
     global $user;
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
-
     $build['image'] = array(
       '#markup' => $entity->getImage(),
     );
@@ -49,7 +48,7 @@ class ReportbackItemController extends EntityAPIController {
       if ($files_count > 1) {
         $build['num_files'] = array(
           '#prefix' => '<p>',
-          '#markup' => l($total_files, 'reportback/'. $entity->rbid),
+          '#markup' => l($total_files, 'reportback/' . $entity->rbid),
           '#suffix' => '</p>',
         );
       }

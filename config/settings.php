@@ -15,10 +15,10 @@ $databases['default']['default'] = array(
   'database' => getenv('DS_DB_MASTER_NAME') ?: 'dosomething',
   'username' => getenv('DS_DB_MASTER_USER') ?: 'root',
   'password' => getenv('DS_DB_MASTER_PASS') ?: '',
-  'host' => getenv('DS_DB_MASTER_HOST') ?: 'localhost',
-  'port' => getenv('DS_DB_MASTER_PORT') ?: '3306',
-  'driver' => getenv('DS_DB_MASTER_DRIVER') ?: 'mysql',
-  'prefix' => getenv('DS_DB_MASTER_PREFIX') ?: '',
+  'host'     => getenv('DS_DB_MASTER_HOST') ?: 'localhost',
+  'port'     => getenv('DS_DB_MASTER_PORT') ?: '3306',
+  'driver'   => getenv('DS_DB_MASTER_DRIVER') ?: 'mysql',
+  'prefix'   => getenv('DS_DB_MASTER_PREFIX') ?: '',
 );
 
 /**
@@ -106,8 +106,8 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 $environment = getenv('DS_ENVIRONMENT') ?: 'local';
 
 // Include local settings file if it exists.
-if (is_readable('sites/default/settings.'. $environment .'.php')) {
-  include_once('sites/default/settings.'. $environment .'.php');
+if (is_readable('sites/default/settings.' . $environment . '.php')) {
+  include_once('sites/default/settings.' . $environment . '.php');
 }
 
 $conf['optimizely_id'] = '747623297';

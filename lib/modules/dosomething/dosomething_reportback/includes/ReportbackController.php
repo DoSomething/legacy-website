@@ -64,10 +64,10 @@ class ReportbackController extends EntityAPIController {
       $rows[] = array($submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why, $record->reason);
     }
     $build['reportback_log'] = array(
-      '#theme' => 'table',
+      '#theme'  => 'table',
       '#prefix' => '<h3>Change Log</h3>',
       '#header' => $header,
-      '#rows' => $rows,
+      '#rows'   => $rows,
     );
     return $build;
   }
@@ -107,7 +107,7 @@ class ReportbackController extends EntityAPIController {
         watchdog('dosomething_reportback', 'Attempted uid override for @reportback by User @uid',
           array(
             '@reportback' => json_encode($entity),
-            '@uid' => $user->uid,
+            '@uid'        => $user->uid,
           ), WATCHDOG_WARNING);
         return FALSE;
       }
