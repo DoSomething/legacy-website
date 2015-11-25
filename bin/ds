@@ -275,6 +275,20 @@ function build_helper {
     redis-cli --raw keys "$CACHE_PREFIX:*" | xargs -n1 redis-cli del
   fi
 
+  if [[ $1 != "--no-db" ]]
+  then
+    updb
+  fi
+
+}
+
+#=== FUNCTION ==================================================================
+# NAME: updb
+# DESCRIPTION: Updates DB, reverts features and cleans up the cahce.
+#===============================================================================
+function updb {
+  # Clear caches and Run updates
+  cd "$WEB_PATH"
   echo -n 'Running drush from directory '
   pwd
 
@@ -579,6 +593,9 @@ then
     else
       build --intl
     fi
+  elif [[ $2 == "--no-db" ]]
+  then
+    build --no-db
   else
     if [[ $2 == "--install" ]] && [[ $3 == "--dev" ]]
     then
@@ -590,6 +607,14 @@ then
       build
     fi
   fi
+fi
+
+#----------------------------------------------------------------------
+# updb
+#----------------------------------------------------------------------
+if [[ $1 == "updb" ]]
+then
+  updb
 fi
 
 #----------------------------------------------------------------------
