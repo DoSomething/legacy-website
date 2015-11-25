@@ -7,7 +7,7 @@ class ReportbackController extends EntityAPIController {
    *
    * Adds Reportback properties into Reportback entity's render.
    */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = []) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
     // Load review form for the Reportback.
@@ -22,53 +22,53 @@ class ReportbackController extends EntityAPIController {
 
     // Load user to get username.
     $account = user_load($entity->uid);
-    $build['username'] = array(
+    $build['username'] = [
       '#prefix' => '<p>',
       '#markup' => l($account->mail, 'user/' . $account->uid),
       '#suffix' => '</p>',
-    );
-    $build['node_title'] = array(
+    ];
+    $build['node_title'] = [
       '#prefix' => '<p>',
       '#markup' => l($entity->node_title, 'node/' . $entity->nid),
       '#suffix' => '</p>',
-    );
+    ];
     $quantity_label = $entity->noun . ' ' . $entity->verb;
-    $build['quantity_count'] = array(
+    $build['quantity_count'] = [
       '#prefix' => '<p>',
       '#markup' => 'Quantity: <strong>' . check_plain($entity->quantity) . '</strong> ' . $quantity_label,
       '#suffix' => '</p>',
-    );
+    ];
     if ($entity->num_participants) {
-      $build['num_participants'] = array(
+      $build['num_participants'] = [
         '#prefix' => '<p>',
         '#markup' => '# of Participants: <strong>' . $entity->num_participants . '</strong> ',
         '#suffix' => '</p>',
-      );
+      ];
     }
-    $build['why_participated'] = array(
+    $build['why_participated'] = [
       '#prefix' => '<p>',
       '#markup' => 'Why participated:<br />' . check_plain($entity->why_participated),
       '#suffix' => '</p>',
-    );
+    ];
 
-    $build['reportback_files'] = array(
+    $build['reportback_files'] = [
       '#markup' => drupal_render($review_form),
-    );
+    ];
 
     // Output Reportback Log.
-    $rows = array();
-    $header = array('Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated', 'Reasons');
+    $rows = [];
+    $header = ['Submitted', 'Op', 'Uid', 'Files', 'IP', 'Quantity', 'Why Participated', 'Reasons'];
     foreach ($entity->getReportbackLog() as $delta => $record) {
       $submitted = format_date($record->timestamp, 'short');
       $why = check_plain($record->why_participated);
-      $rows[] = array($submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why, $record->reason);
+      $rows[] = [$submitted, $record->op, $record->uid, $record->files, $record->remote_addr, $record->quantity, $why, $record->reason];
     }
-    $build['reportback_log'] = array(
+    $build['reportback_log'] = [
       '#theme' => 'table',
       '#prefix' => '<h3>Change Log</h3>',
       '#header' => $header,
       '#rows' => $rows,
-    );
+    ];
     return $build;
   }
 
@@ -105,10 +105,10 @@ class ReportbackController extends EntityAPIController {
       // And current user can't edit any reportback:
       if (!user_access('edit any reportback') && !drupal_is_cli()) {
         watchdog('dosomething_reportback', 'Attempted uid override for @reportback by User @uid',
-          array(
+          [
             '@reportback' => json_encode($entity),
             '@uid' => $user->uid,
-          ), WATCHDOG_WARNING);
+          ], WATCHDOG_WARNING);
         return FALSE;
       }
     }

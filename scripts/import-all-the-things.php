@@ -30,27 +30,27 @@ $users_no_data = db_query("SELECT u.uid, ob.field_user_birthday_value, ofn.field
                     OR b.field_birthdate_value is NULL)");
 
 foreach ($users_no_data as $user_row) {
-  $edit = array();
+  $edit = [];
   if ($user_row->field_user_birthday_value) {
     // Save the uid of the last saved.
     variable_set('last_user_saved', $user_row->uid);
-    $edit['field_birthdate'] = array(
-      LANGUAGE_NONE => array(
-        0 => array(
+    $edit['field_birthdate'] = [
+      LANGUAGE_NONE => [
+        0 => [
           'value' => $user_row->field_user_birthday_value,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
   }
 
   if ($user_row->field_user_first_name_value) {
-    $edit['field_first_name'] = array(
-      LANGUAGE_NONE => array(
-        0 => array(
+    $edit['field_first_name'] = [
+      LANGUAGE_NONE => [
+        0 => [
           'value' => $user_row->field_user_first_name_value,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
   }
   if (!empty($edit)) {
     $account = user_load($user_row->uid);

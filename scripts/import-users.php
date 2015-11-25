@@ -27,7 +27,7 @@ else {
 foreach ($result as $user_row) {
   // Only migrate users with active status.
  if ($user_row->status == 1) {
-     $user = array();
+     $user = [];
      // Will be overridden by uid.
      $user['name'] = user_password(8);
      $user['uid'] = $user_row->uid;
@@ -36,24 +36,24 @@ foreach ($result as $user_row) {
      $user['created'] = $user_row->created;
      $user['access'] = $user_row->access;
      // Set the init value as the old world uid.
-     $user['init']= $user_row->init;
+     $user['init'] = $user_row->init;
      $user['status'] = $user_row->status;
      $account = user_save('', $user);
   }
-  $edit = array();
+  $edit = [];
   // Some users only have mobile as login method.
   $mobile_result = db_query("SELECT  m.field_user_mobile_value
                              FROM {$mobile_data} m
                              INNER JOIN {$profile_id} p on m.entity_id = p.pid
                              WHERE p.uid = $user_row->uid")->fetchField();
   if ($mobile_result) {
-    $edit['field_mobile'] = array(
-      LANGUAGE_NONE => array(
-        0 => array(
+    $edit['field_mobile'] = [
+      LANGUAGE_NONE => [
+        0 => [
           'value' => $mobile_result,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
   }
 
   $birthday_result = db_query("SELECT  b.field_user_birthday_value
@@ -62,13 +62,13 @@ foreach ($result as $user_row) {
                                WHERE p.uid = $user_row->uid")->fetchField();
 
   if ($birthday_result) {
-    $edit['field_birthdate'] = array(
-      LANGUAGE_NONE => array(
-        0 => array(
+    $edit['field_birthdate'] = [
+      LANGUAGE_NONE => [
+        0 => [
           'value' => $birthday_result,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
   }
 
   // Save account with extra data.
@@ -79,4 +79,3 @@ foreach ($result as $user_row) {
   dosomething_user_is_under_thirteen($account);
 
 }
-

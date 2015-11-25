@@ -12,35 +12,35 @@ class DoSomethingReportbacksResource extends RestfulEntityBase {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
 
-    $public_fields['created'] = array(
+    $public_fields['created'] = [
       'property' => 'created',
-    );
+    ];
 
-    $public_fields['updated'] = array(
+    $public_fields['updated'] = [
       'property' => 'updated',
-    );
+    ];
 
-    $public_fields['quantity'] = array(
+    $public_fields['quantity'] = [
       'property' => 'quantity',
-    );
+    ];
 
-    $public_fields['why_participated'] = array(
+    $public_fields['why_participated'] = [
       'property' => 'why_participated',
-    );
+    ];
 
-    $public_fields['campaign'] = array(
+    $public_fields['campaign'] = [
       'property' => 'nid',
-       'resource' => array(
+       'resource' => [
           'campaign' => 'campaigns',
-        ),
-    );
+        ],
+    ];
 
-    $public_fields['user'] = array(
+    $public_fields['user'] = [
       'property' => 'uid',
-       'resource' => array(
+       'resource' => [
           'user' => 'users',
-        ),
-    );
+        ],
+    ];
 
     return $public_fields;
   }

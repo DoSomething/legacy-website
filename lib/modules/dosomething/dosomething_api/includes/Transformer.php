@@ -7,7 +7,6 @@ abstract class Transformer {
     module_load_include('inc', 'services', 'services.module');
   }
 
-
   /**
    * Format a string of comma separated data items into an array, or
    * if a single item, return it without formatting.
@@ -24,7 +23,6 @@ abstract class Transformer {
 
     return $data;
   }
-
 
   /**
    * Get the URI for the next page in the collection of data.
@@ -52,7 +50,6 @@ abstract class Transformer {
     }
   }
 
-
   /**
    * Get the URI for the previous page in the collection of data.
    *
@@ -79,7 +76,6 @@ abstract class Transformer {
     }
   }
 
-
   /**
    * Extract the path parameters passed and recreate the query string.
    *
@@ -95,7 +91,7 @@ abstract class Transformer {
    * @return string
    */
   protected function getPathParameters($parameters, $endpoint) {
-    $path = services_resource_uri(array($endpoint));
+    $path = services_resource_uri([$endpoint]);
     $path .= '.json?';
 
     if (isset($parameters['nid'])) {
@@ -113,7 +109,6 @@ abstract class Transformer {
     return $path;
   }
 
-
   /**
    * Get metadata for pagination of response data.
    *
@@ -130,7 +125,7 @@ abstract class Transformer {
    * @return array
    */
   protected function paginate($total, $parameters, $endpoint) {
-    $data = array();
+    $data = [];
 
     $data['total'] = $total;
     $data['per_page'] = $parameters['count'];
@@ -145,7 +140,6 @@ abstract class Transformer {
 
     return $data;
   }
-
 
   /**
    * Get the offset for requests based on specified page number and count of items.
@@ -162,14 +156,12 @@ abstract class Transformer {
     return $page * $count;
   }
 
-
   /**
    * Transform data and prepare for API response.
    *
    * @param object  $object Single object of retrieved data.
    */
   abstract protected function transform($object);
-
 
   /**
    * For collection of data to transform, run each item in collection
@@ -180,9 +172,8 @@ abstract class Transformer {
    * @return array
    */
   protected function transformCollection($items, $method = 'transform') {
-    return array_map(array($this, $method), $items);
+    return array_map([$this, $method], $items);
   }
-
 
   /**
    * Transform Campaign data and prepare for API response.
@@ -211,10 +202,10 @@ abstract class Transformer {
    * @return array
    */
   protected function transformCampaign($data) {
-    $output = array(
+    $output = [
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
-    );
+    ];
 
     // If an instance of Campaign class, then there is much
     // more information that can be obtained.
@@ -277,7 +268,6 @@ abstract class Transformer {
     return $output;
   }
 
-
   /**
    * Transform Kudos data and prepare for API response.
    *
@@ -301,7 +291,6 @@ abstract class Transformer {
     return $output;
   }
 
-
   /**
    * Transform Media data and prepare for API response.
    *
@@ -311,7 +300,7 @@ abstract class Transformer {
    */
   protected function transformMedia($data, $aspect_ratio = NULL) {
     if ($data['type'] === 'image') {
-      $output = array();
+      $output = [];
 
       $output['uri'] = $data['sizes'][$aspect_ratio]['uri'];
 
@@ -333,7 +322,6 @@ abstract class Transformer {
 
     return NULL;
   }
-
 
   /**
    * Transform Reportback data and prepare for API response.
@@ -387,7 +375,6 @@ abstract class Transformer {
     return $output;
   }
 
-
   /**
    * Transform Reportback Item data and prepare for API response.
    *
@@ -426,7 +413,6 @@ abstract class Transformer {
     return $output;
   }
 
-
   /**
    * Transform user data and prepare for API response.
    *
@@ -436,12 +422,12 @@ abstract class Transformer {
    * @return array
    */
   protected function transformUser($data) {
-    return array(
+    return [
       'id' => $data->id,
       'first_name' => $data->first_name,
       'photo' => $data->photo,
       'country' => $data->country,
-    );
+    ];
   }
 
 }

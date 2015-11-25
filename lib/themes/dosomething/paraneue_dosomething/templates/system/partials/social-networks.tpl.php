@@ -23,14 +23,14 @@
 <ul>
   <?php foreach ($social as $id => $network): ?>
     <li>
-      <?php print l('<span>' . $network['alt'] . '</span>', $network['url'], array(
+      <?php print l('<span>' . $network['alt'] . '</span>', $network['url'], [
         'external'   => TRUE,
         'html'       => TRUE,
-        'attributes' => array(
+        'attributes' => [
           'class' => 'social-icon -' . $network['id'],
           'title' => $network['alt'],
-        ),
-      ));
+        ],
+      ]);
       ?>
     </li>
   <?php endforeach ?>

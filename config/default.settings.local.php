@@ -13,11 +13,11 @@
  */
 
 // Database settings.
-$databases = array (
+$databases =  [
   'default' =>
-    array (
+     [
       'default' =>
-        array (
+         [
           'database' => 'dosomething',
           'username' => 'root',
           'password' => '',
@@ -25,9 +25,9 @@ $databases = array (
           'port' => '',
           'driver' => 'mysql',
           'prefix' => '',
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 // Salt for one-time login links and cancel links, form tokens, etc.
 $drupal_hash_salt = '3i_SZ1VTl_8FBxXeZhTEvf6LkeVNypM0EV90tNuHs5k';
@@ -40,7 +40,7 @@ $conf['https'] = TRUE;
 
 // Add Varnish as the page cache handler.
 $conf['varnish_version'] = '3';
-$conf['cache_backends'] = array('profiles/dosomething/modules/contrib/varnish/varnish.cache.inc');
+$conf['cache_backends'] = ['profiles/dosomething/modules/contrib/varnish/varnish.cache.inc'];
 $conf['cache_class_cache_page'] = 'VarnishCache';
 
 // This is managed from salt://varnishd/secret

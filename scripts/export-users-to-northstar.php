@@ -27,11 +27,11 @@ foreach ($users as $user) {
 
   // Use old drupal_http_request method.
   $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users', array(
+  $response = drupal_http_request($client['base_url'] . '/users', [
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($ns_user),
-    ));
+    ]);
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);

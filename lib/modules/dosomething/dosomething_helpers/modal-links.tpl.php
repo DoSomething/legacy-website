@@ -4,14 +4,14 @@
   <?php endif; ?>
 
   <?php if (isset($modals['more_facts'])): ?>
-    <li><a href="#" data-modal-href="#modal-facts"><?php print t('Learn more about @issue', array('@issue' => $modals['issue'])); ?></a></li>
+    <li><a href="#" data-modal-href="#modal-facts"><?php print t('Learn more about @issue', ['@issue' => $modals['issue']]); ?></a></li>
   <?php endif; ?>
 
   <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
     <li>
       <a href="#" data-modal-href="#modal-partner-<?php print $delta; ?>">
-        <?php print t('Why we &lt;3 @partner', array('@partner' => $partner['name'])); ?> <?php  ?>
+        <?php print t('Why we &lt;3 @partner', ['@partner' => $partner['name']]); ?> <?php  ?>
       </a>
   <?php endforeach; ?>
   <?php endif; ?>
@@ -50,7 +50,7 @@
       <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
       <ul class="js-footnote-hidden">
         <?php foreach ($modals['more_facts']['sources'] as $key => $source): ?>
-          <li><sup><?php print ($key + 1); ?></sup> <?php print $source; ?></li>
+          <li><sup><?php print($key + 1); ?></sup> <?php print $source; ?></li>
         <?php endforeach; ?>
       </ul>
     </section>
@@ -66,7 +66,7 @@
 <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
     <div data-modal id="modal-partner-<?php print $delta; ?>" role="dialog">
-      <h2 class="heading -banner"><?php print t('We &lt;3 @partner', array('@partner' => $partner['name'])); ?></h2>
+      <h2 class="heading -banner"><?php print t('We &lt;3 @partner', ['@partner' => $partner['name']]); ?></h2>
       <div class="modal__block with-lists">
         <?php print $partner['copy']; ?>
       </div>

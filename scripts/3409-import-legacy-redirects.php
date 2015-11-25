@@ -50,13 +50,13 @@ $OUTPUT_FILE = '../scripts/redirects.legacy.processed.csv';
 
 $REDIRECT_BASE_URL = 'https://www.dosomething.org/';
 
-$urls = array();
+$urls = [];
 $count = 0;
 
 // This will hold processed contents, to be written to $OUTPUT_FILE.
-$processed = array();
+$processed = [];
 
-$messages = array();
+$messages = [];
 
 if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
@@ -80,7 +80,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
 
     // Clean up $row.
-    array_walk($row, function(&$elm) {
+    array_walk($row, function (&$elm) {
       $elm = trim($elm);
     });
 
@@ -124,13 +124,13 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
         continue;
       }
 
-      $data = array(
+      $data = [
         'line_no' => $count,
         'source' => $source_parts['url'],
         'redirect' => $redirect,
         'status_code' => 301,
         'language' => LANGUAGE_NONE,
-      );
+      ];
 
       $insert_results = RedirectHelper3409::saveRedirect($data);
       $processed[] = $data;
@@ -145,11 +145,11 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
   }
 
   if ($count > 0) {
-    $messages[] = t('@count row(s) imported.', array('@count' => $count));
+    $messages[] = t('@count row(s) imported.', ['@count' => $count]);
     $success = TRUE;
   }
 
-  print_r(array('success' => $success, 'message' => $messages));
+  print_r(['success' => $success, 'message' => $messages]);
 
   echo sprintf('Complete: Processed %d rows', count($processed)), PHP_EOL;
 
@@ -160,7 +160,6 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 }
 
 fclose($fh);
-
 
 // STEP 3: Write final array to new CSV at $OUTPUT_FILE.
 
@@ -180,8 +179,6 @@ flock($fh, LOCK_UN);
 fclose($fh);
 
 echo sprintf("Finished: %d rows written to '%s'", count($processed), $OUTPUT_FILE), PHP_EOL;
-
-
 
 /**
  * Helper class for this script.
@@ -238,32 +235,32 @@ class RedirectHelper3409 {
     redirect_hash($redirect);
     $existing = redirect_load_by_hash($redirect->hash);
     if ($existing && $redirect->override) {
-      $query = isset($redirect->source_options['query']) ? $redirect->source_options['query'] : array();
+      $query = isset($redirect->source_options['query']) ? $redirect->source_options['query'] : [];
       $rid = redirect_load_by_source($redirect->source, $redirect->language, $query);
       $redirect->rid = $rid->rid;
     }
     if ($existing && !$redirect->override) {
-      return array(
+      return [
         'success' => FALSE,
-        'message' => filter_xss(t('Line @line_no: The source "@source" is already being redirected.', array(
+        'message' => filter_xss(t('Line @line_no: The source "@source" is already being redirected.', [
           '@line_no' => $data['line_no'],
           '@source' => $data['source'],
-        ))),
-      );
+        ])),
+      ];
     }
     elseif (empty($redirect->redirect)) {
-      return array(
+      return [
         'success' => FALSE,
-        'message' => filter_xss(t('Line @line_no: The destination "@dest" URL/path does not exist.', array(
+        'message' => filter_xss(t('Line @line_no: The destination "@dest" URL/path does not exist.', [
           '@line_no' => $data['line_no'],
           '@dest' => $data['redirect'],
-        ))),
-      );
+        ])),
+      ];
     }
     else {
       redirect_save($redirect);
     }
-    return array('success' => TRUE);
+    return ['success' => TRUE];
   }
 
   /**
@@ -302,7 +299,7 @@ class RedirectHelper3409 {
    * @return array
    */
   static public function readReferenceCSV($path) {
-    $parsed = array();
+    $parsed = [];
 
     $col_headers = true;
 

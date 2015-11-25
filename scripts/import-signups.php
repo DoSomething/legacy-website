@@ -23,15 +23,13 @@ define('PBJ', 955);
 
 $signups = '_signups_old_world';
 
-
 $result = db_query('SELECT * FROM {' . $signups . '}');
-
 
 foreach ($result as $signup) {
   if ($signup->nid == MONEY_OLD) {
     $nid = MONEY;
   }
-  else if ($signup->nid = PBJ_OLD) {
+  elseif ($signup->nid = PBJ_OLD) {
     $nid = PBJ;
   }
   dosomething_signup_create($nid, $signup->uid, NULL, $signup->timestamp);

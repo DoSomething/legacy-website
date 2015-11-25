@@ -3,6 +3,6 @@
 
 <?php if (isset($campaign->end_date) && $campaign->status != 'closed'): ?>
   <p class="header__date">
-    <?php print t('Ends @end_date', array('@end_date' => date('F d', $campaign->end_date))); ?>
+    <?php print t('Ends @end_date', ['@end_date' => date('F d', $campaign->end_date)]); ?>
   </p>
 <?php endif; ?>

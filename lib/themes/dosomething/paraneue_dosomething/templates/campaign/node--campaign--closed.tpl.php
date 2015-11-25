@@ -239,7 +239,7 @@
               <?php endif; ?>
 
               <?php if (isset($winner['field_winner_type'])): ?>
-                <h4><?php print t('@field_winner_type Winner', array('@field_winner_type' => $winner['field_winner_type'])); ?></h4>
+                <h4><?php print t('@field_winner_type Winner', ['@field_winner_type' => $winner['field_winner_type']]); ?></h4>
               <?php endif; ?>
 
 

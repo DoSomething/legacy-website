@@ -11,21 +11,21 @@ class DoSomethingGalleryResource extends \RestfulDataProviderDbQuery implements 
    * {@inheritdoc}
    */
   public function publicFieldsInfo() {
-    $public_fields['id'] = array(
+    $public_fields['id'] = [
       'property' => 'fid',
-    );
+    ];
     // @todo: Look into files as resources to get URLs.
     // $public_fields['fid'] = array(
     //   'property' => 'fid',
     // );
-    $public_fields['status'] = array(
+    $public_fields['status'] = [
       'property' => 'status',
-    );
+    ];
     // The campaign id is taken from a join query, as it exists on reportback table.
-    $public_fields['campaign'] = array(
+    $public_fields['campaign'] = [
       'property' => 'campaign',
       'column_for_query' => 'dosomething_reportback.nid',
-    );
+    ];
 
     return $public_fields;
   }

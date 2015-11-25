@@ -9,15 +9,13 @@ class Kudos extends Entity {
   public $reportback_item;
   public $user;
 
-
   /**
    * @param array $values
    * @throws Exception
    */
-  public function __construct(array $values = array()) {
+  public function __construct(array $values = []) {
     parent::__construct($values, 'kudos');
   }
-
 
   /**
    * Override default Entity class method and specify custom URI.
@@ -29,7 +27,6 @@ class Kudos extends Entity {
       'path' => 'kudos/' . $this->identifier(),
     ];
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple kudos from supplied id(s).
@@ -61,7 +58,6 @@ class Kudos extends Entity {
     return $kudosItems;
   }
 
-
   /**
    * Convenience method to retrieve kudos based on supplied filters.
    *
@@ -88,7 +84,6 @@ class Kudos extends Entity {
 
     return $kudosItems;
   }
-
 
   /**
    * Build out the instantiated Kudos class object with supplied data.
@@ -119,7 +114,6 @@ class Kudos extends Entity {
     ];
   }
 
-
   /**
    * Get taxonomy term node data from provided id.
    * @TODO: Potentially extract code to dosomething_helpers since duplicate code with Campaign.php
@@ -128,7 +122,7 @@ class Kudos extends Entity {
    * @return array
    */
   protected function getTaxonomyTerm($id) {
-    $data = array();
+    $data = [];
 
     $taxonomy = taxonomy_term_load($id);
 

@@ -53,7 +53,6 @@ class CampaignTransformer extends Transformer {
     ];
   }
 
-
   /**
    * Display the specified resource.
    *
@@ -66,18 +65,17 @@ class CampaignTransformer extends Transformer {
       $campaign = services_resource_build_index_list($campaign, 'campaigns', 'id');
     }
     catch (Exception $error) {
-      return array(
-        'error' => array(
+      return [
+        'error' => [
           'message' => $error->getMessage(),
-        ),
-      );
+        ],
+      ];
     }
 
-    return array(
+    return [
       'data' => $this->transform(array_pop($campaign)),
-    );
+    ];
   }
-
 
   /**
    * Transform data and build out response.
@@ -92,7 +90,6 @@ class CampaignTransformer extends Transformer {
 
     return $data;
   }
-
 
   /**
    * @param  array $parameters

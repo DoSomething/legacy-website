@@ -27,17 +27,16 @@ class ReportbackTransformer extends Transformer {
     return $total;
   }
 
-
   /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
-    $filters = array(
+    $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => $parameters['count'] ?: 25,
-    );
+    ];
 
     // @TODO: Logic update!
     // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
@@ -57,11 +56,10 @@ class ReportbackTransformer extends Transformer {
       ];
     }
 
-    return array(
+    return [
       'data' => $this->transformCollection($reportbacks),
-    );
+    ];
   }
-
 
   /**
    * Display the specified resource.
@@ -82,11 +80,10 @@ class ReportbackTransformer extends Transformer {
       ];
     }
 
-    return array(
+    return [
       'data' => $this->transform(array_pop($reportback)),
-    );
+    ];
   }
-
 
   /**
    * Transform data and build out response.

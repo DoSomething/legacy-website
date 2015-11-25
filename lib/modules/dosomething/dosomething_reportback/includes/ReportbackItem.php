@@ -12,7 +12,6 @@ class ReportbackItem extends Entity {
   public $campaign;
   public $user;
 
-
   /**
    * Overrides construct for parent Entity class.
    *
@@ -23,14 +22,12 @@ class ReportbackItem extends Entity {
     parent::__construct($values, 'reportback_item');
   }
 
-
   /**
    * Overrides to implement a custom default URI.
    */
   protected function defaultUri() {
-    return array('path' => 'reportback/' . $this->rbid . '?fid=' . $this->identifier());
+    return ['path' => 'reportback/' . $this->rbid . '?fid=' . $this->identifier()];
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple reportback-items from supplied id(s).
@@ -58,7 +55,6 @@ class ReportbackItem extends Entity {
     return $reportbackItems;
   }
 
-
   /**
    * Convenience method to retrieve reportback-items based on supplied filters.
    *
@@ -85,7 +81,6 @@ class ReportbackItem extends Entity {
 
     return $reportbackItems;
   }
-
 
   /**
    * Build out the instantiated Reportback Item class object with supplied data.
@@ -140,7 +135,6 @@ class ReportbackItem extends Entity {
     ];
   }
 
-
   /**
    * @param string $file_size
    * @return array|null|string
@@ -153,7 +147,6 @@ class ReportbackItem extends Entity {
     return $image;
   }
 
-
   /**
    * @param string $file_size
    * @return null|string
@@ -165,7 +158,6 @@ class ReportbackItem extends Entity {
     }
     return $image;
   }
-
 
   /**
    * Sets the Reportback File status and Reviewer details.
@@ -215,7 +207,6 @@ class ReportbackItem extends Entity {
     // Save the reviewed properties.
     return $updated_reportback_item;
   }
-
 
   /**
    * Deletes the File associated with this Reportback File.

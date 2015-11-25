@@ -42,7 +42,6 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     ];
   }
 
-
   /**
    * Display the specified resource.
    *
@@ -62,11 +61,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       ];
     }
 
-    return array(
+    return [
       'data' => $this->transform(array_pop($reportbackItem)),
-    );
+    ];
   }
-
 
   /**
    * Transform data and build out response.
