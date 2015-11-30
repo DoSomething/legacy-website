@@ -15,10 +15,8 @@ include_once 'dosomething_user.theme.inc';
  */
 function dosomething_user_preprocess_page(&$vars) {
   $school_api_endpoint = variable_get('dosomething_user_school_api_endpoint', 'http://lofischools.herokuapp.com/search');
-  if (isset($_SESSION['dosomething_user_log_login'])) {
-    dosomething_helpers_add_analytics_event("login", $_SESSION['dosomething_user_log_login']);
-    unset($_SESSION['dosomething_user_log_login']);
-  }
+  $date_format = (dosomething_settings_get_geo_country_code() === 'US') ? 'MM/DD/YYYY' : 'DD/MM/YYYY';
+
   drupal_add_js(
     array('dosomethingUser' =>
       array(
@@ -232,7 +230,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Helper text & additional data.
       _dosomething_user_add_signup_data($form);
       $form['#submit'][] = 'dosomething_user_login_submit';
-      $_SESSION['dosomething_user_log_login'] = "login";
+      $form['#submit'][] = 'dosomething_user_authentication_submit';
     break;
 
     case 'user_profile_form':
@@ -283,8 +281,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
       // Custom validation & submission handlers.
       $form['#validate'][] = 'dosomething_user_register_validate';
-      $form['#submit'][] = 'dosomething_user_login_submit';
-
+      $form['#submit'][] = 'dosomething_user_authentication_submit';
     break;
 
     case 'user_pass':
@@ -439,8 +436,24 @@ function dosomething_user_update_user($form, &$form_state) {
  * Does actions after a new user has registered via the web.
  * Sign user up for emails/texts.
  */
-function dosomething_user_new_user($form, &$form_state) {
-  $_SESSION['dosomething_user_log_login'] = "register";
+function dosomething_user_new_user($form, &$form_state)
+{
+  // Trigger an analytics event on registration
+  // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
+  // since registered users are subsequently logged in to their new accounts.
+  dosomething_helpers_add_analytics_event('Authentication', 'Register');
+
+  // Sign the user up for transactional messaging
+  _dosomething_user_send_to_message_broker();
+}
+
+/**
+ * Sign the authenticated user up for transactional messaging through Message Broker
+ * if the required modules are enabled and the user meets relevant criteria.
+ *
+ * @see dosomething_user_new_user
+ */
+function _dosomething_user_send_to_message_broker() {
   if (!module_exists('dosomething_mbp') || !module_exists('dosomething_signup')) {
     return;
   }
@@ -541,21 +554,19 @@ function dosomething_user_is_old_person($user = NULL) {
 
 /**
  * Custom login submission handler.
- *
- * If there's a hidden nid, sign the user up for a campaign.
- *
- * This function will only work upon registration if account variables
- * are set to the following:
- * -- A visitor can register for the site without admin approval
- * -- Email verification is not required when user creates account.
- *
- * Otherwise, the global $user upon account creation is set with uid 0
- * and signup will fail.
- *
- * @see dosomething_user_strongarm()
  */
 function dosomething_user_login_submit($form, &$form_state) {
-  // If nid is not present, nothing to sign up for.  Exit.
+  // Trigger an analytics event on login
+  dosomething_helpers_add_analytics_event('Authentication', 'Login');
+}
+
+/**
+ * Custom login/register submission handler. Handles pitch page signups,
+ * forwarding user profiles to Northstar post-registration, and configures
+ * more sensible redirects post-login.
+ */
+function dosomething_user_authentication_submit($form, &$form_state) {
+  // If there's a hidden nid, sign the user up for a campaign.
   if (isset($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
     $source = NULL;
@@ -573,15 +584,16 @@ function dosomething_user_login_submit($form, &$form_state) {
         dosomething_signup_user_signup($nid, NULL, $source);
       }
     }
-
   }
-  // Send the user into northstar.
+
+  // Send updated user profiles into Northstar.
   if (module_exists('dosomething_northstar')) {
     dosomething_northstar_register_user($form_state);
   }
+
   // After all logins, except reportback pages redirect to page user was just on.
   if (isset($source) && stripos($source, 'reportback') > 0) {
-   $form_state['redirect'] = drupal_get_path_alias($_SERVER['HTTP_REFERER']);
+    $form_state['redirect'] = drupal_get_path_alias($_SERVER['HTTP_REFERER']);
   }
   elseif (isset($nid)) {
     // Redirect to campaign node on reportback permalink pages.
@@ -590,6 +602,18 @@ function dosomething_user_login_submit($form, &$form_state) {
 }
 
 /**
+ * Automatically generate user names (from UID) for non-staff users.
+ *
+ * This function will only work upon registration if account variables
+ * are set to the following:
+ * -- A visitor can register for the site without admin approval
+ * -- Email verification is not required when user creates account.
+ *
+ * Otherwise, the global $user upon account creation is set with uid 0
+ * and signup will fail.
+ *
+ * @see dosomething_user_strongarm()
+ *
  * Implements hook_user_insert().
  */
 function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
