@@ -1,0 +1,1936 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Phoenix\n"
+"Language: pt-br\n"
+
+#: dosomething_campaign_0_20_progress_copy
+msgid "[node:title] has just kicked off! Let’s start off with a bang! Submit photos of your work below early and often to help us reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can add photos and update your submission as your impact increases."
+msgstr "[node:title] acabou de começar! Vamos começar causando impacto! Envie fotos do seu trabalho abaixo, o quanto antes e com frequência, para nos ajudar a atingir nossa meta de [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. Você pode adicionar fotos e atualizar seu envio na medida em que seu impacto aumenta "
+
+#: dosomething_campaign_100_progress_copy
+msgid "Woohoo! Congratulations everyone for crushing our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Can you help push us even higher!? Keep submitting photos of your work. You can update your submission with new photos/info at any time."
+msgstr "Oba! Parabéns a todos por estourarem nossa meta de [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Você pode nos ajudar a alcançar ainda mais!? Continue enviando fotos do seu trabalho. Você pode atualizar o seu envio com novas fotos e informações a qualquer momento."
+
+#: dosomething_campaign_21_40_progress_copy
+msgid "We’re gaining steam! Keep spreading the word to get more friends involved so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!"
+msgstr "Estamos ganhando força! Continue espalhando para todo mundo para que possamos envolver mais amigos e atingir nossa meta de [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]!"
+
+#: dosomething_campaign_41_60_progress_copy
+msgid "The more people we get to sign up for [node:title] the sooner we’ll reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Be a megaphone - get your friends involved by posting on social!"
+msgstr "Quanto mais pessoas conseguirmos inscrever para o [node:title], mais rápido atingiremos nossa meta de [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]! Seja um megafone - envolva os seus amigos postando em suas redes sociais!"
+
+#: dosomething_campaign_61_80_progress_copy
+msgid "Keep those campaign updates coming! Don’t wait to the end to submit a photo of you in action! Submit your progress early and often so we can reach our goal of [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb]. You can update your submission at any time below."
+msgstr "Faça com que a campanha continue sendo atualizada! Não espere até o final para enviar uma foto sua em ação! Envie seu progresso o quanto antes e com frequência para que possamos atingir nossa meta de [campaign_goal] [node:field_reportback_noun] [node:field_reportback_verb].  Você pode atualizar seu envio abaixo a qualquer momento."
+
+#: dosomething_campaign_81_99_progress_copy
+msgid "We’re almost there! Keep showing off your work. You can add photos and update your submission below throughout the campaign."
+msgstr "Estamos quase lá! Continue exibindo seu trabalho. Você pode adicionar fotos e atualizar seu envio abaixo durante toda a campanha."
+
+#: dosomething_campaign_confirmation_page_anon_button_text
+msgid "Join us"
+msgstr "Junte-se a nós"
+
+#: dosomething_campaign_confirmation_page_anon_cta_text
+msgid "Create an account to keep track of your campaigns!"
+msgstr "Crie uma conta para acompanhar suas campanhas!"
+
+#: dosomething_campaign_confirmation_page_button_text
+msgid "Find more campaigns"
+msgstr "Encontre mais campanhas"
+
+#: dosomething_campaign_confirmation_page_title
+msgid "You did it!"
+msgstr "Você conseguiu!"
+
+#: dosomething_campaign_nid_2366_pitch_page_label
+msgid "Pass It Along"
+msgstr "Compartilhe"
+
+#. "Conte com suas próprias palavras"
+#: dosomething_campaign_permalink_confirmation_owners_important_to_you
+msgid "In your words"
+msgstr "Com suas próprias palavras"
+
+#: dosomething_campaign_permalink_confirmation_owners_page_subtitle
+msgid "We got your pics!"
+msgstr "Nós recebemos suas fotos!"
+
+#: dosomething_campaign_permalink_confirmation_owners_scholarship
+msgid "(And you've entered to win the scholarship!)"
+msgstr "(E você está concorrendo a uma bolsa de estudos!)"
+
+#: dosomething_campaign_permalink_confirmation_owners_social_cta
+msgid "Share your photo and impact with friends!"
+msgstr "Compartilhe sua foto e impacte seus amigos!"
+
+#: dosomething_campaign_permalink_confirmation_owners_social_network_copy
+msgid "I made an ACTUAL difference about [node:issue] and you can too. Sign up for [node:title] now:"
+msgstr "Eu fiz uma diferença REAL com relação a [node:issue] e você também pode fazer. Inscreva-se em [node:title] agora:"
+
+#. "Descubra as campanhas."
+#: paraneue_dosomething.info
+msgid "Explore Campaigns"
+msgstr "Explore as campanhas"
+
+#: dosomething_campaign_permalink_nonowners_closed_cta
+msgid "Tackle a campaign to make the world suck less."
+msgstr "Participe de uma campanha para tornar o mundo menos chato."
+
+#: dosomething_campaign_permalink_nonowners_page_title
+msgid "Join [user:field_first_name] and DoSomething.org"
+msgstr "Junte-se a [user:field_first_name] e à DoSomething.org"
+
+#: dosomething_campaign_permalink_owners_page_subtitle
+msgid "And here is your sweet pic to prove it."
+msgstr "E aqui está sua foto irada para provar."
+
+#: dosomething_campaign_permalink_owners_page_title
+msgid "You rocked this campaign!"
+msgstr "Você arrasou nessa campanha!"
+
+#: dosomething_campaign_presignup_callout_copy
+msgid "We'll hit you up when it re-opens"
+msgstr "Nós avisaremos você quando ela for reaberta"
+
+#: dosomething_campaign_problem_share_prompt
+msgid "F that, spread the word"
+msgstr "Que se dane, espalhe a notícia"
+
+#: dosomething_campaign_run_no_total_copy
+msgid "We’re still tallying the [label]. The bigger the number, the longer it takes...so stay tuned!"
+msgstr "Ainda estamos calculando o [label].  Quanto maior o número, mais tempo leva… Então fique ligado!"
+
+#: dosomething_campaign_run_no_winner_copy
+msgid "Hold on! We’re still sifting through the (amazing) submissions you sent to choose a winner. We’ll email you and post his or her name here soon!"
+msgstr "Espera aí! Ainda estamos selecionando seus (incríveis) envios para escolher o vencedor. Nós enviaremos um e-mail a você e publicaremos o nome dele ou dela aqui em breve!"
+
+#: dosomething_campaign_run_signup_button_copy
+msgid "Notify Me"
+msgstr "Me avise"
+
+#: dosomething_campaign.theme.inc:288
+msgid "Rally your friends to crush this goal!"
+msgstr "Reúna seus amigos para estourar essa meta!"
+
+#: dosomething_campaign_sms_game_all_participants_copy
+msgid "Over 1.4 million games played since 2012!"
+msgstr "Mais de 1,4 milhão de jogos desde 2012!"
+
+#: dosomething_campaign_sms_game_confirmation_page_title
+msgid "Thanks for sharing!"
+msgstr "Obrigado por compartilhar!"
+
+#: dosomething_campaign_sms_game_signup_friends_form_button_copy
+msgid "Start"
+msgstr "Iniciar"
+
+#: dosomething_campaign_win_copy
+msgid "[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! That’s amazing - thanks to everyone for rocking [node:title]. Let’s keep it up! Add your contribution in the Prove It section below."
+msgstr "[campaign_progress] [node:field_reportback_noun] [node:field_reportback_verb]! Isto é demais - obrigado a todos por arrasarem na [node:title]. Vamos continuar assim! Coloque sua contribuição na seção Prove abaixo."
+
+#: dosomething_campaign_win_share_copy
+msgid "show the world what we did!"
+msgstr "mostre ao mundo o que nós fizemos!"
+
+#: dosomething_fact_page_copy_intro
+msgid "Welcome to DoSomething.org, one of the largest orgs for young people and social change! After you've browsed the 11 facts (with citations at the bottom), take action and volunteer with our millions of members. Sign up for a [campaign](/campaigns) and make the world suck less."
+msgstr "Bem-vindo à DoSomething.org, uma das maiores organizações para jovens e mudanças sociais! Após ter navegado pelos 11 fatos (com citações na parte de baixo), tome uma atitude e torne-se um voluntário junto aos nossos milhões de membros. Inscreva-se para uma [campaign](/campaigns) e torne o mundo um lugar menos chato."
+
+#: dosomething_notfound_copy_grants
+msgid "DoSomething.org doesn’t offer grants anymore! Here’s why: Instead of giving grant money to a few individual projects, we’ve invested in creating more national cause campaigns ANYONE can do. That means more young people (that’s you!) making more impact. Ready? Check out our [campaign finder](/campaigns) or join one of these:"
+msgstr "A DoSomething.org não oferece mais doações! Eis os motivos: Em vez de dar doações em dinheiro para alguns projetos individuais, investimos na criação de mais campanhas de causas nacionais, das quais QUALQUER UM pode participar. Isso significa mais jovens (você!) causando mais impacto. Preparado? Dê uma olhada em nossas [campaign finder](/campaigns) ou junte-se a uma dessas:"
+
+#: dosomething_notfound_copy_projects
+msgid "DoSomething.org doesn’t host projects anymore! We want young people to be able to rock any cause, anytime, anywhere. That’s why we’ve turned some of the best projects (out of 40,000 ideas!) into national cause campaigns EVERYONE can tackle. Ready? Check out our [campaign finder](/campaigns) or join one of these:"
+msgstr "A DoSomething.org já não hospeda mais projetos! Queremos que os jovens sejam capazes de liderar qualquer causa, a qualquer hora, em qualquer lugar. É por isso que já transformamos alguns dos melhores projetos (dentre 40.000 ideias!) em campanhas de causas nacionais das quais todos podem participar. Preparado? Dê uma olhada em nossas [campaign finder](/campaigns), ou junte-se a uma dessas:"
+
+#: dosomething_notfound_copy_search_results
+msgid "But we did a quick search, and here is some similar content that we do have."
+msgstr "Mas fizemos uma pesquisa rápida, e aqui estão alguns conteúdos semelhantes que possuímos."
+
+#: dosomething_payment_donate_confirm_msg
+msgid "Thanks for your donation!"
+msgstr "Obrigado por sua doação!"
+
+#: dosomething_payment_donate_form_header
+msgid "Your $$$ fires up young people to make an impact. A big one."
+msgstr "Seus $ $$ motivam jovens a causarem um impacto. Um grande impacto."
+
+#: dosomething_reportback_num_participants_label
+msgid "How many people did you do this with?"
+msgstr "Com quantas pessoas você fez isso?"
+
+#: dosomething_reward_redeem_form_button_text
+msgid "SUBMIT"
+msgstr "ENVIAR"
+
+#: dosomething_reward_redeem_form_confirm_msg
+msgid "Sweet thanks! You'll receive your t-shirts within 2-3 weeks. We'll email you once they've been shipped so you can track the package. Keep up the awesome work."
+msgstr "Muito obrigado! Você receberá suas camisetas no prazo de 2 a 3 semanas. Nós enviaremos um e-mail a você assim que elas forem enviadas, para que você possa rastrear o pacote. Continue com seu trabalho incrível."
+
+#: dosomething_reward_redeem_form_copy
+msgid "Complete this form, and we’ll mail you your shirts!"
+msgstr "Preencha esse formulário e nós enviaremos suas camisetas!"
+
+#: dosomething_reward_redeem_form_header
+msgid "Free T-Shirts"
+msgstr "Camisetas grátis"
+
+#: dosomething_reward_redeem_form_link
+msgid "GET YOUR SHIRTS"
+msgstr "PEGUE SUAS CAMISETAS"
+
+#: dosomething_reward_redeem_page_copy
+msgid "Congratulations! You tackled two or more DoSomething.org campaigns in the last 12 months. To say thanks, we want to send you two (free!) T-shirts. Keep one and rock it with pride. Then give the other to a friend who you want to take action with DoSomething.org."
+msgstr "Parabéns! Você participou de duas ou mais campanhas DoSomething.org nos últimos 12 meses. Em agradecimento, queremos lhe enviar duas camisetas (grátis!). Fique com uma e a vista com orgulho. Dê a outra a um amigo que você espera que tome uma ação junto à DoSomething.org."
+
+#: dosomething_reward_redeem_page_subtitle
+msgid "You’ve earned a (free!) DoSomething.org T-shirt!"
+msgstr "Você ganhou uma camiseta (grátis!) da DoSomething.org! "
+
+#: dosomething_reward_redeem_page_title
+msgid "Oh, snap!"
+msgstr "Ah, não!"
+
+#: dosomething_search_copy_no_results
+msgid "We searched our site, but couldn't find what you were looking for. Try a new search or check out one of our campaigns below."
+msgstr "Pesquisamos em nosso site, mas não encontramos o que você estava procurando. Tente uma nova pesquisa ou dê uma olhada em uma de nossas campanhas abaixo."
+
+#: dosomething_settings_copy_about_ds
+msgid "DoSomething.org makes the world suck less. One of the largest orgs for young people and social change, our millions of members tackle campaigns that impact every cause, from poverty to violence to the environment to literally everything else. Any cause, anytime, anywhere. *mic drop*"
+msgstr "A DoSomething.org torna o mundo um lugar menos chato. Somos uma das maiores organizações para jovens e mudanças sociais, e nossos milhões de membros realizam campanhas que impactam todas as causas, da pobreza à violência até o meio ambiente e literalmente tudo mais. Qualquer causa, a qualquer hora, em qualquer lugar. *impressionante*"
+
+#: dosomething_user_profile_subtitle
+msgid "Rock your campaigns and send pics to prove it."
+msgstr "Arrase em suas campanhas e envie fotos para provar."
+
+#: dosomething_user_reset_password_copy
+msgid "If we have an account with that email address, we'll send you a password recovery link in a few minutes."
+msgstr "Se tivermos uma conta com este endereço de e-mail, enviaremos a você um link de recuperação de senha em alguns minutos."
+
+#. Hey, im in doubt on how this databasae will work for Brazil, will you actually upload all school names? I'm not sure this will be easy to track.
+#: dosomething_user_school_finder_help_text
+msgid "Here are some tricks to help you find your school:1. Try typing only the first word or two of your school name (instead of the whole thing at once) and wait to see if a match appears in the results.2. Try abbreviating or unabbreviating. If \"St. Mary's\" doesn't work, try \"Saint Mary's\" or vice versa. Same with JFK vs. John F. Kennedy.3. Make sure you are searching for a specific school, not a whole district.4. Use “&” instead of “and” and vice versa. You can also try taking out or adding in periods, sometimes “J. F. Kennedy Jr. Middle School” won’t work, but “J F Kennedy Middle School will.5. Try removing a name or initial. For example, “Robert E. Lee High School” might not show up, but “Lee High School” will.6. Try taking out or adding words like “High”, “Middle”, and “Senior”. “William S. Hart Senior High School” might not work, but “Hart High School” will and vice versa.7. If your school is in a U.S. territory, please click the “Contact Us” link below and send us your school’s name and location to sign up."
+msgstr "Aqui estão algumas dicas para ajudar você a encontrar sua escola:1. Tente digitar apenas as primeiras palavras do nome de sua escola (em vez do nome completo) e espere para ver se a combinação aparece nos resultados.2. Tente com e sem abreviação. Se \"Pe. João Paulo\" não funcionar, tente \"Padre João Paulo\" ou vice-versa. O mesmo com SASP versus Santo Agostinho de São Paulo.3. Certifique-se de estar procurando por uma escola específica.4. Tente \"&\", em vez de \"e\" e vice-versa. Você também pode tentar tirar ou adicionar pontos finais; às vezes, \"Colégio D. Alighieri\" pode não funcionar, mas \"Colégio D Alighieri\" funcionará.5. Tente remover um nome ou iniciais. Por exemplo, \"Colégio Liceal de S. M. Lamas\" pode não aparecer, mas \"Colégio Liceal Lamas\" aparecerá.6. Tente retirar ou adicionar palavras como \"Superior\" e  \"Médio\".  \"Colégio Marista Santa Maria de Ensino Médio\" pode não funcionar, mas \"Marista Santa Maria\" funcionará e vice-versa.7. Se sua escola estiver em um território dos Estados Unidos, clique no link \"Fale conosco\" abaixo e nos envie o nome da escola e o local para inscrevê-la."
+
+#: dosomething_zendesk_form_body_label
+msgid "Your Question"
+msgstr "Sua pergunta"
+
+#: dosomething_zendesk_form_header
+msgid "Enter your question below. Please be as specific as possible. If you are having a technical issue, please make sure to provide detailed steps (click by click) on how you encountered the problem, so our developers can re-create the issue."
+msgstr "Digite sua pergunta abaixo. Seja o mais específico possível. Se você estiver com um problema técnico, forneça instruções detalhadas (passo-a-passo) sobre como você encontrou o problema, para que nossos desenvolvedores possam recriá-lo."
+
+#: node 1144 shipment_form_confirm_msg
+msgid "Thanks for submitting your address! Your kit will arrive in about one week."
+msgstr "Obrigado por enviar seu endereço! Seu kit chegará em aproximadamente uma semana."
+
+#: node 1144 shipment_form_copy
+msgid "Enter your mailing address to receive a free Teens for Jeans kit to promote your drive! It includes a poster, instructions, and Aéropostale gift cards to pay it forward! Your kit should arrive in one week."
+msgstr "Coloque seu endereço de correspondência para receber gratuitamente um kit Teens for Jeans para promover sua campanha! O kit inclui um poster, instruções e vale-presentes da Aéropostale para serem usados como forma de retribuição! O kit deve chegar em uma semana."
+
+#: node 1144 shipment_form_submitted_copy
+msgid "You already requested a kit on [submitted] and we're working on getting it to you! It should arrive about one week from the day you ordered it."
+msgstr "Você já pediu um kit em [submitted] e estamos trabalhando para enviá-lo a você! Ele deve chegar dentro de uma semana a partir da data em que o pedido foi realizado."
+
+#: theme-settings.php:12
+msgid "Theme Settings"
+msgstr "Definições de tema"
+
+#: theme-settings.php:20
+msgid "Asset Path"
+msgstr "Caminho de ativos"
+
+#: theme-settings.php:21
+msgid "Path to load assets from. The <code>{ds_version}</code> string can be used to include the current <code>ds_version</code> value, or \"latest\" if not set. If left blank, assets will be loaded from the local theme folder."
+msgstr "O caminho de onde carregar ativos. A sequência <code>{ds_version}</code> pode ser usada para incluir o valor atual <code>ds_version</code>, ou o \"mais recente\", caso o mesmo não tenha sido definido. Se deixado em branco, os ativos serão carregados da pasta de tema local. "
+
+#: theme-settings.php:27
+msgid "Minify Assets"
+msgstr "Reduzir ativos"
+
+#: theme-settings.php:28
+msgid "Will use minified assets. Uncheck this if debugging in a browser without source maps. <strong>(Unminified assets are only created in production builds.)</strong>"
+msgstr "Irá utilizar ativos reduzidos. Desmarque essa opção se estiver realizando a depuração em um navegador sem mapas de origem. <strong>Ativos reduzidos só são criados nas construções de produção.)</strong>"
+
+#: theme-settings.php:34
+msgid "Feature Flags"
+msgstr "Sinalizadores de recursos"
+
+#: theme-settings.php:35
+msgid "Allows features to be toggled on or off in different environments."
+msgstr "Permite que recursos sejam ligados ou desligados em diferentes ambientes."
+
+#: theme-settings.php:43
+msgid "Campaign Finder"
+msgstr "Localizador de campanhas"
+
+#: theme-settings.php:44
+msgid "Toggles campaign finder on homepage/expore campaigns page."
+msgstr "Alterna o localizador de campanhas na página inicial/página de exploração de campanhas."
+
+#: theme-settings.php:47
+msgid "Show sponsors"
+msgstr "Exibe patrocinadores"
+
+#: theme-settings.php:48
+msgid "Toggles the sponsors block on the home page when finder is enabled."
+msgstr "Alterna o bloco de patrocinadores na página inicial quando o localizador estiver ativado."
+
+#: theme-settings.php:51
+msgid "Show problem statement share buttons"
+msgstr "Exibe botões de compartilhamento de declaração de problema"
+
+#: theme-settings.php:52
+msgid "Toggles the display of problem statement share buttons on the action page."
+msgstr "Alterna a exibição dos botões de compartilhamento de declaração de problema na página da ação."
+
+#: theme-settings.php:125
+msgid "Header"
+msgstr "Cabeçalho"
+
+#: theme-settings.php:130
+msgid "Who We Are?"
+msgstr "Quem somos?"
+
+#: theme-settings.php:183
+msgid "Footer"
+msgstr "Rodapé"
+
+#: theme-settings.php:190
+msgid "Affiliate logo"
+msgstr "Logotipo afiliado"
+
+#: theme-settings.php:195
+msgid "Enable affiliate logo"
+msgstr "Ativar logotipo afiliado"
+
+#: theme-settings.php:209
+msgid "Text"
+msgstr "Texto"
+
+#: theme-settings.php:214
+msgid "File"
+msgstr "Arquivo"
+
+#: theme-settings.php:226
+msgid "Social"
+msgstr "Social"
+
+#: theme-settings.php:239
+msgid "On"
+msgstr "Ligar"
+
+#: theme-settings.php:239
+msgid "Off"
+msgstr "Desligar"
+
+#: theme-settings.php:248
+msgid "Enabled"
+msgstr "Ativado"
+
+#: theme-settings.php:264
+msgid "URL"
+msgstr "URL"
+
+#: theme-settings.php:269
+msgid "Title Text"
+msgstr "Texto do título"
+
+#: theme-settings.php:270
+msgid "Optional"
+msgstr "Opcional"
+
+#: theme-settings.php:271
+msgid "Title text is displayed when the image is hovered"
+msgstr "O texto do título é exibido ao passar o ponteiro do mouse sobre a imagem"
+
+#: theme-settings.php:281
+msgid "Manage the links in each column of the footer"
+msgstr "Gerenciar os links em cada coluna do rodapé"
+
+#: theme-settings.php:312
+msgid "Advanced options"
+msgstr "Opções avançadas"
+
+#: theme-settings.php:330
+msgid "User"
+msgstr "Usuário"
+
+#: theme-settings.php:337
+msgid "JS Validations"
+msgstr "Validações JS"
+
+#. CEP is better than código postal.
+#: theme-settings.php:343
+msgid "Validate Post Code"
+msgstr "Validar CEP\n"
+""
+
+#: paraneue_dosomething.info:0
+msgid "Paraneue DoSomething"
+msgstr "Paraneue DoSomething"
+
+#: paraneue_dosomething.info:0
+msgid "A Paraneue subtheme for DoSomething.org"
+msgstr "Um subtema Paraneue para a DoSomething.org "
+
+#: dist/app.js:0;0 js/finder/ResultsView.js:0 js/utilities/Revealer.js:0
+msgid "Show More"
+msgstr "Mostrar mais"
+
+#: dist/app.js:0;0 js/validators/auth.js:0 js/validators/donate.js:0
+msgid "Hey, @name!"
+msgstr "Olá, @name!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your first name."
+msgstr "Precisamos do seu primeiro nome."
+
+#: dist/app.js:0;0;0 js/validators/address.js:0 js/validators/auth.js:0;0
+msgid "Got it!"
+msgstr "Recebido!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your friend's name."
+msgstr "Precisamos do nome do seu amigo."
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Got it, @name!"
+msgstr "Recebido, @name!"
+
+#: dist/app.js:0;0 js/validators/address.js:0 js/validators/auth.js:0
+msgid "We need your last name."
+msgstr "Precisamos do seu sobrenome."
+
+#: dist/app.js:0;0;0 js/validators/auth.js:0;0;0
+msgid "That doesn't seem right."
+msgstr "Isso não parece certo."
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Are you a time traveller?"
+msgstr "Você viaja no tempo?"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Wow, happy birthday!"
+msgstr "Uau, feliz aniversário!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Wow, you're @age!"
+msgstr "Uau, você está com @age anos!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Cool, @age!"
+msgstr "Legal, @age anos!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need your birthday."
+msgstr "Precisamos do seu aniversário."
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Great, thanks!"
+msgstr "Ótimo, obrigado!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "We need a valid email."
+msgstr "Precisamos de um e-mail válido."
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Keep it secret, keep it safe!"
+msgstr "Mantenha em segredo, mantenha segura!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Must be 6+ characters."
+msgstr "Deve ter 6 ou mais caracteres."
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Thanks!"
+msgstr "Obrigado!"
+
+#: dist/app.js:0 js/validators/auth.js:0
+msgid "Enter a valid telephone number."
+msgstr "Digite um número de telefone válido."
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "That's great!"
+msgstr "Isto é ótimo!"
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Enter a valid number!"
+msgstr "Digite um número válido!"
+
+#: dist/app.js:0;0 js/validators/address.js:0 js/validators/reportback.js:0
+msgid "Thanks for caring!"
+msgstr "Obrigado por se importar!"
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Tell us why you cared!"
+msgstr "Diga-nos por que você se importou!"
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Sounds great!"
+msgstr "Excelente!"
+
+#: dist/app.js:0 js/validators/reportback.js:0
+msgid "Tell us about your photo in 60 characters or less!"
+msgstr "Conte-nos sobre sua foto em até 60 caracteres!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Oh hey, @fname!"
+msgstr "Olá, @fname!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your name. We’re on a first-name basis, right?"
+msgstr "Precisamos do seu nome. Posso te chamar pelo primeiro nome, certo?"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "The @lname-inator! People call you that, right?"
+msgstr "O @lname-inador! As pessoas te chamam assim, certo?"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your street name and number."
+msgstr "Precisamos do seu endereço!\n"
+""
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Got that too!"
+msgstr "Recebido também!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Sweet, thanks!"
+msgstr "Legal, obrigado!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your city."
+msgstr "Precisamos da sua cidade."
+
+#: dist/app.js:0
+msgid "I ❤ @state"
+msgstr "Eu ❤ @state"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your state."
+msgstr "Precisamos do seu estado."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Almost done!"
+msgstr "Quase pronto!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need your zip code."
+msgstr "Precisamos do seu CEP."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Oops! Can't leave this one blank."
+msgstr "Opa! Isso não pode ficar em branco."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We couldn't find that address."
+msgstr "Não conseguimos encontrar esse endereço."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "Double check for typos and try submitting again."
+msgstr "Verifique a ortografia e tente enviar novamente."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We're having trouble submitting the form, are you sure your internet connection is working? Email us if you continue having problems."
+msgstr "Estamos tendo problemas de envio do formulário. Tem certeza de que sua conexão de internet está funcionando? Envie-nos um e-mail caso continue tendo problemas."
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "It'll fit great!"
+msgstr "Vai servir perfeitamente!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need a shirt size!"
+msgstr "Precisamos do tamanho da camiseta!"
+
+#: dist/app.js:0 js/validators/address.js:0
+msgid "We need a shirt style!"
+msgstr "Precisamos do estilo da camiseta!"
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "We need your full name."
+msgstr "Precisamos do seu nome completo."
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "number looks good!"
+msgstr "o número está ok!"
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid credit card number."
+msgstr "Número do cartão de crédito inválido."
+
+#. "Código de segurança" better than CVV
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "CVV looks good!"
+msgstr "CVV está ok!"
+
+#. same as above, better to use "Código de Segurança"
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid CVV."
+msgstr "CVV inválido."
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Good Month!"
+msgstr "Mês válido!"
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Month."
+msgstr "Mês inválido."
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Good Year!"
+msgstr "Ano válido!"
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Year."
+msgstr "Ano inválido."
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "So Generous!"
+msgstr "Quanta generosidade!"
+
+#: dist/app.js:0 js/validators/donate.js:0
+msgid "Invalid Amount."
+msgstr "Valor inválido."
+
+#: dist/app.js:0 js/finder/FormView.js:0
+msgid "Error: FormView is not initialized."
+msgstr "Erro: FormView não foi inicializado."
+
+#: dist/app.js:0 js/finder/ResultsView.js:0
+msgid "Error: ResultsView is not initialized."
+msgstr "Erro: ResultsView não foi inicializado."
+
+#: dist/app.js:0
+msgid "Ooof! We're not sure what's up? Maybe it's us, or it could be your internet connection. Want to try again in a few minutes?"
+msgstr "Afff! Não sabemos ao certo o que está acontecendo? Talvez o problema seja nosso ou em sua conexão com a internet. Quer tentar novamente em alguns minutos?"
+
+#: dist/app.js:0
+msgid "Oh snap! We'll work on that."
+msgstr "Ah, não! Vamos trabalhar nisso."
+
+#: dist/app.js:0
+msgid "Want to try another combo?"
+msgstr "Quer tentar outro combo?"
+
+#: dist/app.js:0 templates/campaign/campaign-block.tpl.php:28 templates/system/patterns/tile.tpl.php:29
+msgid "Staff Pick"
+msgstr "Escolha da equipe"
+
+#: includes/form.inc:172
+msgid "Add another photo"
+msgstr "Adicione outra foto"
+
+#: includes/form.inc:209
+msgid "Your Shirt"
+msgstr "Sua camiseta"
+
+#: includes/form.inc:223
+msgid "Your Shirt Style"
+msgstr "O estilo da sua camiseta"
+
+#: includes/form.inc:230
+msgid "Your Friend's Shirt"
+msgstr "A camiseta do seu amigo"
+
+#: includes/form.inc:233
+msgid "Your Friend's Shirt Style"
+msgstr "O estilo da camiseta do seu amigo"
+
+#: includes/form.inc:262 includes/auth/register.inc:75 templates/user/user-profile.tpl.php:73
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/form.inc:264
+msgid "Current Password"
+msgstr "Senha atual"
+
+#: includes/form.inc:284 templates/campaign/submit-campaign-idea.tpl.php:70
+msgid "Birthday"
+msgstr "Aniversário"
+
+#: includes/form.inc:297
+msgid "Change Password"
+msgstr "Alterar senha"
+
+#: includes/form.inc:298
+msgid "New Password"
+msgstr "Nova senha"
+
+#: includes/form.inc:299
+msgid "Confirm Password"
+msgstr "Confirmar senha"
+
+#: includes/helpers.inc:40
+msgid "Facebook"
+msgstr "Facebook"
+
+#: includes/helpers.inc:44
+msgid "Twitter"
+msgstr "Twitter"
+
+#: includes/helpers.inc:48
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: includes/helpers.inc:52
+msgid "Instagram"
+msgstr "Instagram"
+
+#: includes/helpers.inc:56
+msgid "Youtube"
+msgstr "Youtube"
+
+#: includes/helpers.inc:197
+msgid "Stay Tuned"
+msgstr "Fique ligado"
+
+#: includes/preprocess.inc:129
+msgid "Edit Profile"
+msgstr "Editar perfil"
+
+#: includes/preprocess.inc:613 templates/campaign/node--campaign.tpl.php:41
+msgid "Prove It"
+msgstr "Prove"
+
+#: includes/theme.inc:36
+msgid "(active tab)"
+msgstr "(guia ativa)"
+
+#: includes/theme.inc:44
+msgid "!local-task-title!active"
+msgstr "!local-task-title!active"
+
+#: includes/auth/login.inc:25
+msgid "Log in to get started!"
+msgstr "Faça login para começar!"
+
+#: includes/auth/login.inc:42
+msgid "Create a DoSomething.org account"
+msgstr "Crie uma conta DoSomething.org"
+
+#: includes/auth/login.inc:49
+msgid "Forgot password?"
+msgstr "Esqueceu a senha?"
+
+#: includes/auth/login.inc:86
+msgid "Email address"
+msgstr "Endereço de e-mail"
+
+#: includes/auth/login.inc:152
+msgid "Email address or cell number"
+msgstr "Endereço de e-mail ou número do celular"
+
+#: includes/auth/register.inc:25
+msgid "Create a DoSomething.org account to get started!"
+msgstr "Crie uma conta DoSomething.org para começar!"
+
+#: includes/auth/register.inc:34
+msgid "Log in to an existing account"
+msgstr "Faça login em uma conta existente"
+
+#. terms and privacy would be "termos e condições"
+#: includes/auth/register.inc:41
+#, fuzzy
+msgid "Creating an account means you agree to our !terms & !privacy and to receive our weekly update. Message & data rates may apply. Text STOP to opt-out, HELP for help"
+msgstr "Ao criar uma conta, você está concordando com nossos !terms e !privacy e em receber as nossas atualizações semanais. Taxas de mensagem e transmissão de dados poderão ser aplicadas. Digite PARE para optar por não participar, AJUDA para obter suporte"
+
+#: includes/auth/register.inc:54
+msgid "What do we call you?"
+msgstr "Qual o seu nome?"
+
+#: includes/auth/register.inc:68
+msgid "What's your P.E. teacher call you?"
+msgstr "Como seu professor de educação física te chama?"
+
+#: includes/auth/register.inc:76
+msgid "your_email@example.com"
+msgstr "seu_email@exemplo.com"
+
+#: includes/auth/register.inc:86
+msgid "Cell Number"
+msgstr "Número de celular"
+
+#: includes/auth/register.inc:86
+msgid "(optional)"
+msgstr "(opcional)"
+
+#. Format of brazilian phone numbers is area code two digits followed by a 8 or 9 digit number
+#: includes/auth/register.inc:87
+msgid "(555) 555-5555"
+msgstr "(555) 555-5555"
+
+#: includes/auth/register.inc:119
+msgid "6+ characters... make it tricky!"
+msgstr "6 ou mais caracteres… crie algo complicado!"
+
+#: includes/auth/register.inc:125
+msgid "Just double checking!"
+msgstr "Só confirmando!"
+
+#. ?
+#: js/validators/address.js:0
+msgid "I u2764 @state"
+msgstr "I u2764 @state"
+
+#: js/validators/donate.js:0
+msgid "Good zipcode!"
+msgstr "CEP válido!"
+
+#: js/validators/donate.js:0
+msgid "Invalid zipcode"
+msgstr "CEP inválido"
+
+#: templates/campaign/node--campaign--closed.tpl.php:45
+msgid "What You Did"
+msgstr "O que você fez"
+
+#: templates/campaign/node--campaign--closed.tpl.php:58
+msgid "Members Participated"
+msgstr "Membros que participaram"
+
+#: templates/campaign/node--campaign--closed.tpl.php:140
+msgid "The Buzz"
+msgstr "O burburinho"
+
+#: templates/campaign/node--campaign--closed.tpl.php:229
+msgid "Congrats to&hellip;"
+msgstr "Parabéns para&hellip;"
+
+#: templates/campaign/node--campaign--closed.tpl.php:242
+msgid "@field_winner_type Winner"
+msgstr "Vencedor @field_winner_type"
+
+#: templates/campaign/node--campaign--pitch.tpl.php:65 templates/campaign/node--campaign--sms-game.tpl.php:30 templates/campaign/node--campaign.tpl.php:60 templates/reportback/reportback-permalink.tpl.php:85
+msgid "The Problem"
+msgstr "O problema"
+
+#: templates/campaign/node--campaign--pitch.tpl.php:68 templates/campaign/node--campaign--sms-game.tpl.php:66 templates/campaign/node--campaign.tpl.php:97 templates/reportback/reportback-permalink.tpl.php:89
+msgid "The Solution"
+msgstr "A solução"
+
+#: templates/campaign/node--campaign--pitch.tpl.php:82 templates/taxonomy/taxonomy-term.tpl.php:75
+msgid "What You Get"
+msgstr "O que você ganha"
+
+#: templates/campaign/node--campaign--pitch.tpl.php:104
+msgid "*mic drop"
+msgstr "*impressionante"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:25 templates/campaign/node--campaign.tpl.php:56
+msgid "Step 1: Know It"
+msgstr "1.° passo: Conheça"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:98 templates/campaign/node--campaign.tpl.php:129 templates/fact/node--fact_page.tpl.php:83 templates/taxonomy/taxonomy-term.tpl.php:63
+msgid "Sources"
+msgstr "Fontes"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:112
+msgid "Step 2: Do It"
+msgstr "2.° passo: Faça"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:131 templates/campaign/node--campaign.tpl.php:382
+msgid "Official Rules"
+msgstr "Regras oficiais"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:137
+msgid "Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help."
+msgstr "Ao participar dessa experiência, você está concordando com nossos !terms_link e em receber nossas atualizações semanais. Taxas de dados e de mensagem poderão ser aplicadas. Digite PARE para optar por não participar, AJUDA para obter suporte"
+
+#: templates/campaign/node--campaign--sms-game.tpl.php:138
+msgid "Terms of Service"
+msgstr "Termos de serviço"
+
+#: templates/campaign/node--campaign.tpl.php:38
+msgid "Know"
+msgstr "Conheça"
+
+#: templates/campaign/node--campaign.tpl.php:39
+msgid "Plan"
+msgstr "Planeje"
+
+#: templates/campaign/node--campaign.tpl.php:40
+msgid "Do"
+msgstr "Faça"
+
+#: templates/campaign/node--campaign.tpl.php:144
+msgid "Step 2: Plan It"
+msgstr "2.° passo: Planeje"
+
+#: templates/campaign/node--campaign.tpl.php:195
+msgid "Find a Location"
+msgstr "Encontre um local"
+
+#: templates/campaign/node--campaign.tpl.php:202
+msgid "Locate"
+msgstr "Encontrar"
+
+#: templates/campaign/node--campaign.tpl.php:218;303
+msgid "Back to main page"
+msgstr "Voltar à página principal"
+
+#: templates/campaign/node--campaign.tpl.php:246
+msgid "Step 3: Do It"
+msgstr "3.° passo: Faça"
+
+#: templates/campaign/node--campaign.tpl.php:267
+msgid "View Tips"
+msgstr "Ver dicas"
+
+#: templates/campaign/node--campaign.tpl.php:268
+msgid "Tips"
+msgstr "Dicas"
+
+#: templates/campaign/node--campaign.tpl.php:317
+msgid "Step 4: Prove It"
+msgstr "4.° passo: Prove"
+
+#: templates/campaign/node--campaign.tpl.php:321
+msgid "Pics or It Didn&rsquo;t Happen"
+msgstr "Só Acredito Vendo"
+
+#: templates/campaign/reportback-confirmation.tpl.php:42
+msgid "Keep it up! Find your next campaign."
+msgstr "Continue! Encontre sua próxima campanha."
+
+#: templates/campaign/submit-campaign-idea.tpl.php:73
+msgid "You must be ages 13 to 25 (sorry 26-and-up-year-olds)."
+msgstr "Você deve ter entre 13 e 25 anos (desculpe, pessoal com 26 anos ou mais)."
+
+#: templates/campaign/submit-campaign-idea.tpl.php:77;78
+msgid "Month"
+msgstr "Mês"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:79
+msgid "January"
+msgstr "Janeiro"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:80
+msgid "February"
+msgstr "Fevereiro "
+
+#: templates/campaign/submit-campaign-idea.tpl.php:81
+msgid "March"
+msgstr "Março"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:82
+msgid "April"
+msgstr "Abril"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:83
+msgid "May"
+msgstr "Maio"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:84
+msgid "June"
+msgstr "Junho"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:85
+msgid "July"
+msgstr "Julho"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:86
+msgid "August"
+msgstr "Agosto"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:87
+msgid "September"
+msgstr "Setembro"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:88
+msgid "October"
+msgstr "Outubro"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:89
+msgid "November"
+msgstr "Novembro"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:90
+msgid "December"
+msgstr "Dezembro"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:93
+msgid "Day of month"
+msgstr "Dia do mês"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:94
+msgid "Day"
+msgstr "Dia"
+
+#: templates/campaign/submit-campaign-idea.tpl.php:349
+msgid "Submit"
+msgstr "Enviar"
+
+#: templates/campaign/partials/campaign-creator.tpl.php:12
+msgid "Created by"
+msgstr "Criado por"
+
+#: templates/campaign/partials/campaign-headings.tpl.php:6
+msgid "Ends @end_date"
+msgstr "Termina em @end_date"
+
+#: templates/campaign/partials/campaign-scholarship.tpl.php:4
+msgid "Win a $@amount Scholarship"
+msgstr "Ganhe uma bolsa de estudos de $ @amount"
+
+#: templates/fact_page/fact-page-list.tpl.php:12
+msgid "List of All Facts"
+msgstr "Lista de todos os fatos"
+
+#: templates/home/node--home.tpl.php:20
+msgid "Start by finding a campaign below"
+msgstr "Comece encontrando uma campanha abaixo"
+
+#: templates/home/node--home.tpl.php:24
+msgid "Cause"
+msgstr "Causa"
+
+#. Que assunto você gosta mais?
+#: templates/home/node--home.tpl.php:25
+msgid "What are you passionate about?"
+msgstr "Que assunto mais te atrai?"
+
+#: templates/home/node--home.tpl.php:29
+msgid "Animals"
+msgstr "Animais"
+
+#: templates/home/node--home.tpl.php:30
+msgid "Bullying + Violence"
+msgstr "Bullying + violência"
+
+#: templates/home/node--home.tpl.php:31
+msgid "Disasters"
+msgstr "Catástrofes"
+
+#: templates/home/node--home.tpl.php:32
+msgid "Discrimination"
+msgstr "Discriminação"
+
+#: templates/home/node--home.tpl.php:33
+msgid "Education"
+msgstr "Educação"
+
+#: templates/home/node--home.tpl.php:34
+msgid "Environment"
+msgstr "Meio ambiente"
+
+#: templates/home/node--home.tpl.php:35
+msgid "Health"
+msgstr "Saúde"
+
+#: templates/home/node--home.tpl.php:36
+msgid "Homelessness + Poverty"
+msgstr "Desabrigados + pobreza"
+
+#: templates/home/node--home.tpl.php:37
+msgid "Sex + Relationships"
+msgstr "Sexo + relacionamentos"
+
+#: templates/home/node--home.tpl.php:46
+msgid "Time"
+msgstr "Tempo "
+
+#. "Quanto tempo você tem"
+#: templates/home/node--home.tpl.php:47
+msgid "How long do you have?"
+msgstr "De quanto você dispõe?"
+
+#: templates/home/node--home.tpl.php:51
+msgid "1 hour or less"
+msgstr "1 hora ou menos"
+
+#: templates/home/node--home.tpl.php:52
+msgid "2-5 hours"
+msgstr "2 a 5 horas"
+
+#: templates/home/node--home.tpl.php:53
+msgid "5+ hours"
+msgstr "5 horas ou mais"
+
+#: templates/home/node--home.tpl.php:62
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/home/node--home.tpl.php:63
+msgid "What would you like to do?"
+msgstr "O que você gostaria de fazer?"
+
+#: templates/home/node--home.tpl.php:67
+msgid "Donate Something"
+msgstr "Doar algo"
+
+#: templates/home/node--home.tpl.php:68
+msgid "Face to Face"
+msgstr "Cara a cara"
+
+#: templates/home/node--home.tpl.php:69
+msgid "Host an Event"
+msgstr "Sediar um evento"
+
+#: templates/home/node--home.tpl.php:70
+msgid "Improve a Space"
+msgstr "Melhorar um espaço"
+
+#: templates/home/node--home.tpl.php:71
+msgid "Make Something"
+msgstr "Fazer algo"
+
+#: templates/home/node--home.tpl.php:72
+msgid "Share Something"
+msgstr "Compartilhar algo "
+
+#: templates/home/node--home.tpl.php:73
+msgid "Start Something"
+msgstr "Iniciar algo"
+
+#: templates/home/node--home.tpl.php:74
+msgid "Take a Stand"
+msgstr "Tomar uma posição"
+
+#: templates/home/node--home.tpl.php:81
+msgid "Find a Campaign"
+msgstr "Encontrar uma campanha"
+
+#: templates/home/node--home.tpl.php:102
+msgid "Sponsors"
+msgstr "Patrocinadores"
+
+#: templates/search/search-results.tpl.php:30
+msgid "Your search yielded no results"
+msgstr "Sua pesquisa não gerou nenhum resultado"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Donate"
+msgstr "Doar"
+
+#: templates/system/partials/info-bar.tpl.php:12
+msgid "In partnership with"
+msgstr "Em parceria com"
+
+#: templates/system/partials/info-bar.tpl.php:17
+msgid "Questions?"
+msgstr "Perguntas?"
+
+#: templates/system/partials/info-bar.tpl.php:17;19
+msgid "Contact Us"
+msgstr "Fale conosco"
+
+#: templates/system/partials/navigation.tpl.php:38
+msgid "Log Out"
+msgstr "Sair"
+
+#: templates/system/partials/navigation.tpl.php:42
+msgid "Log In"
+msgstr "Login"
+
+#: templates/system/partials/sponsor-logos.tpl.php:12
+msgid "Powered by"
+msgstr "Distribuído por"
+
+#: templates/taxonomy/taxonomy-term.tpl.php:80
+msgid "Scholarships and Contests"
+msgstr "Bolsas de estudos e concursos"
+
+#: templates/taxonomy/taxonomy-term.tpl.php:85
+msgid "About DoSomething.org"
+msgstr "Sobre a DoSomething.org"
+
+#: templates/taxonomy/taxonomy-term.tpl.php:97
+msgid "Do it"
+msgstr "Faça"
+
+#: templates/user/user-profile.tpl.php:28
+msgid "You're Doing"
+msgstr "Você está fazendo"
+
+#: templates/user/user-profile.tpl.php:44
+msgid "You Did"
+msgstr "Você fez"
+
+#: templates/user/user-profile.tpl.php:54
+msgid "Your Info"
+msgstr "Suas informações"
+
+#: templates/user/user-profile.tpl.php:58
+msgid "Account Info"
+msgstr "Informações da conta"
+
+#: templates/user/user-profile.tpl.php:62
+msgid "Name"
+msgstr "Nome"
+
+#: templates/user/user-profile.tpl.php:70
+msgid "Password"
+msgstr "Senha"
+
+#: templates/user/user-profile.tpl.php:77
+msgid "Cell"
+msgstr "Celular"
+
+#: templates/user/user-profile.tpl.php:84
+msgid "Update my profile"
+msgstr "Atualizar meu perfil"
+
+#: dosomething_settings_copy_campaign_value_proposition
+msgid "Psh, what DON’T you get? Each campaign offers the key facts, pro tips, and four easy action steps you need to rock the campaign and make an impact.- Step 1, Know It: You get stats on the problem and how you’re going to solve it.- Step 2, Plan It: You’ll learn the stuff you need, how to recruit others to take action with you, and how to prep to take action.- Step 3, Do It: You’ll learn how to actually do the darn thing and make the biggest impact possible.- Step 4, Prove It: Snap a pic of you in action and upload it! Each campaign counts as volunteer experience for your resume. And you can enter to win scholarships! Speaking of…"
+msgstr "Psiu, o que você NÃO entendeu? Cada campanha oferece os principais fatos, dicas, e quatro passos simples de ações necessários para ter uma campanha de sucesso e para causar um impacto.- 1.° passo, Conheça: Você recebe estatísticas sobre o problema e como você irá resolvê-lo.- 2.° passo, Planeje: Você aprenderá o que precisa, como recrutar outras pessoas para entrarem em ação com você, e como se preparar para entrar em ação.- 3.° passo, Faça: Você aprenderá como realmente fazer a tal da coisa, e causar o maior impacto possível.- 4.° Passo, Prove: Tire uma foto de você em ação e carregue-a no site! Cada campanha conta como experiência de voluntariado para o seu currículo. E você pode concorrer a bolsas de estudos! Além disso…"
+
+#: dosomething_settings_copy_scholarships
+msgid "You make the world suck less for others. Great! So what’s in it for you? Money. Lots and lots of money. (For school.) Complete any campaign on the site, send a pic in the Prove It section, and you’ll enter to win a $10,000 scholarship! We award one of these seasonal scholarships four times a year. And, lots of other campaigns offer their own scholarship opps. Mad chances to win mad money."
+msgstr "Você torna o mundo menos chato para outras pessoas. Ótimo! E o que você ganha com isso? Dinheiro. Muito dinheiro. (Para os estudos.) Complete qualquer campanha no site, envie uma foto na seção Prove e você estará concorrendo a uma bolsa de estudos de $ 10.000! Nós sorteamos uma bolsa de estudos quatro vezes por ano. E muitas outras campanhas oferecem suas próprias oportunidades para ganhar uma bolsa de estudos. Chances loucas de ganhar um dinheiro louco."
+
+#: dosomething_signup.forms.inc:170
+msgid "First Name"
+msgstr "Nome"
+
+#: dosomething_user.address.inc:34 dosomething_user.features.field_instance.inc:479 dosomething_user.views_default.inc:423
+msgid "Last Name"
+msgstr "Sobrenome"
+
+#: dosomething_user.address.inc:75 dosomething_user.module:366
+msgid "Hmmm, we couldn’t find that address. Please try again."
+msgstr "Hummm, não conseguimos encontrar esse endereço. Por favor, tente novamente."
+
+#: dosomething_user.address.inc:80
+msgid "Hmmm, we couldn’t find that address. Did you mean:"
+msgstr "Hummm, não conseguimos encontrar esse endereço. Você quis dizer:"
+
+#: dosomething_user.features.field_instance.inc:474
+msgid "Address"
+msgstr "Endereço"
+
+#: dosomething_user.features.field_instance.inc:476
+msgid "Cell #"
+msgstr "Celular #"
+
+#: dosomething_user.features.field_instance.inc:478
+msgid "Job Title"
+msgstr "Cargo"
+
+#: dosomething_user.features.field_instance.inc:480
+msgid "Partner / Sponsor"
+msgstr "Parceiro/Patrocinador"
+
+#: dosomething_signup.signup_data_form.inc:368
+msgid "School ID"
+msgstr "Identificador da escola"
+
+#: dosomething_user.features.field_instance.inc:482
+msgid "Subscribe to SMS updates"
+msgstr "Inscreva-se para atualizações por SMS"
+
+#: dosomething_user.features.field_instance.inc:483
+msgid "Subscribe to our email newsletter"
+msgstr "Inscreva-se para nossos boletins por e-mail"
+
+#: dosomething_user.features.field_instance.inc:485
+msgid "Under Thirteen"
+msgstr "Menores de treze anos"
+
+#: dosomething_user.features.field_instance.inc:486
+msgid "User Registration Source"
+msgstr "Fonte de registro de usuário"
+
+#: dosomething_user.theme.inc:41
+msgid "There's nothing here!"
+msgstr "Não há nada aqui!"
+
+#: dosomething_user.theme.inc:46
+msgid "(Yet.) Sign up for a campaign to make the world suck less. Then send pics of you in action for the chance at scholarship money and swag."
+msgstr "(Ainda.) Inscreva-se em uma campanha para tornar o mundo menos chato. Em seguida, envie fotos suas em ação para concorrer a uma bolsa de estudos em dinheiro e brindes."
+
+#: dosomething_user.views_default.inc:425
+msgid "Last login"
+msgstr "Último login"
+
+#: dosomething_user.module:371
+msgid "Hmmm, we couldn’t find that address. Did you mean: "
+msgstr "Hummm, não conseguimos encontrar esse endereço. Você quis dizer: "
+
+#: dosomething_user.module:1052
+msgid "Info"
+msgstr "Informações"
+
+#: dosomething_user.module:1086
+msgid "The two letter state code."
+msgstr "As duas letras do código do estado."
+
+#: dosomething_user.module:1090
+msgid "Picture"
+msgstr "Foto"
+
+#: dosomething_user.module:1098
+msgid "Upload a picture"
+msgstr "Carregue uma imagem"
+
+#: dosomething_user.module:1218
+msgid "@type @identifier @id deleted."
+msgstr "@type @identifier @id excluído."
+
+#: dosomething_user.module:1280
+msgid "million"
+msgstr "milhões"
+
+#: dosomething_user.module:1284
+msgid "thousand"
+msgstr "mil"
+
+#: plugins/format/dosomething-affiliate-country.inc:9
+msgid "Dosomething Affiliate Country"
+msgstr "País afiliado DoSomething"
+
+#: dosomething_signup.forms.inc:195
+msgid "Friend's Name"
+msgstr "Nome do amigo"
+
+#: dosomething_signup.forms.inc:290
+msgid "This SMS Game is not properly configured."
+msgstr "Este jogo SMS não está configurado corretamente."
+
+#: dosomething_signup.forms.inc:310
+msgid "Please provide a valid telephone number."
+msgstr "Forneça um número de telefone válido."
+
+#: dosomething_signup.forms.inc:339
+msgid "Hey, you entered this number already!"
+msgstr "Você já digitou este número!"
+
+#: dosomething_signup.forms.inc:399
+msgid "Are you sure you want to remove this signup?  This cannot be undone."
+msgstr "Tem certeza de que deseja remover esta inscrição?  Isso não pode ser desfeito."
+
+#: dosomething_signup.forms.inc:405
+msgid "Delete"
+msgstr "Excluir"
+
+#: dosomething_signup.signup_data_form.inc:358
+msgid "Select @label"
+msgstr "Selecionar @label"
+
+#: dosomething_signup.signup_data_form.inc:374
+msgid "School Name"
+msgstr "Nome da escola"
+
+#: dosomething_signup.signup_data_form.inc:375
+msgid "Find your school by name..."
+msgstr "Encontre sua escola por nome…"
+
+#: dosomething_signup.signup_data_form.inc:388
+msgid "Need help locating your school?"
+msgstr "Precisa de ajuda para localizar sua escola?"
+
+#: dosomething_signup.signup_data_form.inc:391
+msgid "Still having issues? !contact with your school name and @state."
+msgstr "Ainda está com problemas? !contact com o nome da sua escola e @state."
+
+#: dosomething_signup.signup_data_form.inc:392
+msgid "Contact us"
+msgstr "Fale conosco"
+
+#: dosomething_signup.signup_data_form.inc:404
+msgid "I am not affiliated with a school."
+msgstr "Não sou afiliado a uma escola."
+
+#: dosomething_signup.signup_data_form.inc:498
+msgid "Please select a school."
+msgstr "Selecione uma escola."
+
+#: dosomething_signup.signup_data_form.inc:517
+msgid "Skip"
+msgstr "Pular"
+
+#: dosomething_signup.views_default.inc:220 dosomething_signup.module:309;312
+msgid "Signups"
+msgstr "Inscrições"
+
+#: dosomething_signup.module:66;51
+msgid "Signup"
+msgstr "Inscreva-se"
+
+#: dosomething_signup.module:237 includes/dosomething_signup.variable.inc:49
+msgid "There was an error processing your request."
+msgstr "Ocorreu um erro ao processar sua solicitação."
+
+#: dosomething_signup.module:692
+msgid "for"
+msgstr "para"
+
+#: dosomething_signup.module:694
+msgid "You're signed up"
+msgstr "Inscrição realizada"
+
+#: dosomething_signup.module:695
+msgid "Get started below."
+msgstr "Comece abaixo."
+
+#: dosomething_signup.module:708
+msgid "find a campaign"
+msgstr "encontrar uma campanha"
+
+#: dosomething_signup.module:709
+msgid "Sweet, we'll send you an email as soon as @title re-opens. In the meantime, !link you can do right now."
+msgstr "Legal, nós iremos te enviar um e-mail assim que o @title for reaberto. Enquanto isso, !link você pode fazer agora mesmo."
+
+#: dosomething_signup.module:42
+msgid "Remove signup"
+msgstr "Remover inscrição"
+
+#: dosomething_signup.info:0
+msgid "DoSomething"
+msgstr "DoSomething"
+
+#: appearance->settings->paraneue_dosomething
+msgid "FAQs"
+msgstr "Perguntas Frequentes"
+
+#: modal-links.tpl.php:7
+msgid "Learn more about @issue"
+msgstr "Saiba mais sobre @issue"
+
+#: modal-links.tpl.php:14
+msgid "Why we &lt;3 @partner"
+msgstr "Porque nós &lt;3 @partner"
+
+#: modal-links.tpl.php:39
+msgid "Facts"
+msgstr "Fatos"
+
+#: modal-links.tpl.php:69
+msgid "We &lt;3 @partner"
+msgstr "Nós &lt;3 @partner"
+
+#: dosomething_helpers.theme.inc:139;145
+msgid "and"
+msgstr "e"
+
+#: dosomething_helpers.module:54
+msgid "Thank you for sharing"
+msgstr "Obrigado por compartilhar"
+
+#: dosomething_reportback.forms.inc:86
+msgid "Submit your pic"
+msgstr "Envie sua foto"
+
+#: dosomething_reportback.forms.inc:124
+msgid "Update submission"
+msgstr "Atualize o envio"
+
+#: dosomething_reportback.forms.inc:189 includes/ReportbackItem.php:97
+msgid "DoSomething? Just did!"
+msgstr "DoSomething? Acabei de fazer!"
+
+#: dosomething_reportback.forms.inc:198
+msgid "60 characters or less"
+msgstr "60 caracteres ou menos"
+
+#: dosomething_reportback.forms.inc:201 dosomething_reportback.module:180
+msgid "Caption"
+msgstr "Legenda"
+
+#: dosomething_reportback.forms.inc:209;236
+msgid "Enter # here"
+msgstr "Digite # aqui"
+
+#: dosomething_reportback.forms.inc:215
+msgid "Total # of @noun @verb"
+msgstr "# total de @noun @verb"
+
+#: dosomething_reportback.forms.inc:228
+msgid "Total # of people participated"
+msgstr "# total de pessoas que participaram"
+
+#: dosomething_reportback.forms.inc:251
+msgid "Write something..."
+msgstr "Escreva algo…"
+
+#: dosomething_reportback.forms.inc:256
+msgid "Why is this campaign important to you?"
+msgstr "Por que esta campanha é importante para você?"
+
+#: dosomething_shipment.forms.inc:110
+msgid "You are no longer logged in. Please log in."
+msgstr "Você não está mais conectado. Faça seu login."
+
+#: dosomething_reportback.forms.inc:354
+msgid "There was an error. Please try again."
+msgstr "Ocorreu um erro. Por favor, tente novamente."
+
+#: dosomething_reportback.forms.inc:359
+msgid "Please upload an image."
+msgstr "Carregue uma imagem."
+
+#: dosomething_reportback.module:461
+msgid "your friend"
+msgstr "seu amigo"
+
+#: dosomething_campaign.pages.inc:66
+msgid "Back to @title"
+msgstr "Voltar para @title"
+
+#: dosomething_campaign.theme.inc:143
+msgid "This is REAL, do something about this with me: "
+msgstr "Isso é REAL. Junte-se a mim para fazermos algo a respeito: "
+
+#: dosomething_campaign.theme.inc:199
+msgid "@progress @noun_verb! Thanks to everyone for rocking this campaign with @dosomething. Let's keep it up. "
+msgstr "@progress @noun_verb! Obrigado a todos por arrasarem nesta campanha com a @dosomething. Vamos continuar. "
+
+#: dosomething_campaign.theme.inc:333
+msgid "@goal? Let's make it happen"
+msgstr "@goal? Vamos fazer acontecer"
+
+#: dosomething_campaign.theme.inc:337
+msgid "Be a part of @dosomething reaching @goal- who's ready to rumble?! "
+msgstr "Faça parte da @goal a ser atingida da @dosomething. Quem está pronto para causar?! "
+
+#: dosomething_campaign.theme.inc:342
+msgid "Think you can make @dosomething reach @goal? Prove it: "
+msgstr "Você acha que pode ajudar a @dosomething a atingir a @goal? Prove: "
+
+#: dosomething_campaign.theme.inc:544
+msgid "Submit Your Pic"
+msgstr "Envie sua foto"
+
+#: dosomething_campaign.theme.inc:547
+msgid "Update Submission"
+msgstr "Atualize o envio"
+
+#: dosomething_campaign.theme.inc:607
+msgid "A DoSomething.org campaign."
+msgstr "Uma campanha DoSomething.org."
+
+#: dosomething_campaign.theme.inc:611
+msgid "Join over @count members taking action."
+msgstr "Junte-se a @count membros que estão em ação."
+
+#: paraneue_dosomething.info
+msgid "Any cause, anytime, anywhere."
+msgstr "Qualquer causa, a qualquer hora, em qualquer lugar."
+
+#: dosomething_campaign.theme.inc:622
+msgid "Join @signup_count people doing this."
+msgstr "Junte-se a @signup_count pessoas que estão fazendo isso."
+
+#: dosomething_campaign.module:46
+msgid "Campaign status"
+msgstr "Status da campanha"
+
+#: dosomething_campaign.module:126
+msgid "Edit campaign overrides"
+msgstr "Editar substituições de campanha"
+
+#: dosomething_campaign.module:137
+msgid "DS Scholarships"
+msgstr "Bolsas de estudos DS"
+
+#: dosomething_campaign.module:142
+msgid "DS Submit Campaign Idea"
+msgstr "Enviar ideia para campanha DS"
+
+#: dosomething_campaign.module:184
+msgid "No active scholarships right now, check back!"
+msgstr "Nenhuma bolsa de estudos ativa agora, volte depois!"
+
+#: dosomething_campaign.module:36
+msgid "DoSomething Campaign"
+msgstr "Campanha DoSomething"
+
+#: dosomething_zendesk.module:101
+msgid "Question about"
+msgstr "Pergunta sobre"
+
+#: dosomething_zendesk.module:213
+msgid "Please provide a valid email address."
+msgstr "Forneça um endereço de e-mail válido."
+
+#: dosomething_zendesk.module:230
+msgid "Thanks for submitting your question."
+msgstr "Obrigado por enviar sua pergunta."
+
+#: dosomething_zendesk.module:231
+msgid "We'll send a response to"
+msgstr "Enviaremos uma resposta para"
+
+#: dosomething_zendesk.module:232
+msgid "shortly."
+msgstr "em breve."
+
+#: dosomething_zendesk.module:236
+msgid "Sorry, there was an error with your request, please email !email and we'll get your question sorted out!"
+msgstr "Desculpe, ocorreu um erro com sua solicitação. Por favor, envie um e-mail para !email e nós iremos resolver sua questão!"
+
+#: dosomething_zendesk.module:237
+msgid "help@dosomething.org"
+msgstr "help@dosomething.org"
+
+#: dosomething_payment.admin.inc:36
+msgid "Having problems with donating? Please try again or email donate@dosomething.org."
+msgstr "Você está tendo problemas com a doação? Por favor, tente novamente ou mande um e-mail para donate@dosomething.org."
+
+#: dosomething_payment.module:100
+msgid "Name on Card"
+msgstr "Nome no cartão"
+
+#: dosomething_payment.module:131
+msgid "Card Number"
+msgstr "Número do cartão"
+
+#: dosomething_payment.module:142
+msgid "CVV"
+msgstr "CVV"
+
+#: dosomething_payment.module:153
+msgid "MM"
+msgstr "MM"
+
+#: year date format
+msgid "YYYY"
+msgstr "AAAA"
+
+#: dosomething_payment.module:175
+msgid "Amount"
+msgstr "Valor"
+
+#: dosomething_payment.module:176
+msgid "$"
+msgstr "$"
+
+#: dosomething_payment.module:186
+msgid "ZIP or Postal code"
+msgstr "CEP"
+
+#: dosomething_payment.module:196
+msgid "Message (optional)"
+msgstr "Mensagem (opcional)"
+
+#: dosomething_payment.module:308
+msgid "Stripe configuration error."
+msgstr "Riscar erro de configuração."
+
+#. "Cartaz" would probably fit.
+#: dosomething_shipment.module:251
+msgid "Banner"
+msgstr "Banner"
+
+#: dosomething_shipment.module:252
+msgid "Coupon"
+msgstr "Cupom"
+
+#: dosomething_shipment.module:253
+msgid "Shirt"
+msgstr "Camiseta"
+
+#: dosomething_shipment.module:254
+msgid "Tattoo"
+msgstr "Tatuagem"
+
+#: dosomething_shipment.module:255
+msgid "Thumb Socks"
+msgstr "Meias para polegar"
+
+#: dosomething_shipment.module:256
+msgid "Action Kit"
+msgstr "Kit de ação"
+
+#: dosomething_shipment.module:288
+msgid "Your Shirt Size"
+msgstr "Tamanho da sua camiseta"
+
+#: dosomething_shipment.module:305
+msgid "Your Friend's Shirt Size"
+msgstr "Tamanho da camiseta para seu amigo"
+
+#: dosomething_shipment.module:315
+msgid "Dope shirt"
+msgstr "Camiseta \"dope\""
+
+#: dosomething_shipment.module:323
+msgid "Social action shirt"
+msgstr "Camiseta de ação social"
+
+#: dosomething_taxonomy.module:91
+msgid "Facts About @name"
+msgstr "Fatos sobre @name"
+
+#: dosomething_search.module:274
+msgid "Please enter some keywords."
+msgstr "Digite algumas palavras-chave."
+
+#: dosomething_notfound.module:160
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+#: User profile update message.
+msgid "The changes have been saved."
+msgstr "As alterações foram salvas."
+
+#: appearance->settings->paraneue_dosomething
+msgid "What is DoSomething.org?"
+msgstr "O que é DoSomething.org?"
+
+#: paraneue_dosomething.info
+msgid "Young people + Social change"
+msgstr "Jovens + Mudança Social"
+
+#: Account registration successful message.
+msgid "Registration successful. You are now logged in."
+msgstr "Registro feito com successo."
+
+#: User profile page title.
+msgid "User account"
+msgstr "Conta de usuário"
+
+#: Legal copy.
+msgid "Privacy Policy"
+msgstr "Política de Privacidade"
+
+#: Preposition used with calendar deadline date.
+msgid "by"
+msgstr "por"
+
+#: templates/system/partials/navigation.tpl.php
+msgid "My Account"
+msgstr "Minha Conta"
+
+#: 
+msgid "Sign Up"
+msgstr "Inscreva-se"
+
+#: includes/auth/register.inc
+msgid "Create new account"
+msgstr "Criar nova conta"
+
+#: Login error message
+msgid "Email address or cell number field is required."
+msgstr "É necessário e-mail ou número de celular."
+
+#: Login error message
+msgid "Password field is required."
+msgstr "Senha necessária."
+
+#: 
+msgid "That doesn't match!"
+msgstr "Isso não coincide!"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Who We Are"
+msgstr "Quem somos nós?"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Our Team"
+msgstr "Nossa Equipe"
+
+#: appearance->settings->paraneue_dosomething
+msgid "International"
+msgstr "Internacional"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Sexy Financials"
+msgstr "Finanças Sexy"
+
+#: appearance->settings->paraneue_dosomething
+msgid "XYZ Factor"
+msgstr "Fator XYZ"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Blog"
+msgstr "Blog"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Our Friends"
+msgstr "Nossos Amigos"
+
+#: appearance->settings->paraneue_dosomething
+msgid "TMI Agency"
+msgstr "Agência TMI"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Partners"
+msgstr "Parceiros"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Old People"
+msgstr "Pessoas Velhas"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Crisis Hotlines"
+msgstr "Números de Emergência"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Get Involved"
+msgstr "Faça parte"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Scholarships"
+msgstr "Bolsas de estudo"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Jobs"
+msgstr "Empregos"
+
+#: appearance->settings->paraneue_dosomething
+msgid "Internships"
+msgstr "Estágios"
+
+#: appearance->settings->paraneue_dosomething
+msgid "dosomething on Facebook"
+msgstr "dosomething no facebook"
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Twitter"
+msgstr "@dosomething no Twitter"
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Tumblr"
+msgstr "@dosomething no Tumblr"
+
+#: appearance->settings->paraneue_dosomething
+msgid "@dosomething on Instagram"
+msgstr "@dosomething no Instagram"
+
+#: appearance->settings->paraneue_dosomething
+msgid "dosomething1 on YouTube"
+msgstr "dosomething1 no Youtube"
+
+#: includes/auth/login.inc
+msgid "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+msgstr "Se o seu email estiver registrado no nosso sistema, receberá um link para recuperar sua senha em alguns minutos. "
+
+#: templates/campaign/node--campaign.tpl.php:347
+msgid "Edit your photo"
+msgstr "editar foto"
+
+#: templates/campaign/node--campaign.tpl.php:351
+msgid "rotate photo"
+msgstr "girar foto"
+
+#: templates/campaign/node--campaign.tpl.php:354
+msgid "change photo"
+msgstr "atualizar sua foto"
+
+#: templates/campaign/node--campaign.tpl.php:369
+msgid "Crop"
+msgstr "cortar foto"
+
+#: js/reportback/Reportback.js:167
+msgid "View more"
+msgstr "Veja mais"
+
+#: database
+msgid "Upload your photos!"
+msgstr "Adicione suas fotos!"
+
+#: database
+msgid "Recent Campaigns We Crushed"
+msgstr "Campanhas Recentes Que Mandamos Super Bem"
+
+#: theme
+msgid "News"
+msgstr "Notícias"
+
+#: theme
+msgid "Help"
+msgstr "Ajuda"
+
+#: theme
+msgid "Frequently Asked Questions"
+msgstr "Perguntas Frequentes"
+
+#: dosomething_campaign.theme.inc:423
+msgid "Stuff You Need"
+msgstr "Coisas que você vai precisar"
+
+#: dosomething_campaign.theme.inc:431
+msgid "Time and Place"
+msgstr "Hora e Lugar"
+
+#: dosomething_campaign.theme.inc:439
+msgid "VIPs"
+msgstr "VIPs"
+
+#: dosomething_campaign.theme.inc:447
+msgid "Hype"
+msgstr "Última Sensação"
+
+#: includes/helpers.inc:355
+msgid "DoSomething? Just did."
+msgstr "Fazer uma diferença? Fácil, acabei de fazer."
+
+#: includes/helpers.inc:356
+msgid "Doing good never looked so good."
+msgstr "Fazer bem nunca foi tão divertido assim. "
+
+#: includes/helpers.inc:357
+msgid "Don’t let the smile fool you. I crushed it."
+msgstr "Não deixe meu sorriso te enganar. Eu mandei super bem. "
+
+#: includes/helpers.inc:358
+msgid "Making the world suck less, one photo at a time."
+msgstr "Melhore o mundo, de uma em uma foto. "
+
+#: includes/helpers.inc:359
+msgid "Pics or it didn’t happen? Oh, it happened."
+msgstr "Só acredita vendo? Pode acreditar."
+
+#: includes/helpers.inc:360
+msgid "I get action. Social action."
+msgstr "Causar? Amo causar impacto. "
+
+#: templates/system/patterns/photo.tpl.php:4 js/reportback/templates/reportback.tpl.html:5
+msgid "Edit Status"
+msgstr "Editar Status."
+
+#: includes/form.inc:183
+msgid "Add your photo here!"
+msgstr "Adicione sua foto aqui!"
+
+#: dosomething_campaign.module:16
+msgid "Snap a Pic"
+msgstr "Tirar uma foto"
+
+#: includes/auth/register.inc
+msgid "Get volunteer opportunities on your phone! Texting available in @country soon."
+msgstr "Receba oportunidades de voluntariado no seu celular! SMS disponível no @country em breve."
+
+#: includes/auth/register.inc
+msgid "Looks good!"
+msgstr "Tá ótimo!"
+
+#: includes/auth/register.inc
+msgid "That doesn't match."
+msgstr "Isso não coincide."
+
+#: js/images/ImageUpload.js
+msgid "edit photo"
+msgstr "editar foto"
+
+#: dosomething_search.module
+msgid "Search"
+msgstr "Pesquisar"
+
+#: js/validators/auth.js
+msgid "Enter your birthday DD/MM/YYYY!"
+msgstr "Digite seu aniversário DD/MM/AAAA!"
+
+#: js/validators/auth.js
+msgid "Enter your birthday MM/DD/YYYY!"
+msgstr "Digite seu aniversário MM/DD/AAAA!"
+
+#: templates/system/partials/info-bar.tpl.php
+msgid "Questions? Email:"
+msgstr "Perguntas? Email:"
+
+#: DoSomething/validation
+msgid "Did you mean"
+msgstr "Você quis dizer"
+
+#: DoSomething/validation
+msgid "Fix it!"
+msgstr "Conserte isto!"
+
