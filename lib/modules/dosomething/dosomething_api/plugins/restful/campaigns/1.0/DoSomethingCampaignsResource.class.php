@@ -12,84 +12,84 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
 
-    $public_fields['type'] = array(
+    $public_fields['type'] = [
       'property' => 'field_campaign_type',
-    );
+    ];
 
-    $public_fields['status'] = array(
+    $public_fields['status'] = [
       'property' => 'field_campaign_status',
-    );
+    ];
 
-    $public_fields['call_to_action'] = array(
+    $public_fields['call_to_action'] = [
       'property' => 'field_call_to_action',
-    );
+    ];
 
-    $public_fields['on_mobile_app'] = array(
+    $public_fields['on_mobile_app'] = [
       'property' => 'field_on_mobile_app',
-    );
+    ];
 
-    $public_fields['cover_image'] = array(
+    $public_fields['cover_image'] = [
       'property' => 'field_image_campaign_cover',
-      'resource' => array(
+      'resource' => [
         'image' => 'assets',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['primary_cause'] = array(
+    $public_fields['primary_cause'] = [
       'property' => 'field_primary_cause',
-      'resource' => array(
+      'resource' => [
         'cause' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['cause'] = array(
+    $public_fields['cause'] = [
       'property' => 'field_cause',
-      'resource' => array(
+      'resource' => [
         'cause' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['primary_action_type'] = array(
+    $public_fields['primary_action_type'] = [
       'property' => 'field_primary_action_type',
-      'resource' => array(
+      'resource' => [
         'action_type' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['action_type'] = array(
+    $public_fields['action_type'] = [
       'property' => 'field_action_type',
-      'resource' => array(
+      'resource' => [
         'action_type' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['cause'] = array(
+    $public_fields['cause'] = [
       'property' => 'field_cause',
-      'resource' => array(
+      'resource' => [
         'cause' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['issue'] = array(
+    $public_fields['issue'] = [
       'property' => 'field_issue',
-      'resource' => array(
+      'resource' => [
         'issue' => 'terms',
-      ),
-    );
-    $public_fields['tags'] = array(
+      ],
+    ];
+    $public_fields['tags'] = [
       'property' => 'field_tags',
-      'resource' => array(
+      'resource' => [
         'tags' => 'terms',
-      ),
-    );
+      ],
+    ];
 
-    $public_fields['call_to_action'] = array(
+    $public_fields['call_to_action'] = [
       'property' => 'field_call_to_action',
-    );
+    ];
 
-    $public_fields['faq'] = array(
+    $public_fields['faq'] = [
       'property' => 'field_faq',
-    );
+    ];
     return $public_fields;
   }
 }

@@ -24,7 +24,7 @@ function enable_modules_if_needed($modules) {
   foreach ($modules as $module) {
     // Check if modules are disabled.
     $result = db_select('system', 's')
-            ->fields('s', array('status'))
+            ->fields('s', ['status'])
             ->condition('name', $module, '=')
             ->condition('status', 0, '=')
             ->execute();

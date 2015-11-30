@@ -38,7 +38,6 @@ class KudosTransformer extends Transformer {
     ];
   }
 
-
   /**
    * Display the specified resource.
    *
@@ -62,7 +61,6 @@ class KudosTransformer extends Transformer {
       'data' => $this->transform(array_pop($kudos)),
     ];
   }
-
 
   /**
    * @param $parameters
@@ -95,7 +93,6 @@ class KudosTransformer extends Transformer {
     return $records;
   }
 
-
   /**
    * @param $id
    * @return array
@@ -126,7 +123,6 @@ class KudosTransformer extends Transformer {
       ],
     ];
   }
-
 
   /**
    * Transform data and build out response.

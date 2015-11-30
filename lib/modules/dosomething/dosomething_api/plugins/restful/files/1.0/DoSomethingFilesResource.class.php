@@ -12,17 +12,17 @@ class DoSomethingFilesResource extends RestfulEntityBase {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
 
-    $public_fields['created'] = array(
+    $public_fields['created'] = [
       'property' => 'timestamp',
-    );
-    $public_fields['file'] = array(
+    ];
+    $public_fields['file'] = [
       'property' => 'fid',
-      'process_callbacks' => array(
-        array($this, 'fileProcess'),
-      ),
+      'process_callbacks' => [
+        [$this, 'fileProcess'],
+      ],
       // // This will add 3 image variants in the output.
-      'image_styles' => array('100x100', '300x300'),
-    );
+      'image_styles' => ['100x100', '300x300'],
+    ];
     return $public_fields;
   }
   /**
@@ -36,13 +36,13 @@ class DoSomethingFilesResource extends RestfulEntityBase {
    */
   protected function imageProcess($value) {
     if (static::isArrayNumeric($value)) {
-      $output = array();
+      $output = [];
       foreach ($value as $item) {
         $output[] = $this->imageProcess($item);
       }
       return $output;
     }
-    return array(
+    return [
       'id' => $value['fid'],
       'self' => file_create_url($value['uri']),
       'filemime' => $value['filemime'],
@@ -50,13 +50,13 @@ class DoSomethingFilesResource extends RestfulEntityBase {
       'width' => $value['width'],
       'height' => $value['height'],
       'styles' => $value['image_styles'],
-    );
+    ];
   }
 
   protected function fileProcess($value) {
     // This feels wrong because you'd expect the file entity to be loaded already.
     $value = (array) file_load($value);
-    return array(
+    return [
       'id' => $value['fid'],
       'self' => file_create_url($value['uri']),
       'filemime' => $value['filemime'],
@@ -64,7 +64,7 @@ class DoSomethingFilesResource extends RestfulEntityBase {
       'width' => $value['width'],
       'height' => $value['height'],
       'styles' => $value['image_styles'],
-    );
+    ];
   }
 
 }

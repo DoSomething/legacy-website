@@ -24,7 +24,6 @@ class Reportback extends Entity {
   // @TODO: Properties to potentially deprecate
   // public $fids;
 
-
   /**
    * Overrides construct to set calculated properties.
    *
@@ -39,7 +38,7 @@ class Reportback extends Entity {
     // @TODO: Temporary hack to avoid code below executing on new class instance in specific scenarios.
     if (!isset($values['ignore'])) {
       // It allows the Reportback form and prior submitted data to load properly.
-      $this->fids = array();
+      $this->fids = [];
       // If this is a new entity, rbid may not be set.
       if (isset($this->rbid)) {
         $this->fids = $this->getFids();
@@ -67,7 +66,6 @@ class Reportback extends Entity {
     unset($values['ignore']);
   }
 
-
   /**
    * Override this in order to implement a custom default URI.
    */
@@ -76,7 +74,6 @@ class Reportback extends Entity {
       'path' => 'reportback/' . $this->identifier()
     ];
   }
-
 
   /**
    * Convenience method to retrieve a single or multiple reportbacks from supplied id(s).
@@ -103,7 +100,6 @@ class Reportback extends Entity {
 
     return $reportbacks;
   }
-
 
   /**
    * Convenience method to retrieve reportbacks based on supplied filters.
@@ -132,7 +128,6 @@ class Reportback extends Entity {
 
     return $reportbacks;
   }
-
 
   /**
    * Build out the instantiated Reportback class object with supplied data.
@@ -181,18 +176,16 @@ class Reportback extends Entity {
     ];
   }
 
-
   /**
    * Return all fids from dosomething_reportback_files table for this entity.
    */
   public function getFids() {
     return db_select($this->files_table, 'f')
-      ->fields('f', array('fid'))
+      ->fields('f', ['fid'])
       ->condition('rbid', $this->rbid)
       ->execute()
       ->fetchCol();
   }
-
 
   /**
    * Return all data from dosomething_reportback_log table for this entity.
@@ -210,7 +203,7 @@ class Reportback extends Entity {
    */
   public function getNodeSingleTextValue($field_name, $language) {
     $result = db_select('field_data_' . $field_name, 'f')
-      ->fields('f', array($field_name . '_value'))
+      ->fields('f', [$field_name . '_value'])
       ->condition('entity_id', $this->nid)
       ->condition('entity_type', 'node')
       ->condition('language', $language->language)
@@ -221,7 +214,6 @@ class Reportback extends Entity {
     }
     return NULL;
   }
-
 
   /**
    * Inserts given fid into dosomething_reportback_files table for this entity.
@@ -239,16 +231,15 @@ class Reportback extends Entity {
     if ($this->flagged) {
       $status = 'flagged';
     }
-    $reportback_file = entity_create('reportback_item', array(
+    $reportback_file = entity_create('reportback_item', [
       'rbid' => $this->rbid,
       'fid' => $values->fid,
       'caption' => $values->caption,
       'remote_addr' => dosomething_helpers_ip_address(),
       'status' => $status,
-    ));
+    ]);
     return $reportback_file->save();
   }
-
 
   /**
    * Logs current entity values with given $op string.
@@ -284,7 +275,7 @@ class Reportback extends Entity {
       $fids = $this->getFids();
       // Log the entity values into the log table.
       $id = db_insert($this->log_table)
-        ->fields(array(
+        ->fields([
           'rbid' => $this->rbid,
           'uid' => $uid,
           'op' => $op,
@@ -295,14 +286,13 @@ class Reportback extends Entity {
           'num_files' => count($fids),
           'remote_addr' => dosomething_helpers_ip_address(),
           'reason' => $reasons,
-        ))
+        ])
         ->execute();
     }
     catch (Exception $e) {
-      watchdog('dosomething_reportback', $e, array(), WATCHDOG_ERROR);
+      watchdog('dosomething_reportback', $e, [], WATCHDOG_ERROR);
     }
   }
-
 
   /**
    * Returns array of themed images for this Reportback.
@@ -310,7 +300,7 @@ class Reportback extends Entity {
    * @return array
    */
   public function getThemedImages($style) {
-    $images = array();
+    $images = [];
     if (!module_exists('dosomething_image')) return $images;
 
     foreach ($this->fids as $fid) {
@@ -318,7 +308,6 @@ class Reportback extends Entity {
     }
     return $images;
   }
-
 
   /**
    * Deletes the Reportback files.
@@ -330,7 +319,6 @@ class Reportback extends Entity {
       $rbf->delete();
     }
   }
-
 
   /**
    * Flags or promotes the reportback, and adds reasons.
@@ -352,7 +340,7 @@ class Reportback extends Entity {
         $flagged_reportbacks = TRUE;
 
       }
-      else if($item->status === 'promoted') {
+      elseif($item->status === 'promoted') {
         $promoted_reportbacks = TRUE;
       }
     }
@@ -363,7 +351,7 @@ class Reportback extends Entity {
       $status = 'flagged';
     }
     // Promoted must be after flagged as it has second priority
-    else if($promoted_reportbacks || $status === 'promoted') {
+    elseif($promoted_reportbacks || $status === 'promoted') {
       $status = 'promoted';
     }
 

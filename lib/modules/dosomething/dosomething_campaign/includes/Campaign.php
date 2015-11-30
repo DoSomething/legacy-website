@@ -59,7 +59,6 @@ class Campaign {
     return $campaigns;
   }
 
-
   /**
    * Convenience method to retrieve campaigns based on supplied filters.
    *
@@ -98,7 +97,6 @@ class Campaign {
 
     return $campaigns;
   }
-
 
   /**
    * Build out the instantiated Campaign class object with supplied data.
@@ -161,7 +159,6 @@ class Campaign {
     }
   }
 
-
   /**
    * Get both primary and secondary Action Types for campaign if available.
    *
@@ -169,7 +166,7 @@ class Campaign {
    */
   protected function getActionTypes() {
     // @TODO: Potentially (or very likely can) combine this with getCauses() to DRY up code.
-    $data = array();
+    $data = [];
     $data['primary'] = NULL;
     $data['secondary'] = NULL;
 
@@ -181,7 +178,7 @@ class Campaign {
     }
 
     if ($secondary_action_type_ids) {
-      $secondary_action_types = array();
+      $secondary_action_types = [];
 
       foreach((array) $secondary_action_type_ids as $tid) {
         $secondary_action_types[] = $this->getTaxonomyTerm($tid);
@@ -193,7 +190,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get both primary and secondary Causes for campaign if available.
    *
@@ -201,7 +197,7 @@ class Campaign {
    */
   protected function getCauses() {
     // @TODO: Potentially combine this with getActionTypes() to DRY up code.
-    $data = array();
+    $data = [];
     $data['primary'] = NULL;
     $data['secondary'] = NULL;
 
@@ -214,7 +210,7 @@ class Campaign {
 
     if ($secondary_cause_ids) {
       if (is_array($secondary_cause_ids)) {
-        $secondary_causes = array();
+        $secondary_causes = [];
 
         foreach($secondary_cause_ids as $tid) {
           $secondary_causes[] = $this->getTaxonomyTerm($tid);
@@ -229,7 +225,6 @@ class Campaign {
 
     return $data;
   }
-
 
   /**
    * Get the cover image data for campaign if available.
@@ -251,7 +246,7 @@ class Campaign {
       return NULL;
     }
 
-    $data = array();
+    $data = [];
 
     $data['id'] = $image->nid;
     $data['type'] = $image->type;
@@ -273,7 +268,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get alternative cover image for campaign if available.
    *
@@ -290,7 +284,6 @@ class Campaign {
     }
   }
 
-
   /**
    * Get Facts data for campaign if available; collects both fact problem
    * and fact solution as well as the sources for both.
@@ -298,12 +291,12 @@ class Campaign {
    * @return array|null
    */
   protected function getFactData() {
-    $data = array();
+    $data = [];
     $data['fact_problem'] = NULL;
     $data['fact_solution'] = NULL;
     $data['sources'] = NULL;
 
-    $fact_fields = array('field_fact_problem', 'field_fact_solution');
+    $fact_fields = ['field_fact_problem', 'field_fact_solution'];
     $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($this->node, $fact_fields);
 
     if (!empty($fact_vars)) {
@@ -329,7 +322,6 @@ class Campaign {
 
   }
 
-
   /**
    * Get the Issue for campaign if available.
    *
@@ -348,7 +340,6 @@ class Campaign {
     return NULL;
   }
 
-
   /**
    * Get MailChimp data.
    *
@@ -361,7 +352,6 @@ class Campaign {
     ];
   }
 
-
   /**
    * Get Mobile Commons data.
    *
@@ -373,7 +363,6 @@ class Campaign {
       'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
     ];
   }
-
 
    /**
    * Get the start and end dates for when campaign will be displayed on the mobile app if available.
@@ -394,7 +383,6 @@ class Campaign {
 
       return $timing;
   }
-
 
   /**
    * Get Reportback content info used in the campaign.
@@ -432,7 +420,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Collect data for third party services.
    *
@@ -445,7 +432,6 @@ class Campaign {
     ];
   }
 
-
   /**
    * Get the Scholarship amount for campaign if available.
    *
@@ -454,7 +440,6 @@ class Campaign {
   protected function getScholarship() {
     return dosomething_helpers_extract_field_data($this->node->field_scholarship_amount);
   }
-
 
   /**
    * Get the Solutions data for campaign if available; collects both the main solution copy
@@ -469,7 +454,6 @@ class Campaign {
     return $data;
   }
 
-
   /**
    * Get status whether this campaign is a Staff Pick or not.
    *
@@ -478,7 +462,6 @@ class Campaign {
   protected function getStaffPickStatus() {
     return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
   }
-
 
   /**
    * Get Status of campaign.
@@ -489,14 +472,13 @@ class Campaign {
     return dosomething_helpers_extract_field_data($this->node->field_campaign_status);
   }
 
-
   /**
    * Get Tags assigned to campaign if available.
    *
    * @return array|null
    */
   protected function getTags() {
-    $data = array();
+    $data = [];
 
     $tag_ids = dosomething_helpers_extract_field_data($this->node->field_tags);
 
@@ -511,7 +493,6 @@ class Campaign {
     return NULL;
   }
 
-
   /**
    * Get taxonomy term node data from provided id.
    *
@@ -519,7 +500,7 @@ class Campaign {
    * @return array
    */
   protected function getTaxonomyTerm($id) {
-    $data = array();
+    $data = [];
 
     $taxonomy = taxonomy_term_load($id);
 
@@ -528,7 +509,6 @@ class Campaign {
 
     return $data;
   }
-
 
   /**
    * Get the Tagline for campaign.
@@ -539,7 +519,6 @@ class Campaign {
     return dosomething_helpers_extract_field_data($this->node->field_call_to_action);
   }
 
-
   /**
    * Get the specified Time Commitment for campaign.
    *
@@ -549,7 +528,6 @@ class Campaign {
     // @TODO: I've renamed "active_hours" to "time_commitment" because it sounds more straightforward; but appreciate feedback.
     return (float) dosomething_helpers_extract_field_data($this->node->field_active_hours);
   }
-
 
   /**
    * Get the timing for high and low seasons for campaign if available.
@@ -572,7 +550,6 @@ class Campaign {
 
     return $timing;
   }
-
 
   /**
    * Get Type of campaign.

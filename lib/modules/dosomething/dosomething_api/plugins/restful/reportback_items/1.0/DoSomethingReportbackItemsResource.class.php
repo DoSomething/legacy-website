@@ -12,28 +12,27 @@ class DoSomethingReportbackItemsResource extends RestfulEntityBase {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
 
-    $public_fields['file'] = array(
+    $public_fields['file'] = [
       'property' => 'fid',
       // 'resource' => array(
       //   'file' => 'files',
       // ),
-     'resource' => array(
-        'file' => array(
+     'resource' => [
+        'file' => [
           'name' => 'files',
           'full_view' => FALSE,
-        ),
-      ),
-    );
-    $public_fields['caption'] = array(
+        ],
+      ],
+    ];
+    $public_fields['caption'] = [
       'property' => 'caption',
-    );
-    $public_fields['reportback'] = array(
+    ];
+    $public_fields['reportback'] = [
       'property' => 'rbid',
-      'resource' => array(
+      'resource' => [
         'reportback' => 'reportbacks',
-      ),
-    );
-
+      ],
+    ];
 
     return $public_fields;
   }

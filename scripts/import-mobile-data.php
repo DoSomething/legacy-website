@@ -24,17 +24,17 @@ $users_no_mobile = db_query("SELECT u.uid, mbw.field_user_mobile_value
                     WHERE m.field_mobile_value is NULL
                     AND mbw.field_user_mobile_value != '';");
 
-$edit = array();
+$edit = [];
 foreach ($users_no_mobile as $user_row) {
   // If there is a mobile value.
   if ($user_row->field_user_mobile_value) {
-    $edit['field_mobile'] = array(
-      LANGUAGE_NONE => array(
-        0 => array(
+    $edit['field_mobile'] = [
+      LANGUAGE_NONE => [
+        0 => [
           'value' => $user_row->field_user_mobile_value,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
     // Load the user before the save.
     $account = user_load($user_row->uid);
     // Save account with extra data.

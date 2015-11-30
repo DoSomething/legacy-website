@@ -48,7 +48,7 @@
 
       <?php // "Free T-shirts" Modals ?>
       <div data-modal id="modal-redeem-form" role="dialog">
-        <h2 class="heading -banner"><?php print ($form_header); ?></h2>
+        <h2 class="heading -banner"><?php print($form_header); ?></h2>
         <div class="modal__block">
           <?php print $form_copy; ?>
         </div>

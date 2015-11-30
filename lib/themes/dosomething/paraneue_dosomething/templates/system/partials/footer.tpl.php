@@ -14,17 +14,17 @@
       <div class="footer__column -branding">
         <h4><?php print $affiliate_logo['text'] ?></h4>
         <?php
-        print theme_image(array(
+        print theme_image([
           'path'  => $affiliate_logo['file'],
           'title' => $affiliate_logo['text'],
           'alt'   => $affiliate_logo['text'],
-        ));
+        ]);
         ?>
       </div>
     <?php endif; ?>
 
     <div class="footer__column -social">
-      <?php print theme('social-networks', array('social' => $social)); ?>
+      <?php print theme('social-networks', ['social' => $social]); ?>
     </div>
 
     <?php foreach($links as $column): ?>

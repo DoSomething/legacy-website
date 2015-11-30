@@ -35,11 +35,11 @@ $HAS_COLUMN_HEADERS = true; // If true, skip the first row.
 
 $OUTPUT_FILE = '../scripts/redirects.processed.csv';
 
-$urls = array();
+$urls = [];
 $count = 0;
 
 // This will hold processed contents, to be written to $OUTPUT_FILE.
-$processed = array();
+$processed = [];
 
 if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
@@ -53,9 +53,9 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     $count++;
 
     // Clean up $row, which has two useless columns at 1 and 2.
-    $row = array($row[0], $row[3], $row[4], $row[5]);
+    $row = [$row[0], $row[3], $row[4], $row[5]];
 
-    array_walk($row, function(&$elm) {
+    array_walk($row, function (&$elm) {
       $elm = trim($elm);
     });
 
@@ -75,8 +75,8 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     // echo sprintf("%d: Looking up beta alias '%s'", $count, $row[2]), PHP_EOL;
 
     // Need to use the alias in [4] to look up the canonical path in [5].
-    $beta_canonical = db_select('url_alias', NULL, array('target' => 'default'))
-      ->fields('url_alias', array('source'))
+    $beta_canonical = db_select('url_alias', NULL, ['target' => 'default'])
+      ->fields('url_alias', ['source'])
       ->condition('alias', $row[2], '=')
       ->execute()
       ->fetchAssoc();
@@ -96,7 +96,7 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
 
   $count = 0;
   $rows_added = 0; // Tracks how many new rows were created in this step.
-  $final = array(); // Final output array.
+  $final = []; // Final output array.
 
   foreach ($processed as $row) {
     $count++;
@@ -114,10 +114,10 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
 
     // All the known aliases for this legacy canonical path.
-    $aliases = array($row[0]);
+    $aliases = [$row[0]];
 
-    $legacy_aliases = db_select('url_alias', NULL, array('target' => 'legacy'))
-                    ->fields('url_alias', array('alias'))
+    $legacy_aliases = db_select('url_alias', NULL, ['target' => 'legacy'])
+                    ->fields('url_alias', ['alias'])
                     ->condition('source', $row[1], '=')
                     ->execute();
 
@@ -134,8 +134,8 @@ if (FALSE !== ($fh = fopen($DATA_FILE, 'r'))) {
     }
 
     // Find redirects.
-    $legacy_redirects = db_select('redirect', NULL, array('target' => 'legacy'))
-                        ->fields('redirect', array('source'))
+    $legacy_redirects = db_select('redirect', NULL, ['target' => 'legacy'])
+                        ->fields('redirect', ['source'])
                         ->condition('redirect', $row[1], '=')
                         ->execute();
 
@@ -178,7 +178,6 @@ flock($fh, LOCK_UN);
 fclose($fh);
 
 echo sprintf("Finished: %d rows written to '%s'", count($final), $OUTPUT_FILE), PHP_EOL;
-
 
 /**
  * Helper class for this script.

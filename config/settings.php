@@ -11,7 +11,7 @@ define('DS_LIBRARIES_PATH', DS_PROFILE_PATH . '/libraries');
 /**
  * Database settings:
  */
-$databases['default']['default'] = array(
+$databases['default']['default'] = [
   'database' => getenv('DS_DB_MASTER_NAME') ?: 'dosomething',
   'username' => getenv('DS_DB_MASTER_USER') ?: 'root',
   'password' => getenv('DS_DB_MASTER_PASS') ?: '',
@@ -19,7 +19,7 @@ $databases['default']['default'] = array(
   'port' => getenv('DS_DB_MASTER_PORT') ?: '3306',
   'driver' => getenv('DS_DB_MASTER_DRIVER') ?: 'mysql',
   'prefix' => getenv('DS_DB_MASTER_PREFIX') ?: '',
-);
+];
 
 /**
  * Hosts & urls
@@ -48,7 +48,7 @@ $conf['https'] = TRUE;
  */
 // Add Varnish as the page cache handler.
 $conf['varnish_version'] = '3';
-$conf['cache_backends'] = array('profiles/dosomething/modules/contrib/varnish/varnish.cache.inc');
+$conf['cache_backends'] = ['profiles/dosomething/modules/contrib/varnish/varnish.cache.inc'];
 $conf['cache_class_cache_page'] = 'VarnishCache';
 
 // This is managed from salt://varnishd/secret
@@ -106,8 +106,8 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 $environment = getenv('DS_ENVIRONMENT') ?: 'local';
 
 // Include local settings file if it exists.
-if (is_readable('sites/default/settings.'. $environment .'.php')) {
-  include_once('sites/default/settings.'. $environment .'.php');
+if (is_readable('sites/default/settings.' . $environment . '.php')) {
+  include_once('sites/default/settings.' . $environment . '.php');
 }
 
 $conf['optimizely_id'] = '747623297';

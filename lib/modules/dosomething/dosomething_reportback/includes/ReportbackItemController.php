@@ -6,59 +6,58 @@ class ReportbackItemController extends EntityAPIController {
    *
    * Adds Reportback properties into Reportback entity's render.
    */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = []) {
     global $user;
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
 
-
-    $build['image'] = array(
+    $build['image'] = [
       '#markup' => $entity->getImage(),
-    );
+    ];
 
-    $build['caption'] = array(
+    $build['caption'] = [
       '#prefix' => '<p><strong>',
       '#markup' => filter_xss($entity->caption),
       '#suffix' => '</strong></p>',
-    );
+    ];
 
     $file = file_load($entity->fid);
-    $build['file_url'] = array(
+    $build['file_url'] = [
       '#prefix' => '<p>',
       '#markup' => l(t('(View original upload)'), file_create_url($file->uri)),
       '#suffix' => '</p>',
-    );
+    ];
 
     if ($view_mode == 'full') {
       $reportback = reportback_load($entity->rbid);
       $author = user_load($reportback->uid);
       $files_count = count($reportback->fids);
-      $total_files = t('@count files uploaded', array(
+      $total_files = t('@count files uploaded', [
         '@count' => $files_count,
-      ));
+      ]);
 
-      $build['username'] = array(
+      $build['username'] = [
         '#prefix' => '<p>',
         '#markup' => l($author->mail, 'user/' . $author->uid),
         '#suffix' => '</p>',
-      );
-      $build['quantity'] = array(
+      ];
+      $build['quantity'] = [
         '#prefix' => '<p>',
         '#markup' => '<strong>' . $reportback->quantity . '</strong> ' . $reportback->quantity_label,
         '#suffix' => '</p>',
-      );
+      ];
       if ($files_count > 1) {
-        $build['num_files'] = array(
+        $build['num_files'] = [
           '#prefix' => '<p>',
-          '#markup' => l($total_files, 'reportback/'. $entity->rbid),
+          '#markup' => l($total_files, 'reportback/' . $entity->rbid),
           '#suffix' => '</p>',
-        );
+        ];
       }
 
-      $build['why'] = array(
+      $build['why'] = [
         '#prefix' => '<p>',
         '#markup' => filter_xss($reportback->why_participated),
         '#suffix' => '</p>',
-      );
+      ];
     }
 
     if (!empty($entity->reviewed)) {
@@ -67,23 +66,23 @@ class ReportbackItemController extends EntityAPIController {
       if (!empty($reportback->flagged_reason)) {
         $reason = ' ' . t('as') . ' ' . $reportback->flagged_reason;
       }
-      $build['reviewed'] = array(
+      $build['reviewed'] = [
         '#prefix' => '<p>',
         '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short') . $reason,
         '#suffix' => '</p>',
-      );
+      ];
       if ($reviewer->uid > 0) {
-        $build['reviewer'] = array(
+        $build['reviewer'] = [
           '#prefix' => '<p>',
           '#markup' => $reviewer->mail,
           '#suffix' => '</p>',
-        );
+        ];
       }
-      $build['review_source'] = array(
+      $build['review_source'] = [
         '#prefix' => '<p>',
         '#markup' => t('Source') . ': ' . $entity->review_source,
         '#suffix' => '</p>',
-      );
+      ];
     }
     return $build;
   }

@@ -10,7 +10,7 @@
  */
 
 // stage uid, beta uid, email for reference.
-$authors = array(
+$authors = [
   1  => 1,        /*'admin@example.com',             */
   2  => 615996,   /*'ddeluca@dosomething.org',       */
   3  => 632265,   /*'rmohammed@dosomething.org',     */
@@ -27,7 +27,7 @@ $authors = array(
   18 => 1258186,  /*'dfurnes@dosomething.org',       */
   19 => 547446,   /*'bclark@dosomething.org',        */
   22 => 329195,   /*'mfantini@dosomething.org',      */
-);
+];
 
 // Need to update the revisions first, otherwise it zeros out uids
 $revision_results = db_query('SELECT nid, vid, uid from node_revision');
@@ -37,9 +37,9 @@ foreach($revision_results as $result) {
   if ($new_uid)  {
     echo 'Updating node revision: ' . $result->nid . ' : ' . $result->vid . ' from ' . $old_uid . ' to ' . $new_uid . "\n";
     db_update('node_revision')
-      ->fields(array(
+      ->fields([
         'uid' => $new_uid,
-      ))
+      ])
       ->condition('uid', $old_uid)
       ->condition('nid', $result->nid)
       ->execute();
@@ -62,6 +62,5 @@ foreach($results as $result) {
     node_save($node);
   }
 }
-
 
 echo 'Finished';

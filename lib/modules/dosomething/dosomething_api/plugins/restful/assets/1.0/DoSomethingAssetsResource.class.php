@@ -11,23 +11,23 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
    */
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
-    $public_fields['landscape'] = array(
+    $public_fields['landscape'] = [
       'property' => 'field_image_landscape',
-      'process_callbacks' => array(
-        array($this, 'imageProcess'),
-      ),
+      'process_callbacks' => [
+        [$this, 'imageProcess'],
+      ],
       // This will add 3 image variants in the output.
       // No idea what we need here
-      'image_styles' => array('100x100', '550x300', '720x310'),
-    );
-    $public_fields['square'] = array(
+      'image_styles' => ['100x100', '550x300', '720x310'],
+    ];
+    $public_fields['square'] = [
       'property' => 'field_image_square',
-      'process_callbacks' => array(
-        array($this, 'imageProcess'),
-      ),
+      'process_callbacks' => [
+        [$this, 'imageProcess'],
+      ],
       // This will add 3 image variants in the output.
-      'image_styles' => array('100x100', '300x300', '768x768'),
-    );
+      'image_styles' => ['100x100', '300x300', '768x768'],
+    ];
     return $public_fields;
   }
 
@@ -42,13 +42,13 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
    */
   protected function imageProcess($value) {
     if (static::isArrayNumeric($value)) {
-      $output = array();
+      $output = [];
       foreach ($value as $item) {
         $output[] = $this->imageProcess($item);
       }
       return $output;
     }
-    return array(
+    return [
       'id' => $value['fid'],
       // @todo This should direct to the new files resource.
       'self' => file_create_url($value['uri']),
@@ -57,6 +57,6 @@ class DoSomethingAssetsResource extends RestfulEntityBaseNode {
       // 'width' => $value['width'],
       // 'height' => $value['height'],
       'styles' => $value['image_styles'],
-    );
+    ];
   }
 }

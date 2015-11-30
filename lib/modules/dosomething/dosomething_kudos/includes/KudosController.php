@@ -28,7 +28,6 @@ class KudosController extends EntityAPIController {
     return FALSE;
   }
 
-
   /**
    * Overrides delete() method in EntityAPIController.
    *

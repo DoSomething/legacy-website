@@ -27,7 +27,6 @@ class ApiCache {
     return TRUE;
   }
 
-
   /**
    * Get data from cache based on id from endpoint and URL parameters.
    *
@@ -55,7 +54,6 @@ class ApiCache {
     return $cache;
   }
 
-
   /**
    * Set data in cache for 24 hours with id based on endpoint and URL parameters.
    *
@@ -76,7 +74,6 @@ class ApiCache {
     return TRUE;
   }
 
-
   /**
    * Generate an id from resource endpoint type and URL parameters.
    *
@@ -89,7 +86,6 @@ class ApiCache {
 
     return $endpoint . '_api_request' . $this->stringify($parameters);
   }
-
 
   /**
    * Create a concatenated string from URL parameters.
@@ -109,4 +105,3 @@ class ApiCache {
     return $string;
   }
 }
-

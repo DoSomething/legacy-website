@@ -12,33 +12,33 @@ class DoSomethingSignupsResource extends RestfulEntityBase {
   public function publicFieldsInfo() {
     $public_fields = parent::publicFieldsInfo();
 
-    $public_fields['created'] = array(
+    $public_fields['created'] = [
       'property' => 'timestamp',
-    );
+    ];
 
-    $public_fields['campaign'] = array(
+    $public_fields['campaign'] = [
       'property' => 'nid',
-      'resource' => array(
-        'campaign' => array(
+      'resource' => [
+        'campaign' => [
           'name' => 'campaigns',
           'full_view' => FALSE,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
-    $public_fields['user'] = array(
+    $public_fields['user'] = [
       'property' => 'uid',
-      'resource' => array(
-        'user' => array(
+      'resource' => [
+        'user' => [
           'name' => 'users',
           'full_view' => TRUE,
-        ),
-      ),
-    );
+        ],
+      ],
+    ];
 
-    $public_fields['source'] = array(
+    $public_fields['source'] = [
       'property' => 'source',
-    );
+    ];
 
     return $public_fields;
   }
