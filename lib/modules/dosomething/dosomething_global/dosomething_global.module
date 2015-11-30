@@ -512,6 +512,10 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
     }
   }
 
+  if (!isset($account->language)) {
+    $account->language = dosomething_global_convert_country_to_language(dosomething_settings_get_geo_country_code());
+  }
+
   if (is_object($node)) {
     // If there is a published translation for the node in the user's language, use it.
     if ($node->translations->data{$account->language}['status']) {
