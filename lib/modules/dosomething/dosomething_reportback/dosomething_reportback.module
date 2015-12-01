@@ -857,6 +857,10 @@ function dosomething_reportback_mbp_request($entity) {
       'impact_noun' => $entity->noun,
       'image_markup' => $image_markup,
     );
+    $node = node_load($entity->nid);
+    if ($node) {
+      $params['campaign_language'] = $node->language;
+    }
     if (module_exists('dosomething_mbp')) {
       dosomething_mbp_request('campaign_reportback', $params);
     }
