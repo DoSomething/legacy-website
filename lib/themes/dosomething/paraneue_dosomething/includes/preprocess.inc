@@ -415,8 +415,13 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     // Add $campaign_scholarship variable.
     paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
 
+    // Construct the proper end date text
+    $end_date = new DateTime($vars['field_high_season'][0]['value2']);
+    $vars['campaign_end_date'] = $end_date->format('F jS');
+
     // Set campaign headings.
     $vars['campaign_headings'] = theme('campaign_headings', $vars);
+
     // If creator property has been set:
     if ($creator = $campaign->creator) {
       // Pass $campaign->creator array to the campaign_creator theme function.
