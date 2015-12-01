@@ -175,8 +175,17 @@ function dosomething_settings_get_geo_region() {
  * @return string
  */
 function dosomething_settings_get_browser_language() {
-  $name = 'HTTP_ACCEPT_LANGUAGE';
-  return dosomething_settings_get_header($name);
+  // For production env.
+  $name = 'Accept-Language';
+  $header = dosomething_settings_get_header($name);
+
+  if (!isset($header)) {
+    // For local env.
+    $name = 'HTTP_ACCEPT_LANGUAGE';
+    $header = dosomething_settings_get_header($name);
+  }
+
+  return $header;
 }
 
 /**
