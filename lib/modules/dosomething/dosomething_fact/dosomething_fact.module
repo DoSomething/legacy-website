@@ -86,7 +86,7 @@ function dosomething_fact_get_mutiple_fact_field_vars($node, $field_names) {
 function dosomething_fact_get_facts_data($node, $field_names) {
   $facts = [];
   $sources = [];
-  $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
+  $language = dosomething_global_get_user_language();
 
   foreach($field_names as $field_name) {
     $entity = NULL;

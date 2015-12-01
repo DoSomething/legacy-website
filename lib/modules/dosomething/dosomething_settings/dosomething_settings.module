@@ -120,10 +120,7 @@ function dosomething_settings_get_sitewide_copy() {
  */
 function dosomething_settings_get_geo_country_code() {
   $name = 'HTTP_X_FASTLY_COUNTRY_CODE';
-  if (isset($_SERVER[$name])) {
-    return $_SERVER[$name];
-  }
-  return NULL;
+  return dosomething_settings_get_header($name);
 }
 
 /**
@@ -133,10 +130,7 @@ function dosomething_settings_get_geo_country_code() {
  */
 function dosomething_settings_get_geo_city() {
   $name = 'HTTP_X_FASTLY_CITY';
-  if (isset($_SERVER[$name])) {
-    return $_SERVER[$name];
-  }
-  return NULL;
+  return dosomething_settings_get_header($name);
 }
 
 /**
@@ -146,10 +140,7 @@ function dosomething_settings_get_geo_city() {
  */
 function dosomething_settings_get_geo_country_name() {
   $name = 'HTTP_X_FASTLY_COUNTRY_NAME';
-  if (isset($_SERVER[$name])) {
-    return $_SERVER[$name];
-  }
-  return NULL;
+  return dosomething_settings_get_header($name);
 }
 
 /**
@@ -160,13 +151,10 @@ function dosomething_settings_get_geo_country_name() {
 function dosomething_settings_get_geo_latlong() {
   $lat_name = 'HTTP_X_FASTLY_LATITUDE';
   $long_name = 'HTTP_X_FASTLY_LONGITUDE';
-  if (isset($lat_name) && isset($long_name)) {
-    return array(
-      'lat' => $_SERVER[$lat_name],
-      'long' => $_SERVER[$long_name],
-    );
-  }
-  return NULL;
+  return array(
+    'lat' => dosomething_settings_get_header($lat_name),
+    'long' => dosomething_settings_get_header($long_name),
+  );
 }
 
 /**
@@ -176,6 +164,53 @@ function dosomething_settings_get_geo_latlong() {
  */
 function dosomething_settings_get_geo_region() {
   $name = 'HTTP_X_FASTLY_REGION';
+  return dosomething_settings_get_header($name);
+}
+
+/**
+ * Returns raw HTTP Accept Lang header.
+ * Note: You will probably want to use the format browser language
+ * function below in order to get something useful out.
+ *
+ * @return string
+ */
+function dosomething_settings_get_browser_language() {
+  // For production env.
+  $name = 'Accept-Language';
+  $header = dosomething_settings_get_header($name);
+
+  if (!isset($header)) {
+    // For local env.
+    $name = 'HTTP_ACCEPT_LANGUAGE';
+    $header = dosomething_settings_get_header($name);
+  }
+
+  return $header;
+}
+
+/**
+ * Formats the output of dosomething_settings_get_browser_language()
+ *
+ * @return string
+ */
+function dosomething_settings_format_browser_language() {
+  $raw = dosomething_settings_get_browser_language();
+  if ($raw == NULL) {
+    return DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+  }
+  $split = explode('-', $raw);
+  $language = $split[0];
+  return $language;
+}
+
+/**
+ * Grabs the specified header and checks if it exists first.
+ * This prevents the debug log from being spammed with errors
+ * if the header doesn't exist.
+ *
+ * @return string or NULL
+ */
+function dosomething_settings_get_header($name) {
   if (isset($_SERVER[$name])) {
     return $_SERVER[$name];
   }

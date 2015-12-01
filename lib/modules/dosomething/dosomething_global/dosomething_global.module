@@ -14,6 +14,7 @@ define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
  * Implements hook_init().
  */
 function dosomething_global_init() {
+
   // We don't need to redirect cli request, such as drush.
   if (drupal_is_cli()) {
     return;
@@ -131,7 +132,7 @@ function dosomething_global_node_access($node, $op, $account) {
 
   // If on a translation page, make sure it's published before allowing access.
   if (in_array($current_prefix, dosomething_global_get_countries())) {
-    $current_lang = dosomething_global_convert_country_to_language($current_prefix);
+    $current_lang = dosomething_global_get_user_language($account);
     // Note: this cannot be strict === because it will fail, even if the value is zero.
     if ($node->translations->data[$current_lang]['status'] == 0) {
        return NODE_ACCESS_DENY;
@@ -177,7 +178,7 @@ function dosomething_global_get_url_variables() {
  */
 function dosomething_global_get_user_variables() {
   $header_country_code = dosomething_settings_get_geo_country_code();
-  $user_language = dosomething_global_convert_country_to_language($header_country_code);
+  $user_language = dosomething_global_get_user_language();
   $user_path_prefix = dosomething_global_get_prefix_for_language($user_language);
   $is_user_page = arg(0) == 'user';
   $is_login = $is_user_page && (arg(1) == "login");
@@ -370,6 +371,41 @@ function _dosomething_global_get_regional_roles() {
   return $roles;
 }
 
+function dosomething_global_get_user_language($user = NULL) {
+  if ($user == NULL) {
+    global $user;
+  }
+
+  $browser_lang = dosomething_settings_format_browser_language();
+  // If the browser language does not directly correspond to one of ours
+  if (!dosomething_global_get_prefix_for_language($browser_lang)) {
+    // Check for partial match
+    $languages = language_list();
+    foreach($languages as $language => $object) {
+      if (strpos($language, $browser_lang) !== FALSE) {
+        $browser_lang = $language;
+        break;
+      }
+    }
+
+    // If we didn't find a match, default to global EN
+    if ($browser_lang == dosomething_settings_format_browser_language()) {
+      $browser_lang = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+    }
+  }
+
+  if (!$user->uid) {
+    return $browser_lang;
+  }
+
+  $current_user_lang = $user->language;
+  if (!isset($current_user_lang)) {
+    return $browser_lang;
+  }
+
+  return $current_user_lang;
+}
+
 /**
  * Returns the user's language based on the role.
  *
@@ -379,7 +415,7 @@ function _dosomething_global_get_regional_roles() {
  * @return string
  *   The language key.
  */
-function dosomething_global_get_user_language($user = NULL) {
+function dosomething_global_get_user_language_for_role($user = NULL) {
   if (!isset($user)) {
     global $user;
   }
@@ -423,6 +459,7 @@ function dosomething_global_get_countries() {
 }
 
 /**
+ * DEPRECATED.
  * Gets the country from a given language.
  *
  * @param string $language
@@ -437,6 +474,7 @@ function dosomething_global_convert_language_to_country($language) {
 }
 
 /**
+ * DEPRECATED.
  * Converts the given country into its assigned language.
  *
  * @param string $country
