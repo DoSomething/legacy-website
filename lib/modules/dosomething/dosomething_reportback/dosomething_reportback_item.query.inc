@@ -68,12 +68,11 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
   }
 
   // Public API properties to expose:
-  $rbf_fields = array('fid', 'caption', 'rbid');
+  $rbf_fields = array('fid', 'caption', 'rbid', 'status');
   $rb_fields = array('created', 'updated', 'quantity', 'uid');
 
   // Staff-only properties to add:
   if (user_access('view any reportback')) {
-    $rbf_fields[] = 'status';
     $rb_fields[] = 'why_participated';
     $rb_fields[] = 'flagged';
   }
