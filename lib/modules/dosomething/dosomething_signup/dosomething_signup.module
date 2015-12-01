@@ -585,6 +585,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'campaign_title' => $title,
     'campaign_link' => dosomething_global_url('node/' . $node->nid, $url_options),
     'user_language' => $language,
+    'campaign_language' => $node->language,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
