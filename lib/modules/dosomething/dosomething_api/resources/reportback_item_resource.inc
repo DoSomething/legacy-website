@@ -49,7 +49,7 @@ function _reportback_item_resource_definition() {
             'optional' => TRUE,
             'type' => 'string',
             'source' => array('param' => 'status'),
-            'default value' => 'approved',
+            'default value' => 'promoted,approved',
           ),
           array(
             'name' => 'count',
