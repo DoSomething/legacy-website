@@ -377,8 +377,21 @@ function dosomething_global_get_user_language($user = NULL) {
   }
 
   $browser_lang = dosomething_settings_format_browser_language();
+  // If the browser language does not directly correspond to one of ours
   if (!dosomething_global_get_prefix_for_language($browser_lang)) {
-    $browser_lang = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+    // Check for partial match
+    $languages = language_list();
+    foreach($languages as $language => $object) {
+      if (strpos($language, $browser_lang) !== FALSE) {
+        $browser_lang = $language;
+        break;
+      }
+    }
+
+    // If we didn't find a match, default to global EN
+    if ($browser_lang == dosomething_settings_format_browser_language()) {
+      $browser_lang = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+    }
   }
 
   if (!$user->uid) {
