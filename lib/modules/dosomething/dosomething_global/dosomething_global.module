@@ -178,7 +178,7 @@ function dosomething_global_get_url_variables() {
  */
 function dosomething_global_get_user_variables() {
   $header_country_code = dosomething_settings_get_geo_country_code();
-  $user_language = dosomething_settings_format_browser_language();
+  $user_language = dosomething_global_get_user_language();
   $user_path_prefix = dosomething_global_get_prefix_for_language($user_language);
   $is_user_page = arg(0) == 'user';
   $is_login = $is_user_page && (arg(1) == "login");
