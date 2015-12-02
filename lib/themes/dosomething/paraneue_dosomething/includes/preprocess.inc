@@ -681,7 +681,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
       $item = array(
-        'title' => $value['link'],
+        'title' => htmlspecialchars_decode($value['link'], ENT_QUOTES),
         'image' => $image,
         'description' => $value['call_to_action'],
         'url' => dosomething_global_node_url($value['nid'], $language, 'prove'),
@@ -710,7 +710,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
         'url' => $url,
-        'title' => $reportback->node_title,
+        'title' => htmlspecialchars_decode($reportback->node_title, ENT_QUOTES),
         'image' => $img,
         'description' => $impact,
       );
