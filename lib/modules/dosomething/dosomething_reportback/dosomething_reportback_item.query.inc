@@ -142,7 +142,7 @@ function dosomething_reportback_get_reportback_items_query($params) {
  * Filter out requested Reportback Item status based on user permissions.
  *
  * @param mixed $data
- * @return array
+ * @return mixed
  */
 function dosomething_reportback_filter_permitted_statuses($data) {
   if (user_access('view any reportback')) {
@@ -163,6 +163,9 @@ function dosomething_reportback_filter_permitted_statuses($data) {
     }
   }
 
-  // @TODO: if only one item in array, then just pluck it.
+  if (count($data) === 1) {
+    return array_shift($data);
+  }
+
   return $data;
 }
