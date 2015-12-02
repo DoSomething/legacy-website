@@ -117,11 +117,14 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 *    An executed database query object to iterate through.
 */
 function dosomething_reportback_get_reportback_items_query($params) {
+  if ($params['status']) {
+    $statuses = dosomething_reportback_filter_permitted_statuses($params['status']);
 
-  $params['status'] = dosomething_reportback_filter_permitted_statuses($params['status']);
+    if (!$statuses) {
+      return FALSE;
+    }
 
-  if (!$params['status']) {
-    return FALSE;
+    $params['status'] = $statuses;
   }
 
   $query = dosomething_reportback_build_reportback_items_query($params);
