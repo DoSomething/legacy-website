@@ -9,14 +9,13 @@
  * Implements hook_cron().
  */
 function dosomething_campaign_problem_shares_cron() {
-  $results = db_query("SELECT n.nid, fn.title as problem
+  $results = db_query("SELECT n.nid, fn.title as problem, fp.language as lang
                        FROM node n
                        INNER JOIN field_data_field_fact_problem fp on n.nid = fp.entity_id
                        INNER JOIN node fn on fp.field_fact_problem_target_id = fn.nid
                        INNER JOIN field_data_field_campaign_status s on n.nid = s.entity_id
                        WHERE n.type ='campaign'
-                       AND s.field_campaign_status_value = 'active'
-                       GROUP BY n.nid;");
+                       AND s.field_campaign_status_value = 'active';");
 
   // Get the relevant paths
   $path = dosomething_helpers_application_path('/lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares');
@@ -32,7 +31,9 @@ function dosomething_campaign_problem_shares_cron() {
     }
     $nid = escapeshellarg($result->nid);
     $problem = escapeshellarg($problem);
+    $country_code = dosomething_global_convert_language_to_country($result->lang);
+    $country = ($country_code) ? $country_code : 'global';
     // Call shell script to create the image.
-    shell_exec("/bin/bash $path/create-images.sh $font_path $image_location $nid $problem");
+    shell_exec("/bin/bash $path/create-images.sh $font_path $image_location $nid $problem $country");
   }
 }
