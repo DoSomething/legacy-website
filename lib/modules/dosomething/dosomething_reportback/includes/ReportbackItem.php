@@ -63,12 +63,6 @@ class ReportbackItem extends Entity {
    * @throws Exception
    */
   public static function find(array $filters = []) {
-//    $filters['status'] = $this->filterStatus($filters['status']);
-
-    print_r($filters);
-    die();
-
-
     $reportbackItems = [];
 
     $results = dosomething_reportback_get_reportback_items_query($filters);
@@ -98,7 +92,7 @@ class ReportbackItem extends Entity {
     $northstar_user = (object) [];
 
     $this->id = $data->fid;
-    $this->status = $this->filterStatus($data->status);
+    $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
     $this->created_at = $data->timestamp;
     $this->media = [
@@ -139,17 +133,6 @@ class ReportbackItem extends Entity {
       'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
       'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
-  }
-
-  private function filterStatus($data) {
-    print_r($data);
-    die();
-
-    return $data;
-  }
-
-  private function query($filters) {
-    return dosomething_reportback_get_reportback_items_query($filters);
   }
 
   /**

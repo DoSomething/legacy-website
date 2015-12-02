@@ -117,6 +117,13 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 *    An executed database query object to iterate through.
 */
 function dosomething_reportback_get_reportback_items_query($params) {
+
+  $params['status'] = dosomething_reportback_filter_permitted_statuses($params['status']);
+
+  if (!$params['status']) {
+    return FALSE;
+  }
+
   $query = dosomething_reportback_build_reportback_items_query($params);
   $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
   $count = dosomething_helpers_isset($params['count'], NULL, 25);
@@ -130,3 +137,32 @@ function dosomething_reportback_get_reportback_items_query($params) {
   return $result;
 }
 
+
+/**
+ * Filter out requested Reportback Item status based on user permissions.
+ *
+ * @param mixed $data
+ * @return array
+ */
+function dosomething_reportback_filter_permitted_statuses($data) {
+  if (user_access('view any reportback')) {
+    return $data;
+  }
+
+  if (!is_array($data)) {
+    $data = [$data];
+  }
+
+  $restricted = ['pending', 'flagged', 'excluded'];
+
+  $prohibited_values = array_intersect($restricted, $data);
+
+  if ($prohibited_values) {
+    foreach ($prohibited_values as $value) {
+      unset($data[array_search($value, $data)]);
+    }
+  }
+
+  // @TODO: if only one item in array, then just pluck it.
+  return $data;
+}
