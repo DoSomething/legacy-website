@@ -353,7 +353,7 @@ function dosomething_campaign_field_default_field_bases() {
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'list_boolean',
   );
 
@@ -387,7 +387,7 @@ function dosomething_campaign_field_default_field_bases() {
       ),
       'uri_scheme' => 'public',
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'file',
   );
 
@@ -574,7 +574,7 @@ function dosomething_campaign_field_default_field_bases() {
       'todate' => 'required',
       'tz_handling' => 'none',
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'datetime',
   );
 
@@ -980,7 +980,7 @@ function dosomething_campaign_field_default_field_bases() {
       ),
       'uri_scheme' => 'public',
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'file',
   );
 
@@ -1391,7 +1391,7 @@ function dosomething_campaign_field_default_field_bases() {
     'settings' => array(
       'entity_translation_sync' => FALSE,
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'number_integer',
   );
 
