@@ -233,6 +233,12 @@ function build_helper {
   sudo rm -f $WEB_PATH/sites/$SITE/settings.php && chmod u+w $WEB_PATH/sites/$SITE
   ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/$SITE/settings.php
 
+  # See https://www.drupal.org/PSA-2015-001
+  echo 'Removing install.php...'
+  if [[ -f $WEB_PATH/install.php ]]; then
+    rm $WEB_PATH/install.php
+  fi
+
   if [[ $SITE != "default" ]]
   then
     echo 'Replacing database name in settings.php file...'
