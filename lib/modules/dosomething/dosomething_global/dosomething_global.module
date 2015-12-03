@@ -430,7 +430,10 @@ function dosomething_global_get_countries() {
  */
 function dosomething_global_convert_language_to_country($language) {
   $lang_map = variable_get('dosomething_global_language_map', '');
-  return $lang_map[$language]['country'];
+  if (isset($lang_map[$language]['country'])) {
+    return $lang_map[$language]['country'];
+  }
+  return NULL;
 }
 
 /**
