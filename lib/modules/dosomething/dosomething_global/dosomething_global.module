@@ -19,7 +19,9 @@ function dosomething_global_init() {
     return;
   }
 
-  if ($_SESSION['dosomething_global_redirected']) {
+  drupal_session_start();
+
+  if (isset($_SESSION['dosomething_global_redirected'])) {
     $_SESSION['dosomething_global_redirected'] = FALSE;
     return;
   }
