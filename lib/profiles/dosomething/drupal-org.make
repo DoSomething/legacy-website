@@ -16,7 +16,7 @@ projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
 
 ; Apachesolr
-projects[apachesolr][version] = "1.6"
+projects[apachesolr][version] = "1.8"
 projects[apachesolr][subdir] = "contrib"
 
 ; Apachesolr Views
