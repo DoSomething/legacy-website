@@ -510,6 +510,13 @@ function dosomething_reportback_view_entity($entity) {
   else {
     // Additional reportback file specific data.
     $file = reportback_file_load($fid);
+
+    // Deny access to files uploaded to other reportbacks.
+    if ($file->rbid !== $entity->rbid) {
+      drupal_access_denied();
+      return FALSE;
+    }
+
     $rb['image'] = $file->getImage('480x480');
     $rb['caption'] = $file->caption;
     $node = dosomething_campaign_load(node_load($entity->nid));
