@@ -215,6 +215,24 @@ function make_taxonomy_translatable {
 }
 
 #=== FUNCTION ==================================================================
+# NAME: make_more_campaign_fields_translatable
+#===============================================================================
+function make_more_campaign_fields_translatable {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Fix fields.
+  drush ds-global-field-fix field_scholarship_amount
+  drush ds-global-field-fix field_official_rules
+  drush ds-global-field-fix field_downloads
+  drush ds-global-field-fix field_high_season
+  drush ds-global-field-fix field_display_end_date
+}
+
+#=== FUNCTION ==================================================================
 # NAME: enable_campaign_field_collections
 # DESCRIPTION: Runs fixes for campaign field collections.
 #===============================================================================
@@ -257,6 +275,8 @@ elif [[ $1 == "make-static-content-translatable" ]]; then
   make_static_content_translatable
 elif [[ $1 == "make-taxonomy-translatable" ]]; then
   make_taxonomy_translatable
+elif [[ $1 == "make-more-campaign-fields-translatable" ]]; then
+  make_more_campaign_fields_translatable
 elif [[ -z $1 ]]; then
   echo "Error: no arguments." >&2
 fi
