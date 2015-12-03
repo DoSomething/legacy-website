@@ -21,7 +21,7 @@ function dosomething_global_init() {
 
   drupal_session_start();
 
-  if (isset($_SESSION['dosomething_global_redirected'])) {
+  if (!empty($_SESSION['dosomething_global_redirected'])) {
     $_SESSION['dosomething_global_redirected'] = FALSE;
     return;
   }
