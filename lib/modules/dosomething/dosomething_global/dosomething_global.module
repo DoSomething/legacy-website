@@ -135,7 +135,7 @@ function dosomething_global_node_access($node, $op, $account) {
   if (in_array($current_prefix, dosomething_global_get_countries())) {
     $current_lang = dosomething_global_convert_country_to_language($current_prefix);
     // Note: this cannot be strict === because it will fail, even if the value is zero.
-    if ($node->translations->data[$current_lang]['status'] == 0) {
+    if (isset($node->translations->data[$current_lang]) && $node->translations->data[$current_lang]['status'] == 0) {
        return NODE_ACCESS_DENY;
     }
   }
