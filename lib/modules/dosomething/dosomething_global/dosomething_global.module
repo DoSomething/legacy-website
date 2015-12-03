@@ -411,6 +411,7 @@ function dosomething_global_get_countries() {
   $lang_map = variable_get('dosomething_global_language_map', '');
   $countries = array();
   foreach ($lang_map as $lang) {
+    // Prevents global english and other langs w/o countries from slipping through
     if (isset($lang['country'])) {
       array_push($countries, $lang['country']);
     }
