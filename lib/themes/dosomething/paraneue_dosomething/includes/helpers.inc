@@ -135,9 +135,8 @@ function paraneue_dosomething_get_search_vars($results) {
       case 'campaign':
         $result_node = node_load($value['node']->entity_id);
         // Get the image field from the campaign node.
-        $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
-        if (!empty($image)) {
+        if (isset($result_node->field_image_campaign_cover)) {
           $clc = dosomething_helpers_get_current_language_content_code();
           if ($image[$clc]) {
             $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
