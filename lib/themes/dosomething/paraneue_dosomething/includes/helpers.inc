@@ -138,7 +138,8 @@ function paraneue_dosomething_get_search_vars($results) {
         $image = $result_node->field_image_campaign_cover;
         // Make it available as a variable, if it exists. Otherwise, leave it empty.
         if (!empty($image)) {
-          $clc = dosomething_helpers_get_current_language_content_code();
+          global $user;
+          $clc = dosomething_global_get_language($user, $result_node, FALSE);
           if ($image[$clc]) {
             $value['display_image'] = dosomething_image_get_themed_image($image[$clc][0]['target_id'], 'square', '300x300');
           }
