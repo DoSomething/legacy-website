@@ -108,7 +108,7 @@
         <ul class="gallery -triad">
           <?php foreach ($reportback_gallery as $key => $reportback_gallery_item) :?>
 
-            <li class="<?php print $reportback_gallery_item['order_class']; ?>">
+            <li <?php if (isset($reportback_gallery_item['order_class'])): ?> class="<?php print $reportback_gallery_item['order_class']; ?>" <?php endif; ?>>
               <div class="figure">
                 <?php if (isset($reportback_gallery_item['image'])): ?>
                   <div class="figure__media">
