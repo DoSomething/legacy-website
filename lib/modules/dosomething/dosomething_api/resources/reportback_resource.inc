@@ -49,7 +49,7 @@ function _reportback_resource_definition() {
             'optional' => TRUE,
             'type' => 'string',
             'source' => array('param' => 'status'),
-            'default value' => 'approved',
+            'default value' => 'promoted,approved',
           ),
           array(
             'name' => 'count',
@@ -63,9 +63,9 @@ function _reportback_resource_definition() {
             'name' => 'random',
             'description' => 'Boolean to indicate whether to retrieve reportbacks in random order.',
             'optional' => TRUE,
-            'type' => 'int',
+            'type' => 'boolean',
             'source' => array('param' => 'random'),
-            'default value' => 0,
+            'default value' => FALSE,
           ),
           array(
             'name' => 'page',
@@ -77,10 +77,18 @@ function _reportback_resource_definition() {
           ),
           array(
             'name' => 'load_user',
-            'description' => 'Flag to indicate whether to make call to northstar to retrieve full user data.',
+            'description' => 'Boolean to indicate whether to make call to northstar to retrieve full user data.',
             'optional' => TRUE,
             'type' => 'boolean',
             'source' => array('param' => 'load_user'),
+            'default value' => FALSE,
+          ),
+          array(
+            'name' => 'flagged',
+            'description' => 'Boolean to indicate whether to also retrieve flagged reportbacks.',
+            'optional' => TRUE,
+            'type' => 'boolean',
+            'source' => array('param' => 'flagged'),
             'default value' => FALSE,
           ),
         ),
@@ -116,7 +124,7 @@ function _reportback_resource_access($op) {
 }
 
 
-function _reportback_resource_index($campaigns, $status, $count, $random, $page, $load_user) {
+function _reportback_resource_index($campaigns, $status, $count, $random, $page, $load_user, $flagged) {
   $parameters =  array(
     'campaigns' => $campaigns,
     'status' => $status,
@@ -124,6 +132,7 @@ function _reportback_resource_index($campaigns, $status, $count, $random, $page,
     'random' => $random,
     'page' => $page,
     'load_user' => $load_user,
+    'flagged' => $flagged,
   );
 
   $reportbacks = new ReportbackTransformer;
