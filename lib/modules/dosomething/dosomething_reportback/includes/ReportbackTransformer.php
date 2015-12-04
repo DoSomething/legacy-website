@@ -27,7 +27,6 @@ class ReportbackTransformer extends Transformer {
     return $total;
   }
 
-
   /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
@@ -51,7 +50,6 @@ class ReportbackTransformer extends Transformer {
       'data' => $this->transformCollection($reportbacks),
     ];
   }
-
 
   /**
    * Display the specified resource.
@@ -77,7 +75,6 @@ class ReportbackTransformer extends Transformer {
     ];
   }
 
-
   /**
    * Transform data and build out response.
    *
@@ -95,7 +92,6 @@ class ReportbackTransformer extends Transformer {
 
     return $data;
   }
-
 
   /**
    * Set the filters based on request URL parameters.
