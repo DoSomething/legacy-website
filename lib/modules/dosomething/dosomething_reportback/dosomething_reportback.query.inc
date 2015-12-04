@@ -112,8 +112,8 @@ function dosomething_reportback_get_reportbacks_query($params) {
   $params = dosomething_reportback_filter_flagged_reportbacks($params);
 
   $query = dosomething_reportback_build_reportbacks_query($params);
-  $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
-  $count = dosomething_helpers_isset($params['count'], NULL, 25);
+  $offset = dosomething_helpers_isset($params, 'offset', 0);
+  $count = dosomething_helpers_isset($params, 'count', 25);
 
   if ($count && $count !== 'all') {
     $query->range($offset, $count);
