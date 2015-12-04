@@ -55,6 +55,15 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
     }
   }
 
+  if (!isset($params['flagged'])) {
+    $query->condition('rb.flagged', 0);
+  }
+  else {
+    if (!$params['flagged']) {
+      $query->condition('rb.flagged', 0);
+    }
+  }
+
   // Public API properties to expose:
   $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid');
 
@@ -71,6 +80,7 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
 
   $query->groupBy('rb.rbid');
 
+  // @TODO: After campaign gallery changes, update this condition to: isset($params['random']) && $params['random']
   if (isset($params['random'])) {
     $query->orderRandom();
   }
@@ -94,10 +104,13 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  *  - offset (int)
  *  - random (bool)
  *  - load_user (bool)
+ *  - flagged (bool)
  * @return object
  *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportbacks_query($params) {
+  $params = dosomething_reportback_filter_flagged_reportbacks($params);
+
   $query = dosomething_reportback_build_reportbacks_query($params);
   $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
   $count = dosomething_helpers_isset($params['count'], NULL, 25);
@@ -109,5 +122,25 @@ function dosomething_reportback_get_reportbacks_query($params) {
   $result = $query->execute()->fetchAll();
 
   return $result;
+}
+
+
+/**
+ * Filter out requested flagged Reportbacks based on user permissions.
+ *
+ * @param  array  $params
+ * @return mixed
+ */
+function dosomething_reportback_filter_flagged_reportbacks($params) {
+  if (user_access('view any reportback')) {
+    return $params;
+  }
+
+  // Unset False boolean values that affect the query builder.
+  if ($params['flagged']) {
+    unset($params['flagged']);
+  }
+
+  return $params;
 }
 
