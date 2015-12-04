@@ -27,22 +27,13 @@ class ReportbackTransformer extends Transformer {
     return $total;
   }
 
+
   /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
-    $filters = [
-      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'status' => dosomething_helpers_format_data($parameters['status']),
-      'count' => $parameters['count'] ?: 25,
-    ];
-
-    // @TODO: Logic update!
-    // Not ideal that this is NULL instead of FALSE but due to how logic happens in original query function. It should be updated!
-    // Logic currently checks for isset() instead of just boolean, so won't change until endpoints switched.
-    $filters['random'] = $parameters['random'] === 'true' ? TRUE : NULL;
-    $filters['load_user'] = $parameters['load_user'] === 'true' ? TRUE : NULL;
+    $filters = $this->setFilters($parameters);
 
     try {
       $reportbacks = Reportback::find($filters);
@@ -60,6 +51,7 @@ class ReportbackTransformer extends Transformer {
       'data' => $this->transformCollection($reportbacks),
     ];
   }
+
 
   /**
    * Display the specified resource.
@@ -85,6 +77,7 @@ class ReportbackTransformer extends Transformer {
     ];
   }
 
+
   /**
    * Transform data and build out response.
    *
@@ -101,6 +94,31 @@ class ReportbackTransformer extends Transformer {
     $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
+  }
+
+
+  /**
+   * Set the filters based on request URL parameters.
+   *
+   * @param  array  $parameters
+   * @return array
+   */
+  private function setFilters($parameters) {
+    $filters = [
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'status' => dosomething_helpers_format_data($parameters['status']),
+      'count' => $parameters['count'] ?: 25,
+      'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
+      'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
+      'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),
+    ];
+
+    // Unset False boolean values that affect the query builder.
+    if (!$filters['random']) {
+      unset($filters['random']);
+    }
+
+    return $filters;
   }
 
 }
