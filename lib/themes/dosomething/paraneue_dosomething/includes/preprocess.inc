@@ -231,8 +231,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $links = array_filter($links); // Remove empty items
 
     foreach($links as &$link) {
-      list($text, $url) = explode('|', $link);
-      $link = l(trim($text), trim($url));
+      $exploded_string = explode('|', $link);
+      if (count($exploded_string) > 1) {
+        list($text, $url) = $exploded_string;
+        $link = l(trim($text), trim($url));  
+      }
     }
 
     $footer_links[$column]['links'] = $links;
@@ -416,8 +419,10 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     paraneue_dosomething_preprocess_node_campaign_scholarship($vars);
 
     // Construct the proper end date text
-    $end_date = new DateTime($vars['field_high_season'][0]['value2']);
-    $vars['campaign_end_date'] = $end_date->format('F jS');
+    if (!empty($vars['field_high_season'])) {
+      $end_date = new DateTime($vars['field_high_season'][0]['value2']);
+      $vars['campaign_end_date'] = $end_date->format('F jS');
+    }
 
     // Set campaign headings.
     $vars['campaign_headings'] = theme('campaign_headings', $vars);

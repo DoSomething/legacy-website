@@ -61,6 +61,7 @@ function dosomething_metatag_preprocess_page(&$vars) {
  * Determines and sets metatag img_src metatag for a given $node and $view_mode.
  */
 function dosomething_metatag_get_metatag_image($node = NULL) {
+  $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
   // Initialize as site logo as default.
   $image =  theme_get_setting('logo');
   // If no node is present, return default.
@@ -77,7 +78,7 @@ function dosomething_metatag_get_metatag_image($node = NULL) {
     // If this node matches the type and a field value exists:
     if ($type == $node->type && !empty($node->{$field})) {
       // Get the image node nid.
-      $image_nid = $node->{$field}[LANGUAGE_NONE][0]['target_id'];
+      $image_nid = dosomething_helpers_extract_field_data($node->field_image_campaign_cover, $language);
       // Get the image URL.
       if (module_exists('dosomething_image')) {
         return dosomething_image_get_themed_image_url($image_nid, 'landscape', '740x480');
