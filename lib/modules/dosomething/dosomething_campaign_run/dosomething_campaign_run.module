@@ -101,6 +101,8 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
     return;
   }
 
+  $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
+
   // Display the winners section.
   $vars['display_winners'] = TRUE;
 
@@ -130,10 +132,16 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       else {
         $winners[$i]['fname'] = dosomething_user_get_field('field_first_name', user_load($winners[$i]['uid']), 'ucwords');
       }
-      $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
-      $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
+
+      if (isset($winner[$entity_id]->field_gallery_image[LANGUAGE_NONE])) {
+        $image_nid = $winner[$entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+        $winners[$i]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
+      }
+
       foreach($text_fields as $text_field) {
-        $winners[$i][$text_field] = ucfirst($winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value']);
+        if (isset($winner[$entity_id]->{$text_field}[LANGUAGE_NONE])) {
+          $winners[$i][$text_field] = ucfirst($winner[$entity_id]->{$text_field}[LANGUAGE_NONE][0]['value']);
+        }
       }
     }
     $vars['winners'] = $winners;
@@ -150,50 +158,56 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
  */
 function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
   $closed_node = node_load($nid);
-  $klout_count =  count($closed_node->field_gallery_collection[LANGUAGE_NONE]);
   $klout_gallery = array();
-  // Get the type of klout
-  for ($i = 0; $i < $klout_count; $i++) {
-    $klout_entity_id = $closed_node->field_gallery_collection[LANGUAGE_NONE][$i]['value'];
-    $klout =  entity_load('field_collection_item', array($klout_entity_id));
-    // Get the type of klout.
-    $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
-    $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
-    $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
-    $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];
-    $single_gallery_count = count($single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE]);
-    // Check for a Gallery Style field value:
-    if (!empty($single_gallery[$gallery_entity_id]->field_gallery_style)) {
-      // Store the Gallery Style key.
-      $style = $single_gallery[$gallery_entity_id]->field_gallery_style[LANGUAGE_NONE][0]['value'];
-    }
-    else {
-      $style = "-triad";
+
+  if (isset($closed_node->field_gallery_collection[LANGUAGE_NONE])) {
+
+    $klout_count =  count($closed_node->field_gallery_collection[LANGUAGE_NONE]);
+
+    // Get the type of klout
+    for ($i = 0; $i < $klout_count; $i++) {
+      $klout_entity_id = $closed_node->field_gallery_collection[LANGUAGE_NONE][$i]['value'];
+      $klout =  entity_load('field_collection_item', array($klout_entity_id));
+      // Get the type of klout.
+      $klout_gallery[$i]['type'] = $klout[$klout_entity_id]->field_gallery_type[LANGUAGE_NONE][0]['value'];
+      $gallery_entity_id = $klout[$klout_entity_id]->field_gallery[LANGUAGE_NONE][0]['value'];
+      $single_gallery = entity_load('field_collection_item', array($gallery_entity_id));
+      $klout_gallery[$i]['title'] = $single_gallery[$gallery_entity_id]->field_gallery_title[LANGUAGE_NONE][0]['value'];
+      $single_gallery_count = count($single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE]);
+      // Check for a Gallery Style field value:
+      if (!empty($single_gallery[$gallery_entity_id]->field_gallery_style)) {
+        // Store the Gallery Style key.
+        $style = $single_gallery[$gallery_entity_id]->field_gallery_style[LANGUAGE_NONE][0]['value'];
+      }
+      else {
+        $style = "-triad";
+      }
+
+      $klout_gallery[$i]['style'] = paraneue_dosomething_get_gallery_style($style);
+      for ($a = 0; $a < $single_gallery_count; $a++) {
+        $gallery_item_entity_id = $single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE][$a]['value'];
+        $gallery_items = entity_load('field_collection_item', array($gallery_item_entity_id));
+        $image_nid = $gallery_items[$gallery_item_entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
+
+        if ($klout_gallery[$i]['type'] == 'action') {
+          $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
+        }
+        else if ($klout_gallery[$i]['type'] == 'press'){
+          // Smaller image for these.
+          $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'wmax-300-hmax-75');
+        }
+        else if ($klout_gallery[$i]['type'] == 'mention') {
+          $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '300x300');
+        }
+        // @TODO: link this link?
+        if (!empty($gallery_items[$gallery_item_entity_id]->field_image_title)) {
+          $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
+          $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
+        }
+        $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
+      }
     }
 
-    $klout_gallery[$i]['style'] = paraneue_dosomething_get_gallery_style($style);
-    for ($a = 0; $a < $single_gallery_count; $a++) {
-      $gallery_item_entity_id = $single_gallery[$gallery_entity_id]->field_gallery_item[LANGUAGE_NONE][$a]['value'];
-      $gallery_items = entity_load('field_collection_item', array($gallery_item_entity_id));
-      $image_nid = $gallery_items[$gallery_item_entity_id]->field_gallery_image[LANGUAGE_NONE][0]['target_id'];
-
-      if ($klout_gallery[$i]['type'] == 'action') {
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'square', '400x400');
-      }
-      else if ($klout_gallery[$i]['type'] == 'press'){
-        // Smaller image for these.
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', 'wmax-300-hmax-75');
-      }
-      else if ($klout_gallery[$i]['type'] == 'mention') {
-        $klout_gallery[$i]['items'][$a]['image'] = dosomething_image_get_themed_image($image_nid, 'thumb', '300x300');
-      }
-      // @TODO: link this link?
-      if (!empty($gallery_items[$gallery_item_entity_id]->field_image_title)) {
-        $klout_gallery[$i]['items'][$a]['title'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['title'];
-        $klout_gallery[$i]['items'][$a]['url'] = $gallery_items[$gallery_item_entity_id]->field_image_title[LANGUAGE_NONE][0]['url'];
-      }
-      $klout_gallery[$i]['items'][$a]['desc'] = $gallery_items[$gallery_item_entity_id]->field_image_description[LANGUAGE_NONE][0]['value'];
-    }
   }
 
   $vars['klout_gallery'] = $klout_gallery;
