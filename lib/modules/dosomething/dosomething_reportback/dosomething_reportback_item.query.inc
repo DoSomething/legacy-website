@@ -117,7 +117,7 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 *    An executed database query object to iterate through.
 */
 function dosomething_reportback_get_reportback_items_query($params) {
-  if ($params['status']) {
+  if (isset($params['status'])) {
     $statuses = dosomething_reportback_filter_permitted_statuses($params['status']);
 
     if (!$statuses) {
@@ -128,8 +128,8 @@ function dosomething_reportback_get_reportback_items_query($params) {
   }
 
   $query = dosomething_reportback_build_reportback_items_query($params);
-  $offset = dosomething_helpers_isset($params['offset'], NULL, 0);
-  $count = dosomething_helpers_isset($params['count'], NULL, 25);
+  $offset = dosomething_helpers_isset($params, 'offset', 0);
+  $count = dosomething_helpers_isset($params, 'count', 25);
 
   if ($count && $count !== 'all') {
     $query->range($offset, $count);
