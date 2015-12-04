@@ -185,7 +185,7 @@ function dosomething_fact_get_formatted_sources($sources) {
     return NULL;
   }
 
-  if (!is_array($sources[0])) {
+  if (array_key_exists("raw", $sources)) {
     $sources = [$sources];
   }
 
