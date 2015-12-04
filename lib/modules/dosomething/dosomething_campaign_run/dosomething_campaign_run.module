@@ -101,8 +101,6 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
     return;
   }
 
-  $language = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
-
   // Display the winners section.
   $vars['display_winners'] = TRUE;
 
@@ -162,7 +160,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
 
   if (isset($closed_node->field_gallery_collection[LANGUAGE_NONE])) {
 
-    $klout_count =  count($closed_node->field_gallery_collection[LANGUAGE_NONE]);
+    $klout_count = count($closed_node->field_gallery_collection[LANGUAGE_NONE]);
 
     // Get the type of klout
     for ($i = 0; $i < $klout_count; $i++) {
