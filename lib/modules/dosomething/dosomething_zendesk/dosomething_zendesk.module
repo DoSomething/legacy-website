@@ -233,6 +233,7 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
     $msg_type = 'status';
   }
   else {
+    stathat_send_ez_count('drupal - Zendesk - ticket did not go through - count', 1);
     $msg = t('Sorry, there was an error with your request, please email !email and we\'ll get your question sorted out!', [
       '!email' => l(t('help@dosomething.org'), 'mailto:help@dosomething.org')
     ]);
