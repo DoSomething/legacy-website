@@ -137,38 +137,13 @@
   <?php if (!empty($galleries)): ?>
     <section class="container -padded">
       <?php foreach ($galleries as $gallery): ?>
-        <div class="wrapper">
-          <?php if (isset($gallery['title'])): ?>
-            <div class="container__block">
-              <h2 class="inline-sponsor-color"><?php print $gallery['title']; ?></h2>
-            </div>
-          <?php endif; ?>
-
-          <?php if (!empty($gallery['items'])): ?>
-            <ul class="gallery -triad">
-              <?php foreach ($gallery['items'] as $gallery_item): ?>
-                <li class="<?php print $gallery_item['order_class']; ?>">
-                  <div class="figure">
-                    <?php if (isset($gallery_item['image'])): ?>
-                      <div class="figure__media">
-                        <?php print $gallery_item['image']; ?>
-                      </div>
-                    <?php endif; ?>
-
-                    <div class="figure__body">
-                    <?php if (isset($gallery_item['image_title'])): ?>
-                      <h3><?php print $gallery_item['image_title']; ?></h3>
-                    <?php endif; ?>
-                    <?php if (isset($gallery_item['image_description'])): ?>
-                      <?php print $gallery_item['image_description']; ?>
-                    <?php endif; ?>
-                    </div>
-                  </div>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          <?php endif; ?>
-        </div>
+        <section class="container -padded">
+          <div class="wrapper">
+            <?php if (isset($gallery['markup'])): ?>
+              <?php print $gallery['markup'] ?>
+            <?php endif; ?>
+          </div>
+        </section>
       <?php endforeach; ?>
     </section>
   <?php endif; ?>
