@@ -30,6 +30,7 @@ function dosomething_campaign_problem_shares_cron() {
       $problem = str_replace('%', '%%', $problem);
     }
     $nid = escapeshellarg($result->nid);
+    setlocale(LC_CTYPE, "en_US.UTF-8"); // Ensures that non-ASCII Characters aren't stripped.
     $problem = escapeshellarg($problem);
     $country_code = dosomething_global_convert_language_to_country($result->lang);
     $country = ($country_code) ? $country_code : 'global';
