@@ -293,14 +293,27 @@ function dosomething_reportback_validate_quantity($element, &$form_state) {
  * Validation callback for dosomething_reportback_form().
  */
 function dosomething_reportback_form_validate($form, &$form_state) {
+  if (empty($form_state['values']['nid'])) {
+    drupal_acess_denied();
+    return FALSE;
+  }
+  $campaign_id = $form_state['values']['nid'];
+
   // If user session no longer exists:
   if (!user_is_logged_in()) {
     // Tell them that.
     drupal_set_message(t("You are no longer logged in. Please log in."), 'error');
     // Redirect to the original node.
     // Without this, the user is redirected to the confirmation page.
-    drupal_goto('node/' . $form_state['values']['nid']);
+    drupal_goto('node/' . $campaign_id);
   }
+
+  // If user isn't signed up for the campaign.
+  if (!dosomething_signup_exists($campaign_id)) {
+    drupal_set_message(t("You must be signed up for this campaign first."), 'error');
+    drupal_goto('node/' . $campaign_id);
+  }
+
   // Validate uploaded file.
   dosomething_reportback_form_validate_file($form, $form_state);
 }
