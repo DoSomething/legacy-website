@@ -624,16 +624,16 @@ function dosomething_campaign_get_scholarship($nid) {
  * @return string
  *  Formatted time (e.g. "4 days left")
  */
-function dosomething_campaign_get_hot_time_left($node) {
-  $today = dosomething_campaign_set_est_timezone(new DateTime());
-  $end_date = dosomething_campaign_set_est_timezone(new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']), TRUE, TRUE);
-  $end_date_no_formatting = new DateTime($node->field_high_season[LANGUAGE_NONE][0]['value2']);
+function dosomething_campaign_get_hot_time_left(&$vars) {
+  $today = $vars['hm_today'];
+  $end_date = $vars['hm_end_date'];
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
   $hours_left = $difference->h + ($days_left * 24);
 
   if ($days_left >= 8) {
-    $readable_end_date = $end_date_no_formatting->format('F') . ' ' . $end_date_no_formatting->format('j') . $end_date_no_formatting->format('S');
+    $readable_end_date = $end_date->format('F jS');
+    $vars['hm_readable_end_date'] = $readable_end_date;
     $time_left = t('Ends ' . $readable_end_date);
   }
   elseif ($hours_left > 48) {
