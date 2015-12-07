@@ -50,7 +50,7 @@ class Kudos extends Entity {
 
     foreach($results as $item) {
       $kudos = new static;
-      $kudos->build($item);
+      $kudos->build($item, TRUE);
 
       $kudosItems[] = $kudos;
     }
@@ -77,7 +77,7 @@ class Kudos extends Entity {
 
     foreach($results as $item) {
       $kudos = new static;
-      $kudos->build($item);
+      $kudos->build($item, TRUE);
 
       $kudosItems[] = $kudos;
     }
@@ -90,23 +90,29 @@ class Kudos extends Entity {
    *
    * @param $data
    */
-  private function build($data) {
+  private function build($data, $full = false) {
+    $northstar_user = (object) [];
 
     $this->id = $data->kid;
 
     $this->term = $this->getTaxonomyTerm($data->tid);
 
-    $northstar_user = dosomething_northstar_get_northstar_user($data->uid);
-    $northstar_user = json_decode($northstar_user->data, true);
-    $northstar_user = (object) $northstar_user['data'][0];
+    if ($full) {
+      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
+      $northstar_response = json_decode($northstar_response);
+
+      if ($northstar_response && !isset($northstar_response->error)) {
+        $northstar_user = array_shift($northstar_response->data);
+      }
+    }
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => $northstar_user->_id,
-      'first_name' => $northstar_user->first_name,
-      'last_name' => $northstar_user->last_name,
-      'photo' => $northstar_user->photo,
-      'country' => $northstar_user->country,
+      'id' => dosomething_helpers_isset($northstar_user, '_id'),
+      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
+      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
+      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
+      'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
 
     $this->reportback_item = [
