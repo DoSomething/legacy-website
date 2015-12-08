@@ -76,7 +76,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   /**
    * Set the filters based on request URL parameters.
    *
-   * @param array $parameters
+   * @param  array $parameters
    * @return array
    */
   private function setFilters($parameters) {
