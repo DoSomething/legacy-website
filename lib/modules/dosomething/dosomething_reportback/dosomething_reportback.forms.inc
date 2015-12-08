@@ -309,7 +309,7 @@ function dosomething_reportback_form_validate($form, &$form_state) {
   }
 
   // If user isn't signed up for the campaign.
-  if (!dosomething_signup_exists($campaign_id)) {
+  if (!dosomething_user_is_staff() && !dosomething_signup_exists($campaign_id)) {
     drupal_set_message(t("You must be signed up for this campaign first."), 'error');
     drupal_goto('node/' . $campaign_id);
   }
