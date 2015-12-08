@@ -63,9 +63,9 @@ function _reportback_item_resource_definition() {
             'name' => 'random',
             'description' => 'Boolean to indicate whether to retrieve reportback items in random order.',
             'optional' => TRUE,
-            'type' => 'int',
+            'type' => 'boolean',
             'source' => array('param' => 'random'),
-            'default value' => 0,
+            'default value' => FALSE,
           ),
           array(
             'name' => 'page',
