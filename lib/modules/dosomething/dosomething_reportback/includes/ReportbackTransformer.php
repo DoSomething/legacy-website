@@ -103,7 +103,7 @@ class ReportbackTransformer extends Transformer {
     $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
-      'count' => $parameters['count'] ?: 25,
+      'count' => (int) $parameters['count'] ?: 25,
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
       'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
       'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),
