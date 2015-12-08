@@ -33,7 +33,7 @@ function dosomething_home_preprocess_node(&$vars) {
         $nid = $campaign;
       }
       $node = node_load($nid);
-      $lang_code = dosomething_global_get_language($user, $node);
+      $lang_code = dosomething_global_get_language($user, $node, FALSE);
 
       // Grab all tiles attributes.
       $tiles = array();

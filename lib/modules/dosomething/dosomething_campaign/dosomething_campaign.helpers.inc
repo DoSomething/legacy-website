@@ -87,6 +87,9 @@
 function dosomething_campaign_load($node, $public = FALSE) {
   if ($node->type != 'campaign') { return FALSE; }
 
+  // Get the appropriate lang
+  $current_lang = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
+
   // Set the image src ratio and styles.
   $image_src_ratio = 'square';
   $image_src_style = '300x300';
@@ -207,7 +210,7 @@ function dosomething_campaign_load($node, $public = FALSE) {
 
   $campaign->downloads = NULL;
   if (!empty($node->field_downloads)) {
-    foreach ($node->field_downloads[LANGUAGE_NONE] as $file) {
+    foreach ($node->field_downloads[$current_lang] as $file) {
       $campaign->downloads[] = array(
         'url' => file_create_url($file['uri']),
         'description' => $file['description'],
