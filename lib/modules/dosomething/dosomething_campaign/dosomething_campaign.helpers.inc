@@ -634,12 +634,7 @@ function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
   $days_left = $difference->d;
   $hours_left = $difference->h + ($days_left * 24);
 
-  if ($days_left >= 8) {
-    $readable_end_date = $end_date->format('F jS');
-    $vars['hm_readable_end_date'] = $readable_end_date;
-    $time_left = t('Ends ' . $readable_end_date);
-  }
-  elseif ($hours_left > 48) {
+  if ($hours_left > 48) {
     $time_left = t($difference->d . ' days left');
   }
   else {
