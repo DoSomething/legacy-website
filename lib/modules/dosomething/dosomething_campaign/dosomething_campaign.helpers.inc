@@ -625,7 +625,7 @@ function dosomething_campaign_get_scholarship($nid) {
  *  Formatted time (e.g. "4 days left")
  */
 function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
-  $today = isset($vars['hm_today']) ?: dosomething_campaign_set_est_timezone(new DateTime());
+  $today = isset($vars['hm_today']) ? $vars['hm_today'] : dosomething_campaign_set_est_timezone(new DateTime());
   $end_date = $vars['hm_end_date'];
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
