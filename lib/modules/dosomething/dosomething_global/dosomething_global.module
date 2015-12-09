@@ -19,11 +19,6 @@ function dosomething_global_init() {
     return;
   }
 
-  if (!empty($_SESSION['dosomething_global_redirected'])) {
-    $_SESSION['dosomething_global_redirected'] = FALSE;
-    return;
-  }
-
   $languages = language_list();
   if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
     watchdog('dosomething_global', "Can't load %lang language",
@@ -93,7 +88,6 @@ function dosomething_global_init() {
   //
   // Passing 'noredirect=1' will defeat the redirect.
   if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
-    $_SESSION['dosomething_global_redirected'] = TRUE;
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
@@ -108,12 +102,13 @@ function dosomething_global_init() {
   //
   // Passing 'noredirect=1' will defeat the redirect.
   if ($node_variables['is_node'] && !$node_variables['is_node_edit'] && !$node_variables['node_no_redirect']) {
-    if ($user_variables['user']->uid) {
-      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 302);
+    $appropriate_language = dosomething_global_get_language($user, $node_variables['node'], FALSE);
+
+    if ($user->uid) {
+      dosomething_global_redirect_node($appropriate_language, $node_variables['node'], 302);
     } else {
-      dosomething_global_redirect_node($user_variables['user_language'], $node_variables['node'], 301);
+      dosomething_global_redirect_node($appropriate_language, $node_variables['node'], 301);
     }
-    return;
   }
 
 }
@@ -516,7 +511,6 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
   // If the user is anonymous, try to convert there country into a language
   if (!isset($account->language)) {
     $account->language = dosomething_global_convert_country_to_language(dosomething_settings_get_geo_country_code());
-
     // If that failed, set it to global en
     if (!isset($account->language)) {
       $account->language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
@@ -528,9 +522,9 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
     if (isset($node->translations->data{$account->language}) && $node->translations->data{$account->language}['status']) {
       $language = $account->language;
     }
-    // If there's no published translation in their language try the default language.
-    elseif (isset($node->translations->data[language_default('language')]) && $node->translations->data[language_default('language')]['status']) {
-      $language = language_default('language');
+    // If there's no published translation in their language try Global english
+    elseif (isset($node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]) && $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]['status']) {
+      $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
     }
     // Default to node language if there's no translation in their language and no translation in the system default language.
     else {
@@ -576,8 +570,8 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
 /**
  * Handle redirects to translated content
  *
- * @param $user_lang
- *   The users language
+ * @param $language
+ *   The language we are redirecting to
  * @param $node
  *   The specified node to redirect too
  * @param $redirect_status
@@ -592,7 +586,7 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  * Else
  *  - 404 the user
  */
-function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
+function dosomething_global_redirect_node($language, $node, $redirect_status) {
   $languages = language_list();
 
   // Don't do redirects for privileged users.
@@ -601,33 +595,14 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
       return;
     }
   }
-  // Don't redirect for Global English speakers.
-  if ($user_lang == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+
+  // Make sure we're not already on the correct page
+  if (dosomething_global_get_prefix_for_language($language) === dosomething_global_get_current_prefix()) {
     return;
   }
 
-  $target_node = NULL;
-  $language = NULL;
-
-  // First check if there is a local translation
-  if (!empty($node->translations->data[$user_lang]) && $node->translations->data[$user_lang]['status']) {
-    $target_node = $node->translations->data[$user_lang];
-    $language = $user_lang;
-  }
-  // Then try to find global english translation
-  else if (!empty($node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]) && $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE]['status']) {
-    $target_node = $node->translations->data[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE];
-    $language = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-  }
-  // If neither of these exist, 404 the user
-  else {
-    drupal_not_found();
-    drupal_exit();
-    return;
-  }
-
-  $_SESSION['dosomething_global_redirected'] = TRUE;
-  drupal_goto(dosomething_global_node_url($node->nid, $user_lang));
+  // Otherwise build URL and redirect
+  drupal_goto(dosomething_global_node_url($node->nid, $language), [], $redirect_status);
 }
 
 /**
