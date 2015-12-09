@@ -50,6 +50,9 @@ function dosomething_metatag_preprocess_page(&$vars) {
   // Add relevant image metatags.
   dosomething_metatag_add_metatag_image($node);
 
+  // Explicitly add facebook og tags.
+  dosomething_metatag_add_facebook_tags($node);
+
   // Add special share info to the permalink page.
   if (in_array('page__reportback', $vars['theme_hook_suggestions'])) {
     dosomething_metatag_get_permalink_vars();
@@ -129,6 +132,57 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
   }
 }
 
+function dosomething_metatag_add_facebook_tags($node = NULL) {
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "fb:app_id",
+      "content" => variable_get('dosomething_settings_facebook_app_id', ''),
+    ),
+  );
+
+  drupal_add_html_head($element, 'fb:app_id');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:type",
+      "content" => "dosomething_facebook:campaign",
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:type');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:url",
+      "content" => url(current_path(), array('absolute'=> TRUE)),
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:url');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:title",
+      "content" => $node->title,
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:title');
+
+  $element = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      "property" => "og:description",
+      "content" => "Volunteer and take action! " . $node->field_call_to_action[$node->language][0]['value'],
+    ),
+  );
+
+  drupal_add_html_head($element, 'og:description');
+}
 /**
  * Adds twitter, facebook, tumblr share meta tags to permalink page.
  */
