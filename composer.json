@@ -1,0 +1,22 @@
+{
+  "name": "dosomething/phoenix",
+  "description": "The DoSomething.org platform.",
+  "license": "MIT",
+  "type": "project",
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phoenix\\": "lib/app/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/phpunit/TestCase.php"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}
