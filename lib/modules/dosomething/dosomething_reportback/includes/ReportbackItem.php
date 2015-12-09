@@ -46,6 +46,7 @@ class ReportbackItem extends Entity {
     }
 
     foreach($results as $item) {
+      // check whether user has permission to view
       $reportbackItem = new static;
       $reportbackItem->build($item, TRUE);
 

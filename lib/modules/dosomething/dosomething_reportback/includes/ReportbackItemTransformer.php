@@ -99,4 +99,9 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     return $filters;
   }
 
+
+  private function securingFilters() {
+
+  }
+
 }
