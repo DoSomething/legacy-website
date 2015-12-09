@@ -19,11 +19,6 @@ function dosomething_global_init() {
     return;
   }
 
-  if (!empty($_SESSION['dosomething_global_redirected'])) {
-    $_SESSION['dosomething_global_redirected'] = FALSE;
-    return;
-  }
-
   $languages = language_list();
   if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
     watchdog('dosomething_global', "Can't load %lang language",
@@ -93,7 +88,6 @@ function dosomething_global_init() {
   //
   // Passing 'noredirect=1' will defeat the redirect.
   if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
-    $_SESSION['dosomething_global_redirected'] = TRUE;
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
@@ -626,7 +620,6 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     return;
   }
 
-  $_SESSION['dosomething_global_redirected'] = TRUE;
   drupal_goto(dosomething_global_node_url($node->nid, $user_lang));
 }
 
