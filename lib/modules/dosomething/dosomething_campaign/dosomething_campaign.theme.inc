@@ -325,7 +325,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $goal_copy = number_format($goal, 0, '', ',') . " " . strtolower($vars['reportback_noun_verb']) . " by " . $readable_end_date;
 
   // Create the image path to the hot module share image generated for the node.
-  $base_url = url(base_path(), array('absolute'=> TRUE));
+  $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
   $hot_share_image = $base_url . 'sites/default/files/images/hot-' . $vars['nid'] . '.png';
 
   $share_types = array(
