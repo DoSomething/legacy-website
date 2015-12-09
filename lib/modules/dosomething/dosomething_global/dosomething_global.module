@@ -570,8 +570,8 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
 /**
  * Handle redirects to translated content
  *
- * @param $user_lang
- *   The users language
+ * @param $language
+ *   The language we are redirecting to
  * @param $node
  *   The specified node to redirect too
  * @param $redirect_status
@@ -597,7 +597,7 @@ function dosomething_global_redirect_node($language, $node, $redirect_status) {
   }
 
   // Make sure we're not already on the correct page
-  if (dosomething_global_get_prefix_for_language($language) == dosomething_global_get_current_prefix()) {
+  if (dosomething_global_get_prefix_for_language($language) === dosomething_global_get_current_prefix()) {
     return;
   }
 
