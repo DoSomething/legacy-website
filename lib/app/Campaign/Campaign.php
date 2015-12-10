@@ -1,5 +1,9 @@
 <?php
 
+namespace Phoenix\Campaign;
+
+use Exception;
+
 class Campaign {
 
   protected $node;

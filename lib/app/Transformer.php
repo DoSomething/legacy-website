@@ -1,5 +1,9 @@
 <?php
 
+namespace Phoenix;
+
+use Phoenix\Campaign\Campaign;
+
 abstract class Transformer {
 
   public function __construct() {

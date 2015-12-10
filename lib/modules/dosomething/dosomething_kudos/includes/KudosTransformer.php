@@ -1,4 +1,6 @@
-  <?php
+<?php
+
+use Phoenix\Transformer;
 
 class KudosTransformer extends Transformer {
 
