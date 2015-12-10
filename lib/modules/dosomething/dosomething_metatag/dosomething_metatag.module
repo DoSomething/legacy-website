@@ -8,6 +8,7 @@
  * Implements hook_preprocess_page().
  */
 function dosomething_metatag_preprocess_page(&$vars) {
+  global $user;
 
   if (!empty($_GET['pass-reset-token'])) {
     // Do not cache pages with reset token set.
@@ -50,10 +51,22 @@ function dosomething_metatag_preprocess_page(&$vars) {
   // Add relevant image metatags.
   dosomething_metatag_add_metatag_image($node);
 
+  // Add explicit facebook og meta tags to campaign pages.
+  if (isset($node) && $node->type == 'campaign') {
+    $langauge_code = dosomething_global_get_language($user, $node);
+
+    $facebook_data = array(
+      'type' => 'dosomething_facebook:campaign',
+      'url' => url(current_path(), array('absolute'=> TRUE)),
+      'title' => $node->title,
+      'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
+    );
+    dosomething_metatag_add_facebook_tags($facebook_data);
+  }
+
   // Add special share info to the permalink page.
   if (in_array('page__reportback', $vars['theme_hook_suggestions'])) {
     dosomething_metatag_get_permalink_vars();
-
   }
 }
 
@@ -93,6 +106,7 @@ function dosomething_metatag_get_metatag_image($node = NULL) {
  */
 function dosomething_metatag_add_metatag_image($node = NULL) {
   $image = dosomething_metatag_get_metatag_image($node);
+
   if ($image) {
     // Add social sharing thumbnail meta tag,
     // <link rel="image_src" href="[image]"> into the HEAD.
@@ -116,7 +130,28 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
         "content" => $image,
       ),
     );
-    drupal_add_html_head($element, 'facebook_share_image');
+    drupal_add_html_head($element, 'og:image');
+
+    // Facebook best practices say to add width & height tags
+    // 740x480 is the crop we are using on the images.
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:width",
+        "content" =>  740,
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:width');
+
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:height",
+        "content" =>  480,
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:height');
+
     // Add the Twitter Image tag into the HEAD.
     $element = array(
       '#tag' => 'meta',
@@ -125,7 +160,7 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
         "content" => $image,
       ),
     );
-    drupal_add_html_head($element, 'twitter_image');
+    drupal_add_html_head($element, 'twitter:image');
   }
 }
 
@@ -145,6 +180,7 @@ function dosomething_metatag_get_permalink_vars() {
   $share_copy = $node->call_to_action;
   $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
 
+  // Twitter.
   $element = array(
     '#tag' => 'meta',
     '#attributes' => array(
@@ -190,6 +226,28 @@ function dosomething_metatag_get_permalink_vars() {
   );
   drupal_add_html_head($element, 'twitter:url');
 
+  // Facebook.
+  $facebook_data = array(
+    'type' => 'dosomething_facebook:campaign',
+    'url' => $share_url,
+    'title' => $node->title,
+    'description' => $share_copy,
+    'image' => $image,
+    // 480x480 is the crop we are using on the images.
+    'width' => 480,
+    'height' => 480,
+  );
+
+  dosomething_metatag_add_facebook_tags($facebook_data);
+}
+
+/*
+ * Add facebook og tags to the page.
+ *
+ * @param array $data
+ *   Array of the content to use for each property.
+ */
+function dosomething_metatag_add_facebook_tags($data) {
   $element = array(
     '#tag' => 'meta',
     '#attributes' => array(
@@ -200,53 +258,85 @@ function dosomething_metatag_get_permalink_vars() {
 
   drupal_add_html_head($element, 'fb:app_id');
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "og:type",
-      "content" => "dosomething_facebook:campaign",
-    ),
-  );
+  if (array_key_exists('type', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:type",
+        "content" => $data['type'],
+      ),
+    );
 
-  drupal_add_html_head($element, 'og:type');
+    drupal_add_html_head($element, 'og:type');
+  }
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "og:url",
-      "content" => $share_url,
-    ),
-  );
+  if (array_key_exists('url', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:url",
+        "content" => $data['url'],
+      ),
+    );
 
-  drupal_add_html_head($element, 'og:url');
+    drupal_add_html_head($element, 'og:url');
+  }
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "og:title",
-      "content" => $node->title,
-    ),
-  );
+  if (array_key_exists('title', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:title",
+        "content" => $data['title'],
+      ),
+    );
 
-  drupal_add_html_head($element, 'og:title');
+    drupal_add_html_head($element, 'og:title');
+  }
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "og:image",
-      "content" => $image,
-    ),
-  );
+  if (array_key_exists('description', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:description",
+        "content" => $data['description'],
+      )
+    );
 
-  drupal_add_html_head($element, 'og:image');
+    drupal_add_html_head($element, 'og:description');
+  }
 
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "og:description",
-      "content" => $share_copy,
-    ),
-  );
+  if (array_key_exists('image', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image",
+        "content" => $data['image'],
+      )
+    );
 
-  drupal_add_html_head($element, 'og:description');
+    drupal_add_html_head($element, 'og:image');
+  }
+
+  if (array_key_exists('width', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:width",
+        "content" =>  $data['width'],
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:width');
+  }
+
+  if (array_key_exists('height', $data)) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:height",
+        "content" =>  $data['height'],
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:height');
+  }
 }
