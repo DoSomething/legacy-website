@@ -629,7 +629,7 @@ function dosomething_campaign_get_scholarship($nid) {
  */
 function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
   $today = isset($vars['hm_today']) ? $vars['hm_today'] : dosomething_campaign_set_est_timezone(new DateTime());
-  $end_date = $vars['hm_end_date'];
+  $end_date = isset($vars['hm_end_date']) ? $vars['hm_end_date'] : dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
   $hours_left = $difference->h + ($days_left * 24);
