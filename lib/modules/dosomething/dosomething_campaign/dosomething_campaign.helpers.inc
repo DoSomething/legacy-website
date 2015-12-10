@@ -628,7 +628,10 @@ function dosomething_campaign_get_scholarship($nid) {
  *  Formatted time (e.g. "4 days left")
  */
 function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
-  $timing = dosomething_campaign_get_goals_times($vars);
+  if (!isset($node) && !isset($vars)) {
+    return;
+  }
+  $timing = dosomething_campaign_get_goals_times($vars ?: $node);
   $today = $timing['today'];
   $end_date = $timing['end_date'];
   $difference = $today->diff($end_date, true);

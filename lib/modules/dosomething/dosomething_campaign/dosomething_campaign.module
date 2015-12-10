@@ -869,7 +869,6 @@ function dosomething_campaign_is_active($node) {
   $hot_module_enabled = dosomething_helpers_get_variable('node', $vars['nid'], 'hot_module_enabled');
   $win_module_enabled = variable_get('dosomething_campaign_enable_win_module', NULL);
   if ($win_module_enabled == 1 && isset($vars['field_high_season']) && $hot_module_enabled) {
-    date_default_timezone_set('EST');
     $timing = dosomething_campaign_get_goals_times($vars);
 
     // Set the values to the vars array, so we don't need to do the math again.
@@ -920,11 +919,13 @@ function dosomething_campaign_get_goals_times($node) {
   if (!isset($node)) {
     return NULL;
   }
+  date_default_timezone_set('EST');
+  $high_season = is_array($node) ? $node['field_high_season'] : $node->field_high_season;
   $timing = [
-    "today" => dosomething_campaign_set_est_timezone(new DateTime()),
-    "start_date" => dosomething_campaign_set_est_timezone(new DateTime($node['field_high_season'][0]['value']), TRUE),
-    "unmodified_end_date" => new DateTime($node['field_high_season'][0]['value2']),
-    "end_date" => dosomething_campaign_set_est_timezone(new DateTime($node['field_high_season'][0]['value2']), TRUE, TRUE)
+    "today" => new DateTime(),
+    "start_date" => new DateTime($high_season[0]['value']),
+    "unmodified_end_date" => new DateTime($high_season[0]['value2']),
+    "end_date" => new DateTime($high_season[0]['value2']),
   ];
   return $timing;
 }
