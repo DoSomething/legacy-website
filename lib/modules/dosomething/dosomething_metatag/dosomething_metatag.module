@@ -234,6 +234,12 @@ function dosomething_metatag_get_permalink_vars() {
   dosomething_metatag_add_facebook_tags($facebook_data);
 }
 
+/*
+ * Add facebook og tags to the page.
+ *
+ * @param array $data
+ *   Array of the content to use for each property.
+ */
 function dosomething_metatag_add_facebook_tags($data) {
   $element = array(
     '#tag' => 'meta',
