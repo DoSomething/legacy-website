@@ -87,7 +87,7 @@ function runUnitTests(callback) {
 
   var _mochaFile;
   if(config.mocha) {
-    _mochaFile = "tests/unit/" + config.mocha + ".html";
+    _mochaFile = "tests/mocha/" + config.mocha + ".html";
   }
 
   console.log("Running '%s' unit tests with Mocha...".bold.underline.yellow, config.mocha);
@@ -167,14 +167,14 @@ function runIntegrationTests() {
 }
 
 
-/** 
+/**
  * Get files from a glob string or array of glob strings.
  * @param patterns {String / Array} Pattern to be globbed.
  * @return Array of matching files.
  *
  * @example
  * // getFiles(["src/**", "!src/*.md"]);
- * Gets all files in src and subdirectories, excluding 
+ * Gets all files in src and subdirectories, excluding
  * any Markdown files in src.
  *
  */
