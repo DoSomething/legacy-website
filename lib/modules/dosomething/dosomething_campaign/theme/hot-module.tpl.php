@@ -16,7 +16,7 @@
           <canvas class="js-progress-chart" width="280" height="200" data-goal="<?php print $goal; ?>"></canvas>
         </div>
         <div class="stat-card__deadline">
-          <p><?php print t("Deadline for reaching to goal is") ?></p>
+          <p><?php print t('Deadline for reaching the goal is') ?></p>
           <p><?php print $exact_end_date ?></p>
         </div>
       </div>
