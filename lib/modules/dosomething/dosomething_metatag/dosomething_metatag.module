@@ -8,6 +8,7 @@
  * Implements hook_preprocess_page().
  */
 function dosomething_metatag_preprocess_page(&$vars) {
+  global $user;
 
   if (!empty($_GET['pass-reset-token'])) {
     // Do not cache pages with reset token set.
@@ -52,11 +53,13 @@ function dosomething_metatag_preprocess_page(&$vars) {
 
   // Add explicit facebook og meta tags to campaign pages.
   if (isset($node) && $node->type == 'campaign') {
+    $langauge_code = dosomething_global_get_language($user, $node);
+
     $facebook_data = array(
       'type' => 'dosomething_facebook:campaign',
       'url' => url(current_path(), array('absolute'=> TRUE)),
       'title' => $node->title,
-      'description' => "Volunteer and take action! " . $node->field_call_to_action[$node->language][0]['value'],
+      'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
     );
     dosomething_metatag_add_facebook_tags($facebook_data);
   }
@@ -103,6 +106,7 @@ function dosomething_metatag_get_metatag_image($node = NULL) {
  */
 function dosomething_metatag_add_metatag_image($node = NULL) {
   $image = dosomething_metatag_get_metatag_image($node);
+
   if ($image) {
     // Add social sharing thumbnail meta tag,
     // <link rel="image_src" href="[image]"> into the HEAD.
@@ -128,6 +132,8 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
     );
     drupal_add_html_head($element, 'og:image');
 
+    // Facebook best practices say to add width & height tags
+    // 740x480 is the crop we are using on the images.
     $element = array(
       '#tag' => 'meta',
       '#attributes' => array(
@@ -227,6 +233,7 @@ function dosomething_metatag_get_permalink_vars() {
     'title' => $node->title,
     'description' => $share_copy,
     'image' => $image,
+    // 480x480 is the crop we are using on the images.
     'width' => 480,
     'height' => 480,
   );
