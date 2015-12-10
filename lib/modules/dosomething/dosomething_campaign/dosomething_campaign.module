@@ -763,12 +763,14 @@ function dosomething_campaign_is_hot_module(&$vars) {
   if ($hot_module_enabled && isset($vars['field_high_season'])) {
     $today = dosomething_campaign_set_est_timezone(new DateTime());
     $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
+    $unmodified_end_date = new DateTime($vars['field_high_season'][0]['value2']);
     $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
 
     // Set the values to the vars array, so we don't need to do the math again.
     $vars['hm_today'] = $today;
     $vars['hm_start_date'] = $start_date;
     $vars['hm_end_date'] = $end_date;
+    $vars['hm_readable_end_date'] = $unmodified_end_date->format('F jS h') . ':' . $unmodified_end_date->format('i T');
 
     // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
     if (!empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
