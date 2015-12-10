@@ -3,9 +3,6 @@
   "description": "The DoSomething.org platform.",
   "license": "MIT",
   "type": "project",
-  "require-dev": {
-    "phpunit/phpunit": "~4.0"
-  },
   "autoload": {
     "psr-4": {
       "Phoenix\\": "lib/app/"
@@ -18,5 +15,12 @@
   },
   "config": {
     "preferred-install": "dist"
+  },
+  "require": {
+    "stripe/stripe-php": "^1.18.0",
+    "zendesk/zendesk_api_client_php": "^1.2.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
   }
 }

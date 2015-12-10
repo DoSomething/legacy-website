@@ -1,5 +1,7 @@
 <?php
 
+use Phoenix\Campaign\Campaign;
+
 /**
  * @file
  * Provides cron job command for dosomething_campaign_hot_shares.module.
