@@ -119,7 +119,26 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
         "content" => $image,
       ),
     );
-    drupal_add_html_head($element, 'facebook_share_image');
+    drupal_add_html_head($element, 'og:image');
+
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:width",
+        "content" =>  740,
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:width');
+
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        "property" => "og:image:height",
+        "content" =>  480,
+      ),
+    );
+    drupal_add_html_head($element, 'og:image:height');
+
     // Add the Twitter Image tag into the HEAD.
     $element = array(
       '#tag' => 'meta',
@@ -128,7 +147,7 @@ function dosomething_metatag_add_metatag_image($node = NULL) {
         "content" => $image,
       ),
     );
-    drupal_add_html_head($element, 'twitter_image');
+    drupal_add_html_head($element, 'twitter:image');
   }
 }
 
