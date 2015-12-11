@@ -95,7 +95,7 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
       // Add stats property.
       dosomething_campaign_load_stats($campaign);
       // Unset properties which shouldn't be public.
-      unset($campaign->variables);
+      unset($cached_node->variables);
     }
     return $campaign = $cached_node->data;
   }
