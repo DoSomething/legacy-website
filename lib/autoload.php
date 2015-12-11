@@ -12,4 +12,3 @@
  * https://getcomposer.org/doc/01-basic-usage.md#autoloading
  */
 require __DIR__ . '/../vendor/autoload.php';
-

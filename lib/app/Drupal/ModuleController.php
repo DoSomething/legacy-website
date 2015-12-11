@@ -11,4 +11,3 @@ class ModuleController implements ModuleControllerInterface
   }
 
 }
-

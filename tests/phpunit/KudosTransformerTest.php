@@ -13,4 +13,3 @@ class KudosTransformerTest extends TestCase
   }
 
 }
-
