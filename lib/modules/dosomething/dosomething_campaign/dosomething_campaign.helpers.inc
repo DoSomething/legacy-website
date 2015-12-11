@@ -278,10 +278,10 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
 
     if($cache)
     {
-      cache_set('ds_campaign_' . $campaign->nid, 'cache_dosomething_campaign');
+      cache_set('ds_campaign_' . $campaign->nid, $campaign, 'cache_dosomething_campaign');
     }
   }
-  
+
   return $campaign;
 }
 
