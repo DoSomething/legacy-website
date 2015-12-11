@@ -86,7 +86,7 @@
  *   - vips (string). HTML.
  *
  */
-function dosomething_campaign_load($node, $public = FALSE, $cache) {
+function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   if ($node->type != 'campaign') { return FALSE; }
 
   if ($cached_node = cache_get('ds_campaign_' . $node->nid, 'cache_dosomething_campaign')) {
