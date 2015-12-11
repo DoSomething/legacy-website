@@ -89,8 +89,15 @@
 function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   if ($node->type != 'campaign') { return FALSE; }
 
-  if ($cached_node = cache_get('ds_campaign_' . $node->nid, 'cache_dosomething_campaign')) {
-    $campaign = $cached_node->data;
+  if ($cached_node = cache_get('ds_campaign_' . $node->nid, 'cache_dosomething_campaign') && $cache) {
+    // If this is accessed via API:
+    if ($public) {
+      // Add stats property.
+      dosomething_campaign_load_stats($campaign);
+      // Unset properties which shouldn't be public.
+      unset($campaign->variables);
+    }
+    return $campaign = $cached_node->data;
   }
   else {
     // Get the appropriate lang
@@ -268,6 +275,8 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     // Load Creator property.
     dosomething_campaign_load_creator($campaign, $wrapper);
 
+    cache_set('ds_campaign_' . $campaign->nid, $campaign, 'cache_dosomething_campaign');
+
     // If this is accessed via API:
     if ($public) {
       // Add stats property.
@@ -276,10 +285,6 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
       unset($campaign->variables);
     }
 
-    if($cache)
-    {
-      cache_set('ds_campaign_' . $campaign->nid, $campaign, 'cache_dosomething_campaign');
-    }
   }
 
   return $campaign;
