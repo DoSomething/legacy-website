@@ -31,19 +31,6 @@ function dosomething_northstar_menu() {
 }
 
 /**
- * Implements hook_libraries_info().
- */
-function dosomething_northstar_libraries_info() {
-  $libraries['guzzle'] = array(
-    'name' => 'guzzle',
-    'path' => 'vendor',
-    'files' => ['php' => ['autoload.php']],
-    'version' => 5.0,
-  );
-  return $libraries;
-}
-
-/**
  * Send user registration events to northstar.
  */
 function dosomething_northstar_register_user($form_state) {
@@ -214,46 +201,4 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
 
   // Return fully built northstar user object.
   return $ns_user;
-}
-
-
-class Northstar {
-
-  // protected $client;
-
-  // public function __construct() {
-
-  //   $base_url = NORTHSTAR_URL;
-  //   if (getenv('DS_ENVIRONMENT') === 'local') {
-  //     $base_url .=  ":" . NORTHSTAR_PORT;
-  //   }
-  //   $version = NORTHSTAR_VERSION;
-
-  //   if (libraries_load('guzzle') == TRUE) {
-  //     $client = new GuzzleHttp\Client(array(
-  //       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-  //       'defaults' => array(
-  //         'headers' => array(
-  //           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-  //           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-  //           'Content-Type' => 'application/json',
-  //           'Accept' => 'application/json'
-  //           ),
-  //         ),
-  //     ));
-  //     $this->client = $client;
-
-  //   }
-  // }
-
-  // public function updateUser($user) {
-  //   // return $this->client->getUrl();
-  //   $response = $this->client->post('users', array(
-  //     'body' => json_encode($user),
-  //     ));
-
-  //   // watchdog('dosomething_northstar', 'full url' . $response->getUrl(), NULL, WATCHDOG_ERROR);
-  //   return $response;
-  // }
-
 }

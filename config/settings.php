@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Require Composer's autoloader.
+ * Require Composer's class loader.
  */
 require_once __DIR__ . '/../lib/autoload.php';
 
