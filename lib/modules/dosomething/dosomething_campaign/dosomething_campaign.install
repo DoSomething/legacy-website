@@ -4,6 +4,10 @@
  * Installation and schema hooks for dosomething_campaign.module.
  */
 
+function dosomething_campaign_schema() {
+  $schema['cache_dosomething_campaign'] = drupal_get_schema_unprocessed('system', 'cache');
+  return $schema;
+}
 
 /**
  * Deletes field_psa.
@@ -133,4 +137,11 @@ function dosomething_campaign_update_7010(&$sandbox) {
 
 function dosomething_campaign_update_7011(&$sandbox) {
   variable_del('dosomething_campaign_win_background_image');
+}
+
+function dosomething_campaign_update_7012() {
+  if (!db_table_exists('cache_dosomething_campaign')) {
+    $schema['cache_dosomething_campaign'] = drupal_get_schema_unprocessed('system', 'cache');
+    db_create_table('cache_dosomething_campaign', $schema['cache_dosomething_campaign']);
+  }
 }

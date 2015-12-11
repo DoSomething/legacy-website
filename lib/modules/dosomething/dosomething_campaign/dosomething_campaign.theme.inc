@@ -12,7 +12,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
 
   $node = $vars['node'];
-  $vars['campaign'] = dosomething_campaign_load($node);
+  $vars['campaign'] = dosomething_campaign_load($node, TRUE, TRUE);
 
   $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
