@@ -1,5 +1,8 @@
 <?php
 
+namespace Phoenix\Kudos;
+
+use Exception;
 use Phoenix\Transformer;
 
 class KudosTransformer extends Transformer {

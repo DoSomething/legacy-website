@@ -1,5 +1,10 @@
 <?php
 
+namespace Phoenix\Kudos;
+
+use Entity;
+use Exception;
+
 class Kudos extends Entity {
 
   protected $entity;
