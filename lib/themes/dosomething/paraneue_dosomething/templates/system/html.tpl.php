@@ -36,6 +36,7 @@
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
+  <canvas id="snowflake"></canvas>
   <div class="chrome">
     <?php print $page_top; ?>
     <?php print $page; ?>
