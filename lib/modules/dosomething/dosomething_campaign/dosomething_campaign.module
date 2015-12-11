@@ -874,7 +874,7 @@ function dosomething_campaign_is_active($node) {
     $vars['hm_today'] = $timing['today'];
     $vars['hm_end_date'] = $timing['end_date'];
 
-    $win_module_end = dosomething_campaign_set_est_timezone(date_modify(clone $timing['end_date'], '+30 days'), TRUE, TRUE);
+    $win_module_end = $timing['win_module_end'];
 
     // Win module is only enabled when variable is set, high season dates exist and there is still days left.
     if (!empty($vars['field_high_season']) && (($timing['end_date'] < $timing['today'])  && ($timing['today'] < $win_module_end))) {
@@ -926,7 +926,7 @@ function dosomething_campaign_get_goals_times($node) {
     return NULL;
   }
   date_default_timezone_set('EST');
-  $high_season = is_array($node) ? $node['field_high_season'] : $node->field_high_season[LANGUAGE_NONE];
+  $high_season = is_array($node) ? $node['field_high_season'] : $node->field_high_season[$node->language];
   if($high_season == NULL) {
     return NULL;
   }
@@ -934,6 +934,7 @@ function dosomething_campaign_get_goals_times($node) {
     "today" => new DateTime(),
     "start_date" => new DateTime($high_season[0]['value']),
     "end_date" => new DateTime($high_season[0]['value2']),
+    "win_module_end" => date_modify(new DateTime($high_season[0]['value2']), '+30 days'),
   ];
   return $timing;
 }

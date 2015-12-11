@@ -247,7 +247,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $start_date = $vars['hm_start_date'];
   $end_date = $vars['hm_end_date'];
   $readable_end_date = $vars['hm_readable_end_date'];
-  $time_left = dosomething_campaign_get_hot_time_left($vars);
+  $time_left = dosomething_campaign_get_hot_time_left(NULL, $vars);
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
