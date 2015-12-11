@@ -247,7 +247,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
   $start_date = $vars['hm_start_date'];
   $end_date = $vars['hm_end_date'];
   $readable_end_date = $vars['hm_readable_end_date'];
-  $time_left = dosomething_campaign_get_hot_time_left($node, $vars);
+  $time_left = dosomething_campaign_get_hot_time_left(NULL, $vars);
 
   //Calculate progress goal & copy
   $goal = dosomething_helpers_get_variable('node', $vars['nid'], 'goal');
@@ -359,6 +359,7 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
     'author_image' => (isset($vars['author_image'])) ? $vars['author_image'] : NULL,
     'share_copy' => $share_copy,
     'share_bar' => $share_bar,
+    'exact_end_date' => $readable_end_date,
   );
 
   $vars['hot_module'] = theme('hot_module_block', $hot_module_variables);

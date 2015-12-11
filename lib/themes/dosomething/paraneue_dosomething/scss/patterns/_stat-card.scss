@@ -41,4 +41,13 @@ $dark-blue: #0081BC;
     border: solid 2px $light-gray;
     border-top: 0;
   }
+
+  .stat-card__deadline {
+    color: $med-gray;
+    margin: $base-spacing 0;
+
+    p {
+      margin-top: 0;
+    }
+  }
 }

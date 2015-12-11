@@ -761,17 +761,16 @@ function dosomething_campaign_add_shipment_form_vars($node) {
 function dosomething_campaign_is_hot_module(&$vars) {
   $hot_module_enabled = dosomething_helpers_get_variable('node', $vars['nid'], 'hot_module_enabled');
   if ($hot_module_enabled && isset($vars['field_high_season'])) {
-    $today = dosomething_campaign_set_est_timezone(new DateTime());
-    $start_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value']), TRUE);
-    $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
+    $timing = dosomething_campaign_get_goals_times($vars);
 
     // Set the values to the vars array, so we don't need to do the math again.
-    $vars['hm_today'] = $today;
-    $vars['hm_start_date'] = $start_date;
-    $vars['hm_end_date'] = $end_date;
+    $vars['hm_today'] = $timing['today'];
+    $vars['hm_start_date'] = $timing['start_date'];
+    $vars['hm_end_date'] = $timing['end_date'];
+    $vars['hm_readable_end_date'] = $timing['end_date']->format('F jS h') . ':' . $timing['end_date']->format('ia T');
 
     // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
-    if (!empty($vars['field_high_season']) && (($start_date < $today)  && ($today < $end_date))) {
+    if (!empty($vars['field_high_season']) && (($timing['start_date'] < $timing['today'])  && ($timing['today'] < $timing['end_date']))) {
       return TRUE;
     }
   }
@@ -867,16 +866,20 @@ function dosomething_campaign_is_active($node) {
   */
  function dosomething_campaign_is_win_module($vars) {
   $hot_module_enabled = dosomething_helpers_get_variable('node', $vars['nid'], 'hot_module_enabled');
-  if (isset($vars['field_high_season']) && $hot_module_enabled) {
-     $today = dosomething_campaign_set_est_timezone(new DateTime());
-     $end_date = dosomething_campaign_set_est_timezone(new DateTime($vars['field_high_season'][0]['value2']), TRUE, TRUE);
-     $win_module_end = dosomething_campaign_set_est_timezone(date_modify(clone $end_date, '+30 days'), TRUE, TRUE);
-     $vars['hm_today'] = $today;
-     $vars['hm_end_date'] = $end_date;
-     // Win module is only enabled when variable is set, high season dates exist and there is still days left.
-     if (variable_get('dosomething_campaign_enable_win_module', NULL) == 1 && !empty($vars['field_high_season']) && (($end_date < $today)  && ($today < $win_module_end))) {
-       return TRUE;
-     }
+  $win_module_enabled = variable_get('dosomething_campaign_enable_win_module', NULL);
+  if ($win_module_enabled == 1 && isset($vars['field_high_season']) && $hot_module_enabled) {
+    $timing = dosomething_campaign_get_goals_times($vars);
+
+    // Set the values to the vars array, so we don't need to do the math again.
+    $vars['hm_today'] = $timing['today'];
+    $vars['hm_end_date'] = $timing['end_date'];
+
+    $win_module_end = $timing['win_module_end'];
+
+    // Win module is only enabled when variable is set, high season dates exist and there is still days left.
+    if (!empty($vars['field_high_season']) && (($timing['end_date'] < $timing['today'])  && ($timing['today'] < $win_module_end))) {
+      return TRUE;
+    }
    }
    return FALSE;
  }
@@ -905,6 +908,35 @@ function dosomething_campaign_set_est_timezone($date, $add_four = FALSE, $end_of
     $date->setTime(23, 59, 59);
   }
   return $date;
+}
+
+/**
+ * Returns array of date times ofor the given campaign node
+ *
+ * @param Object or Array
+ *    vars array or node object to pull from
+ *
+ * @return array $timing
+ *    today - The current day
+ *    start_date - The day the campaign starts
+ *    end_date - The day the campaign ends
+ */
+function dosomething_campaign_get_goals_times($node) {
+  if (!isset($node)) {
+    return NULL;
+  }
+  date_default_timezone_set('EST');
+  $high_season = is_array($node) ? $node['field_high_season'] : $node->field_high_season[$node->language];
+  if($high_season == NULL) {
+    return NULL;
+  }
+  $timing = [
+    "today" => new DateTime(),
+    "start_date" => new DateTime($high_season[0]['value']),
+    "end_date" => new DateTime($high_season[0]['value2']),
+    "win_module_end" => date_modify(new DateTime($high_season[0]['value2']), '+30 days'),
+  ];
+  return $timing;
 }
 
 /**
