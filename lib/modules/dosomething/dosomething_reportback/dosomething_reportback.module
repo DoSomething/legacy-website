@@ -540,10 +540,13 @@ function dosomething_reportback_view_entity($entity) {
     $share_text = token_replace(t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')), array('node' => $node));
     $share_text = str_replace('[node:issue]', strtolower($node->issue['name']), $share_text);
 
-
     $share_types = array(
       'facebook' => array(
-        'type' => 'default',
+        'type' => 'feed_dialog',
+        'parameters' => array(
+          'picture' => $file->getImageURL('480x480'),
+          'caption' => $node->call_to_action,
+        ),
       ),
       'twitter' => array(
         'tweet' => htmlspecialchars_decode($share_text, ENT_QUOTES) . " ",
