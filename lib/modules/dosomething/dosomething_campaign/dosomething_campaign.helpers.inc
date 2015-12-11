@@ -628,12 +628,16 @@ function dosomething_campaign_get_scholarship($nid) {
  *  Formatted time (e.g. "4 days left")
  */
 function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
-  if (!isset($node) && !isset($vars)) {
-    return;
+  if (!isset($vars) && !isset($vars['hm_today'])) {
+    $timing = dosomething_campaign_get_goals_times($node);
+
+    if (!isset($timing)) {
+      return;
+    }
   }
-  $timing = dosomething_campaign_get_goals_times($vars ?: $node);
-  $today = $timing['today'];
-  $end_date = $timing['end_date'];
+
+  $today = $vars['hm_today'] ?: $timing['today'];
+  $end_date = $vars['hm_end_date'] ?: $timing['end_date'];
   $difference = $today->diff($end_date, true);
   $days_left = $difference->d;
   $hours_left = $difference->h + ($days_left * 24);
