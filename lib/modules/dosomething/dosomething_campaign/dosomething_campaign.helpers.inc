@@ -639,11 +639,11 @@ function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
   $today = $vars['hm_today'] ?: $timing['today'];
   $end_date = $vars['hm_end_date'] ?: $timing['end_date'];
   $difference = $today->diff($end_date, true);
-  $days_left = $difference->d;
+  $days_left = $difference->days;
   $hours_left = $difference->h + ($days_left * 24);
 
   if ($hours_left > 48) {
-    $time_left = t($difference->d . ' days left');
+    $time_left = t($days_left . ' days left');
   }
   else {
     $time_left = t($hours_left . ' hours left');
