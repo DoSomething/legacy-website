@@ -16,27 +16,6 @@ function dosomething_fact_form_fact_node_form_alter(&$form, &$form_state, $form_
   $form['title']['#description'] = t('<p>If using for problem share this must be 117 characters or less otherwise it will break problem shares.</p> Use numerals for all numbers. i.e. <em>"1 in 3"</em> or <em>"1/4"</em> <strong>NOT</strong> <em>"one in three"</em> or <em>"one-fourths"</em>. <p>Also for percentages always use %, never spell out "percent".</p>');
 }
 
-/**
- * Implements hook_node_view().
- */
-function dosomething_fact_node_view($node, $view_mode, $langcode) {
-  // Make sure dosomething_helpers is enabled.
-  if (!module_exists('dosomething_helpers')) { return; }
-
-  // If viewing a fact node:
-  if ($node->type == 'fact' && $view_mode == 'full') {
-    $node->content['fact'] = array(
-      '#markup' => '<h1>' . $node->title . '</h1>',
-      '#weight' => -10,
-    );
-    $entityref_fields = array(
-      'field_facts',
-      'field_fact_problem',
-      'field_fact_solution',
-    );
-    dosomething_helpers_add_entityref_links($node, $entityref_fields);
-  }
-}
 
 /**
  * Returns variables for multiple given Fact Entityreference fields.
