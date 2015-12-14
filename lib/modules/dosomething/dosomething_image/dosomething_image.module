@@ -100,26 +100,6 @@ function dosomething_image_get_themed_image_url($nid, $ratio, $style = NULL) {
   }
 }
 
-/**
- * Implements hook_node_view().
- */
-function dosomething_image_node_view($node, $view_mode, $langcode) {
-  // Make sure dosomething_helpers is enabled.
-  if (!module_exists('dosomething_helpers')) { return; }
-
-  // If viewing an image node:
-  if ($node->type == 'image' && $view_mode == 'full') {
-    $entityref_fields = array(
-      'field_gallery_image',
-      'field_hero_image',
-      'field_image_campaign_cover',
-      'field_image_psa_replacement',
-      'field_image_step_gallery',
-      'field_intro_image',
-    );
-    dosomething_helpers_add_entityref_links($node, $entityref_fields);
-  }
-}
 
 /**
  * Returns a themed image for a given File $fid.
