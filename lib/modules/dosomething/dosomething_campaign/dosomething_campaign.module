@@ -933,7 +933,7 @@ function dosomething_campaign_get_goals_times($node) {
   $timing = [
     "today" => new DateTime(),
     "start_date" => new DateTime($high_season[0]['value']),
-    "end_date" => new DateTime($high_season[0]['value2']),
+    "end_date" => date_modify(new DateTime($high_season[0]['value2']), '+23 hours +59 minutes + 59 seconds'),
     "win_module_end" => date_modify(new DateTime($high_season[0]['value2']), '+30 days'),
   ];
   return $timing;
