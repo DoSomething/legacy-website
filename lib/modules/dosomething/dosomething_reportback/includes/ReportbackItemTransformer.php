@@ -2,6 +2,8 @@
 
 class ReportbackItemTransformer extends ReportbackTransformer {
 
+  private $restricted_statuses = ['pending', 'flagged', 'excluded'];
+
   /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
@@ -82,7 +84,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   private function setFilters($parameters) {
     $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'status' => dosomething_helpers_format_data($parameters['status']),
+      'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
@@ -100,7 +102,38 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   }
 
 
-  private function securingFilters() {
+  private function removeUnauthorizedStatuses($statuses) {
+    global $user;
+    print_r([
+      'statuses' => $statuses,
+      'prohibited statuses' => $this->restricted_statuses,
+      'user' => $user,
+    ]);
+
+    if (user_access('view any reportback')) {
+      return $statuses;
+    }
+
+    if (!is_array($statuses)) {
+      $statuses = [$statuses];
+    }
+
+    $prohibited_values = array_intersect($this->restricted_statuses, $statuses);
+
+    if ($prohibited_values) {
+      foreach ($prohibited_values as $value) {
+        unset($statuses[array_search($value, $statuses)]);
+      }
+    }
+
+    if (count($statuses) === 1) {
+      return array_shift($statuses);
+    }
+
+    print_r($statuses);
+
+    die();
+    return $statuses;
 
   }
 
