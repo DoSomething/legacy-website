@@ -48,11 +48,24 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  $form['fun'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('FUN!'),
+    '#description' => t("Control fun things.")
+  );
+
   $var_name = 'dosomething_settings_realtimefeed_update_url';
-  $form['dashboard'][$var_name] = array(
+  $form['fun'][$var_name] = array(
     '#type' => 'textfield',
     '#title' => t('Update URL for lobby dashboard'),
     '#default_value' => variable_get($var_name),
+  );
+
+  $var_name = 'dosomething_settings_enable_snowflakes';
+  $form['fun'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Snowflakes!'),
+    '#default_value' => variable_get('dosomething_settings_enable_snowflakes', FALSE),
   );
 
   return system_settings_form($form);
