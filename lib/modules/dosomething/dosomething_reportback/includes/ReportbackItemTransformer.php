@@ -5,7 +5,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   private $accessibleStatuses = ['promoted', 'approved'];
 
   /**
-   * @param array $parameters Any parameters obtained from query string.
+   * @param  array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
@@ -34,7 +34,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   /**
    * Display the specified resource.
    *
-   * @param string $id Resource id.
+   * @param  string $id Resource id.
    * @return array
    */
   public function show($id) {
@@ -59,7 +59,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   /**
    * Transform data and build out response.
    *
-   * @param object $item Single object of retrieved data.
+   * @param  object $item Single object of retrieved data.
    * @return array
    */
   protected function transform($item) {
