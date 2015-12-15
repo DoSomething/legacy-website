@@ -67,6 +67,10 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
     $query->condition('rb.rbid', $params['rbid']);
   }
 
+  if (isset($params['exclude'])) {
+    $query->condition('rbf.fid', $params['exclude'], 'NOT IN');
+  }
+
   // Public API properties to expose:
   $rbf_fields = array('fid', 'caption', 'rbid', 'status');
   $rb_fields = array('created', 'updated', 'quantity', 'uid');

@@ -85,6 +85,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   private function setFilters($parameters) {
     $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'exclude' => dosomething_helpers_format_data($parameters['exclude']),
       'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
@@ -93,6 +94,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     ];
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
+    if ($filters['exclude'] && !is_array($filters['exclude'])) {
+      $filters['exclude'] = [$filters['exclude']];
+    }
 
     // Unset False boolean values that affect the query builder.
     if (!$filters['random']) {
