@@ -22,6 +22,7 @@ $asset-path: "";
 @import "overrides/drupal";
 
 // Local patterns
+@import "patterns/button";
 @import "patterns/author-callout";
 @import "patterns/container";
 @import "patterns/photo";
