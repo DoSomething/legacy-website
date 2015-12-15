@@ -40,6 +40,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   public function show($id) {
     try {
       $reportbackItem = ReportbackItem::get($id);
+      $reportbackItem = $this->removeUnauthorizedResults($reportbackItem);
       $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
@@ -126,6 +127,31 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
 
     return $statuses;
+  }
+
+  /**
+   * Remove Reportback Items with unauthorized statuses based on user permission.
+   *
+   * @param  array $data
+   * @return mixed
+   * @throws Exception
+   */
+  private function removeUnauthorizedResults($data) {
+    if (user_access('view any reportback')) {
+      return $data;
+    }
+
+    foreach ($data as $index => $item) {
+      if (!in_array($item->status, $this->accessibleStatuses)) {
+        unset($data[$index]);
+      }
+    }
+
+    if (!$data) {
+      throw new Exception('No reportback items data found.');
+    }
+
+    return $data;
   }
 
 }
