@@ -2,7 +2,7 @@
 
 class ReportbackItemTransformer extends ReportbackTransformer {
 
-  private $restricted_statuses = ['pending', 'flagged', 'excluded'];
+  private $accessibleStatuses = ['promoted', 'approved'];
 
   /**
    * @param array $parameters Any parameters obtained from query string.
@@ -10,7 +10,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
-
+    
     try {
       $reportbackItems = ReportbackItem::find($filters);
       $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'id');
@@ -101,15 +101,12 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     return $filters;
   }
 
-
+  /**
+   * Remove requested Reportback Item statuses based on user permission.
+   * @param  mixed $statuses
+   * @return mixed
+   */
   private function removeUnauthorizedStatuses($statuses) {
-    global $user;
-    print_r([
-      'statuses' => $statuses,
-      'prohibited statuses' => $this->restricted_statuses,
-      'user' => $user,
-    ]);
-
     if (user_access('view any reportback')) {
       return $statuses;
     }
@@ -118,23 +115,17 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       $statuses = [$statuses];
     }
 
-    $prohibited_values = array_intersect($this->restricted_statuses, $statuses);
+    $statuses = array_intersect($this->accessibleStatuses, $statuses);
 
-    if ($prohibited_values) {
-      foreach ($prohibited_values as $value) {
-        unset($statuses[array_search($value, $statuses)]);
-      }
+    if (!$statuses) {
+      return FALSE;
     }
 
     if (count($statuses) === 1) {
       return array_shift($statuses);
     }
 
-    print_r($statuses);
-
-    die();
     return $statuses;
-
   }
 
 }

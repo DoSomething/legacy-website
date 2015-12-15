@@ -117,14 +117,8 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 *    An executed database query object to iterate through.
 */
 function dosomething_reportback_get_reportback_items_query($params) {
-  if (isset($params['status'])) {
-    $statuses = dosomething_reportback_filter_permitted_statuses($params['status']);
-
-    if (!$statuses) {
+  if (isset($params['status']) && !$params['status']) {
       return FALSE;
-    }
-
-    $params['status'] = $statuses;
   }
 
   $query = dosomething_reportback_build_reportback_items_query($params);
@@ -138,37 +132,4 @@ function dosomething_reportback_get_reportback_items_query($params) {
   $result = $query->execute()->fetchAll();
 
   return $result;
-}
-
-
-/**
- * Filter out requested Reportback Item status based on user permissions.
- *
- * @param mixed $data
- * @return mixed
- */
-function dosomething_reportback_filter_permitted_statuses($data) {
-  if (user_access('view any reportback')) {
-    return $data;
-  }
-
-  if (!is_array($data)) {
-    $data = [$data];
-  }
-
-  $restricted = ['pending', 'flagged', 'excluded'];
-
-  $prohibited_values = array_intersect($restricted, $data);
-
-  if ($prohibited_values) {
-    foreach ($prohibited_values as $value) {
-      unset($data[array_search($value, $data)]);
-    }
-  }
-
-  if (count($data) === 1) {
-    return array_shift($data);
-  }
-
-  return $data;
 }
