@@ -275,7 +275,7 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     // Load Creator property.
     dosomething_campaign_load_creator($campaign, $wrapper);
 
-    cache_set('ds_campaign_' . $campaign->nid, $campaign, 'cache_dosomething_campaign');
+    cache_set('ds_campaign_' . $campaign->nid, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
 
     // If this is accessed via API:
     if ($public) {
