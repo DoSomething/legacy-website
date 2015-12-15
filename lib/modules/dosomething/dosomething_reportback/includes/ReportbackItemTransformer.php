@@ -10,7 +10,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
-    
+
     try {
       $reportbackItems = ReportbackItem::find($filters);
       $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'id');
