@@ -2,6 +2,8 @@
 
 class ReportbackItemTransformer extends ReportbackTransformer {
 
+  private $accessibleStatuses = ['promoted', 'approved'];
+
   /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
@@ -82,7 +84,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   private function setFilters($parameters) {
     $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'status' => dosomething_helpers_format_data($parameters['status']),
+      'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
@@ -97,6 +99,33 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
 
     return $filters;
+  }
+
+  /**
+   * Remove requested Reportback Item statuses based on user permission.
+   * @param  mixed $statuses
+   * @return mixed
+   */
+  private function removeUnauthorizedStatuses($statuses) {
+    if (user_access('view any reportback')) {
+      return $statuses;
+    }
+
+    if (!is_array($statuses)) {
+      $statuses = [$statuses];
+    }
+
+    $statuses = array_intersect($this->accessibleStatuses, $statuses);
+
+    if (!$statuses) {
+      return FALSE;
+    }
+
+    if (count($statuses) === 1) {
+      return array_shift($statuses);
+    }
+
+    return $statuses;
   }
 
 }
