@@ -95,6 +95,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
     $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
+    if ($filters['exclude'] && !is_array($filters['exclude'])) {
+      $filters['exclude'] = [$filters['exclude']];
+    }
+
     // Unset False boolean values that affect the query builder.
     if (!$filters['random']) {
       unset($filters['random']);
