@@ -101,6 +101,7 @@ class ReportbackTransformer extends Transformer {
    */
   private function setFilters($parameters) {
     $filters = [
+      'rbid' => dosomething_helpers_format_data($parameters['ids']),
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => (int) $parameters['count'] ?: 25,

@@ -36,6 +36,14 @@ function _reportback_resource_definition() {
         'callback' => '_reportback_resource_index',
         'args' => [
           [
+            'name' => 'ids',
+            'description' => 'Retrieve reportbacks based on specific node ids.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'ids'],
+            'default value' => NULL,
+          ],
+          [
             'name' => 'campaigns',
             'description' => 'The ids of specified campaigns to get reportbacks.',
             'optional' => TRUE,
@@ -55,7 +63,7 @@ function _reportback_resource_definition() {
             'name' => 'count',
             'description' => 'The number of reportbacks to retrieve.',
             'optional' => TRUE,
-            'type' => 'string',
+            'type' => 'int',
             'source' => ['param' => 'count'],
             'default value' => 25,
           ],
@@ -123,9 +131,22 @@ function _reportback_resource_access($op) {
   return FALSE;
 }
 
-
-function _reportback_resource_index($campaigns, $status, $count, $random, $page, $load_user, $flagged) {
+/**
+ * Retrieve and show index list response of reportbacks requested.
+ *
+ * @param  string  $ids
+ * @param  string  $campaigns
+ * @param  string  $status
+ * @param  int     $count
+ * @param  bool    $random
+ * @param  int     $page
+ * @param  bool    $load_user
+ * @param  bool    $flagged
+ * @return array
+ */
+function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $flagged) {
   $parameters =  [
+    'ids' => $ids,
     'campaigns' => $campaigns,
     'status' => $status,
     'count' => $count,
@@ -135,12 +156,10 @@ function _reportback_resource_index($campaigns, $status, $count, $random, $page,
     'flagged' => $flagged,
   ];
 
-  $reportbacks = new ReportbackTransformer;
-  return $reportbacks->index($parameters);
+  return (new ReportbackTransformer)->index($parameters);
 }
 
 
 function _reportback_resource_retrieve($rbid) {
-  $reportbacks = new ReportbackTransformer;
-  return $reportbacks->show($rbid);
+  return (new ReportbackTransformer)->show($rbid);
 }
