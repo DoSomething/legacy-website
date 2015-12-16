@@ -1203,3 +1203,18 @@ function dosomething_campaign_get_campaign_runs($node) {
 
   return $campaign_runs;
 }
+
+/**
+ * Implements hook_flush_caches()
+ *
+ */
+function dosomething_campaign_flush_caches() {
+  return array('cache_dosomething_campaign');
+}
+
+/**
+ * Implements hook_node_update()
+ */
+function dosomething_campaign_node_update($node) {
+  cache_clear_all('ds_campaign_' . $node->nid, 'cache_dosomething_campaign');
+}

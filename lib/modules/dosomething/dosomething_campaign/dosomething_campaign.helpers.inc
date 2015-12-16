@@ -11,6 +11,8 @@
  *   A loaded Node object.
  * @param bool $public
  *   If TRUE, do not return non-content attributes, e.g. variables.
+ * @param bool $cache
+ *   If TRUE, store $campaign in the cache
  *
  * @return obj
  *   Available properties:
@@ -84,190 +86,204 @@
  *   - vips (string). HTML.
  *
  */
-function dosomething_campaign_load($node, $public = FALSE) {
+function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   if ($node->type != 'campaign') { return FALSE; }
-
+  
   // Get the appropriate lang
   $current_lang = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
 
-  // Set the image src ratio and styles.
-  $image_src_ratio = 'square';
-  $image_src_style = '300x300';
-
-  // Load the entity metadata wrapper for easy value getting.
-  $wrapper = dosomething_helpers_node_metadata_wrapper($node);
-
-  $campaign = new stdClass();
-  $campaign->nid = $node->nid;
-  $campaign->title = $node->title;
-  $campaign->status = dosomething_campaign_get_campaign_status($node);
-  $campaign->type = dosomething_campaign_get_campaign_type($node);
-  $campaign->scholarship = $wrapper->field_scholarship_amount->value();
-  if ($campaign->scholarship) {
-    $campaign->scholarship = (int) $campaign->scholarship;
-  }
-
-  $campaign->partners = NULL;
-  // Set partners.
-  if (!empty($node->field_partners)) {
-    $campaign->partners = dosomething_taxonomy_get_partners_data($node->field_partners[LANGUAGE_NONE]);
-  }
-
-  // Plain text properties.
-  $plain_text = dosomething_campaign_get_property_names_plain_text();
-
-  foreach ($plain_text as $property) {
-    $field_name = 'field_' . $property;
-    if (isset($wrapper->{$field_name})) {
-      $campaign->{$property} = $wrapper->{$field_name}->value();
+  if (($cached_node = cache_get('ds_campaign_' . $node->nid ."_". $current_lang, 'cache_dosomething_campaign')) && $cache) {
+    // If this is accessed via API:
+    if ($public) {
+      // Add stats property.
+      dosomething_campaign_load_stats($campaign);
+      // Unset properties which shouldn't be public.
+      unset($cached_node->variables);
     }
+    return $campaign = $cached_node->data;
   }
+  else {
+    // Set the image src ratio and styles.
+    $image_src_ratio = 'square';
+    $image_src_style = '300x300';
 
-  // Filtered text properties.
-  $filtered_text = dosomething_campaign_get_property_names_filtered_text();
-  foreach ($filtered_text as $property) {
-    $field_name = 'field_' . $property;
+    // Load the entity metadata wrapper for easy value getting.
+    $wrapper = dosomething_helpers_node_metadata_wrapper($node);
 
-    if ($value = $wrapper->{$field_name}->value()) {
-      // Store filtered text.
-      if (isset($value['safe_value'])) {
-        $campaign->{$property} = $value['safe_value'];
+    $campaign = new stdClass();
+    $campaign->nid = $node->nid;
+    $campaign->title = $node->title;
+    $campaign->status = dosomething_campaign_get_campaign_status($node);
+    $campaign->type = dosomething_campaign_get_campaign_type($node);
+    $campaign->scholarship = $wrapper->field_scholarship_amount->value();
+    if ($campaign->scholarship) {
+      $campaign->scholarship = (int) $campaign->scholarship;
+    }
+
+    $campaign->partners = NULL;
+    // Set partners.
+    if (!empty($node->field_partners)) {
+      $campaign->partners = dosomething_taxonomy_get_partners_data($node->field_partners[LANGUAGE_NONE]);
+    }
+
+    // Plain text properties.
+    $plain_text = dosomething_campaign_get_property_names_plain_text();
+
+    foreach ($plain_text as $property) {
+      $field_name = 'field_' . $property;
+      if (isset($wrapper->{$field_name})) {
+        $campaign->{$property} = $wrapper->{$field_name}->value();
+      }
+    }
+
+    // Filtered text properties.
+    $filtered_text = dosomething_campaign_get_property_names_filtered_text();
+    foreach ($filtered_text as $property) {
+      $field_name = 'field_' . $property;
+
+      if ($value = $wrapper->{$field_name}->value()) {
+        // Store filtered text.
+        if (isset($value['safe_value'])) {
+          $campaign->{$property} = $value['safe_value'];
+        }
+        else {
+          $campaign->{$property} = $value;
+        }
       }
       else {
-        $campaign->{$property} = $value;
+        $campaign->{$property} = NULL;
       }
     }
+
+    // Taxonomy fields.
+    $campaign->is_staff_pick = $wrapper->field_staff_pick->value();
+    $campaign->primary_cause = NULL;
+    if ($primary_cause = $wrapper->field_primary_cause->value()) {
+      $campaign->primary_cause['tid'] = $primary_cause->tid;
+      $campaign->primary_cause['name'] = $primary_cause->name;
+    }
+    $campaign->issue = NULL;
+    if ($issue = $wrapper->field_issue->value()) {
+      $campaign->issue['tid'] = $issue->tid;
+      $campaign->issue['name'] = $issue->name;
+    }
+
+    // Date fields.
+    $campaign->high_season_start = NULL;
+    $campaign->high_season_end = NULL;
+    $campaign->low_season_start = NULL;
+    $campaign->low_season_end = NULL;
+    $fields_date = array(
+      'high_season',
+      'low_season',
+    );
+    foreach ($fields_date as $property) {
+      $field_name = 'field_' . $property;
+      if ($value = $wrapper->{$field_name}->value()) {
+        $start_property = $property . '_start';
+        $campaign->{$start_property} = $value['value'];
+        $end_property = $property . '_end';
+        $campaign->{$end_property} = $value['value2'];
+      }
+    }
+    // Load end_date property.
+    dosomething_campaign_load_end_date($campaign, $wrapper);
+
+    // Fact fields.
+    $campaign->fact_problem = NULL;
+    $campaign->fact_solution = NULL;
+    $campaign->fact_sources = NULL;
+    // Collect multiple fact fields values as fact and sources variables.
+    $fact_fields = array('field_fact_problem', 'field_fact_solution');
+
+    // @TODO: Consider removing old function.
+    // For global translation work we had issues dealing with the entity_metadata_wrapper method and
+    // EntityDrupalWrapper retrieving appropriate content based on url language prefix, so this function
+    // is disabled for now in favor of the dosomething_fact_get_facts_data() function instead.
+    // $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
+    $fact_vars = dosomething_fact_get_facts_data($node, $fact_fields);
+
+    if (!empty($fact_vars)) {
+      if (isset($fact_vars['facts']['field_fact_problem'])) {
+        $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];
+      }
+      if (isset($fact_vars['facts']['field_fact_solution'])) {
+        $campaign->fact_solution = $fact_vars['facts']['field_fact_solution'];
+      }
+      // Store all sources from fields as a sources array.
+      $campaign->fact_sources  = $fact_vars['sources'];
+    }
+
+    // Compound text field collections.
+    $compound_fc_fields = array('faq', 'step_pre', 'step_post');
+    foreach ($compound_fc_fields as $property) {
+      $field_name = 'field_' . $property;
+      $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
+    }
+
+    $campaign->downloads = NULL;
+    if (!empty($node->field_downloads)) {
+      foreach ($node->field_downloads[$current_lang] as $file) {
+        $campaign->downloads[] = array(
+          'url' => file_create_url($file['uri']),
+          'description' => $file['description'],
+        );
+      }
+    }
+
+    // Store any dosomething_helpers variables.
+    $campaign->variables = dosomething_helpers_get_variables('node', $campaign->nid);
+
+    // Set image_cover property.
+    $campaign->image_cover = NULL;
+    if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
+      $campaign->image_cover['nid'] = (int) $image_cover->nid;
+      // Initalize as FALSE.
+      $campaign->image_cover['is_dark_image'] = FALSE;
+      // If is_dark_image field value exists:
+      if (isset($image_cover->field_dark_image[LANGUAGE_NONE][0]['value'])) {
+        $campaign->image_cover['is_dark_image'] = (bool) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
+      }
+      // Set the src property.
+      // @todo: Deprecate when Message Broker uses url array instead.
+      $campaign->image_cover['src'] = dosomething_image_get_themed_image_url($campaign->image_cover['nid'], $image_src_ratio, $image_src_style);
+      // Set the url array.
+      dosomething_campaign_load_image_url($campaign->image_cover['url'], $image_cover);
+    }
+
+    // Set image_header property.
+    // If there is an override for the campaign header image.
+    if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
+      // Set the nid to the overridden value.
+      $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
+      // Initalize as FALSE.
+      $campaign->image_header['is_dark_image'] = FALSE;
+      // Load the alt image node.
+      $alt_image = node_load($campaign->image_header['nid']);
+      if (isset($alt_image->field_dark_image[LANGUAGE_NONE][0]['value'])) {
+        $campaign->image_header['is_dark_image'] = (bool) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
+      }
+      // Set the src property.
+      $campaign->image_header['src'] = dosomething_image_get_themed_image_url($campaign->image_header['nid'], $image_src_ratio, $image_src_style);
+    }
+    // Else if no override:
     else {
-      $campaign->{$property} = NULL;
+      // Same as the image_cover.
+      $campaign->image_header = $campaign->image_cover;
     }
-  }
 
-  // Taxonomy fields.
-  $campaign->is_staff_pick = $wrapper->field_staff_pick->value();
-  $campaign->primary_cause = NULL;
-  if ($primary_cause = $wrapper->field_primary_cause->value()) {
-    $campaign->primary_cause['tid'] = $primary_cause->tid;
-    $campaign->primary_cause['name'] = $primary_cause->name;
-  }
-  $campaign->issue = NULL;
-  if ($issue = $wrapper->field_issue->value()) {
-    $campaign->issue['tid'] = $issue->tid;
-    $campaign->issue['name'] = $issue->name;
-  }
+    // Load Creator property.
+    dosomething_campaign_load_creator($campaign, $wrapper);
 
-  // Date fields.
-  $campaign->high_season_start = NULL;
-  $campaign->high_season_end = NULL;
-  $campaign->low_season_start = NULL;
-  $campaign->low_season_end = NULL;
-  $fields_date = array(
-    'high_season',
-    'low_season',
-  );
-  foreach ($fields_date as $property) {
-    $field_name = 'field_' . $property;
-    if ($value = $wrapper->{$field_name}->value()) {
-      $start_property = $property . '_start';
-      $campaign->{$start_property} = $value['value'];
-      $end_property = $property . '_end';
-      $campaign->{$end_property} = $value['value2'];
+    cache_set('ds_campaign_' . $campaign->nid ."_". $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
+
+    // If this is accessed via API:
+    if ($public) {
+      // Add stats property.
+      dosomething_campaign_load_stats($campaign);
+      // Unset properties which shouldn't be public.
+      unset($campaign->variables);
     }
-  }
-  // Load end_date property.
-  dosomething_campaign_load_end_date($campaign, $wrapper);
-
-  // Fact fields.
-  $campaign->fact_problem = NULL;
-  $campaign->fact_solution = NULL;
-  $campaign->fact_sources = NULL;
-  // Collect multiple fact fields values as fact and sources variables.
-  $fact_fields = array('field_fact_problem', 'field_fact_solution');
-
-  // @TODO: Consider removing old function.
-  // For global translation work we had issues dealing with the entity_metadata_wrapper method and
-  // EntityDrupalWrapper retrieving appropriate content based on url language prefix, so this function
-  // is disabled for now in favor of the dosomething_fact_get_facts_data() function instead.
-  // $fact_vars = dosomething_fact_get_mutiple_fact_field_vars($wrapper->nid->value(), $fact_fields);
-  $fact_vars = dosomething_fact_get_facts_data($node, $fact_fields);
-
-  if (!empty($fact_vars)) {
-    if (isset($fact_vars['facts']['field_fact_problem'])) {
-      $campaign->fact_problem = $fact_vars['facts']['field_fact_problem'];
-    }
-    if (isset($fact_vars['facts']['field_fact_solution'])) {
-      $campaign->fact_solution = $fact_vars['facts']['field_fact_solution'];
-    }
-    // Store all sources from fields as a sources array.
-    $campaign->fact_sources  = $fact_vars['sources'];
-  }
-
-  // Compound text field collections.
-  $compound_fc_fields = array('faq', 'step_pre', 'step_post');
-  foreach ($compound_fc_fields as $property) {
-    $field_name = 'field_' . $property;
-    $campaign->{$property} = dosomething_helpers_get_field_collection_values($wrapper, $field_name);
-  }
-
-  $campaign->downloads = NULL;
-  if (!empty($node->field_downloads)) {
-    foreach ($node->field_downloads[$current_lang] as $file) {
-      $campaign->downloads[] = array(
-        'url' => file_create_url($file['uri']),
-        'description' => $file['description'],
-      );
-    }
-  }
-
-  // Store any dosomething_helpers variables.
-  $campaign->variables = dosomething_helpers_get_variables('node', $campaign->nid);
-
-  // Set image_cover property.
-  $campaign->image_cover = NULL;
-  if ($image_cover = $wrapper->field_image_campaign_cover->value()) {
-    $campaign->image_cover['nid'] = (int) $image_cover->nid;
-    // Initalize as FALSE.
-    $campaign->image_cover['is_dark_image'] = FALSE;
-    // If is_dark_image field value exists:
-    if (isset($image_cover->field_dark_image[LANGUAGE_NONE][0]['value'])) {
-      $campaign->image_cover['is_dark_image'] = (bool) $image_cover->field_dark_image[LANGUAGE_NONE][0]['value'];
-    }
-    // Set the src property.
-    // @todo: Deprecate when Message Broker uses url array instead.
-    $campaign->image_cover['src'] = dosomething_image_get_themed_image_url($campaign->image_cover['nid'], $image_src_ratio, $image_src_style);
-    // Set the url array.
-    dosomething_campaign_load_image_url($campaign->image_cover['url'], $image_cover);
-  }
-
-  // Set image_header property.
-  // If there is an override for the campaign header image.
-  if (isset($campaign->variables['alt_image_campaign_cover_nid'])) {
-    // Set the nid to the overridden value.
-    $campaign->image_header['nid'] = (int) $campaign->variables['alt_image_campaign_cover_nid'];
-    // Initalize as FALSE.
-    $campaign->image_header['is_dark_image'] = FALSE;
-    // Load the alt image node.
-    $alt_image = node_load($campaign->image_header['nid']);
-    if (isset($alt_image->field_dark_image[LANGUAGE_NONE][0]['value'])) {
-      $campaign->image_header['is_dark_image'] = (bool) $alt_image->field_dark_image[LANGUAGE_NONE][0]['value'];
-    }
-    // Set the src property.
-    $campaign->image_header['src'] = dosomething_image_get_themed_image_url($campaign->image_header['nid'], $image_src_ratio, $image_src_style);
-  }
-  // Else if no override:
-  else {
-    // Same as the image_cover.
-    $campaign->image_header = $campaign->image_cover;
-  }
-
-  // Load Creator property.
-  dosomething_campaign_load_creator($campaign, $wrapper);
-
-  // If this is accessed via API:
-  if ($public) {
-    // Add stats property.
-    dosomething_campaign_load_stats($campaign);
-    // Unset properties which shouldn't be public.
-    unset($campaign->variables);
   }
 
   return $campaign;
