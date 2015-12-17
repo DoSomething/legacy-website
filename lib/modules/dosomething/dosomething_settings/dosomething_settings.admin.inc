@@ -48,5 +48,12 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  $var_name = 'dosomething_settings_realtimefeed_update_url';
+  $form['dashboard'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Update URL for lobby dashboard'),
+    '#default_value' => variable_get($var_name),
+  );
+
   return system_settings_form($form);
 }

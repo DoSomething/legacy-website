@@ -19,6 +19,19 @@ function paraneue_dosomething_preprocess_html(&$vars) {
   $vars['is_affiliate'] = dosomething_settings_is_affiliate();
   $member_count = dosomething_user_get_member_count(TRUE);
   $vars['head_title'] = token_replace($vars['head_title'], ['member-count-readable' => $member_count]);
+
+  $update_url = variable_get('dosomething_settings_realtimefeed_update_url');
+  if (!empty($update_url)) {
+    drupal_add_js(
+      array('dosomethingSetting' =>
+        array(
+          'globeUrl' => $update_url,
+          'countryCode' => dosomething_settings_get_geo_country_code(),
+        )
+      ),
+      'setting'
+    );
+  }
 }
 
 /**
@@ -349,26 +362,24 @@ function paraneue_dosomething_add_info_bar(&$vars) {
   }
 
   if (module_exists('dosomething_global')) {
-    $country_prefix = dosomething_global_get_current_prefix();
+    $country_code = dosomething_settings_get_geo_country_code();
 
-    if ($country_prefix) {
-      $country_contact_emails = array(
-        'br' => 'ajuda@dosomething.org',
-        'mx' => 'ayuda@dosomething.org',
-      );
+    $country_contact_emails = array(
+      'br' => 'ajuda@dosomething.org',
+      'mx' => 'ayuda@dosomething.org',
+    );
 
-      // For the countries in $country_contact_emails, use a contact email address instead of zendesk form.
-      if (array_key_exists($country_prefix, $country_contact_emails)) {
-        $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_prefix] .'">'. $country_contact_emails[$country_prefix] . '</a>';
-      // All other countries get the zendesk form.
-      }
-      else {
-        $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
-        $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
+    // For the countries in $country_contact_emails, use a contact email address instead of zendesk form.
+    if (array_key_exists($country_code, $country_contact_emails)) {
+      $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_code] .'">'. $country_contact_emails[$country_code] . '</a>';
+    // All other countries get the zendesk form.
+    }
+    else {
+      $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
+      $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
 
-        if (isset($vars['zendesk_form'])) {
-          $info_bar_vars['zendesk_form'] = $vars['zendesk_form'];
-        }
+      if (isset($vars['zendesk_form'])) {
+        $info_bar_vars['zendesk_form'] = $vars['zendesk_form'];
       }
     }
   }
@@ -658,6 +669,9 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
  */
 function paraneue_dosomething_preprocess_user_profile(&$vars) {
   global $base_url;
+  global $user;
+  $language = $user->language;
+
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');
@@ -665,7 +679,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => $value['link'],
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => dosomething_global_url($value['path_alias'], ['fragment' => 'prove']),
+        'url' => dosomething_global_node_url($value['nid'], $language, 'prove'),
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');

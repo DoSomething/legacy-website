@@ -24,7 +24,7 @@ class ReportbackItemController extends EntityAPIController {
     $file = file_load($entity->fid);
     $build['file_url'] = array(
       '#prefix' => '<p>',
-      '#markup' => l(t("(View original upload)"), file_create_url($file->uri)),
+      '#markup' => l(t('(View original upload)'), file_create_url($file->uri)),
       '#suffix' => '</p>',
     );
 
@@ -32,7 +32,7 @@ class ReportbackItemController extends EntityAPIController {
       $reportback = reportback_load($entity->rbid);
       $author = user_load($reportback->uid);
       $files_count = count($reportback->fids);
-      $total_files = t("@count files uploaded", array(
+      $total_files = t('@count files uploaded', array(
         '@count' => $files_count,
       ));
 
@@ -65,7 +65,7 @@ class ReportbackItemController extends EntityAPIController {
       $reviewer = user_load($entity->reviewer);
       $reason = NULL;
       if (!empty($reportback->flagged_reason)) {
-        $reason = ' ' . t("as") . ' ' . $reportback->flagged_reason;
+        $reason = ' ' . t('as') . ' ' . $reportback->flagged_reason;
       }
       $build['reviewed'] = array(
         '#prefix' => '<p>',
@@ -81,7 +81,7 @@ class ReportbackItemController extends EntityAPIController {
       }
       $build['review_source'] = array(
         '#prefix' => '<p>',
-        '#markup' => t("Source") . ': ' . $entity->review_source,
+        '#markup' => t('Source') . ': ' . $entity->review_source,
         '#suffix' => '</p>',
       );
     }

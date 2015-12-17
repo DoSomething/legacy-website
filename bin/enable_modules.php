@@ -35,9 +35,9 @@ function enable_modules_if_needed($modules) {
   }
   if ($to_enable) {
     module_enable($to_enable);
-    echo "Enabled new modules";
+    echo 'Enabled new modules';
   }
   else {
-    echo "No new modules to enable";
+    echo 'No new modules to enable';
   }
 }

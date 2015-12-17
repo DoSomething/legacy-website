@@ -671,8 +671,9 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
   $params = array(
     'nid' => $vars['nid'],
     'status' => 'promoted',
+    'count' => $num_items,
   );
-  $result = dosomething_reportback_get_reportback_files_query_result($params, $num_items);
+  $result = dosomething_reportback_get_reportback_items_query($params);
 
   // Loop through gallery_vars to only output what we need for theming:
   foreach ($result as $delta => $item) {

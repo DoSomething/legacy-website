@@ -223,7 +223,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     // Fieldset.
     $footer['social'][$setting_key] = array(
       '#type'        => 'fieldset',
-      '#title'       => $network['name'] . ": " .
+      '#title'       => $network['name'] . ': ' .
                         (theme_get_setting($setting_enabled) ? t('On') : t('Off')),
       '#collapsible' => TRUE,
       '#collapsed'   => TRUE

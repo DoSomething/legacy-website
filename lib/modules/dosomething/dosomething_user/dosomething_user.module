@@ -660,6 +660,8 @@ function dosomething_user_login_submit($form, &$form_state) {
  * more sensible redirects post-login.
  */
 function dosomething_user_authentication_submit($form, &$form_state) {
+  global $user;
+
   // If there's a hidden nid, sign the user up for a campaign.
   if (isset($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
@@ -675,7 +677,7 @@ function dosomething_user_authentication_submit($form, &$form_state) {
         dosomething_signup_user_presignup($nid);
       }
       else {
-        dosomething_signup_user_signup($nid, NULL, $source);
+        dosomething_signup_user_signup($nid, $user, $source);
       }
     }
   }
@@ -691,7 +693,7 @@ function dosomething_user_authentication_submit($form, &$form_state) {
   }
   elseif (isset($nid)) {
     // Redirect to campaign node on reportback permalink pages.
-    $form_state['redirect'] = drupal_get_path_alias('node/' . $nid);
+    $form_state['redirect'] = dosomething_global_node_url($nid, $user->language);
   }
 }
 

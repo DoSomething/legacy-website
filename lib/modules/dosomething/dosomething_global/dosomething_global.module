@@ -93,6 +93,7 @@ function dosomething_global_init() {
   //
   // Passing 'noredirect=1' will defeat the redirect.
   if ($user_variables['is_user_page'] && !$user_variables['is_login_page'] && !$node_variables['node_no_redirect']) {
+    $_SESSION['dosomething_global_redirected'] = TRUE;
     drupal_goto($url_variables['url_path_prefix'] . '/' . current_path());
     return;
   }
@@ -613,12 +614,9 @@ function dosomething_global_redirect_node($user_lang, $node, $redirect_status) {
     drupal_exit();
     return;
   }
+
   $_SESSION['dosomething_global_redirected'] = TRUE;
-  // Might be overly formal: We could pull 'node/nid' from the current
-  // request. This is in case of the unlikely (impossible?) event that
-  // a translated version of this node has a different entity ID.
-  $target_path = sprintf('node/%s', $target_node['entity_id']);
-  drupal_goto(url($target_path, array('language' => $languages[$language])), array(), $redirect_status);
+  drupal_goto(dosomething_global_node_url($node->nid, $user_lang));
 }
 
 /**
@@ -648,6 +646,28 @@ function dosomething_global_url($path, $options = NULL) {
     $options['prefix'] = $languages[$options['language']]->prefix . '/';
   }
   return url($path, $options);
+}
+
+/**
+ * Build a global node URL that adds the prefix and a fragment
+ *
+ * @param string $nid
+ *    The nid of the node
+ * @param string $language
+ *    The language of the URL
+ * @param string $fragment
+ *    Optional fragment to append
+ */
+function dosomething_global_node_url($nid, $language, $fragment = NULL) {
+  $raw_url = 'node/' . $nid;
+  if (isset($fragment)) {
+    $raw_url .= '#' . $fragment;
+  }
+  $prefix = dosomething_global_get_prefix_for_language($language);
+  if (!empty($prefix)) {
+    $prefix .= '/';
+  }
+  return $GLOBALS['base_url'] . '/' . $prefix . drupal_get_path_alias($raw_url, $language);
 }
 
 /**

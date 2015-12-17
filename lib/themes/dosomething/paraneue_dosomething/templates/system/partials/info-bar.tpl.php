@@ -9,7 +9,7 @@
 <footer class="info-bar">
   <div class="wrapper">
     <?php if (isset($formatted_partners)): ?>
-      <?php print t("In partnership with"); ?> <?php print $formatted_partners; ?>
+      <?php print t('In partnership with'); ?> <?php print $formatted_partners; ?>
     <?php endif; ?>
 
     <?php if (isset($contact_us_email)): ?>
@@ -33,4 +33,3 @@
   </div>
 </footer>
 <?php endif; ?>
-

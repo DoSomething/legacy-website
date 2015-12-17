@@ -87,7 +87,7 @@ class Reportback extends Entity {
    */
   public static function get($ids) {
     $reportbacks = [];
-    $results = dosomething_reportback_get_reportbacks_query_result(['rbid' => $ids]);
+    $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids]);
 
     if (!$results) {
       throw new Exception('No reportback data found.');
@@ -348,23 +348,23 @@ class Reportback extends Entity {
     $promoted_reportbacks = FALSE;
 
     foreach ($items as $item) {
-      if ($item->status === "flagged") {
+      if ($item->status === 'flagged') {
         $flagged_reportbacks = TRUE;
 
       }
-      else if($item->status === "promoted") {
+      else if($item->status === 'promoted') {
         $promoted_reportbacks = TRUE;
       }
     }
 
     // Verifies that reportbacks get the correct status and boolean
     // regardless of the order they are reviewed or how many there is
-    if ($flagged_reportbacks || $status === "flagged") {
-      $status = "flagged";
+    if ($flagged_reportbacks || $status === 'flagged') {
+      $status = 'flagged';
     }
     // Promoted must be after flagged as it has second priority
-    else if($promoted_reportbacks || $status === "promoted") {
-      $status = "promoted";
+    else if($promoted_reportbacks || $status === 'promoted') {
+      $status = 'promoted';
     }
 
     // Based on the logic decided above, modify the review values
