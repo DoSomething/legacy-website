@@ -1486,7 +1486,6 @@ function dosomething_user_views_pre_render(&$view) {
   if ($view->name == 'user_search' && count($view->result) == 1) {
     drupal_goto('user/' . $view->result[0]->uid);
   }
-
   if ($view->name == 'content_search') {
     // Remove grouping labels
     $table_style = 'table caption { display: none }';
