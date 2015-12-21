@@ -569,22 +569,11 @@ function dosomething_helpers_application_path($path = '') {
 }
 
 /**
- * Implements hook_form_node_admin_content_alter().
+ * Implements hook_url_outbound_alter().
  */
-function dosomething_helpers_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
-  // Remove destination?=admin/content from edit button
-  if (dosomething_user_is_staff()) {
-    foreach ($form['admin']['nodes']['#options'] as $nid => $node) {
-      if (!empty($form['admin']['nodes']['#options'][$nid]['operations'])) {
-        unset($form['admin']['nodes']['#options'][$nid]['operations']['data']['#links']['edit']['query']['destination']);
-      }
-    }
-  }
-  else if (dosomething_global_is_regional_admin()) {
-    foreach ($form['admin']['nodes']['#rows'] as $nid => $node) {
-      if (!empty($form['admin']['nodes']['#rows'][$nid]['operations'])) {
-        unset($form['admin']['nodes']['#rows'][$nid]['operations']['data']['#options']['query']['destination']);
-      }
-    }
+ function dosomething_user_url_outbound_alter(&$path, &$options, $original_path) {
+  // Remove destination?=admin/content from node edit links
+  if (preg_match('|^node/([0-9]*)/edit(/.*)?|', $path, $matches)) {
+    unset($options['query']['destination']);
   }
 }
