@@ -574,6 +574,8 @@ function dosomething_helpers_application_path($path = '') {
  function dosomething_user_url_outbound_alter(&$path, &$options, $original_path) {
   // Remove destination?=admin/content from node edit links
   if (preg_match('|^node/([0-9]*)/edit(/.*)?|', $path, $matches)) {
-    unset($options['query']['destination']);
+    if (isset($options['query']['destination'])) {
+      unset($options['query']['destination']);
+    }
   }
 }
