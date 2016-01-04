@@ -492,7 +492,7 @@ function dosomething_helpers_utm_parameters($nid, $options = NULL) {
 /**
  * Returns a property wrapper for the given node.
  *
- * @param $data
+ * @param $node
  *   The node to wrap.
  * @param  boolean
  *   Return langiage-neutral wrapper.
@@ -501,10 +501,41 @@ function dosomething_helpers_utm_parameters($nid, $options = NULL) {
  *   Dependend on the passed data the right wrapper is returned.
  */
 function dosomething_helpers_node_metadata_wrapper($node, $ignore_language = FALSE) {
-  $wrapper = entity_metadata_wrapper('node', $node);
+  return _dosomething_helpers_metadata_wrapper('node', $node, $ignore_language);
+}
+
+/**
+ * Returns a property wrapper for the given term.
+ *
+ * @param $term
+ *   The term to wrap.
+ * @param  boolean
+ *   Return langiage-neutral wrapper.
+ *
+ * @return EntityMetadataWrapper
+ *   Dependend on the passed data the right wrapper is returned.
+ */
+function dosomething_helpers_term_metadata_wrapper($term, $ignore_language = FALSE) {
+  return _dosomething_helpers_metadata_wrapper('taxonomy_term', $term, $ignore_language);
+}
+
+/**
+ * Returns a property wrapper for the given term.
+ *
+ * @param $type
+ *   The type of the passed data.
+ * @param $data
+ *   The term to wrap.
+ * @param  boolean
+ *   Return langiage-neutral wrapper.
+ *
+ * @return EntityMetadataWrapper
+ *   Dependend on the passed data the right wrapper is returned.
+ */
+function _dosomething_helpers_metadata_wrapper($type, $entity, $ignore_language) {
+  $wrapper = entity_metadata_wrapper($type, $entity);
   if (!$ignore_language) {
-    global $language;
-    $wrapper->language($language->language);
+    $wrapper->language(dosomething_helpers_get_current_language_code());
   }
   return $wrapper;
 }

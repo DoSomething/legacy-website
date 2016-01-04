@@ -150,11 +150,15 @@ function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = '
     if (!isset($item['value'])) {
       continue;
     }
+
     $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
+    if (!$fc_item->field_partner->value()) {
+      continue;
+    }
 
     // Gather partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $term_wrapper = dosomething_helpers_term_metadata_wrapper($term);
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
     $partners[$delta]['name'] = $term_wrapper->label();
 
@@ -217,11 +221,15 @@ function dosomething_taxonomy_get_partners_vars($field_partners = array()) {
     if (!isset($item['value'])) {
       continue;
     }
+
     $fc_item = entity_metadata_wrapper('field_collection_item', $item['value']);
+    if (!$fc_item->field_partner->value()) {
+      continue;
+    }
 
     // Store partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $term_wrapper = dosomething_helpers_term_metadata_wrapper($term);
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
     $partners[$delta]['name'] = $term_wrapper->label();
     if (isset($fc_item->field_partner_url)) {
