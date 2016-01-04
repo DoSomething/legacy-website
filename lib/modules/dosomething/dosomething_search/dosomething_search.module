@@ -286,8 +286,12 @@ function dosomething_search_views_pre_render(&$view) {
   if ($view->name == 'explore_campaigns') {
   foreach ($view->result as $key => $result) {
       // Decode campaign title and campaign call to action, make sure to include single quotes!
-      $view->result[$key]->label = htmlspecialchars_decode($result->label, ENT_QUOTES);
-      $view->result[$key]->sm_field_call_to_action[0] = htmlspecialchars_decode($result->sm_field_call_to_action[0], ENT_QUOTES);
+      if (!empty($result->label)) {
+        $view->result[$key]->label = htmlspecialchars_decode($result->label, ENT_QUOTES);
+      }
+      if (!empty($result->sm_field_call_to_action[0])) {
+        $view->result[$key]->sm_field_call_to_action[0] = htmlspecialchars_decode($result->sm_field_call_to_action[0], ENT_QUOTES);
+      }
     }
   }
 }
