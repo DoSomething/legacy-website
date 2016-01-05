@@ -88,7 +88,7 @@
  */
 function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   if ($node->type != 'campaign') { return FALSE; }
-  
+
   // Get the appropriate lang
   $current_lang = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
 
@@ -666,4 +666,16 @@ function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
   }
 
   return $time_left;
+}
+
+/**
+ * Get all the campaign runs associated with a node.
+ */
+function dosomething_campaign_get_runs($nid) {
+  $campaign_runs = db_query("SELECT entity_id
+                             FROM field_data_field_campaigns
+                             WHERE field_campaigns_target_id = :nid
+                             AND bundle = 'campaign_run';", array(':nid' => $nid))->fetchAll();
+
+  return $campaign_runs;
 }

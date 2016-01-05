@@ -29,14 +29,13 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
 
   $nid = $form['nid']['#value'];
 
-  // Find all the campaign runs associated with this campaign.
-  $campaign_runs = db_query("SELECT entity_id
-                             FROM field_data_field_campaigns
-                             WHERE field_campaigns_target_id = :nid
-                             AND bundle = 'campaign_run';", array(':nid' => $nid))->fetchAll();
+  // If this is an /add/ form then nid won't be set yet.
+  if (!is_null($nid)) {
+    $campaign_runs = dosomething_campaign_get_runs($nid);
+  }
 
   // Only show the campaign runs tied to the campaign as options.
-  if (!empty($campaign_runs)) {
+  if (isset($campaign_runs) && !empty($campaign_runs)) {
     $language = $form['field_current_run']['#language'];
     $all_options = $form['field_current_run'][$language]['#options'];
 
