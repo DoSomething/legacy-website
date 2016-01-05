@@ -73,6 +73,8 @@ function dosomething_fact_page_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_node().
  */
 function dosomething_fact_page_preprocess_node(&$vars) {
+  $supported_languages = dosomething_global_get_language_prefix_list();
+
   if ($vars['type'] == 'fact_page') {
     $template_vars = array(
       'text' => array(
@@ -92,9 +94,12 @@ function dosomething_fact_page_preprocess_node(&$vars) {
         $field = $vars["field_{$label}"];
 
         if (isset($field) && !empty($field)) {
-          if (array_key_exists('en', $field)) {
-            $field = $field['en'];
+          $prefix = array_keys($field)[0];
+
+          if (!is_int($prefix) && in_array($prefix, $supported_languages)) {
+            $field = $field[$prefix];
           }
+
           $field = $field[0];
 
           switch ($key) {
@@ -110,6 +115,7 @@ function dosomething_fact_page_preprocess_node(&$vars) {
             default:
               break;
           }
+
         }
 
       }
