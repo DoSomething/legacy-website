@@ -97,7 +97,7 @@ function dosomething_global_init() {
     return;
   }
 
-  // Handle translation redirects for authenticated and anonymous users when
+  // Handle translation redirects for authenticated and anonymous users whe n
   // they request bare (Global English) URLs to nodes.
   //
   // Passing 'noredirect=1' will defeat the redirect.
@@ -561,8 +561,14 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
     // Append the user language
     $lang_append = $new_translation_prefix . $user_language;
 
+    // Make sure there is a prefix
+    $prefix = '/node/';
+    if (dosomething_global_get_current_prefix() == '') {
+      $prefix = '/' . dosomething_global_get_prefix_for_language($user_language) . $prefix;
+    }
+
     // Build complete URL and redirect
-    $new_url = str_replace(' ', '', '/node/' . $node->nid . '/edit/' . $lang_append);
+    $new_url = str_replace(' ', '', $prefix . $node->nid . '/edit/' . $lang_append);
     drupal_goto($new_url);
   }
 }
