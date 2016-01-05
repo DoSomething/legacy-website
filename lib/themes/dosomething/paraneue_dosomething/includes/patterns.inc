@@ -7,7 +7,7 @@
 /**
  * Function that themes an item, based on a pattern from neue, that can then go into a gallery.
  *
- * @param array $content
+ * @param mixed $content
  *   An associative array of content, can contain:
  *   - $content['title']: Used as a heading (string).
  *   - $content['description']: (string).
@@ -26,10 +26,14 @@
 function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_default = TRUE, $classes_array = array()) {
 
   // If no image is provided and we want to use a default, then set the default image here.
-  if (empty($content['image']) && $use_default) {
-    $content['image'] = theme('image', array(
-      'path' => FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png'
-    ));
+  if ($use_default) {
+    $content = (array) $content;
+
+    if (empty($content['image'])) {
+      $content['image'] = theme('image', array(
+        'path' => FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png'
+      ));
+    }
   }
 
   $variables = array(
