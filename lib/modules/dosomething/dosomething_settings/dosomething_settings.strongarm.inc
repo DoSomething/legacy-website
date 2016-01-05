@@ -59,7 +59,7 @@ function dosomething_settings_strongarm() {
       'media-src' => '',
       'frame-src' => '',
       'font-src' => '',
-      'connect-src' => '',
+      'connect-src' => '\'self\' dsrealtimefeed.herokuapp.com',
       'report-uri' => 'admin/config/system/seckit/csp-report',
       'policy-uri' => '',
     ),
