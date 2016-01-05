@@ -180,9 +180,6 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     drupal_add_js($js, 'inline');
   }
 
-  // Setup the reportback showcase.
-  paraneue_dosomething_preprocess_reportback_showcase($vars);
-
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     // Set the number of files to display in initial gallery.
@@ -232,37 +229,6 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars) {
   $reportbacks_gallery['admin_access'] = user_access('view any reportback') ? 'true' : 'false';
 }
 
-
-/**
- * Expands $reportbacks_showcase array with themed Reportback items and data for given node preprocess $vars.
- */
-function paraneue_dosomething_preprocess_reportback_showcase(&$vars) {
-  $reportbacks_showcase = &$vars['reportbacks_showcase'];
-
-  $reportbacks_showcase['desired_count'] = $desired_count = 4;
-  $reportbacks_showcase['campaign_id'] = $vars['nid'];
-  $reportbacks_showcase['items'] = array();
-
-
-  // Promoted Reportbacks:
-  $reportbacks_showcase['items'] = paraneue_dosomething_get_themed_reportbacks_by_status($vars['nid'], 'promoted', $desired_count, TRUE);
-  $reportbacks_showcase['total_promoted'] = count($reportbacks_showcase['items']);
-
-  // Approved Reportbacks:
-  $reportbacks_showcase['total_approved'] = dosomething_reportback_get_reportback_total_by_status($vars['nid'], 'approved');
-
-  // Collect Reportbacks to fulfill desired amount.
-  if ($reportbacks_showcase['total_promoted'] < $desired_count) {
-    $reportbacks_showcase = paraneue_dosomething_build_reportbacks_gallery_collection($reportbacks_showcase);
-  }
-
-  // Enough Total Promoted Reportbacks to fulfill the required initial count.
-  else {
-    $reportbacks_showcase['prefetched'] = 0;
-  }
-}
-
-
 /**
  * Preprocesses a Campaign Group node.
  *
@@ -273,7 +239,6 @@ function paraneue_dosomething_preprocess_node_campaign_group(&$vars) {
   $source = 'node/' . $vars['nid'];
   $vars['campaign_gallery'] = paraneue_dosomething_get_campaign_gallery($vars['campaigns'], $source);
 }
-
 
 /**
  * Sets a $campaign_scholarship variable based on $vars.
@@ -338,7 +303,9 @@ function paraneue_dosomething_preprocess_node_field_gallery(&$vars) {
     $gallery['class'] = $gallery_class;
   }
 
-}/**
+}
+
+/**
  * Themes the recommended campaigns for the notfound page
  */
 function paraneue_dosomething_preprocess_node_notfound(&$vars) {
