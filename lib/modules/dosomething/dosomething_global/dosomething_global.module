@@ -568,6 +568,7 @@ function dosomething_global_get_language_prefix_list() {
 function dosomething_global_redirect_node_edit($node, $user_language) {
   // Load the languages being used
   $src_language = $node->language;
+  $prefix = dosomething_global_get_prefix_for_language($user_language);
 
   // If we're not working on a translation, no need to re-direct.
   if ($src_language != $user_language) {
@@ -580,6 +581,11 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
     // Build complete URL and redirect
     $new_url = str_replace(' ', '', '/node/' . $node->nid . '/edit/' . $lang_append);
     drupal_goto($new_url);
+  }
+  // If the page has no prefix, add one
+  else if (dosomething_global_get_current_prefix() === '' && !empty($prefix)) {
+    // Add prefix to the current path
+    drupal_goto($prefix . '/' . current_path());
   }
 }
 
