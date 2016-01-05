@@ -542,6 +542,22 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
 }
 
 /**
+ * Return an array containing only the list of language
+ * prefixes supported.
+ *
+ * @return array
+ */
+function dosomething_global_get_language_prefix_list() {
+  $prefixes = [];
+
+  foreach(language_list() as $language) {
+    $prefixes[] = $language->language;
+  }
+
+  return $prefixes;
+}
+
+/**
  * Handles redirecting the node edit page to proper translation
  *
  * @param $node

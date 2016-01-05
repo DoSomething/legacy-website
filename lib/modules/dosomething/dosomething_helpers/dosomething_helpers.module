@@ -110,7 +110,7 @@ function dosomething_helpers_delete_test_nodes() {
  * @param array $field Nested array of field data.
  * @param string $language Language selection, defaults to Drupal constant for "undefined".
  *
- * @return array|null
+ * @return mixed|null
  */
 function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NONE) {
   if (isset($field) && !empty($field)) {

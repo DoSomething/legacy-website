@@ -73,8 +73,9 @@ function dosomething_fact_page_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_node().
  */
 function dosomething_fact_page_preprocess_node(&$vars) {
+  $supported_languages = dosomething_global_get_language_prefix_list();
+
   if ($vars['type'] == 'fact_page') {
-    $content = $vars['content'];
     $template_vars = array(
       'text' => array(
         'subtitle',
@@ -90,22 +91,35 @@ function dosomething_fact_page_preprocess_node(&$vars) {
 
     foreach ($template_vars as $key => $labels) {
       foreach ($labels as $label) {
-        $field = "field_{$label}";
-          if (isset($content[$field])) {
+        $field = $vars["field_{$label}"];
+
+        if (isset($field) && !empty($field)) {
+          $prefix = array_keys($field)[0];
+
+          // Depending on language availability, the data we need to grab
+          // may be nested in an associated array using a language prefix.
+          if (!is_int($prefix) && in_array($prefix, $supported_languages)) {
+            $field = $field[$prefix];
+          }
+
+          $field = $field[0];
+
           switch ($key) {
             case 'text':
-                $vars[$label] = $content[$field][0]['#markup'];
+                $vars[$label] = t($field['value']);
               break;
             case 'image':
-              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', '550x300', $label);
-            break;
+              $vars[$label] = dosomething_image_get_themed_image($field['target_id'], 'landscape', '550x300', $label);
+              break;
             case 'link':
-              $vars[$label] = l($content[$field][0]['#element']['title'], $content[$field][0]['#element']['url'], array('attributes' => array('class' => 'button')));
-            break;
+              $vars[$label] = l($field['title'], $field['url'], ['attributes' => ['class' => 'button']]);
+              break;
             default:
               break;
           }
+
         }
+
       }
     }
 
