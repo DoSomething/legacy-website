@@ -96,6 +96,8 @@ function dosomething_fact_page_preprocess_node(&$vars) {
         if (isset($field) && !empty($field)) {
           $prefix = array_keys($field)[0];
 
+          // Depending on language availability, the data we need to grab
+          // may be nested in an associated array using a language prefix.
           if (!is_int($prefix) && in_array($prefix, $supported_languages)) {
             $field = $field[$prefix];
           }
