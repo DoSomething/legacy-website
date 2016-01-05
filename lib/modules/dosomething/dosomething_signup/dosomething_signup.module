@@ -557,19 +557,24 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
     return FALSE;
   }
+  if (module_exists('dosomething_global')) {
+    list($user_language, $user_country) = dosomething_global_user_details($account);
+    $campaign_language = dosomething_global_get_current_prefix();
+    $campaign_country_code = dosomething_global_convert_language_to_country($campaign_language);
+  }
+
   $wrapper = entity_metadata_wrapper('node', $node);
   $language = dosomething_global_get_language($account, $node);
   $url_options = array(
-    'language' => $language,
+    'language' => $campaign_language,
     'absolute' => TRUE,
     'query' => array(
       'source' => 'node/' . $node->nid,
     ),
   );
-  $campaign_link = dosomething_global_url('node/' . $nid, $url_options);
+  $campaign_link = dosomething_global_url('node/' . $node->nid, $url_options);
 
   // Get node title, normal for collections, translatable for campaigns.
-  $title = '';
   if (isset($node->title_field)) {
     $title = $wrapper->language($language)->title_field->value();
   } else {
@@ -583,9 +588,11 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'mobile' => dosomething_user_get_field('field_mobile', $account),
     'event_id' => $node->nid,
     'campaign_title' => $title,
-    'campaign_link' => dosomething_global_url('node/' . $node->nid, $url_options),
-    'user_language' => $language,
-    'campaign_language' => $node->language,
+    'campaign_link' => $campaign_link,
+    'user_language' => $user_language,
+    'user_country' => $user_country,
+    'campaign_language' => $campaign_language,
+    'campaign_country' => $campaign_country_code,
   );
 
   // Don't subscribe 26+ yo users for Mobile Commons.
@@ -612,7 +619,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
  */
 function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
   if ($wrapper->type->value() == 'campaign') {
-    $content = $wrapper->language($params['user_language']);
+    $content = $wrapper->language($params['campaign_language']);
     $params['call_to_action'] = $content->field_call_to_action->value();
     $params['step_one'] = $content->field_pre_step_header->value();
     $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
