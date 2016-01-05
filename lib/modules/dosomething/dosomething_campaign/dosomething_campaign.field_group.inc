@@ -28,6 +28,7 @@ function dosomething_campaign_field_group_info() {
       2 => 'field_image_campaign_cover',
       3 => 'field_campaign_type',
       4 => 'field_campaign_status',
+      5 => 'field_current_run',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

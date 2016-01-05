@@ -26,6 +26,25 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   dosomething_campaign_run_add_campaign_run_info($form, $form_state);
   // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
   $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
+
+  $nid = $form['nid']['#value'];
+
+  // If this is an /add/ form then nid won't be set yet.
+  if (!is_null($nid)) {
+    $campaign_runs = dosomething_campaign_get_runs($nid);
+  }
+
+  // Only show the campaign runs tied to the campaign as options.
+  if (isset($campaign_runs) && !empty($campaign_runs)) {
+    $language = $form['field_current_run']['#language'];
+    $all_options = $form['field_current_run'][$language]['#options'];
+
+    foreach ($campaign_runs as $run) {
+      $filtered_options[$run->entity_id] = $all_options[$run->entity_id];
+    }
+
+    $form['field_current_run'][$language]['#options'] = $filtered_options;
+  }
 }
 
 /**
