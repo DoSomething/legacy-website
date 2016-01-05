@@ -113,12 +113,26 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   if (isset($params['user_language'])) {
     $payload['user_language'] = $params['user_language'];
   }
+  if (isset($params['campaign_language'])) {
+    $payload['campaign_language'] = $params['campaign_language'];
+  }
+  if (isset($params['campaign_country'])) {
+    $payload['campaign_country'] = $params['campaign_country'];
+  }
 
-  // If email template wasn't set before, get standart template name.
+  // If email template wasn't set use request details to define template name.
   if (!empty($params['email_template'])) {
     $payload['email_template'] = $params['email_template'];
-  } else {
-    $payload['email_template'] = dosomething_mbp_get_template_name($origin, $params['user_language']);
+  }
+  else {
+    $template_language = NULL;
+    if (isset($params['campaign_language'])) {
+      $template_language = $params['campaign_language'];
+    }
+    elseif (isset($params['user_language'])) {
+      $template_language = $params['user_language'];
+    }
+    $payload['email_template'] = dosomething_mbp_get_template_name($origin, $template_language);
   }
 
   // Payload specific to each transaction type.
@@ -199,11 +213,12 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
  *   $payload - Composed values ready to be sent as a message payload.
  */
 function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
-  $payload['subscribed']        = 1;
-  $payload['event_id']          = $params['event_id'];
+  $payload['subscribed'] = 1;
+  $payload['event_id']   = $params['event_id'];
 
   if (isset($params['campaign_language'])) {
     $payload['campaign_language'] = $params['campaign_language'];
+    $payload['campaign_country'] = $params['campaign_country'];
   }
 
   $payload['email_tags'][] = $params['event_id'];
@@ -235,18 +250,17 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
  *
  * @param string $event_name
  *   Example: "campaign_signup", "password_reset", etc
- * @param string $user_language
- *   The user language setting as defined by dosomething_settings_get_geo_country_code() and
- *   dosomething_global_convert_country_to_language().
+ * @param string $language
+ *   The language setting that the message template should use.
  *
  * @return string
  *   Name of Mandrill template to use for transactional message.
  */
-function dosomething_mbp_get_template_name($event_name, $user_language = NULL) {
-  if (isset($user_langauge)) {
-    $country_code = dosomething_global_convert_language_to_country($user_language);
+function dosomething_mbp_get_template_name($event_name, $language = NULL) {
+  if (isset($langauge)) {
+    $country_code = dosomething_global_convert_language_to_country($language);
     if ($country_code == NULL) {
-      $country_code = 'US';
+      $country_code = 'GL';
     }
   }
   else {
