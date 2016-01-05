@@ -552,6 +552,7 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
 function dosomething_global_redirect_node_edit($node, $user_language) {
   // Load the languages being used
   $src_language = $node->language;
+  $prefix = dosomething_global_get_prefix_for_language($user_language);
 
   // If we're not working on a translation, no need to re-direct.
   if ($src_language != $user_language) {
@@ -561,15 +562,12 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
     // Append the user language
     $lang_append = $new_translation_prefix . $user_language;
 
-    // Make sure there is a prefix
-    $prefix = '/node/';
-    if (dosomething_global_get_current_prefix() == '') {
-      $prefix = '/' . dosomething_global_get_prefix_for_language($user_language) . $prefix;
-    }
-
     // Build complete URL and redirect
-    $new_url = str_replace(' ', '', $prefix . $node->nid . '/edit/' . $lang_append);
+    $new_url = str_replace(' ', '', '/node/' . $node->nid . '/edit/' . $lang_append);
     drupal_goto($new_url);
+  }
+  else if (dosomething_global_get_current_prefix() == '' && $prefix != '') {
+    drupal_goto($prefix . '/' . current_path());
   }
 }
 
