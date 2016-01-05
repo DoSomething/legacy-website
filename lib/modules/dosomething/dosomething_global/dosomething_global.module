@@ -97,7 +97,7 @@ function dosomething_global_init() {
     return;
   }
 
-  // Handle translation redirects for authenticated and anonymous users whe n
+  // Handle translation redirects for authenticated and anonymous users when
   // they request bare (Global English) URLs to nodes.
   //
   // Passing 'noredirect=1' will defeat the redirect.
