@@ -260,7 +260,7 @@ function dosomething_mbp_get_template_name($event_name, $language = NULL) {
   if (isset($langauge)) {
     $country_code = dosomething_global_convert_language_to_country($language);
     if ($country_code == NULL) {
-      $country_code = 'XG';
+      $country_code = DOSOMETHING_GLOBAL_DEFAULT_COUNTRY_CODE;
     }
   }
   else {
