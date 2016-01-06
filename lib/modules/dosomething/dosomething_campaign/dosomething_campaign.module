@@ -43,6 +43,10 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
       $filtered_options[$run->entity_id] = $all_options[$run->entity_id];
     }
 
+    // Add empty option to the options array. Helps to ensure that the user
+    // explicity chooses a campaign instead of defaulting to the first option
+    // in the list.
+    $filtered_options = array("_none" => "- None -") + $filtered_options;
     $form['field_current_run'][$language]['#options'] = $filtered_options;
   }
 }
