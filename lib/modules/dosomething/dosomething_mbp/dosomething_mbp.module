@@ -28,7 +28,7 @@ function dosomething_mbp_menu() {
  * @param string $origin
  *   Where the message request came from.
  * @param array $params
- *   Optional keyed array of data to build payload from.
+ *   (optional) Keyed array of data to build payload from.
  *
  * @return bool
  *   The status of the request.
@@ -88,7 +88,7 @@ function dosomething_mbp_request($origin, $params = NULL) {
  *   Where the message request came from that's used to determine what the
  *   payload should be.
  * @param array $params
- *   Optional keyed array of data to build payload from.
+ *   (optional) Keyed array of data to build payload from.
  *
  * @return array
  *   $payload - Composed values ready to be sent as a message payload.
@@ -251,7 +251,7 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
  * @param string $event_name
  *   Example: "campaign_signup", "password_reset", etc
  * @param string $language
- *   The language setting that the message template should use.
+ *   (optional) Language setting used to define the message template name.
  *
  * @return string
  *   Name of Mandrill template to use for transactional message.
