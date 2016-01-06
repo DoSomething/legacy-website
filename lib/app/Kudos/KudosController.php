@@ -1,5 +1,10 @@
 <?php
 
+namespace Phoenix\Kudos;
+
+use Exception;
+use EntityAPIController;
+
 class KudosController extends EntityAPIController {
 
   public function __construct() {

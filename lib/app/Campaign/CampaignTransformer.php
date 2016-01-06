@@ -1,5 +1,11 @@
 <?php
 
+namespace Phoenix\Campaign;
+
+use Exception;
+use Phoenix\ApiCache;
+use Phoenix\Transformer;
+
 class CampaignTransformer extends Transformer {
 
   /**

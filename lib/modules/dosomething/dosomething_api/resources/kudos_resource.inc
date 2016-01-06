@@ -1,5 +1,7 @@
 <?php
 
+use Phoenix\Kudos\KudosTransformer;
+
 function _kudos_resource_definition() {
   $kudos_resource = [];
   $kudos_resource['kudos'] = [

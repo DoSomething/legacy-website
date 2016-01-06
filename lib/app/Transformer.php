@@ -1,10 +1,16 @@
 <?php
 
+namespace Phoenix;
+
+use Phoenix\Campaign\Campaign;
+use Phoenix\Drupal\ModuleControllerInterface;
+
 abstract class Transformer {
 
-  public function __construct() {
+  public function __construct(ModuleControllerInterface $moduleController) {
     // Load Services module to use its index_query functions in subclass methods.
-    module_load_include('inc', 'services', 'services.module');
+    // module_load_include('inc', 'services', 'services.module');
+    $moduleController->moduleLoadInclude('inc', 'services', 'services.module');
   }
 
   /**

@@ -1,5 +1,7 @@
 <?php
 
+use Phoenix\Campaign\CampaignTransformer;
+
 function _campaign_resource_definition() {
   $campaign_resource = [];
   $campaign_resource['campaigns'] = [

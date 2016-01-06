@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Require Composer's class loader.
+ */
+require_once __DIR__ . '/../lib/autoload.php';
+
+/**
  * Lets do something about globals
  */
 define('DS_PROFILE_PATH', 'profiles/dosomething');

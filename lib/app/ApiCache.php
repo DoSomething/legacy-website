@@ -1,5 +1,7 @@
 <?php
 
+namespace Phoenix;
+
 class ApiCache {
 
   public $hours_cached = 24;

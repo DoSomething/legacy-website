@@ -4,10 +4,6 @@
  * Module file for DoSomething Kudos functionality.
  */
 
-include_once 'includes/Kudos.php';
-include_once 'includes/KudosController.php';
-include_once 'includes/KudosTransformer.php';
-
 
 /**
  * Implements hook_entity_info().
@@ -26,7 +22,7 @@ function dosomething_kudos_entity_info() {
     ],
     'entity class' => 'Kudos',
     'uri callback' => 'entity_class_uri',
-    'controller class' => 'KudosController',
+    'controller class' => 'KudosController', //lib\app\Kudos\KudosController
     'module' => 'dosomething_kudos',
   ];
 
