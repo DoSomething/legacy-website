@@ -20,3 +20,24 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
   variable_set('dosomething_campaign_run_no_total_copy', "We’re still tallying the [label]. The bigger the number, the longer it takes...so stay tuned!");
   variable_set('dosomething_campaign_run_no_winner_copy', "Hold on! We’re still sifting through the (amazing!) submissions you sent to choose a winner. We’ll email you and post his or her name here soon!");
 }
+
+/**
+ * Creates campaign run nodes for all open campaigns (published or unpublished).
+ */
+function dosomething_campaign_run_update_7003() {
+  // get all campaigns with status active
+  $active_campaigns = db_query('SELECT n.nid, n.title, n.created
+  FROM node n
+  INNER JOIN field_data_field_campaign_status s on s.entity_id = n.nid
+  WHERE field_campaign_status_value = 'active';');
+
+
+
+  // foreach actvie campaign
+  // create a new node with title of campaign + current year?
+  // n = new node()
+  // n.title = 'whatever fantini wants'
+  // n.campaign = active.nid
+  // n.start_date active.created
+  // n.save()
+}
