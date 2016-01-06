@@ -356,7 +356,7 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  if (user_access('view any reportback')) {
+  if ($data instanceof ReportbackItem && user_access('view any reportback')) {
     $data->admin_link = '/admin/reportback/' . $data->reportback['id'];
   }
 
@@ -392,7 +392,7 @@ function paraneue_dosomething_get_placeholder_reportbacks($count = 6) {
   for ($i = 0; $i < $count; $i++) {
     $placeholder = (object) [];
     $placeholder->caption = $placeholder_captions[$i];
-    $placeholder->media['url'] = $placeholder_urls[$i];
+    $placeholder->media['uri'] = $placeholder_urls[$i];
     $placeholder->media['type'] = 'image';
 
     $placeholders[] = $placeholder;
