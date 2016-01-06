@@ -317,6 +317,8 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
 
 /**
  * Return a specified number of themed Reportbacks by status type.
+ *
+ * @deprecated Remove if no conflicts.
  */
 function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $status, $count, $random = NULL) {
   $reportback_items = array();
@@ -341,6 +343,24 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
   }
 
   return $reportback_items;
+}
+
+/**
+ * Theme a single Reportback Item for the gallery.
+ *
+ * @param  object  $data
+ * @return null|string
+ */
+function paraneue_dosomething_get_themed_reportback_item($data) {
+  if (!$data) {
+    return NULL;
+  }
+
+  if (user_access('view any reportback')) {
+    $data->admin_link = '/admin/reportback/' . $data->reportback['id'];
+  }
+
+  return paraneue_dosomething_get_gallery_item($data, 'photo', FALSE);
 }
 
 /**
