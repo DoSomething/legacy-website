@@ -793,7 +793,7 @@ function dosomething_campaign_field_default_field_instances() {
     'entityconnect_unload_edit' => 0,
     'field_name' => 'field_current_run',
     'label' => 'Current Run',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
