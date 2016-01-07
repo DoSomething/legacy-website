@@ -30,6 +30,12 @@ function dosomething_reportback_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'run_nid' => array(
+        'description' => 'The campaign run that the reportback is tied to.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'created' => array(
         'description' => 'The Unix timestamp when the reportback was created.',
         'type' => 'int',
@@ -854,10 +860,21 @@ function dosomething_reportback_update_7031(&$sandbox) {
  * Adds campaign run nid column to the dosomething_reportback table.
  */
 function dosomething_reportback_update_7032() {
-  db_query("ALTER TABLE dosomething_reportback
-            ADD run_nid int
-            DEFAULT 0
-            NOT NULL
-            COMMENT 'The campaign run that the reportback is tied to.'
-            AFTER nid;");
+  $tbl_name = 'dosomething_reportback';
+  // Load schema to get table definition.
+  $schema = dosomething_reportback_schema();
+  // New field to add.
+  $field_name = 'run_nid';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+}
+
+/**
+ * Move run_nid column after nid in the dosomething_reportback table.
+ */
+function dosomething_reportback_update_7033() {
+  db_query("ALTER TABLE dosomething_reportback MODIFY COLUMN run_nid int AFTER nid;");
 }
