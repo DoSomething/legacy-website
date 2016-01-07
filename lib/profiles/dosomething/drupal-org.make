@@ -88,7 +88,7 @@ projects[field_collection][subdir] = "contrib"
 projects[field_collection][patch][] = "https://www.drupal.org/files/issues/field_collection-add_entity_translation_support-1344672-459.patch"
 
 ; Field Group
-projects[field_group][version] = "1.4"
+projects[field_group][version] = "1.5"
 projects[field_group][subdir] = "contrib"
 
 ; File Entity
