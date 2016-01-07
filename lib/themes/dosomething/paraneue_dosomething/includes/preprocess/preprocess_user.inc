@@ -30,6 +30,11 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     // Theme each reportback and create an array.
     foreach ($reportbacks as $delta => $rbid) {
       $reportback = reportback_load((int) $rbid);
+
+      $campaign = node_load($reportback->nid);
+      $node_language = dosomething_global_get_language($user, $campaign);
+      $campaign_run = node_load($campaign->field_current_run[$node_language][0]['target_id']);
+
       $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
       if (user_access('view any reportback')) {
         // Link to the full reportback entity view.
@@ -43,7 +48,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
         'url' => $url,
-        'title' => htmlspecialchars_decode($reportback->node_title, ENT_QUOTES),
+        'title' => htmlspecialchars_decode($campaign_run->title, ENT_QUOTES),
         'image' => $img,
         'description' => $impact,
       );
@@ -54,4 +59,3 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   // Theme a gallery of reportbacks, and give the user profile template access to it.
   $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', array(), TRUE);
 }
-
