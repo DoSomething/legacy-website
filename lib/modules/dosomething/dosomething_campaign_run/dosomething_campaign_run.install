@@ -24,20 +24,23 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
 /**
  * Creates campaign run nodes for all open campaigns (published or unpublished).
  */
-function dosomething_campaign_run_update_7003() {
+//TODO: change the below back to dosomething_campaign_run_update_7003 when you commit)
+function dosomething_campaign_run_update_7020() {
   // get all campaigns with status active
-  $active_campaigns = db_query('SELECT n.nid, n.title, n.created
-  FROM node n
-  INNER JOIN field_data_field_campaign_status s on s.entity_id = n.nid
-  WHERE field_campaign_status_value = 'active';');
+  $active_campaigns = db_query("SELECT n.nid, n.title, n.created, n.language
+                                FROM node n
+                                INNER JOIN field_data_field_campaign_status s on s.entity_id = n.nid
+                                WHERE field_campaign_status_value = 'active';");
 
-
-
-  // foreach actvie campaign
-  // create a new node with title of campaign + current year?
-  // n = new node()
-  // n.title = 'whatever fantini wants'
-  // n.campaign = active.nid
-  // n.start_date active.created
-  // n.save()
+  foreach ($active_campaigns as $active_campaign) {
+    // For each $active_campaign, create a new node with title of campaign + current year?
+    $campaign_run_node = new stdClass();
+    $campaign_run_node->type = 'campaign_run';
+    $campaign_run_node->language = $active_campaign->language;
+    //this is a placeholder - need to change per Fantini's guidelines
+    $campaign_run_node->title = $active_campaign->title . ' 2020';
+    // $campaign_run_node->field_campaigns = $active_campaign->nid;
+    // $campaign_run_node->start_date = $active_campaign->created;
+    node_save($campaign_run_node);
+  }
 }
