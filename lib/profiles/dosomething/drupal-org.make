@@ -72,7 +72,7 @@ projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
-projects[field_group][version] = "1.4"
+projects[field_group][version] = "1.5"
 projects[field_group][subdir] = "contrib"
 
 ; File Entity
