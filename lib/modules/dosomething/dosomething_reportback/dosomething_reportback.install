@@ -870,11 +870,7 @@ function dosomething_reportback_update_7032() {
     // Add it per the schema field definition.
     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
-}
 
-/**
- * Move run_nid column after nid in the dosomething_reportback table.
- */
-function dosomething_reportback_update_7033() {
+  // Move run_nid colum after nid.
   db_query("ALTER TABLE dosomething_reportback MODIFY COLUMN run_nid int AFTER nid;");
 }

@@ -601,11 +601,7 @@ function dosomething_signup_update_7021() {
     // Add it per the schema field definition.
     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
-}
 
-/**
- * Move run_nid column after nid in the dosomething_signup table.
- */
-function dosomething_signup_update_7022() {
+  // Move run_nid colum after nid.
   db_query("ALTER TABLE dosomething_signup MODIFY COLUMN run_nid int AFTER nid;");
 }
