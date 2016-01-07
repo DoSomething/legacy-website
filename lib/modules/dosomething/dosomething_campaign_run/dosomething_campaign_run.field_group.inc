@@ -49,7 +49,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'The Buzz',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -67,6 +67,33 @@ function dosomething_campaign_run_field_group_info() {
     ),
   );
   $export['group_the_buzz|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_timing|node|campaign_run|form';
+  $field_group->group_name = 'group_timing';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Timing',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_run_date',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-timing field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_timing|node|campaign_run|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -109,7 +136,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'What You Did',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_intro',
       1 => 'group_totals',
@@ -138,7 +165,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Winners',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_winners',
     ),
