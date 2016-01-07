@@ -558,6 +558,60 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-field_run_date'
+  $field_instances['node-campaign_run-field_run_date'] = array(
+    'bundle' => 'campaign_run',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_run_date',
+    'label' => 'Run Date',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'blank',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'm/d/Y - H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_total_participants'
   $field_instances['node-campaign_run-field_total_participants'] = array(
     'bundle' => 'campaign_run',
@@ -736,6 +790,7 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Intro');
   t('Klout Gallery');
   t('Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.');
+  t('Run Date');
   t('Total Participants');
   t('Total Quantity');
   t('Total Quantity Label');
