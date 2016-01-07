@@ -30,12 +30,6 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'run_nid' => array(
-        'description' => 'The campaign run that the user has signed up for.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
       'timestamp' => array(
         'description' => 'The Unix timestamp when the signup was submitted.',
         'type' => 'int',
@@ -591,14 +585,10 @@ function dosomething_signup_update_7020() {
  * Adds campaign run nid column to the dosomething_signup table.
  */
 function dosomething_signup_update_7021() {
-  $tbl_name = 'dosomething_signup';
-  // Load schema to get table definition.
-  $schema = dosomething_signup_schema();
-  // New field to add.
-  $field_name = 'run_nid';
-  // If the field doesn't exist already:
-  if (!db_field_exists($tbl_name, $field_name)) {
-    // Add it per the schema field definition.
-    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
-  }
+  db_query("ALTER TABLE dosomething_signup
+            ADD run_nid int
+            DEFAULT 0
+            NOT NULL
+            COMMENT 'The campaign run that the user has signed up for.'
+            AFTER nid;");
 }
