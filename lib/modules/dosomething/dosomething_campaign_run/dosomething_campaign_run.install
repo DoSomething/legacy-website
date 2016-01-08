@@ -24,14 +24,13 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
 /**
  * Creates campaign run nodes for all open campaigns (published or unpublished).
  */
-//TODO: change the below back to dosomething_campaign_run_update_7003 when you commit)
 function dosomething_campaign_run_update_7003() {
   // get all campaigns with status active
   $active_campaigns = db_query("SELECT n.nid, n.title, n.created, n.language
                                 FROM node n
                                 INNER JOIN field_data_field_campaign_status s on s.entity_id = n.nid
                                 WHERE field_campaign_status_value = 'active'
-                                LIMIT 5;");
+                                AND n.nid = 1485;");
 
   foreach ($active_campaigns as $active_campaign) {
     // For each $active_campaign, create a new node with title of campaign + current year?
@@ -42,7 +41,7 @@ function dosomething_campaign_run_update_7003() {
     $campaign_run_node->title = $active_campaign->title . ' 2016';
     $campaign_run_node->field_campaigns[$active_campaign->language][]['target_id'] = $active_campaign->nid;
 
-    $php_timestamp_date = date('m/d/y', $active_campaign->created);
+    $php_timestamp_date = date('y/m/d', $active_campaign->created);
     $campaign_run_node->field_run_date[$active_campaign->language][]['value'] = $php_timestamp_date;
 
     node_save($campaign_run_node);
