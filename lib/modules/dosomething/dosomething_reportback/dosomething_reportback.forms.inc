@@ -325,8 +325,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
   $campaign = node_load($values['nid']);
-  global $user;
-  $language_code = dosomething_global_get_language($user, $campaign);
+  $language_code = $language_code = $campaign->language;
   $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
 
   // If username field is set, this is an admin form.
