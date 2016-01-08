@@ -206,8 +206,8 @@ function dosomething_signup_get_query_source() {
  *   The sid of the newly inserted signup, or FALSE if error.
  */
 function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
+  global $user;
   if ($uid == NULL) {
-    global $user;
     $uid = $user->uid;
   }
   // If a signup already exists, exit.
@@ -216,9 +216,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   // @todo: If the campaign is closed, return error.
   // @todo: If campaign is unpublished and non-staff $uid, return error.
 
+  $campaign = node_load($nid);
+  $language = dosomething_global_get_language($user, $campaign);
+  $run_nid = $campaign->field_current_run[$language][0]['target_id'];
+
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
+    'run_nid' => $run_nid,
     'source'=> $source,
     'timestamp' => $timestamp,
   );
