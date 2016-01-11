@@ -100,14 +100,16 @@ function dosomething_helpers_convert_filters_to_url_parameters(array $filters = 
             $parameters['campaigns'] = implode(',', $value);
             break;
 
-      case 'load_user':
-            if ($value[0]) {
-              $parameters[$key] = 'true';
-            }
-            break;
-
       case 'exclude':
             $parameters[$key] = implode(',', $value);
+            break;
+
+      case 'load_user':
+            $parameters[$key] = 'true';
+            break;
+
+      case 'random':
+            $parameters[$key] = 'true';
             break;
 
       default:
