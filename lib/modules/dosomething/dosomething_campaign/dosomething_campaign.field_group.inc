@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function dosomething_campaign_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -40,7 +40,7 @@ function dosomething_campaign_field_group_info() {
       ),
     ),
   );
-  $export['group_basic_info|node|campaign|form'] = $field_group;
+  $field_groups['group_basic_info|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -68,7 +68,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_campaign_additional_info|node|campaign|form'] = $field_group;
+  $field_groups['group_campaign_additional_info|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -96,7 +96,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_confirmation|node|campaign|form'] = $field_group;
+  $field_groups['group_confirmation|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -125,7 +125,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_created|node|campaign|form'] = $field_group;
+  $field_groups['group_created|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -160,7 +160,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_do_it|node|campaign|form'] = $field_group;
+  $field_groups['group_do_it|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -189,7 +189,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_incentives|node|campaign|form'] = $field_group;
+  $field_groups['group_incentives|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -224,7 +224,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_know_it|node|campaign|form'] = $field_group;
+  $field_groups['group_know_it|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -254,7 +254,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_location_finder|node|campaign|form'] = $field_group;
+  $field_groups['group_location_finder|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -283,7 +283,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_mobile_app|node|campaign|form'] = $field_group;
+  $field_groups['group_mobile_app|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -311,7 +311,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_partners|node|campaign|form'] = $field_group;
+  $field_groups['group_partners|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -340,7 +340,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_pitch_additional_info|node|campaign|form'] = $field_group;
+  $field_groups['group_pitch_additional_info|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -374,7 +374,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_prep_it|node|campaign|form'] = $field_group;
+  $field_groups['group_prep_it|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -404,7 +404,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_report_back|node|campaign|form'] = $field_group;
+  $field_groups['group_report_back|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -433,7 +433,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_starter_statement|node|campaign|form'] = $field_group;
+  $field_groups['group_starter_statement|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -468,7 +468,7 @@ function dosomething_campaign_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_taxonomy|node|campaign|form'] = $field_group;
+  $field_groups['group_taxonomy|node|campaign|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -504,7 +504,26 @@ Campaigns that are in high season will have higher priority than non-seasonal ca
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_timing|node|campaign|form'] = $field_group;
+  $field_groups['group_timing|node|campaign|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Additional Info');
+  t('Basic Info');
+  t('Confirmation');
+  t('Creator Info');
+  t('Do It');
+  t('Incentives');
+  t('Know It');
+  t('Location Finder');
+  t('Mobile App');
+  t('Pitch Page Additional Info');
+  t('Plan It');
+  t('Prove It');
+  t('Sponsors and Partners');
+  t('Starter Statement');
+  t('Taxonomy and Discovery');
+  t('Timing');
+
+  return $field_groups;
 }
