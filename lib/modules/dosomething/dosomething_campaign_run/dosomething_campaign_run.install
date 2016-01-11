@@ -24,26 +24,49 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
 /**
  * Creates campaign run nodes for all open campaigns (published or unpublished).
  */
-function dosomething_campaign_run_update_7003() {
+function dosomething_campaign_run_update_7029() {
   // get all campaigns with status active
-  $active_campaigns = db_query("SELECT n.nid, n.title, n.created, n.language
-                                FROM node n
-                                INNER JOIN field_data_field_campaign_status s on s.entity_id = n.nid
+  $active_campaigns = db_query("SELECT t.entity_id, t.created, n.language as src_lang, group_concat(t.language) as languages, d.title_field_value
+                                FROM entity_translation t
+                                INNER JOIN field_data_field_campaign_status s on s.entity_id = t.entity_id
+                                INNER JOIN node n on n.nid = t.entity_id
+                                INNER JOIN field_data_title_field d on d.entity_id = t.entity_id and t.language = d.language
                                 WHERE field_campaign_status_value = 'active'
-                                AND n.nid = 1485;");
+                                GROUP BY t.entity_id;");
 
   foreach ($active_campaigns as $active_campaign) {
-    // For each $active_campaign, create a new node with title of campaign + current year?
+    // For each $active_campaign, create a new node with title of campaign + current year.
     $campaign_run_node = new stdClass();
     $campaign_run_node->type = 'campaign_run';
-    $campaign_run_node->language = $active_campaign->language;
-    //this is a placeholder - need to change per Fantini's guidelines
-    $campaign_run_node->title = $active_campaign->title . ' 2016';
-    $campaign_run_node->field_campaigns[$active_campaign->language][]['target_id'] = $active_campaign->nid;
+    $campaign_run_node->language = $active_campaign->src_lang;
+
+    //TODO: change the title below per Fantini's guidelines
+    $campaign_run_node->title = $active_campaign->title_field_value . ' 2029';
+    $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
     $php_timestamp_date = date('y/m/d', $active_campaign->created);
-    $campaign_run_node->field_run_date[$active_campaign->language][]['value'] = $php_timestamp_date;
+    $campaign_run_node->field_run_date[$active_campaign->src_lang][]['value'] = $php_timestamp_date;
 
     node_save($campaign_run_node);
+  }
+
+  $languages = explode(',', $active_campaign->languages);
+
+  foreach ($languages as $language) {
+    if ($active_campaign->src_lang != $language) {
+      $handler = entity_translation_get_handler('node', $campaign_run_node);
+
+      $translation = array(
+        'status' => 1,
+        'language' => $language,
+        'source' => $active_campaign->src_lang,
+      );
+
+      $handler->setTranslation($translation, $campaign_run_node);
+      $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
+      $php_timestamp_date = date('y/m/d', $active_campaign->created);
+      $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
+      node_save($campaign_run_node);
+    }
   }
 }
