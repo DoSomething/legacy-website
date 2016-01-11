@@ -140,30 +140,30 @@ function paraneue_dosomething_preprocess_page(&$vars) {
       $code = dosomething_global_get_current_country_code();
       $language = dosomething_global_convert_country_to_language($code);
     }
-
-    $field_data = dosomething_helpers_extract_field_data($vars['node']->field_subtitle, $language);
-    if (isset($field_data)) {
-      $header_vars['subtitle'] = $field_data;
-    }
-
-    $field_data = dosomething_helpers_extract_field_data($vars['node']->field_partners, $language);
-    if (isset($field_data)) {
-      $vars['partners'] = dosomething_taxonomy_get_partners_data($field_data);
-      $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($vars['partners']);
-
-      // Output sponsor, if it exists.
-      if ($vars['sponsor_logos']) {
-        $header_vars['promotions'] = $vars['sponsor_logos'];
-
-        $header_vars['promotions'] = '<div class="promotions">' . $header_vars['promotions'] . '</div>';
+    if (isset($vars['node']->field_subtitle) && isset($vars['node']->field_partners)) {
+      $field_data = dosomething_helpers_extract_field_data($vars['node']->field_subtitle, $language);
+      if (isset($field_data)) {
+        $header_vars['subtitle'] = $field_data;
       }
 
-      // Add class to header if promotions will be included in display.
-      if (isset($vars['promotions'])) {
-        $vars['classes_array'][] = 'has-promotions';
+      $field_data = dosomething_helpers_extract_field_data($vars['node']->field_partners, $language);
+      if (isset($field_data)) {
+        $vars['partners'] = dosomething_taxonomy_get_partners_data($field_data);
+        $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($vars['partners']);
+
+        // Output sponsor, if it exists.
+        if ($vars['sponsor_logos']) {
+          $header_vars['promotions'] = $vars['sponsor_logos'];
+
+          $header_vars['promotions'] = '<div class="promotions">' . $header_vars['promotions'] . '</div>';
+        }
+
+        // Add class to header if promotions will be included in display.
+        if (isset($vars['promotions'])) {
+          $vars['classes_array'][] = 'has-promotions';
+        }
       }
     }
-
     // Add global header.
     $vars['header'] = theme('header', $header_vars);
   }
