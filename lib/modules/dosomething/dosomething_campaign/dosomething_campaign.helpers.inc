@@ -92,7 +92,7 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   // Get the appropriate lang
   $current_lang = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
 
-  if (($cached_node = cache_get('ds_campaign_' . $node->nid ."_". $current_lang, 'cache_dosomething_campaign')) && $cache) {
+  if (($cached_node = cache_get('ds_campaign_' . $node->nid .'_'. $current_lang, 'cache_dosomething_campaign')) && $cache) {
     // If this is accessed via API:
     if ($public) {
       // Add stats property.
@@ -275,7 +275,7 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     // Load Creator property.
     dosomething_campaign_load_creator($campaign, $wrapper);
 
-    cache_set('ds_campaign_' . $campaign->nid ."_". $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
+    cache_set('ds_campaign_' . $campaign->nid .'_'. $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
 
     // If this is accessed via API:
     if ($public) {
