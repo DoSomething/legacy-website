@@ -87,20 +87,31 @@ function dosomething_helpers_convert_filters_to_url_parameters(array $filters = 
   $parameters = [];
 
   foreach ($filters as $key => $value) {
+    if (!is_int($value) && !$value) {
+      continue;
+    }
+
     if (!is_array($value)) {
       $value = [$value];
     }
 
-    if ($key === 'nid') {
-      $parameters['campaigns'] = implode(',', $value);
-    }
-    elseif ($key === 'load_user') {
-      if ($value[0]) {
-        $parameters[$key] = 'true';
-      }
-    }
-    else {
-      $parameters[$key] = implode(',', $value);
+    switch($key) {
+      case 'nid':
+            $parameters['campaigns'] = implode(',', $value);
+            break;
+
+      case 'load_user':
+            if ($value[0]) {
+              $parameters[$key] = 'true';
+            }
+            break;
+
+      case 'exclude':
+            $parameters[$key] = implode(',', $value);
+            break;
+
+      default:
+            $parameters[$key] = implode(',', $value);
     }
   }
 
