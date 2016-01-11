@@ -72,7 +72,7 @@ class ReportbackItem extends Entity {
     }
 
     foreach($results as $item) {
-      $load_user = dosomething_helpers_isset($filters['load_user'], NULL, FALSE);
+      $load_user = dosomething_helpers_isset($filters, 'load_user', FALSE);
       $reportbackItem = new static();
       $reportbackItem->build($item, $load_user);
 

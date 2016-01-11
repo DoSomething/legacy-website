@@ -972,6 +972,33 @@ function dosomething_reportback_get_reportback_total_by_status($nid, $status) {
   return dosomething_reportback_get_reportback_files_query_count($params);
 }
 
+/**
+ * Returns total number of Reportback Items based on supplied set of filters.
+ *
+ * @param  array  $filters
+ * @return int
+ *
+ * @TODO: udpate $cache->set() to allow specifying alternative expiration time.
+ */
+function dosomething_reportback_get_reportback_items_total_by_filters(array $filters = []) {
+  $filters['cache'] = TRUE;
+  $filters['count'] = 'all';
+
+  $cache = new ApiCache();
+
+  $total = $cache->get('reportback-items', $filters);
+
+  if ($total) {
+    $total = $total->data;
+  }
+  else {
+    $total = dosomething_reportback_get_reportback_items_query($filters, TRUE);
+
+    $cache->set('reportback-items', $filters, $total);
+  }
+
+  return (int) $total;
+}
 
 /**
  * Returns count of Reportbacks for a given node $uid.

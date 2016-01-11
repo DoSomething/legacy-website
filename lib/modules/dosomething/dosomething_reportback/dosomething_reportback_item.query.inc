@@ -120,7 +120,7 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 * @return object
 *    An executed database query object to iterate through.
 */
-function dosomething_reportback_get_reportback_items_query($params) {
+function dosomething_reportback_get_reportback_items_query($params, $tally = FALSE) {
   if (isset($params['status']) && !$params['status']) {
       return FALSE;
   }
@@ -133,7 +133,12 @@ function dosomething_reportback_get_reportback_items_query($params) {
     $query->range($offset, $count);
   }
 
-  $result = $query->execute()->fetchAll();
+  $result = $query->execute();
 
-  return $result;
+  if ($tally) {
+    return $result->rowCount();
+  }
+  else {
+    return $result->fetchAll();
+  }
 }

@@ -448,13 +448,12 @@ function paraneue_dosomething_get_regional_url_data($node) {
  * @return bool
  */
 function paraneue_dosomething_build_reportbacks_gallery_collection ($gallery, $reportbacks, $use_placeholders = FALSE) {
-  $fill_count = $gallery['desired_count'] - $gallery['total_promoted'];
+  $fill_count = $gallery['desired_count'] - $gallery['initial_promoted_count'];
 
   $filters = [
     'nid' => $gallery['campaign_id'],
     'status' => ['approved'],
     'random' => TRUE,
-    'load_user' => FALSE,
   ];
 
   // Absolutely no Approved Reportbacks to fulfill the fill count needed.
