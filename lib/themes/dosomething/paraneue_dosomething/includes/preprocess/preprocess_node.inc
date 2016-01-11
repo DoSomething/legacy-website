@@ -217,10 +217,10 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $promotedReportbackItems = [];
   }
   $gallery['initial_promoted_count'] = count($promotedReportbackItems);
-  $gallery['total_promoted'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' =>'promoted']);
+  $gallery['total_promoted'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'promoted']);
 
   // # Approved Reportbacks:
-  $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' =>'approved']);
+  $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'approved']);
 
 
   // # Build the full initial gallery:
@@ -241,11 +241,14 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item);
   }
 
-  // Get total of Promoted & Approved for Campaign.
-  $gallery['total'] = $gallery['total_promoted'] + $gallery['total_approved'];
+  // Get total of Promoted & Approved RB Items prefetched.
+  $gallery['prefetched'] = count($gallery['item_ids']);
+
+  // Get total of Promoted & Approved RB Items for Campaign.
+  $gallery['total_sum'] = $gallery['total_promoted'] + $gallery['total_approved'];
 
   // Get total remaining after subtracting the RB Items already retrieved.
-  $gallery['total_remaining'] = $gallery['total'] - count($gallery['item_ids']);
+  $gallery['remaining'] = $gallery['total_sum'] - $gallery['prefetched'];
 
   return $gallery;
 }

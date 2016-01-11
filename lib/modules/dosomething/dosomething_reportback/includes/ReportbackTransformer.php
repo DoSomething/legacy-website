@@ -9,22 +9,11 @@ class ReportbackTransformer extends Transformer {
    * Calculate total number of Reportback items for the specified campaigns by
    * each status requested.
    *
-   * @param array $parameters
-   *   An associative array of query parameters:
-   *   - nid: (array) Campaign ids.
-   *   - status: (array) Reportback statuses to retrieve.
-   * @return int Total number of reportback items.
+   * @param  array  $filters
+   * @return int
    */
-  protected function getTotalCount($parameters) {
-    $total = 0;
-
-    foreach((array) $parameters['nid'] as $id) {
-      foreach((array) $parameters['status'] as $status) {
-        $total += (int) dosomething_reportback_get_reportback_total_by_status($id, $status);
-      }
-    }
-
-    return $total;
+  protected function getTotalCount($filters) {
+    return dosomething_reportback_get_reportback_items_total_by_filters($filters);
   }
 
   /**

@@ -461,7 +461,6 @@ function paraneue_dosomething_build_reportbacks_gallery_collection ($gallery, $r
     if ($use_placeholders) {
       $placeholders = paraneue_dosomething_get_placeholder_reportbacks($fill_count);
       $reportbacks = array_merge($reportbacks, $placeholders);
-      $gallery['prefetched'] = 0; // @TODO Not sure if this is still necessary with the exclude option in API
     }
     else {
       return $reportbacks;
@@ -481,7 +480,6 @@ function paraneue_dosomething_build_reportbacks_gallery_collection ($gallery, $r
 
     $placeholders = paraneue_dosomething_get_placeholder_reportbacks($fill_count - $gallery['total_approved']);
     $reportbacks = array_merge($reportbacks, $approvedReportbacks, $placeholders);
-    $gallery['prefetched'] = $gallery['total_approved']; // @TODO Not sure if this is still necessary with the exclude option in API
   }
 
   // There are enough Approved Reportbacks to fulfill the fill count needed.
@@ -496,7 +494,6 @@ function paraneue_dosomething_build_reportbacks_gallery_collection ($gallery, $r
     }
 
     $reportbacks = array_merge($reportbacks, $approvedReportbacks);
-    $gallery['prefetched'] = $fill_count; // @TODO Not sure if this is still necessary with the exclude option in API
   }
 
   return $reportbacks;

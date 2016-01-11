@@ -85,8 +85,8 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   private function setFilters($parameters) {
     $filters = [
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'exclude' => dosomething_helpers_format_data($parameters['exclude']),
       'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
+      'exclude' => dosomething_helpers_format_data($parameters['exclude']),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
