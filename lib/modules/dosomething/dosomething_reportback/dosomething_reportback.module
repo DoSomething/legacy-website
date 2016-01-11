@@ -978,11 +978,10 @@ function dosomething_reportback_get_reportback_total_by_status($nid, $status) {
  * @param  array  $filters
  * @return int
  *
- * @TODO: udpate $cache->set() to allow specifying alternative expiration time.
+ * @TODO: update $cache->set() to allow specifying alternative expiration time.
  */
 function dosomething_reportback_get_reportback_items_total_by_filters(array $filters = []) {
   $filters['cache'] = TRUE;
-  $filters['count'] = 'all';
 
   $cache = new ApiCache();
 

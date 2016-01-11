@@ -127,7 +127,13 @@ function dosomething_reportback_get_reportback_items_query($params, $tally = FAL
 
   $query = dosomething_reportback_build_reportback_items_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
-  $count = dosomething_helpers_isset($params, 'count', 25);
+
+  if ($tally) {
+    $count = 'all';
+  }
+  else {
+    $count = dosomething_helpers_isset($params, 'count', 25);
+  }
 
   if ($count && $count !== 'all') {
     $query->range($offset, $count);
