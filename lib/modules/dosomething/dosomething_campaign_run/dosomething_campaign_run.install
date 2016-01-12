@@ -1,4 +1,4 @@
-<?php
+  <?php
 /**
  * @file
  * Installation and schema hooks for dosomething_campaign_run.module.
@@ -41,7 +41,6 @@ function dosomething_campaign_run_update_7003() {
     $campaign_run_node->language = $active_campaign->src_lang;
     $created_dates = explode(',', $active_campaign->created_dates);
 
-    //TODO: change the title below per Fantini's guidelines
     $campaign_run_node->title = $active_campaign->title_field_value . ' run 1';
     $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
