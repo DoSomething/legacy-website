@@ -317,6 +317,8 @@ function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid
 
 /**
  * Return a specified number of themed Reportbacks by status type.
+ *
+ * @deprecated Remove if no conflicts.
  */
 function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $status, $count, $random = NULL) {
   $reportback_items = array();
@@ -344,33 +346,56 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
 }
 
 /**
+ * Theme a single Reportback Item for the gallery.
+ *
+ * @param  object  $data
+ * @return null|string
+ */
+function paraneue_dosomething_get_themed_reportback_item($data) {
+  if (!$data) {
+    return NULL;
+  }
+
+  if ($data instanceof ReportbackItem && user_access('view any reportback')) {
+    $data->admin_link = '/admin/reportback/' . $data->reportback['id'];
+  }
+
+  return paraneue_dosomething_get_gallery_item($data, 'photo', FALSE);
+}
+
+/**
  * Returns specified number of themed Placeholder Reportbacks.
  *
- * @param  integer $count  Number of placeholders to prepare.
- * @return array           Array of the specified number of Placeholders Reportback.
+ * @param  integer  $count
+ * @return array
  */
-function paraneue_dosomething_get_themed_placeholder_reportbacks($count = 6) {
+function paraneue_dosomething_get_placeholder_reportbacks($count = 6) {
+  $placeholders = [];
   $placeholder_urls = dosomething_campaign_get_default_gallery_image_urls();
-  $placeholders = array();
-  $placeholder_captions = array(
+  $placeholder_captions = [
     t('DoSomething? Just did.'),
     t('Doing good never looked so good.'),
     t('Don’t let the smile fool you. I crushed it.'),
     t('Making the world suck less, one photo at a time.'),
     t('Pics or it didn’t happen? Oh, it happened.'),
     t('I get action. Social action.'),
-  );
+  ];
 
   // If no placeholders added to site, let's fallback to locally stored ones.
   if (!$placeholder_urls) {
-    $placeholder_urls = array();
+    $placeholder_urls = [];
     for ($i = 1; $i <= $count; $i++) {
-      $placeholder_urls[] = DS_ASSET_PATH . '/dist/images/gallery-placeholder-' . $i . '.jpg';
+      $placeholder_urls[] = PARANEUE_PATH . '/dist/images/gallery-placeholder-' . $i . '.jpg';
     }
   }
 
   for ($i = 0; $i < $count; $i++) {
-    $placeholders[] = paraneue_dosomething_get_gallery_item(array('image' => $placeholder_urls[$i], 'caption' => $placeholder_captions[$i]), 'photo');
+    $placeholder = (object) [];
+    $placeholder->caption = $placeholder_captions[$i];
+    $placeholder->media['uri'] = $placeholder_urls[$i];
+    $placeholder->media['type'] = 'image';
+
+    $placeholders[] = $placeholder;
   }
 
   return $placeholders;
@@ -417,38 +442,58 @@ function paraneue_dosomething_get_regional_url_data($node) {
 /**
  * Return an assimilated collection of Reportbacks based on Promoted & Approved Reportback counts.
  *
- * @param array $reportbacks
- * @param bool $use_placeholders
+ * @param  array  $gallery
+ * @param  array  $reportbacks
+ * @param  bool   $use_placeholders
  * @return bool
  */
-function paraneue_dosomething_build_reportbacks_gallery_collection ($reportbacks, $use_placeholders = FALSE) {
-  $fill_count = $reportbacks['desired_count'] - $reportbacks['total_promoted'];
+function paraneue_dosomething_build_reportbacks_gallery_collection ($gallery, $reportbacks, $use_placeholders = FALSE) {
+  $fill_count = $gallery['desired_count'] - $gallery['initial_promoted_count'];
+
+  $filters = [
+    'nid' => $gallery['campaign_id'],
+    'status' => ['approved'],
+    'random' => TRUE,
+  ];
 
   // Absolutely no Approved Reportbacks to fulfill the fill count needed.
-  if ((int) $reportbacks['total_approved'] === 0) {
+  if ($gallery['total_approved'] === 0) {
     if ($use_placeholders) {
-      $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count);
-      $reportbacks['items'] = array_merge($reportbacks['items'], $placeholders);
-      $reportbacks['prefetched'] = 0;
+      $placeholders = paraneue_dosomething_get_placeholder_reportbacks($fill_count);
+      $reportbacks = array_merge($reportbacks, $placeholders);
     }
     else {
-      return NULL;
+      return $reportbacks;
     }
   }
 
   // Some but not enough Approved Reportbacks to fulfill the fill count needed.
-  elseif ($reportbacks['total_approved'] < $fill_count) {
-    $approved_reportbacks = paraneue_dosomething_get_themed_reportbacks_by_status($reportbacks['campaign_id'], 'approved', $reportbacks['total_approved']);
-    $placeholders = paraneue_dosomething_get_themed_placeholder_reportbacks($fill_count - $reportbacks['total_approved']);
-    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks, $placeholders);
-    $reportbacks['prefetched'] = $reportbacks['total_approved'];
+  elseif ($gallery['total_approved'] < $fill_count) {
+    $filters['count'] = $gallery['total_approved'];
+
+    try {
+      $approvedReportbacks = (new ReportbackItem)->find($filters);
+    }
+    catch (Exception $error) {
+      $approvedReportbacks = [];
+    }
+
+    $placeholders = paraneue_dosomething_get_placeholder_reportbacks($fill_count - $gallery['total_approved']);
+    $reportbacks = array_merge($reportbacks, $approvedReportbacks, $placeholders);
   }
 
   // There are enough Approved Reportbacks to fulfill the fill count needed.
   else {
-    $approved_reportbacks = paraneue_dosomething_get_themed_reportbacks_by_status($reportbacks['campaign_id'], 'approved', $fill_count);
-    $reportbacks['items'] = array_merge($reportbacks['items'], $approved_reportbacks);
-    $reportbacks['prefetched'] = $fill_count;
+    $filters['count'] = $fill_count;
+
+    try {
+      $approvedReportbacks = (new ReportbackItem)->find($filters);
+    }
+    catch (Exception $error) {
+      $approvedReportbacks = [];
+    }
+
+    $reportbacks = array_merge($reportbacks, $approvedReportbacks);
   }
 
   return $reportbacks;

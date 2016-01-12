@@ -20,18 +20,6 @@
   </div>
 </header>
 
-<?php if (isset($reportbacks_showcase)): ?>
-  <div class="container -showcase optimizely-hidden">
-    <div class="wrapper">
-      <ul class="gallery -quartet -shuffle">
-        <?php foreach ($reportbacks_showcase['items'] as $index => $reportback): ?>
-          <li><?php print $reportback; ?></li>
-        <?php endforeach; ?>
-      </ul>
-    </div>
-  </div>
-<?php endif; ?>
-
 <article class="campaign campaign--action">
   <nav class="campaign-nav js-fixedsticky">
     <ul class="waypoints -primary waypoints--action js-scroll-indicator">
@@ -324,7 +312,7 @@
         <?php endif; ?>
       </div>
 
-      <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-prefetched="<?php print $reportbacks_gallery['prefetched']; ?>" data-total="<?php print $reportbacks_gallery['total_approved']; ?>" data-admin="<?php print $reportbacks_gallery['admin_access']; ?>">
+      <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-ids="<?php print implode(',', $reportbacks_gallery['item_ids']); ?>" data-remaining="<?php print $reportbacks_gallery['remaining']; ?>" data-admin="<?php print $reportbacks_gallery['admin_access']; ?>">
         <div class="wrapper">
 
           <ul class="gallery gallery--reportback">

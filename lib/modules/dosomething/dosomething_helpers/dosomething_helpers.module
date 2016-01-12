@@ -73,6 +73,52 @@ function dosomething_helpers_convert_date($date, $format = 'ISO-8601') {
 }
 
 /**
+ * Convert set of nested array $filters into one dimensional $parameters array.
+ * Needed for ApiCache Class ID generation.
+ *
+ * @param  array  $filters
+ * @return null|array
+ */
+function dosomething_helpers_convert_filters_to_url_parameters(array $filters = []) {
+  if (!$filters) {
+    return NULL;
+  }
+
+  $parameters = [];
+
+  foreach ($filters as $key => $value) {
+    if (!is_int($value) && !$value) {
+      continue;
+    }
+
+    if (!is_array($value)) {
+      $value = [$value];
+    }
+
+    switch($key) {
+      case 'nid':
+            $parameters['campaigns'] = implode(',', $value);
+            break;
+
+      case 'exclude':
+            $parameters[$key] = implode(',', $value);
+            break;
+
+      case 'load_user':
+      case 'random':
+            $parameters[$key] = 'true';
+            break;
+
+      default:
+            $parameters[$key] = implode(',', $value);
+    }
+  }
+
+  return $parameters;
+}
+
+
+/**
  * Utility function to convert string value of true|false into actual boolean value.
  *
  * @param  $string
@@ -609,4 +655,25 @@ function dosomething_helpers_application_path($path = '') {
       unset($options['query']['destination']);
     }
   }
+}
+
+/**
+ * Given an associative array, unset the items with the specified keys.
+ *
+ * @param  array  $array
+ * @param  array  $keys
+ * @return array|null
+ */
+function dosomething_helpers_unset_array_keys(array $array = [], array $keys = []) {
+  if (!$array) {
+    return NULL;
+  }
+
+  foreach ($keys as $key) {
+    if (array_key_exists($key, $array)) {
+      unset($array[$key]);
+    }
+  }
+
+  return $array;
 }

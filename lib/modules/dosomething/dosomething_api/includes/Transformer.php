@@ -33,12 +33,12 @@ abstract class Transformer {
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param  array   $parameters
+   * @param  array   $filters
    * @param  string  $endpoint Endpoint for building URI.
    * @return mixed
    */
-  protected function getNextPageUri($data, $parameters, $endpoint) {
-    $uri = $this->getPathParameters($parameters, $endpoint);
+  protected function getNextPageUri($data, $filters, $endpoint) {
+    $uri = $this->getPathParameters($filters, $endpoint);
 
     $next = $data['current_page'] + 1;
 
@@ -59,12 +59,12 @@ abstract class Transformer {
    *   - per_page: (int) Total number of data items to show per page.
    *   - current_page: (int) Current page number.
    *   - total_pages: (int) Total number of pages available.
-   * @param  array   $parameters An associative array of current location parameters.
+   * @param  array   $filters An associative array of current location parameters.
    * @param  string  $endpoint Endpoint for building URI.
    * @return mixed
    */
-  protected function getPrevPageUri($data, $parameters, $endpoint) {
-    $uri = $this->getPathParameters($parameters, $endpoint);
+  protected function getPrevPageUri($data, $filters, $endpoint) {
+    $uri = $this->getPathParameters($filters, $endpoint);
 
     $prev = $data['current_page'] - 1;
 
@@ -79,32 +79,21 @@ abstract class Transformer {
   /**
    * Extract the path parameters passed and recreate the query string.
    *
-   * @param  array   $parameters
-   *   An associative array of query parameters and values for building URI:
-   *   - nid: (array) Campaign ids.
-   *   - status: (array) Reportback statuses to retrieve.
-   *   - count: (int) Number of items to show per page.
-   *   - page: (int) Current page number.
-   *   - offset: (int) Number of items displayed from prior pages.
-   *   - random: (boolean) Whether to retrieve a random assortment of data items.
-   * @param  string  $endpoint Endpoint for building URI.
+   * @param  array   $filters
+   * @param  string  $endpoint
    * @return string
    */
-  protected function getPathParameters($parameters, $endpoint) {
-    $path = services_resource_uri([$endpoint]);
-    $path .= '.json?';
+  protected function getPathParameters($filters, $endpoint) {
+    $path = services_resource_uri([$endpoint]) . '?';
+    $filters = dosomething_helpers_unset_array_keys($filters, ['offset', 'page']);
+    $parameters = dosomething_helpers_convert_filters_to_url_parameters($filters);
+    $pieces = [];
 
-    if (isset($parameters['nid'])) {
-      $path .= '&campaigns=' . implode(',', (array) $parameters['nid']);
+    foreach ($parameters as $key => $value) {
+      $pieces[] = $key . '=' . $value;
     }
 
-    if (isset($parameters['status'])) {
-      $path .= '&status=' . implode(',', (array) $parameters['status']);
-    }
-
-    if (isset($parameters['count'])) {
-      $path .= '&count=' . implode(',', (array) $parameters['count']);
-    }
+    $path .= implode('&', $pieces);
 
     return $path;
   }
@@ -113,7 +102,7 @@ abstract class Transformer {
    * Get metadata for pagination of response data.
    *
    * @param  int     $total Complete total number of items found.
-   * @param  array   $parameters
+   * @param  array   $filters
    *   An associative array of query parameters and values:
    *   - nid: (array) Campaign ids.
    *   - status: (array) Reportback statuses to retrieve.
@@ -124,19 +113,15 @@ abstract class Transformer {
    * @param  string  $endpoint
    * @return array
    */
-  protected function paginate($total, $parameters, $endpoint) {
+  protected function paginate($total, $filters, $endpoint) {
     $data = [];
 
     $data['total'] = $total;
-    $data['per_page'] = $parameters['count'];
-    $data['current_page'] = (isset($parameters['page']) && $parameters['page'] > 0) ? (int) $parameters['page'] : 1;
+    $data['per_page'] = $filters['count'];
+    $data['current_page'] = (isset($filters['page']) && $filters['page'] > 0) ? (int) $filters['page'] : 1;
     $data['total_pages'] = ceil($data['total'] / $data['per_page']);
-
-    $prevUri = $this->getPrevPageUri($data, $parameters, $endpoint);
-    $nextUri = $this->getNextPageUri($data, $parameters, $endpoint);
-
-    $data['prev_uri'] = $prevUri;
-    $data['next_uri'] = $nextUri;
+    $data['prev_uri'] = $this->getPrevPageUri($data, $filters, $endpoint);
+    $data['next_uri'] = $this->getNextPageUri($data, $filters, $endpoint);
 
     return $data;
   }
