@@ -610,3 +610,22 @@ function dosomething_helpers_application_path($path = '') {
     }
   }
 }
+
+/**
+ * Determines active or closed status based on start and end dates of a campaign run.
+ *
+ * @param datetime $start_date
+ * @param datetime $end_date
+ *
+ * @return string 'active' or 'closed' based on timing logic.
+ */
+function dosomething_helpers_get_campaign_status($start_date, $end_date) {
+  $now = new DateTime();
+
+  if (($start_date == $end_date && $now >= $start_date) || ($now >= $start_date && $now <= $end_date)) {
+    return 'active';
+  }
+  else {
+    return 'closed';
+  }
+}
