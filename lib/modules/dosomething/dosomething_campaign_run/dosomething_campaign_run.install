@@ -35,7 +35,7 @@ function dosomething_campaign_run_update_7003() {
                                 GROUP BY t.entity_id;");
 
   foreach ($active_campaigns as $active_campaign) {
-    // For each $active_campaign, create a new node with title of campaign + current year.
+    // For each $active_campaign, create a new node (campaign run) with title of campaign + current year.
     $campaign_run_node = new stdClass();
     $campaign_run_node->type = 'campaign_run';
     $campaign_run_node->language = $active_campaign->src_lang;
