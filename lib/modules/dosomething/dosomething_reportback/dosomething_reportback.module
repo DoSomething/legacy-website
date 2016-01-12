@@ -879,10 +879,8 @@ function dosomething_reportback_mbp_request($entity) {
       'impact_number' => $entity->quantity,
       'impact_noun' => $entity->noun,
       'image_markup' => $image_markup,
+      'campaign_language' => !empty($node->language) ? $node->language : DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE,
     );
-    if (!empty($node->language)) {
-      $params['campaign_language'] = $node->language;
-    }
 
     if (module_exists('dosomething_mbp')) {
       dosomething_mbp_request('campaign_reportback', $params);
