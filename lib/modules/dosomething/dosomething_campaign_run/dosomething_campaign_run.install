@@ -39,22 +39,22 @@ function dosomething_campaign_run_update_7003() {
     $campaign_run_node = new stdClass();
     $campaign_run_node->type = 'campaign_run';
     $campaign_run_node->language = $active_campaign->src_lang;
+    $created_dates = explode(',', $active_campaign->created_dates);
+
 
     //TODO: change the title below per Fantini's guidelines
-    $campaign_run_node->title = $active_campaign->title_field_value . ' 2016';
+    $campaign_run_node->title = $active_campaign->title_field_value . ' run 1';
     $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
-    $php_timestamp_date = date('y/m/d', $active_campaign->created);
+    $php_timestamp_date = date('y/m/d', $created_dates[0]);
     $campaign_run_node->field_run_date[$active_campaign->src_lang][]['value'] = $php_timestamp_date;
 
     node_save($campaign_run_node);
   }
   // Each campaign run node has many languages.
   $languages = explode(',', $active_campaign->languages);
-  $created_dates = explode(',', $active_campaign->created_dates);
-  $language_created_dates = array_combine($languages, $created_dates);
 
-  foreach ($language_created_dates as $language => $created_date) {
+  foreach ($languages as $key => $language) {
     if ($active_campaign->src_lang != $language) {
       $handler = entity_translation_get_handler('node', $campaign_run_node);
 
@@ -66,7 +66,7 @@ function dosomething_campaign_run_update_7003() {
 
       $handler->setTranslation($translation, $campaign_run_node);
       $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
-      $php_timestamp_date = date('y/m/d', $created_date);
+      $php_timestamp_date = date('y/m/d', $created_dates[$key]);
       $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
       node_save($campaign_run_node);
     }
