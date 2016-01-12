@@ -117,6 +117,7 @@ function dosomething_reportback_build_reportback_items_query($params = array()) 
 *  - offset (int)
 *  - random (bool)
 *  - load_user (bool)
+* @param  bool  $tally
 * @return object
 *    An executed database query object to iterate through.
 */

@@ -194,12 +194,13 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
  * Expands $reportbacks_gallery array with themed Reportback items and data for given node preprocess $vars.
  */
 function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) {
-  $gallery = [];
-  $gallery['admin_access'] = user_access('view any reportback') ? 'true' : 'false';
-  $gallery['desired_count'] = $count;
-  $gallery['campaign_id'] = $vars['nid'];
-  $gallery['items'] = [];
-  $gallery['item_ids'] = [];
+  $gallery = [
+    'admin_access' => user_access('view any reportback') ? 'true' : 'false',
+    'desired_count' => $count,
+    'campaign_id' => $vars['nid'],
+    'items' => [],
+    'item_ids' => [],
+  ];
 
   $filters = [
     'nid' => $gallery['campaign_id'],
