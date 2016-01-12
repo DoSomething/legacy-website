@@ -75,6 +75,10 @@ function dosomething_fact_get_facts_data($node, $field_names) {
     if ($field_data) {
       if (array_key_exists($language, $field_data)) {
         $entity = dosomething_fact_get_entity($field_data, $language);
+       }
+      else {
+        // If we do not have a translation for the current user's language, get language of user that created the reportback
+        $entity = dosomething_fact_get_entity($field_data, $node->language);
       }
 
       if (isset($field_data[0]['entity']) && is_object($field_data[0]['entity'])) {
