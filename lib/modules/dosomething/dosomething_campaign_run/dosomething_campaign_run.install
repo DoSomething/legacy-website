@@ -1,4 +1,4 @@
-  <?php
+<?php
 /**
  * @file
  * Installation and schema hooks for dosomething_campaign_run.module.
