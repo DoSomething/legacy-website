@@ -26,7 +26,7 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
  */
 function dosomething_campaign_run_update_7003() {
   // get all campaigns with status active
-  $active_campaigns = db_query("SELECT t.entity_id, t.created, n.language as src_lang, group_concat(t.language) as languages, d.title_field_value
+  $active_campaigns = db_query("SELECT t.entity_id, group_concat(t.created) as created_dates, n.language as src_lang, group_concat(t.language) as languages, d.title_field_value
                                 FROM entity_translation t
                                 INNER JOIN field_data_field_campaign_status s on s.entity_id = t.entity_id
                                 INNER JOIN node n on n.nid = t.entity_id
@@ -41,7 +41,7 @@ function dosomething_campaign_run_update_7003() {
     $campaign_run_node->language = $active_campaign->src_lang;
 
     //TODO: change the title below per Fantini's guidelines
-    $campaign_run_node->title = $active_campaign->title_field_value . ' 2003';
+    $campaign_run_node->title = $active_campaign->title_field_value . ' 2016';
     $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
     $php_timestamp_date = date('y/m/d', $active_campaign->created);
@@ -51,8 +51,10 @@ function dosomething_campaign_run_update_7003() {
   }
   // Each campaign run node has many languages.
   $languages = explode(',', $active_campaign->languages);
+  $created_dates = explode(',', $active_campaign->created_dates);
+  $language_created_dates = array_combine($languages, $created_dates);
 
-  foreach ($languages as $language) {
+  foreach ($language_created_dates as $language => $created_date) {
     if ($active_campaign->src_lang != $language) {
       $handler = entity_translation_get_handler('node', $campaign_run_node);
 
@@ -64,7 +66,7 @@ function dosomething_campaign_run_update_7003() {
 
       $handler->setTranslation($translation, $campaign_run_node);
       $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
-      $php_timestamp_date = date('y/m/d', $active_campaign->created);
+      $php_timestamp_date = date('y/m/d', $created_date);
       $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
       node_save($campaign_run_node);
     }
