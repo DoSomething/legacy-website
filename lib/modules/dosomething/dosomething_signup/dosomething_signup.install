@@ -625,3 +625,12 @@ function dosomething_signup_update_7022() {
     db_add_unique_key($table, 'uid-nid-run_nid', ['uid', 'nid', 'run_nid']);
   }
 }
+
+/*
+ * Makes sure all signups have a run nid
+ */
+function dosomething_signup_update_7023(&$sandbox) {
+  db_query("UPDATE dosomething_signup as s
+            INNER JOIN field_data_field_current_run as run on s.nid = run.entity_id
+            SET s.run_nid = field_current_run_target_id");
+}
