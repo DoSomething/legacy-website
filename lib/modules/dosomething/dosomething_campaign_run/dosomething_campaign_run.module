@@ -5,6 +5,7 @@
  */
 
 include_once 'dosomething_campaign_run.features.inc';
+include_once 'dosomething_campaign_run.cron.inc';
 
 /**
  * Adds loaded closed campaign_run node to the given parent campaign's $vars.
@@ -294,51 +295,30 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
 }
 
 /*
+ * When campaign run nodes are saved, this hook updates the campaign status field on campaign nodes
+ * based on the campaign run dates.
+ *
  * Implements hook_node_presave().
  */
 function dosomething_campaign_run_node_presave($node) {
   if ($node->type == 'campaign_run') {
     $run_campaigns = $node->field_campaigns;
-    $status = dosomething_campaign_run_get_active_state($node);
+    $run_dates = $node->field_run_date;
 
-    foreach ($run_campaigns as $lang => $campaigns) {
-      // There could be multiple campaigns per language in this field. Probably not, but we do allow for it.
-      foreach ($campaigns as $key => $value) {
-        $campaign_node = entity_metadata_wrapper('node', $value['target_id']);
-        $campaign_node->language($lang)->field_campaign_status = $status[$lang];
+    // Determine the active and closed state for each translation of the run_date field
+    foreach ($run_dates as $lang => $date) {
+      $start = new DateTime($date[0]['value']);
+      $end = new DateTime($date[0]['value2']);
+      $status = dosomething_helpers_get_campaign_status($start, $end);
+      $run_campaigns = $node->field_campaigns[$lang];
+
+      // Update the campaign status field on each campaign node tied to this run.
+      // There could be multiple campaigns per campaign run. Probably not, but we do allow for it.
+      foreach ($run_campaigns as $campaign) {
+        $campaign_node = entity_metadata_wrapper('node', $campaign['target_id']);
+        $campaign_node->language($lang)->field_campaign_status = $status;
         $campaign_node->save();
       }
     }
   }
-}
-
-
-
-// }
-
-/*
- * Determines active or closed status for each translation of field_run_date.
- *
- * @param Object $node
- */
-function dosomething_campaign_run_get_active_state($node) {
-  if (!isset($node->field_run_date)) { return; }
-
-  $run_dates = $node->field_run_date;
-
-  foreach ($run_dates as $lang => $field_date) {
-    $start = new DateTime($field_date[0]['value']);
-    $end = new DateTime($field_date[0]['value2']);
-    $now = new DateTime();
-
-    // If no end date is set, $start and $end will be the same.
-    if (($start == $end && $now >= $start) || ($now >= $start && $now <= $end)) {
-      $status[$lang] = 'active';
-    }
-    else {
-      $status[$lang] = 'closed';
-    }
-  }
-
-  return $status;
 }
