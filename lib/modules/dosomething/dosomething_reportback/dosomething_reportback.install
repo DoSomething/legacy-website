@@ -885,6 +885,7 @@ function dosomething_reportback_update_7033() {
   if (!db_index_exists($table, 'run_nid')) {
     db_add_index($table, 'run_nid', ['run_nid']);
   }
+}
 
 /**
  * Makes sure all reportbacks have a run nid
