@@ -886,4 +886,11 @@ function dosomething_reportback_update_7033() {
     db_add_index($table, 'run_nid', ['run_nid']);
   }
 
+/**
+ * Makes sure all reportbacks have a run nid
+ */
+function dosomething_reportback_update_7034(&$sandbox) {
+  db_query("UPDATE dosomething_reportback as rb
+            INNER JOIN field_data_field_current_run as run on rb.nid = run.entity_id
+            SET rb.run_nid = field_current_run_target_id");
 }
