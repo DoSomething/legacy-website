@@ -105,9 +105,6 @@ function dosomething_helpers_convert_filters_to_url_parameters(array $filters = 
             break;
 
       case 'load_user':
-            $parameters[$key] = 'true';
-            break;
-
       case 'random':
             $parameters[$key] = 'true';
             break;
