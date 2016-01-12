@@ -867,6 +867,13 @@ function dosomething_reportback_mbp_request($entity) {
       } else {
         $title = $node->title;
       }
+    } else {
+      watchdog(
+        'dosomething_reportback',
+        'Node !nid !nid not found for reportback fid !fid.',
+        ['!nid' => $entity->nid, '!fid' => $entity->fid],
+        WATCHDOG_WARNING
+      );
     }
 
     $params = array(
