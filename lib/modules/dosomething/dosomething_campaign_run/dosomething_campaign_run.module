@@ -255,24 +255,6 @@ function dosomething_campaign_run_get_parent_nid($nid) {
 }
 
 /**
- * Given a campaign form and form state, check to see if there is a campgin run.
- * Adds the campaign run nid to the campaign form.
- *
- * @param array $form
- *  A drupal form array of a campaign node
- * @param array $form_state
- *  A drupal form_state array of a campaign node
- */
-function dosomething_campaign_run_add_campaign_run_info(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
-  $closed_nid = dosomething_campaign_run_get_closed_run_nid($nid);
-  if (isset($closed_nid)) {
-    $form['field_campaign_status'][LANGUAGE_NONE]['#description'] = t('The current campaign run nid is ' . l($closed_nid, 'node/' . $closed_nid . '/edit'));
-    return $form;
-  }
-}
-
-/**
  * Implements hook_form_NODE_TYPE_alter().
  */
 function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$form_state, $form_id) {

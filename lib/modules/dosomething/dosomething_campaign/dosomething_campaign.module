@@ -22,8 +22,6 @@ define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', t('Snap a Pic'));
 function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state, $form_id) {
   unset($form['field_active_hours'][LANGUAGE_NONE]['#options']['_none']);
   $form['title']['#description'] = t('Title - i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <br/><strong> Limit: 20 characters. </strong>');
-  // Add in campaign close info.
-  dosomething_campaign_run_add_campaign_run_info($form, $form_state);
   // Use #after_build to add JS even on validation errors: https://drupal.org/node/1253520#comment-4881588
   $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 
