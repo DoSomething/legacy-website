@@ -559,7 +559,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   }
   if (module_exists('dosomething_global')) {
     list($user_language, $user_country) = dosomething_global_user_details($account);
-    $campaign_country_code = dosomething_global_get_current_prefix();
+    $campaign_country_code = dosomething_global_get_current_country_code();
     $campaign_language = dosomething_global_convert_country_to_language($campaign_country_code);
   }
 
