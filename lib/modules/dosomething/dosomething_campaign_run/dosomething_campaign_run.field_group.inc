@@ -24,7 +24,7 @@ function dosomething_campaign_run_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_campaigns',
-      1 => 'title',
+      1 => 'title_field',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

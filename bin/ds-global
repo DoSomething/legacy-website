@@ -258,6 +258,22 @@ function enable_campaign_field_collections {
   drush ds-global-field-fix field_step_post
 }
 
+#=== FUNCTION ==================================================================
+# NAME: enable_campaign_runs
+# DESCRIPTION: Runs fixes for campaign runs.
+#===============================================================================
+function enable_campaign_runs {
+  # Display ascii art
+  art
+
+  set -e
+  cd $WEB_PATH
+
+  # Clear cache after every fix.
+  drush cc all
+  drush ds-global-titles-fix campaign_run
+}
+
 # ==============================================================================
 
 # ==============================================================================
@@ -271,6 +287,8 @@ if [[ $1 == "make-home-translatable" ]]; then
   make_home_translatable
 elif [[ $1 == "enable-campaign-field-collections" ]]; then
   enable_campaign_field_collections
+elif [[ $1 == "enable-campaign-runs" ]]; then
+  enable_campaign_runs
 elif [[ $1 == "make-static-content-translatable" ]]; then
   make_static_content_translatable
 elif [[ $1 == "make-taxonomy-translatable" ]]; then
