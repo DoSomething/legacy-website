@@ -24,7 +24,7 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
 /**
  * Creates campaign run nodes for all open campaigns (published or unpublished).
  */
-function dosomething_campaign_run_update_7019() {
+function dosomething_campaign_run_update_7003() {
   // get all campaigns with status active
   $active_campaigns = db_query("SELECT t.entity_id, group_concat(t.created) as created_dates, n.language as src_lang, group_concat(t.language) as languages, d.title_field_value
                                 FROM entity_translation t
@@ -42,7 +42,7 @@ function dosomething_campaign_run_update_7019() {
     $campaign_run_node->language = $active_campaign->src_lang;
     $created_dates = explode(',', $active_campaign->created_dates);
 
-    $campaign_run_node->title = $active_campaign->title_field_value . ' run 19';
+    $campaign_run_node->title = $active_campaign->title_field_value . ' run 1';
     $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
     $php_timestamp_date = date('y-m-d', $created_dates[0]);
