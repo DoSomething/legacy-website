@@ -863,6 +863,7 @@ function dosomething_reportback_mbp_request($entity) {
     if ($node) {
       // Get node title, normal for collections, translatable for campaigns.
       if (isset($node->title_field)) {
+        $wrapper = entity_metadata_wrapper('node', $entity);
         $title = $wrapper->language($language)->title_field->value();
       } else {
         $title = $node->title;
