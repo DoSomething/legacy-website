@@ -67,11 +67,12 @@ function dosomething_signup_schema() {
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
-      'uid-nid' => array('uid', 'nid'),
+      'uid-nid-run_nid' => array('uid', 'nid', 'run_nid'),
     ),
     'indexes' => array(
       'uid' => array('uid'),
       'nid' => array('nid'),
+      'run_nid' => array('run_nid'),
     ),
   );
   $schema['dosomething_signup_data_form'] = array(
@@ -604,4 +605,23 @@ function dosomething_signup_update_7021() {
 
   // Move run_nid colum after nid.
   db_query("ALTER TABLE dosomething_signup MODIFY COLUMN run_nid int AFTER nid;");
+}
+
+/**
+ * Adds unique key and index for Campaign Run data to the dosomething_signup table.
+ */
+function dosomething_signup_update_7022() {
+  $table = 'dosomething_signup';
+
+  if (db_index_exists($table, 'uid-nid')) {
+    db_drop_unique_key($table, 'uid-nid');
+  }
+
+  if (!db_index_exists($table, 'run_nid')) {
+    db_add_index($table, 'run_nid', ['run_nid']);
+  }
+
+  if (!db_index_exists($table, 'uid-nid-run_nid')) {
+    db_add_unique_key($table, 'uid-nid-run_nid', ['uid', 'nid', 'run_nid']);
+  }
 }
