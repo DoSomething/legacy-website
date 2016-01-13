@@ -24,7 +24,7 @@ function dosomething_campaign_run_update_7002(&$sanebox) {
 /**
  * Creates campaign run nodes for all open campaigns (published or unpublished).
  */
-function dosomething_campaign_run_update_7003() {
+function dosomething_campaign_run_update_7019() {
   // get all campaigns with status active
   $active_campaigns = db_query("SELECT t.entity_id, group_concat(t.created) as created_dates, n.language as src_lang, group_concat(t.language) as languages, d.title_field_value
                                 FROM entity_translation t
@@ -34,6 +34,7 @@ function dosomething_campaign_run_update_7003() {
                                 WHERE field_campaign_status_value = 'active'
                                 GROUP BY t.entity_id;");
 
+
   foreach ($active_campaigns as $active_campaign) {
     // For each $active_campaign, create a new node (campaign run) with title of campaign + current year.
     $campaign_run_node = new stdClass();
@@ -41,36 +42,37 @@ function dosomething_campaign_run_update_7003() {
     $campaign_run_node->language = $active_campaign->src_lang;
     $created_dates = explode(',', $active_campaign->created_dates);
 
-    $campaign_run_node->title = $active_campaign->title_field_value . ' run 1';
+    $campaign_run_node->title = $active_campaign->title_field_value . ' run 19';
     $campaign_run_node->field_campaigns[$active_campaign->src_lang][]['target_id'] = $active_campaign->entity_id;
 
-    $php_timestamp_date = date('y/m/d', $created_dates[0]);
+    $php_timestamp_date = date('y-m-d', $created_dates[0]);
     $campaign_run_node->field_run_date[$active_campaign->src_lang][]['value'] = $php_timestamp_date;
 
-    $campaign_run_node->author = 'admin@dosomething.org';
-    $campaign_run_node->uid = '343';
+    // The uid of the agaither@dosomething.org user in all_the_environments.
+    $campaign_run_node->uid = '10';
     node_save($campaign_run_node);
-  }
-  // Each campaign run node has many languages.
-  $languages = explode(',', $active_campaign->languages);
 
-  foreach ($languages as $key => $language) {
-    if ($active_campaign->src_lang != $language) {
-      $handler = entity_translation_get_handler('node', $campaign_run_node);
+    // Each campaign run node has many languages.
+    $languages = explode(',', $active_campaign->languages);
 
-      $translation = array(
-        'status' => 1,
-        'language' => $language,
-        'source' => $active_campaign->src_lang,
-      );
+    foreach ($languages as $key => $language) {
+      if ($active_campaign->src_lang != $language) {
+        $handler = entity_translation_get_handler('node', $campaign_run_node);
 
-      $handler->setTranslation($translation, $campaign_run_node);
-      $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
-      $php_timestamp_date = date('y/m/d', $created_dates[$key]);
-      $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
-      $campaign_run_node->author = 'admin@dosomething.org';
-      $campaign_run_node->uid = '343';
-      node_save($campaign_run_node);
+        $translation = array(
+          'status' => 1,
+          'language' => $language,
+          'source' => $active_campaign->src_lang,
+        );
+
+        $handler->setTranslation($translation, $campaign_run_node);
+        $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
+        $php_timestamp_date = date('y-m-d', $created_dates[$key]);
+        $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
+        // The uid of the agaither@dosomething.org user in all_the_environments.
+        $campaign_run_node->uid = '10';
+        node_save($campaign_run_node);
+      }
     }
   }
 }
