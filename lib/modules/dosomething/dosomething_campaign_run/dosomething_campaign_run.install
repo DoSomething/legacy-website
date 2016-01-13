@@ -48,7 +48,7 @@ function dosomething_campaign_run_update_7003() {
     $php_timestamp_date = date('y-m-d', $created_dates[0]);
     $campaign_run_node->field_run_date[$active_campaign->src_lang][]['value'] = $php_timestamp_date;
 
-    // The uid of the agaither@dosomething.org user in all_the_environments.
+    // The uid of Andrea's user in all_the_environments.
     $campaign_run_node->uid = '10';
     node_save($campaign_run_node);
 
@@ -69,7 +69,7 @@ function dosomething_campaign_run_update_7003() {
         $campaign_run_node->field_campaigns[$language][]['target_id'] = $active_campaign->entity_id;
         $php_timestamp_date = date('y-m-d', $created_dates[$key]);
         $campaign_run_node->field_run_date[$language][]['value'] = $php_timestamp_date;
-        // The uid of the agaither@dosomething.org user in all_the_environments.
+        // The uid of Andrea's user in all_the_environments.
         $campaign_run_node->uid = '10';
         node_save($campaign_run_node);
       }
