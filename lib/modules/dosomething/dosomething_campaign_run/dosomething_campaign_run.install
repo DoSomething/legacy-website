@@ -107,41 +107,4 @@ function dosomething_campaign_run_update_7004() {
       $campaign_node->save();
     }
   }
-=======
- * Moves all signups and reportbacks from run nodes back to the original campaign node.
- */
-function dosomething_campaign_run_update_7003() {
-  $signups = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid
-                       FROM node n
-                       INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
-                       INNER JOIN dosomething_signup s on s.nid = n.nid
-                       WHERE n.type = 'campaign_run';");
-
-  foreach ($signups as $signup) {
-    db_update('node')
-      ->fields(array(
-        // change signup node id to campaign id
-        $signup->nid => $signup->field_campaigns_target_id,
-        // change signup run id to campaign run nid
-        $signup->sid => $signup->nid,
-        )
-      )
-      ->execute();
-  }
-
-  $reportbacks = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, rb.rbid, rb.uid, rb.nid
-                           FROM node n
-                           INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
-                           INNER JOIN dosomething_reportback rb on rb.nid = n.nid
-                           WHERE n.type = 'campaign_run';");
-
-  foreach ($reportbacks as $reportback) {
-    db_update('node')
-      ->fields(array(
-        $reportback->nid => $reportback->field_campaigns_target_id,
-        $reportback->rbid => $reportback->nid,
-        )
-      )
-      ->execute
-  }
 }
