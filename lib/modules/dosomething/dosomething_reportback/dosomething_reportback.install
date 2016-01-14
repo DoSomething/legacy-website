@@ -95,6 +95,7 @@ function dosomething_reportback_schema() {
     'indexes' => array(
       'uid' => array('uid'),
       'nid' => array('nid'),
+      'run_nid' => array('run_nid'),
     ),
   );
   $schema['dosomething_reportback_log'] = array(
@@ -873,4 +874,16 @@ function dosomething_reportback_update_7032() {
 
   // Move run_nid colum after nid.
   db_query("ALTER TABLE dosomething_reportback MODIFY COLUMN run_nid int AFTER nid;");
+}
+
+/**
+ * Adds index for Campaign Run data to the dosomething_reportback table.
+ */
+function dosomething_reportback_update_7033() {
+  $table = 'dosomething_reportback';
+
+  if (!db_index_exists($table, 'run_nid')) {
+    db_add_index($table, 'run_nid', ['run_nid']);
+  }
+
 }
