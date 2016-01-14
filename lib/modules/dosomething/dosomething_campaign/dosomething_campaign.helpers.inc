@@ -669,13 +669,20 @@ function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
 }
 
 /**
- * Get all the campaign runs associated with a node.
+ * Get all the campaign runs associated with a node translation.
+ *
+ * @param $nid The nid of the node to grab runs for
+ * @param $language The language of the translation to grab runs for.
  */
-function dosomething_campaign_get_runs($nid) {
+function dosomething_campaign_get_runs($nid, $language) {
   $campaign_runs = db_query("SELECT entity_id
                              FROM field_data_field_campaigns
                              WHERE field_campaigns_target_id = :nid
-                             AND bundle = 'campaign_run';", array(':nid' => $nid))->fetchAll();
+                             AND language = :language
+                             AND bundle = 'campaign_run';", array(
+                              ':nid' => $nid,
+                              ':language' => $language
+                             ))->fetchAll();
 
   return $campaign_runs;
 }

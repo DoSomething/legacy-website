@@ -78,3 +78,33 @@ function dosomething_campaign_run_update_7003() {
     }
   }
 }
+
+/**
+ * Sets the field_current_run for every campaign.
+ */
+function dosomething_campaign_run_update_7004() {
+  // Get all campaigns.
+  $campaigns = db_query("SELECT campaign.entity_id, campaign.language
+                         FROM entity_translation as campaign
+                         INNER JOIN node ON node.nid = campaign.entity_id
+                         WHERE node.type = 'campaign'
+                         AND campaign.entity_type = 'node';");
+  // Store the current run.
+  foreach($campaigns as $campaign) {
+    // Get the run_nid associated with this campaign and translation.
+    // Note: this just gets the first run_nid associated with the campaign in the result set.
+    $run_nid = db_query("SELECT entity_id
+                         FROM field_data_field_campaigns
+                         WHERE field_campaigns_target_id = :nid
+                         AND bundle = 'campaign_run'
+                         AND language = :lang;", array(
+                          ':nid' => $campaign->entity_id,
+                          ':lang' => $campaign->language))->fetchField(0);
+    // Fill in the field.
+    if ($run_nid) {
+      $campaign_node = entity_metadata_wrapper('node', $campaign->entity_id);
+      $campaign_node->language($campaign->language)->field_current_run = $run_nid;
+      $campaign_node->save();
+    }
+  }
+}

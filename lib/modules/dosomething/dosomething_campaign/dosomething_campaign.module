@@ -28,26 +28,31 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
   $form['#after_build'][] = 'dosomething_campaign_form_campaign_node_form_after_build';
 
   $nid = $form['nid']['#value'];
+  $language = $form['field_current_run']['#language'];
+  $all_options = $form['field_current_run'][$language]['#options'];
 
   // If this is an /add/ form then nid won't be set yet.
   if (!is_null($nid)) {
-    $campaign_runs = dosomething_campaign_get_runs($nid);
+    $campaign_runs = dosomething_campaign_get_runs($nid, $language);
   }
 
   // Only show the campaign runs tied to the campaign as options.
-  if (isset($campaign_runs) && !empty($campaign_runs)) {
-    $language = $form['field_current_run']['#language'];
-    $all_options = $form['field_current_run'][$language]['#options'];
-
-    foreach ($campaign_runs as $run) {
-      $filtered_options[$run->entity_id] = $all_options[$run->entity_id];
-    }
-
+  if (isset($campaign_runs)) {
+    $options = $campaign_runs;
     // Add empty option to the options array. Helps to ensure that the user
     // explicity chooses a campaign instead of defaulting to the first option
     // in the list.
-    $filtered_options = array("_none" => "- None -") + $filtered_options;
-    $form['field_current_run'][$language]['#options'] = $filtered_options;
+    $options = array("_none" => "- None -");
+
+    // If there are campaign runs tied to this campaign translation.
+    if (!empty($campaign_runs)) {
+      foreach ($campaign_runs as $run) {
+        $options[$run->entity_id] = $all_options[$run->entity_id];
+      }
+    }
+
+    // Save the options.
+    $form['field_current_run'][$language]['#options'] = $options;
   }
 }
 
