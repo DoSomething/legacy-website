@@ -670,6 +670,9 @@ function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
 
 /**
  * Get all the campaign runs associated with a node translation.
+ *
+ * @param $nid The nid of the node to grab runs for
+ * @param $language The language of the translation to grab runs for.
  */
 function dosomething_campaign_get_runs($nid, $language) {
   $campaign_runs = db_query("SELECT entity_id
