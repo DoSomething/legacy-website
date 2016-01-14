@@ -591,7 +591,7 @@ function dosomething_signup_update_7020() {
 /**
  * Adds campaign run nid column to the dosomething_signup table.
  */
-function dosomething_signup_update_7021() {
+function dosomething_signup_update_7023() {
   $tbl_name = 'dosomething_signup';
   // Load schema to get table definition.
   $schema = dosomething_signup_schema();
@@ -626,8 +626,8 @@ function dosomething_signup_update_7022() {
 =======
  * Moves all signups from run nodes back to the original campaign node.
  */
-function dosomething_signup_update_7023() {
-  $signups = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid
+function dosomething_signup_update_7033() {
+  $signups = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_id, s.run_nid
                        FROM node n
                        INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
                        INNER JOIN dosomething_signup s on s.nid = n.nid
@@ -637,9 +637,9 @@ function dosomething_signup_update_7023() {
     db_update('dosomething_signup')
       ->fields(array(
         // change signup node id to campaign id
-        $signup->nid => $signup->field_campaigns_target_id,
+        'nid' => $signup->field_campaigns_target_id,
         // change signup run id to campaign run nid
-        $signup->sid => $signup->nid,
+        'run_nid' => $signup->nid,
         )
       )
       ->execute();
