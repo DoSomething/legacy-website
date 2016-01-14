@@ -18,14 +18,14 @@ class CampaignTransformer extends Transformer {
    * @return array
    */
   public function index($parameters) {
+    $filters = $this->setFilters($parameters);
+
     $cache = new ApiCache;
 
     $campaigns = $cache->get('campaigns', $parameters);
 
     try {
       if (!$campaigns) {
-        $filters = $this->setFilters($parameters);
-
         $campaigns = Campaign::find($filters, 'full');
 
         $cache->set('campaigns', $parameters, $campaigns);
