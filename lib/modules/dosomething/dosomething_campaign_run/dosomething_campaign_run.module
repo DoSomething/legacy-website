@@ -212,11 +212,7 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
 }
 
 /**
- * For given campaign $nid, return its closed Campaign Run nid.
- *
- * For now, this just returns a campaign_run node that references the $nid.
- * As we build out multiple runs per campaign, we'll need to add logic
- * to determine sequence.
+ * For given campaign $nid, return its current Campaign Run nid.
  *
  * @param int $nid
  *   A campaign node nid.
@@ -225,13 +221,10 @@ function dosomething_campaign_run_preprocess_klout_gallery(&$vars, $nid) {
  *   Returns the closed campaign_run node $nid if exists, FALSE if not.
  */
 function dosomething_campaign_run_get_closed_run_nid($nid) {
-   // Query field_data_field_campaigns for campaign_run node referencing $nid.
-   $result = db_select('field_data_field_campaigns', 'c')
-    ->fields('c', array('entity_id'))
-    ->condition('field_campaigns_target_id', $nid)
-    ->condition('bundle', 'campaign_run')
-    ->execute();
-  return $result->fetchField(0);
+  $node = entity_metadata_wrapper('node', $nid);
+  if (isset($node->field_current_run)) {
+    return (!is_null($node->field_current_run->value()->nid)) ? $node->field_current_run->value()->nid : FALSE;
+  }
 }
 
 /**
@@ -268,8 +261,9 @@ function dosomething_campaign_run_add_campaign_run_info(&$form, &$form_state) {
   $language = $form['field_current_run']['#language'];
 
   $closed_nid = dosomething_campaign_run_get_closed_run_nid($nid);
-  if (isset($closed_nid)) {
-    $form['field_current_run'][$language]['#description'] = t('The current campaign run nid is ' . l($closed_nid, 'node/' . $closed_nid . '/edit'));
+
+  if ($closed_nid) {
+    $form['field_current_run'][$language]['#description'] = t('The current campaign run nid is ' . l($closed_nid, 'node/' . $closed_nid . '/edit/' . $language));
     return $form;
   }
 }
@@ -284,7 +278,7 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   // If the campaign nid is set let's add some help text!
   // This will break when we create MX & BR (and etc) campaign runs. the helpers extract only checks for 'en'
   $campaign_nid = dosomething_helpers_extract_field_data($form['#node']->field_campaigns);
-  if (isset($campaign_nid)) {
+  if ($campaign_nid) {
     // Get totals & language from the campaign.
     $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
     $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
