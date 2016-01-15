@@ -245,7 +245,7 @@ abstract class Transformer {
       $output['reportback_info'] = $data->reportback_info;
 
       if ($data->uri) {
-        $output['uri'] = $data->uri . '.json';
+        $output['uri'] = $data->uri;
       }
 
     }
@@ -270,7 +270,7 @@ abstract class Transformer {
       'term' => $data->term,
       'reportback_item' => $data->reportback_item,
       'user' => $data->user,
-      'uri' => $data->uri . '.json',
+      'uri' => $data->uri,
     ];
 
     return $output;
@@ -331,10 +331,10 @@ abstract class Transformer {
     ];
 
     if (!isset($data->uri)) {
-      $output['uri'] = services_resource_uri(['reportback', $data->id]) . '.json';
+      $output['uri'] = services_resource_uri(['reportbacks', $data->id]);
     }
     else {
-      $output['uri'] = $data->uri . '.json';
+      $output['uri'] = $data->uri;
     }
 
     if ($data instanceof Reportback) {
@@ -379,7 +379,7 @@ abstract class Transformer {
       'id' => $data->id,
       'status' => $data->status,
       'caption' => $data->caption,
-      'uri' => $data->uri . '.json',
+      'uri' => $data->uri,
       'media' => $data->media,
       'created_at' => $data->created_at,
     ];
