@@ -725,7 +725,7 @@ function dosomething_helpers_get_campaign_run($nid, $user = NULL) {
 
     // Reutrn NULL if the campaign doesnt have a run nid
     if (!isset($run_nid)) {
-      return NULL;
+      return FALSE;
     }
   }
 
