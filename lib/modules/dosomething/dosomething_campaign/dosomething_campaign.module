@@ -54,6 +54,10 @@ function dosomething_campaign_form_campaign_node_form_alter(&$form, &$form_state
     // Save the options.
     $form['field_current_run'][$language]['#options'] = $options;
   }
+
+  // Disable the campaign status field which gets filled programatically based
+  // on campaign run dates.
+  $form['field_campaign_status']['#disabled'] = 1;
 }
 
 /**
