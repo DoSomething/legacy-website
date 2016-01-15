@@ -501,8 +501,8 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
  *
  * @param String category The category of the event
  * @param String action The action being performed
- * @param String label The event label (Optional)
- * @param String value The value to be sent (Optional)
+ * @param (optional) String label The event label
+ * @param (optional) String value The value to be sent
  */
 function dosomething_helpers_add_analytics_event($category, $action, $label = NULL, $value = NULL) {
   $event_string = '"' . $category . '"' . ', ' . '"' . $action . '"';
@@ -636,7 +636,7 @@ function dosomething_helpers_get_current_language_content_code() {
  * Get the filesystem path relative to the application root.
  *
  * @param $path
- *  Optional subdirectory to get the path of.
+ *  (optional) subdirectory to get the path of.
  *
  * @return string
  *  Filesystem path
@@ -702,10 +702,10 @@ function dosomething_helpers_get_campaign_status($start_date, $end_date) {
  *
  * @param int $nid
  * @param object $user
- *  Optional. Will default to global $user if not supplied
+ *  (optional) Will default to global $user if not supplied
  *
- * @return node $run
- *  Returns the campaigns node in the correct language.
+ * @return
+ *  Returns the campaigns node in the correct language or false.
 */
 function dosomething_helpers_get_campaign_run($nid, $user = NULL) {
   // Setup variables
