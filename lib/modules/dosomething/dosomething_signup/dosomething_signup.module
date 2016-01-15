@@ -210,15 +210,21 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     global $user;
     $uid = $user->uid;
   }
+
   // If a signup already exists, exit.
   if (dosomething_signup_exists($nid, $uid)) { return FALSE; }
 
   // @todo: If the campaign is closed, return error.
   // @todo: If campaign is unpublished and non-staff $uid, return error.
 
+  $campaign = node_load($nid);
+  $language_code = $campaign->language;
+  $run_nid = $campaign->field_current_run[$language_code][0]['target_id'];
+
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
+    'run_nid' => $run_nid,
     'source'=> $source,
     'timestamp' => $timestamp,
   );
