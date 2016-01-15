@@ -629,7 +629,7 @@ function dosomething_signup_update_7022() {
 /**
  * Moves all signups from run nodes back to the original campaign node.
  */
-function dosomething_signup_update_7030() {
+function dosomething_signup_update_7023() {
   $signups = db_query("SELECT n.nid as campaign_node, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_node, s.run_nid
                        FROM node n
                        INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id

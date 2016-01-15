@@ -890,7 +890,7 @@ function dosomething_reportback_update_7033() {
 /**
  * Moves all reportbacks from run nodes back to the original campaign node.
  */
-function dosomething_reportback_update_7047() {
+function dosomething_reportback_update_7034() {
   $reportbacks = db_query("SELECT n.nid as campaign_node, n.language, n.title, n.created, c.field_campaigns_target_id, rb.rbid, rb.uid, rb.nid as reportback_node, rb.run_nid
                           FROM node n
                           INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
