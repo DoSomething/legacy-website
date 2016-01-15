@@ -9,13 +9,13 @@ class Campaign {
   public $title;
   public $display;
   public $tagline;
+  public $campaign_runs;
   public $created_at;
   public $updated_at;
   public $status;
   public $type;
   public $language;
   public $translations;
-  public $campaign_runs;
   public $time_commitment;
   public $cover_image;
   public $scholarship;
@@ -134,6 +134,9 @@ class Campaign {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $data->title;
       $this->display = $display;
+      $this->campaign_runs = [
+        'active_run' => NULL,
+      ];
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();
