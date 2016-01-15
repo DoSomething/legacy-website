@@ -13,6 +13,9 @@ class Campaign {
   public $updated_at;
   public $status;
   public $type;
+  public $language;
+  public $translations;
+  public $campaign_runs;
   public $time_commitment;
   public $cover_image;
   public $scholarship;
@@ -96,6 +99,24 @@ class Campaign {
     }
 
     return $campaigns;
+  }
+
+  /**
+   * Return node data for this campaign instance.
+   *
+   * @return mixed
+   */
+  public function getNodeData() {
+    return $this->node;
+  }
+
+  /**
+   * Return variables data for this campaign instance.
+   *
+   * @return mixed
+   */
+  public function getVariablesData() {
+    return $this->variables;
   }
 
   /**
