@@ -885,11 +885,12 @@ function dosomething_reportback_update_7033() {
   if (!db_index_exists($table, 'run_nid')) {
     db_add_index($table, 'run_nid', ['run_nid']);
   }
+}
 
-=======
+/**
  * Moves all reportbacks from run nodes back to the original campaign node.
  */
-function dosomething_reportback_update_7033() {
+function dosomething_reportback_update_7036() {
   $reportbacks = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, rb.rbid, rb.uid, rb.nid as reportback_id, rb.run_nid
                            FROM node n
                            INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
@@ -897,7 +898,7 @@ function dosomething_reportback_update_7033() {
                            WHERE n.type = 'campaign_run';");
 
   foreach ($reportbacks as $reportback) {
-    db_update('campaign_run')
+    db_update('dosomething_reportback')
       ->fields(array(
         'nid' => $reportback->field_campaigns_target_id,
         'run_nid' => $reportback->nid,
