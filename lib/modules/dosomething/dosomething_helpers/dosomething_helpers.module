@@ -719,7 +719,7 @@ function dosomething_helpers_get_campaign_run($nid, $user = NULL) {
   $run_nid = dosomething_helpers_extract_field_data($node->field_current_run, $user_language);
 
   // If not try the nodes source language
-  if (!isset($run)) {
+  if (!isset($run_nid)) {
     $node_language = $node->language;
     $run_nid = dosomething_helpers_extract_field_data($node->field_current_run, $node_language);
 
