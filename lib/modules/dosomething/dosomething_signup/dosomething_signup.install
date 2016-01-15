@@ -625,26 +625,3 @@ function dosomething_signup_update_7022() {
     db_add_unique_key($table, 'uid-nid-run_nid', ['uid', 'nid', 'run_nid']);
   }
 }
-
-/**
- * Moves all signups from run nodes back to the original campaign node.
- */
-function dosomething_signup_update_7026() {
-  $signups = db_query("SELECT n.nid, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_id, s.run_nid
-                       FROM node n
-                       INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
-                       INNER JOIN dosomething_signup s on s.nid = n.nid
-                       WHERE n.type = 'campaign_run';");
-
-  foreach ($signups as $signup) {
-    db_update('dosomething_signup')
-      ->fields(array(
-        // change signup node id to campaign id
-        'nid' => $signup->field_campaigns_target_id,
-        // change signup run id to campaign run nid
-        'run_nid' => $signup->nid,
-        )
-      )
-      ->execute();
-  }
-}
