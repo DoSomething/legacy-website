@@ -36,6 +36,7 @@ function dosomething_global_init() {
   $url_variables = dosomething_global_get_url_variables();
   $user_variables = dosomething_global_get_user_variables();
   $node_variables = dosomething_global_get_node_variables();
+  dosomething_helpers_getcampaign_run($node_variables['nid']);
 
   // Never redirect POST requests
   if ($url_variables['request_method'] == 'post') {
