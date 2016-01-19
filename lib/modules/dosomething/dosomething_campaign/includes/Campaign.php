@@ -9,10 +9,13 @@ class Campaign {
   public $title;
   public $display;
   public $tagline;
+  public $campaign_runs;
   public $created_at;
   public $updated_at;
   public $status;
   public $type;
+  public $language;
+  public $translations;
   public $time_commitment;
   public $cover_image;
   public $scholarship;
@@ -99,6 +102,24 @@ class Campaign {
   }
 
   /**
+   * Return node data for this campaign instance.
+   *
+   * @return mixed
+   */
+  public function getNodeData() {
+    return $this->node;
+  }
+
+  /**
+   * Return variables data for this campaign instance.
+   *
+   * @return mixed
+   */
+  public function getVariablesData() {
+    return $this->variables;
+  }
+
+  /**
    * Build out the instantiated Campaign class object with supplied data.
    *
    * @param  $data
@@ -113,6 +134,7 @@ class Campaign {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $data->title;
       $this->display = $display;
+      $this->campaign_runs = $this->getCampaignRuns($this->id);
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();
@@ -120,6 +142,8 @@ class Campaign {
         $this->updated_at = $data->changed;
         $this->status = $this->getStatus();
         $this->type = $this->getType();
+        $this->language = $this->getLanguage();
+        $this->translations = $this->getTranslations();
         $this->time_commitment = $this->getTimeCommitment();
 
         $this->cover_image = [
@@ -188,6 +212,28 @@ class Campaign {
     }
 
     return $data;
+  }
+
+  /**
+   * Get all Campaign Run for this Campaign.
+   */
+  protected function getCampaignRuns($id) {
+    if (!$this->node->field_current_run) {
+      return NULL;
+    }
+
+    $runs = [
+      'current' => [],
+      'past' => [],
+    ];
+
+    foreach ($this->node->field_current_run as $key => $value) {
+      $runs['current'][$key]['id'] = dosomething_helpers_extract_field_data($this->node->field_current_run, $key);
+    }
+
+    // @TODO: Figure out how to grab past runs
+
+    return $runs;
   }
 
   /**
@@ -338,6 +384,18 @@ class Campaign {
     }
 
     return NULL;
+  }
+
+  /**
+   * Get language data.
+   */
+  protected function getLanguage() {
+    $languagePrefix = dosomething_helpers_isset($this->node->language, 'en');
+
+    return [
+      'prefix' => $languagePrefix,
+      'language_code' => dosomething_global_convert_country_to_language($languagePrefix),
+    ];
   }
 
   /**
@@ -549,6 +607,31 @@ class Campaign {
     }
 
     return $timing;
+  }
+
+  /**
+   * Get translations data for this Campaign.
+   *
+   * @TODO: potentially add extra useful info for each translation (full country name, etc?)
+   */
+  protected function getTranslations() {
+    $translationData = $this->node->translations;
+    $translations = [
+      'original' => dosomething_helpers_isset($translationData->original),
+    ];
+
+    if (isset($translationData->data)) {
+      foreach ($translationData->data as $key => $value) {
+        $prefix = dosomething_global_get_prefix_for_language($key);
+
+        $translations[$key] = [
+          'language_code' => $key,
+          'prefix' => !empty($prefix) ? $prefix : NULL,
+        ];
+      }
+    }
+
+    return $translations;
   }
 
   /**
