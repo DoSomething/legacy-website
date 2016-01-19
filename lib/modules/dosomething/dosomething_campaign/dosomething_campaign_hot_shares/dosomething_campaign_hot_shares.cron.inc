@@ -23,8 +23,8 @@ function dosomething_campaign_hot_shares_cron() {
 
   // Each active campaign, call shell script to create problem share images.
   foreach($results as $result) {
-    $campaign = Campaign::get($result->nid)[0];
-    $node = node_load($result->nid);
+    $campaign = Campaign::get($result->nid);
+    $node = $campaign->getNodeData();
     $count = dosomething_reportback_get_reportback_total_plus_override($result->nid);
     $goal = dosomething_helpers_get_variable('node', $result->nid, 'goal');
     $time_left = dosomething_campaign_get_hot_time_left($node);
