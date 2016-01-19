@@ -707,7 +707,7 @@ function dosomething_helpers_get_campaign_status($start_date, $end_date) {
  * @return
  *  Returns the campaigns node in the correct language or false.
 */
-function dosomething_helpers_get_campaign_run($nid, $user = NULL) {
+function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NULL) {
   // Setup variables
   $node = node_load($nid);
   if (!isset($user)) {
