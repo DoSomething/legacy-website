@@ -1237,6 +1237,7 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#title' => "Birthdate",
     '#type' => 'textfield',
     '#default_value' => $birthday,
+    '#description' => t("Format: M/D/YYYY"),
   );
   $form['picture'] = array(
     '#type' => 'fieldset',
@@ -1285,7 +1286,7 @@ function dosomething_user_info_form_submit($form, &$form_state) {
   );
   // Store the current address.
   $edit['field_address'] = $account->field_address;
-  // Overwrite City/State if values are present.
+  // Overwrite Street Address/City/State/Zipcode if values are present.
   $edit['field_address'][LANGUAGE_NONE][0]['thoroughfare'] = $values['street'];
   $edit['field_address'][LANGUAGE_NONE][0]['premise'] = $values['sub_street'];
   $edit['field_address'][LANGUAGE_NONE][0]['locality'] = $values['city'];
@@ -1293,10 +1294,9 @@ function dosomething_user_info_form_submit($form, &$form_state) {
   $edit['field_address'][LANGUAGE_NONE][0]['postal_code'] = $values['zipcode'];
   $country_code = dosomething_settings_get_affiliate_country_code();
   $edit['field_address'][LANGUAGE_NONE][0]['country'] = $country_code;
-  // Change birthday
-  $birthday = date_create_from_format('m/d/Y', $values['birthdate']);
-  // d p m ($birthday); If I remove this line it doesn't work. Very unclear. 
-  $edit['field_birthdate'][LANGUAGE_NONE][0]['value'] = $birthday->date;
+  // Overwrite birthday if values are present
+  $birthday = date('Y-m-d', strtotime($values['birthdate']));
+  $edit['field_birthdate'][LANGUAGE_NONE][0]['value'] = $birthday;
 
   $file = NULL;
   // If a file was uploaded:
