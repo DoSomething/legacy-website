@@ -134,7 +134,7 @@ class Campaign {
       $this->variables = dosomething_helpers_get_variables('node', $this->id);
       $this->title = $data->title;
       $this->display = $display;
-      $this->campaign_runs = $this->getCampaignRuns();
+      $this->campaign_runs = $this->getCampaignRuns($this->id);
 
       if ($display === 'full') {
         $this->tagline = $this->getTagline();
@@ -217,8 +217,23 @@ class Campaign {
   /**
    * Get all Campaign Run for this Campaign.
    */
-  protected function getCampaignRuns() {
-    return NULL;
+  protected function getCampaignRuns($id) {
+    if (!$this->node->field_current_run) {
+      return NULL;
+    }
+
+    $runs = [
+      'current' => [],
+      'past' => [],
+    ];
+
+    foreach ($this->node->field_current_run as $key => $value) {
+      $runs['current'][$key]['id'] = dosomething_helpers_extract_field_data($this->node->field_current_run, $key);
+    }
+
+    // @TODO: Figure out how to grab past runs
+
+    return $runs;
   }
 
   /**
@@ -603,14 +618,13 @@ class Campaign {
     $translationData = $this->node->translations;
     $translations = [
       'original' => dosomething_helpers_isset($translationData->original),
-      'data' => [],
     ];
 
     if (isset($translationData->data)) {
       foreach ($translationData->data as $key => $value) {
         $prefix = dosomething_global_get_prefix_for_language($key);
 
-        $translations['data'][$key] = [
+        $translations[$key] = [
           'language_code' => $key,
           'prefix' => !empty($prefix) ? $prefix : NULL,
         ];
