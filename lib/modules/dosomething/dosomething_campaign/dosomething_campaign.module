@@ -856,8 +856,12 @@ function dosomething_campaign_is_pitch_page($node) {
  * @return bool
  */
 function dosomething_campaign_is_closed($node) {
-  if (isset($node->field_campaign_status[LANGUAGE_NONE][0]['value'])) {
-    return $node->field_campaign_status[LANGUAGE_NONE][0]['value'] == 'closed';
+  // Get the language.
+  global $user;
+  $language = dosomething_global_get_language($user, $node);
+
+  if (isset($node->field_campaign_status[$language][0]['value'])) {
+    return $node->field_campaign_status[$language][0]['value'] == 'closed';
   }
   return FALSE;
 }
