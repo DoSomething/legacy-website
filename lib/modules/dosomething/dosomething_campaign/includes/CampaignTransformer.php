@@ -62,7 +62,7 @@ class CampaignTransformer extends Transformer {
   public function show($id) {
     try {
       $campaign = Campaign::get($id, 'full');
-      $campaign = services_resource_build_index_list($campaign, 'campaigns', 'id');
+      $campaign = array_pop(services_resource_build_index_list([$campaign], 'campaigns', 'id'));
     }
     catch (Exception $error) {
       return [
@@ -73,7 +73,7 @@ class CampaignTransformer extends Transformer {
     }
 
     return [
-      'data' => $this->transform(array_pop($campaign)),
+      'data' => $this->transform($campaign),
     ];
   }
 

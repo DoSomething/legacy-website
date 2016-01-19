@@ -36,13 +36,15 @@ class Campaign {
    *
    * @param  string|array  $ids  Single id or array of ids of Campaigns to retrieve.
    * @param  string        $display
-   * @return static
+   * @return array|mixed
    * @throws Exception
    */
   public static function get($ids, $display = 'teaser') {
+    $single_campaign = FALSE;
     $campaigns = [];
 
     if (!is_array($ids)) {
+      $single_campaign = TRUE;
       $ids = [$ids];
     }
 
@@ -57,6 +59,10 @@ class Campaign {
       $campaign->build($item, $display);
 
       $campaigns[] = $campaign;
+    }
+
+    if ($single_campaign) {
+      return array_pop($campaigns);
     }
 
     return $campaigns;
