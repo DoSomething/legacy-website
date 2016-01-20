@@ -1192,12 +1192,28 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#default_value' => $last_name,
     '#required' => TRUE,
   );
+  $street = NULL;
+  $sub_street = NULL;
   $city = NULL;
   $state = NULL;
+  $zipcode = NULL;
   if ($address = $account->field_address[LANGUAGE_NONE][0]) {
+    $street = $address['thoroughfare'];
+    $sub_street = $address['premise'];
     $city = $address['locality'];
     $state = $address['administrative_area'];
+    $zipcode = $address['postal_code'];
   }
+  $form['info']['street'] = array(
+    '#title' => "Address 1",
+    '#type' => 'textfield',
+    '#default_value' => $street,
+  );
+  $form['info']['sub_street'] = array(
+    '#title' => "Address 2",
+    '#type' => 'textfield',
+    '#default_value' => $sub_street,
+  );
   $form['info']['city'] = array(
     '#title' => "City",
     '#type' => 'textfield',
@@ -1210,6 +1226,18 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#size' => 2,
     '#default_value' => $state,
     '#description' => t("The two letter state code."),
+  );
+  $form['info']['zipcode'] = array(
+    '#title' => "Postal Code",
+    '#type' => 'textfield',
+    '#default_value' => $zipcode,
+  );
+  $birthday = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate', $account), 'm/d/Y');
+  $form['info']['birthdate'] = array(
+    '#title' => "Birthdate",
+    '#type' => 'textfield',
+    '#default_value' => $birthday,
+    '#description' => t("Format: M/D/YYYY"),
   );
   $form['picture'] = array(
     '#type' => 'fieldset',
@@ -1242,7 +1270,7 @@ function dosomething_user_info_form($form, &$form_state, $account) {
 function dosomething_user_info_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $account = user_load($values['uid']);
-  $edit['field_last_name'] = array(
+  $edit['field_first_name'] = array(
     LANGUAGE_NONE => array(
       0 => array(
         'value' => $values['first_name'],
@@ -1258,11 +1286,18 @@ function dosomething_user_info_form_submit($form, &$form_state) {
   );
   // Store the current address.
   $edit['field_address'] = $account->field_address;
-  // Overwrite City/State if values are present.
+  // Overwrite Street Address/City/State/Zipcode if values are present.
+  $edit['field_address'][LANGUAGE_NONE][0]['thoroughfare'] = $values['street'];
+  $edit['field_address'][LANGUAGE_NONE][0]['premise'] = $values['sub_street'];
   $edit['field_address'][LANGUAGE_NONE][0]['locality'] = $values['city'];
   $edit['field_address'][LANGUAGE_NONE][0]['administrative_area'] = $values['state'];
+  $edit['field_address'][LANGUAGE_NONE][0]['postal_code'] = $values['zipcode'];
   $country_code = dosomething_settings_get_affiliate_country_code();
   $edit['field_address'][LANGUAGE_NONE][0]['country'] = $country_code;
+  // Overwrite birthday if values are present
+  $birthday = date('Y-m-d', strtotime($values['birthdate']));
+  $edit['field_birthdate'][LANGUAGE_NONE][0]['value'] = $birthday;
+
   $file = NULL;
   // If a file was uploaded:
   if (!empty($values['upload'])) {
