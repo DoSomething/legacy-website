@@ -26,7 +26,10 @@ function dosomething_global_init() {
   }
 
   $languages = language_list();
-  if (empty($languages[DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE])) {
+
+  $global_lang_code = DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+
+  if (empty($languages[$global_lang_code])) {
     watchdog('dosomething_global', "Can't load %lang language",
       array('%lang' => $global_lang_code), WATCHDOG_ERROR);
     return;
