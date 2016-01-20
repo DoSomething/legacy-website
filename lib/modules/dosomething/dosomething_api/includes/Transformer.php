@@ -191,6 +191,8 @@ abstract class Transformer {
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
       'campaign_runs' => $data->campaign_runs,
+      'language' => $data->language,
+      'translations' => $data->translations,
     ];
 
     // If an instance of Campaign class, then there is much
@@ -210,10 +212,6 @@ abstract class Transformer {
         $output['time_commitment'] = $data->time_commitment;
 
         // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
-
-        $output['language'] = $data->language;
-
-        $output['translations'] = $data->translations;
 
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {
