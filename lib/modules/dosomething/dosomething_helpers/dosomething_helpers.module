@@ -700,37 +700,40 @@ function dosomething_helpers_get_campaign_status($start_date, $end_date) {
 /**
  * Gets the current run for a given campaign nid and user.
  *
- * @param int $nid
- * @param object $user
- *  (optional) Will default to global $user if not supplied
- *
- * @return
- *  Returns the campaigns node in the correct language or false.
+ * @param  int     $nid
+ * @param  object  $user
+ * @param  object  $campaign
+ * @return bool|mixed  Returns the campaigns node in the correct language or false.
+ * @throws Exception
 */
-function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NULL) {
-  // Setup variables
-  $node = node_load($nid);
+function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NULL, $campaign = NULL) {
+  if (!isset($campaign)) {
+    $campaign = Campaign::get($nid);
+  }
+
   if (!isset($user)) {
     global $user;
   }
 
-  // First check if we have a run in the user lang
-  $user_language = dosomething_global_get_language($user, $node);
-  $run_nid = dosomething_helpers_extract_field_data($node->field_current_run, $user_language);
+  $node = $campaign->getNodeData();
 
-  // If not try the nodes source language
-  if (!isset($run_nid)) {
-    $node_language = $node->language;
-    $run_nid = dosomething_helpers_extract_field_data($node->field_current_run, $node_language);
+  // First check if we have a run in the user lang
+  $userLanguage = dosomething_global_get_language($user, $node);
+  $runId = dosomething_helpers_isset($campaign->campaign_runs['current'], $userLanguage);
+
+  // If not try the Campaign's source language
+  if (!isset($runId)) {
+    $campaignLanguage = $campaign->language['language_code'];
+    $runId = dosomething_helpers_isset($campaign->campaign_runs['current'], $campaignLanguage);
 
     // Return NULL if the campaign doesn't have a run nid
-    if (!isset($run_nid)) {
-      return FALSE;
+    if (!isset($runId)) {
+      return NULL;
     }
   }
 
-  // Load the run.
+  // Load the run and return it.
   // For some reason this also loads the proper translation, for both anonymous users and authed. I can't explain it.
-  $run = node_load($run_nid);
-  return $run;
+  // @TODO: may want to investigate how it loads the proper translation...
+  return node_load($runId);
 }
