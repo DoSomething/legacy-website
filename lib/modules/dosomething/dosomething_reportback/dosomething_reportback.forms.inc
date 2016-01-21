@@ -99,7 +99,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       $reportback_submissions_data[$index] = reportback_file_load($fid);
       $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '400x400');
     }
-
     $reportback_prior_submissions = array_reverse($reportback_submissions_data);
     $reportback_prior_submissions = array_slice($reportback_prior_submissions, 0, $reportback__submissions_count);
     $reportback_latest_submission = array_shift($reportback_prior_submissions);

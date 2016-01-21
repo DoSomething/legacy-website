@@ -755,6 +755,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
     'why_participated',
     'num_participants',
   );
+
   // For each of them:
   foreach ($properties as $property) {
     // If we have a value set for this property.
@@ -777,11 +778,12 @@ function dosomething_reportback_set_properties(&$entity, $values) {
 function dosomething_reportback_set_files(&$entity, $values) {
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
-    if (!empty($values['caption'])) {
-      $entity->caption = filter_xss($values['caption'], array());
-    }
+  }
+  if (!empty($values['caption'])) {
+    $entity->caption = filter_xss($values['caption'], array());
   }
 }
+
 function dosomething_reportback_views_pre_render(&$view) {
   // Scope this to the reportback files node view.
   if ($view->name === 'reportback_files' && arg(0) === 'node') {
