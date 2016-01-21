@@ -719,15 +719,15 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
 
   // First check if we have a run in the user lang
   $userLanguage = dosomething_global_get_language($user, $node);
-  $runId = dosomething_helpers_isset($campaign->campaign_runs['current'], $userLanguage);
+  $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $userLanguage);
 
   // If not try the Campaign's source language
-  if (!isset($runId)) {
+  if (!isset($run)) {
     $campaignLanguage = $campaign->language['language_code'];
-    $runId = dosomething_helpers_isset($campaign->campaign_runs['current'], $campaignLanguage);
+    $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $campaignLanguage);
 
     // Return NULL if the campaign doesn't have a run nid
-    if (!isset($runId)) {
+    if (!isset($run)) {
       return NULL;
     }
   }
@@ -735,5 +735,5 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   // Load the run and return it.
   // For some reason this also loads the proper translation, for both anonymous users and authed. I can't explain it.
   // @TODO: may want to investigate how it loads the proper translation...
-  return node_load($runId);
+  return node_load($run->id);
 }
