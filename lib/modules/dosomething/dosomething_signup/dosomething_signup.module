@@ -206,28 +206,31 @@ function dosomething_signup_get_query_source() {
  *   The sid of the newly inserted signup, or FALSE if error.
  */
 function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
-  if ($uid == NULL) {
-    global $user;
+  global $user;
+
+  if (!isset($uid)) {
     $uid = $user->uid;
   }
 
+  // @TODO: If the campaign is closed, return error.
+  // @TODO: If campaign is unpublished and non-staff $uid, return error.
+
+  $campaign = Campaign::get($nid);
+  $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
+
   // If a signup already exists, exit.
-  if (dosomething_signup_exists($nid, $uid)) { return FALSE; }
-
-  // @todo: If the campaign is closed, return error.
-  // @todo: If campaign is unpublished and non-staff $uid, return error.
-
-  $campaign = node_load($nid);
-  $language_code = $campaign->language;
-  $run_nid = $campaign->field_current_run[$language_code][0]['target_id'];
+  if (dosomething_signup_exists($nid, $run->nid, $uid)) {
+    return FALSE;
+  }
 
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
-    'run_nid' => $run_nid,
+    'run_nid' => $run->nid,
     'source'=> $source,
     'timestamp' => $timestamp,
   );
+
   try {
     // Create a signup entity.
     $entity = entity_create('signup', $values);
@@ -250,14 +253,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 /**
  * Delete a user signup.
  *
- * @param int $nid
- *   The node nid of the signup record to be deleted.
- * @param int $uid
- *   Optional - the user uid of signup record to be deleted.
- *   If not given, uses global $user->uid.
+ * @param  int   $nid
+ * @param  null  $runId
+ * @param  null  $uid
+ * @return bool
  */
-function dosomething_signup_delete_signup($nid, $uid = NULL) {
-  $sid = dosomething_signup_exists($nid, $uid);
+function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
+  $sid = dosomething_signup_exists($nid, $runId, $uid);
+
   try {
     if ($sid) {
       entity_delete('signup', $sid);
@@ -265,44 +268,57 @@ function dosomething_signup_delete_signup($nid, $uid = NULL) {
     return TRUE;
   }
   catch (Exception $e) {
-    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+    watchdog('dosomething_signup', $e, [], WATCHDOG_ERROR);
   }
+
   return FALSE;
 }
 
 /**
  * Checks if a signup record exists.
  *
- * @param int $nid
+ * @param  int  $nid
  *   The node nid of the signup record to check.
- * @param int $uid
+ * @param  int  $runId
+ *   The run nid of the signup record to check.
+ * @param  int  $uid
  *   Optional - the user uid of signup record to check.
  *   If not given, uses global $user->uid.
- * @param string $presignup
+ * @param  string  $presignup
  *   Optional - If true, query the presignups table, not regular signups.
- *
  * @return mixed
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
-function dosomething_signup_exists($nid, $uid = NULL, $presignup = FALSE) {
-  if ($uid == NULL) {
+function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup = FALSE) {
+  if (!isset($runId)) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid);
+    $runId = $run->nid;
+  }
+
+  if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
+
   $signup_tbl = 'dosomething_signup';
+
   if ($presignup) {
     $signup_tbl = 'dosomething_signup_presignup';
   }
+
   $result = db_select($signup_tbl, 's')
     ->condition('uid', $uid)
     ->condition('nid', $nid)
+    ->condition('run_nid', $runId)
     ->fields('s', array('sid'))
     ->execute();
   $sid = $result->fetchField(0);
+
   // If a sid was found, return it.
   if (is_numeric($sid)) {
     return $sid;
   }
+
   // Otherwise return FALSE.
   return FALSE;
 }
@@ -852,11 +868,12 @@ function dosomething_signup_presignup_create($nid) {
 /**
  * Checks if a pre-signup exists for given $nid for global $user.
  *
- * @return bool
+ * @param  int  $nid
+ * @return mixed
  */
 function dosomething_signup_presignup_exists($nid) {
   global $user;
-  return dosomething_signup_exists($nid, $user->uid, $presignup = TRUE);
+  return dosomething_signup_exists($nid, NULL, $user->uid, $presignup = TRUE);
 }
 
 /**
