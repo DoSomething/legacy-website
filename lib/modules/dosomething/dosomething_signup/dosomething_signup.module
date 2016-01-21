@@ -253,14 +253,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 /**
  * Delete a user signup.
  *
- * @param int $nid
- *   The node nid of the signup record to be deleted.
- * @param int $uid
- *   Optional - the user uid of signup record to be deleted.
- *   If not given, uses global $user->uid.
+ * @param  int   $nid
+ * @param  null  $runId
+ * @param  null  $uid
+ * @return bool
  */
-function dosomething_signup_delete_signup($nid, $uid = NULL) {
-  $sid = dosomething_signup_exists($nid, $uid);
+function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
+  $sid = dosomething_signup_exists($nid, $runId, $uid);
+
   try {
     if ($sid) {
       entity_delete('signup', $sid);
@@ -268,8 +268,9 @@ function dosomething_signup_delete_signup($nid, $uid = NULL) {
     return TRUE;
   }
   catch (Exception $e) {
-    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+    watchdog('dosomething_signup', $e, [], WATCHDOG_ERROR);
   }
+
   return FALSE;
 }
 
@@ -867,11 +868,12 @@ function dosomething_signup_presignup_create($nid) {
 /**
  * Checks if a pre-signup exists for given $nid for global $user.
  *
- * @return bool
+ * @param  int  $nid
+ * @return mixed
  */
 function dosomething_signup_presignup_exists($nid) {
   global $user;
-  return dosomething_signup_exists($nid, $user->uid, $presignup = TRUE);
+  return dosomething_signup_exists($nid, NULL, $user->uid, $presignup = TRUE);
 }
 
 /**

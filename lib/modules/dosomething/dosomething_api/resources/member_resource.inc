@@ -93,8 +93,8 @@ function _member_resource_definition() {
       'password_reset_url' => array(
         'help' => 'Gets the user password reset URL.',
         'file' => array(
-          'type' => 'inc', 
-          'module' => 'dosomething_api', 
+          'type' => 'inc',
+          'module' => 'dosomething_api',
           'name' => 'resources/member_resource',
         ),
         'args' => array(
@@ -105,12 +105,12 @@ function _member_resource_definition() {
             'type' => 'int',
             'description' => 'The uid of the user whose password reset url we are getting',
           ),
-        ),        
+        ),
         'callback' => '_member_resource_reset',
         'access callback' => '_member_resource_access',
         'access arguments' => array('password_reset_url'),
-      ), 
-    ),   
+      ),
+    ),
   );
   return $member_resource;
 }
@@ -267,7 +267,7 @@ function _member_resource_get_activity($uid, $nid = NULL) {
  */
 function _member_resource_get_activity_result($uid, $nid) {
   $result = new StdClass();
-  if ($sid = dosomething_signup_exists($nid, $uid)) {
+  if ($sid = dosomething_signup_exists($nid, NULL, $uid)) {
     $signup = signup_load($sid);
     $result->sid = $signup->sid;
     $result->nid = $signup->nid;
