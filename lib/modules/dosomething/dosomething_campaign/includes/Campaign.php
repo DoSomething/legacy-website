@@ -394,13 +394,16 @@ class Campaign {
 
   /**
    * Get language data.
+   *
+   * @return array
    */
   protected function getLanguage() {
-    $languagePrefix = dosomething_helpers_isset($this->node->language, 'en');
+    $language = dosomething_helpers_isset($this->node->language);
+    $prefix = dosomething_global_get_prefix_for_language($language);
 
     return [
-      'prefix' => $languagePrefix,
-      'language_code' => dosomething_global_convert_country_to_language($languagePrefix),
+      'language_code' => dosomething_global_convert_country_to_language($prefix),
+      'prefix' => !empty($prefix) ? $prefix : NULL,
     ];
   }
 
@@ -618,6 +621,7 @@ class Campaign {
   /**
    * Get translations data for this Campaign.
    *
+   * @return array
    * @TODO: potentially add extra useful info for each translation (full country name, etc?)
    */
   protected function getTranslations() {
