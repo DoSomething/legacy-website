@@ -1238,7 +1238,7 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
     // Pick an image, any image.
     $file_url = "http://" . $site . ".com/" . rand(300, 1000) . "/" . rand(300, 1000);
     // Save it.
-    $file = dosomething_reportback_save_file_from_url($nid, $uid, $file_url);
+    $file = dosomething_reportback_save_file_from_url($nid, $user->uid, $file_url);
     $values['fid'] = $file->fid;
     watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
     dosomething_reportback_save($values);
