@@ -718,13 +718,13 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   $node = $campaign->getNodeData();
 
   // First check if we have a run in the user lang
-  $userLanguage = dosomething_global_get_language($user, $node);
-  $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $userLanguage);
+  $user_language = dosomething_global_get_language($user, $node);
+  $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $user_language);
 
   // If not try the Campaign's source language
   if (!isset($run)) {
-    $campaignLanguage = $campaign->language['language_code'];
-    $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $campaignLanguage);
+    $campaign_language = $campaign->language['language_code'];
+    $run = dosomething_helpers_isset($campaign->campaign_runs['current'], $campaign_language);
 
     // Return NULL if the campaign doesn't have a run nid
     if (!isset($run)) {
