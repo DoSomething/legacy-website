@@ -322,6 +322,12 @@ function dosomething_reportback_form_validate($form, &$form_state) {
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
+  $campaign = node_load($values['nid']);
+  $language_code = $language_code = $campaign->language;
+  $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
+  $reportback = reportback_load($values['rbid']);
+  $photo_fids = $reportback->fids;
+  $most_recently_added_photo_fid = end($photo_fids);
 
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
@@ -342,6 +348,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   if ($file = dosomething_reportback_form_save_file($form_state)) {
     // Store new file's fid into values.
     $values['fid'] = $file->fid;
+  } else {
+    $values['fid'] =  $most_recently_added_photo_fid;
   }
 
   // Save values into reportback.
