@@ -45,6 +45,9 @@ Vagrant.configure("2") do |config|
   # With Varnish
   config.vm.network :forwarded_port, guest: 6081, host: 9999
 
+  # Rabbit
+  config.vm.network :forwarded_port, guest: 15672, host: 15672
+
   # Solr.
   config.vm.network :forwarded_port, guest: 8983, host: 8983
 
