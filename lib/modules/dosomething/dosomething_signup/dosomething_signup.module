@@ -286,7 +286,7 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  *   If not given, uses global $user->uid.
  * @param  string  $presignup
  *   Optional - If true, query the presignups table, not regular signups.
- * @return mixed
+ * @return int|false
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
 function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup = FALSE) {
@@ -300,19 +300,27 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
     $uid = $user->uid;
   }
 
-  $signup_tbl = 'dosomething_signup';
-
   if ($presignup) {
-    $signup_tbl = 'dosomething_signup_presignup';
+    $result = db_select('dosomething_signup_presignup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->fields('s', array('sid'))
+      ->execute();
+  }
+  else {
+    $result = db_select('dosomething_signup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->condition('run_nid', $runId)
+      ->fields('s', array('sid'))
+      ->execute();
   }
 
-  $result = db_select($signup_tbl, 's')
-    ->condition('uid', $uid)
-    ->condition('nid', $nid)
-    ->condition('run_nid', $runId)
-    ->fields('s', array('sid'))
-    ->execute();
-  $sid = $result->fetchField(0);
+  if (!isset($result)) {
+    return FALSE;
+  }
+
+  $sid = $result->fetchField();
 
   // If a sid was found, return it.
   if (is_numeric($sid)) {
