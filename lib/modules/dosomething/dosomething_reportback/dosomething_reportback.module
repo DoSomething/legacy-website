@@ -721,8 +721,15 @@ function dosomething_reportback_save($values, $user = NULL) {
     // Set entity files.
     dosomething_reportback_set_files($reportback_item, $values);
     // Save the entity and reportback item.
+    if ($reportback_item) {
+      // Set entity files and save reportback item.
+      dosomething_reportback_set_files($reportback_item, $values);
+      $reportback_item->save();
+    } else {
+      dosomething_reportback_set_files($entity, $values);
+    }
+    // Save the entity.
     $entity->save();
-    $reportback_item->save();
     if (isset($entity->rbid)) {
       cache_clear_all('ds_permalink_' .$entity->rbid, 'cache_dosomething_reportback', TRUE);
       // Return reportback rbid.
