@@ -710,7 +710,8 @@ function dosomething_reportback_save($values, $user = NULL) {
     $entity = entity_create('reportback', ['nid' => $values['nid']]);
   }
   else {
-    $entity = entity_load_single('reportback', $values['rbid']);
+    $entity = entity_load_single('reportback', $rbid);
+    $reportback_item = entity_load_single('reportback_item', $values['fid']);
   }
 
   try {
@@ -718,11 +719,10 @@ function dosomething_reportback_save($values, $user = NULL) {
     dosomething_reportback_set_properties($entity, $values);
 
     // Set entity files.
-    dosomething_reportback_set_files($entity, $values);
-
-    // Save the entity.
+    dosomething_reportback_set_files($reportback_item, $values);
+    // Save the entity and reportback item.
     $entity->save();
-
+    $reportback_item->save();
     if (isset($entity->rbid)) {
       cache_clear_all('ds_permalink_' .$entity->rbid, 'cache_dosomething_reportback', TRUE);
       // Return reportback rbid.
@@ -776,16 +776,12 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of Reportback File data to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  $most_recently_added_photo_fid = end($entity->fids);
-
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
-  } else {
-    $entity->fid = $most_recently_added_photo_fid;
-  }
 
-  if (!empty($values['caption'])) {
-    $entity->caption = filter_xss($values['caption'], array());
+    if (!empty($values['caption'])) {
+      $entity->caption = filter_xss($values['caption'], array());
+    }
   }
 }
 
