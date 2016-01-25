@@ -247,7 +247,7 @@ abstract class Transformer {
 
       $output['reportback_info'] = $data->reportback_info;
 
-      if ($data->uri) {
+      if (isset($data->uri)) {
         $output['uri'] = $data->uri;
       }
 

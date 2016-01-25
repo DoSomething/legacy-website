@@ -106,14 +106,7 @@ class ReportbackItem extends Entity {
       'updated_at' => $data->updated,
       'quantity' => (int) $data->quantity,
     ];
-    $this->campaign = [
-      'id' => $data->nid,
-      'title' => $data->title,
-      'reportback_info' => [
-        'noun' => $data->noun,
-        'verb' => $data->verb,
-      ],
-    ];
+    $this->campaign = Campaign::get($data->nid);
 
     if ($full) {
       $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
