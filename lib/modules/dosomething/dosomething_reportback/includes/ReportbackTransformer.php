@@ -49,7 +49,8 @@ class ReportbackTransformer extends Transformer {
   public function show($id) {
     try {
       $reportback = Reportback::get($id);
-      $reportback = services_resource_build_index_list($reportback, 'reportbacks', 'id');
+      $reportback = services_resource_build_index_list([$reportback], 'reportbacks', 'id');
+      $reportback = array_pop($reportback);
     }
     catch (Exception $error) {
       return [
@@ -60,7 +61,7 @@ class ReportbackTransformer extends Transformer {
     }
 
     return [
-      'data' => $this->transform(array_pop($reportback)),
+      'data' => $this->transform($reportback),
     ];
   }
 

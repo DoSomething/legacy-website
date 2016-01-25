@@ -56,7 +56,7 @@ class CampaignTransformer extends Transformer {
   /**
    * Display the specified resource.
    *
-   * @param string $id Campaign id.
+   * @param  string  $id Campaign id.
    * @return array
    */
   public function show($id) {
@@ -81,7 +81,7 @@ class CampaignTransformer extends Transformer {
   /**
    * Transform data and build out response.
    *
-   * @param object $item Single Campaign object of retrieved data.
+   * @param  object  $item Single Campaign object of retrieved data.
    * @return array
    */
   protected function transform($item) {
