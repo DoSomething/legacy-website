@@ -675,29 +675,41 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 /**
  * Saves a reportback entity with given values.
  *
- * @param array $values
+ * @param  array  $values
  *   The reportback entity values to save.
  *   If the rbid is set to 0, a new entity will be saved.
  *   Otherwise if a numeric rbid is passed, the entity will be updated.
- *
+ * @param  object|null  $user
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
  */
-function dosomething_reportback_save($values) {
-  $rbid = $values['rbid'];
-  if ($rbid == 0) {
-    $entity = entity_create('reportback', array('nid' => $values['nid']));
+function dosomething_reportback_save($values, $user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+
+  $campaign = Campaign::get($values['nid']);
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid'], $user, $campaign);
+
+  $values['run_nid'] = $run->nid;
+
+  if ($values['rbid'] === 0) {
+    $entity = entity_create('reportback', ['nid' => $values['nid']]);
   }
   else {
-    $entity = entity_load_single('reportback', $rbid);
+    $entity = entity_load_single('reportback', $values['rbid']);
   }
+
   try {
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
+
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
+
     // Save the entity.
     $entity->save();
+
     if (isset($entity->rbid)) {
       cache_clear_all('ds_permalink_' .$entity->rbid, 'cache_dosomething_reportback', TRUE);
       // Return reportback rbid.
