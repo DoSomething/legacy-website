@@ -286,7 +286,7 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  *   If not given, uses global $user->uid.
  * @param  string  $presignup
  *   Optional - If true, query the presignups table, not regular signups.
- * @return mixed
+ * @return int|false
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
 function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup = FALSE) {
