@@ -1213,11 +1213,14 @@ function dosomething_reportback_get_file_status_options() {
  */
 function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
   global $user;
+
   // Load devel_generate module to get random Lorem ipsum's.
   module_load_include('inc', 'devel_generate', 'devel_generate');
+
   if ($num_reportbacks > 50) {
     return FALSE;
   }
+
   if (!$nid) {
     $nid = db_select("node", "n")
       ->fields("n", array("nid"))
@@ -1227,6 +1230,7 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
       ->execute()
       ->fetchField();
   }
+
   // List of sites to grab images from.
   $generators = array(
     'placebear',
@@ -1234,6 +1238,7 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
     'placekitten',
     'place-hoff',
   );
+
   for ($i = 0; $i < $num_reportbacks; $i++) {
     $values = array(
       'nid' => $nid,
@@ -1243,17 +1248,21 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
       'why_participated' => devel_create_greeking(rand(2, 20)),
       'quantity' => rand(2,800),
     );
+
     // Pick a site, any site.
     $random_key = array_rand($generators);
     $site = $generators[$random_key];
 
     // Pick an image, any image.
     $file_url = "http://" . $site . ".com/" . rand(300, 1000) . "/" . rand(300, 1000);
+
     // Save it.
     $file = dosomething_reportback_save_file_from_url($nid, $user->uid, $file_url);
+
     $values['fid'] = $file->fid;
     watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
-    dosomething_reportback_save($values);
+
+    dosomething_reportback_save($values, $user);
   }
 }
 
