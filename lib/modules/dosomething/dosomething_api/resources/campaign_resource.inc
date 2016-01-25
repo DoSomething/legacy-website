@@ -353,11 +353,17 @@ function _campaign_resource_signup($nid, $values) {
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
+
   $values['nid'] = $nid;
+
   if (!isset($values['uid'])) {
     global $user;
     $values['uid'] = $user->uid;
   }
+  else {
+    $user = user_load($values['uid']);
+  }
+
   $uid = $values['uid'];
 
   $file = NULL;
@@ -369,6 +375,7 @@ function _campaign_resource_reportback($nid, $values) {
     $result = _file_resource_create($values);
     $file = file_load($result['fid']);
   }
+
   if (!$file) {
     if (empty($values['file_url'])) {
       return services_error(t("Reportback file_url not found."), 500);
@@ -379,18 +386,23 @@ function _campaign_resource_reportback($nid, $values) {
       return services_error(t("Could not write file to destination"), 500);
     }
   }
+
   $values['fid'] = $file->fid;
 
   // @todo: Move this logic into dosomething_reportback_save().
   $rbid = dosomething_reportback_exists($nid, $uid);
+
   if (!$rbid) {
     $rbid = 0;
   }
+
   $values['rbid'] = $rbid;
+
   if (DOSOMETHING_REPORTBACK_LOG) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
-  return dosomething_reportback_save($values);
+
+  return dosomething_reportback_save($values, $user);
 }
 
 
@@ -400,7 +412,7 @@ function _campaign_resource_reportback($nid, $values) {
  * @param int $nid
  *   Unique identifier for the node.
  * @param int $count
- *   Number of Reporback Files to return.
+ *   Number of Reportback Files to return.
  * @param int $start
  *   Which RB File to start with. If present, $start and $count are used together
  *   to create a LIMIT clause to select RB Files. This could be used to do paging.
