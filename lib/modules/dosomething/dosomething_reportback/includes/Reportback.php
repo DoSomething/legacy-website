@@ -147,14 +147,7 @@ class Reportback extends Entity {
     $this->reportback_items = dosomething_helpers_format_data($data->items);
     // @TODO: need to potentially remove this and include language from NS user object instead of global $user
     $this->language = dosomething_helpers_isset($user, 'language', 'en-global');
-    $this->campaign = [
-      'id' => $data->nid,
-      'title' => $data->title,
-      'reportback_info' => [
-        'noun' => $data->noun,
-        'verb' => $data->verb,
-      ],
-    ];
+    $this->campaign = Campaign::get($data->nid);
 
     if ($full) {
       $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
