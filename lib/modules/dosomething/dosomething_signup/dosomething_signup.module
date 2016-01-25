@@ -300,18 +300,22 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
     $uid = $user->uid;
   }
 
-  $signup_tbl = 'dosomething_signup';
-
   if ($presignup) {
-    $signup_tbl = 'dosomething_signup_presignup';
+    $result = db_select('dosomething_signup_presignup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->fields('s', array('sid'))
+      ->execute();
+  }
+  else {
+    $result = db_select('dosomething_signup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->condition('run_nid', $runId)
+      ->fields('s', array('sid'))
+      ->execute();
   }
 
-  $result = db_select($signup_tbl, 's')
-    ->condition('uid', $uid)
-    ->condition('nid', $nid)
-    ->condition('run_nid', $runId)
-    ->fields('s', array('sid'))
-    ->execute();
   $sid = $result->fetchField(0);
 
   // If a sid was found, return it.
