@@ -324,16 +324,13 @@ function dosomething_reportback_form_validate($form, &$form_state) {
 function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
 
-  $campaign = node_load($values['nid']);
-  $language_code = $language_code = $campaign->language;
-  $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
-
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
+
   // Load uid by selected username.
   if ($is_admin_form) {
-    $account = user_load_by_name($form_state['values']['username']);
-    $values['uid'] = $account->uid;
+    $user = user_load_by_name($form_state['values']['username']);
+    $values['uid'] = $user->uid;
   }
   // Else if regular user form:
   else {
@@ -349,7 +346,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   }
 
   // Save values into reportback.
-  $rid = dosomething_reportback_save($values);
+  $rid = dosomething_reportback_save($values, $user);
 
   // Redirect to permalink page.
   $form_state['redirect'] = array(
@@ -397,7 +394,9 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
  */
 function dosomething_reportback_form_save_file(&$form_state) {
   // If nothing set in storage, exit.
-  if (!isset($form_state['storage']['file'])) return;
+  if (!isset($form_state['storage']['file'])) {
+    return FALSE;
+  }
 
   // Retrieve file from storage.
   $file = $form_state['storage']['file'];
