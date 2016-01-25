@@ -137,7 +137,7 @@ function dosomething_reportback_filter_flagged_reportbacks($params) {
   }
 
   // Unset False boolean values that affect the query builder.
-  if ($params['flagged']) {
+  if (isset($params['flagged'])) {
     unset($params['flagged']);
   }
 
