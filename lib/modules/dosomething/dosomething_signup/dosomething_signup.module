@@ -316,7 +316,7 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
       ->execute();
   }
 
-  if (isset($result)) {
+  if (!isset($result)) {
     return FALSE;
   }
 
