@@ -316,7 +316,11 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
       ->execute();
   }
 
-  $sid = $result->fetchField(0);
+  if (isset($result)) {
+    return FALSE;
+  }
+
+  $sid = $result->fetchField();
 
   // If a sid was found, return it.
   if (is_numeric($sid)) {
