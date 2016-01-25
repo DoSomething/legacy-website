@@ -413,6 +413,7 @@ abstract class Transformer {
     return [
       'id' => $data->id,
       'first_name' => $data->first_name,
+      'last_initial' => $data->last_initial,
       'photo' => $data->photo,
       'country' => $data->country,
     ];

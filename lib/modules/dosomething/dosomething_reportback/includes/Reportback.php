@@ -154,15 +154,15 @@ class Reportback extends Entity {
       $northstar_response = json_decode($northstar_response);
 
       if ($northstar_response && !isset($northstar_response->error)) {
-        $northstar_user = array_shift($northstar_response->data);
+        $northstar_user = $northstar_response->data;
       }
     }
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, '_id'),
+      'id' => dosomething_helpers_isset($northstar_user, 'id'),
       'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
+      'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
       'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
       'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
