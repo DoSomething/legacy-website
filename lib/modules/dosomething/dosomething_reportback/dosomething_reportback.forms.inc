@@ -353,7 +353,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
   // Save uploaded file.
   if ($file = dosomething_reportback_form_save_file($form_state)) {
-    //  Store new file's fid into values.
+    // Store new file's fid into values.
     $values['fid'] = $file->fid;
   }
 
