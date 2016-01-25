@@ -325,9 +325,6 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   $campaign = node_load($values['nid']);
   $language_code = $language_code = $campaign->language;
   $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
-  $reportback = reportback_load($values['rbid']);
-  $photo_fids = $reportback->fids;
-  $most_recently_added_photo_fid = end($photo_fids);
 
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
@@ -336,6 +333,15 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
     $values['uid'] = $user->uid;
+
+  // Load uid by selected username and give access to file.
+  if ($is_admin_form) {
+    $account = user_load_by_name($form_state['values']['username']);
+    $values['uid'] = $account->uid;
+
+    $reportback = reportback_load($values['rbid']);
+    $most_recently_added_photo_fid = end($reportback->fids);
+    $values['fid'] =  $most_recently_added_photo_fid;
   }
   // Else if regular user form:
   else {
@@ -344,12 +350,11 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $user->uid;
   }
 
-  // Save uploaded file.
   if ($file = dosomething_reportback_form_save_file($form_state)) {
-    // Store new file's fid into values.
+    // Save uploaded file.
+    $file = dosomething_reportback_form_save_file($form_state);
+      //  Store new file's fid into values.
     $values['fid'] = $file->fid;
-  } else {
-    $values['fid'] =  $most_recently_added_photo_fid;
   }
 
   // Save values into reportback.
@@ -364,7 +369,6 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       ),
     ),
   );
-
 }
 
 /**

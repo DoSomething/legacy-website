@@ -776,8 +776,7 @@ function dosomething_reportback_set_properties(&$entity, $values) {
  *   An array of Reportback File data to set.
  */
 function dosomething_reportback_set_files(&$entity, $values) {
-  $photo_fids = $entity->fids;
-  $most_recently_added_photo_fid = end($photo_fids);
+  $most_recently_added_photo_fid = end($entity->fids);
 
   if (isset($values['fid']) && !empty($values['fid'])) {
     $entity->fid = $values['fid'];
