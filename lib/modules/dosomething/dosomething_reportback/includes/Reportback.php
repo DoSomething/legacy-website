@@ -78,12 +78,18 @@ class Reportback extends Entity {
   /**
    * Convenience method to retrieve a single or multiple reportbacks from supplied id(s).
    *
-   * @param string|array $ids Single id or array of ids of Reportbacks to load.
+   * @param  string|array  $ids Single id or array of ids of Reportbacks to load.
    * @return array
    * @throws Exception
    */
   public static function get($ids) {
+    $single_reportback = FALSE;
     $reportbacks = [];
+
+    if (!is_array($ids)) {
+      $single_reportback = TRUE;
+    }
+
     $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids]);
 
     if (!$results) {
@@ -96,6 +102,10 @@ class Reportback extends Entity {
       $reportback->build($item, TRUE);
 
       $reportbacks[] = $reportback;
+    }
+
+    if ($single_reportback) {
+      return array_pop($reportbacks);
     }
 
     return $reportbacks;
