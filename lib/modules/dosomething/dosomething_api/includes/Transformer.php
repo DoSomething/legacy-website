@@ -211,7 +211,7 @@ abstract class Transformer {
 
         $output['time_commitment'] = $data->time_commitment;
 
-        // $output['type'] = $data->type; //@TODO: Should type be included? Consider there is an SMS Campaign type...
+        $output['type'] = $data->type;
 
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {
