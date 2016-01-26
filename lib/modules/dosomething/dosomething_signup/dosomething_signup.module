@@ -290,14 +290,17 @@ function dosomething_signup_delete_signup($nid, $run_nid = NULL, $uid = NULL) {
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
 function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignup = FALSE) {
-  if (!isset($run_nid)) {
-    $run = dosomething_helpers_get_current_campaign_run_for_user($nid);
-    $run_nid = $run->nid;
-  }
-
   if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
+  }
+  else {
+    $user = user_load($uid);
+  }
+
+  if (!isset($run_nid)) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+    $run_nid = $run->nid;
   }
 
   if ($presignup) {
