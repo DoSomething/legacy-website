@@ -229,8 +229,7 @@ abstract class Transformer {
 
         $output['solutions'] = $data->solutions;
 
-        $output['pre_step_header'] = $data->pre_step_header;
-        $output['promoting_tips'] = $data->promoting_tips;
+        $output['pre_step'] = $data->pre_step;
 
         $output['latest_news'] = $data->latest_news;
 
