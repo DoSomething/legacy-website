@@ -147,9 +147,10 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
     '#required' => TRUE,
     '#title' => t(variable_get('dosomething_zendesk_form_body_label')),
   );
-  //check if FAQs exist
-  //if so, array_push '#description' => 'Check out our <a href="#" data-modal-href="#modal-faq">FAQs</a> first', onto $form['body']
-
+  // Add link to FAQs if they exist
+  if(isset(dosomething_campaign_load($entity)->faq)) {
+    $form['body']['#description'] = 'Check out our <a href="#" data-modal-href="#modal-faq">FAQs</a> first';
+  }
 
   $form['submit'] = array(
     '#type' => 'submit',
