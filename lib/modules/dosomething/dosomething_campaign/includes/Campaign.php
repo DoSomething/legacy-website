@@ -22,7 +22,7 @@ class Campaign {
   public $staff_pick;
   public $facts;
   public $solutions;
-  public $pre_step_header;
+  public $pre_step;
   public $promoting_tips;
   public $latest_news;
   public $causes;
@@ -173,8 +173,7 @@ class Campaign {
         $solution_data = $this->getSolutionData();
         $this->solutions = $solution_data;
 
-        $this->pre_step_header = $this->getPreStepHeader();
-        $this->promoting_tips = $this->getPromotingTips();
+        $this->pre_step = $this->getPreStepInfo();
         $this->latest_news = $this->getLatestNews();
 
         $this->causes = $this->getCauses();
@@ -470,25 +469,16 @@ class Campaign {
   }
 
   /**
-   * Get campaign's pre-step header.
+   * Get campaign's pre-step header and caption.
    *
    * @return array
    */
-  protected function getPreStepHeader() {
-    return [
-      'pre_step_header' => dosomething_helpers_extract_field_data($this->node->field_pre_step_header),
-    ];
-  }
+  protected function getPreStepInfo() {
+    $pre_step = [];
+    $pre_step['header'] = (dosomething_helpers_extract_field_data($this->node->field_pre_step_header));
+    $pre_step['copy'] = (dosomething_helpers_extract_field_data($this->node->field_pre_step_copy));
 
-  /**
-   * Get campaign's promoting tips.
-   *
-   * @return array
-   */
-  protected function getPromotingTips() {
-    return [
-      'promoting_tips' => dosomething_helpers_extract_field_data($this->node->field_promoting_tips),
-    ];
+    return $pre_step;
   }
 
   /**
