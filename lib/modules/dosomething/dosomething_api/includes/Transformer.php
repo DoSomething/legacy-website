@@ -201,8 +201,6 @@ abstract class Transformer {
 
       // Show all properties for "full" display.
       if ($data->display === 'full') {
-        // print_r($data);
-        // die();
         $output['tagline'] = $data->tagline;
 
         $output['created_at'] = $data->created_at;
