@@ -725,7 +725,8 @@ function dosomething_reportback_save($values, $user = NULL) {
       // Set entity files and save reportback item.
       dosomething_reportback_set_files($reportback_item, $values);
       $reportback_item->save();
-    } else {
+    }
+    else {
       dosomething_reportback_set_files($entity, $values);
     }
     // Save the entity.
