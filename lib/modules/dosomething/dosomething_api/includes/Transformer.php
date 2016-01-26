@@ -201,6 +201,8 @@ abstract class Transformer {
 
       // Show all properties for "full" display.
       if ($data->display === 'full') {
+        // print_r($data);
+        // die();
         $output['tagline'] = $data->tagline;
 
         $output['created_at'] = $data->created_at;
@@ -228,6 +230,11 @@ abstract class Transformer {
         $output['facts']['sources'] = $data->facts['sources'] ? $data->facts['sources'] : NULL;
 
         $output['solutions'] = $data->solutions;
+
+        $output['pre_step_header'] = $data->pre_step_header;
+        $output['promoting_tips'] = $data->promoting_tips;
+
+        $output['latest_news'] = $data->latest_news;
 
         $output['causes'] = $data->causes;
 

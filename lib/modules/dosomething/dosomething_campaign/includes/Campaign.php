@@ -22,6 +22,9 @@ class Campaign {
   public $staff_pick;
   public $facts;
   public $solutions;
+  public $pre_step_header;
+  public $promoting_tips;
+  public $latest_news;
   public $causes;
   public $action_types;
   public $issue;
@@ -169,6 +172,10 @@ class Campaign {
 
         $solution_data = $this->getSolutionData();
         $this->solutions = $solution_data;
+
+        $this->pre_step_header = $this->getPreStepHeader();
+        $this->promoting_tips = $this->getPromotingTips();
+        $this->latest_news = $this->getLatestNews();
 
         $this->causes = $this->getCauses();
 
@@ -408,6 +415,17 @@ class Campaign {
   }
 
   /**
+   * Get campaign's latest news.
+   *
+   * @return array
+   */
+  protected function getLatestNews() {
+    return [
+      'latest_news' => dosomething_helpers_extract_field_data($this->node->field_latest_news_copy),
+    ];
+  }
+
+  /**
    * Get MailChimp data.
    *
    * @return array
@@ -449,6 +467,28 @@ class Campaign {
       }
 
       return $timing;
+  }
+
+  /**
+   * Get campaign's pre-step header.
+   *
+   * @return array
+   */
+  protected function getPreStepHeader() {
+    return [
+      'pre_step_header' => dosomething_helpers_extract_field_data($this->node->field_pre_step_header),
+    ];
+  }
+
+  /**
+   * Get campaign's promoting tips.
+   *
+   * @return array
+   */
+  protected function getPromotingTips() {
+    return [
+      'promoting_tips' => dosomething_helpers_extract_field_data($this->node->field_promoting_tips),
+    ];
   }
 
   /**
