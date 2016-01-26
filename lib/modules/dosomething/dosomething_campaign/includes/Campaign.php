@@ -23,7 +23,6 @@ class Campaign {
   public $facts;
   public $solutions;
   public $pre_step;
-  public $promoting_tips;
   public $latest_news;
   public $causes;
   public $action_types;
