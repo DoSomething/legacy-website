@@ -76,6 +76,11 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['label'] = 'User';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_current_run_target_id']['id'] = 'field_current_run_target_id';
+  $handler->display->display_options['relationships']['field_current_run_target_id']['table'] = 'field_data_field_current_run';
+  $handler->display->display_options['relationships']['field_current_run_target_id']['field'] = 'field_current_run_target_id';
+  $handler->display->display_options['relationships']['field_current_run_target_id']['relationship'] = 'nid';
   /* Field: Signups: Signup sid */
   $handler->display->display_options['fields']['sid']['id'] = 'sid';
   $handler->display->display_options['fields']['sid']['table'] = 'dosomething_signup';
@@ -101,6 +106,12 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['relationship'] = 'uid';
   $handler->display->display_options['fields']['mail']['link_to_user'] = 'user';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid_1']['id'] = 'nid_1';
+  $handler->display->display_options['fields']['nid_1']['table'] = 'node';
+  $handler->display->display_options['fields']['nid_1']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid_1']['relationship'] = 'field_current_run_target_id';
+  $handler->display->display_options['fields']['nid_1']['label'] = 'Run NID';
   /* Field: Signups: Signup source */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'dosomething_signup';
@@ -181,6 +192,30 @@ function dosomething_signup_views_default_views() {
     8 => 0,
     9 => 0,
   );
+  /* Filter criterion: Content: Nid */
+  $handler->display->display_options['filters']['nid']['id'] = 'nid';
+  $handler->display->display_options['filters']['nid']['table'] = 'node';
+  $handler->display->display_options['filters']['nid']['field'] = 'nid';
+  $handler->display->display_options['filters']['nid']['relationship'] = 'field_current_run_target_id';
+  $handler->display->display_options['filters']['nid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['nid']['expose']['operator_id'] = 'nid_op';
+  $handler->display->display_options['filters']['nid']['expose']['label'] = 'Run NID';
+  $handler->display->display_options['filters']['nid']['expose']['operator'] = 'nid_op';
+  $handler->display->display_options['filters']['nid']['expose']['identifier'] = 'nid';
+  $handler->display->display_options['filters']['nid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+    10 => 0,
+    11 => 0,
+    12 => 0,
+    13 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -209,11 +244,13 @@ function dosomething_signup_views_default_views() {
     t('Displaying @start - @end of @total'),
     t('Node'),
     t('User'),
+    t('Content entity referenced from field_current_run'),
     t('Signup sid'),
     t('.'),
     t('Submitted'),
     t('Uid'),
     t('E-mail'),
+    t('Run NID'),
     t('Source'),
     t('All'),
     t('Signups: %1'),
