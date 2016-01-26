@@ -254,12 +254,12 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
  * Delete a user signup.
  *
  * @param  int   $nid
- * @param  null  $runId
+ * @param  null  $run_nid
  * @param  null  $uid
  * @return bool
  */
-function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
-  $sid = dosomething_signup_exists($nid, $runId, $uid);
+function dosomething_signup_delete_signup($nid, $run_nid = NULL, $uid = NULL) {
+  $sid = dosomething_signup_exists($nid, $run_nid, $uid);
 
   try {
     if ($sid) {
@@ -279,7 +279,7 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  *
  * @param  int  $nid
  *   The node nid of the signup record to check.
- * @param  int  $runId
+ * @param  int  $run_nid
  *   The run nid of the signup record to check.
  * @param  int  $uid
  *   Optional - the user uid of signup record to check.
@@ -289,15 +289,18 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  * @return int|false
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
-function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup = FALSE) {
-  if (!isset($runId)) {
-    $run = dosomething_helpers_get_current_campaign_run_for_user($nid);
-    $runId = $run->nid;
-  }
-
+function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignup = FALSE) {
   if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
+  }
+  else {
+    $user = user_load($uid);
+  }
+
+  if (!isset($run_nid)) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+    $run_nid = $run->nid;
   }
 
   if ($presignup) {
@@ -311,8 +314,8 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
     $result = db_select('dosomething_signup', 's')
       ->condition('uid', $uid)
       ->condition('nid', $nid)
-      ->condition('run_nid', $runId)
-      ->fields('s', array('sid'))
+      ->condition('run_nid', $run_nid)
+      ->fields('s', ['sid'])
       ->execute();
   }
 

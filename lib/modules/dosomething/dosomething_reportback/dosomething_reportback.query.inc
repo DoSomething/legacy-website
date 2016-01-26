@@ -74,7 +74,7 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   $query->fields('rb', $rb_fields);
-  $query->fields('n', array('nid', 'title'));
+  $query->fields('n', ['nid', 'title']);
   $query->addField('fn', 'field_reportback_noun_value', 'noun');
   $query->addField('fv', 'field_reportback_verb_value', 'verb');
 

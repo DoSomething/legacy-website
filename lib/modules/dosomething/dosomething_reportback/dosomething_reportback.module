@@ -643,31 +643,44 @@ function dosomething_reportback_delete_reportback($rbid) {
 /**
  * Checks if a reportback exists for given $nid and $uid.
  *
- * @param int $nid
+ * @param  int  $nid
  *   The node nid of the reportback to check.
- * @param int $uid
+ * @param  int  $run_nid
+ *   The run nid of the reportback record to check.
+ * @param  int  $uid
  *   Optional - the user uid of reportback to check.
  *   If not given, uses global $user->uid.
- *
  * @return mixed
  *   The rbid of reportback or FALSE if it doesn't exist.
  */
-function dosomething_reportback_exists($nid, $uid = NULL) {
-  if ($uid == NULL) {
+function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL) {
+  if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
+  else {
+    $user = user_load($uid);
+  }
+
+  if (!isset($run_nid)) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+    $run_nid = $run->nid;
+  }
+
   $result = db_select('dosomething_reportback', 'r')
     ->condition('uid', $uid)
     ->condition('nid', $nid)
-    ->fields('r', array('rbid'))
+    ->condition('run_nid', $run_nid)
+    ->fields('r', ['rbid'])
     ->execute();
+
   $rbid = $result->fetchField(0);
+
   // If a rbid was found, return it.
   if (is_numeric($rbid)) {
     return $rbid;
   }
-  // Otherwise return FALSE.
+
   return FALSE;
 }
 
@@ -675,29 +688,41 @@ function dosomething_reportback_exists($nid, $uid = NULL) {
 /**
  * Saves a reportback entity with given values.
  *
- * @param array $values
+ * @param  array  $values
  *   The reportback entity values to save.
  *   If the rbid is set to 0, a new entity will be saved.
  *   Otherwise if a numeric rbid is passed, the entity will be updated.
- *
+ * @param  object|null  $user
  * @return mixed
  *   The reportback entity rbid if success, or FALSE if error.
  */
-function dosomething_reportback_save($values) {
-  $rbid = $values['rbid'];
-  if ($rbid == 0) {
-    $entity = entity_create('reportback', array('nid' => $values['nid']));
+function dosomething_reportback_save($values, $user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+
+  $campaign = Campaign::get($values['nid']);
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid'], $user, $campaign);
+
+  $values['run_nid'] = $run->nid;
+
+  if ($values['rbid'] === 0) {
+    $entity = entity_create('reportback', ['nid' => $values['nid']]);
   }
   else {
-    $entity = entity_load_single('reportback', $rbid);
+    $entity = entity_load_single('reportback', $values['rbid']);
   }
+
   try {
     // Set entity properties.
     dosomething_reportback_set_properties($entity, $values);
+
     // Set entity files.
     dosomething_reportback_set_files($entity, $values);
+
     // Save the entity.
     $entity->save();
+
     if (isset($entity->rbid)) {
       cache_clear_all('ds_permalink_' .$entity->rbid, 'cache_dosomething_reportback', TRUE);
       // Return reportback rbid.
@@ -818,30 +843,44 @@ function dosomething_reportback_save_file_from_url($nid, $uid, $url) {
  *   The file destination path to write the next reportback image to.
  */
 function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
-  if ($uid == NULL) {
+  if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
+  else {
+    $user = user_load($uid);
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+  $run_nid = $run->nid;
+
   // Parse original filename.
   $pathinfo = pathinfo($name);
   $ext = 'jpg';
+
   // Save its extension.
   if (isset($pathinfo['extension'])) {
     $ext = $pathinfo['extension'];
   }
+
   // Define reportback nid file directory.
   $dir = 'public://reportbacks/' . $nid;
+
   // If directory doesn't exist / can't be created:
   if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY)) {
     // Use default public directory instead.
     $dir = 'public://';
   }
+
   $index = 0;
-  if ($rb = dosomething_reportback_exists($nid, $uid)) {
+
+  if ($rb = dosomething_reportback_exists($nid, $run_nid, $uid)) {
     $reportback = reportback_load($rb);
     $index = count($reportback->fids);
   }
-  $filename = 'uid_' . $uid . '-nid_' . $nid . '-' . $index . '.' . $ext;
+
+  $filename = 'uid_' . $uid . '-nid_' . $nid . '-run_nid_' . $run_nid . '-' . $index . '.' . $ext;
+
   return $dir . '/' . $filename;
 }
 
@@ -1201,11 +1240,14 @@ function dosomething_reportback_get_file_status_options() {
  */
 function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
   global $user;
+
   // Load devel_generate module to get random Lorem ipsum's.
   module_load_include('inc', 'devel_generate', 'devel_generate');
+
   if ($num_reportbacks > 50) {
     return FALSE;
   }
+
   if (!$nid) {
     $nid = db_select("node", "n")
       ->fields("n", array("nid"))
@@ -1215,6 +1257,7 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
       ->execute()
       ->fetchField();
   }
+
   // List of sites to grab images from.
   $generators = array(
     'placebear',
@@ -1222,6 +1265,7 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
     'placekitten',
     'place-hoff',
   );
+
   for ($i = 0; $i < $num_reportbacks; $i++) {
     $values = array(
       'nid' => $nid,
@@ -1231,17 +1275,21 @@ function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
       'why_participated' => devel_create_greeking(rand(2, 20)),
       'quantity' => rand(2,800),
     );
+
     // Pick a site, any site.
     $random_key = array_rand($generators);
     $site = $generators[$random_key];
 
     // Pick an image, any image.
     $file_url = "http://" . $site . ".com/" . rand(300, 1000) . "/" . rand(300, 1000);
+
     // Save it.
-    $file = dosomething_reportback_save_file_from_url($nid, $uid, $file_url);
+    $file = dosomething_reportback_save_file_from_url($nid, $user->uid, $file_url);
+
     $values['fid'] = $file->fid;
     watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
-    dosomething_reportback_save($values);
+
+    dosomething_reportback_save($values, $user);
   }
 }
 
