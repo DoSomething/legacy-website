@@ -9,7 +9,7 @@
  * Implements hook_cron().
  */
 function dosomething_reportback_cron() {
-  // Get all reportbacks updated in the past hour.
+  // Get all reportbacks for the current run updated in the past hour.
   $results = db_query("SELECT n.nid, SUM(rb.quantity) as total, run.field_current_run_target_id as run_nid
                        FROM node n
                        INNER JOIN field_data_field_campaign_status s on n.nid = s.entity_id AND n.language = s.language
@@ -35,6 +35,7 @@ function dosomething_reportback_cron() {
       ->execute();
   }
 
+  // Get all reportbacks updated in the past hour.
   $results = db_query("SELECT n.nid, SUM(rb.quantity) as total
                        FROM node n
                        INNER JOIN field_data_field_campaign_status s on n.nid = s.entity_id AND n.language = s.language
@@ -47,5 +48,5 @@ function dosomething_reportback_cron() {
   // Updated reportback counts accordingly.
   foreach ($results as $result) {
     dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_all_quantity', (int) $result->total);
-  }  
+  }
 }
