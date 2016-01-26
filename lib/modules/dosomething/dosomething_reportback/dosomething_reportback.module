@@ -643,31 +643,44 @@ function dosomething_reportback_delete_reportback($rbid) {
 /**
  * Checks if a reportback exists for given $nid and $uid.
  *
- * @param int $nid
+ * @param  int  $nid
  *   The node nid of the reportback to check.
- * @param int $uid
+ * @param  int  $run_nid
+ *   The run nid of the reportback record to check.
+ * @param  int  $uid
  *   Optional - the user uid of reportback to check.
  *   If not given, uses global $user->uid.
- *
  * @return mixed
  *   The rbid of reportback or FALSE if it doesn't exist.
  */
-function dosomething_reportback_exists($nid, $uid = NULL) {
-  if ($uid == NULL) {
+function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL) {
+  if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
+  else {
+    $user = user_load($uid);
+  }
+
+  if (!isset($run_nid)) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+    $run_nid = $run->nid;
+  }
+
   $result = db_select('dosomething_reportback', 'r')
     ->condition('uid', $uid)
     ->condition('nid', $nid)
-    ->fields('r', array('rbid'))
+    ->condition('run_nid', $run_nid)
+    ->fields('r', ['rbid'])
     ->execute();
+
   $rbid = $result->fetchField(0);
+
   // If a rbid was found, return it.
   if (is_numeric($rbid)) {
     return $rbid;
   }
-  // Otherwise return FALSE.
+
   return FALSE;
 }
 
@@ -830,30 +843,44 @@ function dosomething_reportback_save_file_from_url($nid, $uid, $url) {
  *   The file destination path to write the next reportback image to.
  */
 function dosomething_reportback_get_file_dest($name, $nid, $uid = NULL) {
-  if ($uid == NULL) {
+  if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
+  else {
+    $user = user_load($uid);
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+  $run_nid = $run->nid;
+
   // Parse original filename.
   $pathinfo = pathinfo($name);
   $ext = 'jpg';
+
   // Save its extension.
   if (isset($pathinfo['extension'])) {
     $ext = $pathinfo['extension'];
   }
+
   // Define reportback nid file directory.
   $dir = 'public://reportbacks/' . $nid;
+
   // If directory doesn't exist / can't be created:
   if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY)) {
     // Use default public directory instead.
     $dir = 'public://';
   }
+
   $index = 0;
-  if ($rb = dosomething_reportback_exists($nid, $uid)) {
+
+  if ($rb = dosomething_reportback_exists($nid, $run_nid, $uid)) {
     $reportback = reportback_load($rb);
     $index = count($reportback->fids);
   }
-  $filename = 'uid_' . $uid . '-nid_' . $nid . '-' . $index . '.' . $ext;
+
+  $filename = 'uid_' . $uid . '-nid_' . $nid . '-run_nid_' . $run_nid . '-' . $index . '.' . $ext;
+
   return $dir . '/' . $filename;
 }
 

@@ -274,7 +274,7 @@ function _member_resource_get_activity_result($uid, $nid) {
     $result->signed_up = $signup->timestamp;
     $result->source = $signup->source;
     $result->rbid = NULL;
-    if ($rbid = dosomething_reportback_exists($result->nid, $uid)) {
+    if ($rbid = dosomething_reportback_exists($result->nid, NULL, $uid)) {
       $reportback = reportback_load($rbid);
       $result = (object) array_merge((array) $result, (array) $reportback);
       // Remove unneeded properties.
