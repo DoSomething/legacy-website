@@ -390,7 +390,7 @@ function _campaign_resource_reportback($nid, $values) {
   $values['fid'] = $file->fid;
 
   // @todo: Move this logic into dosomething_reportback_save().
-  $rbid = dosomething_reportback_exists($nid, $uid);
+  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
 
   if (!$rbid) {
     $rbid = 0;
