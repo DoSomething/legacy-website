@@ -327,8 +327,9 @@ function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignu
       ->fields('s', array('sid'))
       ->execute();
       $running_free = TRUE;
+
+    $sid = $result->fetchField();
   }
-  $sid = $result->fetchField();
 
   // If a sid was found, return it.
   if (is_numeric($sid)) {
