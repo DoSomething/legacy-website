@@ -115,7 +115,7 @@ function _campaign_resource_definition() {
     ],
 
 
-    // @TODO: The following relationships will be deprecated in the near future.
+    // @TODO: The following actions will be deprecated the future in favor of REST-ful endpoints.
     'targeted_actions' => array(
       'signup' => array(
         'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
