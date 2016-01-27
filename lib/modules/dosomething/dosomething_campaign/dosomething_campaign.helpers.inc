@@ -113,7 +113,7 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     $campaign = new stdClass();
     $campaign->nid = $node->nid;
     $campaign->title = $node->title;
-    $campaign->status = dosomething_campaign_get_campaign_status($node);
+    $campaign->status = dosomething_campaign_is_closed($node) ? 'closed' : 'active';
     $campaign->type = dosomething_campaign_get_campaign_type($node);
     $campaign->scholarship = $wrapper->field_scholarship_amount->value();
     if ($campaign->scholarship) {
@@ -576,27 +576,6 @@ function dosomething_campaign_get_campaign_type($node) {
   return $node->field_campaign_type[LANGUAGE_NONE][0]['value'];
 }
 
-/**
- * Returns a loaded campaign $node's field_campaign_status value.
- *
- * @param object $node
- *   A loaded campaign node.
- *
- * @return mixed
- *   If node type == campaign, returns string value of field_campaign_status.
- *     - Defaults to 'active' if value is not set.
- *   Else returns FALSE.
- */
-function dosomething_campaign_get_campaign_status($node) {
-  // Sanity check to make sure this is a campaign.
-  if ($node->type != 'campaign') { return FALSE; }
-
-  // Return active by default if no value is set.
-  if (!isset($node->field_campaign_status[LANGUAGE_NONE][0]['value'])) {
-    return 'active';
-  }
-  return $node->field_campaign_status[LANGUAGE_NONE][0]['value'];
-}
 
 /**
  * Returns variables for campaigns with field_campaign_type.
