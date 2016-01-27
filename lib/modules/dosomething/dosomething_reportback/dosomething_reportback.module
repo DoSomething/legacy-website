@@ -711,7 +711,11 @@ function dosomething_reportback_save($values, $user = NULL) {
   }
   else {
     $entity = entity_load_single('reportback', $values['rbid']);
-    $reportback_item = entity_load_single('reportback_item', $values['fid']);
+    $most_recently_added_fid = end($entity->fids);
+
+    if ($values['fid'] == $most_recently_added_fid) {
+      $reportback_item = entity_load_single('reportback_item', $values['fid']);
+    }
   }
 
   try {
