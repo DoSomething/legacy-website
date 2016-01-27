@@ -289,7 +289,7 @@ function paraneue_dosomething_get_campaign_gallery($nids, $source = NULL, $show_
 }
 
 /**
- * Returns a themed gallery of recommended campagins.
+ * Returns a themed gallery of recommended campaigns.
  */
 function paraneue_dosomething_get_recommended_campaign_gallery($tid = NULL, $uid = NULL, $limit = 3) {
   // Get recommended campaigns
