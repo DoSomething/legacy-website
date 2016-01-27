@@ -320,7 +320,7 @@ function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignu
   // If not see if they are signed up for the campaign without the run.
   // This section is added to test for duplicate signup problems.
   // Refs #6095.
-  if (!is_numeric($sid)) {
+  if (!is_numeric($sid) && !$presignup) {
      $result = db_select('dosomething_signup', 's')
       ->condition('uid', $uid)
       ->condition('nid', $nid)
