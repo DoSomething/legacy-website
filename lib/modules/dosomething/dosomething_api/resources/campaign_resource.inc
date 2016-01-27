@@ -116,39 +116,6 @@ function _campaign_resource_definition() {
 
 
     // @TODO: The following relationships will be deprecated in the near future.
-    'relationships' => array(
-      'gallery' => array(
-        'file' => array('type' => 'inc', 'module' => 'dosomething_api', 'name' => 'resources/campaign_resource'),
-        'help'   => 'Returns Reportback Gallery. GET from campaigns/123/gallery',
-        'access callback' => '_node_resource_access',
-        'access arguments' => array('view'),
-        'access arguments append' => TRUE,
-        'callback' => '_campaign_resource_load_gallery',
-        'args'     => array(
-          array(
-            'name' => 'nid',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'int',
-            'description' => 'The nid of the node whose gallery we are getting',
-          ),
-          array(
-            'name' => 'count',
-            'type' => 'int',
-            'description' => t('Number of Reportback Files to load.'),
-            'source' => array('param' => 'count'),
-            'optional' => TRUE,
-          ),
-          array(
-            'name' => 'offset',
-            'type' => 'int',
-            'description' => t('If count is set to non-zero value, you can pass also non-zero value for start. For example to get Reportback Files from 5 to 15, pass count=10 and start=5.'),
-            'source' => array('param' => 'offset'),
-            'optional' => TRUE,
-          ),
-        ),
-      ),
-    ),
     'targeted_actions' => array(
       'signup' => array(
         'help' => 'Signup a user for a campaign. POST to campaigns/123/signup',
@@ -405,24 +372,3 @@ function _campaign_resource_reportback($nid, $values) {
   return dosomething_reportback_save($values, $user);
 }
 
-
-/**
- * Returns the Reportback Gallery of a specified node.
- *
- * @param int $nid
- *   Unique identifier for the node.
- * @param int $count
- *   Number of Reportback Files to return.
- * @param int $start
- *   Which RB File to start with. If present, $start and $count are used together
- *   to create a LIMIT clause to select RB Files. This could be used to do paging.
- * @return array
- *   An array of Reportback File objects.
- */
-function _campaign_resource_load_gallery($nid, $count = 25, $start = 0) {
-  $params = array(
-    'nid' => $nid,
-    'status' => 'approved',
-  );
-  return dosomething_api_get_reportback_files($params, $count, $start);
-}
