@@ -334,6 +334,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
     $values['uid'] = $user->uid;
+  }
 
   // Load uid by selected username and give access to file.
   if ($is_admin_form) {
