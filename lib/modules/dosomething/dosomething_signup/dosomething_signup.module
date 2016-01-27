@@ -279,7 +279,7 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  *
  * @param  int  $nid
  *   The node nid of the signup record to check.
- * @param  int  $runId
+ * @param  int  $run_nid
  *   The run nid of the signup record to check.
  * @param  int  $uid
  *   Optional - the user uid of signup record to check.
@@ -289,12 +289,11 @@ function dosomething_signup_delete_signup($nid, $runId = NULL, $uid = NULL) {
  * @return int|false
  *   The sid of signup exists, FALSE if it doesn't exist.
  */
-function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup = FALSE) {
-  if (!isset($runId)) {
+function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignup = FALSE) {
+  if (!isset($run_nid)) {
     $run = dosomething_helpers_get_current_campaign_run_for_user($nid);
-    $runId = $run->nid;
+    $run_nid = $run->nid;
   }
-
   if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
@@ -308,22 +307,42 @@ function dosomething_signup_exists($nid, $runId = NULL, $uid = NULL, $presignup 
       ->execute();
   }
   else {
+    // First check to see if a user has a signup with a run.
     $result = db_select('dosomething_signup', 's')
       ->condition('uid', $uid)
       ->condition('nid', $nid)
-      ->condition('run_nid', $runId)
+      ->condition('run_nid', $run_nid)
       ->fields('s', array('sid'))
       ->execute();
   }
+  $sid = $result->fetchField();
 
-  if (!isset($result)) {
-    return FALSE;
+  // If not see if they are signed up for the campaign without the run.
+  // This section is added to test for duplicate signup problems.
+  // Refs #6095.
+  if (!is_numeric($sid)) {
+     $result = db_select('dosomething_signup', 's')
+      ->condition('uid', $uid)
+      ->condition('nid', $nid)
+      ->fields('s', array('sid'))
+      ->execute();
+      $running_free = TRUE;
   }
-
   $sid = $result->fetchField();
 
   // If a sid was found, return it.
   if (is_numeric($sid)) {
+
+    // If this was a node without a run, add that in.
+    // This section is also added to fix creating duplicate signups.
+    // Refs #6095.
+    if (isset($running_free)) {
+      $query = db_update('dosomething_signup')
+               ->fields(['run_nid' => $run_nid])
+               ->condition('sid', $sid)
+               ->execute();
+    }
+
     return $sid;
   }
 
