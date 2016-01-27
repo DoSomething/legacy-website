@@ -342,8 +342,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $account->uid;
 
     $reportback = reportback_load($values['rbid']);
-    $most_recently_added_photo_fid = end($reportback->fids);
-    $values['fid'] =  $most_recently_added_photo_fid;
+    $most_recently_added_fid = end($reportback->fids);
+    $values['fid'] =  $most_recently_added_fid;
   }
   // Else if regular user form:
   else {
