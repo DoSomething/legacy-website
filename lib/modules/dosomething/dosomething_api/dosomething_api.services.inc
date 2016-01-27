@@ -72,11 +72,6 @@ function dosomething_api_default_services_endpoint() {
           'enabled' => '1',
         ),
       ),
-      'relationships' => array(
-        'gallery' => array(
-          'enabled' => '1',
-        ),
-      ),
       'targeted_actions' => array(
         'signup' => array(
           'enabled' => '1',
@@ -130,16 +125,6 @@ function dosomething_api_default_services_endpoint() {
     'reportbacks' => array(
       'operations' => array(
         'retrieve' => array(
-          'enabled' => '1',
-        ),
-        'index' => array(
-          'enabled' => '1',
-        ),
-      ),
-    ),
-    'signups' => array(
-      'operations' => array(
-        'create' => array(
           'enabled' => '1',
         ),
         'index' => array(
