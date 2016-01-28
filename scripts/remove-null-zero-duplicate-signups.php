@@ -21,6 +21,7 @@ foreach ($duplicates as $duplicate) {
       // Remove that row.
       db_delete('dosomething_signup')->condition('sid', $sid)->execute();
       echo 'removed row: ' . $sid . "\n";
+      watchdog('dosomething_signup', 'removed : @sid' , [$sid]);
     }
   }
 }
