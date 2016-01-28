@@ -28,7 +28,7 @@ class CampaignTransformer extends Transformer {
       if (!$campaigns) {
         $campaigns = Campaign::find($filters, 'full');
 
-        $cache->set('campaigns', $parameters, $campaigns);
+        $cache->set('campaigns', $parameters, $campaigns, 2);
       }
       else {
         $campaigns = $campaigns->data;

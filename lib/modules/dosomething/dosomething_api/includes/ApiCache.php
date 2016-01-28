@@ -2,8 +2,6 @@
 
 class ApiCache {
 
-  public $hours_cached = 24;
-
   /**
    * Clear a specified item from cache.
    *
@@ -60,16 +58,30 @@ class ApiCache {
    * @param  string  $endpoint
    * @param  array   $parameters
    * @param  mixed   $data
+   * @param  mixed   $expiration
    * @return bool
    */
-  public function set($endpoint, $parameters, $data) {
-    $id = $this->generate_id($endpoint, $parameters);
-
+  public function set($endpoint, $parameters, $data, $expiration = NULL) {
     if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       return FALSE;
     }
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * $this->hours_cached));
+    $id = $this->generate_id($endpoint, $parameters);
+
+    if (is_null($expiration)) {
+      $expiration = CACHE_TEMPORARY;
+    }
+    elseif (is_bool($expiration) && $expiration === FALSE) {
+      $expiration = CACHE_PERMANENT;
+    }
+    elseif (is_int($expiration)) {
+      $expiration = REQUEST_TIME + (60 * 60 * $expiration);
+    }
+    else {
+      $expiration = CACHE_TEMPORARY;
+    }
+
+    cache_set($id, $data, 'cache_dosomething_api', $expiration);
 
     return TRUE;
   }
