@@ -13,7 +13,6 @@ include_once 'resources/reportback_resource.inc';
 include_once 'resources/reportback_item_resource.inc';
 include_once 'resources/reportback_file_resource.inc';
 include_once 'resources/kudos_resource.inc';
-include_once 'resources/signup_resource.inc';
 include_once 'resources/term_resource.inc';
 
 
@@ -22,7 +21,7 @@ include_once 'resources/term_resource.inc';
  */
 function dosomething_api_services_resources() {
 
-  $resources = array();
+  $resources = [];
 
   $resources += _campaign_resource_definition();
   $resources += _member_resource_definition();
@@ -30,7 +29,6 @@ function dosomething_api_services_resources() {
   $resources += _reportback_item_resource_definition();
   $resources += _reportback_file_resource_definition();
   $resources += _kudos_resource_definition();
-  $resources += _signup_resource_definition();
   $resources += _term_resource_definition();
 
   return $resources;
