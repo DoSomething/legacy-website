@@ -35,15 +35,17 @@ class ApiCache {
   public function get($endpoint, $parameters) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+    $cache = cache_get($id, 'cache_dosomething_api');
+
+    if ($cache && !dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       $this->clear($id);
 
       return FALSE;
     }
 
-    $cache = cache_get($id, 'cache_dosomething_api');
-
-    if ($cache && $cache->expire < REQUEST_TIME) {
+    // Temporary cache expire is equal to -1.
+    // Permanent cache expire is equal to 0.
+    if ($cache && $cache->expire > 0 && $cache->expire < REQUEST_TIME) {
       $this->clear($id);
 
       return FALSE;
@@ -68,10 +70,7 @@ class ApiCache {
 
     $id = $this->generate_id($endpoint, $parameters);
 
-    if (is_null($expiration)) {
-      $expiration = CACHE_TEMPORARY;
-    }
-    elseif (is_bool($expiration) && $expiration === FALSE) {
+    if (is_bool($expiration) && $expiration === FALSE) {
       $expiration = CACHE_PERMANENT;
     }
     elseif (is_int($expiration)) {

@@ -45,6 +45,15 @@ function dosomething_api_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implements hook_flush_caches().
+ *
+ * @return array
+ */
+function dosomething_api_flush_caches() {
+  return array('cache_dosomething_api');
+}
+
+/**
  * Implements hook_services_request_postprocess_alter().
  * @deprecated
  * @todo: should remove since nothing is using _node_resource_retrieve callback.
