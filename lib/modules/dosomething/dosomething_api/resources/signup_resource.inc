@@ -2,7 +2,7 @@
 
 function _signup_resource_definition() {
   $signup_resource = [];
-  $signup_resource['signup'] = [
+  $signup_resource['signups'] = [
     'operations' => [
 
       'retrieve' => [
