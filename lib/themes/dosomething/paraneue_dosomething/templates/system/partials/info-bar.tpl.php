@@ -23,7 +23,7 @@
           <h2 class="heading -banner"><?php print t('Contact Us'); ?></h2>
           <div class="modal__block">
             <p><?php print $zendesk_form_header; ?></p>
-            <?php if($FAQs): ?>
+            <?php if($faqs): ?>
               <p>Or get your question answered right away by first <a href="#" data-modal-href="#modal-faq">checking our FAQs</a>  which are updated regularly.</p>
             <?php endif; ?>
           </div>
