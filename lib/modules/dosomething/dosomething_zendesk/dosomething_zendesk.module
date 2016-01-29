@@ -147,11 +147,6 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
     '#required' => TRUE,
     '#title' => t(variable_get('dosomething_zendesk_form_body_label')),
   );
-  // Add link to FAQs if they exist
-  if(isset(dosomething_campaign_load($entity)->faq)) {
-    $form['body']['#description'] = 'Check out our <a href="#" data-modal-href="#modal-faq">FAQs</a> first';
-  }
-
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
