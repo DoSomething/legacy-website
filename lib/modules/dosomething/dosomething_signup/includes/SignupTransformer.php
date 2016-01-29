@@ -9,7 +9,7 @@ class SignupTransformer extends Transformer {
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
-  public function index(){//$parameters) {
+  public function index() {//$parameters) {
     // $filters = $this->setFilters($parameters);
 
     try {
