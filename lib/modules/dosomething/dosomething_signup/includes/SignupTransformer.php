@@ -94,6 +94,3 @@ class SignupTransformer extends Transformer {
   }
 
 }
-
-
-}
