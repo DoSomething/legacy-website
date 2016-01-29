@@ -325,4 +325,18 @@ function dosomething_campaign_run_node_presave($node) {
       }
     }
   }
+
+  if ($node->type == 'campaign') {
+    $current_runs = $node->field_current_run;
+
+    foreach ($current_runs as $language => $run) {
+      // Load the current run.
+      $current_run = node_load($run[0]['target_id']);
+      // Get the start and end dates.
+      $start = new DateTime($current_run->field_run_date[$language][0]['value']);
+      $end = (!$current_run->field_run_date[$language][0]['value2']) ? $start : new DateTime($current_run->field_run_date[$language][0]['value2']);
+      $status = dosomething_helpers_get_campaign_status($start, $end);
+      $node->field_campaign_status[$language][0]['value'] = $status;
+    }
+  }
 }
