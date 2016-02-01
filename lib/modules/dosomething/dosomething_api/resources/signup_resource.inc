@@ -83,25 +83,12 @@ function _signup_resource_access($op) {
   return FALSE;
 }
 
-
-/**
- * Retrieve and show response for signup request.
- *
- * @param $sid
- *
- * @return array
- */
-function _signup_resource_retrieve($sid) {
-  return (new SignupTransformer)->show($sid);
-}
-
-
 /**
  * Retrieve and show index list response of signups requested.
  * @param string $users
  * @param string $campaigns
  *
- * @return mixed
+ * @return array
  */
 function _signup_resource_index(){//$parameters) {
   // $parameters = [
@@ -110,4 +97,15 @@ function _signup_resource_index(){//$parameters) {
   // ];
 
   return (new SignupTransformer)->index($parameters);
+}
+
+/**
+ * Retrieve and show response for signup request.
+ *
+ * @param string $sid Signup id.
+ *
+ * @return array
+ */
+function _signup_resource_retrieve($sid) {
+  return (new SignupTransformer)->show($sid);
 }
