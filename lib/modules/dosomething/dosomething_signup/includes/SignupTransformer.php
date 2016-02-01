@@ -61,6 +61,7 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
+    $item = $item[0];
     $data = [];
 
     $data += $this->transformSignup($item);
