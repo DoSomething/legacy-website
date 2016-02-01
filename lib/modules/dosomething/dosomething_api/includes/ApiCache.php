@@ -2,8 +2,6 @@
 
 class ApiCache {
 
-  public $hours_cached = 24;
-
   /**
    * Clear a specified item from cache.
    *
@@ -37,15 +35,17 @@ class ApiCache {
   public function get($endpoint, $parameters) {
     $id = $this->generate_id($endpoint, $parameters);
 
-    if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+    $cache = cache_get($id, 'cache_dosomething_api');
+
+    if ($cache && !dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       $this->clear($id);
 
       return FALSE;
     }
 
-    $cache = cache_get($id, 'cache_dosomething_api');
-
-    if ($cache && $cache->expire < REQUEST_TIME) {
+    // Temporary cache expire is equal to -1.
+    // Permanent cache expire is equal to 0.
+    if ($cache && $cache->expire > 0 && $cache->expire < REQUEST_TIME) {
       $this->clear($id);
 
       return FALSE;
@@ -60,16 +60,27 @@ class ApiCache {
    * @param  string  $endpoint
    * @param  array   $parameters
    * @param  mixed   $data
+   * @param  mixed   $expiration
    * @return bool
    */
-  public function set($endpoint, $parameters, $data) {
-    $id = $this->generate_id($endpoint, $parameters);
-
+  public function set($endpoint, $parameters, $data, $expiration = NULL) {
     if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       return FALSE;
     }
 
-    cache_set($id, $data, 'cache_dosomething_api', REQUEST_TIME + (60 * 60 * $this->hours_cached));
+    $id = $this->generate_id($endpoint, $parameters);
+
+    if (is_bool($expiration) && $expiration === FALSE) {
+      $expiration = CACHE_PERMANENT;
+    }
+    elseif (is_int($expiration)) {
+      $expiration = REQUEST_TIME + (60 * 60 * $expiration);
+    }
+    else {
+      $expiration = CACHE_TEMPORARY;
+    }
+
+    cache_set($id, $data, 'cache_dosomething_api', $expiration);
 
     return TRUE;
   }

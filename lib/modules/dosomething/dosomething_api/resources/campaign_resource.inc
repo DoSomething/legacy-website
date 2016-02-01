@@ -183,7 +183,7 @@ function _campaign_resource_definition() {
  */
 // @TODO: Function will be deprecated and currently only used in soon to be deprecated targeted actions.
 function _campaign_resource_access_alt($op = 'view', $args = array()) {
-  if (DOSOMETHING_REPORTBACK_LOG) {
+  if (DOSOMETHING_REPORTBACK_LOG && $args) {
     watchdog('dosomething_api', '_campaign_resource_access_alt args:' . json_encode($args));
   }
 
