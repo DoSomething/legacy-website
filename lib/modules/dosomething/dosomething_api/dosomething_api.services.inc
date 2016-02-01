@@ -132,6 +132,16 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'signups' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'enabled' => '1',
+        ),
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'system' => array(
       'actions' => array(
         'connect' => array(
