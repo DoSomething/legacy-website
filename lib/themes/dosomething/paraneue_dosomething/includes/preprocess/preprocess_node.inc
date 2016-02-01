@@ -79,6 +79,7 @@ function paraneue_dosomething_add_info_bar(&$vars) {
     }
     else {
       $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
+      $info_bar_vars['faqs'] = isset($vars['field_faq']);
       $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
 
       if (isset($vars['zendesk_form'])) {
