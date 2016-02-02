@@ -299,15 +299,16 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
  */
 function dosomething_campaign_run_node_submit($node, $form, &$form_state) {
   if ($node->type == 'campaign_run') {
+    // Get language of the translation being submittted.
     $language = $form_state['entity_translation']['form_langcode'];
-    // @TODO -- Extracted into function.
+    // Grab the run dates the user just entered;
     $start_date = new DateTime($form_state['values']['field_run_date'][$language][0]['value']);
     $end_date = (!$form_state['values']['field_run_date'][$language][0]['value2']) ? $start_date : new DateTime($form_state['values']['field_run_date'][$language][0]['value2']);
     $status = dosomething_helpers_get_campaign_status($start_date, $end_date);
-    // -- end extraction.
 
     // Just get the first campaign this is tied to. While we allow for multiple campaigns to be selected per campaign run, only one should be selected.
     $campaign = $form_state['values']['field_campaigns'][$language][0];
+    // Update the campaign's status.
     $campaign = entity_metadata_wrapper('node', $campaign['target_id']);
     $current_run = $campaign->language($language)->field_current_run->value();
     if ($current_run->nid == $form_state['values']['nid']) {
