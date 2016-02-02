@@ -421,11 +421,6 @@ abstract class Transformer {
       'id' => $data->id,
       'source' => $data->source,
       'created_at' => $data->created_at,
-      'campaign' => [
-        'id' => $data->campaign->id,
-        'title' => $data->campaign->title,
-        'campaign_run' => $data->campaign_run,
-      ],
     ];
   }
 
