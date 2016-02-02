@@ -1,13 +1,28 @@
 <?php
 
 /**
+ *  Implements hook_drush_command
+ */
+function dosomething_reportback_drush_command() {
+  return [
+    'ds-reportback-run-nid-fix' => [
+      'description' => 'Gives every reportback a run nid',
+      'examples' => [
+        'drush ds-reportback-run-nid-fix'
+          => 'Gives every reportback a run nid',
+      ],
+    ],
+  ];
+}
+
+/**
  * Implements hook_drush_cache_clear().
  */
 function dosomething_reportback_drush_cache_clear(&$types) {
   $types['dosomething reportback'] = 'dosomething_reportback_cache_clear_all';
 }
 
-function dosomething_reportback_drush_run_nid_fix(&$types) {
+function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
   // First retrieve every campaign NID
   $nids = db_query("SELECT n.nid as nid
                     FROM node n
@@ -71,4 +86,5 @@ function dosomething_reportback_drush_run_nid_fix(&$types) {
       }
     }
   }
+  print_r("All reportbacks updated \n");
 }
