@@ -32,7 +32,7 @@ class SignupTransformer extends Transformer {
   /**
    * Display the specified resource.
    *
-   * @param string $id Resource id.
+   * @param string $id Signup id.
    * @return array
    */
   public function show($id) {
@@ -66,7 +66,7 @@ class SignupTransformer extends Transformer {
 
     $data += $this->transformSignup($item);
 
-    $data['campaign'] = $this->transformCampaign((object) $item->campaign);
+    // $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
     $data['user'] = $this->transformUser((object) $item->user);
 

@@ -418,10 +418,11 @@ abstract class Transformer {
    */
   protected function transformSignup($data) {
     return [
-      'id' => $data->id,
-      'created_at' => $data->created_at,
-      'campaign' => $data->campaign,
+      'signup_id' => $data->id,
+      'campaign' => $data->campaign->title,
       'campaign_run' => $data->campaign_run,
+      'source' => $data->source,
+      'created_at' => $data->created_at,
     ];
   }
 
