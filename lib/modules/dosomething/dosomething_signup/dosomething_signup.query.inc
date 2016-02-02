@@ -5,13 +5,12 @@
  */
 
 /**
- * Returns a SelectQuery object of Reportbacks with given $params.
+ * Returns a SelectQuery object of Signsups with given $params.
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: (string) A campaign node nid to filter by.
- *   - rbid: (string) A reportback rbid to filter by.
- *   - random: (boolean) If set, randomly sort the results.
+ *   - user: (string) A user uid to filter by.
+ *   - campaigns: (string) Campaign nids to filter by.
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
