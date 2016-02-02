@@ -34,26 +34,26 @@ function _signup_resource_definition() {
           'name' => 'resources/signup_resource',
         ],
         'callback' => '_signup_resource_index',
-        // 'args' => [
-        //   [
-        //     'name' => 'users',
-        //     'description' => 'The ids of specified users to get signups for.',
-        //     'optional' => TRUE,
-        //     'type' => 'string',
-        //     'source' => [
-        //       'param' => 'users'
-        //     ],
-        //     'default value' => NULL,
-        //   ],
-        //   [
-        //     'name' => 'campaigns',
-        //     'description' => 'The ids of the specified campaigns to get signups for.',
-        //     'optional' => TRUE,
-        //     'type' => 'string',
-        //     'source' => ['param' => 'campaigns'],
-        //     'default value' => NULL,
-        //   ],
-        // ],
+        'args' => [
+          [
+            'name' => 'user',
+            'description' => 'The id of the specified user to get signups for.',
+            'optional' => FALSE,
+            'type' => 'string',
+            'source' => [
+              'param' => 'user'
+            ],
+            'default value' => NULL,
+          ],
+          [
+            'name' => 'campaigns',
+            'description' => 'The ids of the specified campaigns to get signups for.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'campaigns'],
+            'default value' => NULL,
+          ],
+        ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
       ],
@@ -63,38 +63,25 @@ function _signup_resource_definition() {
   return $signup_resource;
 }
 
-
-/**
- * Determine whether the current user can access signup resource.
- *
- * @param string $op
- *
- * @return bool
- */
-function _signup_resource_access($op) {
-  if ($op === 'view') {
-    return TRUE;
-  }
-
-  if ($op === 'index') {
-    return TRUE;
-  }
-
-  return FALSE;
+function _signup_resource_access() {
+  // Temp universal access for now.
+  return TRUE;
 }
 
 /**
  * Retrieve and show index list response of signups requested.
- * @param string $users
+ * @param string $user
  * @param string $campaigns
  *
  * @return array
  */
-function _signup_resource_index(){//$parameters) {
-  // $parameters = [
-  //   'users' => $users,
-  //   'campaigns' => $campaigns,
-  // ];
+function _signup_resource_index($user, $campaigns) {
+  $parameters = [
+    'user' => $user,
+    'campaigns' => $campaigns,
+  ];
+  print_r($parameters);
+  die();
 
   return (new SignupTransformer)->index($parameters);
 }
