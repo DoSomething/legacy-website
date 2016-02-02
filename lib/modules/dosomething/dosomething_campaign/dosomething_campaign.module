@@ -1263,3 +1263,26 @@ function dosomething_campaign_flush_caches() {
 function dosomething_campaign_node_update($node) {
   cache_clear_all('ds_campaign_' . $node->nid, 'cache_dosomething_campaign', TRUE);
 }
+
+/**
+ * Implements hook_node_validate()
+ */
+function dosomething_campaign_node_validate($node, $form, &$form_state) {
+  if ($node->type == 'campaign') {
+    $language = $form_state['entity_translation']['form_langcode'];
+    $values = $form_state['values'];
+
+    $current_run_id = $form['#node']->field_current_run[$language][0]['target_id'];
+    $submitted_current_run = $values['field_current_run'][$language][0]['target_id'];
+
+    if ($current_run_id !== $submitted_current_run) {
+      $new_run = entity_metadata_wrapper('node', $submitted_current_run);
+      // @TODO -- Extract into function.
+      $start_date = new DateTime($new_run->language($language)->field_run_date->value()['value']);
+      $end_date = new DateTime($new_run->language($language)->field_run_date->value()['value2']);
+      $status = dosomething_helpers_get_campaign_status($start_date, $end_date);
+      // -- end function.
+      $form_state['values']['field_campaign_status'][$language][0]['value'] = $status;
+    }
+  }
+}
