@@ -4,90 +4,6 @@
  * Database query code for Signup data.
  */
 
-/**
- * Returns a SelectQuery object of Signsups with given $params.
- *
- * @param array $params
- *   An associative array of conditions to filter by. Possible keys:
- *   - user: (string) A user uid to filter by.
- *   - campaigns: (string) Campaign nids to filter by.
- * @return SelectQuery object
- */
-function dosomething_reportback_build_reportbacks_query($params = array()) {
-  global $language;
-
-  $query = db_select('dosomething_reportback', 'rb');
-  $query->join('dosomething_reportback_file', 'rbf', 'rb.rbid = rbf.rbid');
-  $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
-  $query->leftJoin('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
-  $query->join('node', 'n', 'rb.nid = n.nid');
-
-  $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
-
-  if (isset($params['rbid'])) {
-    if (is_array($params['rbid'])) {
-      $query->condition('rb.rbid', $params['rbid'], 'IN');
-    }
-    else {
-      $query->condition('rb.rbid', $params['rbid']);
-    }
-  }
-
-  if (isset($params['nid'])) {
-    $query->condition('fn.language', $language->language);
-    $query->condition('fv.language', $language->language);
-    if (is_array($params['nid'])) {
-      $query->condition('rb.nid', $params['nid'], 'IN');
-    }
-    else {
-      $query->condition('rb.nid', $params['nid']);
-    }
-  }
-
-  if (isset($params['status'])) {
-    if (is_array($params['status'])) {
-      $query->condition('rbf.status', $params['status'], 'IN');
-    }
-    else {
-      $query->condition('rbf.status', $params['status']);
-    }
-  }
-
-  if (!isset($params['flagged'])) {
-    $query->condition('rb.flagged', 0);
-  }
-  else {
-    if (!$params['flagged']) {
-      $query->condition('rb.flagged', 0);
-    }
-  }
-
-  // Public API properties to expose:
-  $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid');
-
-  // Staff-only properties to add:
-  if (user_access('view any reportback')) {
-    $rb_fields[] = 'why_participated';
-    $rb_fields[] = 'flagged';
-  }
-
-  $query->fields('rb', $rb_fields);
-  $query->fields('n', ['nid', 'title']);
-  $query->addField('fn', 'field_reportback_noun_value', 'noun');
-  $query->addField('fv', 'field_reportback_verb_value', 'verb');
-
-  $query->groupBy('rb.rbid');
-
-  // @TODO: After campaign gallery changes, update this condition to: isset($params['random']) && $params['random']
-  if (isset($params['random'])) {
-    $query->orderRandom();
-  }
-  else {
-    $query->orderBy('rb.updated', 'DESC');
-  }
-
-  return $query;
-}
 
 /**
  * Returns Signup query result to loop through.
@@ -100,36 +16,39 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  *   An executed database query object to iterate through.
  */
 function dosomething_signup_get_signups_query($params) {
-  $params = dosomething_reportback_filter_flagged_reportbacks($params);
+  $query = dosomething_signup_build_signups_query($params);
 
-  $query = dosomething_signup_build_signupss_query($params);
-  $offset = dosomething_helpers_isset($params, 'offset', 0);
-  $count = dosomething_helpers_isset($params, 'count', 25);
-
-  if ($count && $count !== 'all') {
-    $query->range($offset, $count);
-  }
-
-  $result = $query->execute()->fetchAll();
+  $result = $query->execute();//->fetchAll();
 
   return $result;
 }
 
 /**
- * Filter out requested flagged Signups based on user permissions.
+ * Returns a SelectQuery object of Signups with given $params.
  *
- * @param  array  $params
- * @return mixed
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - uid: (string) A user uid to filter by.
+ *   - campaigns: (string) Campaign nid(s) to filter by.
+ * @return SelectQuery object
  */
-function dosomething_signup_filter_flagged_signups($params) {
-  if (user_access('view any signup')) {
-    return $params;
+function dosomething_signup_build_signups_query($params = []) {
+  global $language;
+
+  $query = db_query("SELECT * FROM dosomething_signup s;");
+
+  if (isset($params['user'])) {
+    $query->condition('s.uid', $params['user']);
   }
 
-  // Unset False boolean values that affect the query builder.
-  if (isset($params['flagged'])) {
-    unset($params['flagged']);
+  if (isset($params['campaigns'])) {
+    if (is_array($params['campaigns'])) {
+      $query->condition('s.nid', $params['campaigns'], 'IN');
+    }
+    else {
+      $query->condition('s.nid', $params['campaigns']);
+    }
   }
 
-  return $params;
+  return $query;
 }

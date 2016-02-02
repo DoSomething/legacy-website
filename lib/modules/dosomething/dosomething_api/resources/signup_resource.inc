@@ -40,9 +40,7 @@ function _signup_resource_definition() {
             'description' => 'The id of the specified user to get signups for.',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => [
-              'param' => 'user'
-            ],
+            'source' => ['param' => 'user'],
             'default value' => NULL,
           ],
           [
@@ -72,7 +70,6 @@ function _signup_resource_access() {
  * Retrieve and show index list response of signups requested.
  * @param string $user
  * @param string $campaigns
- *
  * @return array
  */
 function _signup_resource_index($user, $campaigns) {
