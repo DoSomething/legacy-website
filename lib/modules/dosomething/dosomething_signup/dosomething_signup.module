@@ -217,7 +217,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 
   $campaign = Campaign::get($nid);
   $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
-  $run->nid = 0;
 
   // If a signup already exists, exit.
   if (dosomething_signup_exists($nid, $run->nid, $uid)) {
