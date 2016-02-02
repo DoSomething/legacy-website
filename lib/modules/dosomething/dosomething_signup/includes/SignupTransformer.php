@@ -81,15 +81,9 @@ class SignupTransformer extends Transformer {
    */
   private function setFilters($parameters) {
     $filters = [
-      // 'sid' => dosomething_helpers_format_data($parameters['ids']),
       'user' => dosomething_helpers_format_data($parameters['user']),
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
     ];
-
-    // Unset False boolean values that affect the query builder.
-    if (!$filters['random']) {
-      unset($filters['random']);
-    }
 
     return $filters;
   }

@@ -65,7 +65,7 @@ class Signup extends Entity {
   public static function find(array $filters = []) {
     $signups = [];
 
-    $results = dosomething_reportback_get_reportbacks_query($filters);
+    $results = dosomething_signup_get_signups_query($filters);
 
     if (!$results) {
       throw new Exception('No reportback data found.');
@@ -73,13 +73,13 @@ class Signup extends Entity {
 
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
-      $reportback = new static(['ignore' => true]);
-      $reportback->build($item, $filters['load_user']);
+      $signup = new static(['ignore' => true]);
+      $signup->build($item);
 
-      $reportbacks[] = $reportback;
+      $signups[] = $signup;
     }
 
-    return $reportbacks;
+    return $signups;
   }
 
   /**
@@ -87,7 +87,7 @@ class Signup extends Entity {
    *
    * @param $data
    */
-  private function build($data, $full = false) {
+  private function build($data) {
     global $user;
     $northstar_user = (object) [];
 
@@ -96,20 +96,20 @@ class Signup extends Entity {
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
 
-    if ($full) {
-      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_response = json_decode($northstar_response);
+    // if ($full) {
+    //   $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
+    //   $northstar_response = json_decode($northstar_response);
 
-      if ($northstar_response && !isset($northstar_response->error)) {
-        $northstar_user = array_shift($northstar_response->data);
-      }
-    }
+    //   if ($northstar_response && !isset($northstar_response->error)) {
+    //     $northstar_user = array_shift($northstar_response->data);
+    //   }
+    // }
 
-    $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, '_id'),
-      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
-    ];
+    // $this->user = [
+    //   'drupal_id' => $data->uid,
+    //   'id' => dosomething_helpers_isset($northstar_user, '_id'),
+    //   'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
+    //   'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
+    // ];
   }
 }
