@@ -56,6 +56,33 @@ class Signup extends Entity {
   }
 
   /**
+   * Convenience method to retrieve signups based on supplied filters.
+   *
+   * @param array $filters
+   * @return array
+   * @throws Exception
+   */
+  public static function find(array $filters = []) {
+    $signups = [];
+
+    $results = dosomething_reportback_get_reportbacks_query($filters);
+
+    if (!$results) {
+      throw new Exception('No reportback data found.');
+    }
+
+    foreach($results as $item) {
+      // @TODO: remove need for passing variable for constructor check.
+      $reportback = new static(['ignore' => true]);
+      $reportback->build($item, $filters['load_user']);
+
+      $reportbacks[] = $reportback;
+    }
+
+    return $reportbacks;
+  }
+
+  /**
    * Build out the instantiated Signup class object with supplied data.
    *
    * @param $data

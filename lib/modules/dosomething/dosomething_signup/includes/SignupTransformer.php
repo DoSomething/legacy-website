@@ -9,11 +9,11 @@ class SignupTransformer extends Transformer {
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
-  public function index() {//$parameters) {
-    // $filters = $this->setFilters($parameters);
+  public function index($parameters) {
+    $filters = $this->setFilters($parameters);
 
     try {
-      $signups = Signup::find();//$filters);
+      $signups = Signup::find($filters);
       $signups = services_resource_build_index_list($signups, 'signups', 'id');
     }
     catch (Exception $error) {
@@ -81,9 +81,9 @@ class SignupTransformer extends Transformer {
    */
   private function setFilters($parameters) {
     $filters = [
-      'sid' => dosomething_helpers_format_data($parameters['ids']),
-      // 'users' => dosomething_helpers_format_data($parameters['users']),
-      // 'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      // 'sid' => dosomething_helpers_format_data($parameters['ids']),
+      'user' => dosomething_helpers_format_data($parameters['user']),
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
     ];
 
     // Unset False boolean values that affect the query builder.
