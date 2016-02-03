@@ -689,7 +689,8 @@ function dosomething_helpers_unset_array_keys(array $array = [], array $keys = [
 function dosomething_helpers_get_campaign_status($start_date, $end_date) {
   $now = new DateTime();
 
-  if (($start_date == $end_date && $now >= $start_date) || ($now >= $start_date && $now <= $end_date)) {
+  //@TODO - Remove check that start date = end date when #6123 is done.
+  if ((is_null($end_date) && $now >= $start_date) || ($start_date == $end_date && $now >= $start_date) || ($now >= $start_date && $now <= $end_date)) {
     return 'active';
   }
   else {

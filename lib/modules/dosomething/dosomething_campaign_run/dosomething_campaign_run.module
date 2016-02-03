@@ -298,12 +298,12 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
  * Implements hook_node_submit()
  */
 function dosomething_campaign_run_node_submit($node, $form, &$form_state) {
-  if ($node->type == 'campaign_run') {
+  if ($node->type == 'campaign_run' && isset($form_state['entity_translation'])) {
     // Get language of the translation being submittted.
     $language = $form_state['entity_translation']['form_langcode'];
     // Grab the run dates the user just entered;
     $start_date = new DateTime($form_state['values']['field_run_date'][$language][0]['value']);
-    $end_date = (!$form_state['values']['field_run_date'][$language][0]['value2']) ? $start_date : new DateTime($form_state['values']['field_run_date'][$language][0]['value2']);
+    $end_date = new DateTime($form_state['values']['field_run_date'][$language][0]['value2']);
     $status = dosomething_helpers_get_campaign_status($start_date, $end_date);
 
     // Just get the first campaign this is tied to. While we allow for multiple campaigns to be selected per campaign run, only one should be selected.
