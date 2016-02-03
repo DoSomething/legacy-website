@@ -294,35 +294,26 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
 }
 
-/*
- * When campaign run nodes are saved, this hook updates the campaign status field on campaign nodes
- * based on the campaign run dates.
- *
- * Implements hook_node_presave().
+/**
+ * Implements hook_node_submit()
  */
-function dosomething_campaign_run_node_presave($node) {
-  if ($node->type == 'campaign_run') {
-    $run_campaigns = $node->field_campaigns;
-    $run_dates = $node->field_run_date;
+function dosomething_campaign_run_node_submit($node, $form, &$form_state) {
+  if ($node->type == 'campaign_run' && isset($form_state['entity_translation'])) {
+    // Get language of the translation being submittted.
+    $language = $form_state['entity_translation']['form_langcode'];
+    // Grab the run dates the user just entered;
+    $start_date = new DateTime($form_state['values']['field_run_date'][$language][0]['value']);
+    $end_date = new DateTime($form_state['values']['field_run_date'][$language][0]['value2']);
+    $status = dosomething_helpers_get_campaign_status($start_date, $end_date);
 
-    // Determine the active and closed state for each translation of the run_date field
-    foreach ($run_dates as $lang => $date) {
-      $start = new DateTime($date[0]['value']);
-      $end = new DateTime($date[0]['value2']);
-      $status = dosomething_helpers_get_campaign_status($start, $end);
-      $run_campaigns = $node->field_campaigns[$lang];
-
-      // Update the campaign status field on each campaign node tied to this run,
-      // if it is set as the current run.
-      // There could be multiple campaigns per campaign run. Probably not, but we do allow for it.
-      foreach ($run_campaigns as $campaign) {
-        $campaign_node = entity_metadata_wrapper('node', $campaign['target_id']);
-        $current_run = $campaign_node->field_current_run->value();
-        if ($current_run->nid == $node->nid) {
-          $campaign_node->language($lang)->field_campaign_status = $status;
-          $campaign_node->save();
-        }
-      }
+    // Just get the first campaign this is tied to. While we allow for multiple campaigns to be selected per campaign run, only one should be selected.
+    $campaign = $form_state['values']['field_campaigns'][$language][0];
+    // Update the campaign's status.
+    $campaign = entity_metadata_wrapper('node', $campaign['target_id']);
+    $current_run = $campaign->language($language)->field_current_run->value();
+    if ($current_run->nid == $form_state['values']['nid']) {
+      $campaign->language($language)->field_campaign_status = $status;
+      $campaign->save();
     }
   }
 }
