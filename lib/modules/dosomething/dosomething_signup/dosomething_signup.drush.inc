@@ -50,7 +50,7 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
                                 ON s.nid = n.nid
                                 AND (s.run_nid = 0 OR s.run_nid IS NULL)
                                 AND from_unixtime(s.timestamp) BETWEEN '$run->start_date' AND '$run->end_date'
-                             AND n.nid = " . $nid->nid);
+                             AND n.nid = $nid->nid");
 
         // For reach signup returned
         foreach($results as $result) {
@@ -68,7 +68,7 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
                              INNER JOIN dosomething_signup s
                                 ON s.nid = n.nid
                                 AND (s.run_nid = 0 OR s.run_nid IS NULL)
-                             AND n.nid = " . $nid->nid);
+                             AND n.nid = $nid->nid");
 
         // For reach signup returned
         foreach($results as $result) {

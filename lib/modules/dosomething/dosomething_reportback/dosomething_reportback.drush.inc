@@ -57,7 +57,7 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
                                 ON rb.nid = n.nid
                                 AND (rb.run_nid = 0 OR rb.run_nid IS NULL)
                                 AND from_unixtime(rb.created) BETWEEN '$run->start_date' AND '$run->end_date'
-                             AND n.nid = " . $nid->nid);
+                             AND n.nid = $nid->nid");
 
         // For reach reportback returned
         foreach($results as $result) {
@@ -75,7 +75,7 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
                              INNER JOIN dosomething_reportback rb
                                 ON rb.nid = n.nid
                                 AND (rb.run_nid = 0 OR rb.run_nid IS NULL)
-                             AND n.nid = " . $nid->nid);
+                             AND n.nid = $nid->nid");
 
         // For reach reportback returned
         foreach($results as $result) {
