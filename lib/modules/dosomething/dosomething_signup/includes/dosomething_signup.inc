@@ -61,7 +61,7 @@ class SignupEntityController extends EntityAPIController {
       $build['why_signedup'] = array(
         '#type' => 'markup',
         '#markup' => '<p>Signup Reason: ' . check_plain($entity->why_signedup) . '</p>',
-      );    
+      );
     }
     if ($entity->source) {
       $build['source'] = array(
@@ -95,8 +95,8 @@ class SignupEntityController extends EntityAPIController {
     // If the entity uid doesnt belong to current user:
     if ($entity->uid != $user->uid) {
       // And current user can't edit any reportback:
-      if (!user_access('edit any signup')) {
-        watchdog('dosomething_signup', "Attempted uid override for @entity by User @uid", 
+      if (!user_access('edit any signup') && !drupal_is_cli()) {
+        watchdog('dosomething_signup', "Attempted uid override for @entity by User @uid",
           array(
             '@entity' => json_encode($entity),
             '@uid' => $user->uid,
