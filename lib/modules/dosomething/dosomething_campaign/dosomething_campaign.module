@@ -1261,6 +1261,8 @@ function dosomething_campaign_flush_caches() {
  * Implements hook_node_update()
  */
 function dosomething_campaign_node_update($node) {
-  $campaignController = new CampaignController;
-  $campaignController->update($node->nid);
+  if ($node->type === 'campaign') {
+    $campaignController = new CampaignController;
+    $campaignController->update($node->nid);
+  }
 }

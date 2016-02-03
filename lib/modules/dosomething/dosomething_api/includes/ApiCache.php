@@ -6,14 +6,14 @@ class ApiCache {
    * Clear a specified item from cache.
    *
    * @param  mixed  $id
-   * @param  mixed  $endpoint
+   * @param  mixed  $action
    * @param  mixed  $parameters
    * @return bool
    */
-  function clear($id = NULL, $endpoint = NULL, $parameters = NULL) {
+  function clear($id = NULL, $action = NULL, $parameters = NULL) {
     if (!$id) {
-      if ($endpoint && $parameters) {
-        $id = $this->generate_id($endpoint, $parameters);
+      if ($action && $parameters) {
+        $id = $this->generate_id($action, $parameters);
       }
       else {
         return FALSE;
@@ -28,12 +28,12 @@ class ApiCache {
   /**
    * Get data from cache based on id from endpoint and URL parameters.
    *
-   * @param  string  $endpoint  Type of resource based on endpoint.
-   * @param  array   $parameters  The URL parameters passed that define the request.
+   * @param  string  $action
+   * @param  array   $parameters
    * @return mixed
    */
-  public function get($endpoint, $parameters) {
-    $id = $this->generate_id($endpoint, $parameters);
+  public function get($action, $parameters) {
+    $id = $this->generate_id($action, $parameters);
 
     $cache = cache_get($id, 'cache_dosomething_api');
 
@@ -57,18 +57,18 @@ class ApiCache {
   /**
    * Set data in cache for 24 hours with id based on endpoint and URL parameters.
    *
-   * @param  string  $endpoint
+   * @param  string  $action
    * @param  array   $parameters
    * @param  mixed   $data
    * @param  mixed   $expiration
    * @return bool
    */
-  public function set($endpoint, $parameters, $data, $expiration = NULL) {
+  public function set($action, $parameters, $data, $expiration = NULL) {
     if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       return FALSE;
     }
 
-    $id = $this->generate_id($endpoint, $parameters);
+    $id = $this->generate_id($action, $parameters);
 
     if (is_bool($expiration) && $expiration === FALSE) {
       $expiration = CACHE_PERMANENT;
@@ -88,14 +88,14 @@ class ApiCache {
   /**
    * Generate an id from resource endpoint type and URL parameters.
    *
-   * @param  string  $endpoint
+   * @param  string  $action
    * @param  array   $parameters
    * @return string
    */
-  private function generate_id($endpoint, $parameters) {
+  private function generate_id($action, $parameters) {
     unset($parameters['cache']);
 
-    return $endpoint . '_api_request' . $this->stringify($parameters);
+    return $action . '_api_request' . $this->stringify($parameters);
   }
 
   /**
