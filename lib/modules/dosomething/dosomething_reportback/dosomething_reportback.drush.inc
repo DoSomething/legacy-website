@@ -32,7 +32,9 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
                     WHERE n.type = 'campaign'");
 
   // Loop through every NID
+  $index = 0;
   foreach ($nids as $nid) {
+    print_r($index . "\n");
 
     // Get the runs for associated for this campaign & the timing
     $runs = db_query("SELECT DISTINCT c.entity_id as run_nid, d.field_run_date_value as start_date, d.field_run_date_value2 as end_date
@@ -87,6 +89,7 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
         }
       }
     }
+    $index++;
   }
   print_r("All reportbacks updated \n");
 }
