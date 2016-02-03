@@ -66,6 +66,8 @@ class Signup extends Entity {
     $signups = [];
 
     $results = dosomething_signup_get_signups_query($filters);
+    print_r($results);
+    die();
 
     if (!$results) {
       throw new Exception('No reportback data found.');

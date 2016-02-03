@@ -77,8 +77,6 @@ function _signup_resource_index($user, $campaigns) {
     'user' => $user,
     'campaigns' => $campaigns,
   ];
-  print_r($parameters);
-  die();
 
   return (new SignupTransformer)->index($parameters);
 }

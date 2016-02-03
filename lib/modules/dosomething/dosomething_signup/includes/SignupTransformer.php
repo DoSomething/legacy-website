@@ -82,7 +82,7 @@ class SignupTransformer extends Transformer {
   private function setFilters($parameters) {
     $filters = [
       'user' => dosomething_helpers_format_data($parameters['user']),
-      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
     ];
 
     return $filters;

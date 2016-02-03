@@ -26,6 +26,9 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
 
   $query->addExpression('GROUP_CONCAT(DISTINCT rbf.fid)', 'items');
 
+  print_r($query);
+  die();
+
   if (isset($params['rbid'])) {
     if (is_array($params['rbid'])) {
       $query->condition('rb.rbid', $params['rbid'], 'IN');
