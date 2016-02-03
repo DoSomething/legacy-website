@@ -27,11 +27,10 @@ function dosomething_campaign_run_cron() {
     // Load the current run.
     $run = node_load($result->current_run);
     // Get the start and end dates.
-    $start = new DateTime($run->field_run_date[$result->language][0]['value']);
-    // The generated runs don't have end dates set, but when runs are created manually,
-    // if an end date isn't speficied, the start and end dates will be the same.
-    // So we emulate this here.
-    $end = (!$run->field_run_date[$result->language][0]['value2']) ? $start : new DateTime($run->field_run_date[$result->language][0]['value2']);
+    $start = $run->field_run_date[$result->language][0]['value'];
+    $end = $run->field_run_date[$result->language][0]['value2'];
+
+    // Store the status on the campagin node.
     $status = dosomething_helpers_get_campaign_status($start, $end);
     $campaign = entity_metadata_wrapper('node', $result->campaign_nid);
     $campaign->language($result->language)->field_campaign_status = $status;
