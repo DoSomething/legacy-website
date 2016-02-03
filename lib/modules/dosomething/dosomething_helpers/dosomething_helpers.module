@@ -681,13 +681,21 @@ function dosomething_helpers_unset_array_keys(array $array = [], array $keys = [
 /**
  * Determines active or closed status based on start and end dates of a campaign run.
  *
- * @param datetime $start_date
- * @param datetime $end_date
+ * @param string $start_date
+ * @param string $end_date
  *
  * @return string 'active' or 'closed' based on timing logic.
  */
 function dosomething_helpers_get_campaign_status($start_date, $end_date) {
-  $now = new DateTime();
+  // Create DateTime objects in EST.
+  $tz = new DateTimeZone('America/New_York');
+  $now = new DateTime('now', $tz);
+  $start_date = new DateTime($start_date, $tz);
+
+  if (!is_null($end_date)) {
+    $end_date = new DateTime($end_date, $tz);
+    $end_date = $end_date->setTime(23,59,59);
+  }
 
   //@TODO - Remove check that start date = end date when #6123 is done.
   if ((is_null($end_date) && $now >= $start_date) || ($start_date == $end_date && $now >= $start_date) || ($now >= $start_date && $now <= $end_date)) {
