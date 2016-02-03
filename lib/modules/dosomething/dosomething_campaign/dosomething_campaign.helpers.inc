@@ -93,14 +93,16 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
   $current_lang = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
 
   if (($cached_node = cache_get('ds_campaign_' . $node->nid .'_'. $current_lang, 'cache_dosomething_campaign')) && $cache) {
+    $campaign = $cached_node->data;
+
     // If this is accessed via API:
     if ($public) {
       // Add stats property.
       dosomething_campaign_load_stats($campaign);
       // Unset properties which shouldn't be public.
-      unset($cached_node->variables);
+      unset($campaign->variables);
     }
-    return $campaign = $cached_node->data;
+    return $campaign;
   }
   else {
     // Set the image src ratio and styles.
