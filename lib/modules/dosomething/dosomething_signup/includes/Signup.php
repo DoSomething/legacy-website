@@ -66,18 +66,13 @@ class Signup extends Entity {
     $signups = [];
 
     $results = dosomething_signup_get_signups_query($filters);
-    print_r($results);
-    die();
 
     if (!$results) {
       throw new Exception('No reportback data found.');
     }
 
-    foreach($results as $item) {
-      // @TODO: remove need for passing variable for constructor check.
-      $signup = new static(['ignore' => true]);
-      $signup->build($item);
-
+    foreach($results as $id) {
+      $signup = Signup::get($id);
       $signups[] = $signup;
     }
 
