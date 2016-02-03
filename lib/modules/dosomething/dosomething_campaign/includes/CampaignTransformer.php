@@ -22,13 +22,13 @@ class CampaignTransformer extends Transformer {
 
     $cache = new ApiCache;
 
-    $campaigns = $cache->get('campaigns', $parameters);
+    $campaigns = $cache->get('campaigns_index', $parameters);
 
     try {
       if (!$campaigns) {
         $campaigns = Campaign::find($filters, 'full');
 
-        $cache->set('campaigns', $parameters, $campaigns);
+        $cache->set('campaigns_index', $parameters, $campaigns);
       }
       else {
         $campaigns = $campaigns->data;
