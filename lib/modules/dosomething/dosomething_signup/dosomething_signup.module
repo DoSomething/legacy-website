@@ -23,7 +23,7 @@ include_once 'includes/SignupTransformer.php';
  * Implements hook_menu().
  */
 function dosomething_signup_menu() {
-  $items = array();
+  $items = [];
 
   $items['admin/config/dosomething/opt_in'] = array(
     'title' => t('Third Party Opt-Ins'),
