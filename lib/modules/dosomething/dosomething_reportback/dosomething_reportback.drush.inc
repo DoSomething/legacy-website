@@ -40,7 +40,7 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
                       INNER JOIN field_data_field_run_date d ON d.entity_id = c.entity_id AND d.language = 'en'
                       WHERE c.bundle = 'campaign_run'
                       AND c.language = 'en'
-                      AND c.field_campaigns_target_id =" . $nid->nid ."
+                      AND c.field_campaigns_target_id = $nid->nid
                       ORDER BY d.field_run_date_value2 ASC");
 
     // Loop through each run
@@ -56,7 +56,7 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
                              INNER JOIN dosomething_reportback rb
                                 ON rb.nid = n.nid
                                 AND (rb.run_nid = 0 OR rb.run_nid IS NULL)
-                                AND from_unixtime(rb.created) BETWEEN '" . $run->start_date . "' AND '" . $run->end_date . "'
+                                AND from_unixtime(rb.created) BETWEEN '$run->start_date' AND '$run->end_date'
                              AND n.nid = " . $nid->nid);
 
         // For reach reportback returned

@@ -33,7 +33,7 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
                       INNER JOIN field_data_field_run_date d ON d.entity_id = c.entity_id AND d.language = 'en'
                       WHERE c.bundle = 'campaign_run'
                       AND c.language = 'en'
-                      AND c.field_campaigns_target_id =" . $nid->nid ."
+                      AND c.field_campaigns_target_id = $nid->nid
                       ORDER BY d.field_run_date_value2 ASC");
 
     // Loop through each run
@@ -49,7 +49,7 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
                              INNER JOIN dosomething_signup s
                                 ON s.nid = n.nid
                                 AND (s.run_nid = 0 OR s.run_nid IS NULL)
-                                AND from_unixtime(s.timestamp) BETWEEN '" . $run->start_date . "' AND '" . $run->end_date . "'
+                                AND from_unixtime(s.timestamp) BETWEEN '$run->start_date' AND '$run->end_date'
                              AND n.nid = " . $nid->nid);
 
         // For reach signup returned
