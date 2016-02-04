@@ -589,22 +589,27 @@ function dosomething_signup_update_7020() {
 }
 
 /**
- * Adds campaign run nid column to the dosomething_signup table.
+ * Moves all signups from run nodes back to the original campaign node.
  */
 function dosomething_signup_update_7021() {
-  $tbl_name = 'dosomething_signup';
-  // Load schema to get table definition.
-  $schema = dosomething_signup_schema();
-  // New field to add.
-  $field_name = 'run_nid';
-  // If the field doesn't exist already:
-  if (!db_field_exists($tbl_name, $field_name)) {
-    // Add it per the schema field definition.
-    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
-  }
+  $signups = db_query("SELECT n.nid as campaign_node, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_node, s.run_nid
+                       FROM node n
+                       INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
+                       INNER JOIN dosomething_signup s on s.nid = n.nid
+                       WHERE n.type = 'campaign_run';");
 
-  // Move run_nid colum after nid.
-  db_query("ALTER TABLE dosomething_signup MODIFY COLUMN run_nid int AFTER nid;");
+  foreach ($signups as $signup) {
+    db_update('dosomething_signup')
+      ->fields(array(
+        // change signup node id to campaign id
+        'nid' => $signup->field_campaigns_target_id,
+        // change signup run id to 0 (TODO:later we'll change back to change to campaign run nid)
+        'run_nid' => '0',
+        )
+      )
+      ->condition('nid', $signup->signup_node)
+      ->execute();
+  }
 }
 
 /**
@@ -624,4 +629,23 @@ function dosomething_signup_update_7022() {
   if (!db_index_exists($table, 'uid-nid-run_nid')) {
     db_add_unique_key($table, 'uid-nid-run_nid', ['uid', 'nid', 'run_nid']);
   }
+}
+
+/**
+ * Adds campaign run nid column to the dosomething_signup table.
+ */
+function dosomething_signup_update_7023() {
+  $tbl_name = 'dosomething_signup';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New field to add.
+  $field_name = 'run_nid';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+
+  // Move run_nid colum after nid.
+  db_query("ALTER TABLE dosomething_signup MODIFY COLUMN run_nid int AFTER nid;");
 }
