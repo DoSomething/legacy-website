@@ -54,6 +54,13 @@
 //
 function dosomething_signup_get_signups_query($params = []) {
   $query = dosomething_signup_build_signups_query($params);
+  $offset = dosomething_helpers_isset($params, 'offset', 0);
+  $count = dosomething_helpers_isset($params, 'count', 25);
+
+  if ($count && $count !== 'all') {
+    $query->range($offset, $count);
+  }
+
   $result = $query->execute();
 
   return array_keys($result['signup']);
