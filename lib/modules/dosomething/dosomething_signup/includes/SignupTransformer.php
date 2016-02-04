@@ -10,7 +10,11 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   public function index($parameters) {
-    $filters = $this->setFilters($parameters);
+    // $filters = $this->setFilters($parameters);
+    $filters = [
+      'user' => $this->formatData($parameters['user']),
+      'campaigns' => $this->formatData($parameters['campaigns']),
+    ];
 
     try {
       $signups = Signup::find($filters);
@@ -79,13 +83,13 @@ class SignupTransformer extends Transformer {
    * @param  array  $parameters
    * @return array
    */
-  private function setFilters($parameters) {
-    $filters = [
-      'user' => dosomething_helpers_format_data($parameters['user']),
-      'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
-    ];
+  // private function setFilters($parameters) {
+  //   $filters = [
+  //     'user' => dosomething_helpers_format_data($parameters['user']),
+  //     'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
+  //   ];
 
-    return $filters;
-  }
+  //   return $filters;
+  // }
 
 }
