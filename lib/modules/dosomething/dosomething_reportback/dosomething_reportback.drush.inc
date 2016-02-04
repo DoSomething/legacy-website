@@ -46,13 +46,13 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
 
     // Loop through each run
     foreach($runs as $run) {
-      $date = new DateTime($run->end_date);
-      $date->setTime(23, 59, 59);
-      $run->end_date = $date->format('Y-m-d H:i:s');
 
       // The query & logic applied is different depending on whether the end date exists.
       // If the end date does exist we use a query with BETWEEN logic applied
       if (isset($run->end_date) && $run->start_date != $run->end_date) {
+        $date = new DateTime($run->end_date);
+        $date->setTime(23, 59, 59);
+        $run->end_date = $date->format('Y-m-d H:i:s');
 
         // Get every reportback that has a null or 0 run nid thats within this run's timeframe
         $results = db_query("SELECT n.nid, rb.rbid
