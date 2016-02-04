@@ -66,7 +66,12 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
           // one we've now discovered.
           $rb = reportback_load($result->rbid);
           $rb->run_nid = $run->run_nid;
-          entity_save('reportback', $rb);
+          try {
+            entity_save('reportback', $rb);
+          }
+          catch (Exception $e) {
+            watchdog('dosomething_reportback', $e->getMessage(), array($result->rbid));
+          }
         }
       }
       // IF the end date doesnt exist we apply this logic to every reportback
@@ -84,7 +89,12 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
           // one we've now discovered.
           $rb = reportback_load($result->rbid);
           $rb->run_nid = $run->run_nid;
-          entity_save('reportback', $rb);
+          try {
+            entity_save('reportback', $rb);
+          }
+          catch (Exception $e) {
+            watchdog('dosomething_reportback', $e->getMessage(), array($result->rbid));
+          }
         }
       }
     }

@@ -59,7 +59,12 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
           // one we've now discovered.
           $s = signup_load($result->sid);
           $s->run_nid = $run->run_nid;
-          entity_save('signup', $s);
+          try {
+            entity_save('signup', $s);
+          }
+          catch (Exception $e) {
+            watchdog('dosomething_signup', $e->getMessage(), array($result->sid));
+          }
         }
       }
       // IF the end date doesnt exist we apply this logic to every signup
@@ -77,7 +82,12 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
           // one we've now discovered.
           $s = signup_load($result->sid);
           $s->run_nid = $run->run_nid;
-          entity_save('signup', $s);
+          try {
+            entity_save('signup', $s);
+          }
+          catch (Exception $e) {
+            watchdog('dosomething_signup', $e->getMessage(), array($result->sid));
+          }
         }
       }
     }
