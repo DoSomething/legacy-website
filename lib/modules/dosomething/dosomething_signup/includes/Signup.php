@@ -92,22 +92,5 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
-
-
-    // if ($full) {
-    //   $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-    //   $northstar_response = json_decode($northstar_response);
-
-    //   if ($northstar_response && !isset($northstar_response->error)) {
-    //     $northstar_user = array_shift($northstar_response->data);
-    //   }
-    // }
-
-    // $this->user = [
-    //   'drupal_id' => $data->uid,
-    //   'id' => dosomething_helpers_isset($northstar_user, '_id'),
-    //   'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-    //   'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
-    // ];
   }
 }
