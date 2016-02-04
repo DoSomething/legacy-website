@@ -68,7 +68,7 @@ class Signup extends Entity {
     $results = dosomething_signup_get_signups_query($filters);
 
     if (!$results) {
-      throw new Exception('No reportback data found.');
+      throw new Exception('No signup data found.');
     }
 
     foreach($results as $id) {
@@ -89,7 +89,7 @@ class Signup extends Entity {
     $northstar_user = (object) [];
 
     $this->id = $data->sid;
-    $this->created_at = $data->signup_data_form_timestamp;
+    $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
 
