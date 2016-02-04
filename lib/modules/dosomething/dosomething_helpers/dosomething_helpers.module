@@ -697,9 +697,13 @@ function dosomething_helpers_get_campaign_status($start_date, $end_date) {
     $end_date = $end_date->setTime(23,59,59);
   }
 
-  //@TODO - Remove check that start date = end date when #6123 is done.
-  if ((is_null($end_date) && $now >= $start_date) || ($start_date == $end_date && $now >= $start_date) || ($now >= $start_date && $now <= $end_date)) {
-    return 'active';
+  if ($now >= $start_date) {
+    if (is_null($end_date) || $now <= $end_date) {
+      return 'active';
+    }
+    else {
+      return 'closed';
+    }
   }
   else {
     return 'closed';

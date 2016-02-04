@@ -294,6 +294,29 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
 }
 
+/*
+ * Implements hook_node_validate()
+ *
+ * On the run date field on campaign run nodes, we want to store the end date as NULL
+ * if the user doesn't choose to "show end date" on the form.
+ * This is needed to overwrite default drupal behavior that stores the start date in the end date
+ * if the user doesn't specify one explicity.
+ *
+ * See https://www.drupal.org/node/874322 for more on this issue.
+ */
+function dosomething_campaign_run_node_validate($node, $form, &$form_state) {
+  if ($node->type == 'campaign_run') {
+    foreach ($form_state['values']['field_run_date'] as $lang => $run_date) {
+      // The show_date key will only be available on the language key
+      // that correlates to the translation being saved,
+      // so we need to check for it's existence and it's value.
+      if (isset($run_date[0]['show_todate']) && $run_date[0]['show_todate'] == 0) {
+        $form_state['values']['field_run_date'][$lang][0]['value2'] = NULL;
+      }
+    }
+  }
+}
+
 /**
  * Implements hook_node_submit()
  */
