@@ -93,6 +93,7 @@ class Signup extends Entity {
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
 
+
     // if ($full) {
     //   $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
     //   $northstar_response = json_decode($northstar_response);
