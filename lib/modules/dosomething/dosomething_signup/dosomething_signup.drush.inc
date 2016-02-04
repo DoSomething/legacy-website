@@ -42,7 +42,7 @@ function drush_dosomething_signup_ds_signup_run_nid_fix() {
 
       // The query & logic applied is different depending on whether the end date exists.
       // If the end date does exist we use a query with BETWEEN logic applied
-      if (isset($run->end_date)) {
+      if (isset($run->end_date) && $run->start_date != $run->end_date) {
 
         // Get every signup that has a null or 0 run nid thats within this run's timeframe
         $results = db_query("SELECT n.nid, s.sid
