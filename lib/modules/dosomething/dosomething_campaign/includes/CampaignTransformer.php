@@ -60,8 +60,20 @@ class CampaignTransformer extends Transformer {
    * @return array
    */
   public function show($id) {
+    $cache = new ApiCache;
+
+    $campaign = $cache->get('campaigns_show', $id);
+
     try {
-      $campaign = Campaign::get($id, 'full');
+      if (!$campaign) {
+        $campaign = Campaign::get($id, 'full');
+
+        $cache->set('campaigns_show', $id, $campaign);
+      }
+      else {
+        $campaign = $campaign->data;
+      }
+
       $campaign = services_resource_build_index_list([$campaign], 'campaigns', 'id');
       $campaign = array_pop($campaign);
     }
