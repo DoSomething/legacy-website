@@ -901,7 +901,7 @@ function dosomething_reportback_update_7034() {
     db_update('dosomething_reportback')
       ->fields(array(
         'nid' => $reportback->field_campaigns_target_id,
-        'run_nid' => $reportback->campaign_node,
+        'run_nid' => '0',
         )
       )
       ->condition('nid', $reportback->reportback_node)

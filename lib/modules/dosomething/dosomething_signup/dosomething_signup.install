@@ -605,7 +605,6 @@ function dosomething_signup_update_7021() {
         'nid' => $signup->field_campaigns_target_id,
         // change signup run id to 0 (TODO:later we'll change back to change to campaign run nid)
         'run_nid' => '0',
-        // 'run_nid' => $signup->campaign_node,
         )
       )
       ->condition('nid', $signup->signup_node)
