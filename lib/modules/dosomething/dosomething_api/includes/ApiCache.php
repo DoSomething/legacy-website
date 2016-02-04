@@ -37,18 +37,20 @@ class ApiCache {
 
     $cache = cache_get($id, 'cache_dosomething_api');
 
-    if ($cache && !dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
-      $this->clear($id);
+    if ($cache) {
+      if (isset($parameters['cache']) && !dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+        $this->clear($id);
 
-      return FALSE;
-    }
+        return FALSE;
+      }
 
-    // Temporary cache expire is equal to -1.
-    // Permanent cache expire is equal to 0.
-    if ($cache && $cache->expire > 0 && $cache->expire < REQUEST_TIME) {
-      $this->clear($id);
+      // Temporary cache expire is equal to -1.
+      // Permanent cache expire is equal to 0.
+      if ($cache->expire > 0 && $cache->expire < REQUEST_TIME) {
+        $this->clear($id);
 
-      return FALSE;
+        return FALSE;
+      }
     }
 
     return $cache;
@@ -64,7 +66,7 @@ class ApiCache {
    * @return bool
    */
   public function set($action, $parameters, $data, $expiration = NULL) {
-    if (!dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
+    if (isset($parameters['cache']) && !dosomething_helpers_convert_string_to_boolean($parameters['cache'])) {
       return FALSE;
     }
 
@@ -93,9 +95,15 @@ class ApiCache {
    * @return string
    */
   private function generate_id($action, $parameters) {
-    unset($parameters['cache']);
+    if (is_array($parameters) && isset($parameters['cache'])) {
+      unset($parameters['cache']);
+    }
 
-    return $action . '_api_request' . $this->stringify($parameters);
+    $id = $action . '_api_request' . $this->stringify($parameters);
+
+    watchdog('dosomething_api', $id, [], WATCHDOG_DEBUG);
+
+    return $id;
   }
 
   /**
@@ -107,6 +115,14 @@ class ApiCache {
    */
   private function stringify($parameters) {
     $string = '';
+
+    if (!is_array($parameters)) {
+      if (is_int(intval($parameters))) {
+        $parameters = ['id' => $parameters];
+      }
+    }
+
+    // Remove empty values from array.
     $items = array_filter($parameters);
 
     foreach ($items as $key => $value) {
