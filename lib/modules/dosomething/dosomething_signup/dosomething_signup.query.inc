@@ -15,43 +15,6 @@
  * @return object
  *   An executed database query object to iterate through.
  */
-// function dosomething_signup_get_signups_query($params) {
-//   $query = dosomething_signup_build_signups_query($params);
-
-//   $result = $query->execute();//->fetchAll();
-
-//   return $result;
-// }
-
-/**
- * Returns a SelectQuery object of Signups with given $params.
- *
- * @param array $params
- *   An associative array of conditions to filter by. Possible keys:
- *   - uid: (string) A user uid to filter by.
- *   - campaigns: (string) Campaign nid(s) to filter by.
- * @return SelectQuery object
- */
-// function dosomething_signup_build_signups_query($params) {
-  // $query = db_select('dosomething_signup', 's');
-
-  // if (isset($params['user'])) {
-  //   $query->condition('s.uid', $params['user']);
-  // }
-
-  // if (isset($params['campaigns'])) {
-  //   if (is_array($params['campaigns'])) {
-  //     $query->condition('s.nid', $params['campaigns'], 'IN');
-  //   }
-  //   else {
-  //     $query->condition('s.nid', $params['campaigns']);
-  //   }
-  // }
-
-  // return $query;
-// }
-//
-//
 function dosomething_signup_get_signups_query($params = []) {
   $query = dosomething_signup_build_signups_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
@@ -66,6 +29,15 @@ function dosomething_signup_get_signups_query($params = []) {
   return array_keys($result['signup']);
 }
 
+/**
+ * Returns a SelectQuery object of Signups with given $params.
+ *
+ * @param array $params
+ *   An associative array of conditions to filter by. Possible keys:
+ *   - uid: (string) A user uid to filter by.
+ *   - campaigns: (string) Campaign nid(s) to filter by.
+ * @return SelectQuery object
+ */
 function dosomething_signup_build_signups_query($params) {
   $query = new EntityFieldQuery();
   $query
