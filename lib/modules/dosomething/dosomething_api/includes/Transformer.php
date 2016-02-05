@@ -420,6 +420,7 @@ abstract class Transformer {
     return [
       'id' => $data->id,
       'created_at' => $data->created_at,
+      'uri' => $data->uri,
     ];
   }
 

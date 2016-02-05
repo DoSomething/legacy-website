@@ -38,7 +38,7 @@ class SignupTransformer extends Transformer {
   public function show($id) {
     try {
       $signup = Signup::get($id);
-      $signup = services_resource_build_index_list([$signup], 'signups', 'id');
+      $signup = services_resource_build_index_list($signup, 'signups', 'id');
       $signup = array_pop($signup);
     }
     catch (Exception $error) {
