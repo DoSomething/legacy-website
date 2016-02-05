@@ -38,7 +38,7 @@ function dosomething_signup_menu() {
     'title' => t('DoSomething Signup'),
     'description' => t('Admin configuration form for DoSomething Signup.'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_signup_admin_
+    'page arguments' => array('dosomething_signup_admin_config_form'),
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_signup.admin.inc'
