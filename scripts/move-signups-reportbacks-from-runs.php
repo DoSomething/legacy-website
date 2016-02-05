@@ -35,4 +35,3 @@ if (db_table_exists($table)) {
 else {
   echo 'Are you outta your mind? ' . $arg[2] . ' is not a valid table' .  "\n";
 }
-
