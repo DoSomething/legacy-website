@@ -41,12 +41,20 @@ function dosomething_image_get_themed_image($nid, $ratio, $style, $alt = '', $at
   else {
     // Get the path of the themed image.
     $path = dosomething_image_get_themed_image_url($nid, $ratio, $style);
+
+    if (!$path) {
+      return NULL;
+    }
+
     // Set drupal attributes.
     $attributes = drupal_attributes($attributes);
+
     // Construct themed image tag.
     $themed_image =  '<img src="' . check_url($path) . '" alt="' . check_plain($alt) . '"' .  $attributes .'>';
+
     // Store the themed image.
     cache_set('ds_img_' . $nid . '_' . $ratio . '_' . $style, $themed_image, 'cache_dosomething_image');
+    
     return $themed_image;
   }
 }
