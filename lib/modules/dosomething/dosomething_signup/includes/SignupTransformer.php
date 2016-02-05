@@ -14,8 +14,8 @@ class SignupTransformer extends Transformer {
 
     try {
       $signups = Signup::find($filters);
-      $signups = $signups[0];
-      $signups = services_resource_build_index_list($signups, 'signups', 'id');
+      // $signups = (object) $signups;
+      // $signups = services_resource_build_index_list($signups, 'signups', 'id');
     }
     catch (Exception $error) {
       return [
@@ -39,9 +39,9 @@ class SignupTransformer extends Transformer {
   public function show($id) {
     try {
       $signup = Signup::get($id);
-      $signup = $signup[0];
-      $signup = services_resource_build_index_list([$signup], 'signup', 'id');
-      $signup = array_pop($signup);
+      // $signup = $signup[0];
+      // $signup = services_resource_build_index_list([$signup], 'signup', 'id');
+      // $signup = array_pop($signup);
     }
     catch (Exception $error) {
       return [
@@ -63,7 +63,12 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    $item = $item;
+    if (is_array($item)) {
+      $item = $item[0];
+    } else {
+      $item = $item;
+    }
+
     $data = [];
 
     $data += $this->transformSignup($item);
