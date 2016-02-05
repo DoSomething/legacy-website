@@ -70,6 +70,7 @@ dependencies[] = varnish
 dependencies[] = view_unpublished
 dependencies[] = views
 dependencies[] = views_data_export
+dependencies[] = views_limit_grouping
 dependencies[] = views_ui
 dependencies[] = xmlsitemap
 dependencies[] = xmlsitemap_custom

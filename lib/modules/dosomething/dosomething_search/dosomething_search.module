@@ -127,6 +127,10 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
     }
 
     $params['bq'][] = "bundle:campaign^100.0";
+
+    $global_user_vars = dosomething_global_get_user_variables();
+
+    $params['fq'][] = "ss_language:({$global_user_vars['user_language']} OR en-global)";
   }
 
   // There is a bug in the apachesolr allowed types export that
@@ -284,7 +288,8 @@ function dosomething_search_form_submit($form, &$form_state) {
 function dosomething_search_views_pre_render(&$view) {
   // Only run this on the view that provides '/campaigns'
   if ($view->name == 'explore_campaigns') {
-  foreach ($view->result as $key => $result) {
+    unset($view->style_options['grouping']);
+    foreach ($view->result as $key => $result) {
       // Decode campaign title and campaign call to action, make sure to include single quotes!
       if (!empty($result->label)) {
         $view->result[$key]->label = htmlspecialchars_decode($result->label, ENT_QUOTES);
