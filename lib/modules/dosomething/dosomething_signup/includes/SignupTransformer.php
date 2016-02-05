@@ -68,8 +68,6 @@ class SignupTransformer extends Transformer {
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
-    // $data['user'] = $this->transformUser((object) $item->user);
-
     return $data;
   }
 
