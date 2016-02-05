@@ -55,15 +55,17 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php print $cta_link; ?>
+    <div class="container -padded">
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
+        </div>
       </div>
     </div>
   <?php endif; ?>
 
-  <section class="container">
+  <section class="container -padded">
     <div class="wrapper">
       <div class="container__block with-lists">
         <?php if (isset($second_fact_group)): ?>
@@ -91,10 +93,12 @@
   </section>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php print $cta_link; ?>
+    <div class="container">
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
+        </div>
       </div>
     </div>
   <?php endif; ?>
