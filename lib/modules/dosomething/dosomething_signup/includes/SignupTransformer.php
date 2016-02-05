@@ -14,6 +14,7 @@ class SignupTransformer extends Transformer {
 
     try {
       $signups = Signup::find($filters);
+      $signups = $signups[0];
       $signups = services_resource_build_index_list($signups, 'signups', 'id');
     }
     catch (Exception $error) {
@@ -38,6 +39,7 @@ class SignupTransformer extends Transformer {
   public function show($id) {
     try {
       $signup = Signup::get($id);
+      $signup = $signup[0];
       $signup = services_resource_build_index_list([$signup], 'signup', 'id');
       $signup = array_pop($signup);
     }
@@ -61,7 +63,7 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    $item = $item[0];
+    $item = $item;
     $data = [];
 
     $data += $this->transformSignup($item);
