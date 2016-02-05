@@ -66,13 +66,16 @@ class Signup extends Entity {
     $signups = [];
 
     $results = dosomething_signup_get_signups_query($filters);
+    $results = entity_load('signup', $results);
 
     if (!$results) {
       throw new Exception('No signup data found.');
     }
 
-    foreach($results as $id) {
-      $signup = Signup::get($id);
+    foreach($results as $item) {
+      $signup = new static;
+      $signup->build($item, TRUE);
+
       $signups[] = $signup;
     }
 
@@ -85,9 +88,6 @@ class Signup extends Entity {
    * @param $data
    */
   private function build($data) {
-    global $user;
-    $northstar_user = (object) [];
-
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
