@@ -419,6 +419,7 @@ abstract class Transformer {
   protected function transformSignup($data) {
     return [
       'id' => $data->id,
+      'source' => $data->source,
       'created_at' => $data->created_at,
     ];
   }
