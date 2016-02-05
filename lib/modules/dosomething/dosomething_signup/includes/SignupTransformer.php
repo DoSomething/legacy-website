@@ -65,8 +65,6 @@ class SignupTransformer extends Transformer {
   protected function transform($item) {
     if (is_array($item)) {
       $item = $item[0];
-    } else {
-      $item = $item;
     }
 
     $data = [];
