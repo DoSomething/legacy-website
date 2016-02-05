@@ -694,7 +694,17 @@ function dosomething_helpers_get_campaign_status($start_date, $end_date) {
 
   if (!is_null($end_date)) {
     $end_date = new DateTime($end_date, $tz);
-    $end_date = $end_date->setTime(23,59,59);
+
+    // For runs that have the same start and end date,
+    // check if they should still be active.
+    // This code supports campaign runs that were created before we
+    // added logic to set end dates to NULL if the campaign had no end date.
+    if (($start_date == $end_date) && ($now >= $start_date)) {
+      return 'active';
+    }
+    else {
+      $end_date = $end_date->setTime(23,59,59);
+    }
   }
 
   if ($now >= $start_date) {
