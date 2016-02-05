@@ -30,10 +30,18 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['row_class'] = 'search-result';
-  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
-  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'grouping_limit';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'entity_id',
+      'rendered' => 0,
+      'rendered_strip' => 1,
+      'grouping-limit' => array(
+        'grouping-limit' => '1',
+        'grouping-offset' => '0',
+      ),
+    ),
+  );
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Header: Global: Text area */
   $handler->display->display_options['header']['area']['id'] = 'area';
@@ -41,6 +49,17 @@ function dosomething_search_views_default_views() {
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['content'] = '###Make the world suck less. Choose a campaign below to get started.';
   $handler->display->display_options['header']['area']['format'] = 'markdown';
+  /* Field: Entity ID for grouping */
+  $handler->display->display_options['fields']['entity_id']['id'] = 'entity_id';
+  $handler->display->display_options['fields']['entity_id']['table'] = 'apachesolr__solr';
+  $handler->display->display_options['fields']['entity_id']['field'] = 'entity_id';
+  $handler->display->display_options['fields']['entity_id']['ui_name'] = 'Entity ID for grouping';
+  $handler->display->display_options['fields']['entity_id']['label'] = '';
+  $handler->display->display_options['fields']['entity_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['entity_id']['element_type'] = '0';
+  $handler->display->display_options['fields']['entity_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['entity_id']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['entity_id']['element_default_classes'] = FALSE;
   /* Field: Apache Solr: path_alias */
   $handler->display->display_options['fields']['path_alias']['id'] = 'path_alias';
   $handler->display->display_options['fields']['path_alias']['table'] = 'apachesolr__solr';
