@@ -270,14 +270,14 @@
   }
 
   > .message-callout {
-    bottom: 0;
+    bottom: 25px;
     left: 50%;
     margin-left: -130px;
     position: absolute;
     width: 240px;
 
     @include media($medium) {
-      bottom: 50px;
+      bottom: 25%;
     }
   }
 
