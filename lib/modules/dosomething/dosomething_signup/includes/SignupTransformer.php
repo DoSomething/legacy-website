@@ -9,11 +9,11 @@ class SignupTransformer extends Transformer {
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
-  public function index() {//$parameters) {
-    // $filters = $this->setFilters($parameters);
+  public function index($parameters) {
+    $filters = $this->setFilters($parameters);
 
     try {
-      $signups = Signup::find();//$filters);
+      $signups = Signup::find($filters);
       $signups = services_resource_build_index_list($signups, 'signups', 'id');
     }
     catch (Exception $error) {
@@ -32,13 +32,13 @@ class SignupTransformer extends Transformer {
   /**
    * Display the specified resource.
    *
-   * @param string $id Resource id.
+   * @param string $id Signup id.
    * @return array
    */
   public function show($id) {
     try {
       $signup = Signup::get($id);
-      $signup = services_resource_build_index_list([$signup], 'signup', 'id');
+      $signup = services_resource_build_index_list($signup, 'signups', 'id');
       $signup = array_pop($signup);
     }
     catch (Exception $error) {
@@ -61,13 +61,15 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
+    if (is_array($item)) {
+      $item = $item[0];
+    }
+
     $data = [];
 
     $data += $this->transformSignup($item);
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
-
-    $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
   }
@@ -80,17 +82,10 @@ class SignupTransformer extends Transformer {
    */
   private function setFilters($parameters) {
     $filters = [
-      'sid' => dosomething_helpers_format_data($parameters['ids']),
-      // 'users' => dosomething_helpers_format_data($parameters['users']),
-      // 'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'user' => dosomething_helpers_format_data($parameters['user']),
+      'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
     ];
-
-    // Unset False boolean values that affect the query builder.
-    if (!$filters['random']) {
-      unset($filters['random']);
-    }
 
     return $filters;
   }
-
 }

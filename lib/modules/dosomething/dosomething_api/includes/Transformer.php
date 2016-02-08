@@ -406,6 +406,25 @@ abstract class Transformer {
   }
 
   /**
+   * Transform Signup data and prepare for API response.
+   *
+   * @param  object  $data Signup object.
+   *   An object containing properties of Signup data:
+   *   - id: (string) The Signup id.
+   *   - created_at: (string) Date Signup was created.
+   *   - campaign: (string) Campaign Signup belongs to.
+   *   - campaign_run: (string) Campaign run Signup belongs to.
+   * @return array
+   */
+  protected function transformSignup($data) {
+    return [
+      'id' => $data->id,
+      'created_at' => $data->created_at,
+      'uri' => $data->uri,
+    ];
+  }
+
+  /**
    * Transform user data and prepare for API response.
    *
    * @param  object  $data

@@ -13,12 +13,17 @@ include_once 'dosomething_signup.theme.inc';
 include_once 'includes/dosomething_signup.mobilecommons.inc';
 include_once 'includes/dosomething_signup.variable.inc';
 include_once 'includes/dosomething_signup.cron.inc';
+include_once 'dosomething_signup.query.inc';
+
+include_once 'includes/Signup.php';
+include_once 'includes/SignupController.php';
+include_once 'includes/SignupTransformer.php';
 
 /**
  * Implements hook_menu().
  */
 function dosomething_signup_menu() {
-  $items = array();
+  $items = [];
 
   $items['admin/config/dosomething/opt_in'] = array(
     'title' => t('Third Party Opt-Ins'),
