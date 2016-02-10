@@ -412,14 +412,21 @@ abstract class Transformer {
    *   An object containing properties of Signup data:
    *   - id: (string) The Signup id.
    *   - created_at: (string) Date Signup was created.
-   *   - campaign: (string) Campaign Signup belongs to.
    *   - campaign_run: (string) Campaign run Signup belongs to.
+   *   - uri: (string) API URI for Reportback Item data.
+   *   - campaign: (string) Campaign Signup belongs to.
    * @return array
    */
   protected function transformSignup($data) {
+    // print_r($data);
+    // die();
     return [
       'id' => $data->id,
       'created_at' => $data->created_at,
+      'campaign_run' => [
+        'id' => $data->campaign_run,
+        'current' => 'true',
+      ],
       'uri' => $data->uri,
     ];
   }
