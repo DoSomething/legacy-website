@@ -97,7 +97,6 @@ class Signup extends Entity {
 
     if (count($reportbacks) < 2) {
       $reportbacks = $reportbacks[0];
-      
     } 
 
     try {
