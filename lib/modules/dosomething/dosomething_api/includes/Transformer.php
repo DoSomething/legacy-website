@@ -430,6 +430,7 @@ abstract class Transformer {
         ],
       ],
       'uri' => $data->uri,
+      'reportbacks' => $data->reportbacks,
     ];
   }
 

@@ -100,9 +100,8 @@ class Signup extends Entity {
     } 
 
     try {
-      $this->reportback = Reportback::get($reportbacks);
+      $this->reportbacks = Reportback::get($rbid);
     } catch (Exception $e) {
-      $this->reportback = null;
     }
   }
 }

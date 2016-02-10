@@ -61,8 +61,8 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    print_r($item);
-    die();
+    // print_r($item);
+    // die();
     if (is_array($item)) {
       $item = $item[0];
     }
@@ -79,8 +79,6 @@ class SignupTransformer extends Transformer {
     $data += $this->transformSignup($item, $current);
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
-
-    // $data['reportback'] = 
 
     return $data;
   }
