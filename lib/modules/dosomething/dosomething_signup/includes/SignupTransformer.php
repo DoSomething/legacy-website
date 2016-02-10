@@ -65,9 +65,16 @@ class SignupTransformer extends Transformer {
       $item = $item[0];
     }
 
+    $campaign = (object) $item->campaign;
+    $current_run = $campaign->campaign_runs['current']['en']['id'];
+
+    if ($item->campaign_run == $current_run) {
+      $current = true;
+    }
+
     $data = [];
 
-    $data += $this->transformSignup($item);
+    $data += $this->transformSignup($item, $current);
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
 
