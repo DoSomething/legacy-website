@@ -1,8 +1,7 @@
 <?php
 
-/**
- * Signup Transformer Class
- */
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 class SignupTransformer extends Transformer {
 
   /**

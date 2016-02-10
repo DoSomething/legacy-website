@@ -7,6 +7,7 @@ dependencies[] = entity
 dependencies[] = dosomething_api
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_helpers
+dependencies[] = dosomething_reportback
 dependencies[] = features
 dependencies[] = views
 features[ctools][] = views:views_default:3.0
