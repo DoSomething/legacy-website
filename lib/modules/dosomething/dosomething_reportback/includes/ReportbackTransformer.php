@@ -1,8 +1,7 @@
 <?php
 
-/**
- * Reportback Transformer Class
- */
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 class ReportbackTransformer extends Transformer {
 
   /**

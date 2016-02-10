@@ -4,6 +4,8 @@
  * Module file for DoSomething Kudos functionality.
  */
 
+module_load_include('php', 'dosomething_api', 'includes/ApiCache');
+
 include_once 'includes/Kudos.php';
 include_once 'includes/KudosController.php';
 include_once 'includes/KudosTransformer.php';
