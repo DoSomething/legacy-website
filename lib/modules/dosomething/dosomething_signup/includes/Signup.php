@@ -92,5 +92,17 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
+
+    $reportbacks = dosomething_reportback_filter_reportbacks_by_signups($data->run_nid, $data->sid);
+
+    if (count($reportbacks) < 2) {
+      $reportbacks = $reportbacks[0];
+    } 
+
+    try {
+      $this->reportback = Reportback::get($reportbacks);
+    } catch (Exception $e) {
+      $this->reportback = null;
+    }
   }
 }

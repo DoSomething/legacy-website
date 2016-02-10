@@ -424,6 +424,10 @@ abstract class Transformer {
       'campaign_run' => [
         'id' => $data->campaign_run,
         'current' => $current,
+        'timing' => [
+          'start' => 'start-date-placeholder',
+          'end' => 'end-date-placeholder',
+        ],
       ],
       'uri' => $data->uri,
     ];
