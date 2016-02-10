@@ -61,8 +61,6 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    // print_r($item);
-    // die();
     if (is_array($item)) {
       $item = $item[0];
     }
