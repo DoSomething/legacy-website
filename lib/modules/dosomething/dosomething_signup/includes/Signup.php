@@ -66,20 +66,23 @@ class Signup extends Entity {
     $signups = [];
 
     $results = dosomething_signup_get_signups_query($filters);
-    $results = entity_load('signup', $results);
+    print_r($results);
+    die();
+    
+    // $results = entity_load('signup', $results);
 
-    if (!$results) {
-      throw new Exception('No signup data found.');
-    }
+    // if (!$results) {
+    //   throw new Exception('No signup data found.');
+    // }
 
-    foreach($results as $item) {
-      $signup = new static;
-      $signup->build($item, TRUE);
+    // foreach($results as $item) {
+    //   $signup = new static;
+    //   $signup->build($item, TRUE);
 
-      $signups[] = $signup;
-    }
+    //   $signups[] = $signup;
+    // }
 
-    return $signups;
+    // return $signups;
   }
 
   /**
@@ -88,9 +91,24 @@ class Signup extends Entity {
    * @param $data
    */
   private function build($data) {
+    print_r($data);
+    die();
+
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
+    $this->reportbacks = Reportback::get($data->rbid);
+
+    // $reportbacks = dosomething_reportback_filter_reportbacks_by_signups($data->run_nid, $data->sid);
+
+    if (count($reportbacks) < 2) {
+      $reportbacks = $reportbacks[0];
+    }
+
+    try {
+      $this->reportbacks = Reportback::get($rbid);
+    } catch (Exception $e) {
+    }
   }
 }

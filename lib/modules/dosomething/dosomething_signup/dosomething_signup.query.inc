@@ -24,9 +24,9 @@ function dosomething_signup_get_signups_query($params = []) {
     $query->range($offset, $count);
   }
 
-  $result = $query->execute();
+  $result = $query->execute()->fetchAll();
 
-  return array_keys($result['signup']);
+  return $result;
 }
 
 /**
@@ -39,21 +39,30 @@ function dosomething_signup_get_signups_query($params = []) {
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params) {
-  $query = new EntityFieldQuery();
-  $query
-    ->entityCondition('entity_type', 'signup');
+  // $offset = dosomething_helpers_isset($params, 'offset', 0);
+  // $count = dosomething_helpers_isset($params, 'count', 25);
+  $query = db_select('dosomething_signup', 's');
+  $query->join('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
+  $query->fields('s', array('sid'));
+  $query->fields('rb', array('rbid'));
+  $query->condition('s.uid', 'rb.uid');
+  // $query = db_query_range("SELECT s.sid, rb.rbid
+  //                     FROM dosomething_signup s 
+  //                     INNER JOIN dosomething_reportback rb on s.nid = rb.nid and rb.run_nid = s.run_nid
+  //                     WHERE s.uid = rb.uid;", 
+  //                     $offset, $count);
 
-  if (isset($params['user'])) {
-    $query->propertyCondition('uid', $params['user'], '=');
-  }
+  // if (isset($params['user'])) {
+  //   $query->condition('s.uid', $params['user']);
+  // }
 
-  if (isset($params['campaigns'])) {
-    if (is_array($params['campaigns'])) {
-      $query->propertyCondition('nid', $params['campaigns'], 'IN');
-    } else {
-      $query->propertyCondition('nid', $params['campaigns'], '=');
-    }
-  }
+  // if (isset($params['campaigns'])) {
+  //   if (is_array($params['campaigns'])) {
+  //     $query->condition('nid', $params['campaigns'], 'IN');
+  //   } else {
+  //     $query->condition('nid', $params['campaigns']);
+  //   }
+  // }
 
   return $query;
 }
