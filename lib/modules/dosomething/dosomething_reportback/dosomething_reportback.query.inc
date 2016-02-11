@@ -150,19 +150,19 @@ function dosomething_reportback_filter_flagged_reportbacks($params) {
  * @param string $sid Signup id. 
  * @return mixed
  */
-function dosomething_reportback_filter_reportbacks_by_signups($run_id, $sid) {
-  $reportbacks = db_query("SELECT DISTINCT s.sid, r.rbid, r.run_nid, s.run_nid
-                          FROM dosomething_signup s 
-                          INNER JOIN dosomething_reportback r on s.run_nid = r.run_nid
-                          WHERE s.uid = r.uid;");
+// function dosomething_reportback_filter_reportbacks_by_signups($run_id, $sid) {
+//   $reportbacks = db_query("SELECT DISTINCT s.sid, r.rbid, r.run_nid, s.run_nid
+//                           FROM dosomething_signup s 
+//                           INNER JOIN dosomething_reportback r on s.run_nid = r.run_nid
+//                           WHERE s.uid = r.uid;");
 
 
-  foreach ($reportbacks as $reportback) {
-    if ($run_id == $reportback->run_nid && $reportback->run_nid != 0 && $sid == $reportback->sid) {
-      $user_reportbacks_by_campaign_run[] = $reportback->rbid;
-    }
-  }
+//   foreach ($reportbacks as $reportback) {
+//     if ($run_id == $reportback->run_nid && $reportback->run_nid != 0 && $sid == $reportback->sid) {
+//       $user_reportbacks_by_campaign_run[] = $reportback->rbid;
+//     }
+//   }
   
-  return $user_reportbacks_by_campaign_run;
-}
+//   return $user_reportbacks_by_campaign_run;
+// }
 
