@@ -414,12 +414,17 @@ abstract class Transformer {
    *   - created_at: (string) Date Signup was created.
    *   - campaign: (string) Campaign Signup belongs to.
    *   - campaign_run: (string) Campaign run Signup belongs to.
+   *   - uri: (string) API URI for Signup data.
    * @return array
    */
-  protected function transformSignup($data) {
+  protected function transformSignup($data, $current) {
     return [
       'id' => $data->id,
       'created_at' => $data->created_at,
+      'campaign_run' => [
+        'id' => $data->campaign_run,
+        'current' => $current,
+      ],
       'uri' => $data->uri,
     ];
   }
