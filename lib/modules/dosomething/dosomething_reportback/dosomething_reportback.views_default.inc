@@ -265,6 +265,30 @@ function dosomething_reportback_views_default_views() {
       'value' => 'impact',
     ),
   );
+  /* Filter criterion: Content: Current Run (field_current_run) */
+  $handler->display->display_options['filters']['field_current_run_target_id']['id'] = 'field_current_run_target_id';
+  $handler->display->display_options['filters']['field_current_run_target_id']['table'] = 'field_data_field_current_run';
+  $handler->display->display_options['filters']['field_current_run_target_id']['field'] = 'field_current_run_target_id';
+  $handler->display->display_options['filters']['field_current_run_target_id']['relationship'] = 'nid';
+  $handler->display->display_options['filters']['field_current_run_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_current_run_target_id']['expose']['operator_id'] = 'field_current_run_target_id_op';
+  $handler->display->display_options['filters']['field_current_run_target_id']['expose']['label'] = 'Current Run';
+  $handler->display->display_options['filters']['field_current_run_target_id']['expose']['operator'] = 'field_current_run_target_id_op';
+  $handler->display->display_options['filters']['field_current_run_target_id']['expose']['identifier'] = 'field_current_run_target_id';
+  $handler->display->display_options['filters']['field_current_run_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+    10 => 0,
+    11 => 0,
+    12 => 0,
+    13 => 0,
+  );
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -360,6 +384,7 @@ function dosomething_reportback_views_default_views() {
     t('Status'),
     t('Flagged Reason'),
     t('Promoted Reason'),
+    t('Current Run'),
     t('Page'),
     t('All'),
   );
