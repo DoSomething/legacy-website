@@ -24,10 +24,11 @@ function dosomething_signup_get_signups_query($params = []) {
   //   $query->range($offset, $count);
   // }
 
-  // $result = $query->execute();
-  return $query;
+  $result = $query->execute()->fetchAll();
 
-  return array_keys($result['signup']);
+  return $result;
+
+  // return array_keys($result['signup']);
 }
 
 /**
@@ -40,36 +41,28 @@ function dosomething_signup_get_signups_query($params = []) {
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params) {
-  // $query = new EntityFieldQuery();
-  // $query
-  //   ->entityCondition('entity_type', 'signup');
+// $query = db_query('SELECT *
+//                    FROM dosomething_signup s 
+//                    INNER JOIN dosomething_reportback rb on s.nid = rb.nid and rb.run_nid = s.run_nid
+//                    WHERE s.uid = rb.uid;');
 
-$query = db_query('SELECT *
-                   FROM dosomething_signup s 
-                   INNER JOIN dosomething_reportback rb on s.nid = rb.nid and rb.run_nid = s.run_nid
-                   WHERE s.uid = rb.uid;');
+  $query = db_select('dosomething_signup', 's');
+  $query->join('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
+  $query->fields('s', ['sid', 'uid', 'nid', 'run_nid']);
+  $query->fields('rb', ['rbid', 'uid', 'nid', 'run_nid']);
+  $query->where('s.uid = rb.uid');
 
-// foreach ($restuls as $result) {
-//   print_r($result);
-//   die();
-// }
-
-  // $query = db_select('dosomething_signup', 's');
-  // $query->leftjoin('dosomething_reportback', 'rb', '(s.nid = rb.nid AND s.run_nid = rb.run_nid');
-  // $query->condition('s.uid, rb.uid');
-
-  // if (isset($params['user'])) {
-  //   $query->condition('uid', $params['user'], '=');
-  // }
+  if (isset($params['user'])) {
+    $query->condition('s.uid', $params['user'], '=');
+  }
 
   // if (isset($params['campaigns'])) {
   //   if (is_array($params['campaigns'])) {
-  //     $query->condition('nid', $params['campaigns'], 'IN');
+  //     $query->condition('s.nid', $params['campaigns'], 'IN');
   //   } else {
-  //     $query->condition('nid', $params['campaigns'], '=');
+  //     $query->condition('s.nid', $params['campaigns'], '=');
   //   }
   // }
 
   return $query;
 }
-

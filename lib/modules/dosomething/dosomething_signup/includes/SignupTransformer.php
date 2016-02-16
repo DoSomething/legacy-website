@@ -75,7 +75,7 @@ class SignupTransformer extends Transformer {
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
     //TODO: load reportback object using $item->rbid
-    // $data['reportbacks'] = $this->transformReportback((object) $reportback);
+    // $data['reportbacks'] = $this->transformReportback((object) $$item->rbid);
 
     return $data;
   }
