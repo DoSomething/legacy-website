@@ -17,11 +17,8 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
-      return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
-      ];
+      // @TODO: Potentially log error to watchdog.
+      return [];
     }
 
     return [
