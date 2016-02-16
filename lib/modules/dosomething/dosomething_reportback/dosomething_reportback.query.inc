@@ -55,11 +55,11 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
     }
   }
 
-  if (!isset($params['flagged'])) {
-    $query->condition('rb.flagged', 0);
-  }
-  else {
-    if (!$params['flagged']) {
+  if (isset($params['flagged'])) {
+    if ($params['flagged']) {
+      $query->condition('rb.flagged', 1);
+    }
+    else {
       $query->condition('rb.flagged', 0);
     }
   }
@@ -135,10 +135,8 @@ function dosomething_reportback_filter_flagged_reportbacks($params) {
     return $params;
   }
 
-  // Unset False boolean values that affect the query builder.
-  if (isset($params['flagged'])) {
-    unset($params['flagged']);
-  }
+  // Only show reviewed and/or un-flagged Reportbacks.
+  $params['flagged'] = FALSE;
 
   return $params;
 }
