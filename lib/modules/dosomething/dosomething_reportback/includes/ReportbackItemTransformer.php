@@ -18,7 +18,9 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
     catch (Exception $error) {
       // @TODO: Potentially log error to watchdog.
-      return [];
+      return [
+        'data' => [],
+      ];
     }
 
     return [
