@@ -41,10 +41,9 @@ class CampaignTransformer extends Transformer {
       $total = dosomething_campaign_get_campaign_query_count($filters);
     }
     catch (Exception $error) {
+      // @TODO: Potentially log error to watchdog.
       return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
+        'data' => [],
       ];
     }
 
