@@ -27,6 +27,7 @@ class ReportbackTransformer extends Transformer {
       $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');
     }
     catch (Exception $error) {
+      // @TODO: Potentially log error to watchdog.
       return [];
     }
 
