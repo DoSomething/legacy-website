@@ -17,18 +17,16 @@
  */
 function dosomething_signup_get_signups_query($params = []) {
   $query = dosomething_signup_build_signups_query($params);
-  // $offset = dosomething_helpers_isset($params, 'offset', 0);
-  // $count = dosomething_helpers_isset($params, 'count', 25);
+  $offset = dosomething_helpers_isset($params, 'offset', 0);
+  $count = dosomething_helpers_isset($params, 'count', 25);
 
-  // if ($count && $count !== 'all') {
-  //   $query->range($offset, $count);
-  // }
+  if ($count && $count !== 'all') {
+    $query->range($offset, $count);
+  }
 
   $result = $query->execute()->fetchAll();
 
   return $result;
-
-  // return array_keys($result['signup']);
 }
 
 /**
@@ -41,11 +39,6 @@ function dosomething_signup_get_signups_query($params = []) {
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params) {
-// $query = db_query('SELECT *
-//                    FROM dosomething_signup s 
-//                    INNER JOIN dosomething_reportback rb on s.nid = rb.nid and rb.run_nid = s.run_nid
-//                    WHERE s.uid = rb.uid;');
-
   $query = db_select('dosomething_signup', 's');
   $query->join('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid']);
@@ -56,13 +49,13 @@ function dosomething_signup_build_signups_query($params) {
     $query->condition('s.uid', $params['user'], '=');
   }
 
-  // if (isset($params['campaigns'])) {
-  //   if (is_array($params['campaigns'])) {
-  //     $query->condition('s.nid', $params['campaigns'], 'IN');
-  //   } else {
-  //     $query->condition('s.nid', $params['campaigns'], '=');
-  //   }
-  // }
+  if (isset($params['campaigns'])) {
+    if (is_array($params['campaigns'])) {
+      $query->condition('s.nid', $params['campaigns'], 'IN');
+    } else {
+      $query->condition('s.nid', $params['campaigns'], '=');
+    }
+  }
 
   return $query;
 }
