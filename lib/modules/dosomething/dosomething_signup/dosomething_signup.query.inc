@@ -15,7 +15,7 @@
  * @return object
  *   An executed database query object to iterate through.
  */
-function dosomething_signup_get_signups_query($params = []) {
+function dosomething_signup_get_signups_query($params) {
   $query = dosomething_signup_build_signups_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
   $count = dosomething_helpers_isset($params, 'count', 25);
@@ -38,7 +38,7 @@ function dosomething_signup_get_signups_query($params = []) {
  *   - campaigns: (string) Campaign nid(s) to filter by.
  * @return SelectQuery object
  */
-function dosomething_signup_build_signups_query($params) {
+function dosomething_signup_build_signups_query($params = []) {
   $query = db_select('dosomething_signup', 's');
   $query->join('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid']);

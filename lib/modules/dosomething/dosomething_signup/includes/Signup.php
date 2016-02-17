@@ -72,7 +72,7 @@ class Signup extends Entity {
 
     foreach($results as $item) {
       $signup = new static;
-      $signup->build($item, TRUE);
+      $signup->build($item);
 
       $signups[] = $signup;
     }
