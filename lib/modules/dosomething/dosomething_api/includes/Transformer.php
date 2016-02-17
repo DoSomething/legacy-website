@@ -426,7 +426,6 @@ abstract class Transformer {
         'current' => $current,
       ],
       'uri' => $data->uri,
-      // 'reportback' => $data->rbid,
     ];
   }
 
