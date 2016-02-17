@@ -17,9 +17,7 @@ class SignupTransformer extends Transformer {
     }
     catch (Exception $error) {
       return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
+        'data' => [],
       ];
     }
 
