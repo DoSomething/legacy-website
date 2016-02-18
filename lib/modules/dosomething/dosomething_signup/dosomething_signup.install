@@ -65,9 +65,9 @@ function dosomething_signup_schema() {
         'not null' => FALSE,
       ),
       'competition' => array(
-        'description' => 'Boolean indicating the use signed up to a competition',
+        'description' => 'Boolean indicating if the user signed up to a competition',
         'type' => 'int',
-        'not null' => TRUE,
+        'not null' => FALSE,
         'default' => 0,
       ),
     ),
