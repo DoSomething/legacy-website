@@ -674,31 +674,17 @@ function dosomething_signup_update_7023() {
   }
 }
 
+
+
 /**
- * Adds competition_signup column to the dosomething_signup_data_form table.
+ * Adds fields to support competitions to the dosomething_signup_data_form table.
  */
 function dosomething_signup_update_7024() {
   $tbl_name = 'dosomething_signup_data_form';
   // Load schema to get table definition.
   $schema = dosomething_signup_schema();
-  // New field to add.
-  $field_name = 'competition_signup';
-  // If the field doesn't exist already:
-  if (!db_field_exists($tbl_name, $field_name)) {
-    // Add it per the schema field definition.
-    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
-  }
-}
-
-/**
- * Adds submit_text and skip_text columns to the dosomething_signup_data_form table.
- */
-function dosomething_signup_update_7025() {
-  $tbl_name = 'dosomething_signup_data_form';
-  // Load schema to get table definition.
-  $schema = dosomething_signup_schema();
   // New fields to add.
-  $field_names = ['submit_text', 'skip_text'];
+  $field_names = ['submit_text', 'skip_text', 'competition_signup'];
   foreach ($field_names as $name) {
     // If the field doesn't exist already:
     if (!db_field_exists($tbl_name, $name)) {
@@ -711,7 +697,7 @@ function dosomething_signup_update_7025() {
 /**
  * Adds competition column to the dosomething_signup table.
  */
-function dosomething_signup_update_7026() {
+function dosomething_signup_update_7025() {
   $tbl_name = 'dosomething_signup';
   // Load schema to get table definition.
   $schema = dosomething_signup_schema();
