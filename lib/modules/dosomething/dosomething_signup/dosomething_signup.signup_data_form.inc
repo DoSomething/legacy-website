@@ -506,7 +506,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
     dosomething_user_save_school_id($values['school_id']);
   }
   // Update signup record.
-  dosomething_signup_update_signup_data($values);
+  dosomething_signup_update_signup_data($values, $config);
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
 }
@@ -559,7 +559,7 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
  */
 function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
   // Update signup record with response = 0.
-  dosomething_signup_update_signup_data($form_state['values'], 0);
+  dosomething_signup_update_signup_data($form_state['values'], NULL, 0);
 }
 
 /**
@@ -570,7 +570,7 @@ function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_stat
  * @param int $response
  *   If 0, the user chose to skip the form. Else, should be 1.
  */
-function dosomething_signup_update_signup_data($values, $response = 1) {
+function dosomething_signup_update_signup_data($values, $config = NULL, $response = 1) {
   try {
     // Load the signup entity to update.
     $entity = signup_load($values['sid']);
@@ -580,6 +580,10 @@ function dosomething_signup_update_signup_data($values, $response = 1) {
     if ($response) {
       if (isset($values['why_signedup'])) {
         $entity->why_signedup = $values['why_signedup'];
+      }
+
+      if ($config['competition_signup']) {
+        $entity->competition = 1;
       }
     }
     $entity->save();
