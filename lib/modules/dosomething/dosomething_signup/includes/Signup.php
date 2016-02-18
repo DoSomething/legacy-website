@@ -72,7 +72,7 @@ class Signup extends Entity {
 
     foreach($results as $item) {
       $signup = new static;
-      $signup->build($item);
+      $signup->build($item, TRUE);
 
       $signups[] = $signup;
     }
@@ -90,6 +90,12 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
-    $this->rbid = Reportback::get($data->rbid);
+
+    try {
+      $this->rbid = Reportback::get($data->rbid);
+    }
+    catch (Exception $error) {
+      $this->rbid = null;
+    }
   }
 }

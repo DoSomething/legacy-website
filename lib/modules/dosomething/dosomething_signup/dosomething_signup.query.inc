@@ -41,8 +41,8 @@ function dosomething_signup_get_signups_query($params) {
 function dosomething_signup_build_signups_query($params = []) {
   $query = db_select('dosomething_signup', 's');
   $query->join('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
-  $query->fields('s', ['sid', 'uid', 'nid', 'run_nid']);
-  $query->fields('rb', ['rbid', 'uid', 'nid', 'run_nid']);
+  $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
+  $query->fields('rb', ['rbid']);
   $query->where('s.uid = rb.uid');
 
   if (isset($params['user'])) {
