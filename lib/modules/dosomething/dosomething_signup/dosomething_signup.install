@@ -115,6 +115,20 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => '',
       ),
+      'submit_text' => array(
+        'description' => 'The label of the submit button',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'skip_text' => array(
+        'description' => 'The label of the skip button',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
       'form_header' => array(
         'description' => 'Form header text',
         'type' => 'varchar',
@@ -667,5 +681,23 @@ function dosomething_signup_update_7024() {
   if (!db_field_exists($tbl_name, $field_name)) {
     // Add it per the schema field definition.
     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+}
+
+/**
+ * Adds submit_text and skip_text columns to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7025() {
+  $tbl_name = 'dosomething_signup_data_form';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New fields to add.
+  $field_names = ['submit_text', 'skip_text'];
+  foreach ($field_names as $name) {
+    // If the field doesn't exist already:
+    if (!db_field_exists($tbl_name, $name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $name, $schema[$tbl_name]['fields'][$name]);
+    }
   }
 }
