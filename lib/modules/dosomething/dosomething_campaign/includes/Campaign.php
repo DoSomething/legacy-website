@@ -145,13 +145,13 @@ class Campaign {
       $this->campaign_runs = $this->getCampaignRuns($this->id);
       $this->language = $this->getLanguage();
       $this->translations = $this->getTranslations();
+      $this->tagline = $this->getTagline();
+      $this->status = $this->getStatus();
+      $this->type = $this->getType();
 
       if ($display === 'full') {
-        $this->tagline = $this->getTagline();
         $this->created_at = $data->created;
         $this->updated_at = $data->changed;
-        $this->status = $this->getStatus();
-        $this->type = $this->getType();
         $this->time_commitment = $this->getTimeCommitment();
 
         $this->cover_image = [
