@@ -92,7 +92,7 @@ class Signup extends Entity {
     $this->campaign_run = $data->run_nid;
 
     try {
-      $this->rbid = Reportback::get($data->rbid);
+      $this->reportback = Reportback::get($data->rbid);
     }
     catch (Exception $error) {
       $this->rbid = null;
