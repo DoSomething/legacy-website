@@ -68,6 +68,12 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#default_value' => $values['required'],
     '#description' => t('If checked, the form modal will be displayed after the user first signs up.'),
   );
+  $form[$fieldset]['config'][$prefix . 'competition_signup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Competition Signup'),
+    '#default_value' => $values['competition_signup'],
+    '#description' => t('If checked, when the user submits this form, they will be entered into a competition'),
+  );
   $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
     '#type' => 'checkbox',
     '#title' => t('Allow skip'),
@@ -103,6 +109,18 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#title' => t('Link text'),
     '#default_value' => $values['link_text'],
     '#description' => t('This is label of the link in "Stuff You Need" which opens the form modal.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'submit_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Submit Button Text'),
+    '#default_value' => $values['submit_text'],
+    '#description' => t('This will be used as the label of the submit button.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'skip_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Skip button text'),
+    '#default_value' => $values['skip_text'],
+    '#description' => t('This will be used as the lable of the skip button.'),
   );
   $form[$fieldset]['config'][$prefix . 'form_header'] = array(
     '#type' => 'textfield',
@@ -224,11 +242,6 @@ function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state)
   $prefix = 'signup_data_form_';
   // If signup data form is enabled:
   if ($values[$prefix . 'status'] == 1) {
-    // Link text is mandatory.
-    $link_text = $prefix . 'link_text';
-    if (empty($values[$link_text])) {
-      form_set_error($link_text, t('Signup Data Form Link text is mandatory.'));
-    }
     // Confirm_msg is mandatory.
     $confirm_msg = $prefix . 'confirm_msg';
     if (empty($values[$confirm_msg])) {
@@ -251,7 +264,10 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'status' => $values[$prefix . 'status'],
         'required' => $values[$prefix . 'required'],
         'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
+        'competition_signup' => $values[$prefix . 'competition_signup'],
         'link_text' => $values[$prefix . 'link_text'],
+        'submit_text' => $values[$prefix . 'submit_text'],
+        'skip_text' => $values[$prefix . 'skip_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
@@ -442,9 +458,10 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</div></div>',
   );
 
+  $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Submit'),
+    '#value' => $submit_label,
     '#attributes' => array(
       'class' => array(
         'button',
@@ -489,7 +506,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
     dosomething_user_save_school_id($values['school_id']);
   }
   // Update signup record.
-  dosomething_signup_update_signup_data($values);
+  dosomething_signup_update_signup_data($values, $config);
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
 }
@@ -515,6 +532,9 @@ function dosomething_signup_user_signup_data_form_validate_school($form, &$form_
  *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
+  $config = dosomething_signup_get_signup_data_form_info($signup->nid);
+  $skip_label = ($config['skip_text']) ? t($config['skip_text']) : t('Skip');
+
   $form['#attributes']['class'] = array('form-actions');
   $form['sid'] = array(
     '#type' => 'hidden',
@@ -523,7 +543,7 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
   );
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Skip'),
+    '#value' => $skip_label,
     '#attributes' => array(
       'class' => array(
         'button',
@@ -539,7 +559,7 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
  */
 function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
   // Update signup record with response = 0.
-  dosomething_signup_update_signup_data($form_state['values'], 0);
+  dosomething_signup_update_signup_data($form_state['values'], NULL, 0);
 }
 
 /**
@@ -550,7 +570,7 @@ function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_stat
  * @param int $response
  *   If 0, the user chose to skip the form. Else, should be 1.
  */
-function dosomething_signup_update_signup_data($values, $response = 1) {
+function dosomething_signup_update_signup_data($values, $config = NULL, $response = 1) {
   try {
     // Load the signup entity to update.
     $entity = signup_load($values['sid']);
@@ -560,6 +580,10 @@ function dosomething_signup_update_signup_data($values, $response = 1) {
     if ($response) {
       if (isset($values['why_signedup'])) {
         $entity->why_signedup = $values['why_signedup'];
+      }
+
+      if ($config['competition_signup']) {
+        $entity->competition = 1;
       }
     }
     $entity->save();

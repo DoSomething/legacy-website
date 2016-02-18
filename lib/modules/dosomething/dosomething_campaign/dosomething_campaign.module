@@ -730,7 +730,9 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
   }
 
   // Store the label for the link to the modal.
-  $node->content['signup_data_form_link'] = $config['link_text'];
+  if ($config['link_text']) {
+    $node->content['signup_data_form_link'] = $config['link_text'];
+  }
   // Load signup sid.
   $sid = dosomething_signup_exists($node->nid);
 
