@@ -39,7 +39,7 @@ class Signup extends Entity {
       $ids = [$ids];
     }
 
-    $results = entity_load('signup', $ids);
+    $results = dosomething_signup_get_signups_query(['sid' => $ids]);
 
     if (!$results) {
       throw new Exception('No signup data found.');
@@ -86,16 +86,18 @@ class Signup extends Entity {
    * @param $data
    */
   private function build($data) {
+    print_r($data);
+    die();
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
 
-    // try {
-      // $this->reportback = Reportback::get($data->rbid);
-    // }
-    // catch (Exception $error) {
+    try {
+      $this->reportback = Reportback::get($data->rbid);
+    }
+    catch (Exception $error) {
       $this->reportback = null;
-    // }
+    }
   }
 }

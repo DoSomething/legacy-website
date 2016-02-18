@@ -10,6 +10,7 @@
  *
  * @param  array  $params
  *   An associative array of conditions to filter by. Possible keys:
+ *  - sid (string|array)
  *  - user (string)
  *  - campaigns (string|array)
  * @return object
@@ -44,6 +45,14 @@ function dosomething_signup_build_signups_query($params = []) {
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
   $query->where('s.uid = rb.uid');
+
+  if (isset($params['sid'])) {
+    if (is_array($params['sid'])) {
+      $query->condition('s.sid', $params['sid'], 'IN');
+    } else {
+      $query->condition('s.sid', $params['sid'], '=');
+    }
+  }
 
   if (isset($params['user'])) {
     $query->condition('s.uid', $params['user'], '=');
