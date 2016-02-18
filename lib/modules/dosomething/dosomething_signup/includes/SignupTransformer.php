@@ -17,9 +17,7 @@ class SignupTransformer extends Transformer {
     }
     catch (Exception $error) {
       return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
+        'data' => [],
       ];
     }
 
@@ -68,12 +66,15 @@ class SignupTransformer extends Transformer {
 
     $campaign = (object) $item->campaign;
     $current_run = $campaign->campaign_runs['current']['en']['id'];
-
     $current = ($item->campaign_run == $current_run);
-
     $data += $this->transformSignup($item, $current);
-
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);
+
+    if (is_null($item->reportback)) {
+      $data['reportback'] = null;
+    } else {
+      $data['reportback'] = $this->transformReportback((object) $item->reportback);
+    }
 
     return $data;
   }
