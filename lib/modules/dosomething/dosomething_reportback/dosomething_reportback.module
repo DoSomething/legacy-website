@@ -160,6 +160,15 @@ function dosomething_reportback_entity_property_info() {
     'schema field' => 'promoted_reason',
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $info['reportback']['properties']['run_nid'] = array(
+    'label' => t('Run NID'),
+    'description' => t('The run this was apart of'),
+    'type' => 'node',
+    'schema field' => 'run_nid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
+  );
 
   // Set Reportback File properties.
   $info['reportback_item']['properties']['rbid'] = array(
