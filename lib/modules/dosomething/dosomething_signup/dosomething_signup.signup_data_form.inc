@@ -230,11 +230,6 @@ function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state)
   $prefix = 'signup_data_form_';
   // If signup data form is enabled:
   if ($values[$prefix . 'status'] == 1) {
-    // Link text is mandatory.
-    $link_text = $prefix . 'link_text';
-    if (empty($values[$link_text])) {
-      form_set_error($link_text, t('Signup Data Form Link text is mandatory.'));
-    }
     // Confirm_msg is mandatory.
     $confirm_msg = $prefix . 'confirm_msg';
     if (empty($values[$confirm_msg])) {
