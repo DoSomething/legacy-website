@@ -68,10 +68,10 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#default_value' => $values['required'],
     '#description' => t('If checked, the form modal will be displayed after the user first signs up.'),
   );
-  $form[$fieldset]['config'][$prefix . 'required_competition_signup'] = array(
+  $form[$fieldset]['config'][$prefix . 'competition_signup'] = array(
     '#type' => 'checkbox',
     '#title' => t('Competition Signup'),
-    '#default_value' => $values['required_competition_signup'],
+    '#default_value' => $values['competition_signup'],
     '#description' => t('If checked, when the user submits this form, they will be entered into a competition'),
   );
   $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
@@ -252,6 +252,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'status' => $values[$prefix . 'status'],
         'required' => $values[$prefix . 'required'],
         'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
+        'competition_signup' => $values[$prefix . 'competition_signup'],
         'link_text' => $values[$prefix . 'link_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],

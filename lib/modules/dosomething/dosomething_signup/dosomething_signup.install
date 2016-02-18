@@ -102,6 +102,12 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'competition_signup' => array(
+        'description' => 'Boolean indicating this is a competition signup form',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'link_text' => array(
         'description' => 'The text to display in the link to the form.',
         'type' => 'varchar',
@@ -645,5 +651,21 @@ function dosomething_signup_update_7023() {
       )
       ->condition('nid', $signup->signup_node)
       ->execute();
+  }
+}
+
+/**
+ * Adds competition_signup column to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7024() {
+  $tbl_name = 'dosomething_signup_data_form';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New field to add.
+  $field_name = 'competition_signup';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
 }
