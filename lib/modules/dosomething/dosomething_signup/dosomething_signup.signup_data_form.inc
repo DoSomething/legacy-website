@@ -458,7 +458,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</div></div>',
   );
 
-  $submit_label = ($config['submit_text']) ? $config['submit_text'] : 'Submit';
+  $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => $submit_label,
@@ -533,7 +533,7 @@ function dosomething_signup_user_signup_data_form_validate_school($form, &$form_
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
   $config = dosomething_signup_get_signup_data_form_info($signup->nid);
-  $skip_label = ($config['skip_text']) ? $config['skip_text'] : 'Skip';
+  $skip_label = ($config['skip_text']) ? t($config['skip_text']) : t('Skip');
 
   $form['#attributes']['class'] = array('form-actions');
   $form['sid'] = array(
