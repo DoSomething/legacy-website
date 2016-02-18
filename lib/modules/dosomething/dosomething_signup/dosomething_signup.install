@@ -68,7 +68,6 @@ function dosomething_signup_schema() {
         'description' => 'Boolean indicating if the user signed up to a competition',
         'type' => 'int',
         'not null' => FALSE,
-        'default' => 0,
       ),
     ),
     'primary key' => array('sid'),
