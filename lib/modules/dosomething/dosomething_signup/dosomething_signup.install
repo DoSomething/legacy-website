@@ -64,6 +64,12 @@ function dosomething_signup_schema() {
         'length' => 255,
         'not null' => FALSE,
       ),
+      'competition' => array(
+        'description' => 'Boolean indicating the use signed up to a competition',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
@@ -699,5 +705,21 @@ function dosomething_signup_update_7025() {
       // Add it per the schema field definition.
       db_add_field($tbl_name, $name, $schema[$tbl_name]['fields'][$name]);
     }
+  }
+}
+
+/**
+ * Adds competition column to the dosomething_signup table.
+ */
+function dosomething_signup_update_7026() {
+  $tbl_name = 'dosomething_signup';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New field to add.
+  $field_name = 'competition';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
 }
