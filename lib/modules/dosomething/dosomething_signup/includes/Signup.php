@@ -69,13 +69,14 @@ class Signup extends Entity {
     if (!$results) {
       throw new Exception('No signup data found.');
     }
-
+// die(print_r($results));
     foreach($results as $item) {
       $signup = new static;
       $signup->build($item, TRUE);
 
       $signups[] = $signup;
     }
+    // die(print_r($signups));
 
     return $signups;
   }

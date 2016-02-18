@@ -41,10 +41,10 @@ function dosomething_signup_get_signups_query($params) {
  */
 function dosomething_signup_build_signups_query($params = []) {
   $query = db_select('dosomething_signup', 's');
-  $query->leftJoin('dosomething_reportback', 'rb', 's.nid = rb.nid AND s.run_nid = rb.run_nid');
+  $query->leftJoin('dosomething_reportback', 'rb', 's.uid = rb.uid and s.nid = rb.nid'); 
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
-  $query->where('s.uid = rb.uid');
+  $query->orderBy('rb.rbid', 'DESC');
 
   if (isset($params['sid'])) {
     if (is_array($params['sid'])) {
