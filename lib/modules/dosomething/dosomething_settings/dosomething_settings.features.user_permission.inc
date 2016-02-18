@@ -16,6 +16,7 @@ function dosomething_settings_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'creative team' => 'creative team',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -26,6 +27,7 @@ function dosomething_settings_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'creative team' => 'creative team',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
@@ -36,6 +38,7 @@ function dosomething_settings_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'creative team' => 'creative team',
+      'editor' => 'editor',
     ),
     'module' => 'file_entity',
   );
