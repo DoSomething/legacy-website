@@ -316,6 +316,14 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['nid']['link_to_entity'] = 1;
   $handler->display->display_options['fields']['nid']['view_mode'] = 'full';
   $handler->display->display_options['fields']['nid']['bypass_access'] = 0;
+  /* Field: Reportback: Run NID */
+  $handler->display->display_options['fields']['run_nid']['id'] = 'run_nid';
+  $handler->display->display_options['fields']['run_nid']['table'] = 'dosomething_reportback';
+  $handler->display->display_options['fields']['run_nid']['field'] = 'run_nid';
+  $handler->display->display_options['fields']['run_nid']['relationship'] = 'rbid';
+  $handler->display->display_options['fields']['run_nid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['run_nid']['alter']['path'] = '/node/[run_nid]';
+  $handler->display->display_options['fields']['run_nid']['separator'] = '';
   /* Field: Reportback Item: Rendered Reportback Item */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_reportback_item';
@@ -341,12 +349,6 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['fields']['quantity']['table'] = 'dosomething_reportback';
   $handler->display->display_options['fields']['quantity']['field'] = 'quantity';
   $handler->display->display_options['fields']['quantity']['relationship'] = 'rbid';
-  /* Field: Reportback: Run NID */
-  $handler->display->display_options['fields']['run_nid']['id'] = 'run_nid';
-  $handler->display->display_options['fields']['run_nid']['table'] = 'dosomething_reportback';
-  $handler->display->display_options['fields']['run_nid']['field'] = 'run_nid';
-  $handler->display->display_options['fields']['run_nid']['relationship'] = 'rbid';
-  $handler->display->display_options['fields']['run_nid']['separator'] = '';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
