@@ -49,7 +49,6 @@ class Campaign {
       $single_campaign = TRUE;
       $ids = [$ids];
     }
-
     $results = node_load_multiple($ids);
 
     if (!$results) {

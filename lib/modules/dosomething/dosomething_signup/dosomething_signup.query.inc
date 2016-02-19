@@ -44,7 +44,6 @@ function dosomething_signup_build_signups_query($params = []) {
   $query->leftJoin('dosomething_reportback', 'rb', 's.uid = rb.uid and s.nid = rb.nid'); 
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
-  $query->orderBy('rb.rbid', 'DESC');
 
   if (isset($params['sid'])) {
     if (is_array($params['sid'])) {
