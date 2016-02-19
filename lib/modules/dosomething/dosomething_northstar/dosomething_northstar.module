@@ -91,7 +91,6 @@ function _dosomething_northstar_build_http_client() {
   $client = array(
     'base_url' => $base_url,
     'headers' => array(
-      'X-DS-Application-Id' => NORTHSTAR_APP_ID,
       'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
       'Content-Type' => 'application/json',
       'Accept' => 'application/json',
