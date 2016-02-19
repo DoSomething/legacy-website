@@ -43,6 +43,30 @@ function dosomething_northstar_libraries_info() {
   return $libraries;
 }
 
+
+/**
+ * Verify the given credentials against Northstar, returning the authorized
+ * user account if one exists.
+ *
+ * @param array $credentials
+ * @return mixed|null
+ */
+function dosomething_northstar_verify_user($credentials) {
+  $client = _dosomething_northstar_build_http_client();
+
+  $response = drupal_http_request($client['base_url'] . '/auth/verify', [
+    'headers' => $client['headers'],
+    'method' => 'POST',
+    'data' => json_encode($credentials),
+  ]);
+
+  if($response->code !== '200') {
+    return null;
+  }
+
+  return json_decode($response->data);
+}
+
 /**
  * Send user registration events to northstar.
  */
