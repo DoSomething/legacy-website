@@ -485,6 +485,20 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
   );
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Alters the reportback review form.
+ */
+function dosomething_reportback_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
+  // Make sure a default run is added to the filter
+  if (empty($_GET['run_nid'])) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user(arg(1));
+    if (!empty($run)) {
+      $form_state['input']['run_nid'] = $run->nid;
+    }
+  }
+}
 
 /**
  * Implements hook_form_alter().
