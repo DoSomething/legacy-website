@@ -492,6 +492,17 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
  * Alters the signup form that is attached to permalink pages.
  */
 function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
+
+  // Make sure a default run is added to the filter
+  if ($form['#id'] == 'views-exposed-form-reportback-files-page-1') {
+    if (empty($_GET['run_nid'])) {
+      $run = dosomething_helpers_get_current_campaign_run_for_user(arg(1));
+      if (isset($run)) {
+        $form_state['input']['run_nid'] = $run->nid;
+      }
+    }
+  }
+
   // A signup/login/register form, on a reportback page.
   $forms = array('dosomething_signup_form', 'user_register_form', 'user_login', 'user_login_block');
   if (in_array($form_id, $forms) && drupal_match_path($path = current_path(), 'reportback/*')) {
