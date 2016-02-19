@@ -91,7 +91,7 @@ class Signup extends Entity {
     $this->campaign = Campaign::get($data->nid);
     $this->campaign_run = $data->run_nid;
 
-    if ($data->rbid) {
+    if (isset($data->rbid) && is_numeric($data->rbid)) {
       $this->reportback = Reportback::get($data->rbid);
     } else {
       $this->reportback = null;
