@@ -193,6 +193,9 @@ abstract class Transformer {
       'campaign_runs' => $data->campaign_runs,
       'language' => $data->language,
       'translations' => $data->translations,
+      'tagline' => $data->tagline,
+      'status' => $data->status,
+      'type' => $data->type,
     ];
 
     // If an instance of Campaign class, then there is much
@@ -201,17 +204,11 @@ abstract class Transformer {
 
       // Show all properties for "full" display.
       if ($data->display === 'full') {
-        $output['tagline'] = $data->tagline;
-
         $output['created_at'] = $data->created_at;
 
         $output['updated_at'] = $data->updated_at;
 
-        $output['status'] = $data->status ? $data->status : 'active';
-
         $output['time_commitment'] = $data->time_commitment;
-
-        $output['type'] = $data->type;
 
         foreach ($data->cover_image as $key => $image) {
           if (!is_null($image)) {
