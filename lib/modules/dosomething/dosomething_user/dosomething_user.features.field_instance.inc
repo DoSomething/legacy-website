@@ -255,6 +255,41 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_northstar_id'
+  $field_instances['user-user-field_northstar_id'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The corresponding user ID in Northstar, our user API.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_northstar_id',
+    'label' => 'Northstar ID',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 19,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_opt_in_email'
   $field_instances['user-user-field_opt_in_email'] = array(
     'bundle' => 'user',
@@ -487,10 +522,12 @@ function dosomething_user_field_default_field_instances() {
   t('First Name');
   t('Job Title');
   t('Last Name');
+  t('Northstar ID');
   t('Partner / Sponsor');
   t('School ID');
   t('Subscribe to SMS updates');
   t('Subscribe to our email newsletter');
+  t('The corresponding user ID in Northstar, our user API.');
   t('This field may be set if a User has been programatically created.');
   t('Under Thirteen');
   t('User Registration Source');

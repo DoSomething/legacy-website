@@ -459,6 +459,40 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
 }
 
 /**
+ * Trigger events after a user successfully logs in.
+ *
+ * Implements hook_user_login.
+ */
+function dosomething_user_user_login(&$form_state, $account) {
+  if (!module_exists('dosomething_northstar')) return;
+
+  $northstar_user = null;
+
+  // Figure out whether user is logging in via email or mobile. Then, we'll
+  // send a request to Northstar's `user/verify` endpoint to see if Northstar
+  // is also able to successfully authenticate with the given credentials.
+  if ($account = dosomething_user_get_user_by_email($form_state['values']['name'])) {
+    $northstar_user = dosomething_northstar_verify_user([
+      'email' => $form_state['values']['name'],
+      'password' => $form_state['values']['pass'],
+    ]);
+
+  }
+  elseif ($number = $form_state['values']['name']) {
+    if ($account = dosomething_user_get_user_by_mobile($number)) {
+      $northstar_user = dosomething_northstar_verify_user([
+        'mobile' => dosomething_user_clean_mobile_number($number),
+        'password' => $form_state['values']['pass'],
+      ]);
+    }
+  }
+
+  // If the user exists, store it on the user's Drupal profile.
+  $northstar_id = isset($northstar_user->data->id) ? $northstar_user->data->id : 'NONE';
+  user_save($account, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
+}
+
+/**
  *
  */
 function dosomething_user_update_user($form, &$form_state) {
