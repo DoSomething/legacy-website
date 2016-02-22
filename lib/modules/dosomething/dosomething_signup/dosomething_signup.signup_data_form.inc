@@ -626,6 +626,9 @@ function dosomething_signup_filter_form_submitted_copy($string, $timestamp) {
  *   Values from the signup data form.
  */
 function dosomething_signup_send_user_to_gladiator($user, $values) {
+  // Make sure the client is set up.
+  if (!_dosomething_signup_build_http_client()) { return; }
+
   $client = _dosomething_signup_build_http_client();
 
   // @TODO - once the real endpoint is set up, only send what we need to Gladiator.
