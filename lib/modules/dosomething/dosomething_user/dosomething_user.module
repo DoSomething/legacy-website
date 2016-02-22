@@ -471,17 +471,17 @@ function dosomething_user_user_login(&$form_state, $account) {
   // Figure out whether user is logging in via email or mobile. Then, we'll
   // send a request to Northstar's `user/verify` endpoint to see if Northstar
   // is also able to successfully authenticate with the given credentials.
-  if ($account = dosomething_user_get_user_by_email($form_state['values']['name'])) {
+  if (dosomething_user_get_user_by_email($form_state['values']['name'])) {
     $northstar_user = dosomething_northstar_verify_user([
       'email' => $form_state['values']['name'],
       'password' => $form_state['values']['pass'],
     ]);
 
   }
-  elseif ($number = $form_state['values']['name']) {
-    if ($account = dosomething_user_get_user_by_mobile($number)) {
+  elseif ($form_state['values']['name']) {
+    if (dosomething_user_get_user_by_mobile($form_state['values']['name'])) {
       $northstar_user = dosomething_northstar_verify_user([
-        'mobile' => dosomething_user_clean_mobile_number($number),
+        'mobile' => dosomething_user_clean_mobile_number($form_state['values']['name']),
         'password' => $form_state['values']['pass'],
       ]);
     }
