@@ -507,6 +507,10 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   }
   // Update signup record.
   dosomething_signup_update_signup_data($values, $config);
+  // If this is a competition sign up, send it to gladiator.
+  if ($config['competition_signup']) {
+    dosomething_signup_send_user_to_gladiator($user, $values);
+  }
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
 }
@@ -611,4 +615,31 @@ function dosomething_signup_filter_form_submitted_copy($string, $timestamp) {
   // Custom format: January 1st.
   $submitted = format_date($timestamp, 'custom', 'F jS');
   return str_replace(DOSOMETHING_SIGNUP_DATA_FORM_TIMESTAMP_TOKEN, $submitted, $string);
+}
+
+/**
+ * Sends a user to Gladiator (https://github.com/DoSomething/gladiator)
+ *
+ * @param object $user
+ *   The user that signup up for the competition.
+ * @param array $values
+ *   Values from the signup data form.
+ */
+function dosomething_signup_send_user_to_gladiator($user, $values) {
+  $client = _dosomething_signup_build_http_client();
+
+  // @TODO - once the real endpoint is set up, only send what we need to Gladiator.
+  $user = json_encode($user);
+  $values = json_encode($values);
+
+  try {
+    $response = $client->request('POST', 'posts', [
+      'json' => [
+        'user' => $user,
+        'values' => $values,
+        'userId' => 1],
+    ]);
+  } catch (GuzzleHttp\Exception\RequestException $e) {
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
 }
