@@ -64,7 +64,6 @@ class SignupTransformer extends Transformer {
 
     $data = [];
 
-
     if (is_null($item->campaign)) {
       $data['campaign'] = null;
     } else {

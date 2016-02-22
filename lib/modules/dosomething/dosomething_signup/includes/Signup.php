@@ -88,7 +88,6 @@ class Signup extends Entity {
   private function build($data) {
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
-    
     try {
       $this->campaign = Campaign::get($data->nid);
     }
