@@ -64,6 +64,11 @@ function dosomething_signup_schema() {
         'length' => 255,
         'not null' => FALSE,
       ),
+      'competition' => array(
+        'description' => 'Boolean indicating if the user signed up to a competition',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
@@ -102,8 +107,28 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'competition_signup' => array(
+        'description' => 'Boolean indicating this is a competition signup form',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
       'link_text' => array(
         'description' => 'The text to display in the link to the form.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'submit_text' => array(
+        'description' => 'The label of the submit button',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'skip_text' => array(
+        'description' => 'The label of the skip button',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
@@ -629,21 +654,59 @@ function dosomething_signup_update_7022() {
 /**
  * Moves all signups from run nodes back to the original campaign node.
  */
-function dosomething_signup_update_7023() {
-  $signups = db_query("SELECT n.nid as campaign_node, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_node, s.run_nid
-                       FROM node n
-                       INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
-                       INNER JOIN dosomething_signup s on s.nid = n.nid
-                       WHERE n.type = 'campaign_run';");
+// function dosomething_signup_update_7023() {
+//   $signups = db_query("SELECT n.nid as campaign_node, n.language, n.title, n.created, c.field_campaigns_target_id, s.sid, s.uid, s.nid as signup_node, s.run_nid
+//                        FROM node n
+//                        INNER JOIN field_data_field_campaigns c on n.nid = c.entity_id
+//                        INNER JOIN dosomething_signup s on s.nid = n.nid
+//                        WHERE n.type = 'campaign_run';");
 
-  foreach ($signups as $signup) {
-    db_update('dosomething_signup')
-      ->fields(array(
-        // change signup node id to campaign id
-        'nid' => $signup->field_campaigns_target_id,
-        )
-      )
-      ->condition('nid', $signup->signup_node)
-      ->execute();
+//   foreach ($signups as $signup) {
+//     db_update('dosomething_signup')
+//       ->fields(array(
+//         // change signup node id to campaign id
+//         'nid' => $signup->field_campaigns_target_id,
+//         )
+//       )
+//       ->condition('nid', $signup->signup_node)
+//       ->execute();
+//   }
+// }
+// COMMENTED OUT by AG -- causing duplicate row errors and replaced by
+// https://github.com/DoSomething/phoenix/pull/6155
+
+
+
+/**
+ * Adds fields to support competitions to the dosomething_signup_data_form table.
+ */
+function dosomething_signup_update_7023() {
+  $tbl_name = 'dosomething_signup_data_form';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New fields to add.
+  $field_names = ['submit_text', 'skip_text', 'competition_signup'];
+  foreach ($field_names as $name) {
+    // If the field doesn't exist already:
+    if (!db_field_exists($tbl_name, $name)) {
+      // Add it per the schema field definition.
+      db_add_field($tbl_name, $name, $schema[$tbl_name]['fields'][$name]);
+    }
+  }
+}
+
+/**
+ * Adds competition column to the dosomething_signup table.
+ */
+function dosomething_signup_update_7024() {
+  $tbl_name = 'dosomething_signup';
+  // Load schema to get table definition.
+  $schema = dosomething_signup_schema();
+  // New field to add.
+  $field_name = 'competition';
+  // If the field doesn't exist already:
+  if (!db_field_exists($tbl_name, $field_name)) {
+    // Add it per the schema field definition.
+    db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
   }
 }

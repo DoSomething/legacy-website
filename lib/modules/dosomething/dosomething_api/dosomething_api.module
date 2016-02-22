@@ -4,17 +4,23 @@
  * Code for the dosomething_api feature.
  */
 
+module_load_include('php', 'dosomething_campaign', 'includes/CampaignTransformer');
+module_load_include('php', 'dosomething_kudos', 'includes/KudosTransformer');
+module_load_include('php', 'dosomething_reportback', 'includes/ReportbackTransformer');
+module_load_include('php', 'dosomething_reportback', 'includes/ReportbackItemTransformer');
+module_load_include('php', 'dosomething_signup', 'includes/SignupTransformer');
+
 include_once 'dosomething_api.features.inc';
 include_once 'includes/Transformer.php';
 include_once 'includes/ApiCache.php';
 include_once 'resources/campaign_resource.inc';
+include_once 'resources/kudos_resource.inc';
 include_once 'resources/member_resource.inc';
 include_once 'resources/reportback_resource.inc';
 include_once 'resources/reportback_item_resource.inc';
 include_once 'resources/reportback_file_resource.inc';
-include_once 'resources/kudos_resource.inc';
-include_once 'resources/term_resource.inc';
 include_once 'resources/signup_resource.inc';
+include_once 'resources/term_resource.inc';
 
 
 /**

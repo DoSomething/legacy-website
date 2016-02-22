@@ -251,7 +251,7 @@ projects[views_data_export][version] = "3.0-beta8"
 projects[views_data_export][subdir] = "contrib"
 
 ; Views Grouping Row Limit
-projects[views_limit_grouping][version] = "7.x-1.x-dev"
+projects[views_limit_grouping][version] = "1.x-dev"
 projects[views_limit_grouping][subdir] = "contrib"
 
 ; XML Sitemap

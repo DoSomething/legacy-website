@@ -39,7 +39,7 @@ class Signup extends Entity {
       $ids = [$ids];
     }
 
-    $results = entity_load('signup', $ids);
+    $results = dosomething_signup_get_signups_query(['sid' => $ids]);
 
     if (!$results) {
       throw new Exception('No signup data found.');
@@ -48,7 +48,6 @@ class Signup extends Entity {
     foreach($results as $item) {
       $signup = new static;
       $signup->build($item, TRUE);
-
       $signups[] = $signup;
     }
 
@@ -71,8 +70,10 @@ class Signup extends Entity {
       throw new Exception('No signup data found.');
     }
 
-    foreach($results as $id) {
-      $signup = Signup::get($id);
+    foreach($results as $item) {
+      $signup = new static;
+      $signup->build($item, TRUE);
+
       $signups[] = $signup;
     }
 
@@ -85,12 +86,26 @@ class Signup extends Entity {
    * @param $data
    */
   private function build($data) {
-    global $user;
-    $northstar_user = (object) [];
-
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
-    $this->campaign = Campaign::get($data->nid);
+    
+    try {
+      $this->campaign = Campaign::get($data->nid);
+    }
+    catch (Exception $error) {
+      $this->campaign = null;
+    }
+
     $this->campaign_run = $data->run_nid;
+
+    if (isset($data->rbid) && is_numeric($data->rbid)) {
+      try {
+        $this->reportback = Reportback::get($data->rbid);
+      } catch (Exception $e) {
+        $this->reportback = null;
+      }
+    } else {
+      $this->reportback = null;
+    }
   }
 }

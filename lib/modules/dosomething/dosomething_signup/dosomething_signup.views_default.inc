@@ -27,6 +27,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['access']['perm'] = 'view any signup';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
@@ -143,6 +144,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['filters']['uid']['id'] = 'uid';
   $handler->display->display_options['filters']['uid']['table'] = 'dosomething_signup';
   $handler->display->display_options['filters']['uid']['field'] = 'uid';
+  $handler->display->display_options['filters']['uid']['group'] = 1;
   $handler->display->display_options['filters']['uid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid']['expose']['operator_id'] = 'uid_op';
   $handler->display->display_options['filters']['uid']['expose']['label'] = 'Uid';
@@ -160,6 +162,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['filters']['mail']['table'] = 'users';
   $handler->display->display_options['filters']['mail']['field'] = 'mail';
   $handler->display->display_options['filters']['mail']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['mail']['group'] = 1;
   $handler->display->display_options['filters']['mail']['exposed'] = TRUE;
   $handler->display->display_options['filters']['mail']['expose']['operator_id'] = 'mail_op';
   $handler->display->display_options['filters']['mail']['expose']['label'] = 'E-mail';
@@ -177,6 +180,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['filters']['source']['id'] = 'source';
   $handler->display->display_options['filters']['source']['table'] = 'dosomething_signup';
   $handler->display->display_options['filters']['source']['field'] = 'source';
+  $handler->display->display_options['filters']['source']['group'] = 1;
   $handler->display->display_options['filters']['source']['exposed'] = TRUE;
   $handler->display->display_options['filters']['source']['expose']['operator_id'] = 'source_op';
   $handler->display->display_options['filters']['source']['expose']['label'] = 'Source';
@@ -197,6 +201,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['filters']['nid']['table'] = 'node';
   $handler->display->display_options['filters']['nid']['field'] = 'nid';
   $handler->display->display_options['filters']['nid']['relationship'] = 'field_current_run_target_id';
+  $handler->display->display_options['filters']['nid']['group'] = 1;
   $handler->display->display_options['filters']['nid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['nid']['expose']['operator_id'] = 'nid_op';
   $handler->display->display_options['filters']['nid']['expose']['label'] = 'Run NID';

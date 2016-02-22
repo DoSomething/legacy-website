@@ -6,6 +6,8 @@
 define('DOSOMETHING_SIGNUP_LOG_MOBILECOMMONS', variable_get('dosomething_signup_log_mobilecommons') ? TRUE : FALSE);
 define('DOSOMETHING_SIGNUP_LOG_SIGNUPS', variable_get('dosomething_signup_log_signups') ? TRUE : FALSE);
 
+module_load_include('php', 'dosomething_api', 'includes/ApiCache');
+
 include_once 'dosomething_signup.features.inc';
 include_once 'dosomething_signup.forms.inc';
 include_once 'dosomething_signup.signup_data_form.inc';

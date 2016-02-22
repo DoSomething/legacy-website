@@ -5,7 +5,7 @@
  */
 define('DOSOMETHING_REPORTBACK_LOG', variable_get('dosomething_reportback_log') ? TRUE : FALSE);
 
-module_load_include('inc', 'dosomething_api', 'dosomething_api.module');
+module_load_include('php', 'dosomething_api', 'includes/ApiCache');
 
 include_once 'dosomething_reportback.features.inc';
 include_once 'dosomething_reportback.forms.inc';
@@ -158,6 +158,15 @@ function dosomething_reportback_entity_property_info() {
     'type' => 'text',
     'required' => TRUE,
     'schema field' => 'promoted_reason',
+    'setter callback' => 'entity_property_verbatim_set',
+  );
+  $info['reportback']['properties']['run_nid'] = array(
+    'label' => t('Run NID'),
+    'description' => t('The run this was apart of'),
+    'type' => 'node',
+    'schema field' => 'run_nid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
     'setter callback' => 'entity_property_verbatim_set',
   );
 

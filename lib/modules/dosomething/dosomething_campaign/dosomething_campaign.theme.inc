@@ -578,10 +578,13 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
  * Preprocesses variables for the link to a signup data form.
  */
 function dosomething_campaign_preprocess_signup_data_form(&$vars) {
+  if (isset($vars['content']['signup_data_form'])) {
+      $vars['signup_data_form'] = $vars['content']['signup_data_form'];
+  }
+
   // If the signup data form link is present:
   if (isset($vars['content']['signup_data_form_link'])) {
     $vars['signup_data_form_link'] = $vars['content']['signup_data_form_link'];
-    $vars['signup_data_form'] = $vars['content']['signup_data_form'];
   }
   // If the skip form is present:
   if (isset($vars['content']['skip_signup_data_form'])) {

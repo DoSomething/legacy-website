@@ -1,8 +1,7 @@
 <?php
 
-/**
- * Reportback Transformer Class
- */
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 class ReportbackTransformer extends Transformer {
 
   /**
@@ -22,16 +21,14 @@ class ReportbackTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
-
     try {
       $reportbacks = Reportback::find($filters);
       $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');
     }
     catch (Exception $error) {
+      // @TODO: Potentially log error to watchdog.
       return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
+        'data' => [],
       ];
     }
 

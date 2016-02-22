@@ -4,3 +4,6 @@ core = 7.x
 package = DoSomething
 version = 7.x-0.3
 dependencies[] = entity
+dependencies[] = dosomething_api
+dependencies[] = dosomething_helpers
+

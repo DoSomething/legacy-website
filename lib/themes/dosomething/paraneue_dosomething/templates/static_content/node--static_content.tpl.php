@@ -15,7 +15,7 @@
   <?php //print $variables['header']; ?>
 
   <?php if (isset($intro)): ?>
-    <section class="container">
+    <section class="container -padded">
       <div class="wrapper">
       <?php if(isset($intro_image) || isset($intro_video)): ?>
         <?php /** There's an image, so show two columns. */ ?>
@@ -52,12 +52,14 @@
   <?php endif; ?>
 
   <?php if (isset($call_to_action)): ?>
-    <div class="cta">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php print $cta_link; ?>
+    <section class="container -padded">
+      <div class="cta">
+        <div class="wrapper">
+          <h2 class="cta__message"><?php print $call_to_action; ?></h2>
+          <?php print $cta_link; ?>
+        </div>
       </div>
-    </div>
+    </section>
   <?php endif; ?>
 
 

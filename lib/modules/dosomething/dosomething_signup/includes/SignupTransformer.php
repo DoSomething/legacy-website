@@ -1,8 +1,7 @@
 <?php
 
-/**
- * Signup Transformer Class
- */
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 class SignupTransformer extends Transformer {
 
   /**
@@ -18,9 +17,7 @@ class SignupTransformer extends Transformer {
     }
     catch (Exception $error) {
       return [
-        'error' => [
-          'message' => $error->getMessage(),
-        ],
+        'data' => [],
       ];
     }
 
@@ -38,7 +35,7 @@ class SignupTransformer extends Transformer {
   public function show($id) {
     try {
       $signup = Signup::get($id);
-      $signup = services_resource_build_index_list([$signup], 'signup', 'id');
+      $signup = services_resource_build_index_list($signup, 'signups', 'id');
       $signup = array_pop($signup);
     }
     catch (Exception $error) {
@@ -61,12 +58,28 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   protected function transform($item) {
-    $item = $item[0];
+    if (is_array($item)) {
+      $item = $item[0];
+    }
+
     $data = [];
 
-    $data += $this->transformSignup($item);
 
-    $data['campaign'] = $this->transformCampaign((object) $item->campaign);
+    if (is_null($item->campaign)) {
+      $data['campaign'] = null;
+    } else {
+      $campaign = (object) $item->campaign;
+      $current_run = $campaign->campaign_runs['current']['en']['id'];
+      $current = ($item->campaign_run == $current_run);
+      $data += $this->transformSignup($item, $current);
+      $data['campaign'] = $this->transformCampaign((object) $item->campaign);
+    }
+
+    if (is_null($item->reportback)) {
+      $data['reportback'] = null;
+    } else {
+      $data['reportback'] = $this->transformReportback((object) $item->reportback);
+    }
 
     return $data;
   }
