@@ -471,7 +471,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
   // @todo Hacky solution to deal with form elements when no elements added and eliminate empty container added.
   // @see https://github.com/DoSomething/phoenix/pull/5809
-  if (count($form['elements']) <= 10) {
+  if (count($form['elements']) <= 2) {
     unset($form['elements']);
   }
 
