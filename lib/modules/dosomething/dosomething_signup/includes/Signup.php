@@ -88,12 +88,26 @@ class Signup extends Entity {
   private function build($data) {
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
-    $this->campaign = Campaign::get($data->nid);
+    try {
+      $this->campaign = Campaign::get($data->nid);
+    }
+    catch (Exception $error) {
+      $this->campaign = null;
+    }
+
     $this->campaign_run = $data->run_nid;
 
+    // Only send to Reportback::get if there is a rbid.
     if (isset($data->rbid) && is_numeric($data->rbid)) {
-      $this->reportback = Reportback::get($data->rbid);
-    } else {
+      // Catch error if a reportback is not found.
+      // Reportback will not be returned if it hasn't yet been reviewed.
+      try {
+        $this->reportback = Reportback::get($data->rbid);
+      } catch (Exception $e) {
+        $this->reportback = null;
+      }
+    }
+    else {
       $this->reportback = null;
     }
   }
