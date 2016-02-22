@@ -66,7 +66,8 @@ class SignupTransformer extends Transformer {
 
     if (is_null($item->campaign)) {
       $data['campaign'] = null;
-    } else {
+    } 
+    else {
       $campaign = (object) $item->campaign;
       $current_run = $campaign->campaign_runs['current']['en']['id'];
       $current = ($item->campaign_run == $current_run);
