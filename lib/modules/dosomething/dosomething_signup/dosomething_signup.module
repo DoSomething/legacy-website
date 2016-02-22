@@ -65,6 +65,19 @@ function dosomething_signup_menu() {
 }
 
 /**
+ * Implements hook_libraries_info().
+ */
+function dosomething_signup_libraries_info() {
+  $libraries['guzzle'] = array(
+    'name' => 'guzzle',
+    'path' => 'vendor',
+    'files' => ['php' => ['autoload.php']],
+    'version' => 5.0,
+  );
+  return $libraries;
+}
+
+/**
  * Implements hook_entity_info().
  */
 function dosomething_signup_entity_info() {
@@ -1025,4 +1038,22 @@ function dosomething_signup_get_target_nid_for_source($source_string) {
     }
   }
   return NULL;
+}
+
+function _dosomething_signup_build_http_client() {
+  $base_url = 'http://jsonplaceholder.typicode.com';
+
+  if (libraries_load('guzzle') == TRUE) {
+    $client = new GuzzleHttp\Client(array(
+      'base_uri' => 'http://jsonplaceholder.typicode.com',
+      'defaults' => array(
+        'headers' => array(
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
+          ),
+        ),
+    ));
+    $res = $client->request('GET', '/posts/1');
+    echo $res->getBody();
+  }
 }
