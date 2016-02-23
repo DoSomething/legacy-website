@@ -358,7 +358,7 @@ class Campaign {
     if ($result == '1') {
       $result = TRUE;
     }
-    else if ($result == '0') {
+    elseif ($result == '0') {
       $result = FALSE;
     }
 
