@@ -68,7 +68,9 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid', 'flagged');
 
   // Staff-only properties to add:
-  $rb_fields[] = 'why_participated';
+  if (user_access('view any reportback')) {
+    $rb_fields[] = 'why_participated';
+  }
 
   $query->fields('rb', $rb_fields);
   $query->fields('n', ['nid', 'title']);
