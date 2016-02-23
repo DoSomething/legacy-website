@@ -219,6 +219,7 @@ abstract class Transformer {
         }
 
         $output['staff_pick'] = $data->staff_pick;
+        $output['competition'] = $data->competition;
 
         $output['facts']['problem'] = $data->facts['problem'] ? $data->facts['problem']['fact'] : NULL;
         $output['facts']['solution'] = $data->facts['solution'] ? $data->facts['solution']['fact'] : NULL;

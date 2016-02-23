@@ -160,6 +160,7 @@ class Campaign {
 
         $this->scholarship = $this->getScholarship();
         $this->staff_pick = $this->getStaffPickStatus();
+        $this->competition = $this->getCompetition($this->id);
 
         $fact_data = $this->getFactData();
         $this->facts = [
@@ -338,6 +339,23 @@ class Campaign {
     else {
       return NULL;
     }
+  }
+
+  /**
+  * Get status whether this campaign has a competition or not.
+  *
+  * @return bool
+  */
+  protected function getCompetition($id) {
+    $query = db_select('node', 'n');
+    $query->leftJoin('dosomething_signup_data_form', 'sdf', 'n.nid = sdf.nid');
+    $query->fields('sdf', ['competition_signup']);
+    $query->condition('n.nid', $id);
+
+    $result = $query->execute()->fetchAll();
+    $result = $result[0]->competition_signup;
+    
+    return $result;
   }
 
   /**
