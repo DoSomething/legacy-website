@@ -354,7 +354,14 @@ class Campaign {
 
     $result = $query->execute()->fetchAll();
     $result = $result[0]->competition_signup;
-    
+
+    if ($result == '1') {
+      $result = TRUE;
+    }
+    else if ($result == '0') {
+      $result = FALSE;
+    }
+
     return $result;
   }
 
