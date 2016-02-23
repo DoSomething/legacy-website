@@ -10,7 +10,7 @@
 *
 * @return bool
 */
-public function dosomething_campaign_is_competition($id) {
+function dosomething_campaign_is_competition($id) {
 	$query = db_select('node', 'n');
 	$query->leftJoin('dosomething_signup_data_form', 'sdf', 'n.nid = sdf.nid');
 	$query->fields('sdf', ['competition_signup']);
