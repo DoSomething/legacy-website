@@ -268,6 +268,7 @@ function dosomething_reportback_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['path'] = 'admin/users/rb/reviewed';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Reviewed';
@@ -278,7 +279,7 @@ function dosomething_reportback_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler = $view->new_display('page', 'Page', 'reportback_review');
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Reportback Item: Reportback File rbid */
   $handler->display->display_options['relationships']['rbid']['id'] = 'rbid';
