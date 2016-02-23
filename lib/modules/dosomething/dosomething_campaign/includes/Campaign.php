@@ -160,8 +160,7 @@ class Campaign {
 
         $this->scholarship = $this->getScholarship();
         $this->staff_pick = $this->getStaffPickStatus();
-        $this->competition = $this->getCompetition($this->id);
-
+        $this->competition = dosomething_campaign_is_competition($this->id);
         $fact_data = $this->getFactData();
         $this->facts = [
           'problem' => $fact_data['fact_problem'],
