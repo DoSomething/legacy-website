@@ -1,10 +1,16 @@
 <?php
 /**
+ * @file
+ * Database query code for Campaign data.
+ */
+
+
+/**
 * Get status whether this campaign has a competition or not.
 *
 * @return bool
 */
-public function dosomething_campaign_is_compeition($id) {
+public function dosomething_campaign_is_competition($id) {
 	$query = db_select('node', 'n');
 	$query->leftJoin('dosomething_signup_data_form', 'sdf', 'n.nid = sdf.nid');
 	$query->fields('sdf', ['competition_signup']);
