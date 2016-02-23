@@ -12,6 +12,7 @@ include_once 'includes/Campaign.php';
 include_once 'includes/CampaignController.php';
 include_once 'includes/CampaignTransformer.php';
 include_once 'dosomething_campaign.theme.inc';
+include_once 'dosomething_campaign.query.inc';
 
 define('DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER', t('Snap a Pic'));
 
