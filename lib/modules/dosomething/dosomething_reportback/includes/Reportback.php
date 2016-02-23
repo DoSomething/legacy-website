@@ -153,7 +153,7 @@ class Reportback extends Entity {
     $this->updated_at = $data->updated;
     $this->quantity = (int) $data->quantity;
     $this->why_participated = dosomething_helpers_isset($data, 'why_participated');
-    $this->flagged = $this->getFlag($data);
+    $this->flagged = $this->getFlag($data->flagged);
     $this->reportback_items = dosomething_helpers_format_data($data->items);
     // @TODO: need to potentially remove this and include language from NS user object instead of global $user
     $this->language = dosomething_helpers_isset($user, 'language', 'en-global');
@@ -184,9 +184,7 @@ class Reportback extends Entity {
    * @param  $flag
    * @return mixed|null
    */
-  protected function getFlag($data) {
-    $flag = dosomething_helpers_isset($data, 'flagged');
-
+  protected function getFlag($flag) {
     if (is_null($flag)) {
       return NULL;
     }
