@@ -174,6 +174,7 @@ abstract class Transformer {
    *   - status: (string)
    *   - cover_image: (array)
    *   - staff_pick: (bool)
+   *   - competition: (bool)
    *   - facts: (array)
    *   - solutions: (array)
    *   - causes: (array)
@@ -219,6 +220,14 @@ abstract class Transformer {
         }
 
         $output['staff_pick'] = $data->staff_pick;
+
+        if ($data->competition == '1') {
+          $data->competition = TRUE;
+        }
+        elseif ($data->competition == '0') {
+          $data->competition = FALSE;
+        }
+        
         $output['competition'] = $data->competition;
 
         $output['facts']['problem'] = $data->facts['problem'] ? $data->facts['problem']['fact'] : NULL;

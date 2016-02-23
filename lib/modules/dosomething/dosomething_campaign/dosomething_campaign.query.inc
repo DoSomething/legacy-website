@@ -13,12 +13,5 @@ protected function getCompetition($id) {
 	$result = $query->execute()->fetchAll();
 	$result = $result[0]->competition_signup;
 
-	if ($result == '1') {
-	  $result = TRUE;
-	}
-	elseif ($result == '0') {
-	  $result = FALSE;
-	}
-
 	return $result;
 }
