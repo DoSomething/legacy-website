@@ -227,7 +227,6 @@ abstract class Transformer {
         elseif ($data->competition == '0') {
           $data->competition = FALSE;
         }
-        
         $output['competition'] = $data->competition;
 
         $output['facts']['problem'] = $data->facts['problem'] ? $data->facts['problem']['fact'] : NULL;
