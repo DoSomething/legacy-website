@@ -243,6 +243,10 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     return FALSE;
   }
 
+  if (strpos($source, 'reportback') === 0) {
+    stathat_send_ez_count('drupal - Signup - permalink signup', 1);
+  }
+
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
