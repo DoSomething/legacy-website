@@ -1,4 +1,4 @@
-BUG -----------------------------
+_BUG_
 #### Current Behavior
 - tell us what happened
 
