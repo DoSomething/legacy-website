@@ -17,7 +17,8 @@ _BUG_
 
 #### Relevant Screenshots + Links
 
-FEATURE OVERVIEW  -----------------------------
+_FEATURE OVERVIEW_
+-------------------
 #### User Story
 
 #### Additional Information (optional)
@@ -26,7 +27,8 @@ FEATURE OVERVIEW  -----------------------------
 
 #### Current Workaround w/o Feature (if applicable)
 
-HACK DOCUMENTATION -----------------------------
+_HACK DOCUMENTATION_
+-------------------
 #### Related Issue #
 
 #### Affected Pages
