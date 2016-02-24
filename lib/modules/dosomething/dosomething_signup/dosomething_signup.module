@@ -243,8 +243,10 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     return FALSE;
   }
 
-  if (strpos($source, 'reportback') === 0) {
-    stathat_send_ez_count('drupal - Signup - permalink signup', 1);
+  if (module_exists('stathat')) {
+    if (strpos($source, 'reportback') === 0) {
+      stathat_send_ez_count('drupal - Signup - permalink signup', 1);
+    }
   }
 
   $values = array(
