@@ -161,6 +161,8 @@ class Campaign {
         $this->scholarship = $this->getScholarship();
         $this->staff_pick = $this->getStaffPickStatus();
 
+        $this->competition =  dosomething_helpers_convert_string_to_boolean(dosomething_campaign_is_competition($this->id));
+
         $fact_data = $this->getFactData();
         $this->facts = [
           'problem' => $fact_data['fact_problem'],
