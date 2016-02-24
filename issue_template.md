@@ -1,3 +1,4 @@
+BUG -----------------------------
 #### Current Behavior
 - tell us what happened
 
@@ -14,3 +15,21 @@
 #### OS/Browser (optional)
 
 #### Relevant Screenshots + Links
+
+FEATURE OVERVIEW  -----------------------------
+#### User Story
+
+#### Additional Information (optional)
+
+#### Why This Matters
+
+#### Current Workaround w/o Feature (if applicable)
+
+HACK DOCUMENTATION -----------------------------
+#### Related Issue #
+
+#### Affected Pages
+
+#### Hack Explanation
+
+#### Please note if this needs to be undone at some point and why.
