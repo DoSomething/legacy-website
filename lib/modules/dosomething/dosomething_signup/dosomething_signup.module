@@ -244,6 +244,7 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   }
 
   if (module_exists('stathat')) {
+    // The source is often a string longer than just "reportback", this logic accounts for that.
     if (strpos($source, 'reportback') === 0) {
       stathat_send_ez_count('drupal - Signup - permalink signup', 1);
     }
