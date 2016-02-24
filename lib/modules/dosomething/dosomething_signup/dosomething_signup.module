@@ -257,6 +257,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     // The SignupEntityController save method handles any NULL values.
     $entity->save();
     if (isset($entity->sid)) {
+
+      if (module_exists('stathat')) {
+        // The source is often a string longer than just "reportback", but always starts with it if the page is a permalink
+        if (strpos($source, 'reportback') === 0) {
+          stathat_send_ez_count('drupal - Signup - permalink signup', 1);
+        }
+      }
+
       return $entity->sid;
     }
     return FALSE;
