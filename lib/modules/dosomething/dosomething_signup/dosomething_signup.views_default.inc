@@ -106,6 +106,7 @@ function dosomething_signup_views_default_views() {
   $handler->display->display_options['fields']['run_nid']['id'] = 'run_nid';
   $handler->display->display_options['fields']['run_nid']['table'] = 'dosomething_signup';
   $handler->display->display_options['fields']['run_nid']['field'] = 'run_nid';
+  $handler->display->display_options['fields']['run_nid']['separator'] = '';
   /* Field: Signups: Signup source */
   $handler->display->display_options['fields']['source']['id'] = 'source';
   $handler->display->display_options['fields']['source']['table'] = 'dosomething_signup';
