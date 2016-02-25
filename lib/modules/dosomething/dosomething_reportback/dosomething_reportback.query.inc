@@ -132,6 +132,10 @@ function dosomething_reportback_get_reportbacks_query($params) {
  */
 function dosomething_reportback_filter_flagged_reportbacks($params) {
   if (user_access('view any reportback')) {
+    if (isset($params['flagged'])) {
+      unset($params['flagged']);
+    }
+
     return $params;
   }
 
