@@ -33,7 +33,7 @@ if (db_table_exists($table)) {
       ->fields(['nid' => $result->field_campaigns_target_id, 'run_nid' => $result->nid])
       ->condition($id, $result->id)
       ->execute();
-      echo "updated : " . $result->id . "\n";
+      echo 'updated : ' . $result->id . "\n";
     }
     catch(Exception $e) {
       echo 'bad things: ' . $e;
