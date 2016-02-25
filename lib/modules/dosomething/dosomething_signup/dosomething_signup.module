@@ -120,6 +120,15 @@ function dosomething_signup_entity_property_info() {
     'entity views field' => TRUE,
     'setter callback' => 'entity_property_verbatim_set',
   );
+  $info['signup']['properties']['run_nid'] = array(
+    'label' => t('Run nid'),
+    'description' => t('The run nid on the signup.'),
+    'type' => 'node',
+    'schema field' => 'run_nid',
+    'required' => TRUE,
+    'entity views field' => TRUE,
+    'setter callback' => 'entity_property_verbatim_set',
+  );
   $info['signup']['properties']['uid'] = array(
     'label' => t('User uid'),
     'description' => t('The User uid of the Signup.'),
@@ -442,6 +451,25 @@ function dosomething_signup_views_data() {
       'base' => 'node',
       'handler' => 'views_handler_relationship',
       'label' => t('Signup Node Nid'),
+    ),
+  );
+  $data['dosomething_signup']['run_nid'] = array(
+    'title' => t('Run nid'),
+    'help' => t('Signup node run nid.'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'relationship' => array(
+      'base' => 'node',
+      'handler' => 'views_handler_relationship',
+      'label' => t('Signup Node Run Nid'),
     ),
   );
   $data['dosomething_signup']['uid'] = array(
