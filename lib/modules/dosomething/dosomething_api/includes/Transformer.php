@@ -331,13 +331,10 @@ abstract class Transformer {
    * @return array
    */
   protected function transformReportback($data) {
-    $iso_created_at = date('c', $data->created_at);
-    $iso_updated_at = date('c', $data->updated_at);
-
     $output = [
       'id' => $data->id,
-      'created_at' => $iso_created_at,
-      'updated_at' => $iso_updated_at,
+      'created_at' => date('c', $data->created_at),
+      'updated_at' => date('c', $data->updated_at),
       'quantity' => $data->quantity,
     ];
 
