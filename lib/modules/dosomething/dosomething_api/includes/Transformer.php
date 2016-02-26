@@ -115,13 +115,15 @@ abstract class Transformer {
    */
   protected function paginate($total, $filters, $endpoint) {
     $data = [];
-
+    
     $data['total'] = $total;
     $data['per_page'] = $filters['count'];
     $data['current_page'] = (isset($filters['page']) && $filters['page'] > 0) ? (int) $filters['page'] : 1;
     $data['total_pages'] = ceil($data['total'] / $data['per_page']);
-    $data['prev_uri'] = $this->getPrevPageUri($data, $filters, $endpoint);
-    $data['next_uri'] = $this->getNextPageUri($data, $filters, $endpoint);
+    $data['links'] = [
+      'prev_uri' => $this->getPrevPageUri($data, $filters, $endpoint),
+      'next_uri' => $this->getNextPageUri($data, $filters, $endpoint),
+    ];
 
     return $data;
   }

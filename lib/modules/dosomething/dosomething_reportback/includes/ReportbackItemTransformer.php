@@ -24,7 +24,9 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
 
     return [
-      'pagination' => $this->paginate($total, $filters, 'reportback-items'),
+      'meta' => [
+        'pagination' => $this->paginate($total, $filters, 'reportback-items'),
+      ],
       'data' => $this->transformCollection($reportbackItems),
     ];
   }
