@@ -464,11 +464,8 @@ function dosomething_campaign_build_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
 
-  // @TODO: this is a temporary fix to address the need to allow unpublished mobile_app campaigns to be retrieved, only for the mobile app.
-  if (!$params['mobile_app']) {
-    $query->condition('n.status', 1);
-  }
 
+  $query->condition('n.status', 1);
   $query->condition('t.field_campaign_type_value', $params['type']);
   $query->condition('n.type', $params['type']);
 
