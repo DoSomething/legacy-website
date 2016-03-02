@@ -885,11 +885,6 @@ function dosomething_campaign_is_closed($node) {
 function dosomething_campaign_is_active($node) {
   // Campaign must be active and not closed.
   if (!dosomething_campaign_is_closed($node)) {
-    // Campaign is on mobile app and may/may not be published.
-    $on_mobile_app = dosomething_helpers_extract_field_data($node->field_on_mobile_app);
-    if ($on_mobile_app) {
-      return TRUE;
-    }
 
     // Campaign is published.
     if ($node->status == 1) {
