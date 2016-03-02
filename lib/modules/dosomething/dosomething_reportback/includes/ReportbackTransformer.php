@@ -24,6 +24,7 @@ class ReportbackTransformer extends Transformer {
     try {
       $reportbacks = Reportback::find($filters);
       $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');
+      $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
       // @TODO: Potentially log error to watchdog.
@@ -33,6 +34,9 @@ class ReportbackTransformer extends Transformer {
     }
 
     return [
+      'meta' => [
+        'pagination' => $this->paginate($total, $filters, 'reportbacks'),
+      ],
       'data' => $this->transformCollection($reportbacks),
     ];
   }
@@ -92,6 +96,7 @@ class ReportbackTransformer extends Transformer {
       'nid' => dosomething_helpers_format_data($parameters['campaigns']),
       'status' => dosomething_helpers_format_data($parameters['status']),
       'count' => (int) $parameters['count'] ?: 25,
+      'page' => (int) $parameters['page'],
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
       'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
       'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),

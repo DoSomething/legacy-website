@@ -120,8 +120,10 @@ abstract class Transformer {
     $data['per_page'] = $filters['count'];
     $data['current_page'] = (isset($filters['page']) && $filters['page'] > 0) ? (int) $filters['page'] : 1;
     $data['total_pages'] = ceil($data['total'] / $data['per_page']);
-    $data['prev_uri'] = $this->getPrevPageUri($data, $filters, $endpoint);
-    $data['next_uri'] = $this->getNextPageUri($data, $filters, $endpoint);
+    $data['links'] = [
+      'prev_uri' => $this->getPrevPageUri($data, $filters, $endpoint),
+      'next_uri' => $this->getNextPageUri($data, $filters, $endpoint),
+    ];
 
     return $data;
   }
@@ -331,8 +333,8 @@ abstract class Transformer {
   protected function transformReportback($data) {
     $output = [
       'id' => $data->id,
-      'created_at' => $data->created_at,
-      'updated_at' => $data->updated_at,
+      'created_at' => date('c', $data->created_at),
+      'updated_at' => date('c', $data->updated_at),
       'quantity' => $data->quantity,
     ];
 
