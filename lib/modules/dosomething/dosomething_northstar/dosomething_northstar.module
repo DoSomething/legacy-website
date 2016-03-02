@@ -211,6 +211,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
   $ns_user = [
     'email'         => $user->mail,
     'drupal_id'     => $user->uid,
+    'language'      => $user->language,
   ];
 
   // Set values in ns_user if they are set.
