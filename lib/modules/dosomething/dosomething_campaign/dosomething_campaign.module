@@ -464,11 +464,8 @@ function dosomething_campaign_build_campaigns_query($params = array()) {
   $query = db_select('node', 'n');
   $query->join('field_data_field_campaign_type', 't', 't.entity_id = n.nid');
 
-  // @TODO: this is a temporary fix to address the need to allow unpublished mobile_app campaigns to be retrieved, only for the mobile app.
-  if (!$params['mobile_app']) {
-    $query->condition('n.status', 1);
-  }
 
+  $query->condition('n.status', 1);
   $query->condition('t.field_campaign_type_value', $params['type']);
   $query->condition('n.type', $params['type']);
 
@@ -888,11 +885,6 @@ function dosomething_campaign_is_closed($node) {
 function dosomething_campaign_is_active($node) {
   // Campaign must be active and not closed.
   if (!dosomething_campaign_is_closed($node)) {
-    // Campaign is on mobile app and may/may not be published.
-    $on_mobile_app = dosomething_helpers_extract_field_data($node->field_on_mobile_app);
-    if ($on_mobile_app) {
-      return TRUE;
-    }
 
     // Campaign is published.
     if ($node->status == 1) {
