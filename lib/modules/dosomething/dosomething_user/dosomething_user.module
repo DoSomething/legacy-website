@@ -234,6 +234,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_profile_form':
+      dosomething_northstar_update_user($form_state);
     case 'user_register_form':
       // Gather helper text.
       _dosomething_user_register_helper_text($form);
@@ -1294,6 +1295,8 @@ function dosomething_user_info_form($form, &$form_state, $account) {
   );
 
   $form['#validate'][] = 'dosomething_user_validate_address_field';
+
+  dosomething_user_update_user($form_state);
 
   return $form;
 }
