@@ -234,6 +234,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_profile_form':
+      $form['#validate'][] = 'dosomething_user_validate_password_length';
       dosomething_northstar_update_user($form_state);
     case 'user_register_form':
       // Gather helper text.
@@ -408,6 +409,22 @@ function dosomething_user_validate_address_field($form, &$form_state) {
     }
   }
 }
+
+/**
+ * Validates that password is 6 or more characters long.  
+ *
+ * @param array $form
+ *  A drupal form.
+ * @param array $form_state
+ *  A drupal form_state array.
+ *
+ */
+function dosomething_user_validate_password_length($form, &$form_state) {
+  if (strlen($form_state['input']['pass']['pass1']) < 6) {
+    form_set_error('dosomething_user_validate_password_length', t('Password must be 6 or more characters long.'));
+  }
+}
+
 
 /**
  * Set the formatted address values in a form.
