@@ -24,10 +24,6 @@ class DoSomethingCampaignsResource extends RestfulEntityBaseNode {
       'property' => 'field_call_to_action',
     ];
 
-    $public_fields['on_mobile_app'] = [
-      'property' => 'field_on_mobile_app',
-    ];
-
     $public_fields['cover_image'] = [
       'property' => 'field_image_campaign_cover',
       'resource' => [

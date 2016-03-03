@@ -31,7 +31,6 @@ class Campaign {
   public $timing;
   public $reportback_info;
   public $services;
-  public $mobile_app;
 
   /**
    * Convenience method to retrieve a single campaign from supplied id.
@@ -76,8 +75,6 @@ class Campaign {
    * - nid (string|array)
    * - type (string)
    * - staff_pick (bool)
-   * - mobile_app (bool)
-   * - mobile_app_date (string)
    * - term_id (string|array)
    * - count (int)
    * - random (bool)
@@ -187,8 +184,6 @@ class Campaign {
         $this->timing = $timing;
 
         $this->services = $this->getServices();
-
-        $this->mobile_app = $this->getMobileAppDate();
       }
 
       $this->reportback_info = $this->getReportbackInfo();
@@ -446,26 +441,6 @@ class Campaign {
       'opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
       'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
     ];
-  }
-
-   /**
-   * Get the start and end dates for when campaign will be displayed on the mobile app if available.
-   * Dates formatted as ISO-8601 datetime.
-   *
-   * @return array
-   */
-
-    protected function getMobileAppDate() {
-      $timing = [];
-      $timing['dates'] = (dosomething_helpers_extract_field_data($this->node->field_mobile_app_date));
-
-      if (isset($timing['dates'])) {
-        foreach ($timing['dates'] as $key => $date) {
-          $timing['dates'][$key] = dosomething_helpers_convert_date($date);
-        }
-      }
-
-      return $timing;
   }
 
   /**

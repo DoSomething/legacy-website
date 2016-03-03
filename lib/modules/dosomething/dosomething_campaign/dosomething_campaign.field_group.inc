@@ -259,35 +259,6 @@ function dosomething_campaign_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_mobile_app|node|campaign|form';
-  $field_group->group_name = 'group_mobile_app';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'campaign';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Mobile App',
-    'weight' => '15',
-    'children' => array(
-      0 => 'field_on_mobile_app',
-      1 => 'field_mobile_app_date',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Mobile App',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-mobile-app field-group-fieldset',
-        'description' => '',
-      ),
-      'formatter' => 'collapsed',
-    ),
-  );
-  $field_groups['group_mobile_app|node|campaign|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_partners|node|campaign|form';
   $field_group->group_name = 'group_partners';
   $field_group->entity_type = 'node';
@@ -516,7 +487,6 @@ Campaigns that are in high season will have higher priority than non-seasonal ca
   t('Incentives');
   t('Know It');
   t('Location Finder');
-  t('Mobile App');
   t('Pitch Page Additional Info');
   t('Plan It');
   t('Prove It');
