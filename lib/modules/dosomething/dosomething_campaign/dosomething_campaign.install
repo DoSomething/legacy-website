@@ -145,3 +145,12 @@ function dosomething_campaign_update_7012() {
     db_create_table('cache_dosomething_campaign', $schema['cache_dosomething_campaign']);
   }
 }
+
+/**
+ * Remove mobile app fields, apparently features can't handle it.
+ * Refs #6239
+ */
+function dosomething_campaign_update_7013() {
+  field_delete_field('field_mobile_app_date');
+  field_delete_field('field_on_mobile_app');
+}
