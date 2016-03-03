@@ -92,7 +92,6 @@ features[field_group][] = group_do_it|node|campaign|form
 features[field_group][] = group_incentives|node|campaign|form
 features[field_group][] = group_know_it|node|campaign|form
 features[field_group][] = group_location_finder|node|campaign|form
-features[field_group][] = group_mobile_app|node|campaign|form
 features[field_group][] = group_partners|node|campaign|form
 features[field_group][] = group_pitch_additional_info|node|campaign|form
 features[field_group][] = group_prep_it|node|campaign|form
