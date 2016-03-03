@@ -78,7 +78,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
     // This could happen for a SMS Game, where the confirmation page can be
     // viewed by anonymous user, so we don't have a signup to filter out.
     if ($nid != $node->nid) {
-      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid, $image_size, $source);
+      $rec_vars[] = dosomething_campaign_get_campaign_block_vars($nid, $image_size);
     }
   }
   // We only want to display 3 campaigns blocks - we might have 4.
