@@ -10,8 +10,6 @@ class CampaignTransformer extends Transformer {
    * @param  array  $parameters Filter parameters to limit collection based on specific criteria.
    *  - ids (string)
    *  - staff_pick (string|bool)
-   *  - mobile_app (string|bool)
-   *  - mobile_app_date (string)
    *  - term_ids (string)
    *  - count (int)
    *  - random (string|bool)
@@ -114,8 +112,6 @@ class CampaignTransformer extends Transformer {
       'nid' => $this->formatData($parameters['ids']),
       'type' => 'campaign',
       'staff_pick' => (bool) $parameters['staff_pick'],
-      'mobile_app' => (bool) $parameters['mobile_app'],
-      'mobile_app_date' => $parameters['mobile_app_date'],
       'term_id' => $this->formatData($parameters['term_ids']),
       'count' => (int) $parameters['count'] ?: 25,
       'random' => $parameters['random'],
