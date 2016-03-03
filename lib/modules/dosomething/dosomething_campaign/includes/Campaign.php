@@ -32,7 +32,6 @@ class Campaign {
   public $reportback_info;
   public $services;
 
-
   /**
    * Convenience method to retrieve a single campaign from supplied id.
    *
