@@ -1075,29 +1075,3 @@ function dosomething_signup_get_target_nid_for_source($source_string) {
   }
   return NULL;
 }
-
-/**
- * Build the Guzzle HTTP Client to make requests to Gladiator.
- *
- * https://github.com/DoSomething/gladiator
- * @TODO - use correct URL
- */
-function _dosomething_signup_build_http_client() {
-  $base_url = 'http://jsonplaceholder.typicode.com';
-
-  if (libraries_load('guzzle') == TRUE) {
-    $client = new GuzzleHttp\Client(array(
-      'base_uri' => 'http://jsonplaceholder.typicode.com',
-      'defaults' => array(
-        'headers' => array(
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json'
-          ),
-        ),
-    ));
-
-    return $client;
-  }
-
-  return;
-}

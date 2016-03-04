@@ -1,0 +1,75 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_gladiatior.module.
+ */
+
+include_once('dosomething_gladiator.admin.inc');
+
+function dosomething_gladiator_menu() {
+  $items = [];
+  $items['admin/config/services/gladiator'] = array(
+    'title' => 'Gladiator',
+    'description' => 'Manage Gladiator connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_gladiator_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_gladiator.admin.inc',
+  );
+  return $items;
+}
+/**
+ * Build the Guzzle HTTP Client to make requests to Gladiator.
+ *
+ * https://github.com/DoSomething/gladiator
+ * @TODO - use correct URL
+ */
+function _dosomething_signup_build_http_client() {
+  $base_url = 'http://jsonplaceholder.typicode.com';
+
+  if (libraries_load('guzzle') == TRUE) {
+    $client = new GuzzleHttp\Client(array(
+      'base_uri' => 'http://jsonplaceholder.typicode.com',
+      'defaults' => array(
+        'headers' => array(
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
+          ),
+        ),
+    ));
+
+    return $client;
+  }
+
+  return;
+}
+
+/**
+ * Sends a user to Gladiator (https://github.com/DoSomething/gladiator)
+ *
+ * @param object $user
+ *   The user that signup up for the competition.
+ * @param array $values
+ *   Values from the signup data form.
+ */
+function dosomething_signup_send_user_to_gladiator($user, $values) {
+  $client = _dosomething_signup_build_http_client();
+
+  if (!$client) { return; }
+
+  // @TODO - once the real endpoint is set up, only send what we need to Gladiator.
+  $user = json_encode($user);
+  $values = json_encode($values);
+
+  try {
+    $response = $client->request('POST', 'posts', [
+      'json' => [
+        'user' => $user,
+        'values' => $values,
+        'userId' => 1],
+    ]);
+  } catch (GuzzleHttp\Exception\RequestException $e) {
+    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+  }
+}
+
