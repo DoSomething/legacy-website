@@ -240,6 +240,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Conditionally displays certain fields based on configuration settings.
       _dosomething_user_global_display_fields($form);
 
+      $form['#validate'][] = 'dosomething_user_validate_password_length';
+
       // Force action to post to the user registration, but not on the add people screen.
       if ($form_id == 'user_register_form' && $_SERVER['REQUEST_URI'] != '/admin/people/create') {
         $form['#action'] = '/user/register';
@@ -407,6 +409,22 @@ function dosomething_user_validate_address_field($form, &$form_state) {
     }
   }
 }
+
+/**
+ * Validates that password is 6 or more characters long.  
+ *
+ * @param array $form
+ *  A drupal form.
+ * @param array $form_state
+ *  A drupal form_state array.
+ *
+ */
+function dosomething_user_validate_password_length($form, &$form_state) {
+  if (!empty($form_state['input']['pass']['pass1']) && strlen($form_state['input']['pass']['pass1']) < 6) {
+    form_set_error('dosomething_user_validate_password_length', t('Password must be 6 or more characters long.'));
+  }
+}
+
 
 /**
  * Set the formatted address values in a form.
