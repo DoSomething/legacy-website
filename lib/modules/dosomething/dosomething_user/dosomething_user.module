@@ -234,7 +234,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_profile_form':
-      $form['#validate'][] = 'dosomething_user_validate_password_length';
     case 'user_register_form':
       // Gather helper text.
       _dosomething_user_register_helper_text($form);
