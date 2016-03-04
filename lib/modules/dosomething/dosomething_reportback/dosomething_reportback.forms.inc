@@ -69,9 +69,9 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['reportback_submissions']['reportback_item'] = array(
     '#weight' => 5,
     '#type' => 'file',
-    '#title' => t('File'),
-    '#description' => t("The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop."),
-    // '#theme_wrappers' => array(),
+    '#prefix' => 'Reportback Image',
+    '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
+    '#theme_wrappers' => array(),
     '#attributes' => array(
       'class' => array(
         'js-image-upload'
