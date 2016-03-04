@@ -421,7 +421,7 @@ function dosomething_user_validate_address_field($form, &$form_state) {
  *
  */
 function dosomething_user_validate_password_length($form, &$form_state) {
-  if (strlen($form_state['input']['pass']['pass1']) < 6) {
+  if (!empty($form_state['input']['pass']['pass1']) && strlen($form_state['input']['pass']['pass1']) < 6) {
     form_set_error('dosomething_user_validate_password_length', t('Password must be 6 or more characters long.'));
   }
 }
