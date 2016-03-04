@@ -48,7 +48,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $form['username'] = array(
       '#type' => 'textfield',
       '#title' => t('User'),
-      '#description' => t("The user that submitted this reportback."),
+      '#description' => t("Type in the UID of the user that submitted this reportback and choose the UID from the dropdown menu. If you don't see the UID in the dropdown menu, please go to the user's profile, the edit tab, and copy the username listed in the topmost field. Slowly type this into the field and select the correct user from the dropdown menu. You MUST select the user from the dropdown menu for this form to submit."),
       '#autocomplete_path' => 'user/autocomplete',
       '#default_value' => $username,
     );
@@ -192,6 +192,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['reportback_inputs']['caption'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
+    '#description' => t("This is public facing. Do not enter private user information."),
     '#attributes' => array(
       'data-validate' => 'caption',
       'data-validate-required' => '',
@@ -217,6 +218,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
         '@verb' => $entity->verb,
       )
     ),
+    '#description' => t("Only type in the number -- like '300' or '5'."),
     '#default_value' => $entity->quantity,
   );
 
