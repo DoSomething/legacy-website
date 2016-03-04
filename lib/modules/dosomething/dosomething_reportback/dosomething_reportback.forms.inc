@@ -31,7 +31,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $form['nid'] = array(
       '#type' => 'entity_autocomplete',
       '#title' => t('Node'),
-      '#description' => t("The node this reportback was submitted for."),
+      '#description' => t("The campaign node this reportback was submitted for."),
       '#entity_type' => 'node',
       '#bundles' => array('campaign'),
       '#required' => TRUE,
@@ -48,7 +48,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $form['username'] = array(
       '#type' => 'textfield',
       '#title' => t('User'),
-      '#description' => t("The user that submitted this reportback."),
+      '#description' => t("Type in the UID of the user that submitted this reportback and choose the UID from the dropdown menu. If you don't see the UID in the dropdown menu, please go to the user's profile, the edit tab, and copy the username listed in the topmost field. Slowly type this into the field and select the correct user from the dropdown menu. You MUST select the user from the dropdown menu for this form to submit."),
       '#autocomplete_path' => 'user/autocomplete',
       '#default_value' => $username,
     );
@@ -69,6 +69,8 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['reportback_submissions']['reportback_item'] = array(
     '#weight' => 5,
     '#type' => 'file',
+    '#prefix' => 'Reportback Image',
+    '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
     '#theme_wrappers' => array(),
     '#attributes' => array(
       'class' => array(
@@ -192,6 +194,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   $form['reportback_inputs']['caption'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
+    '#description' => t("This is public facing. Do not enter private user information."),
     '#attributes' => array(
       'data-validate' => 'caption',
       'data-validate-required' => '',
@@ -217,6 +220,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
         '@verb' => $entity->verb,
       )
     ),
+    '#description' => t("Only type in the number -- like '300' or '5'."),
     '#default_value' => $entity->quantity,
   );
 
