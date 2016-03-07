@@ -16,18 +16,29 @@
  * @return object
  *   An executed database query object to iterate through.
  */
-function dosomething_signup_get_signups_query($params) {
+function dosomething_signup_get_signups_query($params, $tally = FALSE) {
   $query = dosomething_signup_build_signups_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
-  $count = dosomething_helpers_isset($params, 'count', 25);
+
+  if ($tally) {
+    $count = 'all';
+  }
+  else {
+    $count = dosomething_helpers_isset($params, 'count', 25);
+  }
 
   if ($count && $count !== 'all') {
     $query->range($offset, $count);
   }
 
-  $result = $query->execute()->fetchAll();
+  $result = $query->execute();
 
-  return $result;
+  if ($tally) {
+    return $result->rowCount();
+  }
+  else {
+    return $result->fetchAll(); 
+  }
 }
 
 /**

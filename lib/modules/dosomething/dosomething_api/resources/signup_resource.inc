@@ -59,6 +59,14 @@ function _signup_resource_definition() {
             'source' => ['param' => 'count'],
             'default value' => 25,
           ],
+          [
+            'name' => 'page',
+            'description' => 'The zero-based index of the page to get, defaults to 0.',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => ['param' => 'page'],
+            'default value' => 1,
+          ],
         ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
@@ -81,11 +89,12 @@ function _signup_resource_access() {
  * @param int $count
  * @return array
  */
-function _signup_resource_index($user, $campaigns, $count) {
+function _signup_resource_index($user, $campaigns, $count, $page) {
   $parameters = [
     'user' => $user,
     'campaigns' => $campaigns,
     'count' => $count,
+    'page' => $page,
   ];
 
   return (new SignupTransformer)->index($parameters);
