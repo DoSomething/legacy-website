@@ -13,7 +13,7 @@ function dosomething_gladiator_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Gladiator URL'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_gladiator_url', 'http://gladiator.app:8000'),
+    '#default_value' => variable_get('dosomething_gladiator_url', 'http://gladiator.app:8000/api'),
   );
   $form['gladiator']['dosomething_gladiator_version'] = array(
     '#type' => 'textfield',

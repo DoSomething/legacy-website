@@ -6,6 +6,9 @@
 
 include_once('dosomething_gladiator.admin.inc');
 
+define('GLADIATOR_URL', variable_get('dosomething_gladiator_url', 'http://gladiator.app:8000/api'));
+define('GLADIATOR_VERSION', variable_get('dosomething_gladiator_version', 'v1'));
+
 function dosomething_gladiator_menu() {
   $items = [];
   $items['admin/config/services/gladiator'] = array(
@@ -25,11 +28,10 @@ function dosomething_gladiator_menu() {
  * @TODO - use correct URL
  */
 function _dosomething_signup_build_http_client() {
-  $base_url = 'http://jsonplaceholder.typicode.com';
 
   if (libraries_load('guzzle') == TRUE) {
     $client = new GuzzleHttp\Client(array(
-      'base_uri' => 'http://jsonplaceholder.typicode.com',
+      'base_uri' => GLADIATOR_URL . '/' . GLADIATOR_VERSION . '/',
       'defaults' => array(
         'headers' => array(
           'Content-Type' => 'application/json',
@@ -57,19 +59,17 @@ function dosomething_signup_send_user_to_gladiator($user, $values) {
 
   if (!$client) { return; }
 
-  // @TODO - once the real endpoint is set up, only send what we need to Gladiator.
-  $user = json_encode($user);
-  $values = json_encode($values);
-
   try {
-    $response = $client->request('POST', 'posts', [
-      'json' => [
-        'user' => $user,
-        'values' => $values,
-        'userId' => 1],
-    ]);
+    $response = $client->request('POST', 'users', [
+      'body' => json_encode([
+        'key' => $user->mail,
+        'type' => 'email',
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $values['run_nid'],
+        ]),
+      ]);
   } catch (GuzzleHttp\Exception\RequestException $e) {
-    watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
+    watchdog('dosomething_gladiator', $e, array(), WATCHDOG_ERROR);
   }
 }
 
