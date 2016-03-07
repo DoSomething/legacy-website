@@ -95,6 +95,7 @@ class SignupTransformer extends Transformer {
     $filters = [
       'user' => dosomething_helpers_format_data($parameters['user']),
       'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
+      'count' => (int) $parameters['count'] ?: 25,
     ];
 
     return $filters;

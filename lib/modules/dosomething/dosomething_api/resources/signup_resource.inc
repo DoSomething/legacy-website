@@ -51,6 +51,14 @@ function _signup_resource_definition() {
             'source' => ['param' => 'campaigns'],
             'default value' => NULL,
           ],
+          [
+            'name' => 'count',
+            'description' => 'The number of signups to retrieve.',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => ['param' => 'count'],
+            'default value' => 25,
+          ],
         ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
@@ -70,12 +78,14 @@ function _signup_resource_access() {
  * Retrieve and show index list response of signups requested.
  * @param string $user
  * @param string $campaigns
+ * @param int $count
  * @return array
  */
-function _signup_resource_index($user, $campaigns) {
+function _signup_resource_index($user, $campaigns, $count) {
   $parameters = [
     'user' => $user,
     'campaigns' => $campaigns,
+    'count' => $count,
   ];
 
   return (new SignupTransformer)->index($parameters);
