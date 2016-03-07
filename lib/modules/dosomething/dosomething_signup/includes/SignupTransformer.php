@@ -20,7 +20,6 @@ class SignupTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
-
     try {
       $signups = Signup::find($filters);
       $signups = services_resource_build_index_list($signups, 'signups', 'id');

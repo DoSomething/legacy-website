@@ -116,6 +116,7 @@ abstract class Transformer {
   protected function paginate($total, $filters, $endpoint) {
     $data = [];
 
+
     $data['total'] = $total;
     $data['per_page'] = $filters['count'];
     $data['current_page'] = (isset($filters['page']) && $filters['page'] > 0) ? (int) $filters['page'] : 1;

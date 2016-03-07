@@ -13,6 +13,7 @@
  *  - sid (string|array)
  *  - user (string)
  *  - campaigns (string|array)
+ *  - count (int)
  * @return object
  *   An executed database query object to iterate through.
  */

@@ -87,6 +87,7 @@ function _signup_resource_access() {
  * @param string $user
  * @param string $campaigns
  * @param int $count
+ * @param int $page
  * @return array
  */
 function _signup_resource_index($user, $campaigns, $count, $page) {

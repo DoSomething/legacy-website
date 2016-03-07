@@ -32,7 +32,8 @@ class ReportbackTransformer extends Transformer {
         'data' => [],
       ];
     }
-
+    print_r($this->paginate($total, $filters, 'reportbacks'));
+    die();
     return [
       'meta' => [
         'pagination' => $this->paginate($total, $filters, 'reportbacks'),
@@ -101,7 +102,8 @@ class ReportbackTransformer extends Transformer {
       'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
       'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),
     ];
-
+    print_r($parameters);
+    die();
     // Unset False boolean values that affect the query builder.
     if (!$filters['random']) {
       unset($filters['random']);
