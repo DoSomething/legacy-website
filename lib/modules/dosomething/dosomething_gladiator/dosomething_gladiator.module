@@ -26,7 +26,7 @@ function dosomething_gladiator_menu() {
  *
  * https://github.com/DoSomething/gladiator
  */
-function _dosomething_signup_build_http_client() {
+function _dosomething_gladiator_build_http_client() {
 
   if (libraries_load('guzzle') == TRUE) {
     $client = new GuzzleHttp\Client(array(
@@ -53,8 +53,8 @@ function _dosomething_signup_build_http_client() {
  * @param array $values
  *   Values from the signup data form.
  */
-function dosomething_signup_send_user_to_gladiator($user, $values) {
-  $client = _dosomething_signup_build_http_client();
+function dosomething_gladiator_send_user_to_gladiator($user, $values) {
+  $client = _dosomething_gladiator_build_http_client();
 
   if (!$client) { return; }
 

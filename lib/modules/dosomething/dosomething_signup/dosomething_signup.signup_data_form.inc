@@ -294,7 +294,6 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
   // Load signup data form config to determine what form elements we need.
   $config = dosomething_signup_get_signup_data_form_info($signup->nid);
-
   $form['sid'] = array(
     '#type' => 'hidden',
     '#value' => $signup->sid,
@@ -514,7 +513,7 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   dosomething_signup_update_signup_data($values, $config);
   // If this is a competition sign up, send it to gladiator.
   if ($config['competition_signup'] && module_exists('dosomething_gladiator')) {
-    dosomething_signup_send_user_to_gladiator($user, $values);
+    dosomething_gladiator_send_user_to_gladiator($user, $values);
   }
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
