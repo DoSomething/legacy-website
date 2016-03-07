@@ -1,0 +1,6 @@
+name = DoSomething Gladiator
+description = Provides connection to our gladiatior competition platform.
+core = 7.x
+package = DoSomething
+version = 7.x-0.3
+project = dosomething_gladiator

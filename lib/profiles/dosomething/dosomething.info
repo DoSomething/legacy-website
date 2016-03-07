@@ -90,6 +90,7 @@ dependencies[] = dosomething_campaign_group
 dependencies[] = dosomething_campaign_run
 dependencies[] = dosomething_fact
 dependencies[] = dosomething_fact_page
+dependencies[] = dosomething_gladiator
 dependencies[] = dosomething_global
 dependencies[] = dosomething_image
 dependencies[] = dosomething_kudos

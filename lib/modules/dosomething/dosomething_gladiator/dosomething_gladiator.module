@@ -1,0 +1,74 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_gladiatior.module.
+ */
+
+include_once('dosomething_gladiator.admin.inc');
+
+define('GLADIATOR_URL', variable_get('dosomething_gladiator_url', 'http://gladiator.app:8000/api'));
+define('GLADIATOR_VERSION', variable_get('dosomething_gladiator_version', 'v1'));
+
+function dosomething_gladiator_menu() {
+  $items = [];
+  $items['admin/config/services/gladiator'] = array(
+    'title' => 'Gladiator',
+    'description' => 'Manage Gladiator connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_gladiator_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_gladiator.admin.inc',
+  );
+  return $items;
+}
+/**
+ * Build the Guzzle HTTP Client to make requests to Gladiator.
+ *
+ * https://github.com/DoSomething/gladiator
+ */
+function _dosomething_gladiator_build_http_client() {
+
+  if (libraries_load('guzzle') == TRUE) {
+    $client = new GuzzleHttp\Client(array(
+      'base_uri' => GLADIATOR_URL . '/' . GLADIATOR_VERSION . '/',
+      'defaults' => array(
+        'headers' => array(
+          'Content-Type' => 'application/json',
+          'Accept' => 'application/json'
+          ),
+        ),
+    ));
+
+    return $client;
+  }
+
+  return;
+}
+
+/**
+ * Sends a user to Gladiator (https://github.com/DoSomething/gladiator)
+ *
+ * @param object $user
+ *   The user that signup up for the competition.
+ * @param array $values
+ *   Values from the signup data form.
+ */
+function dosomething_gladiator_send_user_to_gladiator($user, $values) {
+  $client = _dosomething_gladiator_build_http_client();
+
+  if (!$client) { return; }
+
+  try {
+    $response = $client->request('POST', 'users', [
+      'body' => json_encode([
+        'key' => $user->mail,
+        'type' => 'email',
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $values['run_nid'],
+        ]),
+      ]);
+  } catch (GuzzleHttp\Exception\RequestException $e) {
+    watchdog('dosomething_gladiator', $e, array(), WATCHDOG_ERROR);
+  }
+}
+
