@@ -865,7 +865,7 @@ function dosomething_signup_set_presignup_message($title) {
 * @return int
 *
 */
-function dosomething_signup_get_signup_total_by_filers(array $filters = []) {
+function dosomething_signup_get_signup_total_by_filters(array $filters = []) {
   $unneccessaryFilters = ['count', 'page'];
 
   $filters = dosomething_helpers_unset_array_keys($filters, $unneccessaryFilters);

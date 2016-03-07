@@ -11,7 +11,7 @@ class SignupTransformer extends Transformer {
    * @return int
    */
   protected function getTotalCount($filters) {
-    return dosomething_signup_get_signup_total_by_filers($filters);
+    return dosomething_signup_get_signup_total_by_filters($filters);
   }
 
   /**
