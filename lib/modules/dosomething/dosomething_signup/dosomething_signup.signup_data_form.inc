@@ -305,6 +305,11 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#value' => $signup->nid,
     '#access' => FALSE,
   );
+  $form['run_nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $signup->run_nid,
+    '#access' => FALSE,
+  );
   $form['header'] = array(
     '#prefix' => '<h2 class="heading -banner">',
     '#markup' => $config['form_header'],
