@@ -49,6 +49,12 @@ projects[dosomething_campaign_run][download][type] = local
 projects[dosomething_campaign_run][download][source] = './lib/modules/dosomething/dosomething_campaign_run'
 projects[dosomething_campaign_run][subdir] = "dosomething"
 
+; Dosomething Gladiator
+projects[dosomething_gladiator][type] = "module"
+projects[dosomething_gladiator][download][type] = local
+projects[dosomething_gladiator][download][source] = './lib/modules/dosomething/dosomething_gladiator'
+projects[dosomething_gladiator][subdir] = "dosomething"
+
 ; Dosomething Global
 projects[dosomething_global][type] = "module"
 projects[dosomething_global][download][type] = local
