@@ -25,7 +25,6 @@ function dosomething_gladiator_menu() {
  * Build the Guzzle HTTP Client to make requests to Gladiator.
  *
  * https://github.com/DoSomething/gladiator
- * @TODO - use correct URL
  */
 function _dosomething_signup_build_http_client() {
 
