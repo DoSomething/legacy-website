@@ -20,7 +20,6 @@ include_once 'dosomething_signup.query.inc';
 include_once 'includes/Signup.php';
 include_once 'includes/SignupController.php';
 include_once 'includes/SignupTransformer.php';
- 
 /**
  * Implements hook_menu().
  */
@@ -863,7 +862,6 @@ function dosomething_signup_set_presignup_message($title) {
 *
 * @param array $filters
 * @return int
-*
 */
 function dosomething_signup_get_signup_total_by_filters(array $filters = []) {
   $unneccessaryFilters = ['count', 'page'];
