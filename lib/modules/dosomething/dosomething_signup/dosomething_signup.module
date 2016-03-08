@@ -858,11 +858,11 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
-* Returns total number of Signups based on supplied set of filters. 
-*
-* @param array $filters
-* @return int
-*/
+ * Returns total number of Signups based on supplied set of filters. 
+ *
+ * @param array $filters
+ * @return int
+ */
 function dosomething_signup_get_signup_total_by_filters(array $filters = []) {
   $unneccessaryFilters = ['count', 'page'];
 
