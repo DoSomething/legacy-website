@@ -5,15 +5,25 @@ module_load_include('php', 'dosomething_api', 'includes/Transformer');
 class SignupTransformer extends Transformer {
 
   /**
+   * Calculate total number of Signups by each status requested.
+   *
+   * @param  array  $filters
+   * @return int
+   */
+  protected function getTotalCount($filters) {
+    return dosomething_signup_get_signup_total_by_filters($filters);
+  }
+
+  /**
    * @param array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
-
     try {
       $signups = Signup::find($filters);
       $signups = services_resource_build_index_list($signups, 'signups', 'id');
+      $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
       return [
@@ -22,6 +32,9 @@ class SignupTransformer extends Transformer {
     }
 
     return [
+      'meta' => [
+        'pagination' => $this->paginate($total, $filters, 'signups'),
+      ],
       'data' => $this->transformCollection($signups),
     ];
   }
@@ -95,6 +108,8 @@ class SignupTransformer extends Transformer {
     $filters = [
       'user' => dosomething_helpers_format_data($parameters['user']),
       'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
+      'count' => (int) $parameters['count'] ?: 25,
+      'page' => (int) $parameters['page'],
     ];
 
     return $filters;

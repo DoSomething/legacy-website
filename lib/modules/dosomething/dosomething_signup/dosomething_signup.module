@@ -20,7 +20,6 @@ include_once 'dosomething_signup.query.inc';
 include_once 'includes/Signup.php';
 include_once 'includes/SignupController.php';
 include_once 'includes/SignupTransformer.php';
-
 /**
  * Implements hook_menu().
  */
@@ -856,6 +855,36 @@ function dosomething_signup_set_presignup_message($title) {
     '!link' => $link,
   ));
   drupal_set_message($message);
+}
+
+/**
+ * Returns total number of Signups based on supplied set of filters. 
+ *
+ * @param array $filters
+ * @return int
+ */
+function dosomething_signup_get_signup_total_by_filters(array $filters = []) {
+  $unneccessaryFilters = ['count', 'page'];
+
+  $filters = dosomething_helpers_unset_array_keys($filters, $unneccessaryFilters);
+
+  $parameters = dosomething_helpers_convert_filters_to_url_parameters($filters);
+  $parameters['cache'] = TRUE;
+
+  $cache = new ApiCache();
+
+  $total = $cache->get('signups-tally', $parameters);
+
+  if ($total) {
+    $total = $total->data;
+  }
+  else {
+    $total = dosomething_signup_get_signups_query($filters, TRUE);
+
+    $cache->set('signups-tally', $parameters, $total);
+  }
+
+  return (int) $total;
 }
 
 /**
