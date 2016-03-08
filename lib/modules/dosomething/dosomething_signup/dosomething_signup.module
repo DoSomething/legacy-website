@@ -858,36 +858,6 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
- *
- * @param array $filters
- * @return int
- */
-function dosomething_signup_get_signup_total_by_filters(array $filters = []) {
-  $unneccessaryFilters = ['count', 'page'];
-
-  $filters = dosomething_helpers_unset_array_keys($filters, $unneccessaryFilters);
-
-  $parameters = dosomething_helpers_convert_filters_to_url_parameters($filters);
-  $parameters['cache'] = TRUE;
-
-  $cache = new ApiCache();
-
-  $total = $cache->get('signups-tally', $parameters);
-
-  if ($total) {
-    $total = $total->data;
-  }
-  else {
-    $total = dosomething_signup_get_signups_query($filters, TRUE);
-
-    $cache->set('signups-tally', $parameters, $total);
-  }
-
-  return (int) $total;
-}
-
-/**
  * Returns array of campaign nid's that a user has signed up for.
  *
  * @param int $uid
