@@ -232,9 +232,9 @@ abstract class Transformer {
           if (!is_array($value)) {
             $output['solutions'][$key]['raw'] = $value;
             $output['solutions'][$key]['formatted'] = NULL;
-          } 
+          }
           else {
-            $output['solutions'][$key] = $value; 
+            $output['solutions'][$key] = $value;
           }
         }
 
