@@ -213,7 +213,6 @@ abstract class Transformer {
         $output['time_commitment'] = $data->time_commitment;
 
         foreach ($data->cover_image as $key => $image) {
-
           if (!is_null($image)) {
             $output['cover_image'][$key] = $this->transformMedia($image, 'square');
           } else {
