@@ -61,8 +61,8 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
   try {
     $response = $client->request('POST', 'users', [
       'body' => json_encode([
-        'key' => $user->mail,
-        'type' => 'email',
+        'id' => $user->mail,
+        'term' => 'email',
         'campaign_id' => $values['nid'],
         'campaign_run_id' => $values['run_nid'],
         ]),
