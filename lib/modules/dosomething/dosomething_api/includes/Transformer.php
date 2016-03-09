@@ -227,7 +227,15 @@ abstract class Transformer {
         $output['facts']['solution'] = $data->facts['solution'] ? $data->facts['solution']['fact'] : NULL;
         $output['facts']['sources'] = $data->facts['sources'] ? $data->facts['sources'] : NULL;
 
-        $output['solutions'] = $data->solutions;
+        foreach ($data->solutions as $key => $value) {
+          if (!is_array($value)) {
+            $output['solutions'][$key]['raw'] = $value;
+            $output['solutions'][$key]['formatted'] = NULL;
+          }
+          else {
+            $output['solutions'][$key] = $value;
+          }
+        }
 
         $output['pre_step'] = $data->pre_step;
 
