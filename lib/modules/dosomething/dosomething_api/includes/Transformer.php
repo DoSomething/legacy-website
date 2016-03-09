@@ -228,7 +228,6 @@ abstract class Transformer {
         $output['facts']['solution'] = $data->facts['solution'] ? $data->facts['solution']['fact'] : NULL;
         $output['facts']['sources'] = $data->facts['sources'] ? $data->facts['sources'] : NULL;
 
-        // For Babysitters Club specifically, raw supported_copy brings in the source since that was included in the string. This will be hard to weed out sources.
         foreach ($data->solutions as $key => $value) {
           if (!is_array($value)) {
             $output['solutions'][$key]['raw'] = $value;
