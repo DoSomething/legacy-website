@@ -78,12 +78,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#prefix' => 'Reportback Image',    
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
   );
-  
-  if (!user_access('edit any reportback')) {
-    unset($form['reportback_submissions']['reportback_item']['#prefix']);
-    unset($form['reportback_submissions']['reportback_item']['#suffix']);
-  }
-
 
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
@@ -211,10 +205,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#description' => t("This is public facing. Do not enter private user information."),
   );
 
-  if (!user_access('edit any reportback')) {
-    unset($form['reportback_inputs']['caption']['#description']);
-  }
-
   $form['reportback_inputs']['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
@@ -233,10 +223,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#default_value' => $entity->quantity,
     '#description' => t('Only type in the number -- like "300" or "5".'),
   );
-
-  if (!user_access('edit any reportback')) {
-    unset($form['reportback_inputs']['quantity']['#description']);
-  }
 
   // Load helpers variables for the nid this reportback is for.
   $config = dosomething_helpers_get_variables('node', $entity->nid);
@@ -289,6 +275,13 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       ),
     ),
   );
+
+  if (!user_access('edit any reportback')) {
+    unset($form['reportback_submissions']['reportback_item']['#prefix']);
+    unset($form['reportback_submissions']['reportback_item']['#suffix']);
+    unset($form['reportback_inputs']['caption']['#description']);
+    unset($form['reportback_inputs']['quantity']['#description']);
+  }
 
   return $form;
 }
