@@ -79,7 +79,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
   );
   
-  if (!user_access('administer modules')) {
+  if (!user_access('edit any reportback')) {
     unset($form['reportback_submissions']['reportback_item']['#prefix']);
     unset($form['reportback_submissions']['reportback_item']['#suffix']);
   }
@@ -211,7 +211,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#description' => t("This is public facing. Do not enter private user information."),
   );
 
-  if (!user_access('administer modules')) {
+  if (!user_access('edit any reportback')) {
     unset($form['reportback_inputs']['caption']['#description']);
   }
 
@@ -234,7 +234,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#description' => t('Only type in the number -- like "300" or "5".'),
   );
 
-  if (!user_access('administer modules')) {
+  if (!user_access('edit any reportback')) {
     unset($form['reportback_inputs']['quantity']['#description']);
   }
 
