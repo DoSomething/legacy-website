@@ -67,7 +67,7 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
         'campaign_run_id' => $values['run_nid'],
         ]),
       ]);
-    if (module_exists('stathat')) {
+    if ($response->getCode() == 200 && module_exists('stathat')) {
       stathat_send_ez_count('drupal - Gladiator - user sent - count', 1);
     }
   } catch (GuzzleHttp\Exception\RequestException $e) {
