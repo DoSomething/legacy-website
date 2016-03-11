@@ -147,6 +147,25 @@ function dosomething_northstar_update_user($form_state) {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
 
+  // Add to request log
+  if(variable_get('dosomething_northstar_log')) {
+    // Don't log plaintext password.
+    if (isset($ns_user['password'])) {
+      $ns_user['password'] = '*****';
+    }
+
+    db_insert('dosomething_northstar_request_log')
+      ->fields([
+        'op' => 'update_user',
+        'uid' => $user->uid,
+        'user_lang' => $user->language,
+        'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
+        'request_values' => json_encode($ns_user),
+        'response_code' => $response->code,
+        'response_values' => $response->data,
+      ])
+      ->execute();
+  }
 }
 
 /**
