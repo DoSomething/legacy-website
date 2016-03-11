@@ -64,7 +64,9 @@ function dosomething_northstar_verify_user($credentials) {
   // Add to request log
   if(variable_get('dosomething_northstar_log')) {
     // Don't log plaintext password.
-    $credentials['password'] = '*****';
+    if (isset($credentials['password'])) {
+      $credentials['password'] = '*****';
+    }
 
     db_insert('dosomething_northstar_request_log')
       ->fields([
