@@ -27,22 +27,12 @@ function dosomething_gladiator_menu() {
  * https://github.com/DoSomething/gladiator
  */
 function _dosomething_gladiator_build_http_client() {
+  $client = [
+    'base_url' => GLADIATOR_URL . '/' . GLADIATOR_VERSION,
+    'headers' => ['Content-Type' => 'application/json', 'Accept' => 'application/json'],
+  ];
+  return $client;
 
-  if (libraries_load('guzzle') == TRUE) {
-    $client = new GuzzleHttp\Client(array(
-      'base_uri' => GLADIATOR_URL . '/' . GLADIATOR_VERSION . '/',
-      'defaults' => array(
-        'headers' => array(
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json'
-          ),
-        ),
-    ));
-
-    return $client;
-  }
-
-  return;
 }
 
 /**
@@ -56,22 +46,31 @@ function _dosomething_gladiator_build_http_client() {
 function dosomething_gladiator_send_user_to_gladiator($user, $values) {
   $client = _dosomething_gladiator_build_http_client();
 
-  if (!$client) { return; }
-
-  try {
-    $response = $client->request('POST', 'users', [
-      'body' => json_encode([
+  $options = [
+  'method' => 'POST',
+  'headers' => $client['headers'],
+  'data' =>
+      json_encode([
         'id' => $user->mail,
         'term' => 'email',
         'campaign_id' => $values['nid'],
         'campaign_run_id' => $values['run_nid'],
         ]),
-      ]);
-    if ($response->getCode() == 200 && module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Gladiator - user sent - count', 1);
-    }
-  } catch (GuzzleHttp\Exception\RequestException $e) {
-    watchdog('dosomething_gladiator', $e, array(), WATCHDOG_ERROR);
+      ];
+
+  if (!$client) { return; }
+  $response = drupal_http_request($client['base_url'] . '/users', $options);
+
+  if ($response->code == 200 && module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Gladiator - user sent - count', 1);
   }
+  else {
+    // Log as a watchdog error, and stathat value.
+    if (module_exists('stathat')) {
+     stathat_send_ez_count('drupal - Gladiator - user failed - count', 1);
+    }
+    watchdog('dosomething_gladiator','user not migrated', array('user' => $user->mail), WATCHDOG_ERROR);
+  }
+
 }
 
