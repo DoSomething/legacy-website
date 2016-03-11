@@ -38,6 +38,12 @@ function dosomething_northstar_schema() {
         'length' => 255,
         'default' => '',
       ],
+      'fastly_country' => [
+        'description' => 'The Fastly country code',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ],
       'request_values' => [
         'description' => 'The JSON request made to Northstar',
         'type' => 'varchar',

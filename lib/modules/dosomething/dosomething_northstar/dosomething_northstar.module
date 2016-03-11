@@ -179,6 +179,7 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
       'uid' => $user->uid,
       'user_lang' => $user->language,
       'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
+      'fastly_country' => dosomething_settings_get_geo_country_code(),
       'request_values' => json_encode($request_body),
       'response_code' => $response->code,
       'response_values' => $response->data,
