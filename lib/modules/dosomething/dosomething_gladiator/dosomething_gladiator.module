@@ -58,7 +58,6 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
       ]),
   ];
 
-  if (!$client) { return; }
   $response = drupal_http_request($client['base_url'] . '/users', $options);
 
   if ($response->code == 200 && module_exists('stathat')) {
