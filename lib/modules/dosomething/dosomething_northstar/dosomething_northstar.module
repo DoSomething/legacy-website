@@ -52,6 +52,7 @@ function dosomething_northstar_libraries_info() {
  * @return mixed|null
  */
 function dosomething_northstar_verify_user($credentials) {
+  global $user;
   $client = _dosomething_northstar_build_http_client();
 
   $response = drupal_http_request($client['base_url'] . '/auth/verify', [
@@ -59,6 +60,24 @@ function dosomething_northstar_verify_user($credentials) {
     'method' => 'POST',
     'data' => json_encode($credentials),
   ]);
+
+  // Add to request log
+  if(variable_get('dosomething_northstar_log')) {
+    // Don't log plaintext password.
+    $credentials['password'] = '*****';
+
+    db_insert('dosomething_northstar_request_log')
+      ->fields([
+        'op' => 'verify user',
+        'uid' => $user->uid,
+        'user_lang' => $user->language,
+        'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
+        'request_values' => json_encode($credentials),
+        'response_code' => $response->code,
+        'response_values' => $response->data,
+      ])
+      ->execute();
+  }
 
   if($response->code !== '200') {
     return null;
