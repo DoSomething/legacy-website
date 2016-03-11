@@ -55,8 +55,8 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
         'term' => 'email',
         'campaign_id' => $values['nid'],
         'campaign_run_id' => $values['run_nid'],
-        ]),
-      ];
+      ]),
+  ];
 
   if (!$client) { return; }
   $response = drupal_http_request($client['base_url'] . '/users', $options);
@@ -69,6 +69,7 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
     if (module_exists('stathat')) {
      stathat_send_ez_count('drupal - Gladiator - user failed - count', 1);
     }
+    //@Todo: send this to a log table.
     watchdog('dosomething_gladiator','user not migrated', array('user' => $user->mail), WATCHDOG_ERROR);
   }
 
