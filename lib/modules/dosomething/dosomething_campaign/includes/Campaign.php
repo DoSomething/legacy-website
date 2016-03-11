@@ -51,6 +51,7 @@ class Campaign {
     $results = node_load_multiple($ids);
 
     if (!$results) {
+      http_response_code(404);
       throw new Exception('No campaign data found.');
     }
 
