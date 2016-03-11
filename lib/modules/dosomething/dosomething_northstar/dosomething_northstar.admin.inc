@@ -49,5 +49,16 @@ function dosomething_northstar_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_northstar_app_key', 'abc4324'),
   );
 
+  $form['log'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Logging'),
+  ];
+  $form['log']['dosomething_northstar_log'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Log requests and responses.'),
+    '#default_value' => variable_get('dosomething_northstar_log', FALSE),
+    '#description' => t("Logs Northstar activity. This should be disabled on production."),
+  ];
+
   return system_settings_form($form);
 }
