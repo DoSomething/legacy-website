@@ -5,10 +5,14 @@
  */
 function paraneue_dosomething_preprocess_node(&$vars) {
   $regional_url_data = paraneue_dosomething_get_regional_url_data($vars['node']);
+  $campaign = node_load($vars['node']->nid);
+  $languages = $campaign->translations->data;
 
   if ($regional_url_data) {
     foreach ($regional_url_data as $language => $url) {
-      drupal_add_html_head_link(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+      if ($languages[$language]['status'] == 1) {
+        drupal_add_html_head_link(['rel' => 'alternate', 'hreflang' => $language, 'href' => $url]);
+      }
     }
   }
 
