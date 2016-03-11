@@ -52,6 +52,7 @@ function dosomething_northstar_libraries_info() {
  * @return mixed|null
  */
 function dosomething_northstar_verify_user($credentials) {
+  global $user;
   $client = _dosomething_northstar_build_http_client();
 
   $response = drupal_http_request($client['base_url'] . '/auth/verify', [
@@ -59,6 +60,9 @@ function dosomething_northstar_verify_user($credentials) {
     'method' => 'POST',
     'data' => json_encode($credentials),
   ]);
+
+  // Add to request log if enabled.
+  dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
 
   if($response->code !== '200') {
     return null;
@@ -99,6 +103,8 @@ function dosomething_northstar_register_user($form_state) {
     watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
 
+  // Add to request log if enabled.
+  dosomething_northstar_log_request('register_user', $user, $ns_user, $response);
 }
 
 /**
@@ -132,7 +138,6 @@ function dosomething_northstar_update_user($form_state) {
   $id = $user->uid;
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
 
-  $northstar = new Northstar();
   $client = _dosomething_northstar_build_http_client();
 
   $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
@@ -148,6 +153,38 @@ function dosomething_northstar_update_user($form_state) {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
 
+  // Add to request log if enabled.
+  dosomething_northstar_log_request('update_user', $user, $ns_user, $response);
+}
+
+/**
+ * If the log is enabled, log this request to the database.
+ *
+ * @param string $op - label for the operation being performed
+ * @param object $user - the Drupal user
+ * @param array $request_body - the body of the request
+ * @param string $response - response JSON
+ */
+function dosomething_northstar_log_request($op, $user, $request_body, $response) {
+  if (!variable_get('dosomething_northstar_log')) return;
+
+  // Don't log plaintext passwords.
+  if (isset($request_body['password'])) {
+    $request_body['password'] = '*****';
+  }
+
+  db_insert('dosomething_northstar_request_log')
+    ->fields([
+      'op' => $op,
+      'uid' => $user->uid,
+      'user_lang' => $user->language,
+      'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
+      'fastly_country' => dosomething_settings_get_geo_country_code(),
+      'request_values' => json_encode($request_body),
+      'response_code' => $response->code,
+      'response_values' => $response->data,
+    ])
+    ->execute();
 }
 
 /**

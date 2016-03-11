@@ -10,6 +10,59 @@
  */
 function dosomething_northstar_schema() {
   $schema['cache_dosomething_northstar'] = drupal_get_schema_unprocessed('system', 'cache');
+
+  $schema['dosomething_northstar_request_log'] = [
+    'description' => 'Log of requests made to Northstar for debugging.',
+    'fields' => [
+      'uid' => [
+        'description' => 'The user\'s Drupal UID',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'op' => [
+        'description' => 'The operation being performed',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ],
+      'user_lang' => [
+        'description' => 'The user\'s language',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ],
+      'user_country' => [
+        'description' => 'The user\'s country code',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ],
+      'fastly_country' => [
+        'description' => 'The Fastly country code',
+        'type' => 'varchar',
+        'length' => 255,
+        'default' => '',
+      ],
+      'request_values' => [
+        'description' => 'The JSON request made to Northstar',
+        'type' => 'varchar',
+        'length' => 5000,
+        'default' => '',
+      ],
+      'response_code' => [
+        'description' => 'The HTTP response code from Northstar',
+        'type' => 'int',
+        'default' => 0,
+      ],
+      'response_values' => [
+        'description' => 'The JSON response from Northstar',
+        'type' => 'varchar',
+        'length' => 5000,
+      ],
+    ],
+  ];
+
   return $schema;
 }
 
@@ -23,4 +76,14 @@ function dosomething_northstar_update_7001() {
     $schema['cache_dosomething_northstar'] = drupal_get_schema_unprocessed('system', 'cache');
     db_create_table('cache_dosomething_northstar', $schema['cache_dosomething_northstar']);
   }
+}
+
+/**
+ * Create a new table "dosomething_northstar_request_log" for logging details of any
+ * Northstar request errors that occur.
+ */
+function dosomething_northstar_update_7002() {
+  $table_name = 'dosomething_northstar_request_log';
+  $schema = dosomething_northstar_schema();
+  db_create_table($table_name, $schema[$table_name]);
 }
