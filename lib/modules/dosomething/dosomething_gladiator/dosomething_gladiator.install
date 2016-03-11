@@ -1,0 +1,60 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_gladiator.module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_gladiator_schema() {
+  $schema = array();
+   $schema['dosomething_gladiator_failed_task_log'] = array(
+    'description' => 'Table of failed users migrated to gladiator.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'mail' => array(
+        'description' => 'The {users}.mail.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => '255',
+      ),
+      'nid' => array(
+        'description' => 'Campaign nid for the signup',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'run_nid' => array(
+        'description' => 'Campaign run nid for the signup',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp of the request.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+   return $schema;
+ }
+function dosomething_gladiator_update_7001(&$sandbox) {
+  $table_name = 'dosomething_gladiator_failed_task_log';
+  $schema = dosomething_gladiator_schema();
+  db_create_table($table_name, $schema[$table_name]);
+}

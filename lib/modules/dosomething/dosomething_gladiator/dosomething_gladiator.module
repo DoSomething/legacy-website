@@ -68,7 +68,17 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
     if (module_exists('stathat')) {
      stathat_send_ez_count('drupal - Gladiator - user failed - count', 1);
     }
-    //@Todo: send this to a log table.
+    // Save fail to a db log so we can easily export.
+    db_insert('dosomething_gladiator_failed_task_log')
+      ->fields(array(
+        'uid' => $user->uid,
+        'mail' => $user->mail,
+        'nid' => $values['nid'],
+        'run_nid' => $values['run_nid'],
+        'timestamp' => REQUEST_TIME,
+        ))
+      ->execute();
+
     watchdog('dosomething_gladiator','user not migrated', array('user' => $user->mail), WATCHDOG_ERROR);
   }
 
