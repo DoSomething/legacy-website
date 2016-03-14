@@ -48,13 +48,45 @@ function dosomething_gladiator_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'response_code' => array(
+        'description' => 'The HTTP response code from Northstar',
+        'type' => 'int',
+        'default' => 0,
+      ),
+      'response_values' => array(
+        'description' => 'The JSON response from Northstar',
+        'type' => 'varchar',
+        'length' => 5000,
+      ),
     ),
     'primary key' => array('id'),
   );
    return $schema;
  }
+
+/**
+ * Create failed task log table.
+ */
 function dosomething_gladiator_update_7001(&$sandbox) {
   $table_name = 'dosomething_gladiator_failed_task_log';
   $schema = dosomething_gladiator_schema();
   db_create_table($table_name, $schema[$table_name]);
+}
+
+/**
+ * Add response code and json encoded response to the log.
+ */
+function dosomething_gladiator_update_7002(&$sandbox) {
+  $fields = ['response_code', 'response_values'];
+  // Tables to add remote_addr to.
+  $table = 'dosomething_gladiator_failed_task_log';
+  // Load schema for field definitions.
+  $schema = dosomething_gladiator_schema();
+  foreach ($fields as $field) {
+    // If the field doesn't exist already:
+    if (!db_field_exists($table, $field)) {
+      // Add it per the schema field definition.
+      db_add_field($table, $field, $schema[$table]['fields'][$field]);
+    }
+  }
 }
