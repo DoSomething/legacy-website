@@ -76,6 +76,8 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
         'nid' => $values['nid'],
         'run_nid' => $values['run_nid'],
         'timestamp' => REQUEST_TIME,
+        'response_code' => $response->code,
+        'response_values' => json_encode($response),
         ))
       ->execute();
 
