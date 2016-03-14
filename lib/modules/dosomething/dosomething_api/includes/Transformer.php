@@ -355,7 +355,7 @@ abstract class Transformer {
       $output['flagged'] = $data->flagged;
 
       try {
-        $items = ReportbackItem::get($data->reportback_items, FALSE);
+        $items = ReportbackItem::get($data->reportback_items);
         $items = services_resource_build_index_list($items, 'reportback-items', 'id');
       }
       catch (Exception $error) {
