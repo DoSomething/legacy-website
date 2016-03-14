@@ -163,7 +163,7 @@ class Reportback extends Entity {
       $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_response = json_decode($northstar_response);
 
-      if ($northstar_response && !isset($northstar_response->error)) {
+      if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
         $northstar_user = $northstar_response->data;
       }
     }
