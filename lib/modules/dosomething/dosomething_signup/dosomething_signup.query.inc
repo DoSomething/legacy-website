@@ -53,7 +53,7 @@ function dosomething_signup_get_signups_query($params, $tally = FALSE) {
  */
 function dosomething_signup_build_signups_query($params = []) {
   $query = db_select('dosomething_signup', 's');
-  $query->leftJoin('dosomething_reportback', 'rb', 's.uid = rb.uid and s.nid = rb.nid'); 
+  $query->leftJoin('dosomething_reportback', 'rb', 's.uid = rb.uid and s.nid = rb.nid and s.run_nid = rb.run_nid'); 
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
 
