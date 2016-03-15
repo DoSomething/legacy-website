@@ -84,6 +84,8 @@ function dosomething_northstar_update_7001() {
  */
 function dosomething_northstar_update_7002() {
   $table_name = 'dosomething_northstar_request_log';
-  $schema = dosomething_northstar_schema();
-  db_create_table($table_name, $schema[$table_name]);
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_northstar_schema();
+    db_create_table($table_name, $schema[$table_name]);
+  }
 }
