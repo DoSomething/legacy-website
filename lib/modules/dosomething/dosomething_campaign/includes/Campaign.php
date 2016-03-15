@@ -90,6 +90,7 @@ class Campaign {
     $results = dosomething_campaign_get_campaigns_query($filters);
 
     if (!$results) {
+      http_response_code(404);
       throw new Exception('No campaign data found.');
     }
 

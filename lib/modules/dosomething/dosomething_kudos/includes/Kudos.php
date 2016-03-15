@@ -45,6 +45,7 @@ class Kudos extends Entity {
     $results = entity_load('kudos', $ids);
 
     if (!$results) {
+      http_response_code(404);
       throw new Exception('No kudos data found.');
     }
 
@@ -72,6 +73,7 @@ class Kudos extends Entity {
     $results = entity_load('kudos', $results);
 
     if (!$results) {
+      http_response_code(404);
       throw new Exception('No kudos data found.');
     }
 
