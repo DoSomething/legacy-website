@@ -44,6 +44,10 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // @see dosomething_campaign_menu().
   $active_path = 'node/' . $node->nid . '/active';
   if ($current_path == $active_path) {
+    if(dosomething_campaign_get_campaign_type($node) === 'sms_game') {
+      dosomething_campaign_preprocess_sms_game($vars, $wrapper);
+      return;
+    }
     // Preprocess the vars for the campaign action page.
     dosomething_campaign_preprocess_action_page($vars, $wrapper);
     return;
