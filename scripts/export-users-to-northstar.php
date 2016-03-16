@@ -82,5 +82,12 @@ function build_northstar_user($user) {
       $ns_user[$ns_key] = $field[$drupal_key]['value'];
     }
   }
+
+  // Set the "source" for this user to Phoenix if they weren't
+  // programmatically created through the API.
+  if(empty($ns_user['source'])) {
+    $ns_user['source'] = 'phoenix';
+  }
+
   return $ns_user;
 }
