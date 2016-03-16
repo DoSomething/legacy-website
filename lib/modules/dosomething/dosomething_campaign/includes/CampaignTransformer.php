@@ -40,6 +40,7 @@ class CampaignTransformer extends Transformer {
     }
     catch (Exception $error) {
       // @TODO: Potentially log error to watchdog.
+      http_response_code('404');
       return [
         'data' => [],
       ];
@@ -77,6 +78,7 @@ class CampaignTransformer extends Transformer {
       $campaign = array_pop($campaign);
     }
     catch (Exception $error) {
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),
