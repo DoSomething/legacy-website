@@ -42,7 +42,6 @@ class Signup extends Entity {
     $results = dosomething_signup_get_signups_query(['sid' => $ids]);
 
     if (!$results) {
-      http_response_code('404');
       throw new Exception('No signup data found.');
     }
 
@@ -68,7 +67,6 @@ class Signup extends Entity {
     $results = dosomething_signup_get_signups_query($filters);
 
     if (!$results) {
-      http_response_code('404');
       throw new Exception('No signup data found.');
     }
 
