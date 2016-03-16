@@ -18,7 +18,6 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
     catch (Exception $error) {
       // @TODO: Potentially log error to watchdog.
-      http_response_code('404');
       return [
         'data' => [],
       ];
