@@ -52,6 +52,7 @@ class SignupTransformer extends Transformer {
       $signup = array_pop($signup);
     }
     catch (Exception $error) {
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),

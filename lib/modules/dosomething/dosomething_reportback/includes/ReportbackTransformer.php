@@ -54,6 +54,7 @@ class ReportbackTransformer extends Transformer {
       $reportback = array_pop($reportback);
     }
     catch (Exception $error) {
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),

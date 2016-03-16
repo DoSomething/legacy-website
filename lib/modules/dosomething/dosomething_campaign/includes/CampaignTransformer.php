@@ -77,6 +77,7 @@ class CampaignTransformer extends Transformer {
       $campaign = array_pop($campaign);
     }
     catch (Exception $error) {
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),
