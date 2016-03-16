@@ -99,7 +99,7 @@ class ReportbackItem extends Entity {
       'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
       'type' => 'image',
     ];
-    // $this->kudos = dosomething_helpers_format_data($data->kids);
+    $this->kudos = dosomething_helpers_format_data($data->kids);
     $this->reportback = [
       'id' => $data->rbid,
       'created_at' => $data->created,
