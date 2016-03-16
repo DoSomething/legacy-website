@@ -18,6 +18,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
     catch (Exception $error) {
       // @TODO: Potentially log error to watchdog.
+      http_response_code('404');
       return [
         'data' => [],
       ];
@@ -44,6 +45,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),
