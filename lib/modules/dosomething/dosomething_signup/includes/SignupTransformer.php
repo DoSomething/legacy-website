@@ -26,7 +26,6 @@ class SignupTransformer extends Transformer {
       $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
-      http_response_code('404');
       return [
         'data' => [],
       ];
