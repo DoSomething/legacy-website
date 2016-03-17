@@ -49,14 +49,16 @@ function dosomething_gladiator_schema() {
         'default' => 0,
       ),
       'response_code' => array(
-        'description' => 'The HTTP response code from Northstar',
+        'description' => 'The HTTP response code from Gladiator',
         'type' => 'int',
         'default' => 0,
       ),
       'response_values' => array(
-        'description' => 'The JSON response from Northstar',
-        'type' => 'varchar',
-        'length' => 5000,
+        'description' => 'The JSON response from Gladiator',
+        'type' => 'text',
+        'length' => '500000',
+        'not null' => FALSE,
+        'default' => NULL,
       ),
     ),
     'primary key' => array('id'),
@@ -89,4 +91,21 @@ function dosomething_gladiator_update_7002(&$sandbox) {
       db_add_field($table, $field, $schema[$table]['fields'][$field]);
     }
   }
+}
+
+/**
+ * Update response values to be a long text field, as the response is LONG.
+ */
+function dosomething_gladiator_update_7003(&$sandbox) {
+  $field = 'response_values';
+  $table = 'dosomething_gladiator_failed_task_log';
+  // Update the field to a large text.
+  db_change_field($table, $field, $field, array(
+    'description' => 'The JSON response from Gladiator',
+    'type' => 'text',
+    'length' => '500000',
+    'not null' => FALSE,
+    'default' => NULL,
+    )
+  );
 }
