@@ -9,25 +9,6 @@ include_once('dosomething_gladiator.admin.inc');
 define('GLADIATOR_URL', variable_get('dosomething_gladiator_url', 'http://homestead.app/api'));
 define('GLADIATOR_VERSION', variable_get('dosomething_gladiator_version', 'v1'));
 
-function dosomething_gladiator_init() {
-  $client = _dosomething_gladiator_build_http_client();
-
-  $options = [
-    'method' => 'GET',
-    'headers' => $client['headers'],
-  ];
-
-  $response = drupal_http_request($client['base_url'] . '/contests', $options);
-  $contests = json_decode($response->data)->data;
-
-  foreach ($contests as $contestData) {
-    // $contest = json_decode($contestData->data);
-
-    // dosomething_helpers_set_variable('node', $contest->campaign->id, 'signup_data_form_status', TRUE);
-    dosomething_helpers_set_variable('node', 1485, 'signup_data_form_competition_signup', TRUE);
-  }
-}
-
 function dosomething_gladiator_menu() {
   $items = [];
   $items['admin/config/services/gladiator'] = array(

@@ -7,10 +7,24 @@
    $client = _dosomething_gladiator_build_http_client();
 
    $options = [
-     'method' => 'POST',
+     'method' => 'GET',
      'headers' => $client['headers'],
    ];
 
    $response = drupal_http_request($client['base_url'] . '/contests', $options);
-   $contests = json_decode($response->data);
+   $contests = json_decode($response->data)->data;
+
+   foreach ($contests as $contest) {
+     $nid = $contest->campaign->id;
+     // For some reason using the boolean value doesnt work in the fields array, have to convert to int.
+     $signupsOpen = $contest->waiting_room->open ? 1 : 0;
+
+     db_update('dosomething_signup_data_form')
+       ->fields([
+         'required' => $signupsOpen,
+         'competition_signup' => $signupsOpen,
+       ])
+       ->condition('nid', $nid)
+       ->execute();
+   }
  }
