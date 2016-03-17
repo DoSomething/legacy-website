@@ -92,6 +92,7 @@ class Reportback extends Entity {
 
     $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids]);
 
+
     if (!user_access('administer modules') && !$results) {
       $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids], TRUE);
       
@@ -100,7 +101,8 @@ class Reportback extends Entity {
         throw new Exception('Access denied.');
       }
     }
-    else if (!$results) {
+   
+   if (!$results) {
       throw new Exception('No reportback data found.');
     }
 

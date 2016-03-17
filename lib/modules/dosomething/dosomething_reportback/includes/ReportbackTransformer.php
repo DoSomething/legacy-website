@@ -54,12 +54,13 @@ class ReportbackTransformer extends Transformer {
       $reportback = array_pop($reportback);
     }
     catch (Exception $error) {
-      if (http_response_code('403')) {
+      if ($error->getMessage() === 'Access denied.') {
         http_response_code('403');
       } 
       else {
         http_response_code('404');
       }
+
       return [
         'error' => [
           'message' => $error->getMessage(),
