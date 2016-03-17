@@ -82,6 +82,9 @@ class ReportbackTransformer extends Transformer {
   protected function transform($item) {
     $data = [];
 
+    print_r($item);
+    die();
+
     $data += $this->transformReportback($item);
 
     $data['campaign'] = $this->transformCampaign((object) $item->campaign);

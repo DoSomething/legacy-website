@@ -45,7 +45,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
         $reportbackItem = $this->removeUnauthorizedResults($reportbackItem, TRUE);
       }
 
-      // $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
+      $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
       if ($error->getMessage() === 'Access denied.') {
