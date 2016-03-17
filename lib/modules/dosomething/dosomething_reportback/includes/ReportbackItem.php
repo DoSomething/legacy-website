@@ -44,8 +44,9 @@ class ReportbackItem extends Entity {
     if (!$results) {
       throw new Exception('No reportback items data found.');
     }
-
+    
     foreach($results as $item) {
+
       $reportbackItem = new static;
       $reportbackItem->build($item, TRUE);
 

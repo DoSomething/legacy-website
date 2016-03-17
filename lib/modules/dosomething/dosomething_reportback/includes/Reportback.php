@@ -92,7 +92,6 @@ class Reportback extends Entity {
 
     $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids]);
 
-
     if (!user_access('administer modules') && !$results) {
       $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids], TRUE);
       

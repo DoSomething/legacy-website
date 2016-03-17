@@ -40,11 +40,21 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   public function show($id) {
     try {
       $reportbackItem = ReportbackItem::get($id);
-      $reportbackItem = $this->removeUnauthorizedResults($reportbackItem);
-      $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
+  
+      if (!user_access('administer modules')) {
+        $reportbackItem = $this->removeUnauthorizedResults($reportbackItem, TRUE);
+      }
+
+      // $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
-      http_response_code('404');
+      if ($error->getMessage() === 'Access denied.') {
+        http_response_code('403');
+      } 
+      else {
+        http_response_code('404');
+      }
+      
       return [
         'error' => [
           'message' => $error->getMessage(),
@@ -142,13 +152,16 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    * @return mixed
    * @throws Exception
    */
-  private function removeUnauthorizedResults($data) {
+  private function removeUnauthorizedResults($data, $one_rb_item = FALSE) {
     if (user_access('view any reportback')) {
       return $data;
     }
 
     foreach ($data as $index => $item) {
-      if (!in_array($item->status, $this->accessibleStatuses)) {
+      if (!in_array($item->status, $this->accessibleStatuses) && $one_rb_item) {
+        throw new Exception('Access denied.');      
+      }
+      else if (!in_array($item->status, $this->accessibleStatuses)) {
         unset($data[$index]);
       }
     }
