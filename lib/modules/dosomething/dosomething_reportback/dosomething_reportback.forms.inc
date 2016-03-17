@@ -74,11 +74,13 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'class' => array(
         'js-image-upload'
       ),
+      'data-validate' => 'hasImage',
+      'data-validate-required' => '',
     ),
     '#prefix' => 'Reportback Image',    
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
-  );
 
+  );
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
