@@ -97,7 +97,6 @@ class Reportback extends Entity {
       $results = dosomething_reportback_get_reportbacks_query(['rbid' => $ids], TRUE);
       
       if ($results) {
-        http_response_code(403);
         throw new Exception('Access denied.');
       }
     }
