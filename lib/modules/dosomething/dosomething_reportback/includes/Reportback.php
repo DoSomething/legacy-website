@@ -101,7 +101,7 @@ class Reportback extends Entity {
       }
     }
    
-   if (!$results) {
+    if (!$results) {
       throw new Exception('No reportback data found.');
     }
 
