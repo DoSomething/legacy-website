@@ -56,6 +56,9 @@ function dosomething_user_init() {
               ->fields('f', ['entity_id']);
       $result = $query->execute()->fetchAll();
       $phoenix_id = $result[0]->entity_id;
+      if(!$phoenix_id) {
+        drupal_not_found();
+      }
       $user = user_load($phoenix_id);
       $new_path = 'user/' . $phoenix_id;
       drupal_goto($new_path);
