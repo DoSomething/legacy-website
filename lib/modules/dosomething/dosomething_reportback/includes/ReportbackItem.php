@@ -46,7 +46,6 @@ class ReportbackItem extends Entity {
     }
     
     foreach($results as $item) {
-
       $reportbackItem = new static;
       $reportbackItem->build($item, TRUE);
 
