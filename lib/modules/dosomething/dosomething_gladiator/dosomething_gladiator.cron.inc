@@ -22,12 +22,11 @@
    foreach ($contests as $contest) {
      $nid = $contest->campaign->id;
      // For some reason using the boolean value doesnt work in the fields array, have to convert to int.
-     $signups_open = $contest->waiting_room->open ? 1 : 0;
+     $contest_is_open = $contest->waiting_room->open ? 1 : 0;
 
      db_update('dosomething_signup_data_form')
        ->fields([
-         'required' => $signups_open,
-         'competition_signup' => $signups_open,
+         'status' => $contest_is_open,
        ])
        ->condition('nid', $nid)
        ->execute();
