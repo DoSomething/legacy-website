@@ -46,6 +46,21 @@ function dosomething_user_init() {
       dosomething_user_non_staff_redirect();
     }
   }
+
+  // If viewing a user/[northstar id]
+  if(arg(0) == 'user') {
+    if(!is_numeric(arg(1))) {
+      $northstar_id = arg(2,request_path());
+      $query = db_select('field_data_field_northstar_id', 'f')
+              ->condition('f.field_northstar_id_value', $northstar_id)
+              ->fields('f', ['entity_id']);
+      $result = $query->execute()->fetchAll();
+      $phoenix_id = $result[0]->entity_id;
+      $user = user_load($phoenix_id);
+      $new_path = 'user/' . $phoenix_id;
+      drupal_goto($new_path);
+    }
+  }
 }
 
 /**
