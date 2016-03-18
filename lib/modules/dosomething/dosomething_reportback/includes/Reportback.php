@@ -129,17 +129,9 @@ class Reportback extends Entity {
   public static function find(array $filters = []) {
     $reportbacks = [];
 
-    // What if there are results that are returned but not all results are returned since flagged will not be included. Is this mis-leading? 
     $results = dosomething_reportback_get_reportbacks_query($filters);
 
-    if (!user_access('administer modules') && !$results) {
-      $results = dosomething_reportback_get_reportbacks_query($filters, TRUE);
-      
-      if ($results) {
-        throw new Exception('Access denied.');
-      }
-    }
-    else if (!$results) {
+    if (!$results) {
       throw new Exception('No reportback data found.');
     }
 

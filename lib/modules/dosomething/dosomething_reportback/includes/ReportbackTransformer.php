@@ -27,6 +27,8 @@ class ReportbackTransformer extends Transformer {
       $total = $this->getTotalCount($filters);
     }
     catch (Exception $error) {
+      print_r($error->getMessage());
+      die();
       // @TODO: Potentially log error to watchdog.
       return [
         'data' => [],
