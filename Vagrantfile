@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/phoenix"
-  config.vm.box_version = "1.0.5"
+  config.vm.box_version = "1.0.6"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -53,4 +53,3 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
 end
-
