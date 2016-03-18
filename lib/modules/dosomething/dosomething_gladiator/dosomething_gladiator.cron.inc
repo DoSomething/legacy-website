@@ -12,6 +12,11 @@
    ];
 
    $response = drupal_http_request($client['base_url'] . '/contests', $options);
+
+   if ($response->code != 200 ) {
+     return;
+   }
+
    $contests = json_decode($response->data)->data;
 
    foreach ($contests as $contest) {
