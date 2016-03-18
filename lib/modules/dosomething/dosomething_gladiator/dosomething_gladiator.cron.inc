@@ -13,7 +13,7 @@
 
    $response = drupal_http_request($client['base_url'] . '/contests', $options);
 
-   if ($response->code != 200 ) {
+   if ($response->code != 200) {
      return;
    }
 
