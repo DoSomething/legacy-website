@@ -40,7 +40,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   public function show($id) {
     try {
       $reportbackItem = ReportbackItem::get($id);
-  
+
       if (!user_access('administer modules')) {
         $reportbackItem = $this->removeUnauthorizedResults($reportbackItem, TRUE);
       }
@@ -50,11 +50,11 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     catch (Exception $error) {
       if ($error->getMessage() === 'Access denied.') {
         http_response_code('403');
-      } 
+      }
       else {
         http_response_code('404');
       }
-      
+
       return [
         'error' => [
           'message' => $error->getMessage(),
@@ -159,9 +159,9 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
     foreach ($data as $index => $item) {
       if (!in_array($item->status, $this->accessibleStatuses) && $one_rb_item) {
-        throw new Exception('Access denied.');      
+        throw new Exception('Access denied.');  
       }
-      else if (!in_array($item->status, $this->accessibleStatuses)) {
+      elseif (!in_array($item->status, $this->accessibleStatuses)) {
         unset($data[$index]);
       }
     }
