@@ -159,7 +159,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
     foreach ($data as $index => $item) {
       if (!in_array($item->status, $this->accessibleStatuses) && $one_rb_item) {
-        throw new Exception('Access denied.');  
+        throw new Exception('Access denied.');
       }
       elseif (!in_array($item->status, $this->accessibleStatuses)) {
         unset($data[$index]);
