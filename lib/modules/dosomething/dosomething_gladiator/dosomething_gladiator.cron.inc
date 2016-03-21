@@ -4,6 +4,11 @@
  * Implements hook_cron()
  */
  function dosomething_gladiator_cron() {
+   dosomething_gladiator_update_campaigns();
+   dosomething_gladiator_retry_failed_users();
+ }
+
+ function dosomething_gladiator_update_campaigns() {
    $client = _dosomething_gladiator_build_http_client();
 
    $options = [
@@ -30,5 +35,25 @@
        ])
        ->condition('nid', $nid)
        ->execute();
+   }
+ }
+
+ function dosomething_gladiator_retry_failed_users() {
+   $task_log = db_select('dosomething_gladiator_failed_task_log', 't')
+    ->fields('t')
+    ->execute()
+    ->fetchAll();
+
+   foreach ($task_log as $task) {
+      $user = user_load($task->uid);
+      $values = [
+        'nid' => $task->nid,
+        'run_nid' => $task->run_nid,
+      ];
+      db_delete('dosomething_gladiator_failed_task_log')
+        ->condition('uid', $task->uid)
+        ->condition('run_nid', $task->run_nid)
+        ->execute();
+      dosomething_gladiator_send_user_to_gladiator($user, $values);
    }
  }
