@@ -108,8 +108,6 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  *   An executed database query object to iterate through.
  */
 function dosomething_reportback_get_reportbacks_query($params) {
-  // $params = dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged);
-
   $query = dosomething_reportback_build_reportbacks_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
   $count = dosomething_helpers_isset($params, 'count', 25);
