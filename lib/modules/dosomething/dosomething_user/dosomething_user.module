@@ -48,16 +48,16 @@ function dosomething_user_init() {
   }
 
   // If viewing a user/[northstar id]
-  if(arg(0) == 'user') {
-    if(!is_numeric(arg(1))) {
-      $phoenix_id = dosomething_user_get_user_by_northstar_id(arg(1));
-      if(!$phoenix_id) {
-        drupal_not_found();
-      }
-      $new_path = 'user/' . $phoenix_id;
-      drupal_goto($new_path);
-    }
-  }
+  // if(arg(0) == 'user') {
+  //   if(!is_numeric(arg(1))) {
+  //     $phoenix_id = dosomething_user_get_user_by_northstar_id(arg(1));
+  //     if(!$phoenix_id) {
+  //       drupal_not_found();
+  //     }
+  //     $new_path = 'user/' . $phoenix_id;
+  //     drupal_goto($new_path);
+  //   }
+  // }
 }
 
 /**
@@ -73,6 +73,7 @@ function dosomething_user_ctools_plugin_directory($module, $plugin) {
  * Implements hook_menu().
  */
 function dosomething_user_menu() {
+  print_r('hook_menu');
   $items = array();
   $items['user/validate/address'] = array(
     'title' => 'address',
@@ -115,9 +116,32 @@ function dosomething_user_menu() {
     'file' => 'dosomething_user.admin.inc',
     'weight' => 500,
   );
-  return $items;
+  $items['katie/user/%'] = array(
+    'page callback' => 'dosomething_user_get_view',
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+    return $items;
 }
 
+function dosomething_user_get_view($id) {
+  if(is_numeric($id)) {
+    // drupal_goto('user/' . $id);
+    $user = user_load($id);
+    // die($user);
+    return user_view($user);
+  }
+  else {
+    $phoenix_user = dosomething_user_get_user_by_northstar_id($id);
+    // user_view(user_load($phoenix_id));
+    // if(!$phoenix_id) {
+    //   drupal_not_found();
+    // }
+    // drupal_goto('user/' . $phoenix_id);
+    user_view($phoenix_user);
+  }
+}
 
 /**
  * Implements hook_permission().
@@ -998,14 +1022,13 @@ function dosomething_user_get_user_by_email($email) {
  * @return string/bool
  *   The user's id in phoenix, or false if no user was found.
  */
-function dosomething_user_get_user_by_northstar_id($nid) {
+function dosomething_user_get_user_by_northstar_id($id) {
   $query = db_select('field_data_field_northstar_id', 'f')
-          ->condition('f.field_northstar_id_value', $nid)
+          ->condition('f.field_northstar_id_value', $id)
           ->fields('f', ['entity_id']);
-  $result = $query->execute()->fetchAll();
-  $phoenix_id = $result[0]->entity_id;
-  if($phoenix_id) {
-    return $phoenix_id;
+  $result = $query->execute()->fetchField();
+  if($result) {
+    return user_load($result);
   }
 
   return FALSE;
