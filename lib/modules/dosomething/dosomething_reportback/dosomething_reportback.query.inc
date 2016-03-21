@@ -107,8 +107,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  * @return object
  *   An executed database query object to iterate through.
  */
-function dosomething_reportback_get_reportbacks_query($params, $include_flagged = FALSE) {
-  $params = dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged);
+function dosomething_reportback_get_reportbacks_query($params) {
+  // $params = dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged);
 
   $query = dosomething_reportback_build_reportbacks_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
@@ -123,30 +123,26 @@ function dosomething_reportback_get_reportbacks_query($params, $include_flagged 
   return $result;
 }
 
-
 /**
- * Filter out requested flagged Reportbacks based on user permissions.
- *
- * @param  array  $params
- * @return mixed
+ * Determine if user has access to flagged Reportbacks based on user permission. 
+ * @param array $results
  */
-function dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged) {
+function dosomething_reportback_accessible_results ($results) {
   if (user_access('view any reportback')) {
-    if (isset($params['flagged'])) {
-      unset($params['flagged']);
+    return $results;
+  }
+  else {
+    foreach ($results as $key => $reportback) {
+      if ($reportback->flagged == 1) {
+        unset($results[$key]);
+      }
     }
 
-    return $params;
+    if (!$results) {
+      return FALSE;
+    }
+    else {
+      return $results;
+    }
   }
-
-  if ($include_flagged) {
-    $params['flagged'] = TRUE;
-  } 
-  else {
-    // Only show reviewed and/or un-flagged Reportbacks.
-    $params['flagged'] = FALSE;
-  }
-
-  return $params;
 }
-
