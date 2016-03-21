@@ -5,6 +5,7 @@
  */
 
 include_once('dosomething_gladiator.admin.inc');
+include_once('dosomething_gladiator.cron.inc');
 
 define('GLADIATOR_URL', variable_get('dosomething_gladiator_url', 'http://gladiator.app:8000/api'));
 define('GLADIATOR_VERSION', variable_get('dosomething_gladiator_version', 'v1'));
@@ -85,4 +86,3 @@ function dosomething_gladiator_send_user_to_gladiator($user, $values) {
   }
 
 }
-
