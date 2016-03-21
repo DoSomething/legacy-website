@@ -46,18 +46,6 @@ function dosomething_user_init() {
       dosomething_user_non_staff_redirect();
     }
   }
-
-  // If viewing a user/[northstar id]
-  // if(arg(0) == 'user') {
-  //   if(!is_numeric(arg(1))) {
-  //     $phoenix_id = dosomething_user_get_user_by_northstar_id(arg(1));
-  //     if(!$phoenix_id) {
-  //       drupal_not_found();
-  //     }
-  //     $new_path = 'user/' . $phoenix_id;
-  //     drupal_goto($new_path);
-  //   }
-  // }
 }
 
 /**
@@ -73,7 +61,6 @@ function dosomething_user_ctools_plugin_directory($module, $plugin) {
  * Implements hook_menu().
  */
 function dosomething_user_menu() {
-  print_r('hook_menu');
   $items = array();
   $items['user/validate/address'] = array(
     'title' => 'address',
@@ -116,30 +103,32 @@ function dosomething_user_menu() {
     'file' => 'dosomething_user.admin.inc',
     'weight' => 500,
   );
-  $items['katie/user/%'] = array(
+
+    return $items;
+}
+
+function dosomething_user_menu_alter(&$items) {
+    $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
-    'page arguments' => array(2),
+    'page arguments' => array(1),
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
-    return $items;
+
+  return $items;
 }
 
 function dosomething_user_get_view($id) {
   if(is_numeric($id)) {
-    // drupal_goto('user/' . $id);
     $user = user_load($id);
-    // die($user);
     return user_view($user);
   }
   else {
     $phoenix_user = dosomething_user_get_user_by_northstar_id($id);
-    // user_view(user_load($phoenix_id));
-    // if(!$phoenix_id) {
-    //   drupal_not_found();
-    // }
-    // drupal_goto('user/' . $phoenix_id);
-    user_view($phoenix_user);
+    if(!$phoenix_user) {
+      drupal_not_found();
+    }
+    return user_view($phoenix_user);
   }
 }
 
