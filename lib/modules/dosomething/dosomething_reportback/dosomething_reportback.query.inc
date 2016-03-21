@@ -107,8 +107,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
  * @return object
  *   An executed database query object to iterate through.
  */
-function dosomething_reportback_get_reportbacks_query($params, $load_all = FALSE) {
-  $params = dosomething_reportback_filter_flagged_reportbacks($params, $load_all);
+function dosomething_reportback_get_reportbacks_query($params, $include_flagged = FALSE) {
+  $params = dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged);
 
   $query = dosomething_reportback_build_reportbacks_query($params);
   $offset = dosomething_helpers_isset($params, 'offset', 0);
@@ -130,7 +130,7 @@ function dosomething_reportback_get_reportbacks_query($params, $load_all = FALSE
  * @param  array  $params
  * @return mixed
  */
-function dosomething_reportback_filter_flagged_reportbacks($params, $load_all) {
+function dosomething_reportback_filter_flagged_reportbacks($params, $include_flagged) {
   if (user_access('view any reportback')) {
     if (isset($params['flagged'])) {
       unset($params['flagged']);
@@ -139,7 +139,7 @@ function dosomething_reportback_filter_flagged_reportbacks($params, $load_all) {
     return $params;
   }
 
-  if ($load_all) {
+  if ($include_flagged) {
     $params['flagged'] = TRUE;
   } 
   else {
