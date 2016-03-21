@@ -138,3 +138,6 @@ msgstr ""
 msgid "Dosomething Affiliate Country"
 msgstr ""
 
+#: dosomething_user.module:304
+msgid "Forgot your password? We’ve all been there. Reset by entering your email."
+msgstr ""
