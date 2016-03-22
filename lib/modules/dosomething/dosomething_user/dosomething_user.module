@@ -113,7 +113,6 @@ function dosomething_user_menu_alter(&$items) {
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
   );
-
   return $items;
 }
 
@@ -1018,7 +1017,6 @@ function dosomething_user_get_user_by_northstar_id($id) {
   if ($result) {
     return user_load($result);
   }
-
   return FALSE;
 }
 
