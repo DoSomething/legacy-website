@@ -31,7 +31,7 @@ foreach ($users as $user) {
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($ns_user),
-    ]);
+  ]);
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
