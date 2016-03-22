@@ -123,7 +123,6 @@ function dosomething_user_menu_alter(&$items) {
 function dosomething_user_get_view($id) {
   if (is_numeric($id)) {
     $account = user_load($id);
-
     return user_view($account);
   }
   else {
@@ -131,8 +130,6 @@ function dosomething_user_get_view($id) {
     if (!$phoenix_user) {
       drupal_not_found();
     }
-
-    // return user_view($phoenix_user);
     drupal_goto('user/' . $phoenix_user->uid);
   }
 }
