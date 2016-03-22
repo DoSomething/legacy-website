@@ -108,14 +108,11 @@ function dosomething_user_menu() {
 }
 
 function dosomething_user_menu_alter(&$items) {
-  unset($items['user']);
-  unset($items['user/%user']);
   $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
     'access callback' => TRUE,
   );
-  unset($items['user/%user']);
 
   return $items;
 }
@@ -130,7 +127,7 @@ function dosomething_user_get_view($id) {
     if (!$phoenix_user) {
       drupal_not_found();
     }
-    drupal_goto('user/' . $phoenix_user->uid);
+    return user_view($phoenix_user);
   }
 }
 

@@ -106,6 +106,10 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     if (isset($vars['theme_hook_suggestions'][1])) {
       // Check if page is user/%.
       $is_profile = ($vars['theme_hook_suggestions'][1] === 'page__user__%');
+      if(strlen(explode('__', $vars['theme_hook_suggestions'][1])[2]) == 24)
+      {
+        $is_profile = TRUE;
+      }
     }
     if ($is_profile) {
       // User profile page does not contain anymore suggestions than
