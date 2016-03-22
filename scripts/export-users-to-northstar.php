@@ -24,6 +24,11 @@ foreach ($users as $user) {
   // Create json object
   $user = user_load($user->uid);
   $ns_user = build_northstar_user($user);
+  
+  // Don't "forward" the anonymous user.
+  if($user->uid == 0) {
+    continue;
+  }
 
   // Use old drupal_http_request method.
   $client = _dosomething_northstar_build_http_client();
