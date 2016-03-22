@@ -25,7 +25,7 @@ function dosomething_gladiator_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Gladiator API key'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_gladiator_version', 'uxm107oct1977'),
+    '#default_value' => variable_get('dosomething_gladiator_key', 'uxm107oct1977'),
   );
   return system_settings_form($form);
 }
