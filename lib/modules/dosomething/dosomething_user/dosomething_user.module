@@ -108,27 +108,32 @@ function dosomething_user_menu() {
 }
 
 function dosomething_user_menu_alter(&$items) {
-    $items['user/%'] = array(
+  unset($items['user']);
+  unset($items['user/%user']);
+  $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
-    'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
+  unset($items['user/%user']);
 
   return $items;
 }
 
 function dosomething_user_get_view($id) {
-  if(is_numeric($id)) {
-    $user = user_load($id);
-    return user_view($user);
+  if (is_numeric($id)) {
+    $account = user_load($id);
+
+    return user_view($account);
   }
   else {
     $phoenix_user = dosomething_user_get_user_by_northstar_id($id);
-    if(!$phoenix_user) {
+    if (!$phoenix_user) {
       drupal_not_found();
     }
-    return user_view($phoenix_user);
+
+    // return user_view($phoenix_user);
+    drupal_goto('user/' . $phoenix_user->uid);
   }
 }
 
@@ -1016,7 +1021,7 @@ function dosomething_user_get_user_by_northstar_id($id) {
           ->condition('f.field_northstar_id_value', $id)
           ->fields('f', ['entity_id']);
   $result = $query->execute()->fetchField();
-  if($result) {
+  if ($result) {
     return user_load($result);
   }
 
