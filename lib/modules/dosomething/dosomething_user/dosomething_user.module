@@ -104,14 +104,15 @@ function dosomething_user_menu() {
     'weight' => 500,
   );
 
-    return $items;
+  return $items;
 }
 
 function dosomething_user_menu_alter(&$items) {
   $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
   );
 
   return $items;
@@ -127,7 +128,7 @@ function dosomething_user_get_view($id) {
     if (!$phoenix_user) {
       drupal_not_found();
     }
-    return user_view($phoenix_user);
+    drupal_goto('user/' . $phoenix_user->uid);
   }
 }
 
