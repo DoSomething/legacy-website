@@ -32,6 +32,9 @@ foreach ($users as $user) {
     'method' => 'POST',
     'data' => json_encode($ns_user),
   ]);
+  
+  // Log whether the request was successful or not
+  dosomething_northstar_log_request('migrate', $user, json_encode($ns_user), $response);
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
