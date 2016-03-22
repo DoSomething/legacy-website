@@ -103,7 +103,6 @@ function dosomething_user_menu() {
     'file' => 'dosomething_user.admin.inc',
     'weight' => 500,
   );
-
   return $items;
 }
 
