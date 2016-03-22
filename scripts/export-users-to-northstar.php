@@ -24,7 +24,7 @@ foreach ($users as $user) {
   // Create json object
   $user = user_load($user->uid);
   $ns_user = build_northstar_user($user);
-  
+
   // Don't "forward" the anonymous user.
   if($user->uid == 0) {
     continue;
@@ -37,14 +37,14 @@ foreach ($users as $user) {
     'method' => 'POST',
     'data' => json_encode($ns_user),
   ]);
-  
+
   // Log whether the request was successful or not
   dosomething_northstar_log_request('migrate', $user, json_encode($ns_user), $response);
 
   // Store the returned Northstar ID on the user's Drupal profile.
   $northstar_id = isset($response->data->id) ? $response->data->id : 'NONE';
   user_save($user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
-  
+
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
 }
