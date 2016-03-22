@@ -39,21 +39,18 @@
  }
 
  function dosomething_gladiator_retry_failed_users() {
-   $task_log = db_select('dosomething_gladiator_failed_task_log', 't')
-    ->fields('t')
-    ->execute()
-    ->fetchAll();
+    $task_log = db_select('dosomething_gladiator_failed_task_log', 't')
+      ->fields('t')
+      ->execute()
+      ->fetchAll();
+    db_truncate('dosomething_gladiator_failed_task_log')->execute();
 
-   foreach ($task_log as $task) {
+    foreach ($task_log as $task) {
       $user = user_load($task->uid);
       $values = [
         'nid' => $task->nid,
         'run_nid' => $task->run_nid,
       ];
-      db_delete('dosomething_gladiator_failed_task_log')
-        ->condition('uid', $task->uid)
-        ->condition('run_nid', $task->run_nid)
-        ->execute();
       dosomething_gladiator_send_user_to_gladiator($user, $values);
    }
  }
