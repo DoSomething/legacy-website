@@ -165,7 +165,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#type' => 'textfield',
       '#title' => t('Progress Update'),
       '#description' => t('Total approved qnty is: '.  $rb_progress . '. <br/> Subtract this # from the # our partner provided, and enter the difference here. I.e. if partner said 1,000 and the total approved qnty is 100, enter 900'),
-      '#default_value' => $vars['sum_rb_quantity_override'],
+      '#default_value' => (isset($vars['sum_rb_quantity_override'])) ?: '',
     );
 
     $web_signup_count = dosomething_helpers_get_variable('node', $node->nid, 'web_signup_count') ?: dosomething_signup_get_signup_total_by_nid($node->nid);
@@ -174,13 +174,13 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#type' => 'textfield',
       '#title' => t('Mobile Count'),
       '#description'=> t('The total number of signups from mobile, will be added to total web signups: '  . $web_signup_count),
-      '#default_value' => $vars['mobile_signup_count'],
+      '#default_value' => (isset($vars['mobile_signup_count'])) ?: '',
     );
 
     $form['goals']['progress_copy_override'] = [
       '#type' => 'textarea',
       '#title' => t('Hot Module progress override copy'),
-      '#default_value' => $vars['progress_copy_override'],
+      '#default_value' => (isset($vars['progress_copy_override'])) ?: '',
       '#description' => t('Add copy here if you’d like to override the default progress copy in the hot module. Note: The default copy changes as progress increases. Override copy is static. If you create override copy, you’ll need to either delete the copy or change it yourself for this text to update.'),
     ];
 
