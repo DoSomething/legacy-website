@@ -1264,6 +1264,7 @@ function dosomething_user_non_staff_redirect() {
  * @see dosomething_user_menu()
  */
 function dosomething_user_info_form($form, &$form_state, $account) {
+
   $form['uid'] = array(
     '#type' => 'hidden',
     '#value' => $account->uid,
@@ -1328,11 +1329,15 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#default_value' => $zipcode,
   );
   $birthday = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate', $account), 'm/d/Y');
+  $birthDate = explode("/", $birthday);
+  $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md") ? ((date("Y") - $birthDate[2]) - 1) : (date("Y") - $birthDate[2]));
+
   $form['info']['birthdate'] = array(
     '#title' => "Birthdate",
     '#type' => 'textfield',
     '#default_value' => $birthday,
     '#description' => t("Format: M/D/YYYY"),
+    '#field_suffix' => 'User age: ' . $age, 
   );
   $form['picture'] = array(
     '#type' => 'fieldset',
@@ -1356,7 +1361,6 @@ function dosomething_user_info_form($form, &$form_state, $account) {
   );
 
   $form['#validate'][] = 'dosomething_user_validate_address_field';
-
   return $form;
 }
 
