@@ -131,7 +131,7 @@ function dosomething_reportback_accessible_results ($results) {
   }
   else {
     foreach ($results as $key => $reportback) {
-      if ($reportback->flagged == 1) {
+      if ($reportback->flagged === 1) {
         unset($results[$key]);
       }
     }
