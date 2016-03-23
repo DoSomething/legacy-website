@@ -110,8 +110,8 @@ function dosomething_user_menu_alter(&$items) {
   $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
-    'access callback' => 'user_access',
-    'access arguments' => array('access user profiles'),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(1),
   );
   return $items;
 }
