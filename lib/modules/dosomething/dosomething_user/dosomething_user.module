@@ -110,8 +110,7 @@ function dosomething_user_menu_alter(&$items) {
   $items['user/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
-    'access callback' => 'user_access',
-    'access arguments' => array('view any user profile'),
+    'access callback' => TRUE,
   );
   return $items;
 }
@@ -1013,9 +1012,9 @@ function dosomething_user_get_user_by_northstar_id($id) {
   $query = db_select('field_data_field_northstar_id', 'f')
           ->condition('f.field_northstar_id_value', $id)
           ->fields('f', ['entity_id']);
-  $result = $query->execute()->fetchField();
-  if ($result) {
-    return user_load($result);
+  $uid = $query->execute()->fetchField();
+  if ($uid) {
+    return user_load($uid);
   }
   return FALSE;
 }
