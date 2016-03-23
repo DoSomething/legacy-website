@@ -15,6 +15,7 @@ function dosomething_reportback_user_default_permissions() {
     'name' => 'delete any reportback',
     'roles' => array(
       'administrator' => 'administrator',
+      'editor' => 'editor',
     ),
     'module' => 'dosomething_reportback',
   );
