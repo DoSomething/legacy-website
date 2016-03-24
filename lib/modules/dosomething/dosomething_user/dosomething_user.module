@@ -1221,14 +1221,11 @@ function dosomething_user_format_string($string, $format) {
 /**
  * Returns given user's age.
  *
- * @param string $field_value
- *   The value of the field from `dosomething_user_get_field` to format.
- * @param string $format
- *   Optional- format to return. http://www.php.net/manual/en/function.date.php.
- *   If NULL, the raw timestamp is returned.
+ * @param string $birthdate
+ *   The value returned from `dosomething_user_get_field_birthdate`.
  *
  * @return string
- *   Returns the date in specified $format.
+ *   Returns the age (in years) of the user.
  */
 function dosomething_user_get_age($birthdate) {
   $today = new DateTime('now');
