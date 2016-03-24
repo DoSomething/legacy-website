@@ -1,13 +1,11 @@
 .win-module {
   .win-module__progress {
     margin-bottom: $base-spacing;
-    background-image: asset-url("images/WinBackgroundS.svg");
     background-size: contain;
     background-position: center;
     background-repeat: repeat-x;
 
     @include media($medium) {
-      background-image: asset-url("images/WinBackgroundL.svg");
       background-size: cover;
     }
 
