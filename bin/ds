@@ -447,9 +447,9 @@ function grunt {
     then
       echo -e "\n\e[4mBuilding SCSS/JS with Grunt, and watching for changes...\e[0m"
       echo -e "\e[30;43m(Press Ctrl-C to stop.)\e[0m\n"
-      eval "/usr/bin/grunt"
+      eval "/usr/bin/npm start"
     else
-      eval "/usr/bin/grunt build"
+      eval "/usr/bin/npm run build"
     fi
   fi
 

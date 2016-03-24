@@ -3,6 +3,7 @@
   "scripts": {
     "start": "grunt",
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
+    "build": "grunt build",
   },
   "dependencies": {
     "chart.js": "~1.0.2",
