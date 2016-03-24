@@ -44,13 +44,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       $reportbackItem = services_resource_build_index_list($reportbackItem, 'reportback-items', 'id');
     }
     catch (Exception $error) {
-      if ($error->getMessage() === 'Access denied.') {
-        http_response_code('403');
-      }
-      else {
-        http_response_code('404');
-      }
-
+      http_response_code('404');
       return [
         'error' => [
           'message' => $error->getMessage(),
@@ -149,10 +143,6 @@ class ReportbackItemTransformer extends ReportbackTransformer {
    * @throws Exception
    */
   private function removeUnauthorizedResults($data) {
-    if (!$data) {
-      throw new Exception('No reportback items data found.');
-    }
-
     if (user_access('view any reportback')) {
       return $data;
     }
@@ -163,8 +153,11 @@ class ReportbackItemTransformer extends ReportbackTransformer {
       }
     }
 
-    if(!$data) {
-      throw new Exception('Access denied.');
+    if (!$data) {
+      throw new Exception('No reportback items data found.');
     }
+
+    return $data;
   }
+
 }
