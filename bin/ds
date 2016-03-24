@@ -180,9 +180,8 @@ function build {
     build_helper 'default' $1 $2
   fi
 
-  # Run grunt task to configure front-end environment
-  # this will install Bower/NPM dependencies
-  grunt
+  # Install NPM dependencies & build front-end assets
+  assets
 
   echo 'Build complete.'
 }
@@ -429,23 +428,20 @@ function composer {
 }
 
 #=== FUNCTION ==================================================================
-# NAME: grunt
-# DESCRIPTION: Builds front-end assets (JS/SCSS) using Grunt
+# NAME: assets
+# DESCRIPTION: Builds front-end assets (JS/SCSS) via the theme's NPM scripts.
 #===============================================================================
-function grunt {
+function assets {
   cd $LIB_PATH/themes/dosomething/paraneue_dosomething
 
   if hash npm 2>/dev/null;
   then
     echo -e "\n\e[4mInstalling NPM dependencies...\e[0m"
     eval "/usr/bin/npm install"
-  fi
 
-  if hash grunt 2>/dev/null;
-  then
     if [[ $1 == "--watch" ]]
     then
-      echo -e "\n\e[4mBuilding SCSS/JS with Grunt, and watching for changes...\e[0m"
+      echo -e "\n\e[4mBuilding front-end assets and watching for changes...\e[0m"
       echo -e "\e[30;43m(Press Ctrl-C to stop.)\e[0m\n"
       eval "/usr/bin/npm start"
     else
@@ -644,9 +640,9 @@ fi
 #----------------------------------------------------------------------
 # grunt
 #----------------------------------------------------------------------
-if [[ $1 == "grunt" ]]
+if [[ $1 == "grunt" ]] || [[ $1 == "assets" ]]
 then
-  grunt $2
+  assets $2
 fi
 
 #----------------------------------------------------------------------
