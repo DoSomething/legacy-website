@@ -1344,7 +1344,6 @@ function dosomething_user_info_form($form, &$form_state, $account) {
   );
   $birthday = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate', $account), 'm/d/Y');
   $age = dosomething_user_get_age($birthday);
-
   $form['info']['birthdate'] = array(
     '#title' => "Birthdate",
     '#type' => 'textfield',
@@ -1352,7 +1351,6 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#description' => t("Format: M/D/YYYY"),
     '#field_suffix' => 'User age: ' . $age, 
   );
-
   $form['picture'] = array(
     '#type' => 'fieldset',
     '#title' => t('Picture'),
