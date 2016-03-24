@@ -1218,6 +1218,23 @@ function dosomething_user_format_string($string, $format) {
         return strtolower($string);
     }
 }
+/**
+ * Returns given user's age.
+ *
+ * @param string $field_value
+ *   The value of the field from `dosomething_user_get_field` to format.
+ * @param string $format
+ *   Optional- format to return. http://www.php.net/manual/en/function.date.php.
+ *   If NULL, the raw timestamp is returned.
+ *
+ * @return string
+ *   Returns the date in specified $format.
+ */
+function dosomething_user_get_age($birthdate) {
+  $today = new DateTime('now');
+  $birthday = new DateTime($birthdate);
+  return $birthday->diff($today)->y;
+}
 
 /**
  * Returns given user's birthdate.
@@ -1329,8 +1346,7 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#default_value' => $zipcode,
   );
   $birthday = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate', $account), 'm/d/Y');
-  $birthDate = explode("/", $birthday);
-  $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md") ? ((date("Y") - $birthDate[2]) - 1) : (date("Y") - $birthDate[2]));
+  $age = dosomething_user_get_age($birthday);
 
   $form['info']['birthdate'] = array(
     '#title' => "Birthdate",
