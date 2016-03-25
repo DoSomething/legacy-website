@@ -427,6 +427,7 @@ abstract class Transformer {
     return [
       'id' => $data->id,
       'created_at' => $data->created_at,
+      'northstar_id' => $data->northstar_id,
       'campaign_run' => [
         'id' => $data->campaign_run,
         'current' => $current,

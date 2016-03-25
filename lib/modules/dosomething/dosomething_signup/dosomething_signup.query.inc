@@ -71,6 +71,8 @@ function dosomething_signup_build_signups_query($params = []) {
 
   if (isset($params['competition'])) {
     $query->condition('s.competition', 1, '=');
+    $query->leftJoin('field_data_field_northstar_id', 'ns', 'ns.entity_id = s.uid');
+    $query->fields('ns', ['field_northstar_id_value']);
     $query->orderBy('rb.quantity', 'DESC');
   }
 
