@@ -302,7 +302,7 @@
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
   <section id="prove" class="container container--prove inline-alt-background-color">
-    <h2 class="heading -banner"><span><?php print t('Step 4: Prove It'); ?></span></h2>
+    <h2 class="heading -banner -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
 
     <div class="wrapper">
       <div class="container__block">
