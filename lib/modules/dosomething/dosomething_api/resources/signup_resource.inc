@@ -69,11 +69,11 @@ function _signup_resource_definition() {
           ],
           [
             'name' => 'competition',
-            'description' => 'Only competition signups, defaults to 0.',
+            'description' => 'Only competition signups, defaults to false.',
             'optional' => TRUE,
-            'type' => 'int',
+            'type' => 'boolean',
             'source' => ['param' => 'competition'],
-            'default value' => 0,
+            'default value' => FALSE,
           ],
         ],
         'access callback' => '_signup_resource_access',
@@ -96,7 +96,7 @@ function _signup_resource_access() {
  * @param string $campaigns
  * @param int $count
  * @param int $page
- * @param int $competition
+ * @param boolean $competition
  * @return array
  */
 function _signup_resource_index($user, $campaigns, $count, $page, $competition) {
