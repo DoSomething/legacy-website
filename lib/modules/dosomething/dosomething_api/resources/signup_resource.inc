@@ -67,6 +67,14 @@ function _signup_resource_definition() {
             'source' => ['param' => 'page'],
             'default value' => 1,
           ],
+          [
+            'name' => 'competition',
+            'description' => 'Only competition signups, defaults to false.',
+            'optional' => TRUE,
+            'type' => 'boolean',
+            'source' => ['param' => 'competition'],
+            'default value' => FALSE,
+          ],
         ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
@@ -88,14 +96,16 @@ function _signup_resource_access() {
  * @param string $campaigns
  * @param int $count
  * @param int $page
+ * @param boolean $competition
  * @return array
  */
-function _signup_resource_index($user, $campaigns, $count, $page) {
+function _signup_resource_index($user, $campaigns, $count, $page, $competition) {
   $parameters = [
     'user' => $user,
     'campaigns' => $campaigns,
     'count' => $count,
     'page' => $page,
+    'competition' => $competition,
   ];
 
   return (new SignupTransformer)->index($parameters);
