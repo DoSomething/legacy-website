@@ -432,7 +432,6 @@ function dosomething_user_validate_address_field($form, &$form_state) {
   // Only validate if we have values in the array.
   if ($address['thoroughfare'] !== '' && $address['locality'] !== '' && $address['administrative_area'] !== '' && $address['postal_code'] !== '') {
     $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
-
     // Did we not get any results?
     if (in_array('sorry', $formatted_address)) {
       form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
@@ -476,16 +475,30 @@ function dosomething_user_validate_password_length($form, &$form_state) {
  *  A validated drupal addressfield array.
  */
 function dosomething_user_set_address_values($form, &$form_state, $address) {
-  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
-      array('value' => $address['thoroughfare']), $form_state);
-  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
-      array('value' => $address['premise']), $form_state);
-  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['locality'],
-      array('value' => $address['locality']), $form_state);
-  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['administrative_area'],
-      array('value' => $address['administrative_area']), $form_state);
-  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['postal_code'],
-      array('value' => $address['postal_code']), $form_state);
+  // $current_page = $_SERVER['REQUEST_URI'];
+  // if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $validate_address) {
+  //   form_set_value($form['input']['street'],
+  //       array('value' => $address['thoroughfare']), $form_state);
+  //   form_set_value($form['input']['sub_street'],
+  //       array('value' => $address['premise']), $form_state);
+  //   form_set_value($form['input']['city'],
+  //       array('value' => $address['locality']), $form_state);
+  //   form_set_value($form['input']['state'],
+  //       array('value' => $address['administrative_area']), $form_state);
+  //   form_set_value($form['input']['zipcode'],
+  //       array('value' => $address['postal_code']), $form_state);
+  // } else {
+    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
+        array('value' => $address['thoroughfare']), $form_state);
+    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
+        array('value' => $address['premise']), $form_state);
+    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['locality'],
+        array('value' => $address['locality']), $form_state);
+    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['administrative_area'],
+        array('value' => $address['administrative_area']), $form_state);
+    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['postal_code'],
+        array('value' => $address['postal_code']), $form_state);
+  // }
 }
 
 /**

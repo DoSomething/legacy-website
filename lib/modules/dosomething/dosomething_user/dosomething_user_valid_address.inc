@@ -89,7 +89,7 @@ function dosomething_user_validate_any_address($first_name, $last_name, $address
 
   // Parse the results.
   $parsed = dosomething_user_parse_ups_xml_results($results);
-  
+
   return $parsed;
 }
 
