@@ -213,7 +213,7 @@
   }
 
   .no-result {
-    background: $off-black asset-url("images/placeholder.png") center center;
+    background-color: $off-black;
     background-size: cover;
     text-align: center;
     min-height: 300px;
