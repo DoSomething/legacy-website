@@ -205,7 +205,7 @@ function paraneue_dosomething_get_search_gallery($results) {
   // Theme each result with the media pattern.
   if ($results_variables) {
     foreach ($results_variables as $delta => $value) {
-      $result_items[$delta] = paraneue_dosomething_get_gallery_item($value, 'figure', TRUE, array('-left', '-medium'));
+      $result_items[$delta] = paraneue_dosomething_get_gallery_item($value, 'figure', TRUE, array('-left', '-medium', '-tinted'));
     }
   }
   // Theme the set of results as duo gallery.
