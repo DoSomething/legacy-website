@@ -90,9 +90,10 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
 
     $user = user_load($data->uid);
+
     $this->user = [
       'drupal_id' => $data->uid,
-      'northstar_id' => dosomething_helpers_isset($user->uuid, 'id'),
+      'northstar_id' => dosomething_helpers_isset($user->field_northstar_id_value, 'id'),
       'first_name' => dosomething_helpers_isset($user->field_first_name[LANGUAGE_NONE][0]['value'], 'first_name'),
       'last_initial' => dosomething_helpers_isset($user->field_last_name[LANGUAGE_NONE][0]['value'], 'last_initial'),
       'photo' => dosomething_helpers_isset($user->photo, 'photo'),
