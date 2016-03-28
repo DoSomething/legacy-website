@@ -103,11 +103,7 @@ function dosomething_user_menu() {
     'file' => 'dosomething_user.admin.inc',
     'weight' => 500,
   );
-  return $items;
-}
-
-function dosomething_user_menu_alter(&$items) {
-  $items['user/%'] = array(
+  $items['northstar/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
     'access callback' => 'user_view_access',
@@ -117,17 +113,11 @@ function dosomething_user_menu_alter(&$items) {
 }
 
 function dosomething_user_get_view($id) {
-  if (is_numeric($id)) {
-    $account = user_load($id);
-    return user_view($account);
+  $phoenix_user = dosomething_user_get_user_by_northstar_id($id);
+  if (!$phoenix_user) {
+    drupal_not_found();
   }
-  else {
-    $phoenix_user = dosomething_user_get_user_by_northstar_id($id);
-    if (!$phoenix_user) {
-      drupal_not_found();
-    }
-    drupal_goto('user/' . $phoenix_user->uid);
-  }
+  drupal_goto('user/' . $phoenix_user->uid);
 }
 
 /**
