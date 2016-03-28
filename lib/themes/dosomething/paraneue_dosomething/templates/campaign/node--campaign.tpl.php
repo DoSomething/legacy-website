@@ -279,7 +279,9 @@
               </section>
 
               <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
-                <h2 class="heading -banner">Tips</h2>
+                <div class="modal__block">
+                    <h2><?php print t('Tips'); ?></h2>
+                </div>
                 <div class="modal__block">
                   <?php foreach ($content['tips'] as $delta => $tip): ?>
                     <h4 class="inline-sponsor-color"><?php print $tip['header']; ?></h4>

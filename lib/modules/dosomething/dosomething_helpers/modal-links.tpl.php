@@ -19,7 +19,9 @@
 
 <?php if (isset($modals['faq'])): ?>
 <div data-modal id="modal-faq" role="dialog">
-  <h2 class="heading -banner"><?php print t('FAQs'); ?></h2>
+  <div class="modal__block">
+    <h2><?php print t('FAQs'); ?></h2>
+  </div>
   <div class="modal__block with-lists">
     <?php foreach ($modals['faq'] as $item): ?>
       <h4><?php print $item['header']; ?></h4>
@@ -36,7 +38,9 @@
 
 <?php if (isset($modals['more_facts'])): ?>
 <div data-modal id="modal-facts" role="dialog">
-  <h2 class="heading -banner"><?php print t('Facts'); ?></h2>
+  <div class="modal__block">
+      <h2><?php print t('Facts'); ?></h2>
+  </div>
   <div class="modal__block">
     <ul class="list">
       <?php foreach ($modals['more_facts']['facts'] as $key => $fact): ?>
@@ -66,7 +70,9 @@
 <?php if (isset($modals['partner_info'])): ?>
   <?php foreach ($modals['partner_info'] as $delta => $partner): ?>
     <div data-modal id="modal-partner-<?php print $delta; ?>" role="dialog">
-      <h2 class="heading -banner"><?php print t('We &lt;3 @partner', ['@partner' => $partner['name']]); ?></h2>
+      <div class="modal__block">
+        <h2><?php print t('We &lt;3 @partner', ['@partner' => $partner['name']]); ?></h2>
+      </div>
       <div class="modal__block with-lists">
         <?php print $partner['copy']; ?>
       </div>
