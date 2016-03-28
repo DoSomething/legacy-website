@@ -1,15 +1,5 @@
 .campaign.closed {
-  [role="banner"] {
-    &.-hero {
-      // Overrides to maintain default spacing between headers and cta
-      // since the end date is removed
-      // @TODO: might be worth while to make this a pattern
-      .__subtitle {
-        margin-bottom: 27px;
-        margin-top: 0;
-      }
-    }
-
+  .header {
     .message-callout {
       margin: 0 auto;
       width: 220px;
