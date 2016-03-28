@@ -487,7 +487,8 @@ function dosomething_user_set_address_values($form, &$form_state, $address) {
         array('value' => $address['administrative_area']), $form_state);
     form_set_value($form['info']['zipcode'],
         array('value' => $address['postal_code']), $form_state);
-  } else {
+  } 
+  else {
     form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
         array('value' => $address['thoroughfare']), $form_state);
     form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
