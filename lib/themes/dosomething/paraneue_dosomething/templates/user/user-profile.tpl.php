@@ -25,7 +25,7 @@
   </header>
 
   <section class="container -padded">
-    <h1 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h1>
+    <h2 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h2>
     <div class="wrapper">
       <?php if (empty($doing)): ?>
         <div class="container__block">
@@ -41,24 +41,17 @@
 
   <?php if (!empty($reportbacks)): ?>
     <section class="container">
-      <h1 class="heading -banner"><span><?php print t('You Did'); ?></span></h1>
+      <h2 class="heading -banner"><span><?php print t('You Did'); ?></span></h2>
       <div class="wrapper">
-        <div class="container__block">
-          <?php print $reportback_gallery; ?>
-        </div>
+        <?php print $reportback_gallery; ?>
       </div>
     </section>
   <?php endif; ?>
 
   <section class="container -padded">
-    <h1 class="heading -banner"><span><?php print t('Your Info'); ?></span></h1>
-
+    <h2 class="heading -banner"><span><?php print t('Your Info'); ?></span></h2>
     <div class="wrapper">
-      <div class="container__block">
-        <h2><?php print t('Account Info'); ?></h2>
-      </div>
-
-      <dl class="profile-settings">
+      <dl class="container__block -half profile-settings">
         <dt><?php print t('Name'); ?>:</dt>
         <dd>
           <?php print check_plain($first_name); ?>
@@ -79,7 +72,7 @@
         <?php endif; ?>
 
       </dl>
-      <div class="profile-actions">
+      <div class="container__block -half profile-actions">
         <a class="secondary" href="/<?php print $edit_link; ?>">
           <?php print t('Update my profile'); ?>
         </a>
