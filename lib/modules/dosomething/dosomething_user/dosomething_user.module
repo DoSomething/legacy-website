@@ -401,6 +401,29 @@ function dosomething_user_add_validation_attributes_to_address_fields($form, &$f
   return $form;
 }
 
+function dosomething_user_validate_info_form_address ($form, &$form_state) {
+  $first_name = $form_state['input']['first_name'];
+  $last_name = $form_state['input']['last_name'];
+  $address = [
+   'country' => 'US',
+   'thoroughfare' => $form_state['input']['street'],
+   'premise' => $form_state['input']['sub_street'],
+   'locality' => $form_state['input']['city'], 
+   'administrative_area' => $form_state['input']['state'],
+   'postal_code' => $form_state['input']['zipcode'],
+  ];
+
+  dosomething_user_validate_address_field($first_name, $last_name, $address, $form, $form_state);
+}
+
+function dosomething_user_validate_edit_form_address ($form, &$form_state) {
+  $first_name = $form_state['input']['field_first_name'][LANGUAGE_NONE][0]['value'];
+  $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];
+  $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
+
+  dosomething_user_validate_address_field($first_name, $last_name, $address);
+}
+
 /**
  * Validate address field as it is on the user object
  *
@@ -410,28 +433,11 @@ function dosomething_user_add_validation_attributes_to_address_fields($form, &$f
  *  A drupal form_state array.
  *
  */
-function dosomething_user_validate_address_field($form, &$form_state) {
-  $current_page = $_SERVER['REQUEST_URI'];
-  if (preg_match('/user\/([0-9]+)\/info/', $current_page)) {
-    $first_name = $form_state['input']['first_name'];
-    $last_name = $form_state['input']['last_name'];
-    $address = [
-      'country' => 'US',
-      'thoroughfare' => $form_state['input']['street'],
-      'premise' => $form_state['input']['sub_street'],
-      'locality' => $form_state['input']['city'], 
-      'administrative_area' => $form_state['input']['state'],
-      'postal_code' => $form_state['input']['zipcode'],
-    ];
-  } else {
-    $first_name = $form_state['input']['field_first_name'][LANGUAGE_NONE][0]['value'];
-    $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];
-    $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
-  }
-
+function dosomething_user_validate_address_field($first_name, $last_name, $address, $form, &$form_state) {
   // Only validate if we have values in the array.
   if ($address['thoroughfare'] !== '' && $address['locality'] !== '' && $address['administrative_area'] !== '' && $address['postal_code'] !== '') {
     $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
+
     // Did we not get any results?
     if (in_array('sorry', $formatted_address)) {
       form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
@@ -443,7 +449,7 @@ function dosomething_user_validate_address_field($form, &$form_state) {
     }
     // We have a full address, save it!
     else {
-      dosomething_user_set_address_values($form, $form_state, $formatted_address);
+      dosomething_user_set_address_values_from_info_form($form, $form_state, $formatted_address);
     }
   }
 }
@@ -463,9 +469,8 @@ function dosomething_user_validate_password_length($form, &$form_state) {
   }
 }
 
-
 /**
- * Set the formatted address values in a form.
+ * Set the formatted address values from /info form.
  *
  * @param array $form
  *  A drupal form.
@@ -474,32 +479,40 @@ function dosomething_user_validate_password_length($form, &$form_state) {
  * @param array $address
  *  A validated drupal addressfield array.
  */
-function dosomething_user_set_address_values($form, &$form_state, $address) {
-  $current_page = $_SERVER['REQUEST_URI'];
-  if (preg_match('/user\/([0-9]+)\/info/', $current_page)) {
-    form_set_value($form['info']['street'],
-        array('value' => $address['thoroughfare']), $form_state);
-    form_set_value($form['info']['sub_street'],
-        array('value' => $address['premise']), $form_state);
-    form_set_value($form['info']['city'],
-        array('value' => $address['locality']), $form_state);
-    form_set_value($form['info']['state'],
-        array('value' => $address['administrative_area']), $form_state);
-    form_set_value($form['info']['zipcode'],
-        array('value' => $address['postal_code']), $form_state);
-  } 
-  else {
-    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
-        array('value' => $address['thoroughfare']), $form_state);
-    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
-        array('value' => $address['premise']), $form_state);
-    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['locality'],
-        array('value' => $address['locality']), $form_state);
-    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['administrative_area'],
-        array('value' => $address['administrative_area']), $form_state);
-    form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['postal_code'],
-        array('value' => $address['postal_code']), $form_state);
-  }
+function dosomething_user_set_address_values_from_info_form($form, &$form_state, $address) {
+  form_set_value($form['info']['street'],
+    array('value' => $address['thoroughfare']), $form_state);
+  form_set_value($form['info']['sub_street'],
+    array('value' => $address['premise']), $form_state);
+  form_set_value($form['info']['city'],
+    array('value' => $address['locality']), $form_state);
+  form_set_value($form['info']['state'],
+    array('value' => $address['administrative_area']), $form_state);
+  form_set_value($form['info']['zipcode'],
+    array('value' => $address['postal_code']), $form_state);
+}
+
+/**
+ * Set the formatted address values from /edit form.
+ *
+ * @param array $form
+ *  A drupal form.
+ * @param array $form_state
+ *  A drupal form_state.
+ * @param array $address
+ *  A validated drupal addressfield array.
+ */
+function dosomething_user_set_address_values_from_edit_form($form, &$form_state, $address) {
+  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
+      array('value' => $address['thoroughfare']), $form_state);
+  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
+      array('value' => $address['premise']), $form_state);
+  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['locality'],
+      array('value' => $address['locality']), $form_state);
+  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['administrative_area'],
+      array('value' => $address['administrative_area']), $form_state);
+  form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['locality_block']['postal_code'],
+      array('value' => $address['postal_code']), $form_state);
 }
 
 /**
@@ -1400,7 +1413,7 @@ function dosomething_user_info_form($form, &$form_state, $account) {
       '#value' => t('Submit'),
     ),
   );
-  $form['#validate'][] = 'dosomething_user_validate_user_address';
+  $form['#validate'][] = 'dosomething_user_validate_info_form_address';
   return $form;
 }
 

@@ -52,5 +52,9 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8983, host: 8983
 
   config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
+
 end
+
+
+
 
