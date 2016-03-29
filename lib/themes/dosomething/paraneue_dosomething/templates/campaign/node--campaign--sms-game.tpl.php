@@ -109,10 +109,9 @@
 
 
     <section id="do" class="container container--do inline-alt-background-color">
-      <h2 class="heading -banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
       <div class="wrapper">
-
         <div class="container__block -narrow">
+          <h2 class="heading -emphasized -inverse"><span><?php print t('Step 2: Do It'); ?></span></h2>
           <?php if (isset($starter_header)) : ?>
             <h3 class="inline-alt-text-color"><?php print $starter_header; ?></h3>
           <?php endif; ?>

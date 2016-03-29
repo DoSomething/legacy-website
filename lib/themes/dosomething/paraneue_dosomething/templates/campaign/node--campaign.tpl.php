@@ -129,9 +129,9 @@
 
   <?php // PLAN IT ////////////////////////////////////////////////////// ?>
   <section id="plan" class="container -padded">
-    <h2 class="heading -banner"><span><?php print t('Step 2: Plan It'); ?></span></h2>
     <div class="wrapper">
       <div class="container__block">
+        <h2 class="heading -emphasized"><span><?php print t('Step 2: Plan It'); ?></span></h2>
         <?php if (isset($starter)) : ?>
           <?php print $starter['safe_value']; ?>
         <?php endif; ?>
@@ -304,10 +304,9 @@
 
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
   <section id="prove" class="container container--prove inline-alt-background-color">
-    <h2 class="heading -banner -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
-
     <div class="wrapper">
       <div class="container__block">
+        <h2 class="heading -emphasized -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
         <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
         <?php if (isset($reportback_copy)): ?>
           <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
@@ -334,7 +333,9 @@
           <div class="reportback__spacer"></div>
 
           <div data-modal id="modal--crop" class="modal--crop" role="dialog">
-            <h2 class="heading -banner"><?php print t('Edit your photo'); ?></h2>
+            <div class="modal__block">
+              <h2><?php print t('Edit your photo'); ?></h2>
+            </div>
             <div class="image-preview"><!-- Preview image inserted with js --></div>
             <div class="image-editor">
               <div class="__buttons">
