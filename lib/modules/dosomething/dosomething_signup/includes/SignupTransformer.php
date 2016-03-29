@@ -96,6 +96,13 @@ class SignupTransformer extends Transformer {
       $data['reportback'] = $this->transformReportback((object) $item->reportback);
     }
 
+    if (is_null($item->user)) {
+      $data['user'] = null;
+    }
+    else {
+      $data['user'] = $this->transformUser((object) $item->user);
+    }
+
     return $data;
   }
 

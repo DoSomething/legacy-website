@@ -120,11 +120,11 @@ class ReportbackItem extends Entity {
 
     $this->user = [
       'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, 'id'),
-      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
-      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-      'country' => dosomething_helpers_isset($northstar_user, 'country'),
+      'northstar_id' => dosomething_helpers_isset($northstar_user->id, 'id'),
+      'first_name' => dosomething_helpers_isset($northstar_user->first_name, 'first_name'),
+      'last_initial' => dosomething_helpers_isset($northstar_user->last_initial, 'last_initial'),
+      'photo' => dosomething_helpers_isset($northstar_user->photo, 'photo'),
+      'country' => dosomething_helpers_isset($northstar_user->country, 'country'),
     ];
   }
 

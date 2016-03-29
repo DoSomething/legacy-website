@@ -88,6 +88,18 @@ class Signup extends Entity {
   private function build($data) {
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
+
+    $user = user_load($data->uid);
+
+    $this->user = [
+      'drupal_id' => $data->uid,
+      'northstar_id' => dosomething_helpers_isset($data->field_northstar_id_value, 'id'),
+      'first_name' => dosomething_helpers_isset(dosomething_helpers_extract_field_data($user->field_first_name), 'first_name'),
+      'last_initial' => dosomething_helpers_isset(dosomething_helpers_extract_field_data($user->field_last_name), 'last_initial'),
+      'photo' => dosomething_helpers_isset(dosomething_helpers_extract_field_data($user->photo), 'photo'),
+      'country' => dosomething_helpers_isset($user->field_address[LANGUAGE_NONE][0]['country'], 'country'),
+    ];
+
     try {
       $this->campaign = Campaign::get($data->nid);
     }
