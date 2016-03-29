@@ -284,7 +284,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
       if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $validate_address) {
-        $form['#validate'][] = 'dosomething_user_validate_address_field';
+        $form['#validate'][] = 'dosomething_user_validate_edit_form_address';
       }
 
 
@@ -421,7 +421,7 @@ function dosomething_user_validate_edit_form_address ($form, &$form_state) {
   $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];
   $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
 
-  dosomething_user_validate_address_field($first_name, $last_name, $address);
+  dosomething_user_validate_address_field($first_name, $last_name, $address, $form, $form_state);
 }
 
 /**
@@ -449,7 +449,12 @@ function dosomething_user_validate_address_field($first_name, $last_name, $addre
     }
     // We have a full address, save it!
     else {
-      dosomething_user_set_address_values_from_info_form($form, $form_state, $formatted_address);
+      if ($form['#form_id'] === 'dosomething_user_info_form') {
+        dosomething_user_set_address_values_from_info_form($form, $form_state, $formatted_address);
+      }
+      else {
+        dosomething_user_set_address_values_from_edit_form($form, $form_state, $formatted_address);
+      }
     }
   }
 }
