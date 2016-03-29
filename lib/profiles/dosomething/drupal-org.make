@@ -80,9 +80,6 @@ projects[features][version] = "2.2"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
-; Updated to dev to be compatible with latest field_collection patch.
-; Dev branch used: 2015-Mar-26
-; !! Users are cautioned that data loss has been reported – please test carefully !!
 projects[field_collection][version] = "1.0-beta11"
 projects[field_collection][subdir] = "contrib"
 ; See https://www.drupal.org/node/1344672?page=1#comment-10320327
