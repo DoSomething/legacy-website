@@ -83,7 +83,7 @@ projects[features][subdir] = "contrib"
 ; Updated to dev to be compatible with latest field_collection patch.
 ; Dev branch used: 2015-Mar-26
 ; !! Users are cautioned that data loss has been reported – please test carefully !!
-projects[field_collection][version] = "1.x-dev"
+projects[field_collection][version] = "1.0-beta11"
 projects[field_collection][subdir] = "contrib"
 ; See https://www.drupal.org/node/1344672?page=1#comment-10320327
 projects[field_collection][patch][] = "https://www.drupal.org/files/issues/field_collection-add_entity_translation_support-1344672-459.patch"
