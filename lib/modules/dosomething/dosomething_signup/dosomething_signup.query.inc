@@ -66,7 +66,11 @@ function dosomething_signup_build_signups_query($params = []) {
   }
 
   if (isset($params['user'])) {
-    $query->condition('s.uid', $params['user'], '=');
+    if (is_array($params['user'])) {
+      $query->condition('s.uid', $params['user'], 'IN');
+    } else {
+      $query->condition('s.uid', $params['user'], '=');
+    }
   }
 
   if (isset($params['competition'])) {
