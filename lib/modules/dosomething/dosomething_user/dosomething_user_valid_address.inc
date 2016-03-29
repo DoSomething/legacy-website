@@ -81,12 +81,9 @@ function dosomething_user_validate_user_address($uid = NULL) {
  *  An array in the addressfield format, parsed from the XML results.
  */
 function dosomething_user_validate_any_address($first_name, $last_name, $address) {
-  print_r('hi');
-  die();
   if (!dosomething_user_pre_ups_request_check() && is_null($address)) { return; }
 
   $xml = dosomething_user_compile_ups_xml($first_name, $last_name, $address);
-
   $results = dosomething_user_make_request_to_ups_api($xml);
 
   // Parse the results.
