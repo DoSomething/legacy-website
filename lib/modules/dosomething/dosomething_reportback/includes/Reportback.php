@@ -424,5 +424,4 @@ class Reportback extends Entity {
 
     return entity_save('reportback', $this);
   }
-
 }
