@@ -115,5 +115,4 @@ class ReportbackTransformer extends Transformer {
 
     return $filters;
   }
-
 }
