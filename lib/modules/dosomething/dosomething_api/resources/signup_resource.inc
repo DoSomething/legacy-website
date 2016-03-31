@@ -44,6 +44,14 @@ function _signup_resource_definition() {
             'default value' => NULL,
           ],
           [
+            'name' => 'users',
+            'description' => 'The ids of the specified users to get signups for.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'users'],
+            'default value' => NULL,
+          ],
+          [
             'name' => 'campaigns',
             'description' => 'The ids of the specified campaigns to get signups for.',
             'optional' => TRUE,
@@ -99,7 +107,12 @@ function _signup_resource_access() {
  * @param boolean $competition
  * @return array
  */
-function _signup_resource_index($user, $campaigns, $count, $page, $competition) {
+function _signup_resource_index($user, $users, $campaigns, $count, $page, $competition) {
+
+  if (isset($users)) {
+    $user = $users;
+  }
+
   $parameters = [
     'user' => $user,
     'campaigns' => $campaigns,
