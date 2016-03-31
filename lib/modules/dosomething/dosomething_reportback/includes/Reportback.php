@@ -96,6 +96,10 @@ class Reportback extends Entity {
       throw new Exception('No reportback data found.');
     }
 
+    if (!dosomething_reportback_accessible_results($results)) {
+      throw new Exception('Access denied.');
+    }
+
     foreach($results as $item) {
       // @TODO: remove need for passing variable for constructor check.
       $reportback = new static(['ignore' => TRUE]);
@@ -420,5 +424,4 @@ class Reportback extends Entity {
 
     return entity_save('reportback', $this);
   }
-
 }
