@@ -91,7 +91,7 @@ class Signup extends Entity {
 
     $user = user_load($data->uid);
     $this->user = [
-      'id' => $data->field_northstar_id_value,
+      'id' => dosomething_helpers_isset($data, 'field_northstar_id_value'),
       'first_name' => dosomething_helpers_extract_field_data($user->field_first_name),
       'last_initial' => dosomething_helpers_extract_field_data($user->field_last_name),
       'photo' => $user->picture,
