@@ -45,7 +45,7 @@ function _signup_resource_definition() {
           ],
           [
             'name' => 'users',
-            'description' => 'The id of the specified user to get signups for.',
+            'description' => 'The ids of the specified users to get signups for.',
             'optional' => TRUE,
             'type' => 'string',
             'source' => ['param' => 'users'],
