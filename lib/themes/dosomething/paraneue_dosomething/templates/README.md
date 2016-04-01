@@ -19,6 +19,10 @@ Campaign
 
 * `submit-campaign-idea.tpl.php` - Block content callback for the "DS Submit Campaign Idea" block, defined in DoSomething Campaign.  Displays a form which has been configured in Google Docs, to submit the data to the doc. The form redirect is defined from within the Google Doc.
 
+Campaign Run
+------------
+* `node--campaign_run.tpl.php` - Node view of campaign run upon editing and saving.
+
 Reportback
 ----------
 * `reportback.tpl.php` - Staff only view of a reportback entity. e.g. /reportback/[id]
