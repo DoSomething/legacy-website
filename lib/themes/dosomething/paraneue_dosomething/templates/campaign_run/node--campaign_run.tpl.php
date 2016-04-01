@@ -8,7 +8,7 @@
 </h4>
 
 <?php 
-  print render($content['field_winners']); 
+  print render($content['field_winners']);
   print render($content['field_gallery_collection']);
   print render($content['field_run_date']);
 ?>
