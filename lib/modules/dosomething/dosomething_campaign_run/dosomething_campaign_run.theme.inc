@@ -9,15 +9,11 @@
  */
 function dosomething_campaign_run_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign_run' || $vars['view_mode'] != 'full') return;
-  
+
   $campaign_nid = dosomething_campaign_run_get_parent_nid($vars['node']->nid);
   $vars['campaign_nid'] = $campaign_nid;
   
   $vars['campaign_title'] = node_load($campaign_nid)->title;
-  
-  $run_date = strtotime($vars['field_run_date']['0']['value']);
-  $vars['run_date'] = date('l, F  d, Y', $run_date);
-
 }
 
 /**
@@ -29,6 +25,7 @@ function dosomething_campaign_run_preprocess_node(&$vars) {
  *  The corresponding entity wrapper for the node in $vars. 
  */
 function dosomething_campaign_run_preprocess_page(&$vars, &$wrapper) {  
+
   // Use the pitch page template to the theme. 
   $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'];
 }
