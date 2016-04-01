@@ -41,87 +41,95 @@
 
   <?php // KNOW IT ////////////////////////////////////////////////////// ?>
   <section id="know" class="container">
-    <h2 class="heading -banner"><span><?php print t('Step 1: Know It'); ?></span></h2>
     <div class="wrapper">
-      <div class="container__block -half">
-        <?php if (isset($campaign->fact_problem)): ?>
-          <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
-          <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
+      <div class="container__row">
+        <div class="container__block">
+          <h2 class="heading -emphasized"><span><?php print t('Step 1: Know It'); ?></span></h2>
+        </div>
+      </div>
+      <div class="container__row">
+        <div class="container__block -half">
+          <?php if (isset($campaign->fact_problem)): ?>
+            <h3 class="inline-sponsor-color"><?php print t('The Problem'); ?></h3>
+            <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
 
-          <?php // Show problem social share buttons if feature flag is turned on. ?>
-          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
-            <div class="message-callout -above-horizontal -blue">
-              <div class="message-callout__copy">
-                <p><?php print $problem_share_prompt; ?></p>
+            <?php // Show problem social share buttons if feature flag is turned on. ?>
+            <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
+              <div class="message-callout -above-horizontal -blue">
+                <div class="message-callout__copy">
+                  <p><?php print $problem_share_prompt; ?></p>
+                </div>
               </div>
-            </div>
-            <?php print $share_bar; ?>
+              <?php print $share_bar; ?>
+            <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
 
-        <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
-          <?php // If there's a PSA image or video, output it in this column. ?>
-          <?php if (isset($psa)): ?>
-            <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
-              <?php print $psa; ?>
-            </p>
-          <?php endif; ?>
-        <?php else: ?>
-          <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
-          <?php if (isset($psa)): ?>
-            <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
-              <?php print $psa; ?>
-            </p>
+          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
+            <?php // If there's a PSA image or video, output it in this column. ?>
+            <?php if (isset($psa)): ?>
+              <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+                <?php print $psa; ?>
+              </p>
+            <?php endif; ?>
           <?php else: ?>
-            <?php if (isset($modals)): ?>
-              <?php print $modals; ?>
+            <?php // If there's a PSA image or video, output it in this column, otherwise output the modals list if it exists. ?>
+            <?php if (isset($psa)): ?>
+              <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
+                <?php print $psa; ?>
+              </p>
+            <?php else: ?>
+              <?php if (isset($modals)): ?>
+                <?php print $modals; ?>
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
-      </div>
+        </div>
 
-      <div class="container__block -half">
-        <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
-          <h3 class="inline-sponsor-color"><?php print t('The Solution'); ?></h3>
+        <div class="container__block -half">
+          <?php if (isset($campaign->fact_solution) || isset($campaign->solution_copy)): ?>
+            <h3 class="inline-sponsor-color"><?php print t('The Solution'); ?></h3>
 
-          <?php if (isset($campaign->fact_solution)): ?>
-            <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
-          <?php elseif (isset($campaign->solution_copy)): ?>
-            <?php print $campaign->solution_copy; ?>
+            <?php if (isset($campaign->fact_solution)): ?>
+              <p><?php print $campaign->fact_solution['fact']; ?><sup><?php print $campaign->fact_solution['footnotes']; ?></sup></p>
+            <?php elseif (isset($campaign->solution_copy)): ?>
+              <?php print $campaign->solution_copy; ?>
+            <?php endif; ?>
+
+            <?php if (isset($campaign->solution_support)): ?>
+              <?php print $campaign->solution_support; ?>
+            <?php endif; ?>
+
           <?php endif; ?>
 
-          <?php if (isset($campaign->solution_support)): ?>
-            <?php print $campaign->solution_support; ?>
-          <?php endif; ?>
-
-        <?php endif; ?>
-
-        <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
-          <?php // Alway output modals in the second column. ?>
-          <?php if (isset($modals)): ?>
-           <?php print $modals; ?>
-          <?php endif; ?>
-        <?php else: ?>
-          <?php // If there's a PSA image or video, then it was output in the first column above and thus need to output the modals in this second column instead. ?>
-          <?php if (isset($psa)): ?>
+          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
+            <?php // Alway output modals in the second column. ?>
             <?php if (isset($modals)): ?>
-              <?php print $modals; ?>
+             <?php print $modals; ?>
+            <?php endif; ?>
+          <?php else: ?>
+            <?php // If there's a PSA image or video, then it was output in the first column above and thus need to output the modals in this second column instead. ?>
+            <?php if (isset($psa)): ?>
+              <?php if (isset($modals)): ?>
+                <?php print $modals; ?>
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
+        </div>
       </div>
 
-      <div class="container__block -narrow">
-        <?php if (isset($campaign->fact_sources)): ?>
-          <section class="footnote">
-            <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
-            <ul class="js-footnote-hidden">
-              <?php foreach ($campaign->fact_sources as $key => $source): ?>
-                <li><sup><?php print($key + 1); ?></sup> <?php print $source; ?></li>
-              <?php endforeach; ?>
-            </ul>
-          </section>
-        <?php endif; ?>
+      <div class="container__row">
+        <div class="container__block -narrow">
+          <?php if (isset($campaign->fact_sources)): ?>
+            <section class="footnote">
+              <h4 class="js-footnote-toggle"><?php print t('Sources'); ?></h4>
+              <ul class="js-footnote-hidden">
+                <?php foreach ($campaign->fact_sources as $key => $source): ?>
+                  <li><sup><?php print($key + 1); ?></sup> <?php print $source; ?></li>
+                <?php endforeach; ?>
+              </ul>
+            </section>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </section>
@@ -130,13 +138,18 @@
   <?php // PLAN IT ////////////////////////////////////////////////////// ?>
   <section id="plan" class="container -padded">
     <div class="wrapper">
-      <div class="container__block">
-        <h2 class="heading -emphasized"><span><?php print t('Step 2: Plan It'); ?></span></h2>
-        <?php if (isset($starter)) : ?>
-          <?php print $starter['safe_value']; ?>
-        <?php endif; ?>
+      <div class="container__row">
+        <div class="container__block">
+          <h2 class="heading -emphasized"><span><?php print t('Step 2: Plan It'); ?></span></h2>
+        </div>
       </div>
-
+      <div class="container__row">
+        <div class="container__block">
+          <?php if (isset($starter)) : ?>
+            <?php print $starter['safe_value']; ?>
+          <?php endif; ?>
+        </div>
+      </div>
 
       <?php if (isset($plan)): ?>
       <?php foreach ($plan as $index => $content): ?>
@@ -231,9 +244,14 @@
   <?php // DO IT ////////////////////////////////////////////////////// ?>
   <?php if (!empty($do)): ?>
     <section id="do" class="container -padded container--do">
-      <h2 class="heading -banner"><span><?php print t('Step 3: Do It'); ?></span></h2>
       <div class="wrapper">
+        <div class="container__row">
+          <div class="container__block">
+            <h2 class="heading -emphasized"><span><?php print t('Step 3: Do It'); ?></span></h2>
+          </div>
+        </div>
         <?php foreach ($do as $key => $content): ?>
+        <div class="container__row">
           <div class="container__block -narrow">
 
             <?php if (isset($content['image'])): ?>
@@ -280,7 +298,7 @@
 
               <div data-modal id="modal-tips-<?php print $key; ?>" class="modal--tips" role="dialog">
                 <div class="modal__block">
-                    <h2><?php print t('Tips'); ?></h2>
+                  <h2><?php print t('Tips'); ?></h2>
                 </div>
                 <div class="modal__block">
                   <?php foreach ($content['tips'] as $delta => $tip): ?>
@@ -296,8 +314,9 @@
               </div>
             <?php endif; ?>
           </div>
+        </div>
         <?php endforeach; ?>
-      </div>
+        </div>
     </section>
   <?php endif; ?>
 
@@ -305,12 +324,18 @@
   <?php // PROVE IT ////////////////////////////////////////////////////// ?>
   <section id="prove" class="container container--prove inline-alt-background-color">
     <div class="wrapper">
-      <div class="container__block">
-        <h2 class="heading -emphasized -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
-        <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
-        <?php if (isset($reportback_copy)): ?>
-          <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
-        <?php endif; ?>
+      <div class="container__row">
+        <div class="container__block">
+          <h2 class="heading -emphasized -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
+        </div>
+      </div>
+      <div class="container__row">
+          <div class="container__block">
+            <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
+            <?php if (isset($reportback_copy)): ?>
+              <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
+            <?php endif; ?>
+          </div>
       </div>
 
       <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-ids="<?php print implode(',', $reportbacks_gallery['item_ids']); ?>" data-remaining="<?php print $reportbacks_gallery['remaining']; ?>" data-admin="<?php print $reportbacks_gallery['admin_access']; ?>">
