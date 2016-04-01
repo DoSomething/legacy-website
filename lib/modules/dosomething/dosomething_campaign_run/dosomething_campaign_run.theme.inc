@@ -12,7 +12,12 @@ function dosomething_campaign_run_preprocess_node(&$vars) {
   
   $campaign_nid = dosomething_campaign_run_get_parent_nid($vars['node']->nid);
   $vars['campaign_nid'] = $campaign_nid;
+  
   $vars['campaign_title'] = node_load($campaign_nid)->title;
+  
+  $run_date = strtotime($vars['field_run_date']['0']['value']);
+  $vars['run_date'] = date('l, F  d, Y', $run_date);
+
 }
 
 /**
