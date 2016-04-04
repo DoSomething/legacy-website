@@ -25,6 +25,6 @@ function dosomething_campaign_run_preprocess_node(&$vars) {
  */
 function dosomething_campaign_run_preprocess_page(&$vars, &$wrapper) {  
 
-  // Use the pitch page template to the theme. 
+  // Use the campaign run template to the theme. 
   $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'];
 }
