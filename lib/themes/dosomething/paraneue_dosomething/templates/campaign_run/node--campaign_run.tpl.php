@@ -4,7 +4,7 @@
  */
 ?>
 <h4>Campaign: 
-  <p><?php print l($campaign_title, 'node/' . $campaign_nid); ?></p>
+  <p><?php print l($campaign_title, 'node/' . $field_campaigns[0]['target_id']); ?></p>
 </h4>
 
 <?php 
