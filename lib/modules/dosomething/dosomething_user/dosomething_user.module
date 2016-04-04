@@ -401,7 +401,6 @@ function dosomething_user_add_validation_attributes_to_address_fields($form, &$f
   return $form;
 }
 
-
 /**
  * Validate address field as it is on the user object
  *
