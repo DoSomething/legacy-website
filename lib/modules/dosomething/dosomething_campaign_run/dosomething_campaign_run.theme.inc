@@ -10,10 +10,9 @@
 function dosomething_campaign_run_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign_run' || $vars['view_mode'] != 'full') return;
 
-  $campaign_nid = dosomething_campaign_run_get_parent_nid($vars['node']->nid);
-  $vars['campaign_nid'] = $campaign_nid;
+  $vars['campaign_nid'] = $vars['field_campaigns'][0]['target_id'];
   
-  $vars['campaign_title'] = node_load($campaign_nid)->title;
+  $vars['campaign_title'] = node_load($vars['field_campaigns'][0]['target_id'])->title;
 }
 
 /**
