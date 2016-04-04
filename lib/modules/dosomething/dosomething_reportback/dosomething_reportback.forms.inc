@@ -37,6 +37,15 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#required' => TRUE,
       '#default_value' => $entity->nid,
     );
+    $form['camapgin_run_nid'] = array(
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Campaign Run ID'),
+      '#description' => t("The campaign run node this reportback was submitted for."),
+      '#entity_type' => 'node',
+      '#bundles' => array('campaign_run'),
+      '#required' => TRUE,
+      '#default_value' => $entity->nid,
+    );
     if (!empty($entity->uid)) {
       $account = user_load($entity->uid);
       $username = $account->name;
