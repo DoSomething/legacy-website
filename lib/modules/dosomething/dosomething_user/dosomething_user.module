@@ -284,7 +284,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
       if (preg_match('/user\/([0-9]+)\/edit/', $current_page) && $validate_address) {
-        $form['#validate'][] = 'dosomething_user_validate_edit_form_address';
+        $form['#validate'][] = 'dosomething_user_validate_address_field';
       }
 
 
@@ -405,19 +405,17 @@ function dosomething_user_add_validation_attributes_to_address_fields($form, &$f
 /**
  * Validate address field as it is on the user object
  *
- * @param string $first_name
- * User's first name passed from form. 
- * @param string $last_name
- * User's last name passed from form. 
- * @param array $address
- * User's address passed from form.
  * @param array $form
  *  A drupal form.
  * @param array $form_state
  *  A drupal form_state array.
  *
  */
-function dosomething_user_validate_address_field($first_name, $last_name, $address, $form, &$form_state) {
+function dosomething_user_validate_address_field($form, &$form_state) {
+  $first_name = $form_state['input']['field_first_name'][LANGUAGE_NONE][0]['value'];   
+  $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];    
+  $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
+
   // Only validate if we have values in the array.
   if ($address['thoroughfare'] !== '' && $address['locality'] !== '' && $address['administrative_area'] !== '' && $address['postal_code'] !== '') {
     $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
@@ -433,30 +431,9 @@ function dosomething_user_validate_address_field($first_name, $last_name, $addre
     }
     // We have a full address, save it!
     else {
-      if ($form['#form_id'] === 'dosomething_user_info_form') {
-        dosomething_user_set_address_values_from_info_form($form, $form_state, $formatted_address);
-      }
-      else {
-        dosomething_user_set_address_values_from_edit_form($form, $form_state, $formatted_address);
-      }
+      dosomething_user_set_address_values($form, $form_state, $formatted_address);
     }
   }
-}
-
-/** 
- * Validates address for user profile edit form.
- *
- * @param array $form
- * A drupal form. 
- * @param array $form_state
- * A drupal form_state array. 
- */
-function dosomething_user_validate_edit_form_address ($form, &$form_state) {
-  $first_name = $form_state['input']['field_first_name'][LANGUAGE_NONE][0]['value'];
-  $last_name = $form_state['input']['field_last_name'][LANGUAGE_NONE][0]['value'];
-  $address = $form_state['input']['field_address'][LANGUAGE_NONE][0];
-
-  dosomething_user_validate_address_field($first_name, $last_name, $address, $form, $form_state);
 }
 
 /** 
@@ -479,7 +456,25 @@ function dosomething_user_validate_info_form_address ($form, &$form_state) {
    'postal_code' => $form_state['input']['zipcode'],
   ];
 
-  dosomething_user_validate_address_field($first_name, $last_name, $address, $form, $form_state);
+  // Only validate if we have values in the array.
+  if ($address['thoroughfare'] !== '' && $address['locality'] !== '' && $address['administrative_area'] !== '' && $address['postal_code'] !== '') {
+    $formatted_address = dosomething_user_validate_any_address($first_name, $last_name, $address);
+
+    // Did we not get any results?
+    if (in_array('sorry', $formatted_address)) {
+      form_set_error('dosomething_user_validate_address', t('Hmmm, we couldn’t find that address. Please try again.'));
+    }
+    // Did it come back from the api as ambiguous? -- Check with the user.
+    elseif (in_array('ambiguous', $formatted_address)) {
+      dosomething_user_set_address_values($form, $form_state, $formatted_address);
+      form_set_error('dosomething_user_ambiguous_address', t('Hmmm, we couldn’t find that address. Did you mean: '));
+    }
+    // We have a full address, save it!
+    else {
+      dosomething_user_set_address_values_from_info_form($form, $form_state, $formatted_address);
+    }
+  }
+
 }
 
 /**
@@ -530,7 +525,7 @@ function dosomething_user_set_address_values_from_info_form($form, &$form_state,
  * @param array $address
  *  A validated drupal addressfield array.
  */
-function dosomething_user_set_address_values_from_edit_form($form, &$form_state, $address) {
+function dosomething_user_set_address_values($form, &$form_state, $address) {
   form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['thoroughfare'],
       array('value' => $address['thoroughfare']), $form_state);
   form_set_value($form['field_address'][LANGUAGE_NONE][0]['address']['street_block']['premise'],
