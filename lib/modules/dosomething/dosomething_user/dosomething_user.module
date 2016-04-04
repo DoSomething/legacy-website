@@ -309,7 +309,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
-
       if ($validate_address) {
         $form['#after_build'][] = 'dosomething_user_add_validation_attributes_to_address_fields';
       }

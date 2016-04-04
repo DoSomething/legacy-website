@@ -53,4 +53,4 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
 end
-
+  
