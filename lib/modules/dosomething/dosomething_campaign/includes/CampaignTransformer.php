@@ -48,6 +48,9 @@ class CampaignTransformer extends Transformer {
     return [
       'pagination' => $this->paginate($total, $filters, 'campaigns'),
       'retrieved_count' => count($campaigns),
+      'meta' => [
+        'pagination' => $this->paginate($total, $filters, 'campaigns'),
+      ],
       'data' => $this->transformCollection($campaigns),
     ];
   }
