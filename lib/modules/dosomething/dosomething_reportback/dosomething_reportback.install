@@ -910,3 +910,24 @@ function dosomething_reportback_update_7033() {
 // }
 // COMMENTED OUT by AG -- causing duplicate row errors and replaced by
 // https://github.com/DoSomething/phoenix/pull/6155
+
+/**
+ * Bulk excludes backlogged reportbacks on node 362.
+ * Updates any fid with a pending status to be marked as excluded if the quantity in the reportback is less than 200.  
+ */   
+function dosomething_reportback_update_7039() {
+  $fids_to_be_marked_as_excluded = db_query("SELECT rb.nid, rb.quantity, rbf.status, rbf.fid
+                                            FROM dosomething_reportback rb
+                                            JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
+                                            WHERE rb.nid = 362 AND rb.quantity < 200 AND rbf.status = 'pending';");
+
+  foreach ($fids_to_be_marked_as_excluded as $fid) {
+    db_update('dosomething_reportback_file')
+      ->fields(array(
+          'status' => 'excluded',
+        )
+      )
+      ->condition('fid', $fid->fid)
+      ->execute();
+  }
+}
