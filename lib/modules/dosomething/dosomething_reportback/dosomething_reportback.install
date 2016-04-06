@@ -919,7 +919,7 @@ function dosomething_reportback_update_7034() {
   $fids_to_be_marked_as_excluded = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rbf.status, rbf.fid
                                             FROM dosomething_reportback rb
                                             JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
-                                            WHERE rb.nid = '1173' AND  rb.run_nid = '5439' OR rb.run_nid = '2341' AND rb.quantity < 200 AND rbf.status = 'pending';");
+                                            WHERE rb.nid = '362' AND  rb.run_nid = '5439' OR rb.run_nid = '2341' AND rb.quantity < 200 AND rbf.status = 'pending';");
 
   foreach ($fids_to_be_marked_as_excluded as $fid) {
     db_update('dosomething_reportback_file')
