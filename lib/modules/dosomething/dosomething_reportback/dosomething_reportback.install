@@ -915,11 +915,11 @@ function dosomething_reportback_update_7033() {
  * Bulk excludes backlogged reportbacks on node 362.
  * Updates any fid with a pending status to be marked as excluded if the quantity in the reportback is less than 200.  
  */   
-function dosomething_reportback_update_7034() {
-  $fids_to_be_marked_as_excluded = db_query("SELECT rb.nid, rb.quantity, rbf.status, rbf.fid
+function dosomething_reportback_update_7051() {
+  $fids_to_be_marked_as_excluded = db_query("SELECT rb.nid, rb.run_nid, rb.quantity, rbf.status, rbf.fid
                                             FROM dosomething_reportback rb
                                             JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
-                                            WHERE rb.nid = 362 AND rb.quantity < 200 AND rbf.status = 'pending';");
+                                            WHERE rb.nid = '362' AND rb.run_nid = '5439' OR rb.run_nid = '2341' AND rb.quantity < 200 AND rbf.status = 'pending';");
 
   foreach ($fids_to_be_marked_as_excluded as $fid) {
     db_update('dosomething_reportback_file')
@@ -929,5 +929,22 @@ function dosomething_reportback_update_7034() {
       )
       ->condition('fid', $fid->fid)
       ->execute();
+
+    $reportback_item = entity_load_single('reportback_item', $fid->fid);
+    $reportback = reportback_load($fid->rbid);
+    $items = $reportback->getFids();
+
+    foreach ($items as $item) {
+      if ($item->status === 'flagged') {
+        $flagged_fids = [];
+        array_push($flagged_fids, $item);
+      }
+    }
+
+    if (empty($flagged_fids)) {
+      $reportback->flagged = 0;
+      entity_save('reportback', $reportback);
+    }
+    
   }
 }
