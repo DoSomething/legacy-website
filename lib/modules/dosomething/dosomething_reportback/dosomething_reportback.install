@@ -915,7 +915,7 @@ function dosomething_reportback_update_7033() {
  * Bulk excludes backlogged reportbacks on node 362.
  * Updates any fid with a pending status to be marked as excluded if the quantity in the reportback is less than 200.  
  */   
-function dosomething_reportback_update_7051() {
+function dosomething_reportback_update_7034() {
   $fids_to_be_marked_as_excluded = db_query("SELECT rb.nid, rb.run_nid, rb.quantity, rbf.status, rbf.fid
                                             FROM dosomething_reportback rb
                                             JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
