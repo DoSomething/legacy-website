@@ -216,27 +216,9 @@ function build_helper {
   # Clear caches and Run updates
   cd "$WEB_PATH/sites/$SITE"
 
-  if [[ $2 == "--install" ]]
-  then
-    echo "Installing"
-    install
-  fi
-
-  if [[ $3 == "--dev" ]]
-  then
-    echo "Dev"
-    dev
-  fi
-
   echo 'Replacing settings.php file...'
   sudo rm -f $WEB_PATH/sites/$SITE/settings.php && chmod u+w $WEB_PATH/sites/$SITE
   ln -s $CONFIG_PATH/settings.php $WEB_PATH/sites/$SITE/settings.php
-
-  # See https://www.drupal.org/PSA-2015-001
-  echo 'Removing install.php...'
-  if [[ -f $WEB_PATH/install.php ]]; then
-    rm $WEB_PATH/install.php
-  fi
 
   if [[ $SITE != "default" ]]
   then
@@ -252,9 +234,27 @@ function build_helper {
       cp $CONFIG_PATH/default.settings.local.php $CONFIG_PATH/settings.local.php
     fi
 
-  echo 'Linking local settings file...'
-  ln -s $CONFIG_PATH/settings.local.php $WEB_PATH/sites/$SITE/settings.local.php
+    echo 'Linking local settings file...'
+    ln -s $CONFIG_PATH/settings.local.php $WEB_PATH/sites/$SITE/settings.local.php
 
+  fi
+
+  if [[ $2 == "--install" ]]
+  then
+    echo "Installing"
+    install
+  fi
+
+  if [[ $3 == "--dev" ]]
+  then
+    echo "Dev"
+    dev
+  fi
+
+  # See https://www.drupal.org/PSA-2015-001
+  echo 'Removing install.php...'
+  if [[ -f $WEB_PATH/install.php ]]; then
+    rm $WEB_PATH/install.php
   fi
 
   # Before running drush it's required to flush Redis cache to avoid
