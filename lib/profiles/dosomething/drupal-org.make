@@ -65,7 +65,7 @@ projects[entity_autocomplete][subdir] = "contrib"
 ; Dev branch used: 2015-Aug-16
 projects[entity_translation][version] = "1.x-dev"
 projects[entity_translation][subdir] = "contrib"
-projects[entity_translation][patch][] = "https://www.drupal.org/files/issues/entity_translation-adds_node_status_and_updates_language_status_to_read_translated_instead_of_published-2428565-5-7.43.patch"
+projects[entity_translation][patch][] = "https://www.drupal.org/files/issues/entity_translation-adds_node_status_changes_to_unpublished_and_adds_translation_status_to_header-2702055-3-7.43.patch"
 
 ; Entity Connect
 projects[entityconnect][version] = "1.0-rc1"
