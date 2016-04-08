@@ -25,7 +25,7 @@
     }
 
     .views-field-label {
-      margin-top: $base-spacing;
+      margin-top: gutter() / 2;
     }
   }
 }

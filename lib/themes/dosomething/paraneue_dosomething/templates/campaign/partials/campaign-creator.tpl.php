@@ -17,12 +17,12 @@
 
   <div data-modal id="modal--creator" class="modal--creator" role="dialog">
     <a href="#" class="js-close-modal modal-close-button">×</a>
-    <h2 class="heading -banner">The Creator</h2>
     <div class="wrapper">
       <div class="__member">
         <img src="<?php print $picture['src_square']; ?>" />
       </div>
       <div class="__body">
+        <h2>The Creator</h2>
         <h4 class="__title heading -delta"><?php print check_plain($first_name); ?> <?php print $last_initial; ?></h4>
         <p class="__location"><?php print $city; ?>, <?php print $state; ?></p>
         <div class="copy"><?php print $copy; ?></div>

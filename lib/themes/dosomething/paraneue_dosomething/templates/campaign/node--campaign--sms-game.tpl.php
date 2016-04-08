@@ -109,34 +109,40 @@
 
 
     <section id="do" class="container container--do inline-alt-background-color">
-      <h2 class="heading -banner"><span><?php print t('Step 2: Do It'); ?></span></h2>
       <div class="wrapper">
+        <div class="container__row">
+          <div class="container__block -narrow">
+            <h2 class="heading -emphasized -inverse"><span><?php print t('Step 2: Do It'); ?></span></h2>
+          </div>
+        </div>
+        <div class="container__row">
+          <div class="container__block -narrow">
+            <?php if (isset($starter_header)) : ?>
+              <h3 class="inline-alt-text-color"><?php print $starter_header; ?></h3>
+            <?php endif; ?>
+            <?php if (isset($starter)) : ?>
+              <div><?php print $starter['safe_value']; ?></div>
+            <?php endif; ?>
+          </div>
 
-        <div class="container__block -narrow">
-          <?php if (isset($starter_header)) : ?>
-            <h3 class="inline-alt-text-color"><?php print $starter_header; ?></h3>
-          <?php endif; ?>
-          <?php if (isset($starter)) : ?>
-            <div><?php print $starter['safe_value']; ?></div>
+          <?php if (isset($signup_form)) : ?>
+            <?php print render($signup_form); ?>
           <?php endif; ?>
         </div>
+        <div class="container__row">
+          <div class="container__block -narrow">
+            <?php if (isset($official_rules)): ?>
+              <p class="footnote">
+                <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+              </p>
+            <?php endif; ?>
 
-        <?php if (isset($signup_form)) : ?>
-          <?php print render($signup_form); ?>
-        <?php endif; ?>
-
-        <div class="container__block -narrow">
-          <?php if (isset($official_rules)): ?>
             <p class="footnote">
-              <a class="official-rules" href="<?php print $official_rules_src; ?>"><?php print t('Official Rules'); ?></a>
+              <?php
+              print t('Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.',
+                ['!terms_link' => l(t('Terms of Service'), 'about/terms-service')]); ?>
             </p>
-          <?php endif; ?>
-
-          <p class="footnote">
-            <?php
-            print t('Taking part in this experience means you agree to our !terms_link &amp; to receive our weekly update. Message &amp; data rates may apply. Text STOP to opt-out, HELP for help.',
-              ['!terms_link' => l(t('Terms of Service'), 'about/terms-service')]); ?>
-          </p>
+          </div>
         </div>
       </div>
 

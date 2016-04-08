@@ -20,8 +20,8 @@
       <div class="info-bar__secondary">
         <?php print t('Questions?'); ?> <a href="#" data-modal-href="#modal-contact-form"><?php print t('Contact Us'); ?></a>
         <div data-modal id="modal-contact-form" class="modal--contact" role="dialog">
-          <h2 class="heading -banner"><?php print t('Contact Us'); ?></h2>
           <div class="modal__block">
+            <h2><?php print t('Contact Us'); ?></h2>
             <p><?php print $zendesk_form_header; ?></p>
             <?php if($faqs): ?>
               <p>Or get your question answered right away by first <a href="#" data-modal-href="#modal-faq">checking our FAQs</a>  which are updated regularly.</p>

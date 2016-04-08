@@ -310,9 +310,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#access' => FALSE,
   );
   $form['header'] = array(
-    '#prefix' => '<h2 class="heading -banner">',
+    '#prefix' => '<div class="modal__block"><h2 class="heading">',
     '#markup' => $config['form_header'],
-    '#suffix' => '</h2>',
+    '#suffix' => '</h2></div>',
   );
 
   // If the user has submitted form already:
@@ -543,22 +543,22 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
   $config = dosomething_signup_get_signup_data_form_info($signup->nid);
   $skip_label = ($config['skip_text']) ? t($config['skip_text']) : t('Skip');
 
-  $form['#attributes']['class'] = array('form-actions');
-  $form['sid'] = array(
+  $form['#attributes']['class'] = ['modal__block', 'form-actions'];
+  $form['sid'] = [
     '#type' => 'hidden',
     '#value' => $signup->sid,
     '#access' => FALSE,
-  );
-  $form['submit'] = array(
+  ];
+  $form['submit'] = [
     '#type' => 'submit',
     '#value' => $skip_label,
-    '#attributes' => array(
-      'class' => array(
+    '#attributes' => [
+      'class' => [
         'button',
         '-tertiary',
-      ),
-    ),
-  );
+      ],
+    ],
+  ];
   return $form;
 }
 

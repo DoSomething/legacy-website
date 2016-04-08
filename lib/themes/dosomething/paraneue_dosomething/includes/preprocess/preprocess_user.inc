@@ -48,10 +48,10 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'description' => $impact,
       );
 
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, array('-left', '-medium'));
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
-  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', array(), TRUE);
+  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', [], TRUE);
 }
 

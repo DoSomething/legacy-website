@@ -14,14 +14,6 @@
 
 // Profile Settings
 .profile-settings {
-  @include clearfix;
-  padding: gutters();
-  margin-bottom: $base-spacing;
-
-  @include media($large) {
-    @include span(6 of 12);
-  }
-
   dt, dd {
     float: left;
     margin-bottom: ($base-spacing / 2);
@@ -35,7 +27,6 @@
 }
 
 .profile-actions {
-  padding: gutters();
   text-align: center;
 
   @include media($large) {
