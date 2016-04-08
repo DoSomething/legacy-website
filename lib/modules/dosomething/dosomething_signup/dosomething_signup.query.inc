@@ -59,6 +59,7 @@ function dosomething_signup_build_signups_query($params = []) {
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
   $query->fields('ns', ['field_northstar_id_value']);
+  $query->orderBy('sid', 'DESC');
 
   if (isset($params['sid'])) {
     if (is_array($params['sid'])) {
