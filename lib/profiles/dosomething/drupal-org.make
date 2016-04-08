@@ -62,6 +62,7 @@ projects[entity_autocomplete][subdir] = "contrib"
 
 ; Entity Translation
 ; Updated to dev to be compatible with latest field_collection patch.
+; Patch adds the status of the actual node, changes header to from "STATUS" to "TRANSLATION STATUS" for more clarity, and changes TRANSLATION STATUS options to Published, Unpublished, or Not translated.
 ; Dev branch used: 2015-Aug-16
 projects[entity_translation][version] = "1.x-dev"
 projects[entity_translation][subdir] = "contrib"
