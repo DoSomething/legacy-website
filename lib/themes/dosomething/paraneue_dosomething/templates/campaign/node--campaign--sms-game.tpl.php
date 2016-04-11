@@ -124,11 +124,12 @@
               <div><?php print $starter['safe_value']; ?></div>
             <?php endif; ?>
           </div>
-
-          <?php if (isset($signup_form)) : ?>
-            <?php print render($signup_form); ?>
-          <?php endif; ?>
         </div>
+        <?php if (isset($signup_form)) : ?>
+          <div class="container__row">
+            <?php print render($signup_form); ?>
+          </div>
+        <?php endif; ?>
         <div class="container__row">
           <div class="container__block -narrow">
             <?php if (isset($official_rules)): ?>
