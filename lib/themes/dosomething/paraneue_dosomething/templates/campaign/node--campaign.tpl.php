@@ -40,7 +40,7 @@
   <?php endif; ?>
 
   <?php // KNOW IT ////////////////////////////////////////////////////// ?>
-  <section id="know" class="container">
+  <section id="know" class="container -padded">
     <div class="wrapper">
       <div class="container__row">
         <div class="container__block">
