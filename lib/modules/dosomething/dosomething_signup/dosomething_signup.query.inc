@@ -49,7 +49,8 @@ function dosomething_signup_get_signups_query($params, $tally = FALSE) {
  *   An associative array of conditions to filter by. Possible keys:
  *   - uid: (string) User id(s) to filter by.
  *   - campaigns: (string) Campaign nid(s) to filter by.
- *   - competition: (boolean) Only return competition signups & order by reportback quantity.
+ *   - competition: (boolean) Only return competition signups & order by reportback quantity. 
+ *   - runs: (string) Campaign run nid(s) to filter by. 
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params = []) {
@@ -87,6 +88,14 @@ function dosomething_signup_build_signups_query($params = []) {
       $query->condition('s.nid', $params['campaigns'], 'IN');
     } else {
       $query->condition('s.nid', $params['campaigns'], '=');
+    }
+  }
+
+  if (isset($params['runs'])) {
+    if (is_array($params['runs'])) {
+      $query->condition('s.run_nid', $params['runs'], 'IN');
+    } else {
+      $query->condition('s.run_nid', $params['runs'], '=');
     }
   }
 
