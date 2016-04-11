@@ -13,7 +13,6 @@
  *   - nid: (string) A campaign node nid to filter by.
  *   - rbid: (string) A reportback rbid to filter by.
  *   - random: (boolean) If set, randomly sort the results.
- *   - runs: (string) Campaign run nid(s) to filter by. 
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
@@ -62,14 +61,6 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
     }
     else {
       $query->condition('rb.flagged', 0);
-    }
-  }
-
-  if (isset($params['runs'])) {
-    if (is_array($params['runs'])) {
-      $query->condition('rb.run_nid', $params['runs'], 'IN');
-    } else {
-      $query->condition('rb.run_nid', $params['runs'], '=');
     }
   }
 

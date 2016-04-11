@@ -83,14 +83,6 @@ function _signup_resource_definition() {
             'source' => ['param' => 'competition'],
             'default value' => FALSE,
           ],
-          [
-            'name' => 'runs',
-            'description' => 'The ids of the specified campaign runs to get signups for.',
-            'optional' => TRUE,
-            'type' => 'string',
-            'source' => ['param' => 'runs'],
-            'default value' => NULL,
-          ],
         ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
@@ -113,10 +105,9 @@ function _signup_resource_access() {
  * @param int $count
  * @param int $page
  * @param boolean $competition
- * @param string $runs
  * @return array
  */
-function _signup_resource_index($user, $users, $campaigns, $count, $page, $competition, $runs) {
+function _signup_resource_index($user, $users, $campaigns, $count, $page, $competition) {
 
   if (isset($users)) {
     $user = $users;
@@ -128,7 +119,6 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'count' => $count,
     'page' => $page,
     'competition' => $competition,
-    'runs' => $runs,
   ];
 
   return (new SignupTransformer)->index($parameters);

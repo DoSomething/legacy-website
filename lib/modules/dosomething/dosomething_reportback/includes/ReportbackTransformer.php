@@ -106,7 +106,6 @@ class ReportbackTransformer extends Transformer {
       'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
       'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
       'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),
-      'runs' => dosomething_helpers_format_data($parameters['runs']),
     ];
 
     // Unset False boolean values that affect the query builder.
