@@ -423,13 +423,17 @@ abstract class Transformer {
    *   - uri: (string) API URI for Signup data.
    * @return array
    */
-  protected function transformSignup($data, $current) {
+  protected function transformSignup($data, $current, $current_run_start, $current_run_end) {
     return [
       'id' => $data->id,
       'created_at' => $data->created_at,
       'campaign_run' => [
         'id' => $data->campaign_run,
         'current' => $current,
+        'timing' => [
+          'start' => $current_run_start,
+          'end' => $current_run_end,
+        ],
       ],
       'uri' => $data->uri,
     ];

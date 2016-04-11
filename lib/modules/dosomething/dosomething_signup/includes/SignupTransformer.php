@@ -85,7 +85,18 @@ class SignupTransformer extends Transformer {
       $campaign = (object) $item->campaign;
       $current_run = $campaign->campaign_runs['current']['en']['id'];
       $current = ($item->campaign_run == $current_run);
-      $data += $this->transformSignup($item, $current);
+      $campaign_run = node_load($current_run);
+
+      if (isset($campaign_run->field_run_date['en'][0])) {
+        $current_run_start = $campaign_run->field_run_date['en'][0]['value'];
+        $current_run_end = $campaign_run->field_run_date['en'][0]['value2'];
+      }
+      else {
+        $current_run_start = NULL;
+        $current_run_end = NULL;
+      }
+
+      $data += $this->transformSignup($item, $current, $current_run_start, $current_run_end);
       $data['campaign'] = $this->transformCampaign((object) $item->campaign);
     }
 
