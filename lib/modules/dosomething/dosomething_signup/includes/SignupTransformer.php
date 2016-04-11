@@ -86,11 +86,11 @@ class SignupTransformer extends Transformer {
       $current_run = $campaign->campaign_runs['current']['en']['id'];
       $current = ($item->campaign_run == $current_run);
       $campaign_run = node_load($current_run);
-      
+
       if (isset($campaign_run->field_run_date['en'][0])) {
         $current_run_start = $campaign_run->field_run_date['en'][0]['value'];
         $current_run_end = $campaign_run->field_run_date['en'][0]['value2'];
-      } 
+      }
       else {
         $current_run_start = NULL;
         $current_run_end = NULL;
