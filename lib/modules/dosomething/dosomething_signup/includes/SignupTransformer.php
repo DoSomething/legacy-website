@@ -130,6 +130,7 @@ class SignupTransformer extends Transformer {
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],
       'competition' => $parameters['competition'] ?: NULL,
+      'run_nid' => (int) $parameters['run_nid'],
     ];
 
     return $filters;
