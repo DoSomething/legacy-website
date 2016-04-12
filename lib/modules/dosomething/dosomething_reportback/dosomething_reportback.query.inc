@@ -10,10 +10,10 @@
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: (string) A campaign node nid to filter by.
- *   - rbid: (string) A reportback rbid to filter by.
+ *   - nid: (string or array) A campaign node nid to filter by.
+ *   - rbid: (string or array) A reportback rbid to filter by.
  *   - random: (boolean) If set, randomly sort the results.
- *   - runs: (string) Campaign run nid(s) to filter by. 
+ *   - runs: (string or array) Campaign run nid(s) to filter by. 
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
@@ -66,12 +66,19 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   if (isset($params['runs'])) {
-    if (is_array($params['runs'])) {
-      $query->condition('rb.run_nid', $params['runs'], 'IN');
-    } 
-    else {
-      $query->condition('rb.run_nid', $params['runs'], '=');
+    if (is_string($params['runs'])) {
+      $params['runs'] = explode(' ', $params['runs']);
     }
+
+    $campaign_runs = [];
+    
+    foreach ($params['runs'] as $campaign_run) {
+      if (is_numeric($campaign_run)) {
+        array_push($campaign_runs, $campaign_run);
+      } 
+    }
+    
+    $query->condition('rb.run_nid', $campaign_runs, 'IN');
   }
 
   // Public API properties to expose:

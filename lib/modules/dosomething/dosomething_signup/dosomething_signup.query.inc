@@ -47,10 +47,17 @@ function dosomething_signup_get_signups_query($params, $tally = FALSE) {
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
+<<<<<<< HEAD
  *   - uid: (string) User id(s) to filter by.
  *   - campaigns: (string) Campaign nid(s) to filter by.
  *   - competition: (boolean) Only return competition signups & order by reportback quantity.
  *   - runs: (string) Campaign run nid(s) to filter by.
+=======
+ *   - uid: (string or array) User id(s) to filter by.
+ *   - campaigns: (string or array) Campaign nid(s) to filter by.
+ *   - competition: (boolean) Only return competition signups & order by reportback quantity. 
+ *   - runs: (string or array) Campaign run nid(s) to filter by. 
+>>>>>>> adds check to make sure that campaign run id is a number
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params = []) {
@@ -92,11 +99,19 @@ function dosomething_signup_build_signups_query($params = []) {
   }
 
   if (isset($params['runs'])) {
-    if (is_array($params['runs'])) {
-      $query->condition('s.run_nid', $params['runs'], 'IN');
-    } else {
-      $query->condition('s.run_nid', $params['runs'], '=');
+    if (is_string($params['runs'])) {
+      $params['runs'] = explode(' ', $params['runs']);
     }
+
+    $campaign_runs = [];
+    
+    foreach ($params['runs'] as $campaign_run) {
+      if (is_numeric($campaign_run)) {
+        array_push($campaign_runs, $campaign_run);
+      } 
+    }
+    
+    $query->condition('rb.run_nid', $campaign_runs, 'IN');
   }
 
   return $query;
