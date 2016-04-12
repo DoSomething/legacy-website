@@ -99,6 +99,14 @@ function _reportback_resource_definition() {
             'source' => ['param' => 'flagged'],
             'default value' => FALSE,
           ],
+          [
+            'name' => 'runs',
+            'description' => 'The ids of the specified campaign runs to get reportbacks for.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'runs'],
+            'default value' => NULL,
+          ],
         ],
         'access callback' => '_reportback_resource_access',
         'access arguments' => ['index'],
@@ -144,7 +152,7 @@ function _reportback_resource_access($op) {
  * @param  bool    $flagged
  * @return array
  */
-function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $flagged) {
+function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $flagged, $runs) {
   $parameters =  [
     'ids' => $ids,
     'campaigns' => $campaigns,
@@ -154,6 +162,7 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
     'page' => $page,
     'load_user' => $load_user,
     'flagged' => $flagged,
+    'runs' => $runs,
   ];
 
   return (new ReportbackTransformer)->index($parameters);
