@@ -77,6 +77,10 @@ function dosomething_signup_build_signups_query($params = []) {
     }
   }
 
+  if (isset($params['run_nid'])) {
+    $query->condition('s.run_nid', $params['run_nid'], '=');
+  }
+
   if (isset($params['competition'])) {
     $query->condition('s.competition', 1, '=');
     $query->orderBy('rb.quantity', 'DESC');

@@ -83,6 +83,14 @@ function _signup_resource_definition() {
             'source' => ['param' => 'competition'],
             'default value' => FALSE,
           ],
+          [
+            'name' => 'run_nid',
+            'description' => 'Specify the run nid.',
+            'optional' => TRUE,
+            'type' => 'int',
+            'source' => ['param' => 'run_nid'],
+            'default value' => FALSE,
+          ],
         ],
         'access callback' => '_signup_resource_access',
         'access arguments' => ['index'],
@@ -105,9 +113,10 @@ function _signup_resource_access() {
  * @param int $count
  * @param int $page
  * @param boolean $competition
+ * @param int $run_nid
  * @return array
  */
-function _signup_resource_index($user, $users, $campaigns, $count, $page, $competition) {
+function _signup_resource_index($user, $users, $campaigns, $count, $page, $competition, $run_nid) {
 
   if (isset($users)) {
     $user = $users;
@@ -119,6 +128,7 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'count' => $count,
     'page' => $page,
     'competition' => $competition,
+    'run_nid' => $run_nid,
   ];
 
   return (new SignupTransformer)->index($parameters);
