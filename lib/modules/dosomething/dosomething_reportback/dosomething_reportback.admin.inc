@@ -321,25 +321,23 @@ function theme_dosomething_reportback_files_form($variables) {
     $rows[] = array(
       'data' => array(
         // Add the columns defined in the form.
-        $rbf->rbid . ": " . $fid ,
         drupal_render($form['rb_files'][$fid]['date']),
-        drupal_render($view),
-        drupal_render($form['rb_files'][$fid]['quantity']),
         drupal_render($form['rb_files'][$fid]['node']),
-        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>' .  drupal_render($form['rb_files'][$fid]['status']) . '<div class="promote-form"><hr />' . $promote_form . '</div>',
         drupal_render($form['rb_files'][$fid]['rotate']),
+        drupal_render($view),
+        '<h3>' . drupal_render($form['rb_files'][$fid]['quantity']) . '</h3>',
+        drupal_render($form['rb_files'][$fid]['status']) . '<div class="flag-form"><hr />' . $flag_form . '</div>' .  drupal_render($form['rb_files'][$fid]['status']) . '<div class="promote-form"><hr />' . $promote_form . '</div>',
 
       ),
     );
   }
   $header = array(
-    t('RBID: fid'),
     t('Submitted'),
+    t('Campaign'),
+    t('Rotate (CW)'),
     NULL,
     t('Quantity'),
-    t('Campaign'),
     t('Op'),
-    t('Rotate (CW)'),
   );
 
   $output = '';
