@@ -190,6 +190,7 @@ function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NON
         $values[] = dosomething_helpers_extract_field_dates($content);
       }
       else if (in_array('country', $keys)) {
+        //TODO: Build function to get all address data, not just country.
         $values[] = $content['country'];
       }
       elseif ($keys[0] === 'value') {
