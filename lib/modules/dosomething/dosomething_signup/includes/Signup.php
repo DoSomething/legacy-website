@@ -91,19 +91,21 @@ class Signup extends Entity {
 
     $drupal_user = user_load($data->uid);
 
-    $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-    $northstar_response = json_decode($northstar_response);
+    if (!isset($data->field_northstar_id_value)) {
+      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
+      $northstar_response = json_decode($northstar_response);
 
-    if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
-      $northstar_user = $northstar_response->data;
+      if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
+        $northstar_user = $northstar_response->data;
+      }
     }
 
     $this->user = [
-      'id' => isset($northstar_user) ? $northstar_user->id : NULL,
-      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
-      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-      'country' => dosomething_helpers_isset($northstar_user, 'country'),
+      'id' => isset($northstar_user) ? $northstar_user->id : $data->field_northstar_id_value,
+      'first_name' => dosomething_helpers_extract_field_data($drupal_user->field_first_name),
+      'last_initial' => dosomething_helpers_extract_field_data($drupal_user->field_last_name),
+      'photo' => dosomething_helpers_extract_field_data($drupal_user->photo),
+      'country' => dosomething_helpers_extract_field_data($drupal_user->field_address),
     ];
 
     try {
