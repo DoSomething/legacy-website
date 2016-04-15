@@ -97,13 +97,19 @@ class Signup extends Entity {
 
       if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
         $northstar_user = $northstar_response->data;
+        user_save($drupal_user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_user->id]]]]);
       }
+    }
+
+    $last_initial = substr(dosomething_helpers_extract_field_data($drupal_user->field_last_name), 0, 1);
+    if ($last_initial === FALSE) {
+      $last_initial = NULL;
     }
 
     $this->user = [
       'id' => isset($northstar_user) ? $northstar_user->id : $data->field_northstar_id_value,
       'first_name' => dosomething_helpers_extract_field_data($drupal_user->field_first_name),
-      'last_initial' => dosomething_helpers_extract_field_data($drupal_user->field_last_name),
+      'last_initial' => $last_initial,
       'photo' => dosomething_helpers_extract_field_data($drupal_user->photo),
       'country' => dosomething_helpers_extract_field_data($drupal_user->field_address),
     ];
