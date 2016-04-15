@@ -49,17 +49,15 @@ function dosomething_signup_get_signups_query($params, $tally = FALSE) {
  *   An associative array of conditions to filter by. Possible keys:
  *   - uid: (string) User id(s) to filter by.
  *   - campaigns: (string) Campaign nid(s) to filter by.
- *   - competition: (boolean) Only return competition signups & order by reportback quantity. 
- *   - runs: (string) Campaign run nid(s) to filter by. 
+ *   - competition: (boolean) Only return competition signups & order by reportback quantity.
+ *   - runs: (string) Campaign run nid(s) to filter by.
  * @return SelectQuery object
  */
 function dosomething_signup_build_signups_query($params = []) {
   $query = db_select('dosomething_signup', 's');
   $query->leftJoin('dosomething_reportback', 'rb', 's.uid = rb.uid and s.nid = rb.nid and s.run_nid = rb.run_nid');
-  $query->leftJoin('field_data_field_northstar_id', 'ns', 'ns.entity_id = s.uid');
   $query->fields('s', ['sid', 'uid', 'nid', 'run_nid', 'timestamp']);
   $query->fields('rb', ['rbid']);
-  $query->fields('ns', ['field_northstar_id_value']);
   $query->orderBy('sid', 'DESC');
 
   if (isset($params['sid'])) {
