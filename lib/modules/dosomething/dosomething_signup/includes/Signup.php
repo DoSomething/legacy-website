@@ -91,7 +91,7 @@ class Signup extends Entity {
 
     $drupal_user = user_load($data->uid);
 
-    if (!isset($data->field_northstar_id_value)) {
+    if (!isset($data->field_northstar_id_value) || $data->field_northstar_id_value === "NONE") {
       $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_response = json_decode($northstar_response);
 
