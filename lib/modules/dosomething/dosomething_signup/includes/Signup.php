@@ -100,10 +100,10 @@ class Signup extends Entity {
 
     $this->user = [
       'id' => isset($northstar_user) ? $northstar_user->id : NULL,
-      'first_name' => dosomething_helpers_extract_field_data($drupal_user->field_first_name),
-      'last_initial' => dosomething_helpers_extract_field_data($drupal_user->field_last_name),
-      'photo' => dosomething_helpers_extract_field_data($drupal_user->photo),
-      'country' => dosomething_helpers_extract_field_data($drupal_user->field_address),
+      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
+      'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
+      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
+      'country' => dosomething_helpers_isset($northstar_user, 'country'),
     ];
 
     try {
