@@ -189,6 +189,10 @@ function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NON
         // Date values, so need to extract using custom method.
         $values[] = dosomething_helpers_extract_field_dates($content);
       }
+      else if (in_array('country', $keys)) {
+        //TODO: Build function to get all address data, not just country.
+        $values[] = $content['country'];
+      }
       elseif ($keys[0] === 'value') {
         // Text value, so need to extract using custom method.
         $values[] = dosomething_helpers_extract_field_text($content);
