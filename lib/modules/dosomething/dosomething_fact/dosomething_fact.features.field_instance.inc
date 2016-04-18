@@ -10,7 +10,7 @@
 function dosomething_fact_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-fact-field_source_copy'
+  // Exported field_instance: 'node-fact-field_source_copy'.
   $field_instances['node-fact-field_source_copy'] = array(
     'bundle' => 'fact',
     'default_value' => NULL,
@@ -36,6 +36,7 @@ function dosomething_fact_field_default_field_instances() {
     'label' => 'Source',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
