@@ -10,7 +10,7 @@
 function dosomething_action_guide_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-action_guide-field_additional_text'
+  // Exported field_instance: 'node-action_guide-field_additional_text'.
   $field_instances['node-action_guide-field_additional_text'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -51,7 +51,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_additional_text_title'
+  // Exported field_instance: 'node-action_guide-field_additional_text_title'.
   $field_instances['node-action_guide-field_additional_text_title'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -92,7 +92,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_description'
+  // Exported field_instance: 'node-action_guide-field_description'.
   $field_instances['node-action_guide-field_description'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -134,7 +134,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_gallery'
+  // Exported field_instance: 'node-action_guide-field_gallery'.
   $field_instances['node-action_guide-field_gallery'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -149,6 +149,7 @@ function dosomething_action_guide_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -178,7 +179,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_intro'
+  // Exported field_instance: 'node-action_guide-field_intro'.
   $field_instances['node-action_guide-field_intro'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -219,7 +220,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_intro_image'
+  // Exported field_instance: 'node-action_guide-field_intro_image'.
   $field_instances['node-action_guide-field_intro_image'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -265,7 +266,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_intro_title'
+  // Exported field_instance: 'node-action_guide-field_intro_title'.
   $field_instances['node-action_guide-field_intro_title'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
@@ -306,7 +307,7 @@ function dosomething_action_guide_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-action_guide-field_subtitle'
+  // Exported field_instance: 'node-action_guide-field_subtitle'.
   $field_instances['node-action_guide-field_subtitle'] = array(
     'bundle' => 'action_guide',
     'default_value' => NULL,
