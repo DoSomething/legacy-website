@@ -10,7 +10,7 @@
 function dosomething_campaign_group_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-campaign_group-field_action_type'
+  // Exported field_instance: 'node-campaign_group-field_action_type'.
   $field_instances['node-campaign_group-field_action_type'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -55,7 +55,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_active_hours'
+  // Exported field_instance: 'node-campaign_group-field_active_hours'.
   $field_instances['node-campaign_group-field_active_hours'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -99,7 +99,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_additional_text'
+  // Exported field_instance: 'node-campaign_group-field_additional_text'.
   $field_instances['node-campaign_group-field_additional_text'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -147,7 +147,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_additional_text_image'
+  // Exported field_instance: 'node-campaign_group-field_additional_text_image'.
   $field_instances['node-campaign_group-field_additional_text_image'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -199,7 +199,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_additional_text_title'
+  // Exported field_instance: 'node-campaign_group-field_additional_text_title'.
   $field_instances['node-campaign_group-field_additional_text_title'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -247,7 +247,8 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_automatic_parent_signup'
+  // Exported field_instance:
+  // 'node-campaign_group-field_automatic_parent_signup'.
   $field_instances['node-campaign_group-field_automatic_parent_signup'] = array(
     'bundle' => 'campaign_group',
     'default_value' => array(
@@ -297,7 +298,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_call_to_action'
+  // Exported field_instance: 'node-campaign_group-field_call_to_action'.
   $field_instances['node-campaign_group-field_call_to_action'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -345,7 +346,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_campaigns'
+  // Exported field_instance: 'node-campaign_group-field_campaigns'.
   $field_instances['node-campaign_group-field_campaigns'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -401,7 +402,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_cause'
+  // Exported field_instance: 'node-campaign_group-field_cause'.
   $field_instances['node-campaign_group-field_cause'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -446,7 +447,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_display_end_date'
+  // Exported field_instance: 'node-campaign_group-field_display_end_date'.
   $field_instances['node-campaign_group-field_display_end_date'] = array(
     'bundle' => 'campaign_group',
     'default_value' => array(
@@ -496,7 +497,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_display_signup_form'
+  // Exported field_instance: 'node-campaign_group-field_display_signup_form'.
   $field_instances['node-campaign_group-field_display_signup_form'] = array(
     'bundle' => 'campaign_group',
     'default_value' => array(
@@ -546,7 +547,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_faq'
+  // Exported field_instance: 'node-campaign_group-field_faq'.
   $field_instances['node-campaign_group-field_faq'] = array(
     'bundle' => 'campaign_group',
     'deleted' => 0,
@@ -560,6 +561,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -573,6 +575,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -601,7 +604,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_gallery'
+  // Exported field_instance: 'node-campaign_group-field_gallery'.
   $field_instances['node-campaign_group-field_gallery'] = array(
     'bundle' => 'campaign_group',
     'deleted' => 0,
@@ -615,6 +618,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -649,7 +653,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_high_season'
+  // Exported field_instance: 'node-campaign_group-field_high_season'.
   $field_instances['node-campaign_group-field_high_season'] = array(
     'bundle' => 'campaign_group',
     'deleted' => 0,
@@ -709,7 +713,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_image_campaign_cover'
+  // Exported field_instance: 'node-campaign_group-field_image_campaign_cover'.
   $field_instances['node-campaign_group-field_image_campaign_cover'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -761,7 +765,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_intro'
+  // Exported field_instance: 'node-campaign_group-field_intro'.
   $field_instances['node-campaign_group-field_intro'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -809,7 +813,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_intro_image'
+  // Exported field_instance: 'node-campaign_group-field_intro_image'.
   $field_instances['node-campaign_group-field_intro_image'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -861,7 +865,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_intro_title'
+  // Exported field_instance: 'node-campaign_group-field_intro_title'.
   $field_instances['node-campaign_group-field_intro_title'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -909,7 +913,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_partners'
+  // Exported field_instance: 'node-campaign_group-field_partners'.
   $field_instances['node-campaign_group-field_partners'] = array(
     'bundle' => 'campaign_group',
     'deleted' => 0,
@@ -923,6 +927,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -936,6 +941,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -964,7 +970,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_signup_copy'
+  // Exported field_instance: 'node-campaign_group-field_post_signup_copy'.
   $field_instances['node-campaign_group-field_post_signup_copy'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1012,7 +1018,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_post_signup_title'
+  // Exported field_instance: 'node-campaign_group-field_post_signup_title'.
   $field_instances['node-campaign_group-field_post_signup_title'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1059,7 +1065,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_pre_launch_copy'
+  // Exported field_instance: 'node-campaign_group-field_pre_launch_copy'.
   $field_instances['node-campaign_group-field_pre_launch_copy'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1107,7 +1113,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_pre_launch_title'
+  // Exported field_instance: 'node-campaign_group-field_pre_launch_title'.
   $field_instances['node-campaign_group-field_pre_launch_title'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1155,7 +1161,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_scholarship_amount'
+  // Exported field_instance: 'node-campaign_group-field_scholarship_amount'.
   $field_instances['node-campaign_group-field_scholarship_amount'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1214,7 +1220,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_signup_confirm_msg'
+  // Exported field_instance: 'node-campaign_group-field_signup_confirm_msg'.
   $field_instances['node-campaign_group-field_signup_confirm_msg'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1261,7 +1267,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_staff_pick'
+  // Exported field_instance: 'node-campaign_group-field_staff_pick'.
   $field_instances['node-campaign_group-field_staff_pick'] = array(
     'bundle' => 'campaign_group',
     'default_value' => array(
@@ -1312,7 +1318,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_tags'
+  // Exported field_instance: 'node-campaign_group-field_tags'.
   $field_instances['node-campaign_group-field_tags'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1360,7 +1366,8 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_transactional_email_copy'
+  // Exported field_instance:
+  // 'node-campaign_group-field_transactional_email_copy'.
   $field_instances['node-campaign_group-field_transactional_email_copy'] = array(
     'bundle' => 'campaign_group',
     'default_value' => NULL,
@@ -1407,7 +1414,7 @@ function dosomething_campaign_group_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_group-field_video'
+  // Exported field_instance: 'node-campaign_group-field_video'.
   $field_instances['node-campaign_group-field_video'] = array(
     'bundle' => 'campaign_group',
     'deleted' => 0,
@@ -1421,6 +1428,7 @@ function dosomething_campaign_group_field_default_field_instances() {
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',

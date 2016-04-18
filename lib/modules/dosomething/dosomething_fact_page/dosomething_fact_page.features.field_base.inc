@@ -10,21 +10,13 @@
 function dosomething_fact_page_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_fact'
+  // Exported field_base: 'field_fact'.
   $field_bases['field_fact'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fact',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -54,14 +46,13 @@ function dosomething_fact_page_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_fact_collection'
+  // Exported field_base: 'field_fact_collection'.
   $field_bases['field_fact_collection'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fact_collection',
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -78,21 +69,13 @@ function dosomething_fact_page_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_node'
+  // Exported field_base: 'field_node'.
   $field_bases['field_node'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_node',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',

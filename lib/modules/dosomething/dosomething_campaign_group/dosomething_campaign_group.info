@@ -84,4 +84,3 @@ features[variable][] = node_options_campaign_group
 features[variable][] = node_preview_campaign_group
 features[variable][] = node_submitted_campaign_group
 features[variable][] = pathauto_node_campaign_group_pattern
-mtime = 1444314429

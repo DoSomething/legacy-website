@@ -10,21 +10,13 @@
 function dosomething_taxonomy_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'description_field'
+  // Exported field_base: 'description_field'.
   $field_bases['description_field'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'description_field',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -39,21 +31,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_action_type'
+  // Exported field_base: 'field_action_type'.
   $field_bases['field_action_type'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_action_type',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -75,21 +59,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_cause'
+  // Exported field_base: 'field_cause'.
   $field_bases['field_cause'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_cause',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -111,21 +87,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_facts_header'
+  // Exported field_base: 'field_facts_header'.
   $field_bases['field_facts_header'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_facts_header',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -141,21 +109,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_image_partner'
+  // Exported field_base: 'field_image_partner'.
   $field_bases['field_image_partner'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_partner',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -185,14 +145,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_is_published'
+  // Exported field_base: 'field_is_published'.
   $field_bases['field_is_published'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_is_published',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -212,14 +171,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_is_sponsor'
+  // Exported field_base: 'field_is_sponsor'.
   $field_bases['field_is_sponsor'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_is_sponsor',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -239,21 +197,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_partner'
+  // Exported field_base: 'field_partner'.
   $field_bases['field_partner'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partner',
-    'foreign keys' => array(
-      'taxonomy_term_data' => array(
-        'columns' => array(
-          'target_id' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -283,21 +233,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_partner_copy'
+  // Exported field_base: 'field_partner_copy'.
   $field_bases['field_partner_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partner_copy',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -312,21 +254,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_partner_logo'
+  // Exported field_base: 'field_partner_logo'.
   $field_bases['field_partner_logo'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partner_logo',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -345,14 +279,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_partner_url'
+  // Exported field_base: 'field_partner_url'.
   $field_bases['field_partner_url'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partner_url',
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'link',
@@ -376,14 +309,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_partners'
+  // Exported field_base: 'field_partners'.
   $field_bases['field_partners'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partners',
-    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -400,21 +332,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_tags'
+  // Exported field_base: 'field_tags'.
   $field_bases['field_tags'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_tags',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -436,21 +360,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_title'
+  // Exported field_base: 'field_title'.
   $field_bases['field_title'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_title',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -466,21 +382,13 @@ function dosomething_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'name_field'
+  // Exported field_base: 'name_field'.
   $field_bases['name_field'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'name_field',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',

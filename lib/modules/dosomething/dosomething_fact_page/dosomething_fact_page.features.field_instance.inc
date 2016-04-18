@@ -10,7 +10,8 @@
 function dosomething_fact_page_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_fact_collection-field_compound_text_copy'
+  // Exported field_instance:
+  // 'field_collection_item-field_fact_collection-field_compound_text_copy'.
   $field_instances['field_collection_item-field_fact_collection-field_compound_text_copy'] = array(
     'bundle' => 'field_fact_collection',
     'default_value' => NULL,
@@ -53,7 +54,8 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_fact_collection-field_fact'
+  // Exported field_instance:
+  // 'field_collection_item-field_fact_collection-field_fact'.
   $field_instances['field_collection_item-field_fact_collection-field_fact'] = array(
     'bundle' => 'field_fact_collection',
     'default_value' => NULL,
@@ -99,7 +101,8 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_fact_collection-field_node'
+  // Exported field_instance:
+  // 'field_collection_item-field_fact_collection-field_node'.
   $field_instances['field_collection_item-field_fact_collection-field_node'] = array(
     'bundle' => 'field_fact_collection',
     'default_value' => NULL,
@@ -145,7 +148,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_call_to_action'
+  // Exported field_instance: 'node-fact_page-field_call_to_action'.
   $field_instances['node-fact_page-field_call_to_action'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -193,7 +196,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_cause'
+  // Exported field_instance: 'node-fact_page-field_cause'.
   $field_instances['node-fact_page-field_cause'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -238,7 +241,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_cta_link'
+  // Exported field_instance: 'node-fact_page-field_cta_link'.
   $field_instances['node-fact_page-field_cta_link'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -302,7 +305,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_fact_collection'
+  // Exported field_instance: 'node-fact_page-field_fact_collection'.
   $field_instances['node-fact_page-field_fact_collection'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -317,6 +320,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -352,7 +356,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_intro_image'
+  // Exported field_instance: 'node-fact_page-field_intro_image'.
   $field_instances['node-fact_page-field_intro_image'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -404,7 +408,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_partners'
+  // Exported field_instance: 'node-fact_page-field_partners'.
   $field_instances['node-fact_page-field_partners'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -419,6 +423,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
+          'translate' => 'Translate',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -454,7 +459,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_primary_cause'
+  // Exported field_instance: 'node-fact_page-field_primary_cause'.
   $field_instances['node-fact_page-field_primary_cause'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,
@@ -499,7 +504,7 @@ You can use [link] to link to the Campaign selected in the Campaign field, e.g. 
     ),
   );
 
-  // Exported field_instance: 'node-fact_page-field_subtitle'
+  // Exported field_instance: 'node-fact_page-field_subtitle'.
   $field_instances['node-fact_page-field_subtitle'] = array(
     'bundle' => 'fact_page',
     'default_value' => NULL,

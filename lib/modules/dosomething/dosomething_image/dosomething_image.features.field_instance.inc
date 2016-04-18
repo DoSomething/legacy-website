@@ -10,7 +10,7 @@
 function dosomething_image_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-image-field_cause'
+  // Exported field_instance: 'node-image-field_cause'.
   $field_instances['node-image-field_cause'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
@@ -48,7 +48,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_dark_image'
+  // Exported field_instance: 'node-image-field_dark_image'.
   $field_instances['node-image-field_dark_image'] = array(
     'bundle' => 'image',
     'default_value' => array(
@@ -92,7 +92,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_landscape'
+  // Exported field_instance: 'node-image-field_image_landscape'.
   $field_instances['node-image-field_image_landscape'] = array(
     'bundle' => 'image',
     'deleted' => 0,
@@ -143,7 +143,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_portrait'
+  // Exported field_instance: 'node-image-field_image_portrait'.
   $field_instances['node-image-field_image_portrait'] = array(
     'bundle' => 'image',
     'deleted' => 0,
@@ -194,7 +194,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_square'
+  // Exported field_instance: 'node-image-field_image_square'.
   $field_instances['node-image-field_image_square'] = array(
     'bundle' => 'image',
     'deleted' => 0,
@@ -245,7 +245,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_tags'
+  // Exported field_instance: 'node-image-field_image_tags'.
   $field_instances['node-image-field_image_tags'] = array(
     'bundle' => 'image',
     'default_value' => NULL,
@@ -283,7 +283,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_thumbnail'
+  // Exported field_instance: 'node-image-field_image_thumbnail'.
   $field_instances['node-image-field_image_thumbnail'] = array(
     'bundle' => 'image',
     'deleted' => 0,
@@ -334,7 +334,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_video'
+  // Exported field_instance: 'node-image-field_image_video'.
   $field_instances['node-image-field_image_video'] = array(
     'bundle' => 'image',
     'deleted' => 0,
@@ -377,7 +377,7 @@ function dosomething_image_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-image-field_image_video_poster'
+  // Exported field_instance: 'node-image-field_image_video_poster'.
   $field_instances['node-image-field_image_video_poster'] = array(
     'bundle' => 'image',
     'deleted' => 0,

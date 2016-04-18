@@ -31,4 +31,3 @@ features[variable][] = field_bundle_settings_node__action_guide
 features[variable][] = node_options_action_guide
 features[variable][] = node_preview_action_guide
 features[variable][] = node_submitted_action_guide
-mtime = 1444314428

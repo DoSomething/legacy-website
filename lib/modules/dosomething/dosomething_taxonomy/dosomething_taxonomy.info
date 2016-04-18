@@ -123,4 +123,3 @@ features[variable][] = entity_translation_settings_taxonomy_term__tags
 features[variable][] = pathauto_taxonomy_term_pattern
 features[views_view][] = taxonomy_terms
 features_exclude[dependencies][features] = features
-mtime = 1444055561
