@@ -10,7 +10,8 @@
 function dosomething_taxonomy_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_image_partner'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_image_partner'.
   $field_instances['field_collection_item-field_partners-field_image_partner'] = array(
     'bundle' => 'field_partners',
     'default_value' => NULL,
@@ -56,7 +57,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_is_sponsor'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_is_sponsor'.
   $field_instances['field_collection_item-field_partners-field_is_sponsor'] = array(
     'bundle' => 'field_partners',
     'default_value' => array(
@@ -100,7 +102,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_partner'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_partner'.
   $field_instances['field_collection_item-field_partners-field_partner'] = array(
     'bundle' => 'field_partners',
     'default_value' => NULL,
@@ -146,7 +149,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_partner_copy'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_partner_copy'.
   $field_instances['field_collection_item-field_partners-field_partner_copy'] = array(
     'bundle' => 'field_partners',
     'default_value' => NULL,
@@ -187,7 +191,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_partner_url'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_partner_url'.
   $field_instances['field_collection_item-field_partners-field_partner_url'] = array(
     'bundle' => 'field_partners',
     'default_value' => NULL,
@@ -242,7 +247,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_partners-field_video'
+  // Exported field_instance:
+  // 'field_collection_item-field_partners-field_video'.
   $field_instances['field_collection_item-field_partners-field_video'] = array(
     'bundle' => 'field_partners',
     'default_value' => NULL,
@@ -287,7 +293,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-description_field'
+  // Exported field_instance: 'taxonomy_term-action_type-description_field'.
   $field_instances['taxonomy_term-action_type-description_field'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -326,7 +332,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_call_to_action'
+  // Exported field_instance: 'taxonomy_term-action_type-field_call_to_action'.
   $field_instances['taxonomy_term-action_type-field_call_to_action'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -361,7 +367,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_facts'
+  // Exported field_instance: 'taxonomy_term-action_type-field_facts'.
   $field_instances['taxonomy_term-action_type-field_facts'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -401,7 +407,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_facts_header'
+  // Exported field_instance: 'taxonomy_term-action_type-field_facts_header'.
   $field_instances['taxonomy_term-action_type-field_facts_header'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -436,7 +442,8 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_image_campaign_cover'
+  // Exported field_instance:
+  // 'taxonomy_term-action_type-field_image_campaign_cover'.
   $field_instances['taxonomy_term-action_type-field_image_campaign_cover'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -476,7 +483,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_intro_image'
+  // Exported field_instance: 'taxonomy_term-action_type-field_intro_image'.
   $field_instances['taxonomy_term-action_type-field_intro_image'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -516,7 +523,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_intro_title'
+  // Exported field_instance: 'taxonomy_term-action_type-field_intro_title'.
   $field_instances['taxonomy_term-action_type-field_intro_title'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -551,7 +558,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_is_published'
+  // Exported field_instance: 'taxonomy_term-action_type-field_is_published'.
   $field_instances['taxonomy_term-action_type-field_is_published'] = array(
     'bundle' => 'action_type',
     'default_value' => array(
@@ -589,7 +596,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_partners'
+  // Exported field_instance: 'taxonomy_term-action_type-field_partners'.
   $field_instances['taxonomy_term-action_type-field_partners'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -628,7 +635,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_subtitle'
+  // Exported field_instance: 'taxonomy_term-action_type-field_subtitle'.
   $field_instances['taxonomy_term-action_type-field_subtitle'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -663,7 +670,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_title'
+  // Exported field_instance: 'taxonomy_term-action_type-field_title'.
   $field_instances['taxonomy_term-action_type-field_title'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -698,7 +705,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-field_video'
+  // Exported field_instance: 'taxonomy_term-action_type-field_video'.
   $field_instances['taxonomy_term-action_type-field_video'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -737,7 +744,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-action_type-name_field'
+  // Exported field_instance: 'taxonomy_term-action_type-name_field'.
   $field_instances['taxonomy_term-action_type-name_field'] = array(
     'bundle' => 'action_type',
     'default_value' => NULL,
@@ -774,7 +781,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-description_field'
+  // Exported field_instance: 'taxonomy_term-cause-description_field'.
   $field_instances['taxonomy_term-cause-description_field'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -813,7 +820,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_call_to_action'
+  // Exported field_instance: 'taxonomy_term-cause-field_call_to_action'.
   $field_instances['taxonomy_term-cause-field_call_to_action'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -848,7 +855,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_facts'
+  // Exported field_instance: 'taxonomy_term-cause-field_facts'.
   $field_instances['taxonomy_term-cause-field_facts'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -888,7 +895,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_facts_header'
+  // Exported field_instance: 'taxonomy_term-cause-field_facts_header'.
   $field_instances['taxonomy_term-cause-field_facts_header'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -923,7 +930,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_image_campaign_cover'
+  // Exported field_instance: 'taxonomy_term-cause-field_image_campaign_cover'.
   $field_instances['taxonomy_term-cause-field_image_campaign_cover'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -963,7 +970,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_intro_image'
+  // Exported field_instance: 'taxonomy_term-cause-field_intro_image'.
   $field_instances['taxonomy_term-cause-field_intro_image'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1003,7 +1010,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_intro_title'
+  // Exported field_instance: 'taxonomy_term-cause-field_intro_title'.
   $field_instances['taxonomy_term-cause-field_intro_title'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1038,7 +1045,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_is_published'
+  // Exported field_instance: 'taxonomy_term-cause-field_is_published'.
   $field_instances['taxonomy_term-cause-field_is_published'] = array(
     'bundle' => 'cause',
     'default_value' => array(
@@ -1076,7 +1083,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_partners'
+  // Exported field_instance: 'taxonomy_term-cause-field_partners'.
   $field_instances['taxonomy_term-cause-field_partners'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1115,7 +1122,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_subtitle'
+  // Exported field_instance: 'taxonomy_term-cause-field_subtitle'.
   $field_instances['taxonomy_term-cause-field_subtitle'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1150,7 +1157,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_title'
+  // Exported field_instance: 'taxonomy_term-cause-field_title'.
   $field_instances['taxonomy_term-cause-field_title'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1185,7 +1192,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-field_video'
+  // Exported field_instance: 'taxonomy_term-cause-field_video'.
   $field_instances['taxonomy_term-cause-field_video'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1224,7 +1231,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-cause-name_field'
+  // Exported field_instance: 'taxonomy_term-cause-name_field'.
   $field_instances['taxonomy_term-cause-name_field'] = array(
     'bundle' => 'cause',
     'default_value' => NULL,
@@ -1261,7 +1268,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-image_tags-description_field'
+  // Exported field_instance: 'taxonomy_term-image_tags-description_field'.
   $field_instances['taxonomy_term-image_tags-description_field'] = array(
     'bundle' => 'image_tags',
     'default_value' => NULL,
@@ -1300,7 +1307,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-image_tags-name_field'
+  // Exported field_instance: 'taxonomy_term-image_tags-name_field'.
   $field_instances['taxonomy_term-image_tags-name_field'] = array(
     'bundle' => 'image_tags',
     'default_value' => NULL,
@@ -1337,7 +1344,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-description_field'
+  // Exported field_instance: 'taxonomy_term-issue-description_field'.
   $field_instances['taxonomy_term-issue-description_field'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1376,7 +1383,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_call_to_action'
+  // Exported field_instance: 'taxonomy_term-issue-field_call_to_action'.
   $field_instances['taxonomy_term-issue-field_call_to_action'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1411,7 +1418,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_facts'
+  // Exported field_instance: 'taxonomy_term-issue-field_facts'.
   $field_instances['taxonomy_term-issue-field_facts'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1451,7 +1458,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_facts_header'
+  // Exported field_instance: 'taxonomy_term-issue-field_facts_header'.
   $field_instances['taxonomy_term-issue-field_facts_header'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1486,7 +1493,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_image_campaign_cover'
+  // Exported field_instance: 'taxonomy_term-issue-field_image_campaign_cover'.
   $field_instances['taxonomy_term-issue-field_image_campaign_cover'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1526,7 +1533,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_intro_image'
+  // Exported field_instance: 'taxonomy_term-issue-field_intro_image'.
   $field_instances['taxonomy_term-issue-field_intro_image'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1566,7 +1573,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_intro_title'
+  // Exported field_instance: 'taxonomy_term-issue-field_intro_title'.
   $field_instances['taxonomy_term-issue-field_intro_title'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1601,7 +1608,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_is_published'
+  // Exported field_instance: 'taxonomy_term-issue-field_is_published'.
   $field_instances['taxonomy_term-issue-field_is_published'] = array(
     'bundle' => 'issue',
     'default_value' => array(
@@ -1639,7 +1646,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_partners'
+  // Exported field_instance: 'taxonomy_term-issue-field_partners'.
   $field_instances['taxonomy_term-issue-field_partners'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1678,7 +1685,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_subtitle'
+  // Exported field_instance: 'taxonomy_term-issue-field_subtitle'.
   $field_instances['taxonomy_term-issue-field_subtitle'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1713,7 +1720,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_title'
+  // Exported field_instance: 'taxonomy_term-issue-field_title'.
   $field_instances['taxonomy_term-issue-field_title'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1748,7 +1755,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-field_video'
+  // Exported field_instance: 'taxonomy_term-issue-field_video'.
   $field_instances['taxonomy_term-issue-field_video'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1787,7 +1794,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-issue-name_field'
+  // Exported field_instance: 'taxonomy_term-issue-name_field'.
   $field_instances['taxonomy_term-issue-name_field'] = array(
     'bundle' => 'issue',
     'default_value' => NULL,
@@ -1824,7 +1831,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-kudos-description_field'
+  // Exported field_instance: 'taxonomy_term-kudos-description_field'.
   $field_instances['taxonomy_term-kudos-description_field'] = array(
     'bundle' => 'kudos',
     'default_value' => NULL,
@@ -1863,7 +1870,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-kudos-name_field'
+  // Exported field_instance: 'taxonomy_term-kudos-name_field'.
   $field_instances['taxonomy_term-kudos-name_field'] = array(
     'bundle' => 'kudos',
     'default_value' => NULL,
@@ -1900,7 +1907,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-partners-description_field'
+  // Exported field_instance: 'taxonomy_term-partners-description_field'.
   $field_instances['taxonomy_term-partners-description_field'] = array(
     'bundle' => 'partners',
     'default_value' => NULL,
@@ -1939,7 +1946,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-partners-field_partner_logo'
+  // Exported field_instance: 'taxonomy_term-partners-field_partner_logo'.
   $field_instances['taxonomy_term-partners-field_partner_logo'] = array(
     'bundle' => 'partners',
     'deleted' => 0,
@@ -1984,7 +1991,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-partners-name_field'
+  // Exported field_instance: 'taxonomy_term-partners-name_field'.
   $field_instances['taxonomy_term-partners-name_field'] = array(
     'bundle' => 'partners',
     'default_value' => NULL,
@@ -2021,7 +2028,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-tags-description_field'
+  // Exported field_instance: 'taxonomy_term-tags-description_field'.
   $field_instances['taxonomy_term-tags-description_field'] = array(
     'bundle' => 'tags',
     'default_value' => NULL,
@@ -2060,7 +2067,7 @@ function dosomething_taxonomy_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-tags-name_field'
+  // Exported field_instance: 'taxonomy_term-tags-name_field'.
   $field_instances['taxonomy_term-tags-name_field'] = array(
     'bundle' => 'tags',
     'default_value' => NULL,
