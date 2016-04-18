@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/phoenix"
-  config.vm.box_version = "1.0.7"
+  config.vm.box_version = "1.0.8"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
