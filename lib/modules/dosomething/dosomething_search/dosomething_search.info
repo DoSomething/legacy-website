@@ -20,4 +20,3 @@ features[user_permission][] = search content
 features[variable][] = search_active_modules
 features[variable][] = search_default_module
 features[views_view][] = explore_campaigns
-mtime = 1442523570
