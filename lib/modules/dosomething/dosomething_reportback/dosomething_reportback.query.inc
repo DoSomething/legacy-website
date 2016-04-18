@@ -10,10 +10,10 @@
  *
  * @param array $params
  *   An associative array of conditions to filter by. Possible keys:
- *   - nid: (string or array) A campaign node nid to filter by.
- *   - rbid: (string or array) A reportback rbid to filter by.
+ *   - nid: (string) A campaign node nid to filter by.
+ *   - rbid: (string) A reportback rbid to filter by.
  *   - random: (boolean) If set, randomly sort the results.
- *   - runs: (string or array) Campaign run nid(s) to filter by. 
+ *   - runs: (string) Campaign run nid(s) to filter by. 
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
