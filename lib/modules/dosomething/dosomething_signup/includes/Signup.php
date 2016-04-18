@@ -109,7 +109,7 @@ class Signup extends Entity {
       'id' => isset($northstar_user) ? $northstar_user->id : $data->field_northstar_id_value,
       'first_name' => dosomething_helpers_extract_field_data($drupal_user->field_first_name),
       'last_initial' => $last_initial,
-      'photo' => dosomething_helpers_extract_field_data($drupal_user->photo),
+      'photo' => isset($drupal_user->picture) ? $drupal_user->picture : NULL,
       'country' => dosomething_helpers_extract_field_data($drupal_user->field_address),
     ];
 
