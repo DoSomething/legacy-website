@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function dosomething_static_content_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -36,7 +36,7 @@ function dosomething_static_content_field_group_info() {
       ),
     ),
   );
-  $export['group_additional_text|node|static_content|form'] = $field_group;
+  $field_groups['group_additional_text|node|static_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -64,7 +64,7 @@ function dosomething_static_content_field_group_info() {
       ),
     ),
   );
-  $export['group_call_to_action|node|static_content|form'] = $field_group;
+  $field_groups['group_call_to_action|node|static_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -92,7 +92,7 @@ function dosomething_static_content_field_group_info() {
       ),
     ),
   );
-  $export['group_header|node|static_content|form'] = $field_group;
+  $field_groups['group_header|node|static_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -122,7 +122,7 @@ function dosomething_static_content_field_group_info() {
       ),
     ),
   );
-  $export['group_intro|node|static_content|form'] = $field_group;
+  $field_groups['group_intro|node|static_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -149,7 +149,15 @@ function dosomething_static_content_field_group_info() {
       ),
     ),
   );
-  $export['group_section_list|field_collection_item|field_optional_blocks|form'] = $field_group;
+  $field_groups['group_section_list|field_collection_item|field_optional_blocks|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Additional Text');
+  t('Call to Action');
+  t('Intro');
+  t('Lead in');
+  t('Section List');
+
+  return $field_groups;
 }

@@ -10,7 +10,8 @@
 function dosomething_static_content_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'field_collection_item-field_gallery-field_gallery_item'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery-field_gallery_item'.
   $field_instances['field_collection_item-field_gallery-field_gallery_item'] = array(
     'bundle' => 'field_gallery',
     'default_value' => NULL,
@@ -63,7 +64,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery-field_gallery_style'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery-field_gallery_style'.
   $field_instances['field_collection_item-field_gallery-field_gallery_style'] = array(
     'bundle' => 'field_gallery',
     'default_value' => NULL,
@@ -106,7 +108,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery-field_gallery_title'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery-field_gallery_title'.
   $field_instances['field_collection_item-field_gallery-field_gallery_title'] = array(
     'bundle' => 'field_gallery',
     'default_value' => NULL,
@@ -148,7 +151,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery_item-field_gallery_image'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery_item-field_gallery_image'.
   $field_instances['field_collection_item-field_gallery_item-field_gallery_image'] = array(
     'bundle' => 'field_gallery_item',
     'default_value' => NULL,
@@ -194,7 +198,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery_item-field_image_description'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery_item-field_image_description'.
   $field_instances['field_collection_item-field_gallery_item-field_image_description'] = array(
     'bundle' => 'field_gallery_item',
     'default_value' => NULL,
@@ -236,7 +241,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_gallery_item-field_image_title'
+  // Exported field_instance:
+  // 'field_collection_item-field_gallery_item-field_image_title'.
   $field_instances['field_collection_item-field_gallery_item-field_image_title'] = array(
     'bundle' => 'field_gallery_item',
     'default_value' => NULL,
@@ -292,7 +298,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_video-field_provider'
+  // Exported field_instance:
+  // 'field_collection_item-field_video-field_provider'.
   $field_instances['field_collection_item-field_video-field_provider'] = array(
     'bundle' => 'field_video',
     'default_value' => array(
@@ -334,7 +341,8 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_video-field_video_id'
+  // Exported field_instance:
+  // 'field_collection_item-field_video-field_video_id'.
   $field_instances['field_collection_item-field_video-field_video_id'] = array(
     'bundle' => 'field_video',
     'default_value' => NULL,
@@ -375,7 +383,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_additional_text'
+  // Exported field_instance: 'node-static_content-field_additional_text'.
   $field_instances['node-static_content-field_additional_text'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -423,7 +431,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_additional_text_title'
+  // Exported field_instance: 'node-static_content-field_additional_text_title'.
   $field_instances['node-static_content-field_additional_text_title'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -471,7 +479,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_blocks'
+  // Exported field_instance: 'node-static_content-field_blocks'.
   $field_instances['node-static_content-field_blocks'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -515,7 +523,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_call_to_action'
+  // Exported field_instance: 'node-static_content-field_call_to_action'.
   $field_instances['node-static_content-field_call_to_action'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -563,7 +571,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_cta_link'
+  // Exported field_instance: 'node-static_content-field_cta_link'.
   $field_instances['node-static_content-field_cta_link'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -624,7 +632,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_gallery'
+  // Exported field_instance: 'node-static_content-field_gallery'.
   $field_instances['node-static_content-field_gallery'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -683,7 +691,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_hero_image'
+  // Exported field_instance: 'node-static_content-field_hero_image'.
   $field_instances['node-static_content-field_hero_image'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -735,7 +743,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_intro'
+  // Exported field_instance: 'node-static_content-field_intro'.
   $field_instances['node-static_content-field_intro'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -783,7 +791,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_intro_image'
+  // Exported field_instance: 'node-static_content-field_intro_image'.
   $field_instances['node-static_content-field_intro_image'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -835,7 +843,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_intro_title'
+  // Exported field_instance: 'node-static_content-field_intro_title'.
   $field_instances['node-static_content-field_intro_title'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -883,7 +891,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_partners'
+  // Exported field_instance: 'node-static_content-field_partners'.
   $field_instances['node-static_content-field_partners'] = array(
     'bundle' => 'static_content',
     'deleted' => 0,
@@ -940,7 +948,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_subtitle'
+  // Exported field_instance: 'node-static_content-field_subtitle'.
   $field_instances['node-static_content-field_subtitle'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -988,7 +996,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-field_video'
+  // Exported field_instance: 'node-static_content-field_video'.
   $field_instances['node-static_content-field_video'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
@@ -1039,7 +1047,7 @@ function dosomething_static_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-static_content-title_field'
+  // Exported field_instance: 'node-static_content-title_field'.
   $field_instances['node-static_content-title_field'] = array(
     'bundle' => 'static_content',
     'default_value' => NULL,
