@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function dosomething_campaign_group_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -40,7 +40,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_additional_text|node|campaign_group|form'] = $field_group;
+  $field_groups['group_additional_text|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -71,7 +71,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsible',
     ),
   );
-  $export['group_header|node|campaign_group|form'] = $field_group;
+  $field_groups['group_header|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -103,7 +103,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_intro|node|campaign_group|form'] = $field_group;
+  $field_groups['group_intro|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -131,7 +131,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_partners|node|campaign_group|form'] = $field_group;
+  $field_groups['group_partners|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -160,7 +160,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_post_signup|node|campaign_group|form'] = $field_group;
+  $field_groups['group_post_signup|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -189,7 +189,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_pre_launch|node|campaign_group|form'] = $field_group;
+  $field_groups['group_pre_launch|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -220,7 +220,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_signup_form|node|campaign_group|form'] = $field_group;
+  $field_groups['group_signup_form|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -252,7 +252,7 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_taxonomy|node|campaign_group|form'] = $field_group;
+  $field_groups['group_taxonomy|node|campaign_group|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -281,7 +281,19 @@ function dosomething_campaign_group_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $export['group_timing|node|campaign_group|form'] = $field_group;
+  $field_groups['group_timing|node|campaign_group|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Additional Info');
+  t('Basic Info');
+  t('Intro');
+  t('Post Signup');
+  t('Pre Launch');
+  t('Signup Configuration');
+  t('Sponsors and Partners');
+  t('Taxonomy and Discovery');
+  t('Timing');
+
+  return $field_groups;
 }

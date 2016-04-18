@@ -10,21 +10,13 @@
 function dosomething_campaign_group_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_additional_text_image'
+  // Exported field_base: 'field_additional_text_image'.
   $field_bases['field_additional_text_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_additional_text_image',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -54,14 +46,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_automatic_parent_signup'
+  // Exported field_base: 'field_automatic_parent_signup'.
   $field_bases['field_automatic_parent_signup'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_automatic_parent_signup',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -81,21 +72,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_campaigns'
+  // Exported field_base: 'field_campaigns'.
   $field_bases['field_campaigns'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_campaigns',
-    'foreign keys' => array(
-      'node' => array(
-        'columns' => array(
-          'target_id' => 'nid',
-        ),
-        'table' => 'node',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -126,14 +109,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_display_signup_form'
+  // Exported field_base: 'field_display_signup_form'.
   $field_bases['field_display_signup_form'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_display_signup_form',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -153,21 +135,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_post_signup_copy'
+  // Exported field_base: 'field_post_signup_copy'.
   $field_bases['field_post_signup_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_post_signup_copy',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -182,21 +156,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_post_signup_title'
+  // Exported field_base: 'field_post_signup_title'.
   $field_bases['field_post_signup_title'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_post_signup_title',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -212,21 +178,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_pre_launch_copy'
+  // Exported field_base: 'field_pre_launch_copy'.
   $field_bases['field_pre_launch_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_pre_launch_copy',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -241,21 +199,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_pre_launch_title'
+  // Exported field_base: 'field_pre_launch_title'.
   $field_bases['field_pre_launch_title'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_pre_launch_title',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -271,21 +221,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_signup_confirm_msg'
+  // Exported field_base: 'field_signup_confirm_msg'.
   $field_bases['field_signup_confirm_msg'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_signup_confirm_msg',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -301,21 +243,13 @@ function dosomething_campaign_group_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_transactional_email_copy'
+  // Exported field_base: 'field_transactional_email_copy'.
   $field_bases['field_transactional_email_copy'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_transactional_email_copy',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
