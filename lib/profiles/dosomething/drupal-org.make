@@ -64,7 +64,7 @@ projects[entityreference][version] = "1.1"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
-projects[features][version] = "2.2"
+projects[features][version] = "2.9"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
