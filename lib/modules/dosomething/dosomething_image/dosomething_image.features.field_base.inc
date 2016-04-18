@@ -10,14 +10,13 @@
 function dosomething_image_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_dark_image'
+  // Exported field_base: 'field_dark_image'.
   $field_bases['field_dark_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_dark_image',
-    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -37,21 +36,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_image_landscape'
+  // Exported field_base: 'field_image_landscape'.
   $field_bases['field_image_landscape'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_landscape',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -70,21 +61,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_portrait'
+  // Exported field_base: 'field_image_portrait'.
   $field_bases['field_image_portrait'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_portrait',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -103,21 +86,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_square'
+  // Exported field_base: 'field_image_square'.
   $field_bases['field_image_square'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_square',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -136,21 +111,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_tags'
+  // Exported field_base: 'field_image_tags'.
   $field_bases['field_image_tags'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_tags',
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -172,21 +139,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_image_thumbnail'
+  // Exported field_base: 'field_image_thumbnail'.
   $field_bases['field_image_thumbnail'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_thumbnail',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -205,21 +164,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_image_video'
+  // Exported field_base: 'field_image_video'.
   $field_bases['field_image_video'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_video',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -239,21 +190,13 @@ function dosomething_image_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_image_video_poster'
+  // Exported field_base: 'field_image_video_poster'.
   $field_bases['field_image_video_poster'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_image_video_poster',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',

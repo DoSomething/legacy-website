@@ -65,4 +65,3 @@ features[variable][] = node_preview_image
 features[variable][] = node_submitted_image
 features[variable][] = pathauto_node_image_pattern
 features[views_view][] = search_images
-mtime = 1443199426
