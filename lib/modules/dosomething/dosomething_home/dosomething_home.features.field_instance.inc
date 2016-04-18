@@ -10,7 +10,7 @@
 function dosomething_home_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-home-field_campaigns'
+  // Exported field_instance: 'node-home-field_campaigns'.
   $field_instances['node-home-field_campaigns'] = array(
     'bundle' => 'home',
     'default_value' => NULL,
@@ -56,7 +56,7 @@ function dosomething_home_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-home-field_sponsors'
+  // Exported field_instance: 'node-home-field_sponsors'.
   $field_instances['node-home-field_sponsors'] = array(
     'bundle' => 'home',
     'default_value' => NULL,
@@ -107,7 +107,7 @@ function dosomething_home_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-home-field_subtitle'
+  // Exported field_instance: 'node-home-field_subtitle'.
   $field_instances['node-home-field_subtitle'] = array(
     'bundle' => 'home',
     'default_value' => NULL,
@@ -148,7 +148,7 @@ function dosomething_home_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-home-title_field'
+  // Exported field_instance: 'node-home-title_field'.
   $field_instances['node-home-title_field'] = array(
     'bundle' => 'home',
     'default_value' => NULL,
