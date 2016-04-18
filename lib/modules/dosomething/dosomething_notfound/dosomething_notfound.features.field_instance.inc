@@ -10,7 +10,7 @@
 function dosomething_notfound_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-notfound-field_image_campaign_cover'
+  // Exported field_instance: 'node-notfound-field_image_campaign_cover'.
   $field_instances['node-notfound-field_image_campaign_cover'] = array(
     'bundle' => 'notfound',
     'default_value' => NULL,
@@ -40,6 +40,7 @@ function dosomething_notfound_field_default_field_instances() {
     'label' => 'Cover Image',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -55,7 +56,7 @@ function dosomething_notfound_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-notfound-field_subtitle'
+  // Exported field_instance: 'node-notfound-field_subtitle'.
   $field_instances['node-notfound-field_subtitle'] = array(
     'bundle' => 'notfound',
     'default_value' => NULL,
@@ -81,6 +82,7 @@ function dosomething_notfound_field_default_field_instances() {
     'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
