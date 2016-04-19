@@ -74,7 +74,7 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   // Public API properties to expose:
-  $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid', 'flagged');
+  $rb_fields = array('rbid', 'created', 'updated', 'quantity', 'uid', 'flagged', 'run_nid');
 
   // Staff-only properties to add:
   if (user_access('view any reportback')) {
