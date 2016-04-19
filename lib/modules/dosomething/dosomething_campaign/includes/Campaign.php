@@ -48,7 +48,8 @@ class Campaign {
       $single_campaign = TRUE;
       $ids = [$ids];
     }
-    $results = node_load_multiple($ids);
+    // Only load campaign types in this class.
+    $results = node_load_multiple($ids, ['type' => 'campaign']);
 
     if (!$results) {
       throw new Exception('No campaign data found.');
