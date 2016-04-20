@@ -89,19 +89,8 @@ class Signup extends Entity {
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
 
-    $drupal_user = user_load($data->uid);
-
-    if (!isset($data->field_northstar_id_value) || $data->field_northstar_id_value === 'NONE') {
-      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_response = json_decode($northstar_response);
-
-      if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
-        dosomething_northstar_save_id_field($drupal_user, $northstar_response);
-      }
-    }
-
     $this->user = [
-      'id' => isset($northstar_user) ? $northstar_user->id : $data->field_northstar_id_value,
+      'drupal_id' => $data->uid,
     ];
 
     try {

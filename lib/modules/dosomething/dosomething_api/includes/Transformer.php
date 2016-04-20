@@ -452,6 +452,7 @@ abstract class Transformer {
   protected function transformUser($data) {
     return [
       'id' => $data->id,
+      'drupal_id' => $data->drupal_id,
       'first_name' => $data->first_name,
       'last_initial' => $data->last_initial,
       'photo' => $data->photo,
