@@ -16,7 +16,7 @@ projects[admin_menu][version] = "3.0-rc5"
 projects[admin_menu][subdir] = "contrib"
 
 ; Apachesolr
-projects[apachesolr][version] = "1.6"
+projects[apachesolr][version] = "1.8"
 projects[apachesolr][subdir] = "contrib"
 
 ; Apachesolr Views
@@ -32,7 +32,7 @@ projects[cdn][version] = "2.6"
 projects[cdn][subdir] = "contrib"
 
 ; Ctools
-projects[ctools][version] = "1.7"
+projects[ctools][version] = "1.8"
 projects[ctools][subdir] = "contrib"
 
 ; Date
@@ -64,7 +64,7 @@ projects[entityreference][version] = "1.1"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
-projects[features][version] = "2.2"
+projects[features][version] = "2.9"
 projects[features][subdir] = "contrib"
 
 ; Field Collection
@@ -72,7 +72,7 @@ projects[field_collection][version] = "1.0-beta8"
 projects[field_collection][subdir] = "contrib"
 
 ; Field Group
-projects[field_group][version] = "1.4"
+projects[field_group][version] = "1.5"
 projects[field_group][subdir] = "contrib"
 
 ; File Entity
