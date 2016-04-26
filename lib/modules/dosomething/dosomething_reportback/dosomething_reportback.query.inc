@@ -153,3 +153,7 @@ function dosomething_reportback_accessible_results ($results) {
     }
   }
 }
+
+function dosomething_reportback_batch_exclude() {
+  dd('hi');
+}
