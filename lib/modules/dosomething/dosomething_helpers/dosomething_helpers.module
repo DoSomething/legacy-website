@@ -180,7 +180,7 @@ function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NON
 
     $data = $field[$language];
 
-    $values = array();
+    $values = [];
 
     foreach ($data as $item => $content) {
       $keys = array_keys($content);
@@ -189,9 +189,17 @@ function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NON
         // Date values, so need to extract using custom method.
         $values[] = dosomething_helpers_extract_field_dates($content);
       }
-      else if (in_array('country', $keys)) {
+      elseif (in_array('country', $keys)) {
         //TODO: Build function to get all address data, not just country.
         $values[] = $content['country'];
+      }
+      elseif (in_array('type', $keys)) {
+        if ($content['type'] === 'image') {
+          $values[] = dosomething_helpers_extract_field_image($content);
+        } else {
+          // Default to first item; typically an id value.
+          $values[] = $content[$keys[0]];
+        }
       }
       elseif ($keys[0] === 'value') {
         // Text value, so need to extract using custom method.
@@ -228,6 +236,19 @@ function dosomething_helpers_extract_field_dates($data) {
   return $values;
 }
 
+function dosomething_helpers_extract_field_image($data) {
+  $values = [];
+
+  $values['id'] = isset($data['fid']) ? $data['fid'] : NULL;
+  $values['type'] = isset($data['type']) ? $data['type'] : NULL;
+  $values['uri'] = isset($data['uri']) ? $data['uri'] : NULL;
+  $values['file_name'] = isset($data['filename']) ? $data['filename'] : NULL;
+  $values['file_mime'] = isset($data['filemime']) ? $data['filemime'] : NULL;
+  $values['file_size'] = isset($data['filesize']) ? $data['filesize'] : NULL;
+  $values['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : NULL;
+
+  return $values;
+}
 
 /**
  * Utility function to extract field text content; both the raw
