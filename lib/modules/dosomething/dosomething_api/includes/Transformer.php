@@ -253,6 +253,8 @@ abstract class Transformer {
         $output['timing']['low_season'] = $data->timing['low_season'];
 
         $output['services'] = $data->services;
+
+        $output['affiliates'] = $data->affiliates;
       }
 
       $output['reportback_info'] = $data->reportback_info;

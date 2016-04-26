@@ -30,6 +30,7 @@ class Campaign {
   public $tags;
   public $timing;
   public $reportback_info;
+  public $affiliates;
   public $services;
 
   /**
@@ -184,6 +185,8 @@ class Campaign {
         $timing = $this->getTiming();
         $this->timing = $timing;
 
+        $this->affiliates = $this->getAffiliates();
+
         $this->services = $this->getServices();
       }
 
@@ -220,6 +223,14 @@ class Campaign {
     }
 
     return $data;
+  }
+
+  protected function getAffiliates()
+  {
+    // @TODO: Only grabs partners for now. Update with further affiliates as needed.
+    return [
+      'partners' => $this->getPartners(),
+    ];
   }
 
   /**
@@ -442,6 +453,50 @@ class Campaign {
       'opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_opt_in_path'),
       'friends_opt_in_path_id' => dosomething_helpers_isset($this->variables, 'mobilecommons_friends_opt_in_path'),
     ];
+  }
+
+  protected function getPartners() {
+    $data = [];
+
+    // @TODO: only accounts for single partner at the moment.
+    // Update extract function to grab array of partners instead of just first id.
+    // @see https://github.com/DoSomething/phoenix/issues/6396
+    $partner_data_collection_ids = dosomething_helpers_extract_field_data($this->node->field_partners);
+
+    if (! $partner_data_collection_ids) {
+      return $data;
+    }
+
+    if (! is_array($partner_data_collection_ids)) {
+      $partner_data_collection_ids = [$partner_data_collection_ids];
+    }
+
+    foreach ($partner_data_collection_ids as $id) {
+      $partner = [];
+
+      $data_collection = field_collection_item_load($id);
+      $data_taxonomy = taxonomy_term_load(dosomething_helpers_extract_field_data($data_collection->field_partner));
+
+      $partner['name'] = $data_taxonomy->name;
+      $partner['sponsor'] = (bool) dosomething_helpers_extract_field_data($data_collection->field_is_sponsor);
+      $partner['copy'] = dosomething_helpers_extract_field_data($data_collection->field_partner_copy);
+      $partner['uri'] = dosomething_helpers_extract_field_data($data_collection->field_partner_url);
+
+      $logo = dosomething_helpers_extract_field_data($data_taxonomy->field_partner_logo);
+
+      if ($logo) {
+        $partner['media'] = [
+          'uri' => image_style_url('wmax-423px', $logo['uri']),
+          'type' => $logo['type'],
+        ];
+      } else {
+        $partner['media'] = NULL;
+      }
+
+      $data[] = $partner;
+    }
+
+    return $data;
   }
 
   /**
