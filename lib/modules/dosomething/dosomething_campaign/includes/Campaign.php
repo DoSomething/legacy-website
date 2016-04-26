@@ -460,6 +460,7 @@ class Campaign {
 
     // @TODO: only accounts for single partner at the moment.
     // Update extract function to grab array of partners instead of just first id.
+    // @see https://github.com/DoSomething/phoenix/issues/6396
     $partner_data_collection_ids = dosomething_helpers_extract_field_data($this->node->field_partners);
 
     if (! $partner_data_collection_ids) {
