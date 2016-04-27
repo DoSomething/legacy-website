@@ -13,7 +13,7 @@ function dosomething_reportback_drush_command() {
       ],
     ],
     'batch-exclude-reportbacks' => [
-      'description' => 'Batch exclude reportbacks to clear campaign inboxes',
+      'description' => 'Bulk exclude reportbacks to clear campaign inboxes',
       'arguments' => [
         'nid' => 'Campaign node id',
         'run_nid' => 'Campaign run node id',
@@ -121,5 +121,24 @@ function drush_dosomething_reportback_ds_reportback_run_nid_fix() {
  * Callback for batch-exclude-reportbacks command.
  */
 function drush_dosomething_reportback_batch_exclude_reportbacks($nid, $run_nid, $quantity_limit) {
-  dosomething_reportback_batch_exclude($nid, $run_nid, $quantity_limit);
+    if (node_load($nid) && node_load($run_nid)) {
+      // Find all the fids that should be marked as excluded, based on params passed through. 
+      $fids_to_be_marked_as_excluded = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rbf.status, rbf.fid, rbf.rbid
+                                                 FROM dosomething_reportback rb
+                                                 JOIN dosomething_reportback_file rbf on rb.rbid = rbf.rbid
+                                                 WHERE rb.nid = :nid AND rb.run_nid = :run_nid AND rb.quantity < :quantity_limit AND rbf.status = 'pending'",
+                                                 array(
+                                                  ':nid' => $nid,
+                                                  ':run_nid' => $run_nid,
+                                                  ':quantity_limit' => $quantity_limit,
+                                                 ));
+
+      // Change fids status to excluded 
+      foreach ($fids_to_be_marked_as_excluded as $fid) {
+        dosomething_reportback_mark_reportback_as_excluded($fid);
+      }
+    } 
+    else {
+      drush_set_error('Invalid nid and/or run_nid.');
+    }
 }
