@@ -1194,6 +1194,43 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   return $count;
 }
 
+/**
+ * Mark reportback as excluded.
+ */
+function dosomething_reportback_mark_reportback_as_excluded($fid) {
+  db_update('dosomething_reportback_file')
+    ->fields(array(
+        'status' => 'excluded',
+      )
+    )
+    ->condition('fid', $fid->fid)
+    ->execute();
+
+  $reportback = reportback_load($fid->rbid);
+
+  if (empty($reportback)) {
+    continue;
+  }
+
+  // Get all reportback item files associated with reportback. 
+  $items = $reportback->getFids();
+  $items = entity_load('reportback_item', $items);
+
+  // Check each reportback item file to see if status is flagged.
+  foreach ($items as $item) {
+    $flagged_fids = [];
+
+    if ($item->status === 'flagged') {
+      array_push($flagged_fids, $item);
+    }
+  }
+
+  // If there are no flagged reportback item files, change the reportback flagged status to 0. 
+  if (empty($flagged_fids)) {
+    $reportback->flagged = 0;
+    entity_save('reportback', $reportback);
+  }
+}
 
 /**
  * Resets Reportback Count variables for given entity type and entity_id.
